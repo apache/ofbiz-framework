@@ -164,7 +164,7 @@
     <property key="AcctgTransType.description.PERIOD_CLOSING">
         <value xml:lang="en">Period Closing</value>
         <value xml:lang="fr">Clôture de période</value>
-        <value xml:lang="it">Periodo Chiuso</value>
+        <value xml:lang="it">Chiusura di Periodo Fiscale</value>
         <value xml:lang="ro">Perioada Inchisa</value>
         <value xml:lang="ru">Закрытие периода</value>
         <value xml:lang="th">ปิดช่วงเวลา</value>
@@ -199,7 +199,7 @@
     <property key="AcctgTransType.description.TAX_DUE">
         <value xml:lang="en">Tax Due</value>
         <value xml:lang="fr">Impôts dûs</value>
-        <value xml:lang="it">Tasse Scadute</value>
+        <value xml:lang="it">Tasse Dovute</value>
         <value xml:lang="ro">Taxe Expirate</value>
         <value xml:lang="ru">Налоговые сборы</value>
         <value xml:lang="th">ค่าธรรมเนียมภาษี</value>
@@ -219,7 +219,7 @@
     </property>
     <property key="FinAccountTransType.description.WITHDRAWAL">
         <value xml:lang="en">Withdraw</value>
-        <value xml:lang="it">Withdraw</value>
+        <value xml:lang="it">Prelievo</value>
         <value xml:lang="ru">Отмена</value>
         <value xml:lang="th">ถอน</value>
     </property>
@@ -370,7 +370,7 @@
     <property key="FixedAssetType.description.GROUP_EQUIPMENT">
         <value xml:lang="en">Group of machines, used for task and routing definition</value>
         <value xml:lang="fr">Groupe de machines, utilisé pour la définition de tâches et routages</value>
-        <value xml:lang="it">Gruppo di macchine, usate per definizioni compiti e rotte</value>
+        <value xml:lang="it">Gruppo di macchine, usato nelle operazioni e cicli di produzione</value>
         <value xml:lang="ro">Grupuri de masini, folosite in sarcini cotidiene</value>
         <value xml:lang="ru">Группа машин, используется в производственной деятельности</value>
         <value xml:lang="th">กลุ่มของเครื่องยนต์, ใช้สำหรับงานหนักและการกำหนด routing </value>
@@ -388,7 +388,7 @@
     <property key="FixedAssetType.description.PRODUCTION_EQUIPMENT">
         <value xml:lang="en">The fixed asset used in the operation-routing definition</value>
         <value xml:lang="fr">Actif immobilisé utilisé dans la définition de routages et tâches</value>
-        <value xml:lang="it">I cespiti usati nella definizione operazione-rotta</value>
+        <value xml:lang="it">Attrezzature usate nelle operazioni e cicli di produzione</value>
         <value xml:lang="ro">Mijloace fixe utilizzate in operatti uzuale</value>
         <value xml:lang="ru">Основные средства используемые в производственной деятельности</value>
         <value xml:lang="th">ทรัพย์สินไม่หมุนเวียนใช้ในการกำหนดการดำเนินการ routing</value>
@@ -1045,7 +1045,7 @@
     <property key="GlAccountType.description.UNINVOICED_SHIP_RCPT">
         <value xml:lang="en">Uninvoiced Shipment Receipts</value>
         <value xml:lang="fr">Stock non réceptionné</value>
-        <value xml:lang="it">Ricevute Spedizioni Non Fatturate</value>
+        <value xml:lang="it">Spedizioni Ricevute Non Fatturate</value>
         <value xml:lang="ro">Chitante Expedieri NeFacturate</value>
         <value xml:lang="ru">Uninvoiced Shipment Receipts</value>
         <value xml:lang="th">ใบเสร็จรับเงินการขนส่งที่ยังไม่ได้ใบกำกับสินค้า</value>
@@ -1054,7 +1054,7 @@
     <property key="GlAccountType.description.WIP_INVENTORY">
         <value xml:lang="en">Work In Progress Inventory</value>
         <value xml:lang="fr">En-cours de production</value>
-        <value xml:lang="it">Inventario In Corso</value>
+        <value xml:lang="it">Inventario WIP</value>
         <value xml:lang="ro">Inventar In Curs</value>
         <value xml:lang="ru">Незавершенная продукция</value>
         <value xml:lang="th">งานระหว่างผลิตสินค้าคงเหลือ</value>
@@ -1916,7 +1916,7 @@
     <property key="InvoiceType.description.PURCHASE_INVOICE">
         <value xml:lang="en">Purchase Invoice</value>
         <value xml:lang="fr">Facture d'achat</value>
-        <value xml:lang="it">Acquisto</value>
+        <value xml:lang="it">Fattura di Acquisto</value>
         <value xml:lang="nl">Inkoop</value>
         <value xml:lang="ro">Factura Cumparare</value>
         <value xml:lang="ru">Приходная накладная</value>
@@ -1926,7 +1926,7 @@
     <property key="InvoiceType.description.SALES_INVOICE">
         <value xml:lang="en">Sales Invoice</value>
         <value xml:lang="fr">Facture de vente</value>
-        <value xml:lang="it">Vendita</value>
+        <value xml:lang="it">Fattura di Vendita</value>
         <value xml:lang="nl">Verkoop</value>
         <value xml:lang="ro">Factura Vanzare</value>
         <value xml:lang="ru">Расходная накладная</value>
@@ -1955,7 +1955,7 @@
     <property key="PaymentMethodType.description.COMPANY_ACCOUNT">
         <value xml:lang="en">Company Account</value>
         <value xml:lang="fr">Compte de société</value>
-        <value xml:lang="it">Conto Azienda</value>
+        <value xml:lang="it">Conto Aziendale</value>
         <value xml:lang="nl">Bedrijfsrekening</value>
         <value xml:lang="ro">Contul Firmei</value>
         <value xml:lang="ru">Счет компании</value>
@@ -1965,7 +1965,7 @@
     <property key="PaymentMethodType.description.COMPANY_CHECK">
         <value xml:lang="en">Company Check</value>
         <value xml:lang="fr">Chèque de société</value>
-        <value xml:lang="it">Assegno Azienda</value>
+        <value xml:lang="it">Assegno Aziendale</value>
         <value xml:lang="nl">Bedrijf credit controle</value>
         <value xml:lang="ro">Cec Firma</value>
         <value xml:lang="ru">Чек компании</value>
@@ -1985,7 +1985,7 @@
     <property key="PaymentMethodType.description.EFT_ACCOUNT">
         <value xml:lang="en">Electronic Funds Transfer</value>
         <value xml:lang="fr">Transfert de fonds électronique</value>
-        <value xml:lang="it">Trasferimento Elettronico Fondi(EFT)</value>
+        <value xml:lang="it">Bonifico (EFT)</value>
         <value xml:lang="nl">Bank transfer</value>
         <value xml:lang="ro">Transfer Electronic de Fonduri(EFT)</value>
         <value xml:lang="ru">Банковский перевод</value>
@@ -2106,7 +2106,7 @@
     <property key="PaymentType.description.CUSTOMER_PAYMENT">
         <value xml:lang="en">Customer Payment</value>
         <value xml:lang="fr">Paiement client</value>
-        <value xml:lang="it">Cliente</value>
+        <value xml:lang="it">Pagamento Cliente</value>
         <value xml:lang="nl">Betaling klant</value>
         <value xml:lang="ro">Plata Client</value>
         <value xml:lang="ru">Платеж заказчика</value>
@@ -2116,7 +2116,7 @@
     <property key="PaymentType.description.CUSTOMER_REFUND">
         <value xml:lang="en">Customer Refund</value>
         <value xml:lang="fr">Remboursement client</value>
-        <value xml:lang="it">Resi Clienti</value>
+        <value xml:lang="it">Rimborso Cliente</value>
         <value xml:lang="nl">Klant terugbetaling</value>
         <value xml:lang="ro">Rambursari Clienti</value>
         <value xml:lang="ru">Возмещение от заказчика</value>
@@ -2154,7 +2154,7 @@
     <property key="PaymentType.description.INCOME_TAX_PAYMENT">
         <value xml:lang="en">Income Tax Payment</value>
         <value xml:lang="fr">Paiement de l'impôt sur les sociétés</value>
-        <value xml:lang="it">Tassa sui Redditi</value>
+        <value xml:lang="it">Pagamento Tassa sul Redditi</value>
         <value xml:lang="ro">Taxa pe Venituri</value>
         <value xml:lang="ru">Income Tax Payment</value>
         <value xml:lang="th">การชำระภาษีเงินได้นิติบุคคล</value>
@@ -2286,7 +2286,7 @@
     <property key="TaxAuthorityRateType.description.INCOME_TAX">
         <value xml:lang="en">Income Tax</value>
         <value xml:lang="fr">Impôt sur le revenu</value>
-        <value xml:lang="it">Tasse Ingresso</value>
+        <value xml:lang="it">Tassa sul Reddito</value>
         <value xml:lang="ro">Taxe Intrari</value>
         <value xml:lang="ru">Налог на доход</value>
         <value xml:lang="th">ภาษีรายได้</value>
@@ -2304,8 +2304,8 @@
     <property key="TaxAuthorityRateType.description.USE_TAX">
         <value xml:lang="en">Use Tax</value>
         <value xml:lang="fr">Taxes à l'utilisation</value>
-        <value xml:lang="it">Usa Tasse</value>
-        <value xml:lang="ro">Foloseste Taxe </value>
+        <value xml:lang="it">Tassa sull'utilizzo</value>
+        <value xml:lang="ro">Foloseste Taxe</value>
         <value xml:lang="ru">Налог на использование</value>
         <value xml:lang="th">ภาษีที่ใช้</value>
         <value xml:lang="zh">使用税</value>

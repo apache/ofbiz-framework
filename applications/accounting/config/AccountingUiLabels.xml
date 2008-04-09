@@ -115,10 +115,12 @@
     </property>
     <property key="AccountingAcctgTransEntries">
         <value xml:lang="en">Accounting Transactions Entries</value>
+        <value xml:lang="it">Righe Prime Note</value>
         <value xml:lang="th">รายการบัญชีรายรับ</value>
     </property>
     <property key="AccountingAcctgTranss">
         <value xml:lang="en">Accounting Transactions</value>
+        <value xml:lang="it">Prime Note</value>
         <value xml:lang="th">รายการบัญชี</value>
     </property>
     <property key="AccountingActualCurrencyAmount">
@@ -1234,10 +1236,12 @@
     </property>
     <property key="AccountingCreateAcctgTransAndEntries">
         <value xml:lang="en">Quick Create an Accounting Transaction</value>
+        <value xml:lang="it">Creazione Veloce Prima Nota</value>
         <value xml:lang="th">สร้างรายการบัญชีอย่างรวดเร็ว</value>
     </property>
     <property key="AccountingCreateAnAccountingTransaction">
         <value xml:lang="en">Create an Accounting Transaction</value>
+        <value xml:lang="it">Crea una Prima Nota</value>
         <value xml:lang="th">สร้างรายการบัญชี</value>
     </property>
     <property key="AccountingCreateAssignment">
@@ -1590,6 +1594,7 @@
     </property>
     <property key="AccountingDuplicateAccountingTransaction">
         <value xml:lang="en">Duplicate Accounting Transaction</value>
+        <value xml:lang="it">Duplicazione Prima Nota</value>
         <value xml:lang="th">จำลองรายการบัญชี</value>
     </property>
     <property key="AccountingEFTAccount">
@@ -3681,7 +3686,7 @@ esetata in mod automat</value>
         <value xml:lang="en">Manual Transactions Posting</value>
         <value xml:lang="es">Manual Transactions Posting</value>
         <value xml:lang="fr">Entrées manuelles</value>
-        <value xml:lang="it">Transazioni Manuali Contabilizzate</value>
+        <value xml:lang="it">Contabilizzazione Manuale Prime Note</value>
         <value xml:lang="nl">Handmatig boeken</value>
         <value xml:lang="ro">Manual- Tranzactii Contabilizate</value>
         <value xml:lang="ru">Ручная запись проводки</value>
@@ -4253,6 +4258,7 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingPostedTransactionTotals">
         <value xml:lang="en">Posted Totals</value>
+        <value xml:lang="it">Totali Contabilizzati</value>
         <value xml:lang="th">ผลรวมประกาศ</value>
     </property>    
     <property key="AccountingPSInvalidStatusChange">
@@ -5005,7 +5011,7 @@ esetata in mod automat</value>
         <value xml:lang="en">Post Transaction</value>
         <value xml:lang="es">Enviar Transacción</value>
         <value xml:lang="fr">Enregistrer une transaction</value>
-        <value xml:lang="it">Contabilizza Transazione</value>
+        <value xml:lang="it">Contabilizza Prima Nota</value>
         <value xml:lang="ro">Contabilizeaza Tranzactia</value>
         <value xml:lang="ru">Запись проводки</value>
         <value xml:lang="th">แจ้งรายการ</value>
@@ -5228,6 +5234,7 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingRevertAccountingTransaction">
         <value xml:lang="en">Revert Accounting Transaction</value>
+        <value xml:lang="it">Annulla (inverti) Prima Nota</value>
         <value xml:lang="th">กลับสู่รายการทางบัญชี</value>
     </property>
     <property key="AccountingRoleType">
@@ -5640,6 +5647,7 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingTransactionTotals">
         <value xml:lang="en">Transaction Totals</value>
+        <value xml:lang="it">Totali Prime Note</value>
         <value xml:lang="th">ผลรวมรายการ</value>
     </property>
     <property key="AccountingTransactionType">
@@ -5795,6 +5803,7 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingUnPostedTransactionTotals">
         <value xml:lang="en">UnPosted Totals</value>
+        <value xml:lang="it">Prime Note Non Contabilizzate</value>
         <value xml:lang="th">UnPosted Totals</value>
     </property>
     <property key="AccountingUpdateAvailability">
@@ -5908,6 +5917,7 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingVerifyTransaction">
         <value xml:lang="en">Verify Transaction</value>
+        <value xml:lang="it">Verifica Prima Nota</value>
         <value xml:lang="th">ตรวจสอบรายการ</value>
     </property>
     <property key="AccountingViewPermissionError">
@@ -8910,7 +8920,7 @@ esetata in mod automat</value>
         <value xml:lang="en">Un-posted Accounting Transactions</value>
         <value xml:lang="es">Transacciones contables no-enviadas</value>
         <value xml:lang="fr">Transactions comptables non postées</value>
-        <value xml:lang="it">Transazione non Contabilizzate</value>
+        <value xml:lang="it">Prime Note non Contabilizzate</value>
         <value xml:lang="ro">Tranzactie ne Contabilizate</value>
         <value xml:lang="ru">Отмененные бухгалтерские проводки</value>
         <value xml:lang="th">Un-posted Accounting Transactions</value>
@@ -8920,7 +8930,7 @@ esetata in mod automat</value>
         <value xml:lang="en">View Accounting Transaction</value>
         <value xml:lang="es">Ver Tansacción de Contabilidad</value>
         <value xml:lang="fr">Voir les transactions comptables</value>
-        <value xml:lang="it">Mostra Transazioni Contabilità</value>
+        <value xml:lang="it">Mostra Prime Note</value>
         <value xml:lang="ro">Afiseaza Tranzactii Contabile</value>
         <value xml:lang="ru">Просмотреть бухгалтерскую проводку</value>
         <value xml:lang="th">แสดงรายการบัญชี</value>
