@@ -295,7 +295,7 @@ under the License.
                             <set field="acctgTransEntry.currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
                             <if-compare-field field-name="acctgTransEntry.origCurrencyUomId" operator="not-equals" to-field-name="acctgTransEntry.currencyUomId">
                                 <clear-field field-name="convertUomInMap"/>
-                                <set field="convertUomInMap.originalValue" from-field="acctgTransEntry.origAmount"/>
+                                <set field="convertUomInMap.originalValue" from-field="acctgTransEntry.origAmount" type="Double"/>
                                 <set field="convertUomInMap.uomId" from-field="acctgTransEntry.origCurrencyUomId"/>
                                 <set field="convertUomInMap.uomIdTo" from-field="acctgTransEntry.currencyUomId"/>
                                 <!-- TODO: set the optional asOfDate input parameter -->
