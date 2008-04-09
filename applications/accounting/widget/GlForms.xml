@@ -121,7 +121,7 @@ under the License.
         <field name="isPosted"><display/></field>
         <field name="postedDate"><display/></field>
         <field name="postAcctgTrans" title="${uiLabelMap.CommonEmptyHeader}" use-when="&quot;N&quot;.equals(isPosted)" widget-style="buttontext">
-            <hyperlink target="postAcctgTrans?acctgTransId=${acctgTransId}" description="${uiLabelMap.AccountingPost}"/>
+            <hyperlink target="postAcctgTrans?acctgTransId=${acctgTransId}" description="${uiLabelMap.AccountingPostTransaction}"/>
         </field>
         <field name="postAcctgTrans" title="${uiLabelMap.CommonEmptyHeader}" use-when="!&quot;N&quot;.equals(isPosted)"><display/></field>
     </form>
