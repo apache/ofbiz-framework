@@ -107,10 +107,12 @@
     </property>
     <property key="AccountingAcctRecon">
         <value xml:lang="en">Account Reconciliation</value>
+        <value xml:lang="it">Riconciliazione</value>
         <value xml:lang="th">การเช็คยอดบัญชี</value>
     </property>
     <property key="AccountingAcctRecons">
         <value xml:lang="en">Account Reconciliations</value>
+        <value xml:lang="it">Riconciliazioni</value>
         <value xml:lang="th">การเช็คยอดบัญชี</value>
     </property>
     <property key="AccountingAcctgTransEntries">
@@ -1127,6 +1129,7 @@
     </property>
     <property key="AccountingClosedTimePeriods">
         <value xml:lang="en">Closed Time Periods</value>
+        <value xml:lang="it">Periodi Fiscali Chiusi</value>
         <value xml:lang="th">ปิดช่วงเวลา</value>
     </property>
     <property key="AccountingComments">
@@ -1232,6 +1235,7 @@
     </property>
     <property key="AccountingCreateAcctRecons">
         <value xml:lang="en">Create Account Reconciliation</value>
+        <value xml:lang="it">Crea Riconciliazione</value>
         <value xml:lang="th">สร้างการเช็คยอดบัญชี</value>
     </property>
     <property key="AccountingCreateAcctgTransAndEntries">
@@ -1406,6 +1410,7 @@
     </property>
     <property key="AccountingCreatePaymentAcctgTrans">
         <value xml:lang="en">Create Payment Accounting Transaction</value>
+        <value xml:lang="it">Creazione Prima Nota Per Pagamento</value>
         <value xml:lang="th">สร้างรายการบัญชีการชำระเงิน</value>
     </property>
     <property key="AccountingCreatePaymentPermissionError">
@@ -1436,6 +1441,7 @@
     </property>
     <property key="AccountingCreateSalesAcctgTrans">
         <value xml:lang="en">Create Sales Accounting Transaction</value>
+        <value xml:lang="it">Creazione Prima Nota Per Vendite</value>
         <value xml:lang="th">สร้างบัญชีรายการขาย</value>
     </property>
     <property key="AccountingCreditCard">
@@ -1611,6 +1617,7 @@
     </property>
     <property key="AccountingEditAcctRecon">
         <value xml:lang="en">Edit Account Reconciliation</value>
+        <value xml:lang="it">Modifica Riconciliazione</value>
         <value xml:lang="th">แก้ไขการเช็คยอดบัญชี</value>
     </property>
     <property key="AccountingEditFinAccount">
@@ -4188,6 +4195,7 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingOpenTimePeriods">
         <value xml:lang="en">Open Time Periods</value>
+        <value xml:lang="it">Periodi Fiscali Aperti</value>
         <value xml:lang="th">เปิดช่วงเวลา</value>
     </property>
     <property key="AccountingOrderItemWithIdNotFound">
@@ -6123,7 +6131,7 @@ esetata in mod automat</value>
         <value xml:lang="en">For Closed Time Period</value>
         <value xml:lang="es">Para periodo de tiempo cerrado</value>
         <value xml:lang="fr">Jusqu'à la clôture de la période</value>
-        <value xml:lang="it">Per Periodo Ora Chiuso</value>
+        <value xml:lang="it">Per Periodo</value>
         <value xml:lang="nl">Voor de tijdsperiode</value>
         <value xml:lang="ro">Pe Perioada Ora Inchis</value>
         <value xml:lang="ru">Для закрытых периодов</value>
@@ -8027,7 +8035,7 @@ esetata in mod automat</value>
         <value xml:lang="en">From Time Period</value>
         <value xml:lang="es">Periodo de tiempo origen</value>
         <value xml:lang="fr">De la période</value>
-        <value xml:lang="it">Da Ora Periodo</value>
+        <value xml:lang="it">Data Inizio Periodo</value>
         <value xml:lang="nl">Vanaf</value>
         <value xml:lang="ro">De la Ora</value>
         <value xml:lang="ru">из периода</value>
@@ -9057,7 +9065,7 @@ esetata in mod automat</value>
         <value xml:lang="en">Thru Time Period</value>
         <value xml:lang="es">Fecha límite del periodo de tiempo Time Period</value>
         <value xml:lang="fr">jusqu'à la période</value>
-        <value xml:lang="it">A Ora Periodo</value>
+        <value xml:lang="it">Data Fine Periodo</value>
         <value xml:lang="nl">Tot</value>
         <value xml:lang="ro">La Ora</value>
         <value xml:lang="ru">в течение периода</value>
@@ -9069,7 +9077,7 @@ esetata in mod automat</value>
         <value xml:lang="en">Time Period</value>
         <value xml:lang="es">Periodo de tiempo</value>
         <value xml:lang="fr">Période</value>
-        <value xml:lang="it">Periodo Orario</value>
+        <value xml:lang="it">Periodo Fiscale</value>
         <value xml:lang="nl">Tijdsperiode</value>
         <value xml:lang="ro">Perioada Orarie</value>
         <value xml:lang="ru">Период времени</value>
@@ -9081,7 +9089,7 @@ esetata in mod automat</value>
         <value xml:lang="en">There are currently no closed time periods.</value>
         <value xml:lang="es">No hay periodos de tiempo cerrados actualmente</value>
         <value xml:lang="fr">Aucune période n'a été close jusqu'à présent</value>
-        <value xml:lang="it">Attualmente non ci sono periodi orari chiusi.</value>
+        <value xml:lang="it">Attualmente non ci sono periodi fiscali chiusi.</value>
         <value xml:lang="ro">Momentan nu sunt Perioade orarii inchise.</value>
         <value xml:lang="ru">В настоящий момент нет закрытых периодов.</value>
         <value xml:lang="th">ไม่ปิดในช่วงเวลานี้</value>
@@ -9092,7 +9100,7 @@ esetata in mod automat</value>
         <value xml:lang="en">The following time periods have been closed</value>
         <value xml:lang="es">Los siguientes periodos de tiempo han sido cerrados</value>
         <value xml:lang="fr">Les périodes de suivantes ont été clôturées</value>
-        <value xml:lang="it">I seguenti periodi orario sono stati chiusi</value>
+        <value xml:lang="it">I seguenti periodi fiscali sono stati chiusi</value>
         <value xml:lang="ro">Urmatoarele Perioade orarii au fost inchise</value>
         <value xml:lang="ru">Есть следующие закрытые периоды</value>
         <value xml:lang="th">ตามช่วงเวลานี้ปิด</value>
