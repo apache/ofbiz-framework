@@ -19,23 +19,50 @@
 
 package org.ofbiz.appservers;
 
-import java.util.Map;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.util.List;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.io.*;
+import java.util.Map;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.TransformerFactoryConfigurationError;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
+import org.ofbiz.base.component.ComponentConfig;
+import org.ofbiz.base.component.ComponentConfig.WebappInfo;
 import org.ofbiz.base.container.Container;
 import org.ofbiz.base.container.ContainerException;
+import org.ofbiz.base.start.Classpath;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilURL;
+import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.template.FreeMarkerWorker;
-import org.ofbiz.base.start.Classpath;
-import org.ofbiz.base.component.ComponentConfig;
+import org.w3c.dom.Attr;
+import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.xml.sax.SAXException;
 
 /**
  * GenerateContainer - Generates Configuration Files For Application Servers
@@ -47,13 +74,14 @@ public class GenerateContainer implements Container {
 
     public static final String module = GenerateContainer.class.getName();
     public static final String source = "/framework/appserver/templates/";
-    public static final String target = "/setup/";
-    private boolean isGeronimo = false;
-
+    public static String target = "/setup/";
 
     protected String configFile = null;
     protected String ofbizHome = null;
     protected String args[] = null;
+
+    private boolean isGeronimo = false;
+    private String geronimoHome = null;
 
     /**
      * @see org.ofbiz.base.container.Container#init(java.lang.String[], java.lang.String)
@@ -63,6 +91,10 @@ public class GenerateContainer implements Container {
         this.configFile = configFile;
         this.args = args;
         this.isGeronimo = args[0].toLowerCase().contains("geronimo") || args[0].toLowerCase().contains("wasce");
+        if (this.isGeronimo) {
+            this.target="/META-INF/";
+            this.geronimoHome = UtilProperties.getPropertyValue("appserver", "geronimoHome", null);
+        }
     }
 
     /**
@@ -86,30 +118,216 @@ public class GenerateContainer implements Container {
     private void generateFiles() throws ContainerException {
         File files[] = getTemplates();
         Map<String, Object> dataMap = buildDataMap();
-        if (isGeronimo) {
-            String serverType = args[0];
-            String geronimoHome = null;
-            if (args.length > 2) {
-                geronimoHome = args[2];
-            }
-            GenerateGeronimoDeployment geronimoDeployment = new GenerateGeronimoDeployment();
-            List classpathJars = geronimoDeployment.generate(serverType, geronimoHome);
-            if (classpathJars == null) {
-                throw new ContainerException("Error in Geronimo deployment, please check the log");
-            }
-            dataMap.put("classpathJars", classpathJars);
-        }
 
-        //Debug.log("Using Data : " + dataMap, module);
-        String applicationPrefix = "";
-        if (args.length > 3 && args[3].length() > 0) {
-            applicationPrefix = args[3] + "-";
-        }
-        dataMap.put("applicationPrefix", applicationPrefix);
-        dataMap.put("pathSeparatorChar", File.pathSeparatorChar);
-        for (File file: files) {
-            if (isGeronimo && !(file.isDirectory() || file.isHidden() || file.getName().equalsIgnoreCase("geronimo-web.xml"))) { 
-                parseTemplate(file, dataMap);
+        String user = UtilProperties.getPropertyValue("appserver", "user", "system");
+        String password = UtilProperties.getPropertyValue("appserver", "password", "manager");
+        boolean offline = UtilProperties.propertyValueEqualsIgnoreCase("appserver", "offline", "true");
+        boolean pauseInGeronimoScript = UtilProperties.propertyValueEqualsIgnoreCase("appserver", "pauseInGeronimoScript", "true");
+        int instancesNumber = (int) UtilProperties.getPropertyNumber("appserver", "instancesNumber");
+        String instanceNumber = "";
+
+        if (isGeronimo) {
+            if (geronimoHome == null) {
+                geronimoHome = System.getenv("GERONIMO_HOME");
+                if (geronimoHome == null) {
+                    Debug.logFatal("'GERONIMO_HOME' was not found in your environment. Please set the location of Geronimo into a GERONIMO_HOME env var or pass it as geronimoHome property in setup.properties file.", module);
+                    throw new ContainerException("Error in Geronimo deployment, please check the log");
+                }
+                File geronimoHomeDir = new File (geronimoHome);
+                if (! (geronimoHomeDir.isDirectory())) {
+                    Debug.logFatal(geronimoHome + " does not exist or is not a directoy. Please set the location of Geronimo into a GERONIMO_HOME env var or pass it as geronimoHome property in setup.properties file.", module);
+                    throw new ContainerException("Error in Geronimo deployment, please check the log");
+                }
+            }
+
+            for(int inst = 0; inst <= instancesNumber; inst++) {
+                instanceNumber = (inst == 0 ? "" : inst).toString();
+                GenerateGeronimoDeployment geronimoDeployment = new GenerateGeronimoDeployment();
+                List classpathJars = geronimoDeployment.generate(args[0], geronimoHome, instanceNumber);
+                if (classpathJars == null) {
+                    throw new ContainerException("Error in Geronimo deployment, please check the log");
+                }
+                dataMap.put("classpathJars", classpathJars);
+                dataMap.put("pathSeparatorChar", File.pathSeparatorChar);
+                dataMap.put("instanceNumber", instanceNumber);
+                //                if (UtilValidate.isNotEmpty(instanceNumber)) {
+                //                    List webApps = (List) dataMap.get("webApps");
+                //                    for (Object webAppObject: webApps) {
+                //                        WebappInfo webAppInfo = (ComponentConfig.WebappInfo) webAppObject;
+                //                        String webAppLocation = webAppInfo.getLocation();
+                //                        String webXmlLocation = webAppLocation + "/WEB-INF/web.xml";
+                //                        if (isFileExistsAndCanWrite(webXmlLocation)) {
+                //                            DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+                //                            DocumentBuilder docBuilder = null;
+                //                            try {
+                //                                docBuilder = docFactory.newDocumentBuilder();
+                //                            } catch (ParserConfigurationException e) {
+                //                                throw new ContainerException(e);
+                //                            }
+                //                            Document doc = null;
+                //                            try {
+                //                                doc = docBuilder.parse(webXmlLocation);
+                //                            } catch (SAXException e) {
+                //                                throw new ContainerException(e);
+                //                            } catch (IOException e) {
+                //                                throw new ContainerException(e);
+                //                            }
+                //                            Node webApp = doc.getFirstChild();
+                //                            Node contextParam = doc.createElement("context-param");
+                //                            NamedNodeMap contextParamAttributes = contextParam.getAttributes();
+                //
+                //                            Attr paramName = doc.createAttribute("param-name");
+                //                            paramName.setValue("instanceNumber");
+                //                            contextParamAttributes.setNamedItem(paramName);
+                //
+                //                            Attr paramValue = doc.createAttribute("param-value");
+                //                            paramValue.setValue(instanceNumber);
+                //                            contextParamAttributes.setNamedItem(paramValue);
+                //        //                    Node nodeToAppend = doc.importNode(contextParam, true); this should not be needed
+                //        //                    webApp.appendChild(nodeToAppend);
+                //
+                //        //                    webApp.appendChild(contextParam); this is the line needed but commented for now
+                //
+                //                            Transformer transformer;
+                //                            try {
+                //                                transformer = TransformerFactory.newInstance().newTransformer();
+                //                            } catch (TransformerConfigurationException e) {
+                //                                throw new ContainerException(e);
+                //                            } catch (TransformerFactoryConfigurationError e) {
+                //                                throw new ContainerException(e);
+                //                            }
+                //                            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+                //
+                //                            StreamResult result = new StreamResult(new StringWriter());
+                //                            DOMSource source = new DOMSource(doc);
+                //                            try {
+                //                                transformer.transform(source, result);
+                //                            } catch (TransformerException e) {
+                //                                throw new ContainerException(e);
+                //                            }
+                //                            String xmlString = result.getWriter().toString();
+                //                            System.out.println(xmlString); //TODO write to file using writeToXmlFile
+                //                            break; // Only the 1st web.xml file need to be modified
+                //                        } else {
+                //                            Debug.logInfo("Unable to change the deployment descriptor : " + webXmlLocation + ". Maybe it does not exist, or is in read only mode ?", module);
+                //                        }
+                //                    }
+                //                }
+
+                //Debug.log("Using Data : " + dataMap, module);
+                for (int i = 0; i < files.length; i++) {
+                    if (!(files[i].isDirectory() || files[i].isHidden() || files[i].getName().equalsIgnoreCase("geronimo-web.xml"))) {
+                        parseTemplate(files[i], dataMap);
+                    }
+                }
+
+                String ofbizName = "ofbiz" + instanceNumber;
+                String separator = File.separator;
+                String geronimoBin = geronimoHome + separator + "bin";
+                File workingDir = new File(geronimoBin);
+                ProcessBuilder pb = null;
+                String command = null;
+
+                if ("\\".equals(separator)) { //Windows
+                    if (offline) {
+                        command = "deploy --user " + user +  " --password " +  password + " --offline undeploy " + ofbizName;
+                    } else {
+                        command = "deploy --user " +  user +  " --password " +  password + " undeploy " + ofbizName;
+                    }
+                    pb = new ProcessBuilder("cmd.exe", "/c", command);
+                } else {                        // Linux
+                    if (offline) {
+                        command = workingDir + "/deploy.sh --user " + user +  " --password " +  password + " --offline undeploy " + ofbizName;
+                    } else {
+                        command = workingDir + "/deploy.sh --user " +  user +  " --password " +  password + " undeploy " + ofbizName;
+                    }
+                    pb = new ProcessBuilder("sh", "-c", command);
+                }
+
+                if (pauseInGeronimoScript) {
+                    Map<String, String> env = pb.environment();
+                    env.put("GERONIMO_BATCH_PAUSE", "on");
+                }
+                pb.directory(workingDir);
+                
+                try {
+                    System.out.println("Currently undeploying " + ofbizName + ", using : <<" + command + ">>, please wait ...");
+                    pb.redirectErrorStream(true);
+                    Process p = pb.start();
+                    java.io.InputStream is = p.getInputStream();
+                    byte[] buf = new byte[2024];
+                    int readLen = 0;
+                    while((readLen = is.read(buf,0,buf.length)) != -1) {
+                        if ("\\".equals(separator)) {   //Windows
+                            System.out.print(new String(buf,0,readLen));
+                        } else {
+                            System.out.println(new String(buf,0,readLen));                                
+                        }
+                    }
+                    is.close();
+                    p.waitFor();
+                    //                    System.out.println(p.waitFor());
+                    //                    System.out.println("exit value" + p.exitValue());
+                    Debug.logInfo(ofbizName + " undeployment ended" , module);
+                } catch (IOException e) {
+                    throw new ContainerException(e);
+                } catch (InterruptedException e) {
+                    throw new ContainerException(e);
+                }
+
+                if ("\\".equals(separator)) { //Windows
+                    if (offline) {
+                        command = "deploy --user " + user +  " --password " +  password + " --offline deploy --inPlace " + ofbizHome;
+                    } else {
+                        command = "deploy --user " + user +  " --password " +  password + " deploy --inPlace " + ofbizHome;
+                    }
+                    pb = new ProcessBuilder("cmd.exe", "/c", command);
+                } else {                      // Linux
+                    if (offline) {
+                        command = workingDir + "/deploy.sh --user " + user +  " --password " +  password + " --offline deploy --inPlace " + ofbizHome;
+                    } else {
+                        command = workingDir + "/deploy.sh --user " +  user +  " --password " +  password + " deploy --inPlace " + ofbizHome;
+                    }
+                    pb = new ProcessBuilder("sh", "-c", command);
+                }
+
+                if (pauseInGeronimoScript) {
+                    Map<String, String> env = pb.environment();
+                    env.put("GERONIMO_BATCH_PAUSE", "on");
+                }
+                pb.directory(workingDir);
+                
+                try {
+                    System.out.println("Currently deploying " + ofbizName + ", using : <<" + command + ">>, please wait ...");
+                    pb.redirectErrorStream(true);
+                    Process p = pb.start();
+                    java.io.InputStream is = p.getInputStream();
+                    byte[] buf = new byte[2024];
+                    int readLen = 0;
+                    while((readLen = is.read(buf,0,buf.length)) != -1) {
+                        if ("\\".equals(separator)) {   //Windows
+                            System.out.print(new String(buf,0,readLen));
+                        } else {
+                            System.out.println(new String(buf,0,readLen));                                
+                        }
+                    }
+                    is.close();
+                    p.waitFor();
+                    //                    System.out.println(p.waitFor());
+                    //                    System.out.println("exit value" + p.exitValue());
+                    Debug.logInfo(ofbizName + " deployment ended" , module);
+                } catch (IOException e) {
+                    throw new ContainerException(e);
+                } catch (InterruptedException e) {
+                    throw new ContainerException(e);
+                }
+            }
+        } else {
+            //Debug.log("Using Data : " + dataMap, module);
+            for (int i = 0; i < files.length; i++) {
+                if (!files[i].isDirectory() && !files[i].isHidden()) {
+                    parseTemplate(files[i], dataMap);
+                }
             }
         }
     }
@@ -158,6 +376,7 @@ public class GenerateContainer implements Container {
                 }
             }
         }
+
         List[] lists = { jar, dir };
         return lists;
     }
@@ -213,5 +432,28 @@ public class GenerateContainer implements Container {
         } catch (IOException e) {
             throw new ContainerException(e);
         }
+    }
+
+    // This method writes a DOM document to a file
+    public static void writeToXmlFile(Document doc, String filename) {
+        try {
+            // Prepare the DOM document for writing
+            Source source = new DOMSource(doc);
+
+            // Prepare the output file
+            File file = new File(filename);
+            Result result = new StreamResult(file);
+
+            // Write the DOM document to the file
+            Transformer xformer = TransformerFactory.newInstance().newTransformer();
+            xformer.transform(source, result);
+        } catch (TransformerConfigurationException e) {
+        } catch (TransformerException e) {
+        }
+    }
+
+    public boolean isFileExistsAndCanWrite(String fileName) {
+        File f = new File(fileName);
+        return f.exists() && f.canWrite();
     }
 }

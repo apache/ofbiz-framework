@@ -30,6 +30,7 @@ import java.util.TimeZone;
 import org.ofbiz.base.util.BshUtil;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilMisc;
@@ -395,6 +396,11 @@ public class FlexibleStringExpander implements Serializable {
                     targetBuffer.append(UtilFormatOut.formatCurrency(new Double(envVal.toString()), currencyCode, locale));
                 } else {
                     targetBuffer.append(envVal.toString());
+                }
+            } else if (envName.equals("ofbiz.home")) { // This is only used in case of Geronimo or WASCE using OFBiz multi-instances. It allows to retrieve ofbiz.home value set in JVM env
+                String ofbizHome = System.getProperty("ofbiz.home");
+                if (UtilValidate.isNotEmpty(ofbizHome)) {
+                    targetBuffer.append(ofbizHome);
                 }
             } else {
                 Debug.logWarning("Could not find value in environment for the name [" + envName + "], inserting nothing.", module);

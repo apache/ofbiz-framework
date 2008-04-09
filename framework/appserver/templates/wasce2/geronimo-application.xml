@@ -28,7 +28,7 @@
     <dep:environment>
         <dep:moduleId>
             <dep:groupId>org.ofbiz</dep:groupId>
-            <dep:artifactId>${applicationPrefix}ofbiz</dep:artifactId>
+            <dep:artifactId>ofbiz${instanceNumber}</dep:artifactId>
             <dep:version>1.0</dep:version>
             <dep:type>ear</dep:type>
         </dep:moduleId>
@@ -51,31 +51,26 @@
 
     <#list webApps as webapp>
         <#assign location = webapp.getLocation()?if_exists/>
-        <#if location.contains("framework") && (location.contains("webtools") || location.contains("images"))
-            || location.contains("applications")
-            || location.contains("specialpurpose")
-            || location.contains("hot-deploy")>
-            <#if location.contains("framework") && (location.contains("webtools") || location.contains("images"))>
+        <#assign origin = webapp.getLocation()?if_exists/>
+        <#if location.contains("/framework/") && (location.contains("/webtools/") || location.contains("/images/"))>
                 <#assign location = location.substring(location.lastIndexOf("framework"))/>
-            </#if>
-            <#if location.contains("applications")>
-                <#assign location = location.substring(location.lastIndexOf("applications"))/>
-            </#if>
-            <#if location.contains("specialpurpose")>
-                <#assign location = location.substring(location.lastIndexOf("specialpurpose"))/>
-            </#if>
-            <#if location.contains("hot-deploy") && !location.contains("images")>
-                <#assign location = location.substring(location.lastIndexOf("hot-deploy"))/>
-            </#if>
-            <#if !(location.contains("neogia") && location.contains("shipment"))
-                && !(location.contains("hot-deploy") && location.contains("images"))>
+        </#if>
+        <#if location.contains("/applications/")>
+            <#assign location = location.substring(location.lastIndexOf("applications"))/>
+        </#if>
+        <#if location.contains("/specialpurpose/")>
+            <#assign location = location.substring(location.lastIndexOf("specialpurpose"))/>
+        </#if>
+        <#if location.contains("/hot-deploy/")>
+            <#assign location = location.substring(location.lastIndexOf("hot-deploy"))/>
+        </#if>
+        <#if location != origin>
     <module>
         <web>${location}/</web>
         <web-app xmlns="http://geronimo.apache.org/xml/ns/j2ee/web-1.2">
-            <context-root>${webapp.getContextRoot()}</context-root>
+            <context-root>${webapp.getContextRoot()}${instanceNumber}</context-root>
         </web-app>
     </module>
-            </#if>
         </#if>
     </#list>
 
