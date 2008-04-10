@@ -38,7 +38,12 @@ if (facilityId != null) {
 ownerAcctgPref = null;
 if (facility != null) {
     owner = facility.getRelatedOne("OwnerParty");
-    if (owner != null) ownerAcctgPref = owner.getRelatedOne("PartyAcctgPreference");
+    if (owner != null) {
+        result = dispatcher.runSync("getPartyAccountingPreferences", UtilMisc.toMap("organizationPartyId", owner.getString("partyId"), "userLogin", request.getAttribute("userLogin")));
+        if (!ServiceUtil.isError(result) && result.get("partyAccountingPreference") != null) {
+            ownerAcctgPref = result.get("partyAccountingPreference");
+        } 
+    }
 }
 
 purchaseOrder = null;

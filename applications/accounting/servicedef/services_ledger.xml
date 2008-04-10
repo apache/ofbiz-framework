@@ -181,6 +181,12 @@ under the License.
     </service>
 
         <!-- AcctgTrans & Related -->
+    <service name="completeAcctgTransEntries" default-entity-name="AcctgTrans" engine="simple"
+            location="org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="completeAcctgTransEntries" auth="true">
+        <description>Completes, if possible, the AcctgTransEntries using the mappings defined in the gl setup</description>
+        <permission-service service-name="acctgTransactionPermissionCheck" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
     <service name="interfaceAcctgTrans" default-entity-name="AcctgTrans" engine="interface" location="" invoke="">
         <auto-attributes include="nonpk" mode="IN" optional="true">
             <exclude field-name="isPosted"/>

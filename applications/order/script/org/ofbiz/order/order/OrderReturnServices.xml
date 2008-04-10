@@ -67,9 +67,10 @@ under the License.
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
         <!-- If PartyAcctgPreference.useInvoiceIdForReturns is Y, get the ID from the getNextInvoiceId service -->
-        <entity-one entity-name="PartyAcctgPreference" value-name="partyAcctgPreference" auto-field-map="false">
-            <field-map field-name="partyId" env-name="parameters.toPartyId"/>
-        </entity-one>
+        <set field="partyAccountingPreferencesCallMap.organizationPartyId" from-field="parameters.toPartyId"/>
+        <call-service service-name="getPartyAccountingPreferences" in-map-name="partyAccountingPreferencesCallMap">
+             <result-to-field result-name="partyAccountingPreference" field-name="partyAcctgPreference"/>
+        </call-service>
         <if-compare field-name="partyAcctgPreference.useInvoiceIdForReturns" operator="equals" value="Y">
             <set field="getNextInvoiceIdMap.partyId" from-field="parameters.toPartyId"/>
             <call-service service-name="getNextInvoiceId" in-map-name="getNextInvoiceIdMap">

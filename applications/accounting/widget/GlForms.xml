@@ -496,7 +496,7 @@ under the License.
         <field name="acctgTransEntryTypeId" ><hidden value="_NA_"/></field>
         <field name="description"><text size="30"/></field>
         <field name="glAccountId">
-            <drop-down>
+            <drop-down allow-empty="true">
                 <entity-options entity-name="GlAccountOrganizationAndClass" key-field-name="glAccountId" description="${glAccountId} ${accountName}">
                     <entity-constraint name="organizationPartyId" operator="equals" env-name="parameters.organizationPartyId"/>
                     <entity-order-by field-name="glAccountId"/>
@@ -524,6 +524,13 @@ under the License.
         <field name="organizationPartyId"><hidden/></field>
         <field name="acctgTransId"><hidden/></field>
         <field name="acctgTransEntrySeqId"><display/></field>     
+        <field name="glAccountTypeId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="GlAccountType" description="${description}">
+                    <entity-order-by field-name="glAccountTypeId"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="glAccountId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="GlAccountOrganizationAndClass" key-field-name="glAccountId" description="${glAccountId} ${accountName}">
@@ -532,13 +539,16 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <!--
         <field name="acctgTransEntryTypeId" title="${uiLabelMap.AccountingTransactionEntryType}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="AcctgTransEntryType" description="${description}">
                     <entity-order-by field-name="acctgTransEntryTypeId"/>
                 </entity-options>
             </drop-down>
-        </field>    
+        </field>
+        <field name="settlementTermId"><display/></field>
+        -->    
         <field name="description"><display/></field>
         <field name="voucherRef"><display/></field>
         <field name="partyId">
@@ -546,7 +556,7 @@ under the License.
         </field>
         <field name="productId">
             <lookup target-form-name="LookupProduct" size="20" maxlength="20"/>
-        </field>        
+        </field>
         <field name="reconcileStatusId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="StatusItem" key-field-name="statusId" description="${description}">
@@ -555,7 +565,6 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="settlementTermId"><display/></field>
         <field name="isSummary"><display/></field>
         <field name="debitCreditFlag">
             <drop-down current="selected">
@@ -563,9 +572,10 @@ under the License.
                 <option description="Debit" key="D"/>
             </drop-down>
         </field>
+        <field name="origAmount"><display type="currency" currency="${origCurrencyUomId}"/></field>
         <field name="amount"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="updateButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
-        <field name="removeButton" title="" widget-style="buttontext" use-when="isPosted==null">
+        <field name="removeButton" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonRemove}" target="deleteAcctgTransEntry?acctgTransId=${acctgTransId}&amp;acctgTransEntrySeqId=${acctgTransEntrySeqId}&amp;organizationPartyId=${organizationPartyId}"/>
         </field>
     </form>
@@ -574,14 +584,14 @@ under the License.
         <auto-fields-service service-name="createAcctgTrans"/>
         <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
         <field name="acctgTransTypeId">
-            <drop-down allow-empty="true">
+            <drop-down>
                 <entity-options entity-name="AcctgTransType" description="${description}">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="glFiscalTypeId">
-            <drop-down allow-empty="true">
+            <drop-down>
                 <entity-options entity-name="GlFiscalType" description="${description}" key-field-name="glFiscalTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>

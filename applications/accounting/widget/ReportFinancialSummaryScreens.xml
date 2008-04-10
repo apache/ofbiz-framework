@@ -280,11 +280,11 @@ under the License.
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
                 <set field="tabButtonItem2" value="TrialBalance"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
-                <entity-one entity-name="PartyAcctgPreference" value-name="partyAcctgPreference" auto-field-map="false">
-                    <field-map field-name="partyId" env-name="organizationPartyId"/>
-                </entity-one>
+                <service service-name="getPartyAccountingPreferences" result-map-name="result">
+                    <field-map field-name="organizationPartyId"/>
+                </service>
+                <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
                 <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
-
                 <entity-condition entity-name="GlAccountOrganization" list-name="trialBalances" filter-by-date="true">
                     <condition-list>
                         <condition-expr field-name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
@@ -324,9 +324,10 @@ under the License.
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
                 <set field="tabButtonItem2" value="IncomeStatement"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
-                <entity-one entity-name="PartyAcctgPreference" value-name="partyAcctgPreference" auto-field-map="false">
-                    <field-map field-name="partyId" env-name="organizationPartyId"/>
-                </entity-one>
+                <service service-name="getPartyAccountingPreferences" result-map-name="result">
+                    <field-map field-name="organizationPartyId"/>
+                </service>
+                <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
                 <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
                 <set field="glAccountTotalsList" from-field="parameters.glAccountTotalsList"/>
             </actions>
@@ -376,9 +377,10 @@ under the License.
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
                 <set field="tabButtonItem2" value="BalanceSheet"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
-                <entity-one entity-name="PartyAcctgPreference" value-name="partyAcctgPreference" auto-field-map="false">
-                    <field-map field-name="partyId" env-name="organizationPartyId"/>
-                </entity-one>
+                <service service-name="getPartyAccountingPreferences" result-map-name="result">
+                    <field-map field-name="organizationPartyId"/>
+                </service>
+                <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
                 <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
                 <set field="assetBalancesList" from-field="parameters.assetBalancesList"/>
                 <set field="liabilityBalancesList" from-field="parameters.liabilityBalancesList"/>
@@ -451,9 +453,10 @@ under the License.
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
                 <set field="tabButtonItem2" value="ComparativeBalanceSheet"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
-                <entity-one entity-name="PartyAcctgPreference" value-name="partyAcctgPreference" auto-field-map="false">
-                    <field-map field-name="partyId" env-name="organizationPartyId"/>
-                </entity-one>
+                <service service-name="getPartyAccountingPreferences" result-map-name="result">
+                    <field-map field-name="organizationPartyId"/>
+                </service>
+                <set field="partyAcctgPreference" from-field="result.partyAccountingPreference"/>
                 <set field="currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
                 <set field="assetBalancesList" from-field="parameters.assetBalancesList"/>
                 <set field="liabilityBalancesList" from-field="parameters.liabilityBalancesList"/>

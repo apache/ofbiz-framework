@@ -265,7 +265,8 @@ under the License.
         <field name="partyIdFrom"><lookup target-form-name="LookupPartyName"/></field>
         <field name="organizationPartyId" parameter-name="partyIdTo">
             <drop-down allow-empty="false">
-                <entity-options description="${partyId}" entity-name="PartyAcctgPreference" key-field-name="partyId">
+                <entity-options description="${partyId}" entity-name="PartyRole" key-field-name="partyId">
+                    <entity-constraint name="roleTypeId" value="INTERNAL_ORGANIZATIO"/>
                     <entity-order-by field-name="partyId"/>
                 </entity-options>
             </drop-down>

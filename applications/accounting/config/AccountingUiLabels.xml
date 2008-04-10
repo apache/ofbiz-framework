@@ -2790,6 +2790,9 @@ esetata in mod automat</value>
         <value xml:lang="th">ข้อมูล</value>
         <value xml:lang="zh">信息</value>
     </property>
+    <property key="AccountingInheritedValue">
+        <value xml:lang="en">Inherited Value</value>
+    </property>
     <property key="AccountingInvNr">
         <value xml:lang="ar">رقم الفاتورة</value>
         <value xml:lang="en">Inv.Nr</value>
