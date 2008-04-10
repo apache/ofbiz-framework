@@ -424,7 +424,7 @@
     <property key="GlAccountClass.description.ACCUM_AMORTIZATION">
         <value xml:lang="en">Accumulated Amortization</value>
         <value xml:lang="fr">Amortissements cumulés</value>
-        <value xml:lang="it">Ammortamento Accumulato</value>
+        <value xml:lang="it">Fondo Ammortamento Beni Intangibili</value>
         <value xml:lang="ro">Amortizare Acumulata</value>
         <value xml:lang="ru">Аккумулированная амортизация</value>
         <value xml:lang="th">การตัดบัญชีสะสม</value>
@@ -433,7 +433,7 @@
     <property key="GlAccountClass.description.ACCUM_DEPRECIATION">
         <value xml:lang="en">Accumulated Depreciation</value>
         <value xml:lang="fr">Dépréciations cumulées</value>
-        <value xml:lang="it">Svalutazione Accumulata</value>
+        <value xml:lang="it">Fondo Ammortamento Beni Tangibili</value>
         <value xml:lang="ro">Devalorizare Acumulata</value>
         <value xml:lang="ru">Аккумулированный износ</value>
         <value xml:lang="th">ค่าเสื่อมราคาสะสม</value>
@@ -442,7 +442,7 @@
     <property key="GlAccountClass.description.AMORTIZATION">
         <value xml:lang="en">Amortization</value>
         <value xml:lang="fr">Amortissements</value>
-        <value xml:lang="it">Ammortamento</value>
+        <value xml:lang="it">Ammortamento Beni Intangibili</value>
         <value xml:lang="ro">Amortizari</value>
         <value xml:lang="ru">Амортизация</value>
         <value xml:lang="th">การตัดบัญชี</value>
@@ -451,7 +451,7 @@
     <property key="GlAccountClass.description.ASSET">
         <value xml:lang="en">Asset</value>
         <value xml:lang="fr">Actif</value>
-        <value xml:lang="it">Cespite</value>
+        <value xml:lang="it">Attivo</value>
         <value xml:lang="ro">Bunuri</value>
         <value xml:lang="ru">Активы</value>
         <value xml:lang="th">ทรัพย์สิน</value>
@@ -460,7 +460,7 @@
     <property key="GlAccountClass.description.CASH_EQUIVALENT">
         <value xml:lang="en">Cash and Equivalent</value>
         <value xml:lang="fr">Caisse et équivalents</value>
-        <value xml:lang="it">Cassa e Equivalente</value>
+        <value xml:lang="it">Cassa e Banca</value>
         <value xml:lang="ro">Casa si Echivalente</value>
         <value xml:lang="ru">Наличные и их эквивалент</value>
         <value xml:lang="th">เงินสดและที่มีค่าเทียบเท่ากัน</value>
@@ -469,7 +469,7 @@
     <property key="GlAccountClass.description.CASH_EXPENSE">
         <value xml:lang="en">Cash Expense</value>
         <value xml:lang="fr">Décaissements</value>
-        <value xml:lang="it">Spesa Cassa</value>
+        <value xml:lang="it">Spese Di Cassa</value>
         <value xml:lang="ro">Cheltuieli Casa</value>
         <value xml:lang="ru">Денежные расходы</value>
         <value xml:lang="th">ค่าใช้จ่ายเงินสด</value>
@@ -478,7 +478,7 @@
     <property key="GlAccountClass.description.CASH_INCOME">
         <value xml:lang="en">Cash Income</value>
         <value xml:lang="fr">Encaissements</value>
-        <value xml:lang="it">Reddito di Cassa</value>
+        <value xml:lang="it">Ricavi di Cassa</value>
         <value xml:lang="ro">Venituri din Casa</value>
         <value xml:lang="ru">Денежный доходы</value>
         <value xml:lang="th">รายได้เงินสด</value>
@@ -487,7 +487,7 @@
     <property key="GlAccountClass.description.COGS_EXPENSE">
         <value xml:lang="en">Cost of Goods Sold Expense</value>
         <value xml:lang="fr">Coût direct des marchandises vendues</value>
-        <value xml:lang="it">Costo del Venduto Spesa</value>
+        <value xml:lang="it">Costo dela Merce Venduta</value>
         <value xml:lang="ro">Cost de Vinzare Cumparare</value>
         <value xml:lang="ru">Стоимость проданных товаров</value>
         <value xml:lang="th">ค่าใช้จ่ายต้นทุนสินค้าขาย</value>
@@ -496,7 +496,7 @@
     <property key="GlAccountClass.description.CREDIT">
         <value xml:lang="en">Credit</value>
         <value xml:lang="fr">Crédit</value>
-        <value xml:lang="it">Credito</value>
+        <value xml:lang="it">Avere</value>
         <value xml:lang="ro">Credit</value>
         <value xml:lang="ru">Кредит</value>
         <value xml:lang="th">เครดิต</value>
@@ -505,7 +505,7 @@
     <property key="GlAccountClass.description.CURRENT_ASSET">
         <value xml:lang="en">Current Asset</value>
         <value xml:lang="fr">Actif à court terme</value>
-        <value xml:lang="it">Cespite Attuale</value>
+        <value xml:lang="it">Attivo Circolante</value>
         <value xml:lang="ro">Bunuri Actuale</value>
         <value xml:lang="ru">Текущие активы</value>
         <value xml:lang="th">สินทรัพย์หมุนเวียน</value>
@@ -514,7 +514,7 @@
     <property key="GlAccountClass.description.CURRENT_LIABILITY">
         <value xml:lang="en">Current Liability</value>
         <value xml:lang="fr">Dette à court terme</value>
-        <value xml:lang="it">Passività Attuali</value>
+        <value xml:lang="it">Debiti a Breve Termine</value>
         <value xml:lang="ro">Pasivitati Actuale</value>
         <value xml:lang="ru">Текущие обязательства</value>
         <value xml:lang="th">หนี้สินหมุนเวียน</value>
@@ -523,7 +523,7 @@
     <property key="GlAccountClass.description.DEBIT">
         <value xml:lang="en">Debit</value>
         <value xml:lang="fr">Débit</value>
-        <value xml:lang="it">Debito</value>
+        <value xml:lang="it">Dare</value>
         <value xml:lang="ro">Debit</value>
         <value xml:lang="ru">Дебит</value>
         <value xml:lang="th">เดบิต</value>
@@ -532,7 +532,7 @@
     <property key="GlAccountClass.description.DEPRECIATION">
         <value xml:lang="en">Depreciation</value>
         <value xml:lang="fr">Dépréciation</value>
-        <value xml:lang="it">Svalutazione</value>
+        <value xml:lang="it">Ammortamento Beni Tangibili</value>
         <value xml:lang="ro">Devalorizari</value>
         <value xml:lang="ru">Износ</value>
         <value xml:lang="th">ค่าเสื่อมราคา</value>
@@ -559,7 +559,7 @@
     <property key="GlAccountClass.description.EQUITY">
         <value xml:lang="en">Equity</value>
         <value xml:lang="fr">Capitaux propres</value>
-        <value xml:lang="it">Azioni</value>
+        <value xml:lang="it">Patrimonio Netto</value>
         <value xml:lang="ro">Actiuni</value>
         <value xml:lang="ru">Собственные средства</value>
         <value xml:lang="th">ความถูกต้อง</value>
@@ -568,7 +568,7 @@
     <property key="GlAccountClass.description.EXPENSE">
         <value xml:lang="en">Expense</value>
         <value xml:lang="fr">Charges</value>
-        <value xml:lang="it">Spesa</value>
+        <value xml:lang="it">Costi</value>
         <value xml:lang="ro">Cheltuieli</value>
         <value xml:lang="ru">Расходы</value>
         <value xml:lang="th">ค่าใช้จ่าย</value>
@@ -577,7 +577,7 @@
     <property key="GlAccountClass.description.INCOME">
         <value xml:lang="en">Income</value>
         <value xml:lang="fr">Revenus</value>
-        <value xml:lang="it">Reddito</value>
+        <value xml:lang="it">Ricavi</value>
         <value xml:lang="ro">Venit</value>
         <value xml:lang="ru">Доходы</value>
         <value xml:lang="th">รายได้</value>
@@ -586,7 +586,7 @@
     <property key="GlAccountClass.description.INTEREST_EXPENSE">
         <value xml:lang="en">Interest Expense</value>
         <value xml:lang="fr">Charges financières</value>
-        <value xml:lang="it">Interessi Spesa</value>
+        <value xml:lang="it">Costi per Interessi</value>
         <value xml:lang="ro">Dobanda Cheltuieli</value>
         <value xml:lang="ru">Выплата процентов</value>
         <value xml:lang="th">ค่าใช้จ่ายดอกเบี้ย</value>
@@ -595,7 +595,7 @@
     <property key="GlAccountClass.description.INVENTORY_ADJUST">
         <value xml:lang="en">Inventory Adjustment</value>
         <value xml:lang="fr">Ajustement d'inventaire</value>
-        <value xml:lang="it">Aggiustamento di Inventario</value>
+        <value xml:lang="it">Modifiche di Inventario</value>
         <value xml:lang="ro">Reglaj Inventar</value>
         <value xml:lang="ru">Поправка остаков ТМЦ</value>
         <value xml:lang="th">ส่วนลดสินค้าคงเหลือ</value>
@@ -613,7 +613,7 @@
     <property key="GlAccountClass.description.LONGTERM_ASSET">
         <value xml:lang="en">Long Term Asset</value>
         <value xml:lang="fr">Actif à long terme</value>
-        <value xml:lang="it">Cespiti a Lungo Termine</value>
+        <value xml:lang="it">Cespiti</value>
         <value xml:lang="ro">Bunuri pe Termen Lung</value>
         <value xml:lang="ru">Долгосрочные активы</value>
         <value xml:lang="th">ทรัพย์สินระยะยาว</value>
@@ -622,7 +622,7 @@
     <property key="GlAccountClass.description.LONGTERM_LIABILITY">
         <value xml:lang="en">Long Term Liability</value>
         <value xml:lang="fr">Dette à long terme</value>
-        <value xml:lang="it">Passività Lungo Termine</value>
+        <value xml:lang="it">Finanziamenti e Altri Debiti a Lungo Termine</value>
         <value xml:lang="ro">Pasivitati pe Termen Lung</value>
         <value xml:lang="ru">Долгосрочные обязательства</value>
         <value xml:lang="th">หนี้สินระยะยาว</value>
@@ -658,7 +658,7 @@
     <property key="GlAccountClass.description.OWNERS_EQUITY">
         <value xml:lang="en">Owners Equity</value>
         <value xml:lang="fr">Capitaux propres</value>
-        <value xml:lang="it">Azioni Proprie</value>
+        <value xml:lang="it">Capitale Sociale</value>
         <value xml:lang="ro">Actiuni Proprii</value>
         <value xml:lang="ru">Прибыль владельцев</value>
         <value xml:lang="th">ส่วนของผู้ถือหุ้นส่วนของเจ้าของ</value>
@@ -676,7 +676,7 @@
     <property key="GlAccountClass.description.RETAINED_EARNINGS">
         <value xml:lang="en">Retained Earnings</value>
         <value xml:lang="fr">Report à nouveau</value>
-        <value xml:lang="it">Guadagni Trattenuti</value>
+        <value xml:lang="it">Utili a Nuovo</value>
         <value xml:lang="ro">Beneficii Retinute</value>
         <value xml:lang="ru">Нераспределенная прибыль</value>
         <value xml:lang="th">กำไรสะสม</value>
@@ -694,7 +694,7 @@
     <property key="GlAccountClass.description.REVENUE">
         <value xml:lang="en">Revenue</value>
         <value xml:lang="fr">Revenus</value>
-        <value xml:lang="it">Profitto</value>
+        <value xml:lang="it">Ricavi</value>
         <value xml:lang="ro">Profit</value>
         <value xml:lang="ru">Доход</value>
         <value xml:lang="th">รายได้</value>
@@ -703,7 +703,7 @@
     <property key="GlAccountClass.description.SGA_EXPENSE">
         <value xml:lang="en">Selling, General, and Administrative Expense</value>
         <value xml:lang="fr">Frais généraux</value>
-        <value xml:lang="it">Spese di Vendita, Generali, e Amministrative</value>
+        <value xml:lang="it">Spese Commerciali, Generali, e Amministrative</value>
         <value xml:lang="ro">Cheltuieli de Vanzare, Generale, si  Administrative</value>
         <value xml:lang="ru">Общие, административные и сбытовые расходы</value>
         <value xml:lang="th">การขาย, ทั่วไป, และค่าใช้จ่ายในการบริการ</value>
