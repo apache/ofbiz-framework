@@ -91,7 +91,10 @@ baseCurrencyUomId = null;
 if (! UtilValidate.isEmpty(facility)) {
     owner = facility.getRelatedOne("OwnerParty");
     if (! UtilValidate.isEmpty(owner)) {
-        ownerAcctgPref = owner.getRelatedOne("PartyAcctgPreference");
+        result = dispatcher.runSync("getPartyAccountingPreferences", UtilMisc.toMap("organizationPartyId", owner.getString("partyId"), "userLogin", request.getAttribute("userLogin")));
+        if (!ServiceUtil.isError(result) && result.get("partyAccountingPreference") != null) {
+            ownerAcctgPref = result.get("partyAccountingPreference");
+        }
     }
     if (! UtilValidate.isEmpty(ownerAcctgPref)) {
         baseCurrencyUomId = ownerAcctgPref.get("baseCurrencyUomId");

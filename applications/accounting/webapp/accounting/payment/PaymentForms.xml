@@ -80,7 +80,8 @@ under the License.
         <field name="statusId"><hidden value="PMNT_NOT_PAID"/></field>
         <field position="1" name="organizationPartyId" parameter-name="partyIdFrom">
             <drop-down allow-empty="false">
-                <entity-options description="${partyId}" entity-name="PartyAcctgPreference" key-field-name="partyId">
+                <entity-options description="${partyId}" entity-name="PartyRole" key-field-name="partyId">
+                    <entity-constraint name="roleTypeId" value="INTERNAL_ORGANIZATIO"/>
                     <entity-order-by field-name="partyId"/>
                 </entity-options>
             </drop-down>
@@ -118,7 +119,8 @@ under the License.
         <field name="statusId"><hidden value="PMNT_NOT_PAID"/></field>
         <field position="1" name="organizationPartyId" parameter-name="partyIdTo">
             <drop-down allow-empty="false">
-                <entity-options description="${partyId}" entity-name="PartyAcctgPreference" key-field-name="partyId">
+                <entity-options description="${partyId}" entity-name="PartyRole" key-field-name="partyId">
+                    <entity-constraint name="roleTypeId" value="INTERNAL_ORGANIZATIO"/>
                     <entity-order-by field-name="partyId"/>
                 </entity-options>
             </drop-down>
@@ -451,7 +453,8 @@ under the License.
         <field name="invoiceTypeId"><hidden value="SALES_INVOICE"/></field>
         <field name="organizationPartyId" parameter-name="partyIdFrom">
             <drop-down allow-empty="false">
-                <entity-options description="${partyId}" entity-name="PartyAcctgPreference" key-field-name="partyId">
+                <entity-options description="${partyId}" entity-name="PartyRole" key-field-name="partyId">
+                    <entity-constraint name="roleTypeId" value="INTERNAL_ORGANIZATIO"/>
                     <entity-order-by field-name="partyId"/>
                 </entity-options>
             </drop-down>
@@ -467,7 +470,8 @@ under the License.
         <field name="invoiceTypeId"><hidden value="PURCHASE_INVOICE"/></field>
         <field name="organizationPartyId" parameter-name="partyId">
             <drop-down allow-empty="false">
-                <entity-options description="${partyId}" entity-name="PartyAcctgPreference" key-field-name="partyId">
+                <entity-options description="${partyId}" entity-name="PartyRole" key-field-name="partyId">
+                    <entity-constraint name="roleTypeId" value="INTERNAL_ORGANIZATIO"/>
                     <entity-order-by field-name="partyId"/>
                 </entity-options>
             </drop-down>

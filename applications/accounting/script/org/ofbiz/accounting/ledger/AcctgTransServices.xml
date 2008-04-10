@@ -64,9 +64,10 @@ under the License.
 
         <!-- if not explicitly provided in the parameters, set the currency of the entry from PartyAcctgPreference -->
         <if-empty field-name="parameters.currencyUomId">
-            <entity-one entity-name="PartyAcctgPreference" value-name="partyAcctgPreference" use-cache="true">
-                <field-map env-name="parameters.organizationPartyId" field-name="partyId"/>
-            </entity-one>
+            <set field="partyAccountingPreferencesCallMap.organizationPartyId" from-field="parameters.organizationPartyId"/>
+            <call-service service-name="getPartyAccountingPreferences" in-map-name="partyAccountingPreferencesCallMap">
+                 <result-to-field result-name="partyAccountingPreference" field-name="partyAcctgPreference"/>
+            </call-service>
             <set from-field="partyAcctgPreference.baseCurrencyUomId" field="newEntity.currencyUomId"/>
         </if-empty>
         <if-empty field-name="newEntity.acctgTransEntryTypeId">
@@ -245,9 +246,10 @@ under the License.
             <!-- if there are errors and we have an error journal assign to the journal and return -->
             <if-not-empty field-name="error_list">
                 <iterate list-name="acctgTransEntryList" entry-name="acctgTransEntry">
-                    <entity-one entity-name="PartyAcctgPreference" value-name="partyAcctgPreference" use-cache="true" auto-field-map="false">
-                        <field-map field-name="partyId" env-name="acctgTransEntry.organizationPartyId"/>
-                    </entity-one>
+                    <set field="partyAccountingPreferencesCallMap.organizationPartyId" from-field="acctgTransEntry.organizationPartyId"/>
+		             <call-service service-name="getPartyAccountingPreferences" in-map-name="partyAccountingPreferencesCallMap">
+		                 <result-to-field result-name="partyAccountingPreference" field-name="partyAcctgPreference"/>
+		             </call-service>
                     <if-empty field-name="partyAcctgPreference.errorGlJournalId">
                         <!-- if no error journal is set, then return the error messages -->
                         <check-errors/>

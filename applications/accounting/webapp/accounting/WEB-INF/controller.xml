@@ -455,6 +455,12 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ListUnpostedAcctgTrans"/>
     </request-map>
+    <request-map uri="completeAcctgTransEntries">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="completeAcctgTransEntries"/>
+        <response name="success" type="view" value="EditAcctgTrans"/>
+        <response name="error" type="view" value="EditAcctgTrans"/>
+    </request-map>
     <request-map uri="postAcctgTrans">
         <security https="true" auth="true"/>
         <event type="service" invoke="postAcctgTrans"/>

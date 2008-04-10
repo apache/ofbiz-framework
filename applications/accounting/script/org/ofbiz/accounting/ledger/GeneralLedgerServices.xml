@@ -263,6 +263,38 @@ under the License.
     </simple-method>
 
     <!-- ========== GL Posting Services ========== -->
+    <simple-method method-name="completeAcctgTransEntries" short-description="Completes, if possible, the AcctgTransEntries using the mappings defined in the gl setup">
+        <entity-one entity-name="AcctgTrans" value-name="acctgTrans"/>
+        <get-related value-name="acctgTrans" relation-name="AcctgTransEntry" list-name="acctgTransEntries"/>
+        <iterate list-name="acctgTransEntries" entry-name="acctgTransEntry">
+            <!-- if the glAccountId is empty, but we have a glAccountTypeId, then we will determine the
+                 correct glAccountId from the gl setup settings -->
+            <if-empty field-name="acctgTransEntry.glAccountId">
+                <clear-field field-name="getGlAccountFromAccountTypeInMap"/>
+                <set field="getGlAccountFromAccountTypeInMap.organizationPartyId" from-field="acctgTransEntry.organizationPartyId"/>
+                <set field="getGlAccountFromAccountTypeInMap.acctgTransTypeId" from-field="acctgTrans.acctgTransTypeId"/>
+                <set field="getGlAccountFromAccountTypeInMap.glAccountTypeId" from-field="acctgTransEntry.glAccountTypeId"/>
+                <set field="getGlAccountFromAccountTypeInMap.debitCreditFlag" from-field="acctgTransEntry.debitCreditFlag"/>
+                <set field="getGlAccountFromAccountTypeInMap.productId" from-field="acctgTransEntry.productId"/>
+                <set field="getGlAccountFromAccountTypeInMap.partyId" from-field="acctgTrans.partyId"/>
+                <set field="getGlAccountFromAccountTypeInMap.invoiceId" from-field="acctgTrans.invoiceId"/>
+                <set field="getGlAccountFromAccountTypeInMap.paymentId" from-field="acctgTrans.paymentId"/>
+                <call-service service-name="getGlAccountFromAccountType" in-map-name="getGlAccountFromAccountTypeInMap">
+                    <result-to-field result-name="glAccountId" field-name="acctgTransEntry.glAccountId"/>
+                </call-service>
+            </if-empty>
+            <if-empty field-name="acctgTransEntry.origAmount">
+                <set field="acctgTransEntry.origAmount" from-field="acctgTransEntry.amount"/>
+            </if-empty>
+            <entity-one entity-name="GlAccountType" value-name="glAccountType" use-cache="true" auto-field-map="false">
+                <field-map field-name="glAccountTypeId" env-name="acctgTransEntry.glAccountTypeId"/>
+            </entity-one>
+            <if-empty field-name="glAccountType">
+                <clear-field field-name="acctgTransEntry.glAccountTypeId"/>
+            </if-empty>
+            <store-value value-name="acctgTransEntry"/>
+        </iterate>
+    </simple-method>
     <simple-method method-name="createAcctgTransAndEntries" short-description="Verifies and posts a set of AcctgTransEntries">
         <!-- retrieve ledger rounding properties -->
         <property-to-field resource="arithmetic" property="ledger.decimals" field-name="ledgerDecimals"/>
@@ -279,9 +311,10 @@ under the License.
             <if-empty field-name="partyRole">
                 <log level="warning" message="The party with id [${acctgTransEntry.organizationPartyId}] is not an internal organization; the following accounting transaction will be ignored: ${acctgTransEntry}"/>
             <else>
-                <entity-one entity-name="PartyAcctgPreference" value-name="partyAcctgPreference" use-cache="true" auto-field-map="false">
-                    <field-map field-name="partyId" env-name="acctgTransEntry.organizationPartyId"/>
-                </entity-one>
+	            <set field="partyAccountingPreferencesCallMap.organizationPartyId" from-field="acctgTransEntry.organizationPartyId"/>
+	            <call-service service-name="getPartyAccountingPreferences" in-map-name="partyAccountingPreferencesCallMap">
+	                 <result-to-field result-name="partyAccountingPreference" field-name="partyAcctgPreference"/>
+	            </call-service>
                 <if-empty field-name="partyAcctgPreference">
                     <log level="warning" message="The internal organization with id [${acctgTransEntry.organizationPartyId}] has no PartyAcctgPreference setting; the following accounting transaction will be ignored: ${acctgTransEntry}"/>
                 <else>
@@ -391,11 +424,7 @@ under the License.
     <simple-method method-name="getGlAccountFromAccountType" short-description="Look up a GlAccountId from GlAccountTypeId">
         <!-- if this is an inventory variance then the glAccountTypeId contains the varianceReasonId; the value is used to lookup the account id in the VarianceReasonGlAccount entity -->
         <if-compare field-name="parameters.acctgTransTypeId" operator="equals" value="ITEM_VARIANCE">
-            <!-- TODO: refactor the entity-one into a simple-method call: input organizationPartyId and varianceReasonId; output varianceReasonGlAccount -->
-            <entity-one entity-name="VarianceReasonGlAccount" value-name="varianceReasonGlAccount">
-                <field-map field-name="organizationPartyId" env-name="parameters.organizationPartyId"/>
-                <field-map field-name="varianceReasonId" env-name="parameters.glAccountTypeId"/>
-            </entity-one>
+            <call-simple-method method-name="getVarianceReasonGlAccountInline"/>
             <if-not-empty field-name="varianceReasonGlAccount.glAccountId">
                 <field-to-result field-name="varianceReasonGlAccount.glAccountId" result-name="glAccountId"/>
                 <return/>
@@ -442,20 +471,13 @@ under the License.
                         <set field="roleTypeId" value="BILL_TO_CUSTOMER"/>
                     </else>
                 </if>
-                <!-- TODO: refactor the entity-one into a simple-method call: input organizationPartyId, partyId, roleTypeId and glAccountTypeId; output partyGlAccount -->
-                <entity-one entity-name="PartyGlAccount" value-name="partyGlAccount">
-                    <field-map field-name="organizationPartyId" env-name="parameters.organizationPartyId"/>
-                    <field-map field-name="partyId" env-name="parameters.partyId"/>
-                    <field-map field-name="roleTypeId" env-name="roleTypeId"/>
-                    <field-map field-name="glAccountTypeId" env-name="parameters.glAccountTypeId"/>
-                </entity-one>
+                <call-simple-method method-name="getPartyGlAccountInline"/>
                 <if-not-empty field-name="partyGlAccount.glAccountId">
                     <field-to-result field-name="partyGlAccount.glAccountId" result-name="glAccountId"/>
                     <return/>
                 </if-not-empty>
             </then>
         </if>
-
         <if>
             <condition>
                 <and>
@@ -473,7 +495,6 @@ under the License.
                 </and>
             </condition>
             <then>
-
                 <entity-one entity-name="Payment" value-name="payment"/>
                 <get-related-one value-name="payment" relation-name="PaymentMethod" to-value-name="paymentMethod"/>
                 <if-not-empty field-name="paymentMethod.glAccountId">
@@ -482,21 +503,13 @@ under the License.
                 </if-not-empty>
                 <if-compare field-name="payment.paymentMethodTypeId" operator="equals" value="CREDIT_CARD">
                     <get-related-one value-name="payment" relation-name="CreditCard" to-value-name="creditCard"/>
-                    <!-- TODO: refactor the entity-one into a simple-method call: input organizationPartyId and cardType; output creditCardTypeGlAccount -->
-                    <entity-one entity-name="CreditCardTypeGlAccount" value-name="creditCardTypeGlAccount">
-                        <field-map field-name="cardType" env-name="creditCard.cardType"/>
-                        <field-map field-name="organizationPartyId" env-name="parameters.organizationPartyId"/>
-                    </entity-one>
+                    <call-simple-method method-name="getCreditCardTypeGlAccountInline"/>
                     <if-not-empty field-name="creditCardTypeGlAccount.glAccountId">
                         <field-to-result field-name="creditCardTypeGlAccount.glAccountId" result-name="glAccountId"/>
                         <return/>
                     </if-not-empty>
                 </if-compare>
-                <!-- TODO: refactor the entity-one into a simple-method call: input organizationPartyId and paymentMethodTypeId; output paymentMethodTypeGlAccount -->
-                <entity-one entity-name="PaymentMethodTypeGlAccount" value-name="paymentMethodTypeGlAccount">
-                    <field-map field-name="paymentMethodTypeId" env-name="payment.paymentMethodTypeId"/>
-                    <field-map field-name="organizationPartyId" env-name="parameters.organizationPartyId"/>
-                </entity-one>
+                <call-simple-method method-name="getPaymentMethodTypeGlAccountInline"/>
                 <if-not-empty field-name="paymentMethodTypeGlAccount.glAccountId">
                     <field-to-result field-name="paymentMethodTypeGlAccount.glAccountId" result-name="glAccountId"/>
                     <return/>
@@ -505,8 +518,7 @@ under the License.
             </then>
         </if>
         <if-not-empty field-name="parameters.productId">
-            <!-- TODO: refactor the entity-one into a simple-method call: input organizationPartyId, glAccountTypeId and productId; output productGlAccount -->
-            <entity-one entity-name="ProductGlAccount" value-name="productGlAccount" use-cache="true"/>
+            <call-simple-method method-name="getProductGlAccountInline"/>
             <!-- if nothing found look if the parameters.productId is member of any ProductCategory in ProductCategoryGlAccount --> 
             <if-empty field-name="productGlAccount.glAccountId">
                 <entity-and entity-name="ProductCategoryMember" list-name="productCategoryMembers" filter-by-date="true">
@@ -514,12 +526,7 @@ under the License.
                     <order-by field-name="-fromDate"/>
                 </entity-and>
                 <iterate list-name="productCategoryMembers" entry-name="productCategoryMember">
-                    <!-- TODO: refactor the entity-one into one simple-method call: input organizationPartyId, glAccountTypeId and productCategoryId; output productCategoryGlAccount -->
-                    <entity-one entity-name="ProductCategoryGlAccount" value-name="productCategoryGlAccount">
-                        <field-map field-name="productCategoryId" env-name="productCategoryMember.productCategoryId"/>
-                        <field-map field-name="glAccountTypeId" env-name="parameters.glAccountTypeId"/>
-                        <field-map field-name="organizationPartyId" env-name="parameters.organizationPartyId"/>
-                    </entity-one>
+                    <call-simple-method method-name="getProductCategoryGlAccountInline"/>
                     <if-not-empty field-name="productCategoryGlAccount.glAccountId">
                         <field-to-result field-name="productCategoryGlAccount.glAccountId" result-name="glAccountId"/>
                         <return/>
@@ -552,17 +559,13 @@ under the License.
 
                 <if-not-empty field-name="parameters.productId">
                     <if-compare field-name="parameters.acctgTransTypeId" operator="equals" value="PURCHASE_INVOICE">
-                        <!-- TODO ***: refactor the entity-one into one simple-method call: input organizationPartyId and glAccountTypeId; output glAccountTypeDefault -->
-                        <entity-one entity-name="GlAccountTypeDefault" value-name="glAccountTypeDefault" use-cache="true">
-                            <field-map field-name="organizationPartyId" env-name="parameters.organizationPartyId"/>
-                            <field-map field-name="glAccountTypeId" value="UNINVOICED_SHIP_RCPT"/>
-                        </entity-one>
+                        <set field="parameters.glAccountTypeId" value="UNINVOICED_SHIP_RCPT"/>
+                        <call-simple-method method-name="getGlAccountTypeDefaultInline"/>
+                        <set field="glAccountTypeDefault" from-field="lookedUpValue"/>
                     <else>
-                        <!-- TODO: refactor the entity-one into one simple-method call: use the same method of the previous TODO comment (***) -->
-                        <entity-one entity-name="GlAccountTypeDefault" value-name="glAccountTypeDefault" use-cache="true">
-                            <field-map field-name="organizationPartyId" env-name="parameters.organizationPartyId"/>
-                            <field-map field-name="glAccountTypeId" value="SALES_ACCOUNT"/>
-                        </entity-one>
+                        <set field="parameters.glAccountTypeId" value="SALES_ACCOUNT"/>
+                        <call-simple-method method-name="getGlAccountTypeDefaultInline"/>
+                        <set field="glAccountTypeDefault" from-field="lookedUpValue"/>
                     </else>
                     </if-compare>
                     <if-not-empty field-name="glAccountTypeDefault.glAccountId">
@@ -570,11 +573,7 @@ under the License.
                         <return/>
                     </if-not-empty>
                 </if-not-empty>
-                <!-- TODO: refactor the entity-one into one simple-method call: input organizationPartyId and invoiceItemTypeId; output invoiceItemTypeGlAccount -->
-                <entity-one entity-name="InvoiceItemTypeGlAccount" value-name="invoiceItemTypeGlAccount">
-                    <field-map field-name="invoiceItemTypeId" env-name="parameters.glAccountTypeId"/>
-                    <field-map field-name="organizationPartyId" env-name="parameters.organizationPartyId"/>
-                </entity-one>
+                <call-simple-method method-name="getInvoiceItemTypeGlAccountInline"/>
                 <if-not-empty field-name="invoiceItemTypeGlAccount.glAccountId">
                     <field-to-result field-name="invoiceItemTypeGlAccount.glAccountId" result-name="glAccountId"/>
                     <return/>
@@ -591,8 +590,7 @@ under the License.
         </if>
         <!-- if nothing found or if no such parameters were passed (lookedUpValue empty in both cases), try GlAccountTypeDefault -->
         <if-empty field-name="lookedUpValue.glAccountId">
-            <!-- TODO: refactor the entity-one into one simple-method call: use the same method of the previous TODO comment (***) -->
-            <entity-one entity-name="GlAccountTypeDefault" value-name="lookedUpValue" use-cache="true"/> 
+            <call-simple-method method-name="getGlAccountTypeDefaultInline"/>
         </if-empty>
         <field-to-result field-name="lookedUpValue.glAccountId" result-name="glAccountId"/> 
     </simple-method>
@@ -723,9 +721,10 @@ under the License.
                 <calcop field-name="totalAmount" operator="add"><calcop field-name="amount" operator="get"/></calcop>
             </calculate>
         </iterate>
-        <entity-one entity-name="PartyAcctgPreference" value-name="partyAcctgPreference" use-cache="true" auto-field-map="false">
-            <field-map field-name="partyId" env-name="customTimePeriod.organizationPartyId"/>
-        </entity-one>
+        <set field="partyAccountingPreferencesCallMap.organizationPartyId" from-field="customTimePeriod.organizationPartyId"/>
+        <call-service service-name="getPartyAccountingPreferences" in-map-name="partyAccountingPreferencesCallMap">
+             <result-to-field result-name="partyAccountingPreference" field-name="partyAcctgPreference"/>
+        </call-service>
         <!-- get the profit and loss gl account id -->
         <entity-one entity-name="GlAccountTypeDefault" value-name="profitLossAccount" use-cache="true">
             <field-map field-name="organizationPartyId" env-name="customTimePeriod.organizationPartyId"/>
@@ -2295,5 +2294,62 @@ under the License.
     <simple-method method-name="deletePartyGlAccount" short-description="Delete an existing General Ledger Account of a Party">
         <entity-one entity-name="PartyGlAccount" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+	
+    <!-- Entity Specific Inline Methods -->
+    <simple-method method-name="getVarianceReasonGlAccountInline" short-description="Gets VarianceReasonGlAccount on the basis of primary key">
+        <entity-one entity-name="VarianceReasonGlAccount" value-name="varianceReasonGlAccount">
+            <field-map field-name="organizationPartyId" env-name="parameters.organizationPartyId"/>
+            <field-map field-name="varianceReasonId" env-name="parameters.glAccountTypeId"/>
+        </entity-one>
+    </simple-method>
+
+    <simple-method method-name="getPartyGlAccountInline" short-description="Gets PartyGlAccount on the basis of primary key" >
+        <entity-one entity-name="PartyGlAccount" value-name="partyGlAccount">
+            <field-map field-name="organizationPartyId" env-name="parameters.organizationPartyId"/>
+            <field-map field-name="partyId" env-name="parameters.partyId"/>
+            <field-map field-name="roleTypeId" env-name="roleTypeId"/>
+            <field-map field-name="glAccountTypeId" env-name="parameters.glAccountTypeId"/>
+        </entity-one>
+    </simple-method>
+
+    <simple-method method-name="getCreditCardTypeGlAccountInline" short-description="Gets CreditCardTypeGlAccount on the basis of primary key" >
+        <entity-one entity-name="CreditCardTypeGlAccount" value-name="creditCardTypeGlAccount">
+            <field-map field-name="cardType" env-name="creditCard.cardType"/>
+            <field-map field-name="organizationPartyId" env-name="parameters.organizationPartyId"/>
+        </entity-one>
+    </simple-method>
+
+    <simple-method method-name="getPaymentMethodTypeGlAccountInline" short-description="Gets PaymentMethodTypeGlAccount on the basis of primary key" >
+        <entity-one entity-name="PaymentMethodTypeGlAccount" value-name="paymentMethodTypeGlAccount">
+            <field-map field-name="paymentMethodTypeId" env-name="payment.paymentMethodTypeId"/>
+            <field-map field-name="organizationPartyId" env-name="parameters.organizationPartyId"/>
+        </entity-one>
+    </simple-method>
+
+    <simple-method method-name="getProductGlAccountInline" short-description="Gets ProductGlAccount on the basis of primary key" >
+        <entity-one entity-name="ProductGlAccount" value-name="productGlAccount" use-cache="true"/>
+    </simple-method>
+
+    <simple-method method-name="getProductCategoryGlAccountInline" short-description="Gets ProductCategoryGlAccount on the basis of primary key" >
+        <entity-one entity-name="ProductCategoryGlAccount" value-name="productCategoryGlAccount">
+            <field-map field-name="productCategoryId" env-name="productCategoryMember.productCategoryId"/>
+            <field-map field-name="glAccountTypeId" env-name="parameters.glAccountTypeId"/>
+            <field-map field-name="organizationPartyId" env-name="parameters.organizationPartyId"/>
+        </entity-one>
+    </simple-method>
+
+    <simple-method method-name="getInvoiceItemTypeGlAccountInline" short-description="Gets InvoiceItemTypeGlAccount on the basis of primary key" >
+        <entity-one entity-name="InvoiceItemTypeGlAccount" value-name="invoiceItemTypeGlAccount">
+            <field-map field-name="invoiceItemTypeId" env-name="parameters.glAccountTypeId"/>
+            <field-map field-name="organizationPartyId" env-name="parameters.organizationPartyId"/>
+        </entity-one>
+    </simple-method>
+
+    <simple-method method-name="getGlAccountTypeDefaultInline" short-description="Gets GlAccountTypeDefault on the basis of primary key" >
+        <entity-one entity-name="GlAccountTypeDefault" value-name="lookedUpValue" use-cache="true">
+            <field-map field-name="organizationPartyId" env-name="parameters.organizationPartyId"/>
+            <field-map field-name="glAccountTypeId" env-name="parameters.glAccountTypeId"/>
+        </entity-one>
     </simple-method>
 </simple-methods>

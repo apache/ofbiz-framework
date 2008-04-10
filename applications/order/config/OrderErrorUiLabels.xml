@@ -1576,6 +1576,9 @@
         <value xml:lang="th">ปัญหาการจัดเก็บข้อมูลรายการข้อมูลการติดต่ออีเมล</value>
         <value xml:lang="zh">存储订单电子邮件联系信息时出现问题</value>
     </property>
+    <property key="OrderProblemsWithGetPartyAcctgPreferences">
+        <value xml:lang="en"> Problems with getting PartyAcctgPreference. </value>
+    </property>
     <property key="OrderProblemsWithPaymentTypeLookup">
         <value xml:lang="en"> Problems with PaymentType lookup. </value>
         <value xml:lang="es">  Problemas con la consulta del tipo de pago.</value>

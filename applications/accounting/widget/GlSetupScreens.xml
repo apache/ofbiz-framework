@@ -224,9 +224,13 @@ under the License.
                 <set field="labelTitleProperty" value="${uiLabelMap.AccountingPreference}"/>
                 <set field="tabButtonItem" value="PartyAcctgPreference"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
                 <set field="partyId" from-field="parameters.organizationPartyId"/>
-                <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD" />                
                 <entity-one entity-name="PartyAcctgPreference" value-name="partyAcctgPreference"/>
+                <service service-name="getPartyAccountingPreferences" result-map-name="result">
+                    <field-map field-name="organizationPartyId"/>
+                </service>
+                <set field="agregatedPartyAcctgPreference" from-field="result.partyAccountingPreference"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonAdminDecorator">
@@ -237,12 +241,8 @@ under the License.
                                     <label text="${uiLabelMap.AccountingPreference}"/>
                                 </container>
                             </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="PartyAcctgPreference" location="component://accounting/widget/GlSetupForms.xml"/>
-                                    </widgets>
-                                </section>
+                            <container style="screenlet-body">  
+                                <include-form name="PartyAcctgPreference" location="component://accounting/widget/GlSetupForms.xml"/>
                             </container>
                         </container>
                     </decorator-section>

@@ -62,15 +62,16 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.AccountingCreateAssignment}"><submit button-type="button"/></field>
     </form>
     
-    <form name="PartyAcctgPreference" type="single" target="createPartyAcctgPreference" default-service-name="createPartyAcctgPreference" default-map-name="partyAcctgPreference"
-        header-row-style="header-row" default-table-style="basic-table">
+    <form name="PartyAcctgPreference" type="single" target="createPartyAcctgPreference" default-service-name="createPartyAcctgPreference" default-map-name="agregatedPartyAcctgPreference"
+            header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="partyAcctgPreference!=null" target="updatePartyAcctgPreference"/>
         <auto-fields-service service-name="createPartyAcctgPreference"/>
         <field name="organizationPartyId"><hidden value="${parameters.organizationPartyId}"/></field>
         <!-- the partyId is always displayed -->
         <field name="partyId" title="${uiLabelMap.AccountingOrganizationPartyId}"><display/></field>
         <!-- if there is no partyAcctgPreference yet, then we show drop-downs for the fields and a submit button -->
-        <field name="fiscalYearStartMonth" use-when="partyAcctgPreference==null">
+        <field name="fiscalYearStartMonth" use-when="partyAcctgPreference==null" 
+                tooltip="${uiLabelMap.${bsh: if(agregatedPartyAcctgPreference.get(&quot;fiscalYearStartMonth&quot;)!=null)return &quot;AccountingInheritedValue&quot;; else return &quot;&quot;;}}">
             <drop-down>
                 <option key="1" description="${uiLabelMap.AccountingFiscalMonth01}"/>
                 <option key="2" description="${uiLabelMap.AccountingFiscalMonth02}"/>
@@ -86,7 +87,8 @@ under the License.
                 <option key="12" description="${uiLabelMap.AccountingFiscalMonth12}"/>
             </drop-down>
         </field>
-        <field name="fiscalYearStartDay" use-when="partyAcctgPreference==null">
+        <field name="fiscalYearStartDay" use-when="partyAcctgPreference==null"
+                tooltip="${uiLabelMap.${bsh: if(agregatedPartyAcctgPreference.get(&quot;fiscalYearStartDay&quot;)!=null) return &quot;AccountingInheritedValue&quot;; else return &quot;&quot;;}}">
             <drop-down>
                 <option key="1"/><option key="2"/><option key="3"/><option key="4"/><option key="5"/>
                 <option key="6"/><option key="7"/><option key="8"/><option key="9"/><option key="10"/>
@@ -97,8 +99,8 @@ under the License.
                 <option key="31"/>
             </drop-down>
         </field>
-        
-        <field name="taxFormId" use-when="partyAcctgPreference==null">
+        <field name="taxFormId" use-when="partyAcctgPreference==null" 
+                tooltip="${uiLabelMap.${bsh: if(agregatedPartyAcctgPreference.get(&quot;taxFormId&quot;)!=null) return &quot;AccountingInheritedValue&quot;; else return &quot;&quot;;}}">
             <drop-down>
                 <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value="TAX_FORMS"/>
@@ -106,7 +108,8 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="cogsMethodId" use-when="partyAcctgPreference==null">
+        <field name="cogsMethodId" use-when="partyAcctgPreference==null" 
+                tooltip="${uiLabelMap.${bsh: if(agregatedPartyAcctgPreference.get(&quot;cogsMethodId&quot;)!=null) return &quot;AccountingInheritedValue&quot;; else return &quot;&quot;;}}">
             <drop-down>
                 <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value="COGS_METHODS"/>
@@ -114,16 +117,21 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="baseCurrencyUomId" use-when="partyAcctgPreference==null">
-            <drop-down no-current-selected-key="${defaultCurrencyUomId}">
+        <field name="baseCurrencyUomId" use-when="partyAcctgPreference==null"
+                tooltip="${uiLabelMap.${bsh: if(agregatedPartyAcctgPreference.get(&quot;baseCurrencyUomId&quot;)!=null) return &quot;AccountingInheritedValue&quot;; else return &quot;&quot;;}}">
+            <drop-down>
                 <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
                     <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
                     <entity-order-by field-name="abbreviation"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="invoiceIdPrefix" use-when="partyAcctgPreference==null"><text maxlength="10" size="5"/></field>
-        <field name="invoiceSequenceEnumId" use-when="partyAcctgPreference==null">
+        <field name="invoiceIdPrefix" use-when="partyAcctgPreference==null"
+                tooltip="${uiLabelMap.${bsh: if(agregatedPartyAcctgPreference.get(&quot;invoiceIdPrefix&quot;)!=null) return &quot;AccountingInheritedValue&quot;; else return &quot;&quot;;}}">
+            <text maxlength="10" size="5"/>
+        </field>
+        <field name="invoiceSequenceEnumId" use-when="partyAcctgPreference==null"
+                tooltip="${uiLabelMap.${bsh: if(agregatedPartyAcctgPreference.get(&quot;invoiceSequenceEnumId&quot;)!=null) return &quot;AccountingInheritedValue&quot;; else return &quot;&quot;;}}">
             <drop-down>
                 <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value="INVOICE_SEQMD"/>
@@ -131,14 +139,18 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="useInvoiceIdForReturns" use-when="partyAcctgPreference==null">
+        <field name="useInvoiceIdForReturns" use-when="partyAcctgPreference==null" 
+                tooltip="${uiLabelMap.${bsh: if(agregatedPartyAcctgPreference.get(&quot;useInvoiceIdForReturns&quot;)!=null) return &quot;AccountingInheritedValue&quot;; else return &quot;&quot;;}}">
             <drop-down allow-empty="true">
                 <option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/>
             </drop-down>
         </field>
-
-        <field name="quoteIdPrefix" use-when="partyAcctgPreference==null"><text maxlength="10" size="5"/></field>
-        <field name="quoteSequenceEnumId" use-when="partyAcctgPreference==null">
+        <field name="quoteIdPrefix" use-when="partyAcctgPreference==null" 
+                tooltip="${uiLabelMap.${bsh: if(agregatedPartyAcctgPreference.get(&quot;quoteIdPrefix&quot;)!=null) return &quot;AccountingInheritedValue&quot;; else return &quot;&quot;;}}">
+            <text maxlength="10" size="5"/>
+        </field>
+        <field name="quoteSequenceEnumId" use-when="partyAcctgPreference==null" 
+                tooltip="${uiLabelMap.${bsh: if(agregatedPartyAcctgPreference.get(&quot;quoteSequenceEnumId&quot;)!=null) return &quot;AccountingInheritedValue&quot;; else return &quot;&quot;;}}">
             <drop-down>
                 <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value="QUOTE_SEQMD"/>
@@ -146,8 +158,12 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="orderIdPrefix" use-when="partyAcctgPreference==null"><text maxlength="10" size="5"/></field>
-        <field name="orderSequenceEnumId" use-when="partyAcctgPreference==null">
+        <field name="orderIdPrefix" use-when="partyAcctgPreference==null"
+                tooltip="${uiLabelMap.${bsh: if(agregatedPartyAcctgPreference.get(&quot;orderIdPrefix&quot;)!=null) return &quot;AccountingInheritedValue&quot;; else return &quot;&quot;;}}">
+            <text maxlength="10" size="5"/>
+        </field>
+        <field name="orderSequenceEnumId" use-when="partyAcctgPreference==null"
+                tooltip="${uiLabelMap.${bsh: if(agregatedPartyAcctgPreference.get(&quot;orderSequenceEnumId&quot;)!=null) return &quot;AccountingInheritedValue&quot;; else return &quot;&quot;;}}">
             <drop-down>
                 <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value="ORDER_SEQMD"/>
@@ -159,41 +175,124 @@ under the License.
         <field name="updateButton" use-when="partyAcctgPreference!=null" title="${uiLabelMap.CommonUpdate}"><submit/></field>
         
         <!-- otherwise, we just display the fields.  there is no submit button because we shouldn't try to create it again and don't support an update option right now-->
-        <field name="fiscalYearStartMonth" use-when="partyAcctgPreference!=null"><display/></field>
-        <field name="fiscalYearStartDay" use-when="partyAcctgPreference!=null"><display/></field>
-        <field name="taxFormId" use-when="partyAcctgPreference!=null"><display-entity entity-name="Enumeration" key-field-name="enumId"/></field>
-        <field name="cogsMethodId" use-when="partyAcctgPreference!=null"><display-entity entity-name="Enumeration" key-field-name="enumId"/></field>
-        <field name="baseCurrencyUomId" use-when="partyAcctgPreference!=null"><display/></field>
-        <field name="invoiceIdPrefix" use-when="partyAcctgPreference!=null"><display/></field>
-        <field name="invoiceSequenceEnumId" use-when="partyAcctgPreference!=null"><display-entity entity-name="Enumeration" key-field-name="enumId"/></field>
-        <field name="useInvoiceIdForReturns" use-when="partyAcctgPreference!=null"><display/></field>
-
-        <field name="quoteSequenceEnumId" use-when="partyAcctgPreference!=null"><display-entity entity-name="Enumeration" key-field-name="enumId"/></field>
-        <field name="quoteIdPrefix" use-when="partyAcctgPreference!=null"><display/></field>
-        <field name="lastQuoteNumber" use-when="partyAcctgPreference!=null"><display/></field>
-        <field name="orderSequenceEnumId" use-when="partyAcctgPreference!=null"><display-entity entity-name="Enumeration" key-field-name="enumId"/></field>
-        <field name="orderIdPrefix" use-when="partyAcctgPreference!=null"><display/></field>
-        <field name="lastOrderNumber" use-when="partyAcctgPreference!=null"><display/></field>
-        <!-- 
-            <field name="quoteSequenceEnumId" type="id-ne"/>
-            <field name="quoteIdPrefix" type="very-short"/>
-            <field name="lastQuoteNumber" type="numeric"/>
-    <field name="orderSequenceEnumId" type="id-ne"/>
-    <field name="orderIdPrefix" type="very-short"/>
-    <field name="lastOrderNumber" type="numeric"/>
--->        
-        <!-- these 2 are ONLY displayed, never allow manual editing -->
-        <field name="lastInvoiceNumber"><display/></field>
-        <field name="lastInvoiceRestartDate"><display/></field>
+        <field name="fiscalYearStartMonth" use-when="partyAcctgPreference!=null" tooltip="${bsh: 
+                if(partyAcctgPreference.get(&quot;fiscalYearStartMonth&quot;)==null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;fiscalYearStartMonth&quot;)!=null)
+                    return &quot;AccountingInheritedValue&quot;;
+                else return &quot;&quot;;}">
+            <display/>
+        </field>
+        <field name="fiscalYearStartDay" use-when="partyAcctgPreference!=null" tooltip="${uiLabelMap.${bsh: 
+                if(partyAcctgPreference.get(&quot;fiscalYearStartDay&quot;)==null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;fiscalYearStartDay&quot;)!=null)
+                    return &quot;AccountingInheritedValue&quot;;
+                else return &quot;&quot;;}}">
+            <display/>
+        </field>
+        <field name="taxFormId" use-when="partyAcctgPreference!=null" tooltip="${uiLabelMap.${bsh: 
+                if(partyAcctgPreference.get(&quot;taxFormId&quot;)==null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;taxFormId&quot;)!=null) 
+                    return &quot;AccountingInheritedValue&quot;;
+                else return &quot;&quot;;}}">
+            <display-entity entity-name="Enumeration" key-field-name="enumId"/>
+        </field>
+        <field name="cogsMethodId" use-when="partyAcctgPreference!=null" tooltip="${uiLabelMap.${bsh: 
+                if(partyAcctgPreference.get(&quot;cogsMethodId&quot;)==null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;cogsMethodId&quot;)!=null)
+                    return &quot;AccountingInheritedValue&quot;;
+                else return &quot;&quot;;}}">
+            <display-entity entity-name="Enumeration" key-field-name="enumId"/>
+        </field>
+        <field name="baseCurrencyUomId" use-when="partyAcctgPreference!=null" tooltip="${uiLabelMap.${bsh: 
+                if(partyAcctgPreference.get(&quot;baseCurrencyUomId&quot;)==null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;baseCurrencyUomId&quot;)!=null)
+                    return &quot;AccountingInheritedValue&quot;;
+                else return &quot;&quot;;}}">
+            <display/>
+        </field>
+        <field name="invoiceIdPrefix" use-when="partyAcctgPreference!=null" tooltip="${uiLabelMap.${bsh: 
+                if(partyAcctgPreference.get(&quot;invoiceIdPrefix&quot;)==null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;invoiceIdPrefix&quot;)!=null)
+                    return &quot;AccountingInheritedValue&quot;;
+                else return &quot;&quot;;}}">
+            <display/>
+        </field>
+        <field name="invoiceSequenceEnumId" use-when="partyAcctgPreference!=null" tooltip="${uiLabelMap.${bsh: 
+                if(partyAcctgPreference.get(&quot;invoiceSequenceEnumId&quot;)==null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;invoiceSequenceEnumId&quot;)!=null)
+                    return &quot;AccountingInheritedValue&quot;;
+                else return &quot;&quot;;}}">
+            <display-entity entity-name="Enumeration" key-field-name="enumId"/>
+        </field>
+        <field name="useInvoiceIdForReturns" use-when="partyAcctgPreference!=null" tooltip="${uiLabelMap.${bsh: 
+                if(partyAcctgPreference.get(&quot;useInvoiceIdForReturns&quot;)==null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;useInvoiceIdForReturns&quot;)!=null)
+                    return &quot;AccountingInheritedValue&quot;;
+                else return &quot;&quot;;}}">
+            <display/>
+        </field>
+        <field name="quoteSequenceEnumId" use-when="partyAcctgPreference!=null" tooltip="${uiLabelMap.${bsh: 
+                if(partyAcctgPreference.get(&quot;quoteSequenceEnumId&quot;)==null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;quoteSequenceEnumId&quot;)!=null)
+                    return &quot;AccountingInheritedValue&quot;;
+                else return &quot;&quot;;}}">
+            <display-entity entity-name="Enumeration" key-field-name="enumId"/>
+        </field>
+        <field name="quoteIdPrefix" use-when="partyAcctgPreference!=null" tooltip="${uiLabelMap.${bsh: 
+                if(partyAcctgPreference.get(&quot;quoteIdPrefix&quot;)==null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;quoteIdPrefix&quot;)!=null)
+                    return &quot;AccountingInheritedValue&quot;;
+                else return &quot;&quot;;}}">
+            <display/>
+        </field>
+        <field name="lastQuoteNumber" use-when="partyAcctgPreference!=null" tooltip="${uiLabelMap.${bsh: 
+                if(partyAcctgPreference.get(&quot;lastQuoteNumber&quot;)==null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;lastQuoteNumber&quot;)!=null)
+                    return &quot;AccountingInheritedValue&quot;;
+                else return &quot;&quot;;}}">
+            <display/>
+        </field>
+        <field name="orderSequenceEnumId" use-when="partyAcctgPreference!=null" tooltip="${uiLabelMap.${bsh: 
+                if(partyAcctgPreference.get(&quot;orderSequenceEnumId&quot;)==null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;orderSequenceEnumId&quot;)!=null)
+                    return &quot;AccountingInheritedValue&quot;;
+                else return &quot;&quot;;}}">
+            <display-entity entity-name="Enumeration" key-field-name="enumId"/>
+        </field> 
+        <field name="orderIdPrefix" use-when="partyAcctgPreference!=null" tooltip="${uiLabelMap.${bsh: 
+                if(partyAcctgPreference.get(&quot;orderIdPrefix&quot;)==null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;orderIdPrefix&quot;)!=null)
+                    return &quot;AccountingInheritedValue&quot;;
+                 else return &quot;&quot;;}}">
+            <display/>
+        </field>
+        <field name="lastOrderNumber" use-when="partyAcctgPreference!=null" tooltip="${uiLabelMap.${bsh: 
+                if(partyAcctgPreference.get(&quot;lastOrderNumber&quot;)==null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;lastOrderNumber&quot;)!=null)
+                    return &quot;AccountingInheritedValue&quot;;
+                else return &quot;&quot;;}}">
+            <display/>
+        </field>
         
-        <field name="refundPaymentMethodId">
+        <!-- these 2 are ONLY displayed, never allow manual editing -->
+        <field name="lastInvoiceNumber" tooltip="${uiLabelMap.${bsh: 
+                if((partyAcctgPreference==null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;lastInvoiceNumber&quot;)!=null) ||
+                        (partyAcctgPreference!=null&amp;&amp;partyAcctgPreference.get(&quot;lastInvoiceNumber&quot;)==null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;lastInvoiceNumber&quot;)!=null))
+                    return &quot;AccountingInheritedValue&quot;;
+                else return &quot;&quot;;}}">
+            <display/>
+        </field>
+        <field name="lastInvoiceRestartDate" tooltip="${uiLabelMap.${bsh: 
+                if((partyAcctgPreference==null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;lastInvoiceRestartDate&quot;)!=null) ||
+                        (partyAcctgPreference!=null&amp;&amp;partyAcctgPreference.get(&quot;lastInvoiceRestartDate&quot;)==null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;lastInvoiceRestartDate&quot;)!=null))
+                    return &quot;AccountingInheritedValue&quot;;
+                else return &quot;&quot;;}}">
+            <display/>
+        </field>
+        
+        <!-- these 2 are always can be updated -->
+        <field name="refundPaymentMethodId" tooltip="${uiLabelMap.${bsh: 
+                if((partyAcctgPreference==null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;refundPaymentMethodId&quot;)!=null) ||
+                        (partyAcctgPreference!=null&amp;&amp;partyAcctgPreference.get(&quot;refundPaymentMethodId&quot;)==null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;refundPaymentMethodId&quot;)!=null))
+                    return &quot;AccountingInheritedValue&quot;;
+                else return &quot;&quot;;}}">
             <drop-down>
                 <entity-options entity-name="PaymentMethod" description="${description}" key-field-name="paymentMethodId">
                     <entity-constraint name="partyId" operator="equals" env-name="organizationPartyId"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="errorGlJournalId">
+        <field name="errorGlJournalId" tooltip="${uiLabelMap.${bsh: 
+                if((partyAcctgPreference==null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;errorGlJournalId&quot;)!=null) ||
+                        (partyAcctgPreference!=null&amp;&amp;partyAcctgPreference.get(&quot;errorGlJournalId&quot;)==null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;errorGlJournalId&quot;)!=null))
+                    return &quot;AccountingInheritedValue&quot;;
+                else return &quot;&quot;;}}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="GlJournal" key-field-name="glJournalId" description="${glJournalName} [${glJournalId}]">
                     <entity-constraint name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>

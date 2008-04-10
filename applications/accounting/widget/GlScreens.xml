@@ -278,6 +278,7 @@ under the License.
                                         </container>
                                         <container style="screenlet-body">
                                             <container>
+                                                <link text="${uiLabelMap.AccountingCompleteTransaction}" style="buttontext" target="completeAcctgTransEntries?acctgTransId=${acctgTransId}&amp;organizationPartyId=${organizationPartyId}"/>
                                                 <link text="${uiLabelMap.AccountingVerifyTransaction}" style="buttontext" target="postAcctgTrans?acctgTransId=${acctgTransId}&amp;organizationPartyId=${organizationPartyId}&amp;verifyOnly=Y"/>
                                                 <link text="${uiLabelMap.AccountingPostTransaction}" style="buttontext" target="postAcctgTrans?acctgTransId=${acctgTransId}&amp;organizationPartyId=${organizationPartyId}"/>
                                             </container>

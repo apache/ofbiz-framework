@@ -920,11 +920,15 @@ public class OrderReturnServices {
                     Debug.logError("No payToPartyId found for orderId " + orderId, module);    
                 } else {
                     GenericValue orgAcctgPref = null;
+                    Map acctgPreferencesResult = null;
                     try {
-                        orgAcctgPref = delegator.findByPrimaryKeyCache("PartyAcctgPreference", UtilMisc.toMap("partyId", productStore.get("payToPartyId")));
-                    } catch( GenericEntityException e ) {
-                        Debug.logError("Error retrieving PartyAcctgPreference for partyId " + productStore.get("payToPartyId"), module);    
+                        acctgPreferencesResult = dispatcher.runSync("getPartyAccountingPreferences", UtilMisc.toMap("organizationPartyId", productStore.get("payToPartyId"), "userLogin", userLogin));
+                    } catch (GenericServiceException e){
+                        Debug.logError(e, "Error retrieving PartyAcctgPreference for partyId " + productStore.get("payToPartyId"), module);
+                        return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemsWithGetPartyAcctgPreferences", locale));                
                     }
+                    orgAcctgPref = (GenericValue) acctgPreferencesResult.get("partyAccountingPreference");
+                    
                     if (UtilValidate.isNotEmpty(orgAcctgPref)) {
                         try {
                             refundPaymentMethod = orgAcctgPref.getRelatedOne("PaymentMethod");

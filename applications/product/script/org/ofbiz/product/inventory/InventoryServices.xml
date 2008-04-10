@@ -174,9 +174,10 @@ under the License.
         <!-- if inventoryItem's currencyUomId is empty, get the currencyUomId 
              from the party accounting preferences of the owner of the inventory item -->
         <if-empty field-name="inventoryItem.currencyUomId">
-            <entity-one entity-name="PartyAcctgPreference" value-name="accPref">
-                <field-map field-name="partyId" env-name="inventoryItem.ownerPartyId"/>
-            </entity-one>
+            <set field="partyAccountingPreferencesCallMap.organizationPartyId" from-field="inventoryItem.ownerPartyId"/>
+            <call-service service-name="getPartyAccountingPreferences" in-map-name="partyAccountingPreferencesCallMap">
+                 <result-to-field result-name="partyAccountingPreference" field-name="accPref"/>
+            </call-service>
             <set field="inventoryItem.currencyUomId" from-field="accPref.baseCurrencyUomId"/>
             <if-empty field-name="inventoryItem.currencyUomId">
                 <property-to-field resource="general" property="currency.uom.id.default" field-name="inventoryItem.currencyUomId"/>
