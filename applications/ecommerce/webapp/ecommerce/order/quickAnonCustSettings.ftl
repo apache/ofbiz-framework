@@ -103,7 +103,7 @@ under the License.
                     <input type="text" class="inputBox required" name="homeCountryCode" value="${parameters.homeCountryCode?if_exists}" size="4" maxlength="10"/>
                     -&nbsp;<input type="text" class="inputBox required" name="homeAreaCode" value="${parameters.homeAreaCode?if_exists}" size="4" maxlength="10"/>
                     -&nbsp;<input type="text" class="inputBox required" name="homeContactNumber" value="${parameters.homeContactNumber?if_exists}" size="15" maxlength="15"/>
-                    -&nbsp;<input type="text" class="inputBox required" name="homeExt" value="${parameters.homeExt?if_exists}" size="6" maxlength="10"/> *
+                    -&nbsp;<input type="text" class="inputBox" name="homeExt" value="${parameters.homeExt?if_exists}" size="6" maxlength="10"/> *
                   </div> 
                 </td>
               </tr>
@@ -190,7 +190,7 @@ under the License.
                  <td width="2%">&nbsp;</td>
                  <td width="72%">
                     <@fieldErrors fieldName="shipToStateProvinceGeoId"/>
-                    <select name="shipToStateProvinceGeoId" id="shipToStateProvinceGeoId" class="selectBox required">
+                    <select name="shipToStateProvinceGeoId" id="shipToStateProvinceGeoId" class="selectBox">
                     <#if (parameters.shipToStateProvinceGeoId)?exists>
                        <option>${parameters.shipToStateProvinceGeoId}</option>
                        <option value="${parameters.shipToStateProvinceGeoId}">---</option>
@@ -285,7 +285,7 @@ under the License.
                  <td width="2%">&nbsp;</td>
                  <td width="72%">
                     <@fieldErrors fieldName="billToStateProvinceGeoId"/>
-                    <select name="billToStateProvinceGeoId" id="billToStateProvinceGeoId" class="selectBox required">
+                    <select name="billToStateProvinceGeoId" id="billToStateProvinceGeoId" class="selectBox">
                     <#if (parameters.billToStateProvinceGeoId)?exists>
                        <option>${parameters.billToStateProvinceGeoId}</option>
                        <option value="${parameters.billToStateProvinceGeoId}">---</option>
