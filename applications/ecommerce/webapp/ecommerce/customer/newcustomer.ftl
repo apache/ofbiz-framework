@@ -48,14 +48,12 @@ under the License.
              // document.forms["newuserform"].elements["USERNAME"].disabled=false;
          }
      }
-     alert(document.getElementById("customerCountry").value);
-        if ( document.getElementById("customerCountry").value == "USA"
-             || document.getElementById("customerCountry").value == "UMI" ) {
-            document.getElementById("customerState").style.display = "block";
-        }
-        else {
-            document.getElementById("customerState").style.display = "none";
-        }
+     function hideShowUsaStates() {
+         if (document.getElementById("customerCountry").value == "USA" || document.getElementById("customerCountry").value == "UMI") {
+             document.getElementById("customerState").style.display = "block";
+         } else {
+             document.getElementById("customerState").style.display = "none";
+         }
      }
 </script>
 </#if>
@@ -170,7 +168,7 @@ under the License.
             <div class="form-label">${uiLabelMap.PartyCountry}</div>
             <div class="form-field">
                 <@fieldErrors fieldName="CUSTOMER_COUNTRY"/>
-                <select name="CUSTOMER_COUNTRY" class='selectBox' onClick="javascript:hideShowUsaStates()" id="customerCountry">
+                <select name="CUSTOMER_COUNTRY" class='selectBox' onClick="hideShowUsaStates();" id="customerCountry">
                     <#if requestParameters.CUSTOMER_COUNTRY?exists><option value='${requestParameters.CUSTOMER_COUNTRY}'>${selectedCountryName?default(requestParameters.CUSTOMER_COUNTRY)}</option></#if>
                     ${screens.render("component://common/widget/CommonScreens.xml#countries")}
                 </select> *
