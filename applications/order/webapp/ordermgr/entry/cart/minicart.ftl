@@ -35,7 +35,7 @@ under the License.
           </#if>
           <table width="100%" cellpadding="0" cellspacing="2">
             <tr>
-              <td valign="bottom"><div class="tabletext"><b>${uiLabelMap.EcommerceNbr}</b></div></td>
+              <td valign="bottom"><div class="tabletext"><b>${uiLabelMap.OrderQty}</b></div></td>
               <td valign="bottom"><div class="tabletext"><b>${uiLabelMap.EcommerceItem}</b></div></td>
               <td valign="bottom" align="right"><div class="tabletext"><b>${uiLabelMap.CommonSubtotal}</b></div></td>
             </tr>
