@@ -4697,18 +4697,21 @@
         <value xml:lang="zh">区域</value>
     </property>
     <property key="StatusItem.description.AES_NOT_RECONCILED">
-        <value xml:lang="en">AES_NOT_RECONCILED</value>
+        <value xml:lang="en">Not Reconciled</value>
         <value xml:lang="fr">Non réconcilié</value>
+        <value xml:lang="it">Non Riconciliato</value>
         <value xml:lang="th">ไม่ยอมรับ</value>
     </property>
     <property key="StatusItem.description.AES_PARTLY_RECON">
-        <value xml:lang="en">AES_PARTLY_RECON</value>
+        <value xml:lang="en">Partially Reconciled</value>
         <value xml:lang="fr">Partiellement réconcilié</value>
+        <value xml:lang="it">Parzialmente Riconciliato</value>
         <value xml:lang="th">การยอมรับบางส่วน</value>
     </property>
     <property key="StatusItem.description.AES_RECONCILED">
-        <value xml:lang="en">AES_RECONCILED</value>
+        <value xml:lang="en">Reconciled</value>
         <value xml:lang="fr">Réconcilié</value>
+        <value xml:lang="it">Riconciliato</value>
         <value xml:lang="th">ทำให้ยอมรับ</value>
     </property>
     <property key="StatusItem.description.BLOG_DRAFT">
