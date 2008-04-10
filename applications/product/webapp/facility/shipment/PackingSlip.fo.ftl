@@ -18,38 +18,13 @@ under the License.
 -->
 
 <#escape x as x?xml>
-<fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
-
-<fo:layout-master-set>
-    <fo:simple-page-master master-name="main" page-height="11in" page-width="8.5in"
-            margin-top="0.5in" margin-bottom="1in" margin-left="1in" margin-right="1in">
-        <fo:region-body margin-top="1in"/>
-        <fo:region-before extent="1in"/>
-        <fo:region-after extent="1in"/>
-    </fo:simple-page-master>
-</fo:layout-master-set>
 
     <#if hasPermission>
         <#assign shipGroup = shipment.getRelatedOne("PrimaryOrderItemShipGroup")?if_exists>
         <#assign carrier = (shipGroup.carrierPartyId)?default("N/A")>
-        <fo:page-sequence master-reference="main">
-        <fo:flow flow-name="xsl-region-body" font-family="Helvetica">
             <#if packages?has_content>
             <#list packages as package>
 
-            <fo:block>
-                 ${screens.render("component://order/widget/ordermgr/OrderPrintScreens.xml#CompanyLogo")}
-            </fo:block>
-            <fo:block text-align="right">
-                <fo:instream-foreign-object>
-                    <barcode:barcode xmlns:barcode="http://barcode4j.krysalis.org/ns"
-                            message="${shipment.shipmentId}">
-                        <barcode:code39>
-                            <barcode:height>8mm</barcode:height>
-                        </barcode:code39>
-                    </barcode:barcode>
-                </fo:instream-foreign-object>
-            </fo:block>
             <fo:block><fo:leader/></fo:block>
 
             <fo:block font-size="14pt">${uiLabelMap.ProductShipmentId} #${shipmentId} / Package ${package_index + 1}<#if (packages?size > 1)> of ${packages?size}</#if></fo:block>
@@ -197,14 +172,9 @@ under the License.
                 </fo:block>
             </#if>
 
-        </fo:flow>
-        </fo:page-sequence>
-
     <#else>
         <fo:block font-size="14pt">
             ${uiLabelMap.ProductFacilityViewPermissionError}
         </fo:block>
     </#if>
-
-</fo:root>
 </#escape>
