@@ -351,9 +351,35 @@ under the License.
                 <script location="component://product/webapp/facility/WEB-INF/actions/shipment/ShipmentManifest.bsh"/>
             </actions>
             <widgets>
-                <platform-specific>
-                    <html><html-template location="component://product/webapp/facility/shipment/ShipmentManifest.fo.ftl"/></html>
-                </platform-specific>
+                <decorator-screen name="FoReportDecorator" location="component://common/widget/CommonScreens.xml">
+                    <!-- at the top left of every page we put the logo and company information -->
+                    <decorator-section name="topLeft">
+                        <section>
+                            <widgets>
+                                <include-screen name="CompanyLogo" location="component://order/widget/ordermgr/OrderPrintScreens.xml"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                    <!-- at the top right of every page we put the order information -->
+                    <decorator-section name="topRight">
+                        <section>
+                            <widgets>
+                                <platform-specific>
+                                    <html><html-template location="component://product/webapp/facility/shipment/PackingSlipShipmentBarCode.fo.ftl"/></html>
+                                </platform-specific>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <platform-specific>
+                                    <html><html-template location="component://product/webapp/facility/shipment/ShipmentManifest.fo.ftl"/></html>
+                                </platform-specific>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
             </widgets>
         </section>
     </screen>
