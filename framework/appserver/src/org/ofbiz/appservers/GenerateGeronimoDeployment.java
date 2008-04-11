@@ -43,7 +43,7 @@ import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.base.util.template.FreeMarkerWorker;
 
 /**
- * GenerateGeronimoRepository - Generate needed 3d parties jars (only? rather all jars for now, see commented lines below) in Geronimo (or WASCE) repository
+ * GenerateGeronimoRepository - Generate needed jars in Geronimo (or WASCE) repository
  *
  */
 public class GenerateGeronimoDeployment {
