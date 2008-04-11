@@ -85,21 +85,20 @@ under the License.
                     </fo:block>                
                       <fo:block space-after.optimum="10pt" font-size="10pt">
                     <fo:table>
-                        <fo:table-column column-width="225pt"/>
-                        <fo:table-column column-width="225pt"/>
+                        <fo:table-column column-width="450pt"/>
                         <fo:table-body>
                             <fo:table-row font-weight="bold">
                                 <fo:table-cell padding="2pt" background-color="#D4D0C8">
-                                    <fo:block>${uiLabelMap.FormFieldTitle_shipmentPackageSeqId}: ${shipmentPackage.shipmentPackageSeqId}</fo:block>
-                                </fo:table-cell>
-                                <fo:table-cell padding="2pt" background-color="#D4D0C8">                              
+                                    <fo:block text-align="center">
+                                    ${uiLabelMap.FormFieldTitle_shipmentPackageSeqId}: ${shipmentPackage.shipmentPackageSeqId} 
                                     <#if shipmentPackage.weight?has_content && shipmentPackage.weightUomId?has_content>
                                         <#assign weightUom = shipmentPackage.getRelatedOne("WeightUom")>
-                                        <fo:block text-align="center">${uiLabelMap.ProductWeight}: ${shipmentPackage.weight} ${weightUom.get("description",locale)}</fo:block>                                        
+                                        ${uiLabelMap.ProductWeight}: ${shipmentPackage.weight} ${weightUom.get("description",locale)}                                        
                                     </#if>
+                                    </fo:block>
                                 </fo:table-cell>
                             </fo:table-row>
-                        </fo:table-body>                                         
+                        </fo:table-body>
                     </fo:table>
                     </fo:block>                                    
                     <fo:table>
