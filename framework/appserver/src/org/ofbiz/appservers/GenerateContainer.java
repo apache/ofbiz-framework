@@ -121,21 +121,23 @@ public class GenerateContainer implements Container {
 
         String user = UtilProperties.getPropertyValue("appserver", "user", "system");
         String password = UtilProperties.getPropertyValue("appserver", "password", "manager");
-        boolean offline = UtilProperties.propertyValueEqualsIgnoreCase("appserver", "offline", "true");
-        boolean pauseInGeronimoScript = UtilProperties.propertyValueEqualsIgnoreCase("appserver", "pauseInGeronimoScript", "true");
         int instancesNumber = (int) UtilProperties.getPropertyNumber("appserver", "instancesNumber");
+        boolean offline = UtilProperties.propertyValueEqualsIgnoreCase("appserver", "offline", "true");
+        String host = UtilProperties.getPropertyValue("appserver", "host", "");
+        String port = UtilProperties.getPropertyValue("appserver", "port", "");
+        boolean pauseInGeronimoScript = UtilProperties.propertyValueEqualsIgnoreCase("appserver", "pauseInGeronimoScript", "true");
         String instanceNumber = "";
 
         if (isGeronimo) {
             if (geronimoHome == null) {
                 geronimoHome = System.getenv("GERONIMO_HOME");
                 if (geronimoHome == null) {
-                    Debug.logFatal("'GERONIMO_HOME' was not found in your environment. Please set the location of Geronimo into a GERONIMO_HOME env var or pass it as geronimoHome property in setup.properties file.", module);
+                    Debug.logFatal("'GERONIMO_HOME' was not found in your environment. Please set the location of Geronimo into a GERONIMO_HOME env var or as a geronimoHome property in setup.properties file.", module);
                     throw new ContainerException("Error in Geronimo deployment, please check the log");
                 }
                 File geronimoHomeDir = new File (geronimoHome);
                 if (! (geronimoHomeDir.isDirectory())) {
-                    Debug.logFatal(geronimoHome + " does not exist or is not a directoy. Please set the location of Geronimo into a GERONIMO_HOME env var or pass it as geronimoHome property in setup.properties file.", module);
+                    Debug.logFatal(geronimoHome + " does not exist or is not a directoy. Please set the location of Geronimo into a GERONIMO_HOME env var or as a geronimoHome property in setup.properties file.", module);
                     throw new ContainerException("Error in Geronimo deployment, please check the log");
                 }
             }
@@ -227,19 +229,26 @@ public class GenerateContainer implements Container {
                 File workingDir = new File(geronimoBin);
                 ProcessBuilder pb = null;
                 String command = null;
+                String commandCommonPart = null;
+                String commandCommonHostPart = "";
+                if (UtilValidate.isNotEmpty(host)) {
+                    commandCommonHostPart = " --host" + host + (UtilValidate.isNotEmpty(port) ? port : "");
+                }
 
                 if ("\\".equals(separator)) { //Windows
+                    commandCommonPart = "deploy --user " + user +  " --password " +  password + commandCommonHostPart;
                     if (offline) {
-                        command = "deploy --user " + user +  " --password " +  password + " --offline undeploy " + ofbizName;
+                        command = commandCommonPart + " --offline undeploy " + ofbizName;
                     } else {
-                        command = "deploy --user " +  user +  " --password " +  password + " undeploy " + ofbizName;
+                        command = commandCommonPart + " undeploy " + ofbizName;
                     }
                     pb = new ProcessBuilder("cmd.exe", "/c", command);
                 } else {                        // Linux
+                    commandCommonPart = workingDir + "/deploy.sh --user " + user +  " --password " +  password + commandCommonHostPart;
                     if (offline) {
-                        command = workingDir + "/deploy.sh --user " + user +  " --password " +  password + " --offline undeploy " + ofbizName;
+                        command = commandCommonPart + " --offline undeploy " + ofbizName;
                     } else {
-                        command = workingDir + "/deploy.sh --user " +  user +  " --password " +  password + " undeploy " + ofbizName;
+                        command = commandCommonPart + " undeploy " + ofbizName;
                     }
                     pb = new ProcessBuilder("sh", "-c", command);
                 }
