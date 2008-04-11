@@ -60,7 +60,7 @@ under the License.
 <#if productCategoryMembers?has_content>
     <div class="product-prevnext">
       <#-- Start Page Select Drop-Down -->
-      <#assign viewIndexMax = Static["java.lang.Math"].ceil(listSize?double / viewSize?double)>
+      <#assign viewIndexMax = Static["java.lang.Math"].ceil((listSize - 1)?double / viewSize?double)>
       <select name="pageSelect" onchange="window.location=this[this.selectedIndex].value;">
         <option value="#">${uiLabelMap.CommonPage} ${viewIndex?int} ${uiLabelMap.CommonOf} ${viewIndexMax + 1}</option>
         <#list 0..viewIndexMax as curViewNum>
@@ -92,7 +92,7 @@ under the License.
 
     <div class="product-prevnext">
       <#-- Start Page Select Drop-Down -->
-      <#assign viewIndexMax = Static["java.lang.Math"].ceil(listSize?double / viewSize?double)>
+      <#assign viewIndexMax = Static["java.lang.Math"].ceil((listSize - 1)?double / viewSize?double)>
       <select name="pageSelect" onchange="window.location=this[this.selectedIndex].value;">
         <option value="#">${uiLabelMap.CommonPage} ${viewIndex?int} ${uiLabelMap.CommonOf} ${viewIndexMax + 1}</option>
         <#list 0..viewIndexMax as curViewNum>
