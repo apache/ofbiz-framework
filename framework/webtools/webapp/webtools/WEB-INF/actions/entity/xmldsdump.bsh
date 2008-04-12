@@ -220,7 +220,13 @@ if (tobrowser) {
      
         boolean beganTransaction = TransactionUtil.begin(3600);
         try {
-            EntityListIterator values = delegator.findListIteratorByCondition(curEntityName, entityDateCond, null, null, UtilMisc.toList("-createdTxStamp"), efo);
+            ModelEntity me = reader.getModelEntity(curEntityName);
+            EntityListIterator values = null;
+            if (me.getNoAutoStamp() == true) {
+                values = delegator.findListIteratorByCondition(curEntityName, null, null, null, me.getPkFieldNames(), efo);
+            } else {
+                values = delegator.findListIteratorByCondition(curEntityName, entityDateCond, null, null, UtilMisc.toList("-createdTxStamp"), efo);
+            }
 
             GenericValue value = null;
             long curNumberWritten = 0;
@@ -275,7 +281,11 @@ if (outpath != null){
                     results.add("["+fileNumber +"] [vvv] " + curEntityName + " skipping view entity");
                     continue;
                 }
-                values = delegator.findListIteratorByCondition(curEntityName, entityDateCond, null, null, me.getPkFieldNames(), efo);
+                if (me.getNoAutoStamp() == true) {
+                    values = delegator.findListIteratorByCondition(curEntityName, null, null, null, me.getPkFieldNames(), efo);
+                } else {
+                    values = delegator.findListIteratorByCondition(curEntityName, entityDateCond, null, null, me.getPkFieldNames(), efo);
+                }
                 boolean isFirst = true;
                 PrintWriter writer = null;
                 int fileSplitNumber = 1;

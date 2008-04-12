@@ -56,10 +56,17 @@ under the License.
             try {
                 beganTransaction = TransactionUtil.begin();
 
-          		Iterator i = passedEntityNames.iterator();
-            	while(i.hasNext()) { 
+                Iterator i = passedEntityNames.iterator();
+                while(i.hasNext()) { 
                     String curEntityName = (String)i.next();
-                    EntityListIterator values = delegator.findListIteratorByCondition(curEntityName, entityDateCond, null, null);
+
+                    ModelEntity me = reader.getModelEntity(curEntityName);
+                    EntityListIterator values = null;
+                    if (me.getNoAutoStamp() == true) {
+                        values = delegator.findListIteratorByCondition(curEntityName, null, null, null);
+                    } else {
+                        values = delegator.findListIteratorByCondition(curEntityName, entityDateCond, null, null);
+                    }
 
                     GenericValue value = null;
                     while ((value = (GenericValue) values.next()) != null) {
