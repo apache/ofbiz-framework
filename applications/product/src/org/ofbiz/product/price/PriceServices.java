@@ -97,6 +97,7 @@ public class PriceServices {
         String webSiteId = (String) context.get("webSiteId");
         String checkIncludeVat = (String) context.get("checkIncludeVat");
         String surveyResponseId = (String) context.get("surveyResponseId");
+        Map customAttributes = (Map) context.get("customAttributes");
         
         String findAllQuantityPricesStr = (String) context.get("findAllQuantityPrices");
         boolean findAllQuantityPrices = "Y".equals(findAllQuantityPricesStr);
@@ -501,6 +502,9 @@ public class PriceServices {
                     inMap.put("amount", amountDbl);
                     if (UtilValidate.isNotEmpty(surveyResponseId)) {
                         inMap.put("surveyResponseId", surveyResponseId);
+                    }
+                    if (UtilValidate.isNotEmpty(customAttributes)) {
+                        inMap.put("customAttributes", customAttributes);
                     }
                     try {
                         Map outMap = dispatcher.runSync(customMethod.getString("customMethodName"), inMap);
