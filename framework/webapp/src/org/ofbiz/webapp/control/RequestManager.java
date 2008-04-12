@@ -69,7 +69,7 @@ public class RequestManager implements Serializable {
         Map map = getHandlerMap();
         Map hMap;
 
-        if (type == 1) {
+        if (type == RequestManager.VIEW_HANDLER_KEY) {
             hMap = (Map) map.get("view");
         } else {
             hMap = (Map) map.get("event");
@@ -86,7 +86,7 @@ public class RequestManager implements Serializable {
         Map map = getHandlerMap();
         Map hMap;
 
-        if (type == 1) {
+        if (type == RequestManager.VIEW_HANDLER_KEY) {
             hMap = (Map) map.get("view");
         } else {
             hMap = (Map) map.get("event");
