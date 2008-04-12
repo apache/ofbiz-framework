@@ -135,12 +135,12 @@ public class GenerateContainer implements Container {
                     Debug.logFatal("'GERONIMO_HOME' was not found in your environment. Please set the location of Geronimo into a GERONIMO_HOME env var or as a geronimoHome property in setup.properties file.", module);
                     throw new ContainerException("Error in Geronimo deployment, please check the log");
                 }
+            }
                 File geronimoHomeDir = new File (geronimoHome);
                 if (! (geronimoHomeDir.isDirectory())) {
                     Debug.logFatal(geronimoHome + " does not exist or is not a directoy. Please set the location of Geronimo into a GERONIMO_HOME env var or as a geronimoHome property in setup.properties file.", module);
                     throw new ContainerException("Error in Geronimo deployment, please check the log");
                 }
-            }
 
             for(int inst = 0; inst <= instancesNumber; inst++) {
                 instanceNumber = (inst == 0 ? "" : inst).toString();
