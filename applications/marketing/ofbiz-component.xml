@@ -39,6 +39,7 @@ under the License.
         mount-point="/marketing"/>
     <webapp name="SalesForceAutomation"
         title="SFA"
+        description="SFAApplication"
         server="default-server"
         location="webapp/sfa"
         base-permission="OFBTOOLS,MARKETING"
