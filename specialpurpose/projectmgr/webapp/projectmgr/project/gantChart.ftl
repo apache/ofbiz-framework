@@ -37,14 +37,14 @@ under the License.
         <#if tasks?has_content>
 	        <#list tasks as taskNode>
                 <#if taskNode.estimatedStartDate?exists>
-                   var dtStart = new Date("${taskNode.estimatedStartDate?string.short}");
+                   var dtStart = new Date("${taskNode.estimatedStartDate?string("yyyy/MM/dd HH:mm")}");
                    <#else>
-                   var dtStart = new Date("${chartStart?string.short}");
+                   var dtStart = new Date("${chartStart?string("yyyy/MM/dd HH:mm")}");
                 </#if>
                 <#if taskNode.estimatedCompletionDate?exists>
-                    var dtEnd = new Date("${taskNode.estimatedCompletionDate?string.short}");
+                    var dtEnd = new Date("${taskNode.estimatedCompletionDate?string("yyyy/MM/dd HH:mm")}");
                    <#else>
-                   var dtEnd = new Date("${chartEnd?string.short}");
+                   var dtEnd = new Date("${chartEnd?string("yyyy/MM/dd HH:mm")}");
                 </#if>
 	            <#if taskNode.phaseName?exists>
 	                json.push({high: dtEnd.getTime(), low: dtStart.getTime(), task: "${taskNode.phaseName}", type: "p"});
@@ -55,8 +55,8 @@ under the License.
         </#if>
 
             //Parameters
-            var chartStart = new Date("${chartStart?string.short}");
-            var dEnd = new Date("${chartEnd?string.short}");
+            var chartStart = new Date("${chartStart?string("yyyy/MM/dd HH:mm")}");
+            var dEnd = new Date("${chartEnd?string("yyyy/MM/dd HH:mm")}");
 //          var duration = 14;      //Duration of the chart
             //Calculated parameters
             var nbDays = dojo.date.diff(chartStart, dtEnd, interv);
