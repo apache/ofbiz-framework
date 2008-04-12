@@ -1775,6 +1775,8 @@ public class PaymentGatewayServices {
                 orderPaymentPreference.set("statusId", "PAYMENT_DECLINED");
             } else {
                 orderPaymentPreference.set("statusId", "PAYMENT_ERROR");
+                orderPaymentPreference.set("securityCode", null);
+                orderPaymentPreference.set("track2", null);                
             }
             
             boolean needsNsfRetry = needsNsfRetry(orderPaymentPreference, context, delegator);
