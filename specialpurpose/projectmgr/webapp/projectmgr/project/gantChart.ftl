@@ -35,28 +35,28 @@ under the License.
 
         // Convert the database data to json
         <#if tasks?has_content>
-	        <#list tasks as taskNode>
+          <#list tasks as taskNode>
                 <#if taskNode.estimatedStartDate?exists>
-                   var dtStart = new Date("${taskNode.estimatedStartDate?string("yyyy/MM/dd HH:mm")}");
+                   var dtStart = new Date("${taskNode.estimatedStartDate?string.short}");
                    <#else>
-                   var dtStart = new Date("${chartStart?string("yyyy/MM/dd HH:mm")}");
+                   var dtStart = new Date("${chartStart?string.short}");
                 </#if>
                 <#if taskNode.estimatedCompletionDate?exists>
-                    var dtEnd = new Date("${taskNode.estimatedCompletionDate?string("yyyy/MM/dd HH:mm")}");
+                    var dtEnd = new Date("${taskNode.estimatedCompletionDate?string.short}");
                    <#else>
-                   var dtEnd = new Date("${chartEnd?string("yyyy/MM/dd HH:mm")}");
+                   var dtEnd = new Date("${chartEnd?string.short}");
                 </#if>
-	            <#if taskNode.phaseName?exists>
-	                json.push({high: dtEnd.getTime(), low: dtStart.getTime(), task: "${taskNode.phaseName}", type: "p"});
-	            <#elseif taskNode.workEffortName?exists>
-	                json.push({high: dtEnd.getTime(), low: dtStart.getTime(), task: "${taskNode.workEffortName}", type: "t"});
-	            </#if>
-	        </#list>
+              <#if taskNode.phaseName?exists>
+                  json.push({high: dtEnd.getTime(), low: dtStart.getTime(), task: "${taskNode.phaseName}", type: "p"});
+              <#elseif taskNode.workEffortName?exists>
+                  json.push({high: dtEnd.getTime(), low: dtStart.getTime(), task: "${taskNode.workEffortName}", type: "t"});
+              </#if>
+          </#list>
         </#if>
 
             //Parameters
-            var chartStart = new Date("${chartStart?string("yyyy/MM/dd HH:mm")}");
-            var dEnd = new Date("${chartEnd?string("yyyy/MM/dd HH:mm")}");
+            var chartStart = new Date("${chartStart?string.short}");
+            var dEnd = new Date("${chartEnd?string.short}");
 //          var duration = 14;      //Duration of the chart
             //Calculated parameters
             var nbDays = dojo.date.diff(chartStart, dtEnd, interv);
@@ -305,7 +305,7 @@ function dateFormat(aDate, displayPat){
 <br/><br/>
 <#if tasks?has_content>
 <br/><br/><br/><br/><br/><br/>
-	<#list tasks as taskNode>
-	<br/>
-	</#list>
+  <#list tasks as taskNode>
+  <br/>
+  </#list>
 </#if>
