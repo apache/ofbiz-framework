@@ -28,7 +28,7 @@ under the License.
     <service-resource type="model" loader="main" location="servicedef/services_hhfacility.xml"/>
 
     <webapp name="hhfacility"
-        title="Handheld Facility"
+        title="HandheldFacility"
         server="default-server"
         location="webapp/hhfacility"
         base-permission="OFBTOOLS,FACILITY"

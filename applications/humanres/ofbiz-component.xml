@@ -33,6 +33,7 @@ under the License.
     
     <webapp name="humanres"
         title="HR"
+        description="HumanResourceApplication"
         server="default-server"
         location="webapp/humanres"
         base-permission="OFBTOOLS,HUMANRES"
