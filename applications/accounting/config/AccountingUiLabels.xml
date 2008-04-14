@@ -1211,6 +1211,10 @@
         <value xml:lang="en">Comparative Balance Sheet</value>
         <value xml:lang="th">เปรียบเทียบงบดุล</value>
     </property>
+    <property key="AccountingCompleteAcctgTransFields">
+        <value xml:lang="en">Complete transaction fields</value>
+        <value xml:lang="it">Completa i campi della transazione</value>
+    </property>
     <property key="AccountingCopyAgreement">
         <value xml:lang="ar">نسخ الإتفاقية</value>
         <value xml:lang="en">Copy Agreement</value>

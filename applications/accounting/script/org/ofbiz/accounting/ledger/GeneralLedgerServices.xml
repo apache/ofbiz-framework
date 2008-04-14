@@ -277,6 +277,7 @@ under the License.
                 <set field="getGlAccountFromAccountTypeInMap.debitCreditFlag" from-field="acctgTransEntry.debitCreditFlag"/>
                 <set field="getGlAccountFromAccountTypeInMap.productId" from-field="acctgTransEntry.productId"/>
                 <set field="getGlAccountFromAccountTypeInMap.partyId" from-field="acctgTrans.partyId"/>
+                <set field="getGlAccountFromAccountTypeInMap.roleTypeId" from-field="acctgTrans.roleTypeId"/>
                 <set field="getGlAccountFromAccountTypeInMap.invoiceId" from-field="acctgTrans.invoiceId"/>
                 <set field="getGlAccountFromAccountTypeInMap.paymentId" from-field="acctgTrans.paymentId"/>
                 <call-service service-name="getGlAccountFromAccountType" in-map-name="getGlAccountFromAccountTypeInMap">
@@ -351,6 +352,7 @@ under the License.
                         <set field="getGlAccountFromAccountTypeInMap.debitCreditFlag" from-field="acctgTransEntry.debitCreditFlag"/>
                         <set field="getGlAccountFromAccountTypeInMap.productId" from-field="acctgTransEntry.productId"/>
                         <set field="getGlAccountFromAccountTypeInMap.partyId" from-field="parameters.partyId"/>
+                        <set field="getGlAccountFromAccountTypeInMap.roleTypeId" from-field="parameters.roleTypeId"/>
                         <set field="getGlAccountFromAccountTypeInMap.invoiceId" from-field="parameters.invoiceId"/>
                         <set field="getGlAccountFromAccountTypeInMap.paymentId" from-field="parameters.paymentId"/>
                         <call-service service-name="getGlAccountFromAccountType" in-map-name="getGlAccountFromAccountTypeInMap">
@@ -430,47 +432,16 @@ under the License.
                 <return/>
             </if-not-empty>
         </if-compare>
-        <!-- for invoices and payments, check first if there is a party specific account mapping defined for the account type -->
+        <!-- check first if there is a party specific account mapping defined for the account type -->
         <if>
             <condition>
                 <and>
-                    <or>
-                        <and>
-                            <if-compare field-name="parameters.acctgTransTypeId" operator="equals" value="OUTGOING_PAYMENT"/>
-                            <if-compare field-name="parameters.debitCreditFlag" operator="equals" value="C"/>
-                        </and>
-                        <and>
-                            <if-compare field-name="parameters.acctgTransTypeId" operator="equals" value="INCOMING_PAYMENT"/>
-                            <if-compare field-name="parameters.debitCreditFlag" operator="equals" value="D"/>
-                        </and>
-                        <and>
-                            <if-compare field-name="parameters.acctgTransTypeId" operator="equals" value="PURCHASE_INVOICE"/>
-                            <if-compare field-name="parameters.debitCreditFlag" operator="equals" value="D"/>
-                        </and>
-                        <and>
-                            <if-compare field-name="parameters.acctgTransTypeId" operator="equals" value="SALES_INVOICE"/>
-                            <if-compare field-name="parameters.debitCreditFlag" operator="equals" value="C"/>
-                        </and>
-                    </or>
                     <not><if-empty field-name="parameters.glAccountTypeId"/></not>
                     <not><if-empty field-name="parameters.partyId"/></not>
+                    <not><if-empty field-name="parameters.roleTypeId"/></not>
                 </and>
             </condition>
             <then>
-                <if>
-                    <condition>
-                        <or>
-                            <if-compare field-name="parameters.acctgTransTypeId" operator="equals" value="OUTGOING_PAYMENT"/>
-                            <if-compare field-name="parameters.acctgTransTypeId" operator="equals" value="PURCHASE_INVOICE"/>
-                        </or>
-                    </condition>
-                    <then>
-                        <set field="roleTypeId" value="BILL_FROM_VENDOR"/>
-                    </then>
-                    <else>
-                        <set field="roleTypeId" value="BILL_TO_CUSTOMER"/>
-                    </else>
-                </if>
                 <call-simple-method method-name="getPartyGlAccountInline"/>
                 <if-not-empty field-name="partyGlAccount.glAccountId">
                     <field-to-result field-name="partyGlAccount.glAccountId" result-name="glAccountId"/>
@@ -2308,7 +2279,7 @@ under the License.
         <entity-one entity-name="PartyGlAccount" value-name="partyGlAccount">
             <field-map field-name="organizationPartyId" env-name="parameters.organizationPartyId"/>
             <field-map field-name="partyId" env-name="parameters.partyId"/>
-            <field-map field-name="roleTypeId" env-name="roleTypeId"/>
+            <field-map field-name="roleTypeId" env-name="parameters.roleTypeId"/>
             <field-map field-name="glAccountTypeId" env-name="parameters.glAccountTypeId"/>
         </entity-one>
     </simple-method>
