@@ -67,6 +67,7 @@ if (find == null) {
 String curFindString = "entityName=" + entityName + "&amp;find=" + find;
  
 GenericEntity findByEntity = delegator.makeValue(entityName);
+List errMsgList = FastList.newInstance();
 for (int fnum = 0; fnum < modelEntity.getFieldsSize(); fnum++) {
     ModelField field = modelEntity.getField(fnum);
     String fval = parameters.get(field.getName());
@@ -76,12 +77,16 @@ for (int fnum = 0; fnum < modelEntity.getFieldsSize(); fnum++) {
             try {
                 findByEntity.setString(field.getName(), fval);
             } catch (NumberFormatException nfe) {
-                Debug.logError(nfe, "Caught an exception : "+nfe.toString(), "FindGeneric.bsh");
-                request.setAttribute("_ERROR_MESSAGE_", "Entered value is non-numeric for numeric field: "+field.getName());
+                Debug.logError(nfe, "Caught an exception : " + nfe.toString(), "FindGeneric.bsh");
+                errMsgList.add("Entered value is non-numeric for numeric field: " + field.getName());
             }
         }
     }
 }
+if (errMsgList.size() > 0) {
+    request.setAttribute("_ERROR_MESSAGE_LIST_", errMsgList);
+}
+
 curFindString = UtilFormatOut.encodeQuery(curFindString);
 context.put("curFindString", curFindString);
 
