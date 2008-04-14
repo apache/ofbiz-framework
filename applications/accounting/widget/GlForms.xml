@@ -485,16 +485,16 @@ under the License.
         <alt-target use-when="acctgTransEntry==null" target="createAcctgTransEntry"/>
         <field name="organizationPartyId"><hidden/></field>
         <field name="acctgTransId"><hidden/></field>
-        <field name="acctgTransEntrySeqId"><hidden/></field>     
-        <field name="acctgTransTypeId" title="${uiLabelMap.AccountingTransactionType}">
-            <drop-down>
-                <entity-options entity-name="AcctgTransType" description="${description}">
-                    <entity-order-by field-name="acctgTransTypeId"/>
+        <field name="acctgTransEntrySeqId"><hidden/></field>
+        <field name="acctgTransEntryTypeId" ><hidden value="_NA_"/></field>
+        <field name="description"><text size="30"/></field>
+        <field name="glAccountTypeId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="GlAccountType" description="${description}">
+                    <entity-order-by field-name="glAccountTypeId"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="acctgTransEntryTypeId" ><hidden value="_NA_"/></field>
-        <field name="description"><text size="30"/></field>
         <field name="glAccountId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="GlAccountOrganizationAndClass" key-field-name="glAccountId" description="${glAccountId} ${accountName}">
