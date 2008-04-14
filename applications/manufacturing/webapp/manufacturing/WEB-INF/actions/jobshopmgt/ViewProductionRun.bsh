@@ -76,14 +76,5 @@ if (!UtilValidate.isEmpty(productionRunId)) {
         //  Product component/parts list
         List productionRunComponentsData = productionRun.getProductionRunComponents();
         context.put("productionRunComponents", productionRunComponentsData);
-
-        // Fixed assets list
-        List productionRunFixedAssetsData = new LinkedList();
-        for (Iterator tasksIt = productionRunRoutingTasks.iterator(); tasksIt.hasNext();) {
-            GenericValue prodRunTask = (GenericValue)tasksIt.next();
-            List taskFixedAssets = prodRunTask.getRelated("WorkEffortFixedAssetAssign");
-            productionRunFixedAssetsData.addAll(taskFixedAssets);
-        }
-        context.put("productionRunFixedAssetsData", productionRunFixedAssetsData);
     }
 }
