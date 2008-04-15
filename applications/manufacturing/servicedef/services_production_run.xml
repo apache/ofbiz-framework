@@ -180,7 +180,7 @@ under the License.
         <attribute name="quantityIssued" type="Double" mode="OUT" optional="false"/>
         <attribute name="finishedProductId" type="String" mode="OUT" optional="false"/>
     </service>
-    <service name="productionRunProduce" engine="java"
+    <service name="productionRunProduce" engine="java" transaction-timeout="7200"
             location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="productionRunProduce" auth="true">
         <description>
             Create Inventory for product produced by a Production Run.
