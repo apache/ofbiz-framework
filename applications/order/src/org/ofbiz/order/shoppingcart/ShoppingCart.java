@@ -3235,10 +3235,15 @@ public class ShoppingCart implements Serializable {
             }
             
             //create new product and associate it
+            GenericValue product = item.getProduct();
+            String productName = product.getString("productName");
+            String description = product.getString("description");
             Map serviceContext = new HashMap();
             GenericValue permUserLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));
             String internalName = item.getProductId() + "_" + configId;
             serviceContext.put("internalName", internalName);
+            serviceContext.put("productName", productName);
+            serviceContext.put("description", description);
             serviceContext.put("productTypeId", "AGGREGATED_CONF");
             serviceContext.put("configId", configId);
             serviceContext.put("userLogin", permUserLogin);
