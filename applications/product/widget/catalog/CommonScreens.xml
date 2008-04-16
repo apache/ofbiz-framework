@@ -87,6 +87,9 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
+                        <container>
+                            <link target="EditCategory" text="${uiLabelMap.ProductNewCategory}" style="buttontext"/>
+                        </container> 
                         <platform-specific><html><html-template location="component://product/webapp/catalog/ChooseTopCategory.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
