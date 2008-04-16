@@ -67,7 +67,12 @@ under the License.
                 <field-map field-name="workEffortGoodStdTypeId" value="PRUNT_PROD_NEEDED"/>
             </entity-one>
             <set from-field="workEffortGoodStandard.productId" field="productId"/>
-            <set from-field="workEffortGoodStandard.estimatedQuantity" field="estimatedQuantity"/>
+            <if-empty field-name="parameters.quantity">
+                <set from-field="workEffortGoodStandard.estimatedQuantity" field="estimatedQuantity"/>
+            <else>
+                <set from-field="parameters.quantity" field="estimatedQuantity" default-value="0.0" type="Double"/>
+            </else>
+            </if-empty>
         </else>
         </if-empty>
         

@@ -193,6 +193,19 @@ under the License.
         <attribute name="createLotIfNeeded" type="Boolean" mode="IN" optional="true"/>
         <attribute name="autoCreateLot" type="Boolean" mode="IN" optional="true"/>
     </service>
+    <service name="productionRunDeclareAndProduce" engine="java" transaction-timeout="7200"
+            location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="productionRunDeclareAndProduce" auth="true">
+        <description>
+            Create Inventory for product produced by a Production Run and if necessary add declared quantities to tasks (and issue materials, if needed).
+        </description>
+        <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
+        <attribute name="inventoryItemIds" type="List" mode="OUT" optional="false"/>
+        <attribute name="quantity" type="Double" mode="INOUT" optional="false"/>
+        <attribute name="inventoryItemTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="lotId" type="String" mode="IN" optional="true"/>
+        <attribute name="createLotIfNeeded" type="Boolean" mode="IN" optional="true"/>
+        <attribute name="autoCreateLot" type="Boolean" mode="IN" optional="true"/>
+    </service>
     <service name="productionRunTaskProduce" engine="java"
             location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="productionRunTaskProduce" auth="true">
         <description>
@@ -244,7 +257,7 @@ under the License.
         </description>
         <attribute name="productionRunId" type="String" mode="IN" optional="false"/>
         <attribute name="productionRunTaskId" type="String" mode="IN" optional="false"/>
-        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="addQuantityProduced" type="Double" mode="IN" optional="true"/>
@@ -252,6 +265,7 @@ under the License.
         <attribute name="addSetupTime" type="Double" mode="IN" optional="true"/>
         <attribute name="addTaskTime" type="Double" mode="IN" optional="true"/>
         <attribute name="comments" type="String" mode="IN" optional="true"/>
+        <attribute name="issueRequiredComponents" type="Boolean" mode="IN" optional="true"/>
     </service>
     <service name="quickRunProductionRunTask" engine="java"
             location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="quickRunProductionRunTask" auth="true">
@@ -262,6 +276,11 @@ under the License.
     <service name="quickRunAllProductionRunTasks" engine="java"
             location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="quickRunAllProductionRunTasks" auth="true">
         <description>Quick runs all the tasks of a ProductionRun to the completed status, also issuing components if necessary.</description>
+        <attribute name="productionRunId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="quickStartAllProductionRunTasks" engine="java"
+            location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="quickStartAllProductionRunTasks" auth="true">
+        <description>Quick starts all the tasks of a ProductionRun.</description>
         <attribute name="productionRunId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="quickChangeProductionRunStatus" engine="java"

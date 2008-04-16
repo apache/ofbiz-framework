@@ -623,6 +623,12 @@ under the License.
         <response name="success" type="view" value="ProductionRunDeclaration"/>
         <response name="error" type="view" value="ProductionRunDeclaration"/>
     </request-map>
+    <request-map uri="quickStartAllProductionRunTasks">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="quickStartAllProductionRunTasks"/>
+        <response name="success" type="view" value="ProductionRunDeclaration"/>
+        <response name="error" type="view" value="ProductionRunDeclaration"/>
+    </request-map>
     <request-map uri="scheduleProductionRun">
         <security https="true" auth="true"/>
         <event type="service" invoke="quickChangeProductionRunStatus"/>
@@ -644,6 +650,12 @@ under the License.
     <request-map uri="productionRunProduce">
         <security https="true" auth="true"/>
         <event type="service" invoke="productionRunProduce"/>
+        <response name="success" type="view" value="ProductionRunDeclaration"/>
+        <response name="error" type="view" value="ProductionRunDeclaration"/>
+    </request-map>
+    <request-map uri="productionRunDeclareAndProduce">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="productionRunDeclareAndProduce"/>
         <response name="success" type="view" value="ProductionRunDeclaration"/>
         <response name="error" type="view" value="ProductionRunDeclaration"/>
     </request-map>
