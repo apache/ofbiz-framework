@@ -2042,6 +2042,10 @@
         <value xml:lang="th">สินค้า</value>
         <value xml:lang="zh">已生产</value>
     </property>
+    <property key="ManufacturingQuantityProducedIsHigherThanQuantityDeclared">
+        <value xml:lang="en">Quantity produced cannot be greater than the quantity declared.</value>
+        <value xml:lang="it">La quantità prodotta non puo' essere maggiore della quantita' dichiarata.</value>
+    </property>
     <property key="ManufacturingQuantityRejected">
         <value xml:lang="en">Rejected</value>
         <value xml:lang="es">Rechazado</value>
@@ -2090,6 +2094,10 @@
         <value xml:lang="ro">Executie Rapida Toate Sarcinile</value>
         <value xml:lang="th">ทำงานทั้งหมดอย่างรวดเร็ว</value>
         <value xml:lang="zh">快速运行全部任务</value>
+    </property>
+    <property key="ManufacturingQuickStartAllTasks">
+        <value xml:lang="en">Quick Start All Tasks</value>
+        <value xml:lang="it">Avvio Veloce Operazioni</value>
     </property>
     <property key="ManufacturingQuickRunTask">
         <value xml:lang="en">Quick Run Task</value>

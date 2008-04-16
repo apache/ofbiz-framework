@@ -252,6 +252,19 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
+    <form name="ProductionRunDeclareAndProduce" type="single" target="productionRunDeclareAndProduce" title="" default-map-name="productionRunData"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="workEffortId"><hidden/></field>
+        <field name="quantity" title="${uiLabelMap.ManufacturingProduceQuantity}" tooltip="If required, materials will be issued as well."><text/></field>
+        <field name="inventoryItemTypeId">
+            <drop-down allow-empty="false" no-current-selected-key="NON_SERIAL_INV_ITEM">
+                <entity-options entity-name="InventoryItemType" description="${description}"/>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}">
+            <submit button-type="button"/>
+        </field>
+    </form>
    
     <form name="ListProductionRunDeclRoutingTasks" type="list" target="ProductionRunDeclaration" title="" list-name="productionRunRoutingTasks"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">

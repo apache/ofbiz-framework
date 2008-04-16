@@ -218,6 +218,7 @@ under the License.
                                     </and>
                                 </condition>
                                 <widgets>
+                                    <link target="quickStartAllProductionRunTasks?productionRunId=${productionRunId}" text="${uiLabelMap.ManufacturingQuickStartAllTasks}" style="buttontext"/>
                                     <link target="quickRunAllProductionRunTasks?productionRunId=${productionRunId}" text="${uiLabelMap.ManufacturingQuickRunAllTasks}" style="buttontext"/>
                                     <link target="quickChangeProductionRunStatus?productionRunId=${productionRunId}&amp;statusId=PRUN_COMPLETED" text="${uiLabelMap.ManufacturingQuickComplete}" style="buttontext"/>
                                     <link target="quickChangeProductionRunStatus?productionRunId=${productionRunId}&amp;statusId=PRUN_CLOSED" text="${uiLabelMap.ManufacturingQuickClose}" style="buttontext"/>
@@ -254,6 +255,27 @@ under the License.
                                         <section>
                                             <widgets>                                        
                                                 <include-form name="ProductionRunProduce" location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml"/>
+                                            </widgets>
+                                        </section>
+                                    </container>
+                                   </container>                                
+                            </widgets>
+                        </section>
+                        <section>
+                            <condition>
+                                <if-compare field-name="canDeclareAndProduce" operator="equals" value="Y"/>
+                            </condition>
+                            <widgets>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="h3">
+                                            <label text="${uiLabelMap.ManufacturingProductionRunDeclareAndProduce}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <section>
+                                            <widgets>                                        
+                                                <include-form name="ProductionRunDeclareAndProduce" location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml"/>
                                             </widgets>
                                         </section>
                                     </container>

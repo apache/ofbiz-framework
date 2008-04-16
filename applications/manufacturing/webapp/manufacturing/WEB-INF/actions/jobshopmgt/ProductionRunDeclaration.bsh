@@ -86,9 +86,12 @@ if (!UtilValidate.isEmpty(productionRunId)) {
         if (quantityDeclared == null) {
             quantityDeclared = new Double(0);
         }
+        if (lastTask != null && ("PRUN_RUNNING".equals(lastTask.getString("currentStatusId")) || "PRUN_COMPLETED".equals(lastTask.getString("currentStatusId")))) {
+            context.put("canDeclareAndProduce", "Y");
+        }
         double maxQuantity = quantityDeclared.doubleValue() - quantityProduced.doubleValue();
 
-        HashMap productionRunData= new HashMap();
+        HashMap productionRunData = new HashMap();
         productionRunData.put("workEffortId",productionRunId);
         productionRunData.put("productId", productionRun.getProductProduced().getString("productId"));
         if (maxQuantity > 0 && !"WIP".equals(productionRun.getProductProduced().getString("productTypeId"))) {
