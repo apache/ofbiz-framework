@@ -1537,9 +1537,11 @@ padding: 0.1em;
 /* tab-bar decorator intended to be used at
 the top of the main content area */
 .tab-bar {
-margin-left: 0em;
-margin-top: 0em;
+margin-left: -1em;
+margin-top: -1em;
 padding: 0;
+position:absolute;
+z-index: 2;
 }
 
 .tab-bar ul li {
