@@ -231,32 +231,32 @@ ${virtualJavaScript?if_exists}
     }
 
     <#if product.virtualVariantMethodEnum?if_exists == "VV_FEATURETREE" && featureLists?has_content>	
-      function checkRadioButton() {
-        //alert("work");
-        var block = document.getElementById("addCart");
-      
-          <#list featureLists as featureList>
-          <#list featureList as feature>
-            <#if feature_index == 0>
-                var myList = document.getElementById("FT${feature.productFeatureTypeId}");
-                 if (myList.options[0].selected == true){
-                   block.style.display = "none";
-                   return;
-                 }
-  
-              <#break>
-            </#if>		    
-          </#list>
-          </#list>
-          block.style.display = "block";
-      }
+	    function checkRadioButton() {
+		    var block1 = document.getElementById("addCart1");
+		    var block2 = document.getElementById("addCart2");
+	        <#list featureLists as featureList>
+			    <#list featureList as feature>
+				    <#if feature_index == 0>
+				        var myList = document.getElementById("FT${feature.productFeatureTypeId}");
+				         if (myList.options[0].selected == true){
+				         	block1.style.display = "none";
+				         	block2.style.display = "block";
+				         	return;
+				         }
+				    	<#break>
+				    </#if>		    
+			    </#list>
+	        </#list>
+	        block1.style.display = "block";
+	        block2.style.display = "none";
+	    }
     </#if>  
  //-->
  </script>
 
 <div id="productdetail">
 
-<table border="0" cellpadding="2" cellspacing="0">
+<table border="0" cellpadding="2" cellspacing="0" width="100%">
   <#-- Category next/previous -->
   <#if category?exists>
     <tr>
@@ -425,21 +425,29 @@ ${virtualJavaScript?if_exists}
                         <div class="tabletext">${feature.description}: <select id="FT${feature.productFeatureTypeId}" name="FT${feature.productFeatureTypeId}" onChange="javascript:checkRadioButton();">
                         <option value="select" selected="selected"> select option </option> 
                     <#else>
-                        <option value="${feature.productFeatureId}">${feature.description}</option> 
+                        <option value="${feature.productFeatureId}">${feature.description} <#if feature.price?exists>(+ <@ofbizCurrency amount=feature.price?string isoCode=feature.currencyUomId/>)</#if></option> 
                     </#if>
                 </#list>
                 </select>
                 </div>
             </#list>
-            <input type="hidden" name="add_product_id" value="${product.productId}"/>          
-            <div id="addCart" style="display:none;>
+              <input type="hidden" name="product_id" value="${product.productId}"/>
+              <input type="hidden" name="add_product_id" value="${product.productId}"/>
+            <div id="addCart1" style="display:none;>
               <span style="white-space: nowrap;"><b>${uiLabelMap.CommonQuantity}:</b></span>&nbsp;
               <input type="text" class="inputBox" size="5" name="quantity" value="1"/>
-              <a href="javascript:document.addform.submit();" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.EcommerceAddtoCart}</span></a>
+              <a href="javascript:javascript:addItem();" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.EcommerceAddtoCart}</span></a>
+              &nbsp;
+            </div>            
+            <div id="addCart2" style="display:block;>
+              <span style="white-space: nowrap;"><b>${uiLabelMap.CommonQuantity}:</b></span>&nbsp;
+              <input type="text" class="inputBox" size="5" value="1" disabled="disabled"/>
+              <a href="javascript:alert('Please select all features first');" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.EcommerceAddtoCart}</span></a>
               &nbsp;
             </div>            
           </#if>
-          <#if variantTree?exists && (variantTree.size() > 0)>
+          <#if !product.virtualVariantMethodEnum?exists || product.virtualVariantMethodEnum == "VV_VARIANTTREE">
+           <#if variantTree?exists && (variantTree.size() > 0)>
             <#list featureSet as currentType>
               <div class="tabletext">
                 <select name="FT${currentType}" onchange="javascript:getList(this.name, (this.selectedIndex-1), 1);">
@@ -459,6 +467,7 @@ ${virtualJavaScript?if_exists}
             <div class="tabletext"><b>${uiLabelMap.ProductItemOutofStock}.</b></div>
             <#assign inStock = false>
           </#if>
+         </#if> 
         <#else>
           <input type="hidden" name="product_id" value="${product.productId}"/>
           <input type="hidden" name="add_product_id" value="${product.productId}"/>
@@ -482,7 +491,7 @@ ${virtualJavaScript?if_exists}
         <#elseif product.salesDiscontinuationDate?exists && nowTimestamp.after(product.salesDiscontinuationDate)>
           <div class="tabletext" style="color: red;">${uiLabelMap.ProductProductNoLongerAvailable}.</div>
         <#-- check to see if the product requires inventory check and has inventory -->
-        <#else>
+        <#elseif product.virtualVariantMethodEnum?if_exists != "VV_FEATURETREE">
           <#if inStock>
             <#if product.requireAmount?default("N") == "Y">
               <#assign hiddenStyle = "visible">
@@ -692,7 +701,7 @@ ${setRequestAttribute("productValue", productValue)}
     <#-- obsolete -->
     <@associated assocProducts=obsoleteProducts beforeName="" showName="Y" afterName=" ${uiLabelMap.ProductObsolete}" formNamePrefix="obs" targetRequestName=""/>
     <#-- cross sell -->
-    <@associated assocProducts=crossSellProducts beforeName="" showName="N" afterName="${uiLabelMap.ProductCrossSell}" formNamePrefix="cssl" targetRequestName="crosssell"/>
+    <@associated assocProducts=crossSellProducts beforeName="" showName="N" afterName="${uiLabelMap.ProducrCrossSell}" formNamePrefix="cssl" targetRequestName="crosssell"/>
     <#-- up sell -->
     <@associated assocProducts=upSellProducts beforeName="${uiLabelMap.ProductUpSell} " showName="Y" afterName=":" formNamePrefix="upsl" targetRequestName="upsell"/>
     <#-- obsolescence -->
