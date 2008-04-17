@@ -479,39 +479,7 @@ public class ProductWorker {
         }
         return features;
     }
-    /**
-     * 
-     * @param product
-     * @return list of featureTypes sorted by sequence for this product.
-     */
-    public static List getProductFeatureTypesBySeq(GenericDelegator delegator, String productId) {
-        if (productId == null) {
-            return null;
-        }
-        List featureTypes = new ArrayList();
-        try {
-            GenericValue product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
-            if (product != null) {
-                List productAppls = null;
-                Map fields = UtilMisc.toMap("productId", product.getString("productId"), "productFeatureApplTypeId", "SELECTABLE_FEATURE");
-                List order = UtilMisc.toList("productFeatureTypeId","sequenceNum");
-                List features = delegator.findByAndCache("ProductFeatureAndAppl", fields, order);
-                Iterator it = features.iterator();
-                String oldType = null;
-                while(it.hasNext()) {
-                    GenericValue productFeatureAppl = (GenericValue) it.next();
-                    if (oldType == null || !oldType.equals(productFeatureAppl.getString("productFeatureTypeId"))) {
-                        featureTypes.add(productFeatureAppl.getString("productFeatureTypeId")); 
-                        oldType = productFeatureAppl.getString("productFeatureTypeId");
-                    }
-                }
-            }
-        } catch (GenericEntityException e) {
-            Debug.logError(e, module);
-        }
-        return featureTypes;
-    }
-    
+
     public static String getProductvirtualVariantMethod(GenericDelegator delegator, String productId) {
     	GenericValue product = null;
         try {
@@ -530,31 +498,30 @@ public class ProductWorker {
     /**
      * 
      * @param product
-     * @return list featureType and related features for this product ordered by type and sequence
+     * @return list featureType and related featuresIds, description and feature price for this product ordered by type and sequence
      */
-    public static List getProductFeaturesByTypesAndSeq(GenericValue product) {
+    public static List<List<Map<String,String>>> getSelectableProductFeaturesByTypesAndSeq(GenericValue product) {
         if (product == null) {
             return null;
         }
-        List featureTypeFeatures = new ArrayList();
+        List <List<Map<String,String>>> featureTypeFeatures = new ArrayList<List<Map<String,String>>>();
         try {
             if (product != null) {
                 GenericDelegator delegator = product.getDelegator();
-                List productAppls = null;
-                Map fields = UtilMisc.toMap("productId", product.getString("productId"), "productFeatureApplTypeId", "SELECTABLE_FEATURE");
-                List order = UtilMisc.toList("productFeatureTypeId","sequenceNum");
+                Map<String,String> fields = UtilMisc.toMap("productId", product.getString("productId"), "productFeatureApplTypeId", "SELECTABLE_FEATURE");
+                List<String> order = UtilMisc.toList("productFeatureTypeId", "sequenceNum");
                 List features = delegator.findByAndCache("ProductFeatureAndAppl", fields, order);
-                List featuresSorted = UtilMisc.sortMaps(features, order);
-                Iterator it = featuresSorted.iterator();
+                List featuresSorted = (List) UtilMisc.sortMaps(features, order);
+                Iterator it = (Iterator) featuresSorted.iterator();
                 String oldType = null;
-                List featureList = new LinkedList();
+                List<Map<String,String>> featureList = new LinkedList<Map<String,String>>();
                 while(it.hasNext()) {
                     GenericValue productFeatureAppl = (GenericValue) it.next();
                     if (oldType == null || !oldType.equals(productFeatureAppl.getString("productFeatureTypeId"))) {
+                    	// use first entry for type and description
                         if (oldType != null) {
                             featureTypeFeatures.add(featureList);
-                            featureList =  new LinkedList();
-                            Debug.log("=====add feature: " + oldType);
+                            featureList =  new LinkedList<Map<String,String>>();
                             } 
                         GenericValue productFeatureType = delegator.findByPrimaryKey("ProductFeatureType", UtilMisc.toMap("productFeatureTypeId", 
                         		productFeatureAppl.getString("productFeatureTypeId")));
@@ -562,20 +529,32 @@ public class ProductWorker {
                                                         "description", productFeatureType.getString("description")));  
                         oldType = productFeatureAppl.getString("productFeatureTypeId");
                     }
-                    // featureId and description
-                    featureList.add(UtilMisc.toMap("productFeatureId", productFeatureAppl.getString("productFeatureId"), "description", productFeatureAppl.getString("description"))); 
+                    // fill other entries with featureId, description and default price and currency
+                    Map <String,String> featureData = UtilMisc.toMap("productFeatureId", productFeatureAppl.getString("productFeatureId"));
+                    if (UtilValidate.isNotEmpty(productFeatureAppl.get("description"))) {
+                		featureData.put("description", productFeatureAppl.getString("description"));
+                    } else {
+                    	featureData.put("description", productFeatureAppl.getString("productFeatureId"));
+                    }
+                    List <GenericValue> productFeaturePrices = EntityUtil.filterByDate(delegator.findByAnd("ProductFeaturePrice", 
+                    		UtilMisc.toMap("productFeatureId", productFeatureAppl.getString("productFeatureId"), "productPriceTypeId", "DEFAULT_PRICE")));
+                    if (UtilValidate.isNotEmpty(productFeaturePrices)) {
+                    	GenericValue productFeaturePrice = productFeaturePrices.get(0);
+                        if (UtilValidate.isNotEmpty(productFeaturePrice.get("price"))) {
+                        	featureData.put("price", productFeaturePrice.getBigDecimal("price").toString()); 
+                        	featureData.put("currencyUomId", productFeaturePrice.getString("currencyUomId")); 
+                        }
+                    }
+                    featureList.add(featureData);
                 }
                 if (oldType != null) {
                     // last map
                     featureTypeFeatures.add(featureList);
-                    Debug.log("=====add feature: " + oldType);
                 }       
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
-        Debug.log("=====total list: " + featureTypeFeatures.toString());
-
         return featureTypeFeatures;
     }
 
