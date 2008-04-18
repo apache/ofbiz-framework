@@ -222,8 +222,22 @@ under the License.
                 <calculate field-name="quantityNotIssued" map-name="parameters"><number value="0"/></calculate>
             </if-compare>
             <if-not-empty field-name="workEffortGoodStandard">
-                <set value="WEGS_COMPLETED" field="workEffortGoodStandard.statusId"/>
-                <store-value value-name="workEffortGoodStandard"/>
+                <entity-and list-name="issuances" entity-name="WorkEffortAndInventoryAssign">
+                    <field-map field-name="workEffortId" env-name="workEffortGoodStandard.workEffortId"/>
+                    <field-map field-name="productId" env-name="workEffortGoodStandard.productId"/>
+                </entity-and>
+                <iterate list-name="issuances" entry-name="issuance">
+                    <calculate field-name="totalIssuance">
+                        <calcop operator="add">
+                            <calcop field-name="issuance.quantity" operator="get"/>
+                            <calcop field-name="totalIssuance" operator="get"/>
+                        </calcop>
+                    </calculate>
+                </iterate>
+                <if-compare-field field-name="workEffortGoodStandard.estimatedQuantity" operator="less-equals" to-field-name="totalIssuance" type="Double">
+                    <set value="WEGS_COMPLETED" field="workEffortGoodStandard.statusId"/>
+                    <store-value value-name="workEffortGoodStandard"/>
+                </if-compare-field>
             </if-not-empty>
         </if-not-empty>
     </simple-method>

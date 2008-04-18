@@ -274,8 +274,9 @@ under the License.
                                     </container>
                                     <container style="screenlet-body">
                                         <section>
-                                            <widgets>                                        
-                                                <include-form name="ProductionRunDeclareAndProduce" location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml"/>
+                                            <widgets>
+                                                <include-form name="ProductionRunDeclareAndProduceTop" location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml"/>
+                                                <include-form name="ProductionRunDeclareAndProduceBottom" location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml"/>
                                             </widgets>
                                         </section>
                                     </container>

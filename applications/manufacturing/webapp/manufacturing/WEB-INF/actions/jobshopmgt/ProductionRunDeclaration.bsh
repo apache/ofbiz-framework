@@ -240,10 +240,9 @@ if (!UtilValidate.isEmpty(productionRunId)) {
                     componentData.put("isRunning", "null");
                 }
                 productionRunComponentsData.add(componentData);
-                if (component.getString("workEffortId").equals(issueTaskId)) {
+                if (productionRunTask.getString("currentStatusId").equals("PRUN_RUNNING") && "WEGS_CREATED".equals(component.getString("statusId"))) {
                     productionRunComponentsDataReadyForIssuance.add(componentData);
-                }
-                if (totalIssued > 0.0) {
+                } else if (totalIssued > 0.0) {
                     productionRunComponentsAlreadyIssued.add(componentData);
                 }
             }

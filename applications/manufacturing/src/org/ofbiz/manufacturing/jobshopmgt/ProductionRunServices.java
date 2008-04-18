@@ -40,6 +40,7 @@ import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.GenericPK;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
@@ -1636,6 +1637,7 @@ public class ProductionRunServices {
         
         // Optional input fields
         Double quantity = (Double)context.get("quantity");
+        Map componentsLocationMap = (Map)context.get("componentsLocationMap");
        
         // The production run is loaded
         ProductionRun productionRun = new ProductionRun(productionRunId, delegator, dispatcher);
@@ -1667,6 +1669,7 @@ public class ProductionRunServices {
                         Map serviceContext = UtilMisc.toMap("productionRunId", productionRunId, "productionRunTaskId", taskId);
                         serviceContext.put("addQuantityProduced", new Double(minimumQuantityProducedByTask - quantityDeclared.doubleValue()));
                         serviceContext.put("issueRequiredComponents", Boolean.TRUE);
+                        serviceContext.put("componentsLocationMap", componentsLocationMap);
                         serviceContext.put("userLogin", userLogin);
                         Map resultService = dispatcher.runSync("updateProductionRunTask", serviceContext);
                     } catch (GenericServiceException e) {
@@ -1677,7 +1680,10 @@ public class ProductionRunServices {
             }
         }
         try {
-            result = dispatcher.runSync("productionRunProduce", context);
+            Map inputMap = FastMap.newInstance();
+            inputMap.putAll(context);
+            inputMap.remove("componentsLocationMap");
+            result = dispatcher.runSync("productionRunProduce", inputMap);
         } catch (GenericServiceException e) {
             Debug.logError(e, "Problem calling the changeProductionRunTaskStatus service", module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunStatusNotChanged", locale));
@@ -1877,6 +1883,7 @@ public class ProductionRunServices {
         Double addTaskTime = (Double)context.get("addTaskTime");
         String comments = (String)context.get("comments");
         Boolean issueRequiredComponents = (Boolean)context.get("issueRequiredComponents");
+        Map componentsLocationMap = (Map)context.get("componentsLocationMap");
         
         if (issueRequiredComponents == null) {
             issueRequiredComponents = Boolean.FALSE;
@@ -1970,8 +1977,18 @@ public class ProductionRunServices {
                         }
                         double requiredQuantity = totalRequiredMaterialQuantity - totalIssued;
                         if (requiredQuantity > 0) {
+                            GenericPK key = component.getPrimaryKey();
+                            Map componentsLocation = null;
+                            if (componentsLocationMap != null) {
+                                componentsLocation = (Map)componentsLocationMap.get(key);
+                            }
                             Map serviceContext = UtilMisc.toMap("workEffortId", workEffortId, "productId", component.getString("productId"), "fromDate", component.getTimestamp("fromDate"));
                             serviceContext.put("quantity", new Double(requiredQuantity));
+                            if (componentsLocation != null) {
+                                serviceContext.put("locationSeqId", (String)componentsLocation.get("locationSeqId"));
+                                serviceContext.put("secondaryLocationSeqId", (String)componentsLocation.get("secondaryLocationSeqId"));
+                                serviceContext.put("failIfItemsAreNotAvailable", (String)componentsLocation.get("failIfItemsAreNotAvailable"));
+                            }
                             serviceContext.put("userLogin", userLogin);
                             Map resultService = dispatcher.runSync("issueProductionRunTaskComponent", serviceContext);
                         }

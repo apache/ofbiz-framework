@@ -655,7 +655,7 @@ under the License.
     </request-map>
     <request-map uri="productionRunDeclareAndProduce">
         <security https="true" auth="true"/>
-        <event type="service" invoke="productionRunDeclareAndProduce"/>
+        <event type="java" path="org.ofbiz.manufacturing.jobshopmgt.ProductionRunEvents" invoke="productionRunDeclareAndProduce"/>
         <response name="success" type="view" value="ProductionRunDeclaration"/>
         <response name="error" type="view" value="ProductionRunDeclaration"/>
     </request-map>
