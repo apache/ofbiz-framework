@@ -61,7 +61,7 @@ under the License.
     <td>
       <input type="text" name="ownerPartyId" value="${facility.ownerPartyId?if_exists}"/>
       <a href="javascript:call_fieldlookup2(document.EditFacilityForm.ownerPartyId,'LookupPartyName');">
-        <img src="<@ofbizContentUrl>/images/fieldlookup.gif"</@ofbizContentUrl>" width="15" height="14" border="0" alt="Click here For Field Lookup"/>
+        <img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="15" height="14" border="0" alt="Click here For Field Lookup"/>
       </a>
     </td>
   </tr>

@@ -298,7 +298,8 @@ function runAction() {
                     </tr>
                   </table>
                 </td>
-              </tr>                            
+              </tr>
+              <tr>                                      
                 <td width='25%' align='right' class='label'>${uiLabelMap.OrderFilterOn} ${uiLabelMap.OrderFilterPOs} ${uiLabelMap.OrderFilterPartiallyReceivedPOs}</td>
                 <td width='5%'>&nbsp;</td>
                 <td align='left'>
@@ -436,8 +437,8 @@ document.lookuporder.orderId.focus();
             <#else>
               <td width="20%" align="left">${uiLabelMap.CommonStatus}</td>
             </#if>          
-          <td width="20%" align="left">${uiLabelMap.OrderDate}</div></td>
-          <td width="5%" align="left">${uiLabelMap.PartyPartyId}</div></td>
+          <td width="20%" align="left">${uiLabelMap.OrderDate}</td>
+          <td width="5%" align="left">${uiLabelMap.PartyPartyId}</td>
           <td width="10%">&nbsp;</td>
         </tr>
         <#if orderList?has_content>

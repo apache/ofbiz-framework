@@ -53,7 +53,7 @@ under the License.
 </#macro>
 
 <#-- order list -->
-<div id="findOrdersList" class="screenlet">
+<div id="orderLookup" class="screenlet">
     <div class="screenlet-title-bar">
       <ul>
         <li class="h3">${uiLabelMap.OrderLookupOrder}</li>
@@ -225,6 +225,5 @@ under the License.
     </div>
   </div>
 <#else>
-<tr><td>${uiLabelMap.OrderViewPermissionError}</td></tr>
+<h3>${uiLabelMap.OrderViewPermissionError}</h3>
 </#if>
-</table>
