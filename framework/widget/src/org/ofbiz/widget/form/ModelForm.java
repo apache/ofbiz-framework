@@ -1022,7 +1022,9 @@ public class ModelForm extends ModelWidget {
 
     public void renderMultiFormString(Writer writer, Map context, FormStringRenderer formStringRenderer, int positions) throws IOException {
         StringBuffer buffer = new StringBuffer();
-        formStringRenderer.renderFormOpen(buffer, context, this);
+        if (!skipStart) {
+            formStringRenderer.renderFormOpen(buffer, context, this);
+        }
 
         // render formatting wrapper open
         formStringRenderer.renderFormatListWrapperOpen(buffer, context, this);
