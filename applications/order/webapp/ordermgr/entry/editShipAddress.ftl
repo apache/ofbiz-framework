@@ -117,7 +117,6 @@ under the License.
                       </select>
                     </td>
                   </tr>                                    
-                </td>
                 </table>
               </form>
           </td>

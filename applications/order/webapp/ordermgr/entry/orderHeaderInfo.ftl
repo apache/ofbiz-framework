@@ -48,7 +48,7 @@ under the License.
             <tr>
               <td><b>${uiLabelMap.Party}</b>:</td>
               <td>
-                  <a href="${customerDetailLink}${partyId}&${externalKeyParam?if_exists}" target="partymgr" class="buttontext">${partyId}</a>
+                  <a href="${customerDetailLink}${partyId}${externalKeyParam?if_exists}" target="partymgr" class="buttontext">${partyId}</a>
                   <#if partyMap.person?exists>
                     ${partyMap.person.firstName?if_exists}&nbsp;${partyMap.person.lastName?if_exists}
                   </#if>

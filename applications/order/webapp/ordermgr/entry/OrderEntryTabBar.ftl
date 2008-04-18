@@ -44,6 +44,7 @@ under the License.
         <li><a href="<@ofbizUrl>finalizeOrder?finalizeMode=init</@ofbizUrl>">${uiLabelMap.OrderFinalizeOrder}</a></li>
       </#if>
     </#if>
+  </ul>
 </div>
 <br/>
 <div class="screenlet-title-bar">
