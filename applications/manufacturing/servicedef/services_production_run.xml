@@ -205,6 +205,7 @@ under the License.
         <attribute name="lotId" type="String" mode="IN" optional="true"/>
         <attribute name="createLotIfNeeded" type="Boolean" mode="IN" optional="true"/>
         <attribute name="autoCreateLot" type="Boolean" mode="IN" optional="true"/>
+        <attribute name="componentsLocationMap" mode="IN" type="Map" optional="true"/>
     </service>
     <service name="productionRunTaskProduce" engine="java"
             location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="productionRunTaskProduce" auth="true">
@@ -266,6 +267,7 @@ under the License.
         <attribute name="addTaskTime" type="Double" mode="IN" optional="true"/>
         <attribute name="comments" type="String" mode="IN" optional="true"/>
         <attribute name="issueRequiredComponents" type="Boolean" mode="IN" optional="true"/>
+        <attribute name="componentsLocationMap" mode="IN" type="Map" optional="true"/>
     </service>
     <service name="quickRunProductionRunTask" engine="java"
             location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="quickRunProductionRunTask" auth="true">
