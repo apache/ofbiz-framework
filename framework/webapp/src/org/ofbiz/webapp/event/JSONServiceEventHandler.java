@@ -19,6 +19,7 @@
 package org.ofbiz.webapp.event;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.util.Enumeration;
 import java.util.Map;
@@ -61,7 +62,12 @@ public class JSONServiceEventHandler implements EventHandler {
 
         // set the X-JSON content type
         response.setContentType("application/x-json");
-        response.setContentLength(jsonStr.length());
+        // jsonStr.length is not reliable for unicode characters 
+        try {
+            response.setContentLength(jsonStr.getBytes("UTF8").length);
+        } catch (UnsupportedEncodingException e) {
+            throw new EventHandlerException("Problems with Json encoding", e);
+        }
 
         // return the JSON String
         Writer out;

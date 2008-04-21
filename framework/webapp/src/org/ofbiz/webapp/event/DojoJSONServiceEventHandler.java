@@ -19,6 +19,7 @@
 package org.ofbiz.webapp.event;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -118,7 +119,12 @@ public class DojoJSONServiceEventHandler implements EventHandler {
         String htmlJsonStr = "<html><head></head><body><textarea style=\"width: 100%%; height: 100px;\">" + jsonStr + "</textarea></body></html>";
         // set the X-JSON content type
         response.setContentType("text/html");
-        response.setContentLength(htmlJsonStr.length());
+        // jsonStr.length is not reliable for unicode characters 
+        try {
+            response.setContentLength(jsonStr.getBytes("UTF8").length);
+        } catch (UnsupportedEncodingException e) {
+            throw new EventHandlerException("Problems with Json encoding", e);
+        }
 
         // return the JSON String
         Writer out;
