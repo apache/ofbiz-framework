@@ -254,12 +254,14 @@ under the License.
         </java>
     </target>
     <target name="run-install" depends="build">
+        <!-- this loads all configured data; meant for generic OFBiz development, testing, demonstration, etc purposes -->
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.max.param}"/>
             <arg value="install"/>
         </java>
     </target>
     <target name="run-install-seed" depends="build">
+        <!-- this loads ONLY the seed data (not seed-initial, demo, ext* or anything else); meant for use after an update of the code to reload the seed data as it is generally maintained along with the code and needs to be in sync for operation -->
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.max.param}"/>
             <arg value="install"/>
@@ -267,6 +269,7 @@ under the License.
         </java>
     </target>
     <target name="run-install-extseed" depends="build">
+        <!-- this loads seed, seed-initial and ext data; meant for manual/generic testing, development, or going into production with a derived system based on stock OFBiz where the ext data basically replaces the demo data -->
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.max.param}"/>
             <arg value="install"/>
@@ -274,6 +277,7 @@ under the License.
         </java>
     </target>
     <target name="run-install-exttest" depends="build">
+        <!-- this loads seed, seed-initial, ext and ext-test data; meant for automated testing with a derived system based on stock OFBiz -->
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.max.param}"/>
             <arg value="install"/>
