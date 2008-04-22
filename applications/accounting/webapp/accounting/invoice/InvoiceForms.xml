@@ -312,9 +312,7 @@ under the License.
        <field name="description"><text size="30"/></field>
        <field name="overrideGlAccountId">
            <drop-down allow-empty="true">
-               <entity-options entity-name="GlAccount" description="${glAccountId} ${accountName}" key-field-name="glAccountId">
-                   <entity-order-by field-name="glAccountId"/>
-               </entity-options>
+               <list-options list-name="glAccountOrganizationAndClassList" key-name="glAccountId" description="${glAccountId} ${accountName}"/>
            </drop-down>
        </field>
        <field name="amount" title="${uiLabelMap.AccountingUnitPrice}"><text size="7"/></field>
@@ -340,9 +338,7 @@ under the License.
         <field position="1" name="description"><text size="80"/></field>
         <field position="1" name="overrideGlAccountId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="GlAccount" description="${glAccountId} ${accountName}" key-field-name="glAccountId">
-                    <entity-order-by field-name="glAccountId"/>
-                </entity-options>
+                <list-options list-name="glAccountOrganizationAndClassList" key-name="glAccountId" description="${glAccountId} ${accountName}"/>
             </drop-down>
         </field>
         <field position="2" name="inventoryItemId"><text/></field>
