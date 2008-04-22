@@ -79,8 +79,8 @@ under the License.
         </subant>
     </target>
 
-    <target name="clean-cache">
-        <!-- Clean the UtilCache file if errors found with old objects in the cache (Java runtime error something like "local class incompatible") -->
+    <target name="clean-cache" 
+        description="Clean the UtilCache file if errors found with old objects in the cache (Java runtime error something like 'local class incompatible')">
         <property file="framework/base/config/cache.properties"/>
         <echo message="NOTICE: deleting ${cache.file.store}.db"/>
         <delete file="${cache.file.store}.db" verbose="true"/>
@@ -98,10 +98,10 @@ under the License.
                 <include name="**/build.xml"/>
             </fileset>
         </subant>
-        <subant target="clean" failonerror="false"> <!-- use failonerror=false in case the specialpurpose directory is not there -->
+        <subant target="clean" failonerror="false" description="Use failonerror=false in case the specialpurpose directory is not there">
             <filelist dir="." files="specialpurpose/build.xml"/>
         </subant>
-        <subant target="clean" failonerror="false"> <!-- use failonerror=false in case the applications directory is not there -->
+        <subant target="clean" failonerror="false" description="Use failonerror=false in case the applications directory is not there">
             <filelist dir="." files="applications/build.xml"/>
         </subant>
         <subant target="clean">
@@ -162,27 +162,27 @@ under the License.
         <echo message="[docs] ========== Done Building (JavaDocs) =========="/>
     </target>
 
-	<target name="docs-all" depends="build"
-		    description="Build all javadoc into one tree for easier viewing by the community">
+  <target name="docs-all" depends="build"
+        description="Build all javadoc into one tree for easier viewing by the community">
 
         <echo message="[docs-all] ========== Start Building (JavaDoc) =========="/>
 
         <mkdir dir="${site.dir}/javadocs"/>
         <javadoc packagenames="org.ofbiz.*"
                  destdir="${site.dir}/javadocs"
-		         maxmemory="256M"
+             maxmemory="256M"
                  windowtitle="Open for Business - API">
-			<fileset dir="${basedir}" defaultexcludes="yes">
-				<include name="**/*.java"/>
-				<exclude name="**/ControlApplet.java"/>
-				<exclude name="**/ShipmentScaleApplet.java"/>
-				<exclude name="**/test/"/>
-			</fileset>
-		</javadoc>
+      <fileset dir="${basedir}" defaultexcludes="yes">
+        <include name="**/*.java"/>
+        <exclude name="**/ControlApplet.java"/>
+        <exclude name="**/ShipmentScaleApplet.java"/>
+        <exclude name="**/test/"/>
+      </fileset>
+    </javadoc>
 
-		<echo message="[docs-all] ========== Done Building (JavaDocs) =========="/>
+    <echo message="[docs-all] ========== Done Building (JavaDocs) =========="/>
    </target>
-	
+  
     <!-- ================================================================== -->
     <!-- Contrib Targets                                                    -->
     <!-- ================================================================== -->
@@ -253,31 +253,31 @@ under the License.
             <arg value="pos"/>
         </java>
     </target>
-    <target name="run-install" depends="build">
-        <!-- this loads all configured data; meant for generic OFBiz development, testing, demonstration, etc purposes -->
+    <target name="run-install" depends="build" 
+        description="This loads all configured data; meant for generic OFBiz development, testing, demonstration, etc purposes">
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.max.param}"/>
             <arg value="install"/>
         </java>
     </target>
-    <target name="run-install-seed" depends="build">
-        <!-- this loads ONLY the seed data (not seed-initial, demo, ext* or anything else); meant for use after an update of the code to reload the seed data as it is generally maintained along with the code and needs to be in sync for operation -->
+    <target name="run-install-seed" depends="build" 
+        description="This loads ONLY the seed data (not seed-initial, demo, ext* or anything else); meant for use after an update of the code to reload the seed data as it is generally maintained along with the code and needs to be in sync for operation">
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.max.param}"/>
             <arg value="install"/>
             <arg value="readers=seed"/>
         </java>
     </target>
-    <target name="run-install-extseed" depends="build">
-        <!-- this loads seed, seed-initial and ext data; meant for manual/generic testing, development, or going into production with a derived system based on stock OFBiz where the ext data basically replaces the demo data -->
+    <target name="run-install-extseed" depends="build" 
+        description="This loads seed, seed-initial and ext data; meant for manual/generic testing, development, or going into production with a derived system based on stock OFBiz where the ext data basically replaces the demo data">
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.max.param}"/>
             <arg value="install"/>
             <arg value="readers=seed,seed-initial,ext"/>
         </java>
     </target>
-    <target name="run-install-exttest" depends="build">
-        <!-- this loads seed, seed-initial, ext and ext-test data; meant for automated testing with a derived system based on stock OFBiz -->
+    <target name="run-install-exttest" depends="build" 
+        description="This loads seed, seed-initial, ext and ext-test data; meant for automated testing with a derived system based on stock OFBiz"> 
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.max.param}"/>
             <arg value="install"/>
@@ -300,4 +300,3 @@ under the License.
         </java>
     </target>
 </project>
-
