@@ -733,4 +733,51 @@ under the License.
         <field name="organizationPartyId"><display/></field>
         <field name="reconciledBalance"><display/></field>
     </form>
+    <form name="ViewAcctgTrans" type="single" default-map-name="acctgTrans"
+            default-table-style="basic-table">
+        <auto-fields-service service-name="updateAcctgTrans" default-field-type="display"/>
+        <field name="acctgTransTypeId" title="${uiLabelMap.AccountingTransactionType}">
+            <display-entity entity-name="AcctgTransType" description="${description}"/>
+        </field>
+        <field name="glFiscalTypeId">
+            <display-entity entity-name="GlFiscalType" description="${description}"/>
+        </field>
+        <field name="roleTypeId">
+            <display-entity entity-name="RoleType" description="${description}"/>
+        </field>
+        <field name="groupStatusId">
+            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+        </field>
+    </form>
+    <form name="ViewAcctgTransEntries" type="list" list-name="acctgTransEntries" default-entity-name="AcctgTransEntry"
+           default-table-style="basic-table">
+        <field name="organizationPartyId"><hidden/></field>
+        <field name="acctgTransId"><hidden/></field>
+        <field name="acctgTransEntrySeqId"><display/></field>     
+        <field name="glAccountTypeId">
+            <display-entity entity-name="GlAccountType" description="${description}"/>
+        </field>
+        <field name="glAccountId">
+            <display-entity entity-name="GlAccount" description="${glAccountId} ${accountName}"/>
+        </field>
+        <field name="description"><display/></field>
+        <field name="voucherRef"><display/></field>
+        <field name="partyId" widget-style="buttontext">
+            <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}">
+                <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyId}" target-type="inter-app" description="${partyId}" link-style="buttontext"/>
+            </display-entity>
+        </field>
+        <field name="productId" widget-style="buttontext">
+            <display-entity entity-name="Product" description="${internalName}">
+                <sub-hyperlink target="/catalog/control/EditProduct?productId=${productId}" target-type="inter-app" description="${productId}" link-style="buttontext"/>
+            </display-entity>
+        </field>      
+        <field name="reconcileStatusId">
+            <display-entity entity-name="StatusItem"  key-field-name="statusId" description="${description}"/>
+        </field>
+        <field name="isSummary"><display/></field>
+        <field name="debitCreditFlag"><display/></field>
+        <field name="origAmount"><display type="currency" currency="${origCurrencyUomId}"/></field>
+        <field name="amount"><display type="currency" currency="${currencyUomId}"/></field>
+    </form>
 </forms>

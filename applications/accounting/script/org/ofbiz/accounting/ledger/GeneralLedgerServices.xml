@@ -265,6 +265,10 @@ under the License.
     <!-- ========== GL Posting Services ========== -->
     <simple-method method-name="completeAcctgTransEntries" short-description="Completes, if possible, the AcctgTransEntries using the mappings defined in the gl setup">
         <entity-one entity-name="AcctgTrans" value-name="acctgTrans"/>
+        <if-compare field-name="acctgTrans.isPosted" operator="equals" value="Y">
+            <add-error><fail-property resource="AccountingUiLabels" property="AccountingTransactionHasBeenAlreadyPosted"/></add-error>
+            <check-errors/>    
+        </if-compare>
         <get-related value-name="acctgTrans" relation-name="AcctgTransEntry" list-name="acctgTransEntries"/>
         <iterate list-name="acctgTransEntries" entry-name="acctgTransEntry">
             <!-- if the glAccountId is empty, but we have a glAccountTypeId, then we will determine the
