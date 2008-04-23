@@ -87,13 +87,16 @@ public class GenerateContainer implements Container {
      * @see org.ofbiz.base.container.Container#init(java.lang.String[], java.lang.String)
      */
     public void init(String[] args, String configFile) {
-        this.ofbizHome = System.getProperty("ofbiz.home");
-        this.configFile = configFile;
+        ofbizHome = System.getProperty("ofbiz.home");
+        configFile = configFile;
         this.args = args;
-        this.isGeronimo = args[0].toLowerCase().contains("geronimo") || args[0].toLowerCase().contains("wasce");
-        if (this.isGeronimo) {
-            this.target="/META-INF/";
-            this.geronimoHome = UtilProperties.getPropertyValue("appserver", "geronimoHome", null);
+        isGeronimo = args[0].toLowerCase().contains("geronimo") || args[0].toLowerCase().contains("wasce");
+        if (isGeronimo) {
+            target="/META-INF/";
+            geronimoHome = System.getenv("GERONIMO_HOME");
+            if (geronimoHome == null) {
+                geronimoHome = UtilProperties.getPropertyValue("appserver", "geronimoHome", null);
+            }            
         }
     }
 
@@ -101,7 +104,7 @@ public class GenerateContainer implements Container {
      * @see org.ofbiz.base.container.Container#start()
      */
     public boolean start() throws ContainerException {
-        this.generateFiles();
+        generateFiles();
         System.exit(1);
         return true;
     }
@@ -116,36 +119,55 @@ public class GenerateContainer implements Container {
     }
 
     private void generateFiles() throws ContainerException {
+        if (isGeronimo) {
+            if (geronimoHome == null) {
+                Debug.logFatal("*** 'GERONIMO_HOME' was not found in your environment. Please set the location of Geronimo into a GERONIMO_HOME env var or as a geronimoHome property in appserver.properties file.", module);
+                throw new ContainerException("Error in Geronimo deployment, please check the log");
+            }
+        }
         File files[] = getTemplates();
         Map<String, Object> dataMap = buildDataMap();
 
         String user = UtilProperties.getPropertyValue("appserver", "user", "system");
         String password = UtilProperties.getPropertyValue("appserver", "password", "manager");
-        int instancesNumber = (int) UtilProperties.getPropertyNumber("appserver", "instancesNumber");
+
         boolean offline = UtilProperties.propertyValueEqualsIgnoreCase("appserver", "offline", "true");
+        boolean redeploy = UtilProperties.propertyValueEqualsIgnoreCase("appserver", "redeploy", "true");
+
+        String geronimoHostHome = UtilProperties.getPropertyValue("appserver", "geronimoHostHome", null);
         String host = UtilProperties.getPropertyValue("appserver", "host", "");
         String port = UtilProperties.getPropertyValue("appserver", "port", "");
         boolean pauseInGeronimoScript = UtilProperties.propertyValueEqualsIgnoreCase("appserver", "pauseInGeronimoScript", "true");
+
+        int instancesNumber = (int) UtilProperties.getPropertyNumber("appserver", "instancesNumber");
         String instanceNumber = "";
 
         if (isGeronimo) {
-            if (geronimoHome == null) {
-                geronimoHome = System.getenv("GERONIMO_HOME");
-                if (geronimoHome == null) {
-                    Debug.logFatal("'GERONIMO_HOME' was not found in your environment. Please set the location of Geronimo into a GERONIMO_HOME env var or as a geronimoHome property in setup.properties file.", module);
+            File geronimoHomeDir = new File (geronimoHome);
+            if (!(geronimoHomeDir.isDirectory())) {
+                Debug.logFatal("*** " + geronimoHome + " does not exist or is not a directoy. Please set the location of Geronimo into a GERONIMO_HOME env var or as a geronimoHome property in appserver.properties file.", module);
+                throw new ContainerException("Error in Geronimo deployment, please check the log");
+            }
+
+            if (UtilValidate.isNotEmpty(host) && UtilValidate.isNotEmpty(geronimoHostHome)) {
+                geronimoHomeDir = new File ("//" + host + "/" + geronimoHostHome);
+                if (!(geronimoHomeDir.isDirectory())) {
+                    Debug.logFatal("*** " + geronimoHostHome + " does not exist or is not a directoy. Please set the location of Geronimo on host as a geronimoHostHome property in appserver.properties file.", module);
                     throw new ContainerException("Error in Geronimo deployment, please check the log");
                 }
+            } else {
+                geronimoHostHome = geronimoHome;
             }
-                File geronimoHomeDir = new File (geronimoHome);
-                if (! (geronimoHomeDir.isDirectory())) {
-                    Debug.logFatal(geronimoHome + " does not exist or is not a directoy. Please set the location of Geronimo into a GERONIMO_HOME env var or as a geronimoHome property in setup.properties file.", module);
+
+            if (redeploy && offline) {
+                Debug.logFatal("*** You can't use redeploy with a server offline.", module);
                     throw new ContainerException("Error in Geronimo deployment, please check the log");
                 }
 
             for(int inst = 0; inst <= instancesNumber; inst++) {
                 instanceNumber = (inst == 0 ? "" : inst).toString();
                 GenerateGeronimoDeployment geronimoDeployment = new GenerateGeronimoDeployment();
-                List classpathJars = geronimoDeployment.generate(args[0], geronimoHome, instanceNumber);
+                List classpathJars = geronimoDeployment.generate(args[0], geronimoHostHome, instanceNumber);
                 if (classpathJars == null) {
                     throw new ContainerException("Error in Geronimo deployment, please check the log");
                 }
@@ -225,45 +247,48 @@ public class GenerateContainer implements Container {
 
                 String ofbizName = "ofbiz" + instanceNumber;
                 String separator = File.separator;
-                String geronimoBin = geronimoHome + separator + "bin";
-                File workingDir = new File(geronimoBin);
-                ProcessBuilder pb = null;
+                File workingDir = new File(geronimoHome + separator + "bin");
+                ProcessBuilder processBuilder = null;
+                Process process = null;
                 String command = null;
                 String commandCommonPart = null;
-                String commandCommonHostPart = "";
+                if ("\\".equals(separator)) {   //Windows
+                    commandCommonPart = "deploy --user " + user +  " --password " +  password;
+                } else {                        // Linux
+                    commandCommonPart = workingDir + "/deploy.sh --user " + user +  " --password " +  password;
+                }
                 if (UtilValidate.isNotEmpty(host)) {
-                    commandCommonHostPart = " --host" + host + (UtilValidate.isNotEmpty(port) ? port : "");
+                    commandCommonPart += " --host " + host + (UtilValidate.isNotEmpty(port) ? " --port " + port : "");
                 }
 
+                if (!redeploy) {
                 if ("\\".equals(separator)) { //Windows
-                    commandCommonPart = "deploy --user " + user +  " --password " +  password + commandCommonHostPart;
                     if (offline) {
                         command = commandCommonPart + " --offline undeploy " + ofbizName;
                     } else {
                         command = commandCommonPart + " undeploy " + ofbizName;
                     }
-                    pb = new ProcessBuilder("cmd.exe", "/c", command);
+                        processBuilder = new ProcessBuilder("cmd.exe", "/c", command);
                 } else {                        // Linux
-                    commandCommonPart = workingDir + "/deploy.sh --user " + user +  " --password " +  password + commandCommonHostPart;
                     if (offline) {
                         command = commandCommonPart + " --offline undeploy " + ofbizName;
                     } else {
                         command = commandCommonPart + " undeploy " + ofbizName;
                     }
-                    pb = new ProcessBuilder("sh", "-c", command);
+                        processBuilder = new ProcessBuilder("sh", "-c", command);
                 }
 
                 if (pauseInGeronimoScript) {
-                    Map<String, String> env = pb.environment();
+                        Map<String, String> env = processBuilder.environment();
                     env.put("GERONIMO_BATCH_PAUSE", "on");
                 }
-                pb.directory(workingDir);
+                    processBuilder.directory(workingDir);
                 
                 try {
                     System.out.println("Currently undeploying " + ofbizName + ", using : <<" + command + ">>, please wait ...");
-                    pb.redirectErrorStream(true);
-                    Process p = pb.start();
-                    java.io.InputStream is = p.getInputStream();
+                        processBuilder.redirectErrorStream(true);
+                        process = processBuilder.start();
+                        java.io.InputStream is = process.getInputStream();
                     byte[] buf = new byte[2024];
                     int readLen = 0;
                     while((readLen = is.read(buf,0,buf.length)) != -1) {
@@ -274,43 +299,57 @@ public class GenerateContainer implements Container {
                         }
                     }
                     is.close();
-                    p.waitFor();
-                    //                    System.out.println(p.waitFor());
-                    //                    System.out.println("exit value" + p.exitValue());
+                        process.waitFor();
+    //                    System.out.println(process.waitFor());
+    //                    System.out.println("exit value" + process.exitValue());
                     Debug.logInfo(ofbizName + " undeployment ended" , module);
                 } catch (IOException e) {
                     throw new ContainerException(e);
                 } catch (InterruptedException e) {
                     throw new ContainerException(e);
+                    } finally {
+                        process.destroy();
+                    }
                 }
 
+                if (redeploy) {
+                    if ("\\".equals(separator)) { //Windows
+                        command = commandCommonPart + " redeploy " + ofbizHome;
+                        processBuilder = new ProcessBuilder("cmd.exe", "/c", command);
+                    } else {                      // Linux
+                        command = commandCommonPart + " redeploy " + ofbizHome;
+                        processBuilder = new ProcessBuilder("sh", "-c", command);
+                }
+
+                } else {
                 if ("\\".equals(separator)) { //Windows
                     if (offline) {
-                        command = "deploy --user " + user +  " --password " +  password + " --offline deploy --inPlace " + ofbizHome;
+                            command = commandCommonPart + " --offline deploy --inPlace " + ofbizHome;
                     } else {
-                        command = "deploy --user " + user +  " --password " +  password + " deploy --inPlace " + ofbizHome;
+                            command = commandCommonPart + " deploy --inPlace " + ofbizHome;
                     }
-                    pb = new ProcessBuilder("cmd.exe", "/c", command);
+                        processBuilder = new ProcessBuilder("cmd.exe", "/c", command);
                 } else {                      // Linux
                     if (offline) {
-                        command = workingDir + "/deploy.sh --user " + user +  " --password " +  password + " --offline deploy --inPlace " + ofbizHome;
+                            command = commandCommonPart + " --offline deploy --inPlace " + ofbizHome;
                     } else {
-                        command = workingDir + "/deploy.sh --user " +  user +  " --password " +  password + " deploy --inPlace " + ofbizHome;
+                            command = commandCommonPart + " deploy --inPlace " + ofbizHome;
+                        }
+                        processBuilder = new ProcessBuilder("sh", "-c", command);
                     }
-                    pb = new ProcessBuilder("sh", "-c", command);
                 }
 
                 if (pauseInGeronimoScript) {
-                    Map<String, String> env = pb.environment();
+                    Map<String, String> env = processBuilder.environment();
                     env.put("GERONIMO_BATCH_PAUSE", "on");
                 }
-                pb.directory(workingDir);
+                processBuilder.directory(workingDir);
                 
                 try {
                     System.out.println("Currently deploying " + ofbizName + ", using : <<" + command + ">>, please wait ...");
-                    pb.redirectErrorStream(true);
-                    Process p = pb.start();
-                    java.io.InputStream is = p.getInputStream();
+                    processBuilder.redirectErrorStream(true);
+                    process = processBuilder.start();
+                    java.io.InputStream is = process.getInputStream();
                     byte[] buf = new byte[2024];
                     int readLen = 0;
                     while((readLen = is.read(buf,0,buf.length)) != -1) {
@@ -321,14 +360,16 @@ public class GenerateContainer implements Container {
                         }
                     }
                     is.close();
-                    p.waitFor();
-                    //                    System.out.println(p.waitFor());
-                    //                    System.out.println("exit value" + p.exitValue());
+                    process.waitFor();
+//                    System.out.println(process.waitFor());
+//                    System.out.println("exit value" + process.exitValue());
                     Debug.logInfo(ofbizName + " deployment ended" , module);
                 } catch (IOException e) {
                     throw new ContainerException(e);
                 } catch (InterruptedException e) {
                     throw new ContainerException(e);
+                } finally {
+                    process.destroy();
                 }
             }
         } else {

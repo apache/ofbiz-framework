@@ -58,7 +58,7 @@
         <#if location.contains("/applications/")>
             <#assign location = location.substring(location.lastIndexOf("applications"))/>
         </#if>
-        <#if location.contains("/specialpurpose/")>
+        <#if location.contains("/specialpurpose/") && !location.contains("/pos/")>
             <#assign location = location.substring(location.lastIndexOf("specialpurpose"))/>
         </#if>
         <#if location.contains("/hot-deploy/")>
