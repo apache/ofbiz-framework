@@ -5660,6 +5660,9 @@ esetata in mod automat</value>
         <value xml:lang="en">Total excl. tax</value>
         <value xml:lang="th">Total excl. tax</value>
     </property>
+    <property key="AccountingTransactionHasBeenAlreadyPosted">
+        <value xml:lang="en">Transaction has been already posted</value>
+    </property>    
     <property key="AccountingTransactionTotals">
         <value xml:lang="en">Transaction Totals</value>
         <value xml:lang="it">Totali Prime Note</value>
@@ -8144,6 +8147,9 @@ esetata in mod automat</value>
         <value xml:lang="th">เพิ่มอัตราภาษีสินค้า</value>
         <value xml:lang="zh">新建税务机关产品税率</value>
     </property>
+    <property key="PageTitleAddTransactionEntry">
+        <value xml:lang="en">Add Transaction Entry</value>
+    </property>    
     <property key="PageTitleCopyAgreement">
         <value xml:lang="en">Copy Agreement</value>
         <value xml:lang="it">Copia Contratto</value>
@@ -8494,6 +8500,12 @@ esetata in mod automat</value>
         <value xml:lang="th">แก้ไขอัตราภาษีสินค้า</value>
         <value xml:lang="zh">编辑税务机关产品税率</value>
     </property>
+    <property key="PageTitleEditTransaction">
+        <value xml:lang="en">Edit Transaction</value>
+    </property>
+    <property key="PageTitleEditTransactionEntries">
+        <value xml:lang="en">Edit Transaction Entries</value>
+    </property>    
     <property key="PageTitleFinAccount">
         <value xml:lang="en">Financial Account</value>
         <value xml:lang="fr">Compte financier</value>
@@ -8961,6 +8973,12 @@ esetata in mod automat</value>
         <value xml:lang="th">แสดงบัญชีแยกประเภททั่วไป</value>
         <value xml:lang="zh">浏览总账账户记录</value>
     </property>
+    <property key="PageTitleViewTransaction">
+        <value xml:lang="en">View Transaction</value>
+    </property>
+    <property key="PageTitleViewTransactionEntries">
+        <value xml:lang="en">View Transaction Entries</value>
+    </property>    
     <property key="PartyPartyId">
         <value xml:lang="en">Party ID</value>
         <value xml:lang="es">Id Grupo</value>

@@ -240,27 +240,64 @@ under the License.
                                     <container style="screenlet">
                                         <container style="screenlet-title-bar">
                                             <container style="h3">
-                                                <label text="${uiLabelMap.PageTitleEditTransaction}"/>
+                                                <section>
+                                                    <condition>
+                                                        <if-compare field-name="acctgTrans.isPosted" operator="equals"  value="Y"/>
+                                                    </condition>
+                                                    <widgets>
+                                                        <label text="${uiLabelMap.PageTitleViewTransaction}"/>
+                                                    </widgets>
+                                                    <fail-widgets>
+                                                        <label text="${uiLabelMap.PageTitleEditTransaction}"/>
+                                                    </fail-widgets>
+                                                </section>
                                             </container>
                                         </container>
                                         <container style="screenlet-body">
                                             <link text="${uiLabelMap.AccountingDuplicateAccountingTransaction}" style="buttontext" target="copyAcctgTransAndEntries?revert=N&amp;fromAcctgTransId=${acctgTransId}&amp;organizationPartyId=${organizationPartyId}"/>
                                             <link text="${uiLabelMap.AccountingRevertAccountingTransaction}" style="buttontext" target="copyAcctgTransAndEntries?revert=Y&amp;fromAcctgTransId=${acctgTransId}&amp;organizationPartyId=${organizationPartyId}"/>
-                                            <include-form name="EditAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
+                                            <section>
+                                                <condition>
+                                                    <if-compare field-name="acctgTrans.isPosted" operator="equals" value="Y"/>
+                                                </condition>
+                                                <widgets>
+                                                    <include-form name="ViewAcctgTrans" location="component://accounting/widget/GlForms.xml"/>                                                    
+                                                </widgets>
+                                                <fail-widgets>
+                                                    <include-form name="EditAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
+                                                </fail-widgets>
+                                            </section>
                                         </container>
                                     </container>
                                 </container>
                                 <container>
                                     <container style="screenlet">
-                                        <container style="screenlet-title-bar">
-                                            <container style="h3">
-                                                <label text="${uiLabelMap.PageTitleEditTransactionEntries}"/>
-                                            </container>
-                                        </container>
-                                        <container style="screenlet-body">
-                                            <include-form name="ListAcctgTransEntries" location="component://accounting/widget/GlForms.xml"/>
-                                        </container>
-                                    </container>
+                                        <section>
+                                            <condition>
+                                                <if-compare field-name="acctgTrans.isPosted" operator="equals"  value="Y"/>
+                                            </condition>
+                                            <widgets>
+                                                <container style="screenlet-title-bar">
+                                                    <container style="h3">
+                                                        <label text="${uiLabelMap.PageTitleViewTransactionEntries}"/>
+                                                    </container>
+                                                </container>    
+                                                <container style="screenlet-body">
+                                                    <include-form name="ViewAcctgTransEntries" location="component://accounting/widget/GlForms.xml"/> 
+                                                </container>    
+                                            </widgets>
+                                            <fail-widgets>
+                                                <container style="screenlet-title-bar">
+                                                    <container style="h3">
+                                                        <label text="${uiLabelMap.PageTitleEditTransactionEntries}"/>
+                                                    </container>
+                                                </container>
+                                                <container style="screenlet-body">
+                                                    <include-form name="ListAcctgTransEntries" location="component://accounting/widget/GlForms.xml"/>
+                                                </container>                                               
+                                            </fail-widgets>
+                                        </section>
+                                    </container>  
                                 </container>
                             </widgets>
                         </section>
