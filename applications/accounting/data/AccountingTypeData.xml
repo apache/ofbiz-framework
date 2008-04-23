@@ -19,7 +19,7 @@ under the License.
 -->
 <entity-engine-xml>
     <AcctgTransType acctgTransTypeId="INTERNAL_ACCTG_TRANS" description="Internal" hasTable="Y" parentTypeId=""/>
-    <AcctgTransType acctgTransTypeId="AMORTIZATION" description="Amorization" hasTable="N" parentTypeId="INTERNAL_ACCTG_TRANS"/>
+    <AcctgTransType acctgTransTypeId="AMORTIZATION" description="Amortization" hasTable="N" parentTypeId="INTERNAL_ACCTG_TRANS"/>
     <AcctgTransType acctgTransTypeId="DEPRECIATION" description="Depreciation" hasTable="Y" parentTypeId="INTERNAL_ACCTG_TRANS"/>
     <AcctgTransType acctgTransTypeId="CAPITALIZATION" description="Capitalization" hasTable="N" parentTypeId="INTERNAL_ACCTG_TRANS"/>
     <AcctgTransType acctgTransTypeId="INVENTORY" description="Inventory" hasTable="N" parentTypeId="INTERNAL_ACCTG_TRANS"/>
