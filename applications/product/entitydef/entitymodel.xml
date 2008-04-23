@@ -2434,7 +2434,8 @@ under the License.
       <field name="createdByUserLogin" type="id-vlong"></field>
       <field name="lastModifiedDate" type="date-time"></field>
       <field name="lastModifiedByUserLogin" type="id-vlong"></field>
-      <field name="inShippingBox" type="indicator"></field>        
+      <field name="inShippingBox" type="indicator"></field>
+      <field name="defaultShipmentBoxTypeId" type="id"></field>        
       <prim-key field="productId"/>
       <relation type="one" fk-name="PROD_TYPE" rel-entity-name="ProductType">
         <key-map field-name="productTypeId"/>
@@ -2493,6 +2494,9 @@ under the License.
       <relation type="many" rel-entity-name="SimpleSalesTaxLookup">
         <key-map field-name="taxCategory"/>
       </relation>
+      <relation type="one" fk-name="PROD_SHBX_TYPE" title="Default" rel-entity-name="ShipmentBoxType">
+          <key-map field-name="defaultShipmentBoxTypeId" rel-field-name="shipmentBoxTypeId"/>
+      </relation>  
     </entity>
     <entity entity-name="ProductAssoc"
             package-name="org.ofbiz.product.product"

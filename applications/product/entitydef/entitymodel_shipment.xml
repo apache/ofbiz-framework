@@ -684,10 +684,15 @@ under the License.
       <field name="boxLength" type="floating-point"></field>
       <field name="boxWidth" type="floating-point"></field>
       <field name="boxHeight" type="floating-point"></field>
+      <field name="weightUomId" type="id"></field>  
+      <field name="boxWeight" type="floating-point"></field>
       <prim-key field="shipmentBoxTypeId"/>
       <relation type="one" fk-name="SHMT_BXTP_DUOM" title="Dimension" rel-entity-name="Uom">
         <key-map field-name="dimensionUomId" rel-field-name="uomId"/>
       </relation>
+      <relation type="one" fk-name="SHMT_BXTP_WUOM" title="Weight" rel-entity-name="Uom">
+        <key-map field-name="weightUomId" rel-field-name="uomId"/>
+      </relation>        
     </entity>
     <entity entity-name="ShipmentContactMech"
             package-name="org.ofbiz.shipment.shipment"
