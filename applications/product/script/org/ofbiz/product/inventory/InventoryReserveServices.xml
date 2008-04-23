@@ -34,9 +34,6 @@ under the License.
         -->
 
         <log level="verbose" message="Parameters : ${parameters}"/>
-        <set from-field="parameters.productId" field="lookupFieldMap.productId"/>
-        <set from-field="parameters.facilityId" field="lookupFieldMap.facilityId"/>
-        <set from-field="parameters.containerId" field="lookupFieldMap.containerId"/>
         <now-timestamp-to-env env-name="nowTimestamp"/>
 
         <!-- check the product; make sure its a physical item -->
@@ -53,22 +50,22 @@ under the License.
                      LIFO=last in first out, so it means order by DESCending receive or expire date
                      -->
                 <if-compare value="INVRO_GUNIT_COST" operator="equals" field-name="reserveOrderEnumId" map-name="parameters">
-                    <set value="unitCost DESC" field="orderByString"/>
+                    <set value="-unitCost" field="orderByString"/>
                 <else>
                     <if-compare value="INVRO_LUNIT_COST" operator="equals" field-name="reserveOrderEnumId" map-name="parameters">
-                        <set value="unitCost ASC" field="orderByString"/>
+                        <set value="+unitCost" field="orderByString"/>
                     <else>
                         <if-compare value="INVRO_FIFO_EXP" operator="equals" field-name="reserveOrderEnumId" map-name="parameters">
-                            <set value="expireDate ASC" field="orderByString"/>
+                            <set value="+expireDate" field="orderByString"/>
                         <else>
                             <if-compare value="INVRO_LIFO_EXP" operator="equals" field-name="reserveOrderEnumId" map-name="parameters">
-                                <set value="expireDate DESC" field="orderByString"/>
+                                <set value="-expireDate" field="orderByString"/>
                             <else>
                                 <if-compare value="INVRO_LIFO_REC" operator="equals" field-name="reserveOrderEnumId" map-name="parameters">
-                                    <set value="datetimeReceived DESC" field="orderByString"/>
+                                    <set value="-datetimeReceived" field="orderByString"/>
                                 <else>
                                     <!-- the default reserveOrderEnumId is INVRO_FIFO_REC, ie FIFO based on date received -->
-                                    <set value="datetimeReceived ASC" field="orderByString"/>
+                                    <set value="+datetimeReceived" field="orderByString"/>
                                     <set value="INVRO_FIFO_REC" field="parameters.reserveOrderEnumId"/>
                                 </else>
                                 </if-compare>
@@ -80,12 +77,20 @@ under the License.
                     </if-compare>
                 </else>
                 </if-compare>
-                <set field="orderByList[]" from-field="orderByString"/>
                                                     
                 <set from-field="parameters.quantity" field="parameters.quantityNotReserved"/>
 
                 <!-- first reserve against InventoryItems in FLT_PICKLOC type locations, then FLT_BULK locations, then InventoryItems with no locations -->
-                <find-by-and entity-name="InventoryItemAndLocation" map-name="lookupFieldMap" list-name="inventoryItemAndLocations" use-iterator="true" order-by-list-name="orderByList"/>
+                <entity-condition entity-name="InventoryItemAndLocation" list-name="inventoryItemAndLocations">
+                    <condition-list combine="and">
+                        <condition-expr field-name="productId" env-name="parameters.productId"/>
+                        <condition-expr field-name="facilityId" env-name="parameters.facilityId" ignore-if-null="true"/>
+                        <condition-expr field-name="containerId" env-name="parameters.containerId" ignore-if-null="true"/>
+                        <condition-expr field-name="quantityOnHandTotal" operator="greater" value="0.0"/>
+                        <condition-expr field-name="locationTypeEnumId" operator="equals" value="FLT_PICKLOC"/>
+                    </condition-list>
+                    <order-by field-name="${orderByString}"/>
+                </entity-condition>
                 <iterate entry-name="inventoryItemAndLocation" list-name="inventoryItemAndLocations">
                     <if-compare field-name="inventoryItemAndLocation.locationTypeEnumId" operator="equals" value="FLT_PICKLOC">
                         <!-- this is a little trick to get the InventoryItem value object without doing a query, possible since all fields on InventoryItem are also on InventoryItemAndLocation with the same names -->
@@ -96,7 +101,16 @@ under the License.
 
                 <!-- still some left? try the FLT_BULK locations -->
                 <if-compare field-name="parameters.quantityNotReserved" operator="greater" value="0" type="Double">
-                    <find-by-and entity-name="InventoryItemAndLocation" map-name="lookupFieldMap" list-name="inventoryItemAndLocations" use-iterator="true" order-by-list-name="orderByList"/>
+                    <entity-condition entity-name="InventoryItemAndLocation" list-name="inventoryItemAndLocations">
+                        <condition-list combine="and">
+                            <condition-expr field-name="productId" env-name="parameters.productId"/>
+                            <condition-expr field-name="facilityId" env-name="parameters.facilityId" ignore-if-null="true"/>
+                            <condition-expr field-name="containerId" env-name="parameters.containerId" ignore-if-null="true"/>
+                            <condition-expr field-name="quantityOnHandTotal" operator="greater" value="0.0"/>
+                            <condition-expr field-name="locationTypeEnumId" operator="equals" value="FLT_BULK"/>
+                        </condition-list>
+                        <order-by field-name="${orderByString}"/>
+                    </entity-condition>
                     <iterate entry-name="inventoryItemAndLocation" list-name="inventoryItemAndLocations">
                         <if-compare field-name="inventoryItemAndLocation.locationTypeEnumId" operator="equals" value="FLT_BULK">
                             <!-- this is a little trick to get the InventoryItem value object without doing a query, possible since all fields on InventoryItem are also on InventoryItemAndLocation with the same names -->
@@ -108,7 +122,16 @@ under the License.
 
                 <!-- last of all try reserving in InventoryItems that have no locationSeqId, ie are not in any particular location -->
                 <if-compare field-name="parameters.quantityNotReserved" operator="greater" value="0" type="Double">
-                    <find-by-and entity-name="InventoryItem" map-name="lookupFieldMap" list-name="inventoryItems" use-iterator="true" order-by-list-name="orderByList"/>
+                    <entity-condition entity-name="InventoryItem" list-name="inventoryItems">
+                        <condition-list combine="and">
+                            <condition-expr field-name="productId" env-name="parameters.productId"/>
+                            <condition-expr field-name="facilityId" env-name="parameters.facilityId" ignore-if-null="true"/>
+                            <condition-expr field-name="containerId" env-name="parameters.containerId" ignore-if-null="true"/>
+                            <condition-expr field-name="quantityOnHandTotal" operator="greater" value="0.0"/>
+                            <condition-expr field-name="locationSeqId" operator="equals" env-name="nullField"/>
+                        </condition-list>
+                        <order-by field-name="${orderByString}"/>
+                    </entity-condition>
                     <iterate entry-name="inventoryItem" list-name="inventoryItems">
                         <if-empty field-name="inventoryItem.locationSeqId">
                             <call-simple-method method-name="reserveForInventoryItemInline"/>
