@@ -621,9 +621,7 @@ public class BOMNode {
             } else {
                 pfs = getProduct().getRelatedCache("ProductFacility", UtilMisc.toMap("facilityId", facilityId), null);
             }
-            if (UtilValidate.isNotEmpty(pfs)) {
-                isWarehouseManaged = true;
-            } else {
+            if (UtilValidate.isEmpty(pfs)) {
                 if (getSubstitutedNode() != null && getSubstitutedNode().getProduct() != null) {
                     if (UtilValidate.isEmpty(facilityId)) {
                         pfs = getSubstitutedNode().getProduct().getRelatedCache("ProductFacility");
@@ -631,13 +629,13 @@ public class BOMNode {
                         pfs = getSubstitutedNode().getProduct().getRelatedCache("ProductFacility", UtilMisc.toMap("facilityId", facilityId), null);
                     }
                 }
-                if (UtilValidate.isNotEmpty(pfs)) {
-                    for (int i = 0; i < pfs.size(); i++) {
-                        GenericValue pf = (GenericValue)pfs.get(i);
-                        if (UtilValidate.isNotEmpty(pf.get("minimumStock")) && UtilValidate.isNotEmpty(pf.get("reorderQuantity"))) {
-                            isWarehouseManaged = true;
-                            break;
-                        }
+            }
+            if (UtilValidate.isNotEmpty(pfs)) {
+                for (int i = 0; i < pfs.size(); i++) {
+                    GenericValue pf = (GenericValue)pfs.get(i);
+                    if (UtilValidate.isNotEmpty(pf.get("minimumStock")) && UtilValidate.isNotEmpty(pf.get("reorderQuantity"))) {
+                        isWarehouseManaged = true;
+                        break;
                     }
                 }
             }
