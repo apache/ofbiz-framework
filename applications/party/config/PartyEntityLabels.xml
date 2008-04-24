@@ -134,7 +134,7 @@
     </property>
     <property key="CommunicationEventPrpTyp.description.CUSTOMER_SERVICE_CAL">
         <value xml:lang="en">Customer Service Call</value>
-        <value xml:lang="fr">Appel Service Client</value>
+        <value xml:lang="fr">Appel au service client</value>
         <value xml:lang="it">Chiamata Servizio Clienti</value>
         <value xml:lang="ro">Chemare Serviciu Clienti</value>
         <value xml:lang="ru">Сервисный звонок заказчика</value>
@@ -179,7 +179,7 @@
     </property>
     <property key="CommunicationEventPrpTyp.description.SUPPORT_CALL">
         <value xml:lang="en">Support Call</value>
-        <value xml:lang="fr">Appel du Support</value>
+        <value xml:lang="fr">Appel du support</value>
         <value xml:lang="it">Chiamata Supporto</value>
         <value xml:lang="ro">Chemare Suport</value>
         <value xml:lang="ru">Звонок техподдержки</value>
@@ -188,6 +188,7 @@
     </property>
     <property key="CommunicationEventType.description.AUTO_EMAIL_COMM">
         <value xml:lang="en">Auto Email</value>
+        <value xml:lang="fr">Courriel automatique</value>
         <value xml:lang="it">Email Automatica</value>
         <value xml:lang="ro">Email Automatic</value>
         <value xml:lang="ru">Автоматическая эл. почта</value>
@@ -196,6 +197,7 @@
     </property>
     <property key="CommunicationEventType.description.COMMENT_NOTE">
         <value xml:lang="en">Comment/Note</value>
+        <value xml:lang="fr">Commentaire/Note</value>
         <value xml:lang="it">Commento/Nota</value>
         <value xml:lang="ro">Comentariu/Nota</value>
         <value xml:lang="ru">Комментарий/Заметка</value>
@@ -222,7 +224,7 @@
     </property>
     <property key="CommunicationEventType.description.FAX_COMMUNICATION">
         <value xml:lang="en">Fax</value>
-        <value xml:lang="fr">Fax</value>
+        <value xml:lang="fr">Télécopie</value>
         <value xml:lang="it">Fax</value>
         <value xml:lang="ro">Fax</value>
         <value xml:lang="ru">Факс</value>
@@ -258,6 +260,7 @@
     </property>
     <property key="ContactMechPurposeType.description.BILLING_EMAIL">
         <value xml:lang="en">Billing (AP) Email</value>
+        <value xml:lang="fr">Courriel de facturation</value>
         <value xml:lang="it">Email Fatturazione (AP)</value>
         <value xml:lang="ru">Эл. почта по вопросам оплаты (AP)</value>
         <value xml:lang="th">อีเมล์ใบเสร็จ (AP)</value>
@@ -273,7 +276,7 @@
     </property>
     <property key="ContactMechPurposeType.description.FAX_NUMBER">
         <value xml:lang="en">Main Fax Number</value>
-        <value xml:lang="fr">Numéro de fax société</value>
+        <value xml:lang="fr">Numéro de télécopie principal</value>
         <value xml:lang="it">Numero Fax Principale</value>
         <value xml:lang="ro">Numar Fax Principal</value>
         <value xml:lang="ru">Основной номер факса</value>
@@ -282,7 +285,7 @@
     </property>
     <property key="ContactMechPurposeType.description.FAX_NUMBER_SEC">
         <value xml:lang="en">Secondary Fax Number</value>
-        <value xml:lang="fr">Numéro de fax direct</value>
+        <value xml:lang="fr">Numéro de télécopie secondaire</value>
         <value xml:lang="it">Numero Fax Secondario</value>
         <value xml:lang="ro">Numar Fax Secundar</value>
         <value xml:lang="ru">Вспомогательный номер факса</value>
@@ -300,7 +303,7 @@
     </property>
     <property key="ContactMechPurposeType.description.ORDER_EMAIL">
         <value xml:lang="en">Order Notification Email Address</value>
-        <value xml:lang="fr">Adresse courriel de commande</value>
+        <value xml:lang="fr">Adresse courriel pour les commandes</value>
         <value xml:lang="it">Indirizzo Email Notifica Ordine</value>
         <value xml:lang="ro">Adresa Email Notificare Comenzi</value>
         <value xml:lang="ru">Адрес эл.почты для уведомлений по заказам</value>
@@ -318,13 +321,14 @@
     </property>
     <property key="ContactMechPurposeType.description.PAYMENT_EMAIL">
         <value xml:lang="en">Payment (AR) Email</value>
+        <value xml:lang="fr">Courriel de paiement</value>
         <value xml:lang="it">Email Pagamento (AR) </value>
         <value xml:lang="ru">Эл. почта по вопросам получения оплаты (AR)</value>
         <value xml:lang="th">การชำระเงินทางอีเมล์ (AR) </value>
     </property>
     <property key="ContactMechPurposeType.description.PAYMENT_LOCATION">
         <value xml:lang="en">Payment (AR) Address</value>
-        <value xml:lang="fr">Adresse service comptabilité</value>
+        <value xml:lang="fr">Adresse du du service comptabilité</value>
         <value xml:lang="it">Indirizzo Pagamento (AR)</value>
         <value xml:lang="ro">Adresa Plata (AR)</value>
         <value xml:lang="ru">Адрес получения оплаты (AR)</value>
@@ -333,6 +337,7 @@
     </property>
     <property key="ContactMechPurposeType.description.PHONE_ASSISTANT">
         <value xml:lang="en">Assistant's Phone Number</value>
+        <value xml:lang="fr">Numéro de téléphone de l'assistance</value>
         <value xml:lang="it">Numero Telefono Assistente</value>
         <value xml:lang="ro">Numar Telefon Asistent</value>
         <value xml:lang="ru">Телефонный номер помощника</value>
@@ -341,7 +346,7 @@
     </property>
     <property key="ContactMechPurposeType.description.PHONE_BILLING">
         <value xml:lang="en">Billing (AP) Phone Number</value>
-        <value xml:lang="fr">Tél service facturation</value>
+        <value xml:lang="fr">Numéro de téléphone du service facturation</value>
         <value xml:lang="it">Numero Telefono Fatturazione (AP)</value>
         <value xml:lang="ro">Numar Telefon Facturare (AP)</value>
         <value xml:lang="ru">Телефонный номер по вопросам оплаты (AP)</value>
@@ -350,7 +355,7 @@
     </property>
     <property key="ContactMechPurposeType.description.PHONE_HOME">
         <value xml:lang="en">Main Home Phone Number</value>
-        <value xml:lang="fr">Téléphone domicile</value>
+        <value xml:lang="fr">Numéro de téléphone du domicile</value>
         <value xml:lang="it">Numero Telefono Casa Principale</value>
         <value xml:lang="ro">Numar Telefon Casa Principala</value>
         <value xml:lang="ru">Основной домашний телефонный номер</value>
@@ -359,7 +364,7 @@
     </property>
     <property key="ContactMechPurposeType.description.PHONE_MOBILE">
         <value xml:lang="en">Main Mobile Phone Number</value>
-        <value xml:lang="fr">Tél portable</value>
+        <value xml:lang="fr">Numéro de téléphone portable</value>
         <value xml:lang="it">Numero Telefono Mobile Principale</value>
         <value xml:lang="ro">Numar Telefon Mobil Principal</value>
         <value xml:lang="ru">Основной мобильный телефонный номер</value>
@@ -368,7 +373,7 @@
     </property>
     <property key="ContactMechPurposeType.description.PHONE_PAYMENT">
         <value xml:lang="en">Payment (AR) Phone Number</value>
-        <value xml:lang="fr">Tél service comptabilité</value>
+        <value xml:lang="fr">Numéro de téléphone du service comptabilité</value>
         <value xml:lang="it">Numero Telefono Pagamento (AR)</value>
         <value xml:lang="ro">Numar Telefon Plata (AR)</value>
         <value xml:lang="ru">Телефонный номер по вопросам получения оплаты (AR)</value>
@@ -377,7 +382,7 @@
     </property>
     <property key="ContactMechPurposeType.description.PHONE_SHIPPING">
         <value xml:lang="en">Shipping Destination Phone Number</value>
-        <value xml:lang="fr">Tél lieu de livraison</value>
+        <value xml:lang="fr">Numéro de téléphone du lieu de livraison</value>
         <value xml:lang="it">Numero Telefono Destinazione Spedizione</value>
         <value xml:lang="ro">Numar Telefon Destinatie Expediere</value>
         <value xml:lang="ru">Телефон в пункте доставки</value>
@@ -386,7 +391,7 @@
     </property>
     <property key="ContactMechPurposeType.description.PHONE_SHIP_ORIG">
         <value xml:lang="en">Shipping Origin Phone Number</value>
-        <value xml:lang="fr">Tél lieu d&apos;expédition</value>
+        <value xml:lang="fr">Numéro de téléphone du lieu d'expédition</value>
         <value xml:lang="it">Numero Telefono Origine Spedizione</value>
         <value xml:lang="ro">Numar Telefon Origine Expediere</value>
         <value xml:lang="ru">Телефон в пункте отгрузки</value>
@@ -395,7 +400,7 @@
     </property>
     <property key="ContactMechPurposeType.description.PHONE_WORK">
         <value xml:lang="en">Main Work Phone Number</value>
-        <value xml:lang="fr">Tél bureau</value>
+        <value xml:lang="fr">Numéro de téléphone au bureau</value>
         <value xml:lang="it">Numero Telefono Lavoro Principale</value>
         <value xml:lang="ro">Numar Telefon Serviciu Principal</value>
         <value xml:lang="ru">Основной рабочий телефонный номер</value>
@@ -404,7 +409,7 @@
     </property>
     <property key="ContactMechPurposeType.description.PHONE_WORK_SEC">
         <value xml:lang="en">Secondary Work Phone Number</value>
-        <value xml:lang="fr">Tél bureau 2</value>
+        <value xml:lang="fr">Numéro de téléphone secondaire au bureau</value>
         <value xml:lang="it">Numero Telefono Lavoro Secondario</value>
         <value xml:lang="ro">Numar Telefon Serviciu Secundar</value>
         <value xml:lang="ru">Вспомогательный рабочий телефонный номер</value>
@@ -413,13 +418,14 @@
     </property>
     <property key="ContactMechPurposeType.description.PREVIOUS_LOCATION">
         <value xml:lang="en">Previous Address</value>
+        <value xml:lang="fr">Adresse précédente</value>
         <value xml:lang="it">Indirizzo Precedente</value>
         <value xml:lang="ru">Предыдущий адрес</value>
         <value xml:lang="th">ที่อยู่ก่อนหน้า</value>
     </property>
     <property key="ContactMechPurposeType.description.PRIMARY_EMAIL">
         <value xml:lang="en">Primary Email Address</value>
-        <value xml:lang="fr">Adresse courriel principal</value>
+        <value xml:lang="fr">Adresse courriel principale</value>
         <value xml:lang="it">Indirizzo Primario Email</value>
         <value xml:lang="ro">Adresa Primara Email</value>
         <value xml:lang="ru">Основной адрес эл.почты</value>
@@ -428,6 +434,7 @@
     </property>
     <property key="ContactMechPurposeType.description.PRIMARY_LOCATION">
         <value xml:lang="en">Primary Address</value>
+        <value xml:lang="fr">Adresse principale</value>
         <value xml:lang="it">Indirizzo Primario</value>
         <value xml:lang="ro">Adresa Primara</value>
         <value xml:lang="ru">Юридический адрес</value>
@@ -436,6 +443,7 @@
     </property>
     <property key="ContactMechPurposeType.description.PRIMARY_PHONE">
         <value xml:lang="en">Primary Phone Number</value>
+        <value xml:lang="fr">Numéro de téléphone principal</value>
         <value xml:lang="it">Numero Telefono Principale</value>
         <value xml:lang="ro">Numero Telefon Principal</value>
         <value xml:lang="ru">Основной телефонный номер</value>
@@ -444,6 +452,7 @@
     </property>
     <property key="ContactMechPurposeType.description.PRIMARY_WEB_URL">
         <value xml:lang="en">Primary Website URL</value>
+        <value xml:lang="fr">URL princpale du site Web</value>
         <value xml:lang="it">URL Primario Sito Web</value>
         <value xml:lang="ro">URL Primar Sit Web</value>
         <value xml:lang="ru">URL основного Web сайта</value>
@@ -634,6 +643,7 @@
     </property>
     <property key="PartyRelationshipType.partyRelationshipName.BLOG_PERMISSION">
         <value xml:lang="en">Blog Users</value>
+        <value xml:lang="fr">Utilisateur du Blog</value>
         <value xml:lang="it">Blog Utente</value>
         <value xml:lang="ro">Blog Utilizator</value>
         <value xml:lang="ru">Пользователь блога</value>
@@ -642,7 +652,6 @@
     </property>
     <property key="PartyRelationshipType.partyRelationshipName.CONTACT_REL">
         <value xml:lang="en">Contact</value>
-        <value xml:lang="fr">Contact</value>
         <value xml:lang="it">Contatto</value>
         <value xml:lang="ro">Contact</value>
         <value xml:lang="ru">Контакт</value>
@@ -732,7 +741,7 @@
     </property>
     <property key="PartyRelationshipType.partyRelationshipName.VISITOR_ISP">
         <value xml:lang="en">ISP Visitor</value>
-        <value xml:lang="fr">ISP Visiteur</value>
+        <value xml:lang="fr">Visiteur du FAI</value>
         <value xml:lang="it">Visitatore ISP</value>
         <value xml:lang="ro">Visitator ISP</value>
         <value xml:lang="ru">Посетитель интернет-провайдера</value>
@@ -741,7 +750,7 @@
     </property>
     <property key="PartyRelationshipType.partyRelationshipName.WEB_MASTER_ASSIGNMEN">
         <value xml:lang="en">Web Master</value>
-        <value xml:lang="fr">Web Master</value>
+        <value xml:lang="fr">WebMestre</value>
         <value xml:lang="it">Web Master</value>
         <value xml:lang="ro">Web Master</value>
         <value xml:lang="ru">Web мастер</value>
@@ -840,6 +849,7 @@
     </property>
     <property key="RoleType.description.AFFILIATE">
         <value xml:lang="en">Affiliate</value>
+        <value xml:lang="fr">Affilié</value>
         <value xml:lang="it">Affiliato</value>
         <value xml:lang="ro">Afiliat</value>
         <value xml:lang="ru">Филиал</value>
@@ -856,6 +866,7 @@
     </property>
     <property key="RoleType.description.APPROVER">
         <value xml:lang="en">Approver</value>
+        <value xml:lang="fr">Approbateur</value>
         <value xml:lang="it">Approvatore</value>
         <value xml:lang="ro">Aprobat</value>
         <value xml:lang="ru">Утверждающая сторона</value>
@@ -864,7 +875,6 @@
     </property>
     <property key="RoleType.description.ASSOCIATION">
         <value xml:lang="en">Association</value>
-        <value xml:lang="fr">Association</value>
         <value xml:lang="it">Associazione</value>
         <value xml:lang="ro">Asociatie</value>
         <value xml:lang="ru">Ассоциация</value>
@@ -873,6 +883,7 @@
     </property>
     <property key="RoleType.description.AUTOMATED_AGENT_ROLE">
         <value xml:lang="en">Automated Agent</value>
+        <value xml:lang="fr">Agent automatisé</value>
         <value xml:lang="it">Agento Automatizzato</value>
         <value xml:lang="ro">Agent Automatizat</value>
         <value xml:lang="ru">Автоматический агент</value>
@@ -907,6 +918,7 @@
     </property>
     <property key="RoleType.description.BLOG_ADMIN">
         <value xml:lang="en">Blog Administrator</value>
+        <value xml:lang="fr">Administrateur du blog</value>
         <value xml:lang="it">Blog Amministratore</value>
         <value xml:lang="ro">Blog Administrator</value>
         <value xml:lang="ru">Администратор блога</value>
@@ -915,6 +927,7 @@
     </property>
     <property key="RoleType.description.BLOG_AUTHOR">
         <value xml:lang="en">Blog Author</value>
+        <value xml:lang="fr">Auteur du blog</value>
         <value xml:lang="it">Blog Autore</value>
         <value xml:lang="ro">Blog Autor</value>
         <value xml:lang="ru">Автор блога</value>
@@ -923,6 +936,7 @@
     </property>
     <property key="RoleType.description.BLOG_EDITOR">
         <value xml:lang="en">Blog Editor</value>
+        <value xml:lang="fr">Editeur du blog</value>
         <value xml:lang="it">Blog Editore</value>
         <value xml:lang="ro">Blog Editor</value>
         <value xml:lang="ru">Редактор блога</value>
@@ -931,6 +945,7 @@
     </property>
     <property key="RoleType.description.BLOG_GUEST">
         <value xml:lang="en">Blog Guest</value>
+        <value xml:lang="fr">Invité du blog</value>
         <value xml:lang="it">Blog Ospite</value>
         <value xml:lang="ro">Blog Oaspete</value>
         <value xml:lang="ru">Гость блога</value>
@@ -939,6 +954,7 @@
     </property>
     <property key="RoleType.description.BLOG_PUBLISHER">
         <value xml:lang="en">Blog Publisher</value>
+        <value xml:lang="fr">Editeur du blog</value>
         <value xml:lang="it">Blog Pubblicatore</value>
         <value xml:lang="ro">Blog Publicator</value>
         <value xml:lang="ru">Издатель блога</value>
@@ -947,6 +963,7 @@
     </property>
     <property key="RoleType.description.BLOG_USER">
         <value xml:lang="en">Blog User</value>
+        <value xml:lang="fr">Utilisateur du blog</value>
         <value xml:lang="it">Blog Utente</value>
         <value xml:lang="ro">Blog Utilizator</value>
         <value xml:lang="ru">Пользователь блога</value>
@@ -955,6 +972,7 @@
     </property>
     <property key="RoleType.description.BUYER">
         <value xml:lang="en">Buyer</value>
+        <value xml:lang="fr">Acheteur</value>
         <value xml:lang="it">Compratore </value>
         <value xml:lang="ro">Cumparator </value>
         <value xml:lang="ru">Покупатель</value>
@@ -1017,6 +1035,7 @@
     </property>
     <property key="RoleType.description.CASHIER">
         <value xml:lang="en">Cashier</value>
+        <value xml:lang="fr">Caissier</value>
         <value xml:lang="it">Cassiere </value>
         <value xml:lang="ro">Casier </value>
         <value xml:lang="ru">Кассир</value>
@@ -1042,6 +1061,7 @@
     </property>
     <property key="RoleType.description.CONSUMER">
         <value xml:lang="en">Consumer</value>
+        <value xml:lang="fr">Consommateur</value>
         <value xml:lang="it">Consumatore</value>
         <value xml:lang="ro">Consumator</value>
         <value xml:lang="ru">Потребитель</value>
@@ -1050,7 +1070,6 @@
     </property>
     <property key="RoleType.description.CONTACT">
         <value xml:lang="en">Contact</value>
-        <value xml:lang="fr">Contact</value>
         <value xml:lang="it">Contatto</value>
         <value xml:lang="ro">Contat</value>
         <value xml:lang="ru">Контакт</value>
@@ -1129,6 +1148,7 @@
     </property>
     <property key="RoleType.description.FAMILY_MEMBER">
         <value xml:lang="en">Family Member</value>
+        <value xml:lang="fr">Membre de la famille</value>
         <value xml:lang="it">Membro della Famiglia</value>
         <value xml:lang="ro">Membru Familie</value>
         <value xml:lang="ru">Член семьи</value>
@@ -1137,6 +1157,7 @@
     </property>
     <property key="RoleType.description.HOSTING_SERVER">
         <value xml:lang="en">Hosting Server</value>
+        <value xml:lang="fr">Serveur hébergeur</value>
         <value xml:lang="it">Hosting Server</value>
         <value xml:lang="ro">Hosting Server</value>
         <value xml:lang="ru">Сервер хостинга</value>
@@ -1145,7 +1166,7 @@
     </property>
     <property key="RoleType.description.HOUSEHOLD">
         <value xml:lang="en">Household</value>
-        <value xml:lang="fr">Entretien</value>
+        <value xml:lang="fr">Ménage</value>
         <value xml:lang="it">Famiglia</value>
         <value xml:lang="ro">Familia</value>
         <value xml:lang="ru">Домохозяйство</value>
@@ -1154,6 +1175,7 @@
     </property>
     <property key="RoleType.description.INTERNAL_ORGANIZATIO">
         <value xml:lang="en">Internal Organization</value>
+        <value xml:lang="fr">Organisation Interne</value>
         <value xml:lang="it">Organizzazione Interna</value>
         <value xml:lang="ro">Organizatie Interna</value>
         <value xml:lang="ru">Внутренняя организация</value>
@@ -1162,7 +1184,7 @@
     </property>
     <property key="RoleType.description.ISP">
         <value xml:lang="en">ISP</value>
-        <value xml:lang="it">ISP</value>
+        <value xml:lang="it">FAI</value>
         <value xml:lang="ro">ISP</value>
         <value xml:lang="ru">Провайдер Интернет</value>
         <value xml:lang="th">ISP</value>
@@ -1170,6 +1192,7 @@
     </property>
     <property key="RoleType.description.LEAD">
         <value xml:lang="en">Lead</value>
+        <value xml:lang="fr">Dirigeant</value>
         <value xml:lang="it">Lead</value>
         <value xml:lang="ro">Lead</value>
         <value xml:lang="ru">Обращение</value>
@@ -1178,6 +1201,7 @@
     </property>
     <property key="RoleType.description.LOGGEDIN">
         <value xml:lang="en">Logged In</value>
+        <value xml:lang="fr">Connecté</value>
         <value xml:lang="it">Autenticato</value>
         <value xml:lang="ro">Autentic</value>
         <value xml:lang="ru">Зарегистрированный</value>
@@ -1186,7 +1210,7 @@
     </property>
     <property key="RoleType.description.LTD_ADMIN">
         <value xml:lang="en">Limited Administrator</value>
-        <value xml:lang="fr">Administrateur S.I (avec limite)</value>
+        <value xml:lang="fr">Administrateur (avec limite)</value>
         <value xml:lang="it">Amministratore Limitato</value>
         <value xml:lang="ro">Administrator Limitat</value>
         <value xml:lang="ru">Ограниченный администратор</value>
@@ -1195,6 +1219,7 @@
     </property>
     <property key="RoleType.description.MANAGER">
         <value xml:lang="en">Manager</value>
+        <value xml:lang="fr">Responsable</value>
         <value xml:lang="it">Responsabile</value>
         <value xml:lang="ro">Responsabil</value>
         <value xml:lang="ru">Менеджер</value>
@@ -1203,6 +1228,7 @@
     </property>
     <property key="RoleType.description.ORDER_CLERK">
         <value xml:lang="en">Order Clerk</value>
+        <value xml:lang="fr">Employé aux commandes</value>
         <value xml:lang="it">Impiegato Ordini</value>
         <value xml:lang="ro">Functionar Comenzi</value>
         <value xml:lang="ru">Служащий по обработке заказов</value>
@@ -1220,6 +1246,7 @@
     </property>
     <property key="RoleType.description.ORGANIZATION_UNIT">
         <value xml:lang="en">Organization Unit</value>
+        <value xml:lang="fr">Unité d'organisation</value>
         <value xml:lang="it">Unità Organizzativa</value>
         <value xml:lang="ro">Unitate Organizativa</value>
         <value xml:lang="ru">Организационная единица</value>
@@ -1228,6 +1255,7 @@
     </property>
     <property key="RoleType.description.OTHER_INTERNAL_ORGAN">
         <value xml:lang="en">Other Internal</value>
+        <value xml:lang="fr">Autre interne</value>
         <value xml:lang="it">Altri Interni</value>
         <value xml:lang="ro">Altre Interioare</value>
         <value xml:lang="ru">Другая внутренняя</value>
@@ -1236,6 +1264,7 @@
     </property>
     <property key="RoleType.description.OTHER_ORGANIZATION_U">
         <value xml:lang="en">Other Organization Unit</value>
+        <value xml:lang="fr">Autre unité d'organisation</value>
         <value xml:lang="it">Altra Unità Organizzativa</value>
         <value xml:lang="ro">Alte Unitati Organizative</value>
         <value xml:lang="ru">Другая организационная единица</value>
@@ -1244,7 +1273,7 @@
     </property>
     <property key="RoleType.description.OWNER">
         <value xml:lang="en">Owner</value>
-        <value xml:lang="fr">Propriétaire de contenu</value>
+        <value xml:lang="fr">Propriétaire</value>
         <value xml:lang="it">Proprietario</value>
         <value xml:lang="ro">Proprietar</value>
         <value xml:lang="ru">Владелец</value>
@@ -1253,6 +1282,7 @@
     </property>
     <property key="RoleType.description.PACKER">
         <value xml:lang="en">Packer</value>
+        <value xml:lang="fr">Emballeur</value>
         <value xml:lang="it">Imballatore</value>
         <value xml:lang="ro">Ambalator</value>
         <value xml:lang="ru">Упаковщик</value>
@@ -1261,6 +1291,7 @@
     </property>
     <property key="RoleType.description.PARENT_ORGANIZATION">
         <value xml:lang="en">Parent Organization</value>
+        <value xml:lang="fr">Organisation parente</value>
         <value xml:lang="it">Organizzazione Padre</value>
         <value xml:lang="ro">Organizatii Parinte</value>
         <value xml:lang="ru">Родительская организация</value>
@@ -1269,6 +1300,7 @@
     </property>
     <property key="RoleType.description.PARTNER">
         <value xml:lang="en">Partner</value>
+        <value xml:lang="fr">Associé</value>
         <value xml:lang="it">Socio</value>
         <value xml:lang="ro">Asociat</value>
         <value xml:lang="ru">Партнер</value>
@@ -1277,6 +1309,7 @@
     </property>
     <property key="RoleType.description.PERMISSION_GROUP">
         <value xml:lang="en">Permission Group</value>
+        <value xml:lang="fr">Groupe d'approbation</value>
         <value xml:lang="it">Gruppo Permesso</value>
         <value xml:lang="ro">Grup Permis</value>
         <value xml:lang="ru">Группа прав</value>
@@ -1285,6 +1318,7 @@
     </property>
     <property key="RoleType.description.PERMISSION_GROUP_MBR">
         <value xml:lang="en">Permission Group Member</value>
+        <value xml:lang="fr">Membre du groupe d'approbation</value>
         <value xml:lang="it">Membro Gruppo Permesso</value>
         <value xml:lang="ro">Membru Grup Permis</value>
         <value xml:lang="ru">Член группы прав</value>
@@ -1302,6 +1336,7 @@
     </property>
     <property key="RoleType.description.PICKER">
         <value xml:lang="en">Picker</value>
+        <value xml:lang="fr">Préparateur</value>
         <value xml:lang="it">Prelevatore</value>
         <value xml:lang="ro">Preluator?</value>
         <value xml:lang="ru">Сортировщик</value>
@@ -1310,7 +1345,7 @@
     </property>
     <property key="RoleType.description.PLACING_CUSTOMER">
         <value xml:lang="en">Placing Customer</value>
-        <value xml:lang="fr">Intermédiaire du client</value>
+        <value xml:lang="fr">Client acheteur</value>
         <value xml:lang="it">Disposizione del Cliente</value>
         <value xml:lang="ro">Dispozitie Client</value>
         <value xml:lang="ru">Placing Customer</value>
@@ -1319,7 +1354,6 @@
     </property>
     <property key="RoleType.description.PROSPECT">
         <value xml:lang="en">Prospect</value>
-        <value xml:lang="fr">Prospect</value>
         <value xml:lang="it">Prospetto</value>
         <value xml:lang="ro">Prospect</value>
         <value xml:lang="ru">Перспектива</value>
@@ -1328,6 +1362,7 @@
     </property>
     <property key="RoleType.description.RECEIVER">
         <value xml:lang="en">Receiver</value>
+        <value xml:lang="fr">Récepteur</value>
         <value xml:lang="it">Ricevente</value>
         <value xml:lang="ro">Primitor</value>
         <value xml:lang="ru">Получатель</value>
@@ -1336,6 +1371,7 @@
     </property>
     <property key="RoleType.description.REFERRER">
         <value xml:lang="en">Referrer</value>
+        <value xml:lang="fr">Référant</value>
         <value xml:lang="it">Referente</value>
         <value xml:lang="ro">Referent</value>
         <value xml:lang="ru">Ссылающийся</value>
@@ -1344,6 +1380,7 @@
     </property>
     <property key="RoleType.description.REGULATORY_AGENCY">
         <value xml:lang="en">Regulatory Agency</value>
+        <value xml:lang="fr">Agence de régulation</value>
         <value xml:lang="it">Agenzia Regolatrice</value>
         <value xml:lang="ro">Agentie Normalizatoare</value>
         <value xml:lang="ru">Регуляторное агентство</value>
@@ -1352,6 +1389,7 @@
     </property>
     <property key="RoleType.description.REQ_MANAGER">
         <value xml:lang="en">Request Manager</value>
+        <value xml:lang="fr">Responsable de recherche</value>
         <value xml:lang="it">Responsabile delle Richieste</value>
         <value xml:lang="ro">Responsabil cu Cererile</value>
         <value xml:lang="ru">Менеджер запроса</value>
@@ -1360,6 +1398,7 @@
     </property>
     <property key="RoleType.description.REQ_REQUESTER">
         <value xml:lang="en">Requesting Party</value>
+        <value xml:lang="fr">Demandeur</value>
         <value xml:lang="it">Soggetto Richiesta</value>
         <value xml:lang="ro">Cerere Subiect</value>
         <value xml:lang="ru">Запрашиваемый участник</value>
@@ -1368,6 +1407,7 @@
     </property>
     <property key="RoleType.description.REQ_TAKER">
         <value xml:lang="en">Request Taker</value>
+        <value xml:lang="fr">Employé aux recherches</value>
         <value xml:lang="it">Acquirente Soggetto</value>
         <value xml:lang="ro">Cerere Cumparare</value>
         <value xml:lang="ru">Получатель запроса</value>
@@ -1376,6 +1416,7 @@
     </property>
     <property key="RoleType.description.REVIEWER">
         <value xml:lang="en">Reviewer</value>
+        <value xml:lang="fr">Vérificateur</value>
         <value xml:lang="it">Revisore</value>
         <value xml:lang="ro">Revizor</value>
         <value xml:lang="ru">Обозреватель</value>
@@ -1393,6 +1434,7 @@
     </property>
     <property key="RoleType.description.SHAREHOLDER">
         <value xml:lang="en">Shareholder</value>
+        <value xml:lang="fr">Actionnaire</value>
         <value xml:lang="it">Azionista</value>
         <value xml:lang="ro">Actionist</value>
         <value xml:lang="ru">Пайщик</value>
@@ -1401,6 +1443,7 @@
     </property>
     <property key="RoleType.description.SHIPMENT_CLERK">
         <value xml:lang="en">Shipment Clerk</value>
+        <value xml:lang="fr">Employé aux expéditions</value>
         <value xml:lang="it">Impiegato Spedizioni</value>
         <value xml:lang="ro">Functionar Expedieri</value>
         <value xml:lang="ru">Служащий по поставкам</value>
@@ -1427,6 +1470,7 @@
     </property>
     <property key="RoleType.description.STOCKER">
         <value xml:lang="en">Stocker</value>
+        <value xml:lang="fr">Magasinier</value>
         <value xml:lang="it">Magazziniere</value>
         <value xml:lang="ro">Magazin</value>
         <value xml:lang="ru">Stocker</value>
@@ -1435,6 +1479,7 @@
     </property>
     <property key="RoleType.description.SUBSCRIBER">
         <value xml:lang="en">Subscriber</value>
+        <value xml:lang="fr">Abonné</value>
         <value xml:lang="it">Abbonato</value>
         <value xml:lang="ro">Abonat</value>
         <value xml:lang="ru">Подписчик</value>
@@ -1469,6 +1514,7 @@
     </property>
     <property key="RoleType.description.TAX_AUTHORITY">
         <value xml:lang="en">Tax Authority</value>
+        <value xml:lang="fr">Administration fiscale</value>
         <value xml:lang="it">Autorità Tasse</value>
         <value xml:lang="ro">Autoritati Taxe</value>
         <value xml:lang="ru">Налоговый орган</value>
@@ -1503,7 +1549,7 @@
     </property>
     <property key="RoleType.description.WEB_MASTER">
         <value xml:lang="en">Web Master</value>
-        <value xml:lang="it">Web Master</value>
+        <value xml:lang="it">Webmestre</value>
         <value xml:lang="ro">Web Master</value>
         <value xml:lang="ru">Web мастер</value>
         <value xml:lang="th">Web Master</value>
@@ -1511,6 +1557,7 @@
     </property>
     <property key="RoleType.description.WF_OWNER">
         <value xml:lang="en">Workflow Owner</value>
+        <value xml:lang="fr">Propriétaire de la séquence de travail</value>
         <value xml:lang="it">Proprietario Flusso di Lavoro</value>
         <value xml:lang="ro">Proprietar Flux de Lucru</value>
         <value xml:lang="ru">Владелец процесса Workflow</value>
@@ -1519,6 +1566,7 @@
     </property>
     <property key="RoleType.description.WORKER">
         <value xml:lang="en">Worker</value>
+        <value xml:lang="fr">Travailleur</value>
         <value xml:lang="it">Operaio</value>
         <value xml:lang="ro">Muncitor</value>
         <value xml:lang="ru">Рабочий</value>
@@ -1527,6 +1575,7 @@
     </property>
     <property key="RoleType.description.WORKFLOW_ROLE">
         <value xml:lang="en">Workflow</value>
+        <value xml:lang="fr">Séquence de travail</value>
         <value xml:lang="it">Flusso di Lavoro</value>
         <value xml:lang="ro">Flux de Lucru</value>
         <value xml:lang="ru">Workflow</value>
@@ -1535,42 +1584,52 @@
     </property>
     <property key="RoleType.description.PROJECT_TEAM">
         <value xml:lang="en">Project Team</value>
+        <value xml:lang="fr">Equipe du projet</value>
         <value xml:lang="zh">项目团体</value>
     </property>
     <property key="RoleType.description.CLIENT_MANAGER">
         <value xml:lang="en">Client Manager</value>
+        <value xml:lang="fr">Responsable client</value>
         <value xml:lang="zh">客户经理</value>
     </property>
     <property key="RoleType.description.CLIENT_ANALYST">
         <value xml:lang="en">Client Analyst</value>
+        <value xml:lang="fr">Analyste client</value>
         <value xml:lang="zh">客户分析员</value>
     </property>
     <property key="RoleType.description.CLIENT_BILLING">
         <value xml:lang="en">Client Billing</value>
+        <value xml:lang="fr">Facturation client</value>
         <value xml:lang="zh">客户收款员</value>
     </property>
     <property key="RoleType.description.PROVIDER_MANAGER">
         <value xml:lang="en">Provider Manager</value>
+        <value xml:lang="fr">Responsable fournisseur</value>
         <value xml:lang="zh">供应商经理</value>
     </property>
     <property key="RoleType.description.PROVIDER_ACCOUNTING">
         <value xml:lang="en">Provider Accounting</value>
+        <value xml:lang="fr">Comptabilité fournisseur</value>
         <value xml:lang="zh">供应商会计人员</value>
     </property>
     <property key="RoleType.description.PROVIDER_ANALYST">
         <value xml:lang="en">Provider Analyst</value>
+        <value xml:lang="fr">Analyste fournisseur</value>
         <value xml:lang="zh">供应商分析员</value>
     </property>
     <property key="RoleType.description.PROVIDER_VALIDATOR">
         <value xml:lang="en">Provider Validator</value>
+        <value xml:lang="fr">Approbateur fournisseur</value>
         <value xml:lang="zh">供应商检验人员</value>
     </property>
     <property key="RoleType.description.PROVIDER_FUNCTIONAL">
         <value xml:lang="en">Provider Functional</value>
+        <value xml:lang="fr">Conseiller fournisseur</value>
         <value xml:lang="zh">供应商实现人员</value>
     </property>
-     <property key="RoleType.description.PROVIDER_TESTER">
+    <property key="RoleType.description.PROVIDER_TESTER">
         <value xml:lang="en">Provider Tester</value>
+        <value xml:lang="fr">Testeur fournisseur</value>
         <value xml:lang="zh">供应商测试人员</value>
     </property>
     <property key="RoleType.description._NA_">
@@ -1648,6 +1707,7 @@
     </property>
     <property key="TermType.description.FIN_COMM_FIXED">
         <value xml:lang="en">Commission Term Fixed Per Unit</value>
+        <value xml:lang="fr">Commission fixée par unité</value>
         <value xml:lang="it">Provvigione Termine Fisso Per Unità</value>
         <value xml:lang="ro">Provizion Termen Fix Pe Unitate</value>
         <value xml:lang="ru">Фиксированная комиссия на единицу</value>
@@ -1657,6 +1717,7 @@
     </property>
     <property key="TermType.description.FIN_COMM_MAX">
         <value xml:lang="en">Commission Term Maximum Per Unit</value>
+        <value xml:lang="fr">Commission maximale par unité</value>
         <value xml:lang="it">Provvigione Termine Massimo Per Unità</value>
         <value xml:lang="ro">Provizion Termen Maxim Pe Unitate</value>
         <value xml:lang="ru">Максимальная комиссия на единицу</value>
@@ -1665,6 +1726,7 @@
     </property>
     <property key="TermType.description.FIN_COMM_MIN">
         <value xml:lang="en">Commission Term Minimum Per Unit</value>
+        <value xml:lang="fr">Commission minmale par unité</value>
         <value xml:lang="it">Provvigione Termine Minimo Per Unità</value>
         <value xml:lang="ro">Provizion Termen Minim Pe Unitate</value>
         <value xml:lang="ru">Минимальная комиссия на единицу</value>
@@ -1673,6 +1735,7 @@
     </property>
     <property key="TermType.description.FIN_COMM_VARIABLE">
         <value xml:lang="en">Commission Term Variable</value>
+        <value xml:lang="fr">Commission variable</value>
         <value xml:lang="it">Provvigione Termine Variabile</value>
         <value xml:lang="ro">Provizion Termen Variabil</value>
         <value xml:lang="ru">Переменная комиссия</value>
@@ -1703,6 +1766,7 @@
     </property>
     <property key="TermType.description.FIN_PAYMENT_DISC">
         <value xml:lang="en">Payment (discounted if paid within specified days)</value>
+        <value xml:lang="fr">Paiment (avec remise si payé dans un nombre de jours donnés)</value>
         <value xml:lang="it">Pagamento (sconto se pagato senza giorni specificati)</value>
         <value xml:lang="ro">Plata (discontinuu daca este platit fara specificarea zilelor)</value>
         <value xml:lang="ru">Платеж (скидка при оплате в течении указанного количества дней)</value>
@@ -1711,6 +1775,7 @@
     </property>
     <property key="TermType.description.FIN_PAYMENT_FIXDAY">
         <value xml:lang="en">Payment (due on specified day of month)</value>
+        <value xml:lang="fr">Paiment (due à un jour donné du mois)</value>
         <value xml:lang="it">Pagamento (dovuto ad uno specifico giorno del mese)</value>
         <value xml:lang="ro">Plata(une zile specifice a lunii)</value>
         <value xml:lang="ru">Платеж (на определенный день месяца)</value>
@@ -1719,6 +1784,7 @@
     </property>
     <property key="TermType.description.FIN_PAYMENT_TERM">
         <value xml:lang="en">Payment (net days)</value>
+        <value xml:lang="fr">Paiment (à date)</value>
         <value xml:lang="es">Pago (días netos)</value>
         <value xml:lang="fr">Paiement (net)</value>
         <value xml:lang="it">Pagamento (netto giorni)</value>
@@ -1731,7 +1797,7 @@
     <property key="TermType.description.INCENTIVE">
         <value xml:lang="en">Incentive</value>
         <value xml:lang="es">Incentivo</value>
-        <value xml:lang="fr">Incentive</value>
+        <value xml:lang="fr">Avantage</value>
         <value xml:lang="it">Incentivo</value>
         <value xml:lang="pt_PT">Incentivo</value>
         <value xml:lang="ro">Incentiv</value>
@@ -1742,7 +1808,7 @@
     <property key="TermType.description.INDEMNIFICATION">
         <value xml:lang="en">Indemnification</value>
         <value xml:lang="es">Indemnización</value>
-        <value xml:lang="fr">%Indemnification%</value>
+        <value xml:lang="fr">Indemnisation</value>
         <value xml:lang="it">Risarcimento</value>
         <value xml:lang="pt_PT">Compensação</value>
         <value xml:lang="ro">Despagubire</value>
@@ -1753,7 +1819,7 @@
     <property key="TermType.description.LEGAL_TERM">
         <value xml:lang="en">Legal</value>
         <value xml:lang="es">Términos legales</value>
-        <value xml:lang="fr">Legale</value>
+        <value xml:lang="fr">Légale</value>
         <value xml:lang="it">Legale</value>
         <value xml:lang="pt_PT">Legal</value>
         <value xml:lang="ro">Legal</value>
