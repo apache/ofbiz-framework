@@ -1502,26 +1502,29 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
     public void renderTextFindField(StringBuffer buffer, Map context, TextFindField textFindField) {
 
         ModelFormField modelFormField = textFindField.getModelFormField();
-        Locale locale = (Locale)context.get("locale");
-        String opEquals = UtilProperties.getMessage("conditional", "equals", locale);
-        String opBeginsWith = UtilProperties.getMessage("conditional", "begins_with", locale);
-        String opContains = UtilProperties.getMessage("conditional", "contains", locale);
-        String opIsEmpty = UtilProperties.getMessage("conditional", "is_empty", locale);
-        String ignoreCase = UtilProperties.getMessage("conditional", "ignore_case", locale);
-        String opNotEqual = UtilProperties.getMessage("conditional", "not_equal", locale);
-
+        
         String defaultOption = textFindField.getDefaultOption();
-        boolean ignCase = textFindField.getIgnoreCase();
-
-        buffer.append(" <select name=\"");
-        buffer.append(modelFormField.getParameterName(context));
-        buffer.append("_op\" class=\"selectBox\">");
-        buffer.append("<option value=\"equals\"" + ("equals".equals(defaultOption)? " selected": "") + ">" + opEquals + "</option>");
-        buffer.append("<option value=\"like\"" + ("like".equals(defaultOption)? " selected": "") + ">" + opBeginsWith + "</option>");
-        buffer.append("<option value=\"contains\"" + ("contains".equals(defaultOption)? " selected": "") + ">" + opContains + "</option>");
-        buffer.append("<option value=\"empty\"" + ("empty".equals(defaultOption)? " selected": "") + ">" + opIsEmpty + "</option>");
-        buffer.append("<option value=\"notEqual\"" + ("notEqual".equals(defaultOption)? " selected": "") + ">" + opNotEqual + "</option>");
-        buffer.append("</select>");
+        Locale locale = (Locale)context.get("locale");
+        if (!textFindField.getHideOptions()) {
+            String opEquals = UtilProperties.getMessage("conditional", "equals", locale);
+            String opBeginsWith = UtilProperties.getMessage("conditional", "begins_with", locale);
+            String opContains = UtilProperties.getMessage("conditional", "contains", locale);
+            String opIsEmpty = UtilProperties.getMessage("conditional", "is_empty", locale);
+            String opNotEqual = UtilProperties.getMessage("conditional", "not_equal", locale);
+            buffer.append(" <select name=\"");
+            buffer.append(modelFormField.getParameterName(context));
+            buffer.append("_op\" class=\"selectBox\">");
+            buffer.append("<option value=\"equals\"" + ("equals".equals(defaultOption)? " selected": "") + ">" + opEquals + "</option>");
+            buffer.append("<option value=\"like\"" + ("like".equals(defaultOption)? " selected": "") + ">" + opBeginsWith + "</option>");
+            buffer.append("<option value=\"contains\"" + ("contains".equals(defaultOption)? " selected": "") + ">" + opContains + "</option>");
+            buffer.append("<option value=\"empty\"" + ("empty".equals(defaultOption)? " selected": "") + ">" + opIsEmpty + "</option>");
+            buffer.append("<option value=\"notEqual\"" + ("notEqual".equals(defaultOption)? " selected": "") + ">" + opNotEqual + "</option>");
+            buffer.append("</select>");
+        } else {
+            buffer.append(" <input type=\"hidden\" name=\"");
+            buffer.append(modelFormField.getParameterName(context));
+            buffer.append("_op\" value=\"" + defaultOption + "\"/>");
+        }
         
         buffer.append("<input type=\"text\"");
 
@@ -1561,10 +1564,19 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             buffer.append("\">");
         }
 
-        buffer.append(" <input type=\"checkbox\" name=\"");
-        buffer.append(modelFormField.getParameterName(context));
-        buffer.append("_ic\" value=\"Y\"" + (ignCase ? " checked=\"checked\"" : "") + "/>");
-        buffer.append(ignoreCase);
+        String ignoreCase = UtilProperties.getMessage("conditional", "ignore_case", locale);
+        boolean ignCase = textFindField.getIgnoreCase();
+
+        if (!textFindField.getHideIgnoreCase()) {
+            buffer.append(" <input type=\"checkbox\" name=\"");
+            buffer.append(modelFormField.getParameterName(context));
+            buffer.append("_ic\" value=\"Y\"" + (ignCase ? " checked=\"checked\"" : "") + "/>");
+            buffer.append(ignoreCase);
+        } else {
+            buffer.append( "<input type=\"hidden\" name=\"");
+            buffer.append(modelFormField.getParameterName(context));
+            buffer.append("_ic\" value=\"" + (ignCase ? "Y" : "") + "\"/>");
+        }
         
         if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle())) {
             buffer.append("</span>");

@@ -2867,12 +2867,18 @@ public class ModelFormField {
 
     public static class TextFindField extends TextField {
         protected boolean ignoreCase = true;
+        protected boolean hideIgnoreCase = false;
         protected String defaultOption = "like";
+        protected boolean hideOptions = false;
 
         public TextFindField(Element element, ModelFormField modelFormField) {
             super(element, modelFormField);
             this.ignoreCase = "true".equals(element.getAttribute("ignore-case"));
+            this.hideIgnoreCase = "true".equals(element.getAttribute("hide-options")) ||
+                "ignore-case".equals(element.getAttribute("hide-options")) ? true : false;
             this.defaultOption = element.getAttribute("default-option");
+            this.hideOptions = "true".equals(element.getAttribute("hide-options")) ||
+                "options".equals(element.getAttribute("hide-options")) ? true : false;
         }
 
         public TextFindField(int fieldSource, ModelFormField modelFormField) {
@@ -2885,6 +2891,14 @@ public class ModelFormField {
 
         public String getDefaultOption() {
             return this.defaultOption;
+        }
+        
+        public boolean getHideIgnoreCase() {
+            return this.hideIgnoreCase;
+        }
+        
+        public boolean getHideOptions() {
+            return this.hideOptions;
         }
 
         public void renderFieldString(StringBuffer buffer, Map context, FormStringRenderer formStringRenderer) {
