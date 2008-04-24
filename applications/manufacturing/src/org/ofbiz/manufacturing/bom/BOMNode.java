@@ -126,8 +126,8 @@ public class BOMNode {
                         oneChildNode.loadChildren(partBomTypeId, inDate, productFeatures, BOMTree.EXPLOSION);
                     break;
                     case BOMTree.EXPLOSION_MANUFACTURING:
-                        // for manfacturing trees, do not look through and create production runs for children unless there is no warehouse stocking of this node item 
-                if (!oneChildNode.isWarehouseManaged()) {
+                        // for manufacturing trees, do not look through and create production runs for children unless there is no warehouse stocking of this node item 
+                        if (!oneChildNode.isWarehouseManaged(null)) { // FIXME: we will need to pass a facilityId here
                             oneChildNode.loadChildren(partBomTypeId, inDate, productFeatures, type);
                         }
                     break;
@@ -609,21 +609,36 @@ public class BOMNode {
      * Returns false if the product of this BOM Node is of type "WIP" or if it has no ProductFacility records defined for it,
      * meaning that no active stock targets are set for this product.
      */
-    public boolean isWarehouseManaged() {
+    public boolean isWarehouseManaged(String facilityId) {
         boolean isWarehouseManaged = false;
         try {
             if ("WIP".equals(getProduct().getString("productTypeId"))) {
                 return false;
             }
-            List pfs = getProduct().getRelatedCache("ProductFacility");
+            List pfs = null;
+            if (UtilValidate.isEmpty(facilityId)) {
+                pfs = getProduct().getRelatedCache("ProductFacility");
+            } else {
+                pfs = getProduct().getRelatedCache("ProductFacility", UtilMisc.toMap("facilityId", facilityId), null);
+            }
             if (UtilValidate.isNotEmpty(pfs)) {
                 isWarehouseManaged = true;
             } else {
                 if (getSubstitutedNode() != null && getSubstitutedNode().getProduct() != null) {
-                    pfs = getSubstitutedNode().getProduct().getRelatedCache("ProductFacility");
+                    if (UtilValidate.isEmpty(facilityId)) {
+                        pfs = getSubstitutedNode().getProduct().getRelatedCache("ProductFacility");
+                    } else {
+                        pfs = getSubstitutedNode().getProduct().getRelatedCache("ProductFacility", UtilMisc.toMap("facilityId", facilityId), null);
+                    }
                 }
                 if (UtilValidate.isNotEmpty(pfs)) {
-                    isWarehouseManaged = true;
+                    for (int i = 0; i < pfs.size(); i++) {
+                        GenericValue pf = (GenericValue)pfs.get(i);
+                        if (UtilValidate.isNotEmpty(pf.get("minimumStock")) && UtilValidate.isNotEmpty(pf.get("reorderQuantity"))) {
+                            isWarehouseManaged = true;
+                            break;
+                        }
+                    }
                 }
             }
         } catch(GenericEntityException gee) {
