@@ -636,7 +636,7 @@ under the License.
     <ProductPriceAction amount="-20.0" productPriceActionSeqId="01" productPriceActionTypeId="PRICE_POL" productPriceRuleId="9000"/>
 
     <!-- this is just an example of specifying a price for a particular product and party group membership -->
-    <ProductPriceRule productPriceRuleId="9001" ruleName="Test Rule 1" isSale="Y"/>
+    <ProductPriceRule productPriceRuleId="9001" ruleName="Test Rule 2" isSale="Y"/>
     <ProductPriceCond inputParamEnumId="PRIP_PRODUCT_ID" operatorEnumId="PRC_EQ" condValue="WG-1111" productPriceCondSeqId="01" productPriceRuleId="9001"/>
     <ProductPriceCond inputParamEnumId="PRIP_PARTY_GRP_MEM" operatorEnumId="PRC_EQ" condValue="DemoCustCompany" productPriceCondSeqId="02" productPriceRuleId="9001"/>
     <ProductPriceAction productPriceRuleId="9001" productPriceActionSeqId="01" productPriceActionTypeId="PRICE_FLAT" amount="18.95"/>

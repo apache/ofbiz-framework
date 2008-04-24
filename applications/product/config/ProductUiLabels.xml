@@ -12990,7 +12990,7 @@
         <value xml:lang="zh">价格规则名称 [标识]</value>
     </property>
     <property key="ProductPriceRules">
-        <value xml:lang="en">PriceRules</value>
+        <value xml:lang="en">Price Rules</value>
         <value xml:lang="es">Reglas de precio</value>
         <value xml:lang="fr">Règles de prix</value>
         <value xml:lang="it">Regole Prezzo</value>
