@@ -103,7 +103,7 @@ under the License.
     </service>
 
     <service name="loadCartFromQuote" engine="java" auth="true"
-            location="org.ofbiz.order.shoppingcart.ShoppingCartServices" invoke="loadCartFromQuote" use-transaction="false">
+            location="org.ofbiz.order.shoppingcart.ShoppingCartServices" invoke="loadCartFromQuote">
         <description>Create a ShoppingCart Object based on an existing quote. If applyQuoteAdjustments is set to false then standard cart adjustments are generated.</description>
         <attribute name="quoteId" type="String" mode="IN" optional="false"/>
         <attribute name="applyQuoteAdjustments" type="String" mode="IN" optional="true"/>
