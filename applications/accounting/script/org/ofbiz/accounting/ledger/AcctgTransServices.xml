@@ -76,13 +76,37 @@ under the License.
         <field-to-result field-name="newEntity.acctgTransEntrySeqId" result-name="acctgTransEntrySeqId"/>
 
         <!-- if not explicitly provided in the parameters, set the currency of the entry from PartyAcctgPreference -->
+        <set field="partyAccountingPreferencesCallMap.organizationPartyId" from-field="parameters.organizationPartyId"/>
+        <call-service service-name="getPartyAccountingPreferences" in-map-name="partyAccountingPreferencesCallMap">
+             <result-to-field result-name="partyAccountingPreference" field-name="partyAcctgPreference"/>
+        </call-service>
         <if-empty field-name="parameters.currencyUomId">
-            <set field="partyAccountingPreferencesCallMap.organizationPartyId" from-field="parameters.organizationPartyId"/>
-            <call-service service-name="getPartyAccountingPreferences" in-map-name="partyAccountingPreferencesCallMap">
-                 <result-to-field result-name="partyAccountingPreference" field-name="partyAcctgPreference"/>
-            </call-service>
             <set from-field="partyAcctgPreference.baseCurrencyUomId" field="newEntity.currencyUomId"/>
         </if-empty>
+        
+        <!-- if the amount field is empty, then determine it from the origAmount and origCurrencyUomId fields:
+             if origCurrencyUomId is different from the base currency of the organization, then the amount value will be converted -->
+        <if-empty field-name="newEntity.amount">
+            <if-not-empty field-name="newEntity.origAmount">
+                <if-empty field-name="newEntity.origCurrencyUomId">
+                    <set field="newEntity.origCurrencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
+                </if-empty>
+                <if-compare-field field-name="newEntity.origCurrencyUomId" operator="not-equals" to-field-name="newEntity.currencyUomId">
+                    <clear-field field-name="convertUomInMap"/>
+                    <set field="convertUomInMap.originalValue" from-field="newEntity.origAmount" type="Double"/>
+                    <set field="convertUomInMap.uomId" from-field="newEntity.origCurrencyUomId"/>
+                    <set field="convertUomInMap.uomIdTo" from-field="newEntity.currencyUomId"/>
+                    <!-- TODO: set the optional asOfDate input parameter -->
+                    <call-service service-name="convertUom" in-map-name="convertUomInMap">
+                        <result-to-field result-name="convertedValue" field-name="newEntity.amount"/>
+                    </call-service>
+                <else>
+                    <set field="newEntity.amount" from-field="newEntity.origAmount"/>
+                </else>
+                </if-compare-field>
+            </if-not-empty>
+        </if-empty>
+
         <if-empty field-name="newEntity.acctgTransEntryTypeId">
             <set field="newEntity.acctgTransEntryTypeId" value="_NA_"/>
         </if-empty>

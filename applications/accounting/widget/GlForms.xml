@@ -503,7 +503,15 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="amount"><text size="30"/></field>
+        <field name="origAmount"><text size="30"/></field>
+        <field name="origCurrencyUomId">
+            <drop-down allow-empty="true">
+                <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
+                    <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
+                    <entity-order-by field-name="abbreviation"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="voucherRef"><text size="30"/></field>
         <field name="partyId"><text size="30"/></field>
         <field name="productId"><text size="20"/></field>
