@@ -18,6 +18,18 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="AccountAnnualRevenue">
+        <value xml:lang="en">Annual Revenue</value>
+    </property>
+    <property key="AccountInformation">
+        <value xml:lang="en">Account Information</value>
+    </property>
+    <property key="AccountName">
+        <value xml:lang="en">Account Name</value>
+    </property>
+    <property key="AccountTickerSymbol">
+        <value xml:lang="en">Ticker Symbol</value>
+    </property>
     <property key="ContactList">
         <value xml:lang="en">Contact List</value>
         <value xml:lang="es">Lista de contactos</value>
@@ -391,6 +403,12 @@
         <value xml:lang="th">ข้อมูลแถว</value>
         <value xml:lang="zh">日期范围</value>
     </property>
+    <property key="MarketingEmployees">
+        <value xml:lang="en">Employees</value>
+    </property>
+    <property key="MarketingFindAccounts">
+        <value xml:lang="en">Find SFA Accounts</value>
+    </property>
     <property key="MarketingMainPage">
         <value xml:lang="en">Main</value>
         <value xml:lang="es">Principal</value>
@@ -477,6 +495,9 @@
         <value xml:lang="th">การเยี่ยมชม</value>
         <value xml:lang="zh">访问</value>
     </property>
+    <property key="PageTitleAccountSummary">
+        <value xml:lang="en">Account Summary</value>
+    </property>
     <property key="PageTitleAddContactList">
         <value xml:lang="en">Add Contact List</value>
         <value xml:lang="es">Nueva lista de contactos</value>
@@ -512,6 +533,12 @@
         <value xml:lang="ro">Adauga Noul Tip Traseu</value>
         <value xml:lang="th">เพิ่มประเภทรหัส Tracking ใหม่</value>
         <value xml:lang="zh">新建跟踪码类型</value>
+    </property>
+    <property key="PageTitleCreateAccount">
+        <value xml:lang="en">Create New Account</value>
+    </property>
+    <property key="PageTitleEditAccount">
+        <value xml:lang="en">Edit Account</value>
     </property>
     <property key="PageTitleEditContactList">
         <value xml:lang="en">Edit Contact List</value>
@@ -1088,6 +1115,9 @@
     </property>
     <property key="SfaAcccounts">
         <value xml:lang="en">Accounts</value>
+    </property>
+    <property key="SfaCampaigns">
+        <value xml:lang="en">Campaigns</value>
     </property>
     <property key="SfaCompanyName">
         <value xml:lang="en">OFBiz: SFA Manager</value>

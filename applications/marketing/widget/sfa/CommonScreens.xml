@@ -25,6 +25,9 @@ under the License.
             <actions>
                 <!-- base/top/specific map first, then more common map added for shared labels -->
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="MarketingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="layoutSettings.companyName" from-field="uiLabelMap.SfaCompanyName" global="true"/>
                 <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.MarketingCompanySubtitle" global="true"/>
@@ -102,6 +105,32 @@ under the License.
                                 <section>
                                     <widgets>                                        
                                         <include-menu name="OpportunityTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
+                                    </widgets>
+                                </section>   
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.ProjectMgrViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="CommonAccountDecorator">
+        <section>
+            <actions>
+                <set field="partyId" from-field="parameters.partyId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <section>
+                                    <widgets>                                        
+                                        <include-menu name="AccountTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
                                     </widgets>
                                 </section>   
                                 <decorator-section-include name="body"/>

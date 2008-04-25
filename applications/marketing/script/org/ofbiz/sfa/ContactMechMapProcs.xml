@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-map-processors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+    <!-- ContactMech map procs -->
+
+    <simple-map-processor name="newEmail">
+        <process field="roleTypeId"><copy/></process>
+        <process field="emailAddress"><copy/><not-empty><fail-property resource="PartyUiLabels" property="PartyEmailAddressMissing"/></not-empty>
+            <validate-method method="isEmail"><fail-property resource="PartyUiLabels" property="PartyEmailAddressNotFormattedCorrectly"/></validate-method>
+        </process>
+        <process field="emailAllowSol"><copy to-field="allowSolicitation"/></process>
+    </simple-map-processor>
+
+    <simple-map-processor name="postalAddress">
+        <make-in-string field="toName">
+            <in-field field="firstName"/><constant> </constant>
+            <in-field field="middleName"/><constant> </constant>
+            <in-field field="lastName"/>
+        </make-in-string>
+        <process field="roleTypeId"><copy/></process>
+        <process field="toName"><copy/></process>
+        <process field="address1"><copy/><not-empty><fail-property resource="PartyUiLabels" property="PartyAddressLine1Missing"/></not-empty></process>
+        <process field="address2"><copy/></process>
+        <process field="city"><copy/><not-empty><fail-property resource="PartyUiLabels" property="PartyCityMissing"/></not-empty></process>
+        <process field="state"><copy to-field="stateProvinceGeoId"/></process>
+        <process field="postalCode"><copy/><not-empty><fail-property resource="PartyUiLabels" property="PartyPostalCodeMissing"/></not-empty></process>
+        <process field="country"><copy to-field="countryGeoId"/><not-empty><fail-property resource="PartyUiLabels" property="PartyCountryMissing"/></not-empty></process>
+        <process field="addressAllowSol"><copy to-field="allowSolicitation"/></process>
+    </simple-map-processor>
+
+    <simple-map-processor name="homeTelecomNumber">
+        <process field="roleTypeId"><copy/></process>
+        <process field="homeCountryCode"><copy to-field="countryCode"/></process>
+        <process field="homeAreaCode"><copy to-field="areaCode"/></process>
+        <process field="homeContactCode"><copy to-field="contactNumber"/></process>
+        <process field="homeExtensionCode"><copy to-field="extension"/></process>
+        <process field="homeAllowSol"><copy to-field="allowSolicitation"/></process>
+    </simple-map-processor>
+
+    <simple-map-processor name="workTelecomNumber">
+        <process field="roleTypeId"><copy/></process>
+        <process field="workCountryCode"><copy to-field="countryCode"/></process>
+        <process field="workAreaCode"><copy to-field="areaCode"/></process>
+        <process field="workContactCode"><copy to-field="contactNumber"/></process>
+        <process field="workExtensionCode"><copy to-field="extension"/></process>
+        <process field="workAllowSol"><copy to-field="allowSolicitation"/></process>
+    </simple-map-processor>
+
+    <simple-map-processor name="faxTelecomNumber">
+        <process field="roleTypeId"><copy/></process>
+        <process field="faxCountryCode"><copy to-field="countryCode"/></process>
+        <process field="faxAreaCode"><copy to-field="areaCode"/></process>
+        <process field="faxContactCode"><copy to-field="contactNumber"/></process>
+        <process field="faxExtensionCode"><copy to-field="extension"/></process>
+        <process field="faxAllowSol"><copy to-field="allowSolicitation"/></process>
+    </simple-map-processor>
+</simple-map-processors>
