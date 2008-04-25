@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
+    
+    <!--Create Account for SFA Web Applicatiuon-->
+    <simple-method method-name ="createAccount" short-description="Create Accounts" login-required="false">
+        <set field="require_phone" value ="true"/>
+        <set field="parameters.roleTypeId" value="ACCOUNT" />
+        <set field="parameters.partyTypeId" value="PARTY_GROUP"/>
+        <now-timestamp-to-env env-name="nowStamp"/>
+        <call-simple-method method-name="createUser"/>
+        <set field="partyRelationContext.partyIdFrom" from-field="userLogin.partyId"/>
+        <set field="partyRelationContext.partyIdTo" from-field="parameters.partyId" />
+        <set field="partyRelationContext.roleTypeIdTo" from-field="parameters.roleTypeId"/>
+        <set field="partyRelationContext.roleTypeIdFrom" value="_NA_"/>
+        <call-service service-name="createPartyRelationship" in-map-name="partyRelationContext"/>
+    </simple-method>
+    
+    <simple-method method-name="createUser" short-description="Create User" login-required="false">
+        <now-timestamp-to-env env-name="nowStamp"/>
+        
+        <!-- Create the Party Group -->
+        <call-map-processor in-map-name="parameters" out-map-name="partyGroupContext" processor-name="partyGroup" xml-resource="org/ofbiz/sfa/PartyMapProcs.xml"/>
+        
+        <!-- Create the PartyRole -->
+        <set field="partyRoleContext.roleTypeId" from-field="parameters.roleTypeId" />
+        
+        <!-- Create the Postal Address -->
+        <if-compare field-name="use_address" map-name="parameters" operator="equals" value="false">
+            <!-- address not used, do nothing -->
+            <else>
+                <call-map-processor in-map-name="parameters" out-map-name="addressContext" processor-name="postalAddress" xml-resource="org/ofbiz/sfa/ContactMechMapProcs.xml"/>
+                <if-compare field-name="country" operator="equals" value="USA" map-name="parameters">
+                    <if-empty field-name="state" map-name="parameters">
+                        <set field="tempErrorMessage" value="State is missing, and is required for an address in the United States." />
+                        <field-to-list field-name="tempErrorMessage" list-name="error_list"/>
+                    </if-empty>
+                </if-compare>
+                <if-compare field-name="country" operator="equals" value="CAN" map-name="parameters">
+                    <if-empty field-name="state" map-name="parameters">
+                        <set field="tempErrorMessage" value="State is missing, and is required for an address in Canada." />
+                        <field-to-list field-name="tempErrorMessage" list-name="error_list"/>
+                    </if-empty>
+                </if-compare>
+            </else>
+        </if-compare>
+        
+        <!-- Create the Home Phone -->
+        <if-not-empty field-name="homeContactCode" map-name="parameters">
+            <call-map-processor in-map-name="parameters" out-map-name="homePhoneContext" processor-name="homeTelecomNumber" xml-resource="org/ofbiz/sfa/ContactMechMapProcs.xml"/>
+        </if-not-empty>
+        
+        <!-- Create the Work Phone -->
+        <if-not-empty field-name="workContactCode" map-name="parameters">
+            <call-map-processor in-map-name="parameters" out-map-name="workPhoneContext" processor-name="workTelecomNumber" xml-resource="org/ofbiz/sfa/ContactMechMapProcs.xml"/>
+        </if-not-empty>
+        
+        <!-- Create the Fax Phone -->
+        <if-not-empty field-name="faxContactCode" map-name="parameters">
+            <call-map-processor in-map-name="parameters" out-map-name="faxPhoneContext" processor-name="faxTelecomNumber" xml-resource="org/ofbiz/sfa/ContactMechMapProcs.xml"/>
+        </if-not-empty>
+        
+        <!-- Check for required Phone -->
+        <if-compare field-name="require_phone" operator="equals" value="true">
+            <if-empty field-name="homeContactCode" map-name="parameters">
+                <if-empty field-name="workContactCode" map-name="parameters">
+                    <call-map-processor in-map-name="parameters" out-map-name="dummymap">
+                        <simple-map-processor name="checkRequiredPhone">
+                            <process field="REQUIRED_PHONE">
+                                <not-empty><fail-property resource="PartyUiLabels" property="PartyContactTelephoneMissing"/></not-empty>
+                            </process>
+                        </simple-map-processor>
+                    </call-map-processor>
+                </if-empty>
+            </if-empty>
+        </if-compare>
+        
+        <!-- Create the email address -->
+        <call-map-processor in-map-name="parameters" out-map-name="emailContext" processor-name="newEmail" xml-resource="org/ofbiz/sfa/ContactMechMapProcs.xml"/>
+        
+        <!-- create the PartyDataSource entry to track where this info came from... -->
+        <make-value entity-name="PartyDataSource" value-name="partyDataSource"/>
+        <set field="partyDataSource.dataSourceId" value="ECOMMERCE_SITE" />
+        <set field="partyDataSource.fromDate" from-field="nowStamp" />
+        <set field="partyDataSource.isCreate" value="Y" />
+        <!-- get the visit from the session to get the visitId -->
+        <session-to-field field-name="visit"/>
+        <set from-field="visit.visitId" field="partyDataSource.visitId"/>
+        
+        <!-- now that everything is validated & setup, check to see if there are errors, then call the services -->
+        <check-errors/>
+        
+        <call-service service-name="createPartyGroup" in-map-name="partyGroupContext">
+            <result-to-field result-name="partyId" map-name="tempMap"/>
+        </call-service>
+        
+        <!-- now that we have the partyId, put it where it needs to go... -->
+        <set field="partyDataSource.partyId" from-field="tempMap.partyId" />
+        <set field="personContext.partyId" from-field="tempMap.partyId" />
+        <set field="partyRoleContext.partyId" from-field="tempMap.partyId" />
+        <set field="addressContext.partyId" from-field="tempMap.partyId" />
+        <set field="homePhoneContext.partyId" from-field="tempMap.partyId" />
+        <set field="workPhoneContext.partyId" from-field="tempMap.partyId" />
+        <set field="faxPhoneContext.partyId" from-field="tempMap.partyId" />
+        <set field="emailContext.partyId" from-field="tempMap.partyId" />
+        
+        <create-value value-name="partyDataSource"/>
+        <call-service service-name="createPartyRole" in-map-name="partyRoleContext"/>
+        
+        <!-- shipping address -->
+        <if-compare field-name="use_address" map-name="parameters" operator="equals" value="false">
+            <!-- address not used, do nothing -->
+            <else>
+                <call-service service-name="createPartyPostalAddress" in-map-name="addressContext">
+                    <result-to-field result-name="contactMechId" map-name="postalAddressPurposeContext"/>
+                </call-service>
+                <set field="postalAddressPurposeContext.partyId" from-field="tempMap.partyId" />
+                <!-- create the shipping location -->
+                <set field="postalAddressPurposeContext.contactMechPurposeTypeId" value="SHIPPING_LOCATION" />
+                <call-service service-name="createPartyContactMechPurpose" in-map-name="postalAddressPurposeContext"/>
+                <!-- also consider this address the general correspondence address -->
+                <set field="postalAddressPurposeContext.contactMechPurposeTypeId" value="GENERAL_LOCATION" />
+                <call-service service-name="createPartyContactMechPurpose" in-map-name="postalAddressPurposeContext"/>
+            </else>
+        </if-compare>
+        
+        <!-- home phone -->
+        <if-not-empty field-name="homeContactCode" map-name="parameters">
+            <call-service service-name="createPartyTelecomNumber" in-map-name="homePhoneContext">
+                <result-to-field result-name="contactMechId" map-name="homePhonePurposeContext"/>
+            </call-service>
+            <set field="homePhonePurposeContext.partyId" from-field="tempMap.partyId" />
+            <set field="homePhonePurposeContext.contactMechPurposeTypeId" value="PHONE_HOME" />
+            <call-service service-name="createPartyContactMechPurpose" in-map-name="homePhonePurposeContext"/>
+        </if-not-empty>
+        
+        <!-- work phone -->
+        <if-not-empty field-name="workContactCode" map-name="parameters">
+            <call-service service-name="createPartyTelecomNumber" in-map-name="workPhoneContext">
+                <result-to-field result-name="contactMechId" map-name="workPhonePurposeContext"/>
+            </call-service>
+            <set field="workPhonePurposeContext.partyId" from-field="tempMap.partyId" />
+            <set field="workPhonePurposeContext.contactMechPurposeTypeId" value="PHONE_WORK" />
+            <call-service service-name="createPartyContactMechPurpose" in-map-name="workPhonePurposeContext"/>
+        </if-not-empty>
+        
+        <!-- fax phone -->
+        <if-not-empty field-name="faxContactCode" map-name="parameters">
+            <call-service service-name="createPartyTelecomNumber" in-map-name="faxPhoneContext">
+                <result-to-field result-name="contactMechId" map-name="faxPhonePurposeContext"/>
+            </call-service>
+            <set field="faxPhonePurposeContext.partyId" from-field="tempMap.partyId" />
+            <set field="faxPhonePurposeContext.contactMechPurposeTypeId" value="FAX_NUMBER" />
+            <call-service service-name="createPartyContactMechPurpose" in-map-name="faxPhonePurposeContext"/>
+        </if-not-empty>
+        
+        <!-- email address -->
+        <if-not-empty field-name="emailAddress" map-name="parameters">
+            <call-service service-name="createPartyEmailAddress" in-map-name="emailContext">
+                <result-to-field result-name="contactMechId" map-name="emailPurposeContext"/>
+            </call-service>
+            <set field="emailPurposeContext.partyId" from-field="tempMap.partyId" />
+            <set field="emailPurposeContext.contactMechPurposeTypeId" value="PRIMARY_EMAIL" />
+            <call-service service-name="createPartyContactMechPurpose" in-map-name="emailPurposeContext"/>
+        </if-not-empty>
+        <!-- set the partyId in the request -->
+        <field-to-request field-name="partyId" map-name="tempMap" request-name="partyId"/>
+        <set field="parameters.partyId" value="${tempMap.partyId}"/>
+    </simple-method>
+</simple-methods>

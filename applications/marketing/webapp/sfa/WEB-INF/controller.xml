@@ -61,6 +61,27 @@ under the License.
         <response name="success" type="request" value="viewOpportunity"/>
         <response name="error" type="view" value="EditOpportunity"/>
     </request-map>
+
+    <!-- Account Entry Requests -->
+    <request-map uri="FindAccounts">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindAccounts"/>
+        <response name="error" type="view" value="FindAccounts"/>
+    </request-map>
+    <request-map uri="NewAccounts">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="NewAccounts"></response>
+    </request-map>
+    <request-map uri="createAccount">
+        <security https="true" auth="true"/>
+        <event type="simple" path="org/ofbiz/sfa/user/SfaUserEvent.xml" invoke="createAccount"/>
+        <response name="success" type="request" value="ViewAccount"/>
+        <response name="error" type="view" value="NewAccounts"/>
+    </request-map>
+    <request-map uri="ViewAccount">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ViewAccount"/>
+    </request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -69,5 +90,8 @@ under the License.
     <view-map name="NewOpportunity" type="screen" page="component://marketing/widget/sfa/OpportunityScreens.xml#NewOpportunity"/>
     <view-map name="viewOpportunity" type="screen" page="component://marketing/widget/sfa/OpportunityScreens.xml#viewOpportunity"/>
     <view-map name="EditOpportunity" type="screen" page="component://marketing/widget/sfa/OpportunityScreens.xml#EditOpportunity"/>
+    <view-map name="FindAccounts" type="screen" page="component://marketing/widget/sfa/AccountScreens.xml#FindAccounts"/>
+    <view-map name="NewAccounts" type="screen" page="component://marketing/widget/sfa/AccountScreens.xml#NewAccounts"/>
+    <view-map name="ViewAccount" type="screen" page="component://marketing/widget/sfa/AccountScreens.xml#ViewAccount"/>
     <!-- end of view mappings -->
 </site-conf>
