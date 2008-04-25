@@ -251,6 +251,14 @@ public class ShoppingCartEvents {
 		    			selectedFeatures.add(request.getParameterValues(paramName)[0]);
 		    		}
 		    	}
+		    	
+		    	// check if features are selected
+		    	if (UtilValidate.isEmpty(selectedFeatures)) {
+					request.setAttribute("product_id", productId);
+					request.setAttribute("_EVENT_MESSAGE_",UtilProperties.getMessage(resource,"cart.addToCart.chooseVariationBeforeAddingToCart",locale));
+					return "product";
+		    	}
+		    	
 				try {
 
 					Iterator<String> featureIter = selectedFeatures.iterator();					
@@ -389,6 +397,25 @@ public class ShoppingCartEvents {
 						productAssoc.put("fromDate", UtilDateTime.nowTimestamp());
 						productAssoc.create();
 						Debug.log("set the productId to: " + product.getString("productId"));
+						
+						// copy the supplier
+						List <GenericValue> supplierProducts = delegator.findByAndCache("SupplierProduct", UtilMisc.toMap("productId", productId));
+						Iterator <GenericValue> SPite = supplierProducts.iterator();
+						while (SPite.hasNext()) {
+							GenericValue supplierProduct = SPite.next();
+							supplierProduct.set("productId",  product.getString("productId"));	
+							supplierProduct.create();
+						}
+						
+						// copy the content
+						List <GenericValue> productContents = delegator.findByAndCache("ProductContent", UtilMisc.toMap("productId", productId));
+						Iterator <GenericValue> productContentsTte = productContents.iterator();
+						while (productContentsTte.hasNext()) {
+							GenericValue productContent = productContentsTte.next();
+							productContent.set("productId",  product.getString("productId"));	   
+							productContent.create();
+						}											
+						
 						// finally use the new productId to be added to the cart
 						productId = product.getString("productId"); // set to the new product
 					}
