@@ -460,6 +460,9 @@
         <value xml:lang="zh_CN">任意渠道</value>
         <value xml:lang="zh">任何渠道</value>
     </property>
+    <property key="CommonAnyStateProvince">
+        <value xml:lang="en">Any State/Province</value>
+    </property>
     <property key="CommonAnyStore">
         <value xml:lang="ar">أي متجر</value>
         <value xml:lang="de">Beliebiger Shop</value>

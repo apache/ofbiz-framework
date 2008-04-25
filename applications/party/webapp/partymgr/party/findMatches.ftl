@@ -56,7 +56,7 @@ under the License.
                 <option value="${currentStateGeo.geoId}">${currentStateGeo.geoName?default(currentStateGeo.geoId)}</option>
                 <option value="${currentStateGeo.geoId}">---</option>
               </#if>
-              <option value="ANY">${uiLabelMap.CommonAny} ${uiLabelMap.CommonStateProvince}</option>
+              <option value="ANY">${uiLabelMap.CommonAnyStateProvince}</option>
               ${screens.render("component://common/widget/CommonScreens.xml#states")}
             </select>
           </td>
