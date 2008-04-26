@@ -1125,11 +1125,23 @@
     <property key="SfaCompetitors">
         <value xml:lang="en">Competitors &amp; Partners </value>
     </property>
+    <property key="SfaLeadGroup">
+        <value xml:lang="en">Lead Group</value>
+    </property>
+    <property key="SfaLeadPerson">
+        <value xml:lang="en">Lead Person</value>
+    </property>
+    <property key="SfaLeadSource">
+        <value xml:lang="en">Lead Source</value>
+    </property>
     <property key="SfaDocuments">
         <value xml:lang="en">Documents</value>
     </property>
     <property key="SfaEvents">
         <value xml:lang="en">Events</value>
+    </property>
+    <property key="SfaFindLeads">
+        <value xml:lang="en">Find Leads</value>
     </property>
     <property key="SfaForecasts">
         <value xml:lang="en">Forecast</value>

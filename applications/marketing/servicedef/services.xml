@@ -384,4 +384,26 @@ under the License.
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
+ 
+    <!-- lead services -->
+    <service name="createLead" engine="simple"
+        location="org/ofbiz/sfa/lead/LeadServices.xml" invoke="createLead">
+        <description>Create a Lead Person or Group</description>
+        <auto-attributes entity-name="Person" mode="IN" optional="true">
+            <exclude field-name="partyId"/>
+        </auto-attributes>
+        <auto-attributes entity-name="PartyGroup" mode="IN" optional="true">
+            <exclude field-name="partyId"/>
+        </auto-attributes>
+        <auto-attributes entity-name="PostalAddress" mode="IN" optional="true">
+            <exclude field-name="contactMechId"/>
+        </auto-attributes>
+        <auto-attributes entity-name="TelecomNumber" mode="IN" optional="true">
+            <exclude field-name="contactMechId"/>
+        </auto-attributes>
+        <attribute name="emailAddress" type="String" mode="IN" optional="true"/>
+        <attribute name="partyIdFrom" type="String" mode="IN" optional="true"/>
+        <attribute name="leadType" type="String" mode="IN" optional="false"/><!-- can be PERSON OR GROUP -->
+        <attribute name="leadSource" type="String" mode="IN" optional="true"/>
+    </service>
  </services>
