@@ -31,4 +31,9 @@ under the License.
     <test-case case-name="physicalInventoryAdjustment-test">
         <simple-method-test location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" name="testPhysicalInventoryAdjustment"/>
     </test-case>
+    
+    <!-- Packing process test -->
+    <test-case case-name="testPackingServices-test">
+        <simple-method-test location="component://product/script/org/ofbiz/shipment/test/TestServices.xml" name="testPackingServices"/>
+    </test-case>
 </test-suite>
