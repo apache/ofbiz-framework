@@ -1191,6 +1191,12 @@
     <property key="SfaProbability">
         <value xml:lang="en">Probability(%)</value>
     </property>
+    <property key="SfaQuickAddContact">
+        <value xml:lang="en">Quick Add Contact</value>
+    </property>
+    <property key="SfaQuickAddContactForm">
+        <value xml:lang="en">Quick Add Contact Form</value>
+    </property>
     <property key="DataSourceLabel">
         <value xml:lang="en">Source</value>
     </property>
