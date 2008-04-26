@@ -21,21 +21,26 @@ under the License.
 <#assign inventoryItemId = parameters.inventoryItemId?default("")>
 <#assign serialNumber = parameters.serialNumber?default("")>
 <#assign softIdentifier = parameters.softIdentifier?default("")>
-
+<#-- Only allow the search fields to be hidden when we have some results -->
+<#if partyList?has_content>
+  <#assign hideFields = parameters.hideFields?default("N")>
+<#else>
+  <#assign hideFields = "N">
+</#if>
 <div id="findPartyParameters" class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
       <li class="h3">${uiLabelMap.PartyFindParty}</li>
-      <#if parameters.hideFields?default("N") == "Y">
+      <#if hideFields == "Y">
         <li><a href="<@ofbizUrl>findparty?hideFields=N${paramList}</@ofbizUrl>">${uiLabelMap.CommonShowLookupFields}</a></li>
       <#else>
-        <#if partyList?exists><li><a href="<@ofbizUrl>findparty?hideFields=Y${paramList}</@ofbizUrl>">${uiLabelMap.CommonHideFields}</a></li></#if>
+        <#if partyList?has_content><li><a href="<@ofbizUrl>findparty?hideFields=Y${paramList}</@ofbizUrl>">${uiLabelMap.CommonHideFields}</a></li></#if>
         <li><a href="javascript:document.lookupparty.submit();">${uiLabelMap.PartyLookupParty}</a></li>
       </#if>
     </ul>
     <br class="clear"/>
   </div>
-  <#if parameters.hideFields?default("N") != "Y">
+  <#if hideFields != "Y">
     <div class="screenlet-body">
       <#-- NOTE: this form is setup to allow a search by partial partyId or userLoginId; to change it to go directly to 
           the viewprofile page when these are entered add the follow attribute to the form element:
@@ -170,7 +175,7 @@ under the License.
   </#if>
 </div>
 
-<#if parameters.hideFields?default("N") != "Y">
+<#if hideFields != "Y">
   <script language="JavaScript" type="text/javascript">
     <!--//
       document.lookupparty.partyId.focus();
@@ -185,13 +190,13 @@ under the License.
         <li class="h3">${uiLabelMap.PartyPartiesFound}</li>
           <#if (partyListSize > 0)>
             <#if (partyListSize > highIndex)>
-              <li><a class="nav-next" href="<@ofbizUrl>findparty?VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex+1}&amp;hideFields=${parameters.hideFields?default("N")}${paramList}</@ofbizUrl>">${uiLabelMap.CommonNext}</a></li>
+              <li><a class="nav-next" href="<@ofbizUrl>findparty?VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex+1}&amp;hideFields=${hideFields}${paramList}</@ofbizUrl>">${uiLabelMap.CommonNext}</a></li>
             <#else>
               <li class="disabled">${uiLabelMap.CommonNext}</li>
             </#if>
             <li>${lowIndex} - ${highIndex} ${uiLabelMap.CommonOf} ${partyListSize}</li>
             <#if (viewIndex > 0)>
-              <li><a class="nav-previous" href="<@ofbizUrl>findparty?VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex-1}&amp;hideFields=${parameters.hideFields?default("N")}${paramList}</@ofbizUrl>">${uiLabelMap.CommonPrevious}</a></li>
+              <li><a class="nav-previous" href="<@ofbizUrl>findparty?VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex-1}&amp;hideFields=${hideFields}${paramList}</@ofbizUrl>">${uiLabelMap.CommonPrevious}</a></li>
             <#else>
               <li class="disabled">${uiLabelMap.CommonPrevious}</li>
             </#if>
