@@ -23,7 +23,7 @@ under the License.
         <menu-item name="Main" title="${uiLabelMap.MarketingMainPage}"><link target="main"/></menu-item>
         <menu-item name="Accounts" title="${uiLabelMap.SfaAcccounts}"><link target="FindAccounts"/></menu-item>
         <menu-item name="Contacts" title="${uiLabelMap.SfaContacts}"><link target=""/></menu-item>
-        <menu-item name="Leads" title="${uiLabelMap.SfaLeads}"><link target=""/></menu-item>
+        <menu-item name="Leads" title="${uiLabelMap.SfaLeads}"><link target="FindLead"/></menu-item>
         <menu-item name="Competitors" title="${uiLabelMap.SfaCompetitors}"><link target=""/></menu-item>
         <menu-item name="Events" title="${uiLabelMap.SfaEvents}"><link target=""/></menu-item>
         <menu-item name="Documents" title="${uiLabelMap.SfaDocuments}"><link target=""/></menu-item>

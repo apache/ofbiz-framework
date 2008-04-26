@@ -3406,6 +3406,15 @@
         <value xml:lang="th">เพศ</value>
         <value xml:lang="zh">性别</value>
     </property>
+    <property key="PartyGeneralCorrespondenceAddress">
+        <value xml:lang="en">General Correspondence Address</value>
+        <value xml:lang="fr">Adresse principale</value>
+        <value xml:lang="it">Indirizzo Generale Corrispondenza</value>
+        <value xml:lang="ro">Adresa Generala Corespondenta</value>
+        <value xml:lang="ru">Адрес для корреспонденции</value>
+        <value xml:lang="th">ที่อยู่ทั่วไปที่ติดต่อกันทางจดหมาย</value>
+        <value xml:lang="zh">通信地址</value>
+    </property>
     <property key="PartyGoToParent">
         <value xml:lang="en">Go to Parent</value>
         <value xml:lang="th">ไปยังผู้ดูแล</value>
@@ -5048,6 +5057,15 @@
         <value xml:lang="ru">Цена</value>
         <value xml:lang="th">ราคา</value>
         <value xml:lang="zh">价格</value>
+    </property>
+    <property key="PartyPrimaryPhone">
+        <value xml:lang="en">Primary Phone Number</value>
+        <value xml:lang="fr">Numéro de téléphone principal</value>
+        <value xml:lang="it">Numero Telefono Principale</value>
+        <value xml:lang="ro">Numero Telefon Principal</value>
+        <value xml:lang="ru">Основной телефонный номер</value>
+        <value xml:lang="th">เบอร์โทรศัพท์ที่สำคัญ</value>
+        <value xml:lang="zh">第一个电话号码</value>
     </property>
     <property key="PartyProduct">
         <value xml:lang="en">Product</value>

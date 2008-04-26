@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
+     <screen name="FindLead">
+        <section>
+            <actions>
+                <set field="roleTypeId" value="LEAD"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <actions>
+                                <service service-name="findParty" auto-field-map="true"/>
+                            </actions>
+                            <widgets>
+                               <container><link target="CreateLead?leadType=PERSON" text="${uiLabelMap.CommonCreate} ${uiLabelMap.SfaLeadPerson}" style="buttontext"/><link target="CreateLead?leadType=GROUP" text="${uiLabelMap.CommonCreate} ${uiLabelMap.SfaLeadGroup}" style="buttontext"/></container>                              
+                               <section>
+                                    <widgets>
+                                        <platform-specific>
+                                            <html><html-template location="component://marketing/webapp/sfa/findSfaParty.ftl"/></html>
+                                        </platform-specific>
+                                        <container style="screenlet">
+                                           <container style="screenlet-title-bar">
+                                               <container style="h3">
+                                                   <label text="${uiLabelMap.SfaFindResults}"/>
+                                               </container>
+                                           </container>
+                                           <container style="screenlet-body">
+                                               <section>
+                                                   <condition>
+                                                       <not>
+                                                           <if-empty field-name="partyList"/>
+                                                       </not>
+                                                   </condition>
+                                                   <widgets>
+                                                       <include-form name="ListLeads" location="component://marketing/webapp/sfa/lead/LeadForms.xml"/>
+                                                   </widgets>
+                                                   <fail-widgets>
+                                                       <container style="h3">
+                                                           <label text="${uiLabelMap.PartyNoPartiesFound}"/>
+                                                       </container>
+                                                   </fail-widgets>
+                                               </section>
+                                           </container>
+                                        </container>
+                                    </widgets>
+                                </section>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>  
+    </screen>
+    <screen name="CreateLead">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleCreateLead"/>
+                <set field="leadType" from-field="parameters.leadType"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                          <container style="screenlet">
+                                <container style="screenlet-title-bar">
+                                    <container style="h3">
+                                        <section>
+                                            <condition>
+                                                <if-compare value="PERSON" field-name="leadType" operator="equals"/>
+                                            </condition>
+                                            <widgets>
+                                                <label text="${uiLabelMap.CommonCreate} ${uiLabelMap.SfaLeadPerson}"/>
+                                            </widgets>
+                                            <fail-widgets>
+                                                <label text="${uiLabelMap.CommonCreate} ${uiLabelMap.SfaLeadGroup}"/>
+                                            </fail-widgets>
+                                        </section>
+                                    </container>
+                                </container>
+                                <container style="screenlet-body">
+                                    <section>
+                                        <widgets>
+                                            <include-form name="createLead" location="component://marketing/webapp/sfa/lead/LeadForms.xml"/>
+                                        </widgets>
+                                    </section>
+                                </container> 
+                            </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+</screens>

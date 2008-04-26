@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+
+    <form name="ListLeads" type="list" list-name="partyList" list-entry-name="partyRow" paginate-target="FindLead">
+        <row-actions>
+            <entity-one entity-name="PartyGroup" value-name="partyGroup">
+                <field-map field-name="partyId" env-name="partyRow.partyId"/>
+            </entity-one>
+            <entity-one entity-name="Person" value-name="person">
+                <field-map field-name="partyId" env-name="partyRow.partyId"/>
+            </entity-one>
+            <entity-one entity-name="PartyType" value-name="partyType">
+                <field-map field-name="partyTypeId" env-name="partyRow.partyTypeId"/>
+            </entity-one>
+        </row-actions>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}">
+            <hyperlink target="/partymgr/control/viewprofile?partyId=${partyRow.partyId}" description="${partyRow.partyId}" target-type="inter-app"/>
+        </field>
+        <field name="partyName" title="${uiLabelMap.PartyName}" use-when="partyGroup != null"><display description="${partyGroup.groupName}"/></field>
+        <field name="partyName" title="${uiLabelMap.PartyName}" use-when="person != null"><display description="${person.lastName}, ${person.firstName}"/></field>
+        <field name="partyTypeId" title="${uiLabelMap.PartyType}"><display description="${partyType.description}"/> </field>
+    </form>
+    <form name="createLead" type="single" target="createLead" header-row-style="header-row" default-table-style="basic-table">
+        <field name="leadType"><hidden value="${leadType}"/></field>
+        <field name="firstName" use-when="leadType.equals(&quot;PERSON&quot;)" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
+        <field name="lastName" use-when="leadType.equals(&quot;PERSON&quot;)" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
+        <field name="suffix" use-when="leadType.equals(&quot;PERSON&quot;)"><text/></field>
+        <field name="groupName" use-when="leadType.equals(&quot;GROUP&quot;)" title="${uiLabelMap.PartyGroupName}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="30" maxlength="60"/></field>
+        <field name="numEmployees" use-when="leadType.equals(&quot;GROUP&quot;)" title="${uiLabelMap.MarketingEmployees}"><text size="30"/></field>
+        <field name="siteName" use-when="leadType.equals(&quot;GROUP&quot;)" title="${uiLabelMap.FormFieldTitle_officeSiteName}"><text size="30" maxlength="60"/></field>
+        <field name="postalAddressTitle" title="${uiLabelMap.PartyGeneralCorrespondenceAddress}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
+        <field name="address1" title="${uiLabelMap.CommonAddress1}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="50" maxlength="60"/></field>
+        <field name="address2" title="${uiLabelMap.CommonAddress2}"><text size="50" maxlength="60"/></field>
+        <field name="city" title="${uiLabelMap.CommonCity}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="30" maxlength="60"/></field>
+        <field name="state" title="${uiLabelMap.CommonState}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="Geo" key-field-name="geoId" description="${geoId} - ${geoName}">
+                    <entity-constraint name="geoTypeId" operator="in" value="STATE,PROVINCE"/>
+                    <entity-order-by field-name="geoId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="postalCode" title="${uiLabelMap.CommonZipPostalCode}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="10" maxlength="30"/></field>
+        <field name="country" title="${uiLabelMap.CommonCountry}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
+            <drop-down allow-empty="false" no-current-selected-key="${defaultCountryGeoId}">
+                <entity-options entity-name="Geo" key-field-name="geoId" description="${geoId}: ${geoName}">
+                    <entity-constraint name="geoTypeId" value="COUNTRY"/>
+                    <entity-order-by field-name="geoId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="phoneTitle" title="${uiLabelMap.PartyPrimaryPhone}" title-area-style="group-label"><display/></field>		
+        <field name="countryCode" title="${uiLabelMap.PartyCountryCode}"><text size="4" maxlength="10"/></field>
+        <field name="areaCode" title="${uiLabelMap.PartyAreaCode}"><text size="4" maxlength="10"/></field>
+        <field name="contactNumber" title="${uiLabelMap.PartyPhoneNumber}"><text size="15" maxlength="15"/></field>
+        <field name="extensionCode" title="${uiLabelMap.PartyContactExt}"><text size="6" maxlength="10"/></field>
+        <field name="emailAddressTitle" title="${uiLabelMap.PartyEmailAddress}" title-area-style="group-label"><display/></field>
+        <field name="emailAddress" title="${uiLabelMap.CommonEmail}"><text size="50" maxlength="60"/></field>
+        <field name="leadSourceTitle" title="${uiLabelMap.SfaLeadSource}" title-area-style="group-label"><display/></field>
+        <field name="leadSource" title="${uiLabelMap.SfaLeadSource}"><text size="50" maxlength="60"/></field>
+        <field name="leadGroupTitle" title="${uiLabelMap.SfaLeadGroup}" use-when="leadType.equals(&quot;PERSON&quot;)" title-area-style="group-label"><display/></field>
+        <field name="partyIdFrom" title="Lead Group" use-when="leadType.equals(&quot;PERSON&quot;)">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="PartyRoleAndPartyDetail" description="${groupName} [${partyId}]" key-field-name="partyId">
+                    <entity-constraint name="roleTypeId" operator="equals" value="LEAD"/>
+                    <entity-constraint name="partyTypeId" operator="equals" value="PARTY_GROUP"/>
+                </entity-options>
+            </drop-down> 
+</field>
+        <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+</forms>
