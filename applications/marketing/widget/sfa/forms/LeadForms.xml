@@ -86,7 +86,7 @@ under the License.
                     <entity-constraint name="partyTypeId" operator="equals" value="PARTY_GROUP"/>
                 </entity-options>
             </drop-down> 
-</field>
+        </field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 </forms>

@@ -54,7 +54,7 @@ under the License.
                                                        </not>
                                                    </condition>
                                                    <widgets>
-                                                       <include-form name="ListLeads" location="component://marketing/webapp/sfa/lead/LeadForms.xml"/>
+                                                       <include-form name="ListLeads" location="component://marketing/widget/sfa/forms/LeadForms.xml"/>
                                                    </widgets>
                                                    <fail-widgets>
                                                        <container style="h3">
@@ -101,7 +101,7 @@ under the License.
                                 <container style="screenlet-body">
                                     <section>
                                         <widgets>
-                                            <include-form name="createLead" location="component://marketing/webapp/sfa/lead/LeadForms.xml"/>
+                                            <include-form name="createLead" location="component://marketing/widget/sfa/forms/LeadForms.xml"/>
                                         </widgets>
                                     </section>
                                 </container> 
