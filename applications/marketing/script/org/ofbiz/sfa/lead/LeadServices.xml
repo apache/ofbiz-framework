@@ -63,5 +63,6 @@
             <set field="partyDataSource.isCreate" value="Y"/>
             <create-value value-name="partyDataSource"/>
         </if-not-empty>
+        <field-to-result field-name="partyId"/>
     </simple-method>
 </simple-methods>

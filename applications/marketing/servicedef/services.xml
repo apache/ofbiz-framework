@@ -401,9 +401,25 @@ under the License.
         <auto-attributes entity-name="TelecomNumber" mode="IN" optional="true">
             <exclude field-name="contactMechId"/>
         </auto-attributes>
+        <attribute name="partyId" type="String" mode="OUT" />
         <attribute name="emailAddress" type="String" mode="IN" optional="true"/>
         <attribute name="partyIdFrom" type="String" mode="IN" optional="true"/>
         <attribute name="leadType" type="String" mode="IN" optional="false"/><!-- can be PERSON OR GROUP -->
         <attribute name="leadSource" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="createContact" engine="simple"
+        location="org/ofbiz/sfa/contact/ContactServices.xml" invoke="createContact">
+        <description>Create a Contact Person</description>
+        <auto-attributes entity-name="Person" mode="IN" optional="true">
+            <exclude field-name="partyId"/>
+        </auto-attributes>
+        <auto-attributes entity-name="PostalAddress" mode="IN" optional="true">
+            <exclude field-name="contactMechId"/>
+        </auto-attributes>
+        <auto-attributes entity-name="TelecomNumber" mode="IN" optional="true">
+            <exclude field-name="contactMechId"/>
+        </auto-attributes>
+        <attribute name="emailAddress" type="String" mode="IN" optional="true"/>
+        <attribute name="partyIdFrom" type="String" mode="IN" optional="true"/>
     </service>
  </services>
