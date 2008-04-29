@@ -1261,12 +1261,10 @@ min-height: 1.5em;
 .screenlet-title-bar .h1,
 .screenlet-title-bar .h2,
 .screenlet-title-bar .h3,
-.screenlet-title-bar .head4,
 .screenlet-title-bar h1,
 .screenlet-title-bar h2,
 .screenlet-title-bar h3 {
 background: none;
-border-left: none;
 color: #ffffff;
 font-weight: bold;
 padding: 0.1em 0.5em 0.2em 0.5em;
@@ -1368,9 +1366,8 @@ background-image: url(/images/gradient_sub_uns.gif);
 
 /* login screenlet decorator */
 .login-screenlet {
-margin-left: 38%;
 min-width: 25em;
-width: 26%;
+width: 25%;
 }
 
 .login-screenlet .screenlet-title-bar {
