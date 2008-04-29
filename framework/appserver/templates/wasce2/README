@@ -74,3 +74,25 @@ Replace the line
     -jar "$GERONIMO_HOME"/bin/server.jar $LONG_OPT "$@"
 by
     -classpath ".":"$GERONIMO_HOME"/bin/server.jar:"$CLASSPATH" org.apache.geronimo.cli.daemon.DaemonCLI $LONG_OPT "$@"
+
+
+=======================================================================================================================================================
+    If you want to use RMI (RMIDispatcher) you will need to put the following lines in the limited-containers.xml file (set the values as you want)
+        <property name="bound-host" value="127.0.0.1"/>
+        <property name="bound-port" value="1099"/>
+
+    You will need also to change the value of use-initial-context to false and to put the complete path for ssl-keystore.
+
+    Finally you will have to pass a client policy to the application server using the -Djava.security.policy=client.policy parameter,
+    simply put it at the end of JAVA_OPTS above.
+    Indeed to load the RMIDispatcher under the application server it needs a RMI Security Manager.
+    For my test I used a very simple client.policy file with all permissions that I put in the bin directory of the application server.
+    Its content is :
+        grant{
+        permission java.security.AllPermission;
+        };
+
+    *** Also beware, you can't have spaces in the path where the application server is installed ***
+    And last but not least you may appreciate http://docs.ofbiz.org/display/OFBIZ/FAQ+-+Tips+-+Tricks+-+Cookbook+-+HowTo#FAQ-Tips-Tricks-Cookbook-HowTo-HowtouseRMIwithoutSSL
+=======================================================================================================================================================
+

@@ -42,6 +42,7 @@ public class ContainerLoader implements StartupLoader {
 
     protected List<Container> loadedContainers = new LinkedList<Container>();
     protected String configFile = null;
+    public static Container rmiLoadedContainer = null; // used in Geronimo/WASCE to allow to deregister
 
     /**
      * @see org.ofbiz.base.start.StartupLoader#load(Start.Config, String[])
@@ -62,7 +63,28 @@ public class ContainerLoader implements StartupLoader {
 
         if (containers != null) {
             for (ContainerConfig.Container containerCfg: containers) {
-                loadedContainers.add(loadContainer(containerCfg, args));
+                Container tmpContainer = loadContainer(containerCfg, args);
+                loadedContainers.add(tmpContainer);
+
+                // This is only used in case of OFBiz running in Geronimo or WASCE. It allows to use the RMIDispatcher
+                if (containerCfg.name.equals("rmi-dispatcher") && configFile.equals("limited-containers.xml")) {
+                    try {
+                        ContainerConfig.Container.Property initialCtxProp = containerCfg.getProperty("use-initial-context");
+                        String useCtx = initialCtxProp == null || initialCtxProp.value == null ? "false" : initialCtxProp.value;
+                        if (!useCtx.equalsIgnoreCase("true")) {
+                            //system.setProperty("java.security.policy", "client.policy"); maybe used if needed...
+                            if (System.getSecurityManager() == null) { // needed by WASCE with a client.policy file.
+                                System.setSecurityManager(new java.rmi.RMISecurityManager());
+                            }
+                            tmpContainer.start();
+                            rmiLoadedContainer = tmpContainer; // used in Geronimo/WASCE to allow to deregister
+                        }
+                    } catch (ContainerException e) {
+                        throw new StartupException("Cannot start() " + tmpContainer.getClass().getName(), e);
+                    } catch (java.lang.AbstractMethodError e) {
+                        throw new StartupException("Cannot start() " + tmpContainer.getClass().getName(), e);
+                    }
+                }
             }
         }
     }
@@ -175,14 +197,16 @@ public class ContainerLoader implements StartupLoader {
         return containerObj;
     }
 
-    public static synchronized boolean loadContainers(String config, String[] args) throws StartupException {
+    public static synchronized Container loadContainers(String config, String[] args) throws StartupException {
         if (!loaded) {
             ContainerLoader loader = new ContainerLoader();
             Start.Config cfg = new Start.Config();
             cfg.containerConfig = config == null ? "limited-containers.xml" : config;
             loader.load(cfg, args);
-            return true;
+            if (rmiLoadedContainer != null) { // used in Geronimo/WASCE to allow to deregister
+                return rmiLoadedContainer;
+            }
         }
-        return false;
+        return null;
     }
 }
