@@ -20,11 +20,11 @@ under the License.
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
-
-     <screen name="FindLead">
+     <screen name="FindLeads">
         <section>
             <actions>
                 <set field="roleTypeId" value="LEAD"/>
+                <set field="tabButtonItem" value="Leads"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -32,37 +32,38 @@ under the License.
                         <section>
                             <actions>
                                 <service service-name="findParty" auto-field-map="true"/>
+                                <set field="tabButtonItem" value=""/>
                             </actions>
                             <widgets>
-                               <container><link target="CreateLead?leadType=PERSON" text="${uiLabelMap.CommonCreate} ${uiLabelMap.SfaLeadPerson}" style="buttontext"/><link target="CreateLead?leadType=GROUP" text="${uiLabelMap.CommonCreate} ${uiLabelMap.SfaLeadGroup}" style="buttontext"/></container>                              
-                               <section>
+                                <container><link target="CreateLead?leadType=PERSON" text="${uiLabelMap.CommonCreate} ${uiLabelMap.SfaLeadPerson}" style="buttontext"/><link target="CreateLead?leadType=GROUP" text="${uiLabelMap.CommonCreate} ${uiLabelMap.SfaLeadGroup}" style="buttontext"/></container>                              
+                                <section>
                                     <widgets>
                                         <platform-specific>
-                                            <html><html-template location="component://marketing/webapp/sfa/findSfaParty.ftl"/></html>
+                                            <html><html-template location="component://marketing/webapp/party/findSfaParty.ftl"/></html>
                                         </platform-specific>
                                         <container style="screenlet">
-                                           <container style="screenlet-title-bar">
-                                               <container style="h3">
-                                                   <label text="${uiLabelMap.SfaFindResults}"/>
-                                               </container>
-                                           </container>
-                                           <container style="screenlet-body">
-                                               <section>
-                                                   <condition>
-                                                       <not>
-                                                           <if-empty field-name="partyList"/>
-                                                       </not>
-                                                   </condition>
-                                                   <widgets>
-                                                       <include-form name="ListLeads" location="component://marketing/widget/sfa/forms/LeadForms.xml"/>
-                                                   </widgets>
-                                                   <fail-widgets>
-                                                       <container style="h3">
-                                                           <label text="${uiLabelMap.PartyNoPartiesFound}"/>
-                                                       </container>
-                                                   </fail-widgets>
-                                               </section>
-                                           </container>
+                                            <container style="screenlet-title-bar">
+                                                <container style="h3">
+                                                    <label text="${uiLabelMap.SfaFindResults}"/>
+                                                </container>
+                                            </container>
+                                            <container style="screenlet-body">
+                                                <section>
+                                                    <condition>
+                                                        <not>
+                                                            <if-empty field-name="partyList"/>
+                                                        </not>
+                                                    </condition>
+                                                    <widgets>
+                                                        <include-form name="ListLeads" location="component://marketing/widget/sfa/forms/LeadForms.xml"/>
+                                                    </widgets>
+                                                    <fail-widgets>
+                                                        <container style="h3">
+                                                            <label text="${uiLabelMap.PartyNoPartiesFound}"/>
+                                                        </container>
+                                                    </fail-widgets>
+                                                </section>
+                                            </container>
                                         </container>
                                     </widgets>
                                 </section>
@@ -78,34 +79,35 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleCreateLead"/>
                 <set field="leadType" from-field="parameters.leadType"/>
+                <set field="tabButtonItem" value="Leads"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                          <container style="screenlet">
-                                <container style="screenlet-title-bar">
-                                    <container style="h3">
-                                        <section>
-                                            <condition>
-                                                <if-compare value="PERSON" field-name="leadType" operator="equals"/>
-                                            </condition>
-                                            <widgets>
-                                                <label text="${uiLabelMap.CommonCreate} ${uiLabelMap.SfaLeadPerson}"/>
-                                            </widgets>
-                                            <fail-widgets>
-                                                <label text="${uiLabelMap.CommonCreate} ${uiLabelMap.SfaLeadGroup}"/>
-                                            </fail-widgets>
-                                        </section>
-                                    </container>
-                                </container>
-                                <container style="screenlet-body">
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
                                     <section>
+                                        <condition>
+                                            <if-compare value="PERSON" field-name="leadType" operator="equals"/>
+                                        </condition>
                                         <widgets>
-                                            <include-form name="createLead" location="component://marketing/widget/sfa/forms/LeadForms.xml"/>
+                                            <label text="${uiLabelMap.CommonCreate} ${uiLabelMap.SfaLeadPerson}"/>
                                         </widgets>
+                                        <fail-widgets>
+                                            <label text="${uiLabelMap.CommonCreate} ${uiLabelMap.SfaLeadGroup}"/>
+                                         </fail-widgets>
                                     </section>
-                                </container> 
+                                </container>
                             </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="createLead" location="component://marketing/widget/sfa/forms/LeadForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container> 
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

@@ -84,9 +84,9 @@ under the License.
     </request-map>
  
     <!-- Lead Requests -->
-    <request-map uri="FindLead">
+    <request-map uri="FindLeads">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="FindLead"/>
+        <response name="success" type="view" value="FindLeads"/>
     </request-map>
     <request-map uri="CreateLead">
         <security https="true" auth="true"/>
@@ -95,8 +95,27 @@ under the License.
     <request-map uri="createLead">
         <security https="true" auth="true"/>
         <event type="service" invoke="createLead"/>
-        <response name="success" type="view" value="FindLead"/>
+        <response name="success" type="view" value="viewprofile"/>
         <response name="error" type="view" value="CreateLead"/>
+    </request-map>
+    <request-map uri="viewLead">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="viewLead"/>
+        <response name="error" type="view" value="FindLeads"/>
+    </request-map>
+    <request-map uri="FindContacts">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindContacts"/>
+    </request-map>
+        <request-map uri="CreateContact">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="CreateContact"/>
+    </request-map>
+    <request-map uri="createContact">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createContact"/>
+        <response name="success" type="view" value="FindContacts"/>
+        <response name="error" type="view" value="CreateContact"/>
     </request-map>
     <!-- end of request mappings -->
 
@@ -109,7 +128,9 @@ under the License.
     <view-map name="FindAccounts" type="screen" page="component://marketing/widget/sfa/AccountScreens.xml#FindAccounts"/>
     <view-map name="NewAccounts" type="screen" page="component://marketing/widget/sfa/AccountScreens.xml#NewAccounts"/>
     <view-map name="ViewAccount" type="screen" page="component://marketing/widget/sfa/AccountScreens.xml#ViewAccount"/>
-    <view-map name="FindLead" type="screen" page="component://marketing/widget/sfa/LeadScreens.xml#FindLead"/>
+    <view-map name="FindLeads" type="screen" page="component://marketing/widget/sfa/LeadScreens.xml#FindLeads"/>
     <view-map name="CreateLead" type="screen" page="component://marketing/widget/sfa/LeadScreens.xml#CreateLead"/>
+    <view-map name="FindContacts" type="screen" page="component://marketing/widget/sfa/ContactScreens.xml#FindContacts"/>
+    <view-map name="CreateContact" type="screen" page="component://marketing/widget/sfa/ContactScreens.xml#CreateContact"/>
     <!-- end of view mappings -->
 </site-conf>

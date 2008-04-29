@@ -537,6 +537,12 @@
     <property key="PageTitleCreateAccount">
         <value xml:lang="en">Create New Account</value>
     </property>
+    <property key="PageTitleCreateLead">
+        <value xml:lang="en">Create New Account</value>
+    </property>
+    <property key="PageTitleCreateContact">
+        <value xml:lang="en">Create New Account</value>
+    </property>
     <property key="PageTitleEditAccount">
         <value xml:lang="en">Edit Account</value>
     </property>
@@ -1125,6 +1131,12 @@
     <property key="SfaCompetitors">
         <value xml:lang="en">Competitors &amp; Partners </value>
     </property>
+    <property key="SfaContacts">
+        <value xml:lang="en">Contacts</value>
+    </property>
+    <property key="SfaContact">
+        <value xml:lang="en">Contact</value>
+    </property> 
     <property key="SfaLeadGroup">
         <value xml:lang="en">Lead Group</value>
     </property>
@@ -1140,6 +1152,9 @@
     <property key="SfaEvents">
         <value xml:lang="en">Events</value>
     </property>
+    <property key="SfaFindContacts">
+        <value xml:lang="en">Find Contacts</value>
+    </property>   
     <property key="SfaFindLeads">
         <value xml:lang="en">Find Leads</value>
     </property>
