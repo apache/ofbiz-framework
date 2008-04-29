@@ -30,31 +30,32 @@ under the License.
 <#else>
   <#assign focusName = true>
 </#if>
-
-<div class="screenlet login-screenlet">
-  <div class="screenlet-title-bar">
-    <h3>${uiLabelMap.CommonRegistered}</h3>
+<center>
+  <div class="screenlet login-screenlet">
+    <div class="screenlet-title-bar">
+      <h3>${uiLabelMap.CommonRegistered}</h3>
+    </div>
+    <div class="screenlet-body">
+      <form method="post" action="<@ofbizUrl>login${previousParams?if_exists}</@ofbizUrl>" name="loginform">
+        <table class="basic-table" cellspacing="0">
+          <tr>
+            <td class="label">${uiLabelMap.CommonUsername}</td>
+            <td><input type="text" name="USERNAME" value="${username}" size="20"/></td>
+          </tr>
+          <tr>
+            <td class="label">${uiLabelMap.CommonPassword}</td>
+            <td><input type="password" name="PASSWORD" value="" size="20"/></td>
+          </tr>
+          <tr>
+            <td colspan="2" align="center">
+              <input type="submit" value="${uiLabelMap.CommonLogin}"/>
+            </td>
+          </tr>
+        </table>
+      </form>
+    </div>
   </div>
-  <div class="screenlet-body">
-    <form method="post" action="<@ofbizUrl>login${previousParams?if_exists}</@ofbizUrl>" name="loginform">
-      <table cellspacing="0">
-        <tr>
-          <td class="label">${uiLabelMap.CommonUsername}</td>
-          <td><input type="text" name="USERNAME" value="${username}" size="20"/></td>
-        </tr>
-        <tr>
-          <td class="label">${uiLabelMap.CommonPassword}</td>
-          <td><input type="password" name="PASSWORD" value="" size="20"/></td>
-        </tr>
-        <tr>
-          <td colspan="2" align="center">
-            <input type="submit" value="${uiLabelMap.CommonLogin}"/>
-          </td>
-        </tr>
-      </table>
-    </form>
-  </div>
-</div>
+</center>
 
 <script language="JavaScript" type="text/javascript">
   <#if focusName>
