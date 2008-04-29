@@ -1128,25 +1128,9 @@ text-decoration: none;
 /* ======================================================= */
 
 #secondary-navigation {
-height: 1%; /* IE fix */
-margin:0 auto 0 auto;
-padding:0;
-width:90%;
- 
 }
 
-#secondary-navigation ul {
-display: inline; /* IE Fix */
-}
-
-#secondary-navigation ul li {
-float: left;
-padding:0.5em;
-}
-
-#secondary-navigation ul a {
-display: block;
-font-size: 1em;
+#secondary-navigation a {
 padding: 0 1em 0 1em;
 border: 0.05em solid #000099;
 color: #ffff66;
@@ -1154,18 +1138,16 @@ background-image: url(/images/gradient_sub_uns.gif);
 background-repeat: repeat-x;
 }
 
-#secondary-navigation ul .disabled {
+#secondary-navigation .disabled {
+padding: 0 1em 0 1em;
+border: 0.05em solid #000099;
+background-image: url(/images/gradient_sub_uns.gif);
+background-repeat: repeat-x;
 color: #D4D0C8;
 }
 
-#secondary-navigation ul .selected,
-#secondary-navigation ul li:hover {
-color: #ffffff;
-}
-
-#secondary-navigation ul a:hover,
-#secondary-navigation ul .selected a,
-#secondary-navigation ui .selected a:hover {
+#secondary-navigation a.selected,
+#secondary-navigation a:hover {
 background-color: #2626c1;
 background-image: url(/images/gradient_sub_sel.gif);
 background-repeat: repeat-x;
