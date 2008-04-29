@@ -26,8 +26,8 @@ under the License.
 <#assign displayApps = Static["org.ofbiz.base.component.ComponentConfig"].getAppBarWebInfos(ofbizServerName, "secondary")>
 
 <#if userLogin?has_content>
+<center>
   <div id="secondary-navigation">
-    <ul>
       <#list displayApps as display>
         <#assign thisApp = display.getContextRoot()>
         <#assign permission = true>
@@ -47,12 +47,11 @@ under the License.
           <#if thisApp != "/">
             <#assign thisURL = thisURL + "/control/main">
           </#if>
-          <li<#if selected> class="selected"</#if>><a href="${response.encodeURL(thisURL + externalKeyParam)}" <#if uiLabelMap?exists> title="${uiLabelMap[display.description]}">${uiLabelMap[display.title]}<#else> title="${display.description}"> ${display.title}</#if></a></li>
+          <a<#if selected> class="selected"</#if> href="${response.encodeURL(thisURL + externalKeyParam)}" <#if uiLabelMap?exists> title="${uiLabelMap[display.description]}">${uiLabelMap[display.title]}<#else> title="${display.description}"> ${display.title}</#if></a>
         </#if>
       </#list>
-    </ul>
-    <br class="clear"/>
   </div>
+</center>
 </#if>
 
 <div id="footer">
