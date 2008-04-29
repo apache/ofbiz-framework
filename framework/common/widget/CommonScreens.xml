@@ -126,6 +126,7 @@ under the License.
                 </section>
                 <platform-specific><html><html-template location="component://common/webcommon/includes/messages.ftl"/></html></platform-specific>
                 <container style="contentarea">
+                    <decorator-section-include name="pre-body"/>
                     <container id="column-container">
                         <!-- by default will render left-bar only if leftbarScreen value not empty -->
                         <include-screen name="${leftbarScreenName}" location="${leftbarScreenLocation}"/>
@@ -317,6 +318,7 @@ under the License.
             </widgets>
         </section>
     </screen>
+
     <screen name="EventMessages">
         <section>
             <actions>
@@ -324,6 +326,29 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://common/webcommon/includes/messages.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="FindScreenDecorator">
+        <section>
+            <widgets>
+                <container style="h1">
+                    <label text="${uiLabelMap.${titleProperty}}"/>
+                </container>
+                <decorator-section-include name="menu-bar"/>
+                <screenlet name="findScreenlet" collapsible="true" padded="false">
+                    <container style="screenlet-body">
+                        <label style="h2" text="${uiLabelMap.CommonSearchOptions}"/>
+                        <decorator-section-include name="search-options"/>
+                    </container>
+                </screenlet>
+                <container style="screenlet">
+                    <container style="screenlet-body">
+                        <label style="h2" text="${uiLabelMap.CommonSearchResults}"/>
+                    </container>
+                    <decorator-section-include name="search-results"/>
+                </container>
             </widgets>
         </section>
     </screen>

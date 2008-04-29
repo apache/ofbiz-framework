@@ -4757,6 +4757,12 @@
         <value xml:lang="zh_CN">搜索</value>
         <value xml:lang="zh">搜索</value>
     </property>
+    <property key="CommonSearchOptions">
+        <value xml:lang="en">Search Options</value>
+    </property>
+    <property key="CommonSearchResults">
+        <value xml:lang="en">Search Results</value>
+    </property>
     <property key="CommonSearchResultfor">
         <value xml:lang="ar">نتائج البحث ل</value>
         <value xml:lang="cs">Vyhledávání výsledků pro klíčové slovo</value>

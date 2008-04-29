@@ -27,21 +27,44 @@ under the License.
 <#else>
   <#assign hideFields = "N">
 </#if>
-<div id="findPartyParameters" class="screenlet">
+<h1>${uiLabelMap.PartyFindParty}</h1>
+<#if (parameters.firstName?has_content || parameters.lastName?has_content)>
+    <#assign createUrl = "editperson?create_new=Y&lastName=${parameters.lastName?if_exists}&firstName=${parameters.firstName?if_exists}"/>
+<#elseif (parameters.groupName?has_content)>
+    <#assign createUrl = "editpartygroup?create_new=Y&groupName=${parameters.groupName?if_exists}"/>
+<#else>
+    <#assign createUrl = "createnew"/>
+</#if>
+<div class="button-bar"><a href="<@ofbizUrl>${createUrl}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonCreateNew}</a></div>
+<div class="screenlet">
   <div class="screenlet-title-bar">
-    <ul>
-      <li class="h3">${uiLabelMap.PartyFindParty}</li>
-      <#if hideFields == "Y">
-        <li><a href="<@ofbizUrl>findparty?hideFields=N${paramList}</@ofbizUrl>">${uiLabelMap.CommonShowLookupFields}</a></li>
-      <#else>
-        <#if partyList?has_content><li><a href="<@ofbizUrl>findparty?hideFields=Y${paramList}</@ofbizUrl>">${uiLabelMap.CommonHideFields}</a></li></#if>
-        <li><a href="javascript:document.lookupparty.submit();">${uiLabelMap.PartyLookupParty}</a></li>
-      </#if>
-    </ul>
-    <br class="clear"/>
+    <#if partyList?has_content>
+      <ul>
+        <#if hideFields == "Y">
+          <li class="collapsed"><a href="<@ofbizUrl>findparty?hideFields=N${paramList}</@ofbizUrl>" title="${uiLabelMap.CommonShowLookupFields}">&nbsp</a></li>
+        <#else>
+          <li class="expanded"><a href="<@ofbizUrl>findparty?hideFields=Y${paramList}</@ofbizUrl>" title="${uiLabelMap.CommonHideFields}">&nbsp</a></li>
+        </#if>
+        <#if (partyListSize > 0)>
+          <#if (partyListSize > highIndex)>
+            <li><a class="nav-next" href="<@ofbizUrl>findparty?VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex+1}&amp;hideFields=${hideFields}${paramList}</@ofbizUrl>">${uiLabelMap.CommonNext}</a></li>
+          <#else>
+            <li class="disabled">${uiLabelMap.CommonNext}</li>
+          </#if>
+          <li>${lowIndex} - ${highIndex} ${uiLabelMap.CommonOf} ${partyListSize}</li>
+          <#if (viewIndex > 0)>
+            <li><a class="nav-previous" href="<@ofbizUrl>findparty?VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex-1}&amp;hideFields=${hideFields}${paramList}</@ofbizUrl>">${uiLabelMap.CommonPrevious}</a></li>
+          <#else>
+            <li class="disabled">${uiLabelMap.CommonPrevious}</li>
+          </#if>
+        </#if>
+      </ul>
+      <br class="clear"/>
+    </#if>
   </div>
   <#if hideFields != "Y">
-    <div class="screenlet-body">
+    <div id="findPartyParameters" class="screenlet-body">
+      <h2>${uiLabelMap.CommonSearchOptions}</h2>
       <#-- NOTE: this form is setup to allow a search by partial partyId or userLoginId; to change it to go directly to 
           the viewprofile page when these are entered add the follow attribute to the form element:
            
@@ -50,7 +73,7 @@ under the License.
       <form method="post" name="lookupparty" action="<@ofbizUrl>findparty</@ofbizUrl>" class="basic-form">
         <input type="hidden" name="lookupFlag" value="Y"/>
         <input type="hidden" name="hideFields" value="Y"/>
-        <table cellspacing="0">
+        <table class="basic-table" cellspacing="0">
           <tr>
             <td class="label">${uiLabelMap.PartyContactInformation}</td>
             <td>
@@ -161,8 +184,7 @@ under the License.
               <td><input type="text" name="infoString" value="${parameters.infoString?if_exists}"/></td>
             </tr>
           </#if>
-          <tr><td colspan="3"><hr/></td></tr>
-          <tr align="center">
+          <tr>
             <td>&nbsp;</td>
             <td>
               <input type="submit" value="${uiLabelMap.PartyLookupParty}" onClick="javascript:document.lookupparty.submit();"/>
@@ -172,41 +194,21 @@ under the License.
         </table>
       </form>
     </div>
-  </#if>
-</div>
-
-<#if hideFields != "Y">
-  <script language="JavaScript" type="text/javascript">
-    <!--//
+    <script language="JavaScript" type="text/javascript">
       document.lookupparty.partyId.focus();
-    //-->
-  </script>
-</#if>
-<#if partyList?exists>
-  <br/>
-  <div id="findPartyResults" class="screenlet">
-    <div class="screenlet-title-bar">
-      <ul>
-        <li class="h3">${uiLabelMap.PartyPartiesFound}</li>
-          <#if (partyListSize > 0)>
-            <#if (partyListSize > highIndex)>
-              <li><a class="nav-next" href="<@ofbizUrl>findparty?VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex+1}&amp;hideFields=${hideFields}${paramList}</@ofbizUrl>">${uiLabelMap.CommonNext}</a></li>
-            <#else>
-              <li class="disabled">${uiLabelMap.CommonNext}</li>
-            </#if>
-            <li>${lowIndex} - ${highIndex} ${uiLabelMap.CommonOf} ${partyListSize}</li>
-            <#if (viewIndex > 0)>
-              <li><a class="nav-previous" href="<@ofbizUrl>findparty?VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex-1}&amp;hideFields=${hideFields}${paramList}</@ofbizUrl>">${uiLabelMap.CommonPrevious}</a></li>
-            <#else>
-              <li class="disabled">${uiLabelMap.CommonPrevious}</li>
-            </#if>
-          </#if>
-      </ul>
-      <br class="clear"/>
-    </div>
+    </script>
+  </#if>
+
+  <#if partyList?exists>
+    <#if hideFields != "Y">
+      <hr/>
+    </#if>
     <#if partyList?has_content>
-      <table class="basic-table" cellspacing="0">
-        <tr class="header-row">
+      <div id="findPartyResults" class="screenlet-body">
+        <h2>${uiLabelMap.CommonSearchResults}</h2>
+      </div>
+      <table class="basic-table hover-bar" cellspacing="0">
+        <tr class="header-row-2">
           <td>${uiLabelMap.PartyPartyId}</td>
           <td>${uiLabelMap.PartyUserLogin}</td>
           <td>${uiLabelMap.PartyName}</td>
@@ -286,7 +288,7 @@ under the License.
               <td>${partyRow.softIdentifier?if_exists}</td>
             </#if>
             <td><#if partyType.description?exists>${partyType.get("description", locale)}<#else>???</#if></td>
-          <td class="button-col align-float">
+            <td class="button-col align-float">
               <a href="<@ofbizUrl>viewprofile?partyId=${partyRow.partyId}</@ofbizUrl>">${uiLabelMap.CommonDetails}</a>
               <#if security.hasRolePermission("ORDERMGR", "_VIEW", "", "", session)>
                 <a href="/ordermgr/control/searchorders?lookupFlag=Y&amp;hideFields=Y&amp;partyId=${partyRow.partyId + externalKeyParam}&amp;viewIndex=1&amp;viewSize=20">${uiLabelMap.OrderOrders}</a>
@@ -303,24 +305,12 @@ under the License.
         </#list>
       </table>
     <#else>
-      <div class="screenlet-body">
-        <span class="h3">${uiLabelMap.PartyNoPartiesFound}</span>        
+      <div id="findPartyResults" class="screenlet-body">
+        <h3>${uiLabelMap.PartyNoPartiesFound}</h3>
       </div>
     </#if>
     <#if lookupErrorMessage?exists>
-      <div><h3>${lookupErrorMessage}</h3></div>
+      <h3>${lookupErrorMessage}</h3>
     </#if>
-    <#if (parameters.firstName?has_content || parameters.lastName?has_content)>
-        <#assign createUrl = "editperson?create_new=Y&lastName=${parameters.lastName?if_exists}&firstName=${parameters.firstName?if_exists}"/>
-    <#elseif (parameters.groupName?has_content)>
-        <#assign createUrl = "editpartygroup?create_new=Y&groupName=${parameters.groupName?if_exists}"/>
-    <#else>
-        <#assign createUrl = "createnew"/>
-    </#if>
-    
-    <div>&nbsp;</div>
-    <div align='right' valign="top"><a href="<@ofbizUrl>${createUrl}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonCreateNew}</a></div>
-    <br/>
   </div>
 </#if>
-<!-- end findParty.ftl -->

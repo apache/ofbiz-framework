@@ -85,12 +85,12 @@ under the License.
                                         <if-compare field-name="showOld" operator="equals" value="true" type="Boolean"/>
                                     </condition>
                                     <widgets>
-                                        <container>
+                                        <container style="button-bar button-style-2">
                                             <link target="viewprofile?partyId=${party.partyId}" text="${uiLabelMap.PartyHideOld}" style="smallSubmit"/>
                                         </container>
                                     </widgets>
                                     <fail-widgets>
-                                        <container>
+                                        <container style="button-bar button-style-2">
                                             <link target="viewprofile?partyId=${party.partyId}&amp;SHOW_OLD=true" text="${uiLabelMap.PartyShowOld}" style="smallSubmit"/>
                                         </container>
                                     </fail-widgets>
