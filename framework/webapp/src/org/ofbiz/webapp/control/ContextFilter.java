@@ -37,6 +37,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 
+import org.ofbiz.base.container.Container;
+import org.ofbiz.base.container.ContainerException;
 import org.ofbiz.base.container.ContainerLoader;
 import org.ofbiz.base.start.StartupException;
 import org.ofbiz.base.util.CachedClassLoader;
@@ -64,6 +66,8 @@ public class ContextFilter implements Filter {
     protected ClassLoader localCachedClassLoader = null;
     protected FilterConfig config = null;
     protected boolean debug = false;
+    protected Container rmiLoadedContainer = null; // used in Geronimo/WASCE to allow to deregister
+
 
     /**
      * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)
@@ -85,7 +89,10 @@ public class ContextFilter implements Filter {
         }
 
         // load the containers
-        getContainers();
+        Container container = getContainers();
+        if (container != null) {
+            rmiLoadedContainer = container; // used in Geronimo/WASCE to allow to deregister
+        }
         // check the serverId
         getServerId();
         // initialize the delegator
@@ -253,6 +260,11 @@ public class ContextFilter implements Filter {
      */
     public void destroy() {
         getDispatcher().deregister();
+        try {
+            destroyRmiContainer(); // used in Geronimo/WASCE to allow to deregister
+        } catch (ServletException e) {
+            Debug.logError("Error when stopping containers, this exception should not arise...", module);
+        }
         config = null;
     }
 
@@ -366,13 +378,26 @@ public class ContextFilter implements Filter {
         return serverId;
     }
 
-    protected boolean getContainers() throws ServletException {
+    protected Container getContainers() throws ServletException {
+        Container rmiLoadedContainer = null;
         try {
-            ContainerLoader.loadContainers(CONTAINER_CONFIG, null);
+            rmiLoadedContainer = ContainerLoader.loadContainers(CONTAINER_CONFIG, null); // used in Geronimo/WASCE to allow to deregister
         } catch (StartupException e) {
             Debug.logError(e, module);
             throw new ServletException("Unable to load containers; cannot start ContextFilter");
         }
-        return true;
+        return rmiLoadedContainer;
+    }
+
+    // used in Geronimo/WASCE to allow to deregister
+    protected void destroyRmiContainer() throws ServletException {
+        if (rmiLoadedContainer != null) {
+            try {
+                rmiLoadedContainer.stop();
+            } catch (ContainerException e) {
+                Debug.logError(e, module);
+                throw new ServletException("Error when stopping the RMI loaded container");
+            }
+        }
     }
 }
