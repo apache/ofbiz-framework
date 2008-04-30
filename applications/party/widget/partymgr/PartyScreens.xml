@@ -95,21 +95,30 @@ under the License.
                                         </container>
                                     </fail-widgets>
                                 </section>
-                                <include-screen name="Party" location="component://party/widget/partymgr/ProfileScreens.xml"/>
-                                <include-screen name="Contact" location="component://party/widget/partymgr/ProfileScreens.xml"/>
-                                <include-screen name="LoyaltyPoints" location="component://party/widget/partymgr/ProfileScreens.xml"/>
-                                <include-screen name="PaymentMethods" location="component://party/widget/partymgr/ProfileScreens.xml"/>
-                                <include-screen name="AvsSettings" location="component://party/widget/partymgr/ProfileScreens.xml"/>
-                                <include-screen name="FinAccounts" location="component://party/widget/partymgr/ProfileScreens.xml"/>
-                                <include-screen name="UserLogin" location="component://party/widget/partymgr/ProfileScreens.xml"/>
-                                <include-screen name="Attributes" location="component://party/widget/partymgr/ProfileScreens.xml"/>
-                                <include-screen name="Visits" location="component://party/widget/partymgr/ProfileScreens.xml"/>
-                                <include-screen name="Cart" location="component://party/widget/partymgr/ProfileScreens.xml"/>
-                                <include-screen name="SerializedInventory" location="component://party/widget/partymgr/ProfileScreens.xml"/>
-                                <include-screen name="Subscriptions" location="component://party/widget/partymgr/ProfileScreens.xml"/>
-                                <include-screen name="Content" location="component://party/widget/partymgr/ProfileScreens.xml"/>
-                                <include-screen name="ShipperAccount" location="component://party/widget/partymgr/ProfileScreens.xml"/>
-                                <include-screen name="Notes" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                <section>
+                                    <widgets>
+                                        <container style="lefthalf">
+                                            <include-screen name="Party" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="Contact" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="LoyaltyPoints" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="PaymentMethods" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="AvsSettings" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                        </container>
+                                        <container style="righthalf">
+                                            <include-screen name="FinAccounts" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="UserLogin" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="Attributes" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="Visits" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="Cart" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="SerializedInventory" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="Subscriptions" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="Content" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="ShipperAccount" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="Notes" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="mytasks" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                        </container>
+                                    </widgets>
+                                </section>
                             </widgets>
                             <fail-widgets>
                                 <container>

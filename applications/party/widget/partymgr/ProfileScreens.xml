@@ -382,4 +382,28 @@
             </widgets>
         </section>
     </screen>
+    
+    <screen name="mytasks">
+        <section>
+            <actions>
+                <service service-name="getWorkEffortAssignedActivities"/>
+                <service service-name="getWorkEffortAssignedActivitiesByRole"/>
+                <service service-name="getWorkEffortAssignedActivitiesByGroup"/>
+                <service service-name="getWorkEffortAssignedTasks"/>
+            </actions>
+            <widgets>
+                <section>
+                    <condition>
+                        <if-has-permission permission="WORKEFFORTMGR" action="_VIEW"/>
+                    </condition>
+                    <widgets>
+                        <platform-specific><html><html-template location="component://party/webapp/partymgr/party/profileblocks/mytasks.ftl"/></html></platform-specific>
+                    </widgets>
+                    <fail-widgets>
+                        <label style="h3">${uiLabelMap.WorkEffortViewPermissionError}</label>
+                    </fail-widgets>
+                </section>
+            </widgets>
+        </section>
+    </screen>
 </screens>
