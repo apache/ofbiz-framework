@@ -39,7 +39,7 @@ under the License.
                                <section>
                                    <widgets>
                                        <platform-specific>
-                                            <html><html-template location="component://marketing/webapp/party/findSfaParty.ftl"/></html>
+                                            <html><html-template location="component://marketing/webapp/sfa/party/findSfaParty.ftl"/></html>
                                         </platform-specific>
                                         <container style="screenlet">
                                            <container style="screenlet-title-bar">
