@@ -22,6 +22,7 @@ import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -115,6 +116,8 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
     protected boolean neverCache = false;
 
     protected boolean autoClearCache = true;
+
+    protected Boolean hasFieldWithAuditLog = null;
 
     /** The location of this entity's definition */
     protected String location = "";
@@ -382,6 +385,20 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
     public void setAutoClearCache(boolean autoClearCache) {
         this.autoClearCache = autoClearCache;
     }
+    
+    public boolean getHasFieldWithAuditLog() {
+        if (this.hasFieldWithAuditLog == null) {
+            this.hasFieldWithAuditLog = false;
+            for (ModelField mf: this.fields) {
+                if (mf.getEnableAuditLog()) {
+                    this.hasFieldWithAuditLog = true;
+                }
+            }
+            return this.hasFieldWithAuditLog;
+        } else {
+            return this.hasFieldWithAuditLog;
+        }
+    }
 
     /* Get the location of this entity's definition */
     public String getLocation() {
@@ -466,10 +483,17 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         return this.pks.iterator();
     }
 
+    /**
+     * @deprecated Use getPkFieldsUnmodifiable instead.
+     */
     public List<ModelField> getPksCopy() {
         List<ModelField> newList = FastList.newInstance();
         newList.addAll(this.pks);
         return newList;
+    }
+    
+    public List<ModelField> getPkFieldsUnmodifiable() {
+        return Collections.unmodifiableList(this.pks);
     }
 
     public String getFirstPkFieldName() {
@@ -517,10 +541,17 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         return this.fields.iterator();
     }
 
+    /**
+     * @deprecated Use getFieldsUnmodifiable instead.
+     */
     public List<ModelField> getFieldsCopy() {
         List<ModelField> newList = FastList.newInstance();
         newList.addAll(this.fields);
         return newList;
+    }
+
+    public List<ModelField> getFieldsUnmodifiable() {
+        return Collections.unmodifiableList(this.fields);
     }
 
     /** The col-name of the Field, the alias of the field if this is on a view-entity */

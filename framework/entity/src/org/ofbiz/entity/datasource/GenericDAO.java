@@ -108,7 +108,7 @@ public class GenericDAO {
         SQLProcessor sqlP = new SQLProcessor(helperName);
 
         try {
-            return singleInsert(entity, modelEntity, modelEntity.getFieldsCopy(), sqlP);
+            return singleInsert(entity, modelEntity, modelEntity.getFieldsUnmodifiable(), sqlP);
         } catch (GenericEntityException e) {
             sqlP.rollback();
             // no need to create nested, just throw original which will have all info: throw new GenericEntityException("Exception while inserting the following entity: " + entity.toString(), e);
@@ -259,7 +259,7 @@ public class GenericDAO {
         }
 
         String sql = "UPDATE " + modelEntity.getTableName(datasourceInfo) + " SET " + modelEntity.colNameString(fieldsToSave, "=?, ", "=?", false) + " WHERE " +
-            SqlJdbcUtil.makeWhereStringFromFields(modelEntity.getPksCopy(), entity, "AND");
+            SqlJdbcUtil.makeWhereStringFromFields(modelEntity.getPkFieldsUnmodifiable(), entity, "AND");
 
         int retVal = 0;
 
@@ -461,7 +461,7 @@ public class GenericDAO {
              * If not all member entities can be updated, then none should be updated
              */
             if (meResult.size() == 0) {
-                retVal += singleInsert(meGenericValue, memberModelEntity, memberModelEntity.getFieldsCopy(), sqlP);
+                retVal += singleInsert(meGenericValue, memberModelEntity, memberModelEntity.getFieldsUnmodifiable(), sqlP);
             } else {
                 if (meFieldsToSave.size() > 0) {
                     retVal += singleUpdate(meGenericValue, memberModelEntity, meFieldsToSave, sqlP);
@@ -508,7 +508,7 @@ public class GenericDAO {
         }
 
         sqlBuffer.append(SqlJdbcUtil.makeFromClause(modelEntity, datasourceInfo));
-        sqlBuffer.append(SqlJdbcUtil.makeWhereClause(modelEntity, modelEntity.getPksCopy(), entity, "AND", datasourceInfo.joinStyle));
+        sqlBuffer.append(SqlJdbcUtil.makeWhereClause(modelEntity, modelEntity.getPkFieldsUnmodifiable(), entity, "AND", datasourceInfo.joinStyle));
 
         try {
             sqlP.prepareStatement(sqlBuffer.toString(), true, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
@@ -577,7 +577,7 @@ public class GenericDAO {
             sqlBuffer.append("*");
         }
         sqlBuffer.append(SqlJdbcUtil.makeFromClause(modelEntity, datasourceInfo));
-        sqlBuffer.append(SqlJdbcUtil.makeWhereClause(modelEntity, modelEntity.getPksCopy(), entity, "AND", datasourceInfo.joinStyle));
+        sqlBuffer.append(SqlJdbcUtil.makeWhereClause(modelEntity, modelEntity.getPkFieldsUnmodifiable(), entity, "AND", datasourceInfo.joinStyle));
 
         SQLProcessor sqlP = new SQLProcessor(helperName);
 
@@ -650,7 +650,7 @@ public class GenericDAO {
                 throw new GenericModelException("In selectListIteratorByCondition invalid field names specified: " + tempKeys.toString());
             }
         } else {
-            selectFields = modelEntity.getFieldsCopy();
+            selectFields = modelEntity.getFieldsUnmodifiable();
         }
 
         StringBuilder sqlBuffer = new StringBuilder("SELECT ");
@@ -1007,7 +1007,7 @@ public class GenericDAO {
             throw new org.ofbiz.entity.GenericNotImplementedException("Operation delete not supported yet for view entities");
         }
 
-        String sql = "DELETE FROM " + modelEntity.getTableName(datasourceInfo) + " WHERE " + SqlJdbcUtil.makeWhereStringFromFields(modelEntity.getPksCopy(), entity, "AND");
+        String sql = "DELETE FROM " + modelEntity.getTableName(datasourceInfo) + " WHERE " + SqlJdbcUtil.makeWhereStringFromFields(modelEntity.getPkFieldsUnmodifiable(), entity, "AND");
 
         int retVal;
 

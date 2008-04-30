@@ -52,7 +52,7 @@ under the License.
         title="Testing Entity">
         <field name="testingId" type="id-ne"/>
         <field name="testingTypeId" type="id-ne"/>
-        <field name="testingName" type="name"/>
+        <field name="testingName" type="name" enable-audit-log="true"/>
         <field name="description" type="description"/>
         <field name="comments" type="comment"/>
         <field name="testingSize" type="numeric"/>

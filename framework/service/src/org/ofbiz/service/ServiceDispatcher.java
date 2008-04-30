@@ -313,7 +313,6 @@ public class ServiceDispatcher {
             }
 
             try {
-
                 int lockRetriesRemaining = LOCK_RETRIES;
                 boolean needsLockRetry = false;
                 
@@ -341,12 +340,17 @@ public class ServiceDispatcher {
                     //Debug.logInfo("After [" + modelService.name + "] pre-auth ECA, before auth; isFailure=" + isFailure + ", isError=" + isError, module);
 
                     context = checkAuth(localName, context, modelService);
-                    Object userLogin = context.get("userLogin");
+                    GenericValue userLogin = (GenericValue) context.get("userLogin");
 
                     if (modelService.auth && userLogin == null) {
                         throw new ServiceAuthException("User authorization is required for this service: " + modelService.name + modelService.debugInfo());
                     }
 
+                    // now that we have authed, if there is a userLogin, set the EE userIdentifier
+                    if (userLogin != null && userLogin.getString("userLoginId") != null) {
+                        GenericDelegator.pushUserIdentifier(userLogin.getString("userLoginId"));
+                    }
+                    
                     // pre-validate ECA
                     if (eventMap != null) ServiceEcaUtil.evalRules(modelService.name, eventMap, "in-validate", ctx, context, result, isError, isFailure);
 
@@ -539,6 +543,9 @@ public class ServiceDispatcher {
 
                 // call notifications -- event is determined from the result (success, error, fail)
                 modelService.evalNotifications(this.getLocalContext(localName), context, result);
+                
+                // clear out the EE userIdentifier
+                GenericDelegator.popUserIdentifier();
             }
         } catch (GenericTransactionException te) {
             Debug.logError(te, "Problems with the transaction", module);

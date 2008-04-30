@@ -32,31 +32,30 @@ under the License.
     <!-- ========================================================= -->
     <!-- ======================== Data Model ===================== -->
     <!-- The modules in this file are as follows:                  -->
-    <!--  - org.ofbiz.entity.sequence -->
+    <!--  - org.ofbiz.entity.audit -->
     <!--  - org.ofbiz.entity.crypto -->
+    <!--  - org.ofbiz.entity.sequence -->
     <!-- ========================================================= -->
 
-    <!-- ========================================================= -->
-    <!-- org.ofbiz.entity.sequence -->
-    <!-- ========================================================= -->
-
-    <entity entity-name="SequenceValueItem"
-            package-name="org.ofbiz.entity.sequence"
-            title="Sequence Entity">
+    <entity entity-name="EntityAuditLog" package-name="org.ofbiz.entity.audit" title="Entity Audit Log">
+        <field name="auditHistorySeqId" type="id-ne"><description>Sequenced primary key</description></field>
+        <field name="changedEntityName" type="long-varchar"></field>
+        <field name="changedFieldName" type="long-varchar"></field>
+        <field name="pkCombinedValueText" type="long-varchar"></field>
+        <field name="oldValueText" type="long-varchar"></field>
+        <field name="newValueText" type="long-varchar"></field>
+        <field name="changedDate" type="date-time"></field>
+        <field name="changedByInfo" type="long-varchar"><description>This should contain whatever information about the user or system that changed the value that is available. This could be a userLoginId, but could be something else too, so there is no foreign key.</description></field>
+        <prim-key field="auditHistorySeqId"/>
+    </entity>
+    <entity entity-name="EntityKeyStore" package-name="org.ofbiz.entity.crypto" title="Entity Key Store Entity">
+        <field name="keyName" type="id-vlong-ne"></field>
+        <field name="keyText" type="long-varchar"></field>
+        <prim-key field="keyName"/>
+    </entity>
+    <entity entity-name="SequenceValueItem" package-name="org.ofbiz.entity.sequence" title="Sequence Value Item Entity">
       <field name="seqName" type="id-long-ne"></field>
       <field name="seqId" type="numeric"></field>
       <prim-key field="seqName"/>
-    </entity>
-
-    <!-- ========================================================= -->
-    <!-- org.ofbiz.entity.crypto -->
-    <!-- ========================================================= -->
-
-    <entity entity-name="EntityKeyStore"
-            package-name="org.ofbiz.entity.crypto"
-            title="Entity Key Entity">
-      <field name="keyName" type="id-vlong-ne"></field>
-      <field name="keyText" type="long-varchar"></field>
-      <prim-key field="keyName"/>
     </entity>
 </entitymodel>

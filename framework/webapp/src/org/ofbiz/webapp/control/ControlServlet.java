@@ -108,6 +108,11 @@ public class ControlServlet extends HttpServlet {
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         //Debug.log("Cert Chain: " + request.getAttribute("javax.servlet.request.X509Certificate"), module);
 
+        // set the Entity Engine user info if we have a userLogin
+        if (userLogin != null) {
+            GenericDelegator.pushUserIdentifier(userLogin.getString("userLoginId"));
+        }
+        
         // workaraound if we are in the root webapp
         String webappName = UtilHttp.getApplicationName(request);
 
@@ -176,7 +181,7 @@ public class ControlServlet extends HttpServlet {
         // setup some things that should always be there
         UtilHttp.setInitialRequestInfo(request);
         VisitHandler.getVisitor(request, response);
-
+        
         // display details on the servlet objects
         if (Debug.verboseOn()) {
             logRequestInfo(request);
@@ -255,7 +260,7 @@ public class ControlServlet extends HttpServlet {
             }
         }
 
-        // sanity check; make sure we don't have any transactions in place
+        // sanity check: make sure we don't have any transactions in place
         try {
             // roll back current TX first
             if (TransactionUtil.isTransactionInPlace()) {
@@ -271,6 +276,9 @@ public class ControlServlet extends HttpServlet {
         } catch (GenericTransactionException e) {
             Debug.logWarning(e, module);
         }
+        
+        // sanity check 2: make sure there are no user infos in the delegator, ie clear the thread
+        GenericDelegator.clearUserIdentifierStack();
 
         // run these two again before the ServerHitBin.countRequest call because on a logout this will end up creating a new visit
         if (response.isCommitted() && request.getSession(false) == null) {

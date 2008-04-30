@@ -1320,9 +1320,7 @@ public class DatabaseUtil {
                     }
                     if (pkCount == 0) {
                         Debug.logInfo("Searching in " + tableNames.size() + " tables for primary key fields ...", module);
-                        Iterator it = tableNames.iterator();
-                        while (it.hasNext()) {
-                            String curTable = (String) it.next();
+                        for (String curTable: tableNames) {
                             curTable = curTable.substring(curTable.indexOf('.') + 1); //cut off schema name
                             ResultSet rsPks = dbData.getPrimaryKeys(null, lookupSchemaName, curTable);
                             pkCount += checkPrimaryKeyInfo(rsPks, lookupSchemaName, needsUpperCase, colInfo, messages);
@@ -1765,7 +1763,7 @@ public class DatabaseUtil {
             sqlBuf.append(pkName);
         }
         sqlBuf.append(" PRIMARY KEY (");
-        sqlBuf.append(entity.colNameString(entity.getPksCopy()));
+        sqlBuf.append(entity.colNameString(entity.getPkFieldsUnmodifiable()));
         sqlBuf.append(")");
 
         if (addFks) {
@@ -2597,7 +2595,7 @@ public class DatabaseUtil {
                 sqlBuf.append(pkName);
             }
             sqlBuf.append(" PRIMARY KEY (");
-            sqlBuf.append(entity.colNameString(entity.getPksCopy()));
+            sqlBuf.append(entity.colNameString(entity.getPkFieldsUnmodifiable()));
             sqlBuf.append(")");
 
             if (Debug.verboseOn()) Debug.logVerbose("[createPrimaryKey] sql=" + sqlBuf.toString(), module);
