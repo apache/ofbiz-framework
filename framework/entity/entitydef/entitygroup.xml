@@ -21,16 +21,7 @@ under the License.
 <entitygroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitygroup.xsd">
 
-    <!-- ========================================================= -->
-    <!-- org.ofbiz.entity.sequence -->
-    <!-- ========================================================= -->
-
-    <entity-group group="org.ofbiz" entity="SequenceValueItem" />
-
-    <!-- ========================================================= -->
-    <!-- org.ofbiz.entity.crypto -->
-    <!-- ========================================================= -->
-
+    <entity-group group="org.ofbiz" entity="EntityAuditLog" />
     <entity-group group="org.ofbiz" entity="EntityKeyStore" />
+    <entity-group group="org.ofbiz" entity="SequenceValueItem" />
 </entitygroup>
-

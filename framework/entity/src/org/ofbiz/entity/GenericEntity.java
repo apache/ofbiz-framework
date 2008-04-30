@@ -316,9 +316,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
     }
     public boolean isPrimaryKey(boolean requireValue) {
         TreeSet<String> fieldKeys = new TreeSet<String>(this.fields.keySet());
-        Iterator<ModelField> pkIter = getModelEntity().getPksIterator();
-        while (pkIter.hasNext()) {
-            ModelField curPk = pkIter.next();
+        for (ModelField curPk: this.getModelEntity().getPkFieldsUnmodifiable()) {
             String fieldName = curPk.getName();
             if (requireValue) {
                 if (this.fields.get(fieldName) == null) return false;
@@ -337,9 +335,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
     }
     public boolean containsPrimaryKey(boolean requireValue) {
         //TreeSet fieldKeys = new TreeSet(fields.keySet());
-        Iterator pkIter = getModelEntity().getPksIterator();
-        while (pkIter.hasNext()) {
-            ModelField curPk = (ModelField) pkIter.next();
+        for (ModelField curPk: this.getModelEntity().getPkFieldsUnmodifiable()) {
             String fieldName = curPk.getName();
             if (requireValue) {
                 if (this.fields.get(fieldName) == null) return false;
@@ -348,6 +344,17 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
             }
         }
         return true;
+    }
+    
+    public String getPkShortValueString() {
+        StringBuffer sb = new StringBuffer();
+        for (ModelField curPk: this.getModelEntity().getPkFieldsUnmodifiable()) {
+            if (sb.length() > 0) {
+                sb.append("::");
+            }
+            sb.append(this.get(curPk.getName()));
+        }
+        return sb.toString();
     }
 
     /** Sets the named field to the passed value, even if the value is null

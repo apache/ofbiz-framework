@@ -41,6 +41,7 @@ import org.xml.sax.SAXException;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralRuntimeException;
+import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
@@ -92,13 +93,16 @@ public class GenericDelegator implements DelegatorInterface {
 
     protected Cache cache = null;
 
-    // keeps a list of field key sets used in the by and cache, a Set (of Sets of fieldNames) for each entityName
+    /** keeps a list of field key sets used in the by and cache, a Set (of Sets of fieldNames) for each entityName */
     protected Map andCacheFieldSets = FastMap.newInstance();
 
     protected DistributedCacheClear distributedCacheClear = null;
     protected EntityEcaHandler<?> entityEcaHandler = null;
     protected SequenceUtil sequencer = null;
     protected EntityCrypto crypto = null;
+    
+    /** A ThreadLocal variable to allow other methods to specify an identifier (usually the userLoginId, though technically the Entity Engine doesn't know anything about the UserLogin entity) */
+    protected static ThreadLocal<List<Object>> userIdentifierStack = new ThreadLocal<List<Object>>();
 
     public static GenericDelegator getGenericDelegator(String delegatorName) {
         if (delegatorName == null) {
@@ -128,6 +132,47 @@ public class GenericDelegator implements DelegatorInterface {
             }
         }
         return delegator;
+    }
+
+    protected static List<Object> getUserIdentifierStack() {
+        List<Object> curValList = userIdentifierStack.get();
+        if (curValList == null) {
+            curValList = FastList.newInstance();
+            userIdentifierStack.set(curValList);
+        }
+        return curValList;
+    }
+    
+    public static String getCurrentUserIdentifier() {
+        List<Object> curValList = getUserIdentifierStack();
+        Object curVal = curValList.get(0);
+        if (curVal == null) {
+            return null;
+        } else {
+            return curVal.toString();
+        }
+    }
+    
+    public static void pushUserIdentifier(String userIdentifier) {
+        if (userIdentifier == null) {
+            return;
+        }
+        List<Object> curValList = getUserIdentifierStack();
+        curValList.add(0, userIdentifier);
+    }
+    
+    public static String popUserIdentifier() {
+        List<Object> curValList = getUserIdentifierStack();
+        if (curValList.size() == 0) {
+            return null;
+        } else {
+            return (String) curValList.remove(0);
+        }
+    }
+    
+    public static void clearUserIdentifierStack() {
+        List<Object> curValList = getUserIdentifierStack();
+        curValList.clear();
     }
 
     /** Only allow creation through the factory method */
@@ -250,7 +295,7 @@ public class GenericDelegator implements DelegatorInterface {
     public String getDelegatorName() {
         return this.delegatorName;
     }
-
+    
     protected DelegatorInfo getDelegatorInfo() {
         if (delegatorInfo == null) {
             delegatorInfo = EntityConfigUtil.getDelegatorInfo(this.delegatorName);
@@ -618,6 +663,12 @@ public class GenericDelegator implements DelegatorInterface {
 
             value.setDelegator(this);
             this.encryptFields(value);
+
+            // if audit log on for any fields, save new value with no old value because it's a create
+            if (value != null && value.getModelEntity().getHasFieldWithAuditLog()) {
+                createEntityAuditLogAll(value, false, false);
+            }
+            
             try {
                 value = helper.create(value);
             } catch (GenericEntityException e) {
@@ -651,6 +702,7 @@ public class GenericDelegator implements DelegatorInterface {
             }
 
             ecaRunner.evalRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_CREATE, value, false);
+            
             return value;
         } catch (GenericEntityException e) {
             String errMsg = "Failure in create operation for entity [" + value.getEntityName() + "]: " + e.toString() + ". Rolling back transaction.";
@@ -668,7 +720,7 @@ public class GenericDelegator implements DelegatorInterface {
             TransactionUtil.commit(beganTransaction);
         }
     }
-
+    
     /** Creates a Entity in the form of a GenericValue and write it to the datasource
      *@param value The GenericValue to create a value in the datasource from
      *@param doCacheClear boolean that specifies whether or not to automatically clear cache entries related to this operation
@@ -693,6 +745,12 @@ public class GenericDelegator implements DelegatorInterface {
 
             value.setDelegator(this);
             this.encryptFields(value);
+
+            // if audit log on for any fields, save new value with no old value because it's a create
+            if (value != null && value.getModelEntity().getHasFieldWithAuditLog()) {
+                createEntityAuditLogAll(value, false, false);
+            }
+            
             value = helper.create(value);
 
             if (value != null) {
@@ -708,6 +766,7 @@ public class GenericDelegator implements DelegatorInterface {
             }
 
             ecaRunner.evalRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_CREATE, value, false);
+            
             return value;
         } catch (GenericEntityException e) {
             String errMsg = "Failure in create operation for entity [" + value.getEntityName() + "]: " + e.toString() + ". Rolling back transaction.";
@@ -836,10 +895,17 @@ public class GenericDelegator implements DelegatorInterface {
             }
 
             ecaRunner.evalRules(EntityEcaHandler.EV_RUN, EntityEcaHandler.OP_REMOVE, primaryKey, false);
+            
+            // if audit log on for any fields, save old value before removing so it's still there
+            if (primaryKey != null && primaryKey.getModelEntity().getHasFieldWithAuditLog()) {
+                createEntityAuditLogAll(this.findByPrimaryKey(primaryKey), true, true);
+            }
+            
             int num = helper.removeByPrimaryKey(primaryKey);
             this.saveEntitySyncRemoveInfo(primaryKey);
 
             ecaRunner.evalRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_REMOVE, primaryKey, false);
+
             return num;
         } catch (GenericEntityException e) {
             String errMsg = "Failure in removeByPrimaryKey operation for entity [" + primaryKey.getEntityName() + "]: " + e.toString() + ". Rolling back transaction.";
@@ -890,10 +956,17 @@ public class GenericDelegator implements DelegatorInterface {
             }
 
             ecaRunner.evalRules(EntityEcaHandler.EV_RUN, EntityEcaHandler.OP_REMOVE, value, false);
+            
+            // if audit log on for any fields, save old value before actual remove
+            if (value != null && value.getModelEntity().getHasFieldWithAuditLog()) {
+                createEntityAuditLogAll(value, true, true);
+            }
+            
             int num = helper.removeByPrimaryKey(value.getPrimaryKey());
             this.saveEntitySyncRemoveInfo(value.getPrimaryKey());
 
             ecaRunner.evalRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_REMOVE, value, false);
+            
             return num;
         } catch (GenericEntityException e) {
             String errMsg = "Failure in removeValue operation for entity [" + value.getEntityName() + "]: " + e.toString() + ". Rolling back transaction.";
@@ -1147,6 +1220,12 @@ public class GenericDelegator implements DelegatorInterface {
 
             ecaRunner.evalRules(EntityEcaHandler.EV_RUN, EntityEcaHandler.OP_STORE, value, false);
             this.encryptFields(value);
+            
+            // if audit log on for any fields, save old value before the update so we still have both
+            if (value != null && value.getModelEntity().getHasFieldWithAuditLog()) {
+                createEntityAuditLogAll(value, true, false);
+            }
+            
             int retVal = helper.store(value);
 
             // refresh the valueObject to get the new version
@@ -1155,6 +1234,7 @@ public class GenericDelegator implements DelegatorInterface {
             }
 
             ecaRunner.evalRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_STORE, value, false);
+            
             return retVal;
         } catch (GenericEntityException e) {
             String errMsg = "Failure in store operation for entity [" + value.getEntityName() + "]: " + e.toString() + ". Rolling back transaction.";
@@ -2999,6 +3079,73 @@ public class GenericDelegator implements DelegatorInterface {
 
     public Cache getCache() {
         return cache;
+    }
+
+    protected void createEntityAuditLogAll(GenericValue value, boolean isUpdate, boolean isRemove) throws GenericEntityException {
+        for (ModelField mf: value.getModelEntity().getFieldsUnmodifiable()) {
+            if (mf.getEnableAuditLog()) {
+                createEntityAuditLogSingle(value, mf, isUpdate, isRemove);
+            }
+        }
+    }
+    
+    protected void createEntityAuditLogSingle(GenericValue value, ModelField mf, boolean isUpdate, boolean isRemove) throws GenericEntityException {
+        if (value == null || mf == null || !mf.getEnableAuditLog()) {
+            return;
+        }
+        
+        GenericValue entityAuditLog = this.makeValue("EntityAuditLog");
+        entityAuditLog.set("auditHistorySeqId", this.getNextSeqId("EntityAuditLog"));
+        entityAuditLog.set("changedEntityName", value.getEntityName());
+        entityAuditLog.set("changedFieldName", mf.getName());
+        
+        String pkCombinedValueText = value.getPkShortValueString();
+        if (pkCombinedValueText.length() > 250) {
+            // uh-oh, the string is too long!
+            pkCombinedValueText = pkCombinedValueText.substring(0, 250);
+        }
+        entityAuditLog.set("pkCombinedValueText", pkCombinedValueText);
+        
+        GenericValue oldGv = null;
+        if (isUpdate) {
+            // it's an update, get it from the database
+            oldGv = this.findByPrimaryKey(value.getPrimaryKey());
+        } else if (isRemove) {
+            oldGv = value;
+        }
+        if (oldGv == null) {
+            if (isUpdate || isRemove) {
+                entityAuditLog.set("oldValueText", "[ERROR] Old value not found even though it was an update or remove");
+            }
+        } else {
+            // lookup old value
+            String oldValueText = null; 
+            Object oldValue = oldGv.get(mf.getName());
+            if (oldValue != null) {
+                oldValueText = oldValue.toString();
+                if (oldValueText.length() > 250) {
+                    oldValueText = oldValueText.substring(0, 250);
+                }
+            }
+            entityAuditLog.set("oldValueText", oldValueText);
+        }
+        
+        if (!isRemove) {
+            String newValueText = null;
+            Object newValue = value.get(mf.getName());
+            if (newValue != null) {
+                newValueText = newValue.toString();
+                if (newValueText.length() > 250) {
+                    newValueText = newValueText.substring(0, 250);
+                }
+            }
+            entityAuditLog.set("newValueText", newValueText);
+        }
+
+        entityAuditLog.set("changedDate", UtilDateTime.nowTimestamp());
+        entityAuditLog.set("changedByInfo", getCurrentUserIdentifier());
+        
+        this.create(entityAuditLog);
     }
 
     public GenericDelegator cloneDelegator(String delegatorName) {

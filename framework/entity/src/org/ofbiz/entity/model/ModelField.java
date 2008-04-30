@@ -43,6 +43,7 @@ public class ModelField extends ModelChild {
     protected boolean isPk = false;
     protected boolean encrypt = false;
     protected boolean isAutoCreatedInternal = false;
+    protected boolean enableAuditLog = false;
     
     /** validators to be called when an update is done */
     protected List<String> validators = new ArrayList<String>();
@@ -52,15 +53,16 @@ public class ModelField extends ModelChild {
 
     /** Fields Constructor */
     public ModelField(String name, String type, String colName, boolean isPk) {
-        this(name, type, colName, isPk, false);
+        this(name, type, colName, isPk, false, false);
     }
 
-    public ModelField(String name, String type, String colName, boolean isPk, boolean encrypt) {
+    public ModelField(String name, String type, String colName, boolean isPk, boolean encrypt, boolean enableAuditLog) {
         this.name = name;
         this.type = type;
         this.setColName(colName);
         this.isPk = isPk;
         this.encrypt = encrypt;
+        this.enableAuditLog = enableAuditLog;
     }
 
     /** XML Constructor */
@@ -71,6 +73,7 @@ public class ModelField extends ModelChild {
         this.isPk = false; // is set elsewhere
         this.encrypt = UtilXml.checkBoolean(fieldElement.getAttribute("encrypt"), false);
         this.description = UtilXml.childElementValue(fieldElement, "description");
+        this.enableAuditLog = UtilXml.checkBoolean(fieldElement.getAttribute("enable-audit-log"), false);
 
         NodeList validateList = fieldElement.getElementsByTagName("validate");
 
@@ -137,6 +140,10 @@ public class ModelField extends ModelChild {
 
     public void setEncrypt(boolean encrypt) {
         this.encrypt = encrypt;
+    }
+    
+    public boolean getEnableAuditLog() {
+        return this.enableAuditLog;
     }
 
     public boolean getIsAutoCreatedInternal() {

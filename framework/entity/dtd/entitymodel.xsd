@@ -133,6 +133,15 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+        <xs:attribute name="enable-audit-log" default="false">
+            <xs:annotation><xs:documentation>If this is set to true then whenever the value for this field on a record changes the Entity Engine will record the change in the EntityAuditLog entity. Defaults to false.</xs:documentation></xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="validate">
         <xs:complexType>
