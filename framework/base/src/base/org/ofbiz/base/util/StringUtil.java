@@ -33,6 +33,9 @@ import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.codec.DecoderException;
+import org.apache.commons.codec.binary.Hex;
+
 /**
  * Misc String Utility Functions
  *
@@ -328,13 +331,7 @@ public class StringUtil {
     }
 
     public static String toHexString(byte[] bytes) {
-        StringBuilder buf = new StringBuilder(bytes.length * 2);
-        for (byte b: bytes) {
-            buf.append(hexChar[(b & 0xf0) >>> 4]);
-            buf.append(hexChar[b & 0x0f]);
-        }
-        return buf.toString();
-
+        return new String(Hex.encodeHex(bytes));
     }
 
     public static String cleanHexString(String str) {
@@ -349,18 +346,11 @@ public class StringUtil {
 
     public static byte[] fromHexString(String str) {
         str = cleanHexString(str);
-        int stringLength = str.length();
-        if ((stringLength & 0x1) != 0) {
-            throw new IllegalArgumentException("fromHexString requires an even number of hex characters");
+        try {
+            return Hex.decodeHex(str.toCharArray());
+        } catch (DecoderException e) {
+            throw new GeneralRuntimeException(e);
         }
-        byte[] b = new byte[stringLength / 2];
-
-        for (int i = 0, j = 0; i < stringLength; i+= 2, j++) {
-            int high = convertChar(str.charAt(i));
-            int low = convertChar(str.charAt(i+1));
-            b[j] = (byte) ((high << 4) | low);
-        }
-        return b;
     }
 
     private static char[] hexChar = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
