@@ -1416,13 +1416,6 @@ under the License.
         <response name="error" type="view" value="EditProdCatalogParties"/>
     </request-map>
 
-    <request-map uri="catalog_createWebSite">
-        <security https="true" auth="true"/>
-        <event type="service" path="" invoke="createWebSite"/>
-        <response name="success" type="view" value="EditProdCatalogWebSites"/>
-        <response name="error" type="view" value="EditProdCatalogWebSites"/>
-    </request-map>
-
     <!-- ================ ProductPromo Requests ================= -->
     <request-map uri="FindProductPromo">
         <security https="true" auth="true"/>
