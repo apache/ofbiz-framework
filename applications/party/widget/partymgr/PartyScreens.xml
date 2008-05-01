@@ -86,25 +86,25 @@ under the License.
                                     </condition>
                                     <widgets>
                                         <container style="button-bar button-style-2">
-                                            <link target="viewprofile?partyId=${party.partyId}" text="${uiLabelMap.PartyHideOld}" style="smallSubmit"/>
+                                            <link target="viewprofile?partyId=${party.partyId}" text="${uiLabelMap.PartyHideOld}"/>
                                         </container>
                                     </widgets>
                                     <fail-widgets>
                                         <container style="button-bar button-style-2">
-                                            <link target="viewprofile?partyId=${party.partyId}&amp;SHOW_OLD=true" text="${uiLabelMap.PartyShowOld}" style="smallSubmit"/>
+                                            <link target="viewprofile?partyId=${party.partyId}&amp;SHOW_OLD=true" text="${uiLabelMap.PartyShowOld}"/>
                                         </container>
                                     </fail-widgets>
                                 </section>
                                 <section>
                                     <widgets>
-                                        <container style="lefthalf">
+                                        <container style="profile-left">
                                             <include-screen name="Party" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                             <include-screen name="Contact" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                             <include-screen name="LoyaltyPoints" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                             <include-screen name="PaymentMethods" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                             <include-screen name="AvsSettings" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                         </container>
-                                        <container style="righthalf">
+                                        <container style="profile-right">
                                             <include-screen name="FinAccounts" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                             <include-screen name="UserLogin" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                             <include-screen name="Attributes" location="component://party/widget/partymgr/ProfileScreens.xml"/>

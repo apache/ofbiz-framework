@@ -17,7 +17,6 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<!-- begin SecurityGroupTabBar.ftl -->
 <#if security.hasEntityPermission("PARTYMGR", "_VIEW", session)>
   <#-- Main Heading -->
   <#if partyClassificationGroup?has_content>
@@ -32,5 +31,5 @@ under the License.
     <br/>
   </#if>
 <#else>
-  <h2">${uiLabelMap.PartyMgrViewPermissionError}</h2>
+  <h2>${uiLabelMap.PartyMgrViewPermissionError}</h2>
 </#if>

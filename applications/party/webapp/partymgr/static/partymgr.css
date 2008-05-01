@@ -23,3 +23,13 @@
 width: auto;
 margin-bottom: 1em;
 }
+
+.profile-left {
+float: left;
+width: 47%;
+}
+
+.profile-right {
+float: right;
+width: 47%;
+}

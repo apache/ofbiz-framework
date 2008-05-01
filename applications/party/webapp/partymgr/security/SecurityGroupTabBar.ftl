@@ -18,7 +18,6 @@ under the License.
 -->
 
 <#if groupId?has_content>
-<!-- begin SecurityGroupTabBar.ftl -->
   <#assign selected = tabButtonItem?default("void")>
   <div class="button-bar tab-bar">
     <ul>
@@ -28,5 +27,4 @@ under the License.
       <br class="clear" />
     </ul>
   </div>
-<!-- end SecurityGroupTabBar.ftl -->
 </#if>

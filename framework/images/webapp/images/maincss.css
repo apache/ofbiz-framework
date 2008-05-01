@@ -897,7 +897,6 @@ padding: 0.4em;
 }
 
 #column-container {
-background-color: #FFFFFF;
 margin: auto;
 padding: 1em;
 position: relative;
@@ -1264,6 +1263,7 @@ float: right;
 font-size: 1em;
 font-weight: bold;
 padding: 0.1em 0.5em 0.2em 0.5em;
+white-space: nowrap;
 }
 
 .screenlet-title-bar ul h1,
