@@ -73,8 +73,8 @@ public abstract class ModelMenuAction {
         return readSubActions(modelMenuItem.getModelMenu(), parentElement);
     }
     
-    public static List readSubActions(ModelMenu modelMenu, Element parentElement) {
-        List actions = new LinkedList();
+    public static List<ModelMenuAction> readSubActions(ModelMenu modelMenu, Element parentElement) {
+        List<ModelMenuAction> actions = new LinkedList<ModelMenuAction>();
         
         List actionElementList = UtilXml.childElementList(parentElement);
         Iterator actionElementIter = actionElementList.iterator();
