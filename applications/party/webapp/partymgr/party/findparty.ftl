@@ -203,10 +203,10 @@ under the License.
     <#if hideFields != "Y">
       <hr/>
     </#if>
+    <div id="findPartyResults" class="screenlet-body">
+      <h2>${uiLabelMap.CommonSearchResults}</h2>
+    </div>
     <#if partyList?has_content>
-      <div id="findPartyResults" class="screenlet-body">
-        <h2>${uiLabelMap.CommonSearchResults}</h2>
-      </div>
       <table class="basic-table hover-bar" cellspacing="0">
         <tr class="header-row-2">
           <td>${uiLabelMap.PartyPartyId}</td>

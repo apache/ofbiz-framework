@@ -82,13 +82,19 @@ under the License.
                 <entity-one entity-name="PartyClassificationGroup" value-name="partyClassificationGroup"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
                         <section>
                             <widgets>
                                 <platform-specific>
                                     <html><html-template location="component://party/webapp/partymgr/party/ClassificationTabBar.ftl"/></html>
                                 </platform-specific>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
                                         <container style="h3">
@@ -137,7 +143,7 @@ under the License.
                 <entity-one entity-name="Party" value-name="party"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
@@ -175,13 +181,19 @@ under the License.
                 <entity-one entity-name="PartyClassificationGroup" value-name="partyClassificationGroup"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
                         <section>
                             <widgets>
                                 <platform-specific>
                                     <html><html-template location="component://party/webapp/partymgr/party/ClassificationTabBar.ftl"/></html>
                                 </platform-specific>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
                                         <container style="h3">
