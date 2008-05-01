@@ -231,6 +231,9 @@
         <value xml:lang="th">ตรวจสอบรหัสอีเมล์ในเว็บไซต์</value>
         <value xml:lang="zh">验证电子邮件站点标识</value>
     </property>
+    <property key="DataSourceLabel">
+        <value xml:lang="en">Source</value>
+    </property>    
     <property key="FormFieldTitle_actualCost">
         <value xml:lang="en">Actual Cost</value>
         <value xml:lang="it">Costo Attuale</value>
@@ -537,11 +540,11 @@
     <property key="PageTitleCreateAccount">
         <value xml:lang="en">Create New Account</value>
     </property>
-    <property key="PageTitleCreateLead">
-        <value xml:lang="en">Create New Account</value>
-    </property>
     <property key="PageTitleCreateContact">
-        <value xml:lang="en">Create New Account</value>
+        <value xml:lang="en">Create New Contact</value>
+    </property>
+    <property key="PageTitleCreateLead">
+        <value xml:lang="en">Create New Lead</value>
     </property>
     <property key="PageTitleEditAccount">
         <value xml:lang="en">Edit Account</value>
@@ -1125,56 +1128,38 @@
     <property key="SfaCampaigns">
         <value xml:lang="en">Campaigns</value>
     </property>
+    <property key="SfaCloseDate">
+        <value xml:lang="en">Close Date</value>
+    </property>
     <property key="SfaCompanyName">
         <value xml:lang="en">OFBiz: SFA Manager</value>
     </property>
     <property key="SfaCompetitors">
         <value xml:lang="en">Competitors &amp; Partners </value>
     </property>
+    <property key="SfaContact">
+        <value xml:lang="en">Contact</value>
+    </property>
     <property key="SfaContacts">
         <value xml:lang="en">Contacts</value>
     </property>
-    <property key="SfaContact">
-        <value xml:lang="en">Contact</value>
-    </property> 
-    <property key="SfaLeadGroup">
-        <value xml:lang="en">Lead Group</value>
-    </property>
-    <property key="SfaLeadPerson">
-        <value xml:lang="en">Lead Person</value>
-    </property>
-    <property key="SfaLeadSource">
-        <value xml:lang="en">Lead Source</value>
-    </property>
     <property key="SfaDocuments">
         <value xml:lang="en">Documents</value>
+    </property>
+    <property key="SfaEditOpportunity">
+        <value xml:lang="en">Edit Opportunity</value>
+    </property>
+    <property key="SfaEstimatedAmount">
+        <value xml:lang="en">Estimated Amount</value>
     </property>
     <property key="SfaEvents">
         <value xml:lang="en">Events</value>
     </property>
     <property key="SfaFindContacts">
         <value xml:lang="en">Find Contacts</value>
-    </property>   
+    </property>
     <property key="SfaFindLeads">
         <value xml:lang="en">Find Leads</value>
-    </property>
-    <property key="SfaForecasts">
-        <value xml:lang="en">Forecast</value>
-    </property>
-    <property key="SfaOpportunities">
-        <value xml:lang="en">Opportunities</value>
-    </property>
-    <property key="SfaNewOpportunity">
-        <value xml:lang="en">Create New Opportunity</value>
-    </property>
-    <property key="SfaLeads">
-        <value xml:lang="en">Leads</value>
-    </property>
-    <property key="SfaManagerApplication">
-        <value xml:lang="en">SFA Manager Application</value>
-    </property>
-    <property key="SfaManagerWelcome">
-        <value xml:lang="en">Welcome to the SFA Manager Application</value>
     </property>
     <property key="SfaFindOpportunities">
         <value xml:lang="en">Find Opportunities</value>
@@ -1182,38 +1167,53 @@
     <property key="SfaFindResults">
         <value xml:lang="en">Find Results</value>
     </property>
-    <property key="SfaOpportunityName">
-        <value xml:lang="en">Opportunity Name</value>
+    <property key="SfaForecasts">
+        <value xml:lang="en">Forecast</value>
     </property>
     <property key="SfaInitialAccount">
         <value xml:lang="en">Initial Account</value>
     </property>
-    <property key="SfaEstimatedAmount">
-        <value xml:lang="en">Estimated Amount</value>
-    </property>   
     <property key="SfaInitialStage">
         <value xml:lang="en">Initial Stage</value>
-    </property> 
-    <property key="SfaCloseDate">
-        <value xml:lang="en">Close Date</value>
-    </property>  
-    <property key="SfaType">
-        <value xml:lang="en">Type</value>
+    </property>
+    <property key="SfaLeadGroup">
+        <value xml:lang="en">Lead Group</value>
+    </property>
+    <property key="SfaLeadPerson">
+        <value xml:lang="en">Lead Person</value>
+    </property>
+    <property key="SfaLeads">
+        <value xml:lang="en">Leads</value>
+    </property>
+    <property key="SfaLeadSource">
+        <value xml:lang="en">Lead Source</value>
+    </property>
+    <property key="SfaManagerApplication">
+        <value xml:lang="en">SFA Manager Application</value>
+    </property>
+    <property key="SfaManagerWelcome">
+        <value xml:lang="en">Welcome to the SFA Manager Application</value>
+    </property>
+    <property key="SfaNewOpportunity">
+        <value xml:lang="en">Create New Opportunity</value>
     </property>
     <property key="SfaNextStep">
         <value xml:lang="en">Next Step</value>
-    </property> 
-    <property key="SfaOpportunitySummary">
-        <value xml:lang="en">Opportunity Summary</value>
     </property>
-    <property key="SfaEditOpportunity">
-        <value xml:lang="en">Edit Opportunity</value>
+    <property key="SfaOpportunities">
+        <value xml:lang="en">Opportunities</value>
+    </property>
+    <property key="SfaOpportunityId">
+        <value xml:lang="en">Opportunity ID</value>
     </property>
     <property key="SfaOpportunityInfo">
         <value xml:lang="en">Opportunity Information</value>
     </property>
-    <property key="SfaOpportunityId">
-        <value xml:lang="en">Opportunity ID</value>
+    <property key="SfaOpportunityName">
+        <value xml:lang="en">Opportunity Name</value>
+    </property>
+    <property key="SfaOpportunitySummary">
+        <value xml:lang="en">Opportunity Summary</value>
     </property>
     <property key="SfaProbability">
         <value xml:lang="en">Probability(%)</value>
@@ -1224,8 +1224,8 @@
     <property key="SfaQuickAddContactForm">
         <value xml:lang="en">Quick Add Contact Form</value>
     </property>
-    <property key="DataSourceLabel">
-        <value xml:lang="en">Source</value>
+    <property key="SfaType">
+        <value xml:lang="en">Type</value>
     </property>
     <property key="Tracking">
         <value xml:lang="en">Tracking</value>
