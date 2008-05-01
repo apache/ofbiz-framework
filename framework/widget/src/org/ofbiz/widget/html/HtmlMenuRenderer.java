@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
@@ -143,14 +144,14 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
     public void renderMenuItem(StringBuffer buffer, Map context, ModelMenuItem menuItem) {
         
         //Debug.logInfo("in renderMenuItem, menuItem:" + menuItem.getName() + " context:" + context ,"");
-        boolean hideThisItem = isHideIfSelected(menuItem);
+        boolean hideThisItem = isHideIfSelected(menuItem, context);
         //if (Debug.infoOn()) Debug.logInfo("in HtmlMenuRendererImage, hideThisItem:" + hideThisItem,"");
         if (hideThisItem)
             return;
 
         String style = null;
         
-        if (menuItem.isSelected()) {
+        if (menuItem.isSelected(context)) {
             style = menuItem.getSelectedStyle();
             if (UtilValidate.isEmpty(style)) {
                 style = "selected";
@@ -308,9 +309,9 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
         return this.userLoginIdAtPermGrant;
     }
 
-    public boolean isHideIfSelected( ModelMenuItem menuItem) {
+    public boolean isHideIfSelected(ModelMenuItem menuItem, Map context) {
         ModelMenu menu = menuItem.getModelMenu();
-        String currentMenuItemName = menu.getCurrentMenuItemName();
+        String currentMenuItemName = menu.getSelectedMenuItemContextFieldName(context);
         String currentItemName = menuItem.getName();
         Boolean hideIfSelected = menuItem.getHideIfSelected();
             //Debug.logInfo("in HtmlMenuRenderer, currentMenuItemName:" + currentMenuItemName + " currentItemName:" + currentItemName + " hideIfSelected:" + hideIfSelected,"");

@@ -60,7 +60,6 @@ public class ModelMenu extends ModelWidget {
     protected String defaultTooltipStyle;
     protected String defaultSelectedStyle;
     protected String defaultMenuItemName;
-    protected String currentMenuItemName;
     protected String defaultPermissionOperation;
     protected String defaultPermissionEntityAction;
     protected FlexibleStringExpander defaultAssociatedContentId;
@@ -86,15 +85,15 @@ public class ModelMenu extends ModelWidget {
      * necessary to use the Map. The Map is used when loading the menu definition to keep the
      * list clean and implement the override features for item definitions.
      */
-    protected List menuItemList = new LinkedList();
+    protected List<ModelMenuItem> menuItemList = new LinkedList<ModelMenuItem>();
 
     /** This Map is keyed with the item name and has a ModelMenuItem for the value; items
      * with conditions will not be put in this Map so item definition overrides for items
      * with conditions is not possible.
      */
-    protected Map menuItemMap = new HashMap();
+    protected Map<String, ModelMenuItem> menuItemMap = new HashMap<String, ModelMenuItem>();
     
-    protected List actions;
+    protected List<ModelMenuAction> actions;
 
     
    // ===== CONSTRUCTORS =====
@@ -151,8 +150,8 @@ public class ModelMenu extends ModelWidget {
                 this.defaultWidgetStyle = parent.defaultWidgetStyle;
                 this.defaultTooltipStyle = parent.defaultTooltipStyle;
                 this.defaultMenuItemName = parent.defaultMenuItemName;
-                this.menuItemList = parent.menuItemList;
-                this.menuItemMap = parent.menuItemMap;
+                this.menuItemList.addAll(parent.menuItemList);
+                this.menuItemMap.putAll(parent.menuItemMap);
                 this.defaultPermissionOperation = parent.defaultPermissionOperation;
                 this.defaultPermissionEntityAction = parent.defaultPermissionEntityAction;
                 this.defaultAssociatedContentId = parent.defaultAssociatedContentId;
@@ -166,6 +165,13 @@ public class ModelMenu extends ModelWidget {
                 this.defaultAlign = parent.defaultAlign;
                 this.defaultAlignStyle = parent.defaultAlignStyle;
                 this.fillStyle = parent.fillStyle;
+                this.selectedMenuItemContextFieldName = parent.selectedMenuItemContextFieldName;
+                this.menuContainerStyleExdr = parent.menuContainerStyleExdr;
+                if (parent.actions != null) {
+                    this.actions = new LinkedList<ModelMenuAction>();
+                    this.actions.addAll(parent.actions);
+                }
+                this.actions = parent.actions;
             }
         }
 
@@ -231,7 +237,11 @@ public class ModelMenu extends ModelWidget {
         // read all actions under the "actions" element
         Element actionsElement = UtilXml.firstChildElement(menuElement, "actions");
         if (actionsElement != null) {
-            this.actions = ModelMenuAction.readSubActions(this, actionsElement);
+            if (this.actions == null) {
+                this.actions = ModelMenuAction.readSubActions(this, actionsElement);
+            } else {
+                this.actions.addAll(ModelMenuAction.readSubActions(this, actionsElement));
+            }
         }
 
         // read in add item defs, add/override one by one using the menuItemList and menuItemMap
@@ -327,9 +337,6 @@ public class ModelMenu extends ModelWidget {
 
         // render formatting wrapper open
         menuStringRenderer.renderFormatSimpleWrapperOpen(buffer, context, this);
-
-        // Set the selected menu item from the context
-        this.setCurrentMenuItemName(context);
 
             //Debug.logInfo("in ModelMenu, menuItemList:" + menuItemList, module);
         // render each menuItem row, except hidden & ignored rows
@@ -434,16 +441,6 @@ public class ModelMenu extends ModelWidget {
         return (String)this.selectedMenuItemContextFieldName.get(context);
     }
 
-    /**
-     * @return
-     */
-    public String getCurrentMenuItemName() {
-        if (UtilValidate.isNotEmpty(this.currentMenuItemName))
-            return this.currentMenuItemName;
-        else
-            return this.defaultMenuItemName;
-    }
-
     public String getCurrentMenuName(Map context) {
         return this.name;
     }
@@ -530,20 +527,6 @@ public class ModelMenu extends ModelWidget {
      */
     public void setDefaultMenuItemName(String string) {
         this.defaultMenuItemName = string;
-    }
-
-    /**
-     * @param string
-     */
-    public void setCurrentMenuItemName(String string) {
-        this.currentMenuItemName = string;
-    }
-
-    /**
-     * @param context Map containing the menu context
-     */
-    public void setCurrentMenuItemName(Map context) {
-        this.currentMenuItemName = this.getSelectedMenuItemContextFieldName(context);
     }
 
     /**
@@ -734,18 +717,6 @@ public class ModelMenu extends ModelWidget {
         return this.defaultHideIfSelected;
     }
 
-    public ModelMenuItem getCurrentMenuItem() {
-        
-        ModelMenuItem currentMenuItem = (ModelMenuItem)menuItemMap.get(this.currentMenuItemName);
-        if (currentMenuItem == null) {
-            currentMenuItem = (ModelMenuItem)menuItemMap.get(this.defaultMenuItemName);
-            if (currentMenuItem == null && menuItemList.size() > 0) {
-                currentMenuItem = (ModelMenuItem)menuItemList.get(0);
-            }
-        }
-        return currentMenuItem;
-    }
-
     public List getMenuItemList() {
         return menuItemList;
     }
@@ -764,7 +735,6 @@ public class ModelMenu extends ModelWidget {
             + "\n defaultTooltipStyle=" + this.defaultTooltipStyle
             + "\n defaultSelectedStyle=" + this.defaultSelectedStyle
             + "\n defaultMenuItemName=" + this.defaultMenuItemName
-            + "\n currentMenuItemName=" + this.currentMenuItemName
             + "\n\n");
      
         Iterator iter = menuItemList.iterator();
