@@ -42,6 +42,19 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator">
+                    <decorator-section name="pre-body">
+                        <section>
+                            <condition>
+                                <and>
+                                    <if-has-permission permission="EXAMPLE" action="_VIEW"/>
+                                    <not><if-empty field-name="example"/></not>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <include-menu name="EditExample" location="component://exampleext/widget/example/ExampleMenus.xml"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
                     <decorator-section name="body">
                         <section>
                             <!-- do check for EXAMPLE, _VIEW permission -->
@@ -54,9 +67,8 @@ under the License.
                                         <not><if-empty field-name="example"/></not>
                                     </condition>
                                     <widgets>
-                                        <include-menu name="EditExample" location="component://exampleext/widget/example/ExampleMenus.xml"/>
+                                        <container style="h1"><label>${uiLabelMap.${titleProperty}} ${uiLabelMap.CommonFor} "${example.exampleName}" [${exampleId}]</label></container>
                                         <container style="button-bar"><link target="EditExample" text="${uiLabelMap.ExampleNewExample}" style="buttontext"/></container>
-                                        <container style="button-bar"><label style="h1">${uiLabelMap.${titleProperty}}</label><label style="h2"> ${uiLabelMap.CommonFor} "${example.exampleName}" [${exampleId}]</label></container>
                                     </widgets>
                                 </section>
                                 
