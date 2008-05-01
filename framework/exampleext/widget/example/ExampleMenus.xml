@@ -19,9 +19,7 @@ under the License.
 -->
 
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">      
-    <menu name="EditExample" default-selected-style="selected" type="simple"
-        menu-container-style="button-bar button-style-1" selected-menuitem-context-field-name="tabButtonItem"
-        extends="EditExample" extends-resource="component://example/widget/example/ExampleMenus.xml">
+    <menu name="EditExample" extends="EditExample" extends-resource="component://example/widget/example/ExampleMenus.xml">
         <menu-item name="EditExampleOriginal" title="${uiLabelMap.ExampleOriginalExample}">
             <link target="/example/control/EditExample?exampleId=${exampleId}" url-mode="inter-app"/>
         </menu-item>
