@@ -438,7 +438,11 @@ public class ModelMenu extends ModelWidget {
      * @return
      */
     public String getSelectedMenuItemContextFieldName(Map context) {
-        return (String)this.selectedMenuItemContextFieldName.get(context);
+        String menuItemName = (String)this.selectedMenuItemContextFieldName.get(context);
+        if (UtilValidate.isEmpty(menuItemName)) {
+            return this.defaultMenuItemName;
+        }
+        return menuItemName;
     }
 
     public String getCurrentMenuName(Map context) {
