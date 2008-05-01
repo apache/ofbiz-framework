@@ -36,6 +36,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.common.login.LoginServices;
+import org.ofbiz.base.crypto.HashCrypt;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -211,7 +212,7 @@ public class LoginEvents {
 
                 // multiply by 100,000 to usually make a 5 digit number
                 passwordToSend = "auto" + ((long) (randNum * 100000));
-                supposedUserLogin.set("currentPassword", LoginServices.getPasswordHash(passwordToSend));
+                supposedUserLogin.set("currentPassword", HashCrypt.getDigestHash(passwordToSend, LoginServices.getHashType()));
                 supposedUserLogin.set("passwordHint", "Auto-Generated Password");
             } else {
                 passwordToSend = supposedUserLogin.getString("currentPassword");
