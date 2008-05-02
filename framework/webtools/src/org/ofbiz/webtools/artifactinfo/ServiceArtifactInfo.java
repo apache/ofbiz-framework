@@ -125,16 +125,16 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
                 continue;
             }
             // attempt to convert relation names to entity names
-            entityName = aif.getEntityModelReader().validateEntityName(entityName);
-            if (entityName == null) {
+            String validEntityName = aif.getEntityModelReader().validateEntityName(entityName);
+            if (validEntityName == null) {
                 Debug.logWarning("Entity [" + entityName + "] reference in service [" + this.modelService.name + "] does not exist!", module);
                 continue;
             }
             
             // the forward reference
-            this.entitiesUsedByThisService.add(aif.getEntityArtifactInfo(entityName));
+            this.entitiesUsedByThisService.add(aif.getEntityArtifactInfo(validEntityName));
             // the reverse reference
-            UtilMisc.addToSortedSetInMap(this, aif.allServiceInfosReferringToEntityName, entityName);
+            UtilMisc.addToSortedSetInMap(this, aif.allServiceInfosReferringToEntityName, validEntityName);
         }
     }
     
