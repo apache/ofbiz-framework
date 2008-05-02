@@ -66,13 +66,9 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="budgetId" use-when="emplPosition!=null" title="budgetId"><display/></field>
-        <field name="budgetId" use-when="emplPosition==null" title="budgetId"><lookup target-form-name="LookupBudget"/></field>
-        <field name="budgetItemSeqId" use-when="emplPosition!=null" title="budgetItemSeqId"><display/></field>
-        <field name="budgetItemSeqId" use-when="emplPosition==null" title="budgetItemSeqId"><lookup target-form-name="LookupBudgetItem"/></field>
-        <field name="emplPositionTypeId" use-when="emplPosition!=null" title="${uiLabelMap.HumanResEmployeePositionTypeId}"><display/></field>
-        <field name="estimatedFromDate" use-when="emplPosition!=null" title="${uiLabelMap.HumanResEstimatedFromDate}"><display/></field>
-        <field name="emplPositionTypeId" use-when="emplPosition==null" title="${uiLabelMap.HumanResEmployeePositionTypeId}">
+        <field name="budgetId"><lookup target-form-name="LookupBudget"/></field>
+        <field name="budgetItemSeqId"><lookup target-form-name="LookupBudgetItem"/></field>
+        <field name="emplPositionTypeId" title="${uiLabelMap.HumanResEmployeePositionTypeId}">
             <drop-down allow-empty="false">
                 <entity-options description="${description}" key-field-name="emplPositionTypeId" entity-name="EmplPositionType">                    
                     <entity-order-by field-name="description"/>
