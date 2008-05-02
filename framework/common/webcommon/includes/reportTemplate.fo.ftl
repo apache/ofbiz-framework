@@ -33,9 +33,20 @@ under the License.
             <#-- the footer -->
             <fo:region-after extent="0.4in"/>
         </fo:simple-page-master>
+        <fo:simple-page-master master-name="main-page-landscape"
+              page-width="11in" page-height="8.5in"
+              margin-top="0.4in" margin-bottom="0.4in"
+              margin-left="0.6in" margin-right="0.4in">
+            <#-- main body -->
+            <fo:region-body margin-top="1.2in" margin-bottom="0.4in"/>
+            <#-- the header -->
+            <fo:region-before extent="1.2in"/>
+            <#-- the footer -->
+            <fo:region-after extent="0.4in"/>
+        </fo:simple-page-master>
     </fo:layout-master-set>
   
-    <fo:page-sequence master-reference="main-page">
+    <fo:page-sequence master-reference="${pageLayoutName?default("main-page")}">
 
         <#-- Header -->
         <#-- The elements it it are positioned using a table composed by one row
