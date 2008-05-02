@@ -525,5 +525,61 @@
                 </decorator-screen>
             </widgets>                              
         </section>
-    </screen>    
+    </screen>
+    <screen name="FindEmployee">
+        <section>                        
+            <actions>
+                <set field="titleProperty" value="${uiLabelMap.CommonFind} ${uiLabelMap.HumanResEmployee}"/>
+            </actions>            
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">                                                                                       
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
+                                    <label text="${uiLabelMap.CommonFind} ${uiLabelMap.HumanResEmployee}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <container>
+                                            <link target="CreateEmployee" text="${uiLabelMap.PartyCreateNewEmployee}" style="buttontext" />
+                                        </container>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>            
+        </section>
+    </screen>
+    <screen name="CreateEmployee">
+        <section>                        
+            <actions>
+                <set field="titleProperty" value="PartyCreateNewEmployee"/>
+            </actions>            
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">                                                                                       
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
+                                    <label text="${uiLabelMap.PartyCreateNewEmployee}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="CreateEmployee" location="component://humanres/widget/forms/EmploymentForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>            
+        </section>
+    </screen> 
 </screens>
