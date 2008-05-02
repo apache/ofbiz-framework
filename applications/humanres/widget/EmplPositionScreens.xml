@@ -56,7 +56,7 @@
         <section>                        
             <actions>
                 <set field="titleProperty" value="PageTitleEditEmplPosition"/>
-                <set field="tabButtonItem" value="EditEmplPositionFulfillment"/>
+                <set field="tabButtonItem" value="EditEmplPosition"/>
                 <set field="emplPositionId" from-field="parameters.emplPositionId"/>
                 <entity-one entity-name="EmplPosition" value-name="emplPosition" />
             </actions>            
@@ -89,7 +89,7 @@
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleListEmplPositionFulfillments"/>
-                <set field="tabButtonItem" value="EditEmplPositionFulfillment"/>                
+                <set field="tabButtonItem" value="EditEmplPositionFulfillments"/>                
                 <set field="emplPositionId" from-field="parameters.emplPositionId"/>
             </actions>
             <widgets>
@@ -135,7 +135,7 @@
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleListEmplPositionResponsibilities"/>
-                <set field="tabButtonItem" value="EditEmplPositionResponsibility"/>                
+                <set field="tabButtonItem" value="EditEmplPositionResponsibilities"/>                
                 <set field="emplPositionId" from-field="parameters.emplPositionId"/>
             </actions>
             <widgets>
@@ -181,7 +181,7 @@
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleListEmplPositionReportingStructs"/>
-                <set field="tabButtonItem" value="EditEmplPositionReportingStruct"/>                
+                <set field="tabButtonItem" value="EditEmplPositionReportingStructs"/>                
                 <set field="emplPositionId" from-field="parameters.emplPositionId"/>
             </actions>
             <widgets>
