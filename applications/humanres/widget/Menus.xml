@@ -38,13 +38,14 @@
     </menu>
     <menu name="EmplPostionBar" default-menu-item-name="EditEmplPosition" default-selected-style="selected"
         type="simple" menu-container-style="button-bar tab-bar">
-        <menu-item name="EditEmplPositionFulfillment" title="${uiLabelMap.HumanResEditEmplPositionFulfillment}">
+        <menu-item name="EditEmplPosition" title="${uiLabelMap.HumanResEmployeePosition}"><link target="EditEmplPosition?emplPositionId=${emplPositionId}"/></menu-item>
+        <menu-item name="EditEmplPositionFulfillment" title="${uiLabelMap.HumanResPositionFulfillments}">
             <link target="EditEmplPositionFulfillments?emplPositionId=${emplPositionId}"/>
         </menu-item>
-        <menu-item name="EditEmplPositionResponsibility" title="${uiLabelMap.HumanResEditEmplPositionResponsibility}">
+        <menu-item name="EditEmplPositionResponsibility" title="${uiLabelMap.HumanResEmplPositionResponsibilities}">
             <link target="EditEmplPositionResponsibilities?emplPositionId=${emplPositionId}"/>
         </menu-item>
-        <menu-item name="EditEmplPositionReportingStruct" title="${uiLabelMap.HumanResEditEmplPositionReportingStruct}">
+        <menu-item name="EditEmplPositionReportingStruct" title="${uiLabelMap.HumanResEmplPositionReportingStruct}">
             <link target="EditEmplPositionReportingStructs?emplPositionId=${emplPositionId}"/>
         </menu-item>
     </menu>
