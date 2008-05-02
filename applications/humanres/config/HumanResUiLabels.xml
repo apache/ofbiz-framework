@@ -378,6 +378,9 @@
         <value xml:lang="it">Aggiorna Posizione Impiego</value>
         <value xml:lang="th">แก้ไขตำแหน่งพนักงาน</value>
     </property>
+    <property key="HumanResEmplPosition">
+        <value xml:lang="en">Employee Position</value>
+    </property>
     <property key="HumanResEditEmplPositionFulfillment">
         <value xml:lang="en">Edit Position Fulfillment</value>
         <value xml:lang="it">Aggiorna Posizione Adempimento</value>
@@ -388,10 +391,16 @@
         <value xml:lang="it">Aggiorna Struttura Stampa Posizione Impiegati</value>
         <value xml:lang="th">แก้ไขโครงสร้างรายงานตำแหน่งพนักงาน</value>
     </property>
+    <property key="HumanResEmplPositionReportingStruct">
+        <value xml:lang="en">Reporting Structure</value>
+    </property>
     <property key="HumanResEditEmplPositionResponsibility">
         <value xml:lang="en">Edit Position Responsibility</value>
         <value xml:lang="it">Aggiorna Posizione Responsabilità</value>
         <value xml:lang="th">แก้ไขตำแหน่งที่รับผิดชอบ</value>
+    </property>
+    <property key="HumanResEmplPositionResponsibilities">
+        <value xml:lang="en">Responsibilities</value>
     </property>
     <property key="HumanResEditEmployment">
         <value xml:lang="en">Edit Employment</value>
@@ -532,6 +541,10 @@
         <value xml:lang="en">List Employment</value>
         <value xml:lang="it">Lista Impiegato</value>
         <value xml:lang="th">รายการการจ้างงาน</value>
+    </property>
+    <property key="HumanResPositionFulfillments">
+        <value xml:lang="en">Fulfillments</value>
+        <value xml:lang="it">Adempimento</value>
     </property>
     <property key="HumanResListPartyBenefits">
         <value xml:lang="en">List Party Benefits</value>
