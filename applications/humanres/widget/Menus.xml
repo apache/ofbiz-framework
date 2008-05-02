@@ -36,16 +36,15 @@
             <link target="ListPayHistories?roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;fromDate=${fromDate}"/>
         </menu-item>
     </menu>
-    <menu name="EmplPostionBar" default-menu-item-name="EditEmplPosition" default-selected-style="selected"
-        type="simple" menu-container-style="button-bar tab-bar">
+    <menu name="EmplPostionBar" default-menu-item-name="EditEmplPosition" type="simple" menu-container-style="button-bar tab-bar">
         <menu-item name="EditEmplPosition" title="${uiLabelMap.HumanResEmployeePosition}"><link target="EditEmplPosition?emplPositionId=${emplPositionId}"/></menu-item>
-        <menu-item name="EditEmplPositionFulfillment" title="${uiLabelMap.HumanResPositionFulfillments}">
+        <menu-item name="EditEmplPositionFulfillments" title="${uiLabelMap.HumanResPositionFulfillments}">
             <link target="EditEmplPositionFulfillments?emplPositionId=${emplPositionId}"/>
         </menu-item>
-        <menu-item name="EditEmplPositionResponsibility" title="${uiLabelMap.HumanResEmplPositionResponsibilities}">
+        <menu-item name="EditEmplPositionResponsibilities" title="${uiLabelMap.HumanResEmplPositionResponsibilities}">
             <link target="EditEmplPositionResponsibilities?emplPositionId=${emplPositionId}"/>
         </menu-item>
-        <menu-item name="EditEmplPositionReportingStruct" title="${uiLabelMap.HumanResEmplPositionReportingStruct}">
+        <menu-item name="EditEmplPositionReportingStructs" title="${uiLabelMap.HumanResEmplPositionReportingStruct}">
             <link target="EditEmplPositionReportingStructs?emplPositionId=${emplPositionId}"/>
         </menu-item>
     </menu>
