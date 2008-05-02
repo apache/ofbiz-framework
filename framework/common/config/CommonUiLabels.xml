@@ -5373,6 +5373,9 @@
         <value xml:lang="zh_CN">小计</value>
         <value xml:lang="zh">小计</value>
     </property>
+    <property key="CommonSummary">
+        <value xml:lang="en">Summary</value>
+    </property>
     <property key="CommonSunday">
         <value xml:lang="ar">الأحد</value>
         <value xml:lang="de">Sontag</value>
