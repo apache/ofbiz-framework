@@ -31,6 +31,7 @@ under the License.
     <li<#if selected == "EmploymentApp"> class="selected"</#if>><a href="<@ofbizUrl>findEmploymentApps</@ofbizUrl>">${uiLabelMap.HumanResEmploymentApp}</a></li>
     <li<#if selected == "PartySkills"> class="selected"</#if>><a href="<@ofbizUrl>ListPartySkills</@ofbizUrl>">${uiLabelMap.HumanResListPartySkill}</a></li>
     <li<#if selected == "SkillType"> class="selected"</#if>><a href="<@ofbizUrl>findSkillTypes</@ofbizUrl>">${uiLabelMap.HumanResSkillType}</a></li>
+    <li<#if selected == "Employee"> class="selected"</#if>><a href="<@ofbizUrl>findEmployees</@ofbizUrl>">${uiLabelMap.HumanResEmployee}</a></li>
     <#if userLogin?has_content>
       <li class="opposed"><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
     <#else>

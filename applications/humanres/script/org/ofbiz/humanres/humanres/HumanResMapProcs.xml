@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-map-processors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
+    
+    <simple-map-processor name="postalAddressGeneral">
+        <process field="generalAddressLine1"><copy to-field="address1"/></process>
+        <process field="generalAddressLine2"><copy to-field="address2"/></process>
+        <process field="generalCity"><copy to-field="city"/><not-empty><fail-property resource="PartyUiLabels" property="PartyPostalCodeMissing"/></not-empty></process>
+        <process field="generalState"><copy to-field="stateProvinceGeoId"/></process>
+        <process field="generalPostalCode"><copy to-field="postalCode"/><not-empty><fail-property resource="PartyUiLabels" property="PartyPostalCodeMissing"/></not-empty></process>
+        <process field="generalCountry"><copy to-field="countyGeoId"/></process>
+    </simple-map-processor>
+    
+    <simple-map-processor name="workPhoneNumber">
+        <process field="workCountryCode"><copy to-field="countryCode"/></process>
+        <process field="workAreaCode"><copy to-field="areaCode"/></process>
+        <process field="workContactNumber"><copy to-field="contactNumber"/><not-empty><fail-property resource="PartyUiLabels" property="PartyContactNumberMissing"/></not-empty></process>
+        <process field="workExtension"><copy to-field="extension"/></process>
+    </simple-map-processor>
+    
+    <simple-map-processor name="mobileNumber">
+        <process field="mobileCountryCode"><copy to-field="countryCode"/></process>
+        <process field="mobileAreaCode"><copy to-field="areaCode"/></process>
+        <process field="mobileContactNumber"><copy to-field="contactNumber"/></process>
+        <process field="mobileExtension"><copy to-field="extension"/></process>    
+    </simple-map-processor>
+                
+    <simple-map-processor name="otherEmail">
+        <process field="otherEmail">
+            <copy to-field="emailAddress"/>
+            <validate-method method="isEmail"><fail-property resource="PartyUiLabels" property="PartyEmailAddressNotFormattedCorrectly"/></validate-method>
+        </process>
+    </simple-map-processor>
+</simple-map-processors>

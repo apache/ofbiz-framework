@@ -21,7 +21,8 @@ under the License.
 
 <site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
-    <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>    
+    <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
+    <include location="component://party/webapp/partymgr/WEB-INF/controller.xml"/>        
     <description>Human Resources Manager Module Site Configuration File</description>
     <owner>Copyright 2001-2007 The Apache Software Foundation</owner>
     
@@ -507,6 +508,21 @@ under the License.
         <event type="service" invoke="deleteSkillType"/>
         <response name="success" type="view" value="EditSkillTypes"/>               
     </request-map>
+    <!--====================Employee Requests==================-->
+    <request-map uri="findEmployees">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindEmployee"/>               
+    </request-map>
+    <request-map uri="CreateEmployee">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="CreateEmployee"/>               
+    </request-map>
+    <request-map uri="createEmployee">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createEmployee"/>
+        <response name="success" type="request" value="viewprofile"/>
+        <response name="error" type="view" value="CreateEmployee"/>
+    </request-map>    
     <!-- ===================Lookup Request===================== -->
     <request-map uri="LookupPartyName"><security auth="true" https="true"/><response name="success" type="view" value="LookupPartyName"/></request-map>
     <request-map uri="LookupPayment"><security auth="true" https="true"/><response name="success" type="view" value="LookupPayment"/></request-map>    
@@ -563,4 +579,6 @@ under the License.
     <view-map name="LookupSalaryStep"  type="screen" page="component://humanres/widget/LookupScreens.xml#LookupSalaryStep"/>
     <view-map name="LookupPayGrade"  type="screen" page="component://humanres/widget/LookupScreens.xml#LookupPayGrade"/>
     <view-map name="EditSkillTypes" type="screen" page="component://humanres/widget/PartyAbilityScreens.xml#EditSkillTypes"/>
+    <view-map name="FindEmployee" type="screen" page="component://humanres/widget/EmploymentScreens.xml#FindEmployee"/>
+    <view-map name="CreateEmployee" type="screen" page="component://humanres/widget/EmploymentScreens.xml#CreateEmployee"/>
 </site-conf>

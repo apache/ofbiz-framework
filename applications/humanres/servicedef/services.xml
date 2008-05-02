@@ -550,6 +550,36 @@ under the License.
         <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
+    <service name="createEmployee" engine="simple"
+        location="org/ofbiz/humanres/HumanResServices.xml" invoke="createEmployee">
+        <description>Create an Employee its role and contact details</description>
+        <auto-attributes entity-name="Person" mode="IN" optional="true">
+            <exclude field-name="partyId"/>
+        </auto-attributes>
+        <auto-attributes entity-name="PostalAddress" mode="IN" optional="true">
+            <exclude field-name="contactMechId"/>
+        </auto-attributes>
+        <auto-attributes entity-name="TelecomNumber" mode="IN" optional="true">
+            <exclude field-name="contactMechId"/>
+        </auto-attributes>
+        <attribute name="partyId" type="String" mode="OUT"/>
+        <attribute name="postalAddContactMechPurpTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="emailAddress" type="String" mode="IN" optional="true"/>
+        <attribute name="partyIdFrom" type="String" mode="IN" optional="true"/>
+        <attribute name="generalAddressLine1" type="String" mode="IN" optional="true"/>
+        <attribute name="generalAddressLine2" type="String" mode="IN" optional="true"/>
+        <attribute name="generalCity" type="String" mode="IN" optional="true"/>
+        <attribute name="generalState" type="String" mode="IN" optional="true"/>  
+        <attribute name="generalCountry" type="String" mode="IN" optional="true"/>                                  
+        <attribute name="generalPostalCode" type="String" mode="IN" optional="true"/>
+        <attribute name="workCountryCode" type="String" mode="IN" optional="true"/>
+        <attribute name="workAreaCode" type="String" mode="IN" optional="true"/>
+        <attribute name="workContactNumber" type="String" mode="IN" optional="true"/> 
+        <attribute name="workExtension" type="String" mode="IN" optional="true"/> 
+        <attribute name="mobileCountryCode" type="String" mode="IN" optional="true"/>         
+        <attribute name="mobileAreaCode" type="String" mode="IN" optional="true"/>         
+        <attribute name="mobileContactNumber" type="String" mode="IN" optional="true"/>         
+        <attribute name="mobileExtension" type="String" mode="IN" optional="true"/>                                 
+        <attribute name="otherEmail" type="String" mode="IN" optional="true"/>                                         
+    </service>
 </services>
-
-

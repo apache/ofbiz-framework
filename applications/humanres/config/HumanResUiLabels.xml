@@ -477,6 +477,9 @@
         <value xml:lang="it">Aggiorna Validità Responsibilità</value>
         <value xml:lang="th">แก้ไขหน้าที่รับผิดชอบ</value>
     </property>
+    <property key="HumanResEmployee">
+        <value xml:lang="en">Employee</value>
+    </property>    
     <property key="HumanResEmplPositionId">
         <value xml:lang="en">Employee Position Id</value>
         <value xml:lang="it">Codice Posizione Impiegato</value>
