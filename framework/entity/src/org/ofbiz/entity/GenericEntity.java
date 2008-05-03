@@ -901,7 +901,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
     /** Used by clients to update particular fields in the entity
      * @param keyValuePairs java.util.Map
      */
-    public synchronized void setFields(Map<? extends String, ? extends Object> keyValuePairs) {
+    public void setFields(Map<? extends String, ? extends Object> keyValuePairs) {
         if (keyValuePairs == null) return;
         // this could be implement with Map.putAll, but we'll leave it like this for the extra features it has
         for (Map.Entry<? extends String, ? extends Object> anEntry: keyValuePairs.entrySet()) {
