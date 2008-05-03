@@ -450,7 +450,7 @@ public class ProductPromoWorker {
                         new EntityExpr("partyId", EntityOperator.EQUALS, partyId),
                         new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
                         new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED")), EntityOperator.AND);
-                productPromoCustomerUseSize = delegator.findCountByCondition("ProductPromoUseCheck", checkCondition, null);
+                productPromoCustomerUseSize = delegator.findCountByCondition("ProductPromoUseCheck", checkCondition, null, null);
             }
             long perCustomerThisOrder = useLimitPerCustomer.longValue() - productPromoCustomerUseSize;
             if (candidateUseLimit == null || candidateUseLimit.longValue() > perCustomerThisOrder) {
@@ -467,7 +467,7 @@ public class ProductPromoWorker {
                     new EntityExpr("productPromoId", EntityOperator.EQUALS, productPromoId),
                     new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
                     new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED")), EntityOperator.AND);
-            long productPromoUseSize = delegator.findCountByCondition("ProductPromoUseCheck", checkCondition, null);
+            long productPromoUseSize = delegator.findCountByCondition("ProductPromoUseCheck", checkCondition, null, null);
             long perPromotionThisOrder = useLimitPerPromotion.longValue() - productPromoUseSize;
             if (candidateUseLimit == null || candidateUseLimit.longValue() > perPromotionThisOrder) {
                 candidateUseLimit = new Long(perPromotionThisOrder);
@@ -494,7 +494,7 @@ public class ProductPromoWorker {
                         new EntityExpr("partyId", EntityOperator.EQUALS, partyId),
                         new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
                         new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED")), EntityOperator.AND);
-                productPromoCustomerUseSize = delegator.findCountByCondition("ProductPromoUseCheck", checkCondition, null);
+                productPromoCustomerUseSize = delegator.findCountByCondition("ProductPromoUseCheck", checkCondition, null, null);
             }
             long perCustomerThisOrder = codeUseLimitPerCustomer.longValue() - productPromoCustomerUseSize;
             if (codeUseLimit == null || codeUseLimit.longValue() > perCustomerThisOrder) {
@@ -509,7 +509,7 @@ public class ProductPromoWorker {
                     new EntityExpr("productPromoCodeId", EntityOperator.EQUALS, productPromoCodeId),
                     new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
                     new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED")), EntityOperator.AND);
-            long productPromoCodeUseSize = delegator.findCountByCondition("ProductPromoUseCheck", checkCondition, null);
+            long productPromoCodeUseSize = delegator.findCountByCondition("ProductPromoUseCheck", checkCondition, null, null);
             long perCodeThisOrder = codeUseLimitPerCode.longValue() - productPromoCodeUseSize;
             if (codeUseLimit == null || codeUseLimit.longValue() > perCodeThisOrder) {
                 codeUseLimit = new Long(perCodeThisOrder);
@@ -555,7 +555,7 @@ public class ProductPromoWorker {
                     validEmailCondList.add(new EntityExpr(new EntityExpr("thruDate", EntityOperator.GREATER_THAN_EQUAL_TO, nowTimestamp), 
                             EntityOperator.OR, new EntityExpr("thruDate", EntityOperator.EQUALS, null)));
                     EntityCondition validEmailCondition = new EntityConditionList(validEmailCondList, EntityOperator.AND);
-                    long validEmailCount = delegator.findCountByCondition("ProductPromoCodeEmailParty", validEmailCondition, null);
+                    long validEmailCount = delegator.findCountByCondition("ProductPromoCodeEmailParty", validEmailCondition, null, null);
                     if (validEmailCount > 0) {
                         // there was an email in the list, looks good... 
                         return null;

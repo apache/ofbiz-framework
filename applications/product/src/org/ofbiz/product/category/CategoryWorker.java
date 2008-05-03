@@ -94,7 +94,7 @@ public class CategoryWorker {
         Collection results = new LinkedList();
 
         try {
-            Collection allCategories = delegator.findAll("ProductCategory");
+            Collection allCategories = delegator.findList("ProductCategory", null, null, null, null, false);
 
             if (allCategories == null)
                 return;
@@ -236,7 +236,7 @@ public class CategoryWorker {
         GenericDelegator delegator = category.getDelegator();
         long count = 0;
         try {
-            count = delegator.findCountByCondition("ProductCategoryMember", buildCountCondition("productCategoryId", category.getString("productCategoryId")), null);
+            count = delegator.findCountByCondition("ProductCategoryMember", buildCountCondition("productCategoryId", category.getString("productCategoryId")), null, null);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
@@ -248,7 +248,7 @@ public class CategoryWorker {
         GenericDelegator delegator = category.getDelegator();
         long count = 0;
         try {
-            count = delegator.findCountByCondition("ProductCategoryRollup", buildCountCondition("parentProductCategoryId", category.getString("productCategoryId")), null);
+            count = delegator.findCountByCondition("ProductCategoryRollup", buildCountCondition("parentProductCategoryId", category.getString("productCategoryId")), null, null);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }

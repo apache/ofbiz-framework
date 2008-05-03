@@ -100,10 +100,11 @@ public class OFBizSecurity extends org.ofbiz.security.Security {
 
         if (exists == null) {
             try {
-                if (delegator.findByPrimaryKey(securityGroupPermissionValue.getPrimaryKey()) != null)
+                if (delegator.findOne(securityGroupPermissionValue.getEntityName(), securityGroupPermissionValue, false) != null) {
                     exists = Boolean.TRUE;
-                else
+                } else {
                     exists = Boolean.FALSE;
+                }
             } catch (GenericEntityException e) {
                 exists = Boolean.FALSE;
                 Debug.logWarning(e, module);

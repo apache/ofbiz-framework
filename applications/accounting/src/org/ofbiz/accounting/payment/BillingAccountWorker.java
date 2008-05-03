@@ -153,7 +153,7 @@ public class BillingAccountWorker {
                 new EntityExpr("preferenceStatusId", EntityOperator.NOT_IN, UtilMisc.toList("PAYMENT_SETTLED", "PAYMENT_RECEIVED", "PAYMENT_DECLINED", "PAYMENT_CANCELLED")) // PAYMENT_NOT_AUTH
             ), EntityOperator.AND); 
 
-        List orderPaymentPreferenceSums = delegator.findByCondition("OrderPurchasePaymentSummary", whereConditions, null, UtilMisc.toList("maxAmount"), null, null);
+        List orderPaymentPreferenceSums = delegator.findList("OrderPurchasePaymentSummary", whereConditions, UtilMisc.toSet("maxAmount"), null, null, false);
         if (orderPaymentPreferenceSums != null) {
             for (Iterator oppsi = orderPaymentPreferenceSums.iterator(); oppsi.hasNext(); ) {
                 GenericValue orderPaymentPreferenceSum = (GenericValue) oppsi.next();

@@ -167,7 +167,7 @@ public class EntitySyncServices {
                 // check to make sure all foreign keys are created; if not create dummy values as place holders
                 valueToCreate.checkFks(true);
 
-                GenericValue existingValue = delegator.findByPrimaryKey(valueToCreate.getPrimaryKey());
+                GenericValue existingValue = delegator.findOne(valueToCreate.getEntityName(), valueToCreate.getPrimaryKey(), false);
                 if (existingValue == null) {
                     delegator.create(valueToCreate);
                     toCreateInserted++;
@@ -194,7 +194,7 @@ public class EntitySyncServices {
                 // check to make sure all foreign keys are created; if not create dummy values as place holders
                 valueToStore.checkFks(true);
 
-                GenericValue existingValue = delegator.findByPrimaryKey(valueToStore.getPrimaryKey());
+                GenericValue existingValue = delegator.findOne(valueToStore.getEntityName(), valueToStore.getPrimaryKey(), false);
                 if (existingValue == null) {
                     delegator.create(valueToStore);
                     toStoreInserted++;
@@ -603,7 +603,7 @@ public class EntitySyncServices {
             // find the largest keepRemoveInfoHours value on an EntitySyncRemove and kill everything before that, if none found default to 10 days (240 hours)
             double keepRemoveInfoHours = 24;
             
-            List entitySyncRemoveList = delegator.findAll("EntitySync");
+            List entitySyncRemoveList = delegator.findList("EntitySync", null, null, null, null, false);
             Iterator entitySyncRemoveIter = entitySyncRemoveList.iterator();
             while (entitySyncRemoveIter.hasNext()) {
                 GenericValue entitySyncRemove = (GenericValue) entitySyncRemoveIter.next();

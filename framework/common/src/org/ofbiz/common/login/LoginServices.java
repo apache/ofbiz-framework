@@ -103,11 +103,7 @@ public class LoginServices {
 
                 try {
                     // only get userLogin from cache for service calls; for web and other manual logins there is less time sensitivity
-                    if (isServiceAuth) {
-                        userLogin = delegator.findByPrimaryKeyCache("UserLogin", UtilMisc.toMap("userLoginId", username));
-                    } else {
-                        userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", username));
-                    }
+                    userLogin = delegator.findOne("UserLogin", isServiceAuth, "userLoginId", username);
                 } catch (GenericEntityException e) {
                     Debug.logWarning(e, "", module);
                 }
@@ -434,7 +430,7 @@ public class LoginServices {
             GenericValue party = null;
 
             try {
-                party = delegator.findByPrimaryKey("Party", UtilMisc.toMap("partyId", partyId));
+                party = delegator.findOne("Party", false, "partyId", partyId);
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, "", module);
             }
@@ -533,7 +529,7 @@ public class LoginServices {
         GenericValue userLoginToUpdate = null;
 
         try {
-            userLoginToUpdate = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", userLoginId));
+            userLoginToUpdate = delegator.findOne("UserLogin", false, "userLoginId", userLoginId);
         } catch (GenericEntityException e) {
             Map messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
             errMsg = UtilProperties.getMessage(resource,"loginservices.could_not_change_password_read_failure", messageMap, locale);
@@ -638,7 +634,7 @@ public class LoginServices {
 
         // check to see if there's a matching login and use it if it's for the same party
         try {
-            newUserLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", userLoginId));
+            newUserLogin = delegator.findOne("UserLogin", false, "userLoginId", userLoginId);
         } catch (GenericEntityException e) {
             Debug.logWarning(e, "", module);
             Map messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
@@ -726,7 +722,7 @@ public class LoginServices {
         GenericValue userLoginToUpdate = null;
 
         try {
-            userLoginToUpdate = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", userLoginId));
+            userLoginToUpdate = delegator.findOne("UserLogin", false, "userLoginId", userLoginId);
         } catch (GenericEntityException e) {
             Map messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
             errMsg = UtilProperties.getMessage(resource,"loginservices.could_not_change_password_read_failure", messageMap, locale);

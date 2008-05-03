@@ -72,7 +72,7 @@ public class ServiceEngineTestServices {
 
         try {
             // grab entity SVCLRT_A by changing, then wait, then find and change SVCLRT_B
-            GenericValue testingTypeA = delegator.findByPrimaryKey("TestingType", "testingTypeId", "SVCLRT_A");
+            GenericValue testingTypeA = delegator.findOne("TestingType", false, "testingTypeId", "SVCLRT_A");
             testingTypeA.set("description", "New description for SVCLRT_A");
             testingTypeA.store();
             
@@ -81,12 +81,12 @@ public class ServiceEngineTestServices {
             UtilMisc.staticWait(100);
 
             Debug.logInfo("In testServiceDeadLockRetryThreadA done with wait, updating SVCLRT_B", module);
-            GenericValue testingTypeB = delegator.findByPrimaryKey("TestingType", "testingTypeId", "SVCLRT_B");
+            GenericValue testingTypeB = delegator.findOne("TestingType", false, "testingTypeId", "SVCLRT_B");
             testingTypeB.set("description", "New description for SVCLRT_B");
             testingTypeB.store();
 
             Debug.logInfo("In testServiceDeadLockRetryThreadA done with updating SVCLRT_B, updating SVCLRT_AONLY", module);
-            GenericValue testingTypeAOnly = delegator.findByPrimaryKey("TestingType", "testingTypeId", "SVCLRT_AONLY");
+            GenericValue testingTypeAOnly = delegator.findOne("TestingType", false, "testingTypeId", "SVCLRT_AONLY");
             testingTypeAOnly.set("description", "New description for SVCLRT_AONLY; this is only changed by thread A so if it doesn't match something happened to thread A!");
             testingTypeAOnly.store();
         } catch (GenericEntityException e) {
@@ -106,7 +106,7 @@ public class ServiceEngineTestServices {
 
         try {
             // grab entity SVCLRT_B by changing, then wait, then change SVCLRT_A
-            GenericValue testingTypeB = delegator.findByPrimaryKey("TestingType", "testingTypeId", "SVCLRT_B");
+            GenericValue testingTypeB = delegator.findOne("TestingType", false, "testingTypeId", "SVCLRT_B");
             testingTypeB.set("description", "New description for SVCLRT_B");
             testingTypeB.store();
             
@@ -115,12 +115,12 @@ public class ServiceEngineTestServices {
             UtilMisc.staticWait(100);
 
             Debug.logInfo("In testServiceDeadLockRetryThreadB done with wait, updating SVCLRT_A", module);
-            GenericValue testingTypeA = delegator.findByPrimaryKey("TestingType", "testingTypeId", "SVCLRT_A");
+            GenericValue testingTypeA = delegator.findOne("TestingType", false, "testingTypeId", "SVCLRT_A");
             testingTypeA.set("description", "New description for SVCLRT_A");
             testingTypeA.store();
 
             Debug.logInfo("In testServiceDeadLockRetryThreadA done with updating SVCLRT_A, updating SVCLRT_BONLY", module);
-            GenericValue testingTypeAOnly = delegator.findByPrimaryKey("TestingType", "testingTypeId", "SVCLRT_BONLY");
+            GenericValue testingTypeAOnly = delegator.findOne("TestingType", false, "testingTypeId", "SVCLRT_BONLY");
             testingTypeAOnly.set("description", "New description for SVCLRT_BONLY; this is only changed by thread B so if it doesn't match something happened to thread B!");
             testingTypeAOnly.store();
         } catch (GenericEntityException e) {
@@ -170,7 +170,7 @@ public class ServiceEngineTestServices {
 
         try {
             // grab entity SVCLWTRT by changing, then wait a LONG time, ie more than the wait timeout
-            GenericValue testingType = delegator.findByPrimaryKey("TestingType", "testingTypeId", "SVCLWTRT");
+            GenericValue testingType = delegator.findOne("TestingType", false, "testingTypeId", "SVCLWTRT");
             testingType.set("description", "New description for SVCLWTRT from the GRABBER service, this should be replaced by Waiter service in the service engine auto-retry");
             testingType.store();
 
@@ -201,7 +201,7 @@ public class ServiceEngineTestServices {
             Debug.logInfo("In testServiceLockWaitTimeoutRetryWaiter about to update SVCLWTRT, wait starts here", module);
             
             // TRY grab entity SVCLWTRT by looking up and changing, should get a lock wait timeout exception because of the Grabber thread
-            GenericValue testingType = delegator.findByPrimaryKey("TestingType", "testingTypeId", "SVCLWTRT");
+            GenericValue testingType = delegator.findOne("TestingType", false, "testingTypeId", "SVCLWTRT");
             testingType.set("description", "New description for SVCLWTRT from Waiter service, this is the value that should be there.");
             testingType.store();
             
@@ -242,7 +242,7 @@ public class ServiceEngineTestServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         try {
             // grab entity SVCLWTRTCR by changing, then wait a LONG time, ie more than the wait timeout
-            GenericValue testingType = delegator.findByPrimaryKey("TestingType", "testingTypeId", "SVCLWTRTCR");
+            GenericValue testingType = delegator.findOne("TestingType", false, "testingTypeId", "SVCLWTRTCR");
             testingType.set("description", "New description for SVCLWTRTCR from Lock Wait Timeout Lock GRABBER, this should be replaced by the one in the Waiter service.");
             testingType.store();
 
@@ -272,7 +272,7 @@ public class ServiceEngineTestServices {
             Debug.logInfo("In testServiceLockWaitTimeoutRetryCantRecoverWaiter updating SVCLWTRTCR", module);
 
             // TRY grab entity SVCLWTRTCR by looking up and changing, should get a lock wait timeout exception because of the Grabber thread
-            GenericValue testingType = delegator.findByPrimaryKey("TestingType", "testingTypeId", "SVCLWTRTCR");
+            GenericValue testingType = delegator.findOne("TestingType", false, "testingTypeId", "SVCLWTRTCR");
             testingType.set("description", "New description for SVCLWTRTCR from Lock Wait Timeout Lock Waiter, this is the value that should be there.");
             testingType.store();
             
@@ -307,7 +307,7 @@ public class ServiceEngineTestServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         try {
             // change the SVC_SRBO value first to test that the rollback really does revert/reset
-            GenericValue testingType = delegator.findByPrimaryKey("TestingType", "testingTypeId", "SVC_SRBO");
+            GenericValue testingType = delegator.findOne("TestingType", false, "testingTypeId", "SVC_SRBO");
             testingType.set("description", "New description for SVC_SRBO; this should be reset on the rollback, if this is in the db then the test failed");
             testingType.store();
             
@@ -351,7 +351,7 @@ public class ServiceEngineTestServices {
         GenericDelegator delegator = dctx.getDelegator();
 
         try {
-            GenericValue testingType = delegator.findByPrimaryKey("TestingType", "testingTypeId", "SVC_SECAGC");
+            GenericValue testingType = delegator.findOne("TestingType", false, "testingTypeId", "SVC_SECAGC");
             testingType.set("description", "New description for SVC_SECAGC, what it should be after the global-commit test");
             testingType.store();
         } catch (GenericEntityException e) {
@@ -370,7 +370,7 @@ public class ServiceEngineTestServices {
         GenericDelegator delegator = dctx.getDelegator();
 
         try {
-            GenericValue testingType = delegator.findByPrimaryKey("TestingType", "testingTypeId", "SVC_SECAGR");
+            GenericValue testingType = delegator.findOne("TestingType", false, "testingTypeId", "SVC_SECAGR");
             testingType.set("description", "New description for SVC_SECAGR, what it should be after the global-rollback test");
             testingType.store();
         } catch (GenericEntityException e) {

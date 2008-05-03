@@ -59,7 +59,7 @@ public class CommonEvents {
         
         GenericValue visit = null;
         try {
-            visit = delegator.findByPrimaryKey("Visit", UtilMisc.toMap("visitId", visitId));                             
+            visit = delegator.findOne("Visit", false, "visitId", visitId);                             
         } catch (GenericEntityException e) {
             Debug.logError(e, "Cannot Visit Object", module);
         }
@@ -93,7 +93,7 @@ public class CommonEvents {
         
         GenericValue visit = null;
         try {
-            visit = delegator.findByPrimaryKey("Visit", UtilMisc.toMap("visitId", visitId));                             
+            visit = delegator.findOne("Visit", false, "visitId", visitId);                             
         } catch (GenericEntityException e) {
             Debug.logError(e, "Cannot Visit Object", module);
         }        

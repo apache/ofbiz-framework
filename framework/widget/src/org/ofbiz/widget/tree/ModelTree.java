@@ -562,7 +562,7 @@ public class ModelTree extends ModelWidget {
                 }
                  try {
                 	 if (id != null && modelEntity.getPksSize() == 1) {
-                		 GenericValue entity = delegator.findByPrimaryKey(entName, UtilMisc.toMap(pkName, id));
+                		 GenericValue entity = delegator.findOne(entName, UtilMisc.toMap(pkName, id), false);
                          if (modelEntity.isField("childBranchCount")) {
                     		 entity.put("childBranchCount", nodeCount);
                          }

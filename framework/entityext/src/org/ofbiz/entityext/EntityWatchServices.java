@@ -62,7 +62,7 @@ public class EntityWatchServices {
         
         GenericValue currentValue = null;
         try {
-            currentValue = dctx.getDelegator().findByPrimaryKey(newValue.getPrimaryKey());
+            currentValue = dctx.getDelegator().findOne(newValue.getEntityName(), newValue.getPrimaryKey(), false);
         } catch (GenericEntityException e) {
             String errMsg = "Error finding currentValue for primary key [" + newValue.getPrimaryKey() + "]: " + e.toString();
             Debug.logError(e, errMsg, module);

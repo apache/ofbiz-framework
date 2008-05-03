@@ -43,7 +43,7 @@ public class WorkEffortPartyAssignmentServices {
         GenericValue workEffort = null;
 
         try {
-            workEffort = delegator.findByPrimaryKey("WorkEffort", UtilMisc.toMap("workEffortId", wepa.get("workEffortId")));
+            workEffort = delegator.findOne("WorkEffort", false, "workEffortId", wepa.get("workEffortId"));
         } catch (GenericEntityException e) {
             Debug.logWarning(e, module);
         }

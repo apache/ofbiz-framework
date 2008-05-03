@@ -74,7 +74,7 @@ public class MrpServices {
         
         List listResult = null;
         try {
-            listResult = delegator.findAll("MrpEvent");
+            listResult = delegator.findList("MrpEvent", null, null, null, null, false);
             //int numOfRecordsRemoved = delegator.removeByCondition("MrpEvent", null);
         } catch(GenericEntityException e) {
             Debug.logError(e,"Error : delegator.findAll(\"MrpEvent\")", module);

@@ -305,7 +305,7 @@ public class ContentManagementWorker {
             request.setAttribute("currentPK", currentPK);
             GenericValue currentValue = null;
             try {
-                currentValue = delegator.findByPrimaryKey(currentPK.getPrimaryKey()); 
+                currentValue = delegator.findOne(currentPK.getEntityName(), currentPK, false); 
             } catch(GenericEntityException e) {
             }
             request.setAttribute("currentValue", currentValue);

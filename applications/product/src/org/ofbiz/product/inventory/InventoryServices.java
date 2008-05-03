@@ -727,7 +727,7 @@ public class InventoryServices {
         if (facilityId != null) {
                 facilities = delegator.findByAnd("Facility", UtilMisc.toMap("facilityId", facilityId)); 
             } else {
-                facilities = delegator.findAll("Facility");
+                facilities = delegator.findList("Facility", null, null, null, null, false);
             } 
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError("Unable to locate facilities." + e.getMessage());

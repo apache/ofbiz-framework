@@ -88,7 +88,7 @@ public class FoPrintServerEvents {
         // run as the system user
         GenericValue system = null;
         try {
-            system = dctx.getDelegator().findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));
+            system = dctx.getDelegator().findOne("UserLogin", false, "userLoginId", "system");
         } catch (GenericEntityException e) {
             throw new GeneralException(e.getMessage(), e);
         }

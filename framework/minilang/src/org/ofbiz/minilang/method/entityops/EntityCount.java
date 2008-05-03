@@ -100,7 +100,7 @@ public class EntityCount extends MethodOperation {
                 havingEntityCondition = this.havingCondition.createCondition(context, entityName, delegator);
             }
             
-            long count = delegator.findCountByCondition(entityName, whereEntityCondition, havingEntityCondition);
+            long count = delegator.findCountByCondition(entityName, whereEntityCondition, havingEntityCondition, null);
             
             this.countAcsr.put(context, new Long(count));
         } catch (GeneralException e) {

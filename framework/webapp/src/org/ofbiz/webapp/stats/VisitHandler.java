@@ -231,7 +231,7 @@ public class VisitHandler {
                                 }
                             } else {
                                 try {
-                                    visitor = delegator.findByPrimaryKey("Visitor", UtilMisc.toMap("visitorId", cookieVisitorId));
+                                    visitor = delegator.findOne("Visitor", false, "visitorId", cookieVisitorId);
                                     if (visitor == null) {
                                         // looks like we have an ID that doesn't exist in our database, so we'll create a new one
                                         visitor = delegator.makeValue("Visitor");

@@ -159,7 +159,7 @@ public class XuiSession {
         String partyId = userLogin.getString("partyId");
         GenericValue partyRole = null;
         try {
-            partyRole = delegator.findByPrimaryKey("PartyRole", UtilMisc.toMap("partyId", partyId, "roleTypeId", roleTypeId));
+            partyRole = delegator.findOne("PartyRole", false, "partyId", partyId, "roleTypeId", roleTypeId);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return false;

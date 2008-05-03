@@ -500,7 +500,7 @@ public class ServiceUtil {
 
         GenericValue job = null;
         try {
-            job = delegator.findByPrimaryKey("JobSandbox", fields);
+            job = delegator.findOne("JobSandbox", fields, false);
             if (job != null) {
                 job.set("cancelDateTime", UtilDateTime.nowTimestamp());
                 job.set("statusId", "SERVICE_CANCELLED");
@@ -538,7 +538,7 @@ public class ServiceUtil {
 
         GenericValue job = null;
         try {
-            job = delegator.findByPrimaryKey("JobSandbox", fields);
+            job = delegator.findOne("JobSandbox", fields, false);
             if (job != null) {
                 job.set("maxRetry", Long.valueOf(0));
                 job.store();
@@ -620,7 +620,7 @@ public class ServiceUtil {
         Map fields = UtilMisc.toMap("jobId", jobId);
         GenericValue job;
         try {
-            job = delegator.findByPrimaryKey("JobSandbox", fields);
+            job = delegator.findOne("JobSandbox", fields, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
