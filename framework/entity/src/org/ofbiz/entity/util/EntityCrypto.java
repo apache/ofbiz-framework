@@ -102,7 +102,7 @@ public class EntityCrypto {
     protected SecretKey getKeyFromStore(String keyName) throws EntityCryptoException {
         GenericValue keyValue = null;
         try {
-            keyValue = delegator.findByPrimaryKey("EntityKeyStore", "keyName", keyName);
+            keyValue = delegator.findOne("EntityKeyStore", false, "keyName", keyName);
         } catch (GenericEntityException e) {
             throw new EntityCryptoException(e);
         }

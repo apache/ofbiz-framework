@@ -88,7 +88,7 @@ public class EntityDataAssert {
         
         try {
             checkPK = checkValue.getPrimaryKey();
-            GenericValue currentValue = delegator.findByPrimaryKey(checkPK);
+            GenericValue currentValue = delegator.findOne(checkPK.getEntityName(), checkPK, false);
             if (currentValue == null) {
                 errorMessages.add("Entity [" + checkPK.getEntityName() + "] record not found for pk: " + checkPK);
                 return;

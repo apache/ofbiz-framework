@@ -103,7 +103,7 @@ public class ServiceSemaphore {
         GenericValue semaphore;
 
         try {
-            semaphore = delegator.findByPrimaryKey("ServiceSemaphore", "serviceName", model.name);
+            semaphore = delegator.findOne("ServiceSemaphore", false, "serviceName", model.name);
         } catch (GenericEntityException e) {
             throw new SemaphoreFailException(e);
         }

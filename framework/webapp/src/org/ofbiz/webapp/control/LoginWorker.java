@@ -174,7 +174,7 @@ public class LoginWorker {
             try {
                 beganTransaction = TransactionUtil.begin();
 
-                GenericValue userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", userLoginId));
+                GenericValue userLogin = delegator.findOne("UserLogin", false, "userLoginId", userLoginId);
                 if (userLogin == null) {
                     Debug.logError("Could not find UserLogin record for setLoggedOut with userLoginId [" + userLoginId + "]", module);
                 } else {
@@ -528,7 +528,7 @@ public class LoginWorker {
         if (autoUserLoginId != null) {
             Debug.logInfo("Running autoLogin check.", module);
             try {
-                GenericValue autoUserLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", autoUserLoginId));
+                GenericValue autoUserLogin = delegator.findOne("UserLogin", false, "userLoginId", autoUserLoginId);
                 GenericValue person = null;
                 GenericValue group = null;
                 if (autoUserLogin != null) {
@@ -536,8 +536,8 @@ public class LoginWorker {
 
                     ModelEntity modelUserLogin = autoUserLogin.getModelEntity();
                     if (modelUserLogin.isField("partyId")) {
-                        person = delegator.findByPrimaryKey("Person", UtilMisc.toMap("partyId", autoUserLogin.getString("partyId")));
-                        group = delegator.findByPrimaryKey("PartyGroup", UtilMisc.toMap("partyId", autoUserLogin.getString("partyId")));
+                        person = delegator.findOne("Person", false, "partyId", autoUserLogin.getString("partyId"));
+                        group = delegator.findOne("PartyGroup", false, "partyId", autoUserLogin.getString("partyId"));
                     }
                 }
                 if (person != null) {
@@ -623,7 +623,7 @@ public class LoginWorker {
                                 //Debug.log("Looking up userLogin from CN: " + userLoginId, module);
 
                                 // CN should match the userLoginId
-                                GenericValue userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", userLoginId));
+                                GenericValue userLogin = delegator.findOne("UserLogin", false, "userLoginId", userLoginId);
                                 if (userLogin != null) {
                                     String enabled = userLogin.getString("enabled");
                                     if (enabled == null || "Y".equals(enabled)) {

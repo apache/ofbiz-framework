@@ -1172,7 +1172,7 @@ public class PosTransaction implements Serializable {
         List shoppingLists = null;
         GenericDelegator delegator = this.session.getDelegator();
         try {
-            shoppingLists = delegator.findAll("ShoppingList");
+            shoppingLists = delegator.findList("ShoppingList", null, null, null, null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             ServiceUtil.returnError("Error running initLowLevelCode: " + e.getMessage());

@@ -205,7 +205,7 @@ public class GenericWebEvent {
             GenericValue tempEntity = null;
 
             try {
-                tempEntity = delegator.findByPrimaryKey(findByEntity.getPrimaryKey());
+                tempEntity = delegator.findOne(findByEntity.getEntityName(), findByEntity.getPrimaryKey(), false);
             } catch (GenericEntityException e) {
                 String errMsg = UtilProperties.getMessage(GenericWebEvent.err_resource, "genericWebEvent.create_failed_by_check", locale) + ": " + e.toString();
                 Debug.logWarning(e, errMsg, module);

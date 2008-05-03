@@ -134,7 +134,7 @@ public class LoginEvents {
         GenericValue supposedUserLogin = null;
 
         try {
-            supposedUserLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", userLoginId));
+            supposedUserLogin = delegator.findOne("UserLogin", false, "userLoginId", userLoginId);
         } catch (GenericEntityException gee) {
             Debug.logWarning(gee, "", module);
         }
@@ -199,7 +199,7 @@ public class LoginEvents {
         String passwordToSend = null;
 
         try {
-            supposedUserLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", userLoginId));
+            supposedUserLogin = delegator.findOne("UserLogin", false, "userLoginId", userLoginId);
             if (supposedUserLogin == null) {
                 // the Username was not found
                 errMsg = UtilProperties.getMessage(resource, "loginevents.username_not_found_reenter", UtilHttp.getLocale(request));
@@ -259,7 +259,7 @@ public class LoginEvents {
         // get the ProductStore email settings
         GenericValue productStoreEmail = null;
         try {
-            productStoreEmail = delegator.findByPrimaryKey("ProductStoreEmailSetting", UtilMisc.toMap("productStoreId", productStoreId, "emailType", "PRDS_PWD_RETRIEVE"));
+            productStoreEmail = delegator.findOne("ProductStoreEmailSetting", false, "productStoreId", productStoreId, "emailType", "PRDS_PWD_RETRIEVE");
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problem getting ProductStoreEmailSetting", module);
         }

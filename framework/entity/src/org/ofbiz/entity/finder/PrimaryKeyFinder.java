@@ -110,12 +110,12 @@ public class PrimaryKeyFinder extends Finder {
             // make sure we have a full primary key, if any field is null then just log a warning and return null instead of blowing up
             if (entityPK.containsPrimaryKey(true)) {
                 if (useCacheBool) {
-                    valueOut = delegator.findByPrimaryKeyCache(entityPK);
+                    valueOut = delegator.findOne(entityPK.getEntityName(), entityPK, true);
                 } else {
                     if (fieldsToSelect != null) {
                         valueOut = delegator.findByPrimaryKeyPartial(entityPK, fieldsToSelect);
                     } else {
-                        valueOut = delegator.findByPrimaryKey(entityPK);
+                        valueOut = delegator.findOne(entityPK.getEntityName(), entityPK, false);
                     }
                 }
             } else {

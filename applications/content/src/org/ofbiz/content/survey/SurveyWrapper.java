@@ -662,7 +662,7 @@ public class SurveyWrapper {
         long result = 0;
 
         try {
-            result = delegator.findCountByCondition("SurveyResponseAndAnswer", makeEliCondition(question), null);
+            result = delegator.findCountByCondition("SurveyResponseAndAnswer", makeEliCondition(question), null, null);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             throw new SurveyWrapperException("Unable to get responses", e);

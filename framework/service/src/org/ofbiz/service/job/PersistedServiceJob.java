@@ -269,7 +269,7 @@ public class PersistedServiceJob extends GenericServiceJob {
     // gets the job value object
     private GenericValue getJob() throws InvalidJobException {
         try {
-            GenericValue jobObj = delegator.findByPrimaryKey("JobSandbox", "jobId", getJobId());
+            GenericValue jobObj = delegator.findOne("JobSandbox", false, "jobId", getJobId());
 
             if (jobObj == null) {
                 throw new InvalidJobException("Job [" + getJobId() + "] came back null from datasource");

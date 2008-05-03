@@ -740,7 +740,7 @@ while (allCatIter.hasNext()) {
                         new EntityExpr("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, nowTimestamp),
                         new EntityExpr(new EntityExpr("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, new EntityExpr("thruDate", EntityOperator.GREATER_THAN_EQUAL_TO, nowTimestamp))
                 ), EntityOperator.AND);
-                if (delegator.findCountByCondition("ProductFeatureGroupAppl", condition, null) == 0) {
+                if (delegator.findCountByCondition("ProductFeatureGroupAppl", condition, null, null) == 0) {
                     // if no valid ones, create one
                     GenericValue productFeatureGroupAppl = delegator.makeValue("ProductFeatureGroupAppl", UtilMisc.toMap("productFeatureGroupId", productFeatureGroupId, "productFeatureId", productFeatureId, "fromDate", nowTimestamp));
                     productFeatureGroupAppl.create();
@@ -768,7 +768,7 @@ while (allCatIter.hasNext()) {
                         new EntityExpr("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, nowTimestamp),
                         new EntityExpr(new EntityExpr("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, new EntityExpr("thruDate", EntityOperator.GREATER_THAN_EQUAL_TO, nowTimestamp))
                 ), EntityOperator.AND);
-                if (delegator.findCountByCondition("ProductFeatureCatGrpAppl", checkCondition, null) == 0) {
+                if (delegator.findCountByCondition("ProductFeatureCatGrpAppl", checkCondition, null, null) == 0) {
                     // if no valid ones, create one
                     GenericValue productFeatureGroupAppl = delegator.makeValue("ProductFeatureCatGrpAppl", UtilMisc.toMap("productFeatureGroupId", productFeatureGroupId, "productCategoryId", productCategoryId, "fromDate", nowTimestamp));
                     productFeatureGroupAppl.create();

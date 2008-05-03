@@ -26,6 +26,7 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.condition.EntityConditionList;
@@ -39,6 +40,7 @@ import org.ofbiz.product.store.ProductStoreWorker;
 
 import java.util.Map;
 import java.util.List;
+import java.util.Set;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
@@ -871,7 +873,7 @@ public class FinAccountPaymentServices {
 
         List transList = null;
         try {
-            transList = delegator.findByCondition("FinAccountTrans", new EntityConditionList(exprs, EntityOperator.AND), null, null, orderBy, opts);
+            transList = delegator.findList("FinAccountTrans", new EntityConditionList(exprs, EntityOperator.AND), null, orderBy, opts, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }

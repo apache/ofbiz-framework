@@ -187,7 +187,7 @@ public class OagisInventoryServices {
                                 new EntityExpr("productId", EntityOperator.EQUALS, productId),
                                 new EntityExpr("inventoryItemTypeId", EntityOperator.EQUALS, "NON_SERIAL_INV_ITEM"),
                                 new EntityExpr("facilityId", EntityOperator.EQUALS, syncInventoryFacilityId)), EntityOperator.AND);
-                        List invItemAndDetails = delegator.findByCondition("InventoryItemDetailForSum", condition, UtilMisc.toList("quantityOnHandSum"), null);
+                        List invItemAndDetails = delegator.findList("InventoryItemDetailForSum", condition, UtilMisc.toSet("quantityOnHandSum"), null, null, false);
                         Iterator invItemAndDetailIter = invItemAndDetails.iterator();
                         while (invItemAndDetailIter.hasNext()) {
                             GenericValue inventoryItemDetailForSum = (GenericValue) invItemAndDetailIter.next();
@@ -203,7 +203,7 @@ public class OagisInventoryServices {
                             new EntityExpr("statusId", EntityOperator.EQUALS, statusId),
                             new EntityExpr("inventoryItemTypeId", EntityOperator.EQUALS, "SERIALIZED_INV_ITEM"),
                             new EntityExpr("facilityId", EntityOperator.EQUALS, syncInventoryFacilityId)), EntityOperator.AND);
-                    long invItemQuantCount = delegator.findCountByCondition("InventoryItemStatusForCount", serInvCondition, null);
+                    long invItemQuantCount = delegator.findCountByCondition("InventoryItemStatusForCount", serInvCondition, null, null);
                     quantityOnHandTotal += invItemQuantCount;
                     
                     // check for mismatch in quantity

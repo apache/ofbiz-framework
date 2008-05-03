@@ -66,7 +66,7 @@ public class PartyRelationshipServices {
         partyRelationshipType.set("partyRelationshipName", context.get("partyRelationshipName"), false);
 
         try {
-            if (delegator.findByPrimaryKey(partyRelationshipType.getPrimaryKey()) != null) {
+            if (delegator.findOne(partyRelationshipType.getEntityName(), partyRelationshipType.getPrimaryKey(), false) != null) {
                 return ServiceUtil.returnError("Could not create party relationship type: already exists");
             }
         } catch (GenericEntityException e) {

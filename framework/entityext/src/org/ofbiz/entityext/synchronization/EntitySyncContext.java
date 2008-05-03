@@ -164,7 +164,7 @@ public class EntitySyncContext {
         }
 
         try {
-            this.entitySync = delegator.findByPrimaryKey("EntitySync", UtilMisc.toMap("entitySyncId", this.entitySyncId));
+            this.entitySync = delegator.findOne("EntitySync", false, "entitySyncId", this.entitySyncId);
             if (this.entitySync == null) {
                 throw new SyncAbortException("Not running EntitySync [" + entitySyncId + "], no record found with that ID.");
             }
@@ -1010,7 +1010,7 @@ public class EntitySyncContext {
         } else {
             try {
                 // set the latest values from the EntitySyncHistory, based on the values on the EntitySync
-                GenericValue entitySyncHistory = delegator.findByPrimaryKey("EntitySyncHistory", UtilMisc.toMap("entitySyncId", entitySyncId, "startDate", startDate));
+                GenericValue entitySyncHistory = delegator.findOne("EntitySyncHistory", false, "entitySyncId", entitySyncId, "startDate", startDate);
                 this.toCreateInserted = UtilMisc.toLong(entitySyncHistory.getLong("toCreateInserted"));
                 this.toCreateUpdated = UtilMisc.toLong(entitySyncHistory.getLong("toCreateUpdated"));
                 this.toCreateNotUpdated = UtilMisc.toLong(entitySyncHistory.getLong("toCreateNotUpdated"));

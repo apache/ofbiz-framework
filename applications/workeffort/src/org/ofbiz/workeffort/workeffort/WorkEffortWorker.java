@@ -57,7 +57,7 @@ public class WorkEffortWorker {
         GenericValue workEffort = null;
 
         try {
-            workEffort = delegator.findByPrimaryKey("WorkEffort", UtilMisc.toMap("workEffortId", workEffortId));
+            workEffort = delegator.findOne("WorkEffort", false, "workEffortId", workEffortId);
         } catch (GenericEntityException e) {
             Debug.logWarning(e, module);
         }

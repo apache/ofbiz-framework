@@ -1885,11 +1885,7 @@ public class ModelFormField {
             GenericDelegator delegator = this.modelFormField.modelForm.getDelegator(context);
             String fieldValue = modelFormField.getEntry(context);
             try {
-                if (this.cache) {
-                    value = delegator.findByPrimaryKeyCache(this.entityName, UtilMisc.toMap(fieldKey, fieldValue));
-                } else {
-                    value = delegator.findByPrimaryKey(this.entityName, UtilMisc.toMap(fieldKey, fieldValue));
-                }
+                value = delegator.findOne(this.entityName, this.cache, fieldKey, fieldValue);
             } catch (GenericEntityException e) {
                 String errMsg = "Error getting value from the database for display of field [" + this.modelFormField.getName() + "] on form [" + this.modelFormField.modelForm.getName() + "]: " + e.toString();
                 Debug.logError(e, errMsg, module);

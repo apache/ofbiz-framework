@@ -78,7 +78,7 @@ public class OfbizStore extends StoreBase implements Store {
     public String[] keys() throws IOException {
         List<GenericValue> sessions = null;
         try {
-            sessions = delegator.findAll(entityName);
+            sessions = delegator.findList(entityName, null, null, null, null, false);
         } catch (GenericEntityException e) {
             throw new IOException(e.getMessage());
         }
@@ -100,7 +100,7 @@ public class OfbizStore extends StoreBase implements Store {
         StandardSession _session = null;
         GenericValue sessionValue = null;
         try {
-            sessionValue = delegator.findByPrimaryKey(entityName, "sessionId", id);
+            sessionValue = delegator.findOne(entityName, false, "sessionId", id);
         } catch (GenericEntityException e) {
             throw new IOException(e.getMessage());
         }

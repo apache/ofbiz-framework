@@ -116,10 +116,10 @@ public class ProductEvents {
             beganTx = TransactionUtil.begin(7200);
             try {
                 if (Debug.infoOn()) {
-                    long count = delegator.findCountByCondition("Product", condition, null);
+                    long count = delegator.findCountByCondition("Product", condition, null, null);
                     Debug.logInfo("========== Found " + count + " products to index ==========", module);
                 }
-                entityListIterator = delegator.findListIteratorByCondition("Product", condition, null, null);
+                entityListIterator = delegator.find("Product", condition, null, null, null, null);
             } catch (GenericEntityException gee) {
                 Debug.logWarning(gee, gee.getMessage(), module);
                 Map messageMap = UtilMisc.toMap("gee", gee.toString());
@@ -277,7 +277,7 @@ public class ProductEvents {
             GenericValue productAssoc = null;
 
             try {
-                productAssoc = delegator.findByPrimaryKey(tempProductAssoc.getPrimaryKey());
+                productAssoc = delegator.findOne(tempProductAssoc.getEntityName(), tempProductAssoc.getPrimaryKey(), false);
             } catch (GenericEntityException e) {
                 Debug.logWarning(e.getMessage(), module);
                 productAssoc = null;
@@ -350,7 +350,7 @@ public class ProductEvents {
             GenericValue productAssoc = null;
 
             try {
-                productAssoc = delegator.findByPrimaryKey(tempProductAssoc.getPrimaryKey());
+                productAssoc = delegator.findOne(tempProductAssoc.getEntityName(), tempProductAssoc.getPrimaryKey(), false);
             } catch (GenericEntityException e) {
                 Debug.logWarning(e.getMessage(), module);
                 productAssoc = null;

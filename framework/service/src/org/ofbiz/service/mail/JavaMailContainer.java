@@ -95,7 +95,7 @@ public class JavaMailContainer implements Container {
         // load the userLogin object
         String runAsUser = ContainerConfig.getPropertyValue(cfg, "run-as-user", "system");
         try {
-            this.userLogin = delegator.findByPrimaryKey("UserLogin", "userLoginId", runAsUser);
+            this.userLogin = delegator.findOne("UserLogin", false, "userLoginId", runAsUser);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Unable to load run-as-user UserLogin; cannot start container", module);
             return false;

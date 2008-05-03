@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.entityops;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -75,20 +76,16 @@ public class FindByPrimaryKey extends MethodOperation {
             entityName = inEntity.getEntityName();
         }
         
-        List fieldsToSelectList = null;
+        Collection fieldsToSelectList = null;
         if (!fieldsToSelectListAcsr.isEmpty()) {
-            fieldsToSelectList = (List) fieldsToSelectListAcsr.get(methodContext);
+            fieldsToSelectList = (Collection) fieldsToSelectListAcsr.get(methodContext);
         }
         
         try {
             if (fieldsToSelectList != null) {
-                valueAcsr.put(methodContext, delegator.findByPrimaryKeyPartial(delegator.makePK("Product", inMap), new HashSet(fieldsToSelectList)));
+                valueAcsr.put(methodContext, delegator.findByPrimaryKeyPartial(delegator.makePK(entityName, inMap), new HashSet(fieldsToSelectList)));
             } else {
-                if (useCache) {
-                    valueAcsr.put(methodContext, delegator.findByPrimaryKeyCache(entityName, inMap));
-                } else {
-                    valueAcsr.put(methodContext, delegator.findByPrimaryKey(entityName, inMap));
-                }
+                valueAcsr.put(methodContext, delegator.findOne(entityName, inMap, useCache));
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
