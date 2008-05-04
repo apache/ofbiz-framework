@@ -260,6 +260,13 @@ under the License.
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
+    <simple-method method-name="updateDataResourceTypeAttr" short-description="Update Data Resource Type Attribute">
+        <make-value entity-name="DataResourceTypeAttr" value-name="lookupKeyValue"/>
+        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <find-by-primary-key entity-name="DataResourceTypeAttr" map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
     <simple-method method-name="removeDataResourceTypeAttr" short-description="Remove Data Resource Type Attribute">        
         <make-value entity-name="DataResourceTypeAttr" value-name="lookupKeyValue"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>

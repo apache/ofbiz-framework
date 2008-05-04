@@ -997,8 +997,6 @@ under the License.
     <view-map name="ViewCommunicationEvent" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#ViewCommunicationEvent"/>
     <view-map name="UpdateCommPurposes" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#UpdateCommPurposes"/>
     <view-map name="UpdateCommRoles" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#UpdateCommRoles"/>
-    <view-map name="EditCommWorkEffort" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#EditCommWorkEffort"/>
-    <view-map name="EditCommCustRequest" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#EditCommCustRequest"/>
     <view-map name="ListCommCustRequests" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#ListCommCustRequests"/>
     <view-map name="ListCommWorkEfforts" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#ListCommWorkEfforts"/>
     <view-map name="AddCommEventWorkEffort" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#AddCommEventWorkEffort"/>

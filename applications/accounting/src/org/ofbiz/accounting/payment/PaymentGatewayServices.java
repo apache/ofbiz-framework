@@ -2509,7 +2509,7 @@ public class PaymentGatewayServices {
                     if (!processList.contains(orderId)) { // just try each order once
                         try {
                             // each re-try is independent of each other; if one fails it should not effect the others
-                            dispatcher.runAsync("retryFailedOrderAuthNsf", UtilMisc.<String, Object>toMap("orderId", orderId, "userLogin", userLogin));
+                            dispatcher.runAsync("retryFailedOrderAuth", UtilMisc.<String, Object>toMap("orderId", orderId, "userLogin", userLogin));
                             processList.add(orderId);
                         } catch (GenericServiceException e) {
                             Debug.logError(e, module);

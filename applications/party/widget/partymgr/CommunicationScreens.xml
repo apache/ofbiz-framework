@@ -49,7 +49,7 @@ under the License.
                                 <include-menu location="component://party/webapp/partymgr/communication/CommMenus.xml" name="CommFindTabBar"/>
                                 <container><label style="h1" text="${uiLabelMap.PartyPendingCommunicationEvents}"/></container>
                                 <container><link style="smallSubmit" target="viewCommunicationEvent?partyId=${partyId}" text="${uiLabelMap.PartyNewCommunication}"/></container>
-                                <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="listPendingCommEvents"/>
+                                <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="ListPendingCommEvents"/>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.PartyMgrViewPermissionError}</label>
@@ -269,7 +269,7 @@ under the License.
                                         <label style="h1" text="${uiLabelMap.PartyNewCommunication}"/>
                                     </fail-widgets>
                                 </section>
-                                <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="viewCommunication"/>
+                                <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="ViewCommEvent"/>
                             </widgets>
                         </section>
                     </decorator-section>

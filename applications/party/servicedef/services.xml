@@ -532,11 +532,11 @@ under the License.
 
     <!-- ContactMechList services -->
     <service name="createContactMechLink" default-entity-name="ContactMechLink" engine="simple"
-            location="org/party/contact/ContactMechServices.xml" invoke="createContactMechLink" auth="true">
+            location="org/ofbiz/party/contact/ContactMechServices.xml" invoke="createContactMechLink" auth="true">
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="deleteContactMechLink" default-entity-name="ContactMechLink" engine="simple"
-            location="org/party/contact/ContactMechServices.xml" invoke="deleteContactMechLink" auth="true">
+            location="org/ofbiz/party/contact/ContactMechServices.xml" invoke="deleteContactMechLink" auth="true">
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 

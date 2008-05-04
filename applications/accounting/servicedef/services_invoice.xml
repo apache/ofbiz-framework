@@ -171,7 +171,7 @@ under the License.
         <attribute name="invoicesCreated" type="List" mode="OUT" optional="true"/>
     </service>
     <service name="sampleInvoiceAffiliateCommission" engine="simple"
-        location="org/ofbiz/accounting/invoice/SampleCommissionServices.xml.xml" invoke="sampleCalculateAffiliateCommission" auth="true">
+        location="org/ofbiz/accounting/invoice/SampleCommissionServices.xml" invoke="sampleCalculateAffiliateCommission" auth="true">
         <description>
             A sample/example service to calculate an affiliate commission (direct relationship to customer) and create 
             and invoice for it on behalf of the affiliate, ie an invoice from the affiliate to the company that can 
