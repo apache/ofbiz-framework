@@ -109,6 +109,7 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
                     Debug.logWarning("Error reading java file [" + fullClassPathAndFile + "] for service implementation: " + e.toString(), module);
                     return;
                 }
+
                 javaFile = UtilJavaParse.stripComments(javaFile);
                 int methodBlockStart = UtilJavaParse.findServiceMethodBlockStart(this.modelService.invoke, javaFile);
                 int methodBlockEnd = UtilJavaParse.findEndOfBlock(methodBlockStart, javaFile);
@@ -169,7 +170,8 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
                     Debug.logWarning("Error reading java file [" + fullClassPathAndFile + "] for service implementation: " + e.toString(), module);
                     return;
                 }
-                
+
+                javaFile = UtilJavaParse.stripComments(javaFile);                
                 int methodBlockStart = UtilJavaParse.findServiceMethodBlockStart(this.modelService.invoke, javaFile);
                 int methodBlockEnd = UtilJavaParse.findEndOfBlock(methodBlockStart, javaFile);
                 Set<String> allServiceNameSet = UtilJavaParse.findServiceCallsInBlock(methodBlockStart, methodBlockEnd, javaFile);
