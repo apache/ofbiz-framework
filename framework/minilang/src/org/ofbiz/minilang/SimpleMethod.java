@@ -629,7 +629,7 @@ public class SimpleMethod {
             } else if (methodOperation instanceof CallSimpleMethod) {
                 CallSimpleMethod csm = (CallSimpleMethod) methodOperation;
                 try {
-                    SimpleMethod calledMethod = csm.getSimpleMethodToCall(methodOperations.getClass().getClassLoader());
+                    SimpleMethod calledMethod = csm.getSimpleMethodToCall(null);
                     if (calledMethod == null) {
                         Debug.logWarning("Could not find simple-method [" + csm.getMethodName() + "] in [" + csm.getXmlResource() + "] from the SimpleMethod [" + csm.getSimpleMethod().getMethodName() + "] in [" + csm.getSimpleMethod().getFromLocation() + "]", module);
                     } else {
