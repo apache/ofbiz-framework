@@ -99,7 +99,9 @@ public class UtilJavaParse {
         
         int nextOpen = javaFile.indexOf("{", blockStart+1);
         int nextClose = javaFile.indexOf("}", blockStart+1);
-        
+        if (nextOpen > 0 && nextClose > 0 && nextClose > nextOpen) {
+            String javaFragment = javaFile.substring(nextOpen, nextClose);
+        }
         // if no close, end with couldn't find
         if (nextClose < 0) return -1;
         // while nextOpen is found and is before the next close, then recurse (list 
@@ -222,5 +224,34 @@ public class UtilJavaParse {
         }
         
         return entityNameSet;
+    }
+
+    public static String stripComments(String javaFile) {
+        StringBuilder strippedFile = new StringBuilder();
+        int commentOpen = javaFile.indexOf("/*");
+        int commentClose = javaFile.indexOf("*/");
+        if (commentOpen > -1) {
+            if (commentOpen > 0) {
+                strippedFile.append(javaFile.substring(0, commentOpen));
+            }
+            commentOpen = javaFile.indexOf("/*", commentClose);
+            while (commentOpen > -1) {
+                strippedFile.append(javaFile.substring(commentClose + 2, commentOpen));
+                commentClose = javaFile.indexOf("*/", commentOpen);
+                commentOpen = javaFile.indexOf("/*", commentClose);
+            }
+            strippedFile.append(javaFile.substring(commentClose + 2));
+        } else {
+            strippedFile.append(javaFile);
+        }
+
+        String lineSeparator = System.getProperty("line.separator");
+        int lineComment = strippedFile.indexOf("//");
+        while (lineComment > -1) {
+            int endOfLine = strippedFile.indexOf(lineSeparator, lineComment);
+            strippedFile.delete(lineComment, endOfLine);
+            lineComment = strippedFile.indexOf("//", lineComment);
+        }
+        return strippedFile.toString();
     }
 }
