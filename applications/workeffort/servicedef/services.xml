@@ -591,7 +591,7 @@ under the License.
 
     <!-- Permission Services -->
     <service name="workEffortManagerPermission" engine="simple"
-             location="org/ofbiz/workeffort/WorkEffortPermissionServices.xml" invoke="workEffortManagerPermission">
+             location="org/ofbiz/workeffort/permission/WorkEffortPermissionServices.xml" invoke="workEffortManagerPermission">
         <implements service="permissionInterface"/>
     </service>
     <service name="workEffortGenericPermission" engine="simple"

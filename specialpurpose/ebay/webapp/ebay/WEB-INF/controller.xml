@@ -75,6 +75,5 @@ under the License.
     <view-map name="keywordsearch" type="screen" page="component://ebay/widget/EbayScreens.xml#keywordsearch"/>
     <view-map name="ProductsExportToEbay" type="screen" page="component://ebay/widget/EbayScreens.xml#ProductsExportToEbay"/>
     <view-map name="ManageOrdersFromEbay" type="screen" page="component://ebay/widget/EbayScreens.xml#ManageOrdersFromEbay"/>
-    <view-map name="ListOrdersFromEbay" type="screen" page="component://ebay/widget/EbayScreens.xml#ListOrdersFromEbay"/>
     <!-- end of view mappings -->
 </site-conf>

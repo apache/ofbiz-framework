@@ -991,12 +991,6 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditProductInventoryItems"/>
     </request-map>
-    <request-map uri="DeleteProductInventoryItem">
-        <security https="true" auth="true"/>
-        <event type="service" path="" invoke="deleteInventoryItem"/>
-        <response name="success" type="view" value="EditProductInventoryItems"/>
-        <response name="error" type="view" value="EditProductInventoryItems"/>
-    </request-map>
 
     <!-- ================ Product GlAccounts Requests ================= -->
     <request-map uri="EditProductGlAccounts">

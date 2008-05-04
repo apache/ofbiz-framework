@@ -121,11 +121,6 @@ under the License.
         <response name="success" type="view" value="main"/>
     </request-map>
 
-    <request-map uri="sitemap">
-        <security https="false" auth="false"/>
-        <response name="success" type="view" value="sitemap"/>
-    </request-map>
-
     <!-- Entity Information Requests -->
     <request-map uri="entitymaint">
         <security https="true" auth="true"/>

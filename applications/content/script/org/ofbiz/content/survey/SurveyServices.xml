@@ -291,7 +291,7 @@
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
-    <simple-method method-name="deleteSurveyQuestion" short-description="Delete Survey Question Option">
+    <simple-method method-name="deleteSurveyQuestionOption" short-description="Delete Survey Question Option">
         <check-permission action="_DELETE" permission="CONTENTMGR">
             <fail-message message="Security Error: to run deleteSurveyQuestionOption you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/>
         </check-permission>

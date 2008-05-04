@@ -150,7 +150,7 @@ public class FacilityServices {
         Map contextInput = UtilMisc.toMap("productId",productId, "facilityId", facilityId, "locationSeqId", locationSeqId);
         Map invAvailability = null;
         try {
-            invAvailability = dispatcher.runSync("getInventoryAvailableByLocationSeq",contextInput);
+            invAvailability = dispatcher.runSync("getInventoryAvailableByLocation",contextInput);
         } catch (GenericServiceException e) {
             Debug.logError(e, "updateProductStocktake failed getting inventory counts", module);
             return ServiceUtil.returnError("updateProductStocktake failed getting inventory counts");
