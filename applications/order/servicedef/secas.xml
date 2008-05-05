@@ -301,11 +301,4 @@ under the License.
         <condition field-name="workEffortId" operator="is-empty" />
         <action service="createWorkEffort" mode="sync"/>
     </eca>
-    
-    <!-- Quote 
-    
-    <eca service="storeQuote" event="commit">
-        <action service="sendQuoteEmailForCreation" mode="async" persist="true"/>
-    </eca>
-    -->
 </service-eca>
