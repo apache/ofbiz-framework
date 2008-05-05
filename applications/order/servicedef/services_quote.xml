@@ -238,9 +238,4 @@ under the License.
         <attribute name="quoteAdjustments" type="List" mode="IN" optional="true"/>
         <attribute name="quoteId" type="String" mode="OUT" optional="false"/>
     </service>
-    <service name="sendQuoteEmailForCreation" engine="simple" require-new-transaction="true" 
-             location="org/ofbiz/order/quote/QuoteServices.xml" invoke="sendQuoteEmailForCreation">
-        <description>Send an e-mail for quote creation</description>   
-        <attribute name="quoteId" type="String" mode="IN" optional="false"/>
-    </service>
 </services>

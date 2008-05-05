@@ -302,8 +302,10 @@ under the License.
         <action service="createWorkEffort" mode="sync"/>
     </eca>
     
-    <!-- Quote -->
+    <!-- Quote 
+    
     <eca service="storeQuote" event="commit">
         <action service="sendQuoteEmailForCreation" mode="async" persist="true"/>
     </eca>
+    -->
 </service-eca>
