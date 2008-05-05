@@ -865,19 +865,4 @@ under the License.
             <remove-value value-name="quoteWorkEffort"/>
         </if-not-empty>
     </simple-method>
-    <simple-method method-name="sendQuoteEmailForCreation" login-required="false" short-description="Send an e-mail for quote creation">
-        <clear-field field-name="quoteAttributeIn"/>
-        <set field="quoteAttributeIn.quoteId" from-field="parameters.quoteId"/>
-        <set field="quoteAttributeIn.attrName" value="EMAIL"/>
-        <find-by-and map-name="quoteAttributeIn" list-name="quoteAttributes" entity-name="QuoteAttribute"/>
-        <first-from-list entry-name="quoteAttribute" list-name="quoteAttributes"/>
-        
-        <if-not-empty field-name="quoteAttribute">
-            <clear-field field-name="sendQuoteInMap"/>
-            <set field="sendQuoteInMap.emailType" value="PRDS_QUO_CREATED"/>
-            <set field="sendQuoteInMap.quoteId" from-field="parameters.quoteId"/>
-            <set field="sendQuoteInMap.sendTo" from-field="quoteAttribute.attrValue"/>
-            <call-service service-name="sendQuoteReportMail" in-map-name="sendQuoteInMap"/>
-        </if-not-empty>
-    </simple-method>
 </simple-methods>
