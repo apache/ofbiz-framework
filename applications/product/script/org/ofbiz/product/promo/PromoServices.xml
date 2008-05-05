@@ -52,13 +52,13 @@ under the License.
         <find-by-primary-key entity-name="ProductPromo" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
 
-        <if-empty field-name="newEntity.userEntered">
-            <set value="Y" set-if-empty="true" field="newEntity.userEntered"/>
+        <if-empty field-name="lookedUpValue.userEntered">
+            <set value="Y" set-if-empty="true" field="lookedUpValue.userEntered"/>
         </if-empty>
 
         <now-timestamp-to-env env-name="nowTimestamp"/>
-        <set from-field="nowTimestamp" field="newEntity.lastModifiedDate"/>
-        <set from-field="userLogin.userLoginId" field="newEntity.lastModifiedByUserLogin"/>
+        <set from-field="nowTimestamp" field="lookedUpValue.lastModifiedDate"/>
+        <set from-field="userLogin.userLoginId" field="lookedUpValue.lastModifiedByUserLogin"/>
 
         <store-value value-name="lookedUpValue"/>
     </simple-method>
