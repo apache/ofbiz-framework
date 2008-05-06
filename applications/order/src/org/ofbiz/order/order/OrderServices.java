@@ -1836,8 +1836,17 @@ public class OrderServices {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorCannotCancelItemItemNotFound", UtilMisc.toMap("itemMsgInfo",itemMsgInfo), locale));
                 }
 
-                Double availableQuantity = orderItemShipGroupAssoc.getDouble("quantity");
-                Double itemQuantity = orderItem.getDouble("quantity");
+                Double aisgaCancelQuantity =  orderItemShipGroupAssoc.getDouble("cancelQuantity");
+                if (aisgaCancelQuantity == null) {
+                    aisgaCancelQuantity = new Double(0.0);
+                }
+                Double availableQuantity = Double.valueOf(orderItemShipGroupAssoc.getDouble("quantity").doubleValue() - aisgaCancelQuantity.doubleValue());
+                
+                Double itemCancelQuantity = orderItem.getDouble("cancelQuantity");
+                if (itemCancelQuantity == null) {
+                    itemCancelQuantity = new Double(0.0);
+                }
+                Double itemQuantity = Double.valueOf(orderItem.getDouble("quantity").doubleValue() - itemCancelQuantity.doubleValue());
                 if (availableQuantity == null) availableQuantity = new Double(0.0);
                 if (itemQuantity == null) itemQuantity = new Double(0.0);
 
@@ -1849,8 +1858,8 @@ public class OrderServices {
                 }
 
                 if (availableQuantity.doubleValue() >= thisCancelQty.doubleValue()) {
-                    orderItem.set("cancelQuantity", thisCancelQty);
-                    orderItemShipGroupAssoc.set("cancelQuantity", thisCancelQty);
+                    orderItem.set("cancelQuantity", Double.valueOf(itemCancelQuantity.doubleValue() + thisCancelQty.doubleValue()));
+                    orderItemShipGroupAssoc.set("cancelQuantity", Double.valueOf(aisgaCancelQuantity.doubleValue() + thisCancelQty.doubleValue()));
 
                     try {
                         List toStore = UtilMisc.toList(orderItem, orderItemShipGroupAssoc);
