@@ -433,6 +433,16 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
                 ContentUrlTag.appendContentPrefix(req, newURL);
                 newURL.append(target);
                 buffer.append(newURL.toString());
+            } else if ("inter-app".equalsIgnoreCase(urlMode) && req != null) {
+                String externalLoginKey = (String) req.getAttribute("externalLoginKey");
+                if (UtilValidate.isNotEmpty(externalLoginKey)) {
+                    if (target.contains("?")) {
+                        target += "&externalLoginKey=" + externalLoginKey;
+                    } else {
+                        target += "?externalLoginKey=" + externalLoginKey;
+                    }
+                    buffer.append(target);
+                }
             } else {
                 buffer.append(target);
             }

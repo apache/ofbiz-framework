@@ -269,6 +269,16 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
                 ContentUrlTag.appendContentPrefix(req, newURL);
                 newURL.append(target);
                 writer.write(newURL.toString());
+            } else if ("inter-app".equalsIgnoreCase(urlMode) && req != null) {
+                String externalLoginKey = (String) req.getAttribute("externalLoginKey");
+                if (UtilValidate.isNotEmpty(externalLoginKey)) {
+                    if (target.contains("?")) {
+                        target += "&externalLoginKey=" + externalLoginKey;
+                    } else {
+                        target += "?externalLoginKey=" + externalLoginKey;
+                    }
+                    writer.write(target);
+                }
             } else {
                 writer.write(target);
             }

@@ -464,6 +464,16 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
                     newURL.append(target);
                     writer.write(newURL.toString());
                 }
+            } else if ("inter-app".equalsIgnoreCase(urlMode) && request != null) {
+                String externalLoginKey = (String) request.getAttribute("externalLoginKey");
+                if (UtilValidate.isNotEmpty(externalLoginKey)) {
+                    if (target.contains("?")) {
+                        target += "&externalLoginKey=" + externalLoginKey;
+                    } else {
+                        target += "?externalLoginKey=" + externalLoginKey;
+                    }
+                    writer.write(target);
+                }
             } else {
                 writer.write(target);
             }
