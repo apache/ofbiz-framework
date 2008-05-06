@@ -85,14 +85,12 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <section>
-                                        <widgets>
-                                            <label text="${uiLabelMap.CommonCreate} ${uiLabelMap.SfaLead}"/>
-                                        </widgets>
-                                    </section>
-                                </container>
+                            <container style="screenlet-title-bar boxhead">
+                                <section>
+                                    <widgets>
+                                        <label text="${uiLabelMap.CommonCreate} ${uiLabelMap.SfaLead}"/>
+                                    </widgets>
+                                </section>
                             </container>
                             <container style="screenlet-body">
                                 <section>
