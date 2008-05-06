@@ -129,12 +129,6 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ViewFacilityInventoryItemsDetails"/>
     </request-map>
-    <!-- <request-map uri="DeleteFacilityInventoryItem">
-        <security https="true" auth="true"/>
-        <event type="service" path="" invoke="deleteInventoryItem"/>
-        <response name="success" type="view" value="EditFacilityInventoryItems"/>
-        <response name="error" type="view" value="EditFacilityInventoryItems"/>
-    </request-map> -->
     <request-map uri="SearchInventoryItemsByLabels">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="SearchInventoryItemsByLabels"/>
@@ -481,12 +475,6 @@ under the License.
         <response name="success" type="view" value="EditInventoryItem"/>
         <response name="error" type="view" value="EditInventoryItem"/>
     </request-map>
-    <request-map uri="DeleteInventoryItem">
-        <security https="true" auth="true"/>
-        <event type="service" path="" invoke="deleteInventoryItem"/>
-        <response name="success" type="view" value="EditInventoryItem"/>
-        <response name="error" type="view" value="EditInventoryItem"/>
-    </request-map>
     <request-map uri="createPhysicalInventoryAndVariance">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="createPhysicalInventoryAndVariance"/>
@@ -822,7 +810,7 @@ under the License.
     <request-map uri="quickDhlConfirm">
         <security https="true" auth="true" direct-request="false"/>
         <event type="service" path="" invoke="dhlShipmentConfirm"/>
-        <response name="success" type="request" value="QuickShipOrder"/>
+        <response name="success" type="view" value="QuickShipOrder"/>
         <response name="error" type="view" value="QuickShipOrder"/>
     </request-map>
 
