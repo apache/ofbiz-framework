@@ -20,7 +20,11 @@ under the License.
 
 <entity-engine-xml>
     <StatusType description="Employment Application" hasTable="N" parentTypeId="" statusTypeId="EMPLOYMENT_APP_STTS"/>
-    <StatusType description="Position" hasTable="N" parentTypeId="" statusTypeId="POSITION_STATUS"/>
+    <StatusType description="Employee Position Status" hasTable="N" parentTypeId="" statusTypeId="EMPL_POSITION_STATUS"/>
+    <StatusItem description="Planned For" sequenceId="01" statusCode="PLANNED_FOR" statusId="EMPL_POS_PLANNEDFOR" statusTypeId="EMPL_POSITION_STATUS"/>
+    <StatusItem description="Active/Open" sequenceId="02" statusCode="ACTIVE" statusId="EMPL_POS_ACTIVE" statusTypeId="EMPL_POSITION_STATUS"/>
+    <StatusItem description="Inactive/Closed" sequenceId="03" statusCode="INACTIVE" statusId="EMPL_POS_INACTIVE" statusTypeId="EMPL_POSITION_STATUS"/>
+    
     <StatusType description="Unemployment Claim" hasTable="N" parentTypeId="" statusTypeId="UNEMPL_CLAIM_STATUS"/>
     
     <StatusType description="Degree status" hasTable="N" parentTypeId="" statusTypeId="HR_DEGREE_STATUS"/>
