@@ -6281,7 +6281,7 @@
     <property key="PartyVendor">
         <value xml:lang="en">Vendor</value>
         <value xml:lang="es">Vendedor</value>
-        <value xml:lang="fr">Fournisseur</value>
+        <value xml:lang="fr">Vendeur</value>
         <value xml:lang="it">Fornitore</value>
         <value xml:lang="nl">Leverancier</value>
         <value xml:lang="pt_PT">Vendedor</value>
@@ -6293,7 +6293,7 @@
     <property key="PartyVendorInformation">
         <value xml:lang="en">Vendor Information</value>
         <value xml:lang="es">Información del vendedor</value>
-        <value xml:lang="fr">Information Fournisseur</value>
+        <value xml:lang="fr">Information sur le vendeur</value>
         <value xml:lang="it">Informazione Fornitore</value>
         <value xml:lang="nl">Leverancier informatie</value>
         <value xml:lang="pt_PT">Informação do Vendedor</value>
