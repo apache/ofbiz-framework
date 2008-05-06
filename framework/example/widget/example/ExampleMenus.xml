@@ -50,6 +50,7 @@ under the License.
             <link target="EditExampleFeatureAppls?exampleId=${exampleId}"/>
         </menu-item>
     </menu>
+
     <menu name="EditExampleFeature" default-selected-style="selected" type="simple"
             menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="tabButtonItem">
         <menu-item name="EditExampleFeature" title="${uiLabelMap.ExampleFeature}">
@@ -59,4 +60,5 @@ under the License.
             <link target="EditExampleFeatureExampleAppls?exampleFeatureId=${exampleFeatureId}"/>
         </menu-item>
     </menu>
+
 </menus>

@@ -20,6 +20,7 @@ under the License.
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
     <screen name="FindExample">
         <section>
             <actions>
@@ -34,7 +35,7 @@ under the License.
                                 <if-has-permission permission="EXAMPLE" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <container><label style="h1">${uiLabelMap.${titleProperty}}</label></container>
+                                <container style="h1"><label>${uiLabelMap.${titleProperty}}</label></container>
                                 <container style="button-bar"><link target="EditExample" text="${uiLabelMap.ExampleNewExample}" style="buttontext"/></container>
                                 <include-form name="ListExamples" location="component://example/widget/example/ExampleForms.xml"/>
                             </widgets>
@@ -53,7 +54,6 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditExample"/>
                 <set field="tabButtonItem" value="EditExample"/>
-                
                 <set field="exampleId" from-field="parameters.exampleId"/>
                 <entity-one entity-name="Example" value-name="example"/>
             </actions>
@@ -66,12 +66,12 @@ under the License.
             </widgets>
         </section>
     </screen>
+
     <screen name="EditExampleItems">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditExampleItems"/>
                 <set field="tabButtonItem" value="EditExampleItems"/>
-
                 <set field="exampleId" from-field="parameters.exampleId"/>
             </actions>
             <widgets>
@@ -84,12 +84,12 @@ under the License.
             </widgets>
         </section>
     </screen>
+
     <screen name="EditExampleFeatureAppls">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditExampleFeatureAppls"/>
                 <set field="tabButtonItem" value="EditExampleFeatureAppls"/>
-                
                 <set field="exampleId" from-field="parameters.exampleId"/>
             </actions>
             <widgets>
@@ -102,4 +102,5 @@ under the License.
             </widgets>
         </section>
     </screen>
+
 </screens>

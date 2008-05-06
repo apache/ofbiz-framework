@@ -20,11 +20,11 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+
     <form name="ListExamples" type="list" list-name="examples" paginate-target="FindExample">
         <actions>
             <entity-condition entity-name="Example"><order-by field-name="exampleName"/></entity-condition>
         </actions>
-        
         <field name="exampleId" title="${uiLabelMap.ExampleExampleId}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${exampleId}" target="EditExample?exampleId=${exampleId}"/>
         </field>
@@ -33,7 +33,7 @@ under the License.
         <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem"/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
     </form>
-    
+
     <form name="EditExample" type="single" target="updateExample" title="" default-map-name="example">
         <actions>
             <entity-one entity-name="StatusItem" value-name="currentStatus" auto-field-map="false">
@@ -42,11 +42,9 @@ under the License.
         </actions>
         <alt-target use-when="example==null" target="createExample"/>
         <auto-fields-service service-name="updateExample"/>
- 
         <field use-when="example!=null" name="exampleId" title="${uiLabelMap.ExampleExampleId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field use-when="example==null&amp;&amp;exampleId==null" name="exampleId" title="${uiLabelMap.ExampleExampleId}"><ignored/></field>
         <field use-when="example==null&amp;&amp;exampleId!=null" name="exampleId" title="${uiLabelMap.ExampleExampleId}"><display description="${uiLabelMap.CommonCannotBeFound}: [${exampleId}]" also-hidden="false"/></field>
-
         <field name="exampleTypeId" title="${uiLabelMap.CommonType}">
             <drop-down allow-empty="false">
                 <entity-options entity-name="ExampleType" description="${description}">
@@ -70,9 +68,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-
         <field name="description" title="${uiLabelMap.CommonDescription}"/>
-        
         <field name="anotherText">
             <drop-down allow-empty="true">
                 <option key="Explicit Option" description="${uiLabelMap.ExampleExplicitOption}"/>
@@ -84,10 +80,10 @@ under the License.
         <field name="displayAnotherText" use-when="example!=null&amp;&amp;example.get(&quot;anotherText&quot;)!=null">
             <display description="${example.anotherText}"/>
         </field>
-        
         <field name="submitButton" use-when="example==null" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
         <field name="submitButton" use-when="example!=null" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
+
     <form name="EditExampleBackgroundSubmit" extends="EditExample">
         <field name="submitButton" use-when="example==null" title="${uiLabelMap.CommonCreate}"><submit button-type="button" background-submit-refresh-target="CreateExampleFormOnly"/></field>
         <field name="submitButton" use-when="example!=null" title="${uiLabelMap.CommonUpdate}"><submit button-type="button" background-submit-refresh-target="CreateExampleFormOnly"/></field>
@@ -102,7 +98,6 @@ under the License.
             </entity-condition>
         </actions>
         <auto-fields-service service-name="updateExampleItem"/>
-        
         <field name="exampleId"><hidden/></field>
         <field name="exampleItemSeqId" title="${uiLabelMap.CommonItem}"><display/></field>
         <field name="description"><text size="30"/></field>
@@ -114,16 +109,15 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-            
         <field name="deleteLink" title="" widget-style="buttontext">
             <hyperlink target="deleteExampleItem?exampleId=${exampleId}&amp;exampleItemSeqId=${exampleItemSeqId}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
+
     <form name="AddExampleItem" type="single" target="createExampleItem" title="">
         <auto-fields-service service-name="createExampleItem"/>
-
         <field name="exampleId"><hidden/></field>
         <field name="exampleItemSeqId"><ignored/><!-- this will be auto-sequenced --></field>
         <field name="amountUomId" title="${uiLabelMap.CommonUom}">
@@ -146,7 +140,6 @@ under the License.
             </entity-condition>
         </actions>
         <auto-fields-service service-name="updateExampleFeatureAppl"/>
-        
         <field name="exampleId"><hidden/></field>
         <field name="exampleFeatureId" title="${uiLabelMap.ExampleFeature}">
             <display-entity entity-name="ExampleFeature" description="${description}">
@@ -161,16 +154,15 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title="" widget-style="buttontext">
             <hyperlink target="example_deleteExampleFeatureAppl?exampleId=${exampleId}&amp;exampleFeatureId=${exampleFeatureId}&amp;fromDate=${fromDate}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
+
     <form name="AddExampleFeatureAppl" type="single" target="example_createExampleFeatureAppl" title="">
         <auto-fields-service service-name="createExampleFeatureAppl"/>
-        
         <field name="exampleId"><hidden/></field>
         <field name="exampleFeatureId" title="${uiLabelMap.ExampleFeature}"><lookup target-form-name="LookupExampleFeature"/></field>
         <field name="exampleFeatureApplTypeId" title="${uiLabelMap.CommonType}">
@@ -182,4 +174,5 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
+
 </forms>

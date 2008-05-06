@@ -27,7 +27,6 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditExample"/>
                 <set field="tabButtonItem" value="EditExample"/>
                 <set field="labelTitleProperty" value="ExampleExample"/>
-    
                 <set field="exampleId" from-field="parameters.exampleId"/>
                 <entity-one entity-name="Example" value-name="example"/>
             </actions>
@@ -40,4 +39,5 @@ under the License.
             </widgets>
         </section>
     </screen>
+
 </screens>

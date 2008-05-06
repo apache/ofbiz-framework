@@ -20,6 +20,7 @@ under the License.
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
     <screen name="FindExampleFeature">
         <section>
             <actions>
@@ -55,7 +56,6 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditExampleFeature"/>
                 <set field="tabButtonItem" value="EditExampleFeature"/>
-                
                 <set field="exampleFeatureId" from-field="parameters.exampleFeatureId"/>
                 <entity-one entity-name="ExampleFeature" value-name="exampleFeature"/>
             </actions>
@@ -68,6 +68,7 @@ under the License.
             </widgets>
         </section>
     </screen>
+
     <screen name="EditExampleFeatureExampleAppls">
         <section>
             <actions>
@@ -109,4 +110,5 @@ under the License.
             </widgets>
         </section>
     </screen>
+
 </screens>

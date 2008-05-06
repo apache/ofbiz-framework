@@ -20,7 +20,7 @@ under the License.
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
-    <!-- Decorator Screens Copied from CatalogCommonScreens.xml, since the mainDecoratorLocation now points here -->
+
     <screen name="main-decorator">
         <section>
             <actions>
@@ -36,7 +36,6 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="Example"/>
-                
                 <set field="exampleId" from-field="parameters.exampleId"/>
                 <entity-one entity-name="Example" value-name="example"/>
             </actions>
@@ -71,7 +70,6 @@ under the License.
                                         <container style="button-bar"><link target="EditExample" text="${uiLabelMap.ExampleNewExample}" style="buttontext"/></container>
                                     </widgets>
                                 </section>
-                                
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
@@ -83,6 +81,7 @@ under the License.
             </widgets>
         </section>
     </screen>
+
     <screen name="CommonExampleFeatureDecorator">
         <section>
             <widgets>
@@ -90,4 +89,5 @@ under the License.
             </widgets>
         </section>
     </screen>
+
 </screens>
