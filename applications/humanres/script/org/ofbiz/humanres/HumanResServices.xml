@@ -484,7 +484,8 @@ under the License.
         <set field="partyTypeId" value="PERSON"/>
         <set field="parameters.roleTypeId" value="EMPLOYEE"/>
         <call-simple-method method-name="createPersonRoleAndContactMechs" xml-resource="org/ofbiz/party/party/PartySimpleMethods.xml"/>
-         
+        <field-to-result field-name="partyId"/> 
+        
         <if-not-empty field-name="parameters.partyIdFrom">
             <set field="partyRelationshipCtx.partyId" from-field="partyId"/>
             <set field="partyRelationshipCtx.partyIdFrom" from-field="parameters.partyIdFrom"/>
@@ -492,7 +493,11 @@ under the License.
             <set field="partyRelationshipCtx.roleTypeIdFrom" value="INTERNAL_ORGANIZATIO"/>
             <set field="partyRelationshipCtx.roleTypeIdTo" value="EMPLOYEE"/>
             <set field="partyRelationshipCtx.relationshipName" value="EMPLOYMENT"/>
-            <set field="partyRelationshipCtx.fromDate" value="parameters.fromDate"/>
+            <set field="partyRelationshipCtx.fromDate" from-field="parameters.fromDate"/>
+            <now-timestamp-to-env env-name="nowTimestamp"/>
+            <if-empty field-name="partyRelationshipCtx.fromDate">
+                <set field="partyRelationshipCtx.fromDate" from-field="nowTimestamp"/>
+            </if-empty>
             <call-service service-name="createPartyRelationship" in-map-name="partyRelationshipCtx"/>
         </if-not-empty>
         
@@ -527,7 +532,7 @@ under the License.
                 <result-to-field result-name="contactMechId" field-name="contactMechId"/>
             </call-service>  
         </if-not-empty>                  
-        <field-to-result field-name="partyId"/>
+        
     </simple-method>
     
 </simple-methods>        

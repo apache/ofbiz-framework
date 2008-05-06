@@ -534,22 +534,27 @@
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">                                                                                       
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.CommonFind} ${uiLabelMap.HumanResEmployee}"/>
+                        <section>
+                            <actions>
+                                <service service-name="findParty" auto-field-map="true"/>
+                                <set field="tabButtonItem" value="Employee"/>
+                            </actions>
+                            <widgets>
+                                <container>
+                                    <link target="CreateEmployee" text="${uiLabelMap.PartyCreateNewEmployee}" style="buttontext" />
                                 </container>
-                            </container>
-                            <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <container>
-                                            <link target="CreateEmployee" text="${uiLabelMap.PartyCreateNewEmployee}" style="buttontext" />
-                                        </container>
+                                        <platform-specific>
+                                            <html><html-template location="component://humanres/webapp/humanres/humanres/findEmployee.ftl"/></html>
+                                        </platform-specific>                                        
                                     </widgets>
                                 </section>
-                            </container>
-                        </container>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.PartyMgrViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>            

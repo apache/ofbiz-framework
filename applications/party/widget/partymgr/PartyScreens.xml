@@ -116,6 +116,7 @@ under the License.
                                             <include-screen name="ShipperAccount" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                             <include-screen name="Notes" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                             <include-screen name="mytasks" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="viewInteralOrg" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                         </container>
                                     </widgets>
                                 </section>
