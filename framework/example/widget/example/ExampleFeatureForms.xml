@@ -20,6 +20,7 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+
     <form name="ListExampleFeatures" type="list"  list-name="examples"
         paginate-target="FindExampleFeature">
         <actions>
@@ -27,12 +28,12 @@ under the License.
                 <order-by field-name="description"/>
             </entity-condition>
         </actions>
-        
         <field name="exampleFeatureId" title="${uiLabelMap.ExampleExampleFeatureId}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${exampleFeatureId}" target="EditExampleFeature?exampleFeatureId=${exampleFeatureId}"/>
         </field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
     </form>
+
     <form name="EditExampleFeature" type="single" target="updateExampleFeature" title="" default-map-name="exampleFeature">
         <actions>
             <entity-one entity-name="StatusItem" value-name="currentStatus" auto-field-map="false">
@@ -41,11 +42,9 @@ under the License.
         </actions>
         <alt-target use-when="exampleFeature==null" target="createExampleFeature"/>
         <auto-fields-service service-name="updateExampleFeature"/>
- 
         <field use-when="exampleFeature!=null" name="exampleFeatureId" title="${uiLabelMap.ExampleExampleFeatureId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field use-when="exampleFeature==null&amp;&amp;exampleFeatureId==null" name="exampleFeatureId" title="${uiLabelMap.ExampleExampleFeatureId}"><ignored/></field>
         <field use-when="exampleFeature==null&amp;&amp;exampleFeatureId!=null" name="exampleFeatureId" title="${uiLabelMap.ExampleExampleFeatureId}"><display description="${uiLabelMap.CommonCannotBeFound}: [${exampleFeatureId}]" also-hidden="false"/></field>
-
         <field name="description" title="${uiLabelMap.CommonDescription}"/>
         <field name="featureSourceEnumId" title="${uiLabelMap.ExampleFeatureSource}">
             <drop-down allow-empty="false">
@@ -68,7 +67,6 @@ under the License.
             </entity-condition>
         </actions>
         <auto-fields-service service-name="updateExampleFeatureAppl"/>
-        
         <field name="exampleId" title="${uiLabelMap.ExampleExample}">
             <display-entity entity-name="Example" description="${exampleName}">
                 <sub-hyperlink target="EditExample?exampleId=${exampleId}" description="${exampleId}" link-style="buttontext"/>
@@ -83,16 +81,15 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title="" widget-style="buttontext">
             <hyperlink target="feature_deleteExampleFeatureAppl?exampleId=${exampleId}&amp;exampleFeatureId=${exampleFeatureId}&amp;fromDate=${fromDate}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
+
     <form name="AddExampleFeatureAppl" type="single" target="feature_createExampleFeatureAppl" title="">
         <auto-fields-service service-name="createExampleFeatureAppl"/>
-        
         <field name="exampleId" title="${uiLabelMap.ExampleExample}">
             <drop-down allow-empty="false">
                 <entity-options entity-name="Example" description="${exampleName} [${exampleId}]">
@@ -126,6 +123,7 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
         <field name="submitButton" title="${uiLabelMap.CommonLookup}"><submit button-type="button"/></field>
     </form>
+
     <form name="LookupListExampleFeature" list-name="listIt" title="" type="list"
         paginate-target="LookupExampleFeature">
         <actions>
@@ -144,4 +142,5 @@ under the License.
         </field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display also-hidden="false"/></field>
     </form>
+
 </forms>

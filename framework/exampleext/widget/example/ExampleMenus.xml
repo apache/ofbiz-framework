@@ -18,10 +18,12 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">      
+<menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
+
     <menu name="EditExample" extends="EditExample" extends-resource="component://example/widget/example/ExampleMenus.xml">
         <menu-item name="EditExampleOriginal" title="${uiLabelMap.ExampleOriginalExample}">
             <link target="/example/control/EditExample?exampleId=${exampleId}" url-mode="inter-app"/>
         </menu-item>
     </menu>
+
 </menus>

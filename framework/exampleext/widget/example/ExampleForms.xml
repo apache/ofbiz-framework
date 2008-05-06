@@ -19,17 +19,18 @@ under the License.
 -->
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <form name="EditExampleExt" type="single"
-        target="updateExample" title="" default-map-name="example" default-entity-name="Example"
-        extends-resource="component://example/widget/example/ExampleForms.xml" extends="EditExample">
 
+    <form name="EditExampleExt" extends="EditExample"
+        extends-resource="component://example/widget/example/ExampleForms.xml">
         <!-- NOTE: add new fields for the EditExample form here -->
         <field name="exampleText"><display description="This example text means we are in the extended form."/></field>
-                
-        <!-- in order for these to be at the bottom need to hide and then override these, or use the sort-order element which doesn't work well when we want to allow changes in the extended form; so here it is -->
+        <!-- In order for these to be at the bottom of the form, we need to hide the buttons from the
+            original form, and then create new ones. We could use the sort-order element, but that
+            doesn't work well when we want to allow changes in the original form. -->
         <field name="submitButton" use-when="example!=null"><hidden/></field>
         <field name="submitButton" use-when="example==null"><hidden/></field>
         <field name="submitButtonOvrd" title="${uiLabelMap.CommonCreate}" use-when="example==null" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="submitButtonOvrd" title="${uiLabelMap.CommonUpdate}" use-when="example!=null" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
+
 </forms>
