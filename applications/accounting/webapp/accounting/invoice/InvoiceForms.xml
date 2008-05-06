@@ -159,7 +159,7 @@ under the License.
         <field name="datetimePerformed"><display/></field>
     </form>
 
-    <form name="ListInvoiceApplications" type="list"  list-name="invoiceApplications" default-entity-name="invoiceItem" use-row-submit="true"
+    <form name="ListInvoiceApplications" type="list"  list-name="invoiceApplications" default-entity-name="InvoiceItem" use-row-submit="true"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
         target="updatePaymentApplication" title="Apply payments to invoices" separate-columns="false">
         <field name="invoiceItemSeqId"><display/></field>
@@ -325,7 +325,7 @@ under the License.
        </field>
     </form>
 
-    <form name="EditInvoiceItem" type="single" target="updateInvoiceItem" title="" default-map-name="invoiceItem" default-entity-name="invoiceItem"
+    <form name="EditInvoiceItem" type="single" target="updateInvoiceItem" title="" default-map-name="invoiceItem" default-entity-name="InvoiceItem"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="invoiceItem==null" target="createInvoiceItem"/>
         <field name="invoiceId"><hidden/></field>
@@ -388,7 +388,7 @@ under the License.
         </field>
     </form>
 
-    <form name="EditInvoiceApplications" type="list"  list-name="invoiceApplications" default-entity-name="invoiceItem" use-row-submit="true" target="updateInvoiceApplication" title="Apply payments to invoices" separate-columns="false"
+    <form name="EditInvoiceApplications" type="list"  list-name="invoiceApplications" default-entity-name="InvoiceItem" use-row-submit="true" target="updateInvoiceApplication" title="Apply payments to invoices" separate-columns="false"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="statusId"><hidden/></field>
         <field name="paymentApplicationId"><hidden/></field>

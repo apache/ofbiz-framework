@@ -113,6 +113,12 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
+    <service name="updateTaxAuthorityCategory" default-entity-name="TaxAuthorityCategory" engine="simple" auth="true"
+        location="org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="updateTaxAuthorityCategory">
+        <description>Update TaxAuthorityCategory</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
     <service name="deleteTaxAuthorityCategory" default-entity-name="TaxAuthorityCategory" engine="simple" auth="true"
         location="org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="deleteTaxAuthorityCategory">
         <description>Delete TaxAuthorityCategory</description>

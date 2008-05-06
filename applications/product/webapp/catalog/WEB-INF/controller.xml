@@ -521,7 +521,7 @@ under the License.
         <security https="true" auth="true"/>
         <event type="service" path="org.ofbiz.accounting.fixedasset.FixedAssetServices.xml" invoke="updateFixedAssetProduct"/>
         <response name="success" type="view" value="showFixedAssetProduct"/>
-        <response name="error" type="view" value="updFixedAssetProduct"/>
+        <response name="error" type="view" value="showFixedAssetProduct"/>
     </request-map>
     <request-map uri="removeFixedAssetProduct">
         <security https="true" auth="true"/>

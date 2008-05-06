@@ -318,10 +318,6 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="paymentOverview"/>
     </request-map> 
-    <request-map uri="paymentApplications">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="paymentApplications"/>
-    </request-map>
     <request-map uri="editPaymentApplications">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="editPaymentApplications"/>
