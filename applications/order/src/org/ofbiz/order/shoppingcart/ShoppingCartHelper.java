@@ -950,18 +950,20 @@ public class ShoppingCartHelper {
             // set the agreement id in the cart
             cart.setAgreementId(agreementId);
             try {
-                 // set the currency based on the pricing agreement
-                 List agreementItems = agreement.getRelated("AgreementItem", UtilMisc.toMap("agreementItemTypeId", "AGREEMENT_PRICING_PR"), null);
-                 if (agreementItems.size() > 0) {
-                       GenericValue agreementItem = (GenericValue) agreementItems.get(0);
-                       String currencyUomId = (String) agreementItem.get("currencyUomId");
-                       try {
+                // set the currency based on the pricing agreement
+                List agreementItems = agreement.getRelated("AgreementItem", UtilMisc.toMap("agreementItemTypeId", "AGREEMENT_PRICING_PR"), null);
+                if (agreementItems.size() > 0) {
+                    GenericValue agreementItem = (GenericValue) agreementItems.get(0);
+                    String currencyUomId = (String) agreementItem.get("currencyUomId");
+                    if (UtilValidate.isNotEmpty(currencyUomId)) {
+                        try {
                             cart.setCurrency(dispatcher,currencyUomId);
-                       } catch (CartItemModifyException ex) {
-                           result = ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderSetCurrencyError",this.cart.getLocale()) + ex.getMessage());
+                        } catch (CartItemModifyException ex) {
+                            result = ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderSetCurrencyError",this.cart.getLocale()) + ex.getMessage());
                             return result;
-                       }
-                 }
+                        }
+                    }
+                }
             } catch (GenericEntityException e) {
                 Debug.logWarning(e.toString(), module);
                 result = ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderCouldNotGetAgreementItemsThrough",UtilMisc.toMap("agreementId",agreementId),this.cart.getLocale()) + UtilProperties.getMessage(resource_error,"OrderError",this.cart.getLocale()) + e.getMessage());
