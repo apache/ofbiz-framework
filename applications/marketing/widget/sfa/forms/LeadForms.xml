@@ -42,13 +42,13 @@ under the License.
     </form>
 
     <form name="createLead" type="single" target="createLead" header-row-style="header-row" default-table-style="basic-table">
-        <field name="leadType"><hidden value="${leadType}"/></field>
-        <field name="firstName" use-when="leadType.equals(&quot;PERSON&quot;)" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
-        <field name="lastName" use-when="leadType.equals(&quot;PERSON&quot;)" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
-        <field name="suffix" use-when="leadType.equals(&quot;PERSON&quot;)"><text/></field>
-        <field name="groupName" use-when="leadType.equals(&quot;GROUP&quot;)" title="${uiLabelMap.PartyGroupName}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="30" maxlength="60"/></field>
-        <field name="numEmployees" use-when="leadType.equals(&quot;GROUP&quot;)" title="${uiLabelMap.MarketingEmployees}"><text size="30"/></field>
-        <field name="siteName" use-when="leadType.equals(&quot;GROUP&quot;)" title="${uiLabelMap.FormFieldTitle_officeSiteName}"><text size="30" maxlength="60"/></field>
+        <field name="firstName" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
+        <field name="lastName" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
+        <field name="suffix"><text/></field>
+        <field name="companyName"><text/></field>
+        <field name="title"><text/></field>
+        <field name="numEmployees" title="${uiLabelMap.MarketingNoOfEmployees}"><text size="30"/></field>
+        <field name="siteName" title="${uiLabelMap.FormFieldTitle_officeSiteName}"><text size="30" maxlength="60"/></field>
         <field name="postalAddressTitle" title="${uiLabelMap.PartyGeneralCorrespondenceAddress}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
         <field name="address1" title="${uiLabelMap.CommonAddress1}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="50" maxlength="60"/></field>
         <field name="address2" title="${uiLabelMap.CommonAddress2}"><text size="50" maxlength="60"/></field>
@@ -79,15 +79,6 @@ under the License.
         <field name="emailAddress" title="${uiLabelMap.CommonEmail}"><text size="50" maxlength="60"/></field>
         <field name="leadSourceTitle" title="${uiLabelMap.SfaLeadSource}" title-area-style="group-label"><display/></field>
         <field name="leadSource" title="${uiLabelMap.SfaLeadSource}"><text size="50" maxlength="60"/></field>
-        <field name="leadGroupTitle" title="${uiLabelMap.SfaLeadGroup}" use-when="leadType.equals(&quot;PERSON&quot;)" title-area-style="group-label"><display/></field>
-        <field name="partyIdFrom" title="Lead Group" use-when="leadType.equals(&quot;PERSON&quot;)">
-            <drop-down allow-empty="true">
-                <entity-options entity-name="PartyRoleAndPartyDetail" description="${groupName} [${partyId}]" key-field-name="partyId">
-                    <entity-constraint name="roleTypeId" operator="equals" value="LEAD"/>
-                    <entity-constraint name="partyTypeId" operator="equals" value="PARTY_GROUP"/>
-                </entity-options>
-            </drop-down> 
-        </field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 </forms>

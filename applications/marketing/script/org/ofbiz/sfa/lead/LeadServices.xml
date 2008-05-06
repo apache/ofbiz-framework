@@ -37,8 +37,8 @@
                 <set field="partyRelationshipContext.partyIdFrom" from-field="parameters.partyIdFrom"/>
                 <set field="partyRelationshipContext.partyIdTo" from-field="partyId"/>
                 <set field="partyRelationshipContext.roleTypeIdFrom" value="LEAD"/>
-                <set field="partyRelationshipContext.roleTypeIdTo" value="LEAD"/>
-                <set field="partyRelationshipContext.partyRelationshipTypeId" value="GROUP_ROLLUP"/>
+                <set field="partyRelationshipContext.roleTypeIdTo" value="OWNER"/>
+                <set field="partyRelationshipContext.partyRelationshipTypeId" value="LEAD_OWNER"/>
                 <call-service service-name="createPartyRelationship" in-map-name="partyRelationshipContext"/>
             </if-not-empty>
         </if-compare>
