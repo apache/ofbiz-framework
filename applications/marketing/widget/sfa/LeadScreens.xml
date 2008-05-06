@@ -35,7 +35,7 @@ under the License.
                                 <set field="tabButtonItem" value=""/>
                             </actions>
                             <widgets>
-                                <container><link target="CreateLead?leadType=PERSON" text="${uiLabelMap.CommonCreate} ${uiLabelMap.SfaLeadPerson}" style="buttontext"/><link target="CreateLead?leadType=GROUP" text="${uiLabelMap.CommonCreate} ${uiLabelMap.SfaLeadGroup}" style="buttontext"/></container>                              
+                                <container><link target="CreateLead" text="${uiLabelMap.CommonCreate} ${uiLabelMap.SfaLead}" style="buttontext"/></container>                              
                                 <section>
                                     <widgets>
                                         <platform-specific>
@@ -88,15 +88,9 @@ under the License.
                             <container style="screenlet-title-bar">
                                 <container style="h3">
                                     <section>
-                                        <condition>
-                                            <if-compare value="PERSON" field-name="leadType" operator="equals"/>
-                                        </condition>
                                         <widgets>
-                                            <label text="${uiLabelMap.CommonCreate} ${uiLabelMap.SfaLeadPerson}"/>
+                                            <label text="${uiLabelMap.CommonCreate} ${uiLabelMap.SfaLead}"/>
                                         </widgets>
-                                        <fail-widgets>
-                                            <label text="${uiLabelMap.CommonCreate} ${uiLabelMap.SfaLeadGroup}"/>
-                                         </fail-widgets>
                                     </section>
                                 </container>
                             </container>

@@ -406,8 +406,8 @@
         <value xml:lang="th">ข้อมูลแถว</value>
         <value xml:lang="zh">日期范围</value>
     </property>
-    <property key="MarketingEmployees">
-        <value xml:lang="en">Employees</value>
+    <property key="MarketingNoOfEmployees">
+        <value xml:lang="en">No of Employees</value>
     </property>
     <property key="MarketingFindAccounts">
         <value xml:lang="en">Find SFA Accounts</value>
@@ -1176,11 +1176,8 @@
     <property key="SfaInitialStage">
         <value xml:lang="en">Initial Stage</value>
     </property>
-    <property key="SfaLeadGroup">
-        <value xml:lang="en">Lead Group</value>
-    </property>
-    <property key="SfaLeadPerson">
-        <value xml:lang="en">Lead Person</value>
+    <property key="SfaLead">
+        <value xml:lang="en">Lead</value>
     </property>
     <property key="SfaLeads">
         <value xml:lang="en">Leads</value>
