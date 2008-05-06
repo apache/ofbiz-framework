@@ -578,5 +578,24 @@ under the License.
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}" tooltip="${uiLabelMap.CommonRequired}"/>
         <field name="accountNumber" title="${uiLabelMap.AccountingAccountNumber}" tooltip="${uiLabelMap.CommonRequired}"/>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
-    </form>   
+    </form> 
+    
+    <form name="ListInternalOrganization" type="list" paginate-target="findEmployees" 
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="PartyRelationship">
+                <condition-list combine="and">
+                    <condition-expr field-name="roleTypeIdFrom" operator="equals" value="INTERNAL_ORGANIZATIO"/>
+                    <condition-expr field-name="roleTypeIdTo" operator="equals" value="EMPLOYEE"/>
+                    <condition-expr field-name="partyIdTo" operator="equals" value="${parameters.partyId}"/>
+                    <condition-expr field-name="relationshipName" operator="equals" value="EMPLOYMENT"/>
+                </condition-list>
+                <order-by field-name="-fromDate"/>
+            </entity-condition>
+        </actions>
+        <field name="partyIdFrom">
+            <hyperlink target="viewprofile?partyId=${partyIdFrom}" description="${partyIdFrom}"/>
+        </field>
+        <field name="fromDate"><display/></field>
+    </form>  
 </forms>

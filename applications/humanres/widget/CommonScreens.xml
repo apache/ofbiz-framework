@@ -34,6 +34,8 @@ under the License.
                      then the global layoutSettings.commonHeaderImageUrl (specified in GlobalDecorator) will be used. -->
                 <!--<set field="layoutSettings.headerImageUrl" value="/images/ofbiz_logo.jpg" global="true"/>-->
                 <set field="activeApp" value="humanres" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/partymgr/static/partymgr.js" global="true"/>
+                <set field="layoutSettings.styleSheets[]" value="/partymgr/static/partymgr.css" global="true"/>
                 <set field="appheaderTemplate" value="component://humanres/webapp/humanres/includes/appheader.ftl" global="true"/>
             </actions>
             <widgets>
