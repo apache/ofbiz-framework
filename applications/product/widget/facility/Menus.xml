@@ -22,7 +22,7 @@ under the License.
  xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
     
     <menu name="FacilityTabBar" default-menu-item-name="EditFacility" default-selected-style="selected"
-        menu-container-style="button-bar tab-bar">
+        menu-container-style="button-bar tab-bar" type="simple" selected-menuitem-context-field-name="tabButtonItem">
         <menu-item name="EditFacility" title="${uiLabelMap.ProductFacility}">
             <link target="EditFacility?facilityId=${facilityId}"/>
         </menu-item>

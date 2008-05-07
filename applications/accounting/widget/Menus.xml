@@ -424,7 +424,7 @@ under the License.
         </menu-item>
     </menu>
     <menu name="OrganizationAccountingTabBar" default-menu-item-name="PartyAccountsSummary" default-selected-style="selected"
-        menu-container-style="button-bar tab-bar" type="simple">
+        menu-container-style="button-bar tab-bar" type="simple" selected-menuitem-context-field-name="tabButtonItem">
         <menu-item name="PartyAccountsSummary" title="${uiLabelMap.AcctgPartyGlJournalSummary}">
             <link target="PartyAccountsSummary?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
@@ -466,7 +466,7 @@ under the License.
         </menu-item>
     </menu>
     <menu name="PartyAdminTabBar" default-menu-item-name="PartyAcctgPreference" default-selected-style="selected"
-        menu-container-style="button-bar tab-bar" type="simple">  
+        menu-container-style="button-bar tab-bar" type="simple" selected-menuitem-context-field-name="tabButtonItem">  
         <menu-item name="PartyAcctgPreference" title="${uiLabelMap.AccountingPreference}">
             <link target="PartyAcctgPreference?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
