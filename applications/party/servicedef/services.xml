@@ -827,13 +827,13 @@ under the License.
     </service>
 
     <service name="sendUpdatePersonalInfoEmailNotification" engine="simple"
-            location="org/ofbiz/party/user/UserEvents.xml" invoke="sendUpdatePersonalInfoEmailNotification" auth="false">
+            location="org/ofbiz/party/party/PartyServices.xml" invoke="sendUpdatePersonalInfoEmailNotification" auth="false">
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="updatedUserLogin" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>     
     </service>
     <service name="sendCreatePartyEmailNotification" engine="simple"
-            location="org/ofbiz/party/user/UserEvents.xml" invoke="sendCreatePartyEmailNotification" auth="false">
-        <attribute name="USER_EMAIL" type="String" mode="IN" optional="false"/>
+            location="org/ofbiz/party/party/PartyServices.xml" invoke="sendCreatePartyEmailNotification" auth="false">
+        <attribute name="emailAddress" type="String" mode="IN" optional="false"/>
     </service>
     
     <!-- Email address verification services-->
