@@ -702,12 +702,14 @@ under the License.
                 </entity-one>
                 <entity-one entity-name="ReturnItemTypeMap" value-name="returnItemTypeMapping">
                     <field-map env-name="product.productTypeId" field-name="returnItemMapKey"/>
+                    <field-map value="CUSTOMER_RETURN" field-name="returnHeaderTypeId"/>
                 </entity-one>
             <else>
             <!-- if not, try the ReturnItemTypeMap, but this may not actually work, so log a warning -->
                 <log level="warning" message="Trying to find returnItemtype from ReturnItemTypeMap with orderItemtypeId [${orderItem.orderItemTypeId}] for order item [${orderItem}]"/>
                 <entity-one entity-name="ReturnItemTypeMap" value-name="returnItemTypeMapping">
                    <field-map env-name="orderItemTypeId" field-name="returnItemMapKey"/>
+                   <field-map value="CUSTOMER_RETURN" field-name="returnHeaderTypeId"/>
                 </entity-one>
             </else>
             </if-compare>
