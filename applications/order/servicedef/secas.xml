@@ -169,6 +169,11 @@ under the License.
     <eca service="updateReturnHeader" event="commit">
         <action service="checkReturnComplete" mode="sync"/>
     </eca>
+    <eca service="updateReturnHeader" event="return">
+        <condition field-name="statusId" operator="equals" value="RETURN_ACCEPTED"/>
+        <condition field-name="needsInventoryReceive" operator="equals" value="Y"/>
+        <action service="quickReceiveReturn" mode="sync"/>
+    </eca>
     <eca service="updateReturnHeader" event="commit">
         <condition field-name="statusId" operator="equals" value="RETURN_ACCEPTED"/>
         <condition field-name="currentStatusId" operator="not-equals" value="RETURN_ACCEPTED"/>

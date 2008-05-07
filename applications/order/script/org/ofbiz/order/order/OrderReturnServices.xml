@@ -114,7 +114,7 @@ under the License.
 
         <!-- test the total return amount vs the total order amount -->
         <if-compare field-name="parameters.statusId" value="RETURN_ACCEPTED" operator="equals">
-            <!-- get the list of ReturnItems.  Note: return may be assosicated with many different orders -->
+            <!-- get the list of ReturnItems.  Note: return may be associated with many different orders -->
             <entity-condition entity-name="ReturnItem" list-name="returnItems" distinct="true">
                 <condition-expr field-name="returnId" env-name="returnHeader.returnId"/>
             </entity-condition>

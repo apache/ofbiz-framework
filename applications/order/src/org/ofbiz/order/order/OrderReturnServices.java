@@ -160,7 +160,7 @@ public class OrderReturnServices {
                     throw new GeneralRuntimeException(e.getMessage());
                 }
                 if (itemIssue != null && itemIssue.size() > 0) {
-                    Debug.log("Found item issuance referece", module);
+                    Debug.log("Found item issuance reference", module);
                     // just use the first one for now; maybe later we can find a better way to determine which was the
                     // actual item being returned; maybe by serial number
                     GenericValue issue = EntityUtil.getFirst(itemIssue);
