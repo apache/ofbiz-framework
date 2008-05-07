@@ -833,6 +833,7 @@ under the License.
     </service>
     <service name="sendCreatePartyEmailNotification" engine="simple"
             location="org/ofbiz/party/party/PartyServices.xml" invoke="sendCreatePartyEmailNotification" auth="false">
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>                        
         <attribute name="emailAddress" type="String" mode="IN" optional="false"/>
     </service>
     

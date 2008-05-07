@@ -827,13 +827,16 @@ under the License.
         </entity-condition>
         <first-from-list entry-name="storeEmail" list-name="productStoreEmailSettings"/>
         <if-not-empty field-name="bodyScreenLocation" map-name="storeEmail">
+            <entity-one entity-name="Person" value-name="person"/>
+            <set field="bodyParameters.person" from-field="person"/>
+            <set field="emailParams.bodyParameters" from-field="bodyParameters"/>
+            
             <set field="emailParams.sendTo" from-field="parameters.emailAddress"/>
             <set field="emailParams.subject" from-field="storeEmail.subject"/>
             <set field="emailParams.sendFrom" from-field="storeEmail.fromAddress"/>
             <set field="emailParams.sendCc" from-field="storeEmail.ccAddress"/>
             <set field="emailParams.sendBcc" from-field="storeEmail.bccAddress"/>
             <set field="emailParams.contentType" from-field="storeEmail.contentType"/>
-            <set field="emailParams.bodyParameters" from-field="bodyParameters"/>
             <set field="emailParams.bodyScreenUri" from-field="storeEmail.bodyScreenLocation"/>
             <map-to-map to-map-name="emailParams.bodyParameters" map-name="parameters"/>
             <call-service service-name="sendMailFromScreen" in-map-name="emailParams"/>

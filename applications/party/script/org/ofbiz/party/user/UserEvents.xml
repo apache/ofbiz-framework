@@ -394,6 +394,7 @@ under the License.
         <field-to-request field-name="partyId" map-name="tempMap" request-name="partyId"/>
 
         <!--send New User Email Notification-->
+        <set field="emailContext.partyId" from-field="partyId"/>
         <set-service-fields service-name="sendCreatePartyEmailNotification" map-name="emailContext" to-map-name="serviceInMap"/>
         <call-service service-name="sendCreatePartyEmailNotification" in-map-name="serviceInMap"/>
     </simple-method>
