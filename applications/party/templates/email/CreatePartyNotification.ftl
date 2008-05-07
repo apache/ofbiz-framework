@@ -25,7 +25,7 @@ under the License.
     </head>
     <body>
         <h1>${title}</h1>
-        <p>Hello ${parameters.USER_TITLE?if_exists} ${parameters.USER_FIRST_NAME?if_exists} ${parameters.USER_MIDDLE_NAME?if_exists} ${parameters.USER_LAST_NAME?if_exists} ${parameters.USER_SUFFIX?if_exists},</p>
-        <p>Your account has been created.</p>
+        <p>Hello ${person.firstName?if_exists} ${person.lastName?if_exists},</p>
+        <p>Your account has been created successfully.</p>
     </body>
 </html>
