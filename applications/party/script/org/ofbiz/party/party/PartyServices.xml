@@ -816,4 +816,74 @@ under the License.
         <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>        
         <store-value value-name="lookedUpValue"/>
     </simple-method> 
+    
+    <!-- send party creation email notification -->
+    <simple-method method-name="sendCreatePartyEmailNotification" short-description="Notification email on party creation" login-required="false">
+        <map-to-map map-name="parameters" to-map-name="bodyParameters"/>    
+        <entity-condition entity-name="ProductStoreEmailSetting" list-name="productStoreEmailSettings">
+            <condition-list>
+                <condition-expr field-name="emailType" operator="equals" value="PARTY_REGIS_CONFIRM"/>
+            </condition-list>
+        </entity-condition>
+        <first-from-list entry-name="storeEmail" list-name="productStoreEmailSettings"/>
+        <if-not-empty field-name="bodyScreenLocation" map-name="storeEmail">
+            <set field="emailParams.sendTo" from-field="parameters.emailAddress"/>
+            <set field="emailParams.subject" from-field="storeEmail.subject"/>
+            <set field="emailParams.sendFrom" from-field="storeEmail.fromAddress"/>
+            <set field="emailParams.sendCc" from-field="storeEmail.ccAddress"/>
+            <set field="emailParams.sendBcc" from-field="storeEmail.bccAddress"/>
+            <set field="emailParams.contentType" from-field="storeEmail.contentType"/>
+            <set field="emailParams.bodyParameters" from-field="bodyParameters"/>
+            <set field="emailParams.bodyScreenUri" from-field="storeEmail.bodyScreenLocation"/>
+            <map-to-map to-map-name="emailParams.bodyParameters" map-name="parameters"/>
+            <call-service service-name="sendMailFromScreen" in-map-name="emailParams"/>
+        </if-not-empty>
+    </simple-method>   
+
+    <!-- send personal information update email notification -->
+    <simple-method method-name="sendUpdatePersonalInfoEmailNotification" short-description="Send the Notification email on personal information updation" login-required="false">
+        <map-to-map map-name="parameters" to-map-name="bodyParameters"/>
+        <entity-condition entity-name="ProductStoreEmailSetting" list-name="productStoreEmailSettings">
+            <condition-list>
+                <condition-expr field-name="emailType" operator="equals" value="UPD_PRSNL_INF_CNFRM"/>
+            </condition-list>
+        </entity-condition>
+        <first-from-list entry-name="storeEmail" list-name="productStoreEmailSettings"/>
+        <if-not-empty field-name="bodyScreenLocation" map-name="storeEmail">
+            <if-not-empty field-name="parameters.updatedUserLogin.partyId">
+                <set field="partyId" from-field="parameters.updatedUserLogin.partyId"/>
+            <else>
+                <set field="partyId" from-field="parameters.partyId"/>
+            </else>
+            </if-not-empty>
+            <entity-condition entity-name="PartyContactDetailByPurpose" list-name="partyContactDetailByPurposes">
+                <condition-list>
+                    <condition-expr field-name="contactMechPurposeTypeId" operator="equals" value="PRIMARY_EMAIL"/>
+                    <condition-expr field-name="partyId" operator="equals"  env-name="partyId"/>
+                </condition-list>
+            </entity-condition>
+            <filter-list-by-date list-name="partyContactDetailByPurposes" to-list-name="validPartyContactDetailByPurposes"/>
+            <first-from-list entry-name="partyContactDetailByPurpose" list-name="validPartyContactDetailByPurposes"/>
+            <entity-one entity-name="PartyAndPerson" value-name="partyAndPerson"/>
+            <set field="bodyParameters.partyAndPerson" from-field="partyAndPerson"/>
+            <set field="contactMechId" from-field="partyContactDetailByPurpose.contactMechId"/>
+            <entity-one entity-name="ContactMech" value-name="contactMech"/>
+            <set field="emailParams.sendTo" from-field="contactMech.infoString"/>
+            <set field="emailParams.subject" from-field="storeEmail.subject"/>
+            <set field="emailParams.sendFrom" from-field="storeEmail.fromAddress"/>
+            <set field="emailParams.sendCc" from-field="storeEmail.ccAddress"/>
+            <set field="emailParams.sendBcc" from-field="storeEmail.bccAddress"/>
+            <set field="emailParams.contentType" from-field="storeEmail.contentType"/>
+            <set field="emailParams.bodyParameters" from-field="bodyParameters"/>
+            <set field="emailParams.bodyScreenUri" from-field="storeEmail.bodyScreenLocation"/>
+            
+            <if-not-empty field-name="emailParams.sendTo">
+                <call-service service-name="sendMailFromScreen" in-map-name="emailParams"/>
+                <else>
+                    <log level="warning" message="Tried to send Update Personal Info Notifcation with no to address; partyId is [${partyId}], subject is: ${emailParams.subject}"/>
+                </else>
+            </if-not-empty>
+        </if-not-empty>
+    </simple-method>
+    
 </simple-methods>
