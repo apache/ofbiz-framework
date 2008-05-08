@@ -21,7 +21,7 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     
-    <form name="ListConatcts" type="list" list-name="partyList" list-entry-name="partyRow" paginate-target="FindContact"
+    <form name="ListContacts" type="list" list-name="partyList" list-entry-name="partyRow" paginate-target="FindContact"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true">
         <row-actions>
             <entity-one entity-name="PartyGroup" value-name="partyGroup">
