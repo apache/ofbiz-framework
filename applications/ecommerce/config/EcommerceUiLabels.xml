@@ -3388,7 +3388,7 @@
         <value xml:lang="en">How shall we ship it</value>
         <value xml:lang="en_GB">Please select a delivery option</value>
         <value xml:lang="es">Cómo lo enviamos</value>
-        <value xml:lang="fr">Comment devons-nous l'envoyer ?</value>
+        <value xml:lang="fr">Comment devons-nous l'envoyer</value>
         <value xml:lang="hi_IN">माल कैसे भेजें</value>
         <value xml:lang="it">Come verrà spedito</value>
         <value xml:lang="ja">How shall we ship it</value>
@@ -3404,7 +3404,7 @@
         <value xml:lang="de">Wie möchten Sie zahlen</value>
         <value xml:lang="en">How shall you pay</value>
         <value xml:lang="es">Cómo usted pagará</value>
-        <value xml:lang="fr">Comment payerez-vous ?</value>
+        <value xml:lang="fr">Comment payerez-vous</value>
         <value xml:lang="hi_IN">आप भुगतान कैसे करेन्गे</value>
         <value xml:lang="it">Come verrà pagato</value>
         <value xml:lang="ja">How shall you pay</value>
@@ -3478,7 +3478,7 @@
         <value xml:lang="de">Ist das ein Geschenk</value>
         <value xml:lang="en">Is This a Gift</value>
         <value xml:lang="es">Es esto un regalo</value>
-        <value xml:lang="fr">Est-ce un cadeau ?</value>
+        <value xml:lang="fr">Est-ce un cadeau</value>
         <value xml:lang="hi_IN">क्या यह उपहार है</value>
         <value xml:lang="it">E' Questo un'Omaggio</value>
         <value xml:lang="ja">Is This a Gift</value>
@@ -4514,7 +4514,7 @@
         <value xml:lang="en">Where shall we ship it</value>
         <value xml:lang="en_GB">Where shall we deliver it</value>
         <value xml:lang="es">Dónde lo enviamos</value>
-        <value xml:lang="fr">Où devons-nous l'expédier ?</value>
+        <value xml:lang="fr">Où devons-nous l'expédier</value>
         <value xml:lang="hi_IN">माल कहाँ भेजें</value>
         <value xml:lang="it">Dove vuoi spedire </value>
         <value xml:lang="ja">Where shall we ship it</value>
@@ -8097,7 +8097,6 @@
         <value xml:lang="th">สเปน</value>
     </property>
     <property key="gr">
-        <value xml:lang="cs">Věděli jste ?</value>
         <value xml:lang="de">Griechisch</value>
         <value xml:lang="en">Greek</value>
         <value xml:lang="es">Griego</value>
