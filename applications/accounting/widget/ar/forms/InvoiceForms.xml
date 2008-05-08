@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+    
+   <!-- show list of upto 10 Invoices past due for longest duration -->
+    <form name="ListReports" type="list" separate-columns="true" title="Invoice List" list-name="listIt" target="" default-entity-name="Invoice"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="Invoice" list-name="invoices">
+                <condition-list>               
+                    <condition-expr field-name="statusId" value="INVOICE_SENT"/>
+                    <condition-expr field-name="dueDate" operator="less" value="${nowTimestamp}"/>
+                </condition-list>
+                <order-by field-name="dueDate"/>
+                <limit-range start="0" size="10"/>
+            </entity-condition> 
+        </actions>
+        <row-actions>
+            <service service-name="getPartyNameForDate" result-map-name="partyNameResultFrom">
+                <field-map field-name="partyId" env-name="partyIdFrom"/>
+                <field-map field-name="compareDate" env-name="invoiceDate"/>
+                <field-map field-name="lastNameFirst" value="Y"/>
+            </service>
+            <service service-name="getPartyNameForDate" result-map-name="partyNameResultTo">
+                <field-map field-name="partyId" env-name="partyId"/>
+                <field-map field-name="compareDate" env-name="invoiceDate"/>
+                <field-map field-name="lastNameFirst" value="Y"/>
+            </service>
+            <set field="amountToApply" value="${bsh:
+                import java.text.NumberFormat;
+                return(NumberFormat.getNumberInstance(context.get(&quot;locale&quot;)).format(org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(delegator,invoiceId)));}"/>
+            <set field="total" value="${bsh:
+                import java.text.NumberFormat;
+                return(NumberFormat.getNumberInstance(context.get(&quot;locale&quot;)).format(org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotalBd(delegator,invoiceId)));}"/>
+        </row-actions>
+        <field name="invoiceId" widget-style="buttontext">
+            <hyperlink description="${invoiceId}" target="invoiceOverview?invoiceId=${invoiceId}"/>
+        </field>
+        <field name="invoiceTypeId"><display-entity entity-name="InvoiceType" description="${description}"/></field>
+        <field name="invoiceDate"><display/></field>
+        <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
+        <field name="description"><display/></field>
+        <field name="partyIdFrom"><display description="${partyNameResultFrom.fullName} [${partyIdFrom}]"/></field>
+        <field name="partyIdTo" parameter-name="partyId"><display description="${partyNameResultTo.fullName} [${partyId}]"/></field>
+        <field name="invoiceDate"><display description="${bsh:invoiceDate.toString().substring(0,10)}"/></field>
+        <field name="dueDate"><display description="${bsh:dueDate.toString().substring(0,10)}"/></field>
+        <field name="total" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="amountToApply" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
+    </form>
+</forms>

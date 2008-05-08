@@ -578,6 +578,15 @@
         <value xml:lang="th">Arithmetic properties for Invoice services not configured properly. Cannot proceed.</value>
         <value xml:lang="zh">用于发票服务的算法属性配置不正确。无法操作。</value>
     </property>
+    <property key="AccountingArCompanyName">
+        <value xml:lang="en">OFBiz: AR Manager</value>
+    </property>
+    <property key="AccountingArManagerApplication">
+        <value xml:lang="en">Account Receivable Manager Application</value>
+    </property>
+    <property key="AccountingArPageTitleListReports">
+        <value xml:lang="en">List Reports</value>
+    </property>
     <property key="AccountingAssets">
         <value xml:lang="ar">الأصول</value>
         <value xml:lang="en">Assets</value>
