@@ -1778,14 +1778,6 @@
         <value xml:lang="th">หัวข้อมาตรฐาน</value>
         <value xml:lang="zh">标准内容前缀</value>
     </property>
-    <property key="FormFieldTitle_submitCaption">
-        <value xml:lang="ar">إرسال</value>
-        <value xml:lang="en">Submit Caption</value>
-        <value xml:lang="it">Titolo da Sottomettere</value>
-        <value xml:lang="ro">SubTitluri</value>
-        <value xml:lang="th">เสนอหัวข้อ</value>
-        <value xml:lang="zh">提交标题</value>
-    </property>
     <property key="FormFieldTitle_surveyId">
         <value xml:lang="ar">تعريف التصويت</value>
         <value xml:lang="en">Survey Id</value>
