@@ -4575,7 +4575,7 @@ public class ShoppingCart implements Serializable {
                     Iterator shipIter = cart.getShipGroups().iterator();
                     while (shipIter.hasNext()) {
                         CartShipInfo csi = (CartShipInfo) shipIter.next();
-                        maxAmount = new BigDecimal(csi.getTotal()).add(new BigDecimal(cart.getOrderOtherAdjustmentTotal() / cart.getShipGroupSize())).add(new BigDecimal(csi.getShipEstimate()));
+                        maxAmount = new BigDecimal(csi.getTotal()).add(new BigDecimal(cart.getOrderOtherAdjustmentTotal() / cart.getShipGroupSize())).add(new BigDecimal(csi.getShipEstimate()).add(new BigDecimal(csi.getTotalTax(cart))));
                         maxAmount = maxAmount.setScale(scale, rounding);
                         
                         // create the OrderPaymentPreference record
