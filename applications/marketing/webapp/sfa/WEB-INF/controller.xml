@@ -114,8 +114,18 @@ under the License.
     <request-map uri="createContact">
         <security https="true" auth="true"/>
         <event type="service" invoke="createContact"/>
-        <response name="success" type="view" value="FindContacts"/>
+        <response name="success" type="view" value="viewprofile"/>
         <response name="error" type="view" value="CreateContact"/>
+    </request-map>
+    <request-map uri="MergeContacts">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="MergeContacts"/>
+    </request-map>
+    <request-map uri="mergeContacts">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="mergeContacts"/>
+        <response name="success" type="view" value="viewprofile"/>
+        <response name="error" type="view" value="MergeContacts"/>
     </request-map>
     <!-- end of request mappings -->
 
@@ -132,5 +142,6 @@ under the License.
     <view-map name="CreateLead" type="screen" page="component://marketing/widget/sfa/LeadScreens.xml#CreateLead"/>
     <view-map name="FindContacts" type="screen" page="component://marketing/widget/sfa/ContactScreens.xml#FindContacts"/>
     <view-map name="CreateContact" type="screen" page="component://marketing/widget/sfa/ContactScreens.xml#CreateContact"/>
+    <view-map name="MergeContacts" type="screen" page="component://marketing/widget/sfa/ContactScreens.xml#MergeContacts"/>
     <!-- end of view mappings -->
 </site-conf>

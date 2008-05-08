@@ -56,6 +56,11 @@ under the License.
                                                    </condition>
                                                    <widgets>
                                                        <include-form name="ListContacts" location="component://marketing/widget/sfa/forms/ContactForms.xml"/>
+                                                        <label text="&amp;nbsp;&lt;br/&gt;&lt;br/&gt;"/> 
+                                                        <container style="h3">
+                                                            <label text="${uiLabelMap.SfaMergeContacts}"/>
+                                                        </container>
+                                                        <include-form name="MergeContacts" location="component://marketing/widget/sfa/forms/ContactForms.xml"/>                                                       
                                                    </widgets>
                                                    <fail-widgets>
                                                        <container style="h3">
@@ -83,27 +88,69 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                          <container style="screenlet">
-                                <container style="screenlet-title-bar">
-                                    <container style="h3">
-                                        <section>
-                                            <widgets>
-                                                <label text="${uiLabelMap.CommonCreate} ${uiLabelMap.SfaContact}"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
-                                <container style="screenlet-body">
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
                                     <section>
                                         <widgets>
-                                            <include-form name="CreateContact" location="component://marketing/widget/sfa/forms/ContactForms.xml"/>
+                                            <label text="${uiLabelMap.CommonCreate} ${uiLabelMap.SfaContact}"/>
                                         </widgets>
                                     </section>
-                                </container> 
+                                </container>
                             </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="CreateContact" location="component://marketing/widget/sfa/forms/ContactForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container> 
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
+    <screen name="MergeContacts">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleCreateContact"/>
+                <set field="tabButtonItem" value="Contacts"/>
+                <set field="contactmechId1" ></set>
+                <script location="component://marketing/webapp/sfa/WEB-INF/action/mergeContacts.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
+                                    <section>
+                                        <widgets>
+                                            <label text="${uiLabelMap.SfaMergeContacts}"/>
+                                        </widgets>
+                                    </section>
+                                </container> 
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <condition>
+                                      <if-compare-field field-name="parameters.partyIdFrom" operator="not-equals" to-field-name="parameters.partyIdTo"/>
+                                    </condition>
+                                    <widgets>
+                                        <platform-specific>
+                                            <html><html-template location="component://marketing/webapp/sfa/contact/mergeContacts.ftl"/></html>
+                                        </platform-specific>
+                                    </widgets>
+                                    <fail-widgets>
+                                      <label text="${uiLabelMap.SfaCanNotMergeSameContact}" style="h3"></label>
+                                    </fail-widgets>
+                                </section>
+                            </container> 
+                        </container>
+                     </decorator-section>
+                 </decorator-screen>
+             </widgets>
+         </section>
+    </screen>          
 </screens>

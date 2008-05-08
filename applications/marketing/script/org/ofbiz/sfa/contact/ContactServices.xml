@@ -30,5 +30,154 @@
         <set field="partyRelationContext.roleTypeIdFrom" value="_NA_"/>
         <set field="partyRelationContext.partyRelationshipTypeId" value="CONTACT_REL"></set>
         <call-service service-name="createPartyRelationship" in-map-name="partyRelationContext"/>
+        <field-to-result field-name="partyId"/>
+    </simple-method>
+
+    <simple-method short-description="Merge two Contacts" method-name="mergeContacts">
+        <set field="partyIdTo" from-field="parameters.partyId_1"/>
+        <set field="contactMechIdGenLoc_1" from-field="parameters.contactMechIdGenLoc_1"/>
+        <set field="contactMechIdPrimPhone_1" from-field="parameters.contactMechIdPrimPhone_1"/>
+        <set field="contactMechIdEmail_1" from-field="parameters.contactMechIdEmail_1"/>
+        <set field="partyId" from-field="parameters.partyId_2"/>
+        <set field="contactMechIdGenLoc_2" from-field="parameters.contactMechIdGenLoc_2"/>
+        <set field="contactMechIdPrimPhone_2" from-field="parameters.contactMechIdPrimPhone_2"/>
+        <set field="contactMechIdEmail_2" from-field="parameters.contactMechIdEmail_2"/>
+        <if-compare-field field-name="partyIdTo" operator="not-equals" to-field-name="partyId">
+            <if-compare field-name="parameters.useAddress2" operator="equals"  value="Y" >
+                <if-not-empty field-name="contactMechIdGenLoc_2">
+                    <if-not-empty field-name="contactMechIdGenLoc_1">
+                        <set field="deletePartyContactMechPurposeCtx.partyId" from-field="partyIdTo"/>
+                        <set field="deletePartyContactMechPurposeCtx.contactMechId" from-field="contactMechIdGenLoc_1"/>
+                        <set field="deletePartyContactMechPurposeCtx.contactMechPurposeTypeId" value="GENERAL_LOCATION"/>
+                        <set field="deletePartyContactMechPurposeCtx.fromDate" from-field="parameters.fromDateGenLoc_1"/>
+                        <call-service service-name="deletePartyContactMechPurpose" in-map-name="deletePartyContactMechPurposeCtx"/>
+
+                        <set field="deletePartyContactMechCtx.partyId" from-field="partyIdTo"/>
+                        <set field="deletePartyContactMechCtx.contactMechId" from-field="contactMechIdGenLoc_1"/>
+                        <call-service service-name="deletePartyContactMech" in-map-name="deletePartyContactMechCtx"/>
+
+                        <clear-field field-name="deletePartyContactMechPurposeCtx"/>
+                        <clear-field field-name="deletePartyContactMechCtx"/>
+                    </if-not-empty>
+
+                    <set field="deletePartyContactMechPurposeCtx.partyId" from-field="partyId"/>
+                    <set field="deletePartyContactMechPurposeCtx.contactMechId" from-field="contactMechIdGenLoc_2"/>
+                    <set field="deletePartyContactMechPurposeCtx.contactMechPurposeTypeId" value="GENERAL_LOCATION"/>
+                    <set field="deletePartyContactMechPurposeCtx.fromDate" from-field="parameters.fromDateGenLoc_2"/>
+                    <call-service service-name="deletePartyContactMechPurpose" in-map-name="deletePartyContactMechPurposeCtx"/>
+
+                    <set field="deletePartyContactMechCtx.partyId" from-field="partyId"/>
+                    <set field="deletePartyContactMechCtx.contactMechId" from-field="contactMechIdGenLoc_2"/>
+                    <call-service service-name="deletePartyContactMech" in-map-name="deletePartyContactMechCtx_2"/>
+
+                    <clear-field field-name="deletePartyContactMechPurposeCtx"/>
+                    <clear-field field-name="deletePartyContactMechCtx"/>
+                    
+                    <set field="createPartyContactMechCtx.partyId" from-field="partyIdTo"/>
+                    <set field="createPartyContactMechCtx.contactMechId" from-field="contactMechIdGenLoc_2"/>
+                    <call-service service-name="createPartyContactMech" in-map-name="createPartyContactMechCtx">
+                        <result-to-field result-name="contactMechId" field-name="contactMechIdGenLoc"/>
+                    </call-service>
+                    
+                    <set field="createPartyContactMechPurposeCtx.partyId" from-field="partyIdTo"/>
+                    <set field="createPartyContactMechPurposeCtx.contactMechId" from-field="contactMechIdGenLoc_2"/>
+                    <set field="createPartyContactMechPurposeCtx.contactMechPurposeTypeId" value="GENERAL_LOCATION"/>
+                    <call-service service-name="createPartyContactMechPurpose" in-map-name="createPartyContactMechPurposeCtx"/>
+                    
+                    <clear-field field-name="createPartyContactMechCtx"/>
+                    <clear-field field-name="createPartyContactMechPurposeCtx"/>
+                </if-not-empty>
+            </if-compare>
+            <if-compare field-name="parameters.useContactNum2" operator="equals"  value="Y" >
+                <if-not-empty field-name="contactMechIdPrimPhone_2">
+                    <if-not-empty field-name="contactMechIdPrimPhone_1">
+                        <set field="deletePartyContactMechPurposeCtx.partyId" from-field="partyIdTo"/>
+                        <set field="deletePartyContactMechPurposeCtx.contactMechId" from-field="contactMechIdPrimPhone_1"/>
+                        <set field="deletePartyContactMechPurposeCtx.contactMechPurposeTypeId" value="PRIMARY_PHONE"/>
+                        <set field="deletePartyContactMechPurposeCtx.fromDate" from-field="parameters.fromDateTelecom_1"/>
+                        <call-service service-name="deletePartyContactMechPurpose" in-map-name="deletePartyContactMechPurposeCtx"/>
+ 
+                        <set field="deletePartyContactMechCtx.partyId" from-field="partyIdTo"/>
+                        <set field="deletePartyContactMechCtx.contactMechId" from-field="contactMechIdPrimPhone_1"/>
+                        <call-service service-name="deletePartyContactMech" in-map-name="deletePartyContactMechCtx"/>
+
+                        <clear-field field-name="deletePartyContactMechPurposeCtx"/>
+                        <clear-field field-name="deletePartyContactMechCtx"/>                 
+                    </if-not-empty>
+                    
+                    <set field="deletePartyContactMechPurposeCtx.partyId" from-field="partyId"/>
+                    <set field="deletePartyContactMechPurposeCtx.contactMechId" from-field="contactMechIdPrimPhone_2"/>
+                    <set field="deletePartyContactMechPurposeCtx.contactMechPurposeTypeId" value="PRIMARY_PHONE"/>
+                    <set field="deletePartyContactMechPurposeCtx.fromDate" from-field="parameters.fromDateTelecom_2"/>
+                    <call-service service-name="deletePartyContactMechPurpose" in-map-name="deletePartyContactMechPurposeCtx"/>
+
+                    <set field="deletePartyContactMechCtx.partyId" from-field="partyId"/>
+                    <set field="deletePartyContactMechCtx.contactMechId" from-field="contactMechIdPrimPhone_2"/>
+                    <call-service service-name="deletePartyContactMech" in-map-name="deletePartyContactMechCtx"/>
+
+                    <clear-field field-name="deletePartyContactMechPurposeCtx"/>
+                    <clear-field field-name="deletePartyContactMechCtx"/>
+
+                    <set field="createPartyContactMechCtx.partyId" from-field="partyIdTo"/>
+                    <set field="createPartyContactMechCtx.contactMechId" from-field="contactMechIdPrimPhone_2"/>
+                    <call-service service-name="createPartyContactMech" in-map-name="createPartyContactMechCtx">
+                        <result-to-field result-name="contactMechId" field-name="contactMechIdPhone"/>
+                    </call-service>
+                    <set field="createPartyContactMechPurposeCtx.partyId" from-field="partyIdTo"/>
+                    <set field="createPartyContactMechPurposeCtx.contactMechId" from-field="contactMechIdPrimPhone_2"/>
+                    <set field="createPartyContactMechPurposeCtx.contactMechPurposeTypeId" value="PRIMARY_PHONE"/>
+                    <call-service service-name="createPartyContactMechPurpose" in-map-name="createPartyContactMechPurposeCtx"/>
+
+                    <clear-field field-name="createPartyContactMechCtx"/>
+                    <clear-field field-name="createPartyContactMechPurposeCtx"/>
+                </if-not-empty>
+            </if-compare>
+            <if-compare field-name="parameters.useEmail2" operator="equals"  value="Y" >
+                <if-not-empty field-name="contactMechIdEmail_2">
+                    <if-not-empty field-name="contactMechIdEmail_1">
+                      
+                        <set field="deletePartyContactMechPurposeCtx.partyId" from-field="partyIdTo"/>
+                        <set field="deletePartyContactMechPurposeCtx.contactMechId" from-field="contactMechIdEmail_1"/>
+                        <set field="deletePartyContactMechPurposeCtx.contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
+                        <set field="deletePartyContactMechPurposeCtx.fromDate" from-field="parameters.fromDateEmail_1"/>
+                        <call-service service-name="deletePartyContactMechPurpose" in-map-name="deletePartyContactMechPurposeCtx"/>
+                        
+                        <set field="deletePartyContactMechCtx.partyId" from-field="partyIdTo"/>
+                        <set field="deletePartyContactMechCtx.contactMechId" from-field="contactMechIdEmail_1"/>
+                        <call-service service-name="deletePartyContactMech" in-map-name="deletePartyContactMechCtx"/> 
+
+                        <clear-field field-name="deletePartyContactMechPurposeCtx"/>
+                        <clear-field field-name="deletePartyContactMechCtx"/>
+                    </if-not-empty>
+
+                    <set field="deletePartyContactMechPurposeCtx.partyId" from-field="partyId"/>
+                    <set field="deletePartyContactMechPurposeCtx.contactMechId" from-field="contactMechIdEmail_2"/>
+                    <set field="deletePartyContactMechPurposeCtx.contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
+                    <set field="deletePartyContactMechPurposeCtx.fromDate" from-field="parameters.fromDateEmail_2"/>
+                    <call-service service-name="deletePartyContactMechPurpose" in-map-name="deletePartyContactMechPurposeCtx"/>
+
+                    <set field="deletePartyContactMechCtx.partyId" from-field="partyId"/>
+                    <set field="deletePartyContactMechCtx.contactMechId" from-field="contactMechIdEmail_2"/>
+                    <call-service service-name="deletePartyContactMech" in-map-name="deletePartyContactMechCtx"/>
+
+                    <set field="createPartyContactMechCtx.partyId" from-field="partyIdTo"/>
+                    <set field="createPartyContactMechCtx.contactMechId" from-field="contactMechIdEmail_2"/>
+                    <call-service service-name="createPartyContactMech" in-map-name="createPartyContactMechCtx_3">
+                        <result-to-field result-name="contactMechId" field-name="contactMechIdEmail"/>
+                    </call-service>
+
+                    <set field="createPartyContactMechPurposeCtx.partyId" from-field="partyIdTo"/>
+                    <set field="createPartyContactMechPurposeCtx.contactMechId" from-field="contactMechIdEmail_2"/>
+                    <set field="createPartyContactMechPurposeCtx.contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
+                    <call-service service-name="createPartyContactMechPurpose" in-map-name="createPartyContactMechPurposeCtx"/>
+                </if-not-empty>
+            </if-compare>
+
+            <set field="updatePartyCtx.partyId" from-field="partyId"/>
+            <set field="updatePartyCtx.statusId" value="PARTY_DISABLED"/>
+            <call-service service-name="setPartyStatus" in-map-name="updatePartyCtx"/>
+            <field-to-result field-name="partyIdTo" result-name="partyId"/>
+            <field-to-request field-name="partyIdTo" request-name="partyId"/>
+       </if-compare-field>
     </simple-method>
 </simple-methods>
