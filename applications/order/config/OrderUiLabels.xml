@@ -4608,7 +4608,7 @@
         <value xml:lang="zh">(不清除订单的话不能修改。)</value>
     </property>
     <property key="OrderCaptureService">
-        <value xml:lang="en">Capture Service</value>
+        <value xml:lang="en">Service de prélèvement</value>
         <value xml:lang="es">Servicio de captura</value>
         <value xml:lang="th">ให้ความสนใจบริการ</value>
     </property>
