@@ -90,6 +90,13 @@ public class PreferenceServices {
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("userPrefMap", userPrefMap);
+        if (userPrefMap != null) {
+            // Put the value in the result Map too, makes access easier for calling methods.
+            Object userPrefValue = userPrefMap.get(userPrefTypeId);
+            if (userPrefValue != null) {
+                result.put("userPrefValue", userPrefValue);
+            }
+        }
         return result;
     }
 
