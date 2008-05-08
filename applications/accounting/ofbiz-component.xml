@@ -78,4 +78,11 @@ under the License.
         location="webapp/accounting"
         base-permission="OFBTOOLS,ACCOUNTING"
         mount-point="/accounting"/>
+    
+    <webapp name="ar"
+        title="AR"
+        server="default-server"
+        location="webapp/ar"
+        base-permission="OFBTOOLS,ACCOUNTING"
+        mount-point="/ar"/>
 </ofbiz-component>
