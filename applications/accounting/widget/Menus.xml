@@ -21,7 +21,7 @@ under the License.
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
     
-    <menu name="InvoiceTabBar" menu-container-style="button-bar tab-bar" default-selected-style="selected"> 
+    <menu name="InvoiceTabBar" menu-container-style="button-bar tab-bar" default-selected-style="selected" type="simple" selected-menuitem-context-field-name="tabButtonItem"> 
         <menu-item name="invoiceOverview" title="${uiLabelMap.AccountingInvoiceOverview}">
             <condition>
                 <not><if-empty field-name="invoice.invoiceId"/></not>
@@ -358,7 +358,7 @@ under the License.
         </menu-item>
     </menu>  
     <menu name="FixedAssetTabBar" default-menu-item-name="EditFixedAsset" default-selected-style="selected"
-        menu-container-style="button-bar button-style-1" type="simple">
+        menu-container-style="button-bar button-style-1" type="simple" selected-menuitem-context-field-name="tabButtonItem">
         <menu-item name="EditFixedAsset" title="${uiLabelMap.AccountingFixedAsset}">
             <link target="EditFixedAsset?fixedAssetId=${fixedAssetId}"/>
         </menu-item>
@@ -393,7 +393,7 @@ under the License.
     </menu>
     
     <menu name="FinAccountTabBar" default-menu-item-name="EditFinAccount" default-selected-style="selected"
-        menu-container-style="button-bar tab-bar" type="simple">  
+        menu-container-style="button-bar tab-bar" type="simple" selected-menuitem-context-field-name="tabButtonItem">  
         <menu-item name="EditFinAccount" title="${uiLabelMap.AccountingFinAccount}">
             <link target="EditFinAccount?finAccountId=${finAccountId}"/>
         </menu-item>
