@@ -1134,6 +1134,9 @@
     <property key="SfaCompanyName">
         <value xml:lang="en">OFBiz: SFA Manager</value>
     </property>
+    <property key="SfaCanNotMergeSameContact">
+        <value xml:lang="en">Failed to merge contacts. You have selected same contact to merge.</value>
+    </property>  
     <property key="SfaCompetitors">
         <value xml:lang="en">Competitors &amp; Partners </value>
     </property>
@@ -1167,6 +1170,9 @@
     <property key="SfaFindResults">
         <value xml:lang="en">Find Results</value>
     </property>
+    <property key="SfaFirstContact">
+        <value xml:lang="en">First Contact</value>
+    </property>    
     <property key="SfaForecasts">
         <value xml:lang="en">Forecast</value>
     </property>
@@ -1191,6 +1197,12 @@
     <property key="SfaManagerWelcome">
         <value xml:lang="en">Welcome to the SFA Manager Application</value>
     </property>
+    <property key="SfaMergeContacts">
+        <value xml:lang="en">Merge Contacts</value>
+    </property>
+    <property key="SfaMergeParty">
+        <value xml:lang="en">Merge Party</value>
+    </property>  
     <property key="SfaNewOpportunity">
         <value xml:lang="en">Create New Opportunity</value>
     </property>
@@ -1221,6 +1233,9 @@
     <property key="SfaQuickAddContactForm">
         <value xml:lang="en">Quick Add Contact Form</value>
     </property>
+    <property key="SfaSecondContact">
+        <value xml:lang="en">Second Contact</value>
+    </property>   
     <property key="SfaType">
         <value xml:lang="en">Type</value>
     </property>

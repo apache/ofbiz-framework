@@ -418,7 +418,30 @@ under the License.
         <auto-attributes entity-name="TelecomNumber" mode="IN" optional="true">
             <exclude field-name="contactMechId"/>
         </auto-attributes>
+        <attribute name="partyId" type="String" mode="OUT" />
         <attribute name="emailAddress" type="String" mode="IN" optional="true"/>
         <attribute name="partyIdFrom" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="mergeContacts" engine="simple" 
+        location="org/ofbiz/sfa/contact/ContactServices.xml" invoke="mergeContacts">
+        <description>This service merges the contact details of two parties</description>
+        <attribute name="contactMechIdGenLoc_1" type="String" mode="IN" optional="true"/>
+        <attribute name="contactMechIdPrimPhone_1" type="String" mode="IN" optional="true"/>
+        <attribute name="contactMechIdEmail_1" type="String" mode="IN" optional="true"/>
+        <attribute name="fromDateGenLoc_1" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="fromDateTelecom_1" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="fromDateEmail_1" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="contactMechIdGenLoc_2" type="String" mode="IN" optional="true"/>
+        <attribute name="contactMechIdPrimPhone_2" type="String" mode="IN" optional="true"/>
+        <attribute name="contactMechIdEmail_2" type="String" mode="IN" optional="true"/>
+        <attribute name="fromDateGenLoc_2" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="fromDateTelecom_2" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="fromDateEmail_2" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="partyId_1" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId_2" type="String" mode="IN" optional="false"/>
+        <attribute name="useAddress2" type="String" mode="IN" optional="true"/>
+        <attribute name="useContactNum2" type="String" mode="IN" optional="true"/>
+        <attribute name="useEmail2" type="String" mode="IN" optional="true"/>
+        <attribute name="partyId" type="String" mode="OUT" optional="false"/>
     </service>
  </services>
