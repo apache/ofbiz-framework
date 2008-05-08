@@ -270,7 +270,7 @@ public class ModelForm extends ModelWidget {
                 this.hideHeader = parent.hideHeader;
                 this.clientAutocompleteFields = parent.clientAutocompleteFields;
 
-                this.altTargets = parent.altTargets;
+                this.altTargets.addAll(parent.altTargets);
                 this.actions = parent.actions;
                 this.rowActions = parent.rowActions;
                 
@@ -588,7 +588,12 @@ public class ModelForm extends ModelWidget {
     }
 
     public void addAltTarget(AltTarget altTarget) {
-        altTargets.add(altTarget);
+        int index = altTargets.indexOf(altTarget);
+        if (index != -1) {
+            altTargets.set(index, altTarget);
+        } else {
+            altTargets.add(altTarget);
+        }
     }
 
     public void addAutoFieldsFromService(AutoFieldsService autoFieldsService) {
@@ -2546,6 +2551,12 @@ public class ModelForm extends ModelWidget {
         public AltTarget(Element altTargetElement) {
             this.useWhen = altTargetElement.getAttribute("use-when");
             this.target = altTargetElement.getAttribute("target");
+        }
+        public int hashCode() {
+            return useWhen.hashCode();
+        }
+        public boolean equals(Object obj) {
+            return obj instanceof AltTarget && obj.hashCode() == this.hashCode();
         }
     }
 
