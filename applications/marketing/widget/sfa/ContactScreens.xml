@@ -55,7 +55,7 @@ under the License.
                                                        </not>
                                                    </condition>
                                                    <widgets>
-                                                       <include-form name="ListConatcts" location="component://marketing/widget/sfa/forms/ContactForms.xml"/>
+                                                       <include-form name="ListContacts" location="component://marketing/widget/sfa/forms/ContactForms.xml"/>
                                                    </widgets>
                                                    <fail-widgets>
                                                        <container style="h3">
