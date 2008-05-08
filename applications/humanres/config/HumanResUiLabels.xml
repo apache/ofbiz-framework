@@ -348,6 +348,12 @@
         <value xml:lang="it">Anni di Esperienza</value>
         <value xml:lang="th">ประสบการณ์(ปี)</value>
     </property>
+    <property key="HumanResAddReportedToEmplPositionReportingStruct">
+        <value xml:lang="en">Add Empl Position Reporting Struct [Reported To ${parameters.emplPositionId}]</value>
+    </property>
+    <property key="HumanResAddReportsToEmplPositionReportingStruct">
+        <value xml:lang="en">Add Empl Position Reporting Struct [${parameters.emplPositionId} Reports To]</value>
+    </property>
     <property key="HumanResApplicationId">
         <value xml:lang="en">Application Id</value>
         <value xml:lang="it">Codice Applicazione</value>
@@ -500,6 +506,9 @@
         <value xml:lang="it">Codice Posizione Impiegato Stampato Da</value>
         <value xml:lang="th">ถึงรายงานรหัสตำแหน่งพนักงาน</value>
     </property>
+    <property key="HumanResEmplPostitionIdReportingToAndEmplPositionIdManagedByMustBeDiff">
+        <value xml:lang="en">emplPositionIdReportingTo and emplPositionIdManagedBy must be different</value>
+    </property>
     <property key="HumanResEmployeePosition">
         <value xml:lang="en">Employee Position</value>
         <value xml:lang="it">Posizione Impiegato</value>
@@ -534,6 +543,12 @@
         <value xml:lang="en">List Employee Position</value>
         <value xml:lang="it">Lista Posizione Impiegato</value>
         <value xml:lang="th">รายการตำแหน่งพนักงาน</value>
+    </property>
+    <property key="HumanResListEmplPositionsReportedTo">
+        <value xml:lang="en">List Employee Positions, Reported To [${parameters.emplPositionId}]</value>
+    </property>
+    <property key="HumanResListEmplPositionsReportsTo">
+        <value xml:lang="en">List Employee Positions, [${parameters.emplPositionId}]  Reports To</value>
     </property>
     <property key="HumanResListEmploymentApps">
         <value xml:lang="en">List Employment Applications</value>
@@ -935,7 +950,7 @@
         <value xml:lang="th">รายการตำแหน่งพนักงานที่ปฏิบัติภารกิจ</value>
     </property>
     <property key="PageTitleListEmplPositionReportingStructs">
-        <value xml:lang="en">ListEmplPositionReportingStructs</value>
+        <value xml:lang="en">List EmplPosition Reporting Structs</value>
         <value xml:lang="it">Lista Posizione Impiegato Struttura Stampe</value>
         <value xml:lang="th">แสดงรายงานโครงสร้างตำแหน่งพนักงาน</value>
     </property>

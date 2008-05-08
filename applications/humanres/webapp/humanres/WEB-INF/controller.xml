@@ -448,16 +448,19 @@ under the License.
         <security https="true" auth="true"/>
         <event type="service" invoke="createEmplPositionReportingStruct"/>
         <response name="success" type="view" value="EditEmplPositionReportingStructs"/>
+        <response name="error" type="view" value="EditEmplPositionReportingStructs"/>
     </request-map>
     <request-map uri="updateEmplPositionReportingStruct">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateEmplPositionReportingStruct"/>
         <response name="success" type="view" value="EditEmplPositionReportingStructs"/>
+        <response name="error" type="view" value="EditEmplPositionReportingStructs"/>
     </request-map>
     <request-map uri="deleteEmplPositionReportingStruct">
         <security https="true" auth="true"/>
         <event type="service" invoke="deleteEmplPositionReportingStruct"/>
         <response name="success" type="view" value="EditEmplPositionReportingStructs"/>
+        <response name="error" type="view" value="EditEmplPositionReportingStructs"/>
     </request-map>
     <request-map uri="findValidResponsibilities">
         <security https="true" auth="true"/>
