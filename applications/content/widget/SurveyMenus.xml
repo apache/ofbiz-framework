@@ -20,7 +20,7 @@ under the License.
 
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
     <menu name="SurveyTabBar" default-menu-item-name="Survey" default-selected-style="selected" 
-        menu-container-style="button-bar tab-bar" type="simple">
+        menu-container-style="button-bar tab-bar" type="simple" selected-menuitem-context-field-name="tabButtonItem">
         <menu-item name="Survey" title="${uiLabelMap.SurveySurveyId}">
             <link target="EditSurvey?surveyId=${surveyId}"/>
         </menu-item>
