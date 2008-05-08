@@ -389,7 +389,20 @@ under the License.
             <now-timestamp-to-env env-name="nowTimeStamp"/>
             <set field="newEntity.fromDate" from-field="nowTimeStamp"/>
         </if-empty>
-        <create-value value-name="newEntity"/>        
+        <if>
+            <condition>
+                <if-compare-field field-name="parameters.emplPositionIdManagedBy" operator="not-equals" to-field-name="parameters.emplPositionIdReportingTo"/>
+            </condition>
+            <then>
+                <create-value value-name="newEntity"/>
+            </then>
+            <else>
+                <add-error>
+                    <fail-property property="HumanResEmplPostitionIdReportingToAndEmplPositionIdManagedByMustBeDiff" resource="HumanResUiLabels"/>
+                </add-error>
+                <check-errors/>
+            </else>
+        </if>        
     </simple-method>
 
     <simple-method method-name="updateEmplPositionReportingStruct" short-description="Update Employee Position Reporting Structure">

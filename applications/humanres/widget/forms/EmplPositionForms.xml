@@ -105,30 +105,62 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
     
-    <form name="ListEmplPositionReportingStructs" type="list" target="updateEmplPositionReportingStruct" title="" paginate-target="findEmplPositionReportingStructs"
+    <form name="ListReportsToEmplPositionReportingStructs" type="list" target="updateEmplPositionReportingStruct" title="" paginate-target="EditReportsToEmplPositionReportingStruct"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-condition entity-name="EmplPositionReportingStruct"/>
+            <entity-condition entity-name="EmplPositionReportingStruct" list-name="emplPositionReportingStructList">
+                <condition-expr field-name="emplPositionIdManagedBy" env-name="parameters.emplPositionId"/>
+                <order-by field-name="emplPositionIdManagedBy"/>
+            </entity-condition>
         </actions>
         <auto-fields-service service-name="updateEmplPositionReportingStruct"/>        
-        <field name="emplPositionIdReportingTo" title="${uiLabelMap.HumanResEmplPositionIdReportingTo}"><display /></field>        
-        <field name="emplPositionIdReportingFrom" title="${uiLabelMap.HumanResEmplPositionIdReportingFrom}"><display /></field>
-        <field name="fromDate" title="fromDate"><display /></field>
+        <field name="emplPositionId"><hidden value="${parameters.emplPositionId}"/></field>
+        <field name="emplPositionIdReportingTo"><display/></field>        
+        <field name="emplPositionIdManagedBy"><display/></field>
+        <field name="fromDate"><display/></field>
+        <field name="comments"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/> </field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink target="deleteEmplPositionReportingStruct?emplPositionIdReportingTo=${emplPositionIdReportingTo}&amp;emplPositionIdReportingFrom=${emplPositionIdReportingFrom}&amp;fromDate=${fromDate}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="deleteEmplPositionReportingStruct?emplPositionIdReportingTo=${emplPositionIdReportingTo}&amp;emplPositionIdManagedBy=${emplPositionIdManagedBy}&amp;fromDate=${fromDate}&amp;emplPositionId=${parameters.emplPositionId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>        
     </form>
-    <form name="EditEmplPositionReportingStruct" type="single" target="createEmplPositionReportingStruct" title=""
+    <form name="EditReportsToEmplPositionReportingStruct" type="single" target="createEmplPositionReportingStruct" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createEmplPositionReportingStruct"/>
-        <field name="emplPositionId"><hidden /></field>
-        <field name="emplPositionIdReportingTo" title="${uiLabelMap.HumanResEmplPositionIdReportingTo}" tooltip="${uiLabelMap.CommonRequired}"><lookup target-form-name="LookupEmplPosition"/></field>
-        <field name="emplPositionIdManagedBy" title="${uiLabelMap.HumanResEmplPositionIdManagedBy}" tooltip="${uiLabelMap.CommonRequired}"><lookup target-form-name="LookupEmplPosition"/></field>
-        <field name="fromDate" title="${uiLabelMap.CommonDate}" tooltip="${uiLabelMap.CommonRequired}"/>
+        <field name="emplPositionId"><hidden value="${parameters.emplPositionId}"/></field>
+        <field name="emplPositionIdReportingTo" tooltip="${uiLabelMap.CommonRequired}"><lookup target-form-name="LookupEmplPosition"/></field>
+        <field name="emplPositionIdManagedBy" tooltip="${uiLabelMap.CommonRequired}"><hidden value="${parameters.emplPositionId}"/></field>
+        <field name="fromDate" tooltip="${uiLabelMap.CommonRequired}"/>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>       
-    
+    <form name="ListReportedToEmplPositionReportingStructs" type="list" target="updateEmplPositionReportingStruct" title="" paginate-target="EditReportedToEmplPositionReportingStruct"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="EmplPositionReportingStruct" list-name="emplPositionReportingStructList">
+                <condition-expr field-name="emplPositionIdReportingTo" env-name="parameters.emplPositionId"/>
+                <order-by field-name="emplPositionIdReportingTo"/>
+            </entity-condition>
+        </actions>
+        <auto-fields-service service-name="updateEmplPositionReportingStruct"/>
+        <field name="emplPositionId"><hidden value="${parameters.emplPositionId}"/></field>
+        <field name="emplPositionIdManagedBy"><display/></field>
+        <field name="emplPositionIdReportingTo"><display/></field>
+        <field name="fromDate"><display/></field>
+        <field name="comments"><text/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/> </field>
+        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
+            <hyperlink target="deleteEmplPositionReportingStruct?emplPositionIdReportingTo=${emplPositionIdReportingTo}&amp;emplPositionIdManagedBy=${emplPositionIdManagedBy}&amp;fromDate=${fromDate}&amp;emplPositionId=${parameters.emplPositionId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+    </form>
+    <form name="EditReportedToEmplPositionReportingStruct" type="single" target="createEmplPositionReportingStruct" title=""
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="createEmplPositionReportingStruct"/>
+        <field name="emplPositionId"><hidden value="${parameters.emplPositionId}"/></field>
+        <field name="emplPositionIdReportingTo"><hidden value="${parameters.emplPositionId}"/></field>
+        <field name="emplPositionIdManagedBy" tooltip="${uiLabelMap.CommonRequired}"><lookup target-form-name="LookupEmplPosition"/></field>
+        <field name="fromDate" tooltip="${uiLabelMap.CommonRequired}"/>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
+    </form>
     <form name="ListEmplPositionResponsibilities" type="list" target="updateEmplPositionResponsibility" title="" paginate-target="findEmplPositionResponsibilities"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
