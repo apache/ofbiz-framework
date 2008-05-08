@@ -45,7 +45,7 @@ under the License.
         <field name="firstName" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
         <field name="lastName" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
         <field name="suffix"><text/></field>
-        <field name="companyName"><text/></field>
+        <field name="groupName"><text/></field>
         <field name="title"><text/></field>
         <field name="numEmployees" title="${uiLabelMap.MarketingNoOfEmployees}"><text size="30"/></field>
         <field name="siteName" title="${uiLabelMap.FormFieldTitle_officeSiteName}"><text size="30" maxlength="60"/></field>

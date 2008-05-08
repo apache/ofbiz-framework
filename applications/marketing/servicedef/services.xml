@@ -400,7 +400,7 @@ under the License.
         </auto-attributes>
         <attribute name="partyId" type="String" mode="OUT" />
         <attribute name="emailAddress" type="String" mode="IN" optional="true"/>
-        <attribute name="companyName" type="String" mode="IN" optional="true"/>
+        <attribute name="groupName" type="String" mode="IN" optional="true"/>
         <attribute name="title" type="String" mode="IN" optional="true"/>
         <attribute name="numEmployees" type="String" mode="IN" optional="true"/>
         <attribute name="partyIdFrom" type="String" mode="IN" optional="true"/>
