@@ -41,6 +41,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
+import org.ofbiz.entity.condition.EntityJoinOperator;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.order.OrderReadHelper;
@@ -212,11 +213,13 @@ public class BillingAccountWorker {
      * Returns list of orders which are currently open against a billing account
      */ 
     public static List getBillingAccountOpenOrders(GenericDelegator delegator, String billingAccountId) throws GenericEntityException {
-        return delegator.findByAnd("OrderHeader", UtilMisc.toList( 
-                    new EntityExpr("billingAccountId", EntityOperator.EQUALS, billingAccountId),
-                    new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
-                    new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"),
-                    new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED")));
+        EntityConditionList<EntityExpr> ecl = new EntityConditionList<EntityExpr>(UtilMisc.toList( 
+                new EntityExpr("billingAccountId", EntityOperator.EQUALS, billingAccountId),
+                new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
+                new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"),
+                new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED")), 
+                EntityJoinOperator.AND);
+        return delegator.findList("OrderHeader", ecl, null, null, null, false);
     } 
     
     /**

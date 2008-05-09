@@ -891,7 +891,7 @@ public class PriceServices {
             // new EntityExpr("thruDate", EntityOperator.GREATER_THAN, UtilDateTime.nowTimestamp()));
             // productPriceRules = delegator.findByOr("ProductPriceRule", pprExprs);
 
-            productPriceRules = delegator.findAllCache("ProductPriceRule");
+            productPriceRules = delegator.findList("ProductPriceRule", null, null, null, null, true);
             if (productPriceRules == null) productPriceRules = new LinkedList();
         }
         

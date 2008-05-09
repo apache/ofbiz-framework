@@ -38,6 +38,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
@@ -148,8 +149,8 @@ public class OrderManagerEvents {
         List paymentMethodTypes = null;
 
         try {
-            List pmtFields = UtilMisc.toList(new EntityExpr("paymentMethodTypeId", EntityOperator.NOT_EQUAL, "EXT_OFFLINE"));
-            paymentMethodTypes = delegator.findByAnd("PaymentMethodType", pmtFields);
+            EntityExpr ee = new EntityExpr("paymentMethodTypeId", EntityOperator.NOT_EQUAL, "EXT_OFFLINE");
+            paymentMethodTypes = delegator.findList("PaymentMethodType", ee, null, null, null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problems getting payment types", module);
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderProblemsWithPaymentTypeLookup", locale));
@@ -236,9 +237,11 @@ public class OrderManagerEvents {
         List currentPrefs = null;
         double paymentTally = 0.00;
         try {
-            List oppFields = UtilMisc.toList(new EntityExpr("orderId", EntityOperator.EQUALS, orderId),
-                    new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "PAYMENT_CANCELLED"));
-            currentPrefs = delegator.findByAnd("OrderPaymentPreference", oppFields);
+            EntityConditionList<EntityExpr> ecl = new EntityConditionList<EntityExpr>(UtilMisc.toList(
+                    new EntityExpr("orderId", EntityOperator.EQUALS, orderId),
+                    new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "PAYMENT_CANCELLED")),
+                    EntityOperator.AND);
+            currentPrefs = delegator.findList("OrderPaymentPreference", ecl, null, null, null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, "ERROR: Unable to get existing payment preferences from order", module);
         }
