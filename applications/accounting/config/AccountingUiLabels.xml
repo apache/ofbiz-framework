@@ -444,6 +444,18 @@
         <value xml:lang="th">สถานะการชำระเงินอื่น ๆ</value>
         <value xml:lang="zh">任一支付状态</value>
     </property>
+    <property key="AccountingAp">
+        <value xml:lang="en">Account Payable</value>
+    </property>
+    <property key="AccountingApCompanyName">
+        <value xml:lang="en">OFBiz: AP Manager</value>
+    </property>
+    <property key="AccountingApPageTitleListVendors">
+        <value xml:lang="en">List Vendors</value>
+    </property>
+    <property key="AccountingApManagerApplication">
+        <value xml:lang="en">Account Payable Manager Application</value>
+    </property>
     <property key="AccountingApplicationSuccess">
         <value xml:lang="en">Applying ${amountApplied?currency(${isoCode})} from payment [${paymentId}] to ${toMessage}</value>
         <value xml:lang="es">Aplicando ${amountApplied?currency(${isoCode})} de pago [${paymentId}] a ${toMessage}</value>
