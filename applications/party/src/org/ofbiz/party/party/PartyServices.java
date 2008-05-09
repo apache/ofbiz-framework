@@ -942,7 +942,7 @@ public class PartyServices {
 
         // get the role types
         try {
-            List roleTypes = delegator.findAll("RoleType", UtilMisc.toList("description"));
+            List roleTypes = delegator.findList("RoleType", null, null, UtilMisc.toList("description"), null, false);
             result.put("roleTypes", roleTypes);
         } catch (GenericEntityException e) {
             String errMsg = "Error looking up RoleTypes: " + e.toString();

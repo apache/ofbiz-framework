@@ -887,7 +887,7 @@ public class FinAccountPaymentServices {
 
         // none found; pick one from our set stores
         try {
-            GenericValue store = EntityUtil.getFirst(delegator.findAll("ProductStore", UtilMisc.toList("productStoreId")));
+            GenericValue store = EntityUtil.getFirst(delegator.findList("ProductStore", null, null, UtilMisc.toList("productStoreId"), null, false));
             if (store != null)
                 return store.getString("productStoreId");
         } catch (GenericEntityException e) {

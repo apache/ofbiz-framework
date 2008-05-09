@@ -62,7 +62,7 @@ public class CatalogWorker {
         List catalogs = null;
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         try {
-            catalogs = delegator.findAll("ProdCatalog", UtilMisc.toList("catalogName"));
+            catalogs = delegator.findList("ProdCatalog", null, null, UtilMisc.toList("catalogName"), null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error looking up all catalogs", module);
         }
