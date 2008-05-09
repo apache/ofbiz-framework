@@ -231,8 +231,6 @@ function doPublish() {
             <#assign rowClass = "2">
             <#list assocProducts as assocProduct>
                 <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
-                    <td nowrap>${assocProduct.productId?if_exists}</td>
-                    <td width="100%">${assocProduct.internalName?if_exists}<input type="hidden" name="productId${idx}" value="${assocProduct.productId?if_exists}"/></td>
                     <td><input type="text" name="productHeight${idx}" size="6" maxlength="20" value="${assocProduct.productHeight?if_exists}"/></td>
                     <td><input type="text" name="productWidth${idx}" size="6" maxlength="20" value="${assocProduct.productWidth?if_exists}"/></td>
                     <td><input type="text" name="productDepth${idx}" size="6" maxlength="20" value="${assocProduct.productDepth?if_exists}"/></td>
@@ -259,8 +257,6 @@ function doPublish() {
                 </tr>
         <#else>
                 <tr>
-                    <td>${productId?if_exists}</td>
-                    <td>${product.internalName?if_exists}</td>
                     <td><input type="text" name="productHeight" size="6" maxlength="20" value="${product.productHeight?if_exists}"></td>
                     <td><input type="text" name="productWidth" size="6" maxlength="20" value="${product.productWidth?if_exists}"></td>
                     <td><input type="text" name="productDepth" size="6" maxlength="20" value="${product.productDepth?if_exists}"></td>
