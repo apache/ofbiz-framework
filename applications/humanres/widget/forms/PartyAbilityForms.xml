@@ -298,4 +298,25 @@ under the License.
         <field name="submitButton" use-when="skillType==null" title="${uiLabelMap.CommonCreate}" widget-style="buttontext"><submit button-type="text-link"/></field>
         <field name="submitButton" use-when="skillType!=null" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
+    <form name="ListResponsibilityTypes" type="list" list-name="responsibilityTypes" paginate-target="FindResponsibilityType">
+        <actions>
+            <entity-condition entity-name="ResponsibilityType"><order-by field-name="responsibilityTypeId"/></entity-condition>
+        </actions>
+        <field name="responsibilityTypeId" title="${uiLabelMap.HumanResResponsibilityTypeId}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${responsibilityTypeId}" target="EditResponsibilityType?responsibilityTypeId=${responsibilityTypeId}"/>
+        </field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
+        <field name="deleteLink" title="" widget-style="buttontext">
+            <hyperlink target="deleteResponsibilityType?responsibilityTypeId=${responsibilityTypeId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+    </form>
+    <form name="EditResponsibilityType" type="single" target="updateResponsibilityType" title="" default-map-name="responsibilityType">
+        <alt-target use-when="responsibilityType==null" target="createResponsibilityType"/>
+        <auto-fields-service service-name="updateResponsibilityType"/>
+        <field use-when="responsibilityType!=null" name="responsibilityTypeId" title="${uiLabelMap.HumanResResponsibilityTypeId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field use-when="responsibilityType==null&amp;&amp;responsibilityTypeId==null" name="responsibilityTypeId" title="${uiLabelMap.HumanResResponsibilityTypeId}"><text/></field>
+        <field use-when="responsibilityType==null&amp;&amp;responsibilityTypeId!=null" name="responsibilityTypeId" title="${uiLabelMap.HumanResResponsibilityTypeId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${responsibilityTypeId}]"><display/></field>
+        <field name="submitButton" use-when="responsibilityType==null" title="${uiLabelMap.CommonCreate}" widget-style="buttontext"><submit button-type="text-link"/></field>
+        <field name="submitButton" use-when="responsibilityType!=null" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
 </forms>

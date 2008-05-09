@@ -322,4 +322,52 @@
             </widgets>            
         </section>
     </screen>
+    <screen name="FindResponsibilityType">
+        <section>
+            <actions>
+                <set field="headerItem" value="ResponsibilityType"/>
+                <set field="titleProperty" value="PageTitleFindResponsibilityType"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="HUMANRES" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <container style="h1">
+                                    <label>${uiLabelMap.${titleProperty}}</label>
+                                </container>
+                                <container style="button-bar">
+                                    <link target="EditResponsibilityType" text="${uiLabelMap.CommonNew} ${uiLabelMap.HumanResResponsibilityType}" style="buttontext"/>
+                                </container>
+                                <include-form name="ListResponsibilityTypes" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.HumanResViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditResponsibilityType">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditResponsibilityType"/>
+                <set field="tabButtonItem" value="EditResponsibilityType"/>
+                <set field="responsibilityTypeId" from-field="parameters.responsibilityTypeId"/>
+                <entity-one entity-name="ResponsibilityType" value-name="responsibilityType"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonResponsibilityTypeDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="EditResponsibilityType" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>

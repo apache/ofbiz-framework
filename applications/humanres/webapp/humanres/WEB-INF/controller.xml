@@ -526,6 +526,33 @@ under the License.
         <response name="success" type="request" value="viewprofile"/>
         <response name="error" type="view" value="CreateEmployee"/>
     </request-map>    
+    <!-- ===================Responsibility Request============== -->
+    <request-map uri="FindResponsibilityType">
+        <security  https="true" auth="true"/>
+        <response name="success" type="view" value="FindResponsibilityType"/>
+    </request-map>
+    <request-map uri="EditResponsibilityType">
+        <security https="true" auth="true"/>
+        <response  name="success" type="view" value="EditResponsibilityType"/>
+    </request-map>
+    <request-map uri="createResponsibilityType">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createResponsibilityType"/>
+        <response name="success" type="view" value="EditResponsibilityType"/>
+        <response name="error" type="view" value="EditResponsibilityType"/>
+    </request-map>
+    <request-map uri="updateResponsibilityType">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateResponsibilityType"/>
+        <response name="success" type="view" value="EditResponsibilityType"/>
+        <response name="error" type="view" value="EditResponsibilityType"/>
+    </request-map>
+    <request-map uri="deleteResponsibilityType">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteResponsibilityType"/>
+        <response name="success" type="view" value="FindResponsibilityType"/>
+        <response name="error" type="view" value="EditResponsibilityType"/>
+    </request-map>
     <!-- ===================Lookup Request===================== -->
     <request-map uri="LookupPartyName"><security auth="true" https="true"/><response name="success" type="view" value="LookupPartyName"/></request-map>
     <request-map uri="LookupPayment"><security auth="true" https="true"/><response name="success" type="view" value="LookupPayment"/></request-map>    
@@ -584,4 +611,6 @@ under the License.
     <view-map name="EditSkillTypes" type="screen" page="component://humanres/widget/PartyAbilityScreens.xml#EditSkillTypes"/>
     <view-map name="FindEmployee" type="screen" page="component://humanres/widget/EmploymentScreens.xml#FindEmployee"/>
     <view-map name="CreateEmployee" type="screen" page="component://humanres/widget/EmploymentScreens.xml#CreateEmployee"/>
+    <view-map name="FindResponsibilityType" type="screen" page="component://humanres/widget/PartyAbilityScreens.xml#FindResponsibilityType"/>
+    <view-map name="EditResponsibilityType" type="screen" page="component://humanres/widget/PartyAbilityScreens.xml#EditResponsibilityType"/>
 </site-conf>

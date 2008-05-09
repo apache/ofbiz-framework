@@ -548,4 +548,26 @@ under the License.
         
     </simple-method>
     
+    <!-- Responsibility Types -->
+    <simple-method method-name="createResponsibilityType" short-description="Create a ResponsibilityType">
+        <make-value entity-name="ResponsibilityType" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <if-empty field-name="newEntity.responsibilityTypeId">
+            <sequenced-id-to-env sequence-name="ResponsibilityType" env-name="newEntity.responsibilityTypeId"/>
+        </if-empty>
+        <field-to-result field-name="newEntity.responsibilityTypeId" result-name="responsibilityTypeId"/>
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    
+    <simple-method method-name="updateResponsibilityType" short-description="Update ResponsibilityType">
+        <entity-one entity-name="ResponsibilityType" value-name="lookedUpValue"/>
+        <set-nonpk-fields  map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    
+    <simple-method method-name="deleteResponsibilityType" short-description="Delete ResponsibilityType">
+        <entity-one entity-name="ResponsibilityType" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
 </simple-methods>        
