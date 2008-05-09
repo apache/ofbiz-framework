@@ -105,4 +105,51 @@ under the License.
         <log level="info" message="=============Test case completed===================================="/>
         
     </simple-method>
+    
+    <simple-method method-name="testShipmentServices" short-description="test shipment services" login-required="false">
+        <set field="createShipmentInMap.shipmentTypeId" value="SALES_SHIPMENT"/>
+        <set field="createShipmentInMap.statusId" value="SHIPMENT_PACKED"/>
+        <set field="createShipmentInMap.primaryOrderId" value="DEMO10090"/>
+        <set field="createShipmentInMap.partyIdTo" value="DemoCustomer"/>
+        <set field="createShipmentInMap.originFacilityId" value="WebStoreWarehouse"/>
+        <entity-one entity-name="UserLogin" value-name="userLogin" auto-field-map="false">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="createShipmentInMap.userLogin" from-field="userLogin"/>
+        
+        <call-service service-name="createShipment" in-map-name="createShipmentInMap">
+            <results-to-map map-name="createShipmentOutMap"/>
+        </call-service>
+        
+        <log level="info" message="==========Shipment Id============${createShipmentOutMap.shipmentId}=========="/>
+        
+        <set field="updateShipmentInMap.shipmentId" from-field="createShipmentOutMap.shipmentId" />
+        <set field="updateShipmentInMap.statusId" value="SHIPMENT_SHIPPED"/>
+        <set field="updateShipmentInMap.userLogin" from-field="userLogin"/>
+        <call-service service-name="updateShipment" in-map-name="updateShipmentInMap">
+            <results-to-map map-name="updateShipmentOutMap"/>
+        </call-service>
+        <log level="info" message="=============Update Shipment Id=============${updateShipmentOutMap.shipmentId}========================="/>
+        
+        <entity-one entity-name="Shipment" value-name="shipment">
+            <field-map field-name="shipmentId" env-name="updateShipmentOutMap.shipmentId"/>
+        </entity-one>
+        
+        <assert>
+        <not><if-empty field-name="shipment"/></not>
+        <if-compare-field field-name="shipment.shipmentId" operator="equals" to-field-name="updateShipmentOutMap.shipmentId"/>
+        <if-compare-field field-name="shipment.statusId" operator="equals" to-field-name="updateShipmentInMap.statusId"/>
+        </assert>
+        <check-errors/>
+
+        <set field="sendShipmentCompleteNotificationInMap.shipmentId" from-field="updateShipmentOutMap.shipmentId"/>
+        <set field="sendShipmentCompleteNotificationInMap.userLogin" from-field="userLogin"/>
+        
+        <call-service service-name="sendShipmentCompleteNotification" in-map-name="sendShipmentCompleteNotificationInMap">
+            <results-to-map map-name="sendShipmentCompleteNotificationOutMap"/>
+        </call-service>
+        
+        <log level="info" message="=============Shipment Notification ===========${sendShipmentCompleteNotificationOutMap}========="/>
+        <log level="info" message="=============Test case completed===================================="/>
+    </simple-method>
 </simple-methods>
