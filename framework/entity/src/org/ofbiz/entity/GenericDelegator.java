@@ -145,7 +145,7 @@ public class GenericDelegator implements DelegatorInterface {
     
     public static String getCurrentUserIdentifier() {
         List<Object> curValList = getUserIdentifierStack();
-        Object curVal = curValList.get(0);
+        Object curVal = curValList.size() > 0 ? curValList.get(0) : null;
         if (curVal == null) {
             return null;
         } else {
