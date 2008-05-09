@@ -64,7 +64,7 @@
             <link target="${checkLoginUrl}"/>
         </menu-item>
     </menu>
-    <menu name="ProjectTabBar" type="simple" menu-container-style="button-bar tab-bar" default-selected-style="selected">
+    <menu name="ProjectTabBar" type="simple" menu-container-style="button-bar tab-bar" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem">
         <actions>
             <set field="projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
             <set field="hasUpdatePermission" value="${bsh:
@@ -359,7 +359,7 @@
             <link target="myTimeSheetStatustoComplete?timesheetId=${timesheet.timesheetId}&amp;statusId=TIMESHEET_COMPLETED"/>
         </menu-item>
     </menu>
-    <menu name="ResourceTabBar" menu-container-style="button-bar tab-bar" default-menu-item-name="edittimesheet" default-selected-style="selected">
+    <menu name="ResourceTabBar" menu-container-style="button-bar tab-bar" default-menu-item-name="edittimesheet" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem">
         <menu-item name="ResourcesProfile" title="${uiLabelMap.PartyProfile}">
             <link target="viewprofile?partyId=${partyId}"/>
         </menu-item>
@@ -376,7 +376,7 @@
             <link target="ListResourcesUnBilledHours?partyId=${partyId}"></link>
         </menu-item>
     </menu>
-    <menu name="RequestTabBar" menu-container-style="button-bar tab-bar" default-selected-style="selected">
+    <menu name="RequestTabBar" menu-container-style="button-bar tab-bar" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem">
         <menu-item name="viewRequest" title="${uiLabelMap.ProjectMgrView}">
             <link target="ViewRequest?custRequestId=${parameters.custRequestId}"/>
         </menu-item>
