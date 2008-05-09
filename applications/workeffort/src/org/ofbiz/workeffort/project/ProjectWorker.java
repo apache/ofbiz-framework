@@ -108,7 +108,7 @@ public class ProjectWorker {
                         new EntityExpr("workEffortIdFrom", EntityOperator.EQUALS, projectWorkEffortId),
                         new EntityExpr("workEffortAssocTypeId", EntityOperator.EQUALS, "WORK_EFF_BREAKDOWN")),
                         EntityOperator.AND);
-                relatedWorkEfforts = delegator.findByAnd("WorkEffortAssoc", ecl, null, null, null, false);
+                relatedWorkEfforts = delegator.findList("WorkEffortAssoc", ecl, null, null, null, false);
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
             }
@@ -158,7 +158,7 @@ public class ProjectWorker {
                         new EntityExpr("workEffortIdFrom", EntityOperator.EQUALS, phaseWorkEffortId),
                         new EntityExpr("workEffortAssocTypeId", EntityOperator.EQUALS, "WORK_EFF_BREAKDOWN")),
                         EntityOperator.AND);
-                relatedWorkEfforts = delegator.findByAnd("WorkEffortAssoc", ecl, null, null, null, false);
+                relatedWorkEfforts = delegator.findList("WorkEffortAssoc", ecl, null, null, null, false);
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
             }
