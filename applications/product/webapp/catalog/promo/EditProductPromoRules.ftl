@@ -222,7 +222,7 @@ under the License.
                                         <input type="hidden" name="orderAdjustmentTypeId" value="${(productPromoAction.orderAdjustmentTypeId)?if_exists}">
                                         ${uiLabelMap.ProductQuantity}:&nbsp;<input type="text" size="5" name="quantity" value="${(productPromoAction.quantity)?if_exists}">
                                         ${uiLabelMap.ProductAmount}:&nbsp;<input type="text" size="5" name="amount" value="${(productPromoAction.amount)?if_exists}">
-                                        ${uiLabelMap.ProductItem}:&nbsp;<input type="text" size="15" name="productId" value="${(productPromoAction.productId)?if_exists}">
+                                        ${uiLabelMap.ProductItemId}:&nbsp;<input type="text" size="15" name="productId" value="${(productPromoAction.productId)?if_exists}">
                                         ${uiLabelMap.PartyParty}:&nbsp;<input type="text" size="10" name="partyId" value="${(productPromoAction.partyId)?if_exists}">
                                         <input type="submit" value="${uiLabelMap.CommonUpdate}">
                                     </form>
@@ -313,7 +313,7 @@ under the License.
                                         <input type="hidden" name="orderAdjustmentTypeId" value="PROMOTION_ADJUSTMENT">
                                         ${uiLabelMap.ProductQuantity}:&nbsp;<input type="text" size="5" name="quantity">
                                         ${uiLabelMap.ProductAmount}:&nbsp;<input type="text" size="5" name="amount">
-                                        ${uiLabelMap.ProductItem}:&nbsp;<input type="text" size="15" name="productId">
+                                        ${uiLabelMap.ProductItemId}:&nbsp;<input type="text" size="15" name="productId">
                                         ${uiLabelMap.PartyParty}:&nbsp;<input type="text" size="10" name="partyId">
                                         <input type="submit" value="${uiLabelMap.CommonCreate}">
                                     </form>
