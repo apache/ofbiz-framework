@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
+    <menu name="ApAppBar" default-menu-item-name="main" id="app-navigation" type="simple" title="${uiLabelMap.AccountingApManagerApplication}"
+        default-selected-style="selected" menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="tabButtonItem">
+        <menu-item name="main" title="${uiLabelMap.CommonMain}"><link target="main"/></menu-item>
+        <menu-item name="agreements" title="${uiLabelMap.AccountingAgreements}"><link target="FindAgreement"/></menu-item>
+        <menu-item name="invoices" title="${uiLabelMap.AccountingInvoicesMenu}"><link target="findInvoices"/></menu-item>
+        <menu-item name="payments" title="${uiLabelMap.AccountingPaymentsMenu}"><link target="findPayments"/></menu-item>
+        <menu-item name="listVendors" title="${uiLabelMap.PartyVendor} ${uiLabelMap.CommonList}"><link target="listVendors"/></menu-item>
+        <menu-item name="listReports" title="${uiLabelMap.AccountingReports}"><link target="listReports"/></menu-item>
+        <menu-item name="Logout" title="${uiLabelMap.CommonLogout}" align-style="col-right" selected-style="selected">
+            <condition><not><if-empty field-name="userLogin"/></not></condition>
+            <link target="logout"/>
+        </menu-item>
+        <menu-item name="Login" title="${uiLabelMap.PageTitleLogin}" align-style="col-right" selected-style="selected">
+            <condition><if-empty field-name="userLogin"/></condition>
+            <link target="${checkLoginUrl}"/>
+        </menu-item>
+    </menu>
+    <menu name="ApMainAgreementMenu" type="simple" default-selected-style="tabButtonSelected">
+        <menu-item name="findAgreement" title="${uiLabelMap.AccountingAgreementAvailable}"><link target="FindAgreement"></link></menu-item>
+    </menu>
+    <menu name="ApMainVendorMenu" type="simple" default-selected-style="tabButtonSelected">
+        <menu-item name="listVendors" title="${uiLabelMap.CommonShowAll} ${uiLabelMap.PartyVendor}"><link target="listVendors"></link></menu-item>
+    </menu>
+    <menu name="ApMainReportMenu" type="simple" default-selected-style="tabButtonSelected">
+        <menu-item name="listReport" title="${uiLabelMap.CommonShowAll} ${uiLabelMap.AccountingReports}"><link target="listReports"></link></menu-item>
+    </menu>
+    <menu name="ApMainPaymentTypeMenu" type="simple" default-selected-style="tabButtonSelected">
+        <menu-item name="findPayment"  title="${uiLabelMap.AccountingShowPayments} ${paymentType.description}"><link target="findPayments?lookupFlag=Y&amp;paymentTypeId=${paymentType.paymentTypeId}"></link></menu-item>
+    </menu>
+    <menu name="ApMainPaymentMethodTypeMenu" type="simple" default-selected-style="tabButtonSelected">
+        <menu-item name="findPayment"  title="${uiLabelMap.AccountingShowPayments} ${paymentMethodType.description}"><link target="findPayments?lookupFlag=Y&amp;paymentMethodTypeId=${paymentMethodType.paymentMethodTypeId}"></link></menu-item>
+    </menu>
+    <menu name="ApMainPaymentStatusMenu" type="simple" default-selected-style="tabButtonSelected">
+        <menu-item name="findPayment"  title="${uiLabelMap.AccountingShowPayments}  ${paymentsStatus.description}"><link target="findPayments?lookupFlag=Y&amp;statusId=${paymentsStatus.statusId}"></link></menu-item>
+    </menu>
+    <menu name="ApMainInvoiceTypeMenu" type="simple" default-selected-style="tabButtonSelected">
+        <menu-item name="findInvoice"  title="${uiLabelMap.AccountingShowInvoices} ${invoiceType.description}"><link target="findInvoices?lookupFlag=Y&amp;invoiceTypeId=${invoiceType.invoiceTypeId}"></link></menu-item>
+    </menu>
+    <menu name="ApMainInvoiceStatusMenu" type="simple" default-selected-style="tabButtonSelected">
+        <menu-item name="findInvoice"  title="${uiLabelMap.AccountingShowInvoices} ${invoicesStatus.description}"><link target="findInvoices?lookupFlag=Y&amp;statusId=${invoicesStatus.statusId}"></link></menu-item>
+    </menu>
+</menus>

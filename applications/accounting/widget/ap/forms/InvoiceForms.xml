@@ -17,17 +17,16 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
+
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    
-   <!-- show list of upto 10 Invoices past due for longest duration -->
-    <form name="ListReports" type="list" separate-columns="true" title="Invoice List" list-name="listIt" target="" default-entity-name="Invoice"
+    <form name="ListReports" type="list" separate-columns="true" title="${uiLabelMap.AccountingInvoice} ${uiLabelMap.CommonList}" list-name="listIt" target="" default-entity-name="Invoice"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="Invoice" list-name="invoices">
                 <condition-list>               
                     <condition-expr field-name="statusId" value="INVOICE_SENT"/>
-                    <condition-expr field-name="dueDate" operator="less" value="${nowTimestamp}"/>
+                    <condition-expr field-name="dueDate" operator="greater" value="${nowTimestamp}"/>
                 </condition-list>
                 <order-by field-name="dueDate"/>
                 <limit-range start="0" size="10"/>
@@ -64,5 +63,5 @@ under the License.
         <field name="dueDate"><display/></field>
         <field name="total" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="amountToApply" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
-    </form>
+   </form>
 </forms>
