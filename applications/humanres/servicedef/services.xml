@@ -582,4 +582,27 @@ under the License.
         <attribute name="mobileExtension" type="String" mode="IN" optional="true"/>                                 
         <attribute name="otherEmail" type="String" mode="IN" optional="true"/>                                         
     </service>
+    
+    <service name="createResponsibilityType" default-entity-name="ResponsibilityType" engine="simple"
+            location="org/ofbiz/humanres/HumanResServices.xml" invoke="createResponsibilityType" auth="true">
+        <description>Create Valid ResponsibilityType</description>
+        <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="description" optional="false"/>
+    </service>
+    <service name="updateResponsibilityType" default-entity-name="ResponsibilityType" engine="simple"
+            location="org/ofbiz/humanres/HumanResServices.xml" invoke="updateResponsibilityType" auth="true">
+        <description>Update Valid ResponsibilityType</description>
+        <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="description" optional="false"/>
+    </service>
+    <service name="deleteResponsibilityType" default-entity-name="ResponsibilityType" engine="simple"
+            location="org/ofbiz/humanres/HumanResServices.xml" invoke="deleteResponsibilityType" auth="true">
+        <description>Delete Valid ResponsibilityTrype</description>
+        <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
 </services>

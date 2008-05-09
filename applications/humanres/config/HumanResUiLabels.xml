@@ -819,6 +819,9 @@
         <value xml:lang="it">Sequenza Preferenze Paghe</value>
         <value xml:lang="th">รหัสรายการเงินเดือนสิทธิพิเศษ</value>
     </property>
+    <property key="HumanResResponsibilityType">
+        <value xml:lang="en">Responsibility Type</value>
+    </property>
     <property key="HumanResResponsibilityTypeId">
         <value xml:lang="en">Responsibility TypeId</value>
         <value xml:lang="it">Tipo Responsabilità</value>
@@ -928,6 +931,9 @@
         <value xml:lang="it">Aggiorna Riga Rassegna Prestazioni</value>
         <value xml:lang="th">=แก้ไขรายการการตรวจสอบสิทธิพิเศษ</value>
     </property>
+    <property key="PageTitleEditResponsibilityType">
+        <value xml:lang="en">Edit Responsibility Type</value>
+    </property>
     <property key="PageTitleEditSkillType">
         <value xml:lang="en">Edit Skill Type</value>
         <value xml:lang="it">Aggiorna Tipo Abilità</value>
@@ -938,6 +944,9 @@
         <value xml:lang="en">Edit ValidResponsibility</value>
         <value xml:lang="it">Aggiorna Validità Responsibilità</value>
         <value xml:lang="th">แก้ไขหน้าที่รับผิดชอบ</value>
+    </property>
+    <property key="PageTitleFindResponsibilityType">
+        <value xml:lang="en">Find Responsibility Type</value>
     </property>
     <property key="PageTitleListEmplPosition">
         <value xml:lang="en">List EmplPosition</value>
