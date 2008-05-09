@@ -23,22 +23,16 @@ under the License.
         <#if contactInfoList?has_content >
           <#assign contactInfo1 = contactInfoList[0]/>
           <#assign contactInfo2 = contactInfoList[1]/>
-          <input type="hidden" name="partyId_1" value="${contactInfo1.partyId?if_exists}">
-          <input type="hidden" name="partyId_2" value="${contactInfo2.partyId?if_exists}">
+          <input type="hidden" name="partyIdTo" value="${contactInfo1.partyId?if_exists}">
+          <input type="hidden" name="partyId" value="${contactInfo2.partyId?if_exists}">
           
-          <input type="hidden" name="contactMechIdGenLoc_1" value="${contactInfo1.contactMechIdGenLoc?if_exists}">
-          <input type="hidden" name="contactMechIdPrimPhone_1" value="${contactInfo1.contactMechIdPrimPhone?if_exists}">
-          <input type="hidden" name="contactMechIdEmail_1" value="${contactInfo1.contactMechIdEmail?if_exists}">
-          <input type="hidden" name="fromDateGenLoc_1" value="${contactInfo1.fromDateGenLoc?if_exists}">
-          <input type="hidden" name="fromDateEmail_1" value="${contactInfo1.fromDateEmail?if_exists}">
-          <input type="hidden" name="fromDateTelecom_1" value="${contactInfo1.fromDateTelecom?if_exists}">
+          <input type="hidden" name="addrContactMechIdTo" value="${contactInfo1.addrContactMechId?if_exists}">
+          <input type="hidden" name="phoneContactMechIdTo" value="${contactInfo1.phoneContactMechId?if_exists}">
+          <input type="hidden" name="emailContactMechIdTo" value="${contactInfo1.emailContactMechId?if_exists}">
           
-          <input type="hidden" name="contactMechIdGenLoc_2" value="${contactInfo2.contactMechIdGenLoc?if_exists}">
-          <input type="hidden" name="contactMechIdPrimPhone_2" value="${contactInfo2.contactMechIdPrimPhone?if_exists}">
-          <input type="hidden" name="contactMechIdEmail_2" value="${contactInfo2.contactMechIdEmail?if_exists}">
-          <input type="hidden" name="fromDateGenLoc_2" value="${contactInfo2.fromDateGenLoc?if_exists}">
-          <input type="hidden" name="fromDateEmail_2" value="${contactInfo2.fromDateEmail?if_exists}">
-          <input type="hidden" name="fromDateTelecom_2" value="${contactInfo2.fromDateTelecom?if_exists}">
+          <input type="hidden" name="addrContactMechId" value="${contactInfo2.addrContactMechId?if_exists}">
+          <input type="hidden" name="phoneContactMechId" value="${contactInfo2.phoneContactMechId?if_exists}">
+          <input type="hidden" name="emailContactMechId" value="${contactInfo2.emailContactMechId?if_exists}">
           
           <table  align="left" >
             <tr width="100%">

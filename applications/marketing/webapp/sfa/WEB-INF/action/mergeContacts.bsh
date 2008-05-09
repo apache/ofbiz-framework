@@ -3,6 +3,7 @@ import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.util.EntityUtil;
 import javolution.util.FastList;
+import org.ofbiz.party.contact.ContactHelper;
 
 FastList contactInfoList=FastList.newInstance();
 partyIdFrom = parameters.get("partyIdFrom");
@@ -12,49 +13,51 @@ if(UtilValidate.isNotEmpty(partyIdFrom) && UtilValidate.isNotEmpty(partyIdTo)) {
     partyListItr = partyList.iterator();
     while (partyListItr.hasNext()) {
         partyId = partyListItr.next();
-        party = delegator.findOne("Person", false, "partyId",partyId);
-        person =  delegator.findOne("Person", false, "partyId",partyId));
+        party = delegator.findOne("Person", UtilMisc.toMap("partyId", partyId), false);
+        person =  delegator.findOne("Person", UtilMisc.toMap("partyId", partyId), false);
         contactDetailMap = UtilMisc.toMap("partyId", partyId, "firstName", person.get("firstName"), "lastName", person.get("lastName"));
 
-        cntctMechGenLoc = EntityUtil.getFirst(ContactHelper.getContactMech(party, "GENERAL_LOCATION", "POSTAL_ADDRESS", false));
-        contactDetailMap.put("contactMechIdGenLoc", cntctMechGenLoc.get("contactMechId"));
-        contactDetailMap.put("fromDateGenLoc", cntctMechGenLoc.get("fromDate"));
-        postalAddress = cntctMechGenLoc.getRelatedOne("PostalAddress");
-        if(UtilValidate.isNotEmpty(postalAddress)) {
-            contactDetailMap.put("address1", postalAddress.get("address1"));
-            contactDetailMap.put("city", postalAddress.get("city"));
-            address2 = postalAddress.get("address2");
-            if(UtilValidate.isNotEmpty(address2)) {
-                contactDetailMap.put("address2", address2);
+        contactMechGenLoc = EntityUtil.getFirst(ContactHelper.getContactMech(party, "GENERAL_LOCATION", "POSTAL_ADDRESS", false));
+        if(UtilValidate.isNotEmpty(contactMechGenLoc)) {
+            contactDetailMap.put("addrContactMechId", contactMechGenLoc.get("contactMechId"));
+            postalAddress = contactMechGenLoc.getRelatedOne("PostalAddress");
+            if(UtilValidate.isNotEmpty(postalAddress)) {
+                contactDetailMap.put("address1", postalAddress.get("address1"));
+                contactDetailMap.put("city", postalAddress.get("city"));
+                address2 = postalAddress.get("address2");
+                if(UtilValidate.isNotEmpty(address2)) {
+                    contactDetailMap.put("address2", address2);
+                }
+                geo = delegator.findOne("Geo", UtilMisc.toMap("geoId", postalAddress.get("stateProvinceGeoId")), false);
+                contactDetailMap.put("state", geo.get("geoName"));
+                
+                geo = delegator.findOne("Geo", UtilMisc.toMap("geoId", postalAddress.get("countryGeoId")), false);
+                contactDetailMap.put("country", geo.get("geoName"));
             }
-            geo = delegator.findOne("Geo", "geoId", postalAddress.get("stateProvinceGeoId"));
-            contactDetailMap.put("state", geo.get("geoName"));
-            
-            geo = delegator.findOne("Geo", false, "geoId", postalAddress.get("countryGeoId"));
-            contactDetailMap.put("country", geo.get("geoName"));
         }
-        cntctMechPrimEmail = EntityUtil.getFirst(ContactHelper.getContactMech(party, "PRIMARY_EMAIL", "EMAIL_ADDRESS", false));
-        contactMech= cntctMechPrimEmail.getRelatedOne("ContactMech");
-        if(UtilValidate.isNotEmpty(contactMech)) {
-            contactDetailMap.put("primaryEmail", contactMech.get("infoString"));                    
+        contactMechPrimEmail = EntityUtil.getFirst(ContactHelper.getContactMech(party, "PRIMARY_EMAIL", "EMAIL_ADDRESS", false));
+        if(UtilValidate.isNotEmpty(contactMechPrimEmail)) {
+            contactDetailMap.put("primaryEmail", contactMechPrimEmail.get("infoString"));
+            contactDetailMap.put("emailContactMechId", contactMechPrimEmail.get("contactMechId"));
         }
-        cntctMechPrimEmail = EntityUtil.getFirst(ContactHelper.getContactMech(party, "PRIMARY_PHONE", "TELECOM_NUMBER", false));        
-        contactDetailMap.put("contactMechIdPrimPhone", cntctMechPrimPhone.get("contactMechId"));
-        contactDetailMap.put("fromDateTelecom", cntctMechPrimPhone.get("fromDate"));
-        telecomNumber = cntctMechPrimPhone.getRelatedOne("TelecomNumber"); 
-        if(UtilValidate.isNotEmpty(telecomNumber)) {
-            countryCode = telecomNumber.get("countryCode");
-            if(UtilValidate.isNotEmpty(countryCode)) {
-                contactDetailMap.put("countryCode", countryCode);
+        contactMechPrimPhone = EntityUtil.getFirst(ContactHelper.getContactMech(party, "PRIMARY_PHONE", "TELECOM_NUMBER", false));
+        if(UtilValidate.isNotEmpty(contactMechPrimPhone)) {
+            contactDetailMap.put("phoneContactMechId", contactMechPrimPhone.get("contactMechId"));
+            telecomNumber = contactMechPrimPhone.getRelatedOne("TelecomNumber"); 
+            if(UtilValidate.isNotEmpty(telecomNumber)) {
+                countryCode = telecomNumber.get("countryCode");
+                if(UtilValidate.isNotEmpty(countryCode)) {
+                    contactDetailMap.put("countryCode", countryCode);
+                }
+                areaCode = telecomNumber.get("areaCode");
+                if(UtilValidate.isNotEmpty(areaCode)) {
+                    contactDetailMap.put("areaCode", areaCode);
+                }
+                contactNumber = telecomNumber.get("contactNumber");
+                if(UtilValidate.isNotEmpty(contactNumber)) {
+                    contactDetailMap.put("contactNumber", contactNumber);
+                }                
             }
-            areaCode = telecomNumber.get("areaCode");
-            if(UtilValidate.isNotEmpty(areaCode)) {
-                contactDetailMap.put("areaCode", areaCode);
-            }
-            contactNumber = telecomNumber.get("contactNumber");
-            if(UtilValidate.isNotEmpty(contactNumber)) {
-                contactDetailMap.put("contactNumber", contactNumber);
-            }                
         }
         contactInfoList.add(contactDetailMap);
     }
