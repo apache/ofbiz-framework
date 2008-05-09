@@ -407,7 +407,7 @@
         </section>
     </screen>
     
-    <screen name="viewInteralOrg">
+    <screen name="ViewInternalOrg">
         <section>
             <actions>
                 <set field="headerItem" value="internalOrganization"/>
