@@ -36,4 +36,7 @@ under the License.
     <test-case case-name="testPackingServices-test">
         <simple-method-test location="component://product/script/org/ofbiz/shipment/test/TestServices.xml" name="testPackingServices"/>
     </test-case>
+    <test-case case-name="testShipmentServices-test">
+        <simple-method-test location="component://product/script/org/ofbiz/shipment/test/TestServices.xml" name="testShipmentServices"/>
+    </test-case>
 </test-suite>
