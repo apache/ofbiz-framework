@@ -28,6 +28,7 @@ import java.util.Map;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.GenericDelegator;
@@ -76,10 +77,12 @@ public class FixedAssetMaintServices {
                 return ServiceUtil.returnError
                 (UtilProperties.getMessage("AssetMaintUiLabels","AssetMaintLowPartInventoryError",UtilMisc.toMap("productId", productId , "quantity", Double.toString(atp)), locale));
             }
-            List inventoryItems = delegator.findByAnd("InventoryItem", UtilMisc.toList(
+            EntityConditionList<EntityExpr> ecl = new EntityConditionList<EntityExpr>(UtilMisc.toList(
                     new EntityExpr("productId", EntityOperator.EQUALS, productId),
                     new EntityExpr("facilityId", EntityOperator.EQUALS, facilityId),
-                    new EntityExpr("availableToPromiseTotal", EntityOperator.GREATER_THAN, "0")));   //&& inventoryItems.size() > 0
+                    new EntityExpr("availableToPromiseTotal", EntityOperator.GREATER_THAN, "0")),
+                    EntityOperator.AND);
+            List inventoryItems = delegator.findByAnd("InventoryItem", ecl, null, null, null, false);   //&& inventoryItems.size() > 0
             Iterator itr = inventoryItems.iterator();
             while (requestedQty > 0 && itr.hasNext()) {
                 GenericValue inventoryItem = (GenericValue)itr.next();

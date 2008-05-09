@@ -30,6 +30,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 
@@ -103,9 +104,11 @@ public class ProjectWorker {
 
         if (userLogin != null && userLogin.get("partyId") != null) {
             try {
-                relatedWorkEfforts = delegator.findByAnd("WorkEffortAssoc",
-                            UtilMisc.toList(new EntityExpr("workEffortIdFrom", EntityOperator.EQUALS, projectWorkEffortId),
-                                new EntityExpr("workEffortAssocTypeId", EntityOperator.EQUALS, "WORK_EFF_BREAKDOWN")));
+                EntityConditionList<EntityExpr> ecl = new EntityConditionList<EntityExpr>(UtilMisc.toList(
+                        new EntityExpr("workEffortIdFrom", EntityOperator.EQUALS, projectWorkEffortId),
+                        new EntityExpr("workEffortAssocTypeId", EntityOperator.EQUALS, "WORK_EFF_BREAKDOWN")),
+                        EntityOperator.AND);
+                relatedWorkEfforts = delegator.findByAnd("WorkEffortAssoc", ecl, null, null, null, false);
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
             }
@@ -151,9 +154,11 @@ public class ProjectWorker {
 
         if (userLogin != null && userLogin.get("partyId") != null) {
             try {
-                relatedWorkEfforts = delegator.findByAnd("WorkEffortAssoc",
-                            UtilMisc.toList(new EntityExpr("workEffortIdFrom", EntityOperator.EQUALS, phaseWorkEffortId),
-                                new EntityExpr("workEffortAssocTypeId", EntityOperator.EQUALS, "WORK_EFF_BREAKDOWN")));
+                EntityConditionList<EntityExpr> ecl = new EntityConditionList<EntityExpr>(UtilMisc.toList(
+                        new EntityExpr("workEffortIdFrom", EntityOperator.EQUALS, phaseWorkEffortId),
+                        new EntityExpr("workEffortAssocTypeId", EntityOperator.EQUALS, "WORK_EFF_BREAKDOWN")),
+                        EntityOperator.AND);
+                relatedWorkEfforts = delegator.findByAnd("WorkEffortAssoc", ecl, null, null, null, false);
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
             }

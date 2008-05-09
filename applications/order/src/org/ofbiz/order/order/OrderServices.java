@@ -4096,7 +4096,7 @@ public class OrderServices {
             // The checkOutPaymentId is either a paymentMethodId or paymentMethodTypeId
             // the original method did a "\d+" regexp to decide which is the case, this version is more explicit with its lookup of PaymentMethodType
             if (checkOutPaymentId != null) {
-                List paymentMethodTypes = delegator.findAllCache("PaymentMethodType");
+                List paymentMethodTypes = delegator.findList("PaymentMethodType", null, null, null, null, true);
                 for (Iterator iter = paymentMethodTypes.iterator(); iter.hasNext(); ) {
                     GenericValue type = (GenericValue) iter.next();
                     if (type.get("paymentMethodTypeId").equals(checkOutPaymentId)) {

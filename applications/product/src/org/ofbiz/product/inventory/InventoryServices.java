@@ -358,8 +358,8 @@ public class InventoryServices {
         // find all inventory items w/ a negative ATP
         List inventoryItems = null;
         try {
-            List exprs = UtilMisc.toList(new EntityExpr("availableToPromiseTotal", EntityOperator.LESS_THAN, new Double(0)));
-            inventoryItems = delegator.findByAnd("InventoryItem", exprs);
+            EntityExpr ee = new EntityExpr("availableToPromiseTotal", EntityOperator.LESS_THAN, new Double(0));
+            inventoryItems = delegator.findList("InventoryItem", ee, null, null, null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Trouble getting inventory items", module);
             return ServiceUtil.returnError("Problem getting InventoryItem records");

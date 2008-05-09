@@ -1823,7 +1823,7 @@ public class GenericDelegator implements DelegatorInterface {
     }
 
     /** Finds all Generic entities
-     * NOTE 20080502: 10 references
+     * NOTE 20080502: 10 references; all changed to findList
      *@param entityName The Name of the Entity as defined in the entity XML file
      *@param orderBy The fields of the named entity to order the query by; optionally add a " ASC" for ascending or " DESC" for descending
      *@return    List containing all Generic entities
@@ -1834,7 +1834,7 @@ public class GenericDelegator implements DelegatorInterface {
     }
 
     /** Finds all Generic entities, looking first in the cache
-     * NOTE 20080502: 4 references
+     * NOTE 20080502: 4 references; all changed to findList
      *@param entityName The Name of the Entity as defined in the entity XML file
      *@return    List containing all Generic entities
      *@deprecated Use findList() instead
@@ -1851,11 +1851,11 @@ public class GenericDelegator implements DelegatorInterface {
      *@deprecated Use findList() instead
      */
     public List<GenericValue> findAllCache(String entityName, String... orderBy) throws GenericEntityException {
-        return findAllCache(entityName, Arrays.asList(orderBy));
+        return findList(entityName, null, null, Arrays.asList(orderBy), null, true);
     }
 
     /** Finds all Generic entities, looking first in the cache; uses orderBy for lookup, but only keys results on the entityName and fields
-     * NOTE 20080502: 2 references
+     * NOTE 20080502: 2 references; all changed to findList
      *@param entityName The Name of the Entity as defined in the entity XML file
      *@param orderBy The fields of the named entity to order the query by; optionally add a " ASC" for ascending or " DESC" for descending
      *@return    List containing all Generic entities
@@ -1975,7 +1975,8 @@ public class GenericDelegator implements DelegatorInterface {
      *@deprecated Use findList() instead
      */
     public <T extends EntityCondition> List<GenericValue> findByAnd(String entityName, T... expressions) throws GenericEntityException {
-        return this.findByAnd(entityName, Arrays.asList(expressions));
+        EntityConditionList<T> ecl = new EntityConditionList<T>(Arrays.asList(expressions), EntityOperator.AND);
+        return this.findList(entityName, ecl, null, null, null, false);
     }
 
     /** Finds Generic Entity records by all of the specified expressions (ie: combined using AND)

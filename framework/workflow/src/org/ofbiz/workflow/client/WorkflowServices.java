@@ -31,6 +31,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.security.Security;
@@ -446,36 +447,41 @@ public class WorkflowServices {
             return true;
         } else {
             String partyId = userLogin.getString("partyId");
-            List expr = new ArrayList();
-
-            expr.add(new EntityExpr("partyId", EntityOperator.EQUALS, partyId));
-            expr.add(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "CAL_DECLINED"));
-            expr.add(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "CAL_DELEGATED"));
-            expr.add(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "CAL_COMPLETED"));
-            expr.add(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "CAL_CANCELLED"));
-            expr.add(new EntityExpr("workEffortId", EntityOperator.EQUALS, workEffortId));
-            expr.add(new EntityExpr("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, UtilDateTime.nowTimestamp()));
+            EntityConditionList<EntityExpr> ecl = new EntityConditionList<EntityExpr>(
+                    EntityOperator.AND, 
+                    new EntityExpr[] {
+                            new EntityExpr("partyId", EntityOperator.EQUALS, partyId),
+                            new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "CAL_DECLINED"),
+                            new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "CAL_DELEGATED"),
+                            new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "CAL_COMPLETED"),
+                            new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "CAL_CANCELLED"),
+                            new EntityExpr("workEffortId", EntityOperator.EQUALS, workEffortId),
+                            new EntityExpr("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, UtilDateTime.nowTimestamp())
+                    });
 
             Collection c = null;
 
             try {
-                c = userLogin.getDelegator().findByAnd("WorkEffortAndPartyAssign", expr);
+                c = userLogin.getDelegator().findList("WorkEffortAndPartyAssign", ecl, null, null, null, false);
                 //Debug.logInfo("Found " + c.size() + " records.", module);
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
                 return false;
             }
             if (c.size() == 0) {
-                expr = new ArrayList();
-                expr.add(new EntityExpr("partyId", EntityOperator.EQUALS, partyId));
-                expr.add(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "CAL_DECLINED"));
-                expr.add(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "CAL_DELEGATED"));
-                expr.add(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "CAL_COMPLETED"));
-                expr.add(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "CAL_CANCELLED"));
-                expr.add(new EntityExpr("workEffortParentId", EntityOperator.EQUALS, workEffortId));
-                expr.add(new EntityExpr("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, UtilDateTime.nowTimestamp()));
+                ecl = new EntityConditionList<EntityExpr>(
+                        EntityOperator.AND, 
+                        new EntityExpr[] {
+                                new EntityExpr("partyId", EntityOperator.EQUALS, partyId),
+                                new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "CAL_DECLINED"),
+                                new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "CAL_DELEGATED"),
+                                new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "CAL_COMPLETED"),
+                                new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "CAL_CANCELLED"),
+                                new EntityExpr("workEffortParentId", EntityOperator.EQUALS, workEffortId),
+                                new EntityExpr("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, UtilDateTime.nowTimestamp())
+                        });
                 try {
-                    c = userLogin.getDelegator().findByAnd("WorkEffortAndPartyAssign", expr);
+                    c = userLogin.getDelegator().findList("WorkEffortAndPartyAssign", ecl, null, null, null, false);
                     //Debug.logInfo("Found " + c.size() + " records.", module);
                 } catch (GenericEntityException e) {
                     Debug.logWarning(e, module);

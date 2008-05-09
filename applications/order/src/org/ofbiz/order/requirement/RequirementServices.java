@@ -282,14 +282,14 @@ public class RequirementServices {
 
                 // count all current requirements for this product
                 double pendingRequirements = 0.0;
-                List conditions = UtilMisc.toList(
+                EntityConditionList<EntityExpr> ecl = new EntityConditionList<EntityExpr>(UtilMisc.toList(
                         new EntityExpr("facilityId", EntityOperator.EQUALS, facilityId),
                         new EntityExpr("productId", EntityOperator.EQUALS, product.get("productId")),
                         new EntityExpr("requirementTypeId", EntityOperator.EQUALS, "PRODUCT_REQUIREMENT"),
                         new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "REQ_ORDERED"),
-                        new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "REQ_REJECTED")
-                );
-                List requirements = delegator.findByAnd("Requirement", conditions);
+                        new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "REQ_REJECTED")),
+                        EntityOperator.AND);
+                List requirements = delegator.findList("Requirement", ecl, null, null, null, false);
                 for (Iterator riter = requirements.iterator(); riter.hasNext(); ) {
                     GenericValue requirement = (GenericValue) riter.next();
                     pendingRequirements += (requirement.get("quantity") == null ? 0.0 : requirement.getDouble("quantity").doubleValue());
