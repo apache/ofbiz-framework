@@ -424,25 +424,18 @@ under the License.
     </service>
     <service name="mergeContacts" engine="simple" 
         location="org/ofbiz/sfa/contact/ContactServices.xml" invoke="mergeContacts">
-        <description>This service merges the contact details of two parties</description>
-        <attribute name="contactMechIdGenLoc_1" type="String" mode="IN" optional="true"/>
-        <attribute name="contactMechIdPrimPhone_1" type="String" mode="IN" optional="true"/>
-        <attribute name="contactMechIdEmail_1" type="String" mode="IN" optional="true"/>
-        <attribute name="fromDateGenLoc_1" type="Timestamp" mode="IN" optional="true"/>
-        <attribute name="fromDateTelecom_1" type="Timestamp" mode="IN" optional="true"/>
-        <attribute name="fromDateEmail_1" type="Timestamp" mode="IN" optional="true"/>
-        <attribute name="contactMechIdGenLoc_2" type="String" mode="IN" optional="true"/>
-        <attribute name="contactMechIdPrimPhone_2" type="String" mode="IN" optional="true"/>
-        <attribute name="contactMechIdEmail_2" type="String" mode="IN" optional="true"/>
-        <attribute name="fromDateGenLoc_2" type="Timestamp" mode="IN" optional="true"/>
-        <attribute name="fromDateTelecom_2" type="Timestamp" mode="IN" optional="true"/>
-        <attribute name="fromDateEmail_2" type="Timestamp" mode="IN" optional="true"/>
-        <attribute name="partyId_1" type="String" mode="IN" optional="false"/>
-        <attribute name="partyId_2" type="String" mode="IN" optional="false"/>
+        <description>This service merges the contact details of two parties, partyId merges into partyIdTo</description>
+        <attribute name="addrContactMechIdTo" type="String" mode="IN" optional="true"/>
+        <attribute name="phoneContactMechIdTo" type="String" mode="IN" optional="true"/>
+        <attribute name="emailContactMechIdTo" type="String" mode="IN" optional="true"/>
+        <attribute name="addrContactMechId" type="String" mode="IN" optional="true"/>
+        <attribute name="phoneContactMechId" type="String" mode="IN" optional="true"/>
+        <attribute name="emailContactMechId" type="String" mode="IN" optional="true"/>
+        <attribute name="partyIdTo" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="INOUT" optional="false"/>        
         <attribute name="useAddress2" type="String" mode="IN" optional="true"/>
         <attribute name="useContactNum2" type="String" mode="IN" optional="true"/>
         <attribute name="useEmail2" type="String" mode="IN" optional="true"/>
-        <attribute name="partyId" type="String" mode="OUT" optional="false"/>
     </service>
     <!-- Account services  -->
     <service name="createAccount" engine="simple"
