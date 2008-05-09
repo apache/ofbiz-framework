@@ -444,4 +444,19 @@ under the License.
         <attribute name="useEmail2" type="String" mode="IN" optional="true"/>
         <attribute name="partyId" type="String" mode="OUT" optional="false"/>
     </service>
- </services>
+    <!-- Account services  -->
+    <service name="createAccount" engine="simple"
+        location="org/ofbiz/sfa/account/AccountServices.xml" invoke="createAccount">
+        <description>Create an Account Group</description>
+        <auto-attributes entity-name="PartyGroup" mode="IN" optional="true">
+            <exclude field-name="partyId"/>
+        </auto-attributes>
+        <auto-attributes entity-name="PostalAddress" mode="IN" optional="true">
+            <exclude field-name="contactMechId"/>
+        </auto-attributes>
+        <auto-attributes entity-name="TelecomNumber" mode="IN" optional="true">
+            <exclude field-name="contactMechId"/>
+        </auto-attributes>
+        <attribute name="emailAddress" type="String" mode="IN" optional="true"/>
+    </service>
+</services>

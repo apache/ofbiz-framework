@@ -27,6 +27,10 @@ under the License.
   <#assign currentUrl="FindContacts"/>
   <#assign title="${uiLabelMap.SfaFindContacts}"/>  
 </#if>
+<#if roleTypeId == "ACCOUNT">
+  <#assign currentUrl = "FindAccounts"/>
+  <#assign title = "${uiLabelMap.MarketingFindAccounts}">
+</#if>
 <div id="findPartyParameters" class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
@@ -65,14 +69,16 @@ under the License.
             <td class="label">${uiLabelMap.PartyPartyId}</td>
             <td><input type="text" name="partyId" value="${parameters.partyId?if_exists}"/></td>
           </tr>
-          <tr>
-            <td class="label">${uiLabelMap.PartyLastName}</td>
-            <td><input type="text" name="lastName" value="${parameters.lastName?if_exists}"/></td>
-          </tr>
-          <tr>
-            <td class="label">${uiLabelMap.PartyFirstName}</td>
-            <td><input type="text" name="firstName" value="${parameters.firstName?if_exists}"/></td>
-          </tr>
+          <#if roleTypeId != "ACCOUNT">
+            <tr>
+              <td class="label">${uiLabelMap.PartyLastName}</td>
+              <td><input type="text" name="lastName" value="${parameters.lastName?if_exists}"/></td>
+            </tr>
+            <tr>
+              <td class="label">${uiLabelMap.PartyFirstName}</td>
+              <td><input type="text" name="firstName" value="${parameters.firstName?if_exists}"/></td>
+            </tr>
+          </#if>  
           <#if roleTypeId != "CONTACT">
             <tr>
               <td class="label">${uiLabelMap.PartyPartyGroupName}</td>
