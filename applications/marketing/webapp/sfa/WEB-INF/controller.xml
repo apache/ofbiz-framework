@@ -74,13 +74,9 @@ under the License.
     </request-map>
     <request-map uri="createAccount">
         <security https="true" auth="true"/>
-        <event type="simple" path="org/ofbiz/sfa/user/SfaUserEvent.xml" invoke="createAccount"/>
-        <response name="success" type="request" value="ViewAccount"/>
+        <event type="service" invoke="createAccount"/>
+        <response name="success" type="view" value="FindAccounts"/>
         <response name="error" type="view" value="NewAccounts"/>
-    </request-map>
-    <request-map uri="ViewAccount">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="ViewAccount"/>
     </request-map>
  
     <!-- Lead Requests -->
@@ -137,7 +133,6 @@ under the License.
     <view-map name="EditOpportunity" type="screen" page="component://marketing/widget/sfa/OpportunityScreens.xml#EditOpportunity"/>
     <view-map name="FindAccounts" type="screen" page="component://marketing/widget/sfa/AccountScreens.xml#FindAccounts"/>
     <view-map name="NewAccounts" type="screen" page="component://marketing/widget/sfa/AccountScreens.xml#NewAccounts"/>
-    <view-map name="ViewAccount" type="screen" page="component://marketing/widget/sfa/AccountScreens.xml#ViewAccount"/>
     <view-map name="FindLeads" type="screen" page="component://marketing/widget/sfa/LeadScreens.xml#FindLeads"/>
     <view-map name="CreateLead" type="screen" page="component://marketing/widget/sfa/LeadScreens.xml#CreateLead"/>
     <view-map name="FindContacts" type="screen" page="component://marketing/widget/sfa/ContactScreens.xml#FindContacts"/>

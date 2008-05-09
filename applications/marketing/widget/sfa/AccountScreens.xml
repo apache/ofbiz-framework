@@ -23,44 +23,52 @@ under the License.
     <screen name="FindAccounts">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleFindAccount"/>
-                <set field="headerItem" value="AccountTeams"/>
-                <set field="tabButtonItem" value="findparty"/>
-                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
+                <set field="titleProperty" value="MarketingFindAccounts"/>
+                <set field="roleTypeId" value="ACCOUNT"/>
+                <set field="tabButtonItem" value="Accounts"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.MarketingFindAccounts}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
+                        <section>
+                            <actions>
+                                <service service-name="findParty" auto-field-map="true"/>
+                            </actions>
+                            <widgets>
+                                <container><link target="NewAccounts" text="${uiLabelMap.PageTitleCreateAccount}" style="buttontext"/></container>                              
                                 <section>
                                     <widgets>
-                                        <container><link target="NewAccounts" text="${uiLabelMap.CommonCreateNew}" style="buttontext"/></container>
-                                        <include-form name="FindAccounts" location="component://marketing/webapp/sfa/accounts/AccountForms.xml"/>
+                                        <platform-specific>
+                                            <html><html-template location="component://marketing/webapp/sfa/party/findSfaParty.ftl"/></html>
+                                        </platform-specific>
+                                        <container style="screenlet">
+                                            <container style="screenlet-title-bar">
+                                                <container style="h3">
+                                                    <label text="${uiLabelMap.SfaFindResults}"/>
+                                                </container>
+                                            </container>
+                                            <container style="screenlet-body">
+                                                <section>
+                                                    <condition>
+                                                        <not>
+                                                            <if-empty field-name="partyList"/>
+                                                        </not>
+                                                    </condition>
+                                                    <widgets>
+                                                        <include-form name="ListAccounts" location="component://marketing/widget/sfa/forms/AccountForms.xml"/>
+                                                    </widgets>
+                                                    <fail-widgets>
+                                                        <container style="h3">
+                                                            <label text="${uiLabelMap.PartyNoPartiesFound}"/>
+                                                        </container>
+                                                    </fail-widgets>
+                                                </section>
+                                            </container>
+                                        </container>
                                     </widgets>
                                 </section>
-                            </container> 
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.SfaFindResults}"/>
-                                </container>
-                                <container style="screenlet-body">
-                                    <section>
-                                        <widgets>
-                                            <include-form name="ListAccounts" location="component://marketing/webapp/sfa/accounts/AccountForms.xml"/>
-                                        </widgets>
-                                    </section>
-                                </container> 
-                            </container>
-                        </container>
+                            </widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -69,9 +77,9 @@ under the License.
     <screen name="NewAccounts">
         <section>
             <actions>
+                <set field="tabButtonItem" value="Accounts"/>
                 <set field="titleProperty" value="PageTitleCreateAccount"/>
-                <set field="headerItem" value="AccountTeams"/>
-                <set field="tabButtonItem" value="findparty"/>
+                <set field="accountType" from-field="parameters.accountType"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -85,38 +93,11 @@ under the License.
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <include-form name="NewAccounts" location="component://marketing/webapp/sfa/accounts/AccountForms.xml"/>
+                                        <include-form name="NewAccount" location="component://marketing/widget/sfa/forms/AccountForms.xml"/>
                                     </widgets>
                                 </section>
-                            </container> 
+                            </container>
                         </container>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-    <screen name="ViewAccount">
-        <section>
-            <actions>
-                <set field="titleProperty" value="PageTitleAccountSummary"/>
-                <set field="headerItem" value="AccountTeams"/>
-                <set field="tabButtonItem" value="viewAccount"/>
-                <set field="partyId" from-field="parameters.partyId"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/getContactMechs.bsh"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/getPartyInfo.bsh"/>
-                <entity-one entity-name="PartyGroup" value-name="partyGroup"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="CommonAccountDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <section>
-                            <widgets>
-                                <screenlet title="Account Detail Information">
-                                    <include-form name="AccountDetail" location="component://marketing/webapp/sfa/accounts/AccountForms.xml"/>
-                                </screenlet>
-                                <include-screen name="Contact" location="component://party/widget/partymgr/ProfileScreens.xml"/>
-                            </widgets>
-                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

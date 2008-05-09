@@ -46,8 +46,4 @@ under the License.
             <link target="EditOpportunity?salesOpportunityId=${parameters.salesOpportunityId}"/>
         </menu-item>
     </menu>
-    <menu name="AccountTabBar" type="simple" menu-container-style="button-bar tab-bar" default-selected-style="selected">
-        <menu-item name="viewAccount" title="${uiLabelMap.PageTitleAccountSummary}"><link target="ViewAccount?partyId=${partyId}"/></menu-item>
-        <menu-item name="editAccount" title="${uiLabelMap.PageTitleEditAccount}"><link target=""/></menu-item>
-    </menu>
 </menus>

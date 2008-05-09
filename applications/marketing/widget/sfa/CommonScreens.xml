@@ -120,33 +120,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="CommonAccountDecorator">
-        <section>
-            <actions>
-                <set field="partyId" from-field="parameters.partyId"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <section>
-                            <widgets>
-                                <section>
-                                    <widgets>                                        
-                                        <include-menu name="AccountTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
-                                    </widgets>
-                                </section>   
-                                <decorator-section-include name="body"/>
-                            </widgets>
-                            <fail-widgets>
-                                <label style="h3">${uiLabelMap.ProjectMgrViewPermissionError}</label>
-                            </fail-widgets>
-                        </section>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-  
     <screen name="CommonPartyDecorator">
         <section>
             <actions>
