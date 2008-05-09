@@ -1819,7 +1819,7 @@ public class GenericDelegator implements DelegatorInterface {
      *@deprecated Use findList() instead
      */
     public List<GenericValue> findAll(String entityName, String... orderBy) throws GenericEntityException {
-        return findAll(entityName, Arrays.asList(orderBy));
+        return findList(entityName, null, null, Arrays.asList(orderBy), null, false);
     }
 
     /** Finds all Generic entities

@@ -210,7 +210,7 @@ public class BOMServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
 
         try {
-            List products = delegator.findAll("Product", UtilMisc.toList("isVirtual DESC"));
+            List products = delegator.findList("Product", null, null, UtilMisc.toList("isVirtual DESC"), null, false);
             Iterator productsIt = products.iterator();
             Long zero = new Long(0);
             List allProducts = new ArrayList();

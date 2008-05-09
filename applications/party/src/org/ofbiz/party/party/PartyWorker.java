@@ -352,7 +352,7 @@ public class PartyWorker {
         // replace mapped words
         List addressMap = null;
         try {
-            addressMap = delegator.findAll("AddressMatchMap", UtilMisc.toList("sequenceNum"));
+            addressMap = delegator.findList("AddressMatchMap", null, null, UtilMisc.toList("sequenceNum"), null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
