@@ -267,7 +267,7 @@ public class OFBizSecurity extends org.ofbiz.security.Security {
             List<GenericValue> roleTest = null;
             try {
                 //Debug.logInfo("Doing Role Security Check on [" + entityName + "]" + "using [" + condition + "]", module);
-                roleTest = delegator.findByCondition(entityName, condition, null, null);
+                roleTest = delegator.findList(entityName, condition, null, null, null, false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Problems doing role security lookup on entity [" + entityName + "] using [" + condition + "]", module);
                 return false;

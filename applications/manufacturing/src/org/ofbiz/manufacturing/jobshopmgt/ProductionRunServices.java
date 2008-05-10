@@ -2680,7 +2680,7 @@ public class ProductionRunServices {
             findOutgoingProductionRunsStatusConds.add(new EntityExpr("currentStatusId", EntityOperator.EQUALS, "PRUN_RUNNING"));
             findOutgoingProductionRunsConds.add(new EntityConditionList(findOutgoingProductionRunsStatusConds, EntityOperator.OR));
 
-            List outgoingProductionRuns = delegator.findByCondition("WorkEffortAndGoods", new EntityConditionList(findOutgoingProductionRunsConds, EntityOperator.AND), null, UtilMisc.toList("-estimatedStartDate"));
+            List outgoingProductionRuns = delegator.findList("WorkEffortAndGoods", new EntityConditionList(findOutgoingProductionRunsConds, EntityOperator.AND), null, UtilMisc.toList("-estimatedStartDate"), null, false);
             if (outgoingProductionRuns != null) {
                 for (int i = 0; i < outgoingProductionRuns.size(); i++) {
                     GenericValue outgoingProductionRun = (GenericValue)outgoingProductionRuns.get(i);
@@ -2949,7 +2949,7 @@ public class ProductionRunServices {
             backordersCondList.add(new EntityExpr("quantityNotAvailable", EntityOperator.GREATER_THAN, new Double(0.0)));
             //backordersCondList.add(new EntityExpr(new EntityExpr("statusId", EntityOperator.EQUALS, "ITEM_CREATED"), EntityOperator.OR, new EntityExpr("statusId", EntityOperator.LESS_THAN, "ITEM_APPROVED")));
 
-            List backorders = delegator.findByCondition("OrderItemAndShipGrpInvResAndItem", new EntityConditionList(backordersCondList, EntityOperator.AND), null, UtilMisc.toList("shipBeforeDate"));
+            List backorders = delegator.findList("OrderItemAndShipGrpInvResAndItem", new EntityConditionList(backordersCondList, EntityOperator.AND), null, UtilMisc.toList("shipBeforeDate"), null, false);
             Iterator backordersIt = backorders.iterator();
             while (backordersIt.hasNext()) {
                 GenericValue genericResult = (GenericValue) backordersIt.next();

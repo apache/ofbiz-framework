@@ -175,7 +175,7 @@ public class CompDocServices {
             String [] fields = {"rootRevisionContentId", "itemContentId", "maxRevisionSeqId", "contentId", "dataResourceId", "contentIdTo", "contentAssocTypeId", "fromDate", "sequenceNum"};
             List selectFields = UtilMisc.toListArray(fields);
             List orderByFields = UtilMisc.toList("sequenceNum");
-            List compDocParts = delegator.findByCondition("ContentAssocRevisionItemView", conditionList, selectFields, orderByFields);
+            List compDocParts = delegator.findList("ContentAssocRevisionItemView", conditionList, selectFields, orderByFields, null, false);
             
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             Document document = new Document();

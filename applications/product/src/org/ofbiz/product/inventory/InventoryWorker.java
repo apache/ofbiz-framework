@@ -23,6 +23,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javolution.util.FastMap;
 
@@ -56,8 +57,8 @@ public class InventoryWorker {
                     new EntityExpr("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"));
             purchaseOrderConditions.add(new EntityExpr("orderTypeId", EntityOperator.EQUALS, "PURCHASE_ORDER"));
             purchaseOrderConditions.add(new EntityExpr("productId", EntityOperator.EQUALS, productId));
-            List purchaseOrders = delegator.findByCondition("OrderHeaderAndItems", new EntityConditionList(purchaseOrderConditions, EntityOperator.AND), 
-                    null, UtilMisc.toList("estimatedDeliveryDate DESC", "orderDate"));
+            List purchaseOrders = delegator.findList("OrderHeaderAndItems", new EntityConditionList(purchaseOrderConditions, EntityOperator.AND), 
+                    null, UtilMisc.toList("estimatedDeliveryDate DESC", "orderDate"), null, false);
             return purchaseOrders;
         } catch (GenericEntityException ex) {
             Debug.logError("Unable to find outstanding purchase orders for product [" + productId + "] due to " + ex.getMessage() + " - returning null", module);
@@ -106,7 +107,7 @@ public class InventoryWorker {
      * @return  Map of productIds to quantities outstanding.
      */
     public static Map getOutstandingProductQuantities(Collection productIds, String orderTypeId, GenericDelegator delegator) {
-        List fieldsToSelect = UtilMisc.toList("productId", "quantityOpen");
+        Set fieldsToSelect = UtilMisc.toSet("productId", "quantityOpen");
         List condList = UtilMisc.toList(
                 new EntityExpr("orderTypeId", EntityOperator.EQUALS, orderTypeId),
                 new EntityExpr("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED"),
@@ -123,7 +124,7 @@ public class InventoryWorker {
 
         Map results = FastMap.newInstance();
         try {
-            List orderedProducts = delegator.findByCondition("OrderItemQuantityReportGroupByProduct", conditions, fieldsToSelect, null);
+            List orderedProducts = delegator.findList("OrderItemQuantityReportGroupByProduct", conditions, fieldsToSelect, null, null, false);
             for (Iterator iter = orderedProducts.iterator(); iter.hasNext(); ) {
                 GenericValue value = (GenericValue) iter.next();
                 results.put(value.getString("productId"), value.getDouble("quantityOpen"));

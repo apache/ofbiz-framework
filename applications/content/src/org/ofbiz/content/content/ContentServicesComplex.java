@@ -157,8 +157,7 @@ public class ContentServicesComplex {
         List relatedAssocs = null;
         try {
             //relatedAssocs = delegator.findByCondition(viewName, joinExpr, 
-            relatedAssocs = delegator.findByCondition(viewName, assocExprList, 
-                                  new ArrayList(),UtilMisc.toList("caFromDate"));
+            relatedAssocs = delegator.findList(viewName, assocExprList, null,UtilMisc.toList("caFromDate"), null, false);
         } catch(GenericEntityException e) {
             return ServiceUtil.returnError(e.getMessage());
         }

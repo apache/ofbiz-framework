@@ -915,7 +915,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
         EntityCondition conditionType = new EntityConditionList(condList, EntityOperator.OR);
         EntityCondition conditionMain = new EntityConditionList(UtilMisc.toList( new EntityExpr("contentIdTo", EntityOperator.EQUALS, contentIdTo), conditionType), EntityOperator.AND);
          try {
-             List listAll = delegator.findByCondition("ContentAssoc", conditionMain, null, UtilMisc.toList("sequenceNum", "fromDate", "createdDate"));
+             List listAll = delegator.findList("ContentAssoc", conditionMain, null, UtilMisc.toList("sequenceNum", "fromDate", "createdDate"), null, false);
              List listFiltered = EntityUtil.filterByDate(listAll);
              String contentId = (String)context.get("contentId");
              String dir = (String)context.get("dir");
@@ -1341,7 +1341,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
         condList.add(expr);
         EntityConditionList entityCondList = new EntityConditionList(condList, EntityOperator.AND);
          try {
-             List lst = delegator.findByCondition("ContentAssocDataResourceViewFrom", entityCondList, null, UtilMisc.toList("caSequenceNum", "caFromDate", "createdDate"));
+             List lst = delegator.findList("ContentAssocDataResourceViewFrom", entityCondList, null, UtilMisc.toList("caSequenceNum", "caFromDate", "createdDate"), null, false);
              results.put("_LIST_", lst);
         } catch(GenericEntityException e) {
             Debug.logError(e, module);

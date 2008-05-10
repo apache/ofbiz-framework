@@ -1691,7 +1691,7 @@ public class ModelFormField {
                 if (this.cache) {
                     values = delegator.findByConditionCache(this.entityName, findCondition, null, this.orderByList);
                 } else {
-                    values = delegator.findByCondition(this.entityName, findCondition, null, this.orderByList);
+                    values = delegator.findList(this.entityName, findCondition, null, this.orderByList, null, false);
                 }
 
                 // filter-by-date if requested

@@ -103,7 +103,7 @@ public class InvoiceWorker {
                     new EntityExpr("invoiceId", EntityOperator.EQUALS, invoice.get("invoiceId")),
                     new EntityExpr("invoiceItemTypeId", EntityOperator.IN, getTaxableInvoiceItemTypeIds(delegator))
                     ), EntityOperator.AND);
-            invoiceTaxItems = delegator.findByCondition("InvoiceItem", condition, null, null);
+            invoiceTaxItems = delegator.findList("InvoiceItem", condition, null, null, null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Trouble getting InvoiceItem list", module);            
         }
@@ -420,7 +420,7 @@ public class InvoiceWorker {
                 EntityOperator.AND); 
 
         try {
-            paymentApplications = delegator.findByCondition("PaymentAndApplication", conditions, null, UtilMisc.toList("effectiveDate"));
+            paymentApplications = delegator.findList("PaymentAndApplication", conditions, null, UtilMisc.toList("effectiveDate"), null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Trouble getting paymentApplicationlist", module);            
         }

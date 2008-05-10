@@ -923,7 +923,7 @@ public class OagisInventoryServices {
                                     
                                     EntityCondition bySerialNumberCondition = new EntityExpr(new EntityExpr("serialNumber", EntityOperator.EQUALS, serialNum), 
                                             EntityOperator.AND, new EntityExpr("productId", EntityOperator.IN, productIdSet));
-                                    List inventoryItemsBySerialNumber = delegator.findByCondition("InventoryItem", bySerialNumberCondition, null, null);
+                                    List inventoryItemsBySerialNumber = delegator.findList("InventoryItem", bySerialNumberCondition, null, null, null, false);
 
                                     if (OagisServices.requireSerialNumberExist != null) {
                                         // according to requireSerialNumberExist make sure serialNumber does or does not exist in database, add an error message as needed
@@ -1395,7 +1395,7 @@ public class OagisInventoryServices {
                             
                             EntityCondition bySerialNumberCondition = new EntityExpr(new EntityExpr("serialNumber", EntityOperator.EQUALS, serialNum), 
                                     EntityOperator.AND, new EntityExpr("productId", EntityOperator.IN, productIdSet));
-                            List inventoryItemsBySerialNumber = delegator.findByCondition("InventoryItem", bySerialNumberCondition, null, null);
+                            List inventoryItemsBySerialNumber = delegator.findList("InventoryItem", bySerialNumberCondition, null, null, null, false);
 
                             // this is a status update, so referenced serial number MUST already exist
                             if (inventoryItemsBySerialNumber.size() == 0) {

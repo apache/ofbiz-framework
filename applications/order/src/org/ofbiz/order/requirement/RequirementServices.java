@@ -163,7 +163,7 @@ public class RequirementServices {
                                 new EntityExpr("orderItemStatusId", EntityOperator.NOT_IN, UtilMisc.toList("ITEM_REJECTED", "ITEM_CANCELLED")),
                                 new EntityExpr("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, timePeriodStart)
                                 ), EntityOperator.AND);
-                    GenericValue count = EntityUtil.getFirst( delegator.findByCondition("OrderItemQuantityReportGroupByProduct", prodConditions, UtilMisc.toList("quantityOrdered"), null) );
+                    GenericValue count = EntityUtil.getFirst( delegator.findList("OrderItemQuantityReportGroupByProduct", prodConditions, UtilMisc.toSet("quantityOrdered"), null, null, false));
                     if (count != null) {
                         sold = count.getDouble("quantityOrdered");
                         if (sold != null) productsSold.put(productId, sold);

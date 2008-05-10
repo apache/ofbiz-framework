@@ -925,7 +925,7 @@ public class EntityPermissionChecker {
     
         List partyRelationships = null;
         try {
-            partyRelationships = delegator.findByCondition("PartyRelationship", condition, null, null);
+            partyRelationships = delegator.findList("PartyRelationship", condition, null, null, null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problem finding PartyRelationships. ", module);
             return false;

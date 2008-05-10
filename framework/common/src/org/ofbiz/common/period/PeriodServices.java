@@ -64,9 +64,9 @@ public class PeriodServices {
                 // if a periodTypeId was supplied, use it
                 findClosedConditions.add(new EntityExpr("periodTypeId", EntityOperator.EQUALS, periodTypeId));
             }
-            List closedTimePeriods = delegator.findByCondition("CustomTimePeriod", new EntityConditionList(findClosedConditions, EntityOperator.AND), 
-                    UtilMisc.toList("customTimePeriodId", "periodTypeId", "isClosed", "fromDate", "thruDate"), 
-                    UtilMisc.toList("thruDate DESC"));
+            List closedTimePeriods = delegator.findList("CustomTimePeriod", new EntityConditionList(findClosedConditions, EntityOperator.AND), 
+                    UtilMisc.toSet("customTimePeriodId", "periodTypeId", "isClosed", "fromDate", "thruDate"), 
+                    UtilMisc.toList("thruDate DESC"), null, false);
 
             if ((closedTimePeriods != null) && (closedTimePeriods.size() > 0) && (((GenericValue) closedTimePeriods.get(0)).get("thruDate") != null)) {
                 lastClosedTimePeriod = (GenericValue) closedTimePeriods.get(0);

@@ -463,7 +463,7 @@ public class LoginServices {
 
         try {
             EntityCondition condition = new EntityExpr("userLoginId", true, EntityOperator.EQUALS, userLoginId, true);
-            if (UtilValidate.isNotEmpty(delegator.findByCondition("UserLogin", condition, null, null))) {
+            if (UtilValidate.isNotEmpty(delegator.findList("UserLogin", condition, null, null, null, false))) {
                 Map messageMap = UtilMisc.toMap("userLoginId", userLoginId);
                 errMsg = UtilProperties.getMessage(resource,"loginservices.could_not_create_login_user_with_ID_exists", messageMap, locale);
                 errorMessageList.add(errMsg);

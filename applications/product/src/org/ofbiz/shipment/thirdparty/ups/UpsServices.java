@@ -195,7 +195,7 @@ public class UpsServices {
             if (allowCOD) {
 
                 // Get the paymentMethodTypeIds of all the orderPaymentPreferences involved with the shipment
-                List opps = delegator.findByCondition("OrderPaymentPreference", new EntityExpr("orderId", EntityOperator.IN, orderIdSet), null, null);
+                List opps = delegator.findList("OrderPaymentPreference", new EntityExpr("orderId", EntityOperator.IN, orderIdSet), null, null, null, false);
                 List paymentMethodTypeIds = EntityUtil.getFieldListFromEntityList(opps, "paymentMethodTypeId", true);
                 
                 if (paymentMethodTypeIds.size() > 1 || ! paymentMethodTypeIds.contains("EXT_COD")) {

@@ -634,7 +634,7 @@ public class ShoppingCartEvents {
                 EntityCondition cond = new EntityConditionList(UtilMisc.toList(
                         new EntityExpr(new EntityExpr("productId", EntityOperator.EQUALS, productId), EntityOperator.OR, new EntityExpr("productIdTo", EntityOperator.EQUALS, productId)),
                         new EntityExpr("productAssocTypeId", EntityOperator.EQUALS, "PRODUCT_INCOMPATABLE")), EntityOperator.AND);
-                productAssocs = delegator.findByCondition("ProductAssoc", cond, null, null);
+                productAssocs = delegator.findList("ProductAssoc", cond, null, null, null, false);
                 productAssocs = EntityUtil.filterByDate(productAssocs);
                 List productList = FastList.newInstance();
                 Iterator iter = productAssocs.iterator();
@@ -666,9 +666,7 @@ public class ShoppingCartEvents {
                 EntityCondition cond = new EntityConditionList(UtilMisc.toList(
                         new EntityExpr("productIdTo", EntityOperator.EQUALS, productId),
                         new EntityExpr("productAssocTypeId", EntityOperator.EQUALS, "PRODUCT_UPGRADE")), EntityOperator.AND);
-                List fieldsToSelect = FastList.newInstance();
-                fieldsToSelect.add("productId");
-                productList = delegator.findByCondition("ProductAssoc", cond, fieldsToSelect, null);
+                productList = delegator.findList("ProductAssoc", cond, UtilMisc.toSet("productId"), null, null, false);
                 if (productList != null) {
                     Iterator sciIter = cart.iterator();
                     while (sciIter.hasNext()) {

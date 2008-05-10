@@ -1992,7 +1992,7 @@ public class GenericDelegator implements DelegatorInterface {
     }
 
     /** Finds Generic Entity records by all of the specified expressions (ie: combined using AND)
-     * NOTE 20080502: 24 references
+     * NOTE 20080502: 24 references; all changed to findList
      *@param entityName The Name of the Entity as defined in the entity XML file
      *@param expressions The expressions to use for the lookup, each consisting of at least a field name, an EntityOperator, and a value to compare to
      *@param orderBy The fields of the named entity to order the query by; optionally add a " ASC" for ascending or " DESC" for descending

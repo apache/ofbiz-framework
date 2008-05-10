@@ -378,7 +378,7 @@ public class ProductPromoWorker {
                                 // get all promo codes entered, do a query with an IN condition to see if any of those are related
                                 EntityCondition codeCondition = new EntityExpr(new EntityExpr("productPromoId", EntityOperator.EQUALS, productPromoId), EntityOperator.AND, new EntityExpr("productPromoCodeId", EntityOperator.IN, enteredCodes));
                                 // may want to sort by something else to decide which code to use if there is more than one candidate
-                                List productPromoCodeList = delegator.findByCondition("ProductPromoCode", codeCondition, null, UtilMisc.toList("productPromoCodeId"));
+                                List productPromoCodeList = delegator.findList("ProductPromoCode", codeCondition, null, UtilMisc.toList("productPromoCodeId"), null, false);
                                 Iterator productPromoCodeIter = productPromoCodeList.iterator();
                                 // support multiple promo codes for a single promo, ie if we run into a use limit for one code see if we can find another for this promo
                                 // check the use limit before each pass so if the promo use limit has been hit we don't keep on trying for the promo code use limit, if there is one of course

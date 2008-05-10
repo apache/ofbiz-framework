@@ -73,7 +73,7 @@ public class PickListServices {
 
                 // run the query
                 try {
-                    orderHeaderList = delegator.findByCondition("OrderHeader", cond, null, UtilMisc.toList("+orderDate"));
+                    orderHeaderList = delegator.findList("OrderHeader", cond, null, UtilMisc.toList("+orderDate"), null, false);
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                     return ServiceUtil.returnError(e.getMessage());

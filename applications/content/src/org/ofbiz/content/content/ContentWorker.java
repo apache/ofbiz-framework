@@ -295,7 +295,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         if (cache) {
             assocs = delegator.findByConditionCache("ContentAssoc", new EntityConditionList(exprs, EntityOperator.AND), null, orderBy);
         } else {
-            assocs = delegator.findByCondition("ContentAssoc", new EntityConditionList(exprs, EntityOperator.AND), null, orderBy);
+            assocs = delegator.findList("ContentAssoc", new EntityConditionList(exprs, EntityOperator.AND), null, orderBy, null, false);
         }
         assocs = EntityUtil.filterByDate(assocs);
         GenericValue subContent = EntityUtil.getFirst(assocs);
@@ -784,7 +784,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         }
         EntityConditionList contentCondList = new EntityConditionList(exprListAnd, EntityOperator.AND);
         GenericDelegator delegator = currentContent.getDelegator();
-        contentList = delegator.findByCondition(contentAssocViewName, contentCondList, null, null);
+        contentList = delegator.findList(contentAssocViewName, contentCondList, null, null, null, false);
         return contentList;
     }
 
@@ -854,7 +854,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         }
         EntityConditionList assocExprList = new EntityConditionList(exprList, EntityOperator.AND);
         //if (Debug.infoOn()) Debug.logInfo(" assocExprList:" + assocExprList , "");
-        List relatedAssocs = delegator.findByCondition("ContentAssoc", assocExprList, new ArrayList(), UtilMisc.toList("-fromDate"));
+        List relatedAssocs = delegator.findList("ContentAssoc", assocExprList, null, UtilMisc.toList("-fromDate"), null, false);
         //if (Debug.infoOn()) Debug.logInfo(" relatedAssoc:" + relatedAssocs.size() , "");
         //for (int i = 0; i < relatedAssocs.size(); i++) {
             //GenericValue a = (GenericValue) relatedAssocs.get(i);
@@ -1378,7 +1378,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         }
 
         EntityConditionList contentCondList = new EntityConditionList(exprListAnd, EntityOperator.AND);
-        List contentList = delegator.findByCondition("ContentAssocDataResourceViewFrom", contentCondList, null, null);
+        List contentList = delegator.findList("ContentAssocDataResourceViewFrom", contentCondList, null, null, null, false);
         List filteredList = EntityUtil.filterByDate(contentList, UtilDateTime.nowTimestamp(), "caFromDate", "caThruDate", true);
         return filteredList;
     }

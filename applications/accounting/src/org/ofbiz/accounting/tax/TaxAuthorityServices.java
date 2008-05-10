@@ -306,7 +306,7 @@ public class TaxAuthorityServices {
             List orderList = UtilMisc.toList("minItemPrice", "minPurchase", "fromDate");
 
             // finally ready... do the rate query
-            List lookupList = delegator.findByCondition("TaxAuthorityRateProduct", mainCondition, null, orderList);
+            List lookupList = delegator.findList("TaxAuthorityRateProduct", mainCondition, null, orderList, null, false);
             List filteredList = EntityUtil.filterByDate(lookupList, true);
 
             if (filteredList.size() == 0) {
@@ -402,7 +402,7 @@ public class TaxAuthorityServices {
         ptiConditionList.add(new EntityExpr(new EntityExpr("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, new EntityExpr("thruDate", EntityOperator.GREATER_THAN, nowTimestamp)));
         EntityCondition ptiCondition = new EntityConditionList(ptiConditionList, EntityOperator.AND);
         // sort by -fromDate to get the newest (largest) first, just in case there is more than one, we only want the most recent valid one, should only be one per jurisdiction...
-        List partyTaxInfos = delegator.findByCondition("PartyTaxAuthInfo", ptiCondition, null, UtilMisc.toList("-fromDate"));
+        List partyTaxInfos = delegator.findList("PartyTaxAuthInfo", ptiCondition, null, UtilMisc.toList("-fromDate"), null, false);
 
         boolean foundExemption = false;
         if (partyTaxInfos.size() > 0) {

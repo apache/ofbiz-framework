@@ -820,7 +820,7 @@ public class ContentServices {
             }
 
             EntityConditionList assocExprList = new EntityConditionList(exprList, EntityOperator.AND);
-            List relatedAssocs = delegator.findByCondition("ContentAssoc", assocExprList, new ArrayList(), UtilMisc.toList("fromDate"));
+            List relatedAssocs = delegator.findList("ContentAssoc", assocExprList, null, UtilMisc.toList("fromDate"), null, false);
             //if (Debug.infoOn()) Debug.logInfo("in deactivateAssocs, relatedAssocs:" + relatedAssocs, module);
             List filteredAssocs = EntityUtil.filterByDate(relatedAssocs);
             //if (Debug.infoOn()) Debug.logInfo("in deactivateAssocs, filteredAssocs:" + filteredAssocs, module);
