@@ -168,7 +168,7 @@
                                 <section>
                                     <widgets>
                                         <container>                                                            
-                                            <link target="EditPerfReview" text="${uiLabelMap.HumanResNewPartyReview}" style="buttontext"/>
+                                            <link target="EditPerfReviews?employeePartyId=${employeePartyId}&amp;employeeRoleTypeId=${employeeRoleTypeId}" text="${uiLabelMap.HumanResNewPartyReview}" style="buttontext"/>
                                         </container>
                                         <include-form name="ListPerfReviews" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
                                     </widgets>

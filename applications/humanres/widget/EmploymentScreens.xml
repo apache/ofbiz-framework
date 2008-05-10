@@ -207,6 +207,11 @@
                 <set field="titleProperty" value="HumanResListPartyBenefits"/>
                 <set field="headerItem" value="Employment"/>
                 <set field="tabButtonItem" value="EditPartyBenefit"/>
+                <set field="roleTypeIdFrom" from-field="parameters.roleTypeIdFrom"/>
+                <set field="roleTypeIdTo" from-field="parameters.roleTypeIdTo"/>
+                <set field="partyIdTo" from-field="parameters.partyIdTo"/>
+                <set field="partyIdFrom" from-field="parameters.partyIdFrom"/>
+                <set field="fromDate" from-field="parameters.fromDate"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonEmploymentDecorator" location="${parameters.mainDecoratorLocation}">
@@ -221,7 +226,7 @@
                                 <section>
                                     <widgets>
                                         <container>
-                                            <link text="${uiLabelMap.HumanResNewPartyBenefit}" target="EditPartyBenefit" style="buttontext"/>
+                                            <link text="${uiLabelMap.HumanResNewPartyBenefit}" target="EditPartyBenefits?roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;fromDate=${fromDate}" style="buttontext"/>
                                         </container>
                                         <include-form name="ListPartyBenefits" location="component://humanres/widget/forms/EmploymentForms.xml"/>
                                     </widgets>
@@ -271,7 +276,7 @@
                                 <section>
                                     <widgets>
                                         <container>
-                                            <link text="${uiLabelMap.HumanResNewPayrollPreferences}" target="EditPayrollPreference" style="buttontext"/>
+                                            <link text="${uiLabelMap.HumanResNewPayrollPreferences}" target="EditPayrollPreferences?partyId=${partyId}&amp;roleTypeId=${roleTypeId}" style="buttontext"/>
                                         </container>
                                         <include-form name="ListPayrollPreferences" location="component://humanres/widget/forms/EmploymentForms.xml"/>
                                     </widgets>
@@ -374,25 +379,16 @@
             </actions>
             <widgets>
                 <decorator-screen name="CommonPayGradeDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">                        
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.HumanResEditSalaryStep}"/>
-                                </container>
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.PageTitleListSalarySteps}">
+                            <container>
+                                <link target="EditSalarySteps?payGradeId=${payGradeId}" text="${uiLabelMap.HumanResNewSalaryStep}" style="buttontext"/>
                             </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <container>
-                                             <link target="EditSalaryStep" text="${uiLabelMap.HumanResNewSalaryStep}" style="buttontext"/>
-                                        </container>
-                                        <include-form name="ListSalarySteps" location="component://humanres/widget/forms/EmploymentForms.xml"/>
-                                        <include-form name="EditSalaryStep" location="component://humanres/widget/forms/EmploymentForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>                  
+                            <include-form name="ListSalarySteps" location="component://humanres/widget/forms/EmploymentForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.HumanResEditSalaryStep}">
+                            <include-form name="EditSalaryStep" location="component://humanres/widget/forms/EmploymentForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -530,6 +526,7 @@
         <section>                        
             <actions>
                 <set field="titleProperty" value="${uiLabelMap.CommonFind} ${uiLabelMap.HumanResEmployee}"/>
+                <set field="headerItem" value="Employee"/>
             </actions>            
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
