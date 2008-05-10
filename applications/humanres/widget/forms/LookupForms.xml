@@ -144,8 +144,8 @@ under the License.
                 <field-map field-name="entityName" value="SalaryStep"/>
             </service>
         </actions>
-        <field name="salaryStepId" title="${uiLabelMap.HumanResLookupSalaryStepSeqId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" target-type="plain" description="${salaryStepId}" target="javascript:set_value('${salaryStepId}')"/>
+        <field name="salaryStepSeqId" title="${uiLabelMap.HumanResLookupSalaryStepSeqId}" widget-style="buttontext">
+            <hyperlink also-hidden="false" target-type="plain" description="${salaryStepSeqId}" target="javascript:set_value('${salaryStepSeqId}')"/>
         </field>        
         <field name="description"><display/></field>        
     </form>

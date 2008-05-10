@@ -604,6 +604,9 @@
         <value xml:lang="it">Lista Passi Salario</value>
         <value xml:lang="th">รายการขั้นเงินเดือน</value>
     </property>
+    <property key="PageTitleListSalarySteps">
+        <value xml:lang="en">List Salary Steps</value>
+    </property>
     <property key="HumanResListSkillTypes">
         <value xml:lang="en">List Skill Types</value>
         <value xml:lang="th">รายการประเภททักษะ</value>
