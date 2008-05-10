@@ -18,8 +18,6 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#setting locale = locale.toString()>
-<#setting time_zone = timeZone.getID()>
 <#if (requestAttributes.person)?exists><#assign person = requestAttributes.person></#if>
 <#if (requestAttributes.partyGroup)?exists><#assign partyGroup = requestAttributes.partyGroup></#if>
 
@@ -28,7 +26,6 @@ under the License.
 <#if "ar.iw"?contains(docLangAttr?substring(0, 2))>
     <#assign langDir = "rtl">
 </#if>
-
 <html lang="${docLangAttr}" dir="${langDir}" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
