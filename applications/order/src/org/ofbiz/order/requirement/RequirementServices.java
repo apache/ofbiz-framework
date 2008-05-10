@@ -56,7 +56,7 @@ public class RequirementServices {
         List statusIds = (List) context.get("statusIds");
         try {
             List orderBy = UtilMisc.toList("partyId", "requirementId");
-            List conditions = UtilMisc.toList(
+            List<EntityCondition> conditions = UtilMisc.toList(
                     new EntityExpr("requirementTypeId", EntityOperator.EQUALS, "PRODUCT_REQUIREMENT"),
                     EntityUtil.getFilterByDateExpr()
                     );
@@ -76,10 +76,12 @@ public class RequirementServices {
             } else {
                 conditions.add( new EntityExpr("roleTypeId", EntityOperator.EQUALS, "SUPPLIER") );
             }
-            List requirementAndRoles = delegator.findByAnd("RequirementAndRole", conditions, orderBy);
+            
+            EntityConditionList<EntityCondition> ecl = new EntityConditionList<EntityCondition>(conditions, EntityOperator.AND);
+            List requirementAndRoles = delegator.findList("RequirementAndRole", ecl, null, orderBy, null, false);
 
             // maps to cache the associated suppliers and products data, so we don't do redundant DB and service requests
-            Map suppliers = FastMap.newInstance();
+            Map<String, GenericValue> suppliers = FastMap.newInstance();
             Map gids = FastMap.newInstance();
             Map inventories = FastMap.newInstance();
             Map productsSold = FastMap.newInstance();
@@ -112,7 +114,10 @@ public class RequirementServices {
                             new EntityExpr("productId", EntityOperator.EQUALS, productId),
                             EntityUtil.getFilterByDateExpr("availableFromDate", "availableThruDate")
                             );
-                    supplierProduct = EntityUtil.getFirst( delegator.findByAnd("SupplierProduct", conditions, UtilMisc.toList("minimumOrderQuantity", "lastPrice")) );
+                    ecl = new EntityConditionList<EntityCondition>(conditions, EntityOperator.AND);
+                    List<GenericValue> supplierProducts = delegator.findList("SupplierProduct", ecl, null, UtilMisc.toList("minimumOrderQuantity", "lastPrice"), null, false);
+
+                    supplierProduct = EntityUtil.getFirst(supplierProducts);
                     suppliers.put(supplierKey, supplierProduct);
                 }
 

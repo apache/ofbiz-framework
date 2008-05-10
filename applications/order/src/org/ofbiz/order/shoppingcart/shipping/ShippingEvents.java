@@ -32,6 +32,8 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
@@ -318,14 +320,16 @@ public class ShippingEvents {
      * Attempts to get the supplier's shipping origin address and failing that, the general location.
      */
     public static GenericValue getShippingOriginContactMech(GenericDelegator delegator, String supplierPartyId) throws GeneralException {
-        List conditions = UtilMisc.toList(
+        List<EntityCondition> conditions = UtilMisc.toList(
                 new EntityExpr("partyId", EntityOperator.EQUALS, supplierPartyId),
                 new EntityExpr("contactMechTypeId", EntityOperator.EQUALS, "POSTAL_ADDRESS"),
                 new EntityExpr("contactMechPurposeTypeId", EntityOperator.IN, UtilMisc.toList("SHIP_ORIG_LOCATION", "GENERAL_LOCATION")),
                 EntityUtil.getFilterByDateExpr("contactFromDate", "contactThruDate"),
                 EntityUtil.getFilterByDateExpr("purposeFromDate", "purposeThruDate")
         );
-        List<GenericValue> addresses = delegator.findByAnd("PartyContactWithPurpose", conditions, UtilMisc.toList("contactMechPurposeTypeId DESC"));
+        EntityConditionList<EntityCondition> ecl = new EntityConditionList<EntityCondition>(conditions, EntityOperator.AND);
+
+        List<GenericValue> addresses = delegator.findList("PartyContactWithPurpose", ecl, null, UtilMisc.toList("contactMechPurposeTypeId DESC"), null, false);
 
         GenericValue generalAddress = null;
         GenericValue originAddress = null;

@@ -207,8 +207,10 @@ public class JobManager {
         List<EntityExpr> exprs = UtilMisc.toList(new EntityExpr("finishDateTime", EntityOperator.EQUALS, null));
         exprs.add(new EntityExpr("cancelDateTime", EntityOperator.EQUALS, null));
         exprs.add(new EntityExpr("runByInstanceId", EntityOperator.EQUALS, instanceId));
+        EntityConditionList<EntityExpr> ecl = new EntityConditionList<EntityExpr>(exprs, EntityOperator.AND);
+
         try {
-            crashed = delegator.findByAnd("JobSandbox", exprs, UtilMisc.toList("startDateTime"));
+            crashed = delegator.findList("JobSandbox", ecl, null, UtilMisc.toList("startDateTime"), null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Unable to load crashed jobs", module);
         }

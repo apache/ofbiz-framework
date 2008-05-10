@@ -652,10 +652,8 @@ public class PartyServices {
         }
 
         try {
-            List exprs = new LinkedList();
-
-            exprs.add(new EntityExpr(new EntityFunction.UPPER(new EntityFieldValue("infoString")), EntityOperator.EQUALS, new EntityFunction.UPPER(email.toUpperCase())));
-            List c = EntityUtil.filterByDate(delegator.findByAnd("PartyAndContactMech", exprs, UtilMisc.toList("infoString")), true);
+            EntityExpr ee = new EntityExpr(new EntityFunction.UPPER(new EntityFieldValue("infoString")), EntityOperator.EQUALS, new EntityFunction.UPPER(email.toUpperCase()));
+            List c = EntityUtil.filterByDate(delegator.findList("PartyAndContactMech", ee, null, UtilMisc.toList("infoString"), null, false), true);
 
             if (Debug.verboseOn()) Debug.logVerbose("List: " + c, module);
             if (Debug.infoOn()) Debug.logInfo("PartyFromEmail number found: " + c.size(), module);
@@ -693,10 +691,8 @@ public class PartyServices {
         }
 
         try {
-            List exprs = new LinkedList();
-
-            exprs.add(new EntityExpr(new EntityFunction.UPPER(new EntityFieldValue("infoString")), EntityOperator.LIKE, new EntityFunction.UPPER(("%" + email.toUpperCase()) + "%")));
-            List c = EntityUtil.filterByDate(delegator.findByAnd("PartyAndContactMech", exprs, UtilMisc.toList("infoString")), true);
+            EntityExpr ee = new EntityExpr(new EntityFunction.UPPER(new EntityFieldValue("infoString")), EntityOperator.LIKE, new EntityFunction.UPPER(("%" + email.toUpperCase()) + "%"));
+            List c = EntityUtil.filterByDate(delegator.findList("PartyAndContactMech", ee, null, UtilMisc.toList("infoString"), null, false), true);
 
             if (Debug.verboseOn()) Debug.logVerbose("List: " + c, module);
             if (Debug.infoOn()) Debug.logInfo("PartyFromEmail number found: " + c.size(), module);
@@ -738,10 +734,8 @@ public class PartyServices {
             return ServiceUtil.returnError("Required parameter 'userLoginId' cannot be empty.");
 
         try {
-            List exprs = new LinkedList();
-
-            exprs.add(new EntityExpr(new EntityFunction.UPPER(new EntityFieldValue("userLoginId")), EntityOperator.LIKE, new EntityFunction.UPPER("%" + userLoginId.toUpperCase() + "%")));
-            Collection ulc = delegator.findByAnd("PartyAndUserLogin", exprs, UtilMisc.toList("userloginId"));
+            EntityExpr ee = new EntityExpr(new EntityFunction.UPPER(new EntityFieldValue("userLoginId")), EntityOperator.LIKE, new EntityFunction.UPPER("%" + userLoginId.toUpperCase() + "%"));
+            Collection ulc = delegator.findList("PartyAndUserLogin", ee, null, UtilMisc.toList("userloginId"), null, false);
 
             if (Debug.verboseOn()) Debug.logVerbose("Collection: " + ulc, module);
             if (Debug.infoOn()) Debug.logInfo("PartyFromUserLogin number found: " + ulc.size(), module);
@@ -792,11 +786,11 @@ public class PartyServices {
         }
 
         try {
-            List exprs = new LinkedList();
-
-            exprs.add(new EntityExpr(new EntityFunction.UPPER(new EntityFieldValue("firstName")), EntityOperator.LIKE, new EntityFunction.UPPER("%" + firstName.toUpperCase() + "%")));
-            exprs.add(new EntityExpr(new EntityFunction.UPPER(new EntityFieldValue("lastName")), EntityOperator.LIKE, new EntityFunction.UPPER("%" + lastName.toUpperCase() + "%")));
-            Collection pc = delegator.findByAnd("Person", exprs, UtilMisc.toList("lastName", "firstName", "partyId"));
+            EntityConditionList<EntityExpr> ecl = new EntityConditionList<EntityExpr>(UtilMisc.toList(
+                    new EntityExpr(new EntityFunction.UPPER(new EntityFieldValue("firstName")), EntityOperator.LIKE, new EntityFunction.UPPER("%" + firstName.toUpperCase() + "%")),
+                    new EntityExpr(new EntityFunction.UPPER(new EntityFieldValue("lastName")), EntityOperator.LIKE, new EntityFunction.UPPER("%" + lastName.toUpperCase() + "%"))),
+                    EntityOperator.AND);
+            Collection pc = delegator.findList("Person", ecl, null, UtilMisc.toList("lastName", "firstName", "partyId"), null, false);
 
             if (Debug.infoOn()) Debug.logInfo("PartyFromPerson number found: " + pc.size(), module);
             if (pc != null) {
@@ -838,10 +832,8 @@ public class PartyServices {
         }
 
         try {
-            List exprs = new LinkedList();
-
-            exprs.add(new EntityExpr(new EntityFunction.UPPER(new EntityFieldValue("groupName")), EntityOperator.LIKE, new EntityFunction.UPPER("%" + groupName.toUpperCase() + "%")));
-            Collection pc = delegator.findByAnd("PartyGroup", exprs, UtilMisc.toList("groupName", "partyId"));
+            EntityExpr ee = new EntityExpr(new EntityFunction.UPPER(new EntityFieldValue("groupName")), EntityOperator.LIKE, new EntityFunction.UPPER("%" + groupName.toUpperCase() + "%"));
+            Collection pc = delegator.findList("PartyGroup", ee, null, UtilMisc.toList("groupName", "partyId"), null, false);
 
             if (Debug.infoOn()) Debug.logInfo("PartyFromGroup number found: " + pc.size(), module);
             if (pc != null) {

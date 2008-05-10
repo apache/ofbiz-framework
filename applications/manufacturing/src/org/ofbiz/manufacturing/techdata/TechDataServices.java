@@ -33,6 +33,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
@@ -73,8 +74,9 @@ public class TechDataServices {
         constraints.add(new EntityExpr("currentStatusId", EntityOperator.EQUALS, "ROU_ACTIVE"));
         constraints.add(new EntityExpr("workEffortTypeId", EntityOperator.EQUALS, "ROU_TASK"));
         
+        EntityConditionList<EntityExpr> ecl = new EntityConditionList<EntityExpr>(constraints, EntityOperator.AND);
         try {
-            listRoutingTask = delegator.findByAnd("WorkEffort", constraints, UtilMisc.toList("workEffortName"));
+            listRoutingTask = delegator.findList("WorkEffort", ecl, null, UtilMisc.toList("workEffortName"), null, false);
         } catch (GenericEntityException e) {
             Debug.logWarning(e, module);
             return ServiceUtil.returnError("Error finding desired WorkEffort records: " + e.toString());
