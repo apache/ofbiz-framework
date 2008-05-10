@@ -24,13 +24,13 @@ under the License.
     <screen name="ListReports">
         <section>
             <actions>
-                <set field="headerItem" value="Reports"/>
+                <set field="tabButtonItem" value="reports"/>
                 <set field="titleProperty" value="AccountingArPageTitleListReports"/>
-                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
             </actions>
             <widgets>
-                <decorator-screen name="ReportsDecorator" location="component://accounting/widget/ap/CommonScreens.xml">
+                <decorator-screen name="main-decorator" location="component://accounting/widget/ap/CommonScreens.xml">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.AccountingReports}" navigation-form-name="ListReports">
                             <include-form name="ListReports" location="component://accounting/widget/ap/forms/InvoiceForms.xml"/>

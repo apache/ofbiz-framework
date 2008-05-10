@@ -24,8 +24,8 @@ under the License.
         <menu-item name="agreements" title="${uiLabelMap.AccountingAgreements}"><link target="FindAgreement"/></menu-item>
         <menu-item name="invoices" title="${uiLabelMap.AccountingInvoicesMenu}"><link target="findInvoices"/></menu-item>
         <menu-item name="payments" title="${uiLabelMap.AccountingPaymentsMenu}"><link target="findPayments"/></menu-item>
-        <menu-item name="listVendors" title="${uiLabelMap.PartyVendor} ${uiLabelMap.CommonList}"><link target="listVendors"/></menu-item>
-        <menu-item name="listReports" title="${uiLabelMap.AccountingReports}"><link target="listReports"/></menu-item>
+        <menu-item name="findVendors" title="${uiLabelMap.PartyVendor} ${uiLabelMap.CommonList}"><link target="findVendors"/></menu-item>
+        <menu-item name="reports" title="${uiLabelMap.AccountingReports}"><link target="listReports"/></menu-item>
         <menu-item name="Logout" title="${uiLabelMap.CommonLogout}" align-style="col-right" selected-style="selected">
             <condition><not><if-empty field-name="userLogin"/></not></condition>
             <link target="logout"/>
@@ -39,7 +39,7 @@ under the License.
         <menu-item name="findAgreement" title="${uiLabelMap.AccountingAgreementAvailable}"><link target="FindAgreement"></link></menu-item>
     </menu>
     <menu name="ApMainVendorMenu" type="simple" default-selected-style="tabButtonSelected">
-        <menu-item name="listVendors" title="${uiLabelMap.CommonShowAll} ${uiLabelMap.PartyVendor}"><link target="listVendors"></link></menu-item>
+        <menu-item name="listVendors" title="${uiLabelMap.CommonShowAll} ${uiLabelMap.PartyVendor}"><link target="findVendors"></link></menu-item>
     </menu>
     <menu name="ApMainReportMenu" type="simple" default-selected-style="tabButtonSelected">
         <menu-item name="listReport" title="${uiLabelMap.CommonShowAll} ${uiLabelMap.AccountingReports}"><link target="listReports"></link></menu-item>

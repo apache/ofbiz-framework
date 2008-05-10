@@ -29,7 +29,7 @@ under the License.
                 <set field="titleProperty" value="AccountingArPageTitleListReports"/>
             </actions>
             <widgets>
-                <decorator-screen name="ReportsDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.CommonList} ${uiLabelMap.AccountingReports}">
                             <section>
