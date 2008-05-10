@@ -20,9 +20,13 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <form name="ListVendors" type="list" list-name="listIt" paginate-target="listVendors" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+    <form name="ListVendors" type="list" list-name="listIt" paginate-target="findVendors" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-condition entity-name="Vendor"><order-by field-name="partyId"/></entity-condition>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="entityName" value="Vendor"/>
+                <field-map field-name="orderBy" value="partyId"/>
+            </service>
         </actions>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${partyId}" target="editVendor?partyId=${partyId}"/>
@@ -50,5 +54,15 @@ under the License.
         <field use-when="partyId!=null&amp;&amp;vendor!=null" name="manifestPolicies" title="${uiLabelMap.PartyManifestPolicies}"><text default-value="${parameters.manifestPolicies}"/></field>        
         <field name="submitButton" use-when="partyId==null" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
         <field name="submitButton" use-when="partyId!=null&amp;&amp;vendor!=null" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+    </form>
+    <form name="FindVendors" type="single" target="findVendors" title="Find and List Vendors"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="partyId" title="${uiLabelMap.PartyVendor} ${uiLabelMap.CommonId}" parameter-name="partyId"><text-find size="25" default-option="contains"></text-find></field>
+        <field name="manifestCompanyName" title="${uiLabelMap.PartyManifestCompanyName}" parameter-name="manifestCompanyName"><text-find size="25" default-option="contains"></text-find></field>
+        <field name="manifestCompanyTitle" title="${uiLabelMap.PartyManifestCompanyTitle}" parameter-name="manifestCompanyTitle"><text-find size="25" default-option="contains"></text-find></field>
+        <field name="manifestLogoUrl" title="${uiLabelMap.PartyManifestLogoUrl}" parameter-name="manifestLogoUrl"><text-find size="25" default-option="contains"></text-find></field>
+        <field name="manifestPolicies" title="${uiLabelMap.PartyManifestPolicies}" parameter-name="manifestPolicies"><text-find size="25" default-option="contains"></text-find></field>
+        <field name="noConditionFind"><hidden value="Y"/></field>
+        <field name="find" title="${uiLabelMap.CommonFind}"><submit/></field>
     </form>
 </forms>

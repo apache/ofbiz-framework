@@ -72,21 +72,6 @@ under the License.
         </section>
     </screen>
     
-    <screen name="ReportsDecorator">
-        <section>
-            <actions>
-                <set field="headerItem" value="${uiLabelMap.AccountingReports}"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <decorator-section-include name="body"/>
-                    </decorator-section>
-                </decorator-screen>    
-            </widgets>        
-        </section>
-    </screen>
-    
     <screen name="CommonPaymentDecorator">
         <section>
             <actions>

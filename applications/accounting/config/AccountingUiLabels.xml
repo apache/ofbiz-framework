@@ -450,6 +450,12 @@
     <property key="AccountingApCompanyName">
         <value xml:lang="en">OFBiz: AP Manager</value>
     </property>
+    <property key="AccountingApPageTitleFindVendors">
+        <value xml:lang="en">Find Vendors</value>
+    </property>
+    <property key="AccountingApPageTitleFindVendorResults">
+        <value xml:lang="en">Find Vendor Results</value>
+    </property>
     <property key="AccountingApPageTitleListVendors">
         <value xml:lang="en">List Vendors</value>
     </property>
