@@ -30,6 +30,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
@@ -49,14 +50,15 @@ public class ProjectWorker {
 
         if (userLogin != null && userLogin.get("partyId") != null) {
             try {
-                validWorkEfforts = delegator.findByAnd("WorkEffortAndPartyAssign",
-                            UtilMisc.toList(new EntityExpr("partyId", EntityOperator.EQUALS, userLogin.get("partyId")),
-                                new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "WF_COMPLETED"),
-                                new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "WF_TERMINATED"),
-                                new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "WF_ABORTED"),
-                                new EntityExpr("workEffortTypeId", EntityOperator.EQUALS, "TASK"),
-                                new EntityExpr("workEffortPurposeTypeId", EntityOperator.EQUALS, "WEPT_PROJECT")),
-                            UtilMisc.toList("priority"));
+                EntityConditionList<EntityExpr> ecl = new EntityConditionList<EntityExpr>(UtilMisc.toList(
+                        new EntityExpr("partyId", EntityOperator.EQUALS, userLogin.get("partyId")),
+                        new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "WF_COMPLETED"),
+                        new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "WF_TERMINATED"),
+                        new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "WF_ABORTED"),
+                        new EntityExpr("workEffortTypeId", EntityOperator.EQUALS, "TASK"),
+                        new EntityExpr("workEffortPurposeTypeId", EntityOperator.EQUALS, "WEPT_PROJECT")),
+                        EntityOperator.AND);
+                validWorkEfforts = delegator.findList("WorkEffortAndPartyAssign", ecl, null, UtilMisc.toList("priority"), null, false);
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
             }
@@ -75,11 +77,12 @@ public class ProjectWorker {
 
         if (userLogin != null && userLogin.get("partyId") != null) {
             try {
-                validWorkEfforts = delegator.findByAnd("WorkEffortAndPartyAssign",
-                            UtilMisc.toList(new EntityExpr("partyId", EntityOperator.EQUALS, userLogin.get("partyId")),
-                                new EntityExpr("workEffortTypeId", EntityOperator.EQUALS, "TASK"),
-                                new EntityExpr("workEffortPurposeTypeId", EntityOperator.EQUALS, "WEPT_PROJECT")),
-                            UtilMisc.toList("priority"));
+                EntityConditionList<EntityExpr> ecl = new EntityConditionList<EntityExpr>(UtilMisc.toList(
+                        new EntityExpr("partyId", EntityOperator.EQUALS, userLogin.get("partyId")),
+                        new EntityExpr("workEffortTypeId", EntityOperator.EQUALS, "TASK"),
+                        new EntityExpr("workEffortPurposeTypeId", EntityOperator.EQUALS, "WEPT_PROJECT")), 
+                        EntityOperator.AND);
+                validWorkEfforts = delegator.findList("WorkEffortAndPartyAssign", ecl, null, UtilMisc.toList("priority"), null, false);
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
             }
@@ -203,9 +206,8 @@ public class ProjectWorker {
 
         if (userLogin != null && userLogin.get("partyId") != null) {
             try {
-                notes = delegator.findByAnd("WorkEffortNoteAndData",
-                            UtilMisc.toList(new EntityExpr("workEffortId", EntityOperator.EQUALS, workEffortId)),
-                            UtilMisc.toList("noteDateTime"));
+                EntityExpr ee = new EntityExpr("workEffortId", EntityOperator.EQUALS, workEffortId);
+                notes = delegator.findList("WorkEffortNoteAndData", ee, null, UtilMisc.toList("noteDateTime"), null, false);
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
             }

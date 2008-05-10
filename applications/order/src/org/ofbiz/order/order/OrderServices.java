@@ -2688,17 +2688,19 @@ public class OrderServices {
         //Locale locale = (Locale) context.get("locale");
 
         List ordersToCheck = null;
-        List exprs = new ArrayList();
 
         // create the query expressions
-        exprs.add(new EntityExpr("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER"));
-        exprs.add(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED"));
-        exprs.add(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"));
-        exprs.add(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"));
+        List exprs = UtilMisc.toList(
+                new EntityExpr("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER"),
+                new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED"),
+                new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"),
+                new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED")
+        );
+        EntityConditionList<EntityExpr> ecl = new EntityConditionList<EntityExpr>(exprs, EntityOperator.AND);
 
         // get the orders
         try {
-            ordersToCheck = delegator.findByAnd("OrderHeader", exprs, UtilMisc.toList("orderDate"));
+            ordersToCheck = delegator.findList("OrderHeader", ecl, null, UtilMisc.toList("orderDate"), null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problem getting order headers", module);
         }
@@ -2766,10 +2768,12 @@ public class OrderServices {
                 itemsExprs.add(new EntityExpr("dontCancelSetUserLogin", EntityOperator.EQUALS, GenericEntity.NULL_FIELD));
                 itemsExprs.add(new EntityExpr("dontCancelSetDate", EntityOperator.EQUALS, GenericEntity.NULL_FIELD));
                 itemsExprs.add(new EntityExpr("autoCancelDate", EntityOperator.NOT_EQUAL, GenericEntity.NULL_FIELD));
+                
+                ecl = new EntityConditionList<EntityExpr>(itemsExprs, EntityOperator.AND);
 
                 List orderItems = null;
                 try {
-                    orderItems = delegator.findByAnd("OrderItem", itemsExprs, null);
+                    orderItems = delegator.findList("OrderItem", ecl, null, null, null, false);
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "Problem getting order item records", module);
                 }
