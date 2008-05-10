@@ -436,6 +436,7 @@ under the License.
         <attribute name="userLoginId" type="String" mode="IN" optional="true"/>
         <attribute name="userPrefGroupId" type="String" mode="IN" optional="true"/>
         <attribute name="userPrefMap" type="Map" mode="OUT" optional="true"/>
+        <attribute name="userPrefValue" type="Object" mode="OUT" optional="true"/>
     </service>
 
     <service name="getUserPreferenceGroup" engine="java"
