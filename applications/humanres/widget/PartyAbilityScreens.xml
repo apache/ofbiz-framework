@@ -357,7 +357,7 @@
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditResponsibilityType"/>
-                <set field="tabButtonItem" value="EditResponsibilityType"/>
+                <set field="headerItem" value="EditResponsibilityType"/>
                 <set field="responsibilityTypeId" from-field="parameters.responsibilityTypeId"/>
                 <entity-one entity-name="ResponsibilityType" value-name="responsibilityType"/>
             </actions>
