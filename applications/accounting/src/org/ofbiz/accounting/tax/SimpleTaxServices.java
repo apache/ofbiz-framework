@@ -144,7 +144,7 @@ public class SimpleTaxServices {
         List orderList = UtilMisc.toList("minItemPrice", "minPurchase", "fromDate");
 
         try {
-            List lookupList = delegator.findByCondition("SimpleSalesTaxLookup", mainCondition, null, orderList);
+            List lookupList = delegator.findList("SimpleSalesTaxLookup", mainCondition, null, orderList, null, false);
             List filteredList = EntityUtil.filterByDate(lookupList);
 
             if (filteredList.size() == 0) {
@@ -228,7 +228,7 @@ public class SimpleTaxServices {
                         ptiConditionList.add(new EntityExpr(new EntityExpr("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, new EntityExpr("thruDate", EntityOperator.GREATER_THAN, nowTimestamp)));
                         EntityCondition ptiCondition = new EntityConditionList(ptiConditionList, EntityOperator.AND);
                         // sort by -fromDate to get the newest (largest) first, just in case there is more than one, we only want the most recent valid one, should only be one per jurisdiction...
-                        List partyTaxAuthInfos = delegator.findByCondition("PartyTaxAuthInfo", ptiCondition, null, UtilMisc.toList("-fromDate"));
+                        List partyTaxAuthInfos = delegator.findList("PartyTaxAuthInfo", ptiCondition, null, UtilMisc.toList("-fromDate"), null, false);
                         if (partyTaxAuthInfos.size() > 0) {
                             GenericValue partyTaxAuthInfo = (GenericValue) partyTaxAuthInfos.get(0);
                             adjMap.put("customerReferenceId", partyTaxAuthInfo.get("partyTaxId"));

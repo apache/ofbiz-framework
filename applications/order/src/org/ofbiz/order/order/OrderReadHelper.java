@@ -1999,7 +1999,7 @@ public class OrderReadHelper {
         
         List picked = null;
         try {
-            picked = orderHeader.getDelegator().findByCondition("PicklistAndBinAndItem", pickedConditions, null, null);
+            picked = orderHeader.getDelegator().findList("PicklistAndBinAndItem", pickedConditions, null, null, null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             this.orderHeader = null;
@@ -2675,7 +2675,7 @@ public class OrderReadHelper {
         EntityCondition openOrdersCond = new EntityConditionList(openOrdersExprs, EntityOperator.AND);
         List openOrders = null;
         try {
-            openOrders = delegator.findByCondition("OrderHeaderAndItems", openOrdersCond, null, null);
+            openOrders = delegator.findList("OrderHeaderAndItems", openOrdersCond, null, null, null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }

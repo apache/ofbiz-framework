@@ -97,7 +97,7 @@ public class BlogRssServices {
 
         List contentRecs = null;
         try {
-            contentRecs = delegator.findByCondition("ContentAssocViewTo", new EntityConditionList(exprs, EntityOperator.AND), null, UtilMisc.toList("-caFromDate"));
+            contentRecs = delegator.findList("ContentAssocViewTo", new EntityConditionList(exprs, EntityOperator.AND), null, UtilMisc.toList("-caFromDate"), null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }

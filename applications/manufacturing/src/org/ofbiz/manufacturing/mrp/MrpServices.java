@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.ListIterator;
 import java.util.Map;
+import java.util.Set;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
@@ -248,8 +249,8 @@ public class MrpServices {
             List searchConditions = UtilMisc.toList(new EntityExpr("orderTypeId", EntityOperator.EQUALS, "PURCHASE_ORDER"),
                                                     new EntityExpr("oiStatusId", EntityOperator.EQUALS, "ITEM_APPROVED"),
                                                     new EntityExpr("contactMechId", EntityOperator.IN, facilityContactMechIds));
-            List fieldsToSelect = UtilMisc.toList("orderId", "orderItemSeqId", "productId", "quantity", "cancelQuantity", "oiEstimatedDeliveryDate");
-            resultList = delegator.findByCondition("OrderHeaderItemAndShipGroup", new EntityConditionList(searchConditions, EntityOperator.AND), fieldsToSelect, UtilMisc.toList("orderDate"));
+            Set fieldsToSelect = UtilMisc.toSet("orderId", "orderItemSeqId", "productId", "quantity", "cancelQuantity", "oiEstimatedDeliveryDate");
+            resultList = delegator.findList("OrderHeaderItemAndShipGroup", new EntityConditionList(searchConditions, EntityOperator.AND), fieldsToSelect, UtilMisc.toList("orderDate"), null, false);
 
         } catch(GenericEntityException e) {
             return ServiceUtil.returnError("Problem, we can not find the order items, for more detail look at the log");
@@ -631,7 +632,7 @@ public class MrpServices {
                 filterByConditions = new EntityExpr("billOfMaterialLevel", EntityOperator.EQUALS, new Long(bomLevel));
             }
             try{
-                listInventoryEventForMRP = delegator.findByCondition("MrpEventView", filterByConditions, null, UtilMisc.toList("productId", "eventDate"));
+                listInventoryEventForMRP = delegator.findList("MrpEventView", filterByConditions, null, UtilMisc.toList("productId", "eventDate"), null, false);
             } catch(GenericEntityException e) {
                 return ServiceUtil.returnError("MRP Error retieving MRP event for the bom level: " + bomLevel + ". Error: " + e.getMessage());
             }

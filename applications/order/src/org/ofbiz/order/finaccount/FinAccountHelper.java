@@ -192,7 +192,7 @@ public class FinAccountHelper {
                         new EntityExpr("finAccountTransTypeId", EntityOperator.EQUALS, "ADJUSTMENT")),
                     EntityOperator.OR)),
                 EntityOperator.AND);
-        List transSums = delegator.findByCondition("FinAccountTransSum", incrementConditions, UtilMisc.toList("amount"), null);
+        List transSums = delegator.findList("FinAccountTransSum", incrementConditions, UtilMisc.toSet("amount"), null, null, false);
         incrementTotal = addFirstEntryAmount(incrementTotal, transSums, "amount", (decimals+1), rounding);
 
         // now find sum of all transactions with decrease the value
@@ -202,7 +202,7 @@ public class FinAccountHelper {
                 new EntityExpr("currencyUomId", EntityOperator.EQUALS, currencyUomId),
                 new EntityExpr("finAccountTransTypeId", EntityOperator.EQUALS, "WITHDRAWAL")),
             EntityOperator.AND);
-        transSums = delegator.findByCondition("FinAccountTransSum", decrementConditions, UtilMisc.toList("amount"), null);
+        transSums = delegator.findList("FinAccountTransSum", decrementConditions, UtilMisc.toSet("amount"), null, null, false);
         decrementTotal = addFirstEntryAmount(decrementTotal, transSums, "amount", (decimals+1), rounding);
         
         // the net balance is just the incrementTotal minus the decrementTotal
@@ -229,7 +229,7 @@ public class FinAccountHelper {
                 EntityUtil.getFilterByDateExpr(asOfDateTime)),
             EntityOperator.AND);
          
-        List authSums = delegator.findByCondition("FinAccountAuthSum", authorizationConditions, UtilMisc.toList("amount"), null);
+        List authSums = delegator.findList("FinAccountAuthSum", authorizationConditions, UtilMisc.toSet("amount"), null, null, false);
          
         BigDecimal authorizationsTotal = addFirstEntryAmount(ZERO, authSums, "amount", (decimals+1), rounding);
          

@@ -265,7 +265,7 @@ public class PartyWorker {
 
         List sort = UtilMisc.toList("-fromDate");
         EntityCondition addrCond = new EntityConditionList(addrExprs, EntityOperator.AND);
-        List addresses = EntityUtil.filterByDate(delegator.findByCondition("PartyAndPostalAddress", addrCond, null, sort));
+        List addresses = EntityUtil.filterByDate(delegator.findList("PartyAndPostalAddress", addrCond, null, sort, null, false));
         //Debug.log("Checking for matching address: " + addrCond.toString() + "[" + addresses.size() + "]", module);
 
         List validFound = FastList.newInstance();

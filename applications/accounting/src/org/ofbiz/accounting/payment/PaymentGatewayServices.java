@@ -690,7 +690,7 @@ public class PaymentGatewayServices {
             EntityExpr orderExpr = new EntityExpr("orderId", EntityOperator.EQUALS, orderId);
             EntityCondition con4 = new EntityConditionList(UtilMisc.toList(con3, orderExpr), EntityOperator.AND);
 
-            paymentPrefs = delegator.findByCondition("OrderPaymentPreference", con4, null, null);
+            paymentPrefs = delegator.findList("OrderPaymentPreference", con4, null, null, null, false);
         } catch (GenericEntityException gee) {
             Debug.logError(gee, "Problems getting entity record(s), see stack trace", module);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
@@ -1421,7 +1421,7 @@ public class PaymentGatewayServices {
                                                   new EntityExpr("invoiceId", EntityOperator.EQUALS, GenericEntity.NULL_FIELD));
             EntityCondition conditions = new EntityConditionList(conditionList, EntityOperator.AND);
 
-            List paymentApplications = delegator.findByCondition("PaymentApplication", conditions, null, UtilMisc.toList("-amountApplied"));
+            List paymentApplications = delegator.findList("PaymentApplication", conditions, null, UtilMisc.toList("-amountApplied"), null, false);
             if (UtilValidate.isNotEmpty(paymentApplications)) {
                 Iterator paymentApplicationsIt = paymentApplications.iterator();
                 while (paymentApplicationsIt.hasNext()) {

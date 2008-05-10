@@ -233,7 +233,7 @@ public class ShoppingCartServices {
             exprs.add(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "PAYMENT_DECLINED"));
             exprs.add(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "PAYMENT_SETTLED"));
             EntityCondition cond = new EntityConditionList(exprs, EntityOperator.AND);
-            orderPaymentPrefs = delegator.findByCondition("OrderPaymentPreference", cond, null, null);
+            orderPaymentPrefs = delegator.findList("OrderPaymentPreference", cond, null, null, null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());

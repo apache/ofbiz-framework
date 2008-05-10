@@ -79,7 +79,7 @@ public class BillingAccountWorker {
         EntityCondition barFindCond = new EntityConditionList(UtilMisc.toList(
                 new EntityExpr("partyId", EntityOperator.IN, relatedPartyIdList),
                 new EntityExpr("roleTypeId", EntityOperator.EQUALS, "BILL_TO_CUSTOMER")), EntityOperator.AND);
-        List billingAccountRoleList = delegator.findByCondition("BillingAccountRole", barFindCond, null, null);
+        List<GenericValue> billingAccountRoleList = delegator.findList("BillingAccountRole", barFindCond, null, null, null, false);
         billingAccountRoleList = EntityUtil.filterByDate(billingAccountRoleList);
 
         if (billingAccountRoleList != null && billingAccountRoleList.size() > 0) {

@@ -403,7 +403,7 @@ public class EntityUtil {
             new EntityFieldMap(search, EntityOperator.AND),
             EntityUtil.getFilterByDateExpr(now)
         ), EntityOperator.AND);
-        return delegator.findByCondition(entityName,searchCondition,null,UtilMisc.toList("-fromDate"));
+        return delegator.findList(entityName, searchCondition, null, UtilMisc.toList("-fromDate"), null, false);
     }
 
     public static GenericValue newDatedInclusionEntity(GenericDelegator delegator, String entityName, Map<String, ? extends Object> search) throws GenericEntityException {

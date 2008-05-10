@@ -618,7 +618,7 @@ public class WorkEffortServices {
 
             EntityConditionList findIncomingProductionRunsCondition = new EntityConditionList(findIncomingProductionRunsConds, EntityOperator.AND);
 
-            List incomingProductionRuns = delegator.findByCondition("WorkEffortAndGoods", findIncomingProductionRunsCondition, null, UtilMisc.toList("-estimatedCompletionDate"));
+            List incomingProductionRuns = delegator.findList("WorkEffortAndGoods", findIncomingProductionRunsCondition, null, UtilMisc.toList("-estimatedCompletionDate"), null, false);
             Iterator incomingProductionRunsIter = incomingProductionRuns.iterator();
             while (incomingProductionRunsIter.hasNext()) {
                 GenericValue incomingProductionRun = (GenericValue)incomingProductionRunsIter.next();
@@ -689,7 +689,7 @@ public class WorkEffortServices {
             findOutgoingProductionRunsConds.add(new EntityConditionList(findOutgoingProductionRunsStatusConds, EntityOperator.OR));
 
             EntityConditionList findOutgoingProductionRunsCondition = new EntityConditionList(findOutgoingProductionRunsConds, EntityOperator.AND);
-            List outgoingProductionRuns = delegator.findByCondition("WorkEffortAndGoods", findOutgoingProductionRunsCondition, null, UtilMisc.toList("-estimatedStartDate"));
+            List outgoingProductionRuns = delegator.findList("WorkEffortAndGoods", findOutgoingProductionRunsCondition, null, UtilMisc.toList("-estimatedStartDate"), null, false);
             Iterator outgoingProductionRunsIter = outgoingProductionRuns.iterator();
             while (outgoingProductionRunsIter.hasNext()) {
                 GenericValue outgoingProductionRun = (GenericValue)outgoingProductionRunsIter.next();

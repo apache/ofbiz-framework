@@ -465,7 +465,7 @@ public class OagisShipmentServices {
                                                 
                                                 EntityCondition bySerialNumberCondition = new EntityExpr(new EntityExpr("serialNumber", EntityOperator.EQUALS, serialNumber), 
                                                         EntityOperator.AND, new EntityExpr("productId", EntityOperator.IN, productIdSet));
-                                                List inventoryItemsBySerialNumber = delegator.findByCondition("InventoryItem", bySerialNumberCondition, null, null);
+                                                List inventoryItemsBySerialNumber = delegator.findList("InventoryItem", bySerialNumberCondition, null, null, null, false);
                                                 if (OagisServices.requireSerialNumberExist.booleanValue()) {
                                                     if (inventoryItemsBySerialNumber.size() == 0) {
                                                         String errMsg = "Referenced serial numbers must already exist, but serial number [" + serialNumber + "] was not found. Product ID(s) considered are: " + productIdSet;
@@ -811,7 +811,7 @@ public class OagisShipmentServices {
                     new EntityExpr("primaryOrderId", EntityOperator.EQUALS, orderId),
                     new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "SHIPMENT_CANCELLED")
                     ), EntityOperator.AND);
-            List shipmentList = delegator.findByCondition("Shipment", findShipmentCondition, null, null);
+            List shipmentList = delegator.findList("Shipment", findShipmentCondition, null, null, null, false);
             GenericValue shipment = EntityUtil.getFirst(shipmentList);
             
             if (shipment != null) {
