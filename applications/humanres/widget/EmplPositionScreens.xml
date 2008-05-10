@@ -105,7 +105,7 @@
                                 <section>
                                     <widgets>
                                         <container>
-                                             <link target="EditEmplPositionFulfillments" text="${uiLabelMap.HumanResNewEmplPositionFulfillment}" style="buttontext"/>
+                                             <link target="EditEmplPositionFulfillments?emplPositionId=${emplPositionId}" text="${uiLabelMap.HumanResNewEmplPositionFulfillment}" style="buttontext"/>
                                         </container>
                                         <include-form name="ListEmplPositionFulfillments" location="component://humanres/widget/forms/EmplPositionForms.xml"/>
                                     </widgets>
@@ -151,7 +151,7 @@
                                 <section>
                                     <widgets>
                                         <container>
-                                             <link target="EditEmplPositionResponsibility" text="${uiLabelMap.HumanResNewEmplPositionResponsibility}" style="buttontext"/>
+                                             <link target="EditEmplPositionResponsibilities?emplPositionId=${emplPositionId}" text="${uiLabelMap.HumanResNewEmplPositionResponsibility}" style="buttontext"/>
                                         </container>
                                         <include-form name="ListEmplPositionResponsibilities" location="component://humanres/widget/forms/EmplPositionForms.xml"/>
                                     </widgets>

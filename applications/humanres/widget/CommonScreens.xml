@@ -36,7 +36,8 @@ under the License.
                 <set field="activeApp" value="humanres" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/partymgr/static/partymgr.js" global="true"/>
                 <set field="layoutSettings.styleSheets[]" value="/partymgr/static/partymgr.css" global="true"/>
-                <set field="appheaderTemplate" value="component://humanres/webapp/humanres/includes/appheader.ftl" global="true"/>
+                <set field="applicationMenuName" value="HumanResAppBar" global="true"/>
+                <set field="applicationMenuLocation" value="component://humanres/widget/Menus.xml" global="true"/>
             </actions>
             <widgets>
                 <include-screen name="GlobalDecorator" location="component://common/widget/CommonScreens.xml"/>

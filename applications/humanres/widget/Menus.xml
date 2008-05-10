@@ -20,6 +20,28 @@
 
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">    
+    <menu name="HumanResAppBar" default-menu-item-name="main" id="app-navigation" type="simple" title="${uiLabelMap.HumanResManagerApplication}"
+        default-selected-style="selected" menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="headerItem">
+        <menu-item name="main" title="${uiLabelMap.CommonMain}"><link target="main"/></menu-item>
+        <menu-item name="EmplPosition" title="${uiLabelMap.HumanResEmployeePosition}"><link target="findEmplPositions"/></menu-item>
+        <menu-item name="Employment" title="${uiLabelMap.HumanResEmployment}"><link target="findEmployments"/></menu-item>
+        <menu-item name="PayGrade" title="${uiLabelMap.HumanResPayGrade}"><link target="findPayGrades"/></menu-item>
+        <menu-item name="TerminationReason" title="${uiLabelMap.HumanResTerminationReason}"><link target="findTerminationReasons"/></menu-item>
+        <menu-item name="UnemploymentClaim" title="${uiLabelMap.HumanResUnemploymentClaim}"><link target="findUnemploymentClaims"/></menu-item>
+        <menu-item name="EmploymentApp" title="${uiLabelMap.HumanResEmploymentApp}"><link target="findEmploymentApps"/></menu-item>
+        <menu-item name="PartySkills" title="${uiLabelMap.HumanResListPartySkill}"><link target="ListPartySkills"/></menu-item>
+        <menu-item name="SkillType" title="${uiLabelMap.HumanResSkillType}"><link target="findSkillTypes"/></menu-item>
+        <menu-item name="Employee" title="${uiLabelMap.HumanResEmployee}"><link target="findEmployees"/></menu-item>
+        <menu-item name="ResponsibilityType" title="${uiLabelMap.HumanResResponsibilityType}"><link target="FindResponsibilityType"/></menu-item>
+        <menu-item name="Logout" title="${uiLabelMap.CommonLogout}" align-style="col-right" selected-style="selected">
+            <condition><not><if-empty field-name="userLogin"/></not></condition>
+            <link target="logout"/>
+        </menu-item>
+        <menu-item name="Login" title="${uiLabelMap.CommonLogin}" align-style="col-right" selected-style="selected">
+            <condition><if-empty field-name="userLogin"/></condition>
+            <link target="${checkLoginUrl}"/>
+        </menu-item>
+    </menu>
     <menu name="EmploymentBar" default-menu-item-name="EditPartyBenefit" default-selected-style="selected"
         type="simple" menu-container-style="button-bar tab-bar">
         <menu-item name="EditPartyBenefit" title="${uiLabelMap.HumanResEditPartyBenefit}">

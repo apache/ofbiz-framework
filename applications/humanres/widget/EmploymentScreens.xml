@@ -561,6 +561,7 @@
         <section>                        
             <actions>
                 <set field="titleProperty" value="PartyCreateNewEmployee"/>
+                <set field="headerItem" value="Employee"/>
             </actions>            
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
