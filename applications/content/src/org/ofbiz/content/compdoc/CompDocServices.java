@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.Locale;
 import java.util.Map;
 
@@ -173,7 +174,7 @@ public class CompDocServices {
             EntityConditionList conditionList = new EntityConditionList(exprList, EntityOperator.AND);
             
             String [] fields = {"rootRevisionContentId", "itemContentId", "maxRevisionSeqId", "contentId", "dataResourceId", "contentIdTo", "contentAssocTypeId", "fromDate", "sequenceNum"};
-            List selectFields = UtilMisc.toListArray(fields);
+            Set selectFields = UtilMisc.toSetArray(fields);
             List orderByFields = UtilMisc.toList("sequenceNum");
             List compDocParts = delegator.findList("ContentAssocRevisionItemView", conditionList, selectFields, orderByFields, null, false);
             
