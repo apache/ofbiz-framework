@@ -175,7 +175,7 @@ public abstract class ListFinder extends Finder {
             }
             
             if (useCache) {
-                List<GenericValue> results = delegator.findByConditionCache(entityName, whereEntityCondition, fieldsToSelect, orderByFields);
+                List<GenericValue> results = delegator.findList(entityName, whereEntityCondition, fieldsToSelect, orderByFields, null, true);
                 this.outputHandler.handleOutput(results, context, listAcsr);
             } else {
                 boolean useTransaction = true;
@@ -194,7 +194,7 @@ public abstract class ListFinder extends Finder {
                         beganTransaction = TransactionUtil.begin();
                     }
 
-                    EntityListIterator eli = delegator.findListIteratorByCondition(entityName, whereEntityCondition, havingEntityCondition, fieldsToSelect, orderByFields, options);
+                    EntityListIterator eli = delegator.find(entityName, whereEntityCondition, havingEntityCondition, fieldsToSelect, orderByFields, options);
                     this.outputHandler.handleOutput(eli, context, listAcsr);
                 } catch (GenericEntityException e) {
                     String errMsg = "Failure in by " + label + " find operation, rolling back transaction";

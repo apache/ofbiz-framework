@@ -221,7 +221,7 @@ public class PriceServices {
         // for prices, get all ProductPrice entities for this productId and currencyUomId
         List productPrices = null;
         try {
-            productPrices = delegator.findByConditionCache("ProductPrice", productPriceEc, null, UtilMisc.toList("-fromDate"));
+            productPrices = delegator.findList("ProductPrice", productPriceEc, null, UtilMisc.toList("-fromDate"), null, true);
         } catch (GenericEntityException e) {
             Debug.logError(e, "An error occurred while getting the product prices", module);
         }

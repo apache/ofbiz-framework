@@ -341,7 +341,7 @@ public class SurveyWrapper {
     public long getNumberResponses() throws SurveyWrapperException {
         long responses = 0;
         try {
-            responses = delegator.findCountByAnd("SurveyResponse", UtilMisc.toMap("surveyId", surveyId));
+            responses = delegator.findCountByCondition("SurveyResponse", new EntityExpr("surveyId", EntityOperator.EQUALS, surveyId), null, null);
         } catch (GenericEntityException e) {
             throw new SurveyWrapperException(e);
         }
@@ -733,7 +733,7 @@ public class SurveyWrapper {
         efo.setDistinct(false);
 
         EntityListIterator eli = null;
-        eli = delegator.findListIteratorByCondition("SurveyResponseAndAnswer", makeEliCondition(question), null, null, null, efo);
+        eli = delegator.find("SurveyResponseAndAnswer", makeEliCondition(question), null, null, null, efo);
 
         return eli;
     }

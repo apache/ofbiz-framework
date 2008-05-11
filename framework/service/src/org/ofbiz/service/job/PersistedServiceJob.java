@@ -37,6 +37,8 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityFieldMap;
+import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.serialize.SerializeException;
 import org.ofbiz.entity.serialize.XmlSerializer;
 import org.ofbiz.service.DispatchContext;
@@ -290,7 +292,8 @@ public class PersistedServiceJob extends GenericServiceJob {
 
         long count = 0;
         try {
-            count = delegator.findCountByAnd("JobSandbox", "parentJobId", pJobId, "statusId", "SERVICE_FAILED");
+            EntityFieldMap ecl = new EntityFieldMap(UtilMisc.toMap("parentJobId", pJobId, "statusId", "SERVICE_FAILED"), EntityOperator.AND);
+            count = delegator.findCountByCondition("JobSandbox", ecl, null, null);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }

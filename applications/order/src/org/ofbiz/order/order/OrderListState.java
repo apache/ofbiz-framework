@@ -238,7 +238,7 @@ public class OrderListState {
 
         EntityCondition queryConditionsList = new EntityConditionList(allConditions, EntityOperator.AND);
         EntityFindOptions options = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
-        EntityListIterator iterator = delegator.findListIteratorByCondition("OrderHeader", queryConditionsList, null, null, UtilMisc.toList("orderDate DESC"), options);
+        EntityListIterator iterator = delegator.find("OrderHeader", queryConditionsList, null, null, UtilMisc.toList("orderDate DESC"), options);
 
         // get subset corresponding to pagination state
         List orders = iterator.getPartialList(viewSize * viewIndex, viewSize);

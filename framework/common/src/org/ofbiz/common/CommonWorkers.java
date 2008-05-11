@@ -73,7 +73,7 @@ public class CommonWorkers {
                 new EntityExpr("geoTypeId", EntityOperator.EQUALS, "TERRITORY")), EntityOperator.OR);
         List sortList = UtilMisc.toList("geoName");
         try {
-            geoList = delegator.findByConditionCache("Geo", condition, null, sortList);
+            geoList = delegator.findList("Geo", condition, null, sortList, null, true);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Cannot lookup State Geos: " + e.toString(), module);
         }
@@ -96,11 +96,11 @@ public class CommonWorkers {
                         new EntityExpr("geoTypeId", EntityOperator.EQUALS, "PROVINCE")
                         ), EntityOperator.OR)
                 ), EntityOperator.AND);
-        List sortList = UtilMisc.toList("geoId");
+        List<String> sortList = UtilMisc.toList("geoId");
 
         List geoList = FastList.newInstance();
         try {
-            geoList = delegator.findByConditionCache("GeoAssocAndGeoTo", stateProvinceFindCond, null, sortList);
+            geoList = delegator.findList("GeoAssocAndGeoTo", stateProvinceFindCond, null, sortList, null, true);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Cannot lookup Geo", module);
         }                        

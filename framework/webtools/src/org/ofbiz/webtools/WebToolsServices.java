@@ -521,7 +521,7 @@ public class WebToolsServices {
 
                         // some databases don't support cursors, or other problems may happen, so if there is an error here log it and move on to get as much as possible
                         try {
-                            values = delegator.findListIteratorByCondition(curEntityName, null, null, null, me.getPkFieldNames(), null);
+                            values = delegator.find(curEntityName, null, null, null, me.getPkFieldNames(), null);
                         } catch (Exception entityEx) {
                             results.add("["+fileNumber +"] [xxx] Error when writing " + curEntityName + ": " + entityEx);
                             continue;
@@ -991,7 +991,7 @@ public class WebToolsServices {
             }
             if (cond != null || "Y".equals(showAll)) {
                 try {
-                    eli = delegator.findListIteratorByCondition("JobSandbox", cond, null, null, orderBy, findOpts);
+                    eli = delegator.find("JobSandbox", cond, null, null, orderBy, findOpts);
               
                     // get the indexes for the partial list
                     lowIndex = viewIndex * viewSize + 1;

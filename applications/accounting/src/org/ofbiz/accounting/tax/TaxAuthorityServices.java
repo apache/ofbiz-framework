@@ -88,7 +88,7 @@ public class TaxAuthorityServices {
             if ("Y".equals(productStore.getString("showPricesWithVatTax"))) {
                 Set taxAuthoritySet = FastSet.newInstance();
                 if (productStore.get("vatTaxAuthPartyId") == null) {
-                    List taxAuthorityRawList = delegator.findByConditionCache("TaxAuthority", new EntityExpr("taxAuthGeoId", EntityOperator.EQUALS, productStore.get("vatTaxAuthGeoId")), null, null);
+                    List taxAuthorityRawList = delegator.findList("TaxAuthority", new EntityExpr("taxAuthGeoId", EntityOperator.EQUALS, productStore.get("vatTaxAuthGeoId")), null, null, null, true);
                     taxAuthoritySet.addAll(taxAuthorityRawList);
                 } else {
                     GenericValue taxAuthority = delegator.findByPrimaryKeyCache("TaxAuthority", UtilMisc.toMap("taxAuthGeoId", productStore.get("vatTaxAuthGeoId"), "taxAuthPartyId", productStore.get("vatTaxAuthPartyId")));
@@ -225,7 +225,7 @@ public class TaxAuthorityServices {
         geoIdSet = GeoWorker.expandGeoRegionDeep(geoIdSet, delegator);
         //Debug.logInfo("Tax calc geoIdSet after expand:" + geoIdSet, module);
 
-        List taxAuthorityRawList = delegator.findByConditionCache("TaxAuthority", new EntityExpr("taxAuthGeoId", EntityOperator.IN, geoIdSet), null, null);
+        List taxAuthorityRawList = delegator.findList("TaxAuthority", new EntityExpr("taxAuthGeoId", EntityOperator.IN, geoIdSet), null, null, null, true);
         taxAuthoritySet.addAll(taxAuthorityRawList);
         //Debug.logInfo("Tax calc taxAuthoritySet after expand:" + taxAuthoritySet, module);
     }

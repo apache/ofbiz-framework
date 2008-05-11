@@ -1098,7 +1098,7 @@ public class OrderReadHelper {
                 conditions.add(new EntityExpr("paymentMethodTypeId", EntityOperator.EQUALS, paymentMethodTypeId));
             }
             EntityConditionList ecl = new EntityConditionList(conditions, EntityOperator.AND);
-            List payments = orderHeader.getDelegator().findByConditionCache("PaymentAndApplication", ecl, null, null);
+            List payments = orderHeader.getDelegator().findList("PaymentAndApplication", ecl, null, null, null, true);
 
             for (Iterator iter = payments.iterator(); iter.hasNext(); ) {
                 GenericValue payment = (GenericValue) iter.next();
@@ -2742,7 +2742,7 @@ public class OrderReadHelper {
                 GenericValue orderAdjustment = (GenericValue) orderAdjIterator.next();
                 long count = 0;
                 try {
-                    count = orderHeader.getDelegator().findCountByAnd("ReturnAdjustment", UtilMisc.toMap("orderAdjustmentId", orderAdjustment.get("orderAdjustmentId")));
+                    count = orderHeader.getDelegator().findCountByCondition("ReturnAdjustment", new EntityExpr("orderAdjustmentId", EntityOperator.EQUALS, orderAdjustment.get("orderAdjustmentId")), null, null);
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                 }

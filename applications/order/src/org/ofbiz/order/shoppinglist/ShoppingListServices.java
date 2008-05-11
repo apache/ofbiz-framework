@@ -132,7 +132,7 @@ public class ShoppingListServices {
             List order = UtilMisc.toList("-lastOrderedDate");
 
             EntityListIterator eli = null;
-            eli = delegator.findListIteratorByCondition("ShoppingList", cond, null, order);
+            eli = delegator.find("ShoppingList", cond, null, null, order, null);
     
             if (eli != null) {
                 GenericValue shoppingList;

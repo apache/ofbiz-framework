@@ -35,6 +35,7 @@ import org.ofbiz.base.util.*;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityFieldValue;
 import org.ofbiz.entity.condition.EntityFunction;
@@ -1187,7 +1188,8 @@ public class CheckOutHelper {
         List blacklistFound = null;
         if (exprs.size() > 0) {
             try {
-                blacklistFound = this.delegator.findByOr("OrderBlacklist", exprs);
+                EntityConditionList ecl = new EntityConditionList(exprs, EntityOperator.AND);
+                blacklistFound = this.delegator.findList("OrderBlacklist", ecl, null, null, null, false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Problems with OrderBlacklist lookup.", module);
                 errMsg = UtilProperties.getMessage(resource,"checkhelper.problems_reading_database", (cart != null ? cart.getLocale() : Locale.getDefault()));

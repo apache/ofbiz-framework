@@ -666,7 +666,7 @@ public class ShipmentServices {
 
         EntityListIterator eli = null;
         try {
-            eli = delegator.findListIteratorByCondition("OdbcPackageIn", null, null, orderBy);
+            eli = delegator.find("OdbcPackageIn", null, null, null, orderBy, null);
             GenericValue pkgInfo;
             while ((pkgInfo = (GenericValue) eli.next()) != null) {
                 String packageSeqId = pkgInfo.getString("shipmentPackageSeqId");

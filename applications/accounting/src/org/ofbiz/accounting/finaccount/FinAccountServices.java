@@ -355,7 +355,7 @@ public class FinAccountServices {
 
                 EntityListIterator eli = null;
                 try {
-                    eli = delegator.findListIteratorByCondition("FinAccountTrans", condition, null, UtilMisc.toList("-transactionDate"));
+                    eli = delegator.find("FinAccountTrans", condition, null, null, UtilMisc.toList("-transactionDate"), null);
 
                     GenericValue trans;
                     while (remainingBalance.compareTo(FinAccountHelper.ZERO) == 1 && (trans = (GenericValue) eli.next()) != null) {

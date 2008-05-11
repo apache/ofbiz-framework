@@ -291,7 +291,7 @@ public class CategoryServices {
                     // set distinct on
                     EntityFindOptions findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
                     // using list iterator
-                    EntityListIterator pli = delegator.findListIteratorByCondition(entityName, mainCond, null, null, orderByFields, findOpts);
+                    EntityListIterator pli = delegator.find(entityName, mainCond, null, null, orderByFields, findOpts);
                 
                     // get the partial list for this page
                     if (limitView) {

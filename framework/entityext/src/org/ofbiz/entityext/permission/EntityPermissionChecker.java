@@ -265,7 +265,7 @@ public class EntityPermissionChecker {
         
         EntityCondition opCond = new EntityExpr(lcEntityName + "OperationId", EntityOperator.IN, targetOperationList);
         
-        List targetOperationEntityList = delegator.findByConditionCache(modelOperationEntity.getEntityName(), opCond, null, null);
+        List targetOperationEntityList = delegator.findList(modelOperationEntity.getEntityName(), opCond, null, null, null, true);
         Map entities = new HashMap();
         String pkFieldName = modelEntity.getFirstPkFieldName();
     
@@ -1066,7 +1066,7 @@ public class EntityPermissionChecker {
         
         public void init( GenericDelegator delegator) throws GenericEntityException {
             EntityCondition opCond = new EntityExpr(operationFieldName, EntityOperator.IN, this.operationList);
-            this.entityList = delegator.findByConditionCache(this.entityName, opCond, null, null);
+            this.entityList = delegator.findList(this.entityName, opCond, null, null, null, true);
         }
         
         public void restart() {
@@ -1363,7 +1363,7 @@ public class EntityPermissionChecker {
         EntityExpr expr = new EntityExpr(entityIdFieldName, EntityOperator.IN, idList);
         EntityExpr expr2 = new EntityExpr(partyIdFieldName, EntityOperator.EQUALS, partyId);
         EntityConditionList condList = new EntityConditionList(UtilMisc.toList(expr, expr2), EntityOperator.AND);
-        List roleList = delegator.findByConditionCache(entityName, condList, null, null);
+        List roleList = delegator.findList(entityName, condList, null, null, null, true);
         List roleListFiltered = EntityUtil.filterByDate(roleList);
         HashSet distinctSet = new HashSet();
         Iterator iter = roleListFiltered.iterator();

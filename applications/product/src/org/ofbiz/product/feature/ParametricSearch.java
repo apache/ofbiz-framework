@@ -136,7 +136,7 @@ public class ParametricSearch {
         Map productFeaturesByTypeMap = FastMap.newInstance();
         try {
             Set typesWithOverflowMessages = new HashSet();
-            EntityListIterator productFeatureEli = delegator.findListIteratorByCondition("ProductFeature", null, null, UtilMisc.toList("description"));
+            EntityListIterator productFeatureEli = delegator.find("ProductFeature", null, null, null, UtilMisc.toList("description"), null);
             GenericValue productFeature = null;
             while ((productFeature = (GenericValue) productFeatureEli.next()) != null) {
                 String productFeatureTypeId = productFeature.getString("productFeatureTypeId");

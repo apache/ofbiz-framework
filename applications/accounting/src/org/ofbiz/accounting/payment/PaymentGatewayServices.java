@@ -43,6 +43,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
+import org.ofbiz.entity.condition.EntityFieldMap;
 import org.ofbiz.entity.condition.EntityJoinOperator;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.ModelEntity;
@@ -1844,10 +1845,13 @@ public class PaymentGatewayServices {
                     //   and that have resultNsf = Y, ie only consider other NSF responses
                     Long autoOrderCcTryLaterMax = productStore.getLong("autoOrderCcTryLaterMax");
                     if (autoOrderCcTryLaterMax != null) {
-                        long failedTries = delegator.findCountByAnd("PaymentGatewayResponse", 
-                                UtilMisc.toMap("orderPaymentPreferenceId", orderPaymentPreference.get("orderPaymentPreferenceId"), 
-                                "paymentMethodId", orderPaymentPreference.get("paymentMethodId"),
-                                "resultNsf", "Y"));
+                        long failedTries = delegator.findCountByCondition("PaymentGatewayResponse", 
+                                new EntityFieldMap(UtilMisc.toMap(
+                                        "orderPaymentPreferenceId", orderPaymentPreference.get("orderPaymentPreferenceId"), 
+                                        "paymentMethodId", orderPaymentPreference.get("paymentMethodId"),
+                                        "resultNsf", "Y"), 
+                                    EntityOperator.AND),
+                                null, null);
                         if (failedTries < autoOrderCcTryLaterMax.longValue()) {
                             needsNsfRetry = true;
                         }
@@ -2449,8 +2453,8 @@ public class PaymentGatewayServices {
 
         EntityListIterator eli = null;
         try {
-            eli = delegator.findListIteratorByCondition("OrderPaymentPreference",
-                    new EntityConditionList(exprs, EntityOperator.AND), null, UtilMisc.toList("orderId"));
+            eli = delegator.find("OrderPaymentPreference",
+                    new EntityConditionList(exprs, EntityOperator.AND), null, null, UtilMisc.toList("orderId"), null);
             List processList = new ArrayList();
             if (eli != null) {
                 Debug.logInfo("Processing failed order re-auth(s)", module);
@@ -2496,9 +2500,9 @@ public class PaymentGatewayServices {
 
         EntityListIterator eli = null;
         try {
-            eli = delegator.findListIteratorByCondition("OrderPaymentPreference",
+            eli = delegator.find("OrderPaymentPreference",
                     new EntityExpr(new EntityExpr("needsNsfRetry", EntityOperator.EQUALS, "Y"), EntityOperator.AND, new EntityExpr(ModelEntity.STAMP_FIELD, EntityOperator.LESS_THAN_EQUAL_TO, oneWeekAgo)), 
-                    null, UtilMisc.toList("orderId"));
+                    null, null, UtilMisc.toList("orderId"), null);
 
             List processList = new ArrayList();
             if (eli != null) {

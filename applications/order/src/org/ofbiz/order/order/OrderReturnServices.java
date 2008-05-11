@@ -411,7 +411,7 @@ public class OrderReturnServices {
              */
             List orderItemQuantitiesIssued = null;
             try {
-                orderItemQuantitiesIssued = delegator.findByCondition("OrderItemQuantityReportGroupByItem", whereConditions, null, UtilMisc.toList("orderId", "orderItemSeqId", "quantityIssued"), UtilMisc.toList("orderItemSeqId"), null);
+                orderItemQuantitiesIssued = delegator.findList("OrderItemQuantityReportGroupByItem", whereConditions, UtilMisc.toSet("orderId", "orderItemSeqId", "quantityIssued"), UtilMisc.toList("orderItemSeqId"), null, false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorUnableToGetReturnHeaderFromItem", locale));
@@ -1001,7 +1001,7 @@ public class OrderReturnServices {
                 EntityConditionList pmtConditionList = new EntityConditionList(UtilMisc.toList(new EntityExpr("paymentMethodTypeId", EntityOperator.NOT_IN, orderedRefundPaymentMethodTypes)), EntityOperator.AND);
                 List otherPaymentMethodTypes = new ArrayList();
                 try {
-                    otherPaymentMethodTypes = delegator.findByConditionCache("PaymentMethodType",pmtConditionList,null,null);
+                    otherPaymentMethodTypes = delegator.findList("PaymentMethodType", pmtConditionList, null, null, null, true);
                 } catch(GenericEntityException e) {
                     Debug.logError(e, "Cannot get PaymentMethodTypes", module);
                     return ServiceUtil.returnError("Problems getting PaymentMethodTypes: " + e.toString());

@@ -455,7 +455,7 @@ public class EntityDataServices {
         
         EntityListIterator eli = null;
         try {
-            eli = delegator.findListIteratorByCondition(entityName, null, null, null);
+            eli = delegator.find(entityName, null, null, null, null, null);
             GenericValue currentValue;
             while ((currentValue = eli.next()) != null) {
                 byte[] bytes = currentValue.getBytes(fieldName);

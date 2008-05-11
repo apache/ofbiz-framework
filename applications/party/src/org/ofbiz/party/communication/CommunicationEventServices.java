@@ -25,6 +25,7 @@ import org.ofbiz.base.util.*;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
@@ -178,17 +179,17 @@ public class CommunicationEventServices {
 
             // Find a list of distinct email addresses from active, ACCEPTED parties in the contact list
             //      using a list iterator (because there can be a large number)
-            List conditionList = UtilMisc.toList(
+            List<EntityCondition> conditionList = UtilMisc.toList(
                         new EntityExpr("contactListId", EntityOperator.EQUALS, contactList.get("contactListId")),
                         new EntityExpr("statusId", EntityOperator.EQUALS, "CLPT_ACCEPTED"),
                         new EntityExpr("preferredContactMechId", EntityOperator.NOT_EQUAL, null),
                         EntityUtil.getFilterByDateExpr(), EntityUtil.getFilterByDateExpr("contactFromDate", "contactThruDate")
                         );
-            EntityConditionList conditions = new EntityConditionList(conditionList, EntityOperator.AND);
-            List fieldsToSelect = UtilMisc.toList("infoString");
+            EntityConditionList<EntityCondition> conditions = new EntityConditionList<EntityCondition>(conditionList, EntityOperator.AND);
+            Set<String> fieldsToSelect = UtilMisc.toSet("infoString");
 
-            List sendToEmails = delegator.findByCondition("ContactListPartyAndContactMech", conditions,  null, fieldsToSelect, null,
-                    new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true));
+            List sendToEmails = delegator.findList("ContactListPartyAndContactMech", conditions, fieldsToSelect, null,
+                    new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true), false);
             
             // Send an email to each contact list member
             // TODO: Contact lists for emails really should be written as an EntityListIterator for very large lists! 
@@ -221,7 +222,7 @@ public class CommunicationEventServices {
                     clpConditionList.add(new EntityExpr("infoString", EntityOperator.EQUALS, emailAddress));
                     EntityConditionList clpConditions = new EntityConditionList(clpConditionList, EntityOperator.AND);
     
-                    List emailCLPaCMs = delegator.findByConditionCache("ContactListPartyAndContactMech", clpConditions, null, orderBy);
+                    List emailCLPaCMs = delegator.findList("ContactListPartyAndContactMech", clpConditions, null, orderBy, null, true);
                     GenericValue lastContactListPartyACM = EntityUtil.getFirst(emailCLPaCMs);
                     if (lastContactListPartyACM == null) continue;
                     

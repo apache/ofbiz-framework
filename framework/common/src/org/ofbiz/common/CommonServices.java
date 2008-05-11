@@ -482,7 +482,7 @@ public class CommonServices {
 
         long count = -1;
         try {
-            count = delegator.findCountByAnd("SequenceValueItem");
+            count = delegator.findCountByCondition("SequenceValueItem", null, null, null);
         } catch (GenericEntityException e) {
             Debug.logError(e.getMessage(), module);
             return ServiceUtil.returnError("Unable to connect to datasource!");

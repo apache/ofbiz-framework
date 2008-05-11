@@ -1688,11 +1688,7 @@ public class ModelFormField {
                 Locale locale = UtilMisc.ensureLocale(context.get("locale"));
                 
                 List values = null;
-                if (this.cache) {
-                    values = delegator.findByConditionCache(this.entityName, findCondition, null, this.orderByList);
-                } else {
-                    values = delegator.findList(this.entityName, findCondition, null, this.orderByList, null, false);
-                }
+                values = delegator.findList(this.entityName, findCondition, null, this.orderByList, null, this.cache);
 
                 // filter-by-date if requested
                 if ("true".equals(this.filterByDate)) {

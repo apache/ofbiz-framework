@@ -172,7 +172,7 @@ public class ProductsExportToEbay {
             List selectResult = (List)context.get("selectResult");
              
             // Get the list of products to be exported to eBay
-            List productsList  = delegator.findByCondition("Product", new EntityExpr("productId", EntityOperator.IN, selectResult), null, null);
+            List productsList  = delegator.findList("Product", new EntityExpr("productId", EntityOperator.IN, selectResult), null, null, null, false);
              
             try {
                 Document itemDocument = UtilXml.makeEmptyXmlDocument("AddItemRequest");
