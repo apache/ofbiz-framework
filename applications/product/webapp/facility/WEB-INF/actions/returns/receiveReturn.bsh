@@ -81,10 +81,10 @@ if (returnHeader != null) {
 }
 
 // facilities
-facilities = delegator.findAll("Facility");
+facilities = delegator.findList("Facility", null, null, null, null, false);
 
 //all possible inventory item types
-inventoryItemTypes = delegator.findAllCache("InventoryItemType", UtilMisc.toList("description"));
+inventoryItemTypes = delegator.findList("InventoryItemType", null, null, UtilMisc.toList("description"), null, true);
 
 context.put("facilityId", facilityId);
 context.put("facility", facility);

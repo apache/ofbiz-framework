@@ -38,7 +38,7 @@ partyRoleExprs = UtilMisc.toList(new EntityExpr("partyId", EntityOperator.EQUALS
 partyRoles = delegator.findByAnd("RoleTypeAndParty", partyRoleExprs, UtilMisc.toList("description"));
 context.put("partyRoles", partyRoles);
 
-roles = delegator.findAll("RoleType", UtilMisc.toList("description", "roleTypeId"));
+roles = delegator.findList("RoleType", null, null, UtilMisc.toList("description", "roleTypeId"), null, false);
 context.put("roles", roles);
 
 party = delegator.findByPrimaryKey("Party", UtilMisc.toMap("partyId", partyId));

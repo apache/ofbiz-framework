@@ -52,7 +52,7 @@ public class GenericUserGroupMgr implements UserGroupManager {
         List groupNames = new ArrayList();
         List groups = null;
         try {
-            groups = delegator.findAll(org.ofbiz.shark.SharkConstants.SharkGroup);
+            groups = delegator.findList(org.ofbiz.shark.SharkConstants.SharkGroup, null, null, null, null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             throw new RootException(e);
@@ -72,7 +72,7 @@ public class GenericUserGroupMgr implements UserGroupManager {
         List userNames = new ArrayList();
         List users = null;
         try {
-            users = delegator.findAll(org.ofbiz.shark.SharkConstants.SharkUser);
+            users = delegator.findList(org.ofbiz.shark.SharkConstants.SharkUser, null, null, null, null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             throw new RootException(e);

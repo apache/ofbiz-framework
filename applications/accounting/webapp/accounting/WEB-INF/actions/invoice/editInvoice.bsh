@@ -146,7 +146,7 @@ if (invoice != null) {
     
     edit = parameters.get("editInvoice");
     if (edit != null && edit.equalsIgnoreCase("true")) {            
-        invoiceItemTypes = delegator.findAll("InvoiceItemType");
+        invoiceItemTypes = delegator.findList("InvoiceItemType", null, null, null, null, false);
         context.put("invoiceItemTypes", invoiceItemTypes);  
         context.put("editInvoice", new Boolean(true));  
     }

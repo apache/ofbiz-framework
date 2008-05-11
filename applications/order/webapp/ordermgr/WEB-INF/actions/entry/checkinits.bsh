@@ -50,7 +50,7 @@ context.put("shoppingCart", shoppingCart);
 salesChannels = delegator.findByAndCache("Enumeration", UtilMisc.toMap("enumTypeId", "ORDER_SALES_CHANNEL"), UtilMisc.toList("sequenceId"));
 context.put("salesChannels", salesChannels);
 
-productStores = delegator.findAllCache("ProductStore", UtilMisc.toList("storeName"));
+productStores = delegator.findList("ProductStore", null, null, UtilMisc.toList("storeName"), null, true);
 context.put("productStores", productStores);
 
 suppliers = delegator.findByAnd("PartyRole", UtilMisc.toMap("roleTypeId", "SUPPLIER"));

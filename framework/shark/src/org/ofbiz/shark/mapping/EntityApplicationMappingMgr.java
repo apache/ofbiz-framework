@@ -66,7 +66,7 @@ public class EntityApplicationMappingMgr implements ApplicationMappingManager {
         GenericDelegator delegator = SharkContainer.getDelegator();
         List lookupList = null;
         try {
-            lookupList = delegator.findAll(org.ofbiz.shark.SharkConstants.WfApplicationMap);
+            lookupList = delegator.findList(org.ofbiz.shark.SharkConstants.WfApplicationMap, null, null, null, null, false);
         } catch (GenericEntityException e) {
             throw new RootException(e);
         }

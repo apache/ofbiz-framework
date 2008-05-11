@@ -40,12 +40,12 @@ context.put("facilityType", facilityType);
 context.put("facilityId", facilityId);
 
 //Facility types
-Collection facilityTypes = delegator.findAll("FacilityType");
+Collection facilityTypes = delegator.findList("FacilityType", null, null, null, null, false);
 if (facilityTypes != null)
   context.put("facilityTypes", facilityTypes);
 
 // all possible inventory item types
-inventoryItemTypes = delegator.findAllCache("InventoryItemType", UtilMisc.toList("description"));
+inventoryItemTypes = delegator.findList("InventoryItemType", null, null, UtilMisc.toList("description"), null, true);
 context.put("inventoryItemTypes", inventoryItemTypes);
 
 // unit of measures

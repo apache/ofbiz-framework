@@ -28,11 +28,11 @@ delegator = request.getAttribute("delegator");
 security = request.getAttribute("security");
 
 // get the order types
-orderTypes = delegator.findAll("OrderType", UtilMisc.toList("description"));
+orderTypes = delegator.findList("OrderType", null, null, UtilMisc.toList("description"), null, false);
 context.put("orderTypes", orderTypes);
 
 // get the role types
-roleTypes = delegator.findAll("RoleType", UtilMisc.toList("description"));
+roleTypes = delegator.findList("RoleType", null, null, UtilMisc.toList("description"), null, false);
 context.put("roleTypes", roleTypes);
 
 // get the order statuses
@@ -40,11 +40,11 @@ orderStatuses = delegator.findByAnd("StatusItem", UtilMisc.toMap("statusTypeId",
 context.put("orderStatuses", orderStatuses);
 
 // get websites
-websites = delegator.findAll("WebSite", UtilMisc.toList("siteName"));
+websites = delegator.findList("WebSite", null, null, UtilMisc.toList("siteName"), null, false);
 context.put("webSites", websites);
 
 // get the stores
-stores = delegator.findAll("ProductStore", UtilMisc.toList("storeName"));
+stores = delegator.findList("ProductStore", null, null, UtilMisc.toList("storeName"), null, false);
 context.put("productStores", stores);
 
 // get the channels

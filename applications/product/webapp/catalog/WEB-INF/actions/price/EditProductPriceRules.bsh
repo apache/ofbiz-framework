@@ -34,5 +34,5 @@ context.put("inputParamEnums", inputParamEnums);
 List condOperEnums = delegator.findByAndCache("Enumeration", UtilMisc.toMap("enumTypeId", "PROD_PRICE_COND"), UtilMisc.toList("sequenceId"));
 context.put("condOperEnums", condOperEnums);
 
-List productPriceActionTypes = delegator.findAllCache("ProductPriceActionType", UtilMisc.toList("description"));
+List productPriceActionTypes = delegator.findList("ProductPriceActionType", null, null, UtilMisc.toList("description"), null, true);
 context.put("productPriceActionTypes", productPriceActionTypes);

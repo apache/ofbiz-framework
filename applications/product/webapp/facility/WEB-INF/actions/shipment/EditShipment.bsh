@@ -94,7 +94,7 @@ if (shipment != null) {
     
     if (primaryOrderId != null) {
         ord = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", primaryOrderId));
-        pfc = delegator.findAll("ProductStoreFacility");
+        pfc = delegator.findList("ProductStoreFacility", null, null, null, null, false);
         fac = delegator.findByAnd("ProductStoreFacilityByOrder", UtilMisc.toMap("orderId", primaryOrderId));
         Debug.log("" + ord);
         Debug.log("" + pfc);

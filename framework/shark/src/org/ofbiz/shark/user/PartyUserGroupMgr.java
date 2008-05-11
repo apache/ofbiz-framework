@@ -53,7 +53,7 @@ public class PartyUserGroupMgr implements UserGroupManager {
         List userLogins = null;
         List allUsers = null;
         try {
-            userLogins = delegator.findAll("UserLogin", UtilMisc.toList("userLoginId"));
+            userLogins = delegator.findList("UserLogin", null, null, UtilMisc.toList("userLoginId"), null, false);
         } catch (GenericEntityException e) {
             throw new RootException(e);
         }

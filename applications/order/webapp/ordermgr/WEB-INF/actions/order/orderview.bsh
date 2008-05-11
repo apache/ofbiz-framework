@@ -201,7 +201,7 @@ if (orderHeader != null) {
     orderHeaderStatuses = orderReadHelper.getOrderHeaderStatuses();
     context.put("orderHeaderStatuses", orderHeaderStatuses);
 
-    adjustmentTypes = delegator.findAll("OrderAdjustmentType", UtilMisc.toList("description"));
+    adjustmentTypes = delegator.findList("OrderAdjustmentType", null, null, UtilMisc.toList("description"), null, false);
     context.put("orderAdjustmentTypes", adjustmentTypes);
 
     notes = delegator.findByAnd("OrderHeaderNoteView", UtilMisc.toMap("orderId", orderId), UtilMisc.toList("-noteDateTime"));

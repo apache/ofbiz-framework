@@ -68,7 +68,7 @@ if (!UtilValidate.isEmpty(surveyQuestionCategoryId)) {
         categoryQuestions = surveyQuestionCategory.getRelated("SurveyQuestion");
     }
 }
-questionCategories = delegator.findAll("SurveyQuestionCategory", UtilMisc.toList("description"));
+questionCategories = delegator.findList("SurveyQuestionCategory", null, null, UtilMisc.toList("description"), null, false);
 
 context.put("surveyQuestion", surveyQuestion);
 

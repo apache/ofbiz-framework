@@ -30,7 +30,7 @@ context.put("cart", cart);
 orderTerms = cart.getOrderTerms();
 context.put("orderTerms",orderTerms);
 
-termTypes = delegator.findAll("TermType");
+termTypes = delegator.findList("TermType", null, null, null, null,false);
 context.put("termTypes",termTypes);
 createNew = request.getParameter("createNew");
 

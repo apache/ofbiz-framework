@@ -68,7 +68,7 @@ if (product.getString("isVirtual") != null && "Y".equals(product.getString("isVi
     // The warehouse list is selected
     showAllFacilities = parameters.get("showAllFacilities");
     if (showAllFacilities != null && showAllFacilities.equals("Y")) {
-        facilityList = delegator.findAll("Facility");
+        facilityList = delegator.findList("Facility", null, null, null, null, false);
     } else {
         facilityList = delegator.findByAnd("ProductFacility", UtilMisc.toMap("productId", productId));
     }

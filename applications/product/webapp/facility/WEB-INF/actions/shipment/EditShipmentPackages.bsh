@@ -52,7 +52,7 @@ if (shipment != null) {
     shipmentItems = shipment.getRelated("ShipmentItem", null, UtilMisc.toList("shipmentItemSeqId"));
     shipmentRouteSegments = shipment.getRelated("ShipmentRouteSegment", null, UtilMisc.toList("shipmentRouteSegmentId"));
     weightUoms = delegator.findByAnd("Uom", UtilMisc.toMap("uomTypeId", "WEIGHT_MEASURE"), UtilMisc.toList("description"));
-    boxTypes = delegator.findAll("ShipmentBoxType");
+    boxTypes = delegator.findList("ShipmentBoxType", null, null, null, null, false);
     
     context.put("shipment", shipment);
     context.put("shipmentPackageDatas", shipmentPackageDatas);

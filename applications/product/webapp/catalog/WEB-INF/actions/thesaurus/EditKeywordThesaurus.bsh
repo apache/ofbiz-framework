@@ -22,7 +22,7 @@ import org.ofbiz.base.util.*;
 
 relationshipEnums = delegator.findByAndCache("Enumeration", UtilMisc.toMap("enumTypeId", "KW_THES_REL"), UtilMisc.toList("sequenceId"));
 
-keywordThesauruses = delegator.findAll("KeywordThesaurus", UtilMisc.toList("enteredKeyword"));
+keywordThesauruses = delegator.findList("KeywordThesaurus", null, null, UtilMisc.toList("enteredKeyword"), null, false);
 
 //if no param sent in make firstLetter 'a' else use firstLetter passed in
 firstLetterString = request.getParameter("firstLetter");

@@ -187,13 +187,13 @@ if (productId != null && productId.length() > 0 && product == null) {
 }
 
 // reject reasons
-rejectReasons = delegator.findAll("RejectionReason");
+rejectReasons = delegator.findList("RejectionReason", null, null, null, null, false);
 
 // inv item types
-inventoryItemTypes = delegator.findAll("InventoryItemType");
+inventoryItemTypes = delegator.findList("InventoryItemType", null, null, null, null, false);
 
 // facilities
-facilities = delegator.findAll("Facility");
+facilities = delegator.findList("Facility", null, null, null, null, false);
 
 // default per unit cost for both shipment or individual product
 standardCosts = new HashMap();

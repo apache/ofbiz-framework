@@ -29,5 +29,5 @@ if(security.hasEntityPermission("ACCOUNTING", "_VIEW", session)) {
     context.put("hasPermission", Boolean.FALSE);
 }
 
-glAccounts = delegator.findAll("GlAccount");
+glAccounts = delegator.findList("GlAccount", null, null, null, null, false);
 context.put("glAccounts", glAccounts);

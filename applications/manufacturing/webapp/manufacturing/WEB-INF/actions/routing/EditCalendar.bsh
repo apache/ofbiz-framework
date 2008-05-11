@@ -43,6 +43,6 @@ if (!tryEntity) calendarData = requestParams;
 if (calendarData == null) calendarData = new HashMap();
 context.put("calendarData", calendarData);
 
-List allCalendarWeek = delegator.findAll("TechDataCalendarWeek");
+List allCalendarWeek = delegator.findList("TechDataCalendarWeek", null, null, null, null, false);
 context.put("calendarWeeks", allCalendarWeek);
 

@@ -21,7 +21,7 @@ import org.ofbiz.entity.*;
 import org.ofbiz.entity.condition.*;
 import org.ofbiz.base.util.*;
 
-itemsList = delegator.findAll("ProductConfigItem", UtilMisc.toList("configItemId"));
+itemsList = delegator.findList("ProductConfigItem", null, null, UtilMisc.toList("configItemId"), null, false);
 context.put("itemsList", itemsList);
 
 // set the page parameters

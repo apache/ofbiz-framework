@@ -23,5 +23,5 @@ import org.ofbiz.entity.*;
 security = request.getAttribute("security");
 delegator = request.getAttribute("delegator");
 
-returnList = delegator.findAll("ReturnHeader");
+returnList = delegator.findList("ReturnHeader", null, null, null, null, false);
 context.put("returnList", returnList);

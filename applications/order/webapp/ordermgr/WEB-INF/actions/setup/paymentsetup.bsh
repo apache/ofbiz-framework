@@ -22,7 +22,7 @@ import org.ofbiz.base.util.*;
 
 delegator = request.getAttribute("delegator");
 
-paymentSetup = delegator.findAll("WebSitePaymentSettingView", UtilMisc.toList("webSiteId", "paymentMethodTypeId"));
+paymentSetup = delegator.findList("WebSitePaymentSettingView", null, null, UtilMisc.toList("webSiteId", "paymentMethodTypeId"), null, false);
 context.put("paymentSetups", paymentSetup);
 
 webSiteId = request.getParameter("webSiteId");
@@ -34,10 +34,10 @@ if (webSiteId != null && paymentMethodTypeId != null) {
 }
 context.put("webSitePayment", webSitePayment);
     
-webSites = delegator.findAll("WebSite", UtilMisc.toList("siteName"));
+webSites = delegator.findList("WebSite", null, null, UtilMisc.toList("siteName"), null, false);
 context.put("webSites", webSites);
 
-paymentMethodTypes = delegator.findAll("PaymentMethodType", UtilMisc.toList("description"));
+paymentMethodTypes = delegator.findList("PaymentMethodType", null, null, UtilMisc.toList("description"), null, false);
 context.put("paymentMethodTypes", paymentMethodTypes);
 
 payInfo = UtilHttp.getParameterMap(request);

@@ -34,10 +34,10 @@ context.put("nowDate", nowDate);
 String nowTimestampString = UtilDateTime.nowTimestamp().toString();
 context.put("nowTimestampString", nowTimestampString);
 
-Collection assocTypes = delegator.findAll("ProductAssocType");
+Collection assocTypes = delegator.findList("ProductAssocType", null, null, null, null, false);
 context.put("assocTypes", assocTypes);
 
-Collection featureTypes = delegator.findAll("ProductFeatureType");
+Collection featureTypes = delegator.findList("ProductFeatureType", null, null, null, null, false);
 context.put("featureTypes", featureTypes);
 
 // add/remove feature types

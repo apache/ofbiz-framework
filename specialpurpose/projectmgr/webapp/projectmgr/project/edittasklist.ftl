@@ -61,7 +61,7 @@ under the License.
                 <td class="label" >${uiLabelMap.ProjectMgrWorkEffortAssocTypeId}</td>
                 <td>
                   <select name="workEffortAssocTypeId"> 
-                    <#assign WorkEffortAssocTypes = delegator.findAll("WorkEffortAssocType", Static["org.ofbiz.base.util.UtilMisc"].toList("description"))>
+                    <#assign WorkEffortAssocTypes = delegator.findList("WorkEffortAssocType", null, null, Static["org.ofbiz.base.util.UtilMisc"].toList("description"), null, false)>
                     <#list WorkEffortAssocTypes as WorkEffortAssocType>
                       <option value="${WorkEffortAssocType.workEffortAssocTypeId?if_exists}">${WorkEffortAssocType.description?if_exists}</option>
                     </#list>

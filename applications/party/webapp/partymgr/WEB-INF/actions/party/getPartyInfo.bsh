@@ -30,4 +30,4 @@ Map otherValues = PartyWorker.getPartyOtherValues(request, partyId, "party", "lo
 context.put("party", otherValues.get("party"));
 context.put("lookupPerson", otherValues.get("lookupPerson"));
 context.put("lookupGroup", otherValues.get("lookupGroup"));
-context.put("custRequestTypes", delegator.findAllCache("CustRequestType"));
+context.put("custRequestTypes", delegator.findList("CustRequestType", null, null, null, null, true));

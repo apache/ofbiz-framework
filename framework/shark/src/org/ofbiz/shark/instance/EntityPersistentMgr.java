@@ -357,7 +357,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
         List createdList = new ArrayList();
         List lookupList = null;
         try {
-            lookupList = delegator.findAll(org.ofbiz.shark.SharkConstants.WfProcessMgr);
+            lookupList = delegator.findList(org.ofbiz.shark.SharkConstants.WfProcessMgr, null, null, null, null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             throw new PersistenceException(e);
@@ -387,7 +387,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
         List createdList = new ArrayList();
         List lookupList = null;
         try {
-            lookupList = delegator.findAll(org.ofbiz.shark.SharkConstants.WfResource);
+            lookupList = delegator.findList(org.ofbiz.shark.SharkConstants.WfResource, null, null, null, null, false);
         } catch (GenericEntityException e) {
             throw new PersistenceException(e);
         }
@@ -407,7 +407,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
         List createdList = new ArrayList();
         List lookupList = null;
         try {
-            lookupList = delegator.findAll(org.ofbiz.shark.SharkConstants.WfAssignment);
+            lookupList = delegator.findList(org.ofbiz.shark.SharkConstants.WfAssignment, null, null, null, null, false);
         } catch (GenericEntityException e) {
             throw new PersistenceException(e);
         }
@@ -426,7 +426,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
         List createdList = new ArrayList();
         List lookupList = null;
         try {
-            lookupList = delegator.findAll(org.ofbiz.shark.SharkConstants.WfActivity);
+            lookupList = delegator.findList(org.ofbiz.shark.SharkConstants.WfActivity, null, null, null, null, false);
         } catch (GenericEntityException e) {
             throw new PersistenceException(e);
         }
@@ -1007,7 +1007,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
         List createdList = new ArrayList();
         List lookupList = null;
         try {
-            lookupList = delegator.findAll(org.ofbiz.shark.SharkConstants.WfProcess);
+            lookupList = delegator.findList(org.ofbiz.shark.SharkConstants.WfProcess, null, null, null, null, false);
         } catch (GenericEntityException e) {
             throw new PersistenceException(e);
         }

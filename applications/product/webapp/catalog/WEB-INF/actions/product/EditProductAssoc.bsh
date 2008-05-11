@@ -63,7 +63,7 @@ context.put("useValues", useValues);
 boolean isCreate = true;
 context.put("isCreate", isCreate);
 
-Collection assocTypes = delegator.findAll("ProductAssocType", UtilMisc.toList("description"));
+Collection assocTypes = delegator.findList("ProductAssocType", null, null, UtilMisc.toList("description"), null, false);
 context.put("assocTypes", assocTypes);
 
 if (product != null) {

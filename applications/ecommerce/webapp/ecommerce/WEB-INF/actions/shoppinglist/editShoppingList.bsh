@@ -55,7 +55,7 @@ context.put("allShoppingLists", allShoppingLists);
 context.put("shoppingLists", shoppingLists);
 
 // get all shoppingListTypes
-shoppingListTypes = delegator.findAllCache("ShoppingListType", UtilMisc.toList("description"));
+shoppingListTypes = delegator.findList("ShoppingListType", null, null, UtilMisc.toList("description"), null, true);
 context.put("shoppingListTypes", shoppingListTypes);
 
 // get the shoppingListId for this reqest
