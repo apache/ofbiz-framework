@@ -26,7 +26,7 @@ import javolution.util.FastMap;
 invoiceId = context.get("invoiceId");
 if(invoiceId != null) {
     List invoiceItems = new LinkedList();
-    invoiceItemList = delegator.findByAnd("InvoiceItem", UtilMisc.toMap("invoiceId", invoiceId),UtilMisc.toList("invoiceItemSeqId"));
+    invoiceItemList = delegator.findByAnd("InvoiceItem", UtilMisc.toMap("invoiceId", invoiceId), UtilMisc.toList("invoiceItemSeqId"));
     if(invoiceItemList != null) {
         itr = invoiceItemList.iterator();
         while(itr.hasNext()) {

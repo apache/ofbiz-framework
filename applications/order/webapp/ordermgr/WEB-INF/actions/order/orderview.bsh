@@ -168,8 +168,11 @@ if (orderHeader != null) {
     }
     context.put("invoices", allInvoices);
 
-    oppFields = UtilMisc.toList(new EntityExpr("orderId", EntityOperator.EQUALS, orderId), new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "PAYMENT_CANCELLED"));
-    orderPaymentPreferences = delegator.findByAnd("OrderPaymentPreference", oppFields);
+    EntityConditionList ecl = new EntityConditionList(UtilMisc.toList(
+                                    new EntityExpr("orderId", EntityOperator.EQUALS, orderId), 
+                                    new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "PAYMENT_CANCELLED")),
+                                EntityOperator.AND);
+    orderPaymentPreferences = delegator.findList("OrderPaymentPreference", ecl, null, null, null, false);
     context.put("orderPaymentPreferences", orderPaymentPreferences);
 
     // ship groups
@@ -192,7 +195,7 @@ if (orderHeader != null) {
     }
     context.put("customerPoNumber", customerPoNumber);
 
-    statusChange = delegator.findByAnd("StatusValidChange",UtilMisc.toMap("statusId",orderHeader.getString("statusId")));
+    statusChange = delegator.findByAnd("StatusValidChange", UtilMisc.toMap("statusId",orderHeader.getString("statusId")));
     context.put("statusChange", statusChange);
 
     currentStatus = orderHeader.getRelatedOne("StatusItem");

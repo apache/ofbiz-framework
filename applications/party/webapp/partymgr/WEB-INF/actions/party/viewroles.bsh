@@ -34,8 +34,11 @@ if (partyId == null) partyId = request.getParameter("partyId");
 if (partyId == null) partyId = (String) request.getAttribute("partyId");
 context.put("partyId", partyId);
 
-partyRoleExprs = UtilMisc.toList(new EntityExpr("partyId", EntityOperator.EQUALS, partyId), new EntityExpr("roleTypeId", EntityOperator.NOT_EQUAL, "_NA_"));
-partyRoles = delegator.findByAnd("RoleTypeAndParty", partyRoleExprs, UtilMisc.toList("description"));
+EntityConditionList ecl = new EntityConditionList(UtilMisc.toList(
+                                new EntityExpr("partyId", EntityOperator.EQUALS, partyId), 
+                                new EntityExpr("roleTypeId", EntityOperator.NOT_EQUAL, "_NA_")),
+                            EntityOperator.AND);
+partyRoles = delegator.findList("RoleTypeAndParty", ecl, null, UtilMisc.toList("description"), null, false);
 context.put("partyRoles", partyRoles);
 
 roles = delegator.findList("RoleType", null, null, UtilMisc.toList("description", "roleTypeId"), null, false);

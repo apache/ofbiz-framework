@@ -876,7 +876,8 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
             lookupList = new ArrayList();
         } else {
             try {
-                lookupList = delegator.findByAnd(org.ofbiz.shark.SharkConstants.WfDeadline, exprList);
+                EntityConditionList ecl = new EntityConditionList(exprList, EntityOperator.AND);
+                lookupList = delegator.findList(org.ofbiz.shark.SharkConstants.WfDeadline, ecl, null, null, null, false);
             } catch (GenericEntityException e) {
                 throw new PersistenceException(e);
             }

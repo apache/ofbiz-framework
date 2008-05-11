@@ -43,7 +43,7 @@ ArrayList invoiceItems = new ArrayList();  // to pass back to the screeen with p
 if (invoice != null) {    
     // retrieve related applications with null itemnumber
     invoiceAppl = null;  
-    invoiceAppls = delegator.findByAnd("PaymentApplication",UtilMisc.toMap("invoiceId", invoiceId,"invoiceItemSeqId",null));
+    invoiceAppls = delegator.findByAnd("PaymentApplication", UtilMisc.toMap("invoiceId", invoiceId, "invoiceItemSeqId", null));
     Iterator q = invoiceAppls.iterator();
     while (q.hasNext()) {
         invoiceAppl = q.next();

@@ -24,7 +24,7 @@ if (partyId == null) {
     partyId = parameters.get("partyId");
 }
 
-savedCartList = EntityUtil.getFirst(delegator.findByAnd("ShoppingList",UtilMisc.toMap("partyId", partyId,
+savedCartList = EntityUtil.getFirst(delegator.findByAnd("ShoppingList", UtilMisc.toMap("partyId", partyId,
         "shoppingListTypeId", "SLT_SPEC_PURP", "listName", "auto-save")));
 
 if (savedCartList != null){
