@@ -40,7 +40,8 @@ if (activeOnly) {
 if (completeRequested) {
     exprsTo = UtilMisc.toList(new EntityExpr("facilityIdTo", EntityOperator.EQUALS, facilityId), new EntityExpr("statusId", EntityOperator.EQUALS, "IXF_REQUESTED"));
 }
-List toTransfers = delegator.findByAnd("InventoryTransfer", exprsTo, UtilMisc.toList("sendDate"));
+EntityConditionList ecl = new EntityConditionList(exprsTo, EntityOperator.AND);
+List toTransfers = delegator.findList("InventoryTransfer", ecl, null, UtilMisc.toList("sendDate"), null, false);
 if (toTransfers != null) context.put("toTransfers", toTransfers);
 
 // get the 'from' this facility transfers
@@ -53,5 +54,6 @@ if (activeOnly) {
 if (completeRequested) {
     exprsFrom = UtilMisc.toList(new EntityExpr("facilityId", EntityOperator.EQUALS, facilityId), new EntityExpr("statusId", EntityOperator.EQUALS, "IXF_REQUESTED"));
 }
-List fromTransfers = delegator.findByAnd("InventoryTransfer", exprsFrom, UtilMisc.toList("sendDate"));
+ecl = new EntityConditionList(exprsFrom, EntityOperator.AND);
+List fromTransfers = delegator.findList("InventoryTransfer", ecl, null, UtilMisc.toList("sendDate"), null, false);
 if (fromTransfers != null) context.put("fromTransfers", fromTransfers);

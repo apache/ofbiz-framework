@@ -44,7 +44,8 @@ if (internalName != null && internalName.trim().length() != 0) {
 }
 
 if (conditions.size() > 2) {
-    physicalInventory = delegator.findByAnd("ProductInventoryItem", conditions, UtilMisc.toList("productId"));
+    EntityConditionList ecl = new EntityConditionList(conditions, EntityOperator.AND);
+    physicalInventory = delegator.findByAnd("ProductInventoryItem", ecl, null, UtilMisc.toList("productId"), null, false);
 
     // also need the overal product QOH and ATP for each product
     atpMap = FastMap.newInstance();
