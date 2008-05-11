@@ -20,13 +20,14 @@
 import java.util.*;
 import java.lang.*;
 import org.ofbiz.entity.*;
+import org.ofbiz.entity.condition.*;
 import org.ofbiz.base.util.*;
 import org.ofbiz.base.util.UtilMisc;
 
 delegator = parameters.get("delegator");
 organizationPartyId = parameters.get("organizationPartyId");
 
-List invoiceItemTypes = delegator.findByLike("InvoiceItemType",UtilMisc.toMap("invoiceItemTypeId","INV_%"));
+List invoiceItemTypes = delegator.findList("InvoiceItemType", new EntityExpr("invoiceItemTypeId", EntityOperator.LIKE, "INV_%"), null, null, null, false);
 List allTypes = new LinkedList();
 i = invoiceItemTypes.iterator();
 while(i.hasNext()) {

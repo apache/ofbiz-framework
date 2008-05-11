@@ -21,6 +21,7 @@
 import java.util.*;
 import java.lang.*;
 import org.ofbiz.entity.*;
+import org.ofbiz.entity.condition.*;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.base.util.*;
 import javolution.util.FastMap;
@@ -46,9 +47,13 @@ if (!UtilValidate.isEmpty(tasks)) {
                 if (timeEntry.getString("invoiceId") == null) {
                     timesheet = timeEntry.getRelatedOne("Timesheet");
                     // check the role of his part, if party is a provider
-                    if (!UtilValidate.isEmpty(EntityUtil.filterByDate(delegator.findByLike("WorkEffortPartyAssignment", 
-                        UtilMisc.toMap("workEffortId", timeEntry.getString("workEffortId"), 
-                            "partyId", timesheet.getString("partyId"), "roleTypeId", "PROVIDER_%"))))) {
+                    exprs = UtilMisc.toList(
+                                new EntityExpr("workEffortId", EntityOperator.EQUALS, timeEntry.getString("workEffortId")),
+                                new EntityExpr("partyId", EntityOperator.EQUALS, timeEntry.getString("partyId")),
+                                new EntityExpr("roleTypeId", EntityOperator.LIKE, "PROVIDER_%"));
+                    ecl = new EntityConditionList(exprs, EntityOperator.AND);
+                    providerRoles = EntityUtil.filterByDate(delegator.findList("WorkEffortPartyAssignment", ecl, null, null, null, false));
+                    if (!UtilValidate.isEmpty(providerRoles)) {
                         rates = EntityUtil.filterByDate(delegator.findByAnd("PartyRate", 
                             UtilMisc.toMap("partyId", timesheet.getString("partyId"), "rateTypeId", timeEntry.getString("rateTypeId"))));
                         if (UtilValidate.isEmpty(rates)) {
