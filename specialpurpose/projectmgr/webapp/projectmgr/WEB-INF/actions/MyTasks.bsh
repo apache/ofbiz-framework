@@ -58,14 +58,14 @@ exprList = UtilMisc.toList(
     new EntityExpr("createdByUserLogin", EntityOperator.EQUALS, userLogin.getString("userLoginId")));
 if (UtilValidate.isNotEmpty(entryCondition)) exprList.addAll(entryCondition);
 condition = new EntityConditionList(exprList, EntityOperator.AND);
-tasks = delegator.findByCondition("WorkEffort", condition, null, null);
+tasks = delegator.findList("WorkEffort", condition, null, null, null, false);
 
 // create workEffort list in a project
 exprList = UtilMisc.toList(
     new EntityExpr("createdByUserLogin", EntityOperator.EQUALS, userLogin.getString("userLoginId")));
 if (UtilValidate.isNotEmpty(entryCondition)) exprList.addAll(entryCondition);
 condition = new EntityConditionList(exprList, EntityOperator.AND);
-tasks.addAll(delegator.findByCondition("ProjectAndPhaseAndTask", condition, null, null));
+tasks.addAll(delegator.findList("ProjectAndPhaseAndTask", condition, null, null, null, false));
 
 // add the timeEntry conditions
 exprList = UtilMisc.toList(
@@ -73,7 +73,7 @@ exprList = UtilMisc.toList(
     new EntityExpr("createdByUserLogin", EntityOperator.NOT_EQUAL, userLogin.getString("userLoginId"))); //already have these
 if (UtilValidate.isNotEmpty(entryCondition)) exprList.addAll(entryCondition);
 condition = new EntityConditionList(exprList, EntityOperator.AND);
-tasks.addAll(delegator.findByCondition("WorkEffortAndTimeEntry", condition, null, null));
+tasks.addAll(delegator.findList("WorkEffortAndTimeEntry", condition, null, null, null, false));
 
 // add fields for planned and actual hours.
 newTasks = new LinkedList();    

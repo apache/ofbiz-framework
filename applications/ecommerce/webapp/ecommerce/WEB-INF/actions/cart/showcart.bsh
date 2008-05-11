@@ -50,7 +50,7 @@ if (userLogin != null) {
     exprList = UtilMisc.toList(new EntityExpr("partyId", EntityOperator.EQUALS, userLogin.getString("partyId")),
         new EntityExpr("listName", EntityOperator.NOT_EQUAL, "auto-save"));
     condition = new EntityConditionList(exprList, EntityOperator.AND);
-    allShoppingLists = delegator.findByCondition("ShoppingList", condition, null, UtilMisc.toList("listName"));
+    allShoppingLists = delegator.findList("ShoppingList", condition, null, UtilMisc.toList("listName"), null, false);
     context.put("shoppingLists", allShoppingLists);
 }
 

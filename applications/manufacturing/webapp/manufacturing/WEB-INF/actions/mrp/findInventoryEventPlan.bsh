@@ -72,7 +72,7 @@ if (lookupFlag != null) {
     
     if ( mainCond != null) {
     // do the lookup
-        inventoryList = delegator.findByCondition("MrpEvent", mainCond, null, UtilMisc.toList("productId", "eventDate"));
+        inventoryList = delegator.findList("MrpEvent", mainCond, null, UtilMisc.toList("productId", "eventDate"), null, false);
     }
     
     context.put("inventoryList", inventoryList);

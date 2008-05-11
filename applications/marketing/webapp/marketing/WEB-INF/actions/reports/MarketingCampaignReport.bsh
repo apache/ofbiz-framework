@@ -53,8 +53,8 @@ if ((marketingCampaignId != null) && !(marketingCampaignId.equals(""))) {
 visitConditions = new EntityConditionList(visitConditionList, EntityOperator.AND);
 orderConditions = new EntityConditionList(orderConditionList, EntityOperator.AND);
 
-visits = delegator.findByCondition("MarketingCampaignAndVisit", visitConditions, UtilMisc.toList("marketingCampaignId", "visitId"),UtilMisc.toList("marketingCampaignId"));
-orders = delegator.findByCondition("MarketingCampaignAndOrderHeader", orderConditions, UtilMisc.toList("marketingCampaignId", "orderId", "grandTotal"), UtilMisc.toList("marketingCampaignId"));
+visits = delegator.findList("MarketingCampaignAndVisit", visitConditions, UtilMisc.toSet("marketingCampaignId", "visitId"), UtilMisc.toList("marketingCampaignId"), null, false);
+orders = delegator.findList("MarketingCampaignAndOrderHeader", orderConditions, UtilMisc.toSet("marketingCampaignId", "orderId", "grandTotal"), UtilMisc.toList("marketingCampaignId"), null, false);
 
 //use this helper to build a List of visits, orders, order totals, and conversion rates
 marketingCampaignVisitAndOrders = ReportHelper.calcConversionRates(visits, orders, "marketingCampaignId");

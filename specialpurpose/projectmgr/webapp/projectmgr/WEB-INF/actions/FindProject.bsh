@@ -66,7 +66,7 @@ exprList = UtilMisc.toList(
     new EntityExpr("workEffortTypeId", EntityOperator.EQUALS, "PROJECT"));
 if (UtilValidate.isNotEmpty(entryCondition)) exprList.addAll(entryCondition);
 condition = new EntityConditionList(exprList, EntityOperator.AND);
-projectIds = delegator.findByCondition("WorkEffort", condition, UtilMisc.toList("workEffortId", "workEffortName"), UtilMisc.toList("workEffortName DESC"));
+projectIds = delegator.findList("WorkEffort", condition, UtilMisc.toSet("workEffortId", "workEffortName"), UtilMisc.toList("workEffortName DESC"), null, false);
 
 // retrieve all project data with the service
 projects = new LinkedList();    

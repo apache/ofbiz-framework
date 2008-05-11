@@ -34,7 +34,7 @@ if ("SALES_INVOICE".equals(invoice.get("invoiceTypeId"))) {
     parentTypes.add(new EntityExpr("parentTypeId", EntityOperator.EQUALS, "INVOICE_ITM_ADJ"));
     parentTypes.add(new EntityExpr("parentTypeId", EntityOperator.EQUALS, "INV_PROD_ITEM"));
     parentTypesCond = new EntityConditionList(parentTypes, EntityOperator.OR);
-    invoiceItemTypes = delegator.findByCondition("InvoiceItemType", parentTypesCond, null, UtilMisc.toList("parentTypeId", "invoiceItemTypeId"));
+    invoiceItemTypes = delegator.findList("InvoiceItemType", parentTypesCond, null, UtilMisc.toList("parentTypeId", "invoiceItemTypeId"), null, false);
     glAccountOrganizationAndClassList = delegator.findByAnd("GlAccountOrganizationAndClass", UtilMisc.toMap("organizationPartyId", invoice.get("partyIdFrom")));
 } else if ("PURCHASE_INVOICE".equals(invoice.get("invoiceTypeId"))) {
     List parentTypes = FastList.newInstance();
@@ -42,7 +42,7 @@ if ("SALES_INVOICE".equals(invoice.get("invoiceTypeId"))) {
     parentTypes.add(new EntityExpr("parentTypeId", EntityOperator.EQUALS, "PINVOICE_ITM_ADJ"));
     parentTypes.add(new EntityExpr("parentTypeId", EntityOperator.EQUALS, "PINV_PROD_ITEM"));
     parentTypesCond = new EntityConditionList(parentTypes, EntityOperator.OR);
-    invoiceItemTypes = delegator.findByCondition("InvoiceItemType", parentTypesCond, null, UtilMisc.toList("parentTypeId", "invoiceItemTypeId"));
+    invoiceItemTypes = delegator.findList("InvoiceItemType", parentTypesCond, null, UtilMisc.toList("parentTypeId", "invoiceItemTypeId"), null, false);
     glAccountOrganizationAndClassList = delegator.findByAnd("GlAccountOrganizationAndClass", UtilMisc.toMap("organizationPartyId", invoice.get("partyId")));
 } else {
     map = delegator.findByAndCache("InvoiceItemTypeMap", UtilMisc.toMap("invoiceTypeId", invoice.get("invoiceTypeId")));

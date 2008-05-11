@@ -49,7 +49,7 @@ context.put("currencyUomId", currencyUomId);
 exprList = UtilMisc.toList(new EntityExpr("partyId", EntityOperator.EQUALS, userLogin.getString("partyId")),
         new EntityExpr("listName", EntityOperator.NOT_EQUAL, "auto-save"));
 condition = new EntityConditionList(exprList, EntityOperator.AND);
-allShoppingLists = delegator.findByCondition("ShoppingList", condition, null, UtilMisc.toList("listName"));
+allShoppingLists = delegator.findList("ShoppingList", condition, null, UtilMisc.toList("listName"), null, false);
 shoppingLists = EntityUtil.filterByAnd(allShoppingLists, UtilMisc.toMap("parentShoppingListId", null));
 context.put("allShoppingLists", allShoppingLists);
 context.put("shoppingLists", shoppingLists);

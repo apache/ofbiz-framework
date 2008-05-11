@@ -61,7 +61,7 @@ if (userLogin != null) {
     exprs = UtilMisc.toList(new EntityExpr("partyIdTo", EntityOperator.EQUALS, partyId));
     exprs.add(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "COM_READ"));
     condition = new EntityConditionList(exprs, EntityOperator.AND);
-    messages = delegator.findByCondition("CommunicationEvent", condition, null, null, orderBy, findOpts);
+    messages = delegator.findList("CommunicationEvent", condition, null, orderBy, findOpts, false);
     context.put("messages", messages);
     context.put("profileMessages", true);
 

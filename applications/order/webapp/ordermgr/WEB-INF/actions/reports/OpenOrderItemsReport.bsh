@@ -99,10 +99,10 @@ while ((listValue = (GenericValue) listIt.next()) != null) {
     itemDescription = listValue.get("itemDescription");
     shipAfterDate = listValue.get("shipAfterDate");
     shipBeforeDate = listValue.get("shipBeforeDate");    
-    fieldsToSelect = UtilMisc.toList("price","productPriceTypeId");
+    fieldsToSelect = UtilMisc.toSet("price","productPriceTypeId");
     productIdCondExpr =  UtilMisc.toList(new EntityExpr("productId", EntityOperator.EQUALS, productId));    
     prodPriceCond = new EntityConditionList(productIdCondExpr, EntityOperator.AND);    
-    productPrices = delegator.findByCondition("ProductPrice", prodPriceCond, fieldsToSelect, null);    
+    productPrices = delegator.findList("ProductPrice", prodPriceCond, fieldsToSelect, null, null, false);    
     Double costPrice = new Double(0.0);
     Double retailPrice = new Double(0.0);
     Double listPrice = new Double(0.0);

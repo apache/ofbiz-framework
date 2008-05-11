@@ -151,7 +151,7 @@ if (lookupFlag != null) {
     
     if (lookupErrorMessage == null && mainCond != null) {
         // do the lookup
-        paymentList = delegator.findByCondition(entityName, mainCond, null, UtilMisc.toList("-effectiveDate"));
+        paymentList = delegator.findList(entityName, mainCond, null, UtilMisc.toList("-effectiveDate"), null, false);
         Debug.log("" + paymentList);         
     }
     

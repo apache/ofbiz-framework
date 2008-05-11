@@ -123,7 +123,7 @@ if (product.getString("isVirtual") != null && "Y".equals(product.getString("isVi
     findIncomingShipmentsConds.add(new EntityConditionList(findIncomingShipmentsStatusConds, EntityOperator.AND));
 
     findIncomingShipmentsStatusCondition = new EntityConditionList(findIncomingShipmentsConds, EntityOperator.AND);
-    incomingShipmentAndItems = delegator.findByCondition("ShipmentAndItem", findIncomingShipmentsStatusCondition, null, UtilMisc.toList("-estimatedArrivalDate"));
+    incomingShipmentAndItems = delegator.findList("ShipmentAndItem", findIncomingShipmentsStatusCondition, null, UtilMisc.toList("-estimatedArrivalDate"), null, false);
     incomingShipmentAndItemIter = incomingShipmentAndItems.iterator();
     while (incomingShipmentAndItemIter.hasNext()) {
         incomingShipmentAndItem = incomingShipmentAndItemIter.next();

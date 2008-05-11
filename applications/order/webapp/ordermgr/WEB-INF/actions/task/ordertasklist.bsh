@@ -45,7 +45,7 @@ partyBase = UtilMisc.toList(new EntityExpr("statusId", EntityOperator.EQUALS, "C
 partyRole = UtilMisc.toList(new EntityExpr("orderRoleTypeId", EntityOperator.EQUALS, "PLACING_CUSTOMER"), new EntityExpr("orderRoleTypeId", EntityOperator.EQUALS, "SUPPLIER_AGENT"));
 partyExpr = UtilMisc.toList(new EntityConditionList(partyBase, EntityOperator.AND), new EntityConditionList(partyRole, EntityOperator.OR));
 partyCond = new EntityConditionList(partyExpr, EntityOperator.AND);
-partyTasks = delegator.findByCondition("OrderTaskList", partyCond, null, sortOrder);
+partyTasks = delegator.findList("OrderTaskList", partyCond, null, sortOrder, null, false);
 
 if (partyTasks != null) partyTasks = EntityUtil.filterByDate(partyTasks);
 context.put("partyTasks", partyTasks);
@@ -80,7 +80,7 @@ if (baseList.size() > 0) expressions.add(new EntityConditionList(baseList, Entit
 conditions = new EntityConditionList(expressions, EntityOperator.AND);
     
 // invoke the query
-roleTasks = delegator.findByCondition("OrderTaskList", conditions, null, sortOrder);    
+roleTasks = delegator.findList("OrderTaskList", conditions, null, sortOrder, null, false);    
 if (roleTasks != null) roleTasks = EntityUtil.filterByAnd(roleTasks, baseList);
 if (roleTasks != null) roleTasks = EntityUtil.filterByDate(roleTasks);  
 context.put("roleTasks", roleTasks);
