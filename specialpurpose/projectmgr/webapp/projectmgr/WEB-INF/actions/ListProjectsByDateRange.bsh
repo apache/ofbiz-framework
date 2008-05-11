@@ -47,9 +47,9 @@ if(workEffortTypeId.equals("PROJECT")) {
         if (!UtilValidate.isEmpty(thruDate)) {
             conditions.add(new EntityExpr("createdStamp", EntityOperator.LESS_THAN_EQUAL_TO, thruDate ));
             }
-        allConditions = new EntityConditionList( conditions, EntityOperator.AND );
+        allConditions = new EntityConditionList(conditions, EntityOperator.AND);
         orderBy = UtilMisc.toList("createdStamp DESC");
-        listProjects = delegator.findByConditionCache("WorkEffort", allConditions, null, orderBy );
+        listProjects = delegator.findList("WorkEffort", allConditions, null, orderBy, null, true);
         List projects = new LinkedList();
         itr = listProjects.iterator();
         while (itr.hasNext()) {
@@ -101,7 +101,7 @@ if(workEffortTypeId.equals("PROJECT")) {
 
         allConditions = new EntityConditionList( conditions, EntityOperator.AND );
         orderBy = UtilMisc.toList("createdStamp DESC");
-        tasks = delegator.findByConditionCache("WorkEffort", allConditions, null, orderBy );
+        tasks = delegator.findList("WorkEffort", allConditions, null, orderBy, null, true);
         List unAssignedTasks = new LinkedList();
         itr = tasks.iterator();
         while (itr.hasNext()) {
