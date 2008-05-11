@@ -39,11 +39,11 @@ if (UtilValidate.isNotEmpty(thruDate)) {
 List postedExprs = FastList.newInstance();
 postedExprs.add(new EntityExpr("isPosted", EntityOperator.EQUALS, "Y"));
 postedExprs.addAll(exprs);
-fieldsToSelect = UtilMisc.toList("glAccountId", "debitCreditFlag", "totalAmount");
+fieldsToSelect = UtilMisc.toSet("glAccountId", "debitCreditFlag", "totalAmount");
 orderBy = UtilMisc.toList("glAccountId");
 
 List postedTransTotalList = FastList.newInstance();
-List postedTrans = delegator.findByCondition("GlAccOrgAndAcctgTransAndEntry", new EntityConditionList(postedExprs, EntityOperator.AND), fieldsToSelect, orderBy);
+List postedTrans = delegator.findList("GlAccOrgAndAcctgTransAndEntry", new EntityConditionList(postedExprs, EntityOperator.AND), fieldsToSelect, orderBy, null, false);
 if (UtilValidate.isNotEmpty(postedTrans)) {
     iter = postedTrans.iterator();
     while (iter.hasNext()) {
@@ -67,7 +67,7 @@ unpostedExprs.add(new EntityExpr("isPosted", EntityOperator.EQUALS, "N"));
 unpostedExprs.addAll(exprs);
 
 List unpostedTransTotalList = FastList.newInstance();
-List unpostedTrans = delegator.findByCondition("GlAccOrgAndAcctgTransAndEntry", new EntityConditionList(unpostedExprs, EntityOperator.AND), fieldsToSelect, orderBy);
+List unpostedTrans = delegator.findList("GlAccOrgAndAcctgTransAndEntry", new EntityConditionList(unpostedExprs, EntityOperator.AND), fieldsToSelect, orderBy, null, false);
 if (UtilValidate.isNotEmpty(unpostedTrans)) {
     iter = unpostedTrans.iterator();
     while (iter.hasNext()) {

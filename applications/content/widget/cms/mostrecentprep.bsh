@@ -73,7 +73,7 @@ if (UtilValidate.isNotEmpty(forumId)) {
     contentIdToExpr = new EntityExpr("caContentIdTo", EntityOperator.EQUALS, forumId);
     exprList.add(contentIdToExpr);
     expr = new EntityConditionList(exprList, EntityOperator.AND);
-    entityList = delegator.findByCondition("ContentAssocViewFrom", expr, null, UtilMisc.toList("-caFromDate"));
+    entityList = delegator.findList("ContentAssocViewFrom", expr, null, UtilMisc.toList("-caFromDate"), null, false);
     
     Debug.logInfo("in mostrecentprep(1), entityList.size():" + entityList.size(),"");
     Debug.logInfo("in mostrecentprep(1), entityList:" + entityList,"");

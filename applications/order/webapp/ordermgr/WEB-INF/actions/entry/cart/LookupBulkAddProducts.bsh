@@ -53,6 +53,6 @@ mainConditionList.add(orConditions);
 mainConditionList.add(conditions);
 mainConditions = new EntityConditionList(mainConditionList, EntityOperator.AND);
 
-productList = delegator.findByCondition("Product", mainConditions, UtilMisc.toList("productId", "brandName", "internalName"), UtilMisc.toList("productId"));
-context.put("productList",productList);
+productList = delegator.findList("Product", mainConditions, UtilMisc.toSet("productId", "brandName", "internalName"), UtilMisc.toList("productId"), null, false);
+context.put("productList", productList);
 

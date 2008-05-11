@@ -112,9 +112,9 @@ if (product != null) {
     context.put("product", product);
 
     // get categories
-    List allCategories = delegator.findByCondition("ProductCategory",
+    List allCategories = delegator.findList("ProductCategory",
             new EntityExpr(new EntityExpr("showInSelect", EntityOperator.EQUALS, null), EntityOperator.OR, new EntityExpr("showInSelect", EntityOperator.NOT_EQUAL, "N")),
-            null, UtilMisc.toList("description"));
+            null, UtilMisc.toList("description"), null, false);
 
     List categoryMembers = product.getRelated("ProductCategoryMember");
     categoryMembers = EntityUtil.filterByDate(categoryMembers);

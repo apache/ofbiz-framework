@@ -64,7 +64,7 @@ exprList.add(orCond);
 
 topCond = new EntityConditionList(exprList, EntityOperator.AND);
 
-payments = delegator.findByCondition("Payment", topCond, null, UtilMisc.toList("effectiveDate"));
+payments = delegator.findList("Payment", topCond, null, UtilMisc.toList("effectiveDate"), null, false);
     
 if (payments != null && payments.size() > 0)    {
     BigDecimal basePaymentApplied = PaymentWorker.getPaymentAppliedBd(basePayment);

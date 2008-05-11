@@ -124,7 +124,7 @@ if (lookupFlag != null) {
     
     if (lookupErrorMessage == null && mainCond != null) {
         // do the lookup
-        invoiceList = delegator.findByCondition(entityName, mainCond, null, UtilMisc.toList("-invoiceDate"));            
+        invoiceList = delegator.findList(entityName, mainCond, null, UtilMisc.toList("-invoiceDate"), null, false);            
     }
     
     context.put("invoiceList", invoiceList);

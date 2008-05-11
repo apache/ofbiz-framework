@@ -37,7 +37,7 @@ applicationTypes = delegator.findList("ProductFeatureApplType", null, null, Util
 expr = new EntityExpr(new EntityExpr("showInSelect", EntityOperator.EQUALS, null),
         EntityOperator.OR,
         new EntityExpr("showInSelect", EntityOperator.NOT_EQUAL, "N"));
-productCategories = delegator.findByCondition("ProductCategory", expr, null, UtilMisc.toList("description"));
+productCategories = delegator.findList("ProductCategory", expr, null, UtilMisc.toList("description"), null, false);
 
 context.put("applicationTypes", applicationTypes);
 context.put("productCategories", productCategories);

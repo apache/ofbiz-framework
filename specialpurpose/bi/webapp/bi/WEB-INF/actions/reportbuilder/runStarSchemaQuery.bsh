@@ -38,25 +38,20 @@ context.put("columnNames", selectedFields);
 
 List conditionList = null;
 EntityConditionList condition =  null;
-List selectFields = null;
+List selectFields = UtilMisc.toSetArray(selectedFields);
 List orderByFields = null;
 EntityFindOptions findOptions = null;
 
-List selectFields = FastList.newInstance();
 List records = FastList.newInstance();
 
 //conditionList.add(...);
 //condition =  new EntityConditionList(conditionList, EntityOperator.AND);
-
-for (int i = 0; i < selectedFields.length; i++) {
-    selectFields.add(selectedFields[i]);
-}
 
 orderByFields = null;
 
 findOptions = new EntityFindOptions(); 
 findOptions.setDistinct(false);
 
-records = delegator.findByCondition(starSchemaName, condition, null, selectFields, orderByFields, findOptions);
+records = delegator.findList(starSchemaName, condition, selectFields, orderByFields, findOptions, false);
 
 context.put("records", records);

@@ -129,12 +129,12 @@ if (orderHeader != null) {
     // get Shipment tracking info
     osisCond = new EntityFieldMap(UtilMisc.toMap("orderId", orderId), EntityOperator.AND);
     osisOrder = UtilMisc.toList("shipmentId", "shipmentRouteSegmentId", "shipmentPackageSeqId");
-    osisFields = UtilMisc.toList("shipmentId", "shipmentRouteSegmentId", "carrierPartyId", "shipmentMethodTypeId");
+    osisFields = UtilMisc.toSet("shipmentId", "shipmentRouteSegmentId", "carrierPartyId", "shipmentMethodTypeId");
     osisFields.add("shipmentPackageSeqId");
     osisFields.add("trackingCode");
     osisFields.add("boxNumber");
     osisFindOptions = new EntityFindOptions(); osisFindOptions.setDistinct(true);
-    orderShipmentInfoSummaryList = delegator.findByCondition("OrderShipmentInfoSummary", osisCond, null, osisFields, osisOrder, osisFindOptions);
+    orderShipmentInfoSummaryList = delegator.findList("OrderShipmentInfoSummary", osisCond, osisFields, osisOrder, osisFindOptions, false);
 
     customerPoNumberSet = new TreeSet();
     orderItemPoIter = UtilMisc.toIterator(orderItems);

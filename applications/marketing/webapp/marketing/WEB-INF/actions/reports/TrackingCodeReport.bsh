@@ -53,8 +53,8 @@ if ((trackingCodeIdStr != null) && !(trackingCodeIdStr.equals(""))) {
 visitConditions = new EntityConditionList(visitConditionList, EntityOperator.AND);
 orderConditions = new EntityConditionList(orderConditionList, EntityOperator.AND);
 
-visits = delegator.findByCondition("TrackingCodeAndVisit", visitConditions, UtilMisc.toList("trackingCodeId", "visitId"),UtilMisc.toList("trackingCodeId"));
-orders = delegator.findByCondition("TrackingCodeAndOrderHeader", orderConditions, UtilMisc.toList("trackingCodeId", "orderId", "grandTotal"), UtilMisc.toList("trackingCodeId"));
+visits = delegator.findList("TrackingCodeAndVisit", visitConditions, UtilMisc.toSet("trackingCodeId", "visitId"), UtilMisc.toList("trackingCodeId"), null, false);
+orders = delegator.findList("TrackingCodeAndOrderHeader", orderConditions, UtilMisc.toSet("trackingCodeId", "orderId", "grandTotal"), UtilMisc.toList("trackingCodeId"), null, false);
 
 // use this helper to build a List of visits, orders, order totals, and conversion rates
 trackingCodeVisitAndOrders = ReportHelper.calcConversionRates(visits, orders, "trackingCodeId");
