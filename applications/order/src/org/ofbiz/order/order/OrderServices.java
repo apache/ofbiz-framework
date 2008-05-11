@@ -1299,11 +1299,11 @@ public class OrderServices {
                     new EntityExpr("remainingSubTotal", EntityOperator.EQUALS, null));
             cond = new EntityConditionList(exprs, EntityOperator.OR);
         }
-        List fields = UtilMisc.toList("orderId");
+        Set fields = UtilMisc.toSet("orderId");
 
         EntityListIterator eli = null;
         try {
-            eli = delegator.findListIteratorByCondition("OrderHeader", cond, fields, null);
+            eli = delegator.find("OrderHeader", cond, null, fields, null, null);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());

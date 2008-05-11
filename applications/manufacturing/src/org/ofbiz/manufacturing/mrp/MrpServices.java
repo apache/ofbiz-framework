@@ -41,6 +41,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
+import org.ofbiz.entity.condition.EntityFieldMap;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.manufacturing.bom.BOMNode;
@@ -412,7 +413,8 @@ public class MrpServices {
                 minimumStock = new Double(0);
             }
             try {
-                long numOfEvents = delegator.findCountByAnd("MrpEvent", UtilMisc.toMap("mrpId", mrpId, "productId", productId));
+                EntityFieldMap ecl = new EntityFieldMap(UtilMisc.toMap("mrpId", mrpId, "productId", productId), EntityOperator.AND);
+                long numOfEvents = delegator.findCountByCondition("MrpEvent", ecl, null, null);
                 if (numOfEvents > 0) {
                     continue;
                 }

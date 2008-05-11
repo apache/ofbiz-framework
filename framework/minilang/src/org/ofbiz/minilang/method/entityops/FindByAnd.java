@@ -85,7 +85,7 @@ public class FindByAnd extends MethodOperation {
                 if (!mapAcsr.isEmpty()) {
                     whereCond = new EntityFieldMap((Map) mapAcsr.get(methodContext), EntityOperator.AND);
                 }
-                listAcsr.put(methodContext, delegator.findListIteratorByCondition(entityName, whereCond, null, null, orderByNames, null));
+                listAcsr.put(methodContext, delegator.find(entityName, whereCond, null, null, orderByNames, null));
             } else {
                 if (useCache) {
                     listAcsr.put(methodContext, delegator.findByAndCache(entityName, (Map) mapAcsr.get(methodContext), orderByNames));

@@ -92,7 +92,7 @@ public class PromoServices {
         EntityCondition cond = new EntityConditionList(condList, EntityOperator.AND);
         
         try {
-            EntityListIterator eli = delegator.findListIteratorByCondition("ProductStorePromoAndAppl", cond, null, null);
+            EntityListIterator eli = delegator.find("ProductStorePromoAndAppl", cond, null, null, null, null);
             GenericValue productStorePromoAndAppl = null;
             while ((productStorePromoAndAppl = (GenericValue) eli.next()) != null) {
                 GenericValue productStorePromo = delegator.makeValue("ProductStorePromoAppl");

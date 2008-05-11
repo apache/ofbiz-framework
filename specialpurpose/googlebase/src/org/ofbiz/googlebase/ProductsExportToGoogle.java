@@ -349,7 +349,7 @@ public class ProductsExportToGoogle {
                  return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsExportToGoogle.invalidCountryCode", locale));
              }
              // Get the list of products to be exported to Google Base
-             List productsList  = delegator.findByCondition("Product", new EntityExpr("productId", EntityOperator.IN, selectResult), null, null);
+             List productsList  = delegator.findList("Product", new EntityExpr("productId", EntityOperator.IN, selectResult), null, null, null, false);
              
              // Get the tracking code
              if (UtilValidate.isEmpty(trackingCodeId) || "_NA_".equals(trackingCodeId)) {

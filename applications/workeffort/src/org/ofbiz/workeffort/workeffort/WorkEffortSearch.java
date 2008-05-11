@@ -123,8 +123,8 @@ public class WorkEffortSearch {
             }
             
             // Find WorkEffort where current workEffortId = workEffortParentId; only select minimal fields to keep the size low
-            List childWorkEffortList = delegator.findByConditionCache("WorkEffort", new EntityExpr("workEffortParentId", EntityComparisonOperator.EQUALS, workEffortId), 
-                    UtilMisc.toList("workEffortId", "workEffortParentId"), null);
+            List childWorkEffortList = delegator.findList("WorkEffort", new EntityExpr("workEffortParentId", EntityComparisonOperator.EQUALS, workEffortId),
+                    UtilMisc.toSet("workEffortId", "workEffortParentId"), null, null, true);
             Iterator childWorkEffortIter = childWorkEffortList.iterator();
             while (childWorkEffortIter.hasNext()) {
                 GenericValue childWorkEffort = (GenericValue) childWorkEffortIter.next();

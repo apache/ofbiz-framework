@@ -41,6 +41,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
+import org.ofbiz.entity.condition.EntityFieldMap;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.DynamicViewEntity;
 import org.ofbiz.entity.model.ModelEntity;
@@ -73,7 +74,7 @@ public class ProductUtilServices {
                     new EntityExpr("salesDiscontinuationDate", EntityOperator.NOT_EQUAL, null),
                     new EntityExpr("salesDiscontinuationDate", EntityOperator.LESS_THAN_EQUAL_TO, nowTimestamp)
                     ), EntityOperator.AND);
-            EntityListIterator eliOne = delegator.findListIteratorByCondition("Product", conditionOne, null, null);
+            EntityListIterator eliOne = delegator.find("Product", conditionOne, null, null, null, null);
             GenericValue productOne = null;
             int numSoFarOne = 0;
             while ((productOne = (GenericValue) eliOne.next()) != null) {
@@ -105,7 +106,7 @@ public class ProductUtilServices {
                     new EntityExpr("isVirtual", EntityOperator.EQUALS, "Y"),
                     new EntityExpr(new EntityExpr("salesDiscontinuationDate", EntityOperator.EQUALS, null), EntityOperator.OR, new EntityExpr("salesDiscontinuationDate", EntityOperator.GREATER_THAN_EQUAL_TO, nowTimestamp))
                     ), EntityOperator.AND);
-            EntityListIterator eli = delegator.findListIteratorByCondition("Product", condition, null, null);
+            EntityListIterator eli = delegator.find("Product", condition, null, null, null, null);
             GenericValue product = null;
             int numSoFar = 0;
             while ((product = (GenericValue) eli.next()) != null) {
@@ -143,7 +144,7 @@ public class ProductUtilServices {
                     new EntityExpr("salesDiscontinuationDate", EntityOperator.NOT_EQUAL, null),
                     new EntityExpr("salesDiscontinuationDate", EntityOperator.LESS_THAN_EQUAL_TO, nowTimestamp)
                     ), EntityOperator.AND);
-            EntityListIterator eli = delegator.findListIteratorByCondition("Product", condition, null, null);
+            EntityListIterator eli = delegator.find("Product", condition, null, null, null, null);
             GenericValue product = null;
             int numSoFar = 0;
             while ((product = (GenericValue) eli.next()) != null) {
@@ -477,7 +478,7 @@ public class ProductUtilServices {
                 newRelatedValue.set("fromDate", nowTimestamp);
             }
 
-            if (delegator.findCountByAnd(relatedEntityName, newRelatedValue.getPrimaryKey()) == 0) {
+            if (delegator.findCountByCondition(relatedEntityName, new EntityFieldMap(newRelatedValue.getPrimaryKey(), EntityOperator.AND), null, null) == 0) {
                 if (test) {
                     Debug.logInfo("Test mode, would create: " + newRelatedValue, module);
                 } else {
@@ -512,7 +513,7 @@ public class ProductUtilServices {
         }
 
         try {
-            EntityListIterator eli = delegator.findListIteratorByCondition("Product", null, null, null);
+            EntityListIterator eli = delegator.find("Product", null, null, null, null, null);
             GenericValue product = null;
             int numSoFar = 0;
             while ((product = (GenericValue) eli.next()) != null) {
@@ -568,7 +569,7 @@ public class ProductUtilServices {
         String errMsg = null;
 
         try {
-            EntityListIterator eli = delegator.findListIteratorByCondition("Product", new EntityExpr("isVirtual", EntityOperator.EQUALS, "Y"), null, null);
+            EntityListIterator eli = delegator.find("Product", new EntityExpr("isVirtual", EntityOperator.EQUALS, "Y"), null, null, null, null);
             GenericValue product = null;
             int numSoFar = 0;
             while ((product = (GenericValue) eli.next()) != null) {
@@ -686,7 +687,7 @@ while (allCatIter.hasNext()) {
                     new EntityExpr("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, nowTimestamp),
                     new EntityExpr(new EntityExpr("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, new EntityExpr("thruDate", EntityOperator.GREATER_THAN_EQUAL_TO, nowTimestamp))
             ), EntityOperator.AND);
-            EntityListIterator productFeatureAndApplEli = delegator.findListIteratorByCondition("ProductFeatureAndAppl", condition, null, null);
+            EntityListIterator productFeatureAndApplEli = delegator.find("ProductFeatureAndAppl", condition, null, null, null, null);
             GenericValue productFeatureAndAppl = null;
             while ((productFeatureAndAppl = (GenericValue) productFeatureAndApplEli.next()) != null) {
                 String productFeatureId = productFeatureAndAppl.getString("productFeatureId");
@@ -758,7 +759,7 @@ while (allCatIter.hasNext()) {
                     new EntityExpr("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, nowTimestamp),
                     new EntityExpr(new EntityExpr("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, new EntityExpr("thruDate", EntityOperator.GREATER_THAN_EQUAL_TO, nowTimestamp))
             ), EntityOperator.AND);
-            EntityListIterator productFeatureCatGrpApplEli = delegator.findListIteratorByCondition("ProductFeatureCatGrpAppl", condition, null, null);
+            EntityListIterator productFeatureCatGrpApplEli = delegator.find("ProductFeatureCatGrpAppl", condition, null, null, null, null);
             GenericValue productFeatureCatGrpAppl = null;
             while ((productFeatureCatGrpAppl = (GenericValue) productFeatureCatGrpApplEli.next()) != null) {
                 String productFeatureGroupId = productFeatureCatGrpAppl.getString("productFeatureGroupId");

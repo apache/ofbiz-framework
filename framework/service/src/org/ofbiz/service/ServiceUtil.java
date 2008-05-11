@@ -389,7 +389,7 @@ public class ServiceUtil {
                     // begin this transaction
                     beganTx1 = TransactionUtil.begin();
 
-                    EntityListIterator foundJobs = delegator.findListIteratorByCondition("JobSandbox", mainCond, null, null, null, findOptions);
+                    EntityListIterator foundJobs = delegator.find("JobSandbox", mainCond, null, null, null, findOptions);
                     curList = foundJobs.getPartialList(1, 1000);
                     foundJobs.close();
 

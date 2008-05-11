@@ -480,7 +480,7 @@ public class ManagerEvents {
         EntityListIterator eli = null;
 
         try {
-            eli = delegator.findListIteratorByCondition("OrderHeaderAndPaymentPref", new EntityConditionList(exprs, EntityOperator.AND), null, null);
+            eli = delegator.find("OrderHeaderAndPaymentPref", new EntityConditionList(exprs, EntityOperator.AND), null, null, null, null);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }

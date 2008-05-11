@@ -67,7 +67,7 @@ public class OfbizStore extends StoreBase implements Store {
     public int getSize() throws IOException {
         long count = 0;
         try {
-            count = delegator.findCountByAnd(entityName);
+            count = delegator.findCountByCondition(entityName, null, null, null);
         } catch (GenericEntityException e) {
             throw new IOException(e.getMessage());
         }

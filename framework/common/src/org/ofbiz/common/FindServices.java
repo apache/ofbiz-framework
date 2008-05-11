@@ -530,8 +530,8 @@ public class FindServices {
         EntityListIterator listIt = null;
         try {
             if (noConditionFind || (entityConditionList != null && entityConditionList.getConditionListSize() > 0)) {
-                listIt = delegator.findListIteratorByCondition(entityName, entityConditionList,
-                        null, null, orderByList, new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, false));
+                listIt = delegator.find(entityName, entityConditionList, null, null, orderByList, 
+                        new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, false));
             }
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError("Error running Find on the [" + entityName + "] entity: " + e.getMessage());

@@ -292,11 +292,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         }
 
         List assocs;
-        if (cache) {
-            assocs = delegator.findByConditionCache("ContentAssoc", new EntityConditionList(exprs, EntityOperator.AND), null, orderBy);
-        } else {
-            assocs = delegator.findList("ContentAssoc", new EntityConditionList(exprs, EntityOperator.AND), null, orderBy, null, false);
-        }
+        assocs = delegator.findList("ContentAssoc", new EntityConditionList(exprs, EntityOperator.AND), null, orderBy, null, cache);
         assocs = EntityUtil.filterByDate(assocs);
         GenericValue subContent = EntityUtil.getFirst(assocs);
 

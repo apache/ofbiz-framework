@@ -754,7 +754,7 @@ public class ContentManagementWorker {
        } else {
            conditionMain = new EntityExpr("contentIdTo", EntityOperator.EQUALS, contentId);
        }
-        List listAll = delegator.findByConditionCache("ContentAssoc", conditionMain, null, null);
+        List listAll = delegator.findList("ContentAssoc", conditionMain, null, null, null, true);
         List listFiltered = EntityUtil.filterByDate(listAll);
         Iterator iter = listFiltered.iterator();
         while (iter.hasNext()) {
@@ -787,7 +787,7 @@ public class ContentManagementWorker {
        
        EntityCondition conditionType = new EntityConditionList(condList, EntityOperator.OR);
        EntityCondition conditionMain = new EntityConditionList(UtilMisc.toList( new EntityExpr("contentId", EntityOperator.EQUALS, contentId), conditionType), EntityOperator.AND);
-            List listAll = delegator.findByConditionCache("ContentAssoc", conditionMain, null, null);
+            List listAll = delegator.findList("ContentAssoc", conditionMain, null, null, null, true);
             List listFiltered = EntityUtil.filterByDate(listAll);
             Iterator iter = listFiltered.iterator();
             while (iter.hasNext()) {

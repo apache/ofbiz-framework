@@ -1894,18 +1894,20 @@ public class GenericDelegator implements DelegatorInterface {
      *@deprecated Use findList() instead
      */
     public List<GenericValue> findByOr(String entityName, Object... fields) throws GenericEntityException {
-        return this.findByOr(entityName, UtilMisc.<String, Object>toMap(fields));
+        EntityCondition ecl = new EntityFieldMap(UtilMisc.<String, Object>toMap(fields), EntityOperator.OR);
+        return this.findList(entityName, ecl, null, null, null, false);
     }
 
     /** Finds Generic Entity records by all of the specified fields (ie: combined using OR)
-     * NOTE 20080502: 1 references
+     * NOTE 20080502: 1 references; all changed to findList
      * @param entityName The Name of the Entity as defined in the entity XML file
      * @param fields The fields of the named entity to query by with their corresponging values
      * @return List of GenericValue instances that match the query
      *@deprecated Use findList() instead
      */
     public List<GenericValue> findByOr(String entityName, Map<String, ? extends Object> fields) throws GenericEntityException {
-        return this.findByOr(entityName, fields, null);
+        EntityCondition ecl = new EntityFieldMap(fields, EntityOperator.OR);
+        return this.findList(entityName, ecl, null, null, null, false);
     }
 
     /** Finds Generic Entity records by all of the specified fields (ie: combined using AND)
@@ -1922,7 +1924,7 @@ public class GenericDelegator implements DelegatorInterface {
     }
 
     /** Finds Generic Entity records by all of the specified fields (ie: combined using OR)
-     * NOTE 20080502: 1 references
+     * NOTE 20080502: 1 references; all changed to findList
      * @param entityName The Name of the Entity as defined in the entity XML file
      * @param fields The fields of the named entity to query by with their corresponging values
      * @param orderBy The fields of the named entity to order the query by;
@@ -2012,11 +2014,11 @@ public class GenericDelegator implements DelegatorInterface {
      *@deprecated Use findList() instead
      */
     public <T extends EntityCondition> List<GenericValue> findByOr(String entityName, T... expressions) throws GenericEntityException {
-        return this.findByOr(entityName, Arrays.asList(expressions));
+        return this.findList(entityName, new EntityConditionList<T>(Arrays.asList(expressions), EntityOperator.AND), null, null, null, false);
     }
 
     /** Finds Generic Entity records by all of the specified expressions (ie: combined using OR)
-     * NOTE 20080502: 2 references
+     * NOTE 20080502: 2 references; all changed to findList
      *@param entityName The Name of the Entity as defined in the entity XML file
      *@param expressions The expressions to use for the lookup, each consisting of at least a field name, an EntityOperator, and a value to compare to
      *@return List of GenericValue instances that match the query
@@ -2045,19 +2047,34 @@ public class GenericDelegator implements DelegatorInterface {
      *@deprecated Use findList() instead
      */
     public List<GenericValue> findByLike(String entityName, Object... fields) throws GenericEntityException {
-        return this.findByLike(entityName, UtilMisc.<String, Object>toMap(fields));
+        Map<String, ? extends Object> fieldMap = UtilMisc.<String, Object>toMap(fields);
+        List<EntityExpr> likeExpressions = FastList.newInstance();
+        if (fieldMap != null) {
+            for (Map.Entry<String, ? extends Object> fieldEntry: fieldMap.entrySet()) {
+                likeExpressions.add(new EntityExpr(fieldEntry.getKey(), EntityOperator.LIKE, fieldEntry.getValue()));
+            }
+        }
+        EntityConditionList<EntityExpr> ecl = new EntityConditionList<EntityExpr>(likeExpressions, EntityOperator.AND);
+        return this.findList(entityName, ecl, null, null, null, false);
     }
 
     /** 
-     * NOTE 20080502: 1 references
+     * NOTE 20080502: 1 references; all changed to findList
      *@deprecated Use findList() instead
      */
     public List<GenericValue> findByLike(String entityName, Map<String, ? extends Object> fields) throws GenericEntityException {
-        return this.findByLike(entityName, fields, null);
+        List<EntityExpr> likeExpressions = FastList.newInstance();
+        if (fields != null) {
+            for (Map.Entry<String, ? extends Object> fieldEntry: fields.entrySet()) {
+                likeExpressions.add(new EntityExpr(fieldEntry.getKey(), EntityOperator.LIKE, fieldEntry.getValue()));
+            }
+        }
+        EntityConditionList<EntityExpr> ecl = new EntityConditionList<EntityExpr>(likeExpressions, EntityOperator.AND);
+        return this.findList(entityName, ecl, null, null, null, false);
     }
 
     /** 
-     * NOTE 20080502: 1 references
+     * NOTE 20080502: 1 references; all changed to findList
      *@deprecated Use findList() instead
      */
     public List<GenericValue> findByLike(String entityName, Map<String, ? extends Object> fields, List<String> orderBy) throws GenericEntityException {
@@ -2072,7 +2089,7 @@ public class GenericDelegator implements DelegatorInterface {
     }
 
     /** Finds GenericValues by the conditions specified in the EntityCondition object, the the EntityCondition javadoc for more details.
-     * NOTE 20080502: 64 references
+     * NOTE 20080502: 64 references; all changed to findList
      *@param entityName The Name of the Entity as defined in the entity model XML file
      *@param entityCondition The EntityCondition object that specifies how to constrain this query
      *@param fieldsToSelect The fields of the named entity to get from the database; if empty or null all fields will be retreived
@@ -2081,11 +2098,11 @@ public class GenericDelegator implements DelegatorInterface {
      *@deprecated Use findList() instead
      */
     public List<GenericValue> findByCondition(String entityName, EntityCondition entityCondition, Collection<String> fieldsToSelect, List<String> orderBy) throws GenericEntityException {
-        return this.findByCondition(entityName, entityCondition, null, fieldsToSelect, orderBy, null);
+        return this.findList(entityName, entityCondition, UtilMisc.toSet(fieldsToSelect), orderBy, null, false);
     }
 
     /** Finds GenericValues by the conditions specified in the EntityCondition object, the the EntityCondition javadoc for more details.
-     * NOTE 20080502: 6 references
+     * NOTE 20080502: 6 references; all changed to findList
      *@param entityName The name of the Entity as defined in the entity XML file
      *@param whereEntityCondition The EntityCondition object that specifies how to constrain this query before any groupings are done (if this is a view entity with group-by aliases)
      *@param havingEntityCondition The EntityCondition object that specifies how to constrain this query after any groupings are done (if this is a view entity with group-by aliases)
@@ -2104,7 +2121,7 @@ public class GenericDelegator implements DelegatorInterface {
                 beganTransaction = TransactionUtil.begin();
             }
 
-            EntityListIterator eli = this.findListIteratorByCondition(entityName, whereEntityCondition, havingEntityCondition, fieldsToSelect, orderBy, findOptions);
+            EntityListIterator eli = this.find(entityName, whereEntityCondition, havingEntityCondition, UtilMisc.toSet(fieldsToSelect), orderBy, findOptions);
             eli.setDelegator(this);
             List<GenericValue> list = eli.getCompleteList();
             eli.close();
@@ -2128,7 +2145,7 @@ public class GenericDelegator implements DelegatorInterface {
     }
 
     /** Finds GenericValues by the conditions specified in the EntityCondition object, looking first in the cache, see the EntityCondition javadoc for more details.
-     * NOTE 20080502: 17 references
+     * NOTE 20080502: 17 references; all changed to findList
      *@param entityName The Name of the Entity as defined in the entity model XML file
      *@param entityCondition The EntityCondition object that specifies how to constrain this query
      *@param fieldsToSelect The fields of the named entity to get from the database; if empty or null all fields will be retreived
@@ -2141,7 +2158,7 @@ public class GenericDelegator implements DelegatorInterface {
     }
 
     /** Finds GenericValues by the conditions specified in the EntityCondition object, the the EntityCondition javadoc for more details.
-     * NOTE 20080502: 26 references
+     * NOTE 20080502: 26 references; all changed to find
      *@param entityName The Name of the Entity as defined in the entity model XML file
      *@param entityCondition The EntityCondition object that specifies how to constrain this query before any groupings are done (if this is a view entity with group-by aliases)
      *@param fieldsToSelect The fields of the named entity to get from the database; if empty or null all fields will be retreived
@@ -2156,7 +2173,7 @@ public class GenericDelegator implements DelegatorInterface {
     }
 
     /** Finds GenericValues by the conditions specified in the EntityCondition object, the the EntityCondition javadoc for more details.
-     * NOTE 20080502: 12 references
+     * NOTE 20080502: 12 references; all changed to find
      *@param entityName The name of the Entity as defined in the entity XML file
      *@param whereEntityCondition The EntityCondition object that specifies how to constrain this query before any groupings are done (if this is a view entity with group-by aliases)
      *@param havingEntityCondition The EntityCondition object that specifies how to constrain this query after any groupings are done (if this is a view entity with group-by aliases)
@@ -2320,23 +2337,23 @@ public class GenericDelegator implements DelegatorInterface {
     }
 
     /**
-     * NOTE 20080502: 3 references
+     * NOTE 20080502: 3 references; all changed to findCoundByCondition
      *@deprecated Use findCountByCondition() instead
      */
     public long findCountByAnd(String entityName) throws GenericEntityException {
-        return findCountByAnd(entityName, (Map<String, Object>) null);
+        return findCountByCondition(entityName, null, null, null);
     }
 
     /**
-     * NOTE 20080502: 1 references
+     * NOTE 20080502: 1 references; all changed to use findCountByCondition
      *@deprecated Use findCountByCondition() instead
      */
     public long findCountByAnd(String entityName, Object... fields) throws GenericEntityException {
-        return findCountByAnd(entityName, UtilMisc.<String, Object>toMap(fields));
+        return findCountByCondition(entityName, new EntityFieldMap(UtilMisc.<String, Object>toMap(fields), EntityOperator.AND), null, null);
     }
 
     /**
-     * NOTE 20080502: 8 references
+     * NOTE 20080502: 8 references; all changed to use findCountByCondition
      *@deprecated Use findCountByCondition() instead
      */
     public long findCountByAnd(String entityName, Map<String, ? extends Object> fields) throws GenericEntityException {
@@ -2466,7 +2483,7 @@ public class GenericDelegator implements DelegatorInterface {
     }
 
     /** Get the named Related Entity for the GenericValue from the persistent store
-     * NOTE 20080502: 1 references
+     * NOTE 20080502: 1 references; all changed to use remaining getRelated
      * @param relationName String containing the relation name which is the
      *      combination of relation.title and relation.rel-entity-name as
      *      specified in the entity XML definition file
@@ -2479,7 +2496,7 @@ public class GenericDelegator implements DelegatorInterface {
     }
 
     /** Get the named Related Entity for the GenericValue from the persistent store
-     * NOTE 20080502: 1 references
+     * NOTE 20080502: 1 references; all changed to use getRelated
      * @param relationName String containing the relation name which is the
      *      combination of relation.title and relation.rel-entity-name as
      *      specified in the entity XML definition file
@@ -2493,7 +2510,7 @@ public class GenericDelegator implements DelegatorInterface {
     }
 
     /** Get the named Related Entity for the GenericValue from the persistent store
-     * NOTE 20080502: 1 references
+     * NOTE 20080502: 1 references; all changed to use getRelated
      * @param relationName String containing the relation name which is the
      *      combination of relation.title and relation.rel-entity-name as
      *      specified in the entity XML definition file

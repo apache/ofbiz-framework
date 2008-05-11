@@ -56,7 +56,7 @@ public class EntityCrypto {
         // make sure there are some dummy keys
         synchronized(EntityCrypto.class) {
             try {
-                long size = delegator.findCountByAnd("EntityKeyStore");
+                long size = delegator.findCountByCondition("EntityKeyStore", null, null, null);
                 if (size == 0) {
                     for (int i = 0; i < 20; i++) {
                         String randomName = this.getRandomString();

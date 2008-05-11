@@ -31,6 +31,8 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.entity.condition.EntityFieldMap;
+import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelKeyMap;
 import org.ofbiz.entity.model.ModelRelation;
@@ -161,7 +163,7 @@ public class GenericValue extends GenericEntity implements Reusable {
      *@return List of GenericValue instances as specified in the relation definition
      */
     public List<GenericValue> getRelated(String relationName) throws GenericEntityException {
-        return this.getDelegator().getRelated(relationName, this);
+        return this.getDelegator().getRelated(relationName, null, null, this);
     }
 
     /** Get the named Related Entity for the GenericValue from the persistent store
@@ -342,7 +344,7 @@ public class GenericValue extends GenericEntity implements Reusable {
      *@return List of GenericValue instances as specified in the relation definition
      */
     public List<GenericValue> getRelatedByAnd(String relationName, Map<String, ? extends Object> fields) throws GenericEntityException {
-        return this.getDelegator().getRelatedByAnd(relationName, fields, this);
+        return this.getDelegator().getRelated(relationName, fields, null, this);
     }
 
     /** Get the named Related Entity for the GenericValue from the persistent
@@ -372,7 +374,7 @@ public class GenericValue extends GenericEntity implements Reusable {
      *@return List of GenericValue instances as specified in the relation definition
      */
     public List<GenericValue> getRelatedOrderBy(String relationName, List<String> orderBy) throws GenericEntityException {
-        return this.getDelegator().getRelatedOrderBy(relationName, orderBy, this);
+        return this.getDelegator().getRelated(relationName, null, orderBy, this);
     }
 
     /** Get the named Related Entity for the GenericValue from the persistent
@@ -444,7 +446,8 @@ public class GenericValue extends GenericEntity implements Reusable {
                     ModelKeyMap keyMap = relation.getKeyMap(i);
                     fields.put(keyMap.getRelFieldName(), this.get(keyMap.getFieldName()));
                 }
-                long count = this.getDelegator().findCountByAnd(relation.getRelEntityName(), fields);
+                EntityFieldMap ecl = new EntityFieldMap(fields, EntityOperator.AND);
+                long count = this.getDelegator().findCountByCondition(relation.getRelEntityName(), ecl, null, null);
                 if (count == 0) {
                     if (insertDummy) {
                         // create the new related value (dummy)
