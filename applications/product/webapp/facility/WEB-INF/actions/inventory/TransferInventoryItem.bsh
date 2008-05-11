@@ -81,7 +81,7 @@ if (inventoryItemId != null) {
 }
 
 // facilities
-List facilities = delegator.findAll("Facility");
+List facilities = delegator.findList("Facility", null, null, null, null, false);
 context.put("facilities", facilities);
 
 // status items

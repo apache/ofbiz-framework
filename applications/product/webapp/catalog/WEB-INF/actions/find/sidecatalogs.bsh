@@ -37,7 +37,7 @@ context.put("isOpen", isOpen);
 
 //prodCatalogs
 if (isOpen) {
-    prodCatalogs = delegator.findAll("ProdCatalog");
+    prodCatalogs = delegator.findList("ProdCatalog", null, null, null, null, false);
     context.put("prodCatalogs", prodCatalogs);
 }
 

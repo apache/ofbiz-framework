@@ -21,7 +21,7 @@ import org.ofbiz.base.util.UtilMisc;
 import javolution.util.FastList;
 
 taxAuthorityHavingNoGlAccountList = FastList.newInstance();
-taxAuthorities = delegator.findAll("TaxAuthority", UtilMisc.toList("taxAuthGeoId", "taxAuthPartyId"));
+taxAuthorities = delegator.findList("TaxAuthority", null, null, UtilMisc.toList("taxAuthGeoId", "taxAuthPartyId"), null, false);
 iter = taxAuthorities.iterator();
 while (iter.hasNext()) {
     taxAuthority = iter.next();

@@ -53,7 +53,7 @@ context.put("orderHeaderList", orderHeaderList);
 locale = UtilHttp.getLocale(request);
 
 // a list of order type descriptions
-ordertypes = delegator.findAllCache("OrderType");
+ordertypes = delegator.findList("OrderType", null, null, null, null, true);
 iter = ordertypes.iterator();
 while (iter.hasNext()) {
     type = iter.next();

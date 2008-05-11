@@ -29,5 +29,5 @@ if(security.hasEntityPermission("CATALOG", "_VIEW", session)) {
     context.put("hasPermission", Boolean.FALSE);
 }
 
-productFeatureGroups = delegator.findAll("ProductFeatureGroup");
+productFeatureGroups = delegator.findList("ProductFeatureGroup", null, null, null, null, false);
 context.put("productFeatureGroups", productFeatureGroups);

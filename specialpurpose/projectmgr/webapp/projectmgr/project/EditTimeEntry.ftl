@@ -55,7 +55,7 @@ under the License.
         <tr>    
           <td class="label" >${uiLabelMap.TimesheetRateType}</td>
           <td>
-            <#assign rateTypes = delegator.findAll("RateType")>
+            <#assign rateTypes = delegator.findList("RateType", null, null, null, null, false)>
             <select name="rateTypeId">
               <#list rateTypes as rateType>                    
                 <option value="${rateType.rateTypeId}">${rateType.description}</option>

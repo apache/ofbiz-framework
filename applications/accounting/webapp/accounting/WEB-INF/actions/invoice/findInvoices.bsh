@@ -26,7 +26,7 @@ import org.ofbiz.base.util.*;
 delegator = request.getAttribute("delegator");
 
 // get the invoice types
-invoiceTypes = delegator.findAll("InvoiceType", UtilMisc.toList("description"));
+invoiceTypes = delegator.findList("InvoiceType", null, null, UtilMisc.toList("description"), null, false);
 context.put("invoiceTypes", invoiceTypes);
 
 // get the invoice statuses

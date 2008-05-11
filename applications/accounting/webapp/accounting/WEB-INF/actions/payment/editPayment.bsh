@@ -63,7 +63,7 @@ context.put("currentMethod", currentMethod);
 context.put("paymentApplications", paymentApplications);
 
 // get the payment types
-paymentTypes = delegator.findAll("PaymentType", UtilMisc.toList("description"));
+paymentTypes = delegator.findList("PaymentType", null, null, UtilMisc.toList("description"), null, false);
 context.put("paymentTypes", paymentTypes);
 
 // get the payment statuses
@@ -71,6 +71,6 @@ paymentStatuses = delegator.findByAnd("StatusItem", UtilMisc.toMap("statusTypeId
 context.put("paymentStatuses", paymentStatuses);
 
 // get the payment method types
-paymentMethodTypes = delegator.findAll("PaymentMethodType", UtilMisc.toList("description"));
+paymentMethodTypes = delegator.findList("PaymentMethodType", null, null, UtilMisc.toList("description"), null, false);
 context.put("paymentMethodTypes", paymentMethodTypes);
 

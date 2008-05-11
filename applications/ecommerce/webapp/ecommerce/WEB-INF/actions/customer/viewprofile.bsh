@@ -69,10 +69,10 @@ if (userLogin != null) {
     partyContent = EntityUtil.filterByDate(partyContent);
     context.put("partyContent", partyContent);
 
-    mimeTypes = delegator.findAll("MimeType", UtilMisc.toList("description", "mimeTypeId"));
+    mimeTypes = delegator.findList("MimeType", null, null, UtilMisc.toList("description", "mimeTypeId"), null, false);
     context.put("mimeTypes", mimeTypes);
 
-    partyContentTypes = delegator.findAll("PartyContentType", UtilMisc.toList("description"));
+    partyContentTypes = delegator.findList("PartyContentType", null, null, UtilMisc.toList("description"), null, false);
     context.put("partyContentTypes", partyContentTypes);
 
     // call the getOrderedSummaryInformation service to get the sub-total of valid orders in last X months

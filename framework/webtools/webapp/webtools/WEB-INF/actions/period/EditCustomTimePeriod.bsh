@@ -54,12 +54,12 @@ if (customTimePeriods != null) {
     context.put("customTimePeriods", customTimePeriods);
 }
 
-List allCustomTimePeriods = delegator.findAll("CustomTimePeriod", UtilMisc.toList("organizationPartyId", "parentPeriodId", "periodTypeId", "periodNum", "fromDate"));
+List allCustomTimePeriods = delegator.findList("CustomTimePeriod", null, null, UtilMisc.toList("organizationPartyId", "parentPeriodId", "periodTypeId", "periodNum", "fromDate"), null, false);
 if (allCustomTimePeriods != null) {
     context.put("allCustomTimePeriods", allCustomTimePeriods);
 }
 
-List periodTypes = delegator.findAllCache("PeriodType", UtilMisc.toList("description"));
+List periodTypes = delegator.findList("PeriodType", null, null, UtilMisc.toList("description"), null, true);
 if (periodTypes != null) {
     context.put("periodTypes", periodTypes);
 }

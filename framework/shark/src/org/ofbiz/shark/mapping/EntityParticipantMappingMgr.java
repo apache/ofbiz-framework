@@ -64,7 +64,7 @@ public class EntityParticipantMappingMgr implements ParticipantMappingManager {
         GenericDelegator delegator = SharkContainer.getDelegator();
         List lookupList = null;
         try {
-            lookupList = delegator.findAll(org.ofbiz.shark.SharkConstants.WfParticipantMap);
+            lookupList = delegator.findList(org.ofbiz.shark.SharkConstants.WfParticipantMap, null, null, null, null, false);
         } catch (GenericEntityException e) {
             throw new RootException(e);
         }

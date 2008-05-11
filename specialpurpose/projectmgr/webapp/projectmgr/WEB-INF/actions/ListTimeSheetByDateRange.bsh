@@ -45,7 +45,7 @@ if ( !(UtilValidate.isEmpty(fromDate) || UtilValidate.isEmpty(thruDate))) {
         context.put("timeSheetList", timeSheetList);
 } else {
         if (findAll.equals("Y")) {
-            timeSheetList = delegator.findAll("Timesheet");
+            timeSheetList = delegator.findList("Timesheet", null, null, null, null, false);
             context.put("timeSheetList", timeSheetList);
         }else {
                timeSheetList = null;

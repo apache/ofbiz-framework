@@ -98,7 +98,7 @@ if (partyId != null) {
     }
 }
 
-facilityList = delegator.findAll("Facility", UtilMisc.toList("facilityName"));
+facilityList = delegator.findList("Facility", null, null, UtilMisc.toList("facilityName"), null, false);
 context.put("facilityList", facilityList);
 
 currentStatus = returnHeader != null ? returnHeader.getString("statusId") : null;

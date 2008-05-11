@@ -30,10 +30,10 @@ userLogin = session.getAttribute("userLogin");
 party = userLogin.getRelatedOne("Party");
 context.put("party", party);
 
-returnTypes = delegator.findAll("ReturnType", UtilMisc.toList("sequenceId"));
+returnTypes = delegator.findList("ReturnType", null, null, UtilMisc.toList("sequenceId"), null, false);
 context.put("returnTypes", returnTypes);
 
-returnReasons = delegator.findAll("ReturnReason", UtilMisc.toList("sequenceId"));
+returnReasons = delegator.findList("ReturnReason", null, null, UtilMisc.toList("sequenceId"), null, false);
 context.put("returnReasons", returnReasons);
 
 if (orderId != null) {

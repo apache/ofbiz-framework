@@ -19,7 +19,7 @@
 
 import org.ofbiz.base.util.UtilMisc;
 
-productFeatureTypes = delegator.findAllCache("ProductFeatureType", UtilMisc.toList("description"));
+productFeatureTypes = delegator.findList("ProductFeatureType", null, null, UtilMisc.toList("description"), null, true);
 context.put("productFeatureTypes", productFeatureTypes);
 
 featureCategory = delegator.findByPrimaryKey("ProductFeatureCategory", 

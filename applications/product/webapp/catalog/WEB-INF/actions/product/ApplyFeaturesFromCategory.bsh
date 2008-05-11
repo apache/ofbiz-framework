@@ -41,15 +41,15 @@ context.put("selFeatureApplTypeId", selFeatureApplTypeId);
 curProductFeatureCategory = delegator.findByPrimaryKey("ProductFeatureCategory", UtilMisc.toMap("productFeatureCategoryId", productFeatureCategoryId));
 context.put("curProductFeatureCategory", curProductFeatureCategory);
 
-productFeatureTypes = delegator.findAll("ProductFeatureType", UtilMisc.toList("description"));
+productFeatureTypes = delegator.findList("ProductFeatureType", null, null, UtilMisc.toList("description"), null, false);
 context.put("productFeatureTypes", productFeatureTypes);
 
-productFeatureCategories = delegator.findAll("ProductFeatureCategory", UtilMisc.toList("description"));
+productFeatureCategories = delegator.findList("ProductFeatureCategory", null, null, UtilMisc.toList("description"), null, false);
 context.put("productFeatureCategories", productFeatureCategories);
 
 //we only need these if we will be showing the apply feature to category forms
 if (productId != null && productId.length() > 0) {
-    productFeatureApplTypes = delegator.findAll("ProductFeatureApplType", UtilMisc.toList("description"));
+    productFeatureApplTypes = delegator.findList("ProductFeatureApplType", null, null, UtilMisc.toList("description"), null, false);
     context.put("productFeatureApplTypes", productFeatureApplTypes);
 }
 

@@ -65,8 +65,8 @@ if (shipment != null) {
     }
     
     shipmentPackages = shipment.getRelated("ShipmentPackage", null, UtilMisc.toList("shipmentPackageSeqId"));
-    facilities = delegator.findAll("Facility", UtilMisc.toList("facilityName"));
-    shipmentMethodTypes = delegator.findAll("ShipmentMethodType", UtilMisc.toList("description"));
+    facilities = delegator.findList("Facility", null, null, UtilMisc.toList("facilityName"), null, false);
+    shipmentMethodTypes = delegator.findList("ShipmentMethodType", null, null, UtilMisc.toList("description"), null, false);
     weightUoms = delegator.findByAnd("Uom", UtilMisc.toMap("uomTypeId", "WEIGHT_MEASURE"));
     currencyUoms = delegator.findByAnd("Uom", UtilMisc.toMap("uomTypeId", "CURRENCY_MEASURE"));
     

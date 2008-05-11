@@ -20,7 +20,7 @@
 import org.ofbiz.base.util.*;
 
 // stores
-productStores = delegator.findAllCache("ProductStore", UtilMisc.toList("storeName"));
+productStores = delegator.findList("ProductStore", null, null, UtilMisc.toList("storeName"), null, true);
 context.put("productStores", productStores);
 
 // current store

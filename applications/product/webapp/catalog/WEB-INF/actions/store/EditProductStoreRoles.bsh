@@ -28,6 +28,6 @@ if (request.getParameter("showAll") == null) {
 }
 context.put("productStoreRoles", productStoreRoles);
 
-roleTypes = delegator.findAll("RoleType", UtilMisc.toList("description"));
+roleTypes = delegator.findList("RoleType", null, null, UtilMisc.toList("description"), null, false);
 context.put("roleTypes", roleTypes);
 

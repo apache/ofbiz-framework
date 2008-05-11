@@ -597,7 +597,7 @@ public class ProductUtilServices {
 
     // set category descriptions from longDescriptions
     /*
-allCategories = delegator.findAll("ProductCategory");
+allCategories = delegator.findList("ProductCategory", null, null, null, null, false);
 allCatIter = allCategories.iterator();
 while (allCatIter.hasNext()) {
    cat = allCatIter.next();

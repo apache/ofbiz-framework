@@ -21,6 +21,6 @@ import org.ofbiz.entity.*;
 
 delegator = request.getAttribute("delegator");
 
-facilities = delegator.findAll("Facility");
+facilities = delegator.findList("Facility", null, null, null, null, false);
 
 context.put("facilities", facilities);

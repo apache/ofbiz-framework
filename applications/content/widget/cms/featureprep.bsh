@@ -46,7 +46,7 @@ paramMap = UtilHttp.getParameterMap(request);
 contentId=context.get("contentId");
 dataResourceId=context.get("dataResourceId");
 
-productFeatureList = delegator.findAllCache("ProductFeature");
+productFeatureList = delegator.findList("ProductFeature", null, null, null, null, true);
 featureList = new ArrayList();
 if (UtilValidate.isNotEmpty(dataResourceId)) {
     iter = productFeatureList.iterator();

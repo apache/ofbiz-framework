@@ -48,7 +48,7 @@ searchSortOrderString = ProductSearchSession.searchGetSortOrderString(false, req
 supplerPartyRoleAndPartyDetails = delegator.findByAnd("PartyRoleAndPartyDetail", UtilMisc.toMap("roleTypeId", "SUPPLIER"), UtilMisc.toList("groupName", "firstName"));
 
 // get the GoodIdentification types
-goodIdentificationTypes = delegator.findAll("GoodIdentificationType", UtilMisc.toList("description"));
+goodIdentificationTypes = delegator.findList("GoodIdentificationType", null, null, UtilMisc.toList("description"), null, false);
 
 context.put("searchCategoryId", searchCategoryId);
 context.put("searchCategory", searchCategory);

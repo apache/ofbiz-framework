@@ -31,9 +31,9 @@ ProductSearchSession.processSearchParameters(parameters, request);
 prodCatalogId = CatalogWorker.getCurrentCatalogId(request);
 Map result = ProductSearchSession.getProductSearchResult(request, delegator, prodCatalogId);
 
-applicationTypes = delegator.findAll("ProductFeatureApplType", UtilMisc.toList("description"));
+applicationTypes = delegator.findList("ProductFeatureApplType", null, null, UtilMisc.toList("description"), null, false);
 
-//productCategories = delegator.findAll("ProductCategory", UtilMisc.toList("description"));
+//productCategories = delegator.findList("ProductCategory", null, null, UtilMisc.toList("description"), null, false);
 expr = new EntityExpr(new EntityExpr("showInSelect", EntityOperator.EQUALS, null),
         EntityOperator.OR,
         new EntityExpr("showInSelect", EntityOperator.NOT_EQUAL, "N"));

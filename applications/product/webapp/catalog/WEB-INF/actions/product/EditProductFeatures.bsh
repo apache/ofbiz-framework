@@ -28,13 +28,13 @@ Collection productFeatureAndAppls = delegator.findByAnd("ProductFeatureAndAppl",
         UtilMisc.toList("sequenceNum", "productFeatureApplTypeId", "productFeatureTypeId", "description"));
 if (productFeatureAndAppls != null) context.put("productFeatureAndAppls", productFeatureAndAppls);
 
-Collection productFeatureCategories = delegator.findAll("ProductFeatureCategory", UtilMisc.toList("description"));
+Collection productFeatureCategories = delegator.findList("ProductFeatureCategory", null, null, UtilMisc.toList("description"), null, false);
 if (productFeatureCategories != null) context.put("productFeatureCategories", productFeatureCategories);
-Collection productFeatureApplTypes = delegator.findAll("ProductFeatureApplType", UtilMisc.toList("description"));
+Collection productFeatureApplTypes = delegator.findList("ProductFeatureApplType", null, null, UtilMisc.toList("description"), null, false);
 if (productFeatureApplTypes != null) context.put("productFeatureApplTypes", productFeatureApplTypes);
 
-productFeatureGroups = delegator.findAll("ProductFeatureGroup", UtilMisc.toList("description"));
+productFeatureGroups = delegator.findList("ProductFeatureGroup", null, null, UtilMisc.toList("description"), null, false);
 if (productFeatureGroups != null) context.put("productFeatureGroups", productFeatureGroups);
 
-Collection productFeatureTypes = delegator.findAll("ProductFeatureType", UtilMisc.toList("description"));
+Collection productFeatureTypes = delegator.findList("ProductFeatureType", null, null, UtilMisc.toList("description"), null, false);
 if (productFeatureTypes != null) context.put("productFeatureTypes", productFeatureTypes);

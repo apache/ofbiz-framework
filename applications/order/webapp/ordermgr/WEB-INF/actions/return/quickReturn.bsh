@@ -67,10 +67,10 @@ if (partyId != null) {
 }
 
 
-returnTypes = delegator.findAll("ReturnType", UtilMisc.toList("sequenceId"));
+returnTypes = delegator.findList("ReturnType", null, null, UtilMisc.toList("sequenceId"), null, false);
 context.put("returnTypes", returnTypes);
 
-returnReasons = delegator.findAll("ReturnReason", UtilMisc.toList("sequenceId"));
+returnReasons = delegator.findList("ReturnReason", null, null, UtilMisc.toList("sequenceId"), null, false);
 context.put("returnReasons", returnReasons);
 
 itemStts = delegator.findByAnd("StatusItem", UtilMisc.toMap("statusTypeId", "INV_SERIALIZED_STTS"), UtilMisc.toList("sequenceId"));

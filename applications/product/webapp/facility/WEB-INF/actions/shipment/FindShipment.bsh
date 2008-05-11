@@ -167,10 +167,10 @@ if ("Y".equals(lookupFlag)) {
 
 // =============== Prepare the Option Data for the Find Form =================
 
-shipmentTypes = delegator.findAll("ShipmentType", UtilMisc.toList("description"));
+shipmentTypes = delegator.findList("ShipmentType", null, null, UtilMisc.toList("description"), null, false);
 context.put("shipmentTypes", shipmentTypes);
 
-facilities = delegator.findAll("Facility", UtilMisc.toList("facilityName"));
+facilities = delegator.findList("Facility", null, null, UtilMisc.toList("facilityName"), null, false);
 context.put("facilities", facilities);
 
 // since purchase and sales shipments have different status codes, we'll need to make two separate lists

@@ -101,7 +101,7 @@ if (! UtilValidate.isEmpty(facility)) {
     }
 }
 
-inventoryItemTypes = delegator.findAll("InventoryItemType");
+inventoryItemTypes = delegator.findList("InventoryItemType", null, null, null, null, false);
 context.put("inventoryItemTypes", inventoryItemTypes);
 
 // Populate the tracking map with shipment and order IDs

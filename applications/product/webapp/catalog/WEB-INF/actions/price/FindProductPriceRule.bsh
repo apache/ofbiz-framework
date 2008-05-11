@@ -26,6 +26,6 @@ boolean activeOnly = true;
 if ("false".equals(request.getParameter("activeOnly"))) activeOnly = false;
 context.put("activeOnly", activeOnly);
 
-List productPriceRules = delegator.findAll("ProductPriceRule");
+List productPriceRules = delegator.findList("ProductPriceRule", null, null, null, null, false);
 if (activeOnly) productPriceRules = EntityUtil.filterByDate(productPriceRules, true);
 if (productPriceRules != null && productPriceRules.size() > 0) context.put("productPriceRules", productPriceRules);

@@ -41,13 +41,13 @@ productStoreSurveys = delegator.findByAnd("ProductStoreSurveyAppl", UtilMisc.toM
 productStoreSurveys = EntityUtil.filterByDate(productStoreSurveys);
 context.put("productStoreSurveys", productStoreSurveys);
 
-surveys = delegator.findAll("Survey", UtilMisc.toList("description"));
+surveys = delegator.findList("Survey", null, null, UtilMisc.toList("description"), null, false);
 context.put("surveys", surveys);
 
-surveyApplTypes = delegator.findAll("SurveyApplType", UtilMisc.toList("description"));
+surveyApplTypes = delegator.findList("SurveyApplType", null, null, UtilMisc.toList("description"), null, false);
 context.put("surveyApplTypes", surveyApplTypes);
 
-productCategories = delegator.findAll("ProductCategory", UtilMisc.toList("description"));
+productCategories = delegator.findList("ProductCategory", null, null, UtilMisc.toList("description"), null, false);
 context.put("productCategories", productCategories);
 
 String nowTimestampString = UtilDateTime.nowTimestamp().toString();
