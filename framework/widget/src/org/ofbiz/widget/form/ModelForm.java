@@ -39,6 +39,7 @@ import org.ofbiz.base.util.BshUtil;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
@@ -426,6 +427,7 @@ public class ModelForm extends ModelWidget {
             if (rowSubmit != null && rowSubmit.equalsIgnoreCase("true"))
                 useRowSubmit = true;
         }
+        setDefaultViewSize(UtilProperties.getPropertyValue("widget.properties", "widget.form.defaultViewSize"));
         if (formElement.hasAttribute("view-size")) {
             setDefaultViewSize(formElement.getAttribute("view-size"));
         }
