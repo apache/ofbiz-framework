@@ -40,7 +40,7 @@ under the License.
         </menu-item>
     </menu>
     <menu name="WorkEffortTabBar" default-menu-item-name="WorkEffort" default-selected-style="selected"
-        type="simple" menu-container-style="button-bar tab-bar">
+        type="simple" menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="tabButtonItem">
         <menu-item name="WorkEffortRelatedSummary" title="${uiLabelMap.WorkEffortSummary}">
             <link target="WorkEffortSummary?workEffortId=${workEffortId}"/>
         </menu-item>
