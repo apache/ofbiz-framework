@@ -91,7 +91,7 @@ if (toDate != null) {
 entityCondition = new EntityConditionList(conditionList, EntityOperator.AND);
 orderByList = UtilMisc.toList("orderTypeId", "orderStatus");
 
-eli = delegator.findListIteratorByCondition("OrderReportView", entityCondition, null, null, orderByList, null);
+eli = delegator.find("OrderReportView", entityCondition, null, null, orderByList, null);
 jrDataSource = new JREntityListIteratorDataSource(eli);
 
 jrParameters = new HashMap();

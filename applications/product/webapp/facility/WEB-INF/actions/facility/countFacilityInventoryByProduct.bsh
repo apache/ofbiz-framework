@@ -228,7 +228,7 @@ if (action != null) {
     List prods = null;
     try {
         beganTransaction = TransactionUtil.begin();
-        prodsEli = delegator.findListIteratorByCondition(prodView, whereCondition, null, null, orderBy, findOpts);
+        prodsEli = delegator.find(prodView, whereCondition, null, null, orderBy, findOpts);
 
         // get the indexes for the partial list
         lowIndex = ((viewIndex.intValue() * viewSize.intValue()) + 1);
@@ -268,7 +268,7 @@ if (action != null) {
             if (! UtilValidate.isEmpty(checkTime)) {
             
                 // Make a query against the sales usage view entity
-                salesUsageIt = delegator.findListIteratorByCondition(salesUsageViewEntity, 
+                salesUsageIt = delegator.find(salesUsageViewEntity, 
                         new EntityConditionList(
                             UtilMisc.toList(
                                 new EntityExpr("facilityId", EntityOperator.EQUALS, facilityId),
@@ -294,7 +294,7 @@ if (action != null) {
                 salesUsageIt.close();
         
                 // Make a query against the production usage view entity
-                productionUsageIt = delegator.findListIteratorByCondition(productionUsageViewEntity, 
+                productionUsageIt = delegator.find(productionUsageViewEntity, 
                         new EntityConditionList(
                             UtilMisc.toList(
                                 new EntityExpr("facilityId", EntityOperator.EQUALS, facilityId),

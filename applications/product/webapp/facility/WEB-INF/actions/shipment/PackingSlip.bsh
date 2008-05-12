@@ -49,7 +49,7 @@ for (iter = shipmentItems.iterator(); iter.hasNext(); ) {
 }
 
 // Add in the total of all previously shipped items
-previousShipmentIter = delegator.findListIteratorByCondition("Shipment", 
+previousShipmentIter = delegator.find("Shipment", 
         new EntityConditionList(
             UtilMisc.toList(
                 new EntityExpr("primaryOrderId", EntityOperator.EQUALS, shipment.getString("primaryOrderId")),

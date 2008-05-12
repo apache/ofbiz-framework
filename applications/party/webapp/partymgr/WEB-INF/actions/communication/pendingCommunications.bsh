@@ -117,7 +117,7 @@ try {
     beganTransaction = TransactionUtil.begin();
 
     // obtain the ELI
-    eli = delegator.findListIteratorByCondition("CommunicationEvent", condition, null, fieldsToSelect, orderBy, findOpts);
+    eli = delegator.find("CommunicationEvent", condition, null, fieldsToSelect, orderBy, findOpts);
     
     // get the indexes for the partial list
     lowIndex = (((viewIndex - 1) * viewSize) + 1);

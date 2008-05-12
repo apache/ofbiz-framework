@@ -64,7 +64,7 @@ if (andCondition.size() > 1) {
     try {
         EntityFindOptions findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
         beganTransaction = TransactionUtil.begin();
-        inventoryItemsEli = delegator.findListIteratorByCondition(inventoryItemAndLabelsView, new EntityConditionList(andCondition, EntityOperator.AND), null, null, null, findOpts);
+        inventoryItemsEli = delegator.find(inventoryItemAndLabelsView, new EntityConditionList(andCondition, EntityOperator.AND), null, null, null, findOpts);
 
         // get the indexes for the partial list
         lowIndex = ((viewIndex * viewSize) + 1);
