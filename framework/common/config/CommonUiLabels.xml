@@ -40,11 +40,13 @@
     </property>
     <property key="Business Intelligence">
         <value xml:lang="en">Business Intelligence</value>
+        <value xml:lang="fr">Informatique décisionnelle</value>
         <value xml:lang="it">Business Intelligence</value>
         <value xml:lang="th">การเรียนรู้ทางธุรกิจ</value>
     </property>
     <property key="CMSSite">
         <value xml:lang="en">CMS Site</value>
+        <value xml:lang="fr">Site de gestion de contenu</value>
         <value xml:lang="it">Sito CMS</value>
         <value xml:lang="th">CMS Site</value>
     </property>
@@ -53,7 +55,7 @@
         <value xml:lang="de">Katalog</value>
         <value xml:lang="en">Catalog</value>
         <value xml:lang="es">Catálogo</value>
-        <value xml:lang="fr">Article</value>
+        <value xml:lang="fr">Catalogue</value>
         <value xml:lang="it">Cataloghi</value>
         <value xml:lang="nl">Catalogus</value>
         <value xml:lang="pt">Catálogo</value>
@@ -1779,6 +1781,7 @@
     </property>
     <property key="CommonEmptyHeader">
         <value xml:lang="en"> </value>
+        <value xml:lang="fr"> </value>
         <value xml:lang="it"> </value>
         <value xml:lang="pt"> </value>
         <value xml:lang="th"> </value>
@@ -1857,6 +1860,7 @@
     <property key="CommonErrorMessage1">
         <value xml:lang="ar">الحقول الإلزامية التالية وجدت فارغة</value>
         <value xml:lang="en">The following required fields where found empty</value>
+        <value xml:lang="fr">Les champs requis suivants sont vides</value>
         <value xml:lang="it">I seguenti campi obbligatori sono trovati vuoti</value>
         <value xml:lang="pt">Os seguintes campos obrigatórios foram encontrados vazios</value>
         <value xml:lang="ro">Urmatoarele campuri obligatorii au fost gasite goale</value>
@@ -1867,6 +1871,7 @@
     <property key="CommonErrorMessage2">
         <value xml:lang="ar">الأخطاء التالية حدثت</value>
         <value xml:lang="en">The following errors occurred</value>
+        <value xml:lang="fr">Les erreurs suivantes se sont produites</value>
         <value xml:lang="it">I seguenti errori sono accaduti</value>
         <value xml:lang="pt">Ocorreram os seguintes erros</value>
         <value xml:lang="ro">S-au gasit urmatoarele erori</value>
@@ -1878,6 +1883,7 @@
     <property key="CommonErrorMessage3">
         <value xml:lang="ar">التالي حدث</value>
         <value xml:lang="en">The following occurred</value>
+        <value xml:lang="fr">Ceci s'est produit</value>
         <value xml:lang="it">Le seguenti azioni sono accadute</value>
         <value xml:lang="pt">Ocorreu o seguinte</value>
         <value xml:lang="ro">S-au efectuat urmatoarele actiuni</value>
@@ -1911,6 +1917,7 @@
     </property>
     <property key="CommonExclude">
         <value xml:lang="en">Exclude</value>
+        <value xml:lang="fr">Exclure</value>
         <value xml:lang="it">Escludi</value>
         <value xml:lang="pt">Excluir</value>
         <value xml:lang="ru">Исключить</value>
@@ -1936,7 +1943,7 @@
         <value xml:lang="de">Ablaufen</value>
         <value xml:lang="en">Expire</value>
         <value xml:lang="es">Expiración</value>
-        <value xml:lang="fr">Expiration</value>
+        <value xml:lang="fr">Mettre fin à </value>
         <value xml:lang="it">Scade</value>
         <value xml:lang="nl">Maak verlopen</value>
         <value xml:lang="pt">Expirar</value>
@@ -1952,7 +1959,7 @@
         <value xml:lang="de">Alle ablaufen</value>
         <value xml:lang="en">Expire All</value>
         <value xml:lang="es">Expirar todos</value>
-        <value xml:lang="fr">Expirer tous</value>
+        <value xml:lang="fr">Mettre fin à tout</value>
         <value xml:lang="it">Scade Tutto</value>
         <value xml:lang="nl">Alles laten verlopen</value>
         <value xml:lang="pt">Expirar Tudo</value>
@@ -1984,7 +1991,7 @@
         <value xml:lang="de">Ablaufen</value>
         <value xml:lang="en">Expires</value>
         <value xml:lang="es">Expirados</value>
-        <value xml:lang="fr">Expirés</value>
+        <value xml:lang="fr">Mettre fin à </value>
         <value xml:lang="it">Scadere</value>
         <value xml:lang="nl">Verloopt</value>
         <value xml:lang="pt">Expira</value>
@@ -1997,6 +2004,7 @@
     <property key="CommonExport">
         <value xml:lang="ar">تصدير</value>
         <value xml:lang="en">Export</value>
+        <value xml:lang="fr">Exporter</value>
         <value xml:lang="it">Esporta</value>
         <value xml:lang="pt">Exportar</value>
         <value xml:lang="ro">Exporta</value>
@@ -2021,6 +2029,7 @@
     <property key="CommonFalse">
         <value xml:lang="ar">خطأ</value>
         <value xml:lang="en">False</value>
+        <value xml:lang="fr">Faux</value>
         <value xml:lang="it">Falso</value>
         <value xml:lang="pt">Falso</value>
         <value xml:lang="ro">Fals</value>
@@ -2082,6 +2091,7 @@
     </property>
     <property key="CommonFinAccounts">
         <value xml:lang="en">Fin Accts</value>
+        <value xml:lang="fr">Comptes financiers</value>
         <value xml:lang="it">Conti Finanziari</value>
         <value xml:lang="th">บัญชี</value>
     </property>
@@ -2119,7 +2129,7 @@
         <value xml:lang="de">Alle suchen</value>
         <value xml:lang="en">Find All</value>
         <value xml:lang="es">Buscar todos</value>
-        <value xml:lang="fr">Rechercher tous</value>
+        <value xml:lang="fr">Tout rechercher</value>
         <value xml:lang="it">Ricerca Tutto</value>
         <value xml:lang="nl">Zoek allen</value>
         <value xml:lang="pt">Procurar Tudo</value>
@@ -2418,6 +2428,7 @@
     </property>
     <property key="CommonGenericPermissionError">
         <value xml:lang="en">Security Error: To run ${resourceDescription} you must have the one of the following permissions: ${primaryPermission}_${mainAction}, ${primaryPermission}_ADMIN${altPermissionList}</value>
+        <value xml:lang="fr">Erreur de sécurité : pour exécuter ${resourceDescription} vous devez avoir une des permissions suivantes : ${primaryPermission}_${mainAction}, ${primaryPermission}_ADMIN${altPermissionList}</value>
         <value xml:lang="pt">Erro de Segurança: Para executar ${resourceDescription} você deve ter a ${}_${mainAction} ou a permissão ${}_ADMIN</value>
         <value xml:lang="ru">Ошибка безопасности: для выполнения ${resourceDescription} у вас должны быть права ${}_${mainAction} или ${}_ADMIN</value>
         <value xml:lang="th">Security Error: ความปลอดภัยผิดพลาด ! ในการรัน ${resourceDescription} คุณต้องมีการได้รับอนุญาตก่อน${primaryPermission}_${mainAction}, ${primaryPermission}_ADMIN${altPermissionList}</value>
@@ -2425,6 +2436,7 @@
     <property key="CommonGeo">
         <value xml:lang="ar">جيو</value>
         <value xml:lang="en">Geo</value>
+        <value xml:lang="fr">Zone géographique</value>
         <value xml:lang="it">Geografia</value>
         <value xml:lang="pt">Geo</value>
         <value xml:lang="ru">Geo</value>
@@ -2432,6 +2444,7 @@
     </property>
     <property key="CommonGeos">
         <value xml:lang="en">Geos</value>
+        <value xml:lang="fr">Zones géographiques</value>
         <value xml:lang="it">Geografia</value>
         <value xml:lang="pt">Geos</value>
         <value xml:lang="ru">Geos</value>
@@ -2551,6 +2564,7 @@
     <property key="CommonHeld">
         <value xml:lang="ar">محجوز</value>
         <value xml:lang="en">Held</value>
+        <value xml:lang="fr">Retenir</value>
         <value xml:lang="it">Congelati</value>
         <value xml:lang="pt">Preso/Bloqueado</value>
         <value xml:lang="ru">Приостановленные</value>
@@ -2589,6 +2603,7 @@
     <property key="CommonHourly">
         <value xml:lang="ar">ساعي</value>
         <value xml:lang="en">Hourly</value>
+        <value xml:lang="fr">Chaque heure</value>
         <value xml:lang="it">Orario</value>
         <value xml:lang="pt">Hora a Hora</value>
         <value xml:lang="ro">Orariu</value>
@@ -2615,7 +2630,7 @@
         <value xml:lang="ar">دليل موجود</value>
         <value xml:lang="en">Id Already Exist</value>
         <value xml:lang="es">El código ya existe</value>
-        <value xml:lang="fr">Identifiant déjà existant</value>
+        <value xml:lang="fr">Réf. déjà existante</value>
         <value xml:lang="it">Codice Già Esistente</value>
         <value xml:lang="nl">ID bestaat reeds</value>
         <value xml:lang="pt">O Id Já Existe</value>
@@ -2702,6 +2717,7 @@
     <property key="CommonInclude">
         <value xml:lang="en">Include</value>
         <value xml:lang="it">Includi</value>
+        <value xml:lang="fr">Inclure</value>
         <value xml:lang="pt">Incluir</value>
         <value xml:lang="ru">Включить</value>
         <value xml:lang="th">รวมกัน</value>
@@ -2738,6 +2754,7 @@
     </property>
     <property key="CommonInsert">
         <value xml:lang="en">Insert</value>
+        <value xml:lang="fr">Insérer</value>
         <value xml:lang="it">Inserisci</value>
         <value xml:lang="pt">Inserir</value>
         <value xml:lang="th">เพิ่ม</value>
@@ -2828,7 +2845,7 @@
         <value xml:lang="de">Januar</value>
         <value xml:lang="en">January</value>
         <value xml:lang="es">Enero</value>
-        <value xml:lang="fr">Janvier</value>
+        <value xml:lang="fr">janvier</value>
         <value xml:lang="it">Gennaio</value>
         <value xml:lang="nl">Januari</value>
         <value xml:lang="pt">Janeiro</value>
@@ -2843,7 +2860,7 @@
         <value xml:lang="de">Juli</value>
         <value xml:lang="en">July</value>
         <value xml:lang="es">Julio</value>
-        <value xml:lang="fr">Juillet</value>
+        <value xml:lang="fr">juillet</value>
         <value xml:lang="it">Luglio</value>
         <value xml:lang="nl">Juli</value>
         <value xml:lang="pt">Julho</value>
@@ -2858,7 +2875,7 @@
         <value xml:lang="de">Juni</value>
         <value xml:lang="en">June</value>
         <value xml:lang="es">Junio</value>
-        <value xml:lang="fr">Juin</value>
+        <value xml:lang="fr">juin</value>
         <value xml:lang="it">Giugno</value>
         <value xml:lang="nl">Juni</value>
         <value xml:lang="pt">Junho</value>
@@ -2890,7 +2907,7 @@
         <value xml:lang="de">Groß</value>
         <value xml:lang="en">Large</value>
         <value xml:lang="es">Grande</value>
-        <value xml:lang="fr">Large</value>
+        <value xml:lang="fr">Grand</value>
         <value xml:lang="it">Grande</value>
         <value xml:lang="nl">Groot</value>
         <value xml:lang="pt">Largo/Grande</value>
@@ -2902,6 +2919,7 @@
     </property>
     <property key="CommonLast">
         <value xml:lang="en">Last</value>
+        <value xml:lang="fr">Dernier</value>
         <value xml:lang="th">สุดท้าย</value>
     </property>
     <property key="CommonLastUpdated">
@@ -2950,7 +2968,7 @@
         <value xml:lang="de">Liste</value>
         <value xml:lang="en">List</value>
         <value xml:lang="es">Lista</value>
-        <value xml:lang="fr">Lister</value>
+        <value xml:lang="fr">Liste</value>
         <value xml:lang="it">Lista</value>
         <value xml:lang="nl">Lijst</value>
         <value xml:lang="pt">Listar</value>
@@ -2966,7 +2984,7 @@
         <value xml:lang="de">Alles auflisten</value>
         <value xml:lang="en">List All</value>
         <value xml:lang="es">Listar todos</value>
-        <value xml:lang="fr">Tout lister</value>
+        <value xml:lang="fr">Tout énumérer</value>
         <value xml:lang="it">Lista Tutte</value>
         <value xml:lang="nl">Gehele Lijst</value>
         <value xml:lang="pt">Listar Tudo</value>
@@ -2999,7 +3017,7 @@
         <value xml:lang="de">Hier können Sie sich anmelden</value>
         <value xml:lang="en">log in here</value>
         <value xml:lang="es">Ingrese aquí</value>
-        <value xml:lang="fr">Connexion ici</value>
+        <value xml:lang="fr">Connectez vous ici</value>
         <value xml:lang="it">log in qui</value>
         <value xml:lang="nl">Hier Inloggen</value>
         <value xml:lang="pt">log in aqui</value>
@@ -3016,7 +3034,7 @@
         <value xml:lang="de">Abmelden</value>
         <value xml:lang="en">Logout</value>
         <value xml:lang="es">Logout</value>
-        <value xml:lang="fr">Sortie</value>
+        <value xml:lang="fr">Déconnexion</value>
         <value xml:lang="it">Logout</value>
         <value xml:lang="nl">Logout</value>
         <value xml:lang="pt">Logout</value>
@@ -3109,7 +3127,7 @@
         <value xml:lang="de">März</value>
         <value xml:lang="en">March</value>
         <value xml:lang="es">Marzo</value>
-        <value xml:lang="fr">Mars</value>
+        <value xml:lang="fr">mars</value>
         <value xml:lang="it">Marzo</value>
         <value xml:lang="nl">Maart</value>
         <value xml:lang="pt">Março</value>
@@ -3141,7 +3159,7 @@
         <value xml:lang="de">Mai</value>
         <value xml:lang="en">May</value>
         <value xml:lang="es">Mayo</value>
-        <value xml:lang="fr">Mai</value>
+        <value xml:lang="fr">mai</value>
         <value xml:lang="it">Maggio</value>
         <value xml:lang="nl">Mei</value>
         <value xml:lang="pt">Maio</value>
@@ -3173,7 +3191,7 @@
         <value xml:lang="de">Sie können sich hier registrieren</value>
         <value xml:lang="en">You may create a new account here</value>
         <value xml:lang="es">Puede crear una nueva cuenta aquí</value>
-        <value xml:lang="fr">Vous devez créer un nouveau compte</value>
+        <value xml:lang="fr">Vous pouvez créer un nouveau compte ici</value>
         <value xml:lang="it">Tu puoi creare un nuovo utente qui</value>
         <value xml:lang="nl">Hier een nieuwe rekening aanmaken</value>
         <value xml:lang="pt">Você pode criar uma nova conta aqui</value>
@@ -3232,6 +3250,7 @@
     <property key="CommonMinutely">
         <value xml:lang="ar">بدقة</value>
         <value xml:lang="en">Minutely</value>
+        <value xml:lang="fr">Chaque minute</value>
         <value xml:lang="it">Minuto</value>
         <value xml:lang="pt">Minuto a Minuto</value>
         <value xml:lang="ro">Minut</value>
@@ -3258,7 +3277,7 @@
         <value xml:lang="de">Montag</value>
         <value xml:lang="en">Monday</value>
         <value xml:lang="es">Lunes</value>
-        <value xml:lang="fr">Lundi</value>
+        <value xml:lang="fr">lundi</value>
         <value xml:lang="it">Lunedì</value>
         <value xml:lang="nl">Maandag</value>
         <value xml:lang="pt">Segunda-Feira</value>
@@ -3286,6 +3305,7 @@
     <property key="CommonMonthly">
         <value xml:lang="ar">شهريا</value>
         <value xml:lang="en">Monthly</value>
+        <value xml:lang="fr">Mensuellement</value>
         <value xml:lang="it">Mensilmente</value>
         <value xml:lang="pt">Mensal</value>
         <value xml:lang="ro">Lunar</value>
@@ -3355,7 +3375,7 @@
         <value xml:lang="de">k. A.</value>
         <value xml:lang="en">N/A</value>
         <value xml:lang="es">N/A</value>
-        <value xml:lang="fr">N/A</value>
+        <value xml:lang="fr">Non disponible</value>
         <value xml:lang="it">Non disponibile</value>
         <value xml:lang="nl">nvt</value>
         <value xml:lang="pt">N/A</value>
@@ -3398,10 +3418,12 @@
     </property>
     <property key="CommonNewPassword">
         <value xml:lang="en">New Password</value>
+        <value xml:lang="fr">Nouveau mot de passe</value>
         <value xml:lang="th">รหัสผ่านใหม่</value>
     </property>
     <property key="CommonNewPasswordVerify">
         <value xml:lang="en">New Password Verify</value>
+        <value xml:lang="fr">Nouveau mot de passe (vérification)</value>
         <value xml:lang="th">ตรวจสอบรหัสผ่านใหม่</value>
     </property>
     <property key="CommonNewSelection">
@@ -3614,7 +3636,7 @@
         <value xml:lang="de">Nicht gesetzt</value>
         <value xml:lang="en">Not Set</value>
         <value xml:lang="es">No establecido</value>
-        <value xml:lang="fr">Non choisi</value>
+        <value xml:lang="fr">Non défini</value>
         <value xml:lang="it">Non Impostato</value>
         <value xml:lang="nl">Niet aanwezig</value>
         <value xml:lang="pt">Não Definido</value>
@@ -3704,7 +3726,7 @@
         <value xml:lang="de">November</value>
         <value xml:lang="en">November</value>
         <value xml:lang="es">Noviembre</value>
-        <value xml:lang="fr">Novembre</value>
+        <value xml:lang="fr">novembre</value>
         <value xml:lang="it">Novembre</value>
         <value xml:lang="nl">November</value>
         <value xml:lang="pt">Novembro</value>
@@ -3738,7 +3760,7 @@
         <value xml:lang="de">Oktober</value>
         <value xml:lang="en">October</value>
         <value xml:lang="es">Octubre</value>
-        <value xml:lang="fr">Octobre</value>
+        <value xml:lang="fr">octobre</value>
         <value xml:lang="it">Ottobre</value>
         <value xml:lang="nl">Oktober</value>
         <value xml:lang="pt">Outubro</value>
@@ -3753,7 +3775,7 @@
         <value xml:lang="de">von</value>
         <value xml:lang="en">of</value>
         <value xml:lang="es">de</value>
-        <value xml:lang="fr">De</value>
+        <value xml:lang="fr">de</value>
         <value xml:lang="it">di</value>
         <value xml:lang="nl">van</value>
         <value xml:lang="pt">de</value>
@@ -3809,20 +3831,6 @@
         <value xml:lang="th">เปิดหน้าต่างใหม่</value>
         <value xml:lang="zh_CN">打开新的窗口</value>
         <value xml:lang="zh">在新窗口中打开</value>
-    </property>
-    <property key="CommonOpenPageNewW">
-        <value xml:lang="ar">فتح الصفحة نافذة جديدة</value>
-        <value xml:lang="en">open the page in new window</value>
-        <value xml:lang="es">Abrir la página en una ventana nueva</value>
-        <value xml:lang="fr">Ouvrir la page dans une nouvelle fenêtre</value>
-        <value xml:lang="it">apri pagina in una nuova finestra</value>
-        <value xml:lang="nl">open de pagina in een nieuw venster</value>
-        <value xml:lang="pt">Abrir Página Numa Nova Janela</value>
-        <value xml:lang="ro">deschide pagina intr-o noua fereastra</value>
-        <value xml:lang="ru">открыть страницу в новом окне</value>
-        <value xml:lang="th">เปิดเพจในหน้าต่างใหม่</value>
-        <value xml:lang="zh_CN">在新窗口打开页面</value>
-        <value xml:lang="zh">在新窗口中打开页面</value>
     </property>
     <property key="CommonOpenPageNewWindow">
         <value xml:lang="ar">فتح صفحة نافذة جديدة</value>
@@ -7167,7 +7175,7 @@
         <value xml:lang="de">Kontaktzweck</value>
         <value xml:lang="en">Contact Purpose</value>
         <value xml:lang="es">Propósito del contacto</value>
-        <value xml:lang="fr">But de contact d'un acteur</value>
+        <value xml:lang="fr">Raison du contact</value>
         <value xml:lang="it">Funzione Conttatto</value>
         <value xml:lang="nl">Kontakt Doel</value>
         <value xml:lang="pt">Propóstio do Contacto</value>
@@ -7194,6 +7202,7 @@
     </property>
     <property key="Project">
         <value xml:lang="en">Project</value>
+        <value xml:lang="fr">Projet</value>
         <value xml:lang="it">Progetti</value>
         <value xml:lang="th">โปรเจค</value>
         <value xml:lang="zh">项目管理</value>
@@ -7268,6 +7277,7 @@
     </property>
     <property key="ar">
         <value xml:lang="ar">عربية</value>
+        <value xml:lang="fr">arabe</value>
         <value xml:lang="en">Arabic</value>
         <value xml:lang="th">Arabic</value>
     </property>
@@ -7335,7 +7345,7 @@
         <value xml:lang="de">Britisch</value>
         <value xml:lang="en">British English</value>
         <value xml:lang="es">Inglés británico</value>
-        <value xml:lang="fr">anglais GB</value>
+        <value xml:lang="fr">anglais (GB)</value>
         <value xml:lang="it">Inglese Britannico</value>
         <value xml:lang="nl">Brits Engels</value>
         <value xml:lang="pt">British English</value>
@@ -7393,7 +7403,7 @@
     <property key="it">
         <value xml:lang="ar">إيطالية</value>
         <value xml:lang="en">Italian</value>
-        <value xml:lang="fr">Italien</value>
+        <value xml:lang="fr">italien</value>
         <value xml:lang="it">Italiano</value>
         <value xml:lang="pt">Italian</value>
         <value xml:lang="ro">Italiana</value>
@@ -7404,7 +7414,7 @@
     <property key="nl">
         <value xml:lang="ar">هولندية</value>
         <value xml:lang="en">Nederlands</value>
-        <value xml:lang="fr">Hollandais</value>
+        <value xml:lang="fr">hollandais</value>
         <value xml:lang="it">Olandese</value>
         <value xml:lang="nl">Nederlands</value>
         <value xml:lang="pt">Nederlands</value>
@@ -7433,7 +7443,7 @@
         <value xml:lang="de">Portugiesisch (Brasilien)</value>
         <value xml:lang="en">Portuguese Brazil</value>
         <value xml:lang="es">Portugués (Brasil)</value>
-        <value xml:lang="fr">portugais Brésil</value>
+        <value xml:lang="fr">portugais (Brésil)</value>
         <value xml:lang="it">Portoghese Braziliano</value>
         <value xml:lang="nl">Portugese Brazil</value>
         <value xml:lang="pt">Portuguese Brazil</value>
@@ -7448,7 +7458,7 @@
         <value xml:lang="de">Portugiesisch (Portugal)</value>
         <value xml:lang="en">Portuguese Portugal</value>
         <value xml:lang="es">Portugués (Portugal)</value>
-        <value xml:lang="fr">portugais Portugal</value>
+        <value xml:lang="fr">portugais (Portugal)</value>
         <value xml:lang="it">Portoghese Portogallo</value>
         <value xml:lang="nl">Portugese Portugal</value>
         <value xml:lang="pt">Portuguese Portugal</value>
@@ -7460,7 +7470,7 @@
     </property>
     <property key="ru">
         <value xml:lang="en">Russian</value>
-        <value xml:lang="fr">Russe</value>
+        <value xml:lang="fr">russe</value>
         <value xml:lang="ru">Русский</value>
         <value xml:lang="th">รัสเซัย</value>
     </property>
