@@ -823,4 +823,14 @@ under the License.
         <attribute name="orderPaymentPreferenceId" type="String" mode="IN" optional="false"/>
         <attribute name="changeReason" type="String" mode="IN" optional="true"/>
     </service>    
+    
+    <service name="createOrderItemChange" engine="simple" auth="true" default-entity-name="OrderItemChange"
+            location="org/ofbiz/order/order/OrderServices.xml" invoke="createOrderItemChange">
+        <description>Creates a new OrderItemChange record</description>
+        <auto-attributes mode="OUT" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override name="orderId" optional="false"/>
+        <override name="orderItemSeqId" optional="false"/>
+        <override name="changeTypeEnumId" optional="false"/>          
+    </service>    
 </services>

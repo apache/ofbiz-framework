@@ -1858,6 +1858,9 @@ public class OrderServices {
                 }
 
                 if (availableQuantity.doubleValue() >= thisCancelQty.doubleValue()) {
+                    if (availableQuantity.doubleValue() == 0) {
+                        return ServiceUtil.returnSuccess();  //item already canceled
+                    }
                     orderItem.set("cancelQuantity", Double.valueOf(itemCancelQuantity.doubleValue() + thisCancelQty.doubleValue()));
                     orderItemShipGroupAssoc.set("cancelQuantity", Double.valueOf(aisgaCancelQuantity.doubleValue() + thisCancelQty.doubleValue()));
 
@@ -1867,6 +1870,24 @@ public class OrderServices {
                     } catch (GenericEntityException e) {
                         Debug.logError(e, module);
                         return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderUnableToSetCancelQuantity", UtilMisc.toMap("itemMsgInfo",itemMsgInfo), locale));
+                    }
+                    
+                    //  create order item change record
+                    Map serviceCtx = FastMap.newInstance();
+                    serviceCtx.put("orderId", orderItem.getString("orderId"));
+                    serviceCtx.put("orderItemSeqId", orderItem.getString("orderItemSeqId"));
+                    serviceCtx.put("cancelQuantity", thisCancelQty);
+                    serviceCtx.put("changeTypeEnumId", "ODR_ITM_CANCEL");
+                    serviceCtx.put("userLogin", userLogin);
+                    Map resp = null;
+                    try {
+                        resp = dispatcher.runSync("createOrderItemChange", serviceCtx);
+                    } catch (GenericServiceException e) {
+                        Debug.logError(e, module);
+                        return ServiceUtil.returnError(e.getMessage());
+                    }
+                    if (ServiceUtil.isError(resp)) {
+                        return ServiceUtil.returnError((String)resp.get(ModelService.ERROR_MESSAGE));
                     }
 
                     if (thisCancelQty.doubleValue() >= itemQuantity.doubleValue()) {
@@ -3534,6 +3555,7 @@ public class OrderServices {
         }
 
         // get the new orderItems, adjustments, shipping info and payments from the cart
+        List<GenericValue> modifiedItems = FastList.newInstance();        
         List toStore = new LinkedList();
         toStore.addAll(cart.makeOrderItems());
         toStore.addAll(cart.makeAllAdjustments());
@@ -3571,7 +3593,47 @@ public class OrderServices {
                 if (valueObj.get("statusId") == null) {
                     valueObj.set("statusId", "PAYMENT_NOT_RECEIVED");
                 }
-            }
+            } else if ("OrderItem".equals(valueObj.getEntityName())) {
+                GenericValue oldOrderItem = null;
+                try {
+                    oldOrderItem = delegator.findByPrimaryKey("OrderItem", UtilMisc.toMap("orderId", valueObj.getString("orderId"), "orderItemSeqId", valueObj.getString("orderItemSeqId")));
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, module);
+                    throw new GeneralException(e.getMessage());
+                }
+                if (UtilValidate.isNotEmpty(oldOrderItem)) {
+                    
+                    //  Existing order item found. Check for modifications and store if any
+                    String oldItemDescription = oldOrderItem.getString("itemDescription") != null ? oldOrderItem.getString("itemDescription") : "";
+                    Double oldQuantity = oldOrderItem.getDouble("quantity") != null ? oldOrderItem.getDouble("quantity") : Double.valueOf(0.00);
+                    Double oldUnitPrice = oldOrderItem.getDouble("unitPrice") != null ? oldOrderItem.getDouble("unitPrice") : Double.valueOf(0.00);
+                    
+                    boolean changeFound = false;
+                    if (oldItemDescription.equals(valueObj.getString("itemDescription"))) {
+                        oldOrderItem.remove("itemDescription");
+                    } else {
+                        changeFound = true;
+                    }
+                    
+                    Double quantityDif = Double.valueOf(valueObj.getDouble("quantity").doubleValue() - oldQuantity.doubleValue());
+                    Double unitPriceDif = Double.valueOf(valueObj.getDouble("unitPrice").doubleValue() - oldUnitPrice.doubleValue());
+                    if (quantityDif.doubleValue() == 0) {
+                        oldOrderItem.remove("quantity");
+                    } else {
+                        oldOrderItem.set("quantity", quantityDif);
+                        changeFound = true;
+                    }
+                    if (unitPriceDif.doubleValue() == 0) {
+                        oldOrderItem.remove("unitPrice");
+                    } else {
+                        oldOrderItem.set("unitPrice", unitPriceDif);
+                        changeFound = true;
+                    }
+                    if (changeFound) {
+                        modifiedItems.add(oldOrderItem);
+                    }                    
+                }                
+            }            
         }
         Debug.log("To Store Contains: " + toStore, module);
 
@@ -3583,6 +3645,30 @@ public class OrderServices {
             throw new GeneralException(e.getMessage());
         }
 
+        //store the orderItem changes
+        if (UtilValidate.isNotEmpty(modifiedItems)) {            
+            for (GenericValue oldItemValues : modifiedItems) {
+                Map serviceCtx = FastMap.newInstance();
+                serviceCtx.put("orderId", oldItemValues.getString("orderId"));
+                serviceCtx.put("orderItemSeqId", oldItemValues.getString("orderItemSeqId"));
+                serviceCtx.put("itemDescription", oldItemValues.getString("itemDescription"));
+                serviceCtx.put("quantity", oldItemValues.getDouble("quantity"));
+                serviceCtx.put("unitPrice", oldItemValues.getDouble("unitPrice"));
+                serviceCtx.put("changeTypeEnumId", "ODR_ITM_UPDATE");                
+                serviceCtx.put("userLogin", userLogin);
+                Map resp = null;
+                try {
+                    resp = dispatcher.runSync("createOrderItemChange", serviceCtx);
+                } catch (GenericServiceException e) {
+                    Debug.logError(e, module);
+                    throw new GeneralException(e.getMessage());
+                }
+                if (ServiceUtil.isError(resp)) {
+                    throw new GeneralException((String) resp.get(ModelService.ERROR_MESSAGE));
+                }
+            }
+        }
+        
         // make the order item object map & the ship group assoc list
         List orderItemShipGroupAssoc = new LinkedList();
         Map itemValuesBySeqId = new HashMap();
