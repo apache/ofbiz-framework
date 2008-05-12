@@ -307,7 +307,7 @@ public class ShippingEvents {
                 } else if (ServiceUtil.isFailure(serviceResp)) {
                     String errMsg = "Failure getting external shipment cost estimate: " + ServiceUtil.getErrorMessage(serviceResp); 
                     Debug.logError(errMsg, module);
-                    throw new GeneralException(errMsg);
+                    // should not throw an Exception here, otherwise getShipGroupEstimate would return an error, causing all sorts of services like add or update order item to abort
                 } else {
                     externalShipAmt = (Double) serviceResp.get("shippingEstimateAmount");
                 }
