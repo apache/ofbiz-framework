@@ -652,6 +652,40 @@ under the License.
         <key-map field-name="itemIssuanceId"/>
       </relation>
     </entity>
+    <entity entity-name="OrderItemChange"
+            package-name="org.ofbiz.order.order"
+            never-cache="true"
+            title="Order Item Change Entity">
+      <field name="orderItemChangeId" type="id-ne"></field>
+      <field name="orderId" type="id-ne"></field>
+      <field name="orderItemSeqId" type="id-ne"></field>
+      <field name="changeTypeEnumId" type="id"></field>      
+      <field name="changeDatetime" type="date-time"></field>
+      <field name="changeUserLogin" type="id-vlong"></field>
+      <field name="quantity" type="floating-point"></field>
+      <field name="cancelQuantity" type="floating-point"></field>
+      <field name="unitPrice" type="currency-amount"></field>
+      <field name="itemDescription" type="description"></field>
+      <field name="reasonEnumId" type="id"></field>
+      <field name="changeComments" type="comment"></field>      
+      <prim-key field="orderItemChangeId"/>     
+      <relation type="one-nofk" rel-entity-name="OrderHeader">
+        <key-map field-name="orderId"/>
+      </relation>
+      <relation type="one" fk-name="ORDER_ITCH_OITM" rel-entity-name="OrderItem">
+        <key-map field-name="orderId"/>
+        <key-map field-name="orderItemSeqId"/>
+      </relation>
+      <relation type="one" fk-name="ORDER_ITCH_TYPE" rel-entity-name="Enumeration">
+        <key-map field-name="changeTypeEnumId" rel-field-name="enumId"/>
+      </relation>            
+      <relation type="one" fk-name="ORDER_ITCH_REAS" title="Reason" rel-entity-name="Enumeration">
+          <key-map field-name="reasonEnumId" rel-field-name="enumId"/>
+      </relation>
+      <relation type="one" fk-name="ORDER_ITCH_USER" rel-entity-name="UserLogin">
+        <key-map field-name="changeUserLogin" rel-field-name="userLoginId"/>
+      </relation>      
+    </entity>
     <entity entity-name="OrderItemContactMech"
             package-name="org.ofbiz.order.order"
             never-cache="true"

@@ -882,4 +882,19 @@ under the License.
         </if-empty>
         <field-to-result field-name="isBackOrder" result-name="isBackOrder"/>
     </simple-method>
+    
+    <simple-method method-name="createOrderItemChange" short-description="Creates a new Order Item Change record">
+        <make-value value-name="newEntity" entity-name="OrderItemChange"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <if-empty field-name="parameters.changeDatetime">
+            <now-timestamp-to-env env-name="nowTimestamp"/>
+            <set field="newEntity.changeDatetime" from-field="nowTimestamp"/>
+        </if-empty>
+        <if-empty field-name="parameters.changeUserLogin">
+            <set field="newEntity.changeUserLogin" from-field="userLogin.userLoginId"/>
+        </if-empty>
+        <sequenced-id-to-env sequence-name="OrderItemChange" env-name="newEntity.orderItemChangeId"/>
+        <create-value value-name="newEntity"/>
+        <field-to-result field-name="newEntity.orderItemChangeId" result-name="orderItemChangeId"/>                    
+    </simple-method>    
 </simple-methods>
