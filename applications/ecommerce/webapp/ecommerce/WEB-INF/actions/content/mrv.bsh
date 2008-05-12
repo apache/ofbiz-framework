@@ -65,7 +65,7 @@ iter = lifoSet.iterator();
 while (iter.hasNext()) {
     pk0 = iter.next();
     pk = pk0.getPrimaryKey();
-    gv = delegator.findByPrimaryKeyCache(pk); 
+    gv = delegator.findOne(pk.getEntityName(), pk, true); 
     if (gv != null) {
         String [] arr = { gv.get("contentId"), gv.get("contentName") };
         mrvList.add(arr);

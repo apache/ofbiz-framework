@@ -85,7 +85,7 @@ iter = lifoSet.iterator();
 while (iter.hasNext()) {
     pk0 = iter.next();
     pk = pk0.getPrimaryKey();
-    gv = delegator.findByPrimaryKeyCache(pk); 
+    gv = delegator.findOne(pk.getEntityName(), pk, true); 
     if (gv != null) {
         mruList.add(gv);
     }
