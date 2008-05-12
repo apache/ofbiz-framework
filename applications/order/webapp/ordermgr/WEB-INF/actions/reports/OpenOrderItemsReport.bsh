@@ -74,12 +74,12 @@ conditions.add(new EntityExpr("orderItemStatusId", EntityOperator.NOT_EQUAL, "IT
 
 // get the results as an entity list iterator
 allConditions = new EntityConditionList( conditions, EntityOperator.AND );
-fieldsToSelect = UtilMisc.toList("orderId","orderDate","productId","quantityOrdered","quantityIssued","quantityOpen");
+fieldsToSelect = UtilMisc.toSet("orderId", "orderDate", "productId", "quantityOrdered", "quantityIssued", "quantityOpen");
 fieldsToSelect.add("shipBeforeDate");
 fieldsToSelect.add("shipAfterDate");
 fieldsToSelect.add("itemDescription");
 findOptions = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
-listIt = delegator.findListIteratorByCondition("OrderItemQuantityReportGroupByItem", allConditions, null, fieldsToSelect, UtilMisc.toList("orderDate DESC"), findOptions);
+listIt = delegator.find("OrderItemQuantityReportGroupByItem", allConditions, null, fieldsToSelect, UtilMisc.toList("orderDate DESC"), findOptions);
 List orderItemList = new ArrayList();
 Double totalCostPrice = new Double(0.0);
 Double totalListPrice = new Double(0.0);

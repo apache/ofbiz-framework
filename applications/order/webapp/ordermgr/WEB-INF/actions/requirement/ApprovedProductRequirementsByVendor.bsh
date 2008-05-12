@@ -31,7 +31,7 @@ import org.ofbiz.entity.condition.*;
 
 delegator = request.getAttribute("delegator");
 
-fields = UtilMisc.toList("partyId", "productId");
+fields = UtilMisc.toSet("partyId", "productId");
 options = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
 orderBy = UtilMisc.toList("partyId");
 conditions = new EntityConditionList( UtilMisc.toList(
@@ -40,5 +40,5 @@ conditions = new EntityConditionList( UtilMisc.toList(
             new EntityExpr("requirementTypeId", EntityOperator.EQUALS, "PRODUCT_REQUIREMENT"),
             EntityUtil.getFilterByDateExpr()
             ), EntityOperator.AND);
-requirements = delegator.findListIteratorByCondition("RequirementPartyProductCount", conditions, null, fields, orderBy, options);
+requirements = delegator.find("RequirementPartyProductCount", conditions, null, fields, orderBy, options);
 context.put("requirements", requirements);

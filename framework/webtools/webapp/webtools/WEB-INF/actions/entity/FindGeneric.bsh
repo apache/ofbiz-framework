@@ -134,7 +134,7 @@ if ("true".equals(find)) {
     }
     condition = new EntityConditionList(conditionList, EntityOperator.AND);
     
-    arraySize = (int) delegator.findCountByCondition(entityName, condition, null);
+    arraySize = (int) delegator.findCountByCondition(entityName, condition, null, null);
     if (arraySize < highIndex) {
         highIndex = arraySize;
     }
@@ -147,7 +147,7 @@ if ("true".equals(find)) {
             EntityFindOptions efo = new EntityFindOptions();
             efo.setResultSetType(EntityFindOptions.TYPE_SCROLL_INSENSITIVE);
             EntityListIterator resultEli = null;
-            resultEli = delegator.findListIteratorByCondition(entityName, condition, null, null, null, efo);
+            resultEli = delegator.find(entityName, condition, null, null, null, efo);
             resultPartialList = resultEli.getPartialList(lowIndex, highIndex - lowIndex + 1);
             resultEli.close();
         } catch (GenericEntityException e) {

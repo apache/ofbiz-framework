@@ -114,7 +114,7 @@ if ("Y".equals(lookupFlag)) {
             beganTransaction = TransactionUtil.begin();
 
             // using list iterator
-            EntityListIterator orli = delegator.findListIteratorByCondition("Shipment", mainCond, null, null, orderBy, findOpts);
+            EntityListIterator orli = delegator.find("Shipment", mainCond, null, null, orderBy, findOpts);
 
             // get the indexes for the partial list
             lowIndex = (((viewIndex - 1) * viewSize) + 1);

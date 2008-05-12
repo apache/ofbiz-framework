@@ -45,7 +45,7 @@ if (action != null) {
         // create resultMap to stop issue with the first puts in the while loop
         resultMap = new HashMap();
         beganTransaction = TransactionUtil.begin();
-        invItemListItr = delegator.findListIteratorByCondition("InventoryItem", conditionList, null, UtilMisc.toList("productId"));
+        invItemListItr = delegator.find("InventoryItem", conditionList, null, null, UtilMisc.toList("productId"), null);
         while ((inventoryItem = invItemListItr.next()) != null) {
             productId = inventoryItem.getString("productId");
             product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId));

@@ -20,8 +20,7 @@
 import java.util.*;
 import java.io.*;
 import org.ofbiz.entity.*;
-import org.ofbiz.entity.condition.EntityFieldMap;
-import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.condition.*;
 import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.transaction.*;
 import org.ofbiz.base.util.*;
@@ -61,7 +60,7 @@ if (productId != null && productId.length() > 0) {
     context.put("productFeatureApplTypes", productFeatureApplTypes);
 }
 
-productFeaturesSize = delegator.findCountByAnd("ProductFeature", UtilMisc.toMap("productFeatureCategoryId", productFeatureCategoryId));
+productFeaturesSize = delegator.findCountByCondition("ProductFeature", new EntityExpr("productFeatureCategoryId", EntityOperator.EQUALS, productFeatureCategoryId), null, null);
 
 int highIndex = 0;
 int lowIndex = 0;
@@ -92,7 +91,7 @@ boolean beganTransaction = false;
 try {
     beganTransaction = TransactionUtil.begin();
 
-    productFeaturesEli = delegator.findListIteratorByCondition("ProductFeature", whereCondition, null, null, UtilMisc.toList("productFeatureTypeId", "defaultSequenceNum", "description"), efo);
+    productFeaturesEli = delegator.find("ProductFeature", whereCondition, null, null, UtilMisc.toList("productFeatureTypeId", "defaultSequenceNum", "description"), efo);
     productFeatures = productFeaturesEli.getPartialList(lowIndex + 1, highIndex - lowIndex);
     productFeaturesEli.close();
 } catch (GenericEntityException e) {
