@@ -29,7 +29,7 @@ under the License.
     </form>
 
     <form name="ListGlAccountOrganization" list-name="listIt" target="" title="" type="list" view-size="50"
-        default-table-style="basic-table hover-bar" paginate-target="ListGlAccountOrganization">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="ListGlAccountOrganization">
         <actions>
             <entity-condition entity-name="GlAccountOrganizationAndClass">
                 <condition-expr field-name="organizationPartyId" env-name="organizationPartyId"/>
