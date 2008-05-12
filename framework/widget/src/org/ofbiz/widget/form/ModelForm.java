@@ -162,7 +162,7 @@ public class ModelForm extends ModelWidget {
     public static String DEFAULT_TARGET_TYPE = "intra-app";
 
     /** Pagination settings and defaults. */
-    public static int DEFAULT_PAGE_SIZE = 100;
+    public static int DEFAULT_PAGE_SIZE = 10;
     protected int defaultViewSize = DEFAULT_PAGE_SIZE;
     public static String DEFAULT_PAG_INDEX_FIELD = "viewIndex";
     public static String DEFAULT_PAG_SIZE_FIELD = "viewSize";
@@ -273,6 +273,7 @@ public class ModelForm extends ModelWidget {
                 this.altTargets.addAll(parent.altTargets);
                 this.actions = parent.actions;
                 this.rowActions = parent.rowActions;
+                this.defaultViewSize = parent.defaultViewSize;
                 
                 //these are done below in a special way...
                 //this.fieldList = parent.fieldList;
@@ -2203,7 +2204,7 @@ public class ModelForm extends ModelWidget {
                 value = parameters.get("VIEW_INDEX");
                 
                 if (value == null) {
-                value = parameters.get(field);
+                    value = parameters.get(field);
                 }
             }
             }
@@ -2230,32 +2231,32 @@ public class ModelForm extends ModelWidget {
 
     public int getPaginateSize(Map context) {
         String field = this.getPaginateSizeField(context);
-        
-        int viewSize = DEFAULT_PAGE_SIZE;
+
+        int viewSize = this.defaultViewSize;
         try {
             Object value = context.get(field);
-            
+
             if (value == null) {
-            // try parameters.VIEW_SIZE as that is an old OFBiz convention
-            Map parameters = (Map) context.get("parameters");
-            if (parameters != null) {
-                value = parameters.get("VIEW_SIZE");
-                
-                if (value == null) {
-                value = parameters.get(field);
+                // try parameters.VIEW_SIZE as that is an old OFBiz convention
+                Map parameters = (Map) context.get("parameters");
+                if (parameters != null) {
+                    value = parameters.get("VIEW_SIZE");
+
+                    if (value == null) {
+                        value = parameters.get(field);
+                    }
                 }
             }
-            }
-            
-            if (value instanceof Integer) { 
+
+            if (value instanceof Integer) {
                 viewSize = ((Integer) value).intValue();
-            } else if (value instanceof String) { 
+            } else if (value instanceof String) {
                 viewSize = Integer.parseInt((String) value);
             }
         } catch (Exception e) {
             Debug.logWarning(e, "Error getting paginate view size: " + e.toString(), module);
         }
-        
+
         return viewSize;
     }
 
@@ -2404,13 +2405,11 @@ public class ModelForm extends ModelWidget {
     }
 
     public int getViewIndex(Map context) {
-        Integer value = (Integer) context.get("viewIndex");
-        return value != null ? value.intValue() : 0;
+        return getPaginateIndex(context);
     }
 
     public int getViewSize(Map context) {
-        Integer value = (Integer) context.get("viewSize");
-        return value != null ? value.intValue() : 20;
+        return getPaginateSize(context);
     }
 
     public int getLowIndex(Map context) {
