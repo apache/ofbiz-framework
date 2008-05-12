@@ -202,6 +202,7 @@ public class ModelForm extends ModelWidget {
     
     public void initForm(Element formElement) {
 
+        setDefaultViewSize(UtilProperties.getPropertyValue("widget.properties", "widget.form.defaultViewSize"));
         // check if there is a parent form to inherit from
         String parentResource = formElement.getAttribute("extends-resource");
         String parentForm = formElement.getAttribute("extends");
@@ -427,7 +428,6 @@ public class ModelForm extends ModelWidget {
             if (rowSubmit != null && rowSubmit.equalsIgnoreCase("true"))
                 useRowSubmit = true;
         }
-        setDefaultViewSize(UtilProperties.getPropertyValue("widget.properties", "widget.form.defaultViewSize"));
         if (formElement.hasAttribute("view-size")) {
             setDefaultViewSize(formElement.getAttribute("view-size"));
         }
