@@ -446,6 +446,9 @@ under the License.
     <InvoiceType description="Customer Return" hasTable="N" invoiceTypeId="CUST_RTN_INVOICE" parentTypeId="PURCHASE_INVOICE"/>
     <InvoiceType description="Commission" hasTable="N" invoiceTypeId="COMMISSION_INVOICE" parentTypeId="PURCHASE_INVOICE"/>
     <InvoiceType description="Interest" hasTable="N" invoiceTypeId="INTEREST_INVOICE" parentTypeId="SALES_INVOICE"/>
+    <InvoiceType description="Invoice Template" hasTable="N" invoiceTypeId="TEMPLATE"/>
+    <InvoiceType description="Sales Invoice Template" hasTable="N" invoiceTypeId="SALES_INV_TEMPLATE" parentTypeId="TEMPLATE"/>
+    <InvoiceType description="Purchase Invoice Template" hasTable="N" invoiceTypeId="PUR_INV_TEMPLATE" parentTypeId="TEMPLATE"/>
 
     <!-- maps line items such as order items to invoice item types.  separate mapping for sales and purchase invoices -->
     <InvoiceItemTypeMap invoiceTypeId="SALES_INVOICE" invoiceItemMapKey="FINISHED_GOOD" invoiceItemTypeId="INV_FPROD_ITEM"/>

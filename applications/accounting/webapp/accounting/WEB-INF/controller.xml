@@ -276,6 +276,12 @@ under the License.
         <response name="success" type="view" value="invoiceOverview"/>
         <response name="error" type="view" value="invoiceOverview"/>
     </request-map>
+    <request-map uri="copyInvoiceToTemplate">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="copyInvoiceToTemplate"/>
+        <response name="success" type="view" value="editInvoice"/>
+        <response name="error" type="view" value="editInvoice"/>
+    </request-map>
     
      <!-- Request EditInvoiceItemType -->
     <request-map uri="editInvoiceItemType">

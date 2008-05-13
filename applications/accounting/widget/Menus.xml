@@ -240,7 +240,19 @@ under the License.
             </condition>
             <link target="javascript:confirmActionLink('You want to cancel this invoice number ${invoice.invoiceId}?','setInvoiceStatus?invoiceId=${invoice.invoiceId}&amp;statusId=INVOICE_CANCELLED')" url-mode="plain"/>
         </menu-item>
-        
+        <menu-item name="saveInvoiceAsTemplate" title="${uiLabelMap.ProjectMgrSaveAsTemplate}">
+            <condition>
+                <and>
+                   <not><if-empty field-name="invoice.invoiceId"/></not>
+                   <or>
+                       <if-compare field-name="invoice.invoiceTypeId" operator="equals" value="SALES_INVOICE"/>
+                       <if-compare field-name="invoice.invoiceTypeId" operator="equals" value="PURCHASE_INVOICE"/>
+                   </or>
+                </and>
+            </condition>
+            <link target="copyInvoiceToTemplate?invoiceId=${invoice.invoiceId}&amp;invoiceTypeId=${invoice.invoiceTypeId}"/>
+        </menu-item>
+
     </menu>
 
     <menu name="PaymentTabBar" menu-container-style="button-bar button-style-1" default-selected-style="selected">  

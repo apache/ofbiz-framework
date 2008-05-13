@@ -76,6 +76,13 @@ under the License.
         <attribute name="paidDate" type="Timestamp" mode="IN" optional="true"/> <!-- only relevant for changes to PAID -->
         <attribute name="oldStatusId" type="String" mode="OUT" optional="true"/>
     </service>
+    <service name="copyInvoiceToTemplate" engine="simple"
+        location="org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="copyInvoiceToTemplate">
+        <description>Save a Invoice data to a template .</description>
+        <permission-service service-name="acctgInvoicePermissionCheck" main-action="CREATE"/>
+        <attribute name="invoiceId" type="String" mode="INOUT" optional="false"/>
+        <attribute name="invoiceTypeId" type="String" mode="IN" optional="false"/>
+    </service>
     
     <!--
     TODO: There is a big problem with the taxableFlag. Currently, all adjustments are treated as having the same taxableFlag as

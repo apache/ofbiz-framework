@@ -169,6 +169,9 @@ under the License.
         <now-timestamp-to-env env-name="nowTimestamp"/>
         <set field="invoice.invoiceDate" from-field="nowTimestamp"/>
         <set field="invoice.statusId" value="INVOICE_IN_PROCESS"/>
+        <if-not-empty field-name="parameters.invoiceTypeId">
+            <set field="invoice.invoiceTypeId" from-field="parameters.invoiceTypeId"/>
+        </if-not-empty>
         <set-service-fields service-name="createInvoice" map-name="invoice" to-map-name="newInvoice"/>
         <clear-field field-name="newInvoice.invoiceId"/>
         <call-service service-name="createInvoice" in-map-name="newInvoice">
@@ -482,6 +485,17 @@ under the License.
         <field-to-result field-name="newEntity.invoiceTermId" result-name="invoiceTermId"/>
 
         <create-value value-name="newEntity"/>
+    </simple-method>
+
+    <simple-method method-name="copyInvoiceToTemplate" short-description="copy a invoice to a InvoiceType starting with 'template'">
+        <set field="parameters.invoiceIdToCopyFrom" from-field="parameters.invoiceId"/>
+        <if-compare field-name="parameters.invoiceTypeId" operator="equals" value="SALES_INVOICE">
+            <set field="parameters.invoiceTypeId" value="SALES_INV_TEMPLATE"/>
+        </if-compare>
+        <if-compare field-name="parameters.invoiceTypeId" operator="equals" value="PURCHASE_INVOICE">
+            <set field="parameters.invoiceTypeId" value="PUR_INV_TEMPLATE"/>
+        </if-compare>
+        <call-simple-method method-name="copyInvoice"/>
     </simple-method>
 
     <!-- ===============subroutine services =================-->
