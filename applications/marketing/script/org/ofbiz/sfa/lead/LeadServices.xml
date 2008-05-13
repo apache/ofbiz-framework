@@ -26,6 +26,11 @@
         <set field="parameters.roleTypeId" value="LEAD"/>
         <call-simple-method method-name="createPersonRoleAndContactMechs" xml-resource="org/ofbiz/party/party/PartySimpleMethods.xml"/>
         <if-not-empty field-name="userLogin.partyId">
+            
+            <set field="createPartyRoleCtx.partyId" from-field="userLogin.partyId"/>
+            <set field="createPartyRoleCtx.roleTypeId" value="OWNER"/>
+            <call-service service-name="createPartyRole" in-map-name="createPartyRoleCtx"/>
+                        
             <set field="partyRelationshipContext.partyIdFrom" from-field="userLogin.partyId"/>
             <set field="partyRelationshipContext.partyIdTo" from-field="partyId"/>
             <set field="partyRelationshipContext.roleTypeIdFrom" value="OWNER"/>
