@@ -163,6 +163,13 @@ under the License.
             </drop-down>
         </field>
         <field position="1" name="piecesIncluded" title="${uiLabelMap.ProductPiecesIncluded}"><text size="10" maxlength="20"/></field>
+        <field position="2" name="defaultShipmentBoxTypeId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="ShipmentBoxType" key-field-name="shipmentBoxTypeId" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
 
         <field position="1" name="returnable" title="${uiLabelMap.ProductReturnable}">
             <drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
