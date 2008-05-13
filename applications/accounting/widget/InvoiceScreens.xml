@@ -86,7 +86,7 @@ under the License.
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleFindInvoice}"/>
+                                    <label text="${uiLabelMap.PageTitleListInvoices}"/>
                                 </container>
                             </container>
                             <container style="screenlet-body">

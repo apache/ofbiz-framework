@@ -348,11 +348,20 @@
         <value xml:lang="it">Anni di Esperienza</value>
         <value xml:lang="th">ประสบการณ์(ปี)</value>
     </property>
+    <property key="HumanResAddEmplPositionFulfillment">
+        <value xml:lang="en">Add Position Fulfillment</value>
+    </property>
+    <property key="HumanResAddEmplPositionResponsibility">
+        <value xml:lang="en">Add Position Responsibility</value>
+    </property>
     <property key="HumanResAddReportedToEmplPositionReportingStruct">
         <value xml:lang="en">Add Empl Position Reporting Struct [Reported To ${parameters.emplPositionId}]</value>
     </property>
     <property key="HumanResAddReportsToEmplPositionReportingStruct">
         <value xml:lang="en">Add Empl Position Reporting Struct [${parameters.emplPositionId} Reports To]</value>
+    </property>
+    <property key="HumanResAddValidResponsibility">
+        <value xml:lang="en">Add Valid Responsibility</value>
     </property>
     <property key="HumanResApplicationId">
         <value xml:lang="en">Application Id</value>
@@ -387,11 +396,6 @@
     <property key="HumanResEmplPosition">
         <value xml:lang="en">Employee Position</value>
     </property>
-    <property key="HumanResEditEmplPositionFulfillment">
-        <value xml:lang="en">Edit Position Fulfillment</value>
-        <value xml:lang="it">Aggiorna Posizione Adempimento</value>
-        <value xml:lang="th">แก้ไขตำแหน่งการปฏิบัติภารกิจ</value>
-    </property>
     <property key="HumanResEditEmplPositionReportingStruct">
         <value xml:lang="en">Edit EmplPosition Reporting Structure</value>
         <value xml:lang="it">Aggiorna Struttura Stampa Posizione Impiegati</value>
@@ -399,11 +403,6 @@
     </property>
     <property key="HumanResEmplPositionReportingStruct">
         <value xml:lang="en">Reporting Structure</value>
-    </property>
-    <property key="HumanResEditEmplPositionResponsibility">
-        <value xml:lang="en">Edit Position Responsibility</value>
-        <value xml:lang="it">Aggiorna Posizione Responsabilità</value>
-        <value xml:lang="th">แก้ไขตำแหน่งที่รับผิดชอบ</value>
     </property>
     <property key="HumanResEmplPositionResponsibilities">
         <value xml:lang="en">Responsibilities</value>
@@ -477,11 +476,6 @@
         <value xml:lang="en">Edit Unemployment Claim</value>
         <value xml:lang="it">Aggiorna Reclamo Disoccupazione</value>
         <value xml:lang="th">แก้ไขจำนวนผู้ว่าจ้างเรียกร้อง</value>
-    </property>
-    <property key="HumanResEditValidResponsibility">
-        <value xml:lang="en">Edit Valid Responsibility</value>
-        <value xml:lang="it">Aggiorna Validità Responsibilità</value>
-        <value xml:lang="th">แก้ไขหน้าที่รับผิดชอบ</value>
     </property>
     <property key="HumanResEmployee">
         <value xml:lang="en">Employee</value>

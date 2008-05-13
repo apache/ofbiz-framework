@@ -86,7 +86,7 @@
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
-                                    <label text="${uiLabelMap.HumanResEditEmployment}"/>
+                                    <label text="${uiLabelMap.HumanResNewEmployment}"/>
                                 </container>
                             </container>
                             <container style="screenlet-body">
@@ -95,7 +95,7 @@
                                         <container>
                                             <link text="${uiLabelMap.HumanResNewEmployment}" target="EditEmployment" style="buttontext"/>
                                         </container>
-                                        <include-form name="EditEmployment" location="component://humanres/widget/forms/EmploymentForms.xml"/>
+                                        <include-form name="AddEmployment" location="component://humanres/widget/forms/EmploymentForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>
@@ -225,9 +225,6 @@
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <container>
-                                            <link text="${uiLabelMap.HumanResNewPartyBenefit}" target="EditPartyBenefits?roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;fromDate=${fromDate}" style="buttontext"/>
-                                        </container>
                                         <include-form name="ListPartyBenefits" location="component://humanres/widget/forms/EmploymentForms.xml"/>
                                     </widgets>
                                 </section>
@@ -236,13 +233,13 @@
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
-                                    <label text="${uiLabelMap.HumanResEditPartyBenefit}"/>
+                                    <label text="${uiLabelMap.HumanResNewPartyBenefit}"/>
                                 </container>
                             </container>
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <include-form name="EditPartyBenefit" location="component://humanres/widget/forms/EmploymentForms.xml"/>
+                                        <include-form name="AddPartyBenefit" location="component://humanres/widget/forms/EmploymentForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>

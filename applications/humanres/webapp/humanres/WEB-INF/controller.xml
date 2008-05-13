@@ -125,7 +125,7 @@ under the License.
     <request-map uri="updatePartySkill">
         <security https="true" auth="true"/>
         <event type="service" invoke="updatePartySkill"/>
-        <response name="success" type="view" value="EditPartySkills"/>
+        <response name="success" type="view" value="ListPartySkills"/>
     </request-map> 
     <request-map uri="deletePartySkill">
         <security https="true" auth="true"/>

@@ -91,23 +91,19 @@ under the License.
         </actions>
         <auto-fields-service default-field-type="display" service-name="updatePartySkill"/>        
         <field name="partyId"><display/></field>                
-        <field name="skillTypeId" title="${uiLabelMap.HumanResSkillType}" widget-style="linktext">
-            <hyperlink also-hidden="false" description="${skillTypeId}" target="updatePartySkill?skillTypeId=${skillTypeId}&amp;partyId=${partyId}"/>
-        </field>
-        <field name="yearsExperience"><display/></field>
-        <field name="rating"><display/></field>
-        <field name="skillLevel"><display/></field>
+        <field name="skillTypeId" title="${uiLabelMap.HumanResSkillType}"></field>
+        <field name="yearsExperience"><text/></field>
+        <field name="rating"><text/></field>
+        <field name="skillLevel"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
             <hyperlink target="deletePartySkill?partyId=${partyId}&amp;skillTypeId=${skillTypeId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>      
-    <form name="EditPartySkill" type="single" target="updatePartySkill" title="createPartySkill" default-map-name="partySkill"
+    <form name="AddPartySkill" type="single" target="createPartySkill" title="createPartySkill" default-map-name="partySkill"
         header-row-style="header-row" default-table-style="basic-table">
-        <alt-target use-when="partySkill==null" target="createPartySkill"/>
         <auto-fields-service service-name="createPartySkill"/>
-        <field name="partyId" use-when="partyId==null"><lookup target-form-name="LookupPartyName"/></field>        
-        <field use-when="partyId!=null" name="partyId"><ignored/></field> 
+        <field name="partyId"><lookup target-form-name="LookupPartyName"/></field>        
         <field name="skillTypeId" title="${uiLabelMap.HumanResSkillType}" tooltip="${uiLabelMap.CommonRequired}">
             <drop-down allow-empty="false">
                 <entity-options description="${description}" key-field-name="skillTypeId" entity-name="SkillType">
@@ -302,16 +298,11 @@ under the License.
             <hyperlink target="deleteSkillType?skillTypeId=${skillTypeId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>            
-    <form name="EditSkillType" type="single" target="updateSkillType" title="" default-map-name="skillType"
+    <form name="AddSkillType" type="single" target="createSkillType" default-map-name="skillType"
         header-row-style="header-row" default-table-style="basic-table">
-        <alt-target use-when="skillType==null" target="createSkillType"/>
-        <auto-fields-service service-name="createSkillType"/>
-        <field use-when="skillType!=null" name="skillTypeId" title="${uiLabelMap.HumanResSkillTypeId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
-        <field use-when="skillType==null&amp;&amp;skillTypeId==null" name="skillTypeId" title="${uiLabelMap.HumanResSkillTypeId}"><ignored/></field>
-        <field use-when="skillType==null&amp;&amp;skillTypeId!=null" name="skillTypeId" title="${uiLabelMap.HumanResSkillTypeId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${skillTypeId}]"><display/></field>        
+        <auto-fields-service service-name="createSkillType" default-field-type="hidden"/>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
-        <field name="submitButton" use-when="skillType==null" title="${uiLabelMap.CommonCreate}" widget-style="buttontext"><submit button-type="text-link"/></field>
-        <field name="submitButton" use-when="skillType!=null" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
     <form name="ListResponsibilityTypes" type="list" list-name="responsibilityTypes" paginate-target="FindResponsibilityType">
         <actions>

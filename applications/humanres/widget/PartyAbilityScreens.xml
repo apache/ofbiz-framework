@@ -225,13 +225,13 @@
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
-                                    <label text="${uiLabelMap.HumanResEditPartySkill}"/>
+                                    <label text="${uiLabelMap.HumanResNewPartySkill}"/>
                                 </container>
                             </container>
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <include-form name="EditPartySkill" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>    
+                                        <include-form name="AddPartySkill" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>    
                                     </widgets>
                                 </section>
                             </container>
@@ -306,13 +306,13 @@
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditSkillType}"/>
+                                    <label text="${uiLabelMap.HumanResNewSkillType}"/>
                                 </container>
                             </container>
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <include-form name="EditSkillType" location="component://humanres/widget/forms/PartyAbilityForms.xml" />
+                                        <include-form name="AddSkillType" location="component://humanres/widget/forms/PartyAbilityForms.xml" />
                                     </widgets>
                                 </section>
                             </container>
