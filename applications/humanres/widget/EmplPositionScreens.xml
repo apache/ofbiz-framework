@@ -115,13 +115,13 @@
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
-                                    <label text="${uiLabelMap.HumanResEditEmplPositionFulfillment}"/>
+                                    <label text="${uiLabelMap.HumanResAddEmplPositionFulfillment}"/>
                                 </container>
                             </container>
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <include-form name="EditEmplPositionFulfillment" location="component://humanres/widget/forms/EmplPositionForms.xml"/>    
+                                        <include-form name="AddEmplPositionFulfillment" location="component://humanres/widget/forms/EmplPositionForms.xml"/>    
                                     </widgets>
                                 </section>
                             </container>
@@ -161,13 +161,13 @@
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
-                                    <label text="${uiLabelMap.HumanResEditEmplPositionResponsibility}"/>
+                                    <label text="${uiLabelMap.HumanResAddEmplPositionResponsibility}"/>
                                 </container>
                             </container>
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <include-form name="EditEmplPositionResponsibility" location="component://humanres/widget/forms/EmplPositionForms.xml"/>
+                                        <include-form name="AddEmplPositionResponsibility" location="component://humanres/widget/forms/EmplPositionForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>
@@ -200,7 +200,7 @@
                         <screenlet title="${uiLabelMap.HumanResAddReportsToEmplPositionReportingStruct}">
                             <section>
                                 <widgets>
-                                    <include-form name="EditReportsToEmplPositionReportingStruct" location="component://humanres/widget/forms/EmplPositionForms.xml"/>  
+                                    <include-form name="AddReportsToEmplPositionReportingStruct" location="component://humanres/widget/forms/EmplPositionForms.xml"/>  
                                 </widgets>
                             </section>
                         </screenlet>
@@ -214,7 +214,7 @@
                         <screenlet title="${uiLabelMap.HumanResAddReportedToEmplPositionReportingStruct}">
                             <section>
                                 <widgets>
-                                    <include-form name="EditReportedToEmplPositionReportingStruct" location="component://humanres/widget/forms/EmplPositionForms.xml"/>
+                                    <include-form name="AddReportedToEmplPositionReportingStruct" location="component://humanres/widget/forms/EmplPositionForms.xml"/>
                                 </widgets>
                             </section>
                         </screenlet>
@@ -264,7 +264,7 @@
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
-                                    <label text="${uiLabelMap.HumanResEditValidResponsibility}"/>
+                                    <label text="${uiLabelMap.HumanResAddValidResponsibility}"/>
                                 </container>
                             </container>
                             <container style="screenlet-body">
@@ -273,7 +273,7 @@
                                         <container>
                                              <link target="EditValidResponsibility" text="${uiLabelMap.HumanResNewValidResponsibility}" style="buttontext"/>
                                         </container>
-                                        <include-form name="EditValidResponsibility" location="component://humanres/widget/forms/EmplPositionForms.xml"/>  
+                                        <include-form name="AddValidResponsibility" location="component://humanres/widget/forms/EmplPositionForms.xml"/>  
                                     </widgets>
                                 </section>
                             </container>

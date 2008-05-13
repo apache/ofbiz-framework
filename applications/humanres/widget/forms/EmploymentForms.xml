@@ -46,7 +46,7 @@
             <hyperlink target="deleteEmployment?roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;fromDate=${fromDate}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
-    <form name="EditEmployment" type="single" target="createEmployment"
+    <form name="AddEmployment" type="single" target="createEmployment"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createEmployment"/>       
         <field name="roleTypeIdFrom" tooltip="${uiLabelMap.CommonRequired}">
@@ -178,7 +178,7 @@
             <hyperlink target="deletePartyBenefit?roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;fromDate=${fromDate}&amp;benefitTypeId=${benefitTypeId}" description="${uiLabelMap.CommonDelete}"/>
         </field>             
     </form>
-    <form name="EditPartyBenefit" type="single" target="createPartyBenefit" title=""
+    <form name="AddPartyBenefit" type="single" target="createPartyBenefit" 
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createPartyBenefit"/>                           
         <field name="roleTypeIdFrom"><hidden/></field>

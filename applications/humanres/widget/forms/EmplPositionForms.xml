@@ -96,7 +96,7 @@ under the License.
             <hyperlink target="deleteEmplPositionFulfillment?emplPositionId=${emplPositionId}&amp;partyId=${partyId}&amp;fromDate=${fromDate}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
-    <form name="EditEmplPositionFulfillment" type="single" target="createEmplPositionFulfillment" title=""
+    <form name="AddEmplPositionFulfillment" type="single" target="createEmplPositionFulfillment" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createEmplPositionFulfillment"/>
         <field name="emplPositionId"><hidden /></field>
@@ -124,7 +124,7 @@ under the License.
             <hyperlink target="deleteEmplPositionReportingStruct?emplPositionIdReportingTo=${emplPositionIdReportingTo}&amp;emplPositionIdManagedBy=${emplPositionIdManagedBy}&amp;fromDate=${fromDate}&amp;emplPositionId=${parameters.emplPositionId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>        
     </form>
-    <form name="EditReportsToEmplPositionReportingStruct" type="single" target="createEmplPositionReportingStruct" title=""
+    <form name="AddReportsToEmplPositionReportingStruct" type="single" target="createEmplPositionReportingStruct" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createEmplPositionReportingStruct"/>
         <field name="emplPositionId"><hidden value="${parameters.emplPositionId}"/></field>
@@ -152,7 +152,7 @@ under the License.
             <hyperlink target="deleteEmplPositionReportingStruct?emplPositionIdReportingTo=${emplPositionIdReportingTo}&amp;emplPositionIdManagedBy=${emplPositionIdManagedBy}&amp;fromDate=${fromDate}&amp;emplPositionId=${parameters.emplPositionId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
-    <form name="EditReportedToEmplPositionReportingStruct" type="single" target="createEmplPositionReportingStruct" title=""
+    <form name="AddReportedToEmplPositionReportingStruct" type="single" target="createEmplPositionReportingStruct" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createEmplPositionReportingStruct"/>
         <field name="emplPositionId"><hidden value="${parameters.emplPositionId}"/></field>
@@ -175,7 +175,7 @@ under the License.
             <hyperlink target="deleteEmplPositionResponsibility?emplPositionId=${emplPositionId}&amp;responsibilityTypeId=${responsibilityTypeId}&amp;fromDate=${fromDate}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>        
     </form>
-    <form name="EditEmplPositionResponsibility" type="single" target="createEmplPositionResponsibility" title=""
+    <form name="AddEmplPositionResponsibility" type="single" target="createEmplPositionResponsibility" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createEmplPositionResponsibility"/>
         <field name="emplPositionId"><hidden /></field>
@@ -202,7 +202,7 @@ under the License.
             <hyperlink target="deleteValidResponsibility?emplPositionTypeId=${emplPositionId}&amp;responsibilityTypeId=${responsibilityTypeId}&amp;fromDate=${fromDate}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
-    <form name="EditValidResponsibility" type="single" target="createValidResponsibility" title=""
+    <form name="AddValidResponsibility" type="single" target="createValidResponsibility" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createValidResponsibility"/>        
         <field name="emplPositionTypeId">
