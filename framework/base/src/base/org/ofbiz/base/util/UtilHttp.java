@@ -54,10 +54,9 @@ import javax.servlet.http.HttpSession;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
-import javolution.util.FastSet;
 
 /**
- * HttpUtil - Misc TTP Utility Functions
+ * HttpUtil - Misc HTTP Utility Functions
  */
 public class UtilHttp {
 
@@ -690,6 +689,34 @@ public class UtilHttp {
         return requestUri;
     }
 
+    /** Returns the query string contained in a request target - basically everything
+     * after and including the ? character.
+     * @param target The request target
+     * @return The query string or null if none is found
+     */
+    public static String getQueryStringFromTarget(String target) {
+        if (target == null || target.length() == 0) return null;
+        int queryStart = target.indexOf('?');
+        if (queryStart != -1) {
+            return target.substring(queryStart);
+        }
+        return null;
+    }
+
+    /** Removes the query string from a request target - basically everything
+     * after and including the ? character.
+     * @param target The request target
+     * @return The request target string
+     */
+    public static String removeQueryStringFromTarget(String target) {
+        if (target == null || target.length() == 0) return null;
+        int queryStart = target.indexOf('?');
+        if (queryStart < 0) {
+            return target;
+        }
+        return target.substring(0, queryStart);
+    }
+
     public static String getWebappMountPointFromTarget(String target) {
         int firstChar = 0;
         if (target == null || target.length() == 0) return null;
@@ -1122,4 +1149,16 @@ public class UtilHttp {
         return result;
     }
 
+    /** Returns true if the user has JavaScript enabled.
+     * @param request
+     * @return
+     */
+    public static boolean isJavaScriptEnabled(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Boolean javaScriptEnabled = (Boolean) session.getAttribute("javaScriptEnabled");
+        if (javaScriptEnabled != null) {
+            return javaScriptEnabled.booleanValue();
+        }
+        return false;
+    }
 }

@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-import java.util.TimeZone;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -37,7 +36,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import javolution.util.FastMap;
 import javolution.util.FastSet;
 
-import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilFormatOut;
@@ -226,6 +224,7 @@ public class ScreenRenderer {
                 context.put("https", https);
             }
         }
+        context.put("javaScriptEnabled", new Boolean(UtilHttp.isJavaScriptEnabled(request)));
 
         // these ones are FreeMarker specific and will only work in FTL templates, mainly here for backward compatibility
         BeansWrapper wrapper = BeansWrapper.getDefaultInstance();

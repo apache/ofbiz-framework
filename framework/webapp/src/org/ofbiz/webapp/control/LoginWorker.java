@@ -18,14 +18,18 @@
  *******************************************************************************/
 package org.ofbiz.webapp.control;
 
-import java.util.*;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
-import java.security.cert.X509Certificate;
+import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.net.URLEncoder;
-import java.io.UnsupportedEncodingException;
+import java.security.cert.X509Certificate;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import javax.security.auth.x500.X500Principal;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.Cookie;
@@ -34,18 +38,25 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.PageContext;
 import javax.transaction.Transaction;
-import javax.security.auth.x500.X500Principal;
 
 import javolution.util.FastList;
 
 import org.ofbiz.base.component.ComponentConfig;
-import org.ofbiz.base.util.*;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.KeyStoreUtil;
+import org.ofbiz.base.util.UtilFormatOut;
+import org.ofbiz.base.util.UtilHttp;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.common.login.LoginServices;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
-import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
@@ -55,7 +66,6 @@ import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.webapp.stats.VisitHandler;
-import org.ofbiz.common.login.LoginServices;
 
 /**
  * Common Workers
@@ -375,6 +385,15 @@ public class LoginWorker {
             if (userLogin != null && "Y".equals(userLogin.getString("requirePasswordChange"))) {
                 return "requirePasswordChange";
             }
+            String javaScriptEnabled = "N";
+            if ("Y".equals(request.getParameter("JavaScriptEnabled"))) {
+                javaScriptEnabled = "Y";
+            }
+            try {
+                result = dispatcher.runSync("setUserPreference", UtilMisc.toMap("userPrefTypeId", "javaScriptEnabled", "userPrefGroupId", "GLOBAL_PREFS", "userPrefValue", javaScriptEnabled, "userLogin", userLogin));
+            } catch (GenericServiceException e) {
+                Debug.logError(e, "Error setting user preference", module);
+            }
             return doMainLogin(request, response, userLogin, userLoginSession);
         } else {
             Map messageMap = UtilMisc.toMap("errorMessage", (String) result.get(ModelService.ERROR_MESSAGE));
@@ -411,6 +430,16 @@ public class LoginWorker {
     public static void doBasicLogin(GenericValue userLogin, HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.setAttribute("userLogin", userLogin);
+
+        String javaScriptEnabled = null;
+        try {
+            LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+            Map<String, Object> result = dispatcher.runSync("getUserPreference", UtilMisc.toMap("userPrefTypeId", "javaScriptEnabled", "userPrefGroupId", "GLOBAL_PREFS", "userLogin", userLogin));
+            javaScriptEnabled = (String) result.get("userPrefValue");
+        } catch (GenericServiceException e) {
+            Debug.logError(e, "Error getting user preference", module);
+        }
+        session.setAttribute("javaScriptEnabled", new Boolean("Y".equals(javaScriptEnabled)));
 
         ModelEntity modelUserLogin = userLogin.getModelEntity();
         if (modelUserLogin.isField("partyId")) {
