@@ -172,7 +172,9 @@ function getConfigDetails(event) {
 -->
 </script>
 
-<table border="0" cellpadding="2" cellspacing='0'>
+<div id="productdetail">
+
+<table border="0" cellpadding="2" cellspacing="0" width="100%">
 
   <#-- Category next/previous -->
   <#if category?exists>
@@ -703,3 +705,4 @@ ${setRequestAttribute("productValue", productValue)}
     </#if>
   </#list>
 </#if>
+</div>
