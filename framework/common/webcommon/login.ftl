@@ -52,12 +52,14 @@ under the License.
             </td>
           </tr>
         </table>
+        <input type="hidden" name="JavaScriptEnabled" value="N"/>
       </form>
     </div>
   </div>
 </center>
 
 <script language="JavaScript" type="text/javascript">
+  document.loginform.JavaScriptEnabled.value = "Y";
   <#if focusName>
     document.loginform.USERNAME.focus();
   <#else>
