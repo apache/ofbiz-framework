@@ -208,16 +208,80 @@ function confirmActionFormLink(msg, formName) {
     } 
 }
 
-// NOTE: REQUIRES prototype.js
-// On the form element make sure you have something like: 
-//   id="theFormId"
-// On the submit button elements make sure you have something like:
-//   onclick="javascript:submitAjaxForm($('theFormId'), 'id-of-div-surrounding-or-on-form', '<@ofbizUrl>createExampleForm</@ofbizUrl>');" 
-function submitFormInBackground(form, areaName, submitUrl) {
-    submitFormDisableSubmits(form);
-    new Ajax.Request(form.action, { parameters: form.serialize(true) });
-    new Ajax.Updater(areaName, submitUrl);
+// ===== Ajax Functions - based on protoype.js ===== //
+
+/** Update an area (HTML container element).
+  * @param areaId The id of the HTML container to update
+  * @param target The URL to call to update the HTML container
+  * @param targetParams The URL parameters
+*/
+function ajaxUpdateArea(areaId, target, targetParams) {
+    new Ajax.Updater(areaId, target, {parameters: targetParams});
 }
+
+/** Update multiple areas (HTML container elements).
+  * @param areaCsvString The area CSV string. The CSV string is a flat array in the
+  * form of: areaId, target, target parameters [, areaId, target, target parameters...].
+*/
+function ajaxUpdateAreas(areaCsvString) {
+    var areaArray = areaCsvString.split(",");
+    var numAreas = areaArray.length / 3;
+    for (var i = 0; i < numAreas; i = i + 3) {
+        new Ajax.Updater(areaArray[i], areaArray[i + 1], {parameters: areaArray[i + 2]});
+    }
+}
+
+/** Update an area (HTML container element) periodically.
+  * @param areaId The id of the HTML container to update
+  * @param target The URL to call to update the HTML container
+  * @param targetParams The URL parameters
+  * @param interval The update interval, in seconds.
+*/
+function ajaxUpdateAreaPeriodic(areaId, target, targetParams, interval) {
+    new Ajax.PeriodicalUpdater(areaId, target, {parameters: targetParams, frequency: interval});
+}
+
+/** Submit request, update multiple areas (HTML container elements).
+  * @param target The URL to call to update the HTML container
+  * @param targetParams The URL parameters
+  * @param areaCsvString The area CSV string. The CSV string is a flat array in the
+  * form of: areaId, target, target parameters [, areaId, target, target parameters...].
+*/
+function ajaxSubmitRequestUpdateAreas(target, targetParams, areaCsvString) {
+    updateFunction = function() {
+        ajaxUpdateAreas(areaCsvString);
+    }
+    new Ajax.Request(target, {
+        parameters: targetParams,
+        onComplete: updateFunction });
+}
+
+/** Submit form, update an area (HTML container element).
+  * @param form The form element
+  * @param areaId The id of the HTML container to update
+  * @param submitUrl The URL to call to update the HTML container
+*/
+function submitFormInBackground(form, areaId, submitUrl) {
+    submitFormDisableSubmits(form);
+    updateFunction = function() {
+        new Ajax.Updater(areaId, submitUrl);
+    }
+    new Ajax.Request(form.action, {
+        parameters: form.serialize(true),
+        onComplete: updateFunction });
+}
+
+/** Submit form, update multiple areas (HTML container elements).
+  * @param form The form element
+  * @param areaCsvString The area CSV string. The CSV string is a flat array in the
+  * form of: areaId, target, target parameters [, areaId, target, target parameters...].
+*/
+function ajaxSubmitFormUpdateAreas(form, areaCsvString) {
+    submitFormDisableSubmits(form);
+    ajaxSubmitRequestUpdateAreas(form.action, form.serialize(true), areaCsvString);
+}
+
+// ===== End of Ajax Functions ===== //
 
 function submitFormDisableSubmits(form) {
     for (var i=0;i<form.length;i++) {
