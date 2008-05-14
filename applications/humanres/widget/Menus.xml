@@ -23,7 +23,7 @@
     <menu name="HumanResAppBar" default-menu-item-name="main" id="app-navigation" type="simple" title="${uiLabelMap.HumanResManagerApplication}"
         default-selected-style="selected" menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="headerItem">
         <menu-item name="main" title="${uiLabelMap.CommonMain}"><link target="main"/></menu-item>
-        <menu-item name="EmplPosition" title="${uiLabelMap.HumanResEmployeePosition}"><link target="findEmplPositions"/></menu-item>
+        <menu-item name="EmplPosition" title="${uiLabelMap.HumanResEmployeePosition}"><link target="FindEmplPosition"/></menu-item>
         <menu-item name="Employment" title="${uiLabelMap.HumanResEmployment}"><link target="findEmployments"/></menu-item>
         <menu-item name="PayGrade" title="${uiLabelMap.HumanResPayGrade}"><link target="findPayGrades"/></menu-item>
         <menu-item name="TerminationReason" title="${uiLabelMap.HumanResTerminationReason}"><link target="findTerminationReasons"/></menu-item>

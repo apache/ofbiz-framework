@@ -40,4 +40,8 @@ under the License.
     <StatusType description="PartyQual verification status" hasTable="N" parentTypeId="" statusTypeId="PARTYQUAL_VERIFY"/>
     <StatusItem description="Not verified" sequenceId="01" statusCode="NOT_VERIFIED" statusId="PQV_NOT_VERIFIED" statusTypeId="PARTYQUAL_VERIFY"/>
     <StatusItem description="Verified" sequenceId="02" statusCode="VERIFIED" statusId="PQV_VERIFIED" statusTypeId="PARTYQUAL_VERIFY"/>
+    
+    <EmplPositionType description="Programmer" hasTable="N" parentTypeId="" emplPositionTypeId="PROGRAMMER"/>
+    <EmplPositionType description="System Administrator" hasTable="N" parentTypeId="" emplPositionTypeId="SYS_ADMIN"/>
+    <EmplPositionType description="Business Analyst" hasTable="N" parentTypeId="" emplPositionTypeId="BIZ_ANALYST"/>
 </entity-engine-xml>

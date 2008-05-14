@@ -20,12 +20,16 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <form name="ListEmplPositions" type="list" title="" paginate-target="findEmplPositions"
+    <form name="ListEmplPositions" type="list" separate-columns="true" default-entity-name="EmplPosition" list-name="listIt" paginate-target="FindEmplPosition" paginate="true"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-condition entity-name="EmplPosition"><order-by field-name="emplPositionId"/></entity-condition>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="entityName" value="EmplPosition"/>
+                <field-map field-name="orderBy" value="emplPositionId"/>
+            </service>
         </actions>
-        <auto-fields-service service-name="updateEmplPosition" default-field-type="display"/>        
+        <auto-fields-entity entity-name="EmplPosition" default-field-type="display"/>
         <field name="emplPositionId" title="${uiLabelMap.HumanResEmployeePositionId}" widget-style="linktext">
             <hyperlink also-hidden="false" description="${emplPositionId}" target="EditEmplPosition?emplPositionId=${emplPositionId}"/>
         </field>
@@ -33,9 +37,6 @@ under the License.
             <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView">
                 <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyId}" link-style="smallSubmit" target-type="inter-app" description="${partyId}"/>
             </display-entity>
-        </field>
-        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink target="deleteEmplPosition?emplPositionId=${emplPositionId}&amp;partyId=${partyId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>            
     <form name="EditEmplPosition" type="single" target="updateEmplPosition" title="" default-map-name="emplPosition"
@@ -89,7 +90,7 @@ under the License.
                 <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyId}" link-style="smallSubmit" target-type="inter-app" description="${partyId}"/>
             </display-entity>
         </field>
-        <field name="emplPositionId" title="${uiLabelMap.HumanResEmployeePositionId}"><display /></field>
+        <field name="emplPositionId"><hidden/></field>
         <field name="fromDate" title="${uiLabelMap.CommonDate}"><display/></field>        
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/> </field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
@@ -167,7 +168,7 @@ under the License.
             <entity-condition entity-name="EmplPositionResponsibility"><order-by field-name="emplPositionId"/></entity-condition>
         </actions>
         <auto-fields-service service-name="updateEmplPositionResponsibility"/>        
-        <field name="emplPositionId" title="${uiLabelMap.HumanResEmployeePositionId}"><display /></field>        
+        <field name="emplPositionId"><hidden/></field>        
         <field name="responsibilityTypeId" title="${uiLabelMap.HumanResResponsibilityTypeId}"><display /></field>
         <field name="fromDate"><display /></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/> </field>
@@ -221,4 +222,33 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>                           
+    <form name="FindEmplPositions" type="single" target="FindEmplPosition" header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-entity entity-name="EmplPosition" default-field-type="find"/>
+        <field name="noConditionFind"><hidden value="Y"/></field>
+        <field name="salaryFlag">
+            <drop-down allow-empty="false" current="selected">
+                <option key="Y" description="Y"/>
+                <option key="N" description="N"/>
+            </drop-down>
+        </field>
+        <field name="exemptFlag">
+            <drop-down allow-empty="false" current="selected">
+                <option key="Y" description="Y"/>
+                <option key="N" description="N"/>
+            </drop-down>
+        </field>
+        <field name="fulltimeFlag">
+            <drop-down allow-empty="false" current="selected">
+                <option key="Y" description="Y"/>
+                <option key="N" description="N"/>
+            </drop-down>
+        </field>
+        <field name="temporaryFlag">
+            <drop-down allow-empty="false" current="selected">
+                <option key="Y" description="Y"/>
+                <option key="N" description="N"/>
+            </drop-down>
+        </field>
+        <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
 </forms>

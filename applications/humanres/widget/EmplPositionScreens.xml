@@ -20,7 +20,7 @@
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
-    <screen name="ListEmplPositions">
+    <screen name="FindEmplPosition">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleListEmplPosition"/>
@@ -30,23 +30,23 @@
             <widgets>
                 <decorator-screen name="CommonEmplPositionDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.HumanResListEmplPosition}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <container>
-                                            <link target="EditEmplPosition" text="${uiLabelMap.HumanResNewEmplPosition}" style="buttontext"/>
-                                        </container>
-                                        <include-form name="ListEmplPositions" location="component://humanres/widget/forms/EmplPositionForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.HumanResFindEmplPosition}">
+                            <section>
+                                <widgets>
+                                    <container>
+                                        <link target="EditEmplPosition" text="${uiLabelMap.CommonCreate} ${uiLabelMap.HumanResNewEmplPosition}" style="buttontext"/>
+                                    </container>
+                                    <include-form name="FindEmplPositions" location="component://humanres/widget/forms/EmplPositionForms.xml"/>
+                                </widgets>
+                            </section>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.HumanResFindEmplPosition}">
+                            <section>
+                                <widgets>
+                                    <include-form name="ListEmplPositions" location="component://humanres/widget/forms/EmplPositionForms.xml"/>
+                                </widgets>
+                            </section>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -104,9 +104,6 @@
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <container>
-                                             <link target="EditEmplPositionFulfillments?emplPositionId=${emplPositionId}" text="${uiLabelMap.HumanResNewEmplPositionFulfillment}" style="buttontext"/>
-                                        </container>
                                         <include-form name="ListEmplPositionFulfillments" location="component://humanres/widget/forms/EmplPositionForms.xml"/>
                                     </widgets>
                                 </section>
@@ -150,9 +147,6 @@
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <container>
-                                             <link target="EditEmplPositionResponsibilities?emplPositionId=${emplPositionId}" text="${uiLabelMap.HumanResNewEmplPositionResponsibility}" style="buttontext"/>
-                                        </container>
                                         <include-form name="ListEmplPositionResponsibilities" location="component://humanres/widget/forms/EmplPositionForms.xml"/>
                                     </widgets>
                                 </section>
