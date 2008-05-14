@@ -1339,12 +1339,6 @@
         <value xml:lang="ja">Data Resource Id</value>
         <value xml:lang="th">หมายเลขแหล่งที่มา</value>
     </property>
-    <property key="EcommerceDetailsButton">
-        <value xml:lang="en">Details Button</value>
-        <value xml:lang="fr">Bouton détails</value>
-        <value xml:lang="hi_IN">विस्तृत सूचना</value>
-        <value xml:lang="ja">詳しく←</value>
-    </property>
     <property key="EcommerceDigitalAddFromMyFiles">
         <value xml:lang="en">Digital Add From My Files</value>
         <value xml:lang="fr">Ajout numérique depuis mes fichiers</value>

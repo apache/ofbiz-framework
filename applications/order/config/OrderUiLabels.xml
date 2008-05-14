@@ -693,17 +693,6 @@
         <value xml:lang="th">รหัสแหล่งข้อมูล</value>
         <value xml:lang="zh">数据资源标识</value>
     </property>
-    <property key="EcommerceDetailsButton">
-        <value xml:lang="en">Details</value>
-        <value xml:lang="es">Detalles</value>
-        <value xml:lang="fr">[Détails]</value>
-        <value xml:lang="it">Dettagli</value>
-        <value xml:lang="nl">Detailleeringen</value>
-        <value xml:lang="ro">Detalii</value>
-        <value xml:lang="ru">Подробности</value>
-        <value xml:lang="th">รายละเอียด</value>
-        <value xml:lang="zh">详细</value>
-    </property>
     <property key="EcommerceDigitalAddFromMyFiles">
         <value xml:lang="en">Add From My Files</value>
         <value xml:lang="it">Aggiungi Dai Miei Files</value>
