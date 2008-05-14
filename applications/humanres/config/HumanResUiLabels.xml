@@ -389,9 +389,7 @@
         <value xml:lang="th">เป็นส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value>
     </property>
     <property key="HumanResEditEmplPosition">
-        <value xml:lang="en">Edit Employee Position</value>
-        <value xml:lang="it">Aggiorna Posizione Impiego</value>
-        <value xml:lang="th">แก้ไขตำแหน่งพนักงาน</value>
+        <value xml:lang="en">Create/Update Employee Position</value>
     </property>
     <property key="HumanResEmplPosition">
         <value xml:lang="en">Employee Position</value>
@@ -533,10 +531,8 @@
         <value xml:lang="it">Data Inizio Stimata</value>
         <value xml:lang="th">จากประมาณวันที่</value>
     </property>
-    <property key="HumanResListEmplPosition">
-        <value xml:lang="en">List Employee Position</value>
-        <value xml:lang="it">Lista Posizione Impiegato</value>
-        <value xml:lang="th">รายการตำแหน่งพนักงาน</value>
+    <property key="HumanResFindEmplPosition">
+        <value xml:lang="en">Find Employee Position</value>
     </property>
     <property key="HumanResListEmplPositionsReportedTo">
         <value xml:lang="en">List Employee Positions, Reported To [${parameters.emplPositionId}]</value>

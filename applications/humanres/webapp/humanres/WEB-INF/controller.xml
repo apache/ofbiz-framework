@@ -378,9 +378,9 @@ under the License.
         <response name="success" type="view" value="ListUnemploymentClaims"/>
     </request-map>                  
    <!-- ================Employee Position Group==================================== -->
-    <request-map uri="findEmplPositions">
+    <request-map uri="FindEmplPosition">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="ListEmplPositions"/>
+        <response name="success" type="view" value="FindEmplPosition"/>
     </request-map>
     <request-map uri="EditEmplPosition">
         <security https="true" auth="true"/>
@@ -400,7 +400,7 @@ under the License.
     <request-map uri="deleteEmplPosition">
         <security https="true" auth="true"/>
         <event type="service" invoke="deleteEmplPosition"/>
-        <response name="success" type="view" value="ListEmplPositions"/>
+        <response name="success" type="view" value="FindEmplPosition"/>
     </request-map>
     <request-map uri="EditEmplPositionFulfillments">
         <security https="true" auth="true"/>
@@ -563,7 +563,7 @@ under the License.
     <request-map uri="LookupSalaryStep"><security auth="true" https="true"/><response name="success" type="view" value="LookupSalaryStep"/></request-map>
     <request-map uri="LookupPayGrade"><security auth="true" https="true"/><response name="success" type="view" value="LookupPayGrade"/></request-map>    
 
-    <view-map name="main" type="screen" page="component://humanres/widget/EmplPositionScreens.xml#ListEmplPositions"/>
+    <view-map name="main" type="screen" page="component://humanres/widget/EmplPositionScreens.xml#FindEmplPosition"/>
     <view-map name="ListPerfReviews" type="screen" page="component://humanres/widget/PartyAbilityScreens.xml#ListPerfReviews"/>
     <view-map name="EditPerfReviews" type="screen" page="component://humanres/widget/PartyAbilityScreens.xml#EditPerfReviews"/>    
     <view-map name="EditPerfReviewItems" type="screen" page="component://humanres/widget/PartyAbilityScreens.xml#EditPerfReviewItems"/>
@@ -574,7 +574,7 @@ under the License.
     <view-map name="EditPartySkills" type="screen" page="component://humanres/widget/PartyAbilityScreens.xml#EditPartySkills"/>
     <view-map name="EditPartyQuals" type="screen" page="component://humanres/widget/PartyAbilityScreens.xml#EditPartyQuals"/>
     
-    <view-map name="ListEmplPositions" type="screen" page="component://humanres/widget/EmplPositionScreens.xml#ListEmplPositions"/>
+    <view-map name="FindEmplPosition" type="screen" page="component://humanres/widget/EmplPositionScreens.xml#FindEmplPosition"/>
     <view-map name="EditEmplPosition" type="screen" page="component://humanres/widget/EmplPositionScreens.xml#EditEmplPosition"/>
     <view-map name="EditEmplPositionFulfillments" type="screen" page="component://humanres/widget/EmplPositionScreens.xml#EditEmplPositionFulfillments"/>    
     <view-map name="EditEmplPositionResponsibilities" type="screen" page="component://humanres/widget/EmplPositionScreens.xml#EditEmplPositionResponsibilities"/>
