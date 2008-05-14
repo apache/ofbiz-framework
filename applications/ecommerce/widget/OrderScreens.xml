@@ -465,6 +465,7 @@ under the License.
                 <set field="parameters.formNameValue" value="quickAnonCustSetupForm" global="true"/>
                 
                 <set field="titleProperty" value="PageTitleShippingInformation"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/ecommerce/images/quickAnonCustSettings.js" global="true"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/quickAnonCustSettings.bsh"/>
             </actions>
             <widgets>
