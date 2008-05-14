@@ -353,7 +353,7 @@ function getConfigDetails(event) {
               <div class="tabletext">[${uiLabelMap.EcommerceProductNotConfigured}]&nbsp;
               <input type="text" class="inputBox" size="5" name="quantity" value="0" disabled></div>
             <#else>
-              <a href="javascript:addItem()" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.EcommerceAddtoCart}</span></a>&nbsp;
+              <a href="javascript:addItem()" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.OrderAddToCart}</span></a>&nbsp;
               <input type="text" class="inputBox" size="5" name="quantity" value="1" >
             </#if>
           </#if>
@@ -380,7 +380,7 @@ function getConfigDetails(event) {
           </select>
           &nbsp;&nbsp;
           <input type="text" size="5" class="inputBox" name="quantity" value="1">
-          <a href="javascript:document.addToShoppingList.submit();" class="buttontext">[${uiLabelMap.EcommerceAddtoShoppingList}]</a>
+          <a href="javascript:document.addToShoppingList.submit();" class="buttontext">[${uiLabelMap.OrderAddToShoppingList}]</a>
         </form>
       <#else> <br/>
         ${uiLabelMap.EcommerceYouMust} <a href="<@ofbizUrl>checkLogin/showcart</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonLogin}</a>
@@ -576,7 +576,7 @@ function getConfigDetails(event) {
     <td colspan="2">
       <div class="tableheadtext">${uiLabelMap.EcommerceCustomerReviews}:</div>
       <#if averageRating?exists && (averageRating?double > 0) && numRatings?exists && (numRatings?double > 1)>
-          <div class="tabletext">${uiLabelMap.EcommerceAverageRating}: ${averageRating} <#if numRatings?exists>(${uiLabelMap.CommonFrom} ${numRatings} ${uiLabelMap.EcommerceRatings})</#if></div>
+          <div class="tabletext">${uiLabelMap.OrderAverageRating}: ${averageRating} <#if numRatings?exists>(${uiLabelMap.CommonFrom} ${numRatings} ${uiLabelMap.EcommerceRatings})</#if></div>
       </#if>
     </td>
   </tr>
@@ -590,7 +590,7 @@ function getConfigDetails(event) {
           <table border="0" cellpadding="0" cellspacing='0'>
             <tr>
               <td>
-                <div class="tabletext"><b>${uiLabelMap.CommonBy}: </b><#if productReview.postedAnonymous?default("N") == "Y">${uiLabelMap.EcommerceAnonymous}<#else>${postedPerson.firstName} ${postedPerson.lastName}</#if></div>
+                <div class="tabletext"><b>${uiLabelMap.CommonBy}: </b><#if productReview.postedAnonymous?default("N") == "Y">${uiLabelMap.OrderAnonymous}<#else>${postedPerson.firstName} ${postedPerson.lastName}</#if></div>
               </td>
               <td>
                 <div class="tabletext"><b>${uiLabelMap.CommonOn}: </b>${productReview.postedDateTime?if_exists}</div>

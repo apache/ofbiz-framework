@@ -348,16 +348,6 @@
         <value xml:lang="th">ลักษณะนิสัย</value>
         <value xml:lang="zh">突出特征</value>
     </property>
-    <property key="EcommerceAddtoCart">
-        <value xml:lang="en">Add to cart</value>
-        <value xml:lang="es">Añadir al carro</value>
-        <value xml:lang="fr">Ajouter au panier</value>
-        <value xml:lang="it">Aggiungi al Carrello</value>
-        <value xml:lang="ro">Adauga la Cos</value>
-        <value xml:lang="ru">Добавить в корзину</value>
-        <value xml:lang="th">เพิ่มลงตระกร้า</value>
-        <value xml:lang="zh">添加到购物车</value>
-    </property>
     <property key="FacilityCompanyName">
         <value xml:lang="en">OFBiz: Facility Manager</value>
         <value xml:lang="es">OFBiz: Administrador de Almacén</value>

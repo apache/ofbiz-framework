@@ -36,9 +36,9 @@ under the License.
     <div>
       <a href="<@ofbizUrl>view/showcart</@ofbizUrl>">[${uiLabelMap.EcommerceViewCart}]</a>
       <#if (shoppingCartSize > 0)>
-          <a href="<@ofbizUrl>quickcheckout</@ofbizUrl>">[${uiLabelMap.EcommerceCheckoutQuick}]</a>
+          <a href="<@ofbizUrl>quickcheckout</@ofbizUrl>">[${uiLabelMap.OrderCheckoutQuick}]</a>
       <#else>
-          <span class="disabled">[${uiLabelMap.EcommerceCheckoutQuick}]</span>
+          <span class="disabled">[${uiLabelMap.OrderCheckoutQuick}]</span>
       </#if>
       &nbsp;&nbsp;
     </div>

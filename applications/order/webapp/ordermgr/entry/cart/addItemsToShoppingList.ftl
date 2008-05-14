@@ -47,7 +47,7 @@ under the License.
                         <option value="">---</option>
                         <option value="">${uiLabelMap.EcommerceNewShoppingList}</option>
                     </select>
-                    <input type="submit" class="smallSubmit" value="${uiLabelMap.EcommerceAddtoShoppingList}"/>
+                    <input type="submit" class="smallSubmit" value="${uiLabelMap.OrderAddToShoppingList}"/>
                     </div>
                   </td>
                 </tr>

@@ -436,13 +436,13 @@ ${virtualJavaScript?if_exists}
             <div id="addCart1" style="display:none;>
               <span style="white-space: nowrap;"><b>${uiLabelMap.CommonQuantity}:</b></span>&nbsp;
               <input type="text" class="inputBox" size="5" name="quantity" value="1"/>
-              <a href="javascript:javascript:addItem();" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.EcommerceAddtoCart}</span></a>
+              <a href="javascript:javascript:addItem();" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.OrderAddToCart}</span></a>
               &nbsp;
             </div>            
             <div id="addCart2" style="display:block;>
               <span style="white-space: nowrap;"><b>${uiLabelMap.CommonQuantity}:</b></span>&nbsp;
               <input type="text" class="inputBox" size="5" value="1" disabled="disabled"/>
-              <a href="javascript:alert('Please select all features first');" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.EcommerceAddtoCart}</span></a>
+              <a href="javascript:alert('Please select all features first');" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.OrderAddToCart}</span></a>
               &nbsp;
             </div>            
           </#if>
@@ -514,7 +514,7 @@ ${virtualJavaScript?if_exists}
                 <input type="text" class="inputBox" size="5" name="quantity" value="1"<#if product.isVirtual?if_exists?upper_case == "Y"> disabled="disabled"</#if>/>
             </#if>
             <#-- This calls addItem() so that variants of virtual products cant be added before distinguishing features are selected, it should not be changed to additemSubmit() -->
-            <a href="javascript:addItem()" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.EcommerceAddtoCart}</span></a>&nbsp;
+            <a href="javascript:addItem()" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.OrderAddToCart}</span></a>&nbsp;
           </#if>
           <#if requestParameters.category_id?exists>
             <input type="hidden" name="category_id" value="${requestParameters.category_id}"/>
@@ -545,7 +545,7 @@ ${virtualJavaScript?if_exists}
               <input type="text" class="inputBox" size="5" name="quantity" value="1"/>
               <input type="hidden" name="reservStartStr" value= ""/>
           </#if>
-          <a href="javascript:addShoplistSubmit();" class="buttontext">${uiLabelMap.EcommerceAddtoShoppingList}</a>
+          <a href="javascript:addShoplistSubmit();" class="buttontext">${uiLabelMap.OrderAddToShoppingList}</a>
         </form>
       <#else> <br/>
         ${uiLabelMap.EcommerceYouMust} <a href="<@ofbizUrl>checkLogin/showcart</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonLogin}</a>
@@ -617,7 +617,7 @@ ${virtualJavaScript?if_exists}
     <div id="reviews">
       <div class="tableheadtext">${uiLabelMap.EcommerceCustomerReviews}:</div>
       <#if averageRating?exists && (averageRating?double > 0) && numRatings?exists && (numRatings?double > 1)>
-          <div class="tabletext">${uiLabelMap.EcommerceAverageRating}: ${averageRating} <#if numRatings?exists>(${uiLabelMap.CommonFrom} ${numRatings} ${uiLabelMap.EcommerceRatings})</#if></div>
+          <div class="tabletext">${uiLabelMap.OrderAverageRating}: ${averageRating} <#if numRatings?exists>(${uiLabelMap.CommonFrom} ${numRatings} ${uiLabelMap.EcommerceRatings})</#if></div>
       </#if>
       <tr><td colspan="2"><hr/></td></tr>
       <#if productReviews?has_content>
@@ -627,7 +627,7 @@ ${virtualJavaScript?if_exists}
               <table border="0" cellpadding="0" cellspacing="0">
                 <tr>
                   <td>
-                    <div class="tabletext"><b>${uiLabelMap.CommonBy}: </b><#if productReview.postedAnonymous?default("N") == "Y"> ${uiLabelMap.EcommerceAnonymous}<#else> ${postedPerson.firstName} ${postedPerson.lastName}&nbsp;</#if></div>
+                    <div class="tabletext"><b>${uiLabelMap.CommonBy}: </b><#if productReview.postedAnonymous?default("N") == "Y"> ${uiLabelMap.OrderAnonymous}<#else> ${postedPerson.firstName} ${postedPerson.lastName}&nbsp;</#if></div>
                   </td>
                   <td>
                     <div class="tabletext"><b>${uiLabelMap.CommonAt}: </b>${productReview.postedDateTime?if_exists}&nbsp;</div>

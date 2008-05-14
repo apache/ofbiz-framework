@@ -43,7 +43,7 @@ under the License.
           </#list>
         </#if>
         <#if productPromoCategoryAlwaysList?has_content>
-          <div class="tabletext">${uiLabelMap.EcommerceAlwaysList}</div>
+          <div class="tabletext">${uiLabelMap.OrderAlwaysList}</div>
           <#list productPromoCategoryAlwaysList as productPromoCategory>
             <#assign productCategory = productPromoCategory.getRelatedOneCache("ProductCategory")>
             <div class="tabletext">

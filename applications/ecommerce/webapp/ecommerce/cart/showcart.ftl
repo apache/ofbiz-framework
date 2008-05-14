@@ -106,7 +106,7 @@ function setAlternateGwp(field) {
               <#assign continueLink = "/main">
             </#if>
             <a href="<@ofbizUrl>${continueLink}</@ofbizUrl>" class="submenutext">${uiLabelMap.EcommerceContinueShopping}</a>
-            <#if (shoppingCartSize > 0)><a href="<@ofbizUrl>checkoutoptions</@ofbizUrl>" class="submenutextright">${uiLabelMap.EcommerceCheckout}</a><#else><span class="submenutextrightdisabled">${uiLabelMap.EcommerceCheckout}</span></#if>
+            <#if (shoppingCartSize > 0)><a href="<@ofbizUrl>checkoutoptions</@ofbizUrl>" class="submenutextright">${uiLabelMap.OrderCheckout}</a><#else><span class="submenutextrightdisabled">${uiLabelMap.OrderCheckout}</span></#if>
         </div>
         <div class="boxhead">&nbsp;${uiLabelMap.CommonQuickAdd}</div>
     </div>
@@ -123,8 +123,8 @@ function setAlternateGwp(field) {
                     &nbsp;&nbsp;${uiLabelMap.EcommerceNbrPersons}: <input type="text" class="inputBox" size="3" name="reservPersons" value=${requestParameters.reservPersons?default("1")}/>
                 </#if> 
                 ${uiLabelMap.CommonQuantity}: <input type="text" class="inputBox" size="5" name="quantity" value="${requestParameters.quantity?default("1")}"/>
-                <input type="submit" class="smallSubmit" value="${uiLabelMap.EcommerceAddtoCart}"/>
-                <#-- <a href="javascript:document.quickaddform.submit()" class="buttontext"><span style="white-space: nowrap;">[${uiLabelMap.EcommerceAddtoCart}]</span></a> -->
+                <input type="submit" class="smallSubmit" value="${uiLabelMap.OrderAddToCart}"/>
+                <#-- <a href="javascript:document.quickaddform.submit()" class="buttontext"><span style="white-space: nowrap;">[${uiLabelMap.OrderAddToCart}]</span></a> -->
             </form>
         </div>
     </div>
@@ -148,7 +148,7 @@ function setAlternateGwp(field) {
                 <span class="submenutextdisabled">${uiLabelMap.EcommerceEmptyCart}</span>
                 <span class="submenutextdisabled">${uiLabelMap.EcommerceRemoveSelected}</span>
               </#if>
-              <#if (shoppingCartSize > 0)><a href="<@ofbizUrl>checkoutoptions</@ofbizUrl>" class="submenutextright">${uiLabelMap.EcommerceCheckout}</a><#else><span class="submenutextrightdisabled">${uiLabelMap.EcommerceCheckout}</span></#if>
+              <#if (shoppingCartSize > 0)><a href="<@ofbizUrl>checkoutoptions</@ofbizUrl>" class="submenutextright">${uiLabelMap.OrderCheckout}</a><#else><span class="submenutextrightdisabled">${uiLabelMap.OrderCheckout}</span></#if>
             </div>
         </div>
         <div class="boxhead">&nbsp;${uiLabelMap.EcommerceShoppingCart}</div>

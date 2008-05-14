@@ -53,7 +53,7 @@ under the License.
       <div class="tabletext" style="color: red;">${uiLabelMap.ProductNoLongerAvailable}</div>          
     <#-- check to see if the product is a virtual product -->
     <#elseif product.isVirtual?default("N") == "Y">
-      <a href="<@ofbizUrl>product?<#if categoryId?exists>category_id=${categoryId}&</#if>product_id=${product.productId}</@ofbizUrl>" class="buttontext">${uiLabelMap.EcommerceChooseVariations}...</a>
+      <a href="<@ofbizUrl>product?<#if categoryId?exists>category_id=${categoryId}&</#if>product_id=${product.productId}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderChooseVariations}...</a>
     <#else>                                  
       <input type="text" size="5" class="inputBox" name="quantity_${product.productId}" value="">
     </#if>

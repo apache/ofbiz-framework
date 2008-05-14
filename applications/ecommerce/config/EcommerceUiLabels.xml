@@ -1111,59 +1111,66 @@
     </property>
     <property key="EcommerceAddSelectedtoList">
         <value xml:lang="cs">Přidat vybrané do seznamu</value>
+        <value xml:lang="de">Ausgewählte Artikel in Liste aufnehmen</value>
         <value xml:lang="en">Add Selected to List</value>
+        <value xml:lang="es">Añadir lo seleccionado a la lista</value>
         <value xml:lang="fr">Ajouter la sélection à la liste</value>
         <value xml:lang="hi_IN">सही निशान वाले को सूची में जोड़ें</value>
+        <value xml:lang="it">Aggiungi Selezionato Alla Lista</value>
         <value xml:lang="ja">Add Selected To List</value>
+        <value xml:lang="nl">Voeg geselecteerde toe aan de lijst</value>
+        <value xml:lang="pt_PT">Adicionar Seleccionado À Lista</value>
+        <value xml:lang="ru">Добавить выбранное в список</value>
         <value xml:lang="th">เพิ่มที่เลือกลงสู่รายการ</value>
-    </property>
-    <property key="EcommerceAddtoCart">
-        <value xml:lang="cs">přidat do košíku</value>
-        <value xml:lang="en">Add to Cart </value>
-        <value xml:lang="fr">Ajouter au panier </value>
-        <value xml:lang="en_GB">Add to basket</value>
-        <value xml:lang="hi_IN">टोकरी में जोड़ें</value>
-        <value xml:lang="ja">買い物かごに入れる</value>
-        <value xml:lang="th">เพิ่มรายการลงตะกร้า</value>
-    </property>
-    <property key="EcommerceAddtoShoppingList">
-        <value xml:lang="cs">přidat do nákupního seznamu</value>
-        <value xml:lang="en">Add to Shopping List</value>
-        <value xml:lang="fr">Ajouter à la liste d'achats</value>
-        <value xml:lang="hi_IN">ख़रीदिरी सूची में जोड़ें</value>
-        <value xml:lang="ja">買い物リストに追加</value>
-        <value xml:lang="th">เพิ่มลงรายการที่ซื้อ</value>
+        <value xml:lang="zh">把选中的添加到列表中</value>
     </property>
     <property key="EcommerceAdjustment">
         <value xml:lang="cs">Úprava</value>
+        <value xml:lang="de">Anpassung</value>
         <value xml:lang="en">Adjustment</value>
+        <value xml:lang="es">Ajuste</value>
         <value xml:lang="fr">Ajustement</value>
         <value xml:lang="hi_IN">समझौता</value>
+        <value xml:lang="it">Aggiustamento</value>
         <value xml:lang="ja">Adjustment</value>
+        <value xml:lang="nl">Aanpassing</value>
+        <value xml:lang="pt_PT">Ajuste</value>
+        <value xml:lang="ro">Modificare</value>
+        <value xml:lang="ru">Настройка</value>
         <value xml:lang="th">ส่วนลด</value>
+        <value xml:lang="zh">调整</value>
     </property>
     <property key="EcommerceAdjustments">
         <value xml:lang="cs">Úpravy</value>
+        <value xml:lang="de">Anpassungen</value>
         <value xml:lang="en">Adjustments</value>
+        <value xml:lang="es">Ajustes</value>
         <value xml:lang="fr">Ajustements</value>
         <value xml:lang="hi_IN">समझौतें</value>
+        <value xml:lang="it">Aggiustamenti</value>
         <value xml:lang="ja">Adjustments</value>
+        <value xml:lang="nl">Correcties</value>
+        <value xml:lang="pt_PT">Ajustes</value>
+        <value xml:lang="ro">Modificari</value>
+        <value xml:lang="ru">Настройки</value>
         <value xml:lang="th">ส่วนลด</value>
-    </property>
-    <property key="EcommerceAlwaysList">
-        <value xml:lang="en">Always List</value>
-        <value xml:lang="fr">Toujours lister</value>
-        <value xml:lang="hi_IN">अगर इन शाखाओं में हैं तो सम्मिलित होगें</value>
-        <value xml:lang="th">ดูรายการเสมอ</value>
+        <value xml:lang="zh">调整</value>
     </property>
     <property key="EcommerceAlwaysViewCartAfterAddingAnItem">
         <value xml:lang="cs">Vždy se podívat do košíku, pokud byla přidána další položka</value>
+        <value xml:lang="de">Immer den Warenkorb prüfen, wenn ein neuer Artikel hineingelegt wurde.</value>
         <value xml:lang="en">Always View Cart After Adding An Item</value>
-        <value xml:lang="fr">Toujours voir le panier après l'ajout d'un article</value>
         <value xml:lang="en_GB">Always view basket after adding an item</value>
+        <value xml:lang="es">Verificar carro luego de añadir un item</value>
+        <value xml:lang="fr">Toujours voir le panier après l'ajout d'un article</value>
         <value xml:lang="hi_IN">हमेशा टोकरी देखें सामान जोडने के बाद</value>
+        <value xml:lang="it">Vedi il carrello sempre dopo aver aggiunto una riga</value>
         <value xml:lang="ja">Always view cart after adding an item</value>
+        <value xml:lang="nl">Bekijk de winkelwagen altijd na het toevoegen</value>
+        <value xml:lang="ro">Vezi cosul numai dupa ce ai adaugat o linie</value>
+        <value xml:lang="ru">Всегда просматривать корзину перед добавлением позиции</value>
         <value xml:lang="th">ดูรายการในตะกร้าหลังจากเพิ่มสินค้าเสมอ</value>
+        <value xml:lang="zh">总是在添加一个明细后浏览购物车</value>
     </property>
     <property key="EcommerceANew">
         <value xml:lang="en">a new</value>
@@ -1171,121 +1178,105 @@
         <value xml:lang="it">una nuova</value>
         <value xml:lang="th">ใหม่</value>
     </property>
-    <property key="EcommerceAnonymous">
-        <value xml:lang="cs">anonymní</value>
-        <value xml:lang="en">Anonymous</value>
-        <value xml:lang="fr">Anonyme</value>
-        <value xml:lang="hi_IN">बेनाम</value>
-        <value xml:lang="ja">Anonymous</value>
-        <value xml:lang="th">ไม่ระบุ</value>
-    </property>
     <property key="EcommerceArticleInformation">
         <value xml:lang="en">Article Information</value>
+        <value xml:lang="es">Información del artículo</value>
         <value xml:lang="fr">Information sur l'article</value>
         <value xml:lang="hi_IN">सामान की जानकारी</value>
+        <value xml:lang="it">Articolo</value>
         <value xml:lang="ja">Article Information</value>
-        <value xml:lang="th">หัวข้อย่อย</value>
-    </property>
-    <property key="EcommerceAverageRating">
-        <value xml:lang="cs">Průměrné hodnocení</value>
-        <value xml:lang="en">Average Rating</value>
-        <value xml:lang="fr">Classement moyen</value>
-        <value xml:lang="hi_IN">औसत मापदंड</value>
-        <value xml:lang="ja">Average Rating</value>
-        <value xml:lang="th">อัตราภาษี</value>
+        <value xml:lang="nl">Artikel informatie</value>
+        <value xml:lang="ro">Articol</value>
+        <value xml:lang="ru">Информация по статье</value>
+        <value xml:lang="th">ข้อมูลบทความ</value>
+        <value xml:lang="zh">文章信息</value>
     </property>
     <property key="EcommerceBronze">
         <value xml:lang="en">Bronze</value>
+        <value xml:lang="es">Bronce</value>
         <value xml:lang="fr">Bronze</value>
         <value xml:lang="hi_IN">कांस्य</value>
+        <value xml:lang="it">Bronzo</value>
         <value xml:lang="ja">Bronze</value>
+        <value xml:lang="nl">Brons</value>
+        <value xml:lang="ro">Bronz</value>
+        <value xml:lang="ru">Бронза</value>
         <value xml:lang="th">สีบรอนซ์</value>
+        <value xml:lang="zh">铜牌</value>
     </property>
     <property key="EcommerceCartHas">
         <value xml:lang="cs">Košík má</value>
-        <value xml:lang="en">Cart Has</value>
-        <value xml:lang="fr">Le panier a</value>
+        <value xml:lang="de">Der Warenkorb enthält</value>
+        <value xml:lang="en">Cart has</value>
         <value xml:lang="en_GB">Basket has</value>
+        <value xml:lang="es">Carro tiene</value>
+        <value xml:lang="fr">Le panier contient</value>
         <value xml:lang="hi_IN">टोकरी में है</value>
+        <value xml:lang="it">Carrello ha</value>
         <value xml:lang="ja">Cart has</value>
-        <value xml:lang="th">ในตะกร้ามี</value>
-    </property>
-    <property key="EcommerceCartItemUseinPromotions">
-        <value xml:lang="en">Cart Item Use in Promotions</value>
-        <value xml:lang="fr">Article du panier en promotion</value>
-        <value xml:lang="en_GB">Basket item use in promotions</value>
-        <value xml:lang="hi_IN">टोकरी वस्तु प्रोत्साहन में</value>
-        <value xml:lang="ja">Cart Item Use in Promotions</value>
-        <value xml:lang="th">สินค้าในตะกร้าใช้ในโปรโมชั่น</value>
-    </property>
-    <property key="EcommerceCartSummary">
-        <value xml:lang="cs">Obsah košíku</value>
-        <value xml:lang="en">Cart Summary</value>
-        <value xml:lang="fr">Contenu du panier</value>
-        <value xml:lang="en_GB">Basket Summary</value>
-        <value xml:lang="hi_IN">टोकरी संक्षेप</value>
-        <value xml:lang="ja">買い物かご状態</value>
-        <value xml:lang="th">สรุปสินค้าในตะกร้า</value>
+        <value xml:lang="nl">Winkelwagen heeft</value>
+        <value xml:lang="pt_PT">O Cesto contém</value>
+        <value xml:lang="ro">Cosul are </value>
+        <value xml:lang="ru">В корзине</value>
+        <value xml:lang="th">ตระกร้ามี</value>
+        <value xml:lang="zh">购物车有</value>
     </property>
     <property key="EcommerceCartTotal">
         <value xml:lang="cs">Košík celkem</value>
+        <value xml:lang="de">Gesamtsumme</value>
         <value xml:lang="en">Cart Total</value>
-        <value xml:lang="fr">Total du panier</value>
         <value xml:lang="en_GB">Basket Total</value>
+        <value xml:lang="es">Total</value>
+        <value xml:lang="fr">Totalité du panier</value>
         <value xml:lang="hi_IN">टोकरी कुल</value>
+        <value xml:lang="it">Totale Carrello</value>
         <value xml:lang="ja">Cart Total</value>
-        <value xml:lang="th">ผลรวมในตะกร้า</value>
+        <value xml:lang="nl">Winkelwagen totaal</value>
+        <value xml:lang="pt_PT">Total no Cesto</value>
+        <value xml:lang="ro">Total Cos</value>
+        <value xml:lang="ru">Всего в корзине</value>
+        <value xml:lang="th">ผลรวมตระกร้า</value>
+        <value xml:lang="zh">购物车总计</value>
     </property>
     <property key="EcommerceCheckBalance">
         <value xml:lang="en">Check Balance</value>
         <value xml:lang="fr">Vérifier le solde</value>
         <value xml:lang="hi_IN">टोकरी शेष जांच करें</value>
+        <value xml:lang="it">Controlla Bilancio</value>
+        <value xml:lang="ro">Controleaza Bilantul </value>
+        <value xml:lang="ru">Проверить баланс</value>
         <value xml:lang="th">ตรวสอบยอดคงเหลือ</value>
-    </property>
-    <property key="EcommerceCheckout">
-        <value xml:lang="cs">Objednávka</value>
-        <value xml:lang="en">Check out</value>
-        <value xml:lang="fr">Payer</value>
-        <value xml:lang="hi_IN">छोड़ें</value>
-        <value xml:lang="ja">チェックアウト</value>
-        <value xml:lang="th">ออกจากการทำรายการ</value>
-    </property>
-    <property key="EcommerceCheckoutQuick">
-        <value xml:lang="en">Check out Quick</value>
-        <value xml:lang="fr">Payer rapidement</value>
-        <value xml:lang="hi_IN">जल्द छोड़ें</value>
-        <value xml:lang="ja">クイックチェックアウト</value>
-        <value xml:lang="th">ออกจากการทำรายการอย่างรวดเร็ว</value>
+        <value xml:lang="zh">检查余额</value>
     </property>
     <property key="EcommerceChildListTotalPrice">
         <value xml:lang="cs">Celková cena následujícího seznamu</value>
+        <value xml:lang="de">Gesamtpreis Unterliste(n)</value>
         <value xml:lang="en">Child List Total Price</value>
+        <value xml:lang="es">Mostrar total</value>
         <value xml:lang="fr">Prix total de la liste associée</value>
+        <value xml:lang="it">Liste Figlie Prezzo Totale</value>
         <value xml:lang="ja">Child Lists Total Price</value>
+        <value xml:lang="nl">sublijst total prijs</value>
+        <value xml:lang="pt_PT">Preço Total Das Listas Derivadas</value>
+        <value xml:lang="ro">Liste Fice Pret Total</value>
+        <value xml:lang="ru">Общая цена подчиненного списка</value>
         <value xml:lang="th">รายการราคาของสินค้าเด็ก</value>
+        <value xml:lang="zh">子列表合计价格</value>
     </property>
     <property key="EcommerceChildShoppingList">
         <value xml:lang="cs">Následující nákupní seznamy</value>
+        <value xml:lang="de">Untereinkaufslisten</value>
         <value xml:lang="en">Child Shopping List</value>
+        <value xml:lang="es">Listas de compras hijas</value>
         <value xml:lang="fr">Liste d'achats associée</value>
+        <value xml:lang="it">Liste Figlie Spesa</value>
+        <value xml:lang="nl">subBoodschappenlijst</value>
         <value xml:lang="ja">Child Shopping Lists</value>
+        <value xml:lang="pt_PT">Listas de Compras Derivadas</value>
+        <value xml:lang="ro">Liste Fice Cumparari </value>
+        <value xml:lang="ru">Подчиненный список покупок</value>
         <value xml:lang="th">รายการที่สั่งซื้อสินค้าเด็ก</value>
-    </property>
-    <property key="EcommerceChooseAmount">
-        <value xml:lang="cs">Vybrat množství</value>
-        <value xml:lang="en">Choose Amount</value>
-        <value xml:lang="fr">Choisir la quantité</value>
-        <value xml:lang="hi_IN">कुल जमा चुनाव</value>
-        <value xml:lang="ja">数量を選択</value>
-        <value xml:lang="th">เลือกจำนวน</value>
-    </property>
-    <property key="EcommerceChooseVariations">
-        <value xml:lang="cs">Výběr varianty</value>
-        <value xml:lang="en">Choose Variations</value>
-        <value xml:lang="fr">Choisir des changements</value>
-        <value xml:lang="hi_IN">भेद चुनाव</value>
-        <value xml:lang="ja">種類を選択</value>
-        <value xml:lang="th">เลือกเพื่อทำการแก้ไข</value>
+        <value xml:lang="zh">子购物列表</value>
     </property>
     <property key="EcommerceClearSearchHistory">
         <value xml:lang="en">Clear Search History</value>
@@ -2462,16 +2453,19 @@
     <property key="EcommerceSignUpForContactList">
         <value xml:lang="en">Sign Up For Contact List</value>
         <value xml:lang="fr">S'inscrire à la liste de contacts</value>
+        <value xml:lang="it">Autenticarsi Per la Lista di Contatto</value>
         <value xml:lang="th">ข่าวสาร</value>
     </property>
     <property key="EcommerceSignUpForContactListComments">
         <value xml:lang="en">Sign Up For Contact List Comments</value>
         <value xml:lang="fr">S'inscrire aux commentaires de la liste de contacts</value>
+        <value xml:lang="it">Autenticarsi Per i Commenti della Lista di Contatto</value>
         <value xml:lang="th">ถ้าคุณสนใจในข่าวสารให้คุณกรอกที่อยู่อีเมลข้างล่างนี้และลงทะเบียน :</value>
     </property>
     <property key="EcommerceSignUpForContactListLogIn">
         <value xml:lang="en">Sign Up For Contact List LogIn</value>
         <value xml:lang="fr">S'identifier pour s'inscrire à la liste de contacts</value>
+        <value xml:lang="it">Autenticarsi Per i Commenti della Lista di Contatto Login</value>
         <value xml:lang="th">ถ้าคุณสนใจข่าวสารกรุณาลอกอินเข้าสู่ระบบและลงทะเบียน:</value>
     </property>
     <property key="EcommerceSilver">
