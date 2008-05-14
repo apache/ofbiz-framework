@@ -81,7 +81,7 @@ public class HashCrypt {
     }
     
     public static String removeHashTypePrefix(String hashString) {
-        if (UtilValidate.isEmpty(hashString) || hashString.charAt(0) != '{') {
+        if (UtilValidate.isNotEmpty(hashString) || hashString.charAt(0) != '{') {
             return hashString;
         }
         
