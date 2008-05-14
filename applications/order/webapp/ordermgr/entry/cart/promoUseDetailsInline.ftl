@@ -37,7 +37,7 @@ under the License.
             </#list>
         </div>
         <div style="float: right; width: 55%; padding-left: 10px; border-left: 1px solid #999999;">
-            <div class="tableheadtext">${uiLabelMap.EcommerceCartItemUseinPromotions}:</div>
+            <div class="tableheadtext">${uiLabelMap.OrderCartItemUseinPromotions}:</div>
             <#list shoppingCart.items() as cartLine>
                 <#assign cartLineIndex = shoppingCart.getItemIndex(cartLine)>
                 <#if cartLine.getIsPromo()>

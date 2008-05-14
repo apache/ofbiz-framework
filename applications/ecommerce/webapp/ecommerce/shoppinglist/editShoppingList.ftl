@@ -516,7 +516,7 @@ under the License.
           <input type="text" class="inputBox" name="productId" value="${requestParameters.add_product_id?if_exists}"/>
           <#if reservStart?exists></td><td class="tabletext">${uiLabelMap.EcommerceStartDate}</td><td><input type="text" class="inputBox" size="10" name="reservStart" value=${requestParameters.reservStart?default("")}></td><td class="tabletext"> ${uiLabelMap.EcommerceLength}:</td><td><input type="text" class="inputBox" size="2" name="reservLength" value=${requestParameters.reservLength?default("")}></td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td class="tabletext">${uiLabelMap.EcommerceNbrPersons}:</td><td><input type="text" class="inputBox" size="3" name="reservPersons" value=${requestParameters.reservPersons?default("1")}></td><td class="tabletext" nowrap></#if> ${uiLabelMap.CommonQuantity} :</td><td><input type="text" class="inputBox" size="5" name="quantity" value="${requestParameters.quantity?default("1")}"></td><td>
           <!-- <input type="text" class="inputBox" size="5" name="quantity" value="${requestParameters.quantity?default("1")}">-->
-          <input type="submit" class="smallSubmit" value="${uiLabelMap.EcommerceAddtoShoppingList}"/>
+          <input type="submit" class="smallSubmit" value="${uiLabelMap.OrderAddToShoppingList}"/>
         </form>
     </div>
 </div>

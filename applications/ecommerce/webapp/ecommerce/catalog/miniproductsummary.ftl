@@ -38,9 +38,9 @@ under the License.
         <#-- check to see if salesDiscontinuationDate has passed -->
         <div class="tabletext" style="color: red;">${uiLabelMap.ProductNoLongerAvailable}</div>
     <#elseif miniProduct.isVirtual?default("N") == "Y">
-        <a href="<@ofbizUrl>product/<#if requestParameters.category_id?exists>~category_id=${requestParameters.category_id}/</#if>~product_id=${miniProduct.productId}</@ofbizUrl>" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.EcommerceChooseVariations}...</span></a>
+        <a href="<@ofbizUrl>product/<#if requestParameters.category_id?exists>~category_id=${requestParameters.category_id}/</#if>~product_id=${miniProduct.productId}</@ofbizUrl>" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.OrderChooseVariations}...</span></a>
     <#elseif miniProduct.requireAmount?default("N") == "Y">
-        <a href="<@ofbizUrl>product/<#if requestParameters.category_id?exists>~category_id=${requestParameters.category_id}/</#if>~product_id=${miniProduct.productId}</@ofbizUrl>" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.EcommerceChooseAmount}...</span></a>
+        <a href="<@ofbizUrl>product/<#if requestParameters.category_id?exists>~category_id=${requestParameters.category_id}/</#if>~product_id=${miniProduct.productId}</@ofbizUrl>" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.OrderChooseAmount}...</span></a>
     <#else>
         <form method="post" action="<@ofbizUrl>additem<#if requestAttributes._CURRENT_VIEW_?has_content>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>" name="${miniProdFormName}" style="margin: 0;">
             <input type="hidden" name="add_product_id" value="${miniProduct.productId}"/>
