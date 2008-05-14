@@ -196,111 +196,6 @@
         <value xml:lang="en">Added item to order: </value>
         <value xml:lang="fr">Article ajouté à la commande : </value>
     </property>
-    <property key="EcommerceANew">
-        <value xml:lang="en">a new</value>
-        <value xml:lang="fr">un nouvel</value>
-        <value xml:lang="th">ใหม่</value>
-    </property>
-    <property key="EcommerceAccountLogin">
-        <value xml:lang="en">Your account login is:</value>
-        <value xml:lang="es">Usuario</value>
-        <value xml:lang="fr">Votre identifiant est :</value>
-        <value xml:lang="it">Il tuo utente loggato è :</value>
-        <value xml:lang="nl">Uw loginnaam is:</value>
-        <value xml:lang="ro">Utilizatorul logat este :</value>
-        <value xml:lang="ru">Ваше имя для учетной записи:</value>
-        <value xml:lang="th">บัญชีของคุณลอกอินเข้าสู่ระบบคือ</value>
-        <value xml:lang="zh">你登录的账户是：</value>
-    </property>
-    <property key="EcommerceActive">
-        <value xml:lang="de">Aktiv</value>
-        <value xml:lang="en">Active</value>
-        <value xml:lang="es">Activo</value>
-        <value xml:lang="fr">Actif</value>
-        <value xml:lang="it">Attivo</value>
-        <value xml:lang="nl">Aktief</value>
-        <value xml:lang="ro">Activ</value>
-        <value xml:lang="ru">Активный</value>
-        <value xml:lang="th">ทำงานอยู่</value>
-        <value xml:lang="zh">有效</value>
-    </property>
-    <property key="EcommerceAddAlltoCart">
-        <value xml:lang="de">Alles in den Warenkorb legen</value>
-        <value xml:lang="en">Add All to Cart</value>
-        <value xml:lang="es">Añadir todo al carro</value>
-        <value xml:lang="fr">Ajouter tout au panier</value>
-        <value xml:lang="it">Aggiungi Tutto al Carrello</value>
-        <value xml:lang="nl">Alles aan de winkelwagen toevoegen</value>
-        <value xml:lang="pt_PT">Adicionar Todos ao Cesto</value>
-        <value xml:lang="ro">Adauga Ttotul in Cos</value>
-        <value xml:lang="ru">Добавить в корзину все</value>
-        <value xml:lang="th">เพิ่มทั้งหมดลงตระกร้า</value>
-        <value xml:lang="zh">全部放入购物车</value>
-    </property>
-    <property key="EcommerceAddCheckedToCart">
-        <value xml:lang="de">Ausgewählte Artikel in den Warenkorb legen</value>
-        <value xml:lang="en">Add Checked to Cart</value>
-        <value xml:lang="es">Añadir selección al carro</value>
-        <value xml:lang="fr">Ajouter ceux cochés au panier</value>
-        <value xml:lang="it">Aggiungi Scelte al Carrello</value>
-        <value xml:lang="nl">Voeg aangevinkt toe aan de winkelwagen</value>
-        <value xml:lang="pt_PT">Adicionar Seleccionados ao Cesto</value>
-        <value xml:lang="ro">Adauga optiuni in Cos</value>
-        <value xml:lang="ru">Добавить в корзину отмеченное</value>
-        <value xml:lang="th">เช็คเพิ่มในตระกร้า</value>
-        <value xml:lang="zh">把选中的放入购物车</value>
-    </property>
-    <property key="EcommerceAddCheckedtoCart">
-        <value xml:lang="de">Ausgewählte Artikel in den Warenkorb legen</value>
-        <value xml:lang="en">Add Checked to Cart</value>
-        <value xml:lang="es">Agregar ítems seleccionados al carro</value>
-        <value xml:lang="th">เช็คเพิ่มในตระกร้า</value>
-    </property>
-    <property key="EcommerceAddChildListsToCart">
-        <value xml:lang="de">Fügen Sie diese Liste mit Unterliste(n) zum Warenkorb hinzu</value>
-        <value xml:lang="en">Add This List And Child List(s) To Cart</value>
-        <value xml:lang="es">Añadir listas hijas al carro</value>
-        <value xml:lang="fr">Ajouter la liste et sous liste(s) au panier</value>
-        <value xml:lang="it">Aggiungi Questa Lista e la(e) Lista(e) Figlie al Carrello</value>
-        <value xml:lang="nl">Voeg deze (sub)lijsten toe aan de winkelwagen</value>
-        <value xml:lang="pt_PT">Adicionar Esta Lista E Sua(s) Derivada(s) Ao Cesto</value>
-        <value xml:lang="ro">Adauga Aceasta Lista si Lista(le) Fica(e) in Cos</value>
-        <value xml:lang="ru">Добавить этот и подчиненный список(ки) в корзину</value>
-        <value xml:lang="th">เพิ่มรายการนี้และรายการเด็กลงตระกร้า</value>
-        <value xml:lang="zh">把这个列表及子列表放入购物车</value>
-    </property>
-    <property key="EcommerceAddListToCart">
-        <value xml:lang="de">Liste zum Warenkorb hinzufügen</value>
-        <value xml:lang="en">Add List To Cart</value>
-        <value xml:lang="es">Añadir lista al carro</value>
-        <value xml:lang="fr">Ajouter la liste au panier</value>
-        <value xml:lang="it">Aggiungi Lista al Carrello</value>
-        <value xml:lang="nl">Voeg deze Lijst toe aan de winkelwagen</value>
-        <value xml:lang="pt_PT">Adicionar Lista Ao Cesto</value>
-        <value xml:lang="ro">Adauga Lista la Cos</value>
-        <value xml:lang="ru">Добавить список в корзину</value>
-        <value xml:lang="th">เพิ่มรายการลงตระกร้า</value>
-        <value xml:lang="zh">把列表放入购物车</value>
-    </property>
-    <property key="EcommerceAddNewDigitalProduct">
-        <value xml:lang="en">Add New Digital Product</value>
-        <value xml:lang="it">Aggiungi Nuovo Prodotto Digitale</value>
-        <value xml:lang="ro">Adauga Nou Produs Digital</value>
-        <value xml:lang="ru">Добавить новый цифровой продукт</value>
-        <value xml:lang="th">เพิ่มสินค้าดิจิตอลใหม่</value>
-        <value xml:lang="zh">新建数字产品</value>
-    </property>
-    <property key="EcommerceAddResponseFor">
-        <value xml:lang="en">Add response for</value>
-        <value xml:lang="es">Añadir respuesta para</value>
-        <value xml:lang="fr">Ajoutez une réponse pour</value>
-        <value xml:lang="it">Aggiungi risponste per</value>
-        <value xml:lang="nl">Voeg antwoord toe aan</value>
-        <value xml:lang="ro">Adauga raspunsuri pentru EcommerceAddSelectedtoList=Adauga Selectionat La Lista</value>
-        <value xml:lang="ru">Добавить ответ на</value>
-        <value xml:lang="th">เพิ่มคำตอบสำหรับ</value>
-        <value xml:lang="zh">新建答案用于</value>
-    </property>
     <property key="EcommerceAddSelectedtoList">
         <value xml:lang="de">Ausgewählte Artikel in Liste aufnehmen</value>
         <value xml:lang="en">Add Selected To List</value>
@@ -4259,6 +4154,40 @@
         <value xml:lang="ru">Код Web сайта</value>
         <value xml:lang="th">รหัสเว็บไซต์</value>
         <value xml:lang="zh">网站标识</value>
+    </property>
+    <property key="OrderAddAllToCart">
+        <value xml:lang="cs">Přidat všechno do košíku</value>
+        <value xml:lang="de">Alles in den Warenkorb legen</value>
+        <value xml:lang="en">Add All to Cart</value>
+        <value xml:lang="en_GB">Add All to basket</value>
+        <value xml:lang="es">Añadir todo al carro</value>
+        <value xml:lang="fr">Ajouter tout au panier</value>
+        <value xml:lang="hi_IN">सभी को टोकरी में डालें</value>
+        <value xml:lang="it">Aggiungi Tutto al Carrello</value>
+        <value xml:lang="ja">Add All to Cart</value>
+        <value xml:lang="nl">Alles aan de winkelwagen toevoegen</value>
+        <value xml:lang="pt_PT">Adicionar Todos ao Cesto</value>
+        <value xml:lang="ro">Adauga Ttotul in Cos</value>
+        <value xml:lang="ru">Добавить в корзину все</value>
+        <value xml:lang="th">เพิ่มทั้งหมดลงตระกร้า</value>
+        <value xml:lang="zh">全部放入购物车</value>
+    </property>
+    <property key="OrderAddCheckedToCart">
+        <value xml:lang="cs">přidat vybrané do košíku</value>
+        <value xml:lang="de">Ausgewählte Artikel in den Warenkorb legen</value>
+        <value xml:lang="en">Add Checked to Cart</value>
+        <value xml:lang="en_GB">Add selected to basket</value>
+        <value xml:lang="es">Añadir selección al carro</value>
+        <value xml:lang="fr">Ajouter ceux cochés au panier</value>
+        <value xml:lang="hi_IN">सही निशान वाले को टोकरी में डालें</value>
+        <value xml:lang="it">Aggiungi Scelte al Carrello</value>
+        <value xml:lang="ja">Add Checked to Cart</value>
+        <value xml:lang="nl">Voeg aangevinkt toe aan de winkelwagen</value>
+        <value xml:lang="pt_PT">Adicionar Seleccionados ao Cesto</value>
+        <value xml:lang="ro">Adauga optiuni in Cos</value>
+        <value xml:lang="ru">Добавить в корзину отмеченное</value>
+        <value xml:lang="th">เช็คเพิ่มในตระกร้า</value>
+        <value xml:lang="zh">把选中的放入购物车</value>
     </property>
     <property key="OrderAddCode">
         <value xml:lang="de">Code hinzufügen</value>

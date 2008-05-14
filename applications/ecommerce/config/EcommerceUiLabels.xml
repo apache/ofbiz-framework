@@ -1025,68 +1025,89 @@
         <value xml:lang="th">ของคุณ</value>
     </property>
     <property key="EcommerceAccountLogin">
-        <value xml:lang="en">Account Login</value>
-        <value xml:lang="fr">Compte identifiant</value>
+        <value xml:lang="en">Your account login is:</value>
+        <value xml:lang="es">Usuario</value>
+        <value xml:lang="fr">Votre identifiant est :</value>
         <value xml:lang="hi_IN">आपका प्रवेश ख़ाता है:</value>
+        <value xml:lang="it">Il tuo utente è :</value>
         <value xml:lang="ja">Your account login is:</value>
-        <value xml:lang="th">ชื่อผู้เข้าสู่ระบบ</value>
+        <value xml:lang="nl">Uw loginnaam is:</value>
+        <value xml:lang="ro">Utilizatorul logat este :</value>
+        <value xml:lang="ru">Ваше имя для учетной записи:</value>
+        <value xml:lang="th">บัญชีของคุณลอกอินเข้าสู่ระบบคือ</value>
+        <value xml:lang="zh">你登录的账户是：</value>
     </property>
     <property key="EcommerceActive">
         <value xml:lang="cs">Váš E-mail</value>
+        <value xml:lang="de">Aktiv</value>
         <value xml:lang="en">Active</value>
+        <value xml:lang="es">Activo</value>
         <value xml:lang="fr">Actif</value>
         <value xml:lang="hi_IN">सक्रिय</value>
+        <value xml:lang="it">Attivo</value>
         <value xml:lang="ja">Active</value>
-        <value xml:lang="th">ปฏิบัติ</value>
-    </property>
-    <property key="EcommerceAddAlltoCart">
-        <value xml:lang="cs">Přidat všechno do košíku</value>
-        <value xml:lang="en">Add All to Cart</value>
-        <value xml:lang="fr">Tout ajouter au panier</value>
-        <value xml:lang="en_GB">Add All to basket</value>
-        <value xml:lang="hi_IN">सभी को टोकरी में डालें</value>
-        <value xml:lang="ja">Add All to Cart</value>
-        <value xml:lang="th">เพิ่มรายการทั้งหมดลงตะกร้า</value>
-    </property>
-    <property key="EcommerceAddCheckedToCart">
-        <value xml:lang="cs">přidat vybrané do košíku</value>
-        <value xml:lang="en">Add Checked To Cart</value>
-        <value xml:lang="fr">Ajouter la sélection au panier</value>
-        <value xml:lang="en_GB">Add selected to basket</value>
-        <value xml:lang="hi_IN">सही निशान वाले को टोकरी में डालें</value>
-        <value xml:lang="ja">Add Checked to Cart</value>
-        <value xml:lang="th">เพิ่มรายการที่เลือกลงตะกร้า</value>
+        <value xml:lang="nl">Aktief</value>
+        <value xml:lang="ro">Activ</value>
+        <value xml:lang="ru">Активный</value>
+        <value xml:lang="th">ทำงานอยู่</value>
+        <value xml:lang="zh">有效</value>
     </property>
     <property key="EcommerceAddChildListsToCart">
         <value xml:lang="cs">Přidejte tento seznam a další seznam(-y) do košíku</value>
-        <value xml:lang="en">Add Child Lists To Cart</value>
-        <value xml:lang="fr">Ajouter les sous-listes au panier</value>
+        <value xml:lang="de">Fügen Sie diese Liste mit Unterliste(n) zum Warenkorb hinzu</value>
+        <value xml:lang="en">Add This List And Child List(s) To Cart</value>
         <value xml:lang="en_GB">Add This List And Child List(s) To basket</value>
+        <value xml:lang="es">Añadir listas hijas al carro</value>
+        <value xml:lang="fr">Ajouter la liste et sous liste(s) au panier</value>
         <value xml:lang="hi_IN">इस पूरी सूची को टोकरी में डालें</value>
+        <value xml:lang="it">Aggiungi Questa Lista e la(e) Lista(e) Figlie al Carrello</value>
         <value xml:lang="ja">Add This List And Child List(s) To Cart</value>
-        <value xml:lang="th">เพิ่มรายการสินค้าเด็กลงตะกร้า</value>
+        <value xml:lang="nl">Voeg deze (sub)lijsten toe aan de winkelwagen</value>
+        <value xml:lang="pt_PT">Adicionar Esta Lista E Sua(s) Derivada(s) Ao Cesto</value>
+        <value xml:lang="ro">Adauga Aceasta Lista si Lista(le) Fica(e) in Cos</value>
+        <value xml:lang="ru">Добавить этот и подчиненный список(ки) в корзину</value>
+        <value xml:lang="th">เพิ่มรายการนี้และรายการเด็กลงตระกร้า</value>
+        <value xml:lang="zh">把这个列表及子列表放入购物车</value>
     </property>
     <property key="EcommerceAddListToCart">
         <value xml:lang="cs">Přidat seznam do košíku</value>
+        <value xml:lang="de">Liste zum Warenkorb hinzufügen</value>
         <value xml:lang="en">Add List To Cart</value>
-        <value xml:lang="fr">Ajouter la liste au panier</value>
         <value xml:lang="en_GB">Add List To basket</value>
+        <value xml:lang="es">Añadir lista al carro</value>
+        <value xml:lang="fr">Ajouter la liste au panier</value>
         <value xml:lang="hi_IN">सूची को टोकरी में डालें</value>
+        <value xml:lang="it">Aggiungi Lista al Carrello</value>
         <value xml:lang="ja">Add List To Cart</value>
-        <value xml:lang="th">เพิ่มรายการลงตะกร้า</value>
+        <value xml:lang="nl">Voeg deze Lijst toe aan de winkelwagen</value>
+        <value xml:lang="pt_PT">Adicionar Lista Ao Cesto</value>
+        <value xml:lang="ro">Adauga Lista la Cos</value>
+        <value xml:lang="ru">Добавить список в корзину</value>
+        <value xml:lang="th">เพิ่มรายการลงตระกร้า</value>
+        <value xml:lang="zh">把列表放入购物车</value>
     </property>
     <property key="EcommerceAddNewDigitalProduct">
         <value xml:lang="en">Add New Digital Product</value>
         <value xml:lang="fr">Ajouter le nouveau produit numérique</value>
         <value xml:lang="hi_IN">नयी डिजीटल फल जोडें</value>
+        <value xml:lang="it">Aggiungi Nuovo Prodotto Digitale</value>
+        <value xml:lang="ro">Adauga Nou Produs Digital</value>
+        <value xml:lang="ru">Добавить новый цифровой продукт</value>
         <value xml:lang="th">เพิ่มสินค้าดิจิตัลใหม่</value>
+        <value xml:lang="zh">新建数字产品</value>
     </property>
     <property key="EcommerceAddResponseFor">
         <value xml:lang="en">Add Response For</value>
+        <value xml:lang="es">Añadir respuesta para</value>
         <value xml:lang="fr">Ajouter la réponse pour</value>
         <value xml:lang="hi_IN">उत्तर जोडें</value>
+        <value xml:lang="it">Aggiungi risponste per</value>
         <value xml:lang="ja">Add response for</value>
+        <value xml:lang="nl">Voeg antwoord toe aan</value>
+        <value xml:lang="ro">Adauga raspunsuri pentru EcommerceAddSelectedtoList=Adauga Selectionat La Lista</value>
+        <value xml:lang="ru">Добавить ответ на</value>
         <value xml:lang="th">เพิ่มคำตอบสำหรับ</value>
+        <value xml:lang="zh">新建答案用于</value>
     </property>
     <property key="EcommerceAddSelectedtoList">
         <value xml:lang="cs">Přidat vybrané do seznamu</value>
@@ -1143,6 +1164,12 @@
         <value xml:lang="hi_IN">हमेशा टोकरी देखें सामान जोडने के बाद</value>
         <value xml:lang="ja">Always view cart after adding an item</value>
         <value xml:lang="th">ดูรายการในตะกร้าหลังจากเพิ่มสินค้าเสมอ</value>
+    </property>
+    <property key="EcommerceANew">
+        <value xml:lang="en">a new</value>
+        <value xml:lang="fr">un nouvel</value>
+        <value xml:lang="it">una nuova</value>
+        <value xml:lang="th">ใหม่</value>
     </property>
     <property key="EcommerceAnonymous">
         <value xml:lang="cs">anonymní</value>

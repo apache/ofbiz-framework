@@ -21,7 +21,7 @@ under the License.
     <div class="screenlet-header">
         <div class="boxlink">
           <#if maySelectItems?default(false)>
-              <a href="javascript:document.addCommonToCartForm.add_all.value='true';document.addCommonToCartForm.submit()" class="submenutext">${uiLabelMap.EcommerceAddAlltoCart}</a><a href="javascript:document.addCommonToCartForm.add_all.value='false';document.addCommonToCartForm.submit()" class="submenutextright">${uiLabelMap.EcommerceAddCheckedToCart}</a>
+              <a href="javascript:document.addCommonToCartForm.add_all.value='true';document.addCommonToCartForm.submit()" class="submenutext">${uiLabelMap.OrderAddAllToCart}</a><a href="javascript:document.addCommonToCartForm.add_all.value='false';document.addCommonToCartForm.submit()" class="submenutextright">${uiLabelMap.OrderAddCheckedToCart}</a>
           </#if>
         </div>
         <div class="boxhead">&nbsp;${uiLabelMap.OrderReturnItems}</div>
