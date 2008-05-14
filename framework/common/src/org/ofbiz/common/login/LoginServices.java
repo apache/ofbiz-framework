@@ -162,8 +162,7 @@ public class LoginServices {
                         // if the password.accept.encrypted.and.plain property in security is set to true allow plain or encrypted passwords
                         // if this is a system account don't bother checking the passwords
                         if ((userLogin.get("currentPassword") != null &&
-                            (encodedPassword.equals(userLogin.getString("currentPassword")) ||
-                            		HashCrypt.removeHashTypePrefix(encodedPassword).equals(userLogin.getString("currentPassword")) ||
+                            (HashCrypt.removeHashTypePrefix(encodedPassword).equals(userLogin.getString("currentPassword")) ||
                                     HashCrypt.removeHashTypePrefix(encodedPasswordOldFunnyHexEncode).equals(userLogin.getString("currentPassword")) ||
                                     HashCrypt.removeHashTypePrefix(encodedPasswordUsingDbHashType).equals(userLogin.getString("currentPassword")) ||
                                 ("true".equals(UtilProperties.getPropertyValue("security.properties", "password.accept.encrypted.and.plain")) && password.equals(userLogin.getString("currentPassword")))))) {
