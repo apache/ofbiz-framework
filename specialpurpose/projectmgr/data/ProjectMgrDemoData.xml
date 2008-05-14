@@ -44,7 +44,7 @@
     <PartyRole partyId="DemoCustomer1" roleTypeId="CUSTOMER"/>
     <PartyContactMech partyId="DemoCustomer1" contactMechId="9020" fromDate="2000-01-01 10:01:48.933" roleTypeId="CUSTOMER" />
     <PartyContactMech partyId="DemoCustomer1" contactMechId="9001" fromDate="2000-01-01 10:01:48.933" roleTypeId="CUSTOMER" />
-    <PartyContactMech partyId="DemoCustomer" contactMechId="9023" fromDate="2000-01-01 10:01:48.933" roleTypeId="CUSTOMER" />
+    <PartyContactMech partyId="DemoCustomer1" contactMechId="9023" fromDate="2000-01-01 10:01:48.933" roleTypeId="CUSTOMER" />
     <PartyRole partyId="DemoCustomer1" roleTypeId="PROJECT_TEAM"/>
     <UserLoginAndSecurityGroup groupId="PROJECTUSER" userLoginId="DemoCustomer1" fromDate="2000-01-01 00:00:00.0"/>
     
