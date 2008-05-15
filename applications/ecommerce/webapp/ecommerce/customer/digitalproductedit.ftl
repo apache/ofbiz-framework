@@ -72,7 +72,7 @@ under the License.
 <#if supplierProduct?has_content>
 <div class="screenlet">
     <div class="screenlet-header">
-        <div class="boxhead">${uiLabelMap.EcommerceDigitalProductFiles}</div>
+        <div class="boxhead">${uiLabelMap.OrderDigitalProductFiles}</div>
     </div>
     <div class="screenlet-body">
         <#list productContentAndInfoList as productContentAndInfo>

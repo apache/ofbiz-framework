@@ -28,17 +28,17 @@ under the License.
             <#assign productCategory = productPromoCategory.getRelatedOneCache("ProductCategory")>
             <div class="tabletext">
                 -&nbsp;<a href="<@ofbizUrl>category/~category_id=${productPromoCategory.productCategoryId}</@ofbizUrl>" class="buttontext">${(productCategory.description)?default(productPromoCategory.productCategoryId)}</a>
-                <#if productPromoCategory.includeSubCategories?if_exists = "Y">(${uiLabelMap.EcommerceIncludeSubCategories})</#if>
+                <#if productPromoCategory.includeSubCategories?if_exists = "Y">(${uiLabelMap.OrderIncludeSubCategories})</#if>
             </div>
           </#list>
         </#if>
         <#if productPromoCategoryExcludeList?has_content>
-          <div class="tabletext">${uiLabelMap.EcommerceEcludeCategories}</div>
+          <div class="tabletext">${uiLabelMap.OrderExcludeCategories}</div>
           <#list productPromoCategoryExcludeList as productPromoCategory>
             <#assign productCategory = productPromoCategory.getRelatedOneCache("ProductCategory")>
             <div class="tabletext">
                 -&nbsp;<a href="<@ofbizUrl>category/~category_id=${productPromoCategory.productCategoryId}</@ofbizUrl>" class="buttontext">${(productCategory.description)?default(productPromoCategory.productCategoryId)}</a>
-                <#if productPromoCategory.includeSubCategories?if_exists = "Y">(${uiLabelMap.EcommerceIncludeSubCategories})</#if>
+                <#if productPromoCategory.includeSubCategories?if_exists = "Y">(${uiLabelMap.OrderIncludeSubCategories})</#if>
             </div>
           </#list>
         </#if>
@@ -48,7 +48,7 @@ under the License.
             <#assign productCategory = productPromoCategory.getRelatedOneCache("ProductCategory")>
             <div class="tabletext">
                 -&nbsp;<a href="<@ofbizUrl>category/~category_id=${productPromoCategory.productCategoryId}</@ofbizUrl>" class="buttontext">${(productCategory.description)?default(productPromoCategory.productCategoryId)}</a>
-                <#if productPromoCategory.includeSubCategories?if_exists = "Y">(${uiLabelMap.EcommerceIncludeSubCategories})</#if>
+                <#if productPromoCategory.includeSubCategories?if_exists = "Y">(${uiLabelMap.OrderIncludeSubCategories})</#if>
             </div>
           </#list>
         </#if>

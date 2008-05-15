@@ -196,700 +196,6 @@
         <value xml:lang="en">Added item to order: </value>
         <value xml:lang="fr">Article ajouté à la commande : </value>
     </property>
-    <property key="EcommerceClearSearchHistory">
-        <value xml:lang="en">Clear Search History</value>
-        <value xml:lang="es">Limpiar historial</value>
-        <value xml:lang="fr">Effacer l'historique de recherche</value>
-        <value xml:lang="it">Azzera Storia Ricerca</value>
-        <value xml:lang="nl">Wis zoek historie</value>
-        <value xml:lang="ro">Azereaza Istoric Cautare</value>
-        <value xml:lang="ru">Очистить историю поиска</value>
-        <value xml:lang="th">เคลียร์ข้อมูลการค้นหา</value>
-        <value xml:lang="zh">清除搜索历史记录</value>
-    </property>
-    <property key="EcommerceClearSearchHistoryNote">
-        <value xml:lang="en">(Note that your history will automatically be cleared after you leave the site)</value>
-        <value xml:lang="es">Limpiar historial</value>
-        <value xml:lang="fr">(Notez que votre que votre historique sera automatiquement effacé après que vous ayez quitté le site)</value>
-        <value xml:lang="it">(Nota che la tua storia verrà cancellata automaticamente dopo che tu esci dal sito)</value>
-        <value xml:lang="nl">(Let op, je historie zal automatisch worden gewist nadat je de website verlaat)</value>
-        <value xml:lang="ro">(De Notat ca istoricul tau va fi sters automat dupa ce tu esi din sit)</value>
-        <value xml:lang="ru">(Обратите внимание, что история будет автоматически отчищена после того как вы покинете сайт)</value>
-        <value xml:lang="th">(หมายเหตุ ข้อมูลของคุณจะเคลียร์โดยอัโนมัติหลังจากที่คุณออกจากหน้านี้)</value>
-        <value xml:lang="zh">(注意：在你离开本站点后，你的历史记录会被自动清除。)</value>
-    </property>
-    <property key="EcommerceCompleted">
-        <value xml:lang="en">Completed - Thank-you!</value>
-        <value xml:lang="es">Completado</value>
-        <value xml:lang="fr">Terminé, merci !</value>
-        <value xml:lang="it">Completato - Grazie!</value>
-        <value xml:lang="nl">Volledig ingevuld, bedankt!</value>
-        <value xml:lang="ro">Indeplinit - Multumesc!</value>
-        <value xml:lang="ru">Завершена - Спасибо!</value>
-        <value xml:lang="th">เสร็จสมบูรณ์ - ขอบคุณ!</value>
-        <value xml:lang="zh">完成了 - 谢谢您！</value>
-    </property>
-    <property key="EcommerceConfigure">
-        <value xml:lang="en">Configure</value>
-        <value xml:lang="es">Configurar</value>
-        <value xml:lang="fr">Choix des options</value>
-        <value xml:lang="it">Configura</value>
-        <value xml:lang="nl">Konfigureer</value>
-        <value xml:lang="ro">Configureaza</value>
-        <value xml:lang="ru">Комплект</value>
-        <value xml:lang="th">ออกแบบ</value>
-        <value xml:lang="zh">配置</value>
-    </property>
-    <property key="EcommerceContentFor">
-        <value xml:lang="en">Content for</value>
-        <value xml:lang="es">Contenido para</value>
-        <value xml:lang="fr">Contenu pour</value>
-        <value xml:lang="it">Contenuto per</value>
-        <value xml:lang="nl">Content voor</value>
-        <value xml:lang="ro">Continut pentru </value>
-        <value xml:lang="ru">Содержимое для</value>
-        <value xml:lang="th">หัวข้อสำหรับ</value>
-        <value xml:lang="zh">内容用于</value>
-    </property>
-    <property key="EcommerceContentInformation">
-        <value xml:lang="en">Content Information</value>
-        <value xml:lang="es">Información del contenido</value>
-        <value xml:lang="fr">Information sur le contenu</value>
-        <value xml:lang="it">Informazione Contenuto</value>
-        <value xml:lang="nl">Content informatie</value>
-        <value xml:lang="ro">Informatie Continut</value>
-        <value xml:lang="ru">Информация о содержимом</value>
-        <value xml:lang="th">ข้อมูลหัวข้อ</value>
-        <value xml:lang="zh">内容信息</value>
-    </property>
-    <property key="EcommerceContentName">
-        <value xml:lang="en">Content Name</value>
-        <value xml:lang="es">Nombre del contenido</value>
-        <value xml:lang="fr">Nom du contenu</value>
-        <value xml:lang="it">Nome Contenuto</value>
-        <value xml:lang="nl">Content naam</value>
-        <value xml:lang="ro">Nume Continut</value>
-        <value xml:lang="ru">Имя содержимого</value>
-        <value xml:lang="th">ชื่อหัวข้อ</value>
-        <value xml:lang="zh">内容名称</value>
-    </property>
-    <property key="EcommerceContinueShopping">
-        <value xml:lang="de">Einkauf fortsetzen</value>
-        <value xml:lang="en">Continue Shopping</value>
-        <value xml:lang="es">Continuar comprando</value>
-        <value xml:lang="fr">Continuer les achats</value>
-        <value xml:lang="it">Continua Acquisto</value>
-        <value xml:lang="nl">door gaan met winkelen</value>
-        <value xml:lang="pt_PT">Continuar as Compras</value>
-        <value xml:lang="ro">Continua Cumparare</value>
-        <value xml:lang="ru">Продолжить покупки</value>
-        <value xml:lang="th">เริ่มการซื้อสินค้าใหม่</value>
-        <value xml:lang="zh">继续购物</value>
-    </property>
-    <property key="EcommerceCustomerReviews">
-        <value xml:lang="de">Bewertung von Kunden</value>
-        <value xml:lang="en">Customer Reviews</value>
-        <value xml:lang="es">Reseñas de clientes</value>
-        <value xml:lang="fr">Commentaire(s) de client(s)</value>
-        <value xml:lang="it">Recensioni Cliente</value>
-        <value xml:lang="nl">Meningen van klanten</value>
-        <value xml:lang="pt_PT">Revisão do Cliente</value>
-        <value xml:lang="ro">Recenzii Client</value>
-        <value xml:lang="ru">Пользовательские отзывы</value>
-        <value xml:lang="th">ตรวจสอบลูกค้า</value>
-        <value xml:lang="zh">客户评论</value>
-    </property>
-    <property key="EcommerceCustomerTaxID">
-        <value xml:lang="en">Customer Tax ID</value>
-        <value xml:lang="es">Código de impuesto</value>
-        <value xml:lang="fr">Identifiant taxe du client</value>
-        <value xml:lang="it">Codice Tassa Soggetto</value>
-        <value xml:lang="nl">Klant belastingsnummer</value>
-        <value xml:lang="ro">Cod Taxa Subiect</value>
-        <value xml:lang="ru">Налоговый номер пользователя</value>
-        <value xml:lang="th">รหัสภาษีลูกค้า</value>
-        <value xml:lang="zh">客户税务标识</value>
-    </property>
-    <property key="EcommerceDataResourceId">
-        <value xml:lang="en">Data Resource Id</value>
-        <value xml:lang="es">Código de Data Resource</value>
-        <value xml:lang="fr">Réf. de ressource de données</value>
-        <value xml:lang="it">Codice Risorsa Dati</value>
-        <value xml:lang="nl">Data Bron Id</value>
-        <value xml:lang="ro">Cod Resursa Date</value>
-        <value xml:lang="ru">Data Resource Id</value>
-        <value xml:lang="th">รหัสแหล่งข้อมูล</value>
-        <value xml:lang="zh">数据资源标识</value>
-    </property>
-    <property key="EcommerceDigitalAddFromMyFiles">
-        <value xml:lang="en">Add From My Files</value>
-        <value xml:lang="it">Aggiungi Dai Miei Files</value>
-        <value xml:lang="ro">Adauga Din Fisierele mele</value>
-        <value xml:lang="ru">Добавить из моих файлов</value>
-        <value xml:lang="th">เพิ่มจากไฟล์ของฉัน</value>
-        <value xml:lang="zh">从我的文件添加</value>
-    </property>
-    <property key="EcommerceDigitalNewProduct">
-        <value xml:lang="en">New Digital Product</value>
-        <value xml:lang="it">Nuovo Prodotto Digitale</value>
-        <value xml:lang="ro">Nou Produs Digital</value>
-        <value xml:lang="ru">Новый цифровой продукт</value>
-        <value xml:lang="th">สินค้าดิจิตอลใหม่</value>
-        <value xml:lang="zh">新建数字产品</value>
-    </property>
-    <property key="EcommerceDigitalProductFiles">
-        <value xml:lang="en">Digital Product Files</value>
-        <value xml:lang="it">Files Prodotti Digitali</value>
-        <value xml:lang="ro">Fisiere Produse Digitale</value>
-        <value xml:lang="ru">Файлы цифровых продуктов</value>
-        <value xml:lang="th">ไฟล์สินค้าดิจิตอล</value>
-        <value xml:lang="zh">数字产品文件</value>
-    </property>
-    <property key="EcommerceDigitalProductPurchaseHistoryCommission">
-        <value xml:lang="en">Digital Product Purchase History and Commission</value>
-        <value xml:lang="it">Storia Acquisti e Provvigioni Prodotti Digitali</value>
-        <value xml:lang="ro">Storia Cumparari si  Provizioane Produse Digitale</value>
-        <value xml:lang="ru">История и комиссии приобретения цифровых продуктов</value>
-        <value xml:lang="th">ข้อมูลการซื้อสินค้าดิจิตอลและคอมมิชชัน</value>
-        <value xml:lang="zh">数字产品购买历史记录和佣金</value>
-    </property>
-    <property key="EcommerceDownloadFilesTitle">
-        <value xml:lang="en">Download Files for this Product</value>
-        <value xml:lang="es">Descargar archivos para este producto</value>
-        <value xml:lang="fr">Télécharger les fichiers pour cet article</value>
-        <value xml:lang="it">Download di Files per questo Prodotto</value>
-        <value xml:lang="ro">Download de Fisiere pentru acest Produs</value>
-        <value xml:lang="ru">Загрузить файлы по этому продукту</value>
-        <value xml:lang="th">ดาวน์โหลดไฟล์สำหรับสินค้านี้</value>
-        <value xml:lang="zh">为这个产品下载文件</value>
-    </property>
-    <property key="EcommerceDownloadNotFound">
-        <value xml:lang="en">No Download Files Found</value>
-        <value xml:lang="es">No se encontraron archivos descargables</value>
-        <value xml:lang="fr">Aucun fichier à télécharger trouvé</value>
-        <value xml:lang="it">Nessun Download di Files Trovato</value>
-        <value xml:lang="ro">Nici-un Download de Fisiere Gasit</value>
-        <value xml:lang="ru">Нет файлов для загрузки</value>
-        <value xml:lang="th">ไม่พบไฟล์ดาวน์โหลด</value>
-        <value xml:lang="zh">没有找到下载文件</value>
-    </property>
-    <property key="EcommerceDownloadsAvailableTitle">
-        <value xml:lang="en">Download Files Available</value>
-        <value xml:lang="es">Descargar los archivos disponibles</value>
-        <value xml:lang="fr">Fichier à télécharger disponible</value>
-        <value xml:lang="it">Download di Files Disponibile</value>
-        <value xml:lang="ro">Download de Fisiere Disponibile</value>
-        <value xml:lang="ru">Доступны файлы для загрузки</value>
-        <value xml:lang="th">ดาวน์โหลดไฟล์ที่สามารถใช้ประโยชน์ได้</value>
-        <value xml:lang="zh">可用的下载文件</value>
-    </property>
-    <property key="EcommerceEcludeCategories">
-        <value xml:lang="en">unless they are in these categories:</value>
-        <value xml:lang="it">a meno che siano in queste categorie:</value>
-        <value xml:lang="ro">numai daca sunt in aceasta categorie:</value>
-        <value xml:lang="ru">если они не в этих категориях:</value>
-        <value xml:lang="th">นอกจากมีในหมวดหมู่นี้</value>
-        <value xml:lang="zh">除非它们在这些分类中：</value>
-    </property>
-    <property key="EcommerceEcommerce">
-        <value xml:lang="de">Ecommerce</value>
-        <value xml:lang="en">Ecommerce</value>
-        <value xml:lang="es">E-commerce</value>
-        <value xml:lang="fr">Commerce électronique</value>
-        <value xml:lang="it">Ecommerce</value>
-        <value xml:lang="nl">Ecommerce</value>
-        <value xml:lang="ro">Ecomerce</value>
-        <value xml:lang="ru">Ecommerce</value>
-        <value xml:lang="th">พาณิชย์อิเล็กทรอนิกส์ </value>
-        <value xml:lang="zh">电子商务</value>
-    </property>
-    <property key="EcommerceEmptyBody">
-        <value xml:lang="en">Empty Body</value>
-        <value xml:lang="es">Contenido vacío</value>
-        <value xml:lang="fr">Corps du message vide</value>
-        <value xml:lang="it">Corpo Vuoto</value>
-        <value xml:lang="nl">Geen inhoud</value>
-        <value xml:lang="ro">Corp Gol</value>
-        <value xml:lang="ru">Пусто</value>
-        <value xml:lang="th">ไม่มีข้อมูลเนื้อหา</value>
-        <value xml:lang="zh">清空主体</value>
-    </property>
-    <property key="EcommerceEmptyCart">
-        <value xml:lang="de">Warenkorb leeren</value>
-        <value xml:lang="en">Empty Cart</value>
-        <value xml:lang="es">Limpiar canasta</value>
-        <value xml:lang="fr">Vider le panier</value>
-        <value xml:lang="it">Carrello Vuoto</value>
-        <value xml:lang="nl">Leeg winkelwagen</value>
-        <value xml:lang="pt_PT">Cesto Vazio</value>
-        <value xml:lang="ro">Cos Gol</value>
-        <value xml:lang="ru">Корзина пустая</value>
-        <value xml:lang="th">ไม่มีข้อมูลในตระกร้า</value>
-        <value xml:lang="zh">清空购物车</value>
-    </property>
-    <property key="EcommerceEnterQueryParameters">
-        <value xml:lang="en">Enter query parameters</value>
-        <value xml:lang="es">Ingrese parámetros de búsqueda</value>
-        <value xml:lang="fr">Entrez les paramètres de recherche</value>
-        <value xml:lang="it">Inserisci i parametri di ricerca</value>
-        <value xml:lang="nl">Vul zoek parameters in</value>
-        <value xml:lang="ro">Introdu parametrii de cautare</value>
-        <value xml:lang="ru">Введите параметры запроса</value>
-        <value xml:lang="th">เข้าสู่พารามิเตอร์คำถาม</value>
-        <value xml:lang="zh">输入查询参数</value>
-    </property>
-    <property key="EcommerceErrorNoPromotionFoundWithID">
-        <value xml:lang="de">FEHLER: Keine Aktion gefunden mit der ID</value>
-        <value xml:lang="en">ERROR: No promotion found with ID</value>
-        <value xml:lang="es">ERROR: Promoción no encontrada</value>
-        <value xml:lang="fr">ERREUR : Pas de promotion avec cette référence</value>
-        <value xml:lang="it">ERRORE: Nessuna promozione trovata con questo Codice</value>
-        <value xml:lang="nl">FOUT: Geen aanbieding gevonden met het nummer</value>
-        <value xml:lang="pt_PT">ERROR: No promotion found with ID</value>
-        <value xml:lang="ro">EROARE: Nici-o promotie gasita cu acest Cod</value>
-        <value xml:lang="ru">ОШИБКА: Нет акций с таким идентификатором</value>
-        <value xml:lang="th">ERROR: ความผิดพลาด ! ไม่พบโปรโมชันด้วยรหัสนี้</value>
-        <value xml:lang="zh">错误：没有找到促销——标识</value>
-    </property>
-    <property key="EcommerceEvery3rd">
-        <value xml:lang="en">Every 3rd</value>
-        <value xml:lang="es">Cada 3</value>
-        <value xml:lang="fr">Tous les 3 jours</value>
-        <value xml:lang="it">Ogni 3°</value>
-        <value xml:lang="nl">Elke derde</value>
-        <value xml:lang="ro">La fiecare a-3-a</value>
-        <value xml:lang="ru">Каждый 3-й</value>
-        <value xml:lang="th">ทุก ๆ วันที่ 3</value>
-        <value xml:lang="zh">每3天</value>
-    </property>
-    <property key="EcommerceEvery6th">
-        <value xml:lang="en">Every 6th</value>
-        <value xml:lang="es">Cada 6</value>
-        <value xml:lang="fr">Tous les 6 jours</value>
-        <value xml:lang="it">Ogni 6°</value>
-        <value xml:lang="nl">Elke zesde</value>
-        <value xml:lang="ro">La fiecare a-6-a</value>
-        <value xml:lang="ru">Каждый 6-й</value>
-        <value xml:lang="th">ทุก ๆ วันที่ 6</value>
-        <value xml:lang="zh">每6天</value>
-    </property>
-    <property key="EcommerceEvery9th">
-        <value xml:lang="en">Every 9th</value>
-        <value xml:lang="es">Cada 9</value>
-        <value xml:lang="fr">Tous les 5 jours</value>
-        <value xml:lang="it">Ogni 9°</value>
-        <value xml:lang="nl">Elke negende</value>
-        <value xml:lang="ro">La fiecare a-9-a</value>
-        <value xml:lang="ru">Каждый 9-й</value>
-        <value xml:lang="th">ทุก ๆ วันที่ 9</value>
-        <value xml:lang="zh">每9天</value>
-    </property>
-    <property key="EcommerceEveryDay">
-        <value xml:lang="en">Every</value>
-        <value xml:lang="es">Todos los días</value>
-        <value xml:lang="fr">Tous les jours</value>
-        <value xml:lang="it">Ogni </value>
-        <value xml:lang="nl">Elke</value>
-        <value xml:lang="ro">In fiecare zi</value>
-        <value xml:lang="ru">Каждый</value>
-        <value xml:lang="th">ทุก ๆ วัน</value>
-        <value xml:lang="zh">每天</value>
-    </property>
-    <property key="EcommerceEveryOther">
-        <value xml:lang="en">Every Other</value>
-        <value xml:lang="es">Todo lo otro</value>
-        <value xml:lang="fr">Tous les 2 jours</value>
-        <value xml:lang="it">Ogni Altro</value>
-        <value xml:lang="nl">Elke andere</value>
-        <value xml:lang="ro">Oricand</value>
-        <value xml:lang="ru">Каждый другой</value>
-        <value xml:lang="th">ทุก ๆ อันอื่น</value>
-        <value xml:lang="zh">隔天</value>
-    </property>
-    <property key="EcommerceExemptAmount">
-        <value xml:lang="en">Exempt Amount</value>
-        <value xml:lang="es">Cantidad exenta</value>
-        <value xml:lang="fr">Quantité exempte</value>
-        <value xml:lang="it">Importo Esente</value>
-        <value xml:lang="nl">Uitegsloten hoeveel heid</value>
-        <value xml:lang="ro">Valoare Scutita</value>
-        <value xml:lang="ru">Безналоговая сумма</value>
-        <value xml:lang="th">จำนวนที่ยกเว้น</value>
-        <value xml:lang="zh">被免除的金额</value>
-    </property>
-    <property key="EcommerceFileManager">
-        <value xml:lang="en">File Manager</value>
-        <value xml:lang="es">Administrador de archivos</value>
-        <value xml:lang="fr">Gestionnaire de fichiers</value>
-        <value xml:lang="it">Gestione File</value>
-        <value xml:lang="nl">Bestandsbeheerder</value>
-        <value xml:lang="ro">Gestiune Fisier</value>
-        <value xml:lang="ru">Менеджер файлов</value>
-        <value xml:lang="th">การจัดการไฟล์</value>
-        <value xml:lang="zh">文件管理</value>
-    </property>
-    <property key="EcommerceFollowingMessage">
-        <value xml:lang="en">has requested we send you this link with the following message:</value>
-        <value xml:lang="es">ha pedido que le enviemos el siguiente mensaje :</value>
-        <value xml:lang="fr">nous a demandé de vous envoiyez ce lien avec le message suivant :</value>
-        <value xml:lang="it">come richiesto noi ti inviamo questo link con il seguente messaggio:</value>
-        <value xml:lang="nl">is aangevraagd dat we je deze link sturen met het bericht:</value>
-        <value xml:lang="ro">dupa cum ati cerut noi iti trimitem acest link cu urmatorul mesaj:</value>
-        <value xml:lang="ru">запрошен, мы посылаем вам эту ссылку со следующим сообщением:</value>
-        <value xml:lang="th">เราส่งลิงค์นี้ให้คุณตามข้อความที่คุณเรียกร้อง</value>
-        <value xml:lang="zh">要求我们发送给你这个带有下列消息的链接：</value>
-    </property>
-    <property key="EcommerceFromParentArticle">
-        <value xml:lang="en">From Parent Article</value>
-        <value xml:lang="es">De artículo padre</value>
-        <value xml:lang="fr">Depuis l'article parent</value>
-        <value xml:lang="it">Dall'Articolo Padre</value>
-        <value xml:lang="nl">Van het moeder artikel</value>
-        <value xml:lang="ro">De La Articolul Parinte</value>
-        <value xml:lang="ru">От родительской статьи</value>
-        <value xml:lang="th">จากกลุ่มบทความ</value>
-        <value xml:lang="zh">来自上级文章</value>
-    </property>
-    <property key="EcommerceFromSite">
-        <value xml:lang="en">From Site:</value>
-        <value xml:lang="es">De sitio :</value>
-        <value xml:lang="fr">Depuis le site :</value>
-        <value xml:lang="it">Dal Sito:</value>
-        <value xml:lang="nl">Van de website:</value>
-        <value xml:lang="ro">De la Sit:</value>
-        <value xml:lang="ru">От сайта:</value>
-        <value xml:lang="th">จากไซต์:</value>
-        <value xml:lang="zh">来自站点：</value>
-    </property>
-    <property key="EcommerceGiftAmount">
-        <value xml:lang="en">Gift Amount     :</value>
-        <value xml:lang="es">Cantidad de regalo :</value>
-        <value xml:lang="fr">Montant du cadeau :</value>
-        <value xml:lang="it">Importo Omaggio     :</value>
-        <value xml:lang="nl">Geschenk saldo:</value>
-        <value xml:lang="ro">Valoare Omagiu     :</value>
-        <value xml:lang="ru">Сумма подарков:</value>
-        <value xml:lang="th">จำนวนของขวัญ :</value>
-        <value xml:lang="zh">礼品金额     :</value>
-    </property>
-    <property key="EcommerceGiftCardFrom">
-        <value xml:lang="en">Gift Card from</value>
-        <value xml:lang="es">Certificado de regalo</value>
-        <value xml:lang="fr">une carte cadeau de</value>
-        <value xml:lang="it">Carta Omaggio da</value>
-        <value xml:lang="nl">Geschenkkaart van</value>
-        <value xml:lang="ro">Carte Omagiu de la</value>
-        <value xml:lang="ru">Дисконтная карта от</value>
-        <value xml:lang="th">บัตรของขวัญจาก</value>
-        <value xml:lang="zh">礼品卡来自</value>
-    </property>
-    <property key="EcommerceGiftCardNewBalance">
-        <value xml:lang="en">The new balance is :</value>
-        <value xml:lang="es">El nuevo balance es :</value>
-        <value xml:lang="fr">Le nouveau solde est :</value>
-        <value xml:lang="it">Il nuovo bilancio è :</value>
-        <value xml:lang="nl">Het nieuwe saldo is :</value>
-        <value xml:lang="ro">Noul bilant este :</value>
-        <value xml:lang="ru">Новый баланс :</value>
-        <value xml:lang="th">ยอดเงินคงเหลือใหม่คือ</value>
-        <value xml:lang="zh">新的余额是：</value>
-    </property>
-    <property key="EcommerceGiftCardRefunded">
-        <value xml:lang="en">Your order has been flagged to be refunded.</value>
-        <value xml:lang="es">Su orden ha sido marcada para ser reembolsada</value>
-        <value xml:lang="fr">Votre commande a été marqué pour être remboursé.</value>
-        <value xml:lang="it">Il tuo ordine è stato impostato per essere rimborsato.</value>
-        <value xml:lang="nl">Uw bestelling is gemarkeerd om terug te worden betaald.</value>
-        <value xml:lang="ro">Comanda ta a fost setata pentru a fi rambursata.</value>
-        <value xml:lang="ru">Ваш заказ помечен как возвращенный.</value>
-        <value xml:lang="th">รายการสั่งซื้อสินค้าของคุณมีเครื่องหมายจะคืนเงินให้</value>
-        <value xml:lang="zh">你的订单已经标记为退款。</value>
-    </property>
-    <property key="EcommerceGiftCardReloadFailed">
-        <value xml:lang="en">Gift Card Reload Process Failed with response code:</value>
-        <value xml:lang="es">Recarga de certificado de regalo fallida. El código del error es:</value>
-        <value xml:lang="fr">Le processus de recharge de carte de cadeau a échoué avec le code d'erreur:</value>
-        <value xml:lang="it">Processo di Ricarica Carta Omaggio Fallito con il codice di risposta:</value>
-        <value xml:lang="nl">Geschenkkaart opwaardering mislukt met de antwoord kode:</value>
-        <value xml:lang="ro">Proces de Reincarcare Carte Omagiu Falita cu  cod de raspuns:</value>
-        <value xml:lang="ru">Перезагрузка дисконтной карты не удалась с кодом ответа:</value>
-        <value xml:lang="th">การประมวลผลบัตรของขวัญผิดพลาดด้วยการตอบสนองของโค้ด :</value>
-        <value xml:lang="zh">礼品卡充值过程失败，响应码为：</value>
-    </property>
-    <property key="EcommerceGiftCardReloaded">
-        <value xml:lang="en">has been reloaded.</value>
-        <value xml:lang="es">ha sido recargada.</value>
-        <value xml:lang="fr">a été rechargée.</value>
-        <value xml:lang="it">è stata ricaricata.</value>
-        <value xml:lang="nl">is heropgewaardeerd</value>
-        <value xml:lang="ro">a fost reincarcata.</value>
-        <value xml:lang="ru">перезагружена.</value>
-        <value xml:lang="th">มีเพิ่ม</value>
-        <value xml:lang="zh">已经充值了。</value>
-    </property>
-    <property key="EcommerceGiftWrapAllItems">
-        <value xml:lang="en">Gift Wrap All Items</value>
-        <value xml:lang="es">Empaquetar todos los items</value>
-        <value xml:lang="fr">Emballage cadeau pour tous les produits</value>
-        <value xml:lang="it">Omaggio Ingloba Tutte le Righe</value>
-        <value xml:lang="nl">Geschenkverpakking voor alle items</value>
-        <value xml:lang="ro">Omagiul Inglobeaza Toate Liniile</value>
-        <value xml:lang="ru">Подарочная упаковка для всех позиций</value>
-        <value xml:lang="th">รายการการดาษห่อของขวัญทั้งหมด</value>
-        <value xml:lang="zh">礼品包装全部明细</value>
-    </property>
-    <property key="EcommerceGoToList">
-        <value xml:lang="de">Zur Liste</value>
-        <value xml:lang="en">Go To List</value>
-        <value xml:lang="es">Ir a la lista</value>
-        <value xml:lang="fr">Aller à la liste</value>
-        <value xml:lang="it">Vai Alla Lista</value>
-        <value xml:lang="nl">Ga naar de lijst</value>
-        <value xml:lang="pt_PT">Ir à Lista</value>
-        <value xml:lang="ro">Dute La Lista</value>
-        <value xml:lang="ru">Перейти к списку</value>
-        <value xml:lang="th">ไปยังรายการ</value>
-        <value xml:lang="zh">转到列表</value>
-    </property>
-    <property key="EcommerceGold">
-        <value xml:lang="en">Gold</value>
-        <value xml:lang="es">Oro</value>
-        <value xml:lang="fr">Or</value>
-        <value xml:lang="it">Oro</value>
-        <value xml:lang="nl">Goud</value>
-        <value xml:lang="ro">Aur</value>
-        <value xml:lang="ru">Золотой</value>
-        <value xml:lang="th">สีทอง</value>
-        <value xml:lang="zh">金牌</value>
-    </property>
-    <property key="EcommerceHighToLow">
-        <value xml:lang="en">High to Low</value>
-        <value xml:lang="es">de mayor a menor</value>
-        <value xml:lang="fr">Descendant</value>
-        <value xml:lang="it">Dall'Alto al Basso</value>
-        <value xml:lang="nl">Hoog tot laag</value>
-        <value xml:lang="ro">De Sus in Jos</value>
-        <value xml:lang="ru">От высокого к низкому</value>
-        <value xml:lang="th">สูงถึงต่ำ</value>
-        <value xml:lang="zh">从高到低</value>
-    </property>
-    <property key="EcommerceImage">
-        <value xml:lang="en">Image</value>
-        <value xml:lang="es">Imagen</value>
-        <value xml:lang="fr">Image</value>
-        <value xml:lang="it">Immagine</value>
-        <value xml:lang="nl">Plaatje</value>
-        <value xml:lang="ro">Imagine</value>
-        <value xml:lang="ru">Изображение</value>
-        <value xml:lang="th">รูปภาพ</value>
-        <value xml:lang="zh">图像</value>
-    </property>
-    <property key="EcommerceImageCenteredAbove">
-        <value xml:lang="en">Image centered above</value>
-        <value xml:lang="es">Imagen centrada</value>
-        <value xml:lang="fr">Image centrée au-dessus</value>
-        <value xml:lang="it">Immagine centrata sotto</value>
-        <value xml:lang="nl">Plaatje gecentreerd erboven</value>
-        <value xml:lang="ro">Imagine centrata dedesubt</value>
-        <value xml:lang="ru">Изображение по центру ниже</value>
-        <value xml:lang="th">รูปที่อยู่ตรงกลาง</value>
-        <value xml:lang="zh">图像居中顶对齐</value>
-    </property>
-    <property key="EcommerceImageCenteredAboveFile">
-        <value xml:lang="en">Image centered above from file</value>
-        <value xml:lang="es">Imagen centrada desde archivo</value>
-        <value xml:lang="fr">Image centrée au-dessus depuis un fichier</value>
-        <value xml:lang="it">Immagine centrata sotto il file</value>
-        <value xml:lang="nl">Plaatjes gecentreerd boven het bestand</value>
-        <value xml:lang="ro">Imagine centrata sub fisier</value>
-        <value xml:lang="ru">Изображение из файла по центру ниже</value>
-        <value xml:lang="th">รูปที่อยู่ตรงกลางจากไฟล์
-</value>
-        <value xml:lang="zh">图像居中顶对齐来自文件</value>
-    </property>
-    <property key="EcommerceImageFileName">
-        <value xml:lang="en">Image File Name</value>
-        <value xml:lang="es">Nombre de la imagen</value>
-        <value xml:lang="fr">Nom du fichier image</value>
-        <value xml:lang="it">Name File Immagine</value>
-        <value xml:lang="nl">Bestandsnaam van het plaatje</value>
-        <value xml:lang="ro">Nume Fisier Imagine</value>
-        <value xml:lang="ru">Имя файла изображения</value>
-        <value xml:lang="th">ชื่อไฟล์รูปภาพ</value>
-        <value xml:lang="zh">图像文件名</value>
-    </property>
-    <property key="EcommerceImageInformation">
-        <value xml:lang="en">Image Information</value>
-        <value xml:lang="es">Información de la imagen</value>
-        <value xml:lang="fr">Information sur l'image</value>
-        <value xml:lang="it">Informazioni Immagine</value>
-        <value xml:lang="nl">Informatie over het plaatje</value>
-        <value xml:lang="ro">Informatii Imagine</value>
-        <value xml:lang="ru">Информация об изображении</value>
-        <value xml:lang="th">ข้อมูลรูปภาพ</value>
-        <value xml:lang="zh">图像信息</value>
-    </property>
-    <property key="EcommerceImageLeft">
-        <value xml:lang="en">Image left, text flows around.</value>
-        <value xml:lang="es">Imagen a la izquierda</value>
-        <value xml:lang="fr">Image à gauche, insérée dans le texte.</value>
-        <value xml:lang="it">Immagine sinistra, flusso del testo intorno.</value>
-        <value xml:lang="nl">Plaatje links, de tekst wordt er omheen gegroepeerd</value>
-        <value xml:lang="ro">Imagine stanga, flux de text imrejur.</value>
-        <value xml:lang="ru">Изображение слева, текст обтекает вокруг.</value>
-        <value xml:lang="th">รูปภาพทางซ้าย , ข้อความอยู่รอบ ๆ
-</value>
-        <value xml:lang="zh">图像居左、文字环绕。</value>
-    </property>
-    <property key="EcommerceInResponseTo">
-        <value xml:lang="en">In response to:</value>
-        <value xml:lang="es">En respuesta a :</value>
-        <value xml:lang="fr">En réponse à :</value>
-        <value xml:lang="it">In risposta a:</value>
-        <value xml:lang="nl">In antwoord op:</value>
-        <value xml:lang="ro">In timpul raspunsului la:</value>
-        <value xml:lang="ru">В ответ на:</value>
-        <value xml:lang="th">คำตอบถึง</value>
-        <value xml:lang="zh">回答：</value>
-    </property>
-    <property key="EcommerceIncludeSubCategories">
-        <value xml:lang="en">or any sub-category</value>
-        <value xml:lang="it">o qualsiasi sotto-categoria</value>
-        <value xml:lang="ro">orice sub-categorie</value>
-        <value xml:lang="ru">или любые подкатегории</value>
-        <value xml:lang="th">หรือหมวดหมู่ย่อยบางส่วน</value>
-        <value xml:lang="zh">或者任何子分类</value>
-    </property>
-    <property key="EcommerceIncludes">
-        <value xml:lang="de">einschließlich</value>
-        <value xml:lang="en">Includes</value>
-        <value xml:lang="es">Incluye</value>
-        <value xml:lang="fr">Inclus</value>
-        <value xml:lang="it">Includi</value>
-        <value xml:lang="nl">bevat</value>
-        <value xml:lang="pt_PT">Inclui</value>
-        <value xml:lang="ro">Include</value>
-        <value xml:lang="ru">Включает</value>
-        <value xml:lang="th">รวมกัน</value>
-        <value xml:lang="zh">包括</value>
-    </property>
-    <property key="EcommerceIsAPromotionalItem">
-        <value xml:lang="de">Ist ein Aktionsartikel</value>
-        <value xml:lang="en">Is a Promotional Item</value>
-        <value xml:lang="es">es un item promocional</value>
-        <value xml:lang="fr">C'est un élément promotionnel</value>
-        <value xml:lang="it">E' una Voce Promozionale</value>
-        <value xml:lang="nl">Is een promotie item</value>
-        <value xml:lang="pt_PT">Is a Promotional Item</value>
-        <value xml:lang="ro">Este un produs Promotional</value>
-        <value xml:lang="ru">акционная позиция</value>
-        <value xml:lang="th">โปรโมชันคือ</value>
-        <value xml:lang="zh">是促销品</value>
-    </property>
-    <property key="EcommerceIsDefaul">
-        <value xml:lang="en">default</value>
-        <value xml:lang="es">es default</value>
-        <value xml:lang="th">ค่าเริ่มต้น</value>
-    </property>
-    <property key="EcommerceIsDefault">
-        <value xml:lang="en">Is Default</value>
-        <value xml:lang="es">es default</value>
-        <value xml:lang="fr">Est la valeur par défaut</value>
-        <value xml:lang="it">E' di Default</value>
-        <value xml:lang="nl">Is Default</value>
-        <value xml:lang="ro">Este de Default</value>
-        <value xml:lang="ru">по умолчанию</value>
-        <value xml:lang="th">ค่าเริ่มต้นคือ</value>
-        <value xml:lang="zh">缺省</value>
-    </property>
-    <property key="EcommerceItem">
-        <value xml:lang="de">Artikel</value>
-        <value xml:lang="en">Item</value>
-        <value xml:lang="es">Item</value>
-        <value xml:lang="fr">Article</value>
-        <value xml:lang="it">Riga</value>
-        <value xml:lang="nl">Item</value>
-        <value xml:lang="pt_PT">Item</value>
-        <value xml:lang="ro">Linie</value>
-        <value xml:lang="ru">Позиция</value>
-        <value xml:lang="th">รายการ</value>
-        <value xml:lang="zh">明细</value>
-    </property>
-    <property key="EcommerceItemN">
-        <value xml:lang="de">Artikelnr.</value>
-        <value xml:lang="en">Item #</value>
-        <value xml:lang="es">Item Nº</value>
-        <value xml:lang="fr">Ligne</value>
-        <value xml:lang="it">Riga #</value>
-        <value xml:lang="nl">Item #</value>
-        <value xml:lang="ro">Linie #</value>
-        <value xml:lang="ru">№ позиции</value>
-        <value xml:lang="th">รายการ #</value>
-        <value xml:lang="zh">明细 #</value>
-    </property>
-    <property key="EcommerceItemTotal">
-        <value xml:lang="de">Gesamtsumme</value>
-        <value xml:lang="en">Item Total</value>
-        <value xml:lang="es">Total</value>
-        <value xml:lang="fr">Total de la ligne</value>
-        <value xml:lang="it">Totale Riga</value>
-        <value xml:lang="nl">Item Totaal</value>
-        <value xml:lang="pt_PT">Total de Itens</value>
-        <value xml:lang="ro">Total Linie</value>
-        <value xml:lang="ru">Позиций всего</value>
-        <value xml:lang="th">ผลรวมรายการ</value>
-        <value xml:lang="zh">明细合计</value>
-    </property>
-    <property key="EcommerceItems">
-        <value xml:lang="de">Artikel</value>
-        <value xml:lang="en">Items</value>
-        <value xml:lang="es">Items</value>
-        <value xml:lang="fr">Articles</value>
-        <value xml:lang="it">Righe</value>
-        <value xml:lang="nl">Items</value>
-        <value xml:lang="pt_PT">Itens</value>
-        <value xml:lang="ro">Linii</value>
-        <value xml:lang="ru">Позиции</value>
-        <value xml:lang="th">รายการ</value>
-        <value xml:lang="zh">明细</value>
-    </property>
-    <property key="EcommerceItemsfromShopingList">
-        <value xml:lang="de">Artikel von einer Einkaufsliste; Mengen auf der Listenseite aktualisieren</value>
-        <value xml:lang="en">Items from a shopping list; update quantities from list page</value>
-        <value xml:lang="es">Items de la lista de compras, actualizar cantidades desde la página de listas</value>
-        <value xml:lang="fr">Articles de la liste d'achat; mettre à jour les quantité de la liste d'achat</value>
-        <value xml:lang="it">Righe da una lista di acquisto; aggiorna le quantità dalla lista di pagina</value>
-        <value xml:lang="nl">Items van een boodschappenlijst, modificeer van de lijst pagina</value>
-        <value xml:lang="pt_PT">Itens de uma Lista de Compras; actualizar quantidades da lista na página</value>
-        <value xml:lang="ro">Linii dintr-o lista de cumparari; actualizeaza cantitatile de la lista din pagina</value>
-        <value xml:lang="ru">Позиций из списка покупок; обновить количество со страницы списка</value>
-        <value xml:lang="th">รายการจากรายการสั่งซื้อสินค้าสินค้า ; อัพเดทจำนวนจากหน้ารายการ
-</value>
-        <value xml:lang="zh">明细来自购物清单；从列表页更新数量</value>
-    </property>
-    <property key="EcommerceLastCategories">
-        <value xml:lang="de">Letzte Kategorien</value>
-        <value xml:lang="en">Last Categories</value>
-        <value xml:lang="es">Últimas categorías</value>
-        <value xml:lang="fr">Catégories visitées</value>
-        <value xml:lang="it">Ultime Categorie</value>
-        <value xml:lang="nl">Laatste Categorien</value>
-        <value xml:lang="ro">Ultimele Categorii</value>
-        <value xml:lang="ru">Последние категории</value>
-        <value xml:lang="th">หมวดหมู่สุดท้าย</value>
-        <value xml:lang="zh">最近浏览的分类</value>
-    </property>
-    <property key="EcommerceLastContent">
-        <value xml:lang="en">Last Content</value>
-        <value xml:lang="es">Último contenido</value>
-        <value xml:lang="fr">Contenus visitées</value>
-        <value xml:lang="it">Ultime Contenuto</value>
-        <value xml:lang="nl">Laatste Inhoud</value>
-        <value xml:lang="ro">Ultimul  Continut</value>
-        <value xml:lang="ru">Последнее содержимое</value>
-        <value xml:lang="th">หัวข้อสุดท้าย</value>
-        <value xml:lang="zh">最近浏览的内容</value>
-    </property>
     <property key="EcommerceLastProducts">
         <value xml:lang="de">Letzte Produkte</value>
         <value xml:lang="en">Last Products</value>
@@ -4480,6 +3786,32 @@
         <value xml:lang="zh_CN">清空订单</value>
         <value xml:lang="zh">清除订单</value>
     </property>
+    <property key="OrderClearSearchHistory">
+        <value xml:lang="en">Clear Search History</value>
+        <value xml:lang="es">Limpiar historial</value>
+        <value xml:lang="fr">Effacer l'historique de recherche</value>
+        <value xml:lang="hi_IN">ख़ोज इतिहास मिटाऐं</value>
+        <value xml:lang="it">Azzera Storia Ricerca</value>
+        <value xml:lang="ja">検索履歴を消去</value>
+        <value xml:lang="nl">Wis zoek historie</value>
+        <value xml:lang="ro">Azereaza Istoric Cautare</value>
+        <value xml:lang="ru">Очистить историю поиска</value>
+        <value xml:lang="th">เคลียร์ข้อมูลการค้นหา</value>
+        <value xml:lang="zh">清除搜索历史记录</value>
+    </property>
+    <property key="OrderClearSearchHistoryNote">
+        <value xml:lang="en">Clear Search History Note</value>
+        <value xml:lang="es">Limpiar historial</value>
+        <value xml:lang="fr">Note au sujet de l'effacement l'historique de recherche</value>
+        <value xml:lang="hi_IN">(यह जान लिजीये कि जाने के बाद ख़ोज इतिहास मिटा दिया जाएगा)</value>
+        <value xml:lang="it">Pulire Note Storia Ricerche</value>
+        <value xml:lang="ja">(注: このサイトからログアウトすることで、履歴は自動的に消去されます)</value>
+        <value xml:lang="nl">(Let op, je historie zal automatisch worden gewist nadat je de website verlaat)</value>
+        <value xml:lang="ro">(De Notat ca istoricul tau va fi sters automat dupa ce tu esi din sit)</value>
+        <value xml:lang="ru">(Обратите внимание, что история будет автоматически отчищена после того как вы покинете сайт)</value>
+        <value xml:lang="th">Note : หมายเหตุ หลังจากที่คุณออกจากการทำรายการนี้ข้อมูลการค้นหาของคุณจะถูกยกเลิกโดยอัตโนมัติ</value>
+        <value xml:lang="zh">(注意：在你离开本站点后，你的历史记录会被自动清除。)</value>
+    </property>
     <property key="OrderCommaSeperatedEmailAddresses">
         <value xml:lang="en">You may add other comma separated email addresses here that will be used only for the current order</value>
         <value xml:lang="th">คุณอาจจะเพิ่มคอมมาเพื่อแยกอีเมลที่นี่นั่นจะใช้สำหรับการสั่งสินค้าในปัจจุบัน</value>
@@ -4533,6 +3865,19 @@
         <value xml:lang="th">เสร็จสมบูรณ์</value>
         <value xml:lang="zh_CN">完成</value>
         <value xml:lang="zh">已完成</value>
+    </property>
+    <property key="OrderConfigure">
+        <value xml:lang="en">Configure</value>
+        <value xml:lang="es">Configurar</value>
+        <value xml:lang="fr">Configurer</value>
+        <value xml:lang="hi_IN">रूप दिजिये</value>
+        <value xml:lang="it">Configura</value>
+        <value xml:lang="ja">カストマイズする</value>
+        <value xml:lang="nl">Konfigureer</value>
+        <value xml:lang="ro">Configureaza</value>
+        <value xml:lang="ru">Комплект</value>
+        <value xml:lang="th">ปรับปรุง</value>
+        <value xml:lang="zh">配置</value>
     </property>
     <property key="OrderContactInformation">
         <value xml:lang="de">Kontaktinformation</value>
@@ -4735,8 +4080,7 @@
         <value xml:lang="nl">maak een nieuwe offerte van deze bestelling</value>
         <value xml:lang="ro">Creare Nou Preventiv Din Cos</value>
         <value xml:lang="ru">Создать предложение из корзины</value>
-        <value xml:lang="th">สร้างคำร้องใหม่จากบัตร
-</value>
+        <value xml:lang="th">สร้างคำร้องใหม่จากบัตร</value>
         <value xml:lang="zh_CN">从购物车新建报价</value>
         <value xml:lang="zh">从购物车新建询价</value>
     </property>
@@ -4828,15 +4172,33 @@
         <value xml:lang="zh_CN">客户购买订单号</value>
         <value xml:lang="zh">客户购物订单#</value>
     </property>
+    <property key="OrderCustomerReviews">
+        <value xml:lang="cs">Hodnocení zákazníka</value>
+        <value xml:lang="de">Bewertung von Kunden</value>
+        <value xml:lang="en">Customer Reviews </value>
+        <value xml:lang="es">Reseñas de clientes</value>
+        <value xml:lang="fr">Opinion de la clientèle</value>
+        <value xml:lang="hi_IN">ग्राहक पुनरवलोकन</value>
+        <value xml:lang="it">Recensioni Cliente</value>
+        <value xml:lang="ja">Customer Reviews</value>
+        <value xml:lang="nl">Meningen van klanten</value>
+        <value xml:lang="pt_PT">Revisão do Cliente</value>
+        <value xml:lang="ro">Recenzii Client</value>
+        <value xml:lang="ru">Пользовательские отзывы</value>
+        <value xml:lang="th">ตรวจสอบลูกค้า</value>
+        <value xml:lang="zh">客户评论</value>
+    </property>
     <property key="OrderCustomerTaxId">
         <value xml:lang="en">Customer Tax ID</value>
         <value xml:lang="es">Código de impuesto del cliente</value>
-        <value xml:lang="fr">Réf. de taxe client</value>
-        <value xml:lang="it">Codice Tasse Soggetto</value>
-        <value xml:lang="nl">BTW ID</value>
-        <value xml:lang="ro">Cod Taxe Subiect </value>
-        <value xml:lang="ru">Налоговый номер клиента</value>
-        <value xml:lang="th">รหัสภาษีลูกค้า</value>
+        <value xml:lang="fr">Ref. de taxe du client</value>
+        <value xml:lang="hi_IN">ग्राहक कर नम्बर</value>
+        <value xml:lang="it">Codice Fiscale/Partita Iva Soggetto</value>
+        <value xml:lang="ja">Customer Tax ID</value>
+        <value xml:lang="nl">Klant belastingsnummer</value>
+        <value xml:lang="ro">Cod Taxa Subiect</value>
+        <value xml:lang="ru">Налоговый номер пользователя</value>
+        <value xml:lang="th">หมายเลขผู้เสียภาษี</value>
         <value xml:lang="zh">客户税务标识</value>
     </property>
     <property key="OrderDate">
@@ -4908,10 +4270,34 @@
         <value xml:lang="zh_CN">执行促销</value>
         <value xml:lang="zh">执行促销</value>
     </property>
+    <property key="OrderDownloadFilesTitle">
+        <value xml:lang="en">Download Files Title</value>
+        <value xml:lang="es">Descargar archivos para este producto</value>
+        <value xml:lang="fr">Intitulé des téléchargements</value>
+        <value xml:lang="hi_IN">सामान की फाइलें प्राप्त करें</value>
+        <value xml:lang="it">Download di Files per questo Prodotto</value>
+        <value xml:lang="ro">Download de Fisiere pentru acest Produs</value>
+        <value xml:lang="ru">Загрузить файлы по этому продукту</value>
+        <value xml:lang="th">โหลดไฟล์หัวข้อ</value>
+        <value xml:lang="zh">为这个产品下载文件</value>
+    </property>
     <property key="OrderDropShipped">
         <value xml:lang="en">Drop Shipped</value>
         <value xml:lang="ru">Прямая поставка</value>
         <value xml:lang="th">หยุดการขนส่ง</value>
+    </property>
+    <property key="OrderEcommerce">
+        <value xml:lang="de">Ecommerce</value>
+        <value xml:lang="en">Ecommerce</value>
+        <value xml:lang="es">E-commerce</value>
+        <value xml:lang="fr">Commerce électronique</value>
+        <value xml:lang="ja">Ecommerce</value>
+        <value xml:lang="it">E-commerce</value>
+        <value xml:lang="nl">Ecommerce</value>
+        <value xml:lang="ro">Ecomerce</value>
+        <value xml:lang="ru">Ecommerce</value>
+        <value xml:lang="th">พาณิชย์อิเล็กทรอนิกส์</value>
+        <value xml:lang="zh">电子商务</value>
     </property>
     <property key="OrderEditItems">
         <value xml:lang="en">Edit Items</value>
@@ -4971,10 +4357,24 @@
         <value xml:lang="nl">Foutmelding: deze faciliteit heeft geen verzend adres</value>
         <value xml:lang="ro">Eroare : Compartimentul nu are adrese</value>
         <value xml:lang="ru">Ошибка: склад не имеет адресов</value>
-        <value xml:lang="th">Error : ผิดพลาด ! ไม่มีที่อยู่คลังสินค้า
-</value>
+        <value xml:lang="th">Error : ผิดพลาด ! ไม่มีที่อยู่คลังสินค้า</value>
         <value xml:lang="zh_CN">错误 : 这个设施没有地址</value>
         <value xml:lang="zh">错误：场所没有地址</value>
+    </property>
+    <property key="OrderErrorNoPromotionFoundWithID">
+        <value xml:lang="de">FEHLER: Keine Aktion gefunden mit der ID</value>
+        <value xml:lang="en">ERROR: No promotion found with ID</value>
+        <value xml:lang="es">ERROR: Promoción no encontrada</value>
+        <value xml:lang="fr">ERREUR: aucune promotion avec cette ref.</value>
+        <value xml:lang="hi_IN">गलत: नम्बर से मिलता प्रोत्साहन नहीं</value>
+        <value xml:lang="it">ERRORE: Nessuna promozione trovata con questo Codice</value>
+        <value xml:lang="ja">ERROR: No promotion found with ID</value>
+        <value xml:lang="nl">FOUT: Geen aanbieding gevonden met het nummer</value>
+        <value xml:lang="pt_PT">ERROR: No promotion found with ID</value>
+        <value xml:lang="ro">EROARE: Nici-o promotie gasita cu acest Cod</value>
+        <value xml:lang="ru">ОШИБКА: Нет акций с таким идентификатором</value>
+        <value xml:lang="th">Error: ผิดพลาด !ไม่มีโปรโมชั่นของหมายเลขนี้</value>
+        <value xml:lang="zh">错误：没有找到促销——标识</value>
     </property>
     <property key="OrderErrorSelectCustomer">
         <value xml:lang="en">Error : Select  Customer</value>
@@ -4990,6 +4390,17 @@
         <value xml:lang="en">Estimated Ship Date</value>
         <value xml:lang="es">Fecha de envío estimada</value>
         <value xml:lang="th">ชำระเงินประมาณวันที่</value>
+    </property>
+    <property key="OrderExcludeCategories">
+        <value xml:lang="en">Exclude Categories</value>
+        <value xml:lang="en">unless they are in these categories:</value>
+        <value xml:lang="fr">Catégories à exclure</value>
+        <value xml:lang="hi_IN">जो न हो इन श्रेणी में</value>
+        <value xml:lang="it">Escludi Categorie</value>
+        <value xml:lang="ro">numai daca sunt in aceasta categorie:</value>
+        <value xml:lang="ru">если они не в этих категориях:</value>
+        <value xml:lang="th">ไม่มีหมวดหมู่</value>
+        <value xml:lang="zh">除非它们在这些分类中：</value>
     </property>
     <property key="OrderExemptAmount">
         <value xml:lang="en">Exempt Amount</value>
@@ -5146,8 +4557,7 @@
     <property key="OrderFindRequirementsForSupplier">
         <value xml:lang="en">Find Requirements For Supplier</value>
         <value xml:lang="ru">Поиск требований для поставщика</value>
-        <value xml:lang="th">ค้นหาความต้องการของผู้จัดหาสิ่งของให้
-</value>
+        <value xml:lang="th">ค้นหาความต้องการของผู้จัดหาสิ่งของให้</value>
     </property>
     <property key="OrderFindReturn">
         <value xml:lang="de">Retouren finden</value>
@@ -5243,8 +4653,7 @@
         <value xml:lang="nl">Totaal bedrag openstaande orders.</value>
         <value xml:lang="ro">Valoare Bruta  (include Modificari si comenzi suspendate)</value>
         <value xml:lang="ru">Валовые суммы в долларах (включая надбавки и ожидающие заказы)</value>
-        <value xml:lang="th">จำนวนยอดรวมเงินดอลลาร์ (รวมการปรับเปลี่ยนและรายการที่ยังค้างอยู่)
-</value>
+        <value xml:lang="th">จำนวนยอดรวมเงินดอลลาร์ (รวมการปรับเปลี่ยนและรายการที่ยังค้างอยู่)</value>
         <value xml:lang="zh_CN">总数量 (包括调整和未完成的订单)</value>
         <value xml:lang="zh">总金额 (包括调整和待处理的订单)</value>
     </property>
@@ -5256,8 +4665,7 @@
         <value xml:lang="nl">Totaalbedrag verkocht (inclusief promoties en lopende bestellingen).</value>
         <value xml:lang="ro">Linii Vandute Brute  (include promotii si comenzi suspendate)</value>
         <value xml:lang="ru">Валовые продажи по позициям (включая предложения и ожидающие заказы)</value>
-        <value xml:lang="th">ยอดรวมรายการที่ขาย (รวมโปรโมชันและรายการที่ยังค้างอยู่)
-</value>
+        <value xml:lang="th">ยอดรวมรายการที่ขาย (รวมโปรโมชันและรายการที่ยังค้างอยู่)</value>
         <value xml:lang="zh_CN">总销售项目 (包括促销和未完成的订单)</value>
         <value xml:lang="zh">已售的全部明细 (包括促销和待处理的订单)</value>
     </property>
@@ -5291,6 +4699,30 @@
         <value xml:lang="th">รูปภาพ</value>
         <value xml:lang="zh_CN">图片</value>
         <value xml:lang="zh">图像</value>
+    </property>
+    <property key="OrderIncludes">
+        <value xml:lang="cs">včetně</value>
+        <value xml:lang="de">einschließlich</value>
+        <value xml:lang="en">Includes</value>
+        <value xml:lang="es">Incluye</value>
+        <value xml:lang="fr">Inclut</value>
+        <value xml:lang="hi_IN">संयुक्त करना</value>
+        <value xml:lang="it">Includi</value>
+        <value xml:lang="ja">Includes</value>
+        <value xml:lang="nl">bevat</value>
+        <value xml:lang="pt_PT">Inclui</value>
+        <value xml:lang="ro">Include</value>
+        <value xml:lang="ru">Включает</value>
+        <value xml:lang="th">รวม</value>
+        <value xml:lang="zh">包括</value>
+    </property>
+    <property key="OrderIncludeSubCategories">
+        <value xml:lang="en">or any sub-category</value>
+        <value xml:lang="it">o qualsiasi sotto-categoria</value>
+        <value xml:lang="ro">orice sub-categorie</value>
+        <value xml:lang="ru">или любые подкатегории</value>
+        <value xml:lang="th">หรือหมวดหมู่ย่อยบางส่วน</value>
+        <value xml:lang="zh">或者任何子分类</value>
     </property>
     <property key="OrderInProduction">
         <value xml:lang="en">In Production</value>
@@ -5387,6 +4819,21 @@
         <value xml:lang="zh_CN">发票</value>
         <value xml:lang="zh">发票</value>
     </property>
+    <property key="OrderIsAPromotionalItem">
+        <value xml:lang="de">Ist ein Aktionsartikel</value>
+        <value xml:lang="en">Is A Promotional Item</value>
+        <value xml:lang="es">es un item promocional</value>
+        <value xml:lang="fr">C'est un article en prommotion</value>
+        <value xml:lang="hi_IN">एक प्रोत्साहन सामान है</value>
+        <value xml:lang="it">E' una Voce Promozionale</value>
+        <value xml:lang="ja">Is a Promotional Item</value>
+        <value xml:lang="nl">Is een promotie item</value>
+        <value xml:lang="pt_PT">Is a Promotional Item</value>
+        <value xml:lang="ro">Este un produs Promotional</value>
+        <value xml:lang="ru">акционная позиция</value>
+        <value xml:lang="th">เป็นโปรโมชั่นของสิ่งนี้ใช่หรือไม่</value>
+        <value xml:lang="zh">是促销品</value>
+    </property>
     <property key="OrderIsThisGift">
         <value xml:lang="de">Soll dies ein Geschenk sein?</value>
         <value xml:lang="en">Is This a Gift?</value>
@@ -5419,14 +4866,58 @@
         <value xml:lang="nl">Verzend onmidelijk (Direct mee nemen)</value>
         <value xml:lang="ro">Preia fara Expediere (Imediat, Magazie Fizic)</value>
         <value xml:lang="ru">Поставка не требуется (Немедленно, реальная торговая точка)</value>
-        <value xml:lang="th">จัดทำโดยปราศจากการขนส่งสินค้า (ที่ส่งผลโดยตรง , คลังสินค้า)
-</value>
+        <value xml:lang="th">จัดทำโดยปราศจากการขนส่งสินค้า (ที่ส่งผลโดยตรง , คลังสินค้า)</value>
         <value xml:lang="zh">投保不包括货运 (当面、实际店铺)</value>
+    </property>
+    <property key="OrderItem">
+        <value xml:lang="cs">Položka</value>
+        <value xml:lang="de">Artikel</value>
+        <value xml:lang="en">Item </value>
+        <value xml:lang="es">Item</value>
+        <value xml:lang="hi_IN">सामान</value>
+        <value xml:lang="it">Riga</value>
+        <value xml:lang="ja">Item</value>
+        <value xml:lang="nl">Item</value>
+        <value xml:lang="pt_PT">Item</value>
+        <value xml:lang="ro">Linie</value>
+        <value xml:lang="ru">Позиция</value>
+        <value xml:lang="th">รายการ</value>
+        <value xml:lang="zh">明细</value>
+    </property>
+    <property key="OrderItemN">
+        <value xml:lang="de">Artikelnr.</value>
+        <value xml:lang="en">Item #</value>
+        <value xml:lang="es">Item Nº</value>
+        <value xml:lang="fr">Article n°</value>
+        <value xml:lang="hi_IN">सामान #</value>
+        <value xml:lang="ja">Item #</value>
+        <value xml:lang="it">Riga #</value>
+        <value xml:lang="nl">Item #</value>
+        <value xml:lang="ro">Linie #</value>
+        <value xml:lang="ru">№ позиции</value>
+        <value xml:lang="th">รายการ #</value>
+        <value xml:lang="zh">明细 #</value>
     </property>
     <property key="OrderItemDiscontinued">
         <value xml:lang="en">Discontinued</value>
         <value xml:lang="ru">Снято с производства</value>
         <value xml:lang="th">ไม่ต่อเนื่อง</value>
+    </property>
+    <property key="OrderItems">
+        <value xml:lang="cs">Položky</value>
+        <value xml:lang="de">Artikel</value>
+        <value xml:lang="en">Items</value>
+        <value xml:lang="es">Items</value>
+        <value xml:lang="fr">Articles</value>
+        <value xml:lang="hi_IN">सामान</value>
+        <value xml:lang="it">Righe</value>
+        <value xml:lang="ja">Items</value>
+        <value xml:lang="nl">Items</value>
+        <value xml:lang="pt_PT">Itens</value>
+        <value xml:lang="ro">Linii</value>
+        <value xml:lang="ru">Позиции</value>
+        <value xml:lang="th">รายการ</value>
+        <value xml:lang="zh">明细</value>
     </property>
     <property key="OrderItemStatus">
         <value xml:lang="en">Item Status</value>

@@ -47,7 +47,7 @@ under the License.
             <a href="<@ofbizUrl>product/<#if categoryId?exists>~category_id=${categoryId}/</#if>~product_id=${product.productId}</@ofbizUrl>" class="buttontext">${uiLabelMap.EcommerceMakeBooking}...</a>
           <#-- check to see if it is an aggregated or configurable product; will enter parameters on the detail screen-->
           <#elseif product.productTypeId?if_exists == "AGGREGATED">
-            <a href="<@ofbizUrl>product/<#if categoryId?exists>~category_id=${categoryId}/</#if>~product_id=${product.productId}</@ofbizUrl>" class="buttontext">${uiLabelMap.EcommerceConfigure}...</a>
+            <a href="<@ofbizUrl>product/<#if categoryId?exists>~category_id=${categoryId}/</#if>~product_id=${product.productId}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderConfigure}...</a>
           <#-- check to see if the product is a virtual product -->
           <#elseif product.isVirtual?exists && product.isVirtual == "Y">
             <a href="<@ofbizUrl>product/<#if categoryId?exists>~category_id=${categoryId}/</#if>~product_id=${product.productId}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderChooseVariations}...</a>

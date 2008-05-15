@@ -140,8 +140,8 @@ under the License.
     <h2>${uiLabelMap.EcommerceLastSearches}...</h2>
   
     <div class="tabletext">
-      <a href="<@ofbizUrl>clearSearchOptionsHistoryList</@ofbizUrl>" class="buttontext">${uiLabelMap.EcommerceClearSearchHistory}</a>
-      ${uiLabelMap.EcommerceClearSearchHistoryNote}
+      <a href="<@ofbizUrl>clearSearchOptionsHistoryList</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderClearSearchHistory}</a>
+      ${uiLabelMap.OrderClearSearchHistoryNote}
     </div>
     <#list searchOptionsHistoryList as searchOptions>
     <#-- searchOptions type is ProductSearchSession.ProductSearchOptions -->
