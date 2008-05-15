@@ -955,6 +955,30 @@ public class PartyServices {
             Debug.logError(e, errMsg, module);
             return ServiceUtil.returnError(errMsg);
         }
+        
+        //get party types
+        try {
+            List partyTypes = delegator.findList("PartyType", null, null, UtilMisc.toList("description"), null, false);
+            result.put("partyTypes", partyTypes);
+        } catch (GenericEntityException e) {
+            String errMsg = "Error looking up PartyTypes: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            return ServiceUtil.returnError(errMsg);
+        }
+        
+        // current party type
+        String partyTypeId;
+        try {
+            partyTypeId = (String) context.get("partyTypeId");
+            if (partyTypeId != null && partyTypeId.length() > 0) {
+                GenericValue currentPartyType = delegator.findByPrimaryKeyCache("PartyType", UtilMisc.toMap("partyTypeId", partyTypeId));
+                result.put("currentPartyType", currentPartyType);
+            }
+        } catch (GenericEntityException e) {
+            String errMsg = "Error looking up current RoleType: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            return ServiceUtil.returnError(errMsg);
+        }
 
         // current state
         String stateProvinceGeoId;
@@ -1064,6 +1088,11 @@ public class PartyServices {
                 } else {
                     // NOTE: _must_ explicitly allow null as it is not included in a not equal in many databases... odd but true
                     andExprs.add(new EntityExpr(new EntityExpr("statusId", EntityOperator.EQUALS, null), EntityOperator.OR, new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "PARTY_DISABLED")));
+                }
+                // check for partyTypeId
+                if (partyTypeId != null && !"ANY".equals(partyTypeId)) {
+                    paramList = paramList + "&partyTypeId=" + partyTypeId;
+                    andExprs.add(new EntityExpr("partyTypeId", true, EntityOperator.LIKE, "%"+partyTypeId+"%", true));
                 }
 
                 // ----
