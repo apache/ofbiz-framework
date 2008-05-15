@@ -115,6 +115,7 @@ public class LoginServices {
                     
                     String currentPassword = userLogin.getString("currentPassword");
                     if (useEncryption && currentPassword != null && currentPassword.startsWith("{")) {
+                        // get encode according to the type in the database
                         String dbHashType = HashCrypt.getHashTypeFromPrefix(currentPassword);
                         if (dbHashType != null) {
                             encodedPasswordUsingDbHashType = HashCrypt.getDigestHash(password, dbHashType);
@@ -162,9 +163,9 @@ public class LoginServices {
                         // if the password.accept.encrypted.and.plain property in security is set to true allow plain or encrypted passwords
                         // if this is a system account don't bother checking the passwords
                         if ((userLogin.get("currentPassword") != null &&
-                            (HashCrypt.removeHashTypePrefix(encodedPassword).equals(userLogin.getString("currentPassword")) ||
-                                    HashCrypt.removeHashTypePrefix(encodedPasswordOldFunnyHexEncode).equals(userLogin.getString("currentPassword")) ||
-                                    HashCrypt.removeHashTypePrefix(encodedPasswordUsingDbHashType).equals(userLogin.getString("currentPassword")) ||
+                            (HashCrypt.removeHashTypePrefix(encodedPassword).equals(HashCrypt.removeHashTypePrefix(currentPassword)) ||
+                                    HashCrypt.removeHashTypePrefix(encodedPasswordOldFunnyHexEncode).equals(HashCrypt.removeHashTypePrefix(currentPassword)) ||
+                                    HashCrypt.removeHashTypePrefix(encodedPasswordUsingDbHashType).equals(HashCrypt.removeHashTypePrefix(currentPassword)) ||
                                 ("true".equals(UtilProperties.getPropertyValue("security.properties", "password.accept.encrypted.and.plain")) && password.equals(userLogin.getString("currentPassword")))))) {
                             Debug.logVerbose("[LoginServices.userLogin] : Password Matched", module);
 
