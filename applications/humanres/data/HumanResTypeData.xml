@@ -44,4 +44,11 @@ under the License.
     <EmplPositionType description="Programmer" hasTable="N" parentTypeId="" emplPositionTypeId="PROGRAMMER"/>
     <EmplPositionType description="System Administrator" hasTable="N" parentTypeId="" emplPositionTypeId="SYS_ADMIN"/>
     <EmplPositionType description="Business Analyst" hasTable="N" parentTypeId="" emplPositionTypeId="BIZ_ANALYST"/>
+    
+    <ResponsibilityType description="Finance Management" hasTable="N" parentTypeId="" statusTypeId="FIN_MGMT"/>
+    <ResponsibilityType description="Inventory Management" hasTable="N" parentTypeId="" statusTypeId="INV_MGMT"/>
+    <ResponsibilityType description="Purchase Management" hasTable="N" parentTypeId="" statusTypeId="PUR_MGMT"/>
+    <ResponsibilityType description="Resource Management" hasTable="N" parentTypeId="" statusTypeId="RES_MGMT"/>
+    <ResponsibilityType description="Production Management" hasTable="N" parentTypeId="" statusTypeId="PROD_MGMT"/>
+    <ResponsibilityType description="Sales Management" hasTable="N" parentTypeId="" statusTypeId="SALES_MGMT"/>    
 </entity-engine-xml>
