@@ -20,15 +20,38 @@
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
-    <screen name="ListEmployments">
+    <screen name="FindEmployments">
         <section>
             <actions>
-                <set field="titleProperty" value="HumanResListEmployments"/>
+                <set field="titleProperty" value="FindEmployment"/>
                 <set field="headerItem" value="Employment"/>
+                <set field="roleTypeIdFrom" from-field="parameters.roleTypeIdFrom"/>
+                <set field="roleTypeIdTo" from-field="parameters.roleTypeIdTo"/>
+                <set field="partyIdFrom" from-field="parameters.partyIdFrom"/>
+                <set field="partyIdTo" from-field="parameters.partyIdTo"/>
+                <set field="fromDate" from-field="parameters.fromDate"/>                                                
+                <entity-one entity-name="Employment" value-name="employment"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonEmploymentDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
+                                    <label text="${uiLabelMap.CommonFind} ${uiLabelMap.HumanResEmployment}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <container>
+                                            <link target="EditEmployment" text="${uiLabelMap.HumanResNewEmployment}" style="buttontext"/>
+                                        </container>
+                                        <include-form name="FindEmployments" location="component://humanres/widget/forms/EmploymentForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
@@ -38,9 +61,6 @@
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <container>
-                                            <link text="${uiLabelMap.HumanResNewEmployment}" target="EditEmployment" style="buttontext"/>
-                                        </container>
                                         <include-form name="ListEmployments" location="component://humanres/widget/forms/EmploymentForms.xml"/>
                                     </widgets>
                                 </section>
@@ -56,6 +76,7 @@
             <actions>
                 <set field="titleProperty" value="HumanResEditEmployment"/>
                 <set field="headerItem" value="Employment"/>
+                <set field="tabButtonItem" value="EditEmployment"/>
                 <set field="roleTypeIdFrom" from-field="parameters.roleTypeIdFrom"/>
                 <set field="roleTypeIdTo" from-field="parameters.roleTypeIdTo"/>
                 <set field="partyIdFrom" from-field="parameters.partyIdFrom"/>
@@ -69,33 +90,13 @@
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
-                                    <label text="${uiLabelMap.HumanResListEmployments}"/>
+                                    <label text="${uiLabelMap.HumanResEditEmployment}"/>
                                 </container>
                             </container>
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <container>
-                                            <link text="${uiLabelMap.HumanResNewEmployment}" target="EditEmployment" style="buttontext"/>
-                                        </container>
-                                        <include-form name="ListEmployments" location="component://humanres/widget/forms/EmploymentForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.HumanResNewEmployment}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <container>
-                                            <link text="${uiLabelMap.HumanResNewEmployment}" target="EditEmployment" style="buttontext"/>
-                                        </container>
-                                        <include-form name="AddEmployment" location="component://humanres/widget/forms/EmploymentForms.xml"/>
+                                        <include-form name="EditEmployment" location="component://humanres/widget/forms/EmploymentForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>
@@ -188,14 +189,25 @@
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <container>
-                                            <link text="${uiLabelMap.HumanResNewEmploymentApp}" target="EditEmploymentApp" style="buttontext"/>
-                                        </container>
                                         <include-form name="ListPayHistories" location="component://humanres/widget/forms/EmploymentForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>
-                        </container>                        
+                        </container>  
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
+                                    <label text="${uiLabelMap.HumanResNewEmploymentApp}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="EditEmploymentApp" location="component://humanres/widget/forms/EmploymentForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                      
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -248,7 +260,7 @@
                 </decorator-screen>
             </widgets>
         </section>
-    </screen>    
+    </screen>  
     <screen name="EditPayrollPreferences">
         <section>
             <actions>
@@ -272,9 +284,6 @@
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <container>
-                                            <link text="${uiLabelMap.HumanResNewPayrollPreferences}" target="EditPayrollPreferences?partyId=${partyId}&amp;roleTypeId=${roleTypeId}" style="buttontext"/>
-                                        </container>
                                         <include-form name="ListPayrollPreferences" location="component://humanres/widget/forms/EmploymentForms.xml"/>
                                     </widgets>
                                 </section>
@@ -283,13 +292,13 @@
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
-                                    <label text="${uiLabelMap.HumanResEditPayrollPreference}"/>
+                                    <label text="${uiLabelMap.HumanResNewPayrollPreferences}"/>
                                 </container>
                             </container>
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <include-form name="EditPayrollPreference" location="component://humanres/widget/forms/EmploymentForms.xml"/>
+                                        <include-form name="AddPayrollPreference" location="component://humanres/widget/forms/EmploymentForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>

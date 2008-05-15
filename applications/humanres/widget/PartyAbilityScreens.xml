@@ -80,37 +80,6 @@
             </widgets>
         </section>
     </screen>
-    <screen name="ListPartySkills">
-        <section>
-            <actions>
-                <set field="titleProperty" value="HumanResListPartySkill"/>
-                <set field="headerItem" value="PartySkills"/>
-            </actions>  
-            <widgets>
-                <decorator-screen name="CommonPartyAbilityDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.HumanResListPartySkill}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <container>
-                                            <link target="EditPartySkill" text="${uiLabelMap.HumanResNewPartySkill}" style="buttontext"/>
-                                        </container>
-                                        <include-form name="ListPartySkills" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
     <screen name="EditPartyResume">
         <section>            
             <actions>
@@ -167,9 +136,6 @@
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <container>                                                            
-                                            <link target="EditPerfReviews?employeePartyId=${employeePartyId}&amp;employeeRoleTypeId=${employeeRoleTypeId}" text="${uiLabelMap.HumanResNewPartyReview}" style="buttontext"/>
-                                        </container>
                                         <include-form name="ListPerfReviews" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
                                     </widgets>
                                 </section>
@@ -178,13 +144,13 @@
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditPartyReview}"/>
+                                    <label text="${uiLabelMap.HumanResNewPartyReview}"/>
                                 </container>
                             </container>
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <include-form name="EditPerfReview" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>                                             
+                                        <include-form name="AddPerfReview" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>                                             
                                     </widgets>
                                 </section>
                             </container>
@@ -194,17 +160,36 @@
             </widgets>
         </section>
     </screen>
-    <screen name="EditPartySkills">
+    <screen name="FindPartySkills">
         <section>
             <actions>
                 <set field="titleProperty" value="HumanResEditPartySkill"/>
-                <set field="headerItem" value="PartySkills"/>                
+                <set field="headerItem" value="PartySkills"/> 
                 <set field="partyId" from-field="parameters.employeePartyId"/>
                 <entity-one entity-name="PartySkill" value-name="partySkill"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyAbilityDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
+                                    <label text="${uiLabelMap.HumanResEditPartySkill}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <container style="button-bar">
+                                            <link target="EditPartySkills" text="${uiLabelMap.HumanResNewPartySkill}" style="buttontext"/>
+                                        </container>
+                                        <include-form name="FindPartySkills" location="component://humanres/widget/forms/PartyAbilityForms.xml"></include-form>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
@@ -214,24 +199,7 @@
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <container>
-                                             <link target="EditPartySkill" text="${uiLabelMap.HumanResNewPartySkill}" style="buttontext"/>
-                                        </container>
                                         <include-form name="ListPartySkills" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.HumanResNewPartySkill}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="AddPartySkill" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>    
                                     </widgets>
                                 </section>
                             </container>
@@ -240,7 +208,41 @@
                 </decorator-screen>
             </widgets>
         </section> 
-    </screen>            
+    </screen>
+    <screen name="EditPartySkills">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HumanResEditPartySkill"/>
+                <set field="headerItem" value="PartySkills"/>                
+                <set field="partyId" from-field="parameters.employeePartyId"/>
+                <set field="skillTypeId" from-field="parameters.skillTypeId"/>
+                <entity-one entity-name="PartySkill" value-name="partySkill"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPartyAbilityDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
+                                    <label text="${uiLabelMap.HumanResEditPartySkill}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <container style="button-bar">
+                                             <link target="EditPartySkills" text="${uiLabelMap.HumanResNewPartySkill}" style="buttontext"/>
+                                        </container>
+                                        <include-form name="EditPartySkill" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section> 
+    </screen>          
     <screen name="EditPerfReviewItems">
         <section>
             <actions>
@@ -322,49 +324,52 @@
             </widgets>            
         </section>
     </screen>
-    <screen name="FindResponsibilityType">
+    <screen name="EditResponsibilityType">
         <section>
             <actions>
+                <set field="titleProperty" value="PageTitleEditResponsibilityType"/>
                 <set field="headerItem" value="ResponsibilityType"/>
-                <set field="titleProperty" value="PageTitleFindResponsibilityType"/>
+                <set field="responsibilityTypeId" from-field="parameters.responsibilityTypeId"/>
+                <entity-one entity-name="ResponsibilityType" value-name="responsibilityType"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
-                            <condition>
-                                <if-has-permission permission="HUMANRES" action="_VIEW"/>
-                            </condition>
                             <widgets>
-                                <container style="h1">
-                                    <label>${uiLabelMap.${titleProperty}}</label>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="h3">
+                                            <label text="${uiLabelMap.${titleProperty}}"/>
+                                        </container>
+                                    </container>
+                                     <container style="screenlet-body">
+                                        <section>
+                                            <widgets>
+                                                <include-form name="ListResponsibilityTypes" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
+                                            </widgets>
+                                        </section>
+                                    </container>
                                 </container>
-                                <container style="button-bar">
-                                    <link target="EditResponsibilityType" text="${uiLabelMap.CommonNew} ${uiLabelMap.HumanResResponsibilityType}" style="buttontext"/>
+                                <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
+                                    <label text="${uiLabelMap.HumanResNewEmplPositionResponsibility}"/>
                                 </container>
-                                <include-form name="ListResponsibilityTypes" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="AddResponsibilityType" location="component://humanres/widget/forms/PartyAbilityForms.xml" />
+                                    </widgets>
+                                    <fail-widgets>
+                                        <label style="h3">${uiLabelMap.HumanResViewPermissionError}</label>
+                                    </fail-widgets>
+                                </section>
+                            </container>
+                        </container>
                             </widgets>
-                            <fail-widgets>
-                                <label style="h3">${uiLabelMap.HumanResViewPermissionError}</label>
-                            </fail-widgets>
                         </section>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-    <screen name="EditResponsibilityType">
-        <section>
-            <actions>
-                <set field="titleProperty" value="PageTitleEditResponsibilityType"/>
-                <set field="headerItem" value="EditResponsibilityType"/>
-                <set field="responsibilityTypeId" from-field="parameters.responsibilityTypeId"/>
-                <entity-one entity-name="ResponsibilityType" value-name="responsibilityType"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="CommonResponsibilityTypeDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <include-form name="EditResponsibilityType" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
