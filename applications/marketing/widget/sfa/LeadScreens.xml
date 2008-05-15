@@ -24,16 +24,14 @@ under the License.
         <section>
             <actions>
                 <set field="roleTypeId" value="LEAD"/>
+                <set field="partyTypeId" value="PERSON"/>
                 <set field="tabButtonItem" value="Leads"/>
+                <service service-name="findParty" auto-field-map="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
-                            <actions>
-                                <service service-name="findParty" auto-field-map="true"/>
-                                <set field="tabButtonItem" value=""/>
-                            </actions>
                             <widgets>
                                 <container><link target="CreateLead" text="${uiLabelMap.CommonCreate} ${uiLabelMap.SfaLead}" style="buttontext"/></container>                              
                                 <section>
@@ -78,7 +76,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleCreateLead"/>
-                <set field="leadType" from-field="parameters.leadType"/>
                 <set field="tabButtonItem" value="Leads"/>
             </actions>
             <widgets>
@@ -96,6 +93,32 @@ under the License.
                                 <section>
                                     <widgets>
                                         <include-form name="createLead" location="component://marketing/widget/sfa/forms/LeadForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container> 
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ConvertLead">
+        <section>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar boxhead">
+                                <section>
+                                    <widgets>
+                                        <label text="${uiLabelMap.SfaConvertLead}"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="ConvertLead" location="component://marketing/widget/sfa/forms/LeadForms.xml"/>
                                     </widgets>
                                 </section>
                             </container> 

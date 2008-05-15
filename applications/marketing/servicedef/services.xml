@@ -452,4 +452,8 @@ under the License.
         </auto-attributes>
         <attribute name="emailAddress" type="String" mode="IN" optional="true"/>
     </service>
+    <service name="convertLeadToContact" engine="simple" location="org/ofbiz/sfa/lead/LeadServices.xml" invoke="convertLeadToContact">
+        <attribute name="leadPartyId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+    </service>
 </services>

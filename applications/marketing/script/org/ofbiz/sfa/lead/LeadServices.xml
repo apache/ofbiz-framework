@@ -81,4 +81,47 @@
         </if-not-empty>
         <field-to-result field-name="partyId"/>
     </simple-method>
+  
+    <simple-method method-name="convertLeadToContact" short-description="Convert a lead person into a contact and associated lead group to an account">
+        <set field="leadPartyId" from-field="parameters.leadPartyId"/>
+        <set field="createPartyRoleCtx.partyId" from-field="leadPartyId"/>
+        <set field="createPartyRoleCtx.roleTypeId" value="CONTACT"/>
+        <call-service service-name="createPartyRole" in-map-name="createPartyRoleCtx"/>
+        <clear-field field-name="createPartyRoleCtx"/>
+        
+        <entity-and entity-name="PartyRelationship" list-name="partyRelationships">
+            <field-map field-name="partyIdTo" env-name="leadPartyId"/>
+            <field-map field-name="roleTypeIdFrom" value="LEAD"/>
+            <field-map field-name="roleTypeIdTo" value="EMPLOYEE"/>
+            <order-by field-name="-fromDate"/>
+        </entity-and>
+        <filter-list-by-date list-name="partyRelationships" to-list-name="partyRelationships"/>
+        <first-from-list list-name="partyRelationships" entry-name="partyRelationship"/>
+        
+        <set field="accountId" from-field="parameters.partyId"/>
+        <if-not-empty field-name="partyRelationship">
+            <if-empty field-name="accountId">
+                <set field="accountId" from-field="partyRelationship.partyIdFrom"/>
+                <set field="createPartyRoleCtx.roleTypeId" value="ACCOUNT"/>
+                <call-service service-name="createPartyRole" in-map-name="createPartyRoleCtx"/>
+            <else>
+                <now-timestamp-to-env env-name="thruDate"/>
+                <set field="partyRelationshipCtx.partyIdFrom" from-field="partyRelationship.partyIdFrom"/>
+                <set field="partyRelationshipCtx.roleTypeIdFrom" from-field="partyRelationship.roleTypeIdFrom"/>
+                <set field="partyRelationshipCtx.partyIdTo" from-field="partyRelationship.partyIdTo"/>
+                <set field="partyRelationshipCtx.roleTypeIdTo" from-field="partyRelationship.roleTypeIdTo"/>
+                <set field="partyRelationshipCtx.fromDate" from-field="partyRelationship.fromDate"/>
+                <set field="partyRelationshipCtx.thruDate" from-field="thruDate"/>
+                <call-service service-name="updatePartyRelationship" in-map-name="partyRelationshipCtx"/>
+            </else>    
+            </if-empty>
+        </if-not-empty>
+        <clear-field field-name="partyRelationshipCtx"/>
+        <set field="partyRelationshipCtx.partyIdFrom" from-field="accountId"/>
+        <set field="partyRelationshipCtx.partyIdTo" from-field="leadPartyId"/>
+        <set field="partyRelationshipCtx.roleTypeIdFrom" value="ACCOUNT"/>
+        <set field="partyRelationshipCtx.roleTypeIdTo" value="CONTACT"/>
+        <set field="partyRelationshipCtx.partyRelationshipTypeId" value="CONTACT_REL"/>
+        <call-service service-name="createPartyRelationship" in-map-name="partyRelationshipCtx"/>
+    </simple-method>
 </simple-methods>

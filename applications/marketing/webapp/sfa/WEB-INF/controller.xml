@@ -94,6 +94,16 @@ under the License.
         <response name="success" type="view" value="viewprofile"/>
         <response name="error" type="view" value="CreateLead"/>
     </request-map>
+    <request-map uri="ConvertLead">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ConvertLead"/>
+    </request-map>
+        <request-map uri="convertLead">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="convertLeadToContact"/>
+        <response name="success" type="view" value="viewprofile"/>
+        <response name="error" type="view" value="ConvertLead"/>  
+    </request-map>
     <request-map uri="viewLead">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="viewLead"/>
@@ -138,5 +148,6 @@ under the License.
     <view-map name="FindContacts" type="screen" page="component://marketing/widget/sfa/ContactScreens.xml#FindContacts"/>
     <view-map name="CreateContact" type="screen" page="component://marketing/widget/sfa/ContactScreens.xml#CreateContact"/>
     <view-map name="MergeContacts" type="screen" page="component://marketing/widget/sfa/ContactScreens.xml#MergeContacts"/>
+    <view-map name="ConvertLead" type="screen" page="component://marketing/widget/sfa/LeadScreens.xml#ConvertLead"/>
     <!-- end of view mappings -->
 </site-conf>

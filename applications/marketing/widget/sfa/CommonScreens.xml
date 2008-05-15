@@ -124,6 +124,7 @@ under the License.
         <section>
             <actions>
                 <set field="partyId" from-field="parameters.partyId"/>
+                <set field="partyTypeId" from-field="parameters.partyTypeId"/>
                 <entity-one entity-name="Party" value-name="party"/>
                 <entity-one entity-name="Person" value-name="lookupPerson"/>
                 <entity-one entity-name="PartyGroup" value-name="lookupGroup"/>
@@ -131,6 +132,17 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
+                        <section>
+                            <condition>
+                              <and>
+                                  <if-compare field-name="partyTypeId" operator="equals" value="PERSON"/>
+                                  <if-compare field-name="parameters.roleTypeId" operator="equals" value="LEAD"/>
+                              </and>
+                            </condition>
+                            <widgets>
+                                <include-menu name="LeadTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
+                            </widgets>
+                        </section>
                         <section>
                             <!-- do check for PARTYMGR, _VIEW permission -->
                             <condition>
