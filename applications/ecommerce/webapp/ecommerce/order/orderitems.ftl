@@ -206,7 +206,7 @@ under the License.
                         </#if>
                       </#if>
                       <#if orderItemAdjustment.sourcePercentage?exists><b>${uiLabelMap.EcommerceRate}:</b> ${orderItemAdjustment.sourcePercentage}</#if>
-                      <#if orderItemAdjustment.customerReferenceId?has_content><b>${uiLabelMap.CustomerTaxID}:</b> ${orderItemAdjustment.customerReferenceId}</#if>
+                      <#if orderItemAdjustment.customerReferenceId?has_content><b>${uiLabelMap.OrderCustomerTaxId}:</b> ${orderItemAdjustment.customerReferenceId}</#if>
                       <#if orderItemAdjustment.exemptAmount?exists><b>${uiLabelMap.EcommerceExemptAmount}:</b> ${orderItemAdjustment.exemptAmount}</#if>
                     </#if>
                   </div>

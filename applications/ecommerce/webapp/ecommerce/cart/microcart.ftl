@@ -26,7 +26,7 @@ under the License.
     <div>
         <#if (shoppingCartSize > 0)>
             ${uiLabelMap.EcommerceCartHas} ${shoppingCart.getTotalQuantity()}
-            <#if shoppingCart.getTotalQuantity() == 1>${uiLabelMap.EcommerceItem}<#else/>${uiLabelMap.EcommerceItems}</#if>,
+            <#if shoppingCart.getTotalQuantity() == 1>${uiLabelMap.OrderItem}<#else/>${uiLabelMap.OrderItems}</#if>,
             <@ofbizCurrency amount=shoppingCart.getGrandTotal() isoCode=shoppingCart.getCurrency()/>
         <#else>
             ${uiLabelMap.EcommerceShoppingCartEmpty}

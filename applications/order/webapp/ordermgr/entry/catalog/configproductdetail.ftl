@@ -262,7 +262,7 @@ function getConfigDetails(event) {
 
       <#-- Included quantities/pieces -->
       <#if product.quantityIncluded?exists && product.quantityIncluded?double != 0>
-        <div class="tabletext">${uiLabelMap.EcommerceIncludes}:
+        <div class="tabletext">${uiLabelMap.OrderIncludes}:
           ${product.quantityIncluded?if_exists}
           ${product.quantityUomId?if_exists}
         </div>
@@ -574,7 +574,7 @@ function getConfigDetails(event) {
   <#if (isEcommerceScreen?exists && isEcommerceScreen?default("N") == "Y")>
   <tr>
     <td colspan="2">
-      <div class="tableheadtext">${uiLabelMap.EcommerceCustomerReviews}:</div>
+      <div class="tableheadtext">${uiLabelMap.OrderCustomerReviews}:</div>
       <#if averageRating?exists && (averageRating?double > 0) && numRatings?exists && (numRatings?double > 1)>
           <div class="tabletext">${uiLabelMap.OrderAverageRating}: ${averageRating} <#if numRatings?exists>(${uiLabelMap.CommonFrom} ${numRatings} ${uiLabelMap.EcommerceRatings})</#if></div>
       </#if>

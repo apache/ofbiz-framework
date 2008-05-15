@@ -597,7 +597,7 @@ ${virtualJavaScript?if_exists}
   <#-- Digital Download Files Associated with this Product -->
   <#if downloadProductContentAndInfoList?has_content>
     <div id="download-files">
-      <div class="tableheadtext">${uiLabelMap.EcommerceDownloadFilesTitle}:</div>
+      <div class="tableheadtext">${uiLabelMap.OrderDownloadFilesTitle}:</div>
       <#list downloadProductContentAndInfoList as downloadProductContentAndInfo>
         <div class="tabletext">${downloadProductContentAndInfo.contentName}<#if downloadProductContentAndInfo.description?has_content> - ${downloadProductContentAndInfo.description}</#if></div>
       </#list>
@@ -615,7 +615,7 @@ ${virtualJavaScript?if_exists}
   <#-- Product Reviews -->
   <#if (isEcommerceScreen?exists && isEcommerceScreen?default("N") == "Y")>  
     <div id="reviews">
-      <div class="tableheadtext">${uiLabelMap.EcommerceCustomerReviews}:</div>
+      <div class="tableheadtext">${uiLabelMap.OrderCustomerReviews}:</div>
       <#if averageRating?exists && (averageRating?double > 0) && numRatings?exists && (numRatings?double > 1)>
           <div class="tabletext">${uiLabelMap.OrderAverageRating}: ${averageRating} <#if numRatings?exists>(${uiLabelMap.CommonFrom} ${numRatings} ${uiLabelMap.EcommerceRatings})</#if></div>
       </#if>
