@@ -119,6 +119,21 @@ under the License.
             </td>
           </tr>
           <tr>
+            <td class="label">${uiLabelMap.PartyType}</td>
+            <td>
+              <select name="partyTypeId">
+               <#if currentPartyType?has_content>
+                  <option value="${currentPartyType.partyTypeId}">${currentPartyType.get("description",locale)}</option>
+                  <option value="${currentPartyType.partyTypeId}">---</option>
+                </#if>
+                <option value="ANY">${uiLabelMap.CommonAny}</option>
+                <#list partyTypes as partyType>
+                  <option value="${partyType.partyTypeId}">${partyType.get("description",locale)}</option>
+                </#list>
+              </select>
+            </td>
+          </tr>
+          <tr>
             <td class="label">${uiLabelMap.ProductInventoryItemId}</td>
             <td><input type="text" name="inventoryItemId" value="${parameters.inventoryItemId?if_exists}"/></td>
           </tr>
