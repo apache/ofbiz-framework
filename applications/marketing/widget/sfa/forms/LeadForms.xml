@@ -34,7 +34,7 @@ under the License.
             </entity-one>
         </row-actions>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
-            <hyperlink target="viewprofile?partyId=${partyRow.partyId}" description="${partyRow.partyId}" target-type="inter-app"/>
+            <hyperlink target="viewprofile?partyId=${partyRow.partyId}&amp;partyTypeId=${partyRow.partyTypeId}&amp;roleTypeId=LEAD" description="${partyRow.partyId}" target-type="inter-app"/>
         </field>
         <field name="partyName" title="${uiLabelMap.PartyName}" use-when="partyGroup != null"><display description="${partyGroup.groupName}"/></field>
         <field name="partyName" title="${uiLabelMap.PartyName}" use-when="person != null"><display description="${person.lastName}, ${person.firstName}"/></field>
@@ -53,7 +53,7 @@ under the License.
         <field name="address1" title="${uiLabelMap.CommonAddress1}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="50" maxlength="60"/></field>
         <field name="address2" title="${uiLabelMap.CommonAddress2}"><text size="50" maxlength="60"/></field>
         <field name="city" title="${uiLabelMap.CommonCity}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="30" maxlength="60"/></field>
-        <field name="state" title="${uiLabelMap.CommonState}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
+        <field name="stateProvinceGeoId" title="${uiLabelMap.CommonState}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
             <drop-down allow-empty="true">
                 <entity-options entity-name="Geo" key-field-name="geoId" description="${geoId} - ${geoName}">
                     <entity-constraint name="geoTypeId" operator="in" value="STATE,PROVINCE"/>
@@ -62,7 +62,7 @@ under the License.
             </drop-down>
         </field>
         <field name="postalCode" title="${uiLabelMap.CommonZipPostalCode}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="10" maxlength="30"/></field>
-        <field name="country" title="${uiLabelMap.CommonCountry}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
+        <field name="countryGeoId" title="${uiLabelMap.CommonCountry}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
             <drop-down allow-empty="false" no-current-selected-key="${defaultCountryGeoId}">
                 <entity-options entity-name="Geo" key-field-name="geoId" description="${geoId}: ${geoName}">
                     <entity-constraint name="geoTypeId" value="COUNTRY"/>
@@ -80,5 +80,19 @@ under the License.
         <field name="leadSourceTitle" title="${uiLabelMap.SfaLeadSource}" title-area-style="group-label"><display/></field>
         <field name="leadSource" title="${uiLabelMap.SfaLeadSource}"><text size="50" maxlength="60"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ConvertLead" type="single" target="convertLead" id="ConvertLead" >
+        <actions>
+          <set field="leadPartyId" from-field="parameters.leadPartyId"></set>
+        </actions>
+        <field name="leadPartyId" title="${uiLabelMap.SfaCreateContactForLead}"><display description="${bsh:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, &quot;${leadPartyId}&quot;, false)} : [${leadPartyId}]"/></field>
+        <field name="partyId" title="${uiLabelMap.SfaAccountName}" tooltip="${uiLabelMap.SfaSelectExistingAccountOrLeaveBlankToCreateNew}">
+            <drop-down allow-empty="true" current-description="">
+              <entity-options entity-name="PartyRole" description="${bsh:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, &quot;${partyId}&quot;, false)} : [${partyId}]" key-field-name="partyId">
+                  <entity-constraint name="roleTypeId" operator="equals" value="ACCOUNT"/>
+              </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton"><submit button-type="button"/></field>
     </form>
 </forms>

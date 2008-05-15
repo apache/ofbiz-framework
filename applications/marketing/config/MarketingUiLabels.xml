@@ -1125,6 +1125,9 @@
     <property key="SfaAcccounts">
         <value xml:lang="en">Accounts</value>
     </property>
+    <property key="SfaAccountName">
+        <value xml:lang="en">Account Name</value>
+    </property>
     <property key="SfaCampaigns">
         <value xml:lang="en">Campaigns</value>
     </property>
@@ -1145,6 +1148,12 @@
     </property>
     <property key="SfaContacts">
         <value xml:lang="en">Contacts</value>
+    </property>
+    <property key="SfaConvertLead">
+        <value xml:lang="en">Convert Lead</value>
+    </property>
+    <property key="SfaCreateContactForLead">
+        <value xml:lang="en">Create contact for lead</value>
     </property>
     <property key="SfaDocuments">
         <value xml:lang="en">Documents</value>
@@ -1236,6 +1245,10 @@
     <property key="SfaSecondContact">
         <value xml:lang="en">Second Contact</value>
     </property>   
+    <property key="SfaSelectExistingAccountOrLeaveBlankToCreateNew">
+        <value xml:lang="en">Either select existing account or leave blank to create new account"</value>
+    </property>
+
     <property key="SfaType">
         <value xml:lang="en">Type</value>
     </property>
