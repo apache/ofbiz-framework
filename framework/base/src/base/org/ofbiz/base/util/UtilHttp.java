@@ -692,15 +692,15 @@ public class UtilHttp {
     /** Returns the query string contained in a request target - basically everything
      * after and including the ? character.
      * @param target The request target
-     * @return The query string or null if none is found
+     * @return The query string
      */
     public static String getQueryStringFromTarget(String target) {
-        if (target == null || target.length() == 0) return null;
+        if (target == null || target.length() == 0) return "";
         int queryStart = target.indexOf('?');
         if (queryStart != -1) {
             return target.substring(queryStart);
         }
-        return null;
+        return "";
     }
 
     /** Removes the query string from a request target - basically everything

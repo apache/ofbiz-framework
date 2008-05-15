@@ -225,7 +225,7 @@ function ajaxUpdateArea(areaId, target, targetParams) {
 */
 function ajaxUpdateAreas(areaCsvString) {
     var areaArray = areaCsvString.split(",");
-    var numAreas = areaArray.length / 3;
+    var numAreas = parseInt(areaArray.length / 3);
     for (var i = 0; i < numAreas; i = i + 3) {
         new Ajax.Updater(areaArray[i], areaArray[i + 1], {parameters: areaArray[i + 2]});
     }
