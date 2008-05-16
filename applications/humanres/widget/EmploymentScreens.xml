@@ -106,32 +106,32 @@
             </widgets>
         </section>
     </screen>
-    <screen name="ListEmploymentApps">
+    <screen name="FindEmploymentApp">
         <section>
             <actions>
-                <set field="titleProperty" value="HumanResListEmploymentApps"/>
+                <set field="titleProperty" value="HumanResFindEmploymentApp"/>
                 <set field="headerItem" value="EmploymentApp"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonEmploymentDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.HumanResListEmploymentApps}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <container>
-                                            <link text="${uiLabelMap.HumanResNewEmploymentApp}" target="EditEmploymentApp" style="buttontext"/>
-                                        </container>
-                                        <include-form name="ListEmploymentApps" location="component://humanres/widget/forms/EmploymentForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.HumanResFindEmploymentApp}">
+                            <section>
+                                <widgets>
+                                    <container>
+                                        <link target="EditEmploymentApp" text="${uiLabelMap.CommonCreate} ${uiLabelMap.HumanResNewEmploymentApp}" style="buttontext"/>
+                                    </container>
+                                    <include-form name="FindEmploymentApps" location="component://humanres/widget/forms/EmploymentForms.xml"/>
+                                </widgets>
+                            </section>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.HumanResFindEmploymentApp}">
+                            <section>
+                                <widgets>
+                                    <include-form name="ListEmploymentApps" location="component://humanres/widget/forms/EmploymentForms.xml"/>
+                                </widgets>
+                            </section>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -308,43 +308,10 @@
             </widgets>
         </section>
     </screen>    
-    <screen name="ListPayGrades">
-        <section>
-            <actions>
-                <set field="titleProperty" value="HumanResListPayGrade"/>
-                <set field="headerItem" value="PayGrade"/>
-                <set field="tabButtonItem" value="EditSalaryStep"/>
-                <set field="payGradeId" from-field="parameters.payGradeId" />                
-            </actions> 
-            <widgets>
-                <decorator-screen name="CommonPayGradeDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.HumanResListPayGrade}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <container>
-                                            <link target="EditPayGrade" text="${uiLabelMap.HumanResNewPayGrade}" style="buttontext"/>
-                                        </container>
-                                        <include-form name="ListPayGrades" location="component://humanres/widget/forms/EmploymentForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section> 
-    </screen>
     <screen name="EditPayGrade">
         <section>            
             <actions>
-                <set field="titleProperty" value="HumanResEditPayGrade"/>
+                <set field="titleProperty" value="HumanResAddPayGrade"/>
                 <set field="headerItem" value="PayGrade"/>
                 <set field="tabButtonItem" value="EditSalaryStep"/>
                 <set field="payGradeId" from-field="parameters.payGradeId"/>
@@ -353,19 +320,23 @@
             <widgets>
                 <decorator-screen name="CommonPayGradeDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.HumanResListPayGrade}">
+                            <section>
+                                <widgets>
+                                    <include-form name="ListPayGrades" location="component://humanres/widget/forms/EmploymentForms.xml"/>
+                                </widgets>
+                            </section>
+                        </screenlet>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
-                                    <label text="${uiLabelMap.HumanResEditPayGrade}"/>
+                                    <label text="${uiLabelMap.HumanResAddPayGrade}"/>
                                 </container>
                             </container>
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <container>
-                                            <link target="EditPayGrade" text="${uiLabelMap.HumanResNewPayGrade}" style="buttontext" />
-                                        </container>
-                                        <include-form name="EditPayGrade" location="component://humanres/widget/forms/EmploymentForms.xml" />
+                                        <include-form name="AddPayGrade" location="component://humanres/widget/forms/EmploymentForms.xml" />
                                     </widgets>
                                 </section>
                             </container>
@@ -387,45 +358,11 @@
                 <decorator-screen name="CommonPayGradeDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleListSalarySteps}">
-                            <container>
-                                <link target="EditSalarySteps?payGradeId=${payGradeId}" text="${uiLabelMap.HumanResNewSalaryStep}" style="buttontext"/>
-                            </container>
                             <include-form name="ListSalarySteps" location="component://humanres/widget/forms/EmploymentForms.xml"/>
                         </screenlet>
-                        <screenlet title="${uiLabelMap.HumanResEditSalaryStep}">
-                            <include-form name="EditSalaryStep" location="component://humanres/widget/forms/EmploymentForms.xml"/>
+                        <screenlet title="${uiLabelMap.HumanResAddSalaryStep}">
+                            <include-form name="AddSalaryStep" location="component://humanres/widget/forms/EmploymentForms.xml"/>
                         </screenlet>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section> 
-    </screen>
-    <screen name="ListTerminationReasons">
-        <section>
-            <actions>
-                <set field="titleProperty" value="HumanResListTerminationReasons"/>
-                <set field="headerItem" value="TerminationReason"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="CommonEmploymentDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.HumanResListTerminationReasons}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <container>
-                                            <link target="EditTerminationReason" text="${uiLabelMap.HumanResNewTerminationReason}" style="buttontext"/>
-                                        </container>
-                                        <include-form name="ListTerminationReasons" location="component://humanres/widget/forms/EmploymentForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -434,7 +371,7 @@
     <screen name="EditTerminationReason">
         <section>            
             <actions>
-                <set field="titleProperty" value="HumanResEditTerminationReason"/>
+                <set field="titleProperty" value="HumanResAddTerminationReason"/>
                 <set field="headerItem" value="TerminationReason"/>
                 <set field="terminationReasonId" from-field="parameters.terminationReasonId" />
                 <entity-one entity-name="TerminationReason" value-name="terminationReason" />
@@ -442,19 +379,23 @@
             <widgets>
                 <decorator-screen name="CommonEmploymentDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">                        
+                        <screenlet title="${uiLabelMap.HumanResListTerminationReasons}">
+                            <section>
+                                <widgets>
+                                    <include-form name="ListTerminationReasons" location="component://humanres/widget/forms/EmploymentForms.xml"/>
+                                </widgets>
+                            </section>
+                        </screenlet>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
-                                    <label text="${uiLabelMap.HumanResEditTerminationReason}"/>
+                                    <label text="${uiLabelMap.HumanResAddTerminationReason}"/>
                                 </container>
                             </container>
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <container>
-                                            <link target="EditTerminationReason" text="${uiLabelMap.HumanResNewTerminationReason}" style="buttontext"/>
-                                        </container>
-                                        <include-form name="EditTerminationReason" location="component://humanres/widget/forms/EmploymentForms.xml"/>
+                                        <include-form name="AddTerminationReason" location="component://humanres/widget/forms/EmploymentForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>
@@ -464,41 +405,10 @@
             </widgets>                              
         </section>
     </screen>    
-    <screen name="ListUnemploymentClaims">
-        <section>
-            <actions>
-                <set field="titleProperty" value="HumanResListUnemploymentClaim"/>
-                <set field="headerItem" value="UnemploymentClaim"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="CommonEmploymentDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.HumanResListUnemploymentClaim}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <container>
-                                            <link target="EditUnemploymentClaim" text="${uiLabelMap.HumanResNewUnemploymentClaim}" style="buttontext"/>
-                                        </container>
-                                        <include-form name="ListUnemploymentClaims" location="component://humanres/widget/forms/EmploymentForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section> 
-    </screen>
     <screen name="EditUnemploymentClaim">
         <section>            
             <actions>
-                <set field="titleProperty" value="HumanResEditUnemploymentClaim"/>
+                <set field="titleProperty" value="HumanResAddUnemploymentClaim"/>
                 <set field="headerItem" value="UnemploymentClaim"/>
                 <set field="unemploymentClaimId" from-field="parameters.unemploymentClaimId" />
                 <entity-one entity-name="UnemploymentClaim" value-name="unemploymentClaim" />
@@ -506,19 +416,23 @@
             <widgets>
                 <decorator-screen name="CommonEmploymentDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">                        
+                        <screenlet title="${uiLabelMap.HumanResListUnemploymentClaim}">
+                            <section>
+                                <widgets>
+                                    <include-form name="ListUnemploymentClaims" location="component://humanres/widget/forms/EmploymentForms.xml"/>
+                                </widgets>
+                            </section>
+                        </screenlet>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
-                                    <label text="${uiLabelMap.HumanResEditUnemploymentClaim}"/>
+                                    <label text="${uiLabelMap.HumanResAddUnemploymentClaim}"/>
                                 </container>
                             </container>
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <container>
-                                            <link target="EditUnemploymentClaim" text="${uiLabelMap.HumanResNewUnemploymentClaim}" style="buttontext" />
-                                        </container>
-                                        <include-form name="EditUnemploymentClaim" location="component://humanres/widget/forms/EmploymentForms.xml"/>
+                                        <include-form name="AddUnemploymentClaim" location="component://humanres/widget/forms/EmploymentForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>

@@ -277,4 +277,115 @@
             </widgets>
         </section> 
     </screen>    
+    <screen name="EmplPositionView">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HumanResEmplPositionSummary"/>
+                <set field="tabButtonItem" value="EmplPositionView"/>
+                <set field="emplPositionId" from-field="parameters.emplPositionId"/>
+                <entity-one entity-name="EmplPosition" value-name="emplPosition"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonEmplPositionDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <container style="lefthalf">
+                                    <screenlet title="${uiLabelMap.HumanResEmployeePosition} ${uiLabelMap.CommonInformation}">
+                                        <section>
+                                            <widgets>
+                                                <include-form name="EmplPositionInfo" location="component://humanres/widget/forms/EmplPositionForms.xml"/>
+                                            </widgets>
+                                        </section>
+                                    </screenlet>
+                                    <include-screen name="EmplPositionFulfilmentView"/>
+                                    <include-screen name="EmplPositionResponsibilityView"/>
+                                </container>
+                                <container style="righthalf">
+                                    <include-screen name="EmplPositionReportsToView"/>
+                                    <include-screen name="EmplPositionReportedToView"/>
+                                </container>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EmplPositionFulfilmentView">
+        <section>
+            <actions>
+                <entity-condition entity-name="EmplPositionFulfillment" list-name="emplPositionFulfillments">
+                    <condition-expr field-name="emplPositionId" operator="equals" env-name="parameters.emplPositionId"/>
+                    <order-by field-name="fromDate"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <screenlet title="${uiLabelMap.HumanResPositionFulfillments}">
+                    <section>
+                        <widgets>
+                            <include-form name="ListEmplPositionFulfilmentInfo" location="component://humanres/widget/forms/EmplPositionForms.xml"/>
+                        </widgets>
+                    </section>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EmplPositionResponsibilityView">
+        <section>
+            <actions>
+                <entity-condition entity-name="EmplPositionResponsibility" list-name="emplPositionResponsibilities">
+                    <condition-expr field-name="emplPositionId" operator="equals" env-name="parameters.emplPositionId"/>
+                    <order-by field-name="fromDate"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <screenlet title="${uiLabelMap.HumanResEmplPositionResponsibilities}">
+                    <section>
+                        <widgets>
+                            <include-form name="ListEmplPositionResponsibilityInfo" location="component://humanres/widget/forms/EmplPositionForms.xml"/>
+                        </widgets>
+                    </section>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EmplPositionReportsToView">
+        <section>
+            <actions>
+                <entity-condition entity-name="EmplPositionReportingStruct" list-name="emplPositionReportingStructs">
+                    <condition-expr field-name="emplPositionIdManagedBy" operator="equals" env-name="parameters.emplPositionId"/>
+                    <order-by field-name="fromDate"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <screenlet title="${uiLabelMap.HumanResEmplPositionReportingStruct}:${uiLabelMap.HumanResReportsTo}">
+                    <section>
+                        <widgets>
+                            <include-form name="ListEmplPositionReportsToInfo" location="component://humanres/widget/forms/EmplPositionForms.xml"/>
+                        </widgets>
+                    </section>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EmplPositionReportedToView">
+        <section>
+            <actions>
+                <entity-condition entity-name="EmplPositionReportingStruct" list-name="emplPositionReportingStructs">
+                    <condition-expr field-name="emplPositionIdReportingTo" operator="equals" env-name="parameters.emplPositionId"/>
+                    <order-by field-name="fromDate"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <screenlet title="${uiLabelMap.HumanResEmplPositionReportingStruct}:${uiLabelMap.HumanResReportedTo}">
+                    <section>
+                        <widgets>
+                            <include-form name="ListEmplPositionReportedToInfo" location="component://humanres/widget/forms/EmplPositionForms.xml"/>
+                        </widgets>
+                    </section>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
 </screens>

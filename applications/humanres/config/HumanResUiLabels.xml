@@ -354,11 +354,23 @@
     <property key="HumanResAddEmplPositionResponsibility">
         <value xml:lang="en">Add Position Responsibility</value>
     </property>
+    <property key="HumanResAddPayGrade">
+        <value xml:lang="en">Add Pay Grade</value>
+    </property>
     <property key="HumanResAddReportedToEmplPositionReportingStruct">
         <value xml:lang="en">Add Empl Position Reporting Struct [Reported To ${parameters.emplPositionId}]</value>
     </property>
     <property key="HumanResAddReportsToEmplPositionReportingStruct">
         <value xml:lang="en">Add Empl Position Reporting Struct [${parameters.emplPositionId} Reports To]</value>
+    </property>
+    <property key="HumanResAddSalaryStep">
+        <value xml:lang="en">Add Salary Step</value>
+    </property>
+    <property key="HumanResAddTerminationReason">
+        <value xml:lang="en">Add Termination Reason</value>
+    </property>
+    <property key="HumanResAddUnemploymentClaim">
+        <value xml:lang="en">Add Unemployment Claim</value>
     </property>
     <property key="HumanResAddValidResponsibility">
         <value xml:lang="en">Add Valid Responsibility</value>
@@ -390,9 +402,6 @@
     </property>
     <property key="HumanResEditEmplPosition">
         <value xml:lang="en">Create/Update Employee Position</value>
-    </property>
-    <property key="HumanResEmplPosition">
-        <value xml:lang="en">Employee Position</value>
     </property>
     <property key="HumanResEditEmplPositionReportingStruct">
         <value xml:lang="en">Edit EmplPosition Reporting Structure</value>
@@ -440,11 +449,6 @@
         <value xml:lang="it">Aggiorna Abilità Soggetto</value>
         <value xml:lang="th">แก้ไขกลุ่มทักษะ</value>
     </property>
-    <property key="HumanResEditPayGrade">
-        <value xml:lang="en">Edit Pay Grade</value>
-        <value xml:lang="it">Aggiorna Grado Paga</value>
-        <value xml:lang="th">แก้ไขระดับการจ่าย</value>
-    </property>
     <property key="HumanResEditPayHistory">
         <value xml:lang="en">Edit Pay History</value>
         <value xml:lang="it">Aggiorna Storia Paghe</value>
@@ -464,16 +468,6 @@
         <value xml:lang="en">Edit Salary Step</value>
         <value xml:lang="it">Aggiorna Passi Salario</value>
         <value xml:lang="th">แก้ไขขั้นเงินเดือน</value>
-    </property>
-    <property key="HumanResEditTerminationReason">
-        <value xml:lang="en">Edit Termination Reason</value>
-        <value xml:lang="it">Aggiorna Motivazione Licenziamento</value>
-        <value xml:lang="th">แก้ไขขอบเขตเหตุผล</value>
-    </property>
-    <property key="HumanResEditUnemploymentClaim">
-        <value xml:lang="en">Edit Unemployment Claim</value>
-        <value xml:lang="it">Aggiorna Reclamo Disoccupazione</value>
-        <value xml:lang="th">แก้ไขจำนวนผู้ว่าจ้างเรียกร้อง</value>
     </property>
     <property key="HumanResEmployee">
         <value xml:lang="en">Employee</value>
@@ -534,25 +528,19 @@
     <property key="HumanResFindEmplPosition">
         <value xml:lang="en">Find Employee Position</value>
     </property>
+    <property key="HumanResFindEmploymentApp">
+        <value xml:lang="en">Find Employment Application</value>
+    </property>
     <property key="HumanResListEmplPositionsReportedTo">
         <value xml:lang="en">List Employee Positions, Reported To [${parameters.emplPositionId}]</value>
     </property>
     <property key="HumanResListEmplPositionsReportsTo">
         <value xml:lang="en">List Employee Positions, [${parameters.emplPositionId}]  Reports To</value>
     </property>
-    <property key="HumanResListEmploymentApps">
-        <value xml:lang="en">List Employment Applications</value>
-        <value xml:lang="it">Lista Applicazioni Impiegato</value>
-        <value xml:lang="th">รายการโปรแกรมประยุกต์ใช้การจ้างงาน</value>
-    </property>
     <property key="HumanResListEmployments">
         <value xml:lang="en">List Employment</value>
         <value xml:lang="it">Lista Impiegato</value>
         <value xml:lang="th">รายการการจ้างงาน</value>
-    </property>
-    <property key="HumanResPositionFulfillments">
-        <value xml:lang="en">Fulfillments</value>
-        <value xml:lang="it">Adempimento</value>
     </property>
     <property key="HumanResListPartyBenefits">
         <value xml:lang="en">List Party Benefits</value>
@@ -811,6 +799,16 @@
         <value xml:lang="en">Payroll Preference SequenceId</value>
         <value xml:lang="it">Sequenza Preferenze Paghe</value>
         <value xml:lang="th">รหัสรายการเงินเดือนสิทธิพิเศษ</value>
+    </property>
+    <property key="HumanResPositionFulfillments">
+        <value xml:lang="en">Fulfillments</value>
+        <value xml:lang="it">Adempimento</value>
+    </property>
+    <property key="HumanResReportedTo">
+        <value xml:lang="en">ReportedTo</value>
+    </property>
+    <property key="HumanResReportsTo">
+        <value xml:lang="en">ReportsTo</value>
     </property>
     <property key="HumanResResponsibilityType">
         <value xml:lang="en">Responsibility Type</value>
