@@ -96,39 +96,36 @@ under the License.
             </drop-down>
         </field>
         <field name="yearsExperience"><text-find/></field>
-        <field name="rating"><date-time/></field>
-        <field name="skillLevel"><date-time/></field>
+        <field name="rating"><text-find/></field>
+        <field name="skillLevel"><text-find/></field>
         <field name="noConditionFind"><hidden value="Y"/></field>
         <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>     
-    <form name="ListPartySkills" type="list" list-name="listIt" separate-columns="true" target="updatePartySkill" default-entity-name="PartySkill" title="" paginate-target="FindPartySkills"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">    
+    <form name="ListPartySkills" type="multi" list-name="partySkills" use-row-submit="true" separate-columns="true" target="updatePartySkill?partyId=${partyId}"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar"> 
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+            <set field="partyId" from-field="parameters.partyId"/>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="partySkills">
                 <field-map field-name="inputFields" env-name="parameters"/>
                 <field-map field-name="entityName" value="PartySkill"/>
             </service>
         </actions>
-        <auto-fields-service default-field-type="display" service-name="updatePartySkill"/>        
-        <field name="partyId"><display/></field>                
-        <field name="skillTypeId" title="${uiLabelMap.HumanResSkillType}" widget-style="linktext">
-            <hyperlink also-hidden="false" description="${skillTypeId}" target="updatePartySkill?skillTypeId=${skillTypeId}&amp;partyId=${partyId}"/>
-        </field>
-        <field name="yearsExperience"><display/></field>
-        <field name="rating"><display/></field>
-        <field name="skillLevel"><display/></field>
+        <row-actions>
+            <set field="skillTypeId" from-field="skillTypeId"/>
+        </row-actions>
+        <auto-fields-service default-field-type="hidden" service-name="updatePartySkill"/>        
+        <field name="partyId"><hidden/></field>                
+        <field name="skillTypeId"><display/></field>
+        <field name="yearsExperience"><text/></field>
+        <field name="rating"><text/></field>
+        <field name="skillLevel"><text/></field>
+        <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><hidden value="Y"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>
     </form>      
-    <form name="EditPartySkill" type="single" target="updatePartySkill" default-map-name="partySkill"
+    <form name="AddPartySkills" type="single" target="createPartySkill" 
         header-row-style="header-row" default-table-style="basic-table">
-        <actions>
-            <entity-one entity-name="PartySkill" value-name="skillType" auto-field-map="false">
-                <field-map field-name="skillTypeId" env-name="partySkill.skillTypeId"/>
-            </entity-one>
-        </actions>
-        <alt-target use-when="partySkill==null" target="createPartySkill"/>
-        <auto-fields-service service-name="updatePartySkill"/>
-        <field name="partyId" use-when="partyId!=null&amp;&amp;skillTypeId!=null" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
-        <field name="partyId" use-when="partyId==null"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="partyId" use-when="partyId != null"><hidden/></field>
+        <field name="partyId" use-when="skillTypeId == null&amp;&amp;partyId == null"><lookup target-form-name="LookupPartyName"/></field>
         <field name="skillTypeId">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="SkillType">
@@ -139,8 +136,7 @@ under the License.
         <field name="yearsExperience"><text/></field>
         <field name="rating"><text/></field>
         <field name="skillLevel"><text/></field>
-        <field name="submitButton" use-when="partySkill==null" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>        
-        <field name="submitButton" use-when="partySkill!=null" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>        
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>        
     </form>
     <form name="ListPerfReviews" type="list" title="" target="updatePerfReview" paginate-target="findPerfReviews"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
