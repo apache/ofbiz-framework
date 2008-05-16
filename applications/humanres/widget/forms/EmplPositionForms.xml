@@ -31,7 +31,7 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="EmplPosition" default-field-type="display"/>
         <field name="emplPositionId" title="${uiLabelMap.HumanResEmployeePositionId}" widget-style="linktext">
-            <hyperlink also-hidden="false" description="${emplPositionId}" target="EditEmplPosition?emplPositionId=${emplPositionId}"/>
+            <hyperlink also-hidden="false" description="${emplPositionId}" target="emplPositionView?emplPositionId=${emplPositionId}"/>
         </field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
             <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView">
@@ -82,7 +82,10 @@ under the License.
     <form name="ListEmplPositionFulfillments" type="list" target="updateEmplPositionFulfillment" title="" paginate-target="findEmplPositionFulfillments"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-condition entity-name="EmplPositionFulfillment"><order-by field-name="emplPositionId"/></entity-condition>
+            <entity-condition entity-name="EmplPositionFulfillment">
+                <condition-expr field-name="emplPositionId" operator="equals" env-name="parameters.emplPositionId"/>
+                <order-by field-name="emplPositionId"/>
+            </entity-condition>
         </actions>        
         <auto-fields-service service-name="updateEmplPositionFulfillment"/>        
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
@@ -165,7 +168,10 @@ under the License.
     <form name="ListEmplPositionResponsibilities" type="list" target="updateEmplPositionResponsibility" title="" paginate-target="findEmplPositionResponsibilities"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-condition entity-name="EmplPositionResponsibility"><order-by field-name="emplPositionId"/></entity-condition>
+            <entity-condition entity-name="EmplPositionResponsibility">
+                <condition-expr field-name="emplPositionId" operator="equals" env-name="parameters.emplPositionId"/>
+                <order-by field-name="emplPositionId"/>
+            </entity-condition>
         </actions>
         <auto-fields-service service-name="updateEmplPositionResponsibility"/>        
         <field name="emplPositionId"><hidden/></field>        
@@ -250,5 +256,29 @@ under the License.
             </drop-down>
         </field>
         <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="EmplPositionInfo" type="single" default-map-name="emplPosition" paginate-target="FindEmplPosition"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="updateEmplPosition" default-field-type="display"/>
+    </form>
+    <form name="ListEmplPositionFulfilmentInfo" type="list" list-name="emplPositionFulfillments"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <auto-fields-service service-name="updateEmplPositionFulfillment" default-field-type="display"/>
+        <field name="emplPositionId"><hidden/></field>
+    </form>
+    <form name="ListEmplPositionResponsibilityInfo" type="list" list-name="emplPositionResponsibilities"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <auto-fields-service service-name="updateEmplPositionResponsibility" default-field-type="display"/>
+        <field name="emplPositionId"><hidden/></field>
+    </form>
+    <form name="ListEmplPositionReportsToInfo" type="list" list-name="emplPositionReportingStructs"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <auto-fields-service service-name="updateEmplPositionReportingStruct" default-field-type="display"/>
+        <field name="emplPositionIdManagedBy"><hidden/></field>
+    </form>
+    <form name="ListEmplPositionReportedToInfo" type="list" list-name="emplPositionReportingStructs"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <auto-fields-service service-name="updateEmplPositionReportingStruct" default-field-type="display"/>
+        <field name="emplPositionIdReportingTo"><hidden/></field>
     </form>
 </forms>
