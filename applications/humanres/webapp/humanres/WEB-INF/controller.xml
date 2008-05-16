@@ -27,6 +27,7 @@ under the License.
     <owner>Copyright 2001-2007 The Apache Software Foundation</owner>
     
     <!-- view handlers -->
+    <handler name="service-multi" type="request" class="org.ofbiz.webapp.event.ServiceMultiEventHandler"/>
     <handler name="screenxml" type="view" class="org.ofbiz.widget.screen.ScreenXmlViewHandler"/>
         
     <!-- Events to run on every request before security (chains exempt) -->
@@ -126,9 +127,9 @@ under the License.
     </request-map>
     <request-map uri="updatePartySkill">
         <security https="true" auth="true"/>
-        <event type="service" invoke="updatePartySkill"/>
+        <event type="service-multi" invoke="updatePartySkill"/>
         <response name="success" type="view" value="FindPartySkills"/>
-        <response name="error" type="view" value="EditPartySkills"/>
+        <response name="error" type="view" value="FindPartySkills"/>
     </request-map> 
     <request-map uri="deletePartySkill">
         <security https="true" auth="true"/>

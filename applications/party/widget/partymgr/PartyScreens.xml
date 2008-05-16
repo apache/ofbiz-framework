@@ -1040,4 +1040,39 @@ under the License.
             </widgets>
         </section>
     </screen>
+    
+    <screen name="EditPartySkills">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HumanResEditPartySkill"/>
+                <set field="headerItem" value="find"/>            
+                <set field="tabButtonItem" value="PartySkills"/>    
+                <set field="partyId" from-field="parameters.partyId"/>
+                <set field="skillTypeId" from-field="parameters.skillTypeId"/>
+                <entity-and entity-name="PartySkill" list-name="partySkills">
+                    <field-map field-name="partyId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.HumanResListPartySkill}">
+                            <section>
+                                <widgets>
+                                    <include-form name="ListPartySkills" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
+                                </widgets>
+                            </section>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.HumanResNewPartySkill}">
+                            <section>
+                                <widgets>
+                                    <include-form name="AddPartySkills" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
+                                </widgets>
+                            </section>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section> 
+    </screen>
 </screens>

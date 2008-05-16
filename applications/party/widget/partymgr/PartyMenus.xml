@@ -61,6 +61,9 @@ under the License.
         <menu-item name="PartyContents" title="${uiLabelMap.PartyContent}">
             <link target="EditPartyContents?partyId=${partyId}"/>
         </menu-item>
+        <menu-item name="PartySkills" title="${uiLabelMap.ProjectMgrPartySkills}">
+            <link target="EditPartySkills?partyId=${partyId}"/>
+        </menu-item>
     </menu>
 
     <menu name="create-new-party" type="simple" menu-container-style="basic-nav">
