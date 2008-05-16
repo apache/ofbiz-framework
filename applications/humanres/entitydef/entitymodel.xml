@@ -152,14 +152,14 @@ under the License.
       <relation type="one" fk-name="PERF_REV_MPTY" title="Manager" rel-entity-name="Party">
         <key-map field-name="managerPartyId" rel-field-name="partyId"/>
       </relation>
-      <relation type="one" fk-name="PERF_REV_MPTRL" title="Manager" rel-entity-name="PartyRole">
+      <relation type="one-nofk" fk-name="PERF_REV_MPTRL" title="Manager" rel-entity-name="PartyRole">
         <key-map field-name="managerPartyId" rel-field-name="partyId"/>
         <key-map field-name="managerRoleTypeId" rel-field-name="roleTypeId"/>
       </relation>
       <relation type="one" fk-name="PERF_REV_PMNT" rel-entity-name="Payment">
         <key-map field-name="paymentId"/>
       </relation>
-      <relation type="one" fk-name="PERF_REV_PSTN" rel-entity-name="EmplPosition">
+      <relation type="one-nofk" fk-name="PERF_REV_PSTN" rel-entity-name="EmplPosition">
         <key-map field-name="emplPositionId"/>
       </relation>
       <relation type="one" fk-name="PERF_REV_PHFPTY" title="PayHistoryFrom" rel-entity-name="Party">
@@ -203,10 +203,10 @@ under the License.
         <key-map field-name="employeePartyId" rel-field-name="partyId"/>
         <key-map field-name="employeeRoleTypeId" rel-field-name="roleTypeId"/>
       </relation>
-      <relation type="one" fk-name="PERF_RVITM_PRTTP" rel-entity-name="PerfRatingType">
+      <relation type="one-nofk" fk-name="PERF_RVITM_PRTTP" rel-entity-name="PerfRatingType">
         <key-map field-name="perfRatingTypeId"/>
       </relation>
-      <relation type="one" fk-name="PERF_RVITM_PRITTP" rel-entity-name="PerfReviewItemType">
+      <relation type="one-nofk" fk-name="PERF_RVITM_PRITTP" rel-entity-name="PerfReviewItemType">
         <key-map field-name="perfReviewItemTypeId"/>
       </relation>
     </entity>
@@ -319,10 +319,10 @@ under the License.
         <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
         <key-map field-name="roleTypeIdFrom" rel-field-name="roleTypeId"/>
       </relation>
-      <relation type="one" fk-name="EMPLMNT_TNRN" rel-entity-name="TerminationReason">
+      <relation type="one-nofk" fk-name="EMPLMNT_TNRN" rel-entity-name="TerminationReason">
         <key-map field-name="terminationReasonId"/>
       </relation>
-      <relation type="one" fk-name="EMPLMNT_TNTP" rel-entity-name="TerminationType">
+      <relation type="one-nofk" fk-name="EMPLMNT_TNTP" rel-entity-name="TerminationType">
         <key-map field-name="terminationTypeId"/>
       </relation>
     </entity>
@@ -337,19 +337,19 @@ under the License.
       <field name="referredByPartyId" type="id"></field>
       <field name="applicationDate" type="date-time"></field>
       <prim-key field="applicationId"/>
-      <relation type="one" fk-name="EMPLMNT_APP_POS" rel-entity-name="EmplPosition">
+      <relation type="one-nofk" fk-name="EMPLMNT_APP_POS" rel-entity-name="EmplPosition">
         <key-map field-name="emplPositionId"/>
       </relation>
-      <relation type="one" fk-name="EMPLMNT_APP_STTS" rel-entity-name="StatusItem">
+      <relation type="one-nofk" fk-name="EMPLMNT_APP_STTS" rel-entity-name="StatusItem">
         <key-map field-name="statusId"/>
       </relation>
-      <relation type="one" fk-name="EMPLMNT_APP_EAST" rel-entity-name="EmploymentAppSourceType">
+      <relation type="one-nofk" fk-name="EMPLMNT_APP_EAST" rel-entity-name="EmploymentAppSourceType">
         <key-map field-name="employmentAppSourceTypeId"/>
       </relation>
-      <relation type="one" fk-name="EMPLMNT_APP_APTY" title="Applying" rel-entity-name="Party">
+      <relation type="one-nofk" fk-name="EMPLMNT_APP_APTY" title="Applying" rel-entity-name="Party">
         <key-map field-name="applyingPartyId" rel-field-name="partyId"/>
       </relation>
-      <relation type="one" fk-name="EMPLMNT_APP_RBPTY" title="ReferredBy" rel-entity-name="Party">
+      <relation type="one-nofk" fk-name="EMPLMNT_APP_RBPTY" title="ReferredBy" rel-entity-name="Party">
         <key-map field-name="referredByPartyId" rel-field-name="partyId"/>
       </relation>
     </entity>
@@ -397,7 +397,7 @@ under the License.
       <relation type="one" fk-name="PTY_BNFT_BNFTTP" rel-entity-name="BenefitType">
         <key-map field-name="benefitTypeId"/>
       </relation>
-      <relation type="one" fk-name="PTY_BNFT_PRDTYP" rel-entity-name="PeriodType">
+      <relation type="one-nofk" fk-name="PTY_BNFT_PRDTYP" rel-entity-name="PeriodType">
         <key-map field-name="periodTypeId"/>
       </relation>
     </entity>
@@ -438,7 +438,7 @@ under the License.
       <relation type="one" fk-name="PAY_HIST_PGRD" rel-entity-name="PayGrade">
         <key-map field-name="payGradeId"/>
       </relation>
-      <relation type="one" fk-name="PAY_HIST_SSTP" rel-entity-name="SalaryStep">
+      <relation type="one-nofk" fk-name="PAY_HIST_SSTP" rel-entity-name="SalaryStep">
         <key-map field-name="salaryStepSeqId"/>
         <key-map field-name="payGradeId"/>
       </relation>
@@ -472,13 +472,13 @@ under the License.
         <key-map field-name="partyId"/>
         <key-map field-name="roleTypeId"/>
       </relation>
-      <relation type="one" fk-name="PRL_PREF_DNTP" rel-entity-name="DeductionType">
+      <relation type="one-nofk" fk-name="PRL_PREF_DNTP" rel-entity-name="DeductionType">
         <key-map field-name="deductionTypeId"/>
       </relation>
-      <relation type="one" fk-name="PRL_PREF_PMTP" rel-entity-name="PaymentMethodType">
+      <relation type="one-nofk" fk-name="PRL_PREF_PMTP" rel-entity-name="PaymentMethodType">
         <key-map field-name="paymentMethodTypeId"/>
       </relation>
-      <relation type="one" fk-name="PRL_PREF_PDTP" rel-entity-name="PeriodType">
+      <relation type="one-nofk" fk-name="PRL_PREF_PDTP" rel-entity-name="PeriodType">
         <key-map field-name="periodTypeId"/>
       </relation>
     </entity>
@@ -522,14 +522,14 @@ under the License.
       <field name="roleTypeIdTo" type="id"></field>
       <field name="fromDate" type="date-time"></field>
       <prim-key field="unemploymentClaimId"/>
-      <relation type="one" fk-name="UNMPL_CLM_EMPLMNT" rel-entity-name="Employment">
+      <relation type="one-nofk" fk-name="UNMPL_CLM_EMPLMNT" rel-entity-name="Employment">
         <key-map field-name="roleTypeIdFrom"/>
         <key-map field-name="roleTypeIdTo"/>
         <key-map field-name="partyIdFrom"/>
         <key-map field-name="partyIdTo"/>
         <key-map field-name="fromDate"/>
       </relation>
-      <relation type="one" fk-name="UNMPL_CLM_STTS" rel-entity-name="StatusItem">
+      <relation type="one-nofk" fk-name="UNMPL_CLM_STTS" rel-entity-name="StatusItem">
         <key-map field-name="statusId"/>
       </relation>
     </entity>
@@ -562,11 +562,11 @@ under the License.
       <relation type="one" fk-name="EMPL_POS_PRTY" rel-entity-name="Party">
         <key-map field-name="partyId"/>
       </relation>
-      <relation type="one" fk-name="EMPL_POS_BGTITM" rel-entity-name="BudgetItem">
+      <relation type="one-nofk" fk-name="EMPL_POS_BGTITM" rel-entity-name="BudgetItem">
         <key-map field-name="budgetId"/>
         <key-map field-name="budgetItemSeqId"/>
       </relation>
-      <relation type="one" fk-name="EMPL_POS_EPSTP" rel-entity-name="EmplPositionType">
+      <relation type="one-nofk" fk-name="EMPL_POS_EPSTP" rel-entity-name="EmplPositionType">
         <key-map field-name="emplPositionTypeId"/>
       </relation>
     </entity>
@@ -636,20 +636,8 @@ under the License.
             package-name="org.ofbiz.humanres.position"
             title="EmplPosition Type Entity">
       <field name="emplPositionTypeId" type="id-ne"></field>
-      <field name="partyId" type="id"></field>
-      <field name="roleTypeId" type="id"></field>
       <field name="description" type="description"></field>
       <prim-key field="emplPositionTypeId"/>
-      <relation type="one" fk-name="EMPL_PSTP_PRTY" rel-entity-name="Party">
-        <key-map field-name="partyId"/>
-      </relation>
-      <relation type="one" fk-name="EMPL_PSTP_PRLE" rel-entity-name="RoleType">
-        <key-map field-name="roleTypeId"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="PartyRole">
-        <key-map field-name="partyId"/>
-        <key-map field-name="roleTypeId"/>
-      </relation>
     </entity>
     <entity entity-name="EmplPositionTypeClass"
             package-name="org.ofbiz.humanres.position"
