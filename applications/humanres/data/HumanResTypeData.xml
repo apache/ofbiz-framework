@@ -51,4 +51,8 @@ under the License.
     <ResponsibilityType description="Resource Management" hasTable="N" parentTypeId="" statusTypeId="RES_MGMT"/>
     <ResponsibilityType description="Production Management" hasTable="N" parentTypeId="" statusTypeId="PROD_MGMT"/>
     <ResponsibilityType description="Sales Management" hasTable="N" parentTypeId="" statusTypeId="SALES_MGMT"/>    
+    
+    <BenefitType description="Health" hasTable="N" parentTypeId="" benefitTypeId="HEALTH"/>
+    <BenefitType description="Vacation" hasTable="N" parentTypeId="" benefitTypeId="VACATION"/>
+    <BenefitType description="Sick Leave" hasTable="N" parentTypeId="" benefitTypeId="SICK_LEAVE"/>
 </entity-engine-xml>
