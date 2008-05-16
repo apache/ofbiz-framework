@@ -1131,6 +1131,9 @@
     <property key="SfaCampaigns">
         <value xml:lang="en">Campaigns</value>
     </property>
+    <property key="SfaCloneLead">
+        <value xml:lang="en">Clone Lead</value>
+    </property>
     <property key="SfaCloseDate">
         <value xml:lang="en">Close Date</value>
     </property>

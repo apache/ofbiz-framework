@@ -34,21 +34,21 @@ under the License.
             </entity-one>
         </row-actions>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
-            <hyperlink target="viewprofile?partyId=${partyRow.partyId}&amp;partyTypeId=${partyRow.partyTypeId}&amp;roleTypeId=LEAD" description="${partyRow.partyId}" target-type="inter-app"/>
+            <hyperlink target="viewprofile?partyId=${partyRow.partyId}&amp;roleTypeId=LEAD" description="${partyRow.partyId}" target-type="inter-app"/>
         </field>
         <field name="partyName" title="${uiLabelMap.PartyName}" use-when="partyGroup != null"><display description="${partyGroup.groupName}"/></field>
         <field name="partyName" title="${uiLabelMap.PartyName}" use-when="person != null"><display description="${person.lastName}, ${person.firstName}"/></field>
         <field name="partyTypeId" title="${uiLabelMap.PartyType}"><display description="${partyType.description}"/> </field>
     </form>
 
-    <form name="createLead" type="single" target="createLead" header-row-style="header-row" default-table-style="basic-table">
+    <form name="createLead" type="single" target="createLead" header-row-style="header-row" default-table-style="basic-table" default-map-name="contactDetailMap">
         <field name="firstName" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
         <field name="lastName" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
         <field name="suffix"><text/></field>
         <field name="groupName"><text/></field>
         <field name="title"><text/></field>
         <field name="numEmployees" title="${uiLabelMap.MarketingNoOfEmployees}"><text size="30"/></field>
-        <field name="siteName" title="${uiLabelMap.FormFieldTitle_officeSiteName}"><text size="30" maxlength="60"/></field>
+        <field name="officeSiteName" title="${uiLabelMap.FormFieldTitle_officeSiteName}"><text size="30" maxlength="60"/></field>
         <field name="postalAddressTitle" title="${uiLabelMap.PartyGeneralCorrespondenceAddress}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
         <field name="address1" title="${uiLabelMap.CommonAddress1}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="50" maxlength="60"/></field>
         <field name="address2" title="${uiLabelMap.CommonAddress2}"><text size="50" maxlength="60"/></field>

@@ -58,6 +58,7 @@
             <set field="partyRelationshipContext.partyIdTo" from-field="partyId"/>
             <set field="partyRelationshipContext.roleTypeIdFrom" value="LEAD"/>
             <set field="partyRelationshipContext.roleTypeIdTo" value="EMPLOYEE"/>
+            <set field="partyRelationshipContext.positionTitle" from-field="parameters.title"/>
             <set field="partyRelationshipContext.partyRelationshipTypeId" value="EMPLOYMENT"/>
             <call-service service-name="createPartyRelationship" in-map-name="partyRelationshipContext"/>
         </if-not-empty>
@@ -80,6 +81,7 @@
             <create-value value-name="partyDataSource"/>
         </if-not-empty>
         <field-to-result field-name="partyId"/>
+        <field-to-result field-name="parameters.roleTypeId" result-name="roleTypeId"/>
     </simple-method>
   
     <simple-method method-name="convertLeadToContact" short-description="Convert a lead person into a contact and associated lead group to an account">
@@ -98,7 +100,7 @@
         <filter-list-by-date list-name="partyRelationships" to-list-name="partyRelationships"/>
         <first-from-list list-name="partyRelationships" entry-name="partyRelationship"/>
         
-        <set field="accountId" from-field="parameters.partyId"/>
+        <set field="accountId" from-field="partyRelationship.partyIdFrom"/>
         <if-not-empty field-name="partyRelationship">
             <if-empty field-name="accountId">
                 <set field="accountId" from-field="partyRelationship.partyIdFrom"/>
@@ -117,11 +119,13 @@
             </if-empty>
         </if-not-empty>
         <clear-field field-name="partyRelationshipCtx"/>
-        <set field="partyRelationshipCtx.partyIdFrom" from-field="accountId"/>
-        <set field="partyRelationshipCtx.partyIdTo" from-field="leadPartyId"/>
-        <set field="partyRelationshipCtx.roleTypeIdFrom" value="ACCOUNT"/>
-        <set field="partyRelationshipCtx.roleTypeIdTo" value="CONTACT"/>
-        <set field="partyRelationshipCtx.partyRelationshipTypeId" value="CONTACT_REL"/>
-        <call-service service-name="createPartyRelationship" in-map-name="partyRelationshipCtx"/>
+        <if-empty field-name="accountId">
+            <set field="partyRelationshipCtx.partyIdFrom" from-field="accountId"/>
+            <set field="partyRelationshipCtx.partyIdTo" from-field="leadPartyId"/>
+            <set field="partyRelationshipCtx.roleTypeIdFrom" value="ACCOUNT"/>
+            <set field="partyRelationshipCtx.roleTypeIdTo" value="CONTACT"/>
+            <set field="partyRelationshipCtx.partyRelationshipTypeId" value="CONTACT_REL"/>
+            <call-service service-name="createPartyRelationship" in-map-name="partyRelationshipCtx"/>
+        </if-empty>              
     </simple-method>
 </simple-methods>

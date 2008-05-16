@@ -1,5 +1,4 @@
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.util.EntityUtil;
 import javolution.util.FastList;
@@ -13,14 +12,14 @@ if(UtilValidate.isNotEmpty(partyIdFrom) && UtilValidate.isNotEmpty(partyIdTo)) {
     partyListItr = partyList.iterator();
     while (partyListItr.hasNext()) {
         partyId = partyListItr.next();
-        party = delegator.findOne("Person", UtilMisc.toMap("partyId", partyId), false);
-        person =  delegator.findOne("Person", UtilMisc.toMap("partyId", partyId), false);
+        party = delegator.findOne("Party", UtilMisc.toMap("partyId", partyId), false);
+        person =  party.getRelatedOne("Person");
         contactDetailMap = UtilMisc.toMap("partyId", partyId, "firstName", person.get("firstName"), "lastName", person.get("lastName"));
 
-        contactMechGenLoc = EntityUtil.getFirst(ContactHelper.getContactMech(party, "GENERAL_LOCATION", "POSTAL_ADDRESS", false));
-        if(UtilValidate.isNotEmpty(contactMechGenLoc)) {
-            contactDetailMap.put("addrContactMechId", contactMechGenLoc.get("contactMechId"));
-            postalAddress = contactMechGenLoc.getRelatedOne("PostalAddress");
+        generalContactMech = EntityUtil.getFirst(ContactHelper.getContactMech(party, "GENERAL_LOCATION", "POSTAL_ADDRESS", false));
+        if(UtilValidate.isNotEmpty(generalContactMech)) {
+            contactDetailMap.put("addrContactMechId", generalContactMech.get("contactMechId"));
+            postalAddress = genLocContactMech.getRelatedOne("PostalAddress");
             if(UtilValidate.isNotEmpty(postalAddress)) {
                 contactDetailMap.put("address1", postalAddress.get("address1"));
                 contactDetailMap.put("city", postalAddress.get("city"));
@@ -35,15 +34,15 @@ if(UtilValidate.isNotEmpty(partyIdFrom) && UtilValidate.isNotEmpty(partyIdTo)) {
                 contactDetailMap.put("country", geo.get("geoName"));
             }
         }
-        contactMechPrimEmail = EntityUtil.getFirst(ContactHelper.getContactMech(party, "PRIMARY_EMAIL", "EMAIL_ADDRESS", false));
-        if(UtilValidate.isNotEmpty(contactMechPrimEmail)) {
-            contactDetailMap.put("primaryEmail", contactMechPrimEmail.get("infoString"));
-            contactDetailMap.put("emailContactMechId", contactMechPrimEmail.get("contactMechId"));
-        }
-        contactMechPrimPhone = EntityUtil.getFirst(ContactHelper.getContactMech(party, "PRIMARY_PHONE", "TELECOM_NUMBER", false));
-        if(UtilValidate.isNotEmpty(contactMechPrimPhone)) {
-            contactDetailMap.put("phoneContactMechId", contactMechPrimPhone.get("contactMechId"));
-            telecomNumber = contactMechPrimPhone.getRelatedOne("TelecomNumber"); 
+        emailContactMech = EntityUtil.getFirst(ContactHelper.getContactMech(party, "PRIMARY_EMAIL", "EMAIL_ADDRESS", false));
+        if(UtilValidate.isNotEmpty(emailContactMech)) {
+            contactDetailMap.put("primaryEmail", emailContactMech.get("infoString"));
+            contactDetailMap.put("emailContactMechId", emailContactMech.get("contactMechId"));
+        }            
+        phoneContactMech = EntityUtil.getFirst(ContactHelper.getContactMech(party, "PRIMARY_PHONE", "TELECOM_NUMBER", false));
+        if(UtilValidate.isNotEmpty(phoneContactMech)) {
+            contactDetailMap.put("phoneContactMechId", phoneContactMech.get("contactMechId"));
+            telecomNumber = phoneContactMech.getRelatedOne("TelecomNumber"); 
             if(UtilValidate.isNotEmpty(telecomNumber)) {
                 countryCode = telecomNumber.get("countryCode");
                 if(UtilValidate.isNotEmpty(countryCode)) {

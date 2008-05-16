@@ -403,8 +403,10 @@ under the License.
         <attribute name="groupName" type="String" mode="IN" optional="true"/>
         <attribute name="title" type="String" mode="IN" optional="true"/>
         <attribute name="numEmployees" type="String" mode="IN" optional="true"/>
+        <attribute name="officeSiteName" type="String" mode="IN" optional="true"/>
         <attribute name="partyIdFrom" type="String" mode="IN" optional="true"/>
         <attribute name="leadSource" type="String" mode="IN" optional="true"/>
+        <attribute name="roleTypeId" type="String" mode="OUT"/>
     </service>
     <service name="createContact" engine="simple"
         location="org/ofbiz/sfa/contact/ContactServices.xml" invoke="createContact">
