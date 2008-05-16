@@ -134,10 +134,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                              <and>
-                                  <if-compare field-name="partyTypeId" operator="equals" value="PERSON"/>
-                                  <if-compare field-name="parameters.roleTypeId" operator="equals" value="LEAD"/>
-                              </and>
+                                <if-compare field-name="parameters.roleTypeId" operator="equals" value="LEAD"/>
                             </condition>
                             <widgets>
                                 <include-menu name="LeadTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>

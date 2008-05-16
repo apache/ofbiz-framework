@@ -116,7 +116,6 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleCreateContact"/>
                 <set field="tabButtonItem" value="Contacts"/>
-                <set field="contactmechId1" ></set>
                 <script location="component://marketing/webapp/sfa/WEB-INF/action/mergeContacts.bsh"/>
             </actions>
             <widgets>

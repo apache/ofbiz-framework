@@ -128,4 +128,33 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="CloneLead">
+        <section>
+            <actions>
+                <script location="component://marketing/webapp/sfa/WEB-INF/action/cloneLead.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar boxhead">
+                                <section>
+                                    <widgets>
+                                        <label text="${uiLabelMap.SfaCloneLead}"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="createLead" location="component://marketing/widget/sfa/forms/LeadForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container> 
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>

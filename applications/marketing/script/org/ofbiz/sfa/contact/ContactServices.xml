@@ -55,11 +55,15 @@
                         <call-service service-name="updatePartyContactMech" in-map-name="updatePartyContactMechCtx"/>
                     </if-not-empty>
                     <clear-field field-name="updatePartyContactMechCtx"/>
+                    <set field="deletePartyContactMechCtx.partyId" from-field="partyId"/>
+                    <set field="deletePartyContactMechCtx.contactMechId" from-field="addrContactMechId"/>
+                    <call-service service-name="deletePartyContactMech" in-map-name="deletePartyContactMechCtx"/>
+                    <clear-field field-name="deletePartyContactMechCtx"/>
                 </if-not-empty>
             </if-compare>
             <if-compare field-name="parameters.useContactNum2" operator="equals"  value="Y" >
                 <if-not-empty field-name="phoneContactMechId">
-                    <if-not-empty field-name="addrContactMechIdTo">
+                    <if-not-empty field-name="phoneContactMechIdTo">
                         <set field="updatePartyContactMechCtx.partyId" from-field="partyIdTo"/>
                         <set field="updatePartyContactMechCtx.contactMechId" from-field="phoneContactMechIdTo"/>
                         <set field="updatePartyContactMechCtx.contactMechTypeId" value="TELECOM_NUMBER"/>
@@ -68,6 +72,10 @@
                         <call-service service-name="updatePartyContactMech" in-map-name="updatePartyContactMechCtx"/>
                     </if-not-empty>
                     <clear-field field-name="updatePartyContactMechCtx"/>
+                    <set field="deletePartyContactMechCtx.partyId" from-field="partyId"/>
+                    <set field="deletePartyContactMechCtx.contactMechId" from-field="phoneContactMechId"/>
+                    <call-service service-name="deletePartyContactMech" in-map-name="deletePartyContactMechCtx"/>            
+                    <clear-field field-name="deletePartyContactMechCtx"/>
                 </if-not-empty>
             </if-compare>
             <if-compare field-name="parameters.useEmail2" operator="equals"  value="Y" >
@@ -80,22 +88,12 @@
                         <set field="updatePartyContactMechCtx.newContactMechId" from-field="emailContactMechId"/>
                         <call-service service-name="updatePartyContactMech" in-map-name="updatePartyContactMechCtx"/>
                     </if-not-empty>
+                    <set field="deletePartyContactMechCtx.partyId" from-field="partyId"/>
+                    <set field="deletePartyContactMechCtx.contactMechId" from-field="emailContactMechId"/>
+                    <call-service service-name="deletePartyContactMech" in-map-name="deletePartyContactMechCtx"/>
                 </if-not-empty>
             </if-compare>
-            <set field="deletePartyContactMechCtx.partyId" from-field="partyId"/>
-            <set field="deletePartyContactMechCtx.contactMechId" from-field="addrContactMechId"/>
-            <call-service service-name="deletePartyContactMech" in-map-name="deletePartyContactMechCtx"/>
-            <clear-field field-name="deletePartyContactMechCtx"/>
-
-            <set field="deletePartyContactMechCtx.partyId" from-field="partyId"/>
-            <set field="deletePartyContactMechCtx.contactMechId" from-field="phoneContactMechId"/>
-            <call-service service-name="deletePartyContactMech" in-map-name="deletePartyContactMechCtx"/>            
-            <clear-field field-name="deletePartyContactMechCtx"/>
             
-            <set field="deletePartyContactMechCtx.partyId" from-field="partyId"/>
-            <set field="deletePartyContactMechCtx.contactMechId" from-field="emailContactMechId"/>
-            <call-service service-name="deletePartyContactMech" in-map-name="deletePartyContactMechCtx"/>
-          
             <set field="updatePartyCtx.partyId" from-field="partyId"/>
             <set field="updatePartyCtx.statusId" value="PARTY_DISABLED"/>
             <call-service service-name="setPartyStatus" in-map-name="updatePartyCtx"/>
