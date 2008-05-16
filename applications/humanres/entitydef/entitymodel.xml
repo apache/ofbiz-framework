@@ -687,5 +687,38 @@ under the License.
         <key-map field-name="responsibilityTypeId"/>
       </relation>
     </entity>
+    <entity entity-name="EmplPositionTypeRate"
+            package-name="org.ofbiz.humanres.position"
+            title="EmplPosition Type Rate Entity">
+        <field name="emplPositionTypeId" type="id-ne"/>
+        <field name="periodTypeId" type="id-ne"/>
+        <field name="salaryStepSeqId" type="id"/>
+        <field name="rateTypeId" type="id"/>
+        <field name="payGradeId" type="id"/>
+        <field name="fromDate" type="date-time"/>
+        <field name="thruDate" type="date-time"/>
+        <field name="rate" type="id"/>
+        <prim-key field="fromDate"/>
+        <relation type="one" fk-name="EMPL_PSTPRT_EPTP" rel-entity-name="EmplPositionType">
+            <key-map field-name="emplPositionTypeId"/>
+        </relation>
+        <relation type="one" fk-name="EMPL_PSTPRT_PRDTYP" rel-entity-name="PeriodType">
+            <key-map field-name="periodTypeId"/>
+        </relation>
+        <relation type="one-nofk" fk-name="EMPL_PSTPRT_SSTP" rel-entity-name="SalaryStep">
+            <key-map field-name="salaryStepSeqId"/>
+            <key-map field-name="payGradeId"/>
+        </relation>
+        <relation type="one-nofk" fk-name="EMPL_PSTPRT_RTTYP" rel-entity-name="RateType">
+            <key-map field-name="rateTypeId"/>
+        </relation>
+    </entity>
+    <entity entity-name="RateType"
+            package-name="org.ofbiz.humanres.position"
+            title="Rate Type Entity">
+        <field name="rateTypeId" type="id-ne"/>
+        <field name="description" type="description"/>
+        <prim-key field="rateTypeId"/>
+    </entity>
 </entitymodel>
 
