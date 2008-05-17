@@ -19,7 +19,7 @@ if(UtilValidate.isNotEmpty(partyIdFrom) && UtilValidate.isNotEmpty(partyIdTo)) {
         generalContactMech = EntityUtil.getFirst(ContactHelper.getContactMech(party, "GENERAL_LOCATION", "POSTAL_ADDRESS", false));
         if(UtilValidate.isNotEmpty(generalContactMech)) {
             contactDetailMap.put("addrContactMechId", generalContactMech.get("contactMechId"));
-            postalAddress = genLocContactMech.getRelatedOne("PostalAddress");
+            postalAddress = generalContactMech.getRelatedOne("PostalAddress");
             if(UtilValidate.isNotEmpty(postalAddress)) {
                 contactDetailMap.put("address1", postalAddress.get("address1"));
                 contactDetailMap.put("city", postalAddress.get("city"));

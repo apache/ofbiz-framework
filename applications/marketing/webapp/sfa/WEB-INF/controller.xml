@@ -113,6 +113,8 @@ under the License.
         <response name="success" type="view" value="viewLead"/>
         <response name="error" type="view" value="FindLeads"/>
     </request-map>
+    
+    <!-- Contact Requests -->
     <request-map uri="FindContacts">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="FindContacts"/>
@@ -137,6 +139,10 @@ under the License.
         <response name="success" type="view" value="viewprofile"/>
         <response name="error" type="view" value="MergeContacts"/>
     </request-map>
+    <request-map uri="CreateContactFromVCard">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="CreateContactFromVCard"/>
+    </request-map>    
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -145,14 +151,19 @@ under the License.
     <view-map name="NewOpportunity" type="screen" page="component://marketing/widget/sfa/OpportunityScreens.xml#NewOpportunity"/>
     <view-map name="viewOpportunity" type="screen" page="component://marketing/widget/sfa/OpportunityScreens.xml#viewOpportunity"/>
     <view-map name="EditOpportunity" type="screen" page="component://marketing/widget/sfa/OpportunityScreens.xml#EditOpportunity"/>
+    
     <view-map name="FindAccounts" type="screen" page="component://marketing/widget/sfa/AccountScreens.xml#FindAccounts"/>
     <view-map name="NewAccounts" type="screen" page="component://marketing/widget/sfa/AccountScreens.xml#NewAccounts"/>
+    
     <view-map name="FindLeads" type="screen" page="component://marketing/widget/sfa/LeadScreens.xml#FindLeads"/>
     <view-map name="CreateLead" type="screen" page="component://marketing/widget/sfa/LeadScreens.xml#CreateLead"/>
     <view-map name="CloneLead" type="screen" page="component://marketing/widget/sfa/LeadScreens.xml#CloneLead"/>
+    <view-map name="ConvertLead" type="screen" page="component://marketing/widget/sfa/LeadScreens.xml#ConvertLead"/>
+    
     <view-map name="FindContacts" type="screen" page="component://marketing/widget/sfa/ContactScreens.xml#FindContacts"/>
     <view-map name="CreateContact" type="screen" page="component://marketing/widget/sfa/ContactScreens.xml#CreateContact"/>
     <view-map name="MergeContacts" type="screen" page="component://marketing/widget/sfa/ContactScreens.xml#MergeContacts"/>
-    <view-map name="ConvertLead" type="screen" page="component://marketing/widget/sfa/LeadScreens.xml#ConvertLead"/>
+    <view-map name="CreateContactFromVCard" type="screen" page="component://marketing/widget/sfa/ContactScreens.xml#CreateContactFromVCard"/>
+    
     <!-- end of view mappings -->
 </site-conf>
