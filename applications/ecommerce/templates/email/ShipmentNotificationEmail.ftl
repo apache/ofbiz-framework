@@ -45,7 +45,7 @@ under the License.
     <div class="screenlet-body">
       <table width="100%" border="0" cellpadding="0">
         <tr align="left" valign="bottom">
-          <td width="35%" align="left"><span class="tableheadtext"><b>${uiLabelMap.EcommerceProduct}</b></span></td>               
+          <td width="35%" align="left"><span class="tableheadtext"><b>${uiLabelMap.OrderProduct}</b></span></td>
           <td width="10%" align="right"><span class="tableheadtext"><b>${uiLabelMap.OrderQuantity}</b></span></td>
         </tr>
       <tr><td colspan="10"><hr class="sepbar"/></td></tr>

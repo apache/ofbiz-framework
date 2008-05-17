@@ -156,7 +156,7 @@ function submitForm(form, mode, value) {
     <div class="screenlet-body">
         <table width="100%" cellspacing="0" cellpadding="1" border="0">
           <tr>
-            <td><div class="tabletext"><b>${uiLabelMap.EcommerceProduct}</b></div></td>
+            <td><div class="tabletext"><b>${uiLabelMap.OrderProduct}</b></div></td>
             <td align="center"><div class="tabletext"><b>${uiLabelMap.OrderTotalQty}</b></div></td>
             <td>&nbsp;</td>
             <td align="center"><div class="tabletext"><b>${uiLabelMap.OrderMoveQty}</b></div></td>

@@ -29,7 +29,7 @@ under the License.
                     <a href="<@ofbizUrl>advancedsearch</@ofbizUrl>" class="lightbuttontextsmall">[${uiLabelMap.CommonMore}]</a>
                 </#if>
             </div>
-            <div class="boxhead">${uiLabelMap.EcommerceLastSearches}...</div>
+            <div class="boxhead">${uiLabelMap.OrderLastSearches}...</div>
         </div>
         <div class="screenlet-body">
             <#list searchOptionsHistoryList[0..limit] as searchOptions>

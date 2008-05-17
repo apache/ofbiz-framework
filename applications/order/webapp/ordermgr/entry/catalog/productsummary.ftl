@@ -44,7 +44,7 @@ under the License.
             <div class="tabletext" style="color: red;">${uiLabelMap.ProductNoLongerAvailable}</div>
           <#-- check to see if it is a rental item; will enter parameters on the detail screen-->
           <#elseif product.productTypeId?if_exists == "ASSET_USAGE">
-            <a href="<@ofbizUrl>product/<#if categoryId?exists>~category_id=${categoryId}/</#if>~product_id=${product.productId}</@ofbizUrl>" class="buttontext">${uiLabelMap.EcommerceMakeBooking}...</a>
+            <a href="<@ofbizUrl>product/<#if categoryId?exists>~category_id=${categoryId}/</#if>~product_id=${product.productId}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderMakeBooking}...</a>
           <#-- check to see if it is an aggregated or configurable product; will enter parameters on the detail screen-->
           <#elseif product.productTypeId?if_exists == "AGGREGATED">
             <a href="<@ofbizUrl>product/<#if categoryId?exists>~category_id=${categoryId}/</#if>~product_id=${product.productId}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderConfigure}...</a>
@@ -119,7 +119,7 @@ under the License.
                 </#if>
                 <b>
                   <#if price.isSale?exists && price.isSale>
-                    <span class="salePrice">${uiLabelMap.EcommerceOnSale}!</span>
+                    <span class="salePrice">${uiLabelMap.OrderOnSale}!</span>
                     <#assign priceStyle = "salePrice">
                   <#else>
                     <#assign priceStyle = "regularPrice">

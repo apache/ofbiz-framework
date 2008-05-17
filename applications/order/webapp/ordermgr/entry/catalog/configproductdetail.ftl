@@ -245,7 +245,7 @@ function getConfigDetails(event) {
       <div class="tabletext">
         <b>
           <#if price.isSale?exists && price.isSale>
-            <span class='salePrice'>${uiLabelMap.EcommerceOnSale}!</span>
+            <span class='salePrice'>${uiLabelMap.OrderOnSale}!</span>
             <#assign priceStyle = "salePrice">
           <#else>
             <#assign priceStyle = "regularPrice">
@@ -268,7 +268,7 @@ function getConfigDetails(event) {
         </div>
       </#if>
       <#if product.piecesIncluded?exists && product.piecesIncluded?long != 0>
-        <div class="tabletext">${uiLabelMap.EcommercePieces}:
+        <div class="tabletext">${uiLabelMap.OrderPieces}:
           ${product.piecesIncluded}
         </div>
       </#if>
@@ -376,7 +376,7 @@ function getConfigDetails(event) {
               </#list>
             </#if>
             <option value="">---</option>
-            <option value="">${uiLabelMap.EcommerceNewShoppingList}</option>
+            <option value="">${uiLabelMap.OrderNewShoppingList}</option>
           </select>
           &nbsp;&nbsp;
           <input type="text" size="5" class="inputBox" name="quantity" value="1">
