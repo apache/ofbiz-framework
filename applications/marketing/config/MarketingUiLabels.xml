@@ -543,6 +543,9 @@
     <property key="PageTitleCreateContact">
         <value xml:lang="en">Create New Contact</value>
     </property>
+    <property key="PageTitleCreateContactFromVCard">
+        <value xml:lang="en">Create contact from vCard</value>
+    </property>
     <property key="PageTitleCreateLead">
         <value xml:lang="en">Create New Lead</value>
     </property>
@@ -1125,6 +1128,9 @@
     <property key="SfaAcccounts">
         <value xml:lang="en">Accounts</value>
     </property>
+    <property key="SfaAutoCreateContactByImportingVCard">
+        <value xml:lang="en">Automatically create a new contact by importing a vCard</value>
+    </property>    
     <property key="SfaAccountName">
         <value xml:lang="en">Account Name</value>
     </property>
@@ -1158,6 +1164,9 @@
     <property key="SfaCreateContactForLead">
         <value xml:lang="en">Create contact for lead</value>
     </property>
+    <property key="SfaCreateContactFromVCard">
+        <value xml:lang="en">Create from vCard</value>
+    </property>    
     <property key="SfaDocuments">
         <value xml:lang="en">Documents</value>
     </property>
@@ -1251,10 +1260,12 @@
     <property key="SfaSelectExistingAccountOrLeaveBlankToCreateNew">
         <value xml:lang="en">Either select existing account or leave blank to create new account"</value>
     </property>
-
     <property key="SfaType">
         <value xml:lang="en">Type</value>
     </property>
+    <property key="SfaUploadVCard">
+        <value xml:lang="en">Upload vCard</value>
+    </property>    
     <property key="Tracking">
         <value xml:lang="en">Tracking</value>
         <value xml:lang="es">Seguimiento</value>

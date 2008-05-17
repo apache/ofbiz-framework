@@ -19,7 +19,7 @@ under the License.
 -->
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
     <menu name="SfaAppBar" default-menu-item-name="main" id="app-navigation" type="simple" title="${uiLabelMap.SfaManagerApplication}"
-        default-selected-style="selected" menu-container-style="button-bar tab-bar">
+        default-selected-style="selected" menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="tabButtonItem">
         <menu-item name="Main" title="${uiLabelMap.MarketingMainPage}"><link target="main"/></menu-item>
         <menu-item name="Accounts" title="${uiLabelMap.SfaAcccounts}"><link target="FindAccounts"/></menu-item>
         <menu-item name="Contacts" title="${uiLabelMap.SfaContacts}"><link target="FindContacts"/></menu-item>
@@ -38,6 +38,7 @@ under the License.
             <link target="${checkLoginUrl}"/>
         </menu-item>
     </menu>
+    
     <menu name="OpportunityTabBar" type="simple" menu-container-style="button-bar tab-bar" default-selected-style="selected">
         <menu-item name="opportunityView" title="${uiLabelMap.SfaOpportunitySummary}">
             <link target="viewOpportunity?salesOpportunityId=${parameters.salesOpportunityId}"/>
@@ -46,6 +47,7 @@ under the License.
             <link target="EditOpportunity?salesOpportunityId=${parameters.salesOpportunityId}"/>
         </menu-item>
     </menu>
+    
     <menu name="LeadTabBar" type="simple" menu-container-style="button-bar tab-bar" default-selected-style="selected"> 
         <menu-item name="convertLead" title="${uiLabelMap.SfaConvertLead}">
             <link target="ConvertLead?leadPartyId=${parameters.partyId}"/>
@@ -54,4 +56,13 @@ under the License.
             <link target="CloneLead?leadPartyId=${parameters.partyId}"/>
         </menu-item>
     </menu>
+    
+    <menu name="ContactTabBar" type="simple" menu-container-style="button-bar tab-bar" default-selected-style="selected"> 
+       <menu-item name="createNew" title="${uiLabelMap.CommonCreateNew}">
+            <link target="CreateContact"/>
+        </menu-item>
+        <menu-item name="createContactFromVCard" title="${uiLabelMap.SfaCreateContactFromVCard}">
+            <link target="CreateContactFromVCard"/>
+        </menu-item>
+    </menu>    
 </menus>
