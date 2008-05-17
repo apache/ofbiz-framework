@@ -20,7 +20,7 @@ under the License.
 <#if productIds?has_content>
 <div class="screenlet">
     <div class="screenlet-header">
-        <div class="boxhead">&nbsp;${uiLabelMap.EcommerceProductsForPromotion}:</div>
+        <div class="boxhead">&nbsp;${uiLabelMap.OrderProductsForPromotion}:</div>
     </div>
     <div class="screenlet-body">
         <#if (listSize > 0)>

@@ -19,7 +19,7 @@ under the License.
 
 <div class="screenlet">
     <div class="screenlet-header">
-        <div class="boxhead">&nbsp;${uiLabelMap.EcommercePromotionInformation}:</div>
+        <div class="boxhead">&nbsp;${uiLabelMap.OrderPromotionInformation}:</div>
     </div>
     <div class="screenlet-body">
         <div style="float: left; width: 40%;">
@@ -48,21 +48,21 @@ under the License.
                         <#assign productPromoActualPK = quantityUsedPerPromoActualEntry.getKey()>
                         <#assign actualQuantityUsed = quantityUsedPerPromoActualEntry.getValue()>
                         <#assign isQualifier = "ProductPromoCond" == productPromoActualPK.getEntityName()>
-                        <div class="tabletext">&nbsp;&nbsp;-&nbsp;${actualQuantityUsed} ${uiLabelMap.CommonUsedAs} <#if isQualifier>${uiLabelMap.CommonQualifier}<#else>${uiLabelMap.CommonBenefit}</#if> ${uiLabelMap.EcommerceOfPromotion} <a href="<@ofbizUrl>showPromotionDetails?productPromoId=${productPromoActualPK.productPromoId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDetails}</a></div>
+                        <div class="tabletext">&nbsp;&nbsp;-&nbsp;${actualQuantityUsed} ${uiLabelMap.CommonUsedAs} <#if isQualifier>${uiLabelMap.CommonQualifier}<#else>${uiLabelMap.CommonBenefit}</#if> ${uiLabelMap.OrderOfPromotion} <a href="<@ofbizUrl>showPromotionDetails?productPromoId=${productPromoActualPK.productPromoId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDetails}</a></div>
                         <!-- productPromoActualPK ${productPromoActualPK.toString()} -->
                     </#list>
                     <#list cartLine.getQuantityUsedPerPromoFailedIter() as quantityUsedPerPromoFailedEntry>
                         <#assign productPromoFailedPK = quantityUsedPerPromoFailedEntry.getKey()>
                         <#assign failedQuantityUsed = quantityUsedPerPromoFailedEntry.getValue()>
                         <#assign isQualifier = "ProductPromoCond" == productPromoFailedPK.getEntityName()>
-                        <div class="tabletext">&nbsp;&nbsp;-&nbsp;${uiLabelMap.CommonCouldBeUsedAs} <#if isQualifier>${uiLabelMap.CommonQualifier}<#else>${uiLabelMap.CommonBenefit}</#if> ${uiLabelMap.EcommerceOfPromotion} <a href="<@ofbizUrl>showPromotionDetails?productPromoId=${productPromoFailedPK.productPromoId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDetails}</a></div>
+                        <div class="tabletext">&nbsp;&nbsp;-&nbsp;${uiLabelMap.CommonCouldBeUsedAs} <#if isQualifier>${uiLabelMap.CommonQualifier}<#else>${uiLabelMap.CommonBenefit}</#if> ${uiLabelMap.OrderOfPromotion} <a href="<@ofbizUrl>showPromotionDetails?productPromoId=${productPromoFailedPK.productPromoId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDetails}</a></div>
                         <!-- Total times checked but failed: ${failedQuantityUsed}, productPromoFailedPK ${productPromoFailedPK.toString()} -->
                     </#list>
                     <#list cartLine.getQuantityUsedPerPromoCandidateIter() as quantityUsedPerPromoCandidateEntry>
                         <#assign productPromoCandidatePK = quantityUsedPerPromoCandidateEntry.getKey()>
                         <#assign candidateQuantityUsed = quantityUsedPerPromoCandidateEntry.getValue()>
                         <#assign isQualifier = "ProductPromoCond" == productPromoCandidatePK.getEntityName()>
-                        <!-- Left over not reset or confirmed, shouldn't happen: ${candidateQuantityUsed} Might be Used (Candidate) as <#if isQualifier>${uiLabelMap.CommonQualifier}<#else>${uiLabelMap.CommonBenefit}</#if> ${uiLabelMap.EcommerceOfPromotion} [${productPromoCandidatePK.productPromoId}] -->
+                        <!-- Left over not reset or confirmed, shouldn't happen: ${candidateQuantityUsed} Might be Used (Candidate) as <#if isQualifier>${uiLabelMap.CommonQualifier}<#else>${uiLabelMap.CommonBenefit}</#if> ${uiLabelMap.OrderOfPromotion} [${productPromoCandidatePK.productPromoId}] -->
                         <!-- productPromoCandidatePK ${productPromoCandidatePK.toString()} -->
                     </#list>
                 </#if>

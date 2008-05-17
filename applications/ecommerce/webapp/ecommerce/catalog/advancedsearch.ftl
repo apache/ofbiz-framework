@@ -121,7 +121,7 @@ under the License.
   <#if searchOptionsHistoryList?has_content>
     <hr class="sepbar"/>
   
-    <h2>${uiLabelMap.EcommerceLastSearches}...</h2>
+    <h2>${uiLabelMap.OrderLastSearches}...</h2>
   
     <div class="tabletext">
       <a href="<@ofbizUrl>clearSearchOptionsHistoryList</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderClearSearchHistory}</a>

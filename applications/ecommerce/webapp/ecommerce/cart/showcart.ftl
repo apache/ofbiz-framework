@@ -120,7 +120,7 @@ function setAlternateGwp(field) {
                     ${uiLabelMap.EcommerceLength}: <input type="text" class="inputBox" size="2" name="reservLength" value=${requestParameters.reservLength?default("")}/>
                     </div>
                     <div>
-                    &nbsp;&nbsp;${uiLabelMap.EcommerceNbrPersons}: <input type="text" class="inputBox" size="3" name="reservPersons" value=${requestParameters.reservPersons?default("1")}/>
+                    &nbsp;&nbsp;${uiLabelMap.OrderNbrPersons}: <input type="text" class="inputBox" size="3" name="reservPersons" value=${requestParameters.reservPersons?default("1")}/>
                 </#if> 
                 ${uiLabelMap.CommonQuantity}: <input type="text" class="inputBox" size="5" name="quantity" value="${requestParameters.quantity?default("1")}"/>
                 <input type="submit" class="smallSubmit" value="${uiLabelMap.OrderAddToCart}"/>
@@ -161,7 +161,7 @@ function setAlternateGwp(field) {
       <table width="99%" cellspacing="0" cellpadding="1" border="0">
         <tr>
           <td NOWRAP>&nbsp;</td>
-          <td NOWRAP><div class="tabletext"><b>${uiLabelMap.EcommerceProduct}</b></div></td>
+          <td NOWRAP><div class="tabletext"><b>${uiLabelMap.OrderProduct}</b></div></td>
           <#if asslGiftWraps?has_content && showOrderGiftWrap?default("true") == "true">
             <td NOWRAP align="right">
               <select class="selectBox" name="GWALL" onchange="javascript:gwAll(this);">
@@ -388,7 +388,7 @@ function setAlternateGwp(field) {
                   </#list>
                 </#if>
                 <option value="">---</option>
-                <option value="">${uiLabelMap.EcommerceNewShoppingList}</option>
+                <option value="">${uiLabelMap.OrderNewShoppingList}</option>
               </select>
               &nbsp;&nbsp;
               <a href="javascript:addToList();" class="buttontext">${uiLabelMap.EcommerceAddSelectedtoList}</a>&nbsp;&nbsp;

@@ -19,11 +19,11 @@ under the License.
 <#if productPromoCategoryIncludeList?has_content || productPromoCategoryExcludeList?has_content || productPromoCategoryAlwaysList?has_content>
 <div class="screenlet">
     <div class="screenlet-header">
-        <div class="boxhead">&nbsp;${uiLabelMap.EcommercePromotionCategories}:</div>
+        <div class="boxhead">&nbsp;${uiLabelMap.OrderPromotionCategories}:</div>
     </div>
     <div class="screenlet-body">
         <#if productPromoCategoryIncludeList?has_content>
-          <div class="tabletext">${uiLabelMap.EcommercePromotionProductsInCategories}:</div>
+          <div class="tabletext">${uiLabelMap.OrderPromotionProductsInCategories}:</div>
           <#list productPromoCategoryIncludeList as productPromoCategory>
             <#assign productCategory = productPromoCategory.getRelatedOneCache("ProductCategory")>
             <div class="tabletext">

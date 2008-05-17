@@ -19,7 +19,7 @@ under the License.
 
 <div class="screenlet">
     <div class="screenlet-header">
-        <div class="boxhead">&nbsp;${uiLabelMap.EcommercePromotionDetails}:</div>
+        <div class="boxhead">&nbsp;${uiLabelMap.OrderPromotionDetails}:</div>
     </div>
     <div class="screenlet-body">
         <div class="tabletext">${productPromo.promoText?if_exists}</div>

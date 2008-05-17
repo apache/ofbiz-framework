@@ -325,7 +325,7 @@ ${virtualJavaScript?if_exists}
       <div class="tabletext">
         <b>
           <#if price.isSale?exists && price.isSale>
-            <span class="salePrice">${uiLabelMap.EcommerceOnSale}!</span>
+            <span class="salePrice">${uiLabelMap.OrderOnSale}!</span>
             <#assign priceStyle = "salePrice">
           <#else>
             <#assign priceStyle = "regularPrice">
@@ -355,7 +355,7 @@ ${virtualJavaScript?if_exists}
       <#-- Included quantities/pieces -->
       <#if product.piecesIncluded?exists && product.piecesIncluded?long != 0>
         <div class="tabletext">
-          ${uiLabelMap.EcommercePieces}: ${product.piecesIncluded}
+          ${uiLabelMap.OrderPieces}: ${product.piecesIncluded}
         </div>
       </#if>
       <#if (product.quantityIncluded?exists && product.quantityIncluded?double != 0) || product.quantityUomId?has_content>
@@ -536,7 +536,7 @@ ${virtualJavaScript?if_exists}
               </#list>
             </#if>
             <option value="">---</option>
-            <option value="">${uiLabelMap.EcommerceNewShoppingList}</option>
+            <option value="">${uiLabelMap.OrderNewShoppingList}</option>
           </select>
           &nbsp;&nbsp;
           <#if product.productTypeId?if_exists == "ASSET_USAGE">

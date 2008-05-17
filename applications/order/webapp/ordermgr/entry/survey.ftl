@@ -23,5 +23,5 @@ under the License.
     ${requestAttributes.surveyWrapper.renderSurvey().toString()}
   </form>
 <#else>
-  <h1>${uiLabelMap.EcommerceNothingToDoHere}</h1>
+  <h1>${uiLabelMap.OrderNothingToDoHere}</h1>
 </#if>

@@ -469,7 +469,7 @@ under the License.
         <table width="100%" border="0" cellpadding="1" cellspacing="0">
             <tr>
               <td width="15%" nowrap><div class="tableheadtext">${uiLabelMap.EcommerceListName}</div></td>
-              <#-- <td width="15%" nowrap><div class="tableheadtext">${uiLabelMap.EcommerceListType}</div></td> -->
+              <#-- <td width="15%" nowrap><div class="tableheadtext">${uiLabelMap.OrderListType}</div></td> -->
               <td width="15%" nowrap><div class="tableheadtext">${uiLabelMap.CommonFromDate}</div></td>
               <td width="15%" nowrap><div class="tableheadtext">${uiLabelMap.CommonThruDate}</div></td>
               <td width="15%" nowrap><div class="tableheadtext">${uiLabelMap.CommonStatus}</div></td>

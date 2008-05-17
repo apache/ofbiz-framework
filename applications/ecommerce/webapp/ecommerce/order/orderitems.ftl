@@ -35,7 +35,7 @@ under the License.
     <div class="screenlet-body">
         <table width="100%" border="0" cellpadding="0">
           <tr align="left" valign="bottom">
-            <td width="35%" align="left"><span class="tableheadtext"><b>${uiLabelMap.EcommerceProduct}</b></span></td>               
+            <td width="35%" align="left"><span class="tableheadtext"><b>${uiLabelMap.OrderProduct}</b></span></td>
             <#if maySelectItems?default("N") == "Y">
               <td width="10%" align="right"><span class="tableheadtext"><b>${uiLabelMap.OrderQtyOrdered}</b></span></td>
               <td width="10%" align="right"><span class="tableheadtext"><b>${uiLabelMap.OrderQtyPicked}</b></span></td>
@@ -89,7 +89,7 @@ under the License.
                   <div class="tabletext" style="font-size: xx-small;">
                     <#if product?has_content>
                       <#if product.piecesIncluded?exists && product.piecesIncluded?long != 0>
-                          [${uiLabelMap.EcommercePieces}: ${product.piecesIncluded}]
+                          [${uiLabelMap.OrderPieces}: ${product.piecesIncluded}]
                       </#if>
                       <#if (product.quantityIncluded?exists && product.quantityIncluded?double != 0) || product.quantityUomId?has_content>
                         <#assign quantityUom = product.getRelatedOneCache("QuantityUom")?if_exists/>

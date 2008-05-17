@@ -103,7 +103,7 @@ under the License.
     <form name="ViewShoppingLists" type="list" list-name="customershoppinglists" target=""
         default-title-style="tableheadtext" default-widget-style="tabletext">
         <field name="listName" title="${uiLabelMap.PageTitleShoppingList}"><display/></field>
-        <field name="shoppingListTypeId" title="${uiLabelMap.EcommerceListType}">
+        <field name="shoppingListTypeId" title="${uiLabelMap.OrderListType}">
             <display-entity entity-name="ShoppingListType"/>
         </field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
