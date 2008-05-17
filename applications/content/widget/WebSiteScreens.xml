@@ -324,6 +324,10 @@ under the License.
     <screen name="WebSiteCMSContent">
         <section>
             <actions>
+                <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
+
                 <set field="contentAssocTypeId" from-field="parameters.contentAssocTypeId"/>
                 <set field="dataResourceTypeId" from-field="parameters.dataResourceTypeId"/> 
                 <set field="contentIdFrom" from-field="parameters.contentIdFrom"/>
@@ -364,24 +368,26 @@ under the License.
                 </entity-and>
             </actions>
             <widgets>
-                <container style="screenlet">
-                    <container style="screenlet-title-bar">
-                        <container style="h3">
-                            <label text="${uiLabelMap.PageTitleWebSiteCMSContent}"/>
+                <container id="cmscontent">
+                    <container style="screenlet">
+                        <container style="screenlet-title-bar">
+                            <container style="h3">
+                                <label text="${uiLabelMap.PageTitleWebSiteCMSContent}"/>
+                            </container>
                         </container>
-                    </container>
-                    <container style="screenlet-body">
-                        <section>
-                            <widgets>    
-                                <platform-specific>
-                                    <html>
-                                        <html-template location="component://content/webapp/content/website/WebSiteCMSContent.ftl"/>
-                                    </html>
-                                </platform-specific>
-                            </widgets>
-                        </section>
-                    </container>
-                </container>
+                        <container style="screenlet-body">
+                            <section>
+                                <widgets>    
+                                    <platform-specific>
+                                        <html>
+                                            <html-template location="component://content/webapp/content/website/WebSiteCMSContent.ftl"/>
+                                       </html>
+                                    </platform-specific>
+                                </widgets>
+                            </section>
+                        </container>
+                   </container>
+               </container>
             </widgets>
         </section>
     </screen>

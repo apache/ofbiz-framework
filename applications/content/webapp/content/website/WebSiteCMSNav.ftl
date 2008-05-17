@@ -232,7 +232,7 @@
             mimetype: 'text/html',
             content: ctx,
             error: function(type, data, evt) {
-                alert("An error occured loading editor! : " + data);
+                alert("An error occured loading editor! : " + data.message);
             },
             load: function(type, data, evt) {
                 var editPage = dojo.byId('cmscontent');
