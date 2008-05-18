@@ -51,7 +51,7 @@ under the License.
             <#if requestParameters.VIEW_INDEX?has_content><input type="hidden" name="VIEW_INDEX" value="${requestParameters.VIEW_INDEX}"/></#if>
             <#if requestParameters.VIEW_SIZE?has_content><input type="hidden" name="VIEW_SIZE" value="${requestParameters.VIEW_SIZE}"/></#if>
             <input type="hidden" name="clearSearch" value="N"/>
-            <a href="javascript:document.${miniProdFormName}.submit()" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.CommonAdd} ${miniProdQuantity} ${uiLabelMap.EcommerceToCart}</span></a>
+            <a href="javascript:document.${miniProdFormName}.submit()" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.CommonAdd} ${miniProdQuantity} ${uiLabelMap.OrderToCart}</span></a>
         </form>
     </#if>
     </div>

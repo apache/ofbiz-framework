@@ -151,7 +151,7 @@ function setAlternateGwp(field) {
               <#if (shoppingCartSize > 0)><a href="<@ofbizUrl>checkoutoptions</@ofbizUrl>" class="submenutextright">${uiLabelMap.OrderCheckout}</a><#else><span class="submenutextrightdisabled">${uiLabelMap.OrderCheckout}</span></#if>
             </div>
         </div>
-        <div class="boxhead">&nbsp;${uiLabelMap.EcommerceShoppingCart}</div>
+        <div class="boxhead">&nbsp;${uiLabelMap.OrderShoppingCart}</div>
     </div>
     <div class="screenlet-body">
 
@@ -393,8 +393,8 @@ function setAlternateGwp(field) {
               &nbsp;&nbsp;
               <a href="javascript:addToList();" class="buttontext">${uiLabelMap.EcommerceAddSelectedtoList}</a>&nbsp;&nbsp;
               <#else>
-               ${uiLabelMap.EcommerceYouMust} <a href="<@ofbizUrl>checkLogin/showcart</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonLogin}</a>
-                ${uiLabelMap.EcommerceToAddSelectedItemsToShoppingList}.&nbsp;
+               ${uiLabelMap.OrderYouMust} <a href="<@ofbizUrl>checkLogin/showcart</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonLogin}</a>
+                ${uiLabelMap.OrderToAddSelectedItemsToShoppingList}.&nbsp;
               </#if>
             </div>
           </td>
@@ -409,7 +409,7 @@ function setAlternateGwp(field) {
               &nbsp;&nbsp;
               <a href="<@ofbizUrl>createQuoteFromCart</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCreateQuoteFromCart}</a>&nbsp;&nbsp;
               <#else>
-               ${uiLabelMap.EcommerceYouMust} <a href="<@ofbizUrl>checkLogin/showcart</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonLogin}</a>
+               ${uiLabelMap.OrderYouMust} <a href="<@ofbizUrl>checkLogin/showcart</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonLogin}</a>
                 ${uiLabelMap.EcommerceToOrderCreateCustRequestFromCart}.&nbsp;
               </#if>
             </div>
@@ -454,7 +454,7 @@ function setAlternateGwp(field) {
 <#if showPromoText?exists && showPromoText>
 <div class="screenlet">
     <div class="screenlet-header">
-        <div class="boxhead">&nbsp;${uiLabelMap.EcommerceSpecialOffers}</div>
+        <div class="boxhead">&nbsp;${uiLabelMap.OrderSpecialOffers}</div>
     </div>
     <div class="screenlet-body">
         <#-- show promotions text -->
@@ -465,7 +465,7 @@ function setAlternateGwp(field) {
             </#if>
         </#list>
         <div><hr class="sepbar"/></div>
-        <div class="tabletext"><a href="<@ofbizUrl>showAllPromotions</@ofbizUrl>" class="buttontext">${uiLabelMap.EcommerceViewAllPromotions}</a></div>
+        <div class="tabletext"><a href="<@ofbizUrl>showAllPromotions</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderViewAllPromotions}</a></div>
     </div>
 </div>
 </#if>

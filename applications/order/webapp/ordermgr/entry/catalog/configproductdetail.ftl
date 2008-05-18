@@ -250,13 +250,13 @@ function getConfigDetails(event) {
           <#else>
             <#assign priceStyle = "regularPrice">
           </#if>
-            ${uiLabelMap.EcommerceYourPrice}: <#if "Y" = product.isVirtual?if_exists> from </#if><span class='${priceStyle}'><@ofbizCurrency amount=price.price isoCode=price.currencyUsed/></span>
+            ${uiLabelMap.OrderYourPrice}: <#if "Y" = product.isVirtual?if_exists> from </#if><span class='${priceStyle}'><@ofbizCurrency amount=price.price isoCode=price.currencyUsed/></span>
         </b>
       </div>
       <#if price.listPrice?exists && price.price?exists && price.price?double < price.listPrice?double>
         <#assign priceSaved = price.listPrice?double - price.price?double>
         <#assign percentSaved = (priceSaved?double / price.listPrice?double) * 100>
-        <div class="tabletext">${uiLabelMap.EcommerceSave}: <span class="basePrice"><@ofbizCurrency amount=priceSaved isoCode=price.currencyUsed/> (${percentSaved?int}%)</span></div>
+        <div class="tabletext">${uiLabelMap.OrderSave}: <span class="basePrice"><@ofbizCurrency amount=priceSaved isoCode=price.currencyUsed/> (${percentSaved?int}%)</span></div>
       </#if>
       </#if>
 
@@ -383,8 +383,8 @@ function getConfigDetails(event) {
           <a href="javascript:document.addToShoppingList.submit();" class="buttontext">[${uiLabelMap.OrderAddToShoppingList}]</a>
         </form>
       <#else> <br/>
-        ${uiLabelMap.EcommerceYouMust} <a href="<@ofbizUrl>checkLogin/showcart</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonLogin}</a>
-        ${uiLabelMap.EcommerceToAddSelectedItemsToShoppingList}.&nbsp;
+        ${uiLabelMap.OrderYouMust} <a href="<@ofbizUrl>checkLogin/showcart</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonLogin}</a>
+        ${uiLabelMap.OrderToAddSelectedItemsToShoppingList}.&nbsp;
       </#if>
       </div>
       <#-- Prefill first select box (virtual products only) -->
@@ -576,7 +576,7 @@ function getConfigDetails(event) {
     <td colspan="2">
       <div class="tableheadtext">${uiLabelMap.OrderCustomerReviews}:</div>
       <#if averageRating?exists && (averageRating?double > 0) && numRatings?exists && (numRatings?double > 1)>
-          <div class="tabletext">${uiLabelMap.OrderAverageRating}: ${averageRating} <#if numRatings?exists>(${uiLabelMap.CommonFrom} ${numRatings} ${uiLabelMap.EcommerceRatings})</#if></div>
+          <div class="tabletext">${uiLabelMap.OrderAverageRating}: ${averageRating} <#if numRatings?exists>(${uiLabelMap.CommonFrom} ${numRatings} ${uiLabelMap.OrderRatings})</#if></div>
       </#if>
     </td>
   </tr>
@@ -596,7 +596,7 @@ function getConfigDetails(event) {
                 <div class="tabletext"><b>${uiLabelMap.CommonOn}: </b>${productReview.postedDateTime?if_exists}</div>
               </td>
               <td>
-                <div class="tabletext"><b>${uiLabelMap.EcommerceRanking}: </b>${productReview.productRating?if_exists?string}</div>
+                <div class="tabletext"><b>${uiLabelMap.OrderRanking}: </b>${productReview.productRating?if_exists?string}</div>
               </td>
             </tr>
             <tr>
