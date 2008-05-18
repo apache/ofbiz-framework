@@ -36,6 +36,7 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.BshUtil;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.GroovyUtil;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilMisc;
@@ -390,6 +391,12 @@ public abstract class ModelScreenAction implements Serializable {
                     BshUtil.runBshAtLocation(location, context);
                 } catch (GeneralException e) {
                     throw new GeneralException("Error running BSH script at location [" + location + "]", e);
+                }
+            } else if (location.endsWith(".groovy")) {
+                try {
+                    GroovyUtil.runScriptAtLocation(location, context);
+                } catch (GeneralException e) {
+                    throw new GeneralException("Error running Groovy script at location [" + location + "]", e);
                 }
             } else if (location.contains(".xml#")) {
                 String xmlResource = ScreenFactory.getResourceNameFromCombined(location);
