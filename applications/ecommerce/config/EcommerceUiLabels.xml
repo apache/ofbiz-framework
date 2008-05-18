@@ -2537,7 +2537,7 @@
         <value xml:lang="de">Werbeartikel; Mengen können nicht geändert werden</value>
         <value xml:lang="en">Promotional Items</value>
         <value xml:lang="es">Artículos promocionales</value>
-        <value xml:lang="fr">Articles promotionnels</value>
+        <value xml:lang="fr">Articles promotionnels; quantité non modifiable</value>
         <value xml:lang="hi_IN">प्रोत्साहन सामान: मात्रा बदली नहीं जा सकती</value>
         <value xml:lang="it">Righe Promozione; le quantità non possono essere modificate</value>
         <value xml:lang="ja">Promotional items; quantities cannot be modified</value>
@@ -2582,7 +2582,7 @@
         <value xml:lang="de">Bewertung (1-5; 5 entspricht sehr gut)</value>
         <value xml:lang="en">Estimation</value>
         <value xml:lang="es">Voto (de 1 a 5)</value>
-        <value xml:lang="fr">Classement</value>
+        <value xml:lang="fr">Note(s) (de 1 à 5, 5 étant la meilleure)</value>
         <value xml:lang="hi_IN">श्रेणी (१-५, ५ सबसे अच्छा)</value>
         <value xml:lang="it">Posizione(1-5; 5 è il migliore)</value>
         <value xml:lang="ja">Rating (1-5; 5 being best)</value>
@@ -2590,9 +2590,20 @@
         <value xml:lang="pt_PT">Classe (1-5; 5 para o melhor)</value>
         <value xml:lang="ro">Pozitia(1-5; 5 este cea mai buna )</value>
         <value xml:lang="ru">Рейтинг (1-5; 5 лучший)</value>
-        <value xml:lang="th">อัตรา</value>
+        <value xml:lang="th">การประเมิณ (1-5; 5 คุณสมบัติดีที่สุด)</value>
         <value xml:lang="zh">评级 (1-5; 5最好)</value>
     </property>
+    <property key="EcommerceRead">
+        <value xml:lang="en">Read</value>
+        <value xml:lang="es">Leer</value>
+        <value xml:lang="fr">Lire</value>
+        <value xml:lang="it">Leggi</value>
+        <value xml:lang="nl">Lees</value>
+        <value xml:lang="ro">Citeste</value>
+        <value xml:lang="ru">Читать</value>
+        <value xml:lang="th">อ่าน</value>
+        <value xml:lang="zh">读取</value>
+    </property>    
     <property key="EcommerceReadMessage">
         <value xml:lang="en">Read Message</value>
         <value xml:lang="fr">Lire le message</value>
@@ -2653,7 +2664,7 @@
         <value xml:lang="de">Durch Variante ersetzen</value>
         <value xml:lang="en">Replace With Variation</value>
         <value xml:lang="es">Reemplazar con variantes</value>
-        <value xml:lang="fr">Remplacer avec changement</value>
+        <value xml:lang="fr">Remplacer avec une variante</value>
         <value xml:lang="hi_IN">भेद को हटाऐं</value>
         <value xml:lang="it">Rimpiazza Con Variante</value>
         <value xml:lang="ja">Replace With Variation</value>
@@ -2693,7 +2704,7 @@
     <property key="EcommerceReturnRequest">
         <value xml:lang="en">Return Request</value>
         <value xml:lang="es">Su orden de devolución para los siguientes items :</value>
-        <value xml:lang="fr">Retourner la demande</value>
+        <value xml:lang="fr">Votre demande de retour des articles suivants:</value>
         <value xml:lang="hi_IN">सारे सामान का जवाब</value>
         <value xml:lang="it">La tua richiesta è ritornata per le seguenti righe:</value>
         <value xml:lang="ja">Your return request for the following items:</value>
@@ -2706,7 +2717,7 @@
     <property key="EcommerceReturnRequestAccepted">
         <value xml:lang="en">Return Request Accepted</value>
         <value xml:lang="es">Ha sido aceptado. Su autorización de devolución es #</value>
-        <value xml:lang="fr">Retourner la demande admise</value>
+        <value xml:lang="fr">A été acceptée. Votre autorisation de retour a le n°</value>
         <value xml:lang="hi_IN">स्वीकार किया गया. आपका प्राधिकरण है #</value>
         <value xml:lang="it">E' stato accettato. Il tuo numero di autorizzazione di reso è #</value>
         <value xml:lang="ja">Has been accepted. Your return authorization is #</value>
@@ -2719,7 +2730,7 @@
     <property key="EcommerceReturnRequestCancelled">
         <value xml:lang="en">Return Request Cancelled</value>
         <value xml:lang="es">ha sido cancelado</value>
-        <value xml:lang="fr">Retourner la demande annulée</value>
+        <value xml:lang="fr">a été annulée.</value>
         <value xml:lang="hi_IN">रद्द किया गया</value>
         <value xml:lang="it">Richiesta di Reso è stata cancellata.</value>
         <value xml:lang="ja">has been cancelled.</value>
@@ -2732,7 +2743,7 @@
     <property key="EcommerceReturnRequestCompleted">
         <value xml:lang="en">Return Request Completed</value>
         <value xml:lang="es">Ha sido recibido y completado</value>
-        <value xml:lang="fr">Retourner la demande complétée</value>
+        <value xml:lang="fr">a été reçue et accomplie.</value>
         <value xml:lang="hi_IN">स्वीकार और समाप्त किया गया</value>
         <value xml:lang="it">è stato ricevuto e completato.</value>
         <value xml:lang="ja">has been received and completed.</value>
@@ -2745,7 +2756,7 @@
     <property key="EcommerceReturnRequestNb">
         <value xml:lang="en">Return Request Nb</value>
         <value xml:lang="es">Pediddo de devolución #</value>
-        <value xml:lang="fr">Retourner le nb de demande</value>
+        <value xml:lang="fr">Votre demande de retour n°</value>
         <value xml:lang="hi_IN">आपका जवाबी आग्रह है #</value>
         <value xml:lang="it">La tua richiesta #</value>
         <value xml:lang="ja">Your return request #</value>
@@ -2770,6 +2781,7 @@
     </property>
     <property key="EcommerceSeeStorePoliciesHere">
         <value xml:lang="en">See Store Policies Here</value>
+        <value xml:lang="fr">Conditions générales</value>
         <value xml:lang="it">Vedi Politiche Negozio Qui</value>
         <value xml:lang="th">ดูหลักการเก็บข้อมูลที่นี่</value>
     </property>
@@ -2801,7 +2813,7 @@
     <property key="EcommerceSelectedGiftWrap">
         <value xml:lang="en">Selected Gift Wrap</value>
         <value xml:lang="es">"La evoltura no está permitida para todos los artíclos. Los artículos disponibles han sido seleccionados, la orden permanece sin cambios."</value>
-        <value xml:lang="fr">Sélectionner un papier cadeau</value>
+        <value xml:lang="fr">Papier cadeau sélezctionné</value>
         <value xml:lang="hi_IN">चुना गया लपेटन सभी सामान के लिये उपलब्ध नहीं है, जो सामान उपलब्ध है वह चुना गया है, बाकी वैसे ही है.</value>
         <value xml:lang="it">"Selezione Omaggio non disponivile per tutte le righe. Le righe che sono disponibile saranno selezionate, le altre rimarrano invariate."</value>
         <value xml:lang="ja">"Selected Gift Wrap is not available for all items. The items which are available have been selected, the others remain unchanged."</value>
@@ -2905,7 +2917,7 @@
         <value xml:lang="cs">Nákupní seznam - info o opak.objednávce</value>
         <value xml:lang="en">Shopping List Reorder</value>
         <value xml:lang="es">Lasta de compra, información de re-orden</value>
-        <value xml:lang="fr">Nouvelle commande de la liste d'achats</value>
+        <value xml:lang="fr">Commander à partir de la liste d'achats</value>
         <value xml:lang="hi_IN">ख़रीदारी सूची दुबारा आदेश जानकारी</value>
         <value xml:lang="it">Info Ri-Ordine Lista Acquisto</value>
         <value xml:lang="ja">Shopping List Re-Order Info</value>
@@ -2958,7 +2970,7 @@
     </property>
     <property key="EcommerceSignUpForContactListLogIn">
         <value xml:lang="en">Sign Up For Contact List LogIn</value>
-        <value xml:lang="fr">S'identifier pour s'inscrire à la liste de contacts</value>
+        <value xml:lang="fr">S'identifier pour s'inscrire au bulletin d'information</value>
         <value xml:lang="it">Autenticarsi Per i Commenti della Lista di Contatto Login</value>
         <value xml:lang="th">ถ้าคุณสนใจข่าวสารกรุณาลอกอินเข้าสู่ระบบและลงทะเบียน:</value>
     </property>
@@ -3005,7 +3017,7 @@
     <property key="EcommerceSubject">
         <value xml:lang="en">Subject</value>
         <value xml:lang="es">Asunto</value>
-        <value xml:lang="fr">Sujet</value>
+        <value xml:lang="fr">Objet</value>
         <value xml:lang="hi_IN">विषय</value>
         <value xml:lang="it">Soggetto</value>
         <value xml:lang="ja">Subject</value>
@@ -3018,7 +3030,7 @@
     <property key="EcommerceSummary">
         <value xml:lang="en">Summary</value>
         <value xml:lang="es">Resumen</value>
-        <value xml:lang="fr">Sommaire</value>
+        <value xml:lang="fr">Résumé</value>
         <value xml:lang="hi_IN">साराशं</value>
         <value xml:lang="it">Sommario</value>
         <value xml:lang="ja">Summary</value>
@@ -3031,7 +3043,7 @@
     <property key="EcommerceSummaryInformation">
         <value xml:lang="en">Summary Information</value>
         <value xml:lang="es">Resumen de Información</value>
-        <value xml:lang="fr">Information sommaire</value>
+        <value xml:lang="fr">Information récapitulative</value>
         <value xml:lang="hi_IN">साराशं जानकारी</value>
         <value xml:lang="it">Informazioni Sommario</value>
         <value xml:lang="ja">Summary Information</value>
@@ -3057,7 +3069,7 @@
     <property key="EcommerceTakeSurvey">
         <value xml:lang="en">Take Survey</value>
         <value xml:lang="es">Tome la Encuesta</value>
-        <value xml:lang="fr">Faire un sondage</value>
+        <value xml:lang="fr">"[Enregistrer le commentaire]"</value>
         <value xml:lang="hi_IN">सर्वे किजीये</value>
         <value xml:lang="it">Rispondi Sondaggio</value>
         <value xml:lang="ja">Take Survey</value>
@@ -3070,7 +3082,7 @@
     <property key="EcommerceTellAFriend">
         <value xml:lang="en">Tell A Friend</value>
         <value xml:lang="es">Dile-a-un-Amigo</value>
-        <value xml:lang="fr">Le dire à un ami</value>
+        <value xml:lang="fr">Dites-le à un ami</value>
         <value xml:lang="hi_IN">दोस्त को बताऐं</value>
         <value xml:lang="it">Dillo ad un Amico</value>
         <value xml:lang="ja">Tell-A-Friend</value>
@@ -3083,7 +3095,7 @@
     <property key="EcommerceTellAFriendSorry">
         <value xml:lang="en">Tell A Friend Sorry</value>
         <value xml:lang="es">Disculpe, no puede enviar esta página a un amigo. Selecciones otra categoría o producto</value>
-        <value xml:lang="fr">Désolé, vous ne pouvez pas le dire à un ami</value>
+        <value xml:lang="fr">Désolé, vous ne pouvez envoyer cette page à un ami. Choisissez plutôt à partir d'un catégorie ou d'un article</value>
         <value xml:lang="hi_IN">माफ किजीये: यह पृष्ठ अपने दोस्त को नहीं भेज सकते, किसी प्रकार या सामान में से भेजें</value>
         <value xml:lang="it">Spiacente, non è possibile inviare questa pagina ad un amico. Perfavore seleziona da una categoria o prodotto.</value>
         <value xml:lang="ja">Sorry, you cannot send this page to a friend. Please select from either a category or product.</value>
@@ -3209,7 +3221,7 @@
     <property key="EcommerceUpdateSurvey">
         <value xml:lang="en">Update Survey</value>
         <value xml:lang="es">Actualizar Encuesta</value>
-        <value xml:lang="fr">Mise à jour du sondage</value>
+        <value xml:lang="fr">"[Mettre à jour le commentaire]"</value>
         <value xml:lang="hi_IN">सर्वे सुधार किजीये</value>
         <value xml:lang="it">Aggiorna Sondaggio</value>
         <value xml:lang="ja">Update Survey</value>
@@ -3344,7 +3356,7 @@
         <value xml:lang="de">Vielleicht sind Sie auch interessiert an</value>
         <value xml:lang="en">You Might Also Intrested</value>
         <value xml:lang="es">Puede estar también interesado en</value>
-        <value xml:lang="fr">Vous pourriez aussi être intéressé</value>
+        <value xml:lang="fr">Vous pourriez aussi être intéressé(e) par</value>
         <value xml:lang="hi_IN">आप इसमें भी इच्छा रख़ते होगें</value>
         <value xml:lang="it">Potresti anche essere interessato in</value>
         <value xml:lang="ja">You might also be interested in</value>
