@@ -19,7 +19,7 @@ under the License.
 <#if showPromoText?exists && showPromoText>
 <div class="screenlet">
     <div class="screenlet-header">
-        <div class="boxhead">&nbsp;${uiLabelMap.EcommerceSpecialOffers}</div>
+        <div class="boxhead">&nbsp;${uiLabelMap.OrderSpecialOffers}</div>
     </div>
     <div class="screenlet-body">
         <table cellspacing="0" cellpadding="1" border="0">
@@ -37,7 +37,7 @@ under the License.
           <tr><td><hr/></td></tr>
           <tr>
             <td>
-              <div class="tabletext"><a href="<@ofbizUrl>showAllPromotions</@ofbizUrl>" class="buttontext">${uiLabelMap.EcommerceViewAllPromotions}</a></div>
+              <div class="tabletext"><a href="<@ofbizUrl>showAllPromotions</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderViewAllPromotions}</a></div>
             </td>
           </tr>
         </table>

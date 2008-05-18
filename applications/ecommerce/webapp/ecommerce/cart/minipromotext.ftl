@@ -20,7 +20,7 @@ under the License.
 <#if showPromoText>
 <div class="screenlet">
     <div class="screenlet-header">
-        <div class="boxhead">${uiLabelMap.EcommerceSpecialOffers}</div>
+        <div class="boxhead">${uiLabelMap.OrderSpecialOffers}</div>
     </div>
     <div class="screenlet-body">
         <#-- show promotions text -->
@@ -31,7 +31,7 @@ under the License.
             </#if>
         </#list>
         <div><hr class="sepbar"/></div>
-        <div class="tabletext"><a href="<@ofbizUrl>showAllPromotions</@ofbizUrl>" class="buttontext">${uiLabelMap.EcommerceViewAllPromotions}</a></div>
+        <div class="tabletext"><a href="<@ofbizUrl>showAllPromotions</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderViewAllPromotions}</a></div>
     </div>
 </div>
 </#if>

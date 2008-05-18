@@ -41,7 +41,7 @@ under the License.
             <#if security.hasEntityPermission("CATALOG", "_CREATE", session)>
             <li><a href="/catalog/control/EditProduct?${externalKeyParam?if_exists}" target="catalog" class="buttontext">${uiLabelMap.ProductCreateNewProduct}</a></li>
             </#if>
-            <li><a href="<@ofbizUrl>quickadd</@ofbizUrl>" class="buttontext">${uiLabelMap.EcommerceQuickAdd}</a></li>
+            <li><a href="<@ofbizUrl>quickadd</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderQuickAdd}</a></li>
             <#if shoppingLists?exists>
             <li><a href="<@ofbizUrl>viewPartyShoppingLists?partyId=${partyId}</@ofbizUrl>" class="buttontext">${uiLabelMap.PageTitleShoppingList}</a></li>
             </#if>

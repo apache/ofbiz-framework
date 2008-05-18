@@ -29,12 +29,12 @@ under the License.
             <#if shoppingCart.getTotalQuantity() == 1>${uiLabelMap.OrderItem}<#else/>${uiLabelMap.OrderItems}</#if>,
             <@ofbizCurrency amount=shoppingCart.getGrandTotal() isoCode=shoppingCart.getCurrency()/>
         <#else>
-            ${uiLabelMap.EcommerceShoppingCartEmpty}
+            ${uiLabelMap.OrderShoppingCartEmpty}
         </#if>
         &nbsp;&nbsp;
     </div>
     <div>
-      <a href="<@ofbizUrl>view/showcart</@ofbizUrl>">[${uiLabelMap.EcommerceViewCart}]</a>
+      <a href="<@ofbizUrl>view/showcart</@ofbizUrl>">[${uiLabelMap.OrderViewCart}]</a>
       <#if (shoppingCartSize > 0)>
           <a href="<@ofbizUrl>quickcheckout</@ofbizUrl>">[${uiLabelMap.OrderCheckoutQuick}]</a>
       <#else>

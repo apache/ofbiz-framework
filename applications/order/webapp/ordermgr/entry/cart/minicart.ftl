@@ -31,7 +31,7 @@ under the License.
     <div class="screenlet-body">
         <#if (shoppingCartSize > 0)>
           <#if hidetoplinks?default("N") != "Y">
-            <div><a href="<@ofbizUrl>view/showcart</@ofbizUrl>" class="buttontext">${uiLabelMap.EcommerceViewCart}</a>&nbsp;<a href="<@ofbizUrl>checkoutoptions</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCheckout}</a></div>
+            <div><a href="<@ofbizUrl>view/showcart</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderViewCart}</a>&nbsp;<a href="<@ofbizUrl>checkoutoptions</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCheckout}</a></div>
           </#if>
           <table width="100%" cellpadding="0" cellspacing="2">
             <tr>
@@ -61,16 +61,16 @@ under the License.
             </#list>
             <tr>
               <td colspan="3" align="right">
-                <div class="tabletext"><b>${uiLabelMap.EcommerceTotal}: <@ofbizCurrency amount=shoppingCart.getGrandTotal() isoCode=shoppingCart.getCurrency()/></b></div>
+                <div class="tabletext"><b>${uiLabelMap.OrderTotal}: <@ofbizCurrency amount=shoppingCart.getGrandTotal() isoCode=shoppingCart.getCurrency()/></b></div>
               </td>
             </tr>
           </table>
           <#if hidebottomlinks?default("N") != "Y">
-            <div><a href="<@ofbizUrl>view/showcart</@ofbizUrl>" class="buttontext">${uiLabelMap.EcommerceViewCart}</a>&nbsp;<a href="<@ofbizUrl>checkoutoptions</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCheckout}</a></div>
+            <div><a href="<@ofbizUrl>view/showcart</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderViewCart}</a>&nbsp;<a href="<@ofbizUrl>checkoutoptions</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCheckout}</a></div>
             <div style="margin-top: 4px;"><a href="<@ofbizUrl>quickcheckout</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCheckoutQuick}</a></div>
           </#if>
         <#else>
-          <div class="tabletext">${uiLabelMap.EcommerceShoppingCartEmpty}</div>
+          <div class="tabletext">${uiLabelMap.OrderShoppingCartEmpty}</div>
         </#if>
     </div>
 </div>
