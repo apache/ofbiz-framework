@@ -1070,7 +1070,7 @@ under the License.
                 
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-name="product"/>
-                <script location="component://product/webapp/catalog/WEB-INF/actions/product/EditProductFeatures.bsh"/>
+                <script location="component://product/webapp/catalog/WEB-INF/actions/product/EditProductFeatures.groovy"/>
                 <entity-and entity-name="ProductFeatureIactn" list-name="featureInteractions">
                     <field-map field-name="productId" env-name="parameters.productId"/>
                 </entity-and>
