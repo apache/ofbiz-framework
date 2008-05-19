@@ -1437,7 +1437,7 @@ under the License.
 
             <set field="createAcctgTransAndEntriesInMap.glFiscalTypeId" value="ACTUAL"/>
             <set field="createAcctgTransAndEntriesInMap.acctgTransTypeId" value="INVENTORY"/>
-            <set field="createAcctgTransAndEntriesInMap.shipmentId" from-field="parameters.InventoryItemId"/>
+            <set field="createAcctgTransAndEntriesInMap.inventoryItemId" from-field="parameters.inventoryItemId"/>
             <set field="createAcctgTransAndEntriesInMap.acctgTransEntries" from-field="acctgTransEntries"/>
             <call-service service-name="createAcctgTransAndEntries" in-map-name="createAcctgTransAndEntriesInMap">
                 <result-to-field result-name="acctgTransId"/>
