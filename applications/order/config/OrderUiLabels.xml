@@ -1958,7 +1958,7 @@
         <value xml:lang="de">Variante auswählen</value>
         <value xml:lang="en">Choose Variations</value>
         <value xml:lang="es">Elija variantes</value>
-        <value xml:lang="fr">Choisir des changements</value>
+        <value xml:lang="fr">Choix des options</value>
         <value xml:lang="hi_IN">भेद चुनाव</value>
         <value xml:lang="it">Scegli Variante</value>
         <value xml:lang="ja">種類を選択</value>
@@ -2125,8 +2125,7 @@
     </property>
     <property key="OrderContinueToFinalOrderReview">
         <value xml:lang="en">Continue to Final Order Review</value>
-        <value xml:lang="th">เริ่มตรวจสอบรายการสุดท้ายใหม่
-</value>
+        <value xml:lang="th">เริ่มตรวจสอบรายการสุดท้ายใหม่</value>
     </property>
     <property key="OrderCopyCustRequestItem">
         <value xml:lang="en">Duplicate Request Item</value>
