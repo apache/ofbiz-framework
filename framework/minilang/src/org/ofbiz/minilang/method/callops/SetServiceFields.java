@@ -100,7 +100,7 @@ public class SetServiceFields extends MethodOperation {
 
                 if (UtilValidate.isNotEmpty(modelParam.type)) {
                     try {
-                        value = ObjectType.simpleTypeConvert(value, modelParam.type, null, null, false);
+                        value = ObjectType.simpleTypeConvert(value, modelParam.type, null, methodContext.getTimeZone(), methodContext.getLocale(), true);
                     } catch (GeneralException e) {
                         String errMsg = "Could not convert field value for the parameter/attribute: [" + modelParam.name + "] on the [" + serviceName + "] service to the [" + modelParam.type + "] type for the value [" + value + "]: " + e.toString();
                         Debug.logError(e, errMsg, module);

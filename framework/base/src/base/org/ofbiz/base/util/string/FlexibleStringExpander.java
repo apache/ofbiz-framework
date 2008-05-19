@@ -29,6 +29,7 @@ import java.util.TimeZone;
 
 import org.ofbiz.base.util.BshUtil;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
@@ -85,7 +86,7 @@ public class FlexibleStringExpander implements Serializable {
      * @return The original String expanded by replacing varaible place holders.
      */    
     public String expandString(Map<String, ? extends Object> context) {
-        return this.expandString(context, null);
+        return this.expandString(context, (Locale) context.get("locale"));
     }
     
     /** 
@@ -195,7 +196,7 @@ public class FlexibleStringExpander implements Serializable {
         if (timeZone == null) {
             timeZone = (TimeZone) context.get("timeZone");
             if (timeZone == null) {
-                timeZone = UtilDateTime.getDefaultTimeZone();
+                timeZone = TimeZone.getDefault();
             }
         }
 
@@ -285,7 +286,11 @@ public class FlexibleStringExpander implements Serializable {
             try {
                 Object scriptResult = BshUtil.eval(scriptlet, UtilMisc.makeMapWritable(context));
                 if (scriptResult != null) {
-                    buffer.append(scriptResult.toString());
+                    try {
+                        buffer.append(ObjectType.simpleTypeConvert(scriptResult, "String", null, (TimeZone) context.get("timeZone"), locale, true));
+                    } catch (Exception e) {
+                        buffer.append(scriptResult);
+                    }
                 } else {
                     Debug.logWarning("BSH scriplet evaluated to null [" + scriptlet + "], got no return so inserting nothing.", module);
                 }
@@ -304,7 +309,11 @@ public class FlexibleStringExpander implements Serializable {
         public void appendElement(StringBuilder buffer, Map<String, ? extends Object> context, Locale locale) {
             Object retVal = fma.get(context, locale);
             if (retVal != null) {
-                buffer.append(retVal.toString()); 
+                try {
+                    buffer.append((String) ObjectType.simpleTypeConvert(retVal, "String", null, (TimeZone) context.get("timeZone"), locale, true));
+                } catch (Exception e) {
+                    buffer.append(retVal);
+                }
             } else {
                 // otherwise do nothing
             }
@@ -380,22 +389,14 @@ public class FlexibleStringExpander implements Serializable {
             FlexibleMapAccessor fma = new FlexibleMapAccessor(envName);
             Object envVal = fma.get(context, locale);
             if (envVal != null) {
-                if (envVal instanceof java.sql.Date) {
-                    DateFormat df = UtilDateTime.toDateFormat(UtilDateTime.DATE_FORMAT, timeZone, null);
-                    targetBuffer.append(df.format((java.util.Date) envVal));
-                } else if (envVal instanceof java.sql.Time) {
-                    DateFormat df = UtilDateTime.toTimeFormat(UtilDateTime.TIME_FORMAT, timeZone, null);
-                    targetBuffer.append(df.format((java.util.Date) envVal));
-                } else if (envVal instanceof java.sql.Timestamp) {
-                    DateFormat df = UtilDateTime.toDateTimeFormat(UtilDateTime.DATE_TIME_FORMAT, timeZone, null);
-                    targetBuffer.append(df.format((java.util.Date) envVal));
-                } else if (envVal instanceof java.util.Date) {
-                    DateFormat df = UtilDateTime.toDateTimeFormat("EEE MMM dd hh:mm:ss z yyyy", timeZone, null);
-                    targetBuffer.append(df.format((java.util.Date) envVal));
-                } else if (localizeCurrency) {
+                if (localizeCurrency) {
                     targetBuffer.append(UtilFormatOut.formatCurrency(new Double(envVal.toString()), currencyCode, locale));
                 } else {
-                    targetBuffer.append(envVal.toString());
+                    try {
+                        targetBuffer.append(ObjectType.simpleTypeConvert(envVal, "String", null, timeZone, locale, true));
+                    } catch (Exception e) {
+                        targetBuffer.append(envVal);
+                    }
                 }
             } else if (envName.equals("ofbiz.home")) { // This is only used in case of Geronimo or WASCE using OFBiz multi-instances. It allows to retrieve ofbiz.home value set in JVM env
                 String ofbizHome = System.getProperty("ofbiz.home");
@@ -413,7 +414,11 @@ public class FlexibleStringExpander implements Serializable {
             try {
                 Object scriptResult = BshUtil.eval(scriptlet, UtilMisc.makeMapWritable(context));
                 if (scriptResult != null) {
-                    targetBuffer.append(scriptResult.toString());
+                    try {
+                        targetBuffer.append(ObjectType.simpleTypeConvert(scriptResult, "String", null, timeZone, locale, true));
+                    } catch (Exception e) {
+                        targetBuffer.append(scriptResult);
+                    }
                 } else {
                     Debug.logWarning("BSH scriplet evaluated to null [" + scriptlet + "], got no return so inserting nothing.", module);
                 }

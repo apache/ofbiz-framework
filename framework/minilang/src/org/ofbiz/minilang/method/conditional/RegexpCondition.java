@@ -103,7 +103,7 @@ public class RegexpCondition implements Conditional {
 
         if (fieldVal != null) {
             try {
-                fieldString = (String) ObjectType.simpleTypeConvert(fieldVal, "String", null, null);
+                fieldString = (String) ObjectType.simpleTypeConvert(fieldVal, "String", null, methodContext.getTimeZone(), methodContext.getLocale(), true);
             } catch (GeneralException e) {
                 Debug.logError(e, "Could not convert object to String, using empty String", module);
             }

@@ -34,7 +34,9 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Properties;
+import java.util.TimeZone;
 
 /**
  * Start - OFBiz Container(s) Startup Class
@@ -641,7 +643,30 @@ public class Start implements Runnable {
 
             // set the property to tell Jetty to use 2.4 SessionListeners
             System.setProperty("org.mortbay.jetty.servlet.AbstractSessionManager.24SessionDestroyed", "true");
+            
+            // set the default locale
+            String localeString = props.getProperty("ofbiz.locale.default");
+            if (localeString != null && localeString.length() > 0) {
+                String args[] = localeString.split("_");
+                switch (args.length) {
+                case 1:
+                    Locale.setDefault(new Locale(args[0]));
+                    break;
+                case 2:
+                    Locale.setDefault(new Locale(args[0], args[1]));
+                    break;
+                case 3:
+                    Locale.setDefault(new Locale(args[0], args[1], args[2]));
+                }
+                System.setProperty("user.language", localeString);
+            }
 
+            // set the default time zone
+            String tzString = props.getProperty("ofbiz.timeZone.default");
+            if (tzString != null && tzString.length() > 0) {
+                TimeZone.setDefault(TimeZone.getTimeZone(tzString));
+            }
+            
             // loader classes
             loaders = new ArrayList<String>();
             int currentPosition = 1;
@@ -750,5 +775,6 @@ public class Start implements Runnable {
         }
     }
 }
+
 
 

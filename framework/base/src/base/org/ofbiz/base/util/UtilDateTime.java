@@ -218,7 +218,7 @@ public class UtilDateTime {
     }
 
     public static java.sql.Timestamp getDayStart(java.sql.Timestamp stamp, int daysLater) {
-        return getDayStart(stamp, daysLater, getDefaultTimeZone(), Locale.getDefault());
+        return getDayStart(stamp, daysLater, TimeZone.getDefault(), Locale.getDefault());
     }
 
     public static java.sql.Timestamp getNextDayStart(java.sql.Timestamp stamp) {
@@ -230,7 +230,7 @@ public class UtilDateTime {
     }
 
     public static java.sql.Timestamp getDayEnd(java.sql.Timestamp stamp, Long daysLater) {
-        return getDayEnd(stamp, daysLater, getDefaultTimeZone(), Locale.getDefault());
+        return getDayEnd(stamp, daysLater, TimeZone.getDefault(), Locale.getDefault());
     }
 
     /**
@@ -251,7 +251,7 @@ public class UtilDateTime {
         return getYearStart(stamp, daysLater, 0, yearsLater);
     }
     public static java.sql.Timestamp getYearStart(java.sql.Timestamp stamp, int daysLater, int monthsLater, int yearsLater) {
-        return getYearStart(stamp, daysLater, monthsLater, yearsLater, getDefaultTimeZone(), Locale.getDefault());
+        return getYearStart(stamp, daysLater, monthsLater, yearsLater, TimeZone.getDefault(), Locale.getDefault());
     }
     public static java.sql.Timestamp getYearStart(java.sql.Timestamp stamp, Number daysLater, Number monthsLater, Number yearsLater) {
         return getYearStart(stamp, (daysLater == null ? 0 : daysLater.intValue()), 
@@ -273,7 +273,7 @@ public class UtilDateTime {
     }
 
     public static java.sql.Timestamp getMonthStart(java.sql.Timestamp stamp, int daysLater, int monthsLater) {
-        return getMonthStart(stamp, daysLater, monthsLater, getDefaultTimeZone(), Locale.getDefault());
+        return getMonthStart(stamp, daysLater, monthsLater, TimeZone.getDefault(), Locale.getDefault());
     }
 
     /**
@@ -291,11 +291,11 @@ public class UtilDateTime {
     }
 
     public static java.sql.Timestamp getWeekStart(java.sql.Timestamp stamp, int daysLater, int weeksLater) {
-        return getWeekStart(stamp, daysLater, weeksLater, getDefaultTimeZone(), Locale.getDefault());
+        return getWeekStart(stamp, daysLater, weeksLater, TimeZone.getDefault(), Locale.getDefault());
     }
 
     public static java.sql.Timestamp getWeekEnd(java.sql.Timestamp stamp) {
-        return getWeekEnd(stamp, getDefaultTimeZone(), Locale.getDefault());
+        return getWeekEnd(stamp, TimeZone.getDefault(), Locale.getDefault());
     }
     
     public static java.util.Calendar toCalendar(java.sql.Timestamp stamp) {
@@ -728,7 +728,7 @@ public class UtilDateTime {
      * @return A int containing the week number
      */
     public static int weekNumber(Timestamp input) {
-        return weekNumber(input, getDefaultTimeZone(), Locale.getDefault());
+        return weekNumber(input, TimeZone.getDefault(), Locale.getDefault());
     }
     
     public static int weekNumber(Timestamp input, int startOfWeek) {
@@ -1058,25 +1058,13 @@ public class UtilDateTime {
         return availableTimeZoneList;
     }
 
-    protected static TimeZone defaultTimeZone = null;
     /** Returns the OFBiz default TimeZone object. The default time zone is configured in
-     * the <code>general.properties</code> file (<code>timeZone.default</code>).
+     * the <code>start.properties</code> file (<code>ofbiz.timeZone.default</code>).
+     * @deprecated Okay to use TimeZone.getDefault()
      * @see java.util.TimeZone
      */
     public static TimeZone getDefaultTimeZone() {
-        if (defaultTimeZone == null) {
-            synchronized(UtilDateTime.class) {
-                if (defaultTimeZone == null) {
-                    String tzId = UtilProperties.getPropertyValue("general", "timeZone.default");
-                    if (UtilValidate.isNotEmpty(tzId)) {
-                        defaultTimeZone = TimeZone.getTimeZone(tzId);
-                    } else {
-                        defaultTimeZone = TimeZone.getDefault();
-                    }
-                }
-            }
-        }
-        return defaultTimeZone;
+        return TimeZone.getDefault();
     }
     
     /** Returns a TimeZone object based upon a time zone ID. Method defaults to
@@ -1085,7 +1073,7 @@ public class UtilDateTime {
      */
     public static TimeZone toTimeZone(String tzId) {
         if (UtilValidate.isEmpty(tzId)) {
-            return getDefaultTimeZone();
+            return TimeZone.getDefault();
         } else {
             return TimeZone.getTimeZone(tzId);
         }

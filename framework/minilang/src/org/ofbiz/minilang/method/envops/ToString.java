@@ -84,7 +84,7 @@ public class ToString extends MethodOperation {
         String outStr = null;
         try {
             if (UtilValidate.isNotEmpty(format)) {
-                outStr = (String) ObjectType.simpleTypeConvert(obj, "java.lang.String", format, methodContext.getLocale());
+                outStr = (String) ObjectType.simpleTypeConvert(obj, "String", format, methodContext.getTimeZone(), methodContext.getLocale(), true);
             } else {
                 outStr = obj.toString();
             }

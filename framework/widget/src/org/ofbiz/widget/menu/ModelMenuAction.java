@@ -25,6 +25,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
 
 import org.ofbiz.base.util.BshUtil;
 import org.ofbiz.base.util.Debug;
@@ -188,7 +189,7 @@ public abstract class ModelMenuAction {
             
             if (UtilValidate.isNotEmpty(this.type)) {
                 try {
-                    newValue = ObjectType.simpleTypeConvert(newValue, this.type, null, null);
+                    newValue = ObjectType.simpleTypeConvert(newValue, this.type, null, (TimeZone) context.get("timeZone"), (Locale) context.get("locale"), true);
                 } catch (GeneralException e) {
                     String errMsg = "Could not convert field value for the field: [" + this.field.getOriginalName() + "] to the [" + this.type + "] type for the value [" + newValue + "]: " + e.toString();
                     Debug.logError(e, errMsg, module);
@@ -465,4 +466,5 @@ public abstract class ModelMenuAction {
         }
     }
 }
+
 
