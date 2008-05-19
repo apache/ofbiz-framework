@@ -764,7 +764,7 @@ public class ModelService extends AbstractMap implements Serializable {
                 timeZone = (TimeZone) source.get("timeZone");
             }
             if (timeZone == null) {
-                timeZone = UtilDateTime.getDefaultTimeZone();
+                timeZone = TimeZone.getDefault();
             }
         }
         

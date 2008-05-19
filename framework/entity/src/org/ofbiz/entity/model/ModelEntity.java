@@ -25,8 +25,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.TimeZone;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -1257,7 +1259,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
             String fieldName = modelField.getName();
             Object oldValue = inContext.get(fieldName);
             if (oldValue != null) {
-                inContext.put(fieldName, this.convertFieldValue(modelField, oldValue, delegator));
+                inContext.put(fieldName, this.convertFieldValue(modelField, oldValue, delegator, inContext));
             }
         }
     }
@@ -1285,6 +1287,36 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         }
         try {
             return ObjectType.simpleTypeConvert(value, fieldJavaType, null, null, false);
+        } catch (GeneralException e) {
+            String errMsg = "Could not convert field value for the field: [" + modelField.getName() + "] on the [" + this.getEntityName() + "] entity to the [" + fieldJavaType + "] type for the value [" + value + "]: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            throw new IllegalArgumentException(errMsg);
+        }
+    }
+
+    /** Convert a field value from one Java data type to another. This is the preferred method -
+     * which takes into consideration the user's locale and time zone (for conversions that
+     * require them).
+     * @param modelField
+     * @param value
+     * @param delegator
+     * @param context
+     * @return
+     */
+    public Object convertFieldValue(ModelField modelField, Object value, GenericDelegator delegator, Map<String, ? extends Object> context) {
+        if (value == null || value == GenericEntity.NULL_FIELD) {
+            return null;
+        }
+        String fieldJavaType = null;
+        try {
+            fieldJavaType = delegator.getEntityFieldType(this, modelField.getType()).getJavaType();
+        } catch (GenericEntityException e) {
+            String errMsg = "Could not convert field value: could not find Java type for the field: [" + modelField.getName() + "] on the [" + this.getEntityName() + "] entity: " + e.toString();
+            Debug.logError(e, errMsg, module);
+            throw new IllegalArgumentException(errMsg);
+        }
+        try {
+            return ObjectType.simpleTypeConvert(value, fieldJavaType, null, (TimeZone) context.get("timeZone"), (Locale) context.get("locale"), true);
         } catch (GeneralException e) {
             String errMsg = "Could not convert field value for the field: [" + modelField.getName() + "] on the [" + this.getEntityName() + "] entity to the [" + fieldJavaType + "] type for the value [" + value + "]: " + e.toString();
             Debug.logError(e, errMsg, module);

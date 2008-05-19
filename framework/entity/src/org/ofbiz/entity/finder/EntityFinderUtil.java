@@ -46,6 +46,7 @@ import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityJoinOperator;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.ModelEntity;
+import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.w3c.dom.Element;
 
@@ -208,7 +209,7 @@ public class EntityFinderUtil {
             // don't convert the field to the desired type if this is an IN operator and we have a Collection
             if (!(operator == EntityOperator.IN && value instanceof Collection)) {
                 // now to a type conversion for the target fieldName
-                value = modelEntity.convertFieldValue(fieldName, value, delegator);
+                value = modelEntity.convertFieldValue(modelEntity.getField(fieldName), value, delegator, context);
             }
             
             if (Debug.verboseOn()) Debug.logVerbose("Got value for fieldName [" + fieldName + "]: " + value, module);

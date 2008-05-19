@@ -22,7 +22,9 @@ import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
 
 import javolution.util.FastList;
 
@@ -342,7 +344,7 @@ public class ModelScreenCondition implements Serializable {
             String fieldString = null;
             if (fieldVal != null) {
                 try {
-                    fieldString = (String) ObjectType.simpleTypeConvert(fieldVal, "String", null, null);
+                    fieldString = (String) ObjectType.simpleTypeConvert(fieldVal, "String", null, (TimeZone) context.get("timeZone"), (Locale) context.get("locale"), true);
                 } catch (GeneralException e) {
                     Debug.logError(e, "Could not convert object to String, using empty String", module);
                 }
@@ -506,7 +508,7 @@ public class ModelScreenCondition implements Serializable {
 
             String fieldString = null;
             try {
-                fieldString = (String) ObjectType.simpleTypeConvert(fieldVal, "String", null, null);
+                fieldString = (String) ObjectType.simpleTypeConvert(fieldVal, "String", null, (TimeZone) context.get("timeZone"), (Locale) context.get("locale"), true);
             } catch (GeneralException e) {
                 Debug.logError(e, "Could not convert object to String, using empty String", module);
             }
@@ -543,4 +545,5 @@ public class ModelScreenCondition implements Serializable {
         }
     }
 }
+
 

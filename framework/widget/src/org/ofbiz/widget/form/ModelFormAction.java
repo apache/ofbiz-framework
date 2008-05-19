@@ -27,6 +27,7 @@ import java.util.ListIterator;
 import java.util.Locale;
 import java.util.Map;
 import java.util.regex.PatternSyntaxException;
+import java.util.TimeZone;
 
 import org.ofbiz.base.util.BshUtil;
 import org.ofbiz.base.util.Debug;
@@ -145,7 +146,7 @@ public abstract class ModelFormAction {
 
             if (UtilValidate.isNotEmpty(this.type)) {
                 try {
-                    newValue = ObjectType.simpleTypeConvert(newValue, this.type, null, null);
+                    newValue = ObjectType.simpleTypeConvert(newValue, this.type, null, (TimeZone) context.get("timeZone"), (Locale) context.get("locale"), true);
                 } catch (GeneralException e) {
                     String errMsg = "Could not convert field value for the field: [" + this.field.getOriginalName() + "] to the [" + this.type + "] type for the value [" + newValue + "]: " + e.toString();
                     Debug.logError(e, errMsg, module);
@@ -469,4 +470,5 @@ public abstract class ModelFormAction {
         }
     }
 }
+
 

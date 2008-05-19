@@ -222,7 +222,7 @@ public class FreeMarkerWorker {
 
         TimeZone timeZone = (TimeZone) context.get("timeZone");
         if (timeZone == null) {
-            timeZone = UtilDateTime.getDefaultTimeZone();
+            timeZone = TimeZone.getDefault();
         }
         env.setTimeZone(timeZone);
     }

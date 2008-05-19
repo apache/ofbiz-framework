@@ -626,7 +626,7 @@ public class ModelFormField {
         Locale locale = (Locale) context.get("locale");
         if (locale == null) locale = Locale.getDefault();
         TimeZone timeZone = (TimeZone) context.get("timeZone");
-        if (timeZone == null) timeZone = UtilDateTime.getDefaultTimeZone();
+        if (timeZone == null) timeZone = TimeZone.getDefault();
         
         // if useRequestParameters is TRUE then parameters will always be used, if FALSE then parameters will never be used
         // if isError is TRUE and useRequestParameters is not FALSE (ie is null or TRUE) then parameters will be used
@@ -1788,7 +1788,7 @@ public class ModelFormField {
                     isoCode = this.currency.expandString(context);
                 }
                 try {
-                    Double parsedRetVal = (Double) ObjectType.simpleTypeConvert(retVal, "Double", null, locale, false);
+                    Double parsedRetVal = (Double) ObjectType.simpleTypeConvert(retVal, "Double", null, (TimeZone) context.get("timeZone"), (Locale) context.get("locale"), true);
                     retVal = UtilFormatOut.formatCurrency(parsedRetVal, isoCode, locale, 10); // we set the max to 10 digits as an hack to not round numbers in the ui
                 } catch (GeneralException e) {
                     String errMsg = "Error formatting currency value [" + retVal + "]: " + e.toString();
