@@ -96,7 +96,7 @@ under the License.
                     <td>${uiLabelMap.ProductNotAvailable}</td>
                 <#else>
                     <td>${uiLabelMap.ProductItemsIssued}</td>
-                    <td>${uiLabelMap.ProductIssedOrdered}</td>
+                    <td>${uiLabelMap.ProductIssuedOrdered}</td>
                 </#if>
                 <td>${uiLabelMap.ProductIssue}</td>
                 <td align="right">
