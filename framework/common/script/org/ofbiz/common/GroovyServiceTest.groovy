@@ -22,14 +22,14 @@ import org.ofbiz.base.util.Debug;
 
 Debug.logInfo("-=-=-=- TEST BSH SERVICE -=-=-=-", "");
 result = ServiceUtil.returnSuccess();
-if (context.containsKey("message")) {
-    message = context.get("message");
-    result.put("successMessage", "Got message [" + message + "] and finished fine");
-    result.put("result", message);
+if (context.message != null) {
+    message = context.message;
+    result.successMessage = "Got message [" + message + "] and finished fine";
+    result.result = message;
     Debug.logInfo("----- Message is: " + message + " -----", "");
 } else {
-    result.put("successMessage", "Got no message but finished fine anyway");
-    result.put("result", "[no message received]");
+    result.successMessage = "Got no message but finished fine anyway";
+    result.result = "[no message received]";
 }
 
 return result;
