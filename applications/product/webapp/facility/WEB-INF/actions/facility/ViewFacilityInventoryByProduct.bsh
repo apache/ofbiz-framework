@@ -132,7 +132,7 @@ if (action != null) {
     List prods = null;
     try {
         beganTransaction = TransactionUtil.begin();
-        prodsEli = delegator.find(prodView, whereCondition, null, null, UtilMisc.toList("productId"), findOpts);
+        prodsEli = delegator.findListIteratorByCondition(prodView, whereCondition, null, null, UtilMisc.toList("productId"), findOpts);
         prods = prodsEli.getCompleteList();
         prodsEli.close();
     } catch (GenericEntityException e) {
