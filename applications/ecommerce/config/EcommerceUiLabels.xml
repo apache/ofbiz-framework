@@ -1307,7 +1307,7 @@
     <property key="EcommerceContentInformation">
         <value xml:lang="en">Content Information</value>
         <value xml:lang="es">Información del contenido</value>
-        <value xml:lang="fr">Contenu d'information</value>
+        <value xml:lang="fr">Information sur le contenu</value>
         <value xml:lang="hi_IN">अंतर्वस्तु अंश जानकारी</value>
         <value xml:lang="it">Informazione Contenuto</value>
         <value xml:lang="ja">Content Information</value>
@@ -1320,7 +1320,7 @@
     <property key="EcommerceContentName">
         <value xml:lang="en">Content Name</value>
         <value xml:lang="es">Nombre del contenido</value>
-        <value xml:lang="fr">Contenu du nom</value>
+        <value xml:lang="fr">Nom du contenu</value>
         <value xml:lang="it">Nome Contenuto</value>
         <value xml:lang="hi_IN">अंतर्वस्तु अंश नाम</value>
         <value xml:lang="ja">Content Name</value>
@@ -1335,7 +1335,7 @@
         <value xml:lang="de">Einkauf fortsetzen</value>
         <value xml:lang="en">Continue Shopping</value>
         <value xml:lang="es">Continuar comprando</value>
-        <value xml:lang="fr">Continuer l'achat</value>
+        <value xml:lang="fr">Continuer les achats</value>
         <value xml:lang="hi_IN">ख़रीदारी जारी</value>
         <value xml:lang="it">Continua Acquisto</value>
         <value xml:lang="ja">買い物を続ける</value>
@@ -1391,7 +1391,7 @@
     </property>
     <property key="EcommerceDigitalProductPurchaseHistoryCommission">
         <value xml:lang="en">Digital Product Purchase History Commission</value>
-        <value xml:lang="fr">Historique des commissions sur l'achats de produit numérique</value>
+        <value xml:lang="fr">Historique des commissions sur l'achat de produit(s) numérique(s)</value>
         <value xml:lang="hi_IN">डिजीटल सामान ख़रीदारी का इतिहास व दलाली</value>
         <value xml:lang="it">Storia Acquisti e Provvigioni Prodotti Digitali</value>
         <value xml:lang="ro">Storia Cumparari si  Provizioane Produse Digitale</value>
@@ -1413,7 +1413,7 @@
     <property key="EcommerceDownloadsAvailableTitle">
         <value xml:lang="en">Downloads Available Title </value>
         <value xml:lang="es">Descargar los archivos disponibles</value>
-        <value xml:lang="fr">Intitulé des téléchargements valables </value>
+        <value xml:lang="fr">Fichiers à télécharger disponibles</value>
         <value xml:lang="hi_IN">प्राप्त योग्य फाइलें उपस्थित</value>
         <value xml:lang="it">Download di Files Disponibile</value>
         <value xml:lang="ro">Download de Fisiere Disponibile</value>
@@ -1424,7 +1424,7 @@
     <property key="EcommerceEmptyBody">
         <value xml:lang="en">Empty Body</value>
         <value xml:lang="es">Contenido vacío</value>
-        <value xml:lang="fr">Corps vide</value>
+        <value xml:lang="fr">Corps du message vide</value>
         <value xml:lang="hi_IN">ख़ाली शरीर</value>
         <value xml:lang="ja">Empty Body</value>
         <value xml:lang="it">Corpo Messaggio Vuoto</value>
@@ -2009,9 +2009,9 @@
         <value xml:lang="zh">列表名称</value>
     </property>
     <property key="EcommerceListNote">
-        <value xml:lang="en">List Note</value>
+        <value xml:lang="en">NOTE: When you subscribe to an email contact list you will receive an email with an opt-in verification code and a link to verify your subscription. As an alternative to the link you can enter your opt-in verify code here.</value>
         <value xml:lang="es">NOTA:Al suscribirse a una lista, recivirá correo con una opción de verificación de subscripción y un link a la verificación de la misma. Como alternativa al link, puede ingresar el código de verificación aquí</value>
-        <value xml:lang="fr">Note de liste</value>
+        <value xml:lang="fr">NOTE : Quand vous vous abonnez à une liste de contact vous recevrez un e-mail avec un code de vérification et un lien pour vérifier votre souscription. Comme une alternative au lien vous pouvez saisir code de vérification ici.</value>
         <value xml:lang="hi_IN">नोट: जब आप हमसे जुङेगें तो आपको एक कोड व एक लिकं दिया जाएगा ई-मेल से, उस लिकं को इस्तमाल करके आप वही कोड दिजीये.</value>
         <value xml:lang="it">NOTA: Quando sottoscrivi una email alla lista di contatto tu riceverai una email con un codice di verifica e un link per la verifica della tua sottoscrizione. In alternativa al link tu puoi inserire il tuoi codice di verifica qui.</value>
         <value xml:lang="ro">NOTA: Dupa ce ai subscris un email la lista de contact tu vei primi un email cu un cod de verificare si un link pentru verificarea subinscrierii tale. In alternativa la link tu poti sa introduci codul tau de verificare aici.</value>
@@ -2020,9 +2020,9 @@
         <value xml:lang="zh">注意：当你注册一个电子邮件联系列表，你会收到一个带有验证码和一个链接的电子邮件以便验证你的电子邮件有效。作为那个链接的替代方式，你可以在这里输入你的验证码。</value>
     </property>
     <property key="EcommerceLoggedToPost">
-        <value xml:lang="en">Logged To Post</value>
+        <value xml:lang="en">(You must be logged in to post)</value>
         <value xml:lang="es">(Debe loguearse para ejecutar la función que desea)</value>
-        <value xml:lang="fr">Prêt à envoyer</value>
+        <value xml:lang="fr">(Vous devez être connecté pour écrire)</value>
         <value xml:lang="it">(Ti devi loggare alla Posta)</value>
         <value xml:lang="ja">(You must be logged in to post)</value>
         <value xml:lang="nl">(Je moet aangelogd zijn om een bericht toe te voegen)</value>
@@ -2058,7 +2058,7 @@
         <value xml:lang="zh">查找：whitepages.com</value>
     </property>
     <property key="EcommerceLookupWhitepagesLink">
-        <value xml:lang="en">Look up White pages Link</value>
+        <value xml:lang="en">http://www.whitepages.com/find_person_results.pl?fid=a s_n=${addressNum} s_a=${addressOther} c=${postalAddress.city?if_exists} s=${postalAddress.stateProvinceGeoId?if_exists} x=29 y=18</value>
         <value xml:lang="fr">Chercher sur le lien http://www.pagesjaunes.fr/trouverunnom/RecherchePagesBlanches.do</value>
         <value xml:lang="hi_IN">http://www.whitepages.com/find_person_results.pl?fid=a<!--&s_n=${addressNum}&s_a=${addressOther}&c=${postalAddress.city?if_exists}&s=${postalAddress.stateProvinceGeoId?if_exists}&x=29&y=18--></value>
         <value xml:lang="it">http://www.whitepages.com/find_person_results.pl?fid=a s_n=${addressNum} s_a=${addressOther} c=${postalAddress.city?if_exists} s=${postalAddress.stateProvinceGeoId?if_exists} x=29 y=18</value>
@@ -2070,9 +2070,9 @@
         <value xml:lang="zh">http://www.whitepages.com/find_person_results.pl?fid=a s_n=${addressNum} s_a=${addressOther} c=${postalAddress.city?if_exists} s=${postalAddress.stateProvinceGeoId?if_exists} x=29 y=18</value>
     </property>
     <property key="EcommerceLosePassword">
-        <value xml:lang="en">Lose Password</value>
+        <value xml:lang="en">If you ever lose your password, you can request a new one at any time.</value>
         <value xml:lang="es">Si perdió su password, puede solicitarlo otra vez las veces que desee.</value>
-        <value xml:lang="fr">Mot de passe perdu</value>
+        <value xml:lang="fr">Si jamais vous perdez votre mot de passe, vous pouvez en demander un nouveau à tout moment.</value>
         <value xml:lang="hi_IN">अगर आपका पास कोड ख़ो गया है तो आप फिर से पा सकते हैं</value>
         <value xml:lang="it">Se hai perso la password, tu puoi richiederne una nuova ogni volta.</value>
         <value xml:lang="ja">If you ever lose your password, you can request a new one at any time.</value>
@@ -2252,7 +2252,7 @@
     </property>
     <property key="EcommerceNoDigitalProductsFound">
         <value xml:lang="en">No Digital Products Found</value>
-        <value xml:lang="fr">Pas de produits numériques trouvés</value>
+        <value xml:lang="fr">Aucun produit numérique trouvé</value>
         <value xml:lang="hi_IN">कोई डिजीटल सामान नही मिला</value>
         <value xml:lang="it">Nessun Prodotto Digitale Trovato</value>
         <value xml:lang="ro">Nici-un Produs Digital Gasit</value>
@@ -2276,7 +2276,7 @@
     <property key="EcommerceNoGiftWrap">
         <value xml:lang="en">No Gift Wrap</value>
         <value xml:lang="es">Nuevo regalo</value>
-        <value xml:lang="fr">Pas de papier cadeau</value>
+        <value xml:lang="fr">Pas d'emballage cadeau</value>
         <value xml:lang="hi_IN">कोई उपहार लपेटन नहीं</value>
         <value xml:lang="it">Nessun Omaggio</value>
         <value xml:lang="ja">No Gift Wrap</value>
@@ -2419,6 +2419,7 @@
     </property>
     <property key="EcommerceOrderNotActive">
         <value xml:lang="en">Order Not Active</value>
+        <value xml:lang="fr">Commande non active</value>
         <value xml:lang="it">Ordine Non Attivo</value>
         <value xml:lang="th">รายการสั่งซื้อสินค้าไม่ทำงาน</value>
     </property>
@@ -2450,9 +2451,9 @@
         <value xml:lang="zh">上一级列表</value>
     </property>
     <property key="EcommercePassword">
-        <value xml:lang="en">Password</value>
+        <value xml:lang="en">With the password you set during registration.</value>
         <value xml:lang="es">Password</value>
-        <value xml:lang="fr">Mot de passe</value>
+        <value xml:lang="fr">Avec le mot de passe que vous avez choisi pendant l'enregistrement.</value>
         <value xml:lang="hi_IN">नामान्कन करते समय दिया हुआ पासकोड</value>
         <value xml:lang="it">La password verrà impostata durante la registrazione.</value>
         <value xml:lang="ja">With the password you set during registration.</value>
@@ -2470,7 +2471,7 @@
     </property>
     <property key="EcommercePasswordSentToYou">
         <value xml:lang="en">password sent to you</value>
-        <value xml:lang="fr">mot de passe</value>
+        <value xml:lang="fr">mot de passe qui vous a été envoyé</value>
         <value xml:lang="it">password inviata a te</value>
         <value xml:lang="th">ส่งรหัสผ่านถึงคุณ</value>
     </property>
@@ -2813,7 +2814,7 @@
     <property key="EcommerceSelectedGiftWrap">
         <value xml:lang="en">Selected Gift Wrap</value>
         <value xml:lang="es">"La evoltura no está permitida para todos los artíclos. Los artículos disponibles han sido seleccionados, la orden permanece sin cambios."</value>
-        <value xml:lang="fr">Papier cadeau sélezctionné</value>
+        <value xml:lang="fr">Emballage cadeau sélectionné</value>
         <value xml:lang="hi_IN">चुना गया लपेटन सभी सामान के लिये उपलब्ध नहीं है, जो सामान उपलब्ध है वह चुना गया है, बाकी वैसे ही है.</value>
         <value xml:lang="it">"Selezione Omaggio non disponivile per tutte le righe. Le righe che sono disponibile saranno selezionate, le altre rimarrano invariate."</value>
         <value xml:lang="ja">"Selected Gift Wrap is not available for all items. The items which are available have been selected, the others remain unchanged."</value>
