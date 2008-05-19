@@ -194,4 +194,7 @@ if (orderHeader != null) {
 
     context.put("orderShipmentInfoSummaryList", orderShipmentInfoSummaryList);
     context.put("customerPoNumberSet", customerPoNumberSet);
+    
+    orderItemChangeReasons = delegator.findByAnd("Enumeration", UtilMisc.toMap("enumTypeId", "ODR_ITM_CH_REASON"), UtilMisc.toList("sequenceId"));
+    context.put("orderItemChangeReasons", orderItemChangeReasons);     
 }

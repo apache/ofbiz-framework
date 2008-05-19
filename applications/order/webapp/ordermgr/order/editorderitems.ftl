@@ -41,7 +41,7 @@ float: right;
           <li class="h3">&nbsp;${uiLabelMap.OrderOrderItems}</li>
           <#if security.hasEntityPermission("ORDERMGR", "_UPDATE", session) || security.hasRolePermission("ORDERMGR", "_UPDATE", "", "", session)>
               <#if orderHeader?has_content && orderHeader.statusId != "ORDER_CANCELLED" && orderHeader.statusId != "ORDER_COMPLETED">
-                  <li><a href="<@ofbizUrl>cancelOrderItem?${paramString}</@ofbizUrl>">${uiLabelMap.OrderCancelAllItems}</a></li>
+                  <li><a href="javascript:document.updateItemInfo.action='<@ofbizUrl>cancelOrderItem?${paramString}</@ofbizUrl>';document.updateItemInfo.submit()">${uiLabelMap.OrderCancelAllItems}</a></li>
                   <li><a href="<@ofbizUrl>orderview?${paramString}</@ofbizUrl>">${uiLabelMap.OrderViewOrder}</a></li>
               </#if>
           </#if>
@@ -161,15 +161,28 @@ float: right;
                             </td>
                             <td>&nbsp;</td>
                             <td>
-                                <#if (security.hasEntityPermission("ORDERMGR", "_ADMIN", session) && orderItem.statusId != "ITEM_CANCELLED" && orderItem.statusId != "ITEM_COMPLETED") || (security.hasEntityPermission("ORDERMGR", "_UPDATE", session) && orderItem.statusId != "ITEM_CANCELLED" && orderItem.statusId != "ITEM_COMPLETED" && orderHeader.statusId != "ORDER_SENT")>
-                                    <a href="<@ofbizUrl>cancelOrderItem?orderItemSeqId=${orderItem.orderItemSeqId}&amp;${paramString}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonCancelAll}</a>
-                                <#else>
+                                <#if ("Y" != orderItem.isPromo?if_exists) && ((security.hasEntityPermission("ORDERMGR", "_ADMIN", session) && orderItem.statusId != "ITEM_CANCELLED" && orderItem.statusId != "ITEM_COMPLETED") || (security.hasEntityPermission("ORDERMGR", "_UPDATE", session) && orderItem.statusId != "ITEM_CANCELLED" && orderItem.statusId != "ITEM_COMPLETED" && orderHeader.statusId != "ORDER_SENT"))>
+                                    <a href="javascript:document.updateItemInfo.action='<@ofbizUrl>cancelOrderItem?orderItemSeqId=${orderItem.orderItemSeqId}&amp;${paramString}</@ofbizUrl>';document.updateItemInfo.submit()" class="buttontext">${uiLabelMap.CommonCancelAll}</a>
+                                <#else>      
                                     &nbsp;
                                 </#if>
                             </td>
                         </#if>
                     </tr>
                     
+                    <#-- now update/cancel reason and comment field -->
+                    <#if orderItem.statusId != "ITEM_CANCELLED" && orderItem.statusId != "ITEM_COMPLETED" && ("Y" != orderItem.isPromo?if_exists)>                    
+                      <tr><td colspan="8"><span class="label">${uiLabelMap.OrderReturnReason}</span>
+	                      <select name="irm_${orderItem.orderItemSeqId}">
+	                        <option value="">&nbsp;</option>
+	                        <#list orderItemChangeReasons as reason>
+	                          <option value="${reason.enumId}">${reason.get("description",locale)?default(reason.enumId)}</option>
+	                        </#list>
+	                      </select>
+                          <span class="label">${uiLabelMap.CommonComments}</span>
+                          <input type="text" name="icm_${orderItem.orderItemSeqId}" value="" size="30" maxlength="60"/>                       
+                      </tr>
+                    </#if>                      
                     <#-- now show adjustment details per line item -->
                     <#assign orderItemAdjustments = Static["org.ofbiz.order.order.OrderReadHelper"].getOrderItemAdjustmentList(orderItem, orderAdjustments)>
                     <#if orderItemAdjustments?exists && orderItemAdjustments?has_content>
@@ -220,10 +233,10 @@ float: right;
                                 </td>
                                 <td colspan="4">&nbsp;</td>
                                 <td>
-                                    <#assign itemStatusOkay = (orderItem.statusId != "ITEM_CANCELLED" && orderItem.statusId != "ITEM_COMPLETED" && (shipGroupAssoc.cancelQuantity?default(0) < shipGroupAssoc.quantity?default(0)))>
+                                    <#assign itemStatusOkay = (orderItem.statusId != "ITEM_CANCELLED" && orderItem.statusId != "ITEM_COMPLETED" && (shipGroupAssoc.cancelQuantity?default(0) < shipGroupAssoc.quantity?default(0)) && ("Y" != orderItem.isPromo?if_exists))>
                                     <#if (security.hasEntityPermission("ORDERMGR", "_ADMIN", session) && itemStatusOkay) || (security.hasEntityPermission("ORDERMGR", "_UPDATE", session) && itemStatusOkay && orderHeader.statusId != "ORDER_SENT")>
-                                        <a href="<@ofbizUrl>cancelOrderItem?orderItemSeqId=${orderItem.orderItemSeqId}&amp;shipGroupSeqId=${shipGroup.shipGroupSeqId}&amp;${paramString}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonCancel}</a>
-                                    <#else>
+                                        <a href="javascript:document.updateItemInfo.action='<@ofbizUrl>cancelOrderItem?orderItemSeqId=${orderItem.orderItemSeqId}&amp;shipGroupSeqId=${shipGroup.shipGroupSeqId}&amp;${paramString}</@ofbizUrl>';document.updateItemInfo.submit()" class="buttontext">${uiLabelMap.CommonCancel}</a>                                    
+                                    <#else>      
                                         &nbsp;
                                     </#if>
                                 </td>

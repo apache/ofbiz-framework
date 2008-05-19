@@ -35,7 +35,7 @@ under the License.
 </script>
 
 <h1>${uiLabelMap.OrderFinalCheckoutReview}</h1>
-<#if !isDemoStore?exists || isDemoStore><p>${uiLabelMap.OrderDemoFrontNote}.</p></#if>
+<#if !isDemoStore?exists && isDemoStore><p>${uiLabelMap.OrderDemoFrontNote}.</p></#if>
 
 <#if cart?exists && 0 < cart.size()>
   ${screens.render("component://ecommerce/widget/OrderScreens.xml#orderheader")}
