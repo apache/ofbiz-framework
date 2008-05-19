@@ -90,21 +90,24 @@ under the License.
         <attribute name="result" type="String" mode="OUT"/>
     </service>
 
-    <service name="testBsh" engine="bsh"
-            location="org/ofbiz/common/BshServiceTest.bsh" invoke="">
+    <service name="testBsh" engine="bsh" location="org/ofbiz/common/BshServiceTest.bsh" invoke="">
         <description>Test BeanShell Script Service</description>
         <attribute name="message" type="String" mode="IN" optional="true"/>
         <attribute name="result" type="String" mode="OUT"/>
     </service>
 
-    <service name="testJMSQueue" engine="jms"
-            location="serviceMessenger" invoke="testScv">
+    <service name="testGroovy" engine="groovy" location="org/ofbiz/common/GroovyServiceTest.groovy" invoke="">
+        <description>Test Groovy Script Service</description>
+        <attribute name="message" type="String" mode="IN" optional="true"/>
+        <attribute name="result" type="String" mode="OUT"/>
+    </service>
+    
+    <service name="testJMSQueue" engine="jms" location="serviceMessenger" invoke="testScv">
         <description>Test JMS Queue service</description>
         <attribute name="message" type="String" mode="IN"/>
     </service>
 
-    <service name="testJMSTopic" engine="jms"
-            location="serviceMessenger" invoke="testScv">
+    <service name="testJMSTopic" engine="jms" location="serviceMessenger" invoke="testScv">
         <description>Test JMS Topic service</description>
         <attribute name="message" type="String" mode="IN"/>
     </service>

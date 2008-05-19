@@ -28,7 +28,7 @@ under the License.
         <condition field-name="message" operator="equals" value="12345"/>
         <action service="testBsh" mode="sync"/>
     </eca>
-    <eca service="testBsh" event="commit">
+    <eca service="testScv" event="commit">
         <condition-service service-name="conditionReturnTrue"/>
         <action service="blockingTestScv" mode="sync"/>
     </eca>

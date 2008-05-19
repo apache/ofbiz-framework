@@ -17,9 +17,19 @@
  * under the License.
  */
 
-System.out.println("-=-=-=- TEST BSH SERVICE -=-=-=-");
-if ( context.containsKey("message") ) {
-  String message = (String) context.get("message");
-  System.out.println("----- Message is: " + message + " -----");
+import org.ofbiz.service.ServiceUtil;
+import org.ofbiz.base.util.Debug;
+
+Debug.logInfo("-=-=-=- TEST BSH SERVICE -=-=-=-", "");
+results = ServiceUtil.returnSuccess();
+if (context.containsKey("message")) {
+    message = context.get("message");
+    results.put("result", message);
+    results.put("successMessage", "Got message [" + message + "] and finished fine!");
+    Debug.logInfo("----- Message is: " + message + " -----", "");
+} else {
+    results.put("successMessage", "Got no message but finished fine anyway");
+    results.put("result", "[no message received]");
 }
-context.put("result","Script finished");
+
+return results;
