@@ -41,6 +41,7 @@ under the License.
 
         <!-- Service Engine Configuration -->
         <engine name="bsh" class="org.ofbiz.service.engine.BeanShellEngine"/>
+        <engine name="groovy" class="org.ofbiz.service.engine.GroovyEngine"/>
         <engine name="group" class="org.ofbiz.service.group.ServiceGroupEngine"/>
         <engine name="http" class="org.ofbiz.service.engine.HttpEngine"/>
         <engine name="interface" class="org.ofbiz.service.engine.InterfaceEngine"/>

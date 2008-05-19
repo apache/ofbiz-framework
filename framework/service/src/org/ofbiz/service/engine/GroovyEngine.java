@@ -18,35 +18,22 @@
  *******************************************************************************/
 package org.ofbiz.service.engine;
 
-import java.net.URL;
 import java.util.Map;
 
-import org.ofbiz.base.util.BshUtil;
-import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
-import org.ofbiz.base.util.HttpClient;
-import org.ofbiz.base.util.HttpClientException;
-import org.ofbiz.base.util.UtilGenerics;
-import org.ofbiz.base.util.UtilURL;
+import org.ofbiz.base.util.GroovyUtil;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.base.util.cache.UtilCache;
-import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceDispatcher;
 import org.ofbiz.service.ServiceUtil;
 
-import bsh.EvalError;
-import bsh.Interpreter;
-
 /**
- * BeanShell Script Service Engine
+ * Groovy Script Service Engine
  */
-public final class BeanShellEngine extends GenericAsyncEngine {
+public final class GroovyEngine extends GenericAsyncEngine {
 
-    public static UtilCache<String, String> scriptCache = new UtilCache<String, String>("BeanShellScripts", 0, 0);
-
-    public BeanShellEngine(ServiceDispatcher dispatcher) {
+    public GroovyEngine(ServiceDispatcher dispatcher) {
         super(dispatcher);
     }
     
@@ -64,7 +51,6 @@ public final class BeanShellEngine extends GenericAsyncEngine {
         return serviceInvoker(localName, modelService, context);
     }
 
-    // Invoke the BeanShell Script.
     private Map<String, Object> serviceInvoker(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
         if (UtilValidate.isEmpty(modelService.location)) {
             throw new GenericServiceException("Cannot run Groovy service with empty location");
@@ -73,13 +59,11 @@ public final class BeanShellEngine extends GenericAsyncEngine {
         String location = this.getLocation(modelService);
         
         try {
-            Object resultObj = BshUtil.runBshAtLocation(location, context);
+            Object resultObj = GroovyUtil.runScriptAtLocation(location, context);
             
             if (resultObj != null && resultObj instanceof Map) {
-                Debug.logInfo("Got result Map from script return: " + resultObj, module);
                 return (Map<String, Object>) resultObj;
             } else if (context.get("result") != null && context.get("result") instanceof Map) {
-                Debug.logInfo("Got result Map from context: " + resultObj, module);
                 return (Map<String, Object>) context.get("result");
             }
         } catch (GeneralException e) {

@@ -53,6 +53,10 @@ public class GroovyUtil {
             if (script == null) {
 
                 URL scriptUrl = FlexibleLocation.resolveLocation(location);
+                if (scriptUrl == null) {
+                    throw new GeneralException("Script not found at location [" + location + "]");
+                }
+                
                 GroovyShell shell = getShell(context);
                 script = shell.parse(scriptUrl.openStream(), scriptUrl.getFile());
                 if (Debug.verboseOn()) {
