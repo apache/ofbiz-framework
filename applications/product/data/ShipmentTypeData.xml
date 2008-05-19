@@ -61,7 +61,6 @@ under the License.
     <StatusValidChange condition="" statusId="SHIPMENT_INPUT" statusIdTo="SHIPMENT_CANCELLED" transitionName="Cancel"/>
     <StatusValidChange condition="" statusId="SHIPMENT_SCHEDULED" statusIdTo="SHIPMENT_CANCELLED" transitionName="Cancel"/>
     <StatusValidChange condition="" statusId="SHIPMENT_PICKED" statusIdTo="SHIPMENT_CANCELLED" transitionName="Cancel"/>
-    <StatusValidChange condition="" statusId="SHIPMENT_PACKED" statusIdTo="SHIPMENT_CANCELLED" transitionName="Cancel"/>
 
     <!-- these shipment status are intended for purchase shipments -->
     <StatusType description="Purchase Shipment" hasTable="N" parentTypeId="" statusTypeId="PURCH_SHIP_STATUS"/>
