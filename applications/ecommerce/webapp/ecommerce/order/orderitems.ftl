@@ -168,17 +168,27 @@ under the License.
                 </td>                    
                 <#if maySelectItems?default("N") == "Y" && roleTypeId?if_exists == "PLACING_CUSTOMER">
                   <td>&nbsp;</td>
-                  <#if (orderHeader.statusId != "ORDER_SENT" && orderItem.statusId != "ITEM_COMPLETED" && orderItem.statusId != "ITEM_CANCELLED" && pickedQty == 0)>
-                    <td><a href="<@ofbizUrl>cancelOrderItem?orderId=${orderItem.orderId}&amp;orderItemSeqId=${orderItem.orderItemSeqId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonCancel}</a></td>
-                  <#else>
-                    <td>&nbsp;</td>
-                  </#if>
                   <td>
                     <input name="item_id" value="${orderItem.orderItemSeqId}" type="checkbox"/>
                   </td>
+                  <td>&nbsp;</td>
                 </#if>
               </#if>
             </tr>
+            <#-- now cancel reason and comment field -->
+            <#if maySelectItems?default("N") == "Y" && (orderHeader.statusId != "ORDER_SENT" && orderItem.statusId != "ITEM_COMPLETED" && orderItem.statusId != "ITEM_CANCELLED" && pickedQty == 0)>
+		      <tr align="right"><td colspan="7"><div class="tabletext"><b>${uiLabelMap.OrderReturnReason}</b>
+		          <select name="irm_${orderItem.orderItemSeqId}" class="selectBox">
+		            <option value="">&nbsp;</option>
+		            <#list orderItemChangeReasons as reason>
+		              <option value="${reason.enumId}">${reason.get("description",locale)?default(reason.enumId)}</option>
+		            </#list>
+		          </select>
+		          <b>${uiLabelMap.CommonComments}</b>
+		          <input class="inputBox" type="text" name="icm_${orderItem.orderItemSeqId}" value="" size="30" maxlength="60"/></div></td> 
+	              <td colspan="4" align="right"><a href="javascript:document.addCommonToCartForm.method='post';document.addCommonToCartForm.action='<@ofbizUrl>cancelOrderItem?orderItemSeqId=${orderItem.orderItemSeqId}</@ofbizUrl>';document.addCommonToCartForm.submit()" class="buttontext">${uiLabelMap.CommonCancel}</a></td>
+		      </tr>
+            </#if>
             <#-- show info from workeffort if it was a rental item -->
             <#if orderItem.orderItemTypeId == "RENTAL_ORDER_ITEM">
                 <#if workEffortSave?exists>

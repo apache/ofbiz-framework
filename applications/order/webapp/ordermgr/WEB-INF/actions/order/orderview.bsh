@@ -212,6 +212,9 @@ if (orderHeader != null) {
 
     cmvm = ContactMechWorker.getOrderContactMechValueMaps(delegator, orderId);
     context.put("orderContactMechValueMaps", cmvm);
+    
+    orderItemChangeReasons = delegator.findByAnd("Enumeration", UtilMisc.toMap("enumTypeId", "ODR_ITM_CH_REASON"), UtilMisc.toList("sequenceId"));
+    context.put("orderItemChangeReasons", orderItemChangeReasons);    
 
     if ("PURCHASE_ORDER".equals(orderType)) {
         // for purchase orders, we need also the supplier's postal address

@@ -27,7 +27,14 @@ under the License.
   </div>
   <div class="screenlet-body">
         <form method="post" action="<@ofbizUrl>appendItemToOrder?${paramString}</@ofbizUrl>" name="appendItemForm">
+            <#if catalogCol?size == 1>
+                <input type="hidden" name="prodCatalogId" value="${catalogCol.first}"/>
+            </#if>
+            <#if shipGroups?size == 1>
+                <input type="hidden" name="shipGroupSeqId" value="${shipGroups.first.shipGroupSeqId}"/>
+            </#if>
             <table class="basic-table" cellspacing="0">
+              <#if (catalogCol?size > 1)>
                 <tr>
                   <td class="label">${uiLabelMap.ProductChooseCatalog}</td>
                   <td><select name='prodCatalogId'>
@@ -38,6 +45,7 @@ under the License.
                   </select>
                   </td>
                 </tr>
+              </#if>                
                 <tr>
                   <td class="label">${uiLabelMap.ProductProductId}</td>
                   <td><input type="text" size="25" name="productId" value="${requestParameters.productId?if_exists}"/>
@@ -57,13 +65,17 @@ under the License.
                   <td class="label">${uiLabelMap.OrderQuantity}</td>
                   <td><input type="text" size="6" name="quantity" value="${requestParameters.quantity?default("1")}"/></td>
                 </tr>
+              <#if (shipGroups?size > 1)>
                 <tr>
                   <td class="label">${uiLabelMap.OrderShipGroup}</td>
-                  <td><input type="text" size="6" name="shipGroupSeqId" value="00001"/></td>
-                </tr>
-                <tr>
-                  <td colspan="2">&nbsp;</td>
-                </tr>
+                  <td><select name="shipGroupSeqId">
+	                  <#list shipGroups as shipGroup>
+	                     <option value="${shipGroup.shipGroupSeqId}">${shipGroup.shipGroupSeqId}</option>
+	                  </#list>
+	                  </select>
+	              </td>
+                </tr>              
+	          </#if>                
                 <tr>
                   <td class="label">${uiLabelMap.OrderDesiredDeliveryDate}</td>
                   <td>
@@ -72,9 +84,20 @@ under the License.
                   </td>
                 </tr>
                 <tr>
+                  <td class="label">${uiLabelMap.OrderReturnReason}</td>
+                  <td>
+                    <select name="reasonEnumId">
+                        <option value="">&nbsp;</option>
+                        <#list orderItemChangeReasons as reason>
+                        <option value="${reason.enumId}">${reason.get("description",locale)?default(reason.enumId)}</option>
+                        </#list>
+                    </select>
+                  </td>
+                </tr>                
+                <tr>
                   <td class="label">${uiLabelMap.CommonComment}</td>
                   <td>
-                      <input type="text" size="25" name="itemComment"/>
+                      <input type="text" size="25" name="changeComments"/>
                   </td>
                 </tr>
                 <tr>

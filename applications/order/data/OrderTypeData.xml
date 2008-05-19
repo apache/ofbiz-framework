@@ -82,9 +82,10 @@ under the License.
     <EnumerationType description="Order Item Change Type" enumTypeId="ODR_ITM_CHANGE_TYPE" hasTable="N" parentTypeId=""/>
     <Enumeration description="Order Item Update" enumCode="ITM_UPDATE" enumId="ODR_ITM_UPDATE" sequenceId="01" enumTypeId="ODR_ITM_CHANGE_TYPE"/>
     <Enumeration description="Order Item Cancel" enumCode="ITM_CANCEL" enumId="ODR_ITM_CANCEL" sequenceId="02" enumTypeId="ODR_ITM_CHANGE_TYPE"/>
+    <Enumeration description="Order Item Append" enumCode="ITM_APPEND" enumId="ODR_ITM_APPEND" sequenceId="03" enumTypeId="ODR_ITM_CHANGE_TYPE"/>    
     <EnumerationType description="Order Item Change Reason" enumTypeId="ODR_ITM_CH_REASON" hasTable="N" parentTypeId=""/>
     <Enumeration description="Mis-Ordered Item" enumCode="MISORDER" enumId="OICR_MISORDER_ITEM" sequenceId="01" enumTypeId="ODR_ITM_CH_REASON"/>
-    <Enumeration description="Customer Changed Mind" enumCode="CHANGE_MIND" enumId="OICR_CUST_CHMIND" sequenceId="02" enumTypeId="ODR_ITM_CH_REASON"/>
+    <Enumeration description="Changed Mind" enumCode="CHANGE_MIND" enumId="OICR_CHANGE_MIND" sequenceId="02" enumTypeId="ODR_ITM_CH_REASON"/>
 
     <QuoteType description="Other" hasTable="N" parentTypeId="" quoteTypeId="OTHER_QUOTE"/>
     <QuoteType description="Product" hasTable="N" parentTypeId="" quoteTypeId="PRODUCT_QUOTE"/>
