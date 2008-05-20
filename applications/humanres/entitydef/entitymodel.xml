@@ -702,12 +702,4 @@ under the License.
             <key-map field-name="rateTypeId"/>
         </relation>
     </entity>
-    <entity entity-name="RateType"
-            package-name="org.ofbiz.humanres.position"
-            title="Rate Type Entity">
-        <field name="rateTypeId" type="id-ne"/>
-        <field name="description" type="description"/>
-        <prim-key field="rateTypeId"/>
-    </entity>
 </entitymodel>
-

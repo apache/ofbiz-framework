@@ -69,7 +69,6 @@ under the License.
     <entity-group group="org.ofbiz" entity="EmplPositionTypeClass" />
     <entity-group group="org.ofbiz" entity="ValidResponsibility" />
     <entity-group group="org.ofbiz" entity="EmplPositionTypeRate" />
-    <entity-group group="org.ofbiz" entity="RateType" />
 
 </entitygroup>
 
