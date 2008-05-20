@@ -109,7 +109,7 @@ under the License.
                     ${orderItem.productId}&nbsp;
                     <input type="hidden" name="productId_o_${rowCount}" value="${orderItem.productId}">
                   </#if>
-                  ${orderItem.itemDescription}
+                  ${orderItem.itemDescription?if_exists}
                 </div>
               </td>
               <td align='center'>
