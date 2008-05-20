@@ -27,6 +27,9 @@ under the License.
         <value xml:lang="th">ตัวอย่างโปรแกรมคอมพิวเตอร์</value>
         <value xml:lang="zh">样例应用</value>
     </property>
+    <property key="ExampleAjaxIntro">
+        <value xml:lang="en">To use this Ajax demonstration, you must have JavaScript enabled on your browser.</value>
+    </property>
     <property key="ExampleCompanyName">
         <value xml:lang="en">OFBiz: Example</value>
         <value xml:lang="it">OFBiz: Esempi</value>

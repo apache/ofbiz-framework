@@ -182,6 +182,11 @@ public class ModelForm extends ModelWidget {
     protected FlexibleStringExpander rowCountExdr;
     protected List multiSubmitFields = FastList.newInstance();
     protected int rowCount = 0;
+    
+    /** On Submit areas to be updated. */
+    protected List<UpdateArea> onSubmitUpdateAreas;
+    /** On Paginate areas to be updated. */
+    protected List<UpdateArea> onPaginateUpdateAreas;
 
     // ===== CONSTRUCTORS =====
     /** Default Constructor */
@@ -271,11 +276,14 @@ public class ModelForm extends ModelWidget {
                 this.targetWindowExdr = parent.targetWindowExdr;
                 this.hideHeader = parent.hideHeader;
                 this.clientAutocompleteFields = parent.clientAutocompleteFields;
+                this.paginateTarget = parent.paginateTarget;
 
                 this.altTargets.addAll(parent.altTargets);
                 this.actions = parent.actions;
                 this.rowActions = parent.rowActions;
                 this.defaultViewSize = parent.defaultViewSize;
+                this.onSubmitUpdateAreas = parent.onSubmitUpdateAreas;
+                this.onPaginateUpdateAreas = parent.onPaginateUpdateAreas;
                 
                 //these are done below in a special way...
                 //this.fieldList = parent.fieldList;
@@ -444,6 +452,13 @@ public class ModelForm extends ModelWidget {
             this.addAltTarget(altTarget);
         }
             
+        // on-event-update-area
+        List<? extends Element> updateAreaElements = UtilXml.childElementList(formElement, "on-event-update-area");
+        for (Element updateAreaElement : updateAreaElements) {
+            UpdateArea updateArea = new UpdateArea(updateAreaElement);
+            this.addOnEventUpdateArea(updateArea);
+        }
+            
         // auto-fields-service
         List autoFieldsServiceElements = UtilXml.childElementList(formElement, "auto-fields-service");
         Iterator autoFieldsServiceElementIter = autoFieldsServiceElements.iterator();
@@ -596,6 +611,40 @@ public class ModelForm extends ModelWidget {
             altTargets.set(index, altTarget);
         } else {
             altTargets.add(altTarget);
+        }
+    }
+
+    public void addOnEventUpdateArea(UpdateArea updateArea) {
+        // Event types are sorted as a convenience
+        // for the rendering classes
+        if ("paginate".equals(updateArea.getEventType())) {
+            addOnPaginateUpdateArea(updateArea);
+        } else if ("submit".equals(updateArea.getEventType())) {
+            addOnSubmitUpdateArea(updateArea);
+        }
+    }
+
+    protected void addOnSubmitUpdateArea(UpdateArea updateArea) {
+        if (onSubmitUpdateAreas == null) {
+            onSubmitUpdateAreas = FastList.newInstance();
+        }
+        int index = onSubmitUpdateAreas.indexOf(updateArea);
+        if (index != -1) {
+            onSubmitUpdateAreas.set(index, updateArea);
+        } else {
+            onSubmitUpdateAreas.add(updateArea);
+        }
+    }
+
+    protected void addOnPaginateUpdateArea(UpdateArea updateArea) {
+        if (onPaginateUpdateAreas == null) {
+            onPaginateUpdateAreas = FastList.newInstance();
+        }
+        int index = onPaginateUpdateAreas.indexOf(updateArea);
+        if (index != -1) {
+            onPaginateUpdateAreas.set(index, updateArea);
+        } else {
+            onPaginateUpdateAreas.add(updateArea);
         }
     }
 
@@ -2169,6 +2218,10 @@ public class ModelForm extends ModelWidget {
         this.type = string;
     }
 
+    public List<UpdateArea> getOnPaginateUpdateAreas() {
+        return this.onPaginateUpdateAreas;
+    }
+
     public String getPaginateTarget(Map context) {
         String targ = this.paginateTarget.expandString(context);
         if (UtilValidate.isEmpty(targ)) {
@@ -2369,9 +2422,6 @@ public class ModelForm extends ModelWidget {
         this.overridenListSize = overridenListSize;
     }
 
-    /**
-     * @param string
-     */
     public void setPaginateTarget(String string) {
         this.paginateTarget = new FlexibleStringExpander(string);
     }
@@ -2546,6 +2596,12 @@ public class ModelForm extends ModelWidget {
         return inbetweenList;
     }
     
+    /* Returns the list of ModelForm.UpdateArea objects.
+     */
+    public List<UpdateArea> getOnSubmitUpdateAreas() {
+        return this.onSubmitUpdateAreas;
+    }
+    
     public static class AltTarget {
         public String useWhen;
         public String target;
@@ -2558,6 +2614,48 @@ public class ModelForm extends ModelWidget {
         }
         public boolean equals(Object obj) {
             return obj instanceof AltTarget && obj.hashCode() == this.hashCode();
+        }
+    }
+
+    /** The UpdateArea class implements the <code>&lt;on-event-update-area&gt;</code>
+     * elements used in form widgets.
+     */
+    public static class UpdateArea {
+        protected String eventType;
+        protected String areaId;
+        protected String areaTarget;
+        /** XML constructor.
+         * @param updateAreaElement The <code>&lt;on-xxx-update-area&gt;</code>
+         * XML element.
+         */
+        public UpdateArea(Element updateAreaElement) {
+            this.eventType = updateAreaElement.getAttribute("event-type");
+            this.areaId = updateAreaElement.getAttribute("area-id");
+            this.areaTarget = updateAreaElement.getAttribute("area-target");
+        }
+        /** String constructor.
+         * @param areaId The id of the widget element to be updated
+         * @param areaTarget The target URL called to update the area
+         */
+        public UpdateArea(String eventType, String areaId, String areaTarget) {
+            this.eventType = eventType;
+            this.areaId = areaId;
+            this.areaTarget = areaTarget;
+        }
+        public int hashCode() {
+            return areaId.hashCode();
+        }
+        public boolean equals(Object obj) {
+            return obj instanceof UpdateArea && obj.hashCode() == this.hashCode();
+        }
+        public String getEventType() {
+            return eventType;
+        }
+        public String getAreaId() {
+            return areaId;
+        }
+        public String getAreaTarget(Map<String, ? extends Object> context) {
+            return FlexibleStringExpander.expandString(areaTarget, context);
         }
     }
 

@@ -34,6 +34,12 @@ under the License.
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
     </form>
 
+    <!-- Typically, this extended form wouldn't be necessary. The parent form (ListExamples) would
+        have these attributes. -->
+    <form name="ListExamplesAjax" extends="ListExamples" type="list" paginate-target="authview/findExampleAjax" view-size="3">
+        <on-event-update-area event-type="paginate" area-id="ListExamplesAjax" area-target="ListExampleFormOnly"/>
+    </form>
+
     <form name="EditExample" type="single" target="updateExample" title="" default-map-name="example">
         <actions>
             <entity-one entity-name="StatusItem" value-name="currentStatus" auto-field-map="false">
@@ -84,9 +90,12 @@ under the License.
         <field name="submitButton" use-when="example!=null" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
 
-    <form name="EditExampleBackgroundSubmit" extends="EditExample">
-        <field name="submitButton" use-when="example==null" title="${uiLabelMap.CommonCreate}"><submit button-type="button" background-submit-refresh-target="CreateExampleFormOnly"/></field>
-        <field name="submitButton" use-when="example!=null" title="${uiLabelMap.CommonUpdate}"><submit button-type="button" background-submit-refresh-target="CreateExampleFormOnly"/></field>
+    <!-- Typically, this extended form wouldn't be necessary. The parent form (EditExample) would
+        have these settings. -->
+    <form name="EditExampleBackgroundSubmit" type="single" extends="EditExample" target="updateExampleAjax">
+        <alt-target use-when="example==null" target="createExampleAjax"/>
+        <on-event-update-area event-type="submit" area-id="ListExamplesAjax" area-target="ListExampleFormOnly"/>
+        <on-event-update-area event-type="submit" area-id="EditExampleAjax" area-target="CreateExampleFormOnly"/>
     </form>
 
     <!-- ExampleItem -->

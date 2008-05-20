@@ -36,6 +36,7 @@ under the License.
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="auto-fields-service"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="auto-fields-entity"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="field"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="on-event-update-area"/>
                 <xs:element minOccurs="0" ref="sort-order"/>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.form"/>
@@ -317,6 +318,27 @@ under the License.
     <xs:attributeGroup name="attlist.sort-field">
         <xs:attribute type="xs:string" name="name" use="required"/>
     </xs:attributeGroup>
+    <!-- ================== Form Events ==================== -->
+    <xs:attributeGroup name="attlist.on-form-event-update-area">
+        <xs:attribute name="event-type" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="paginate"/>
+                    <xs:enumeration value="submit"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="area-id" use="required"/>
+        <xs:attribute type="xs:string" name="area-target" use="required"/>
+    </xs:attributeGroup>
+    <xs:element name="on-event-update-area">
+        <xs:annotation>
+            <xs:documentation>Area to be updated when a form event occurs.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.on-form-event-update-area"/>
+        </xs:complexType>
+    </xs:element>
 
   <!-- ================== FIELDS ==================== -->
     <xs:element name="AllFields" abstract="true"/>
@@ -800,7 +822,8 @@ under the License.
         </xs:attribute>
         <xs:attribute type="xs:string" name="image-location"/>
         <xs:attribute type="xs:string" name="background-submit-refresh-target">
-            <xs:annotation><xs:documentation>This will submit the form in the background and refresh just this form and not the rest of the page. Note that the button-type must be button.</xs:documentation></xs:annotation>
+            <xs:annotation><xs:documentation>Deprecated. Use the on-event-update-area element
+                instead.</xs:documentation></xs:annotation>
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="text" substitutionGroup="AllFields">

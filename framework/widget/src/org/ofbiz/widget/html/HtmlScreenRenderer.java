@@ -30,6 +30,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import javolution.util.FastMap;
+
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilFormatOut;
@@ -38,19 +40,17 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.webapp.control.RequestHandler;
 import org.ofbiz.webapp.taglib.ContentUrlTag;
-import org.ofbiz.widget.form.FormStringRenderer;
-import org.ofbiz.widget.form.ModelForm;
-import org.ofbiz.widget.html.HtmlWidgetRenderer;
-import org.ofbiz.widget.menu.MenuStringRenderer;
-import org.ofbiz.widget.menu.ModelMenu;
 import org.ofbiz.widget.WidgetContentWorker;
 import org.ofbiz.widget.WidgetDataResourceWorker;
+import org.ofbiz.widget.form.FormStringRenderer;
+import org.ofbiz.widget.form.ModelForm;
+import org.ofbiz.widget.menu.MenuStringRenderer;
+import org.ofbiz.widget.menu.ModelMenu;
 import org.ofbiz.widget.screen.ModelScreenWidget;
 import org.ofbiz.widget.screen.ScreenStringRenderer;
-import org.ofbiz.service.LocalDispatcher;
-import javolution.util.FastMap;
 
 /**
  * Widget Library - HTML Form Renderer implementation
@@ -58,8 +58,14 @@ import javolution.util.FastMap;
 public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStringRenderer {
 
     public static final String module = HtmlScreenRenderer.class.getName();
+    protected int elementId = 999;
 
     public HtmlScreenRenderer() {}
+
+    protected String getNextElementId() {
+        elementId++;
+        return "hsr" + elementId;
+    }
 
     public void renderSectionBegin(Writer writer, Map context, ModelScreenWidget.Section section) throws IOException {
         renderBeginningBoundaryComment(writer, section.isMainSection?"Screen":"Section Widget", section);
@@ -69,12 +75,30 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
     }
 
     public void renderContainerBegin(Writer writer, Map context, ModelScreenWidget.Container container) throws IOException {
+        String containerId = container.getId(context);
+        String autoUpdateTarget = container.getAutoUpdateTargetExdr(context);
+        HttpServletRequest request = (HttpServletRequest) context.get("request");
+        if (UtilValidate.isNotEmpty(autoUpdateTarget) && UtilHttp.isJavaScriptEnabled(request)) {
+            if (UtilValidate.isEmpty(containerId)) {
+                containerId = getNextElementId();
+            }
+            HttpServletResponse response = (HttpServletResponse) context.get("response");
+            ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
+            RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
+
+            writer.write("<script type=\"text/javascript\">ajaxUpdateAreaPeriodic('");
+            writer.write(containerId);
+            writer.write("', '");
+            writer.write(rh.makeLink(request, response, autoUpdateTarget));
+            writer.write("', '");
+            writer.write("', '" + container.getAutoUpdateInterval() + "');</script>");
+            appendWhitespace(writer);
+        }
         writer.write("<div");
 
-        String id = container.getId(context);
-        if (UtilValidate.isNotEmpty(id)) {
+        if (UtilValidate.isNotEmpty(containerId)) {
             writer.write(" id=\"");
-            writer.write(id);
+            writer.write(containerId);
             writer.write("\"");
         }
         
@@ -91,21 +115,6 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
     public void renderContainerEnd(Writer writer, Map context, ModelScreenWidget.Container container) throws IOException {
         writer.write("</div>");
         appendWhitespace(writer);
-        String autoUpdateTarget = container.getAutoUpdateTargetExdr(context);
-        String containerId = container.getId(context);
-        if (UtilValidate.isNotEmpty(autoUpdateTarget) && UtilValidate.isNotEmpty(containerId)) {
-            HttpServletResponse response = (HttpServletResponse) context.get("response");
-            HttpServletRequest request = (HttpServletRequest) context.get("request");
-            ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
-            RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
-            
-            writer.write("<script type=\"text/javascript\">new Ajax.PeriodicalUpdater('");
-            writer.write(containerId);
-            writer.write("', '");
-            writer.write(rh.makeLink(request, response, autoUpdateTarget));
-            writer.write("');</script>");
-            appendWhitespace(writer);
-        }
     }
 
     public void renderScreenletBegin(Writer writer, Map context, boolean collapsed, ModelScreenWidget.Screenlet screenlet) throws IOException {
