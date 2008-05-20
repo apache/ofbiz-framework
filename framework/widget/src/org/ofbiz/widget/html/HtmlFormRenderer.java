@@ -2023,13 +2023,11 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         boolean javaScriptEnabled = UtilHttp.isJavaScriptEnabled(request);
         boolean ajaxEnabled = false;
         List<ModelForm.UpdateArea> updateAreas = modelForm.getOnPaginateUpdateAreas();
-        String targetService = null;
+        String targetService = modelForm.getPaginateTarget(context);
         if (javaScriptEnabled) {
             if (UtilValidate.isNotEmpty(updateAreas)) {
                 ajaxEnabled = true;
             }
-        } else {
-            targetService = modelForm.getPaginateTarget(context);
         }
         if (targetService == null) {
             targetService = "${targetService}";

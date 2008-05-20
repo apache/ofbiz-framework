@@ -36,7 +36,7 @@ under the License.
 
     <!-- Typically, this extended form wouldn't be necessary. The parent form (ListExamples) would
         have these attributes. -->
-    <form name="ListExamplesAjax" extends="ListExamples" type="list" paginate-target="authview/findExampleAjax" view-size="3">
+    <form name="ListExamplesAjax" extends="ListExamples" type="list" paginate-target="authview/findExampleAjax">
         <on-event-update-area event-type="paginate" area-id="ListExamplesAjax" area-target="ListExampleFormOnly"/>
     </form>
 
