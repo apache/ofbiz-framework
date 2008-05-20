@@ -269,7 +269,7 @@
     <form name="FindProductFeature" type="single" target="EditFeatureCategories" 
         header-row-style="header-row" default-table-style="basic-table">
         <field name="productFeatureCategoryId" title="${uiLabelMap.CommonId}"><text-find size="25" default-option="contains"></text-find></field>
-        <field name="description" title="${uiLabelMap.FormFieldTitle_description}"><text-find size="25" default-option="contains"></text-find></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><text-find size="25" default-option="contains"></text-find></field>
         <field name="searchButton" widget-style="smallSubmit"><submit/></field>
     </form>
     
@@ -286,12 +286,12 @@
         <field name="productFeatureCategoryId" title="${uiLabelMap.CommonId}" widget-style="buttontext">
             <hyperlink target="EditFeatureCategoryFeatures?productFeatureCategoryId=${productFeatureCategoryId}" description="${productFeatureCategoryId}"/>
         </field>
-        <field name="description" title="${uiLabelMap.FormFieldTitle_description}"><display/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
      
     </form>
     
     <form name="CreateProductFeature" type="single" target="CreateFeatureCategory">
-        <field name="description" title="${uiLabelMap.FormFieldTitle_description}*"><text size="25"></text></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}*"><text size="25"></text></field>
         <field name="parentCategory" title="${uiLabelMap.ProductParentCategory}">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="ProductFeatureCategory" key-field-name="description">

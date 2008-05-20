@@ -87,7 +87,7 @@ under the License.
                 </td>
             </tr>
             <tr>
-                <td align="right" class="label">${uiLabelMap.FormFieldTitle_quantity}</td>
+                <td align="right" class="label">${uiLabelMap.CommonQuantity}</td>
                 <td>&nbsp;</td>
                 <td>
                     <input type="text" name="qnt" size="12" maxlength="12" value="1"/>
