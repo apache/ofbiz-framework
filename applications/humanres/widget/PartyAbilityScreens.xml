@@ -354,4 +354,60 @@
             </widgets>
         </section>
     </screen>
+    <screen name="FindPersonTrainings">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HumanResFindPersonTraining"/>
+                <set field="headerItem" value="Training"/>
+                <set field="partyId" from-field="parameters.partyId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.HumanResFindPersonTraining}">
+                            <section>
+                                <widgets>
+                                    <container style="button-bar">
+                                        <link target="NewPersonTraining" text="${uiLabelMap.HumanResNewPersonTraining}" style="buttontext"/>
+                                    </container>
+                                    <include-form name="FindPersonTrainings" location="component://humanres/widget/forms/PartyAbilityForms.xml"></include-form>
+                                </widgets>
+                            </section>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.HumanResListPersonTraining}">
+                            <section>
+                                <widgets>
+                                    <include-form name="ListPersonTrainings" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
+                                </widgets>
+                            </section>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="NewPersonTraining">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HumanResAddPersonTraining"/>
+                <set field="headerItem" value="Training"/>
+                <set field="partyId" from-field="parameters.partyId"/>
+                <entity-one entity-name="Party" value-name="party"/>
+                <set field="trainingClassTypeId" from-field="parameters.trainingClassTypeId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.HumanResAddPersonTraining}">
+                            <section>
+                                <widgets>
+                                    <include-form name="AddPersonTraining" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
+                                </widgets>
+                            </section>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section> 
+    </screen>
 </screens>

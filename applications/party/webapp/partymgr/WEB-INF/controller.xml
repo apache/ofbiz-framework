@@ -961,6 +961,23 @@ under the License.
         <event type="service" invoke="deletePartySkill"/>
         <response name="success" type="view" value="EditPartySkills"/>
     </request-map>
+    <request-map uri="EditPersonTrainings">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditPersonTrainings"/>
+        <response name="error" type="view" value="EditPersonTrainings"/>
+    </request-map>
+    <request-map uri="createPersonTraining">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createPersonTraining"/>
+        <response name="success" type="view" value="EditPersonTrainings"/>
+        <response name="error" type="view" value="EditPersonTrainings"/>
+    </request-map>
+    <request-map uri="updatePersonTrainings">
+        <security https="true" auth="true"/>
+        <event type="service-multi" invoke="updatePersonTraining"/>
+        <response name="success" type="view" value="EditPersonTrainings"/>
+        <response name="error" type="view" value="EditPersonTrainings"/>
+    </request-map>
                 
     <!-- Lookup request mappings -->
     <request-map uri="LookupPartyName"><security https="true" auth="true"/><response name="success" type="view" value="LookupPartyName"/></request-map>
@@ -1075,5 +1092,6 @@ under the License.
     <view-map name="PartyInvitationGroupAssocs" type="screen" page="component://party/widget/partymgr/PartyInvitationScreens.xml#EditPartyInvitationsGroupAssocs"/>
     <view-map name="PartyInvitationRoleAssocs" type="screen" page="component://party/widget/partymgr/PartyInvitationScreens.xml#EditPartyInvitationsRoleAssocs"/>
     <view-map name="EditPartySkills" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#EditPartySkills"/>
+    <view-map name="EditPersonTrainings" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#EditPersonTrainings"/>
     <!-- end of view mappings -->
 </site-conf>

@@ -598,4 +598,14 @@ under the License.
         </field>
         <field name="fromDate"><display/></field>
     </form>  
+    <form name="ListPersonTrainings" type="multi" list-name="personTrainings" separate-columns="true" target="updatePersonTrainings?partyId=${partyId}" paginate-target="FindPersonTrainings"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <auto-fields-service default-field-type="display" service-name="updatePersonTraining"/> 
+        <field name="partyId" title="PartyId" widget-style="linktext">
+            <hyperlink also-hidden="false" target="/partymgr/control/viewprofile?partyId=${partyId}" target-type="plain" description="${partyId}"/>
+        </field>      
+        <field name="thruDate"><date-time type="timestamp"/></field>
+        <field name="trainingClassTypeId"><display-entity description="${description}" entity-name="TrainingClassType"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>
+    </form>
 </forms>

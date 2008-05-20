@@ -55,4 +55,8 @@ under the License.
     <BenefitType description="Health" hasTable="N" parentTypeId="" benefitTypeId="HEALTH"/>
     <BenefitType description="Vacation" hasTable="N" parentTypeId="" benefitTypeId="VACATION"/>
     <BenefitType description="Sick Leave" hasTable="N" parentTypeId="" benefitTypeId="SICK_LEAVE"/>
+    <TrainingClassType trainingClassTypeId="BASIC_TRAINING" description="Basic Training"/>
+    <TrainingClassType trainingClassTypeId="ONJOB_TRAINING" description="On Job Training"/>
+    <TrainingClassType trainingClassTypeId="ADVAN_TRAINING" description="Advance Training"/>
+    <TrainingClassType trainingClassTypeId="IMPRO_TRAINING" description="Improvement Training"/>
 </entity-engine-xml>

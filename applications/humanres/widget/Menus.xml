@@ -33,6 +33,7 @@
         <menu-item name="SkillType" title="${uiLabelMap.HumanResSkillType}"><link target="findSkillTypes"/></menu-item>
         <menu-item name="Employee" title="${uiLabelMap.HumanResEmployee}"><link target="findEmployees"/></menu-item>
         <menu-item name="ResponsibilityType" title="${uiLabelMap.HumanResResponsibilityType}"><link target="EditResponsibilityType"/></menu-item>
+        <menu-item name="Training" title="${uiLabelMap.HumanResTraining}"><link target="FindPersonTrainings"/></menu-item>
         <menu-item name="Logout" title="${uiLabelMap.CommonLogout}" align-style="col-right" selected-style="selected">
             <condition><not><if-empty field-name="userLogin"/></not></condition>
             <link target="logout"/>
