@@ -3452,6 +3452,9 @@
         <value xml:lang="th">ไม่ได้ใส่ชื่อกลุ่ม</value>
         <value xml:lang="zh">缺少组名称</value>
     </property>
+    <property key="PartyGroupNumEmployeeIsInvalid">
+        <value xml:lang="en">Number of employees is invalid</value>
+    </property>    
     <property key="PartyHeight">
         <value xml:lang="en">Height</value>
         <value xml:lang="es">Altura</value>
