@@ -20,6 +20,18 @@ under the License.
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
+    
+    <!-- Party Qualification -->
+    <simple-method method-name="createPartyQual" short-description="Create a Party Qualification">
+        <make-value entity-name="PartyQual" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <field-to-result field-name="newEntity.partyId" result-name="partyId"/>
+        <field-to-result field-name="newEntity.partyQualTypeId" result-name="partyQualTypeId"/>
+        <field-to-result field-name="newEntity.fromDate" result-name="fromDate"/>
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    
     <!-- Ability Group -->    
      <simple-method method-name="updatePartyQual" short-description="Update Qualification of a Party">        
         <entity-one entity-name="PartyQual" value-name="lookedUpValue"/>
