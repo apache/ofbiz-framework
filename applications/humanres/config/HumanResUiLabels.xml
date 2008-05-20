@@ -357,6 +357,9 @@
     <property key="HumanResAddPayGrade">
         <value xml:lang="en">Add Pay Grade</value>
     </property>
+    <property key="HumanResAddPersonTraining">
+        <value xml:lang="en">Add Person Training</value>
+    </property>
     <property key="HumanResAddReportedToEmplPositionReportingStruct">
         <value xml:lang="en">Add Empl Position Reporting Struct [Reported To ${parameters.emplPositionId}]</value>
     </property>
@@ -531,6 +534,9 @@
     <property key="HumanResFindEmploymentApp">
         <value xml:lang="en">Find Employment Application</value>
     </property>
+    <property key="HumanResFindPersonTraining">
+        <value xml:lang="en">Find Person Training</value>
+    </property>
     <property key="HumanResListEmplPositionsReportedTo">
         <value xml:lang="en">List Employee Positions, Reported To [${parameters.emplPositionId}]</value>
     </property>
@@ -576,6 +582,9 @@
         <value xml:lang="en">List Payroll Preferences</value>
         <value xml:lang="it">Lista Preferenze Paghe</value>
         <value xml:lang="th">รายการอ้างอิงเงินเดือน</value>
+    </property>
+    <property key="HumanResListPersonTraining">
+        <value xml:lang="en">List Person Training</value>
     </property>
     <property key="HumanResListSalaryStep">
         <value xml:lang="en">List Salary Step</value>
@@ -728,6 +737,9 @@
         <value xml:lang="en">New Payroll Preferences</value>
         <value xml:lang="it">Nuove Preferenze Paghe</value>
         <value xml:lang="th">เงินเดือนสิทธิพิเศษใหม่</value>
+    </property>
+    <property key="HumanResNewPersonTraining">
+        <value xml:lang="en">New Person Training</value>
     </property>
     <property key="HumanResNewSalaryStep">
         <value xml:lang="en">New Salary Step</value>
@@ -896,6 +908,9 @@
         <value xml:lang="en">Termination Type Id</value>
         <value xml:lang="it">Tipo Licenziamento</value>
         <value xml:lang="th">รหัสประเภทขอบเขตเหตุผล</value>
+    </property>
+    <property key="HumanResTraining">
+        <value xml:lang="en">Training</value>
     </property>
     <property key="HumanResUnemploymentClaim">
         <value xml:lang="en">Unemployment Claim</value>

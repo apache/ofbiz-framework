@@ -1075,4 +1075,38 @@ under the License.
             </widgets>
         </section> 
     </screen>
+    <screen name="EditPersonTrainings">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HumanResAddPersonTraining"/>
+                <set field="headerItem" value="Training"/>
+                <set field="tabButtonItem" value="PersonTraining"/>
+                <set field="partyId" from-field="parameters.partyId"/>
+                <set field="trainingClassTypeId" from-field="parameters.trainingClassTypeId"/>
+                <entity-and entity-name="PersonTraining" list-name="personTrainings">
+                    <field-map field-name="partyId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.HumanResListPersonTraining}">
+                            <section>
+                                <widgets>
+                                    <include-form name="ListPersonTrainings" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                </widgets>
+                            </section>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.HumanResNewPersonTraining}">
+                            <section>
+                                <widgets>
+                                    <include-form name="AddPersonTraining" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
+                                </widgets>
+                            </section>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>
