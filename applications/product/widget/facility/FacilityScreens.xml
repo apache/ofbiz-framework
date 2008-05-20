@@ -23,32 +23,70 @@ under the License.
     <screen name="FindFacility">
         <section>
             <actions>
-                <set field="titleProperty" value="ProductFacilitiesList"/>
+                <set field="titleProperty" value="ProductFindFacilities"/>
                 <set field="headerItem" value="facility"/>
-                <entity-condition list-name="facilities" entity-name="Facility"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.ProductFacilitiesList}"/>
-                                </container>
-                            </container>
-                            <container>
-                                <link style="buttontext" target="EditFacility" text="${uiLabelMap.ProductCreateNewFacility}"/>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="FindFacility" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <section>
+                            <condition>
+                                <if-service-permission service-name="facilityGenericPermission" main-action="VIEW"/>
+                            </condition>
+                            <widgets>
+                                <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                                    <decorator-section name="menu-bar">
+                                        <section>
+                                            <condition>
+                                                <if-service-permission service-name="facilityGenericPermission" main-action="CREATE"/>
+                                            </condition>
+                                            <widgets>
+                                                <container style="button-bar"><link target="EditFacility" text="${uiLabelMap.ProductCreateNewFacility}" style="buttontext"/></container>
+                                            </widgets>
+                                        </section>
+                                    </decorator-section>
+                                    <decorator-section name="search-options">
+                                        <include-screen name="FacilitySearchOptions"/>
+                                    </decorator-section>
+                                    <decorator-section name="search-results">
+                                        <include-screen name="FacilitySearchResults"/>
+                                    </decorator-section>
+                                </decorator-screen>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.ProductFacilityViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="FacilitySearchOptions">
+        <section>
+            <condition>
+                <if-service-permission service-name="facilityGenericPermission" main-action="VIEW"/>
+            </condition>
+            <actions>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+            </actions>
+            <widgets>
+                <include-form name="FindFacilityOptions" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="FacilitySearchResults">
+        <section>
+            <condition>
+                <if-service-permission service-name="facilityGenericPermission" main-action="VIEW"/>
+            </condition>
+            <actions>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+            </actions>
+            <widgets>
+                <include-form name="FindFacility" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
             </widgets>
         </section>
     </screen>

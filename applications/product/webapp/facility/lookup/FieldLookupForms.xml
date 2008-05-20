@@ -22,7 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="lookupFacility" target="LookupFacility" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
-        <auto-fields-entity entity-name="Facility" default-field-type="hidden"/>
+        <!--<auto-fields-entity entity-name="Facility" default-field-type="hidden"/> -->
         <field name="facilityId"><text-find/></field>
         <field name="facilityName"><text-find/></field>
         <field name="facilityTypeId">
