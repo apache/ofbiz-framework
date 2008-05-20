@@ -224,10 +224,15 @@ function ajaxUpdateArea(areaId, target, targetParams) {
   * form of: areaId, target, target parameters [, areaId, target, target parameters...].
 */
 function ajaxUpdateAreas(areaCsvString) {
+    responseFunction = function(transport) {
+        // Uncomment the next two lines to see the HTTP responses
+        //var response = transport.responseText || "no response text";
+        //alert("Response: \n\n" + response);
+    }
     var areaArray = areaCsvString.split(",");
     var numAreas = parseInt(areaArray.length / 3);
     for (var i = 0; i < numAreas * 3; i = i + 3) {
-        new Ajax.Updater(areaArray[i], areaArray[i + 1], {parameters: areaArray[i + 2]});
+        new Ajax.Updater(areaArray[i], areaArray[i + 1], {parameters: areaArray[i + 2], onComplete: responseFunction});
     }
 }
 
@@ -248,7 +253,7 @@ function ajaxUpdateAreaPeriodic(areaId, target, targetParams, interval) {
   * form of: areaId, target, target parameters [, areaId, target, target parameters...].
 */
 function ajaxSubmitRequestUpdateAreas(target, targetParams, areaCsvString) {
-    updateFunction = function() {
+    updateFunction = function(transport) {
         ajaxUpdateAreas(areaCsvString);
     }
     new Ajax.Request(target, {

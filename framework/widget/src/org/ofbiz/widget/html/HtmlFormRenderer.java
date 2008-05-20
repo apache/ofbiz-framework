@@ -943,6 +943,8 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                         String targetString = updateArea.getAreaTarget(context);
                         String target = UtilHttp.removeQueryStringFromTarget(targetString);
                         String targetParams = UtilHttp.getQueryStringFromTarget(targetString);
+                        targetParams = targetParams.replace("?", "");
+                        targetParams = targetParams.replace("&amp;", "&");
                         buffer.append(updateArea.getAreaId() + "," + target + "," + targetParams);
                     }
                 }
