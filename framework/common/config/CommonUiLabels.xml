@@ -2759,6 +2759,9 @@
         <value xml:lang="pt">Inserir</value>
         <value xml:lang="th">เพิ่ม</value>
     </property>
+    <property key="CommonInternalComment">
+        <value xml:lang="en">Internal Comment</value>
+    </property>
     <property key="CommonInto">
         <value xml:lang="ar">داخل</value>
         <value xml:lang="de">in</value>
@@ -4407,6 +4410,9 @@
         <value xml:lang="th">พร้อม</value>
         <value xml:lang="zh_CN">准备好的</value>
         <value xml:lang="zh">就绪</value>
+    </property>
+    <property key="CommonReason">
+        <value xml:lang="en">Reason</value>
     </property>
     <property key="CommonReceive">
         <value xml:lang="ar">استقبال</value>
