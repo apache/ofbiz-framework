@@ -60,48 +60,27 @@ public class HumanResServices {
         if (result.size() > 0)
             return result;
         
-        String partyQualId = (String) context.get("partyQualId");
         String partyQualTypeId = (String) context.get("partyQualTypeId");
-        String institutionPartyId = (String) context.get("institutionPartyId");
         String statusId = (String) context.get("statusId");
         String verifStatusId = (String) context.get("verifStatusId");
+        Timestamp fromDate = (Timestamp) context.get("fromDate");
         String errMsg = null;
         
-        // partyQualId might be empty, so check it and get next seq partyQualId if empty
-        if (partyQualId == null || partyQualId.length() == 0) {
-            try {
-                partyQualId = delegator.getNextSeqId("PartyQual");
-            } catch (IllegalArgumentException e) {
-                errMsg = UtilProperties.getMessage(resource, "HumanResServices.PartyQualFailureIDCreation", locale);
-                return ServiceUtil.returnError(errMsg);
-            }
-        } else {
-            // if specified partyQualId starts with a number, return an error
-            if (Character.isDigit(partyQualId.charAt(0))) {
-                errMsg = UtilProperties.getMessage(resource, "HumanResServices.PartyQualFailureIDStartsDigit", locale);
-                return ServiceUtil.returnError(errMsg);
-            }
-        }
         
         try {
             String title = (String) context.get("title");
-            String institutionInternalId = (String) context.get("institutionInternalId");
-            String infoString = (String) context.get("infoString");
-            Timestamp fromDate = (Timestamp) context.get("fromDate");
+            String qualificationDesc = (String) context.get("qualificationDesc");
             Timestamp thruDate = (Timestamp) context.get("thruDate");
             if (fromDate == null) {
                 errMsg = UtilProperties.getMessage(resource,"HumanResServices.PartyQualFailureMissingParam", locale);
                 return ServiceUtil.returnError(errMsg);
             }
             GenericValue partyQual = delegator.makeValue("PartyQual", UtilMisc.toMap(new Object[] {
-                "partyQualId", partyQualId,
                 "partyId", partyId, 
                 "partyQualTypeId", partyQualTypeId,
-                "institutionPartyId", institutionPartyId,
                 "title", title,
                 "statusId", statusId,
-                "institutionInternalId", institutionInternalId,
-                "infoString", infoString,
+                "qualificationDesc", qualificationDesc,
                 "verifStatusId", verifStatusId,
                 "fromDate", fromDate,
                 "thruDate", thruDate
@@ -116,7 +95,9 @@ public class HumanResServices {
             return ServiceUtil.returnError(errMsg);
         }
         return UtilMisc.toMap(
-                "partyQualId", partyQualId,
+                "partyId", partyId,
+                "partyQualTypeId", partyQualTypeId,
+                "fromDate", fromDate,
                 ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
     }
 }

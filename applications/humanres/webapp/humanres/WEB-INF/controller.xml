@@ -68,28 +68,32 @@ under the License.
     
     <!-- ================HumanResource==================================== -->  
     <!-- ================Party Ability Group==================================== -->      
-    <request-map uri="EditPartyQuals">
+    <request-map uri="FindPartyQual">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditPartyQuals"/>
+        <response name="success" type="view" value="FindPartyQual"/>
+    </request-map>
+    <request-map uri="EditPartyQual">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditPartyQual"/>
     </request-map> 
     <request-map uri="createPartyQual">
         <security https="true" auth="true"/>
         <event type="service" invoke="createPartyQual"/>
-        <response name="success" type="view" value="EditPartyQuals"/>
+        <response name="success" type="view" value="EditPartyQual"/>
     </request-map>
     <request-map uri="updatePartyQual">
         <security https="true" auth="true"/>
-        <event type="service" invoke="updatePartyQual"/>
-        <response name="success" type="view" value="EditPartyQuals"/>
+        <event type="service-multi" invoke="updatePartyQual"/>
+        <response name="success" type="view" value="FindPartyQual"/>
     </request-map>
     <request-map uri="deletePartyQual">
         <security https="true" auth="true"/>
         <event type="service" invoke="deletePartyQual"/>
-        <response name="success" type="view" value="EditPartyQuals"/>
+        <response name="success" type="view" value="FindPartyQual"/>
     </request-map>
-    <request-map uri="findPartyResumes">
+    <request-map uri="FindPartyResume">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="ListPartyResumes"/>
+        <response name="success" type="view" value="FindPartyResume"/>
     </request-map>  
     <request-map uri="EditPartyResume">
         <security https="true" auth="true"/>
@@ -108,7 +112,7 @@ under the License.
     <request-map uri="deletePartyResume">
         <security https="true" auth="true"/>
         <event type="service" invoke="deletePartyResume"/>
-        <response name="success" type="view" value="ListPartyResumes"/>
+        <response name="success" type="view" value="EditPartyResume"/>
     </request-map>           
     <request-map uri="FindPartySkills">
         <security https="true" auth="true"/>
@@ -245,7 +249,7 @@ under the License.
     <request-map uri="deletePayHistory">
         <security https="true" auth="true"/>
         <event type="service" invoke="deletePayHistory"/>
-        <response name="success" type="view" value="ListEmployments"/>
+        <response name="success" type="view" value="ListPayHistories"/>
     </request-map>
     <request-map uri="findPartyBenefits">
         <security https="true" auth="true"/>
@@ -587,11 +591,12 @@ under the License.
     <view-map name="EditPerfReviews" type="screen" page="component://humanres/widget/PartyAbilityScreens.xml#EditPerfReviews"/>    
     <view-map name="EditPerfReviewItems" type="screen" page="component://humanres/widget/PartyAbilityScreens.xml#EditPerfReviewItems"/>
     
-    <view-map name="ListPartyResumes" type="screen" page="component://humanres/widget/PartyAbilityScreens.xml#ListPartyResumes"/>
+    <view-map name="FindPartyResume" type="screen" page="component://humanres/widget/PartyAbilityScreens.xml#FindPartyResume"/>
     <view-map name="EditPartyResume" type="screen" page="component://humanres/widget/PartyAbilityScreens.xml#EditPartyResume"/>
     <view-map name="FindPartySkills" type="screen" page="component://humanres/widget/PartyAbilityScreens.xml#FindPartySkills"/>
     <view-map name="EditPartySkills" type="screen" page="component://humanres/widget/PartyAbilityScreens.xml#EditPartySkills"/>
-    <view-map name="EditPartyQuals" type="screen" page="component://humanres/widget/PartyAbilityScreens.xml#EditPartyQuals"/>
+    <view-map name="FindPartyQual" type="screen" page="component://humanres/widget/PartyAbilityScreens.xml#FindPartyQual"/>
+    <view-map name="EditPartyQual" type="screen" page="component://humanres/widget/PartyAbilityScreens.xml#EditPartyQual"/>
     
     <view-map name="FindEmplPosition" type="screen" page="component://humanres/widget/EmplPositionScreens.xml#FindEmplPosition"/>
     <view-map name="EditEmplPosition" type="screen" page="component://humanres/widget/EmplPositionScreens.xml#EditEmplPosition"/>

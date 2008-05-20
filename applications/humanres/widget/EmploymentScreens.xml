@@ -194,20 +194,6 @@
                                 </section>
                             </container>
                         </container>  
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.HumanResNewEmploymentApp}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="EditEmploymentApp" location="component://humanres/widget/forms/EmploymentForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>                      
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -409,8 +395,14 @@
         <section>            
             <actions>
                 <set field="titleProperty" value="HumanResAddUnemploymentClaim"/>
-                <set field="headerItem" value="UnemploymentClaim"/>
+                <set field="headerItem" value="Employment"/>
+                <set field="tabButtonItem" value="EditUnemploymentClaim"/>
                 <set field="unemploymentClaimId" from-field="parameters.unemploymentClaimId" />
+                <set field="roleTypeIdFrom" from-field="parameters.roleTypeIdFrom"/>
+                <set field="roleTypeIdTo" from-field="parameters.roleTypeIdTo"/>
+                <set field="partyIdTo" from-field="parameters.partyIdTo"/>
+                <set field="partyIdFrom" from-field="parameters.partyIdFrom"/>
+                <set field="fromDate" from-field="parameters.fromDate"/>
                 <entity-one entity-name="UnemploymentClaim" value-name="unemploymentClaim" />
             </actions>            
             <widgets>

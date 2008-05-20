@@ -20,11 +20,10 @@
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
-    <screen name="EditPartyQuals">
+    <screen name="EditPartyQual">
         <section>
             <actions>
-                <set field="headerItem" value="PartyReview"/>
-                <set field="tabButtonItem" value="EditPartyQual"/>                
+                <set field="headerItem" value="PartyQual"/>
                 <set field="partyId" from-field="parameters.partyId"/>
             </actions>
             <widgets>
@@ -33,7 +32,7 @@
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
-                                    <label text="${uiLabelMap.HumanResEditPartySkill}"/>
+                                    <label text="${uiLabelMap.HumanResAddPartyQual}"/>
                                 </container>
                             </container>
                             <container style="screenlet-body">
@@ -42,8 +41,7 @@
                                         <container>
                                              <link target="EditPartyQual" text="${uiLabelMap.HumanResNewPartyQual}" style="buttontext"/>
                                         </container>
-                                        <include-form name="ListPartyQuals" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
-                                        <include-form name="EditPartyQual" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>    
+                                        <include-form name="AddPartyQual" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>    
                                     </widgets>
                                 </section>
                             </container>
@@ -53,28 +51,32 @@
             </widgets>
         </section> 
     </screen>
-    <screen name="ListPartyResumes">
+    <screen name="FindPartyResume">
         <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleFindPartyResume"></set>
+                <set field="headerItem" value="PartyResume"/>
+            </actions>
             <widgets>
                 <decorator-screen name="CommonPartyAbilityDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.HumanResListPartyResumes}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <container>
-                                            <link target="EditPartyResume" text="${uiLabelMap.HumanResNewPartyResume}" style="buttontext"/>
-                                        </container>
-                                        <include-form name="ListPartyResumes" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.HumanResFindPartyResume}">
+                            <section>
+                                <widgets>
+                                    <container>
+                                        <link target="EditPartyResume" text="${uiLabelMap.CommonCreate} ${uiLabelMap.HumanResNewPartyResume}" style="buttontext"/>
+                                    </container>
+                                    <include-form name="FindPartyResumes" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
+                                </widgets>
+                            </section>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.HumanResFindPartyResume}">
+                            <section>
+                                <widgets>
+                                    <include-form name="ListPartyResumes" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
+                                </widgets>
+                            </section>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -83,14 +85,15 @@
     <screen name="EditPartyResume">
         <section>            
             <actions>
+                <set field="headerItem" value="PartyResume"></set>
                 <set field="tabButtonItem" value="EditPartySkill"/>
+                <set field="resumeId" from-field="parameters.resumeId"/>
                 <set field="partyId" from-field="parameters.partyId" />
                 <entity-one entity-name="PartyResume" value-name="partyResume" />
             </actions>            
             <widgets>
                 <decorator-screen name="CommonPartyAbilityDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu name="PartyBar" location="component://humanres/widget/Menus.xml"/>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
@@ -103,7 +106,7 @@
                                         <container>
                                             <link target="EditPartyResume" text="${uiLabelMap.HumanResNewPartyResume}" style="buttontext" />
                                         </container>
-                                        <include-form name="EditEmplPosition" location="component://humanres/widget/forms/PartyAbilityForms.xml" />
+                                        <include-form name="EditPartyResume" location="component://humanres/widget/forms/PartyAbilityForms.xml" />
                                     </widgets>
                                 </section>
                             </container>
@@ -409,5 +412,39 @@
                 </decorator-screen>
             </widgets>
         </section> 
+    </screen>
+    <screen name="FindPartyQual">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HumanResFindPartyQual"/>
+                <set field="headerItem" value="PartyQual"/>
+                <set field="partyId" from-field="parameters.partyId"/>
+                <set field="partyQualTypeId" from-field="parameters.partyQualTypeId"/>
+                <set field="fromDate" from-field="parameters.fromDate"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.HumanResFindPartyQual}">
+                            <section>
+                                <widgets>
+                                    <container>
+                                        <link target="EditPartyQual" text="${uiLabelMap.HumanResNewPartyQual}" style="buttontext"/>
+                                    </container>
+                                    <include-form name="FindPartyQuals" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
+                                </widgets>
+                            </section>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.HumanResFindPartyQual}">
+                            <section>
+                                <widgets>
+                                    <include-form name="ListPartyQuals" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
+                                </widgets>
+                            </section>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
     </screen>
 </screens>

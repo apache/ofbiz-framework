@@ -153,7 +153,7 @@
     <form name="ListPayHistories" type="list" target="updatePayHistory" title="" paginate-target="findPayHistories"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-condition entity-name="PayHistory">
+            <entity-condition entity-name="PayHistory" filter-by-date="true">
                 <condition-list combine="and">                    
                     <condition-expr field-name="roleTypeIdFrom" operator="equals" env-name="parameters.roleTypeIdFrom"/>
                     <condition-expr field-name="roleTypeIdTo" operator="equals" env-name="parameters.roleTypeIdTo"/>
@@ -163,12 +163,14 @@
                 </condition-list>
             </entity-condition>            
         </actions>
-        <auto-fields-service service-name="updatePayHistory" default-field-type="hidden"/>
+        <auto-fields-service service-name="updatePayHistory"/>
         <field name="roleTypeIdFrom"><display/></field>
         <field name="roleTypeIdTo"><display/></field>
         <field name="partyIdFrom"><display/></field>
         <field name="partyIdTo"><display/></field>
         <field name="fromDate"><display/></field>        
+        <field name="amount"><hidden/></field>
+        <field name="comments"><hidden/></field>
         <field name="salaryStepSeqId" title="${uiLabelMap.HumanResSalaryStepSeqId}"><lookup target-form-name="LookupSalaryStep" size="20"/></field>
         <field name="payGradeId" title="${uiLabelMap.HumanResPayGradeID}"><lookup target-form-name="LookupPayGrade" size="20"/></field>               
         <field name="periodTypeId" title="${uiLabelMap.FormFieldTitle_periodTypeId}">
@@ -179,11 +181,14 @@
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink target="deletePayHistory?roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;fromDate=${fromDate}" description="${uiLabelMap.CommonDelete}"/>
+        </field>
     </form>           
     <form name="ListPartyBenefits" type="list" target="updatePartyBenefit" title="" paginate-target="findPartyBenefits"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-condition entity-name="PartyBenefit">
+            <entity-condition entity-name="PartyBenefit" filter-by-date="true">
                 <condition-list combine="and">                    
                     <condition-expr field-name="roleTypeIdFrom" operator="equals" env-name="parameters.roleTypeIdFrom"/>
                     <condition-expr field-name="roleTypeIdTo" operator="equals" env-name="parameters.roleTypeIdTo"/>
@@ -209,6 +214,9 @@
         </field> 
         <field name="thruDate"><date-time/></field>       
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink target="deletePartyBenefit?benefitTypeId=${benefitTypeId}&amp;roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;fromDate=${fromDate}" description="${uiLabelMap.CommonDelete}"/>
+        </field>
     </form>
     <form name="AddPartyBenefit" type="single" target="createPartyBenefit" 
         header-row-style="header-row" default-table-style="basic-table">
@@ -348,12 +356,24 @@
     <form name="ListUnemploymentClaims" type="list" title="" target="updateUnemploymentClaim" paginate-target="FindUnemploymentClaim"
          odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
          <actions>
-            <entity-condition entity-name="UnemploymentClaim"><order-by field-name="unemploymentClaimId"/></entity-condition>
+            <entity-condition entity-name="UnemploymentClaim" filter-by-date="true">
+                <condition-list combine="and">
+                    <condition-expr field-name="partyIdFrom" operator="equals" env-name="parameters.partyIdFrom"/>
+                    <condition-expr field-name="partyIdTo" operator="equals" env-name="parameters.partyIdTo"/>
+                    <condition-expr field-name="roleTypeIdFrom" operator="equals" env-name="parameters.roleTypeIdFrom"/>
+                    <condition-expr field-name="roleTypeIdTo" operator="equals" env-name="parameters.roleTypeIdTo"/>
+                    <condition-expr field-name="fromDate" operator="equals" env-name="parameters.fromDate"/>
+                </condition-list>
+                <order-by field-name="unemploymentClaimId"/>
+            </entity-condition>
         </actions>
-        <auto-fields-service  service-name="updateUnemploymentClaim"/>        
+        <auto-fields-service  service-name="updateUnemploymentClaim"/>
         <field name="unemploymentClaimId"><display/></field>
         <field name="partyIdFrom"><display/></field>
         <field name="partyIdTo"><display/></field>
+        <field name="roleTypeIdTo"><display/></field>
+        <field name="roleTypeIdFrom"><display/></field>
+        <field name="fromDate"><display/></field>
         <field name="description"><text size="12"/></field>
         <field name="statusId">
             <drop-down allow-empty="false">
@@ -363,23 +383,9 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field name="roleTypeIdFrom">
-            <drop-down allow-empty="false">
-                <entity-options description="${description}" key-field-name="roleTypeId" entity-name="RoleType">                    
-                    <entity-order-by field-name="description"/>
-                </entity-options>
-            </drop-down>
-        </field>
-        <field name="roleTypeIdTo">
-            <drop-down allow-empty="false">
-                <entity-options description="${description}" key-field-name="roleTypeId" entity-name="RoleType">                    
-                    <entity-order-by field-name="description"/>
-                </entity-options>
-            </drop-down>
-        </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deleteUnemploymentClaim?unemploymentClaimId=${unemploymentClaimId}" description="${uiLabelMap.CommonDelete}"/>
+            <hyperlink target="deleteUnemploymentClaim?unemploymentClaimId=${unemploymentClaimId}&amp;roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;fromDate=${fromDate}" description="${uiLabelMap.CommonDelete}"/>
         </field> 
     </form>                                      
     <form name="AddUnemploymentClaim" type="single" target="createUnemploymentClaim" title="" default-map-name="unemploymentClaim"
@@ -394,22 +400,11 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field name="roleTypeIdFrom">
-            <drop-down allow-empty="false">
-                <entity-options description="${description}" key-field-name="roleTypeId" entity-name="RoleType">                    
-                    <entity-order-by field-name="description"/>
-                </entity-options>
-            </drop-down>
-        </field>
-        <field name="roleTypeIdTo">
-            <drop-down allow-empty="false">
-                <entity-options description="${description}" key-field-name="roleTypeId" entity-name="RoleType">                    
-                    <entity-order-by field-name="description"/>
-                </entity-options>
-            </drop-down>
-        </field>        
-        <field name="partyIdFrom" title="${uiLabelMap.HumanResPartyIdFrom}"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="partyIdTo" title="${uiLabelMap.HumanResPartyIdTo}"><lookup target-form-name="LookupPartyName"/></field>        
+        <field name="roleTypeIdFrom"><hidden/></field>
+        <field name="roleTypeIdTo"><hidden/></field>        
+        <field name="partyIdFrom"><hidden/></field>
+        <field name="partyIdTo"><hidden/></field>
+        <field name="fromDate"><hidden/></field>        
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>        
     </form>
     <form name="CreateEmployee" type="single" target="createEmployee"
