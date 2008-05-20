@@ -49,12 +49,20 @@ under the License.
     </menu>
     
     <menu name="LeadTabBar" type="simple" menu-container-style="button-bar tab-bar" default-selected-style="selected"> 
+        <menu-item name="CreateLead" title="${uiLabelMap.CommonCreate} ${uiLabelMap.SfaLead}">
+            <link target="CreateLead"/>
+        </menu-item>      
         <menu-item name="convertLead" title="${uiLabelMap.SfaConvertLead}">
+            <condition><not><if-empty field-name="parameters.partyId"/></not></condition>
             <link target="ConvertLead?leadPartyId=${parameters.partyId}"/>
         </menu-item>
         <menu-item name="CloneLead" title="${uiLabelMap.SfaCloneLead}">
+            <condition><not><if-empty field-name="parameters.partyId"/></not></condition>
             <link target="CloneLead?leadPartyId=${parameters.partyId}"/>
         </menu-item>
+        <menu-item name="MergeLeads" title="${uiLabelMap.SfaMergeLeads}">
+            <link target="MergeLeads"/>
+        </menu-item>      
     </menu>
     
     <menu name="ContactTabBar" type="simple" menu-container-style="button-bar tab-bar" default-selected-style="selected"> 

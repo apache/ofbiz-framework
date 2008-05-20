@@ -71,7 +71,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="MergeContacts" type="single"  target="MergeContacts">
-        <field name="partyIdFrom" title="${uiLabelMap.SfaMergeParty}" position="1">
+        <field name="partyIdFrom" title="${uiLabelMap.AccountingFromParty}" position="1">
             <drop-down allow-empty="false">
                <list-options list-name="partyList" key-name="contact.partyId"  list-entry-name="contact" description="${bsh:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, &quot;${contact.partyId}&quot;, false)} [${contact.partyId}]"/>
             </drop-down>

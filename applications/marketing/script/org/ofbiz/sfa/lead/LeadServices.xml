@@ -37,6 +37,10 @@
             <set field="partyRelationshipContext.roleTypeIdTo" value="LEAD"/>
             <set field="partyRelationshipContext.partyRelationshipTypeId" value="LEAD_OWNER"/>
             <call-service service-name="createPartyRelationship" in-map-name="partyRelationshipContext"/>
+            
+            <set field="updatePartyCtx.partyId" from-field="partyId"/>
+            <set field="updatePartyCtx.statusId" value="LEAD_ASSIGNED"/>
+            <call-service service-name="setPartyStatus" in-map-name="updatePartyCtx"/>
         </if-not-empty>
         <!-- Now create PartyGroup corresponding to the companyName, if its not null and then set up relationship of Person and PartyGroup as Employee and title -->
         <if-not-empty field-name="parameters.groupName">
@@ -126,6 +130,9 @@
             <set field="partyRelationshipCtx.roleTypeIdTo" value="CONTACT"/>
             <set field="partyRelationshipCtx.partyRelationshipTypeId" value="CONTACT_REL"/>
             <call-service service-name="createPartyRelationship" in-map-name="partyRelationshipCtx"/>
-        </if-empty>              
+        </if-empty>
+        <set field="updatePartyCtx.partyId" from-field="leadPartyId"/>
+        <set field="updatePartyCtx.statusId" value="LEAD_CONVERTED"/>
+        <call-service service-name="setPartyStatus" in-map-name="updatePartyCtx"/>        
     </simple-method>
 </simple-methods>

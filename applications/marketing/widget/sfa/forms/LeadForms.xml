@@ -23,9 +23,6 @@ under the License.
     <form name="ListLeads" type="list" list-name="partyList" list-entry-name="partyRow" paginate-target="FindLead" 
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true">
         <row-actions>
-            <entity-one entity-name="PartyGroup" value-name="partyGroup">
-                <field-map field-name="partyId" env-name="partyRow.partyId"/>
-            </entity-one>
             <entity-one entity-name="Person" value-name="person">
                 <field-map field-name="partyId" env-name="partyRow.partyId"/>
             </entity-one>
@@ -36,8 +33,8 @@ under the License.
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
             <hyperlink target="viewprofile?partyId=${partyRow.partyId}&amp;roleTypeId=LEAD" description="${partyRow.partyId}" target-type="inter-app"/>
         </field>
-        <field name="partyName" title="${uiLabelMap.PartyName}" use-when="partyGroup != null"><display description="${partyGroup.groupName}"/></field>
-        <field name="partyName" title="${uiLabelMap.PartyName}" use-when="person != null"><display description="${person.lastName}, ${person.firstName}"/></field>
+        <field name="partyName" title="${uiLabelMap.PartyName}"><display description="${person.lastName}, ${person.firstName}"/></field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}"><display description=""/></field>
         <field name="partyTypeId" title="${uiLabelMap.PartyType}"><display description="${partyType.description}"/> </field>
     </form>
 
@@ -94,5 +91,24 @@ under the License.
             </drop-down>
         </field>
         <field name="submitButton"><submit button-type="button"/></field>
+    </form>
+    <form name="MergeLeads" type="single"  target="MergeLeads">
+        <actions>
+            <set field="roleTypeId" value="LEAD"/>
+            <set field="partyTypeId" value="PERSON"/>
+            <set field="lookupFlag" value="Y"/>
+            <service service-name="findParty" auto-field-map="true"/>
+        </actions>
+        <field name="partyIdTo" title="${uiLabelMap.AccountingToParty}" position="1">
+            <drop-down allow-empty="false">
+               <list-options list-name="partyList" key-name="lead.partyId"  list-entry-name="lead" description="${bsh:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, &quot;${lead.partyId}&quot;, false)} [${lead.partyId}]"/>
+            </drop-down>
+        </field>
+        <field name="partyIdFrom" title="${uiLabelMap.AccountingFromParty}" position="2">
+            <drop-down allow-empty="false">
+               <list-options list-name="partyList" key-name="lead.partyId"  list-entry-name="lead" description="${bsh:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, &quot;${lead.partyId}&quot;, false)} [${lead.partyId}]"/>
+            </drop-down>
+        </field>
+        <field name="submitButton" position="3" title="${uiLabelMap.SfaMergeleads}" widget-style="buttontext" tooltip-style="button-text"><submit button-type="text-link"/></field>
     </form>
 </forms>
