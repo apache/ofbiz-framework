@@ -19,7 +19,6 @@
 package org.ofbiz.service.calendar;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
@@ -27,7 +26,6 @@ import java.util.List;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
-import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -44,7 +42,7 @@ public class RecurrenceInfo {
     protected List<RecurrenceRule> rRulesList;
     protected List<RecurrenceRule> eRulesList;
     protected List<Date> rDateList;
-    protected List<Date> eDateList;;
+    protected List<Date> eDateList;
 
     /** Creates new RecurrenceInfo */
     public RecurrenceInfo(GenericValue info) throws RecurrenceInfoException {
@@ -230,6 +228,33 @@ public class RecurrenceInfo {
             }
         }
         return nextRuleTime;
+    }
+    
+    /** Checks the current recurrence validity at the moment. */
+    public boolean isValidCurrent() {
+    	return isValidCurrent(RecurrenceUtil.now());
+    }
+    
+    /** Checks the current recurrence validity for checkTime. */
+    public boolean isValidCurrent(long checkTime) {
+        if (checkTime == 0 || (rDateList == null && rRulesList == null)) {
+            return false;
+        }
+        
+        boolean found = false;
+        Iterator<RecurrenceRule> rulesIterator = getRecurrenceRuleIterator();
+        while (rulesIterator.hasNext()) {
+            RecurrenceRule rule = rulesIterator.next();
+            long currentTime = rule.validCurrent(getStartTime(), checkTime, getCurrentCount());
+            currentTime = checkDateList(rDateList, currentTime, checkTime);
+            if ((currentTime > 0) && isValid(checkTime)) {
+                found = true;
+            } else {
+                return false;
+            }
+        }
+        
+        return found;
     }
 
     private long getNextTime(RecurrenceRule rule, long fromTime) {
