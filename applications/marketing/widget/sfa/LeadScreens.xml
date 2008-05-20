@@ -29,11 +29,10 @@ under the License.
                 <service service-name="findParty" auto-field-map="true"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonLeadDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <widgets>
-                                <container><link target="CreateLead" text="${uiLabelMap.CommonCreate} ${uiLabelMap.SfaLead}" style="buttontext"/></container>                              
                                 <section>
                                     <widgets>
                                         <platform-specific>
@@ -79,7 +78,7 @@ under the License.
                 <set field="tabButtonItem" value="Leads"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonLeadDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar boxhead">
@@ -105,7 +104,7 @@ under the License.
     <screen name="ConvertLead">
         <section>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonLeadDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar boxhead">
@@ -134,7 +133,7 @@ under the License.
                 <script location="component://marketing/webapp/sfa/WEB-INF/action/cloneLead.bsh"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonLeadDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar boxhead">
@@ -156,5 +155,41 @@ under the License.
                 </decorator-screen>
             </widgets>
         </section>
+    </screen>
+    <screen name="MergeLeads">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="Leads"/>
+                <script location="component://marketing/webapp/sfa/WEB-INF/action/mergeContacts.bsh"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonLeadDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="h3"><label text="${uiLabelMap.SfaMergeLeads}"/></container> 
+                            </container>
+                            <container style="screenlet-body">
+                                <label>&lt;br/&gt;</label>
+                                <include-form name="MergeLeads" location="component://marketing/widget/sfa/forms/LeadForms.xml"/>
+                            </container>
+                        </container>
+                        <section>
+                            <condition>
+                                <if-compare-field field-name="parameters.partyIdFrom" operator="not-equals" to-field-name="parameters.partyIdTo"/>
+                            </condition>
+                            <widgets>
+                                <platform-specific>
+                                    <html><html-template location="component://marketing/webapp/sfa/lead/mergeLeads.ftl"/></html>
+                                </platform-specific>
+                            </widgets>
+                            <fail-widgets>
+                                <label text="${uiLabelMap.SfaCanNotMergeSameLeads}" style="h3"></label>
+                            </fail-widgets>
+                        </section>
+                     </decorator-section>
+                 </decorator-screen>
+             </widgets>
+         </section>
     </screen>
 </screens>

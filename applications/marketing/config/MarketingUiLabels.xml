@@ -1149,6 +1149,9 @@
     <property key="SfaCanNotMergeSameContact">
         <value xml:lang="en">Failed to merge contacts. You have selected same contact to merge.</value>
     </property>  
+    <property key="SfaCanNotMergeSameLeads">
+        <value xml:lang="en">Failed to merge Leads. You have selected same Lead to merge.</value>
+    </property>    
     <property key="SfaCompetitors">
         <value xml:lang="en">Competitors &amp; Partners </value>
     </property>
@@ -1221,14 +1224,17 @@
     <property key="SfaMergeContacts">
         <value xml:lang="en">Merge Contacts</value>
     </property>
-    <property key="SfaMergeParty">
-        <value xml:lang="en">Merge Party</value>
+    <property key="SfaMergeLeads">
+        <value xml:lang="en">Merge Leads</value>
     </property>  
     <property key="SfaNewOpportunity">
         <value xml:lang="en">Create New Opportunity</value>
     </property>
     <property key="SfaNextStep">
         <value xml:lang="en">Next Step</value>
+    </property>
+    <property key="SfaNoLeadsSelectedToMerged">
+        <value xml:lang="en">No leads selected to merge</value>
     </property>
     <property key="SfaOpportunities">
         <value xml:lang="en">Opportunities</value>

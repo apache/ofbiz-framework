@@ -60,4 +60,14 @@ under the License.
     <Enumeration description="URL Parameter" enumCode="URL_PARAM" enumId="TKCDSRC_URL_PARAM" sequenceId="01" enumTypeId="TRACKINGCODE_SRC"/>   
  
     <DataSourceType dataSourceTypeId="LEAD_SOURCE" description="Lead Source"/>
+  
+    <StatusType parentTypeId="PARTY_STATUS" hasTable="" statusTypeId="LEAD_STATUS" description="Lead Status"/>
+    <StatusItem description="Assigned" sequenceId="01" statusCode="ASSIGNED" statusId="LEAD_ASSIGNED" statusTypeId="LEAD_STATUS"/>
+    <StatusItem description="Converted" sequenceId="02" statusCode="CONVERTED" statusId="LEAD_CONVERTED" statusTypeId="LEAD_STATUS"/>
+    <StatusItem description="Qualified" sequenceId="03" statusCode="QUALIFIED" statusId="LEAD_QUALIFIED" statusTypeId="LEAD_STATUS"/>
+  
+    <StatusValidChange condition="" statusId="PARTY_ENABLED" statusIdTo="LEAD_ASSIGNED" transitionName="Assigned"/>
+    <StatusValidChange condition="" statusId="LEAD_ASSIGNED" statusIdTo="LEAD_CONVERTED" transitionName="Converted"/>
+    <StatusValidChange condition="" statusId="LEAD_ASSIGNED" statusIdTo="LEAD_QUALIFIED" transitionName="Qualified"/>
+  
 </entity-engine-xml>
