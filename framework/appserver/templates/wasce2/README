@@ -83,7 +83,8 @@ by
 
     You will need also to change the value of use-initial-context to false and to put the complete path for ssl-keystore.
 
-    Finally you will have to pass a client policy to the application server using the -Djava.security.policy=client.policy parameter,
+    Finally you will have to set a security manager using the option -Djava.security.manager and
+    pass a client policy to the application server using the -Djava.security.policy=client.policy parameter,
     simply put it at the end of JAVA_OPTS above.
     Indeed to load the RMIDispatcher under the application server it needs a RMI Security Manager.
     For my test I used a very simple client.policy file with all permissions that I put in the bin directory of the application server.
@@ -91,6 +92,14 @@ by
         grant{
         permission java.security.AllPermission;
         };
+
+    Note that currently the option -Djava.security.manager does not work in Windows. I have opened a Geronimo Jira issue for this
+    https://issues.apache.org/jira/browse/GERONIMO-4037. You can always use RMI in Windows since if no Security Manager is set
+    then when starting OFBiz will load one before setting the RMIDispatcher but you will get a benign error while stopping the server.
+
+    Debug stuff : -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005
+    You may got this issue when shutting down : ERROR: transport error 202: bind failed: Address already in use ["transport.c",L41]
+    But you can neglect and force stopping
 
     *** Also beware, you can't have spaces in the path where the application server is installed ***
     And last but not least you may appreciate http://docs.ofbiz.org/display/OFBIZ/FAQ+-+Tips+-+Tricks+-+Cookbook+-+HowTo#FAQ-Tips-Tricks-Cookbook-HowTo-HowtouseRMIwithoutSSL
