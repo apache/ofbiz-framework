@@ -62,4 +62,14 @@ under the License.
     
     <PartyQualType description="Degree" hasTable="N" parentTypeId="" partyQualTypeId="DEGREE"/>
     <PartyQualType description="Certification" hasTable="N" parentTypeId="" partyQualTypeId="CERTIFICATION"/>
+    
+    <EmploymentAppSourceType description="NewsPaper" hasTable="N" parentTypeId="" employmentAppSourceTypeId="NEWS_PAPER"/>
+    <EmploymentAppSourceType description="PersonalReferal" hasTable="N" parentTypeId="" employmentAppSourceTypeId="PER_REF"/>
+    <EmploymentAppSourceType description="Internet" hasTable="N" parentTypeId="" employmentAppSourceTypeId="INTERNET"/>
+    <EmploymentAppSourceType description="Advertisement" hasTable="N" parentTypeId="" employmentAppSourceTypeId="ADV"/>        
+
+    <DeductionType description="Federal Tax" hasTable="N" parentTypeId="" deductionTypeId="FED_TAX"/>
+    <DeductionType description="State Tax" hasTable="N" parentTypeId="" deductionTypeId="STATE_TAX"/>
+    <DeductionType description="Insurance" hasTable="N" parentTypeId="" deductionTypeId="INSURANCE"/>
+    <DeductionType description="Cafeteria Plan" hasTable="N" parentTypeId="" deductionTypeId="CAFE_PLAN"/>
 </entity-engine-xml>

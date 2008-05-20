@@ -125,7 +125,7 @@ under the License.
     <form name="FindPartySkills" type="single" target="FindPartySkills"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="PartySkill" default-field-type="find"/>
-        <field name="partyId"><text-find/></field>
+        <field name="partyId"><lookup target-form-name="LookupPartyName"/></field>
         <field name="skillTypeId">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="SkillType">
@@ -139,28 +139,46 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/></field>
         <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>     
-    <form name="ListPartySkills" type="multi" list-name="partySkills" use-row-submit="true" separate-columns="true" target="updatePartySkill?partyId=${partyId}"
+    <form name="ListPartySkills" type="multi" list-name="listIt" use-row-submit="true" separate-columns="true" target="updatePartySkill?partyId=${partyId}" paginate-target="findPartySkills"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar"> 
         <actions>
             <set field="partyId" from-field="parameters.partyId"/>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="partySkills">
+            <entity-one entity-name="Party" auto-field-map="true"/>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
                 <field-map field-name="entityName" value="PartySkill"/>
+                <field-map field-name="orderBy" value="partyId"/>
+                <field-map field-name="orderBy" value="skillTypeId"/>
             </service>
         </actions>
         <row-actions>
             <set field="skillTypeId" from-field="skillTypeId"/>
         </row-actions>
         <auto-fields-service default-field-type="hidden" service-name="updatePartySkill"/>        
-        <field name="partyId"><hidden/></field>                
-        <field name="skillTypeId"><display/></field>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}">
+            <display-entity description="${partyId}" entity-name="PartyNameView">
+                <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyId}" link-style="smallSubmit" target-type="inter-app" description="${partyId}"/>
+            </display-entity>
+        </field>       
+        <field name="skillTypeId">
+            <display-entity entity-name="SkillType" description="${description}"/>
+        </field>
+        <field name="firstName" title="${uiLabelMap.PartyFirstName}" entry-name="partyId">
+            <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName}"/>
+        </field>
+        <field name="lastName" title="${uiLabelMap.PartyLastName}" entry-name="partyId">
+            <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${lastName}"/>
+        </field>
         <field name="yearsExperience"><text/></field>
         <field name="rating"><text/></field>
         <field name="skillLevel"><text/></field>
+        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
+            <hyperlink target="deletePartySkill?skillTypeId=${skillTypeId}&amp;&amp;partyId=${partyId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><hidden value="Y"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>
     </form>      
-    <form name="AddPartySkills" type="single" target="createPartySkill" 
+    <form name="AddPartySkills" type="single" target="createPartySkill" paginate-target="FindEmploymentApp"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="partyId" use-when="partyId != null"><hidden/></field>
         <field name="partyId" use-when="skillTypeId == null&amp;&amp;partyId == null"><lookup target-form-name="LookupPartyName"/></field>
@@ -313,18 +331,19 @@ under the License.
         <field name="submitButton" use-when="performanceNote==null" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>        
         <field name="submitButton" use-when="performanceNote!=null" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>    
-     <form name="ListSkillTypes" type="list" title="" target="updateSkillType"
+     <form name="ListSkillTypes" type="multi" title="" target="updateSkillType"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="SkillType"><order-by field-name="skillTypeId"/></entity-condition>
         </actions>
         <auto-fields-service service-name="updateSkillType"/>        
         <field name="skillTypeId" title="${uiLabelMap.HumanResSkillTypeId}"><display/></field>
-        <field name="description" title="${uiLabelMap.CommonDescription}"/>
-        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
             <hyperlink target="deleteSkillType?skillTypeId=${skillTypeId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
+        <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><hidden value="Y"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>
     </form>            
     <form name="AddSkillType" type="single" target="createSkillType" default-map-name="skillType"
         header-row-style="header-row" default-table-style="basic-table">

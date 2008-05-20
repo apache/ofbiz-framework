@@ -1141,4 +1141,37 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="EditEmploymentApp">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HumanResFindEmploymentApp"/>
+                <set field="headerItem" value="find"/>
+                <set field="tabButtonItem" value="EmploymentApplication"/>
+                <set field="referredByPartyId" from-field="parameters.partyId"/>
+                <entity-and entity-name="EmploymentApp" list-name="employmentApps">
+                    <field-map field-name="applicationId"></field-map>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.CommonList} ${uiLabelMap.HumanResEmploymentApp}">
+                            <section>
+                                <widgets>
+                                    <include-form name="ListEmploymentApps" location="component://humanres/widget/forms/EmploymentForms.xml"/>
+                                </widgets>
+                            </section>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.HumanResNewEmploymentApp}">
+                            <section>
+                                <widgets>
+                                    <include-form name="AddEmploymentApp" location="component://humanres/widget/forms/EmploymentForms.xml"/>
+                                </widgets>
+                            </section>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>
