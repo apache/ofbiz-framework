@@ -98,6 +98,28 @@ under the License.
                     <#if store?exists>${store.storeName?default(custRequest.productStoreId?if_exists)}</#if>
                 </td>
             </tr>
+            <#-- request comment -->
+            <tr><td colspan="7"><hr/></td></tr>
+            <tr>
+                <td align="right" valign="top" width="15%" class="label">
+                    &nbsp;${uiLabelMap.CommonInternalComment}
+                </td>
+                <td width="5%">&nbsp;</td>
+                <td align="left" valign="top" width="80%">
+                    ${custRequest.internalComment?if_exists}
+                </td>
+            </tr>
+            <#-- request reason -->
+            <tr><td colspan="7"><hr/></td></tr>
+            <tr>
+                <td align="right" valign="top" width="15%" class="label">
+                    &nbsp;${uiLabelMap.CommonReason}
+                </td>
+                <td width="5%">&nbsp;</td>
+                <td align="left" valign="top" width="80%">
+                    ${custRequest.reason?if_exists}
+                </td>
+            </tr>
         </table>
     </div>
 </div>
