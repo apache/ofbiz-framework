@@ -26,7 +26,6 @@ import java.util.List;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
-import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -285,6 +284,116 @@ public class RecurrenceRule {
     }
 
     /** 
+     * Gets the current recurrence (current for the checkTime) of this rule and returns it if it is valid. 
+     * If the current recurrence is not valid, doesn't try to find a valid one, instead returns 0. 
+     *@param startTime The time this recurrence first began.
+     *@param checkTime The time to base the current recurrence on.
+     *@param currentCount The total number of times the recurrence has run.
+     *@return long The current recurrence as long if valid. If next recurrence is not valid, returns 0.
+     */
+    public long validCurrent(long startTime, long checkTime, long currentCount) {
+        if (startTime == 0) {
+            startTime = RecurrenceUtil.now();
+        }
+        if (checkTime == 0) {
+            checkTime = startTime;
+        }
+                      
+        // Test the end time of the recurrence.
+        if (getEndTime() != 0 && getEndTime() <= RecurrenceUtil.now()) {
+            return 0;
+        }
+        
+        // Test the recurrence limit.
+        if (getCount() != -1 && currentCount >= getCount()) {
+            return 0;
+        }
+ 
+        // Get the next frequency from checkTime
+        Date nextRun = getNextFreq(startTime, checkTime);
+        Calendar cal = Calendar.getInstance();
+        Calendar checkTimeCal = Calendar.getInstance();
+        cal.setTime(nextRun);
+        checkTimeCal.setTime(new Date(checkTime));
+        
+        // Get previous frequency and update its values from checkTime
+        switch (getFrequency()) {        
+        case YEARLY:
+            cal.add(Calendar.YEAR, -getIntervalInt());
+            if (cal.get(Calendar.YEAR) != checkTimeCal.get(Calendar.YEAR)) {
+                return 0;
+            }
+        	
+        case MONTHLY:
+        	if (MONTHLY == getFrequency()) {
+                cal.add(Calendar.MONTH, -getIntervalInt());
+                if (cal.get(Calendar.MONTH) != checkTimeCal.get(Calendar.MONTH)) {
+                    return 0;
+                }
+        	} else {
+                cal.set(Calendar.MONTH, checkTimeCal.get(Calendar.MONTH));
+            }
+        	
+        case WEEKLY:
+        	if (WEEKLY == getFrequency()) {
+                cal.add(Calendar.WEEK_OF_YEAR, -getIntervalInt());
+                if (cal.get(Calendar.WEEK_OF_YEAR) != checkTimeCal.get(Calendar.WEEK_OF_YEAR)) {
+                    return 0;
+                }
+        	} else {
+                cal.set(Calendar.WEEK_OF_YEAR, checkTimeCal.get(Calendar.WEEK_OF_YEAR));
+            }
+
+        case DAILY:
+        	if (DAILY == getFrequency()) {
+                cal.add(Calendar.DAY_OF_MONTH, -getIntervalInt());
+                if (cal.get(Calendar.DAY_OF_MONTH) != checkTimeCal.get(Calendar.DAY_OF_MONTH)) {
+                    return 0;
+                }
+        	} else {
+                cal.set(Calendar.DAY_OF_MONTH, checkTimeCal.get(Calendar.DAY_OF_MONTH));
+            }
+
+        case HOURLY:
+        	if (HOURLY == getFrequency()) {
+                cal.add(Calendar.HOUR_OF_DAY, -getIntervalInt());
+                if (cal.get(Calendar.HOUR_OF_DAY) != checkTimeCal.get(Calendar.HOUR_OF_DAY)) {
+                    return 0;
+                }
+        	} else {
+                cal.set(Calendar.HOUR_OF_DAY, checkTimeCal.get(Calendar.HOUR_OF_DAY));
+            }
+
+        case MINUTELY:
+        	if (MINUTELY == getFrequency()) {
+                cal.add(Calendar.MINUTE, -getIntervalInt());
+                if (cal.get(Calendar.MINUTE) != checkTimeCal.get(Calendar.MINUTE)) {
+                    return 0;
+                }
+        	} else {
+                cal.set(Calendar.MINUTE, checkTimeCal.get(Calendar.MINUTE));
+            }
+
+        case SECONDLY:
+        	if (SECONDLY == getFrequency()) {
+                cal.add(Calendar.SECOND, -getIntervalInt());
+                if (cal.get(Calendar.SECOND) != checkTimeCal.get(Calendar.SECOND)) {
+                    return 0;
+                }
+        	} else {
+                cal.set(Calendar.SECOND, checkTimeCal.get(Calendar.SECOND));
+            }
+        }
+
+        // Check for validity of the current frequency.
+        if (validByRule(cal.getTime())) {
+        	 return cal.getTime().getTime();
+        }
+        
+        return 0;
+    }
+    
+    /** 
      * Tests the date to see if it falls within the rules
      *@param startDate date object to test
      *@return True if the date is within the rules
@@ -344,7 +453,7 @@ public class RecurrenceRule {
                 break;
 
             case HOURLY:
-                cal.add(Calendar.HOUR, getIntervalInt());
+                cal.add(Calendar.HOUR_OF_DAY, getIntervalInt());
                 break;
 
             case DAILY:
@@ -380,15 +489,15 @@ public class RecurrenceRule {
 
         // Test each byXXX rule.
         if (bySecondList != null && bySecondList.size() > 0) {
-            if (!bySecondList.contains(cal.get(Calendar.SECOND)))
+            if (!bySecondList.contains(String.valueOf(cal.get(Calendar.SECOND))))
                 return false;
         }
         if (byMinuteList != null && byMinuteList.size() > 0) {
-            if (!byMinuteList.contains(cal.get(Calendar.MINUTE)))
+            if (!byMinuteList.contains(String.valueOf(cal.get(Calendar.MINUTE))))
                 return false;
         }
         if (byHourList != null && byHourList.size() > 0) {
-            if (!byHourList.contains(cal.get(Calendar.HOUR)))
+            if (!byHourList.contains(String.valueOf(cal.get(Calendar.HOUR_OF_DAY))))
                 return false;
         }
         if (byDayList != null && byDayList.size() > 0) {
@@ -399,7 +508,7 @@ public class RecurrenceRule {
                 String dayRule = (String) iter.next();
                 String dayString = getDailyString(dayRule);
 
-                if (Calendar.DAY_OF_WEEK == getCalendarDay(dayString)) {
+                if (cal.get(Calendar.DAY_OF_WEEK) == getCalendarDay(dayString)) {
                     if ((hasNumber(dayRule)) && (getFrequency() == MONTHLY || getFrequency() == YEARLY)) {
                         int modifier = getDailyNumber(dayRule);
 
@@ -563,7 +672,7 @@ public class RecurrenceRule {
     private boolean hasNumber(String str) {
         String list[] = {"+", "-", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"};
         List numberList = Arrays.asList(list);
-        String firstChar = str.substring(0, 0);
+        String firstChar = str.substring(0, 1);
 
         if (numberList.contains(firstChar))
             return true;
@@ -599,7 +708,7 @@ public class RecurrenceRule {
         StringBuilder sBuf = new StringBuilder();
 
         for (int i = 0; i < str.length(); i++) {
-            String thisChar = str.substring(i, i);
+            String thisChar = str.substring(i, i+1);
 
             if (!hasNumber(thisChar)) {
                 sBuf.append(thisChar);
@@ -610,6 +719,7 @@ public class RecurrenceRule {
 
     // Returns the Calendar day of the rule day string
     private int getCalendarDay(String day) {
+        if (day != null) day = day.trim();
         if (day.equalsIgnoreCase("MO"))
             return Calendar.MONDAY;
         if (day.equalsIgnoreCase("TU"))

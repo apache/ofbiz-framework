@@ -59,6 +59,8 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
+import org.ofbiz.service.calendar.RecurrenceInfo;
+import org.ofbiz.service.calendar.RecurrenceInfoException;
 
 /**
  * ProductPromoWorker - Worker class for catalog/product promotion related functionality
@@ -1034,6 +1036,24 @@ public class ProductPromoWorker {
                 }
             } else {
                 return false;
+            }
+        } else if ("PPIP_RECURRENCE".equals(inputParamEnumId)) {
+            compareBase = new Integer(1);
+            GenericValue recurrenceInfo = delegator.findByPrimaryKeyCache("RecurrenceInfo", UtilMisc.toMap("recurrenceInfoId", condValue));
+            if (recurrenceInfo != null) {
+                RecurrenceInfo recurrence = null;
+                try {
+                    recurrence = new RecurrenceInfo(recurrenceInfo);
+                } catch (RecurrenceInfoException e) {
+                    Debug.logError(e, module);
+                }   
+                
+                // check the current recurrence
+                if (recurrence != null) {
+                    if (recurrence.isValidCurrent()) {
+                        compareBase = new Integer(0);
+                    }
+                }
             }
         } else {
             Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderAnUnSupportedProductPromoCondInputParameterLhs", UtilMisc.toMap("inputParamEnumId",productPromoCond.getString("inputParamEnumId")), cart.getLocale()), module);
