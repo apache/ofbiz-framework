@@ -5356,7 +5356,7 @@
         <value xml:lang="de">Abschicken</value>
         <value xml:lang="en">Submit</value>
         <value xml:lang="es">Enviar</value>
-        <value xml:lang="fr">Soumettre</value>
+        <value xml:lang="fr">Envoyer</value>
         <value xml:lang="it">Invia</value>
         <value xml:lang="nl">Submit</value>
         <value xml:lang="pt">Submeter</value>
@@ -5371,7 +5371,7 @@
         <value xml:lang="ar">مرسل</value>
         <value xml:lang="en">Submitted</value>
         <value xml:lang="es">Enviado</value>
-        <value xml:lang="fr">Soumis</value>
+        <value xml:lang="fr">Envoyé</value>
         <value xml:lang="it">Sottomesso</value>
         <value xml:lang="nl">Submitted</value>
         <value xml:lang="pt">Submetido</value>
@@ -6619,8 +6619,10 @@
         <value xml:lang="ar">إضافة</value>
         <value xml:lang="en">Add</value>
         <value xml:lang="fr">Ajouter</value>
+        <value xml:lang="it">Aggiungi</value>
         <value xml:lang="nl">Toevoegen</value>
         <value xml:lang="pt">Adicionar</value>
+        <value xml:lang="ro">Adauga</value>
         <value xml:lang="ru">Добавить</value>
         <value xml:lang="th">เพิ่ม</value>
         <value xml:lang="zh">添加</value>
@@ -6629,8 +6631,10 @@
         <value xml:lang="ar">مبلغ</value>
         <value xml:lang="en">Amount</value>
         <value xml:lang="fr">Montant</value>
+        <value xml:lang="it">Importo</value>
         <value xml:lang="nl">Bedrag</value>
         <value xml:lang="pt">Quantia</value>
+        <value xml:lang="ro">Valoare</value>
         <value xml:lang="ru">Сумма</value>
         <value xml:lang="th">จำนวน</value>
         <value xml:lang="zh">金额</value>
@@ -6639,8 +6643,10 @@
         <value xml:lang="ar">تعاليق</value>
         <value xml:lang="en">Comments</value>
         <value xml:lang="fr">Commentaires</value>
+        <value xml:lang="it">Commenti</value>
         <value xml:lang="nl">Opmerkingen</value>
         <value xml:lang="pt">Comentários</value>
+        <value xml:lang="ro">Comentarii</value>
         <value xml:lang="ru">Комментарии</value>
         <value xml:lang="th">ความคิดเห็น</value>
         <value xml:lang="zh">评论</value>
@@ -6649,8 +6655,10 @@
         <value xml:lang="ar">استحداث</value>
         <value xml:lang="en">Create</value>
         <value xml:lang="fr">Créer</value>
+        <value xml:lang="it">Creare</value>
         <value xml:lang="nl">Toevoegen</value>
         <value xml:lang="pt">Criar</value>
+        <value xml:lang="ro">Creare</value>
         <value xml:lang="ru">Создать</value>
         <value xml:lang="th">สร้าง</value>
         <value xml:lang="zh">新建</value>
@@ -6659,8 +6667,10 @@
         <value xml:lang="ar">العملة</value>
         <value xml:lang="en">Currency</value>
         <value xml:lang="fr">Monnaie</value>
+        <value xml:lang="it">Valuta</value>
         <value xml:lang="nl">Valuta</value>
         <value xml:lang="pt">Moeda</value>
+        <value xml:lang="ro">Valuta</value>
         <value xml:lang="ru">Валюта</value>
         <value xml:lang="th">สกุลเงิน</value>
         <value xml:lang="zh">币种</value>
@@ -6685,12 +6695,25 @@
         <value xml:lang="th">ลบอันที่เลือก</value>
         <value xml:lang="zh">删除选中的</value>
     </property>
+    <property key="FormFieldTitle_description">
+        <value xml:lang="ar">وصف</value>
+        <value xml:lang="en">Description</value>
+        <value xml:lang="it">Descrizione</value>
+        <value xml:lang="nl">Omschrijving</value>
+        <value xml:lang="pt">Descrição</value>
+        <value xml:lang="ro">Descriere</value>
+        <value xml:lang="ru">Описание</value>
+        <value xml:lang="th">คำอธิบาย</value>
+        <value xml:lang="zh">描述</value>
+    </property>    
     <property key="FormFieldTitle_effectiveDate">
         <value xml:lang="ar">تاريخ الفاعلية</value>
         <value xml:lang="en">Effective Date</value>
-        <value xml:lang="fr">Date d'entrée en vigueur</value>
+        <value xml:lang="fr">Date d'effet</value>
+        <value xml:lang="it">Data Effettiva</value>
         <value xml:lang="nl">Effectieve Datum</value>
         <value xml:lang="pt">Data Efectiva</value>
+        <value xml:lang="ro">Data Efectiva</value>
         <value xml:lang="ru">Дата вступления в силу</value>
         <value xml:lang="th">วันที่มีผล</value>
         <value xml:lang="zh">有效日期</value>
@@ -6729,12 +6752,26 @@
         <value xml:lang="th">ราคา</value>
         <value xml:lang="zh">价格</value>
     </property>
+    <property key="FormFieldTitle_quantity">
+        <value xml:lang="ar">الكمية</value>
+        <value xml:lang="en">Quantity</value>
+        <value xml:lang="fr">Quantité</value>
+        <value xml:lang="it">Quantità</value>
+        <value xml:lang="nl">Aantal</value>
+        <value xml:lang="pt">Quantidade</value>
+        <value xml:lang="ro">Cantitate</value>
+        <value xml:lang="ru">Количество</value>
+        <value xml:lang="th">จำนวน</value>
+        <value xml:lang="zh">数量</value>
+    </property>
     <property key="FormFieldTitle_removeButton">
         <value xml:lang="ar">نزع</value>
         <value xml:lang="en">Remove</value>
         <value xml:lang="fr">Retirer</value>
         <value xml:lang="nl">Verwijderen</value>
+        <value xml:lang="it">Rimuovi</value>
         <value xml:lang="pt">Remover</value>
+        <value xml:lang="ro">Sterge</value>
         <value xml:lang="ru">Удалить</value>
         <value xml:lang="th">ลบ</value>
         <value xml:lang="zh">删除</value>
@@ -6754,7 +6791,7 @@
     <property key="FormFieldTitle_sequenceNum">
         <value xml:lang="ar">رقم التسلسل</value>
         <value xml:lang="en">Sequence Num</value>
-        <value xml:lang="fr">Séquencer numériquement</value>
+        <value xml:lang="fr">N° de séq.</value>
         <value xml:lang="it">Num. Sequenza</value>
         <value xml:lang="pt">Número de Sequência</value>
         <value xml:lang="ro">Num. Secventa</value>
@@ -6789,7 +6826,7 @@
     <property key="FormFieldTitle_taxAuthGeoId">
         <value xml:lang="ar">الرمز الجغرافي للسلطة الضريبية</value>
         <value xml:lang="en">Tax Auth Geo ID</value>
-        <value xml:lang="fr">Ref. d'autorité de taxe</value>
+        <value xml:lang="fr">Ref. géo. d'aministration fiscale</value>
         <value xml:lang="it">Codice Autorità Tasse Geografia</value>
         <value xml:lang="nl">Belasting Gebied</value>
         <value xml:lang="pt">Taxa Auth Geo ID</value>
@@ -6801,7 +6838,7 @@
     <property key="FormFieldTitle_thruDate">
         <value xml:lang="ar">حتي تاريخ</value>
         <value xml:lang="en">Thru Date</value>
-        <value xml:lang="fr">A la Date</value>
+        <value xml:lang="fr">jusqu'à la date</value>
         <value xml:lang="it">Alla Data</value>
         <value xml:lang="pt">Data Final</value>
         <value xml:lang="ro">La Data</value>
@@ -6812,8 +6849,10 @@
     <property key="FormFieldTitle_total">
         <value xml:lang="ar">مجموع</value>
         <value xml:lang="en">Total</value>
+        <value xml:lang="it">Totale</value>
         <value xml:lang="nl">Totaal</value>
         <value xml:lang="pt">Total</value>
+        <value xml:lang="ro">Total</value>
         <value xml:lang="ru">Сумма</value>
         <value xml:lang="th">ผลรวม</value>
         <value xml:lang="zh">合计</value>
@@ -6821,9 +6860,11 @@
     <property key="FormFieldTitle_uomId">
         <value xml:lang="ar">رمز وحدة القياس</value>
         <value xml:lang="en">UOM</value>
-        <value xml:lang="fr">Ref. d'unité de mesure</value>
+        <value xml:lang="fr">Unité de mesure</value>
+        <value xml:lang="it">Udm</value>
         <value xml:lang="nl">Valuta</value>
         <value xml:lang="pt">UOM</value>
+        <value xml:lang="ro">Udm</value>
         <value xml:lang="ru">Валюта</value>
         <value xml:lang="th">หน่วยวัด</value>
         <value xml:lang="zh">币值</value>
@@ -6832,77 +6873,19 @@
         <value xml:lang="ar">تحديث</value>
         <value xml:lang="en">Update</value>
         <value xml:lang="fr">Mettre à jour</value>
+        <value xml:lang="it">Aggiorna</value>
         <value xml:lang="nl">Wijzigen</value>
         <value xml:lang="pt">Actualizar</value>
+        <value xml:lang="ro">Actualizeaza</value>
         <value xml:lang="ru">Обновить</value>
         <value xml:lang="th">อัพเดท</value>
         <value xml:lang="zh">更新</value>
     </property>
-    <property key="FormFieldTitle_addButton">
-        <value xml:lang="en">add</value>
-        <value xml:lang="it">Aggiungi</value>
-        <value xml:lang="ro">Adauga</value>
-        <value xml:lang="th">เพิ่ม</value>
-        <value xml:lang="zh">新增</value>
-    </property>
     <property key="FormFieldTitle_currentStatusId">
         <value xml:lang="en">Current Status Id</value>
+        <value xml:lang="fr">Réf. de status actuel</value>
         <value xml:lang="zh">当前状态Id</value>
     </property>
-    <property key="FormFieldTitle_amount">
-        <value xml:lang="en">amount</value>
-        <value xml:lang="it">Importo</value>
-        <value xml:lang="ro">Valoare</value>
-        <value xml:lang="th">จำนวน</value>
-    </property>
-    <property key="FormFieldTitle_comments">
-        <value xml:lang="en">comments</value>
-        <value xml:lang="it">Commenti</value>
-        <value xml:lang="ro">Comentarii</value>
-        <value xml:lang="th">ความคิดเห็น</value>
-    </property>
-    <property key="FormFieldTitle_createButton">
-        <value xml:lang="en">Create</value>
-        <value xml:lang="it">Creare</value>
-        <value xml:lang="ro">Creare</value>
-        <value xml:lang="th">สร้าง</value>
-    </property>
-    <property key="FormFieldTitle_currencyUomId">
-        <value xml:lang="en">Currency</value>
-        <value xml:lang="it">Valuta</value>
-        <value xml:lang="ro">Valuta</value>
-        <value xml:lang="th">สกุลเงิน</value>
-    </property>
-    <property key="FormFieldTitle_effectiveDate">
-        <value xml:lang="en">Effective Date</value>
-        <value xml:lang="it">Data Effettiva</value>
-        <value xml:lang="ro">Data Efectiva</value>
-        <value xml:lang="th">วันที่มีผล</value>
-    </property>
-    <property key="FormFieldTitle_removeButton">
-        <value xml:lang="en">Remove</value>
-        <value xml:lang="it">Rimuovi</value>
-        <value xml:lang="ro">Sterge</value>
-        <value xml:lang="th">ลบ</value>
-    </property>
-    <property key="FormFieldTitle_total">
-        <value xml:lang="en">Total</value>
-        <value xml:lang="it">Totale</value>
-        <value xml:lang="ro">Total</value>
-        <value xml:lang="th">ผลรวม</value>
-    </property>
-    <property key="FormFieldTitle_uomId">
-        <value xml:lang="en">UOM</value>
-        <value xml:lang="it">Udm</value>
-        <value xml:lang="ro">Udm</value>
-        <value xml:lang="th">หน่วยวัด</value>
-    </property>
-    <property key="FormFieldTitle_updateButton">
-        <value xml:lang="en">Update</value>
-        <value xml:lang="it">Aggiorna</value>
-        <value xml:lang="ro">Actualizeaza</value>
-        <value xml:lang="th">อัพเดท</value>
-    </property> 
     <property key="GoogleBase">
         <value xml:lang="en">Google Base</value>
         <value xml:lang="it">Google Base</value>
@@ -6920,7 +6903,7 @@
     </property>    
     <property key="HandheldFacility">
         <value xml:lang="en">Handheld Facility</value>
-        <value xml:lang="fr">Stock sur PDA</value>
+        <value xml:lang="fr">Gestion de stock sur PDA</value>
         <value xml:lang="it">Gestione Stabilimenti su Handheld</value>
         <value xml:lang="th">คลังสินค้าขนาดเล็ก</value>
     </property>
@@ -6959,7 +6942,7 @@
         <value xml:lang="de">Kürzlich angeschaut</value>
         <value xml:lang="en">Recently Viewed</value>
         <value xml:lang="es">Vistos recientemente</value>
-        <value xml:lang="fr">Les plus vus récemment</value>
+        <value xml:lang="fr">Vus récemment</value>
         <value xml:lang="it">Visti Recentemente</value>
         <value xml:lang="nl">Recent bekeken</value>
         <value xml:lang="pt">Vistos Recentemente</value>
@@ -7003,7 +6986,7 @@
         <value xml:lang="de">Bestellung</value>
         <value xml:lang="en">Order</value>
         <value xml:lang="es">Orden</value>
-        <value xml:lang="fr">Commande</value>
+        <value xml:lang="fr">Commandes</value>
         <value xml:lang="it">Ordini</value>
         <value xml:lang="nl">Bestelling</value>
         <value xml:lang="pt">Encomenda</value>
@@ -7117,7 +7100,7 @@
         <value xml:lang="de">Kontaktmechanismus-ID</value>
         <value xml:lang="en">Contact Mechanism ID</value>
         <value xml:lang="es">Código de mecanismo de contacto</value>
-        <value xml:lang="fr">Réf. de coordonnées d'acteur</value>
+        <value xml:lang="fr">Réf. de coordonnées</value>
         <value xml:lang="it">Contatto</value>
         <value xml:lang="nl">Kontakt Mechanism ID</value>
         <value xml:lang="pt">ID do Mecanismo de Contactos</value>
@@ -7132,7 +7115,7 @@
         <value xml:lang="de">Kontaktzweck</value>
         <value xml:lang="en">Contact Purpose</value>
         <value xml:lang="es">Propósito del contacto</value>
-        <value xml:lang="fr">Raison du contact</value>
+        <value xml:lang="fr">But du contact</value>
         <value xml:lang="it">Funzione Conttatto</value>
         <value xml:lang="nl">Kontakt Doel</value>
         <value xml:lang="pt">Propóstio do Contacto</value>
