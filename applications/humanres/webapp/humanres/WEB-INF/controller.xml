@@ -138,7 +138,7 @@ under the License.
     <request-map uri="deletePartySkill">
         <security https="true" auth="true"/>
         <event type="service" invoke="deletePartySkill"/>
-        <response name="success" type="view" value="EditPartySkills"/>
+        <response name="success" type="view" value="FindPartySkills"/>
     </request-map>                   
     <request-map uri="findPerfReviews">
         <security https="true" auth="true"/>
@@ -225,17 +225,18 @@ under the License.
     <request-map uri="createEmploymentApp">
         <security https="true" auth="true"/>
         <event type="service" invoke="createEmploymentApp"/>
-        <response name="success" type="view" value="EditEmploymentApp"/>
+        <response name="success" type="view" value="FindEmploymentApp"/>
     </request-map>    
     <request-map uri="updateEmploymentApp">
         <security https="true" auth="true"/>
-        <event type="service" invoke="updateEmploymentApp"/>
-        <response name="success" type="view" value="EditEmploymentApp"/>
+        <event type="service-multi" invoke="updateEmploymentApp"/>
+        <response name="success" type="request" value="FindEmploymentApp"/>
+        <response name="error" type="view" value="FindEmploymentApp"/>
     </request-map>
     <request-map uri="deleteEmploymentApp">
         <security https="true" auth="true"/>
         <event type="service" invoke="deleteEmploymentApp"/>
-        <response name="success" type="view" value="ListEmploymentApps"/>
+        <response name="success" type="view" value="FindEmploymentApp"/>
     </request-map>
     <request-map uri="ListPayHistories">
         <security https="true" auth="true"/>
@@ -503,12 +504,12 @@ under the License.
     </request-map>
     <request-map uri="updateSkillType">
         <security https="true" auth="true"/>
-        <event type="service" invoke="updateSkillType"/>
+        <event type="service-multi" invoke="updateSkillType"/>
         <response name="success" type="view" value="EditSkillTypes"/>
     </request-map>
     <request-map uri="deleteSkillType">
         <security https="true" auth="true"/>
-        <event type="service" invoke="deleteSkillType"/>
+        <event type="service-multi" invoke="deleteSkillType"/>
         <response name="success" type="view" value="EditSkillTypes"/>               
     </request-map>
     <!--====================Employee Requests==================-->

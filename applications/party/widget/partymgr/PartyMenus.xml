@@ -70,6 +70,9 @@ under the License.
         <menu-item name="PartyResume" title="${uiLabelMap.HumanResPartyResume}">
             <link target="EditPartyResume?partyId=${partyId}"/>
         </menu-item>
+        <menu-item name="EmploymentApplication" title="${uiLabelMap.HumanResEmploymentApp}">
+            <link target="FindEmploymentApp?partyId=${partyId}&amp;&amp;referredByPartyId=${partyId}"/>
+        </menu-item>
     </menu>
 
     <menu name="create-new-party" type="simple" menu-container-style="basic-nav">

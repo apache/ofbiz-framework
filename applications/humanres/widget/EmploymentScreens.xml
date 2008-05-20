@@ -111,6 +111,10 @@
             <actions>
                 <set field="titleProperty" value="HumanResFindEmploymentApp"/>
                 <set field="headerItem" value="EmploymentApp"/>
+                <!--entity-one entity-name="EmploymentApp" value-name="employmentApp"/-->
+                <entity-and entity-name="EmploymentApp" list-name="mploymentApps">
+                    <field-map field-name="applicationId"/>
+                </entity-and>
             </actions>
             <widgets>
                 <decorator-screen name="CommonEmploymentDecorator" location="${parameters.mainDecoratorLocation}">
@@ -125,7 +129,7 @@
                                 </widgets>
                             </section>
                         </screenlet>
-                        <screenlet title="${uiLabelMap.HumanResFindEmploymentApp}">
+                        <screenlet title="${uiLabelMap.CommonList} ${uiLabelMap.HumanResEmploymentApp}">
                             <section>
                                 <widgets>
                                     <include-form name="ListEmploymentApps" location="component://humanres/widget/forms/EmploymentForms.xml"/>
@@ -151,7 +155,7 @@
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
-                                    <label text="${uiLabelMap.HumanResEditEmploymentApp}"/>
+                                    <label text="${uiLabelMap.HumanResNewEmploymentApp}"/>
                                 </container>
                             </container>
                             <container style="screenlet-body">
@@ -160,7 +164,7 @@
                                         <container>
                                             <link text="${uiLabelMap.HumanResNewEmploymentApp}" target="EditEmploymentApp" style="buttontext"/>
                                         </container>
-                                        <include-form name="EditEmploymentApp" location="component://humanres/widget/forms/EmploymentForms.xml"/>
+                                        <include-form name="AddEmploymentApp" location="component://humanres/widget/forms/EmploymentForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>
