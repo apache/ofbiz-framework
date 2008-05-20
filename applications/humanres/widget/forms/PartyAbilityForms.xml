@@ -429,4 +429,3 @@ under the License.
         <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
  </forms>
-</forms>
