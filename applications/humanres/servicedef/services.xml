@@ -24,9 +24,10 @@ under the License.
     <vendor>OFBiz</vendor>
     <version>1.0</version>
     <!-- Ability Group -->
-    <service name="createPartyQual" engine="java" default-entity-name="PartyQual"
-            location="org.ofbiz.humanres.HumanResServices" invoke="createPartyQual" auth="true">
+    <service name="createPartyQual" engine="simple" default-entity-name="PartyQual"
+            location="org/ofbiz/humanres/HumanResServices.xml" invoke="createPartyQual" auth="true">
         <description>Create a Party Qualification entry</description>        
+        <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
         <auto-attributes mode="INOUT" include="pk" optional="true"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <override name="partyId" optional="false"/>
