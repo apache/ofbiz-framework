@@ -66,6 +66,18 @@ under the License.
         <response name="success" type="view" value="EditExample"/>
         <response name="error" type="view" value="EditExample"/>
     </request-map>
+    <request-map uri="createExampleAjax">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createExample"/>
+        <response name="success" type="view" value="findExampleAjax"/>
+        <response name="error" type="view" value="findExampleAjax"/>
+    </request-map>
+    <request-map uri="updateExampleAjax">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateExample"/>
+        <response name="success" type="view" value="findExampleAjax"/>
+        <response name="error" type="view" value="findExampleAjax"/>
+    </request-map>
     
     <request-map uri="EditExampleItems"><security https="true" auth="true"/><response name="success" type="view" value="EditExampleItems"/></request-map>
     <request-map uri="createExampleItem">
@@ -147,8 +159,8 @@ under the License.
 
     <request-map uri="LookupExampleFeature"><security https="true" auth="true"/><response name="success" type="view" value="LookupExampleFeature"/></request-map>
 
-    <request-map uri="ListExampleFormOnly"><security https="true" auth="true"/><response name="success" type="view" value="ListExampleFormOnly"/></request-map>
-    <request-map uri="CreateExampleFormOnly"><security https="true" auth="true"/><response name="success" type="view" value="CreateExampleFormOnly"/></request-map>
+    <request-map uri="ListExampleFormOnly"><security https="true" auth="false"/><response name="success" type="view" value="ListExampleFormOnly"/></request-map>
+    <request-map uri="CreateExampleFormOnly"><security https="true" auth="false"/><response name="success" type="view" value="CreateExampleFormOnly"/></request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->

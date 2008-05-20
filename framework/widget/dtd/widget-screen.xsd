@@ -754,7 +754,17 @@ under the License.
     <xs:attributeGroup name="attlist.container">
         <xs:attribute type="xs:string" name="id"/>
         <xs:attribute type="xs:string" name="style"/>
-        <xs:attribute type="xs:string" name="auto-update-target"/>
+        <xs:attribute type="xs:string" name="auto-update-target">
+            <xs:annotation>
+                <xs:documentation>The URL to be called for periodic asynchronous area updates.
+                Some widget rendering environments support asynchronous updates.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:integer" name="auto-update-interval">
+            <xs:annotation>
+                <xs:documentation>The auto-update interval, in seconds.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="image" substitutionGroup="AllWidgets">
         <xs:complexType mixed="true">

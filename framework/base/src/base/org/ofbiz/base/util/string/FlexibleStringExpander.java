@@ -19,8 +19,6 @@
 package org.ofbiz.base.util.string;
 
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -30,7 +28,6 @@ import java.util.TimeZone;
 import org.ofbiz.base.util.BshUtil;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
-import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.UtilFormatOut;
@@ -48,6 +45,7 @@ import bsh.EvalError;
  * and specified (XXX) currency
  *
  */
+@SuppressWarnings("serial")
 public class FlexibleStringExpander implements Serializable {
     
     public static final String module = FlexibleStringExpander.class.getName();
