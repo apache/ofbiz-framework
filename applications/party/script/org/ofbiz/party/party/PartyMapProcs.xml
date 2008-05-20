@@ -44,5 +44,9 @@ under the License.
     <process field="groupName"><copy/><not-empty><fail-property resource="PartyUiLabels" property="PartyGroupNameMissing"/></not-empty></process>
     <process field="partyTypeId"><copy/></process>
     <process field="comments"><copy/></process>
+    <process field="officeSiteName"><copy/></process>
+    <process field="annualRevenue"><copy/></process>
+    <process field="numEmployees"><convert type="Long"><fail-property resource="PartyUiLabels" property="PartyGroupNumEmployeeIsInvalid"/></convert></process>
+    <process field="tickerSymbol"><copy/></process>
   </simple-map-processor>
 </simple-map-processors>
