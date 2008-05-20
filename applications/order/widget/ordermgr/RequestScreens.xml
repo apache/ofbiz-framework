@@ -113,7 +113,7 @@ under the License.
                 <entity-one entity-name="CustRequest" value-name="custRequest"/>
                 <get-related-one value-name="custRequest" relation-name="CustRequestType" to-value-name="custRequestType"/>
                 <get-related-one value-name="custRequest" relation-name="StatusItem" to-value-name="statusItem"/>
-                <get-related-one value-name="custRequest" relation-name="Uom" to-value-name="currency"/>
+                <get-related-one value-name="custRequest" relation-name="CurrencyUom" to-value-name="currency"/>
                 <get-related-one value-name="custRequest" relation-name="ProductStore" to-value-name="store"/>
                 <get-related-one value-name="custRequest" relation-name="FulfillContactMech" to-value-name="fulfillContactMech"/>
                 <set field="orderBy[]" value="sequenceNum"/>
