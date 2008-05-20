@@ -84,7 +84,7 @@ public class FlexibleStringExpander implements Serializable {
      * @return The original String expanded by replacing varaible place holders.
      */    
     public String expandString(Map<String, ? extends Object> context) {
-        return this.expandString(context, (Locale) context.get("locale"));
+        return this.expandString(context, context != null ? (Locale) context.get("locale") : null);
     }
     
     /** 
