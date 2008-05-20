@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements. See the NOTICE file
@@ -9559,6 +9559,16 @@
         <value xml:lang="it">Filtro per Date di Introduzione e Cessazione Vendite</value>
         <value xml:lang="ru">Отфильтровано датам прекращения продаж</value>
         <value xml:lang="th">Filtered by Introduction and Sales Discontinuation Dates</value>
+    </property>
+    <property key="ProductFindFacilities">
+        <value xml:lang="en">Find Facilities</value>
+        <value xml:lang="es">Lista de Almacenes</value>
+        <value xml:lang="fr">Liste des lieux de stockage</value>
+        <value xml:lang="it">Lista Stabilimenti</value>
+        <value xml:lang="ro">Lista Compartimente</value>
+        <value xml:lang="ru">Список объектов</value>
+        <value xml:lang="th">รายการคลังสินค้า</value>
+        <value xml:lang="zh">场所列表</value>
     </property>
     <property key="ProductFindLocation">
         <value xml:lang="en">Find Location</value>
