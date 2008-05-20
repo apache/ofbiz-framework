@@ -203,9 +203,6 @@
     <view-map name="LookupPartsProduct" type="screen" page="component://assetmaint/widget/ProductScreens.xml#LookupPartsProduct"/>
     <view-map name="LookupWorkEffortShort" type="screen" page="component://workeffort/widget/LookupScreens.xml#LookupWorkEffortShort"/>
 
-    <!-- Facility  screens -->
-    <view-map name="FindFacility" type="screen" page="component://assetmaint/widget/FacilityScreens.xml#FindFacility"/>
-    
     <!-- Asset Maint Calendar screens -->
     <view-map name="day" type="screen" page="component://assetmaint/widget/FixedAssetScreens.xml#CalendarDay"/>
     <view-map name="week" type="screen" page="component://assetmaint/widget/FixedAssetScreens.xml#CalendarWeek"/>

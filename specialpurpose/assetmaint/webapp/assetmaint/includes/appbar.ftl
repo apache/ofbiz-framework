@@ -23,7 +23,7 @@
         <#if userLogin?has_content>
             <li<#if selected == "fixedAssets"> class="selected"</#if>><a href="<@ofbizUrl>/findFixedAssets</@ofbizUrl>">${uiLabelMap.AccountingFixedAssets}</a></li>     
             <li<#if selected == "fixedAssetMaints"> class="selected"</#if>><a href="<@ofbizUrl>/findFixedAssetMaints</@ofbizUrl>">${uiLabelMap.AccountingFixedAssetMaints}</a></li>      
-            <li<#if selected == "facility"> class="selected"</#if>><a href="<@ofbizUrl>/FindFacility?facilityTypeId=WAREHOUSE</@ofbizUrl>">${uiLabelMap.ProductWarehouse}</a></li>
+            <li<#if selected == "facility"> class="selected"</#if>><a href="<@ofbizUrl>/FindFacility?facilityTypeId=WAREHOUSE</@ofbizUrl>">${uiLabelMap.ProductFacility}</a></li>
             <li class="opposed"><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
         <#else>
             <li class="opposed"><a href="<@ofbizUrl>${checkLoginUrl?if_exists}</@ofbizUrl>">${uiLabelMap.CommonLogin}</a></li>
@@ -31,4 +31,5 @@
     </ul>
     <br class="clear"/>
 </div> 
+
 
