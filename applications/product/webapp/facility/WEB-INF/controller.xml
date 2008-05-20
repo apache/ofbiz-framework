@@ -63,10 +63,6 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="FindFacility"/>
     </request-map>
-    <request-map uri="FacilitySearchOptions">
-        <security https="true" auth="false"/>
-        <response name="success" type="view" value="FacilitySearchOptions"/>
-    </request-map>
     <request-map uri="FacilitySearchResults">
         <security https="true" auth="false"/>
         <response name="success" type="view" value="FacilitySearchResults"/>
@@ -1107,7 +1103,6 @@ under the License.
     <view-map name="main" type="screen" page="component://product/widget/facility/FacilityScreens.xml#FindFacility"/>
 
     <view-map name="FindFacility" type="screen" page="component://product/widget/facility/FacilityScreens.xml#FindFacility"/>
-    <view-map name="FacilitySearchOptions" type="screen" page="component://product/widget/facility/FacilityScreens.xml#FacilitySearchOptions"/>
     <view-map name="FacilitySearchResults" type="screen" page="component://product/widget/facility/FacilityScreens.xml#FacilitySearchResults"/>
     <view-map name="EditFacility" type="screen" page="component://product/widget/facility/FacilityScreens.xml#EditFacility"/>
     <view-map name="FindFacilityTransfers" type="screen" page="component://product/widget/facility/FacilityScreens.xml#FindFacilityTransfers"/>

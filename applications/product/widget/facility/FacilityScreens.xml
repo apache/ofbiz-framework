@@ -46,7 +46,7 @@ under the License.
                                         </section>
                                     </decorator-section>
                                     <decorator-section name="search-options">
-                                        <include-screen name="FacilitySearchOptions"/>
+                                        <include-form name="FindFacilityOptions" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
                                         <include-screen name="FacilitySearchResults"/>
@@ -59,20 +59,6 @@ under the License.
                         </section>
                     </decorator-section>
                 </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-    <screen name="FacilitySearchOptions">
-        <section>
-            <condition>
-                <if-service-permission service-name="facilityGenericPermission" main-action="VIEW"/>
-            </condition>
-            <actions>
-                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
-                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
-            </actions>
-            <widgets>
-                <include-form name="FindFacilityOptions" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
             </widgets>
         </section>
     </screen>
