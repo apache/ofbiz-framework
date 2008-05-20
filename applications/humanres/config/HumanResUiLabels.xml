@@ -354,6 +354,9 @@
     <property key="HumanResAddEmplPositionResponsibility">
         <value xml:lang="en">Add Position Responsibility</value>
     </property>
+    <property key="HumanResAddPartyQual">
+        <value xml:lang="en">Add Party Qualification</value>
+    </property>
     <property key="HumanResAddPayGrade">
         <value xml:lang="en">Add Pay Grade</value>
     </property>
@@ -428,9 +431,7 @@
         <value xml:lang="th">แก้ไขโปรแกรมประยุกต์ใช้การจ้างงาน</value>
     </property>
     <property key="HumanResEditPartyBenefit">
-        <value xml:lang="en">Edit Party Benefit</value>
-        <value xml:lang="it">Aggiorna Benefit Soggetto</value>
-        <value xml:lang="th">แก้ไขกลุ่มผลประโยชน์</value>
+        <value xml:lang="en">Party Benefits</value>
     </property>
     <property key="HumanResEditPartyQual">
         <value xml:lang="en">Edit party Qualification</value>
@@ -443,9 +444,7 @@
         <value xml:lang="th">แก้ไขประวัติย่อ</value>
     </property>
     <property key="HumanResEditPartyReview">
-        <value xml:lang="en">Edit Party Review</value>
-        <value xml:lang="it">Aggiorna Rassegna Soggetto</value>
-        <value xml:lang="th">แก้ไขกลุ่มตรวจสอบ</value>
+        <value xml:lang="en">Party Reviews</value>
     </property>
     <property key="HumanResEditPartySkill">
         <value xml:lang="en">Edit party Skill</value>
@@ -453,14 +452,10 @@
         <value xml:lang="th">แก้ไขกลุ่มทักษะ</value>
     </property>
     <property key="HumanResEditPayHistory">
-        <value xml:lang="en">Edit Pay History</value>
-        <value xml:lang="it">Aggiorna Storia Paghe</value>
-        <value xml:lang="th">แก้ไขการจ่ายข้อมูล</value>
+        <value xml:lang="en">Pay Histories</value>
     </property>
     <property key="HumanResEditPayrollPreference">
-        <value xml:lang="en">Edit Payroll Preference</value>
-        <value xml:lang="it">Aggiorna Preferenze Paghe</value>
-        <value xml:lang="th">แก้ไขการใช้สิทธิพิเศษเงินเดือน</value>
+        <value xml:lang="en">Payroll Preferences</value>
     </property>
     <property key="HumanResEditPerfReviewItems">
         <value xml:lang="en">Edit PerfReview Items</value>
@@ -471,6 +466,9 @@
         <value xml:lang="en">Edit Salary Step</value>
         <value xml:lang="it">Aggiorna Passi Salario</value>
         <value xml:lang="th">แก้ไขขั้นเงินเดือน</value>
+    </property>
+    <property key="HumanResEditUnemploymentClaim">
+        <value xml:lang="en">Unemployment Claims</value>
     </property>
     <property key="HumanResEmployee">
         <value xml:lang="en">Employee</value>
@@ -533,6 +531,12 @@
     </property>
     <property key="HumanResFindEmploymentApp">
         <value xml:lang="en">Find Employment Application</value>
+    </property>
+    <property key="HumanResFindPartyQual">
+        <value xml:lang="en">Find Party Qualification</value>
+    </property>
+    <property key="HumanResFindPartyResume">
+        <value xml:lang="en">Find Party Resume</value>
     </property>
     <property key="HumanResFindPersonTraining">
         <value xml:lang="en">Find Person Training</value>
@@ -777,6 +781,12 @@
         <value xml:lang="it">Codice Soggetto A</value>
         <value xml:lang="th">ถึงรหัสกลุ่มผู้ใช้</value>
     </property>
+    <property key="HumanResPartyQualification">
+        <value xml:lang="en">Qualification</value>
+    </property>
+    <property key="HumanResPartyResume">
+        <value xml:lang="en">Resume</value>
+    </property>
     <property key="HumanResPartyReview">
         <value xml:lang="en">Party Review</value>
         <value xml:lang="it">Rassegna Soggetto</value>
@@ -829,6 +839,9 @@
         <value xml:lang="en">Responsibility TypeId</value>
         <value xml:lang="it">Tipo Responsabilità</value>
         <value xml:lang="th">รหัสประเภทหน้าที่ที่ต้องรับผิดชอบ</value>
+    </property>
+    <property key="HumanResResumeId">
+        <value xml:lang="en">Resume Id</value>
     </property>
     <property key="HumanResSalaryStepSeqId">
         <value xml:lang="en">Salary Step Sequence Id</value>
@@ -911,11 +924,6 @@
     </property>
     <property key="HumanResTraining">
         <value xml:lang="en">Training</value>
-    </property>
-    <property key="HumanResUnemploymentClaim">
-        <value xml:lang="en">Unemployment Claim</value>
-        <value xml:lang="it">Reclamo Disoccupazione</value>
-        <value xml:lang="th">จำนวนผู้ว่างงานเรียกร้อง</value>
     </property>
     <property key="HumanResViewPermissionError">
         <value xml:lang="en">View Permission Error</value>

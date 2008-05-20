@@ -216,8 +216,10 @@ under the License.
     </simple-method>
         
     <simple-method method-name="deletePartyBenefit" short-description="Delete Party Benefit">
+        <now-timestamp-to-env env-name="nowTimeStamp"/>
         <entity-one entity-name="PartyBenefit" value-name="lookedUpValue"/>        
-        <remove-value value-name="lookedUpValue"/>
+        <set field="lookedUpValue.thruDate" from-field="nowTimeStamp"/>
+        <store-value value-name="lookedUpValue"/>
     </simple-method>
         
     <simple-method method-name="createPayGrade" short-description="Create a Pay Grade">
@@ -257,8 +259,10 @@ under the License.
     </simple-method>
         
     <simple-method method-name="deletePayHistory" short-description="Delete Pay History">
+        <now-timestamp-to-env env-name="nowTimeStamp"/>
         <entity-one entity-name="PayHistory" value-name="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <set field="lookedUpValue.thruDate" from-field="nowTimeStamp"/>
+        <store-value value-name="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="createPayrollPreference" short-description="Create a Payroll Preference">
@@ -335,8 +339,10 @@ under the License.
     </simple-method>
     
     <simple-method method-name="deleteUnemploymentClaim" short-description="Delete Unemployment Claim">
+        <now-timestamp-to-env env-name="nowTimeStamp"/>
         <entity-one entity-name="UnemploymentClaim" value-name="lookedUpValue"/>   
-        <remove-value value-name="lookedUpValue"/>
+        <set field="lookedUpValue.thruDate" from-field="nowTimeStamp"/>
+        <store-value value-name="lookedUpValue"/>
     </simple-method>
     
     <!-- Employee Position Group -->

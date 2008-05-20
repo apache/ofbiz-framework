@@ -59,4 +59,7 @@ under the License.
     <TrainingClassType trainingClassTypeId="ONJOB_TRAINING" description="On Job Training"/>
     <TrainingClassType trainingClassTypeId="ADVAN_TRAINING" description="Advance Training"/>
     <TrainingClassType trainingClassTypeId="IMPRO_TRAINING" description="Improvement Training"/>
+    
+    <PartyQualType description="Degree" hasTable="N" parentTypeId="" partyQualTypeId="DEGREE"/>
+    <PartyQualType description="Certification" hasTable="N" parentTypeId="" partyQualTypeId="CERTIFICATION"/>
 </entity-engine-xml>
