@@ -275,7 +275,7 @@
     <property key="OrderCouldNotSelectAlternateGiftNoCartLineItemFoundFor">
         <value xml:lang="en">Could not select alternate gift, no cart line item found for # ${alternateGwpLine}. </value>
         <value xml:lang="es">No puede seleccionar el regalo suplementario, ninguna línea del carro encontrada para # ${alternateGwpLine}.</value>
-        <value xml:lang="fr">%Vous ne pouvez pas sélectionner le cadeau supplémentaire, aucune ligne de chariot trouvée pour # ${alternateGwpLine}. %</value>
+        <value xml:lang="fr">Vous ne pouvez pas sélectionner un cadeau alternatif, aucune élément du panier trouvée pour ${alternateGwpLine}.</value>
         <value xml:lang="it">Non è possibile selezionare un'omaggio alternativo, nessuna riga prodotto carrello trovata per # ${alternateGwpLine}. </value>
         <value xml:lang="ro">Nu este posibila selectionarea unui omagiu alternativ, nici-o linie produs gasita in cos pentru  # ${alternateGwpLine}. </value>
         <value xml:lang="ru">Невозможно выбрать альтернативный подарок, для №${alternateGwpLine} не найдено позиций в корзине. </value>
@@ -935,7 +935,7 @@
     <property key="OrderInvalidAmountSetForBillingAccount">
         <value xml:lang="en">Invalid amount set for Billing Account # ${billingAccountId}</value>
         <value xml:lang="es">Monto inválido para cuenta de facturación # ${billingAccountId}</value>
-        <value xml:lang="fr">%Jeu de quantité invalide pour facturer le compte # ${billingAccountId}%</value>
+        <value xml:lang="fr">Montant invalide pour facturer le compte ${billingAccountId}</value>
         <value xml:lang="it">Importo Invalido impostato per # Conto Fatturazione ${billingAccountId}</value>
         <value xml:lang="ro">Valoare Invalid impostat pentru # Cont Facturare ${billingAccountId}</value>
         <value xml:lang="ru">Неверное количество установле для кредитного счета №${billingAccountId}</value>
