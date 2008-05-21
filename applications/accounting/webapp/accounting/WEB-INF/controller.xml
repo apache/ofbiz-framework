@@ -651,6 +651,7 @@ under the License.
 	
     <!-- =============== Fixed Asset mapping =================-->
     <request-map uri="ListFixedAssets"><security https="true" auth="true"/><response name="success" type="view" value="ListFixedAssets"/></request-map>
+    <request-map uri="FixedAssetSearchResults"><security https="true" auth="false"/><response name="success" type="view" value="FixedAssetSearchResults"/></request-map>
     <request-map uri="EditFixedAsset"><security https="true" auth="true"/><response name="success" type="view" value="EditFixedAsset"/></request-map>
     <request-map uri="createFixedAsset">
         <security https="true" auth="true"/>
@@ -1889,6 +1890,7 @@ under the License.
     
     <!-- FixedAsset -->
     <view-map name="ListFixedAssets" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#ListFixedAssets"/> 
+    <view-map name="FixedAssetSearchResults" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#FixedAssetSearchResults"/> 
     <view-map name="EditFixedAsset" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#EditFixedAsset"/> 
     <view-map name="ListFixedAssetProducts" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#ListFixedAssetProducts"/> 
     <view-map name="addFixedAssetProduct" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#addFixedAssetProduct"/> 

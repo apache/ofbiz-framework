@@ -21,8 +21,14 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <!-- list all assets in a tabular format -->
-    <form name="ListFixedAssets" type="list"  list-name="fixedAssets" paginate-target="ListFixedAssets"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+    <form name="ListFixedAssets" type="list" list-name="listIt" paginate-target="ListFixedAssets"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="entityName" value="FixedAsset"/>
+            </service>
+        </actions>
         <field name="fixedAssetId" widget-style="linktext">
             <hyperlink also-hidden="false" description="${fixedAssetId}" target="EditFixedAsset?fixedAssetId=${fixedAssetId}"/>
         </field>
@@ -32,9 +38,14 @@ under the License.
         <field name="fixedAssetTypeId"><display-entity entity-name="FixedAssetType"/></field>
         <field name="parentFixedAssetId">
             <display-entity entity-name="FixedAsset" key-field-name="fixedAssetId" description="${fixedAssetName}">
-                <sub-hyperlink target="EditFixedAsset?fixedAssetId=${parentFixedAssetId}" description="${parentFixedAssetId}" link-style="buttontext"/>
+                <sub-hyperlink target="EditFixedAsset?fixedAssetId=${parentFixedAssetId}" description="${parentFixedAssetId}"/>
             </display-entity>
         </field>
+        <on-event-update-area event-type="paginate" area-id="search-results" area-target="FixedAssetSearchResults"/>
+    </form>
+    <form name="FindFixedAssetOptions" extends="lookupFixedAsset" extends-resource="component://accounting/webapp/accounting/lookup/FieldLookupForms.xml"
+        target="ListFixedAssets">
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     
     <!-- create and update a fixed asset -->

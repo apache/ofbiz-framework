@@ -104,38 +104,6 @@ under the License.
         </section>
     </screen>
 
-    <screen name="CommonFixedAssetDecorator">
-        <section>
-            <actions>
-                <set field="headerItem" value="ListFixedAssets"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <section>
-                            <!-- do check for ACCOUNTING, _VIEW permission -->
-                            <condition>
-                                <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
-                            </condition>
-                            <widgets>
-                                <section>
-                                    <condition><not><if-empty field-name="fixedAssetId"/></not></condition>
-                                    <widgets>
-                                        <include-menu name="FixedAssetTabBar" location="component://accounting/widget/Menus.xml"/>
-                                        <label style="h1" text="${uiLabelMap.${labelTitleProperty}} ${uiLabelMap.CommonFor}: ${fixedAsset.fixedAssetName} [${uiLabelMap.CommonId}:${fixedAssetId}]  ${${extraFunctionName}}"/>
-                                    </widgets>
-                                </section>
-                            </widgets>
-                            <fail-widgets>
-                                <label style="h3" text="${uiLabelMap.AcccountingViewPermissionError}"/>
-                            </fail-widgets>
-                        </section>                    
-                        <decorator-section-include name="body"/>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
     <screen name="CommonTaxAuthorityDecorator">
         <section>
             <actions>
