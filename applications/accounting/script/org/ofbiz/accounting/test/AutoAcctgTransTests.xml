@@ -101,30 +101,85 @@ under the License.
         <get-related value-name="invoice" relation-name="AcctgTrans" list-name="acctgTransList"/> 
         <first-from-list list-name="acctgTransList" entry-name="acctgTrans"/>
         <get-related value-name="acctgTrans" relation-name="AcctgTransEntry" list-name="acctgTransEntries"/>
+        
         <set field="debitTotal" type="Double" value="0.0"/>
         <set field="creditTotal" type="Double" value="0.0"/>
+        
         <assert><not><if-empty field-name="acctgTransEntries"/></not></assert>
-        <iterate entry-name="acctgTransEntry" list-name="acctgTransEntries">
+        <iterate list-name="acctgTransEntries" entry-name="acctgTransEntry">
             <if-compare field-name="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
                 <assert>
                     <if-compare field-name="acctgTransEntry.glAccountTypeId" operator="equals" value="ACCOUNTS_PAYABLE"/>
                     <if-compare field-name="acctgTransEntry.glAccountId" operator="equals" value="210000"/>
                 </assert>
                 <calculate field-name="creditTotal">
-                    <calcop operator="add" field-name="acctgTransEntry.origAmount"> </calcop>
+                    <calcop operator="add" field-name="acctgTransEntry.origAmount"/>
                 </calculate>
             <else>
-            <if-compare field-name="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
-                <calculate field-name="debitTotal">
-                    <calcop operator="add" field-name="acctgTransEntry.origAmount"> </calcop>
-                </calculate>
-            </if-compare>
+                <if-compare field-name="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
+                    <calculate field-name="debitTotal">
+                        <calcop operator="add" field-name="acctgTransEntry.origAmount"/>
+                    </calculate>
+                </if-compare>
             </else>    
             </if-compare>
         </iterate>
         <assert>
             <if-compare field-name="debitTotal" operator="equals" value="creditTotal"/>
         </assert>            
+    </simple-method>
+    
+    <simple-method method-name="testAcctgTransOnPaymentSentToSupplier" short-description="Test case for Payment sent to supplier for purchase invoice." login-required="false">
+        <!-- 
+            Precondition: New payment is created for: supplierId = "DemoSupplier", "Payment Type ID" = "Vendor Payment" and 
+                          a proper "Payment Method Type" (e.g. "Electronic Funds Transfer"), amount = $290
+            
+            Post condition: On payment's status is sent: a double-entry accounting transaction is automatically posted to the GL:
+                * Credit; in account 111100 - "GENERAL CHECKING ACCOUNT"; amount: 290$; however this depends on the "Payment method type" selected; 
+                * Debit; in account 210000 - "ACCOUNTS PAYABLE"; amount: 290$
+         -->
+
+        <set field="paymentId" value="10000"/>
+        <entity-one entity-name="UserLogin" value-name="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.paymentId" from-field="paymentId"/>
+        <set field="serviceCtx.statusId" value="PMNT_SENT"/>
+
+        <call-service service-name="setPaymentStatus" in-map-name="serviceCtx"/>
+        <entity-one entity-name="Payment" value-name="payment">
+            <field-map field-name="paymentId" env-name="paymentId"/>
+        </entity-one>
+        <get-related value-name="payment" relation-name="AcctgTrans" list-name="acctgTransList"/> 
+        <first-from-list list-name="acctgTransList" entry-name="acctgTrans"/>
+        <get-related value-name="acctgTrans" relation-name="AcctgTransEntry" list-name="acctgTransEntries"/>
+
+        <set field="debitTotal" type="Double" value="0.0"/>
+        <set field="creditTotal" type="Double" value="0.0"/>
+        
+        <assert><not><if-empty field-name="acctgTransEntries"/></not></assert>
+        <iterate list-name="acctgTransEntries" entry-name="acctgTransEntry">
+            <if-compare field-name="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
+            <!--<assert>
+                    <if-compare field-name="acctgTransEntry.glAccountTypeId" operator="equals" value="GENERAL_CHECKING_ACCOUNT"/>
+                    <if-compare field-name="acctgTransEntry.glAccountId" operator="equals" value="111100"/>
+                </assert>-->
+                <set field="creditTotal" from-field="acctgTransEntry.origAmount"/>
+            <else>
+                <if-compare field-name="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
+                    <assert>
+                        <if-compare field-name="acctgTransEntry.glAccountTypeId" operator="equals" value="ACCOUNTS_PAYABLE"/>
+                        <if-compare field-name="acctgTransEntry.glAccountId" operator="equals" value="210000"/>
+                    </assert>
+                    <set field="debitTotal" from-field="acctgTransEntry.origAmount"/>
+                </if-compare>
+            </else>    
+            </if-compare>
+        </iterate>
+        <assert>
+            <if-compare field-name="debitTotal" operator="equals" value="creditTotal"/>
+        </assert>   
     </simple-method>
     
 </simple-methods>
