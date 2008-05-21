@@ -471,7 +471,7 @@
         <value xml:lang="en">Unemployment Claims</value>
     </property>
     <property key="HumanResEmployee">
-        <value xml:lang="en">Employee</value>
+        <value xml:lang="en">Employees</value>
     </property>    
     <property key="HumanResEmplPositionId">
         <value xml:lang="en">Employee Position Id</value>
@@ -497,7 +497,7 @@
         <value xml:lang="en">emplPositionIdReportingTo and emplPositionIdManagedBy must be different</value>
     </property>
     <property key="HumanResEmployeePosition">
-        <value xml:lang="en">Employee Position</value>
+        <value xml:lang="en">Employee Positions</value>
         <value xml:lang="it">Posizione Impiegato</value>
         <value xml:lang="th">ตำแหน่งพนักงาน</value>
     </property>
@@ -512,12 +512,12 @@
         <value xml:lang="th">รหัสประเภทตำแหน่งพนักงาน</value>
     </property>
     <property key="HumanResEmployment">
-        <value xml:lang="en">Employment</value>
+        <value xml:lang="en">Employments</value>
         <value xml:lang="it">Impiegato</value>
         <value xml:lang="th">การจ้างงาน</value>
     </property>
     <property key="HumanResEmploymentApp">
-        <value xml:lang="en">Employment Application</value>
+        <value xml:lang="en">Employment Applications</value>
         <value xml:lang="it">Applicazione Impiegato</value>
         <value xml:lang="th">โปรแกรมประยุกต์ใช้การจ้างงาน</value>
     </property>
@@ -537,6 +537,9 @@
     </property>
     <property key="HumanResFindPartyResume">
         <value xml:lang="en">Find Party Resume</value>
+    </property>
+    <property key="HumanResFindPartySkill">
+        <value xml:lang="en">Find Party Skills</value>
     </property>
     <property key="HumanResFindPersonTraining">
         <value xml:lang="en">Find Person Training</value>
@@ -568,7 +571,7 @@
         <value xml:lang="th">รายการกลุ่มประวัติย่อ</value>
     </property>
     <property key="HumanResListPartySkill">
-        <value xml:lang="en">List Party Skill</value>
+        <value xml:lang="en">List Party Skills</value>
         <value xml:lang="it">Lista Abilità Soggetto</value>
         <value xml:lang="th">รายการกลุ่มทักษะ</value>
     </property>
@@ -722,6 +725,9 @@
         <value xml:lang="it">Crea/Aggiorna Riga Rassegna Prestazioni</value>
         <value xml:lang="th">สร้าง/แก้ไข รายการการตรวจสอบสิทธิพิเศษ</value>
     </property>
+    <property key="HumanResPartySkills">
+        <value xml:lang="en">Party Skills</value>
+    </property>
     <property key="HumanResNewPartySkill">
         <value xml:lang="en">New Party Skill</value>
         <value xml:lang="it">Nuova Abilità Soggetto</value>
@@ -782,10 +788,10 @@
         <value xml:lang="th">ถึงรหัสกลุ่มผู้ใช้</value>
     </property>
     <property key="HumanResPartyQualification">
-        <value xml:lang="en">Qualification</value>
+        <value xml:lang="en">Qualifications</value>
     </property>
     <property key="HumanResPartyResume">
-        <value xml:lang="en">Resume</value>
+        <value xml:lang="en">Resumes</value>
     </property>
     <property key="HumanResPartyReview">
         <value xml:lang="en">Party Review</value>
@@ -793,7 +799,7 @@
         <value xml:lang="th">การตรวจสอบกลุ่มผู้ใช้</value>
     </property>
     <property key="HumanResPayGrade">
-        <value xml:lang="en">Pay Grade</value>
+        <value xml:lang="en">Pay Grades</value>
         <value xml:lang="it">Grado Paga</value>
         <value xml:lang="th">ระดับการจ่าย</value>
     </property>
@@ -833,7 +839,7 @@
         <value xml:lang="en">ReportsTo</value>
     </property>
     <property key="HumanResResponsibilityType">
-        <value xml:lang="en">Responsibility Type</value>
+        <value xml:lang="en">Responsibility Types</value>
     </property>
     <property key="HumanResResponsibilityTypeId">
         <value xml:lang="en">Responsibility TypeId</value>
@@ -897,7 +903,7 @@
         <value xml:lang="zh">无法创建教育记录，缺少所需的参数</value>
     </property>
     <property key="HumanResSkillType">
-        <value xml:lang="en">Skill Type</value>
+        <value xml:lang="en">Skill Types</value>
         <value xml:lang="it">Tipo Abilità</value>
         <value xml:lang="th">ประเภททักษะ</value>
     </property>
@@ -908,7 +914,7 @@
         <value xml:lang="zh">技能类型Id</value>
     </property>
     <property key="HumanResTerminationReason">
-        <value xml:lang="en">Termination Reason</value>
+        <value xml:lang="en">Termination Reasons</value>
         <value xml:lang="it">Motivazione Licenziamento</value>
         <value xml:lang="th">ขอบเขตเหตุผล</value>
     </property>
@@ -923,7 +929,7 @@
         <value xml:lang="th">รหัสประเภทขอบเขตเหตุผล</value>
     </property>
     <property key="HumanResTraining">
-        <value xml:lang="en">Training</value>
+        <value xml:lang="en">Trainings</value>
     </property>
     <property key="HumanResViewPermissionError">
         <value xml:lang="en">View Permission Error</value>

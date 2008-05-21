@@ -23,18 +23,18 @@
     <menu name="HumanResAppBar" default-menu-item-name="main" id="app-navigation" type="simple" title="${uiLabelMap.HumanResManagerApplication}"
         default-selected-style="selected" menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="headerItem">
         <menu-item name="main" title="${uiLabelMap.CommonMain}"><link target="main"/></menu-item>
-        <menu-item name="EmplPosition" title="${uiLabelMap.HumanResEmployeePosition}"><link target="FindEmplPosition"/></menu-item>
         <menu-item name="Employment" title="${uiLabelMap.HumanResEmployment}"><link target="FindEmployments"/></menu-item>
+        <menu-item name="Employee" title="${uiLabelMap.HumanResEmployee}"><link target="findEmployees"/></menu-item>
+        <menu-item name="EmplPosition" title="${uiLabelMap.HumanResEmployeePosition}"><link target="FindEmplPosition"/></menu-item>
+        <menu-item name="PartySkills" title="${uiLabelMap.HumanResPartySkills}"><link target="FindPartySkills"/></menu-item>
+        <menu-item name="PartyQual" title="${uiLabelMap.HumanResPartyQualification}"><link target="FindPartyQual"/></menu-item>
+        <menu-item name="Training" title="${uiLabelMap.HumanResTraining}"><link target="FindPersonTrainings"/></menu-item>
+        <menu-item name="EmploymentApp" title="${uiLabelMap.HumanResEmploymentApp}"><link target="FindEmploymentApp"/></menu-item>
+        <menu-item name="PartyResume" title="${uiLabelMap.HumanResPartyResume}"><link target="FindPartyResume"/></menu-item>
         <menu-item name="PayGrade" title="${uiLabelMap.HumanResPayGrade}"><link target="FindPayGrade"/></menu-item>
         <menu-item name="TerminationReason" title="${uiLabelMap.HumanResTerminationReason}"><link target="FindTerminationReason"/></menu-item>
-        <menu-item name="EmploymentApp" title="${uiLabelMap.HumanResEmploymentApp}"><link target="FindEmploymentApp"/></menu-item>
-        <menu-item name="PartySkills" title="${uiLabelMap.HumanResListPartySkill}"><link target="FindPartySkills"/></menu-item>
         <menu-item name="SkillType" title="${uiLabelMap.HumanResSkillType}"><link target="findSkillTypes"/></menu-item>
-        <menu-item name="Employee" title="${uiLabelMap.HumanResEmployee}"><link target="findEmployees"/></menu-item>
         <menu-item name="ResponsibilityType" title="${uiLabelMap.HumanResResponsibilityType}"><link target="EditResponsibilityType"/></menu-item>
-        <menu-item name="Training" title="${uiLabelMap.HumanResTraining}"><link target="FindPersonTrainings"/></menu-item>
-        <menu-item name="PartyResume" title="${uiLabelMap.HumanResPartyResume}"><link target="FindPartyResume"/></menu-item>
-        <menu-item name="PartyQual" title="${uiLabelMap.HumanResPartyQualification}"><link target="FindPartyQual"/></menu-item>
         <menu-item name="Logout" title="${uiLabelMap.CommonLogout}" align-style="col-right" selected-style="selected">
             <condition><not><if-empty field-name="userLogin"/></not></condition>
             <link target="logout"/>

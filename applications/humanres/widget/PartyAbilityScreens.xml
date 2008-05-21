@@ -169,14 +169,12 @@
                 <set field="titleProperty" value="HumanResEditPartySkill"/>
                 <set field="headerItem" value="PartySkills"/> 
                 <set field="partyId" from-field="parameters.partyId"/>
-                <entity-and entity-name="PartySkill" list-name="partySkills">
-                    <field-map field-name="partyId"/>
-                </entity-and>
+                <set field="partySkillsCtx" from-field="parameters"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyAbilityDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.HumanResEditPartySkill}">
+                        <screenlet title="${uiLabelMap.HumanResFindPartySkill}">
                             <section>
                                 <widgets>
                                     <container style="button-bar">
@@ -435,7 +433,7 @@
                                 </widgets>
                             </section>
                         </screenlet>
-                        <screenlet title="${uiLabelMap.HumanResFindPartyQual}">
+                        <screenlet title="${uiLabelMap.HumanResListPartyQual}">
                             <section>
                                 <widgets>
                                     <include-form name="ListPartyQuals" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
