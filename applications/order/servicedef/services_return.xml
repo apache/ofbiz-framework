@@ -56,29 +56,22 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
 
-    <service name="returnItemInterface" engine="interface" location="" invoke="">
-        <description>Return Item Interface</description>
-        <auto-attributes entity-name="ReturnItem" include="all" mode="IN" optional="false">
-            <exclude field-name="returnItemSeqId"/>
-        </auto-attributes>
-        <override name="returnItemResponseId" optional="true"/>
-        <override name="orderItemSeqId" optional="true"/>
-        <override name="expectedItemStatus" optional="true"/>
-        <override name="receivedQuantity" optional="true"/>
-        <override name="statusId" optional="true"/>
-        <override name="returnPrice" optional="true"/>
-        <override name="productId" optional="true"/>
-    </service>
     <service name="createReturnItem" engine="simple"
             location="org/ofbiz/order/order/OrderReturnServices.xml" invoke="createReturnItem">
         <description>Create a new ReturnItem in the RETURN_REQUESTED status, based on returnableQuantity and returnablePrice from the
                      getReturnableQuantity service.  This can be called by the customer to request a return for himself or by a user with
                      ORDERMGR_CREATE, but, if the former, the returnPrice will be overriden by the returnablePrice from getReturnableQuantity.</description>
-        <implements service="returnItemInterface"/>
+        <auto-attributes entity-name="ReturnItem" include="all" mode="IN" optional="true">
+            <exclude field-name="returnItemSeqId"/>
+        </auto-attributes>
+        <override name="returnId" optional="false"/>
+        <override name="returnTypeId" optional="false"/>
+        <override name="returnItemTypeId" optional="false"/>
+        <override name="orderId" optional="false"/>
+        <override name="returnQuantity" optional="false"/>
         <attribute name="returnItemMapKey" type="String" mode="IN" optional="true"/>
         <attribute name="includeAdjustments" type="String" mode="IN" optional="true"/> <!-- The default is "Y": the adjustments associated with the item are included in the return -->
         <attribute name="returnItemSeqId" type="String" mode="OUT" optional="false"/>
-        <override name="returnReasonId" optional="true"/>
     </service>
     <service name="updateReturnItem" engine="simple" default-entity-name="ReturnItem"
             location="org/ofbiz/order/order/OrderReturnServices.xml" invoke="updateReturnItem">
