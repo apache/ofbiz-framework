@@ -1087,7 +1087,7 @@
         <value xml:lang="th">ยับยั้งสิ่งที่มีอยู่</value>
         <value xml:lang="zh">令已存在的无效</value>
     </property>
-    <property key="FormFieldTitle_description">
+    <property key="CommonDescription">
         <value xml:lang="ar">وصف</value>
         <value xml:lang="en">Description</value>
         <value xml:lang="it">Descrizione</value>

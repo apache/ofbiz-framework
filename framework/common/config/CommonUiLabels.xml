@@ -4420,6 +4420,7 @@
     </property>
     <property key="CommonReason">
         <value xml:lang="en">Reason</value>
+        <value xml:lang="fr">Motif</value>        
     </property>
     <property key="CommonReceive">
         <value xml:lang="ar">استقبال</value>

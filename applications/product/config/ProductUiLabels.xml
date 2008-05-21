@@ -1295,7 +1295,7 @@
         <value xml:lang="it">Cancella</value>
         <value xml:lang="th">ลบลิงค์</value>
     </property>
-    <property key="FormFieldTitle_description">
+    <property key="CommonDescription">
         <value xml:lang="en">Description</value>
         <value xml:lang="fr">Description</value>
         <value xml:lang="it">Descrizione</value>
@@ -14490,7 +14490,7 @@
     <property key="ProductReason">
         <value xml:lang="en">Reason</value>
         <value xml:lang="es">Razón</value>
-        <value xml:lang="fr">Raison</value>
+        <value xml:lang="fr">Motif</value>
         <value xml:lang="it">Motivazione</value>
         <value xml:lang="ro">Motivatie </value>
         <value xml:lang="ru">Причина</value>
