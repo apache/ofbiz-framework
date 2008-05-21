@@ -21,55 +21,55 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
-        <simple-method method-name="testAcctgTransOnPoReceipts" short-description="Test case for Accounting Transaction on Receipts of Purchase Order." login-required="false">
-            <!-- Precondition : shipment is created from supplier and order items are issued  -->
-            <!-- create a purchase order using following: 
-                 Supplier : DemoSupplier
-                 Item     : WG-1111
-                 Quantity : 10 -->
-                 
-            <!-- Post condition : Credit in account 214000 - UNINVOICED ITEM RECEIPT amount = grand total of order.
-                                  Debit in account 140000- INVENTORY amount = grand total of order.  -->
+    <simple-method method-name="testAcctgTransOnPoReceipts" short-description="Test case for Accounting Transaction on Receipts of Purchase Order." login-required="false">
+        <!-- Precondition : shipment is created from supplier and order items are issued  -->
+        <!-- create a purchase order using following: 
+             Supplier : DemoSupplier
+             Item     : WG-1111
+             Quantity : 10 -->
+             
+        <!-- Post condition : Credit in account 214000 - UNINVOICED ITEM RECEIPT amount = grand total of order.
+                              Debit in account 140000- INVENTORY amount = grand total of order.  -->
 
-            <!-- set few variables so that they can be changed easily to test with different values -->
-            <set field="orderId" value="WS10000"/>
-            <set field="productId" value="WG-1111"/>
-            <set field="orderItemSeqId" value="00001"/>
-            <set field="shipmentId" value="10000"/>
+        <!-- set few variables so that they can be changed easily to test with different values -->
+        <set field="orderId" value="WS10000"/>
+        <set field="productId" value="WG-1111"/>
+        <set field="orderItemSeqId" value="00001"/>
+        <set field="shipmentId" value="10000"/>
 
-            <entity-one entity-name="UserLogin" value-name="userLogin">
-                <field-map field-name="userLoginId" value="system"/>
-            </entity-one>
-            <set field="serviceCtx.userLogin" from-field="userLogin"/>
-            <set field="serviceCtx.inventoryItemTypeId" value="NON_SERIAL_INV_ITEM"/>
-            <set field="serviceCtx.productId" from-field="productId"/>
-            <set field="serviceCtx.facilityId" value="WebStoreWarehouse"/>
-            <set field="serviceCtx.quantityAccepted" value="10" type="Double"/>
-            <set field="serviceCtx.quantityRejected" value="0" type="Double"/>
-            <set field="serviceCtx.shipmentId" from-field="shipmentId"/>
-            <set field="serviceCtx.orderId" from-field="orderId"/>
-            <set field="serviceCtx.orderItemSeqId" from-field="orderItemSeqId"/>
-            <call-service service-name="receiveInventoryProduct" in-map-name="serviceCtx">
-                  <result-to-field result-name="inventoryItemId" field-name="inventoryItemId"/>
-            </call-service>
-            <entity-condition  entity-name="AcctgTransEntry" list-name="acctgTransEntries">
-                <condition-expr field-name="productId" env-name="productId"/>
-            </entity-condition>
-            <iterate list-name="acctgTransEntries" entry-name="acctgTransEntry">
-                 <if-compare field-name="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
-                     <assert>
-                        <if-compare field-name="acctgTransEntry.glAccountTypeId" operator="equals" value="UNINVOICED_SHIP_RCPT"/>
-                        <if-compare field-name="acctgTransEntry.glAccountId" operator="equals" value="214000"/>
+        <entity-one entity-name="UserLogin" value-name="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.inventoryItemTypeId" value="NON_SERIAL_INV_ITEM"/>
+        <set field="serviceCtx.productId" from-field="productId"/>
+        <set field="serviceCtx.facilityId" value="WebStoreWarehouse"/>
+        <set field="serviceCtx.quantityAccepted" value="10" type="Double"/>
+        <set field="serviceCtx.quantityRejected" value="0" type="Double"/>
+        <set field="serviceCtx.shipmentId" from-field="shipmentId"/>
+        <set field="serviceCtx.orderId" from-field="orderId"/>
+        <set field="serviceCtx.orderItemSeqId" from-field="orderItemSeqId"/>
+        
+        <call-service service-name="receiveInventoryProduct" in-map-name="serviceCtx"/>
+        <entity-condition  entity-name="AcctgTransEntry" list-name="acctgTransEntries">
+            <condition-expr field-name="productId" env-name="productId"/>
+        </entity-condition>
+        <assert><not><if-empty field-name="acctgTransEntries"/></not></assert>
+        <iterate list-name="acctgTransEntries" entry-name="acctgTransEntry">
+            <if-compare field-name="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
+                <assert>
+                    <if-compare field-name="acctgTransEntry.glAccountTypeId" operator="equals" value="UNINVOICED_SHIP_RCPT"/>
+                    <if-compare field-name="acctgTransEntry.glAccountId" operator="equals" value="214000"/>
+                </assert>
+            <else>
+                <if-compare field-name="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
+                    <assert>
+                        <if-compare field-name="acctgTransEntry.glAccountTypeId" operator="equals" value="INVENTORY_ACCOUNT"/>
+                        <if-compare field-name="acctgTransEntry.glAccountId" operator="equals" value="140000"/>
                     </assert>
-                <else>
-                    <if-compare field-name="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
-                        <assert>
-                            <if-compare field-name="acctgTransEntry.glAccountTypeId" operator="equals" value="INVENTORY_ACCOUNT"/>
-                            <if-compare field-name="acctgTransEntry.glAccountId" operator="equals" value="140000"/>
-                        </assert>
-                    </if-compare>
-                </else>    
                 </if-compare>
-            </iterate>
+            </else>    
+            </if-compare>
+        </iterate>
     </simple-method>
 </simple-methods>
