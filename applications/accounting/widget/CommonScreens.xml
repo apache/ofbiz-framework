@@ -72,37 +72,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="CommonFixedAssetMaintDecorator">
-        <section>
-            <actions>
-                <set field="headerItem" value="ListFixedAssetMaints"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="CommonFixedAssetDecorator">
-                    <decorator-section name="body">
-                        <section>
-                            <!-- do check for ACCOUNTING, _VIEW permission -->
-                            <condition>
-                                <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
-                            </condition>
-                            <widgets>
-                                <section>
-                                    <condition><not><if-empty field-name="maintHistSeqId"/></not></condition>
-                                    <widgets>
-                                        <include-menu name="FixedAssetMaintTabBar" location="component://accounting/widget/Menus.xml"/>
-                                    </widgets>
-                                </section>
-                            </widgets>
-                            <fail-widgets>
-                                <label style="h3">${uiLabelMap.AcccountingViewPermissionError}</label>
-                            </fail-widgets>
-                        </section>                    
-                        <decorator-section-include name="body"/>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
 
     <screen name="CommonTaxAuthorityDecorator">
         <section>
