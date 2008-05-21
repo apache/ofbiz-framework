@@ -435,4 +435,91 @@ under the License.
         <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
     </simple-method>
     
+    <simple-method method-name="cancelOrderItemIssuanceFromSalesShipment" short-description="Cancel an ItemIssuance quantity from Sales Shipment">
+        <set value="Cancel Order Item Issuance from Sales Shipment" field="operationName"/>
+        <check-permission permission="FACILITY" action="_UPDATE">
+            <fail-message message="Security Error: to run ${operationName} you must have the FACILITY_UPDATE or FACILITY_ADMIN permission"/>
+        </check-permission>
+
+        <!-- get ItemIssuance and related entities-->
+        <entity-one entity-name="ItemIssuance" value-name="itemIssuance"/>
+        <get-related-one value-name="itemIssuance" relation-name="OrderHeader" to-value-name="orderHeader"/>
+        <get-related-one value-name="itemIssuance" relation-name="InventoryItem" to-value-name="inventoryItem"/>
+        
+        <!-- issuance can be canceled only if the sales shipment is not packed --> 
+        <set from-field="itemIssuance.shipmentId" field="shipmentId"/>        
+        <call-simple-method method-name="checkCanChangeShipmentStatusPacked" xml-resource="org/ofbiz/shipment/shipment/ShipmentServices.xml"/>
+        <check-errors/>
+        
+        <!-- make sure the order is of orderTypeId: SALES_ORDER -->
+        <if-compare field-name="orderTypeId" map-name="orderHeader" operator="not-equals" value="SALES_ORDER">
+            <add-error><fail-message message="Not canceling ItemIssuance because the order is not a Sales Order"/></add-error>
+        </if-compare>
+
+        <!-- get the quantity that can be cancelled ItemIssuance -->
+        <calculate field-name="qtyIssuedLeft">
+            <calcop field-name="itemIssuance.quantity" operator="subtract">
+                <calcop operator="get" field-name="itemIssuance.cancelQuantity"/>
+            </calcop>
+        </calculate> 
+
+        <!-- if not provided, get the left issued quantity -->
+         <set from-field="parameters.cancelQuantity" field="toCancelQuantity"/>
+         <if-empty field-name="toCancelQuantity">
+            <set from-field="qtyIssuedLeft" field="toCancelQuantity"/>
+         </if-empty>
+
+        <!-- make sure specified cancel Quantity is not less than or equal to 0 -->
+        <if-compare field-name="toCancelQuantity" operator="less-equals" value="0" type="Double">
+            <add-error><fail-message message="Not cancelling ItemIssuance [${parameters.itemIssuanceId}] because the quantity to cancel [${toCancelQuantity}] is less than or equal to 0 "/></add-error>
+        </if-compare>
+
+        <!-- make sure specified quantity is not greater than issued quantity left -->      
+        <if-compare-field field-name="toCancelQuantity" operator="greater" to-field-name="qtyIssuedLeft" type="Double">
+            <add-error><fail-message message="Not cancelling ItemIssuanc because the quantity to cancel [${toCancelQuantity}] is greater than the quantity left [${qtyIssuedLeft}] for ItemIssuance [${itemIssuanceId}]"/></add-error>
+        </if-compare-field>
+        <check-errors/>
+
+        <!-- update ItemIssuance -->
+        <calculate field-name="totalCancelQty">
+            <calcop operator="add" field-name="itemIssuance.cancelQuantity"/>
+            <calcop operator="add" field-name="toCancelQuantity"/>
+        </calculate>
+        <set from-field="totalCancelQty" field="itemIssuanceUpdate.cancelQuantity"/>        
+        <set from-field="parameters.itemIssuanceId" field="itemIssuanceUpdate.itemIssuanceId"/>
+        <call-service service-name="updateItemIssuance" in-map-name="itemIssuanceUpdate"/>        
+        
+        <!-- increment InventoryItem quantityOnHand AND availableToPromise -->
+        <!-- instead of updating InventoryItem, add an InventoryItemDetail -->
+        <set from-field="itemIssuance.inventoryItemId" field="createDetailMap.inventoryItemId"/>
+        <set from-field="itemIssuance.itemIssuanceId" field="createDetailMap.itemIssuanceId"/>
+        <set from-field="toCancelQuantity" field="createDetailMap.availableToPromiseDiff"/>
+        <set from-field="toCancelQuantity" field="createDetailMap.quantityOnHandDiff"/>
+        <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>    
+        
+		<!-- reassign inventory reservations  -->
+        <set field="reassignInventoryReservationsCtx.productId" from-field="inventoryItem.productId"/>
+        <set field="reassignInventoryReservationsCtx.facilityId" from-field="inventoryItem.facilityId"/>
+        <call-service service-name="reassignInventoryReservations" in-map-name="reassignInventoryReservationsCtx"/>
+      
+        <!-- reserve the order item -->
+        <entity-one entity-name="ProductStore" value-name="productStore" auto-field-map="false">
+            <field-map field-name="productStoreId" env-name="orderHeader.productStoreId"/>
+        </entity-one>           
+        <if-compare value="Y" operator="equals" field-name="productStore.isImmediatelyFulfilled">
+            <log level="verbose" message="ProductStore with id ${productStore.productStoreId}, is immediatly fulfilled. Not reseving inventory"/>
+        	<else>
+	            <set field="reserveStoreInventoryMap.productId" from-field="inventoryItem.productId"/>
+	            <set field="reserveStoreInventoryMap.orderId" from-field="itemIssuance.orderId"/>
+	            <set field="reserveStoreInventoryMap.orderItemSeqId" from-field="itemIssuance.orderItemSeqId"/>
+	            <set field="reserveStoreInventoryMap.shipGroupSeqId" from-field="itemIssuance.shipGroupSeqId"/>
+	            <set field="reserveStoreInventoryMap.quantity" from-field="toCancelQuantity"/>	            
+	            <set field="reserveStoreInventoryMap.productStoreId" from-field="orderHeader.productStoreId"/>
+                <call-service service-name="reserveStoreInventory" in-map-name="reserveStoreInventoryMap"/>
+            </else>            
+        </if-compare>
+        
+        <field-to-result field-name="toCancelQuantity" result-name="canceledQuantity"/>
+    </simple-method>    
+    
 </simple-methods>

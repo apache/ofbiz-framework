@@ -58,6 +58,7 @@ under the License.
       <field name="issuedDateTime" type="date-time"></field>
       <field name="issuedByUserLoginId" type="id-vlong"></field>
       <field name="quantity" type="floating-point"></field>
+      <field name="cancelQuantity" type="floating-point"></field>
       <prim-key field="itemIssuanceId"/>
       <relation type="one" fk-name="ITEM_ISS_INVITM" rel-entity-name="InventoryItem">
         <key-map field-name="inventoryItemId"/>
