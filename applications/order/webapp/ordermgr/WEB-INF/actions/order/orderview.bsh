@@ -318,7 +318,10 @@ if (orderHeader != null) {
         contextInput = UtilMisc.toMap("productId", productId, "userLogin", userLogin);
         resultOutput = dispatcher.runSync("getProductManufacturingSummaryByFacility", contextInput);
         manufacturingInQuantitySummaryByFacility = resultOutput.get("summaryInByFacility");
-        Double productionQuantity = (Double) manufacturingInQuantitySummaryByFacility.get("estimatedQuantityTotal");
+        Double productionQuantity = 0;
+        for (manQuantityIter = manufacturingInQuantitySummaryByFacility.values().iterator(); manQuantityIter.hasNext();) {
+            productionQuantity += (Double)manQuantityIter.next().get("estimatedQuantityTotal");
+        } 
         productionMap.put(productId, productionQuantity);
     }
     context.put("productionProductQuantityMap", productionMap);
