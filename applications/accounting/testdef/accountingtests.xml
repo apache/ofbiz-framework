@@ -26,5 +26,8 @@
     </test-case>
     <test-case case-name="auto-accounting-transaction-tests-EditPoInvoice">
         <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoAcctgTransTests.xml" name="testAcctgTransOnEditPoInvoice"/>
-    </test-case>    
+    </test-case>
+    <test-case case-name="auto-accounting-transaction-tests-PaymentSentToSupplier">
+        <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoAcctgTransTests.xml" name="testAcctgTransOnPaymentSentToSupplier"/>
+    </test-case>        
 </test-suite>
