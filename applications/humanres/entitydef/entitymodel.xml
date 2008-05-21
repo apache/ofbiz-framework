@@ -118,8 +118,13 @@ under the License.
             package-name="org.ofbiz.humanres.ability"
             title="Performance Rating Type Entity">
       <field name="perfRatingTypeId" type="id-ne"></field>
+      <field name="parentTypeId" type="id-ne"></field>
+      <field name="hasTable" type="indicator"></field>
       <field name="description" type="description"></field>
       <prim-key field="perfRatingTypeId"/>
+      <relation type="one" fk-name="PERF_RATNG_TYP" title="Parent" rel-entity-name="PerfRatingType">
+        <key-map field-name="parentTypeId" rel-field-name="perfRatingTypeId"/>
+      </relation>
     </entity>
     <entity entity-name="PerfReview"
             package-name="org.ofbiz.humanres.ability"
@@ -214,8 +219,13 @@ under the License.
             package-name="org.ofbiz.humanres.ability"
             title="Performance Review Item Type Entity">
       <field name="perfReviewItemTypeId" type="id-ne"></field>
+      <field name="parentTypeId" type="id-ne"></field>
+      <field name="hasTable" type="indicator"></field>
       <field name="description" type="description"></field>
       <prim-key field="perfReviewItemTypeId"/>
+      <relation type="one" fk-name="PERF_REV_ITM_TYP" title="Parent" rel-entity-name="PerfReviewItemType">
+        <key-map field-name="parentTypeId" rel-field-name="perfReviewItemTypeId"/>
+      </relation>
     </entity>
     <entity entity-name="PerformanceNote"
             package-name="org.ofbiz.humanres.ability"
@@ -258,22 +268,37 @@ under the License.
             package-name="org.ofbiz.humanres.ability"
             title="Responsibility Type Entity">
       <field name="responsibilityTypeId" type="id-ne"></field>
+      <field name="parentTypeId" type="id"></field>
+      <field name="hasTable" type="indicator"></field>
       <field name="description" type="description"></field>
       <prim-key field="responsibilityTypeId"/>
+      <relation type="one" fk-name="RESPON_TYPE_PAR" title="Parent" rel-entity-name="ResponsibilityType">
+        <key-map field-name="parentTypeId" rel-field-name="responsibilityTypeId"/>
+      </relation>
     </entity>
     <entity entity-name="SkillType"
             package-name="org.ofbiz.humanres.ability"
             title="Skill Type Entity">
       <field name="skillTypeId" type="id-ne"></field>
+      <field name="parentTypeId" type="id-ne"></field>
+      <field name="hasTable" type="indicator"></field>
       <field name="description" type="description"></field>
       <prim-key field="skillTypeId"/>
+      <relation type="one" fk-name="PARNT_SKILL_TYPE" title="Parent" rel-entity-name="SkillType">
+        <key-map field-name="parentTypeId" rel-field-name="skillTypeId"/>
+      </relation>
     </entity>
     <entity entity-name="TrainingClassType"
             package-name="org.ofbiz.humanres.ability"
             title="Training Class Type Entity">
       <field name="trainingClassTypeId" type="id-ne"></field>
+      <field name="parentTypeId" type="id"></field>
+      <field name="hasTable" type="indicator"></field>
       <field name="description" type="description"></field>
       <prim-key field="trainingClassTypeId"/>
+      <relation type="one" fk-name="TRAIN_TYPE_PAR" title="Parent" rel-entity-name="TrainingClassType">
+        <key-map field-name="parentTypeId" rel-field-name="trainingClassTypeId"/>
+      </relation>
     </entity>
 
   <!-- ========================================================= -->
@@ -285,9 +310,14 @@ under the License.
             title="Benefit Type Entity">
       <field name="benefitTypeId" type="id-ne"></field>
       <field name="benefitName" type="name"></field>
+      <field name="parentTypeId" type="id-ne"></field>
+      <field name="hasTable" type="indicator"></field>
       <field name="description" type="description"></field>
       <field name="employerPaidPercentage" type="floating-point"></field>
       <prim-key field="benefitTypeId"/>
+      <relation type="one" fk-name="BEN_TYPE_PAR" title="Parent" rel-entity-name="BenefitType">
+        <key-map field-name="parentTypeId" rel-field-name="benefitTypeId"/>
+      </relation>
     </entity>
     <entity entity-name="Employment"
             package-name="org.ofbiz.humanres.employment"
@@ -357,8 +387,13 @@ under the License.
             package-name="org.ofbiz.humanres.employment"
             title="Employment Application Source Type Entity">
       <field name="employmentAppSourceTypeId" type="id-ne"></field>
+      <field name="parentTypeId" type="id-ne"></field>
+      <field name="hasTable" type="indicator"></field>
       <field name="description" type="description"></field>
       <prim-key field="employmentAppSourceTypeId"/>
+      <relation type="one" fk-name="EMPL_APP_SRC_TYP" title="Parent" rel-entity-name="EmploymentAppSourceType">
+        <key-map field-name="parentTypeId" rel-field-name="employmentAppSourceTypeId"/>
+      </relation>
     </entity>
     <entity entity-name="PartyBenefit"
             package-name="org.ofbiz.humanres.employment"
@@ -506,8 +541,13 @@ under the License.
             package-name="org.ofbiz.humanres.employment"
             title="Termination Type Entity">
       <field name="terminationTypeId" type="id-ne"></field>
+      <field name="parentTypeId" type="id-ne"></field>
+      <field name="hasTable" type="indicator"></field>
       <field name="description" type="description"></field>
       <prim-key field="terminationTypeId"/>
+      <relation type="one" fk-name="TERM_TYP_PAR" title="Parent" rel-entity-name="TerminationType">
+        <key-map field-name="parentTypeId" rel-field-name="terminationTypeId"/>
+      </relation>
     </entity>
     <entity entity-name="UnemploymentClaim"
             package-name="org.ofbiz.humanres.employment"
@@ -575,8 +615,13 @@ under the License.
             package-name="org.ofbiz.humanres.position"
             title="EmplPosition Classification Type Entity">
       <field name="emplPositionClassTypeId" type="id-ne"></field>
+      <field name="parentTypeId" type="id-ne"></field>
+      <field name="hasTable" type="indicator"></field>
       <field name="description" type="description"></field>
       <prim-key field="emplPositionClassTypeId"/>
+      <relation type="one" fk-name="EMPL_CLS_TYP_PAR" title="Parent" rel-entity-name="EmplPositionClassType">
+        <key-map field-name="parentTypeId" rel-field-name="emplPositionClassTypeId"/>
+      </relation>
     </entity>
     <entity entity-name="EmplPositionFulfillment"
             package-name="org.ofbiz.humanres.position"
@@ -637,8 +682,13 @@ under the License.
             package-name="org.ofbiz.humanres.position"
             title="EmplPosition Type Entity">
       <field name="emplPositionTypeId" type="id-ne"></field>
+      <field name="parentTypeId" type="id-ne"></field>
+      <field name="hasTable" type="indicator"></field>
       <field name="description" type="description"></field>
       <prim-key field="emplPositionTypeId"/>
+      <relation type="one" fk-name="EMPL_POSI_TYP_PAR" title="Parent" rel-entity-name="EmplPositionType">
+        <key-map field-name="parentTypeId" rel-field-name="emplPositionTypeId"/>
+      </relation>
     </entity>
     <entity entity-name="EmplPositionTypeClass"
             package-name="org.ofbiz.humanres.position"

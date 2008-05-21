@@ -142,10 +142,8 @@ under the License.
     <form name="ListPartySkills" type="multi" list-name="listIt" use-row-submit="true" separate-columns="true" target="updatePartySkill?partyId=${partyId}" paginate-target="findPartySkills"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar"> 
         <actions>
-            <set field="partyId" from-field="parameters.partyId"/>
-            <entity-one entity-name="Party" auto-field-map="true"/>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="inputFields" env-name="partySkillsCtx"/>
                 <field-map field-name="entityName" value="PartySkill"/>
                 <field-map field-name="orderBy" value="partyId"/>
                 <field-map field-name="orderBy" value="skillTypeId"/>
@@ -178,12 +176,12 @@ under the License.
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><hidden value="Y"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>
     </form>      
-    <form name="AddPartySkills" type="single" target="createPartySkill" paginate-target="FindEmploymentApp"
+    <form name="AddPartySkills" type="single" target="createPartySkill" default-map-name="party"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="partyId" use-when="partyId != null"><hidden/></field>
-        <field name="partyId" use-when="skillTypeId == null&amp;&amp;partyId == null"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="partyId" use-when="partySkill != null"><hidden/></field>
+        <field name="partyId" use-when="partySkill == null"><lookup target-form-name="LookupPartyName"/></field>
         <field name="skillTypeId">
-            <drop-down allow-empty="true">
+            <drop-down>
                 <entity-options description="${description}" entity-name="SkillType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
