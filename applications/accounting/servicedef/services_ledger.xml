@@ -355,8 +355,15 @@ under the License.
          Typically, these services are triggered by SECAs -->
     <service name="createAcctgTransForSalesShipmentIssuance" engine="simple"  auth="true"
         location="org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="createAcctgTransForSalesShipmentIssuance">
-        <description>Create an accounting transaction for for a sales shipment issuance (D: INVENTORY_ACCOUNT, C: COGS_ACCOUNT)</description>
+        <description>Create an accounting transaction for a sales shipment issuance (D: INVENTORY_ACCOUNT, C: COGS_ACCOUNT)</description>
         <attribute name="itemIssuanceId" type="String" mode="IN" optional="false"/>
+        <attribute name="acctgTransId" type="String" mode="OUT" optional="true"/>
+    </service>
+    <service name="createAcctgTransForCanceledSalesShipmentIssuance" engine="simple"  auth="true"
+        location="org/ofbiz/accounting/ledger/GeneralLedgerServices.xml" invoke="createAcctgTransForCanceledSalesShipmentIssuance">
+        <description>Create an accounting transaction for a canceled sales shipment issuance (D: INVENTORY_ACCOUNT, C: COGS_ACCOUNT)</description>
+        <attribute name="itemIssuanceId" type="String" mode="IN" optional="false"/>
+        <attribute name="canceledQuantity" type="Double" mode="IN" optional="false"/>        
         <attribute name="acctgTransId" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="createAcctgTransForInventoryItemCostChange" engine="simple" auth="true"

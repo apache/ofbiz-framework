@@ -33,6 +33,12 @@ under the License.
         <condition field-name="inventoryItemId" operator="is-not-empty"/>
         <action service="createAcctgTransForSalesShipmentIssuance" mode="sync"/>
     </eca>
+    
+    <!-- create an accounting transactions every time an issuance to sales shipment is canceled -->
+    <eca service="cancelOrderItemIssuanceFromSalesShipment" event="commit">
+        <condition field-name="canceledQuantity" operator="greater" value="0" type="Double"/>
+        <action service="createAcctgTransForCanceledSalesShipmentIssuance" mode="sync"/>
+    </eca>
 
     <!-- create the accounting transactions for a shipment receipt every time the inventory is received -->
     <eca service="createShipmentReceipt" event="commit">

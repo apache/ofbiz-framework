@@ -395,6 +395,13 @@ under the License.
         <description>Return InventoryItem Issued to a FixedAssetMaint - for conversion to use as supples/parts</description>
         <attribute name="itemIssuanceId" type="String" mode="IN" optional="false"/>
     </service>
+    <service name="cancelOrderItemIssuanceFromSalesShipment" engine="simple"
+            location="org/ofbiz/shipment/issuance/IssuanceServices.xml" invoke="cancelOrderItemIssuanceFromSalesShipment" auth="true">
+        <description>Cancel an ItemIssuance from Sales Shipment</description>
+        <attribute name="itemIssuanceId" type="String" mode="IN" optional="false"/>
+        <attribute name="cancelQuantity" type="Double" mode="IN" optional="true"/>
+        <attribute name="canceledQuantity" type="Double" mode="OUT" optional="false"/>        
+    </service>
     
     <!-- Pack Order Services -->
     <service name="packSingleItem" engine="java"
