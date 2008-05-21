@@ -166,7 +166,7 @@ under the License.
                     <#if readOnly>
                         ${item.description?default("N/A")}            
                     <#else>
-                        <input name="description_o_${rowCount}" value="${item.description}" type="text" size="15">
+                        <input name="description_o_${rowCount}" value="${item.description?if_exists}" type="text" size="15">
                     </#if>
                     </div></td>
                 <td><div>
