@@ -358,7 +358,8 @@ under the License.
             <link target="printChecks.pdf?paymentId=${payment.paymentId}"/>
         </menu-item>
     </menu>
-    <menu name="FixedAssetMaintTabBar" selected-menuitem-context-field-name="tabButtonItemFixedAssetMaint" default-menu-item-name="EditFixedAssetMaint"> 
+    <menu name="FixedAssetMaintTabBar" selected-menuitem-context-field-name="tabButtonItemFixedAssetMaint" default-menu-item-name="EditFixedAssetMaint"
+        menu-container-style="button-bar tab-bar" type="simple">
         <menu-item name="EditFixedAssetMaint" title="${uiLabelMap.AccountingFixedAssetMaint}">
             <link target="EditFixedAssetMaint?fixedAssetId=${fixedAssetMaint.fixedAssetId}&amp;maintHistSeqId=${fixedAssetMaint.maintHistSeqId}"/>
         </menu-item>
@@ -370,7 +371,7 @@ under the License.
         </menu-item>
     </menu>  
     <menu name="FixedAssetTabBar" default-menu-item-name="EditFixedAsset" default-selected-style="selected"
-        menu-container-style="button-bar button-style-1" type="simple" selected-menuitem-context-field-name="tabButtonItem">
+        menu-container-style="button-bar tab-bar" type="simple" selected-menuitem-context-field-name="tabButtonItem">
         <menu-item name="EditFixedAsset" title="${uiLabelMap.AccountingFixedAsset}">
             <link target="EditFixedAsset?fixedAssetId=${fixedAssetId}"/>
         </menu-item>

@@ -105,7 +105,7 @@ under the License.
     </form>
 
     <form name="ListFixedAssetProducts" type="list"  list-name="fixedAssetProducts"  target="updateFixedAssetProduct"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="productId" title="${uiLabelMap.AccountingProduct}"><display-entity entity-name="Product" description="${description}[${productId}]"/></field>
         <field name="fixedAssetProductTypeId" title="${uiLabelMap.AccountingFixedAssetProductType}"><display-entity entity-name="FixedAssetProductType"/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
@@ -172,7 +172,7 @@ under the License.
     </form>
 
     <form name="ListFixedAssetStdCosts" list-name="fixedAssetStdCosts" type="list" target="updateFixedAssetStdCost" title="" paginate-target="EditFixedAssetStdCosts"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="FixedAssetStdCost">
                 <condition-expr field-name="fixedAssetId" env-name="fixedAssetId"/>
@@ -221,7 +221,7 @@ under the License.
 
     <!-- List all fixed asset idents  -->
     <form name="ListFixedAssetIdents" type="list" list-name="fixedAssetIdents" target="updateFixedAssetIdent"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="FixedAssetIdent">
                 <condition-expr field-name="fixedAssetId" env-name="fixedAssetId"/>
@@ -258,7 +258,7 @@ under the License.
 
     <!-- List all fixed asset Registration  -->
     <form name="ListFixedAssetRegistrations" type="list" list-name="fixedAssetRegistrations" target="updateFixedAssetRegistration"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="FixedAssetRegistration">
                 <condition-expr field-name="fixedAssetId" env-name="fixedAssetId"/>
@@ -289,7 +289,7 @@ under the License.
     </form>
     <!-- list all Fixed Asset Maintenance-->
     <form name="ListFixedAssetMaints" type="list" list-name="fixedAssetMaints"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="FixedAssetMaint">
                 <condition-expr field-name="fixedAssetId" env-name="fixedAssetId"/>
@@ -369,7 +369,7 @@ under the License.
 
     <!-- List all fixed asset Maintenance Meter  -->
     <form name="ListFixedAssetMaintMeters" type="list"  list-name="fixedAssetMaintMeters" target="updateFixedAssetMaintMeter"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="FixedAssetMaintMeter">
                 <condition-list combine="and">
@@ -410,7 +410,7 @@ under the License.
     </form>
     <!-- List all fixed asset Maintenance Order  -->
     <form name="ListFixedAssetMaintOrders" type="list" list-name="fixedAssetMaintOrders" target="updateFixedAssetMaintOrder"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="FixedAssetMaintOrder" list-name="fixedAssetMaintOrders">
                 <condition-list combine="and">
@@ -443,7 +443,7 @@ under the License.
         
     <!-- =====================Party Fixed Asset Assignment Forms============== -->
     <form name="ListPartyFixedAssetAssignments" type="list"  list-name="listPartyFixedAssets"  target="updatePartyFixedAssetAssignment"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="PartyFixedAssetAssignment" list-name="listPartyFixedAssets">
                 <condition-expr field-name="fixedAssetId" env-name="fixedAssetId"/>
