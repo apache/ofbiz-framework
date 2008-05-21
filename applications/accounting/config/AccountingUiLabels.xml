@@ -148,7 +148,7 @@
     <property key="AccountingAddFixedAssetIdent">
         <value xml:lang="en">Add Fixed Asset Identification</value>
         <value xml:lang="es">Editar Indents de Activo Fijo</value>
-        <value xml:lang="fr">Modifier identifiants d'actif immobilisé</value>
+        <value xml:lang="fr">Ajouter une identification d'immobilisation</value>
         <value xml:lang="it">Aggiorna Identità Cespite</value>
         <value xml:lang="ro">Actualizeaza Identitate Mijloc Fix</value>
         <value xml:lang="ru">Редактирование идентификаторов ОС</value>
@@ -158,7 +158,7 @@
     <property key="AccountingAddFixedAssetMaintenance">
         <value xml:lang="en">Add Fixed Asset Maintenance</value>
         <value xml:lang="es">Editar Mantenimiento de Activo Fijo</value>
-        <value xml:lang="fr">Modifier la maintenance de l'actif immobilisé</value>
+        <value xml:lang="fr">Ajouter une maintenance d'immobilisation</value>
         <value xml:lang="it">Aggiorna Manutenzione Cespite</value>
         <value xml:lang="ro">Actualizeaza Intretinere Mijloc Fix</value>
         <value xml:lang="ru">Изменить обслуживание ОС</value>
@@ -167,23 +167,26 @@
     </property>
     <property key="AccountingAddFixedAssetMaintMeter">
         <value xml:lang="en">Add Fixed Asset Maintenance Meter</value>
+        <value xml:lang="fr">Ajouter une mesure de la maintenance d'immobilisation</value>
         <value xml:lang="it">Aggiorna Manutenzione Cespite Contatori</value>
         <value xml:lang="th">Add Fixed Asset Maintenance Meter</value>
     </property>
     <property key="AccountingAddFixedAssetMaintOrder">
         <value xml:lang="en">Add Fixed Asset Maintenance Order</value>
+        <value xml:lang="fr">Ajouter une commande de maintenance d'immobilisation</value>
         <value xml:lang="it">Aggiorna Manutenzione Cespite Ordine</value>
         <value xml:lang="th">แก้ไขรายการบำรุงรักษาทรัพย์สินไม่หมุนเวียน</value>
     </property>
     <property key="AccountingAddFixedAssetPartyAssignment">
         <value xml:lang="en">Add Party Fixed Asset Assignment</value>
+        <value xml:lang="fr">Ajouter une tâche d'un acteur à une immobilisation</value>
         <value xml:lang="it">Aggiorna Assegnamenti Cespiti Soggetto</value>
         <value xml:lang="th">แก้ไขกลุ่มทรัพย์สินไม่หมุนเวียน</value>
     </property>
     <property key="AccountingAddFixedAssetRegistration">
         <value xml:lang="en">Add Fixed Asset Registration</value>
         <value xml:lang="es">Editar Registros de Activo Fijo</value>
-        <value xml:lang="fr">Modifier les immatriculations d'actifs immobilisés</value>
+        <value xml:lang="fr">Ajouter l'enregistrement d'immobilisation</value>
         <value xml:lang="it">Aggiorna Registrazioni Cespite</value>
         <value xml:lang="ro">Actualizeaza Inregistrare Mijloc Fix</value>
         <value xml:lang="ru">Изменить регистраций ОС</value>
@@ -193,7 +196,7 @@
     <property key="AccountingAddFixedAssetStdCost">
         <value xml:lang="en">Add Fixed Asset Standard Cost</value>
         <value xml:lang="es">Editar Costo Estandar de Activo Fijo</value>
-        <value xml:lang="fr">Modifier un coût standard d'actif immobilisé</value>
+        <value xml:lang="fr">Ajouter un coût standard d'immobilisation</value>
         <value xml:lang="it">Aggiorna Costi Standard Cespiti</value>
         <value xml:lang="nl">Aanpassen faktuur rekening vaste kosten</value>
         <value xml:lang="ro">Actualizeaza Costuri Standard Mijloace Fixe</value>
@@ -205,7 +208,7 @@
         <value xml:lang="ar">إضافة بطاقة قرض جديدة</value>
         <value xml:lang="en">Add New Credit Card</value>
         <value xml:lang="es">Agregar nueva tarjeta de crédito</value>
-        <value xml:lang="fr">Ajouter une Carte de Crédit</value>
+        <value xml:lang="fr">Ajouter une carte de crédit</value>
         <value xml:lang="it">Aggiungi Nuova Carta Credito</value>
         <value xml:lang="nl">Voeg een nieuwe creditkaart toe.</value>
         <value xml:lang="ro">Adauga o Noua Carte de Credit</value>
@@ -1364,7 +1367,7 @@
         <value xml:lang="ar">Security Error: to run createBillingAccount you must have the ACCOUNTING_CREATE or ACCOUNTING_ADMIN permissionاتصل بمدير التطبيق</value>
         <value xml:lang="en">Security Error: to run createBillingAccount you must have the ACCOUNTING_CREATE or ACCOUNTING_ADMIN permission </value>
         <value xml:lang="es">Error de seguridad : Para ejecutar createBillingAccount debe tener el permiso ACCOUNTING_CREATE o ACCOUNTING_ADMIN</value>
-        <value xml:lang="fr">Erreur sécurité : pour créer un compte de facturation, il faut avoir la permission ACCOUNTING_CREATE ou ACCOUNTING_ADMIN.</value>
+        <value xml:lang="fr">Erreur de sécurité : pour créer un compte de facturation, il faut avoir la permission ACCOUNTING_CREATE ou ACCOUNTING_ADMIN.</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire createBillingAccount tu devi avere il permesso ACCOUNTING_CREATE o ACCOUNTING_ADMIN</value>
         <value xml:lang="nl">Toegangsfout: Om een nieuwe rekening aan te maken is ACCOUNTING_CREATE of ACCOUNTING_ADMIN permissie vereist </value>
         <value xml:lang="pt_BR">Erro de Segurança; para "Criar Nota Fiscal" deverá obter permissões para ACCOUNTING_CREATE ou ACCOUNTING_ADMIN </value>
@@ -1391,7 +1394,7 @@
     <property key="AccountingCreateBillingAccountRolePermissionError">
         <value xml:lang="en">Security Error : to run createBillingAccountRole you must have the ACCOUNTING_CREATE or ACCOUNTING_ADMIN permission</value>
         <value xml:lang="es">Para ejecutar createBillingAccountRole debe tener el permiso ACCOUNTING_CREATE o ACCOUNTING_ADMIN</value>
-        <value xml:lang="fr">Erreur sécurité : pour associer un rôle à un compte de facturation, il faut avoir la permission ACCOUNTING_CREATE ou ACCOUNTING_ADMIN</value>
+        <value xml:lang="fr">Erreur de sécurité : pour associer un rôle à un compte de facturation, il faut avoir la permission ACCOUNTING_CREATE ou ACCOUNTING_ADMIN</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire createBillingAccountRole tu devi avere il permesso ACCOUNTING_CREATE o ACCOUNTING_ADMIN</value>
         <value xml:lang="nl">Toegangsfout: om een nieuwe rol aan te maken is ACCOUNTING_CREATE of ACCOUNTING_ADMIN permissie nodig</value>
         <value xml:lang="pt_BR">Erro de Segurança: para "Criar Função de Nota Fiscal" deverá obter permissões para ACCOUNTING_CREATE ou ACCOUNTING_ADMIN</value>
@@ -1418,7 +1421,7 @@
     <property key="AccountingCreateBillingAccountTermPermissionError">
         <value xml:lang="en">Security Error : to run createBillingAccountTerm you must have the ACCOUNTING_CREATE or ACCOUNTING_ADMIN permission</value>
         <value xml:lang="es">Para ejecutar createBillingAccountTerm debe tener el permiso ACCOUNTING_CREATE o ACCOUNTING_ADMIN</value>
-        <value xml:lang="fr">Erreur sécurité : pour créer un terme sur un compte de facturation, il faut avoir la permission ACCOUNTING_CREATE ou ACCOUNTING_ADMIN</value>
+        <value xml:lang="fr">Erreur de sécurité : pour créer un terme sur un compte de facturation, il faut avoir la permission ACCOUNTING_CREATE ou ACCOUNTING_ADMIN</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire createBillingAccountTerm tu devi avere il permesso ACCOUNTING_CREATE o ACCOUNTING_ADMIN</value>
         <value xml:lang="nl">Toegangsfout : om een betalingsvoorwaarde an te maken is ACCOUNTING_CREATE of ACCOUNTING_ADMIN permissie nodig</value>
         <value xml:lang="pt_BR">Erro de Segurança: para  "Criar Termo de Nota Fiscal" deverá obter permissões para ACCOUNTING_CREATE ou ACCOUNTING_ADMIN</value>
@@ -1435,7 +1438,7 @@
     </property>
     <property key="AccountingCreateFixedAssetMaintOrderPermissionError">
         <value xml:lang="en">Security Error: to run createFixedAssetMaintOrder you must have the ACCOUNTING_CREATEUPDATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_CREATE permission</value>
-        <value xml:lang="fr">Erreur sécurité: pour exécuter createFixedAssetMaintOrder vous devez avoir les permissions ACCOUNTING_CREATEUPDATE ou ACCOUNTING_ADMIN, ou bien la permission limitée ACCOUNTING_ROLE_CREATE</value>
+        <value xml:lang="fr">Erreur de sécurité: pour exécuter createFixedAssetMaintOrder vous devez avoir les permissions ACCOUNTING_CREATEUPDATE ou ACCOUNTING_ADMIN, ou bien la permission limitée ACCOUNTING_ROLE_CREATE</value>
         <value xml:lang="ru">Ошибка безопасности: для запуска createFixedAssetMaintOrder у вас должны быть права ACCOUNTING_CREATEUPDATE, ACCOUNTING_ADMIN, или ограниченные ACCOUNTING_ROLE_CREATE</value>
         <value xml:lang="th">Security Error: ความผิดพลาด! ในการ createFixedAssetMaintOrder คุณต้องมี ACCOUNTING_CREATEUPDATE หรือ ACCOUNTING_ADMIN permission, หรือจำกัด ACCOUNTING_ROLE_CREATE ก่อน</value>
     </property>
@@ -1503,7 +1506,7 @@
     <property key="AccountingCreatePaymentPermissionError">
         <value xml:lang="en">Security Error : To Create a Payment you must either be the to or from party or have the PAY_INFO_CREATE or PAY_INFO_ADMIN permissions.</value>
         <value xml:lang="es">Error de seguridad : Para crear un pago debe ser cualquiera de el grupo de o para o tener el permiso PAY_INFO_CREATE o PAY_INFO_ADMIN.</value>
-        <value xml:lang="fr">Erreur sécurité : pour saisir un paiement, vous devez être soit être l'acteur demandeur ou payeur, ou bien avoir la permission PAY_INFO_CREATE ou PAY_INFO_ADMIN</value>
+        <value xml:lang="fr">Erreur de sécurité : pour saisir un paiement, vous devez être soit être l'acteur demandeur ou payeur, ou bien avoir la permission PAY_INFO_CREATE ou PAY_INFO_ADMIN</value>
         <value xml:lang="it">Errore Sicurezza : Per Creare un Pagamento tu devi inserire entrambi da/a Soggetto o avere il permesso PAY_INFO_CREATE o PAY_INFO_ADMIN.</value>
         <value xml:lang="nl">Toegangsfout : Om een betaling aan te maken is PAY_INFO_CREATE of PAY_INFO_ADMIN permissie vereist</value>
         <value xml:lang="pt_BR">Erro de Segurança: para criar um Pagamento, deverá pertencer a uma secção ou obter permissões para PAY_INFO_CREATE ou PAY_INFO_ADMIN</value>
@@ -1516,7 +1519,7 @@
     <property key="AccountingCreatePermissionError">
         <value xml:lang="en">Security Error: to run createGlAccount you must have the ACCOUNTING_CREATE or ACCOUNTING_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar createGlAccount debe tener el permiso ACCOUNTING_CREATE o ACCOUNTING_ADMIN </value>
-        <value xml:lang="fr">Erreur sécurité : pour créer un compte de facturation, vous devez avoir la permission ACCOUNTING_CREATE ou ACCOUNTING_ADMIN.</value>
+        <value xml:lang="fr">Erreur de sécurité : pour créer un compte de facturation, vous devez avoir la permission ACCOUNTING_CREATE ou ACCOUNTING_ADMIN.</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire createGlAccount tu devi avere il permesso ACCOUNTING_CREATE o ACCOUNTING_ADMIN</value>
         <value xml:lang="nl">Toegangsfout: to run createGlAccount you must have the ACCOUNTING_CREATE or ACCOUNTING_ADMIN permission</value>
         <value xml:lang="pt_BR">Erro de Segurança: para "Criar Conta GL" deverá obter permissões para  ACCOUNTING_CREATE ou ACCOUNTING_ADMIN </value>
@@ -1631,7 +1634,7 @@
     <property key="AccountingDeleteBillingAccountTermPermissionError">
         <value xml:lang="en">Security Error : to run removeBillingAccountTerm you must have the ACCOUNTING_DELETE or ACCOUNTING_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad : Para ejecutar removeBillingAccountTerm debe tener el permiso ACCOUNTING_DELETE o ACCOUNTING_ADMIN</value>
-        <value xml:lang="fr">Erreur sécurité : pour supprimer un terme de compte de facturation, il faut avoir la permission ACCOUNTING_DELETE ou ACCOUNTING_ADMIN.</value>
+        <value xml:lang="fr">Erreur de sécurité : pour supprimer un terme de compte de facturation, il faut avoir la permission ACCOUNTING_DELETE ou ACCOUNTING_ADMIN.</value>
         <value xml:lang="it">Errore Sicurezza  : per eseguire removeBillingAccountTerm tu devi avere il permesso ACCOUNTING_DELETE o ACCOUNTING_ADMIN</value>
         <value xml:lang="nl">Security Error : to run removeBillingAccountTerm you must have the ACCOUNTING_DELETE or ACCOUNTING_ADMIN permission</value>
         <value xml:lang="pt_BR">Erro de Segurança: para "Remover Termo de Nota Fiscal" deverá obter permissões para ACCOUNTING_DELETE ou ACCOUNTING_ADMIN</value>
@@ -1643,7 +1646,7 @@
     </property>
     <property key="AccountingDeleteFixedAssetMaintOrderPermissionError">
         <value xml:lang="en">Security Error: to run deleteFixedAssetMaintOrder you must have the ACCOUNTING_DELETE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_UPDATE permission</value>
-        <value xml:lang="fr">Erreur sécurité: pour exécuter deleteFixedAssetMaintOrdervous devez avoir les permissions ACCOUNTING_DELETE ou ACCOUNTING_ADMIN, ou bien la permission limitée  ACCOUNTING_ROLE_UPDATE</value>
+        <value xml:lang="fr">Erreur de sécurité: pour exécuter deleteFixedAssetMaintOrdervous devez avoir les permissions ACCOUNTING_DELETE ou ACCOUNTING_ADMIN, ou bien la permission limitée  ACCOUNTING_ROLE_UPDATE</value>
         <value xml:lang="ru">Ошибка безопасности: для запуска deleteFixedAssetMaintOrder у вас должны быть права ACCOUNTING_DELETE, ACCOUNTING_ADMIN или ограниченные ACCOUNTING_ROLE_UPDATE</value>
         <value xml:lang="th">Security Error: ความผิดพลาด! ในการ deleteFixedAssetMaintOrder คุณต้องมี ACCOUNTING_DELETE หรือ ACCOUNTING_ADMIN permission, หรือ limited ACCOUNTING_ROLE_UPDATE ก่อน</value>
     </property>
@@ -1979,7 +1982,7 @@
     <property key="AccountingFindFixedAssets">
         <value xml:lang="en">Find Fixed Assets</value>
         <value xml:lang="es">Lista Activos Fijos</value>
-        <value xml:lang="fr">Liste des actifs immobilisés</value>
+        <value xml:lang="fr">Liste des immobilisations</value>
         <value xml:lang="it">Lista Cespiti</value>
         <value xml:lang="ro">Lista Mijloace Fixe</value>
         <value xml:lang="ru">Список основных средств</value>
@@ -2182,7 +2185,7 @@
         <value xml:lang="ar">أصل ثابت</value>
         <value xml:lang="en">Fixed Asset</value>
         <value xml:lang="es">Activo Fijo</value>
-        <value xml:lang="fr">Actif immobilisé</value>
+        <value xml:lang="fr">Immobilisation</value>
         <value xml:lang="it">Cespite</value>
         <value xml:lang="nl">Inventaris</value>
         <value xml:lang="ro">Mijloace Fixe</value>
@@ -2194,7 +2197,7 @@
         <value xml:lang="ar">رزمانة</value>
         <value xml:lang="en">Calendar</value>
         <value xml:lang="es">Calendario</value>
-        <value xml:lang="fr">Calendrier d'actif immobilisé</value>
+        <value xml:lang="fr">Calendrier d'immobilisation</value>
         <value xml:lang="it">Calendario</value>
         <value xml:lang="nl">Kalender</value>
         <value xml:lang="ro">Calendar</value>
@@ -2222,7 +2225,7 @@
         <value xml:lang="ar">استحداث/تحديث أصل ثابت</value>
         <value xml:lang="en">Create/Update Fixed Asset</value>
         <value xml:lang="es">Crear/Actualizar Activo Fijo</value>
-        <value xml:lang="fr">Créer/modifier un actif immobilisé</value>
+        <value xml:lang="fr">Créer/modifier une immobilisation</value>
         <value xml:lang="it">Crea/Aggiorna Cespite</value>
         <value xml:lang="nl">Aanmaken/veranderen inventaris</value>
         <value xml:lang="ro">Creaza/Actualizeaza Mijloace Fixe</value>
@@ -2245,7 +2248,7 @@
         <value xml:lang="ar">دليل أصل ثابت</value>
         <value xml:lang="en">Fixed Asset Id</value>
         <value xml:lang="es">Id Activo Fijo</value>
-        <value xml:lang="fr">Réf. de l'actif immobilisé</value>
+        <value xml:lang="fr">Réf. de l'immobilisation</value>
         <value xml:lang="it">Codice Cespite</value>
         <value xml:lang="nl">Inventaris nr.</value>
         <value xml:lang="ro">Cod Mijloc Fix</value>
@@ -2256,7 +2259,7 @@
     <property key="AccountingFixedAssetIdAlreadyExists">
         <value xml:lang="ar">دليل الأصل الثابت [${parameters.fixedAssetId}] موجود</value>
         <value xml:lang="en">Fixed Asset Id [${parameters.fixedAssetId}] Already Exists</value>
-        <value xml:lang="fr">Cet identifiant d'actif immobilisé [${parameters.fixedAssetId}] existe déjà</value>
+        <value xml:lang="fr">Cet identifiant d'immobilisation [${parameters.fixedAssetId}] existe déjà</value>
         <value xml:lang="ru">Основные средства с кодом [${parameters.fixedAssetId}] уже существует</value>
         <value xml:lang="th">รหัสทรัพย์สินไม่หมุนเวียน [${parameters.fixedAssetId}] ยังคงมีอยู่แล้ว</value>
     </property>
@@ -2469,7 +2472,7 @@ esetata in mod automat</value>
         <value xml:lang="ar">اسم الأصل الثابت</value>
         <value xml:lang="en">Fixed Asset Name</value>
         <value xml:lang="es">Nombre de Activo Fijo</value>
-        <value xml:lang="fr">Nom de l'actif immobilisé</value>
+        <value xml:lang="fr">Nom de l'immobilisation</value>
         <value xml:lang="it">Nome Cespite</value>
         <value xml:lang="nl">Inventaris naam</value>
         <value xml:lang="ro">Nume Mijloc Fix</value>
@@ -2481,7 +2484,7 @@ esetata in mod automat</value>
         <value xml:lang="ar">مجموعة الأصول</value>
         <value xml:lang="en">Asset Group </value>
         <value xml:lang="es">Grupo de Activos</value>
-        <value xml:lang="fr">Groupe d'actifs immobilisés</value>
+        <value xml:lang="fr">Groupe d'immobilisations</value>
         <value xml:lang="it">Gruppo Cespite</value>
         <value xml:lang="nl">Inventaris group</value>
         <value xml:lang="ro">Grup Mijloace Fixe</value>
@@ -2505,7 +2508,7 @@ esetata in mod automat</value>
         <value xml:lang="ar">ربط سلعة جديدة بأصل ثابت</value>
         <value xml:lang="en">Link New product to Fixed Asset</value>
         <value xml:lang="es">Vincular nuevo producto a activo fijo</value>
-        <value xml:lang="fr">Relier le nouveau produit à l'actif immobilisé</value>
+        <value xml:lang="fr">Relier le nouveau produit à l'immobilisation</value>
         <value xml:lang="it">Link Nuovo prodotto per Cespite</value>
         <value xml:lang="nl">Wijs een nieuw product aan een inventaris nr toe</value>
         <value xml:lang="ro">Link Noul produs - Mijloc Fix</value>
@@ -2517,7 +2520,7 @@ esetata in mod automat</value>
         <value xml:lang="ar">نوع سلعة  الأصل الثابت</value>
         <value xml:lang="en">Fixed Asset Product Type</value>
         <value xml:lang="es">Tipo de producto de activo fijo</value>
-        <value xml:lang="fr">Type de produit lié à l'actif immobilisé</value>
+        <value xml:lang="fr">Type de produit lié à l'immobilisation</value>
         <value xml:lang="it">Tipo Prodotto Cespite</value>
         <value xml:lang="nl">Inventaris produkt type</value>
         <value xml:lang="ro">Tip Produs Mijloc Fix</value>
@@ -3945,7 +3948,7 @@ esetata in mod automat</value>
         <value xml:lang="ar">أصل ثابت جديد</value>
         <value xml:lang="en">New Fixed Asset</value>
         <value xml:lang="es">Nuevo Activo fijo</value>
-        <value xml:lang="fr">Nouvel actif immobilisé</value>
+        <value xml:lang="fr">Nouvellimmobilisationsé</value>
         <value xml:lang="it">Nuovo Cespite</value>
         <value xml:lang="nl">Nieuwe inventaris nr</value>
         <value xml:lang="ro">Nou Mijloc Fix</value>
@@ -3957,7 +3960,7 @@ esetata in mod automat</value>
         <value xml:lang="ar">اضافة تعريف لأصل ثابت</value>
         <value xml:lang="en">Create Fixed Asset Identification</value>
         <value xml:lang="es">Crear Identificación de Activo Fijo</value>
-        <value xml:lang="fr">Créer un identifiant pour l'actif immobilisé</value>
+        <value xml:lang="fr">Créer un identifiant pour l'immobilisation</value>
         <value xml:lang="it">Creare Identificazione Cespite</value>
         <value xml:lang="nl">Maak een inventaris identificatie aan</value>
         <value xml:lang="ro">Creaza Identificare Mijloace Fixe</value>
@@ -3969,7 +3972,7 @@ esetata in mod automat</value>
         <value xml:lang="ar">اضافة نوع  تعريف لأصل ثابت</value>
         <value xml:lang="en">Create Fixed Asset Identification Type</value>
         <value xml:lang="es">Crear Activo Tipo de Activo Fijo</value>
-        <value xml:lang="fr">Créer un type d'identifiants d'actifs immobilisés</value>
+        <value xml:lang="fr">Créer un type d'identifiants d'immobilisations</value>
         <value xml:lang="it">Tipo Identificazione Cespite</value>
         <value xml:lang="nl">Maak een inventaris identificatie type aan</value>
         <value xml:lang="ro">Creaza Tip Identificare Mijloace Fixe</value>
@@ -5500,7 +5503,7 @@ esetata in mod automat</value>
         <value xml:lang="ar">عرض كل الأصول الثابتة</value>
         <value xml:lang="en">Show All Fixed Assets</value>
         <value xml:lang="es">Mostrar todos los activos fijos</value>
-        <value xml:lang="fr">Afficher tous les actifs immobilisés</value>
+        <value xml:lang="fr">Afficher toutes les immobilisations</value>
         <value xml:lang="it">Mostra tutti i Cespiti</value>
         <value xml:lang="ro">Afiseaza toate Mijloacele Fixe</value>
         <value xml:lang="ru">Показать все основные средства</value>
@@ -5946,7 +5949,7 @@ esetata in mod automat</value>
     <property key="AccountingUpdateBillingAccountPermissionError">
         <value xml:lang="en">Security Error : to run updateAcctgTrans you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad : para ejecutar updateAcctgTrans debe tener el permiso ACCOUNTING_UPDATE o ACCOUNTING_ADMIN </value>
-        <value xml:lang="fr">Erreur sécurité : pour éditer un compte de facturation, il faut avoir la permission ACCOUNTING_UPDATE ou ACCOUNTING_ADMIN.</value>
+        <value xml:lang="fr">Erreur de sécurité : pour éditer un compte de facturation, il faut avoir la permission ACCOUNTING_UPDATE ou ACCOUNTING_ADMIN.</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire updateAcctgTrans tu devi avere il permesso ACCOUNTING_UPDATE o ACCOUNTING_ADMIN</value>
         <value xml:lang="nl">Toegangsfout : om accouttransacties aan te passen is ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permissie vereist</value>
         <value xml:lang="pt_BR">Erro e Segurança: para "Atualizar Transação em Conta" deverá obter permissões para ACCOUNTING_UPDATE ou ACCOUNTING_ADMIN </value>
@@ -5959,7 +5962,7 @@ esetata in mod automat</value>
     <property key="AccountingUpdateBillingAccountRolePermissionError">
         <value xml:lang="en">Security Error : to run updateBillingAccountRole you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad : para ejecutar updateBillingAccountRole debe tener el permiso ACCOUNTING_UPDATE o ACCOUNTING_ADMIN</value>
-        <value xml:lang="fr">Erreur sécurité : pour éditer une association d'un rôle à un compte de facturation, il faut avoir la permission ACCOUNTING_UPDATE ou ACCOUNTING_ADMIN.</value>
+        <value xml:lang="fr">Erreur de sécurité : pour éditer une association d'un rôle à un compte de facturation, il faut avoir la permission ACCOUNTING_UPDATE ou ACCOUNTING_ADMIN.</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire updateBillingAccountRole tu devi avere il permesso ACCOUNTING_UPDATE o ACCOUNTING_ADMIN</value>
         <value xml:lang="nl">Toegansfout : om een faktuurrekening rol aan te passen is ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permissie nodig</value>
         <value xml:lang="pt_BR">Erro de Segurança: para "Atualizar Função de Nota Fiscals" deverá obter permissões para ACCOUNTING_UPDATE ou ACCOUNTING_ADMIN</value>
@@ -5972,7 +5975,7 @@ esetata in mod automat</value>
     <property key="AccountingUpdateBillingAccountTermPermissionError">
         <value xml:lang="en">Security Error : to run updateBillingAccountTerm you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad : para ejecutar updateBillingAccountTerm debe tener el permiso ACCOUNTING_UPDATE or ACCOUNTING_ADMIN</value>
-        <value xml:lang="fr">Erreur sécurité : pour éditer un terme d'un compte de facturation, il faut avoir la permission ACCOUNTING_UPDATE ou ACCOUNTING_ADMIN.</value>
+        <value xml:lang="fr">Erreur de sécurité : pour éditer un terme d'un compte de facturation, il faut avoir la permission ACCOUNTING_UPDATE ou ACCOUNTING_ADMIN.</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire updateBillingAccountTerm tu devi avere il permesso ACCOUNTING_UPDATE o ACCOUNTING_ADMIN</value>
         <value xml:lang="nl">Toegansfout :om een faktuurrekening voorwaarde aan te passen is de ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permissie nodig</value>
         <value xml:lang="pt_BR">Erro de Segurança: para "Atualizar Termo de Nota Fiscal" deverá obter permissões para ACCOUNTING_UPDATE ou ACCOUNTING_ADMIN</value>
@@ -5997,7 +6000,7 @@ esetata in mod automat</value>
     <property key="AccountingUpdatePaymentPermissionError">
         <value xml:lang="en">Security Error : To Update a Payment you must either be the to or from party or have the PAY_INFO_UPDATE or PAY_INFO_ADMIN permissions.</value>
         <value xml:lang="es">Error de seguridad : Para actualizar un paga debe ser cualquiera el grupo destino u origen o tener el permiso PAY_INFO_UPDATE or PAY_INFO_ADMIN.</value>
-        <value xml:lang="fr">Erreur sécurité : pour éditer un paiement, vous devez soit être l'acteur demandeur ou payeur soit il faut avoir la permission PAY_INFO_UPDATE ou PAY_INFO_ADMIN.</value>
+        <value xml:lang="fr">Erreur de sécurité : pour éditer un paiement, vous devez soit être l'acteur demandeur ou payeur soit il faut avoir la permission PAY_INFO_UPDATE ou PAY_INFO_ADMIN.</value>
         <value xml:lang="it">Errore Sicurezza : Per Aggiornare un Pagamento tu devi avere entrambi da o a Soggetto o il permesso PAY_INFO_UPDATE o PAY_INFO_ADMIN.</value>
         <value xml:lang="nl">Toegangsfout : Om een betaling aan te passen is de PAY_INFO_UPDATE or PAY_INFO_ADMIN permissie vereist.</value>
         <value xml:lang="pt_BR">Erro de Segurança: para atualizar um pagamento deverá pertencer a uma secção ou obter permissões para  PAY_INFO_UPDATE ou PAY_INFO_ADMIN.</value>
@@ -6875,7 +6878,7 @@ esetata in mod automat</value>
         <value xml:lang="ar">إسم الأصل الثابت</value>
         <value xml:lang="en">Fixed Asset Name</value>
         <value xml:lang="es">Nombre de activo fijo</value>
-        <value xml:lang="fr">Nom de l'actif immobilisé</value>
+        <value xml:lang="fr">Nom de l'immobilisation</value>
         <value xml:lang="it">Nome Cespite</value>
         <value xml:lang="ro">Nume Mijloc Fix</value>
         <value xml:lang="ru">Название ОС</value>
@@ -6886,7 +6889,7 @@ esetata in mod automat</value>
         <value xml:lang="ar">دليل الأصل الثابت</value>
         <value xml:lang="en">Fixed Asset Type Id</value>
         <value xml:lang="es">Id tipo fijado</value>
-        <value xml:lang="fr">Type d'actif immobilisé</value>
+        <value xml:lang="fr">Type d'immobilisation</value>
         <value xml:lang="it">Tipo Cespite</value>
         <value xml:lang="ro">Tip Mijloc Fix</value>
         <value xml:lang="ru">Тип ОС</value>
@@ -7402,7 +7405,7 @@ esetata in mod automat</value>
     <property key="FormFieldTitle_parentFixedAssetId">
         <value xml:lang="en">Fixed Asset Parent Id</value>
         <value xml:lang="es">Id Padre Activo Fijo</value>
-        <value xml:lang="fr">Actif immobilisé parent</value>
+        <value xml:lang="fr">Immobilisation parente</value>
         <value xml:lang="it">Cespite Padre</value>
         <value xml:lang="ro">Mijloc Fix Parinte</value>
         <value xml:lang="ru">Родительский код ОС</value>
@@ -8408,7 +8411,7 @@ esetata in mod automat</value>
     <property key="PageTitleEditFixedAsset">
         <value xml:lang="en">Edit Fixed Asset</value>
         <value xml:lang="es">Editar Activo Fijo</value>
-        <value xml:lang="fr">Modifier un actif immobilisé</value>
+        <value xml:lang="fr">Modifier une immobilisation</value>
         <value xml:lang="it">Aggiorna Cespite</value>
         <value xml:lang="ro">Actualizeaza Mijloc Fix</value>
         <value xml:lang="ru">Изменить ОС</value>
@@ -8418,7 +8421,7 @@ esetata in mod automat</value>
     <property key="PageTitleEditFixedAssetIdents">
         <value xml:lang="en">Edit Fixed Asset Identifications</value>
         <value xml:lang="es">Editar Indents de Activo Fijo</value>
-        <value xml:lang="fr">Modifier identifiants d'actif immobilisé</value>
+        <value xml:lang="fr">Modifier les identifications d'immobilisation</value>
         <value xml:lang="it">Aggiorna Identità Cespite</value>
         <value xml:lang="ro">Actualizeaza Identitate Mijloc Fix</value>
         <value xml:lang="ru">Редактирование идентификаторов ОС</value>
@@ -8438,7 +8441,7 @@ esetata in mod automat</value>
     <property key="PageTitleEditFixedAssetMaintenance">
         <value xml:lang="en">Edit Fixed Asset Maintenance</value>
         <value xml:lang="es">Editar Mantenimiento de Activo Fijo</value>
-        <value xml:lang="fr">Modifier la maintenance de l'actif immobilisé</value>
+        <value xml:lang="fr">Modifier la maintenance de l'immobilisation</value>
         <value xml:lang="it">Aggiorna Manutenzione Cespite</value>
         <value xml:lang="ro">Actualizeaza Intretinere Mijloc Fix</value>
         <value xml:lang="ru">Изменить обслуживание ОС</value>
@@ -8448,7 +8451,7 @@ esetata in mod automat</value>
     <property key="PageTitleEditFixedAssetRegistrations">
         <value xml:lang="en">Edit Fixed Asset Registrations</value>
         <value xml:lang="es">Editar Registros de Activo Fijo</value>
-        <value xml:lang="fr">Modifier les immatriculations d'actifs immobilisés</value>
+        <value xml:lang="fr">Modifier les immatriculations d'immobilisations</value>
         <value xml:lang="it">Aggiorna Registrazioni Cespite</value>
         <value xml:lang="ro">Actualizeaza Inregistrare Mijloc Fix</value>
         <value xml:lang="ru">Изменить регистраций ОС</value>
@@ -8458,7 +8461,7 @@ esetata in mod automat</value>
     <property key="PageTitleEditFixedAssetStdCost">
         <value xml:lang="en">Edit Fixed Asset Standard Cost</value>
         <value xml:lang="es">Editar Costo Estandar de Activo Fijo</value>
-        <value xml:lang="fr">Modifier un coût standard d'actif immobilisé</value>
+        <value xml:lang="fr">Modifier un coût standard d'immobilisation</value>
         <value xml:lang="it">Aggiorna Costi Standard Cespiti</value>
         <value xml:lang="nl">Aanpassen faktuur rekening vaste kosten</value>
         <value xml:lang="ro">Actualizeaza Costuri Standard Mijloace Fixe</value>
@@ -8468,7 +8471,7 @@ esetata in mod automat</value>
     </property>
     <property key="PageTitleEditFixedAssetStdCosts">
         <value xml:lang="en">Edit Fixed Asset Standard Costs</value>
-        <value xml:lang="fr">Modifier les coûts standard d'actifs immobilisés</value>
+        <value xml:lang="fr">Modifier les coûts standards d'immobilisations</value>
         <value xml:lang="ru">Редактирование стандартной стоимости</value>
         <value xml:lang="th">แก้ไขราคามาตรฐาน</value>
     </property>
@@ -8810,7 +8813,7 @@ esetata in mod automat</value>
     <property key="PageTitleListFixedAssetCalendar">
         <value xml:lang="en">List Fixed Asset Calendar</value>
         <value xml:lang="es">Lista Calendario de Activo Fijo</value>
-        <value xml:lang="fr">Liste des calendriers d'actifs immobilisés</value>
+        <value xml:lang="fr">Liste des calendriers d'immobilisations</value>
         <value xml:lang="it">Lista Calendario Cespite</value>
         <value xml:lang="ro">Lista Calendar Mijloc Fix</value>
         <value xml:lang="ru">Список календаря ОС</value>
@@ -8820,7 +8823,7 @@ esetata in mod automat</value>
     <property key="PageTitleListFixedAssetChildren">
         <value xml:lang="en">Fixed Asset Children</value>
         <value xml:lang="es">Activo Fijo Hijo</value>
-        <value xml:lang="fr">Descendants de l'actif immobilisé</value>
+        <value xml:lang="fr">Descendants de l'immobilisation</value>
         <value xml:lang="it">Figli Cespiti</value>
         <value xml:lang="ro">Copii Mijloace Fixe</value>
         <value xml:lang="ru">Подчиненные ОС</value>
@@ -8845,7 +8848,7 @@ esetata in mod automat</value>
     <property key="PageTitleListFixedAssetMaints">
         <value xml:lang="en">List Fixed Asset Maints</value>
         <value xml:lang="es">Lista Mants Activo Fijo</value>
-        <value xml:lang="fr">Liste des maintenances de l'actif immobilisé</value>
+        <value xml:lang="fr">Liste des maintenances de l'immobilisation</value>
         <value xml:lang="it">Lista Manutenzioni Cespiti</value>
         <value xml:lang="ro">Lista Intretineri Mijloace Fixe</value>
         <value xml:lang="ru">Список регламентов обслуживания ОС</value>
@@ -8855,7 +8858,7 @@ esetata in mod automat</value>
     <property key="PageTitleListFixedAssetProducts">
         <value xml:lang="en">List Fixed Asset Products</value>
         <value xml:lang="es">Lista Productos Activo Fijo</value>
-        <value xml:lang="fr">Liste des produits de l'actif immobilisé</value>
+        <value xml:lang="fr">Liste des produits de l'immobilisation</value>
         <value xml:lang="it">Lista Prodotti Cespite</value>
         <value xml:lang="ro">Lista Prodotti Mijloc Fix</value>
         <value xml:lang="ru">Список продуктов ОС</value>
@@ -8870,7 +8873,7 @@ esetata in mod automat</value>
     <property key="PageTitleListFixedAssetStdCosts">
         <value xml:lang="en">List Fixed Asset Standard Costs</value>
         <value xml:lang="es">Lista Costos Estandar de Activo Fijo</value>
-        <value xml:lang="fr">Liste des coûts standard de l'actif immobilisé</value>
+        <value xml:lang="fr">Liste des coûts standard de l'immobilisation</value>
         <value xml:lang="it">Lista Costi Standard Cespite</value>
         <value xml:lang="nl">Lijst van inventaris vaste kosten</value>
         <value xml:lang="ro">Lista Costuri Standard Mijloc Fix</value>
@@ -8881,7 +8884,7 @@ esetata in mod automat</value>
     <property key="PageTitleListFixedAssets">
         <value xml:lang="en">List Fixed Assets</value>
         <value xml:lang="es">Lista Activos Fijos</value>
-        <value xml:lang="fr">Liste des actifs immobilisés</value>
+        <value xml:lang="fr">Liste des immobilisations</value>
         <value xml:lang="it">Lista Cespiti</value>
         <value xml:lang="ro">Lista Mijloace Fixe</value>
         <value xml:lang="ru">Список основных средств</value>
@@ -8958,7 +8961,7 @@ esetata in mod automat</value>
     <property key="PageTitleLookupFixedAsset">
         <value xml:lang="en">Lookup Fixed Asset</value>
         <value xml:lang="es">Buscar Activo Fijo</value>
-        <value xml:lang="fr">Recherche d'actifs immobilisés</value>
+        <value xml:lang="fr">Recherche d'immobilisations</value>
         <value xml:lang="it">Ricerca Cespite</value>
         <value xml:lang="nl">Inventaris item opzoeken</value>
         <value xml:lang="ro">Cauta Mijloc Fix</value>
