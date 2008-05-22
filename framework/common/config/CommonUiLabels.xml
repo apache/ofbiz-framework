@@ -1296,7 +1296,7 @@
         <value xml:lang="ar">ولاية</value>
         <value xml:lang="en">County</value>
         <value xml:lang="es">Condado</value>
-        <value xml:lang="fr">%District%</value>
+        <value xml:lang="fr">Canton</value>
         <value xml:lang="it">Contea</value>
         <value xml:lang="nl">Regio</value>
         <value xml:lang="pt">Condado/Distríto</value>
@@ -1310,7 +1310,7 @@
         <value xml:lang="ar">ولاية-مدينة</value>
         <value xml:lang="en">County-City</value>
         <value xml:lang="es">Ciudad-Condado</value>
-        <value xml:lang="fr">%Agglomération%</value>
+        <value xml:lang="fr">Agglomération</value>
         <value xml:lang="it">Contea-Città</value>
         <value xml:lang="nl">Gemeente</value>
         <value xml:lang="pt">Distríto-Cidade</value>
