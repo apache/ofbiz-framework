@@ -1996,8 +1996,8 @@ under the License.
     <view-map name="LookupShipment" type="screen" page="component://product/widget/facility/LookupScreens.xml#LookupShipment"/>
     
     <!-- PDFs  -->
-    <view-map name="InvoicePDF" type="screenfop" page="component://accounting/widget/AccountingPrintForms.xml#InvoicePDF" content-type="application/pdf" encoding="none"/>
-    <view-map name="PrintCheckPDF" type="screenfop" page="component://accounting/widget/AccountingPrintForms.xml#PrintCheckPDF" content-type="application/pdf" encoding="none"/>
+    <view-map name="InvoicePDF" type="screenfop" page="component://accounting/widget/AccountingPrintScreens.xml#InvoicePDF" content-type="application/pdf" encoding="none"/>
+    <view-map name="PrintCheckPDF" type="screenfop" page="component://accounting/widget/AccountingPrintScreens.xml#PrintCheckPDF" content-type="application/pdf" encoding="none"/>
     
     <!-- Financial Summary Reports -->
     <view-map name="FinancialSummaryReportOptions" type="screen" page="component://accounting/widget/ReportFinancialSummaryScreens.xml#FinancialSummaryReportOptions"/>

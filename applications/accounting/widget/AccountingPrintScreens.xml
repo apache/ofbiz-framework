@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<!-- These forms are for generating printed documents, such as invoices, bills, statements, etc. -->
+<!-- These screens are for generating printed documents, such as invoices, bills, statements, etc. -->
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
