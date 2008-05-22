@@ -64,14 +64,14 @@ under the License.
         <auto-attributes entity-name="ReturnItem" include="all" mode="IN" optional="true">
             <exclude field-name="returnItemSeqId"/>
         </auto-attributes>
+        <attribute name="returnItemMapKey" type="String" mode="IN" optional="true"/>
+        <attribute name="includeAdjustments" type="String" mode="IN" optional="true"/> <!-- The default is "Y": the adjustments associated with the item are included in the return -->
+        <attribute name="returnItemSeqId" type="String" mode="OUT" optional="false"/>
         <override name="returnId" optional="false"/>
         <override name="returnTypeId" optional="false"/>
         <override name="returnItemTypeId" optional="false"/>
         <override name="orderId" optional="false"/>
-        <override name="returnQuantity" optional="false"/>
-        <attribute name="returnItemMapKey" type="String" mode="IN" optional="true"/>
-        <attribute name="includeAdjustments" type="String" mode="IN" optional="true"/> <!-- The default is "Y": the adjustments associated with the item are included in the return -->
-        <attribute name="returnItemSeqId" type="String" mode="OUT" optional="false"/>
+        <override name="returnQuantity" optional="false"/>        
     </service>
     <service name="updateReturnItem" engine="simple" default-entity-name="ReturnItem"
             location="org/ofbiz/order/order/OrderReturnServices.xml" invoke="updateReturnItem">
