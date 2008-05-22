@@ -2175,18 +2175,6 @@
         <value xml:lang="th">เดือน</value>
         <value xml:lang="zh">月</value>
     </property>
-    <property key="EcommerceNbr">
-        <value xml:lang="en">Nbr</value>
-        <value xml:lang="es">#</value>
-        <value xml:lang="fr">Nb</value>
-        <value xml:lang="it">#</value>
-        <value xml:lang="ja">#</value>
-        <value xml:lang="nl">#</value>
-        <value xml:lang="ro">#</value>
-        <value xml:lang="ru">№</value>
-        <value xml:lang="th">จำนวน</value>
-        <value xml:lang="zh">#</value>
-    </property>
     <property key="EcommerceNbrOfDays">
         <value xml:lang="en">Nbr Of Days</value>
         <value xml:lang="es">Número de días</value>

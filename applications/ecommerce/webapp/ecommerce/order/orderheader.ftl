@@ -39,7 +39,7 @@ under the License.
             <div class="boxhead">
                 &nbsp;${uiLabelMap.OrderOrder}&nbsp;
                 <#if orderHeader?has_content>
-                    ${uiLabelMap.OrderNbr}<a href="<@ofbizUrl>orderstatus?orderId=${orderHeader.orderId}</@ofbizUrl>" class="lightbuttontext">${orderHeader.orderId}</a>&nbsp;
+                    ${uiLabelMap.CommonNbr}<a href="<@ofbizUrl>orderstatus?orderId=${orderHeader.orderId}</@ofbizUrl>" class="lightbuttontext">${orderHeader.orderId}</a>&nbsp;
                 </#if>
                 ${uiLabelMap.CommonInformation} 
                 <#if (orderHeader.orderId)?exists> 

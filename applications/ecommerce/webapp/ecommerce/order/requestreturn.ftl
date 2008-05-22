@@ -39,7 +39,7 @@ under the License.
           </#if>
           <table border="0" width="100%" cellpadding="2" cellspacing="0">
             <tr>
-              <td colspan="5"><h3>${uiLabelMap.OrderReturnItemsFromOrder} ${uiLabelMap.OrderNbr}<a href="<@ofbizUrl>orderstatus?orderId=${orderId}</@ofbizUrl>" class="buttontext">${orderId}</h3></td>
+              <td colspan="5"><h3>${uiLabelMap.OrderReturnItemsFromOrder} ${uiLabelMap.CommonNbr}<a href="<@ofbizUrl>orderstatus?orderId=${orderId}</@ofbizUrl>" class="buttontext">${orderId}</h3></td>
               <td align="right">
                 <span class="tableheadtext">${uiLabelMap.CommonSelectAll}</span>&nbsp;
                 <input type="checkbox" name="selectAll" value="Y" onclick="javascript:toggleAll(this, 'selectAllForm');"/>
@@ -149,7 +149,7 @@ under the License.
                 </td>
               </tr>
             <#else>
-              <tr><td colspan="6"><div class="tabletext">${uiLabelMap.OrderNoReturnableItems} ${uiLabelMap.OrderNbr}${orderId}</div></td></tr>
+              <tr><td colspan="6"><div class="tabletext">${uiLabelMap.OrderNoReturnableItems} ${uiLabelMap.CommonNbr}${orderId}</div></td></tr>
             </#if>
           </table>
         </form>

@@ -34,7 +34,7 @@ under the License.
             <table width="100%" border="0" cellpadding="1" cellspacing="0">
                 <tr>
                   <td colspan="4">
-                    <h1>${uiLabelMap.OrderShipGroup} # ${currIndex}</h1>
+                    <h1>${uiLabelMap.OrderShipGroup} ${uiLabelMap.CommonNbr} ${currIndex}</h1>
                   </td>
                 </tr>
                 <#assign i = 0>
@@ -121,7 +121,7 @@ under the License.
             <table width="100%" border="0" cellpadding="1" cellspacing="0">
               <tr>
                 <td colspan="3">
-                    <h1>${uiLabelMap.OrderShipGroup} # ${currIndex}</h1>
+                    <h1>${uiLabelMap.OrderShipGroup} ${uiLabelMap.CommonNbr} ${currIndex}</h1>
                 </td>
               </tr>
               <tr>

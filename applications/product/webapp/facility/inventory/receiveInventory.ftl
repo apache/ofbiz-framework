@@ -39,15 +39,15 @@ under the License.
 
         <#-- Receiving Results -->
         <#if receivedItems?has_content>
-          <h3>${uiLabelMap.ProductReceiptPurchaseOrder} #${purchaseOrder.orderId}</h3>
+          <h3>${uiLabelMap.ProductReceiptPurchaseOrder} ${purchaseOrder.orderId}</h3>
           <hr/>
           <table class="basic-table" cellspacing="0">
             <tr class="header-row">
-              <td>${uiLabelMap.ProductShipmentId}#</td>
-              <td>${uiLabelMap.ProductReceipt}#</td>
+              <td>${uiLabelMap.ProductShipmentId}</td>
+              <td>${uiLabelMap.ProductReceipt}</td>
               <td>${uiLabelMap.CommonDate}</td>
-              <td>${uiLabelMap.ProductPo} #</td>
-              <td>${uiLabelMap.ProductLine} #</td>
+              <td>${uiLabelMap.ProductPo}</td>
+              <td>${uiLabelMap.ProductLine}</td>
               <td>${uiLabelMap.ProductProductId}</td>
               <td>${uiLabelMap.ProductPerUnitPrice}</td>
               <td>${uiLabelMap.CommonRejected}</td>
