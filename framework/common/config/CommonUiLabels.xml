@@ -41,7 +41,7 @@
     </property>
     <property key="Business Intelligence">
         <value xml:lang="en">Business Intelligence</value>
-        <value xml:lang="fr">Informatique décisionnelle</value>
+        <value xml:lang="fr">Informat. décis.</value>
         <value xml:lang="it">Business Intelligence</value>
         <value xml:lang="th">การเรียนรู้ทางธุรกิจ</value>
     </property>
@@ -56,7 +56,7 @@
         <value xml:lang="de">Katalog</value>
         <value xml:lang="en">Catalog</value>
         <value xml:lang="es">Catálogo</value>
-        <value xml:lang="fr">Catalogue</value>
+        <value xml:lang="fr">Catalogues</value>
         <value xml:lang="it">Cataloghi</value>
         <value xml:lang="nl">Catalogus</value>
         <value xml:lang="pt">Catálogo</value>
@@ -6577,6 +6577,7 @@
     <property key="Example">
         <value xml:lang="ar">مثال</value>
         <value xml:lang="en">Example</value>
+        <value xml:lang="fr">Exemples</value>
         <value xml:lang="it">Esempi</value>
         <value xml:lang="pt">Exemplo</value>
         <value xml:lang="ro">Exemple</value>
@@ -6586,7 +6587,7 @@
     </property>
     <property key="ExampleExt">
         <value xml:lang="en">Example Ext</value>
-        <value xml:lang="fr">Exemple étendu</value>
+        <value xml:lang="fr">Exemples étendu</value>
         <value xml:lang="it">Esempi Est.</value>
         <value xml:lang="th">ตัวอย่างพิเศษ</value>
     </property>
@@ -6595,7 +6596,7 @@
         <value xml:lang="de">Lager</value>
         <value xml:lang="en">Facility</value>
         <value xml:lang="es">Almacén</value>
-        <value xml:lang="fr">Lieu de stockage</value>
+        <value xml:lang="fr">Stocks</value>
         <value xml:lang="it">Stabilimenti</value>
         <value xml:lang="nl">Faciliteit</value>
         <value xml:lang="pt">Instalação</value>
@@ -6909,7 +6910,7 @@
     </property>
     <property key="HR">
         <value xml:lang="en">HR</value>
-        <value xml:lang="fr">Ressources humaines</value>
+        <value xml:lang="fr">Ress. hum.</value>
         <value xml:lang="it">Risorse Umane</value>
         <value xml:lang="th">ฝ่ายบุคคล</value>
     </property>
@@ -7101,7 +7102,7 @@
         <value xml:lang="de">Akteur</value>
         <value xml:lang="en">Party</value>
         <value xml:lang="es">Participante</value>
-        <value xml:lang="fr">Acteur</value>
+        <value xml:lang="fr">Acteurs</value>
         <value xml:lang="it">Soggetti</value>
         <value xml:lang="nl">Partij</value>
         <value xml:lang="pt">Participante</value>
@@ -7170,7 +7171,7 @@
     </property>
     <property key="SFA">
         <value xml:lang="en">SFA</value>
-        <value xml:lang="fr">Force de vente</value>
+        <value xml:lang="fr">Vente</value>
     </property>
     <property key="SFAApplication">
         <value xml:lang="en">Sale Forces Automation Application</value>
