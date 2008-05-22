@@ -20,7 +20,7 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <form name="FindFacility" type="list" list-name="listIt" paginate-target="FindFacility" view-size="3"
+    <form name="FindFacility" type="list" list-name="listIt" paginate-target="FindFacility"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
