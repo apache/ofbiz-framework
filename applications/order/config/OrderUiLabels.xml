@@ -4861,7 +4861,7 @@
     <property key="OrderOrderQuotePercProfit">
         <value xml:lang="en">Quote Percentage Profit</value>
         <value xml:lang="es">%Ganancia de Cotización</value>
-        <value xml:lang="en">Devis pourcentage de profit</value>
+        <value xml:lang="fr">Pourcentage de profit</value>
         <value xml:lang="it">Percentuale Profitto Preventivo</value>
         <value xml:lang="nl">Offerte Winst percentage</value>
         <value xml:lang="ro">Procent Profit Oferta</value>
