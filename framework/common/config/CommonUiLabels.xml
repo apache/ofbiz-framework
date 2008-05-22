@@ -35,6 +35,7 @@
     </property>
     <property key="AssetMaint">
         <value xml:lang="en">Asset Maint</value>
+        <value xml:lang="fr">Maintenance immobilisations</value>
         <value xml:lang="it">Gestione Cespiti</value>
         <value xml:lang="th">การรักษาทรัพย์สิน</value>
     </property>
@@ -3830,6 +3831,7 @@
     </property>
     <property key="CommonOpen">
         <value xml:lang="en">Open</value>
+        <value xml:lang="fr">Ouvrir</value>
         <value xml:lang="th">เปิด</value>
     </property>
     <property key="CommonOpenNewWindow">

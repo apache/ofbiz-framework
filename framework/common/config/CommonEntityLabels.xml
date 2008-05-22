@@ -652,7 +652,7 @@
     <property key="Enumeration.description.KWTR_SN">
         <value xml:lang="en">Scope Notes</value>
         <value xml:lang="es">Notas de alcance</value>
-        <value xml:lang="fr">%Notes à portée%</value>
+        <value xml:lang="fr">Portée des notes</value>
         <value xml:lang="it">Scopo Note</value>
         <value xml:lang="nl">Scope Opmerkingen</value>
         <value xml:lang="pt">Notas de Alcance</value>
@@ -720,7 +720,7 @@
     </property>
     <property key="Enumeration.description.PGT_CAPTURE">
         <value xml:lang="en">Capture</value>
-        <value xml:lang="fr">%Blocage%</value>
+        <value xml:lang="fr">Prélèvement</value>
         <value xml:lang="it">Cattura</value>
         <value xml:lang="pt">Capturar</value>
         <value xml:lang="ro">Inregistreaza</value>
@@ -750,7 +750,7 @@
     </property>
     <property key="Enumeration.description.PGT_RELEASE">
         <value xml:lang="en">Release</value>
-        <value xml:lang="fr">%Abandon%</value>
+        <value xml:lang="fr">Abandon</value>
         <value xml:lang="it">Rilascia</value>
         <value xml:lang="pt">Libertar</value>
         <value xml:lang="ro">Eliberare</value>
@@ -984,7 +984,7 @@
     </property>
     <property key="Enumeration.description.PPIP_NEW_ACCT">
         <value xml:lang="en">Account Days Since Created</value>
-        <value xml:lang="fr">%Jours comptabilisés depuis la création%</value>
+        <value xml:lang="fr">Jours comptabilisés depuis la création</value>
         <value xml:lang="it">Giorni Dalla Creazione Conto</value>
         <value xml:lang="pt">Dias Desde Criação da Conta</value>
         <value xml:lang="ro">Giorni De la Creare Cont</value>
@@ -1174,7 +1174,7 @@
     </property>
     <property key="Enumeration.description.PRDR_FLAT">
         <value xml:lang="en">Rating Override</value>
-        <value xml:lang="fr">%Annule le classement%</value>
+        <value xml:lang="fr">Remplace le classement</value>
         <value xml:lang="it">Classificazione Sostituita</value>
         <value xml:lang="pt">Sobrescrever Classificação</value>
         <value xml:lang="ro">Clasificare Substituita</value>
@@ -1744,7 +1744,7 @@
     </property>
     <property key="Enumeration.description.WAT_LOOP">
         <value xml:lang="en">WAT_LOOP</value>
-        <value xml:lang="fr">%Implémentation de boucle%</value>
+        <value xml:lang="fr">Implémentation de boucle</value>
         <value xml:lang="th">WAT_LOOP</value>
     </property>
     <property key="Enumeration.description.WAT_NO">
@@ -1759,7 +1759,7 @@
     </property>
     <property key="Enumeration.description.WAT_SUBFLOW">
         <value xml:lang="en">WAT_SUBFLOW</value>
-        <value xml:lang="fr">%Implémentation de sous-flot%</value>
+        <value xml:lang="fr">Implémentation de flux secondaire</value>
         <value xml:lang="th">WAT_SUBFLOW</value>
     </property>
     <property key="Enumeration.description.WAT_TOOL">
