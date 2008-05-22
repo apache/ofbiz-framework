@@ -25,7 +25,7 @@ under the License.
         <table width="100%" cellpadding="1" cellspacing="0" border="0">
             <tr>
                 <td width="10%">
-                    <div class="tabletext"><b><span style="white-space: nowrap;">${uiLabelMap.OrderQuote} ${uiLabelMap.OrderNbr}</span></b></div>
+                    <div class="tabletext"><b><span style="white-space: nowrap;">${uiLabelMap.OrderQuote} ${uiLabelMap.CommonNbr}</span></b></div>
                 </td>
                 <td width="10">&nbsp;</td>
                 <td width="20%">

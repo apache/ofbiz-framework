@@ -3754,10 +3754,23 @@
         <value xml:lang="zh_CN">现在</value>
         <value xml:lang="zh">现在</value>
     </property>
+    <property key="CommonNbr">
+        <value xml:lang="en">Nbr</value>
+        <value xml:lang="es">#</value>
+        <value xml:lang="fr">N°</value>
+        <value xml:lang="it">#</value>
+        <value xml:lang="ja">#</value>
+        <value xml:lang="nl">#</value>
+        <value xml:lang="ro">#</value>
+        <value xml:lang="ru">№</value>
+        <value xml:lang="th">จำนวน</value>
+        <value xml:lang="zh">#</value>
+    </property>
     <property key="CommonNumber">
         <value xml:lang="en">Number</value>
+        <value xml:lang="fr">N°</value>
         <value xml:lang="th">หมายเลข</value>
-    </property>
+    </property>    
     <property key="CommonOctober">
         <value xml:lang="ar">أكتوبر</value>
         <value xml:lang="de">Oktober</value>

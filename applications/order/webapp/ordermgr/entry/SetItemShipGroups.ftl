@@ -34,7 +34,7 @@ under the License.
               <table width="100%" cellpadding="1" border="0" cellpadding="0" cellspacing="0">
               <tr>
                 <td colspan="2">
-                    <h1>${uiLabelMap.OrderShipGroup} # ${currIndex}<#if supplier?has_content> - ${uiLabelMap.OrderDropShipped} - ${supplier.groupName?default(supplier.partyId)}</#if></h1>
+                    <h1>${uiLabelMap.OrderShipGroup} ${uiLabelMap.CommonNbr} ${currIndex}<#if supplier?has_content> - ${uiLabelMap.OrderDropShipped} - ${supplier.groupName?default(supplier.partyId)}</#if></h1>
                 </td>
               </tr>
               <tr>
@@ -79,7 +79,7 @@ under the License.
                       <option value="${shipGroupIndex}">---</option>
                       <#list 0..(shoppingCart.getShipGroupSize() - 1) as groupIdx>
                         <#assign groupNumber = groupIdx + 1>
-                        <option value="${groupIdx}">${uiLabelMap.CommonGroup} # ${groupNumber}</option>
+                        <option value="${groupIdx}">${uiLabelMap.CommonGroup} ${uiLabelMap.CommonNbr} ${groupNumber}</option>
                       </#list>
                     </select>
                     </div>

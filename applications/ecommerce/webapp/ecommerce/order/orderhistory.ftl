@@ -34,7 +34,7 @@ under the License.
             </td>
             <td width="10">&nbsp;</td>
             <td width="15%">
-              <div class="tabletext"><b><span style="white-space: nowrap;">${uiLabelMap.OrderOrder} ${uiLabelMap.OrderNbr}</span></b></div>
+              <div class="tabletext"><b><span style="white-space: nowrap;">${uiLabelMap.OrderOrder} ${uiLabelMap.CommonNbr}</span></b></div>
             </td>
             <td width="10">&nbsp;</td>
             <td width="15%">
@@ -103,7 +103,7 @@ under the License.
             </td>
             <td width="10">&nbsp;</td>
             <td width="15%">
-              <div class="tabletext"><b><span style="white-space: nowrap;">${uiLabelMap.OrderOrder} ${uiLabelMap.OrderNbr}</span></b></div>
+              <div class="tabletext"><b><span style="white-space: nowrap;">${uiLabelMap.OrderOrder} ${uiLabelMap.CommonNbr}</span></b></div>
             </td>
             <td width="10">&nbsp;</td>
             <td width="15%">
@@ -116,7 +116,7 @@ under the License.
             <td width="10">&nbsp;</td>
             <td width="15%"><b></b></td>
           </tr>
-		<#if porderHeaderList?has_content>
+    <#if porderHeaderList?has_content>
           <#list porderHeaderList as porderHeader>
             <#assign pstatus = porderHeader.getRelatedOneCache("StatusItem")>
             <tr><td colspan="9"><hr class="sepbar"/></td></tr>
@@ -142,7 +142,7 @@ under the License.
               </td>
             </tr>
           </#list>
-		</#if>
+    </#if>
           <#if !porderHeaderList?has_content>
             <tr><td colspan="9"><h3>${uiLabelMap.OrderNoOrderFound}</h3></td></tr>
           </#if>
@@ -157,7 +157,7 @@ under the License.
         <table width="100%" cellpadding="1" cellspacing="0" border="0">
           <tr>
             <td width="10%">
-              <div class="tabletext"><b><span style="white-space: nowrap;">${uiLabelMap.OrderOrder} ${uiLabelMap.OrderNbr}</span></b></div>
+              <div class="tabletext"><b><span style="white-space: nowrap;">${uiLabelMap.OrderOrder} ${uiLabelMap.CommonNbr}</span></b></div>
             </td>
             <td width="10">&nbsp;</td>
             <td width="20%">

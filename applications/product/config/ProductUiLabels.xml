@@ -600,7 +600,7 @@
     </property>
     <property key="FormFieldTitle_autoOrderCcTryExp">
         <value xml:lang="en">Auto Order Cc Try Exp</value>
-        <value xml:lang="fr">Ordres automatiques : essayer d'autres dates d'expiration de carte de crédit ? </value>
+        <value xml:lang="fr">Commandes automatiques : essayer d'autres dates d'expiration de carte de crédit ? </value>
         <value xml:lang="it">Ordine Automatico Cc Tentativo Scadenza</value>
         <value xml:lang="ro">Comanda Automatica Cc Tentativa Expirata</value>
         <value xml:lang="ru">Автозаказ кр.карт. проб. расш.</value>
@@ -609,7 +609,7 @@
     </property>
     <property key="FormFieldTitle_autoOrderCcTryLaterMax">
         <value xml:lang="en">Auto Order Cc Try Later Max</value>
-        <value xml:lang="fr">Ordres automatiques : s'il n'y a pas assez de fonds réessayer combien de fois ?</value>
+        <value xml:lang="fr">Commandes automatiques : s'il n'y a pas assez de fonds réessayer combien de fois ?</value>
         <value xml:lang="it">Ordine Automatico Cc Riprovare Successivamente Massimo</value>
         <value xml:lang="ro">Comanda Automatica Cc Incearca mai tarziu Maxim</value>
         <value xml:lang="ru">Автозаказ кр.карт. проб. позже мак.</value>
@@ -618,7 +618,7 @@
     </property>
     <property key="FormFieldTitle_autoOrderCcTryLaterNsf">
         <value xml:lang="en">Auto Order Cc Try Later Nsf</value>
-        <value xml:lang="fr">Ordres automatiques : s'il n'y a pas assez de fonds réessayer plus tard ?</value>
+        <value xml:lang="fr">Commandes automatiques : s'il n'y a pas assez de fonds réessayer plus tard ?</value>
         <value xml:lang="it">Ordine Automatico Cc Riprovare Successivamente Nsf</value>
         <value xml:lang="ro">Comanda Automatica Cc Incearca mai tarziu Nsf</value>
         <value xml:lang="ru">Автозаказ кр.карт. проб. позже Nsf</value>
@@ -627,7 +627,7 @@
     </property>
     <property key="FormFieldTitle_autoOrderCcTryOtherCards">
         <value xml:lang="en">Auto Order Cc Try Other Cards</value>
-        <value xml:lang="fr">Ordres automatiques : essayer d'autres carte de crédit du client ?</value>
+        <value xml:lang="fr">Commandes automatiques : essayer d'autres carte de crédit du client ?</value>
         <value xml:lang="it">Ordine Automatico Cc Tentativo Altre Carte</value>
         <value xml:lang="ro">Comanda Automatica Cc Tentativa Alta Carte</value>
         <value xml:lang="ru">Автозаказ кр.карт. проб. другие карты</value>
@@ -3828,7 +3828,7 @@
     <property key="PageTitleAddItemsFromOrder">
         <value xml:lang="en">Add Items From Order</value>
         <value xml:lang="es">Añadir artículos de una Orden</value>
-        <value xml:lang="fr">Ajouter une ligne à partir de l'ordre</value>
+        <value xml:lang="fr">Ajouter une ligne à partir de la commande</value>
         <value xml:lang="it">Aggiungi Righe Dall'Ordine</value>
         <value xml:lang="ro">Adauga Linii Din Comanda</value>
         <value xml:lang="ru">Добавить позиции в заказ</value>
@@ -9727,7 +9727,7 @@
     <property key="ProductFromOrder">
         <value xml:lang="en">Product from order</value>
         <value xml:lang="es">Producto de una orden</value>
-        <value xml:lang="fr">Depuis l'ordre de commande</value>
+        <value xml:lang="fr">Article depuis la commande</value>
         <value xml:lang="it">Prodotto su ordine</value>
         <value xml:lang="ro">Produs pe comanda</value>
         <value xml:lang="ru">Продукт из заказа</value>
@@ -12403,7 +12403,7 @@
     <property key="ProductNoteOrderStatus">
         <value xml:lang="en">NOTE: Order Status is</value>
         <value xml:lang="es">NOTA: El estado de la orden es</value>
-        <value xml:lang="fr">NOTE: le statut de l'ordre est</value>
+        <value xml:lang="fr">NOTE: le statut de la commande est</value>
         <value xml:lang="it">NOTA: Stato Ordine è</value>
         <value xml:lang="ro">NOTA: Starea Comenzii este </value>
         <value xml:lang="ru">ПРИМЕЧАНИЕ: Статус заказа</value>
@@ -12413,7 +12413,7 @@
     <property key="ProductNoteOrderType">
         <value xml:lang="en">NOTE: Order Type is</value>
         <value xml:lang="es">NOTA: El tipo de orden es</value>
-        <value xml:lang="fr">NOTE: le type de l'ordre est</value>
+        <value xml:lang="fr">NOTE: le type de la commande est</value>
         <value xml:lang="it">NOTA: Tipo Ordine è</value>
         <value xml:lang="ro">NOTA: Tipul Comenzii este</value>
         <value xml:lang="ru">ПРИМЕЧАНИЕ: Тип заказа</value>
@@ -13236,7 +13236,7 @@
     <property key="ProductPo">
         <value xml:lang="en">PO</value>
         <value xml:lang="es">PO</value>
-        <value xml:lang="fr">CA</value>
+        <value xml:lang="fr">Cmd d'achat</value>
         <value xml:lang="it">OA</value>
         <value xml:lang="ro">OA</value>
         <value xml:lang="ru">ЗЗ</value>
@@ -13245,7 +13245,7 @@
     </property>
     <property key="ProductPopularityByOrders">
         <value xml:lang="en">Popularity by Orders</value>
-        <value xml:lang="fr">Popularité d'après les commandes</value>
+        <value xml:lang="fr">Popularité par commandes</value>
         <value xml:lang="it">Popularità per Ordine</value>
         <value xml:lang="ro">Popularitate Comanda</value>
         <value xml:lang="ru">Популярность по заказам</value>
@@ -13254,7 +13254,7 @@
     </property>
     <property key="ProductPopularityByViews">
         <value xml:lang="en">Popularity by Views</value>
-        <value xml:lang="fr">Popularité d'après les visites</value>
+        <value xml:lang="fr">Popularité par visites</value>
         <value xml:lang="it">Popularità per Visita</value>
         <value xml:lang="ro">Popularitate Vizualizare</value>
         <value xml:lang="ru">Популярность по просмотрам</value>
@@ -14520,7 +14520,7 @@
     <property key="ProductReceiptPurchaseOrder">
         <value xml:lang="en">Receipt(s) For Purchase Order</value>
         <value xml:lang="es">Recibo(s) por orden de compra</value>
-        <value xml:lang="fr">Ordre(s) d'achat reçu(s)</value>
+        <value xml:lang="fr">Reçu(s) pour la commande d'achat</value>
         <value xml:lang="it">Ricevuta(e) Per Ordine Acquisto</value>
         <value xml:lang="ro">Chitanta(e) Pe Comanda de Cumparare </value>
         <value xml:lang="ru">Получен(ы) для закупочного заказа</value>
@@ -14546,14 +14546,14 @@
     </property>
     <property key="ProductReceiveInventoryAgainstPO">
         <value xml:lang="en">Receive Against PO</value>
-        <value xml:lang="fr">Recevoir contre ordre d'achat</value>
+        <value xml:lang="fr">Recevoir contre la commande d'achat</value>
         <value xml:lang="it">Ricevi a fronte di un Ordine di Acquisto</value>
         <value xml:lang="ru">Получение для ЗЗ</value>
         <value xml:lang="th">ได้รับการเปรียบเทียบกับ PO</value>
     </property>
     <property key="ProductReceiveInventoryAgainstPurchaseOrder">
         <value xml:lang="en">Receive Inventory Against Purchase Order</value>
-        <value xml:lang="fr">Recevoir en stock contre ordre d'achat</value>
+        <value xml:lang="fr">Recevoir en stock contre la commande d'achat</value>
         <value xml:lang="it">Ricevi Inventario a fronte di un Ordine di Acquisto</value>
         <value xml:lang="ru">Получение ТМЦ для закупочного заказа</value>
         <value xml:lang="th">ได้รับสินค้าคงเหลือเปรียบเทียบรายการสั่งซื้อ
@@ -14561,7 +14561,7 @@
     </property>
     <property key="ProductReceiveInventoryAgainstPurchaseOrderProductNotFound">
         <value xml:lang="en">Product ${productId} not found in order ${orderId}</value>
-        <value xml:lang="fr">Produit ${productId) non trouvé dans l'ordre ${orderId}</value>
+        <value xml:lang="fr">Produit ${productId) non trouvé dans la commande ${orderId}</value>
         <value xml:lang="it">Prodotto ${productId} non trovato per l'ordine ${orderId}</value>
         <value xml:lang="ru">Продукт ${productId} в заказе ${orderId} не найден</value>
         <value xml:lang="th">สินค้า ${productId} ไม่พบในรายการ ${orderId}</value>
@@ -14603,7 +14603,7 @@
     <property key="ProductReceivePurchaseOrder">
         <value xml:lang="en">Receive Purchase Order</value>
         <value xml:lang="es">Recibir orden de compra</value>
-        <value xml:lang="fr">Réception lié à l'ordre d'achat n°</value>
+        <value xml:lang="fr">Réception lié à la commande d'achat n°</value>
         <value xml:lang="it">Ricevi Ordine Acquisto</value>
         <value xml:lang="ro">Intrare pe Comanda de Cumparare</value>
         <value xml:lang="ru">Получение закупочного заказа</value>
@@ -15500,7 +15500,7 @@
     <property key="ProductSeqId">
         <value xml:lang="en">Seq Id</value>
         <value xml:lang="es">Código de secuencia</value>
-        <value xml:lang="fr">Réf. de l'ordre</value>
+        <value xml:lang="fr">Réf. séq.</value>
         <value xml:lang="it">Codice Seq</value>
         <value xml:lang="ro">Cod Secventa</value>
         <value xml:lang="ru">ПП</value>
@@ -15656,7 +15656,7 @@
     <property key="ProductSettingsFromPrimaryOrder">
         <value xml:lang="en">Get Settings From Primary Order</value>
         <value xml:lang="es">Obtener parámetros de orden primaria</value>
-        <value xml:lang="fr">Prendre les configurations à partir de l'ordre principal</value>
+        <value xml:lang="fr">Prendre les configurations à partir de la commande principal</value>
         <value xml:lang="it">Prendi Impostazioni Dall'Ordine Primario</value>
         <value xml:lang="ro">Foloseste Setarile de la Comanda Primara</value>
         <value xml:lang="ru">Получить настройки из основного заказа</value>
@@ -17181,14 +17181,14 @@
     </property>
     <property key="ProductUpdateCategoryContentAssoc">
         <value xml:lang="en">Update Category Content Assoc</value>
-        <value xml:lang="fr">Mettre à jour l'association contenu catégorie</value>
+        <value xml:lang="fr">Mettre à jour l'association contenu/catégorie</value>
         <value xml:lang="it">Aggiorna Associazione Contenuti Categoria</value>
         <value xml:lang="th">อัพเดทกลุ่มหัวข้อหมวดหมู่</value>
     </property>
     <property key="ProductUpdateDownloadContentProduct">
         <value xml:lang="en">Update Download Content for Product</value>
         <value xml:lang="es">Actualizar Centro de descarga para producto</value>
-        <value xml:lang="fr">Mettre à jour le téléchargement du contenu de l'article</value>
+        <value xml:lang="fr">Mettre à jour le contenu de téléchargement de l'article</value>
         <value xml:lang="it">Aggiorna Conutenuto Download per Prodotto</value>
         <value xml:lang="ro">Actualizeaza Continutul Download pentru Produs</value>
         <value xml:lang="ru">Обновить Загрузить контент для продукта</value>
@@ -17198,7 +17198,7 @@
     <property key="ProductUpdateEmailContentProduct">
         <value xml:lang="en">Update Email Content for Product</value>
         <value xml:lang="es">Actualizar Contenido de email para producto</value>
-        <value xml:lang="fr">Mettre à jour l'email de contenu de l'article</value>
+        <value xml:lang="fr">Mettre à jour le contenu de l'email de l'article</value>
         <value xml:lang="it">Aggiorna Conutenuto Email per Prodotto</value>
         <value xml:lang="ro">Actualizeaza Continutul Email pentru Produs</value>
         <value xml:lang="ru">Обновить для продукта Отправить контент по эл. почте</value>
@@ -17247,7 +17247,7 @@
     <property key="ProductUpdateSimpleTextContentProduct">
         <value xml:lang="en">Update Simple Text Content for Product</value>
         <value xml:lang="es">Actualizar Contenido de texto simple para Producto</value>
-        <value xml:lang="fr">Mise à jour du texte du contenu de l'article</value>
+        <value xml:lang="fr">Mise à jour du contenu du texte de l'article</value>
         <value xml:lang="it">Aggiorna Conutenuto Testo per Prodotto</value>
         <value xml:lang="ro">Actualizeaza Conutinutul Text pe Produs</value>
         <value xml:lang="ru">Обновить для продукта Загрузить простой текстовый контент</value>
@@ -17384,7 +17384,7 @@
     <property key="ProductUsedForDisplayOrdering">
         <value xml:lang="en">Used For Display Ordering</value>
         <value xml:lang="es">Usado para mostrar la orden</value>
-        <value xml:lang="fr">Montrer l'ordre</value>
+        <value xml:lang="fr">Utilisé pour montrer l'ordre</value>
         <value xml:lang="it">Usato per Ordinamento Visualizzazione</value>
         <value xml:lang="ro">Foloseste Vizualizare Ordonata </value>
         <value xml:lang="ru">Используется для показа заказов</value>
@@ -17541,7 +17541,7 @@
     <property key="ProductWarningOrderStatus">
         <value xml:lang="en">WARNING: Order Status is</value>
         <value xml:lang="es">ADVERTENCIA: Estado de la orden es</value>
-        <value xml:lang="fr">Attention : le statut de l'ordre est</value>
+        <value xml:lang="fr">Attention : le statut de la commande est</value>
         <value xml:lang="it">ATTENZIONE: Stato Ordine è</value>
         <value xml:lang="ro">ATENTIE: Starea comenzii e</value>
         <value xml:lang="ru">ПРЕДУПРЕЖДЕНИЕ: Статус заказа</value>
