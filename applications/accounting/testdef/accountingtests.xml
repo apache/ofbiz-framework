@@ -21,6 +21,8 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
     <test-case case-name="accounting-tests"><junit-test-suite class-name="org.ofbiz.accounting.test.FinAccountTests"/></test-case>
+
+    <!-- Test case for Accounting Transaction on Purchase -->
     <test-case case-name="auto-accounting-transaction-tests-PoReceipt">
         <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoAcctgTransTests.xml" name="testAcctgTransOnPoReceipts"/>
     </test-case>
@@ -29,5 +31,10 @@
     </test-case>
     <test-case case-name="auto-accounting-transaction-tests-PaymentSentToSupplier">
         <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoAcctgTransTests.xml" name="testAcctgTransOnPaymentSentToSupplier"/>
-    </test-case>        
+    </test-case>
+
+    <!-- Test case for Accounting Transaction on Sales -->
+    <test-case case-name="auto-accounting-transaction-tests-SalesOrderShipments ">
+        <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoAcctgTransTests.xml" name="testAcctgTransForSalesOrderShipments"/>
+    </test-case>
 </test-suite>

@@ -21,6 +21,7 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
+    <!-- Test case for Accounting Transaction on Purchase -->    
     <simple-method method-name="testAcctgTransOnPoReceipts" short-description="Test case for Accounting Transaction on Receipts of Purchase Order." login-required="false">
         <!-- Precondition : shipment is created from supplier and order items are issued  -->
         <!-- create a purchase order using following: 
@@ -181,5 +182,62 @@ under the License.
             <if-compare field-name="debitTotal" operator="equals" value="creditTotal"/>
         </assert>   
     </simple-method>
-    
+
+    <!-- Test case for Accounting Transaction on Sales -->
+    <simple-method method-name="testAcctgTransForSalesOrderShipments" short-description="Creation and Shipments of sales order" login-required="false">
+        <!-- Precondition : 
+             1. create a sales order
+             2. from the order view screen, approve the order
+             3. from the order view screen, create a shipment to the customer (click on "New Shipment For Ship Group" and then click on the "Update" button in the next screen)         
+        -->
+        <!-- process tested by test case:
+             1. issue (assign) the order items to the shipment: select the "Order Items" tab and then click on "Issue All"; this action will generate and post to the GL the accounting transaction for the items taken from the warehouse and ready to be shipped 
+        -->
+        <!-- Post condition: all order items will be issued and it will generate and post to the GL the accounting transaction for the items taken from the warehouse and ready to be shipped
+              * Credit; in account:140000 - Account Type:"INVENTORY_ACCOUNT"
+              * Debit; in account:500000 - Account Type:"COGS_ACCOUNT"
+        -->
+
+        <set field="shipmentId" value="10000"/>
+        <set field="orderId" value="WSCO10000"/>
+        <set field="shipGroupSeqId" value="00001"/>
+        <set field="orderItemSeqId" value="00001"/>
+        <set field="inventoryItemId" value="9001"/>
+        <set field="quantity" value="2" type="Double"/>
+        <set field="productId" value="GZ-2644"/>
+
+        <entity-one entity-name="UserLogin" value-name="userLogin" auto-field-map="false">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.shipmentId" from-field="shipmentId"/>
+        <set field="serviceCtx.orderId" from-field="orderId"/>
+        <set field="serviceCtx.shipGroupSeqId" from-field="shipGroupSeqId"/>
+        <set field="serviceCtx.orderItemSeqId" from-field="orderItemSeqId"/>
+        <set field="serviceCtx.inventoryItemId" from-field="inventoryItemId"/>
+        <set field="serviceCtx.quantity" from-field="quantity"/>
+        <call-service service-name="issueOrderItemShipGrpInvResToShipment" in-map-name="serviceCtx"/>
+
+        <entity-condition entity-name="AcctgTransEntry" list-name="acctgTransEntryList">
+            <condition-expr field-name="productId" operator="equals" env-name="productId"/>
+        </entity-condition>
+        
+        <assert><not><if-empty field-name="acctgTransEntries"/></not></assert>
+        <iterate list-name="acctgTransEntryList" entry-name="acctgTransEntry">
+            <if-compare field-name="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
+                <assert>
+                    <if-compare field-name="acctgTransEntry.glAccountTypeId" operator="equals" value="INVENTORY_ACCOUNT"/>
+                    <if-compare field-name="acctgTransEntry.glAccountId" operator="equals" value="140000"/>
+                </assert>
+            <else>
+                <if-compare field-name="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
+                    <assert>
+                        <if-compare field-name="acctgTransEntry.glAccountTypeId" operator="equals" value="COGS_ACCOUNT"/>
+                        <if-compare field-name="acctgTransEntry.glAccountId" operator="equals" value="500000"/>
+                    </assert>
+                </if-compare>
+            </else>
+            </if-compare>
+        </iterate>
+    </simple-method>
 </simple-methods>
