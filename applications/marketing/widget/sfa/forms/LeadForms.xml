@@ -20,6 +20,7 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+        
     <form name="ListLeads" type="list" list-name="partyList" list-entry-name="partyRow" paginate-target="FindLead" 
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true">
         <row-actions>
@@ -34,8 +35,7 @@ under the License.
             <hyperlink target="viewprofile?partyId=${partyRow.partyId}&amp;roleTypeId=LEAD" description="${partyRow.partyId}" target-type="inter-app"/>
         </field>
         <field name="partyName" title="${uiLabelMap.PartyName}"><display description="${person.lastName}, ${person.firstName}"/></field>
-        <field name="statusId" title="${uiLabelMap.CommonStatus}"><display description=""/></field>
-        <field name="partyTypeId" title="${uiLabelMap.PartyType}"><display description="${partyType.description}"/> </field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" description="${description}" key-field-name="statusId"/></field>
     </form>
 
     <form name="createLead" type="single" target="createLead" header-row-style="header-row" default-table-style="basic-table" default-map-name="contactDetailMap">
@@ -78,6 +78,7 @@ under the License.
         <field name="leadSource" title="${uiLabelMap.SfaLeadSource}"><text size="50" maxlength="60"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
+    
     <form name="ConvertLead" type="single" target="convertLead" id="ConvertLead" >
         <actions>
           <set field="leadPartyId" from-field="parameters.leadPartyId"></set>
@@ -92,6 +93,7 @@ under the License.
         </field>
         <field name="submitButton"><submit button-type="button"/></field>
     </form>
+    
     <form name="MergeLeads" type="single"  target="MergeLeads">
         <actions>
             <set field="roleTypeId" value="LEAD"/>
@@ -111,4 +113,10 @@ under the License.
         </field>
         <field name="submitButton" position="3" title="${uiLabelMap.SfaMergeleads}" widget-style="buttontext" tooltip-style="button-text"><submit button-type="text-link"/></field>
     </form>
+    
+    <form name="CreateLeadFromVCard" type="upload" target="createLeadFromVCard" header-row-style="header-row" default-table-style="basic-table">
+        <field name="infile" title="${uiLabelMap.SfaUploadVCard}"><file/></field>
+        <field name="serviceName"><hidden value="createLead"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpload}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>     
 </forms>

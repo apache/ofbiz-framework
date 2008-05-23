@@ -150,7 +150,8 @@ public class VCard {
                 
                 GenericValue userLogin = (GenericValue) context.get("userLogin");
                 serviceCtx.put("userLogin", userLogin);
-                Map resp = dispatcher.runSync("createContact", serviceCtx);
+                String serviceName = (String) context.get("serviceName");
+                Map resp = dispatcher.runSync(serviceName, serviceCtx);
                 result.put("partyId", resp.get("partyId"));
             }
         } catch (GenericEntityException e) {
