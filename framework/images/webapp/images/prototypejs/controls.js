@@ -223,7 +223,7 @@ Autocompleter.Base = Class.create({
   },
   
   getEntry: function(index) {
-    return this.update.firstChild.childNodes[index];
+    return this.update.down().childNodes[index];
   },
   
   getCurrentEntry: function() {
