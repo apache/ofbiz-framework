@@ -87,6 +87,23 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <!--
+        The following screen is used to generate Ajax list of options for autocomplete fields
+    -->
+    <screen name="ajaxAutocompleteOptions">
+        <section>
+            <actions>
+                <set field="entityName" from-field="parameters.entityName"/>
+                <set field="fieldName" from-field="parameters.fieldName"/>
+                <set field="selectFields" from-field="parameters.selectFields"/>
+                <set field="sortByFields" from-field="parameters.sortByFields"/>
+                <script location="component://common/webcommon/WEB-INF/actions/includes/findAutocompleteOptions.bsh"/>
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://common/webcommon/includes/ajaxAutocompleteOptions.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
 
     <!-- Global decorator for General Screens/Pages -->
     <screen name="GlobalDecorator">

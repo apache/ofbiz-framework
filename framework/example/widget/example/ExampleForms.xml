@@ -173,8 +173,8 @@ under the License.
     <form name="AddExampleFeatureAppl" type="single" target="example_createExampleFeatureAppl" title="">
         <auto-fields-service service-name="createExampleFeatureAppl"/>
         <field name="exampleId"><hidden/></field>
-        <field name="exampleFeatureId" id-name="exampleFeatureId"><text server-autocomplete-target="ExampleFeatureOptions"></text></field>
-       <!-- <field name="exampleFeatureId" title="${uiLabelMap.ExampleFeature}" id-name="exampleFeatureId"><lookup target-form-name="LookupExampleFeature"/></field> -->
+        <field name="exampleFeatureId" id-name="exampleFeatureId"><text server-autocomplete-target="ajaxAutocompleteOptions" server-autocomplete-params="entityName=ExampleFeature&amp;fieldName=exampleFeatureId&amp;selectFields=[exampleFeatureId, description]&amp;sortByFields=[-exampleFeatureId]"></text></field>
+        <!-- <field name="exampleFeatureId" title="${uiLabelMap.ExampleFeature}" id-name="exampleFeatureId"><lookup target-form-name="LookupExampleFeature"/></field> -->
         <field name="exampleFeatureApplTypeId" title="${uiLabelMap.CommonType}">
             <drop-down allow-empty="false">
                 <entity-options entity-name="ExampleFeatureApplType" description="${description}">

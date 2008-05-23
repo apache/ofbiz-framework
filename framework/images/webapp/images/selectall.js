@@ -289,7 +289,7 @@ function ajaxSubmitFormUpdateAreas(form, areaCsvString) {
 function ajaxAutoCompleter(textFieldId,url,params) {
 	var optionsDivId = textFieldId + "_autoCompleterOptions";
 	$(textFieldId ).insert({after: '<div class="autocomplete"' + 'id=' + optionsDivId + '></div>'});
-    new Ajax.Autocompleter($(textFieldId), optionsDivId, url, params);	
+    new Ajax.Autocompleter($(textFieldId), optionsDivId, url, {parameters: params});	
 }
 // ===== End of Ajax Functions ===== //
 
