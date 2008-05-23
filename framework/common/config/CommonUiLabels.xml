@@ -6585,7 +6585,7 @@
     <property key="Example">
         <value xml:lang="ar">مثال</value>
         <value xml:lang="en">Example</value>
-        <value xml:lang="fr">Exemples</value>
+        <value xml:lang="fr">Exemple</value>
         <value xml:lang="it">Esempi</value>
         <value xml:lang="pt">Exemplo</value>
         <value xml:lang="ro">Exemple</value>
@@ -6595,7 +6595,7 @@
     </property>
     <property key="ExampleExt">
         <value xml:lang="en">Example Ext</value>
-        <value xml:lang="fr">Exemples étendu</value>
+        <value xml:lang="fr">Exemple étendu</value>
         <value xml:lang="it">Esempi Est.</value>
         <value xml:lang="th">ตัวอย่างพิเศษ</value>
     </property>
