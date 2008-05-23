@@ -350,5 +350,97 @@ under the License.
             <if-compare field-name="debitTotal" operator="equals" value="creditTotal"/>
         </assert>
         <check-errors/>
-    </simple-method>    
+    </simple-method>
+    
+    <!-- Test case for Accounting Transaction on Manufacturing -->
+    <simple-method method-name="testAcctgTransOnMaterialIssuance" short-description="Production run test case for material issuance from the warehouse" login-required="false">
+        <!-- Precondition: Inventory is received for following products:
+                 productId = MAT_A_COST, quantity = 4, facilityId = Web Store Warehouse
+                 productId = MAT_B_COST, quantity = 6, facilityId = Web Store Warehouse
+             then new production run is created and then started for following product
+                 productId = PROD_COST, quantity = 2, facilityId = Web Store Warehouse
+             
+            Post condition:- In entity "AcctgTransEntry" at least two entries will be created for MAT_A_COST
+                 * Credit; in account 141000 - "RAW MATERIALS INVENTORY"; amount: 36$
+                 * Debit; in account 142000 - "WORK IN PROGRESS INVENTORY"; amount: 36$
+            similarly for product MAT_B_COST 
+                 * Credit; in account 141000 - "RAW MATERIALS INVENTORY"; amount: 42$
+                 * Debit; in account 142000 - "WORK IN PROGRESS INVENTORY"; amount: 42$ -->
+
+        <set field="workEffortId" value="10001"/>
+        <set field="serviceCtx.workEffortId" from-field="workEffortId"/>
+        <entity-one entity-name="UserLogin" value-name="serviceCtx.userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <call-service service-name="issueProductionRunTask" in-map-name="serviceCtx"/>
+
+        <entity-condition entity-name="WorkEffortAndInventoryAssign" list-name="workEffortAndInventoryAssigns">
+            <condition-list combine="and">
+                <condition-expr field-name="workEffortId" env-name="workEffortId"/>
+                <condition-list combine="or">
+                    <condition-expr field-name="productId" operator="equals" value="MAT_A_COST"/>
+                    <condition-expr field-name="productId" operator="equals" value="MAT_B_COST"/>
+                </condition-list>
+            </condition-list>
+        </entity-condition>
+        <assert><not><if-empty field-name="workEffortAndInventoryAssigns"/></not></assert>
+
+        <set field="totalIssuedQty_MAT_A_COST" value="0.0" type="Double"/>
+        <set field="totalIssuedQty_MAT_B_COST" value="0.0" type="Double"/>
+        <iterate list-name="workEffortAndInventoryAssigns" entry-name="workEffortAndInventoryAssign">
+            <if-compare field-name="workEffortAndInventoryAssign.productId" operator="equals" value="MAT_A_COST">   
+                <calculate field-name="totalIssuedQty_MAT_A_COST">
+                    <calcop operator="add">
+                        <calcop operator="get" field-name="workEffortAndInventoryAssign.quantity"/>
+                        <calcop operator="get" field-name="totalIssuedQty_MAT_A_COST"/>
+                    </calcop>
+                </calculate>
+            <else>
+                <if-compare field-name="workEffortAndInventoryAssign.productId" operator="equals" value="MAT_B_COST">    
+                    <calculate field-name="totalIssuedQty_MAT_B_COST">
+                        <calcop operator="add">
+                            <calcop operator="get" field-name="workEffortAndInventoryAssign.quantity" />
+                            <calcop operator="get" field-name="totalIssuedQty_MAT_B_COST"/>
+                        </calcop>
+                    </calculate>
+                </if-compare> 
+            </else>
+            </if-compare>
+        </iterate>
+        <assert>
+            <if-compare field-name="totalIssuedQty_MAT_A_COST" operator="equals" value="4.0" type="Double"/>
+            <if-compare field-name="totalIssuedQty_MAT_B_COST" operator="equals" value="6.0" type="Double"/> 
+        </assert>
+        <entity-and entity-name="AcctgTrans" list-name="acctgTransList">
+            <field-map field-name="acctgTransTypeId" value="INVENTORY"/>
+        </entity-and>
+        <assert><not><if-empty field-name="acctgTransList"/></not></assert>
+
+        <iterate list-name="acctgTransList" entry-name="acctgTrans">
+            <get-related list-name="acctgTransEntryList" relation-name="AcctgTransEntry" value-name="acctgTrans"/>
+            <assert><not><if-empty field-name="acctgTransEntryList"/></not></assert>
+            <iterate list-name="acctgTransEntryList" entry-name="acctgTransEntry">
+                <if-compare field-name="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
+                    <assert>
+                        <or>
+                            <if-compare field-name="acctgTransEntry.productId" operator="equals" value="MAT_A_COST"/>
+                            <if-compare field-name="acctgTransEntry.productId" operator="equals" value="MAT_B_COST"/>    
+                        </or>
+                        <if-compare field-name="acctgTransEntry.glAccountTypeId" operator="equals" value="RAWMAT_INVENTORY"/>
+                        <if-compare field-name="acctgTransEntry.glAccountId" operator="equals" value="141000"/>
+                    </assert>
+                <else>
+                    <if-compare field-name="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
+                        <assert>
+                            <if-compare field-name="acctgTransEntry.productId" operator="equals" value="PROD_COST"/>
+                            <if-compare field-name="acctgTransEntry.glAccountTypeId" operator="equals" value="WIP_INVENTORY"/>
+                            <if-compare field-name="acctgTransEntry.glAccountId" operator="equals" value="142000"/>
+                        </assert>
+                    </if-compare>
+                </else>
+                </if-compare>
+            </iterate>
+        </iterate>
+        <check-errors/>
+    </simple-method>        
 </simple-methods>
