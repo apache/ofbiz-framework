@@ -33,9 +33,17 @@
         <value xml:lang="zh_CN">会计</value>
         <value xml:lang="zh">财务</value>
     </property>
+    <property key="AP">
+        <value xml:lang="en">AP</value>
+        <value xml:lang="fr">Compta. clients</value>
+    </property>
+    <property key="AR">
+        <value xml:lang="en">AP</value>
+        <value xml:lang="fr">Compta. fourn.</value>
+    </property>
     <property key="AssetMaint">
         <value xml:lang="en">Asset Maint</value>
-        <value xml:lang="fr">Maintenance immobilisations</value>
+        <value xml:lang="fr">Maint. immob.</value>
         <value xml:lang="it">Gestione Cespiti</value>
         <value xml:lang="th">การรักษาทรัพย์สิน</value>
     </property>
