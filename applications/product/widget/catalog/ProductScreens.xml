@@ -1400,7 +1400,7 @@ under the License.
 
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-name="product"/>
-                <script location="component://product/webapp/catalog/WEB-INF/actions/product/EditProductAssoc.bsh"/>
+                <script location="component://product/webapp/catalog/WEB-INF/actions/product/EditProductAssoc.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">

@@ -17,9 +17,6 @@
  * under the License.
  */
 
-import java.util.*;
-import java.sql.*;
-import java.io.*;
 import org.ofbiz.entity.*;
 import org.ofbiz.base.util.*;
 import org.ofbiz.widget.html.*;
@@ -31,43 +28,67 @@ String nowTimestampString = UtilDateTime.nowTimestamp().toString();
 context.put("nowTimestampString", nowTimestampString);
 
 boolean useValues = true;
-if (request.getAttribute("_ERROR_MESSAGE_") != null) useValues = false;
+if (request.getAttribute("_ERROR_MESSAGE_") != null) {
+    useValues = false;
+}
 
 productId = parameters.get("productId");
-if (productId == null) productId = parameters.get("PRODUCT_ID");
-if (productId != null) context.put("productId", productId);
+if (productId == null) {
+    productId = parameters.get("PRODUCT_ID");
+}
+
+if (productId != null) {
+    context.put("productId", productId);
+}
 
 productIdTo = parameters.get("PRODUCT_ID_TO");
-if (productIdTo != null) context.put("productIdTo", productIdTo);
+if (productIdTo != null) {
+    context.put("productIdTo", productIdTo);
+}
 
 productAssocTypeId = parameters.get("PRODUCT_ASSOC_TYPE_ID");
-if (productAssocTypeId != null) context.put("productAssocTypeId", productAssocTypeId);
+if (productAssocTypeId != null) {
+    context.put("productAssocTypeId", productAssocTypeId);
+}
 
 fromDateStr = parameters.get("FROM_DATE");
 
 Timestamp fromDate = null;
-if (UtilValidate.isNotEmpty(fromDateStr)) fromDate = Timestamp.valueOf(fromDateStr);
-if (fromDate == null) fromDate = (Timestamp)request.getAttribute("ProductAssocCreateFromDate");
-if (fromDate != null) context.put("fromDate", fromDate);
 
-product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId));
-if (product != null) context.put("product", product);
+if (UtilValidate.isNotEmpty(fromDateStr)) {
+    fromDate = Timestamp.valueOf(fromDateStr);
+}
+if (fromDate == null) {
+    fromDate = (Timestamp)request.getAttribute("ProductAssocCreateFromDate");
+}
+if (fromDate != null) {
+    context.put("fromDate", fromDate);
+}
 
-productAssoc = delegator.findByPrimaryKey("ProductAssoc", UtilMisc.toMap("productId", productId, "productIdTo", productIdTo, "productAssocTypeId", productAssocTypeId, "fromDate", fromDate));
-if (productAssoc != null) context.put("productAssoc", productAssoc);
+product = delegator.findByPrimaryKey("Product", ['productId' : productId]);
+if (product != null) {
+    context.put("product", product);
+}
 
-if("true".equalsIgnoreCase(parameters.get("useValues"))) useValues = true;
+productAssoc = delegator.findByPrimaryKey("ProductAssoc", ['productId' : productId, 'productIdTo' : productIdTo, 'productAssocTypeId' : productAssocTypeId, 'fromDate' : fromDate]);
+if (productAssoc != null) {
+    context.put("productAssoc", productAssoc);
+}
+
+if("true".equalsIgnoreCase(parameters.get("useValues"))) {
+    useValues = true;
+}
 if(productAssoc == null) useValues = false;
 
 context.put("useValues", useValues);
 boolean isCreate = true;
 context.put("isCreate", isCreate);
 
-Collection assocTypes = delegator.findList("ProductAssocType", null, null, UtilMisc.toList("description"), null, false);
+Collection assocTypes = delegator.findList("ProductAssocType", null, null, ['description'], null, false);
 context.put("assocTypes", assocTypes);
 
 if (product != null) {
-    assocFromProducts = product.getRelated("MainProductAssoc", null, UtilMisc.toList("sequenceNum"));
+    assocFromProducts = product.getRelated("MainProductAssoc", null, ['sequenceNum']);
     context.put("assocFromProducts", assocFromProducts);
     
     assocToProducts = product.getRelated("AssocProductAssoc");
