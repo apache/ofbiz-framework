@@ -28,6 +28,8 @@ under the License.
     <description>Example Component Site Configuration File</description>
     <owner>Copyright 2001-2008 The Apache Software Foundation</owner>
 
+    <handler name="bsf" type="request" class="org.ofbiz.webapp.event.BsfEventHandler"/>
+
     <!--
       These can be used to return the reports as views; make sure the classes are compiled and available
         <handler name="datavision" type="view" class="org.ofbiz.webapp.view.DataVisionViewHandler"/>
@@ -153,6 +155,12 @@ under the License.
         <event type="service" invoke="deleteExampleFeatureAppl"/>
         <response name="success" type="view" value="EditExampleFeatureExampleAppls"/>
         <response name="error" type="view" value="EditExampleFeatureExampleAppls"/>
+    </request-map>
+    <request-map uri="findExampleFeatures">
+        <security https="true" auth="true"/>
+        <event type="bsf" path="/WEB-INF/actions/includes/" invoke="findExampleFeatures.bsh"/>
+        <response name="success" type="view" value="ajaxAutocompleteOptions"/>
+        <response name="error" type="view" value="ajaxAutocompleteOptions"/>
     </request-map>
 
     <request-map uri="FormWidgetExamples"><security https="true" auth="true"/><response name="success" type="view" value="FormWidgetExamples"/></request-map>
