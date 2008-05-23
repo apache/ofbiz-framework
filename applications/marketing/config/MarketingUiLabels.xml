@@ -1219,7 +1219,7 @@
         <value xml:lang="en">SFA Manager Application</value>
     </property>
     <property key="SfaManagerWelcome">
-        <value xml:lang="en">Welcome to the SFA Manager Application</value>
+        <value xml:lang="en">Welcome to the Sales Force Automation Manager Application. This is an application in progress so not completed yet.&lt;br/&gt;&lt;br/&gt;A &lt;a href=&quot;http://docs.ofbiz.org/download/attachments/4008/IfCrmPlanEstimate.pdf&quot; target=blank&gt;design document&lt;/a&gt; and &lt;a href=&quot;https://issues.apache.org/jira/browse/OFBIZ-1640&quot; target=blank&gt;Jira documents&lt;/a&gt; are available.</value>
     </property>
     <property key="SfaMergeContacts">
         <value xml:lang="en">Merge Contacts</value>
