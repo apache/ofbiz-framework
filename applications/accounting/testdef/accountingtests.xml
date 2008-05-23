@@ -40,4 +40,7 @@
     <test-case case-name="auto-accounting-transaction-tests-SalesInvoice">
         <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoAcctgTransTests.xml" name="testAcctgTransOnSalesInvoice"/>
     </test-case>
+    <test-case case-name="auto-accouning-transaction-tests-PaymentReceivedFromCustomer">
+        <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoAcctgTransTests.xml" name="testAcctgTransOnPaymentReceivedFromCustomer"/>
+    </test-case>    
 </test-suite>

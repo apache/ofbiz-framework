@@ -190,7 +190,7 @@ under the License.
              2. from the order view screen, approve the order
              3. from the order view screen, create a shipment to the customer (click on "New Shipment For Ship Group" and then click on the "Update" button in the next screen)         
         -->
-        <!-- process tested by test case:
+        <!-- Following process is tested by test case:
              1. issue (assign) the order items to the shipment: select the "Order Items" tab and then click on "Issue All"; this action will generate and post to the GL the accounting transaction for the items taken from the warehouse and ready to be shipped 
         -->
         <!-- Post condition: all order items will be issued and it will generate and post to the GL the accounting transaction for the items taken from the warehouse and ready to be shipped
@@ -249,7 +249,7 @@ under the License.
             4. Issue the order items to the shipment: select the "Order Items" tab and then click on "Issue All."
             5. From the shipment detail screen of the shipment created in the previous step (there is a link to it from the order detail screen), set the status of the shipment to "pack"(Click on "Edit" and then from statusId drop down select statusId = "Pack" and then click update); this action will generate a sales invoice
         -->
-        <!-- Process tested by test case:
+        <!-- Following process is tested by test case:
              1. Go to the invoice detail screen (there is a link to the invoice from the order detail screen) and click on the "set status to ready"; this action will generate and post to the GL the accounting transaction for the sales invoice
         -->
         <!-- Post condition: "Set status to ready"; This action will generate and post to the GL the accounting transaction for the sales invoice
@@ -293,4 +293,62 @@ under the License.
         </iterate>
         <check-errors/>
     </simple-method>
+    
+    <simple-method method-name="testAcctgTransOnPaymentReceivedFromCustomer" short-description="Test case on Payment Received from customer for Sales Invoice" login-required="false">
+        <!-- Precondition :- 
+            1. Click on the Payment top menu in the Accounting application, then click on the "Create New Payment" link.
+            2. In the "New incoming payment" box, set the customer id in the "From Party ID" field; then set "Payment Type ID" = "Customer Payment" and a proper "Payment Method Type" (e.g. "Electronic Funds Transfer"); then set the "amount" and submit the form
+        -->
+        <!-- Following process is tested by test case:
+             1. From the payment detail screen, when you are ready to post the payment to the GL, click on the "Status to Received" link
+        -->
+        <!-- Post condition: "Status to Received", Received Payments. When you are ready to post the payment to the GL this action will generate and post to the GL the accounting transaction for the items taken from the warehouse and ready to be shipped:
+              * Credit; in glAccountId=120000 - glAccountTypeId="ACCOUNTS_RECEIVABLE"
+              * Debit; in glAccountId=112000 - glAccountTypeId="UNDEPOSITED_RECEIPTS"
+        -->
+
+        <set field="paymentId" value="10000"/>
+        <entity-one entity-name="UserLogin" value-name="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.paymentId" from-field="paymentId"/>
+        <set field="serviceCtx.statusId" value="PMNT_RECEIVED"/>
+        <call-service service-name="setPaymentStatus" in-map-name="serviceCtx"/>
+
+        <entity-one entity-name="Payment" value-name="payment">
+            <field-map field-name="paymentId" env-name="paymentId"/>
+        </entity-one>
+        <get-related value-name="payment" relation-name="AcctgTrans" list-name="acctgTransList"/>
+        <first-from-list list-name="acctgTransList" entry-name="acctgTrans"/>
+        <get-related value-name="acctgTrans" relation-name="AcctgTransEntry" list-name="acctgTransEntries"/>
+        <set field="debitTotal" type="Double" value="0.0"/>
+        <set field="creditTotal" type="Double" value="0.0"/>
+
+        <assert><not><if-empty field-name="acctgTransEntries"/></not></assert>
+        <iterate entry-name="acctgTransEntry" list-name="acctgTransEntries">
+            <if-compare field-name="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
+            <!--<assert>
+                    <if-compare field-name="acctgTransEntry.glAccountTypeId" operator="equals" value="ACCOUNTS_RECEIVABLE"/>
+                    <if-compare field-name="acctgTransEntry.glAccountId" operator="equals" value="120000"/>
+                </assert>-->
+                <calculate field-name="creditTotal">
+                    <calcop operator="add" field-name="acctgTransEntry.origAmount"/>
+                </calculate>
+            </if-compare>
+            <if-compare field-name="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
+            <!--<assert>
+                    <if-compare field-name="acctgTransEntry.glAccountTypeId" operator="equals" value="UNDEPOSITED_RECEIPTS"/>
+                    <if-compare field-name="acctgTransEntry.glAccountId" operator="equals" value="112000"/>
+                </assert>-->
+                <calculate field-name="debitTotal">
+                    <calcop operator="add" field-name="acctgTransEntry.origAmount"/>
+                </calculate>
+            </if-compare>
+        </iterate>
+        <assert>
+            <if-compare field-name="debitTotal" operator="equals" value="creditTotal"/>
+        </assert>
+        <check-errors/>
+    </simple-method>    
 </simple-methods>
