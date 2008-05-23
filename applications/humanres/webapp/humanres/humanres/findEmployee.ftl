@@ -233,5 +233,6 @@ under the License.
         <div><h3>${lookupErrorMessage}</h3></div>
     </#if>
         <div>&nbsp;</div>
+    </div>
     </#if>
 <!-- end findEmployees.ftl -->

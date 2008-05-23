@@ -541,6 +541,9 @@
     <property key="HumanResFindPartySkill">
         <value xml:lang="en">Find Party Skills</value>
     </property>
+    <property key="HumanResFindPerfReview">
+        <value xml:lang="en">Find Performance Review</value>
+    </property>
     <property key="HumanResFindPersonTraining">
         <value xml:lang="en">Find Person Training</value>
     </property>
@@ -830,6 +833,12 @@
         <value xml:lang="en">Payroll Preference SequenceId</value>
         <value xml:lang="it">Sequenza Preferenze Paghe</value>
         <value xml:lang="th">รหัสรายการเงินเดือนสิทธิพิเศษ</value>
+    </property>
+    <property key="HumanResPerfNote">
+        <value xml:lang="en">Performance Note</value>
+    </property>
+    <property key="HumanResPerfReview">
+        <value xml:lang="en">Performance Review</value>
     </property>
     <property key="HumanResPositionFulfillments">
         <value xml:lang="en">Fulfillments</value>

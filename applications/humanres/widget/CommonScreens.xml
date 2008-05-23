@@ -195,6 +195,19 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <section>
+                            <condition>
+                                <and>
+                                    <if-has-permission permission="HUMANRES" action="_VIEW"/>
+                                    <not><if-empty field-name="partyId"/></not>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <include-menu name="ProfileTabBar" location="component://humanres/widget/Menus.xml"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
                     <decorator-section name="body">
                         <section>
                             <condition>
@@ -214,7 +227,7 @@ under the License.
                                                     </or>
                                                 </condition>
                                                 <widgets>
-                                                    <label style="h1" text="${uiLabelMap.PartyTheProfileOf} ${lookupPerson.personalTitle} ${lookupPerson.firstName} ${lookupPerson.middleName} ${lookupPerson.lastName} ${lookupPerson.suffix} ${lookupGroup.groupName} [${partyId}]"/>
+                                                    <label text="${uiLabelMap.PartyTheProfileOf} ${lookupPerson.personalTitle} ${lookupPerson.firstName} ${lookupPerson.middleName} ${lookupPerson.lastName} ${lookupPerson.suffix} ${lookupGroup.groupName} [${partyId}]"/>
                                                 </widgets>
                                                 <fail-widgets>
                                                     <label style="h1" text="${uiLabelMap.PartyNewUser}"/>
