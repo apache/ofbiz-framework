@@ -286,6 +286,11 @@ function ajaxSubmitFormUpdateAreas(form, areaCsvString) {
     ajaxSubmitRequestUpdateAreas(form.action, form.serialize(true), areaCsvString);
 }
 
+function ajaxAutoCompleter(textFieldId,url,params) {
+	var optionsDivId = textFieldId + "_autoCompleterOptions";
+	$(textFieldId ).insert({after: '<div class="autocomplete"' + 'id=' + optionsDivId + '></div>'});
+    new Ajax.Autocompleter($(textFieldId), optionsDivId, url, params);	
+}
 // ===== End of Ajax Functions ===== //
 
 function submitFormDisableSubmits(form) {

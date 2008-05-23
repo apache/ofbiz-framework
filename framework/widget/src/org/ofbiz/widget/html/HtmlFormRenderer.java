@@ -290,8 +290,22 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         this.makeHyperlinkString(buffer, textField.getSubHyperlink(), context);
 
         this.appendTooltip(buffer, context, modelFormField);
-
-        //appendWhitespace(buffer);
+        //Add javascript block to execute a function that will register textfield to autocompleter Ajax system.
+        String serverAutocompleteTarget = textField.getServerAutocompleteTarget(context);
+        if (UtilValidate.isNotEmpty(serverAutocompleteTarget)) {
+            appendWhitespace(buffer);
+            buffer.append("<script language=\"JavaScript\" type=\"text/javascript\">");
+            appendWhitespace(buffer);
+            buffer.append("ajaxAutoCompleter('");
+            buffer.append(idName);
+            buffer.append("', '");
+            WidgetWorker.buildHyperlinkUrl(buffer, serverAutocompleteTarget,HyperlinkField.DEFAULT_TARGET_TYPE, request, response, context);
+            buffer.append("', '");
+            buffer.append(textField.getServerAutocompleteParams(context) + "');");
+            appendWhitespace(buffer);
+            buffer.append("</script>");
+        }
+        appendWhitespace(buffer);
     }
 
     /* (non-Javadoc)

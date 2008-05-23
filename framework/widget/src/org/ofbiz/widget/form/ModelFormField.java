@@ -2167,7 +2167,9 @@ public class ModelFormField {
         protected SubHyperlink subHyperlink;
         protected boolean disabled;
         protected boolean clientAutocompleteField;
-
+        protected FlexibleStringExpander serverAutocompleteTargetExdr;
+        protected FlexibleStringExpander serverAutocompleteParamsExdr;
+        
         protected TextField() {
             super();
         }
@@ -2211,6 +2213,9 @@ public class ModelFormField {
             if (subHyperlinkElement != null) {
                 this.subHyperlink = new SubHyperlink(subHyperlinkElement);
             }
+            this.serverAutocompleteTargetExdr = new FlexibleStringExpander(element.getAttribute("server-autocomplete-target"));
+            this.serverAutocompleteParamsExdr = new FlexibleStringExpander(element.getAttribute("server-autocomplete-params"));
+
         }
 
         public void renderFieldString(StringBuffer buffer, Map context, FormStringRenderer formStringRenderer) {
@@ -2288,6 +2293,21 @@ public class ModelFormField {
         public void setSubHyperlink(SubHyperlink newSubHyperlink) {
             this.subHyperlink = newSubHyperlink;
         }
+        public String getServerAutocompleteTarget(Map context) {
+            if(serverAutocompleteTargetExdr !=null){
+                return this.serverAutocompleteTargetExdr.expandString(context);
+            } else {
+                return "";
+            }
+        }
+        public String getServerAutocompleteParams(Map context) {
+            if(serverAutocompleteParamsExdr !=null){
+                return this.serverAutocompleteParamsExdr.expandString(context);
+            } else {
+                return "";
+            }            
+        }
+        
     }
 
     public static class TextareaField extends FieldInfo {

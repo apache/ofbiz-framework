@@ -1,0 +1,27 @@
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.model.DynamicViewEntity;
+import org.ofbiz.entity.model.ModelKeyMap;
+import org.ofbiz.entity.util.EntityFindOptions;
+import org.ofbiz.entity.util.EntityListIterator;
+import org.ofbiz.entity.condition.*;
+import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.condition.EntityExpr;
+import org.ofbiz.base.util.*;
+import org.ofbiz.service.LocalDispatcher;
+
+andExprs = new ArrayList();
+exampleFeatureId = request.getParameter("exampleFeatureId");
+if (exampleFeatureId != null && exampleFeatureId.length() > 0) {
+    andExprs.add(new EntityExpr(new EntityFunction.UPPER(new EntityFieldValue("exampleFeatureId")),
+            EntityOperator.LIKE, "%" + exampleFeatureId.toUpperCase() + "%"));
+}
+
+if (andExprs.size() > 0){
+    entityConditionList = new EntityConditionList(andExprs, EntityOperator.AND);
+    List features = delegator.findByCondition("ExampleFeature", entityConditionList, null, UtilMisc.toList("-exampleFeatureId"));
+    // exampleFeatureId list to use in form-widgets
+    System.out.println("featuresfeatures" + features.size());
+    context.put("listIt", features);
+}
