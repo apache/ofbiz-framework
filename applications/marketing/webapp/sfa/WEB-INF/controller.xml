@@ -151,7 +151,19 @@ under the License.
     <request-map uri="CreateContactFromVCard">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="CreateContactFromVCard"/>
-    </request-map>    
+    </request-map>
+    <request-map uri="createContactFromVCard">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="importVCard"/>
+        <response name="success" type="view" value="viewprofile"/><!-- What would be the view in case a vCard contains more than one contact -->
+        <response name="error" type="view" value="CreateContactFromVCard"/>
+    </request-map>
+    <request-map uri="createVCardFromContact">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="exportVCard"/>
+        <response name="success" type="view" value="FindContacts"/><!-- This need to be fixed -->
+        <response name="error" type="view" value="FindContacts"/>
+    </request-map>        
     <!-- end of request mappings -->
 
     <!-- View Mappings -->

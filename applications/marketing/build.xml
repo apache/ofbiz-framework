@@ -37,7 +37,7 @@ under the License.
 
     <target name="classpath">
         <path id="local.class.path">
-            <!--<fileset dir="${lib.dir}" includes="*.jar"/>-->
+            <fileset dir="${lib.dir}" includes="*.jar"/>
             <fileset dir="../../framework/base/lib" includes="*.jar"/>
             <fileset dir="../../framework/base/lib/j2eespecs" includes="*.jar"/>
             <fileset dir="../../framework/base/build/lib" includes="*.jar"/>
@@ -52,6 +52,7 @@ under the License.
             <fileset dir="../content/build/lib" includes="*.jar"/>
             <fileset dir="../../framework/common/build/lib" includes="*.jar"/>
             <fileset dir="../product/build/lib" includes="*.jar"/>
+            <fileset dir="../party/build/lib" includes="*.jar"/>
         </path>
     </target>
 
