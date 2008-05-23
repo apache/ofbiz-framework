@@ -42,7 +42,7 @@
         <field name="fromDate"><date-time/></field>
         <field name="terminationReasonId" title="${uiLabelMap.HumanResTerminationReasonId}"><lookup target-form-name="LookupTerminationReason"/></field>
         <field name="terminationTypeId" title="${uiLabelMap.HumanResTerminationTypeId}">
-            <drop-down allow-empty="false">
+            <drop-down allow-empty="true" current-description="">
                 <entity-options description="${description}" key-field-name="terminationTypeId" entity-name="TerminationType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -63,10 +63,10 @@
         <field name="roleTypeIdFrom" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${roleTypeIdFrom}" target="EditEmployment?partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;fromDate=${fromDate}"/>
         </field>            
-        <field name="roleTypeIdTo"><display/></field>
-        <field name="partyIdFrom"><display/></field>
-        <field name="partyIdTo"><display/></field>
-        <field name="fromDate"><display/></field>
+        <field name="roleTypeIdTo"><display also-hidden="true"/></field>
+        <field name="partyIdFrom"><display also-hidden="true"/></field>
+        <field name="partyIdTo"><display also-hidden="true"/></field>
+        <field name="fromDate"><display also-hidden="true"/></field>
         <field name="thruDate"><display/></field>
         <field name="terminationReasonId" title="${uiLabelMap.HumanResTerminationReasonId}"><display/></field>
         <field name="terminationTypeId" title="${uiLabelMap.HumanResTerminationTypeId}"><display/></field>        
@@ -76,7 +76,7 @@
         <alt-target use-when="employment==null" target="createEmployment"/>
         <auto-fields-service service-name="createEmployment" default-field-type="hidden"/>  
         <field name="roleTypeIdFrom" tooltip="${uiLabelMap.CommonRequired}">
-            <drop-down allow-empty="false" no-current-selected-key="------">
+            <drop-down allow-empty="true" no-current-selected-key="------">
                 <entity-options description="${description}" key-field-name="roleTypeId" entity-name="RoleType">                    
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -91,10 +91,10 @@
         </field>        
         <field name="partyIdFrom" title="${uiLabelMap.HumanResPartyIdFrom}" tooltip="${uiLabelMap.CommonRequired}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="partyIdTo" title="${uiLabelMap.HumanResPartyIdTo}" tooltip="${uiLabelMap.CommonRequired}"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="fromDate" title="${uiLabelMap.CommonDate}" tooltip="${uiLabelMap.CommonRequired}"/>
+        <field name="fromDate" title="${uiLabelMap.CommonDate}" tooltip="${uiLabelMap.CommonRequired}"><date-time/></field>
         <field name="terminationReasonId" title="${uiLabelMap.HumanResTerminationReasonId}"><lookup target-form-name="LookupTerminationReason"/></field>
-        <field name="terminationTypeId" title="${uiLabelMap.HumanResTerminationTypeId}">
-            <drop-down allow-empty="false" no-current-selected-key="------">
+        <field name="terminationTypeId" use-when="employment!=null" title="${uiLabelMap.HumanResTerminationTypeId}">
+            <drop-down allow-empty="true" no-current-selected-key="------">
                 <entity-options description="${description}" key-field-name="terminationTypeId" entity-name="TerminationType">                    
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -110,7 +110,7 @@
             <set field="referredByPartyId" from-field="parameters.partyId"/>
             <entity-one entity-name="EmploymentApp" auto-field-map="true"/>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="inputFields" env-name="employmentAppCtx"/>
                 <field-map field-name="entityName" value="EmploymentApp"/>
                 <field-map field-name="orderBy" value="applicationId"/>
             </service>
@@ -160,8 +160,8 @@
             </drop-down>
         </field>
         <field name="applyingPartyId"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="referredByPartyId" use-when="applicationId==null"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="referredByPartyId" use-when="referredByPartyId!=null&amp;&amp;applicationId!=null"><hidden/></field>
+        <field name="referredByPartyId" use-when="employmentApp==null"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="referredByPartyId" use-when="employmentApp!=null"><hidden/></field>
         <field name="employmentAppSourceTypeId">
             <drop-down allow-empty="true" current-description="">
                 <entity-options description="${employmentAppSourceTypeId}" key-field-name="employmentAppSourceTypeId" entity-name="EmploymentAppSourceType">
@@ -356,23 +356,24 @@
         <field name="payGradeId"><hidden/></field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListTerminationReasons" type="list" title="" target="updateTerminationReason" paginate-target="FindTerminationReason"
+    <form name="ListTerminationReasons" type="multi" title="" target="updateTerminationReason" paginate-target="FindTerminationReason"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="TerminationReason"><order-by field-name="terminationReasonId"/></entity-condition>
         </actions>
         <auto-fields-service default-field-type="display" service-name="updateTerminationReason"/>        
         <field name="terminationReasonId" title="${uiLabelMap.HumanResTerminationReasonId}"><display/></field>
-        <field name="description"><text/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deleteTerminationReason?terminationReasonId=${terminationReasonId}" description="${uiLabelMap.CommonDelete}"/>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>
+        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
+            <hyperlink target="deleteTerminationReason?terminationReasonId=${terminationReasonId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>    
+        <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><hidden value="Y"/></field>
     </form>
     <form name="AddTerminationReason" type="single" target="createTerminationReason" title="" default-map-name = "terminationReason"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createTerminationReason"/>
-        <field name="terminationReasonId"><ignored/></field>
+        <field name="terminationReasonId"><text/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>        
     </form>  
     <form name="ListUnemploymentClaims" type="list" title="" target="updateUnemploymentClaim" paginate-target="FindUnemploymentClaim"

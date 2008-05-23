@@ -45,7 +45,7 @@
                                 <section>
                                     <widgets>
                                         <container>
-                                            <link target="EditEmployment" text="${uiLabelMap.HumanResNewEmployment}" style="buttontext"/>
+                                            <link target="EditEmployment?partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;fromDate=${fromDate}" text="${uiLabelMap.HumanResNewEmployment}" style="buttontext"/>
                                         </container>
                                         <include-form name="FindEmployments" location="component://humanres/widget/forms/EmploymentForms.xml"/>
                                     </widgets>
@@ -111,10 +111,7 @@
             <actions>
                 <set field="titleProperty" value="HumanResFindEmploymentApp"/>
                 <set field="headerItem" value="EmploymentApp"/>
-                <!--entity-one entity-name="EmploymentApp" value-name="employmentApp"/-->
-                <entity-and entity-name="EmploymentApp" list-name="mploymentApps">
-                    <field-map field-name="applicationId"/>
-                </entity-and>
+                <set field="employmentAppCtx" from-field="parameters"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonEmploymentDecorator" location="${parameters.mainDecoratorLocation}">
@@ -362,12 +359,12 @@
         <section>            
             <actions>
                 <set field="titleProperty" value="HumanResAddTerminationReason"/>
-                <set field="headerItem" value="TerminationReason"/>
+                <set field="tabButtonItem" value="TerminationReason"/>
                 <set field="terminationReasonId" from-field="parameters.terminationReasonId" />
                 <entity-one entity-name="TerminationReason" value-name="terminationReason" />
             </actions>            
             <widgets>
-                <decorator-screen name="CommonEmploymentDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="GlobalHRSettingsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">                        
                         <screenlet title="${uiLabelMap.HumanResListTerminationReasons}">
                             <section>
@@ -501,4 +498,36 @@
             </widgets>            
         </section>
     </screen> 
+    <screen name="ListGlobalHRSettings">
+        <section>
+            <actions>                
+                <set field="titleProperty" value="PageTitleListSkillTypes"/>
+                <set field="headerItem" value="SkillType"/>
+                <set field="labelTitleProperty" value="PageTitleListSkillTypes"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="GlobalHRSettingsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.${labelTitleProperty}}">
+                            <section>
+                                <widgets>    
+                                    <container>
+                                        <link target="EditSkillTypes" text="${uiLabelMap.HumanResNewSkillType}" style="buttontext" />
+                                    </container>
+                                    <include-form name="ListSkillTypes" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>                                    
+                                </widgets>
+                            </section>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.HumanResNewSkillType}">
+                            <section>
+                                <widgets>    
+                                    <include-form name="AddSkillType" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>                                    
+                                </widgets>
+                            </section>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>

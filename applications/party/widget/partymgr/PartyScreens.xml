@@ -1081,9 +1081,7 @@ under the License.
                 <set field="tabButtonItem" value="PersonTraining"/>
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="trainingClassTypeId" from-field="parameters.trainingClassTypeId"/>
-                <entity-and entity-name="PersonTraining" list-name="personTrainings">
-                    <field-map field-name="partyId"/>
-                </entity-and>
+                <set field="personTrainingsCtx.partyId" from-field="parameters.partyId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
@@ -1091,7 +1089,7 @@ under the License.
                         <screenlet title="${uiLabelMap.HumanResListPersonTraining}">
                             <section>
                                 <widgets>
-                                    <include-form name="ListPersonTrainings" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                    <include-form name="ListPersonTrainings" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
                                 </widgets>
                             </section>
                         </screenlet>
@@ -1115,7 +1113,7 @@ under the License.
                 <set field="tabButtonItem" value="PartyResume"/>
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="resumeId" from-field="parameters.resumeId"/>
-                <entity-one entity-name="PartyResume" value-name="partyResume"/>
+                <set field="partyResumeCtx.resumeId" from-field="parameters.resumeId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
@@ -1146,9 +1144,7 @@ under the License.
                 <set field="headerItem" value="find"/>
                 <set field="tabButtonItem" value="EmploymentApplication"/>
                 <set field="referredByPartyId" from-field="parameters.partyId"/>
-                <entity-and entity-name="EmploymentApp" list-name="employmentApps">
-                    <field-map field-name="applicationId"></field-map>
-                </entity-and>
+                <set field="employmentAppCtx.applicationId" from-field="parameters.applicationId"/> 
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">

@@ -24,7 +24,7 @@
         <section>
             <actions>
                 <set field="headerItem" value="PartyQual"/>
-                <set field="partyId" from-field="parameters.partyId"/>
+                <entity-one entity-name="PartyQual" value-name="partyQual"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyAbilityDecorator" location="${parameters.mainDecoratorLocation}">
@@ -54,8 +54,9 @@
     <screen name="FindPartyResume">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleFindPartyResume"></set>
+                <set field="titleProperty" value="PageTitleFindPartyResume"/>
                 <set field="headerItem" value="PartyResume"/>
+                <set field="partyResumeCtx" from-field="parameters"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyAbilityDecorator" location="${parameters.mainDecoratorLocation}">
@@ -266,7 +267,7 @@
                 <entity-one entity-name="SkillType" value-name="skillType" />
             </actions>            
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="GlobalHRSettingsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">                                                                                       
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
@@ -277,9 +278,6 @@
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <container>
-                                            <link target="EditSkillTypes" text="${uiLabelMap.HumanResNewSkillType}" style="buttontext" />
-                                        </container>
                                         <include-form name="ListSkillTypes" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
                                     </widgets>
                                 </section>
@@ -308,12 +306,12 @@
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditResponsibilityType"/>
-                <set field="headerItem" value="ResponsibilityType"/>
+                <set field="tabButtonItem" value="ResponsibilityType"/>
                 <set field="responsibilityTypeId" from-field="parameters.responsibilityTypeId"/>
                 <entity-one entity-name="ResponsibilityType" value-name="responsibilityType"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="GlobalHRSettingsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <widgets>
@@ -361,6 +359,7 @@
                 <set field="titleProperty" value="HumanResFindPersonTraining"/>
                 <set field="headerItem" value="Training"/>
                 <set field="partyId" from-field="parameters.partyId"/>
+                <set field="personTrainingsCtx" from-field="parameters"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -419,6 +418,7 @@
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="partyQualTypeId" from-field="parameters.partyQualTypeId"/>
                 <set field="fromDate" from-field="parameters.fromDate"/>
+                <set field="partyQualCtx" from-field="parameters"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -443,6 +443,36 @@
                     </decorator-section>
                 </decorator-screen>
             </widgets>
+        </section>
+    </screen>
+    <screen name="EditTerminationTypes">
+        <section>                        
+            <actions>
+                <set field="tabButtonItem" value="TerminationType"/>
+                <set field="titleProperty" value="HumanResTerminationType"/>
+                <set field="terminationTypeId" from-field="parameters.terminationTypeId"/>
+                <entity-one entity-name="TerminationType" value-name="terminationType" />
+            </actions>            
+            <widgets>
+                <decorator-screen name="GlobalHRSettingsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">                                                                                       
+                        <screenlet title="${uiLabelMap.CommonList} ${uiLabelMap.HumanResTerminationType}">
+                            <section>
+                                <widgets>
+                                    <include-form name="ListTerminationTypes" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
+                                </widgets>
+                            </section>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.CommonNew} ${uiLabelMap.HumanResTerminationType}">
+                            <section>
+                                <widgets>
+                                    <include-form name="AddTerminationType" location="component://humanres/widget/forms/PartyAbilityForms.xml" />
+                                </widgets>
+                            </section>                            
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>            
         </section>
     </screen>
 </screens>

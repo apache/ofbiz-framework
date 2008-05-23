@@ -24,7 +24,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="inputFields" env-name="partyQualCtx"/>
                 <field-map field-name="entityName" value="PartyQual"/>
                 <field-map field-name="orderBy" value="fromDate"/>
             </service>
@@ -58,10 +58,11 @@ under the License.
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><hidden value="Y"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>
     </form>      
-    <form name="AddPartyQual" type="single" target="createPartyQual" title=""
+    <form name="AddPartyQual" type="single" target="createPartyQual" 
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createPartyQual"/>
-        <field name="partyId" title="${uiLabelMap.PartyPartyId}"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}" use-when="partyQual!=null"><hidden/></field>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}" use-when="partyQual==null"><lookup target-form-name="LookupPartyName"/></field>
         <field name="partyQualTypeId">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" key-field-name="partyQualTypeId" entity-name="PartyQualType">
@@ -91,7 +92,7 @@ under the License.
          odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
          <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="inputFields" env-name="partyResumeCtx"/>
                 <field-map field-name="entityName" value="PartyResume"/>
                 <field-map field-name="orderBy" value="resumeId"/>
             </service>
@@ -109,18 +110,14 @@ under the License.
             <hyperlink target="deletePartyResume?resumeId=${resumeId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
        </field>
     </form>     
-    <form name="EditPartyResume" type="single" target="updatePartyResume" title="" default-map-name="partyResume"
+    <form name="EditPartyResume" type="single" target="createPartyResume" title="" default-map-name="partyResume"
         header-row-style="header-row" default-table-style="basic-table">
-        <alt-target use-when="partyResume==null" target="createPartyResume"/>
         <auto-fields-service service-name="createPartyResume"/>
         <field name="contentId"><lookup target-form-name="LookupContent"/></field>
-        <field use-when="partyResume!=null" name="resumeId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field name="resumeId" use-when="partyResume!=null" title="${uiLabelMap.HumanResResumeId}"><display/></field>
-        <field name="resumeId" use-when="partyResume==null" title="${uiLabelMap.HumanResResumeId}"><hidden/></field>
-        <field name="partyId" use-when="partyResume!=null&amp;&amp;partyId!=null" title="${uiLabelMap.FormFieldTitle_partyId}"><display/></field>                
+        <field name="partyId" use-when="partyResume!=null&amp;&amp;partyId!=null" title="${uiLabelMap.FormFieldTitle_partyId}"><hidden/></field>                
         <field name="partyId" use-when="partyResume==null&amp;&amp;partyId==null" title="${uiLabelMap.FormFieldTitle_partyId}" tooltip="${uiLabelMap.CommonRequired}"><lookup target-form-name="LookupPartyName"/></field>
-        <field use-when="partyResume==null" name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>        
-        <field use-when="partyResume!=null" name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>        
     </form>     
     <form name="FindPartySkills" type="single" target="FindPartySkills"
         header-row-style="header-row" default-table-style="basic-table">
@@ -329,12 +326,12 @@ under the License.
         <field name="submitButton" use-when="performanceNote==null" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>        
         <field name="submitButton" use-when="performanceNote!=null" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>    
-     <form name="ListSkillTypes" type="multi" title="" target="updateSkillType"
+    <form name="ListSkillTypes" type="multi" title="" target="updateSkillType"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="SkillType"><order-by field-name="skillTypeId"/></entity-condition>
         </actions>
-        <auto-fields-service service-name="updateSkillType"/>        
+        <auto-fields-service service-name="updateSkillType" default-field-type="hidden"/>        
         <field name="skillTypeId" title="${uiLabelMap.HumanResSkillTypeId}"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
@@ -346,7 +343,8 @@ under the License.
     <form name="AddSkillType" type="single" target="createSkillType" default-map-name="skillType"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createSkillType" default-field-type="hidden"/>
-        <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
+        <field name="skillTypeId" title="${uiLabelMap.HumanResSkillTypeId}"><text/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
     <form name="ListResponsibilityTypes" type="list" list-name="responsibilityTypes" target="updateResponsibilityType"
@@ -354,13 +352,17 @@ under the License.
         <actions>
             <entity-condition entity-name="ResponsibilityType"><order-by field-name="responsibilityTypeId"/></entity-condition>
         </actions>
-        <auto-fields-service service-name="updateResponsibilityType"/>
+        <auto-fields-service service-name="updateResponsibilityType" default-field-type="hidden"/>
         <field name="responsibilityTypeId" title="${uiLabelMap.HumanResResponsibilityTypeId}"><display/></field>
-        <field name="description" title="${uiLabelMap.CommonDescription}"/>
+        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
+            <hyperlink target="deleteResponsibilityType?responsibilityTypeId=${responsibilityTypeId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="AddResponsibilityType" type="single" target="createResponsibilityType" title="" default-map-name="responsibilityType">
-        <auto-fields-service service-name="createResponsibilityType"/>
+        <auto-fields-service service-name="createResponsibilityType" default-field-type="hidden"/>
+        <field name="responsibilityTypeId" title="${uiLabelMap.HumanResResponsibilityTypeId}"><text/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}" tooltip="${uiLabelMap.CommonRequired}"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
@@ -382,7 +384,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="inputFields" env-name="personTrainingsCtx"/>
                 <field-map field-name="entityName" value="PersonTraining"/>
             </service>
         </actions>
@@ -444,5 +446,26 @@ under the License.
             </drop-down>
         </field>
         <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListTerminationTypes" type="multi" title="" target="updateTerminationType"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="TerminationType"><order-by field-name="terminationTypeId"/></entity-condition>
+        </actions>
+        <auto-fields-service service-name="updateTerminationType" default-field-type="hidden"/>        
+        <field name="terminationTypeId" title="${uiLabelMap.HumanResTerminationTypeId}"><display/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
+        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
+            <hyperlink target="deleteTerminationType?terminationTypeId=${terminationTypeId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+        <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><hidden value="Y"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>
+    </form>            
+    <form name="AddTerminationType" type="single" target="createTerminationType" default-map-name="TerminationType"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="createTerminationType" default-field-type="hidden"/>
+        <field name="terminationTypeId"><text/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
  </forms>

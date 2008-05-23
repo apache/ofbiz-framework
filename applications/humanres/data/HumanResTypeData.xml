@@ -73,4 +73,8 @@ under the License.
     <DeductionType description="State Tax" hasTable="N" parentTypeId="" deductionTypeId="STATE_TAX"/>
     <DeductionType description="Insurance" hasTable="N" parentTypeId="" deductionTypeId="INSURANCE"/>
     <DeductionType description="Cafeteria Plan" hasTable="N" parentTypeId="" deductionTypeId="CAFE_PLAN"/>
+    
+    <TerminationType description="Resignation" hasTable="N" parentTypeId="" terminationTypeId="RESIGN"/>
+    <TerminationType description="Fired" hasTable="N" parentTypeId="" terminationTypeId="FIRE"/>
+    <TerminationType description="Retirement" hasTable="N" parentTypeId="" terminationTypeId="RETIRE"/>
 </entity-engine-xml>
