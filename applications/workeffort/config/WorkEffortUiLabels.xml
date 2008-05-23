@@ -3703,6 +3703,7 @@
     <property key="WorkEffortWorkEffort">
         <value xml:lang="en">Work Effort</value>
         <value xml:lang="es">Esfuerzo de trabajo</value>
+        <value xml:lang="fr">Tâche</value>
         <value xml:lang="it">Impegno di Lavoro</value>
         <value xml:lang="nl">Actie</value>
         <value xml:lang="ro">Sarcina de Lucru</value>
