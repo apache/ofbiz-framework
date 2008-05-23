@@ -549,6 +549,9 @@
     <property key="PageTitleCreateLead">
         <value xml:lang="en">Create New Lead</value>
     </property>
+    <property key="PageTitleCreateLeadFromVCard">
+        <value xml:lang="en">Create Lead from vCard</value>
+    </property>  
     <property key="PageTitleEditAccount">
         <value xml:lang="en">Edit Account</value>
     </property>
@@ -1131,6 +1134,9 @@
     <property key="SfaAutoCreateContactByImportingVCard">
         <value xml:lang="en">Automatically create a new contact by importing a vCard</value>
     </property>    
+    <property key="SfaAutoCreateLeadByImportingVCard">
+        <value xml:lang="en">Automatically create a new lead by importing a vCard</value>
+    </property>  
     <property key="SfaAccountName">
         <value xml:lang="en">Account Name</value>
     </property>
@@ -1200,6 +1206,9 @@
     <property key="SfaForecasts">
         <value xml:lang="en">Forecast</value>
     </property>
+    <property key="SfaImportLead">
+        <value xml:lang="en">Import Lead</value>
+    </property>    
     <property key="SfaInitialAccount">
         <value xml:lang="en">Initial Account</value>
     </property>

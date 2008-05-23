@@ -52,6 +52,9 @@ under the License.
         <menu-item name="CreateLead" title="${uiLabelMap.CommonCreate} ${uiLabelMap.SfaLead}">
             <link target="CreateLead"/>
         </menu-item>      
+        <menu-item name="createLeadFromVCard" title="${uiLabelMap.SfaImportLead}">
+            <link target="CreateLeadFromVCard"/>
+        </menu-item>      
         <menu-item name="convertLead" title="${uiLabelMap.SfaConvertLead}">
             <condition><not><if-empty field-name="parameters.partyId"/></not></condition>
             <link target="ConvertLead?leadPartyId=${parameters.partyId}"/>

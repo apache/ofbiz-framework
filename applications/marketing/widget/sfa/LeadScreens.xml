@@ -71,6 +71,7 @@ under the License.
             </widgets>
         </section>  
     </screen>
+    
     <screen name="CreateLead">
         <section>
             <actions>
@@ -101,6 +102,7 @@ under the License.
             </widgets>
         </section>
     </screen>
+    
     <screen name="ConvertLead">
         <section>
             <widgets>
@@ -127,6 +129,7 @@ under the License.
             </widgets>
         </section>
     </screen>
+    
     <screen name="CloneLead">
         <section>
             <actions>
@@ -156,6 +159,7 @@ under the License.
             </widgets>
         </section>
     </screen>
+    
     <screen name="MergeLeads">
         <section>
             <actions>
@@ -191,5 +195,34 @@ under the License.
                  </decorator-screen>
              </widgets>
          </section>
+    </screen>
+    
+    <screen name="CreateLeadFromVCard">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleCreateLeadFromVCard"/>
+                <set field="tabButtonItem" value="Leads"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonLeadDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="h3"><label text="${uiLabelMap.PageTitleCreateLeadFromVCard}"/></container>
+                            </container>
+                            <container><label style="h3" text="${uiLabelMap.SfaAutoCreateLeadByImportingVCard}"/></container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <label>&lt;br/&gt;</label>
+                                        <include-form  name="CreateLeadFromVCard" location="component://marketing/widget/sfa/forms/LeadForms.xml"/> 
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
     </screen>
 </screens>

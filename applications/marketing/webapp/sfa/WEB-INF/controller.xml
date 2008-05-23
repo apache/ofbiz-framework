@@ -123,6 +123,16 @@ under the License.
         <response name="success" type="view" value="viewprofile"/>
         <response name="error" type="view" value="MergeLeads"/>
     </request-map>
+    <request-map uri="CreateLeadFromVCard">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="CreateLeadFromVCard"/>
+    </request-map>
+    <request-map uri="createLeadFromVCard">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="importVCard"/>
+        <response name="success" type="view" value="viewprofile"/><!-- What would be the view in case a vCard has more than one contact -->
+        <response name="error" type="view" value="CreateLeadFromVCard"/>
+    </request-map>  
     <!-- Contact Requests -->
     <request-map uri="FindContacts">
         <security https="true" auth="true"/>
@@ -181,7 +191,8 @@ under the License.
     <view-map name="CloneLead" type="screen" page="component://marketing/widget/sfa/LeadScreens.xml#CloneLead"/>
     <view-map name="ConvertLead" type="screen" page="component://marketing/widget/sfa/LeadScreens.xml#ConvertLead"/>
     <view-map name="MergeLeads" type="screen" page="component://marketing/widget/sfa/LeadScreens.xml#MergeLeads"/>
-  
+    <view-map name="CreateLeadFromVCard" type="screen" page="component://marketing/widget/sfa/LeadScreens.xml#CreateLeadFromVCard"/>
+
     <view-map name="FindContacts" type="screen" page="component://marketing/widget/sfa/ContactScreens.xml#FindContacts"/>
     <view-map name="CreateContact" type="screen" page="component://marketing/widget/sfa/ContactScreens.xml#CreateContact"/>
     <view-map name="MergeContacts" type="screen" page="component://marketing/widget/sfa/ContactScreens.xml#MergeContacts"/>

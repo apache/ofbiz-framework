@@ -89,6 +89,7 @@ under the License.
     
     <form name="CreateContactFromVCard" type="upload" target="createContactFromVCard" header-row-style="header-row" default-table-style="basic-table">
         <field name="infile" title="${uiLabelMap.SfaUploadVCard}"><file/></field>
+        <field name="serviceName"><hidden value="createContact"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpload}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 </forms>
