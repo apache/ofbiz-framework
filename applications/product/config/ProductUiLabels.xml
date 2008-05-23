@@ -17344,7 +17344,7 @@
     <property key="ProductUseQuickAdd">
         <value xml:lang="en">Use Quick Add</value>
         <value xml:lang="es">Usar Añadir rápido</value>
-        <value xml:lang="fr">Ajout rapide</value>
+        <value xml:lang="fr">Utiliser l'ajout rapide</value>
         <value xml:lang="it">Usa Aggiunta Veloce</value>
         <value xml:lang="ro">Foloseste Adaugare Rapida</value>
         <value xml:lang="ru">Использовать упрощенное добавление</value>
@@ -17637,7 +17637,7 @@
     <property key="ProductWeightUomId">
         <value xml:lang="en">Weight Uom Id</value>
         <value xml:lang="es">UDM de peso</value>
-        <value xml:lang="fr">Unité de mesure de poids</value>
+        <value xml:lang="fr">Unité de mesure du poids</value>
         <value xml:lang="it">UdM Peso</value>
         <value xml:lang="ro">UdM Greutate</value>
         <value xml:lang="ru">Единица веса</value>
@@ -18108,7 +18108,7 @@
     <property key="productevents.quantity_not_formatted_correctly">
         <value xml:lang="en">Quantity not formatted correctly.</value>
         <value xml:lang="es">Cantidad no formateada correctamente.</value>
-        <value xml:lang="fr">Quantité non composée correctement.</value>
+        <value xml:lang="fr">Quantité non formatée correctement.</value>
         <value xml:lang="it">Quantità non formattata correttamente.</value>
         <value xml:lang="ro">Cantitatea nu este formatata corect.</value>
         <value xml:lang="ru">Неверный формат количества.</value>
@@ -18138,7 +18138,7 @@
     <property key="productevents.thru_date_not_formatted_correctly">
         <value xml:lang="en">Thru Date not formatted correctly.</value>
         <value xml:lang="es">Fecha fin no formateada correctamente.</value>
-        <value xml:lang="fr">Par la date non composée correctement.</value>
+        <value xml:lang="fr">Date de fin non composée correctement.</value>
         <value xml:lang="it">Data A non formattata correttamente.</value>
         <value xml:lang="ro">Data A nu este formatata corect.</value>
         <value xml:lang="ru">Формат конечной даты неверный.</value>
@@ -18178,7 +18178,7 @@
     <property key="productsearchevents.expired_x_items">
         <value xml:lang="en">Expired ${numExpired} items.</value>
         <value xml:lang="es">Expiraron ${numExpired} artículos.</value>
-        <value xml:lang="fr">${numExpired} articles expirés.</value>
+        <value xml:lang="fr">${numExpired} articles périmés.</value>
         <value xml:lang="it">${numExpired} righe Scadute.</value>
         <value xml:lang="ro">${numExpired} linii Expirate.</value>
         <value xml:lang="ru">Устарели ${numExpired} позиций.</value>
@@ -18188,7 +18188,7 @@
     <property key="productsearchevents.fromDate_not_formatted_properly">
         <value xml:lang="en">The fromDate was not formatted properly: ${errDateFormat}.</value>
         <value xml:lang="es">La fecha de fin no fue formateada adecuadamente: ${errDateFormat}.</value>
-        <value xml:lang="fr">Le champ "date de début" n'a pas été convenablement formaté : ${errDateFormat}.</value>
+        <value xml:lang="fr">Le champ "Date de début" n'a pas été convenablement formaté : ${errDateFormat}.</value>
         <value xml:lang="it">La Data Da non è stata formattata propriamente: ${errDateFormat}.</value>
         <value xml:lang="ro">Data De La nu a fost formatata: ${errDateFormat}.</value>
         <value xml:lang="ru">Неверный формат даты начала: ${errDateFormat}.</value>
@@ -18198,7 +18198,7 @@
     <property key="productsearchevents.no_results_found_probably_error_constraints">
         <value xml:lang="en">No results found, probably because there was an error or were no constraints.</value>
         <value xml:lang="es">No se encontraron resultados, probablemente porque hubo un error o no hubieron restricciones.</value>
-        <value xml:lang="fr">Aucun résultat trouvé, probablement parce qu'il y avait une erreur ou aucunes contraintes.</value>
+        <value xml:lang="fr">Aucun résultat trouvé, probablement parce qu'il y avait une erreur ou aucunes contrainte.</value>
         <value xml:lang="it">Nessun risultato trovato, probabilmente perché c'era un'errore o nessuna costrizione.</value>
         <value xml:lang="ro">Nici-un rezultat gasit, probabil pentru ca era o eroare si nici-o constrangere.</value>
         <value xml:lang="ru">Результаты не найдены, вероятно по причине ошибке или по условиям.</value>
@@ -18218,7 +18218,7 @@
     <property key="productsearchevents.thruDate_not_formatted_properly">
         <value xml:lang="en">The thruDate is not formatted properly: ${errDateFormat}.</value>
         <value xml:lang="es">La fecha fin no fue formateada adecuadamente: ${errDateFormat}.</value>
-        <value xml:lang="fr">Le champ "Date à" n'est pas convenablement formaté : ${errDateFormat}.</value>
+        <value xml:lang="fr">Le champ "Date de fin" n'est pas convenablement formaté : ${errDateFormat}.</value>
         <value xml:lang="it">La Data A non è stata formattata propriamente: ${errDateFormat}.</value>
         <value xml:lang="ro">Data A nu a fost formatata: ${errDateFormat}.</value>
         <value xml:lang="ru">Неверный формат конечной даты: ${errDateFormat}.</value>
@@ -18288,7 +18288,7 @@
     <property key="productservices.feature_grouping_came_back_empty">
         <value xml:lang="en">Feature grouping came back empty.</value>
         <value xml:lang="es">El grupo de características regresó vacío.</value>
-        <value xml:lang="fr">Le regroupement de caractéristiques est revenu vide.</value>
+        <value xml:lang="fr">Le groupe de caractéristiques est revenu vide.</value>
         <value xml:lang="it">Raggruppamento Caratteristiche tornano indietro vuote.</value>
         <value xml:lang="ro">Ragrupamentul Caracteristici se intoarce inapoi gol.</value>
         <value xml:lang="ru">Группировка особенностей вернулась пустая.</value>
