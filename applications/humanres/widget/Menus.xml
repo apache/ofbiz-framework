@@ -32,6 +32,7 @@
         <menu-item name="EmploymentApp" title="${uiLabelMap.HumanResEmploymentApp}"><link target="FindEmploymentApp"/></menu-item>
         <menu-item name="PartyResume" title="${uiLabelMap.HumanResPartyResume}"><link target="FindPartyResume"/></menu-item>
         <menu-item name="PayGrade" title="${uiLabelMap.HumanResPayGrade}"><link target="FindPayGrade"/></menu-item>
+        <menu-item name="PerfReview" title="${uiLabelMap.HumanResPerfReview}"><link target="FindPerfReview"/></menu-item>
         <menu-item name="Logout" title="${uiLabelMap.CommonLogout}" align-style="col-right" selected-style="selected">
             <condition><not><if-empty field-name="userLogin"/></not></condition>
             <link target="logout"/>
@@ -49,10 +50,6 @@
         </menu-item>
         <menu-item name="EditPartyBenefit" title="${uiLabelMap.HumanResEditPartyBenefit}">
             <link target="EditPartyBenefits?roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;fromDate=${fromDate}"/>
-        </menu-item>
-        <menu-item name="EditPerfReview" title="${uiLabelMap.HumanResEditPartyReview}">
-            <!-- <link target="EditPerfReviews?roleTypeIdTo=${roleTypeIdTo}&amp;partyIdTo=${partyIdTo}"/>-->
-            <link target="EditPerfReviews?roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;fromDate=${fromDate}"/>
         </menu-item>
         <menu-item name="EditPayrollPreference" title="${uiLabelMap.HumanResEditPayrollPreference}">
             <link target="EditPayrollPreferences?roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;fromDate=${fromDate}"/>
@@ -112,6 +109,28 @@
         </menu-item>
         <menu-item name="TerminationType" title="${uiLabelMap.HumanResTerminationType}">
             <link target="findTerminationTypes"/>
+        </menu-item>
+    </menu>
+    
+    <menu name="ProfileTabBar" default-menu-item-name="viewprofile" default-selected-style="selected"
+        type="simple" menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="tabButtonItem">
+        <menu-item name="viewprofile" title="${uiLabelMap.PartyProfile}">
+            <link target="viewprofile?partyId=${partyId}"/>
+        </menu-item>
+        <menu-item name="EditPartySkills" title="${uiLabelMap.HumanResPartySkills}">
+            <link target="EditPartySkills?partyId=${partyId}"/>
+        </menu-item>
+        <menu-item name="EditPartyQuals" title="${uiLabelMap.HumanResPartyQualification}">
+            <link target="EditPartyQuals?partyId=${partyId}"/>
+        </menu-item>
+        <menu-item name="EditPersonTrainings" title="${uiLabelMap.HumanResTraining}">
+            <link target="EditPersonTrainings?partyId=${partyId}"/>
+        </menu-item>
+        <menu-item name="EditEmploymentApps" title="${uiLabelMap.HumanResEmploymentApp}">
+            <link target="EditEmploymentApps?partyId=${partyId}"/>
+        </menu-item>
+        <menu-item name="EditPartyResumes" title="${uiLabelMap.HumanResPartyResume}">
+            <link target="EditPartyResumes?partyId=${partyId}"/>
         </menu-item>
     </menu>
 </menus>
