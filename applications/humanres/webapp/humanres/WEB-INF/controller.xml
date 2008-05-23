@@ -347,7 +347,7 @@ under the License.
     </request-map>
     <request-map uri="updateTerminationReason">
         <security https="true" auth="true"/>
-        <event type="service" invoke="updateTerminationReason"/>
+        <event type="service-multi" invoke="updateTerminationReason"/>
         <response name="success" type="view" value="EditTerminationReason"/>
     </request-map>     
     <request-map uri="deleteTerminationReason">
@@ -509,7 +509,7 @@ under the License.
     </request-map>
     <request-map uri="deleteSkillType">
         <security https="true" auth="true"/>
-        <event type="service-multi" invoke="deleteSkillType"/>
+        <event type="service" invoke="deleteSkillType"/>
         <response name="success" type="view" value="EditSkillTypes"/>               
     </request-map>
     <!--====================Employee Requests==================-->
@@ -578,6 +578,33 @@ under the License.
         <response name="success" type="view" value="FindPersonTrainings"/>
         <response name="error" type="view" value="FindPersonTrainings"/>
     </request-map>
+    <request-map uri="globalHRSetting">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindGlobalHRSettings"/>
+    </request-map>
+    <request-map uri="findTerminationTypes">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditTerminationTypes"/>
+    </request-map>
+    <request-map uri="EditTerminationTypes">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditTerminationTypes"/>
+    </request-map>
+    <request-map uri="createTerminationType">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createTerminationType"/>
+        <response name="success" type="view" value="EditTerminationTypes"/>
+    </request-map>
+    <request-map uri="updateTerminationType">
+        <security https="true" auth="true"/>
+        <event type="service-multi" invoke="updateTerminationType"/>
+        <response name="success" type="view" value="EditTerminationTypes"/>
+    </request-map>
+    <request-map uri="deleteTerminationType">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteTerminationType"/>
+        <response name="success" type="view" value="EditTerminationTypes"/>               
+    </request-map>
     <!-- ===================Lookup Request===================== -->
     <request-map uri="LookupPartyName"><security auth="true" https="true"/><response name="success" type="view" value="LookupPartyName"/></request-map>
     <request-map uri="LookupPayment"><security auth="true" https="true"/><response name="success" type="view" value="LookupPayment"/></request-map>    
@@ -636,4 +663,6 @@ under the License.
     <view-map name="EmplPositionView" type="screen" page="component://humanres/widget/EmplPositionScreens.xml#EmplPositionView"/>
     <view-map name="FindPersonTrainings" type="screen" page="component://humanres/widget/PartyAbilityScreens.xml#FindPersonTrainings"/>
     <view-map name="NewPersonTraining" type="screen" page="component://humanres/widget/PartyAbilityScreens.xml#NewPersonTraining"/>
+    <view-map name="FindGlobalHRSettings" type="screen" page="component://humanres/widget/EmploymentScreens.xml#ListGlobalHRSettings"/>
+    <view-map name="EditTerminationTypes" type="screen" page="component://humanres/widget/PartyAbilityScreens.xml#EditTerminationTypes"/>
 </site-conf>

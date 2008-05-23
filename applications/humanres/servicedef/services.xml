@@ -535,6 +535,7 @@ under the License.
         <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
         <auto-attributes mode="INOUT" include="pk" optional="true"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override name="description" optional="false"/>        
     </service>
     
     <service name="updateSkillType" engine="simple" default-entity-name="SkillType"
@@ -604,5 +605,28 @@ under the License.
         <description>Delete Valid ResponsibilityTrype</description>
         <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    
+    <service name="createTerminationType" engine="simple" default-entity-name="TerminationType"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="createTerminationType" auth="true">
+        <description>Create Valid TerminationType</description>
+        <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override name="description" optional="false"/>        
+    </service>
+    
+    <service name="updateTerminationType" engine="simple" default-entity-name="TerminationType"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="updateTerminationType" auth="true">
+        <description>Update Valid TerminationType</description>
+        <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deleteTerminationType" engine="simple" default-entity-name="TerminationType"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="deleteTerminationType" auth="true">
+        <description>Delete Valid TerminationType</description>
+        <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
 </services>

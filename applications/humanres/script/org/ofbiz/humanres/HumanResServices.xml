@@ -605,4 +605,25 @@ under the License.
         <entity-one entity-name="ResponsibilityType" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
+    
+    <simple-method method-name="createTerminationType" short-description="Create a TerminationType">
+        <make-value entity-name="TerminationType" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <if-empty field-name="newEntity.terminationTypeId">      
+        <sequenced-id-to-env sequence-name="TerminationType" env-name="newEntity.terminationTypeId"/>
+        </if-empty>        
+        <field-to-result field-name="newEntity.terminationTypeId" result-name="terminationTypeId"/>
+        <create-value value-name="newEntity"/>        
+    </simple-method>
+    
+    <simple-method method-name="updateTerminationType" short-description="Update TerminationType">
+        <entity-one entity-name="TerminationType" value-name="lookedUpValue"/>
+        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    
+    <simple-method method-name="deleteTerminationType" short-description="Delete TerminationType">
+        <entity-one entity-name="TerminationType" value-name="lookedUpValue"/>        
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
 </simple-methods>        

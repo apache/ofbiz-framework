@@ -32,9 +32,6 @@
         <menu-item name="EmploymentApp" title="${uiLabelMap.HumanResEmploymentApp}"><link target="FindEmploymentApp"/></menu-item>
         <menu-item name="PartyResume" title="${uiLabelMap.HumanResPartyResume}"><link target="FindPartyResume"/></menu-item>
         <menu-item name="PayGrade" title="${uiLabelMap.HumanResPayGrade}"><link target="FindPayGrade"/></menu-item>
-        <menu-item name="TerminationReason" title="${uiLabelMap.HumanResTerminationReason}"><link target="FindTerminationReason"/></menu-item>
-        <menu-item name="SkillType" title="${uiLabelMap.HumanResSkillType}"><link target="findSkillTypes"/></menu-item>
-        <menu-item name="ResponsibilityType" title="${uiLabelMap.HumanResResponsibilityType}"><link target="EditResponsibilityType"/></menu-item>
         <menu-item name="Logout" title="${uiLabelMap.CommonLogout}" align-style="col-right" selected-style="selected">
             <condition><not><if-empty field-name="userLogin"/></not></condition>
             <link target="logout"/>
@@ -43,6 +40,7 @@
             <condition><if-empty field-name="userLogin"/></condition>
             <link target="${checkLoginUrl}"/>
         </menu-item>
+        <menu-item name="GlobalHRSettings" title="${uiLabelMap.HumanResGlobalHRSettings}" selected-style="selected"><link target="globalHRSetting"/></menu-item>
     </menu>
     <menu name="EmploymentBar" default-menu-item-name="EditPartyBenefit" default-selected-style="selected"
         type="simple" menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="tabButtonItem">
@@ -100,4 +98,20 @@
         </menu-item>        
     </menu>
     <menu name="SkillType" type="simple" id="app-navigation" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem"/>
+    
+    <menu name="GlobalHRSettingMenus" type="simple" default-menu-item-name="SkillType" 
+        menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="tabButtonItem" default-selected-style="selected">
+        <menu-item name="SkillType" title="${uiLabelMap.HumanResSkillType}">
+            <link target="EditSkillTypes"/>
+        </menu-item>      
+        <menu-item name="ResponsibilityType" title="${uiLabelMap.HumanResResponsibilityType}">
+            <link target="EditResponsibilityType"/>
+        </menu-item> 
+        <menu-item name="TerminationReason" title="${uiLabelMap.HumanResTerminationReason}">
+            <link target="FindTerminationReason"/>
+        </menu-item>
+        <menu-item name="TerminationType" title="${uiLabelMap.HumanResTerminationType}">
+            <link target="findTerminationTypes"/>
+        </menu-item>
+    </menu>
 </menus>

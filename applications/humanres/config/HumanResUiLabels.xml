@@ -544,6 +544,9 @@
     <property key="HumanResFindPersonTraining">
         <value xml:lang="en">Find Person Training</value>
     </property>
+    <property key="HumanResGlobalHRSettings">
+        <value xml:lang="en">Global HR Settings</value>
+    </property>
     <property key="HumanResListEmplPositionsReportedTo">
         <value xml:lang="en">List Employee Positions, Reported To [${parameters.emplPositionId}]</value>
     </property>
@@ -922,6 +925,9 @@
         <value xml:lang="en">Termination Reason Id</value>
         <value xml:lang="it">Codice Motivazione Licenziamento</value>
         <value xml:lang="th">รหัสขอบเขตเหตุผล</value>
+    </property>
+    <property key="HumanResTerminationType">
+        <value xml:lang="en">Termination Type</value>
     </property>
     <property key="HumanResTerminationTypeId">
         <value xml:lang="en">Termination Type Id</value>
