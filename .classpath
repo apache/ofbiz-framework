@@ -55,13 +55,16 @@
   <classpathentry kind="lib" path="framework/guiapp/lib/XuiOptional-v3.2rc2b.jar"/>
   <classpathentry kind="lib" path="applications/content/lib/poi.jar"/>
   <classpathentry kind="lib" path="applications/content/lib/lucene-2.2.0.jar"/>
-  <classpathentry kind="lib" path="framework/catalina/lib/tomcat-util.jar"/>
-  <classpathentry kind="lib" path="framework/catalina/lib/tomcat-http.jar"/>
-  <classpathentry kind="lib" path="framework/catalina/lib/tomcat-coyote.jar"/>
-  <classpathentry kind="lib" path="framework/catalina/lib/servlets-default.jar"/>
-  <classpathentry kind="lib" path="framework/catalina/lib/catalina-optional.jar"/>
-  <classpathentry kind="lib" path="framework/catalina/lib/catalina.jar"/>
-  <classpathentry kind="lib" path="framework/catalina/lib/catalina-cluster.jar"/>
+  <classpathentry kind="lib" path="framework/catalina/lib/tomcat-6.0.16-catalina-ha.jar"/>
+  <classpathentry kind="lib" path="framework/catalina/lib/tomcat-6.0.16-catalina-tribes.jar"/>
+  <classpathentry kind="lib" path="framework/catalina/lib/tomcat-6.0.16-catalina.jar"/>
+  <classpathentry kind="lib" path="framework/catalina/lib/tomcat-6.0.16-jasper-el.jar"/>
+  <classpathentry kind="lib" path="framework/catalina/lib/tomcat-6.0.16-jasper-jdt.jar"/>
+  <classpathentry kind="lib" path="framework/catalina/lib/tomcat-6.0.16-jasper.jar"/>
+  <classpathentry kind="lib" path="framework/catalina/lib/tomcat-6.0.16-tomcat-coyote.jar"/>
+  <classpathentry kind="lib" path="framework/catalina/lib/tomcat-6.0.16-tomcat-dbcp.jar"/>
+  <classpathentry kind="lib" path="framework/catalina/lib/tomcat-6.0.16-tomcat-juli.jar"/>
+  <classpathentry kind="lib" path="framework/catalina/lib/tomcat-6.0.16-tomcat-juli-adapters.jar"/>
   <classpathentry kind="lib" path="framework/webapp/lib/itext-2.0.1.jar"/>
   <classpathentry kind="lib" path="framework/geronimo/lib/geronimo-transaction-1.0.jar"/>
   <classpathentry kind="lib" path="framework/geronimo/lib/jencks-1.1.3.jar"/>
@@ -83,16 +86,18 @@
   <classpathentry kind="lib" path="framework/base/lib/ant-launcher-1.7.0.jar"/>
   <classpathentry kind="lib" path="framework/base/lib/ant-1.7.0.jar"/>
   <classpathentry kind="lib" path="framework/base/lib/commons/commons-net-1.4.1.jar"/>
-  <classpathentry kind="lib" path="framework/base/lib/j2eespecs/geronimo-servlet_2.4_spec-1.0.jar"/>
   <classpathentry kind="lib" path="framework/base/lib/j2eespecs/geronimo-saaj_1.1_spec-1.0.jar"/>
   <classpathentry kind="lib" path="framework/base/lib/j2eespecs/geronimo-qname_1.1_spec-1.0.jar"/>
   <classpathentry kind="lib" path="framework/base/lib/j2eespecs/geronimo-jta_1.0.1B_spec-1.0.jar"/>
-  <classpathentry kind="lib" path="framework/base/lib/j2eespecs/geronimo-jsp_2.0_spec-1.0.jar"/>
   <classpathentry kind="lib" path="framework/base/lib/j2eespecs/geronimo-jms_1.1_spec-1.0.jar"/>
   <classpathentry kind="lib" path="framework/base/lib/j2eespecs/geronimo-jaxrpc_1.1_spec-1.0.jar"/>
   <classpathentry kind="lib" path="framework/base/lib/j2eespecs/geronimo-jaxr_1.0_spec-1.0.jar"/>
   <classpathentry kind="lib" path="framework/base/lib/j2eespecs/geronimo-j2ee-connector_1.5_spec-1.0.jar"/>
   <classpathentry kind="lib" path="framework/base/lib/j2eespecs/geronimo-activation_1.0.2_spec-1.0.jar"/>
+  <classpathentry kind="lib" path="framework/base/lib/j2eespecs/tomcat-6.0.16-el_2.1_spec.jar"/>
+  <classpathentry kind="lib" path="framework/base/lib/j2eespecs/tomcat-6.0.16-servlet_2.5_spec.jar"/>
+  <classpathentry kind="lib" path="framework/base/lib/j2eespecs/tomcat-6.0.16-jsp_2.1_spec.jar"/>
+  <classpathentry kind="lib" path="framework/base/lib/j2eespecs/tomcat-6.0.16-annotations_spec.jar"/>
   <classpathentry kind="lib" path="framework/base/lib/scripting/jakarta-oro-2.0.8.jar"/>
   <classpathentry kind="lib" path="framework/base/lib/scripting/jython-nooro.jar"/>
   <classpathentry kind="lib" path="framework/base/lib/scripting/bsh-2.0b4.jar"/>
