@@ -101,6 +101,11 @@ under the License.
         <response name="error" type="request" value="main"/>
     </request-map>
 
+    <request-map uri="ajaxAutocompleteOptions">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ajaxAutocompleteOptions" />
+    </request-map>
+
     <!-- View Mappings -->
     <view-map name="error" page="/error/error.jsp"/>
     <view-map name="login" type="screen" page="component://common/widget/CommonScreens.xml#login"/>
@@ -109,4 +114,6 @@ under the License.
 
     <view-map name="LookupLocales" type="screen" page="component://common/widget/LookupScreens.xml#LookupLocales"/>
     <view-map name="LookupTimezones" type="screen" page="component://common/widget/LookupScreens.xml#LookupTimezones"/>
+
+    <view-map name="ajaxAutocompleteOptions" type="screen" page="component://common/widget/CommonScreens.xml#ajaxAutocompleteOptions"/>
 </site-conf>

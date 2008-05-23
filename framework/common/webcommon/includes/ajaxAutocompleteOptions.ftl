@@ -14,11 +14,12 @@ software distributed under the License is distributed on an
 "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
 KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
-under the License. <#assign listIt = parameters.listIt>
+under the License.
 -->
 
 <ul>
-  <#list listIt as feature>
-    <li>${feature.exampleFeatureId} <span class="informal"> ${feature.description}</span></li>
+  <#list autocompleteOptions as autocompleteOption>
+  	<#assign fields = autocompleteOption.values()/>
+    <li><#list fields as field><#if field_index == 1><span class="informal"> </#if>${field}<#if (field_index > 0)><#if field_has_next> <#else></span></#if></#if></#list></li>
   </#list>
 </ul>

@@ -154,11 +154,6 @@ under the License.
         <response name="success" type="view" value="EditExampleFeatureExampleAppls"/>
         <response name="error" type="view" value="EditExampleFeatureExampleAppls"/>
     </request-map>
-    <request-map uri="ExampleFeatureOptions">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="ExampleFeatureOptions"/>
-        <response name="error" type="view" value="ExampleFeatureOptions"/>
-    </request-map>
 
     <request-map uri="FormWidgetExamples"><security https="true" auth="true"/><response name="success" type="view" value="FormWidgetExamples"/></request-map>
 
@@ -183,7 +178,6 @@ under the License.
     <view-map name="FormWidgetExamples" type="screen" page="component://example/widget/example/FormWidgetExampleScreens.xml#FormWidgetExamples"/>
 
     <view-map name="LookupExampleFeature" type="screen" page="component://example/widget/example/ExampleFeatureScreens.xml#LookupExampleFeature"/>
-    <view-map name="ExampleFeatureOptions" type="screen" page="component://example/widget/example/ExampleFeatureScreens.xml#ExampleFeatureOptions"/>
     <!-- ajax view mappings -->
     <view-map name="findExampleAjax" type="screen" page="component://example/widget/example/ExampleAjaxScreens.xml#AjaxExample"/>
     <view-map name="ListExampleFormOnly" type="screen" page="component://example/widget/example/ExampleAjaxScreens.xml#ListExampleFormOnly"/>
