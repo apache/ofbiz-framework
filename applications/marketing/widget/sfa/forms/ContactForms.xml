@@ -35,6 +35,9 @@ under the License.
             <hyperlink target="viewprofile?partyId=${partyRow.partyId}" description="${partyRow.partyId}"/>
         </field>
         <field name="partyName" title="${uiLabelMap.PartyName}"><display description="${person.lastName}, ${person.firstName}"/></field>
+        <field name="export">
+            <hyperlink target="createVCardFromContact?partyId=${partyRow.partyId}" description="vCard"/>
+        </field>
     </form>
     <form name="CreateContact" type="single" target="createContact" header-row-style="header-row" default-table-style="basic-table">
         <field name="firstName" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
@@ -84,8 +87,8 @@ under the License.
         <field name="submitButton" position="3" title="${uiLabelMap.SfaMergeContacts}" widget-style="buttontext" tooltip-style="button-text"><submit button-type="text-link"/></field>
     </form>
     
-    <form name="CreateContactFromVCard" type="single" target="" header-row-style="header-row" default-table-style="basic-table">
-        <field name="uploadVCard" title="${uiLabelMap.SfaUploadVCard}" ><file maxlength="100" size="50"/></field>
+    <form name="CreateContactFromVCard" type="upload" target="createContactFromVCard" header-row-style="header-row" default-table-style="basic-table">
+        <field name="infile" title="${uiLabelMap.SfaUploadVCard}"><file/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpload}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 </forms>
