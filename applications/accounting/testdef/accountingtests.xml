@@ -47,5 +47,8 @@
     <!-- Test case for Accounting Transaction on Manufacturing -->
     <test-case case-name="auto-accounting-transaction-tests-MaterialIssuance">
         <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoAcctgTransTests.xml" name="testAcctgTransOnMaterialIssuance"/>
-    </test-case>       
+    </test-case>
+    <test-case case-name="auto-accounting-transaction-tests-ActualManufacturingCost">
+        <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoAcctgTransTests.xml" name="testAcctgTransForActualManufacturingCost"/>
+    </test-case>
 </test-suite>

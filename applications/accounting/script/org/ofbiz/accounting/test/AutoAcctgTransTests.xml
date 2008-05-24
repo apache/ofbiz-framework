@@ -442,5 +442,53 @@ under the License.
             </iterate>
         </iterate>
         <check-errors/>
-    </simple-method>        
+    </simple-method>
+    
+    <simple-method method-name="testAcctgTransForActualManufacturingCost" short-description="Production run test case for actual manufacturing costs" login-required="false">
+        <!-- Precondition: Inventory is received for the following products:
+                (1) productId = MAT_A_COST, quantity = 4, facilityId = Web Store Warehouse
+                (2) productId = MAT_B_COST, quantity = 6, facilityId = Web Store Warehouse
+             then new production run is created, issued components for following product
+                (1) productId = PROD_COST,  quantity = 2, facilityId = Web Store Warehouse
+             Post condition: In entity "AcctgTransEntry" two entries will be created:
+                    * Credit: in account 600000 - "EXPENSE"; amount: 250$
+                    * Debit: in account 142000 - "WORK IN PROGRESS INVENTORY", amount: 250$  -->
+                                  
+        <set field="productionRunId" value="10000"/>
+        <set field="workEffortId" value="10001"/>
+        <set field="serviceCtx.productionRunId" from-field="productionRunId"/>
+        <set field="serviceCtx.workEffortId" from-field="workEffortId"/>
+        <entity-one entity-name="UserLogin" value-name="serviceCtx.userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <call-service service-name="changeProductionRunTaskStatus" in-map-name="serviceCtx"/>
+
+        <entity-one entity-name="WorkEffort" value-name="workEffort">
+            <field-map field-name="workEffortId" env-name="workEffortId"/>
+        </entity-one>
+        <get-related  value-name="workEffort" relation-name="AcctgTrans" list-name="acctgTransList"/>
+        <assert><not><if-empty field-name="acctgTransList"></if-empty></not></assert>
+        <iterate list-name="acctgTransList" entry-name="acctgTrans">
+            <get-related value-name="acctgTrans" relation-name="AcctgTransEntry" list-name="acctgTransEntryList"/>
+            <iterate list-name="acctgTransEntryList" entry-name="acctgTransEntry">
+                <if-compare field-name="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
+                    <assert>
+                        <if-compare field-name="acctgTransEntry.productId" operator="equals" value="PROD_COST"/>
+                        <if-compare field-name="acctgTransEntry.glAccountTypeId" operator="equals" value="OPERATING_EXPENSE"/>
+                        <if-compare field-name="acctgTransEntry.glAccountId" operator="equals" value="600000"/>
+                    </assert>
+                <else>
+                    <if-compare field-name="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
+                        <assert>
+                            <if-compare field-name="acctgTransEntry.productId" operator="equals" value="PROD_COST"/>
+                            <if-compare field-name="acctgTransEntry.glAccountTypeId" operator="equals" value="WIP_INVENTORY"/>
+                            <if-compare field-name="acctgTransEntry.glAccountId" operator="equals" value="142000"/>
+                        </assert>
+                    </if-compare> 
+                </else>
+                </if-compare>
+            </iterate>
+        </iterate>   
+        <check-errors/>
+    </simple-method>
 </simple-methods>
