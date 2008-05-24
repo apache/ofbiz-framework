@@ -133,12 +133,17 @@ under the License.
         <response name="success" type="view" value="viewprofile"/><!-- What would be the view in case a vCard has more than one contact -->
         <response name="error" type="view" value="CreateLeadFromVCard"/>
     </request-map>  
+    <request-map uri="quickAddLead">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createLead"/>
+        <response name="success" type="view" value="viewprofile"/>
+    </request-map>   
     <!-- Contact Requests -->
     <request-map uri="FindContacts">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="FindContacts"/>
     </request-map>
-        <request-map uri="CreateContact">
+    <request-map uri="CreateContact">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="CreateContact"/>
     </request-map>
@@ -174,6 +179,10 @@ under the License.
         <response name="success" type="view" value="FindContacts"/><!-- This need to be fixed -->
         <response name="error" type="view" value="FindContacts"/>
     </request-map>        
+    <request-map uri="quickAddContact">   
+        <event type="service" invoke="createContact"/>
+        <response name="success" type="view" value="viewprofile"/>
+    </request-map> 
     <!-- end of request mappings -->
 
     <!-- View Mappings -->

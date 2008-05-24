@@ -92,4 +92,12 @@ under the License.
         <field name="serviceName"><hidden value="createContact"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpload}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
+  
+    <form name="QuickAddContact" type="single" target="quickAddContact">
+        <field name="firstName"  title="${uiLabelMap.CommonFirst} ${uiLabelMap.CommonName}*" widget-style="required"><text size="20"/></field>
+        <field name="lastName" title="${uiLabelMap.CommonLast} ${uiLabelMap.CommonName}*" widget-style="required"><text size="20"/></field>
+        <field name="emailAddress" title="${uiLabelMap.CommonEmail}"><text size="20"/></field>
+        <field name="quickAdd"><hidden value="Y"/></field>
+        <field name="submitButton"><submit/></field>
+    </form>  
 </forms>

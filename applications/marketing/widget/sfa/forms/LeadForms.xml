@@ -30,6 +30,7 @@ under the License.
             <entity-one entity-name="PartyType" value-name="partyType">
                 <field-map field-name="partyTypeId" env-name="partyRow.partyTypeId"/>
             </entity-one>
+            <set field="statusId" from-field="partyRow.statusId"/>
         </row-actions>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
             <hyperlink target="viewprofile?partyId=${partyRow.partyId}&amp;roleTypeId=LEAD" description="${partyRow.partyId}" target-type="inter-app"/>
@@ -118,5 +119,14 @@ under the License.
         <field name="infile" title="${uiLabelMap.SfaUploadVCard}"><file/></field>
         <field name="serviceName"><hidden value="createLead"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpload}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>    
+   
+    <form name="QuickAddLead" type="single" target="quickAddLead">
+        <field name="firstName" title="${uiLabelMap.CommonFirst} ${uiLabelMap.CommonName}*" widget-style="required"><text size="20"/></field>
+        <field name="lastName" title="${uiLabelMap.CommonLast} ${uiLabelMap.CommonName}*" widget-style="required"><text size="20"/></field>
+        <field name="groupName" title="${uiLabelMap.CommonGroup}"><text size="20"/></field>
+        <field name="emailAddress" title="${uiLabelMap.CommonEmail}"><text size="20"/></field>
+        <field name="quickAdd"><hidden value="Y"/></field>
+        <field name="submitButton"><submit/></field>
     </form>     
 </forms>

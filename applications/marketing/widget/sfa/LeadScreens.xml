@@ -77,6 +77,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleCreateLead"/>
                 <set field="tabButtonItem" value="Leads"/>
+                <property-to-field field="defaultCountryGeoId" resource="general" property="country.geo.id.default" default="USA"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonLeadDecorator" location="${parameters.mainDecoratorLocation}">

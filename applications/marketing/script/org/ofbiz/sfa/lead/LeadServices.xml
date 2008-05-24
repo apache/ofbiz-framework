@@ -22,21 +22,51 @@
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="createLead"  short-description="create Lead Person or Lead Group">
-    
         <set field="parameters.roleTypeId" value="LEAD"/>
-        <call-simple-method method-name="createPersonRoleAndContactMechs" xml-resource="org/ofbiz/party/party/PartySimpleMethods.xml"/>
+        <if-compare field-name="parameters.quickAdd" operator="not-equals" value="Y">
+            <call-simple-method method-name="createPersonRoleAndContactMechs" xml-resource="org/ofbiz/party/party/PartySimpleMethods.xml"/>
+        <else>
+            <call-map-processor processor-name="person" in-map-name="parameters" out-map-name="personCtx"
+                xml-resource="org/ofbiz/party/party/PartyMapProcs.xml"/>        
+            <call-service service-name="createPerson" in-map-name="personCtx">
+                <result-to-field result-name="partyId" field-name="partyId"/>
+                <result-to-result result-name="partyId" service-result-name="partyId"/>
+            </call-service>
+            <if-not-empty field-name="parameters.roleTypeId">
+                <set field="createPartyRoleCtx.partyId" from-field="partyId"/>
+                <set field="createPartyRoleCtx.roleTypeId" from-field="parameters.roleTypeId"/>
+                <call-service service-name="createPartyRole" in-map-name="createPartyRoleCtx"/>
+            </if-not-empty>     
+            <if-not-empty field-name="parameters.emailAddress">
+                <call-map-processor in-map-name="parameters" out-map-name="emailAddressCtx">
+                    <simple-map-processor name="emailAddress">
+                        <process field="emailAddress">
+                            <copy/><validate-method method="isEmail"><fail-property resource="PartyUiLabels" property="PartyEmailAddressNotFormattedCorrectly"/></validate-method>
+                        </process>
+                    </simple-map-processor>
+                </call-map-processor>
+                <check-errors/>
+                <set field="emailAddressCtx.partyId" from-field="partyId"/>
+                <set field="emailAddressCtx.contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
+                <call-service service-name="createPartyEmailAddress" in-map-name="emailAddressCtx">
+                    <result-to-field result-name="contactMechId" field-name="emailContactMechId"/>
+                </call-service> 
+            </if-not-empty>
+        </else>
+        </if-compare>
+        
         <if-not-empty field-name="userLogin.partyId">
             
             <set field="createPartyRoleCtx.partyId" from-field="userLogin.partyId"/>
             <set field="createPartyRoleCtx.roleTypeId" value="OWNER"/>
             <call-service service-name="createPartyRole" in-map-name="createPartyRoleCtx"/>
                         
-            <set field="partyRelationshipContext.partyIdFrom" from-field="userLogin.partyId"/>
-            <set field="partyRelationshipContext.partyIdTo" from-field="partyId"/>
-            <set field="partyRelationshipContext.roleTypeIdFrom" value="OWNER"/>
-            <set field="partyRelationshipContext.roleTypeIdTo" value="LEAD"/>
-            <set field="partyRelationshipContext.partyRelationshipTypeId" value="LEAD_OWNER"/>
-            <call-service service-name="createPartyRelationship" in-map-name="partyRelationshipContext"/>
+            <set field="partyRelationshipCtx.partyIdFrom" from-field="userLogin.partyId"/>
+            <set field="partyRelationshipCtx.partyIdTo" from-field="partyId"/>
+            <set field="partyRelationshipCtx.roleTypeIdFrom" value="OWNER"/>
+            <set field="partyRelationshipCtx.roleTypeIdTo" value="LEAD"/>
+            <set field="partyRelationshipCtx.partyRelationshipTypeId" value="LEAD_OWNER"/>
+            <call-service service-name="createPartyRelationship" in-map-name="partyRelationshipCtx"/>
             
             <set field="updatePartyCtx.partyId" from-field="partyId"/>
             <set field="updatePartyCtx.statusId" value="LEAD_ASSIGNED"/>
@@ -45,9 +75,9 @@
         <!-- Now create PartyGroup corresponding to the companyName, if its not null and then set up relationship of Person and PartyGroup as Employee and title -->
         <if-not-empty field-name="parameters.groupName">
             <set field="parameters.partyTypeId" value="PARTY_GROUP"/>    
-            <call-map-processor processor-name="partyGroup" in-map-name="parameters" out-map-name="partyGroupContext"
+            <call-map-processor processor-name="partyGroup" in-map-name="parameters" out-map-name="partyGroupCtx"
                 xml-resource="org/ofbiz/party/party/PartyMapProcs.xml"/>
-            <call-service service-name="createPartyGroup" in-map-name="partyGroupContext">
+            <call-service service-name="createPartyGroup" in-map-name="partyGroupCtx">
                 <result-to-field result-name="partyId" field-name="partyGroupPartyId"/>        
             </call-service>
             <set field="createPartyRoleCtx.partyId" from-field="partyGroupPartyId"/>
@@ -58,13 +88,13 @@
             <set field="createPartyRoleCtx.roleTypeId" value="EMPLOYEE"/>
             <call-service service-name="createPartyRole" in-map-name="createPartyRoleCtx"/>
           
-            <set field="partyRelationshipContext.partyIdFrom" from-field="partyGroupPartyId"/>
-            <set field="partyRelationshipContext.partyIdTo" from-field="partyId"/>
-            <set field="partyRelationshipContext.roleTypeIdFrom" value="LEAD"/>
-            <set field="partyRelationshipContext.roleTypeIdTo" value="EMPLOYEE"/>
-            <set field="partyRelationshipContext.positionTitle" from-field="parameters.title"/>
-            <set field="partyRelationshipContext.partyRelationshipTypeId" value="EMPLOYMENT"/>
-            <call-service service-name="createPartyRelationship" in-map-name="partyRelationshipContext"/>
+            <set field="partyRelationshipCtx.partyIdFrom" from-field="partyGroupPartyId"/>
+            <set field="partyRelationshipCtx.partyIdTo" from-field="partyId"/>
+            <set field="partyRelationshipCtx.roleTypeIdFrom" value="LEAD"/>
+            <set field="partyRelationshipCtx.roleTypeIdTo" value="EMPLOYEE"/>
+            <set field="partyRelationshipCtx.positionTitle" from-field="parameters.title"/>
+            <set field="partyRelationshipCtx.partyRelationshipTypeId" value="EMPLOYMENT"/>
+            <call-service service-name="createPartyRelationship" in-map-name="partyRelationshipCtx"/>
         </if-not-empty>
         
         <log level="verbose" message=" ${partyGroupPartyId}"></log>

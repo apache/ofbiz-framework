@@ -1266,8 +1266,8 @@
     <property key="SfaQuickAddContact">
         <value xml:lang="en">Quick Add Contact</value>
     </property>
-    <property key="SfaQuickAddContactForm">
-        <value xml:lang="en">Quick Add Contact Form</value>
+    <property key="SfaQuickAddLead">
+        <value xml:lang="en">Quick Add Lead</value>
     </property>
     <property key="SfaSecondContact">
         <value xml:lang="en">Second Contact</value>

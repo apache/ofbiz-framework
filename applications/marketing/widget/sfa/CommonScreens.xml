@@ -71,13 +71,14 @@ under the License.
         <section>
             <widgets>
                 <container style="left">
-                    <include-screen name="miniAddContact"/>
+                    <include-screen name="MiniAddContact"/>
+                    <include-screen name="MiniAddLead"/>
                 </container>
             </widgets>
         </section>
     </screen>
     
-    <screen name="miniAddContact">
+    <screen name="MiniAddContact">
         <section>
             <widgets>
                 <container style="screenlet">
@@ -88,7 +89,8 @@ under the License.
                     </container>
                     <container style="screenlet-body">
                         <section>
-                            <widgets><label text="${uiLabelMap.SfaQuickAddContactForm}"></label>    
+                            <widgets>
+                                <include-form name="QuickAddContact" location="component://marketing/widget/sfa/forms/ContactForms.xml"/>    
                             </widgets>
                         </section>
                     </container> 
@@ -96,6 +98,26 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="MiniAddLead">
+        <section>
+            <widgets>
+                <container style="screenlet" id="miniQuickAddLead">
+                    <container style="screenlet-title-bar">
+                        <container style="h3">
+                            <label text="${uiLabelMap.SfaQuickAddLead}"></label>
+                        </container>
+                    </container>
+                    <container style="screenlet-body">
+                        <section>
+                            <widgets>
+                                <include-form name="QuickAddLead" location="component://marketing/widget/sfa/forms/LeadForms.xml"/>
+                            </widgets>
+                        </section>
+                    </container> 
+                </container>
+            </widgets>
+        </section>
+    </screen>  
     <screen name="CommonOpportunityDecorator">
         <section>
             <actions>
@@ -189,11 +211,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <widgets>
-                                <section>
-                                    <widgets>                                        
-                                        <include-menu name="LeadTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
-                                    </widgets>
-                                </section>   
+                                <include-menu name="LeadTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
