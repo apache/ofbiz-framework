@@ -1278,7 +1278,7 @@ under the License.
     <simple-method method-name="testUpdateContactInfo" short-description="test to update contact information of a party" login-required="false">
         <log level="info" message="====================Update a contact information of a party test case=========================================="/>
         <set field="updateContactInfoMap.partyId" value="DemoCustomer"/>
-        <set field="updateContactInfoMap.contactMechId" value="9023"/>
+        <set field="updateContactInfoMap.contactMechId" value="9025"/>
         <set field="updateContactInfoMap.emailAddress" value="ofbiztest@yahoo.com"/>
         <entity-one entity-name="UserLogin" value-name="updateContactInfoMap.userLogin">
             <field-map field-name="userLoginId" value="system"/>
