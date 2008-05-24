@@ -23,6 +23,7 @@ import org.ofbiz.security.*;
 import org.ofbiz.base.util.*;
 import org.ofbiz.datafile.*;
 
+uiLabelMap = UtilProperties.getResourceBundleMap("WebtoolsUiLabels", locale);
 List messages = new LinkedList();
 
 String dataFileSave = request.getParameter("DATAFILE_SAVE");
