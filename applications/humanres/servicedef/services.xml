@@ -563,25 +563,10 @@ under the License.
         <auto-attributes entity-name="TelecomNumber" mode="IN" optional="true">
             <exclude field-name="contactMechId"/>
         </auto-attributes>
-        <attribute name="partyId" type="String" mode="OUT"/>
-        <attribute name="postalAddContactMechPurpTypeId" type="String" mode="IN" optional="false"/>
         <attribute name="emailAddress" type="String" mode="IN" optional="true"/>
-        <attribute name="partyIdFrom" type="String" mode="IN" optional="true"/>
-        <attribute name="generalAddressLine1" type="String" mode="IN" optional="true"/>
-        <attribute name="generalAddressLine2" type="String" mode="IN" optional="true"/>
-        <attribute name="generalCity" type="String" mode="IN" optional="true"/>
-        <attribute name="generalState" type="String" mode="IN" optional="true"/>  
-        <attribute name="generalCountry" type="String" mode="IN" optional="true"/>                                  
-        <attribute name="generalPostalCode" type="String" mode="IN" optional="true"/>
-        <attribute name="workCountryCode" type="String" mode="IN" optional="true"/>
-        <attribute name="workAreaCode" type="String" mode="IN" optional="true"/>
-        <attribute name="workContactNumber" type="String" mode="IN" optional="true"/> 
-        <attribute name="workExtension" type="String" mode="IN" optional="true"/> 
-        <attribute name="mobileCountryCode" type="String" mode="IN" optional="true"/>         
-        <attribute name="mobileAreaCode" type="String" mode="IN" optional="true"/>         
-        <attribute name="mobileContactNumber" type="String" mode="IN" optional="true"/>         
-        <attribute name="mobileExtension" type="String" mode="IN" optional="true"/>                                 
-        <attribute name="otherEmail" type="String" mode="IN" optional="true"/>                                         
+        <attribute name="fromDate" type="String" mode="IN" optional="true"/>
+        <attribute name="postalAddContactMechPurpTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="OUT"/>
     </service>
     
     <service name="createResponsibilityType" default-entity-name="ResponsibilityType" engine="simple"

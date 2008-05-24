@@ -515,25 +515,8 @@ under the License.
     </simple-method>
     
     <simple-method method-name="createEmployee" short-description="Create New Employee">
-        <if-not-empty field-name="generalAddressLine1" map-name="parameters">
-            <call-map-processor xml-resource="org/ofbiz/humanres/humanres/HumanResMapProcs.xml" processor-name="postalAddressGeneral" in-map-name="parameters" out-map-name="partyPostalAddressCtx"/>                  
-        </if-not-empty>
-        <if-not-empty field-name="workContactNumber" map-name="parameters">
-            <call-map-processor xml-resource="org/ofbiz/humanres/humanres/HumanResMapProcs.xml" processor-name="workPhoneNumber" in-map-name="parameters" out-map-name="workTelecomCtx"/>            
-        </if-not-empty>
-        <if-not-empty field-name="mobileContactNumber" map-name="parameters">
-            <call-map-processor xml-resource="org/ofbiz/humanres/humanres/HumanResMapProcs.xml" processor-name="mobileNumber" in-map-name="parameters" out-map-name="mobileTelecomCtx"/>            
-        </if-not-empty>
-        <if-not-empty field-name="otherEmail" map-name="parameters">
-            <call-map-processor xml-resource="org/ofbiz/humanres/humanres/HumanResMapProcs.xml" processor-name="otherEmail" in-map-name="parameters" out-map-name="partyEmailCtx"/>            
-        </if-not-empty>
-        <check-errors/>
-        
-        <set field="partyTypeId" value="PERSON"/>
         <set field="parameters.roleTypeId" value="EMPLOYEE"/>
         <call-simple-method method-name="createPersonRoleAndContactMechs" xml-resource="org/ofbiz/party/party/PartySimpleMethods.xml"/>
-        <field-to-result field-name="partyId"/> 
-        
         <if-not-empty field-name="parameters.partyIdFrom">
             <set field="partyRelationshipCtx.partyId" from-field="partyId"/>
             <set field="partyRelationshipCtx.partyIdFrom" from-field="parameters.partyIdFrom"/>
@@ -548,39 +531,7 @@ under the License.
             </if-empty>
             <call-service service-name="createPartyRelationship" in-map-name="partyRelationshipCtx"/>
         </if-not-empty>
-        
-        <if-not-empty field-name="generalAddressLine1" map-name="parameters">
-            <set field="partyPostalAddressCtx.partyId" from-field="partyId"/>
-            <set field="partyPostalAddressCtx.contactMechPurposeTypeId" value="GENERAL_LOCATION"/>
-            <call-service service-name="createPartyPostalAddress" in-map-name="partyPostalAddressCtx">
-                <result-to-field result-name="contactMechId" field-name="contactMechId"/>
-            </call-service>    
-        </if-not-empty>                      
-        
-        <if-not-empty field-name="workContactNumber" map-name="parameters">
-            <set field="workTelecomCtx.partyId" from-field="partyId"/>
-            <set field="workTelecomCtx.contactMechPurposeTypeId" value="PHONE_WORK"/>   
-            <call-service service-name="createPartyTelecomNumber" in-map-name="workTelecomCtx">
-                <result-to-field result-name="contactMechId" field-name="contactMechId"/>
-            </call-service> 
-        </if-not-empty>
-
-        <if-not-empty field-name="mobileContactNumber" map-name="parameters">
-            <set field="mobileTelecomCtx.partyId" from-field="partyId"/>
-            <set field="mobileTelecomCtx.contactMechPurposeTypeId" value="PHONE_MOBILE"/>   
-            <call-service service-name="createPartyTelecomNumber" in-map-name="mobileTelecomCtx">
-                <result-to-field result-name="contactMechId" field-name="contactMechId"/>
-            </call-service> 
-        </if-not-empty>
-        
-        <if-not-empty field-name="otherEmail" map-name="parameters">
-            <set field="partyEmailCtx.partyId" from-field="partyId"/>
-            <set field="partyEmailCtx.contactMechPurposeTypeId" value="OTHER_EMAIL"/>
-            <call-service service-name="createPartyEmailAddress" in-map-name="partyEmailCtx">
-                <result-to-field result-name="contactMechId" field-name="contactMechId"/>
-            </call-service>  
-        </if-not-empty>                  
-        
+        <field-to-result field-name="partyId"/>
     </simple-method>
     
     <!-- Responsibility Types -->
