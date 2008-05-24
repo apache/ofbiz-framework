@@ -346,6 +346,7 @@
     </property>
     <property key="CommonAlwaysInclude">
         <value xml:lang="en">Always Include</value>
+        <value xml:lang="fr">Toujours inclure</value>
         <value xml:lang="it">Include Sempre</value>
         <value xml:lang="pt">Incluir Sempre</value>
         <value xml:lang="th">รวมกันตลอดเวลา</value>
@@ -848,7 +849,7 @@
         <value xml:lang="ar">إلغاء/تمام</value>
         <value xml:lang="en">Cancel/Done</value>
         <value xml:lang="es">Cancelar/Terminar</value>
-        <value xml:lang="fr">Annuler / Terminer</value>
+        <value xml:lang="fr">Annuler/Terminer</value>
         <value xml:lang="it">Torna Indietro</value>
         <value xml:lang="nl">Geannuleerd/klaar</value>
         <value xml:lang="pt">Cancelar/Feito</value>
@@ -921,7 +922,7 @@
         <value xml:lang="de">Girokonto</value>
         <value xml:lang="en">Checking</value>
         <value xml:lang="es">Verificando</value>
-        <value xml:lang="fr">Contrôle</value>
+        <value xml:lang="fr">Vérification</value>
         <value xml:lang="it">Controlla</value>
         <value xml:lang="nl">Checking</value>
         <value xml:lang="pt">A Verificar</value>
@@ -1016,6 +1017,7 @@
     </property>
     <property key="CommonClearAll">
         <value xml:lang="en">Clear All</value>
+        <value xml:lang="fr">Tout effacer</value>
         <value xml:lang="pt">Limpar Tudo</value>
         <value xml:lang="ru">Отчистить все</value>
         <value xml:lang="th">เคลียร์ทั้งหมด</value>
@@ -1434,11 +1436,13 @@
     </property>
     <property key="CommonCurrentPassword">
         <value xml:lang="en">Current Password</value>
+        <value xml:lang="fr">Mot de passe actuel</value>
         <value xml:lang="th">รหัสผ่านที่ใช้อยู่ในปัจจุบัน</value>
     </property>
     <property key="CommonDaily">
         <value xml:lang="ar">يوميا</value>
         <value xml:lang="en">Daily</value>
+        <value xml:lang="fr">Quotidennement</value>
         <value xml:lang="it">Giornalmente</value>
         <value xml:lang="pt">Diário</value>
         <value xml:lang="ro">Zilnic</value>
@@ -1885,8 +1889,7 @@
         <value xml:lang="pt">Ocorreram os seguintes erros</value>
         <value xml:lang="ro">S-au gasit urmatoarele erori</value>
         <value xml:lang="ru">Произошли следующие ошибки</value>
-        <value xml:lang="th">ตามความผิดพลาดที่เกิดขึ้น
-</value>
+        <value xml:lang="th">ตามความผิดพลาดที่เกิดขึ้น</value>
         <value xml:lang="zh">发生下列错误</value>
     </property>
     <property key="CommonErrorMessage3">
@@ -1902,6 +1905,7 @@
     </property>
     <property key="CommonErrorNoStatusValidChange">
         <value xml:lang="en">Error: status change from [${lookedUpValue.statusId}] to [${parameters.statusId}] is not allowed.</value>
+        <value xml:lang="fr">Erreur le changement de status depuis [${lookedUpValue.statusId}] vers [${parameters.statusId}] n'est pas autorisé.</value>
         <value xml:lang="th">Error: ข้อผิดพลาด ! ไม่อนุญาติเปลี่ยนสถานะจาก [${lookedUpValue.statusId}] เป็น [${parameters.statusId}]
 </value>
     </property>
@@ -1922,6 +1926,7 @@
     </property>
     <property key="CommonExpand">
         <value xml:lang="en">Expand</value>
+        <value xml:lang="fr">Augmenter</value>
         <value xml:lang="en">แผ่ขยาย</value>
     </property>
     <property key="CommonExclude">
@@ -2770,6 +2775,7 @@
     </property>
     <property key="CommonInternalComment">
         <value xml:lang="en">Internal Comment</value>
+        <value xml:lang="fr">Commentaire interne</value>
     </property>
     <property key="CommonInto">
         <value xml:lang="ar">داخل</value>
@@ -4805,9 +4811,11 @@
     </property>
     <property key="CommonSearchOptions">
         <value xml:lang="en">Search Options</value>
+        <value xml:lang="fr">Options de la recherche</value>
     </property>
     <property key="CommonSearchResults">
         <value xml:lang="en">Search Results</value>
+        <value xml:lang="fr">Résultats de la recherche</value>
     </property>
     <property key="CommonSearchResultfor">
         <value xml:lang="ar">نتائج البحث ل</value>
