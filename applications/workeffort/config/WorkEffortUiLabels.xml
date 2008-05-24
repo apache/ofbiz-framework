@@ -20,6 +20,7 @@
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="FormFieldTitle_actualCompletionDate">
         <value xml:lang="en">Actual Completion Date</value>
+        <value xml:lang="fr">Véritable date d'achèvement</value>        
         <value xml:lang="it">Data Completamento Attuale</value>
         <value xml:lang="nl">Actual Completion Date</value>
         <value xml:lang="ro">Data Finalizare Actuala</value>
@@ -1732,6 +1733,7 @@
     </property>
     <property key="WorkEffort">
         <value xml:lang="en">WorkEffort</value>
+        <value xml:lang="fr">Tâche</value>
         <value xml:lang="es">Esfuerzo de trabajo</value>
         <value xml:lang="th">งาน</value>
     </property>
