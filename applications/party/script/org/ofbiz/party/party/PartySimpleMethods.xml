@@ -182,52 +182,37 @@ under the License.
     <!-- Simple method to create Party Postal Address, Telecom Number and Email Address, to be used by
          createPersonRoleAndContactMechs and createPartyGroupRoleAndContactMechs simple methods -->
     <simple-method method-name="createPartyContactMechs" short-description="Create Contact Mechs">
-        <!-- Create Party Postal Address and set purpose -->
+        <!-- postal address -->
         <set field="postalAddressContext.partyId" from-field="partyId"/>
+        <set field="postalAddressContext.contactMechPurposeTypeId" value="GENERAL_LOCATION"/>
         <call-service service-name="createPartyPostalAddress" in-map-name="postalAddressContext">
-            <result-to-field result-name="contactMechId" field-name="addressContactMechId"/>
+            <result-to-field result-name="contactMechId" map-name="postalAddressContext"/>
         </call-service>
      
-        <set field="postalAddressPurposeCtx.partyId" from-field="partyId"/>
-        <set field="postalAddressPurposeCtx.contactMechId" from-field="addressContactMechId"/>
-        <set field="postalAddressPurposeCtx.contactMechPurposeTypeId" value="GENERAL_LOCATION"/>
-        <call-service service-name="createPartyContactMechPurpose" in-map-name="postalAddressPurposeCtx"/>
-     
         <if-not-empty field-name="postalAddContactMechPurpTypeId">
-            <set field="postalAddressPurposeCtx.contactMechPurposeTypeId" from-field="postalAddContactMechPurpTypeId"/>
-            <call-service service-name="createPartyContactMechPurpose" in-map-name="postalAddressPurposeCtx"/>
+            <set-service-fields service-name="createPartyContactMechPurpose" map-name="postalAddressContext" to-map-name="serviceCtx"/>
+            <set field="serviceCtx.contactMechPurposeTypeId" from-field="postalAddContactMechPurpTypeId"/>
+            <call-service service-name="createPartyContactMechPurpose" in-map-name="serviceCtx"/>
         </if-not-empty>
      
-        <!-- Create Party Telecom Number and set purpose -->
+        <!-- phone number -->
         <if-not-empty field-name="contactNumber">
             <set field="telecomNumberContext.partyId" from-field="partyId"/>
-            <call-service service-name="createPartyTelecomNumber" in-map-name="telecomNumberContext">
-                <result-to-field result-name="contactMechId" field-name="phoneContactMechId"/>
-            </call-service>
-         
-            <set field="phonePurposeContext.partyId" from-field="partyId"/>
-            <set field="phonePurposeContext.contactMechId" from-field="phoneContactMechId"/>
-            <set field="phonePurposeContext.contactMechPurposeTypeId" from-field="phoneContactMechPurpTypeId"/>
-            <if-empty field-name="phonePurposeContext.contactMechPurposeTypeId">
-                <set field="phonePurposeContext.contactMechPurposeTypeId" value="PRIMARY_PHONE"/> 
-            </if-empty>
-            <call-service service-name="createPartyContactMechPurpose" in-map-name="phonePurposeContext"/>
+            <set field="telecomNumberContext.contactMechPurposeTypeId" value="PRIMARY_PHONE"/>
+            <if-not-empty field-name="phoneContactMechPurpTypeId"> <!-- override with purpose present in parameters, if any (This field is not used now, just here for future implementations) -->
+                <set field="telecomNumberContext.contactMechPurposeTypeId" from-field="phoneContactMechPurpTypeId"/>
+            </if-not-empty>
+            <call-service service-name="createPartyTelecomNumber" in-map-name="telecomNumberContext"/>
         </if-not-empty>
      
-        <!-- Create Party Email Address and set purpose -->
+        <!-- email address -->
         <if-not-empty field-name="emailAddress">
             <set field="emailAddressContext.partyId" from-field="partyId"/>
-            <call-service service-name="createPartyEmailAddress" in-map-name="emailAddressContext">
-                <result-to-field result-name="contactMechId" field-name="emailContactMechId"/>
-            </call-service>
-         
-            <set field="emailPurposeContext.partyId" from-field="partyId"/>
-            <set field="emailPurposeContext.contactMechId" from-field="emailContactMechId"/>
-            <set field="emailPurposeContext.contactMechPurposeTypeId" from-field="emailContactMechPurpTypeId"/>
-            <if-empty field-name="emailPurposeContext.contactMechPurposeTypeId">
-                 <set field="emailPurposeContext.contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
-            </if-empty>
-            <call-service service-name="createPartyContactMechPurpose" in-map-name="emailPurposeContext"/>
+            <set field="emailAddressContext.contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
+            <if-not-empty field-name="emailContactMechPurpTypeId"> <!-- override with purpose present in parameters, if any (This field is not used now, just here for future implementations) -->
+                <set field="emailAddressContext.contactMechPurposeTypeId" from-field="emailContactMechPurpTypeId"/>
+            </if-not-empty>
+            <call-service service-name="createPartyEmailAddress" in-map-name="emailAddressContext"/>
         </if-not-empty>
     </simple-method>
 </simple-methods>
