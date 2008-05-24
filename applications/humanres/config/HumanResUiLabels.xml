@@ -360,6 +360,12 @@
     <property key="HumanResAddPayGrade">
         <value xml:lang="en">Add Pay Grade</value>
     </property>
+    <property key="HumanResAddPerfNote">
+        <value xml:lang="en">Add Performance Note</value>
+    </property>
+    <property key="HumanResAddPerfReviewItems">
+        <value xml:lang="en">Add PerfReview Items</value>
+    </property>
     <property key="HumanResAddPersonTraining">
         <value xml:lang="en">Add Person Training</value>
     </property>
@@ -458,9 +464,7 @@
         <value xml:lang="en">Payroll Preferences</value>
     </property>
     <property key="HumanResEditPerfReviewItems">
-        <value xml:lang="en">Edit PerfReview Items</value>
-        <value xml:lang="it">Aggiorna Preferenze Righe Rassegne </value>
-        <value xml:lang="th">แก้ไขรายการการตรวจสอบสิทธิพิเศษ</value>
+        <value xml:lang="en">PerfReview Items</value>
     </property>
     <property key="HumanResEditSalaryStep">
         <value xml:lang="en">Edit Salary Step</value>

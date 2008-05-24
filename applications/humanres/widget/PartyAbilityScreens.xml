@@ -129,7 +129,7 @@
                 <entity-one entity-name="PerfReview" value-name="perfReview"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonPartyAbilityDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
@@ -216,32 +216,28 @@
     <screen name="EditPerfReviewItems">
         <section>
             <actions>
-                <set field="headerItem" value="PartyReview"/>
+                <set field="headerItem" value="PerfReview"/>
                 <set field="titleProperty" value="PageTitleEditPartyReviewItem"/>
-                <set field="tabButtonItem" value="EditPerfReview"/>
+                <set field="tabButtonItem" value="EditPerfReviewItems"/>
                 <set field="perfReviewId" from-field="parameters.perfReviewId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyAbilityDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.HumanResNewPartyReview}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <container>
-                                            <link target="EditPerfReviewItem" text="${uiLabelMap.HumanResNewPartyReviewItem}" style="buttontext"/>
-                                        </container>
-                                        <include-form name="ListPerfReviewItems" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>                     
-                                        <include-form name="EditPerfReviewItem" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>                     
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.CommonList} ${uiLabelMap.HumanResEditPerfReviewItems}">
+                            <section>
+                                <widgets>
+                                    <include-form name="ListPerfReviewItems" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
+                                </widgets>
+                            </section>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.HumanResAddPerfReviewItems}">
+                            <section>
+                                <widgets>
+                                    <include-form name="AddPerfReviewItem" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
+                                </widgets>
+                            </section>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

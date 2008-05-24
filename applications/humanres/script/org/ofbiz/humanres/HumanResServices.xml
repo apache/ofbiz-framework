@@ -122,7 +122,7 @@ under the License.
         <make-value entity-name="PerfReviewItem" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>        
-       <sequenced-id-to-env sequence-name="PerfReviewItem" env-name="newEntity.perfReviewItemSeqId"/>
+        <sequenced-id-to-env sequence-name="PerfReviewItem" env-name="newEntity.perfReviewItemSeqId"/>
         <field-to-result field-name="perfReviewItemSeqId" result-name="perfReviewItemSeqId"/>
         <create-value value-name="newEntity"/>
     </simple-method>

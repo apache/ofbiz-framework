@@ -81,12 +81,6 @@
         <menu-item name="EditPerfReviewItems" title="${uiLabelMap.HumanResEditPerfReviewItems}">
             <link target="EditPerfReviewItems?perfReviewId=${perfReviewId}"/>
         </menu-item>
-        <menu-item name="EditPartySkill" title="${uiLabelMap.HumanResListPartySkill}">
-            <link target="EditPartySkills?employeePartyId=${employeePartyId}"/>
-        </menu-item>
-        <menu-item name="EditPartyQual" title="${uiLabelMap.HumanResListPartyQual}">
-            <link target="EditPartyQuals?employeePartyId=${employeePartyId}"/>
-        </menu-item>
     </menu>
     <menu name="SalaryBar" default-menu-item-name="EditSalaryStep" default-selected-style="selected"
         type="simple" menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="tabButtonItem">
@@ -131,6 +125,9 @@
         </menu-item>
         <menu-item name="EditPartyResumes" title="${uiLabelMap.HumanResPartyResume}">
             <link target="EditPartyResumes?partyId=${partyId}"/>
+        </menu-item>
+        <menu-item name="EditPerformanceNotes" title="${uiLabelMap.HumanResPerfNote}">
+            <link target="EditPerformanceNotes?partyId=${partyId}"/>
         </menu-item>
     </menu>
 </menus>
