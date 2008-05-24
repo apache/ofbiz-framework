@@ -88,7 +88,7 @@ under the License.
                       <#if (addr1.indexOf(" ") > 0)>
                         <#assign addressNum = addr1.substring(0, addr1.indexOf(" "))>
                         <#assign addressOther = addr1.substring(addr1.indexOf(" ")+1)>
-                        <a target="_blank" href="http://www.whitepages.com/find_person_results.pl?fid=a&amp;s_n=${addressNum}&amp;s_a=${addressOther}&amp;c=${postalAddress.city?if_exists}&amp;s=${postalAddress.stateProvinceGeoId?if_exists}&amp;x=29&amp;y=18" class="buttontext">(lookup:whitepages.com)</a>
+                        <a target="_blank" href="${uiLabelMap.OrderLookupWhitepagesLink}" class="buttontext">${uiLabelMap.OrderLookupWhitepages}</a>
                       </#if>
                     </#if>
                   </div>

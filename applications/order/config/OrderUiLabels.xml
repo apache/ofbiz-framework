@@ -2109,7 +2109,7 @@
     </property>
     <property key="OrderCommaSeperatedEmailAddresses">
         <value xml:lang="en">You may add other comma separated email addresses here that will be used only for the current order</value>
-        <value xml:lang="fr">Vous pouvez ajouter l'autre virgule adresses e-mail séparées que sera ici utilisé seulement pour l'ordre actuel</value>
+        <value xml:lang="fr">Vous pouvez ajouter d'autres adresses e-mail séparées par des virgules. Elles seront utilisées seulement pour cette commande.</value>
         <value xml:lang="th">คุณอาจจะเพิ่มคอมมาเพื่อแยกอีเมลที่นี่นั่นจะใช้สำหรับการสั่งสินค้าในปัจจุบัน</value>
     </property>
     <property key="OrderCompanyName">
@@ -2141,7 +2141,7 @@
     <property key="OrderCompleteOrder">
         <value xml:lang="en">Complete Order</value>
         <value xml:lang="es">Terminar la orden</value>
-        <value xml:lang="fr">Termine la commande</value>
+        <value xml:lang="fr">Terminer la commande</value>
         <value xml:lang="it">Ordine Completato</value>
         <value xml:lang="nl">Rond Bestelling af.</value>
         <value xml:lang="ro">Ordin Completat</value>
@@ -2201,7 +2201,7 @@
     </property>
     <property key="OrderContinueToFinalOrderReview">
         <value xml:lang="en">Continue to Final Order Review</value>
-        <value xml:lang="fr">Continuer à la revue finale de commande</value>
+        <value xml:lang="fr">Continuer vers la vérification finale de la commande</value>
         <value xml:lang="th">เริ่มตรวจสอบรายการสุดท้ายใหม่</value>
     </property>
     <property key="OrderCopyCustRequestItem">
@@ -2230,7 +2230,7 @@
     </property>
     <property key="OrderCreateAsNewOrder">
         <value xml:lang="en">Create As New Order</value>
-        <value xml:lang="fr">Créer comme nouvelle commande</value>
+        <value xml:lang="fr">Dupliquer comme une nouvelle commande</value>
         <value xml:lang="it">Creare Come Nuovo Ordine</value>
         <value xml:lang="ru">Создать как новый заказ</value>
         <value xml:lang="th">สร้างรายการสั่งซื้อสินค้าใหม่</value>
@@ -2373,7 +2373,7 @@
     <property key="OrderCreateOrderQuoteWorkEfforts">
         <value xml:lang="en">Create Quote Work Efforts</value>
         <value xml:lang="es">Crear cotización de esfuerzo</value>
-        <value xml:lang="fr">Créer un devis de services</value>
+        <value xml:lang="fr">Créer un devis liés à une tâche</value>
         <value xml:lang="it">Creare Preventivo Impegno di Lavoro</value>
         <value xml:lang="nl">Nieuwe Offerte Activiteiten</value>
         <value xml:lang="ro">Creare Preventiv Sarcini de Lucru</value>
@@ -2384,7 +2384,7 @@
     <property key="OrderCreateQuoteFromCart">
         <value xml:lang="en">Create New Quote From Cart</value>
         <value xml:lang="es">Crear nueva cotización a partir del carro</value>
-        <value xml:lang="fr">Créer nouv. devis depuis panier</value>
+        <value xml:lang="fr">Créer une nouveau devis depuis le panier</value>
         <value xml:lang="it">Creare Nuovo Preventivo Dal Carrello</value>
         <value xml:lang="nl">maak een nieuwe offerte van deze bestelling</value>
         <value xml:lang="ro">Creare Nou Preventiv Din Cos</value>
@@ -2407,7 +2407,7 @@
     </property>
     <property key="OrderCreateQuoteWorkEffort">
         <value xml:lang="en">Create new Quote Workeffort</value>
-        <value xml:lang="fr">Créer un nouveau devis de tâche</value>
+        <value xml:lang="fr">Créer un nouveau devis lié à une tâche</value>
         <value xml:lang="it">Creare nuovo Preventivo Impegno di Lavoro</value>
         <value xml:lang="nl">Nieuwe Activiteit voor de offerte</value>
         <value xml:lang="ro">Preventiv Sarcini de Lucru OrderCreateReturn = Creare returnare </value>
@@ -2475,7 +2475,7 @@
         <value xml:lang="de">Kunden Auftragsnummer</value>
         <value xml:lang="en">Customer PO#</value>
         <value xml:lang="es">Número de la orden del cliente</value>
-        <value xml:lang="fr">Réf. Client</value>
+        <value xml:lang="fr">N° de la commande d'achat du client</value>
         <value xml:lang="it"># OA Soggetto</value>
         <value xml:lang="nl">Purchase Order klant#</value>
         <value xml:lang="ro"># La Subiect</value>
@@ -2489,7 +2489,7 @@
         <value xml:lang="de">Bewertung von Kunden</value>
         <value xml:lang="en">Customer Reviews </value>
         <value xml:lang="es">Reseñas de clientes</value>
-        <value xml:lang="fr">Opinion de la clientèle</value>
+        <value xml:lang="fr">Opinions de la clientèle </value>
         <value xml:lang="hi_IN">ग्राहक पुनरवलोकन</value>
         <value xml:lang="it">Recensioni Cliente</value>
         <value xml:lang="ja">Customer Reviews</value>
@@ -2517,7 +2517,7 @@
         <value xml:lang="de">Auftragsdatum</value>
         <value xml:lang="en">Order Date</value>
         <value xml:lang="es">Fecha de la orden</value>
-        <value xml:lang="fr">Date Commande</value>
+        <value xml:lang="fr">Date de la commande</value>
         <value xml:lang="it">Data Ordine</value>
         <value xml:lang="nl">Order Datum</value>
         <value xml:lang="ro">Data Comanda</value>
@@ -2530,7 +2530,7 @@
         <value xml:lang="de">Bestelldatum</value>
         <value xml:lang="en">Date Ordered</value>
         <value xml:lang="es">Fecha de la orden</value>
-        <value xml:lang="fr">Date Commandée</value>
+        <value xml:lang="fr">Date commandée</value>
         <value xml:lang="it">Data Ordine</value>
         <value xml:lang="nl">Bestel datum</value>
         <value xml:lang="ro">Data Comanda</value>
@@ -2542,7 +2542,7 @@
     <property key="OrderDeliveryScheduleInfo">
         <value xml:lang="en">Delivery Schedule Info</value>
         <value xml:lang="es">Información de horario de entrega</value>
-        <value xml:lang="fr">Information plan de livraison</value>
+        <value xml:lang="fr">Information du plan de livraison</value>
         <value xml:lang="th">ข้อมูลตารางเวลาการส่ง</value>
     </property>
     <property key="OrderDesiredDeliveryDate">
@@ -2596,7 +2596,7 @@
     </property>
     <property key="OrderDropShipped">
         <value xml:lang="en">Drop Shipped</value>
-        <value xml:lang="fr">Baisse expédiée</value>
+        <value xml:lang="fr">Expédié par un tiers</value>
         <value xml:lang="ru">Прямая поставка</value>
         <value xml:lang="th">หยุดการขนส่ง</value>
     </property>
@@ -2633,19 +2633,19 @@
     </property>
     <property key="OrderEditShipmentInfo">
         <value xml:lang="en">Edit Shipment Info</value>
-        <value xml:lang="fr">Editer info expédietion</value>
+        <value xml:lang="fr">Editer l'info d'expédition</value>
         <value xml:lang="ru">Изменить информацию о поставке</value>
         <value xml:lang="th">แก้ไขข้อมูลการส่งสินค้า</value>
         <value xml:lang="zh">编辑货运信息</value>
     </property>
     <property key="OrderEmailSentToFollowingAddresses">
         <value xml:lang="en">Your order will be sent to the following email addresses</value>
-        <value xml:lang="fr">Votre ordre sera envoyé aux adresses e-mail suivantes</value>
+        <value xml:lang="fr">Votre commande sera envoyé aux adresses e-mail suivantes</value>
         <value xml:lang="th">รายการสั่งซื้อสินค้าของคุณจะส่งตามที่อยู่อีเมล</value>
     </property>
     <property key="OrderEnteredPromoCodes">
         <value xml:lang="en">Entered Codes</value>
-        <value xml:lang="fr">Codes Promotionnels saisis</value>
+        <value xml:lang="fr">Codes promotionnels saisis</value>
         <value xml:lang="it">Codici Inseriti</value>
         <value xml:lang="nl">Invoer Codes</value>
         <value xml:lang="ro">Coduri Inserite</value>
@@ -2669,7 +2669,7 @@
     <property key="OrderErrorFacilityHaveNoAdress">
         <value xml:lang="en">Error : the facility does not have addresses</value>
         <value xml:lang="es">Error: el almacén no tiene direcciones</value>
-        <value xml:lang="fr">Erreur : le magasin n'a pas d'adresses</value>
+        <value xml:lang="fr">Erreur : le magasin n'a pas d'adresse</value>
         <value xml:lang="it">Errore : lo Stabilimento non ha indirizzi</value>
         <value xml:lang="nl">Foutmelding: deze faciliteit heeft geen verzend adres</value>
         <value xml:lang="ro">Eroare : Compartimentul nu are adrese</value>
@@ -2696,7 +2696,7 @@
     <property key="OrderErrorSelectCustomer">
         <value xml:lang="en">Error : Select  Customer</value>
         <value xml:lang="es">Por favor, seleccione un cliente</value>
-        <value xml:lang="fr">Erreur : sélectionner un client</value>
+        <value xml:lang="fr">SVP : sélectionnez un client</value>
         <value xml:lang="th">Error : ผิดพลาด ! การเลือกลูกค้า</value>
     </property>
     <property key="OrderEstimatedReadyDate">
@@ -2754,7 +2754,7 @@
     </property>
     <property key="OrderFilterInventoryProblems">
         <value xml:lang="en">Inventory problems</value>
-        <value xml:lang="fr">Problèmes d'inventaire</value>
+        <value xml:lang="fr">Problèmes de stock</value>
         <value xml:lang="it">problemi di inventario</value>
         <value xml:lang="ru">Проблемы с материальным обеспечением</value>
         <value xml:lang="th">ปัญหาสินค้าคงเหลือ</value>
@@ -2770,13 +2770,13 @@
     </property>
     <property key="OrderFilterOnInventoryProblems">
         <value xml:lang="en">Filter On Inventory Problems</value>
-        <value xml:lang="fr">filtrer sur les problèmes d'inventaire</value>
+        <value xml:lang="fr">filtrer sur les problèmes de stock</value>
         <value xml:lang="ro">Filtreaza pe probleme de inventar</value>
         <value xml:lang="th">ปัญหาการเพิ่มสินค้าคงเหลือ</value>
     </property>
     <property key="OrderFilterPOs">
         <value xml:lang="en">purchase orders</value>
-        <value xml:lang="fr">ordres d'achat</value>
+        <value xml:lang="fr">commandes d'achat</value>
         <value xml:lang="it">ordini di acquisto</value>
         <value xml:lang="ru">закупочные заказы</value>
         <value xml:lang="th">รายการสั่งซื้อสินค้า</value>
@@ -3433,6 +3433,23 @@
         <value xml:lang="zh_CN">查找退货单</value>
         <value xml:lang="zh">查找退货</value>
     </property>
+    <property key="OrderLookupWhitepages">
+        <value xml:lang="en">Look up White pages</value>
+        <value xml:lang="es">Páginas Blancas</value>
+        <value xml:lang="fr">Chercher dans les pages blanches</value>
+        <value xml:lang="hi_IN">lookup:whitepages.com</value>
+        <value xml:lang="it">Ricerca:whitepages.com</value>
+        <value xml:lang="ja">lookup:whitepages.com</value>
+        <value xml:lang="nl">Opzoeken in whitepages.com</value>
+        <value xml:lang="ro">lookup:whitepages.com</value>
+        <value xml:lang="ru">lookup:whitepages.com</value>
+        <value xml:lang="th">ค้นหา:whitepages.com</value>
+        <value xml:lang="zh">查找：whitepages.com</value>
+    </property>
+    <property key="OrderLookupWhitepagesLink">        
+        <value xml:lang="en">http://www.whitepages.com/find_person_results.pl?fid=a&amp;s_n=${addressNum}&amp;s_a=${addressOther}&amp;c=${postalAddress.city?if_exists}&amp;s=${postalAddress.stateProvinceGeoId?if_exists}&amp;x=29&amp;y=18</value>
+        <value xml:lang="fr">http://www.pagesjaunes.fr/trouverunnom/RecherchePagesBlanches.do</value>
+    </property>
     <property key="OrderMTD">
         <value xml:lang="en">MTD</value>
         <value xml:lang="es">Total mensual</value>
@@ -3747,7 +3764,7 @@
     </property>
     <property key="OrderNoOrderFoundForParty">
         <value xml:lang="en">No orders found for partyId</value>
-        <value xml:lang="fr">Aucun ordres trouvés pour réf. partie</value>
+        <value xml:lang="fr">Aucune commande trouvés pour réf. partie</value>
         <value xml:lang="it">Nessun Ordine Trovato per il soggetto</value>
         <value xml:lang="nl">Geen bestellingen gevonmden voor deze organisatie Id</value>
         <value xml:lang="ro">Nici-o Comanda Gasita pentru subiectul</value>
@@ -4861,7 +4878,7 @@
     <property key="OrderOrderQuotePercProfit">
         <value xml:lang="en">Quote Percentage Profit</value>
         <value xml:lang="es">%Ganancia de Cotización</value>
-        <value xml:lang="fr">Pourcentage de profit</value>
+        <value xml:lang="fr">Pourcentage de profit prévisionnel</value>
         <value xml:lang="it">Percentuale Profitto Preventivo</value>
         <value xml:lang="nl">Offerte Winst percentage</value>
         <value xml:lang="ro">Procent Profit Oferta</value>
@@ -4872,7 +4889,7 @@
     <property key="OrderOrderQuotePercent">
         <value xml:lang="en">Quote Percent</value>
         <value xml:lang="es">Porcentaje</value>
-        <value xml:lang="fr">Pourcentage de réussite</value>
+        <value xml:lang="fr">Pourcentage prévisionnel</value>
         <value xml:lang="it">Percentuale Preventivo</value>
         <value xml:lang="nl">Offerte Percent</value>
         <value xml:lang="ro">Procent Oferta</value>
@@ -5485,7 +5502,7 @@
     </property>
     <property key="OrderPickOrders">
         <value xml:lang="en">Pick Orders</value>
-        <value xml:lang="fr">Prélèvement ordres</value>
+        <value xml:lang="fr">Prélèvement des commandes</value>
         <value xml:lang="it">Preleva Ordine(i)</value>
         <value xml:lang="nl">Pick Orders</value>
         <value xml:lang="ro">Preia Comanda(enzi)</value>
@@ -5594,7 +5611,7 @@
     <property key="OrderProcessingInActive">
         <value xml:lang="en">This order is currently in a 'Active' state.</value>
         <value xml:lang="es">Esta orden se encuentra en estado 'Activo'</value>
-        <value xml:lang="fr">Cet ordre est actuellement dans un état «Actif»</value>
+        <value xml:lang="fr">Cette commande est actuellement dans un état «Actif»</value>
         <value xml:lang="it">Questo ordine è attualmente in uno stato 'Attivo'.</value>
         <value xml:lang="nl">This bestelling is currently in a 'Active' state.</value>
         <value xml:lang="ro">Aceasta comanda este in acest moment in stare 'Activ'.</value>
@@ -5605,7 +5622,7 @@
     <property key="OrderProcessingInHold">
         <value xml:lang="en">This order is currently in a 'Hold' state. The activity has been suspended.</value>
         <value xml:lang="es">Esta orden se encuentra en estado 'En espera'</value>
-        <value xml:lang="fr">Cet ordre est actuellement dans un état de «prise». L'activité a été suspendue. </value>
+        <value xml:lang="fr">Cette commande est actuellement dans un état de «prise». L'activité a été suspendue. </value>
         <value xml:lang="it">Questo ordine è attualmente in uno stato 'Congelato'. L'attività è stata sospesa.</value>
         <value xml:lang="nl">This bestelling is currently in a 'Hold' state. The activity has been suspended.</value>
         <value xml:lang="ro">Aceasta Comanda este in acest moment in stare 'Congelata'. Activitatea a fost suspendata.</value>
@@ -6160,13 +6177,13 @@
     </property>
     <property key="OrderReportFromDate">
         <value xml:lang="en">From Date<br/>(Order Date&gt;=)</value>
-        <value xml:lang="fr">Depuis la date<br/>(Date ordre &gt;=)</value>
+        <value xml:lang="fr">Depuis la date<br/>(Date commande &gt;=)</value>
         <value xml:lang="it">Dalla Data<br/>(Data Ordine&gt;=)</value>
         <value xml:lang="th">จากวันที่<br/>(รายการสั่งซื้อสินค้าวันที่&gt;=)</value>
     </property>
     <property key="OrderReportOpenOrderItems">
         <value xml:lang="en">Open Order Items Report</value>
-        <value xml:lang="fr">Ouvrir le rapport ordre d'articles</value>
+        <value xml:lang="fr">Ouvrir le rapport commande d'articles</value>
         <value xml:lang="it">Report Righe Ordine Aperte</value>
         <value xml:lang="ro">Raport Linii Comenzi Deschise</value>
         <value xml:lang="ru">Открыть отчет по позициям заказа</value>
