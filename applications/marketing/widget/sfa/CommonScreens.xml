@@ -205,4 +205,122 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="ViewProfile">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleViewPartyProfile"/>
+                <set field="tabButtonItem" value="viewprofile"/>
+                <set field="headerItem" value="find"/>
+                <set field="labelTitleProperty" value="PartyTaxAuthInfos"/>
+                
+                <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/prototype.js" global="true"/>                
+                <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/control.progress_bar.js" global="true"/>                
+                <set field="layoutSettings.styleSheets[]" value="/images/prototypejs/progress_bar.css" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/partymgr/js/PartyProfileContent.js" global="true"/>                
+                
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/viewprofile.bsh"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/getUserLoginPrimaryEmail.bsh"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/setRoleVars.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <not><if-empty field-name="party"/></not>
+                            </condition>
+                            <widgets>
+                                <section>
+                                    <condition>
+                                        <if-compare field-name="showOld" operator="equals" value="true" type="Boolean"/>
+                                    </condition>
+                                    <widgets>
+                                        <container style="button-bar button-style-2">
+                                            <link target="viewprofile?partyId=${party.partyId}" text="${uiLabelMap.PartyHideOld}"/>
+                                        </container>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <container style="button-bar button-style-2">
+                                            <link target="viewprofile?partyId=${party.partyId}&amp;SHOW_OLD=true" text="${uiLabelMap.PartyShowOld}"/>
+                                        </container>
+                                    </fail-widgets>
+                                </section>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field-name="accountDescription"/></not>                                        
+                                    </condition>
+                                    <widgets>
+                                        <label style="h1" text="Party ${party.partyId} in the Role of ${accountDescription}"/>
+                                        <container style="profile-left">
+                                            <include-screen name="Party" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="Contact" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="PaymentMethods" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                        </container>
+                                        <container style="profile-right">
+                                            <include-screen name="FinAccounts" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="UserLogin" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="Attributes" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="Visits" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="Subscriptions" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="Content" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="Notes" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                        </container>
+                                    </widgets>
+                                </section>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field-name="leadDescription"/></not>                                        
+                                    </condition>
+                                    <widgets>
+                                        <label style="h1" text="Party ${party.partyId} in the Role of ${leadDescription}"/>
+                                        <container style="profile-left">
+                                            <include-screen name="Party" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="Contact" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="PaymentMethods" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                        </container>
+                                        <container style="profile-right">
+                                            <include-screen name="FinAccounts" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="UserLogin" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="Attributes" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="Visits" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="Subscriptions" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="Content" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="Notes" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                        </container>
+                                    </widgets>
+                                </section>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field-name="contactDescription"/></not>                                        
+                                    </condition>
+                                    <widgets>
+                                        <label style="h1" text="Party ${party.partyId} in the Role of ${contactDescription}"/>
+                                        <container style="profile-left">
+                                            <include-screen name="Party" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="Contact" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="PaymentMethods" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                        </container>
+                                        <container style="profile-right">
+                                            <include-screen name="FinAccounts" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="UserLogin" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="Attributes" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="Visits" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="Subscriptions" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="Content" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="Notes" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                        </container>
+                                    </widgets>
+                                </section>
+                            </widgets>
+                            <fail-widgets>
+                                <container>
+                                    <label style="h3">${uiLabelMap.PartyNoPartyFoundWithPartyId}: ${parameters.partyId}</label>
+                                </container>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>

@@ -178,6 +178,8 @@ under the License.
 
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://marketing/widget/sfa/CommonScreens.xml#main"/>
+    <view-map name="viewprofile" type="screen" page="component://marketing/widget/sfa/CommonScreens.xml#ViewProfile"/>
+
     <view-map name="FindOpportunity" type="screen" page="component://marketing/widget/sfa/OpportunityScreens.xml#FindOpportunity"/>
     <view-map name="NewOpportunity" type="screen" page="component://marketing/widget/sfa/OpportunityScreens.xml#NewOpportunity"/>
     <view-map name="viewOpportunity" type="screen" page="component://marketing/widget/sfa/OpportunityScreens.xml#viewOpportunity"/>
