@@ -92,7 +92,7 @@
         <field name="partyIdFrom" title="${uiLabelMap.HumanResPartyIdFrom}" tooltip="${uiLabelMap.CommonRequired}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="partyIdTo" title="${uiLabelMap.HumanResPartyIdTo}" tooltip="${uiLabelMap.CommonRequired}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="fromDate" title="${uiLabelMap.CommonDate}" tooltip="${uiLabelMap.CommonRequired}"><date-time/></field>
-        <field name="terminationReasonId" title="${uiLabelMap.HumanResTerminationReasonId}"><lookup target-form-name="LookupTerminationReason"/></field>
+        <field name="terminationReasonId" use-when="employment!=null" title="${uiLabelMap.HumanResTerminationReasonId}"><lookup target-form-name="LookupTerminationReason"/></field>
         <field name="terminationTypeId" use-when="employment!=null" title="${uiLabelMap.HumanResTerminationTypeId}">
             <drop-down allow-empty="true" no-current-selected-key="------">
                 <entity-options description="${description}" key-field-name="terminationTypeId" entity-name="TerminationType">                    
@@ -139,7 +139,7 @@
         <field name="partyId"><hidden/></field>
         <field name="applyingPartyId" title="${uiLabelMap.FormFieldTitle_applyingPartyId}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="referredByPartyId" title="${uiLabelMap.FormFieldTitle_referredByPartyId}" use-when="&quot;${referredByPartyId}&quot;.equals(null)"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="referredByPartyId" use-when="referredByPartyId!=null"><hidden/></field>
+        <field name="referredByPartyId" use-when="referredByPartyId!=null"><lookup target-form-name="LookupPartyName"/></field>
         <field name="applicationDate" title="${uiLabelMap.FormFieldTitle_applicationDate}"><date-time/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
             <hyperlink target="deleteEmploymentApp?applicationId=${applicationId}&amp;&amp;partyId=${partyId}&amp;&amp;referredByPartyId=${referredByPartyId}" description="${uiLabelMap.CommonDelete}" also-hidden="true"/>

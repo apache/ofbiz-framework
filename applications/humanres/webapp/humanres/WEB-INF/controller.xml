@@ -182,9 +182,15 @@ under the License.
         <event type="service" invoke="deletePerfReviewItem"/>
         <response name="success" type="view" value="EditPerfReviewItems"/>
     </request-map>
-    <request-map uri="findPerformanceNotes">
+    <request-map uri="EditPerformanceNotes">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="ListPerformanceNotes"/>
+        <response name="success" type="view" value="EditPerformanceNotes"/>
+    </request-map>
+    <request-map uri="createPerformanceNote">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createPerformanceNote"/>
+        <response name="success" type="view" value="EditPerformanceNotes"/>
+        <response name="error" type="view" value="EditPerformanceNotes"/>
     </request-map>
     <request-map uri="findPersonTrainings">
         <security https="true" auth="true"/>
@@ -692,4 +698,5 @@ under the License.
     <view-map name="EditPersonTrainings" type="screen" page="component://humanres/widget/EmploymentScreens.xml#EditPersonTrainings"/>
     <view-map name="EditEmploymentApps" type="screen" page="component://humanres/widget/EmploymentScreens.xml#EditEmploymentApps"/>
     <view-map name="EditPartyResumes" type="screen" page="component://humanres/widget/EmploymentScreens.xml#EditPartyResumes"/>
+    <view-map name="EditPerformanceNotes" type="screen" page="component://humanres/widget/EmploymentScreens.xml#EditPerformanceNotes"/>
 </site-conf>

@@ -688,4 +688,34 @@
             </widgets>
         </section>
     </screen>
+    <screen name="EditPerformanceNotes">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HumanResEditPerfNote"/>
+                <set field="headerItem" value="Employee"/>
+                <set field="tabButtonItem" value="EditPerformanceNotes"/>
+                <set field="partyId" from-field="parameters.partyId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.CommonList} ${uiLabelMap.HumanResPerfNote}">
+                            <section>
+                                <widgets>
+                                    <include-form name="ListPerformanceNotes" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
+                                </widgets>
+                            </section>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.HumanResAddPerfNote}">
+                            <section>
+                                <widgets>
+                                    <include-form name="AddPerformanceNote" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
+                                </widgets>
+                            </section>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>
