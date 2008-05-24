@@ -407,6 +407,7 @@ under the License.
         <attribute name="partyIdFrom" type="String" mode="IN" optional="true"/>
         <attribute name="leadSource" type="String" mode="IN" optional="true"/>
         <attribute name="roleTypeId" type="String" mode="OUT"/>
+        <attribute name="quickAdd" type="String" mode="IN" optional="true"/>
     </service>
     <service name="createContact" engine="simple"
         location="org/ofbiz/sfa/contact/ContactServices.xml" invoke="createContact">
@@ -423,6 +424,7 @@ under the License.
         <attribute name="partyId" type="String" mode="OUT" />
         <attribute name="emailAddress" type="String" mode="IN" optional="true"/>
         <attribute name="partyIdFrom" type="String" mode="IN" optional="true"/>
+        <attribute name="quickAdd" type="String" mode="IN" optional="true"/>
     </service>
     <service name="mergeContacts" engine="simple" 
         location="org/ofbiz/sfa/contact/ContactServices.xml" invoke="mergeContacts">

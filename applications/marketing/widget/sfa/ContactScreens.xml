@@ -80,6 +80,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleCreateContact"/>
                 <set field="tabButtonItem" value="Contacts"/>
+                <property-to-field field="defaultCountryGeoId" resource="general" property="country.geo.id.default" default="USA"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
