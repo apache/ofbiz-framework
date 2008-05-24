@@ -136,11 +136,6 @@ under the License.
       <field name="managerRoleTypeId" type="id"></field>
       <field name="paymentId" type="id"></field>
       <field name="emplPositionId" type="id"></field>
-      <field name="payHistoryRoleTypeIdFrom" type="id"></field>
-      <field name="payHistoryRoleTypeIdTo" type="id"></field>
-      <field name="payHistoryPartyIdFrom" type="id"></field>
-      <field name="payHistoryPartyIdTo" type="id"></field>
-      <field name="payHistoryFromDate" type="date-time"></field>
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
       <field name="comments" type="comment"></field>
@@ -166,20 +161,6 @@ under the License.
       </relation>
       <relation type="one-nofk" fk-name="PERF_REV_PSTN" rel-entity-name="EmplPosition">
         <key-map field-name="emplPositionId"/>
-      </relation>
-      <relation type="one" fk-name="PERF_REV_PHFPTY" title="PayHistoryFrom" rel-entity-name="Party">
-        <key-map field-name="payHistoryPartyIdFrom" rel-field-name="partyId"/>
-      </relation>
-      <relation type="one" fk-name="PERF_REV_PHFPRL" title="PayHistoryFrom" rel-entity-name="PartyRole">
-        <key-map field-name="payHistoryPartyIdFrom" rel-field-name="partyId"/>
-        <key-map field-name="payHistoryRoleTypeIdFrom" rel-field-name="roleTypeId"/>
-      </relation>
-      <relation type="one" fk-name="PERF_REV_PHTPTY" title="PayHistoryTo" rel-entity-name="Party">
-        <key-map field-name="payHistoryPartyIdTo" rel-field-name="partyId"/>
-      </relation>
-      <relation type="one" fk-name="PERF_REV_PHTPRL" title="PayHistoryTo" rel-entity-name="PartyRole">
-        <key-map field-name="payHistoryPartyIdTo" rel-field-name="partyId"/>
-        <key-map field-name="payHistoryRoleTypeIdTo" rel-field-name="roleTypeId"/>
       </relation>
     </entity>
     <entity entity-name="PerfReviewItem"
@@ -731,12 +712,14 @@ under the License.
             title="EmplPosition Type Rate Entity">
         <field name="emplPositionTypeId" type="id-ne"/>
         <field name="periodTypeId" type="id-ne"/>
+        <field name="payGradeId" type="id"/>
         <field name="salaryStepSeqId" type="id"/>
         <field name="rateTypeId" type="id"/>
-        <field name="payGradeId" type="id"/>
         <field name="fromDate" type="date-time"/>
         <field name="thruDate" type="date-time"/>
         <field name="rate" type="id"/>
+        <prim-key field="emplPositionTypeId"/>
+        <prim-key field="periodTypeId"/>
         <prim-key field="fromDate"/>
         <relation type="one" fk-name="EMPL_PSTPRT_EPTP" rel-entity-name="EmplPositionType">
             <key-map field-name="emplPositionTypeId"/>
