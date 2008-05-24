@@ -276,10 +276,7 @@ under the License.
                                         </container>
                                         <container style="profile-right">
                                             <include-screen name="FinAccounts" location="component://party/widget/partymgr/ProfileScreens.xml"/>
-                                            <include-screen name="UserLogin" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                             <include-screen name="Attributes" location="component://party/widget/partymgr/ProfileScreens.xml"/>
-                                            <include-screen name="Visits" location="component://party/widget/partymgr/ProfileScreens.xml"/>
-                                            <include-screen name="Subscriptions" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                             <include-screen name="Content" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                             <include-screen name="Notes" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                         </container>
@@ -294,15 +291,8 @@ under the License.
                                         <container style="profile-left">
                                             <include-screen name="Party" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                             <include-screen name="Contact" location="component://party/widget/partymgr/ProfileScreens.xml"/>
-                                            <include-screen name="PaymentMethods" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                         </container>
                                         <container style="profile-right">
-                                            <include-screen name="FinAccounts" location="component://party/widget/partymgr/ProfileScreens.xml"/>
-                                            <include-screen name="UserLogin" location="component://party/widget/partymgr/ProfileScreens.xml"/>
-                                            <include-screen name="Attributes" location="component://party/widget/partymgr/ProfileScreens.xml"/>
-                                            <include-screen name="Visits" location="component://party/widget/partymgr/ProfileScreens.xml"/>
-                                            <include-screen name="Subscriptions" location="component://party/widget/partymgr/ProfileScreens.xml"/>
-                                            <include-screen name="Content" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                             <include-screen name="Notes" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                         </container>
                                     </widgets>
@@ -316,10 +306,8 @@ under the License.
                                         <container style="profile-left">
                                             <include-screen name="Party" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                             <include-screen name="Contact" location="component://party/widget/partymgr/ProfileScreens.xml"/>
-                                            <include-screen name="PaymentMethods" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                         </container>
                                         <container style="profile-right">
-                                            <include-screen name="FinAccounts" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                             <include-screen name="UserLogin" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                             <include-screen name="Attributes" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                             <include-screen name="Visits" location="component://party/widget/partymgr/ProfileScreens.xml"/>
