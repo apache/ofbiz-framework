@@ -16,7 +16,6 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#assign uiLabelMap = requestAttributes.uiLabelMap>
 <table border="0" width="100%" cellpadding="3">
   <tr>
     <td colspan="2">
@@ -32,16 +31,14 @@ under the License.
 <center>
   <table width='100%' border='0' cellpadding='0' cellspacing='0'>        
     <#list sessionAttributes.lastViewedProducts as productId>              
-      <tr><td><hr class="sepbar"/></td></tr>
       <tr>
         <td>
           ${setRequestAttribute("optProductId", productId)}
           ${setRequestAttribute("listIndex", productId_index)}
-          ${pages.get("/catalog/productsummary.ftl")}
+          ${screens.render("component://ecommerce/widget/CatalogScreens.xml#productsummary")}
         </td>
       </tr>
     </#list>
-    <tr><td colspan="2"><hr class="sepbar"/></td></tr>
   </table>
 </center>
 <#else>
