@@ -439,7 +439,7 @@ under the License.
 
             <iterate list-name="productStoreFacilities" entry-name="productStoreFacility">
                 <!-- in this case quantityNotReserved will always be empty until it finds a facility it can totally reserve from, then it will be 0.0 and we are done -->
-                <if-empty field-name="quantityNotReserved">
+                <if-empty field-name="storeFound">
                     <!-- TODO: must entire quantity be available in one location? -->
                     <!-- Right now the answer is yes, it only succeeds if one facility has sufficient inventory for the order. -->
                     <set from-field="parameters.productId" field="callServiceMap.productId"/>
@@ -448,25 +448,25 @@ under the License.
                         <result-to-field result-name="availableToPromiseTotal"/>
                     </call-service>
                     <clear-field field-name="callServiceMap"/>
-                    
-                    <if-compare-field field-name="availableToPromiseTotal" operator="greater-equals" to-field-name="parameters.quantity" type="Double">
-                        <set-service-fields map-name="parameters" to-map-name="callServiceMap" service-name="reserveProductInventoryByFacility"/>
-                        <set from-field="productStoreFacility.facilityId" field="callServiceMap.facilityId"/>
-                        <set from-field="requireInventory" field="callServiceMap.requireInventory"/>
-                        <set from-field="productStore.reserveOrderEnumId" field="callServiceMap.reserveOrderEnumId"/>
-                        <call-service service-name="reserveProductInventoryByFacility" in-map-name="callServiceMap">
-                            <result-to-field result-name="quantityNotReserved"/>
-                        </call-service>
 
-                        <log level="info" message="Inventory IS reserved in facility with id [${productStoreFacility.facilityId}] for product id [${parameters.productId}]; desired quantity was ${parameters.quantity}"/>
+                    <if-compare-field field-name="availableToPromiseTotal" operator="greater-equals" to-field-name="parameters.quantity" type="Double">
+                    	<set field="storeFound" from-field="productStoreFacility"/>
                     </if-compare-field>
                     <clear-field field-name="availableToPromiseTotal"/>
-                </if-empty>                
+                </if-empty>      
             </iterate>
-            <!-- didn't find anything? couldn't reserve the quantity so return the whole thing... -->
-            <if-empty field-name="quantityNotReserved">
-                <set from-field="parameters.quantity" field="quantityNotReserved"/>
+            <!-- didn't find anything? Take the first facility from list -->
+            <if-empty field-name="storeFound">
+            	<first-from-list list-name="productStoreFacilities" entry-name="storeFound"/>
             </if-empty>
+            <set-service-fields map-name="parameters" to-map-name="callServiceMap" service-name="reserveProductInventoryByFacility"/>
+            <set from-field="storeFound.facilityId" field="callServiceMap.facilityId"/>
+            <set from-field="requireInventory" field="callServiceMap.requireInventory"/>
+            <set from-field="productStore.reserveOrderEnumId" field="callServiceMap.reserveOrderEnumId"/>
+            <call-service service-name="reserveProductInventoryByFacility" in-map-name="callServiceMap">
+                <result-to-field result-name="quantityNotReserved"/>
+            </call-service>
+            <log level="info" message="Inventory IS reserved in facility with id [${storeFound.facilityId}] for product id [${parameters.productId}]; desired quantity was ${parameters.quantity}"/>            
         </else>
         </if-compare>
 
