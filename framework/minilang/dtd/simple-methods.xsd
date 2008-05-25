@@ -39,7 +39,7 @@ under the License.
     <xs:element name="IfBasicOperations" abstract="true"/>
     <xs:element name="IfOtherOperations" abstract="true"/>
     <xs:element name="OtherOperations" abstract="true"/>
-    <xs:group name="AllOperations">
+    <xs:group name="AllOperations"> <!-- Any simple-method operation can be nested under an if-* tag. -->
         <xs:choice>
             <xs:element ref="CallOperations"/>
             <xs:element ref="EventOperations"/>
@@ -131,7 +131,9 @@ under the License.
         <xs:attribute type="xs:string" name="type">
             <xs:annotation>
                 <xs:documentation>
-                    Type of the value put in the field. If this is a method call or object creation and the type in the method signature being called is for a parent class or interface, then it should be the type in that parent class or interface and not the type of the object being passed in. 
+                    Type of the value put in the field. 
+                    If this is a method call or object creation and the type in the method signature being called is for a parent class or interface, 
+                    then it should be the type in that parent class or interface and not the type of the object being passed in. 
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -139,7 +141,7 @@ under the License.
     <xs:element name="string">
         <xs:annotation>
             <xs:documentation>
-                String of type java.lang.String
+                String of type java.lang.String. Inserts the value of the inline string where specified.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType mixed="true">
@@ -779,7 +781,7 @@ under the License.
         <xs:attribute type="xs:string" name="result-name" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    Name of the result. May be used for the session attribute name. If you don't specify a session-name ,
+                    Name of the result. May be used for the session attribute name. If you don't specify a session-name,
                     that's the name of the session attribute that will be created for the value of that result.                                        
                 </xs:documentation>
             </xs:annotation>
@@ -1660,7 +1662,7 @@ under the License.
                 <xs:documentation>
                     arg-list-name is used to insert values from a list into
                     the string using the object in the standard Java library
-                    that does this sort of string expresison with a { } brackets
+                    that does this sort of string expression with a { } brackets
                     and a number, no dollar sign.
                     
                     This pattern of the arg-list-name with the prefix and
@@ -3595,8 +3597,7 @@ under the License.
             </xs:documentation>
         </xs:annotation>        
         <xs:complexType>
-            <xs:group minOccurs="0" maxOccurs="unbounded" ref="AllOperations">
-            </xs:group>
+            <xs:group minOccurs="0" maxOccurs="unbounded" ref="AllOperations"/>            
             <xs:attributeGroup ref="attlist.iterate"/>
         </xs:complexType>
     </xs:element>
@@ -5137,7 +5138,8 @@ under the License.
             <xs:documentation>
                 The Simple Map Processor Mini-Language performes two primary tasks: validation and conversion.  
                 It does this in a context of moving values from one Map to another. 
-                The input map will commonly contain Strings, but can contain other object types like Integer, Long, Float, Double, java.sql.Date, Time, and Timestamp.
+                The input map will commonly contain Strings, but can contain other object types like 
+                Integer, Long, Float, Double, java.sql.Date, Time, and Timestamp.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
