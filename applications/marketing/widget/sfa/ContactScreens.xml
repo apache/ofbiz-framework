@@ -35,39 +35,35 @@ under the License.
                                 <service service-name="findParty" auto-field-map="true"/>
                             </actions>
                             <widgets>
-                               <include-menu  name="ContactTabBar" location="component://marketing/widget/sfa/SfaMenus.xml" />
-                               <section>
-                                   <widgets>
-                                       <platform-specific>
-                                            <html><html-template location="component://marketing/webapp/sfa/party/findSfaParty.ftl"/></html>
-                                        </platform-specific>
-                                        <container style="screenlet">
-                                           <container style="screenlet-title-bar">
-                                               <container style="h3"><label text="${uiLabelMap.SfaFindResults}"/></container>
-                                           </container>
-                                           <container style="screenlet-body">
-                                               <section>
-                                                   <condition>
-                                                       <not><if-empty field-name="partyList"/></not>
-                                                   </condition>
-                                                   <widgets>
-                                                       <include-form name="ListContacts" location="component://marketing/widget/sfa/forms/ContactForms.xml"/>
-                                                        <label text="&amp;nbsp;&lt;br/&gt;&lt;br/&gt;"/> 
-                                                        <container style="h3">
-                                                            <label text="${uiLabelMap.SfaMergeContacts}"/>
-                                                        </container>
-                                                        <include-form name="MergeContacts" location="component://marketing/widget/sfa/forms/ContactForms.xml"/>                                                       
-                                                   </widgets>
-                                                   <fail-widgets>
-                                                       <container style="h3">
-                                                           <label text="${uiLabelMap.PartyNoPartiesFound}"/>
-                                                       </container>
-                                                   </fail-widgets>
-                                               </section>
-                                           </container>
-                                        </container>
-                                    </widgets>
-                                </section>
+                                <!--include-menu  name="ContactTabBar" location="component://marketing/widget/sfa/SfaMenus.xml" /-->
+                                <platform-specific>
+                                    <html><html-template location="component://marketing/webapp/sfa/party/findSfaParty.ftl"/></html>
+                                </platform-specific>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="h3"><label text="${uiLabelMap.SfaFindResults}"/></container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <section>
+                                            <condition>
+                                                <not><if-empty field-name="partyList"/></not>
+                                            </condition>
+                                            <widgets>
+                                                <include-form name="ListContacts" location="component://marketing/widget/sfa/forms/ContactForms.xml"/>
+                                                <label text="&amp;nbsp;&lt;br/&gt;&lt;br/&gt;"/> 
+                                                <container style="h3">
+                                                    <label text="${uiLabelMap.SfaMergeContacts}"/>
+                                                </container>
+                                                <include-form name="MergeContacts" location="component://marketing/widget/sfa/forms/ContactForms.xml"/>                                                       
+                                            </widgets>
+                                            <fail-widgets>
+                                                <container style="h3">
+                                                    <label text="${uiLabelMap.PartyNoPartiesFound}"/>
+                                                </container>
+                                            </fail-widgets>
+                                        </section>
+                                    </container>
+                                </container>
                             </widgets>
                         </section>
                     </decorator-section>
