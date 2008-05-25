@@ -21,7 +21,6 @@ under the License.
 <#assign selected = tabButtonItem?default("void")>
 
 <#if product?has_content>
-    <br/>
     <div class="button-bar tab-bar">
         <ul>
             <li<#if selected="EditProduct"> class="selected"</#if>><a href="<@ofbizUrl>EditProduct?productId=${productId}</@ofbizUrl>">${uiLabelMap.ProductProduct}</a><li>

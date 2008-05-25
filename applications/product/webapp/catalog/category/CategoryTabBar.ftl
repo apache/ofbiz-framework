@@ -20,7 +20,6 @@ under the License.
 <#if requestAttributes.uiLabelMap?exists><#assign uiLabelMap = requestAttributes.uiLabelMap></#if>
 <#assign unselectedClassName = "">
 <#assign selectedClassMap = {page.tabButtonItem?default("void") : "selected"}>
-    <br/>
     <div class="button-bar tab-bar">
         <ul>
             <li><a href="<@ofbizUrl>EditCategory?productCategoryId=${productCategoryId}</@ofbizUrl>" class="${selectedClassMap.EditCategory?default(unselectedClassName)}">${uiLabelMap.ProductCategory}</a></li>
