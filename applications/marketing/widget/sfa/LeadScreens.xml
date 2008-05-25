@@ -29,7 +29,7 @@ under the License.
                 <service service-name="findParty" auto-field-map="true"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonLeadDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <widgets>
@@ -80,7 +80,7 @@ under the License.
                 <property-to-field field="defaultCountryGeoId" resource="general" property="country.geo.id.default" default="USA"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonLeadDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar boxhead">
@@ -107,7 +107,7 @@ under the License.
     <screen name="ConvertLead">
         <section>
             <widgets>
-                <decorator-screen name="CommonLeadDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar boxhead">
@@ -137,7 +137,7 @@ under the License.
                 <script location="component://marketing/webapp/sfa/WEB-INF/action/cloneLead.bsh"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonLeadDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar boxhead">
@@ -168,7 +168,7 @@ under the License.
                 <script location="component://marketing/webapp/sfa/WEB-INF/action/mergeContacts.bsh"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonLeadDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
@@ -205,7 +205,7 @@ under the License.
                 <set field="tabButtonItem" value="Leads"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonLeadDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">

@@ -71,53 +71,16 @@ under the License.
         <section>
             <widgets>
                 <container style="left">
-                    <include-screen name="MiniAddContact"/>
-                    <include-screen name="MiniAddLead"/>
+                    <screenlet title="${uiLabelMap.SfaQuickAddContact}">
+                        <include-form name="QuickAddContact" location="component://marketing/widget/sfa/forms/ContactForms.xml"/>    
+                    </screenlet>
+                    <screenlet title="${uiLabelMap.SfaQuickAddLead}">
+                        <include-form name="QuickAddLead" location="component://marketing/widget/sfa/forms/LeadForms.xml"/>
+                    </screenlet>
                 </container>
             </widgets>
         </section>
     </screen>
-    
-    <screen name="MiniAddContact">
-        <section>
-            <widgets>
-                <container style="screenlet">
-                    <container style="screenlet-title-bar">
-                        <container style="h3">
-                            <label text="${uiLabelMap.SfaQuickAddContact}"></label>
-                        </container>
-                    </container>
-                    <container style="screenlet-body">
-                        <section>
-                            <widgets>
-                                <include-form name="QuickAddContact" location="component://marketing/widget/sfa/forms/ContactForms.xml"/>    
-                            </widgets>
-                        </section>
-                    </container> 
-                </container>
-            </widgets>
-        </section>
-    </screen>
-    <screen name="MiniAddLead">
-        <section>
-            <widgets>
-                <container style="screenlet" id="miniQuickAddLead">
-                    <container style="screenlet-title-bar">
-                        <container style="h3">
-                            <label text="${uiLabelMap.SfaQuickAddLead}"></label>
-                        </container>
-                    </container>
-                    <container style="screenlet-body">
-                        <section>
-                            <widgets>
-                                <include-form name="QuickAddLead" location="component://marketing/widget/sfa/forms/LeadForms.xml"/>
-                            </widgets>
-                        </section>
-                    </container> 
-                </container>
-            </widgets>
-        </section>
-    </screen>  
     <screen name="CommonOpportunityDecorator">
         <section>
             <actions>
@@ -158,22 +121,32 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
-                            <condition>
-                                <if-compare field-name="parameters.roleTypeId" operator="equals" value="LEAD"/>
-                            </condition>
-                            <widgets>
-                                <include-menu name="LeadTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
-                            </widgets>
-                        </section>
-                        <section>
                             <!-- do check for PARTYMGR, _VIEW permission -->
                             <condition>
                                 <if-has-permission permission="PARTYMGR" action="_VIEW"/>
                             </condition>
                             <widgets>
                                 <section>
-                                    <condition><not><if-empty field-name="partyId"/></not></condition>
+                                    <condition>
+                                        <not><if-empty field-name="party"/></not>
+                                    </condition>
                                     <widgets>
+                                        <section>
+                                            <condition>
+                                                <if-compare field-name="tabButtonItem" operator="equals" value="Leads"/>
+                                            </condition>
+                                            <widgets>
+                                                <include-menu name="LeadTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
+                                            </widgets>
+                                        </section>
+                                        <section>
+                                            <condition>
+                                                <if-compare field-name="tabButtonItem" operator="equals" value="Contacts"/>
+                                            </condition>
+                                            <widgets>
+                                                <include-menu name="ContactTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
+                                            </widgets>
+                                        </section>
                                         <container>
                                             <section>
                                                 <condition>
@@ -204,25 +177,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="CommonLeadDecorator">
-        <section>
-            <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <section>
-                            <widgets>
-                                <include-menu name="LeadTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
-                                <decorator-section-include name="body"/>
-                            </widgets>
-                            <fail-widgets>
-                                <label style="h3">${uiLabelMap.ProjectMgrViewPermissionError}</label>
-                            </fail-widgets>
-                        </section>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
     <screen name="ViewProfile">
         <section>
             <actions>
@@ -241,6 +195,33 @@ under the License.
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/setRoleVars.groovy"/>
             </actions>
             <widgets>
+                <section>
+                    <condition>
+                        <not><if-empty field-name="leadDescription"/></not>                                        
+                    </condition>
+                    <actions>
+                        <set field="tabButtonItem" value="Leads"/>
+                    </actions>
+                    <widgets/>
+                </section>
+                <section>
+                    <condition>
+                        <not><if-empty field-name="contactDescription"/></not>                                        
+                    </condition>
+                    <actions>
+                        <set field="tabButtonItem" value="Contacts"/>
+                    </actions>
+                    <widgets/>
+                </section>
+                <section>
+                    <condition>
+                        <not><if-empty field-name="accountDescription"/></not>                                        
+                    </condition>
+                    <actions>
+                        <set field="tabButtonItem" value="Accounts"/>
+                    </actions>
+                    <widgets/>
+                </section>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>

@@ -16,7 +16,6 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-
 <#assign extInfo = parameters.extInfo?default("N")>
 <#if roleTypeId=="LEAD">
   <#assign currentUrl="FindLead"/>
@@ -31,7 +30,7 @@ under the License.
   <#assign currentUrl = "FindAccounts"/>
   <#assign title = "${uiLabelMap.MarketingFindAccounts}">
 </#if>
-<div id="findPartyParameters" class="screenlet">
+<div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
       <li class="h3">${title?if_exists}</li>
@@ -140,10 +139,10 @@ under the License.
             </tr>
           </#if>
           <tr><td colspan="3"><hr/></td></tr>
-          <tr align="center">
+          <tr align="left">
             <td>&nbsp;</td>
             <td>
-              <input type="submit" value="${uiLabelMap.PartyLookupParty}" onClick="javascript:document.lookupparty.submit();"/>
+              <input type="submit" value="${uiLabelMap.CommonFind}" onClick="javascript:document.lookupparty.submit();"/>
             </td>
           </tr>
         </table>
