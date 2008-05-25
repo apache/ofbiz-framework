@@ -2230,7 +2230,7 @@
     </property>
     <property key="OrderCreateAsNewOrder">
         <value xml:lang="en">Create As New Order</value>
-        <value xml:lang="fr">Dupliquer comme une nouvelle commande</value>
+        <value xml:lang="fr">Dupliquer cette commande</value>
         <value xml:lang="it">Creare Come Nuovo Ordine</value>
         <value xml:lang="ru">Создать как новый заказ</value>
         <value xml:lang="th">สร้างรายการสั่งซื้อสินค้าใหม่</value>
