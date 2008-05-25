@@ -259,7 +259,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
         //String menuContainerStyle = modelMenu.getMenuContainerStyle(context);
         buffer.append(" </ul>");
         appendWhitespace(buffer);
-        buffer.append(" <br class=\"clear\" />");
+        buffer.append(" <br/>");
         appendWhitespace(buffer);
         buffer.append("</div>");
         appendWhitespace(buffer);
