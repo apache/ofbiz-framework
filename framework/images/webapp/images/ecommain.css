@@ -63,6 +63,10 @@ text-decoration: none;
 color: #000000;
 }
 
+.hidden {
+visibility: hidden;
+}
+
 /* ===== Header Styles ===== */
 #ecom-header {
 position: relative;
@@ -292,7 +296,7 @@ color: #FFFFFF;
 }
 
 .boxlink {
-	float:right;
+  float:right;
 }
 
 A.boxheadbutton {
