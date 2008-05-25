@@ -254,7 +254,12 @@ under the License.
     <simple-method method-name="createPayGrade" short-description="Create a Pay Grade">
         <make-value entity-name="PayGrade" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <sequenced-id-to-env sequence-name="PayGrade" env-name="newEntity.payGradeId"/>
+        <if-not-empty field-name="parameters.payGradeId">
+            <set field="newEntity.payGradeId" from-field="parameters.payGradeId"/>
+        <else>
+            <sequenced-id-to-env sequence-name="PayGrade" env-name="newEntity.payGradeId"/>
+        </else>
+        </if-not-empty>
         <field-to-result field-name="newEntity.payGradeId" result-name="payGradeId"/>
         <create-value value-name="newEntity"/>
     </simple-method>

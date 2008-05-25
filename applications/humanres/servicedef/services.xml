@@ -269,7 +269,8 @@ under the License.
         <description>Create a Pay Grade</description>
         <!-- permission-service service-name="humanResManagerPermission" main-action="CREATE"/> -->
         <auto-attributes mode="INOUT" include="pk" optional="true"/>
-        <auto-attributes mode="IN" include="nonpk" optional="true"/>        
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override name="payGradeName" optional="false"/>
     </service>
     
     <service name="updatePayGrade" engine="simple" default-entity-name="PayGrade"

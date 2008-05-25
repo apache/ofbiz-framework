@@ -304,24 +304,33 @@ under the License.
         <event type="service" invoke="deletePayrollPreference"/>
         <response name="success" type="view" value="EditPayrollPreferences"/>
     </request-map>
-    <request-map uri="FindPayGrade">
+    <request-map uri="FindPayGrades">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindPayGrades"/>
+        <response name="error" type="view" value="FindPayGrades"/>
+    </request-map>
+    <request-map uri="EditPayGrade">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditPayGrade"/>
+        <response name="error" type="view" value="EditPayGrade"/>
     </request-map>
     <request-map uri="createPayGrade">
         <security https="true" auth="true"/>
         <event type="service" invoke="createPayGrade"/>
-        <response name="success" type="view" value="EditPayGrade"/>
+        <response name="success" type="view" value="FindPayGrades"/>
+        <response name="error" type="view" value="EditPayGrade"/>
     </request-map>
     <request-map uri="updatePayGrade">
         <security https="true" auth="true"/>
         <event type="service" invoke="updatePayGrade"/>
         <response name="success" type="view" value="EditPayGrade"/>
+        <response name="error" type="view" value="EditPayGrade"/>
     </request-map>     
     <request-map uri="deletePayGrade">
         <security https="true" auth="true"/>
         <event type="service" invoke="deletePayGrade"/>
-        <response name="success" type="view" value="EditPayGrade"/>
+        <response name="success" type="view" value="FindPayGrades"/>
+        <response name="error" type="view" value="FindPayGrades"/>
     </request-map>
     <request-map uri="EditSalarySteps">
         <security https="true" auth="true"/>
@@ -699,4 +708,5 @@ under the License.
     <view-map name="EditEmploymentApps" type="screen" page="component://humanres/widget/EmploymentScreens.xml#EditEmploymentApps"/>
     <view-map name="EditPartyResumes" type="screen" page="component://humanres/widget/EmploymentScreens.xml#EditPartyResumes"/>
     <view-map name="EditPerformanceNotes" type="screen" page="component://humanres/widget/EmploymentScreens.xml#EditPerformanceNotes"/>
+    <view-map name="FindPayGrades" type="screen" page="component://humanres/widget/EmploymentScreens.xml#FindPayGrades"/>
 </site-conf>
