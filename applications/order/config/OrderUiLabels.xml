@@ -3277,7 +3277,7 @@
     <property key="OrderItemsBackOrdered">
         <value xml:lang="en">Items Backordered</value>
         <value xml:lang="es">Ítems dejados pendientes</value>
-        <value xml:lang="fr">Produits retournés</value>
+        <value xml:lang="fr">Produits expédiés par un tiers</value>
         <value xml:lang="it">Righe in Backorder</value>
         <value xml:lang="nl">Items Backordered</value>
         <value xml:lang="ro">Linie in Backorder</value>
@@ -3316,7 +3316,7 @@
         <value xml:lang="de">Positionen Zwischensumme</value>
         <value xml:lang="en">Items SubTotal</value>
         <value xml:lang="es">Subtotal Ítems</value>
-        <value xml:lang="fr">Sous-Total articles</value>
+        <value xml:lang="fr">Sous-total articles</value>
         <value xml:lang="it">Subtotale Righe</value>
         <value xml:lang="nl">Items SubTotaal</value>
         <value xml:lang="ro">Subtotal Linii</value>
@@ -3354,7 +3354,7 @@
     </property>
     <property key="OrderLinkedFromOrderItem">
         <value xml:lang="en">Linked from order item</value>
-        <value xml:lang="fr">Lien depuis commande article</value>
+        <value xml:lang="fr">Lien depuis ligne de commande</value>
         <value xml:lang="ru">Связь от позиции заказа</value>
         <value xml:lang="th">ลิงค์จากรายการสั่งซื้อสินค้าสินค้า</value>
         <value xml:lang="zh">链接自订单明细</value>
@@ -3362,7 +3362,7 @@
     <property key="OrderLinkedToOrderItem">
         <value xml:lang="en">Linked to order item</value>
         <value xml:lang="es">Anexado al artículo</value>
-        <value xml:lang="fr">Lien à une commande article</value>
+        <value xml:lang="fr">Lien vers ligne de commande</value>
         <value xml:lang="it">Link alle righe ordine</value>
         <value xml:lang="nl">Gelinkt aan bestel item</value>
         <value xml:lang="ro">Link la liniile comenzi</value>
@@ -3373,7 +3373,7 @@
     <property key="OrderLinkedToQuote">
         <value xml:lang="en">Linked to quote</value>
         <value xml:lang="es">Anexado a la cotización</value>
-        <value xml:lang="fr">Lien à une estimation</value>
+        <value xml:lang="fr">Lien vers un devis</value>
         <value xml:lang="it">Link ai preventivi</value>
         <value xml:lang="nl">Gelinkt aan offerte</value>
         <value xml:lang="ro">Link la Oferte</value>
@@ -3384,7 +3384,7 @@
     <property key="OrderLinkedToRequirement">
         <value xml:lang="en">Linked to requirement</value>
         <value xml:lang="es">Anexado al requerimiento</value>
-        <value xml:lang="fr">Lien à la condition</value>
+        <value xml:lang="fr">Lien vers une condition</value>
         <value xml:lang="it">Link ai fabbisogni</value>
         <value xml:lang="nl">Gelinkt aan aanvraag</value>
         <value xml:lang="ro">Link la Necesar</value>
@@ -3412,7 +3412,7 @@
         <value xml:lang="de">Auftäge ansehen</value>
         <value xml:lang="en">Lookup Order(s)</value>
         <value xml:lang="es">Buscar órdenes</value>
-        <value xml:lang="fr">Lancer recherche commande(s)</value>
+        <value xml:lang="fr">Recherche de commande(s)</value>
         <value xml:lang="it">Ricerca Ordine(i)</value>
         <value xml:lang="nl">Opvragen Bestelling(en)</value>
         <value xml:lang="ro">Cauta Comanda(enzi)</value>
@@ -3425,7 +3425,7 @@
         <value xml:lang="de">Retouren ansehen</value>
         <value xml:lang="en">Lookup Return(s)</value>
         <value xml:lang="es">Buscar devoluciones</value>
-        <value xml:lang="fr">Lancer recherche retour(s)</value>
+        <value xml:lang="fr">Recherche de retour(s)</value>
         <value xml:lang="it">Ricerca Reso(i)</value>
         <value xml:lang="nl">Opvragen Retour(en)</value>
         <value xml:lang="ro">Cauta Returnare(i)</value>
@@ -3491,7 +3491,7 @@
     <property key="OrderManualPromotions">
         <value xml:lang="en">Manual Promotions</value>
         <value xml:lang="es">Promociones manuales</value>
-        <value xml:lang="fr">Manuel de promotions</value>
+        <value xml:lang="fr">Promotions manuelles</value>
         <value xml:lang="it">Promozioni Manuali</value>
         <value xml:lang="nl">handmatige promoties</value>
         <value xml:lang="ro">Promotii Manuale</value>
@@ -3502,12 +3502,12 @@
     </property>
     <property key="OrderMoneyOrder">
         <value xml:lang="en">Mail Check/Money Order</value>
-        <value xml:lang="fr">Envoyer le contrôle mandat</value>
+        <value xml:lang="fr">Chèque par la poste/Mandat</value>
         <value xml:lang="th">จดหมายตรวจสอบรายการการเงิน</value>
     </property>
     <property key="OrderMoreOptionsAvailable">
         <value xml:lang="en">More options available in drop down</value>
-        <value xml:lang="fr">Plus d'options disponible en bas</value>
+        <value xml:lang="fr">Plus d'options disponible dans la liste déroulante</value>
         <value xml:lang="it">Altre opzioni disponibili nella lista di scelta</value>
         <value xml:lang="nl">Meer opties in de listbox</value>
         <value xml:lang="ro">Alte optiuni disponibile in lista propusa</value>
@@ -3543,7 +3543,7 @@
     </property>
     <property key="OrderNewDropShipmentForShipGroup">
         <value xml:lang="en">New Drop Shipment For Ship Group</value>
-        <value xml:lang="fr">Nouvelle livraison pour groupe d'expédition</value>
+        <value xml:lang="fr">Nouvelle livraison par un tiers pour le groupe d'expédition</value>
         <value xml:lang="ru">Новая прямая поставка для группы</value>
         <value xml:lang="th">ลดการขนส่งใหม่สำหรับกลุ่มการขนส่ง</value>
         <value xml:lang="zh">为货运组新建厂家直送</value>
@@ -3666,7 +3666,7 @@
     <property key="OrderNewShipmentForShipGroup">
         <value xml:lang="en">New Shipment For Ship Group</value>
         <value xml:lang="es">Nuevo envío para un grupo de envío</value>
-        <value xml:lang="fr">Nouvelle expédition pour le groupe</value>
+        <value xml:lang="fr">Nouvelle expédition pour le groupe d'exp.</value>
         <value xml:lang="it">Nuova Spedizione per Gruppo Spedizione</value>
         <value xml:lang="nl">Nieuwe verzending voor verzendgroep</value>
         <value xml:lang="ro">Noua Expediere pentru Grup Expediere OrderNoChannel = Nici-un Canal</value>
@@ -3706,7 +3706,7 @@
         <value xml:lang="de">Keine Geschenkverpackung</value>
         <value xml:lang="en">No Gift Wrap</value>
         <value xml:lang="es">Ningún regalo</value>
-        <value xml:lang="fr">Aucune Promotion</value>
+        <value xml:lang="fr">Aucun emballage cadeau</value>
         <value xml:lang="it">Nessun Omaggio</value>
         <value xml:lang="nl">Geen cadeau</value>
         <value xml:lang="ro">Nici-un Omagiu</value>
@@ -3719,7 +3719,7 @@
         <value xml:lang="de">Keine Anmerkungen zu diesem Auftrag</value>
         <value xml:lang="en">No notes for this order</value>
         <value xml:lang="es">Ninguna nota para esta orden.</value>
-        <value xml:lang="fr">Aucune note pour cette commande.</value>
+        <value xml:lang="fr">Aucune note pour cette commande</value>
         <value xml:lang="it">Nessuna nota per questo ordine.</value>
         <value xml:lang="nl">Geen notities voor deze bestelling</value>
         <value xml:lang="ro">Nici-o nota pentru aceasta comanda.</value>
@@ -3742,7 +3742,7 @@
     </property>
     <property key="OrderNoOrderAdjustments">
         <value xml:lang="en">No adjustments on this order.</value>
-        <value xml:lang="fr">Aucun ajustement sur cet ordre</value>
+        <value xml:lang="fr">Aucun ajustement sur cette commande</value>
         <value xml:lang="it">Nessun aggiustamento per questo ordine.</value>
         <value xml:lang="nl">Geen instellingen voor deze bestelling</value>
         <value xml:lang="ro">Nici-o modificare pentru aceasta comanda.</value>
@@ -3754,7 +3754,7 @@
         <value xml:lang="de">Kein Auftrag gefunden</value>
         <value xml:lang="en">No Order Found with ID</value>
         <value xml:lang="es">Ninguna orden fue encontrada</value>
-        <value xml:lang="fr">Aucune commande trouvée avec réf.</value>
+        <value xml:lang="fr">Aucune commande trouvée avec la réf.</value>
         <value xml:lang="it">Nessun Ordine Trovato</value>
         <value xml:lang="nl">Geen bestellingen gevonden</value>
         <value xml:lang="ro">Nici-o Comanda Gasita</value>
@@ -3765,7 +3765,7 @@
     </property>
     <property key="OrderNoOrderFoundForParty">
         <value xml:lang="en">No orders found for partyId</value>
-        <value xml:lang="fr">Aucune commande trouvés pour réf. partie</value>
+        <value xml:lang="fr">Aucune commande trouvés pour réf. d'acteur</value>
         <value xml:lang="it">Nessun Ordine Trovato per il soggetto</value>
         <value xml:lang="nl">Geen bestellingen gevonmden voor deze organisatie Id</value>
         <value xml:lang="ro">Nici-o Comanda Gasita pentru subiectul</value>
@@ -3777,7 +3777,7 @@
         <value xml:lang="de">Keine Auftragspositionen zum Anzeigen</value>
         <value xml:lang="en">No order items to display.</value>
         <value xml:lang="es">No hay ítems que mostrar</value>
-        <value xml:lang="fr">Aucune ligne de commande à afficher.</value>
+        <value xml:lang="fr">Aucune ligne de commande à afficher</value>
         <value xml:lang="it">Nessuna riga ordine da visualizzare.</value>
         <value xml:lang="nl">Geen bestellingen te laten zien</value>
         <value xml:lang="ro">Nici-o linie de comanda de vizualizare.</value>
@@ -3788,7 +3788,7 @@
     </property>
     <property key="OrderNoOrderPaymentPreferences">
         <value xml:lang="en">No payment preferences with this order.</value>
-        <value xml:lang="fr">Aucune préférence de paiement liée à cet ordre</value>
+        <value xml:lang="fr">Aucune préférence de paiement liée à cette commande</value>
         <value xml:lang="ru">Платежных предпочтений ассоциированных с этим заказом нет.</value>
         <value xml:lang="th">ไม่มีสิทธิพิเศษที่เกี่ยวข้องกับการชำระเงินด้วยรายการสั่งซื้อสินค้านี้</value>
         <value xml:lang="zh">没有与这个订单关联的支付优先方式。</value>
@@ -3801,7 +3801,7 @@
     </property>
     <property key="OrderNoPurchasePaymentMethod">
         <value xml:lang="en">No Purchase Payment Method Information Found.</value>
-        <value xml:lang="fr">Aucune information de méthode de paiement d'achat trouvé. </value>
+        <value xml:lang="fr">Aucune information de méthode de paiement liée à l'achat trouvée</value>
         <value xml:lang="it">Nessun Acquisto con il Metodo di Pagamento Trovato.</value>
         <value xml:lang="nl">Geen inkoop informatie gevonden.</value>
         <value xml:lang="ro">Nici-o Cumparare cu Metoda de Plata Gasita.</value>
@@ -3811,7 +3811,7 @@
     </property>
     <property key="OrderNoPurchaseProduct">
         <value xml:lang="en">No Purchased Product Information Found.</value>
-        <value xml:lang="fr">Aucune information de produit acheté trouvé. </value>
+        <value xml:lang="fr">Aucune information de produit liée à l'achat trouvée</value>
         <value xml:lang="it">Nessun Acquisto Prodotto Trovato.</value>
         <value xml:lang="nl">Geen inkoop produkt informatie gevonden.</value>
         <value xml:lang="ro">Nici-o Cumparare Produs gasit.</value>
@@ -3831,7 +3831,7 @@
     </property>
     <property key="OrderNoQuoteFound">
         <value xml:lang="en">No Quote Found.</value>
-        <value xml:lang="fr">Aucune estimation trouvée</value>
+        <value xml:lang="fr">Aucun devis trouvé</value>
         <value xml:lang="it">Nessun preventivo trovato.</value>
         <value xml:lang="nl">Geen offerte gevonden.</value>
         <value xml:lang="ro">Nici-o Oferta gasita.</value>
@@ -3855,7 +3855,7 @@
         <value xml:lang="de">Keine Retouren gefunden</value>
         <value xml:lang="en">No return found.</value>
         <value xml:lang="es">Ninguna devolución fue encontrada</value>
-        <value xml:lang="fr">Aucun retour</value>
+        <value xml:lang="fr">Aucun retour trouvé</value>
         <value xml:lang="it">Nessun reso trovato.</value>
         <value xml:lang="nl">Geen retouren gevonden.</value>
         <value xml:lang="ro">Nici-o returnare Gasita.</value>
@@ -3868,7 +3868,7 @@
         <value xml:lang="de">Keine Retouren gefunden mit Retouren-ID</value>
         <value xml:lang="en">No return found with return ID</value>
         <value xml:lang="es">Ninguna devolución encontrada con este código</value>
-        <value xml:lang="fr">Aucun retour trouvé avec cette référence.</value>
+        <value xml:lang="fr">Aucun retour trouvé avec cette réf.</value>
         <value xml:lang="it">Nessun reso trovato con Numero Reso</value>
         <value xml:lang="nl">Geen retour gevonden met produkt ID</value>
         <value xml:lang="ro">Nici-o returnare gasita cu Numarul Returnat</value>
@@ -3879,7 +3879,7 @@
     </property>
     <property key="OrderNoReturnItemsFound">
         <value xml:lang="en">No item(s) in return.</value>
-        <value xml:lang="fr">Aucun article(s) en retour. </value>
+        <value xml:lang="fr">Aucun article(s) en retour.</value>
         <value xml:lang="it">Nessuna riga(e) nel reso.</value>
         <value xml:lang="nl">Geen item(s) retour.</value>
         <value xml:lang="ro">Nici-o Linie in returnare.</value>
@@ -3915,7 +3915,7 @@
     <property key="OrderNotPrintableNote">
         <value xml:lang="en">Internal Note (Not Printed)</value>
         <value xml:lang="es">Nota interna (no imprimible)</value>
-        <value xml:lang="fr">Note non imprimable</value>
+        <value xml:lang="fr">Note interne (non imprimée)</value>
         <value xml:lang="it">Nota Interna (Non Stampata)</value>
         <value xml:lang="nl">Interne Notitie</value>
         <value xml:lang="ro">Nota Interna (Ne tiparita)</value>
@@ -3928,7 +3928,7 @@
         <value xml:lang="de">Nicht ausgeliefert</value>
         <value xml:lang="en">Not Shipped</value>
         <value xml:lang="es">No enviado</value>
-        <value xml:lang="fr">Non livré</value>
+        <value xml:lang="fr">Non expédié</value>
         <value xml:lang="it">Non Spedito</value>
         <value xml:lang="nl">Niet verzonden</value>
         <value xml:lang="ro">Ne Expediat</value>
@@ -3941,7 +3941,7 @@
         <value xml:lang="de">Nicht verwendet für Beschaffungsaufträge</value>
         <value xml:lang="en">Not Used For Purchase Orders</value>
         <value xml:lang="es">No usado para órdenes de compra</value>
-        <value xml:lang="fr">Non utilisé pour achats</value>
+        <value xml:lang="fr">Non utilisé pour les commandes d'achat</value>
         <value xml:lang="it">Non Usato Per Ordini Acquisto</value>
         <value xml:lang="nl">Not Used For Purchase Orders</value>
         <value xml:lang="ro">Nu este folosit Pentru Comenzi de Cumparare</value>
@@ -3954,7 +3954,7 @@
         <value xml:lang="de">Nicht verwendet für Verkaufsaufträge</value>
         <value xml:lang="en">Not Used For Sales Orders</value>
         <value xml:lang="es">No usado para órdenes de venta</value>
-        <value xml:lang="fr">Non utilisé pour les ventes</value>
+        <value xml:lang="fr">Non utilisé pour les commandes de vente</value>
         <value xml:lang="it">Non Usato Per Ordini Vendita</value>
         <value xml:lang="nl">Not Used For Sales Orders</value>
         <value xml:lang="ro">Nu este folosit Pentru Comenzi de Vanzare </value>
@@ -3965,7 +3965,7 @@
     </property>
     <property key="OrderNotYetKnown">
         <value xml:lang="en">Not Yet Known</value>
-        <value xml:lang="fr">Pas encore connu</value>
+        <value xml:lang="fr">Non encore connu</value>
         <value xml:lang="it">Non Ancora Conosciuto</value>
         <value xml:lang="nl">Not Yet Known</value>
         <value xml:lang="ro">Nu este inca Cunoscut </value>
@@ -4026,7 +4026,7 @@
     </property>
     <property key="OrderNotesPrivate">
         <value xml:lang="en">Make Private</value>
-        <value xml:lang="fr">Marque privée</value>
+        <value xml:lang="fr">Rendre privée</value>
         <value xml:lang="it">Rendila Privata</value>
         <value xml:lang="ru">Сделать приватным</value>
         <value xml:lang="th">ทำให้เป็นส่วนตัว</value>
@@ -4034,7 +4034,7 @@
     </property>
     <property key="OrderNotesPublic">
         <value xml:lang="en">Make Public</value>
-        <value xml:lang="fr">Marque publique</value>
+        <value xml:lang="fr">Rendre publique</value>
         <value xml:lang="it">Rendila Pubblica</value>
         <value xml:lang="ru">Сделать публичным</value>
         <value xml:lang="th">ทำให้เป็นที่รู้จัก</value>
@@ -4055,7 +4055,7 @@
         <value xml:lang="de">Offline: Scheck / Geld - Auftrag</value>
         <value xml:lang="en">Offline: Check Money</value>
         <value xml:lang="es">Offline: Orden de Cheque/Dinero</value>
-        <value xml:lang="fr">Offline: Vérifier chèque</value>
+        <value xml:lang="fr">Offline: chèque, espèces</value>
         <value xml:lang="it">Offline: Assegno/Ordine Soldi</value>
         <value xml:lang="nl"> Faktuur: Check/Money Bestelling</value>
         <value xml:lang="ro">Offline: Cec/Ordin de plata</value>
@@ -4082,13 +4082,13 @@
     <property key="OrderOnFriday">
         <value xml:lang="en">On Friday</value>
         <value xml:lang="es">el viernes</value>
-        <value xml:lang="fr">Vendredi</value>
+        <value xml:lang="fr">Le vendredi</value>
         <value xml:lang="th">ภายในวันศุกร์</value>
     </property>
     <property key="OrderOnOrder">
         <value xml:lang="en">On Order</value>
         <value xml:lang="es">En orden</value>
-        <value xml:lang="fr">Sur l'ordre</value>
+        <value xml:lang="fr">Sur commande</value>
         <value xml:lang="it">In Ordine</value>
         <value xml:lang="nl">On Bestelling</value>
         <value xml:lang="ro">In Comanda</value>
@@ -4435,7 +4435,7 @@
     </property>
     <property key="OrderOrderQty">
         <value xml:lang="en">Order Qty</value>
-        <value xml:lang="fr">Quantité ordre</value>
+        <value xml:lang="fr">Qté de la commande</value>
         <value xml:lang="it">Qnt Ordine</value>
         <value xml:lang="nl">Order tellingen</value>
         <value xml:lang="ro">Cant Comanda</value>
@@ -5574,7 +5574,7 @@
     </property>
     <property key="OrderPrepareOrder">
         <value xml:lang="en">Prepare Order</value>
-        <value xml:lang="fr">Prepare ordre</value>
+        <value xml:lang="fr">Preparer la commande</value>
         <value xml:lang="it">Prepara Ordine</value>
         <value xml:lang="ru">Подготовить заказ</value>
         <value xml:lang="th">จัดเตรียมรายการสั่งซื้อสินค้า</value>
@@ -7009,7 +7009,7 @@
     <property key="OrderSelectCurrencyOr">
         <value xml:lang="en">Or set a currency for this order</value>
         <value xml:lang="es">O seleccione la moneda de la orden</value>
-        <value xml:lang="fr">Ou régler une monnaie pour cet ordre</value>
+        <value xml:lang="fr">Ou sélectionnez une monnaie pour cette commande</value>
         <value xml:lang="it">O imposta una valuta per questo ordine</value>
         <value xml:lang="nl">Or set a currency for this bestelling</value>
         <value xml:lang="ro">Sau seteaza o valuta pentru aceasta comanda</value>
