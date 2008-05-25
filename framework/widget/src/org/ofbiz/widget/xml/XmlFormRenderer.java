@@ -243,9 +243,17 @@ public class XmlFormRenderer implements FormStringRenderer {
     }
 
     public void renderFormatSingleWrapperOpen(StringBuffer buffer, Map context, ModelForm modelForm) {
+        buffer.append("<");
+        buffer.append(modelForm.getName());
+        buffer.append("Export>");
+        this.appendWhitespace(buffer);
     }
 
     public void renderFormatSingleWrapperClose(StringBuffer buffer, Map context, ModelForm modelForm) {
+        buffer.append("</");
+        buffer.append(modelForm.getName());
+        buffer.append("Export>");
+        this.appendWhitespace(buffer);
     }
 
     public void renderFormatFieldRowOpen(StringBuffer buffer, Map context, ModelForm modelForm) {

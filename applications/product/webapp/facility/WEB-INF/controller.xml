@@ -1114,7 +1114,7 @@ under the License.
     <view-map name="ViewFacilityInventoryByProduct" type="screen" page="component://product/widget/facility/FacilityScreens.xml#ViewFacilityInventoryByProduct"/>
     <view-map name="ViewFacilityInventoryByProductSimple" type="screen" page="component://product/widget/facility/FacilityScreens.xml#ViewFacilityInventoryByProductSimple"/>
     <view-map name="ViewFacilityInventoryByProductReport" type="screenfop" page="component://product/widget/facility/FacilityScreens.xml#ViewFacilityInventoryByProductReport" content-type="application/pdf" encoding="none"/>
-    <view-map name="ViewFacilityInventoryByProductExport" type="screenxml" page="component://product/widget/facility/FacilityScreens.xml#ViewFacilityInventoryByProductExport" content-type="text/xml"/>
+    <view-map name="ViewFacilityInventoryByProductExport" type="screenxml" page="component://product/widget/facility/FacilityScreens.xml#ViewFacilityInventoryByProductReport" content-type="text/xml"/>
     <view-map name="EditFacilityGroups" type="screen" page="component://product/widget/facility/FacilityScreens.xml#EditFacilityGroups"/>
     <view-map name="EditFacilityRoles" type="screen" page="component://product/widget/facility/FacilityScreens.xml#EditFacilityRoles"/>
     <view-map name="ViewContactMechs" type="screen" page="component://product/widget/facility/FacilityScreens.xml#ViewContactMechs"/>

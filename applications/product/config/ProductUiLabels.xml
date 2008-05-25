@@ -14199,9 +14199,9 @@
         <value xml:lang="zh">承诺有效减去最小存货</value>
     </property>
     <property key="ProductQtyOffsetATPBelow">
-        <value xml:lang="en">ATP minus Min Stock &lt;=</value>
+        <value xml:lang="en">ATP minus Min Stock less than</value>
         <value xml:lang="fr">ATP moins réserve stock mini &lt;=</value>
-        <value xml:lang="it">ATP meno la Giacenza Minima &lt;=</value>
+        <value xml:lang="it">ATP meno la Giacenza Minima inferiore a</value>
         <value xml:lang="ro">ATP minus stocul Minim &lt;=</value>
         <value xml:lang="ru">ATP минус мин склад &lt;=</value>
         <value xml:lang="th">ลบคลังสินค้าจำนวนน้อย&lt;=</value>
@@ -14223,9 +14223,9 @@
         <value xml:lang="zh">现货数量减去最小存货</value>
     </property>
     <property key="ProductQtyOffsetQOHBelow">
-        <value xml:lang="en">QOH minus Min Stock &lt;=</value>
+        <value xml:lang="en">QOH minus Min Stock less than</value>
         <value xml:lang="fr">QOH moins réserve stock mini &lt;=</value>
-        <value xml:lang="it">QOH meno la Giacenza Minima &lt;=</value>
+        <value xml:lang="it">QOH meno la Giacenza Minima inferiore a</value>
         <value xml:lang="ro">QOH minus stocul Minim &lt;=</value>
         <value xml:lang="ru">QOH минус мин склад &lt;=</value>
         <value xml:lang="th">QOH ลบคลังสินค้าจำนวนน้อย&lt;=</value>

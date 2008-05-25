@@ -48,17 +48,17 @@ under the License.
              in the right side cell we put the title, username and date
         -->
         <fo:static-content flow-name="xsl-region-before" font-size="${headerFontSize?default("8pt")}">
-            <fo:table>
+            <fo:table table-layout="fixed">
                 <fo:table-column column-number="1" column-width="proportional-column-width(50)"/>
                 <fo:table-column column-number="2" column-width="proportional-column-width(50)"/>
                 <fo:table-body>
                     <fo:table-row>
                         <fo:table-cell>
-                        <#if logoImageUrl?exists>
                             <fo:block>
+                            <#if logoImageUrl?exists>
                                 <fo:external-graphic src="${logoImageUrl}" overflow="hidden" height="40px"/>
+                            </#if>
                             </fo:block>
-                        </#if>
                         </fo:table-cell>
                         <fo:table-cell>
                             <#-- The title of the report -->

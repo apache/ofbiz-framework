@@ -266,7 +266,7 @@ under the License.
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="500"/>
             </actions>
             <widgets>
-                <decorator-screen name="FoDecorator" location="component://common/widget/CommonScreens.xml">
+                <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
                         <include-form name="ApprovedProductRequirementsList" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
                     </decorator-section>
@@ -317,7 +317,7 @@ under the License.
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="500"/>
             </actions>
             <widgets>
-                <decorator-screen name="FoDecorator" location="component://common/widget/CommonScreens.xml">
+                <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
                         <include-form name="ApprovedProductRequirementsByVendorList" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
                     </decorator-section>
