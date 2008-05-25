@@ -296,43 +296,29 @@
         </section>
     </screen>    
     <screen name="EditPayGrade">
-        <section>            
+        <section>
             <actions>
-                <set field="titleProperty" value="HumanResAddPayGrade"/>
+                <set field="titleProperty" value="HumanResEditPayGrade"/>
                 <set field="headerItem" value="PayGrade"/>
-                <set field="tabButtonItem" value="EditSalaryStep"/>
+                <set field="tabButtonItem" value="EditPayGrade"/>
                 <set field="payGradeId" from-field="parameters.payGradeId"/>
                 <entity-one entity-name="PayGrade" value-name="payGrade"/>
-            </actions>            
+            </actions>
             <widgets>
                 <decorator-screen name="CommonPayGradeDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.HumanResListPayGrade}">
+                        <screenlet title="${uiLabelMap.HumanResEditPayGrade}">
                             <section>
                                 <widgets>
-                                    <include-form name="ListPayGrades" location="component://humanres/widget/forms/EmploymentForms.xml"/>
+                                    <include-form name="EditPayGrade" location="component://humanres/widget/forms/EmploymentForms.xml"/>
                                 </widgets>
                             </section>
                         </screenlet>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.HumanResAddPayGrade}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="AddPayGrade" location="component://humanres/widget/forms/EmploymentForms.xml" />
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
                     </decorator-section>
                 </decorator-screen>
-            </widgets>                              
+            </widgets>
         </section>
-    </screen>    
+    </screen>
     <screen name="EditSalarySteps">
         <section>
             <actions>
@@ -714,6 +700,46 @@
                                 </widgets>
                             </section>
                         </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="FindPayGrades">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HumanResFindPayGrade"/>
+                <set field="headerItem" value="PayGrade"/>
+                <set field="payGradeId" from-field="parameters.payGradeId"/>
+                <set field="payGradeCtx" from-field="parameters"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.HumanResFindPayGrade}">
+                            <section>
+                                <widgets>
+                                    <container style="button-bar">
+                                        <link target="EditPayGrade" text="${uiLabelMap.HumanResNewPayGrade}" style="buttontext"/>
+                                    </container>
+                                    <include-form name="FindPayGrades" location="component://humanres/widget/forms/EmploymentForms.xml"/>
+                                </widgets>
+                            </section>
+                        </screenlet>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
+                                    <label text="${uiLabelMap.HumanResListPayGrade}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="ListPayGrades" location="component://humanres/widget/forms/EmploymentForms.xml" />
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

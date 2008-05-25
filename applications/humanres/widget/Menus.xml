@@ -31,7 +31,7 @@
         <menu-item name="Training" title="${uiLabelMap.HumanResTraining}"><link target="FindPersonTrainings"/></menu-item>
         <menu-item name="EmploymentApp" title="${uiLabelMap.HumanResEmploymentApp}"><link target="FindEmploymentApp"/></menu-item>
         <menu-item name="PartyResume" title="${uiLabelMap.HumanResPartyResume}"><link target="FindPartyResume"/></menu-item>
-        <menu-item name="PayGrade" title="${uiLabelMap.HumanResPayGrade}"><link target="FindPayGrade"/></menu-item>
+        <menu-item name="PayGrade" title="${uiLabelMap.HumanResPayGrade}"><link target="FindPayGrades"/></menu-item>
         <menu-item name="PerfReview" title="${uiLabelMap.HumanResPerfReview}"><link target="FindPerfReview"/></menu-item>
         <menu-item name="Logout" title="${uiLabelMap.CommonLogout}" align-style="col-right" selected-style="selected">
             <condition><not><if-empty field-name="userLogin"/></not></condition>
@@ -84,9 +84,12 @@
     </menu>
     <menu name="SalaryBar" default-menu-item-name="EditSalaryStep" default-selected-style="selected"
         type="simple" menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="tabButtonItem">
+        <menu-item name="EditPayGrade" title="${uiLabelMap.HumanResPayGrade}">
+            <link target="EditPayGrade?payGradeId=${payGradeId}"/>
+        </menu-item>       
         <menu-item name="EditSalaryStep" title="${uiLabelMap.HumanResEditSalaryStep}">
             <link target="EditSalarySteps?payGradeId=${payGradeId}"/>
-        </menu-item>        
+        </menu-item>
     </menu>
     <menu name="SkillType" type="simple" id="app-navigation" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem"/>
     

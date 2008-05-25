@@ -357,9 +357,6 @@
     <property key="HumanResAddPartyQual">
         <value xml:lang="en">Add Party Qualification</value>
     </property>
-    <property key="HumanResAddPayGrade">
-        <value xml:lang="en">Add Pay Grade</value>
-    </property>
     <property key="HumanResAddPerfNote">
         <value xml:lang="en">Add Performance Note</value>
     </property>
@@ -457,6 +454,9 @@
         <value xml:lang="it">Aggiorna Abilità Soggetto</value>
         <value xml:lang="th">แก้ไขกลุ่มทักษะ</value>
     </property>
+    <property key="HumanResEditPayGrade">
+        <value xml:lang="en">Add/Update Pay Grade</value>
+    </property>
     <property key="HumanResEditPayHistory">
         <value xml:lang="en">Pay Histories</value>
     </property>
@@ -467,7 +467,7 @@
         <value xml:lang="en">PerfReview Items</value>
     </property>
     <property key="HumanResEditSalaryStep">
-        <value xml:lang="en">Edit Salary Step</value>
+        <value xml:lang="en">Salary Steps</value>
         <value xml:lang="it">Aggiorna Passi Salario</value>
         <value xml:lang="th">แก้ไขขั้นเงินเดือน</value>
     </property>
@@ -545,6 +545,9 @@
     <property key="HumanResFindPartySkill">
         <value xml:lang="en">Find Party Skills</value>
     </property>
+    <property key="HumanResFindPayGrade">
+        <value xml:lang="en">Find Pay Grade</value>
+    </property>
     <property key="HumanResFindPerfReview">
         <value xml:lang="en">Find Performance Review</value>
     </property>
@@ -586,7 +589,7 @@
         <value xml:lang="th">รายการกลุ่มทักษะ</value>
     </property>
     <property key="HumanResListPayGrade">
-        <value xml:lang="en">List Pay Grade</value>
+        <value xml:lang="en">List Pay Grades</value>
         <value xml:lang="it">Lista Grado Paga</value>
         <value xml:lang="th">รายการระดับการจ่าย</value>
     </property>

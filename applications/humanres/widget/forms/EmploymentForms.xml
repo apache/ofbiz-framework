@@ -316,25 +316,33 @@
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>        
     </form>
-    <form name="ListPayGrades" type="list" title="" target="updatePayGrade" paginate-target="FindPayGrade"
+    <form name="FindPayGrades" type="single" target="FindPayGrades" title=""
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="createPayGrade" default-field-type="find"/>
+        <field name="noConditionFind"><hidden value="Y"/></field>
+        <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListPayGrades" type="list" list-name="listIt" title="" target="updatePayGrade" paginate-target="FindPayGrade"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-condition entity-name="PayGrade"><order-by field-name="payGradeId"/></entity-condition>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="payGradeCtx"/>
+                <field-map field-name="entityName" value="PayGrade"/>
+            </service>
         </actions>
-        <auto-fields-service default-field-type="display" service-name="updatePayGrade"/>       
-        <field name="payGradeId" title="${uiLabelMap.HumanResPayGradeID}"><display/></field>
-        <field name="payGradeName"><text/></field>
-        <field name="comments"><text/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deletePayGrade?payGradeId=${payGradeId}" description="${uiLabelMap.CommonDelete}"/>
-        </field>           
+        <auto-fields-service default-field-type="display" service-name="updatePayGrade"/>
+        <field name="payGradeId" title="${uiLabelMap.HumanResPayGradeID}" widget-style="linktext">
+                <hyperlink also-hidden="true" target="EditPayGrade?payGradeId=${payGradeId}" target-type="plain" description="${payGradeId}"/>
+        </field>
     </form>
-    <form name="AddPayGrade" type="single" target="createPayGrade" title=""
-        header-row-style="header-row" default-table-style="basic-table">
-        <auto-fields-service service-name="createPayGrade"/>
-        <field name="payGradeId"><ignored/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>        
+    <form name="EditPayGrade" type="single" target="updatePayGrade" title=""
+        header-row-style="header-row" default-table-style="basic-table" default-map-name="payGrade">
+        <alt-target use-when="payGradeId==null" target="createPayGrade"/>
+        <auto-fields-service default-field-type="edit" service-name="createPayGrade"/>
+        <field use-when="payGrade!=null" name="payGradeId" widget-style="tabletext" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field use-when="payGrade==null" name="payGradeId"><text/></field>
+        <field name="payGradeName" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListSalarySteps" type="list" title="" target="updateSalaryStep" paginate-target="findSalarySteps"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
