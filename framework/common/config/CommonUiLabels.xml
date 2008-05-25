@@ -4054,6 +4054,9 @@
         <value xml:lang="fr">SVP, changer cotre mot de passe</value>
         <value xml:lang="th">กรุณาเปลี่ยนรหัสผ่านของคุณ</value>
     </property>
+    <property key="CommonPdf">
+        <value xml:lang="en">Pdf</value>
+    </property>
     <property key="CommonPerform">
         <value xml:lang="ar">إحراء</value>
         <value xml:lang="en">Perform</value>
@@ -4185,6 +4188,9 @@
         <value xml:lang="ru">Печать</value>
         <value xml:lang="th">พิมพ์</value>
         <value xml:lang="zh">打印</value>
+    </property>
+    <property key="CommonPrinterFriendly">
+        <value xml:lang="en">Printer Friendly</value>
     </property>
     <property key="CommonPriority">
         <value xml:lang="ar">الأولوية</value>

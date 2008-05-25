@@ -1863,7 +1863,7 @@ under the License.
     <view-map name="FindGlobalGlAccount" type="screen" page="component://accounting/widget/GlobalGlAccountsScreens.xml#ListGlAccounts"/>
     <view-map name="ListGlobalGlAccounts" type="screen" page="component://accounting/widget/GlobalGlAccountsScreens.xml#ListGlAccounts"/>
     <view-map name="ListGlAccountsReport" type="screenfop" page="component://accounting/widget/GlobalGlAccountsScreens.xml#ListGlAccountsReport" content-type="application/pdf" encoding="none"/>
-    <view-map name="ListGlAccountsExport" type="screenxml" page="component://accounting/widget/GlobalGlAccountsScreens.xml#ListGlAccountsExport" content-type="text/xml"/>
+    <view-map name="ListGlAccountsExport" type="screenxml" page="component://accounting/widget/GlobalGlAccountsScreens.xml#ListGlAccountsReport" content-type="text/xml"/>
     <view-map name="GlAccountNavigate" type="screen" page="component://accounting/widget/GlobalGlAccountsScreens.xml#GlAccountNavigate"/>
     <view-map name="AssignGlAccount" type="screen" page="component://accounting/widget/GlobalGlAccountsScreens.xml#AssignGlAccount"/>
     <view-map name="FindGlAccountReconciliation" type="screen" page="component://accounting/widget/GlScreens.xml#FindGlAccountReconciliation"/>   
@@ -1923,6 +1923,7 @@ under the License.
     <view-map name="EditAgreementPromoAppl" type="screen" page="component://accounting/widget/AgreementScreens.xml#EditAgreementPromoAppl"/>
     <view-map name="ListAgreementItemTerms" type="screen" page="component://accounting/widget/AgreementScreens.xml#ListAgreementItemTerms"/>
     <view-map name="EditAgreementItemTerm" type="screen" page="component://accounting/widget/AgreementScreens.xml#EditAgreementItemTerm"/>
+    
     <view-map name="ListAgreementItemProducts" type="screen" page="component://accounting/widget/AgreementScreens.xml#ListAgreementItemProducts"/>
     <view-map name="ListAgreementItemProductsReport" type="screenfop" page="component://accounting/widget/AgreementScreens.xml#ListAgreementItemProductsReport" content-type="application/pdf" encoding="none"/>
     <view-map name="EditAgreementItemProduct" type="screen" page="component://accounting/widget/AgreementScreens.xml#EditAgreementItemProduct"/>

@@ -67,6 +67,24 @@ under the License.
         </section>
     </screen>
 
+    <screen name="ExampleReport">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditExample"/>
+                <set field="tabButtonItem" value="EditExample"/>
+                <set field="exampleId" from-field="parameters.exampleId"/>
+                <entity-one entity-name="Example" value-name="example"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="body">
+                        <include-form name="EditExample" location="component://example/widget/example/ExampleForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
     <screen name="EditExampleItems">
         <section>
             <actions>

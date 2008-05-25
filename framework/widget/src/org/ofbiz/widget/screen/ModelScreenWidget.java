@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -42,6 +43,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.collections.MapStack;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.widget.ModelWidget;
+import org.ofbiz.widget.fo.FoScreenRenderer;
 import org.ofbiz.widget.form.FormFactory;
 import org.ofbiz.widget.form.FormStringRenderer;
 import org.ofbiz.widget.form.ModelForm;
@@ -54,6 +56,7 @@ import org.ofbiz.widget.menu.ModelMenu;
 import org.ofbiz.widget.tree.ModelTree;
 import org.ofbiz.widget.tree.TreeFactory;
 import org.ofbiz.widget.tree.TreeStringRenderer;
+import org.ofbiz.widget.xml.XmlFormRenderer;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.GenericEntityException;
@@ -899,24 +902,53 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
     }
 
     public static class PlatformSpecific extends ModelScreenWidget {
-        protected ModelScreenWidget subWidget;
+        protected Map<String, ModelScreenWidget> subWidgets;
         
         public PlatformSpecific(ModelScreen modelScreen, Element platformSpecificElement) {
             super(modelScreen, platformSpecificElement);
-            Element childElement = UtilXml.firstChildElement(platformSpecificElement);
-            if ("html".equals(childElement.getNodeName())) {
-                subWidget = new HtmlWidget(modelScreen, childElement);
-            } else {
-                throw new IllegalArgumentException("Tag not supported under the platform-specific tag with name: " + childElement.getNodeName());
+            subWidgets = new HashMap();
+            List childElements = UtilXml.childElementList(platformSpecificElement);
+            if (childElements != null) {
+                Iterator childElementsIt = childElements.iterator();
+                while (childElementsIt.hasNext()) {
+                    Element childElement = (Element)childElementsIt.next();
+                    if ("html".equals(childElement.getNodeName())) {
+                        subWidgets.put("html", new HtmlWidget(modelScreen, childElement));
+                    } else if ("xsl-fo".equals(childElement.getNodeName())) {
+                        subWidgets.put("xsl-fo", new HtmlWidget(modelScreen, childElement));
+                    } else if ("xml".equals(childElement.getNodeName())) {
+                        subWidgets.put("xml", new HtmlWidget(modelScreen, childElement));
+                    } else {
+                        throw new IllegalArgumentException("Tag not supported under the platform-specific tag with name: " + childElement.getNodeName());
+                    }
+                }
             }
         }
 
         public void renderWidgetString(Writer writer, Map context, ScreenStringRenderer screenStringRenderer) throws GeneralException {
-            subWidget.renderWidgetString(writer, context, screenStringRenderer);
+            ModelScreenWidget subWidget = null;
+            if (screenStringRenderer instanceof FoScreenRenderer) {
+                subWidget = (ModelScreenWidget)subWidgets.get("xsl-fo");
+            } else {
+                FormStringRenderer formRenderer = (FormStringRenderer)context.get("formStringRenderer");
+                if (formRenderer instanceof XmlFormRenderer) {
+                    subWidget = (ModelScreenWidget)subWidgets.get("xml");
+                } else {
+                    subWidget = (ModelScreenWidget)subWidgets.get("html");
+                }
+            }
+            if (subWidget != null) {
+                subWidget.renderWidgetString(writer, context, screenStringRenderer);
+            }
         }
 
         public String rawString() {
-            return "<platform-specific>" + (this.subWidget==null?"":this.subWidget.rawString());
+            Collection<ModelScreenWidget> subWidgetList = this.subWidgets.values();
+            String subWidgetsRawString = "";
+            for (ModelScreenWidget subWidget: subWidgetList) {
+                subWidgetsRawString = subWidgetsRawString + subWidget.rawString();
+            }
+            return "<platform-specific>" + subWidgetsRawString + "</platform-specific>";
         }
     }
 

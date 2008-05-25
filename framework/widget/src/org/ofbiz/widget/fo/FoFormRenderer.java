@@ -125,29 +125,38 @@ public class FoFormRenderer extends HtmlWidgetRenderer implements FormStringRend
             }
         } else {
             Iterator optionValueIter = allOptionValues.iterator();
+            boolean optionSelected = false;
             while (optionValueIter.hasNext()) {
                 ModelFormField.OptionValue optionValue = (ModelFormField.OptionValue) optionValueIter.next();
                 String noCurrentSelectedKey = dropDownField.getNoCurrentSelectedKey(context);
                 if ((UtilValidate.isNotEmpty(currentValue) && currentValue.equals(optionValue.getKey()) && "selected".equals(dropDownField.getCurrent())) ||
                         (UtilValidate.isEmpty(currentValue) && noCurrentSelectedKey != null && noCurrentSelectedKey.equals(optionValue.getKey()))) {
                     this.makeBlockString(buffer, modelFormField.getWidgetStyle(), optionValue.getDescription());
+                    optionSelected = true;
                     break;
                 }
+            }
+            if (!optionSelected) {
+                this.makeBlockString(buffer, null, "");
             }
         }
         appendWhitespace(buffer);
     }
 
     public void renderCheckField(StringBuffer buffer, Map context, CheckField checkField) {
+        this.makeBlockString(buffer, null, "");
     }
 
     public void renderRadioField(StringBuffer buffer, Map context, RadioField radioField) {
+        this.makeBlockString(buffer, null, "");
     }
 
     public void renderSubmitField(StringBuffer buffer, Map context, SubmitField submitField) {
+        this.makeBlockString(buffer, null, "");
     }
 
     public void renderResetField(StringBuffer buffer, Map context, ResetField resetField) {
+        this.makeBlockString(buffer, null, "");
     }
 
     public void renderHiddenField(StringBuffer buffer, Map context, HiddenField hiddenField) {
@@ -217,6 +226,8 @@ public class FoFormRenderer extends HtmlWidgetRenderer implements FormStringRend
         buffer.append("</fo:table-row>");
         buffer.append("</fo:table-header>");
         buffer.append("<fo:table-body>");
+        // FIXME: this is an hack to avoid FOP rendering errors for empty lists (fo:table-body cannot be null)
+        buffer.append("<fo:table-row><fo:table-cell><fo:block/></fo:table-cell></fo:table-row>");
         appendWhitespace(buffer);
     }
 
@@ -384,10 +395,12 @@ public class FoFormRenderer extends HtmlWidgetRenderer implements FormStringRend
     }
 
     public void renderPasswordField(StringBuffer buffer, Map context, PasswordField passwordField) {
+        this.makeBlockString(buffer, null, "");
     }
 
     public void renderImageField(StringBuffer buffer, Map context, ImageField imageField) {
         // TODO
+        this.makeBlockString(buffer, null, "");
     }
 
     public void renderFieldGroupOpen(StringBuffer buffer, Map context, ModelForm.FieldGroup fieldGroup) {
@@ -400,6 +413,7 @@ public class FoFormRenderer extends HtmlWidgetRenderer implements FormStringRend
     
     public void renderBanner(StringBuffer buffer, Map context, ModelForm.Banner banner) {
         // TODO
+        this.makeBlockString(buffer, null, "");
     }
     
     public void renderHyperlinkTitle(StringBuffer buffer, Map context, ModelFormField modelFormField, String titleText) {

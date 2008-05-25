@@ -382,22 +382,7 @@ under the License.
                 <set field="pageLayoutName" value="simple-landscape"/>
             </actions>
             <widgets>
-                <decorator-screen name="FoDecorator" location="component://common/widget/CommonScreens.xml">
-                    <decorator-section name="body">
-                        <include-form name="ListGlAccount" location="component://accounting/widget/GlobalGlAccountsForms.xml"/>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-    <screen name="ListGlAccountsExport">
-        <section>
-            <actions>
-                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="1000"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="XmlDecorator" location="component://common/widget/CommonScreens.xml">
+                <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
                         <include-form name="ListGlAccount" location="component://accounting/widget/GlobalGlAccountsForms.xml"/>
                     </decorator-section>

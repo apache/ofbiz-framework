@@ -502,7 +502,7 @@ under the License.
                 </entity-and>
             </actions>
             <widgets>
-                <decorator-screen name="FoDecorator" location="component://common/widget/CommonScreens.xml">
+                <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
@@ -649,7 +649,7 @@ under the License.
                 </entity-and>
             </actions>
             <widgets>
-                <decorator-screen name="FoDecorator" location="component://common/widget/CommonScreens.xml">
+                <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">

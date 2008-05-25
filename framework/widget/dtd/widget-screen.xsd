@@ -1075,15 +1075,31 @@ under the License.
     <!-- ============== Platform Specific Elements =============== -->
     <xs:element name="platform-specific" substitutionGroup="AllWidgets">
         <xs:complexType>
-            <xs:choice>
+            <xs:sequence>
                 <xs:element minOccurs="0" ref="html"/>
                 <xs:element minOccurs="0" ref="swing"/>
-            </xs:choice>
+                <xs:element minOccurs="0" ref="xsl-fo"/>
+                <xs:element minOccurs="0" ref="xml"/>
+            </xs:sequence>
         </xs:complexType>
     </xs:element>
     <!-- ============== HTML Specific Elements =============== -->
     <xs:element name="HtmlWidgets" abstract="true"/>
     <xs:element name="html">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="HtmlWidgets"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="xsl-fo">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="HtmlWidgets"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="xml">
         <xs:complexType>
             <xs:sequence>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="HtmlWidgets"/>
