@@ -2235,7 +2235,9 @@ public class ShoppingCart implements Serializable {
 
     public void setMaySplit(int idx, Boolean maySplit) {
         CartShipInfo csi = this.getShipInfo(idx);
-        csi.maySplit = maySplit.booleanValue() ? "Y" : "N";
+        if (UtilValidate.isNotEmpty(maySplit)) {
+            csi.maySplit = maySplit.booleanValue() ? "Y" : "N";
+        }
     }
 
     public void setMaySplit(Boolean maySplit) {
@@ -2272,7 +2274,9 @@ public class ShoppingCart implements Serializable {
 
     public void setIsGift(int idx, Boolean isGift) {
         CartShipInfo csi = this.getShipInfo(idx);
-        csi.isGift = isGift.booleanValue() ? "Y" : "N";
+        if (UtilValidate.isNotEmpty(isGift)) {
+            csi.isGift = isGift.booleanValue() ? "Y" : "N";
+        }
     }
 
     public void setIsGift(Boolean isGift) {
@@ -3914,7 +3918,7 @@ public class ShoppingCart implements Serializable {
             CartShipInfo csi = (CartShipInfo) shipInfo.get(i);
             if ((csi.supplierPartyId == null && supplierPartyId == null) ||
                 (UtilValidate.isNotEmpty(csi.supplierPartyId) && csi.supplierPartyId.equals(supplierPartyId))) {
-                shipGroups.put(new Integer(i), csi);
+                    shipGroups.put(new Integer(i), csi);
             }
         }
         return shipGroups;
@@ -3951,7 +3955,9 @@ public class ShoppingCart implements Serializable {
             
             // Ignore ship groups that are already drop shipped
             String shipGroupSupplierPartyId = shipInfo.getSupplierPartyId();
-            if (UtilValidate.isNotEmpty(shipGroupSupplierPartyId)) continue;
+            if (UtilValidate.isNotEmpty(shipGroupSupplierPartyId)) { 
+                continue;
+            }
 
             // Ignore empty ship groups
             Set shipItems = shipInfo.getShipItems();
