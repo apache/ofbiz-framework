@@ -19,7 +19,6 @@ under the License.
 
 <#assign selected = tabButtonItem?default("void")>
 <#if prodCatalogId?exists>
-    <br/>
     <div class="button-bar tab-bar">
         <ul>
             <li<#if selected="ProductCatalog"> class="selected"</#if>><a href="<@ofbizUrl>EditProdCatalog?prodCatalogId=${prodCatalogId}</@ofbizUrl>">${uiLabelMap.ProductCatalog}</a></li>
