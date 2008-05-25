@@ -2834,7 +2834,7 @@
         <value xml:lang="de">Aufträge finden</value>
         <value xml:lang="en">Find Orders</value>
         <value xml:lang="es">Buscar órdenes</value>
-        <value xml:lang="fr">Recherche de commande(s)</value>
+        <value xml:lang="fr">Recherche de commandes</value>
         <value xml:lang="it">Ricerca Ordini</value>
         <value xml:lang="nl">Zoek Bestellingen</value>
         <value xml:lang="ro">Cauta Comenzi </value>
@@ -2846,7 +2846,7 @@
     <property key="OrderFindQuote">
         <value xml:lang="en">Find Quote</value>
         <value xml:lang="es">Buscar Cotización</value>
-        <value xml:lang="fr">Trouver le devis</value>
+        <value xml:lang="fr">Rechercher un devis</value>
         <value xml:lang="it">Ricerca Preventivi</value>
         <value xml:lang="nl">Zoek Offerte</value>
         <value xml:lang="ro">Cauta Oferte</value>
@@ -2856,14 +2856,14 @@
     </property>
     <property key="OrderFindQuotes">
         <value xml:lang="en">Find Quotes</value>
-        <value xml:lang="fr">Trouver les quotas</value>
+        <value xml:lang="fr">Recherche de devis</value>
         <value xml:lang="ru">Поиск предложений</value>
         <value xml:lang="th">ค้นหาคำร้อง</value>
     </property>
     <property key="OrderFindRequests">
         <value xml:lang="en">Find Requests</value>
         <value xml:lang="es">Buscar pedidos</value>
-        <value xml:lang="fr">Trouver la demande</value>
+        <value xml:lang="fr">Recherche de demandes</value>
         <value xml:lang="it">Ricerca Richieste</value>
         <value xml:lang="nl">Zoek aanvragen</value>
         <value xml:lang="ro">Cauta Cereri</value>
@@ -2873,13 +2873,13 @@
     </property>
     <property key="OrderFindRequirements">
         <value xml:lang="en">Find Requirements</value>
-        <value xml:lang="fr">Trouver les conditions</value>
+        <value xml:lang="fr">Recherche de conditions</value>
         <value xml:lang="ru">Поиск требований</value>
         <value xml:lang="th">ค้นหาความต้องการ</value>
     </property>
     <property key="OrderFindRequirementsForSupplier">
         <value xml:lang="en">Find Requirements For Supplier</value>
-        <value xml:lang="fr">Trouver les conditions pour le fournisseur</value>
+        <value xml:lang="fr">Recherche de conditions pour le fournisseur</value>
         <value xml:lang="ru">Поиск требований для поставщика</value>
         <value xml:lang="th">ค้นหาความต้องการของผู้จัดหาสิ่งของให้</value>
     </property>
@@ -2887,7 +2887,7 @@
         <value xml:lang="de">Retouren finden</value>
         <value xml:lang="en">Find Returns</value>
         <value xml:lang="es">Buscar devoluciones</value>
-        <value xml:lang="fr">Recherche de retour(s)</value>
+        <value xml:lang="fr">Recherche de retours</value>
         <value xml:lang="it">Ricerca Resi</value>
         <value xml:lang="nl">Zoek retouren</value>
         <value xml:lang="ro">Cauta  Returnari </value>
@@ -2904,7 +2904,7 @@
     </property>
     <property key="OrderFromMondayToTuesday">
         <value xml:lang="en">From Monday To Tuesday</value>
-        <value xml:lang="fr">de Lundi à mardi</value>
+        <value xml:lang="fr">De lundi à mardi</value>
         <value xml:lang="es">de lunes a jueves</value>
         <value xml:lang="th">จากวันจันทร์ถึงวันอังคาร</value>
     </property>
@@ -2912,7 +2912,7 @@
         <value xml:lang="de">Geschenk?</value>
         <value xml:lang="en">Gift?</value>
         <value xml:lang="es">¿Regalo?</value>
-        <value xml:lang="fr">Cadeau</value>
+        <value xml:lang="fr">Cadeau </value>
         <value xml:lang="it">Omaggio ?</value>
         <value xml:lang="nl">Cadeau?</value>
         <value xml:lang="ro">Omagiu </value>
@@ -2949,7 +2949,7 @@
         <value xml:lang="de">Alles in Geschenkverpackung</value>
         <value xml:lang="en">Gift Wrap All Items?</value>
         <value xml:lang="es">Todo en el paquete del regalo</value>
-        <value xml:lang="fr">Toute promotion</value>
+        <value xml:lang="fr">Emballer comme cadeaux tous les articles ?</value>
         <value xml:lang="it">Omaggio Coinvolge Tutte le Righe?</value>
         <value xml:lang="nl">Verwijder alle cadeau items?</value>
         <value xml:lang="ro">Omagiul Antreneaza Toate Liniile</value>
@@ -2962,7 +2962,7 @@
         <value xml:lang="de">Gesamtsumme</value>
         <value xml:lang="en">Grand Total</value>
         <value xml:lang="es">Importe total</value>
-        <value xml:lang="fr">Total Général</value>
+        <value xml:lang="fr">Total général</value>
         <value xml:lang="it">Totale Generale</value>
         <value xml:lang="nl">Bruto totaal</value>
         <value xml:lang="ro">Total General</value>
@@ -3008,12 +3008,12 @@
     </property>
     <property key="OrderHowShallWeShipIt">
         <value xml:lang="en">How shall we ship it</value>
-        <value xml:lang="fr">Comment nous l'expédions</value>
+        <value xml:lang="fr">Comment devons-nous l'expédier ?</value>
         <value xml:lang="th">เราจะส่งสินค้าอย่างไร</value>
     </property>
     <property key="OrderHowShallYouPay">
         <value xml:lang="en">How shall you pay</value>
-        <value xml:lang="fr">Comment vous aller payer</value>
+        <value xml:lang="fr">Comment allez-vous payer ?</value>
         <value xml:lang="th">คุณจะชำระเงินอย่างไร</value>
     </property>
     <property key="OrderImage">
@@ -3046,6 +3046,7 @@
     </property>
     <property key="OrderIncludeSubCategories">
         <value xml:lang="en">or any sub-category</value>
+        <value xml:lang="fr">ou n'importe quelle sous-catégorie</value>
         <value xml:lang="it">o qualsiasi sotto-categoria</value>
         <value xml:lang="ro">orice sub-categorie</value>
         <value xml:lang="ru">или любые подкатегории</value>
@@ -3118,8 +3119,7 @@
         <value xml:lang="nl">Als hier Ja is geselecteerd, zal deze notitie niet op het order dokument verschijnen.</value>
         <value xml:lang="ro">Daca este selectionat da, aceasta nota nu va aparea pe documentale liparite.</value>
         <value xml:lang="ru">Если выбрано Да, это примечание не будет печататься в документах</value>
-        <value xml:lang="th">ถ้าการเลือกใช่ , ข้อความนี้ไม่ปรากฏบนการพิมพ์เอกสาร
-</value>
+        <value xml:lang="th">ถ้าการเลือกใช่ , ข้อความนี้ไม่ปรากฏบนการพิมพ์เอกสาร</value>
         <value xml:lang="zh_CN">如果选择“是”, 这个注释将不会出现在打印文本中</value>
         <value xml:lang="zh">如果选择了是，这个便笺不会出现在打印文档中</value>
     </property>
@@ -3166,7 +3166,7 @@
         <value xml:lang="de">Soll dies ein Geschenk sein?</value>
         <value xml:lang="en">Is This a Gift?</value>
         <value xml:lang="es">¿Esto es un regalo?</value>
-        <value xml:lang="fr">Est-ce une promotion ?</value>
+        <value xml:lang="fr">Est-ce un cadeau ?</value>
         <value xml:lang="it">E' Questo un Omaggio?</value>
         <value xml:lang="nl">Is dit een cadeau?</value>
         <value xml:lang="ro">Este Acesta un Omagiu?</value>
@@ -3178,7 +3178,7 @@
     <property key="OrderIssuedToShipmentItem">
         <value xml:lang="en">Issued to Shipment Item</value>
         <value xml:lang="es">Procede del ítem de envío</value>
-        <value xml:lang="fr">Provient de l'article d'expédition</value>
+        <value xml:lang="fr">Remis dans cette ligne d'expédition</value>
         <value xml:lang="it">Preleva Le Righe Spedizione</value>
         <value xml:lang="nl">Issues om te kunnen verzenden</value>
         <value xml:lang="ro">Preia Liniile de Expediere</value>
@@ -3190,7 +3190,7 @@
     <property key="OrderIssuedWithoutShipment">
         <value xml:lang="en">Issued Without a Shipment (Immediate, Physical Store)</value>
         <value xml:lang="es">Publicado sin un Envío (Inmediato, Almacén)</value>
-        <value xml:lang="fr">Distribué sans un envoi (le magasin immédiat et physique)</value>
+        <value xml:lang="fr">Remis sans envoi (immédiatement au magasin)</value>
         <value xml:lang="it">Preleva Senza una Spedizione (Immediato, Negozio Fisico)</value>
         <value xml:lang="nl">Verzend onmidelijk (Direct mee nemen)</value>
         <value xml:lang="ro">Preia fara Expediere (Imediat, Magazie Fizic)</value>
@@ -3203,6 +3203,7 @@
         <value xml:lang="de">Artikel</value>
         <value xml:lang="en">Item </value>
         <value xml:lang="es">Item</value>
+        <value xml:lang="fr">Article</value>
         <value xml:lang="hi_IN">सामान</value>
         <value xml:lang="it">Riga</value>
         <value xml:lang="ja">Item</value>
@@ -3229,7 +3230,7 @@
     </property>
     <property key="OrderItemDiscontinued">
         <value xml:lang="en">Discontinued</value>
-        <value xml:lang="fr">Interrompu</value>
+        <value xml:lang="fr">Epuisé, plus fabriqué</value>
         <value xml:lang="ru">Снято с производства</value>
         <value xml:lang="th">ไม่ต่อเนื่อง</value>
     </property>
@@ -3252,7 +3253,7 @@
     <property key="OrderItemStatus">
         <value xml:lang="en">Item Status</value>
         <value xml:lang="es">Estado de Artículo</value>
-        <value xml:lang="fr">Statut d'article</value>
+        <value xml:lang="fr">Statut de l'article</value>
         <value xml:lang="it">Stato Riga</value>
         <value xml:lang="nl">Item Status</value>
         <value xml:lang="ro">Stare Linie</value>
