@@ -145,6 +145,7 @@ under the License.
 
     <!-- top level role types -->
     <RoleType description="Account" hasTable="N" parentTypeId="" roleTypeId="ACCOUNT"/>
+    <RoleType description="Account Lead" hasTable="N" parentTypeId="" roleTypeId="ACCOUNT_LEAD"/>
     <RoleType description="Administrator" hasTable="N" parentTypeId="" roleTypeId="ADMIN"/>
     <RoleType description="Agent" hasTable="N" parentTypeId="" roleTypeId="AGENT"/>
     <RoleType description="Automated Agent" hasTable="N" parentTypeId="" roleTypeId="AUTOMATED_AGENT_ROLE"/>
@@ -250,7 +251,8 @@ under the License.
     <!-- NOTE: The partyRelationshipName describes the TO party, ie A is a customer of B, so A is the partyTo and B is the partyFrom -->
     <PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Agent" partyRelationshipTypeId="AGENT" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
     <PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Child" partyRelationshipTypeId="CHILD" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
-    <PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Contact" partyRelationshipTypeId="CONTACT_REL" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
+    <PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Contact Relation" partyRelationshipTypeId="CONTACT_REL" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
+    <PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Lead Relation" partyRelationshipTypeId="LEAD_REL" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
     <PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Lead Owner" partyRelationshipTypeId="LEAD_OWNER" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
     <PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Customer" partyRelationshipTypeId="CUSTOMER_REL" roleTypeIdValidFrom="CUSTOMER" roleTypeIdValidTo=""/>
     <PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Distributor" partyRelationshipTypeId="DISTRIBUTION_CHANNEL" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>

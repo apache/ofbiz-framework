@@ -26,18 +26,23 @@
     <!-- demo contacts -->
     <Party partyId="DemoCustomer1"/>
     <PartyRole partyId="DemoCustomer1" roleTypeId="CONTACT"/>
+    <PartyRelationship partyIdFrom="sfa100" roleTypeIdFrom="ACCOUNT" partyIdTo="DemoCustomer1" roleTypeIdTo="CONTACT" fromDate="2000-01-01 00:00:00.000" partyRelationshipTypeId="CONTACT_REL"/>
     <Party partyId="DemoCustomer2"/>
     <PartyRole partyId="DemoCustomer2" roleTypeId="CONTACT"/>
+    <PartyRelationship partyIdFrom="DemoCustCompany" roleTypeIdFrom="ACCOUNT" partyIdTo="DemoCustomer2" roleTypeIdTo="CONTACT" fromDate="2000-01-01 00:00:00.000" partyRelationshipTypeId="CONTACT_REL"/>
     <Party partyId="DemoCustomer3"/>
     <PartyRole partyId="DemoCustomer3" roleTypeId="CONTACT"/>
-
+    <PartyRelationship partyIdFrom="DemoCustCompany" roleTypeIdFrom="ACCOUNT" partyIdTo="DemoCustomer3" roleTypeIdTo="CONTACT" fromDate="2000-01-01 00:00:00.000" partyRelationshipTypeId="CONTACT_REL"/>
+    
     <!-- demo lead -->
-    <Party partyId="sfa102" partyTypeId="GROUP" statusId="PARTY_ENABLED"/>
+    <Party partyId="sfa102" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="sfa102" groupName="A promising Lead Company"/>
+    <PartyRole partyId="sfa102" roleTypeId="ACCOUNT_LEAD"/>
     <Party partyId="sfa101" partyTypeId="PERSON" statusId="PARTY_ENABLED"/>
     <Person partyId="sfa101" firstName="John" lastName="Lead"/>
     <PartyRole partyId="sfa101" roleTypeId="_NA_"/>
     <PartyRole partyId="sfa101" roleTypeId="LEAD"/>
+    <PartyRelationship partyIdFrom="sfa102" roleTypeIdFrom="ACCOUNT_LEAD" partyIdTo="sfa101" roleTypeIdTo="LEAD" fromDate="2000-01-01 00:00:00.000" partyRelationshipTypeId="LEAD_REL"/>
     <ContactMech contactMechId="sfa103" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztestLead@yahoo.com"/>
     <PartyContactMech partyId="sfa101" contactMechId="sfa103" fromDate="2000-01-01 00:00:00.000"/>
     <PartyContactMechPurpose partyId="sfa101" contactMechId="sfa103" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2000-01-01 00:00:00.000"/>
