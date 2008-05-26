@@ -929,6 +929,11 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
             ModelScreenWidget subWidget = null;
             if (screenStringRenderer instanceof FoScreenRenderer) {
                 subWidget = (ModelScreenWidget)subWidgets.get("xsl-fo");
+                if (subWidget == null) {
+                    // This is here for backward compatibility
+                    Debug.logWarning("In platform-dependent could not find template for xsl-fo, using the one for html.", module);
+                    subWidget = (ModelScreenWidget)subWidgets.get("html");
+                }
             } else {
                 FormStringRenderer formRenderer = (FormStringRenderer)context.get("formStringRenderer");
                 if (formRenderer instanceof XmlFormRenderer) {
