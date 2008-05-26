@@ -25,8 +25,7 @@ under the License.
             <actions>
                 <property-map resource="MarketingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="headerItem" value="contactlist"/>
-                <set field="tabButtonItem" value="DataSource"/>
+                <set field="headerItem" value="DataSource"/>
                 <set field="dataSourceId" from-field="parameters.dataSourceId"/>
                 <entity-one entity-name="DataSource" value-name="dataSource"/>
             </actions>
@@ -61,7 +60,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditDataSource"/>
-                <set field="dataSourceTabButtonItem" value="DataSource"/>
                 <set field="labelTitleProperty" value="PageTitleEditDataSource"/>
 
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListDataSource"/>

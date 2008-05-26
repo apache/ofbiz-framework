@@ -33,7 +33,7 @@ under the License.
                 <property-map resource="MarketingUiLabels" map-name="uiLabelMap" global="true"/>
                 
                 <set field="titleProperty" value="PageTitleFindSegmentGroup"/>
-                <set field="tabButtonItem" value="Segment"/>
+                <set field="headerItem" value="Segment"/>
                 
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
