@@ -51,4 +51,7 @@
     <test-case case-name="auto-accounting-transaction-tests-ActualManufacturingCost">
         <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoAcctgTransTests.xml" name="testAcctgTransForActualManufacturingCost"/>
     </test-case>
+    <test-case case-name="auto-accounting-transaction-tests-AddFinishedProductsIntoWareHouse">
+        <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoAcctgTransTests.xml" name="testAcctgTransOnAddFinishedProductsIntoWarehouse"/>
+    </test-case>    
 </test-suite>
