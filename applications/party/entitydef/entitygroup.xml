@@ -28,6 +28,7 @@ under the License.
     <entity-group group="org.ofbiz" entity="Addendum" />
     <entity-group group="org.ofbiz" entity="Agreement" />
     <entity-group group="org.ofbiz" entity="AgreementAttribute" />
+    <entity-group group="org.ofbiz" entity="AgreementEmploymentAppl" />    
     <entity-group group="org.ofbiz" entity="AgreementGeographicalApplic" />
     <entity-group group="org.ofbiz" entity="AgreementItem" />
     <entity-group group="org.ofbiz" entity="AgreementItemAttribute" />

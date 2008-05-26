@@ -30,23 +30,23 @@
             <widgets>
                 <decorator-screen name="CommonEmplPositionDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.HumanResFindEmplPosition}">
-                            <section>
-                                <widgets>
-                                    <container>
-                                        <link target="EditEmplPosition" text="${uiLabelMap.CommonCreate} ${uiLabelMap.HumanResNewEmplPosition}" style="buttontext"/>
-                                    </container>
-                                    <include-form name="FindEmplPositions" location="component://humanres/widget/forms/EmplPositionForms.xml"/>
-                                </widgets>
-                            </section>
-                        </screenlet>
-                        <screenlet title="${uiLabelMap.HumanResFindEmplPosition}">
-                            <section>
-                                <widgets>
-                                    <include-form name="ListEmplPositions" location="component://humanres/widget/forms/EmplPositionForms.xml"/>
-                                </widgets>
-                            </section>
-                        </screenlet>
+                        <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                            <decorator-section name="menu-bar">
+                                <section>
+                                    <widgets>
+                                        <container style="button-bar">
+                                            <link target="EditEmplPosition" text="${uiLabelMap.CommonCreate} ${uiLabelMap.HumanResNewEmplPosition}" style="buttontext"/>
+                                        </container>
+                                    </widgets>
+                                </section>
+                            </decorator-section>
+                            <decorator-section name="search-options">
+                                <include-form name="FindEmplPositions" location="component://humanres/widget/forms/EmplPositionForms.xml"/>
+                            </decorator-section>
+                            <decorator-section name="search-results">
+                                <include-form name="ListEmplPositions" location="component://humanres/widget/forms/EmplPositionForms.xml"/>
+                            </decorator-section>
+                        </decorator-screen>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

@@ -656,5 +656,28 @@ under the License.
         <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
+    
+    <service name="createAgreementEmploymentAppl"  engine="simple" default-entity-name="AgreementEmploymentAppl"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="createAgreementEmploymentAppl" auth="true">
+        <description>Create Agreement Employment Appl</description>
+        <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    
+    <service name="updateAgreementEmploymentAppl" engine="simple" default-entity-name="AgreementEmploymentAppl"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="updateAgreementEmploymentAppl" auth="true">
+        <description>Update Valid AgreementEmploymentAppl</description>
+        <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    
+    <service name="deleteAgreementEmploymentAppl" engine="simple" default-entity-name="AgreementEmploymentAppl"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="deleteAgreementEmploymentAppl" auth="true">
+        <description>Delete AgreementEmploymentAppl</description>
+        <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
 
 </services>

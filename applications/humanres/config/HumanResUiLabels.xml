@@ -389,6 +389,9 @@
         <value xml:lang="it">Codice Applicazione</value>
         <value xml:lang="th">รหัสโปรแกรมประยุกต์</value>
     </property>
+    <property key="HumanResAgreementEmploymentAppl">
+        <value xml:lang="en">Agreement Employment Appl</value>
+    </property>
     <property key="HumanResBudgetID">
         <value xml:lang="en">Budget ID</value>
         <value xml:lang="it">Codice Budget</value>
@@ -422,6 +425,9 @@
     </property>
     <property key="HumanResEmplPositionResponsibilities">
         <value xml:lang="en">Responsibilities</value>
+    </property>
+    <property key="HumanResEditAgreementEmploymentAppl">
+        <value xml:lang="en">Edit Agreement Employment Appl</value>
     </property>
     <property key="HumanResEditEmployment">
         <value xml:lang="en">Edit Employment</value>
