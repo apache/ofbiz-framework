@@ -5136,7 +5136,7 @@
         <value xml:lang="de">Konditionstyp</value>
         <value xml:lang="en">Term Type</value>
         <value xml:lang="es">Tipo</value>
-        <value xml:lang="fr">Type</value>
+        <value xml:lang="fr">Type d'accord</value>
         <value xml:lang="it">Tipo Termine</value>
         <value xml:lang="nl">Term Type</value>
         <value xml:lang="ro">Tip Termene</value>
@@ -5148,7 +5148,7 @@
     <property key="OrderOrderTermValue">
         <value xml:lang="en">Term Value</value>
         <value xml:lang="es">Valor</value>
-        <value xml:lang="fr">Valeur</value>
+        <value xml:lang="fr">Valeur d'accord</value>
         <value xml:lang="it">Valore Termine</value>
         <value xml:lang="nl">Term Value</value>
         <value xml:lang="ro">Valoare Termene</value>
@@ -5243,7 +5243,7 @@
     <property key="OrderOrdersTotals">
         <value xml:lang="en">Orders Totals</value>
         <value xml:lang="es">Totales de ventas</value>
-        <value xml:lang="fr">Totaux de Ventes</value>
+        <value xml:lang="fr">Totaux des commandes</value>
         <value xml:lang="it">Totali Ordini</value>
         <value xml:lang="nl">Orders Totals</value>
         <value xml:lang="ro">Total Comenzi</value>
@@ -5255,7 +5255,7 @@
     <property key="OrderOriginFacility">
         <value xml:lang="en">Origin Facility</value>
         <value xml:lang="es">Almacén de origen</value>
-        <value xml:lang="fr">Magasin d'origine</value>
+        <value xml:lang="fr">Lieu de stockage d'origine</value>
         <value xml:lang="it">Stabilimento  Origine</value>
         <value xml:lang="nl">Origin Facility</value>
         <value xml:lang="ro">Compartiment Origine</value>
@@ -5279,7 +5279,7 @@
     <property key="OrderOutstanding">
         <value xml:lang="en">Outstanding</value>
         <value xml:lang="es">Increible</value>
-        <value xml:lang="en">Remarquable</value>
+        <value xml:lang="en">En attente</value>
         <value xml:lang="it">Inevasa</value>
         <value xml:lang="nl">Outstanding</value>
         <value xml:lang="ro">Nerezolvata</value>
@@ -5290,7 +5290,7 @@
     <property key="OrderOverridePrice">
         <value xml:lang="en">Override Price</value>
         <value xml:lang="es">Reemplazar precio</value>
-        <value xml:lang="fr">Ecraser le prix</value>
+        <value xml:lang="fr">Remplacer le prix</value>
         <value xml:lang="it">Sostituisci Prezzo</value>
         <value xml:lang="nl">Override Price</value>
         <value xml:lang="ro">Substituie Pret</value>
@@ -5303,7 +5303,7 @@
         <value xml:lang="de">Auftragsnummer</value>
         <value xml:lang="en">PO Number</value>
         <value xml:lang="es">Número de orden</value>
-        <value xml:lang="fr">Réf. de la commande d'achat</value>
+        <value xml:lang="fr">N° de la commande d'achat</value>
         <value xml:lang="it">Numero OA</value>
         <value xml:lang="nl">PO Number</value>
         <value xml:lang="ro">Numar OA</value>
@@ -5349,7 +5349,7 @@
     </property>
     <property key="OrderPartyDontWish">
         <value xml:lang="en">I do not wish to add additional parties.</value>
-        <value xml:lang="fr">Je ne souhaite pas ajouter des partis supplémentaires</value>
+        <value xml:lang="fr">Je ne souhaite pas ajouter d'acteurs supplémentaires</value>
         <value xml:lang="it">Non vorrei inserire ulteriore soggetto.</value>
         <value xml:lang="nl">I do not wish to add additional parties.</value>
         <value xml:lang="ro">Nu as vrea sa introduc un alt subiect.</value>
@@ -5359,7 +5359,7 @@
     </property>
     <property key="OrderPartyNameNotFound">
         <value xml:lang="en">Name Not Found</value>
-        <value xml:lang="fr">Nom pas trouvé</value>
+        <value xml:lang="fr">Nom inconnu</value>
         <value xml:lang="it">Soggetto Non Trovato</value>
         <value xml:lang="nl">Name Not Found</value>
         <value xml:lang="ro">Subiect Negasit</value>
@@ -5369,7 +5369,7 @@
     </property>
     <property key="OrderPartySelectRoleForParty">
         <value xml:lang="en">Select Role For Party</value>
-        <value xml:lang="fr">Choisir le rôle pour le parti</value>
+        <value xml:lang="fr">Choisir le rôle pour l'acteur</value>
         <value xml:lang="it">Seleziona Ruolo Per Soggetto</value>
         <value xml:lang="nl">Select Role For Party</value>
         <value xml:lang="ro">Selectioneaza Rol Pentru Subiect</value>
@@ -5380,13 +5380,13 @@
     <property key="OrderPayMethodType">
         <value xml:lang="en">Pay Method Type</value>
         <value xml:lang="es">Tipo de método de pago</value>
-        <value xml:lang="fr">type méthode de paiement</value>
+        <value xml:lang="fr">Type de méthode de paiement</value>
         <value xml:lang="th">วิธีการชำระเงิน</value>
     </property>
     <property key="OrderPaymentAddNewSetting">
         <value xml:lang="en">Payment Add New Setting</value>
         <value xml:lang="es">Agregar nueva parametrización</value>
-        <value xml:lang="fr">Le paiement ajoute le nouveau cadre</value>
+        <value xml:lang="fr">Le paiement ajoute une nouvelle définition</value>
         <value xml:lang="th">เพิ่มการตั้งค่าการชำระเงินใหม่</value>
     </property>
     <property key="OrderPaymentConfig">
@@ -5420,43 +5420,43 @@
     <property key="OrderPaymentProcessorAuthService">
         <value xml:lang="en">Processor Auth Service</value>
         <value xml:lang="es">Servicio procesador de autentification</value>
-        <value xml:lang="fr">Service Auth processeur</value>
+        <value xml:lang="fr">Service d'autorisation de paiement</value>
         <value xml:lang="th">การบริการให้อำนาจการประมวลผล</value>
     </property>
     <property key="OrderPaymentProcessorCaptureService">
         <value xml:lang="en">Processor Capture Service</value>
         <value xml:lang="es">Servicio procesador de captura</value>
-        <value xml:lang="fr">Service capture processeur</value>
+        <value xml:lang="fr">Service de prélèvement du paiement</value>
         <value xml:lang="th">การบริการให้ความสนใจการประมวลผล</value>
     </property>
     <property key="OrderPaymentProcessorPropertiesURL">
         <value xml:lang="en">Processor Properties URL</value>
         <value xml:lang="es">Dirección URL de las propiedades del procesador</value>
-        <value xml:lang="fr">Propriétés de processeur URL</value>
+        <value xml:lang="fr">URL du service de paiement</value>
         <value xml:lang="th">การประมวผลคุณสมบัติ URL</value>
     </property>
     <property key="OrderPaymentProcessorReAuthService">
         <value xml:lang="en">Processor Re Auth Service</value>
         <value xml:lang="es">Servicio procesador de reautentificación</value>
-        <value xml:lang="fr">Service re Auth processeur</value>
+        <value xml:lang="fr">Service de ré-autorisation de paiement</value>
         <value xml:lang="th">การบริการให้อำนาจการประมวลผลอีกครั้ง</value>
     </property>
     <property key="OrderPaymentProcessorRefundService">
         <value xml:lang="en">Processor Refund Service</value>
         <value xml:lang="es">Servicio procesador de reembolso</value>
-        <value xml:lang="fr">Service remboursement processeur</value>
+        <value xml:lang="fr">Service de remboursement de paiement</value>
         <value xml:lang="th">การบริการประมวผลการคืนเงินให้</value>
     </property>
     <property key="OrderPaymentProcessorSetup">
         <value xml:lang="en">Processor Setup</value>
         <value xml:lang="es">Configuración del procesador de pago</value>
-        <value xml:lang="fr">Organisation de processeur</value>
+        <value xml:lang="fr">Configuration du service de paiement</value>
         <value xml:lang="th">การตั้งค่าการประมวลผล</value>
     </property>
     <property key="OrderPaymentSetup">
         <value xml:lang="en">Payment Setup</value>
         <value xml:lang="es">Configuración de pagos</value>
-        <value xml:lang="fr">Configuration de paiement</value>
+        <value xml:lang="fr">Configuration du paiement</value>
         <value xml:lang="th">การตั้งค่าการชำระเงิน</value>
     </property>
     <property key="OrderPaymentType">
@@ -5474,7 +5474,7 @@
     <property key="OrderPaymentUpdateSetting">
         <value xml:lang="en">Payment Update Setting</value>
         <value xml:lang="es">Actualización de la parametrización</value>
-        <value xml:lang="fr">Cadre mise à jour de paiement</value>
+        <value xml:lang="fr">Configuration de la mise à jour de paiement</value>
         <value xml:lang="th">ตั้งค่าการอัพเดทวิธีการชำระเงิน</value>
     </property>
     <property key="OrderPendingPaymentDollarAmountsIncludesAdjustments">
@@ -5564,7 +5564,7 @@
     </property>
     <property key="OrderPleaseShipItemsBecomeAvailable">
         <value xml:lang="en">Please ship items I ordered as they become available (you may incur additional shipping charges)</value>
-        <value xml:lang="fr">S'il vous plaît les articles expédiés que j'ai commandé deviennent disponibles (vous pouvez additionner les charges d'expédition supplémentaires)</value>
+        <value xml:lang="fr">S'il vous plaît expédier les articles que j'ai commandé dès qu'ils deviennent disponibles (vous pouvez ajouter les charges d'expédition supplémentaires)</value>
         <value xml:lang="th">Please ship items I ordered as they become available (you may incur additional shipping charges)</value>
     </property>
     <property key="OrderPleaseWaitUntilBeforeShipping">
@@ -5574,7 +5574,7 @@
     </property>
     <property key="OrderPrepareOrder">
         <value xml:lang="en">Prepare Order</value>
-        <value xml:lang="fr">Preparer la commande</value>
+        <value xml:lang="fr">Préparer la commande</value>
         <value xml:lang="it">Prepara Ordine</value>
         <value xml:lang="ru">Подготовить заказ</value>
         <value xml:lang="th">จัดเตรียมรายการสั่งซื้อสินค้า</value>
@@ -5595,7 +5595,7 @@
     <property key="OrderPrintableNote">
         <value xml:lang="en">Public Note (Printed)</value>
         <value xml:lang="es">Nota pública (imprimible)</value>
-        <value xml:lang="fr">Note imprimable</value>
+        <value xml:lang="fr">Note publique (imprimable)</value>
         <value xml:lang="it">Nota Pubblica (Stampata)</value>
         <value xml:lang="nl">Public Note (Printed)</value>
         <value xml:lang="ro">Nota Publica (Tiparita)</value>
@@ -5623,7 +5623,7 @@
     <property key="OrderProcessingInHold">
         <value xml:lang="en">This order is currently in a 'Hold' state. The activity has been suspended.</value>
         <value xml:lang="es">Esta orden se encuentra en estado 'En espera'</value>
-        <value xml:lang="fr">Cette commande est actuellement dans un état de «prise». L'activité a été suspendue. </value>
+        <value xml:lang="fr">Cette commande est actuellement dans un état «Retenu». L'activité a été suspendue.</value>
         <value xml:lang="it">Questo ordine è attualmente in uno stato 'Congelato'. L'attività è stata sospesa.</value>
         <value xml:lang="nl">This bestelling is currently in a 'Hold' state. The activity has been suspended.</value>
         <value xml:lang="ro">Aceasta Comanda este in acest moment in stare 'Congelata'. Activitatea a fost suspendata.</value>
@@ -5633,7 +5633,7 @@
     </property>
     <property key="OrderProcessingInHoldNote">
         <value xml:lang="en">** Note: If this state is a result of an automated activity, releasing may not have an effect until all conditions are met.</value>
-        <value xml:lang="fr">** Note : Si cet état est un résultat d'une activité automatisé, relâcher ne peut pas avoir un effet jusqu'à ce que toutes conditions soient rencontrées</value>
+        <value xml:lang="fr">** Note : Si cet état est le résultat d'une activité automatisée, le débloquer ne peut avoir d'effet que lorsque toutes les conditions seront remplies</value>
         <value xml:lang="es">** Nota:si el estado es un resultado de una actividad automática, no se tendrá efecto ahsta que las condiciones sean alcanzadas.</value>
         <value xml:lang="it">** Nota: Se questo stato è un risultato di una attività automatica, il rilascio potrebbe non avere effetto fino a che tutte le condizioni sono rispettate.</value>
         <value xml:lang="nl">** Note: If this state is a result of an automated activity, releasing may not have an effect until all conditions are met.</value>
