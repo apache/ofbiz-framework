@@ -369,12 +369,12 @@ under the License.
         <security https="true" auth="false"/>
         <response name="success" type="view" value="paymentoptions"/>
     </request-map>
-	
-	<request-map uri="setPaymentInformation">
+
+    <request-map uri="setPaymentInformation">
         <security https="true" auth="false"/>
         <response name="success" type="view" value="paymentinformation"/>
     </request-map>
-	
+
     <request-map uri="enterCreditCardAndBillingAddress">
         <security https="true" auth="false"/>
         <event type="service" path="" invoke="createCreditCardAndAddress"/>
