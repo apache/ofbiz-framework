@@ -33,6 +33,10 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <widgets>
+                                <container style="button-bar button-style-2">
+                                    <link target="CreateLead" text="${uiLabelMap.CommonCreateNew}" style="buttontext"/>
+                                    <link target="CreateLeadFromVCard" text="${uiLabelMap.SfaImportLead}" style="buttontext"/>
+                                </container>                                
                                 <section>
                                     <widgets>
                                         <platform-specific>

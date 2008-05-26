@@ -35,7 +35,10 @@ under the License.
                                 <service service-name="findParty" auto-field-map="true"/>
                             </actions>
                             <widgets>
-                                <!--include-menu  name="ContactTabBar" location="component://marketing/widget/sfa/SfaMenus.xml" /-->
+                                <container style="button-bar button-style-2">
+                                    <link target="CreateContact" text="${uiLabelMap.CommonCreateNew}" style="buttontext"/>
+                                    <link target="CreateContactFromVCard" text="${uiLabelMap.SfaCreateContactFromVCard}" style="buttontext"/>
+                                </container>
                                 <platform-specific>
                                     <html><html-template location="component://marketing/webapp/sfa/party/findSfaParty.ftl"/></html>
                                 </platform-specific>
@@ -50,11 +53,6 @@ under the License.
                                             </condition>
                                             <widgets>
                                                 <include-form name="ListContacts" location="component://marketing/widget/sfa/forms/ContactForms.xml"/>
-                                                <label text="&amp;nbsp;&lt;br/&gt;&lt;br/&gt;"/> 
-                                                <container style="h3">
-                                                    <label text="${uiLabelMap.SfaMergeContacts}"/>
-                                                </container>
-                                                <include-form name="MergeContacts" location="component://marketing/widget/sfa/forms/ContactForms.xml"/>                                                       
                                             </widgets>
                                             <fail-widgets>
                                                 <container style="h3">
@@ -108,6 +106,17 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
+                                    <label text="${uiLabelMap.SfaMergeContacts}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <label>&lt;br/&gt;</label>
+                                <include-form name="MergeContacts" location="component://marketing/widget/sfa/forms/ContactForms.xml"/>                                                       
+                            </container>
+                        </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3"><label text="${uiLabelMap.SfaMergeContacts}"/></container> 
