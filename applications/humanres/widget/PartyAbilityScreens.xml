@@ -490,4 +490,106 @@
             </widgets>
         </section>
     </screen>
+    <screen name="FindEmplPositionTypes">
+        <section>
+            <actions>
+                <set field="titleProperty" value="FindPositionTypes"/>
+                <set field="headerItem" value="EmplPositionTypes"/>
+                <set field="tabButtonItem" value="EmplPositionTypes"/>                
+                <set field="emplPositionTypeId" from-field="parameters.emplPositionTypeId"/>
+                <set field="emplPositionTypeCtx" from-field="parameters"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="GlobalHRSettingsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.CommonFind} ${uiLabelMap.HumanResEmplPositionType}">
+                            <section>
+                                <widgets>
+                                    <container>
+                                        <link target="EditEmplPositionTypes" text="${uiLabelMap.CommonNew} ${uiLabelMap.HumanResEmplPositionType}" style="buttontext"/>
+                                    </container>
+                                    <include-form name="FindEmplPositionTypes" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
+                                </widgets>
+                            </section>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.CommonList} ${uiLabelMap.HumanResEmplPositionType}">
+                            <section>
+                                <widgets>
+                                    <include-form name="ListEmplPositionTypes" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
+                                </widgets>
+                            </section>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditEmplPositionTypes">
+        <section>
+            <actions>
+                <set field="titleProperty" value="FindPositionTypes"/>
+                <set field="headerItem" value="EmplPositionTypes"/>
+                <set field="tabButtonItem" value="EmplPositionTypes"/>  
+                <set field="tabButtonItem2" value="EditEmplPositionType"/>
+                <set field="emplPositionTypeId" from-field="parameters.emplPositionTypeId"/>
+                <entity-one entity-name="EmplPositionType" value-name="emplPositionType"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="GlobalHRSettingsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <not>
+                                    <if-empty field-name="emplPositionTypeId"/>
+                                </not>                                
+                            </condition>
+                            <widgets>
+                                <include-menu location="component://humanres/widget/Menus.xml" name="EmplPositionTypeTabBar"/>
+                            </widgets>
+                        </section>
+                        <screenlet title="${uiLabelMap.CommonEdit} ${uiLabelMap.HumanResEmplPositionType}">
+                            <section>
+                                <widgets>
+                                    <include-form name="EditEmplPositionTypes" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
+                                </widgets>
+                            </section>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditEmplPositionTypeRate">
+        <section>
+            <actions>
+                <set field="titleProperty" value="EditEmplPositionTypeRate"/>
+                <set field="headerItem" value="EmplPositionTypes"/>
+                <set field="tabButtonItem" value="EmplPositionTypes"/> 
+                <set field="tabButtonItem2" value="EditEmplPositionTypeRate"/>
+                <set field="emplPositionTypeId" from-field="parameters.emplPositionTypeId"/>
+                <entity-one entity-name="EmplPositionTypeRate" value-name="emplPositionTypeRate"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="GlobalHRSettingsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-menu location="component://humanres/widget/Menus.xml" name="EmplPositionTypeTabBar"/>                                                                
+                        <screenlet title="${uiLabelMap.CommonList} ${uiLabelMap.HumanResPositionType} ${uiLabelMap.CommonRate}">
+                            <section>
+                                <widgets>
+                                    <include-form name="ListEmplPositionTypeRates" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
+                                </widgets>
+                            </section>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.CommonNew} ${uiLabelMap.HumanResPositionType} ${uiLabelMap.CommonRate}">
+                            <section>
+                                <widgets>
+                                    <include-form name="AddEmplPositionTypeRate" location="component://humanres/widget/forms/PartyAbilityForms.xml" />
+                                </widgets>
+                            </section>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>

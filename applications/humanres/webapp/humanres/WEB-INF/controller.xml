@@ -640,6 +640,43 @@ under the License.
         <event type="service" invoke="deleteTerminationType"/>
         <response name="success" type="view" value="EditTerminationTypes"/>               
     </request-map>
+    <request-map uri="FindEmplPositionTypes">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindEmplPositionTypes"/>
+    </request-map>
+    <request-map uri="EditEmplPositionTypes">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditEmplPositionTypes"/>
+    </request-map>
+    <request-map uri="createEmplPositionType">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createEmplPositionType"/>
+        <response name="success" type="view" value="EditEmplPositionTypes"/>
+    </request-map>
+    <request-map uri="updateEmplPositionType">
+        <security https="true" auth="true"/>
+        <event type="service-multi" invoke="updateEmplPositionType"/>
+        <response name="success" type="view" value="EditEmplPositionTypes"/>
+    </request-map>
+    <request-map uri="EditEmplPositionTypeRate">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditEmplPositionTypeRate"/>
+    </request-map>
+    <request-map uri="createEmplPositionTypeRate">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createEmplPositionTypeRate"/>
+        <response name="success" type="view" value="EditEmplPositionTypeRate"/>
+    </request-map>
+    <request-map uri="updateEmplPositionTypeRate">
+        <security https="true" auth="true"/>
+        <event type="service-multi" invoke="updateEmplPositionTypeRate"/>
+        <response name="success" type="view" value="EditEmplPositionTypeRate"/>
+    </request-map>
+    <request-map uri="deleteEmplPositionTypeRate">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteEmplPositionTypeRate"/>
+        <response name="success" type="view" value="EditEmplPositionTypeRate"/>               
+    </request-map>
     <!-- ===================Lookup Request===================== -->
     <request-map uri="LookupPartyName"><security auth="true" https="true"/><response name="success" type="view" value="LookupPartyName"/></request-map>
     <request-map uri="LookupPayment"><security auth="true" https="true"/><response name="success" type="view" value="LookupPayment"/></request-map>    
@@ -709,4 +746,7 @@ under the License.
     <view-map name="EditPartyResumes" type="screen" page="component://humanres/widget/EmploymentScreens.xml#EditPartyResumes"/>
     <view-map name="EditPerformanceNotes" type="screen" page="component://humanres/widget/EmploymentScreens.xml#EditPerformanceNotes"/>
     <view-map name="FindPayGrades" type="screen" page="component://humanres/widget/EmploymentScreens.xml#FindPayGrades"/>
+    <view-map name="FindEmplPositionTypes" type="screen" page="component://humanres/widget/PartyAbilityScreens.xml#FindEmplPositionTypes"/>    
+    <view-map name="EditEmplPositionTypes" type="screen" page="component://humanres/widget/PartyAbilityScreens.xml#EditEmplPositionTypes"/> 
+    <view-map name="EditEmplPositionTypeRate" type="screen" page="component://humanres/widget/PartyAbilityScreens.xml#EditEmplPositionTypeRate"/>     
 </site-conf>
