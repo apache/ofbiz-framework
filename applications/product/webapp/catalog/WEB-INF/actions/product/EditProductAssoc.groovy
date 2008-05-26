@@ -21,76 +21,71 @@ import org.ofbiz.entity.*;
 import org.ofbiz.base.util.*;
 import org.ofbiz.widget.html.*;
 
-nowDate = UtilDateTime.nowDate();
-context.put("nowDate", nowDate);
-
-String nowTimestampString = UtilDateTime.nowTimestamp().toString();
-context.put("nowTimestampString", nowTimestampString);
+context.nowDate = UtilDateTime.nowDate();
+context.nowTimestampString = UtilDateTime.nowTimestamp().toString();
 
 boolean useValues = true;
 if (request.getAttribute("_ERROR_MESSAGE_") != null) {
     useValues = false;
 }
 
-productId = parameters.get("productId");
+productId = parameters.productId;
 if (productId == null) {
-    productId = parameters.get("PRODUCT_ID");
+    productId = parameters.PRODUCT_ID;
 }
 
 if (productId != null) {
-    context.put("productId", productId);
+    context.productId = productId;
 }
 
-productIdTo = parameters.get("PRODUCT_ID_TO");
+productIdTo = parameters.PRODUCT_ID_TO;
 if (productIdTo != null) {
-    context.put("productIdTo", productIdTo);
+    context.productIdTo = productIdTo;
 }
 
-productAssocTypeId = parameters.get("PRODUCT_ASSOC_TYPE_ID");
+productAssocTypeId = parameters.PRODUCT_ASSOC_TYPE_ID;
 if (productAssocTypeId != null) {
-    context.put("productAssocTypeId", productAssocTypeId);
+    context.productAssocTypeId = productAssocTypeId;
 }
 
-fromDateStr = parameters.get("FROM_DATE");
+fromDateStr = parameters.FROM_DATE;
 
-Timestamp fromDate = null;
-
+fromDate = null;
 if (UtilValidate.isNotEmpty(fromDateStr)) {
     fromDate = Timestamp.valueOf(fromDateStr);
 }
 if (fromDate == null) {
-    fromDate = (Timestamp)request.getAttribute("ProductAssocCreateFromDate");
+    fromDate = request.getAttribute("ProductAssocCreateFromDate");
 }
 if (fromDate != null) {
-    context.put("fromDate", fromDate);
+    context.fromDate = fromDate;
 }
 
 product = delegator.findByPrimaryKey("Product", ['productId' : productId]);
 if (product != null) {
-    context.put("product", product);
+    context.product = product;
 }
 
 productAssoc = delegator.findByPrimaryKey("ProductAssoc", ['productId' : productId, 'productIdTo' : productIdTo, 'productAssocTypeId' : productAssocTypeId, 'fromDate' : fromDate]);
 if (productAssoc != null) {
-    context.put("productAssoc", productAssoc);
+    context.productAssoc = productAssoc;
 }
 
-if("true".equalsIgnoreCase(parameters.get("useValues"))) {
+if("true".equalsIgnoreCase(parameters.useValues)) {
     useValues = true;
 }
 if(productAssoc == null) useValues = false;
 
-context.put("useValues", useValues);
-boolean isCreate = true;
-context.put("isCreate", isCreate);
+context.useValues = useValues;
+context.isCreate = true;
 
 Collection assocTypes = delegator.findList("ProductAssocType", null, null, ['description'], null, false);
 context.put("assocTypes", assocTypes);
 
 if (product != null) {
     assocFromProducts = product.getRelated("MainProductAssoc", null, ['sequenceNum']);
-    context.put("assocFromProducts", assocFromProducts);
+    context.assocFromProducts = assocFromProducts;
     
     assocToProducts = product.getRelated("AssocProductAssoc");
-    context.put("assocToProducts", assocToProducts);
+    context.assocToProducts = assocToProducts;
 }
