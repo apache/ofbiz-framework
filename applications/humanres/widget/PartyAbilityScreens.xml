@@ -27,7 +27,7 @@
                 <entity-one entity-name="PartyQual" value-name="partyQual"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonPartyAbilityDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
@@ -59,7 +59,7 @@
                 <set field="partyResumeCtx" from-field="parameters"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonPartyAbilityDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.HumanResFindPartyResume}">
                             <section>
@@ -93,7 +93,7 @@
                 <entity-one entity-name="PartyResume" value-name="partyResume" />
             </actions>            
             <widgets>
-                <decorator-screen name="CommonPartyAbilityDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
@@ -129,7 +129,7 @@
                 <entity-one entity-name="PerfReview" value-name="perfReview"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonPartyAbilityDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
@@ -162,7 +162,7 @@
                 <set field="partySkillsCtx" from-field="parameters"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonPartyAbilityDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.HumanResFindPartySkill}">
                             <section>
@@ -196,7 +196,7 @@
                 <entity-one entity-name="PartySkill" value-name="partySkill"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonPartyAbilityDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.HumanResEditPartySkill}">
                             <section>
@@ -222,7 +222,7 @@
                 <set field="perfReviewId" from-field="parameters.perfReviewId"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonPartyAbilityDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonPerfReviewDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.CommonList} ${uiLabelMap.HumanResEditPerfReviewItems}">
                             <section>
