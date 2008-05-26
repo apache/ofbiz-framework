@@ -18,7 +18,12 @@
  *******************************************************************************/
 package org.ofbiz.base.util;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -126,5 +131,34 @@ public class UtilURL {
             path = path.substring(ofbizHome.length()+1);
         }
         return path;
+    }
+    
+    public static String readUrlText(URL url) throws IOException {
+    	InputStream stream = url.openStream();
+    
+        StringBuffer buf = new StringBuffer();
+        BufferedReader in = null;
+        try {
+            in = new BufferedReader(new InputStreamReader(stream));
+
+            String str;
+            while ((str = in.readLine()) != null) {
+                buf.append(str);
+                buf.append(System.getProperty("line.separator"));
+            }
+        } catch (IOException e) {
+            Debug.logError(e, "Error reading text from URL [" + url + "]: " + e.toString(), module);
+            throw e;
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    Debug.logError(e, "Error closing after reading text from URL [" + url + "]: " + e.toString(), module);
+                }
+            }
+        }
+        
+        return buf.toString();
     }
 }

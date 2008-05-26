@@ -1,5 +1,22 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
 package org.ofbiz.base.util;
-
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -15,24 +32,23 @@ import groovy.lang.GroovyShell;
 import groovy.lang.Script;
 import org.codehaus.groovy.control.CompilationFailedException;
 
-
 /**
  * GroovyUtil - Groovy Utilities
  *
- * @version $Rev$
  */
 public class GroovyUtil {
 
     public static final String module = GroovyUtil.class.getName();
 
-    public static UtilCache<String, Script> parsedScripts = new UtilCache<String, Script>("script.GroovyLocationParsedCache", 0, 0, false);
+    //public static UtilCache<String, Script> parsedScripts = new UtilCache<String, Script>("script.GroovyLocationParsedCache", 0, 0, false);
+    public static UtilCache<String, String> sourceScripts = new UtilCache<String, String>("script.GroovyLocationSourceCache", 0, 0, false);
+    
+    public static GroovyShell emptyGroovyShell = new GroovyShell();
 
-
-    private static GroovyShell getShell(Map context) {
-
+    private static Binding getBinding(Map<String, Object> context) {
         Binding binding = new Binding();
         if (context != null) {
-            Set keySet = context.keySet();
+            Set<String> keySet = context.keySet();
             for (Object key : keySet) {
                 binding.setVariable((String) key, context.get(key));
             }
@@ -41,32 +57,51 @@ public class GroovyUtil {
             binding.setVariable("context", context);
         }
 
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        return new GroovyShell(classLoader, binding);
+        return binding;
     }
 
-    public static Object runScriptAtLocation(String location, Map context) throws GeneralException {
-
+    public static Object runScriptAtLocation(String location, Map<String, Object> context) throws GeneralException {
         try {
-
+        	/* NOTE DEJ20080526: this approach uses a pre-parsed script but it is not thread safe
+        	 * 
+        	 * the groovy Script object contains both the parsed script AND the context, which is weird when trying to run a cached Script
+        	 * there is no available clone() method on the Script object, so we can't clone and set the context/binding to get around thread-safe issues
             Script script = parsedScripts.get(location);
             if (script == null) {
-
                 URL scriptUrl = FlexibleLocation.resolveLocation(location);
                 if (scriptUrl == null) {
                     throw new GeneralException("Script not found at location [" + location + "]");
                 }
                 
-                GroovyShell shell = getShell(context);
-                script = shell.parse(scriptUrl.openStream(), scriptUrl.getFile());
-                if (Debug.verboseOn()) {
-                    Debug.logVerbose("Caching Groovy script at: " + location, module);
-                }
+                script = emptyGroovyShell.parse(scriptUrl.openStream(), scriptUrl.getFile());
+                if (Debug.verboseOn()) Debug.logVerbose("Caching Groovy script at: " + location, module);
                 parsedScripts.put(location, script);
             }
             
+            script.setBinding(getBinding(context));
             return script.run();
+            */
 
+            String scriptString = sourceScripts.get(location);
+            if (scriptString == null) {
+                URL scriptUrl = FlexibleLocation.resolveLocation(location);
+                if (scriptUrl == null) {
+                    throw new GeneralException("Script not found at location [" + location + "]");
+                }
+                
+                scriptString = UtilURL.readUrlText(scriptUrl);
+                
+                if (Debug.verboseOn()) Debug.logVerbose("Caching Groovy script source at: " + location, module);
+                sourceScripts.put(location, scriptString);
+            }
+
+            long startTime = System.currentTimeMillis();
+            Script script = emptyGroovyShell.parse(scriptString, location);
+            script.setBinding(getBinding(context));
+            Object scriptResult = script.run();
+            if (Debug.timingOn()) Debug.logTiming("Parsed and ran groovy script in [" + (System.currentTimeMillis() - startTime) + "]ms at: " + location, module);
+            
+            return scriptResult;
         } catch (MalformedURLException e) {
             String errMsg = "Error loading Groovy script at [" + location + "]: " + e.toString();
             throw new GeneralException(errMsg, e);
@@ -78,5 +113,4 @@ public class GroovyUtil {
             throw new GeneralException(errMsg, e);
         }
     }
-
 }
