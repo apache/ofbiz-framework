@@ -19,19 +19,14 @@
 
 import org.ofbiz.entity.*;
 
-productFeatureAndAppls = delegator.findByAnd('ProductFeatureAndAppl',
+context.productFeatureAndAppls = delegator.findByAnd('ProductFeatureAndAppl',
         ['productId' : productId],
         ['sequenceNum', 'productFeatureApplTypeId', 'productFeatureTypeId', 'description']);
-context.productFeatureAndAppls = productFeatureAndAppls;
 
-productFeatureCategories = delegator.findAll('ProductFeatureCategory', ['description']);
-context.productFeatureCategories = productFeatureCategories;
+context.productFeatureCategories = delegator.findAll('ProductFeatureCategory', ['description']);
 
-productFeatureApplTypes = delegator.findAll('ProductFeatureApplType', ['description']);
-context.productFeatureApplTypes = productFeatureApplTypes;
+context.productFeatureApplTypes = delegator.findAll('ProductFeatureApplType', ['description']);
 
-productFeatureGroups = delegator.findAll('ProductFeatureGroup', ['description']);
-context.productFeatureGroups = productFeatureGroups;
-
-productFeatureTypes = delegator.findAll('ProductFeatureType', ['description']);
-context.productFeatureTypes = productFeatureTypes;
+context.productFeatureGroups = delegator.findAll('ProductFeatureGroup', ['description']);
+ 
+context.productFeatureTypes = delegator.findAll('ProductFeatureType', ['description']);
