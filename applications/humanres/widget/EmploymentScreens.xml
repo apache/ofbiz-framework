@@ -485,38 +485,6 @@
             </widgets>            
         </section>
     </screen> 
-    <screen name="ListGlobalHRSettings">
-        <section>
-            <actions>                
-                <set field="titleProperty" value="PageTitleListSkillTypes"/>
-                <set field="headerItem" value="SkillType"/>
-                <set field="labelTitleProperty" value="PageTitleListSkillTypes"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="GlobalHRSettingsDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.${labelTitleProperty}}">
-                            <section>
-                                <widgets>    
-                                    <container>
-                                        <link target="EditSkillTypes" text="${uiLabelMap.HumanResNewSkillType}" style="buttontext" />
-                                    </container>
-                                    <include-form name="ListSkillTypes" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>                                    
-                                </widgets>
-                            </section>
-                        </screenlet>
-                        <screenlet title="${uiLabelMap.HumanResNewSkillType}">
-                            <section>
-                                <widgets>    
-                                    <include-form name="AddSkillType" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>                                    
-                                </widgets>
-                            </section>
-                        </screenlet>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
     <screen name="EditPartySkills">
         <section>
             <actions>
