@@ -619,4 +619,23 @@ under the License.
         <entity-one entity-name="EmplPositionTypeRate" value-name="lookedUpValue"/>        
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
+    
+    <simple-method method-name="createAgreementEmploymentAppl" short-description="Create Agreement Employment Appl">
+        <make-value entity-name="AgreementEmploymentAppl" value-name="agreementEmploymentAppl"/>
+        <set-pk-fields value-name="agreementEmploymentAppl" map-name="parameters"/>
+        <set-nonpk-fields value-name="agreementEmploymentAppl" map-name="parameters"/>        
+        <create-value value-name="agreementEmploymentAppl"/>
+        <check-errors/>
+    </simple-method>
+    
+    <simple-method method-name="updateAgreementEmploymentAppl" short-description="update an Agreement Employment Appl">
+        <entity-one entity-name="AgreementEmploymentAppl" value-name="lookedUpValue"/>
+        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    
+    <simple-method method-name="deleteAgreementEmploymentAppl" short-description="Delete Agreement Employment Appl">
+        <entity-one entity-name="AgreementEmploymentAppl" value-name="agreementEmploymentAppl"/>
+        <remove-value value-name="agreementEmploymentAppl"/>
+    </simple-method>
 </simple-methods>        

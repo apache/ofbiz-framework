@@ -677,6 +677,26 @@ under the License.
         <event type="service" invoke="deleteEmplPositionTypeRate"/>
         <response name="success" type="view" value="EditEmplPositionTypeRate"/>               
     </request-map>
+    <request-map uri="EditAgreementEmploymentAppls">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditAgreementEmploymentAppls"/>
+    </request-map>
+    <request-map uri="createAgreementEmploymentAppl">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createAgreementEmploymentAppl"/>
+        <response name="success" type="view" value="EditAgreementEmploymentAppls"/>
+        <response name="error" type="view" value="EditAgreementEmploymentAppls"/>
+    </request-map>
+    <request-map uri="updateAgreementEmploymentAppl">
+        <security https="true" auth="true"/>
+        <event type="service-multi" invoke="updateAgreementEmploymentAppl"/>
+        <response name="success" type="view" value="EditAgreementEmploymentAppls"/>
+    </request-map>
+    <request-map uri="deleteAgreementEmploymentAppl">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteAgreementEmploymentAppl"/>
+        <response name="success" type="view" value="EditAgreementEmploymentAppls"/>
+    </request-map>
     <!-- ===================Lookup Request===================== -->
     <request-map uri="LookupPartyName"><security auth="true" https="true"/><response name="success" type="view" value="LookupPartyName"/></request-map>
     <request-map uri="LookupPayment"><security auth="true" https="true"/><response name="success" type="view" value="LookupPayment"/></request-map>    
@@ -748,4 +768,5 @@ under the License.
     <view-map name="FindEmplPositionTypes" type="screen" page="component://humanres/widget/PartyAbilityScreens.xml#FindEmplPositionTypes"/>    
     <view-map name="EditEmplPositionTypes" type="screen" page="component://humanres/widget/PartyAbilityScreens.xml#EditEmplPositionTypes"/> 
     <view-map name="EditEmplPositionTypeRate" type="screen" page="component://humanres/widget/PartyAbilityScreens.xml#EditEmplPositionTypeRate"/>     
+    <view-map name="EditAgreementEmploymentAppls" type="screen" page="component://humanres/widget/EmploymentScreens.xml#EditAgreementEmploymentAppls"/>         
 </site-conf>

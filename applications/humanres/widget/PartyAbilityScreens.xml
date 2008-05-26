@@ -61,23 +61,23 @@
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.HumanResFindPartyResume}">
-                            <section>
-                                <widgets>
-                                    <container>
-                                        <link target="EditPartyResume" text="${uiLabelMap.CommonCreate} ${uiLabelMap.HumanResNewPartyResume}" style="buttontext"/>
-                                    </container>
-                                    <include-form name="FindPartyResumes" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
-                                </widgets>
-                            </section>
-                        </screenlet>
-                        <screenlet title="${uiLabelMap.HumanResFindPartyResume}">
-                            <section>
-                                <widgets>
-                                    <include-form name="ListPartyResumes" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
-                                </widgets>
-                            </section>
-                        </screenlet>
+                        <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                            <decorator-section name="menu-bar">
+                                <section>
+                                    <widgets>
+                                        <container style="button-bar">
+                                            <link target="EditPartyResume" text="${uiLabelMap.CommonCreate} ${uiLabelMap.HumanResNewPartyResume}" style="buttontext"/>
+                                        </container>
+                                    </widgets>
+                                </section>
+                            </decorator-section>
+                            <decorator-section name="search-options">
+                                <include-form name="FindPartyResumes" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
+                            </decorator-section>
+                            <decorator-section name="search-results">
+                                <include-form name="ListPartyResumes" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
+                            </decorator-section>
+                        </decorator-screen>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -164,23 +164,23 @@
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.HumanResFindPartySkill}">
-                            <section>
-                                <widgets>
-                                    <container style="button-bar">
-                                        <link target="NewPartySkill" text="${uiLabelMap.HumanResNewPartySkill}" style="buttontext"/>
-                                    </container>
-                                    <include-form name="FindPartySkills" location="component://humanres/widget/forms/PartyAbilityForms.xml"></include-form>
-                                </widgets>
-                            </section>
-                        </screenlet>
-                        <screenlet title="${uiLabelMap.HumanResListPartySkill}">
-                            <section>
-                                <widgets>
-                                    <include-form name="ListPartySkills" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
-                                </widgets>
-                            </section>
-                        </screenlet>
+                        <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                            <decorator-section name="menu-bar">
+                                <section>
+                                    <widgets>
+                                        <container style="button-bar">
+                                            <link target="NewPartySkill" text="${uiLabelMap.HumanResNewPartySkill}" style="buttontext"/>
+                                        </container>
+                                    </widgets>
+                                </section>
+                            </decorator-section>
+                            <decorator-section name="search-options">
+                                <include-form name="FindPartySkills" location="component://humanres/widget/forms/PartyAbilityForms.xml"></include-form>
+                            </decorator-section>
+                            <decorator-section name="search-results">
+                                <include-form name="ListPartySkills" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
+                            </decorator-section>
+                        </decorator-screen>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -349,23 +349,23 @@
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.HumanResFindPersonTraining}">
-                            <section>
-                                <widgets>
-                                    <container style="button-bar">
-                                        <link target="NewPersonTraining" text="${uiLabelMap.HumanResNewPersonTraining}" style="buttontext"/>
-                                    </container>
-                                    <include-form name="FindPersonTrainings" location="component://humanres/widget/forms/PartyAbilityForms.xml"></include-form>
-                                </widgets>
-                            </section>
-                        </screenlet>
-                        <screenlet title="${uiLabelMap.HumanResListPersonTraining}">
-                            <section>
-                                <widgets>
-                                    <include-form name="ListPersonTrainings" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
-                                </widgets>
-                            </section>
-                        </screenlet>
+                        <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                           <decorator-section name="menu-bar">
+                               <section>
+                                   <widgets>
+                                       <container style="button-bar">
+                                           <link target="NewPersonTraining" text="${uiLabelMap.HumanResNewPersonTraining}" style="buttontext"/>
+                                       </container>
+                                   </widgets>
+                               </section>
+                           </decorator-section>
+                           <decorator-section name="search-options">
+                               <include-form name="FindPersonTrainings" location="component://humanres/widget/forms/PartyAbilityForms.xml"></include-form>
+                           </decorator-section>
+                           <decorator-section name="search-results">
+                               <include-form name="ListPersonTrainings" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
+                           </decorator-section>
+                       </decorator-screen>  
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -408,23 +408,23 @@
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.HumanResFindPartyQual}">
-                            <section>
-                                <widgets>
-                                    <container>
-                                        <link target="NewPartyQual" text="${uiLabelMap.HumanResNewPartyQual}" style="buttontext"/>
-                                    </container>
-                                    <include-form name="FindPartyQuals" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
-                                </widgets>
-                            </section>
-                        </screenlet>
-                        <screenlet title="${uiLabelMap.HumanResListPartyQual}">
-                            <section>
-                                <widgets>
-                                    <include-form name="ListPartyQuals" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
-                                </widgets>
-                            </section>
-                        </screenlet>
+                        <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                            <decorator-section name="menu-bar">
+                                <section>
+                                    <widgets>
+                                        <container style="button-bar">
+                                            <link target="NewPartyQual" text="${uiLabelMap.HumanResNewPartyQual}" style="buttontext"/>
+                                        </container>
+                                    </widgets>
+                                </section>
+                            </decorator-section>
+                           <decorator-section name="search-options">
+                               <include-form name="FindPartyQuals" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
+                           </decorator-section>
+                           <decorator-section name="search-results">
+                               <include-form name="ListPartyQuals" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
+                           </decorator-section>
+                       </decorator-screen>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -502,23 +502,23 @@
             <widgets>
                 <decorator-screen name="GlobalHRSettingsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.CommonFind} ${uiLabelMap.HumanResEmplPositionType}">
-                            <section>
-                                <widgets>
-                                    <container>
-                                        <link target="EditEmplPositionTypes" text="${uiLabelMap.CommonNew} ${uiLabelMap.HumanResEmplPositionType}" style="buttontext"/>
-                                    </container>
-                                    <include-form name="FindEmplPositionTypes" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
-                                </widgets>
-                            </section>
-                        </screenlet>
-                        <screenlet title="${uiLabelMap.CommonList} ${uiLabelMap.HumanResEmplPositionType}">
-                            <section>
-                                <widgets>
-                                    <include-form name="ListEmplPositionTypes" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
-                                </widgets>
-                            </section>
-                        </screenlet>
+                        <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                            <decorator-section name="menu-bar">
+                                <section>
+                                    <widgets>
+                                        <container style="button-bar">
+                                            <link target="EditEmplPositionTypes" text="${uiLabelMap.CommonNew} ${uiLabelMap.HumanResEmplPositionType}" style="buttontext"/>
+                                        </container>
+                                    </widgets>
+                                </section>
+                            </decorator-section>
+                            <decorator-section name="search-options">
+                                <include-form name="FindEmplPositionTypes" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
+                            </decorator-section>
+                            <decorator-section name="search-results">
+                                <include-form name="ListEmplPositionTypes" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
+                            </decorator-section>
+                        </decorator-screen>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

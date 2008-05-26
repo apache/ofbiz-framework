@@ -35,37 +35,23 @@
             <widgets>
                 <decorator-screen name="CommonEmploymentDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.CommonFind} ${uiLabelMap.HumanResEmployment}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
+                        <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                            <decorator-section name="menu-bar">
                                 <section>
                                     <widgets>
-                                        <container>
+                                        <container style="button-bar">
                                             <link target="EditEmployment?partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;fromDate=${fromDate}" text="${uiLabelMap.HumanResNewEmployment}" style="buttontext"/>
                                         </container>
-                                        <include-form name="FindEmployments" location="component://humanres/widget/forms/EmploymentForms.xml"/>
                                     </widgets>
                                 </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.HumanResListEmployments}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="ListEmployments" location="component://humanres/widget/forms/EmploymentForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                            </decorator-section>
+                            <decorator-section name="search-options">
+                                <include-form name="FindEmployments" location="component://humanres/widget/forms/EmploymentForms.xml"/>
+                            </decorator-section>
+                            <decorator-section name="search-results">
+                                <include-form name="ListEmployments" location="component://humanres/widget/forms/EmploymentForms.xml"/>
+                            </decorator-section>
+                        </decorator-screen>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -684,33 +670,68 @@
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.HumanResFindPayGrade}">
-                            <section>
-                                <widgets>
-                                    <container style="button-bar">
-                                        <link target="EditPayGrade" text="${uiLabelMap.HumanResNewPayGrade}" style="buttontext"/>
-                                    </container>
-                                    <include-form name="FindPayGrades" location="component://humanres/widget/forms/EmploymentForms.xml"/>
-                                </widgets>
-                            </section>
-                        </screenlet>
+                        <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                            <decorator-section name="menu-bar">
+                                <section>
+                                    <widgets>
+                                        <container style="button-bar">
+                                            <link target="EditPayGrade" text="${uiLabelMap.HumanResNewPayGrade}" style="buttontext"/>
+                                        </container>
+                                    </widgets>
+                                </section>
+                            </decorator-section>
+                            <decorator-section name="search-options">
+                                <include-form name="FindPayGrades" location="component://humanres/widget/forms/EmploymentForms.xml"/>
+                            </decorator-section>
+                            <decorator-section name="search-results">
+                                <include-form name="ListPayGrades" location="component://humanres/widget/forms/EmploymentForms.xml" />
+                            </decorator-section>
+                        </decorator-screen>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditAgreementEmploymentAppls">
+        <section>                        
+            <actions>
+                <set field="headerItem" value="AgreementEmploymentAppl"/>
+                <set field="titleProperty" value="EditAgreementEmploymentAppls"/>
+            </actions>            
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">                                                                                       
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
-                                    <label text="${uiLabelMap.HumanResListPayGrade}"/>
+                                    <label text="${uiLabelMap.CommonList} ${uiLabelMap.HumanResAgreementEmploymentAppl}"/>
                                 </container>
                             </container>
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <include-form name="ListPayGrades" location="component://humanres/widget/forms/EmploymentForms.xml" />
+                                        <include-form name="ListAgreementEmploymentAppls" location="component://humanres/widget/forms/EmploymentForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
+                                    <label text="${uiLabelMap.CommonAdd} ${uiLabelMap.HumanResAgreementEmploymentAppl}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <include-form name="AddAgreementEmploymentAppl" location="component://humanres/widget/forms/EmploymentForms.xml" />
                                     </widgets>
                                 </section>
                             </container>
                         </container>
                     </decorator-section>
                 </decorator-screen>
-            </widgets>
+            </widgets>            
         </section>
     </screen>
 </screens>

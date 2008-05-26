@@ -513,4 +513,51 @@
          <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
+    <form name="ListAgreementEmploymentAppls" type="multi" title="" target="updateAgreementEmploymentAppl"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="AgreementEmploymentAppl"><order-by field-name="fromDate"/></entity-condition>
+        </actions>
+        <auto-fields-service service-name="updateAgreementEmploymentAppl" default-field-type="hidden"/>        
+        <field name="agreementId" title="${uiLabelMap.AccountingAgreementId}"><display/></field>
+        <field name="agreementItemSeqId" title="${uiLabelMap.AccountingAgreementItemSeqId}"><display/></field>        
+        <field name="partyIdFrom" title="${uiLabelMap.HumanResPartyIdFrom}"><display/></field>
+        <field name="partyIdTo" title="${uiLabelMap.HumanResPartyIdTo}"><display/></field>
+        <field name="roleTypeIdFrom"><display/></field>
+        <field name="roleTypeIdTo"><display/></field>
+        <field name="fromDate"><display/></field>
+        <field name="agreementDate"><date-time/></field>
+        <field name="thruDate"><date-time/></field>
+        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
+            <hyperlink target="deleteAgreementEmploymentAppl?agreementId=${agreementId}&amp;partyIdTo=${partyIdTo}&amp;partyIdFrom=${partyIdFrom}&amp;roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;fromDate=${fromDate}&amp;agreementItemSeqId=${agreementItemSeqId}" description="${uiLabelMap.CommonDelete}" also-hidden="true"/>
+        </field>
+        <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><hidden value="Y"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>
+    </form>            
+    <form name="AddAgreementEmploymentAppl" type="single" target="createAgreementEmploymentAppl" default-map-name="agreementEmploymentAppl"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="createAgreementEmploymentAppl" default-field-type="display"/>
+        <field name="agreementId" title="${uiLabelMap.AccountingAgreementId}"><text/></field>
+        <field name="agreementItemSeqId" title="${uiLabelMap.AccountingAgreementItemSeqId}"><text/></field>
+        <field name="partyIdFrom" title="${uiLabelMap.HumanResPartyIdFrom}"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="partyIdTo" title="${uiLabelMap.HumanResPartyIdTo}"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="roleTypeIdFrom" tooltip="${uiLabelMap.CommonRequired}">
+            <drop-down allow-empty="false">
+                <entity-options description="${description}" key-field-name="roleTypeId" entity-name="RoleType">                    
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="roleTypeIdTo" tooltip="${uiLabelMap.CommonRequired}">
+            <drop-down allow-empty="false">
+                <entity-options description="${description}" key-field-name="roleTypeId" entity-name="RoleType">                    
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>  
+        <field name="fromDate"><date-time/></field>
+        <field name="agreementDate"><date-time/></field>
+        <field name="thruDate"><date-time/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="buttontext"><submit button-type="text-link"/></field>
+    </form>
 </forms>
