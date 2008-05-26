@@ -72,6 +72,7 @@ under the License.
             </else>    
             </if-compare>
         </iterate>
+        <check-errors/>
     </simple-method>
     
     <simple-method method-name="testAcctgTransOnEditPoInvoice" short-description="Test case for Purchase Invoices: editing, adding taxes and shipping charges and posting to GL" login-required="false">
@@ -127,7 +128,8 @@ under the License.
         </iterate>
         <assert>
             <if-compare field-name="debitTotal" operator="equals" value="creditTotal"/>
-        </assert>            
+        </assert>
+        <check-errors/>            
     </simple-method>
     
     <simple-method method-name="testAcctgTransOnPaymentSentToSupplier" short-description="Test case for Payment sent to supplier for purchase invoice." login-required="false">
@@ -180,7 +182,8 @@ under the License.
         </iterate>
         <assert>
             <if-compare field-name="debitTotal" operator="equals" value="creditTotal"/>
-        </assert>   
+        </assert>
+        <check-errors/>   
     </simple-method>
 
     <!-- Test case for Accounting Transaction on Sales -->
@@ -239,6 +242,7 @@ under the License.
             </else>
             </if-compare>
         </iterate>
+        <check-errors/>
     </simple-method>
 
     <simple-method method-name="testAcctgTransOnSalesInvoice" short-description="Test case for Accounting Transaction for sales invoice" login-required="false">
@@ -490,5 +494,51 @@ under the License.
             </iterate>
         </iterate>   
         <check-errors/>
+    </simple-method>
+    
+    <simple-method  method-name="testAcctgTransOnAddFinishedProductsIntoWarehouse" short-description="Production run test case on add finished product into warehouse" login-required="false">
+        <!-- Precondition: Inventory is received for following products:
+                 productId = MAT_A_COST, quantity = 4, facilityId = Web Store Warehouse
+                 productId = MAT_B_COST, quantity = 6, facilityId = Web Store Warehouse
+             then new production run is created and started for following product:
+                 productId = PROD_COST, quantity = 2, facilityId = Web Store Warehouse
+             then issue components and complete the product issuance and at last put 2 quantities into "Stock in" field
+             Post condition: In entity "AcctgTransEntry" two entries will be created:
+                * Debit, in account 140000 - "INVENTORY"; amount: 328$
+                * Credit, in account 142000 - "WORK IN PROGRESS INVENTORY", amount: 328$ (36$ + 42$ + 250$) -->
+ 
+        <set field="workEffortId" value="10000"/>
+        <set field="serviceCtx.workEffortId" from-field="workEffortId"/>
+        <entity-one entity-name="UserLogin" value-name="serviceCtx.userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <call-service service-name="productionRunProduce" in-map-name="serviceCtx"/>
+        
+        <!-- For credit entry -->
+        <entity-and entity-name="AcctgTransEntry" list-name="acctgTransEntryList">
+            <field-map field-name="productId" value="PROD_COST"/>
+            <field-map field-name="glAccountTypeId" value="WIP_INVENTORY"/>
+            <field-map field-name="glAccountId" value="142000"/>
+            <order-by field-name="-createdStamp"/>
+        </entity-and>
+        <first-from-list list-name="acctgTransEntryList" entry-name="acctgTransEntry"/>
+        <assert>
+            <if-compare field-name="acctgTransEntry.debitCreditFlag" operator="equals" value="C"/>
+            <if-compare field-name="acctgTransEntry.origAmount" operator="equals" value="328" type="Double"/>
+        </assert>
+        
+        <!-- For debit entry -->
+        <entity-and entity-name="AcctgTransEntry" list-name="acctgTransEntryList">
+            <field-map field-name="productId" value="PROD_COST"/>
+            <field-map field-name="glAccountTypeId" value="INVENTORY_ACCOUNT"/>
+            <field-map field-name="glAccountId" value="140000"/>
+            <order-by field-name="-createdStamp"/>
+        </entity-and>
+        <first-from-list list-name="acctgTransEntryList" entry-name="acctgTransEntry"/>
+        <assert>
+            <if-compare field-name="acctgTransEntry.debitCreditFlag" operator="equals" value="D"/>
+            <if-compare field-name="acctgTransEntry.origAmount" operator="equals" value="328" type="Double"/>
+        </assert>
+        <check-errors/> 
     </simple-method>
 </simple-methods>
