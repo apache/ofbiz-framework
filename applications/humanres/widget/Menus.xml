@@ -107,6 +107,9 @@
         <menu-item name="TerminationType" title="${uiLabelMap.HumanResTerminationType}">
             <link target="findTerminationTypes"/>
         </menu-item>
+        <menu-item name="EmplPositionTypes" title="${uiLabelMap.HumanResEmplPositionType}">
+            <link target="FindEmplPositionTypes"/>
+        </menu-item>
     </menu>
     
     <menu name="ProfileTabBar" default-menu-item-name="viewprofile" default-selected-style="selected"
@@ -131,6 +134,16 @@
         </menu-item>
         <menu-item name="EditPerformanceNotes" title="${uiLabelMap.HumanResPerfNote}">
             <link target="EditPerformanceNotes?partyId=${partyId}"/>
+        </menu-item>
+    </menu>
+    
+    <menu name="EmplPositionTypeTabBar" default-menu-item-name="EditEmplPositionType" default-selected-style="selected"
+        menu-container-style="button-bar tab-bar" type="simple" selected-menuitem-context-field-name="tabButtonItem2">
+        <menu-item name="EditEmplPositionType" title="${uiLabelMap.HumanResEditEmplPositionType}">
+            <link target="EditEmplPositionTypes?emplPositionTypeId=${emplPositionTypeId}"/>
+        </menu-item>
+        <menu-item name="EditEmplPositionTypeRate" title="${uiLabelMap.HumanResEmplPositionTypeRate}">
+            <link target="EditEmplPositionTypeRate?emplPositionTypeId=${emplPositionTypeId}"/>
         </menu-item>
     </menu>
 </menus>

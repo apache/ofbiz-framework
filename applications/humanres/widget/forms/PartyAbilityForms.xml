@@ -438,4 +438,81 @@ under the License.
         <field name="emplPositionId" title="${uiLabelMap.FormFieldTitle_emplPositionId}"><lookup target-form-name="LookupEmplPosition"/></field>
         <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
+    <form name="FindEmplPositionTypes" type="single" header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-entity entity-name="EmplPositionType" default-field-type="find"/>
+        <field name="noConditionFind"><hidden value="Y"/></field>
+        <field name="emplPositionTypeId"><text/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
+        <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListEmplPositionTypes" type="list" list-name="listIt" target="updateEmplPositionType"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="emplPositionTypeCtx"/>
+                <field-map field-name="entityName" value="EmplPositionType"/>
+            </service>
+        </actions>            
+        <auto-fields-service service-name="updateEmplPositionType" default-field-type="hidden"/>        
+        <field name="emplPositionTypeId" title="${uiLabelMap.HumanResEmplPositionType}">
+            <hyperlink also-hidden="false" description="${emplPositionTypeId}" target="EditEmplPositionTypes?emplPositionTypeId=${emplPositionTypeId}"/>
+        </field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
+    </form>            
+    <form name="EditEmplPositionTypes" type="single" target="updateEmplPositionType" default-map-name="emplPositionType"
+        header-row-style="header-row" default-table-style="basic-table">
+        <alt-target use-when="emplPositionType==null" target="createEmplPositionType"/>
+        <auto-fields-service service-name="updateEmplPositionType"/>
+        <field name="emplPositionTypeId" use-when="emplPositionType==null"><text/></field>
+        <field name="emplPositionTypeId" use-when="emplPositionType!=null"><display/></field>        
+        <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>        
+        <field name="submitButton" use-when="emplPositionType==null" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>        
+        <field name="submitButton" use-when="emplPositionType!=null" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListEmplPositionTypeRates" type="multi" title="" target="updateEmplPositionTypeRate"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="EmplPositionTypeRate"><order-by field-name="fromDate"/></entity-condition>
+        </actions>
+        <auto-fields-service service-name="updateEmplPositionTypeRate" default-field-type="hidden"/>        
+        <field name="emplPositionTypeId"><hidden/></field>
+        <field name="periodTypeId"><display/></field>
+        <field name="rateTypeId">
+            <drop-down allow-empty="true" no-current-selected-key="">
+                <entity-options description="${description}" key-field-name="rateTypeId" entity-name="RateType">
+                    <entity-order-by field-name="rateTypeId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="payGradeId"><lookup target-form-name="LookupPayGrade"/></field>        
+        <field name="salaryStepSeqId"><lookup target-form-name="LookupSalaryStep"/></field>
+        <field name="fromDate"><display/></field>
+        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
+            <hyperlink target="deleteEmplPositionTypeRate?emplPositionTypeId=${emplPositionTypeId}&amp;fromDate=${fromDate}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+        <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><hidden value="Y"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>
+    </form>            
+    <form name="AddEmplPositionTypeRate" type="single" target="createEmplPositionTypeRate" default-map-name="emplPositionTypeRate" paginate-target="EditEmplPositionTypeRate"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="emplPositionTypeId"><hidden/></field>
+        <field name="rateTypeId">
+            <drop-down allow-empty="true" no-current-selected-key="">
+                <entity-options description="${description}" key-field-name="rateTypeId" entity-name="RateType">
+                    <entity-order-by field-name="rateTypeId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="payGradeId"><lookup target-form-name="LookupPayGrade"/></field>        
+        <field name="salaryStepSeqId"><lookup target-form-name="LookupSalaryStep"/></field>  
+        <field name="periodTypeId">
+            <drop-down allow-empty="false">
+                <entity-options description="${description}" key-field-name="periodTypeId" entity-name="PeriodType">
+                    <entity-order-by field-name="periodTypeId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="fromDate"><date-time/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="buttontext"><submit button-type="text-link"/></field>
+    </form>
  </forms>

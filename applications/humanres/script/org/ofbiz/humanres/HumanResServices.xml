@@ -582,4 +582,41 @@ under the License.
         <entity-one entity-name="TerminationType" value-name="lookedUpValue"/>        
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
+    
+    <simple-method method-name="createEmplPositionType" short-description="Create a PositionType">
+        <make-value entity-name="EmplPositionType" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <if-empty field-name="newEntity.emplPositionTypeId">      
+            <sequenced-id-to-env sequence-name="EmplPositionType" env-name="newEntity.emplPositionTypeId"/>
+        </if-empty>        
+        <field-to-result field-name="newEntity.emplPositionTypeId" result-name="emplPositionTypeId"/>
+        <create-value value-name="newEntity"/>        
+    </simple-method>
+    
+    <simple-method method-name="updateEmplPositionType" short-description="Update PositionType">
+        <entity-one entity-name="EmplPositionType" value-name="lookedUpValue"/>
+        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    
+    <simple-method method-name="createEmplPositionTypeRate" short-description="Create a PositionType">
+        <make-value entity-name="EmplPositionTypeRate" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <field-to-result field-name="newEntity.emplPositionTypeId" result-name="emplPositionTypeId"/>
+        <field-to-result field-name="newEntity.periodTypeId" result-name="periodTypeId"/>
+        <field-to-result field-name="newEntity.fromDate" result-name="fromDate"/>
+        <create-value value-name="newEntity"/>        
+    </simple-method>
+    
+    <simple-method method-name="updateEmplPositionTypeRate" short-description="Update EmplPositionTypeRate">
+        <entity-one entity-name="EmplPositionTypeRate" value-name="lookedUpValue"/>
+        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    
+    <simple-method method-name="deleteEmplPositionTypeRate" short-description="Delete EmplPositionTypeRate">
+        <entity-one entity-name="EmplPositionTypeRate" value-name="lookedUpValue"/>        
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
 </simple-methods>        

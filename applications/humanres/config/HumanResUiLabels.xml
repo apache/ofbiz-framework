@@ -741,6 +741,15 @@
     <property key="HumanResPartySkills">
         <value xml:lang="en">Party Skills</value>
     </property>
+    <property key="HumanResEditEmplPositionType">
+        <value xml:lang="en">Edit Position Types</value>
+    </property>
+    <property key="HumanResEmplPositionType">
+        <value xml:lang="en">Position Types</value>
+    </property>
+    <property key="HumanResEmplPositionTypeRate">
+        <value xml:lang="en">Position Type Rate</value>
+    </property>
     <property key="HumanResNewPartySkill">
         <value xml:lang="en">New Party Skill</value>
         <value xml:lang="it">Nuova Abilità Soggetto</value>
