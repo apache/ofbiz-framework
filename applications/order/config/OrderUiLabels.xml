@@ -4128,7 +4128,7 @@
     <property key="OrderOrderBillFromParty">
         <value xml:lang="en">Bill From Party</value>
         <value xml:lang="es">Participante que factura</value>
-        <value xml:lang="fr">Acteur Débité</value>
+        <value xml:lang="fr">Acteur débité</value>
         <value xml:lang="it">Fattura Dal Soggetto</value>
         <value xml:lang="nl">Bill From Party</value>
         <value xml:lang="ro">Factura de la Subiect</value>
@@ -4140,7 +4140,7 @@
     <property key="OrderOrderBillToParty">
         <value xml:lang="en">Bill To Party</value>
         <value xml:lang="es">Participante a quien se factura</value>
-        <value xml:lang="fr">Acteur Crédité</value>
+        <value xml:lang="fr">Acteur crédité</value>
         <value xml:lang="it">Fattura Al Soggetto</value>
         <value xml:lang="nl">Bill To Party</value>
         <value xml:lang="ro">Factura la Subiect</value>
@@ -4215,7 +4215,7 @@
     <property key="OrderOrderEntryInternalOrganziation">
         <value xml:lang="en">Internal Organization</value>
         <value xml:lang="es">Organización interna</value>
-        <value xml:lang="fr">Acteur facturé</value>
+        <value xml:lang="fr">Organisation interne</value>
         <value xml:lang="it">Organizzazione Interna</value>
         <value xml:lang="nl">Internal Organization</value>
         <value xml:lang="ro">Organizare Interna</value>
@@ -4422,9 +4422,9 @@
         <value xml:lang="zh">订单选项设置</value>
     </property>
     <property key="OrderOrderPurchaseToBeScheduled">
-        <value xml:lang="en">Order Purchase To Be Scheluded</value>
+        <value xml:lang="en">Order Purchase To Be Scheduled</value>
         <value xml:lang="es">Orden de compra a programar</value>
-        <value xml:lang="fr">Commandes d'achat à lancer</value>
+        <value xml:lang="fr">Commandes d'achat à planifier</value>
         <value xml:lang="it">Ordine Acquisto che Sarà  Schedulato</value>
         <value xml:lang="nl">Inkoop die gepland moeten worden</value>
         <value xml:lang="ro">Comanda Cumparare ce va fi Planificata </value>
@@ -4458,7 +4458,7 @@
     <property key="OrderOrderQuoteAdjustmentId">
         <value xml:lang="en">Quote Adjustment Id</value>
         <value xml:lang="es">Código de ajuste</value>
-        <value xml:lang="fr">Citer la réf. d'ajustement</value>
+        <value xml:lang="fr">Réf. d'ajustement de devis</value>
         <value xml:lang="it">Aggiustamento Preventivo</value>
         <value xml:lang="nl">Offerte instelling Id</value>
         <value xml:lang="ro">Modificare Oferta</value>
@@ -4469,7 +4469,7 @@
     <property key="OrderOrderQuoteAdjustmentType">
         <value xml:lang="en">Quote Adjustment Type</value>
         <value xml:lang="es">Tipo de Ajuste</value>
-        <value xml:lang="fr">Citer le type d'ajustement</value>
+        <value xml:lang="fr">Type d'ajustement de devis</value>
         <value xml:lang="it">Tipo Aggiustamento Preventivo</value>
         <value xml:lang="nl">Offerte soort instelling</value>
         <value xml:lang="ro">Tip Modificari Oferta</value>
@@ -4480,7 +4480,7 @@
     <property key="OrderOrderQuoteAdjustmentTypeId">
         <value xml:lang="en">Quote Adjustment Type Id</value>
         <value xml:lang="es">Tipo de ajuste</value>
-        <value xml:lang="fr">Citer la réf. de type d'ajustement</value>
+        <value xml:lang="fr">Réf. de type d'ajustement de devis</value>
         <value xml:lang="th">รหัสประเภทการปรับเปลี่ยนคำร้อง</value>
     </property>
     <property key="OrderOrderQuoteAdjustments">
@@ -4618,7 +4618,7 @@
     <property key="OrderOrderQuoteEdit">
         <value xml:lang="en">Edit Quote</value>
         <value xml:lang="es">Editar Cotización</value>
-        <value xml:lang="fr">Editer estimation</value>
+        <value xml:lang="fr">Editer le devis</value>
         <value xml:lang="it">Aggiorna Preventivo</value>
         <value xml:lang="nl">Edit Offerte</value>
         <value xml:lang="ro">Actualizeaza Oferta</value>
@@ -4629,7 +4629,7 @@
     <property key="OrderOrderQuoteEditAdjustments">
         <value xml:lang="en">Edit Quote Adjustments</value>
         <value xml:lang="es">Editar Ajustes de Cotización</value>
-        <value xml:lang="fr">Editer estimation des ajustements</value>
+        <value xml:lang="fr">Editer les ajustements du devis</value>
         <value xml:lang="it">Aggiorna Aggiustamenti Preventivo</value>
         <value xml:lang="nl">Wijzigen Offerte Correcties</value>
         <value xml:lang="ro">Actualizeaza Modificari Oferta</value>
@@ -4640,7 +4640,7 @@
     <property key="OrderOrderQuoteEditAttributes">
         <value xml:lang="en">Edit Quote Attributes</value>
         <value xml:lang="es">Editar atributos de cotización</value>
-        <value xml:lang="fr">Editer estimation des attributs</value>
+        <value xml:lang="fr">Editer les attributs du devis</value>
         <value xml:lang="it">Aggiorna Attributi Preventivo</value>
         <value xml:lang="nl">Edit Offerte Attributen</value>
         <value xml:lang="ro">Actualizeaza Atribute Oferta</value>
@@ -4651,7 +4651,7 @@
     <property key="OrderOrderQuoteEditCoefficients">
         <value xml:lang="en">Edit Quote Coefficients</value>
         <value xml:lang="es">Editar coeficientes de cotización</value>
-        <value xml:lang="fr">Editer estimation des coefficients</value>
+        <value xml:lang="fr">Editer les coefficients du devis</value>
         <value xml:lang="it">Aggiorna Coefficienti Preventivo</value>
         <value xml:lang="nl">Edit Offerte Coefficienten</value>
         <value xml:lang="ro">Actualizeaza Coeficienti Oferte</value>
@@ -4662,7 +4662,7 @@
     <property key="OrderOrderQuoteEditItems">
         <value xml:lang="en">Edit Quote Items</value>
         <value xml:lang="es">Editar artículos cotizados</value>
-        <value xml:lang="fr">Editer estimation des articles</value>
+        <value xml:lang="fr">Editer les lignes du devis</value>
         <value xml:lang="it">Aggiorna Righe Preventivo</value>
         <value xml:lang="nl">Edit Offerte Items</value>
         <value xml:lang="ro">Actualizeaza Linii Oferte</value>
@@ -4673,7 +4673,7 @@
     <property key="OrderOrderQuoteEditReportMail">
         <value xml:lang="en">Edit Quote Report Mail</value>
         <value xml:lang="es">Editar correo de reporte de la cotización</value>
-        <value xml:lang="fr">Editer le courrier de rapport d'estimation</value>
+        <value xml:lang="fr">Editer le courriel d'état du devis</value>
         <value xml:lang="it">Aggiorna Mail Stampa Preventivo</value>
         <value xml:lang="nl">Edit Offerte Report Mail</value>
         <value xml:lang="ro">Actualizeaza Mail Stampa Oferta</value>
@@ -4684,7 +4684,7 @@
     <property key="OrderOrderQuoteEditRoles">
         <value xml:lang="en">Edit Quote Roles</value>
         <value xml:lang="es">Editar Roles de la cotización</value>
-        <value xml:lang="fr">Editer estimation des rôles</value>
+        <value xml:lang="fr">Editer les rôles du devis</value>
         <value xml:lang="it">Aggiorna Ruoli Preventivo</value>
         <value xml:lang="nl">Wijzig Offerte Rollen</value>
         <value xml:lang="ro">Actualizeaza Roluri Oferte</value>
@@ -4695,7 +4695,7 @@
     <property key="OrderOrderQuoteEditWorkEfforts">
         <value xml:lang="en">Edit Quote Work Efforts</value>
         <value xml:lang="es">Editar Esfuerzos de la Cotización</value>
-        <value xml:lang="fr">Editer estimation de main d'œuvre</value>
+        <value xml:lang="fr">Editer les tâches du devis</value>
         <value xml:lang="it">Aggiorna Preventivo Impegno di Lavoro</value>
         <value xml:lang="nl">Edit Offerte Activiteiten</value>
         <value xml:lang="ro">Actualizeaza Preventiv Sarcini de Lucru</value>
@@ -4706,7 +4706,7 @@
     <property key="OrderOrderQuoteEnterWorkEffortId">
         <value xml:lang="en">Enter existing WorkEffort Id below</value>
         <value xml:lang="es">Ingrese un código de esfuerzo existente</value>
-        <value xml:lang="fr">Entrer réf. inférieure de main d'œuvre existant</value>
+        <value xml:lang="fr">Entrer la réf. de tâche existante ci-dessous</value>
         <value xml:lang="it">Inserire il Codice Impegno di Lavoro qui sotto</value>
         <value xml:lang="nl">Enter existing WorkEffort Id below</value>
         <value xml:lang="ro">Introduceti Cod Sarcini de Lucru aici dedesubt</value>
@@ -4717,7 +4717,7 @@
     <property key="OrderOrderQuoteEnterWorkEffortIdNew">
         <value xml:lang="en">OR add new WorkEffort data below to create new entity (leave WorkEffort Id empty)</value>
         <value xml:lang="es">o ingrese la información de un nueevo esfuerzo, para la creación de este (deje el id del esfuerzo en blanco)</value>
-        <value xml:lang="fr">OU ajouter les nouvelles données de main d'œuvre au dessous de créer la nouvelle entité (la feuille réf. main d'œuvre vide)</value>
+        <value xml:lang="fr">OU ajouter les nouvelles données liées à la tâche ci-dessous pour créer la nouvelle entité (laisser la réf. de tâche vide)</value>
         <value xml:lang="it">O aggiungi dei nuovi dati Impegno di Lavoro sotto per creare una nuova entità  (lascia vuoto il Codice Impegno di Lavoro)</value>
         <value xml:lang="nl">OR add new WorkEffort data below to create new entity (leave WorkEffort Id empty)</value>
         <value xml:lang="ro">Sau adaugati noi date Sarcini de Lucru dedesubt pentru a crea o noua entitate (lasa gol Codul Sarcini de Lucru)</value>
@@ -4752,7 +4752,7 @@
     <property key="OrderOrderQuoteIssueDate">
         <value xml:lang="en">Quote Issue Date</value>
         <value xml:lang="es">Fecha de edición</value>
-        <value xml:lang="fr">Date du devis</value>
+        <value xml:lang="fr">Date d'émissions du devis</value>
         <value xml:lang="it">Data Emissione</value>
         <value xml:lang="nl">Offerte Issue Date</value>
         <value xml:lang="ro">Data Emisie</value>
@@ -4776,7 +4776,7 @@
     <property key="OrderOrderQuoteItemSeqId">
         <value xml:lang="en">Quote Item Seq Id</value>
         <value xml:lang="es">Secuencia</value>
-        <value xml:lang="fr">Réf. ligne</value>
+        <value xml:lang="fr">Réf. séq. de ligne de devis</value>
         <value xml:lang="it">Numero Sequenza Riga Preventivo</value>
         <value xml:lang="nl">Offerte Item Seq Id</value>
         <value xml:lang="ro">Numar Secventa Linie Oferta</value>
@@ -4800,7 +4800,7 @@
     <property key="OrderOrderQuoteListAdjustments">
         <value xml:lang="en">List Quote Adjustments</value>
         <value xml:lang="es">Lista de ajustes de cotización</value>
-        <value xml:lang="fr">Liste ajustements de cotisations</value>
+        <value xml:lang="fr">Lister les ajustements du devis</value>
         <value xml:lang="it">Lista Aggiustamenti Preventivo</value>
         <value xml:lang="nl">List Offerte Adjustments</value>
         <value xml:lang="ro">Lista Modificari Oferta</value>
@@ -4811,7 +4811,7 @@
     <property key="OrderOrderQuoteListAttributes">
         <value xml:lang="en">List Quote Attributes</value>
         <value xml:lang="es">Lista de atributos de cotización</value>
-        <value xml:lang="fr">Liste d'attributs de devis</value>
+        <value xml:lang="fr">Lister les attributs du devis</value>
         <value xml:lang="it">Lista Attributi Preventivo</value>
         <value xml:lang="nl">List Offerte Attributen</value>
         <value xml:lang="ro">Lista Atribute Oferta</value>
@@ -4822,7 +4822,7 @@
     <property key="OrderOrderQuoteListCoefficients">
         <value xml:lang="en">List Quote Coefficients</value>
         <value xml:lang="es">Lista de coeficiones de Cotización</value>
-        <value xml:lang="fr">Liste estimation de coefficients</value>
+        <value xml:lang="fr">Lister les coefficients du devis</value>
         <value xml:lang="it">Lista Coefficienti Preventivo</value>
         <value xml:lang="nl">List Offerte Coefficienten</value>
         <value xml:lang="ro">Lista Coeficienti Oferta</value>
@@ -4833,7 +4833,7 @@
     <property key="OrderOrderQuoteListItems">
         <value xml:lang="en">List Quote Items</value>
         <value xml:lang="es">Lista de artículos de cotización</value>
-        <value xml:lang="fr">Liste devis articles</value>
+        <value xml:lang="fr">Lister les articles du devis</value>
         <value xml:lang="it">Lista Righe Preventivo</value>
         <value xml:lang="nl">List Offerte Items</value>
         <value xml:lang="ro">Lista Linie Oferta</value>
@@ -4844,7 +4844,7 @@
     <property key="OrderOrderQuoteListRoles">
         <value xml:lang="en">List Quote Roles</value>
         <value xml:lang="es">Lista de roles de cotización</value>
-        <value xml:lang="fr">Liste estimation des rôles</value>
+        <value xml:lang="fr">Liste les rôles du devis</value>
         <value xml:lang="it">Lista Ruoli Preventivo</value>
         <value xml:lang="nl">Offerte Rollen lijst</value>
         <value xml:lang="ro">Lista Roluri Oferta</value>
@@ -4914,7 +4914,7 @@
     <property key="OrderOrderQuoteProfit">
         <value xml:lang="en">Quote Profit</value>
         <value xml:lang="es">Ganancia de Cotización</value>
-        <value xml:lang="fr">Devis profit</value>
+        <value xml:lang="fr">Profit du devis</value>
         <value xml:lang="it">Profitto Preventivo </value>
         <value xml:lang="nl">Winst</value>
         <value xml:lang="ro">Profit Oferta </value>
@@ -4925,7 +4925,7 @@
     <property key="OrderOrderQuoteReport">
         <value xml:lang="en">Quote Report</value>
         <value xml:lang="es">Reporte de Cotización</value>
-        <value xml:lang="fr">Devis report</value>
+        <value xml:lang="fr">Report du devis</value>
         <value xml:lang="it">Stampe Preventivo</value>
         <value xml:lang="nl">Offerte Report</value>
         <value xml:lang="ro">Tipariri Oferta</value>
@@ -4948,7 +4948,7 @@
     <property key="OrderOrderQuoteSkillTypeId">
         <value xml:lang="en">Quote Skill Type Id</value>
         <value xml:lang="es">Tipo de habilidad</value>
-        <value xml:lang="fr">Type de compétences</value>
+        <value xml:lang="fr">Réf. de type de compétences</value>
         <value xml:lang="it">Tipo Skill Preventivo</value>
         <value xml:lang="nl">Offerte Skill Type Id</value>
         <value xml:lang="ro">Tip Skill Oferta</value>
@@ -4959,14 +4959,14 @@
     </property>
     <property key="OrderOrderQuoteType">
         <value xml:lang="en">Quote Type</value>
-        <value xml:lang="fr">Type devis</value>
+        <value xml:lang="fr">Type de devis</value>
         <value xml:lang="ru">Тип предложения</value>
         <value xml:lang="th">ประเภทคำร้อง</value>
     </property>
     <property key="OrderOrderQuoteTypeId">
         <value xml:lang="en">Quote Type Id</value>
         <value xml:lang="es">Tipo de cotización</value>
-        <value xml:lang="fr">Réf. type de devis</value>
+        <value xml:lang="fr">Réf. de type de devis</value>
         <value xml:lang="it">Tipo Preventivo</value>
         <value xml:lang="nl">Offerte Type Id</value>
         <value xml:lang="ro">Tip Oferta</value>
@@ -4990,7 +4990,7 @@
     <property key="OrderOrderQuoteViewProfit">
         <value xml:lang="en">View Quote Profit</value>
         <value xml:lang="es">Ver ganancia de cotización</value>
-        <value xml:lang="fr">Regarder devis de profit</value>
+        <value xml:lang="fr">Voir le profit du devis</value>
         <value xml:lang="it">Mostra Profitto Preventivo</value>
         <value xml:lang="nl">Bekijk Offerte Winst</value>
         <value xml:lang="ro">Vizualizeaza Profit Preventiv</value>
@@ -5001,7 +5001,7 @@
     <property key="OrderOrderQuoteViewRequest">
         <value xml:lang="en">View Request</value>
         <value xml:lang="es">Ver pedido</value>
-        <value xml:lang="fr">Voir demande</value>
+        <value xml:lang="fr">Voir la demande</value>
         <value xml:lang="it">Mostra Richiesta</value>
         <value xml:lang="nl">View Request</value>
         <value xml:lang="ro">Vizualizeaza Cerere</value>
@@ -5013,7 +5013,7 @@
     <property key="OrderOrderQuoteWorkEffortId">
         <value xml:lang="en">Quote Work Effort Id</value>
         <value xml:lang="es">Código de esfuerzo de trabajo</value>
-        <value xml:lang="fr">Réf. tâche</value>
+        <value xml:lang="fr">Réf. de la tâche du devis</value>
         <value xml:lang="it">Preventivo Impegno di Lavoro</value>
         <value xml:lang="nl">Offerte Activiteit Id</value>
         <value xml:lang="ro">Cerere Sarcini de Lucru</value>
@@ -5025,7 +5025,7 @@
     <property key="OrderOrderQuoteWorkEfforts">
         <value xml:lang="en">Quote Work Efforts</value>
         <value xml:lang="es">Esfuerzo de Cotización</value>
-        <value xml:lang="fr">Devis main d'oeuvre</value>
+        <value xml:lang="fr">Tâches du devis</value>
         <value xml:lang="it">Preventivi Impegni di Lavoro</value>
         <value xml:lang="nl">Offerte Activiteiten</value>
         <value xml:lang="ro">Oferte Sarcini de Lucru</value>
