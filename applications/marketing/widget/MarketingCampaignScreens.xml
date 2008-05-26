@@ -24,9 +24,8 @@ under the License.
         <section>
             <actions>
                 <property-map resource="MarketingUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="headerItem" value="contactlist"/>
                 <set field="marketingCampaignId" from-field="parameters.marketingCampaignId"/>
-                <set field="tabButtonItem" value="Campaign"/>
+                <set field="headerItem" value="Campaign"/>
                 <entity-one entity-name="MarketingCampaign" value-name="marketingCampaign"/>
             </actions>
             <widgets>
@@ -120,7 +119,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleListMarketingCampaign"/>
                 <set field="labelTitleProperty" value="PageTitleListMarketingCampaign"/>
-
+                
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="FindListMarketingCampaign"/>
                 <set field="marketingCampaignId" from-field="parameters.marketingCampaignId"/>
                 <set field="entityName" value="MarketingCampaign"/>

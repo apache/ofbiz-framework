@@ -21,6 +21,9 @@ under the License.
          xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="CommonMarketReportDecorator">
         <section>
+            <actions>
+                <set field="headerItem" value="Reports"/>                
+            </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
@@ -45,7 +48,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="MarketingReports"/>
-                <set field="tabButtonItem" value="Reports"/>
                 <!--  <script location="component://order/webapp/ordermgr/WEB-INF/actions/reports/reportlist.bsh"/>-->
             </actions>
             <widgets>

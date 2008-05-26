@@ -86,6 +86,9 @@ under the License.
     </screen>
     <screen name="main">
         <section>
+            <actions>
+                <set field="headerItem" value="main"/>                
+            </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
