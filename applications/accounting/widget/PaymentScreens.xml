@@ -527,7 +527,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <html><html-template location="component://accounting/webapp/accounting/payment/PrintChecks.fo.ftl"/></html>
+                    <xsl-fo><html-template location="component://accounting/webapp/accounting/payment/PrintChecks.fo.ftl"/></xsl-fo>
                 </platform-specific>
             </widgets>
         </section>

@@ -48,7 +48,7 @@ under the License.
                         <section>
                             <widgets>
                                 <platform-specific>
-                                    <html><html-template location="component://order/webapp/ordermgr/order/orderReportHeaderInfo.fo.ftl"/></html>
+                                    <xsl-fo><html-template location="component://order/webapp/ordermgr/order/orderReportHeaderInfo.fo.ftl"/></xsl-fo>
                                 </platform-specific>
                             </widgets>
                         </section>
@@ -58,15 +58,15 @@ under the License.
                             <widgets>
                                 <!-- the contach mechanisms, terms, payment and shipping methods are shown in the first page -->
                                 <platform-specific>
-                                    <html><html-template location="component://order/webapp/ordermgr/order/orderReportContactMechs.fo.ftl"/></html>
+                                    <xsl-fo><html-template location="component://order/webapp/ordermgr/order/orderReportContactMechs.fo.ftl"/></xsl-fo>
                                 </platform-specific>
                                 <!-- order items and totals -->
                                 <platform-specific>
-                                    <html><html-template location="component://order/webapp/ordermgr/order/orderReportBody.fo.ftl"/></html>
+                                    <xsl-fo><html-template location="component://order/webapp/ordermgr/order/orderReportBody.fo.ftl"/></xsl-fo>
                                 </platform-specific>
                                 <!-- return policies and notes are shown in the last page -->
                                 <platform-specific>
-                                    <html><html-template location="component://order/webapp/ordermgr/order/orderReportConditions.fo.ftl"/></html>
+                                    <xsl-fo><html-template location="component://order/webapp/ordermgr/order/orderReportConditions.fo.ftl"/></xsl-fo>
                                 </platform-specific>
                             </widgets>
                         </section>

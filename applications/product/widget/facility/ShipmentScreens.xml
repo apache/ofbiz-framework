@@ -304,7 +304,7 @@ under the License.
                         <section>
                             <widgets>
                                 <platform-specific>
-                                    <html><html-template location="component://product/webapp/facility/shipment/PackingSlipShipmentBarCode.fo.ftl"/></html>
+                                    <xsl-fo><html-template location="component://product/webapp/facility/shipment/PackingSlipShipmentBarCode.fo.ftl"/></xsl-fo>
                                 </platform-specific>
                             </widgets>
                         </section>
@@ -313,7 +313,7 @@ under the License.
                         <section>
                             <widgets>
                                 <platform-specific>
-                                    <html><html-template location="component://product/webapp/facility/shipment/PackingSlip.fo.ftl"/></html>
+                                    <xsl-fo><html-template location="component://product/webapp/facility/shipment/PackingSlip.fo.ftl"/></xsl-fo>
                                 </platform-specific>
                             </widgets>
                         </section>
@@ -334,7 +334,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <html><html-template location="component://product/webapp/facility/shipment/ShipmentBarCode.fo.ftl"/></html>
+                    <xsl-fo><html-template location="component://product/webapp/facility/shipment/ShipmentBarCode.fo.ftl"/></xsl-fo>
                 </platform-specific>
             </widgets>
         </section>
@@ -365,7 +365,7 @@ under the License.
                         <section>
                             <widgets>
                                 <platform-specific>
-                                    <html><html-template location="component://product/webapp/facility/shipment/PackingSlipShipmentBarCode.fo.ftl"/></html>
+                                    <xsl-fo><html-template location="component://product/webapp/facility/shipment/PackingSlipShipmentBarCode.fo.ftl"/></xsl-fo>
                                 </platform-specific>
                             </widgets>
                         </section>
@@ -374,7 +374,7 @@ under the License.
                         <section>
                             <widgets>
                                 <platform-specific>
-                                    <html><html-template location="component://product/webapp/facility/shipment/ShipmentManifest.fo.ftl"/></html>
+                                    <xsl-fo><html-template location="component://product/webapp/facility/shipment/ShipmentManifest.fo.ftl"/></xsl-fo>
                                 </platform-specific>
                             </widgets>
                         </section>

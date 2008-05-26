@@ -183,7 +183,7 @@ under the License.
                         <section>
                             <widgets>
                                 <platform-specific>
-                                    <html><html-template location="component://order/webapp/ordermgr/quote/quoteReportHeaderInfo.fo.ftl"/></html>
+                                    <xsl-fo><html-template location="component://order/webapp/ordermgr/quote/quoteReportHeaderInfo.fo.ftl"/></xsl-fo>
                                 </platform-specific>
                             </widgets>
                         </section>
@@ -193,11 +193,11 @@ under the License.
                             <widgets>
                                 <!-- the contach mechanisms, terms, payment and shipping methods are shown in the first page -->
                                 <platform-specific>
-                                    <html><html-template location="component://order/webapp/ordermgr/quote/quoteReportContactMechs.fo.ftl"/></html>
+                                    <xsl-fo><html-template location="component://order/webapp/ordermgr/quote/quoteReportContactMechs.fo.ftl"/></xsl-fo>
                                 </platform-specific>
                                 <!-- quote items and totals -->
                                 <platform-specific>
-                                    <html><html-template location="component://order/webapp/ordermgr/quote/quoteReportBody.fo.ftl"/></html>
+                                    <xsl-fo><html-template location="component://order/webapp/ordermgr/quote/quoteReportBody.fo.ftl"/></xsl-fo>
                                 </platform-specific>
                             </widgets>
                         </section>

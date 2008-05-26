@@ -47,7 +47,7 @@ under the License.
                         <section>
                             <widgets>
                                 <platform-specific>
-                                    <html><html-template location="component://accounting/webapp/accounting/invoice/invoiceReportHeaderInfo.fo.ftl"/></html>
+                                    <xsl-fo><html-template location="component://accounting/webapp/accounting/invoice/invoiceReportHeaderInfo.fo.ftl"/></xsl-fo>
                                 </platform-specific>
                             </widgets>
                         </section>
@@ -56,10 +56,10 @@ under the License.
                         <section>
                             <widgets>
                                 <platform-specific>
-                                    <html><html-template location="component://accounting/webapp/accounting/invoice/invoiceReportContactMechs.fo.ftl"/></html>
+                                    <xsl-fo><html-template location="component://accounting/webapp/accounting/invoice/invoiceReportContactMechs.fo.ftl"/></xsl-fo>
                                 </platform-specific>
                                 <platform-specific>
-                                    <html><html-template location="component://accounting/webapp/accounting/invoice/invoiceReportItems.fo.ftl"/></html>
+                                    <xsl-fo><html-template location="component://accounting/webapp/accounting/invoice/invoiceReportItems.fo.ftl"/></xsl-fo>
                                 </platform-specific>
                             </widgets>
                         </section>
@@ -76,7 +76,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <html><html-template location="component://accounting/webapp/accounting/payment/printCheck.fo.ftl"/></html>
+                    <xsl-fo><html-template location="component://accounting/webapp/accounting/payment/printCheck.fo.ftl"/></xsl-fo>
                 </platform-specific>                
             </widgets>
         </section>
