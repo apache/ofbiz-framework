@@ -1362,7 +1362,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <html><html-template location="component://product/webapp/facility/facility/Picklist.fo.ftl"/></html>
+                    <xsl-fo><html-template location="component://product/webapp/facility/facility/Picklist.fo.ftl"/></xsl-fo>
                 </platform-specific>
             </widgets>
         </section>
@@ -1486,7 +1486,7 @@ under the License.
         <section>
             <widgets>
                 <platform-specific>
-                    <html><html-template location="component://product/webapp/facility/facility/batchPrintShippingLabels.fo.ftl"/></html>
+                    <xsl-fo><html-template location="component://product/webapp/facility/facility/batchPrintShippingLabels.fo.ftl"/></xsl-fo>
                 </platform-specific>
             </widgets>
         </section>

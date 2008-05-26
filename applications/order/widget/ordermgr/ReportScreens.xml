@@ -128,8 +128,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <!-- NOTE: this is really generating XSL:FO, but the HTML oriented renderer should do fine, the screen will need to be called differently though to get binary output from it -->
-                    <html><html-template location="component://order/webapp/ordermgr/reports/OrderPurchaseReportPayment.fo.ftl"/></html>
+                    <xsl-fo><html-template location="component://order/webapp/ordermgr/reports/OrderPurchaseReportPayment.fo.ftl"/></xsl-fo>
                 </platform-specific>
             </widgets>
         </section>
@@ -169,8 +168,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <!-- NOTE: this is really generating XSL:FO, but the HTML oriented renderer should do fine, the screen will need to be called differently though to get binary output from it -->
-                    <html><html-template location="component://order/webapp/ordermgr/reports/OrderPurchaseReportProduct.fo.ftl"/></html>
+                    <xsl-fo><html-template location="component://order/webapp/ordermgr/reports/OrderPurchaseReportProduct.fo.ftl"/></xsl-fo>
                 </platform-specific>
             </widgets>
         </section>
@@ -211,8 +209,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <!-- NOTE: this is really generating XSL:FO, but the HTML oriented renderer should do fine, the screen will need to be called differently though to get binary output from it -->
-                    <html><html-template location="component://order/webapp/ordermgr/reports/SalesByStoreReport.fo.ftl"/></html>
+                    <xsl-fo><html-template location="component://order/webapp/ordermgr/reports/SalesByStoreReport.fo.ftl"/></xsl-fo>
                 </platform-specific>
             </widgets>
         </section>
@@ -297,8 +294,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <!-- NOTE: this is really generating XSL:FO, but the HTML oriented renderer should do fine, the screen will need to be called differently though to get binary output from it -->
-                    <html><html-template location="component://order/webapp/ordermgr/reports/PurchasesByOrganizationReport.fo.ftl"/></html>
+                    <xsl-fo><html-template location="component://order/webapp/ordermgr/reports/PurchasesByOrganizationReport.fo.ftl"/></xsl-fo>
                 </platform-specific>
             </widgets>
         </section>

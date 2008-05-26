@@ -387,9 +387,9 @@ under the License.
             </actions>
             <widgets> 
                 <platform-specific>
-                    <html>
+                    <xsl-fo>
                         <html-template location="component://webtools/webapp/webtools/entity/EntityRefReport.fo.ftl"/>
-                    </html>
+                    </xsl-fo>
                 </platform-specific>
             </widgets>
         </section>

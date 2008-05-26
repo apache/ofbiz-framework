@@ -416,7 +416,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <html><html-template location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRun.fo.ftl"/></html>
+                    <xsl-fo><html-template location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRun.fo.ftl"/></xsl-fo>
                 </platform-specific>
             </widgets>
         </section>

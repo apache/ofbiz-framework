@@ -65,8 +65,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <!-- NOTE: this is really generating XSL:FO, but the HTML oriented renderer should do fine, the screen will need to be called differently though to get binary output from it -->
-                    <html><html-template location="component://manufacturing/webapp/manufacturing/jobshopmgt/CuttingListReport.fo.ftl"/></html>
+                    <xsl-fo><html-template location="component://manufacturing/webapp/manufacturing/jobshopmgt/CuttingListReport.fo.ftl"/></xsl-fo>
                 </platform-specific>
             </widgets>
         </section>
@@ -88,8 +87,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <!-- NOTE: this is really generating XSL:FO, but the HTML oriented renderer should do fine, the screen will need to be called differently though to get binary output from it -->
-                    <html><html-template location="component://manufacturing/webapp/manufacturing/reports/PRunsProductsByFeature.fo.ftl"/></html>
+                    <xsl-fo><html-template location="component://manufacturing/webapp/manufacturing/reports/PRunsProductsByFeature.fo.ftl"/></xsl-fo>
                 </platform-specific>
             </widgets>
         </section>
@@ -114,8 +112,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <!-- NOTE: this is really generating XSL:FO, but the HTML oriented renderer should do fine, the screen will need to be called differently though to get binary output from it -->
-                    <html><html-template location="component://manufacturing/webapp/manufacturing/reports/PRunsProductsByFeature.fo.ftl"/></html>
+                    <xsl-fo><html-template location="component://manufacturing/webapp/manufacturing/reports/PRunsProductsByFeature.fo.ftl"/></xsl-fo>
                 </platform-specific>
             </widgets>
         </section>
@@ -138,8 +135,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <!-- NOTE: this is really generating XSL:FO, but the HTML oriented renderer should do fine, the screen will need to be called differently though to get binary output from it -->
-                    <html><html-template location="component://manufacturing/webapp/manufacturing/reports/PRunsComponentsByFeature.fo.ftl"/></html>
+                    <xsl-fo><html-template location="component://manufacturing/webapp/manufacturing/reports/PRunsComponentsByFeature.fo.ftl"/></xsl-fo>
                 </platform-specific>
             </widgets>
         </section>
@@ -190,8 +186,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <!-- NOTE: this is really generating XSL:FO, but the HTML oriented renderer should do fine, the screen will need to be called differently though to get binary output from it -->
-                    <html><html-template location="component://manufacturing/webapp/manufacturing/reports/PRunsProductsStacks.fo.ftl"/></html>
+                    <xsl-fo><html-template location="component://manufacturing/webapp/manufacturing/reports/PRunsProductsStacks.fo.ftl"/></xsl-fo>
                 </platform-specific>
             </widgets>
         </section>
@@ -240,8 +235,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <!-- NOTE: this is really generating XSL:FO, but the HTML oriented renderer should do fine, the screen will need to be called differently though to get binary output from it -->
-                    <html><html-template location="component://manufacturing/webapp/manufacturing/reports/PRunsProductsAndOrder.fo.ftl"/></html>
+                    <xsl-fo><html-template location="component://manufacturing/webapp/manufacturing/reports/PRunsProductsAndOrder.fo.ftl"/></xsl-fo>
                 </platform-specific>
             </widgets>
         </section>
@@ -265,8 +259,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <!-- NOTE: this is really generating XSL:FO, but the HTML oriented renderer should do fine, the screen will need to be called differently though to get binary output from it -->
-                    <html><html-template location="component://manufacturing/webapp/manufacturing/reports/PRunsInfoAndOrder.fo.ftl"/></html>
+                    <xsl-fo><html-template location="component://manufacturing/webapp/manufacturing/reports/PRunsInfoAndOrder.fo.ftl"/></xsl-fo>
                 </platform-specific>
             </widgets>
         </section>
@@ -283,8 +276,8 @@ under the License.
                 <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/reports/ShipmentPlanStockReport.bsh"/>
             </actions>
             <widgets>
-                <platform-specific>                    
-                    <html><html-template location="component://manufacturing/webapp/manufacturing/reports/ShipmentPlanStockReport.fo.ftl"/></html>
+                <platform-specific>
+                    <xsl-fo><html-template location="component://manufacturing/webapp/manufacturing/reports/ShipmentPlanStockReport.fo.ftl"/></xsl-fo>
                 </platform-specific>
             </widgets>
         </section>
@@ -302,7 +295,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>                    
-                    <html><html-template location="component://manufacturing/webapp/manufacturing/reports/ShipmentLabel.fo.ftl"/></html>
+                    <xsl-fo><html-template location="component://manufacturing/webapp/manufacturing/reports/ShipmentLabel.fo.ftl"/></xsl-fo>
                 </platform-specific>
             </widgets>
         </section>
@@ -319,8 +312,8 @@ under the License.
                 <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/reports/ShipmentWorkEffortTasks.bsh"/>
             </actions>
             <widgets>
-                <platform-specific>                    
-                    <html><html-template location="component://manufacturing/webapp/manufacturing/reports/ShipmentWorkEffortTasks.fo.ftl"/></html>
+                <platform-specific>
+                    <xsl-fo><html-template location="component://manufacturing/webapp/manufacturing/reports/ShipmentWorkEffortTasks.fo.ftl"/></xsl-fo>
                 </platform-specific>
             </widgets>
         </section>
