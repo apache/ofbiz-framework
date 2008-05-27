@@ -19,7 +19,7 @@ under the License.
 -->
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
     <menu name="SfaAppBar" default-menu-item-name="main" id="app-navigation" type="simple" title="${uiLabelMap.SfaManagerApplication}"
-        default-selected-style="selected" menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="tabButtonItem">
+        default-selected-style="selected" menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="headerItem">
         <menu-item name="Main" title="${uiLabelMap.MarketingMainPage}"><link target="main"/></menu-item>
         <menu-item name="Accounts" title="${uiLabelMap.SfaAcccounts}"><link target="FindAccounts"/></menu-item>
         <menu-item name="Contacts" title="${uiLabelMap.SfaContacts}"><link target="FindContacts"/></menu-item>
@@ -39,7 +39,7 @@ under the License.
         </menu-item>
     </menu>
     
-    <menu name="OpportunityTabBar" type="simple" menu-container-style="button-bar tab-bar" default-selected-style="selected">
+    <menu name="OpportunityTabBar" type="simple" menu-container-style="button-bar tab-bar" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem">
         <menu-item name="opportunityView" title="${uiLabelMap.SfaOpportunitySummary}">
             <link target="viewOpportunity?salesOpportunityId=${parameters.salesOpportunityId}"/>
         </menu-item>
@@ -48,13 +48,25 @@ under the License.
         </menu-item>
     </menu>
     
-    <menu name="LeadTabBar" type="simple" menu-container-style="button-bar tab-bar" default-selected-style="selected"> 
+    <menu name="AccountTabBar" type="simple" menu-container-style="button-bar tab-bar" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem">  
+        <menu-item name="profile" title="${uiLabelMap.PartyProfile}">
+            <link target="viewprofile?partyId=${parameters.partyId}"/>
+        </menu-item>
+    </menu>    
+    <menu name="AccountSubTabBar" menu-container-style="button-bar button-style-2" default-selected-style="selected">  
+        <menu-item name="NewAccounts" title="${uiLabelMap.PageTitleCreateAccount}">
+            <link target="NewAccounts"/>
+        </menu-item>
+    </menu>    
+    
+    <menu name="LeadTabBar" menu-container-style="button-bar tab-bar" default-selected-style="selected" type="simple" selected-menuitem-context-field-name="tabButtonItem"> 
+        <menu-item name="profile" title="${uiLabelMap.PartyProfile}">
+            <link target="viewprofile?partyId=${parameters.partyId}"/>
+        </menu-item>
         <menu-item name="ConvertLead" title="${uiLabelMap.SfaConvertLead}">
-            <condition><not><if-empty field-name="parameters.partyId"/></not></condition>
             <link target="ConvertLead?leadPartyId=${parameters.partyId}"/>
         </menu-item>
         <menu-item name="CloneLead" title="${uiLabelMap.SfaCloneLead}">
-            <condition><not><if-empty field-name="parameters.partyId"/></not></condition>
             <link target="CloneLead?leadPartyId=${parameters.partyId}"/>
         </menu-item>
         <menu-item name="MergeLeads" title="${uiLabelMap.SfaMergeLeads}">
@@ -62,9 +74,29 @@ under the License.
         </menu-item>      
     </menu>
     
-    <menu name="ContactTabBar" type="simple" menu-container-style="button-bar tab-bar" default-selected-style="selected"> 
+    <menu name="LeadSubTabBar" menu-container-style="button-bar button-style-2" default-selected-style="selected">
+        <menu-item name="CreateLead" title="${uiLabelMap.CommonCreateNew}">
+            <link target="CreateLead"/>
+        </menu-item>
+        <menu-item name="CreateLeadFromVCard" title="${uiLabelMap.SfaImportLead}">
+            <link target="CreateLeadFromVCard"/>
+        </menu-item>
+    </menu>    
+
+    <menu name="ContactTabBar" type="simple" menu-container-style="button-bar tab-bar" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem"> 
+        <menu-item name="profile" title="${uiLabelMap.PartyProfile}">
+            <link target="viewprofile?partyId=${parameters.partyId}"/>
+        </menu-item>
         <menu-item name="MergeContacts" title="${uiLabelMap.SfaMergeContacts}">
             <link target="MergeContacts"/>
+        </menu-item>
+    </menu>    
+    <menu name="ContactSubTabBar" menu-container-style="button-bar button-style-2" default-selected-style="selected">  
+        <menu-item name="CreateContact" title="${uiLabelMap.CommonCreateNew}">
+            <link target="CreateContact"/>
+        </menu-item>
+        <menu-item name="CreateContactFromVCard" title="${uiLabelMap.SfaCreateContactFromVCard}">
+            <link target="CreateContactFromVCard"/>
         </menu-item>
     </menu>    
 </menus>

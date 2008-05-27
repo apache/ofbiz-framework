@@ -48,7 +48,7 @@ under the License.
     <screen name="main">
         <section>
             <actions>
-                <set field="tabButtonItem" value="Main"/>
+                <set field="headerItem" value="Main"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -133,7 +133,15 @@ under the License.
                                     <widgets>
                                         <section>
                                             <condition>
-                                                <if-compare field-name="tabButtonItem" operator="equals" value="Leads"/>
+                                                <if-compare field-name="headerItem" operator="equals" value="Accounts"/>
+                                            </condition>
+                                            <widgets>
+                                                <include-menu name="AccountTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
+                                            </widgets>
+                                        </section>
+                                        <section>
+                                            <condition>
+                                                <if-compare field-name="headerItem" operator="equals" value="Leads"/>
                                             </condition>
                                             <widgets>
                                                 <include-menu name="LeadTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
@@ -141,29 +149,50 @@ under the License.
                                         </section>
                                         <section>
                                             <condition>
-                                                <if-compare field-name="tabButtonItem" operator="equals" value="Contacts"/>
+                                                <if-compare field-name="headerItem" operator="equals" value="Contacts"/>
                                             </condition>
                                             <widgets>
                                                 <include-menu name="ContactTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
                                             </widgets>
                                         </section>
-                                        <container>
-                                            <section>
-                                                <condition>
-                                                    <or>
-                                                        <not><if-empty field-name="lookupPerson"/></not>
-                                                        <not><if-empty field-name="lookupGroup"/></not>
-                                                    </or>
-                                                </condition>
-                                                <widgets>
-                                                    <label style="h1" text="${uiLabelMap.PartyTheProfileOf} ${lookupPerson.personalTitle} ${lookupPerson.firstName} ${lookupPerson.middleName} ${lookupPerson.lastName} ${lookupPerson.suffix} ${lookupGroup.groupName}"/>
-                                                </widgets>
-                                                <fail-widgets>
-                                                    <label style="h1" text="${uiLabelMap.PartyNewUser}"/>
-                                                </fail-widgets>
-                                            </section>
-                                            <label style="h1" text="[${partyId}]"/>
-                                        </container>
+                                    </widgets>
+                                </section>
+                                <section>
+                                    <condition>
+                                        <if-compare field-name="headerItem" operator="equals" value="Contacts"/>
+                                    </condition>
+                                    <widgets>
+                                        <include-menu name="ContactSubTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
+                                    </widgets>
+                                </section>
+                                <section>
+                                    <condition>
+                                        <if-compare field-name="headerItem" operator="equals" value="Accounts"/>
+                                    </condition>
+                                    <widgets>
+                                        <include-menu name="AccountSubTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
+                                    </widgets>
+                                </section>
+                                <section>
+                                    <condition>
+                                        <if-compare field-name="headerItem" operator="equals" value="Leads"/>
+                                    </condition>
+                                    <widgets>
+                                        <include-menu name="LeadSubTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
+                                    </widgets>
+                                </section>
+                                <section>
+                                    <condition>
+                                        <and>
+                                            <not><if-empty field-name="party"/></not>
+                                            <or>
+                                                <not><if-empty field-name="lookupPerson"/></not>
+                                                <not><if-empty field-name="lookupGroup"/></not>
+                                            </or>
+                                        </and>
+                                    </condition>
+                                    <widgets>
+                                        <label style="h1" text="${uiLabelMap.PartyTheProfileOf} ${lookupPerson.personalTitle} ${lookupPerson.firstName} ${lookupPerson.middleName} ${lookupPerson.lastName} ${lookupPerson.suffix} ${lookupGroup.groupName} [${partyId}]"/>
                                     </widgets>
                                 </section>
                                 <decorator-section-include name="body"/>
@@ -181,8 +210,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleViewPartyProfile"/>
-                <set field="tabButtonItem" value="viewprofile"/>
-                <set field="headerItem" value="find"/>
+                <set field="tabButtonItem" value="profile"/>
                 <set field="labelTitleProperty" value="PartyTaxAuthInfos"/>
                 
                 <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/prototype.js" global="true"/>                
@@ -200,7 +228,7 @@ under the License.
                         <not><if-empty field-name="leadDescription"/></not>                                        
                     </condition>
                     <actions>
-                        <set field="tabButtonItem" value="Leads"/>
+                        <set field="headerItem" value="Leads"/>
                     </actions>
                     <widgets/>
                 </section>
@@ -209,7 +237,7 @@ under the License.
                         <not><if-empty field-name="contactDescription"/></not>                                        
                     </condition>
                     <actions>
-                        <set field="tabButtonItem" value="Contacts"/>
+                        <set field="headerItem" value="Contacts"/>
                     </actions>
                     <widgets/>
                 </section>
@@ -218,7 +246,7 @@ under the License.
                         <not><if-empty field-name="accountDescription"/></not>                                        
                     </condition>
                     <actions>
-                        <set field="tabButtonItem" value="Accounts"/>
+                        <set field="headerItem" value="Accounts"/>
                     </actions>
                     <widgets/>
                 </section>
@@ -249,7 +277,7 @@ under the License.
                                         <not><if-empty field-name="accountDescription"/></not>                                        
                                     </condition>
                                     <widgets>
-                                        <label style="h1" text="Party ${party.partyId} in the Role of ${accountDescription}"/>
+                                        <!--label style="h1" text="Party ${party.partyId} in the Role of ${accountDescription}"/-->
                                         <container style="profile-left">
                                             <include-screen name="Party" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                             <include-screen name="Contact" location="component://party/widget/partymgr/ProfileScreens.xml"/>

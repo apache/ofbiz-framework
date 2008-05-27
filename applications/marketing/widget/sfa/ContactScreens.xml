@@ -25,7 +25,7 @@ under the License.
             <actions>
                 <set field="roleTypeId" value="CONTACT"/>
                 <set field="partyTypeId" value="PERSON"/>
-                <set field="tabButtonItem" value="Contacts"/>
+                <set field="headerItem" value="Contacts"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -35,10 +35,7 @@ under the License.
                                 <service service-name="findParty" auto-field-map="true"/>
                             </actions>
                             <widgets>
-                                <container style="button-bar button-style-2">
-                                    <link target="CreateContact" text="${uiLabelMap.CommonCreateNew}" style="buttontext"/>
-                                    <link target="CreateContactFromVCard" text="${uiLabelMap.SfaCreateContactFromVCard}" style="buttontext"/>
-                                </container>
+                                <include-menu name="ContactSubTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
                                 <platform-specific>
                                     <html><html-template location="component://marketing/webapp/sfa/party/findSfaParty.ftl"/></html>
                                 </platform-specific>
@@ -73,11 +70,11 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleCreateContact"/>
-                <set field="tabButtonItem" value="Contacts"/>
+                <set field="headerItem" value="Contacts"/>
                 <property-to-field field="defaultCountryGeoId" resource="general" property="country.geo.id.default" default="USA"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
@@ -100,11 +97,12 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleCreateContact"/>
-                <set field="tabButtonItem" value="Contacts"/>
+                <set field="headerItem" value="Contacts"/>
+                <set field="tabButtonItem" value="MergeContacts"/>
                 <script location="component://marketing/webapp/sfa/WEB-INF/action/mergeContacts.bsh"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
@@ -147,10 +145,10 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleCreateContactFromVCard"/>
-                <set field="tabButtonItem" value="Contacts"/>
+                <set field="headerItem" value="Contacts"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
