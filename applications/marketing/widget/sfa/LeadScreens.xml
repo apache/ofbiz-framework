@@ -25,18 +25,15 @@ under the License.
             <actions>
                 <set field="roleTypeId" value="LEAD"/>
                 <set field="partyTypeId" value="PERSON"/>
-                <set field="tabButtonItem" value="Leads"/>
+                <set field="headerItem" value="Leads"/>
                 <service service-name="findParty" auto-field-map="true"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <widgets>
-                                <container style="button-bar button-style-2">
-                                    <link target="CreateLead" text="${uiLabelMap.CommonCreateNew}" style="buttontext"/>
-                                    <link target="CreateLeadFromVCard" text="${uiLabelMap.SfaImportLead}" style="buttontext"/>
-                                </container>                                
+                                <include-menu name="LeadSubTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
                                 <section>
                                     <widgets>
                                         <platform-specific>
@@ -80,7 +77,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleCreateLead"/>
-                <set field="tabButtonItem" value="Leads"/>
+                <set field="headerItem" value="Leads"/>
                 <property-to-field field="defaultCountryGeoId" resource="general" property="country.geo.id.default" default="USA"/>
             </actions>
             <widgets>
@@ -110,6 +107,9 @@ under the License.
     
     <screen name="ConvertLead">
         <section>
+            <actions>
+                <set field="headerItem" value="Leads"/>
+            </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
@@ -138,6 +138,7 @@ under the License.
     <screen name="CloneLead">
         <section>
             <actions>
+                <set field="headerItem" value="Leads"/>
                 <script location="component://marketing/webapp/sfa/WEB-INF/action/cloneLead.bsh"/>
             </actions>
             <widgets>
@@ -168,7 +169,7 @@ under the License.
     <screen name="MergeLeads">
         <section>
             <actions>
-                <set field="tabButtonItem" value="Leads"/>
+                <set field="headerItem" value="Leads"/>
                 <script location="component://marketing/webapp/sfa/WEB-INF/action/mergeContacts.bsh"/>
             </actions>
             <widgets>
@@ -206,7 +207,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleCreateLeadFromVCard"/>
-                <set field="tabButtonItem" value="Leads"/>
+                <set field="headerItem" value="Leads"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">

@@ -25,7 +25,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="MarketingFindAccounts"/>
                 <set field="roleTypeId" value="ACCOUNT"/>
-                <set field="tabButtonItem" value="Accounts"/>
+                <set field="headerItem" value="Accounts"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -35,7 +35,7 @@ under the License.
                                 <service service-name="findParty" auto-field-map="true"/>
                             </actions>
                             <widgets>
-                                <container><link target="NewAccounts" text="${uiLabelMap.PageTitleCreateAccount}" style="buttontext"/></container>                              
+                                <include-menu name="AccountSubTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
                                 <section>
                                     <widgets>
                                         <platform-specific>
@@ -77,7 +77,7 @@ under the License.
     <screen name="NewAccounts">
         <section>
             <actions>
-                <set field="tabButtonItem" value="Accounts"/>
+                <set field="headerItem" value="Accounts"/>
                 <set field="titleProperty" value="PageTitleCreateAccount"/>
                 <set field="accountType" from-field="parameters.accountType"/>
             </actions>
