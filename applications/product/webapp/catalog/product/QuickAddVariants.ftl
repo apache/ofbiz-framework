@@ -48,7 +48,7 @@ function clickAll(e) {
 <#if (product.isVirtual)?if_exists != "Y">
     <h2>${uiLabelMap.ProductWarningProductNotVirtual}</h2>
 </#if>
-<#if (featureTypes.size() > 0)>
+<#if featureTypes?has_content && (featureTypes.size() > 0)>
     <table cellspacing="0" class="basic-table">
         <#assign rowCount = 0>
         <form method="post" action="<@ofbizUrl>QuickAddChosenVariants</@ofbizUrl>" name="selectAllForm">

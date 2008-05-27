@@ -17,15 +17,8 @@
  * under the License.
  */
 
-import org.ofbiz.entity.util.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.service.GenericDispatcher;
+result = dispatcher.runSync("getProductFeaturesByType", ['productId' : productId, 'productFeatureApplTypeId' : 'SELECTABLE_FEATURE']);
+context.featureTypes = result.productFeatureTypes;
 
-result = dispatcher.runSync("getProductFeaturesByType", UtilMisc.toMap("productId", productId, "productFeatureApplTypeId", "SELECTABLE_FEATURE"));
-featureTypes = result.get("productFeatureTypes");
-
-result = dispatcher.runSync("getVariantCombinations", UtilMisc.toMap("productId", productId));
-featureCombinationInfos = result.get("featureCombinations");
-
-context.put("featureTypes", featureTypes);
-context.put("featureCombinationInfos", featureCombinationInfos);
+result = dispatcher.runSync("getVariantCombinations", ['productId' : productId]);
+context.featureCombinationInfos = result.featureCombinations;
