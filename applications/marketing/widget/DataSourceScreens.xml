@@ -61,7 +61,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditDataSource"/>
                 <set field="labelTitleProperty" value="PageTitleEditDataSource"/>
-
+                 <set field="dataSourceTabButtonItem" value="DataSource"/>
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListDataSource"/>
                 <set field="dataSourceId" from-field="parameters.dataSourceId"/>
                 <entity-one entity-name="DataSource" value-name="dataSource"/>
