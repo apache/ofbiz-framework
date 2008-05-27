@@ -64,10 +64,10 @@ under the License.
             <link target="viewprofile?partyId=${parameters.partyId}"/>
         </menu-item>
         <menu-item name="ConvertLead" title="${uiLabelMap.SfaConvertLead}">
-            <link target="ConvertLead?leadPartyId=${parameters.partyId}"/>
+            <link target="ConvertLead?partyId=${parameters.partyId}"/>
         </menu-item>
         <menu-item name="CloneLead" title="${uiLabelMap.SfaCloneLead}">
-            <link target="CloneLead?leadPartyId=${parameters.partyId}"/>
+            <link target="CloneLead?partyId=${parameters.partyId}"/>
         </menu-item>
         <menu-item name="MergeLeads" title="${uiLabelMap.SfaMergeLeads}">
             <link target="MergeLeads"/>

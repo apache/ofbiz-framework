@@ -109,6 +109,7 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="Leads"/>
+                <set field="tabButtonItem" value="ConvertLead"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
@@ -139,6 +140,7 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="Leads"/>
+                <set field="tabButtonItem" value="CloneLead"/>
                 <script location="component://marketing/webapp/sfa/WEB-INF/action/cloneLead.bsh"/>
             </actions>
             <widgets>

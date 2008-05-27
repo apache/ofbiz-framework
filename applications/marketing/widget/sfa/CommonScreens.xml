@@ -277,7 +277,6 @@ under the License.
                                         <not><if-empty field-name="accountDescription"/></not>                                        
                                     </condition>
                                     <widgets>
-                                        <!--label style="h1" text="Party ${party.partyId} in the Role of ${accountDescription}"/-->
                                         <container style="profile-left">
                                             <include-screen name="Party" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                             <include-screen name="Contact" location="component://party/widget/partymgr/ProfileScreens.xml"/>
@@ -296,7 +295,6 @@ under the License.
                                         <not><if-empty field-name="leadDescription"/></not>                                        
                                     </condition>
                                     <widgets>
-                                        <label style="h1" text="Party ${party.partyId} in the Role of ${leadDescription}"/>
                                         <container style="profile-left">
                                             <include-screen name="Party" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                             <include-screen name="Contact" location="component://party/widget/partymgr/ProfileScreens.xml"/>
