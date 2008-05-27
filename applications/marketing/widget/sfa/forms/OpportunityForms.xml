@@ -42,7 +42,7 @@ under the License.
         <field name="searchButton" widget-style="smallSubmit"><submit/></field>
     </form>
     
-    <form name="listOpportunity" type="multi" list-name="listIt" paginate-target="FindOpportunity"
+    <form name="ListOpportunity" type="list" list-name="listIt" paginate-target="FindOpportunity" view-size="20"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true">
         <actions>
             <set field="parameters.noConditionFind" value="Y"/>
@@ -54,7 +54,7 @@ under the License.
         </actions>
         <field name="salesOpportunityId"><hidden/></field>
         <field name="opportunityName" title="${uiLabelMap.SfaOpportunityName}">
-            <hyperlink target="viewOpportunity?salesOpportunityId=${salesOpportunityId}" description="${opportunityName}"/>
+            <hyperlink target="ViewOpportunity?salesOpportunityId=${salesOpportunityId}" description="${opportunityName}"/>
         </field>
         <field name="opportunityStageId" title="${uiLabelMap.SfaInitialStage}"><display/></field>
         <field name="estimatedAmount" title="${uiLabelMap.SfaEstimatedAmount}"><display/></field>

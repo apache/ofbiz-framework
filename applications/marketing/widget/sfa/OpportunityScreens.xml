@@ -24,8 +24,6 @@ under the License.
     <screen name="FindOpportunity">
         <section>
             <actions>
-                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
                 <set field="headerItem" value="Opportunities"/>
             </actions>
             <widgets>
@@ -56,7 +54,7 @@ under the License.
                                 <container>
                                     <section>
                                         <widgets>
-                                            <include-form name="listOpportunity" location="component://marketing/widget/sfa/forms/OpportunityForms.xml"/>
+                                            <include-form name="ListOpportunity" location="component://marketing/widget/sfa/forms/OpportunityForms.xml"/>
                                         </widgets>
                                     </section>
                                 </container>
@@ -71,8 +69,10 @@ under the License.
     <screen name="EditOpportunity">
         <section>
             <actions>
-                <entity-one entity-name="SalesOpportunity" value-name="salesOpportunity"/>
+                <set field="titleProperty" value="Opportunities"/> 
+                <set field="tabButtonItem" value="EditOpportunity"/>            
                 <set field="salesOpportunityId" from-field="parameters.salesOpportunityId"/>
+                <entity-one entity-name="SalesOpportunity" value-name="salesOpportunity"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -97,13 +97,13 @@ under the License.
         </section>
     </screen>
     
-    <screen name="viewOpportunity">
+    <screen name="ViewOpportunity">
         <section>
             <actions>
-                <entity-one entity-name="SalesOpportunity" value-name="salesOpportunity"/>
                 <set field="titleProperty" value="Opportunities"/>
-                <set field="tabButtonItem" value="opportunityView"/>   
+                <set field="tabButtonItem" value="ViewOpportunity"/>   
                 <set field="salesOpportunityId" from-field="parameters.salesOpportunityId"/>
+                <entity-one entity-name="SalesOpportunity" value-name="salesOpportunity"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOpportunityDecorator" location="${parameters.mainDecoratorLocation}">

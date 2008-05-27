@@ -40,10 +40,10 @@ under the License.
     </menu>
     
     <menu name="OpportunityTabBar" type="simple" menu-container-style="button-bar tab-bar" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem">
-        <menu-item name="opportunityView" title="${uiLabelMap.SfaOpportunitySummary}">
-            <link target="viewOpportunity?salesOpportunityId=${parameters.salesOpportunityId}"/>
+        <menu-item name="ViewOpportunity" title="${uiLabelMap.SfaOpportunitySummary}">
+            <link target="ViewOpportunity?salesOpportunityId=${parameters.salesOpportunityId}"/>
         </menu-item>
-        <menu-item name="editOpportunity" title="${uiLabelMap.SfaEditOpportunity}">
+        <menu-item name="EditOpportunity" title="${uiLabelMap.SfaEditOpportunity}">
             <link target="EditOpportunity?salesOpportunityId=${parameters.salesOpportunityId}"/>
         </menu-item>
     </menu>
