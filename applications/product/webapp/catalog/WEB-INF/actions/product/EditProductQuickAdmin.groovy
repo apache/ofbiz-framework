@@ -23,14 +23,11 @@ import org.ofbiz.entity.condition.*
 import org.ofbiz.entity.util.*
 import org.ofbiz.product.product.*
 
-nowTimestampString = UtilDateTime.nowTimestamp().toString();
-context.nowTimestampString = nowTimestampString;
+context.nowTimestampString = UtilDateTime.nowTimestamp().toString();
 
-Collection assocTypes = delegator.findList("ProductAssocType", null, null, null, null, false);
-context.assocTypes = assocTypes;
+context.assocTypes = delegator.findList("ProductAssocType", null, null, null, null, false);
 
-Collection featureTypes = delegator.findList("ProductFeatureType", null, null, null, null, false);
-context.featureTypes = featureTypes;
+context.featureTypes = delegator.findList("ProductFeatureType", null, null, null, null, false);
 
 // add/remove feature types
 addedFeatureTypes = (HashMap) session.getAttribute("addedFeatureTypes");
