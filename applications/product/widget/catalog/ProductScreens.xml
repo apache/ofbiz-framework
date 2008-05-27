@@ -842,10 +842,10 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditProductInventoryItems"/>
                 <set field="tabButtonItem" value="EditProductInventoryItems"/>
                 <set field="labelTitleProperty" value="ProductInventorySummary"/>
-    
+                
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-name="product"/>
-                <script location="component://product/webapp/catalog/WEB-INF/actions/product/EditProductInventoryItems.bsh"/>
+                <script location="component://product/webapp/catalog/WEB-INF/actions/product/EditProductInventoryItems.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
