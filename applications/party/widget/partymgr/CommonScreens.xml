@@ -74,8 +74,6 @@ under the License.
                             </condition>
                             <widgets>
                                 <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="ProfileTabBar"/>
-                                <label text="&lt;br/&gt;"/>
-                                <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="ProfileSubTabBar"/>
                             </widgets>
                         </section>
                     </decorator-section>
