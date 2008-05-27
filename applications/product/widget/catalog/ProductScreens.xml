@@ -1461,8 +1461,8 @@ under the License.
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
 
-                <script location="component://product/webapp/catalog/WEB-INF/actions/product/ApplyFeaturesFromCategory.bsh"/>
-                <script location="component://product/webapp/catalog/WEB-INF/actions/product/ApplyFeaturesFromGroup.bsh"/>
+                <script location="component://product/webapp/catalog/WEB-INF/actions/product/ApplyFeaturesFromCategory.groovy"/>
+                <script location="component://product/webapp/catalog/WEB-INF/actions/product/ApplyFeaturesFromGroup.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">

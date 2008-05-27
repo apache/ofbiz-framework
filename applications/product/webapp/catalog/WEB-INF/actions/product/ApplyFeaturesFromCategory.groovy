@@ -17,39 +17,30 @@
  * under the License.
  */
 
-import java.util.*;
-import java.io.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.condition.*;
-import org.ofbiz.entity.util.EntityFindOptions;
-import org.ofbiz.entity.transaction.*;
+import org.ofbiz.entity.*
+import org.ofbiz.entity.condition.*
+import org.ofbiz.entity.util.EntityFindOptions
+import org.ofbiz.entity.transaction.*
 import org.ofbiz.base.util.*;
-import org.ofbiz.widget.html.*;
 
-module = "ApplyFeaturesFromCategory.bsh";
+module = "ApplyFeaturesFromCategory.groovy";
 
-nowTimestampString = UtilDateTime.nowTimestamp().toString();
-context.put("nowTimestampString", nowTimestampString);
+context.nowTimestampString = UtilDateTime.nowTimestamp().toString();
 
 productFeatureCategoryId = request.getParameter("productFeatureCategoryId");
-context.put("productFeatureCategoryId", productFeatureCategoryId);
+context.productFeatureCategoryId = productFeatureCategoryId;
 
-selFeatureApplTypeId = request.getParameter("productFeatureApplTypeId");
-context.put("selFeatureApplTypeId", selFeatureApplTypeId);
+context.selFeatureApplTypeId = request.getParameter("productFeatureApplTypeId");
 
-curProductFeatureCategory = delegator.findByPrimaryKey("ProductFeatureCategory", UtilMisc.toMap("productFeatureCategoryId", productFeatureCategoryId));
-context.put("curProductFeatureCategory", curProductFeatureCategory);
+context.curProductFeatureCategory = delegator.findByPrimaryKey("ProductFeatureCategory", ['productFeatureCategoryId' : productFeatureCategoryId]);
 
-productFeatureTypes = delegator.findList("ProductFeatureType", null, null, UtilMisc.toList("description"), null, false);
-context.put("productFeatureTypes", productFeatureTypes);
+context.productFeatureTypes = delegator.findList("ProductFeatureType", null, null, ['description'], null, false);
 
-productFeatureCategories = delegator.findList("ProductFeatureCategory", null, null, UtilMisc.toList("description"), null, false);
-context.put("productFeatureCategories", productFeatureCategories);
+context.productFeatureCategories = delegator.findList("ProductFeatureCategory", null, null, ['description'], null, false);
 
 //we only need these if we will be showing the apply feature to category forms
 if (productId != null && productId.length() > 0) {
-    productFeatureApplTypes = delegator.findList("ProductFeatureApplType", null, null, UtilMisc.toList("description"), null, false);
-    context.put("productFeatureApplTypes", productFeatureApplTypes);
+    context.productFeatureApplTypes = delegator.findList("ProductFeatureApplType", null, null, ['description'], null, false);
 }
 
 productFeaturesSize = delegator.findCountByCondition("ProductFeature", new EntityExpr("productFeatureCategoryId", EntityOperator.EQUALS, productFeatureCategoryId), null, null);
@@ -67,13 +58,13 @@ if (listSize < highIndex) {
     highIndex = listSize;
 }
 
-context.put("viewIndex", viewIndex);
-context.put("viewSize", viewSize);
-context.put("listSize", listSize);
-context.put("lowIndex", lowIndex);
-context.put("highIndex", highIndex);
+context.viewIndex = viewIndex;
+context.viewSize = viewSize;
+context.listSize = listSize;
+context.lowIndex = lowIndex;
+context.highIndex = highIndex;
 
-whereCondition = new EntityFieldMap(UtilMisc.toMap("productFeatureCategoryId", productFeatureCategoryId), EntityOperator.AND);
+whereCondition = new EntityFieldMap(['productFeatureCategoryId' : productFeatureCategoryId], EntityOperator.AND);
 EntityFindOptions efo = new EntityFindOptions();
 efo.setDistinct(true);
 efo.setResultSetType(EntityFindOptions.TYPE_SCROLL_INSENSITIVE);
@@ -82,7 +73,7 @@ boolean beganTransaction = false;
 try {
     beganTransaction = TransactionUtil.begin();
 
-    productFeaturesEli = delegator.find("ProductFeature", whereCondition, null, null, UtilMisc.toList("productFeatureTypeId", "defaultSequenceNum", "description"), efo);
+    productFeaturesEli = delegator.find("ProductFeature", whereCondition, null, null, ['productFeatureTypeId', 'defaultSequenceNum', 'description'], efo);
     productFeatures = productFeaturesEli.getPartialList(lowIndex + 1, highIndex - lowIndex);
     productFeaturesEli.close();
 } catch (GenericEntityException e) {
@@ -101,7 +92,7 @@ try {
     TransactionUtil.commit(beganTransaction);
 }
 
-context.put("productFeatures", productFeatures);
+context.productFeatures = productFeatures;
 
 productFeatureApplMap = new HashMap();
 productFeatureAppls = null;
@@ -109,11 +100,11 @@ productFeatureIter = productFeatures.iterator();
 productFeatureApplIter = null;
 while (productFeatureIter.hasNext()) {
     productFeature = productFeatureIter.next();
-    productFeatureAppls = delegator.findByAnd("ProductFeatureAppl", UtilMisc.toMap("productId", productId, "productFeatureId", productFeature.getString("productFeatureId")), null);
+    productFeatureAppls = delegator.findByAnd("ProductFeatureAppl", ['productId' : productId, 'productFeatureId' : productFeature.productFeatureId], null);
     productFeatureApplIter = productFeatureAppls.iterator();
     while (productFeatureApplIter.hasNext()) {
         productFeatureAppl = productFeatureApplIter.next();
-        productFeatureApplMap.put(productFeatureAppl.getString("productFeatureId"), productFeatureAppl.getString("productFeatureApplTypeId"));
+        productFeatureApplMap.put(productFeatureAppl.productFeatureId, productFeatureAppl.productFeatureApplTypeId);
     }
 }
-context.put("productFeatureApplMap", productFeatureApplMap);
+context.productFeatureApplMap = productFeatureApplMap;
