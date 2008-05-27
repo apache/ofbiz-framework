@@ -64,9 +64,14 @@ under the License.
         </field>
     </form>
     
-    <form name="NewOpportunity" type="single" target="createOpportunity"
+    <form name="EditOpportunity" type="single" target="createOpportunity" default-map-name="salesOpportunity"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="opportunityName" position="1" title="${uiLabelMap.SfaOpportunityName}" widget-style="required"><text size="25"></text></field>
+        <alt-target use-when="salesOpportunity!=null" target="updateOpportunity"/>
+        <field name="salesOpportunityId" use-when="salesOpportunity!=null"><display/></field>
+        <field name="opportunityName" title="${uiLabelMap.SfaOpportunityName}" widget-style="required"><text size="30"/></field>
+        <field name="initialAccount" title="${uiLabelMap.SfaInitialAccount}" widget-style="required"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="typeEnumId" title="${uiLabelMap.SfaType}"></field>
+        <field name="opportunityName" title="${uiLabelMap.SfaOpportunityName}" widget-style="required"><text size="25"></text></field>
         <field name="initialAccount"  position="1" title="${uiLabelMap.SfaInitialAccount}" widget-style="required"><lookup target-form-name="LookupPartyName"/></field>
         <field name="typeEnumId" position="1" title="${uiLabelMap.SfaType}">
             <drop-down allow-empty="true">
@@ -76,7 +81,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="estimatedAmount" position="1" title="${uiLabelMap.SfaEstimatedAmount}"><text size="25"></text></field>
+        <field name="estimatedAmount" position="1" title="${uiLabelMap.SfaEstimatedAmount}"><text size="25"/></field>
         <field name="currencyUomId" position="2" title="${uiLabelMap.CommonCurrency}">
             <drop-down allow-empty="true" no-current-selected-key="${defaultCurrencyUomId}">
                 <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
@@ -92,7 +97,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="estimatedProbability" position="1" title="${uiLabelMap.SfaProbability}"><text size="25"></text></field>
+        <field name="estimatedProbability" position="1" title="${uiLabelMap.SfaProbability}"><text size="25"/></field>
         <field name="dataSourceId" position="2" title="${uiLabelMap.DataSourceLabel}">
             <drop-down allow-empty="true">
                 <entity-options key-field-name="dataSourceId" description="${description}" entity-name="DataSource">
@@ -106,9 +111,10 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="description" position="1" title="${uiLabelMap.SegmentGroupDescription}"><textarea/></field>
-        <field name="nextStep" position="1" title="${uiLabelMap.SfaNextStep}"><textarea/></field>
-        <field name="createButton" widget-style="smallSubmit" title="${uiLabelMap.CommonSave}"><submit button-type="button"/></field>
+        <field name="description" title="${uiLabelMap.SegmentGroupDescription}"><textarea/></field>
+        <field name="nextStep" title="${uiLabelMap.SfaNextStep}"><textarea/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSave}" use-when="salesOpportunity==null"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" use-when="salesOpportunity!=null"><submit button-type="button"/></field>
     </form>
     
     <form name="ViewOpportunity" type="single" default-map-name="salesOpportunity" 
@@ -125,51 +131,5 @@ under the License.
         <field name="marketingCampaignId" position="1" title="${uiLabelMap.MarketingCampaign}"><display/></field>
         <field name="description" position="1" title="${uiLabelMap.SegmentGroupDescription}"><display/></field>
         <field name="nextStep" position="1" title="${uiLabelMap.SfaNextStep}"><display/></field>
-    </form>
-    <form name="EditOpportunity" type="single" target="updateOpportunity" default-map-name="salesOpportunity" header-row-style="header-row" default-table-style="basic-table">
-        <field name="salesOpportunityId" position="1" title="${uiLabelMap.SfaOpportunityId}"><display/></field>
-        <field name="opportunityName" position="1" title="${uiLabelMap.SfaOpportunityName}" widget-style="required"><text/></field>
-        <field name="initialAccount" position="1" title="${uiLabelMap.SfaInitialAccount}" widget-style="required"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="typeEnumId" position="1" title="${uiLabelMap.SfaType}">
-            <drop-down allow-empty="true">
-                <entity-options key-field-name="enumId" description="${description}" entity-name="Enumeration">
-                    <entity-constraint name="enumTypeId" operator="equals" value="SLSOPP_TYP_ENUM"/>
-                    <entity-order-by field-name="sequenceId"/>
-                </entity-options>
-            </drop-down>
-        </field>
-        <field name="estimatedAmount" position="1"  title="${uiLabelMap.SfaEstimatedAmount}"><text/></field>
-        <field name="currencyUomId" position="2" title="${uiLabelMap.CommonCurrency}">
-            <drop-down allow-empty="true" no-current-selected-key="${defaultCurrencyUomId}">
-                <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
-                    <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
-                    <entity-order-by field-name="abbreviation"/>
-                </entity-options>
-            </drop-down>
-        </field>
-        <field name="estimatedCloseDate" position="1" title="${uiLabelMap.SfaCloseDate}" widget-style="required"><date-time/></field>
-        <field name="opportunityStageId" position="2" title="${uiLabelMap.SfaInitialStage}" widget-style="required">
-            <drop-down >
-                <entity-options description="${description}" entity-name="SalesOpportunityStage">
-                </entity-options>
-            </drop-down>
-        </field>
-        <field name="estimatedProbability" position="1" title="${uiLabelMap.SfaProbability}"><text/></field>
-        <field name="dataSourceId" position="2" title="${uiLabelMap.DataSourceLabel}">
-            <drop-down allow-empty="true">
-                <entity-options key-field-name="dataSourceId" description="${description}" entity-name="DataSource">
-                    <entity-constraint name="dataSourceTypeId" operator="equals" value="SLSOPP_SRC"/>
-                </entity-options>
-            </drop-down>
-        </field>
-        <field name="marketingCampaignId" position="1" title="${uiLabelMap.MarketingCampaign}">
-            <drop-down allow-empty="true">
-                <entity-options description="${campaignName}" entity-name="MarketingCampaign" key-field-name="marketingCampaignId">
-                </entity-options>
-            </drop-down>
-        </field>
-        <field name="description" position="1" title="${uiLabelMap.SegmentGroupDescription}"><textarea/></field>
-        <field name="nextStep" position="1" title="${uiLabelMap.SfaNextStep}"><textarea/></field>
-        <field name="createButton" widget-style="smallSubmit" title="${uiLabelMap.CommonSave}"><submit button-type="button"/></field>
     </form>
 </forms>

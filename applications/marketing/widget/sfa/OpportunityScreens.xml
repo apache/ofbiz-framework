@@ -40,7 +40,7 @@ under the License.
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <container><link target="NewOpportunity" text="${uiLabelMap.CommonCreateNew}" style="buttontext"/></container>
+                                        <container><link target="EditOpportunity" text="${uiLabelMap.CommonCreateNew}" style="buttontext"/></container>
                                         <include-form name="FindOpportunity" location="component://marketing/widget/sfa/forms/OpportunityForms.xml"/>
                                     </widgets>
                                 </section>
@@ -68,7 +68,7 @@ under the License.
         </section>
     </screen>
     
-    <screen name="NewOpportunity">
+    <screen name="EditOpportunity">
         <section>
             <actions>
                 <entity-one entity-name="SalesOpportunity" value-name="salesOpportunity"/>
@@ -80,13 +80,13 @@ under the License.
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
-                                    <label text="${uiLabelMap.SfaNewOpportunity}"/>
+                                    <label text="${uiLabelMap.SfaEditOpportunity}"/>
                                 </container>
                             </container>
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <include-form name="NewOpportunity" location="component://marketing/widget/sfa/forms/OpportunityForms.xml"/>
+                                        <include-form name="EditOpportunity" location="component://marketing/widget/sfa/forms/OpportunityForms.xml"/>
                                     </widgets>
                                 </section>
                             </container> 
@@ -118,37 +118,6 @@ under the License.
                                 <section>
                                     <widgets>
                                         <include-form name="ViewOpportunity" location="component://marketing/widget/sfa/forms/OpportunityForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container> 
-                        </container>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-    
-    <screen name="EditOpportunity">
-        <section>
-            <actions>
-                <entity-one entity-name="SalesOpportunity" value-name="salesOpportunity"></entity-one>
-                <set field="titleProperty" value="Opportunities"/>
-                <set field="tabButtonItem" value="editOpportunity"/>   
-                <set field="salesOpportunityId" from-field="parameters.salesOpportunityId"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="CommonOpportunityDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.SfaEditOpportunity}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="EditOpportunity" location="component://marketing/widget/sfa/forms/OpportunityForms.xml"/>
                                     </widgets>
                                 </section>
                             </container> 
