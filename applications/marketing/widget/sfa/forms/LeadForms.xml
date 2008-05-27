@@ -82,7 +82,7 @@ under the License.
     
     <form name="ConvertLead" type="single" target="convertLead" id="ConvertLead" >
         <actions>
-          <set field="leadPartyId" from-field="parameters.leadPartyId"></set>
+          <set field="leadPartyId" from-field="parameters.PartyId"></set>
         </actions>
         <field name="leadPartyId" title="${uiLabelMap.SfaCreateContactForLead}"><display description="${bsh:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, &quot;${leadPartyId}&quot;, false)} : [${leadPartyId}]"/></field>
         <field name="partyId" title="${uiLabelMap.SfaAccountName}" tooltip="${uiLabelMap.SfaSelectExistingAccountOrLeaveBlankToCreateNew}">
