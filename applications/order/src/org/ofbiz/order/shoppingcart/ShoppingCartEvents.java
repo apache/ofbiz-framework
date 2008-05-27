@@ -1429,8 +1429,10 @@ public class ShoppingCartEvents {
         ShoppingCart cart = null;
         try {
             Map outMap = dispatcher.runSync("loadCartFromOrder",
-                                            UtilMisc.<String, Object>toMap("orderId", quoteId,
-                                                           "userLogin", userLogin));
+                                                UtilMisc.<String, Object>toMap("orderId", quoteId,
+                                                        "skipProductChecks", Boolean.TRUE, // the products have already been checked in the order, no need to check their validity again
+                                                        "userLogin", userLogin));
+            
             cart = (ShoppingCart) outMap.get("shoppingCart");
         } catch (GenericServiceException exc) {
             request.setAttribute("_ERROR_MESSAGE_", exc.getMessage());
