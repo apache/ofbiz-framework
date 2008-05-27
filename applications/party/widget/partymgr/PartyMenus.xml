@@ -74,7 +74,62 @@ under the License.
             <link target="FindEmploymentApp?partyId=${partyId}&amp;&amp;referredByPartyId=${partyId}"/>
         </menu-item>
     </menu>
-
+    <menu name="ProfileSubTabBar" menu-container-style="button-bar button-style-2" default-selected-style="selected">  
+        <menu-item name="createNew" title="${uiLabelMap.AccountingBillingAccount}" >
+            <condition>
+                <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
+            </condition>
+            <link target="/accounting/control/FindBillingAccount?partyId=${partyId}" url-mode="inter-app"/>
+        </menu-item>
+        <menu-item name="searchOrder" title="${uiLabelMap.OrderOrders}" >
+            <condition>
+                <if-has-permission permission="ORDERMGR" action="_VIEW"/>
+            </condition>
+            <link target="/ordermgr/control/searchorders?lookupFlag=Y&amp;hideFields=Y&amp;partyId=${partyId}&amp;externalLoginKey=${externalLoginKey}&amp;viewIndex=1&amp;viewSize=20" url-mode="inter-app"/> 
+        </menu-item>
+        <menu-item name="findQuote" title="${uiLabelMap.OrderOrderQuotes}" >
+            <condition>
+                <if-has-permission permission="ORDERMGR" action="_VIEW"/>
+            </condition>
+            <link target="/ordermgr/control/FindQuote?partyId=${partyId}&amp;externalLoginKey=${externalLoginKey}" url-mode="inter-app"/> 
+        </menu-item>
+        <menu-item name="findRequest" title="${uiLabelMap.PartyPartyRequests}" >
+            <condition>
+                <if-has-permission permission="ORDERMGR" action="_VIEW"/>
+            </condition>
+            <link target="/ordermgr/control/FindRequest?lookupFlag=Y&amp;fromPartyId=${partyId}&amp;externaLoginKey=${externalLoginKey}" url-mode="inter-app"/> 
+        </menu-item>
+        <menu-item name="newOrder" title="${uiLabelMap.OrderNewOrder}">
+            <condition>
+                <if-has-permission permission="ORDERMGR" action="_CREATE"/>
+            </condition>
+            <link target="/ordermgr/control/checkinits?partyId=${partyId}&amp;externaLoginKey=${externalLoginKey}" url-mode="inter-app"/> 
+        </menu-item>
+        <menu-item name="newQuote" title="${uiLabelMap.OrderNewQuote}">
+            <condition>
+                <if-has-permission permission="ORDERMGR" action="_CREATE"/>
+            </condition>
+            <link target="/ordermgr/control/EditQuote?partyId=${partyId}&amp;externaLoginKey=${externalLoginKey}" url-mode="inter-app"/> 
+        </menu-item>
+        <menu-item name="paymentsSent" title="${uiLabelMap.AccountingPaymentsSent}">
+            <condition>
+                <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
+            </condition>
+            <link target="/accounting/control/findPayments?lookupFlag=Y&amp;hideFields=Y&amp;partyIdTo=${partyId}&amp;externaLoginKey=${externalLoginKey}" url-mode="inter-app"/> 
+        </menu-item>
+        <menu-item name="paymentsReceived" title="${uiLabelMap.AccountingPaymentsReceived}">
+            <condition>
+                <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
+            </condition>
+            <link target="/accounting/control/findPayments?lookupFlag=Y&amp;hideFields=Y&amp;partyIdFrom=${partyId}&amp;externaLoginKey=${externalLoginKey}" url-mode="inter-app"/> 
+        </menu-item>
+        <menu-item name="finAccounts" title="${uiLabelMap.AccountingFinAccounts}">
+            <condition>
+                <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
+            </condition>
+            <link target="/accounting/control/FindFinAccount?ownerPartyId=${partyId}" url-mode="inter-app"/> 
+        </menu-item>
+    </menu>
     <menu name="create-new-party" type="simple" menu-container-style="basic-nav">
         <menu-item name="create-party-group" title="${uiLabelMap.PartyCreateNewPartyGroup}">
             <link target="editpartygroup?create_new=Y"/>

@@ -87,42 +87,7 @@ under the License.
                                 <section>
                                     <condition><not><if-empty field-name="partyId"/></not></condition>
                                     <widgets>
-                                        <container style="button-bar button-style-2">
-                                            <link target="/accounting/control/FindBillingAccount?partyId=${partyId}" url-mode="inter-app" 
-                                                text="${uiLabelMap.AccountingBillingAccount}"/>
-                                            <section>
-                                                <condition><if-has-permission permission="ORDERMGR" action="_VIEW"/></condition>
-                                                <widgets>
-                                                    <link target="/ordermgr/control/searchorders?lookupFlag=Y&amp;hideFields=Y&amp;partyId=${partyId}&amp;externalLoginKey=${externalLoginKey}&amp;viewIndex=1&amp;viewSize=20" url-mode="inter-app" 
-                                                        text="${uiLabelMap.OrderOrders}"/>
-                                                    <link target="/ordermgr/control/FindQuote?partyId=${partyId}&amp;externalLoginKey=${externalLoginKey}" url-mode="inter-app" 
-                                                        text="${uiLabelMap.OrderOrderQuotes}"/>
-                                                    <link target="/ordermgr/control/FindRequest?lookupFlag=Y&amp;fromPartyId=${partyId}&amp;externaLoginKey=${externalLoginKey}" url-mode="inter-app" 
-                                                        text="${uiLabelMap.PartyPartyRequests}"/>
-                                                </widgets>
-                                            </section>
-                                            <section>
-                                                <condition><if-has-permission permission="ORDERMGR" action="_CREATE"/></condition>
-                                                <widgets>
-                                                    <link target="/ordermgr/control/checkinits?partyId=${partyId}&amp;externaLoginKey=${externalLoginKey}" url-mode="inter-app" 
-                                                        text="${uiLabelMap.OrderNewOrder}"/>
-                                                    <link target="/ordermgr/control/EditQuote?partyId=${partyId}&amp;externaLoginKey=${externalLoginKey}" url-mode="inter-app" 
-                                                        text="${uiLabelMap.OrderNewQuote}"/>
-                                                </widgets>
-                                            </section>
-                                            <section>
-                                                <condition><if-has-permission permission="ACCOUNTING" action="_VIEW"/></condition>
-                                                <widgets>
-                                                    <link target="/accounting/control/findPayments?lookupFlag=Y&amp;hideFields=Y&amp;partyIdTo=${partyId}&amp;externaLoginKey=${externalLoginKey}" url-mode="inter-app" 
-                                                        text="${uiLabelMap.AccountingPaymentsSent}"/>
-                                                    <link target="/accounting/control/findPayments?lookupFlag=Y&amp;hideFields=Y&amp;partyIdFrom=${partyId}&amp;externaLoginKey=${externalLoginKey}" url-mode="inter-app" 
-                                                        text="${uiLabelMap.AccountingPaymentsReceived}"/>
-                                                    <link target="/accounting/control/FindFinAccount?ownerPartyId=${partyId}" url-mode="inter-app"
-                                                        text="${uiLabelMap.AccountingFinAccounts}"/>
-                                                </widgets>
-                                            </section>
-                                        </container>
-                                        
+                                        <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="ProfileSubTabBar"/>
                                         <container style="h1">
                                             <section>
                                                 <condition>
