@@ -75,7 +75,7 @@ under the License.
                 <entity-one entity-name="SalesOpportunity" value-name="salesOpportunity"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonOpportunityDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
