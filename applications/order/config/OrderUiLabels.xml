@@ -2998,7 +2998,7 @@
     <property key="OrderHold">
         <value xml:lang="en">Hold Order</value>
         <value xml:lang="es">Esperar Orden</value>
-        <value xml:lang="fr">Retenir la commande</value>
+        <value xml:lang="fr">Bloquer la commande</value>
         <value xml:lang="it">Congela Ordine</value>
         <value xml:lang="nl">Zet bestelling in wacht</value>
         <value xml:lang="ro">Congeleaza Comenzi </value>
@@ -4241,7 +4241,7 @@
         <value xml:lang="de">Auftragserfassung Zahlungsmodalitäten</value>
         <value xml:lang="en">Order Entry Payment Settings</value>
         <value xml:lang="es">Configuración del pago</value>
-        <value xml:lang="fr">Modes de règlement</value>
+        <value xml:lang="fr">Configuration des modes de règlement</value>
         <value xml:lang="it">Inserimento Configurazione Pagamento Ordine</value>
         <value xml:lang="nl">Bestelling Entry Payment Settings</value>
         <value xml:lang="ro">Introducere Configuratie Plata Comanda</value>
@@ -4292,7 +4292,7 @@
     <property key="OrderOrderHeaderInfo">
         <value xml:lang="en">Order Header Info</value>
         <value xml:lang="es">Información de encabezado</value>
-        <value xml:lang="fr">Informations en-tête</value>
+        <value xml:lang="fr">Informations d'en-tête</value>
         <value xml:lang="it">Informazioni Testata Ordine</value>
         <value xml:lang="nl">Bestelling Header Info</value>
         <value xml:lang="ro">Informatii Antet Comanda</value>
@@ -5444,7 +5444,7 @@
     <property key="OrderPaymentProcessorRefundService">
         <value xml:lang="en">Processor Refund Service</value>
         <value xml:lang="es">Servicio procesador de reembolso</value>
-        <value xml:lang="fr">Service de remboursement de paiement</value>
+        <value xml:lang="fr">Service de remboursement</value>
         <value xml:lang="th">การบริการประมวผลการคืนเงินให้</value>
     </property>
     <property key="OrderPaymentProcessorSetup">
@@ -5569,7 +5569,7 @@
     </property>
     <property key="OrderPleaseWaitUntilBeforeShipping">
         <value xml:lang="en">Please wait until the entire order is ready before shipping</value>
-        <value xml:lang="fr">S'il vous plaît attendre jusqu'à ce que l'ordre entier soit prêt avant d'expédier</value>
+        <value xml:lang="fr">SVP, attendre que la commande soit entièrement prête avant d'expédier</value>
         <value xml:lang="th">กรุณารอจนกระทั่งการกรอกข้อมูลเรียบร้อยก่อนการขนส่งสินค้า</value>
     </property>
     <property key="OrderPrepareOrder">
@@ -5612,7 +5612,7 @@
     <property key="OrderProcessingInActive">
         <value xml:lang="en">This order is currently in a 'Active' state.</value>
         <value xml:lang="es">Esta orden se encuentra en estado 'Activo'</value>
-        <value xml:lang="fr">Cette commande est actuellement dans un état «Actif»</value>
+        <value xml:lang="fr">Cette commande est actuellement dans un état «Active»</value>
         <value xml:lang="it">Questo ordine è attualmente in uno stato 'Attivo'.</value>
         <value xml:lang="nl">This bestelling is currently in a 'Active' state.</value>
         <value xml:lang="ro">Aceasta comanda este in acest moment in stare 'Activ'.</value>
@@ -5623,7 +5623,7 @@
     <property key="OrderProcessingInHold">
         <value xml:lang="en">This order is currently in a 'Hold' state. The activity has been suspended.</value>
         <value xml:lang="es">Esta orden se encuentra en estado 'En espera'</value>
-        <value xml:lang="fr">Cette commande est actuellement dans un état «Retenu». L'activité a été suspendue.</value>
+        <value xml:lang="fr">Cette commande est actuellement dans un état «Bloquée». L'activité a été suspendue.</value>
         <value xml:lang="it">Questo ordine è attualmente in uno stato 'Congelato'. L'attività è stata sospesa.</value>
         <value xml:lang="nl">This bestelling is currently in a 'Hold' state. The activity has been suspended.</value>
         <value xml:lang="ro">Aceasta Comanda este in acest moment in stare 'Congelata'. Activitatea a fost suspendata.</value>
@@ -5725,7 +5725,7 @@
     <property key="OrderPromotionCategories">
         <value xml:lang="en">Promotion Categories</value>
         <value xml:lang="es">Categorias para promoción</value>
-        <value xml:lang="fr">Catégories promotion</value>
+        <value xml:lang="fr">Catégories en promotion</value>
         <value xml:lang="hi_IN">प्रोत्साहन कि श्रेणी</value>
         <value xml:lang="it">Categorie nella Promozione</value>
         <value xml:lang="ja">Promotion Details</value>
@@ -5738,7 +5738,7 @@
         <value xml:lang="de">Aktion/Coupon Codes</value>
         <value xml:lang="en">Promotion/Coupon Codes</value>
         <value xml:lang="es">Códigos Promoción/Cupón</value>
-        <value xml:lang="fr">Promotion/Coupon Codes</value>
+        <value xml:lang="fr">Promotion/Codes de coupons</value>
         <value xml:lang="it">Promozione/Codici Tagliando</value>
         <value xml:lang="nl">Promotion/Coupon Codes</value>
         <value xml:lang="ro">Promovare/Coduri Cupoane</value>
@@ -5802,7 +5802,7 @@
     </property>
     <property key="OrderPurchaseReportOptions">
         <value xml:lang="en">Order Purchase Report Options</value>
-        <value xml:lang="fr">Commander les options de rapport d'achat</value>
+        <value xml:lang="fr">Options de l'état sur commande d'achat</value>
         <value xml:lang="it">Opzioni Stampe Ordine Acquisto</value>
         <value xml:lang="nl">Bestelling Purchase Report Options</value>
         <value xml:lang="ro">Optiuni Tiparire Comanda Cumparare</value>
@@ -5829,7 +5829,7 @@
     </property>
     <property key="OrderQtyPicked">
         <value xml:lang="en">Qty Picked</value>
-        <value xml:lang="fr">Qté choisi</value>
+        <value xml:lang="fr">Qté prélevée</value>
         <value xml:lang="it">Qnt Prelevata</value>
         <value xml:lang="th">จำนวนที่คัดสรร</value>
     </property>
@@ -5892,7 +5892,7 @@
     </property>
     <property key="OrderQuantitySold">
         <value xml:lang="en">Qty Sold</value>
-        <value xml:lang="fr">Qté vendu</value>
+        <value xml:lang="fr">Qté vendue</value>
         <value xml:lang="it">Qnt Venduta</value>
         <value xml:lang="nl">Qty Sold</value>
         <value xml:lang="ro">Cantitate Vanduta</value>
@@ -6016,7 +6016,7 @@
         <value xml:lang="de">Bewertungen</value>
         <value xml:lang="en">Ratings</value>
         <value xml:lang="es">Calificación</value>
-        <value xml:lang="fr">Estimations</value>
+        <value xml:lang="fr">Taux</value>
         <value xml:lang="hi_IN">श्रेणी</value>
         <value xml:lang="it">Posizione</value>
         <value xml:lang="ja">Ratings</value>
@@ -6029,14 +6029,14 @@
     <property key="OrderReAuthService">
         <value xml:lang="en">Re Auth Service</value>
         <value xml:lang="es">Servicio de reautentificación</value>
-        <value xml:lang="fr">Service re Auth</value>
+        <value xml:lang="fr">Service de ré-autorisation de paiement</value>
         <value xml:lang="th">ให้บริการอีกครั้ง</value>
     </property>
     <property key="OrderRecalculateOrder">
         <value xml:lang="de">Auftrag neuberechnen</value>
         <value xml:lang="en">Recalculate Order</value>
         <value xml:lang="es">Recalcular la orden</value>
-        <value xml:lang="fr">Recalculer</value>
+        <value xml:lang="fr">Recalculer la commande</value>
         <value xml:lang="it">Ricalcola Ordine</value>
         <value xml:lang="nl">Bestelling berekenen</value>
         <value xml:lang="ro">Recalculeaza Comanda</value>
@@ -6073,7 +6073,7 @@
         <value xml:lang="de">Retouren empfangen</value>
         <value xml:lang="en">Receive Return</value>
         <value xml:lang="es">Recepción de ítems devueltos</value>
-        <value xml:lang="fr">Réception articles retournés</value>
+        <value xml:lang="fr">Réception d'articles retournés</value>
         <value xml:lang="it">Ricevi Reso</value>
         <value xml:lang="nl">Receive Return</value>
         <value xml:lang="ro">Primire Returnare</value>
@@ -6085,7 +6085,7 @@
     <property key="OrderReceivedInOtherReceive">
         <value xml:lang="en">On Other Delivery Order</value>
         <value xml:lang="es">en otra orden de entrega</value>
-        <value xml:lang="fr">Sur d'autres BL</value>
+        <value xml:lang="fr">Sur un autre bon de livraison</value>
         <value xml:lang="it">Su gli Altri Ordini Spediti</value>
         <value xml:lang="nl">On Other Delivery Bestelling</value>
         <value xml:lang="ro">Pe Alte Comenzi Expediate</value>
@@ -6109,12 +6109,12 @@
     <property key="OrderRefundService">
         <value xml:lang="en">Refund Service</value>
         <value xml:lang="es">Servicio de reembolso</value>
-        <value xml:lang="fr">Service remboursement</value>
+        <value xml:lang="fr">Service de remboursement</value>
         <value xml:lang="th">บริการคืนเงินให้</value>
     </property>
     <property key="OrderRejectOrder">
         <value xml:lang="en">Reject Order</value>
-        <value xml:lang="fr">Rejeter l'ordre</value>
+        <value xml:lang="fr">Rejeter la commande</value>
         <value xml:lang="th">ปฏิเสธรายการสั่งซื้อสินค้า</value>
     </property>
     <property key="OrderRejected">
@@ -6132,7 +6132,7 @@
     <property key="OrderRelease">
         <value xml:lang="en">Release Hold</value>
         <value xml:lang="es">Liberar espera</value>
-        <value xml:lang="fr">Relâcher la prise</value>
+        <value xml:lang="fr">Débloquer la commande</value>
         <value xml:lang="it">Rilascia Congelato</value>
         <value xml:lang="nl">Release Hold</value>
         <value xml:lang="ro">Elibereaza Congelare</value>
@@ -6157,7 +6157,7 @@
         <value xml:lang="de">Rest Zwischensumme</value>
         <value xml:lang="en">Remaining SubTotal</value>
         <value xml:lang="es">Subtotal restante</value>
-        <value xml:lang="fr">Sous-Total restant</value>
+        <value xml:lang="fr">Sous-total restant</value>
         <value xml:lang="it">SubTotale Rimanenza</value>
         <value xml:lang="nl">Remaining SubTotal</value>
         <value xml:lang="ro">SubTotal Rest</value>
@@ -6184,7 +6184,7 @@
     </property>
     <property key="OrderReportOpenOrderItems">
         <value xml:lang="en">Open Order Items Report</value>
-        <value xml:lang="fr">Ouvrir le rapport commande d'articles</value>
+        <value xml:lang="fr">Ouvrir l'état des lignes de commande</value>
         <value xml:lang="it">Report Righe Ordine Aperte</value>
         <value xml:lang="ro">Raport Linii Comenzi Deschise</value>
         <value xml:lang="ru">Открыть отчет по позициям заказа</value>
@@ -6193,7 +6193,7 @@
     </property>
     <property key="OrderReportPurchasesByOrganization">
         <value xml:lang="en">Purchases by Organization Report</value>
-        <value xml:lang="fr">Les achats par report d'organisation</value>
+        <value xml:lang="fr">Etat des achats par organisations</value>
         <value xml:lang="it">Report Acquisti per Organizzazione</value>
         <value xml:lang="nl">Purchases by Organization Report</value>
         <value xml:lang="ro">Raport Cumparari pentru Organizare </value>
@@ -6203,7 +6203,7 @@
     </property>
     <property key="OrderReportPurchasesByPaymentMethod">
         <value xml:lang="en">Purchases by Payment Method Report</value>
-        <value xml:lang="fr">Achats par le report de méthode de paiement</value>
+        <value xml:lang="fr">Etat des achats par modes de paiement</value>
         <value xml:lang="it">Report Acquisti per Metodo di Pagamento</value>
         <value xml:lang="nl">Purchases by Payment Method Report</value>
         <value xml:lang="ro">Raport Cumparari pe Metode de Plata</value>
@@ -6213,7 +6213,7 @@
     </property>
     <property key="OrderReportPurchasesByProduct">
         <value xml:lang="en">Purchases by Product Report</value>
-        <value xml:lang="fr">Report de sous-produit d'achats</value>
+        <value xml:lang="fr">Etat des achats par article</value>
         <value xml:lang="it">Report Acquisti per Prodotto</value>
         <value xml:lang="nl">Purchases by Product Report</value>
         <value xml:lang="ro">Raport Cumparari pe Produs</value>
@@ -6223,7 +6223,7 @@
     </property>
     <property key="OrderReportSalesByStore">
         <value xml:lang="en">Sales by Store Report</value>
-        <value xml:lang="fr">Les ventes par le report de magasin</value>
+        <value xml:lang="fr">Etat des ventes par centres de profit</value>
         <value xml:lang="it">Report Vendite per Negozio</value>
         <value xml:lang="nl">Sales by Store Report</value>
         <value xml:lang="ro">Raport Vanzari Magazie</value>
@@ -6263,7 +6263,7 @@
     <property key="OrderRequestCreatedDate">
         <value xml:lang="en">Created Date</value>
         <value xml:lang="es">Fecha de creación</value>
-        <value xml:lang="fr">date créé</value>
+        <value xml:lang="fr">date créée</value>
         <value xml:lang="it">Data Creazione</value>
         <value xml:lang="nl">Created Date</value>
         <value xml:lang="ro">Data Creatie</value>
@@ -6600,7 +6600,7 @@
     </property>
     <property key="OrderReturnFromOrder">
         <value xml:lang="en">Return Item(s) From Order</value>
-        <value xml:lang="fr">Retourner l'article (les articles) de l'ordre</value>
+        <value xml:lang="fr">Retourner l'article (les articles) de la commande</value>
         <value xml:lang="it">Riga(e) Reso Dall'Ordine</value>
         <value xml:lang="nl">Return Item(s) From Bestelling</value>
         <value xml:lang="ro">Linia(e) Returnare De la Comanda</value>
@@ -6683,7 +6683,7 @@
     </property>
     <property key="OrderReturnManualAdjustment">
         <value xml:lang="en">Manual Return Adjustment For Order</value>
-        <value xml:lang="fr">L'ajustement manuel de retour pour l'ordre</value>
+        <value xml:lang="fr">L'ajustement manuel de retour pour la commande</value>
         <value xml:lang="it">Reso Manuale Aggiustamento Per l'Ordine</value>
         <value xml:lang="nl">Manual Return Adjustment For Bestelling</value>
         <value xml:lang="ro">Modificare Returnare Manuala pe Comanda</value>
@@ -6703,7 +6703,7 @@
     </property>
     <property key="OrderReturnNoReturnableItems">
         <value xml:lang="en">No returnable items found for order</value>
-        <value xml:lang="fr">Aucuns articles consignés trouvés pour l'ordre</value>
+        <value xml:lang="fr">Aucuns articles consignés trouvés pour la commande</value>
         <value xml:lang="it">Nessuna riga restituibile trovata per l'ordine</value>
         <value xml:lang="nl">No returnable items found for bestelling</value>
         <value xml:lang="ro">Nici-o linie restituita gasita pe comanda</value>
@@ -9171,7 +9171,7 @@
         <value xml:lang="de">Gewählte Zahlweise deckt nicht diese Bestellung.</value>
         <value xml:lang="en">Selected payment methods will not cover this order.</value>
         <value xml:lang="es">Los métodos de pago elegidos no cubrirán esta orden.</value>
-        <value xml:lang="fr">Les méthodes de paiement choisies ne couvriront pas cette commande.</value>
+        <value xml:lang="fr">Les modes de paiement choisies ne couvriront pas cette commande.</value>
         <value xml:lang="it">Seleziona metodi di pagamento che copriranno questo ordine.</value>
         <value xml:lang="nl">Selected payment methods will not cover this bestelling.</value>
         <value xml:lang="ro">Selectioneaza metodele de plata care vor acoperi aceasta comanda.</value>
