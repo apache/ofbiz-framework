@@ -372,11 +372,10 @@ under the License.
     <service name="createOpportunity" engine="simple" default-entity-name="SalesOpportunity"
         location="org/ofbiz/sfa/opportunity/OpportunityServices.xml" invoke="createOpportunity">
         <description>Create an opportunity</description>
-        <auto-attributes mode="IN" include="pk" optional="false"></auto-attributes>
+        <auto-attributes mode="OUT" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true">
             <exclude field-name="createdByUserLogin"/>
         </auto-attributes>
-        <override name="salesOpportunityId" mode="IN" optional="true"/>
     </service> 
     <service name="updateOpportunity" engine="simple" default-entity-name="SalesOpportunity"
         location="org/ofbiz/sfa/opportunity/OpportunityServices.xml" invoke="updateOpportunity">

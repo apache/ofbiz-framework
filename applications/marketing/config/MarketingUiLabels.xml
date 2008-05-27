@@ -1236,9 +1236,6 @@
     <property key="SfaMergeLeads">
         <value xml:lang="en">Merge Leads</value>
     </property>  
-    <property key="SfaNewOpportunity">
-        <value xml:lang="en">Create New Opportunity</value>
-    </property>
     <property key="SfaNextStep">
         <value xml:lang="en">Next Step</value>
     </property>

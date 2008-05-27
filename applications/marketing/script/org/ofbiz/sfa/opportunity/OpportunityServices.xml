@@ -29,6 +29,7 @@
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set from-field="userLogin.userLoginId" field="newEntity.createdByUserLogin"/>
+        <field-to-result field-name="parameters.salesOpportunityId" result-name="salesOpportunityId"/>
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateOpportunity" short-description="Update an opportunity">

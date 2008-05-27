@@ -36,10 +36,6 @@ under the License.
         <response name="success" type="view" value="FindOpportunity"/>
         <response name="error" type="view" value="FindOpportunity"/>
     </request-map>
-    <request-map uri="NewOpportunity">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="NewOpportunity"></response>
-    </request-map>
     <request-map uri="viewOpportunity">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="viewOpportunity"/>
@@ -48,7 +44,7 @@ under the License.
         <security https="true" auth="true"/>
         <event type="service" invoke="createOpportunity"/>
         <response name="success" type="view" value="viewOpportunity"/>
-        <response name="error" type="view" value="NewOpportunity"/>
+        <response name="error" type="view" value="EditOpportunity"/>
     </request-map>
     <request-map uri="EditOpportunity">
         <security https="true" auth="true"/>
@@ -190,7 +186,6 @@ under the License.
     <view-map name="viewprofile" type="screen" page="component://marketing/widget/sfa/CommonScreens.xml#ViewProfile"/>
 
     <view-map name="FindOpportunity" type="screen" page="component://marketing/widget/sfa/OpportunityScreens.xml#FindOpportunity"/>
-    <view-map name="NewOpportunity" type="screen" page="component://marketing/widget/sfa/OpportunityScreens.xml#NewOpportunity"/>
     <view-map name="viewOpportunity" type="screen" page="component://marketing/widget/sfa/OpportunityScreens.xml#viewOpportunity"/>
     <view-map name="EditOpportunity" type="screen" page="component://marketing/widget/sfa/OpportunityScreens.xml#EditOpportunity"/>
     
