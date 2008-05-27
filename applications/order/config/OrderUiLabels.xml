@@ -5136,7 +5136,7 @@
         <value xml:lang="de">Konditionstyp</value>
         <value xml:lang="en">Term Type</value>
         <value xml:lang="es">Tipo</value>
-        <value xml:lang="fr">Type d'accord</value>
+        <value xml:lang="fr">Type de condition</value>
         <value xml:lang="it">Tipo Termine</value>
         <value xml:lang="nl">Term Type</value>
         <value xml:lang="ro">Tip Termene</value>
@@ -5148,7 +5148,7 @@
     <property key="OrderOrderTermValue">
         <value xml:lang="en">Term Value</value>
         <value xml:lang="es">Valor</value>
-        <value xml:lang="fr">Valeur d'accord</value>
+        <value xml:lang="fr">Valeur de condition</value>
         <value xml:lang="it">Valore Termine</value>
         <value xml:lang="nl">Term Value</value>
         <value xml:lang="ro">Valoare Termene</value>
@@ -6383,7 +6383,7 @@
     <property key="OrderRequestTaker">
         <value xml:lang="en">Request Taker</value>
         <value xml:lang="es">Adquiriente de pedido</value>
-        <value xml:lang="fr">Preneur de demande</value>
+        <value xml:lang="fr">Gestionnaire de demande</value>
         <value xml:lang="it">Possessore Richiesta</value>
         <value xml:lang="nl">Request Taker</value>
         <value xml:lang="ro">Posesor Cerere</value>
@@ -6395,7 +6395,7 @@
     <property key="OrderRequestingParty">
         <value xml:lang="en">Requesting Party</value>
         <value xml:lang="es">Participante demandante</value>
-        <value xml:lang="fr">Acteur demandant</value>
+        <value xml:lang="fr">Acteur émettant une demande</value>
         <value xml:lang="it">Soggetto Richiedente</value>
         <value xml:lang="nl">Requesting Party</value>
         <value xml:lang="ro">Subiect Cerere</value>
@@ -6486,7 +6486,7 @@
     <property key="OrderRequirementStatusId">
         <value xml:lang="en">Order Requirement Status Id</value>
         <value xml:lang="es">Estado</value>
-        <value xml:lang="fr">Type de besoin</value>
+        <value xml:lang="fr">Réf. de statut d'un besoin</value>
         <value xml:lang="it">Stato Ordine Fabbisogno</value>
         <value xml:lang="nl">Bestelling Requirement Status Id</value>
         <value xml:lang="ro">Stare Comanda Necesar</value>
@@ -6509,7 +6509,7 @@
     <property key="OrderRequirementsForRequestItem">
         <value xml:lang="en">Requirements For Request Item</value>
         <value xml:lang="es">Requerimientos de un pedido</value>
-        <value xml:lang="fr">Besoins d'un requête</value>
+        <value xml:lang="fr">Besoins d'une ligne de demande</value>
         <value xml:lang="it">Fabbisogno Per Riga Richiesta</value>
         <value xml:lang="nl">Requirements For Request Item</value>
         <value xml:lang="ro">Necesar Pe Linie Cerere</value>
@@ -6537,7 +6537,7 @@
     </property>
     <property key="OrderReturnAdjustments">
         <value xml:lang="en">Return Order Adjustment(s) From Order</value>
-        <value xml:lang="fr">Ajustement(s) de retour de commande depuis la commande</value>
+        <value xml:lang="fr">Ajustement(s) de retour depuis la commande</value>
         <value xml:lang="it">Reso Aggiustamento(i) Ordine Per l'Ordine</value>
         <value xml:lang="nl">Return Bestelling Adjustment(s) From Bestelling</value>
         <value xml:lang="ro">Returnare Modificare(i) Comanda Pentru Comanda</value>
@@ -6600,7 +6600,7 @@
     </property>
     <property key="OrderReturnFromOrder">
         <value xml:lang="en">Return Item(s) From Order</value>
-        <value xml:lang="fr">Retourner l'article (les articles) de la commande</value>
+        <value xml:lang="fr">Retourner l'article(s) de la commande</value>
         <value xml:lang="it">Riga(e) Reso Dall'Ordine</value>
         <value xml:lang="nl">Return Item(s) From Bestelling</value>
         <value xml:lang="ro">Linia(e) Returnare De la Comanda</value>
@@ -6625,7 +6625,7 @@
         <value xml:lang="de">Retourenkopf</value>
         <value xml:lang="en">Return Header</value>
         <value xml:lang="es">Encabezado de devolución</value>
-        <value xml:lang="fr">Retour à l'en-tête</value>
+        <value xml:lang="fr">En-tête de retour</value>
         <value xml:lang="it">Testata Reso</value>
         <value xml:lang="nl">Return Header</value>
         <value xml:lang="ro">Antet Returnare</value>
@@ -6650,7 +6650,7 @@
     <property key="OrderReturnItemInventoryStatus">
         <value xml:lang="en">Inventory Status</value>
         <value xml:lang="es">Estado de inventario</value>
-        <value xml:lang="fr">Statut d'inventaire</value>
+        <value xml:lang="fr">Statut du stock</value>
         <value xml:lang="it">Stato Inventario</value>
         <value xml:lang="nl">Inventory Status</value>
         <value xml:lang="ro">Stare Inventar</value>
@@ -6683,7 +6683,7 @@
     </property>
     <property key="OrderReturnManualAdjustment">
         <value xml:lang="en">Manual Return Adjustment For Order</value>
-        <value xml:lang="fr">L'ajustement manuel de retour pour la commande</value>
+        <value xml:lang="fr">Ajustement manuel du retour pour la commande</value>
         <value xml:lang="it">Reso Manuale Aggiustamento Per l'Ordine</value>
         <value xml:lang="nl">Manual Return Adjustment For Bestelling</value>
         <value xml:lang="ro">Modificare Returnare Manuala pe Comanda</value>
@@ -6693,7 +6693,7 @@
     </property>
     <property key="OrderReturnNeedsAutoReceive">
         <value xml:lang="en">Auto-Receive On ACCEPT</value>
-        <value xml:lang="fr">Accusé de réception</value>
+        <value xml:lang="fr">Recevoir automatiquement sur acceptation</value>
         <value xml:lang="it">Necessario Ricezione-Automatica (in ACCETTAZIONE)</value>
         <value xml:lang="nl">Needs Auto-Receive (On ACCEPT)</value>
         <value xml:lang="ro">Necesar Receptie-Automatica (in ACCEPTARE)</value>
@@ -6703,7 +6703,7 @@
     </property>
     <property key="OrderReturnNoReturnableItems">
         <value xml:lang="en">No returnable items found for order</value>
-        <value xml:lang="fr">Aucuns articles consignés trouvés pour la commande</value>
+        <value xml:lang="fr">Aucuns articles retournables trouvés pour la commande</value>
         <value xml:lang="it">Nessuna riga restituibile trovata per l'ordine</value>
         <value xml:lang="nl">No returnable items found for bestelling</value>
         <value xml:lang="ro">Nici-o linie restituita gasita pe comanda</value>
@@ -6713,7 +6713,7 @@
     </property>
     <property key="OrderReturnPrice">
         <value xml:lang="en">Return Price</value>
-        <value xml:lang="fr">Prix retour</value>
+        <value xml:lang="fr">Prix de retour</value>
         <value xml:lang="it">Prezzo Reso</value>
         <value xml:lang="nl">Return Price</value>
         <value xml:lang="ro">Pret Returnare</value>
@@ -6723,7 +6723,7 @@
     </property>
     <property key="OrderReturnPriceNotIncludeTax">
         <value xml:lang="en">Price not includes tax  adjustments</value>
-        <value xml:lang="fr">Evaluer n'inclut pas de redressement</value>
+        <value xml:lang="fr">Le prix n'inclut pas de taxes d'ajustement</value>
         <value xml:lang="it">Prezzo non include tasse e aggiustamenti</value>
         <value xml:lang="nl">Price not includes tax  adjustments</value>
         <value xml:lang="ro">Pret nu include taxe si ajustari OrderReturnReason=Motivatie Returnare</value>
@@ -6775,7 +6775,7 @@
     </property>
     <property key="OrderReturnSelectedItems">
         <value xml:lang="en">Return Selected Item(s)</value>
-        <value xml:lang="fr">Retour articles sélectionnés</value>
+        <value xml:lang="fr">Retourer les articles sélectionnés</value>
         <value xml:lang="it">Reso per la(e) Riga(e) Selezionate</value>
         <value xml:lang="nl">Return Selected Item(s)</value>
         <value xml:lang="ro">Returnare pentru liniile selectionate</value>
@@ -6785,7 +6785,7 @@
     </property>
     <property key="OrderReturnShipFromAddress">
         <value xml:lang="en">Please select a ship from address</value>
-        <value xml:lang="fr">SVP sélecionner une adresse d'expédition</value>
+        <value xml:lang="fr">SVP, sélecionner une adresse d'expédition</value>
         <value xml:lang="it">Perfavore seleziona l'indirizzo di spedizione origine</value>
         <value xml:lang="nl">Please select a ship from address</value>
         <value xml:lang="ro">Va rugam selectionati adresa de expediere originala</value>
@@ -6795,7 +6795,7 @@
     </property>
     <property key="OrderReturnSummary">
         <value xml:lang="en">Return Summary</value>
-        <value xml:lang="fr">Retour sommaire</value>
+        <value xml:lang="fr">Résumé du retour</value>
         <value xml:lang="it">Sommario Reso</value>
         <value xml:lang="nl">Return Summary</value>
         <value xml:lang="ro">Sumar Returnare</value>
@@ -6806,7 +6806,7 @@
     <property key="OrderReturnToAddress">
         <value xml:lang="en">Return To Address</value>
         <value xml:lang="es">Dirección de retorno</value>
-        <value xml:lang="fr">Retour d'adresse</value>
+        <value xml:lang="fr">Retour à l'adresse</value>
         <value xml:lang="it">Reso All'indirizzo</value>
         <value xml:lang="nl">Return To Address</value>
         <value xml:lang="ro">Returnare la adresa</value>
@@ -6818,7 +6818,7 @@
         <value xml:lang="de">Retoure zum Lager</value>
         <value xml:lang="en">Return To Facility</value>
         <value xml:lang="es">Devolución al almacén</value>
-        <value xml:lang="fr">Emplacement destination</value>
+        <value xml:lang="fr">Retour au lieu de stockage</value>
         <value xml:lang="it">Reso Allo Stabilimento </value>
         <value xml:lang="nl">Return To Facility</value>
         <value xml:lang="ro">Returnare la Compartimentul  </value>
@@ -6830,7 +6830,7 @@
     <property key="OrderReturnTotal">
         <value xml:lang="en">Return Total</value>
         <value xml:lang="es">Total de retorno</value>
-        <value xml:lang="fr">Retour Total</value>
+        <value xml:lang="fr">Total du retour</value>
         <value xml:lang="it">Totale Reso</value>
         <value xml:lang="nl">Return Total</value>
         <value xml:lang="ro">Total Returnare</value>
@@ -6878,7 +6878,7 @@
     <property key="OrderRunAction">
         <value xml:lang="en">Run Action</value>
         <value xml:lang="es">Ejecutar acción</value>
-        <value xml:lang="fr">Aller à l'action</value>
+        <value xml:lang="fr">Exécuter</value>
         <value xml:lang="it">Esegui Azione</value>
         <value xml:lang="nl">Run Action</value>
         <value xml:lang="ro">Executa Actiune</value>
@@ -6889,7 +6889,7 @@
     <property key="OrderRunStorePromotions">
         <value xml:lang="en">Run Store Promotions</value>
         <value xml:lang="es">Correr promociones de tienda</value>
-        <value xml:lang="fr">Aller boutique promotions</value>
+        <value xml:lang="fr">Exécuter les promotions du centre de profit</value>
         <value xml:lang="it">Esegui Promozioni Negozio</value>
         <value xml:lang="nl">Run Store Promotions</value>
         <value xml:lang="ro">Executa Promotie Magazie</value>
@@ -6926,7 +6926,7 @@
         <value xml:lang="de">Mehrwertsteuer</value>
         <value xml:lang="en">Sales Tax</value>
         <value xml:lang="es">I.G.V.</value>
-        <value xml:lang="fr">T. V. A.</value>
+        <value xml:lang="fr">TVA</value>
         <value xml:lang="it">Tassa Vendita</value>
         <value xml:lang="nl">Sales Tax</value>
         <value xml:lang="ro">Taxa Vanzare </value>
@@ -6953,7 +6953,7 @@
     <property key="OrderScheduleDelivery">
         <value xml:lang="en">Schedule Delivery</value>
         <value xml:lang="es">Entrega prevista</value>
-        <value xml:lang="fr">Expédition prévue</value>
+        <value xml:lang="fr">Planifier l'expédition</value>
         <value xml:lang="it">Schedulazione Consegna</value>
         <value xml:lang="nl">Schedule Delivery</value>
         <value xml:lang="ro">Planificare Livrare </value>
@@ -6975,7 +6975,7 @@
     </property>
     <property key="OrderSecurityErrorToRunUpdateOrderNote">
         <value xml:lang="en">Error in toggling notes to Private/Public</value>
-        <value xml:lang="fr">Erreur dans le basculement de notes au privé/public</value>
+        <value xml:lang="fr">Erreur dans le basculement de notes entre privé et public</value>
         <value xml:lang="ru">Ошибка переключения заметки в приватную/публичную</value>
         <value xml:lang="th">Error in toggling notes to Private/Public</value>
         <value xml:lang="zh">把便笺做私有/公开切换时发生错误</value>
@@ -6997,7 +6997,7 @@
         <value xml:lang="de">Oder bestimmen Sie eine Währung für diesen Auftrag</value>
         <value xml:lang="en">Set a currency for this order</value>
         <value xml:lang="es">O elija una moneda para esta orden</value>
-        <value xml:lang="fr">Ou choisissez une devise pour cette commande</value>
+        <value xml:lang="fr">Choisissez une devise pour cette commande</value>
         <value xml:lang="it">imposta una valuta per questo ordine</value>
         <value xml:lang="nl">Set a currency for this bestelling</value>
         <value xml:lang="ro">Seteaza o valuta pentru aceasta comanda</value>
@@ -7009,7 +7009,7 @@
     <property key="OrderSelectCurrencyOr">
         <value xml:lang="en">Or set a currency for this order</value>
         <value xml:lang="es">O seleccione la moneda de la orden</value>
-        <value xml:lang="fr">Ou sélectionnez une monnaie pour cette commande</value>
+        <value xml:lang="fr">Ou sélectionnez une devise pour cette commande</value>
         <value xml:lang="it">O imposta una valuta per questo ordine</value>
         <value xml:lang="nl">Or set a currency for this bestelling</value>
         <value xml:lang="ro">Sau seteaza o valuta pentru aceasta comanda</value>
@@ -7033,7 +7033,7 @@
     <property key="OrderSelectVariant">
         <value xml:lang="en">Select Variant</value>
         <value xml:lang="es">Por favor, seleccione una variante</value>
-        <value xml:lang="fr">Sélectionner variante</value>
+        <value xml:lang="fr">SVP, sélectionnez une variante</value>
         <value xml:lang="th">เลือกตัวแปร</value>
     </property>
     <property key="OrderSelectedGiftNotAvailableForAll">
@@ -7063,7 +7063,7 @@
     </property>
     <property key="OrderSendConfirmationEmailBCCTo">
         <value xml:lang="en">BCC To</value>
-        <value xml:lang="fr">A BCC</value>
+        <value xml:lang="fr">CCI à</value>
         <value xml:lang="ru">Скрытая копия</value>
         <value xml:lang="th">BCC To</value>
         <value xml:lang="zh">密送</value>
@@ -7089,7 +7089,7 @@
     </property>
     <property key="OrderSendConfirmationEmailContentType">
         <value xml:lang="en">Content-Type</value>
-        <value xml:lang="fr">Type contenu</value>
+        <value xml:lang="fr">Type de contenu</value>
         <value xml:lang="ru">Content-Type</value>
         <value xml:lang="th">ประเภทหัวข้อ</value>
         <value xml:lang="zh">内容类型</value>
@@ -7121,7 +7121,7 @@
     <property key="OrderSendConfirmationEmailSubject">
         <value xml:lang="en">Subject</value>
         <value xml:lang="es">Asunto</value>
-        <value xml:lang="fr">Sujet</value>
+        <value xml:lang="fr">Objet</value>
         <value xml:lang="it">Soggetto</value>
         <value xml:lang="nl">Onderwerp</value>
         <value xml:lang="ro">Subiect</value>
@@ -7134,7 +7134,7 @@
         <value xml:lang="de">Email senden</value>
         <value xml:lang="en">Send Email</value>
         <value xml:lang="es">Enviar email</value>
-        <value xml:lang="fr">Envoi E-mail</value>
+        <value xml:lang="fr">Envoi du courriel</value>
         <value xml:lang="it">Invia Email</value>
         <value xml:lang="nl">Send Email</value>
         <value xml:lang="ro">Trimite Email</value>
@@ -8819,7 +8819,7 @@
         <value xml:lang="de">Dieses Produkt wurde noch nicht beurteilt</value>
         <value xml:lang="en">Product  Not  Reviewed  Yet</value>
         <value xml:lang="es">Este producto no fue revisado aún</value>
-        <value xml:lang="fr">Produit non passé en revue</value>
+        <value xml:lang="fr">Produit non examiné</value>
         <value xml:lang="pt_PT">Este produto ainda não foi revisto</value>
         <value xml:lang="th">สินค้าไม่ได้รับการตรวจสอบ</value>
     </property>
