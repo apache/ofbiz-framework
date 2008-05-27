@@ -64,10 +64,14 @@ under the License.
         </field>
     </form>
     
-    <form name="EditOpportunity" type="single" target="createOpportunity" default-map-name="salesOpportunity"
+    <form name="EditOpportunity" type="single" target="updateOpportunity" default-map-name="salesOpportunity"
         header-row-style="header-row" default-table-style="basic-table">
-        <alt-target use-when="salesOpportunity!=null" target="updateOpportunity"/>
-        <field name="salesOpportunityId" use-when="salesOpportunity!=null"><display/></field>
+        <alt-target use-when="salesOpportunity==null" target="createOpportunity"/>
+        <auto-fields-service service-name="createOpportunity"/>
+        <field use-when="salesOpportunity!=null" name="salesOpportunityId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field use-when="salesOpportunity==null&amp;&amp;salesOpportunityId==null" name="salesOpportunityId"><text/></field>
+        <field use-when="salesOpportunity==null&amp;&amp;salesOpportunityId!=null" name="salesOpportunityId" tooltip="${uiLabelMap.CommonCannotBeFound}: [${salesOpportunityId}]"><display/></field>
+                
         <field name="opportunityName" title="${uiLabelMap.SfaOpportunityName}" widget-style="required"><text size="30"/></field>
         <field name="initialAccount" title="${uiLabelMap.SfaInitialAccount}" widget-style="required"><lookup target-form-name="LookupPartyName"/></field>
         <field name="typeEnumId" title="${uiLabelMap.SfaType}"></field>
