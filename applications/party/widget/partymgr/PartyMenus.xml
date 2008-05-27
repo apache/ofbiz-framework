@@ -74,15 +74,7 @@ under the License.
             <link target="FindEmploymentApp?partyId=${partyId}&amp;&amp;referredByPartyId=${partyId}"/>
         </menu-item>
     </menu>
-    <menu name="ProfileSubTabBar" menu-container-style="button-bar button-style-2" default-selected-style="selected">  
-        <menu-item name="createNew" title="${uiLabelMap.CommonCreateNew}" >
-            <condition>
-                <if-has-permission permission="PARTYMGR" action="_VIEW"/>
-            </condition>
-            <link target="/accounting/control/FindBillingAccount?partyId=${partyId}" url-mode="inter-app" 
-                text="${uiLabelMap.AccountingBillingAccount}"/>
-        </menu-item>
-    </menu>
+
     <menu name="create-new-party" type="simple" menu-container-style="basic-nav">
         <menu-item name="create-party-group" title="${uiLabelMap.PartyCreateNewPartyGroup}">
             <link target="editpartygroup?create_new=Y"/>
