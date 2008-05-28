@@ -22,6 +22,7 @@ package org.ofbiz.entity.condition;
 import java.util.List;
 import java.util.Map;
 
+import javolution.context.ObjectFactory;
 import javolution.lang.Reusable;
 
 import org.ofbiz.entity.GenericDelegator;
@@ -37,12 +38,18 @@ import org.ofbiz.entity.model.ModelField;
  */
 public class EntityFieldValue extends EntityConditionValue implements Reusable {
 
+    protected static final ObjectFactory<EntityFieldValue> entityFieldValueFactory = new ObjectFactory<EntityFieldValue>() {
+        protected EntityFieldValue create() {
+            return new EntityFieldValue();
+        }
+    };
+    
     protected String fieldName = null;
     
     public static EntityFieldValue makeFieldValue(String fieldName) {
-    EntityFieldValue efv = new EntityFieldValue();
-    efv.init(fieldName);
-    return efv;
+        EntityFieldValue efv = EntityFieldValue.entityFieldValueFactory.object();
+        efv.init(fieldName);
+        return efv;
     }
 
     protected EntityFieldValue() {}

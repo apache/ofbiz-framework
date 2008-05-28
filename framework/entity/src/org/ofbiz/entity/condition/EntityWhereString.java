@@ -21,6 +21,8 @@ package org.ofbiz.entity.condition;
 import java.util.List;
 import java.util.Map;
 
+import javolution.context.ObjectFactory;
+
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericModelException;
@@ -40,6 +42,12 @@ import org.ofbiz.entity.model.ModelEntity;
  */
 public class EntityWhereString extends EntityCondition {
 
+    protected static final ObjectFactory<EntityWhereString> entityWhereStringFactory = new ObjectFactory<EntityWhereString>() {
+        protected EntityWhereString create() {
+            return new EntityWhereString();
+        }
+    };
+    
     protected String sqlString;
 
     protected EntityWhereString() {}

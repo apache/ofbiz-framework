@@ -22,6 +22,7 @@ package org.ofbiz.entity.condition;
 import java.util.List;
 import java.util.Map;
 
+import javolution.context.ObjectFactory;
 import javolution.lang.Reusable;
 
 import org.ofbiz.entity.GenericDelegator;
@@ -45,19 +46,24 @@ public abstract class EntityFunction<T extends Comparable> extends EntityConditi
     public static final int ID_UPPER = 3;
     public static final int ID_LOWER = 4;
     
-    public static EntityFunction<Integer> LENGTH(EntityConditionValue nested) { LENGTH ef = new LENGTH(); ef.init(nested); return ef; }
-    public static EntityFunction<Integer> LENGTH(Object value) { LENGTH ef = new LENGTH(); ef.init(value); return ef; }
-    public static EntityFunction<String> TRIM(EntityConditionValue nested) { TRIM ef = new TRIM(); ef.init(nested); return ef; }
-    public static EntityFunction<String> TRIM(Object value) { TRIM ef = new TRIM(); ef.init(value); return ef; }
-    public static EntityFunction<String> UPPER(EntityConditionValue nested) { UPPER ef = new UPPER(); ef.init(nested); return ef; }
-    public static EntityFunction<String> UPPER(Object value) { UPPER ef = new UPPER(); ef.init(value); return ef; }
-    public static EntityFunction<String> UPPER_FIELD(String fieldName) { UPPER ef = new UPPER(); ef.init(EntityFieldValue.makeFieldValue(fieldName)); return ef; }
-    public static EntityFunction<String> LOWER(EntityConditionValue nested) { LOWER ef = new LOWER(); ef.init(nested); return ef; }
-    public static EntityFunction<String> LOWER(Object value) { LOWER ef = new LOWER(); ef.init(value); return ef; }
+    public static EntityFunction<Integer> LENGTH(EntityConditionValue nested) { LENGTH ef = LENGTH.lengthFactory.object(); ef.init(nested); return ef; }
+    public static EntityFunction<Integer> LENGTH(Object value) { LENGTH ef = LENGTH.lengthFactory.object(); ef.init(value); return ef; }
+    public static EntityFunction<String> TRIM(EntityConditionValue nested) { TRIM ef = TRIM.trimFactory.object(); ef.init(nested); return ef; }
+    public static EntityFunction<String> TRIM(Object value) { TRIM ef = TRIM.trimFactory.object(); ef.init(value); return ef; }
+    public static EntityFunction<String> UPPER(EntityConditionValue nested) { UPPER ef = UPPER.upperFactory.object(); ef.init(nested); return ef; }
+    public static EntityFunction<String> UPPER(Object value) { UPPER ef = UPPER.upperFactory.object(); ef.init(value); return ef; }
+    public static EntityFunction<String> UPPER_FIELD(String fieldName) { UPPER ef = UPPER.upperFactory.object(); ef.init(EntityFieldValue.makeFieldValue(fieldName)); return ef; }
+    public static EntityFunction<String> LOWER(EntityConditionValue nested) { LOWER ef = LOWER.lowerFactory.object(); ef.init(nested); return ef; }
+    public static EntityFunction<String> LOWER(Object value) { LOWER ef = LOWER.lowerFactory.object(); ef.init(value); return ef; }
 
     public static class LENGTH extends EntityFunction<Integer> {
         public static Fetcher<Integer> FETCHER = new Fetcher<Integer>() {
             public Integer getValue(Object value) { return value.toString().length(); }
+        };
+        protected static final ObjectFactory<LENGTH> lengthFactory = new ObjectFactory<LENGTH>() {
+            protected LENGTH create() {
+                return new LENGTH();
+            }
         };
         protected LENGTH() {}
         /** @deprecated Use EntityCondition.LENGTH() instead */
@@ -65,13 +71,18 @@ public abstract class EntityFunction<T extends Comparable> extends EntityConditi
         /** @deprecated Use EntityCondition.LENGTH() instead */
         public LENGTH(Object value) { init(value); }
         public void init(Object value) {
-        super.init(FETCHER, ID_LENGTH, "LENGTH", value);
+            super.init(FETCHER, ID_LENGTH, "LENGTH", value);
         }
     };
 
     public static class TRIM extends EntityFunction<String> {
         public static Fetcher<String> FETCHER = new Fetcher<String>() {
             public String getValue(Object value) { return value.toString().trim(); }
+        };
+        protected static final ObjectFactory<TRIM> trimFactory = new ObjectFactory<TRIM>() {
+            protected TRIM create() {
+                return new TRIM();
+            }
         };
         protected TRIM() {}
         /** @deprecated Use EntityCondition.TRIM() instead */
@@ -87,6 +98,11 @@ public abstract class EntityFunction<T extends Comparable> extends EntityConditi
         public static Fetcher<String> FETCHER = new Fetcher<String>() {
             public String getValue(Object value) { return value.toString().toUpperCase(); }
         };
+        protected static final ObjectFactory<UPPER> upperFactory = new ObjectFactory<UPPER>() {
+            protected UPPER create() {
+                return new UPPER();
+            }
+        };
         protected UPPER() {}
         /** @deprecated Use EntityCondition.UPPER() instead */
         public UPPER(EntityConditionValue nested) { init(nested); }
@@ -100,6 +116,11 @@ public abstract class EntityFunction<T extends Comparable> extends EntityConditi
     public static class LOWER extends EntityFunction<String> {
         public static Fetcher<String> FETCHER = new Fetcher<String>() {
             public String getValue(Object value) { return value.toString().toLowerCase(); }
+        };
+        protected static final ObjectFactory<LOWER> lowerFactory = new ObjectFactory<LOWER>() {
+            protected LOWER create() {
+                return new LOWER();
+            }
         };
         protected LOWER() {}
         /** @deprecated Use EntityCondition.LOWER() instead */
