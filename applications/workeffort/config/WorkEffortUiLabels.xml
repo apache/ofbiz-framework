@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <!--
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
@@ -1252,7 +1252,7 @@
         <value xml:lang="en">Address Line 1</value>
         <value xml:lang="es">Dirección (línea 1)</value>
         <value xml:lang="fr">Ligne d'adresse 1</value>
-        <value xml:lang="it">Indirizzo Riga 1</value>
+        <value xml:lang="it">Indirizzo riga 1</value>
         <value xml:lang="nl">Adres lijn 1</value>
         <value xml:lang="ro">Adresa Linia 1</value>
         <value xml:lang="ru">Строка 1 для адреса</value>
@@ -1263,7 +1263,7 @@
         <value xml:lang="en">Address Line 2</value>
         <value xml:lang="es">Dirección (línea 2)</value>
         <value xml:lang="fr">Ligne d'adresse 2</value>
-        <value xml:lang="it">Indirizzo Riga 2</value>
+        <value xml:lang="it">Indirizzo riga 2</value>
         <value xml:lang="nl">Adres Lijn 2</value>
         <value xml:lang="ro">Adresa Linia 2</value>
         <value xml:lang="ru">Строка 2 для адреса</value>

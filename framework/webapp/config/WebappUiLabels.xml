@@ -234,6 +234,7 @@
     <property key="loginevents.following_error_occurred_during_login">
         <value xml:lang="en">The following error occurred during login: ${errorMessage}</value>
         <value xml:lang="fr">L'erreur suivante est apparue lors de la connexion: ${errorMessage}</value>
+        <value xml:lang="it">Il seguente errore è avvenuto durante il login: ${errorMessage}</value>
         <value xml:lang="ru">Во время регистрации в системе произошла следующая ошибка: ${errorMessage}</value>
         <value xml:lang="th">เกิดความผิดพลาดระหว่างการเข้าสู่ระบบ: ${errorMessage}
         </value>
@@ -242,6 +243,7 @@
     <property key="loginevents.password_was_empty_reenter">
         <value xml:lang="en">The Password was empty, please re-enter.</value>
         <value xml:lang="fr">Le mot de passe est vide, merci de le saisir</value>
+        <value xml:lang="it">La password è vuota, prego inserirla di nuovo.</value>
         <value xml:lang="ru">Пароль пустой, введите повторно.</value>
         <value xml:lang="th">รหัสผ่านเป็นค่าว่าง กรุณากรอกอีกครั้ง</value>
         <value xml:lang="zh">密码是空的，请重新输入。</value>
@@ -249,6 +251,7 @@
     <property key="loginevents.unable_to_login_this_application">
         <value xml:lang="en">Login for this application couldn't be completed (required permissions missing).</value>
         <value xml:lang="fr">La connexion à cette application n'a pas pu être effectuée (cet utilisateur n'a pas le niveau d'autorisation nécessaire)</value>
+        <value xml:lang="it">Impossibile accedere a questa applicazione (utente con privilegi insufficienti)</value>
         <value xml:lang="ru">Регистрация для этого приложения не может быть завершена (отсутствуют требуемые права).</value>
         <value xml:lang="th">การเข้าสู่ระบบสำหรับโปรแกรมประยุกต์นี้ไม่เสร็จสมบูรณ์ (ไม่ได้รับอนุญาตตามความต้องการ)
         </value>
@@ -257,6 +260,7 @@
     <property key="loginevents.username_was_empty_reenter">
         <value xml:lang="en">The Username was empty, please re-enter.</value>
         <value xml:lang="fr">Le nom d'utilisateur est vide, merci de le saisir</value>
+        <value xml:lang="it">Il nome utente è vuoto, prego inserirlo di nuovo.</value>
         <value xml:lang="ru">Имя пользователя пустое, введите повторно.</value>
         <value xml:lang="th">ชื่อผู้ใช้เป็นค่าว่าง กรุณากรอกอีกครั้ง</value>
         <value xml:lang="zh">用户名是空的，请重新输入。</value>

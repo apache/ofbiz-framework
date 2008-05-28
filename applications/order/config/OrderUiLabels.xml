@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <!--
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
@@ -692,7 +692,7 @@
     <property key="FormFieldTitle_grandTotal">
         <value xml:lang="en">Grand Total</value>
         <value xml:lang="fr">Total général</value>
-        <value xml:lang="it">Totale Generale</value>
+        <value xml:lang="it">Totale generale</value>
         <value xml:lang="nl">Bruto totaal</value>
         <value xml:lang="ro">Total General</value>
         <value xml:lang="ru">Общая сумма</value>
@@ -1504,7 +1504,7 @@
         <value xml:lang="en">Add Code</value>
         <value xml:lang="es">Agregar un código</value>
         <value xml:lang="fr">Ajouter un code promotion</value>
-        <value xml:lang="it">Aggiungi Codice</value>
+        <value xml:lang="it">Aggiungi codice</value>
         <value xml:lang="nl">Voeg code toe</value>
         <value xml:lang="ro">Adauga Cod</value>
         <value xml:lang="ru">Добавить код</value>
@@ -1545,7 +1545,7 @@
         <value xml:lang="fr">Ajouter au panier </value>
         <value xml:lang="en_GB">Add to basket</value>
         <value xml:lang="hi_IN">टोकरी में जोड़ें</value>
-        <value xml:lang="it">Aggiungi al Carrello</value>
+        <value xml:lang="it">Aggiungi al carrello</value>
         <value xml:lang="ja">買い物かごに入れる</value>
         <value xml:lang="nl">Bestel</value>
         <value xml:lang="pt_PT">Adicionar ao Cesto</value>
@@ -1940,7 +1940,7 @@
         <value xml:lang="es">Item usado en promociones</value>
         <value xml:lang="fr">Article du panier en promotion</value>
         <value xml:lang="hi_IN">टोकरी वस्तु प्रोत्साहन में</value>
-        <value xml:lang="it">Voce del Carrello Usato dalle Promozioni</value>
+        <value xml:lang="it">Voci del carrello in promozione</value>
         <value xml:lang="ja">Cart Item Use in Promotions</value>
         <value xml:lang="nl">Winkelwagen gebruikt in een aanbieding</value>
         <value xml:lang="pt_PT">Cart Item Use in Promotions</value>
@@ -1957,7 +1957,7 @@
         <value xml:lang="es">Resumen</value>
         <value xml:lang="fr">Contenu du panier</value>
         <value xml:lang="hi_IN">टोकरी संक्षेप</value>
-        <value xml:lang="it">Sommario Carrello</value>
+        <value xml:lang="it">Contenuto carrello</value>
         <value xml:lang="ja">買い物かご状態</value>
         <value xml:lang="nl">Winkelwagen overzicht</value>
         <value xml:lang="pt_PT">Resumo do Cesto</value>
@@ -2239,7 +2239,7 @@
         <value xml:lang="en">Create a Request For Quote</value>
         <value xml:lang="es">Solicitar cotización</value>
         <value xml:lang="fr">Créer une demande de devis</value>
-        <value xml:lang="it">Creare una Richiesta Di Preventivo</value>
+        <value xml:lang="it">Crea una richiesta di preventivo</value>
         <value xml:lang="nl">Maak een offerte aanvraag</value>
         <value xml:lang="ro">Crearea unei Cereri De Oferta</value>
         <value xml:lang="ru">Создать запрос ценового предложения</value>
@@ -2251,7 +2251,7 @@
         <value xml:lang="en">Create a Request For Quote</value>
         <value xml:lang="es">Solicitar cotización</value>
         <value xml:lang="fr">Créer une demande de devis</value>
-        <value xml:lang="it">Creare una Richiesta Di Preventivo</value>
+        <value xml:lang="it">Crea una richiesta di preventivo</value>
         <value xml:lang="nl">Maak een aanvraag voor een offerte</value>
         <value xml:lang="ro">Crearea unei Cereri De Oferta</value>
         <value xml:lang="ru">Создать запрос ценового предложения</value>
@@ -2290,7 +2290,7 @@
         <value xml:lang="es">Añadir rápido</value>
         <value xml:lang="fr">Ajout rapide</value>
         <value xml:lang="hi_IN">जल्द जानकारी</value>
-        <value xml:lang="it">Aggiunta Veloce</value>
+        <value xml:lang="it">Aggiunta veloce</value>
         <value xml:lang="nl">Voeg snel toe</value>
         <value xml:lang="ro">Adaugare Rapida</value>
         <value xml:lang="ru">Быстрое добавление</value>
@@ -2385,7 +2385,7 @@
         <value xml:lang="en">Create New Quote From Cart</value>
         <value xml:lang="es">Crear nueva cotización a partir del carro</value>
         <value xml:lang="fr">Créer une nouveau devis depuis le panier</value>
-        <value xml:lang="it">Creare Nuovo Preventivo Dal Carrello</value>
+        <value xml:lang="it">Crea un nuovo preventivo dal carrello</value>
         <value xml:lang="nl">maak een nieuwe offerte van deze bestelling</value>
         <value xml:lang="ro">Creare Nou Preventiv Din Cos</value>
         <value xml:lang="ru">Создать предложение из корзины</value>
@@ -2491,7 +2491,7 @@
         <value xml:lang="es">Reseñas de clientes</value>
         <value xml:lang="fr">Opinions de la clientèle </value>
         <value xml:lang="hi_IN">ग्राहक पुनरवलोकन</value>
-        <value xml:lang="it">Recensioni Cliente</value>
+        <value xml:lang="it">Recensioni dei clienti</value>
         <value xml:lang="ja">Customer Reviews</value>
         <value xml:lang="nl">Meningen van klanten</value>
         <value xml:lang="pt_PT">Revisão do Cliente</value>
@@ -2913,7 +2913,7 @@
         <value xml:lang="en">Gift?</value>
         <value xml:lang="es">¿Regalo?</value>
         <value xml:lang="fr">Cadeau </value>
-        <value xml:lang="it">Omaggio ?</value>
+        <value xml:lang="it">Omaggio </value>
         <value xml:lang="nl">Cadeau?</value>
         <value xml:lang="ro">Omagiu </value>
         <value xml:lang="ru">Подарок?</value>
@@ -2963,7 +2963,7 @@
         <value xml:lang="en">Grand Total</value>
         <value xml:lang="es">Importe total</value>
         <value xml:lang="fr">Total général</value>
-        <value xml:lang="it">Totale Generale</value>
+        <value xml:lang="it">Totale generale</value>
         <value xml:lang="nl">Bruto totaal</value>
         <value xml:lang="ro">Total General</value>
         <value xml:lang="ru">Общая сумма</value>
@@ -3843,7 +3843,7 @@
         <value xml:lang="en">No Request Found</value>
         <value xml:lang="es">Ningún pedido encontrado</value>
         <value xml:lang="fr">Aucune demande trouvée</value>
-        <value xml:lang="it">Nessuna Richiesta Trovata</value>
+        <value xml:lang="it">Nessuna richiesta trovata</value>
         <value xml:lang="nl">Geen aanvraag gevonden.</value>
         <value xml:lang="ro">Nici-o Cerere Gasita</value>
         <value xml:lang="ru">Запросы не найдены</value>
@@ -4753,7 +4753,7 @@
         <value xml:lang="en">Quote Issue Date</value>
         <value xml:lang="es">Fecha de edición</value>
         <value xml:lang="fr">Date d'émissions du devis</value>
-        <value xml:lang="it">Data Emissione</value>
+        <value xml:lang="it">Data emissione</value>
         <value xml:lang="nl">Offerte Issue Date</value>
         <value xml:lang="ro">Data Emisie</value>
         <value xml:lang="ru">Дата предложения</value>
@@ -5570,6 +5570,7 @@
     <property key="OrderPleaseWaitUntilBeforeShipping">
         <value xml:lang="en">Please wait until the entire order is ready before shipping</value>
         <value xml:lang="fr">SVP, attendre que la commande soit entièrement prête avant d'expédier</value>
+        <value xml:lang="it">Per favore aspettare fino a quando l'intero ordine è pronto per la spedizione.</value>
         <value xml:lang="th">กรุณารอจนกระทั่งการกรอกข้อมูลเรียบร้อยก่อนการขนส่งสินค้า</value>
     </property>
     <property key="OrderPrepareOrder">
@@ -5713,7 +5714,7 @@
         <value xml:lang="en">Promotions Applied</value>
         <value xml:lang="es">Promociones aplicadas</value>
         <value xml:lang="fr">Promotions appliquées</value>
-        <value xml:lang="it">Promozioni Applicate</value>
+        <value xml:lang="it">Promozioni applicate</value>
         <value xml:lang="ja">Promotions Applied</value>
         <value xml:lang="nl">Promoties Toegepast</value>
         <value xml:lang="pt_PT">Promotions Applied</value>
@@ -5767,7 +5768,7 @@
         <value xml:lang="es">Información de la promoción</value>
         <value xml:lang="fr">Information sur promotion</value>
         <value xml:lang="hi_IN">प्रोत्साहन सामान कि जानकारी</value>
-        <value xml:lang="it">Informazioni Promozione</value>
+        <value xml:lang="it">Informazioni sulle promozioni</value>
         <value xml:lang="ja">Promotion Information</value>
         <value xml:lang="nl">Promotie Informatie</value>
         <value xml:lang="pt_PT">Promotion Information</value>
@@ -6276,7 +6277,7 @@
         <value xml:lang="en">Request Date</value>
         <value xml:lang="es">Fecha de pedido</value>
         <value xml:lang="fr">Date de demande</value>
-        <value xml:lang="it">Data Richiesta</value>
+        <value xml:lang="it">Data richiesta</value>
         <value xml:lang="nl">Request Date</value>
         <value xml:lang="ro">Data Cerere</value>
         <value xml:lang="ru">Дата запроса</value>
@@ -6312,7 +6313,7 @@
         <value xml:lang="en">Last Modified Date</value>
         <value xml:lang="es">Fecha de última modificación</value>
         <value xml:lang="fr">Dernière date modifiée</value>
-        <value xml:lang="it">Data Ultima Modifica</value>
+        <value xml:lang="it">Data ultima modifica</value>
         <value xml:lang="nl">Last Modified Date</value>
         <value xml:lang="ro">Data Ultimei Modificari</value>
         <value xml:lang="ru">Дата последнего изменения</value>
@@ -7284,6 +7285,7 @@
     <property key="OrderShippingInformation">
         <value xml:lang="en">Shipping Information</value>
         <value xml:lang="fr">Information d'expédition</value>
+        <value xml:lang="it">Spedizione</value>
         <value xml:lang="th">ข้อมูลการขนส่งสินค้า</value>
     </property>
     <property key="OrderShippmentDateHope">
@@ -7300,7 +7302,7 @@
         <value xml:lang="fr">Panier</value>
         <value xml:lang="en_GB">Shopping basket</value>
         <value xml:lang="hi_IN">ख़रीदारी टोकरी</value>
-        <value xml:lang="it">Carrello di Acquisto</value>
+        <value xml:lang="it">Carrello</value>
         <value xml:lang="ja">Shopping Cart</value>
         <value xml:lang="nl">Winkelwagen</value>
         <value xml:lang="pt_PT">Cesto de Compras</value>
@@ -7317,7 +7319,7 @@
         <value xml:lang="es">El Carro de Compra está Vacío</value>
         <value xml:lang="fr">Panier vide</value>
         <value xml:lang="hi_IN">टोकरी ख़ाली है</value>
-        <value xml:lang="it">Carrello di Acquisto è vuoto</value>
+        <value xml:lang="it">Carrello vuoto</value>
         <value xml:lang="ja">買い物かごの中には何も入っていません</value>
         <value xml:lang="nl">Winkelwagen is leeg</value>
         <value xml:lang="pt_PT">Cesto de Compras Vazio</value>
@@ -7397,7 +7399,7 @@
         <value xml:lang="en">Splitting Preference</value>
         <value xml:lang="es">Elección de entrega</value>
         <value xml:lang="fr">Choix de livraison</value>
-        <value xml:lang="it">Preferenze di Divisione</value>
+        <value xml:lang="it">Preferenze di divisione</value>
         <value xml:lang="nl">Splitting Preference</value>
         <value xml:lang="ro">Preferinte de Diviziune</value>
         <value xml:lang="ru">Предпочтения разделения</value>
@@ -7544,7 +7546,7 @@
         <value xml:lang="es">añadir artículos seleccionados a una lista de compra</value>
         <value xml:lang="fr">Ajouter les articles sélectionnés à la liste d'achats</value>
         <value xml:lang="hi_IN">ख़रीदारी सूची में चुना सामान जुड़ेगें</value>
-        <value xml:lang="it">per aggiungere seleziona righe da una lista di acquisto</value>
+        <value xml:lang="it">per aggiungere le righe selezionate ad una lista di acquisto</value>
         <value xml:lang="ja">to add selected items to a shopping list</value>
         <value xml:lang="nl">om geselecteerde items aan een boodschappenlijst toe te voegen</value>
         <value xml:lang="pt_PT">Para adicionar itens seleccionados a uma lista de compras</value>
@@ -7882,7 +7884,7 @@
         <value xml:lang="es">Ver Carro</value>
         <value xml:lang="fr">Voir le panier</value>
         <value xml:lang="hi_IN">टोकरी देखें</value>
-        <value xml:lang="it">Visualizza Carrello</value>
+        <value xml:lang="it">Visualizza carrello</value>
         <value xml:lang="ja">買い物かごを見る</value>
         <value xml:lang="nl">Kijk in de winkelwagen</value>
         <value xml:lang="pt_PT">Ver o Cesto</value>
@@ -8076,7 +8078,7 @@
         <value xml:lang="es">Tiene </value>
         <value xml:lang="fr">Vous devez</value>
         <value xml:lang="hi_IN">आपको जरूर</value>
-        <value xml:lang="it">Tu devi </value>
+        <value xml:lang="it">Devi fare il </value>
         <value xml:lang="ja">You Must </value>
         <value xml:lang="nl">U moet </value>
         <value xml:lang="pt_PT">Você Tem</value>
@@ -8924,7 +8926,7 @@
         <value xml:lang="en">No product information passed, not adding anything to cart.</value>
         <value xml:lang="es">Ninguna información del producto pasó, no se agregó nada al carro.</value>
         <value xml:lang="fr">Pas d'information article, pas d'ajout au panier.</value>
-        <value xml:lang="it">Nessun informazione sul prodotto passata, non è possibile aggiungere niente al carrello.</value>
+        <value xml:lang="it">Nessuna informazione sul prodotto, non è stato aggiunto niente al carrello.</value>
         <value xml:lang="nl">No product information passed, not adding anything to cart.</value>
         <value xml:lang="pt_PT">No product information passed, not adding anything to cart.</value>
         <value xml:lang="ro">Nici-o informatie pentru produsul trecut, nu adaugati nimic in cos.</value>
@@ -9435,7 +9437,7 @@
         <value xml:lang="en">Please Select a Shipping Destination.</value>
         <value xml:lang="es">Por favor, seleccione un destino del envío.</value>
         <value xml:lang="fr">S'il vous plaît choisissez une destination d'expédition.</value>
-        <value xml:lang="it">Perfavore Seleziona una Destinazione Spedizione.</value>
+        <value xml:lang="it">Per favore seleziona una destinazione per la spedizione.</value>
         <value xml:lang="nl">Please Select a Shipping Destination.</value>
         <value xml:lang="ro">Va rugam Selectionati o Destinatie de Expediere.</value>
         <value xml:lang="ru">Пожалуйста выберите пункт доставки.</value>

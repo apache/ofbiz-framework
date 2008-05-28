@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <!--
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
@@ -1737,7 +1737,7 @@
         <value xml:lang="en">Email Password</value>
         <value xml:lang="es">Contraseña de e-mail</value>
         <value xml:lang="fr">Envoyez-moi mon mot de passe par courriel</value>
-        <value xml:lang="it">Password Email</value>
+        <value xml:lang="it">Invia password per Email</value>
         <value xml:lang="nl">Email Wachtwoord</value>
         <value xml:lang="pt">Eviar Password por Email</value>
         <value xml:lang="ro">Parola Email</value>
@@ -2178,7 +2178,7 @@
         <value xml:lang="en">The Following Errors Occurred</value>
         <value xml:lang="es">Los siguientes errores ocurrieron</value>
         <value xml:lang="fr">Erreur(s) </value>
-        <value xml:lang="it">Sono successi i Seguenti Errori</value>
+        <value xml:lang="it">Errore</value>
         <value xml:lang="nl">De volgende fouten kwamen voor</value>
         <value xml:lang="pt">Ocorreram os Seguintes Erros</value>
         <value xml:lang="ro">Au aparut urmatoarele Erori</value>
@@ -2190,12 +2190,12 @@
     <property key="CommonFollowingOccurred">
         <value xml:lang="ar">التالي حدث</value>
         <value xml:lang="de">Folgendes ist aufgetreten</value>
-        <value xml:lang="en">The Following Occurred</value>
+        <value xml:lang="en">The following occurred</value>
         <value xml:lang="es">Ocurrió lo siguiente</value>
-        <value xml:lang="fr">Ce qui suit s'est produit</value>
-        <value xml:lang="it">E' successo il Seguente</value>
-        <value xml:lang="nl">Het volgende is gebeurd</value>
-        <value xml:lang="pt">Ocorreu o Seguinte</value>
+        <value xml:lang="fr">Information sur l'action effectuée</value>
+        <value xml:lang="it">Informazioni sul comando eseguito</value>
+        <value xml:lang="nl">Het volgende gebeurde</value>
+        <value xml:lang="pt">Ocorreu o seguinte</value>
         <value xml:lang="ro">S-au intamplat urmatoarele</value>
         <value xml:lang="ru">Отмечено следующее</value>
         <value xml:lang="th">ตามที่เกิดขึ้น</value>
@@ -2224,7 +2224,7 @@
         <value xml:lang="en">Forgot Your Password</value>
         <value xml:lang="es">¿Olvidó su contraseña?</value>
         <value xml:lang="fr">Vous avez oublié votre mot de passe</value>
-        <value xml:lang="it">Password Dimenticata</value>
+        <value xml:lang="it">Password dimenticata</value>
         <value xml:lang="nl">Wachtwoord vergeten</value>
         <value xml:lang="pt">Esqueceu-ce da Password</value>
         <value xml:lang="pt_PT">Esqueceu a Sua Senha</value>
@@ -2471,7 +2471,7 @@
         <value xml:lang="en">Get Password Hint</value>
         <value xml:lang="es">Obtener pista de password</value>
         <value xml:lang="fr">Voir votre aide pour le mot de passe</value>
-        <value xml:lang="it">Ottieni Suggerimento Password</value>
+        <value xml:lang="it">Suggerisci password</value>
         <value xml:lang="nl">Krijg een wachtwoord aanwijzing</value>
         <value xml:lang="pt">Obter Pergunta de Segurança</value>
         <value xml:lang="pt_PT">Buscar Dica de Senha</value>
@@ -2509,7 +2509,7 @@
         <value xml:lang="en">Go Back</value>
         <value xml:lang="es">Regresar</value>
         <value xml:lang="fr">Retour</value>
-        <value xml:lang="it">Torna Indietro</value>
+        <value xml:lang="it">Indietro</value>
         <value xml:lang="nl">Ga terug</value>
         <value xml:lang="pt">Voltar Atràs</value>
         <value xml:lang="pt_PT">Retroceder</value>
@@ -3210,7 +3210,7 @@
         <value xml:lang="en">You may create a new account here</value>
         <value xml:lang="es">Puede crear una nueva cuenta aquí</value>
         <value xml:lang="fr">Vous pouvez créer un nouveau compte ici</value>
-        <value xml:lang="it">Tu puoi creare un nuovo utente qui</value>
+        <value xml:lang="it">Qui puoi creare un nuovo utente</value>
         <value xml:lang="nl">Hier een nieuwe rekening aanmaken</value>
         <value xml:lang="pt">Você pode criar uma nova conta aqui</value>
         <value xml:lang="pt_PT">Pode criar nova conta aqui</value>
@@ -3466,7 +3466,7 @@
         <value xml:lang="en">New User</value>
         <value xml:lang="es">Nuevo usuario</value>
         <value xml:lang="fr">Nouvel utilisateur</value>
-        <value xml:lang="it">Nuovo Utente</value>
+        <value xml:lang="it">Nuovo utente</value>
         <value xml:lang="nl">Nieuwe gebruiker</value>
         <value xml:lang="pt">Novo Utilizador</value>
         <value xml:lang="ro">Nou Utilizator</value>
@@ -3773,7 +3773,7 @@
         <value xml:lang="en">Nbr</value>
         <value xml:lang="es">#</value>
         <value xml:lang="fr">N°</value>
-        <value xml:lang="it">#</value>
+        <value xml:lang="it">n°</value>
         <value xml:lang="ja">#</value>
         <value xml:lang="nl">#</value>
         <value xml:lang="ro">#</value>
@@ -4384,7 +4384,7 @@
         <value xml:lang="en">Quick Add</value>
         <value xml:lang="es">Añadir rápido</value>
         <value xml:lang="fr">Ajout rapide</value>
-        <value xml:lang="it">Aggiunta Veloce</value>
+        <value xml:lang="it">Aggiunta veloce</value>
         <value xml:lang="nl">Snel toevoegen</value>
         <value xml:lang="pt">Adicionar Rapidamente</value>
         <value xml:lang="pt_PT">Compra Expresso</value>
@@ -4538,7 +4538,7 @@
         <value xml:lang="en">Registered User</value>
         <value xml:lang="es">Usuario registrado</value>
         <value xml:lang="fr">Utilisateur enregistré</value>
-        <value xml:lang="it">Utente Registrato</value>
+        <value xml:lang="it">Utente registrato</value>
         <value xml:lang="nl">Geregisteerde gebruiker</value>
         <value xml:lang="pt">Utilizador Registado</value>
         <value xml:lang="pt_PT">Utilizador Inscrito</value>
@@ -5558,34 +5558,6 @@
         <value xml:lang="fr">Le</value>
         <value xml:lang="th">ที่</value>
     </property>
-    <property key="CommonTheFollowingErrorsOccurred">
-        <value xml:lang="ar">الأخطاء التالية حدثت</value>
-        <value xml:lang="en">The following errors occurred</value>
-        <value xml:lang="es">Los siguientes errores ocurrieron</value>
-        <value xml:lang="fr">Les erreurs suivantes ont été détectées</value>
-        <value xml:lang="it">Sono successi I seguenti errori</value>
-        <value xml:lang="nl">De volgende fouten werden gevonden</value>
-        <value xml:lang="pt">Ocorreram os seguintes erros</value>
-        <value xml:lang="ro">Au aparut Urmatoarele erori</value>
-        <value xml:lang="ru">Имеются следующие ошибки</value>
-        <value xml:lang="th">ผิดพลาดตามสิ่งที่เกิดขึ้น</value>
-        <value xml:lang="zh_CN">发生了下面错误</value>
-        <value xml:lang="zh">发生下列错误</value>
-    </property>
-    <property key="CommonTheFollowingOccurred">
-        <value xml:lang="ar">التالي حدث</value>
-        <value xml:lang="en">The following occurred</value>
-        <value xml:lang="es">Ocurrió lo siguiente</value>
-        <value xml:lang="fr">Information sur l'action effectuée</value>
-        <value xml:lang="it">E' successo il seguente</value>
-        <value xml:lang="nl">Het volgende gebeurde</value>
-        <value xml:lang="pt">Ocorreu o seguinte</value>
-        <value xml:lang="ro">S-au intamplat urmatoarele</value>
-        <value xml:lang="ru">Отмечено следующее</value>
-        <value xml:lang="th">ตามสิ่งที่เกิดขึ้น</value>
-        <value xml:lang="zh_CN">下面发生了</value>
-        <value xml:lang="zh">发生下列情况</value>
-    </property>
     <property key="CommonTheFollowingRequiredFieldsWhereFoundEmpty">
         <value xml:lang="en">The Following Required Fields Where Found Empty</value>
         <value xml:lang="fr">Les champs suivants sont vides</value>
@@ -5905,7 +5877,7 @@
         <value xml:lang="en">Unit Price</value>
         <value xml:lang="es">Precio unitario</value>
         <value xml:lang="fr">P. U.</value>
-        <value xml:lang="it">Prezzo Unitario</value>
+        <value xml:lang="it">Prezzo unitario</value>
         <value xml:lang="nl">Unit Prijs</value>
         <value xml:lang="pt">Preço Unitário</value>
         <value xml:lang="ro">Prez Unitar</value>
@@ -6121,7 +6093,7 @@
         <value xml:lang="en">Valid From Date</value>
         <value xml:lang="es">Válido a partir de</value>
         <value xml:lang="fr">Valable à partir de</value>
-        <value xml:lang="it">Valido Dalla Data</value>
+        <value xml:lang="it">Valido da</value>
         <value xml:lang="nl">Geldig vanaf Datum</value>
         <value xml:lang="pt">Válido Desde (Data)</value>
         <value xml:lang="ro">Valabil De la Data</value>
@@ -6135,7 +6107,7 @@
         <value xml:lang="en">Valid Thru Date</value>
         <value xml:lang="es">Válido hasta</value>
         <value xml:lang="fr">Valable jusqu'à</value>
-        <value xml:lang="it">Valido Fino Alla Data</value>
+        <value xml:lang="it">Valido fino a</value>
         <value xml:lang="nl">Geldig tot datum</value>
         <value xml:lang="pt">Válido Até (Data)</value>
         <value xml:lang="ro">Valabil Pana la Data</value>

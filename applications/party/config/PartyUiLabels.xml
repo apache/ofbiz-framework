@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <!--
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
@@ -531,7 +531,7 @@
     <property key="FormFieldTitle_isExempt">
         <value xml:lang="en">Is Exempt</value>
         <value xml:lang="fr">Exempté</value>
-        <value xml:lang="it">E' Esente</value>
+        <value xml:lang="it">E' esente</value>
         <value xml:lang="nl">Is Exempt</value>
         <value xml:lang="ro">Este Scutita</value>
         <value xml:lang="ru">Есть ли льготы</value>
@@ -1896,7 +1896,7 @@
         <value xml:lang="en">Address Line 1</value>
         <value xml:lang="es">Dirección</value>
         <value xml:lang="fr">Ligne d'adresse 1</value>
-        <value xml:lang="it">Indirizzo Riga 1</value>
+        <value xml:lang="it">Indirizzo riga 1</value>
         <value xml:lang="nl">Adres Lijn 1</value>
         <value xml:lang="pt_PT">Linha 1 da Morada</value>
         <value xml:lang="ro">Adresa linie 1</value>
@@ -1908,7 +1908,7 @@
         <value xml:lang="en">Address Line 1 is missing</value>
         <value xml:lang="es">Falta ingresar dirección</value>
         <value xml:lang="fr">Ligne d'adresse 1 absente</value>
-        <value xml:lang="it">Indirizzo Riga 1 è mancante</value>
+        <value xml:lang="it">Indirizzo riga 1 è mancante</value>
         <value xml:lang="nl">Adres lin 1 ontbreekt</value>
         <value xml:lang="pt_PT">Linha 1 da Morada em Falta</value>
         <value xml:lang="ro">Adresa linie 1 Lipseste</value>
@@ -1920,7 +1920,7 @@
         <value xml:lang="en">Address Line 2</value>
         <value xml:lang="es">Dirección (continuación)</value>
         <value xml:lang="fr">Ligne d'adresse 2</value>
-        <value xml:lang="it">Indirizzo Riga 2</value>
+        <value xml:lang="it">Indirizzo riga 2</value>
         <value xml:lang="nl">Adres Lijn 2</value>
         <value xml:lang="pt_PT">Linha 2 da Morada</value>
         <value xml:lang="ro">Adresa Linie 2</value>
@@ -5017,6 +5017,7 @@
     <property key="PartyPostalAddressSuccessfullyCreated">
         <value xml:lang="en">Postal Address successfully created.</value>
         <value xml:lang="fr">Adresse postale créé.</value>
+        <value xml:lang="it">Indirizzo postale creato.</value>
         <value xml:lang="ru">Почтовый адрес успешно создан.</value>
         <value xml:lang="th">สร้างรหัสไปรษณีย์ของที่อยู่เรียบร้อยแล้ว</value>
         <value xml:lang="zh">已成功创建通信地址。</value>
@@ -5024,6 +5025,7 @@
     <property key="PartyPostalAddressSuccessfullyUpdated">
         <value xml:lang="en">Postal Address successfully updated.</value>
         <value xml:lang="fr">Adresse postale mis à jour</value>
+        <value xml:lang="it">Indirizzo postale creato.</value>
         <value xml:lang="ru">Почтовый адрес успешно обновлен.</value>
         <value xml:lang="th">เปลี่ยนแปลงรหัสไปรษณีย์ของที่อยู่เรียบร้อยแล้ว</value>
         <value xml:lang="zh">已成功更新通信地址。</value>
@@ -5856,7 +5858,7 @@
     <property key="PartyTaxAddInfo">
         <value xml:lang="en">Add Tax Info</value>
         <value xml:lang="es">Añadir información de impuesto</value>
-        <value xml:lang="it">Aggiungi Informazioni Tasse</value>
+        <value xml:lang="it">Aggiungi informazioni tasse</value>
         <value xml:lang="nl">Voeg BTW info toe</value>
         <value xml:lang="ro">Adauga Informatii Taxe</value>
         <value xml:lang="ru">Добавить налоговую информацию</value>
@@ -5888,7 +5890,7 @@
     <property key="PartyTaxIdentification">
         <value xml:lang="en">Tax Identification and Exemption</value>
         <value xml:lang="es">Identificación tributaria y extempción</value>
-        <value xml:lang="it">Identificazione Tasse e Esenzione</value>
+        <value xml:lang="it">Identificazione tasse ed esenzione</value>
         <value xml:lang="nl">BTW identificatie</value>
         <value xml:lang="ro">Identificare Taxe si Scutire</value>
         <value xml:lang="ru">Налоговая идентификация и льготы</value>
@@ -5898,7 +5900,7 @@
     <property key="PartyTaxIsExempt">
         <value xml:lang="en">Is Exempt?</value>
         <value xml:lang="es">es extempto</value>
-        <value xml:lang="it">E' Esente?</value>
+        <value xml:lang="it">E' esente?</value>
         <value xml:lang="nl">Is Exempt?</value>
         <value xml:lang="ro">Este Scutit?</value>
         <value xml:lang="ru">Льгота?</value>

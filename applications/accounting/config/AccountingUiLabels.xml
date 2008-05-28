@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <!--
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
@@ -4603,7 +4603,7 @@ esetata in mod automat</value>
         <value xml:lang="en">invoiceID [${paymentApplication.invoiceId}]</value>
         <value xml:lang="es">IdFactura [${paymentApplication.invoiceId}]</value>
         <value xml:lang="fr">facture [${paymentApplication.invoiceId}]</value>
-        <value xml:lang="it">Numero Fatttura [${paymentApplication.invoiceId}]</value>
+        <value xml:lang="it">Numero Fattura [${paymentApplication.invoiceId}]</value>
         <value xml:lang="nl">Faktuur Nr [${paymentApplication.invoiceId}]</value>
         <value xml:lang="ro">Nr.Factura [${paymentApplication.invoiceId}]</value>
         <value xml:lang="ru">Код накладной [${paymentApplication.invoiceId}]</value>
@@ -5110,7 +5110,7 @@ esetata in mod automat</value>
         <value xml:lang="en">Please Send Payment To</value>
         <value xml:lang="es">Favor de enviar pago a</value>
         <value xml:lang="fr">Merci d'envoyer le paiement à</value>
-        <value xml:lang="it">Perfavore Inviare Pagamento A:</value>
+        <value xml:lang="it">Prego inviare pagamento a:</value>
         <value xml:lang="nl">Stuur betaling naar</value>
         <value xml:lang="ro">Te rog Trimite Plata la:</value>
         <value xml:lang="ru">Пожалуйста, направляйте платеж на</value>
@@ -5908,7 +5908,7 @@ esetata in mod automat</value>
         <value xml:lang="en">Unit Price</value>
         <value xml:lang="es">Precio por unidad</value>
         <value xml:lang="fr">Prix unitaire</value>
-        <value xml:lang="it">Prezzo Unitario</value>
+        <value xml:lang="it">Prezzo unitario</value>
         <value xml:lang="nl">Prijs per eenheid</value>
         <value xml:lang="ro">Pret Unitar</value>
         <value xml:lang="ru">Цена единицы</value>
@@ -9322,7 +9322,7 @@ esetata in mod automat</value>
     </property>
     <property key="payPalEvents.problemsConnectingWithPayPal">
         <value xml:lang="en">Problems connecting with PayPal, please contact customer service.</value>
-        <value xml:lang="it">Problemi nella connessione a PayPal, perfavore contattare il servizio clienti.</value>
+        <value xml:lang="it">Problemi nella connessione a PayPal, prego contattare il servizio clienti.</value>
         <value xml:lang="th">ปัญหาในการเชิ่อมต่อด้วย paypal , กรุณาติดต่อบริการลูกค้า</value>
     </property>
     <property key="payPalEvents.problemsGettingAuthenticationUser">
@@ -9332,7 +9332,7 @@ esetata in mod automat</value>
     </property>
     <property key="payPalEvents.problemsGettingMerchantConfiguration">
         <value xml:lang="en">Problems getting merchant configuration, please contact customer service.</value>
-        <value xml:lang="it">Problemi leggendo la configurazione del venditore, perfavore contattare il servizio clienti.</value>
+        <value xml:lang="it">Problemi leggendo la configurazione del venditore, prego contattare il servizio clienti.</value>
         <value xml:lang="th">ปัญหาการเรียกใช้เกี่ยวกับการติดต่อการค้า , กรุณาติดต่อบริการลูกค้า</value>
     </property>
     <property key="payPalEvents.problemsGettingOrderHeader">

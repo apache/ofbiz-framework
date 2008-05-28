@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <!--
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
@@ -723,7 +723,7 @@
         <value xml:lang="es">Pagar con PayPal</value>
         <value xml:lang="fr">Paiement avec PayPal</value>
         <value xml:lang="hi_IN">पेपाल से भुगतान करें</value>
-        <value xml:lang="it">Paga Con PayPal</value>
+        <value xml:lang="it">Paga con PayPal</value>
         <value xml:lang="ja">Pay With PayPal</value>
         <value xml:lang="nl">Betaal met PayPal</value>
         <value xml:lang="pt_PT">Pagar Com Paypal</value>
@@ -738,7 +738,7 @@
         <value xml:lang="es">Pagar con WorldPay</value>
         <value xml:lang="fr">Paiement avec WorldPay</value>
         <value xml:lang="hi_IN">WorldPay से भुगतान करें</value>
-        <value xml:lang="it">Paga Con WorldPay</value>
+        <value xml:lang="it">Paga con WorldPay</value>
         <value xml:lang="ja">Pay With WorldPay</value>
         <value xml:lang="nl">Betaal met WorldPay</value>
         <value xml:lang="pt_PT">Pagar Com WorldPay</value>
@@ -1116,7 +1116,7 @@
         <value xml:lang="es">Añadir lo seleccionado a la lista</value>
         <value xml:lang="fr">Ajouter la sélection à la liste</value>
         <value xml:lang="hi_IN">सही निशान वाले को सूची में जोड़ें</value>
-        <value xml:lang="it">Aggiungi Selezionato Alla Lista</value>
+        <value xml:lang="it">Aggiungi la selezione alla lista</value>
         <value xml:lang="ja">Add Selected To List</value>
         <value xml:lang="nl">Voeg geselecteerde toe aan de lijst</value>
         <value xml:lang="pt_PT">Adicionar Seleccionado À Lista</value>
@@ -1164,7 +1164,7 @@
         <value xml:lang="es">Verificar carro luego de añadir un item</value>
         <value xml:lang="fr">Toujours voir le panier après l'ajout d'un article</value>
         <value xml:lang="hi_IN">हमेशा टोकरी देखें सामान जोडने के बाद</value>
-        <value xml:lang="it">Vedi il carrello sempre dopo aver aggiunto una riga</value>
+        <value xml:lang="it">Visualizza sempre il carrello dopo aver aggiunto una riga</value>
         <value xml:lang="ja">Always view cart after adding an item</value>
         <value xml:lang="nl">Bekijk de winkelwagen altijd na het toevoegen</value>
         <value xml:lang="ro">Vezi cosul numai dupa ce ai adaugat o linie</value>
@@ -1229,7 +1229,7 @@
         <value xml:lang="es">Total</value>
         <value xml:lang="fr">Total du panier</value>
         <value xml:lang="hi_IN">टोकरी कुल</value>
-        <value xml:lang="it">Totale Carrello</value>
+        <value xml:lang="it">Totale carrello</value>
         <value xml:lang="ja">Cart Total</value>
         <value xml:lang="nl">Winkelwagen totaal</value>
         <value xml:lang="pt_PT">Total no Cesto</value>
@@ -1337,7 +1337,7 @@
         <value xml:lang="es">Continuar comprando</value>
         <value xml:lang="fr">Continuer les achats</value>
         <value xml:lang="hi_IN">ख़रीदारी जारी</value>
-        <value xml:lang="it">Continua Acquisto</value>
+        <value xml:lang="it">Continua acquisto</value>
         <value xml:lang="ja">買い物を続ける</value>
         <value xml:lang="nl">door gaan met winkelen</value>
         <value xml:lang="pt_PT">Continuar as Compras</value>
@@ -1404,7 +1404,7 @@
         <value xml:lang="es">No se encontraron archivos descargables</value>
         <value xml:lang="fr">Téléchargement non trouvé</value>
         <value xml:lang="hi_IN">प्राप्त योग्य फाइलें नहीं मिली</value>
-        <value xml:lang="it">Nessun Download di Files Trovato</value>
+        <value xml:lang="it">Nessun file trovato</value>
         <value xml:lang="ro">Nici-un Download de Fisiere Gasit</value>
         <value xml:lang="ru">Нет файлов для загрузки</value>
         <value xml:lang="th">ไม่พบที่ดาวโหลด</value>
@@ -1415,7 +1415,7 @@
         <value xml:lang="es">Descargar los archivos disponibles</value>
         <value xml:lang="fr">Fichiers à télécharger disponibles</value>
         <value xml:lang="hi_IN">प्राप्त योग्य फाइलें उपस्थित</value>
-        <value xml:lang="it">Download di Files Disponibile</value>
+        <value xml:lang="it">File disponibili per il download</value>
         <value xml:lang="ro">Download de Fisiere Disponibile</value>
         <value xml:lang="ru">Доступны файлы для загрузки</value>
         <value xml:lang="th">โหลดหัวข้อที่มีอยู่</value>
@@ -1442,7 +1442,7 @@
         <value xml:lang="es">Limpiar canasta</value>
         <value xml:lang="fr">Vider le panier</value>
         <value xml:lang="hi_IN">ख़ाली टोकरी</value>
-        <value xml:lang="it">Carrello Vuoto</value>
+        <value xml:lang="it">Svuota</value>
         <value xml:lang="ja">Empty Cart</value>
         <value xml:lang="nl">Leeg winkelwagen</value>
         <value xml:lang="pt_PT">Cesto Vazio</value>
@@ -1718,7 +1718,7 @@
         <value xml:lang="es">de mayor a menor</value>
         <value xml:lang="fr">Descendant (du + haut au + bas)</value>
         <value xml:lang="hi_IN">ज्यादा से कम</value>
-        <value xml:lang="it">Dall'Alto al Basso</value>
+        <value xml:lang="it">Dall'alto al basso</value>
         <value xml:lang="ja">High to Low</value>
         <value xml:lang="nl">Hoog tot laag</value>
         <value xml:lang="ro">De Sus in Jos</value>
@@ -1837,7 +1837,7 @@
         <value xml:lang="es">Total</value>
         <value xml:lang="fr">Total de la ligne</value>
         <value xml:lang="hi_IN">कुल सामान</value>
-        <value xml:lang="it">Totale Riga</value>
+        <value xml:lang="it">Totale riga</value>
         <value xml:lang="ja">Item Total</value>
         <value xml:lang="nl">Item Totaal</value>
         <value xml:lang="pt_PT">Total de Itens</value>
@@ -1952,7 +1952,7 @@
         <value xml:lang="es">no le corresponde, por favor intente nuevamente.</value>
         <value xml:lang="fr">La liste ne vous appartient pas</value>
         <value xml:lang="hi_IN">आपका नहीं है, कृपया दुबारा कोशिश किजीये</value>
-        <value xml:lang="it">non corrisponde a te, perfavore riprovare</value>
+        <value xml:lang="it">non corrisponde a te, prego riprovare</value>
         <value xml:lang="ja">does not belong to you, please try again</value>
         <value xml:lang="nl">hoort niet bij U, probeer het opnieuw</value>
         <value xml:lang="pt_PT">Não lhe pertence, por favor, tente outra vez</value>
@@ -2095,7 +2095,7 @@
         <value xml:lang="es">De menor a mayor</value>
         <value xml:lang="fr">Ascendant (du + bas au + haut)</value>
         <value xml:lang="hi_IN">कम से ज्यादा</value>
-        <value xml:lang="it">Dal Basso all'Alto</value>
+        <value xml:lang="it">Dal basso all'alto</value>
         <value xml:lang="ja">Low to High</value>
         <value xml:lang="nl">Van Laag tot Hoog</value>
         <value xml:lang="ro">De Jos in Sus </value>
@@ -2140,7 +2140,7 @@
         <value xml:lang="en">Select a New Billing Address:</value>
         <value xml:lang="fr">Sélectionnez une nouvelle adresse de facturation</value>
         <value xml:lang="hi_IN">नया लेखा पत्र चुनें</value>
-        <value xml:lang="it">Seleziona un Nuovo Indirizzo Fatturazione:</value>
+        <value xml:lang="it">Seleziona un nuovo indirizzo fatturazione:</value>
         <value xml:lang="ro">Selectioneaza o Noua Adresa Facturare:</value>
         <value xml:lang="ru">Выберите новый платежный адрес:</value>
         <value xml:lang="th">เลือกที่อยู่ใบแจ้งค่าบริการใหม่ :</value>
@@ -2159,14 +2159,14 @@
     <property key="EcommerceMessagePleaseSelectPaymentMethod">
         <value xml:lang="en">Please Select Payment Method</value>
         <value xml:lang="fr">SVP, sélectionnez un moyen de paiement</value>
-        <value xml:lang="it">Perfavore Seleziona il Metodo di Pagamento</value>
+        <value xml:lang="it">Per favore seleziona il metodo di pagamento</value>
         <value xml:lang="ru">Пожалуйста выберите метод оплаты</value>
         <value xml:lang="th">กรุณาเลือกวิธีการชำระเงิน</value>
     </property>
     <property key="EcommerceMessagePleaseSelectShippingMethod">
         <value xml:lang="en">Please Select Shipping Method</value>
         <value xml:lang="fr">SVP, sélectionnez une méthode d'expédition</value>
-        <value xml:lang="it">Perfavore Seleziona il Metodo di Spedizione</value>
+        <value xml:lang="it">Per favore seleziona il metodo di spedizione</value>
         <value xml:lang="ru">Пожалуйста выберите метод доставки</value>
         <value xml:lang="th">กรุณาเลือกวิธีการขนส่งสินค้า</value>
     </property>
@@ -2523,7 +2523,7 @@
         <value xml:lang="es">Producto</value>
         <value xml:lang="fr">N° de produit</value>
         <value xml:lang="hi_IN">सामान नम्बर:</value>
-        <value xml:lang="it">Codice Prodotto:</value>
+        <value xml:lang="it">Codice prodotto:</value>
         <value xml:lang="ja">Product ID:</value>
         <value xml:lang="nl">ProduktNr:</value>
         <value xml:lang="ro">Cod Produs:</value>
@@ -2621,7 +2621,7 @@
         <value xml:lang="es">Recalcular carro</value>
         <value xml:lang="fr">Recalculer le panier</value>
         <value xml:lang="hi_IN">टोकरी कि गणना फिर करें</value>
-        <value xml:lang="it">Ricalcola Carrello</value>
+        <value xml:lang="it">Ricalcola</value>
         <value xml:lang="ja">Recalculate Cart</value>
         <value xml:lang="nl">Bereken Winkelwagen</value>
         <value xml:lang="pt_PT">Recalcular o Cesto</value>
@@ -2649,7 +2649,7 @@
         <value xml:lang="es">Remover seleccionados</value>
         <value xml:lang="fr">Supprimer la sélection</value>
         <value xml:lang="hi_IN">चुने को हटाऐं</value>
-        <value xml:lang="it">Rimuovi Selezioni</value>
+        <value xml:lang="it">Rimuovi selezione</value>
         <value xml:lang="ja">Remove Selected</value>
         <value xml:lang="nl">Verwijder geselecteerde(n)</value>
         <value xml:lang="pt_PT">Remover a Selecção</value>
@@ -2781,7 +2781,7 @@
     <property key="EcommerceSeeStorePoliciesHere">
         <value xml:lang="en">See Store Policies Here</value>
         <value xml:lang="fr">Conditions générales</value>
-        <value xml:lang="it">Vedi Politiche Negozio Qui</value>
+        <value xml:lang="it">Termini e condizioni</value>
         <value xml:lang="th">ดูหลักการเก็บข้อมูลที่นี่</value>
     </property>
     <property key="EcommerceSelectFrequency">
@@ -3096,7 +3096,7 @@
         <value xml:lang="es">Disculpe, no puede enviar esta página a un amigo. Selecciones otra categoría o producto</value>
         <value xml:lang="fr">Désolé, vous ne pouvez envoyer cette page à un ami. Choisissez plutôt à partir d'un catégorie ou d'un article</value>
         <value xml:lang="hi_IN">माफ किजीये: यह पृष्ठ अपने दोस्त को नहीं भेज सकते, किसी प्रकार या सामान में से भेजें</value>
-        <value xml:lang="it">Spiacente, non è possibile inviare questa pagina ad un amico. Perfavore seleziona da una categoria o prodotto.</value>
+        <value xml:lang="it">Spiacente, non è possibile inviare questa pagina ad un amico. Per favore seleziona una categoria o un prodotto.</value>
         <value xml:lang="ja">Sorry, you cannot send this page to a friend. Please select from either a category or product.</value>
         <value xml:lang="nl">Sorry, maar je kan deze pagina niet naar een kennis sturen. Selekteer een categorie of een produkt.</value>
         <value xml:lang="ro">Ne pare rau, nu este posibila trimiterea acestei pagini la un amic. Va rugam selectionti de la o alta categorie sau produs.</value>
@@ -3154,7 +3154,7 @@
         <value xml:lang="es">Para crear un pedido de cotización</value>
         <value xml:lang="fr">Pour créer une commande faites une demande depuis le panier</value>
         <value xml:lang="hi_IN">कोट उत्पन्न करने के लिए आग्रह</value>
-        <value xml:lang="it">per creare una richesta per quotazione</value>
+        <value xml:lang="it">per creare una richesta di preventivo per il carrello</value>
         <value xml:lang="ja">to create a request for quote</value>
         <value xml:lang="nl">om een offerte aan te vragen</value>
         <value xml:lang="ro">pentru a crea o cerere pentru cotare</value>
@@ -3185,7 +3185,7 @@
         <value xml:lang="es">Precio Unidad</value>
         <value xml:lang="fr">Prix à l'unité</value>
         <value xml:lang="hi_IN">ईकाई मुल्य</value>
-        <value xml:lang="it">Prezzo Unitario</value>
+        <value xml:lang="it">Prezzo unitario</value>
         <value xml:lang="ja">Unit Price</value>
         <value xml:lang="nl">Prijs per stuk</value>
         <value xml:lang="pt_PT">Preço Unitário</value>
@@ -3429,7 +3429,7 @@
         <value xml:lang="es">Su Carro de la Compra está vacío</value>
         <value xml:lang="fr">Votre panier est vide</value>
         <value xml:lang="hi_IN">आपकी ख़रीदारी टोकरी ख़ाली है</value>
-        <value xml:lang="it">Il tuo carrello di acquisto è vuoto</value>
+        <value xml:lang="it">Il tuo carrello è vuoto</value>
         <value xml:lang="ja">Your shopping cart is empty</value>
         <value xml:lang="nl">Uw winkelwagen is leeg</value>
         <value xml:lang="pt_PT">O seu Cesto de compras está vazio</value>
@@ -3503,7 +3503,7 @@
         <value xml:lang="en">Assign Items</value>
         <value xml:lang="es">Asignar ítems</value>
         <value xml:lang="fr">Affecter les articles</value>
-        <value xml:lang="it">Assegna Righe</value>
+        <value xml:lang="it">Assegna articoli</value>
         <value xml:lang="ja">Assign Items</value>
         <value xml:lang="nl">Wijs items toe</value>
         <value xml:lang="ro">Atribuie Linii</value>
@@ -3546,7 +3546,7 @@
         <value xml:lang="es">Volver al Carro de Compra</value>
         <value xml:lang="fr">Retour au panier d'achat</value>
         <value xml:lang="hi_IN">ख़रीदारी टोकरी पर वापस जाऐं</value>
-        <value xml:lang="it">Torna al Carrello Acquisto</value>
+        <value xml:lang="it">Torna al carrello</value>
         <value xml:lang="ja">Back to Shopping Cart</value>
         <value xml:lang="nl">Terug naar de winkelwagen</value>
         <value xml:lang="pt_PT">Voltar Ao Cesto De Compras</value>
@@ -3621,7 +3621,7 @@
         <value xml:lang="es">COD</value>
         <value xml:lang="fr">Contre remboursement</value>
         <value xml:lang="hi_IN">सामान मिलने पर नकद या चेक</value>
-        <value xml:lang="it">Contanti alla Consegna</value>
+        <value xml:lang="it">Contrassegno</value>
         <value xml:lang="ja">COD</value>
         <value xml:lang="nl">Betaling bij aflevering</value>
         <value xml:lang="pt_PT">COD</value>
@@ -3723,7 +3723,7 @@
         <value xml:lang="en">Order Confirmation</value>
         <value xml:lang="es">Confirmación de Compra</value>
         <value xml:lang="fr">Confirmation de commande</value>
-        <value xml:lang="it">Conferma Ordine</value>
+        <value xml:lang="it">Conferma ordine</value>
         <value xml:lang="ja">Order Confirmation</value>
         <value xml:lang="nl">bestelling Confirmatie</value>
         <value xml:lang="pt_PT">Confirmação de Encomenda</value>
@@ -3739,7 +3739,7 @@
         <value xml:lang="es">Continuar Comprando</value>
         <value xml:lang="fr">Continuer les achats</value>
         <value xml:lang="hi_IN">ख़रीदारी चालू रखें</value>
-        <value xml:lang="it">Continua Acquisto</value>
+        <value xml:lang="it">Continua acquisto</value>
         <value xml:lang="ja">Continue Shopping</value>
         <value xml:lang="nl">Doorgaan met winkelen</value>
         <value xml:lang="pt_PT">Continuar a Comprar</value>
@@ -3754,7 +3754,7 @@
         <value xml:lang="en">Continue to Final Order Review</value>
         <value xml:lang="es">Pasar a la Revisión Final de la Compra</value>
         <value xml:lang="fr">Passer à la validation finale de la commande</value>
-        <value xml:lang="it">Continua Revisione Ordine Finale</value>
+        <value xml:lang="it">Passa alla revisione finale ordine</value>
         <value xml:lang="ja">Continue to Final Order Review</value>
         <value xml:lang="nl">Doorgaan naar het bestellingenoverzicht</value>
         <value xml:lang="pt_PT">Continuar para a Revisão Final da Encomenda</value>
@@ -3780,7 +3780,7 @@
         <value xml:lang="es">Favor seleccionar su dirección por defecto; luego seleccionar el método de envío por defecto</value>
         <value xml:lang="fr">Veuillez choisir votre adresse d'expédition par défaut. Choisissez alors une méthode d'expédition par défaut.</value>
         <value xml:lang="hi_IN">स्थयी पता चुनें माल भेजने के लिए</value>
-        <value xml:lang="it">Perfavore selezione il tuo indirizzo di spedizione di defaut; allora seleziona un metodo di spedizione di default.</value>
+        <value xml:lang="it">Per favore seleziona il tuo indirizzo di spedizione predefinito; quindi seleziona il metodo di spedizione predefinito.</value>
         <value xml:lang="ja">Please select your default shipping address; then select a default shipping method.</value>
         <value xml:lang="nl">Selekteer uw default verzendadres en daarna uw default verzendopties</value>
         <value xml:lang="ro">Te rugam sa selectionezi adresa ta de expediere de default; selectioneaza apoi o metoda de expediere de default.</value>
@@ -3794,7 +3794,7 @@
         <value xml:lang="es">NOTA: Esto es una DEMO.  Las compras hechas aquí no serán facturadas, y no serán satisfechas</value>
         <value xml:lang="fr">NOTE : Ceci est une DEMONSTRATION d'un  logiciel de commerce électronique, Les commandes saisies ne seront NI facturées NI expédiées</value>
         <value xml:lang="hi_IN">नोट: यह एअ डेमो साइट है</value>
-        <value xml:lang="it">NOTA: Questo è un DEMO store-front.  Ordini piazzati qui NON saranno fatturati, e NON saranno soddisfatti</value>
+        <value xml:lang="it">NOTA: Questo è un sito DIMOSTRATIVO. Gli ordini immessi NON saranno fatturati, e NON saranno evasi</value>
         <value xml:lang="ja">NOTE: This is a DEMO store-front.  Orders placed here will NOT be billed, and will NOT be fulfilled</value>
         <value xml:lang="nl">OPMERKING: dit is een demonstratiewinkel. bestellingen die hier worden ingegeven worden niet uitgevoerd en worden niet gefactureerd.</value>
         <value xml:lang="pt_PT">NOTA: Isto é uma loja DEMONSTRAÇÃO. As encomendas colocadas aqui não serão processadas nem cobradas</value>
@@ -3879,7 +3879,7 @@
         <value xml:lang="es">Su orden ha sido cancelada y no será procesada. Favor de contactar a servicio al cliente en caso tener dudas</value>
         <value xml:lang="fr">Votre commande a été annulé et ne sera pas traité. S'il vous plaît contactez le service client si vous avez des questions.</value>
         <value xml:lang="hi_IN">इस समय आपका आर्डर ख़ारीज किया जाता है, किसी प्रश्न के लिए ग्राहक सेवा से संपर्क किजीये</value>
-        <value xml:lang="it">A questo tempo il tuo ordine è stato cancellato e non sarà processato. Perfavore contatta il servizio Soggetto se hai una qualsiasi domanda.</value>
+        <value xml:lang="it">Il tuo ordine è stato cancellato e non sarà processato. Per favore contatta l'assistenza clienti per qualsiasi informazione.</value>
         <value xml:lang="ja">At this time your order has been cancelled and will not be processed. Please contact customer service if you have any questions.</value>
         <value xml:lang="nl">Uw bestelling is geannuleerd en zal niet worden uitgevoerd. Stel U in verbinding met de klantenservice als u vragen hebt.</value>
         <value xml:lang="ro">In acest moment comanda ta a fost stearsa si nu va fi procesata. Te rugam contacteaza Serviciul Clienti pentru orice nelamurire.</value>
@@ -3921,7 +3921,7 @@
         <value xml:lang="es">Disculpe, hay problemas con este corre, favor de contactar a servicio al cliente para mayór información respescto a su orden #</value>
         <value xml:lang="fr">Désolé, il y a eu un problème avec ce courriel, svp entrez en contact avec le service clientèle pour toute information concernant votre commande n°</value>
         <value xml:lang="hi_IN">माफ किजीये, इस इमेल मे समस्या है, ग्राहक सेवा से संपर्क किजीये अपने आर्डर के बारे मे</value>
-        <value xml:lang="it">Scusa, ci saranno un problema con questa email, perfavore contatta il servizio Soggetti per informazioni rigurdanti il tuo ordine #</value>
+        <value xml:lang="it">Spiacente, si è verificato un problema con questa email, per favore contatta l'assistenza clienti per informazioni rigurdanti il tuo ordine n°</value>
         <value xml:lang="ja">Sorry, there was a problem with this email, please contact customer service for information regarding your order #</value>
         <value xml:lang="nl">Sorry, er was een probleem met deze email, stel U in verbinding met de klantenservice voor informatie over uw bestelling # </value>
         <value xml:lang="ro">Cerem Scuze, sunt probleme cu acest email, va rugam contactati serviciul Subiecti pentru informatii referitoare la comanda ta #</value>
@@ -3938,7 +3938,7 @@
         <value xml:lang="es">ERROR: Carro de Compra vacío, comience por favor encima</value>
         <value xml:lang="fr">ERREUR : Le panier d'achat est vide,</value>
         <value xml:lang="hi_IN">गडबड: ख़रीदारी टोकरी ख़ाली है, दुबारा शुरू किजीये</value>
-        <value xml:lang="it">ERRORE: Carta di Acquisto è vuota, perfavore inizia oltre</value>
+        <value xml:lang="it">ERRORE: Il carrello è vuoto</value>
         <value xml:lang="ja">ERROR: Shopping cart empty, please start over</value>
         <value xml:lang="nl">FOUT: winkelwagen is leeg, begin opnieuw alstublieft</value>
         <value xml:lang="pt_PT">ERRO:Cesto de compras vazio, por favor recomece.</value>
@@ -3968,7 +3968,7 @@
         <value xml:lang="es">Revisión Final De la Comprobación</value>
         <value xml:lang="fr">Vérification finale</value>
         <value xml:lang="hi_IN">आख़री चेक आउट जान्च</value>
-        <value xml:lang="it">Revisione Checkout Finale</value>
+        <value xml:lang="it">Revisione finale ordine</value>
         <value xml:lang="ja">Final Checkout Review</value>
         <value xml:lang="nl">Laatste bestellingsoverzicht</value>
         <value xml:lang="pt_PT">Revisão Final Do Pagamento</value>
@@ -4031,7 +4031,7 @@
         <value xml:lang="es">Importe Total</value>
         <value xml:lang="fr">Total général</value>
         <value xml:lang="hi_IN">कुल मूल्य</value>
-        <value xml:lang="it">Totale Generale</value>
+        <value xml:lang="it">Totale generale</value>
         <value xml:lang="ja">Grand Total</value>
         <value xml:lang="nl">Algeheel totaal</value>
         <value xml:lang="pt_PT">Total</value>
@@ -4047,7 +4047,7 @@
         <value xml:lang="es">Historial de Compras</value>
         <value xml:lang="fr">Historique des commandes</value>
         <value xml:lang="hi_IN">आर्डर इतिहास</value>
-        <value xml:lang="it">Storia Ordini</value>
+        <value xml:lang="it">Storia ordini</value>
         <value xml:lang="ja">注文履歴</value>
         <value xml:lang="nl">Order Historie</value>
         <value xml:lang="pt_PT">Histórico De Encomendas</value>
@@ -4155,7 +4155,7 @@
         <value xml:lang="es">Es esto un regalo</value>
         <value xml:lang="fr">Est-ce un cadeau</value>
         <value xml:lang="hi_IN">क्या यह उपहार है</value>
-        <value xml:lang="it">E' Questo un'Omaggio</value>
+        <value xml:lang="it">E' un omaggio</value>
         <value xml:lang="ja">Is This a Gift</value>
         <value xml:lang="nl">Is het een geschenk</value>
         <value xml:lang="pt_PT">É Um Presente</value>
@@ -4169,7 +4169,7 @@
         <value xml:lang="es">Grupo de Artículos</value>
         <value xml:lang="fr">Groupes d'articles</value>
         <value xml:lang="hi_IN">सामान संग्रह</value>
-        <value xml:lang="it">Gruppi Riga</value>
+        <value xml:lang="it">Gruppi di articoli</value>
         <value xml:lang="ja">Item Groups</value>
         <value xml:lang="nl">Item Groepering</value>
         <value xml:lang="ro">Grupuri Linie</value>
@@ -4214,7 +4214,7 @@
         <value xml:lang="es">Giro Postal</value>
         <value xml:lang="fr">Chèque postal/Mandat</value>
         <value xml:lang="hi_IN">चेक/ मेल आर्डर</value>
-        <value xml:lang="it">Controlla Mail/Ordine Monetario</value>
+        <value xml:lang="it">Vaglia postale/Bonifico bancario</value>
         <value xml:lang="ja">Mail Check/Money Order</value>
         <value xml:lang="nl">Post Check/geld Order</value>
         <value xml:lang="pt_PT">Cobrança Postal</value>
@@ -4279,7 +4279,7 @@
         <value xml:lang="es">No se han encontrado Compras</value>
         <value xml:lang="fr">Aucune commande trouvée</value>
         <value xml:lang="hi_IN">कोई आर्डर नही मिला</value>
-        <value xml:lang="it">Nessun Ordine Trovato</value>
+        <value xml:lang="it">Nessun ordine trovato</value>
         <value xml:lang="ja">No Orders Found</value>
         <value xml:lang="nl">Gene orders gevonden</value>
         <value xml:lang="pt_PT">Não Foram Encontradas Encomendas</value>
@@ -4292,7 +4292,7 @@
         <value xml:lang="en">No Quotes Found</value>
         <value xml:lang="fr">Aucun devis trouvé</value>
         <value xml:lang="hi_IN">कोई कोट नही मिला</value>
-        <value xml:lang="it">Nessun Preventivo Trovato</value>
+        <value xml:lang="it">Nessun preventivo trovato</value>
         <value xml:lang="ro">Nici-o Oferta Gasita </value>
         <value xml:lang="ru">Коммерческих предложений нет</value>
         <value xml:lang="th">ไม่พบการแจ้งราคา</value>
@@ -4333,7 +4333,7 @@
         <value xml:lang="es">No es un regalo</value>
         <value xml:lang="fr">Ce n'est pas un cadeau</value>
         <value xml:lang="hi_IN">उपहार नही है</value>
-        <value xml:lang="it">Non è un'Omaggio</value>
+        <value xml:lang="it">Non è un omaggio</value>
         <value xml:lang="ja">Not A Gift</value>
         <value xml:lang="nl">Geen geschenk</value>
         <value xml:lang="ro">Nu este un Omagiu</value>
@@ -4405,7 +4405,7 @@
         <value xml:lang="es">Confirmación de la orden</value>
         <value xml:lang="fr">Confirmation de commande</value>
         <value xml:lang="hi_IN">आर्डर स्वीकृत</value>
-        <value xml:lang="it">Conferma Ordine</value>
+        <value xml:lang="it">Conferma ordine</value>
         <value xml:lang="ja">Order Confirmation</value>
         <value xml:lang="nl">Bestellingdonfirmatie</value>
         <value xml:lang="ro">Confirma Comanda</value>
@@ -4425,7 +4425,7 @@
         <value xml:lang="es">Artículos de la Compra</value>
         <value xml:lang="fr">Articles commandés</value>
         <value xml:lang="hi_IN">माल आर्डर किजीये</value>
-        <value xml:lang="it">Righe Ordine</value>
+        <value xml:lang="it">Articoli ordinati</value>
         <value xml:lang="ja">Order Items</value>
         <value xml:lang="nl">Bestellingsitems</value>
         <value xml:lang="pt_PT">Itens da Encomenda</value>
@@ -4455,7 +4455,7 @@
         <value xml:lang="es">Envíe por favor los artículos que pedí cuando estén disponibles (usted puede incurrir en cargas adicionales del envío)</value>
         <value xml:lang="fr">Envoyez moi les articles commandés dés qu'ils seront disponible (j'ai noté qu'il pourrait y avoir des frais d'expéditions complémentaires)</value>
         <value xml:lang="hi_IN">माल उपलब्ध होते ही भेजें (आपको कुछ अलग से भुगतान करना पड सकता है)</value>
-        <value xml:lang="it">Perfavore spedire le righe che ho ordinato appena divengono disponibili (potresti incorrere a spese di spedizione aggiuntive)</value>
+        <value xml:lang="it">Per favore spedire gli articoli che ho ordinato appena divengono disponibili (potresti incorrere a spese di spedizione aggiuntive)</value>
         <value xml:lang="ja">Please ship items I ordered as they become available (you may incur additional shipping charges)</value>
         <value xml:lang="nl">Stuur de bestellingsitems toe wanneer ze beschikbaar komen(U mag extra verzendkosten in rekening brengen)</value>
         <value xml:lang="pt_PT">Por favor, envie os itens encomendados assim que estejam disponíveis (poderá incorrer em despesas adicionais de envio)</value>
@@ -4472,7 +4472,7 @@
         <value xml:lang="es">Espere por favor hasta que la compra entera esté lista antes de enviar</value>
         <value xml:lang="fr">Attendez que la commande soit complète avant d'expédier</value>
         <value xml:lang="hi_IN">कृपया इन्तजार किजीये माल उपलब्ध होते ही भेजा जाएगा</value>
-        <value xml:lang="it">Perfavore aspettare fino a quando l'intero ordine è pronto prima di spedirlo</value>
+        <value xml:lang="it">Per favore aspettare fino a quando l'intero ordine è pronto prima di spedirlo</value>
         <value xml:lang="ja">Please wait until the entire order is ready before shipping</value>
         <value xml:lang="nl">Wacht tot de gehele order beschikbaar is voor verzending</value>
         <value xml:lang="pt_PT">Por favor, aguarde até a totalidade da encomenda estar pronta antes de a enviar</value>
@@ -4502,7 +4502,7 @@
         <value xml:lang="es">Su orden ha sido cancelada. Favor, contactar a servicio al cliente si tiene alguna consulta.</value>
         <value xml:lang="fr">Votre commande a été annulée et ne sera pas traitée.  Veuillez entrer en contact avec le service clientèle si vous avez des questions.</value>
         <value xml:lang="hi_IN">इस समय आपका आर्डर ख़ारीज किया जाता है, किसी प्रश्न के लिए ग्राहक सेवा से संपर्क किजीये</value>
-        <value xml:lang="it">In questo momento il tuo ordine è stato cancellato e non sarà processato. Perfavore contattare il servizio Soggetti se tu hai qualche domanda.</value>
+        <value xml:lang="it">Il tuo ordine è stato cancellato e non sarà processato. Per favore contatta l'assistenza clienti per qualsiasi informazione.</value>
         <value xml:lang="ja">At this time your order has been cancelled and will not be processed. Please contact customer service if you have any questions.</value>
         <value xml:lang="nl">Uw bestelling is geannuleerd en zal niet worden uitgevoerd. Stel U in verbinding met de klantenservice als u vragen hebt.</value>
         <value xml:lang="ro">In acest moment comanda ta a fost stearsa si nu  poate fi procesata. Va rugam contactati Serviciul Clienti daca tu ai vreo intrebare.</value>
@@ -4526,7 +4526,7 @@
     <property key="OrderPurchaseHistory">
         <value xml:lang="en">Order history for orders send to you</value>
         <value xml:lang="fr">Historique des commandes qui vous ont été envoyées</value>
-        <value xml:lang="it">Storia Ordini per gli ordini inviati da te</value>
+        <value xml:lang="it">Storia ordini inviati a te</value>
         <value xml:lang="th">ข้อมูลการสั่งซื้อสินค้าสำหรับส่งให้คุณ</value>
     </property>
     <property key="OrderPurchaseOrderNumber">
@@ -4568,7 +4568,7 @@
         <value xml:lang="es">Cant. Ordenada</value>
         <value xml:lang="fr">Qté commandée</value>
         <value xml:lang="hi_IN">कुल सामान आर्डर</value>
-        <value xml:lang="it">Qnt Ordinata</value>
+        <value xml:lang="it">Qnt ordinata</value>
         <value xml:lang="ja">Qty Ordered</value>
         <value xml:lang="nl">Aantal besteld</value>
         <value xml:lang="pt_PT">Quantidade Encomendada</value>
@@ -4707,7 +4707,7 @@
     <property key="OrderSalesHistory">
         <value xml:lang="en">Order history for orders entered by you</value>
         <value xml:lang="fr">Historique des commandes que vous avez passées</value>
-        <value xml:lang="it">Storia Ordini per gli ordini inseriti da te</value>
+        <value xml:lang="it">Storia ordini inseriti da te</value>
         <value xml:lang="th">ข้อมูลการสั่งซื้อจากการสั่งซื้อโดยคุณ
         </value>
     </property>
@@ -4789,7 +4789,7 @@
         <value xml:lang="en_GB">Please select a deliver from address</value>
         <value xml:lang="es">Seleccione por favor una dirección de envío</value>
         <value xml:lang="fr">Sélectionner l'adresse d'expédition</value>
-        <value xml:lang="it">Perfavore seleziona una spedizione dagli indirizzi</value>
+        <value xml:lang="it">Per favore seleziona una spedizione dagli indirizzi</value>
         <value xml:lang="ja">Please select a ship from address</value>
         <value xml:lang="nl">Selecteer het adres waarvandaan verstuurd zal worden</value>
         <value xml:lang="pt_PT">Por favor, seleccione o envio a partir da morada</value>
@@ -4948,7 +4948,7 @@
         <value xml:lang="es">Envío y Dirección</value>
         <value xml:lang="fr">Frais de port et d'emballage</value>
         <value xml:lang="hi_IN">माल ठीक से भेजने का</value>
-        <value xml:lang="it">Spedizione e Imballaggio</value>
+        <value xml:lang="it">Spedizione ed imballaggio</value>
         <value xml:lang="ja">Shipping and Handling</value>
         <value xml:lang="nl">Verzending en behandeling</value>
         <value xml:lang="pt_PT">Envio e Manuseio</value>
@@ -5023,7 +5023,7 @@
         <value xml:lang="en">Split Shipment</value>
         <value xml:lang="es">Partir envío</value>
         <value xml:lang="fr">Répartir l'expédition</value>
-        <value xml:lang="it">Dividi Spedizione</value>
+        <value xml:lang="it">Dividi spedizione</value>
         <value xml:lang="ja">Split Shipment</value>
         <value xml:lang="nl">Verzending opsplitsen</value>
         <value xml:lang="ro">Divizeaza Expedierea </value>
@@ -5037,7 +5037,7 @@
         <value xml:lang="en">Splitting Preference</value>
         <value xml:lang="es">Preferencia de fraccionamiento</value>
         <value xml:lang="fr">Préférence de fractionnement</value>
-        <value xml:lang="it">Preferenze di Divisione</value>
+        <value xml:lang="it">Preferenze di divisione</value>
         <value xml:lang="ja">Splitting Preference</value>
         <value xml:lang="nl">opsplitsvoorkeuren</value>
         <value xml:lang="pt_PT">Preferências de Separação</value>
@@ -5069,7 +5069,7 @@
         <value xml:lang="es">Por favor Espere, Procesando la Compra...</value>
         <value xml:lang="fr">Attendez SVP, commande en cours de traitement...</value>
         <value xml:lang="hi_IN">कृपया इन्तजार करें, आपके आर्डर पर काम चालू है</value>
-        <value xml:lang="it">Attendere Perfavore, Elaborazione Ordine...</value>
+        <value xml:lang="it">Attendere prego, elaborazione ordine...</value>
         <value xml:lang="ja">Please Wait, Processing Order...</value>
         <value xml:lang="nl">Een moment, we verwerken uw bestelling..</value>
         <value xml:lang="pt_PT">Please Wait, Processing Order...</value>
@@ -5085,7 +5085,7 @@
         <value xml:lang="es">Esta compra es un regalo</value>
         <value xml:lang="fr">Cette commande est un cadeau</value>
         <value xml:lang="hi_IN">यह आर्डर उपहार है</value>
-        <value xml:lang="it">Questo ordine è un'omaggio</value>
+        <value xml:lang="it">Questo ordine è un omaggio</value>
         <value xml:lang="ja">This order is a gift</value>
         <value xml:lang="nl">Deze bestelling is een geschenk</value>
         <value xml:lang="pt_PT">Esta encomenda é um presente</value>
@@ -5101,7 +5101,7 @@
         <value xml:lang="es">Esta compra no es un regalo</value>
         <value xml:lang="fr">Cette commande n'est pas un cadeau</value>
         <value xml:lang="hi_IN">यह आर्डर उपहार नही है</value>
-        <value xml:lang="it">Questo ordine non è un'omaggio</value>
+        <value xml:lang="it">Questo ordine non è un omaggio</value>
         <value xml:lang="ja">This order is not a gift</value>
         <value xml:lang="nl">Deze bestalling is geen geschenk</value>
         <value xml:lang="pt_PT">Esta encomenda não é um presente</value>
@@ -5205,7 +5205,7 @@
         <value xml:lang="es">Si, es un regalo</value>
         <value xml:lang="fr">Oui, c'est un cadeau</value>
         <value xml:lang="hi_IN">हाँ, यह उपहार है</value>
-        <value xml:lang="it">Si, E' un'Omaggio</value>
+        <value xml:lang="it">Si, è un omaggio</value>
         <value xml:lang="ja">Yes, Is A Gift</value>
         <value xml:lang="nl">Inderdaad, het is een geschenk</value>
         <value xml:lang="ro">Da, Este un Omagiu</value>
@@ -5700,7 +5700,7 @@
         <value xml:lang="en">Order Confirmation</value>
         <value xml:lang="es">Confirmación de Orden</value>
         <value xml:lang="fr">Confirmation de commande</value>
-        <value xml:lang="it">Conferma Ordine</value>
+        <value xml:lang="it">Conferma ordine</value>
         <value xml:lang="ja">注文の確認</value>
         <value xml:lang="nl">Bestelling confirmatie</value>
         <value xml:lang="ro">Confirmare Comanda</value>
@@ -5711,6 +5711,7 @@
     <property key="PageTitleOrderConfirmationNotice">
         <value xml:lang="en">Order Confirmation Notice</value>
         <value xml:lang="fr">Avis de confirmation de commande</value>
+        <value xml:lang="it">Avviso di conferma ordine</value>
     </property>
     <property key="PageTitleOrderHistory">
         <value xml:lang="cs">Statistika objednávek</value>
@@ -5815,7 +5816,7 @@
         <value xml:lang="es">Añadir Rápido</value>
         <value xml:lang="fr">Ajout rapide</value>
         <value xml:lang="hi_IN">जल्द जोड़ें</value>
-        <value xml:lang="it">Aggiunta Veloce</value>
+        <value xml:lang="it">Aggiunta veloce</value>
         <value xml:lang="ja">Quick Add</value>
         <value xml:lang="nl">Snel toevoegen</value>
         <value xml:lang="pt_PT">Compra Expresso</value>
@@ -6029,7 +6030,7 @@
         <value xml:lang="es">Nueva Dirección</value>
         <value xml:lang="fr">Ajouter une nouvelle adresse</value>
         <value xml:lang="hi_IN">नया पता</value>
-        <value xml:lang="it">Nuovo Indirizzo</value>
+        <value xml:lang="it">Nuovo indirizzo</value>
         <value xml:lang="ja">New Address</value>
         <value xml:lang="nl">Nieuw Adres</value>
         <value xml:lang="pt_PT">Nova Morada</value>
@@ -6105,7 +6106,7 @@
         <value xml:lang="es">Linea de Dirección 1</value>
         <value xml:lang="fr">Ligne d'adresse 1</value>
         <value xml:lang="hi_IN">पता लाइन १</value>
-        <value xml:lang="it">Indirizzo Riga 1</value>
+        <value xml:lang="it">Indirizzo riga 1</value>
         <value xml:lang="ja">Address Line 1</value>
         <value xml:lang="nl">Adres lijn 1</value>
         <value xml:lang="pt_PT">Linha 1 da Morada</value>
@@ -6121,7 +6122,7 @@
         <value xml:lang="es">Falta Linea de Dirección 1</value>
         <value xml:lang="fr">Ligne d'adresse 1 absente</value>
         <value xml:lang="hi_IN">पता लाइन १ नही है</value>
-        <value xml:lang="it">Indirizzo Riga 1 è mancante</value>
+        <value xml:lang="it">Indirizzo riga 1 è mancante</value>
         <value xml:lang="ja">Address Line 1 is missing</value>
         <value xml:lang="nl">Adreslijn 1 mist</value>
         <value xml:lang="pt_PT">Linha 1 da Morada em Falta</value>
@@ -6137,7 +6138,7 @@
         <value xml:lang="es">Linea de Dirección 2</value>
         <value xml:lang="fr">Ligne d'adresse 2</value>
         <value xml:lang="hi_IN">पता लाइन २</value>
-        <value xml:lang="it">Indirizzo Riga 2</value>
+        <value xml:lang="it">Indirizzo riga 2</value>
         <value xml:lang="ja">Address Line 2</value>
         <value xml:lang="nl">Adreslijn 2</value>
         <value xml:lang="pt_PT">Linha 2 da Morada</value>
@@ -6201,7 +6202,7 @@
         <value xml:lang="en_GB">Can we we write to you at this address?</value>
         <value xml:lang="es">Permitir La Solicitación De la Dirección</value>
         <value xml:lang="fr">Accepter les sollicitations à cette addresse</value>
-        <value xml:lang="it">Ammettere Indirizzo Sollecito</value>
+        <value xml:lang="it">Possiamo inviare informazioni a questo indirizzo</value>
         <value xml:lang="ja">Allow Address Solicitation</value>
         <value xml:lang="nl">Toesturen verkoop informatie</value>
         <value xml:lang="pt_PT">Permitir Solicitação de Morada</value>
@@ -6217,7 +6218,7 @@
         <value xml:lang="en_GB">Can we contact you?</value>
         <value xml:lang="es">Permitir Solicitación</value>
         <value xml:lang="fr">Accepter les sollicitations</value>
-        <value xml:lang="it">Ammettere Sollecito</value>
+        <value xml:lang="it">Possiamo contattarti</value>
         <value xml:lang="ja">Allow Solicitation</value>
         <value xml:lang="nl">Toesturen verkoop informatie OK</value>
         <value xml:lang="pt_PT">Permitir Solicitação</value>
@@ -6264,7 +6265,7 @@
         <value xml:lang="en">Attention Name</value>
         <value xml:lang="es">A la Atención de</value>
         <value xml:lang="fr">A l'attention de</value>
-        <value xml:lang="it">Attenzione Di</value>
+        <value xml:lang="it">All'attenzione di</value>
         <value xml:lang="ja">Attention Name</value>
         <value xml:lang="nl">Attentie naam</value>
         <value xml:lang="pt_PT">Nome do Receptor</value>
@@ -6647,7 +6648,7 @@
         <value xml:lang="es">Crear Información de Contacto Nueva</value>
         <value xml:lang="fr">Créer de nouvelles coordonnées</value>
         <value xml:lang="hi_IN">नया सम्पर्क जानकारी बताइये</value>
-        <value xml:lang="it">Creare Nuova Informazione Contatto</value>
+        <value xml:lang="it">Creazione nuova informazione contatto</value>
         <value xml:lang="ja">Create New Contact Information</value>
         <value xml:lang="nl">Aanmaken van nieuwe kontakt informatie</value>
         <value xml:lang="pt_PT">Criar Nova Informação de Contacto</value>
@@ -7153,7 +7154,7 @@
         <value xml:lang="en_GB">Note: this new contact information will be used for</value>
         <value xml:lang="es">Nota: esta nueva información del contacto tendrá el propósito</value>
         <value xml:lang="fr">Note : ces coordonnées auront pour objet</value>
-        <value xml:lang="it">Nota: questo nuova informazione contatto avrà lo scopo</value>
+        <value xml:lang="it">Nota: questa nuova informazione contatto sarà usata come</value>
         <value xml:lang="ja">Note: this new contact information will have the purpose</value>
         <value xml:lang="nl">Opm: deze nieuw kontakt informatie heeft de reden dat</value>
         <value xml:lang="pt_PT">Nota: esta nova informação de contacto servirá para</value>
@@ -7291,7 +7292,7 @@
         <value xml:lang="es">Ningún País/Província</value>
         <value xml:lang="fr">Pas d'état/Province</value>
         <value xml:lang="hi_IN">कोई राज्य नही</value>
-        <value xml:lang="it">Nessun Stato/Provincia</value>
+        <value xml:lang="it">Nessuno Stato/Provincia</value>
         <value xml:lang="ja">No State/Province</value>
         <value xml:lang="nl">Geen staat of provincie</value>
         <value xml:lang="pt_PT">Sem Distrito/Província</value>
@@ -7755,7 +7756,7 @@
         <value xml:lang="es">Nombre</value>
         <value xml:lang="fr">Nom</value>
         <value xml:lang="hi_IN">नाम को</value>
-        <value xml:lang="it">Al Nome</value>
+        <value xml:lang="it">Nome</value>
         <value xml:lang="ja">To Name</value>
         <value xml:lang="nl">Aan Naam</value>
         <value xml:lang="pt_PT">Para O Nome De</value>
@@ -7993,7 +7994,7 @@
         <value xml:lang="es">Sea El Primero en echar un vistazo a este Producto!</value>
         <value xml:lang="fr">Soyez le premier à mettre un commentaire pour cet article</value>
         <value xml:lang="hi_IN">इस सामान के पहले जान्चकर्ता बनिये</value>
-        <value xml:lang="it">Sii Il Primo a Recensire Il Prodotto!</value>
+        <value xml:lang="it">Recensisci il prodotto per primo!</value>
         <value xml:lang="ja">Be The First To Review This Product!</value>
         <value xml:lang="nl">Wees de eerste die dit product beoordeelt!</value>
         <value xml:lang="ro">Fii Primul Pentru a Revedea Acest  Produs!</value>
@@ -8015,7 +8016,7 @@
         <value xml:lang="es">Hojear Categorías</value>
         <value xml:lang="fr">Parcourir les catégories</value>
         <value xml:lang="hi_IN">सूची देखिये</value>
-        <value xml:lang="it">Sfogliare Categorie</value>
+        <value xml:lang="it">Sfoglia le categorie</value>
         <value xml:lang="ja">カタログの表示</value>
         <value xml:lang="nl">Bekijk Categorieen</value>
         <value xml:lang="pt_PT">Pesquisar Categorias</value>
@@ -8431,7 +8432,7 @@
         <value xml:lang="es">Nombre del Producto</value>
         <value xml:lang="fr">Nom de l'article</value>
         <value xml:lang="hi_IN">सामान नाम</value>
-        <value xml:lang="it">Nome Prodotto</value>
+        <value xml:lang="it">Nome prodotto</value>
         <value xml:lang="ja">Product Name</value>
         <value xml:lang="nl">Produkt Naam</value>
         <value xml:lang="ro">Nume Produs</value>
@@ -8524,7 +8525,7 @@
         <value xml:lang="es">Últimos productos vistos</value>
         <value xml:lang="fr">Articles vus dernièrement</value>
         <value xml:lang="hi_IN">अन्त बार देखा सामान</value>
-        <value xml:lang="it">ultimi Prodotto Visti</value>
+        <value xml:lang="it">Ultimi prodotti visti</value>
         <value xml:lang="ja">Products Last Viewed</value>
         <value xml:lang="nl">Produkten het laatste bekeken</value>
         <value xml:lang="pt_PT">Últimos Produtos Visualizados</value>
@@ -8565,7 +8566,7 @@
         <value xml:lang="es">Nueva Compra Rápida</value>
         <value xml:lang="fr">Nouvelle commande rapide</value>
         <value xml:lang="hi_IN">जल्द दुबारा आर्डर</value>
-        <value xml:lang="it">Riordino Veloce</value>
+        <value xml:lang="it">Nuovo ordine veloce</value>
         <value xml:lang="ja">Quick Reorder</value>
         <value xml:lang="nl">Snel opnieu Bestellen</value>
         <value xml:lang="pt_PT">Reordenação Rápida</value>
@@ -8712,7 +8713,7 @@
         <value xml:lang="en">Quote History</value>
         <value xml:lang="fr">Historique des devis</value>
         <value xml:lang="hi_IN">कोट इतिहास</value>
-        <value xml:lang="it">Storia Preventivi</value>
+        <value xml:lang="it">Storia preventivi</value>
         <value xml:lang="ro">Istoric Oferte</value>
         <value xml:lang="ru">История ценовых предложений</value>
         <value xml:lang="th">ข้อมูลอ้างอิง</value>
@@ -8722,7 +8723,7 @@
         <value xml:lang="en">Request History</value>
         <value xml:lang="fr">Historique des demandes</value>
         <value xml:lang="hi_IN">इतिहास आग्रह किजीये</value>
-        <value xml:lang="it">Storia Richieste</value>
+        <value xml:lang="it">Storia richieste</value>
         <value xml:lang="ro">Istoric Cereri</value>
         <value xml:lang="ru">История запросов</value>
         <value xml:lang="th">ข้อมูลคำร้อง</value>
