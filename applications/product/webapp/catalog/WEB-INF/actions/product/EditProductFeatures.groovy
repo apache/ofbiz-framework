@@ -17,16 +17,16 @@
  * under the License.
  */
 
-import org.ofbiz.entity.*;
+import org.ofbiz.entity.condition.*;
 
-context.productFeatureAndAppls = delegator.findByAnd('ProductFeatureAndAppl',
-        ['productId' : productId],
-        ['sequenceNum', 'productFeatureApplTypeId', 'productFeatureTypeId', 'description']);
+context.productFeatureAndAppls = delegator.findList('ProductFeatureAndAppl',
+        EntityCondition.makeCondition(['productId' : productId]), null,
+        ['sequenceNum', 'productFeatureApplTypeId', 'productFeatureTypeId', 'description'], null, false);
 
-context.productFeatureCategories = delegator.findAll('ProductFeatureCategory', ['description']);
+context.productFeatureCategories = delegator.findList('ProductFeatureCategory', null, null, ['description'], null, false);
 
-context.productFeatureApplTypes = delegator.findAll('ProductFeatureApplType', ['description']);
+context.productFeatureApplTypes = delegator.findList('ProductFeatureApplType', null, null, ['description'], null, true);
 
-context.productFeatureGroups = delegator.findAll('ProductFeatureGroup', ['description']);
+context.productFeatureGroups = delegator.findList('ProductFeatureGroup', null, null, ['description'], null, false);
  
-context.productFeatureTypes = delegator.findAll('ProductFeatureType', ['description']);
+context.productFeatureTypes = delegator.findList('ProductFeatureType', null, null, ['description'], null, true);
