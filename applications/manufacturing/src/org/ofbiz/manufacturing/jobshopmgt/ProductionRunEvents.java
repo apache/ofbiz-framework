@@ -87,6 +87,7 @@ public class ProductionRunEvents {
             Map inputMap = UtilMisc.toMap("workEffortId", parameters.get("workEffortId"), "inventoryItemTypeId", parameters.get("inventoryItemTypeId"));
             inputMap.put("componentsLocationMap", componentsLocationMap);
             inputMap.put("quantity", quantity);
+            inputMap.put("lotId", parameters.get("lotId"));
             inputMap.put("userLogin", userLogin);
             Map result = dispatcher.runSync("productionRunDeclareAndProduce", inputMap);
         } catch (GenericServiceException e) {
