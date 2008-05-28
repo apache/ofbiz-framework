@@ -48,14 +48,24 @@ public abstract class EntityConditionFunction extends EntityCondition {
         }
     };
 
-    protected int idInt;
-    protected String codeString;
-    protected EntityCondition condition;
+    protected Integer idInt = null;
+    protected String codeString = null;
+    protected EntityCondition condition = null;
 
     protected EntityConditionFunction(int id, String code, EntityCondition condition) {
+    	init(id, code, condition);
+    }
+    
+    public void init(int id, String code, EntityCondition condition) {
         idInt = id;
         codeString = code;
         this.condition = condition;
+    }
+
+    public void reset() {
+        idInt = null;
+        codeString = null;
+        this.condition = null;
     }
 
     public String getCode() {
@@ -76,13 +86,11 @@ public abstract class EntityConditionFunction extends EntityCondition {
     public boolean equals(Object obj) {
         if (!(obj instanceof EntityConditionFunction)) return false;
         EntityConditionFunction otherFunc = (EntityConditionFunction) obj;
-        return
-            this.idInt == otherFunc.idInt
-            && ( this.condition != null ? condition.equals( otherFunc.condition ) : otherFunc.condition != null );
+        return this.idInt == otherFunc.idInt && (this.condition != null ? condition.equals(otherFunc.condition) : otherFunc.condition != null);
     }
 
     public int hashCode() {
-        return idInt ^ condition.hashCode();
+        return idInt.hashCode() ^ condition.hashCode();
     }
 
     public String makeWhereString(ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, DatasourceInfo datasourceInfo) {

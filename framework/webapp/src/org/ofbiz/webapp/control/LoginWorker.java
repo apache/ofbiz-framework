@@ -40,6 +40,7 @@ import javax.servlet.jsp.PageContext;
 import javax.transaction.Transaction;
 
 import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.ofbiz.base.component.ComponentConfig;
 import org.ofbiz.base.util.Debug;
@@ -54,6 +55,7 @@ import org.ofbiz.common.login.LoginServices;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
@@ -79,7 +81,7 @@ public class LoginWorker {
     public static final String X509_CERT_ATTR = "SSLx509Cert";
 
     /** This Map is keyed by the randomly generated externalLoginKey and the value is a UserLogin GenericValue object */
-    public static Map externalLoginKeys = new HashMap();
+    public static Map<String, GenericValue> externalLoginKeys = FastMap.newInstance();
     
     public static String makeLoginUrl(PageContext pageContext) {
         return makeLoginUrl(pageContext, "checkLogin");
@@ -724,36 +726,36 @@ public class LoginWorker {
     }
 
     protected static boolean checkValidIssuer(GenericDelegator delegator, Map x500Map, BigInteger serialNumber) throws GeneralException {
-        List conds = FastList.newInstance();
-        conds.add(new EntityConditionList(UtilMisc.toList(new EntityExpr("commonName", EntityOperator.EQUALS, x500Map.get("CN")),
+        List<EntityCondition> conds = FastList.newInstance();
+        conds.add(EntityCondition.makeCondition(EntityOperator.OR, new EntityExpr("commonName", EntityOperator.EQUALS, x500Map.get("CN")),
                 new EntityExpr("commonName", EntityOperator.EQUALS, null),
-                new EntityExpr("commonName", EntityOperator.EQUALS, "")), EntityOperator.OR));
+                new EntityExpr("commonName", EntityOperator.EQUALS, "")));
 
-        conds.add(new EntityConditionList(UtilMisc.toList(new EntityExpr("organizationalUnit", EntityOperator.EQUALS, x500Map.get("OU")),
+        conds.add(EntityCondition.makeCondition(EntityOperator.OR, new EntityExpr("organizationalUnit", EntityOperator.EQUALS, x500Map.get("OU")),
                 new EntityExpr("organizationalUnit", EntityOperator.EQUALS, null),
-                new EntityExpr("organizationalUnit", EntityOperator.EQUALS, "")), EntityOperator.OR));
+                new EntityExpr("organizationalUnit", EntityOperator.EQUALS, "")));
 
-        conds.add(new EntityConditionList(UtilMisc.toList(new EntityExpr("organizationName", EntityOperator.EQUALS, x500Map.get("O")),
+        conds.add(EntityCondition.makeCondition(EntityOperator.OR, new EntityExpr("organizationName", EntityOperator.EQUALS, x500Map.get("O")),
                 new EntityExpr("organizationName", EntityOperator.EQUALS, null),
-                new EntityExpr("organizationName", EntityOperator.EQUALS, "")), EntityOperator.OR));
+                new EntityExpr("organizationName", EntityOperator.EQUALS, "")));
 
-        conds.add(new EntityConditionList(UtilMisc.toList(new EntityExpr("cityLocality", EntityOperator.EQUALS, x500Map.get("L")),
+        conds.add(EntityCondition.makeCondition(EntityOperator.OR, new EntityExpr("cityLocality", EntityOperator.EQUALS, x500Map.get("L")),
                 new EntityExpr("cityLocality", EntityOperator.EQUALS, null),
-                new EntityExpr("cityLocality", EntityOperator.EQUALS, "")), EntityOperator.OR));
+                new EntityExpr("cityLocality", EntityOperator.EQUALS, "")));
 
-        conds.add(new EntityConditionList(UtilMisc.toList(new EntityExpr("stateProvince", EntityOperator.EQUALS, x500Map.get("ST")),
+        conds.add(EntityCondition.makeCondition(EntityOperator.OR, new EntityExpr("stateProvince", EntityOperator.EQUALS, x500Map.get("ST")),
                 new EntityExpr("stateProvince", EntityOperator.EQUALS, null),
-                new EntityExpr("stateProvince", EntityOperator.EQUALS, "")), EntityOperator.OR));
+                new EntityExpr("stateProvince", EntityOperator.EQUALS, "")));
 
-        conds.add(new EntityConditionList(UtilMisc.toList(new EntityExpr("country", EntityOperator.EQUALS, x500Map.get("C")),
+        conds.add(EntityCondition.makeCondition(EntityOperator.OR, new EntityExpr("country", EntityOperator.EQUALS, x500Map.get("C")),
                 new EntityExpr("country", EntityOperator.EQUALS, null),
-                new EntityExpr("country", EntityOperator.EQUALS, "")), EntityOperator.OR));
+                new EntityExpr("country", EntityOperator.EQUALS, "")));
 
-        conds.add(new EntityConditionList(UtilMisc.toList(new EntityExpr("serialNumber", EntityOperator.EQUALS, serialNumber.toString(16)),
+        conds.add(EntityCondition.makeCondition(EntityOperator.OR, new EntityExpr("serialNumber", EntityOperator.EQUALS, serialNumber.toString(16)),
                 new EntityExpr("serialNumber", EntityOperator.EQUALS, null),
-                new EntityExpr("serialNumber", EntityOperator.EQUALS, "")), EntityOperator.OR));
+                new EntityExpr("serialNumber", EntityOperator.EQUALS, "")));
 
-        EntityConditionList condition = new EntityConditionList(conds, EntityOperator.AND);
+        EntityConditionList<EntityCondition> condition = EntityCondition.makeCondition(conds);
         Debug.logInfo("Doing issuer lookup: " + condition.toString(), module);
         long count = delegator.findCountByCondition("X509IssuerProvision", condition, null, null);
         return count > 0;

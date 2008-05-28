@@ -360,11 +360,11 @@ public class ServiceUtil {
         List<EntityExpr> canExp = UtilMisc.toList(new EntityExpr("cancelDateTime", EntityOperator.NOT_EQUAL, null));
         canExp.add(new EntityExpr("cancelDateTime", EntityOperator.LESS_THAN, purgeTime));
 
-        EntityCondition cancelled = new EntityConditionList<EntityExpr>(canExp, EntityOperator.AND);
-        EntityCondition finished = new EntityConditionList<EntityExpr>(finExp, EntityOperator.AND);
+        EntityCondition cancelled = EntityCondition.makeCondition(canExp);
+        EntityCondition finished = EntityCondition.makeCondition(finExp);
 
-        EntityCondition doneCond = new EntityConditionList<EntityCondition>(UtilMisc.toList(cancelled, finished), EntityOperator.OR);
-        EntityCondition mainCond = new EntityConditionList<EntityCondition>(UtilMisc.toList(doneCond, pool), EntityOperator.AND);
+        EntityCondition doneCond = EntityCondition.makeCondition(UtilMisc.toList(cancelled, finished), EntityOperator.OR);
+        EntityCondition mainCond = EntityCondition.makeCondition(UtilMisc.toList(doneCond, pool));
 
         // configure the find options
         EntityFindOptions findOptions = new EntityFindOptions();
@@ -605,7 +605,7 @@ public class ServiceUtil {
         return UtilGenerics.checkMap(UtilMisc.toMap(args));
     }
 
-    public static Map resetJob(DispatchContext dctx, Map context) {
+    public static Map<String, Object> resetJob(DispatchContext dctx, Map<String, Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
         Security security = dctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");

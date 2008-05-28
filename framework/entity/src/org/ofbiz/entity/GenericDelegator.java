@@ -546,7 +546,7 @@ public class GenericDelegator implements DelegatorInterface {
 
     /** Creates a Primary Key in the form of a GenericPK without persisting it */
     public GenericPK makePK(String entityName) {
-        return this.makePK(entityName, (Map) null);
+        return this.makePK(entityName, (Map<String, Object>) null);
     }
 
     /** Creates a Primary Key in the form of a GenericPK without persisting it */
@@ -1029,7 +1029,7 @@ public class GenericDelegator implements DelegatorInterface {
      *@return int representing number of rows effected by this operation
      */
     public int removeByAnd(String entityName, Map<String, ? extends Object> fields, boolean doCacheClear) throws GenericEntityException {
-        EntityCondition ecl = new EntityFieldMap(fields, EntityOperator.AND);
+        EntityCondition ecl = EntityCondition.makeCondition(fields);
         return removeByCondition(entityName, ecl, doCacheClear);
     }
 
@@ -1386,7 +1386,7 @@ public class GenericDelegator implements DelegatorInterface {
     }
 
     public int removeAll(String entityName) throws GenericEntityException {
-        return removeByAnd(entityName, (Map) null);
+        return removeByAnd(entityName, (Map<String, Object>) null);
     }
 
     /** Remove the Entities from the List from the persistent store.
@@ -1891,7 +1891,7 @@ public class GenericDelegator implements DelegatorInterface {
      * @return List of GenericValue instances that match the query
      */
     public List<GenericValue> findByAnd(String entityName, Map<String, ? extends Object> fields) throws GenericEntityException {
-        EntityCondition ecl = new EntityFieldMap(fields, EntityOperator.AND);
+        EntityCondition ecl = EntityCondition.makeCondition(fields);
         return this.findList(entityName, ecl, null, null, null, false);
     }
 
@@ -1903,7 +1903,7 @@ public class GenericDelegator implements DelegatorInterface {
      *@deprecated Use findList() instead
      */
     public List<GenericValue> findByOr(String entityName, Object... fields) throws GenericEntityException {
-        EntityCondition ecl = new EntityFieldMap(UtilMisc.<String, Object>toMap(fields), EntityOperator.OR);
+        EntityCondition ecl = EntityCondition.makeCondition(EntityOperator.OR, fields);
         return this.findList(entityName, ecl, null, null, null, false);
     }
 
@@ -1915,7 +1915,7 @@ public class GenericDelegator implements DelegatorInterface {
      *@deprecated Use findList() instead
      */
     public List<GenericValue> findByOr(String entityName, Map<String, ? extends Object> fields) throws GenericEntityException {
-        EntityCondition ecl = new EntityFieldMap(fields, EntityOperator.OR);
+        EntityCondition ecl = EntityCondition.makeCondition(fields, EntityOperator.OR);
         return this.findList(entityName, ecl, null, null, null, false);
     }
 
@@ -1928,7 +1928,7 @@ public class GenericDelegator implements DelegatorInterface {
      * @return List of GenericValue instances that match the query
      */
     public List<GenericValue> findByAnd(String entityName, Map<String, ? extends Object> fields, List<String> orderBy) throws GenericEntityException {
-        EntityCondition ecl = new EntityFieldMap(fields, EntityOperator.AND);
+        EntityCondition ecl = EntityCondition.makeCondition(fields);
         return this.findList(entityName, ecl, null, orderBy, null, false);
     }
 
@@ -1942,7 +1942,7 @@ public class GenericDelegator implements DelegatorInterface {
      *@deprecated Use findList() instead
      */
     public List<GenericValue> findByOr(String entityName, Map<String, ? extends Object> fields, List<String> orderBy) throws GenericEntityException {
-        EntityCondition ecl = new EntityFieldMap(fields, EntityOperator.OR);
+        EntityCondition ecl = EntityCondition.makeCondition(fields, EntityOperator.OR);
         return this.findList(entityName, ecl, null, orderBy, null, false);
     }
 
@@ -1964,7 +1964,7 @@ public class GenericDelegator implements DelegatorInterface {
      *@return List of GenericValue instances that match the query
      */
     public List<GenericValue> findByAndCache(String entityName, Map<String, ? extends Object> fields) throws GenericEntityException {
-        return this.findList(entityName, new EntityFieldMap(fields, EntityOperator.AND), null, null, null, true);
+        return this.findList(entityName, EntityCondition.makeCondition(fields), null, null, null, true);
     }
 
     /** Finds Generic Entity records by all of the specified fields (ie: combined using AND), looking first in the cache; uses orderBy for lookup, but only keys results on the entityName and fields
@@ -1975,7 +1975,7 @@ public class GenericDelegator implements DelegatorInterface {
      *@return List of GenericValue instances that match the query
      */
     public List<GenericValue> findByAndCache(String entityName, Map<String, ? extends Object> fields, List<String> orderBy) throws GenericEntityException {
-        return this.findList(entityName, new EntityFieldMap(fields, EntityOperator.AND), null, orderBy, null, true);
+        return this.findList(entityName, EntityCondition.makeCondition(fields), null, orderBy, null, true);
     }
 
     /** Finds Generic Entity records by all of the specified expressions (ie: combined using AND)
@@ -1986,7 +1986,7 @@ public class GenericDelegator implements DelegatorInterface {
      *@deprecated Use findList() instead
      */
     public <T extends EntityCondition> List<GenericValue> findByAnd(String entityName, T... expressions) throws GenericEntityException {
-        EntityConditionList<T> ecl = new EntityConditionList<T>(Arrays.asList(expressions), EntityOperator.AND);
+        EntityConditionList<T> ecl = EntityCondition.makeCondition(EntityOperator.AND, expressions);
         return this.findList(entityName, ecl, null, null, null, false);
     }
 
@@ -1998,7 +1998,7 @@ public class GenericDelegator implements DelegatorInterface {
      *@deprecated Use findList() instead
      */
     public <T extends EntityCondition> List<GenericValue> findByAnd(String entityName, List<T> expressions) throws GenericEntityException {
-        EntityConditionList<T> ecl = new EntityConditionList<T>(expressions, EntityOperator.AND);
+        EntityConditionList<T> ecl = EntityCondition.makeCondition(expressions, EntityOperator.AND);
         return this.findList(entityName, ecl, null, null, null, false);
     }
 
@@ -2011,7 +2011,7 @@ public class GenericDelegator implements DelegatorInterface {
      *@deprecated Use findList() instead
      */
     public <T extends EntityCondition> List<GenericValue> findByAnd(String entityName, List<T> expressions, List<String> orderBy) throws GenericEntityException {
-        EntityConditionList<T> ecl = new EntityConditionList<T>(expressions, EntityOperator.AND);
+        EntityConditionList<T> ecl = EntityCondition.makeCondition(expressions, EntityOperator.AND);
         return this.findList(entityName, ecl, null, orderBy, null, false);
     }
 
@@ -2023,7 +2023,7 @@ public class GenericDelegator implements DelegatorInterface {
      *@deprecated Use findList() instead
      */
     public <T extends EntityCondition> List<GenericValue> findByOr(String entityName, T... expressions) throws GenericEntityException {
-        return this.findList(entityName, new EntityConditionList<T>(Arrays.asList(expressions), EntityOperator.AND), null, null, null, false);
+        return this.findList(entityName, EntityCondition.makeCondition(EntityOperator.AND, expressions), null, null, null, false);
     }
 
     /** Finds Generic Entity records by all of the specified expressions (ie: combined using OR)
@@ -2034,7 +2034,7 @@ public class GenericDelegator implements DelegatorInterface {
      *@deprecated Use findList() instead
      */
     public <T extends EntityCondition> List<GenericValue> findByOr(String entityName, List<T> expressions) throws GenericEntityException {
-        EntityConditionList<T> ecl = new EntityConditionList<T>(expressions, EntityOperator.OR);
+        EntityConditionList<T> ecl = EntityCondition.makeCondition(expressions, EntityOperator.OR);
         return this.findList(entityName, ecl, null, null, null, false);
     }
 
@@ -2047,7 +2047,7 @@ public class GenericDelegator implements DelegatorInterface {
      *@deprecated Use findList() instead
      */
     public <T extends EntityCondition> List<GenericValue> findByOr(String entityName, List<T> expressions, List<String> orderBy) throws GenericEntityException {
-        EntityConditionList<T> ecl = new EntityConditionList<T>(expressions, EntityOperator.OR);
+        EntityConditionList<T> ecl = EntityCondition.makeCondition(expressions, EntityOperator.OR);
         return this.findList(entityName, ecl, null, orderBy, null, false);
     }
 
@@ -2063,7 +2063,7 @@ public class GenericDelegator implements DelegatorInterface {
                 likeExpressions.add(new EntityExpr(fieldEntry.getKey(), EntityOperator.LIKE, fieldEntry.getValue()));
             }
         }
-        EntityConditionList<EntityExpr> ecl = new EntityConditionList<EntityExpr>(likeExpressions, EntityOperator.AND);
+        EntityConditionList<EntityExpr> ecl = EntityCondition.makeCondition(likeExpressions, EntityOperator.AND);
         return this.findList(entityName, ecl, null, null, null, false);
     }
 
@@ -2078,7 +2078,7 @@ public class GenericDelegator implements DelegatorInterface {
                 likeExpressions.add(new EntityExpr(fieldEntry.getKey(), EntityOperator.LIKE, fieldEntry.getValue()));
             }
         }
-        EntityConditionList<EntityExpr> ecl = new EntityConditionList<EntityExpr>(likeExpressions, EntityOperator.AND);
+        EntityConditionList<EntityExpr> ecl = EntityCondition.makeCondition(likeExpressions, EntityOperator.AND);
         return this.findList(entityName, ecl, null, null, null, false);
     }
 
@@ -2093,7 +2093,7 @@ public class GenericDelegator implements DelegatorInterface {
                 likeExpressions.add(new EntityExpr(fieldEntry.getKey(), EntityOperator.LIKE, fieldEntry.getValue()));
             }
         }
-        EntityConditionList<EntityExpr> ecl = new EntityConditionList<EntityExpr>(likeExpressions, EntityOperator.AND);
+        EntityConditionList<EntityExpr> ecl = EntityCondition.makeCondition(likeExpressions, EntityOperator.AND);
         return this.findList(entityName, ecl, null, orderBy, null, false);
     }
 

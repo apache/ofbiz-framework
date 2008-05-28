@@ -31,6 +31,7 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityFieldMap;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.ModelEntity;
@@ -353,7 +354,7 @@ public class GenericValue extends GenericEntity implements Reusable {
      *@param fields the fields that must equal in order to keep
      *@return List of GenericValue instances as specified in the relation definition
      */
-    public List getRelatedByAndCache(String relationName, Map<String, ? extends Object> fields) throws GenericEntityException {
+    public List<GenericValue> getRelatedByAndCache(String relationName, Map<String, ? extends Object> fields) throws GenericEntityException {
         return EntityUtil.filterByAnd(this.getDelegator().getRelatedCache(relationName, this), fields);
     }
 
@@ -364,7 +365,7 @@ public class GenericValue extends GenericEntity implements Reusable {
      *@param fields the fields that must equal in order to keep
      *@return List of GenericValue instances as specified in the relation definition
      */
-    public List getRelatedByAndEmbeddedCache(String relationName, Map<String, ? extends Object> fields) throws GenericEntityException {
+    public List<GenericValue> getRelatedByAndEmbeddedCache(String relationName, Map<String, ? extends Object> fields) throws GenericEntityException {
         return EntityUtil.filterByAnd(getRelatedEmbeddedCache(relationName), fields);
     }
 
@@ -446,7 +447,7 @@ public class GenericValue extends GenericEntity implements Reusable {
                     ModelKeyMap keyMap = relation.getKeyMap(i);
                     fields.put(keyMap.getRelFieldName(), this.get(keyMap.getFieldName()));
                 }
-                EntityFieldMap ecl = new EntityFieldMap(fields, EntityOperator.AND);
+                EntityFieldMap ecl = EntityCondition.makeCondition(fields);
                 long count = this.getDelegator().findCountByCondition(relation.getRelEntityName(), ecl, null, null);
                 if (count == 0) {
                     if (insertDummy) {

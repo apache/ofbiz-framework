@@ -130,17 +130,13 @@ public class EntityTestSuite extends TestCase {
         GenericValue root = delegator.create("TestingNode",
                         "testingNodeId", delegator.getNextSeqId("TestingNode"),
                         "primaryParentNodeId", GenericEntity.NULL_FIELD,
-                        "description", "root"
-                );
+                        "description", "root");
         int level1;
         for(level1 = 0; level1 < _level1max; level1++) {
             String nextSeqId = delegator.getNextSeqId("TestingNode");
-            GenericValue v =
-                delegator.create("TestingNode",
-                    "testingNodeId", nextSeqId,
+            GenericValue v = delegator.create("TestingNode", "testingNodeId", nextSeqId,
                                     "primaryParentNodeId", root.get("testingNodeId"),
-                                    "description", "node-level #1"
-                                );
+                                    "description", "node-level #1");
         }
 
         long created = level1;
@@ -217,9 +213,8 @@ public class EntityTestSuite extends TestCase {
     public void testFindDistinct() throws Exception {
         List<EntityExpr> exprList = UtilMisc.toList(
                 new EntityExpr("testingSize", EntityOperator.EQUALS, new Long(10)),
-                new EntityExpr("comments", EntityOperator.EQUALS, "No-comments")
-                );
-        EntityConditionList<EntityExpr> condition = new EntityConditionList<EntityExpr>(exprList, EntityOperator.AND);
+                new EntityExpr("comments", EntityOperator.EQUALS, "No-comments"));
+        EntityConditionList<EntityExpr> condition = EntityCondition.makeCondition(exprList);
 
         EntityFindOptions findOptions = new EntityFindOptions();
         findOptions.setDistinct(true);

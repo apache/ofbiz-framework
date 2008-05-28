@@ -126,9 +126,9 @@ public class JobManager {
         }
 
         // make the conditions
-        EntityCondition baseCondition = new EntityConditionList<EntityExpr>(expressions, EntityOperator.AND);
-        EntityCondition poolCondition = new EntityConditionList<EntityExpr>(poolsExpr, EntityOperator.OR);
-        EntityCondition mainCondition = new EntityConditionList<EntityCondition>(UtilMisc.toList(baseCondition, poolCondition), EntityOperator.AND);
+        EntityCondition baseCondition = EntityCondition.makeCondition(expressions);
+        EntityCondition poolCondition = EntityCondition.makeCondition(poolsExpr, EntityOperator.OR);
+        EntityCondition mainCondition = EntityCondition.makeCondition(UtilMisc.toList(baseCondition, poolCondition));
 
         // we will loop until we have no more to do
         boolean pollDone = false;
@@ -207,7 +207,7 @@ public class JobManager {
         List<EntityExpr> exprs = UtilMisc.toList(new EntityExpr("finishDateTime", EntityOperator.EQUALS, null));
         exprs.add(new EntityExpr("cancelDateTime", EntityOperator.EQUALS, null));
         exprs.add(new EntityExpr("runByInstanceId", EntityOperator.EQUALS, instanceId));
-        EntityConditionList<EntityExpr> ecl = new EntityConditionList<EntityExpr>(exprs, EntityOperator.AND);
+        EntityConditionList<EntityExpr> ecl = EntityCondition.makeCondition(exprs);
 
         try {
             crashed = delegator.findList("JobSandbox", ecl, null, UtilMisc.toList("startDateTime"), null, false);

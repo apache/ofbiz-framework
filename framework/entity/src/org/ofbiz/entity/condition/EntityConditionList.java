@@ -32,14 +32,16 @@ public class EntityConditionList<T extends EntityCondition> extends EntityCondit
         super();
     }
 
+    /** @deprecated Use EntityCondition.makeCondition() instead */
     public EntityConditionList(EntityJoinOperator operator, T... conditionList) {
-        super(operator, conditionList);
+        init(operator, conditionList);
     }
 
+    /** @deprecated Use EntityCondition.makeCondition() instead */
     public EntityConditionList(List<T> conditionList, EntityJoinOperator operator) {
-        super(conditionList, operator);
+        init(conditionList, operator);
     }
-
+    
     public int getConditionListSize() {
         return super.getConditionListSize();
     }

@@ -38,9 +38,9 @@ import org.ofbiz.entity.model.ModelField;
 public class EntityExpr extends EntityCondition {
     public static final String module = EntityExpr.class.getName();
 
-    private Object lhs;
-    private EntityOperator<?> operator;
-    private Object rhs;
+    private Object lhs = null;
+    private EntityOperator<?> operator = null;
+    private Object rhs = null;
 
     protected EntityExpr() {}
 
@@ -112,6 +112,12 @@ public class EntityExpr extends EntityCondition {
         this.lhs = lhs;
         this.operator = operator;
         this.rhs = rhs;
+    }
+
+    public void reset() {
+    	this.lhs = null;
+    	this.operator = null;
+    	this.rhs = null;
     }
 
     /** @deprecated */

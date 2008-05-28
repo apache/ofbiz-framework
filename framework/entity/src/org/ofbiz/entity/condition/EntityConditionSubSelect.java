@@ -34,10 +34,10 @@ import org.ofbiz.entity.model.ModelViewEntity;
 public class EntityConditionSubSelect extends EntityConditionValue {
     public static final String module = EntityConditionSubSelect.class.getName();
 
-    protected ModelEntity localModelEntity;
-    protected String keyFieldName;
-    protected EntityCondition whereCond;
-    protected boolean requireAll;
+    protected ModelEntity localModelEntity = null;
+    protected String keyFieldName = null;
+    protected EntityCondition whereCond = null;
+    protected Boolean requireAll = null;
     
     protected EntityConditionSubSelect() { }
     

@@ -168,7 +168,7 @@ public abstract class ListFinder extends Finder {
             if (filterByDate) {
                 EntityCondition filterByDateCondition = EntityUtil.getFilterByDateExpr();
                 if (whereEntityCondition != null) {
-                    whereEntityCondition = new EntityConditionList<EntityCondition>(UtilMisc.toList(whereEntityCondition, filterByDateCondition), EntityJoinOperator.AND);
+                    whereEntityCondition = EntityCondition.makeCondition(UtilMisc.toList(whereEntityCondition, filterByDateCondition));
                 } else {
                     whereEntityCondition = filterByDateCondition;
                 }

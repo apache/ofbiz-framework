@@ -68,10 +68,10 @@ public class CommonWorkers {
     
     public static List getStateList(GenericDelegator delegator) {
         List geoList = FastList.newInstance();       
-        EntityCondition condition = new EntityConditionList(UtilMisc.toList(
+        EntityCondition condition = EntityCondition.makeCondition(EntityOperator.OR,
                 new EntityExpr("geoTypeId", EntityOperator.EQUALS, "STATE"), new EntityExpr("geoTypeId", EntityOperator.EQUALS, "PROVINCE"),
-                new EntityExpr("geoTypeId", EntityOperator.EQUALS, "TERRITORY")), EntityOperator.OR);
-        List sortList = UtilMisc.toList("geoName");
+                new EntityExpr("geoTypeId", EntityOperator.EQUALS, "TERRITORY"));
+        List<String> sortList = UtilMisc.toList("geoName");
         try {
             geoList = delegator.findList("Geo", condition, null, sortList, null, true);
         } catch (GenericEntityException e) {
@@ -83,22 +83,20 @@ public class CommonWorkers {
     /**
      * Returns a list of regional geo associations.
      */
-    public static List getAssociatedStateList(GenericDelegator delegator, String country) {
+    public static List<GenericValue> getAssociatedStateList(GenericDelegator delegator, String country) {
         if (country == null || country.length() == 0) {
             // Load the system default country
             country = UtilProperties.getPropertyValue("general.properties", "country.geo.id.default");
         }
-        EntityCondition stateProvinceFindCond = new EntityConditionList(UtilMisc.toList(
+        EntityCondition stateProvinceFindCond = EntityCondition.makeCondition(
                 new EntityExpr("geoIdFrom", EntityOperator.EQUALS, country),
                 new EntityExpr("geoAssocTypeId", EntityOperator.EQUALS, "REGIONS"),
-                new EntityConditionList(UtilMisc.toList(
+                EntityCondition.makeCondition(EntityOperator.OR,
                         new EntityExpr("geoTypeId", EntityOperator.EQUALS, "STATE"),
-                        new EntityExpr("geoTypeId", EntityOperator.EQUALS, "PROVINCE")
-                        ), EntityOperator.OR)
-                ), EntityOperator.AND);
+                        new EntityExpr("geoTypeId", EntityOperator.EQUALS, "PROVINCE")));
         List<String> sortList = UtilMisc.toList("geoId");
 
-        List geoList = FastList.newInstance();
+        List<GenericValue> geoList = FastList.newInstance();
         try {
             geoList = delegator.findList("GeoAssocAndGeoTo", stateProvinceFindCond, null, sortList, null, true);
         } catch (GenericEntityException e) {

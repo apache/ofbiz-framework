@@ -19,10 +19,8 @@
 package org.ofbiz.workflow.client;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
@@ -31,6 +29,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
@@ -447,7 +446,7 @@ public class WorkflowServices {
             return true;
         } else {
             String partyId = userLogin.getString("partyId");
-            EntityConditionList<EntityExpr> ecl = new EntityConditionList<EntityExpr>(
+            EntityConditionList<EntityExpr> ecl = EntityCondition.makeCondition(
                     EntityOperator.AND, 
                     new EntityExpr[] {
                             new EntityExpr("partyId", EntityOperator.EQUALS, partyId),
@@ -469,7 +468,7 @@ public class WorkflowServices {
                 return false;
             }
             if (c.size() == 0) {
-                ecl = new EntityConditionList<EntityExpr>(
+                ecl = EntityCondition.makeCondition(
                         EntityOperator.AND, 
                         new EntityExpr[] {
                                 new EntityExpr("partyId", EntityOperator.EQUALS, partyId),

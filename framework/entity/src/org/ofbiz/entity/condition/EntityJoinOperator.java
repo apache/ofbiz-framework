@@ -87,7 +87,7 @@ public class EntityJoinOperator extends EntityOperator<Boolean> {
         for (EntityCondition condition: conditionList) {
             newList.add(condition.freeze());
         }
-        return new EntityConditionList<EntityCondition>(newList, this);
+        return EntityCondition.makeCondition(newList, this);
     }
 
     public void visit(EntityConditionVisitor visitor, List<? extends EntityCondition> conditionList) {
