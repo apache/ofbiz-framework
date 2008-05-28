@@ -182,11 +182,11 @@ public class OagisInventoryServices {
                     
                     // only if looking for available inventory find the non-serialized QOH total
                     if (isAvailable) {
-                        EntityCondition condition = new EntityConditionList(UtilMisc.toList(
-                                new EntityExpr("effectiveDate", EntityOperator.LESS_THAN_EQUAL_TO, snapshotDate), 
-                                new EntityExpr("productId", EntityOperator.EQUALS, productId),
-                                new EntityExpr("inventoryItemTypeId", EntityOperator.EQUALS, "NON_SERIAL_INV_ITEM"),
-                                new EntityExpr("facilityId", EntityOperator.EQUALS, syncInventoryFacilityId)), EntityOperator.AND);
+                        EntityCondition condition = EntityCondition.makeCondition(UtilMisc.toList(
+                                EntityCondition.makeCondition("effectiveDate", EntityOperator.LESS_THAN_EQUAL_TO, snapshotDate), 
+                                EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId),
+                                EntityCondition.makeCondition("inventoryItemTypeId", EntityOperator.EQUALS, "NON_SERIAL_INV_ITEM"),
+                                EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, syncInventoryFacilityId)), EntityOperator.AND);
                         List invItemAndDetails = delegator.findList("InventoryItemDetailForSum", condition, UtilMisc.toSet("quantityOnHandSum"), null, null, false);
                         Iterator invItemAndDetailIter = invItemAndDetails.iterator();
                         while (invItemAndDetailIter.hasNext()) {
@@ -196,13 +196,13 @@ public class OagisInventoryServices {
                     }
 
                     // now regardless of AVAILABLE or NOTAVAILABLE check serialized inventory, just use the corresponding statusId as set above
-                    EntityCondition serInvCondition = new EntityConditionList(UtilMisc.toList(
-                            new EntityExpr("statusDatetime", EntityOperator.LESS_THAN_EQUAL_TO, snapshotDate),
-                            new EntityExpr(new EntityExpr("statusEndDatetime", EntityOperator.GREATER_THAN, snapshotDate), EntityOperator.OR, new EntityExpr("statusEndDatetime", EntityOperator.EQUALS, null)),
-                            new EntityExpr("productId", EntityOperator.EQUALS, productId),
-                            new EntityExpr("statusId", EntityOperator.EQUALS, statusId),
-                            new EntityExpr("inventoryItemTypeId", EntityOperator.EQUALS, "SERIALIZED_INV_ITEM"),
-                            new EntityExpr("facilityId", EntityOperator.EQUALS, syncInventoryFacilityId)), EntityOperator.AND);
+                    EntityCondition serInvCondition = EntityCondition.makeCondition(UtilMisc.toList(
+                            EntityCondition.makeCondition("statusDatetime", EntityOperator.LESS_THAN_EQUAL_TO, snapshotDate),
+                            EntityCondition.makeCondition(EntityCondition.makeCondition("statusEndDatetime", EntityOperator.GREATER_THAN, snapshotDate), EntityOperator.OR, EntityCondition.makeCondition("statusEndDatetime", EntityOperator.EQUALS, null)),
+                            EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId),
+                            EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, statusId),
+                            EntityCondition.makeCondition("inventoryItemTypeId", EntityOperator.EQUALS, "SERIALIZED_INV_ITEM"),
+                            EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, syncInventoryFacilityId)), EntityOperator.AND);
                     long invItemQuantCount = delegator.findCountByCondition("InventoryItemStatusForCount", serInvCondition, null, null);
                     quantityOnHandTotal += invItemQuantCount;
                     
@@ -921,8 +921,8 @@ public class OagisInventoryServices {
                                     Set productIdSet = ProductWorker.getRefurbishedProductIdSet(productId, delegator);
                                     productIdSet.add(productId);
                                     
-                                    EntityCondition bySerialNumberCondition = new EntityExpr(new EntityExpr("serialNumber", EntityOperator.EQUALS, serialNum), 
-                                            EntityOperator.AND, new EntityExpr("productId", EntityOperator.IN, productIdSet));
+                                    EntityCondition bySerialNumberCondition = EntityCondition.makeCondition(EntityCondition.makeCondition("serialNumber", EntityOperator.EQUALS, serialNum), 
+                                            EntityOperator.AND, EntityCondition.makeCondition("productId", EntityOperator.IN, productIdSet));
                                     List inventoryItemsBySerialNumber = delegator.findList("InventoryItem", bySerialNumberCondition, null, null, null, false);
 
                                     if (OagisServices.requireSerialNumberExist != null) {
@@ -1393,8 +1393,8 @@ public class OagisInventoryServices {
                             Set productIdSet = ProductWorker.getRefurbishedProductIdSet(productId, delegator);
                             productIdSet.add(productId);
                             
-                            EntityCondition bySerialNumberCondition = new EntityExpr(new EntityExpr("serialNumber", EntityOperator.EQUALS, serialNum), 
-                                    EntityOperator.AND, new EntityExpr("productId", EntityOperator.IN, productIdSet));
+                            EntityCondition bySerialNumberCondition = EntityCondition.makeCondition(EntityCondition.makeCondition("serialNumber", EntityOperator.EQUALS, serialNum), 
+                                    EntityOperator.AND, EntityCondition.makeCondition("productId", EntityOperator.IN, productIdSet));
                             List inventoryItemsBySerialNumber = delegator.findList("InventoryItem", bySerialNumberCondition, null, null, null, false);
 
                             // this is a status update, so referenced serial number MUST already exist

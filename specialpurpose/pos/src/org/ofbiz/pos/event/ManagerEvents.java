@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -15,45 +15,45 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- *******************************************************************************/
+ */
 package org.ofbiz.pos.event;
 
-import java.util.List;
-import java.util.HashMap;
-import java.util.Map;
 import java.sql.Timestamp;
-import java.util.Locale;
 import java.text.DecimalFormat;
 import java.text.ParseException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import net.xoetrope.xui.XProjectManager;
 
-import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilFormatOut;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.pos.device.DeviceLoader;
-import org.ofbiz.pos.device.impl.Receipt;
-import org.ofbiz.pos.screen.PosScreen;
-import org.ofbiz.pos.screen.PaidInOut;
+import org.ofbiz.base.util.cache.UtilCache;
+import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityConditionList;
+import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.util.EntityListIterator;
+import org.ofbiz.guiapp.xui.XuiSession;
 import org.ofbiz.pos.PosTransaction;
 import org.ofbiz.pos.adaptor.SyncCallbackAdaptor;
 import org.ofbiz.pos.component.Input;
 import org.ofbiz.pos.component.Output;
-import org.ofbiz.entity.GenericDelegator;
-import org.ofbiz.entity.GenericEntityException;
-import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.util.EntityListIterator;
-import org.ofbiz.entity.condition.EntityExpr;
-import org.ofbiz.entity.condition.EntityOperator;
-import org.ofbiz.entity.condition.EntityConditionList;
-import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.pos.device.DeviceLoader;
+import org.ofbiz.pos.device.impl.Receipt;
+import org.ofbiz.pos.screen.PaidInOut;
+import org.ofbiz.pos.screen.PosScreen;
 import org.ofbiz.service.GenericServiceException;
+import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
-import org.ofbiz.guiapp.xui.XuiSession;
-import org.ofbiz.base.util.UtilProperties;
 
 public class ManagerEvents {
 
@@ -475,12 +475,12 @@ public class ManagerEvents {
         double total = 0.00;
 
         GenericDelegator delegator = pos.getSession().getDelegator();
-        List exprs = UtilMisc.toList(new EntityExpr("originFacilityId", EntityOperator.EQUALS, trans.getFacilityId()),
-                new EntityExpr("terminalId", EntityOperator.EQUALS, trans.getTerminalId()));
+        List exprs = UtilMisc.toList(EntityCondition.makeCondition("originFacilityId", EntityOperator.EQUALS, trans.getFacilityId()),
+                EntityCondition.makeCondition("terminalId", EntityOperator.EQUALS, trans.getTerminalId()));
         EntityListIterator eli = null;
 
         try {
-            eli = delegator.find("OrderHeaderAndPaymentPref", new EntityConditionList(exprs, EntityOperator.AND), null, null, null, null);
+            eli = delegator.find("OrderHeaderAndPaymentPref", EntityCondition.makeCondition(exprs, EntityOperator.AND), null, null, null, null);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }

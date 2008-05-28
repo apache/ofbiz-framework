@@ -45,7 +45,7 @@ EntityFindOptions findOptions = null;
 List records = FastList.newInstance();
 
 //conditionList.add(...);
-//condition =  new EntityConditionList(conditionList, EntityOperator.AND);
+//condition =  EntityCondition.makeCondition(conditionList, EntityOperator.AND);
 
 orderByFields = null;
 

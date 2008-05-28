@@ -81,11 +81,11 @@ if ("D".equals(viewMode)) {
     globalContext.put("end", end);
 }
 
-List entityExprList = UtilMisc.toList(new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "CAL_CANCELLED"),
-    new EntityExpr("workEffortTypeId", EntityOperator.EQUALS, "TASK"), new EntityExpr("workEffortPurposeTypeId", EntityOperator.EQUALS, "WEPT_MAINTENANCE"));
+List entityExprList = UtilMisc.toList(EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "CAL_CANCELLED"),
+    EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, "TASK"), EntityCondition.makeCondition("workEffortPurposeTypeId", EntityOperator.EQUALS, "WEPT_MAINTENANCE"));
 String fixedAssetId = parameters.get("fixedAssetId");
 if (UtilValidate.isNotEmpty(fixedAssetId)) {
-    entityExprList.add(new EntityExpr("fixedAssetId", EntityOperator.EQUALS, fixedAssetId));
+    entityExprList.add(EntityCondition.makeCondition("fixedAssetId", EntityOperator.EQUALS, fixedAssetId));
     globalContext.put("fixedAssetId", fixedAssetId);
     globalContext.put("addlParam", "&fixedAssetId=" + fixedAssetId);
 }
