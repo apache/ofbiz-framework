@@ -57,12 +57,12 @@ public class PeriodServices {
         
         try {
             // try to get the ending date of the most recent accounting time period before findDate which has been closed
-            List findClosedConditions = UtilMisc.toList(new EntityExpr("organizationPartyId", EntityOperator.EQUALS, organizationPartyId),
-                    new EntityExpr("thruDate", EntityOperator.LESS_THAN_EQUAL_TO, findDate),
-                    new EntityExpr("isClosed", EntityOperator.EQUALS, "Y"));
+            List findClosedConditions = UtilMisc.toList(EntityCondition.makeConditionMap("organizationPartyId", organizationPartyId),
+                    EntityCondition.makeCondition("thruDate", EntityOperator.LESS_THAN_EQUAL_TO, findDate),
+                    EntityCondition.makeConditionMap("isClosed", "Y"));
             if ((periodTypeId != null) && !(periodTypeId.equals(""))) {
                 // if a periodTypeId was supplied, use it
-                findClosedConditions.add(new EntityExpr("periodTypeId", EntityOperator.EQUALS, periodTypeId));
+                findClosedConditions.add(EntityCondition.makeConditionMap("periodTypeId", periodTypeId));
             }
             List closedTimePeriods = delegator.findList("CustomTimePeriod", EntityCondition.makeCondition(findClosedConditions), 
                     UtilMisc.toSet("customTimePeriodId", "periodTypeId", "isClosed", "fromDate", "thruDate"), 

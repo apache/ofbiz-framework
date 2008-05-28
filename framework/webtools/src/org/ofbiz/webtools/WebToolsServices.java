@@ -67,6 +67,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
+import org.ofbiz.entity.condition.EntityFunction;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
@@ -940,15 +941,15 @@ public class WebToolsServices {
             paramList.add("lookupFlag=" + lookupFlag);
             if (UtilValidate.isNotEmpty(serviceName)) {
                 paramList.add("serviceName=" + serviceName);
-                conditions.add(new EntityExpr("serviceName", true, EntityOperator.LIKE, "%"+serviceName+"%", true));
+                conditions.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("serviceName"), EntityOperator.LIKE, EntityFunction.UPPER("%"+serviceName+"%")));
             }
             if (UtilValidate.isNotEmpty(jobId)) {
                 paramList.add("jobId=" + jobId);
-                conditions.add(new EntityExpr("jobId", true, EntityOperator.LIKE, "%"+jobId+"%", true));
+                conditions.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("jobId"), EntityOperator.LIKE, EntityFunction.UPPER("%"+jobId+"%")));
             }
             if (UtilValidate.isNotEmpty(jobName)) {
                 paramList.add("jobName=" + jobName);
-                conditions.add(new EntityExpr("jobName", true, EntityOperator.LIKE, "%"+jobName+"%", true));
+                conditions.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("jobName"), EntityOperator.LIKE, EntityFunction.UPPER("%"+jobName+"%")));
             }
             List filterExprs = FastList.newInstance();
             String filterJobPending = (String) context.get("filterJobsWithPendingStatus");
@@ -966,17 +967,17 @@ public class WebToolsServices {
             }
             if ("Y".equals(filterJobPending)) {
                 paramList.add("filterJobsWithPendingStatus=Y");
-                filterExprs.add(new EntityExpr("statusId", EntityOperator.EQUALS, "SERVICE_PENDING"));
+                filterExprs.add(EntityCondition.makeCondition("statusId", "SERVICE_PENDING"));
                 result.put("filterJobsWithPendingStatus", filterJobPending);
             }
             if ("Y".equals(filterJobRunning)) {
                 paramList.add("filterJobsWithRunningStatus=Y");
-                filterExprs.add(new EntityExpr("statusId", EntityOperator.EQUALS, "SERVICE_RUNNING"));
+                filterExprs.add(EntityCondition.makeCondition("statusId", "SERVICE_RUNNING"));
                 result.put("filterJobsWithRunningStatus", filterJobRunning);
             }
             if ("Y".equals(filterJobFinished)) {
                 paramList.add("filterJobsWithFinishedStatus=Y");
-                filterExprs.add(new EntityExpr("statusId", EntityOperator.EQUALS, "SERVICE_FINISHED"));
+                filterExprs.add(EntityCondition.makeCondition("statusId", "SERVICE_FINISHED"));
                 result.put("filterJobsWithFinishedStatus", filterJobFinished);
             }
             if (filterExprs.size() > 0) {

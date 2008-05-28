@@ -21,14 +21,11 @@
 package org.ofbiz.common.period;
 
 import java.sql.Timestamp;
-import java.util.List;
 
 import org.ofbiz.base.util.UtilDateTime;
-import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
-import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 
 public class PeriodWorker {
@@ -50,8 +47,8 @@ public class PeriodWorker {
         }
 
         EntityConditionList betweenCondition = EntityCondition.makeCondition(
-                    new EntityExpr(fieldName, EntityOperator.GREATER_THAN, fromDate),
-                    new EntityExpr(fieldName, EntityOperator.LESS_THAN_EQUAL_TO, thruDate));
-        return EntityCondition.makeCondition(new EntityExpr(fieldName, EntityOperator.NOT_EQUAL, null), betweenCondition);
+                    EntityCondition.makeCondition(fieldName, EntityOperator.GREATER_THAN, fromDate),
+                    EntityCondition.makeCondition(fieldName, EntityOperator.LESS_THAN_EQUAL_TO, thruDate));
+        return EntityCondition.makeCondition(EntityCondition.makeCondition(fieldName, EntityOperator.NOT_EQUAL, null), betweenCondition);
     }
 }

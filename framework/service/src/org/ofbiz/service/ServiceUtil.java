@@ -352,13 +352,13 @@ public class ServiceUtil {
         Timestamp purgeTime = new Timestamp(cal.getTimeInMillis());
 
         // create the conditions to query
-        EntityCondition pool = new EntityExpr("poolId", EntityOperator.EQUALS, sendPool);
+        EntityCondition pool = EntityCondition.makeCondition("poolId", sendPool);
 
-        List<EntityExpr> finExp = UtilMisc.toList(new EntityExpr("finishDateTime", EntityOperator.NOT_EQUAL, null));
-        finExp.add(new EntityExpr("finishDateTime", EntityOperator.LESS_THAN, purgeTime));
+        List<EntityExpr> finExp = UtilMisc.toList(EntityCondition.makeCondition("finishDateTime", EntityOperator.NOT_EQUAL, null));
+        finExp.add(EntityCondition.makeCondition("finishDateTime", EntityOperator.LESS_THAN, purgeTime));
 
-        List<EntityExpr> canExp = UtilMisc.toList(new EntityExpr("cancelDateTime", EntityOperator.NOT_EQUAL, null));
-        canExp.add(new EntityExpr("cancelDateTime", EntityOperator.LESS_THAN, purgeTime));
+        List<EntityExpr> canExp = UtilMisc.toList(EntityCondition.makeCondition("cancelDateTime", EntityOperator.NOT_EQUAL, null));
+        canExp.add(EntityCondition.makeCondition("cancelDateTime", EntityOperator.LESS_THAN, purgeTime));
 
         EntityCondition cancelled = EntityCondition.makeCondition(canExp);
         EntityCondition finished = EntityCondition.makeCondition(finExp);

@@ -69,8 +69,8 @@ public class CommonWorkers {
     public static List getStateList(GenericDelegator delegator) {
         List geoList = FastList.newInstance();       
         EntityCondition condition = EntityCondition.makeCondition(EntityOperator.OR,
-                new EntityExpr("geoTypeId", EntityOperator.EQUALS, "STATE"), new EntityExpr("geoTypeId", EntityOperator.EQUALS, "PROVINCE"),
-                new EntityExpr("geoTypeId", EntityOperator.EQUALS, "TERRITORY"));
+                EntityCondition.makeCondition("geoTypeId", "STATE"), EntityCondition.makeCondition("geoTypeId", "PROVINCE"),
+                EntityCondition.makeCondition("geoTypeId", "TERRITORY"));
         List<String> sortList = UtilMisc.toList("geoName");
         try {
             geoList = delegator.findList("Geo", condition, null, sortList, null, true);
@@ -89,11 +89,11 @@ public class CommonWorkers {
             country = UtilProperties.getPropertyValue("general.properties", "country.geo.id.default");
         }
         EntityCondition stateProvinceFindCond = EntityCondition.makeCondition(
-                new EntityExpr("geoIdFrom", EntityOperator.EQUALS, country),
-                new EntityExpr("geoAssocTypeId", EntityOperator.EQUALS, "REGIONS"),
+                EntityCondition.makeCondition("geoIdFrom", country),
+                EntityCondition.makeCondition("geoAssocTypeId", "REGIONS"),
                 EntityCondition.makeCondition(EntityOperator.OR,
-                        new EntityExpr("geoTypeId", EntityOperator.EQUALS, "STATE"),
-                        new EntityExpr("geoTypeId", EntityOperator.EQUALS, "PROVINCE")));
+                        EntityCondition.makeCondition("geoTypeId", "STATE"),
+                        EntityCondition.makeCondition("geoTypeId", "PROVINCE")));
         List<String> sortList = UtilMisc.toList("geoId");
 
         List<GenericValue> geoList = FastList.newInstance();

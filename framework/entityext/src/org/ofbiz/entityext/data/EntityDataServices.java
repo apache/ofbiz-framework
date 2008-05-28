@@ -309,7 +309,7 @@ public class EntityDataServices {
         if (entity == null) {
             return null;
         }
-        List modelFields = entity.getFieldsCopy();
+        List modelFields = entity.getFieldsUnmodifiable();
         if (modelFields == null) {
             return null;
         }

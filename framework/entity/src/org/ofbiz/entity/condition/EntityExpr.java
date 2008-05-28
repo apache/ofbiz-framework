@@ -44,12 +44,29 @@ public class EntityExpr extends EntityCondition {
 
     protected EntityExpr() {}
 
+    /** @deprecated Use EntityCondition.makeCondition() instead */
     public EntityExpr(Object lhs, EntityComparisonOperator operator, Object rhs) {
+        this.init(lhs, operator, rhs);
+    }
+
+    /** @deprecated Use EntityCondition.makeCondition() instead */
+    public EntityExpr(String lhs, EntityComparisonOperator operator, Object rhs) {
+        this.init(lhs, operator, rhs);
+    }
+
+    /** @deprecated Use EntityCondition.makeCondition() instead */
+    public EntityExpr(String lhs, boolean leftUpper, EntityComparisonOperator operator, Object rhs, boolean rightUpper) {
+        this.init(leftUpper ? EntityFunction.UPPER_FIELD(lhs) : lhs, operator, rightUpper ? EntityFunction.UPPER(rhs) : rhs);
+    }
+
+    /** @deprecated Use EntityCondition.makeCondition() instead */
+    public EntityExpr(EntityCondition lhs, EntityJoinOperator operator, EntityCondition rhs) {
+        this.init(lhs, operator, rhs);
+    }
+
+    public void init(Object lhs, EntityComparisonOperator operator, Object rhs) {
         if (lhs == null) {
-            throw new IllegalArgumentException("The field value cannot be null");
-        }
-        if (lhs instanceof String) {
-            Debug.logError(new Exception(), "EntityExpr called with lhs as a String; consider recompiling", module);
+            throw new IllegalArgumentException("The field name/value cannot be null");
         }
         if (operator == null) {
             throw new IllegalArgumentException("The operator argument cannot be null");
@@ -67,38 +84,18 @@ public class EntityExpr extends EntityCondition {
             }
         }
         
-        this.lhs = lhs;
+        if (lhs instanceof String) {
+            this.lhs = new EntityFieldValue((String) lhs);
+        } else {
+            this.lhs = lhs;
+        }
         this.operator = operator;
         this.rhs = rhs;
 
         //Debug.logInfo("new EntityExpr internal field=" + lhs + ", value=" + rhs + ", value type=" + (rhs == null ? "null object" : rhs.getClass().getName()), module);
     }
-
-    public EntityExpr(String lhs, EntityComparisonOperator operator, Object rhs) {
-        this(new EntityFieldValue(lhs), operator, rhs);
-        //Debug.logInfo("new EntityExpr field=" + lhs + ", value=" + rhs + ", value type=" + (rhs == null ? "null object" : rhs.getClass().getName()), module);
-    }
-
-    public EntityExpr(String lhs, boolean leftUpper, EntityComparisonOperator operator, Object rhs, boolean rightUpper) {
-        if (lhs == null) {
-            throw new IllegalArgumentException("The field value cannot be null");
-        }
-        if (operator == null) {
-            throw new IllegalArgumentException("The operator argument cannot be null");
-        }
-        this.lhs = new EntityFieldValue(lhs);
-        if (leftUpper) this.lhs = new EntityFunction.UPPER(this.lhs);
-        this.operator = operator;
-        if (rhs instanceof EntityConditionValue) {
-            if (rightUpper) rhs = new EntityFunction.UPPER((EntityConditionValue) rhs);
-            this.rhs = rhs;
-        } else {
-            if (rightUpper) rhs = new EntityFunction.UPPER(rhs);
-            this.rhs = rhs;
-        }
-    }
-
-    public EntityExpr(EntityCondition lhs, EntityJoinOperator operator, EntityCondition rhs) {
+    
+    public void init(EntityCondition lhs, EntityJoinOperator operator, EntityCondition rhs) {
         if (lhs == null) {
             throw new IllegalArgumentException("The left EntityCondition argument cannot be null");
         }
@@ -113,11 +110,11 @@ public class EntityExpr extends EntityCondition {
         this.operator = operator;
         this.rhs = rhs;
     }
-
+    
     public void reset() {
-    	this.lhs = null;
-    	this.operator = null;
-    	this.rhs = null;
+        this.lhs = null;
+        this.operator = null;
+        this.rhs = null;
     }
 
     /** @deprecated */

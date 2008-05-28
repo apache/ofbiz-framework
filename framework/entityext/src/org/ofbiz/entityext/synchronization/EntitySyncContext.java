@@ -350,8 +350,8 @@ public class EntitySyncContext {
             try {
                 // get the values created within the current time range
                 EntityCondition findValCondition = EntityCondition.makeCondition(
-                        new EntityExpr(ModelEntity.CREATE_STAMP_TX_FIELD, EntityOperator.GREATER_THAN_EQUAL_TO, currentRunStartTime), 
-                        new EntityExpr(ModelEntity.CREATE_STAMP_TX_FIELD, EntityOperator.LESS_THAN, currentRunEndTime));
+                        EntityCondition.makeCondition(ModelEntity.CREATE_STAMP_TX_FIELD, EntityOperator.GREATER_THAN_EQUAL_TO, currentRunStartTime), 
+                        EntityCondition.makeCondition(ModelEntity.CREATE_STAMP_TX_FIELD, EntityOperator.LESS_THAN, currentRunEndTime));
                 EntityListIterator eli = delegator.find(modelEntity.getEntityName(), findValCondition, null, null, UtilMisc.toList(ModelEntity.CREATE_STAMP_TX_FIELD, ModelEntity.CREATE_STAMP_FIELD), null);
                 GenericValue nextValue = null;
                 long valuesPerEntity = 0;
@@ -379,8 +379,8 @@ public class EntitySyncContext {
                     Timestamp startCheckStamp = new Timestamp(System.currentTimeMillis() - syncEndBufferMillis);
                     
                     EntityCondition findNextCondition = EntityCondition.makeCondition(
-                            new EntityExpr(ModelEntity.CREATE_STAMP_TX_FIELD, EntityOperator.NOT_EQUAL, null),
-                            new EntityExpr(ModelEntity.CREATE_STAMP_TX_FIELD, EntityOperator.GREATER_THAN_EQUAL_TO, currentRunEndTime));
+                            EntityCondition.makeCondition(ModelEntity.CREATE_STAMP_TX_FIELD, EntityOperator.NOT_EQUAL, null),
+                            EntityCondition.makeCondition(ModelEntity.CREATE_STAMP_TX_FIELD, EntityOperator.GREATER_THAN_EQUAL_TO, currentRunEndTime));
                     EntityListIterator eliNext = delegator.find(modelEntity.getEntityName(), findNextCondition, null, null, UtilMisc.toList(ModelEntity.CREATE_STAMP_TX_FIELD), null);
                     // get the first element and it's tx time value...
                     GenericValue firstVal = (GenericValue) eliNext.next();
@@ -485,13 +485,13 @@ public class EntitySyncContext {
 
             try {
                 // get all values that were updated, but NOT created in the current time range; if no info on created stamp, that's okay we'll include it here because it won't have been included in the valuesToCreate list
-                EntityCondition createdBeforeStartCond = new EntityExpr(
-                        new EntityExpr(ModelEntity.CREATE_STAMP_TX_FIELD, EntityOperator.EQUALS, null), 
+                EntityCondition createdBeforeStartCond = EntityCondition.makeCondition(
+                        EntityCondition.makeCondition(ModelEntity.CREATE_STAMP_TX_FIELD, EntityOperator.EQUALS, null), 
                         EntityOperator.OR, 
-                        new EntityExpr(ModelEntity.CREATE_STAMP_TX_FIELD, EntityOperator.LESS_THAN, currentRunStartTime));
+                        EntityCondition.makeCondition(ModelEntity.CREATE_STAMP_TX_FIELD, EntityOperator.LESS_THAN, currentRunStartTime));
                 EntityCondition findValCondition = EntityCondition.makeCondition(
-                        new EntityExpr(ModelEntity.STAMP_TX_FIELD, EntityOperator.GREATER_THAN_EQUAL_TO, currentRunStartTime), 
-                        new EntityExpr(ModelEntity.STAMP_TX_FIELD, EntityOperator.LESS_THAN, currentRunEndTime), 
+                        EntityCondition.makeCondition(ModelEntity.STAMP_TX_FIELD, EntityOperator.GREATER_THAN_EQUAL_TO, currentRunStartTime), 
+                        EntityCondition.makeCondition(ModelEntity.STAMP_TX_FIELD, EntityOperator.LESS_THAN, currentRunEndTime), 
                         createdBeforeStartCond);
                 EntityListIterator eli = delegator.find(modelEntity.getEntityName(), findValCondition, null, null, UtilMisc.toList(ModelEntity.STAMP_TX_FIELD, ModelEntity.STAMP_FIELD), null);
                 GenericValue nextValue = null;
@@ -520,10 +520,10 @@ public class EntitySyncContext {
                     Timestamp startCheckStamp = new Timestamp(System.currentTimeMillis() - syncEndBufferMillis);
                     
                     EntityCondition findNextCondition = EntityCondition.makeCondition(
-                            new EntityExpr(ModelEntity.STAMP_TX_FIELD, EntityOperator.NOT_EQUAL, null), 
-                            new EntityExpr(ModelEntity.STAMP_TX_FIELD, EntityOperator.GREATER_THAN_EQUAL_TO, currentRunEndTime),
-                            new EntityExpr(ModelEntity.CREATE_STAMP_TX_FIELD, EntityOperator.NOT_EQUAL, null),
-                            new EntityExpr(ModelEntity.CREATE_STAMP_TX_FIELD, EntityOperator.LESS_THAN, currentRunEndTime));
+                            EntityCondition.makeCondition(ModelEntity.STAMP_TX_FIELD, EntityOperator.NOT_EQUAL, null), 
+                            EntityCondition.makeCondition(ModelEntity.STAMP_TX_FIELD, EntityOperator.GREATER_THAN_EQUAL_TO, currentRunEndTime),
+                            EntityCondition.makeCondition(ModelEntity.CREATE_STAMP_TX_FIELD, EntityOperator.NOT_EQUAL, null),
+                            EntityCondition.makeCondition(ModelEntity.CREATE_STAMP_TX_FIELD, EntityOperator.LESS_THAN, currentRunEndTime));
                     EntityListIterator eliNext = delegator.find(modelEntity.getEntityName(), findNextCondition, null, null, UtilMisc.toList(ModelEntity.STAMP_TX_FIELD), null);
                     // get the first element and it's tx time value...
                     GenericValue firstVal = (GenericValue) eliNext.next();
@@ -613,8 +613,8 @@ public class EntitySyncContext {
         try {
             // find all instances of this entity with the STAMP_TX_FIELD != null, sort ascending to get lowest/oldest value first, then grab first and consider as candidate currentRunStartTime
             EntityCondition findValCondition = EntityCondition.makeCondition(
-                    new EntityExpr(ModelEntity.STAMP_TX_FIELD, EntityOperator.GREATER_THAN_EQUAL_TO, currentRunStartTime), 
-                    new EntityExpr(ModelEntity.STAMP_TX_FIELD, EntityOperator.LESS_THAN, currentRunEndTime));
+                    EntityCondition.makeCondition(ModelEntity.STAMP_TX_FIELD, EntityOperator.GREATER_THAN_EQUAL_TO, currentRunStartTime), 
+                    EntityCondition.makeCondition(ModelEntity.STAMP_TX_FIELD, EntityOperator.LESS_THAN, currentRunEndTime));
             EntityListIterator removeEli = delegator.find("EntitySyncRemove", findValCondition, null, null, UtilMisc.toList(ModelEntity.STAMP_TX_FIELD, ModelEntity.STAMP_FIELD), null);
             GenericValue entitySyncRemove = null;
             while ((entitySyncRemove = (GenericValue) removeEli.next()) != null) {
@@ -655,7 +655,7 @@ public class EntitySyncContext {
 
             // if we didn't find anything for this entity, find the next value's Timestamp and keep track of it
             if (keysToRemove.size() == 0) {
-                EntityCondition findNextCondition = new EntityExpr(ModelEntity.STAMP_TX_FIELD, EntityOperator.GREATER_THAN_EQUAL_TO, currentRunEndTime);
+                EntityCondition findNextCondition = EntityCondition.makeCondition(ModelEntity.STAMP_TX_FIELD, EntityOperator.GREATER_THAN_EQUAL_TO, currentRunEndTime);
                 EntityListIterator eliNext = delegator.find("EntitySyncRemove", findNextCondition, null, null, UtilMisc.toList(ModelEntity.STAMP_TX_FIELD), null);
                 // get the first element and it's tx time value...
                 GenericValue firstVal = (GenericValue) eliNext.next();
@@ -864,7 +864,7 @@ public class EntitySyncContext {
                 Set fieldsToSelect = UtilMisc.toSet(modelEntity.getPkFieldNames());
                 // find all instances of this entity with the STAMP_TX_FIELD != null, sort ascending to get lowest/oldest value first, then grab first and consider as candidate currentRunStartTime
                 fieldsToSelect.add(ModelEntity.STAMP_TX_FIELD);
-                EntityListIterator eli = delegator.find(modelEntity.getEntityName(), new EntityExpr(ModelEntity.STAMP_TX_FIELD, EntityOperator.NOT_EQUAL, null), null, fieldsToSelect, UtilMisc.toList(ModelEntity.STAMP_TX_FIELD), null);
+                EntityListIterator eli = delegator.find(modelEntity.getEntityName(), EntityCondition.makeCondition(ModelEntity.STAMP_TX_FIELD, EntityOperator.NOT_EQUAL, null), null, fieldsToSelect, UtilMisc.toList(ModelEntity.STAMP_TX_FIELD), null);
                 GenericValue nextValue = (GenericValue) eli.next();
                 eli.close();
                 if (nextValue != null) {
