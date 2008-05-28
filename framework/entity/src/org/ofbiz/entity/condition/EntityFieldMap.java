@@ -21,10 +21,10 @@ package org.ofbiz.entity.condition;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javolution.context.ObjectFactory;
 import javolution.util.FastMap;
 
 import org.ofbiz.entity.util.EntityUtil;
@@ -35,6 +35,12 @@ import org.ofbiz.entity.util.EntityUtil;
  */
 public class EntityFieldMap extends EntityConditionListBase<EntityExpr> {
 
+    protected static final ObjectFactory<EntityFieldMap> entityFieldMapFactory = new ObjectFactory<EntityFieldMap>() {
+        protected EntityFieldMap create() {
+            return new EntityFieldMap();
+        }
+    };
+    
     protected Map<String, ? extends Object> fieldMap = null;
 
     protected EntityFieldMap() {

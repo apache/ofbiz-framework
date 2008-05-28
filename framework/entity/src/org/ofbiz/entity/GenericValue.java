@@ -41,7 +41,7 @@ import org.ofbiz.entity.util.EntityUtil;
 
 
 /**
- * Generic Entity Value Object - Handles persisntence for any defined entity.
+ * Generic Entity Value Object - Handles persistence for any defined entity.
  *
  */
 public class GenericValue extends GenericEntity implements Reusable {
@@ -54,10 +54,10 @@ public class GenericValue extends GenericEntity implements Reusable {
         }
     };
     
-    /** Hashtable to cache various related entity collections */
+    /** Map to cache various related entity collections */
     public transient Map<String, List<GenericValue>> relatedCache = null;
 
-    /** Hashtable to cache various related cardinality one entity collections */
+    /** Map to cache various related cardinality one entity collections */
     public transient Map<String, GenericValue> relatedOneCache = null;
 
     /** This Map will contain the original field values from the database iff

@@ -22,6 +22,8 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
+import javolution.context.ObjectFactory;
+
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericModelException;
@@ -30,6 +32,12 @@ import org.ofbiz.entity.model.ModelEntity;
 
 public class EntityDateFilterCondition extends EntityCondition {
 
+    protected static final ObjectFactory<EntityDateFilterCondition> entityDateFilterConditionFactory = new ObjectFactory<EntityDateFilterCondition>() {
+        protected EntityDateFilterCondition create() {
+            return new EntityDateFilterCondition();
+        }
+    };
+    
     protected String fromDateName = null;
     protected String thruDateName = null;
 

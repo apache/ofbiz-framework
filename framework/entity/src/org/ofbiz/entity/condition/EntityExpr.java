@@ -22,11 +22,14 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import javolution.context.ObjectFactory;
+
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.EntityCryptoException;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericModelException;
+import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.config.DatasourceInfo;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
@@ -38,6 +41,12 @@ import org.ofbiz.entity.model.ModelField;
 public class EntityExpr extends EntityCondition {
     public static final String module = EntityExpr.class.getName();
 
+    protected static final ObjectFactory<EntityExpr> entityExprFactory = new ObjectFactory<EntityExpr>() {
+        protected EntityExpr create() {
+            return new EntityExpr();
+        }
+    };
+    
     private Object lhs = null;
     private EntityOperator<?> operator = null;
     private Object rhs = null;
