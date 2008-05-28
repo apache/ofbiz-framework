@@ -866,14 +866,14 @@ public class FinAccountPaymentServices {
         opts.setFetchSize(1);
 
         List exprs = FastList.newInstance();
-        exprs.add(new EntityExpr("finAccountTransTypeId", EntityOperator.EQUALS, "DEPOSIT"));
-        exprs.add(new EntityExpr("finAccountId", EntityOperator.EQUALS, finAccountId));
-        exprs.add(new EntityExpr("orderId", EntityOperator.NOT_EQUAL, null));
+        exprs.add(EntityCondition.makeCondition("finAccountTransTypeId", EntityOperator.EQUALS, "DEPOSIT"));
+        exprs.add(EntityCondition.makeCondition("finAccountId", EntityOperator.EQUALS, finAccountId));
+        exprs.add(EntityCondition.makeCondition("orderId", EntityOperator.NOT_EQUAL, null));
         List orderBy = UtilMisc.toList("-transactionDate");
 
         List transList = null;
         try {
-            transList = delegator.findList("FinAccountTrans", new EntityConditionList(exprs, EntityOperator.AND), null, orderBy, opts, false);
+            transList = delegator.findList("FinAccountTrans", EntityCondition.makeCondition(exprs, EntityOperator.AND), null, orderBy, opts, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }

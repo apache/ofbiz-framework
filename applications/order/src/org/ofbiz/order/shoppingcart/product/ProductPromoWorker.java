@@ -378,7 +378,7 @@ public class ProductPromoWorker {
                             Set enteredCodes = cart.getProductPromoCodesEntered();
                             if (enteredCodes.size() > 0) {
                                 // get all promo codes entered, do a query with an IN condition to see if any of those are related
-                                EntityCondition codeCondition = new EntityExpr(new EntityExpr("productPromoId", EntityOperator.EQUALS, productPromoId), EntityOperator.AND, new EntityExpr("productPromoCodeId", EntityOperator.IN, enteredCodes));
+                                EntityCondition codeCondition = EntityCondition.makeCondition(EntityCondition.makeCondition("productPromoId", EntityOperator.EQUALS, productPromoId), EntityOperator.AND, EntityCondition.makeCondition("productPromoCodeId", EntityOperator.IN, enteredCodes));
                                 // may want to sort by something else to decide which code to use if there is more than one candidate
                                 List productPromoCodeList = delegator.findList("ProductPromoCode", codeCondition, null, UtilMisc.toList("productPromoCodeId"), null, false);
                                 Iterator productPromoCodeIter = productPromoCodeList.iterator();
@@ -447,11 +447,11 @@ public class ProductPromoWorker {
             long productPromoCustomerUseSize = 0;
             if (UtilValidate.isNotEmpty(partyId)) {
                 // check to see how many times this has been used for other orders for this customer, the remainder is the limit for this order
-                EntityCondition checkCondition = new EntityConditionList(UtilMisc.toList(
-                        new EntityExpr("productPromoId", EntityOperator.EQUALS, productPromoId),
-                        new EntityExpr("partyId", EntityOperator.EQUALS, partyId),
-                        new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
-                        new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED")), EntityOperator.AND);
+                EntityCondition checkCondition = EntityCondition.makeCondition(UtilMisc.toList(
+                        EntityCondition.makeCondition("productPromoId", EntityOperator.EQUALS, productPromoId),
+                        EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId),
+                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
+                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED")), EntityOperator.AND);
                 productPromoCustomerUseSize = delegator.findCountByCondition("ProductPromoUseCheck", checkCondition, null, null);
             }
             long perCustomerThisOrder = useLimitPerCustomer.longValue() - productPromoCustomerUseSize;
@@ -465,10 +465,10 @@ public class ProductPromoWorker {
         Long useLimitPerPromotion = productPromo.getLong("useLimitPerPromotion");
         if (useLimitPerPromotion != null) {
             // check to see how many times this has been used for other orders for this customer, the remainder is the limit for this order
-            EntityCondition checkCondition = new EntityConditionList(UtilMisc.toList(
-                    new EntityExpr("productPromoId", EntityOperator.EQUALS, productPromoId),
-                    new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
-                    new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED")), EntityOperator.AND);
+            EntityCondition checkCondition = EntityCondition.makeCondition(UtilMisc.toList(
+                    EntityCondition.makeCondition("productPromoId", EntityOperator.EQUALS, productPromoId),
+                    EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
+                    EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED")), EntityOperator.AND);
             long productPromoUseSize = delegator.findCountByCondition("ProductPromoUseCheck", checkCondition, null, null);
             long perPromotionThisOrder = useLimitPerPromotion.longValue() - productPromoUseSize;
             if (candidateUseLimit == null || candidateUseLimit.longValue() > perPromotionThisOrder) {
@@ -491,11 +491,11 @@ public class ProductPromoWorker {
             long productPromoCustomerUseSize = 0;
             if (UtilValidate.isNotEmpty(partyId)) {
                 // check to see how many times this has been used for other orders for this customer, the remainder is the limit for this order
-                EntityCondition checkCondition = new EntityConditionList(UtilMisc.toList(
-                        new EntityExpr("productPromoCodeId", EntityOperator.EQUALS, productPromoCodeId),
-                        new EntityExpr("partyId", EntityOperator.EQUALS, partyId),
-                        new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
-                        new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED")), EntityOperator.AND);
+                EntityCondition checkCondition = EntityCondition.makeCondition(UtilMisc.toList(
+                        EntityCondition.makeCondition("productPromoCodeId", EntityOperator.EQUALS, productPromoCodeId),
+                        EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId),
+                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
+                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED")), EntityOperator.AND);
                 productPromoCustomerUseSize = delegator.findCountByCondition("ProductPromoUseCheck", checkCondition, null, null);
             }
             long perCustomerThisOrder = codeUseLimitPerCustomer.longValue() - productPromoCustomerUseSize;
@@ -507,10 +507,10 @@ public class ProductPromoWorker {
         Long codeUseLimitPerCode = productPromoCode.getLong("useLimitPerCode");
         if (codeUseLimitPerCode != null) {
             // check to see how many times this has been used for other orders for this customer, the remainder is the limit for this order
-            EntityCondition checkCondition = new EntityConditionList(UtilMisc.toList(
-                    new EntityExpr("productPromoCodeId", EntityOperator.EQUALS, productPromoCodeId),
-                    new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
-                    new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED")), EntityOperator.AND);
+            EntityCondition checkCondition = EntityCondition.makeCondition(UtilMisc.toList(
+                    EntityCondition.makeCondition("productPromoCodeId", EntityOperator.EQUALS, productPromoCodeId),
+                    EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
+                    EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED")), EntityOperator.AND);
             long productPromoCodeUseSize = delegator.findCountByCondition("ProductPromoUseCheck", checkCondition, null, null);
             long perCodeThisOrder = codeUseLimitPerCode.longValue() - productPromoCodeUseSize;
             if (codeUseLimit == null || codeUseLimit.longValue() > perCodeThisOrder) {
@@ -551,12 +551,12 @@ public class ProductPromoWorker {
                     
                     // check email address in ProductPromoCodeEmail
                     List validEmailCondList = new ArrayList();
-                    validEmailCondList.add(new EntityExpr("partyId", EntityOperator.EQUALS, partyId));
-                    validEmailCondList.add(new EntityExpr("productPromoCodeId", EntityOperator.EQUALS, productPromoCodeId));
-                    validEmailCondList.add(new EntityExpr("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, nowTimestamp));
-                    validEmailCondList.add(new EntityExpr(new EntityExpr("thruDate", EntityOperator.GREATER_THAN_EQUAL_TO, nowTimestamp), 
-                            EntityOperator.OR, new EntityExpr("thruDate", EntityOperator.EQUALS, null)));
-                    EntityCondition validEmailCondition = new EntityConditionList(validEmailCondList, EntityOperator.AND);
+                    validEmailCondList.add(EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId));
+                    validEmailCondList.add(EntityCondition.makeCondition("productPromoCodeId", EntityOperator.EQUALS, productPromoCodeId));
+                    validEmailCondList.add(EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, nowTimestamp));
+                    validEmailCondList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN_EQUAL_TO, nowTimestamp), 
+                            EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null)));
+                    EntityCondition validEmailCondition = EntityCondition.makeCondition(validEmailCondList, EntityOperator.AND);
                     long validEmailCount = delegator.findCountByCondition("ProductPromoCodeEmailParty", validEmailCondition, null, null);
                     if (validEmailCount > 0) {
                         // there was an email in the list, looks good... 

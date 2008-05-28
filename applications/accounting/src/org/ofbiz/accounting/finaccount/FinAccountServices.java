@@ -349,9 +349,9 @@ public class FinAccountServices {
                 BigDecimal remainingBalance = new BigDecimal(actualBalance.toString());
                 BigDecimal refundAmount = BigDecimal.ZERO;
 
-                List exprs = UtilMisc.toList(new EntityExpr("finAccountTransTypeId", EntityOperator.EQUALS, "DEPOSIT"),
-                        new EntityExpr("finAccountId", EntityOperator.EQUALS, finAccountId));
-                EntityCondition condition = new EntityConditionList(exprs, EntityOperator.AND);
+                List exprs = UtilMisc.toList(EntityCondition.makeCondition("finAccountTransTypeId", EntityOperator.EQUALS, "DEPOSIT"),
+                        EntityCondition.makeCondition("finAccountId", EntityOperator.EQUALS, finAccountId));
+                EntityCondition condition = EntityCondition.makeCondition(exprs, EntityOperator.AND);
 
                 EntityListIterator eli = null;
                 try {

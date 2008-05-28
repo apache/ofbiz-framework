@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -15,7 +15,7 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- *******************************************************************************/
+ */
 
 package org.ofbiz.product.inventory;
 
@@ -33,8 +33,8 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
-import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 
 public class InventoryWorker {
@@ -49,15 +49,15 @@ public class InventoryWorker {
      */
     public static List getOutstandingPurchaseOrders(String productId, GenericDelegator delegator) {
         try {
-            List purchaseOrderConditions = UtilMisc.toList(new EntityExpr("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED"),
-                    new EntityExpr("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"),
-                    new EntityExpr("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
-                    new EntityExpr("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_COMPLETED"),
-                    new EntityExpr("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"),
-                    new EntityExpr("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"));
-            purchaseOrderConditions.add(new EntityExpr("orderTypeId", EntityOperator.EQUALS, "PURCHASE_ORDER"));
-            purchaseOrderConditions.add(new EntityExpr("productId", EntityOperator.EQUALS, productId));
-            List purchaseOrders = delegator.findList("OrderHeaderAndItems", new EntityConditionList(purchaseOrderConditions, EntityOperator.AND), 
+            List purchaseOrderConditions = UtilMisc.toList(EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED"),
+                    EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"),
+                    EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
+                    EntityCondition.makeCondition("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_COMPLETED"),
+                    EntityCondition.makeCondition("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"),
+                    EntityCondition.makeCondition("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"));
+            purchaseOrderConditions.add(EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "PURCHASE_ORDER"));
+            purchaseOrderConditions.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId));
+            List purchaseOrders = delegator.findList("OrderHeaderAndItems", EntityCondition.makeCondition(purchaseOrderConditions, EntityOperator.AND), 
                     null, UtilMisc.toList("estimatedDeliveryDate DESC", "orderDate"), null, false);
             return purchaseOrders;
         } catch (GenericEntityException ex) {
@@ -109,18 +109,18 @@ public class InventoryWorker {
     public static Map getOutstandingProductQuantities(Collection productIds, String orderTypeId, GenericDelegator delegator) {
         Set fieldsToSelect = UtilMisc.toSet("productId", "quantityOpen");
         List condList = UtilMisc.toList(
-                new EntityExpr("orderTypeId", EntityOperator.EQUALS, orderTypeId),
-                new EntityExpr("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED"),
-                new EntityExpr("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
-                new EntityExpr("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED")
+                EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, orderTypeId),
+                EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED"),
+                EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
+                EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED")
                 );     
         if (productIds.size() > 0) {
-            condList.add(new EntityExpr("productId", EntityOperator.IN, productIds));
+            condList.add(EntityCondition.makeCondition("productId", EntityOperator.IN, productIds));
         }
-        condList.add(new EntityExpr("orderItemStatusId", EntityOperator.NOT_EQUAL, "ITEM_COMPLETED"));
-        condList.add(new EntityExpr("orderItemStatusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"));
-        condList.add(new EntityExpr("orderItemStatusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"));
-        EntityConditionList conditions = new EntityConditionList(condList, EntityOperator.AND);
+        condList.add(EntityCondition.makeCondition("orderItemStatusId", EntityOperator.NOT_EQUAL, "ITEM_COMPLETED"));
+        condList.add(EntityCondition.makeCondition("orderItemStatusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"));
+        condList.add(EntityCondition.makeCondition("orderItemStatusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"));
+        EntityConditionList conditions = EntityCondition.makeCondition(condList, EntityOperator.AND);
 
         Map results = FastMap.newInstance();
         try {

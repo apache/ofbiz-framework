@@ -99,17 +99,17 @@ if (action != null) {
     
     // set distinct on so we only get one row per product
     EntityFindOptions findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
-    EntityCondition searchCondition = new EntityFieldMap(conditionMap, EntityOperator.AND);
-    EntityCondition notVirtualCondition = new EntityExpr(new EntityExpr("isVirtual", EntityOperator.EQUALS, null),
+    EntityCondition searchCondition = EntityCondition.makeCondition(conditionMap, EntityOperator.AND);
+    EntityCondition notVirtualCondition = EntityCondition.makeCondition(EntityCondition.makeCondition("isVirtual", EntityOperator.EQUALS, null),
                                                          EntityOperator.OR,
-                                                         new EntityExpr("isVirtual", EntityOperator.NOT_EQUAL, "Y"));
+                                                         EntityCondition.makeCondition("isVirtual", EntityOperator.NOT_EQUAL, "Y"));
 
     whereConditionsList = UtilMisc.toList(searchCondition, notVirtualCondition);
     // add the discontinuation date condition
     if (UtilValidate.isNotEmpty(productsSoldThruTimestamp)) {
-        EntityCondition discontinuationDateCondition = new EntityConditionList(UtilMisc.toList(
-                new EntityExpr("salesDiscontinuationDate", EntityOperator.EQUALS, null),
-                new EntityExpr("salesDiscontinuationDate", EntityOperator.GREATER_THAN, productsSoldThruTimestamp)),
+        EntityCondition discontinuationDateCondition = EntityCondition.makeCondition(UtilMisc.toList(
+                EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.EQUALS, null),
+                EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.GREATER_THAN, productsSoldThruTimestamp)),
             EntityOperator.OR);
         whereConditionsList.add(discontinuationDateCondition);
         searchParameterString = searchParameterString + "&productsSoldThruTimestamp=" + productsSoldThruTimestamp;
@@ -117,16 +117,16 @@ if (action != null) {
 
     // add search on internal name
     if (UtilValidate.isNotEmpty(internalName)) {
-        whereConditionsList.add(new EntityExpr("internalName", true, EntityOperator.LIKE, "%" + internalName + "%", true));
+        whereConditionsList.add(EntityCondition.makeCondition("internalName", true, EntityOperator.LIKE, "%" + internalName + "%", true));
         searchParameterString = searchParameterString + "&internalName=" + internalName;
     }
     
     // add search on productId 
     if (UtilValidate.isNotEmpty(productId)) {
-        whereConditionsList.add(new EntityExpr("productId", true, EntityOperator.LIKE, productId + "%", true));
+        whereConditionsList.add(EntityCondition.makeCondition("productId", true, EntityOperator.LIKE, productId + "%", true));
         searchParameterString = searchParameterString + "&productId=" + productId;
     }
-    EntityCondition whereCondition = new EntityConditionList(whereConditionsList, EntityOperator.AND);
+    EntityCondition whereCondition = EntityCondition.makeCondition(whereConditionsList, EntityOperator.AND);
 
     boolean beganTransaction = false;
     List prods = null;

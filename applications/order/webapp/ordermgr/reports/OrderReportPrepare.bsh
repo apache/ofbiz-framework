@@ -83,12 +83,12 @@ sbSql.append(" order_item.unit_price * order_item.quantity as purchaseAmount, ")
 
 conditionList = new LinkedList();
 if (fromDate != null) {
-    conditionList.add(new EntityExpr("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
+    conditionList.add(EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
 }
 if (toDate != null) {
-    conditionList.add(new EntityExpr("orderDate", EntityOperator.LESS_THAN_EQUAL_TO, toDate));
+    conditionList.add(EntityCondition.makeCondition("orderDate", EntityOperator.LESS_THAN_EQUAL_TO, toDate));
 }
-entityCondition = new EntityConditionList(conditionList, EntityOperator.AND);
+entityCondition = EntityCondition.makeCondition(conditionList, EntityOperator.AND);
 orderByList = UtilMisc.toList("orderTypeId", "orderStatus");
 
 eli = delegator.find("OrderReportView", entityCondition, null, null, orderByList, null);

@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -15,7 +15,7 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- *******************************************************************************/
+ */
 package org.ofbiz.order.requirement;
 
 import java.util.*;
@@ -57,27 +57,27 @@ public class RequirementServices {
         try {
             List orderBy = UtilMisc.toList("partyId", "requirementId");
             List<EntityCondition> conditions = UtilMisc.toList(
-                    new EntityExpr("requirementTypeId", EntityOperator.EQUALS, "PRODUCT_REQUIREMENT"),
+                    EntityCondition.makeCondition("requirementTypeId", EntityOperator.EQUALS, "PRODUCT_REQUIREMENT"),
                     EntityUtil.getFilterByDateExpr()
                     );
             if (statusIds != null && statusIds.size() > 0) {
-                conditions.add( new EntityExpr("statusId", EntityOperator.IN, statusIds) );
+                conditions.add( EntityCondition.makeCondition("statusId", EntityOperator.IN, statusIds) );
             } else {
-                conditions.add( new EntityExpr("statusId", EntityOperator.EQUALS, "REQ_APPROVED") );
+                conditions.add( EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "REQ_APPROVED") );
             }
             if (requirementConditions != null) conditions.add(requirementConditions);
 
             // we're either getting the requirements for a given supplier, unassigned requirements, or requirements for all suppliers
             if (UtilValidate.isNotEmpty(partyId)) {
-                conditions.add( new EntityExpr("partyId", EntityOperator.EQUALS, partyId) );
-                conditions.add( new EntityExpr("roleTypeId", EntityOperator.EQUALS, "SUPPLIER") );
+                conditions.add( EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId) );
+                conditions.add( EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, "SUPPLIER") );
             } else if (UtilValidate.isNotEmpty(unassignedRequirements)) {
-                conditions.add( new EntityExpr("partyId", EntityOperator.EQUALS, null) );
+                conditions.add( EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, null) );
             } else {
-                conditions.add( new EntityExpr("roleTypeId", EntityOperator.EQUALS, "SUPPLIER") );
+                conditions.add( EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, "SUPPLIER") );
             }
             
-            EntityConditionList<EntityCondition> ecl = new EntityConditionList<EntityCondition>(conditions, EntityOperator.AND);
+            EntityConditionList<EntityCondition> ecl = EntityCondition.makeCondition(conditions, EntityOperator.AND);
             List requirementAndRoles = delegator.findList("RequirementAndRole", ecl, null, orderBy, null, false);
 
             // maps to cache the associated suppliers and products data, so we don't do redundant DB and service requests
@@ -110,11 +110,11 @@ public class RequirementServices {
                 if (supplierProduct == null) {
                     conditions = UtilMisc.toList(
                             // TODO: it is possible to restrict to quantity > minimumOrderQuantity, but then the entire requirement must be skipped
-                            new EntityExpr("partyId", EntityOperator.EQUALS, partyId),
-                            new EntityExpr("productId", EntityOperator.EQUALS, productId),
+                            EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId),
+                            EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId),
                             EntityUtil.getFilterByDateExpr("availableFromDate", "availableThruDate")
                             );
-                    ecl = new EntityConditionList<EntityCondition>(conditions, EntityOperator.AND);
+                    ecl = EntityCondition.makeCondition(conditions, EntityOperator.AND);
                     List<GenericValue> supplierProducts = delegator.findList("SupplierProduct", ecl, null, UtilMisc.toList("minimumOrderQuantity", "lastPrice"), null, false);
 
                     supplierProduct = EntityUtil.getFirst(supplierProducts);
@@ -156,12 +156,12 @@ public class RequirementServices {
                 // how many of the products were sold (note this is for a fixed time period across all product stores)
                 Double sold = (Double) productsSold.get(productId);
                 if (sold == null) {
-                    EntityCondition prodConditions = new EntityConditionList( UtilMisc.toList(
-                                new EntityExpr("productId", EntityOperator.EQUALS, productId),
-                                new EntityExpr("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER"),
-                                new EntityExpr("orderStatusId", EntityOperator.NOT_IN, UtilMisc.toList("ORDER_REJECTED", "ORDER_CANCELLED")),
-                                new EntityExpr("orderItemStatusId", EntityOperator.NOT_IN, UtilMisc.toList("ITEM_REJECTED", "ITEM_CANCELLED")),
-                                new EntityExpr("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, timePeriodStart)
+                    EntityCondition prodConditions = EntityCondition.makeCondition( UtilMisc.toList(
+                                EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId),
+                                EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER"),
+                                EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_IN, UtilMisc.toList("ORDER_REJECTED", "ORDER_CANCELLED")),
+                                EntityCondition.makeCondition("orderItemStatusId", EntityOperator.NOT_IN, UtilMisc.toList("ITEM_REJECTED", "ITEM_CANCELLED")),
+                                EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, timePeriodStart)
                                 ), EntityOperator.AND);
                     GenericValue count = EntityUtil.getFirst( delegator.findList("OrderItemQuantityReportGroupByProduct", prodConditions, UtilMisc.toSet("quantityOrdered"), null, null, false));
                     if (count != null) {
@@ -287,12 +287,12 @@ public class RequirementServices {
 
                 // count all current requirements for this product
                 double pendingRequirements = 0.0;
-                EntityConditionList<EntityExpr> ecl = new EntityConditionList<EntityExpr>(UtilMisc.toList(
-                        new EntityExpr("facilityId", EntityOperator.EQUALS, facilityId),
-                        new EntityExpr("productId", EntityOperator.EQUALS, product.get("productId")),
-                        new EntityExpr("requirementTypeId", EntityOperator.EQUALS, "PRODUCT_REQUIREMENT"),
-                        new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "REQ_ORDERED"),
-                        new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "REQ_REJECTED")),
+                EntityConditionList<EntityExpr> ecl = EntityCondition.makeCondition(UtilMisc.toList(
+                        EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId),
+                        EntityCondition.makeCondition("productId", EntityOperator.EQUALS, product.get("productId")),
+                        EntityCondition.makeCondition("requirementTypeId", EntityOperator.EQUALS, "PRODUCT_REQUIREMENT"),
+                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "REQ_ORDERED"),
+                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "REQ_REJECTED")),
                         EntityOperator.AND);
                 List requirements = delegator.findList("Requirement", ecl, null, null, null, false);
                 for (Iterator riter = requirements.iterator(); riter.hasNext(); ) {

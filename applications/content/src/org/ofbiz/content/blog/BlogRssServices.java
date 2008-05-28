@@ -19,25 +19,33 @@
 
 package org.ofbiz.content.blog;
 
-import org.ofbiz.service.DispatchContext;
-import org.ofbiz.service.ServiceUtil;
-import org.ofbiz.service.LocalDispatcher;
-import org.ofbiz.base.util.GeneralException;
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.entity.GenericDelegator;
-import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.GenericEntityException;
-import org.ofbiz.entity.condition.EntityExpr;
-import org.ofbiz.entity.condition.EntityOperator;
-import org.ofbiz.entity.condition.EntityConditionList;
-import org.ofbiz.content.content.ContentWorker;
-import com.sun.syndication.feed.synd.*;
-
-import java.util.*;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import javolution.util.FastList;
+
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.content.content.ContentWorker;
+import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.service.DispatchContext;
+import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ServiceUtil;
+
+import com.sun.syndication.feed.synd.SyndContent;
+import com.sun.syndication.feed.synd.SyndContentImpl;
+import com.sun.syndication.feed.synd.SyndEntry;
+import com.sun.syndication.feed.synd.SyndEntryImpl;
+import com.sun.syndication.feed.synd.SyndFeed;
+import com.sun.syndication.feed.synd.SyndFeedImpl;
 
 /**
  * BlogRssServices
@@ -91,13 +99,13 @@ public class BlogRssServices {
     public static List generateEntryList(LocalDispatcher dispatcher, GenericDelegator delegator, String contentId, String entryLink, Locale locale, GenericValue userLogin) {
         List entries = FastList.newInstance();
         List exprs = FastList.newInstance();
-        exprs.add(new EntityExpr("contentIdStart", EntityOperator.EQUALS, contentId));
-        exprs.add(new EntityExpr("caContentAssocTypeId", EntityOperator.EQUALS, "PUBLISH_LINK"));
-        exprs.add(new EntityExpr("statusId", EntityOperator.EQUALS, "CTNT_PUBLISHED"));
+        exprs.add(EntityCondition.makeCondition("contentIdStart", contentId));
+        exprs.add(EntityCondition.makeCondition("caContentAssocTypeId", "PUBLISH_LINK"));
+        exprs.add(EntityCondition.makeCondition("statusId", "CTNT_PUBLISHED"));
 
         List contentRecs = null;
         try {
-            contentRecs = delegator.findList("ContentAssocViewTo", new EntityConditionList(exprs, EntityOperator.AND), null, UtilMisc.toList("-caFromDate"), null, false);
+            contentRecs = delegator.findList("ContentAssocViewTo", EntityCondition.makeCondition(exprs), null, UtilMisc.toList("-caFromDate"), null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }

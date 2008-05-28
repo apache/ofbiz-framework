@@ -56,19 +56,19 @@ if (lookupFlag != null) {
     eventDate = eventDate.trim();
     if (eventDate.length() < 14) eventDate = eventDate + " " + "00:00:00.000";
     paramList = paramList + "&eventDate=" + eventDate;
-        andExprs.add(new EntityExpr("eventDate", EntityOperator.GREATER_THAN, eventDate));
+        andExprs.add(EntityCondition.makeCondition("eventDate", EntityOperator.GREATER_THAN, eventDate));
     }
     
     if (productId != null && productId.length() > 0) {
             paramList = paramList + "&productId=" + productId;
         if ( productId.length() > 0)
-        andExprs.add(new EntityExpr("productId", EntityOperator.EQUALS, productId));
+        andExprs.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId));
     } 
-    andExprs.add(new EntityExpr("mrpEventTypeId", EntityOperator.NOT_EQUAL, "INITIAL_QOH"));
-    andExprs.add(new EntityExpr("mrpEventTypeId", EntityOperator.NOT_EQUAL, "ERROR"));
-    andExprs.add(new EntityExpr("mrpEventTypeId", EntityOperator.NOT_EQUAL, "REQUIRED_MRP"));
+    andExprs.add(EntityCondition.makeCondition("mrpEventTypeId", EntityOperator.NOT_EQUAL, "INITIAL_QOH"));
+    andExprs.add(EntityCondition.makeCondition("mrpEventTypeId", EntityOperator.NOT_EQUAL, "ERROR"));
+    andExprs.add(EntityCondition.makeCondition("mrpEventTypeId", EntityOperator.NOT_EQUAL, "REQUIRED_MRP"));
 
-    mainCond = new EntityConditionList(andExprs, EntityOperator.AND); 
+    mainCond = EntityCondition.makeCondition(andExprs, EntityOperator.AND); 
     
     if ( mainCond != null) {
     // do the lookup

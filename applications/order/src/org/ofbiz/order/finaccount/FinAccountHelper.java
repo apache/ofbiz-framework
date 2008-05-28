@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -15,7 +15,7 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- *******************************************************************************/
+ */
 
 package org.ofbiz.order.finaccount;
 
@@ -25,13 +25,17 @@ import java.util.List;
 import java.util.Random;
 import java.util.regex.Pattern;
 
-import org.ofbiz.base.util.*;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilNumber;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
-import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.util.EntityUtil;
@@ -184,23 +188,23 @@ public class FinAccountHelper {
         String currencyUomId = finAccount.getString("currencyUomId");
          
         // find the sum of all transactions which increase the value
-        EntityConditionList incrementConditions = new EntityConditionList(UtilMisc.toList(
-                new EntityExpr("finAccountId", EntityOperator.EQUALS, finAccountId),
-                new EntityExpr("transactionDate", EntityOperator.LESS_THAN_EQUAL_TO, asOfDateTime),
-                new EntityConditionList(UtilMisc.toList(
-                        new EntityExpr("finAccountTransTypeId", EntityOperator.EQUALS, "DEPOSIT"),
-                        new EntityExpr("finAccountTransTypeId", EntityOperator.EQUALS, "ADJUSTMENT")),
+        EntityConditionList incrementConditions = EntityCondition.makeCondition(UtilMisc.toList(
+                EntityCondition.makeCondition("finAccountId", EntityOperator.EQUALS, finAccountId),
+                EntityCondition.makeCondition("transactionDate", EntityOperator.LESS_THAN_EQUAL_TO, asOfDateTime),
+                EntityCondition.makeCondition(UtilMisc.toList(
+                        EntityCondition.makeCondition("finAccountTransTypeId", EntityOperator.EQUALS, "DEPOSIT"),
+                        EntityCondition.makeCondition("finAccountTransTypeId", EntityOperator.EQUALS, "ADJUSTMENT")),
                     EntityOperator.OR)),
                 EntityOperator.AND);
         List transSums = delegator.findList("FinAccountTransSum", incrementConditions, UtilMisc.toSet("amount"), null, null, false);
         incrementTotal = addFirstEntryAmount(incrementTotal, transSums, "amount", (decimals+1), rounding);
 
         // now find sum of all transactions with decrease the value
-        EntityConditionList decrementConditions = new EntityConditionList(UtilMisc.toList(
-                new EntityExpr("finAccountId", EntityOperator.EQUALS, finAccountId),
-                new EntityExpr("transactionDate", EntityOperator.LESS_THAN_EQUAL_TO, asOfDateTime),
-                new EntityExpr("currencyUomId", EntityOperator.EQUALS, currencyUomId),
-                new EntityExpr("finAccountTransTypeId", EntityOperator.EQUALS, "WITHDRAWAL")),
+        EntityConditionList decrementConditions = EntityCondition.makeCondition(UtilMisc.toList(
+                EntityCondition.makeCondition("finAccountId", EntityOperator.EQUALS, finAccountId),
+                EntityCondition.makeCondition("transactionDate", EntityOperator.LESS_THAN_EQUAL_TO, asOfDateTime),
+                EntityCondition.makeCondition("currencyUomId", EntityOperator.EQUALS, currencyUomId),
+                EntityCondition.makeCondition("finAccountTransTypeId", EntityOperator.EQUALS, "WITHDRAWAL")),
             EntityOperator.AND);
         transSums = delegator.findList("FinAccountTransSum", decrementConditions, UtilMisc.toSet("amount"), null, null, false);
         decrementTotal = addFirstEntryAmount(decrementTotal, transSums, "amount", (decimals+1), rounding);
@@ -223,9 +227,9 @@ public class FinAccountHelper {
         BigDecimal netBalance = getBalance(finAccountId, asOfDateTime, delegator);
          
         // find sum of all authorizations which are not expired and which were authorized before as of time
-        EntityConditionList authorizationConditions = new EntityConditionList(UtilMisc.toList(
-                new EntityExpr("finAccountId", EntityOperator.EQUALS, finAccountId),
-                new EntityExpr("authorizationDate", EntityOperator.LESS_THAN_EQUAL_TO, asOfDateTime),
+        EntityConditionList authorizationConditions = EntityCondition.makeCondition(UtilMisc.toList(
+                EntityCondition.makeCondition("finAccountId", EntityOperator.EQUALS, finAccountId),
+                EntityCondition.makeCondition("authorizationDate", EntityOperator.LESS_THAN_EQUAL_TO, asOfDateTime),
                 EntityUtil.getFilterByDateExpr(asOfDateTime)),
             EntityOperator.AND);
          

@@ -60,7 +60,7 @@ if (productId != null && productId.length() > 0) {
     context.put("productFeatureApplTypes", productFeatureApplTypes);
 }
 
-productFeaturesSize = delegator.findCountByCondition("ProductFeature", new EntityExpr("productFeatureCategoryId", EntityOperator.EQUALS, productFeatureCategoryId), null, null);
+productFeaturesSize = delegator.findCountByCondition("ProductFeature", EntityCondition.makeCondition("productFeatureCategoryId", EntityOperator.EQUALS, productFeatureCategoryId), null, null);
 
 int highIndex = 0;
 int lowIndex = 0;
@@ -82,7 +82,7 @@ context.put("listSize", listSize);
 context.put("lowIndex", lowIndex);
 context.put("highIndex", highIndex);
 
-whereCondition = new EntityFieldMap(UtilMisc.toMap("productFeatureCategoryId", productFeatureCategoryId), EntityOperator.AND);
+whereCondition = EntityCondition.makeCondition(UtilMisc.toMap("productFeatureCategoryId", productFeatureCategoryId), EntityOperator.AND);
 EntityFindOptions efo = new EntityFindOptions();
 efo.setDistinct(true);
 efo.setResultSetType(EntityFindOptions.TYPE_SCROLL_INSENSITIVE);

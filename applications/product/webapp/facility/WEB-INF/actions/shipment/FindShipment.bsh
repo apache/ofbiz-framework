@@ -57,7 +57,7 @@ paramListBuffer = new StringBuffer();
 if (UtilValidate.isNotEmpty(shipmentTypeId)) {
     paramListBuffer.append("&shipmentTypeId=");
     paramListBuffer.append(shipmentTypeId);
-    findShipmentExprs.add(new EntityExpr("shipmentTypeId", EntityOperator.EQUALS, shipmentTypeId));
+    findShipmentExprs.add(EntityCondition.makeCondition("shipmentTypeId", EntityOperator.EQUALS, shipmentTypeId));
 
     currentShipmentType = delegator.findByPrimaryKeyCache("ShipmentType", UtilMisc.toMap("shipmentTypeId", shipmentTypeId));
     context.put("currentShipmentType", currentShipmentType);
@@ -65,7 +65,7 @@ if (UtilValidate.isNotEmpty(shipmentTypeId)) {
 if (UtilValidate.isNotEmpty(originFacilityId)) {
     paramListBuffer.append("&originFacilityId=");
     paramListBuffer.append(originFacilityId);
-    findShipmentExprs.add(new EntityExpr("originFacilityId", EntityOperator.EQUALS, originFacilityId));
+    findShipmentExprs.add(EntityCondition.makeCondition("originFacilityId", EntityOperator.EQUALS, originFacilityId));
 
     currentOriginFacility = delegator.findByPrimaryKeyCache("Facility", UtilMisc.toMap("facilityId", originFacilityId));
     context.put("currentOriginFacility", currentOriginFacility);
@@ -73,7 +73,7 @@ if (UtilValidate.isNotEmpty(originFacilityId)) {
 if (UtilValidate.isNotEmpty(destinationFacilityId)) {
     paramListBuffer.append("&destinationFacilityId=");
     paramListBuffer.append(destinationFacilityId);
-    findShipmentExprs.add(new EntityExpr("destinationFacilityId", EntityOperator.EQUALS, destinationFacilityId));
+    findShipmentExprs.add(EntityCondition.makeCondition("destinationFacilityId", EntityOperator.EQUALS, destinationFacilityId));
 
     currentDestinationFacility = delegator.findByPrimaryKeyCache("Facility", UtilMisc.toMap("facilityId", destinationFacilityId));
     context.put("currentDestinationFacility", currentDestinationFacility);
@@ -81,7 +81,7 @@ if (UtilValidate.isNotEmpty(destinationFacilityId)) {
 if (UtilValidate.isNotEmpty(statusId)) {
     paramListBuffer.append("&statusId=");
     paramListBuffer.append(statusId);
-    findShipmentExprs.add(new EntityExpr("statusId", EntityOperator.EQUALS, statusId));
+    findShipmentExprs.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, statusId));
 
     currentStatus = delegator.findByPrimaryKeyCache("StatusItem", UtilMisc.toMap("statusId", statusId));
     context.put("currentStatus", currentStatus);
@@ -91,14 +91,14 @@ if (minDate != null && minDate.length() > 8) {
     if (minDate.length() < 14) minDate = minDate + " " + "00:00:00.000";
     paramListBuffer.append("&minDate=");
     paramListBuffer.append(minDate);
-    findShipmentExprs.add(new EntityExpr("estimatedShipDate", EntityOperator.GREATER_THAN_EQUAL_TO, ObjectType.simpleTypeConvert(minDate, "Timestamp", null, null)));        
+    findShipmentExprs.add(EntityCondition.makeCondition("estimatedShipDate", EntityOperator.GREATER_THAN_EQUAL_TO, ObjectType.simpleTypeConvert(minDate, "Timestamp", null, null)));        
 }
 if (maxDate != null && maxDate.length() > 8) {
     maxDate = maxDate.trim();
     if (maxDate.length() < 14) maxDate = maxDate + " " + "23:59:59.999";
     paramListBuffer.append("&maxDate=");
     paramListBuffer.append(maxDate);
-    findShipmentExprs.add(new EntityExpr("estimatedShipDate", EntityOperator.LESS_THAN_EQUAL_TO, ObjectType.simpleTypeConvert(maxDate, "Timestamp", null, null)));
+    findShipmentExprs.add(EntityCondition.makeCondition("estimatedShipDate", EntityOperator.LESS_THAN_EQUAL_TO, ObjectType.simpleTypeConvert(maxDate, "Timestamp", null, null)));
 }
 
 if ("Y".equals(lookupFlag)) {
@@ -106,7 +106,7 @@ if ("Y".equals(lookupFlag)) {
 
     if (findShipmentExprs.size() > 0) {
         EntityFindOptions findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
-        mainCond = new EntityConditionList(findShipmentExprs, EntityOperator.AND);
+        mainCond = EntityCondition.makeCondition(findShipmentExprs, EntityOperator.AND);
         List orderBy = UtilMisc.toList("-estimatedShipDate");
 
         boolean beganTransaction = false;

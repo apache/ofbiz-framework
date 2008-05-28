@@ -33,6 +33,8 @@ import java.util.Set;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import javolution.util.FastMap;
+
 import org.ofbiz.base.util.BshUtil;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -47,19 +49,23 @@ import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericPK;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMapProcessor;
-import org.ofbiz.service.*;
+import org.ofbiz.service.DispatchContext;
+import org.ofbiz.service.GenericServiceException;
+import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ModelService;
+import org.ofbiz.service.ServiceUtil;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import bsh.EvalError;
 import freemarker.ext.dom.NodeModel;
-import javolution.util.FastMap;
 
 /**
  * ContentWorker Class
@@ -286,13 +292,13 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
 
         // find the sub-content with matching mapKey
         List orderBy = UtilMisc.toList("-fromDate");
-        List exprs = UtilMisc.toList(new EntityExpr("contentId", EntityOperator.EQUALS, contentId));
+        List exprs = UtilMisc.toList(EntityCondition.makeCondition("contentId", EntityOperator.EQUALS, contentId));
         if (UtilValidate.isNotEmpty(mapKey)) {
-                exprs.add(new EntityExpr("mapKey", EntityOperator.EQUALS, mapKey));
+                exprs.add(EntityCondition.makeCondition("mapKey", EntityOperator.EQUALS, mapKey));
         }
 
         List assocs;
-        assocs = delegator.findList("ContentAssoc", new EntityConditionList(exprs, EntityOperator.AND), null, orderBy, null, cache);
+        assocs = delegator.findList("ContentAssoc", EntityCondition.makeCondition(exprs, EntityOperator.AND), null, orderBy, null, cache);
         assocs = EntityUtil.filterByDate(assocs);
         GenericValue subContent = EntityUtil.getFirst(assocs);
 
@@ -741,7 +747,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
             contentIdName = contentIdName.concat("To");
             contentAssocViewName = contentAssocViewName.concat("To");
         }
-        EntityExpr expr = new EntityExpr(contentIdName, EntityOperator.EQUALS, origContentId);
+        EntityExpr expr = EntityCondition.makeCondition(contentIdName, EntityOperator.EQUALS, origContentId);
         exprListAnd.add(expr);
 
         if (contentTypes.size() > 0) {
@@ -749,10 +755,10 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
             Iterator it = contentTypes.iterator();
             while (it.hasNext()) {
                 String contentType = (String) it.next();
-                expr = new EntityExpr("contentTypeId", EntityOperator.EQUALS, contentType);
+                expr = EntityCondition.makeCondition("contentTypeId", EntityOperator.EQUALS, contentType);
                 exprListOr.add(expr);
             }
-            EntityConditionList contentExprList = new EntityConditionList(exprListOr, EntityOperator.OR);
+            EntityConditionList contentExprList = EntityCondition.makeCondition(exprListOr, EntityOperator.OR);
             exprListAnd.add(contentExprList);
         }
         if (assocTypes.size() > 0) {
@@ -760,25 +766,25 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
             Iterator it = assocTypes.iterator();
             while (it.hasNext()) {
                 String assocType = (String) it.next();
-                expr = new EntityExpr("contentAssocTypeId", EntityOperator.EQUALS, assocType);
+                expr = EntityCondition.makeCondition("contentAssocTypeId", EntityOperator.EQUALS, assocType);
                 exprListOr.add(expr);
             }
-            EntityConditionList assocExprList = new EntityConditionList(exprListOr, EntityOperator.OR);
+            EntityConditionList assocExprList = EntityCondition.makeCondition(exprListOr, EntityOperator.OR);
             exprListAnd.add(assocExprList);
         }
 
         if (fromDate != null) {
             Timestamp tsFrom = UtilDateTime.toTimestamp(fromDate);
-            expr = new EntityExpr("fromDate", EntityOperator.GREATER_THAN_EQUAL_TO, tsFrom);
+            expr = EntityCondition.makeCondition("fromDate", EntityOperator.GREATER_THAN_EQUAL_TO, tsFrom);
             exprListAnd.add(expr);
         }
 
         if (thruDate != null) {
             Timestamp tsThru = UtilDateTime.toTimestamp(thruDate);
-            expr = new EntityExpr("thruDate", EntityOperator.LESS_THAN, tsThru);
+            expr = EntityCondition.makeCondition("thruDate", EntityOperator.LESS_THAN, tsThru);
             exprListAnd.add(expr);
         }
-        EntityConditionList contentCondList = new EntityConditionList(exprListAnd, EntityOperator.AND);
+        EntityConditionList contentCondList = EntityCondition.makeCondition(exprListAnd, EntityOperator.AND);
         GenericDelegator delegator = currentContent.getDelegator();
         contentList = delegator.findList(contentAssocViewName, contentCondList, null, null, null, false);
         return contentList;
@@ -805,9 +811,9 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         EntityExpr joinExpr = null;
         EntityExpr expr = null;
         if (direction != null && direction.equalsIgnoreCase("From")) {
-            joinExpr = new EntityExpr("contentIdTo", EntityOperator.EQUALS, contentId);
+            joinExpr = EntityCondition.makeCondition("contentIdTo", EntityOperator.EQUALS, contentId);
         } else {
-            joinExpr = new EntityExpr("contentId", EntityOperator.EQUALS, contentId);
+            joinExpr = EntityCondition.makeCondition("contentId", EntityOperator.EQUALS, contentId);
         }
         exprList.add(joinExpr);
         if (assocTypes != null && assocTypes.size() > 0) {
@@ -815,40 +821,40 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
             Iterator it = assocTypes.iterator();
             while (it.hasNext()) {
                 String assocType = (String) it.next();
-                expr = new EntityExpr("contentAssocTypeId", EntityOperator.EQUALS, assocType);
+                expr = EntityCondition.makeCondition("contentAssocTypeId", EntityOperator.EQUALS, assocType);
                 exprListOr.add(expr);
             }
-            EntityConditionList assocExprList = new EntityConditionList(exprListOr, EntityOperator.OR);
+            EntityConditionList assocExprList = EntityCondition.makeCondition(exprListOr, EntityOperator.OR);
             exprList.add(assocExprList);
         }
         if (fromDate != null) {
-            EntityExpr fromExpr = new EntityExpr("fromDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate);
+            EntityExpr fromExpr = EntityCondition.makeCondition("fromDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate);
             exprList.add(fromExpr);
         }
         if (thruDate != null) {
             List thruList = new ArrayList();
             //thruDate = UtilDateTime.getDayStart(thruDate, daysLater);
 
-            EntityExpr thruExpr = new EntityExpr("thruDate", EntityOperator.LESS_THAN, thruDate);
+            EntityExpr thruExpr = EntityCondition.makeCondition("thruDate", EntityOperator.LESS_THAN, thruDate);
             thruList.add(thruExpr);
-            EntityExpr thruExpr2 = new EntityExpr("thruDate", EntityOperator.EQUALS, null);
+            EntityExpr thruExpr2 = EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null);
             thruList.add(thruExpr2);
-            EntityConditionList thruExprList = new EntityConditionList(thruList, EntityOperator.OR);
+            EntityConditionList thruExprList = EntityCondition.makeCondition(thruList, EntityOperator.OR);
             exprList.add(thruExprList);
         } else if (fromDate != null) {
             List thruList = new ArrayList();
 
-            EntityExpr thruExpr = new EntityExpr("thruDate", EntityOperator.GREATER_THAN, fromDate);
+            EntityExpr thruExpr = EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN, fromDate);
             thruList.add(thruExpr);
-            EntityExpr thruExpr2 = new EntityExpr("thruDate", EntityOperator.EQUALS, null);
+            EntityExpr thruExpr2 = EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null);
             thruList.add(thruExpr2);
-            EntityConditionList thruExprList = new EntityConditionList(thruList, EntityOperator.OR);
+            EntityConditionList thruExprList = EntityCondition.makeCondition(thruList, EntityOperator.OR);
             exprList.add(thruExprList);
         } else {
-            EntityExpr thruExpr2 = new EntityExpr("thruDate", EntityOperator.EQUALS, null);
+            EntityExpr thruExpr2 = EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null);
             exprList.add(thruExpr2);
         }
-        EntityConditionList assocExprList = new EntityConditionList(exprList, EntityOperator.AND);
+        EntityConditionList assocExprList = EntityCondition.makeCondition(exprList, EntityOperator.AND);
         //if (Debug.infoOn()) Debug.logInfo(" assocExprList:" + assocExprList , "");
         List relatedAssocs = delegator.findList("ContentAssoc", assocExprList, null, UtilMisc.toList("-fromDate"), null, false);
         //if (Debug.infoOn()) Debug.logInfo(" relatedAssoc:" + relatedAssocs.size() , "");
@@ -1349,31 +1355,31 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         List exprListAnd = new ArrayList();
 
         if (UtilValidate.isNotEmpty(contentIdTo)) {
-            EntityExpr expr = new EntityExpr("caContentIdTo", EntityOperator.EQUALS, contentIdTo);
+            EntityExpr expr = EntityCondition.makeCondition("caContentIdTo", EntityOperator.EQUALS, contentIdTo);
             exprListAnd.add(expr);
         }
 
         if (UtilValidate.isNotEmpty(contentId)) {
-            EntityExpr expr = new EntityExpr("contentId", EntityOperator.EQUALS, contentId);
+            EntityExpr expr = EntityCondition.makeCondition("contentId", EntityOperator.EQUALS, contentId);
             exprListAnd.add(expr);
         }
 
         if (UtilValidate.isNotEmpty(contentAssocTypeId)) {
-            EntityExpr expr = new EntityExpr("caContentAssocTypeId", EntityOperator.EQUALS, contentAssocTypeId);
+            EntityExpr expr = EntityCondition.makeCondition("caContentAssocTypeId", EntityOperator.EQUALS, contentAssocTypeId);
             exprListAnd.add(expr);
         }
 
         if (UtilValidate.isNotEmpty(statusId)) {
-            EntityExpr expr = new EntityExpr("statusId", EntityOperator.EQUALS, statusId);
+            EntityExpr expr = EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, statusId);
             exprListAnd.add(expr);
         }
 
         if (UtilValidate.isNotEmpty(privilegeEnumId)) {
-            EntityExpr expr = new EntityExpr("privilegeEnumId", EntityOperator.EQUALS, privilegeEnumId);
+            EntityExpr expr = EntityCondition.makeCondition("privilegeEnumId", EntityOperator.EQUALS, privilegeEnumId);
             exprListAnd.add(expr);
         }
 
-        EntityConditionList contentCondList = new EntityConditionList(exprListAnd, EntityOperator.AND);
+        EntityConditionList contentCondList = EntityCondition.makeCondition(exprListAnd, EntityOperator.AND);
         List contentList = delegator.findList("ContentAssocDataResourceViewFrom", contentCondList, null, null, null, false);
         List filteredList = EntityUtil.filterByDate(contentList, UtilDateTime.nowTimestamp(), "caFromDate", "caThruDate", true);
         return filteredList;

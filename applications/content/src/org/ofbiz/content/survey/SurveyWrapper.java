@@ -341,7 +341,7 @@ public class SurveyWrapper {
     public long getNumberResponses() throws SurveyWrapperException {
         long responses = 0;
         try {
-            responses = delegator.findCountByCondition("SurveyResponse", new EntityExpr("surveyId", EntityOperator.EQUALS, surveyId), null, null);
+            responses = delegator.findCountByCondition("SurveyResponse", EntityCondition.makeCondition("surveyId", EntityOperator.EQUALS, surveyId), null, null);
         } catch (GenericEntityException e) {
             throw new SurveyWrapperException(e);
         }
@@ -720,9 +720,9 @@ public class SurveyWrapper {
     }
 
     private EntityCondition makeEliCondition(GenericValue question) {
-        return new EntityConditionList(UtilMisc.toList(new EntityExpr("surveyQuestionId",
+        return EntityCondition.makeCondition(UtilMisc.toList(EntityCondition.makeCondition("surveyQuestionId",
                 EntityOperator.EQUALS, question.getString("surveyQuestionId")),
-                new EntityExpr("surveyId", EntityOperator.EQUALS, surveyId)), EntityOperator.AND);
+                EntityCondition.makeCondition("surveyId", EntityOperator.EQUALS, surveyId)), EntityOperator.AND);
     }
 
     private EntityListIterator getEli(GenericValue question) throws GenericEntityException {

@@ -201,22 +201,22 @@ public class PriceServices {
         Double amountDbl = (Double) context.get("amount");
 
         List productPriceEcList = FastList.newInstance();
-        productPriceEcList.add(new EntityExpr("productId", EntityOperator.EQUALS, productId));
+        productPriceEcList.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId));
         // this funny statement is for backward compatibility purposes; the productPricePurposeId is a new pk field on the ProductPrice entity and in order databases may not be populated, until the pk is updated and such; this will ease the transition somewhat 
         if ("PURCHASE".equals(productPricePurposeId)) {
-            productPriceEcList.add(new EntityExpr(
-                    new EntityExpr("productPricePurposeId", EntityOperator.EQUALS, productPricePurposeId), 
+            productPriceEcList.add(EntityCondition.makeCondition(
+                    EntityCondition.makeCondition("productPricePurposeId", EntityOperator.EQUALS, productPricePurposeId), 
                     EntityOperator.OR, 
-                    new EntityExpr("productPricePurposeId", EntityOperator.EQUALS, null)));
+                    EntityCondition.makeCondition("productPricePurposeId", EntityOperator.EQUALS, null)));
         } else {
-            productPriceEcList.add(new EntityExpr("productPricePurposeId", EntityOperator.EQUALS, productPricePurposeId));
+            productPriceEcList.add(EntityCondition.makeCondition("productPricePurposeId", EntityOperator.EQUALS, productPricePurposeId));
         }
-        productPriceEcList.add(new EntityExpr("currencyUomId", EntityOperator.EQUALS, currencyUomId));
-        productPriceEcList.add(new EntityExpr("productStoreGroupId", EntityOperator.EQUALS, productStoreGroupId));
+        productPriceEcList.add(EntityCondition.makeCondition("currencyUomId", EntityOperator.EQUALS, currencyUomId));
+        productPriceEcList.add(EntityCondition.makeCondition("productStoreGroupId", EntityOperator.EQUALS, productStoreGroupId));
         if (UtilValidate.isNotEmpty(termUomId)) {
-            productPriceEcList.add(new EntityExpr("termUomId", EntityOperator.EQUALS, termUomId));
+            productPriceEcList.add(EntityCondition.makeCondition("termUomId", EntityOperator.EQUALS, termUomId));
         }
-        EntityCondition productPriceEc = new EntityConditionList(productPriceEcList, EntityOperator.AND);
+        EntityCondition productPriceEc = EntityCondition.makeCondition(productPriceEcList, EntityOperator.AND);
 
         // for prices, get all ProductPrice entities for this productId and currencyUomId
         List productPrices = null;
@@ -887,8 +887,8 @@ public class PriceServices {
             }
         } else {
             // this would be nice, but we can't cache this so easily...
-            // List pprExprs = UtilMisc.toList(new EntityExpr("thruDate", EntityOperator.EQUALS, null),
-            // new EntityExpr("thruDate", EntityOperator.GREATER_THAN, UtilDateTime.nowTimestamp()));
+            // List pprExprs = UtilMisc.toList(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null),
+            // EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN, UtilDateTime.nowTimestamp()));
             // productPriceRules = delegator.findByOr("ProductPriceRule", pprExprs);
 
             productPriceRules = delegator.findList("ProductPriceRule", null, null, null, null, true);

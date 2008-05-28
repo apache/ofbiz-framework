@@ -38,20 +38,20 @@ visitConditionList = new LinkedList();
 orderConditionList = new LinkedList();
 
 if ((fromDateStr != null) && !(fromDateStr.equals(""))) {
-    visitConditionList.add(new EntityExpr("fromDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDateStr));
-    orderConditionList.add(new EntityExpr("orderDate",EntityOperator.GREATER_THAN_EQUAL_TO,fromDateStr));
+    visitConditionList.add(EntityCondition.makeCondition("fromDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDateStr));
+    orderConditionList.add(EntityCondition.makeCondition("orderDate",EntityOperator.GREATER_THAN_EQUAL_TO,fromDateStr));
 }
 if ((thruDateStr != null) && !(thruDateStr.equals(""))) {
-    visitConditionList.add(new EntityExpr("fromDate",EntityOperator.LESS_THAN_EQUAL_TO,thruDateStr));
-    orderConditionList.add(new EntityExpr("orderDate",EntityOperator.LESS_THAN_EQUAL_TO,thruDateStr));
+    visitConditionList.add(EntityCondition.makeCondition("fromDate",EntityOperator.LESS_THAN_EQUAL_TO,thruDateStr));
+    orderConditionList.add(EntityCondition.makeCondition("orderDate",EntityOperator.LESS_THAN_EQUAL_TO,thruDateStr));
 }
 if ((marketingCampaignId != null) && !(marketingCampaignId.equals(""))) {
-    visitConditionList.add(new EntityExpr("marketingCampaignId", EntityOperator.EQUALS, marketingCampaignId));
-    orderConditionList.add(new EntityExpr("marketingCampaignId", EntityOperator.EQUALS, marketingCampaignId));
+    visitConditionList.add(EntityCondition.makeCondition("marketingCampaignId", EntityOperator.EQUALS, marketingCampaignId));
+    orderConditionList.add(EntityCondition.makeCondition("marketingCampaignId", EntityOperator.EQUALS, marketingCampaignId));
 }
 
-visitConditions = new EntityConditionList(visitConditionList, EntityOperator.AND);
-orderConditions = new EntityConditionList(orderConditionList, EntityOperator.AND);
+visitConditions = EntityCondition.makeCondition(visitConditionList, EntityOperator.AND);
+orderConditions = EntityCondition.makeCondition(orderConditionList, EntityOperator.AND);
 
 visits = delegator.findList("MarketingCampaignAndVisit", visitConditions, UtilMisc.toSet("marketingCampaignId", "visitId"), UtilMisc.toList("marketingCampaignId"), null, false);
 orders = delegator.findList("MarketingCampaignAndOrderHeader", orderConditions, UtilMisc.toSet("marketingCampaignId", "orderId", "grandTotal"), UtilMisc.toList("marketingCampaignId"), null, false);

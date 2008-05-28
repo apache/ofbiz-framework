@@ -109,26 +109,26 @@ if (lookupFlag != null) {
                 
         paramList = paramList + "&paymentTypeId=" + paymentType;        
         if (!"ANY".equals(paymentType)) {            
-            andExprs.add(new EntityExpr("paymentTypeId", EntityOperator.EQUALS, paymentType));
+            andExprs.add(EntityCondition.makeCondition("paymentTypeId", EntityOperator.EQUALS, paymentType));
         }
         paramList = paramList + "&paymentStatusId=" + paymentStatus;
         if (!"ANY".equals(paymentStatus)) {            
-            andExprs.add(new EntityExpr("statusId", EntityOperator.EQUALS, paymentStatus));
+            andExprs.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, paymentStatus));
         }
         paramList = paramList + "&paymentMethodTypeId=" + paymentMethodType;
         if (!"ANY".equals(paymentMethodType)) {            
-            andExprs.add(new EntityExpr("paymentMethodTypeId", EntityOperator.EQUALS, paymentMethodType));
+            andExprs.add(EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.EQUALS, paymentMethodType));
         }
         
         if (UtilValidate.isNotEmpty(fromPartyId)) {
             paramList = paramList + "&fromPartyId=" + fromPartyId;
-            andExprs.add(new EntityExpr("partyIdFrom", EntityOperator.EQUALS, fromPartyId));
+            andExprs.add(EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, fromPartyId));
             context.put("fromPartyId", fromPartyId);
         }
         
         if (UtilValidate.isNotEmpty(toPartyId)) {
             paramList = paramList + "&toPartyId=" + toPartyId;
-            andExprs.add(new EntityExpr("partyIdTo", EntityOperator.EQUALS, toPartyId));
+            andExprs.add(EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, toPartyId));
             context.put("toPartyId", toPartyId);
         }
        
@@ -136,16 +136,16 @@ if (lookupFlag != null) {
             minDate = minDate.trim();
             if (minDate.length() < 14) minDate = minDate + " " + "00:00:00.000";
             paramList = paramList + "&minDate=" + minDate;
-            andExprs.add(new EntityExpr("effectiveDate", EntityOperator.GREATER_THAN_EQUAL_TO, ObjectType.simpleTypeConvert(minDate, "Timestamp", null, null)));        
+            andExprs.add(EntityCondition.makeCondition("effectiveDate", EntityOperator.GREATER_THAN_EQUAL_TO, ObjectType.simpleTypeConvert(minDate, "Timestamp", null, null)));        
         }
         if (maxDate != null && maxDate.length() > 8) {
             maxDate = maxDate.trim();
             if (maxDate.length() < 14) maxDate = maxDate + " " + "23:59:59.999";
             paramList = paramList + "&maxDate=" + maxDate;
-            andExprs.add(new EntityExpr("effectiveDate", EntityOperator.LESS_THAN_EQUAL_TO, ObjectType.simpleTypeConvert(maxDate, "Timestamp", null, null)));
+            andExprs.add(EntityCondition.makeCondition("effectiveDate", EntityOperator.LESS_THAN_EQUAL_TO, ObjectType.simpleTypeConvert(maxDate, "Timestamp", null, null)));
         }
                 
-        mainCond = new EntityConditionList(andExprs, EntityOperator.AND);        
+        mainCond = EntityCondition.makeCondition(andExprs, EntityOperator.AND);        
                                                        
     }
     

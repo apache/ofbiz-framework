@@ -126,9 +126,9 @@ public class ShoppingListServices {
         try {
             beganTransaction = TransactionUtil.begin();
         
-            List exprs = UtilMisc.toList(new EntityExpr("shoppingListTypeId", EntityOperator.EQUALS, "SLT_AUTO_REODR"),
-                    new EntityExpr("isActive", EntityOperator.EQUALS, "Y"));
-            EntityCondition cond = new EntityConditionList(exprs, EntityOperator.AND);
+            List exprs = UtilMisc.toList(EntityCondition.makeCondition("shoppingListTypeId", EntityOperator.EQUALS, "SLT_AUTO_REODR"),
+                    EntityCondition.makeCondition("isActive", EntityOperator.EQUALS, "Y"));
+            EntityCondition cond = EntityCondition.makeCondition(exprs, EntityOperator.AND);
             List order = UtilMisc.toList("-lastOrderedDate");
 
             EntityListIterator eli = null;

@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -15,7 +15,7 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- *******************************************************************************/
+ */
 package org.ofbiz.order;
 
 import java.text.NumberFormat;
@@ -38,14 +38,15 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.order.OrderChangeHelper;
-import org.ofbiz.service.ModelService;
-import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.GenericServiceException;
+import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ModelService;
 
 /**
  * Order Manager Events
@@ -149,7 +150,7 @@ public class OrderManagerEvents {
         List paymentMethodTypes = null;
 
         try {
-            EntityExpr ee = new EntityExpr("paymentMethodTypeId", EntityOperator.NOT_EQUAL, "EXT_OFFLINE");
+            EntityExpr ee = EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.NOT_EQUAL, "EXT_OFFLINE");
             paymentMethodTypes = delegator.findList("PaymentMethodType", ee, null, null, null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problems getting payment types", module);
@@ -237,9 +238,9 @@ public class OrderManagerEvents {
         List currentPrefs = null;
         double paymentTally = 0.00;
         try {
-            EntityConditionList<EntityExpr> ecl = new EntityConditionList<EntityExpr>(UtilMisc.toList(
-                    new EntityExpr("orderId", EntityOperator.EQUALS, orderId),
-                    new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "PAYMENT_CANCELLED")),
+            EntityConditionList<EntityExpr> ecl = EntityCondition.makeCondition(UtilMisc.toList(
+                    EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderId),
+                    EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PAYMENT_CANCELLED")),
                     EntityOperator.AND);
             currentPrefs = delegator.findList("OrderPaymentPreference", ecl, null, null, null, false);
         } catch (GenericEntityException e) {

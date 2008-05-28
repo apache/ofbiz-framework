@@ -63,22 +63,22 @@ productFieldsToSelect = UtilMisc.toSet("productId", "quantityTotal", "amountTota
 
 //NOTE: tax, etc also have productId on them, so restrict by type INV_PROD_ITEM, INV_FPROD_ITEM, INV_DPROD_ITEM, others?
 baseProductAndExprs = FastList.newInstance();
-baseProductAndExprs.add(new EntityExpr("invoiceTypeId", EntityOperator.EQUALS, "SALES_INVOICE"));
-baseProductAndExprs.add(new EntityExpr("invoiceItemTypeId", EntityOperator.IN, UtilMisc.toList("INV_PROD_ITEM", "INV_FPROD_ITEM", "INV_DPROD_ITEM")));
-baseProductAndExprs.add(new EntityExpr("statusId", EntityOperator.IN, UtilMisc.toList("INVOICE_READY", "INVOICE_PAID")));
-if (UtilValidate.isNotEmpty(organizationPartyId)) baseProductAndExprs.add(new EntityExpr("partyIdFrom", EntityOperator.EQUALS, organizationPartyId));
-if (UtilValidate.isNotEmpty(currencyUomId)) baseProductAndExprs.add(new EntityExpr("currencyUomId", EntityOperator.EQUALS, currencyUomId));
+baseProductAndExprs.add(EntityCondition.makeCondition("invoiceTypeId", EntityOperator.EQUALS, "SALES_INVOICE"));
+baseProductAndExprs.add(EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.IN, UtilMisc.toList("INV_PROD_ITEM", "INV_FPROD_ITEM", "INV_DPROD_ITEM")));
+baseProductAndExprs.add(EntityCondition.makeCondition("statusId", EntityOperator.IN, UtilMisc.toList("INVOICE_READY", "INVOICE_PAID")));
+if (UtilValidate.isNotEmpty(organizationPartyId)) baseProductAndExprs.add(EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, organizationPartyId));
+if (UtilValidate.isNotEmpty(currencyUomId)) baseProductAndExprs.add(EntityCondition.makeCondition("currencyUomId", EntityOperator.EQUALS, currencyUomId));
 
 categoryFieldsToSelect = UtilMisc.toSet("productCategoryId", "quantityTotal", "amountTotal");
 
 baseCategoryAndExprs = FastList.newInstance();
-baseCategoryAndExprs.add(new EntityExpr("invoiceTypeId", EntityOperator.EQUALS, "SALES_INVOICE"));
-baseCategoryAndExprs.add(new EntityExpr("invoiceItemTypeId", EntityOperator.IN, UtilMisc.toList("INV_PROD_ITEM", "INV_FPROD_ITEM", "INV_DPROD_ITEM")));
-baseCategoryAndExprs.add(new EntityExpr("statusId", EntityOperator.IN, UtilMisc.toList("INVOICE_READY", "INVOICE_PAID")));
-if (productCategoryIdSet.size() > 0) baseCategoryAndExprs.add(new EntityExpr("productCategoryId", EntityOperator.IN, productCategoryIdSet));
-if (productIdSet.size() > 0) baseCategoryAndExprs.add(new EntityExpr("productId", EntityOperator.NOT_IN, productIdSet));
-if (UtilValidate.isNotEmpty(organizationPartyId)) baseCategoryAndExprs.add(new EntityExpr("partyIdFrom", EntityOperator.EQUALS, organizationPartyId));
-if (UtilValidate.isNotEmpty(currencyUomId)) baseCategoryAndExprs.add(new EntityExpr("currencyUomId", EntityOperator.EQUALS, currencyUomId));
+baseCategoryAndExprs.add(EntityCondition.makeCondition("invoiceTypeId", EntityOperator.EQUALS, "SALES_INVOICE"));
+baseCategoryAndExprs.add(EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.IN, UtilMisc.toList("INV_PROD_ITEM", "INV_FPROD_ITEM", "INV_DPROD_ITEM")));
+baseCategoryAndExprs.add(EntityCondition.makeCondition("statusId", EntityOperator.IN, UtilMisc.toList("INVOICE_READY", "INVOICE_PAID")));
+if (productCategoryIdSet.size() > 0) baseCategoryAndExprs.add(EntityCondition.makeCondition("productCategoryId", EntityOperator.IN, productCategoryIdSet));
+if (productIdSet.size() > 0) baseCategoryAndExprs.add(EntityCondition.makeCondition("productId", EntityOperator.NOT_IN, productIdSet));
+if (UtilValidate.isNotEmpty(organizationPartyId)) baseCategoryAndExprs.add(EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, organizationPartyId));
+if (UtilValidate.isNotEmpty(currencyUomId)) baseCategoryAndExprs.add(EntityCondition.makeCondition("currencyUomId", EntityOperator.EQUALS, currencyUomId));
 
 
 // get the Calendar object for the current month (specifed by month, year Integer values in the context)
@@ -113,11 +113,11 @@ for (int currentDay = 0; currentDay <= daysInMonth; currentDay++) {
     // do the product find
     productAndExprs = FastList.newInstance();
     productAndExprs.addAll(baseProductAndExprs);
-    if (productIdSet.size() > 0) productAndExprs.add(new EntityExpr("productId", EntityOperator.IN, productIdSet));
-    productAndExprs.add(new EntityExpr("invoiceDate", EntityOperator.GREATER_THAN_EQUAL_TO, currentDayBegin));
-    productAndExprs.add(new EntityExpr("invoiceDate", EntityOperator.LESS_THAN, nextDayBegin));
+    if (productIdSet.size() > 0) productAndExprs.add(EntityCondition.makeCondition("productId", EntityOperator.IN, productIdSet));
+    productAndExprs.add(EntityCondition.makeCondition("invoiceDate", EntityOperator.GREATER_THAN_EQUAL_TO, currentDayBegin));
+    productAndExprs.add(EntityCondition.makeCondition("invoiceDate", EntityOperator.LESS_THAN, nextDayBegin));
     
-    productResultListIterator = delegator.find("InvoiceItemProductSummary", new EntityConditionList(productAndExprs, EntityOperator.AND), null, productFieldsToSelect, null, findOpts);
+    productResultListIterator = delegator.find("InvoiceItemProductSummary", EntityCondition.makeCondition(productAndExprs, EntityOperator.AND), null, productFieldsToSelect, null, findOpts);
     productResultMap = FastMap.newInstance();
     while ((productResult = productResultListIterator.next()) != null) {
         productResultMap.put(productResult.get("productId"), productResult);
@@ -131,10 +131,10 @@ for (int currentDay = 0; currentDay <= daysInMonth; currentDay++) {
     // do the category find
     categoryAndExprs = FastList.newInstance();
     categoryAndExprs.addAll(baseCategoryAndExprs);
-    categoryAndExprs.add(new EntityExpr("invoiceDate", EntityOperator.GREATER_THAN_EQUAL_TO, currentDayBegin));
-    categoryAndExprs.add(new EntityExpr("invoiceDate", EntityOperator.LESS_THAN, nextDayBegin));
+    categoryAndExprs.add(EntityCondition.makeCondition("invoiceDate", EntityOperator.GREATER_THAN_EQUAL_TO, currentDayBegin));
+    categoryAndExprs.add(EntityCondition.makeCondition("invoiceDate", EntityOperator.LESS_THAN, nextDayBegin));
     
-    categoryResultListIterator = delegator.find("InvoiceItemCategorySummary", new EntityConditionList(categoryAndExprs, EntityOperator.AND), null, categoryFieldsToSelect, null, findOpts);
+    categoryResultListIterator = delegator.find("InvoiceItemCategorySummary", EntityCondition.makeCondition(categoryAndExprs, EntityOperator.AND), null, categoryFieldsToSelect, null, findOpts);
     categoryResultMap = FastMap.newInstance();
     while ((categoryResult = categoryResultListIterator.next()) != null) {
         categoryResultMap.put(categoryResult.get("productCategoryId"), categoryResult);
@@ -148,10 +148,10 @@ for (int currentDay = 0; currentDay <= daysInMonth; currentDay++) {
     // do a find for InvoiceItem with a null productId
     productNullAndExprs = FastList.newInstance();
     productNullAndExprs.addAll(baseProductAndExprs);
-    productNullAndExprs.add(new EntityExpr("productId", EntityOperator.EQUALS, null));
-    productNullAndExprs.add(new EntityExpr("invoiceDate", EntityOperator.GREATER_THAN_EQUAL_TO, currentDayBegin));
-    productNullAndExprs.add(new EntityExpr("invoiceDate", EntityOperator.LESS_THAN, nextDayBegin));
-    productNullResultListIterator = delegator.find("InvoiceItemProductSummary", new EntityConditionList(productNullAndExprs, EntityOperator.AND), null, productFieldsToSelect, null, findOpts);
+    productNullAndExprs.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, null));
+    productNullAndExprs.add(EntityCondition.makeCondition("invoiceDate", EntityOperator.GREATER_THAN_EQUAL_TO, currentDayBegin));
+    productNullAndExprs.add(EntityCondition.makeCondition("invoiceDate", EntityOperator.LESS_THAN, nextDayBegin));
+    productNullResultListIterator = delegator.find("InvoiceItemProductSummary", EntityCondition.makeCondition(productNullAndExprs, EntityOperator.AND), null, productFieldsToSelect, null, findOpts);
     // should just be 1 result
     productNullResult = productNullResultListIterator.next();
     productNullResultListIterator.close();

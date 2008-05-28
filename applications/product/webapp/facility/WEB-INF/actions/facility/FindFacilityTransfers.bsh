@@ -33,27 +33,27 @@ context.put("completeRequested", completeRequested);
 // get the 'to' this facility transfers
 List exprsTo = null;
 if (activeOnly) {
-    exprsTo = UtilMisc.toList(new EntityExpr("facilityIdTo", EntityOperator.EQUALS, facilityId), new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "IXF_COMPLETE"), new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "IXF_CANCELLED"));
+    exprsTo = UtilMisc.toList(EntityCondition.makeCondition("facilityIdTo", EntityOperator.EQUALS, facilityId), EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "IXF_COMPLETE"), EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "IXF_CANCELLED"));
 } else {
-    exprsTo = UtilMisc.toList(new EntityExpr("facilityIdTo", EntityOperator.EQUALS, facilityId));
+    exprsTo = UtilMisc.toList(EntityCondition.makeCondition("facilityIdTo", EntityOperator.EQUALS, facilityId));
 }
 if (completeRequested) {
-    exprsTo = UtilMisc.toList(new EntityExpr("facilityIdTo", EntityOperator.EQUALS, facilityId), new EntityExpr("statusId", EntityOperator.EQUALS, "IXF_REQUESTED"));
+    exprsTo = UtilMisc.toList(EntityCondition.makeCondition("facilityIdTo", EntityOperator.EQUALS, facilityId), EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "IXF_REQUESTED"));
 }
-EntityConditionList ecl = new EntityConditionList(exprsTo, EntityOperator.AND);
+EntityConditionList ecl = EntityCondition.makeCondition(exprsTo, EntityOperator.AND);
 List toTransfers = delegator.findList("InventoryTransfer", ecl, null, UtilMisc.toList("sendDate"), null, false);
 if (toTransfers != null) context.put("toTransfers", toTransfers);
 
 // get the 'from' this facility transfers
 List exprsFrom = null;
 if (activeOnly) {
-    exprsFrom = UtilMisc.toList(new EntityExpr("facilityId", EntityOperator.EQUALS, facilityId), new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "IXF_COMPLETE"), new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "IXF_CANCELLED"));
+    exprsFrom = UtilMisc.toList(EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId), EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "IXF_COMPLETE"), EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "IXF_CANCELLED"));
 } else {
-    exprsFrom = UtilMisc.toList(new EntityExpr("facilityId", EntityOperator.EQUALS, facilityId));
+    exprsFrom = UtilMisc.toList(EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId));
 }
 if (completeRequested) {
-    exprsFrom = UtilMisc.toList(new EntityExpr("facilityId", EntityOperator.EQUALS, facilityId), new EntityExpr("statusId", EntityOperator.EQUALS, "IXF_REQUESTED"));
+    exprsFrom = UtilMisc.toList(EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId), EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "IXF_REQUESTED"));
 }
-ecl = new EntityConditionList(exprsFrom, EntityOperator.AND);
+ecl = EntityCondition.makeCondition(exprsFrom, EntityOperator.AND);
 List fromTransfers = delegator.findList("InventoryTransfer", ecl, null, UtilMisc.toList("sendDate"), null, false);
 if (fromTransfers != null) context.put("fromTransfers", fromTransfers);

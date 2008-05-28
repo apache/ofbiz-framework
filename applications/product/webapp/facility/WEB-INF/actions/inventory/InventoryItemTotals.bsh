@@ -38,9 +38,9 @@ totalCostPriceGrandTotal = 0.0;
 totalRetailPriceGrandTotal = 0.0;
 boolean beganTransaction = false;
 if (action != null) {
-    conditions = UtilMisc.toList(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "INV_DELIVERED")); 
-    conditions.add(new EntityExpr("statusId", EntityOperator.EQUALS, null));
-    conditionList = new EntityConditionList(conditions, EntityOperator.OR);
+    conditions = UtilMisc.toList(EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "INV_DELIVERED")); 
+    conditions.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, null));
+    conditionList = EntityCondition.makeCondition(conditions, EntityOperator.OR);
     try {
         // create resultMap to stop issue with the first puts in the while loop
         resultMap = new HashMap();

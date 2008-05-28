@@ -46,9 +46,9 @@ context.put("productStoreId", productStoreId);
 context.put("currencyUomId", currencyUomId);
 
 // get the top level shopping lists for the logged in user
-exprList = UtilMisc.toList(new EntityExpr("partyId", EntityOperator.EQUALS, userLogin.getString("partyId")),
-        new EntityExpr("listName", EntityOperator.NOT_EQUAL, "auto-save"));
-condition = new EntityConditionList(exprList, EntityOperator.AND);
+exprList = UtilMisc.toList(EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, userLogin.getString("partyId")),
+        EntityCondition.makeCondition("listName", EntityOperator.NOT_EQUAL, "auto-save"));
+condition = EntityCondition.makeCondition(exprList, EntityOperator.AND);
 allShoppingLists = delegator.findList("ShoppingList", condition, null, UtilMisc.toList("listName"), null, false);
 shoppingLists = EntityUtil.filterByAnd(allShoppingLists, UtilMisc.toMap("parentShoppingListId", null));
 context.put("allShoppingLists", allShoppingLists);

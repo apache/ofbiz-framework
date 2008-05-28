@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -15,7 +15,7 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- *******************************************************************************/
+ */
 
 package org.ofbiz.product.supplier;
 
@@ -31,7 +31,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.condition.EntityExpr;
+import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.product.product.ProductWorker;
@@ -92,7 +92,7 @@ public class SupplierProductServices {
             // filter the list down by the minimumOrderQuantity if one is provided
             if (quantity != null) {
                 //minimumOrderQuantity
-                supplierProducts = EntityUtil.filterByCondition(supplierProducts, new EntityExpr("minimumOrderQuantity", EntityOperator.LESS_THAN_EQUAL_TO, quantity));
+                supplierProducts = EntityUtil.filterByCondition(supplierProducts, EntityCondition.makeCondition("minimumOrderQuantity", EntityOperator.LESS_THAN_EQUAL_TO, quantity));
             }
 
             // filter the list down by the canDropShip if one is provided

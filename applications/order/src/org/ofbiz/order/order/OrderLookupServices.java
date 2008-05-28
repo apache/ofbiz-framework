@@ -83,7 +83,7 @@ public class OrderLookupServices {
         // check security flag for purchase orders
         boolean canViewPo = security.hasEntityPermission("ORDERMGR", "_PURCHASE_VIEW", userLogin);
         if (!canViewPo) {
-            conditions.add(new EntityExpr("orderTypeId", EntityOperator.NOT_EQUAL, "PURCHASE_ORDER"));
+            conditions.add(EntityCondition.makeCondition("orderTypeId", EntityOperator.NOT_EQUAL, "PURCHASE_ORDER"));
         }
 
         // dynamic view entity
@@ -110,10 +110,10 @@ public class OrderLookupServices {
                 paramList.add("orderTypeId=" + orderTypeId);
 
                 if (!"PURCHASE_ORDER".equals(orderTypeId) || ("PURCHASE_ORDER".equals(orderTypeId) && canViewPo)) {
-                    orExprs.add(new EntityExpr("orderTypeId", EntityOperator.EQUALS, orderTypeId));
+                    orExprs.add(EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, orderTypeId));
                 }
             }
-            conditions.add(new EntityConditionList(orExprs, EntityOperator.OR));
+            conditions.add(EntityCondition.makeCondition(orExprs, EntityOperator.OR));
         }
 
         String orderName = (String) context.get("orderName");
@@ -131,15 +131,15 @@ public class OrderLookupServices {
                 paramList.add("orderStatusId=" + orderStatusId);
                 if ("PENDING".equals(orderStatusId)) {
                     List pendExprs = FastList.newInstance();
-                    pendExprs.add(new EntityExpr("statusId", EntityOperator.EQUALS, "ORDER_CREATED"));
-                    pendExprs.add(new EntityExpr("statusId", EntityOperator.EQUALS, "ORDER_PROCESSING"));
-                    pendExprs.add(new EntityExpr("statusId", EntityOperator.EQUALS, "ORDER_APPROVED"));
-                    orExprs.add(new EntityConditionList(pendExprs, EntityOperator.OR));
+                    pendExprs.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "ORDER_CREATED"));
+                    pendExprs.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "ORDER_PROCESSING"));
+                    pendExprs.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "ORDER_APPROVED"));
+                    orExprs.add(EntityCondition.makeCondition(pendExprs, EntityOperator.OR));
                 } else {
-                    orExprs.add(new EntityExpr("statusId", EntityOperator.EQUALS, orderStatusId));
+                    orExprs.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, orderStatusId));
                 }
             }
-            conditions.add(new EntityConditionList(orExprs, EntityOperator.OR));
+            conditions.add(EntityCondition.makeCondition(orExprs, EntityOperator.OR));
         }
 
         List productStoreList = (List) context.get("productStoreId");
@@ -149,9 +149,9 @@ public class OrderLookupServices {
             while (i.hasNext()) {
                 String productStoreId = (String) i.next();
                 paramList.add("productStoreId=" + productStoreId);
-                orExprs.add(new EntityExpr("productStoreId", EntityOperator.EQUALS, productStoreId));
+                orExprs.add(EntityCondition.makeCondition("productStoreId", EntityOperator.EQUALS, productStoreId));
             }
-            conditions.add(new EntityConditionList(orExprs, EntityOperator.OR));
+            conditions.add(EntityCondition.makeCondition(orExprs, EntityOperator.OR));
         }
 
         List webSiteList = (List) context.get("orderWebSiteId");
@@ -161,9 +161,9 @@ public class OrderLookupServices {
             while (i.hasNext()) {
                 String webSiteId = (String) i.next();
                 paramList.add("webSiteId=" + webSiteId);
-                orExprs.add(new EntityExpr("webSiteId", EntityOperator.EQUALS, webSiteId));
+                orExprs.add(EntityCondition.makeCondition("webSiteId", EntityOperator.EQUALS, webSiteId));
             }
-            conditions.add(new EntityConditionList(orExprs, EntityOperator.OR));
+            conditions.add(EntityCondition.makeCondition(orExprs, EntityOperator.OR));
         }
 
         List saleChannelList = (List) context.get("salesChannelEnumId");
@@ -173,9 +173,9 @@ public class OrderLookupServices {
             while (i.hasNext()) {
                 String salesChannelEnumId = (String) i.next();
                 paramList.add("salesChannelEnumId=" + salesChannelEnumId);
-                orExprs.add(new EntityExpr("salesChannelEnumId", EntityOperator.EQUALS, salesChannelEnumId));
+                orExprs.add(EntityCondition.makeCondition("salesChannelEnumId", EntityOperator.EQUALS, salesChannelEnumId));
             }
-            conditions.add(new EntityConditionList(orExprs, EntityOperator.OR));
+            conditions.add(EntityCondition.makeCondition(orExprs, EntityOperator.OR));
         }
 
         String createdBy = (String) context.get("createdBy");
@@ -218,7 +218,7 @@ public class OrderLookupServices {
             try {
                 Object converted = ObjectType.simpleTypeConvert(minDate, "Timestamp", null, null);
                 if (converted != null) {
-                    conditions.add(new EntityExpr(dateField, EntityOperator.GREATER_THAN_EQUAL_TO, converted));
+                    conditions.add(EntityCondition.makeCondition(dateField, EntityOperator.GREATER_THAN_EQUAL_TO, converted));
                 }
             } catch (GeneralException e) {
                 Debug.logWarning(e.getMessage(), module);
@@ -234,7 +234,7 @@ public class OrderLookupServices {
             try {
                 Object converted = ObjectType.simpleTypeConvert(maxDate, "Timestamp", null, null);
                 if (converted != null) {
-                    conditions.add(new EntityExpr("orderDate", EntityOperator.LESS_THAN_EQUAL_TO, converted));
+                    conditions.add(EntityCondition.makeCondition("orderDate", EntityOperator.LESS_THAN_EQUAL_TO, converted));
                 }
             } catch (GeneralException e) {
                 Debug.logWarning(e.getMessage(), module);
@@ -281,7 +281,7 @@ public class OrderLookupServices {
                 paramList.add("roleTypeId=" + roleTypeId);
                 orExprs.add(makeExpr("roleTypeId", roleTypeId));
             }
-            conditions.add(new EntityConditionList(orExprs, EntityOperator.OR));
+            conditions.add(EntityCondition.makeCondition(orExprs, EntityOperator.OR));
         }
 
         // order item fields
@@ -326,7 +326,7 @@ public class OrderLookupServices {
                     String isVirtual = product.getString("isVirtual");
                     if (isVirtual != null && "Y".equals(isVirtual)) {
                         List orExprs = FastList.newInstance();
-                        orExprs.add(new EntityExpr("productId", EntityOperator.EQUALS, productId));
+                        orExprs.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId));
 
                         Map varLookup = null;
                         try {
@@ -339,12 +339,12 @@ public class OrderLookupServices {
                             Iterator i = variants.iterator();
                             while (i.hasNext()) {
                                 GenericValue v = (GenericValue) i.next();
-                                orExprs.add(new EntityExpr("productId", EntityOperator.EQUALS, v.getString("productIdTo")));
+                                orExprs.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, v.getString("productIdTo")));
                             }
                         }
-                        conditions.add(new EntityConditionList(orExprs, EntityOperator.OR));
+                        conditions.add(EntityCondition.makeCondition(orExprs, EntityOperator.OR));
                     } else {
-                        conditions.add(new EntityExpr("productId", EntityOperator.EQUALS, productId));
+                        conditions.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId));
                     }
                 }
             }
@@ -455,13 +455,13 @@ public class OrderLookupServices {
 
             paramList.add("hasBackOrders=" + hasBackOrders);
             if ("Y".equals(hasBackOrders)) {
-                conditions.add(new EntityExpr("quantityNotAvailable", EntityOperator.NOT_EQUAL, null));
-                conditions.add(new EntityExpr("quantityNotAvailable", EntityOperator.GREATER_THAN, new Double(0)));
+                conditions.add(EntityCondition.makeCondition("quantityNotAvailable", EntityOperator.NOT_EQUAL, null));
+                conditions.add(EntityCondition.makeCondition("quantityNotAvailable", EntityOperator.GREATER_THAN, new Double(0)));
             } else if ("N".equals(hasBackOrders)) {
                 List orExpr = FastList.newInstance();
-                orExpr.add(new EntityExpr("quantityNotAvailable", EntityOperator.EQUALS, null));
-                orExpr.add(new EntityExpr("quantityNotAvailable", EntityOperator.EQUALS, new Double(0)));
-                conditions.add(new EntityConditionList(orExpr, EntityOperator.OR));
+                orExpr.add(EntityCondition.makeCondition("quantityNotAvailable", EntityOperator.EQUALS, null));
+                orExpr.add(EntityCondition.makeCondition("quantityNotAvailable", EntityOperator.EQUALS, new Double(0)));
+                conditions.add(EntityCondition.makeCondition(orExpr, EntityOperator.OR));
             }
         }
 
@@ -471,7 +471,7 @@ public class OrderLookupServices {
         // create the main condition
         EntityCondition cond = null;
         if (conditions.size() > 0 || showAll.equalsIgnoreCase("Y")) {
-            cond = new EntityConditionList(conditions, EntityOperator.AND);
+            cond = EntityCondition.makeCondition(conditions, EntityOperator.AND);
         }
 
         if (Debug.verboseOn()) {
@@ -654,6 +654,6 @@ public class OrderLookupServices {
             }
         }
 
-        return new EntityExpr(fieldName, op, value);
+        return EntityCondition.makeCondition(fieldName, op, value);
     }
 }

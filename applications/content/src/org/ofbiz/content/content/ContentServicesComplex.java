@@ -34,6 +34,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
@@ -86,14 +87,14 @@ public class ContentServicesComplex {
         EntityExpr expr = null;
         String viewName = null;
         if (mapKey != null) {
-            EntityExpr mapKeyExpr = new EntityExpr("caMapKey", EntityOperator.EQUALS, mapKey);
+            EntityExpr mapKeyExpr = EntityCondition.makeCondition("caMapKey", EntityOperator.EQUALS, mapKey);
             exprList.add(mapKeyExpr);
         }
         if (direction != null && direction.equalsIgnoreCase("From")) {
-            joinExpr = new EntityExpr("caContentIdTo", EntityOperator.EQUALS, contentId);
+            joinExpr = EntityCondition.makeCondition("caContentIdTo", EntityOperator.EQUALS, contentId);
             viewName = "ContentAssocDataResourceViewFrom";
         } else {
-            joinExpr = new EntityExpr("caContentId", EntityOperator.EQUALS, contentId);
+            joinExpr = EntityCondition.makeCondition("caContentId", EntityOperator.EQUALS, contentId);
             viewName = "ContentAssocDataResourceViewTo";
         }
         exprList.add(joinExpr);
@@ -102,10 +103,10 @@ public class ContentServicesComplex {
             Iterator it = assocTypes.iterator();
             while (it.hasNext()) {
                 String assocType = (String)it.next();
-                expr = new EntityExpr("caContentAssocTypeId", EntityOperator.EQUALS, assocType);
+                expr = EntityCondition.makeCondition("caContentAssocTypeId", EntityOperator.EQUALS, assocType);
                 exprListOr.add(expr);
             }
-            EntityConditionList assocExprList = new EntityConditionList(exprListOr, EntityOperator.OR);
+            EntityConditionList assocExprList = EntityCondition.makeCondition(exprListOr, EntityOperator.OR);
 
             exprList.add(assocExprList);
         }
@@ -114,11 +115,11 @@ public class ContentServicesComplex {
             Iterator it = contentTypes.iterator();
             while (it.hasNext()) {
                 String contentType = (String)it.next();
-                expr = new EntityExpr("contentTypeId", 
+                expr = EntityCondition.makeCondition("contentTypeId", 
                                   EntityOperator.EQUALS, contentType);
                 exprListOr.add(expr);
             }
-            EntityConditionList contentExprList = new EntityConditionList(exprListOr, EntityOperator.OR);
+            EntityConditionList contentExprList = EntityCondition.makeCondition(exprListOr, EntityOperator.OR);
             exprList.add(contentExprList);
         }
 
@@ -130,30 +131,30 @@ public class ContentServicesComplex {
         }
 
         if (fromDate != null) {
-            EntityExpr fromExpr = new EntityExpr("caFromDate", EntityOperator.LESS_THAN, fromDate);
+            EntityExpr fromExpr = EntityCondition.makeCondition("caFromDate", EntityOperator.LESS_THAN, fromDate);
             exprList.add(fromExpr);
         }
         if (thruDate != null) {
             List thruList = new ArrayList();
             //thruDate = UtilDateTime.getDayStart(thruDate, daysLater);
 
-            EntityExpr thruExpr = new EntityExpr("caThruDate", EntityOperator.LESS_THAN, thruDate);
+            EntityExpr thruExpr = EntityCondition.makeCondition("caThruDate", EntityOperator.LESS_THAN, thruDate);
             thruList.add(thruExpr);
-            EntityExpr thruExpr2 = new EntityExpr("caThruDate", EntityOperator.EQUALS, null);
+            EntityExpr thruExpr2 = EntityCondition.makeCondition("caThruDate", EntityOperator.EQUALS, null);
             thruList.add(thruExpr2);
-            EntityConditionList thruExprList = new EntityConditionList(thruList, EntityOperator.OR);
+            EntityConditionList thruExprList = EntityCondition.makeCondition(thruList, EntityOperator.OR);
             exprList.add(thruExprList);
         } else if (fromDate != null) {
             List thruList = new ArrayList();
 
-            EntityExpr thruExpr = new EntityExpr("caThruDate", EntityOperator.GREATER_THAN, fromDate);
+            EntityExpr thruExpr = EntityCondition.makeCondition("caThruDate", EntityOperator.GREATER_THAN, fromDate);
             thruList.add(thruExpr);
-            EntityExpr thruExpr2 = new EntityExpr("caThruDate", EntityOperator.EQUALS, null);
+            EntityExpr thruExpr2 = EntityCondition.makeCondition("caThruDate", EntityOperator.EQUALS, null);
             thruList.add(thruExpr2);
-            EntityConditionList thruExprList = new EntityConditionList(thruList, EntityOperator.OR);
+            EntityConditionList thruExprList = EntityCondition.makeCondition(thruList, EntityOperator.OR);
             exprList.add(thruExprList);
         }
-        EntityConditionList assocExprList = new EntityConditionList(exprList, EntityOperator.AND);
+        EntityConditionList assocExprList = EntityCondition.makeCondition(exprList, EntityOperator.AND);
         List relatedAssocs = null;
         try {
             //relatedAssocs = delegator.findByCondition(viewName, joinExpr, 
@@ -367,21 +368,21 @@ public class ContentServicesComplex {
         if (direction != null && direction.equalsIgnoreCase("From")) {
             viewName = "ContentAssocDataResourceViewFrom";
             contentFieldName = "contentIdTo";
-            joinExpr = new EntityExpr("caContentIdTo", EntityOperator.EQUALS, contentId);
+            joinExpr = EntityCondition.makeCondition("caContentIdTo", EntityOperator.EQUALS, contentId);
         } else {
             viewName = "ContentAssocDataResourceViewTo";
             contentFieldName = "contentId";
-            joinExpr = new EntityExpr("caContentId", EntityOperator.EQUALS, contentId);
+            joinExpr = EntityCondition.makeCondition("caContentId", EntityOperator.EQUALS, contentId);
         }
         exprList.add(joinExpr);
 
         if (UtilValidate.isNotEmpty(assocType)) {
-            expr = new EntityExpr("caContentAssocTypeId", EntityOperator.EQUALS, assocType);
+            expr = EntityCondition.makeCondition("caContentAssocTypeId", EntityOperator.EQUALS, assocType);
             exprList.add(expr);
         }
 
         if (UtilValidate.isNotEmpty(contentType)) {
-            expr = new EntityExpr("caContentTypeId", EntityOperator.EQUALS, contentType);
+            expr = EntityCondition.makeCondition("caContentTypeId", EntityOperator.EQUALS, contentType);
             exprList.add(expr);
         }
 

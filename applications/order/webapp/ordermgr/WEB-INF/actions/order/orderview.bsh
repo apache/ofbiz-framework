@@ -168,9 +168,9 @@ if (orderHeader != null) {
     }
     context.put("invoices", allInvoices);
 
-    EntityConditionList ecl = new EntityConditionList(UtilMisc.toList(
-                                    new EntityExpr("orderId", EntityOperator.EQUALS, orderId), 
-                                    new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "PAYMENT_CANCELLED")),
+    EntityConditionList ecl = EntityCondition.makeCondition(UtilMisc.toList(
+                                    EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderId), 
+                                    EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PAYMENT_CANCELLED")),
                                 EntityOperator.AND);
     orderPaymentPreferences = delegator.findList("OrderPaymentPreference", ecl, null, null, null, false);
     context.put("orderPaymentPreferences", orderPaymentPreferences);
@@ -180,7 +180,7 @@ if (orderHeader != null) {
     context.put("shipGroups", shipGroups);
 
     // get Shipment tracking info
-    osisCond = new EntityFieldMap(UtilMisc.toMap("orderId", orderId), EntityOperator.AND);
+    osisCond = EntityCondition.makeCondition(UtilMisc.toMap("orderId", orderId), EntityOperator.AND);
     osisOrder = UtilMisc.toList("shipmentId", "shipmentRouteSegmentId", "shipmentPackageSeqId");
     osisFields = UtilMisc.toSet("shipGroupSeqId", "shipmentId", "shipmentRouteSegmentId", "carrierPartyId", "shipmentMethodTypeId");
     osisFields.add("shipmentPackageSeqId"); osisFields.add("trackingCode"); osisFields.add("boxNumber");
@@ -246,7 +246,7 @@ if (orderHeader != null) {
     // see if an approved order with all items completed exists
     context.put("setOrderCompleteOption", false);
     if ("ORDER_APPROVED".equals(orderHeader.getString("statusId"))) {
-        expr = new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ITEM_COMPLETED");
+        expr = EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ITEM_COMPLETED");
         notCreatedItems = orderReadHelper.getOrderItemsByCondition(expr);
         if (notCreatedItems.size() == 0) {
             context.put("setOrderCompleteOption", true);

@@ -65,10 +65,10 @@ cal.set(Calendar.MONTH, 0);
 Timestamp yearBegin = new Timestamp(cal.getTime().getTime());       
   
 // order status report
-EntityConditionList ecl = new EntityConditionList(UtilMisc.toList(
-                                new EntityExpr("orderItemSeqId", EntityOperator.EQUALS, null), 
-                                new EntityExpr("orderPaymentPreferenceId", EntityOperator.EQUALS, null), 
-                                new EntityExpr("statusDatetime", EntityOperator.GREATER_THAN_EQUAL_TO, dayBegin)), 
+EntityConditionList ecl = EntityCondition.makeCondition(UtilMisc.toList(
+                                EntityCondition.makeCondition("orderItemSeqId", EntityOperator.EQUALS, null), 
+                                EntityCondition.makeCondition("orderPaymentPreferenceId", EntityOperator.EQUALS, null), 
+                                EntityCondition.makeCondition("statusDatetime", EntityOperator.GREATER_THAN_EQUAL_TO, dayBegin)), 
                             EntityOperator.AND);
 List dayList = delegator.findList("OrderStatus", ecl, null, null, null, false);
 context.put("dayOrder", EntityUtil.filterByAnd(dayList, UtilMisc.toMap("statusId", "ORDER_ORDERED")));
@@ -77,10 +77,10 @@ context.put("dayComplete", EntityUtil.filterByAnd(dayList, UtilMisc.toMap("statu
 context.put("dayCancelled", EntityUtil.filterByAnd(dayList, UtilMisc.toMap("statusId", "ORDER_CANCELLED")));
 context.put("dayRejected", EntityUtil.filterByAnd(dayList, UtilMisc.toMap("statusId", "ORDER_REJECTED")));
   
-ecl = new EntityConditionList(UtilMisc.toList(
-                        new EntityExpr("orderItemSeqId", EntityOperator.EQUALS, null), 
-                        new EntityExpr("orderPaymentPreferenceId", EntityOperator.EQUALS, null), 
-                        new EntityExpr("statusDatetime", EntityOperator.GREATER_THAN_EQUAL_TO, weekBegin)), 
+ecl = EntityCondition.makeCondition(UtilMisc.toList(
+                        EntityCondition.makeCondition("orderItemSeqId", EntityOperator.EQUALS, null), 
+                        EntityCondition.makeCondition("orderPaymentPreferenceId", EntityOperator.EQUALS, null), 
+                        EntityCondition.makeCondition("statusDatetime", EntityOperator.GREATER_THAN_EQUAL_TO, weekBegin)), 
                     EntityOperator.AND);
 List weekList = delegator.findList("OrderStatus", ecl, null, null, null, false);
 context.put("weekOrder", EntityUtil.filterByAnd(weekList, UtilMisc.toMap("statusId", "ORDER_ORDERED")));
@@ -89,10 +89,10 @@ context.put("weekComplete", EntityUtil.filterByAnd(weekList, UtilMisc.toMap("sta
 context.put("weekCancelled", EntityUtil.filterByAnd(weekList, UtilMisc.toMap("statusId", "ORDER_CANCELLED")));
 context.put("weekRejected", EntityUtil.filterByAnd(weekList, UtilMisc.toMap("statusId", "ORDER_REJECTED")));
   
-ecl = new EntityConditionList(UtilMisc.toList(
-                        new EntityExpr("orderItemSeqId", EntityOperator.EQUALS, null),
-                        new EntityExpr("orderPaymentPreferenceId", EntityOperator.EQUALS, null), 
-                        new EntityExpr("statusDatetime", EntityOperator.GREATER_THAN_EQUAL_TO, monthBegin)),
+ecl = EntityCondition.makeCondition(UtilMisc.toList(
+                        EntityCondition.makeCondition("orderItemSeqId", EntityOperator.EQUALS, null),
+                        EntityCondition.makeCondition("orderPaymentPreferenceId", EntityOperator.EQUALS, null), 
+                        EntityCondition.makeCondition("statusDatetime", EntityOperator.GREATER_THAN_EQUAL_TO, monthBegin)),
                     EntityOperator.AND);
 List monthList = delegator.findList("OrderStatus", ecl, null, null, null, false);
 context.put("monthOrder", EntityUtil.filterByAnd(monthList, UtilMisc.toMap("statusId", "ORDER_ORDERED")));
@@ -101,10 +101,10 @@ context.put("monthComplete", EntityUtil.filterByAnd(monthList, UtilMisc.toMap("s
 context.put("monthCancelled", EntityUtil.filterByAnd(monthList, UtilMisc.toMap("statusId", "ORDER_CANCELLED")));
 context.put("monthRejected", EntityUtil.filterByAnd(monthList, UtilMisc.toMap("statusId", "ORDER_REJECTED")));
   
-ecl = new EntityConditionList(UtilMisc.toList(
-                        new EntityExpr("orderItemSeqId", EntityOperator.EQUALS, null), 
-                        new EntityExpr("orderPaymentPreferenceId", EntityOperator.EQUALS, null), 
-                        new EntityExpr("statusDatetime", EntityOperator.GREATER_THAN_EQUAL_TO, yearBegin)),
+ecl = EntityCondition.makeCondition(UtilMisc.toList(
+                        EntityCondition.makeCondition("orderItemSeqId", EntityOperator.EQUALS, null), 
+                        EntityCondition.makeCondition("orderPaymentPreferenceId", EntityOperator.EQUALS, null), 
+                        EntityCondition.makeCondition("statusDatetime", EntityOperator.GREATER_THAN_EQUAL_TO, yearBegin)),
                     EntityOperator.AND);
 List yearList = delegator.findList("OrderStatus", ecl, null, null, null, false);
 context.put("yearOrder", EntityUtil.filterByAnd(yearList, UtilMisc.toMap("statusId", "ORDER_ORDERED")));
@@ -114,20 +114,20 @@ context.put("yearCancelled", EntityUtil.filterByAnd(yearList, UtilMisc.toMap("st
 context.put("yearRejected", EntityUtil.filterByAnd(yearList, UtilMisc.toMap("statusId", "ORDER_REJECTED")));
   
 // order totals and item counts
-ecl = new EntityConditionList(UtilMisc.toList(
-                        new EntityExpr("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"), 
-                        new EntityExpr("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"), 
-                        new EntityExpr("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, dayBegin), 
-                        new EntityExpr("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER")),
+ecl = EntityCondition.makeCondition(UtilMisc.toList(
+                        EntityCondition.makeCondition("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"), 
+                        EntityCondition.makeCondition("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"), 
+                        EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, dayBegin), 
+                        EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER")),
                     EntityOperator.AND);
 List dayItems = delegator.findList("OrderHeaderAndItems", ecl, null, null, null, false);
 List dayItemsPending = EntityUtil.filterByAnd(dayItems, UtilMisc.toMap("itemStatusId", "ITEM_ORDERED"));
 
-ecl = new EntityConditionList(UtilMisc.toList(
-                        new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"), 
-                        new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"), 
-                        new EntityExpr("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, dayBegin), 
-                        new EntityExpr("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER")),
+ecl = EntityCondition.makeCondition(UtilMisc.toList(
+                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"), 
+                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"), 
+                        EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, dayBegin), 
+                        EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER")),
                     EntityOperator.AND);
 List dayHeaders = delegator.findList("OrderHeader", ecl, null, null, null, false);
 List dayHeadersPending = EntityUtil.filterByAnd(dayHeaders, UtilMisc.toMap("statusId", "ORDER_ORDERED"));   
@@ -145,20 +145,20 @@ context.put("dayItemCountPending", dayItemCountPending);
 context.put("dayItemTotalPaid", dayItemTotalPaid);
 context.put("dayItemCountPaid", dayItemCountPaid);
 
-ecl = new EntityConditionList(UtilMisc.toList(
-                        new EntityExpr("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"), 
-                        new EntityExpr("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"), 
-                        new EntityExpr("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, weekBegin), 
-                        new EntityExpr("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER")),
+ecl = EntityCondition.makeCondition(UtilMisc.toList(
+                        EntityCondition.makeCondition("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"), 
+                        EntityCondition.makeCondition("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"), 
+                        EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, weekBegin), 
+                        EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER")),
                     EntityOperator.AND);
 List weekItems = delegator.findList("OrderHeaderAndItems", ecl, null, null, null, false);
 List weekItemsPending = EntityUtil.filterByAnd(weekItems, UtilMisc.toMap("itemStatusId", "ITEM_ORDERED"));
 
-ecl = new EntityConditionList(UtilMisc.toList(
-                        new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"), 
-                        new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"), 
-                        new EntityExpr("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, weekBegin), 
-                        new EntityExpr("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER")),
+ecl = EntityCondition.makeCondition(UtilMisc.toList(
+                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"), 
+                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"), 
+                        EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, weekBegin), 
+                        EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER")),
                     EntityOperator.AND);
 List weekHeaders = delegator.findList("OrderHeader", ecl, null, null, null, false);
 List weekHeadersPending = EntityUtil.filterByAnd(weekHeaders, UtilMisc.toMap("statusId", "ORDER_ORDERED")); 
@@ -176,20 +176,20 @@ context.put("weekItemCountPending", weekItemCountPending);
 context.put("weekItemTotalPaid", weekItemTotalPaid);
 context.put("weekItemCountPaid", weekItemCountPaid);
 
-ecl = new EntityConditionList(UtilMisc.toList(
-                        new EntityExpr("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"), 
-                        new EntityExpr("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"), 
-                        new EntityExpr("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, monthBegin), 
-                        new EntityExpr("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER")),
+ecl = EntityCondition.makeCondition(UtilMisc.toList(
+                        EntityCondition.makeCondition("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"), 
+                        EntityCondition.makeCondition("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"), 
+                        EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, monthBegin), 
+                        EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER")),
                     EntityOperator.AND);
 List monthItems = delegator.findList("OrderHeaderAndItems", ecl, null, null, null, false);
 List monthItemsPending = EntityUtil.filterByAnd(monthItems, UtilMisc.toMap("itemStatusId", "ITEM_ORDERED"));
 
-ecl = new EntityConditionList(UtilMisc.toList(
-                        new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"), 
-                        new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"), 
-                        new EntityExpr("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, monthBegin), 
-                        new EntityExpr("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER")),
+ecl = EntityCondition.makeCondition(UtilMisc.toList(
+                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"), 
+                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"), 
+                        EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, monthBegin), 
+                        EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER")),
                     EntityOperator.AND);
 List monthHeaders = delegator.findList("OrderHeader", ecl, null, null, null, false);
 List monthHeadersPending = EntityUtil.filterByAnd(monthHeaders, UtilMisc.toMap("statusId", "ORDER_ORDERED"));   
@@ -207,20 +207,20 @@ context.put("monthItemCountPending", monthItemCountPending);
 context.put("monthItemTotalPaid", monthItemTotalPaid);
 context.put("monthItemCountPaid", monthItemCountPaid);
   
-ecl = new EntityConditionList(UtilMisc.toList(
-                        new EntityExpr("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"), 
-                        new EntityExpr("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"), 
-                        new EntityExpr("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, yearBegin), 
-                        new EntityExpr("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER")),
+ecl = EntityCondition.makeCondition(UtilMisc.toList(
+                        EntityCondition.makeCondition("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"), 
+                        EntityCondition.makeCondition("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"), 
+                        EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, yearBegin), 
+                        EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER")),
                     EntityOperator.AND);
 List yearItems = delegator.findList("OrderHeaderAndItems", ecl, null, null, null, false);
 List yearItemsPending = EntityUtil.filterByAnd(yearItems, UtilMisc.toMap("itemStatusId", "ITEM_ORDERED"));
    
-ecl = new EntityConditionList(UtilMisc.toList(
-                        new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"), 
-                        new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"), 
-                        new EntityExpr("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, yearBegin), 
-                        new EntityExpr("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER")),
+ecl = EntityCondition.makeCondition(UtilMisc.toList(
+                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"), 
+                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"), 
+                        EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, yearBegin), 
+                        EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER")),
                     EntityOperator.AND);
 List yearHeaders = delegator.findList("OrderHeader", ecl, null, null, null, false);
 List yearHeadersPending = EntityUtil.filterByAnd(yearHeaders, UtilMisc.toMap("statusId", "ORDER_ORDERED")); 

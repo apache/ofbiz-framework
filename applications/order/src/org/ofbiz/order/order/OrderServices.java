@@ -1295,9 +1295,9 @@ public class OrderServices {
 
         EntityCondition cond = null;
         if (!forceAll.booleanValue()) {
-            List exprs = UtilMisc.toList(new EntityExpr("grandTotal", EntityOperator.EQUALS, null),
-                    new EntityExpr("remainingSubTotal", EntityOperator.EQUALS, null));
-            cond = new EntityConditionList(exprs, EntityOperator.OR);
+            List exprs = UtilMisc.toList(EntityCondition.makeCondition("grandTotal", EntityOperator.EQUALS, null),
+                    EntityCondition.makeCondition("remainingSubTotal", EntityOperator.EQUALS, null));
+            cond = EntityCondition.makeCondition(exprs, EntityOperator.OR);
         }
         Set fields = UtilMisc.toSet("orderId");
 
@@ -2727,12 +2727,12 @@ public class OrderServices {
 
         // create the query expressions
         List exprs = UtilMisc.toList(
-                new EntityExpr("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER"),
-                new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED"),
-                new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"),
-                new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED")
+                EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER"),
+                EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED"),
+                EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"),
+                EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED")
         );
-        EntityConditionList<EntityExpr> ecl = new EntityConditionList<EntityExpr>(exprs, EntityOperator.AND);
+        EntityConditionList<EntityExpr> ecl = EntityCondition.makeCondition(exprs, EntityOperator.AND);
 
         // get the orders
         try {
@@ -2798,14 +2798,14 @@ public class OrderServices {
                 List itemsExprs = new ArrayList();
 
                 // create the query expressions
-                itemsExprs.add(new EntityExpr("orderId", EntityOperator.EQUALS, orderId));
-                itemsExprs.add(new EntityConditionList(UtilMisc.toList(new EntityExpr("statusId", EntityOperator.EQUALS, "ITEM_CREATED"),
-                        new EntityExpr("statusId", EntityOperator.EQUALS, "ITEM_APPROVED")), EntityOperator.OR));
-                itemsExprs.add(new EntityExpr("dontCancelSetUserLogin", EntityOperator.EQUALS, GenericEntity.NULL_FIELD));
-                itemsExprs.add(new EntityExpr("dontCancelSetDate", EntityOperator.EQUALS, GenericEntity.NULL_FIELD));
-                itemsExprs.add(new EntityExpr("autoCancelDate", EntityOperator.NOT_EQUAL, GenericEntity.NULL_FIELD));
+                itemsExprs.add(EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderId));
+                itemsExprs.add(EntityCondition.makeCondition(UtilMisc.toList(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "ITEM_CREATED"),
+                        EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "ITEM_APPROVED")), EntityOperator.OR));
+                itemsExprs.add(EntityCondition.makeCondition("dontCancelSetUserLogin", EntityOperator.EQUALS, GenericEntity.NULL_FIELD));
+                itemsExprs.add(EntityCondition.makeCondition("dontCancelSetDate", EntityOperator.EQUALS, GenericEntity.NULL_FIELD));
+                itemsExprs.add(EntityCondition.makeCondition("autoCancelDate", EntityOperator.NOT_EQUAL, GenericEntity.NULL_FIELD));
                 
-                ecl = new EntityConditionList<EntityExpr>(itemsExprs, EntityOperator.AND);
+                ecl = EntityCondition.makeCondition(itemsExprs);
 
                 List orderItems = null;
                 try {
@@ -3495,13 +3495,13 @@ public class OrderServices {
         // cancel other (non-completed and non-cancelled) payments
         List paymentPrefsToCancel = null;
         try {
-            List exprs = UtilMisc.toList(new EntityExpr("orderId", EntityOperator.EQUALS, orderId));
-            exprs.add(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "PAYMENT_RECEIVED"));
-            exprs.add(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "PAYMENT_CANCELLED"));
-            exprs.add(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "PAYMENT_DECLINED"));
-            exprs.add(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "PAYMENT_SETTLED"));
-            exprs.add(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "PAYMENT_REFUNDED"));
-            EntityCondition cond = new EntityConditionList(exprs, EntityOperator.AND);
+            List exprs = UtilMisc.toList(EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderId));
+            exprs.add(EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PAYMENT_RECEIVED"));
+            exprs.add(EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PAYMENT_CANCELLED"));
+            exprs.add(EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PAYMENT_DECLINED"));
+            exprs.add(EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PAYMENT_SETTLED"));
+            exprs.add(EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PAYMENT_REFUNDED"));
+            EntityCondition cond = EntityCondition.makeCondition(exprs, EntityOperator.AND);
             paymentPrefsToCancel = delegator.findList("OrderPaymentPreference", cond, null, null, null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
@@ -3524,13 +3524,13 @@ public class OrderServices {
         // remove the adjustments
         try {
             List adjExprs = new LinkedList();
-            adjExprs.add(new EntityExpr("orderId", EntityOperator.EQUALS, orderId));
+            adjExprs.add(EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderId));
             List exprs = new LinkedList();
-            exprs.add(new EntityExpr("orderAdjustmentTypeId", EntityOperator.EQUALS, "PROMOTION_ADJUSTMENT"));
-            exprs.add(new EntityExpr("orderAdjustmentTypeId", EntityOperator.EQUALS, "SHIPPING_CHARGES"));
-            exprs.add(new EntityExpr("orderAdjustmentTypeId", EntityOperator.EQUALS, "SALES_TAX"));
-            adjExprs.add(new EntityConditionList(exprs, EntityOperator.OR));
-            EntityCondition cond = new EntityConditionList(adjExprs, EntityOperator.AND);
+            exprs.add(EntityCondition.makeCondition("orderAdjustmentTypeId", EntityOperator.EQUALS, "PROMOTION_ADJUSTMENT"));
+            exprs.add(EntityCondition.makeCondition("orderAdjustmentTypeId", EntityOperator.EQUALS, "SHIPPING_CHARGES"));
+            exprs.add(EntityCondition.makeCondition("orderAdjustmentTypeId", EntityOperator.EQUALS, "SALES_TAX"));
+            adjExprs.add(EntityCondition.makeCondition(exprs, EntityOperator.OR));
+            EntityCondition cond = EntityCondition.makeCondition(adjExprs, EntityOperator.AND);
             delegator.removeByCondition("OrderAdjustment", cond);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);

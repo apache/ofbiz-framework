@@ -38,20 +38,20 @@ visitConditionList = new LinkedList();
 orderConditionList = new LinkedList();
 
 if ((fromDateStr != null) && !(fromDateStr.equals(""))) {
-    visitConditionList.add(new EntityExpr("fromDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDateStr));
-    orderConditionList.add(new EntityExpr("orderDate",EntityOperator.GREATER_THAN_EQUAL_TO,fromDateStr));
+    visitConditionList.add(EntityCondition.makeCondition("fromDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDateStr));
+    orderConditionList.add(EntityCondition.makeCondition("orderDate",EntityOperator.GREATER_THAN_EQUAL_TO,fromDateStr));
 }
 if ((thruDateStr != null) && !(thruDateStr.equals(""))) {
-     visitConditionList.add(new EntityExpr("fromDate",EntityOperator.LESS_THAN_EQUAL_TO,thruDateStr));
-     orderConditionList.add(new EntityExpr("orderDate",EntityOperator.LESS_THAN_EQUAL_TO,thruDateStr));
+     visitConditionList.add(EntityCondition.makeCondition("fromDate",EntityOperator.LESS_THAN_EQUAL_TO,thruDateStr));
+     orderConditionList.add(EntityCondition.makeCondition("orderDate",EntityOperator.LESS_THAN_EQUAL_TO,thruDateStr));
 }
 if ((trackingCodeIdStr != null) && !(trackingCodeIdStr.equals(""))) {
-     visitConditionList.add(new EntityExpr("trackingCodeId", EntityOperator.EQUALS, trackingCodeIdStr));
-     orderConditionList.add(new EntityExpr("trackingCodeId", EntityOperator.EQUALS, trackingCodeIdStr));
+     visitConditionList.add(EntityCondition.makeCondition("trackingCodeId", EntityOperator.EQUALS, trackingCodeIdStr));
+     orderConditionList.add(EntityCondition.makeCondition("trackingCodeId", EntityOperator.EQUALS, trackingCodeIdStr));
 }
 
-visitConditions = new EntityConditionList(visitConditionList, EntityOperator.AND);
-orderConditions = new EntityConditionList(orderConditionList, EntityOperator.AND);
+visitConditions = EntityCondition.makeCondition(visitConditionList, EntityOperator.AND);
+orderConditions = EntityCondition.makeCondition(orderConditionList, EntityOperator.AND);
 
 visits = delegator.findList("TrackingCodeAndVisit", visitConditions, UtilMisc.toSet("trackingCodeId", "visitId"), UtilMisc.toList("trackingCodeId"), null, false);
 orders = delegator.findList("TrackingCodeAndOrderHeader", orderConditions, UtilMisc.toSet("trackingCodeId", "orderId", "grandTotal"), UtilMisc.toList("trackingCodeId"), null, false);

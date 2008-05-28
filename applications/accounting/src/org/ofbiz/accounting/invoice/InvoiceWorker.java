@@ -22,18 +22,19 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Iterator;
 import java.util.List;
+
 import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilNumber;
-import org.ofbiz.entity.condition.EntityConditionList;
-import org.ofbiz.entity.condition.EntityExpr;
-import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityConditionList;
+import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
 
 /**
@@ -99,9 +100,9 @@ public class InvoiceWorker {
         List invoiceTaxItems = null;
         try {
             GenericDelegator delegator = invoice.getDelegator();
-            EntityConditionList condition = new EntityConditionList( UtilMisc.toList(
-                    new EntityExpr("invoiceId", EntityOperator.EQUALS, invoice.get("invoiceId")),
-                    new EntityExpr("invoiceItemTypeId", EntityOperator.IN, getTaxableInvoiceItemTypeIds(delegator))
+            EntityConditionList condition = EntityCondition.makeCondition( UtilMisc.toList(
+                    EntityCondition.makeCondition("invoiceId", invoice.get("invoiceId")),
+                    EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.IN, getTaxableInvoiceItemTypeIds(delegator))
                     ), EntityOperator.AND);
             invoiceTaxItems = delegator.findList("InvoiceItem", condition, null, null, null, false);
         } catch (GenericEntityException e) {
@@ -411,12 +412,12 @@ public class InvoiceWorker {
         List paymentApplications = null;
         
         // lookup payment applications which took place before the asOfDateTime for this invoice
-        EntityConditionList dateCondition = new EntityConditionList(UtilMisc.toList(
-                new EntityExpr("effectiveDate", EntityOperator.EQUALS, null),
-                new EntityExpr("effectiveDate", EntityOperator.LESS_THAN_EQUAL_TO, asOfDateTime)), EntityOperator.OR);
-        EntityConditionList conditions = new EntityConditionList(UtilMisc.toList(
+        EntityConditionList dateCondition = EntityCondition.makeCondition(UtilMisc.toList(
+                EntityCondition.makeCondition("effectiveDate", EntityOperator.EQUALS, null),
+                EntityCondition.makeCondition("effectiveDate", EntityOperator.LESS_THAN_EQUAL_TO, asOfDateTime)), EntityOperator.OR);
+        EntityConditionList conditions = EntityCondition.makeCondition(UtilMisc.toList(
                 dateCondition,
-                new EntityExpr("invoiceId", EntityOperator.EQUALS, invoiceId)),
+                EntityCondition.makeCondition("invoiceId", EntityOperator.EQUALS, invoiceId)),
                 EntityOperator.AND); 
 
         try {

@@ -94,7 +94,7 @@ if (purchaseOrder != null) {
         exprs = new ArrayList();
         while (issueIter.hasNext()) {
             issuance = issueIter.next();
-            exprs.add(new EntityExpr("orderItemSeqId", EntityOperator.EQUALS, issuance.getString("orderItemSeqId")));
+            exprs.add(EntityCondition.makeCondition("orderItemSeqId", EntityOperator.EQUALS, issuance.getString("orderItemSeqId")));
             double issuanceQty = issuance.getDouble("quantity").doubleValue();
             if (shippedQuantities.containsKey(issuance.getString("orderItemSeqId"))) {
                 issuanceQty += ((Double)shippedQuantities.get(issuance.getString("orderItemSeqId"))).doubleValue();

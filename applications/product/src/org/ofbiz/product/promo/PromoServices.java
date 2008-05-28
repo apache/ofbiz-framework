@@ -84,12 +84,12 @@ public class PromoServices {
         
         List condList = new LinkedList();
         if (UtilValidate.isEmpty(productStoreId)) {
-            condList.add(new EntityExpr("productStoreId", EntityOperator.EQUALS, productStoreId));
+            condList.add(EntityCondition.makeCondition("productStoreId", EntityOperator.EQUALS, productStoreId));
         }
-        condList.add(new EntityExpr("userEntered", EntityOperator.EQUALS, "Y"));
-        condList.add(new EntityExpr("thruDate", EntityOperator.NOT_EQUAL, null));
-        condList.add(new EntityExpr("thruDate", EntityOperator.LESS_THAN, nowTimestamp));
-        EntityCondition cond = new EntityConditionList(condList, EntityOperator.AND);
+        condList.add(EntityCondition.makeCondition("userEntered", EntityOperator.EQUALS, "Y"));
+        condList.add(EntityCondition.makeCondition("thruDate", EntityOperator.NOT_EQUAL, null));
+        condList.add(EntityCondition.makeCondition("thruDate", EntityOperator.LESS_THAN, nowTimestamp));
+        EntityCondition cond = EntityCondition.makeCondition(condList, EntityOperator.AND);
         
         try {
             EntityListIterator eli = delegator.find("ProductStorePromoAndAppl", cond, null, null, null, null);

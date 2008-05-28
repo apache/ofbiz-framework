@@ -1101,7 +1101,7 @@ public class InvoiceServices {
                 return ServiceUtil.returnError(errMsg);
             }
         }
-        EntityCondition shipmentIdsCond = new EntityExpr("shipmentId", EntityOperator.IN, shipmentIds);
+        EntityCondition shipmentIdsCond = EntityCondition.makeCondition("shipmentId", EntityOperator.IN, shipmentIds);
         // check the status of the shipment
 
         // get the items of the shipment.  They can come from ItemIssuance if the shipment were from a sales order, ShipmentReceipt
@@ -1134,14 +1134,14 @@ public class InvoiceServices {
                 
                     // If a sales invoice is being created for a drop shipment, we have to reference the original sales order items
                     // Get the list of the linked orderIds (original sales orders)
-                    orderItemAssocs = delegator.findList("OrderItemAssoc", new EntityExpr("toOrderId", EntityOperator.IN, purchaseOrderIds), null, null, null, false);
+                    orderItemAssocs = delegator.findList("OrderItemAssoc", EntityCondition.makeCondition("toOrderId", EntityOperator.IN, purchaseOrderIds), null, null, null, false);
     
                     // Get only the order items which are indirectly related to the purchase order - this limits the list to the drop ship group(s)
                     items = EntityUtil.getRelated("FromOrderItem", orderItemAssocs);
                 } else {
 
                     // If it's a purchase invoice being created, the order items for that purchase orders can be used directly
-                    items = delegator.findList("OrderItem", new EntityExpr("orderId", EntityOperator.IN, purchaseOrderIds), null, null, null, false);
+                    items = delegator.findList("OrderItem", EntityCondition.makeCondition("orderId", EntityOperator.IN, purchaseOrderIds), null, null, null, false);
                 }
             } else {
                 items = delegator.findList("ItemIssuance", shipmentIdsCond, null, UtilMisc.toList("shipmentId"), null, false);
@@ -1313,7 +1313,7 @@ public class InvoiceServices {
 
                             // Get back the IDs of the purchase orders - this will be a list of the purchase order items which are billable by virtue of not having been
                             //  invoiced in a previous sales invoice
-                            List reverseOrderItemAssocs = EntityUtil.filterByCondition(orderItemAssocs, new EntityExpr("orderId", EntityOperator.IN, invoiceableLinkedOrderIds));
+                            List reverseOrderItemAssocs = EntityUtil.filterByCondition(orderItemAssocs, EntityCondition.makeCondition("orderId", EntityOperator.IN, invoiceableLinkedOrderIds));
                             invoiceablePrimaryOrderIds = EntityUtil.getFieldListFromEntityList(reverseOrderItemAssocs, "toOrderId", true);
                             
                         } else {
@@ -1326,14 +1326,14 @@ public class InvoiceServices {
                         // Get the list of shipments which are associated with the filtered purchase orders
                         if (! UtilValidate.isEmpty(invoiceablePrimaryOrderIds)) {
                             List invoiceableShipmentConds = UtilMisc.toList(
-                                    new EntityExpr("primaryOrderId", EntityOperator.IN, invoiceablePrimaryOrderIds),
-                                    new EntityExpr("shipmentId", EntityOperator.IN, shipmentIds));
-                            invoiceableShipments = delegator.findList("Shipment", new EntityConditionList(invoiceableShipmentConds, EntityOperator.AND), null, null, null, false);
+                                    EntityCondition.makeCondition("primaryOrderId", EntityOperator.IN, invoiceablePrimaryOrderIds),
+                                    EntityCondition.makeCondition("shipmentId", EntityOperator.IN, shipmentIds));
+                            invoiceableShipments = delegator.findList("Shipment", EntityCondition.makeCondition(invoiceableShipmentConds, EntityOperator.AND), null, null, null, false);
                         }
                     } else {
                         List invoiceableShipmentIds = EntityUtil.getFieldListFromEntityList(toBillItems, "shipmentId", true);
                         if (! UtilValidate.isEmpty(invoiceableShipmentIds)) {
-                            invoiceableShipments = delegator.findList("Shipment", new EntityExpr("shipmentId", EntityOperator.IN, invoiceableShipmentIds), null, null, null, false);
+                            invoiceableShipments = delegator.findList("Shipment", EntityCondition.makeCondition("shipmentId", EntityOperator.IN, invoiceableShipmentIds), null, null, null, false);
                         }
                     }
                 } catch( GenericEntityException e ) {

@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -15,34 +15,48 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- *******************************************************************************/
+ */
 
 package org.ofbiz.shipment.thirdparty.fedex;
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.base.util.template.FreeMarkerWorker;
-import org.ofbiz.service.DispatchContext;
-import org.ofbiz.service.ServiceUtil;
-import org.ofbiz.service.LocalDispatcher;
-import org.ofbiz.service.GenericServiceException;
-import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.GenericDelegator;
-import org.ofbiz.entity.GenericEntityException;
-import org.ofbiz.entity.condition.EntityExpr;
-import org.ofbiz.entity.condition.EntityOperator;
-import org.ofbiz.entity.condition.EntityConditionList;
-import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.party.party.PartyHelper;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.xml.sax.SAXException;
-
-import javax.xml.parsers.ParserConfigurationException;
-import java.util.*;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.ofbiz.base.util.Base64;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.HttpClient;
+import org.ofbiz.base.util.HttpClientException;
+import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.base.util.template.FreeMarkerWorker;
+import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.party.party.PartyHelper;
+import org.ofbiz.service.DispatchContext;
+import org.ofbiz.service.GenericServiceException;
+import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ServiceUtil;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
 
 /**
  * Fedex Shipment Services
@@ -177,26 +191,26 @@ public class FedexServices {
 
             // Get the first valid postal address (address1, city, postalCode and countryGeoId are required by Fedex)
             List postalAddressConditions = new ArrayList();
-            postalAddressConditions.add(new EntityExpr("contactMechTypeId", EntityOperator.EQUALS, "POSTAL_ADDRESS"));
-            postalAddressConditions.add(new EntityExpr("address1", EntityOperator.NOT_EQUAL, null));
-            postalAddressConditions.add(new EntityExpr("address1", EntityOperator.NOT_EQUAL, ""));
-            postalAddressConditions.add(new EntityExpr("city", EntityOperator.NOT_EQUAL, null));
-            postalAddressConditions.add(new EntityExpr("city", EntityOperator.NOT_EQUAL, ""));
-            postalAddressConditions.add(new EntityExpr("postalCode", EntityOperator.NOT_EQUAL, null));
-            postalAddressConditions.add(new EntityExpr("postalCode", EntityOperator.NOT_EQUAL, ""));
-            postalAddressConditions.add(new EntityExpr("countryGeoId", EntityOperator.NOT_EQUAL, null));
-            postalAddressConditions.add(new EntityExpr("countryGeoId", EntityOperator.NOT_EQUAL, ""));
-            List postalAddresses = EntityUtil.filterByCondition(partyContactDetails, new EntityConditionList(postalAddressConditions, EntityOperator.AND));
+            postalAddressConditions.add(EntityCondition.makeCondition("contactMechTypeId", EntityOperator.EQUALS, "POSTAL_ADDRESS"));
+            postalAddressConditions.add(EntityCondition.makeCondition("address1", EntityOperator.NOT_EQUAL, null));
+            postalAddressConditions.add(EntityCondition.makeCondition("address1", EntityOperator.NOT_EQUAL, ""));
+            postalAddressConditions.add(EntityCondition.makeCondition("city", EntityOperator.NOT_EQUAL, null));
+            postalAddressConditions.add(EntityCondition.makeCondition("city", EntityOperator.NOT_EQUAL, ""));
+            postalAddressConditions.add(EntityCondition.makeCondition("postalCode", EntityOperator.NOT_EQUAL, null));
+            postalAddressConditions.add(EntityCondition.makeCondition("postalCode", EntityOperator.NOT_EQUAL, ""));
+            postalAddressConditions.add(EntityCondition.makeCondition("countryGeoId", EntityOperator.NOT_EQUAL, null));
+            postalAddressConditions.add(EntityCondition.makeCondition("countryGeoId", EntityOperator.NOT_EQUAL, ""));
+            List postalAddresses = EntityUtil.filterByCondition(partyContactDetails, EntityCondition.makeCondition(postalAddressConditions, EntityOperator.AND));
 
             // Fedex requires USA or Canada addresses to have a state/province ID, so filter out the ones without
             postalAddressConditions.clear();
-            postalAddressConditions.add(new EntityExpr("countryGeoId", EntityOperator.IN, UtilMisc.toList("CAN", "USA")));
-            postalAddressConditions.add(new EntityExpr("stateProvinceGeoId", EntityOperator.EQUALS, null));
-            postalAddresses = EntityUtil.filterOutByCondition(postalAddresses, new EntityConditionList(postalAddressConditions, EntityOperator.AND));
+            postalAddressConditions.add(EntityCondition.makeCondition("countryGeoId", EntityOperator.IN, UtilMisc.toList("CAN", "USA")));
+            postalAddressConditions.add(EntityCondition.makeCondition("stateProvinceGeoId", EntityOperator.EQUALS, null));
+            postalAddresses = EntityUtil.filterOutByCondition(postalAddresses, EntityCondition.makeCondition(postalAddressConditions, EntityOperator.AND));
             postalAddressConditions.clear();
-            postalAddressConditions.add(new EntityExpr("countryGeoId", EntityOperator.IN, UtilMisc.toList("CAN", "USA")));
-            postalAddressConditions.add(new EntityExpr("stateProvinceGeoId", EntityOperator.EQUALS, ""));
-            postalAddresses = EntityUtil.filterOutByCondition(postalAddresses, new EntityConditionList(postalAddressConditions, EntityOperator.AND));
+            postalAddressConditions.add(EntityCondition.makeCondition("countryGeoId", EntityOperator.IN, UtilMisc.toList("CAN", "USA")));
+            postalAddressConditions.add(EntityCondition.makeCondition("stateProvinceGeoId", EntityOperator.EQUALS, ""));
+            postalAddresses = EntityUtil.filterOutByCondition(postalAddresses, EntityCondition.makeCondition(postalAddressConditions, EntityOperator.AND));
 
             postalAddress = EntityUtil.getFirst(postalAddresses);
             if (UtilValidate.isEmpty(postalAddress)) {
@@ -215,13 +229,13 @@ public class FedexServices {
 
             // Get the first valid primary phone number (required by Fedex)
             List phoneNumberConditions = new ArrayList();
-            phoneNumberConditions.add(new EntityExpr("contactMechTypeId", EntityOperator.EQUALS, "TELECOM_NUMBER"));
-            phoneNumberConditions.add(new EntityExpr("contactMechPurposeTypeId", EntityOperator.EQUALS, "PRIMARY_PHONE"));
-            phoneNumberConditions.add(new EntityExpr("areaCode", EntityOperator.NOT_EQUAL, null));
-            phoneNumberConditions.add(new EntityExpr("areaCode", EntityOperator.NOT_EQUAL, ""));
-            phoneNumberConditions.add(new EntityExpr("contactNumber", EntityOperator.NOT_EQUAL, null));
-            phoneNumberConditions.add(new EntityExpr("contactNumber", EntityOperator.NOT_EQUAL, ""));
-            List phoneNumbers = EntityUtil.filterByCondition(partyContactDetails, new EntityConditionList(phoneNumberConditions, EntityOperator.AND));
+            phoneNumberConditions.add(EntityCondition.makeCondition("contactMechTypeId", EntityOperator.EQUALS, "TELECOM_NUMBER"));
+            phoneNumberConditions.add(EntityCondition.makeCondition("contactMechPurposeTypeId", EntityOperator.EQUALS, "PRIMARY_PHONE"));
+            phoneNumberConditions.add(EntityCondition.makeCondition("areaCode", EntityOperator.NOT_EQUAL, null));
+            phoneNumberConditions.add(EntityCondition.makeCondition("areaCode", EntityOperator.NOT_EQUAL, ""));
+            phoneNumberConditions.add(EntityCondition.makeCondition("contactNumber", EntityOperator.NOT_EQUAL, null));
+            phoneNumberConditions.add(EntityCondition.makeCondition("contactNumber", EntityOperator.NOT_EQUAL, ""));
+            List phoneNumbers = EntityUtil.filterByCondition(partyContactDetails, EntityCondition.makeCondition(phoneNumberConditions, EntityOperator.AND));
             GenericValue phoneNumberValue = EntityUtil.getFirst(phoneNumbers);
             if (UtilValidate.isEmpty(phoneNumberValue)) {
                 String errorMessage = "Party with partyId " + companyPartyId + " does not have a current, fully populated primary phone number";
@@ -237,13 +251,13 @@ public class FedexServices {
 
             // Get the first valid fax number
             List faxNumberConditions = new ArrayList();
-            faxNumberConditions.add(new EntityExpr("contactMechTypeId", EntityOperator.EQUALS, "TELECOM_NUMBER"));
-            faxNumberConditions.add(new EntityExpr("contactMechPurposeTypeId", EntityOperator.EQUALS, "FAX_NUMBER"));
-            faxNumberConditions.add(new EntityExpr("areaCode", EntityOperator.NOT_EQUAL, null));
-            faxNumberConditions.add(new EntityExpr("areaCode", EntityOperator.NOT_EQUAL, ""));
-            faxNumberConditions.add(new EntityExpr("contactNumber", EntityOperator.NOT_EQUAL, null));
-            faxNumberConditions.add(new EntityExpr("contactNumber", EntityOperator.NOT_EQUAL, ""));
-            List faxNumbers = EntityUtil.filterByCondition(partyContactDetails, new EntityConditionList(faxNumberConditions, EntityOperator.AND));
+            faxNumberConditions.add(EntityCondition.makeCondition("contactMechTypeId", EntityOperator.EQUALS, "TELECOM_NUMBER"));
+            faxNumberConditions.add(EntityCondition.makeCondition("contactMechPurposeTypeId", EntityOperator.EQUALS, "FAX_NUMBER"));
+            faxNumberConditions.add(EntityCondition.makeCondition("areaCode", EntityOperator.NOT_EQUAL, null));
+            faxNumberConditions.add(EntityCondition.makeCondition("areaCode", EntityOperator.NOT_EQUAL, ""));
+            faxNumberConditions.add(EntityCondition.makeCondition("contactNumber", EntityOperator.NOT_EQUAL, null));
+            faxNumberConditions.add(EntityCondition.makeCondition("contactNumber", EntityOperator.NOT_EQUAL, ""));
+            List faxNumbers = EntityUtil.filterByCondition(partyContactDetails, EntityCondition.makeCondition(faxNumberConditions, EntityOperator.AND));
             GenericValue faxNumberValue = EntityUtil.getFirst(faxNumbers);
             if(! UtilValidate.isEmpty(faxNumberValue)) {
                 faxNumber = faxNumberValue.getString("areaCode") + faxNumberValue.getString("contactNumber");
@@ -256,10 +270,10 @@ public class FedexServices {
 
             // Get the first valid email address
             List emailConditions = new ArrayList();
-            emailConditions.add(new EntityExpr("contactMechTypeId", EntityOperator.EQUALS, "EMAIL_ADDRESS"));
-            emailConditions.add(new EntityExpr("infoString", EntityOperator.NOT_EQUAL, null));
-            emailConditions.add(new EntityExpr("infoString", EntityOperator.NOT_EQUAL, ""));
-            List emailAddresses = EntityUtil.filterByCondition(partyContactDetails, new EntityConditionList(emailConditions, EntityOperator.AND));
+            emailConditions.add(EntityCondition.makeCondition("contactMechTypeId", EntityOperator.EQUALS, "EMAIL_ADDRESS"));
+            emailConditions.add(EntityCondition.makeCondition("infoString", EntityOperator.NOT_EQUAL, null));
+            emailConditions.add(EntityCondition.makeCondition("infoString", EntityOperator.NOT_EQUAL, ""));
+            List emailAddresses = EntityUtil.filterByCondition(partyContactDetails, EntityCondition.makeCondition(emailConditions, EntityOperator.AND));
             GenericValue emailAddressValue = EntityUtil.getFirst(emailAddresses);
             if(! UtilValidate.isEmpty(emailAddressValue)) {
                 emailAddress = emailAddressValue.getString("infoString");

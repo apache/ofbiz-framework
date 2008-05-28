@@ -909,11 +909,11 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
         Iterator iterType = typeList.iterator();
         while (iterType.hasNext()) {
             String type = (String)iterType.next();
-            condList.add(new EntityExpr("contentAssocTypeId", EntityOperator.EQUALS, type));
+            condList.add(EntityCondition.makeCondition("contentAssocTypeId", EntityOperator.EQUALS, type));
         }
         
-        EntityCondition conditionType = new EntityConditionList(condList, EntityOperator.OR);
-        EntityCondition conditionMain = new EntityConditionList(UtilMisc.toList( new EntityExpr("contentIdTo", EntityOperator.EQUALS, contentIdTo), conditionType), EntityOperator.AND);
+        EntityCondition conditionType = EntityCondition.makeCondition(condList, EntityOperator.OR);
+        EntityCondition conditionMain = EntityCondition.makeCondition(UtilMisc.toList( EntityCondition.makeCondition("contentIdTo", EntityOperator.EQUALS, contentIdTo), conditionType), EntityOperator.AND);
          try {
              List listAll = delegator.findList("ContentAssoc", conditionMain, null, UtilMisc.toList("sequenceNum", "fromDate", "createdDate"), null, false);
              List listFiltered = EntityUtil.filterByDate(listAll);
@@ -1087,11 +1087,11 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
            Iterator iterType = typeList.iterator();
            while (iterType.hasNext()) {
                String type = (String)iterType.next();
-               condList.add(new EntityExpr("contentAssocTypeId", EntityOperator.EQUALS, type));
+               condList.add(EntityCondition.makeCondition("contentAssocTypeId", EntityOperator.EQUALS, type));
            }
            
-           EntityCondition conditionType = new EntityConditionList(condList, EntityOperator.OR);
-           EntityCondition conditionMain = new EntityConditionList(UtilMisc.toList( new EntityExpr("contentId", EntityOperator.EQUALS, thisContentId), conditionType), EntityOperator.AND);
+           EntityCondition conditionType = EntityCondition.makeCondition(condList, EntityOperator.OR);
+           EntityCondition conditionMain = EntityCondition.makeCondition(UtilMisc.toList( EntityCondition.makeCondition("contentId", EntityOperator.EQUALS, thisContentId), conditionType), EntityOperator.AND);
             List listAll = delegator.findByConditionCache("ContentAssoc", conditionMain, null, null);
             List listFiltered = EntityUtil.filterByDate(listAll);
             Iterator iter = listFiltered.iterator();
@@ -1333,13 +1333,13 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
         GenericDelegator delegator = dctx.getDelegator();
         String contentIdTo = (String)context.get("contentId");
         List condList = new ArrayList();
-        EntityExpr expr = new EntityExpr("caContentIdTo", EntityOperator.EQUALS, contentIdTo);
+        EntityExpr expr = EntityCondition.makeCondition("caContentIdTo", EntityOperator.EQUALS, contentIdTo);
         condList.add(expr);
-        expr = new EntityExpr("caContentAssocTypeId", EntityOperator.EQUALS, "SUB_CONTENT");
+        expr = EntityCondition.makeCondition("caContentAssocTypeId", EntityOperator.EQUALS, "SUB_CONTENT");
         condList.add(expr);
-        expr = new EntityExpr("caThruDate", EntityOperator.EQUALS, null);
+        expr = EntityCondition.makeCondition("caThruDate", EntityOperator.EQUALS, null);
         condList.add(expr);
-        EntityConditionList entityCondList = new EntityConditionList(condList, EntityOperator.AND);
+        EntityConditionList entityCondList = EntityCondition.makeCondition(condList, EntityOperator.AND);
          try {
              List lst = delegator.findList("ContentAssocDataResourceViewFrom", entityCondList, null, UtilMisc.toList("caSequenceNum", "caFromDate", "createdDate"), null, false);
              results.put("_LIST_", lst);
@@ -1558,7 +1558,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
             List lst = delegator.findByAndCache("ProductContent", UtilMisc.toMap("productId", productId, "productContentTypeId", "ONLINE_ACCESS"));
             List listFiltered = EntityUtil.filterByDate(lst, orderCreatedDate, "purchaseFromDate", "purchaseThruDate", true);
             List listOrdered = EntityUtil.orderBy(listFiltered, UtilMisc.toList("purchaseFromDate", "purchaseThruDate"));
-            List listThrusOnly = EntityUtil.filterOutByCondition(listOrdered, new EntityExpr("purchaseThruDate", EntityOperator.EQUALS, null));
+            List listThrusOnly = EntityUtil.filterOutByCondition(listOrdered, EntityCondition.makeCondition("purchaseThruDate", EntityOperator.EQUALS, null));
             if (listThrusOnly.size() > 0) {
                 productContent = (GenericValue) listThrusOnly.get(0);   
             } else {

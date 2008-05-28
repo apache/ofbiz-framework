@@ -631,9 +631,9 @@ public class ShoppingCartEvents {
         try {
             if ("Y".equals(addToCartRemoveIncompat)) {
                 List productAssocs = null;
-                EntityCondition cond = new EntityConditionList(UtilMisc.toList(
-                        new EntityExpr(new EntityExpr("productId", EntityOperator.EQUALS, productId), EntityOperator.OR, new EntityExpr("productIdTo", EntityOperator.EQUALS, productId)),
-                        new EntityExpr("productAssocTypeId", EntityOperator.EQUALS, "PRODUCT_INCOMPATABLE")), EntityOperator.AND);
+                EntityCondition cond = EntityCondition.makeCondition(UtilMisc.toList(
+                        EntityCondition.makeCondition(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId), EntityOperator.OR, EntityCondition.makeCondition("productIdTo", EntityOperator.EQUALS, productId)),
+                        EntityCondition.makeCondition("productAssocTypeId", EntityOperator.EQUALS, "PRODUCT_INCOMPATABLE")), EntityOperator.AND);
                 productAssocs = delegator.findList("ProductAssoc", cond, null, null, null, false);
                 productAssocs = EntityUtil.filterByDate(productAssocs);
                 List productList = FastList.newInstance();
@@ -663,9 +663,9 @@ public class ShoppingCartEvents {
             }
             if ("Y".equals(addToCartReplaceUpsell)) {
                 List productList = null;
-                EntityCondition cond = new EntityConditionList(UtilMisc.toList(
-                        new EntityExpr("productIdTo", EntityOperator.EQUALS, productId),
-                        new EntityExpr("productAssocTypeId", EntityOperator.EQUALS, "PRODUCT_UPGRADE")), EntityOperator.AND);
+                EntityCondition cond = EntityCondition.makeCondition(UtilMisc.toList(
+                        EntityCondition.makeCondition("productIdTo", EntityOperator.EQUALS, productId),
+                        EntityCondition.makeCondition("productAssocTypeId", EntityOperator.EQUALS, "PRODUCT_UPGRADE")), EntityOperator.AND);
                 productList = delegator.findList("ProductAssoc", cond, UtilMisc.toSet("productId"), null, null, false);
                 if (productList != null) {
                     Iterator sciIter = cart.iterator();

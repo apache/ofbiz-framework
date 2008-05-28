@@ -45,7 +45,7 @@ if (orderPaymentPreferenceId == null) {
 // second purpose: grab the latest gateway response of the orderaymentpreferenceId
 orderPaymentPreference = delegator.findByPrimaryKey("OrderPaymentPreference", UtilMisc.toMap("orderPaymentPreferenceId", orderPaymentPreferenceId));
 gatewayResponses = orderPaymentPreference.getRelated("PaymentGatewayResponse", UtilMisc.toList("transactionDate DESC"));
-EntityUtil.filterByCondition(gatewayResponses, new EntityExpr("transCodeEnumId", EntityOperator.EQUALS, "PGT_AUTHORIZE"));
+EntityUtil.filterByCondition(gatewayResponses, EntityCondition.makeCondition("transCodeEnumId", EntityOperator.EQUALS, "PGT_AUTHORIZE"));
 
 if (gatewayResponses.size() > 0) {
     latestAuth = gatewayResponses.get(0);

@@ -88,7 +88,7 @@ public class TaxAuthorityServices {
             if ("Y".equals(productStore.getString("showPricesWithVatTax"))) {
                 Set taxAuthoritySet = FastSet.newInstance();
                 if (productStore.get("vatTaxAuthPartyId") == null) {
-                    List taxAuthorityRawList = delegator.findList("TaxAuthority", new EntityExpr("taxAuthGeoId", EntityOperator.EQUALS, productStore.get("vatTaxAuthGeoId")), null, null, null, true);
+                    List taxAuthorityRawList = delegator.findList("TaxAuthority", EntityCondition.makeCondition("taxAuthGeoId", EntityOperator.EQUALS, productStore.get("vatTaxAuthGeoId")), null, null, null, true);
                     taxAuthoritySet.addAll(taxAuthorityRawList);
                 } else {
                     GenericValue taxAuthority = delegator.findByPrimaryKeyCache("TaxAuthority", UtilMisc.toMap("taxAuthGeoId", productStore.get("vatTaxAuthGeoId"), "taxAuthPartyId", productStore.get("vatTaxAuthPartyId")));
@@ -225,7 +225,7 @@ public class TaxAuthorityServices {
         geoIdSet = GeoWorker.expandGeoRegionDeep(geoIdSet, delegator);
         //Debug.logInfo("Tax calc geoIdSet after expand:" + geoIdSet, module);
 
-        List taxAuthorityRawList = delegator.findList("TaxAuthority", new EntityExpr("taxAuthGeoId", EntityOperator.IN, geoIdSet), null, null, null, true);
+        List taxAuthorityRawList = delegator.findList("TaxAuthority", EntityCondition.makeCondition("taxAuthGeoId", EntityOperator.IN, geoIdSet), null, null, null, true);
         taxAuthoritySet.addAll(taxAuthorityRawList);
         //Debug.logInfo("Tax calc taxAuthoritySet after expand:" + taxAuthoritySet, module);
     }
@@ -243,32 +243,32 @@ public class TaxAuthorityServices {
         // store expr
         EntityCondition storeCond = null;
         if (productStore != null) {
-            storeCond = new EntityExpr(
-                    new EntityExpr("productStoreId", EntityOperator.EQUALS, productStore.get("productStoreId")),
+            storeCond = EntityCondition.makeCondition(
+                    EntityCondition.makeCondition("productStoreId", EntityOperator.EQUALS, productStore.get("productStoreId")),
                     EntityOperator.OR,
-                    new EntityExpr("productStoreId", EntityOperator.EQUALS, null));
+                    EntityCondition.makeCondition("productStoreId", EntityOperator.EQUALS, null));
         } else {
-            storeCond = new EntityExpr("productStoreId", EntityOperator.EQUALS, null);
+            storeCond = EntityCondition.makeCondition("productStoreId", EntityOperator.EQUALS, null);
         }
 
         // build the TaxAuthority expressions (taxAuthGeoId, taxAuthPartyId)
         List taxAuthCondOrList = FastList.newInstance();
         // start with the _NA_ TaxAuthority...
-        taxAuthCondOrList.add(new EntityExpr(
-                new EntityExpr("taxAuthPartyId", EntityOperator.EQUALS, "_NA_"), 
+        taxAuthCondOrList.add(EntityCondition.makeCondition(
+                EntityCondition.makeCondition("taxAuthPartyId", EntityOperator.EQUALS, "_NA_"), 
                 EntityOperator.AND, 
-                new EntityExpr("taxAuthGeoId", EntityOperator.EQUALS, "_NA_")));
+                EntityCondition.makeCondition("taxAuthGeoId", EntityOperator.EQUALS, "_NA_")));
         
         Iterator taxAuthorityIter = taxAuthoritySet.iterator();
         while (taxAuthorityIter.hasNext()) {
             GenericValue taxAuthority = (GenericValue) taxAuthorityIter.next();
-            EntityCondition taxAuthCond = new EntityExpr(
-                    new EntityExpr("taxAuthPartyId", EntityOperator.EQUALS, taxAuthority.getString("taxAuthPartyId")), 
+            EntityCondition taxAuthCond = EntityCondition.makeCondition(
+                    EntityCondition.makeCondition("taxAuthPartyId", EntityOperator.EQUALS, taxAuthority.getString("taxAuthPartyId")), 
                     EntityOperator.AND, 
-                    new EntityExpr("taxAuthGeoId", EntityOperator.EQUALS, taxAuthority.getString("taxAuthGeoId")));
+                    EntityCondition.makeCondition("taxAuthGeoId", EntityOperator.EQUALS, taxAuthority.getString("taxAuthGeoId")));
             taxAuthCondOrList.add(taxAuthCond);
         }
-        EntityCondition taxAuthoritiesCond = new EntityConditionList(taxAuthCondOrList, EntityOperator.OR);
+        EntityCondition taxAuthoritiesCond = EntityCondition.makeCondition(taxAuthCondOrList, EntityOperator.OR);
 
         try {
             EntityCondition productCategoryCond = null;
@@ -285,22 +285,22 @@ public class TaxAuthorityServices {
                 }
                 
                 if (productCategoryIdSet.size() == 0) {
-                    productCategoryCond = new EntityExpr("productCategoryId", EntityOperator.EQUALS, null);
+                    productCategoryCond = EntityCondition.makeCondition("productCategoryId", EntityOperator.EQUALS, null);
                 } else {
-                    productCategoryCond = new EntityExpr(
-                            new EntityExpr("productCategoryId", EntityOperator.EQUALS, null),
+                    productCategoryCond = EntityCondition.makeCondition(
+                            EntityCondition.makeCondition("productCategoryId", EntityOperator.EQUALS, null),
                             EntityOperator.OR,
-                            new EntityExpr("productCategoryId", EntityOperator.IN, productCategoryIdSet));
+                            EntityCondition.makeCondition("productCategoryId", EntityOperator.IN, productCategoryIdSet));
                 }
             } else {
-                productCategoryCond = new EntityExpr("productCategoryId", EntityOperator.EQUALS, null);
+                productCategoryCond = EntityCondition.makeCondition("productCategoryId", EntityOperator.EQUALS, null);
             }
 
             // build the main condition clause
             List mainExprs = UtilMisc.toList(storeCond, taxAuthoritiesCond, productCategoryCond);
-            mainExprs.add(new EntityExpr(new EntityExpr("minItemPrice", EntityOperator.EQUALS, null), EntityOperator.OR, new EntityExpr("minItemPrice", EntityOperator.LESS_THAN_EQUAL_TO, itemPrice)));
-            mainExprs.add(new EntityExpr(new EntityExpr("minPurchase", EntityOperator.EQUALS, null), EntityOperator.OR, new EntityExpr("minPurchase", EntityOperator.LESS_THAN_EQUAL_TO, itemAmount)));
-            EntityCondition mainCondition = new EntityConditionList(mainExprs, EntityOperator.AND);
+            mainExprs.add(EntityCondition.makeCondition(EntityCondition.makeCondition("minItemPrice", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("minItemPrice", EntityOperator.LESS_THAN_EQUAL_TO, itemPrice)));
+            mainExprs.add(EntityCondition.makeCondition(EntityCondition.makeCondition("minPurchase", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("minPurchase", EntityOperator.LESS_THAN_EQUAL_TO, itemAmount)));
+            EntityCondition mainCondition = EntityCondition.makeCondition(mainExprs, EntityOperator.AND);
 
             // create the orderby clause
             List orderList = UtilMisc.toList("minItemPrice", "minPurchase", "fromDate");
@@ -395,12 +395,12 @@ public class TaxAuthorityServices {
     private static void handlePartyTaxExempt(GenericValue adjValue, Set billToPartyIdSet, String taxAuthGeoId, String taxAuthPartyId, BigDecimal taxAmount, Timestamp nowTimestamp, GenericDelegator delegator) throws GenericEntityException {
         Debug.logInfo("Checking for tax exemption : " + taxAuthGeoId + " / " + taxAuthPartyId, module);
         List ptiConditionList = UtilMisc.toList(
-                new EntityExpr("partyId", EntityOperator.IN, billToPartyIdSet),
-                new EntityExpr("taxAuthGeoId", EntityOperator.EQUALS, taxAuthGeoId),
-                new EntityExpr("taxAuthPartyId", EntityOperator.EQUALS, taxAuthPartyId));
-        ptiConditionList.add(new EntityExpr("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, nowTimestamp));
-        ptiConditionList.add(new EntityExpr(new EntityExpr("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, new EntityExpr("thruDate", EntityOperator.GREATER_THAN, nowTimestamp)));
-        EntityCondition ptiCondition = new EntityConditionList(ptiConditionList, EntityOperator.AND);
+                EntityCondition.makeCondition("partyId", EntityOperator.IN, billToPartyIdSet),
+                EntityCondition.makeCondition("taxAuthGeoId", EntityOperator.EQUALS, taxAuthGeoId),
+                EntityCondition.makeCondition("taxAuthPartyId", EntityOperator.EQUALS, taxAuthPartyId));
+        ptiConditionList.add(EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, nowTimestamp));
+        ptiConditionList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN, nowTimestamp)));
+        EntityCondition ptiCondition = EntityCondition.makeCondition(ptiConditionList, EntityOperator.AND);
         // sort by -fromDate to get the newest (largest) first, just in case there is more than one, we only want the most recent valid one, should only be one per jurisdiction...
         List partyTaxInfos = delegator.findList("PartyTaxAuthInfo", ptiCondition, null, UtilMisc.toList("-fromDate"), null, false);
 

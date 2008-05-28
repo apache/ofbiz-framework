@@ -81,9 +81,9 @@ cart = ShoppingCartEvents.getCartObject(request);
 
 // get the shopping lists for the user (if logged in)
 if (userLogin != null) {
-    exprList = UtilMisc.toList(new EntityExpr("partyId", EntityOperator.EQUALS, userLogin.getString("partyId")),
-        new EntityExpr("listName", EntityOperator.NOT_EQUAL, "auto-save"));
-    condition = new EntityConditionList(exprList, EntityOperator.AND);
+    exprList = UtilMisc.toList(EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, userLogin.getString("partyId")),
+        EntityCondition.makeCondition("listName", EntityOperator.NOT_EQUAL, "auto-save"));
+    condition = EntityCondition.makeCondition(exprList, EntityOperator.AND);
     allShoppingLists = delegator.findList("ShoppingList", condition, null, UtilMisc.toList("listName"), null, false);        
     context.put("shoppingLists", allShoppingLists);
 }
@@ -198,7 +198,7 @@ if (product != null) {
     context.put("productReviews", reviews);
     // get the average rating
     if (reviews != null && reviews.size() > 0) {
-        List ratingReviews = EntityUtil.filterByAnd(reviews, UtilMisc.toList(new EntityExpr("productRating", EntityOperator.NOT_EQUAL, null)));
+        List ratingReviews = EntityUtil.filterByAnd(reviews, UtilMisc.toList(EntityCondition.makeCondition("productRating", EntityOperator.NOT_EQUAL, null)));
         if (ratingReviews.size() > 0) {
             context.put("averageRating", ProductWorker.getAverageProductRating(product, reviews, productStoreId));
             context.put("numRatings", ratingReviews.size());

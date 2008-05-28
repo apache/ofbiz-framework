@@ -26,9 +26,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
+
+import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
@@ -39,8 +41,8 @@ import org.ofbiz.content.data.DataResourceWorker;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
-import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
@@ -157,21 +159,21 @@ public class CompDocServices {
         
         try {   
             Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
-            List exprList = new ArrayList();
-            exprList.add(new EntityExpr("contentIdTo", EntityOperator.EQUALS, contentId));
-            exprList.add(new EntityExpr("rootRevisionContentId", EntityOperator.EQUALS, contentId));
+            List exprList = FastList.newInstance();
+            exprList.add(EntityCondition.makeCondition("contentIdTo", EntityOperator.EQUALS, contentId));
+            exprList.add(EntityCondition.makeCondition("rootRevisionContentId", EntityOperator.EQUALS, contentId));
             if (UtilValidate.isNotEmpty(contentRevisionSeqId)) {
-                exprList.add(new EntityExpr("contentRevisionSeqId", EntityOperator.LESS_THAN_EQUAL_TO, contentRevisionSeqId));
+                exprList.add(EntityCondition.makeCondition("contentRevisionSeqId", EntityOperator.LESS_THAN_EQUAL_TO, contentRevisionSeqId));
             }
-            exprList.add(new EntityExpr("contentAssocTypeId", EntityOperator.EQUALS, "COMPDOC_PART"));
-            exprList.add(new EntityExpr("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, nowTimestamp));
+            exprList.add(EntityCondition.makeCondition("contentAssocTypeId", EntityOperator.EQUALS, "COMPDOC_PART"));
+            exprList.add(EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, nowTimestamp));
 
-            List thruList = new ArrayList();
-            thruList.add(new EntityExpr("thruDate", EntityOperator.EQUALS, null));
-            thruList.add(new EntityExpr("thruDate", EntityOperator.GREATER_THAN, nowTimestamp));
-            exprList.add(new EntityConditionList(thruList, EntityOperator.OR));
+            List thruList = FastList.newInstance();
+            thruList.add(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null));
+            thruList.add(EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN, nowTimestamp));
+            exprList.add(EntityCondition.makeCondition(thruList, EntityOperator.OR));
 
-            EntityConditionList conditionList = new EntityConditionList(exprList, EntityOperator.AND);
+            EntityConditionList conditionList = EntityCondition.makeCondition(exprList, EntityOperator.AND);
             
             String [] fields = {"rootRevisionContentId", "itemContentId", "maxRevisionSeqId", "contentId", "dataResourceId", "contentIdTo", "contentAssocTypeId", "fromDate", "sequenceNum"};
             Set selectFields = UtilMisc.toSetArray(fields);
