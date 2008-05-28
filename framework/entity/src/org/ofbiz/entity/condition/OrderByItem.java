@@ -111,13 +111,13 @@ public class OrderByItem implements Comparator<GenericEntity> {
             startIndex = 0;
             endIndex = text.length();
         }
-        EntityConditionValue value = new EntityFieldValue(text);
+        EntityConditionValue value = EntityFieldValue.makeFieldValue(text);
         switch (caseSensitivity) {
             case UPPER:
-                value = new EntityFunction.UPPER(value);
+                value = EntityFunction.UPPER(value);
                 break;
             case LOWER:
-                value = new EntityFunction.LOWER(value);
+                value = EntityFunction.LOWER(value);
                 break;
         }
         return new OrderByItem(value, descending);

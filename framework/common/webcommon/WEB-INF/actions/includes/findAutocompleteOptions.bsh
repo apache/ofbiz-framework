@@ -30,12 +30,12 @@ import org.ofbiz.base.util.UtilValidate;
 andExprs = FastList.newInstance();
 fieldValue = request.getParameter(fieldName);
 if (UtilValidate.isNotEmpty(fieldValue)) {
-    andExprs.add(new EntityExpr(new EntityFunction.UPPER(new EntityFieldValue(fieldName)),
+    andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER(EntityFieldValue.makeFieldValue(fieldName)),
             EntityOperator.LIKE, "%" + fieldValue.toUpperCase() + "%"));
 }
 
 if (andExprs.size() > 0) {
-    entityConditionList = new EntityConditionList(andExprs, EntityOperator.AND);
+    entityConditionList = EntityCondition.makeCondition(andExprs, EntityOperator.AND);
     List autocompleteOptions = delegator.findList(entityName, entityConditionList, new TreeSet(StringUtil.toList(selectFields)), StringUtil.toList(sortByFields), null, false);
     context.put("autocompleteOptions", autocompleteOptions);
 }

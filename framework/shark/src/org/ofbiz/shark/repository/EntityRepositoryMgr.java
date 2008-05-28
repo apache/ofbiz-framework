@@ -296,16 +296,16 @@ public class EntityRepositoryMgr implements RepositoryPersistenceManager {
         GenericDelegator delegator = SharkContainer.getDelegator();
         List exprList = new ArrayList();
         if (xpdlId != null) {
-            exprList.add(new EntityExpr(org.ofbiz.shark.SharkConstants.xpdlId, EntityOperator.EQUALS, xpdlId));
+            exprList.add(EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.xpdlId, EntityOperator.EQUALS, xpdlId));
         }
         if (xpdlVersion != null) {
-            exprList.add(new EntityExpr(org.ofbiz.shark.SharkConstants.xpdlVersion, EntityOperator.EQUALS, xpdlVersion));
+            exprList.add(EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.xpdlVersion, EntityOperator.EQUALS, xpdlVersion));
         }
         if (!includeHistory) {
-            exprList.add(new EntityExpr(org.ofbiz.shark.SharkConstants.isHistorical, EntityOperator.NOT_EQUAL, "Y"));
+            exprList.add(EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.isHistorical, EntityOperator.NOT_EQUAL, "Y"));
         }
 
-        EntityCondition cond = new EntityConditionList(exprList, EntityOperator.AND);
+        EntityCondition cond = EntityCondition.makeCondition(exprList, EntityOperator.AND);
         List lookupList = null;
         try {
             lookupList = delegator.findByCondition(org.ofbiz.shark.SharkConstants.WfRepository, cond, null, UtilMisc.toList("-xpdlVersion"));

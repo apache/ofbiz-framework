@@ -49,7 +49,7 @@ public class EntityFieldMap extends EntityConditionListBase<EntityExpr> {
         if (fieldMap == null) return new ArrayList<EntityExpr>();
         List<EntityExpr> list = new ArrayList<EntityExpr>(fieldMap.size());
         for (Map.Entry<String, ? extends Object> entry: fieldMap.entrySet()) {
-            list.add(new EntityExpr(entry.getKey(), op, entry.getValue()));
+            list.add(EntityCondition.makeCondition(entry.getKey(), op, entry.getValue()));
         }
         return list;
     }

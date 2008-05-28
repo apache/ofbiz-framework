@@ -118,7 +118,7 @@ int arraySize = 0;
 List resultPartialList = null;
 
 if ("true".equals(find)) {
-    //EntityCondition condition = new EntityFieldMap(findByEntity, EntityOperator.AND);
+    //EntityCondition condition = EntityCondition.makeCondition(findByEntity, EntityOperator.AND);
     
     // small variation to support LIKE if a wildcard (%) is found in a String
     conditionList = FastList.newInstance();
@@ -127,12 +127,12 @@ if ("true".equals(find)) {
     while (fbksIter.hasNext()) {
         findByKey = fbksIter.next();
         if (findByEntity.getString(findByKey).indexOf("%") >= 0) {
-            conditionList.add(new EntityExpr(findByKey, EntityOperator.LIKE, findByEntity.getString(findByKey)));
+            conditionList.add(EntityCondition.makeCondition(findByKey, EntityOperator.LIKE, findByEntity.getString(findByKey)));
         } else {
-            conditionList.add(new EntityExpr(findByKey, EntityOperator.EQUALS, findByEntity.get(findByKey)));
+            conditionList.add(EntityCondition.makeCondition(findByKey, EntityOperator.EQUALS, findByEntity.get(findByKey)));
         }
     }
-    condition = new EntityConditionList(conditionList, EntityOperator.AND);
+    condition = EntityCondition.makeCondition(conditionList, EntityOperator.AND);
     
     arraySize = (int) delegator.findCountByCondition(entityName, condition, null, null);
     if (arraySize < highIndex) {

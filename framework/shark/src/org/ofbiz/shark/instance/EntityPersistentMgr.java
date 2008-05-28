@@ -768,14 +768,14 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
     }
 
     public List getAllDeadlinesForProcess(String procId, SharkTransaction trans) throws PersistenceException {
-        List lookupList = getDeadlineValues(UtilMisc.toList(new EntityExpr(org.ofbiz.shark.SharkConstants.processId, EntityOperator.EQUALS, procId)));
+        List lookupList = getDeadlineValues(UtilMisc.toList(EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.processId, EntityOperator.EQUALS, procId)));
         List dl = getDealineObjects(lookupList); 
         return dl;
     }
 
     public List getAllDeadlinesForProcess(String procId, long timeLimit, SharkTransaction trans) throws PersistenceException {
-        List lookupList = getDeadlineValues(UtilMisc.toList(new EntityExpr(org.ofbiz.shark.SharkConstants.processId, EntityOperator.EQUALS, procId),
-                new EntityExpr(org.ofbiz.shark.SharkConstants.timeLimit, EntityOperator.LESS_THAN, new Long(timeLimit))));
+        List lookupList = getDeadlineValues(UtilMisc.toList(EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.processId, EntityOperator.EQUALS, procId),
+                EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.timeLimit, EntityOperator.LESS_THAN, new Long(timeLimit))));
         List dl = getDealineObjects(lookupList); 
         return dl;
     }
@@ -796,14 +796,14 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
 
         EntityListIterator eli = null;
         try {
-            EntityCondition procState = new EntityExpr("processState", EntityOperator.EQUALS, "open.running");
-            EntityCondition actState1 = new EntityExpr("activityState", EntityOperator.EQUALS, "open.not_running.not_started");
-            EntityCondition actState2 = new EntityExpr("activityState", EntityOperator.EQUALS, "open.running");
+            EntityCondition procState = EntityCondition.makeCondition("processState", EntityOperator.EQUALS, "open.running");
+            EntityCondition actState1 = EntityCondition.makeCondition("activityState", EntityOperator.EQUALS, "open.not_running.not_started");
+            EntityCondition actState2 = EntityCondition.makeCondition("activityState", EntityOperator.EQUALS, "open.running");
 
-            EntityCondition actState = new EntityConditionList(UtilMisc.toList(actState1, actState2), EntityOperator.OR);
-            EntityCondition timeCond = new EntityExpr(org.ofbiz.shark.SharkConstants.timeLimit, EntityOperator.LESS_THAN, new Long(l));
+            EntityCondition actState = EntityCondition.makeCondition(UtilMisc.toList(actState1, actState2), EntityOperator.OR);
+            EntityCondition timeCond = EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.timeLimit, EntityOperator.LESS_THAN, new Long(l));
 
-            EntityCondition cond = new EntityConditionList(UtilMisc.toList(timeCond, procState, actState), EntityOperator.AND);
+            EntityCondition cond = EntityCondition.makeCondition(UtilMisc.toList(timeCond, procState, actState), EntityOperator.AND);
             eli = delegator.findListIteratorByCondition(view, cond, null, null, null, null);
             GenericValue v = null;
             while ((v = (GenericValue) eli.next()) != null) {
@@ -825,8 +825,8 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
 
     public List getAllDeadlinesForActivity(String procId, String actId, SharkTransaction trans) throws PersistenceException {
 
-        List lookupList = getDeadlineValues(UtilMisc.toList(new EntityExpr(org.ofbiz.shark.SharkConstants.processId, EntityOperator.EQUALS, procId),
-                new EntityExpr(org.ofbiz.shark.SharkConstants.activityId, EntityOperator.EQUALS, actId)));
+        List lookupList = getDeadlineValues(UtilMisc.toList(EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.processId, EntityOperator.EQUALS, procId),
+                EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.activityId, EntityOperator.EQUALS, actId)));
         List dl = getDealineObjects(lookupList); 
 
         return dl;
@@ -834,9 +834,9 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
 
     public List getAllDeadlinesForActivity(String procId, String actId, long timeLimit, SharkTransaction trans) throws PersistenceException {
 
-        List lookupList = getDeadlineValues(UtilMisc.toList(new EntityExpr(org.ofbiz.shark.SharkConstants.processId, EntityOperator.EQUALS, procId),
-                new EntityExpr(org.ofbiz.shark.SharkConstants.activityId, EntityOperator.EQUALS, actId),
-                new EntityExpr(org.ofbiz.shark.SharkConstants.timeLimit, EntityOperator.LESS_THAN, new Long(timeLimit))));
+        List lookupList = getDeadlineValues(UtilMisc.toList(EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.processId, EntityOperator.EQUALS, procId),
+                EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.activityId, EntityOperator.EQUALS, actId),
+                EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.timeLimit, EntityOperator.LESS_THAN, new Long(timeLimit))));
         List dl = getDealineObjects(lookupList); 
         return dl;
     }
@@ -876,7 +876,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
             lookupList = new ArrayList();
         } else {
             try {
-                EntityConditionList ecl = new EntityConditionList(exprList, EntityOperator.AND);
+                EntityConditionList ecl = EntityCondition.makeCondition(exprList, EntityOperator.AND);
                 lookupList = delegator.findList(org.ofbiz.shark.SharkConstants.WfDeadline, ecl, null, null, null, false);
             } catch (GenericEntityException e) {
                 throw new PersistenceException(e);
@@ -1091,11 +1091,11 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
                 List exprs = new LinkedList();
                 Iterator i = states.iterator();
                 while (i.hasNext()) {
-                    exprs.add(new EntityExpr(field, operator, i.next()));
+                    exprs.add(EntityCondition.makeCondition(field, operator, i.next()));
                 }
-                return new EntityConditionList(exprs, jop);
+                return EntityCondition.makeCondition(exprs, jop);
             } else {
-                return new EntityExpr(field, operator, states.get(0));
+                return EntityCondition.makeCondition(field, operator, states.get(0));
             }
         } else {
             throw new GenericEntityException("Cannot create entity condition from list :" + states);
@@ -1105,25 +1105,25 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
         EntityCondition newCond = null;
         List exprs = new LinkedList();
         if (packageId != null) {
-            exprs.add(new EntityExpr(org.ofbiz.shark.SharkConstants.packageId, EntityOperator.EQUALS, packageId));
+            exprs.add(EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.packageId, EntityOperator.EQUALS, packageId));
         }
         if (processDefId != null) {
-            exprs.add(new EntityExpr(org.ofbiz.shark.SharkConstants.definitionId, EntityOperator.EQUALS, processDefId));
+            exprs.add(EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.definitionId, EntityOperator.EQUALS, processDefId));
         }
         if (packageVer != null) {
-            exprs.add(new EntityExpr(org.ofbiz.shark.SharkConstants.packageVer, EntityOperator.EQUALS, packageVer));
+            exprs.add(EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.packageVer, EntityOperator.EQUALS, packageVer));
         }
         if (finishBefore != null) {
-            exprs.add(new EntityExpr(org.ofbiz.shark.SharkConstants.lastStateTime, EntityOperator.LESS_THAN, finishBefore));
+            exprs.add(EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.lastStateTime, EntityOperator.LESS_THAN, finishBefore));
         }
 
         if (exprs.size() > 0) {
-            newCond = new EntityConditionList(exprs, EntityJoinOperator.AND);
+            newCond = EntityCondition.makeCondition(exprs, EntityJoinOperator.AND);
         }
 
         if (newCond != null) {
             if (cond != null) {
-                return new EntityConditionList(UtilMisc.toList(cond, newCond), EntityJoinOperator.AND);
+                return EntityCondition.makeCondition(UtilMisc.toList(cond, newCond), EntityJoinOperator.AND);
             } else {
                 return newCond;
             }
@@ -1138,11 +1138,11 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
         List lookupList = null;
         try {
             EntityCondition cond = null;
-            EntityCondition proc = new EntityExpr(org.ofbiz.shark.SharkConstants.processId, EntityOperator.EQUALS, processId);
+            EntityCondition proc = EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.processId, EntityOperator.EQUALS, processId);
 
             if (states != null) {
                 EntityCondition stateCond = this.makeStateListCondition(org.ofbiz.shark.SharkConstants.currentState, states, operator, EntityOperator.OR);
-                cond = new EntityConditionList(UtilMisc.toList(proc, stateCond), EntityOperator.AND);
+                cond = EntityCondition.makeCondition(UtilMisc.toList(proc, stateCond), EntityOperator.AND);
             } else {
                 cond = proc;
             }

@@ -85,7 +85,7 @@ public class EntityExpr extends EntityCondition {
         }
         
         if (lhs instanceof String) {
-            this.lhs = new EntityFieldValue((String) lhs);
+            this.lhs = EntityFieldValue.makeFieldValue((String) lhs);
         } else {
             this.lhs = lhs;
         }

@@ -119,7 +119,7 @@ public class EntityTestSuite extends TestCase {
     public void testCreateTree() throws Exception {
         try {
         // get how many child nodes did we have before creating the tree
-        EntityCondition isChild = new EntityExpr("primaryParentNodeId", EntityOperator.NOT_EQUAL, GenericEntity.NULL_FIELD);
+        EntityCondition isChild = EntityCondition.makeCondition("primaryParentNodeId", EntityOperator.NOT_EQUAL, GenericEntity.NULL_FIELD);
         long alreadyStored = delegator.findCountByCondition("TestingNode", isChild, null, null);
 
         //
@@ -154,7 +154,7 @@ public class EntityTestSuite extends TestCase {
      */
     public void testAddMembersToTree() throws Exception {
         // get the level1 nodes
-        EntityCondition isLevel1 = new EntityExpr("primaryParentNodeId", EntityOperator.NOT_EQUAL, GenericEntity.NULL_FIELD);
+        EntityCondition isLevel1 = EntityCondition.makeCondition("primaryParentNodeId", EntityOperator.NOT_EQUAL, GenericEntity.NULL_FIELD);
         List<GenericValue> nodeLevel1 = delegator.findList("TestingNode", isLevel1, null, null, null, false);
 
         List<GenericValue> newValues = new LinkedList<GenericValue>();
@@ -190,7 +190,7 @@ public class EntityTestSuite extends TestCase {
      * Tests findByCondition and tests searching on a view-entity
      */
     public void testCountViews() throws Exception {
-        EntityCondition isNodeWithMember = new EntityExpr("testingId", EntityOperator.NOT_EQUAL, GenericEntity.NULL_FIELD);
+        EntityCondition isNodeWithMember = EntityCondition.makeCondition("testingId", EntityOperator.NOT_EQUAL, GenericEntity.NULL_FIELD);
         List<GenericValue> nodeWithMembers = delegator.findList("TestingNodeAndMember", isNodeWithMember, null, null, null, false);
 
         for (GenericValue v: nodeWithMembers) {
@@ -212,8 +212,8 @@ public class EntityTestSuite extends TestCase {
      */
     public void testFindDistinct() throws Exception {
         List<EntityExpr> exprList = UtilMisc.toList(
-                new EntityExpr("testingSize", EntityOperator.EQUALS, new Long(10)),
-                new EntityExpr("comments", EntityOperator.EQUALS, "No-comments"));
+                EntityCondition.makeCondition("testingSize", EntityOperator.EQUALS, new Long(10)),
+                EntityCondition.makeCondition("comments", EntityOperator.EQUALS, "No-comments"));
         EntityConditionList<EntityExpr> condition = EntityCondition.makeCondition(exprList);
 
         EntityFindOptions findOptions = new EntityFindOptions();
@@ -229,7 +229,7 @@ public class EntityTestSuite extends TestCase {
      * Tests a findByCondition using not like
      */
     public void testNotLike() throws Exception {
-        EntityCondition cond  = new EntityExpr("description", EntityOperator.NOT_LIKE, "root%");
+        EntityCondition cond  = EntityCondition.makeCondition("description", EntityOperator.NOT_LIKE, "root%");
         List<GenericValue> nodes = delegator.findList("TestingNode", cond, null, null, null, false);
         TestCase.assertTrue("Found nodes", nodes != null);
 
@@ -258,7 +258,7 @@ public class EntityTestSuite extends TestCase {
      */
     public void testForeignKeyRemove() throws Exception {
         try {
-            EntityCondition isLevel1 = new EntityExpr("description", EntityOperator.EQUALS, "node-level #1");
+            EntityCondition isLevel1 = EntityCondition.makeCondition("description", EntityOperator.EQUALS, "node-level #1");
             delegator.removeByCondition("TestingNode", isLevel1);
         } catch(GenericEntityException e) {
             Debug.logInfo(e.toString(), module);
@@ -296,7 +296,7 @@ public class EntityTestSuite extends TestCase {
      */
     public void testStoreByCondition() throws Exception {
         // change the description of all the level1 nodes
-        EntityCondition isLevel1 = new EntityExpr("description", EntityOperator.EQUALS, "node-level #1");
+        EntityCondition isLevel1 = EntityCondition.makeCondition("description", EntityOperator.EQUALS, "node-level #1");
         Map<String, String> fieldsToSet = UtilMisc.toMap("description", "node-level #1 (updated)");
         int n = 0;
         try {
@@ -317,7 +317,7 @@ public class EntityTestSuite extends TestCase {
         //
         // remove all the level1 nodes by using a condition on the description field
         //
-        EntityCondition isLevel1 = new EntityExpr("description", EntityOperator.EQUALS, "node-level #1 (updated)");
+        EntityCondition isLevel1 = EntityCondition.makeCondition("description", EntityOperator.EQUALS, "node-level #1 (updated)");
         int n = 0;
 
         try {
@@ -337,7 +337,7 @@ public class EntityTestSuite extends TestCase {
         // Find all the root nodes,
         // delete them their primary key
         //
-        EntityCondition isRoot = new EntityExpr("primaryParentNodeId", EntityOperator.EQUALS, GenericEntity.NULL_FIELD);
+        EntityCondition isRoot = EntityCondition.makeCondition("primaryParentNodeId", EntityOperator.EQUALS, GenericEntity.NULL_FIELD);
         List<GenericValue> rootValues = delegator.findList("TestingNode", isRoot, UtilMisc.toSet("testingNodeId"), null, null, false);
 
         for (GenericValue value: rootValues) {
@@ -406,7 +406,7 @@ public class EntityTestSuite extends TestCase {
      */
     public void testEntityListIterator() throws Exception {
         try {
-            EntityListIterator iterator = delegator.find("Testing", new EntityExpr("testingId", EntityOperator.LIKE, "T2-%"), null, null, null, null);
+            EntityListIterator iterator = delegator.find("Testing", EntityCondition.makeCondition("testingId", EntityOperator.LIKE, "T2-%"), null, null, null, null);
             assertTrue("Test if EntityListIterator was created: ", iterator != null);
 
             int i = 0;
@@ -422,7 +422,7 @@ public class EntityTestSuite extends TestCase {
             assertTrue("GenericEntityException:" + e.toString(), false);
             return;
         } finally {
-            List<GenericValue> entitiesToRemove = delegator.findList("Testing", new EntityExpr("testingId", EntityOperator.LIKE, "T2-%"), null, null, null, false);
+            List<GenericValue> entitiesToRemove = delegator.findList("Testing", EntityCondition.makeCondition("testingId", EntityOperator.LIKE, "T2-%"), null, null, null, false);
             delegator.removeAll(entitiesToRemove);
         }
     }

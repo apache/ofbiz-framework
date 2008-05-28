@@ -2060,7 +2060,7 @@ public class GenericDelegator implements DelegatorInterface {
         List<EntityExpr> likeExpressions = FastList.newInstance();
         if (fieldMap != null) {
             for (Map.Entry<String, ? extends Object> fieldEntry: fieldMap.entrySet()) {
-                likeExpressions.add(new EntityExpr(fieldEntry.getKey(), EntityOperator.LIKE, fieldEntry.getValue()));
+                likeExpressions.add(EntityCondition.makeCondition(fieldEntry.getKey(), EntityOperator.LIKE, fieldEntry.getValue()));
             }
         }
         EntityConditionList<EntityExpr> ecl = EntityCondition.makeCondition(likeExpressions, EntityOperator.AND);
@@ -2075,7 +2075,7 @@ public class GenericDelegator implements DelegatorInterface {
         List<EntityExpr> likeExpressions = FastList.newInstance();
         if (fields != null) {
             for (Map.Entry<String, ? extends Object> fieldEntry: fields.entrySet()) {
-                likeExpressions.add(new EntityExpr(fieldEntry.getKey(), EntityOperator.LIKE, fieldEntry.getValue()));
+                likeExpressions.add(EntityCondition.makeCondition(fieldEntry.getKey(), EntityOperator.LIKE, fieldEntry.getValue()));
             }
         }
         EntityConditionList<EntityExpr> ecl = EntityCondition.makeCondition(likeExpressions, EntityOperator.AND);
@@ -2090,7 +2090,7 @@ public class GenericDelegator implements DelegatorInterface {
         List<EntityExpr> likeExpressions = FastList.newInstance();
         if (fields != null) {
             for (Map.Entry<String, ? extends Object> fieldEntry: fields.entrySet()) {
-                likeExpressions.add(new EntityExpr(fieldEntry.getKey(), EntityOperator.LIKE, fieldEntry.getValue()));
+                likeExpressions.add(EntityCondition.makeCondition(fieldEntry.getKey(), EntityOperator.LIKE, fieldEntry.getValue()));
             }
         }
         EntityConditionList<EntityExpr> ecl = EntityCondition.makeCondition(likeExpressions, EntityOperator.AND);
@@ -2357,7 +2357,7 @@ public class GenericDelegator implements DelegatorInterface {
      *@deprecated Use findCountByCondition() instead
      */
     public long findCountByAnd(String entityName, Object... fields) throws GenericEntityException {
-        return findCountByCondition(entityName, new EntityFieldMap(UtilMisc.<String, Object>toMap(fields), EntityOperator.AND), null, null);
+        return findCountByCondition(entityName, EntityCondition.makeCondition(UtilMisc.<String, Object>toMap(fields), EntityOperator.AND), null, null);
     }
 
     /**
@@ -2365,7 +2365,7 @@ public class GenericDelegator implements DelegatorInterface {
      *@deprecated Use findCountByCondition() instead
      */
     public long findCountByAnd(String entityName, Map<String, ? extends Object> fields) throws GenericEntityException {
-        return findCountByCondition(entityName, new EntityFieldMap(fields, EntityOperator.AND), null, null);
+        return findCountByCondition(entityName, EntityCondition.makeCondition(fields, EntityOperator.AND), null, null);
     }
 
     /**
