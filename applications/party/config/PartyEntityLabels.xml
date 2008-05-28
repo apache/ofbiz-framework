@@ -462,7 +462,7 @@
     <property key="ContactMechPurposeType.description.PUR_RET_LOCATION">
         <value xml:lang="en">Purchase Return Address</value>
         <value xml:lang="fr">Adresse de retour des achats</value>
-        <value xml:lang="it">Indirizzo Reso Acquisto</value>
+        <value xml:lang="it">Indirizzo restituzione acquisto</value>
         <value xml:lang="ro">Adresa Returnare Cumparare</value>
         <value xml:lang="ru">Адрес возврата закупок</value>
         <value xml:lang="th">แสดงที่อยู่การซื้อ</value>
@@ -471,7 +471,7 @@
     <property key="ContactMechPurposeType.description.SHIPPING_LOCATION">
         <value xml:lang="en">Shipping Destination Address</value>
         <value xml:lang="fr">Adresse de livraison</value>
-        <value xml:lang="it">Indirizzo Destinazione Spedizione</value>
+        <value xml:lang="it">Indirizzo destinazione spedizione</value>
         <value xml:lang="ro">Adresa Destinatie Expediere</value>
         <value xml:lang="ru">Адрес доставки грузополучателя</value>
         <value xml:lang="th">ที่อยู่ปลายทางของการขนส่ง</value>
@@ -480,7 +480,7 @@
     <property key="ContactMechPurposeType.description.SHIP_ORIG_LOCATION">
         <value xml:lang="en">Shipping Origin Address</value>
         <value xml:lang="fr">Adresse d'expédition</value>
-        <value xml:lang="it">Indirizzo Origine Spedizione</value>
+        <value xml:lang="it">Indirizzo origine spedizione</value>
         <value xml:lang="ro">Adresa Origine Expediere</value>
         <value xml:lang="ru">Отгрузочный адрес отправителя</value>
         <value xml:lang="th">ที่อยู่เริ่มต้นของการส่งของ</value>

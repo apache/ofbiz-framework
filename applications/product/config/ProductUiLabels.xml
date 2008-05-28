@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <!--
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements. See the NOTICE file
@@ -6200,7 +6200,7 @@
         <value xml:lang="en">Add Package Info</value>
         <value xml:lang="es">Añadir Información al Paquete</value>
         <value xml:lang="fr">Ajouter une information au paquet</value>
-        <value xml:lang="it">Aggiungi Informazioni Pacco</value>
+        <value xml:lang="it">Aggiungi informazioni al pacco</value>
         <value xml:lang="ro">Adauga Informatii in Pachet</value>
         <value xml:lang="ru">Добавить информацию о месте</value>
         <value xml:lang="th">เพิ่มข้อมูลภานชะบรรจุ</value>
@@ -10014,7 +10014,7 @@
     <property key="ProductHighToLow">
         <value xml:lang="en">High to Low</value>
         <value xml:lang="fr">De plus haut au plus bas</value>
-        <value xml:lang="it">Dall'Alto al Basso</value>
+        <value xml:lang="it">Dall'alto al basso</value>
         <value xml:lang="ro">Din Sus in Jos</value>
         <value xml:lang="ru">Нисходящий</value>
         <value xml:lang="th">สูงถึงต่ำ</value>
@@ -11077,7 +11077,7 @@
     <property key="ProductLowToHigh">
         <value xml:lang="en">Low to High</value>
         <value xml:lang="fr">De bas en haut</value>
-        <value xml:lang="it">Dal Basso all'Alto</value>
+        <value xml:lang="it">Dal basso all'alto</value>
         <value xml:lang="ro">De Jos in Sus</value>
         <value xml:lang="ru">Восходящий</value>
         <value xml:lang="th">ต่ำไปสูง</value>
