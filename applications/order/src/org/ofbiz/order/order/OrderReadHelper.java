@@ -214,8 +214,8 @@ public class OrderReadHelper {
             GenericValue paymentPref = (GenericValue) ppit.next();
             List payments = FastList.newInstance();
             try {
-                List exprs = UtilMisc.toList(new EntityExpr("statusId", EntityOperator.EQUALS, "PMNT_RECEIVED"),
-                                            new EntityExpr("statusId", EntityOperator.EQUALS, "PMNT_CONFIRMED"));
+                List exprs = UtilMisc.toList(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PMNT_RECEIVED"),
+                                            EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PMNT_CONFIRMED"));
                 payments = paymentPref.getRelated("Payment");
                 payments = EntityUtil.filterByOr(payments, exprs);
             } catch (GenericEntityException e) {
@@ -773,8 +773,8 @@ public class OrderReadHelper {
         if (item.get("productId") != null) {
             try {
                 featureAppls = item.getDelegator().findByAndCache("ProductFeatureAppl", UtilMisc.toMap("productId", item.getString("productId")));
-                List filterExprs = UtilMisc.toList(new EntityExpr("productFeatureApplTypeId", EntityOperator.EQUALS, "STANDARD_FEATURE"));
-                filterExprs.add(new EntityExpr("productFeatureApplTypeId", EntityOperator.EQUALS, "REQUIRED_FEATURE"));
+                List filterExprs = UtilMisc.toList(EntityCondition.makeCondition("productFeatureApplTypeId", EntityOperator.EQUALS, "STANDARD_FEATURE"));
+                filterExprs.add(EntityCondition.makeCondition("productFeatureApplTypeId", EntityOperator.EQUALS, "REQUIRED_FEATURE"));
                 featureAppls = EntityUtil.filterByOr(featureAppls, filterExprs);
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Unable to get ProductFeatureAppl for item : " + item, module);
@@ -820,8 +820,8 @@ public class OrderReadHelper {
                 if (item.get("productId") != null) {
                     try {
                         featureAppls = item.getDelegator().findByAndCache("ProductFeatureAppl", UtilMisc.toMap("productId", item.getString("productId")));
-                        List filterExprs = UtilMisc.toList(new EntityExpr("productFeatureApplTypeId", EntityOperator.EQUALS, "STANDARD_FEATURE"));
-                        filterExprs.add(new EntityExpr("productFeatureApplTypeId", EntityOperator.EQUALS, "REQUIRED_FEATURE"));
+                        List filterExprs = UtilMisc.toList(EntityCondition.makeCondition("productFeatureApplTypeId", EntityOperator.EQUALS, "STANDARD_FEATURE"));
+                        filterExprs.add(EntityCondition.makeCondition("productFeatureApplTypeId", EntityOperator.EQUALS, "REQUIRED_FEATURE"));
                         featureAppls = EntityUtil.filterByOr(featureAppls, filterExprs);
                     } catch (GenericEntityException e) {
                         Debug.logError(e, "Unable to get ProductFeatureAppl for item : " + item, module);
@@ -1091,13 +1091,13 @@ public class OrderReadHelper {
 
             // get the payments of the desired type for these invoices TODO: in models where invoices can have many orders, this needs to be refined
             List conditions = UtilMisc.toList(
-                    new EntityExpr("statusId", EntityOperator.EQUALS, "PMNT_RECEIVED"),
-                    new EntityExpr("invoiceId", EntityOperator.IN, invoiceIds)
+                    EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PMNT_RECEIVED"),
+                    EntityCondition.makeCondition("invoiceId", EntityOperator.IN, invoiceIds)
                     );
             if (paymentMethodTypeId != null) {
-                conditions.add(new EntityExpr("paymentMethodTypeId", EntityOperator.EQUALS, paymentMethodTypeId));
+                conditions.add(EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.EQUALS, paymentMethodTypeId));
             }
-            EntityConditionList ecl = new EntityConditionList(conditions, EntityOperator.AND);
+            EntityConditionList ecl = EntityCondition.makeCondition(conditions, EntityOperator.AND);
             List payments = orderHeader.getDelegator().findList("PaymentAndApplication", ecl, null, null, null, true);
 
             for (Iterator iter = payments.iterator(); iter.hasNext(); ) {
@@ -1379,19 +1379,19 @@ public class OrderReadHelper {
     }
 
     public List getOrderItemAndShipGroupAssoc(String shipGroupSeqId) {
-        List exprs = UtilMisc.toList(new EntityExpr("shipGroupSeqId", EntityOperator.EQUALS, shipGroupSeqId));
+        List exprs = UtilMisc.toList(EntityCondition.makeCondition("shipGroupSeqId", EntityOperator.EQUALS, shipGroupSeqId));
         return EntityUtil.filterByAnd(getOrderItemAndShipGroupAssoc(), exprs);
     }
 
     public List getValidOrderItems() {
         List exprs = UtilMisc.toList(
-                new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"),
-                new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"));
+                EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"),
+                EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"));
         return EntityUtil.filterByAnd(getOrderItems(), exprs);
     }
 
     public boolean getPastEtaOrderItems(String orderId) {
-        /*List exprs = UtilMisc.toList(new EntityExpr("statusId", EntityOperator.EQUALS, "ITEM_APPROVED"));
+        /*List exprs = UtilMisc.toList(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "ITEM_APPROVED"));
         List itemsApproved = EntityUtil.filterByAnd(getOrderItems(), exprs);
         Iterator i = itemsApproved.iterator();
         while (i.hasNext()) {
@@ -1445,7 +1445,7 @@ public class OrderReadHelper {
     }
 
     public boolean getPartiallyReceivedItems() {    
-        /*List exprs = UtilMisc.toList(new EntityExpr("statusId", EntityOperator.EQUALS, "ITEM_APPROVED"));
+        /*List exprs = UtilMisc.toList(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "ITEM_APPROVED"));
         List itemsApproved = EntityUtil.filterByAnd(getOrderItems(), exprs);
         Iterator i = itemsApproved.iterator();
         while (i.hasNext()) {
@@ -1486,14 +1486,14 @@ public class OrderReadHelper {
     public List getValidOrderItems(String shipGroupSeqId) {
         if (shipGroupSeqId == null) return getValidOrderItems();
         List exprs = UtilMisc.toList(
-                new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"),
-                new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"),
-                new EntityExpr("shipGroupSeqId", EntityOperator.EQUALS, shipGroupSeqId));
+                EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"),
+                EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"),
+                EntityCondition.makeCondition("shipGroupSeqId", EntityOperator.EQUALS, shipGroupSeqId));
         return EntityUtil.filterByAnd(getOrderItemAndShipGroupAssoc(), exprs);
     }
 
     public GenericValue getOrderItem(String orderItemSeqId) {
-        List exprs = UtilMisc.toList(new EntityExpr("orderItemSeqId", EntityOperator.EQUALS, orderItemSeqId));
+        List exprs = UtilMisc.toList(EntityCondition.makeCondition("orderItemSeqId", EntityOperator.EQUALS, orderItemSeqId));
         return EntityUtil.getFirst(EntityUtil.filterByAnd(getOrderItems(), exprs));
     }
 
@@ -1501,8 +1501,8 @@ public class OrderReadHelper {
         List digitalItems = new ArrayList();
         // only approved or complete items apply
         List exprs = UtilMisc.toList(
-                new EntityExpr("statusId", EntityOperator.EQUALS, "ITEM_APPROVED"),
-                new EntityExpr("statusId", EntityOperator.EQUALS, "ITEM_COMPLETED"));
+                EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "ITEM_APPROVED"),
+                EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "ITEM_COMPLETED"));
         List items = EntityUtil.filterByOr(getOrderItems(), exprs);
         Iterator i = items.iterator();
         while (i.hasNext()) {
@@ -1543,9 +1543,9 @@ public class OrderReadHelper {
                                     Debug.logError("Unable to get ProductContent from Product", module);
                                 }
                                 List cExprs = UtilMisc.toList(
-                                        new EntityExpr("productContentTypeId", EntityOperator.EQUALS, "DIGITAL_DOWNLOAD"),
-                                        new EntityExpr("productContentTypeId", EntityOperator.EQUALS, "FULFILLMENT_EMAIL"),
-                                        new EntityExpr("productContentTypeId", EntityOperator.EQUALS, "FULFILLMENT_EXTERNAL"));
+                                        EntityCondition.makeCondition("productContentTypeId", EntityOperator.EQUALS, "DIGITAL_DOWNLOAD"),
+                                        EntityCondition.makeCondition("productContentTypeId", EntityOperator.EQUALS, "FULFILLMENT_EMAIL"),
+                                        EntityCondition.makeCondition("productContentTypeId", EntityOperator.EQUALS, "FULFILLMENT_EXTERNAL"));
                                 // add more as needed
                                 productContents = EntityUtil.filterByDate(productContents);
                                 productContents = EntityUtil.filterByOr(productContents, cExprs);
@@ -1741,14 +1741,14 @@ public class OrderReadHelper {
         List returnedItems = new ArrayList(returnedItemsBase.size());
 
         // filter just order items
-        List orderItemExprs = UtilMisc.toList(new EntityExpr("returnItemTypeId", EntityOperator.EQUALS, "RET_PROD_ITEM"));
-        orderItemExprs.add(new EntityExpr("returnItemTypeId", EntityOperator.EQUALS, "RET_FPROD_ITEM"));
-        orderItemExprs.add(new EntityExpr("returnItemTypeId", EntityOperator.EQUALS, "RET_DPROD_ITEM"));
-        orderItemExprs.add(new EntityExpr("returnItemTypeId", EntityOperator.EQUALS, "RET_FDPROD_ITEM"));
-        orderItemExprs.add(new EntityExpr("returnItemTypeId", EntityOperator.EQUALS, "RET_PROD_FEATR_ITEM"));
-        orderItemExprs.add(new EntityExpr("returnItemTypeId", EntityOperator.EQUALS, "RET_SPROD_ITEM"));
-        orderItemExprs.add(new EntityExpr("returnItemTypeId", EntityOperator.EQUALS, "RET_WE_ITEM"));
-        orderItemExprs.add(new EntityExpr("returnItemTypeId", EntityOperator.EQUALS, "RET_TE_ITEM"));
+        List orderItemExprs = UtilMisc.toList(EntityCondition.makeCondition("returnItemTypeId", EntityOperator.EQUALS, "RET_PROD_ITEM"));
+        orderItemExprs.add(EntityCondition.makeCondition("returnItemTypeId", EntityOperator.EQUALS, "RET_FPROD_ITEM"));
+        orderItemExprs.add(EntityCondition.makeCondition("returnItemTypeId", EntityOperator.EQUALS, "RET_DPROD_ITEM"));
+        orderItemExprs.add(EntityCondition.makeCondition("returnItemTypeId", EntityOperator.EQUALS, "RET_FDPROD_ITEM"));
+        orderItemExprs.add(EntityCondition.makeCondition("returnItemTypeId", EntityOperator.EQUALS, "RET_PROD_FEATR_ITEM"));
+        orderItemExprs.add(EntityCondition.makeCondition("returnItemTypeId", EntityOperator.EQUALS, "RET_SPROD_ITEM"));
+        orderItemExprs.add(EntityCondition.makeCondition("returnItemTypeId", EntityOperator.EQUALS, "RET_WE_ITEM"));
+        orderItemExprs.add(EntityCondition.makeCondition("returnItemTypeId", EntityOperator.EQUALS, "RET_TE_ITEM"));
         returnedItemsBase = EntityUtil.filterByOr(returnedItemsBase, orderItemExprs);
 
         // get only the RETURN_RECEIVED and RETURN_COMPLETED statusIds
@@ -1788,7 +1788,7 @@ public class OrderReadHelper {
         } else {
             // otherwise get all of them except cancelled ones
             returnedItems.addAll(EntityUtil.filterByAnd(returnedItemsBase,
-                    UtilMisc.toList(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "RETURN_CANCELLED"))));
+                    UtilMisc.toList(EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "RETURN_CANCELLED"))));
         }
         BigDecimal returnedAmount = ZERO;
         Iterator i = returnedItems.iterator();
@@ -1991,10 +1991,10 @@ public class OrderReadHelper {
 
     public BigDecimal getItemPickedQuantityBd(GenericValue orderItem) {
         BigDecimal quantityPicked = ZERO;
-        EntityConditionList pickedConditions = new EntityConditionList(UtilMisc.toList(
-                new EntityExpr("orderId", EntityOperator.EQUALS, orderItem.get("orderId")),
-                new EntityExpr("orderItemSeqId", EntityOperator.EQUALS, orderItem.getString("orderItemSeqId")),
-                new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "PICKLIST_CANCELLED")),
+        EntityConditionList pickedConditions = EntityCondition.makeCondition(UtilMisc.toList(
+                EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderItem.get("orderId")),
+                EntityCondition.makeCondition("orderItemSeqId", EntityOperator.EQUALS, orderItem.getString("orderItemSeqId")),
+                EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PICKLIST_CANCELLED")),
                 EntityOperator.AND);
         
         List picked = null;
@@ -2273,12 +2273,12 @@ public class OrderReadHelper {
     }
 
     public static List getOrderHeaderAdjustments(List adjustments, String shipGroupSeqId) {
-        List contraints1 = UtilMisc.toList(new EntityExpr("orderItemSeqId", EntityOperator.EQUALS, null));
-        List contraints2 = UtilMisc.toList(new EntityExpr("orderItemSeqId", EntityOperator.EQUALS, DataModelConstants.SEQ_ID_NA));
-        List contraints3 = UtilMisc.toList(new EntityExpr("orderItemSeqId", EntityOperator.EQUALS, ""));
+        List contraints1 = UtilMisc.toList(EntityCondition.makeCondition("orderItemSeqId", EntityOperator.EQUALS, null));
+        List contraints2 = UtilMisc.toList(EntityCondition.makeCondition("orderItemSeqId", EntityOperator.EQUALS, DataModelConstants.SEQ_ID_NA));
+        List contraints3 = UtilMisc.toList(EntityCondition.makeCondition("orderItemSeqId", EntityOperator.EQUALS, ""));
         List contraints4 = FastList.newInstance();
         if (shipGroupSeqId != null) {
-            contraints4.add(new EntityExpr("shipGroupSeqId", EntityOperator.EQUALS, shipGroupSeqId));
+            contraints4.add(EntityCondition.makeCondition("shipGroupSeqId", EntityOperator.EQUALS, shipGroupSeqId));
         }
         List toFilter = null;
         List adj = FastList.newInstance();
@@ -2296,13 +2296,13 @@ public class OrderReadHelper {
     }
 
     public static List getOrderHeaderStatuses(List orderStatuses) {
-        List contraints1 = UtilMisc.toList(new EntityExpr("orderItemSeqId", EntityOperator.EQUALS, null));
-        contraints1.add(new EntityExpr("orderItemSeqId", EntityOperator.EQUALS, DataModelConstants.SEQ_ID_NA));
-        contraints1.add(new EntityExpr("orderItemSeqId", EntityOperator.EQUALS, ""));
+        List contraints1 = UtilMisc.toList(EntityCondition.makeCondition("orderItemSeqId", EntityOperator.EQUALS, null));
+        contraints1.add(EntityCondition.makeCondition("orderItemSeqId", EntityOperator.EQUALS, DataModelConstants.SEQ_ID_NA));
+        contraints1.add(EntityCondition.makeCondition("orderItemSeqId", EntityOperator.EQUALS, ""));
         
-        List contraints2 = UtilMisc.toList(new EntityExpr("orderPaymentPreferenceId", EntityOperator.EQUALS, null));
-        contraints2.add(new EntityExpr("orderPaymentPreferenceId", EntityOperator.EQUALS, DataModelConstants.SEQ_ID_NA));
-        contraints2.add(new EntityExpr("orderPaymentPreferenceId", EntityOperator.EQUALS, ""));
+        List contraints2 = UtilMisc.toList(EntityCondition.makeCondition("orderPaymentPreferenceId", EntityOperator.EQUALS, null));
+        contraints2.add(EntityCondition.makeCondition("orderPaymentPreferenceId", EntityOperator.EQUALS, DataModelConstants.SEQ_ID_NA));
+        contraints2.add(EntityCondition.makeCondition("orderPaymentPreferenceId", EntityOperator.EQUALS, ""));
         
         List newOrderStatuses = FastList.newInstance();
         newOrderStatuses.addAll(EntityUtil.filterByOr(orderStatuses, contraints1));
@@ -2556,10 +2556,10 @@ public class OrderReadHelper {
     }
 
     public static List getOrderItemStatuses(GenericValue orderItem, List orderStatuses) {
-        List contraints1 = UtilMisc.toList(new EntityExpr("orderItemSeqId", EntityOperator.EQUALS, orderItem.get("orderItemSeqId")));
-        List contraints2 = UtilMisc.toList(new EntityExpr("orderPaymentPreferenceId", EntityOperator.EQUALS, null));
-        contraints2.add(new EntityExpr("orderPaymentPreferenceId", EntityOperator.EQUALS, DataModelConstants.SEQ_ID_NA));
-        contraints2.add(new EntityExpr("orderPaymentPreferenceId", EntityOperator.EQUALS, ""));
+        List contraints1 = UtilMisc.toList(EntityCondition.makeCondition("orderItemSeqId", EntityOperator.EQUALS, orderItem.get("orderItemSeqId")));
+        List contraints2 = UtilMisc.toList(EntityCondition.makeCondition("orderPaymentPreferenceId", EntityOperator.EQUALS, null));
+        contraints2.add(EntityCondition.makeCondition("orderPaymentPreferenceId", EntityOperator.EQUALS, DataModelConstants.SEQ_ID_NA));
+        contraints2.add(EntityCondition.makeCondition("orderPaymentPreferenceId", EntityOperator.EQUALS, ""));
         
         List newOrderStatuses = FastList.newInstance();
         newOrderStatuses.addAll(EntityUtil.filterByAnd(orderStatuses, contraints1));
@@ -2667,12 +2667,12 @@ public class OrderReadHelper {
         double quantity = 0.0;
 
         // first find all open purchase orders
-        List openOrdersExprs = UtilMisc.toList(new EntityExpr("orderTypeId", EntityOperator.EQUALS, "PURCHASE_ORDER"));
-        openOrdersExprs.add(new EntityExpr("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"));
-        openOrdersExprs.add(new EntityExpr("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"));
-        openOrdersExprs.add(new EntityExpr("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_COMPLETED"));
-        openOrdersExprs.add(new EntityExpr("productId", EntityOperator.EQUALS, productId));
-        EntityCondition openOrdersCond = new EntityConditionList(openOrdersExprs, EntityOperator.AND);
+        List openOrdersExprs = UtilMisc.toList(EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "PURCHASE_ORDER"));
+        openOrdersExprs.add(EntityCondition.makeCondition("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"));
+        openOrdersExprs.add(EntityCondition.makeCondition("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"));
+        openOrdersExprs.add(EntityCondition.makeCondition("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_COMPLETED"));
+        openOrdersExprs.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId));
+        EntityCondition openOrdersCond = EntityCondition.makeCondition(openOrdersExprs, EntityOperator.AND);
         List openOrders = null;
         try {
             openOrders = delegator.findList("OrderHeaderAndItems", openOrdersCond, null, null, null, false);
@@ -2742,7 +2742,7 @@ public class OrderReadHelper {
                 GenericValue orderAdjustment = (GenericValue) orderAdjIterator.next();
                 long count = 0;
                 try {
-                    count = orderHeader.getDelegator().findCountByCondition("ReturnAdjustment", new EntityExpr("orderAdjustmentId", EntityOperator.EQUALS, orderAdjustment.get("orderAdjustmentId")), null, null);
+                    count = orderHeader.getDelegator().findCountByCondition("ReturnAdjustment", EntityCondition.makeCondition("orderAdjustmentId", EntityOperator.EQUALS, orderAdjustment.get("orderAdjustmentId")), null, null);
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                 }
@@ -2808,11 +2808,11 @@ public class OrderReadHelper {
    }
 
    public static List getOrderPaymentStatuses(List orderStatuses) {
-       List contraints1 = UtilMisc.toList(new EntityExpr("orderItemSeqId", EntityOperator.EQUALS, null));
-       contraints1.add(new EntityExpr("orderItemSeqId", EntityOperator.EQUALS, DataModelConstants.SEQ_ID_NA));
-       contraints1.add(new EntityExpr("orderItemSeqId", EntityOperator.EQUALS, ""));
+       List contraints1 = UtilMisc.toList(EntityCondition.makeCondition("orderItemSeqId", EntityOperator.EQUALS, null));
+       contraints1.add(EntityCondition.makeCondition("orderItemSeqId", EntityOperator.EQUALS, DataModelConstants.SEQ_ID_NA));
+       contraints1.add(EntityCondition.makeCondition("orderItemSeqId", EntityOperator.EQUALS, ""));
        
-       List contraints2 = UtilMisc.toList(new EntityExpr("orderPaymentPreferenceId", EntityOperator.NOT_EQUAL, null));
+       List contraints2 = UtilMisc.toList(EntityCondition.makeCondition("orderPaymentPreferenceId", EntityOperator.NOT_EQUAL, null));
        List newOrderStatuses = FastList.newInstance();
        newOrderStatuses.addAll(EntityUtil.filterByOr(orderStatuses, contraints1));
        

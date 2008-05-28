@@ -114,22 +114,22 @@ public class SimpleTaxServices {
         List adjustments = new ArrayList();
 
         // store expr
-        EntityCondition storeCond = new EntityExpr("productStoreId", EntityOperator.EQUALS, productStoreId);
+        EntityCondition storeCond = EntityCondition.makeCondition("productStoreId", EntityOperator.EQUALS, productStoreId);
 
         // build the country expressions
-        List countryExprs = UtilMisc.toList(new EntityExpr("countryGeoId", EntityOperator.EQUALS, countryCode), new EntityExpr("countryGeoId", EntityOperator.EQUALS, "_NA_"));
-        EntityCondition countryCond = new EntityConditionList(countryExprs, EntityOperator.OR);
+        List countryExprs = UtilMisc.toList(EntityCondition.makeCondition("countryGeoId", EntityOperator.EQUALS, countryCode), EntityCondition.makeCondition("countryGeoId", EntityOperator.EQUALS, "_NA_"));
+        EntityCondition countryCond = EntityCondition.makeCondition(countryExprs, EntityOperator.OR);
 
         // build the state expression
-        List stateExprs = UtilMisc.toList(new EntityExpr("stateProvinceGeoId", EntityOperator.EQUALS, stateCode), new EntityExpr("stateProvinceGeoId", EntityOperator.EQUALS, "_NA_"));
-        EntityCondition stateCond = new EntityConditionList(stateExprs, EntityOperator.OR);
+        List stateExprs = UtilMisc.toList(EntityCondition.makeCondition("stateProvinceGeoId", EntityOperator.EQUALS, stateCode), EntityCondition.makeCondition("stateProvinceGeoId", EntityOperator.EQUALS, "_NA_"));
+        EntityCondition stateCond = EntityCondition.makeCondition(stateExprs, EntityOperator.OR);
 
         // build the tax cat expression
-        List taxCatExprs = UtilMisc.toList(new EntityExpr("taxCategory", EntityOperator.EQUALS, "_NA_"));
+        List taxCatExprs = UtilMisc.toList(EntityCondition.makeCondition("taxCategory", EntityOperator.EQUALS, "_NA_"));
         if (item != null && item.get("taxCategory") != null) {
-            taxCatExprs.add(new EntityExpr("taxCategory", EntityOperator.EQUALS, item.getString("taxCategory")));
+            taxCatExprs.add(EntityCondition.makeCondition("taxCategory", EntityOperator.EQUALS, item.getString("taxCategory")));
         }
-        EntityCondition taxCatCond = new EntityConditionList(taxCatExprs, EntityOperator.OR);
+        EntityCondition taxCatCond = EntityCondition.makeCondition(taxCatExprs, EntityOperator.OR);
 
         // build the main condition clause
         List mainExprs = UtilMisc.toList(storeCond, countryCond, stateCond);
@@ -138,7 +138,7 @@ public class SimpleTaxServices {
         } else {
             mainExprs.add(taxCatExprs.get(0));
         }
-        EntityCondition mainCondition = new EntityConditionList(mainExprs, EntityOperator.AND);
+        EntityCondition mainCondition = EntityCondition.makeCondition(mainExprs, EntityOperator.AND);
 
         // create the orderby clause
         List orderList = UtilMisc.toList("minItemPrice", "minPurchase", "fromDate");
@@ -222,11 +222,11 @@ public class SimpleTaxServices {
                         }
 
                         List ptiConditionList = UtilMisc.toList(
-                                new EntityExpr("partyId", EntityOperator.IN, billToPartyIdSet),
-                                new EntityExpr("taxAuthGeoId", EntityOperator.EQUALS, primaryGeoId));
-                        ptiConditionList.add(new EntityExpr("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, nowTimestamp));
-                        ptiConditionList.add(new EntityExpr(new EntityExpr("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, new EntityExpr("thruDate", EntityOperator.GREATER_THAN, nowTimestamp)));
-                        EntityCondition ptiCondition = new EntityConditionList(ptiConditionList, EntityOperator.AND);
+                                EntityCondition.makeCondition("partyId", EntityOperator.IN, billToPartyIdSet),
+                                EntityCondition.makeCondition("taxAuthGeoId", EntityOperator.EQUALS, primaryGeoId));
+                        ptiConditionList.add(EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, nowTimestamp));
+                        ptiConditionList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN, nowTimestamp)));
+                        EntityCondition ptiCondition = EntityCondition.makeCondition(ptiConditionList, EntityOperator.AND);
                         // sort by -fromDate to get the newest (largest) first, just in case there is more than one, we only want the most recent valid one, should only be one per jurisdiction...
                         List partyTaxAuthInfos = delegator.findList("PartyTaxAuthInfo", ptiCondition, null, UtilMisc.toList("-fromDate"), null, false);
                         if (partyTaxAuthInfos.size() > 0) {

@@ -19,6 +19,7 @@
 package org.ofbiz.product.product;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -28,8 +29,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-import java.sql.Timestamp;
-
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -43,13 +42,10 @@ import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.webapp.stats.VisitHandler;
-import org.ofbiz.webapp.control.RequestHandler;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.condition.EntityConditionList;
-import org.ofbiz.entity.condition.EntityExpr;
+import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.util.EntityListIterator;
@@ -65,6 +61,8 @@ import org.ofbiz.product.product.ProductSearch.ProductSearchContext;
 import org.ofbiz.product.product.ProductSearch.ResultSortOrder;
 import org.ofbiz.product.product.ProductSearch.SortKeywordRelevancy;
 import org.ofbiz.product.store.ProductStoreWorker;
+import org.ofbiz.webapp.control.RequestHandler;
+import org.ofbiz.webapp.stats.VisitHandler;
 
 /**
  *  Utility class with methods to prepare and perform ProductSearch operations in the content of an HttpSession
@@ -885,13 +883,13 @@ public class ProductSearchSession {
                 // always include the members of the addOnTopProdCategoryId
                 Timestamp now = UtilDateTime.nowTimestamp();
                 List addOnTopProdCondList = FastList.newInstance();
-                addOnTopProdCondList.add(new EntityExpr(new EntityExpr("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, new EntityExpr("thruDate", EntityOperator.GREATER_THAN, now)));
-                addOnTopProdCondList.add(new EntityExpr("fromDate", EntityOperator.LESS_THAN, now));
-                addOnTopProdCondList.add(new EntityExpr("productCategoryId", EntityOperator.EQUALS, addOnTopProdCategoryId));
+                addOnTopProdCondList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN, now)));
+                addOnTopProdCondList.add(EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN, now));
+                addOnTopProdCondList.add(EntityCondition.makeCondition("productCategoryId", EntityOperator.EQUALS, addOnTopProdCategoryId));
                 EntityFindOptions findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
                 EntityListIterator pli = null;
                 try {
-                    pli = delegator.find("ProductCategoryMember", new EntityConditionList(addOnTopProdCondList, EntityOperator.AND), null, UtilMisc.toSet("productId", "sequenceNum"), UtilMisc.toList("sequenceNum"), findOpts);
+                    pli = delegator.find("ProductCategoryMember", EntityCondition.makeCondition(addOnTopProdCondList, EntityOperator.AND), null, UtilMisc.toSet("productId", "sequenceNum"), UtilMisc.toList("sequenceNum"), findOpts);
                     addOnTopProductCategoryMembers = pli.getPartialList(lowIndex, viewSize);
                     addOnTopListSize = addOnTopProductCategoryMembers.size();
                     for (int i = 0; i < addOnTopProductCategoryMembers.size(); i++) {

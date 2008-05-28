@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -15,16 +15,17 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- *******************************************************************************/
+ */
 
 package org.ofbiz.party.party;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.sql.Timestamp;
+
 import javax.servlet.ServletRequest;
 import javax.servlet.jsp.PageContext;
 
@@ -39,8 +40,7 @@ import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.entity.condition.EntityConditionList;
-import org.ofbiz.entity.condition.EntityExpr;
+import org.ofbiz.entity.condition.EntityFunction;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.util.EntityUtil;
@@ -233,9 +233,9 @@ public class PartyWorker {
             if ("**".equals(stateProvinceGeoId)) {
                 Debug.logWarning("Illegal state code passed!", module);
             } else if ("NA".equals(stateProvinceGeoId)) {
-                addrExprs.add(new EntityExpr("stateProvinceGeoId", EntityOperator.EQUALS, "_NA_"));
+                addrExprs.add(EntityCondition.makeCondition("stateProvinceGeoId", EntityOperator.EQUALS, "_NA_"));
             } else {
-                addrExprs.add(new EntityExpr("stateProvinceGeoId", EntityOperator.EQUALS, stateProvinceGeoId.toUpperCase()));
+                addrExprs.add(EntityCondition.makeCondition("stateProvinceGeoId", EntityOperator.EQUALS, stateProvinceGeoId.toUpperCase()));
             }
         }
 
@@ -245,26 +245,26 @@ public class PartyWorker {
                 postalCode = zipSplit[0];
                 postalCodeExt = zipSplit[1];
             }
-            addrExprs.add(new EntityExpr("postalCode", EntityOperator.EQUALS, postalCode));
+            addrExprs.add(EntityCondition.makeCondition("postalCode", EntityOperator.EQUALS, postalCode));
         }
 
         if (postalCodeExt != null) {
-            addrExprs.add(new EntityExpr("postalCodeExt", EntityOperator.EQUALS, postalCodeExt));
+            addrExprs.add(EntityCondition.makeCondition("postalCodeExt", EntityOperator.EQUALS, postalCodeExt));
         }
 
         city = city.replaceAll("'", "\\\\'");
-        addrExprs.add(new EntityExpr("city", true, EntityOperator.EQUALS, city, true));
+        addrExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("city"), EntityOperator.EQUALS, EntityFunction.UPPER(city)));
 
         if (countryGeoId != null) {
-            addrExprs.add(new EntityExpr("countryGeoId", EntityOperator.EQUALS, countryGeoId.toUpperCase()));
+            addrExprs.add(EntityCondition.makeCondition("countryGeoId", EntityOperator.EQUALS, countryGeoId.toUpperCase()));
         }
 
         // limit to only non-disabled status
-        addrExprs.add(new EntityExpr(new EntityExpr("statusId", EntityOperator.EQUALS, null),
-                EntityOperator.OR, new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "PARTY_DISABLED")));
+        addrExprs.add(EntityCondition.makeCondition(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, null),
+                EntityOperator.OR, EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PARTY_DISABLED")));
 
         List sort = UtilMisc.toList("-fromDate");
-        EntityCondition addrCond = new EntityConditionList(addrExprs, EntityOperator.AND);
+        EntityCondition addrCond = EntityCondition.makeCondition(addrExprs, EntityOperator.AND);
         List addresses = EntityUtil.filterByDate(delegator.findList("PartyAndPostalAddress", addrCond, null, sort, null, false));
         //Debug.log("Checking for matching address: " + addrCond.toString() + "[" + addresses.size() + "]", module);
 

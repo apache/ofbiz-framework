@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -15,7 +15,7 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- *******************************************************************************/
+ */
 
 package org.ofbiz.party.party;
 
@@ -29,6 +29,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import javolution.util.FastList;
+
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
@@ -50,10 +51,10 @@ import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.util.EntityTypeUtil;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.DispatchContext;
+import org.ofbiz.service.GenericServiceException;
+import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
-import org.ofbiz.service.LocalDispatcher;
-import org.ofbiz.service.GenericServiceException;
 
 /**
  * Services for Party/Person/Group maintenance
@@ -652,7 +653,7 @@ public class PartyServices {
         }
 
         try {
-            EntityExpr ee = new EntityExpr(new EntityFunction.UPPER(new EntityFieldValue("infoString")), EntityOperator.EQUALS, new EntityFunction.UPPER(email.toUpperCase()));
+            EntityExpr ee = EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("infoString"), EntityOperator.EQUALS, EntityFunction.UPPER(email.toUpperCase()));
             List c = EntityUtil.filterByDate(delegator.findList("PartyAndContactMech", ee, null, UtilMisc.toList("infoString"), null, false), true);
 
             if (Debug.verboseOn()) Debug.logVerbose("List: " + c, module);
@@ -691,7 +692,7 @@ public class PartyServices {
         }
 
         try {
-            EntityExpr ee = new EntityExpr(new EntityFunction.UPPER(new EntityFieldValue("infoString")), EntityOperator.LIKE, new EntityFunction.UPPER(("%" + email.toUpperCase()) + "%"));
+            EntityExpr ee = EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("infoString"), EntityOperator.LIKE, EntityFunction.UPPER(("%" + email.toUpperCase()) + "%"));
             List c = EntityUtil.filterByDate(delegator.findList("PartyAndContactMech", ee, null, UtilMisc.toList("infoString"), null, false), true);
 
             if (Debug.verboseOn()) Debug.logVerbose("List: " + c, module);
@@ -734,7 +735,7 @@ public class PartyServices {
             return ServiceUtil.returnError("Required parameter 'userLoginId' cannot be empty.");
 
         try {
-            EntityExpr ee = new EntityExpr(new EntityFunction.UPPER(new EntityFieldValue("userLoginId")), EntityOperator.LIKE, new EntityFunction.UPPER("%" + userLoginId.toUpperCase() + "%"));
+            EntityExpr ee = EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("userLoginId"), EntityOperator.LIKE, EntityFunction.UPPER("%" + userLoginId.toUpperCase() + "%"));
             Collection ulc = delegator.findList("PartyAndUserLogin", ee, null, UtilMisc.toList("userloginId"), null, false);
 
             if (Debug.verboseOn()) Debug.logVerbose("Collection: " + ulc, module);
@@ -786,10 +787,9 @@ public class PartyServices {
         }
 
         try {
-            EntityConditionList<EntityExpr> ecl = new EntityConditionList<EntityExpr>(UtilMisc.toList(
-                    new EntityExpr(new EntityFunction.UPPER(new EntityFieldValue("firstName")), EntityOperator.LIKE, new EntityFunction.UPPER("%" + firstName.toUpperCase() + "%")),
-                    new EntityExpr(new EntityFunction.UPPER(new EntityFieldValue("lastName")), EntityOperator.LIKE, new EntityFunction.UPPER("%" + lastName.toUpperCase() + "%"))),
-                    EntityOperator.AND);
+            EntityConditionList<EntityExpr> ecl = EntityCondition.makeCondition(EntityOperator.AND,
+                    EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("firstName"), EntityOperator.LIKE, EntityFunction.UPPER("%" + firstName.toUpperCase() + "%")),
+                    EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("lastName"), EntityOperator.LIKE, EntityFunction.UPPER("%" + lastName.toUpperCase() + "%")));
             Collection pc = delegator.findList("Person", ecl, null, UtilMisc.toList("lastName", "firstName", "partyId"), null, false);
 
             if (Debug.infoOn()) Debug.logInfo("PartyFromPerson number found: " + pc.size(), module);
@@ -832,7 +832,7 @@ public class PartyServices {
         }
 
         try {
-            EntityExpr ee = new EntityExpr(new EntityFunction.UPPER(new EntityFieldValue("groupName")), EntityOperator.LIKE, new EntityFunction.UPPER("%" + groupName.toUpperCase() + "%"));
+            EntityExpr ee = EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("groupName"), EntityOperator.LIKE, EntityFunction.UPPER("%" + groupName.toUpperCase() + "%"));
             Collection pc = delegator.findList("PartyGroup", ee, null, UtilMisc.toList("groupName", "partyId"), null, false);
 
             if (Debug.infoOn()) Debug.logInfo("PartyFromGroup number found: " + pc.size(), module);
@@ -1060,7 +1060,10 @@ public class PartyServices {
                 paramList = paramList + "&partyIdFrom=" + partyIdFrom;
                 dynamicView.addAlias("PR", "partyIdFrom");
                 // add the expr 
-                andExprs.add(new EntityExpr(new EntityExpr("partyIdFrom", true, EntityOperator.EQUALS, partyIdFrom, true), EntityOperator.AND, new EntityExpr("partyRelationshipTypeId", true, EntityOperator.EQUALS, partyRelationshipTypeId, true)));
+                andExprs.add(EntityCondition.makeCondition(
+                        EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("partyIdFrom"), EntityOperator.EQUALS, EntityFunction.UPPER(partyIdFrom)), 
+                        EntityOperator.AND, 
+                        EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("partyRelationshipTypeId"), EntityOperator.EQUALS, EntityFunction.UPPER(partyRelationshipTypeId))));
                 fieldsToSelect.add("partyIdTo");
             }
             
@@ -1076,23 +1079,23 @@ public class PartyServices {
                 // check for a partyId
                 if (partyId != null && partyId.length() > 0) {
                     paramList = paramList + "&partyId=" + partyId;
-                    andExprs.add(new EntityExpr("partyId", true, EntityOperator.LIKE, "%"+partyId+"%", true));
+                    andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("partyId"), EntityOperator.LIKE, EntityFunction.UPPER("%"+partyId+"%")));
                 }
 
                 // now the statusId - send ANY for all statuses; leave null for just enabled; or pass a specific status
                 if (statusId != null) {
                     paramList = paramList + "&statusId=" + statusId;
                     if (!"ANY".equalsIgnoreCase(statusId)) {
-                        andExprs.add(new EntityExpr("statusId", EntityOperator.EQUALS, statusId));
+                        andExprs.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, statusId));
                     }
                 } else {
                     // NOTE: _must_ explicitly allow null as it is not included in a not equal in many databases... odd but true
-                    andExprs.add(new EntityExpr(new EntityExpr("statusId", EntityOperator.EQUALS, null), EntityOperator.OR, new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "PARTY_DISABLED")));
+                    andExprs.add(EntityCondition.makeCondition(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PARTY_DISABLED")));
                 }
                 // check for partyTypeId
                 if (partyTypeId != null && !"ANY".equals(partyTypeId)) {
                     paramList = paramList + "&partyTypeId=" + partyTypeId;
-                    andExprs.add(new EntityExpr("partyTypeId", true, EntityOperator.LIKE, "%"+partyTypeId+"%", true));
+                    andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("partyTypeId"), EntityOperator.LIKE, EntityFunction.UPPER("%"+partyTypeId+"%")));
                 }
 
                 // ----
@@ -1109,7 +1112,7 @@ public class PartyServices {
                     dynamicView.addViewLink("PT", "UL", Boolean.FALSE, ModelKeyMap.makeKeyMapList("partyId"));
 
                     // add the expr
-                    andExprs.add(new EntityExpr("userLoginId", true, EntityOperator.LIKE, "%"+userLoginId+"%", true));
+                    andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("userLoginId"), EntityOperator.LIKE, EntityFunction.UPPER("%"+userLoginId+"%")));
 
                     fieldsToSelect.add("userLoginId");
                 }
@@ -1128,7 +1131,7 @@ public class PartyServices {
                     dynamicView.addViewLink("PT", "PG", Boolean.FALSE, ModelKeyMap.makeKeyMapList("partyId"));
 
                     // add the expr
-                    andExprs.add(new EntityExpr("groupName", true, EntityOperator.LIKE, "%"+groupName+"%", true));
+                    andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("groupName"), EntityOperator.LIKE, EntityFunction.UPPER("%"+groupName+"%")));
 
                     fieldsToSelect.add("groupName");
                 }
@@ -1153,13 +1156,13 @@ public class PartyServices {
                 // filter on firstName
                 if (firstName != null && firstName.length() > 0) {
                     paramList = paramList + "&firstName=" + firstName;
-                    andExprs.add(new EntityExpr("firstName", true, EntityOperator.LIKE, "%"+firstName+"%", true));
+                    andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("firstName"), EntityOperator.LIKE, EntityFunction.UPPER("%"+firstName+"%")));
                 }
 
                 // filter on lastName
                 if (lastName != null && lastName.length() > 0) {
                     paramList = paramList + "&lastName=" + lastName;
-                    andExprs.add(new EntityExpr("lastName", true, EntityOperator.LIKE, "%"+lastName+"%", true));
+                    andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("lastName"), EntityOperator.LIKE, EntityFunction.UPPER("%"+lastName+"%")));
                 }
 
                 // ----
@@ -1176,7 +1179,7 @@ public class PartyServices {
                     dynamicView.addViewLink("PT", "PR", Boolean.FALSE, ModelKeyMap.makeKeyMapList("partyId"));
 
                     // add the expr
-                    andExprs.add(new EntityExpr("roleTypeId", EntityOperator.EQUALS, roleTypeId));
+                    andExprs.add(EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, roleTypeId));
 
                     fieldsToSelect.add("roleTypeId");
                 }
@@ -1202,21 +1205,21 @@ public class PartyServices {
                     paramList = paramList + "&inventoryItemId=" + inventoryItemId;
                     dynamicView.addAlias("II", "inventoryItemId");
                     // add the expr
-                    andExprs.add(new EntityExpr("inventoryItemId", true, EntityOperator.LIKE, "%" + inventoryItemId + "%", true));
+                    andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("inventoryItemId"), EntityOperator.LIKE, EntityFunction.UPPER("%" + inventoryItemId + "%")));
                     fieldsToSelect.add("inventoryItemId");
                 }
                 if (UtilValidate.isNotEmpty(serialNumber)) {
                     paramList = paramList + "&serialNumber=" + serialNumber;
                     dynamicView.addAlias("II", "serialNumber");
                     // add the expr
-                    andExprs.add(new EntityExpr("serialNumber", true, EntityOperator.LIKE, "%" + serialNumber + "%", true));
+                    andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("serialNumber"), EntityOperator.LIKE, EntityFunction.UPPER("%" + serialNumber + "%")));
                     fieldsToSelect.add("serialNumber");
                 }
                 if (UtilValidate.isNotEmpty(softIdentifier)) {
                     paramList = paramList + "&softIdentifier=" + softIdentifier;
                     dynamicView.addAlias("II", "softIdentifier");
                     // add the expr
-                    andExprs.add(new EntityExpr("softIdentifier", true, EntityOperator.LIKE, "%" + softIdentifier + "%", true));
+                    andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("softIdentifier"), EntityOperator.LIKE, EntityFunction.UPPER("%" + softIdentifier + "%")));
                     fieldsToSelect.add("softIdentifier");
                 }
 
@@ -1241,34 +1244,34 @@ public class PartyServices {
                     String address1 = (String) context.get("address1");
                     if (address1 != null && address1.length() > 0) {
                         paramList = paramList + "&address1=" + address1;
-                        andExprs.add(new EntityExpr("address1", true, EntityOperator.LIKE, "%" + address1 + "%", true));
+                        andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("address1"), EntityOperator.LIKE, EntityFunction.UPPER("%" + address1 + "%")));
                     }
 
                     // filter on address2
                     String address2 = (String) context.get("address2");
                     if (address2 != null && address2.length() > 0) {
                         paramList = paramList + "&address2=" + address2;
-                        andExprs.add(new EntityExpr("address2", true, EntityOperator.LIKE, "%" + address2 + "%", true));
+                        andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("address2"), EntityOperator.LIKE, EntityFunction.UPPER("%" + address2 + "%")));
                     }
 
                     // filter on city
                     String city = (String) context.get("city");
                     if (city != null && city.length() > 0) {
                         paramList = paramList + "&city=" + city;
-                        andExprs.add(new EntityExpr("city", true, EntityOperator.EQUALS, city, true));
+                        andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("city"), EntityOperator.EQUALS, EntityFunction.UPPER(city)));
                     }
 
                     // filter on state geo
                     if (stateProvinceGeoId != null && !"ANY".equals(stateProvinceGeoId)) {
                         paramList = paramList + "&stateProvinceGeoId=" + stateProvinceGeoId;
-                        andExprs.add(new EntityExpr("stateProvinceGeoId", EntityOperator.EQUALS, stateProvinceGeoId));
+                        andExprs.add(EntityCondition.makeCondition("stateProvinceGeoId", EntityOperator.EQUALS, stateProvinceGeoId));
                     }
 
                     // filter on postal code
                     String postalCode = (String) context.get("postalCode");
                     if (postalCode != null && postalCode.length() > 0) {
                         paramList = paramList + "&postalCode=" + postalCode;
-                        andExprs.add(new EntityExpr("postalCode", true, EntityOperator.LIKE, "%" + postalCode + "%", true));
+                        andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("postalCode"), EntityOperator.LIKE, EntityFunction.UPPER("%" + postalCode + "%")));
                     }
 
                     fieldsToSelect.add("postalCode");
@@ -1292,7 +1295,7 @@ public class PartyServices {
                     String infoString = (String) context.get("infoString");
                     if (infoString != null && infoString.length() > 0) {
                         paramList = paramList + "&infoString=" + infoString;
-                        andExprs.add(new EntityExpr("infoString", true, EntityOperator.LIKE, "%"+infoString+"%", true));
+                        andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("infoString"), EntityOperator.LIKE, EntityFunction.UPPER("%"+infoString+"%")));
                     }
 
                     fieldsToSelect.add("infoString");
@@ -1316,21 +1319,21 @@ public class PartyServices {
                     String countryCode = (String) context.get("countryCode");
                     if (countryCode != null && countryCode.length() > 0) {
                         paramList = paramList + "&countryCode=" + countryCode;
-                        andExprs.add(new EntityExpr("countryCode", true, EntityOperator.EQUALS, countryCode, true));
+                        andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("countryCode"), EntityOperator.EQUALS, EntityFunction.UPPER(countryCode)));
                     }
 
                     // filter on areaCode
                     String areaCode = (String) context.get("areaCode");
                     if (areaCode != null && areaCode.length() > 0) {
                         paramList = paramList + "&areaCode=" + areaCode;
-                        andExprs.add(new EntityExpr("areaCode", true, EntityOperator.EQUALS, areaCode, true));
+                        andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("areaCode"), EntityOperator.EQUALS, EntityFunction.UPPER(areaCode)));
                     }
 
                     // filter on contact number
                     String contactNumber = (String) context.get("contactNumber");
                     if (contactNumber != null && contactNumber.length() > 0) {
                         paramList = paramList + "&contactNumber=" + contactNumber;
-                        andExprs.add(new EntityExpr("contactNumber", true, EntityOperator.EQUALS, contactNumber, true));
+                        andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("contactNumber"), EntityOperator.EQUALS, EntityFunction.UPPER(contactNumber)));
                     }
 
                     fieldsToSelect.add("contactNumber");
@@ -1340,7 +1343,7 @@ public class PartyServices {
                 // ---- End of Dynamic View Creation
 
                 // build the main condition
-                if (andExprs.size() > 0) mainCond = new EntityConditionList(andExprs, EntityOperator.AND);
+                if (andExprs.size() > 0) mainCond = EntityCondition.makeCondition(andExprs, EntityOperator.AND);
             }
 
             Debug.logInfo("In findParty mainCond=" + mainCond, module);
@@ -1442,7 +1445,7 @@ public class PartyServices {
         // update the contact mech records
         try {
             delegator.storeByCondition("PartyContactMech", UtilMisc.<String, Object>toMap("partyId", partyIdTo, "thruDate", now),
-                    new EntityExpr("partyId", EntityOperator.EQUALS, partyId));
+                    EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId));
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -1451,7 +1454,7 @@ public class PartyServices {
         // update the contact mech purpose records
         try {
             delegator.storeByCondition("PartyContactMechPurpose", UtilMisc.<String, Object>toMap("partyId", partyIdTo, "thruDate", now),
-                    new EntityExpr("partyId", EntityOperator.EQUALS, partyId));
+                    EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId));
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -1460,7 +1463,7 @@ public class PartyServices {
         // update the party notes
         try {
             delegator.storeByCondition("PartyNote", UtilMisc.toMap("partyId", partyIdTo),
-                    new EntityExpr("partyId", EntityOperator.EQUALS, partyId));
+                    EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId));
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -1469,7 +1472,7 @@ public class PartyServices {
         // update the inventory item(s)
         try {
             delegator.storeByCondition("InventoryItem", UtilMisc.toMap("ownerPartyId", partyIdTo),
-                    new EntityExpr("ownerPartyId", EntityOperator.EQUALS, partyId));
+                    EntityCondition.makeCondition("ownerPartyId", EntityOperator.EQUALS, partyId));
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -1478,7 +1481,7 @@ public class PartyServices {
         // update the subscription
         try {
             delegator.storeByCondition("Subscription", UtilMisc.toMap("partyId", partyIdTo),
-                    new EntityExpr("partyId", EntityOperator.EQUALS, partyId));
+                    EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId));
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -1487,7 +1490,7 @@ public class PartyServices {
         // update the userLogin records
         try {
             delegator.storeByCondition("UserLogin", UtilMisc.toMap("partyId", partyIdTo),
-                    new EntityExpr("partyId", EntityOperator.EQUALS, partyId));
+                    EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId));
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -1519,7 +1522,7 @@ public class PartyServices {
         // update the order role records
         try {
             delegator.storeByCondition("OrderRole", UtilMisc.toMap("partyId", partyIdTo),
-                    new EntityExpr("partyId", EntityOperator.EQUALS, partyId));
+                    EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId));
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -1528,7 +1531,7 @@ public class PartyServices {
         // invoice role
         try {
             delegator.storeByCondition("InvoiceRole", UtilMisc.toMap("partyId", partyIdTo),
-                    new EntityExpr("partyId", EntityOperator.EQUALS, partyId));
+                    EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId));
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -1537,7 +1540,7 @@ public class PartyServices {
         // data resource role
         try {
             delegator.storeByCondition("DataResourceRole", UtilMisc.toMap("partyId", partyIdTo),
-                    new EntityExpr("partyId", EntityOperator.EQUALS, partyId));
+                    EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId));
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -1546,7 +1549,7 @@ public class PartyServices {
         // content role
         try {
             delegator.storeByCondition("ContentRole", UtilMisc.toMap("partyId", partyIdTo),
-                    new EntityExpr("partyId", EntityOperator.EQUALS, partyId));
+                    EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId));
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -1555,7 +1558,7 @@ public class PartyServices {
         // update the fin account
         try {
             delegator.storeByCondition("FinAccountRole", UtilMisc.toMap("partyId", partyIdTo),
-                    new EntityExpr("partyId", EntityOperator.EQUALS, partyId));
+                    EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId));
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());

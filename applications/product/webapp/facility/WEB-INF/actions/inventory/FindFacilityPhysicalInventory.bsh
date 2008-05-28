@@ -33,18 +33,18 @@ internalName = parameters.get("internalName");
 
 // build conditions
 conditions = UtilMisc.toList(
-        new EntityExpr("facilityId", EntityOperator.EQUALS, facilityId),
-        new EntityExpr("inventoryItemTypeId", EntityOperator.EQUALS, "NON_SERIAL_INV_ITEM")
+        EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId),
+        EntityCondition.makeCondition("inventoryItemTypeId", EntityOperator.EQUALS, "NON_SERIAL_INV_ITEM")
         );
 if (productId != null && productId.trim().length() != 0) {
-    conditions.add( new EntityExpr("productId", EntityOperator.LIKE, productId.trim() + "%") );
+    conditions.add( EntityCondition.makeCondition("productId", EntityOperator.LIKE, productId.trim() + "%") );
 }
 if (internalName != null && internalName.trim().length() != 0) {
-    conditions.add( new EntityExpr("internalName", true, EntityOperator.LIKE, internalName.trim() + "%", true) );
+    conditions.add( EntityCondition.makeCondition("internalName", true, EntityOperator.LIKE, internalName.trim() + "%", true) );
 }
 
 if (conditions.size() > 2) {
-    EntityConditionList ecl = new EntityConditionList(conditions, EntityOperator.AND);
+    EntityConditionList ecl = EntityCondition.makeCondition(conditions, EntityOperator.AND);
     physicalInventory = delegator.findList("ProductInventoryItem", ecl, null, UtilMisc.toList("productId"), null, false);
 
     // also need the overal product QOH and ATP for each product

@@ -49,12 +49,12 @@ for (int i = 1; i <= numberOfFields; i++) {
         inventoryItemAndLabelsView.addViewLink("II", "IL" + i, new Boolean(false), ModelKeyMap.makeKeyMapList("inventoryItemId"));
     }
 }
-List andCondition = UtilMisc.toList(new EntityExpr("facilityId", EntityOperator.EQUALS, facilityId));
+List andCondition = UtilMisc.toList(EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId));
 for (int i = 1; i <= numberOfFields; i++) {
     String inventoryItemLabelId = parameters.get("inventoryItemLabelId_" + i);
     if (UtilValidate.isNotEmpty(inventoryItemLabelId)) {
         inventoryItemAndLabelsView.addAlias("IL" + i, "inventoryItemLabelId" + i, "inventoryItemLabelId", null, null, null, null);
-        andCondition.add(new EntityExpr("inventoryItemLabelId" + i, EntityOperator.EQUALS, inventoryItemLabelId));
+        andCondition.add(EntityCondition.makeCondition("inventoryItemLabelId" + i, EntityOperator.EQUALS, inventoryItemLabelId));
     }
 }
 EntityListIterator inventoryItemsEli = null;
@@ -64,7 +64,7 @@ if (andCondition.size() > 1) {
     try {
         EntityFindOptions findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
         beganTransaction = TransactionUtil.begin();
-        inventoryItemsEli = delegator.find(inventoryItemAndLabelsView, new EntityConditionList(andCondition, EntityOperator.AND), null, null, null, findOpts);
+        inventoryItemsEli = delegator.find(inventoryItemAndLabelsView, EntityCondition.makeCondition(andCondition, EntityOperator.AND), null, null, null, findOpts);
 
         // get the indexes for the partial list
         lowIndex = ((viewIndex * viewSize) + 1);

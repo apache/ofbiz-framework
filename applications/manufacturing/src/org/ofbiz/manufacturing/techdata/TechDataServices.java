@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -15,7 +15,7 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- *******************************************************************************/
+ */
 package org.ofbiz.manufacturing.techdata;
 
 import java.sql.Time;
@@ -33,6 +33,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
@@ -67,14 +68,14 @@ public class TechDataServices {
         List constraints = new LinkedList();
         
         if (workEffortName != null && workEffortName.length()>0)
-            constraints.add(new EntityExpr("workEffortName", EntityOperator.GREATER_THAN_EQUAL_TO, workEffortName));
+            constraints.add(EntityCondition.makeCondition("workEffortName", EntityOperator.GREATER_THAN_EQUAL_TO, workEffortName));
         if (fixedAssetId != null && fixedAssetId.length()>0 && ! "ANY".equals(fixedAssetId))
-            constraints.add(new EntityExpr("fixedAssetId", EntityOperator.EQUALS, fixedAssetId));
+            constraints.add(EntityCondition.makeCondition("fixedAssetId", EntityOperator.EQUALS, fixedAssetId));
         
-        constraints.add(new EntityExpr("currentStatusId", EntityOperator.EQUALS, "ROU_ACTIVE"));
-        constraints.add(new EntityExpr("workEffortTypeId", EntityOperator.EQUALS, "ROU_TASK"));
+        constraints.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.EQUALS, "ROU_ACTIVE"));
+        constraints.add(EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, "ROU_TASK"));
         
-        EntityConditionList<EntityExpr> ecl = new EntityConditionList<EntityExpr>(constraints, EntityOperator.AND);
+        EntityConditionList<EntityExpr> ecl = EntityCondition.makeCondition(constraints, EntityOperator.AND);
         try {
             listRoutingTask = delegator.findList("WorkEffort", ecl, null, UtilMisc.toList("workEffortName"), null, false);
         } catch (GenericEntityException e) {

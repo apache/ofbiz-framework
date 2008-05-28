@@ -76,9 +76,9 @@ public class BillingAccountWorker {
         }
         List relatedPartyIdList = (List) agentResult.get("relatedPartyIdList");
 
-        EntityCondition barFindCond = new EntityConditionList(UtilMisc.toList(
-                new EntityExpr("partyId", EntityOperator.IN, relatedPartyIdList),
-                new EntityExpr("roleTypeId", EntityOperator.EQUALS, "BILL_TO_CUSTOMER")), EntityOperator.AND);
+        EntityCondition barFindCond = EntityCondition.makeCondition(UtilMisc.toList(
+                EntityCondition.makeCondition("partyId", EntityOperator.IN, relatedPartyIdList),
+                EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, "BILL_TO_CUSTOMER")), EntityOperator.AND);
         List<GenericValue> billingAccountRoleList = delegator.findList("BillingAccountRole", barFindCond, null, null, null, false);
         billingAccountRoleList = EntityUtil.filterByDate(billingAccountRoleList);
 
@@ -147,11 +147,11 @@ public class BillingAccountWorker {
         BigDecimal accountLimit = getAccountLimit(billingAccount);
         balance = balance.add(accountLimit);
         // pending (not cancelled, rejected, or received) order payments
-        EntityConditionList whereConditions = new EntityConditionList(UtilMisc.toList(
-                new EntityExpr("billingAccountId", EntityOperator.EQUALS, billingAccountId),
-                new EntityExpr("paymentMethodTypeId", EntityOperator.EQUALS, "EXT_BILLACT"),
-                new EntityExpr("statusId", EntityOperator.NOT_IN, UtilMisc.toList("ORDER_CANCELLED", "ORDER_REJECTED")),
-                new EntityExpr("preferenceStatusId", EntityOperator.NOT_IN, UtilMisc.toList("PAYMENT_SETTLED", "PAYMENT_RECEIVED", "PAYMENT_DECLINED", "PAYMENT_CANCELLED")) // PAYMENT_NOT_AUTH
+        EntityConditionList whereConditions = EntityCondition.makeCondition(UtilMisc.toList(
+                EntityCondition.makeCondition("billingAccountId", EntityOperator.EQUALS, billingAccountId),
+                EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.EQUALS, "EXT_BILLACT"),
+                EntityCondition.makeCondition("statusId", EntityOperator.NOT_IN, UtilMisc.toList("ORDER_CANCELLED", "ORDER_REJECTED")),
+                EntityCondition.makeCondition("preferenceStatusId", EntityOperator.NOT_IN, UtilMisc.toList("PAYMENT_SETTLED", "PAYMENT_RECEIVED", "PAYMENT_DECLINED", "PAYMENT_CANCELLED")) // PAYMENT_NOT_AUTH
             ), EntityOperator.AND); 
 
         List orderPaymentPreferenceSums = delegator.findList("OrderPurchasePaymentSummary", whereConditions, UtilMisc.toSet("maxAmount"), null, null, false);
@@ -213,11 +213,11 @@ public class BillingAccountWorker {
      * Returns list of orders which are currently open against a billing account
      */ 
     public static List getBillingAccountOpenOrders(GenericDelegator delegator, String billingAccountId) throws GenericEntityException {
-        EntityConditionList<EntityExpr> ecl = new EntityConditionList<EntityExpr>(UtilMisc.toList( 
-                new EntityExpr("billingAccountId", EntityOperator.EQUALS, billingAccountId),
-                new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
-                new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"),
-                new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED")), 
+        EntityConditionList<EntityExpr> ecl = EntityCondition.makeCondition(UtilMisc.toList( 
+                EntityCondition.makeCondition("billingAccountId", EntityOperator.EQUALS, billingAccountId),
+                EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
+                EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"),
+                EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED")), 
                 EntityJoinOperator.AND);
         return delegator.findList("OrderHeader", ecl, null, null, null, false);
     } 

@@ -50,13 +50,13 @@ public class ProjectWorker {
 
         if (userLogin != null && userLogin.get("partyId") != null) {
             try {
-                EntityConditionList<EntityExpr> ecl = new EntityConditionList<EntityExpr>(UtilMisc.toList(
-                        new EntityExpr("partyId", EntityOperator.EQUALS, userLogin.get("partyId")),
-                        new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "WF_COMPLETED"),
-                        new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "WF_TERMINATED"),
-                        new EntityExpr("currentStatusId", EntityOperator.NOT_EQUAL, "WF_ABORTED"),
-                        new EntityExpr("workEffortTypeId", EntityOperator.EQUALS, "TASK"),
-                        new EntityExpr("workEffortPurposeTypeId", EntityOperator.EQUALS, "WEPT_PROJECT")),
+                EntityConditionList<EntityExpr> ecl = EntityCondition.makeCondition(UtilMisc.toList(
+                        EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, userLogin.get("partyId")),
+                        EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "WF_COMPLETED"),
+                        EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "WF_TERMINATED"),
+                        EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "WF_ABORTED"),
+                        EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, "TASK"),
+                        EntityCondition.makeCondition("workEffortPurposeTypeId", EntityOperator.EQUALS, "WEPT_PROJECT")),
                         EntityOperator.AND);
                 validWorkEfforts = delegator.findList("WorkEffortAndPartyAssign", ecl, null, UtilMisc.toList("priority"), null, false);
             } catch (GenericEntityException e) {
@@ -77,10 +77,10 @@ public class ProjectWorker {
 
         if (userLogin != null && userLogin.get("partyId") != null) {
             try {
-                EntityConditionList<EntityExpr> ecl = new EntityConditionList<EntityExpr>(UtilMisc.toList(
-                        new EntityExpr("partyId", EntityOperator.EQUALS, userLogin.get("partyId")),
-                        new EntityExpr("workEffortTypeId", EntityOperator.EQUALS, "TASK"),
-                        new EntityExpr("workEffortPurposeTypeId", EntityOperator.EQUALS, "WEPT_PROJECT")), 
+                EntityConditionList<EntityExpr> ecl = EntityCondition.makeCondition(UtilMisc.toList(
+                        EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, userLogin.get("partyId")),
+                        EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, "TASK"),
+                        EntityCondition.makeCondition("workEffortPurposeTypeId", EntityOperator.EQUALS, "WEPT_PROJECT")), 
                         EntityOperator.AND);
                 validWorkEfforts = delegator.findList("WorkEffortAndPartyAssign", ecl, null, UtilMisc.toList("priority"), null, false);
             } catch (GenericEntityException e) {
@@ -107,9 +107,9 @@ public class ProjectWorker {
 
         if (userLogin != null && userLogin.get("partyId") != null) {
             try {
-                EntityConditionList<EntityExpr> ecl = new EntityConditionList<EntityExpr>(UtilMisc.toList(
-                        new EntityExpr("workEffortIdFrom", EntityOperator.EQUALS, projectWorkEffortId),
-                        new EntityExpr("workEffortAssocTypeId", EntityOperator.EQUALS, "WORK_EFF_BREAKDOWN")),
+                EntityConditionList<EntityExpr> ecl = EntityCondition.makeCondition(UtilMisc.toList(
+                        EntityCondition.makeCondition("workEffortIdFrom", EntityOperator.EQUALS, projectWorkEffortId),
+                        EntityCondition.makeCondition("workEffortAssocTypeId", EntityOperator.EQUALS, "WORK_EFF_BREAKDOWN")),
                         EntityOperator.AND);
                 relatedWorkEfforts = delegator.findList("WorkEffortAssoc", ecl, null, null, null, false);
             } catch (GenericEntityException e) {
@@ -157,9 +157,9 @@ public class ProjectWorker {
 
         if (userLogin != null && userLogin.get("partyId") != null) {
             try {
-                EntityConditionList<EntityExpr> ecl = new EntityConditionList<EntityExpr>(UtilMisc.toList(
-                        new EntityExpr("workEffortIdFrom", EntityOperator.EQUALS, phaseWorkEffortId),
-                        new EntityExpr("workEffortAssocTypeId", EntityOperator.EQUALS, "WORK_EFF_BREAKDOWN")),
+                EntityConditionList<EntityExpr> ecl = EntityCondition.makeCondition(UtilMisc.toList(
+                        EntityCondition.makeCondition("workEffortIdFrom", EntityOperator.EQUALS, phaseWorkEffortId),
+                        EntityCondition.makeCondition("workEffortAssocTypeId", EntityOperator.EQUALS, "WORK_EFF_BREAKDOWN")),
                         EntityOperator.AND);
                 relatedWorkEfforts = delegator.findList("WorkEffortAssoc", ecl, null, null, null, false);
             } catch (GenericEntityException e) {
@@ -206,7 +206,7 @@ public class ProjectWorker {
 
         if (userLogin != null && userLogin.get("partyId") != null) {
             try {
-                EntityExpr ee = new EntityExpr("workEffortId", EntityOperator.EQUALS, workEffortId);
+                EntityExpr ee = EntityCondition.makeCondition("workEffortId", EntityOperator.EQUALS, workEffortId);
                 notes = delegator.findList("WorkEffortNoteAndData", ee, null, UtilMisc.toList("noteDateTime"), null, false);
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);

@@ -37,17 +37,17 @@ thruOrderDate = parameters.get("thruOrderDate");
  
 
 // search by orderTypeId is mandatory
-conditions = UtilMisc.toList(new EntityExpr("orderTypeId", EntityOperator.EQUALS, orderTypeId));
+conditions = UtilMisc.toList(EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, orderTypeId));
 
 if (UtilValidate.isDate(fromOrderDate) && UtilValidate.isNotEmpty(fromOrderDate)){
-    conditions.add(new EntityExpr("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromOrderDate));
+    conditions.add(EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromOrderDate));
 }
 if (UtilValidate.isDate(thruOrderDate) && UtilValidate.isNotEmpty(thruOrderDate)){
-    conditions.add(new EntityExpr("orderDate", EntityOperator.LESS_THAN_EQUAL_TO, thruOrderDate));
+    conditions.add(EntityCondition.makeCondition("orderDate", EntityOperator.LESS_THAN_EQUAL_TO, thruOrderDate));
 }
 
 if (productStoreId != null && productStoreId.length() > 0) {
-    conditions.add(new EntityExpr("productStoreId", EntityOperator.EQUALS, productStoreId));
+    conditions.add(EntityCondition.makeCondition("productStoreId", EntityOperator.EQUALS, productStoreId));
     // for generating a title (given product store)
     context.put("productStore", delegator.findByPrimaryKeyCache("ProductStore", UtilMisc.toMap("productStoreId", productStoreId)));
 } else {
@@ -55,25 +55,25 @@ if (productStoreId != null && productStoreId.length() > 0) {
     context.put("productStore", UtilMisc.toMap("storeName", "All Stores")); 
 }
 if (orderStatusId != null && orderStatusId.length() > 0) {
-    conditions.add(new EntityExpr("orderStatusId", EntityOperator.EQUALS, orderStatusId));
+    conditions.add(EntityCondition.makeCondition("orderStatusId", EntityOperator.EQUALS, orderStatusId));
 } else {
     // search all orders that are not completed, cancelled or rejected
     conditions.add( 
-            new EntityConditionList( UtilMisc.toList(
-                    new EntityExpr("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED"),
-                    new EntityExpr("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"),
-                    new EntityExpr("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED")
+            EntityCondition.makeCondition( UtilMisc.toList(
+                    EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED"),
+                    EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"),
+                    EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED")
                     ), EntityOperator.AND)
             );
 }
 
 // item conditions
-conditions.add(new EntityExpr("orderItemStatusId", EntityOperator.NOT_EQUAL, "ITEM_COMPLETED"));
-conditions.add(new EntityExpr("orderItemStatusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"));
-conditions.add(new EntityExpr("orderItemStatusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"));
+conditions.add(EntityCondition.makeCondition("orderItemStatusId", EntityOperator.NOT_EQUAL, "ITEM_COMPLETED"));
+conditions.add(EntityCondition.makeCondition("orderItemStatusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"));
+conditions.add(EntityCondition.makeCondition("orderItemStatusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"));
 
 // get the results as an entity list iterator
-allConditions = new EntityConditionList( conditions, EntityOperator.AND );
+allConditions = EntityCondition.makeCondition( conditions, EntityOperator.AND );
 fieldsToSelect = UtilMisc.toSet("orderId", "orderDate", "productId", "quantityOrdered", "quantityIssued", "quantityOpen");
 fieldsToSelect.add("shipBeforeDate");
 fieldsToSelect.add("shipAfterDate");
@@ -100,8 +100,8 @@ while ((listValue = (GenericValue) listIt.next()) != null) {
     shipAfterDate = listValue.get("shipAfterDate");
     shipBeforeDate = listValue.get("shipBeforeDate");    
     fieldsToSelect = UtilMisc.toSet("price","productPriceTypeId");
-    productIdCondExpr =  UtilMisc.toList(new EntityExpr("productId", EntityOperator.EQUALS, productId));    
-    prodPriceCond = new EntityConditionList(productIdCondExpr, EntityOperator.AND);    
+    productIdCondExpr =  UtilMisc.toList(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId));    
+    prodPriceCond = EntityCondition.makeCondition(productIdCondExpr, EntityOperator.AND);    
     productPrices = delegator.findList("ProductPrice", prodPriceCond, fieldsToSelect, null, null, false);    
     Double costPrice = new Double(0.0);
     Double retailPrice = new Double(0.0);

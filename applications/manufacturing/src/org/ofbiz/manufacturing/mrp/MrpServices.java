@@ -247,11 +247,11 @@ public class MrpServices {
         try {
             List facilityContactMechs = EntityUtil.filterByDate(delegator.findByAnd("FacilityContactMech", UtilMisc.toMap("facilityId", facilityId)));
             List facilityContactMechIds = EntityUtil.getFieldListFromEntityList(facilityContactMechs, "contactMechId", true);
-            List searchConditions = UtilMisc.toList(new EntityExpr("orderTypeId", EntityOperator.EQUALS, "PURCHASE_ORDER"),
-                                                    new EntityExpr("oiStatusId", EntityOperator.EQUALS, "ITEM_APPROVED"),
-                                                    new EntityExpr("contactMechId", EntityOperator.IN, facilityContactMechIds));
+            List searchConditions = UtilMisc.toList(EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "PURCHASE_ORDER"),
+                                                    EntityCondition.makeCondition("oiStatusId", EntityOperator.EQUALS, "ITEM_APPROVED"),
+                                                    EntityCondition.makeCondition("contactMechId", EntityOperator.IN, facilityContactMechIds));
             Set fieldsToSelect = UtilMisc.toSet("orderId", "orderItemSeqId", "productId", "quantity", "cancelQuantity", "oiEstimatedDeliveryDate");
-            resultList = delegator.findList("OrderHeaderItemAndShipGroup", new EntityConditionList(searchConditions, EntityOperator.AND), fieldsToSelect, UtilMisc.toList("orderDate"), null, false);
+            resultList = delegator.findList("OrderHeaderItemAndShipGroup", EntityCondition.makeCondition(searchConditions, EntityOperator.AND), fieldsToSelect, UtilMisc.toList("orderDate"), null, false);
 
         } catch(GenericEntityException e) {
             return ServiceUtil.returnError("Problem, we can not find the order items, for more detail look at the log");
@@ -413,7 +413,7 @@ public class MrpServices {
                 minimumStock = new Double(0);
             }
             try {
-                EntityFieldMap ecl = new EntityFieldMap(UtilMisc.toMap("mrpId", mrpId, "productId", productId), EntityOperator.AND);
+                EntityFieldMap ecl = EntityCondition.makeCondition(UtilMisc.toMap("mrpId", mrpId, "productId", productId), EntityOperator.AND);
                 long numOfEvents = delegator.findCountByCondition("MrpEvent", ecl, null, null);
                 if (numOfEvents > 0) {
                     continue;
@@ -627,11 +627,11 @@ public class MrpServices {
             // Find all products in MrpEventView, ordered by bom and eventDate
             EntityCondition filterByConditions = null;
             if (bomLevel == 0) {
-                filterByConditions = new EntityExpr(new EntityExpr("billOfMaterialLevel", EntityOperator.EQUALS, null),
+                filterByConditions = EntityCondition.makeCondition(EntityCondition.makeCondition("billOfMaterialLevel", EntityOperator.EQUALS, null),
                                             EntityOperator.OR,
-                                            new EntityExpr("billOfMaterialLevel", EntityOperator.EQUALS, new Long(bomLevel)));
+                                            EntityCondition.makeCondition("billOfMaterialLevel", EntityOperator.EQUALS, new Long(bomLevel)));
             } else {
-                filterByConditions = new EntityExpr("billOfMaterialLevel", EntityOperator.EQUALS, new Long(bomLevel));
+                filterByConditions = EntityCondition.makeCondition("billOfMaterialLevel", EntityOperator.EQUALS, new Long(bomLevel));
             }
             try{
                 listInventoryEventForMRP = delegator.findList("MrpEventView", filterByConditions, null, UtilMisc.toList("productId", "eventDate"), null, false);

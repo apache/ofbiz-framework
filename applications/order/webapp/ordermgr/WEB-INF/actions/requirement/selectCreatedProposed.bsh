@@ -24,13 +24,13 @@ import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 
 Map prepare = dispatcher.runSync("prepareFind", UtilMisc.toMap("inputFields", parameters, "entityName", "Requirement"));
-EntityConditionList statusCondition = new EntityConditionList(
-                    UtilMisc.toList(new EntityExpr("statusId", EntityOperator.EQUALS, "REQ_CREATED"),
-                                    new EntityExpr("statusId", EntityOperator.EQUALS, "REQ_PROPOSED")),
+EntityConditionList statusCondition = EntityCondition.makeCondition(
+                    UtilMisc.toList(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "REQ_CREATED"),
+                                    EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "REQ_PROPOSED")),
                     EntityOperator.OR);
 EntityConditionList ecl = null;
 if (UtilValidate.isNotEmpty(prepare.get("entityConditionList"))) {
-    ecl = new EntityConditionList(UtilMisc.toList((EntityConditionList)prepare.get("entityConditionList"),
+    ecl = EntityCondition.makeCondition(UtilMisc.toList((EntityConditionList)prepare.get("entityConditionList"),
                                                    statusCondition),
                                   EntityOperator.AND);
 } else {

@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -15,7 +15,7 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- *******************************************************************************/
+ */
 package org.ofbiz.order.shoppingcart;
 
 import java.math.BigDecimal;
@@ -31,20 +31,28 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-import org.ofbiz.base.util.*;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.ObjectType;
+import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilFormatOut;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
-import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityFieldValue;
 import org.ofbiz.entity.condition.EntityFunction;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.finaccount.FinAccountHelper;
 import org.ofbiz.order.order.OrderChangeHelper;
-import org.ofbiz.order.shoppingcart.shipping.ShippingEvents;
 import org.ofbiz.order.order.OrderReadHelper;
+import org.ofbiz.order.shoppingcart.shipping.ShippingEvents;
 import org.ofbiz.party.contact.ContactHelper;
 import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.service.GenericServiceException;
@@ -888,11 +896,11 @@ public class CheckOutHelper {
         }
 
         // filter out cancelled preferences
-        List canExpr = UtilMisc.toList(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "PAYMENT_CANCELLED"));
+        List canExpr = UtilMisc.toList(EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PAYMENT_CANCELLED"));
         allPaymentPreferences = EntityUtil.filterByAnd(allPaymentPreferences, canExpr);
 
         // check for online payment methods or in-hand payment types with verbal or external refs
-        List exprs = UtilMisc.toList(new EntityExpr("manualRefNum", EntityOperator.NOT_EQUAL, null));
+        List exprs = UtilMisc.toList(EntityCondition.makeCondition("manualRefNum", EntityOperator.NOT_EQUAL, null));
         List manualRefPaymentPrefs = EntityUtil.filterByAnd(allPaymentPreferences, exprs);
         if (manualRefPaymentPrefs != null && manualRefPaymentPrefs.size() > 0) {
             Iterator i = manualRefPaymentPrefs.iterator();
@@ -1037,10 +1045,10 @@ public class CheckOutHelper {
             }
         } else {
             // Get the paymentMethodTypeIds - this will need to change when ecom supports multiple payments
-            List cashCodPcBaExpr = UtilMisc.toList(new EntityExpr("paymentMethodTypeId", EntityOperator.EQUALS, "CASH"),
-                                           new EntityExpr("paymentMethodTypeId", EntityOperator.EQUALS, "EXT_COD"),
-                                           new EntityExpr("paymentMethodTypeId", EntityOperator.EQUALS, "PERSONAL_CHECK"),
-                                           new EntityExpr("paymentMethodTypeId", EntityOperator.EQUALS, "EXT_BILLACT"));
+            List cashCodPcBaExpr = UtilMisc.toList(EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.EQUALS, "CASH"),
+                                           EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.EQUALS, "EXT_COD"),
+                                           EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.EQUALS, "PERSONAL_CHECK"),
+                                           EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.EQUALS, "EXT_BILLACT"));
             List cashCodPcBaPaymentPreferences = EntityUtil.filterByOr(allPaymentPreferences, cashCodPcBaExpr);
 
             if (UtilValidate.isNotEmpty(cashCodPcBaPaymentPreferences) && 
@@ -1148,9 +1156,10 @@ public class CheckOutHelper {
         }
         String shippingAddress = UtilFormatOut.checkNull(shippingAddressObj.getString("address1")).toUpperCase();
         shippingAddress = UtilFormatOut.makeSqlSafe(shippingAddress);
-        List exprs = UtilMisc.toList(new EntityExpr(
-                new EntityExpr(new EntityFunction.UPPER(new EntityFieldValue("blacklistString")), EntityOperator.EQUALS, new EntityFunction.UPPER(shippingAddress)), EntityOperator.AND,
-                new EntityExpr("orderBlacklistTypeId", EntityOperator.EQUALS, "BLACKLIST_ADDRESS")));
+        List exprs = UtilMisc.toList(EntityCondition.makeCondition(
+                EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("blacklistString"), EntityOperator.EQUALS, EntityFunction.UPPER(shippingAddress)),
+                EntityOperator.AND,
+                EntityCondition.makeCondition("orderBlacklistTypeId", EntityOperator.EQUALS, "BLACKLIST_ADDRESS")));
         String errMsg=null;
 
         List paymentMethods = this.cart.getPaymentMethods();
@@ -1171,16 +1180,17 @@ public class CheckOutHelper {
                 }
                 if (creditCard != null) {
                     String creditCardNumber = UtilFormatOut.checkNull(creditCard.getString("cardNumber"));
-                    exprs.add(new EntityExpr(
-                            new EntityExpr("blacklistString", EntityOperator.EQUALS, creditCardNumber), EntityOperator.AND,
-                            new EntityExpr("orderBlacklistTypeId", EntityOperator.EQUALS, "BLACKLIST_CREDITCARD")));
+                    exprs.add(EntityCondition.makeCondition(
+                            EntityCondition.makeCondition("blacklistString", EntityOperator.EQUALS, creditCardNumber), EntityOperator.AND,
+                            EntityCondition.makeCondition("orderBlacklistTypeId", EntityOperator.EQUALS, "BLACKLIST_CREDITCARD")));
                 }
                 if (billingAddress != null) {
                     String address = UtilFormatOut.checkNull(billingAddress.getString("address1").toUpperCase());
                     address = UtilFormatOut.makeSqlSafe(address);
-                    exprs.add(new EntityExpr(
-                            new EntityExpr(new EntityFunction.UPPER(new EntityFieldValue("blacklistString")), EntityOperator.EQUALS, new EntityFunction.UPPER(address)), EntityOperator.AND,
-                            new EntityExpr("orderBlacklistTypeId", EntityOperator.EQUALS, "BLACKLIST_ADDRESS")));
+                    exprs.add(EntityCondition.makeCondition(
+                            EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("blacklistString"), EntityOperator.EQUALS, EntityFunction.UPPER(address)),
+                            EntityOperator.AND,
+                            EntityCondition.makeCondition("orderBlacklistTypeId", EntityOperator.EQUALS, "BLACKLIST_ADDRESS")));
                 }
             }
         }
@@ -1188,7 +1198,7 @@ public class CheckOutHelper {
         List blacklistFound = null;
         if (exprs.size() > 0) {
             try {
-                EntityConditionList ecl = new EntityConditionList(exprs, EntityOperator.AND);
+                EntityConditionList ecl = EntityCondition.makeCondition(exprs, EntityOperator.AND);
                 blacklistFound = this.delegator.findList("OrderBlacklist", ecl, null, null, null, false);
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Problems with OrderBlacklist lookup.", module);

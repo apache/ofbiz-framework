@@ -41,10 +41,10 @@ if (sort != null) {
     }
 }
 
-partyBase = UtilMisc.toList(new EntityExpr("statusId", EntityOperator.EQUALS, "CAL_ACCEPTED"), new EntityExpr("wepaPartyId", EntityOperator.EQUALS, userLogin.getString("partyId")));
-partyRole = UtilMisc.toList(new EntityExpr("orderRoleTypeId", EntityOperator.EQUALS, "PLACING_CUSTOMER"), new EntityExpr("orderRoleTypeId", EntityOperator.EQUALS, "SUPPLIER_AGENT"));
-partyExpr = UtilMisc.toList(new EntityConditionList(partyBase, EntityOperator.AND), new EntityConditionList(partyRole, EntityOperator.OR));
-partyCond = new EntityConditionList(partyExpr, EntityOperator.AND);
+partyBase = UtilMisc.toList(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "CAL_ACCEPTED"), EntityCondition.makeCondition("wepaPartyId", EntityOperator.EQUALS, userLogin.getString("partyId")));
+partyRole = UtilMisc.toList(EntityCondition.makeCondition("orderRoleTypeId", EntityOperator.EQUALS, "PLACING_CUSTOMER"), EntityCondition.makeCondition("orderRoleTypeId", EntityOperator.EQUALS, "SUPPLIER_AGENT"));
+partyExpr = UtilMisc.toList(EntityCondition.makeCondition(partyBase, EntityOperator.AND), EntityCondition.makeCondition(partyRole, EntityOperator.OR));
+partyCond = EntityCondition.makeCondition(partyExpr, EntityOperator.AND);
 partyTasks = delegator.findList("OrderTaskList", partyCond, null, sortOrder, null, false);
 
 if (partyTasks != null) partyTasks = EntityUtil.filterByDate(partyTasks);
@@ -68,16 +68,16 @@ pRolesList = new ArrayList();
 while (pri.hasNext()) {
     partyRole = (GenericValue) pri.next(); 
     if (!partyRole.getString("roleTypeId").equals("_NA_"))
-        pRolesList.add(new EntityExpr("roleTypeId", EntityOperator.EQUALS, partyRole.getString("roleTypeId")));
+        pRolesList.add(EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, partyRole.getString("roleTypeId")));
 }
 
-custList = UtilMisc.toList(new EntityExpr("orderRoleTypeId", EntityOperator.EQUALS, "PLACING_CUSTOMER"), new EntityExpr("orderRoleTypeId", EntityOperator.EQUALS, "SUPPLIER_AGENT"));
-baseList = UtilMisc.toList(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "CAL_CANCELLED"), new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "CAL_COMPLETED"), new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "CAL_DELEGATED"));
+custList = UtilMisc.toList(EntityCondition.makeCondition("orderRoleTypeId", EntityOperator.EQUALS, "PLACING_CUSTOMER"), EntityCondition.makeCondition("orderRoleTypeId", EntityOperator.EQUALS, "SUPPLIER_AGENT"));
+baseList = UtilMisc.toList(EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "CAL_CANCELLED"), EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "CAL_COMPLETED"), EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "CAL_DELEGATED"));
 expressions = new LinkedList();
-if (custList.size() > 0) expressions.add(new EntityConditionList(custList, EntityOperator.OR));
-if (pRolesList.size() > 0) expressions.add(new EntityConditionList(pRolesList, EntityOperator.OR));
-if (baseList.size() > 0) expressions.add(new EntityConditionList(baseList, EntityOperator.AND));
-conditions = new EntityConditionList(expressions, EntityOperator.AND);
+if (custList.size() > 0) expressions.add(EntityCondition.makeCondition(custList, EntityOperator.OR));
+if (pRolesList.size() > 0) expressions.add(EntityCondition.makeCondition(pRolesList, EntityOperator.OR));
+if (baseList.size() > 0) expressions.add(EntityCondition.makeCondition(baseList, EntityOperator.AND));
+conditions = EntityCondition.makeCondition(expressions, EntityOperator.AND);
     
 // invoke the query
 roleTasks = delegator.findList("OrderTaskList", conditions, null, sortOrder, null, false);    

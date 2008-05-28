@@ -677,19 +677,19 @@ public class PaymentGatewayServices {
 
         try {
             // get the valid payment prefs
-            List othExpr = UtilMisc.toList(new EntityExpr("paymentMethodTypeId", EntityOperator.EQUALS, "EFT_ACCOUNT"));
-            othExpr.add(new EntityExpr("paymentMethodTypeId", EntityOperator.EQUALS, "GIFT_CARD"));
-            othExpr.add(new EntityExpr("paymentMethodTypeId", EntityOperator.EQUALS, "FIN_ACCOUNT"));
-            EntityCondition con1 = new EntityConditionList(othExpr, EntityJoinOperator.OR);
+            List othExpr = UtilMisc.toList(EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.EQUALS, "EFT_ACCOUNT"));
+            othExpr.add(EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.EQUALS, "GIFT_CARD"));
+            othExpr.add(EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.EQUALS, "FIN_ACCOUNT"));
+            EntityCondition con1 = EntityCondition.makeCondition(othExpr, EntityJoinOperator.OR);
 
-            EntityCondition statExpr = new EntityExpr("statusId", EntityOperator.EQUALS, "PAYMENT_SETTLED");
-            EntityCondition con2 = new EntityConditionList(UtilMisc.toList(con1, statExpr), EntityOperator.AND);
+            EntityCondition statExpr = EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PAYMENT_SETTLED");
+            EntityCondition con2 = EntityCondition.makeCondition(UtilMisc.toList(con1, statExpr), EntityOperator.AND);
 
-            EntityCondition authExpr = new EntityExpr("statusId", EntityOperator.EQUALS, "PAYMENT_AUTHORIZED");
-            EntityCondition con3 = new EntityConditionList(UtilMisc.toList(con2, authExpr), EntityOperator.OR);
+            EntityCondition authExpr = EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PAYMENT_AUTHORIZED");
+            EntityCondition con3 = EntityCondition.makeCondition(UtilMisc.toList(con2, authExpr), EntityOperator.OR);
 
-            EntityExpr orderExpr = new EntityExpr("orderId", EntityOperator.EQUALS, orderId);
-            EntityCondition con4 = new EntityConditionList(UtilMisc.toList(con3, orderExpr), EntityOperator.AND);
+            EntityExpr orderExpr = EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderId);
+            EntityCondition con4 = EntityCondition.makeCondition(UtilMisc.toList(con3, orderExpr), EntityOperator.AND);
 
             paymentPrefs = delegator.findList("OrderPaymentPreference", con4, null, null, null, false);
         } catch (GenericEntityException gee) {
@@ -1418,9 +1418,9 @@ public class PaymentGatewayServices {
         
         try {
             // Select all the unapplied payment applications associated to the billing account
-            List conditionList = UtilMisc.toList(new EntityExpr("billingAccountId", EntityOperator.EQUALS, billingAccountId),
-                                                  new EntityExpr("invoiceId", EntityOperator.EQUALS, GenericEntity.NULL_FIELD));
-            EntityCondition conditions = new EntityConditionList(conditionList, EntityOperator.AND);
+            List conditionList = UtilMisc.toList(EntityCondition.makeCondition("billingAccountId", EntityOperator.EQUALS, billingAccountId),
+                                                  EntityCondition.makeCondition("invoiceId", EntityOperator.EQUALS, GenericEntity.NULL_FIELD));
+            EntityCondition conditions = EntityCondition.makeCondition(conditionList, EntityOperator.AND);
 
             List paymentApplications = delegator.findList("PaymentApplication", conditions, null, UtilMisc.toList("-amountApplied"), null, false);
             if (UtilValidate.isNotEmpty(paymentApplications)) {
@@ -1846,7 +1846,7 @@ public class PaymentGatewayServices {
                     Long autoOrderCcTryLaterMax = productStore.getLong("autoOrderCcTryLaterMax");
                     if (autoOrderCcTryLaterMax != null) {
                         long failedTries = delegator.findCountByCondition("PaymentGatewayResponse", 
-                                new EntityFieldMap(UtilMisc.toMap(
+                                EntityCondition.makeCondition(UtilMisc.toMap(
                                         "orderPaymentPreferenceId", orderPaymentPreference.get("orderPaymentPreferenceId"), 
                                         "paymentMethodId", orderPaymentPreference.get("paymentMethodId"),
                                         "resultNsf", "Y"), 
@@ -2448,13 +2448,13 @@ public class PaymentGatewayServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
         // get a list of all payment prefs still pending
-        List exprs = UtilMisc.toList(new EntityExpr("statusId", EntityOperator.EQUALS, "PAYMENT_NOT_AUTH"),
-                new EntityExpr("processAttempt", EntityOperator.GREATER_THAN, new Long(0)));
+        List exprs = UtilMisc.toList(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PAYMENT_NOT_AUTH"),
+                EntityCondition.makeCondition("processAttempt", EntityOperator.GREATER_THAN, new Long(0)));
 
         EntityListIterator eli = null;
         try {
             eli = delegator.find("OrderPaymentPreference",
-                    new EntityConditionList(exprs, EntityOperator.AND), null, null, UtilMisc.toList("orderId"), null);
+                    EntityCondition.makeCondition(exprs, EntityOperator.AND), null, null, UtilMisc.toList("orderId"), null);
             List processList = new ArrayList();
             if (eli != null) {
                 Debug.logInfo("Processing failed order re-auth(s)", module);
@@ -2501,7 +2501,7 @@ public class PaymentGatewayServices {
         EntityListIterator eli = null;
         try {
             eli = delegator.find("OrderPaymentPreference",
-                    new EntityExpr(new EntityExpr("needsNsfRetry", EntityOperator.EQUALS, "Y"), EntityOperator.AND, new EntityExpr(ModelEntity.STAMP_FIELD, EntityOperator.LESS_THAN_EQUAL_TO, oneWeekAgo)), 
+                    EntityCondition.makeCondition(EntityCondition.makeCondition("needsNsfRetry", EntityOperator.EQUALS, "Y"), EntityOperator.AND, EntityCondition.makeCondition(ModelEntity.STAMP_FIELD, EntityOperator.LESS_THAN_EQUAL_TO, oneWeekAgo)), 
                     null, null, UtilMisc.toList("orderId"), null);
 
             List processList = new ArrayList();
@@ -2542,7 +2542,7 @@ public class PaymentGatewayServices {
             List order = UtilMisc.toList("-transactionDate");
             List transactions = orderPaymentPreference.getRelated("PaymentGatewayResponse", null, order);
 
-            List exprs = UtilMisc.toList(new EntityExpr("paymentServiceTypeEnumId", EntityOperator.EQUALS, CAPTURE_SERVICE_TYPE));
+            List exprs = UtilMisc.toList(EntityCondition.makeCondition("paymentServiceTypeEnumId", EntityOperator.EQUALS, CAPTURE_SERVICE_TYPE));
 
             List capTransactions = EntityUtil.filterByAnd(transactions, exprs);
 
@@ -2565,8 +2565,8 @@ public class PaymentGatewayServices {
             List order = UtilMisc.toList("-transactionDate");
             List transactions = orderPaymentPreference.getRelated("PaymentGatewayResponse", null, order);
 
-            List exprs = UtilMisc.toList(new EntityExpr("paymentServiceTypeEnumId", EntityOperator.EQUALS, AUTH_SERVICE_TYPE),
-                    new EntityExpr("paymentServiceTypeEnumId", EntityOperator.EQUALS, REAUTH_SERVICE_TYPE));
+            List exprs = UtilMisc.toList(EntityCondition.makeCondition("paymentServiceTypeEnumId", EntityOperator.EQUALS, AUTH_SERVICE_TYPE),
+                    EntityCondition.makeCondition("paymentServiceTypeEnumId", EntityOperator.EQUALS, REAUTH_SERVICE_TYPE));
 
             List authTransactions = EntityUtil.filterByOr(transactions, exprs);
 

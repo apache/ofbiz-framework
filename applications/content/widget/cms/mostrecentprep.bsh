@@ -60,19 +60,19 @@ if (UtilValidate.isNotEmpty(forumId)) {
     exprList = new ArrayList();
     fromDate = UtilDateTime.nowTimestamp();
     //thruList = new ArrayList();
-    //thruExpr = new EntityExpr("caThruDate", EntityOperator.GREATER_THAN, fromDate);
+    //thruExpr = EntityCondition.makeCondition("caThruDate", EntityOperator.GREATER_THAN, fromDate);
     //thruList.add(thruExpr);
-    thruExpr2 = new EntityExpr("caThruDate", EntityOperator.EQUALS, null);
+    thruExpr2 = EntityCondition.makeCondition("caThruDate", EntityOperator.EQUALS, null);
     //thruList.add(thruExpr2);
-    //thruExprList = new EntityConditionList(thruList, EntityOperator.OR);
+    //thruExprList = EntityCondition.makeCondition(thruList, EntityOperator.OR);
     exprList.add(thruExpr2);
-    //contentAssocTypeExpr = new EntityExpr("caContentAssocTypeId", EntityOperator.EQUALS, "RESPONSE");
+    //contentAssocTypeExpr = EntityCondition.makeCondition("caContentAssocTypeId", EntityOperator.EQUALS, "RESPONSE");
     //exprList.add(contentAssocTypeExpr);
-    statusIdExpr = new EntityExpr("statusId", EntityOperator.EQUALS, "CTNT_IN_PROGRESS");
+    statusIdExpr = EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "CTNT_IN_PROGRESS");
     exprList.add(statusIdExpr);
-    contentIdToExpr = new EntityExpr("caContentIdTo", EntityOperator.EQUALS, forumId);
+    contentIdToExpr = EntityCondition.makeCondition("caContentIdTo", EntityOperator.EQUALS, forumId);
     exprList.add(contentIdToExpr);
-    expr = new EntityConditionList(exprList, EntityOperator.AND);
+    expr = EntityCondition.makeCondition(exprList, EntityOperator.AND);
     entityList = delegator.findList("ContentAssocViewFrom", expr, null, UtilMisc.toList("-caFromDate"), null, false);
     
     Debug.logInfo("in mostrecentprep(1), entityList.size():" + entityList.size(),"");

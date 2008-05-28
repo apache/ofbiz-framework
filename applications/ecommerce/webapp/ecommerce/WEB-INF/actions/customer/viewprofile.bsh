@@ -58,9 +58,9 @@ if (userLogin != null) {
     orderBy = UtilMisc.toList("-entryDate");
     findOpts = new EntityFindOptions();
     findOpts.setMaxRows(5);
-    exprs = UtilMisc.toList(new EntityExpr("partyIdTo", EntityOperator.EQUALS, partyId));
-    exprs.add(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "COM_READ"));
-    condition = new EntityConditionList(exprs, EntityOperator.AND);
+    exprs = UtilMisc.toList(EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, partyId));
+    exprs.add(EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "COM_READ"));
+    condition = EntityCondition.makeCondition(exprs, EntityOperator.AND);
     messages = delegator.findList("CommunicationEvent", condition, null, orderBy, findOpts, false);
     context.put("messages", messages);
     context.put("profileMessages", true);

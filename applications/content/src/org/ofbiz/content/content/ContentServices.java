@@ -18,28 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.content.content;
 
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.GeneralException;
-import org.ofbiz.base.util.StringUtil;
-import org.ofbiz.base.util.UtilDateTime;
-import org.ofbiz.base.util.UtilFormatOut;
-import org.ofbiz.base.util.UtilHttp;
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
-import org.ofbiz.entity.GenericEntityException;
-import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.condition.EntityConditionList;
-import org.ofbiz.entity.condition.EntityExpr;
-import org.ofbiz.entity.condition.EntityOperator;
-import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.security.Security;
-import org.ofbiz.service.DispatchContext;
-import org.ofbiz.service.GenericServiceException;
-import org.ofbiz.service.LocalDispatcher;
-import org.ofbiz.service.ModelService;
-import org.ofbiz.service.ServiceUtil;
-
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -51,6 +29,29 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+
+import javolution.util.FastMap;
+
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilFormatOut;
+import org.ofbiz.base.util.UtilHttp;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityConditionList;
+import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.service.DispatchContext;
+import org.ofbiz.service.GenericServiceException;
+import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ModelService;
+import org.ofbiz.service.ServiceUtil;
 
 /**
  * ContentServices Class
@@ -64,7 +65,7 @@ public class ContentServices {
      */
     public static Map findRelatedContent(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        Map results = new HashMap();
+        Map results = FastMap.newInstance();
 
         GenericValue currentContent = (GenericValue) context.get("currentContent");
         String fromDate = (String) context.get("fromDate");
@@ -803,23 +804,23 @@ public class ContentServices {
             }
 
             List exprList = new ArrayList();
-            exprList.add(new EntityExpr("mapKey", EntityOperator.EQUALS, mapKey));
+            exprList.add(EntityCondition.makeCondition("mapKey", EntityOperator.EQUALS, mapKey));
             if (sequenceNum != null) {
-                exprList.add(new EntityExpr("sequenceNum", EntityOperator.EQUALS, sequenceNum));
+                exprList.add(EntityCondition.makeCondition("sequenceNum", EntityOperator.EQUALS, sequenceNum));
             }
-            exprList.add(new EntityExpr("mapKey", EntityOperator.EQUALS, mapKey));
-            exprList.add(new EntityExpr("thruDate", EntityOperator.EQUALS, null));
-            exprList.add(new EntityExpr("contentIdTo", EntityOperator.EQUALS, contentIdTo));
-            exprList.add(new EntityExpr("contentAssocTypeId", EntityOperator.EQUALS, contentAssocTypeId));
+            exprList.add(EntityCondition.makeCondition("mapKey", EntityOperator.EQUALS, mapKey));
+            exprList.add(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null));
+            exprList.add(EntityCondition.makeCondition("contentIdTo", EntityOperator.EQUALS, contentIdTo));
+            exprList.add(EntityCondition.makeCondition("contentAssocTypeId", EntityOperator.EQUALS, contentAssocTypeId));
 
             if (UtilValidate.isNotEmpty(activeContentId)) {
-                exprList.add(new EntityExpr("contentId", EntityOperator.NOT_EQUAL, activeContentId));
+                exprList.add(EntityCondition.makeCondition("contentId", EntityOperator.NOT_EQUAL, activeContentId));
             }
             if (UtilValidate.isNotEmpty(contentId)) {
-                exprList.add(new EntityExpr("contentId", EntityOperator.EQUALS, contentId));
+                exprList.add(EntityCondition.makeCondition("contentId", EntityOperator.EQUALS, contentId));
             }
 
-            EntityConditionList assocExprList = new EntityConditionList(exprList, EntityOperator.AND);
+            EntityConditionList assocExprList = EntityCondition.makeCondition(exprList, EntityOperator.AND);
             List relatedAssocs = delegator.findList("ContentAssoc", assocExprList, null, UtilMisc.toList("fromDate"), null, false);
             //if (Debug.infoOn()) Debug.logInfo("in deactivateAssocs, relatedAssocs:" + relatedAssocs, module);
             List filteredAssocs = EntityUtil.filterByDate(relatedAssocs);

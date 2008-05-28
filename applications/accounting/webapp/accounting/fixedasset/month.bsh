@@ -54,10 +54,10 @@ currentMonth = now;
 nextMonth = UtilDateTime.getMonthStart(UtilDateTime.getMonthStart(now, 35));
 
 condition = new ArrayList();
-condition.add(new EntityExpr("calendarId", EntityOperator.EQUALS, fixedAsset.getString("calendarId")));
-condition.add(new EntityExpr("exceptionDateStartTime",EntityOperator.GREATER_THAN, now));
-condition.add(new EntityExpr("exceptionDateStartTime",EntityOperator.LESS_THAN, nextMonth));
-EntityConditionList ecl = new EntityConditionList(condition, EntityOperator.AND);
+condition.add(EntityCondition.makeCondition("calendarId", EntityOperator.EQUALS, fixedAsset.getString("calendarId")));
+condition.add(EntityCondition.makeCondition("exceptionDateStartTime",EntityOperator.GREATER_THAN, now));
+condition.add(EntityCondition.makeCondition("exceptionDateStartTime",EntityOperator.LESS_THAN, nextMonth));
+EntityConditionList ecl = EntityCondition.makeCondition(condition, EntityOperator.AND);
 List allDates = delegator.findList("TechDataCalendarExcDay", ecl, null, null, null, false);
 Iterator dbInt = allDates.iterator();
 dbValid = false;    // flag to see if the current dbInt is ok

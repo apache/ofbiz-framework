@@ -21,6 +21,8 @@ package org.ofbiz.party.communication;
 
 import java.util.*;
 
+import javolution.util.FastList;
+
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -50,7 +52,7 @@ public class CommunicationEventServices {
         String communicationEventId = (String) context.get("communicationEventId");
         
         Map result = ServiceUtil.returnSuccess();
-        List errorMessages = new LinkedList(); // used to keep a list of all error messages returned from sending emails to contact list
+        List errorMessages = FastList.newInstance(); // used to keep a list of all error messages returned from sending emails to contact list
         
         try {
             // find the communication event and make sure that it is actually an email
@@ -180,12 +182,12 @@ public class CommunicationEventServices {
             // Find a list of distinct email addresses from active, ACCEPTED parties in the contact list
             //      using a list iterator (because there can be a large number)
             List<EntityCondition> conditionList = UtilMisc.toList(
-                        new EntityExpr("contactListId", EntityOperator.EQUALS, contactList.get("contactListId")),
-                        new EntityExpr("statusId", EntityOperator.EQUALS, "CLPT_ACCEPTED"),
-                        new EntityExpr("preferredContactMechId", EntityOperator.NOT_EQUAL, null),
+                        EntityCondition.makeCondition("contactListId", EntityOperator.EQUALS, contactList.get("contactListId")),
+                        EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "CLPT_ACCEPTED"),
+                        EntityCondition.makeCondition("preferredContactMechId", EntityOperator.NOT_EQUAL, null),
                         EntityUtil.getFilterByDateExpr(), EntityUtil.getFilterByDateExpr("contactFromDate", "contactThruDate")
                         );
-            EntityConditionList<EntityCondition> conditions = new EntityConditionList<EntityCondition>(conditionList, EntityOperator.AND);
+            EntityConditionList<EntityCondition> conditions = EntityCondition.makeCondition(conditionList, EntityOperator.AND);
             Set<String> fieldsToSelect = UtilMisc.toSet("infoString");
 
             List sendToEmails = delegator.findList("ContactListPartyAndContactMech", conditions, fieldsToSelect, null,
@@ -219,8 +221,8 @@ public class CommunicationEventServices {
                     //      need to retrieve the partyId it's related to. Since this could be multiple parties, get
                     //      only the most recent valid one via ContactListPartyAndContactMech.
                     List clpConditionList = new ArrayList(conditionList);
-                    clpConditionList.add(new EntityExpr("infoString", EntityOperator.EQUALS, emailAddress));
-                    EntityConditionList clpConditions = new EntityConditionList(clpConditionList, EntityOperator.AND);
+                    clpConditionList.add(EntityCondition.makeCondition("infoString", EntityOperator.EQUALS, emailAddress));
+                    EntityConditionList clpConditions = EntityCondition.makeCondition(clpConditionList, EntityOperator.AND);
     
                     List emailCLPaCMs = delegator.findList("ContactListPartyAndContactMech", clpConditions, null, orderBy, null, true);
                     GenericValue lastContactListPartyACM = EntityUtil.getFirst(emailCLPaCMs);

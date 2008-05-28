@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.manufacturing.jobshopmgt;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,22 +30,23 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
-import java.math.BigDecimal;
+
+import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
-import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.GenericPK;
-import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.entity.condition.EntityExpr;
+import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
-import org.ofbiz.entity.condition.EntityConditionList;
+import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.manufacturing.bom.BOMTree;
 import org.ofbiz.manufacturing.techdata.TechDataServices;
 import org.ofbiz.product.config.ProductConfigWrapper;
@@ -55,9 +57,6 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 /**
  * Services for Production Run maintenance
@@ -2669,18 +2668,18 @@ public class ProductionRunServices {
         try {
             List findOutgoingProductionRunsConds = new LinkedList();
 
-            findOutgoingProductionRunsConds.add(new EntityExpr("productId", EntityOperator.EQUALS, productId));
-            findOutgoingProductionRunsConds.add(new EntityExpr("statusId", EntityOperator.EQUALS, "WEGS_CREATED"));
-            findOutgoingProductionRunsConds.add(new EntityExpr("estimatedStartDate", EntityOperator.LESS_THAN_EQUAL_TO, startDate));
+            findOutgoingProductionRunsConds.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId));
+            findOutgoingProductionRunsConds.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "WEGS_CREATED"));
+            findOutgoingProductionRunsConds.add(EntityCondition.makeCondition("estimatedStartDate", EntityOperator.LESS_THAN_EQUAL_TO, startDate));
 
             List findOutgoingProductionRunsStatusConds = new LinkedList();
-            findOutgoingProductionRunsStatusConds.add(new EntityExpr("currentStatusId", EntityOperator.EQUALS, "PRUN_CREATED"));
-            findOutgoingProductionRunsStatusConds.add(new EntityExpr("currentStatusId", EntityOperator.EQUALS, "PRUN_SCHEDULED"));
-            findOutgoingProductionRunsStatusConds.add(new EntityExpr("currentStatusId", EntityOperator.EQUALS, "PRUN_DOC_PRINTED"));
-            findOutgoingProductionRunsStatusConds.add(new EntityExpr("currentStatusId", EntityOperator.EQUALS, "PRUN_RUNNING"));
-            findOutgoingProductionRunsConds.add(new EntityConditionList(findOutgoingProductionRunsStatusConds, EntityOperator.OR));
+            findOutgoingProductionRunsStatusConds.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.EQUALS, "PRUN_CREATED"));
+            findOutgoingProductionRunsStatusConds.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.EQUALS, "PRUN_SCHEDULED"));
+            findOutgoingProductionRunsStatusConds.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.EQUALS, "PRUN_DOC_PRINTED"));
+            findOutgoingProductionRunsStatusConds.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.EQUALS, "PRUN_RUNNING"));
+            findOutgoingProductionRunsConds.add(EntityCondition.makeCondition(findOutgoingProductionRunsStatusConds, EntityOperator.OR));
 
-            List outgoingProductionRuns = delegator.findList("WorkEffortAndGoods", new EntityConditionList(findOutgoingProductionRunsConds, EntityOperator.AND), null, UtilMisc.toList("-estimatedStartDate"), null, false);
+            List outgoingProductionRuns = delegator.findList("WorkEffortAndGoods", EntityCondition.makeCondition(findOutgoingProductionRunsConds, EntityOperator.AND), null, UtilMisc.toList("-estimatedStartDate"), null, false);
             if (outgoingProductionRuns != null) {
                 for (int i = 0; i < outgoingProductionRuns.size(); i++) {
                     GenericValue outgoingProductionRun = (GenericValue)outgoingProductionRuns.get(i);
@@ -2945,11 +2944,11 @@ public class ProductionRunServices {
 
             // backorders
             List backordersCondList = FastList.newInstance();
-            backordersCondList.add(new EntityExpr("quantityNotAvailable", EntityOperator.NOT_EQUAL, null));
-            backordersCondList.add(new EntityExpr("quantityNotAvailable", EntityOperator.GREATER_THAN, new Double(0.0)));
-            //backordersCondList.add(new EntityExpr(new EntityExpr("statusId", EntityOperator.EQUALS, "ITEM_CREATED"), EntityOperator.OR, new EntityExpr("statusId", EntityOperator.LESS_THAN, "ITEM_APPROVED")));
+            backordersCondList.add(EntityCondition.makeCondition("quantityNotAvailable", EntityOperator.NOT_EQUAL, null));
+            backordersCondList.add(EntityCondition.makeCondition("quantityNotAvailable", EntityOperator.GREATER_THAN, new Double(0.0)));
+            //backordersCondList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "ITEM_CREATED"), EntityOperator.OR, EntityCondition.makeCondition("statusId", EntityOperator.LESS_THAN, "ITEM_APPROVED")));
 
-            List backorders = delegator.findList("OrderItemAndShipGrpInvResAndItem", new EntityConditionList(backordersCondList, EntityOperator.AND), null, UtilMisc.toList("shipBeforeDate"), null, false);
+            List backorders = delegator.findList("OrderItemAndShipGrpInvResAndItem", EntityCondition.makeCondition(backordersCondList, EntityOperator.AND), null, UtilMisc.toList("shipBeforeDate"), null, false);
             Iterator backordersIt = backorders.iterator();
             while (backordersIt.hasNext()) {
                 GenericValue genericResult = (GenericValue) backordersIt.next();

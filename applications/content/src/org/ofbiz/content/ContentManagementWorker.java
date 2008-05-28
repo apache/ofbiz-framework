@@ -744,15 +744,15 @@ public class ContentManagementWorker {
        Iterator iterType = typeList.iterator();
        while (iterType.hasNext()) {
            String type = (String)iterType.next();
-           condList.add(new EntityExpr("contentAssocTypeId", EntityOperator.EQUALS, type));
+           condList.add(EntityCondition.makeCondition("contentAssocTypeId", EntityOperator.EQUALS, type));
        }
        
        EntityCondition conditionMain = null;
        if (condList.size() > 0 ) {
-           EntityCondition conditionType = new EntityConditionList(condList, EntityOperator.OR);
-           conditionMain = new EntityConditionList(UtilMisc.toList( new EntityExpr("contentIdTo", EntityOperator.EQUALS, contentId), conditionType), EntityOperator.AND);
+           EntityCondition conditionType = EntityCondition.makeCondition(condList, EntityOperator.OR);
+           conditionMain = EntityCondition.makeCondition(UtilMisc.toList( EntityCondition.makeCondition("contentIdTo", EntityOperator.EQUALS, contentId), conditionType), EntityOperator.AND);
        } else {
-           conditionMain = new EntityExpr("contentIdTo", EntityOperator.EQUALS, contentId);
+           conditionMain = EntityCondition.makeCondition("contentIdTo", EntityOperator.EQUALS, contentId);
        }
         List listAll = delegator.findList("ContentAssoc", conditionMain, null, null, null, true);
         List listFiltered = EntityUtil.filterByDate(listAll);
@@ -782,11 +782,11 @@ public class ContentManagementWorker {
        Iterator iterType = typeList.iterator();
        while (iterType.hasNext()) {
            String type = (String)iterType.next();
-           condList.add(new EntityExpr("contentAssocTypeId", EntityOperator.EQUALS, type));
+           condList.add(EntityCondition.makeCondition("contentAssocTypeId", EntityOperator.EQUALS, type));
        }
        
-       EntityCondition conditionType = new EntityConditionList(condList, EntityOperator.OR);
-       EntityCondition conditionMain = new EntityConditionList(UtilMisc.toList( new EntityExpr("contentId", EntityOperator.EQUALS, contentId), conditionType), EntityOperator.AND);
+       EntityCondition conditionType = EntityCondition.makeCondition(condList, EntityOperator.OR);
+       EntityCondition conditionMain = EntityCondition.makeCondition(UtilMisc.toList( EntityCondition.makeCondition("contentId", EntityOperator.EQUALS, contentId), conditionType), EntityOperator.AND);
             List listAll = delegator.findList("ContentAssoc", conditionMain, null, null, null, true);
             List listFiltered = EntityUtil.filterByDate(listAll);
             Iterator iter = listFiltered.iterator();

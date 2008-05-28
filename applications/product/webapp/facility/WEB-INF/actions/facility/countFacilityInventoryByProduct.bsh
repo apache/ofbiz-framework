@@ -136,17 +136,17 @@ if (action != null) {
     
     // set distinct on so we only get one row per product
     EntityFindOptions findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
-    EntityCondition searchCondition = new EntityFieldMap(conditionMap, EntityOperator.AND);
-    EntityCondition notVirtualCondition = new EntityExpr(new EntityExpr("isVirtual", EntityOperator.EQUALS, null),
+    EntityCondition searchCondition = EntityCondition.makeCondition(conditionMap, EntityOperator.AND);
+    EntityCondition notVirtualCondition = EntityCondition.makeCondition(EntityCondition.makeCondition("isVirtual", EntityOperator.EQUALS, null),
                                                          EntityOperator.OR,
-                                                         new EntityExpr("isVirtual", EntityOperator.NOT_EQUAL, "Y"));
+                                                         EntityCondition.makeCondition("isVirtual", EntityOperator.NOT_EQUAL, "Y"));
 
     whereConditionsList = UtilMisc.toList(searchCondition, notVirtualCondition);
     // add the discontinuation date condition
     if (UtilValidate.isNotEmpty(productsSoldThruTimestamp)) {
-        EntityCondition discontinuationDateCondition = new EntityConditionList(UtilMisc.toList(
-                new EntityExpr("salesDiscontinuationDate", EntityOperator.EQUALS, null),
-                new EntityExpr("salesDiscontinuationDate", EntityOperator.GREATER_THAN, productsSoldThruTimestamp)),
+        EntityCondition discontinuationDateCondition = EntityCondition.makeCondition(UtilMisc.toList(
+                EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.EQUALS, null),
+                EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.GREATER_THAN, productsSoldThruTimestamp)),
             EntityOperator.OR);
         whereConditionsList.add(discontinuationDateCondition);
         searchParameterString = searchParameterString + "&productsSoldThruTimestamp=" + productsSoldThruTimestamp;
@@ -154,13 +154,13 @@ if (action != null) {
 
     // add search on internal name
     if (UtilValidate.isNotEmpty(internalName)) {
-        whereConditionsList.add(new EntityExpr("internalName", true, EntityOperator.LIKE, "%" + internalName + "%", true));
+        whereConditionsList.add(EntityCondition.makeCondition("internalName", true, EntityOperator.LIKE, "%" + internalName + "%", true));
         searchParameterString = searchParameterString + "&internalName=" + internalName;
     }
     
     // add search on productId 
     if (UtilValidate.isNotEmpty(productId)) {
-        whereConditionsList.add(new EntityExpr("productId", true, EntityOperator.LIKE, productId + "%", true));
+        whereConditionsList.add(EntityCondition.makeCondition("productId", true, EntityOperator.LIKE, productId + "%", true));
         searchParameterString = searchParameterString + "&productId=" + productId;
     }
 
@@ -222,7 +222,7 @@ if (action != null) {
 
     }
 
-    EntityCondition whereCondition = new EntityConditionList(whereConditionsList, EntityOperator.AND);
+    EntityCondition whereCondition = EntityCondition.makeCondition(whereConditionsList, EntityOperator.AND);
 
     boolean beganTransaction = false;
     List prods = null;
@@ -269,13 +269,13 @@ if (action != null) {
             
                 // Make a query against the sales usage view entity
                 salesUsageIt = delegator.findListIteratorByCondition(salesUsageViewEntity, 
-                        new EntityConditionList(
+                        EntityCondition.makeCondition(
                             UtilMisc.toList(
-                                new EntityExpr("facilityId", EntityOperator.EQUALS, facilityId),
-                                new EntityExpr("productId", EntityOperator.EQUALS, oneProd.getString("productId")),
-                                new EntityExpr("statusId", EntityOperator.IN, UtilMisc.toList("ORDER_COMPLETED", "ORDER_APPROVED", "ORDER_HELD")),
-                                new EntityExpr("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER"),
-                                new EntityExpr("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, checkTime)
+                                EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId),
+                                EntityCondition.makeCondition("productId", EntityOperator.EQUALS, oneProd.getString("productId")),
+                                EntityCondition.makeCondition("statusId", EntityOperator.IN, UtilMisc.toList("ORDER_COMPLETED", "ORDER_APPROVED", "ORDER_HELD")),
+                                EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER"),
+                                EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, checkTime)
                             ),
                         EntityOperator.AND),
                     null, null, null, null);
@@ -295,12 +295,12 @@ if (action != null) {
         
                 // Make a query against the production usage view entity
                 productionUsageIt = delegator.findListIteratorByCondition(productionUsageViewEntity, 
-                        new EntityConditionList(
+                        EntityCondition.makeCondition(
                             UtilMisc.toList(
-                                new EntityExpr("facilityId", EntityOperator.EQUALS, facilityId),
-                                new EntityExpr("productId", EntityOperator.EQUALS, oneProd.getString("productId")),
-                                new EntityExpr("workEffortTypeId", EntityOperator.EQUALS, "PROD_ORDER_TASK"),
-                                new EntityExpr("actualCompletionDate", EntityOperator.GREATER_THAN_EQUAL_TO, checkTime)
+                                EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId),
+                                EntityCondition.makeCondition("productId", EntityOperator.EQUALS, oneProd.getString("productId")),
+                                EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, "PROD_ORDER_TASK"),
+                                EntityCondition.makeCondition("actualCompletionDate", EntityOperator.GREATER_THAN_EQUAL_TO, checkTime)
                             ),
                         EntityOperator.AND),
                     null, null, null, null);

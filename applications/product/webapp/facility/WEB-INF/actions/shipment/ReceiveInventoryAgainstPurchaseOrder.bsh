@@ -173,8 +173,8 @@ while (orderItemIter.hasNext()) {
 
     // Retrieve the backordered quantity
     // TODO: limit to a facility? The shipment destination facility is not necessarily the same facility as the inventory
-    conditions = UtilMisc.toList(new EntityExpr("productId", EntityOperator.EQUALS, product.get("productId")), new EntityExpr("availableToPromiseTotal", EntityOperator.LESS_THAN, new Double(0)));
-    negativeInventoryItems = delegator.findList("InventoryItem",  new EntityConditionList(conditions, EntityOperator.AND), null, null, null, false);
+    conditions = UtilMisc.toList(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, product.get("productId")), EntityCondition.makeCondition("availableToPromiseTotal", EntityOperator.LESS_THAN, new Double(0)));
+    negativeInventoryItems = delegator.findList("InventoryItem",  EntityCondition.makeCondition(conditions, EntityOperator.AND), null, null, null, false);
     backOrderedQuantity = 0;
     niit = negativeInventoryItems.iterator();
     while (niit.hasNext()) {

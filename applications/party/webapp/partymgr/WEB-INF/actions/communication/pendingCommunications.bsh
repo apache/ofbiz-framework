@@ -73,34 +73,34 @@ pRolesList = new ArrayList();
 while (pri.hasNext()) {
     partyRole = (GenericValue) pri.next();
     if (!partyRole.getString("roleTypeId").equals("_NA_")) {
-        pRolesList.add(new EntityExpr("roleTypeIdTo", EntityOperator.EQUALS, partyRole.getString("roleTypeId")));
+        pRolesList.add(EntityCondition.makeCondition("roleTypeIdTo", EntityOperator.EQUALS, partyRole.getString("roleTypeId")));
     }
 }
 
 // add in events with no role attached
-pRolesList.add(new EntityExpr("roleTypeIdTo", EntityOperator.EQUALS, null));
+pRolesList.add(EntityCondition.makeCondition("roleTypeIdTo", EntityOperator.EQUALS, null));
 
 // limit to just this user's events, or those not attached to a user
 partyList = new ArrayList();
-partyList.add(new EntityExpr("partyIdTo", EntityOperator.EQUALS, null));
-partyList.add(new EntityExpr("partyIdTo", EntityOperator.EQUALS, partyId));
+partyList.add(EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, null));
+partyList.add(EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, partyId));
 if ("Y".equalsIgnoreCase(fromFlag)) {
-    partyList.add(new EntityExpr("partyIdFrom", EntityOperator.EQUALS, null));
-    partyList.add(new EntityExpr("partyIdFrom", EntityOperator.EQUALS, partyId));
+    partyList.add(EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, null));
+    partyList.add(EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, partyId));
 }
 
 // limit to non-completed items
 statusList = new ArrayList();
-statusList.add(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "COM_COMPLETE"));
-statusList.add(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "COM_RESOLVED"));
-statusList.add(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "COM_REFERRED"));
+statusList.add(EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "COM_COMPLETE"));
+statusList.add(EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "COM_RESOLVED"));
+statusList.add(EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "COM_REFERRED"));
 
 // build the condition
 expressions = new ArrayList();
-expressions.add(new EntityConditionList(partyList, EntityOperator.OR));
-expressions.add(new EntityConditionList(pRolesList, EntityOperator.OR));
-expressions.add(new EntityConditionList(statusList, EntityOperator.AND));
-condition = new EntityConditionList(expressions, EntityOperator.AND);
+expressions.add(EntityCondition.makeCondition(partyList, EntityOperator.OR));
+expressions.add(EntityCondition.makeCondition(pRolesList, EntityOperator.OR));
+expressions.add(EntityCondition.makeCondition(statusList, EntityOperator.AND));
+condition = EntityCondition.makeCondition(expressions, EntityOperator.AND);
 
 // specific fields to select
 fieldsToSelect = null;

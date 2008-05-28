@@ -213,30 +213,30 @@ public class OrderListState {
         List allConditions = new ArrayList();
 
         if (facilityId != null) {
-            allConditions.add(new EntityExpr("originFacilityId", EntityOperator.EQUALS, facilityId));
+            allConditions.add(EntityCondition.makeCondition("originFacilityId", EntityOperator.EQUALS, facilityId));
         }
 
         List statusConditions = new ArrayList();
         for (Iterator iter = orderStatusState.keySet().iterator(); iter.hasNext(); ) {
             String status = (String) iter.next();
             if (!hasStatus(status)) continue;
-            statusConditions.add( new EntityExpr("statusId", EntityOperator.EQUALS, parameterToOrderStatusId.get(status)) );
+            statusConditions.add( EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, parameterToOrderStatusId.get(status)) );
         }
         List typeConditions = new ArrayList();
         for (Iterator iter = orderTypeState.keySet().iterator(); iter.hasNext(); ) {
             String type = (String) iter.next();
             if (!hasType(type)) continue;
-            typeConditions.add( new EntityExpr("orderTypeId", EntityOperator.EQUALS, parameterToOrderTypeId.get(type)) );
+            typeConditions.add( EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, parameterToOrderTypeId.get(type)) );
         }
                 
-        EntityCondition statusConditionsList = new EntityConditionList(statusConditions,  EntityOperator.OR);
-        EntityCondition typeConditionsList = new EntityConditionList(typeConditions, EntityOperator.OR);
+        EntityCondition statusConditionsList = EntityCondition.makeCondition(statusConditions,  EntityOperator.OR);
+        EntityCondition typeConditionsList = EntityCondition.makeCondition(typeConditions, EntityOperator.OR);
         if ((typeConditions.size() > 0) && (statusConditions.size() > 0)) {
             allConditions.add(statusConditionsList);
             allConditions.add(typeConditionsList);
         }
 
-        EntityCondition queryConditionsList = new EntityConditionList(allConditions, EntityOperator.AND);
+        EntityCondition queryConditionsList = EntityCondition.makeCondition(allConditions, EntityOperator.AND);
         EntityFindOptions options = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
         EntityListIterator iterator = delegator.find("OrderHeader", queryConditionsList, null, null, UtilMisc.toList("orderDate DESC"), options);
 

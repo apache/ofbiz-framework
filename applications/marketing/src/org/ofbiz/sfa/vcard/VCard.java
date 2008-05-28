@@ -101,15 +101,15 @@ public class VCard {
                 serviceCtx.put("address1", workAddress.getStreet());
                 serviceCtx.put("city", workAddress.getCity()); 
                 serviceCtx.put("postalCode", workAddress.getPostalCode());
-                EntityCondition cond = new EntityConditionList(UtilMisc.toList(
-                                                    new EntityExpr("geoTypeId", EntityOperator.EQUALS, "COUNTRY"),
-                                                    new EntityExpr("geoName", EntityOperator.LIKE, workAddress.getCountry())), EntityOperator.AND);
+                EntityCondition cond = EntityCondition.makeCondition(UtilMisc.toList(
+                                                    EntityCondition.makeCondition("geoTypeId", EntityOperator.EQUALS, "COUNTRY"),
+                                                    EntityCondition.makeCondition("geoName", EntityOperator.LIKE, workAddress.getCountry())), EntityOperator.AND);
                 GenericValue countryGeo = EntityUtil.getFirst(delegator.findList("Geo", cond, null, null, null, true));
                 serviceCtx.put("countryGeoId", countryGeo.get("geoId"));
 
-                EntityCondition condition = new EntityConditionList(UtilMisc.toList(
-                        new EntityExpr("geoTypeId", EntityOperator.EQUALS, "STATE"),
-                        new EntityExpr("geoName", EntityOperator.LIKE, workAddress.getRegion())), EntityOperator.AND); 
+                EntityCondition condition = EntityCondition.makeCondition(UtilMisc.toList(
+                        EntityCondition.makeCondition("geoTypeId", EntityOperator.EQUALS, "STATE"),
+                        EntityCondition.makeCondition("geoName", EntityOperator.LIKE, workAddress.getRegion())), EntityOperator.AND); 
                 GenericValue stateGeo = EntityUtil.getFirst(delegator.findList("Geo", condition, null, null, null, true));
                 serviceCtx.put("stateProvinceGeoId", stateGeo.get("geoId"));
                 

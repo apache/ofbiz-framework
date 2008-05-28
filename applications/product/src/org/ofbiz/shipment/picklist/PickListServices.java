@@ -55,21 +55,21 @@ public class PickListServices {
                 List conditionList2 = new ArrayList();
 
                 // we are only concerned about approved sales orders
-                conditionList2.add(new EntityExpr("statusId", EntityOperator.EQUALS, "ORDER_APPROVED"));
-                conditionList2.add(new EntityExpr("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER"));
+                conditionList2.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "ORDER_APPROVED"));
+                conditionList2.add(EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER"));
 
                 // build the expression list from the IDs
                 Iterator i = orderIdList.iterator();
                 while (i.hasNext()) {
                     String orderId = (String) i.next();
-                    conditionList1.add(new EntityExpr("orderId", EntityOperator.EQUALS, orderId));
+                    conditionList1.add(EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderId));
                 }
 
                 // create the conditions
-                EntityCondition idCond = new EntityConditionList(conditionList1, EntityOperator.OR);
+                EntityCondition idCond = EntityCondition.makeCondition(conditionList1, EntityOperator.OR);
                 conditionList2.add(idCond);
 
-                EntityCondition cond = new EntityConditionList(conditionList2, EntityOperator.AND);
+                EntityCondition cond = EntityCondition.makeCondition(conditionList2, EntityOperator.AND);
 
                 // run the query
                 try {

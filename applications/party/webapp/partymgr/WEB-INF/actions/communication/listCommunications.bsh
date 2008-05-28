@@ -38,8 +38,8 @@ if (previousSort != null && previousSort.equals(sortField)) {
     sortField = "-" + sortField;
 }
 
-eventExprs = UtilMisc.toList(new EntityExpr("partyIdTo", EntityOperator.EQUALS, partyId), new EntityExpr("partyIdFrom", EntityOperator.EQUALS, partyId));
-ecl = new EntityConditionList(eventExprs, EntityOperator.OR);
+eventExprs = UtilMisc.toList(EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, partyId), EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, partyId));
+ecl = EntityCondition.makeCondition(eventExprs, EntityOperator.OR);
 events = delegator.findList("CommunicationEvent", ecl, null, UtilMisc.toList(sortField), null, false);
 context.put("eventList", events);
 context.put("eventListSize", events.size());

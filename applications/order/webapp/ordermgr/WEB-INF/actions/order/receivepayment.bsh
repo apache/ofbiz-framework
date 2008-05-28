@@ -23,7 +23,7 @@ import org.ofbiz.base.util.*;
 
 delegator = request.getAttribute("delegator");
 orderId = request.getParameter("orderId");
-paymentMethodTypes = delegator.findList("PaymentMethodType", new EntityExpr("paymentMethodTypeId", EntityOperator.NOT_EQUAL, "EXT_OFFLINE"), null, null, null, false);
+paymentMethodTypes = delegator.findList("PaymentMethodType", EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.NOT_EQUAL, "EXT_OFFLINE"), null, null, null, false);
 context.put("paymentMethodTypes", paymentMethodTypes); 
     
 workEffortId = request.getParameter("workEffortId");

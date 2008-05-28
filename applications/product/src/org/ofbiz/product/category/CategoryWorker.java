@@ -257,15 +257,15 @@ public class CategoryWorker {
 
     private static EntityCondition buildCountCondition(String fieldName, String fieldValue) {
         List orCondList = FastList.newInstance();
-        orCondList.add(new EntityExpr("thruDate", EntityOperator.GREATER_THAN, UtilDateTime.nowTimestamp()));
-        orCondList.add(new EntityExpr("thruDate", EntityOperator.EQUALS, null));
-        EntityCondition orCond = new EntityConditionList(orCondList, EntityOperator.OR);
+        orCondList.add(EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN, UtilDateTime.nowTimestamp()));
+        orCondList.add(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null));
+        EntityCondition orCond = EntityCondition.makeCondition(orCondList, EntityOperator.OR);
 
         List andCondList = FastList.newInstance();
-        andCondList.add(new EntityExpr("fromDate", EntityOperator.LESS_THAN, UtilDateTime.nowTimestamp()));
-        andCondList.add(new EntityExpr(fieldName, EntityOperator.EQUALS, fieldValue));
+        andCondList.add(EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN, UtilDateTime.nowTimestamp()));
+        andCondList.add(EntityCondition.makeCondition(fieldName, EntityOperator.EQUALS, fieldValue));
         andCondList.add(orCond);
-        EntityCondition andCond = new EntityConditionList(andCondList, EntityOperator.AND);
+        EntityCondition andCond = EntityCondition.makeCondition(andCondList, EntityOperator.AND);
 
         return andCond;
     }

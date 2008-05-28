@@ -94,31 +94,31 @@ if (lookupFlag != null) {
                 
         paramList = paramList + "&invoiceTypeId=" + invoiceType;        
         if (!"ANY".equals(invoiceType)) {            
-            andExprs.add(new EntityExpr("invoiceTypeId", EntityOperator.EQUALS, invoiceType));
+            andExprs.add(EntityCondition.makeCondition("invoiceTypeId", EntityOperator.EQUALS, invoiceType));
         }
         paramList = paramList + "&invoiceStatusId=" + invoiceStatus;
         if (!"ANY". equals(invoiceStatus)) {            
-            andExprs.add(new EntityExpr("statusId", EntityOperator.EQUALS, invoiceStatus));
+            andExprs.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, invoiceStatus));
         }
         if (billAcct != null && billAcct.length() > 0) {
             paramList = paramList + "&billingAccountId=" + billAcct;
-            andExprs.add(new EntityExpr("billingAccountId", EntityOperator.EQUALS, billAcct));
+            andExprs.add(EntityCondition.makeCondition("billingAccountId", EntityOperator.EQUALS, billAcct));
         }     
        
         if (minDate != null && minDate.length() > 8) {            
             minDate = minDate.trim();
             if (minDate.length() < 14) minDate = minDate + " " + "00:00:00.000";
             paramList = paramList + "&minDate=" + minDate;
-            andExprs.add(new EntityExpr("invoiceDate", EntityOperator.GREATER_THAN_EQUAL_TO, ObjectType.simpleTypeConvert(minDate, "Timestamp", null, null)));        
+            andExprs.add(EntityCondition.makeCondition("invoiceDate", EntityOperator.GREATER_THAN_EQUAL_TO, ObjectType.simpleTypeConvert(minDate, "Timestamp", null, null)));        
         }
         if (maxDate != null && maxDate.length() > 8) {
             maxDate = maxDate.trim();
             if (maxDate.length() < 14) maxDate = maxDate + " " + "23:59:59.999";
             paramList = paramList + "&maxDate=" + maxDate;
-            andExprs.add(new EntityExpr("invoiceDate", EntityOperator.LESS_THAN_EQUAL_TO, ObjectType.simpleTypeConvert(maxDate, "Timestamp", null, null)));
+            andExprs.add(EntityCondition.makeCondition("invoiceDate", EntityOperator.LESS_THAN_EQUAL_TO, ObjectType.simpleTypeConvert(maxDate, "Timestamp", null, null)));
         }
                 
-        mainCond = new EntityConditionList(andExprs, EntityOperator.AND);        
+        mainCond = EntityCondition.makeCondition(andExprs, EntityOperator.AND);        
                                                        
     }
     

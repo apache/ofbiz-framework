@@ -34,9 +34,9 @@ Map result = ProductSearchSession.getProductSearchResult(request, delegator, pro
 applicationTypes = delegator.findList("ProductFeatureApplType", null, null, UtilMisc.toList("description"), null, false);
 
 //productCategories = delegator.findList("ProductCategory", null, null, UtilMisc.toList("description"), null, false);
-expr = new EntityExpr(new EntityExpr("showInSelect", EntityOperator.EQUALS, null),
+expr = EntityCondition.makeCondition(EntityCondition.makeCondition("showInSelect", EntityOperator.EQUALS, null),
         EntityOperator.OR,
-        new EntityExpr("showInSelect", EntityOperator.NOT_EQUAL, "N"));
+        EntityCondition.makeCondition("showInSelect", EntityOperator.NOT_EQUAL, "N"));
 productCategories = delegator.findList("ProductCategory", expr, null, UtilMisc.toList("description"), null, false);
 
 context.put("applicationTypes", applicationTypes);

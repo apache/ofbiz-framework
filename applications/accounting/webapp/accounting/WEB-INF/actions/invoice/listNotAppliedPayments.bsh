@@ -45,23 +45,23 @@ ArrayList paymentsMapList = new ArrayList();  // to pass back to the screeen lis
 List payments = null;
 GenericValue payment = null;
 exprList = new ArrayList();
-expr = new EntityExpr("partyIdTo", EntityOperator.EQUALS, invoice.getString("partyIdFrom"));
+expr = EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, invoice.getString("partyIdFrom"));
 exprList.add(expr); 
-expr = new EntityExpr("partyIdFrom", EntityOperator.EQUALS, invoice.getString("partyId"));
+expr = EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, invoice.getString("partyId"));
 exprList.add(expr); 
 
 // only payments with received and sent and not paid
 exprListStatus = new ArrayList();
-expr = new EntityExpr("statusId", EntityOperator.EQUALS, "PMNT_NOT_PAID");
+expr = EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PMNT_NOT_PAID");
 exprListStatus.add(expr); 
-expr = new EntityExpr("statusId", EntityOperator.EQUALS, "PMNT_RECEIVED");
+expr = EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PMNT_RECEIVED");
 exprListStatus.add(expr); 
-expr = new EntityExpr("statusId", EntityOperator.EQUALS, "PMNT_SENT");
+expr = EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PMNT_SENT");
 exprListStatus.add(expr);
-orCond = new EntityConditionList(exprListStatus, EntityOperator.OR);
+orCond = EntityCondition.makeCondition(exprListStatus, EntityOperator.OR);
 exprList.add(orCond); 
 
-topCond = new EntityConditionList(exprList, EntityOperator.AND);
+topCond = EntityCondition.makeCondition(exprList, EntityOperator.AND);
 
 payments = delegator.findList("Payment", topCond, null, UtilMisc.toList("effectiveDate"), null, false);
 if (payments != null && payments.size() > 0)    {

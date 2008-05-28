@@ -29,7 +29,7 @@ if (shipmentId != null) {
     shipmentItems = delegator.findByAnd("ShipmentItem", UtilMisc.toMap("shipmentId", shipmentId));
 
     // get Shipment tracking info
-    osisCond = new EntityFieldMap(UtilMisc.toMap("shipmentId", shipmentId), EntityOperator.AND);
+    osisCond = EntityCondition.makeCondition(UtilMisc.toMap("shipmentId", shipmentId), EntityOperator.AND);
     osisOrder = UtilMisc.toList("shipmentId", "shipmentRouteSegmentId", "shipmentPackageSeqId");
     osisFields = UtilMisc.toSet("shipmentId", "shipmentRouteSegmentId", "shipmentPackageSeqId", "carrierPartyId", "trackingCode");
     osisFindOptions = new EntityFindOptions(); 

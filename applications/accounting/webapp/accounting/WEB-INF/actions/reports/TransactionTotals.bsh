@@ -28,22 +28,22 @@ import org.ofbiz.entity.GenericDelegator;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
-exprs = UtilMisc.toList(new EntityExpr("organizationPartyId", EntityOperator.EQUALS, organizationPartyId));
+exprs = UtilMisc.toList(EntityCondition.makeCondition("organizationPartyId", EntityOperator.EQUALS, organizationPartyId));
 if (UtilValidate.isNotEmpty(fromDate)) {
-    exprs.add(new EntityExpr("transactionDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
+    exprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
 }
 if (UtilValidate.isNotEmpty(thruDate)) {
-    exprs.add(new EntityExpr("transactionDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDate));
+    exprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDate));
 }
 
 List postedExprs = FastList.newInstance();
-postedExprs.add(new EntityExpr("isPosted", EntityOperator.EQUALS, "Y"));
+postedExprs.add(EntityCondition.makeCondition("isPosted", EntityOperator.EQUALS, "Y"));
 postedExprs.addAll(exprs);
 fieldsToSelect = UtilMisc.toSet("glAccountId", "debitCreditFlag", "totalAmount");
 orderBy = UtilMisc.toList("glAccountId");
 
 List postedTransTotalList = FastList.newInstance();
-List postedTrans = delegator.findList("GlAccOrgAndAcctgTransAndEntry", new EntityConditionList(postedExprs, EntityOperator.AND), fieldsToSelect, orderBy, null, false);
+List postedTrans = delegator.findList("GlAccOrgAndAcctgTransAndEntry", EntityCondition.makeCondition(postedExprs, EntityOperator.AND), fieldsToSelect, orderBy, null, false);
 if (UtilValidate.isNotEmpty(postedTrans)) {
     iter = postedTrans.iterator();
     while (iter.hasNext()) {
@@ -63,11 +63,11 @@ if (UtilValidate.isNotEmpty(postedTrans)) {
 context.put("postedTransTotalList", postedTransTotalList);
 
 List unpostedExprs = FastList.newInstance();
-unpostedExprs.add(new EntityExpr("isPosted", EntityOperator.EQUALS, "N"));
+unpostedExprs.add(EntityCondition.makeCondition("isPosted", EntityOperator.EQUALS, "N"));
 unpostedExprs.addAll(exprs);
 
 List unpostedTransTotalList = FastList.newInstance();
-List unpostedTrans = delegator.findList("GlAccOrgAndAcctgTransAndEntry", new EntityConditionList(unpostedExprs, EntityOperator.AND), fieldsToSelect, orderBy, null, false);
+List unpostedTrans = delegator.findList("GlAccOrgAndAcctgTransAndEntry", EntityCondition.makeCondition(unpostedExprs, EntityOperator.AND), fieldsToSelect, orderBy, null, false);
 if (UtilValidate.isNotEmpty(unpostedTrans)) {
     iter = unpostedTrans.iterator();
     while (iter.hasNext()) {

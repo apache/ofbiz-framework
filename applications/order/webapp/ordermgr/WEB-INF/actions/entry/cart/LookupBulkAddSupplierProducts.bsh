@@ -38,12 +38,12 @@ ShoppingCart shoppingCart = ShoppingCartEvents.getCartObject(request);
 conditionList = new LinkedList();
 
 // make sure the look up is case insensitive
-conditionList.add(new EntityExpr(new EntityFunction.UPPER(new EntityFieldValue("productId")),
+conditionList.add(EntityCondition.makeCondition(EntityFunction.UPPER(EntityFieldValue.makeFieldValue("productId")),
                                  EntityOperator.LIKE, productId.toUpperCase() + "%"));
 
-conditionList.add(new EntityExpr("partyId", EntityOperator.EQUALS, shoppingCart.getOrderPartyId()));
-conditionList.add(new EntityExpr("currencyUomId", EntityOperator.EQUALS, shoppingCart.getCurrency()));
-conditions = new EntityConditionList(conditionList, EntityOperator.AND);
+conditionList.add(EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, shoppingCart.getOrderPartyId()));
+conditionList.add(EntityCondition.makeCondition("currencyUomId", EntityOperator.EQUALS, shoppingCart.getCurrency()));
+conditions = EntityCondition.makeCondition(conditionList, EntityOperator.AND);
 
 List selectedFields = UtilMisc.toSet("productId", "supplierProductId", "supplierProductName", "lastPrice", "minimumOrderQuantity");
 selectedFields.add("availableFromDate");

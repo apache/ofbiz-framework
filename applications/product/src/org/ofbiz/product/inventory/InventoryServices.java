@@ -361,7 +361,7 @@ public class InventoryServices {
         // find all inventory items w/ a negative ATP
         List inventoryItems = null;
         try {
-            EntityExpr ee = new EntityExpr("availableToPromiseTotal", EntityOperator.LESS_THAN, new Double(0));
+            EntityExpr ee = EntityCondition.makeCondition("availableToPromiseTotal", EntityOperator.LESS_THAN, new Double(0));
             inventoryItems = delegator.findList("InventoryItem", ee, null, null, null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Trouble getting inventory items", module);
@@ -383,12 +383,12 @@ public class InventoryServices {
             List shipmentAndItems = null;
             try {
                 List<EntityExpr> exprs = FastList.newInstance();
-                exprs.add(new EntityExpr("productId", EntityOperator.EQUALS, inventoryItem.get("productId")));
-                exprs.add(new EntityExpr("destinationFacilityId", EntityOperator.EQUALS, inventoryItem.get("facilityId")));
-                exprs.add(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "SHIPMENT_DELIVERED"));
-                exprs.add(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "SHIPMENT_CANCELLED"));
+                exprs.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, inventoryItem.get("productId")));
+                exprs.add(EntityCondition.makeCondition("destinationFacilityId", EntityOperator.EQUALS, inventoryItem.get("facilityId")));
+                exprs.add(EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "SHIPMENT_DELIVERED"));
+                exprs.add(EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "SHIPMENT_CANCELLED"));
 
-                EntityConditionList<EntityExpr> ecl = new EntityConditionList<EntityExpr>(exprs, EntityOperator.AND);
+                EntityConditionList<EntityExpr> ecl = EntityCondition.makeCondition(exprs, EntityOperator.AND);
                 shipmentAndItems = delegator.findList("ShipmentAndItem", ecl, null, UtilMisc.toList("estimatedArrivalDate"), null, false);  
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Problem getting ShipmentAndItem records", module);
@@ -932,13 +932,13 @@ public class InventoryServices {
             EntityListIterator salesUsageIt = null;
             try {
                 salesUsageIt = delegator.findListIteratorByCondition(salesUsageViewEntity, 
-                        new EntityConditionList(
+                        EntityCondition.makeCondition(
                             UtilMisc.toList(
-                                new EntityExpr("facilityId", EntityOperator.EQUALS, facilityId),
-                                new EntityExpr("productId", EntityOperator.EQUALS, productId),
-                                new EntityExpr("statusId", EntityOperator.IN, UtilMisc.toList("ORDER_COMPLETED", "ORDER_APPROVED", "ORDER_HELD")),
-                                new EntityExpr("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER"),
-                                new EntityExpr("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, checkTime)
+                                EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId),
+                                EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId),
+                                EntityCondition.makeCondition("statusId", EntityOperator.IN, UtilMisc.toList("ORDER_COMPLETED", "ORDER_APPROVED", "ORDER_HELD")),
+                                EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER"),
+                                EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, checkTime)
                             ),
                         EntityOperator.AND),
                     null, null, null, null);
@@ -970,12 +970,12 @@ public class InventoryServices {
             EntityListIterator productionUsageIt = null;
             try {
                 productionUsageIt = delegator.findListIteratorByCondition(productionUsageViewEntity, 
-                        new EntityConditionList(
+                        EntityCondition.makeCondition(
                             UtilMisc.toList(
-                                new EntityExpr("facilityId", EntityOperator.EQUALS, facilityId),
-                                new EntityExpr("productId", EntityOperator.EQUALS, productId),
-                                new EntityExpr("workEffortTypeId", EntityOperator.EQUALS, "PROD_ORDER_TASK"),
-                                new EntityExpr("actualCompletionDate", EntityOperator.GREATER_THAN_EQUAL_TO, checkTime)
+                                EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId),
+                                EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId),
+                                EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, "PROD_ORDER_TASK"),
+                                EntityCondition.makeCondition("actualCompletionDate", EntityOperator.GREATER_THAN_EQUAL_TO, checkTime)
                             ),
                         EntityOperator.AND),
                     null, null, null, null);
