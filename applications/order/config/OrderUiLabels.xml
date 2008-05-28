@@ -7160,7 +7160,7 @@
     <property key="OrderShipAfterDateDefault">
         <value xml:lang="en">Default Ship After Date</value>
         <value xml:lang="es">Fecha de envío 'despues de', por defecto</value>
-        <value xml:lang="fr">Date par défaut d'expédition au plus tôt</value>
+        <value xml:lang="fr">Date d'expédition au plus tôt par défaut</value>
         <value xml:lang="it">Spedisci Dopo la Data Default</value>
         <value xml:lang="nl">Default Ship After Date</value>
         <value xml:lang="ro">Expediaza Dupa Data de Default</value>
@@ -7189,7 +7189,7 @@
     <property key="OrderShipBeforeDateDefault">
         <value xml:lang="en">Default Ship Before Date</value>
         <value xml:lang="es">Fecha de envío antes de', por defecto</value>
-        <value xml:lang="fr">Date par défaut d'expédition au plus tard</value>
+        <value xml:lang="fr">Date d'expédition au plus tard par défaut</value>
         <value xml:lang="it">Spedisci Prima della Data Default</value>
         <value xml:lang="nl">Default Ship Before Date</value>
         <value xml:lang="ro">Expediaza Inainte de Data de Default</value>
@@ -7771,13 +7771,12 @@
     <property key="OrderUnitsPieces">
         <value xml:lang="en">Units  Pieces</value>
         <value xml:lang="es">Partes unitarias</value>
-        <value xml:lang="fr">Parties unitaires</value>
         <value xml:lang="th">ราคาต่อชิ้น</value>
     </property>
     <property key="OrderUnplanned">
         <value xml:lang="en">Unplanned</value>
         <value xml:lang="es">No planificado</value>
-        <value xml:lang="fr">Imprévu</value>
+        <value xml:lang="fr">Non planifié</value>
         <value xml:lang="it">Non Pianificate</value>
         <value xml:lang="nl">Unplanned</value>
         <value xml:lang="ro">Ne Planificate</value>
@@ -7850,7 +7849,7 @@
     </property>
     <property key="OrderVendorRequirementCount">
         <value xml:lang="en"># Products</value>
-        <value xml:lang="fr"># Produits</value>
+        <value xml:lang="fr">Nb de Produits</value>
         <value xml:lang="it"># Prodotti</value>
         <value xml:lang="ru"># Продуктов</value>
         <value xml:lang="th">หมายเลขสินค้า</value>
@@ -7937,7 +7936,7 @@
     </property>
     <property key="OrderViewPermissionError">
         <value xml:lang="de">Sie haben keine Leseberechtigung für diese Seite ("ORDERMGR_VIEW" oder "ORDERMGR_ADMIN" benötigt).</value>
-        <value xml:lang="en">You do not have permission to view this page.</value>
+        <value xml:lang="en">You do not have permission to view this page (it needs "ORDERMGR_VIEW" or "ORDERMGR_ADMIN").</value>
         <value xml:lang="es">Usted no tiene permiso para ver esta página. (Privilegios como "ORDERMGR_VIEW" u "ORDERMGR_ADMIN" son necesarios)</value>
         <value xml:lang="fr">Vous n'avez pas l'autorisation de voir cette page. ("ORDERMGR_VIEW" ou "ORDERMGR_ADMIN" est nécessaire)</value>
         <value xml:lang="it">Non sei autorizzato a vedere questa pagina. ("ORDERMGR_VIEW", "ORDERMGR_ADMIN" o ruolo associato all'agente Fornitore sono necessari)</value>
@@ -7963,7 +7962,7 @@
     <property key="OrderViewQuoteProfit">
         <value xml:lang="en">Profit</value>
         <value xml:lang="es">Beneficio</value>
-        <value xml:lang="fr">Profit</value>
+        <value xml:lang="fr">Bénéfice</value>
         <value xml:lang="it">Profitto</value>
         <value xml:lang="nl">Winst</value>
         <value xml:lang="ro">Profit</value>
@@ -7975,7 +7974,7 @@
     <property key="OrderViewRequest">
         <value xml:lang="en">View Request</value>
         <value xml:lang="es">Ver pedido</value>
-        <value xml:lang="fr">Regarder la demande</value>
+        <value xml:lang="fr">Montrer la demande</value>
         <value xml:lang="it">Mostra Richiesta</value>
         <value xml:lang="nl">View Request</value>
         <value xml:lang="ro">Afiseaza Cererea</value>
@@ -8041,12 +8040,12 @@
     <property key="OrderWeightMeasurement">
         <value xml:lang="en">Weight Measurement</value>
         <value xml:lang="es">Unidad de peso</value>
-        <value xml:lang="fr">Peser la mesure</value>
+        <value xml:lang="fr">Pesée</value>
         <value xml:lang="th">หน่วยวัดน้ำหนัก</value>
     </property>
     <property key="OrderWhereShallWeShipIt">
         <value xml:lang="en">Where shall we ship it</value>
-        <value xml:lang="fr">Où expédier cela</value>
+        <value xml:lang="fr">Où expédier cela ?</value>
         <value xml:lang="th">เราจะทำารขนส่งมันได้ที่ไหน</value>
     </property>
     <property key="OrderWithPromoCode">
@@ -8062,7 +8061,7 @@
     <property key="OrderWorkflow">
         <value xml:lang="en">Workflow</value>
         <value xml:lang="es">Secuencia de trabajo</value>
-        <value xml:lang="fr">Workflow (Séquence de travail)</value>
+        <value xml:lang="fr">Séquence de travail (Workflow)</value>
         <value xml:lang="it">Flusso di Lavoro</value>
         <value xml:lang="nl">Workflow</value>
         <value xml:lang="ro">Flux de Lucru</value>
@@ -8117,7 +8116,7 @@
     </property>
     <property key="OrderfilterAuthProblems">
         <value xml:lang="en">Authorization Problems</value>
-        <value xml:lang="fr">Problèmes d'autorisation p</value>
+        <value xml:lang="fr">Problèmes d'autorisation de paiement</value>
         <value xml:lang="it">Problemi di Autorizzazioni</value>
         <value xml:lang="ro">Probleme de Autorizatie</value>
         <value xml:lang="ru">Проблемы авторизации</value>
@@ -8135,7 +8134,7 @@
     </property>
     <property key="PageTitleCreateQuoteForCustRequest">
         <value xml:lang="en">Create a new Quote and QuoteItem for a CustRequest</value>
-        <value xml:lang="fr">Créer une nouveau devis et un devis d'article pour une demande de coût</value>
+        <value xml:lang="fr">Créer une nouveau devis et une ligne de devis à la demande d'un client</value>
         <value xml:lang="it">Creare un nuovo Preventivo per una Richiesta Cliente</value>
         <value xml:lang="nl">Create a new Quote and QuoteItem for a CustRequest</value>
         <value xml:lang="ro">Creare o noua Oferta pentru o Cerere Client</value>
@@ -8147,7 +8146,7 @@
     </property>
     <property key="PageTitleEditQuoteItemForCustRequest">
         <value xml:lang="en">Edit a QuoteItem For a CustRequest</value>
-        <value xml:lang="fr">Editer un devis d'article pour une demande de coût </value>
+        <value xml:lang="fr">Editer un ligne de devis à la demande d'un client</value>
         <value xml:lang="it">Aggiorna Riga Preventivo Per una Richiesta Cliente</value>
         <value xml:lang="nl">Edit a QuoteItem For a CustRequest</value>
         <value xml:lang="ro">Actualizeaza Linie oferta pentru o Cerere Client</value>
@@ -8157,7 +8156,7 @@
     </property>
     <property key="PageTitleEditRequestItem">
         <value xml:lang="en">Edit a Request Item</value>
-        <value xml:lang="fr">Editer une demande d'article</value>
+        <value xml:lang="fr">Editer une ligne de demande</value>
         <value xml:lang="it">Aggiorna Riga Richiesta</value>
         <value xml:lang="nl">Edit a Request Item</value>
         <value xml:lang="ro">Actualizeaza Linie Cerere</value>
@@ -8167,7 +8166,7 @@
     </property>
     <property key="PageTitleEditRequestItemWorkEffort">
         <value xml:lang="en">Edit a Request Item WorkEffort</value>
-        <value xml:lang="fr">Editer une demande article de main-d'oeuvre</value>
+        <value xml:lang="fr">Editer une demande de service</value>
         <value xml:lang="it">Aggiorna Riga Richiesta Impegno di Lavoro</value>
         <value xml:lang="nl">Edit a Request Item WorkEffort</value>
         <value xml:lang="ro">Actualizeaza linie Cerere Sarcina de Lucru</value>
@@ -8183,7 +8182,7 @@
     </property>
     <property key="PageTitleEditRequirement">
         <value xml:lang="en">Edit Requirement</value>
-        <value xml:lang="fr">Editer les conditions</value>
+        <value xml:lang="fr">Editer une condition</value>
         <value xml:lang="it">Aggiorna Fabbisogno</value>
         <value xml:lang="nl">Edit Requirement</value>
         <value xml:lang="ro">Actualizeaza Necesarul</value>
@@ -8193,19 +8192,19 @@
     </property>
     <property key="PageTitleFindApprovedProductRequirements">
         <value xml:lang="en">Find Approved Product Requirements</value>
-        <value xml:lang="fr">Trouver les conditions de produit approuvé</value>
+        <value xml:lang="fr">Chercher les conditions approuvées sur ce produit</value>
         <value xml:lang="it">Ricerca Fabbisogni Approvati Per Prodotto</value>
         <value xml:lang="th">ค้นหาสินค้าที่ต้องการอนุมัติ</value>
     </property>
     <property key="PageTitleFindApprovedRequirements">
         <value xml:lang="en">Find Approved Requirements</value>
-        <value xml:lang="fr">Trouver les conditions approuvés</value>
+        <value xml:lang="fr">Chercher les conditions approuvés</value>
         <value xml:lang="it">Ricerca Fabbisogni Approvati</value>
         <value xml:lang="th">ค้นหาสิ่งที่ต้องการอนุมัติ</value>
     </property>
     <property key="PageTitleFindApprovedRequirementsByVendor">
         <value xml:lang="en">Find Approved Requirements By Vendor</value>
-        <value xml:lang="fr">Trouver les conditions approuvés par vendeur</value>
+        <value xml:lang="fr">Chercher les conditions approuvés par le vendeur</value>
         <value xml:lang="it">Ricerca Fabbisogni Approvati Per Fornitore</value>
         <value xml:lang="th">ค้นหาสิ่งที่ต้องการอนุมัติโดยผู้จำหน่าย</value>
     </property>
@@ -8221,7 +8220,7 @@
     </property>
     <property key="PageTitleFindReturn">
         <value xml:lang="en">Find Return</value>
-        <value xml:lang="fr">Trouver retour</value>
+        <value xml:lang="fr">Chercher un retour</value>
         <value xml:lang="it">Ricerca Reso</value>
         <value xml:lang="nl">Find Return</value>
         <value xml:lang="ro">Cauta Returnare</value>
@@ -8231,7 +8230,7 @@
     </property>
     <property key="PageTitleListRequirementCustRequests">
         <value xml:lang="en">List Requirement Cust Requests</value>
-        <value xml:lang="fr">Liste des conditions demande de coût</value>
+        <value xml:lang="fr">Lister les conditions de demande client</value>
         <value xml:lang="it">Lista Fabbisogni Richieste Clienti</value>
         <value xml:lang="nl">List Requirement Cust Requests</value>
         <value xml:lang="ro">Lista Necesar Cereri Clienti</value>
@@ -8241,7 +8240,7 @@
     </property>
     <property key="PageTitleListRequirementOrders">
         <value xml:lang="en">List Requirement Orders</value>
-        <value xml:lang="fr">Liste de demandes</value>
+        <value xml:lang="fr">Lister les conditions de commandes</value>
         <value xml:lang="it">Lista Fabbisogni Ordini</value>
         <value xml:lang="nl">List Requirement Orders</value>
         <value xml:lang="ro">Lista Necesar Comenzi </value>
@@ -8251,7 +8250,7 @@
     </property>
     <property key="PageTitleListRequirementRoles">
         <value xml:lang="en">List Requirement Roles</value>
-        <value xml:lang="fr">Liste demandes de rôles</value>
+        <value xml:lang="fr">Lister les conditions de rôles</value>
         <value xml:lang="it">Lista Fabbisogni Ruoli</value>
         <value xml:lang="ru">Список ролей требования</value>
         <value xml:lang="th">รายการสถานะสิ่งที่ต้องการ</value>
@@ -8371,7 +8370,7 @@
     </property>
     <property key="PageTitleOrderInits">
         <value xml:lang="en">Order Initis</value>
-        <value xml:lang="fr">Commande création</value>
+        <value xml:lang="fr">Initialisation de commande</value>
         <value xml:lang="it">Inserimento Ordine</value>
         <value xml:lang="nl">Bestelling Initis</value>
         <value xml:lang="ro">Introducere Comanda</value>
@@ -8461,7 +8460,7 @@
     </property>
     <property key="PageTitleReturnList">
         <value xml:lang="en">Return List</value>
-        <value xml:lang="fr">Liste de retour</value>
+        <value xml:lang="fr">Liste des retours</value>
         <value xml:lang="it">Lista Resi</value>
         <value xml:lang="nl">Return List</value>
         <value xml:lang="ro">Lista Returnari</value>
@@ -8483,14 +8482,14 @@
         <value xml:lang="de">Zusätzlicher Akteureintrag</value>
         <value xml:lang="en">Additional Party Entry</value>
         <value xml:lang="es">Entrada adicional del participante</value>
-        <value xml:lang="fr">Entrée supplémentaire de parti</value>
+        <value xml:lang="fr">Ajout d'un acteur supplémentaire</value>
         <value xml:lang="th">เพิ่มการกรอกข้อมูลกลุ่มผู้ใช้</value>
     </property>
     <property key="PartyBusinessPhone">
         <value xml:lang="de">Telefon, geschäftlich</value>
         <value xml:lang="en">Business Phone</value>
         <value xml:lang="es">Teléfono, en negocio</value>
-        <value xml:lang="fr">Téléphone de bureau</value>
+        <value xml:lang="fr">N° de tél. de bureau</value>
         <value xml:lang="th">หมายเลขเบอร์โทรศัพท์ของบริษัท</value>
     </property>
     <property key="PartyEmailAddress">
@@ -8504,7 +8503,7 @@
         <value xml:lang="de">Akteur finden</value>
         <value xml:lang="en">Find Party</value>
         <value xml:lang="es">Buscar participante</value>
-        <value xml:lang="fr">Trouver parti</value>
+        <value xml:lang="fr">Chercher un acteur</value>
         <value xml:lang="th">ค้นหากลุ่มผู้ใช้</value>
     </property>
     <property key="PartyFirstName">
