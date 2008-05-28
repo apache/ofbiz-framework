@@ -92,7 +92,7 @@ public class RegionViewHandler implements ViewHandler {
             if (throwable instanceof JspException) {
                 JspException jspe = (JspException) throwable;
 
-                throwable = jspe.getRootCause() != null ? jspe.getRootCause() : jspe;
+                throwable = jspe.getCause() != null ? jspe.getCause() : jspe;
             }
             Debug.logError(throwable, "ServletException rendering JSP view", module);
             throw new ViewHandlerException(e.getMessage(), throwable);

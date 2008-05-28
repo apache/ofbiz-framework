@@ -48,10 +48,8 @@ public class FopRenderer {
      */
     public static ByteArrayOutputStream render(Writer writer) throws GeneralException {
 
-        FopFactory fopFactory = ApacheFopFactory.instance();
-
+        FopFactory fopFactory = ApacheFopWorker.getFactoryInstance();
         ByteArrayOutputStream out = new ByteArrayOutputStream();
-
         TransformerFactory transFactory = TransformerFactory.newInstance();
 
         try {

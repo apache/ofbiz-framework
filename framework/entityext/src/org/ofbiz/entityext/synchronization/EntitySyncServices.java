@@ -45,6 +45,7 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.serialize.XmlSerializer;
 import org.ofbiz.entity.serialize.SerializeException;
+import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.ModelEntity;
@@ -624,7 +625,7 @@ public class EntitySyncServices {
             nowCal.add(Calendar.SECOND, -keepSeconds);
             Timestamp keepAfterStamp = new Timestamp(nowCal.getTimeInMillis());
             
-            int numRemoved = delegator.removeByCondition("EntitySyncRemove", new EntityExpr(ModelEntity.STAMP_TX_FIELD, EntityOperator.LESS_THAN, keepAfterStamp));
+            int numRemoved = delegator.removeByCondition("EntitySyncRemove", EntityCondition.makeCondition(ModelEntity.STAMP_TX_FIELD, EntityOperator.LESS_THAN, keepAfterStamp));
             Debug.logInfo("In cleanSyncRemoveInfo removed [" + numRemoved + "] values with TX timestamp before [" + keepAfterStamp + "]", module);
             
             return ServiceUtil.returnSuccess();

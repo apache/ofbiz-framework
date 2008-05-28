@@ -22,6 +22,8 @@ package org.ofbiz.entity.condition;
 import java.util.List;
 import java.util.Map;
 
+import javolution.lang.Reusable;
+
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericModelException;
 import org.ofbiz.entity.config.DatasourceInfo;
@@ -32,7 +34,7 @@ import org.ofbiz.entity.model.ModelField;
  * Encapsulates operations between entities and entity fields. This is a immutable class.
  *
  */
-public abstract class EntityFunction<T extends Comparable> extends EntityConditionValue {
+public abstract class EntityFunction<T extends Comparable> extends EntityConditionValue implements Reusable {
 
     public static interface Fetcher<T> {
         T getValue(Object value);
@@ -42,56 +44,93 @@ public abstract class EntityFunction<T extends Comparable> extends EntityConditi
     public static final int ID_TRIM = 2;
     public static final int ID_UPPER = 3;
     public static final int ID_LOWER = 4;
+    
+    public static EntityFunction<Integer> LENGTH(EntityConditionValue nested) { LENGTH ef = new LENGTH(); ef.init(nested); return ef; }
+    public static EntityFunction<Integer> LENGTH(Object value) { LENGTH ef = new LENGTH(); ef.init(value); return ef; }
+    public static EntityFunction<String> TRIM(EntityConditionValue nested) { TRIM ef = new TRIM(); ef.init(nested); return ef; }
+    public static EntityFunction<String> TRIM(Object value) { TRIM ef = new TRIM(); ef.init(value); return ef; }
+    public static EntityFunction<String> UPPER(EntityConditionValue nested) { UPPER ef = new UPPER(); ef.init(nested); return ef; }
+    public static EntityFunction<String> UPPER(Object value) { UPPER ef = new UPPER(); ef.init(value); return ef; }
+    public static EntityFunction<String> UPPER_FIELD(String fieldName) { UPPER ef = new UPPER(); ef.init(EntityFieldValue.makeFieldValue(fieldName)); return ef; }
+    public static EntityFunction<String> LOWER(EntityConditionValue nested) { LOWER ef = new LOWER(); ef.init(nested); return ef; }
+    public static EntityFunction<String> LOWER(Object value) { LOWER ef = new LOWER(); ef.init(value); return ef; }
 
     public static class LENGTH extends EntityFunction<Integer> {
         public static Fetcher<Integer> FETCHER = new Fetcher<Integer>() {
             public Integer getValue(Object value) { return value.toString().length(); }
         };
-        public LENGTH(EntityConditionValue nested) { super(FETCHER, ID_LENGTH, "LENGTH", nested); }
-        public LENGTH(Object value) { super(FETCHER, ID_LENGTH, "LENGTH", value); }
+        protected LENGTH() {}
+        /** @deprecated Use EntityCondition.LENGTH() instead */
+        public LENGTH(EntityConditionValue nested) { init(nested); }
+        /** @deprecated Use EntityCondition.LENGTH() instead */
+        public LENGTH(Object value) { init(value); }
+        public void init(Object value) {
+        super.init(FETCHER, ID_LENGTH, "LENGTH", value);
+        }
     };
 
     public static class TRIM extends EntityFunction<String> {
         public static Fetcher<String> FETCHER = new Fetcher<String>() {
             public String getValue(Object value) { return value.toString().trim(); }
         };
-        public TRIM(EntityConditionValue nested) { super(FETCHER, ID_TRIM, "TRIM", nested); }
-        public TRIM(Object value) { super(FETCHER, ID_TRIM, "TRIM", value); }
+        protected TRIM() {}
+        /** @deprecated Use EntityCondition.TRIM() instead */
+        public TRIM(EntityConditionValue nested) { init(nested); }
+        /** @deprecated Use EntityCondition.TRIM() instead */
+        public TRIM(Object value) { init(value); }
+        public void init(Object value) {
+        super.init(FETCHER, ID_TRIM, "TRIM", value);
+        }
     };
 
     public static class UPPER extends EntityFunction<String> {
         public static Fetcher<String> FETCHER = new Fetcher<String>() {
             public String getValue(Object value) { return value.toString().toUpperCase(); }
         };
-        public UPPER(EntityConditionValue nested) { super(FETCHER, ID_UPPER, "UPPER", nested); }
-        public UPPER(Object value) { super(FETCHER, ID_UPPER, "UPPER", value); }
+        protected UPPER() {}
+        /** @deprecated Use EntityCondition.UPPER() instead */
+        public UPPER(EntityConditionValue nested) { init(nested); }
+        /** @deprecated Use EntityCondition.UPPER() instead */
+        public UPPER(Object value) { init(value); }
+        public void init(Object value) {
+        super.init(FETCHER, ID_UPPER, "UPPER", value);
+        }
     };
 
     public static class LOWER extends EntityFunction<String> {
         public static Fetcher<String> FETCHER = new Fetcher<String>() {
             public String getValue(Object value) { return value.toString().toLowerCase(); }
         };
-        public LOWER(EntityConditionValue nested) { super(FETCHER, ID_LOWER, "LOWER", nested); }
-        public LOWER(Object value) { super(FETCHER, ID_LOWER, "LOWER", value); }
+        protected LOWER() {}
+        /** @deprecated Use EntityCondition.LOWER() instead */
+        public LOWER(EntityConditionValue nested) { init(nested); }
+        /** @deprecated Use EntityCondition.LOWER() instead */
+        public LOWER(Object value) { init(value); }
+        public void init(Object value) {
+        super.init(FETCHER, ID_LOWER, "LOWER", value);
+        }
     };
 
-    protected int idInt;
-    protected String codeString;
-    protected EntityConditionValue nested;
-    protected Object value;
-    protected Fetcher<T> fetcher;
+    protected Integer idInt = null;
+    protected String codeString = null;
+    protected EntityConditionValue nested = null;
+    protected Object value = null;
+    protected Fetcher<T> fetcher = null;
+    
+    protected EntityFunction() {}
 
     protected EntityFunction(Fetcher<T> fetcher, int id, String code, EntityConditionValue nested) {
-        this.fetcher = fetcher;
-        idInt = id;
-        codeString = code;
-        this.nested = nested;
+    this.init(fetcher, id, code, nested);
     }
 
     protected EntityFunction(Fetcher<T> fetcher, int id, String code, Object value) {
+    this.init(fetcher, id, code, value);
+    }
+    
+    public void init(Fetcher<T> fetcher, int id, String code, Object value) {
         this.fetcher = fetcher;
-        idInt = id;
-        codeString = code;
+        this.idInt = id;
+        this.codeString = code;
         if (value instanceof EntityConditionValue) {
             this.nested = (EntityConditionValue) value;
         } else if (value instanceof String) {
@@ -99,6 +138,14 @@ public abstract class EntityFunction<T extends Comparable> extends EntityConditi
         } else {
             this.value = value;
         }
+    }
+    
+    public void reset() {
+        this.idInt = null;
+        this.codeString = null;
+        this.nested = null;
+        this.value = null;
+        this.fetcher = null;
     }
 
     public EntityConditionValue freeze() {

@@ -20,8 +20,6 @@
 package org.ofbiz.common.login;
 
 import java.sql.Timestamp;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -29,6 +27,7 @@ import java.util.Map;
 import javax.transaction.Transaction;
 
 import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.ofbiz.base.crypto.HashCrypt;
 import org.ofbiz.base.util.Debug;
@@ -40,8 +39,7 @@ import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.entity.condition.EntityConditionList;
-import org.ofbiz.entity.condition.EntityExpr;
+import org.ofbiz.entity.condition.EntityFunction;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.serialize.XmlSerializer;
@@ -66,7 +64,7 @@ public class LoginServices {
      * @return Map of results including (userLogin) GenericValue object
      */
     public static Map userLogin(DispatchContext ctx, Map context) {
-        Map result = new HashMap();
+        Map result = FastMap.newInstance();
         GenericDelegator delegator = ctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
 
@@ -373,10 +371,10 @@ public class LoginServices {
             // Not saving password history, so return from here.
             return;
         }
-        List exprs = FastList.newInstance();
+        List<EntityCondition> exprs = FastList.newInstance();
         EntityFindOptions efo = new EntityFindOptions();
         efo.setResultSetType(EntityFindOptions.TYPE_SCROLL_INSENSITIVE);
-        exprs.add(new EntityExpr("userLoginId", EntityOperator.EQUALS, userLoginId));
+        exprs.add(EntityCondition.makeConditionMap("userLoginId", userLoginId));
         EntityListIterator eli = delegator.find("UserLoginPasswordHistory", EntityCondition.makeCondition(exprs), null, null, UtilMisc.toList("-fromDate"), efo);
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
         GenericValue pwdHist;
@@ -406,11 +404,11 @@ public class LoginServices {
      *@return Map with the result of the service, the output parameters
      */
     public static Map createUserLogin(DispatchContext ctx, Map context) {
-        Map result = new HashMap();
+        Map result = FastMap.newInstance();
         GenericDelegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue loggedInUserLogin = (GenericValue) context.get("userLogin");
-        List errorMessageList = new LinkedList();
+        List errorMessageList = FastList.newInstance();
         Locale locale = (Locale) context.get("locale");
 
         boolean useEncryption = "true".equals(UtilProperties.getPropertyValue("security.properties", "password.encrypt"));
@@ -462,7 +460,7 @@ public class LoginServices {
         userLoginToCreate.set("currentPassword", useEncryption ? HashCrypt.getDigestHash(currentPassword, getHashType()) : currentPassword);
 
         try {
-            EntityCondition condition = new EntityExpr("userLoginId", true, EntityOperator.EQUALS, userLoginId, true);
+            EntityCondition condition = EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("userLoginId"), EntityOperator.EQUALS, EntityFunction.UPPER(userLoginId));
             if (UtilValidate.isNotEmpty(delegator.findList("UserLogin", condition, null, null, null, false))) {
                 Map messageMap = UtilMisc.toMap("userLoginId", userLoginId);
                 errMsg = UtilProperties.getMessage(resource,"loginservices.could_not_create_login_user_with_ID_exists", messageMap, locale);
@@ -499,7 +497,7 @@ public class LoginServices {
      *@return Map with the result of the service, the output parameters
      */
     public static Map updatePassword(DispatchContext ctx, Map context) {
-        Map result = new HashMap();
+        Map result = FastMap.newInstance();
         GenericDelegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue loggedInUserLogin = (GenericValue) context.get("userLogin");
@@ -553,7 +551,7 @@ public class LoginServices {
             newPasswordVerify = newPasswordVerify.toLowerCase();
         }
 
-        List errorMessageList = new LinkedList();
+        List<String> errorMessageList = FastList.newInstance();
         if (newPassword != null && newPassword.length() > 0) {
             checkNewPassword(userLoginToUpdate, currentPassword, newPassword, newPasswordVerify,
                 passwordHint, errorMessageList, adminUser, locale);
@@ -588,10 +586,10 @@ public class LoginServices {
      *@return Map with the result of the service, the output parameters
      */
     public static Map updateUserLoginId(DispatchContext ctx, Map context) {
-        Map result = new HashMap();
+        Map result = FastMap.newInstance();
         GenericDelegator delegator = ctx.getDelegator();
         GenericValue loggedInUserLogin = (GenericValue) context.get("userLogin");
-        List errorMessageList = new LinkedList();
+        List errorMessageList = FastList.newInstance();
         Locale locale = (Locale) context.get("locale");
 
         //boolean useEncryption = "true".equals(UtilProperties.getPropertyValue("security.properties", "password.encrypt"));
@@ -700,7 +698,7 @@ public class LoginServices {
      *@return Map with the result of the service, the output parameters
      */
     public static Map updateUserLoginSecurity(DispatchContext ctx, Map context) {
-        Map result = new HashMap();
+        Map result = FastMap.newInstance();
         GenericDelegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue loggedInUserLogin = (GenericValue) context.get("userLogin");

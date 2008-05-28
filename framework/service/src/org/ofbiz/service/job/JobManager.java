@@ -20,10 +20,7 @@ package org.ofbiz.service.job;
 
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -111,17 +108,17 @@ public class JobManager {
         List<String> order = UtilMisc.toList("runTime");
 
         // basic query
-        List<EntityExpr> expressions = UtilMisc.toList(new EntityExpr("runTime", EntityOperator.LESS_THAN_EQUAL_TO,
-                UtilDateTime.nowTimestamp()), new EntityExpr("startDateTime", EntityOperator.EQUALS, null),
-                new EntityExpr("cancelDateTime", EntityOperator.EQUALS, null),
-                new EntityExpr("runByInstanceId", EntityOperator.EQUALS, null));
+        List<EntityExpr> expressions = UtilMisc.toList(EntityCondition.makeCondition("runTime", EntityOperator.LESS_THAN_EQUAL_TO,
+                UtilDateTime.nowTimestamp()), EntityCondition.makeCondition("startDateTime", EntityOperator.EQUALS, null),
+                EntityCondition.makeCondition("cancelDateTime", EntityOperator.EQUALS, null),
+                EntityCondition.makeCondition("runByInstanceId", EntityOperator.EQUALS, null));
 
         // limit to just defined pools
         List<String> pools = ServiceConfigUtil.getRunPools();
-        List<EntityExpr> poolsExpr = UtilMisc.toList(new EntityExpr("poolId", EntityOperator.EQUALS, null));
+        List<EntityExpr> poolsExpr = UtilMisc.toList(EntityCondition.makeCondition("poolId", EntityOperator.EQUALS, null));
         if (pools != null) {
             for (String poolName: pools) {
-                poolsExpr.add(new EntityExpr("poolId", EntityOperator.EQUALS, poolName));
+                poolsExpr.add(EntityCondition.makeCondition("poolId", EntityOperator.EQUALS, poolName));
             }
         }
 
@@ -204,9 +201,9 @@ public class JobManager {
         String instanceId = UtilProperties.getPropertyValue("general.properties", "unique.instanceId", "ofbiz0");
         List<GenericValue> crashed = null;
 
-        List<EntityExpr> exprs = UtilMisc.toList(new EntityExpr("finishDateTime", EntityOperator.EQUALS, null));
-        exprs.add(new EntityExpr("cancelDateTime", EntityOperator.EQUALS, null));
-        exprs.add(new EntityExpr("runByInstanceId", EntityOperator.EQUALS, instanceId));
+        List<EntityExpr> exprs = UtilMisc.toList(EntityCondition.makeCondition("finishDateTime", null));
+        exprs.add(EntityCondition.makeCondition("cancelDateTime", null));
+        exprs.add(EntityCondition.makeCondition("runByInstanceId", instanceId));
         EntityConditionList<EntityExpr> ecl = EntityCondition.makeCondition(exprs);
 
         try {

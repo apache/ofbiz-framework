@@ -284,9 +284,9 @@ public class FindServices {
             }
 
             if (ignoreCase != null && ignoreCase.equals("Y")) {
-                cond = new EntityExpr(new EntityFunction.UPPER(new EntityFieldValue(fieldName)), (EntityComparisonOperator) fieldOp, new EntityFunction.UPPER(fieldValue.toUpperCase()));
+                cond = EntityCondition.makeCondition(EntityFunction.UPPER_FIELD(fieldName), (EntityComparisonOperator) fieldOp, EntityFunction.UPPER(fieldValue.toUpperCase()));
             } else {
-                cond = new EntityExpr(fieldName, (EntityComparisonOperator) fieldOp, fieldValue);
+                cond = EntityCondition.makeCondition(fieldName, (EntityComparisonOperator) fieldOp, fieldValue);
             }
             tmpList.add(cond);
             count++;
@@ -329,7 +329,7 @@ public class FindServices {
                 fieldOp = EntityOperator.LESS_THAN;
             }
             // String rhs = fieldValue.toString();
-            cond = new EntityExpr(fieldName, (EntityComparisonOperator) fieldOp, fieldValue);
+            cond = EntityCondition.makeCondition(fieldName, (EntityComparisonOperator) fieldOp, fieldValue);
             tmpList.add(cond);
 
             // add to queryStringMap

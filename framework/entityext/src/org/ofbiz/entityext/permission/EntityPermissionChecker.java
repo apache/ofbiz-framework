@@ -261,11 +261,11 @@ public class EntityPermissionChecker {
         //Iterator iterType = targetOperationList.iterator();
         //while (iterType.hasNext()) {
         //    String op = (String)iterType.next();
-        //    condList.add(new EntityExpr(lcEntityName + "OperationId", EntityOperator.EQUALS, op));
+        //    condList.add(EntityCondition.makeCondition(lcEntityName + "OperationId", op));
         //}
         //EntityCondition opCond = new EntityConditionList(condList, EntityOperator.OR);
         
-        EntityCondition opCond = new EntityExpr(lcEntityName + "OperationId", EntityOperator.IN, targetOperationList);
+        EntityCondition opCond = EntityCondition.makeCondition(lcEntityName + "OperationId", EntityOperator.IN, targetOperationList);
         
         List targetOperationEntityList = delegator.findList(modelOperationEntity.getEntityName(), opCond, null, null, null, true);
         Map entities = new HashMap();
@@ -905,17 +905,15 @@ public class EntityPermissionChecker {
             thruDate = (Timestamp)partyRelationshipValues.get("thruDate") ;
         }
     
-        EntityExpr partyFromExpr = new EntityExpr("partyIdFrom", EntityOperator.EQUALS, partyIdFrom);
-        EntityExpr partyToExpr = new EntityExpr("partyIdTo", EntityOperator.EQUALS, partyIdTo);
+        EntityExpr partyFromExpr = EntityCondition.makeCondition("partyIdFrom", partyIdFrom);
+        EntityExpr partyToExpr = EntityCondition.makeCondition("partyIdTo", partyIdTo);
        
-        EntityExpr relationExpr = new EntityExpr("partyRelationshipTypeId", EntityOperator.EQUALS,
-                                                       "CONTENT_PERMISSION");
-        //EntityExpr roleTypeIdFromExpr = new EntityExpr("roleTypeIdFrom", EntityOperator.EQUALS, "CONTENT_PERMISSION_GROUP_MEMBER");
-        //EntityExpr roleTypeIdToExpr = new EntityExpr("roleTypeIdTo", EntityOperator.EQUALS, "CONTENT_PERMISSION_GROUP");
-        EntityExpr fromExpr = new EntityExpr("fromDate", EntityOperator.LESS_THAN_EQUAL_TO,
-                                                       fromDate);
-        EntityCondition thruCond = EntityCondition.makeCondition(UtilMisc.toList(new EntityExpr("thruDate", EntityOperator.EQUALS, null),
-                            new EntityExpr("thruDate", EntityOperator.GREATER_THAN, thruDate)), EntityOperator.OR);
+        EntityExpr relationExpr = EntityCondition.makeCondition("partyRelationshipTypeId", "CONTENT_PERMISSION");
+        //EntityExpr roleTypeIdFromExpr = EntityCondition.makeCondition("roleTypeIdFrom", "CONTENT_PERMISSION_GROUP_MEMBER");
+        //EntityExpr roleTypeIdToExpr = EntityCondition.makeCondition("roleTypeIdTo", "CONTENT_PERMISSION_GROUP");
+        EntityExpr fromExpr = EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, fromDate);
+        EntityCondition thruCond = EntityCondition.makeCondition(UtilMisc.toList(EntityCondition.makeCondition("thruDate", null),
+                            EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN, thruDate)), EntityOperator.OR);
     
         // This method is simplified to make it work, these conditions need to be added back in.
         //List joinList = UtilMisc.toList(fromExpr, thruCond, partyFromExpr, partyToExpr, relationExpr);
@@ -1064,7 +1062,7 @@ public class EntityPermissionChecker {
         }
         
         public void init( GenericDelegator delegator) throws GenericEntityException {
-            EntityCondition opCond = new EntityExpr(operationFieldName, EntityOperator.IN, this.operationList);
+            EntityCondition opCond = EntityCondition.makeCondition(operationFieldName, EntityOperator.IN, this.operationList);
             this.entityList = delegator.findList(this.entityName, opCond, null, null, null, true);
         }
         
@@ -1359,9 +1357,9 @@ public class EntityPermissionChecker {
 
     public static List getUserRolesFromList(GenericDelegator delegator, List idList, String partyId, String entityIdFieldName, String partyIdFieldName, String roleTypeIdFieldName, String entityName) throws GenericEntityException {
         
-        EntityExpr expr = new EntityExpr(entityIdFieldName, EntityOperator.IN, idList);
-        EntityExpr expr2 = new EntityExpr(partyIdFieldName, EntityOperator.EQUALS, partyId);
-        EntityConditionList condList = new EntityConditionList(UtilMisc.toList(expr, expr2), EntityOperator.AND);
+        EntityExpr expr = EntityCondition.makeCondition(entityIdFieldName, EntityOperator.IN, idList);
+        EntityExpr expr2 = EntityCondition.makeCondition(partyIdFieldName, partyId);
+        EntityConditionList condList = EntityCondition.makeCondition(UtilMisc.toList(expr, expr2));
         List roleList = delegator.findList(entityName, condList, null, null, null, true);
         List roleListFiltered = EntityUtil.filterByDate(roleList);
         HashSet distinctSet = new HashSet();

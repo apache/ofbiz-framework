@@ -22,6 +22,8 @@ package org.ofbiz.entity.condition;
 import java.util.List;
 import java.util.Map;
 
+import javolution.lang.Reusable;
+
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericModelException;
@@ -33,12 +35,29 @@ import org.ofbiz.entity.model.ModelField;
  * Encapsulates operations between entities and entity fields. This is a immutable class.
  *
  */
-public class EntityFieldValue extends EntityConditionValue {
+public class EntityFieldValue extends EntityConditionValue implements Reusable {
 
-    protected String fieldName;
+    protected String fieldName = null;
+    
+    public static EntityFieldValue makeFieldValue(String fieldName) {
+    EntityFieldValue efv = new EntityFieldValue();
+    efv.init(fieldName);
+    return efv;
+    }
 
+    protected EntityFieldValue() {}
+    
+    /** @deprecated Use EntityFieldValue.makeFieldValue() instead */
     public EntityFieldValue(String fieldName) {
+    this.init(fieldName);
+    }
+    
+    public void init(String fieldName) {
         this.fieldName = fieldName;
+    }
+    
+    public void reset() {
+    this.fieldName = null;
     }
 
     public String getFieldName() {

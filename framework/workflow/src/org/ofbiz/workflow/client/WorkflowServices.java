@@ -447,16 +447,13 @@ public class WorkflowServices {
         } else {
             String partyId = userLogin.getString("partyId");
             EntityConditionList<EntityExpr> ecl = EntityCondition.makeCondition(
-                    EntityOperator.AND, 
-                    new EntityExpr[] {
-                            new EntityExpr("partyId", EntityOperator.EQUALS, partyId),
-                            new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "CAL_DECLINED"),
-                            new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "CAL_DELEGATED"),
-                            new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "CAL_COMPLETED"),
-                            new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "CAL_CANCELLED"),
-                            new EntityExpr("workEffortId", EntityOperator.EQUALS, workEffortId),
-                            new EntityExpr("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, UtilDateTime.nowTimestamp())
-                    });
+                        EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId),
+                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "CAL_DECLINED"),
+                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "CAL_DELEGATED"),
+                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "CAL_COMPLETED"),
+                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "CAL_CANCELLED"),
+                        EntityCondition.makeCondition("workEffortId", EntityOperator.EQUALS, workEffortId),
+                        EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, UtilDateTime.nowTimestamp()));
 
             Collection c = null;
 
@@ -469,16 +466,13 @@ public class WorkflowServices {
             }
             if (c.size() == 0) {
                 ecl = EntityCondition.makeCondition(
-                        EntityOperator.AND, 
-                        new EntityExpr[] {
-                                new EntityExpr("partyId", EntityOperator.EQUALS, partyId),
-                                new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "CAL_DECLINED"),
-                                new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "CAL_DELEGATED"),
-                                new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "CAL_COMPLETED"),
-                                new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "CAL_CANCELLED"),
-                                new EntityExpr("workEffortParentId", EntityOperator.EQUALS, workEffortId),
-                                new EntityExpr("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, UtilDateTime.nowTimestamp())
-                        });
+                        EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId),
+                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "CAL_DECLINED"),
+                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "CAL_DELEGATED"),
+                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "CAL_COMPLETED"),
+                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "CAL_CANCELLED"),
+                        EntityCondition.makeCondition("workEffortParentId", EntityOperator.EQUALS, workEffortId),
+                        EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, UtilDateTime.nowTimestamp()));
                 try {
                     c = userLogin.getDelegator().findList("WorkEffortAndPartyAssign", ecl, null, null, null, false);
                     //Debug.logInfo("Found " + c.size() + " records.", module);

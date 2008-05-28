@@ -727,33 +727,33 @@ public class LoginWorker {
 
     protected static boolean checkValidIssuer(GenericDelegator delegator, Map x500Map, BigInteger serialNumber) throws GeneralException {
         List<EntityCondition> conds = FastList.newInstance();
-        conds.add(EntityCondition.makeCondition(EntityOperator.OR, new EntityExpr("commonName", EntityOperator.EQUALS, x500Map.get("CN")),
-                new EntityExpr("commonName", EntityOperator.EQUALS, null),
-                new EntityExpr("commonName", EntityOperator.EQUALS, "")));
+        conds.add(EntityCondition.makeCondition(EntityOperator.OR, EntityCondition.makeConditionMap("commonName", x500Map.get("CN")),
+                EntityCondition.makeConditionMap("commonName", null),
+                EntityCondition.makeConditionMap("commonName", "")));
 
-        conds.add(EntityCondition.makeCondition(EntityOperator.OR, new EntityExpr("organizationalUnit", EntityOperator.EQUALS, x500Map.get("OU")),
-                new EntityExpr("organizationalUnit", EntityOperator.EQUALS, null),
-                new EntityExpr("organizationalUnit", EntityOperator.EQUALS, "")));
+        conds.add(EntityCondition.makeCondition(EntityOperator.OR, EntityCondition.makeConditionMap("organizationalUnit", x500Map.get("OU")),
+                EntityCondition.makeConditionMap("organizationalUnit", null),
+                EntityCondition.makeConditionMap("organizationalUnit", "")));
 
-        conds.add(EntityCondition.makeCondition(EntityOperator.OR, new EntityExpr("organizationName", EntityOperator.EQUALS, x500Map.get("O")),
-                new EntityExpr("organizationName", EntityOperator.EQUALS, null),
-                new EntityExpr("organizationName", EntityOperator.EQUALS, "")));
+        conds.add(EntityCondition.makeCondition(EntityOperator.OR, EntityCondition.makeConditionMap("organizationName", x500Map.get("O")),
+                EntityCondition.makeConditionMap("organizationName", null),
+                EntityCondition.makeConditionMap("organizationName", "")));
 
-        conds.add(EntityCondition.makeCondition(EntityOperator.OR, new EntityExpr("cityLocality", EntityOperator.EQUALS, x500Map.get("L")),
-                new EntityExpr("cityLocality", EntityOperator.EQUALS, null),
-                new EntityExpr("cityLocality", EntityOperator.EQUALS, "")));
+        conds.add(EntityCondition.makeCondition(EntityOperator.OR, EntityCondition.makeConditionMap("cityLocality", x500Map.get("L")),
+                EntityCondition.makeConditionMap("cityLocality", null),
+                EntityCondition.makeConditionMap("cityLocality", "")));
 
-        conds.add(EntityCondition.makeCondition(EntityOperator.OR, new EntityExpr("stateProvince", EntityOperator.EQUALS, x500Map.get("ST")),
-                new EntityExpr("stateProvince", EntityOperator.EQUALS, null),
-                new EntityExpr("stateProvince", EntityOperator.EQUALS, "")));
+        conds.add(EntityCondition.makeCondition(EntityOperator.OR, EntityCondition.makeConditionMap("stateProvince", x500Map.get("ST")),
+                EntityCondition.makeConditionMap("stateProvince", null),
+                EntityCondition.makeConditionMap("stateProvince", "")));
 
-        conds.add(EntityCondition.makeCondition(EntityOperator.OR, new EntityExpr("country", EntityOperator.EQUALS, x500Map.get("C")),
-                new EntityExpr("country", EntityOperator.EQUALS, null),
-                new EntityExpr("country", EntityOperator.EQUALS, "")));
+        conds.add(EntityCondition.makeCondition(EntityOperator.OR, EntityCondition.makeConditionMap("country", x500Map.get("C")),
+                EntityCondition.makeConditionMap("country", null),
+                EntityCondition.makeConditionMap("country", "")));
 
-        conds.add(EntityCondition.makeCondition(EntityOperator.OR, new EntityExpr("serialNumber", EntityOperator.EQUALS, serialNumber.toString(16)),
-                new EntityExpr("serialNumber", EntityOperator.EQUALS, null),
-                new EntityExpr("serialNumber", EntityOperator.EQUALS, "")));
+        conds.add(EntityCondition.makeCondition(EntityOperator.OR, EntityCondition.makeConditionMap("serialNumber", serialNumber.toString(16)),
+                EntityCondition.makeConditionMap("serialNumber", null),
+                EntityCondition.makeConditionMap("serialNumber", "")));
 
         EntityConditionList<EntityCondition> condition = EntityCondition.makeCondition(conds);
         Debug.logInfo("Doing issuer lookup: " + condition.toString(), module);
