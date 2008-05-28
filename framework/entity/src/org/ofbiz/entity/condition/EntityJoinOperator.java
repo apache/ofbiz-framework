@@ -79,7 +79,7 @@ public class EntityJoinOperator extends EntityOperator<Boolean> {
     }
 
     public EntityCondition freeze(Object lhs, Object rhs) {
-        return new EntityExpr(freeze(lhs), this, freeze(rhs));
+        return EntityCondition.makeCondition(freeze(lhs), this, freeze(rhs));
     }
 
     public EntityCondition freeze(List<? extends EntityCondition> conditionList) {

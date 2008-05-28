@@ -51,27 +51,27 @@ public class ProcessMgrIteratorCondExprBldr extends BaseEntityCondExprBldr imple
     }
 
     public ProcessMgrIteratorExpressionBuilder addPackageIdEquals(String s) {
-        this.addCondition(new EntityExpr(org.ofbiz.shark.SharkConstants.packageId, isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, s));
+        this.addCondition(EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.packageId, isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, s));
         return this;
     }
 
     public ProcessMgrIteratorExpressionBuilder addProcessDefIdEquals(String s) {
-        this.addCondition(new EntityExpr(org.ofbiz.shark.SharkConstants.definitionId, isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, s));
+        this.addCondition(EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.definitionId, isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, s));
         return this;
     }
 
     public ProcessMgrIteratorExpressionBuilder addNameEquals(String s) {
-        this.addCondition(new EntityExpr(org.ofbiz.shark.SharkConstants.mgrName, isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, s));
+        this.addCondition(EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.mgrName, isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, s));
         return this;
     }
 
     public ProcessMgrIteratorExpressionBuilder addVersionEquals(String s) {
-        this.addCondition(new EntityExpr(org.ofbiz.shark.SharkConstants.packageVer, isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, s));
+        this.addCondition(EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.packageVer, isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, s));
         return this;
     }
 
     public ProcessMgrIteratorExpressionBuilder addIsEnabled() {
-        this.addCondition(new EntityExpr(org.ofbiz.shark.SharkConstants.currentState, isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, new Long(0)));
+        this.addCondition(EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.currentState, isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, new Long(0)));
         return this;
     }
 

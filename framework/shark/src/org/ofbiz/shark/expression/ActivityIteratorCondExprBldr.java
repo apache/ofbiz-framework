@@ -66,25 +66,25 @@ public class ActivityIteratorCondExprBldr extends BaseEntityCondExprBldr impleme
 
     public ActivityIteratorExpressionBuilder addPackageIdEquals(String s) {
         this.addProcess(org.ofbiz.shark.SharkConstants.packageId, org.ofbiz.shark.SharkConstants.packageId);
-        this.addCondition(new EntityExpr(org.ofbiz.shark.SharkConstants.packageId, isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, s));
+        this.addCondition(EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.packageId, isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, s));
         return this;
     }
 
     public ActivityIteratorExpressionBuilder addProcessDefIdEquals(String s) {
         this.addProcess(org.ofbiz.shark.SharkConstants.definitionId, "procDefId");
-        this.addCondition(new EntityExpr("procDefId", isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, s));
+        this.addCondition(EntityCondition.makeCondition("procDefId", isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, s));
         return this;
     }
 
     public ActivityIteratorExpressionBuilder addMgrNameEquals(String s) {
         this.addProcess(org.ofbiz.shark.SharkConstants.mgrName, org.ofbiz.shark.SharkConstants.mgrName);
-        this.addCondition(new EntityExpr(org.ofbiz.shark.SharkConstants.mgrName, isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, s));
+        this.addCondition(EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.mgrName, isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, s));
         return this;
     }
 
     public ActivityIteratorExpressionBuilder addVersionEquals(String s) {
         this.addProcess(org.ofbiz.shark.SharkConstants.packageVer, org.ofbiz.shark.SharkConstants.packageVer);
-        this.addCondition(new EntityExpr(org.ofbiz.shark.SharkConstants.packageVer, isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, s));
+        this.addCondition(EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.packageVer, isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, s));
         return this;
     }
 
@@ -94,42 +94,42 @@ public class ActivityIteratorCondExprBldr extends BaseEntityCondExprBldr impleme
 
     public ActivityIteratorExpressionBuilder addProcessStateEquals(String s) {
         this.addProcess(org.ofbiz.shark.SharkConstants.packageVer, org.ofbiz.shark.SharkConstants.packageVer);
-        this.addCondition(new EntityExpr(org.ofbiz.shark.SharkConstants.packageVer, isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, s));
+        this.addCondition(EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.packageVer, isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, s));
         return this;
     }
 
     public ActivityIteratorExpressionBuilder addProcessStateStartsWith(String s) {
         this.addProcess(org.ofbiz.shark.SharkConstants.currentState, "procState");
-        this.addCondition(new EntityExpr("procState", isNotSet ? EntityOperator.NOT_LIKE : EntityOperator.LIKE, s + "%"));
+        this.addCondition(EntityCondition.makeCondition("procState", isNotSet ? EntityOperator.NOT_LIKE : EntityOperator.LIKE, s + "%"));
         return this;
     }
 
     public ActivityIteratorExpressionBuilder addProcessIdEquals(String s) {
-        this.addCondition(new EntityExpr(org.ofbiz.shark.SharkConstants.processId, isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, s));
+        this.addCondition(EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.processId, isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, s));
         return this;
     }
 
     public ActivityIteratorExpressionBuilder addProcessNameEquals(String s) {
         this.addProcess(org.ofbiz.shark.SharkConstants.processName, org.ofbiz.shark.SharkConstants.processName);
-        this.addCondition(new EntityExpr(org.ofbiz.shark.SharkConstants.processName, isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, s));
+        this.addCondition(EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.processName, isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, s));
         return this;
     }
 
     public ActivityIteratorExpressionBuilder addProcessPriorityEquals(int i) {
         this.addProcess(org.ofbiz.shark.SharkConstants.priority, "procPriority");
-        this.addCondition(new EntityExpr("procPriority", isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, new Long(i)));
+        this.addCondition(EntityCondition.makeCondition("procPriority", isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, new Long(i)));
         return this;
     }
 
     public ActivityIteratorExpressionBuilder addProcessDescriptionEquals(String s) {
         this.addProcess(org.ofbiz.shark.SharkConstants.description, "procDesc");
-        this.addCondition(new EntityExpr("procDesc", isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, s));
+        this.addCondition(EntityCondition.makeCondition("procDesc", isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, s));
         return this;
     }
 
     public ActivityIteratorExpressionBuilder addProcessDescriptionContains(String s) {
         this.addProcess(org.ofbiz.shark.SharkConstants.description, "procDesc");
-        this.addCondition(new EntityExpr("procDesc", isNotSet ? EntityOperator.NOT_LIKE : EntityOperator.LIKE, "%" + s + "%"));
+        this.addCondition(EntityCondition.makeCondition("procDesc", isNotSet ? EntityOperator.NOT_LIKE : EntityOperator.LIKE, "%" + s + "%"));
         return this;
     }
 
@@ -196,82 +196,82 @@ public class ActivityIteratorCondExprBldr extends BaseEntityCondExprBldr impleme
     // WfActivity Conditions
 
     public ActivityIteratorExpressionBuilder addStateEquals(String s) {
-        this.addCondition(new EntityExpr(org.ofbiz.shark.SharkConstants.currentState, isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, s));
+        this.addCondition(EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.currentState, isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, s));
         return this;
     }
 
     public ActivityIteratorExpressionBuilder addStateStartsWith(String s) {
-        this.addCondition(new EntityExpr(org.ofbiz.shark.SharkConstants.currentState, isNotSet ? EntityOperator.NOT_LIKE : EntityOperator.LIKE, s + "%"));
+        this.addCondition(EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.currentState, isNotSet ? EntityOperator.NOT_LIKE : EntityOperator.LIKE, s + "%"));
         return this;
     }
 
     public ActivityIteratorExpressionBuilder addIdEquals(String s) {
-        this.addCondition(new EntityExpr(org.ofbiz.shark.SharkConstants.activityId, isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, s));
+        this.addCondition(EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.activityId, isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, s));
         return this;
     }
 
     public ActivityIteratorExpressionBuilder addNameEquals(String s) {
-        this.addCondition(new EntityExpr(org.ofbiz.shark.SharkConstants.activityName, isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, s));
+        this.addCondition(EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.activityName, isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, s));
         return this;
     }
 
     public ActivityIteratorExpressionBuilder addPriorityEquals(int i) {
-        this.addCondition(new EntityExpr(org.ofbiz.shark.SharkConstants.priority, isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, new Long(i)));
+        this.addCondition(EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.priority, isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, new Long(i)));
         return this;
     }
 
     public ActivityIteratorExpressionBuilder addDescriptionEquals(String s) {
-        this.addCondition(new EntityExpr(org.ofbiz.shark.SharkConstants.description, isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, s));
+        this.addCondition(EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.description, isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, s));
         return this;
     }
 
     public ActivityIteratorExpressionBuilder addDescriptionContains(String s) {
-        this.addCondition(new EntityExpr(org.ofbiz.shark.SharkConstants.description, isNotSet ? EntityOperator.NOT_LIKE : EntityOperator.LIKE, "%" + s + "%"));
+        this.addCondition(EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.description, isNotSet ? EntityOperator.NOT_LIKE : EntityOperator.LIKE, "%" + s + "%"));
         return this;
     }
 
     public ActivityIteratorExpressionBuilder addActivatedTimeEquals(long l) {
-        this.addCondition(new EntityExpr(org.ofbiz.shark.SharkConstants.activatedTime, isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, new Timestamp(l)));
+        this.addCondition(EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.activatedTime, isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, new Timestamp(l)));
         return this;
     }
 
     public ActivityIteratorExpressionBuilder addActivatedTimeBefore(long l) {
-        this.addCondition(new EntityExpr(org.ofbiz.shark.SharkConstants.activatedTime, isNotSet ? EntityOperator.LESS_THAN : EntityOperator.GREATER_THAN_EQUAL_TO, new Timestamp(l)));
+        this.addCondition(EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.activatedTime, isNotSet ? EntityOperator.LESS_THAN : EntityOperator.GREATER_THAN_EQUAL_TO, new Timestamp(l)));
         return this;
     }
 
     public ActivityIteratorExpressionBuilder addActivatedTimeAfter(long l) {
-        this.addCondition(new EntityExpr(org.ofbiz.shark.SharkConstants.activatedTime, isNotSet ? EntityOperator.GREATER_THAN : EntityOperator.LESS_THAN_EQUAL_TO, new Timestamp(l)));
+        this.addCondition(EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.activatedTime, isNotSet ? EntityOperator.GREATER_THAN : EntityOperator.LESS_THAN_EQUAL_TO, new Timestamp(l)));
         return this;
     }
 
     public ActivityIteratorExpressionBuilder addLastStateTimeEquals(long l) {
-        this.addCondition(new EntityExpr(org.ofbiz.shark.SharkConstants.lastStateTime, isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, new Timestamp(l)));
+        this.addCondition(EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.lastStateTime, isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, new Timestamp(l)));
         return this;
     }
 
     public ActivityIteratorExpressionBuilder addLastStateTimeBefore(long l) {
-        this.addCondition(new EntityExpr(org.ofbiz.shark.SharkConstants.lastStateTime, isNotSet ? EntityOperator.LESS_THAN : EntityOperator.GREATER_THAN_EQUAL_TO, new Timestamp(l)));
+        this.addCondition(EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.lastStateTime, isNotSet ? EntityOperator.LESS_THAN : EntityOperator.GREATER_THAN_EQUAL_TO, new Timestamp(l)));
         return this;
     }
 
     public ActivityIteratorExpressionBuilder addLastStateTimeAfter(long l) {
-        this.addCondition(new EntityExpr(org.ofbiz.shark.SharkConstants.lastStateTime, isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, new Timestamp(l)));
+        this.addCondition(EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.lastStateTime, isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, new Timestamp(l)));
         return this;
     }
 
     public ActivityIteratorExpressionBuilder addAcceptedTimeEquals(long l) {
-        this.addCondition(new EntityExpr(org.ofbiz.shark.SharkConstants.acceptedTime, isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, new Timestamp(l)));
+        this.addCondition(EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.acceptedTime, isNotSet ? EntityOperator.NOT_EQUAL : EntityOperator.EQUALS, new Timestamp(l)));
         return this;
     }
 
     public ActivityIteratorExpressionBuilder addAcceptedTimeBefore(long l) {
-        this.addCondition(new EntityExpr(org.ofbiz.shark.SharkConstants.acceptedTime, isNotSet ? EntityOperator.LESS_THAN : EntityOperator.GREATER_THAN_EQUAL_TO, new Timestamp(l)));
+        this.addCondition(EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.acceptedTime, isNotSet ? EntityOperator.LESS_THAN : EntityOperator.GREATER_THAN_EQUAL_TO, new Timestamp(l)));
         return this;
     }
 
     public ActivityIteratorExpressionBuilder addAcceptedTimeAfter(long l) {
-        this.addCondition(new EntityExpr(org.ofbiz.shark.SharkConstants.acceptedTime, isNotSet ? EntityOperator.GREATER_THAN : EntityOperator.LESS_THAN_EQUAL_TO, new Timestamp(l)));
+        this.addCondition(EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.acceptedTime, isNotSet ? EntityOperator.GREATER_THAN : EntityOperator.LESS_THAN_EQUAL_TO, new Timestamp(l)));
         return this;
     }
 

@@ -20,7 +20,6 @@ package org.ofbiz.security;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -226,13 +225,12 @@ public class OFBizSecurity extends org.ofbiz.security.Security {
             if (pkey != null) {
                 List<EntityExpr> expressions = new ArrayList<EntityExpr>();
                 for (String role: roles) {
-                    expressions.add(new EntityExpr("roleTypeId", EntityOperator.EQUALS, role));                    
+                    expressions.add(EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, role));                    
                 }
-                EntityConditionList<EntityExpr> exprList = new EntityConditionList<EntityExpr>(expressions, EntityOperator.OR);
-                EntityExpr keyExpr = new EntityExpr(pkey, EntityOperator.EQUALS, primaryKey);
-                EntityExpr partyExpr = new EntityExpr("partyId", EntityOperator.EQUALS, userLogin.getString("partyId"));
-                List<EntityCondition> joinList = UtilMisc.toList(exprList, keyExpr, partyExpr);
-                condition = new EntityConditionList<EntityCondition>(joinList, EntityOperator.AND);                
+                EntityConditionList<EntityExpr> exprList = EntityCondition.makeCondition(expressions, EntityOperator.OR);
+                EntityExpr keyExpr = EntityCondition.makeCondition(pkey, primaryKey);
+                EntityExpr partyExpr = EntityCondition.makeCondition("partyId", userLogin.getString("partyId"));
+                condition = EntityCondition.makeCondition(exprList, keyExpr, partyExpr);
             }
             
         }

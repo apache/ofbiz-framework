@@ -43,6 +43,7 @@ import org.ofbiz.entity.condition.EntityComparisonOperator;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
+import org.ofbiz.entity.condition.EntityFunction;
 import org.ofbiz.entity.condition.EntityJoinOperator;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.ModelEntity;
@@ -225,22 +226,22 @@ public class EntityFinderUtil {
                 // since some databases don't consider nulls in != comparisons, explicitly include them
                 // this makes more sense logically, but if anyone ever needs it to not behave this way we should add an "or-null" attribute that is true by default
                 if (ignoreCase) {
-                    return new EntityExpr(
-                            new EntityExpr(fieldName, true, (EntityComparisonOperator) operator, value, true), 
+                    return EntityCondition.makeCondition(
+                            EntityCondition.makeCondition(EntityFunction.UPPER_FIELD(fieldName), (EntityComparisonOperator) operator, EntityFunction.UPPER(value)), 
                             EntityOperator.OR,
-                            new EntityExpr(fieldName, EntityOperator.EQUALS, null));
+                            EntityCondition.makeCondition(fieldName, EntityOperator.EQUALS, null));
                 } else {
-                    return new EntityExpr(
-                            new EntityExpr(fieldName, (EntityComparisonOperator) operator, value), 
+                    return EntityCondition.makeCondition(
+                            EntityCondition.makeCondition(fieldName, (EntityComparisonOperator) operator, value), 
                             EntityOperator.OR,
-                            new EntityExpr(fieldName, EntityOperator.EQUALS, null));
+                            EntityCondition.makeCondition(fieldName, EntityOperator.EQUALS, null));
                 }
             } else {
                 if (ignoreCase) {
                     // use the stuff to upper case both sides
-                    return new EntityExpr(fieldName, true, (EntityComparisonOperator) operator, value, true);
+                    return EntityCondition.makeCondition(EntityFunction.UPPER_FIELD(fieldName), (EntityComparisonOperator) operator, EntityFunction.UPPER(value));
                 } else {
-                    return new EntityExpr(fieldName, (EntityComparisonOperator) operator, value);
+                    return EntityCondition.makeCondition(fieldName, (EntityComparisonOperator) operator, value);
                 }
             }
         }

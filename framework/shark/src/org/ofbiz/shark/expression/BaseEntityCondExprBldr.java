@@ -115,9 +115,9 @@ public abstract class BaseEntityCondExprBldr implements ExpressionBuilder, Seria
         } else {
             List condList = UtilMisc.toList(condition, current);
             if (this.isOrSet) {
-                condition = new EntityConditionList(condList, EntityOperator.OR);
+                condition = EntityCondition.makeCondition(condList, EntityOperator.OR);
             } else {
-                condition = new EntityConditionList(condList, EntityOperator.AND);
+                condition = EntityCondition.makeCondition(condList, EntityOperator.AND);
             }
         }
         // reset the NOT value

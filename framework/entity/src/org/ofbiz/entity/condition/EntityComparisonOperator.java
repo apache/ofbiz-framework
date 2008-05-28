@@ -157,7 +157,7 @@ public class EntityComparisonOperator extends EntityOperator<Boolean> {
     }
 
     public EntityCondition freeze(Object lhs, Object rhs) {
-        return new EntityExpr(freeze(lhs), this, freeze(rhs));
+        return EntityCondition.makeCondition(freeze(lhs), this, freeze(rhs));
     }
 
     protected Object freeze(Object item) {

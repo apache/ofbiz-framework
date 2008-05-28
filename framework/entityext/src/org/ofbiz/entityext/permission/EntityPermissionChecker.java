@@ -263,7 +263,7 @@ public class EntityPermissionChecker {
         //    String op = (String)iterType.next();
         //    condList.add(EntityCondition.makeCondition(lcEntityName + "OperationId", op));
         //}
-        //EntityCondition opCond = new EntityConditionList(condList, EntityOperator.OR);
+        //EntityCondition opCond = EntityCondition.makeCondition(condList, EntityOperator.OR);
         
         EntityCondition opCond = EntityCondition.makeCondition(lcEntityName + "OperationId", EntityOperator.IN, targetOperationList);
         
