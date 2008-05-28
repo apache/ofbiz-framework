@@ -267,37 +267,37 @@ under the License.
     <Geo abbreviation="WALS" geoCode="WLS" geoId="WALS" geoName="Wales" geoSecCode="898" geoTypeId="COUNTRY"/>
 
     <Geo abbreviation="EU" geoCode="EU" geoTypeId="GROUP" geoId="EU" geoName="European Union"/>
-    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoId="EU" geoIdTo="DEU"/>
-    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoId="EU" geoIdTo="AUT"/>
-    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoId="EU" geoIdTo="BEL"/>
-    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoId="EU" geoIdTo="BGR"/>    
-    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoId="EU" geoIdTo="CYP"/>
-    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoId="EU" geoIdTo="DNK"/>
-    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoId="EU" geoIdTo="ESP"/>
-    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoId="EU" geoIdTo="EST"/>
-    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoId="EU" geoIdTo="FIN"/>
-    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoId="EU" geoIdTo="FRA"/>
-    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoId="EU" geoIdTo="GRC"/>
-    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoId="EU" geoIdTo="HUN"/>
-    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoId="EU" geoIdTo="IRL"/>
-    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoId="EU" geoIdTo="ITA"/>
-    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoId="EU" geoIdTo="LVA"/>
-    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoId="EU" geoIdTo="LTU"/>
-    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoId="EU" geoIdTo="LUX"/>
-    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoId="EU" geoIdTo="MLT"/>
-    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoId="EU" geoIdTo="NLD"/>
-    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoId="EU" geoIdTo="POL"/>
-    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoId="EU" geoIdTo="PRT"/>
-    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoId="EU" geoIdTo="ROU"/>    
-    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoId="EU" geoIdTo="GBR"/>
-    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoId="EU" geoIdTo="CZE"/>
-    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoId="EU" geoIdTo="SVK"/>
-    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoId="EU" geoIdTo="SVN"/>
-    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoId="EU" geoIdTo="SWE"/>
+    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="DEU"/>
+    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="AUT"/>
+    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="BEL"/>
+    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="BGR"/>    
+    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="CYP"/>
+    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="DNK"/>
+    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="ESP"/>
+    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="EST"/>
+    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="FIN"/>
+    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="FRA"/>
+    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="GRC"/>
+    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="HUN"/>
+    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="IRL"/>
+    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="ITA"/>
+    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="LVA"/>
+    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="LTU"/>
+    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="LUX"/>
+    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="MLT"/>
+    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="NLD"/>
+    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="POL"/>
+    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="PRT"/>
+    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="ROU"/>    
+    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="GBR"/>
+    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="CZE"/>
+    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="SVK"/>
+    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="SVN"/>
+    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="SWE"/>
 
 	<!-- Countries of the UK -->
-    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoId="GBR" geoIdTo="SCOT"/>
-    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoId="GBR" geoIdTo="ENGL"/>
-    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoId="GBR" geoIdTo="NIRL"/>
-    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoId="GBR" geoIdTo="WALS"/>
+    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="GBR" geoId="SCOT"/>
+    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="GBR" geoId="ENGL"/>
+    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="GBR" geoId="NIRL"/>
+    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="GBR" geoId="WALS"/>
 </entity-engine-xml>
