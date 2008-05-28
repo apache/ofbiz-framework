@@ -70,6 +70,11 @@ if (!UtilValidate.isEmpty(productionRunId)) {
         // Find the inventory items produced
         List inventoryItems = delegator.findByAnd("WorkEffortInventoryProduced", UtilMisc.toMap("workEffortId", productionRunId));
         context.put("inventoryItems", inventoryItems);
+        if (UtilValidate.isNotEmpty(inventoryItems)) {
+            GenericValue lastWorkEffortInventoryProduced = (GenericValue)inventoryItems.get(inventoryItems.size() - 1);
+            GenericValue lastInventoryItem = lastWorkEffortInventoryProduced.getRelatedOne("InventoryItem");
+            context.put("lastLotId", lastInventoryItem.getString("lotId"));
+        }
 
         // Find if the production run can produce inventory.
         Double quantityProduced = productionRun.getGenericValue().getDouble("quantityProduced");

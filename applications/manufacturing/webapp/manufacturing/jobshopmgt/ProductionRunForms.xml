@@ -130,6 +130,7 @@ under the License.
         <field name="inventoryItemId" widget-style="buttontext">
             <hyperlink target="/facility/control/EditInventoryItem?inventoryItemId=${inventoryItemId}" description="${inventoryItemId}" also-hidden="false" target-type="inter-app"/>
         </field>
+        <field name="lotId" entry-name="inventoryItemId"><display-entity entity-name="InventoryItem" key-field-name="inventoryItemId" description="${lotId} "/></field>
         <field name="creationDate" entry-name="inventoryItemId"><display-entity entity-name="InventoryItem" key-field-name="inventoryItemId" description="${datetimeReceived}"/></field>
     </form>
     
@@ -249,6 +250,7 @@ under the License.
                 <entity-options entity-name="InventoryItemType" description="${description}"/>
             </drop-down>
         </field>
+        <field name="lotId"><text default-value="${lastLotId}"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}">
             <submit button-type="button"/>
         </field>
@@ -262,6 +264,7 @@ under the License.
                 <entity-options entity-name="InventoryItemType" description="${description}"/>
             </drop-down>
         </field>
+        <field name="lotId"><text default-value="${lastLotId}"/></field>
     </form>
     <form name="ProductionRunDeclareAndProduceBottom" skip-start="true" type="multi" title="" list-name="productionRunComponentsDataReadyForIssuance"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
