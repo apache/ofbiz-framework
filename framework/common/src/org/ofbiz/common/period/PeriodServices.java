@@ -28,7 +28,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.condition.EntityConditionList;
+import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.service.DispatchContext;
@@ -64,7 +64,7 @@ public class PeriodServices {
                 // if a periodTypeId was supplied, use it
                 findClosedConditions.add(new EntityExpr("periodTypeId", EntityOperator.EQUALS, periodTypeId));
             }
-            List closedTimePeriods = delegator.findList("CustomTimePeriod", new EntityConditionList(findClosedConditions, EntityOperator.AND), 
+            List closedTimePeriods = delegator.findList("CustomTimePeriod", EntityCondition.makeCondition(findClosedConditions), 
                     UtilMisc.toSet("customTimePeriodId", "periodTypeId", "isClosed", "fromDate", "thruDate"), 
                     UtilMisc.toList("thruDate DESC"), null, false);
 

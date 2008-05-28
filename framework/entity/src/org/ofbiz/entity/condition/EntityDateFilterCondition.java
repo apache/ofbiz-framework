@@ -30,14 +30,26 @@ import org.ofbiz.entity.model.ModelEntity;
 
 public class EntityDateFilterCondition extends EntityCondition {
 
-    protected String fromDateName;
-    protected String thruDateName;
+    protected String fromDateName = null;
+    protected String thruDateName = null;
 
+    protected EntityDateFilterCondition() {}
+    
+    /** @deprecated Use EntityCondition.makeConditionDate() instead */
     public EntityDateFilterCondition(String fromDateName, String thruDateName) {
+    	init(fromDateName, thruDateName);
+    }
+    
+    public void init(String fromDateName, String thruDateName) {
         this.fromDateName = fromDateName;
         this.thruDateName = thruDateName;
     }
 
+    public void reset() {
+    	this.fromDateName = null;
+    	this.thruDateName = null;
+    }
+    
     public String makeWhereString(ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, DatasourceInfo datasourceInfo) {
         EntityCondition condition = makeCondition();
         return condition.makeWhereString(modelEntity, entityConditionParams, datasourceInfo);

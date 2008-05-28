@@ -377,8 +377,7 @@ public class LoginServices {
         EntityFindOptions efo = new EntityFindOptions();
         efo.setResultSetType(EntityFindOptions.TYPE_SCROLL_INSENSITIVE);
         exprs.add(new EntityExpr("userLoginId", EntityOperator.EQUALS, userLoginId));
-        List orderBy = UtilMisc.toList("-fromDate");
-        EntityListIterator eli = delegator.find("UserLoginPasswordHistory", new EntityConditionList(exprs, EntityOperator.AND), null, null, orderBy, efo);
+        EntityListIterator eli = delegator.find("UserLoginPasswordHistory", EntityCondition.makeCondition(exprs), null, null, UtilMisc.toList("-fromDate"), efo);
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
         GenericValue pwdHist;
         if((pwdHist = (GenericValue) eli.next()) !=null){

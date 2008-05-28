@@ -23,6 +23,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import javolution.lang.Reusable;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 

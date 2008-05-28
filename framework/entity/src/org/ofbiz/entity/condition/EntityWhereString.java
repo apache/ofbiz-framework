@@ -44,8 +44,17 @@ public class EntityWhereString extends EntityCondition {
 
     protected EntityWhereString() {}
 
+    /** @deprecated Use EntityCondition.makeConditionWhere() instead */
     public EntityWhereString(String sqlString) {
+    	init(sqlString);
+    }
+    
+    public void init(String sqlString) {
         this.sqlString = sqlString;
+    }
+    
+    public void reset() {
+    	this.sqlString = null;
     }
 
     public String makeWhereString(ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, DatasourceInfo datasourceInfo) {

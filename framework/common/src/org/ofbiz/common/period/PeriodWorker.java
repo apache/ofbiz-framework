@@ -49,11 +49,9 @@ public class PeriodWorker {
             thruDate = UtilDateTime.toTimestamp(timePeriod.getDate("thruDate"));
         }
 
-        EntityConditionList betweenCondition = new EntityConditionList(UtilMisc.toList(
-                    new EntityExpr( fieldName, EntityOperator.GREATER_THAN, fromDate ),
-                    new EntityExpr( fieldName, EntityOperator.LESS_THAN_EQUAL_TO, thruDate )
-                    ), EntityOperator.AND);
-        List conditions = UtilMisc.toList(new EntityExpr( fieldName, EntityOperator.NOT_EQUAL, null ), betweenCondition);
-        return new EntityConditionList(UtilMisc.toList(conditions), EntityOperator.AND);
+        EntityConditionList betweenCondition = EntityCondition.makeCondition(
+                    new EntityExpr(fieldName, EntityOperator.GREATER_THAN, fromDate),
+                    new EntityExpr(fieldName, EntityOperator.LESS_THAN_EQUAL_TO, thruDate));
+        return EntityCondition.makeCondition(new EntityExpr(fieldName, EntityOperator.NOT_EQUAL, null), betweenCondition);
     }
 }

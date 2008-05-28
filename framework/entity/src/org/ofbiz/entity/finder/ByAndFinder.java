@@ -53,7 +53,7 @@ public class ByAndFinder extends ListFinder {
         EntityFinderUtil.expandFieldMapToContext(this.fieldMap, context, entityContext);
         // then convert the types...
         modelEntity.convertFieldMapInPlace(entityContext, delegator);
-        return new EntityFieldMap(entityContext, EntityOperator.AND);
+        return EntityCondition.makeCondition(entityContext);
     }
 }
 

@@ -290,7 +290,7 @@ public class EntityFinderUtil {
                 throw new IllegalArgumentException("Could not find an entity operator for the name: " + operatorName);
             }
             
-            return new EntityConditionList<EntityCondition>(entityConditionList, (EntityJoinOperator) operator);
+            return EntityCondition.makeCondition(entityConditionList, (EntityJoinOperator) operator);
         }
     }
     public static class ConditionObject implements Condition {

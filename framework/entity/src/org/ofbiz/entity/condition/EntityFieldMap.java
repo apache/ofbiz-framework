@@ -25,6 +25,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javolution.util.FastMap;
+
 import org.ofbiz.entity.util.EntityUtil;
 
 /**
@@ -33,7 +35,7 @@ import org.ofbiz.entity.util.EntityUtil;
  */
 public class EntityFieldMap extends EntityConditionListBase<EntityExpr> {
 
-    protected Map<String, ? extends Object> fieldMap;
+    protected Map<String, ? extends Object> fieldMap = null;
 
     protected EntityFieldMap() {
         super();
@@ -52,23 +54,44 @@ public class EntityFieldMap extends EntityConditionListBase<EntityExpr> {
         return list;
     }
 
+    
+    /** @deprecated Use EntityCondition.makeCondition() instead */
     public EntityFieldMap(EntityComparisonOperator compOp, EntityJoinOperator joinOp, Object... keysValues) {
-        this(EntityUtil.makeFields(keysValues), compOp, joinOp);
+        this.init(compOp, joinOp, keysValues);
     }
 
+    /** @deprecated Use EntityCondition.makeCondition() instead */
     public EntityFieldMap(Map<String, ? extends Object> fieldMap, EntityComparisonOperator compOp, EntityJoinOperator joinOp) {
-        super(makeConditionList(fieldMap, compOp), joinOp);
-        this.fieldMap = fieldMap;
-        if (this.fieldMap == null) this.fieldMap = new LinkedHashMap<String, Object>();
+    	this.init(fieldMap, compOp, joinOp);
+    }
+
+    /** @deprecated Use EntityCondition.makeCondition() instead */
+    public EntityFieldMap(EntityJoinOperator operator, Object... keysValues) {
+        this.init(EntityOperator.EQUALS, operator, keysValues);
+    }
+
+    /** @deprecated Use EntityCondition.makeCondition() instead */
+    public EntityFieldMap(Map<String, ? extends Object> fieldMap, EntityJoinOperator operator) {
+        this.init(fieldMap, EntityOperator.EQUALS, operator);
+    }
+    
+    public void init(EntityComparisonOperator compOp, EntityJoinOperator joinOp, Object... keysValues) {
+        super.init(makeConditionList(EntityUtil.makeFields(keysValues), compOp), joinOp);
+        this.fieldMap = EntityUtil.makeFields(keysValues);
+        if (this.fieldMap == null) this.fieldMap = FastMap.newInstance();
         this.operator = joinOp;
     }
 
-    public EntityFieldMap(EntityJoinOperator operator, Object... keysValues) {
-        this(EntityOperator.EQUALS, operator, keysValues);
+    public void init(Map<String, ? extends Object> fieldMap, EntityComparisonOperator compOp, EntityJoinOperator joinOp) {
+        super.init(makeConditionList(fieldMap, compOp), joinOp);
+        this.fieldMap = fieldMap;
+        if (this.fieldMap == null) this.fieldMap = FastMap.newInstance();
+        this.operator = joinOp;
     }
 
-    public EntityFieldMap(Map<String, ? extends Object> fieldMap, EntityJoinOperator operator) {
-        this(fieldMap, EntityOperator.EQUALS, operator);
+    public void reset() {
+    	super.reset();
+    	this.fieldMap = null;
     }
 
     public Object getField(String name) {

@@ -95,11 +95,11 @@ public class EntityUtil {
     }
 
     public static EntityCondition getFilterByDateExpr() {
-        return new EntityDateFilterCondition("fromDate", "thruDate");
+        return EntityCondition.makeConditionDate("fromDate", "thruDate");
     }
 
     public static EntityCondition getFilterByDateExpr(String fromDateName, String thruDateName) {
-        return new EntityDateFilterCondition(fromDateName, thruDateName);
+        return EntityCondition.makeConditionDate(fromDateName, thruDateName);
     }
 
     public static EntityCondition getFilterByDateExpr(java.util.Date moment) {
@@ -399,10 +399,8 @@ public class EntityUtil {
     }
 
     public static List<GenericValue> findDatedInclusionEntity(GenericDelegator delegator, String entityName, Map<String, ? extends Object> search, Timestamp now) throws GenericEntityException {
-        EntityCondition searchCondition = new EntityConditionList<EntityCondition>(UtilMisc.toList(
-            new EntityFieldMap(search, EntityOperator.AND),
-            EntityUtil.getFilterByDateExpr(now)
-        ), EntityOperator.AND);
+        EntityCondition searchCondition = EntityCondition.makeCondition(UtilMisc.toList(
+        		EntityCondition.makeCondition(search), EntityUtil.getFilterByDateExpr(now)));
         return delegator.findList(entityName, searchCondition, null, UtilMisc.toList("-fromDate"), null, false);
     }
 

@@ -1681,7 +1681,7 @@ public class ModelFormField {
                     EntityFinderUtil.Condition condition = (EntityFinderUtil.Condition) constraintIter.next();
                     expandedConditionList.add(condition.createCondition(context, this.entityName, delegator));
                 }
-                findCondition = new EntityConditionList(expandedConditionList, EntityOperator.AND);
+                findCondition = EntityCondition.makeCondition(expandedConditionList);
             }
             
             try {

@@ -18,15 +18,15 @@
  *******************************************************************************/
 package org.ofbiz.entity.condition;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javolution.lang.Reusable;
 import javolution.util.FastList;
 
 import org.ofbiz.entity.GenericDelegator;
-import org.ofbiz.entity.GenericModelException;
 import org.ofbiz.entity.GenericEntity;
+import org.ofbiz.entity.GenericModelException;
 import org.ofbiz.entity.config.DatasourceInfo;
 import org.ofbiz.entity.model.ModelEntity;
 
@@ -41,7 +41,79 @@ import org.ofbiz.entity.model.ModelEntity;
  * These can be used in various combinations using the EntityConditionList and EntityExpr objects.
  *
  */
-public abstract class EntityCondition extends EntityConditionBase {
+public abstract class EntityCondition extends EntityConditionBase implements Reusable {
+	
+	public static <T extends EntityCondition> EntityConditionList<T> makeCondition(EntityJoinOperator operator, T... conditionList) {
+		EntityConditionList<T> ecl = new EntityConditionList<T>();
+		ecl.init(operator, conditionList);
+		return ecl;
+	}
+
+	public static <T extends EntityCondition> EntityConditionList<T> makeCondition(T... conditionList) {
+		EntityConditionList<T> ecl = new EntityConditionList<T>();
+		ecl.init(EntityOperator.AND, conditionList);
+		return ecl;
+	}
+
+	public static <T extends EntityCondition> EntityConditionList<T> makeCondition(List<T> conditionList, EntityJoinOperator operator) {
+		EntityConditionList<T> ecl = new EntityConditionList<T>();
+		ecl.init(conditionList, operator);
+		return ecl;
+	}
+
+	public static <T extends EntityCondition> EntityConditionList<T> makeCondition(List<T> conditionList) {
+		EntityConditionList<T> ecl = new EntityConditionList<T>();
+		ecl.init(conditionList, EntityOperator.AND);
+		return ecl;
+	}
+
+	public static EntityFieldMap makeCondition(Map<String, ? extends Object> fieldMap, EntityComparisonOperator compOp, EntityJoinOperator joinOp) {
+		EntityFieldMap efm = new EntityFieldMap();
+		efm.init(fieldMap, compOp, joinOp);
+		return efm;
+	}
+
+	public static EntityFieldMap makeCondition(Map<String, ? extends Object> fieldMap, EntityJoinOperator joinOp) {
+		EntityFieldMap efm = new EntityFieldMap();
+		efm.init(fieldMap, EntityOperator.EQUALS, joinOp);
+		return efm;
+	}
+
+	public static EntityFieldMap makeCondition(Map<String, ? extends Object> fieldMap) {
+		EntityFieldMap efm = new EntityFieldMap();
+		efm.init(fieldMap, EntityOperator.EQUALS, EntityOperator.AND);
+		return efm;
+	}
+
+	public static EntityFieldMap makeCondition(EntityComparisonOperator compOp, EntityJoinOperator joinOp, Object... keysValues) {
+		EntityFieldMap efm = new EntityFieldMap();
+		efm.init(compOp, joinOp, keysValues);
+		return efm;
+	}
+
+	public static EntityFieldMap makeCondition(EntityJoinOperator joinOp, Object... keysValues) {
+		EntityFieldMap efm = new EntityFieldMap();
+		efm.init(EntityOperator.EQUALS, joinOp, keysValues);
+		return efm;
+	}
+
+	public static EntityFieldMap makeCondition(Object... keysValues) {
+		EntityFieldMap efm = new EntityFieldMap();
+		efm.init(EntityOperator.EQUALS, EntityOperator.AND, keysValues);
+		return efm;
+	}
+
+	public static EntityDateFilterCondition makeConditionDate(String fromDateName, String thruDateName) {
+		EntityDateFilterCondition edfc = new EntityDateFilterCondition();
+		edfc.init(fromDateName, thruDateName);
+		return edfc;
+	}
+
+	public static EntityWhereString makeConditionWhere(String sqlString) {
+		EntityWhereString ews = new EntityWhereString();
+		ews.init(sqlString);
+		return ews;
+	}
 
     public String toString() {
         return makeWhereString(null, FastList.<EntityConditionParam>newInstance(), null);

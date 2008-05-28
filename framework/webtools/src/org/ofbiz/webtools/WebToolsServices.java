@@ -110,7 +110,7 @@ public class WebToolsServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         LocalDispatcher dispatcher = dctx.getDispatcher();
 
-        List messages = new ArrayList();
+        List<String> messages = FastList.newInstance();
 
         String filename = (String)context.get("filename");
         String fmfilename = (String)context.get("fmfilename");
@@ -980,14 +980,14 @@ public class WebToolsServices {
                 result.put("filterJobsWithFinishedStatus", filterJobFinished);
             }
             if (filterExprs.size() > 0) {
-                conditions.add(new EntityConditionList(filterExprs, EntityOperator.OR));
+                conditions.add(EntityCondition.makeCondition(filterExprs, EntityOperator.OR));
             } 
             // set distinct on so we only get one row per job
             EntityFindOptions findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
             List orderBy = UtilMisc.toList("-runTime");
             EntityCondition cond = null;
             if (conditions.size() > 0) {
-                cond = new EntityConditionList(conditions, EntityOperator.AND);
+                cond = EntityCondition.makeCondition(conditions);
             }
             if (cond != null || "Y".equals(showAll)) {
                 try {

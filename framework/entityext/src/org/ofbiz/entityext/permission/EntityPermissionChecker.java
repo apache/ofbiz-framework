@@ -31,6 +31,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import javolution.util.FastList;
+
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilDateTime;
@@ -63,7 +65,7 @@ public class EntityPermissionChecker {
     protected FlexibleStringExpander entityIdExdr;
     protected FlexibleStringExpander entityNameExdr;
     protected boolean displayFailCond;
-    protected List targetOperationList;
+    protected List<String> targetOperationList;
     protected PermissionConditionGetter permissionConditionGetter;
     protected RelatedRoleGetter relatedRoleGetter;
     protected AuxiliaryValueGetter auxiliaryValueGetter;
@@ -92,9 +94,9 @@ public class EntityPermissionChecker {
         }
         String targetOperationString = element.getAttribute("target-operation");
         if (UtilValidate.isNotEmpty(targetOperationString)) {
-            List operationsFromString = StringUtil.split(targetOperationString, "|");
+            List<String> operationsFromString = StringUtil.split(targetOperationString, "|");
             if (targetOperationList == null) {
-                targetOperationList = new ArrayList();
+                targetOperationList = FastList.newInstance();
             }
             targetOperationList.addAll(operationsFromString);
         }
@@ -912,16 +914,13 @@ public class EntityPermissionChecker {
         //EntityExpr roleTypeIdToExpr = new EntityExpr("roleTypeIdTo", EntityOperator.EQUALS, "CONTENT_PERMISSION_GROUP");
         EntityExpr fromExpr = new EntityExpr("fromDate", EntityOperator.LESS_THAN_EQUAL_TO,
                                                        fromDate);
-        EntityCondition thruCond = new EntityConditionList(
-                        UtilMisc.toList(
-                            new EntityExpr("thruDate", EntityOperator.EQUALS, null),
-                            new EntityExpr("thruDate", EntityOperator.GREATER_THAN, thruDate) ),
-                        EntityOperator.OR);
+        EntityCondition thruCond = EntityCondition.makeCondition(UtilMisc.toList(new EntityExpr("thruDate", EntityOperator.EQUALS, null),
+                            new EntityExpr("thruDate", EntityOperator.GREATER_THAN, thruDate)), EntityOperator.OR);
     
         // This method is simplified to make it work, these conditions need to be added back in.
         //List joinList = UtilMisc.toList(fromExpr, thruCond, partyFromExpr, partyToExpr, relationExpr);
         List joinList = UtilMisc.toList( partyFromExpr, partyToExpr);
-        EntityCondition condition = new EntityConditionList(joinList, EntityOperator.AND);
+        EntityCondition condition = EntityCondition.makeCondition(joinList);
     
         List partyRelationships = null;
         try {
