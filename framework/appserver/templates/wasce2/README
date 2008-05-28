@@ -93,9 +93,8 @@ by
         permission java.security.AllPermission;
         };
 
-    Note that currently the option -Djava.security.manager does not work in Windows. I have opened a Geronimo Jira issue for this
-    https://issues.apache.org/jira/browse/GERONIMO-4037. You can always use RMI in Windows since if no Security Manager is set
-    then when starting OFBiz will load one before setting the RMIDispatcher but you will get a benign error while stopping the server.
+    To work cleanly on Windows you will also have to add the option -DXorg.apache.geronimo.JarFileClassLoader=false 
+    see https://issues.apache.org/jira/browse/GERONIMO-4037 for more.
 
     Debug stuff : -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005
     You may got this issue when shutting down : ERROR: transport error 202: bind failed: Address already in use ["transport.c",L41]
