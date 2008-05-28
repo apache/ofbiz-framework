@@ -37,9 +37,9 @@ if (findAll == null) {
 List timeSheetList = new LinkedList();
 if ( !(UtilValidate.isEmpty(fromDate) || UtilValidate.isEmpty(thruDate))) {
         List conditions = new LinkedList();
-        conditions.add(new EntityExpr("createdStamp", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
-        conditions.add(new EntityExpr("createdStamp", EntityOperator.LESS_THAN_EQUAL_TO, thruDate));
-        allConditions = new EntityConditionList(conditions, EntityOperator.AND);
+        conditions.add(EntityCondition.makeCondition("createdStamp", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
+        conditions.add(EntityCondition.makeCondition("createdStamp", EntityOperator.LESS_THAN_EQUAL_TO, thruDate));
+        allConditions = EntityCondition.makeCondition(conditions, EntityOperator.AND);
         orderBy = UtilMisc.toList("createdStamp DESC");
         timeSheetList = delegator.findList("Timesheet", allConditions, null, orderBy, null, true);
         context.put("timeSheetList", timeSheetList);

@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -15,7 +15,7 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- *******************************************************************************/
+ */
 package org.ofbiz.ebay;
 
 import java.io.BufferedReader;
@@ -42,7 +42,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.condition.EntityExpr;
+import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
@@ -172,7 +172,7 @@ public class ProductsExportToEbay {
             List selectResult = (List)context.get("selectResult");
              
             // Get the list of products to be exported to eBay
-            List productsList  = delegator.findList("Product", new EntityExpr("productId", EntityOperator.IN, selectResult), null, null, null, false);
+            List productsList  = delegator.findList("Product", EntityCondition.makeCondition("productId", EntityOperator.IN, selectResult), null, null, null, false);
              
             try {
                 Document itemDocument = UtilXml.makeEmptyXmlDocument("AddItemRequest");

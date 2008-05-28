@@ -45,34 +45,34 @@ userLogin = parameters.get("userLogin");
 // entry conditions    
 entryCondition = new LinkedList();    
 if (UtilValidate.isNotEmpty(fromDate)) {
-    entryCondition.add(new EntityExpr("createdDate", EntityOperator.GREATER_THAN, fromDate + " 00:00:00.0"));
+    entryCondition.add(EntityCondition.makeCondition("createdDate", EntityOperator.GREATER_THAN, fromDate + " 00:00:00.0"));
 }    
 if (UtilValidate.isNotEmpty(workEffortName)) {
-    entryCondition.add(new EntityExpr("workEffortName", EntityOperator.LIKE, "%" + workEffortName + "%"));
+    entryCondition.add(EntityCondition.makeCondition("workEffortName", EntityOperator.LIKE, "%" + workEffortName + "%"));
 }    
 
 // create workEffort list for tasks with no phase.
 exprList = UtilMisc.toList(
-    new EntityExpr("workEffortTypeId", EntityOperator.EQUALS, "TASK"),
-    new EntityExpr("workEffortParentId", EntityOperator.EQUALS, null),
-    new EntityExpr("createdByUserLogin", EntityOperator.EQUALS, userLogin.getString("userLoginId")));
+    EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, "TASK"),
+    EntityCondition.makeCondition("workEffortParentId", EntityOperator.EQUALS, null),
+    EntityCondition.makeCondition("createdByUserLogin", EntityOperator.EQUALS, userLogin.getString("userLoginId")));
 if (UtilValidate.isNotEmpty(entryCondition)) exprList.addAll(entryCondition);
-condition = new EntityConditionList(exprList, EntityOperator.AND);
+condition = EntityCondition.makeCondition(exprList, EntityOperator.AND);
 tasks = delegator.findList("WorkEffort", condition, null, null, null, false);
 
 // create workEffort list in a project
 exprList = UtilMisc.toList(
-    new EntityExpr("createdByUserLogin", EntityOperator.EQUALS, userLogin.getString("userLoginId")));
+    EntityCondition.makeCondition("createdByUserLogin", EntityOperator.EQUALS, userLogin.getString("userLoginId")));
 if (UtilValidate.isNotEmpty(entryCondition)) exprList.addAll(entryCondition);
-condition = new EntityConditionList(exprList, EntityOperator.AND);
+condition = EntityCondition.makeCondition(exprList, EntityOperator.AND);
 tasks.addAll(delegator.findList("ProjectAndPhaseAndTask", condition, null, null, null, false));
 
 // add the timeEntry conditions
 exprList = UtilMisc.toList(
-    new EntityExpr("workEffortTypeId", EntityOperator.EQUALS, "TASK"),
-    new EntityExpr("createdByUserLogin", EntityOperator.NOT_EQUAL, userLogin.getString("userLoginId"))); //already have these
+    EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, "TASK"),
+    EntityCondition.makeCondition("createdByUserLogin", EntityOperator.NOT_EQUAL, userLogin.getString("userLoginId"))); //already have these
 if (UtilValidate.isNotEmpty(entryCondition)) exprList.addAll(entryCondition);
-condition = new EntityConditionList(exprList, EntityOperator.AND);
+condition = EntityCondition.makeCondition(exprList, EntityOperator.AND);
 tasks.addAll(delegator.findList("WorkEffortAndTimeEntry", condition, null, null, null, false));
 
 // add fields for planned and actual hours.

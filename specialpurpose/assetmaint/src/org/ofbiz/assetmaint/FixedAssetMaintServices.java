@@ -28,12 +28,13 @@ import java.util.Map;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
-import org.ofbiz.entity.condition.EntityConditionList;
-import org.ofbiz.entity.condition.EntityExpr;
-import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityConditionList;
+import org.ofbiz.entity.condition.EntityExpr;
+import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.product.product.ProductWorker;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
@@ -77,10 +78,10 @@ public class FixedAssetMaintServices {
                 return ServiceUtil.returnError
                 (UtilProperties.getMessage("AssetMaintUiLabels","AssetMaintLowPartInventoryError",UtilMisc.toMap("productId", productId , "quantity", Double.toString(atp)), locale));
             }
-            EntityConditionList<EntityExpr> ecl = new EntityConditionList<EntityExpr>(UtilMisc.toList(
-                    new EntityExpr("productId", EntityOperator.EQUALS, productId),
-                    new EntityExpr("facilityId", EntityOperator.EQUALS, facilityId),
-                    new EntityExpr("availableToPromiseTotal", EntityOperator.GREATER_THAN, "0")),
+            EntityConditionList<EntityExpr> ecl = EntityCondition.makeCondition(UtilMisc.toList(
+                    EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId),
+                    EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId),
+                    EntityCondition.makeCondition("availableToPromiseTotal", EntityOperator.GREATER_THAN, "0")),
                     EntityOperator.AND);
             List inventoryItems = delegator.findByAnd("InventoryItem", ecl, null, null, null, false);   //&& inventoryItems.size() > 0
             Iterator itr = inventoryItems.iterator();

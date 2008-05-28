@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -15,7 +15,7 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- *******************************************************************************/
+ */
 package org.ofbiz.googlebase;
 
 import java.io.BufferedReader;
@@ -45,13 +45,12 @@ import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.condition.EntityExpr;
+import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -349,7 +348,7 @@ public class ProductsExportToGoogle {
                  return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsExportToGoogle.invalidCountryCode", locale));
              }
              // Get the list of products to be exported to Google Base
-             List productsList  = delegator.findList("Product", new EntityExpr("productId", EntityOperator.IN, selectResult), null, null, null, false);
+             List productsList  = delegator.findList("Product", EntityCondition.makeCondition("productId", EntityOperator.IN, selectResult), null, null, null, false);
              
              // Get the tracking code
              if (UtilValidate.isEmpty(trackingCodeId) || "_NA_".equals(trackingCodeId)) {

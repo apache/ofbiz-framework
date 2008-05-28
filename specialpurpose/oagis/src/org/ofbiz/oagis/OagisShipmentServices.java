@@ -463,8 +463,8 @@ public class OagisShipmentServices {
                                                 Set productIdSet = ProductWorker.getRefurbishedProductIdSet(productId, delegator);
                                                 productIdSet.add(productId);
                                                 
-                                                EntityCondition bySerialNumberCondition = new EntityExpr(new EntityExpr("serialNumber", EntityOperator.EQUALS, serialNumber), 
-                                                        EntityOperator.AND, new EntityExpr("productId", EntityOperator.IN, productIdSet));
+                                                EntityCondition bySerialNumberCondition = EntityCondition.makeCondition(EntityCondition.makeCondition("serialNumber", EntityOperator.EQUALS, serialNumber), 
+                                                        EntityOperator.AND, EntityCondition.makeCondition("productId", EntityOperator.IN, productIdSet));
                                                 List inventoryItemsBySerialNumber = delegator.findList("InventoryItem", bySerialNumberCondition, null, null, null, false);
                                                 if (OagisServices.requireSerialNumberExist.booleanValue()) {
                                                     if (inventoryItemsBySerialNumber.size() == 0) {
@@ -807,9 +807,9 @@ public class OagisShipmentServices {
             if (Debug.infoOn()) Debug.logInfo("Saved OagisMessageInfo for oagisSendProcessShipment message for orderId [" + orderId + "]", module);
 
             // check to see if there is already a Shipment for this order
-            EntityCondition findShipmentCondition = new EntityConditionList(UtilMisc.toList(
-                    new EntityExpr("primaryOrderId", EntityOperator.EQUALS, orderId),
-                    new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "SHIPMENT_CANCELLED")
+            EntityCondition findShipmentCondition = EntityCondition.makeCondition(UtilMisc.toList(
+                    EntityCondition.makeCondition("primaryOrderId", EntityOperator.EQUALS, orderId),
+                    EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "SHIPMENT_CANCELLED")
                     ), EntityOperator.AND);
             List shipmentList = delegator.findList("Shipment", findShipmentCondition, null, null, null, false);
             GenericValue shipment = EntityUtil.getFirst(shipmentList);

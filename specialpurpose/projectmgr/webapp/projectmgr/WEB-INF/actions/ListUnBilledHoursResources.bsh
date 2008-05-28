@@ -48,10 +48,10 @@ if (!UtilValidate.isEmpty(tasks)) {
                     timesheet = timeEntry.getRelatedOne("Timesheet");
                     // check the role of his part, if party is a provider
                     exprs = UtilMisc.toList(
-                                new EntityExpr("workEffortId", EntityOperator.EQUALS, timeEntry.getString("workEffortId")),
-                                new EntityExpr("partyId", EntityOperator.EQUALS, timeEntry.getString("partyId")),
-                                new EntityExpr("roleTypeId", EntityOperator.LIKE, "PROVIDER_%"));
-                    ecl = new EntityConditionList(exprs, EntityOperator.AND);
+                                EntityCondition.makeCondition("workEffortId", EntityOperator.EQUALS, timeEntry.getString("workEffortId")),
+                                EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, timeEntry.getString("partyId")),
+                                EntityCondition.makeCondition("roleTypeId", EntityOperator.LIKE, "PROVIDER_%"));
+                    ecl = EntityCondition.makeCondition(exprs, EntityOperator.AND);
                     providerRoles = EntityUtil.filterByDate(delegator.findList("WorkEffortPartyAssignment", ecl, null, null, null, false));
                     if (!UtilValidate.isEmpty(providerRoles)) {
                         rates = EntityUtil.filterByDate(delegator.findByAnd("PartyRate", 
