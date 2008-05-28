@@ -288,5 +288,24 @@ under the License.
         <remove-value value-name="agreementGeographicalApplic"/>
         <check-errors/>
     </simple-method>
+    
+    <!-- Agreement Role -->
+    <simple-method method-name="createAgreementRole" short-description="Create an Agreement Role">
+        <make-value entity-name="AgreementRole" value-name="newEntity"/>
+        <set-pk-fields value-name="newEntity" map-name="parameters"/>
+        <set-nonpk-fields value-name="newEntity" map-name="parameters"/>
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    
+    <simple-method method-name="updateAgreementRole" short-description="Update an Agreement Role">
+        <entity-one entity-name="AgreementRole" value-name="lookedUpValue"/>
+        <set-pk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    
+    <simple-method method-name="deleteAgreementRole" short-description="Delete an Agreement Role">
+        <entity-one entity-name="AgreementRole" value-name="agreementRole"/>
+        <remove-value value-name="agreementRole"/>
+    </simple-method>
 
 </simple-methods>

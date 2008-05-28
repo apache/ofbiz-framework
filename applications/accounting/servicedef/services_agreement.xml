@@ -193,6 +193,25 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
 
+    <!-- AgreementRole -->
+   <service name="createAgreementRole" default-entity-name="AgreementRole" engine="simple"
+            location="org/ofbiz/accounting/agreement/AgreementServices.xml" invoke="createAgreementRole" auth="true">
+        <description>Create an Agreement Role</description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updateAgreementRole" default-entity-name="AgreementRole" engine="simple"
+            location="org/ofbiz/accounting/agreement/AgreementServices.xml" invoke="updateAgreementRole" auth="true">            
+        <description>Update an Agreement Role</description>        
+        <auto-attributes mode="IN" include="pk" optional="false"/>        
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deleteAgreementRole" default-entity-name="AgreementRole" engine="simple"
+            location="org/ofbiz/accounting/agreement/AgreementServices.xml" invoke="deleteAgreementRole" auth="true">
+        <description>Delete an Agreement Role</description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
+    
     <service name="getCommissionForProduct" engine="java"
                 location="org.ofbiz.accounting.agreement.AgreementServices" invoke="getCommissionForProduct" auth="true">
         <description>Get commission receiving parties and amounts for a product. &lt;br/&gt;
