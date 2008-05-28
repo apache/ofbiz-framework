@@ -7160,7 +7160,7 @@
     <property key="OrderShipAfterDateDefault">
         <value xml:lang="en">Default Ship After Date</value>
         <value xml:lang="es">Fecha de envío 'despues de', por defecto</value>
-        <value xml:lang="fr">Après la date, l'envoi est par défaut</value>
+        <value xml:lang="fr">Date par défaut d'expédition au plus tôt</value>
         <value xml:lang="it">Spedisci Dopo la Data Default</value>
         <value xml:lang="nl">Default Ship After Date</value>
         <value xml:lang="ro">Expediaza Dupa Data de Default</value>
@@ -7189,7 +7189,7 @@
     <property key="OrderShipBeforeDateDefault">
         <value xml:lang="en">Default Ship Before Date</value>
         <value xml:lang="es">Fecha de envío antes de', por defecto</value>
-        <value xml:lang="fr">Avant la date, envoi par défaut</value>
+        <value xml:lang="fr">Date par défaut d'expédition au plus tard</value>
         <value xml:lang="it">Spedisci Prima della Data Default</value>
         <value xml:lang="nl">Default Ship Before Date</value>
         <value xml:lang="ro">Expediaza Inainte de Data de Default</value>
@@ -7201,7 +7201,7 @@
         <value xml:lang="de">Versand Gruppe</value>
         <value xml:lang="en">Ship Group</value>
         <value xml:lang="es">Grupo de envío</value>
-        <value xml:lang="fr">N° d'expédition</value>
+        <value xml:lang="fr">Groupe d'expédition</value>
         <value xml:lang="it">Gruppo Spedizione</value>
         <value xml:lang="nl">Ship Group</value>
         <value xml:lang="ro">Grup Expediere</value>
@@ -7211,14 +7211,14 @@
     </property>
     <property key="OrderShipGroupSeqId">
         <value xml:lang="en">Ship Group Seq Id</value>
-        <value xml:lang="fr">Réf. seq. groupe d'expédition</value>
+        <value xml:lang="fr">Réf. seq. de groupe d'expédition</value>
         <value xml:lang="ru">Посл. код группы поставки</value>
         <value xml:lang="th">รหัสรายการกลุ่มการขนส่ง</value>
         <value xml:lang="zh">货运组序号标识</value>
     </property>
     <property key="OrderShipGroupTo">
         <value xml:lang="en">To Ship Group</value>
-        <value xml:lang="fr">Au groupe d'expédition</value>
+        <value xml:lang="fr">Vers le groupe d'expédition</value>
         <value xml:lang="ru">В группу поставки</value>
         <value xml:lang="th">ถึงกลุ่มการขนส่ง</value>
     </property>
@@ -7232,7 +7232,7 @@
     <property key="OrderShipRequest">
         <value xml:lang="en">Ship Request</value>
         <value xml:lang="es">Pedido de Envío</value>
-        <value xml:lang="fr">Requête d'expédition</value>
+        <value xml:lang="fr">Demande d'expédition</value>
         <value xml:lang="it">Sped. Rich.</value>
         <value xml:lang="nl">Ship Request</value>
         <value xml:lang="ro">Expediere Rich.</value>
@@ -7243,7 +7243,7 @@
     <property key="OrderShipToAnotherParty">
         <value xml:lang="en">Ship to Another Party</value>
         <value xml:lang="es">Enviar a otro participante</value>
-        <value xml:lang="fr">Envoyer un autre participant</value>
+        <value xml:lang="fr">Envoyer un autre acteur</value>
         <value xml:lang="it">Spedizione ad un'Altro Soggetto</value>
         <value xml:lang="nl">Ship to Another Party</value>
         <value xml:lang="ro">Expediere la un'Alt Subiect</value>
@@ -7254,7 +7254,7 @@
     </property>
     <property key="OrderShipToParty">
         <value xml:lang="en">Ship to Party</value>
-        <value xml:lang="fr">Expédition à partie</value>
+        <value xml:lang="fr">Destinataire</value>
         <value xml:lang="it">Spedire al Soggetto</value>
         <value xml:lang="th">การขนส่งถึงกลุ่มผู้ใช้</value>
     </property>
@@ -7262,7 +7262,7 @@
         <value xml:lang="de">Versandinformation</value>
         <value xml:lang="en">Shipment Information</value>
         <value xml:lang="es">Información del envío</value>
-        <value xml:lang="fr">Informations sur le moyen d'expédition</value>
+        <value xml:lang="fr">Informations sur le contenu de l'expédition</value>
         <value xml:lang="it">Informazioni Spedizione</value>
         <value xml:lang="nl">Shipment Information</value>
         <value xml:lang="ro">Informatii Expediere</value>
@@ -7273,7 +7273,7 @@
     </property>
     <property key="OrderShipmentReceived">
         <value xml:lang="en">Shipment Received</value>
-        <value xml:lang="fr">Expéditio reçue</value>
+        <value xml:lang="fr">Expédition reçue</value>
         <value xml:lang="th">ได้รับการขนส่งสินค้า</value>
     </property>
     <property key="OrderShipper">
@@ -7284,7 +7284,7 @@
     </property>
     <property key="OrderShippingInformation">
         <value xml:lang="en">Shipping Information</value>
-        <value xml:lang="fr">Information d'expédition</value>
+        <value xml:lang="fr">Informations sur l'expédition</value>
         <value xml:lang="it">Spedizione</value>
         <value xml:lang="th">ข้อมูลการขนส่งสินค้า</value>
     </property>
@@ -7330,7 +7330,7 @@
     </property>
     <property key="OrderShortfalled">
         <value xml:lang="en">Shortfalled</value>
-        <value xml:lang="fr">Déficit</value>
+        <value xml:lang="fr">Pénurie</value>
         <value xml:lang="it">Deficit</value>
         <value xml:lang="nl">Shortfalled</value>
         <value xml:lang="ro">Deficit</value>
@@ -7353,7 +7353,7 @@
     <property key="OrderShowThisItemsNotes">
         <value xml:lang="en">Show This Item's Notes</value>
         <value xml:lang="es">Mostrar las notas de este ítem</value>
-        <value xml:lang="fr">Montrer les notes de cet article</value>
+        <value xml:lang="fr">Montrer les notes liées à cet article</value>
         <value xml:lang="it">Mostra Questa(e) Nota(e) Riga(e)</value>
         <value xml:lang="nl">Show This Item's Notes</value>
         <value xml:lang="ro">Afiseaza aceasta Nota </value>
@@ -7365,7 +7365,7 @@
     <property key="OrderSkidsPallets">
         <value xml:lang="en">Skids Pallets</value>
         <value xml:lang="es">Paletas</value>
-        <value xml:lang="fr">Pallettes dérapées</value>
+        <value xml:lang="fr">Pallettes</value>
         <value xml:lang="th">Skids Pallets</value>
     </property>
     <property key="OrderSpecialInstructions">
@@ -7391,14 +7391,14 @@
     </property>
     <property key="OrderSplitIntoMultipleShipments">
         <value xml:lang="en">Split Into Multiple Shipments</value>
-        <value xml:lang="fr">Fractionner dans les expéditions multiples</value>
+        <value xml:lang="fr">Fractionner en expéditions multiples</value>
         <value xml:lang="th">การขนส่งสินค้าแบ่งออกเป็นหลายทาง</value>
     </property>
     <property key="OrderSplittingPreference">
         <value xml:lang="de">Bevorzugte Aufteilung</value>
         <value xml:lang="en">Splitting Preference</value>
         <value xml:lang="es">Elección de entrega</value>
-        <value xml:lang="fr">Choix de livraison</value>
+        <value xml:lang="fr">Choix de fractionnement</value>
         <value xml:lang="it">Preferenze di divisione</value>
         <value xml:lang="nl">Splitting Preference</value>
         <value xml:lang="ro">Preferinte de Diviziune</value>
@@ -7461,7 +7461,7 @@
         <value xml:lang="de">Zwischensumme</value>
         <value xml:lang="en">Sub Total</value>
         <value xml:lang="es">Sub.Total</value>
-        <value xml:lang="fr">Sous Total</value>
+        <value xml:lang="fr">Sous-total</value>
         <value xml:lang="it">Subtotale</value>
         <value xml:lang="nl">Sub Total</value>
         <value xml:lang="ro">Subtotal</value>
@@ -7485,7 +7485,7 @@
     <property key="OrderSupplierFinancialData">
         <value xml:lang="en">Supplier Financial Data</value>
         <value xml:lang="es">Datos financieros del proveedor</value>
-        <value xml:lang="fr">Données financières</value>
+        <value xml:lang="fr">Données financières du fournisseur</value>
         <value xml:lang="it">Data Finanziaria Fornitore</value>
         <value xml:lang="nl">Supplier Financial Data</value>
         <value xml:lang="ro">Data Finantiara Furnizor</value>
@@ -7498,7 +7498,7 @@
         <value xml:lang="de">Überblick</value>
         <value xml:lang="en">Survey</value>
         <value xml:lang="es">Reseña</value>
-        <value xml:lang="fr">Aperçu</value>
+        <value xml:lang="fr">Sondage</value>
         <value xml:lang="it">Sondaggio</value>
         <value xml:lang="nl">Survey</value>
         <value xml:lang="ro">Sondaj</value>
@@ -7510,7 +7510,7 @@
     <property key="OrderTheOpenHoursToReceiveProductsAre">
         <value xml:lang="en">The  Open  Hours  To  Receive  Products  Are</value>
         <value xml:lang="es">Horas posibles de recibir productos</value>
-        <value xml:lang="fr">Les heures ouvertes pour recevoir des produits sont</value>
+        <value xml:lang="fr">Les heures d'ouverture pour recevoir des produits sont</value>
         <value xml:lang="th">ชั่วโมงที่เปิดรับสินค้าคือ</value>
     </property>
     <property key="OrderThisOrderGift">
@@ -7561,7 +7561,7 @@
         <value xml:lang="en">To Cart</value>
         <value xml:lang="en_GB">to basket</value>
         <value xml:lang="es">al Carro</value>
-        <value xml:lang="fr">Au panier</value>
+        <value xml:lang="fr">Mettre au panier</value>
         <value xml:lang="hi_IN">टोकरी में</value>
         <value xml:lang="it">al Carello</value>
         <value xml:lang="ja">to Cart</value>
@@ -7591,7 +7591,7 @@
     <property key="OrderTotalCubicSize">
         <value xml:lang="en">Total Cubic Size</value>
         <value xml:lang="es">Volume total cubique</value>
-        <value xml:lang="fr">Taille totale</value>
+        <value xml:lang="fr">Volume total</value>
         <value xml:lang="th">ผลรวมขนาดลูกบาศก์</value>
     </property>
     <property key="OrderTotalDue">
@@ -7611,7 +7611,7 @@
         <value xml:lang="de">Gesamtsumme anderer Auftragsanpassungen</value>
         <value xml:lang="en">Total Other Order Adjustments</value>
         <value xml:lang="es">Total del ajuste de los otros ítems de la orden</value>
-        <value xml:lang="fr">Total de l'ajustement des autres lignes</value>
+        <value xml:lang="fr">Total des autres ajustements</value>
         <value xml:lang="it">Totale Altri Aggiustamenti Ordine</value>
         <value xml:lang="nl">Total Other Bestelling Adjustments</value>
         <value xml:lang="ro">Total Alte Modificari Comenzi</value>
@@ -7623,7 +7623,7 @@
     <property key="OrderTotalQuantityAccepted">
         <value xml:lang="en">Total quantity accepted</value>
         <value xml:lang="es">Cantidad total aceptada</value>
-        <value xml:lang="fr">Quantité acceptée totale</value>
+        <value xml:lang="fr">Quantité totale acceptée</value>
         <value xml:lang="it">Totale quantità accettata</value>
         <value xml:lang="nl">Total quantity accepted</value>
         <value xml:lang="ro">Total cantitate acceptata</value>
@@ -7635,7 +7635,7 @@
     <property key="OrderTotalQuantityNotReceived">
         <value xml:lang="en">Total quantity not received</value>
         <value xml:lang="es">Cantidad total no recibida</value>
-        <value xml:lang="fr">Quantité non reçue totale</value>
+        <value xml:lang="fr">Quantité totale non reçue</value>
         <value xml:lang="it">Totale quantità non ricevuta</value>
         <value xml:lang="nl">Total quantity not received</value>
         <value xml:lang="ro">Total cantitate neprimita</value>
@@ -7647,7 +7647,7 @@
     <property key="OrderTotalQuantityOrdered">
         <value xml:lang="en">Total quantity ordered</value>
         <value xml:lang="es">Cantidad total ordenada</value>
-        <value xml:lang="fr">Quantité commandée totale</value>
+        <value xml:lang="fr">Quantité totale commandée</value>
         <value xml:lang="it">Totale quantità ordinata</value>
         <value xml:lang="nl">Total quantity bestellinged</value>
         <value xml:lang="ro">Total cantitate comandata</value>
@@ -7659,7 +7659,7 @@
     <property key="OrderTotalQuantityReceive">
         <value xml:lang="en">Total quantity received</value>
         <value xml:lang="es">Cantidad total recibida</value>
-        <value xml:lang="fr">Quantité reçue totale</value>
+        <value xml:lang="fr">Quantité totale reçue</value>
         <value xml:lang="it">Totale quantità ricevuta</value>
         <value xml:lang="nl">Total quantity received</value>
         <value xml:lang="ro">Total cantitate primita</value>
@@ -7671,7 +7671,7 @@
     <property key="OrderTotalQuantityRejected">
         <value xml:lang="en">Total quantity rejected</value>
         <value xml:lang="es">Cantidad total rechazada</value>
-        <value xml:lang="fr">Quantité refusée totale</value>
+        <value xml:lang="fr">Quantité totale refusée</value>
         <value xml:lang="it">Totale quantità scartata</value>
         <value xml:lang="nl">Total quantity rejected</value>
         <value xml:lang="ro">Total cantitate rebutata</value>
@@ -7684,7 +7684,7 @@
         <value xml:lang="de">Gesamtsumme Mehrwertsteuer</value>
         <value xml:lang="en">Total Sales Tax</value>
         <value xml:lang="es">Total I.G.V.</value>
-        <value xml:lang="fr">Total T. V. A.</value>
+        <value xml:lang="fr">TVA totale</value>
         <value xml:lang="it">Totale Tasse Vendita</value>
         <value xml:lang="nl">Total Sales Tax</value>
         <value xml:lang="ro">Total Taxe Vanzari</value>
@@ -7709,7 +7709,7 @@
     <property key="OrderTotalWeight">
         <value xml:lang="en">Total  Weight</value>
         <value xml:lang="es">Peso total</value>
-        <value xml:lang="fr">Total poids</value>
+        <value xml:lang="fr">Poids total</value>
         <value xml:lang="th">ผลรวมน้ำหนัก</value>
     </property>
     <property key="OrderTrackingCode">
@@ -7728,7 +7728,7 @@
         <value xml:lang="de">Sendungsverfolgungsnummer</value>
         <value xml:lang="en">Tracking Number</value>
         <value xml:lang="es">Número de seguimiento</value>
-        <value xml:lang="fr">N° de traçage</value>
+        <value xml:lang="fr">N° de suivi</value>
         <value xml:lang="it">Numero Tracciatura</value>
         <value xml:lang="nl">Tracking Number</value>
         <value xml:lang="ro">Numar Traseu</value>
