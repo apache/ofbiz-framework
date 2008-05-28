@@ -25,14 +25,14 @@
         <menu-item name="main" title="${uiLabelMap.CommonMain}"><link target="main"/></menu-item>
         <menu-item name="Employment" title="${uiLabelMap.HumanResEmployment}"><link target="FindEmployments"/></menu-item>
         <menu-item name="Employee" title="${uiLabelMap.HumanResEmployee}"><link target="findEmployees"/></menu-item>
-        <menu-item name="EmplPosition" title="${uiLabelMap.HumanResEmployeePosition}"><link target="FindEmplPosition"/></menu-item>
+        <menu-item name="EmplPosition" title="${uiLabelMap.HumanResEmployeePosition}"><link target="FindEmplPositions"/></menu-item>
         <menu-item name="PartySkills" title="${uiLabelMap.HumanResPartySkills}"><link target="FindPartySkills"/></menu-item>
-        <menu-item name="PartyQual" title="${uiLabelMap.HumanResPartyQualification}"><link target="FindPartyQual"/></menu-item>
+        <menu-item name="PartyQual" title="${uiLabelMap.HumanResPartyQualification}"><link target="FindPartyQuals"/></menu-item>
         <menu-item name="Training" title="${uiLabelMap.HumanResTraining}"><link target="FindPersonTrainings"/></menu-item>
-        <menu-item name="EmploymentApp" title="${uiLabelMap.HumanResEmploymentApp}"><link target="FindEmploymentApp"/></menu-item>
-        <menu-item name="PartyResume" title="${uiLabelMap.HumanResPartyResume}"><link target="FindPartyResume"/></menu-item>
+        <menu-item name="EmploymentApp" title="${uiLabelMap.HumanResEmploymentApp}"><link target="FindEmploymentApps"/></menu-item>
+        <menu-item name="PartyResume" title="${uiLabelMap.HumanResPartyResume}"><link target="FindPartyResumes"/></menu-item>
         <menu-item name="PayGrade" title="${uiLabelMap.HumanResPayGrade}"><link target="FindPayGrades"/></menu-item>
-        <menu-item name="PerfReview" title="${uiLabelMap.HumanResPerfReview}"><link target="FindPerfReview"/></menu-item>
+        <menu-item name="PerfReview" title="${uiLabelMap.HumanResPerfReview}"><link target="FindPerfReviews"/></menu-item>
         <menu-item name="Logout" title="${uiLabelMap.CommonLogout}" align-style="col-right" selected-style="selected">
             <condition><not><if-empty field-name="userLogin"/></not></condition>
             <link target="logout"/>
@@ -41,7 +41,7 @@
             <condition><if-empty field-name="userLogin"/></condition>
             <link target="${checkLoginUrl}"/>
         </menu-item>
-        <menu-item name="GlobalHRSettings" title="${uiLabelMap.HumanResGlobalHRSettings}" selected-style="selected"><link target="globalHRSetting"/></menu-item>
+        <menu-item name="GlobalHRSettings" title="${uiLabelMap.HumanResGlobalHRSettings}" selected-style="selected"><link target="globalHRSettings"/></menu-item>
     </menu>
     <menu name="EmploymentBar" default-menu-item-name="EditPartyBenefit" default-selected-style="selected"
         type="simple" menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="tabButtonItem">
@@ -57,9 +57,11 @@
         <menu-item name="EditPayHistory" title="${uiLabelMap.HumanResEditPayHistory}">
             <link target="ListPayHistories?roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;fromDate=${fromDate}"/>
         </menu-item>
-        <menu-item name="EditUnemploymentClaim" title="${uiLabelMap.HumanResEditUnemploymentClaim}">
-            <link target="EditUnemploymentClaim?roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;fromDate=${fromDate}"/>
+        <menu-item name="EditUnemploymentClaims" title="${uiLabelMap.HumanResEditUnemploymentClaim}">
+            <link target="EditUnemploymentClaims?roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;fromDate=${fromDate}"/>
         </menu-item>
+        <menu-item name="EditAgreementEmploymentAppls" title="${uiLabelMap.HumanResAgreementEmploymentAppl}">
+            <link target="EditAgreementEmploymentAppls?agreementId=${agreementId}&amp;agreementItemSeqId=${agreementItemSeqId}&amp;roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;fromDate=${fromDate}"/></menu-item>
     </menu>
     <menu name="EmplPostionBar" default-menu-item-name="EmplPositionView" type="simple" menu-container-style="button-bar tab-bar" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem">
         <menu-item name="EmplPositionView" title="${uiLabelMap.CommonSummary}">
@@ -99,13 +101,13 @@
             <link target="EditSkillTypes"/>
         </menu-item>      
         <menu-item name="ResponsibilityType" title="${uiLabelMap.HumanResResponsibilityType}">
-            <link target="EditResponsibilityType"/>
+            <link target="EditResponsibilityTypes"/>
         </menu-item> 
         <menu-item name="TerminationReason" title="${uiLabelMap.HumanResTerminationReason}">
-            <link target="FindTerminationReason"/>
+            <link target="EditTerminationReasons"/>
         </menu-item>
-        <menu-item name="TerminationType" title="${uiLabelMap.HumanResTerminationType}">
-            <link target="findTerminationTypes"/>
+        <menu-item name="TerminationType" title="${uiLabelMap.HumanResTerminationTypes}">
+            <link target="EditTerminationTypes"/>
         </menu-item>
         <menu-item name="EmplPositionTypes" title="${uiLabelMap.HumanResEmplPositionType}">
             <link target="FindEmplPositionTypes"/>
@@ -139,11 +141,11 @@
     
     <menu name="EmplPositionTypeTabBar" default-menu-item-name="EditEmplPositionType" default-selected-style="selected"
         menu-container-style="button-bar tab-bar" type="simple" selected-menuitem-context-field-name="tabButtonItem2">
-        <menu-item name="EditEmplPositionType" title="${uiLabelMap.HumanResEditEmplPositionType}">
+        <menu-item name="EditEmplPositionType" title="${uiLabelMap.HumanResEmplPositionType}">
             <link target="EditEmplPositionTypes?emplPositionTypeId=${emplPositionTypeId}"/>
         </menu-item>
         <menu-item name="EditEmplPositionTypeRate" title="${uiLabelMap.HumanResEmplPositionTypeRate}">
-            <link target="EditEmplPositionTypeRate?emplPositionTypeId=${emplPositionTypeId}"/>
+            <link target="EditEmplPositionTypeRates?emplPositionTypeId=${emplPositionTypeId}"/>
         </menu-item>
     </menu>
 </menus>

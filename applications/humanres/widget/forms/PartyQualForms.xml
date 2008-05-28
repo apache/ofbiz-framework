@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+    <form name="FindPartyQuals" type="single" target="FindPartyQuals" header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-entity entity-name="PartyQual" default-field-type="find"/>
+        <field name="noConditionFind"><hidden value="Y"/></field>
+        <field name="partyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="partyQualTypeId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" key-field-name="partyQualTypeId" entity-name="PartyQualType">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="statusId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" key-field-name="statusId" entity-name="StatusItem">
+                    <entity-constraint name="statusTypeId" operator="equals" value="PARTY_INV_STATUS"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="verifStatusId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" key-field-name="statusId" entity-name="StatusItem">
+                    <entity-constraint name="statusTypeId" operator="equals" value="PARTYQUAL_VERIFY"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListPartyQuals" type="multi" list-name="listIt" use-row-submit="true" separate-columns="true" target="updatePartyQual" paginate-target="FindPartyQuals"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="partyQualCtx"/>
+                <field-map field-name="entityName" value="PartyQual"/>
+                <field-map field-name="orderBy" value="fromDate"/>
+            </service>
+        </actions>
+        <auto-fields-service service-name="updatePartyQual"/>        
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}">
+            <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView">
+                <sub-hyperlink target="viewprofile?partyId=${partyId}" link-style="smallSubmit" target-type="inter-app" description="${partyId}"/>
+            </display-entity>
+        </field>
+        <field name="partyQualTypeId"><display-entity entity-name="PartyQualType" description="${description}"/></field>
+        <field name="fromDate"><display/></field>
+        <field name="qualificationDesc"><text/></field>
+        <field name="title"><text/></field>
+        <field name="statusId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" key-field-name="statusId" entity-name="StatusItem">
+                    <entity-constraint name="statusTypeId" operator="equals" value="PARTY_INV_STATUS"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="verifStatusId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" key-field-name="statusId" entity-name="StatusItem">
+                    <entity-constraint name="statusTypeId" operator="equals" value="PARTYQUAL_VERIFY"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><hidden value="Y"/></field>
+        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
+            <hyperlink target="deletePartyQual?partyId=${partyId}&amp;partyQualTypeId=${partyQualTypeId}" also-hidden="false" description="${uiLabelMap.CommonDelete}"/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>
+    </form>
+    <form name="AddPartyQual" type="single" target="createPartyQual" 
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="createPartyQual"/>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}" use-when="partyQual!=null"><hidden/></field>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}" use-when="partyQual==null" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="partyQualTypeId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" key-field-name="partyQualTypeId" entity-name="PartyQualType">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="statusId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" key-field-name="statusId" entity-name="StatusItem">
+                    <entity-constraint name="statusTypeId" operator="equals" value="PARTY_INV_STATUS"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="verifStatusId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" key-field-name="statusId" entity-name="StatusItem">
+                    <entity-constraint name="statusTypeId" operator="equals" value="PARTYQUAL_VERIFY"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>        
+    </form>
+</forms>

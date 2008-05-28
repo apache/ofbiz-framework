@@ -29,6 +29,7 @@ under the License.
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ProjectMgrUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="layoutSettings.companyName" from-field="uiLabelMap.HumanResCompanyName" global="true"/>
                 <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.HumanResCompanySubtitle" global="true"/>
                 <!-- layoutSettings.headerImageUrl can be used to specify an application specific logo; if not set,
@@ -87,7 +88,7 @@ under the License.
                 <set field="roleTypeIdTo" from-field="parameters.roleTypeIdTo"/>
                 <set field="partyIdFrom" from-field="parameters.partyIdFrom"/>
                 <set field="partyIdTo" from-field="parameters.partyIdTo"/>
-                <set field="fromDate" from-field="parameters.fromDate"/>                                                
+                <set field="fromDate" from-field="parameters.fromDate" type="Timestamp"/>                                                
                 <entity-one entity-name="Employment" value-name="employment"/>                
             </actions>
             <widgets>

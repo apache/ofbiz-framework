@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+    <form name="FindPartyResumes" type="single" target="FindPartyResumes" header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-entity entity-name="PartyResume" default-field-type="find"/>
+        <field name="noConditionFind"><hidden value="Y"/></field>
+        <field name="partyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="contentId"><lookup target-form-name="LookupContent"/></field>
+        <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListPartyResumes" type="list" separate-columns="true" default-entity-name="PartyResume" list-name="listIt" paginate-target="FindPartyResumes" paginate="true"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+               <field-map field-name="inputFields" env-name="partyResumeCtx"/>
+                <field-map field-name="entityName" value="PartyResume"/>
+                <field-map field-name="orderBy" value="resumeId"/>
+            </service>
+        </actions>
+        <auto-fields-entity entity-name="PartyResume" default-field-type="display"/>
+        <field name="resumeId" title="ResumeId" widget-style="linktext">
+                <hyperlink also-hidden="false" description="${resumeId}" target="EditPartyResume?resumeId=${resumeId}"/>
+        </field>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}">
+           <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView">
+               <sub-hyperlink target="viewprofile?partyId=${partyId}" link-style="smallSubmit" target-type="inter-app" description="${partyId}"/>
+           </display-entity>
+       </field>
+       <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
+            <hyperlink target="deletePartyResume?resumeId=${resumeId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+       </field>
+    </form>     
+    <form name="EditPartyResume" type="single" target="createPartyResume" title="" default-map-name="partyResume"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="resumeId" use-when="resumeId!=null" title="${uiLabelMap.HumanResResumeId}" widget-style="tabletext" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field name="resumeId" use-when="resumeId==null" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
+        <field name="contentId"><lookup target-form-name="LookupContent"/></field>
+        <field name="partyId" use-when="partyResume!=null&amp;&amp;partyId!=null" title="${uiLabelMap.FormFieldTitle_partyId}"><hidden/></field>                
+        <field name="partyId" use-when="partyResume==null&amp;&amp;partyId==null" title="${uiLabelMap.FormFieldTitle_partyId}"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="resumeDate"><date-time/></field>
+        <field name="resumeText"><text/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>        
+        <field name="submitButton" use-when="resumeId!=null" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+</forms>
