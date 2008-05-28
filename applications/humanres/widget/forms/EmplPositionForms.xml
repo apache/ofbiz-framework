@@ -20,8 +20,8 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <form name="ListEmplPositions" type="list" separate-columns="true" default-entity-name="EmplPosition" list-name="listIt" paginate-target="FindEmplPosition" paginate="true"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+    <form name="ListEmplPositions" type="list" separate-columns="true" default-entity-name="EmplPosition" list-name="listIt" paginate-target="FindEmplPositions" paginate="true"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -35,16 +35,18 @@ under the License.
         </field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
             <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView">
-                <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyId}" link-style="smallSubmit" target-type="inter-app" description="${partyId}"/>
+                <sub-hyperlink target="viewprofile?partyId=${partyId}" link-style="smallSubmit" target-type="inter-app" description="${partyId}"/>
             </display-entity>
         </field>
+        <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
+        <field name="emplPositionTypeId"><display-entity entity-name="EmplPositionType" description="${description}"/></field>
     </form>            
     <form name="EditEmplPosition" type="single" target="updateEmplPosition" title="" default-map-name="emplPosition"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="emplPosition==null" target="createEmplPosition"/>
         <auto-fields-service service-name="createEmplPosition"/>
         <field use-when="emplPosition!=null" name="emplPositionId" title="${uiLabelMap.HumanResEmplPositionId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
-        <field use-when="emplPosition==null&amp;&amp;emplPositionId==null" name="emplPositionId" title="${uiLabelMap.HumanResEmplPositionId}"><ignored/></field>
+        <field use-when="emplPosition==null&amp;&amp;emplPositionId==null" name="emplPositionId" title="${uiLabelMap.HumanResEmplPositionId}"><lookup target-form-name="LookupEmplPosition"/></field>
         <field use-when="emplPosition==null&amp;&amp;emplPositionId!=null" name="emplPositionId" title="${uiLabelMap.HumanResEmplPositionId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${emplPositionId}]"><display/></field>        
         <field name="partyId" parameter-name="partyId">
             <drop-down allow-empty="false">
@@ -56,7 +58,7 @@ under the License.
         </field>
         <field name="partyId" use-when="emplPosition!=null" title="${uiLabelMap.PartyPartyId}">
             <display-entity description="${groupName}" entity-name="PartyNameView">
-                <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyId}" link-style="smallSubmit" target-type="inter-app" description="${partyId}"/>
+                <sub-hyperlink target="viewprofile?partyId=${partyId}" link-style="smallSubmit" target-type="inter-app" description="${partyId}"/>
             </display-entity>
         </field>
         <field name="statusId" title="status Id">
@@ -90,7 +92,7 @@ under the License.
         <auto-fields-service service-name="updateEmplPositionFulfillment"/>        
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
             <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView">
-                <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyId}" link-style="smallSubmit" target-type="inter-app" description="${partyId}"/>
+                <sub-hyperlink target="viewprofile?partyId=${partyId}" link-style="smallSubmit" target-type="inter-app" description="${partyId}"/>
             </display-entity>
         </field>
         <field name="emplPositionId"><hidden/></field>
@@ -228,7 +230,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>                           
-    <form name="FindEmplPositions" type="single" target="FindEmplPosition" header-row-style="header-row" default-table-style="basic-table">
+    <form name="FindEmplPositions" type="single" target="FindEmplPositions" header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="EmplPosition" default-field-type="find"/>
         <field name="noConditionFind"><hidden value="Y"/></field>
         <field name="salaryFlag">
@@ -257,7 +259,7 @@ under the License.
         </field>
         <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="EmplPositionInfo" type="single" default-map-name="emplPosition" paginate-target="FindEmplPosition"
+    <form name="EmplPositionInfo" type="single" default-map-name="emplPosition" paginate-target="FindEmplPositions"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="updateEmplPosition" default-field-type="display"/>
     </form>

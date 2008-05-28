@@ -20,13 +20,12 @@
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
-    <screen name="FindEmplPosition">
+    <screen name="FindEmplPositions">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleListEmplPosition"/>
+                <set field="titleProperty" value="HumanResFindEmplPosition"/>
                 <set field="headerItem" value="EmplPosition"/>
             </actions>
-            
             <widgets>
                 <decorator-screen name="CommonEmplPositionDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
@@ -35,7 +34,7 @@
                                 <section>
                                     <widgets>
                                         <container style="button-bar">
-                                            <link target="EditEmplPosition" text="${uiLabelMap.CommonCreate} ${uiLabelMap.HumanResNewEmplPosition}" style="buttontext"/>
+                                            <link target="EditEmplPosition" text="${uiLabelMap.HumanResNewEmplPosition}" style="buttontext"/>
                                         </container>
                                     </widgets>
                                 </section>
@@ -72,9 +71,6 @@
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <container>
-                                            <link target="EditEmplPosition" text="${uiLabelMap.HumanResNewEmplPosition}" style="buttontext" />
-                                        </container>
                                         <include-form name="EditEmplPosition" location="component://humanres/widget/forms/EmplPositionForms.xml"/>
                                     </widgets>
                                 </section>

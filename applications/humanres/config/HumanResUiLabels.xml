@@ -354,6 +354,12 @@
     <property key="HumanResAddEmplPositionResponsibility">
         <value xml:lang="en">Add Position Responsibility</value>
     </property>
+    <property key="HumanResAddPayrollPreference">
+        <value xml:lang="en">Add Payroll Preference</value>
+    </property>
+    <property key="HumanResAddPartyBenefit">
+        <value xml:lang="en">Add Party Benefit</value>
+    </property>
     <property key="HumanResAddPartyQual">
         <value xml:lang="en">Add Party Qualification</value>
     </property>
@@ -413,12 +419,15 @@
         <value xml:lang="th">เป็นส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value>
     </property>
     <property key="HumanResEditEmplPosition">
-        <value xml:lang="en">Create/Update Employee Position</value>
+        <value xml:lang="en">Edit Employee Position</value>
     </property>
     <property key="HumanResEditEmplPositionReportingStruct">
         <value xml:lang="en">Edit EmplPosition Reporting Structure</value>
         <value xml:lang="it">Aggiorna Struttura Stampa Posizione Impiegati</value>
         <value xml:lang="th">แก้ไขโครงสร้างรายงานตำแหน่งพนักงาน</value>
+    </property>
+    <property key="HumanResNewEmployee">
+        <value xml:lang="en">New Employee</value>
     </property>
     <property key="HumanResEmplPositionReportingStruct">
         <value xml:lang="en">Reporting Structure</value>
@@ -461,7 +470,7 @@
         <value xml:lang="th">แก้ไขกลุ่มทักษะ</value>
     </property>
     <property key="HumanResEditPayGrade">
-        <value xml:lang="en">Add/Update Pay Grade</value>
+        <value xml:lang="en">Edit Pay Grade</value>
     </property>
     <property key="HumanResEditPayHistory">
         <value xml:lang="en">Pay Histories</value>
@@ -957,8 +966,8 @@
         <value xml:lang="it">Codice Motivazione Licenziamento</value>
         <value xml:lang="th">รหัสขอบเขตเหตุผล</value>
     </property>
-    <property key="HumanResTerminationType">
-        <value xml:lang="en">Termination Type</value>
+    <property key="HumanResTerminationTypes">
+        <value xml:lang="en">Termination Types</value>
     </property>
     <property key="HumanResTerminationTypeId">
         <value xml:lang="en">Termination Type Id</value>
