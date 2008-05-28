@@ -53,7 +53,7 @@ under the License.
             <link target="viewprofile?partyId=${parameters.partyId}"/>
         </menu-item>
     </menu>    
-    <menu name="AccountSubTabBar" menu-container-style="button-bar button-style-2" default-selected-style="selected">  
+    <menu name="AccountSubTabBar" menu-container-style="button-bar button-style-2 no-clear" default-selected-style="selected">  
         <menu-item name="NewAccounts" title="${uiLabelMap.PageTitleCreateAccount}">
             <link target="NewAccounts"/>
         </menu-item>

@@ -973,6 +973,12 @@ height: 0;
 visibility: hidden;
 }
 
+.no-clear .clear {
+/* Used in container elements to override the clear class
+in contained elements. */
+clear: none;
+}
+
 /* ================================= */
 /* ===== Single Element Styles ===== */
 /* ================================= */
@@ -1399,8 +1405,8 @@ color: #D4D0C8;
 backward compatibility */
 
 .button-bar {
-background-color: #ffffff;
 margin-bottom: 1.0em;
+width: 100%;
 }
 
 .button-bar ul,
