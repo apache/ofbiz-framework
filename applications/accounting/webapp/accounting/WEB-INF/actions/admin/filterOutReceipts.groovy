@@ -22,7 +22,7 @@ import org.ofbiz.accounting.util.UtilAccounting;
 
 payments = context.payments;
 iter = payments.iterator();
-while (iter.hasNext()) {
+while (iter) {
   payment = iter.next();
   if (UtilAccounting.isReceipt(payment)) {
     iter.remove();

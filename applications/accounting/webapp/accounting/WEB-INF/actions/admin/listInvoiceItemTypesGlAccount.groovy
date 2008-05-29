@@ -25,7 +25,7 @@ import org.ofbiz.base.util.*;
 import org.ofbiz.base.util.UtilMisc;
 
 // Optional prefix parameter to filter InvoiceItemTypes by (i.e. "INV" or "PINV") defaults to INV
-invItemTypePrefix = context.invItemTypePrefix != null ? context.invItemTypePrefix : "INV";
+invItemTypePrefix = context.invItemTypePrefix ? context.invItemTypePrefix : "INV";
 invItemTypePrefix += "_%"
 
 organizationPartyId = parameters.organizationPartyId;
@@ -33,7 +33,7 @@ organizationPartyId = parameters.organizationPartyId;
 List invoiceItemTypes = delegator.findList("InvoiceItemType", EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.LIKE, invItemTypePrefix), null, null, null, false);
 List allTypes = new LinkedList();
 i = invoiceItemTypes.iterator();
-while(i.hasNext()) {
+while(i) {
     GenericValue invoiceItemType = i.next();
     String activeGlDescription = "";
     String remove = " ";
@@ -41,19 +41,19 @@ while(i.hasNext()) {
     GenericValue glAccount = null;
     List invoiceItemTypeOrgs = invoiceItemType.getRelatedByAnd("InvoiceItemTypeGlAccount", [organizationPartyId : organizationPartyId]);
     String overrideGlAccountId = " ";
-    if (UtilValidate.isNotEmpty(invoiceItemTypeOrgs)) {
+    if (invoiceItemTypeOrgs) {
         invoiceItemTypeOrg = invoiceItemTypeOrgs[0];
         overrideGlAccountId = invoiceItemTypeOrg.glAccountId;
 
         glAccounts = invoiceItemTypeOrg.getRelated("GlAccount");
-        if (UtilValidate.isNotEmpty(glAccounts)) {
+        if (glAccounts) {
             glAccount = glAccounts[0];
         }
     } else {
         glAccount = invoiceItemType.getRelatedOne("DefaultGlAccount");
     }
 
-    if (glAccount != null) {
+    if (glAccount) {
         activeGlDescription = glAccount.accountName;
         remove = "Remove";
     }
