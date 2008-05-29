@@ -523,7 +523,7 @@ under the License.
                 <set field="paymentId" from-field="parameters.paymentId" />
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
-                <script location="component://accounting/webapp/accounting/WEB-INF/actions/payment/printChecks.bsh"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/payment/printChecks.groovy"/>
             </actions>
             <widgets>
                 <platform-specific>

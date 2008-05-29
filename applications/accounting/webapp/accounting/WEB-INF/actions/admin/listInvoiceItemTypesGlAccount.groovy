@@ -24,10 +24,13 @@ import org.ofbiz.entity.condition.*;
 import org.ofbiz.base.util.*;
 import org.ofbiz.base.util.UtilMisc;
 
-delegator = parameters.get("delegator");
-organizationPartyId = parameters.get("organizationPartyId");
+// Optional prefix parameter to filter InvoiceItemTypes by (i.e. "INV" or "PINV") defaults to INV
+invItemTypePrefix = context.invItemTypePrefix != null ? context.invItemTypePrefix : "INV";
+invItemTypePrefix += "_%"
 
-List invoiceItemTypes = delegator.findList("InvoiceItemType", EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.LIKE, "PINV_%"), null, null, null, false);
+organizationPartyId = parameters.organizationPartyId;
+
+List invoiceItemTypes = delegator.findList("InvoiceItemType", EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.LIKE, invItemTypePrefix), null, null, null, false);
 List allTypes = new LinkedList();
 i = invoiceItemTypes.iterator();
 while(i.hasNext()) {
@@ -36,30 +39,30 @@ while(i.hasNext()) {
     String remove = " ";
     List glAccounts = null;
     GenericValue glAccount = null;
-    List invoiceItemTypeOrgs = invoiceItemType.getRelatedByAnd("InvoiceItemTypeGlAccount",UtilMisc.toMap("organizationPartyId", organizationPartyId));
+    List invoiceItemTypeOrgs = invoiceItemType.getRelatedByAnd("InvoiceItemTypeGlAccount", [organizationPartyId : organizationPartyId]);
     String overrideGlAccountId = " ";
-    if (invoiceItemTypeOrgs != null && invoiceItemTypeOrgs.size() > 0) {
-        invoiceItemTypeOrg = invoiceItemTypeOrgs.get(0);
-        overrideGlAccountId = invoiceItemTypeOrg.getString("glAccountId");
+    if (UtilValidate.isNotEmpty(invoiceItemTypeOrgs)) {
+        invoiceItemTypeOrg = invoiceItemTypeOrgs[0];
+        overrideGlAccountId = invoiceItemTypeOrg.glAccountId;
 
         glAccounts = invoiceItemTypeOrg.getRelated("GlAccount");
-        if (glAccounts != null && glAccounts.size() > 0) {
-            glAccount = glAccounts.get(0);
+        if (UtilValidate.isNotEmpty(glAccounts)) {
+            glAccount = glAccounts[0];
         }
     } else {
         glAccount = invoiceItemType.getRelatedOne("DefaultGlAccount");
     }
 
     if (glAccount != null) {
-        activeGlDescription = glAccount.getString("accountName");
+        activeGlDescription = glAccount.accountName;
         remove = "Remove";
     }
 
-    allTypes.add(UtilMisc.toMap("invoiceItemTypeId",invoiceItemType.getString("invoiceItemTypeId"),
-                                "description",invoiceItemType.getString("description"),
-                                "defaultGlAccountId",invoiceItemType.getString("defaultGlAccountId"),
-                                "glAccountId",overrideGlAccountId,
-                                "remove",remove,
-                                "activeGlDescription",activeGlDescription));
+    allTypes.add([invoiceItemTypeId : invoiceItemType.invoiceItemTypeId,
+                  description : invoiceItemType.description,
+                  defaultGlAccountId : invoiceItemType.defaultGlAccountId,
+                  overrideGlAccountId : overrideGlAccountId,
+                  remove : remove,
+                  activeGlDescription : activeGlDescription]);
 }
-context.put("purinvoiceItemTypes",allTypes);
+context.invoiceItemTypes = allTypes;

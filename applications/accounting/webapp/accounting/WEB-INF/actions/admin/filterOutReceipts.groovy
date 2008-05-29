@@ -16,11 +16,11 @@
  * specific language governing permissions and limitations
  * under the License.
  */
- // simple beanshell to filter out receipts in a list of payments
+ // simple script to filter out receipts in a list of payments
 
 import org.ofbiz.accounting.util.UtilAccounting;
 
-payments = context.get("payments");
+payments = context.payments;
 iter = payments.iterator();
 while (iter.hasNext()) {
   payment = iter.next();
