@@ -381,7 +381,7 @@ under the License.
     <form name="ListSalInvoiceItemTypeGlAssignments" type="list" list-name="invoiceItemTypes"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <script location="component://accounting/webapp/accounting/WEB-INF/actions/admin/listInvoiceItemTypesGlAccount.bsh"/>
+            <script location="component://accounting/webapp/accounting/WEB-INF/actions/admin/listInvoiceItemTypesGlAccount.groovy"/>
         </actions>
         <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
         <field name="invoiceItemTypeId"><hidden/></field>
@@ -423,16 +423,17 @@ under the License.
     </form>
     
     <!-- forms for Purchase invoice Itemtypes to GLAccount number -->
-    <form name="ListPurInvoiceItemTypeGlAssignments" type="list" list-name="purinvoiceItemTypes" default-map-name="iTypes"
+    <form name="ListPurInvoiceItemTypeGlAssignments" type="list" list-name="invoiceItemTypes" default-map-name="iTypes"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <script location="component://accounting/webapp/accounting/WEB-INF/actions/admin/listPurInvoiceItemTypesGlAccount.bsh"/>
+            <set field="invItemTypePrefix" value="PINV"/>
+            <script location="component://accounting/webapp/accounting/WEB-INF/actions/admin/listInvoiceItemTypesGlAccount.groovy"/>
         </actions>
         <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
         <field name="invoiceItemTypeId"><hidden/></field>
         <field name="description"><display/></field>
         <field name="defaultGlAccountId"><display/></field>
-        <field name="glAccountId" title="${uiLabelMap.AccountingInvoiceOverrideExpenseGlAccountId}"><display/></field>
+        <field name="overrideGlAccountId" title="${uiLabelMap.AccountingInvoiceOverrideExpenseGlAccountId}"><display/></field>
         <field name="activeGlDescription"><display/></field>
         <field name="remove" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext"><hyperlink target="removePurInvoiceItemTypeGlAssignment?organizationPartyId=${organizationPartyId}&amp;invoiceItemTypeId=${invoiceItemTypeId}" description="${uiLabelMap.CommonRemove}"/></field>
     </form>
