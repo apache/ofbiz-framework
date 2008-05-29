@@ -306,7 +306,7 @@
         <value xml:lang="de">Bitte liefern Sie meine bestellten Artikel sobald sie verfügbar sind (Sie dürfen zusätzliche Lieferungskosten  erheben).</value>
         <value xml:lang="en">Please ship items I ordered as they become available (you may incur additional shipping charges).</value>
         <value xml:lang="es">Envíe por favor los artículos que pedí en cuanto se encuentren disponibles (usted puede incurrir en cargas adicionales de envío)</value>
-        <value xml:lang="fr">Livrer les produits dès qu'ils sont disponibles (peut occasionner des frais additionnels d'expédition)</value>
+        <value xml:lang="fr">Livrer les articles dès qu'ils sont disponibles (peut occasionner des frais additionnels d'expédition)</value>
         <value xml:lang="it">Perfavore spedire le righe che ho ordinato appena diventano disponibili (tu potresti incorrere in spese di spedizione aggiuntive).</value>
         <value xml:lang="nl">Verstuur items wanneer ze beschikbaar komen (extra verzendkosten mogen worden aangerekend).</value>
         <value xml:lang="ro">Va rugam expediati liniile pe care le-am comandat  ordinato imediat ce devin disponibile (s-ar putea sa ti se adauge cheltuieli de expediere).</value>
@@ -5670,7 +5670,7 @@
         <value xml:lang="de">Produkt</value>
         <value xml:lang="en">Product</value>
         <value xml:lang="es">Producto</value>
-        <value xml:lang="fr">Produit</value>
+        <value xml:lang="fr">Article</value>
         <value xml:lang="hi_IN">सामान</value>
         <value xml:lang="it">Prodotto</value>
         <value xml:lang="ja">Product</value>
@@ -5780,7 +5780,7 @@
     <property key="OrderPromotionProductsInCategories">
         <value xml:lang="en">Promotion Products In Categories</value>
         <value xml:lang="es">Las promociones incluyen todos los productos en estas categorías</value>
-        <value xml:lang="fr">Catégories de produits en promotion</value>
+        <value xml:lang="fr">Catégories d'articles en promotion</value>
         <value xml:lang="hi_IN">इस श्रेणी मे सभी प्रोत्साहन सामग्रीयां मौजूद हैं</value>
         <value xml:lang="it">Questa promozione include tutti i prodotti in queste categorie</value>
         <value xml:lang="ro">Aceasta promotie include toate produsele din aceste categorii</value>
@@ -6468,7 +6468,7 @@
     </property>
     <property key="OrderRequirementNumberOfProducts">
         <value xml:lang="en">Number of Products</value>
-        <value xml:lang="fr">Nombre de produits</value>
+        <value xml:lang="fr">Nombre de d'articles</value>
         <value xml:lang="it">Numero di Prodotti</value>
         <value xml:lang="th">หมายเลขของสินค้า</value>
     </property>
@@ -7510,7 +7510,7 @@
     <property key="OrderTheOpenHoursToReceiveProductsAre">
         <value xml:lang="en">The  Open  Hours  To  Receive  Products  Are</value>
         <value xml:lang="es">Horas posibles de recibir productos</value>
-        <value xml:lang="fr">Les heures d'ouverture pour recevoir des produits sont</value>
+        <value xml:lang="fr">Les heures d'ouverture pour recevoir des articles sont</value>
         <value xml:lang="th">ชั่วโมงที่เปิดรับสินค้าคือ</value>
     </property>
     <property key="OrderThisOrderGift">
@@ -8510,35 +8510,35 @@
         <value xml:lang="de">Vorname</value>
         <value xml:lang="en">FirstName</value>
         <value xml:lang="es">Primer nombre</value>
-        <value xml:lang="fr">Premier nom</value>
+        <value xml:lang="fr">Prénom</value>
         <value xml:lang="th">ชื่อ</value>
     </property>
     <property key="PartyHomePhone">
         <value xml:lang="de">Telefon, privat</value>
         <value xml:lang="en">HomePhone</value>
         <value xml:lang="es">Teléfono, privado</value>
-        <value xml:lang="fr">Téléphone du domicile</value>
+        <value xml:lang="fr">n° de tél. du domicile</value>
         <value xml:lang="th">เบอร์โทรศัพท์บ้าน</value>
     </property>
     <property key="PartyLastName">
         <value xml:lang="de">Nachname</value>
         <value xml:lang="en">LastName</value>
         <value xml:lang="es">Apellido</value>
-        <value xml:lang="fr">Dernier nom</value>
+        <value xml:lang="fr">Nom de famille</value>
         <value xml:lang="th">นามสกุล</value>
     </property>
     <property key="PartyLookupParty">
         <value xml:lang="de">Akteur ansehen</value>
         <value xml:lang="en">Lookup  Party</value>
         <value xml:lang="es">Buscar participante(s)</value>
-        <value xml:lang="fr">Consulter le parti</value>
+        <value xml:lang="fr">Consulter l'acteur</value>
         <value xml:lang="th">ค้นหากลุ่มผู้ใช้</value>
     </property>
     <property key="PartyMiddleInitial">
         <value xml:lang="de">Mittlere Initiale</value>
         <value xml:lang="en">Middle Initial</value>
         <value xml:lang="es">Iniciales medias</value>
-        <value xml:lang="fr">Initiale du milieu</value>
+        <value xml:lang="fr">Initiale(s) intermédiaire(s)</value>
         <value xml:lang="th">Middle Initial</value>
     </property>
     <property key="PartyNoSupplier">
@@ -8552,28 +8552,28 @@
         <value xml:lang="de">Akteure</value>
         <value xml:lang="en">Parties</value>
         <value xml:lang="es">Participantes</value>
-        <value xml:lang="fr">Parties</value>
+        <value xml:lang="fr">Acteurs</value>
         <value xml:lang="th">กลุ่มผู้ใช้</value>
     </property>
     <property key="PartyParty">
         <value xml:lang="de">Akteur</value>
         <value xml:lang="en">Party</value>
         <value xml:lang="es">Participante</value>
-        <value xml:lang="fr">Partie</value>
+        <value xml:lang="fr">Acteur</value>
         <value xml:lang="th">กลุ่มผู้ใช้</value>
     </property>
     <property key="PartyPartyId">
         <value xml:lang="de">Akteur-ID</value>
         <value xml:lang="en">PartyId</value>
         <value xml:lang="es">Código de participante</value>
-        <value xml:lang="fr">Réf. de partie</value>
+        <value xml:lang="fr">Réf. d'acteur</value>
         <value xml:lang="th">รหัสกลุ่มผู้ใช้</value>
     </property>
     <property key="PartyPartyNotDefined">
         <value xml:lang="de">Akteur nicht definiert</value>
         <value xml:lang="en">Party Not Defined</value>
         <value xml:lang="es">Participante no definido</value>
-        <value xml:lang="fr">Partie non-définie</value>
+        <value xml:lang="fr">Acteur non-défini</value>
         <value xml:lang="th">ไม่กำหนดกลุ่มผู้ใช้</value>
     </property>
     <property key="PartyRole">
@@ -8594,7 +8594,7 @@
         <value xml:lang="de">Rollen für diesen Akteur auswählen</value>
         <value xml:lang="en">Select Role For Party</value>
         <value xml:lang="es">Seleccionar rol para participante</value>
-        <value xml:lang="fr">Sélectionner le rôle pour partie</value>
+        <value xml:lang="fr">Sélectionner le rôle pour acteur</value>
         <value xml:lang="th">เลือกสถานะสำหรับกลุ่มผู้ใช้</value>
     </property>
     <property key="PartySuffix">
@@ -8621,13 +8621,12 @@
     <property key="product3net">
         <value xml:lang="en">product3net</value>
         <value xml:lang="es">3 Net?</value>
-        <value xml:lang="fr">Produit 3 net</value>
     </property>
     <property key="ProductAddProductsUsingDefaultQuantities">
         <value xml:lang="de">Produkte in dieser Kategorie mit Vorgabemengen in den Warenkorb stellen</value>
         <value xml:lang="en">Add  Products  Using  Default  Quantities</value>
         <value xml:lang="es">Agregar productos de esta categoría al carro usando cantidades predefinidas</value>
-        <value xml:lang="fr">Ajouter  les produits  utillisant  des quantités par défaut</value>
+        <value xml:lang="fr">Ajouter les articles en utilisant les quantités par défaut</value>
         <value xml:lang="pt_PT">Adicionar Produtos desta Categoria para o Cesto usando as Quantidades Pré-definidas</value>
         <value xml:lang="th">เพิ่มสินค้าโดยใช้จำนวนเริ่มต้น</value>
     </property>
@@ -8651,7 +8650,7 @@
         <value xml:lang="de">Erweiterte Suche in der Produktgruppe</value>
         <value xml:lang="en">Advanced  Search  in  Category</value>
         <value xml:lang="es">Búsqueda avanzada en la categoría</value>
-        <value xml:lang="fr">Recherche avançée dans catégorie</value>
+        <value xml:lang="fr">Recherche avançée dans la catégorie</value>
         <value xml:lang="pt_PT">Procura Avançada Na Categoria</value>
         <value xml:lang="th">การค้นหาเพิ่มขึ้นในหมวดหมู่</value>
     </property>
@@ -8674,7 +8673,7 @@
         <value xml:lang="de">Produktgruppe wurde nicht gefunden</value>
         <value xml:lang="en">Category  Not  Found  for  CategoryID</value>
         <value xml:lang="es">Categoría no encontrada para el código</value>
-        <value xml:lang="fr">Réf. catégorie non rencontré pour catégorie</value>
+        <value xml:lang="fr">Catégorie non trouvée pour la réf. </value>
         <value xml:lang="pt_PT">Categoria não encontrada para a ID</value>
         <value xml:lang="th">ไม่พบหมวดหมู่นี้สำหรับรหัสหมวดหมู่</value>
     </property>
@@ -8682,7 +8681,7 @@
         <value xml:lang="de">Katalogauswahl</value>
         <value xml:lang="en">Choose  Catalog</value>
         <value xml:lang="es">Selección de catálogo</value>
-        <value xml:lang="fr">Choisir  catalogue</value>
+        <value xml:lang="fr">Choisir le catalogue</value>
         <value xml:lang="pt_PT">Escolher Catálogo</value>
         <value xml:lang="th">เลือกหมวดหมู่</value>
     </property>
@@ -8697,7 +8696,7 @@
         <value xml:lang="de">Neues Produkt anlegen</value>
         <value xml:lang="en">Create  New  Product</value>
         <value xml:lang="es">Crear nuevo producto</value>
-        <value xml:lang="fr">Créer un nouveau produit</value>
+        <value xml:lang="fr">Créer un nouvel article</value>
         <value xml:lang="th">สร้างสินค้าใหม่</value>
     </property>
     <property key="ProductEntireCatalog">
@@ -8712,7 +8711,7 @@
         <value xml:lang="de">FEHLER: Produkt nicht gefunden</value>
         <value xml:lang="en">Error:  Product  Not  Found</value>
         <value xml:lang="es">ERROR: Producto no encontrado</value>
-        <value xml:lang="fr">Erreur:  Produit non-trouvé</value>
+        <value xml:lang="fr">Erreur: article non-trouvé</value>
         <value xml:lang="pt_PT">ERRO: Produto não encontrado</value>
         <value xml:lang="th">Error: ผิดพลาด ! ไม่พบสินค้า</value>
     </property>
@@ -8750,7 +8749,7 @@
         <value xml:lang="de">Listenpreis</value>
         <value xml:lang="en">List  Price</value>
         <value xml:lang="es">Precio de lista</value>
-        <value xml:lang="fr">Liste de prix</value>
+        <value xml:lang="fr">Tarif</value>
         <value xml:lang="pt_PT">Preço de Tabela</value>
         <value xml:lang="th">รายการราคา</value>
     </property>
@@ -8766,7 +8765,7 @@
         <value xml:lang="de">Es gibt keine Produkte in dieser Produktgruppe</value>
         <value xml:lang="en">No  Products  In  This  Category</value>
         <value xml:lang="es">No hay productos en esta categoría</value>
-        <value xml:lang="fr">Pas de produits dans cette catégorie</value>
+        <value xml:lang="fr">Pas d'article dans cette catégorie</value>
         <value xml:lang="pt_PT">Não há produtos nesta categoria</value>
         <value xml:lang="th">ไม่มีสินค้าในหมวดหมู่นี้</value>
     </property>
@@ -8774,7 +8773,7 @@
         <value xml:lang="de">Es wurden keine Resultate gefunden</value>
         <value xml:lang="en">No  Results  Found</value>
         <value xml:lang="es">No se encontraron resultados</value>
-        <value xml:lang="fr">Pas de résultats trouvés</value>
+        <value xml:lang="fr">Aucun résultat trouvé</value>
         <value xml:lang="pt_PT">Resultados Não Encontrados</value>
         <value xml:lang="th">ไม่พบผลลัพธ์</value>
     </property>
@@ -8790,21 +8789,21 @@
         <value xml:lang="de">Produkt</value>
         <value xml:lang="en">Product</value>
         <value xml:lang="es">Producto</value>
-        <value xml:lang="fr">Produit</value>
+        <value xml:lang="fr">Article</value>
         <value xml:lang="th">สินค้า</value>
     </property>
     <property key="ProductProductId">
         <value xml:lang="de">Produkt-ID</value>
         <value xml:lang="en">ProductId</value>
         <value xml:lang="es">Código de producto</value>
-        <value xml:lang="fr">Réf. produit</value>
+        <value xml:lang="fr">Réf. d'article</value>
         <value xml:lang="th">รหัสสินค้า</value>
     </property>
     <property key="ProductProductNoLongerAvailable">
         <value xml:lang="de">Dieses Produkt ist nicht länger zum Verkauf verfügbar</value>
         <value xml:lang="en">Product  No  Longer  Available</value>
         <value xml:lang="es">Este producto no se encuentra disponible para la venta</value>
-        <value xml:lang="fr">Produit non disponible</value>
+        <value xml:lang="fr">Article plus disponible</value>
         <value xml:lang="pt_PT">Este produto encontra-se indisponível para venda</value>
         <value xml:lang="th">ไม่มีสินค้าที่สามารถใช้ได้ในระยะยาว</value>
     </property>
@@ -8812,7 +8811,7 @@
         <value xml:lang="de">Produkt nicht gefunden mit der Produkt ID</value>
         <value xml:lang="en">Product  Not  Found</value>
         <value xml:lang="es">Producto no encontrado con ese código</value>
-        <value xml:lang="fr">Produit non trouvé</value>
+        <value xml:lang="fr">Article non trouvé</value>
         <value xml:lang="pt_PT">Produto Não Encontrado Com Essa Identificação</value>
         <value xml:lang="th">ไม่พบสินค้า</value>
     </property>
@@ -8820,7 +8819,7 @@
         <value xml:lang="de">Dieses Produkt wurde noch nicht beurteilt</value>
         <value xml:lang="en">Product  Not  Reviewed  Yet</value>
         <value xml:lang="es">Este producto no fue revisado aún</value>
-        <value xml:lang="fr">Produit non examiné</value>
+        <value xml:lang="fr">Article non examiné</value>
         <value xml:lang="pt_PT">Este produto ainda não foi revisto</value>
         <value xml:lang="th">สินค้าไม่ได้รับการตรวจสอบ</value>
     </property>
@@ -8828,7 +8827,7 @@
         <value xml:lang="de">Dieses Produkt ist noch nicht zum Verkauf verfügbar</value>
         <value xml:lang="en">Product  Not  Yet  Made  Available</value>
         <value xml:lang="es">Este producto aún no se encuentra disponible para la venta</value>
-        <value xml:lang="fr">Produit pas encore mis à disposition</value>
+        <value xml:lang="fr">Article pas encore disponible</value>
         <value xml:lang="pt_PT">Este produto ainda não se encontra disponível para venda</value>
         <value xml:lang="th">สินค้านี้ยังไม่มี</value>
     </property>
@@ -8836,14 +8835,14 @@
         <value xml:lang="de">Shop</value>
         <value xml:lang="en">Product  Store</value>
         <value xml:lang="es">Tienda</value>
-        <value xml:lang="fr">Boutique produits</value>
+        <value xml:lang="fr">Centre de profit</value>
         <value xml:lang="th">คลังสินค้า</value>
     </property>
     <property key="ProductRegularPrice">
         <value xml:lang="de">Regulärer Preis</value>
         <value xml:lang="en">Regular  Price</value>
         <value xml:lang="es">Precio normal</value>
-        <value xml:lang="fr">Prix régulier</value>
+        <value xml:lang="fr">Prix standard</value>
         <value xml:lang="pt_PT">Preço Normal</value>
         <value xml:lang="th">ราคาปกติ</value>
     </property>
@@ -8851,7 +8850,7 @@
         <value xml:lang="de">Suche Produktkatalog</value>
         <value xml:lang="en">Search  Catalog</value>
         <value xml:lang="es">Buscar catálogo</value>
-        <value xml:lang="fr">Chercher dans catalogue</value>
+        <value xml:lang="fr">Chercher dans le catalogue</value>
         <value xml:lang="pt_PT">Procurar Catálogo</value>
         <value xml:lang="th">ค้นหาหมวดหมู่</value>
     </property>
@@ -8859,7 +8858,7 @@
         <value xml:lang="de">Suche in Produktgruppe</value>
         <value xml:lang="en">Search  in  Category</value>
         <value xml:lang="es">Buscar en la categoría</value>
-        <value xml:lang="fr">Chercher dans catégorie</value>
+        <value xml:lang="fr">Chercher dans la catégorie</value>
         <value xml:lang="pt_PT">Procurar na Categoria</value>
         <value xml:lang="th">ค้นหาในหมวดหมู่</value>
     </property>
@@ -8874,7 +8873,7 @@
         <value xml:lang="de">Normalerweise Versand in</value>
         <value xml:lang="en">Usually  Ships  In</value>
         <value xml:lang="es">Usualmente enviar en</value>
-        <value xml:lang="fr">Expéditions ordinaires dans</value>
+        <value xml:lang="fr">Expédié normalement en</value>
         <value xml:lang="pt_PT">Envio corrente em</value>
         <value xml:lang="th">ในการขนส่งปกติ</value>
     </property>
@@ -8889,7 +8888,7 @@
         <value xml:lang="de">WORK ITEM</value>
         <value xml:lang="en">Work Item</value>
         <value xml:lang="es">Ítem de trabajo</value>
-        <value xml:lang="fr">Article de travail</value>
+        <value xml:lang="fr">Tâche</value>
         <value xml:lang="th">หัวข้องาน</value>
     </property>
     <property key="calendar_click_here_for_calendar">
@@ -8907,17 +8906,17 @@
     </property>
     <property key="cart.addToCart.chooseVariationBeforeAddingToCart">
         <value xml:lang="en">Choose Variation Before Adding to Cart</value>
-        <value xml:lang="fr">Choisir la variation avant d'ajouter au panier</value>
+        <value xml:lang="fr">Choisir la variante avant d'ajouter au panier</value>
         <value xml:lang="th">เลือกการเปลี่ยนแปลงก่อนที่จะเพิ่มลงตระกร้า</value>
     </property>
     <property key="cart.addToCart.configureProductBeforeAddingToCart">
         <value xml:lang="en">Configure Product Before Adding to Cart</value>
-        <value xml:lang="fr">Configurer le produit avant d'ajouter au panier</value>
+        <value xml:lang="fr">Configurer l'article avant de l'ajouter au panier</value>
         <value xml:lang="th">สร้างสินค้าก่อนที่จะเพิ่มลงตระกร้า</value>
     </property>
     <property key="cart.addToCart.enterBookingInforamtionBeforeAddingToCart">
         <value xml:lang="en">Enter Booking Information Before Adding to Cart</value>
-        <value xml:lang="fr">Entrer l'enregistrement avant d'ajouter au panier</value>
+        <value xml:lang="fr">Entrer la réservation avant d'ajouter au panier</value>
         <value xml:lang="th">เข้าสู่ข้อมูลการจองก่อนที่จะเพิ่มลงตระกร้า</value>
     </property>
     <property key="cart.addToCart.noProductInfoPassed">
@@ -9596,7 +9595,7 @@
     </property>
     <property key="item.cannot_add_product_no_longer_available">
         <value xml:lang="en">Tried to add the Product ${productName} (productId: ${productId}) to the cart. This product is no longer available for sale, so not adding.</value>
-        <value xml:lang="fr">Essayez d'ajouter le produit ${productName} (productId : ${productId}) au panier. Ce produit n'est plus disponible à vendre, donc ne l'ajouter pas.</value>
+        <value xml:lang="fr">Essayez d'ajouter l'article ${productName} (productId : ${productId}) au panier. Ce produit n'est plus disponible à vendre, donc ne l'ajouter pas.</value>
         <value xml:lang="it">Tentativo di aggiungere il Prodotto ${productName} (prodotto: ${productId}) al carrello. Questo prodotto non è più disponibile per la vendita, così non sarà possibile aggiungerlo.</value>
         <value xml:lang="ro">Tentativa de adaugare a Produsului ${productName} (produs: ${productId}) in cos. Acest produs nu mai este disponibil pentru vinzarea, deci nu poate fi adaugat.</value>
         <value xml:lang="ru">Была предпринята попытка добавить продукт ${productName} (productId: ${productId}) в корзину. Этот продукт большее недоступен к заказу, поэтому не добавлен.</value>
@@ -9605,7 +9604,7 @@
     </property>
     <property key="item.cannot_add_product_not_configured_correctly">
         <value xml:lang="en">Tried to add the Product ${productName} (productId: ${productId}) to the cart, not adding: the product is not configured correctly.</value>
-        <value xml:lang="fr">Essayez d'ajouter le produit ${productName} (productId: ${productId})au panier, ne pas ajouter: le produit n'est pas configuré correctement.</value>
+        <value xml:lang="fr">Essayez d'ajouter l'article ${productName} (productId: ${productId})au panier, ne pas ajouter: l'article n'est pas configuré correctement.</value>
         <value xml:lang="it">Tentativo di aggiungere il Prodotto ${productName} (prodotto: ${productId}) al carrello, non verrà aggiunto: il prodotto non è configurato correttamente.</value>
         <value xml:lang="ro">Tentativa de adaugare Produsul ${productName} (produs: ${productId}) in cos, nu va fi adaugat: produsul nu este configurat corect.</value>
         <value xml:lang="ru">Была предпринята попытка добавить продукт ${productName} (productId: ${productId}) в корзину, не добавлен: продукт неправильно сконфигурирован.</value>
@@ -9614,7 +9613,7 @@
     </property>
     <property key="item.cannot_add_product_not_yet_available">
         <value xml:lang="en">Tried to add the Product ${productName} (productId: ${productId}) to the cart. This product has not yet been made available for sale, so not adding.</value>
-        <value xml:lang="fr">Essayez d'ajouter le produit ${productName} (productId: ${productId}) au panier. Ce produit n'a pas été mis à la disposition de vente, donc ne pas ajouter.</value>
+        <value xml:lang="fr">Essayez d'ajouter l'article ${productName} (productId: ${productId}) au panier. Ce produit n'a pas été mis à la disposition de vente, donc ne pas ajouter.</value>
         <value xml:lang="it">Tentativo di aggiungere il Prodotto ${productName} (prodotto: ${productId}) al carrello. Questo prodotto non è stato ancora reso disponibile per la vendita, così non sarà possibile aggiungerlo.</value>
         <value xml:lang="ro">Tentativa de adaugare Produsul ${productName} (produs: ${productId}) in cos. Acest produs nu este inca disponibil pentru vanzare, asa ca nu poate fi adaugat.</value>
         <value xml:lang="ru">Была предпринята попытка добавить продукт ${productName} (productId: ${productId}) в корзину. Этот продукт пока недоступен, поэтому не добавлен.</value>
@@ -9623,7 +9622,7 @@
     </property>
     <property key="item.cannot_add_product_virtual">
         <value xml:lang="en">Tried to add the Virtual Product ${productName} (productId: ${productId}) to the cart, not adding.</value>
-        <value xml:lang="fr">Essayer d'ajouter le produit virtuel ${productName} (productId: ${productId}) au panier, ne pas ajouter.</value>
+        <value xml:lang="fr">Essayer d'ajouter l'article virtuel ${productName} (productId: ${productId}) au panier, ne pas ajouter.</value>
         <value xml:lang="it">Tentativo di aggiungere il Prodotto Virtuale ${productName} (prodotto: ${productId}) al carrello, non verrà aggiunto.</value>
         <value xml:lang="ro">Tentativa de adaugare Produsul Virtual ${productName} (produs: ${productId}) in cos, nu va fi adaugat.</value>
         <value xml:lang="ru">Была предпринята попытка добавить виртуальный продукт ${productName} (productId: ${productId}) в корзину, не добавлен.</value>
@@ -9632,7 +9631,7 @@
     </property>
     <property key="item.cannot_find_Fixed_Asset">
         <value xml:lang="en">Could not find a related Fixed Asset for the product: ${productId}</value>
-        <value xml:lang="fr">Ne pourra pas trouver un actif immobilisé pour le produit: ${productId}</value>
+        <value xml:lang="fr">Ne pourra pas trouver un actif immobilisé pour l'article: ${productId}</value>
         <value xml:lang="it">Non è possibile trovare un Cespite per il prodotto: ${productId}</value>
         <value xml:lang="ro">Nu este posibila gasirea unui Mijloc fix pentru  produsul: ${productId}</value>
         <value xml:lang="ru">Невозможно найти основные средства, связанные с продуктом: ${productId}</value>
@@ -9686,7 +9685,7 @@
     </property>
     <property key="item.product_not_available">
         <value xml:lang="en">Product not available, ProductId: ${productId} message: ${availableMessage}</value>
-        <value xml:lang="fr">Produit non disponible, réf. produit: ${productId} message: ${availableMessage}</value>
+        <value xml:lang="fr">Article non disponible, réf. produit: ${productId} message: ${availableMessage}</value>
         <value xml:lang="it">Prodotto non disponibile, Prodotto: ${productId} messaggio: ${availableMessage}</value>
         <value xml:lang="ro">Produsul nu este disponibil, Produs: ${productId} mesaj: ${availableMessage}</value>
         <value xml:lang="ru">Продукт недоступен, код продукта: ${productId} сообщение: ${availableMessage}</value>
