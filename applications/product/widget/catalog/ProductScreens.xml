@@ -1210,7 +1210,7 @@ under the License.
 
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-name="product"/>
-                <script location="component://product/webapp/catalog/WEB-INF/actions/product/EditProductContent.bsh"/>   
+                <script location="component://product/webapp/catalog/WEB-INF/actions/product/EditProductContent.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
