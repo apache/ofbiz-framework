@@ -678,5 +678,44 @@ under the License.
         <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
+    <service name="createEmplLeave" engine="simple" default-entity-name="EmplLeave"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="createEmplLeave" auth="true">
+        <description>Create Employee Leave</description>
+        <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    
+    <service name="updateEmplLeave" engine="simple" default-entity-name="EmplLeave"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="updateEmplLeave" auth="true">
+        <description>Update Valid Employee Leave</description>
+        <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    
+    <service name="createEmplLeaveType" engine="simple" default-entity-name="EmplLeaveType"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="createEmplLeaveType" auth="true">
+        <description>Create Valid LeaveType</description>
+        <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
+        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override name="description" optional="false"/>        
+    </service>
+    
+    <service name="updateEmplLeaveType" engine="simple" default-entity-name="EmplLeaveType"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="updateEmplLeaveType" auth="true">
+        <description>Update Valid LeaveType</description>
+        <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    
+    <service name="deleteEmplLeaveType" engine="simple" default-entity-name="EmplLeaveType"
+             location="org/ofbiz/humanres/HumanResServices.xml" invoke="deleteEmplLeaveType" auth="true">
+        <description>Delete Valid LeaveType</description>
+        <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
 
 </services>

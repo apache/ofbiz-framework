@@ -20,7 +20,7 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <form name="FindPartyQuals" type="single" target="FindPartyQuals" header-row-style="header-row" default-table-style="basic-table">
+     <form name="FindPartyQuals" type="single" target="FindPartyQuals" header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="PartyQual" default-field-type="find"/>
         <field name="noConditionFind"><hidden value="Y"/></field>
         <field name="partyId"><lookup target-form-name="LookupPartyName"/></field>

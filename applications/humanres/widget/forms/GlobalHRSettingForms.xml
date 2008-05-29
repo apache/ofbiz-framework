@@ -26,7 +26,7 @@ under the License.
             <entity-condition entity-name="SkillType"><order-by field-name="skillTypeId"/></entity-condition>
         </actions>
         <auto-fields-service service-name="updateSkillType" default-field-type="hidden"/>        
-        <field name="skillTypeId" title="${uiLabelMap.HumanResSkillTypeId}"><display-entity entity-name="SkillType" description="${description}"/></field>
+        <field name="skillTypeId" title="${uiLabelMap.HumanResSkillTypeId}"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
             <hyperlink target="deleteSkillType?skillTypeId=${skillTypeId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
@@ -47,7 +47,7 @@ under the License.
             <entity-condition entity-name="ResponsibilityType"><order-by field-name="responsibilityTypeId"/></entity-condition>
         </actions>
         <auto-fields-service service-name="updateResponsibilityType" default-field-type="hidden"/>
-        <field name="responsibilityTypeId" title="${uiLabelMap.HumanResResponsibilityTypeId}"><display-entity entity-name="ResponsibilityType" description="${description}"/></field>
+        <field name="responsibilityTypeId" title="${uiLabelMap.HumanResResponsibilityTypeId}"><display/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
             <hyperlink target="deleteResponsibilityType?responsibilityTypeId=${responsibilityTypeId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
@@ -67,7 +67,7 @@ under the License.
             <entity-condition entity-name="TerminationType"><order-by field-name="terminationTypeId"/></entity-condition>
         </actions>
         <auto-fields-service service-name="updateTerminationType" default-field-type="hidden"/>        
-        <field name="terminationTypeId" title="${uiLabelMap.HumanResTerminationTypeId}"><display-entity entity-name="TerminationType" description="${description}"/></field>
+        <field name="terminationTypeId" title="${uiLabelMap.HumanResTerminationTypeId}"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
             <hyperlink target="deleteTerminationType?terminationTypeId=${terminationTypeId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
@@ -85,7 +85,11 @@ under the License.
     <form name="FindEmplPositionTypes" type="single" header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="EmplPositionType" default-field-type="find"/>
         <field name="noConditionFind"><hidden value="Y"/></field>
-        <field name="emplPositionTypeId"><text/></field>
+        <field name="emplPositionTypeId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="EmplPositionType" description="${description}" key-field-name="emplPositionTypeId"/>
+            </drop-down>
+        </field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
         <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
@@ -139,7 +143,7 @@ under the License.
     </form>            
     <form name="AddEmplPositionTypeRate" type="single" target="createEmplPositionTypeRate" default-map-name="emplPositionTypeRate" paginate-target="EditEmplPositionTypeRates"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="emplPositionTypeId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><hidden/></field>
+        <field name="emplPositionTypeId"><hidden/></field>
         <field name="rateTypeId">
             <drop-down allow-empty="true" no-current-selected-key="">
                 <entity-options description="${description}" key-field-name="rateTypeId" entity-name="RateType">
@@ -166,7 +170,7 @@ under the License.
             <entity-condition entity-name="TerminationReason"><order-by field-name="terminationReasonId"/></entity-condition>
         </actions>
         <auto-fields-service default-field-type="display" service-name="updateTerminationReason"/>        
-        <field name="terminationReasonId" title="${uiLabelMap.HumanResTerminationReasonId}"><display-entity entity-name="TerminationReason" description="${description}"/></field>
+        <field name="terminationReasonId" title="${uiLabelMap.HumanResTerminationReasonId}"><display/></field>
         <field name="description"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
@@ -180,5 +184,5 @@ under the License.
         <field name="terminationReasonId"><text/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>        
-    </form> 
+    </form>
 </forms>

@@ -249,6 +249,7 @@ under the License.
         <entity-one entity-name="PartyBenefit" value-name="lookedUpValue"/>        
         <set field="lookedUpValue.thruDate" from-field="nowTimeStamp"/>
         <store-value value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
     </simple-method>
         
     <simple-method method-name="createPayGrade" short-description="Create a Pay Grade">
@@ -297,6 +298,7 @@ under the License.
         <entity-one entity-name="PayHistory" value-name="lookedUpValue"/>
         <set field="lookedUpValue.thruDate" from-field="nowTimeStamp"/>
         <store-value value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="createPayrollPreference" short-description="Create a Payroll Preference">
@@ -637,5 +639,40 @@ under the License.
     <simple-method method-name="deleteAgreementEmploymentAppl" short-description="Delete Agreement Employment Appl">
         <entity-one entity-name="AgreementEmploymentAppl" value-name="agreementEmploymentAppl"/>
         <remove-value value-name="agreementEmploymentAppl"/>
+    </simple-method>
+        <simple-method method-name="createEmplLeave" short-description="Create Employee Leave">
+        <make-value entity-name="EmplLeave" value-name="newEntity"/>
+        <set-pk-fields value-name="newEntity" map-name="parameters"/>
+        <set-nonpk-fields value-name="newEntity" map-name="parameters"/>
+        <create-value value-name="newEntity"/>
+        <check-errors/>
+    </simple-method>
+    
+    <simple-method method-name="updateEmplLeave" short-description="Update Employee Leave">
+        <entity-one entity-name="EmplLeave" value-name="lookedUpValue"/>
+        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    
+    <simple-method method-name="createEmplLeaveType" short-description="Create a LeaveType">
+        <make-value entity-name="EmplLeaveType" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <if-empty field-name="newEntity.leaveTypeId">
+            <sequenced-id-to-env sequence-name="EmplLeaveType" env-name="newEntity.leaveTypeId"/>
+        </if-empty>        
+        <field-to-result field-name="newEntity.leaveTypeId" result-name="leaveTypeId"/>
+        <create-value value-name="newEntity"/>        
+    </simple-method>
+    
+    <simple-method method-name="updateEmplLeaveType" short-description="Update leaveType">
+        <entity-one entity-name="EmplLeaveType" value-name="lookedUpValue"/>
+        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    
+    <simple-method method-name="deleteEmplLeaveType" short-description="Delete leaveType">
+        <entity-one entity-name="EmplLeaveType" value-name="lookedUpValue"/>        
+        <remove-value value-name="lookedUpValue"/>
     </simple-method>
 </simple-methods>        

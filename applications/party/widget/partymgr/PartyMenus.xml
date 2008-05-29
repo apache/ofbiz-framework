@@ -65,10 +65,10 @@ under the License.
             <link target="EditPersonTrainings?partyId=${partyId}"/>
         </menu-item>
         <menu-item name="PartyResume" title="${uiLabelMap.HumanResPartyResume}">
-            <link target="EditPartyResume?partyId=${partyId}"/>
+            <link target="EditPartyResumes?partyId=${partyId}"/>
         </menu-item>
         <menu-item name="EmploymentApplication" title="${uiLabelMap.HumanResEmploymentApp}">
-            <link target="FindEmploymentApp?partyId=${partyId}&amp;&amp;referredByPartyId=${partyId}"/>
+            <link target="EditEmploymentApps?partyId=${partyId}&amp;&amp;referredByPartyId=${partyId}"/>
         </menu-item>
     </menu>
     <menu name="ProfileSubTabBar" menu-container-style="button-bar button-style-2" default-selected-style="selected">  

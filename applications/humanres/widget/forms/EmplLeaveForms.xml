@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+    <form name="FindEmplLeaves" type="single" target="FindEmplLeaves"
+        odd-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-entity entity-name="EmplLeave" default-field-type="find"/>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="leaveTypeId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" key-field-name="leaveTypeId" entity-name="EmplLeaveType"/>
+            </drop-down>
+        </field>
+        <field name="noConditionFind"><hidden value="Y"/></field>    
+        <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListEmplLeaves" type="multi" use-row-submit="true" separate-columns="true" target="updateEmplLeave" list-name="listIt" paginate-target="FindEmplLeaves"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="entityName" value="EmplLeave"/>
+                <field-map field-name="orderBy" value="fromDate"/>
+            </service>
+        </actions>
+        <auto-fields-service service-name="updateEmplLeave"/>
+        <field name="partyId"><display/></field>
+        <field name="leaveTypeId"><display/></field>
+        <field name="fromDate"><display/></field>
+        <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><hidden value="Y"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>  
+    </form>
+    <form name="AddEmplLeave" type="single" target="createEmplLeave"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="createEmplLeave"/>
+        <field name="partyId" use-when="emplLeaveCtx!=null"><hidden/></field>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}" use-when="emplLeaveCtx==null"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="leaveTypeId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" key-field-name="leaveTypeId" entity-name="EmplLeaveType"/>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListEmplLeaveTypes" type="multi" title="" target="updateEmplLeaveType"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="EmplLeaveType"><order-by field-name="leaveTypeId"/></entity-condition>
+        </actions>
+        <auto-fields-service service-name="updateEmplLeaveType" default-field-type="hidden"/>        
+        <field name="leaveTypeId"><display/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
+        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
+            <hyperlink target="deleteEmplLeaveType?leaveTypeId=${leaveTypeId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+        <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><hidden value="Y"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>
+    </form>
+    <form name="AddEmplLeaveType" type="single" target="createEmplLeaveType" default-map-name="emplLeaveType"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="createEmplLeaveType" default-field-type="hidden"/>
+        <field name="leaveTypeId"><text/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="buttontext"><submit button-type="text-link"/></field>
+    </form>
+</forms>

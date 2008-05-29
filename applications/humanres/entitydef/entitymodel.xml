@@ -336,6 +336,10 @@ under the License.
       <relation type="one-nofk" fk-name="EMPLMNT_TNTP" rel-entity-name="TerminationType">
         <key-map field-name="terminationTypeId"/>
       </relation>
+      <relation type="many" fk-name="EMPLMNT_AGR" rel-entity-name="Agreement">
+        <key-map field-name="partyIdTo" rel-field-name="agreementId"/>
+        <key-map field-name="partyIdFrom" rel-field-name="agreementId"/>
+      </relation>
     </entity>
     <entity entity-name="EmploymentApp"
             package-name="org.ofbiz.humanres.employment"
@@ -375,6 +379,36 @@ under the License.
       <relation type="one" fk-name="EMPL_APP_SRC_TYP" title="Parent" rel-entity-name="EmploymentAppSourceType">
         <key-map field-name="parentTypeId" rel-field-name="employmentAppSourceTypeId"/>
       </relation>
+    </entity>
+    <entity entity-name="EmplLeave"
+            package-name="org.ofbiz.humanres.employment"
+            title="Employee Leave Entity">
+        <field name="partyId" type="id-ne"/>
+        <field name="leaveTypeId" type="id-ne"/>
+        <field name="fromDate" type="date-time"/>
+        <field name="thruDate" type="date-time"/>
+        <field name="description" type="description"/>
+        <prim-key field="partyId"/>
+        <prim-key field="leaveTypeId"/>
+        <prim-key field="fromDate"/>
+        <relation type="one" fk-name="EMPL_LEAVE_PRTY" rel-entity-name="Party">
+            <key-map field-name="partyId"/>
+        </relation>
+        <relation type="one" fk-name="EMPL_LEAVE_ELETP" rel-entity-name="EmplLeaveType">
+            <key-map field-name="leaveTypeId"/>
+        </relation>
+    </entity>
+    <entity entity-name="EmplLeaveType"
+            package-name="org.ofbiz.humanres.employment"
+            title="Employee Leave Type Entity">
+        <field name="leaveTypeId" type="id-ne"/>
+        <field name="parentTypeId" type="id-ne"/>
+        <field name="hasTable" type="indicator"/>
+        <field name="description" type="description"/>
+        <prim-key field="leaveTypeId"/>
+        <relation type="one" fk-name="EMPL_LEAVE_TPAR" title="Parent" rel-entity-name="EmplLeaveType">
+            <key-map field-name="parentTypeId" rel-field-name="leaveTypeId"/>
+        </relation>
     </entity>
     <entity entity-name="PartyBenefit"
             package-name="org.ofbiz.humanres.employment"

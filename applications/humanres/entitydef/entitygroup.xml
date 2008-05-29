@@ -55,6 +55,8 @@ under the License.
     <entity-group group="org.ofbiz" entity="TerminationReason" />
     <entity-group group="org.ofbiz" entity="TerminationType" />
     <entity-group group="org.ofbiz" entity="UnemploymentClaim" />
+    <entity-group group="org.ofbiz" entity="EmplLeave"/>
+    <entity-group group="org.ofbiz" entity="EmplLeaveType"/>
 
   <!-- ========================================================= -->
   <!-- org.ofbiz.humanres.position -->

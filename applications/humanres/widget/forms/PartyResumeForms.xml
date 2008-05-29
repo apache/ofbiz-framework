@@ -25,20 +25,21 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/></field>
         <field name="partyId"><lookup target-form-name="LookupPartyName"/></field>
         <field name="contentId"><lookup target-form-name="LookupContent"/></field>
+        <field name="resumeId"><lookup target-form-name="LookupPartyResume"/></field>
         <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListPartyResumes" type="list" separate-columns="true" default-entity-name="PartyResume" list-name="listIt" paginate-target="FindPartyResumes" paginate="true"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-               <field-map field-name="inputFields" env-name="partyResumeCtx"/>
+                <field-map field-name="inputFields" env-name="partyResumeCtx"/>
                 <field-map field-name="entityName" value="PartyResume"/>
                 <field-map field-name="orderBy" value="resumeId"/>
             </service>
         </actions>
         <auto-fields-entity entity-name="PartyResume" default-field-type="display"/>
         <field name="resumeId" title="ResumeId" widget-style="linktext">
-                <hyperlink also-hidden="false" description="${resumeId}" target="EditPartyResume?resumeId=${resumeId}"/>
+            <hyperlink also-hidden="false" description="${resumeId}" target="EditPartyResume?resumeId=${resumeId}"/>
         </field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
            <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView">
@@ -46,7 +47,7 @@ under the License.
            </display-entity>
        </field>
        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink target="deletePartyResume?resumeId=${resumeId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+           <hyperlink target="deletePartyResume?resumeId=${resumeId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
        </field>
     </form>     
     <form name="EditPartyResume" type="single" target="createPartyResume" title="" default-map-name="partyResume"

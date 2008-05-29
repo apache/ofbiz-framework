@@ -1012,7 +1012,6 @@ under the License.
             </widgets>            
         </section>
     </screen>
-    
     <screen name="editCarrierAccount">
         <section> 
             <actions>
@@ -1040,7 +1039,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
     <screen name="EditPartySkills">
         <section>
             <actions>
@@ -1057,14 +1055,14 @@ under the License.
                         <screenlet title="${uiLabelMap.HumanResListPartySkill}">
                             <section>
                                 <widgets>
-                                    <include-form name="ListPartySkills" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
+                                    <include-form name="ListPartySkills" location="component://humanres/widget/forms/PartySkillForms.xml"/>
                                 </widgets>
                             </section>
                         </screenlet>
                         <screenlet title="${uiLabelMap.HumanResNewPartySkill}">
                             <section>
                                 <widgets>
-                                    <include-form name="AddPartySkills" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
+                                    <include-form name="AddPartySkills" location="component://humanres/widget/forms/PartySkillForms.xml"/>
                                 </widgets>
                             </section>
                         </screenlet>
@@ -1089,14 +1087,14 @@ under the License.
                         <screenlet title="${uiLabelMap.HumanResListPersonTraining}">
                             <section>
                                 <widgets>
-                                    <include-form name="ListPersonTrainings" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
+                                    <include-form name="ListPersonTrainings" location="component://humanres/widget/forms/PersonTrainingForms.xml"/>
                                 </widgets>
                             </section>
                         </screenlet>
                         <screenlet title="${uiLabelMap.HumanResNewPersonTraining}">
                             <section>
                                 <widgets>
-                                    <include-form name="AddPersonTraining" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
+                                    <include-form name="AddPersonTraining" location="component://humanres/widget/forms/PersonTrainingForms.xml"/>
                                 </widgets>
                             </section>
                         </screenlet>
@@ -1105,7 +1103,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="EditPartyResume">
+    <screen name="EditPartyResumes">
         <section>
             <actions>
                 <set field="titleProperty" value="HumanResEditPartyResume"/>
@@ -1121,14 +1119,14 @@ under the License.
                         <screenlet title="${uiLabelMap.HumanResListPartyResumes}">
                             <section>
                                 <widgets>
-                                    <include-form name="ListPartyResumes" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
+                                    <include-form name="ListPartyResumes" location="component://humanres/widget/forms/PartyResumeForms.xml"/>
                                 </widgets>
                             </section>
                         </screenlet>
                         <screenlet title="${uiLabelMap.HumanResNewPartyResume}">
                             <section>
                                 <widgets>
-                                    <include-form name="EditPartyResume" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
+                                    <include-form name="EditPartyResume" location="component://humanres/widget/forms/PartyResumeForms.xml"/>
                                 </widgets>
                             </section>
                         </screenlet>
@@ -1137,7 +1135,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="EditEmploymentApp">
+    <screen name="EditEmploymentApps">
         <section>
             <actions>
                 <set field="titleProperty" value="HumanResFindEmploymentApp"/>
@@ -1152,14 +1150,14 @@ under the License.
                         <screenlet title="${uiLabelMap.CommonList} ${uiLabelMap.HumanResEmploymentApp}">
                             <section>
                                 <widgets>
-                                    <include-form name="ListEmploymentApps" location="component://humanres/widget/forms/EmploymentForms.xml"/>
+                                    <include-form name="ListEmploymentApps" location="component://humanres/widget/forms/EmploymentAppForms.xml"/>
                                 </widgets>
                             </section>
                         </screenlet>
                         <screenlet title="${uiLabelMap.HumanResNewEmploymentApp}">
                             <section>
                                 <widgets>
-                                    <include-form name="AddEmploymentApp" location="component://humanres/widget/forms/EmploymentForms.xml"/>
+                                    <include-form name="AddEmploymentApp" location="component://humanres/widget/forms/EmploymentAppForms.xml"/>
                                 </widgets>
                             </section>
                         </screenlet>

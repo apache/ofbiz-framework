@@ -24,6 +24,7 @@
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createPayGrade" default-field-type="find"/>
         <field name="noConditionFind"><hidden value="Y"/></field>
+        <field name="payGradeId"><lookup target-form-name="LookupPayGrade"/></field>
         <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListPayGrades" type="list" list-name="listIt" title="" target="updatePayGrade" paginate-target="FindPayGrade"
@@ -36,7 +37,7 @@
         </actions>
         <auto-fields-service default-field-type="display" service-name="updatePayGrade"/>
         <field name="payGradeId" title="${uiLabelMap.HumanResPayGradeID}" widget-style="linktext">
-                <hyperlink also-hidden="true" target="EditPayGrade?payGradeId=${payGradeId}" target-type="plain" description="${payGradeId}"/>
+            <hyperlink also-hidden="true" target="EditPayGrade?payGradeId=${payGradeId}" target-type="plain" description="${payGradeId}"/>
         </field>
     </form>
     <form name="EditPayGrade" type="single" target="updatePayGrade" title=""
@@ -48,13 +49,14 @@
         <field name="payGradeName"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-        <form name="ListSalarySteps" type="multi" target="updateSalaryStep" paginate-target="findSalarySteps"
+    <form name="ListSalarySteps" type="multi" target="updateSalaryStep?salaryStepSeqId=${salaryStepSeqId}&amp;payGradeId=${payGradeId}" paginate-target="findSalarySteps"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
+            <entity-one entity-name="SalaryStep" auto-field-map="true"/>
             <entity-condition entity-name="SalaryStep"><order-by field-name="salaryStepSeqId"/></entity-condition>
         </actions>  
         <auto-fields-service service-name="updateSalaryStep"/>       
-        <field name="salaryStepSeqId" title="${uiLabelMap.HumanResSalaryStepSeqId}"><display/></field>                   
+        <field name="salaryStepSeqId" title="${uiLabelMap.HumanResSalaryStepSeqId}"><display also-hidden="true"/></field>                   
         <field name="payGradeId"><hidden/></field>
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><hidden value="Y"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>
