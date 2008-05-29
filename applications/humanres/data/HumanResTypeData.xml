@@ -77,4 +77,7 @@ under the License.
     <TerminationType description="Resignation" hasTable="N" parentTypeId="" terminationTypeId="RESIGN"/>
     <TerminationType description="Fired" hasTable="N" parentTypeId="" terminationTypeId="FIRE"/>
     <TerminationType description="Retirement" hasTable="N" parentTypeId="" terminationTypeId="RETIRE"/>
+    
+    <EmplLeaveType description="Medical" hasTable="N" parentTypeId="" leaveTypeId="MEDICAL"/>
+    <EmplLeaveType description="Casual" hasTable="N" parentTypeId="" leaveTypeId="CASUAL"/>
 </entity-engine-xml>

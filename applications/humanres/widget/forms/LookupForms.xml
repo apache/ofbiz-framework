@@ -169,4 +169,124 @@ under the License.
         </field>        
         <field name="description"><display/></field>        
     </form>    
+    <form name="LookupPayRollPreference" type="single" target="LookupPayRollPreference"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-entity entity-name="PayrollPreference" default-field-type="hidden"/>
+        <field name="payrollPreferenceSeqId" title="${uiLabelMap.HumanResLookupPayrollPreferenceSeqId}"><text-find/></field>                
+        <field name="noConditionFind"><hidden value="Y"/></field> 
+        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListPayRollPreferences" type="list" list-name="listIt" paginate-target="LookupPayRollPreference"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="entityName" value="PayrollPreference"/>
+            </service>
+        </actions>
+        <field name="payrollPreferenceSeqId" widget-style="buttontext">
+            <hyperlink also-hidden="false" target-type="plain" description="${payrollPreferenceSeqId}" target="javascript:set_value('${payrollPreferenceSeqId}')"/>
+        </field>        
+        <field name="description"><display/></field>        
+    </form>
+    <form name="LookupUnemploymentClaim" type="single" target="LookupUnemploymentClaim"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-entity entity-name="UnemploymentClaim" default-field-type="hidden"/>
+        <field name="unemploymentClaimId" title="${uiLabelMap.HumanResLookupUnemploymentClaimId}"><text-find/></field>                
+        <field name="noConditionFind"><hidden value="Y"/></field> 
+        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListUnemploymentClaims" type="list" list-name="listIt" paginate-target="LookupUnemploymentClaim"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="entityName" value="UnemploymentClaim"/>
+            </service>
+        </actions>
+        <field name="unemploymentClaimId" widget-style="buttontext">
+            <hyperlink also-hidden="false" target-type="plain" description="${unemploymentClaimId}" target="javascript:set_value('${unemploymentClaimId}')"/>
+        </field>        
+        <field name="description"><display/></field>        
+    </form>
+    <form name="LookupAgreementEmploymentAppl" type="single" target="LookupAgreementEmploymentAppl"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-entity entity-name="AgreementEmploymentAppl" default-field-type="hidden"/>
+        <field name="agreementItemSeqId" title="${uiLabelMap.HumanResLookupAgreementItemSeqId}"><text-find/></field>                
+        <field name="noConditionFind"><hidden value="Y"/></field> 
+        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListAgreementEmploymentAppls" type="list" list-name="listIt" paginate-target="LookupAgreementEmploymentAppl"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="entityName" value="AgreementEmploymentAppl"/>
+            </service>
+        </actions>
+        <field name="agreementItemSeqId" widget-style="buttontext">
+            <hyperlink also-hidden="false" target-type="plain" description="${agreementItemSeqId}" target="javascript:set_value('${agreementItemSeqId}')"/>
+        </field>        
+        <field name="description"><display/></field>        
+    </form>
+    <form name="LookupPerfReview" type="single" target="LookupPerfReview"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-entity entity-name="PerfReview" default-field-type="hidden"/>
+        <field name="perfReviewId" title="${uiLabelMap.HumanResLookupPerfReviewId}"><text-find/></field>                
+        <field name="noConditionFind"><hidden value="Y"/></field> 
+        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListPerfReviews" type="list" list-name="listIt" paginate-target="LookupPerfReview"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="entityName" value="PerfReview"/>
+            </service>
+        </actions>
+        <field name="perfReviewId" widget-style="buttontext">
+            <hyperlink also-hidden="false" target-type="plain" description="${perfReviewId}" target="javascript:set_value('${perfReviewId}')"/>
+        </field>        
+        <field name="description"><display/></field>        
+    </form>
+    <form name="LookupPartyResume" type="single" target="LookupPartyResume"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-entity entity-name="PartyResume" default-field-type="hidden"/>
+        <field name="resumeId" title="${uiLabelMap.HumanResLookupPartyResumeId}"><text-find/></field>                
+        <field name="noConditionFind"><hidden value="Y"/></field> 
+        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListPartyResumes" type="list" list-name="listIt" paginate-target="LookupPartyResume"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="entityName" value="PartyResume"/>
+            </service>
+        </actions>
+        <field name="resumeId" widget-style="buttontext">
+            <hyperlink also-hidden="false" target-type="plain" description="${resumeId}" target="javascript:set_value('${resumeId}')"/>
+        </field>        
+        <field name="description"><display/></field>        
+    </form>
+    <form name="LookupEmploymentApp" type="single" target="LookupEmploymentApp"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-entity entity-name="EmploymentApp" default-field-type="hidden"/>
+        <field name="applicationId" title="${uiLabelMap.HumanResLookupApplicationId}"><text-find/></field>                
+        <field name="noConditionFind"><hidden value="Y"/></field> 
+        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListEmploymentApps" type="list" list-name="listIt" paginate-target="LookupEmploymentApp"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="entityName" value="EmploymentApp"/>
+            </service>
+        </actions>
+        <field name="applicationId" widget-style="buttontext">
+            <hyperlink also-hidden="false" target-type="plain" description="${applicationId}" target="javascript:set_value('${applicationId}')"/>
+        </field>        
+        <field name="description"><display/></field>        
+    </form>
 </forms>

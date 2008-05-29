@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
+    <screen name="FindEmplLeaves">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HumanResFindEmplLeave"/>
+                <set field="headerItem" value="Leave"/>
+                <set field="partyId" from-field="parameters.partyId"/>
+                <set field="leaveTypeId" from-field="parameters.leaveTypeId"/>
+                <set field="fromDate" from-field="parameters.fromDate"/>
+                <set field="emplLeaveCtx" from-field="parameters"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                            <decorator-section name="menu-bar">
+                                <section>
+                                    <widgets>
+                                        <container style="button-bar">
+                                            <link target="NewEmplLeave" text="${uiLabelMap.CommonNew} ${uiLabelMap.HumanResEmployee} ${uiLabelMap.HumanResEmplLeave}" style="buttontext"/>
+                                        </container>
+                                    </widgets>
+                                </section>
+                            </decorator-section>
+                            <decorator-section name="search-options">
+                                <include-form name="FindEmplLeaves" location="component://humanres/widget/forms/EmplLeaveForms.xml"/>
+                            </decorator-section>
+                            <decorator-section name="search-results">
+                                <include-form name="ListEmplLeaves" location="component://humanres/widget/forms/EmplLeaveForms.xml" />
+                            </decorator-section>
+                        </decorator-screen>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="NewEmplLeave">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HumanResNewEmplLeave"/>
+                <set field="headerItem" value="Leave"/>
+                <set field="emplLeaveCtx" from-field="parameters.PartyId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.HumanResAddEmplLeave}">
+                            <section>
+                                <widgets>
+                                    <include-form name="AddEmplLeave" location="component://humanres/widget/forms/EmplLeaveForms.xml"/>
+                                </widgets>
+                            </section>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditEmplLeaves">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HumanResEditEmplLeave"/>
+                <set field="headerItem" value="Employee"/>
+                <set field="tabButtonItem" value="EditEmplLeaves"/>
+                <set field="partyId" from-field="parameters.partyId"/>
+                <set field="emplLeaveCtx.partyId" from-field="parameters.partyId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.CommonList} ${uiLabelMap.HumanResEmplLeave}">
+                            <section>
+                                <widgets>
+                                    <include-form name="ListEmplLeaves" location="component://humanres/widget/forms/EmplLeaveForms.xml"/>
+                                </widgets>
+                            </section>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.HumanResAddEmplLeave}">
+                            <section>
+                                <widgets>
+                                    <include-form name="AddEmplLeave" location="component://humanres/widget/forms/EmplLeaveForms.xml"/>
+                                </widgets>
+                            </section>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditEmplLeaveTypes">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HumanResEditEmplLeaveType"/>
+                <set field="headerItem" value="GlobalHRSettings"/>
+                <set field="tabButtonItem" value="EmplLeaveType"/>
+                <set field="leaveTypeId" from-field="parameters.leaveTypeId"/>
+                <entity-one entity-name="EmplLeaveType" value-name="emplLeaveType"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="GlobalHRSettingsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.HumanResListEmplLeaveType}">
+                            <section>
+                                <widgets>
+                                    <include-form name="ListEmplLeaveTypes" location="component://humanres/widget/forms/EmplLeaveForms.xml"/>
+                                </widgets>
+                            </section>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.HumanResAddEmplLeaveType}">
+                            <section>
+                                <widgets>
+                                    <include-form name="AddEmplLeaveType" location="component://humanres/widget/forms/EmplLeaveForms.xml"/>
+                                </widgets>
+                            </section>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+</screens>

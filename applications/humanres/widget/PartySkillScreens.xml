@@ -27,6 +27,7 @@
                 <set field="headerItem" value="PartySkills"/> 
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="partySkillsCtx" from-field="parameters"/>
+                <set field="insideParty.partySkills" value="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -53,6 +54,38 @@
             </widgets>
         </section> 
     </screen>
+    <screen name="EditPartySkills">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HumanResViewPartySkill"/>
+                <set field="headerItem" value="Employee"/>            
+                <set field="tabButtonItem" value="EditPartySkills"/>    
+                <set field="partyId" from-field="parameters.partyId"/>
+                <set field="skillTypeId" from-field="parameters.skillTypeId"/>
+                <set field="partySkillsCtx.partyId" from-field="parameters.partyId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.HumanResListPartySkill}">
+                             <section>
+                                 <widgets>
+                                    <include-form name="ListPartySkills" location="component://humanres/widget/forms/PartySkillForms.xml"/>
+                                 </widgets>
+                             </section>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.HumanResNewPartySkill}">
+                            <section>
+                                <widgets>
+                                    <include-form name="AddPartySkills" location="component://humanres/widget/forms/PartySkillForms.xml"/>
+                                </widgets>
+                            </section>
+                        </screenlet>
+                     </decorator-section>
+                 </decorator-screen>
+            </widgets>
+        </section> 
+    </screen>
     <screen name="NewPartySkill">
         <section>
             <actions>
@@ -76,5 +109,5 @@
                 </decorator-screen>
             </widgets>
         </section> 
-    </screen> 
+    </screen>  
 </screens>

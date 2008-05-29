@@ -26,6 +26,7 @@
                 <set field="titleProperty" value="HumanResFindPartyResume"/>
                 <set field="headerItem" value="PartyResume"/>
                 <set field="partyResumeCtx" from-field="parameters"/>
+                <set field="insideParty.partyResume" value="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

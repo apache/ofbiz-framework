@@ -343,7 +343,7 @@ under the License.
     </request-map>
     <request-map uri="updateSalaryStep">
         <security https="true" auth="true"/>
-        <event type="service" invoke="updateSalaryStep"/>
+        <event type="service-multi" invoke="updateSalaryStep"/>
         <response name="success" type="view" value="EditSalarySteps"/>
     </request-map>
     <request-map uri="deleteSalaryStep">
@@ -392,7 +392,53 @@ under the License.
         <security https="true" auth="true"/>
         <event type="service" invoke="deleteUnemploymentClaim"/>
         <response name="success" type="view" value="EditUnemploymentClaims"/>
-    </request-map>                  
+    </request-map>       
+    <request-map uri="FindEmplLeaves">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindEmplLeaves"/>
+    </request-map>
+    <request-map uri="NewEmplLeave">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="NewEmplLeave"/>
+    </request-map>
+    <request-map uri="EditEmplLeaves">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditEmplLeaves"/>
+    </request-map>
+    <request-map uri="createEmplLeave">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createEmplLeave"/>
+        <response name="success" type="view" value="NewEmplLeave"/>
+        <response name="error" type="view" value="NewEmplLeave"/>
+    </request-map>
+    <request-map uri="updateEmplLeave">
+        <security https="true" auth="true"/>
+        <event type="service-multi" invoke="updateEmplLeave"/>
+        <response name="success" type="view" value="FindEmplLeaves"/>
+        <response name="error" type="view" value="FindEmplLeaves"/>
+    </request-map>
+    <request-map uri="EditEmplLeaveTypes">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditEmplLeaveTypes"/>
+    </request-map>
+    <request-map uri="createEmplLeaveType">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createEmplLeaveType"/>
+        <response name="success" type="view" value="EditEmplLeaveTypes"/>
+        <response name="error" type="view" value="EditEmplLeaveTypes"/>
+    </request-map>
+    <request-map uri="updateEmplLeaveType">
+        <security https="true" auth="true"/>
+        <event type="service-multi" invoke="updateEmplLeaveType"/>
+        <response name="success" type="view" value="EditEmplLeaveTypes"/>
+        <response name="error" type="view" value="EditEmplLeaveTypes"/>
+    </request-map>
+    <request-map uri="deleteEmplLeaveType">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteEmplLeaveType"/>
+        <response name="success" type="view" value="EditEmplLeaveTypes"/>
+        <response name="error" type="view" value="EditEmplLeaveTypes"/>               
+    </request-map>           
    <!-- ================Employee Position Group==================================== -->
     <request-map uri="FindEmplPositions">
         <security https="true" auth="true"/>
@@ -542,25 +588,9 @@ under the License.
         <response name="success" type="request" value="viewprofile"/>
         <response name="error" type="view" value="NewEmployee"/>
     </request-map>    
-    <request-map uri="EditPartySkills">
+    <request-map uri="EditPartyQuals">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditPartySkills"/>
-    </request-map>
-    <request-map uri="EditPartyQual">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditPartyQual"/>
-    </request-map>
-    <request-map uri="EditPersonTrainings">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditPersonTrainings"/>
-    </request-map>
-    <request-map uri="EditEmploymentApps">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditEmploymentApps"/>
-    </request-map>
-    <request-map uri="EditPartyResumes">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditPartyResumes"/>
+        <response name="success" type="view" value="EditPartyQuals"/>
     </request-map>
     <!-- ===================Responsibility Request============== -->
     <request-map uri="EditResponsibilityTypes">
@@ -575,7 +605,7 @@ under the License.
     </request-map>
     <request-map uri="updateResponsibilityType">
         <security https="true" auth="true"/>
-        <event type="service" invoke="updateResponsibilityType"/>
+        <event type="service-multi" invoke="updateResponsibilityType"/>
         <response name="success" type="view" value="EditResponsibilityTypes"/>
         <response name="error" type="view" value="EditResponsibilityTypes"/>
     </request-map>
@@ -697,6 +727,44 @@ under the License.
         <event type="service" invoke="deleteAgreementEmploymentAppl"/>
         <response name="success" type="view" value="EditAgreementEmploymentAppls"/>
     </request-map>
+    <!--====================Extended Requests===================================-->
+    <request-map uri="EditPartySkills">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditPartySkills"/>
+    </request-map>
+    <request-map uri="EditPartySkillsExt">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditPartySkills"/>        
+        <response name="error"  type="view" value="EditPartySkills"/>
+    </request-map>
+    <request-map uri="EditPersonTrainings">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditPersonTrainings"/>
+    </request-map>    
+    <request-map uri="EditPersonTrainingsExt">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditPersonTrainings"/>
+        <response name="error"  type="view" value="EditPersonTrainings"/>        
+    </request-map>
+    <request-map uri="EditPartyResumes">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditPartyResumes"/>
+    </request-map>    
+    <request-map uri="EditPartyResumesExt">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditPartyResumes"/>
+        <response name="error"  type="view" value="EditPartyResumes"/>
+    </request-map>
+    <request-map uri="EditEmploymentApps">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditEmploymentApps"/>
+    </request-map>
+    <request-map uri="EditEmploymentAppsExt">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditEmploymentApps"/>
+        <response name="error"  type="view" value="EditEmploymentApps"/>
+    </request-map>
+    
     <!-- ===================Lookup Request===================== -->
     <request-map uri="LookupPartyName"><security auth="true" https="true"/><response name="success" type="view" value="LookupPartyName"/></request-map>
     <request-map uri="LookupPayment"><security auth="true" https="true"/><response name="success" type="view" value="LookupPayment"/></request-map>    
@@ -706,6 +774,13 @@ under the License.
     <request-map uri="LookupTerminationReason"><security auth="true" https="true"/><response name="success" type="view" value="LookupTerminationReason"/></request-map>
     <request-map uri="LookupSalaryStep"><security auth="true" https="true"/><response name="success" type="view" value="LookupSalaryStep"/></request-map>
     <request-map uri="LookupPayGrade"><security auth="true" https="true"/><response name="success" type="view" value="LookupPayGrade"/></request-map>    
+    <request-map uri="LookupPayRollPreference"><security auth="true" https="true"/><response name="success" type="view" value="LookupPayRollPreference"/></request-map>    
+    <request-map uri="LookupUnemploymentClaim"><security auth="true" https="true"/><response name="success" type="view" value="LookupUnemploymentClaim"/></request-map>    
+    <request-map uri="LookupAgreementEmploymentAppl"><security auth="true" https="true"/><response name="success" type="view" value="LookupAgreementEmploymentAppl"/></request-map>    
+    <request-map uri="LookupPerfReview"><security auth="true" https="true"/><response name="success" type="view" value="LookupPerfReview"/></request-map>    
+    <request-map uri="LookupPartyResume"><security auth="true" https="true"/><response name="success" type="view" value="LookupPartyResume"/></request-map>    
+    <request-map uri="LookupEmploymentApp"><security auth="true" https="true"/><response name="success" type="view" value="LookupEmploymentApp"/></request-map>    
+    <request-map uri="LookupAgreement"><security auth="true" https="true"/><response name="success" type="view" value="LookupAgreement"/></request-map>    
 
     <view-map name="LookupPartyName" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyName"/>
     <view-map name="LookupPayment"  type="screen" page="component://accounting/widget/LookupScreens.xml#LookupPayment"/>    
@@ -715,6 +790,13 @@ under the License.
     <view-map name="LookupTerminationReason"  type="screen" page="component://humanres/widget/LookupScreens.xml#LookupTerminationReason"/>
     <view-map name="LookupSalaryStep"  type="screen" page="component://humanres/widget/LookupScreens.xml#LookupSalaryStep"/>
     <view-map name="LookupPayGrade"  type="screen" page="component://humanres/widget/LookupScreens.xml#LookupPayGrade"/>
+    <view-map name="LookupPayRollPreference" type="screen" page="component://humanres/widget/LookupScreens.xml#LookupPayRollPreference"/>    
+    <view-map name="LookupUnemploymentClaim" type="screen" page="component://humanres/widget/LookupScreens.xml#LookupUnemploymentClaim"/>        
+    <view-map name="LookupAgreementEmploymentAppl" type="screen" page="component://humanres/widget/LookupScreens.xml#LookupAgreementEmploymentAppl"/>        
+    <view-map name="LookupPerfReview" type="screen" page="component://humanres/widget/LookupScreens.xml#LookupPerfReview"/>            
+    <view-map name="LookupPartyResume" type="screen" page="component://humanres/widget/LookupScreens.xml#LookupPartyResume"/>                
+    <view-map name="LookupEmploymentApp" type="screen" page="component://humanres/widget/LookupScreens.xml#LookupEmploymentApp"/>                
+    <view-map name="LookupAgreement" type="screen" page="component://accounting/widget/LookupScreens.xml#LookupAgreement"/>
     
     <view-map name="main" type="screen" page="component://humanres/widget/EmploymentScreens.xml#FindEmployments"/>
     
@@ -743,22 +825,19 @@ under the License.
 
     <view-map name="FindPartySkills" type="screen" page="component://humanres/widget/PartySkillScreens.xml#FindPartySkills"/>
     <view-map name="NewPartySkill" type="screen" page="component://humanres/widget/PartySkillScreens.xml#NewPartySkill"/>        
-    <view-map name="EditPartySkills" type="screen" page="component://humanres/widget/PartySkillScreens.xml#EditPartySkills"/>
 
     <view-map name="FindPartyQuals" type="screen" page="component://humanres/widget/PartyQualScreens.xml#FindPartyQuals"/>
     <view-map name="NewPartyQual" type="screen" page="component://humanres/widget/PartyQualScreens.xml#NewPartyQual"/>
-    <view-map name="EditPartyQual" type="screen" page="component://humanres/widget/PartyQualScreens.xml#EditPartyQual"/>
+    <view-map name="EditPartyQuals" type="screen" page="component://humanres/widget/PartyQualScreens.xml#EditPartyQuals"/>
     
     <view-map name="FindPersonTrainings" type="screen" page="component://humanres/widget/PersonTrainingScreens.xml#FindPersonTrainings"/>
     <view-map name="NewPersonTraining" type="screen" page="component://humanres/widget/PersonTrainingScreens.xml#NewPersonTraining"/>    
-    <view-map name="EditPersonTrainings" type="screen" page="component://humanres/widget/EmploymentScreens.xml#EditPersonTrainings"/>
+    <view-map name="EditPersonTrainings" type="screen" page="component://humanres/widget/PersonTrainingScreens.xml#EditPersonTrainings"/>
     
-    <view-map name="EditEmploymentApps" type="screen" page="component://humanres/widget/EmploymentAppScreens.xml#EditEmploymentApps"/>
     <view-map name="FindEmploymentApps" type="screen" page="component://humanres/widget/EmploymentAppScreens.xml#FindEmploymentApps"/>
     <view-map name="NewEmploymentApp" type="screen" page="component://humanres/widget/EmploymentAppScreens.xml#NewEmploymentApp"/>
     
     <view-map name="FindPartyResumes" type="screen" page="component://humanres/widget/PartyResumeScreens.xml#FindPartyResumes"/>
-    <view-map name="EditPartyResumes" type="screen" page="component://humanres/widget/PartyResumeScreens.xml#EditPartyResumes"/>    
     <view-map name="EditPartyResume" type="screen" page="component://humanres/widget/PartyResumeScreens.xml#EditPartyResume"/>
     
     <view-map name="FindPayGrades" type="screen" page="component://humanres/widget/PayGradeScreens.xml#FindPayGrades"/>
@@ -776,4 +855,14 @@ under the License.
     <view-map name="EditResponsibilityTypes" type="screen" page="component://humanres/widget/GlobalHRSettingScreens.xml#EditResponsibilityTypes"/>
     <view-map name="EditTerminationTypes" type="screen" page="component://humanres/widget/GlobalHRSettingScreens.xml#EditTerminationTypes"/>    
     <view-map name="EditTerminationReasons" type="screen" page="component://humanres/widget/GlobalHRSettingScreens.xml#EditTerminationReasons"/>    
+
+    <view-map name="EditPartySkills" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#EditPartySkills"/>
+    <view-map name="EditPersonTrainings" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#EditPersonTrainings"/>
+    <view-map name="EditPartyResumes" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#EditPartyResumes"/>    
+    <view-map name="EditEmploymentApps" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#EditEmploymentApps"/>    
+    
+    <view-map name="FindEmplLeaves" type="screen" page="component://humanres/widget/EmplLeaveScreens.xml#FindEmplLeaves"/>
+    <view-map name="NewEmplLeave" type="screen" page="component://humanres/widget/EmplLeaveScreens.xml#NewEmplLeave"/>
+    <view-map name="EditEmplLeaves" type="screen" page="component://humanres/widget/EmplLeaveScreens.xml#EditEmplLeaves"/>
+    <view-map name="EditEmplLeaveTypes" type="screen" page="component://humanres/widget/EmplLeaveScreens.xml#EditEmplLeaveTypes"/>
 </site-conf>

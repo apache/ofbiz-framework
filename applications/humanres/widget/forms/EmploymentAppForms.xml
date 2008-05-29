@@ -69,6 +69,8 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="EmploymentApp" default-field-type="find"/>
         <field name="noConditionFind"><hidden value="Y"/></field>
+        <field name="emplPositionId"><lookup target-form-name="LookupEmplPosition"/></field>
+        <field name="applicationId"><lookup target-form-name="LookupEmploymentApp"/></field>
         <field name="statusId">
             <drop-down allow-empty="true" current-description="">
                 <entity-options description="${description}" key-field-name="statusId" entity-name="StatusItem">
@@ -95,7 +97,7 @@ under the License.
     <form name="AddEmploymentApp" type="single" target="createEmploymentApp?applicationId=${applicationId}&amp;&amp;partyId=${referredByPartyId}" default-entity-name="EmploymentApp" paginate-target="FindEmploymentApps"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createEmploymentApp" default-field-type="hidden"/>
-        <field name="applicationId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>.
+        <field name="applicationId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><lookup target-form-name="LookupEmploymentApp"/></field>.
         <field name="emplPositionId"><lookup target-form-name="LookupEmplPosition"/></field>
         <field name="statusId">
             <drop-down allow-empty="true" current-description="">

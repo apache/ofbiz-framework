@@ -348,6 +348,12 @@
         <value xml:lang="it">Anni di Esperienza</value>
         <value xml:lang="th">ประสบการณ์(ปี)</value>
     </property>
+    <property key="HumanResAddEmplLeave">
+        <value xml:lang="en">Add Employee Leave</value>
+    </property>
+    <property key="HumanResAddEmplLeaveType">
+        <value xml:lang="en">Add EmplLeave Types</value>
+    </property>
     <property key="HumanResAddEmplPositionFulfillment">
         <value xml:lang="en">Add Position Fulfillment</value>
     </property>
@@ -417,6 +423,9 @@
         <value xml:lang="en">Part of the Open For Business Family of Open Source Software</value>
         <value xml:lang="it">Part of the Open For Business Family of Open Source Software</value>
         <value xml:lang="th">เป็นส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value>
+    </property>
+    <property key="HumanResEmplLeave">
+        <value xml:lang="en">Leave</value>
     </property>
     <property key="HumanResEditEmplPosition">
         <value xml:lang="en">Edit Employee Position</value>
@@ -491,6 +500,9 @@
     </property>
     <property key="HumanResEmployee">
         <value xml:lang="en">Employees</value>
+    </property>
+    <property key="HumanResEmplLeaveType">
+        <value xml:lang="en">Employee Leave Type</value>
     </property>    
     <property key="HumanResEmplPositionId">
         <value xml:lang="en">Employee Position Id</value>
@@ -545,6 +557,9 @@
         <value xml:lang="it">Data Inizio Stimata</value>
         <value xml:lang="th">จากประมาณวันที่</value>
     </property>
+    <property key="HumanResFindEmplLeave">
+        <value xml:lang="en">Find Employee Leave</value>
+    </property>
     <property key="HumanResFindEmplPosition">
         <value xml:lang="en">Find Employee Position</value>
     </property>
@@ -571,6 +586,9 @@
     </property>
     <property key="HumanResGlobalHRSettings">
         <value xml:lang="en">Global HR Settings</value>
+    </property>
+    <property key="HumanResListEmplLeaveType">
+        <value xml:lang="en">List EmplLeave Type</value>
     </property>
     <property key="HumanResListEmplPositionsReportedTo">
         <value xml:lang="en">List Employee Positions, Reported To [${parameters.emplPositionId}]</value>
@@ -658,10 +676,22 @@
         <value xml:lang="it">Ricerca Riga Budget per Nome</value>
         <value xml:lang="th">ค้นหารายการงบประมาณโดยชื่อ</value>
     </property>
+    <property key="HumanResLookupEmploymentApp">
+        <value xml:lang="en">Lookup EmploymentApp</value>
+    </property>
+    <property key="HumanResLookupApplicationId">
+        <value xml:lang="en">Lookup ApplicationId</value>
+    </property>
     <property key="HumanResLookupEmplPositionByName">
         <value xml:lang="en">Lookup EmplPosition by Name</value>
         <value xml:lang="it">Ricerca Posizione Impiegato per Nome</value>
         <value xml:lang="th">ค้นหาตำแหน่งพนักงานโดยชื่อ</value>
+    </property>
+    <property key="HumanResLookupPartyResume">
+        <value xml:lang="en">Lookup PartyResume</value>
+    </property>
+    <property key="HumanResLookupResumeId">
+        <value xml:lang="en">Lookup ResumeId</value>
     </property>
     <property key="HumanResLookupPayGrade">
         <value xml:lang="en">Lookup PayGrade</value>
@@ -673,6 +703,18 @@
         <value xml:lang="it">Ricerca Codice Grado Paga</value>
         <value xml:lang="th">ค้นหารหัสการจ่ายข้อมูล</value>
     </property>
+    <property key="HumanResLookupPayRollPreference">
+        <value xml:lang="en">Lookup PayRollPreference</value>
+    </property>
+    <property key="HumanResLookupPayrollPreferenceSeqId">
+        <value xml:lang="en">Lookup PayrollPreferenceSeqId</value>
+    </property>
+    <property key="HumanResLookupPerfReview">
+        <value xml:lang="en">Lookup PerfReview</value>
+    </property>
+    <property key="HumanResLookupPerfReviewId">
+        <value xml:lang="en">Lookup PerfReviewId</value>
+    </property>
     <property key="HumanResLookupSalaryStepSeqId">
         <value xml:lang="en">Lookup Salary StepSeq Id</value>
         <value xml:lang="it">Ricerca Sequenza Passo Salario</value>
@@ -682,6 +724,24 @@
         <value xml:lang="en">Lookup Termination Reason</value>
         <value xml:lang="it">Ricerca Motivazioni Licenziamento</value>
         <value xml:lang="th">ค้นหาขอบเขตเหตุผล</value>
+    </property>
+    <property key="HumanResLookupUnemploymentClaim">
+        <value xml:lang="en">Lookup UnemploymentClaim</value>
+    </property>
+    <property key="HumanResLookupUnemploymentClaimId">
+        <value xml:lang="en">Lookup UnemploymentClaimId</value>
+    </property>
+    <property key="HumanResLookupAgreement">
+        <value xml:lang="en">Lookup Agreement</value>
+    </property>
+    <property key="HumanResLookupAgreementId">
+        <value xml:lang="en">Lookup AgreementId</value>
+    </property>
+    <property key="HumanResLookupAgreementEmploymentAppl">
+        <value xml:lang="en">Lookup AgreementEmploymentAppl</value>
+    </property>
+    <property key="HumanResLookupAgreementItemSeqId">
+        <value xml:lang="en">Lookup AgreementItemSeqId</value>
     </property>
     <property key="HumanResManagerApplication">
         <value xml:lang="en">HumanRes Manager Application</value>

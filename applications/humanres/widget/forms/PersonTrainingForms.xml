@@ -44,7 +44,7 @@ under the License.
         </actions>
         <auto-fields-service default-field-type="display" service-name="updatePersonTraining"/>
         <field name="partyId" title="PartyId" widget-style="linktext">
-                <hyperlink also-hidden="true" target="viewprofile?partyId=${partyId}" target-type="plain" description="${partyId}"/>
+            <hyperlink also-hidden="true" target="viewprofile?partyId=${partyId}" target-type="plain" description="${partyId}"/>
         </field>
         <field name="trainingClassTypeId"><display-entity description="${description}" entity-name="TrainingClassType"/></field>
         <field name="thruDate"><date-time type="timestamp"/></field>
@@ -54,7 +54,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <field use-when="party!=null" name="partyId" widget-style="tabletext"><hidden/></field>
         <field use-when="party==null" name="partyId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><lookup target-form-name="LookupPartyName"/></field>
-       <field name="trainingClassTypeId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
+        <field name="trainingClassTypeId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
             <drop-down allow-empty="false">
                 <entity-options description="${description}" entity-name="TrainingClassType">
                     <entity-order-by field-name="description"/>

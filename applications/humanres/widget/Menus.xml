@@ -33,6 +33,7 @@
         <menu-item name="PartyResume" title="${uiLabelMap.HumanResPartyResume}"><link target="FindPartyResumes"/></menu-item>
         <menu-item name="PayGrade" title="${uiLabelMap.HumanResPayGrade}"><link target="FindPayGrades"/></menu-item>
         <menu-item name="PerfReview" title="${uiLabelMap.HumanResPerfReview}"><link target="FindPerfReviews"/></menu-item>
+        <menu-item name="Leave" title="${uiLabelMap.HumanResEmplLeave}"><link target="FindEmplLeaves"/></menu-item>
         <menu-item name="Logout" title="${uiLabelMap.CommonLogout}" align-style="col-right" selected-style="selected">
             <condition><not><if-empty field-name="userLogin"/></not></condition>
             <link target="logout"/>
@@ -112,6 +113,9 @@
         <menu-item name="EmplPositionTypes" title="${uiLabelMap.HumanResEmplPositionType}">
             <link target="FindEmplPositionTypes"/>
         </menu-item>
+        <menu-item name="EmplLeaveType" title="${uiLabelMap.HumanResEmplLeaveType}">
+            <link target="EditEmplLeaveTypes"/>
+        </menu-item>
     </menu>
     
     <menu name="ProfileTabBar" default-menu-item-name="viewprofile" default-selected-style="selected"
@@ -136,6 +140,9 @@
         </menu-item>
         <menu-item name="EditPerformanceNotes" title="${uiLabelMap.HumanResPerfNote}">
             <link target="EditPerformanceNotes?partyId=${partyId}"/>
+        </menu-item>
+        <menu-item name="EditEmplLeaves" title="${uiLabelMap.HumanResEmplLeave}">
+            <link target="EditEmplLeaves?partyId=${partyId}"/>
         </menu-item>
     </menu>
     

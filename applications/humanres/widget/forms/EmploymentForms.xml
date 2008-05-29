@@ -126,7 +126,7 @@
             <hyperlink target="deletePayHistory?roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;fromDate=${fromDate}" description="${uiLabelMap.CommonDelete}"/>
         </field>
     </form>           
-    <form name="ListPartyBenefits" type="multi" target="updatePartyBenefit" title="" paginate-target="findPartyBenefits"
+    <form name="ListPartyBenefits" type="multi" target="updatePartyBenefit?benefitTypeId=${benefitTypeId}&amp;roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;fromDate=${fromDate}" title="" paginate-target="findPartyBenefits"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="PartyBenefit"><order-by field-name="fromDate"/></entity-condition>
@@ -148,7 +148,7 @@
         <field name="thruDate"><date-time/></field>       
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><hidden value="Y"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
             <hyperlink target="deletePartyBenefit?benefitTypeId=${benefitTypeId}&amp;roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;fromDate=${fromDate}" description="${uiLabelMap.CommonDelete}"/>
         </field>
     </form>
@@ -177,7 +177,7 @@
         </field>        
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
-    <form name="ListPayrollPreferences" type="multi" target="updatePayrollPreference" separate-columns="true" paginate-target="findPayRollPreferences"
+    <form name="ListPayrollPreferences" type="multi" target="updatePayrollPreference?partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;payrollPreferenceSeqId=${payrollPreferenceSeqId}" separate-columns="true" paginate-target="findPayRollPreferences"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="PayrollPreference">
@@ -191,7 +191,7 @@
         <auto-fields-service default-field-type="hidden" service-name="updatePayrollPreference"/>   
         <field name="partyId"><display/></field>
         <field name="roleTypeId"><display-entity entity-name="RoleType" description="${description}"/></field> 
-        <field name="payrollPreferenceSeqId" title="${uiLabelMap.HumanResPayrollPreferenceSeqId}"><display/></field>
+        <field name="payrollPreferenceSeqId" title="${uiLabelMap.HumanResPayrollPreferenceSeqId}"><display also-hidden="true"/></field>
         <field name="paymentMethodTypeId"><display-entity entity-name="PaymentMethodType" description="${description}"/></field>
         <field name="periodTypeId"><display-entity entity-name="PeriodType" description="${description}"/></field> 
         <field name="fromDate"><display/></field>
@@ -205,7 +205,7 @@
     <form name="AddPayrollPreference" type="single" target="createPayrollPreference" 
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createPayrollPreference" />
-        <field name="payrollPreferenceSeqId" title="${uiLabelMap.HumanResPayrollPreferenceSeqId}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
+        <field name="payrollPreferenceSeqId" title="${uiLabelMap.HumanResPayrollPreferenceSeqId}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><lookup target-form-name="LookupPayRollPreference"/></field>
         <field name="partyId"><hidden/></field>
         <field name="roleTypeId"><hidden/></field>        
         <field name="fromDate"><hidden/></field>        
@@ -257,7 +257,7 @@
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>        
     </form>
-    <form name="ListUnemploymentClaims" type="multi" target="updateUnemploymentClaim" paginate-target="FindUnemploymentClaim"
+    <form name="ListUnemploymentClaims" type="multi" target="updateUnemploymentClaim?unemploymentClaimId=${unemploymentClaimId}&amp;roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;fromDate=${fromDate}" paginate-target="FindUnemploymentClaim"
          odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
          <actions>
             <entity-condition entity-name="UnemploymentClaim" filter-by-date="true">
@@ -295,7 +295,7 @@
     <form name="AddUnemploymentClaim" type="single" target="createUnemploymentClaim" title="" default-map-name="unemploymentClaim"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createUnemploymentClaim"/>
-        <field name="unemploymentClaimId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
+        <field name="unemploymentClaimId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><lookup target-form-name="LookupUnemploymentClaim"/></field>
         <field name="statusId">
             <drop-down allow-empty="false">
                 <entity-options description="${description}" key-field-name="statusId" entity-name="StatusItem">
@@ -334,8 +334,8 @@
     <form name="AddAgreementEmploymentAppl" type="single" target="createAgreementEmploymentAppl" default-map-name="agreementEmploymentAppl" 
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createAgreementEmploymentAppl" default-field-type="display"/>
-        <field name="agreementId" title="${uiLabelMap.AccountingAgreementId}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
-        <field name="agreementItemSeqId" title="${uiLabelMap.AccountingAgreementItemSeqId}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
+        <field name="agreementId" title="${uiLabelMap.AccountingAgreementId}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><lookup target-form-name="LookupAgreement"/></field>
+        <field name="agreementItemSeqId" title="${uiLabelMap.AccountingAgreementItemSeqId}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><lookup target-form-name="LookupAgreementEmploymentAppl"/></field>
         <field name="partyIdFrom" title="${uiLabelMap.HumanResPartyIdFrom}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><lookup target-form-name="LookupPartyName"/></field>
         <field name="partyIdTo" title="${uiLabelMap.HumanResPartyIdTo}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><lookup target-form-name="LookupPartyName"/></field>
         <field name="roleTypeIdFrom" tooltip="${uiLabelMap.CommonRequired}">

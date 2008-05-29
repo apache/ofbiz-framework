@@ -84,6 +84,7 @@
                 <set field="headerItem" value="PayGrade"/>
                 <set field="tabButtonItem" value="EditSalaryStep"/>                
                 <set field="payGradeId" from-field="parameters.payGradeId"/>
+                <set field="salaryStepSeqId" from-field="parameters.salaryStepSeqId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPayGradeDecorator" location="${parameters.mainDecoratorLocation}">

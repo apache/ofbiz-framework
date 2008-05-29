@@ -232,14 +232,14 @@
                         <screenlet title="${uiLabelMap.CommonList} ${uiLabelMap.HumanResPerfNote}">
                             <section>
                                 <widgets>
-                                    <include-form name="ListPerformanceNotes" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
+                                    <include-form name="ListPerformanceNotes" location="component://humanres/widget/forms/EmploymentForms.xml"/>
                                 </widgets>
                             </section>
                         </screenlet>
                         <screenlet title="${uiLabelMap.HumanResAddPerfNote}">
                             <section>
                                 <widgets>
-                                    <include-form name="AddPerformanceNote" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
+                                    <include-form name="AddPerformanceNote" location="component://humanres/widget/forms/EmploymentForms.xml"/>
                                 </widgets>
                             </section>
                         </screenlet>
@@ -263,7 +263,7 @@
                 <set field="fromDate" from-field="parameters.fromDate" type="Timestamp"/>
             </actions>            
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonEmploymentDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">                                                                                       
                         <screenlet title="${uiLabelMap.CommonList} ${uiLabelMap.HumanResAgreementEmploymentAppl}">
                             <section>
