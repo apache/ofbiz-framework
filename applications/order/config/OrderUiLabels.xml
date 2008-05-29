@@ -8934,6 +8934,7 @@
     </property>
     <property key="cart.addToCart.incompatibilityVariantFeature">
         <value xml:lang="en">You cannot use selection ${productFutureDescription} </value>
+        <value xml:lang="fr">Vous ne pouvez pas utiliser la selection ${productFutureDescription} </value>
     </property>
     <property key="cart.addToCart.productConfigurationIsNotValid">
         <value xml:lang="en">Configuration Is Not Valid</value>
@@ -9158,7 +9159,7 @@
         <value xml:lang="de">Nicht genug verfügbar auf Konto #{billingAccountId}.</value>
         <value xml:lang="en">Not enough available on account #{billingAccountId}.</value>
         <value xml:lang="es">No hay suficiente disponible en la cuenta #{billingAccountId}.</value>
-        <value xml:lang="fr">Pas assez disponible sur le compte n° {billingAccountId}.</value>
+        <value xml:lang="fr">Disponibilités insuffisantes sur le compte n° {billingAccountId}.</value>
         <value xml:lang="it">Non abbastanza diponibilità sul conto #{billingAccountId}.</value>
         <value xml:lang="nl">Not enough available on account #{billingAccountId}.</value>
         <value xml:lang="ro">Nu este destula disponibilitate in  cont #{billingAccountId}.</value>
@@ -9171,7 +9172,7 @@
         <value xml:lang="de">Gewählte Zahlweise deckt nicht diese Bestellung.</value>
         <value xml:lang="en">Selected payment methods will not cover this order.</value>
         <value xml:lang="es">Los métodos de pago elegidos no cubrirán esta orden.</value>
-        <value xml:lang="fr">Les modes de paiement choisies ne couvriront pas cette commande.</value>
+        <value xml:lang="fr">Les modes de paiement choisis ne couvriront pas cette commande.</value>
         <value xml:lang="it">Seleziona metodi di pagamento che copriranno questo ordine.</value>
         <value xml:lang="nl">Selected payment methods will not cover this bestelling.</value>
         <value xml:lang="ro">Selectioneaza metodele de plata care vor acoperi aceasta comanda.</value>
@@ -9197,7 +9198,7 @@
         <value xml:lang="de">ERROR: Auftrag konnte nicht erstellt werden (Problem beim Analysieren der Auftragsgesamtsummen).</value>
         <value xml:lang="en">ERROR: Could not create order (problem parsing order totals).</value>
         <value xml:lang="es">ERROR: No se pudo crear la orden (problema en el análisis de los totales de la orden).</value>
-        <value xml:lang="fr">ERREUR : impossible de créer la commande (problème lors de l'analyse des totaux de commandes).\r\\\\\\\\\\\n.</value>
+        <value xml:lang="fr">ERREUR : impossible de créer la commande (problème lors de l'analyse des totaux de commandes).</value>
         <value xml:lang="it">ERRORE: Non è possibile creare l'ordine (problema parsing totale ordine).</value>
         <value xml:lang="nl">ERROR: Could not create bestelling (problem parsing bestelling totals).</value>
         <value xml:lang="ro">EROARE: Nu este posibila crearea comenzii (problema parsing total comanda).</value>
@@ -9223,7 +9224,7 @@
         <value xml:lang="de">Auftrag nicht vervollständigt, folgender Fehler trat auf:</value>
         <value xml:lang="en">Did not complete the order, the following occurred:</value>
         <value xml:lang="es">No se completó la orden, ocurrió lo siguiente:</value>
-        <value xml:lang="fr">La commande ne s'est pas complété, car est survenu :</value>
+        <value xml:lang="fr">La commande ne s'est pas terminée, car s'est produit :</value>
         <value xml:lang="it">Non completare l'ordine, il seguente è occorso:</value>
         <value xml:lang="nl">Did not complete the bestelling, the following occurred:</value>
         <value xml:lang="ro">Nu completati comanda, au aparut urmatoarele :</value>
@@ -9362,7 +9363,7 @@
         <value xml:lang="de">Auftragskopf konnte nicht ermittelt werden. Kann nicht externe Gateways prüfen.</value>
         <value xml:lang="en">Problems getting order header. Cannot check external gateways!</value>
         <value xml:lang="es">Problema en la obtención del encabezado de la orden. ¡No se puede comprobar entradas externas!</value>
-        <value xml:lang="fr">Problème lors de l'obtention de l'entête de commande : ne peut vérifier avec aucune passerrelle externe !</value>
+        <value xml:lang="fr">Problème lors de l'obtention de l'entête de commande : ne peut vérifier avec aucune passerelle externe !</value>
         <value xml:lang="it">Problema leggendo intestazione ordine. Non è possibile controllare gateways esterni!</value>
         <value xml:lang="nl">Problems getting bestelling header. Cannot check external gateways!</value>
         <value xml:lang="ro">Problema la citirea Antetului comenzii. Nu este posibila controlarea gateways externi!</value>
@@ -9375,7 +9376,7 @@
         <value xml:lang="de">Bevorzugte Zahlweise konnte nicht ermittelt werden. Kann nicht externe Gateways prüfen.</value>
         <value xml:lang="en">Problems getting payment preference. Cannot check external gateways!</value>
         <value xml:lang="es">Problema en la obtención de la preferencia de pago. ¡No se puede comprobar entradas externas!</value>
-        <value xml:lang="fr">Problème lors de l'obtention de la préférence de paiement.  : ne peut vérifier avec aucune passerrelle externe !</value>
+        <value xml:lang="fr">Problème lors de l'obtention de la préférence de paiement : ne peut vérifier avec aucune passerelle externe !</value>
         <value xml:lang="it">Problema leggendo preferenza pagamento. Non è possibile controllare gateways esterni!</value>
         <value xml:lang="nl">Problems getting payment preference. Cannot check external gateways!</value>
         <value xml:lang="ro">Problema la citirea preferentelor de plata. Nu este posibila controlarea gateways esterni!</value>
@@ -9401,7 +9402,7 @@
         <value xml:lang="de">Datenbank-Lesefehler. Bitte versuchen sie es erneut.</value>
         <value xml:lang="en">Problems reading the database, please try again.</value>
         <value xml:lang="es">Problemas leyendo la base de datos, por favor trate nuevamente.</value>
-        <value xml:lang="fr">Les problèmes lors de la lecture de la base de données, s'il vous plaît réessayer.</value>
+        <value xml:lang="fr">Problèmes lors de la lecture de la base de données, s'il vous plaît réessayez.</value>
         <value xml:lang="it">Problema leggendo dal database, perfavore riprovare nuovamente.</value>
         <value xml:lang="nl">Problems reading the database, please try again.</value>
         <value xml:lang="ro">Problema la citirea database, va rugam reincercati din nou.</value>
@@ -9447,7 +9448,7 @@
         <value xml:lang="de">Bitte wählen Sie eine Liefermethode.</value>
         <value xml:lang="en">Please Select a Shipping Method.</value>
         <value xml:lang="es">Por favor, seleccione un método de envío.</value>
-        <value xml:lang="fr">S'il vous plaît choisissez une forme d'expédition.</value>
+        <value xml:lang="fr">S'il vous plaît choisissez un moyen d'expédition.</value>
         <value xml:lang="it">Perfavore Seleziona un Metodo di Spedizione.</value>
         <value xml:lang="nl">Please Select a Shipping Method.</value>
         <value xml:lang="ro">Va rugam Selectionati o Metoda de Expediere.</value>
@@ -9460,7 +9461,7 @@
         <value xml:lang="de">Bitte wählen Sie die bevorzugte Aufteilung.</value>
         <value xml:lang="en">Please Select a Splitting Preference.</value>
         <value xml:lang="es">Por favor, seleccione una preferencia de distribución.</value>
-        <value xml:lang="fr">S'il vous plaît choisissez une préférence de répartition (éclatement).</value>
+        <value xml:lang="fr">S'il vous plaît choisissez une préférence pour le fractionnement de l'expédition.</value>
         <value xml:lang="it">Perfavore Seleziona una Preferenza di Divisione.</value>
         <value xml:lang="nl">Please Select a Splitting Preference.</value>
         <value xml:lang="ro">Va rugam selectionati o Preferinta de Divizare.</value>
@@ -9486,7 +9487,7 @@
         <value xml:lang="de">Bitte geben Sie 'Auslieferung nach Datum' als Datum an.</value>
         <value xml:lang="en">Please specify ship after date as a date.</value>
         <value xml:lang="es">Por favor especifique la fecha después de la que se enviará como una fecha.</value>
-        <value xml:lang="fr">Veuillez donner une 'livraison après date 'comme date.</value>
+        <value xml:lang="fr">SVP, veuillez remplir correctement la date de "livraison après".</value>
         <value xml:lang="it">Perfavore specificare consegna dopo la data come data.</value>
         <value xml:lang="nl">Please specify ship after date as a date.</value>
         <value xml:lang="ro">Va rugam specificati livrarea dupa data ca data.</value>
@@ -9503,7 +9504,7 @@
         <value xml:lang="de">Bitte geben Sie 'Auslieferung vor Datum' als Datum an.</value>
         <value xml:lang="en">Please specify a ship before date as a date.</value>
         <value xml:lang="es">Por favor especifique la fecha antes de la que se enviará como una fecha.</value>
-        <value xml:lang="fr">Veuillez donner une 'livraison avant date 'comme date.</value>
+        <value xml:lang="fr">SVP, veuillez remplir correctement la date de "livraison avant".</value>
         <value xml:lang="it">Perfavore specificare consegna prima della data come data.</value>
         <value xml:lang="nl">Please specify a ship before date as a date.</value>
         <value xml:lang="ro">Va rugam specificati livrarea inainte de data ca data.</value>
@@ -9511,19 +9512,6 @@
         <value xml:lang="th">กรุณาระบุการขนส่งก่อนวันที่</value>
         <value xml:lang="zh_CN">请指定发货前日期作为日期</value>
         <value xml:lang="zh">请指出最迟送货日期。</value>
-    </property>
-    <property key="checkhelper.totals_do_not_match_order_total">
-        <value xml:lang="de">Gesamtsumme stimmt nicht mit der Bestellsumme überein.</value>
-        <value xml:lang="en">Totals do not match order total.</value>
-        <value xml:lang="es">Los totales no corresponden con el total de la orden.</value>
-        <value xml:lang="fr">Les totaux ne correspondent pas au total de la commande.</value>
-        <value xml:lang="it">Totali non corrispondono al totale ordine.</value>
-        <value xml:lang="nl">Totals do not match bestelling total.</value>
-        <value xml:lang="ro">Totalurile nu corespund totalului Comenzii.</value>
-        <value xml:lang="ru">Итоги не соответствуют итогам заказа.</value>
-        <value xml:lang="th">ผลรวมไม่ตรงกับผลรวมรายการสั่งซื้อสินค้า</value>
-        <value xml:lang="zh_CN">总额与订单总额不符</value>
-        <value xml:lang="zh">合计与订单合计不一致。</value>
     </property>
     <property key="checkhelper_sales_order_lines_lookup_failed">
         <value xml:lang="en">ERROR: Sales Order Lines lookup failed.</value>
@@ -9586,7 +9574,7 @@
     </property>
     <property key="item.availableQnt">
         <value xml:lang="en">Quantity requested: ${quantityReq} Quantity available: ${quantityAvail}</value>
-        <value xml:lang="fr">Quantité demandé: ${quantityReq} Quantité disponible: ${quantityAvail}</value>
+        <value xml:lang="fr">Quantité demandée: ${quantityReq} Quantité disponible: ${quantityAvail}</value>
         <value xml:lang="it">Quantità richiesta: ${quantityReq} Quantità disponibile: ${quantityAvail}</value>
         <value xml:lang="ro">Cantitatea ceruta: ${quantityReq} cantitatea disponibila: ${quantityAvail}</value>
         <value xml:lang="ru">Количество запрашивается: ${quantityReq} Количество доступно: ${quantityAvail}</value>
@@ -9595,7 +9583,7 @@
     </property>
     <property key="item.cannot_add_product_no_longer_available">
         <value xml:lang="en">Tried to add the Product ${productName} (productId: ${productId}) to the cart. This product is no longer available for sale, so not adding.</value>
-        <value xml:lang="fr">Essayez d'ajouter l'article ${productName} (productId : ${productId}) au panier. Ce produit n'est plus disponible à vendre, donc ne l'ajouter pas.</value>
+        <value xml:lang="fr">Vous avez essayé d'ajouter l'article ${productName} (productId : ${productId}) au panier. Ce produit n'est plus disponible à la vente, donc ne l'ajouter pas.</value>
         <value xml:lang="it">Tentativo di aggiungere il Prodotto ${productName} (prodotto: ${productId}) al carrello. Questo prodotto non è più disponibile per la vendita, così non sarà possibile aggiungerlo.</value>
         <value xml:lang="ro">Tentativa de adaugare a Produsului ${productName} (produs: ${productId}) in cos. Acest produs nu mai este disponibil pentru vinzarea, deci nu poate fi adaugat.</value>
         <value xml:lang="ru">Была предпринята попытка добавить продукт ${productName} (productId: ${productId}) в корзину. Этот продукт большее недоступен к заказу, поэтому не добавлен.</value>
@@ -9604,7 +9592,7 @@
     </property>
     <property key="item.cannot_add_product_not_configured_correctly">
         <value xml:lang="en">Tried to add the Product ${productName} (productId: ${productId}) to the cart, not adding: the product is not configured correctly.</value>
-        <value xml:lang="fr">Essayez d'ajouter l'article ${productName} (productId: ${productId})au panier, ne pas ajouter: l'article n'est pas configuré correctement.</value>
+        <value xml:lang="fr">Vous avez essayé d'ajouter l'article ${productName} (productId : ${productId}) au panier, ne pas ajouter: l'article n'est pas configuré correctement.</value>
         <value xml:lang="it">Tentativo di aggiungere il Prodotto ${productName} (prodotto: ${productId}) al carrello, non verrà aggiunto: il prodotto non è configurato correttamente.</value>
         <value xml:lang="ro">Tentativa de adaugare Produsul ${productName} (produs: ${productId}) in cos, nu va fi adaugat: produsul nu este configurat corect.</value>
         <value xml:lang="ru">Была предпринята попытка добавить продукт ${productName} (productId: ${productId}) в корзину, не добавлен: продукт неправильно сконфигурирован.</value>
@@ -9613,7 +9601,7 @@
     </property>
     <property key="item.cannot_add_product_not_yet_available">
         <value xml:lang="en">Tried to add the Product ${productName} (productId: ${productId}) to the cart. This product has not yet been made available for sale, so not adding.</value>
-        <value xml:lang="fr">Essayez d'ajouter l'article ${productName} (productId: ${productId}) au panier. Ce produit n'a pas été mis à la disposition de vente, donc ne pas ajouter.</value>
+        <value xml:lang="fr">Vous avez essayé d'ajouter l'article ${productName} (productId : ${productId}) au panier. Ce produit n'a pas été encore mis à disposition à la vente, donc ne pas ajouter.</value>
         <value xml:lang="it">Tentativo di aggiungere il Prodotto ${productName} (prodotto: ${productId}) al carrello. Questo prodotto non è stato ancora reso disponibile per la vendita, così non sarà possibile aggiungerlo.</value>
         <value xml:lang="ro">Tentativa de adaugare Produsul ${productName} (produs: ${productId}) in cos. Acest produs nu este inca disponibil pentru vanzare, asa ca nu poate fi adaugat.</value>
         <value xml:lang="ru">Была предпринята попытка добавить продукт ${productName} (productId: ${productId}) в корзину. Этот продукт пока недоступен, поэтому не добавлен.</value>
@@ -9622,7 +9610,7 @@
     </property>
     <property key="item.cannot_add_product_virtual">
         <value xml:lang="en">Tried to add the Virtual Product ${productName} (productId: ${productId}) to the cart, not adding.</value>
-        <value xml:lang="fr">Essayer d'ajouter l'article virtuel ${productName} (productId: ${productId}) au panier, ne pas ajouter.</value>
+        <value xml:lang="fr">Vous avez essayé l'article virtuel ${productName} (productId: ${productId}) au panier, ne pas ajouter.</value>
         <value xml:lang="it">Tentativo di aggiungere il Prodotto Virtuale ${productName} (prodotto: ${productId}) al carrello, non verrà aggiunto.</value>
         <value xml:lang="ro">Tentativa de adaugare Produsul Virtual ${productName} (produs: ${productId}) in cos, nu va fi adaugat.</value>
         <value xml:lang="ru">Была предпринята попытка добавить виртуальный продукт ${productName} (productId: ${productId}) в корзину, не добавлен.</value>
@@ -9631,7 +9619,7 @@
     </property>
     <property key="item.cannot_find_Fixed_Asset">
         <value xml:lang="en">Could not find a related Fixed Asset for the product: ${productId}</value>
-        <value xml:lang="fr">Ne pourra pas trouver un actif immobilisé pour l'article: ${productId}</value>
+        <value xml:lang="fr">Aucun actif immobilisé pour l'article: ${productId}</value>
         <value xml:lang="it">Non è possibile trovare un Cespite per il prodotto: ${productId}</value>
         <value xml:lang="ro">Nu este posibila gasirea unui Mijloc fix pentru  produsul: ${productId}</value>
         <value xml:lang="ru">Невозможно найти основные средства, связанные с продуктом: ${productId}</value>
@@ -9640,7 +9628,7 @@
     </property>
     <property key="item.fixed_Asset_not_found">
         <value xml:lang="en">fixed_Asset_not_found. Fixed AssetId: ${fixedAssetId}</value>
-        <value xml:lang="fr">Actif_immobilisé_non_trouvé. Réf. actif immobilisé: ${fixedAssetId}</value>
+        <value xml:lang="fr">Actif immobilisé non trouvé. Réf. actif immobilisé: ${fixedAssetId}</value>
         <value xml:lang="it">Cespite non trovato. Cespite: ${fixedAssetId}</value>
         <value xml:lang="ro">Mijloc Fix negasit. Mijloc Fix: ${fixedAssetId}</value>
         <value xml:lang="ru">ОС не найдены. Код ОС: ${fixedAssetId}</value>
@@ -9649,7 +9637,7 @@
     </property>
     <property key="item.maximum_number_of_person_renting">
         <value xml:lang="en">The maximum number of persons renting this object is ${reservMaxPersons} however you have requested: ${reservPersons} !</value>
-        <value xml:lang="fr">Le nombre maximum de personnes pour louer cet objet est ${reservMaxPersons} cependant vous avez demandé: ${reservPersons} !</value>
+        <value xml:lang="fr">Le nombre maximum de personnes ppuvant louer cet objet est ${reservMaxPersons} cependant vous avez demandé: ${reservPersons} !</value>
         <value xml:lang="it">Il numero massimo di persone che affittano questo oggetto è ${reservMaxPersons} comunque tu hai richiesto: ${reservPersons} !</value>
         <value xml:lang="ro">Numarul maxim de persoane care inchiriaza acest obiect este ${reservMaxPersons} daca tu ai cerut: ${reservPersons} !</value>
         <value xml:lang="ru">Максимальное количество персон арендующих данный объект ${reservMaxPersons}, но вы запросили: ${reservPersons} !</value>
@@ -9658,7 +9646,7 @@
     </property>
     <property key="item.missing_reservation_starting_date">
         <value xml:lang="en">The starting date of the reservation is missing....</value>
-        <value xml:lang="fr">La date de départ de la réservation est manquante....</value>
+        <value xml:lang="fr">La date de départ de la réservation est manquante...</value>
         <value xml:lang="it">La data di inizio prenotazione è mancante....</value>
         <value xml:lang="ro">Data initiala de rezervare lipseste....</value>
         <value xml:lang="ru">Отсутствует начальная дата резервирования....</value>
@@ -9667,7 +9655,7 @@
     </property>
     <property key="item.notAvailable">
         <value xml:lang="en">I am sorry, not available at these dates: ${resultMessage} item not added to the shopping cart.....</value>
-        <value xml:lang="fr">je suis désolé, n'est pas disponible à ces dates: ${resultMessage} article non ajouté au panier d'achats.....</value>
+        <value xml:lang="fr">je suis désolé, pas disponible à ces dates: ${resultMessage}, article non ajouté au panier d'achats...</value>
         <value xml:lang="it">Sono spiacente, nessuna disponibilità a queste date: ${resultMessage} prodotto non aggiunto al carrello.....</value>
         <value xml:lang="ro">Imi pare rau, nici-o disponibilitate la aceste date: ${resultMessage} produs neadaugat in cos.....</value>
         <value xml:lang="ru">Извините, не доступно в эти даты: ${resultMessage} позиция в корзину покупок не добавлена....</value>
@@ -9676,7 +9664,7 @@
     </property>
     <property key="item.number_of_days">
         <value xml:lang="en">Please enter a number of days, 1, or more....</value>
-        <value xml:lang="fr">S'il vous plaît entrer un nombre de jours, 1, ou plus....</value>
+        <value xml:lang="fr">S'il vous plaît entrer un nombre de jours, 1, ou plus...</value>
         <value xml:lang="it">Perfavore inserire un numero di giorni, 1, o più....</value>
         <value xml:lang="ro">Va rugam introduceti un numar de zile, 1, sau mai mult....</value>
         <value xml:lang="ru">Пожалуйста введите количество дней, 1, или больше....</value>
@@ -9685,7 +9673,7 @@
     </property>
     <property key="item.product_not_available">
         <value xml:lang="en">Product not available, ProductId: ${productId} message: ${availableMessage}</value>
-        <value xml:lang="fr">Article non disponible, réf. produit: ${productId} message: ${availableMessage}</value>
+        <value xml:lang="fr">Article non disponible, réf. : ${productId} message: ${availableMessage}</value>
         <value xml:lang="it">Prodotto non disponibile, Prodotto: ${productId} messaggio: ${availableMessage}</value>
         <value xml:lang="ro">Produsul nu este disponibil, Produs: ${productId} mesaj: ${availableMessage}</value>
         <value xml:lang="ru">Продукт недоступен, код продукта: ${productId} сообщение: ${availableMessage}</value>
@@ -9696,7 +9684,7 @@
         <value xml:lang="de">Das Produkt mit der Nummer ${productId} konnte nicht gefunden werden.</value>
         <value xml:lang="en">Product not found, not adding to cart. [productId: ${productId}]</value>
         <value xml:lang="es">Producto no encontrado, no agregado al carro [Código de producto: ${productId}]</value>
-        <value xml:lang="fr">Article non trouvé, pas d'ajout dans le panier. [réf article: ${productId}]</value>
+        <value xml:lang="fr">Article non trouvé, pas d'ajout dans le panier. [réf. : ${productId}]</value>
         <value xml:lang="it">Prodotto non trovato, non verrà aggiunto al carrello. [prodotto: ${productId}]</value>
         <value xml:lang="nl">Product not found, not adding to cart. [productId: ${productId}]</value>
         <value xml:lang="pt_PT">Product not found, not adding to cart. [productId: ${productId}]</value>
@@ -9707,7 +9695,7 @@
     </property>
     <property key="item.reservation_from_tomorrow">
         <value xml:lang="en">You can only make reservation starting tomorrow....</value>
-        <value xml:lang="fr">Vous pouvez démarrer votre réservation seulement demain....</value>
+        <value xml:lang="fr">Vous ne pouvez démarrer votre réservation que demain...</value>
         <value xml:lang="it">Tu potrai effettuare la prenotazione solo da domani....</value>
         <value xml:lang="ro">Poti sa faci rezervarea numai de maine ....</value>
         <value xml:lang="ru">Резервирование возможно только начиная с завтрашнего дня....</value>
@@ -9796,7 +9784,7 @@
         <value xml:lang="de">Eine neue Einkaufsliste kann nicht erzeugt werden.</value>
         <value xml:lang="en">Cannot create new shopping list.</value>
         <value xml:lang="es">No se puede crear nueva lista de compras.</value>
-        <value xml:lang="fr">Ne peut pas créer une nouvelle liste d'achats.</value>
+        <value xml:lang="fr">Impossible de créer une nouvelle liste d'achats.</value>
         <value xml:lang="it">Non è possibile creare una nuova lista di acquisto.</value>
         <value xml:lang="nl">Cannot create new shopping list.</value>
         <value xml:lang="ro">Nu este posibila crearea unei noi liste de cumparari.</value>
@@ -9809,7 +9797,7 @@
         <value xml:lang="de">Bitte wählen Sie eine Einkaufsliste aus.</value>
         <value xml:lang="en">Please choose a shopping list.</value>
         <value xml:lang="es">Por favor, elija una lista de compras.</value>
-        <value xml:lang="fr">Choisissez une liste d'achats.</value>
+        <value xml:lang="fr">SVP, choisissez une liste d'achats.</value>
         <value xml:lang="it">Perfavore scegliere una lista di acquisto.</value>
         <value xml:lang="nl">Please choose a shopping list.</value>
         <value xml:lang="ro">Va rugam alegeti o lista de cumparari.</value>
@@ -9874,7 +9862,7 @@
         <value xml:lang="de">Bitte wählen Sie Artikel zur Aufnahme in die Einkaufsliste aus.</value>
         <value xml:lang="en">Please select item(s) to add to the shopping list.</value>
         <value xml:lang="es">Por favor, seleccione ítems para agragar a la lista de compras.</value>
-        <value xml:lang="fr">Merci de sélectionner l'article (les articles) à ajouter à la liste d'achats.</value>
+        <value xml:lang="fr">Merci de sélectionner l'article(s) à ajouter à la liste d'achats.</value>
         <value xml:lang="it">Perfavore selezionare la riga(e) da aggiungere alla lista di acquisto.</value>
         <value xml:lang="nl">Please select item(s) to add to the shopping list.</value>
         <value xml:lang="ro">Va rugam selectionati linia(le) de adaugat la lista de cumparari.</value>
@@ -9887,7 +9875,7 @@
         <value xml:lang="de">shoppingListId ist ein notwendiger Parameter.</value>
         <value xml:lang="en">shoppingListId is a required parameter.</value>
         <value xml:lang="es">El código de la lista de compras es un parámetro requerido.</value>
-        <value xml:lang="fr">La réf. de la liste d'achat est requise.</value>
+        <value xml:lang="fr">Une réf. de liste d'achat est requise.</value>
         <value xml:lang="it">shoppingListId è un parametro richiesto.</value>
         <value xml:lang="nl">shoppingListId is a required parameter.</value>
         <value xml:lang="ro">shoppingListId este un  parametru cerut.</value>
