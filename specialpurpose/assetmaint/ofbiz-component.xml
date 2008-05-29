@@ -42,9 +42,10 @@
 
     <webapp name="assetmaint"
         title="AssetMaint"
+        menu-name="secondary"
         server="default-server"
         location="webapp/assetmaint"
         base-permission="ASSETMAINT"
         mount-point="/assetmaint"
-        app-bar-display="false"/>
+        app-bar-display="true"/>
 </ofbiz-component>

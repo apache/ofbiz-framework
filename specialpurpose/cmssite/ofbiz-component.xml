@@ -27,9 +27,10 @@ under the License.
 
     <webapp name="cmssite"
         title="CMS Site"
+        menu-name="secondary"
         server="default-server"
         location="webapp/cmssite"
         mount-point="/cmssite"
-        app-bar-display="false"/>
+        app-bar-display="true"/>
 </ofbiz-component>
 
