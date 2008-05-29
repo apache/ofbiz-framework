@@ -98,8 +98,8 @@ public abstract class GenericAsyncEngine extends AbstractEngine {
 
                 // Get the userLoginId out of the context
                 String authUserLoginId = null;
-                if (context.containsKey("userLogin")) {
-                    GenericValue userLogin = (GenericValue)context.get("userLogin");
+                if (context.get("userLogin") != null) {
+                    GenericValue userLogin = (GenericValue) context.get("userLogin");
                     authUserLoginId = userLogin.getString("userLoginId");
                 }
 
