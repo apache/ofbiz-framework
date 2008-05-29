@@ -40,9 +40,9 @@ if (!security.hasEntityPermission("ACCOUNTING", "_PRINT_CHECKS", session)) {
 
 // in the case of a single payment, the paymentId will be supplied
 paymentId = context.paymentId;
-if (paymentId != null) {
+if (paymentId) {
     payment = delegator.findByPrimaryKey("Payment", [paymentId : paymentId]);
-    if (payment != null) payments.add(payment);
+    if (payment) payments.add(payment);
     context.payments = payments;
     return;
 }
@@ -50,10 +50,10 @@ if (paymentId != null) {
 // in the case of a multi form, parse the multi data and get all of the selected payments
 selected = UtilHttp.parseMultiFormData(parameters);
 iter = selected.iterator();
-while (iter.hasNext()) {
+while (iter) {
     row = iter.next(); 
     payment = delegator.findByPrimaryKey("Payment", [paymentId : row.paymentId]);
-    if (payment == null) continue;
+    if (!payment) continue;
     payments.add(payment);
 }
 context.payments = payments;
