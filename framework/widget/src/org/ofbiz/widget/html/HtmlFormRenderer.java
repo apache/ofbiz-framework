@@ -72,16 +72,21 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
 
     public static final String module = HtmlFormRenderer.class.getName();
     
-    HttpServletRequest request;
-    HttpServletResponse response;
+    protected HttpServletRequest request;
+    protected HttpServletResponse response;
+    protected RequestHandler rh;
     protected String lastFieldGroupId = "";
     protected boolean renderPagination = true;
+    protected boolean javaScriptEnabled = false;
 
     protected HtmlFormRenderer() {}
 
     public HtmlFormRenderer(HttpServletRequest request, HttpServletResponse response) {
         this.request = request;
         this.response = response;
+        ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
+        this.rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
+        this.javaScriptEnabled = UtilHttp.isJavaScriptEnabled(request);
     }
 
     public boolean getRenderPagination() {
@@ -93,10 +98,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
     }
 
     public void appendOfbizUrl(StringBuffer buffer, String location) {
-        ServletContext ctx = (ServletContext) this.request.getAttribute("servletContext");
-        RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
-        // make and append the link
-        buffer.append(rh.makeLink(this.request, this.response, location));
+        buffer.append(this.rh.makeLink(this.request, this.response, location));
     }
 
     public void appendContentUrl(StringBuffer buffer, String location) {
@@ -279,7 +281,9 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             buffer.append('"');
         }
 
-        if (!textField.getClientAutocompleteField()) {
+        List<ModelForm.UpdateArea> updateAreas = modelFormField.getOnChangeUpdateAreas();
+        boolean ajaxEnabled = updateAreas != null && this.javaScriptEnabled;
+        if (!textField.getClientAutocompleteField() || ajaxEnabled) {
             buffer.append(" autocomplete=\"off\"");
         }
 
@@ -290,18 +294,12 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         this.makeHyperlinkString(buffer, textField.getSubHyperlink(), context);
 
         this.appendTooltip(buffer, context, modelFormField);
-        //Add javascript block to execute a function that will register textfield to autocompleter Ajax system.
-        String serverAutocompleteTarget = textField.getServerAutocompleteTarget(context);
-        if (UtilValidate.isNotEmpty(serverAutocompleteTarget)) {
+
+        if (ajaxEnabled) {
             appendWhitespace(buffer);
             buffer.append("<script language=\"JavaScript\" type=\"text/javascript\">");
             appendWhitespace(buffer);
-            buffer.append("ajaxAutoCompleter('");
-            buffer.append(idName);
-            buffer.append("', '");
-            WidgetWorker.buildHyperlinkUrl(buffer, serverAutocompleteTarget,HyperlinkField.DEFAULT_TARGET_TYPE, request, response, context);
-            buffer.append("', '");
-            buffer.append(textField.getServerAutocompleteParams(context) + "');");
+            buffer.append("ajaxAutoCompleter('" + createAjaxParamsFromUpdateAreas(updateAreas, null, context) + "');");
             appendWhitespace(buffer);
             buffer.append("</script>");
         }
@@ -899,7 +897,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 updateAreas.add(new ModelForm.UpdateArea("submit", formId, backgroundSubmitRefreshTarget));
             }
 
-            boolean ajaxEnabled = (updateAreas != null || UtilValidate.isNotEmpty(backgroundSubmitRefreshTarget)) && UtilHttp.isJavaScriptEnabled(request);
+            boolean ajaxEnabled = (updateAreas != null || UtilValidate.isNotEmpty(backgroundSubmitRefreshTarget)) && this.javaScriptEnabled;
             if (ajaxEnabled) {
                 buffer.append("<input type=\"button\"");
             } else {
@@ -935,33 +933,9 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             
             if (ajaxEnabled) {
                 buffer.append(" onclick=\"");
-                if (updateAreas.size() == 1) {
-                    ModelForm.UpdateArea updateArea = updateAreas.get(0);
-                    buffer.append("submitFormInBackground($('");
-                    buffer.append(formId);
-                    buffer.append("'), '");
-                    buffer.append(updateArea.getAreaId());
-                    buffer.append("', '");
-                    this.appendOfbizUrl(buffer, updateArea.getAreaTarget(context));
-                } else {
-                    buffer.append("ajaxSubmitFormUpdateAreas($('");
-                    buffer.append(formId);
-                    buffer.append("'), '");
-                    boolean firstLoop = true;
-                    for (ModelForm.UpdateArea updateArea : updateAreas) {
-                        if (firstLoop) {
-                            firstLoop = false;
-                        } else {
-                            buffer.append(",");
-                        }
-                        String targetString = updateArea.getAreaTarget(context);
-                        String target = UtilHttp.removeQueryStringFromTarget(targetString);
-                        String targetParams = UtilHttp.getQueryStringFromTarget(targetString);
-                        targetParams = targetParams.replace("?", "");
-                        targetParams = targetParams.replace("&amp;", "&");
-                        buffer.append(updateArea.getAreaId() + "," + target + "," + targetParams);
-                    }
-                }
+                buffer.append("ajaxSubmitFormUpdateAreas($('");
+                buffer.append(formId);
+                buffer.append("'), '" + createAjaxParamsFromUpdateAreas(updateAreas, null, context));
                 buffer.append("')\"");
             }
             
@@ -2036,11 +2010,10 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
     }
 
     public void renderNextPrev(StringBuffer buffer, Map context, ModelForm modelForm) {
-        boolean javaScriptEnabled = UtilHttp.isJavaScriptEnabled(request);
         boolean ajaxEnabled = false;
         List<ModelForm.UpdateArea> updateAreas = modelForm.getOnPaginateUpdateAreas();
         String targetService = modelForm.getPaginateTarget(context);
-        if (javaScriptEnabled) {
+        if (this.javaScriptEnabled) {
             if (UtilValidate.isNotEmpty(updateAreas)) {
                 ajaxEnabled = true;
             }
@@ -2087,8 +2060,6 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         if (viewSizeParam.equals("viewSize")) viewSizeParam = "VIEW_SIZE";
 
         String str = (String) context.get("_QBESTRING_");
-        ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
-        RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
 
         // strip legacy viewIndex/viewSize params from the query string
         String queryString = UtilHttp.stripViewParamsFromQueryString(str);
@@ -2129,6 +2100,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         appendWhitespace(buffer);
         buffer.append(" <ul>");
         appendWhitespace(buffer);
+
         String linkText;
 
         // First button
@@ -2136,23 +2108,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         if (viewIndex > 0) {
             buffer.append("\"><a href=\"");
             if (ajaxEnabled) {
-                buffer.append("javascript:ajaxUpdateAreas('");
-                for (ModelForm.UpdateArea updateArea : updateAreas) {
-                    linkText =  UtilHttp.getQueryStringFromTarget(updateArea.getAreaTarget(context));
-                    if (UtilValidate.isEmpty(linkText)) {
-                        linkText = "";
-                    }
-                    if (!UtilValidate.isEmpty(queryString) && !queryString.equals("null")) {
-                        linkText += queryString + "&";
-                    }
-                    linkText += viewSizeParam + "=" + viewSize + "&" + viewIndexParam + "=" + 0 + anchor;
-                    linkText = linkText.replace("?", "");
-                    linkText = linkText.replace("&amp;", "&");
-                    buffer.append(updateArea.getAreaId() + ",");
-                    buffer.append(rh.makeLink(this.request, this.response, UtilHttp.removeQueryStringFromTarget(updateArea.getAreaTarget(context))));
-                    buffer.append("," + linkText + ",");
-                }
-                buffer.append("')");
+                buffer.append("javascript:ajaxUpdateAreas('" + createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + 0 + anchor, context) + "')");
             } else {
                 linkText = prepLinkText + 0 + anchor;
                 buffer.append(rh.makeLink(this.request, this.response, urlPath + linkText));
@@ -2170,23 +2126,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         if (viewIndex > 0) {
             buffer.append("\"><a href=\"");
             if (ajaxEnabled) {
-                buffer.append("javascript:ajaxUpdateAreas('");
-                for (ModelForm.UpdateArea updateArea : updateAreas) {
-                    linkText = UtilHttp.getQueryStringFromTarget(updateArea.getAreaTarget(context));
-                    if (UtilValidate.isEmpty(linkText)) {
-                        linkText = "";
-                    }
-                    if (!UtilValidate.isEmpty(queryString) && !queryString.equals("null")) {
-                        linkText += queryString + "&";
-                    }
-                    linkText += viewSizeParam + "=" + viewSize + "&" + viewIndexParam + "=" + (viewIndex - 1) + anchor;
-                    linkText = linkText.replace("?", "");
-                    linkText = linkText.replace("&amp;", "&");
-                    buffer.append(updateArea.getAreaId() + ",");
-                    buffer.append(rh.makeLink(this.request, this.response, UtilHttp.removeQueryStringFromTarget(updateArea.getAreaTarget(context))));
-                    buffer.append("," + linkText + ",");
-                }
-                buffer.append("')");
+                buffer.append("javascript:ajaxUpdateAreas('" + createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + (viewIndex - 1) + anchor, context) + "')");
             } else {
                 linkText = prepLinkText + (viewIndex - 1) + anchor;
                 buffer.append(rh.makeLink(this.request, this.response, urlPath + linkText));
@@ -2200,34 +2140,18 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         appendWhitespace(buffer);
 
         // Page select dropdown
-        if (listSize > 0 && javaScriptEnabled) {
+        if (listSize > 0 && this.javaScriptEnabled) {
             buffer.append("  <li>").append(pageLabel).append(" <select name=\"page\" size=\"1\" onchange=\"");
             if (ajaxEnabled) {
-                buffer.append("javascript:ajaxUpdateAreas('");
-                for (ModelForm.UpdateArea updateArea : updateAreas) {
-                    linkText = UtilHttp.getQueryStringFromTarget(updateArea.getAreaTarget(context));
-                    if (UtilValidate.isEmpty(linkText)) {
-                        linkText = "";
-                    }
-                    if (!UtilValidate.isEmpty(queryString) && !queryString.equals("null")) {
-                        linkText += queryString + "&";
-                    }
-                    linkText += viewSizeParam + "=" + viewSize + "&" + viewIndexParam + "=' + this.value + '";
-                    linkText = linkText.replace("?", "");
-                    linkText = linkText.replace("&amp;", "&");
-                    buffer.append(updateArea.getAreaId() + ",");
-                    buffer.append(rh.makeLink(this.request, this.response, UtilHttp.removeQueryStringFromTarget(updateArea.getAreaTarget(context))));
-                    buffer.append("," + linkText + ",");
-                }
-                buffer.append("')\"");
+                buffer.append("javascript:ajaxUpdateAreas('" + createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + "' + this.value", context) + ")");
             } else {
                 linkText = prepLinkText;
                 if (linkText.startsWith("/")) {
                     linkText = linkText.substring(1);
                 }
-                buffer.append("location.href = '" + urlPath + linkText + "' + this.value;\"");
+                buffer.append("location.href = '" + urlPath + linkText + "' + this.value;");
             }
-            buffer.append(">");
+            buffer.append("\">");
             // actual value
             int page = 0;
             for (int i = 0; i < listSize;) {
@@ -2256,23 +2180,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         if (highIndex < listSize) {
             buffer.append("\"><a href=\"");
             if (ajaxEnabled) {
-                buffer.append("javascript:ajaxUpdateAreas('");
-                for (ModelForm.UpdateArea updateArea : updateAreas) {
-                    linkText = UtilHttp.getQueryStringFromTarget(updateArea.getAreaTarget(context));
-                    if (UtilValidate.isEmpty(linkText)) {
-                        linkText = "";
-                    }
-                    if (!UtilValidate.isEmpty(queryString) && !queryString.equals("null")) {
-                        linkText += queryString + "&";
-                    }
-                    linkText += viewSizeParam + "=" + viewSize + "&" + viewIndexParam + "=" + (viewIndex + 1) + anchor;
-                    linkText = linkText.replace("?", "");
-                    linkText = linkText.replace("&amp;", "&");
-                    buffer.append(updateArea.getAreaId() + ",");
-                    buffer.append(rh.makeLink(this.request, this.response, UtilHttp.removeQueryStringFromTarget(updateArea.getAreaTarget(context))));
-                    buffer.append("," + linkText + ",");
-                }
-                buffer.append("')");
+                buffer.append("javascript:ajaxUpdateAreas('" + createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + (viewIndex + 1) + anchor, context) + "')");
             } else {
                 linkText = prepLinkText + (viewIndex + 1) + anchor;
                 buffer.append(rh.makeLink(this.request, this.response, urlPath + linkText));
@@ -2290,23 +2198,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         if (highIndex < listSize) {
             buffer.append("\"><a href=\"");
             if (ajaxEnabled) {
-                buffer.append("javascript:ajaxUpdateAreas('");
-                for (ModelForm.UpdateArea updateArea : updateAreas) {
-                    linkText = UtilHttp.getQueryStringFromTarget(updateArea.getAreaTarget(context));
-                    if (UtilValidate.isEmpty(linkText)) {
-                        linkText = "";
-                    }
-                    if (!UtilValidate.isEmpty(queryString) && !queryString.equals("null")) {
-                        linkText += queryString + "&";
-                    }
-                    linkText += viewSizeParam + "=" + viewSize + "&" + viewIndexParam + "=" + (listSize / viewSize) + anchor;
-                    linkText = linkText.replace("?", "");
-                    linkText = linkText.replace("&amp;", "&");
-                    buffer.append(updateArea.getAreaId() + ",");
-                    buffer.append(rh.makeLink(this.request, this.response, UtilHttp.removeQueryStringFromTarget(updateArea.getAreaTarget(context))));
-                    buffer.append("," + linkText + ",");
-                }
-                buffer.append("')");
+                buffer.append("javascript:ajaxUpdateAreas('" + createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + (listSize / viewSize) + anchor, context) + "')");
             } else {
                 linkText = prepLinkText + (listSize / viewSize) + anchor;
                 buffer.append(rh.makeLink(this.request, this.response, urlPath + linkText));
@@ -2584,5 +2476,39 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         } else {
              buffer.append(titleText);
         }
+    }
+
+    /** Create an ajaxXxxx JavaScript CSV string from a list of UpdateArea objects. See
+     * <code>selectall.js</code>.
+     * @param updateAreas
+     * @param extraParams Renderer-supplied additional target parameters
+     * @param context
+     * @return Parameter string or empty string if no UpdateArea objects were found
+     */
+    public String createAjaxParamsFromUpdateAreas(List<ModelForm.UpdateArea> updateAreas, String extraParams, Map<String, ? extends Object> context) {
+        if (updateAreas == null) {
+            return "";
+        }
+        String ajaxUrl = "";
+        boolean firstLoop = true;
+        for (ModelForm.UpdateArea updateArea : updateAreas) {
+            if (firstLoop) {
+                firstLoop = false;
+            } else {
+                ajaxUrl += ",";
+            }
+            String targetUrl = updateArea.getAreaTarget(context);
+            String ajaxParams = getAjaxParamsFromTarget(targetUrl);
+            if (UtilValidate.isNotEmpty(extraParams)) {
+                if (ajaxParams.length() > 0 && !extraParams.startsWith("&")) {
+                    ajaxParams += "&";
+                }
+                ajaxParams += extraParams;
+            }
+            ajaxUrl += updateArea.getAreaId() + ",";
+            ajaxUrl += this.rh.makeLink(this.request, this.response, UtilHttp.removeQueryStringFromTarget(targetUrl));
+            ajaxUrl += "," + ajaxParams;
+        }
+        return ajaxUrl;
     }
 }

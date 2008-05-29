@@ -21,7 +21,7 @@ package org.ofbiz.widget.html;
 import java.io.IOException;
 import java.io.Writer;
 
-import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.widget.ModelWidget;
 
 /**
@@ -113,5 +113,18 @@ public class HtmlWidgetRenderer {
         if (modelWidget.boundaryCommentsEnabled()) {
             buffer.append(this.buildBoundaryComment("End", widgetType, modelWidget.getBoundaryCommentName()));
         }
+    }
+    
+    /** Extracts parameters from a target URL string, prepares them for an Ajax
+     * JavaScript call. This method is currently set to return a parameter string
+     * suitable for the Prototype.js library.
+     * @param target Target URL string
+     * @return Parameter string
+     */
+    public static String getAjaxParamsFromTarget(String target) {
+        String targetParams = UtilHttp.getQueryStringFromTarget(target);
+        targetParams = targetParams.replace("?", "");
+        targetParams = targetParams.replace("&amp;", "&");
+        return targetParams;
     }
 }
