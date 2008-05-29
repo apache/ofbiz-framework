@@ -286,10 +286,18 @@ function ajaxSubmitFormUpdateAreas(form, areaCsvString) {
     ajaxSubmitRequestUpdateAreas(form.action, form.serialize(true), areaCsvString);
 }
 
-function ajaxAutoCompleter(textFieldId,url,params) {
-	var optionsDivId = textFieldId + "_autoCompleterOptions";
-	$(textFieldId ).insert({after: '<div class="autocomplete"' + 'id=' + optionsDivId + '></div>'});
-    new Ajax.Autocompleter($(textFieldId), optionsDivId, url, {parameters: params});	
+/** Enable auto-completion for text elements.
+  * @param areaCsvString The area CSV string. The CSV string is a flat array in the
+  * form of: areaId, target, target parameters [, areaId, target, target parameters...].
+*/
+function ajaxAutoCompleter(areaCsvString) {
+    var areaArray = areaCsvString.split(",");
+    var numAreas = parseInt(areaArray.length / 3);
+    for (var i = 0; i < numAreas * 3; i = i + 3) {
+	    var optionsDivId = areaArray[i] + "_autoCompleterOptions";
+	    $(areaArray[i]).insert({after: '<div class="autocomplete"' + 'id=' + optionsDivId + '></div>'});
+        new Ajax.Autocompleter($(areaArray[i]), optionsDivId, areaArray[i + 1], {parameters: areaArray[i + 2]});	
+    }
 }
 // ===== End of Ajax Functions ===== //
 

@@ -865,10 +865,6 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="server-autocomplete-params"/>
-        <xs:attribute type="xs:string" name="server-autocomplete-target">
-            <xs:annotation><xs:documentation>Url to request user options.</xs:documentation></xs:annotation>
-        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="textarea" substitutionGroup="AllFields">
         <xs:complexType>

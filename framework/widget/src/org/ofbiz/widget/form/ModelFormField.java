@@ -37,10 +37,10 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
-import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.collections.MapStack;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
@@ -58,9 +58,9 @@ import org.ofbiz.entity.model.ModelReader;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
-import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelParam;
 import org.ofbiz.service.ModelService;
+import org.ofbiz.widget.form.ModelForm.UpdateArea;
 import org.w3c.dom.Element;
 
 import bsh.EvalError;
@@ -103,6 +103,11 @@ public class ModelFormField {
     protected Boolean requiredField = null;
     protected String headerLink;
     protected String headerLinkStyle;
+
+    /** On Change Event areas to be updated. */
+    protected List<UpdateArea> onChangeUpdateAreas;
+    /** On Click Event areas to be updated. */
+    protected List<UpdateArea> onClickUpdateAreas;
 
     // ===== CONSTRUCTORS =====
     /** Default Constructor */
@@ -155,8 +160,8 @@ public class ModelFormField {
         }
 
         // get sub-element and set fieldInfo
-        Element subElement = UtilXml.firstChildElement(fieldElement);
-        if (subElement != null) {
+        List<? extends Element> subElements = UtilXml.childElementList(fieldElement);
+        for (Element subElement : subElements) {
             String subElementName = subElement.getTagName();
             if (Debug.verboseOn())
                 Debug.logVerbose("Processing field " + this.name + " with type info tag " + subElementName, module);
@@ -204,10 +209,37 @@ public class ModelFormField {
                 this.fieldInfo = new PasswordField(subElement, this);
             } else if ("image".equals(subElementName)) {
                 this.fieldInfo = new ImageField(subElement, this);
+            } else if ("on-field-event-update-area".equals(subElementName)) {
+                addOnEventUpdateArea(new UpdateArea(subElement));
             } else {
                 throw new IllegalArgumentException("The field sub-element with name " + subElementName + " is not supported");
             }
         }
+    }
+
+    public void addOnEventUpdateArea(UpdateArea updateArea) {
+        // Event types are sorted as a convenience for the rendering classes
+        Debug.logInfo(this.modelForm.getName() + ":" + this.name + " adding UpdateArea type " + updateArea.getEventType(), module);
+        if ("change".equals(updateArea.getEventType())) {
+            addOnChangeUpdateArea(updateArea);
+        } else if ("click".equals(updateArea.getEventType())) {
+            addOnClickUpdateArea(updateArea);
+        }
+    }
+
+    protected void addOnChangeUpdateArea(UpdateArea updateArea) {
+        if (onChangeUpdateAreas == null) {
+            onChangeUpdateAreas = FastList.newInstance();
+        }
+        onChangeUpdateAreas.add(updateArea);
+        Debug.logInfo(this.modelForm.getName() + ":" + this.name + " onChangeUpdateAreas size = " + onChangeUpdateAreas.size(), module);
+    }
+
+    protected void addOnClickUpdateArea(UpdateArea updateArea) {
+        if (onClickUpdateAreas == null) {
+            onClickUpdateAreas = FastList.newInstance();
+        }
+        onClickUpdateAreas.add(updateArea);
     }
 
     public void mergeOverrideModelFormField(ModelFormField overrideFormField) {
@@ -263,8 +295,15 @@ public class ModelFormField {
         if (overrideFormField.fieldInfo != null) {
             this.setHeaderLink(overrideFormField.headerLink);
         }
-        if (UtilValidate.isNotEmpty(overrideFormField.idName))
+        if (UtilValidate.isNotEmpty(overrideFormField.idName)) {
             this.idName = overrideFormField.idName;
+        }
+        if (overrideFormField.onChangeUpdateAreas != null) {
+            this.onChangeUpdateAreas = overrideFormField.onChangeUpdateAreas;
+        }
+        if (overrideFormField.onClickUpdateAreas != null) {
+            this.onClickUpdateAreas = overrideFormField.onClickUpdateAreas;
+        }
     }
 
     public boolean induceFieldInfo(String defaultFieldType) {
@@ -539,6 +578,14 @@ public class ModelFormField {
 
     public void renderFieldString(StringBuffer buffer, Map context, FormStringRenderer formStringRenderer) {
         this.fieldInfo.renderFieldString(buffer, context, formStringRenderer);
+    }
+
+    public List<UpdateArea> getOnChangeUpdateAreas() {
+        return onChangeUpdateAreas;
+    }
+
+    public List<UpdateArea> getOnClickUpdateAreas() {
+        return onClickUpdateAreas;
     }
 
     /**
@@ -2167,8 +2214,6 @@ public class ModelFormField {
         protected SubHyperlink subHyperlink;
         protected boolean disabled;
         protected boolean clientAutocompleteField;
-        protected FlexibleStringExpander serverAutocompleteTargetExdr;
-        protected FlexibleStringExpander serverAutocompleteParamsExdr;
         
         protected TextField() {
             super();
@@ -2213,9 +2258,6 @@ public class ModelFormField {
             if (subHyperlinkElement != null) {
                 this.subHyperlink = new SubHyperlink(subHyperlinkElement);
             }
-            this.serverAutocompleteTargetExdr = new FlexibleStringExpander(element.getAttribute("server-autocomplete-target"));
-            this.serverAutocompleteParamsExdr = new FlexibleStringExpander(element.getAttribute("server-autocomplete-params"));
-
         }
 
         public void renderFieldString(StringBuffer buffer, Map context, FormStringRenderer formStringRenderer) {
@@ -2293,21 +2335,6 @@ public class ModelFormField {
         public void setSubHyperlink(SubHyperlink newSubHyperlink) {
             this.subHyperlink = newSubHyperlink;
         }
-        public String getServerAutocompleteTarget(Map context) {
-            if(serverAutocompleteTargetExdr !=null){
-                return this.serverAutocompleteTargetExdr.expandString(context);
-            } else {
-                return "";
-            }
-        }
-        public String getServerAutocompleteParams(Map context) {
-            if(serverAutocompleteParamsExdr !=null){
-                return this.serverAutocompleteParamsExdr.expandString(context);
-            } else {
-                return "";
-            }            
-        }
-        
     }
 
     public static class TextareaField extends FieldInfo {
