@@ -346,6 +346,7 @@ under the License.
         <xs:complexType>
             <xs:sequence>
                 <xs:element minOccurs="0" ref="AllFields"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="on-field-event-update-area"/>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.field"/>
         </xs:complexType>
@@ -446,6 +447,7 @@ under the License.
             <xs:annotation><xs:documentation>The name of a style (like a CSS class) to apply to the title of this field if required. Will default to form's default-required-field-style. If field is required, but required-field-style is empty, an '*' will be placed to the right of text, textarea and password fields.</xs:documentation></xs:annotation>
         </xs:attribute>
     </xs:attributeGroup>
+
   <!-- ================== FIELD TYPES ==================== -->
     <xs:element name="check" substitutionGroup="AllFields">
         <xs:complexType>
@@ -950,7 +952,29 @@ under the License.
         </xs:attribute>
     </xs:attributeGroup>
 
-  <!-- ================== FIELD SUB-ELEMENTS ==================== -->
+    <!-- ================== Field Events ==================== -->
+    <xs:element name="on-field-event-update-area">
+        <xs:annotation>
+            <xs:documentation>Area to be updated when a field event occurs.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.on-field-event-update-area"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.on-field-event-update-area">
+        <xs:attribute name="event-type" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="change"/>
+                    <xs:enumeration value="click"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="area-id" use="required"/>
+        <xs:attribute type="xs:string" name="area-target" use="required"/>
+    </xs:attributeGroup>
+
+    <!-- ================== FIELD SUB-ELEMENTS ==================== -->
     <xs:element name="entity-constraint">
         <xs:complexType>
             <xs:attributeGroup ref="attlist.entity-constraint"/>
