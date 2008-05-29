@@ -97,6 +97,9 @@ under the License.
         <attribute name="useRoleTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="useTimeUomId" type="String" mode="IN" optional="false"/>
         <attribute name="useTime" type="Integer" mode="IN" optional="false"/>
+        <attribute name="automaticExtend" type="String" mode="IN" optional="true"/>
+        <attribute name="canclAutmExtTime" type="Integer" mode="IN" optional="true"/>
+        <attribute name="canclAutmExtTimeUomId" type="String" mode="IN" optional="true"/>
         <attribute name="alwaysCreateNewRecord" type="String" mode="IN" optional="true"><!-- This defaults to Y (true) which means new Subscription records will be created instead of updating old ones with new thruDates. This keeps a more complete history of subscription activity. --></attribute>
         <attribute name="subscriptionId" type="String" mode="OUT" optional="false"/>
     </service>

@@ -56,22 +56,6 @@ under the License.
         <check-permission permission="CATALOG" action="${securityAction}"><fail-property resource="ProductUiLabels" property="GeneralCatalogPermissionError"/></check-permission>
         <check-errors/>
         <entity-one entity-name="Subscription" value-name="lookedUpValue"/>
-
-        <!-- lookup the product subscription resource (if exists) -->
-        <if-not-empty field-name="lookedUpValue.subscriptionResourceId">
-            <if-not-empty field-name="lookedUpValue.productId">
-                <entity-and entity-name="ProductSubscriptionResource" list-name="resourceList" filter-by-date="true">
-                    <field-map field-name="subscriptionResourceId" env-name="lookedUpValue.subscriptionResourceId"/>
-                    <field-map field-name="productId" env-name="lookedUpValue.productId"/>
-                    <order-by field-name="-fromDate"/>
-                </entity-and>
-                <first-from-list entry-name="resource" list-name="resourceList"/>
-                <if-not-empty field-name="resource">
-                    <set-nonpk-fields value-name="newEntity" map-name="resource"/>
-                </if-not-empty>
-            </if-not-empty>
-        </if-not-empty>
-        
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
