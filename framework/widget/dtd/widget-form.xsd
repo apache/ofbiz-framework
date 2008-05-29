@@ -601,6 +601,15 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.drop-down">
+        <xs:attribute name="type" default="traditional">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="traditional"/>
+                    <xs:enumeration value="auto-complete-server"/>
+                    <!-- <xs:enumeration value="auto-complete-client"/> something to consider for the future -->
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
         <xs:attribute name="allow-empty" default="false">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
