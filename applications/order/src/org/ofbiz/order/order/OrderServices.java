@@ -30,6 +30,7 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.*;
 import org.ofbiz.base.util.collections.ResourceBundleMapWrapper;
 import org.ofbiz.common.DataModelConstants;
+import org.ofbiz.common.uom.UomWorker;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
@@ -4759,6 +4760,131 @@ public class OrderServices {
         }
 
         return ServiceUtil.returnSuccess();
+    }
+    public static Map runSubscriptionAutoReorders(DispatchContext dctx, Map context) {
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericDelegator delegator = dctx.getDelegator();
+
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Locale locale = (Locale) context.get("locale");
+        int count = 0;
+        Map result = null;
+        
+        boolean beganTransaction = false;
+        try {
+            beganTransaction = TransactionUtil.begin();
+        
+            List exprs = UtilMisc.toList(new EntityExpr("automaticExtend", EntityOperator.EQUALS, "Y"),
+            		new EntityExpr("orderId", EntityOperator.NOT_EQUAL, null),
+            		new EntityExpr("productId", EntityOperator.NOT_EQUAL, null));
+            EntityCondition cond = new EntityConditionList(exprs, EntityOperator.AND);
+            EntityListIterator eli = null;
+            eli = delegator.find("Subscription", cond, null, null, null, null);
+    
+            if (eli != null) {
+                GenericValue subscription;
+                while (((subscription = (GenericValue) eli.next()) != null)) {
+
+                    Calendar endDate = Calendar.getInstance();
+                    endDate.setTime(UtilDateTime.nowTimestamp());
+                	//check if the thruedate - cancel period (if provided) is earlier than todays date
+                    int field = Calendar.MONTH;
+                	if (subscription.get("canclAutmExtTime") != null && subscription.get("canclAutmExtTimeUomId") != null) {
+                        if ("TF_day".equals(subscription.getString("canclAutmExtTimeUomId"))) {
+                            field = Calendar.DAY_OF_YEAR;   
+                        } else if ("TF_wk".equals(subscription.getString("canclAutmExtTimeUomId"))) {
+                            field = Calendar.WEEK_OF_YEAR;   
+                        } else if ("TF_mon".equals(subscription.getString("canclAutmExtTimeUomId"))) {
+                            field = Calendar.MONTH;   
+                        } else if ("TF_yr".equals(subscription.getString("canclAutmExtTimeUomId"))) {
+                            field = Calendar.YEAR;   
+                        } else {
+                            Debug.logWarning("Don't know anything about useTimeUomId [" + subscription.getString("canclAutmExtTimeUomId") + "], defaulting to month", module);
+                        }
+
+                		endDate.add(field, new Integer(subscription.getString("canclAutmExtTime")).intValue());
+                	}
+                	
+                    Calendar endDateSubscription = Calendar.getInstance();
+                    endDateSubscription.setTime(subscription.getTimestamp("thruDate"));
+                	
+                    if (endDate.before(endDateSubscription)) {
+                    	// nor expired yet.....
+                    	continue;
+                    }
+                	
+                	result = dispatcher.runSync("loadCartFromOrder", UtilMisc.toMap("orderId", subscription.get("orderId"), "userLogin", userLogin));
+                	ShoppingCart cart = (ShoppingCart) result.get("shoppingCart");
+                	
+                	// only keep the orderitem with the related product.
+                	List cartItems = cart.items();
+                	Iterator ci = cartItems.iterator();
+                	while (ci.hasNext()) {
+                		ShoppingCartItem shoppingCartItem = (ShoppingCartItem) ci.next();
+                		if (!subscription.get("productId").equals(shoppingCartItem.getProductId())) {
+                			cart.removeCartItem(shoppingCartItem, dispatcher);
+                		}
+                	}
+                	
+                    CheckOutHelper helper = new CheckOutHelper(dispatcher, delegator, cart);
+    
+                    // store the order
+                    Map createResp = helper.createOrder(userLogin);
+                    if (createResp != null && ServiceUtil.isError(createResp)) {
+                        Debug.logError("Cannot create order for shopping list - " + subscription, module);
+                    } else {
+                        String orderId = (String) createResp.get("orderId");
+    
+                        // authorize the payments
+                        Map payRes = null;
+                        try {
+                            payRes = helper.processPayment(ProductStoreWorker.getProductStore(cart.getProductStoreId(), delegator), userLogin);
+                        } catch (GeneralException e) {
+                            Debug.logError(e, module);
+                        }
+    
+                        if (payRes != null && ServiceUtil.isError(payRes)) {
+                            Debug.logError("Payment processing problems with shopping list - " + subscription, module);
+                        }
+                        
+                        // remove the automatic extension flag
+                        subscription.put("automaticExtend", "N");
+                        subscription.store();
+                        
+                        // send notification
+                        dispatcher.runAsync("sendOrderPayRetryNotification", UtilMisc.toMap("orderId", orderId));
+                        count++;
+                    }
+                }
+                eli.close();
+            }
+            
+        } catch (GenericServiceException e) {
+            Debug.logError("Could call service to create cart", module);
+            return ServiceUtil.returnError(e.toString());
+        } catch (CartItemModifyException e) {
+            Debug.logError("Could not modify cart: " + e.toString(), module);
+            return ServiceUtil.returnError(e.toString());
+        } catch (GenericEntityException e) {
+            try {
+                // only rollback the transaction if we started one...
+                TransactionUtil.rollback(beganTransaction, "Error creating subscription auto-reorders", e);
+            } catch (GenericEntityException e2) {
+                Debug.logError(e2, "[GenericDelegator] Could not rollback transaction: " + e2.toString(), module);
+            }
+
+            String errMsg = "Error while creating new shopping list based automatic reorder" + e.toString();
+            Debug.logError(e, errMsg, module);
+            return ServiceUtil.returnError(errMsg);
+        } finally {
+            try {
+                // only commit the transaction if we started one... this will throw an exception if it fails
+                TransactionUtil.commit(beganTransaction);
+            } catch (GenericEntityException e) {
+                Debug.logError(e, "Could not commit transaction for creating new shopping list based automatic reorder", module);
+            }
+        }
+        return ServiceUtil.returnSuccess("runSubscriptionAutoReorders finished, " + count + " subscription extended.");
     }
 
 }

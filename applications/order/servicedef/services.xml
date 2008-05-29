@@ -839,4 +839,9 @@ under the License.
         <override name="orderItemSeqId" optional="false"/>
         <override name="changeTypeEnumId" optional="false"/>          
     </service>    
+    <service name="runSubscriptionAutoReorders" engine="java" auth="true" use-transaction="false"
+        location="org.ofbiz.order.order.OrderServices" invoke="runSubscriptionAutoReorders">
+        <description>A service designed to be automatically run by job scheduler to create orders from subscriptions which need to be extended.
+            This is done by looking for all subscriptions which are active and where the automaticExtend flag is set to "Y"</description> 
+    </service>
 </services>

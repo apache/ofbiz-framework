@@ -63,9 +63,27 @@ under the License.
         <field name="productId"><lookup target-form-name="LookupProduct"/></field>
         <field name="productCategoryId"><lookup target-form-name="LookupProductCategory"/></field>
         
+        <field name="roleTypeId"><ignored/></field>
+        <field name="canclAutmExtTimeUomId"><ignored/></field>
+        <field name="canclAutmExtTime"><ignored/></field>
+        <field name="originatedFromPartyId"><ignored/></field>
+        <field name="originatedFromRoleTypeId"><ignored/></field>
+        <field name="contactMechId"><ignored/></field>
+        <field name="communicationEventId"><ignored/></field>
+        <field name="productCategoryId"><ignored/></field>
+        <field name="inventoryItemId"><ignored/></field>
+        <field name="availableTime"><ignored/></field>
+        <field name="availableTimeUomId"><ignored/></field>
         <field name="partyNeedId"><ignored/></field>
         <field name="needTypeId"><ignored/></field>
-        
+        <field name="useCountLimit"><ignored/></field>
+        <field name="maxLifeTime"><ignored/></field>
+        <field name="maxLifeTimeUomId"><ignored/></field>
+        <field name="maxUseTimeUomId"><ignored/></field>
+        <field name="useTime"><ignored/></field>
+        <field name="useTimeUomId"><ignored/></field>
+        <field name="purchaseFromDate"><ignored/></field>        
+        <field name="purchaseThruDate"><ignored/></field>        
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
@@ -117,8 +135,27 @@ under the License.
             </display-entity>
         </field>
         
+        <field name="roleTypeId"><ignored/></field>
+        <field name="canclAutmExtTimeUomId"><ignored/></field>
+        <field name="canclAutmExtTime"><ignored/></field>
+        <field name="originatedFromPartyId"><ignored/></field>
+        <field name="originatedFromRoleTypeId"><ignored/></field>
+        <field name="contactMechId"><ignored/></field>
+        <field name="communicationEventId"><ignored/></field>
+        <field name="productCategoryId"><ignored/></field>
+        <field name="inventoryItemId"><ignored/></field>
+        <field name="availableTime"><ignored/></field>
+        <field name="availableTimeUomId"><ignored/></field>
         <field name="partyNeedId"><ignored/></field>
         <field name="needTypeId"><ignored/></field>
+        <field name="useCountLimit"><ignored/></field>
+        <field name="maxLifeTime"><ignored/></field>
+        <field name="maxLifeTimeUomId"><ignored/></field>
+        <field name="maxUseTimeUomId"><ignored/></field>
+        <field name="useTime"><ignored/></field>
+        <field name="useTimeUomId"><ignored/></field>
+        <field name="purchaseFromDate"><ignored/></field>        
+        <field name="purchaseThruDate"><ignored/></field>        
         
         <field name="subscriptionId" widget-style="buttontext">
             <hyperlink description="${subscriptionId}" target="EditSubscription?subscriptionId=${subscriptionId}" also-hidden="false"/>
@@ -202,6 +239,23 @@ under the License.
                 <sub-hyperlink target="/catalog/control/EditProductCategory?productCategoryId=${subscription.productCategoryId}" target-type="inter-app" description="${subscription.productCategoryId}" link-style="buttontext"/>
             </lookup>
         </field>
+        <field name="useTimeUomId" title="${uiLabelMap.ProductUseTimeUom}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="Uom" key-field-name="uomId" description="${description}">
+                    <entity-constraint name="uomTypeId" value="TIME_FREQ_MEASURE"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="canclAutmExtTimeUomId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="Uom" key-field-name="uomId" description="${description}">
+                    <entity-constraint name="uomTypeId" value="TIME_FREQ_MEASURE"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        
                
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>

@@ -86,6 +86,9 @@ public class SubscriptionServices {
             newSubscription.set("productId", context.get("productId"));
             newSubscription.set("orderId", context.get("orderId"));
             newSubscription.set("orderItemSeqId", context.get("orderItemSeqId"));
+            newSubscription.set("automaticExtend", context.get("automaticExtend"));
+            newSubscription.set("canclAutmExtTimeUomId", context.get("canclAutmExtTimeUomId"));
+            newSubscription.set("canclAutmExtTime", context.get("canclAutmExtTime"));
         } else {
             newSubscription = lastSubscription;
         }
@@ -197,6 +200,9 @@ public class SubscriptionServices {
                 context.put("useTimeUomId", productSubscriptionResource.get("useTimeUomId"));
                 context.put("useRoleTypeId", productSubscriptionResource.get("useRoleTypeId"));
                 context.put("subscriptionResourceId", productSubscriptionResource.get("subscriptionResourceId"));
+                context.put("automaticExtend", productSubscriptionResource.get("automaticExtend"));
+                context.put("canclAutmExtTime", productSubscriptionResource.get("canclAutmExtTime"));
+                context.put("canclAutmExtTimeUomId", productSubscriptionResource.get("canclAutmExtTimeUomId"));
                 
                 Map ctx = dctx.getModelService("processExtendSubscription").makeValid(context, ModelService.IN_PARAM);
                 Map processExtendSubscriptionResult = dispatcher.runSync("processExtendSubscription", ctx);
