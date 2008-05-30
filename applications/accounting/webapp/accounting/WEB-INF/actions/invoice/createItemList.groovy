@@ -36,20 +36,18 @@ List invoiceItems = new LinkedList();
 BigDecimal invoiceAmount = BigDecimal.ZERO;
 BigDecimal total = BigDecimal.ZERO;
 BigDecimal quantity = BigDecimal.ZERO;
-if ((invoiceId != null) && (invoice != null)) {    
-    invoiceItemsDb = invoice.getRelated("InvoiceItem", UtilMisc.toList("invoiceItemSeqId"));
-    if (invoiceItemsDb != null && invoiceItemsDb.size() > 0) {
+if (invoiceId && invoice) {    
+    invoiceItemsDb = invoice.getRelated("InvoiceItem", ["invoiceItemSeqId"]);
+    if (invoiceItemsDb) {
         // create totals
-        Iterator i = invoiceItemsDb.iterator();
-        while (i.hasNext())    {
-            item = i.next();
-            if (item.get("quantity") == null || item.getDouble("quantity").doubleValue() == 0.00) {
+        invoiceItemsDb.each { item ->
+            if (!item.quantity) {
                quantity = BigDecimal.ONE;
             } else {
                 quantity = item.getBigDecimal("quantity");
             }
-            if (item.get("amount")!= null) {
-                total = item.getBigDecimal("amount").multiply(quantity).setScale(decimals,rounding);
+            if (item.amount) {
+                total = (item.getBigDecimal("amount") * quantity).setScale(decimals, rounding);
             } else {
                 total = BigDecimal.ZERO;
             }

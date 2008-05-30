@@ -28,24 +28,20 @@ import org.ofbiz.base.util.collections.*;
 import org.ofbiz.accounting.invoice.*;
 import java.text.DateFormat;
  
-delegator = request.getAttribute("delegator");
 invoiceId = request.getParameter("invoiceId");
 
 double invoiceTotal = 0;
-invoice = delegator.findByPrimaryKey("Invoice", UtilMisc.toMap("invoiceId", invoiceId));
-Map newInvoice = new HashMap();
+invoice = delegator.findByPrimaryKey("Invoice", [invoiceId : invoiceId]);
+newInvoice = [:];
 
-if (invoice != null) {
+if (invoice) {
     invoiceItems = invoice.getRelated("InvoiceItem");
-    if (invoiceItems != null) {
+    if (invoiceItems) {
         invoiceTotal = InvoiceWorker.getInvoiceTotal(invoice);
-    }
-    else {
-        invoiceTotal = 0;
     }
     newInvoice.putAll(invoice);
 }
 
-newInvoice.put("invoiceAmount", new Double(invoiceTotal));
-context.put("invoiceExt",newInvoice);
-context.put("invoiceId",invoiceId);
+newInvoice.invoiceAmount = new Double(invoiceTotal);
+context.invoiceExt = newInvoice;
+context.invoiceId = invoiceId;

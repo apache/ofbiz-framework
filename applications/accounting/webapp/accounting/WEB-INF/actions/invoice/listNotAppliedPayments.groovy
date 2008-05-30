@@ -32,26 +32,25 @@ import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.*;
 import java.text.NumberFormat;
 
-invoiceId = parameters.get("invoiceId");
-invoice = delegator.findByPrimaryKey("Invoice", UtilMisc.toMap("invoiceId", invoiceId));
+invoiceId = parameters.invoiceId;
+invoice = delegator.findByPrimaryKey("Invoice", [invoiceId : invoiceId]);
 
-int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
-int rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
-Locale locale = context.get("locale");
+decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
+rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
 
-ArrayList paymentsMapList = new ArrayList();  // to pass back to the screeen list of unapplied payments
+paymentsMapList = [];  // to pass back to the screeen list of unapplied payments
 
 // retrieve payments for the related parties which have not been (fully) applied yet
 List payments = null;
 GenericValue payment = null;
-exprList = new ArrayList();
-expr = EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, invoice.getString("partyIdFrom"));
+exprList = [];
+expr = EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, invoice.partyIdFrom);
 exprList.add(expr); 
-expr = EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, invoice.getString("partyId"));
+expr = EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, invoice.partyId);
 exprList.add(expr); 
 
 // only payments with received and sent and not paid
-exprListStatus = new ArrayList();
+exprListStatus = [];
 expr = EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PMNT_NOT_PAID");
 exprListStatus.add(expr); 
 expr = EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PMNT_RECEIVED");
@@ -63,33 +62,30 @@ exprList.add(orCond);
 
 topCond = EntityCondition.makeCondition(exprList, EntityOperator.AND);
 
-payments = delegator.findList("Payment", topCond, null, UtilMisc.toList("effectiveDate"), null, false);
-if (payments != null && payments.size() > 0)    {
+payments = delegator.findList("Payment", topCond, null, ["effectiveDate"], null, false);
+if (payments)    {
     List paymentApplications = null;
     GenericValue paymentApplication = null;
-    BigDecimal invoiceApplied = InvoiceWorker.getInvoiceAppliedBd(invoice);
-    BigDecimal invoiceAmount = InvoiceWorker.getInvoiceTotalBd(invoice);
-    BigDecimal invoiceToApply = InvoiceWorker.getInvoiceNotApplied(invoice); 
-    Iterator p = payments.iterator();
-    while(p.hasNext())    {
-        payment = p.next();
+    invoiceApplied = InvoiceWorker.getInvoiceAppliedBd(invoice);
+    invoiceAmount = InvoiceWorker.getInvoiceTotalBd(invoice);
+    invoiceToApply = InvoiceWorker.getInvoiceNotApplied(invoice); 
+    payments.each { payment ->
         if (PaymentWorker.getPaymentNotAppliedBd(payment).signum() == 1) {
            // put in the map
-           Map paymentMap = new HashMap();
-           paymentMap.put("paymentId", payment.getString("paymentId"));
-           paymentMap.put("effectiveDate", payment.getString("effectiveDate").substring(0,10)); // list as YYYY-MM-DD
-           paymentMap.put("amount", payment.getBigDecimal("amount"));
-           paymentMap.put("currencyUomId", payment.getString("currencyUomId"));
-           paymentMap.put("amountApplied", PaymentWorker.getPaymentAppliedBd(payment));
+           Map paymentMap = [:];
+           paymentMap.paymentId = payment.paymentId;
+           paymentMap.effectiveDate = payment.effectiveDate.substring(0,10); // list as YYYY-MM-DD
+           paymentMap.amount = payment.getBigDecimal("amount");
+           paymentMap.currencyUomId = payment.currencyUomId;
+           paymentMap.amountApplied = PaymentWorker.getPaymentAppliedBd(payment);
            BigDecimal paymentToApply = PaymentWorker.getPaymentNotAppliedBd(payment);
            if (paymentToApply.compareTo(invoiceToApply) < 0 ) {
-                paymentMap.put("amountToApply",paymentToApply);
-           }
-           else {
-                paymentMap.put("amountToApply",invoiceToApply);
+                paymentMap.amountToApply = paymentToApply;
+           } else {
+                paymentMap.amountToApply = invoiceToApply;
            }
            paymentsMapList.add(paymentMap);
         }
     }
-}       
-context.put("payments", paymentsMapList);
+}
+context.payments = paymentsMapList;

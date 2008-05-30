@@ -26,29 +26,29 @@ import org.ofbiz.entity.condition.EntityOperator;
 
 import javolution.util.FastList;
 
-invoice = context.get("invoice");
-if (invoice == null) return;
+invoice = context.invoice;
+if (!invoice) return;
 glAccountOrganizationAndClassList = null;
-if ("SALES_INVOICE".equals(invoice.get("invoiceTypeId"))) {
+if ("SALES_INVOICE".equals(invoice.invoiceTypeId)) {
     List parentTypes = FastList.newInstance();
     parentTypes.add(EntityCondition.makeCondition("parentTypeId", EntityOperator.EQUALS, "INVOICE_ADJ"));
     parentTypes.add(EntityCondition.makeCondition("parentTypeId", EntityOperator.EQUALS, "INVOICE_ITM_ADJ"));
     parentTypes.add(EntityCondition.makeCondition("parentTypeId", EntityOperator.EQUALS, "INV_PROD_ITEM"));
     parentTypesCond = EntityCondition.makeCondition(parentTypes, EntityOperator.OR);
-    invoiceItemTypes = delegator.findList("InvoiceItemType", parentTypesCond, null, UtilMisc.toList("parentTypeId", "invoiceItemTypeId"), null, false);
-    glAccountOrganizationAndClassList = delegator.findByAnd("GlAccountOrganizationAndClass", UtilMisc.toMap("organizationPartyId", invoice.get("partyIdFrom")));
-} else if ("PURCHASE_INVOICE".equals(invoice.get("invoiceTypeId"))) {
+    invoiceItemTypes = delegator.findList("InvoiceItemType", parentTypesCond, null, ["parentTypeId", "invoiceItemTypeId"], null, false);
+    glAccountOrganizationAndClassList = delegator.findByAnd("GlAccountOrganizationAndClass", [organizationPartyId : invoice.partyIdFrom]);
+} else if ("PURCHASE_INVOICE".equals(invoice.invoiceTypeId)) {
     List parentTypes = FastList.newInstance();
     parentTypes.add(EntityCondition.makeCondition("parentTypeId", EntityOperator.EQUALS, "PINVOICE_ADJ"));
     parentTypes.add(EntityCondition.makeCondition("parentTypeId", EntityOperator.EQUALS, "PINVOICE_ITM_ADJ"));
     parentTypes.add(EntityCondition.makeCondition("parentTypeId", EntityOperator.EQUALS, "PINV_PROD_ITEM"));
     parentTypesCond = EntityCondition.makeCondition(parentTypes, EntityOperator.OR);
-    invoiceItemTypes = delegator.findList("InvoiceItemType", parentTypesCond, null, UtilMisc.toList("parentTypeId", "invoiceItemTypeId"), null, false);
-    glAccountOrganizationAndClassList = delegator.findByAnd("GlAccountOrganizationAndClass", UtilMisc.toMap("organizationPartyId", invoice.get("partyId")));
+    invoiceItemTypes = delegator.findList("InvoiceItemType", parentTypesCond, null, ["parentTypeId", "invoiceItemTypeId"], null, false);
+    glAccountOrganizationAndClassList = delegator.findByAnd("GlAccountOrganizationAndClass", [organizationPartyId : invoice.partyId]);
 } else {
-    map = delegator.findByAndCache("InvoiceItemTypeMap", UtilMisc.toMap("invoiceTypeId", invoice.get("invoiceTypeId")));
+    map = delegator.findByAndCache("InvoiceItemTypeMap", [invoiceTypeId : invoice.invoiceTypeId]);
     invoiceItemTypes = EntityUtil.getRelated("InvoiceItemType", map);
 }
-context.put("invoiceItemTypes", invoiceItemTypes);
+context.invoiceItemTypes = invoiceItemTypes;
 
-context.put("glAccountOrganizationAndClassList", glAccountOrganizationAndClassList);
+context.glAccountOrganizationAndClassList = glAccountOrganizationAndClassList;
