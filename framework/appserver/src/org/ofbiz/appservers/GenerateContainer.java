@@ -26,22 +26,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.io.StringWriter;
 import java.io.Writer;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
@@ -49,7 +43,6 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.component.ComponentConfig;
-import org.ofbiz.base.component.ComponentConfig.WebappInfo;
 import org.ofbiz.base.container.Container;
 import org.ofbiz.base.container.ContainerException;
 import org.ofbiz.base.start.Classpath;
@@ -58,11 +51,7 @@ import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.template.FreeMarkerWorker;
-import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.xml.sax.SAXException;
 
 /**
  * GenerateContainer - Generates Configuration Files For Application Servers
@@ -400,9 +389,12 @@ public class GenerateContainer implements Container {
         return parentDir.listFiles();
     }
 
-    private Map<String, Object> buildDataMap() {
+    private Map<String, Object> buildDataMap() throws ContainerException {
         Map<String, Object> dataMap = FastMap.newInstance();
         List c[] = getClasspath();
+        dataMap.put("targetDirectory", getTargetDirectory());
+        dataMap.put("pathSeparatorChar", File.pathSeparatorChar);
+        dataMap.put("classpath", System.getProperty("java.class.path"));
         dataMap.put("classpathJars", c[0]);
         dataMap.put("classpathDirs", c[1]);
         dataMap.put("env", System.getProperties());
@@ -431,15 +423,7 @@ public class GenerateContainer implements Container {
         return lists;
     }
 
-    private void parseTemplate(File templateFile, Map<String, Object> dataMap) throws ContainerException {
-        Debug.log("Parsing template : " + templateFile.getAbsolutePath(), module);
-        Reader reader = null;
-        try {
-            reader = new InputStreamReader(new FileInputStream(templateFile));
-        } catch (FileNotFoundException e) {
-            throw new ContainerException(e);
-        }
-
+    private String getTargetDirectory() throws ContainerException {
         // create the target file/directory
         String targetDirectoryName = args.length > 1 ? args[1] : null;
         if (targetDirectoryName == null) {
@@ -462,6 +446,21 @@ public class GenerateContainer implements Container {
         if (!targetDirectory.endsWith("/")) {
             targetDirectory = targetDirectory + "/";
         }
+
+        return targetDirectory;
+    }
+
+    private void parseTemplate(File templateFile, Map<String, Object> dataMap) throws ContainerException {
+        Debug.log("Parsing template : " + templateFile.getAbsolutePath(), module);
+        Reader reader = null;
+        try {
+            reader = new InputStreamReader(new FileInputStream(templateFile));
+        } catch (FileNotFoundException e) {
+            throw new ContainerException(e);
+        }
+
+        // create the target file/directory
+        String targetDirectory = getTargetDirectory();
 
         // write the template to the target directory
         Writer writer = null;
