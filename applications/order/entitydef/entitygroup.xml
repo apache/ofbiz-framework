@@ -207,6 +207,7 @@ under the License.
     <entity-group group="org.ofbiz" entity="SalesOpportunityQuote" />
     <entity-group group="org.ofbiz" entity="SalesOpportunityTrckCode" />
     <entity-group group="org.ofbiz" entity="SalesForecast" />
+    <entity-group group="org.ofbiz" entity="SalesForecastDetail" />
     <entity-group group="org.ofbiz" entity="SalesForecastHistory" />
     <entity-group group="org.ofbiz" entity="SalesForecastAndCustomTimePeriod" />
     
