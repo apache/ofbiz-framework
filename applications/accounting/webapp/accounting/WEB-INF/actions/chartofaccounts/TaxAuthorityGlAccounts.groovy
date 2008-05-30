@@ -21,13 +21,12 @@ import org.ofbiz.base.util.UtilMisc;
 import javolution.util.FastList;
 
 taxAuthorityHavingNoGlAccountList = FastList.newInstance();
-taxAuthorities = delegator.findList("TaxAuthority", null, null, UtilMisc.toList("taxAuthGeoId", "taxAuthPartyId"), null, false);
-iter = taxAuthorities.iterator();
-while (iter.hasNext()) {
-    taxAuthority = iter.next();
-    taxAuthorityGlAccount = delegator.findByPrimaryKey("TaxAuthorityGlAccount", UtilMisc.toMap("taxAuthGeoId", taxAuthority.getString("taxAuthGeoId"), "taxAuthPartyId", taxAuthority.getString("taxAuthPartyId"), "organizationPartyId", organizationPartyId));
-    if (taxAuthorityGlAccount == null) {
+taxAuthorities = delegator.findList("TaxAuthority", null, null, ["taxAuthGeoId", "taxAuthPartyId"], null, false);
+taxAuthorities.each {
+    taxAuthority = it;
+    taxAuthorityGlAccount = delegator.findByPrimaryKey("TaxAuthorityGlAccount", [taxAuthGeoId : taxAuthority.taxAuthGeoId, taxAuthPartyId : taxAuthority.taxAuthPartyId, organizationPartyId : organizationPartyId]);
+    if (!taxAuthorityGlAccount) {
         taxAuthorityHavingNoGlAccountList.add(taxAuthority);
     }
 }
-context.put("taxAuthorityHavingNoGlAccountList", taxAuthorityHavingNoGlAccountList);
+context.taxAuthorityHavingNoGlAccountList = taxAuthorityHavingNoGlAccountList;

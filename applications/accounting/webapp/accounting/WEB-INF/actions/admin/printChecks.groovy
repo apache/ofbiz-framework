@@ -31,8 +31,6 @@ context.rounding = rounding;
 payments = new ArrayList();
 
 // first ensure ability to print
-security = request.getAttribute("security");
-context.security = security;
 if (!security.hasEntityPermission("ACCOUNTING", "_PRINT_CHECKS", session)) {
     context.payments = []; // if no permission, just pass an empty list for now
     return;
@@ -49,11 +47,8 @@ if (paymentId) {
 
 // in the case of a multi form, parse the multi data and get all of the selected payments
 selected = UtilHttp.parseMultiFormData(parameters);
-iter = selected.iterator();
-while (iter) {
-    row = iter.next(); 
-    payment = delegator.findByPrimaryKey("Payment", [paymentId : row.paymentId]);
-    if (!payment) continue;
-    payments.add(payment);
+selected.each {
+    payment = delegator.findByPrimaryKey("Payment", [paymentId : it.paymentId]);
+    if (payment) payments.add(payment);    
 }
 context.payments = payments;

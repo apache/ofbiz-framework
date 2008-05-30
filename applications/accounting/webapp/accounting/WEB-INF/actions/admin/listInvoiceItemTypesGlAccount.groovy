@@ -32,9 +32,8 @@ organizationPartyId = parameters.organizationPartyId;
 
 List invoiceItemTypes = delegator.findList("InvoiceItemType", EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.LIKE, invItemTypePrefix), null, null, null, false);
 List allTypes = new LinkedList();
-i = invoiceItemTypes.iterator();
-while(i) {
-    GenericValue invoiceItemType = i.next();
+invoiceItemTypes.each {
+    GenericValue invoiceItemType = it;
     String activeGlDescription = "";
     String remove = " ";
     List glAccounts = null;
