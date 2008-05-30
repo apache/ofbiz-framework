@@ -327,6 +327,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         protected Menu tabMenu = null;
         protected Form navigationForm = null;
         protected boolean collapsible = false;
+        protected boolean initiallyCollapsed = false;
         protected boolean padded = true;
         protected List<ModelScreenWidget> subWidgets;
         
@@ -334,6 +335,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
             super(modelScreen, screenletElement);
             this.idExdr = new FlexibleStringExpander(screenletElement.getAttribute("id"));
             this.collapsible = "true".equals(screenletElement.getAttribute("collapsible"));
+            this.initiallyCollapsed = "true".equals(screenletElement.getAttribute("initially-collapsed"));
             this.padded = !"false".equals(screenletElement.getAttribute("padded"));
             if (this.collapsible && UtilValidate.isEmpty(this.name) && idExdr.isEmpty()) {
                 throw new IllegalArgumentException("Collapsible screenlets must have a name or id [" + this.modelScreen.getName() + "]");
@@ -376,12 +378,15 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         }
 
         public void renderWidgetString(Writer writer, Map context, ScreenStringRenderer screenStringRenderer) throws GeneralException {
-            boolean collapsed = false;
+            boolean collapsed = initiallyCollapsed;
             if (this.collapsible) {
                 String preferenceKey = getPreferenceKey(context) + "_collapsed";
                 Map requestParameters = (Map)context.get("requestParameters");
                 if (requestParameters != null) {
-                    collapsed = "true".equals(requestParameters.get(preferenceKey));
+                    String collapsedParam = (String) requestParameters.get(preferenceKey);
+                    if (UtilValidate.isNotEmpty(collapsedParam)) {
+                        collapsed = "true".equals(collapsedParam);
+                    }
                 }
             }
             try {
@@ -401,6 +406,10 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         
         public boolean collapsible() {
             return this.collapsible;
+        }
+
+        public boolean initiallyCollapsed() {
+            return this.initiallyCollapsed;
         }
 
         public boolean padded() {
@@ -1481,6 +1490,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         }
     }
 }
+
 
 
 
