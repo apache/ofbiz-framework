@@ -17,17 +17,24 @@
  * under the License.
  */
 
-//import org.ofbiz.entity.*;
-//import org.ofbiz.base.util.*;
-
-delegator = request.getAttribute("delegator");
-security = request.getAttribute("security");
+import org.ofbiz.base.util.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.widget.html.*;
 
 if(security.hasEntityPermission("ACCOUNTING", "_VIEW", session)) {
-    context.put("hasPermission", Boolean.TRUE);
+    context.hasPermission = true;
 } else {
-    context.put("hasPermission", Boolean.FALSE);
+    context.hasPermission = false;
 }
 
-glAccounts = delegator.findList("GlAccount", null, null, null, null, false);
-context.put("glAccounts", glAccounts);
+glAccountId = request.getParameter("glAccountId");
+glAccount = delegator.findByPrimaryKey("GlAccount", [glAccountId : glAccountId]);
+
+HtmlFormWrapper editGlAccountWrapper = new HtmlFormWrapper("component://accounting/widget/GlobalGlAccountsForms.xml", "EditGlAccount", request, response);
+editGlAccountWrapper.putInContext("glAccount", glAccount);
+editGlAccountWrapper.putInContext("glAccountId", glAccountId);
+editGlAccountWrapper.putInContext("uiLabelMap", request.getAttribute("uiLabelMap"));
+
+context.glAccountId = glAccountId;
+context.glAccount = glAccount;
+context.editGlAccountWrapper = editGlAccountWrapper;

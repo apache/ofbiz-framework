@@ -20,10 +20,10 @@
  import org.ofbiz.entity.*;
 
  acctgTransId = request.getParameter("acctgTransId");
- if(acctgTransId !=null){
-     acctgTrans = delegator.findByPrimaryKey("AcctgTrans", UtilMisc.toMap("acctgTransId", acctgTransId));
-     isPosted = acctgTrans.get("isPosted");
-     if (isPosted !=null && isPosted.equals("Y")){
-         parameters.put("isPosted", isPosted);
+ if (acctgTransId) {
+     acctgTrans = delegator.findByPrimaryKey("AcctgTrans", [acctgTransId : acctgTransId]);
+     isPosted = acctgTrans.isPosted;
+     if ("Y".equals(isPosted)) {
+         parameters.isPosted = isPosted;
      }
  }
