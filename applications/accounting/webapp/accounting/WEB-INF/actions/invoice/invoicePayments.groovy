@@ -16,26 +16,14 @@
  * specific language governing permissions and limitations
  * under the License.
  */
- 
+
 import java.util.*;
 import org.ofbiz.entity.*;
 import org.ofbiz.base.util.*;
-import org.ofbiz.base.util.collections.*;
 import org.ofbiz.accounting.invoice.*;
-import java.text.DateFormat;
+ 
+invoiceId = request.getParameter("invoiceId");
 
-delegator = request.getAttribute("delegator");
-// if (invoiceId == null)  return;
-// invoice = delegator.findByPrimaryKey("Invoice", UtilMisc.toMap("invoiceId", invoiceId));
-
-ArrayList newInvoices = new ArrayList();    //create new list, cannot modify existing one
-Iterator i = (Iterator) context.get("listIt");  // get iterator existing list
-while (i.hasNext())    {
-    item = i.next();
-    Map itemmap = new HashMap();
-    itemmap.putAll((Map) item);
-    itemmap.put("total", InvoiceWorker.getInvoiceTotal(item));
-     //create new list
-    newInvoices.add(itemmap);
-}
-context.put("newListIt",newInvoices.iterator());
+payments = delegator.findByAnd("PaymentAndApplication", [invoiceId : invoiceId]);
+context.payments = payments;
+context.invoiceId : invoiceId;
