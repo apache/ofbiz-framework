@@ -225,7 +225,10 @@ under the License.
             <widgets>
                 <section>
                     <condition>
-                        <not><if-empty field-name="leadDescription"/></not>                                        
+                        <or>
+                            <not><if-empty field-name="leadDescription"/></not>                                        
+                            <not><if-empty field-name="accountLeadDescription"/></not>
+                        </or>
                     </condition>
                     <actions>
                         <set field="headerItem" value="Leads"/>
@@ -292,11 +295,28 @@ under the License.
                                 </section>
                                 <section>
                                     <condition>
-                                        <not><if-empty field-name="leadDescription"/></not>                                        
+                                        <or>
+                                            <not><if-empty field-name="leadDescription"/></not>                                        
+                                            <not><if-empty field-name="accountLeadDescription"/></not>
+                                        </or>
                                     </condition>
                                     <widgets>
                                         <container style="profile-left">
                                             <include-screen name="Party" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <section>
+                                                <actions>
+                                                    <entity-one entity-name="PartyGroup" value-name="lookupGroup">
+                                                        <field-map field-name="partyId" env-name="partyGroupId"/>
+                                                    </entity-one>
+                                                </actions>
+                                                <widgets>
+                                                    <platform-specific>
+                                                        <html>
+                                                            <html-template location="component://party/webapp/partymgr/party/profileblocks/Party.ftl"/>
+                                                        </html>
+                                                    </platform-specific>
+                                                </widgets>
+                                            </section>
                                             <include-screen name="Contact" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                         </container>
                                         <container style="profile-right">
