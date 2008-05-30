@@ -51,7 +51,6 @@ under the License.
     <webapp name="example"
         title="Example"
         menu-name="secondary"
-        position="95"
         server="default-server"
         location="webapp/example"
         base-permission="OFBTOOLS,EXAMPLE"

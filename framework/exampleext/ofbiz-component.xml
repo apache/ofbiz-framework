@@ -23,6 +23,6 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-component.xsd">
     <resource-loader name="main" type="component"/>
 
-    <webapp name="exampleext" title="ExampleExt" menu-name="secondary" position="99" server="default-server" location="webapp/exampleext"
+    <webapp name="exampleext" title="ExampleExt" menu-name="secondary" server="default-server" location="webapp/exampleext"
         base-permission="OFBTOOLS,EXAMPLE" mount-point="/exampleext"/>
 </ofbiz-component>

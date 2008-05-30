@@ -29,7 +29,6 @@ under the License.
     <webapp name="webtools"
         title="WebTools"
         menu-name="secondary"
-        position="20"
         server="default-server"
         location="webapp/webtools"
         base-permission="OFBTOOLS,WEBTOOLS"
