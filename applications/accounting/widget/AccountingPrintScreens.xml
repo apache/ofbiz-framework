@@ -32,7 +32,7 @@ under the License.
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="title" value="Invoice"/>
-                <script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/editInvoice.bsh"/>                
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/editInvoice.groovy"/>                
             </actions>
             <widgets>
                 <decorator-screen name="FoReportDecorator" location="component://common/widget/CommonScreens.xml">
