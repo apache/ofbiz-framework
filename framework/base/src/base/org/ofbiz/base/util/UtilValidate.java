@@ -1149,8 +1149,15 @@ public class UtilValidate {
      */
     public static boolean isVisaElectron(String cc) {
         String first6digs = cc.substring(0, 6);
+        String first4digs = cc.substring(0, 4);
 
-        if ((cc.length() == 16) && (first6digs.equals("417500")))
+        if ((cc.length() == 16) &&
+            (first6digs.equals("417500") ||
+                first4digs.equals("4917") ||
+                first4digs.equals("4913") ||
+                first4digs.equals("4508") ||
+                first4digs.equals("4844") ||
+                first4digs.equals("4027")))
             return isCreditCard(cc);
         return false;
     }
