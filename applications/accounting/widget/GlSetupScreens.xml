@@ -853,7 +853,7 @@ under the License.
                     <order-by field-name="taxAuthGeoId"/>
                     <order-by field-name="taxAuthPartyId"/>
                 </entity-condition>
-                <script location="component://accounting/webapp/accounting/WEB-INF/actions/chartofaccounts/TaxAuthorityGlAccounts.bsh"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/chartofaccounts/TaxAuthorityGlAccounts.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonAdminDecorator">

@@ -216,7 +216,7 @@ under the License.
                 <set field="tabButtonItem" value="FindAcctgTrans"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
                 <set field="acctgTransId" from-field="parameters.acctgTransId"/>
-                <script location="component://accounting/webapp/accounting/WEB-INF/actions/chartofaccounts/editGlJournalEntry.bsh"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/chartofaccounts/editGlJournalEntry.groovy"/>
                 
                 <entity-one entity-name="AcctgTrans" value-name="acctgTrans"/>
                 <entity-one entity-name="AcctgTransEntry" value-name="acctgTransEntry">
