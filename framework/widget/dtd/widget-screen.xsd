@@ -875,6 +875,15 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+        <xs:attribute name="initially-collapsed" default="false">
+            <xs:annotation><xs:documentation>When set to true, screenlet will be collapsed initially. Defaults to false.</xs:documentation></xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
         <xs:attribute name="padded" default="true">
             <xs:annotation><xs:documentation>When set to true, screenlet content will be padded. Defaults to true.</xs:documentation></xs:annotation>
             <xs:simpleType>
