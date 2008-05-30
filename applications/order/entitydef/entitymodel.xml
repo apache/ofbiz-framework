@@ -2879,6 +2879,32 @@ under the License.
         </relation>
     </entity>
 
+    <entity entity-name="SalesForecastDetail" 
+            package-name="org.ofbiz.order.opportunity"
+            title="Stores Details of Resourses of Sales Forecast for simulation of MRP">
+        <field name="salesForecastId" type="id-ne"/>    
+        <field name="salesForecastDetailId" type="id-ne"/>
+        <field name="amount" type="currency-amount"/>
+        <field name="quantityUomId" type="id"/>
+        <field name="quantity" type="floating-point"/>
+        <field name="productId" type="id"/>
+        <field name="productCategoryId" type="id"/>
+        <prim-key field="salesForecastId"/>
+        <prim-key field="salesForecastDetailId"/>
+        <relation type="one" fk-name="SALES4CDTL_SALES4C" rel-entity-name="SalesForecast">
+            <key-map field-name="salesForecastId"/>
+        </relation>
+        <relation type="one" fk-name="SALES4CDTL_QTY_UOM" title="Quantity" rel-entity-name="Uom">
+            <key-map field-name="quantityUomId" rel-field-name="uomId"/>
+        </relation>
+        <relation type="one" fk-name="SALES4CDTL_PROD" rel-entity-name="Product">
+            <key-map field-name="productId"/>
+        </relation>
+        <relation type="one" fk-name="SALES4CDTL_PCTGRY" rel-entity-name="ProductCategory">
+            <key-map field-name="productCategoryId"/>
+        </relation>
+    </entity>
+    
     <entity entity-name="SalesForecastHistory"
             package-name="org.ofbiz.order.opportunity"
             title="Keeps a record of changes to a sales forecast.">
