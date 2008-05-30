@@ -33,6 +33,10 @@ under the License.
     <entity-resource type="data" reader-name="demo" loader="main" location="data/sfaDemoData.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
     <service-resource type="eca" loader="main" location="servicedef/secas.xml"/>
+
+    <!-- test suite -->
+    <test-suite loader="main" location="testdef/MarketingTests.xml"/>
+
     <webapp name="marketing"
         title="Marketing"
         server="default-server"
