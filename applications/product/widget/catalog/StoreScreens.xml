@@ -101,7 +101,7 @@ under the License.
                 <set field="productStoreId" from-field="parameters.productStoreId"/>
                 <entity-one entity-name="ProductStore" value-name="productStore" auto-field-map="true"/>
 
-                <script location="component://product/webapp/catalog/WEB-INF/actions/store/EditProductStoreRoles.bsh"/>
+                <script location="component://product/webapp/catalog/WEB-INF/actions/store/EditProductStoreRoles.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProductStoreDecorator" location="${parameters.mainDecoratorLocation}">
@@ -571,7 +571,7 @@ under the License.
                 <set field="productStoreId" from-field="parameters.productStoreId"/>
                 <entity-one entity-name="ProductStore" value-name="productStore" auto-field-map="true"/>
 
-                <script location="component://product/webapp/catalog/WEB-INF/actions/store/EditProductStoreSurveys.bsh"/>
+                <script location="component://product/webapp/catalog/WEB-INF/actions/store/EditProductStoreSurveys.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProductStoreDecorator" location="${parameters.mainDecoratorLocation}">

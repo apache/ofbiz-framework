@@ -17,17 +17,13 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.util.*;
-import org.ofbiz.widget.html.*;
+import org.ofbiz.entity.*
+import org.ofbiz.entity.util.*
 
-List productStoreRoles = delegator.findByAnd("ProductStoreRole", UtilMisc.toMap("productStoreId", productStoreId), UtilMisc.toList("sequenceNum"));
-if (request.getParameter("showAll") == null) {
+List productStoreRoles = delegator.findByAnd("ProductStoreRole", ['productStoreId' : productStoreId], ['sequenceNum']);
+if (!request.getParameter("showAll")) {
     productStoreRoles = EntityUtil.filterByDate(productStoreRoles);
 }
-context.put("productStoreRoles", productStoreRoles);
+context.productStoreRoles = productStoreRoles;
 
-roleTypes = delegator.findList("RoleType", null, null, UtilMisc.toList("description"), null, false);
-context.put("roleTypes", roleTypes);
-
+context.roleTypes = delegator.findList("RoleType", null, null, ['description'], null, false);
