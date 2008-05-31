@@ -17,12 +17,12 @@
  * under the License.
  */
 
-import org.ofbiz.entity.*;
-import org.ofbiz.base.util.*;
+import org.ofbiz.entity.*
+import org.ofbiz.base.util.*
 
-relationshipEnums = delegator.findByAndCache("Enumeration", UtilMisc.toMap("enumTypeId", "KW_THES_REL"), UtilMisc.toList("sequenceId"));
+relationshipEnums = delegator.findByAndCache("Enumeration", ['enumTypeId' : 'KW_THES_REL'], ['sequenceId']);
 
-keywordThesauruses = delegator.findList("KeywordThesaurus", null, null, UtilMisc.toList("enteredKeyword"), null, false);
+keywordThesauruses = delegator.findList("KeywordThesaurus", null, null, ['enteredKeyword'], null, false);
 
 //if no param sent in make firstLetter 'a' else use firstLetter passed in
 firstLetterString = request.getParameter("firstLetter");
@@ -36,20 +36,20 @@ else {
 //add elememts to new list as long as it is smaller then 20,
 //  but always get all of the first letter
 keywordThesaurusIter = keywordThesauruses.iterator();
-newKeywordThesaurus=new LinkedList();
-specialCharKeywordThesaurus=new LinkedList();
-currentLetter=firstLetter;
+newKeywordThesaurus = new LinkedList();
+specialCharKeywordThesaurus = new LinkedList();
+currentLetter = firstLetter;
 if (keywordThesaurusIter.hasNext()) {
     while (keywordThesaurusIter.hasNext()) {
-        keywordThesaurus =  keywordThesaurusIter.next();
+        keywordThesaurus = keywordThesaurusIter.next();
         if (keywordThesaurus.get("enteredKeyword").charAt(0)<'a' ||
                 keywordThesaurus.get("enteredKeyword").charAt(0)>'z') {
             specialCharKeywordThesaurus.add(keywordThesaurus);
-        } else if (keywordThesaurus.get("enteredKeyword").charAt(0)>=firstLetter) {
-            if (keywordThesaurus.get("enteredKeyword").charAt(0)==currentLetter ||
+        } else if (keywordThesaurus.get("enteredKeyword").charAt(0) >= firstLetter) {
+            if (keywordThesaurus.get("enteredKeyword").charAt(0) == currentLetter ||
                     newKeywordThesaurus.size()<20){
                 newKeywordThesaurus.add(keywordThesaurus);
-                currentLetter=keywordThesaurus.get("enteredKeyword").charAt(0);
+                currentLetter = keywordThesaurus.get("enteredKeyword").charAt(0);
             }
         }
     }
@@ -68,7 +68,7 @@ for (i='a'; i<='z'; i++) {
     letterList.add(i);
 }
 
-context.put("relationshipEnums", relationshipEnums);
-context.put("keywordThesauruses", newKeywordThesaurus);
-context.put("firstLetter", firstLetter);
-context.put("letterList", letterList);
+context.relationshipEnums = relationshipEnums;
+context.keywordThesauruses = newKeywordThesaurus;
+context.firstLetter = firstLetter;
+context.letterList = letterList;
