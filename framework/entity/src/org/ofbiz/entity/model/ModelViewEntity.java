@@ -404,6 +404,8 @@ public class ModelViewEntity extends ModelEntity {
                 } else {
                     field.isPk = aliasedField.isPk;
                 }
+                
+                field.encrypt = aliasedField.encrypt;
 
                 field.type = aliasedField.type;
                 field.validators = aliasedField.validators;
