@@ -64,7 +64,7 @@ public class UtilDateTime {
     /**
      * JDBC escape format for java.sql.Timestamp conversions.
      */
-    public static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss.S";
+    public static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
     /**
      * JDBC escape format for java.sql.Time conversions.
      */
