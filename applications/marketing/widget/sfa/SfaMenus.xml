@@ -19,7 +19,7 @@ under the License.
 -->
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
     <menu name="SfaAppBar" default-menu-item-name="main" id="app-navigation" type="simple" title="${uiLabelMap.SfaManagerApplication}"
-        default-selected-style="selected" menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="headerItem">
+        default-selected-style="selected" menu-container-style="button-bar tab-bar no-clear" selected-menuitem-context-field-name="headerItem">
         <menu-item name="Main" title="${uiLabelMap.MarketingMainPage}"><link target="main"/></menu-item>
         <menu-item name="Accounts" title="${uiLabelMap.SfaAcccounts}"><link target="FindAccounts"/></menu-item>
         <menu-item name="Contacts" title="${uiLabelMap.SfaContacts}"><link target="FindContacts"/></menu-item>
@@ -39,7 +39,7 @@ under the License.
         </menu-item>
     </menu>
     
-    <menu name="OpportunityTabBar" type="simple" menu-container-style="button-bar tab-bar" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem">
+    <menu name="OpportunityTabBar" type="simple" menu-container-style="button-bar tab-bar no-clear" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem">
         <menu-item name="ViewOpportunity" title="${uiLabelMap.SfaOpportunitySummary}">
             <link target="ViewOpportunity?salesOpportunityId=${parameters.salesOpportunityId}"/>
         </menu-item>
@@ -48,7 +48,7 @@ under the License.
         </menu-item>
     </menu>
     
-    <menu name="AccountTabBar" type="simple" menu-container-style="button-bar tab-bar" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem">  
+    <menu name="AccountTabBar" type="simple" menu-container-style="button-bar tab-bar no-clear" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem">  
         <menu-item name="profile" title="${uiLabelMap.PartyProfile}">
             <link target="viewprofile?partyId=${parameters.partyId}"/>
         </menu-item>
@@ -59,7 +59,7 @@ under the License.
         </menu-item>
     </menu>    
     
-    <menu name="LeadTabBar" menu-container-style="button-bar tab-bar" default-selected-style="selected" type="simple" selected-menuitem-context-field-name="tabButtonItem"> 
+    <menu name="LeadTabBar" menu-container-style="button-bar tab-bar no-clear" default-selected-style="selected" type="simple" selected-menuitem-context-field-name="tabButtonItem"> 
         <menu-item name="profile" title="${uiLabelMap.PartyProfile}">
             <link target="viewprofile?partyId=${parameters.partyId}"/>
         </menu-item>
@@ -74,7 +74,7 @@ under the License.
         </menu-item>      
     </menu>
     
-    <menu name="LeadSubTabBar" menu-container-style="button-bar button-style-2" default-selected-style="selected">
+    <menu name="LeadSubTabBar" menu-container-style="button-bar button-style-2 no-clear" default-selected-style="selected">
         <menu-item name="CreateLead" title="${uiLabelMap.CommonCreateNew}">
             <link target="CreateLead"/>
         </menu-item>
@@ -83,7 +83,7 @@ under the License.
         </menu-item>
     </menu>    
 
-    <menu name="ContactTabBar" type="simple" menu-container-style="button-bar tab-bar" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem"> 
+    <menu name="ContactTabBar" type="simple" menu-container-style="button-bar tab-bar no-clear" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem"> 
         <menu-item name="profile" title="${uiLabelMap.PartyProfile}">
             <link target="viewprofile?partyId=${parameters.partyId}"/>
         </menu-item>
@@ -91,7 +91,7 @@ under the License.
             <link target="MergeContacts"/>
         </menu-item>
     </menu>    
-    <menu name="ContactSubTabBar" menu-container-style="button-bar button-style-2" default-selected-style="selected">  
+    <menu name="ContactSubTabBar" menu-container-style="button-bar button-style-2 no-clear" default-selected-style="selected">  
         <menu-item name="CreateContact" title="${uiLabelMap.CommonCreateNew}">
             <link target="CreateContact"/>
         </menu-item>

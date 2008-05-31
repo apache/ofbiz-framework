@@ -77,7 +77,7 @@ under the License.
     </form>
 
     <form name="EditPartyGroup" type="single" target="updatePartyGroup" default-map-name="partyGroup"
-            focus-field-name="groupName" header-row-style="header-row" default-table-style="basic-table">
+        focus-field-name="groupName" header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="partyGroup==null" target="createPartyGroup"/>
         <auto-fields-service service-name="updatePartyGroup"/>
         <field use-when="partyGroup!=null" name="partyId" title="${uiLabelMap.PartyPartyId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
@@ -96,7 +96,24 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit button-type="button"/></field>
         <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit"><hyperlink target="${donePage}?partyId=${partyId}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field>
     </form>
-
+    
+    <form name="ViewPartyGroup" type="single" default-map-name="partyGroup"
+        focus-field-name="groupName" header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-entity entity-name="PartyGroup" default-field-type="display"/>
+        <field name="partyTypeId"><ignored/></field>
+        <field name="preferredCurrencyUomId">
+            <drop-down allow-empty="true">
+                <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
+                    <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
+                    <entity-order-by field-name="abbreviation"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="comments"><ignored/></field>
+        <field name="logoImageUrl"><ignored/></field>
+        <field name="preferredCurrencyUomId" title="${uiLabelMap.CommonCurrency}"><display-entity entity-name="Uom" key-field-name="uomId" description="${description}"/></field>
+    </form>
+    
     <form name="AddUserLogin" type="single" target="createUserLogin"
         focus-field-name="userLoginId" header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createUserLogin"/>
