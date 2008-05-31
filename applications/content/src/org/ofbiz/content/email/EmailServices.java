@@ -39,6 +39,7 @@ import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.service.mail.MimeMessageWrapper;
 import org.ofbiz.webapp.view.ApacheFopWorker;
+import org.ofbiz.widget.fo.FoScreenRenderer;
 import org.ofbiz.widget.html.HtmlScreenRenderer;
 import org.ofbiz.widget.screen.ScreenRenderer;
 import org.xml.sax.SAXException;
@@ -69,6 +70,7 @@ public class EmailServices {
     public final static String module = EmailServices.class.getName();
 
     protected static final HtmlScreenRenderer htmlScreenRenderer = new HtmlScreenRenderer();
+    protected static final FoScreenRenderer foScreenRenderer = new FoScreenRenderer();
 
     /**
      * Basic JavaMail Service
@@ -374,7 +376,7 @@ public class EmailServices {
                 Writer writer = new StringWriter();
                 MapStack screenContextAtt = MapStack.create();
                 // substitute the freemarker variables...
-                ScreenRenderer screensAtt = new ScreenRenderer(writer, screenContext, htmlScreenRenderer);
+                ScreenRenderer screensAtt = new ScreenRenderer(writer, screenContext, foScreenRenderer);
                 screensAtt.populateContextForService(dctx, bodyParameters);
                 screenContextAtt.putAll(bodyParameters);
                 screensAtt.render(xslfoAttachScreenLocation);
