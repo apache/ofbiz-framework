@@ -31,8 +31,8 @@ import org.ofbiz.entity.util.*;
 //TODO: 
 
 // get products and categories under the root category
-productMemberList = delegator.findByAnd("ProductCategoryMember", UtilMisc.toMap("productCategoryId", rootProductCategoryId), UtilMisc.toList("sequenceNum"));
-categoryRollupList = delegator.findByAnd("ProductCategoryRollup", UtilMisc.toMap("parentProductCategoryId", rootProductCategoryId), UtilMisc.toList("sequenceNum"));
+productMemberList = delegator.findByAnd("ProductCategoryMember", [productCategoryId : rootProductCategoryId], ["sequenceNum"]);
+categoryRollupList = delegator.findByAnd("ProductCategoryRollup", [parentProductCategoryId : rootProductCategoryId], ["sequenceNum"]);
 
 // for use in the queries
 productIdSet = FastSet.newInstance();
@@ -42,21 +42,17 @@ productCategoryIdSet = FastSet.newInstance();
 productList = FastList.newInstance();
 productCategoryList = FastList.newInstance();
 
-productMemberIter = productMemberList.iterator();
-while (productMemberIter.hasNext()) {
-    productMember = productMemberIter.next();
-    if (!productIdSet.contains(productMember.get("productId"))) {
+productMemberList.each { productMember ->
+    if (!productIdSet.contains(productMember.productId)) {
         productList.add(productMember.getRelatedOneCache("Product"));
     }
-    productIdSet.add(productMember.get("productId"));
+    productIdSet.add(productMember.productId);
 }
-categoryRollupIter = categoryRollupList.iterator();
-while (categoryRollupIter.hasNext()) {
-    categoryRollup = categoryRollupIter.next();
-    if (!productCategoryIdSet.contains(categoryRollup.get("productCategoryId"))) {
+categoryRollupList.each { categoryRollup ->
+    if (!productCategoryIdSet.contains(categoryRollup.productCategoryId)) {
         productCategoryList.add(categoryRollup.getRelatedOneCache("CurrentProductCategory"));
     }
-    productCategoryIdSet.add(categoryRollup.get("productCategoryId"));
+    productCategoryIdSet.add(categoryRollup.productCategoryId);
 }
 
 productFieldsToSelect = UtilMisc.toSet("productId", "quantityTotal", "amountTotal");
@@ -64,27 +60,27 @@ productFieldsToSelect = UtilMisc.toSet("productId", "quantityTotal", "amountTota
 //NOTE: tax, etc also have productId on them, so restrict by type INV_PROD_ITEM, INV_FPROD_ITEM, INV_DPROD_ITEM, others?
 baseProductAndExprs = FastList.newInstance();
 baseProductAndExprs.add(EntityCondition.makeCondition("invoiceTypeId", EntityOperator.EQUALS, "SALES_INVOICE"));
-baseProductAndExprs.add(EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.IN, UtilMisc.toList("INV_PROD_ITEM", "INV_FPROD_ITEM", "INV_DPROD_ITEM")));
-baseProductAndExprs.add(EntityCondition.makeCondition("statusId", EntityOperator.IN, UtilMisc.toList("INVOICE_READY", "INVOICE_PAID")));
-if (UtilValidate.isNotEmpty(organizationPartyId)) baseProductAndExprs.add(EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, organizationPartyId));
-if (UtilValidate.isNotEmpty(currencyUomId)) baseProductAndExprs.add(EntityCondition.makeCondition("currencyUomId", EntityOperator.EQUALS, currencyUomId));
+baseProductAndExprs.add(EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.IN, ["INV_PROD_ITEM", "INV_FPROD_ITEM", "INV_DPROD_ITEM"]));
+baseProductAndExprs.add(EntityCondition.makeCondition("statusId", EntityOperator.IN, ["INVOICE_READY", "INVOICE_PAID"]));
+if (organizationPartyId) baseProductAndExprs.add(EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, organizationPartyId));
+if (currencyUomId) baseProductAndExprs.add(EntityCondition.makeCondition("currencyUomId", EntityOperator.EQUALS, currencyUomId));
 
 categoryFieldsToSelect = UtilMisc.toSet("productCategoryId", "quantityTotal", "amountTotal");
 
 baseCategoryAndExprs = FastList.newInstance();
 baseCategoryAndExprs.add(EntityCondition.makeCondition("invoiceTypeId", EntityOperator.EQUALS, "SALES_INVOICE"));
-baseCategoryAndExprs.add(EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.IN, UtilMisc.toList("INV_PROD_ITEM", "INV_FPROD_ITEM", "INV_DPROD_ITEM")));
-baseCategoryAndExprs.add(EntityCondition.makeCondition("statusId", EntityOperator.IN, UtilMisc.toList("INVOICE_READY", "INVOICE_PAID")));
-if (productCategoryIdSet.size() > 0) baseCategoryAndExprs.add(EntityCondition.makeCondition("productCategoryId", EntityOperator.IN, productCategoryIdSet));
-if (productIdSet.size() > 0) baseCategoryAndExprs.add(EntityCondition.makeCondition("productId", EntityOperator.NOT_IN, productIdSet));
-if (UtilValidate.isNotEmpty(organizationPartyId)) baseCategoryAndExprs.add(EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, organizationPartyId));
-if (UtilValidate.isNotEmpty(currencyUomId)) baseCategoryAndExprs.add(EntityCondition.makeCondition("currencyUomId", EntityOperator.EQUALS, currencyUomId));
+baseCategoryAndExprs.add(EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.IN, ["INV_PROD_ITEM", "INV_FPROD_ITEM", "INV_DPROD_ITEM"]));
+baseCategoryAndExprs.add(EntityCondition.makeCondition("statusId", EntityOperator.IN, ["INVOICE_READY", "INVOICE_PAID"]));
+if (productCategoryIdSet) baseCategoryAndExprs.add(EntityCondition.makeCondition("productCategoryId", EntityOperator.IN, productCategoryIdSet));
+if (productIdSet) baseCategoryAndExprs.add(EntityCondition.makeCondition("productId", EntityOperator.NOT_IN, productIdSet));
+if (organizationPartyId) baseCategoryAndExprs.add(EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, organizationPartyId));
+if (currencyUomId) baseCategoryAndExprs.add(EntityCondition.makeCondition("currencyUomId", EntityOperator.EQUALS, currencyUomId));
 
 
 // get the Calendar object for the current month (specifed by month, year Integer values in the context)
 monthCal = Calendar.getInstance();
-monthCal.set(Calendar.YEAR, year.intValue());
-monthCal.set(Calendar.MONTH, (month.intValue() - 1));
+monthCal.set(Calendar.YEAR, year);
+monthCal.set(Calendar.MONTH, (month - 1));
 
 nextMonthCal = Calendar.getInstance();
 nextMonthCal.setTimeInMillis(monthCal.getTimeInMillis());
@@ -113,15 +109,15 @@ for (int currentDay = 0; currentDay <= daysInMonth; currentDay++) {
     // do the product find
     productAndExprs = FastList.newInstance();
     productAndExprs.addAll(baseProductAndExprs);
-    if (productIdSet.size() > 0) productAndExprs.add(EntityCondition.makeCondition("productId", EntityOperator.IN, productIdSet));
+    if (productIdSet) productAndExprs.add(EntityCondition.makeCondition("productId", EntityOperator.IN, productIdSet));
     productAndExprs.add(EntityCondition.makeCondition("invoiceDate", EntityOperator.GREATER_THAN_EQUAL_TO, currentDayBegin));
     productAndExprs.add(EntityCondition.makeCondition("invoiceDate", EntityOperator.LESS_THAN, nextDayBegin));
     
     productResultListIterator = delegator.find("InvoiceItemProductSummary", EntityCondition.makeCondition(productAndExprs, EntityOperator.AND), null, productFieldsToSelect, null, findOpts);
     productResultMap = FastMap.newInstance();
-    while ((productResult = productResultListIterator.next()) != null) {
-        productResultMap.put(productResult.get("productId"), productResult);
-        monthProductResult = UtilMisc.getMapFromMap(monthProductResultMap, productResult.get("productId"));
+    while ((productResult = productResultListIterator.next())) {
+        productResultMap[productResult.productId] = productResult;
+        monthProductResult = UtilMisc.getMapFromMap(monthProductResultMap, productResult.productId);
         UtilMisc.addToBigDecimalInMap(monthProductResult, "quantityTotal", productResult.getBigDecimal("quantityTotal"));
         UtilMisc.addToBigDecimalInMap(monthProductResult, "amountTotal", productResult.getBigDecimal("amountTotal"));
     }
@@ -136,9 +132,9 @@ for (int currentDay = 0; currentDay <= daysInMonth; currentDay++) {
     
     categoryResultListIterator = delegator.find("InvoiceItemCategorySummary", EntityCondition.makeCondition(categoryAndExprs, EntityOperator.AND), null, categoryFieldsToSelect, null, findOpts);
     categoryResultMap = FastMap.newInstance();
-    while ((categoryResult = categoryResultListIterator.next()) != null) {
-        categoryResultMap.put(categoryResult.get("productCategoryId"), categoryResult);
-        monthCategoryResult = UtilMisc.getMapFromMap(monthCategoryResultMap, categoryResult.get("productCategoryId"));
+    while ((categoryResult = categoryResultListIterator.next())) {
+        categoryResultMap[categoryResult.productCategoryId] = categoryResult;
+        monthCategoryResult = UtilMisc.getMapFromMap(monthCategoryResultMap, categoryResult.productCategoryId);
         UtilMisc.addToBigDecimalInMap(monthCategoryResult, "quantityTotal", categoryResult.getBigDecimal("quantityTotal"));
         UtilMisc.addToBigDecimalInMap(monthCategoryResult, "amountTotal", categoryResult.getBigDecimal("amountTotal"));
     }
@@ -155,7 +151,7 @@ for (int currentDay = 0; currentDay <= daysInMonth; currentDay++) {
     // should just be 1 result
     productNullResult = productNullResultListIterator.next();
     productNullResultListIterator.close();
-    if (productNullResult != null) {
+    if (productNullResult) {
     	productNullResultByDayList.add(productNullResult);
         UtilMisc.addToBigDecimalInMap(monthProductNullResult, "quantityTotal", productNullResult.getBigDecimal("quantityTotal"));
         UtilMisc.addToBigDecimalInMap(monthProductNullResult, "amountTotal", productNullResult.getBigDecimal("amountTotal"));
@@ -165,14 +161,14 @@ for (int currentDay = 0; currentDay <= daysInMonth; currentDay++) {
     }
 }
 
-context.put("productResultMapByDayList", productResultMapByDayList);
-context.put("productNullResultByDayList", productResultMapByDayList);
-context.put("categoryResultMapByDayList", categoryResultMapByDayList);
+context.productResultMapByDayList = productResultMapByDayList;
+context.productNullResultByDayList = productNullResultMapByDayList;
+context.categoryResultMapByDayList = categoryResultMapByDayList;
 
-context.put("monthProductResultMap", monthProductResultMap);
-context.put("monthCategoryResultMap", monthCategoryResultMap);
-context.put("monthProductNullResult", monthProductNullResult);
+context.monthProductResultMap = monthProductResultMap;
+context.monthCategoryResultMap = monthCategoryResultMap;
+context.monthProductNullResult = monthProductNullResult;
 
-context.put("productCategoryList", productCategoryList);
-context.put("productList", productList);
+context.productCategoryList = productCategoryList;
+context.productList = productList;
     

@@ -33,19 +33,18 @@ import org.ofbiz.entity.model.*;
 import java.text.NumberFormat;
 
 
-basePaymentId = parameters.get("paymentId");
-basePayment = delegator.findByPrimaryKey("Payment", UtilMisc.toMap("paymentId", basePaymentId));
+basePaymentId = parameters.paymentId;
+basePayment = delegator.findByPrimaryKey("Payment", [paymentId : basePaymentId]);
 
-int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
-int rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
-Locale locale = context.get("locale");
+decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
+rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
 
-ArrayList paymentsMapList = new ArrayList();  // to pass back to the screeen list of unapplied payments
+paymentsMapList = [];  // to pass back to the screeen list of unapplied payments
 
 // retrieve payments for the related parties which have not been (fully) applied yet
 List payments = null;
 GenericValue payment = null;
-exprList = new ArrayList();
+exprList = [];
 expr = EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, basePayment.getString("partyIdFrom"));
 exprList.add(expr); 
 expr = EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, basePayment.getString("partyIdTo"));
@@ -54,7 +53,7 @@ expr = EntityCondition.makeCondition("paymentId", EntityOperator.NOT_EQUAL, base
 exprList.add(expr); 
 
 // only payments with received and sent
-exprListStatus = new ArrayList();
+exprListStatus = [];
 expr = EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PMNT_RECEIVED");
 exprListStatus.add(expr); 
 expr = EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PMNT_SENT");
@@ -64,33 +63,30 @@ exprList.add(orCond);
 
 topCond = EntityCondition.makeCondition(exprList, EntityOperator.AND);
 
-payments = delegator.findList("Payment", topCond, null, UtilMisc.toList("effectiveDate"), null, false);
-    
-if (payments != null && payments.size() > 0)    {
-    BigDecimal basePaymentApplied = PaymentWorker.getPaymentAppliedBd(basePayment);
-    BigDecimal basePaymentAmount = basePayment.getBigDecimal("amount");
-    BigDecimal basePaymentToApply = basePaymentAmount.subtract(basePaymentApplied); 
-    Iterator p = payments.iterator();
-    while(p.hasNext())    {
-        payment = p.next();
+payments = delegator.findList("Payment", topCond, null, ["effectiveDate"], null, false);
+
+if (payments)    {
+    basePaymentApplied = PaymentWorker.getPaymentAppliedBd(basePayment);
+    basePaymentAmount = basePayment.getBigDecimal("amount");
+    basePaymentToApply = basePaymentAmount.subtract(basePaymentApplied); 
+    payments.each { payment ->
         if (PaymentWorker.getPaymentNotAppliedBd(payment).signum() == 1) {  // positiv not applied amount?
            // yes, put in the map
-           Map paymentMap = new HashMap();
-           paymentMap.put("paymentId", basePaymentId);
-           paymentMap.put("toPaymentId", payment.getString("paymentId"));
-           paymentMap.put("currencyUomId", payment.getString("currencyUomId"));
-           paymentMap.put("effectiveDate", payment.getString("effectiveDate").substring(0,10)); // list as YYYY-MM-DD
-           paymentMap.put("amount", payment.getBigDecimal("amount"));
-           paymentMap.put("amountApplied", PaymentWorker.getPaymentAppliedBd(payment));
-           BigDecimal paymentToApply = PaymentWorker.getPaymentNotAppliedBd(payment);
+           paymentMap = [:];
+           paymentMap.paymentId = basePaymentId;
+           paymentMap.toPaymentId = payment.paymentId;
+           paymentMap.currencyUomId = payment.currencyUomId;
+           paymentMap.effectiveDate = payment.effectiveDate.substring(0,10)); // list as YYYY-MM-DD
+           paymentMap.amount = payment.getBigDecimal("amount"));
+           paymentMap.amountApplied = PaymentWorker.getPaymentAppliedBd(payment));
+           paymentToApply = PaymentWorker.getPaymentNotAppliedBd(payment);
            if (paymentToApply.compareTo(basePaymentToApply) < 0 ) {
-                paymentMap.put("amountToApply",paymentToApply);
-           }
-           else {
-                paymentMap.put("amountToApply",basePaymentToApply);
+                paymentMap.amountToApply = paymentToApply;
+           } else {
+                paymentMap.amountToApply = basePaymentToApply;
            }
            paymentsMapList.add(paymentMap);
         }
     }
-}       
-context.put("payments", paymentsMapList);
+}
+context.payments = paymentsMapList;

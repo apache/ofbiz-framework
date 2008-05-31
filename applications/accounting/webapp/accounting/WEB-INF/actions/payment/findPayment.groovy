@@ -23,32 +23,30 @@ import org.ofbiz.entity.*;
 import org.ofbiz.entity.condition.*;
 import org.ofbiz.base.util.*;
 
-delegator = request.getAttribute("delegator");
-
 // get the payment types
-paymentTypes = delegator.findList("PaymentType", null, null, UtilMisc.toList("description"), null, false);
-context.put("paymentTypes", paymentTypes);
+paymentTypes = delegator.findList("PaymentType", null, null, ["description"], null, false);
+context.paymentTypes = paymentTypes;
 
 // get the payment statuses
-paymentStatuses = delegator.findByAnd("StatusItem", UtilMisc.toMap("statusTypeId", "PMNT_STATUS"), UtilMisc.toList("sequenceId", "description"));
-context.put("paymentStatuses", paymentStatuses);
+paymentStatuses = delegator.findByAnd("StatusItem", [statusTypeId : "PMNT_STATUS"], ["sequenceId", "description"]);
+context.paymentStatuses = paymentStatuses;
 
 // get the payment method types
-paymentMethodTypes = delegator.findList("PaymentMethodType", null, null, UtilMisc.toList("description"), null, false);
-context.put("paymentMethodTypes", paymentMethodTypes);
+paymentMethodTypes = delegator.findList("PaymentMethodType", null, null, ["description"], null, false);
+context.paymentMethodTypes = paymentMethodTypes;
 
 // current selected status
 currentStatusId = request.getParameter("paymentStatusId");
-if (currentStatusId != null && currentStatusId.length() > 0) {
-    currentStatus = delegator.findByPrimaryKey("StatusItem", UtilMisc.toMap("statusId", currentStatusId));
-    context.put("currentStatus", currentStatus);
+if (currentStatusId) {
+    currentStatus = delegator.findByPrimaryKey("StatusItem", [statusId : currentStatusId]);
+    context.currentStatus = currentStatus;
 }
 
 // current selected payment method
 currentMethodId = request.getParameter("paymentMethodTypeId");
-if (currentMethodId != null && currentMethodId.length() > 0) {
-    currentMethod = delegator.findByPrimaryKey("PaymentMethodType", UtilMisc.toMap("paymentMethodTypeId", currentMethodId));
-    context.put("currentMethod", currentMethod);
+if (currentMethodId) {
+    currentMethod = delegator.findByPrimaryKey("PaymentMethodType", [paymentMethodTypeId : currentMethodId]);
+    context.currentMethod = currentMethod;
 }
 
 
@@ -63,7 +61,7 @@ fromCal.set(Calendar.MILLISECOND, fromCal.getActualMinimum(Calendar.MILLISECOND)
 fromTs = new Timestamp(fromCal.getTimeInMillis());
 fromStr = fromTs.toString();
 fromStr = fromStr.substring(0, fromStr.indexOf('.'));
-context.put("fromDateStr", fromStr);
+context.fromDateStr = fromStr;
 
 // create the thruDate for calendar
 toCal = Calendar.getInstance();
@@ -75,7 +73,7 @@ toCal.set(Calendar.SECOND, toCal.getActualMaximum(Calendar.SECOND));
 toCal.set(Calendar.MILLISECOND, toCal.getActualMaximum(Calendar.MILLISECOND));
 toTs = new Timestamp(toCal.getTimeInMillis());
 toStr = toTs.toString();
-context.put("thruDateStr", toStr);
+context.thruDateStr = toStr;
 
 // get the lookup flag
 lookupFlag = request.getParameter("lookupFlag");
@@ -84,17 +82,17 @@ lookupFlag = request.getParameter("lookupFlag");
 paramList = "";
 
 paymentList = null;
-if (lookupFlag != null) {
-    paramList = paramList + "&lookupFlag=" + lookupFlag;
+if (lookupFlag) {
+    paramList += "&lookupFlag=" + lookupFlag;
     lookupErrorMessage = null;   
-    andExprs = new ArrayList();
+    andExprs = [];
     entityName = "Payment"; 
-           
+
     // define the main condition
     mainCond = null;
     
     // now do the filtering
-    if (lookupErrorMessage == null) {               
+    if (!lookupErrorMessage) {               
         paymentType = request.getParameter("paymentType");
         paymentStatus = request.getParameter("paymentStatusId");
         paymentMethodType = request.getParameter("paymentMethodTypeId");
@@ -102,67 +100,67 @@ if (lookupFlag != null) {
         toPartyId = request.getParameter("toPartyId");
         minDate = request.getParameter("minDate");
         maxDate = request.getParameter("maxDate");
+
+        if (!paymentType) paymentType = "ANY";
+        if (!paymentStatus) paymentStatus = "ANY";
+        if (!paymentMethodType) paymentMethodType = "ANY";
                 
-        if (paymentType == null) paymentType = "ANY";
-        if (paymentStatus == null) paymentStatus = "ANY";
-        if (paymentMethodType == null) paymentMethodType = "ANY";
-                
-        paramList = paramList + "&paymentTypeId=" + paymentType;        
+        paramList += "&paymentTypeId=" + paymentType;        
         if (!"ANY".equals(paymentType)) {            
             andExprs.add(EntityCondition.makeCondition("paymentTypeId", EntityOperator.EQUALS, paymentType));
         }
-        paramList = paramList + "&paymentStatusId=" + paymentStatus;
+        paramList += "&paymentStatusId=" + paymentStatus;
         if (!"ANY".equals(paymentStatus)) {            
             andExprs.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, paymentStatus));
         }
-        paramList = paramList + "&paymentMethodTypeId=" + paymentMethodType;
+        paramList += "&paymentMethodTypeId=" + paymentMethodType;
         if (!"ANY".equals(paymentMethodType)) {            
             andExprs.add(EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.EQUALS, paymentMethodType));
         }
-        
-        if (UtilValidate.isNotEmpty(fromPartyId)) {
-            paramList = paramList + "&fromPartyId=" + fromPartyId;
+
+        if (fromPartyId) {
+            paramList += "&fromPartyId=" + fromPartyId;
             andExprs.add(EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, fromPartyId));
-            context.put("fromPartyId", fromPartyId);
+            context.fromPartyId = fromPartyId;
         }
-        
-        if (UtilValidate.isNotEmpty(toPartyId)) {
-            paramList = paramList + "&toPartyId=" + toPartyId;
+
+        if (toPartyId) {
+            paramList += "&toPartyId=" + toPartyId;
             andExprs.add(EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, toPartyId));
-            context.put("toPartyId", toPartyId);
+            context.toPartyId = toPartyId;
         }
-       
-        if (minDate != null && minDate.length() > 8) {            
+
+        if (minDate && minDate.length() > 8) {            
             minDate = minDate.trim();
             if (minDate.length() < 14) minDate = minDate + " " + "00:00:00.000";
-            paramList = paramList + "&minDate=" + minDate;
+            paramList += "&minDate=" + minDate;
             andExprs.add(EntityCondition.makeCondition("effectiveDate", EntityOperator.GREATER_THAN_EQUAL_TO, ObjectType.simpleTypeConvert(minDate, "Timestamp", null, null)));        
         }
-        if (maxDate != null && maxDate.length() > 8) {
+        if (maxDate && maxDate.length() > 8) {
             maxDate = maxDate.trim();
             if (maxDate.length() < 14) maxDate = maxDate + " " + "23:59:59.999";
-            paramList = paramList + "&maxDate=" + maxDate;
+            paramList += "&maxDate=" + maxDate;
             andExprs.add(EntityCondition.makeCondition("effectiveDate", EntityOperator.LESS_THAN_EQUAL_TO, ObjectType.simpleTypeConvert(maxDate, "Timestamp", null, null)));
         }
-                
+
         mainCond = EntityCondition.makeCondition(andExprs, EntityOperator.AND);        
-                                                       
+
     }
     
-    if (lookupErrorMessage == null && mainCond != null) {
+    if ((!lookupErrorMessage) && mainCond) {
         // do the lookup
-        paymentList = delegator.findList(entityName, mainCond, null, UtilMisc.toList("-effectiveDate"), null, false);
-        Debug.log("" + paymentList);         
+        paymentList = delegator.findList(entityName, mainCond, null, ["-effectiveDate"], null, false);
+        Debug.log("" + paymentList);
     }
+
+    context.paymentList = paymentList;
     
-    context.put("paymentList", paymentList);
-    
-    if (lookupErrorMessage != null) {
-        context.put("lookupErrorMessage", lookupErrorMessage);
+    if (lookupErrorMessage) {
+        context.lookupErrorMessage = lookupErrorMessage;
     }
 }
 
-context.put("paramList", paramList);
+context.paramList = paramList;
 
 // set the page parameters
 viewIndex = 0;
@@ -180,7 +178,7 @@ try {
 }
 
 listSize = 0;
-if (paymentList != null) {
+if (paymentList) {
     listSize = paymentList.size();
 }
 
@@ -189,8 +187,8 @@ highIndex = (viewIndex + 1) * viewSize;
 if (listSize < highIndex) {
     highIndex = listSize;
 }
-context.put("viewIndex", viewIndex);
-context.put("listSize", listSize);
-context.put("highIndex", highIndex);
-context.put("lowIndex", lowIndex);
-context.put("viewSize", viewSize);
+context.viewIndex = viewIndex;
+context.listSize = listSize;
+context.highIndex = highIndex;
+context.lowIndex = lowIndex;
+context.viewSize = viewSize;
