@@ -305,16 +305,14 @@ under the License.
                                             <include-screen name="Party" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                             <section>
                                                 <actions>
-                                                    <entity-one entity-name="PartyGroup" value-name="lookupGroup">
+                                                    <entity-one entity-name="PartyGroup" value-name="partyGroup">
                                                         <field-map field-name="partyId" env-name="partyGroupId"/>
                                                     </entity-one>
                                                 </actions>
                                                 <widgets>
-                                                    <platform-specific>
-                                                        <html>
-                                                            <html-template location="component://party/webapp/partymgr/party/profileblocks/Party.ftl"/>
-                                                        </html>
-                                                    </platform-specific>
+                                                    <screenlet title="${uiLabelMap.PartyPartyGroupInformation}" >
+                                                        <include-form name="ViewPartyGroup" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                                    </screenlet>
                                                 </widgets>
                                             </section>
                                             <include-screen name="Contact" location="component://party/widget/partymgr/ProfileScreens.xml"/>

@@ -17,6 +17,7 @@
  * under the License.
  */
  import org.ofbiz.entity.*;
+ import org.ofbiz.entity.util.EntityUtil;
  import org.ofbiz.base.util.*;
  
  roleTypeAndParty = delegator.findByAnd("RoleTypeAndParty", ['partyId': parameters.partyId, 'roleTypeId': 'ACCOUNT']); 
@@ -30,4 +31,15 @@
  roleTypeAndParty = delegator.findByAnd("RoleTypeAndParty", ['partyId': parameters.partyId, 'roleTypeId': 'LEAD']); 
  if (UtilValidate.isNotEmpty(roleTypeAndParty)) {
 	 context.put("leadDescription", roleTypeAndParty.get(0).getString("description"));
+	 partyRelationships = EntityUtil.filterByDate(delegator.findByAnd("PartyRelationship", ["partyIdTo": parameters.partyId, "roleTypeIdFrom": "ACCOUNT_LEAD", "roleTypeIdTo": "LEAD", "partyRelationshipTypeId": "LEAD_REL"]));
+	 context.put("partyGroupId", partyRelationships.get(0).partyIdFrom); 
+     context.put("partyId", parameters.partyId); 
  }
+ roleTypeAndParty = delegator.findByAnd("RoleTypeAndParty", ['partyId': parameters.partyId, 'roleTypeId': 'ACCOUNT_LEAD']); 
+ if (UtilValidate.isNotEmpty(roleTypeAndParty)) {
+	 context.put("leadDescription", roleTypeAndParty.get(0).getString("description"));
+	 partyRelationships = EntityUtil.filterByDate(delegator.findByAnd("PartyRelationship", ["partyIdFrom": parameters.partyId, "roleTypeIdFrom": "ACCOUNT_LEAD", "roleTypeIdTo": "LEAD", "partyRelationshipTypeId": "LEAD_REL"]));
+	 context.put("partyGroupId", parameters.partyId); 
+     context.put("partyId", partyRelationships.get(0).partyIdTo); 
+ }
+
