@@ -17,11 +17,8 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilMisc
 
-productFeatureTypes = delegator.findList("ProductFeatureType", null, null, UtilMisc.toList("description"), null, true);
-context.put("productFeatureTypes", productFeatureTypes);
+context.productFeatureTypes = delegator.findList("ProductFeatureType", null, null, ['description'], null, true);
 
-featureCategory = delegator.findByPrimaryKey("ProductFeatureCategory", 
-    UtilMisc.toMap("productFeatureCategoryId", parameters.get("productFeatureCategoryId")));
-context.put("featureCategory", featureCategory);
+context.featureCategory = delegator.findByPrimaryKey("ProductFeatureCategory", ['productFeatureCategoryId' : parameters.productFeatureCategoryId]);

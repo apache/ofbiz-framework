@@ -17,17 +17,13 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.*;
-
 security = request.getAttribute("security");
 delegator = request.getAttribute("delegator");
 
 if(security.hasEntityPermission("CATALOG", "_VIEW", session)) {
-    context.put("hasPermission", Boolean.TRUE);
+    context.hasPermission = Boolean.TRUE;
 } else {
-    context.put("hasPermission", Boolean.FALSE);
+    context.hasPermission = Boolean.FALSE;
 }
 
-productFeatureGroups = delegator.findList("ProductFeatureGroup", null, null, null, null, false);
-context.put("productFeatureGroups", productFeatureGroups);
+context.productFeatureGroups = delegator.findList("ProductFeatureGroup", null, null, null, null, false);
