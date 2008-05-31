@@ -21,24 +21,20 @@ import org.ofbiz.base.util.*;
 import org.ofbiz.entity.*;
 import org.ofbiz.widget.html.HtmlFormWrapper;
 
-delegator = request.getAttribute("delegator");
-paymentId = request.getParameter("paymentId");
-if (paymentId == null) {
-    paymentId = request.getAttribute("paymentId");
-}
+paymentId = request.getParameter("paymentId") ?:request.getAttribute("paymentId");
 
 payment = null;
 
-if (UtilValidate.isNotEmpty(paymentId)) {
-     payment = delegator.findByPrimaryKey("Payment", UtilMisc.toMap("paymentId", paymentId));
+if (paymentId) {
+     payment = delegator.findByPrimaryKey("Payment", [paymentId : paymentId]);
 }
-context.put("payment", payment);
+context.payment = payment;
 
 currentType = null;
 currentStatus = null;
 currentMethod = null;
 paymentApplications = null;
-if (payment != null) {
+if (payment) {
     // get the current type
     currentType = payment.getRelatedOne("PaymentType");
     // get the current status
@@ -50,27 +46,26 @@ if (payment != null) {
     HtmlFormWrapper paymentApplicationsWrapper = new HtmlFormWrapper("component://accounting/webapp/accounting/payment/PaymentForms.xml", "PaymentApplicationsList", request, response);
     paymentApplicationsWrapper.putInContext("entityList", paymentApplications);
     paymentApplicationsWrapper.putInContext("uiLabelMap", request.getAttribute("uiLabelMap"));
-    context.put("paymentApplicationsWrapper", paymentApplicationsWrapper);
+    context.paymentApplicationsWrapper = paymentApplicationsWrapper;
     HtmlFormWrapper editPaymentApplicationWrapper = new HtmlFormWrapper("component://accounting/webapp/accounting/payment/PaymentForms.xml", "EditPaymentApplication", request, response);
     editPaymentApplicationWrapper.putInContext("paymentApplication", null);
     editPaymentApplicationWrapper.putInContext("paymentId", paymentId);
     editPaymentApplicationWrapper.putInContext("uiLabelMap", request.getAttribute("uiLabelMap"));
-    context.put("editPaymentApplicationWrapper", editPaymentApplicationWrapper);
+    context.editPaymentApplicationWrapper = editPaymentApplicationWrapper;
 }
-context.put("currentType", currentType);
-context.put("currentStatus", currentStatus);
-context.put("currentMethod", currentMethod);
-context.put("paymentApplications", paymentApplications);
+context.currentType = currentType;
+context.currentStatus = currentStatus;
+context.currentMethod = currentMethod;
+context.paymentApplications = paymentApplications;
 
 // get the payment types
-paymentTypes = delegator.findList("PaymentType", null, null, UtilMisc.toList("description"), null, false);
-context.put("paymentTypes", paymentTypes);
+paymentTypes = delegator.findList("PaymentType", null, null, ["description"], null, false);
+context.paymentTypes = paymentTypes;
 
 // get the payment statuses
-paymentStatuses = delegator.findByAnd("StatusItem", UtilMisc.toMap("statusTypeId", "PMNT_STATUS"), UtilMisc.toList("sequenceId", "description"));
-context.put("paymentStatuses", paymentStatuses);
+paymentStatuses = delegator.findByAnd("StatusItem", [statusTypeId : "PMNT_STATUS"], ["sequenceId", "description"]);
+context.paymentStatuses = paymentStatuses;
 
 // get the payment method types
-paymentMethodTypes = delegator.findList("PaymentMethodType", null, null, UtilMisc.toList("description"), null, false);
-context.put("paymentMethodTypes", paymentMethodTypes);
-
+paymentMethodTypes = delegator.findList("PaymentMethodType", null, null, ["description"], null, false);
+context.paymentMethodTypes = paymentMethodTypes;

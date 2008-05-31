@@ -23,39 +23,37 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilNumber;
 
 // rounding mode
-int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
-int rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
-context.put("decimals", decimals);
-context.put("rounding", rounding);
+decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
+rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
+context.decimals = decimals;
+context.rounding = rounding;
 
 // list of payments
-payments = new ArrayList();
+payments = [];
 
 // first ensure ability to print
 security = request.getAttribute("security");
 context.put("security", security);
 if (!security.hasEntityPermission("ACCOUNTING", "_PRINT_CHECKS", session)) {
-    context.put("payments", payments); // if no permission, just pass an empty list for now
+    context.payments = payments; // if no permission, just pass an empty list for now
     return;
 }
 
 // in the case of a single payment, the paymentId will be supplied
-paymentId = context.get("paymentId");
-if (paymentId != null) {
-    payment = delegator.findByPrimaryKey("Payment", UtilMisc.toMap("paymentId", paymentId));
-    if (payment != null) payments.add(payment);
-    context.put("payments", payments);
+paymentId = context.paymentId;
+if (paymentId) {
+    payment = delegator.findByPrimaryKey("Payment", [paymentId : paymentId]);
+    if (payment) payments.add(payment);
+    context.payments = payments;
     return;
 }
 
 // in the case of a multi form, parse the multi data and get all of the selected payments
 selected = UtilHttp.parseMultiFormData(parameters);
-iter = selected.iterator();
-while (iter.hasNext()) {
-    row = iter.next(); 
-    payment = delegator.findByPrimaryKey("Payment", UtilMisc.toMap("paymentId", row.get("paymentId")));
-    if (payment == null) continue;
+selected.each { row ->
+    payment = delegator.findByPrimaryKey("Payment", [paymentId : row.paymentId]);
+    if (!payment) continue;
     payments.add(payment);
 }
-context.put("payments", payments);
+context.payments = payments;
 
