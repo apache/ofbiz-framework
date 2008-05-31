@@ -178,7 +178,58 @@ under the License.
     <request-map uri="quickAddContact">   
         <event type="service" invoke="createContact"/>
         <response name="success" type="view" value="viewprofile"/>
-    </request-map> 
+    </request-map>
+     
+    <!-- Forecast Requests -->
+    <request-map uri="FindSalesForecast">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindSalesForecast"/>
+    </request-map>
+    <request-map uri="EditSalesForecast">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditSalesForecast"/>
+        <response name="error" type="view" value="EditSalesForecast"/>
+    </request-map>
+    <request-map uri="createSalesForecast">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createSalesForecast"/>
+        <response name="success" type="view" value="EditSalesForecast"/>
+        <response name="error" type="view" value="EditSalesForecast"/>
+    </request-map>
+    <request-map uri="updateSalesForecast">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateSalesForecast"/>
+        <response name="success" type="view" value="EditSalesForecast"/>
+        <response name="error" type="view" value="EditSalesForecast"/>
+    </request-map>
+    
+    <request-map uri="EditSalesForecastDetail">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditSalesForecastDetail"/>
+    </request-map>
+    <request-map uri="createSalesForecastDetail">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createSalesForecastDetail"/>
+        <response name="success" type="view" value="EditSalesForecastDetail"/>
+        <response name="error" type="view" value="EditSalesForecastDetail"/>
+    </request-map>
+    <request-map uri="updateSalesForecastDetail">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateSalesForecastDetail"/>
+        <response name="success" type="view" value="EditSalesForecastDetail"/>
+        <response name="error" type="view" value="EditSalesForecastDetail"/>
+    </request-map>
+    <request-map uri="deleteSalesForecastDetail">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteSalesForecastDetail"/>
+        <response name="success" type="view" value="EditSalesForecastDetail"/>
+        <response name="error" type="view" value="EditSalesForecastDetail"/>
+    </request-map>
+    
+    <!-- Lookup requests -->
+    <request-map uri="LookupSalesForecast"><security https="true" auth="true"/><response name="success" type="view" value="LookupSalesForecast"/></request-map>
+    <request-map uri="LookupProduct"><security auth="true" https="true"/><response name="success" type="view" value="LookupProduct"/></request-map>
+    <request-map uri="LookupProductCategory"><security auth="true" https="true"/><response name="success" type="view" value="LookupProductCategory"/></request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -203,6 +254,14 @@ under the License.
     <view-map name="CreateContact" type="screen" page="component://marketing/widget/sfa/ContactScreens.xml#CreateContact"/>
     <view-map name="MergeContacts" type="screen" page="component://marketing/widget/sfa/ContactScreens.xml#MergeContacts"/>
     <view-map name="CreateContactFromVCard" type="screen" page="component://marketing/widget/sfa/ContactScreens.xml#CreateContactFromVCard"/>
+
+    <view-map name="FindSalesForecast" type="screen" page="component://marketing/widget/sfa/ForecastScreens.xml#FindSalesForecast"/>
+    <view-map name="EditSalesForecast" type="screen" page="component://marketing/widget/sfa/ForecastScreens.xml#EditSalesForecast"/>
+    <view-map name="EditSalesForecastDetail" type="screen" page="component://marketing/widget/sfa/ForecastScreens.xml#EditSalesForecastDetail"/>
+    
+    <view-map name="LookupSalesForecast" type="screen" page="component://marketing/widget/LookupScreens.xml#LookupSalesForecast"/>
+    <view-map name="LookupProduct" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProduct"/>
+    <view-map name="LookupProductCategory" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProductCategory"/>
     
     <!-- end of view mappings -->
 </site-conf>

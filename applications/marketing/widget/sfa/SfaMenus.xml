@@ -27,7 +27,7 @@ under the License.
         <menu-item name="Competitors" title="${uiLabelMap.SfaCompetitors}"><link target=""/></menu-item>
         <menu-item name="Events" title="${uiLabelMap.SfaEvents}"><link target=""/></menu-item>
         <menu-item name="Documents" title="${uiLabelMap.SfaDocuments}"><link target=""/></menu-item>
-        <menu-item name="Forecasts" title="${uiLabelMap.SfaForecasts}"><link target=""/></menu-item>
+        <menu-item name="Forecast" title="${uiLabelMap.SfaForecasts}"><link target="FindSalesForecast"/></menu-item>
         <menu-item name="Opportunities" title="${uiLabelMap.SfaOpportunities}"><link target="FindOpportunity"/></menu-item>
         <menu-item name="Logout" title="${uiLabelMap.CommonLogout}" align-style="col-right" selected-style="selected">
             <condition><not><if-empty field-name="userLogin"/></not></condition>
@@ -99,4 +99,13 @@ under the License.
             <link target="CreateContactFromVCard"/>
         </menu-item>
     </menu>    
+    <menu name="SalesForecastTabBar" default-selected-style="selected" type="simple"
+            menu-container-style="button-bar tab-bar no-clear" selected-menuitem-context-field-name="tabButtonItem">
+        <menu-item name="EditSalesForecast" title="${uiLabelMap.SfaSalesForecast}">
+            <link target="EditSalesForecast?salesForecastId=${parameters.salesForecastId}"/>
+        </menu-item>
+        <menu-item name="EditSalesForecastDetail" title="${uiLabelMap.ProductPickingDetail}">
+            <link target="EditSalesForecastDetail?salesForecastId=${parameters.salesForecastId}"/>
+        </menu-item>
+    </menu>
 </menus>

@@ -601,6 +601,12 @@
         <value xml:lang="th">แก้ไขสถานะแผนการตลาด</value>
         <value xml:lang="zh">编辑市场攻势角色</value>
     </property>
+    <property key="PageTitleEditSalesForecast">
+        <value xml:lang="en">Edit Sales Forecast</value>
+    </property>    
+    <property key="PageTitleEditSalesForecastDetail">
+        <value xml:lang="en">Edit Sales Forecast Detail</value>
+    </property>     
     <property key="PageTitleEditSegmentGroup">
         <value xml:lang="en">Edit Segment Group</value>
         <value xml:lang="es">Editar segmento</value>
@@ -709,6 +715,9 @@
         <value xml:lang="th">ค้นหาสถานะแผนการตลาด</value>
         <value xml:lang="zh">查找市场攻势角色</value>
     </property>
+    <property key="PageTitleFindSalesForecast">
+        <value xml:lang="en">Find Sales Forecast</value>
+    </property>    
     <property key="PageTitleFindSegmentGroup">
         <value xml:lang="en">Find Segment Group</value>
         <value xml:lang="es">Buscar segmento</value>
@@ -887,6 +896,9 @@
         <value xml:lang="th">ค้นหาข้อมูลโครงสร้าง</value>
         <value xml:lang="zh">查找地理</value>
     </property>
+    <property key="PageTitleLookupSalesForecast">
+        <value xml:lang="en">Lookup Sales Forecast</value>
+    </property>    
     <property key="PageTitleLookupSegmentGroup">
         <value xml:lang="en">Lookup Segment Group</value>
         <value xml:lang="it">Ricerca Gruppi Segmento</value>
@@ -1131,6 +1143,9 @@
     <property key="SfaAcccounts">
         <value xml:lang="en">Accounts</value>
     </property>
+    <property key="SfaAddSalesForecastDetail">
+        <value xml:lang="en">Add Sales Forcast Detail</value>
+    </property>    
     <property key="SfaAutoCreateContactByImportingVCard">
         <value xml:lang="en">Automatically create a new contact by importing a vCard</value>
     </property>    
@@ -1182,6 +1197,9 @@
     <property key="SfaEditOpportunity">
         <value xml:lang="en">Edit Opportunity</value>
     </property>
+    <property key="SfaEditSalesForecast">
+        <value xml:lang="en">Create/Update Sales Forecast</value>
+    </property>     
     <property key="SfaEstimatedAmount">
         <value xml:lang="en">Estimated Amount</value>
     </property>
@@ -1224,6 +1242,9 @@
     <property key="SfaLeadSource">
         <value xml:lang="en">Lead Source</value>
     </property>
+    <property key="SfaListSalesForecastDetail">
+        <value xml:lang="en">List Sales Forecast Details</value>
+    </property>     
     <property key="SfaManagerApplication">
         <value xml:lang="en">SFA Manager Application</value>
     </property>
@@ -1266,6 +1287,9 @@
     <property key="SfaQuickAddLead">
         <value xml:lang="en">Quick Add Lead</value>
     </property>
+    <property key="SfaSalesForecast">
+        <value xml:lang="en">Sales Forecast</value>
+    </property>     
     <property key="SfaSecondContact">
         <value xml:lang="en">Second Contact</value>
     </property>   
