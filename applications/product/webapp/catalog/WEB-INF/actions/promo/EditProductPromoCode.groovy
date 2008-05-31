@@ -17,40 +17,37 @@
  * under the License.
  */
 
-import java.util.*;
-import java.io.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.widget.html.*;
+import org.ofbiz.entity.*
+import org.ofbiz.base.util.*
 
 productPromoCodeId = request.getParameter("productPromoCodeId");
 if (UtilValidate.isEmpty(productPromoCodeId)) {
     productPromoCodeId = request.getAttribute("productPromoCodeId");
 }
-productPromoCode = delegator.findByPrimaryKey("ProductPromoCode", UtilMisc.toMap("productPromoCodeId", productPromoCodeId));
+productPromoCode = delegator.findByPrimaryKey("ProductPromoCode", ['productPromoCodeId' : productPromoCodeId]);
 
 productPromoId = null;
-if (productPromoCode != null) {
-    productPromoId = productPromoCode.get("productPromoId");
+if (productPromoCode) {
+    productPromoId = productPromoCode.productPromoId;
 } else {
     productPromoId = request.getParameter("productPromoId");
 }
 
 productPromo = null;
-if (productPromoId != null) {
-    productPromo = delegator.findByPrimaryKey("ProductPromo", UtilMisc.toMap("productPromoId", productPromoId));
+if (productPromoId) {
+    productPromo = delegator.findByPrimaryKey("ProductPromo", ['productPromoId' : productPromoId]);
 }
 
 productPromoCodeEmails = null;
 productPromoCodeParties = null;
-if (productPromoCode != null) {
+if (productPromoCode) {
     productPromoCodeEmails = productPromoCode.getRelated("ProductPromoCodeEmail");
     productPromoCodeParties = productPromoCode.getRelated("ProductPromoCodeParty");
 }
 
-context.put("productPromoId", productPromoId);
-context.put("productPromo", productPromo);
-context.put("productPromoCodeId", productPromoCodeId);
-context.put("productPromoCode", productPromoCode);
-context.put("productPromoCodeEmails", productPromoCodeEmails);
-context.put("productPromoCodeParties", productPromoCodeParties);
+context.productPromoId = productPromoId;
+context.productPromo = productPromo;
+context.productPromoCodeId = productPromoCodeId;
+context.productPromoCode = productPromoCode;
+context.productPromoCodeEmails = productPromoCodeEmails;
+context.productPromoCodeParties = productPromoCodeParties;
