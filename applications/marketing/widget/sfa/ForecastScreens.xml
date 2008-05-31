@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
+    <screen name="CommonSalesForecastDecorator">
+        <section>
+            <actions>
+                <set field="headerItem" value="Forecast"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <section>
+                                    <condition><not><if-empty field-name="salesForecastId"/></not></condition>
+                                    <widgets>
+                                        <include-menu name="SalesForecastTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
+                                    </widgets>
+                                </section>
+                            </widgets>
+                        </section>                    
+                        <decorator-section-include name="body"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="FindSalesForecast">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleFindSalesForecast"/>
+                <set field="headerItem" value="Forecast"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                                    <decorator-section name="menu-bar">
+                                        <section>
+                                            <widgets>
+                                                <container style="button-bar"><link target="EditSalesForecast" text="${uiLabelMap.CommonCreateNew} ${uiLabelMap.SfaSalesForecast}" style="buttontext"/></container>
+                                            </widgets>
+                                        </section>
+                                    </decorator-section>
+                                    <decorator-section name="search-options">
+                                        <include-form name="FindSalesForecast" location="component://marketing/widget/sfa/forms/ForecastForms.xml"/>
+                                    </decorator-section>
+                                    <decorator-section name="search-results">
+                                        <include-form name="SalesForecastSearchResults" location="component://marketing/widget/sfa/forms/ForecastForms.xml"/>
+                                    </decorator-section>
+                                </decorator-screen>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="EditSalesForecast">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditSalesForecast"/>
+                <set field="tabButtonItem" value="EditSalesForecast"/>
+                <set field="salesForecastId" from-field="parameters.salesForecastId"/>
+                <entity-one entity-name="SalesForecast" value-name="salesForecast"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonSalesForecastDecorator">
+                    <decorator-section name="body">
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
+                                    <label text="${uiLabelMap.SfaEditSalesForecast}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <condition><not><if-empty field-name="salesForecastId"/></not></condition>
+                                        <widgets>
+                                            <container style="button-bar">
+                                                <link target="EditSalesForecast" text="${uiLabelMap.CommonCreateNew} ${uiLabelMap.SfaSalesForecast}" style="buttontext"/>
+                                            </container>                                
+                                    </widgets>
+                                </section>    
+                                <include-form name="EditSalesForecast" location="component://marketing/widget/sfa/forms/ForecastForms.xml"/>
+                            </container>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="EditSalesForecastDetail">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditSalesForecastDetail"/>
+                <set field="tabButtonItem" value="EditSalesForecastDetail"/>
+                <set field="salesForecastId" from-field="parameters.salesForecastId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonSalesForecastDecorator">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="h3"><label text="${uiLabelMap.SfaAddSalesForecastDetail} ${uiLabelMap.CommonFor} [${salesForecastId}]"/></container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <include-form name="AddSalesForecastDetail" location="component://marketing/widget/sfa/forms/ForecastForms.xml"/>
+                                    </container>
+                                </container>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="h3"><label text="${uiLabelMap.SfaListSalesForecastDetail}"/></container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <include-form name="ListSalesForecastDetails" location="component://marketing/widget/sfa/forms/ForecastForms.xml"/>
+                                    </container>
+                                </container>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>  
+    </screen>
+</screens>

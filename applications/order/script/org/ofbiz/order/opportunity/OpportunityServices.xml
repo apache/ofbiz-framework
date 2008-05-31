@@ -81,5 +81,23 @@ This file contains basic services for SalesOpportunity and SalesForecast.
         <!-- create the value -->
         <create-value value-name="salesForecastHistory"/>
     </simple-method>
-
+    
+    <!-- Sales Forecast Detail --> 
+    <simple-method method-name="createSalesForecastDetail" short-description="Creates a sales forecast detail">
+        <make-value entity-name="SalesForecastDetail" value-name="newEntity"/>
+        <sequenced-id-to-env sequence-name="SalesForecastDetail" env-name="newEntity.salesForecastDetailId"/>
+        <field-to-result field-name="newEntity.salesForecastDetailId" result-name="salesForecastDetailId"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/> 
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateSalesForecastDetail" short-description="Updates a sales forecast detail">
+        <entity-one entity-name="SalesForecastDetail" value-name="lookedUpValue"/>
+        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="deleteSalesForecastDetail" short-description="Delete a Sales Forecast Detail">
+        <entity-one entity-name="SalesForecastDetail" value-name="lookedUpValue"/>
+        <remove-value value-name="lookedUpValue"/>
+    </simple-method>
 </simple-methods>

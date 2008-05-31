@@ -62,4 +62,34 @@ under the License.
                 description="[${uiLabelMap.CommonDelete}]" also-hidden="false"/>
         </field>
     </form>
+    <form name="LookupSalesForecast" target="LookupSalesForecast" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-entity entity-name="SalesForecast" default-field-type="find"/>
+        <field name="currencyUomId">
+            <drop-down allow-empty="true">
+                <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
+                    <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
+                    <entity-order-by field-name="abbreviation"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="createdByUserLoginId"><hidden/></field>
+        <field name="modifiedByUserLoginId"><hidden/></field>
+        <field name="noConditionFind"><hidden value="Y"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    
+    <form name="ListLookupSalesForecast" list-name="listIt" type="list" paginate-target="LookupSalesForecast" view-size="10"
+            odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="entityName" value="SalesForecast"/>
+            </service>
+        </actions>
+        <auto-fields-entity entity-name="SalesForecast" default-field-type="display"/>
+        <field name="salesForecastId"  widget-style="buttontext">
+            <hyperlink also-hidden="false" target-type="plain" description="${salesForecastId}" target="javascript:set_value('${salesForecastId}')"/>
+        </field>
+    </form>
 </forms>

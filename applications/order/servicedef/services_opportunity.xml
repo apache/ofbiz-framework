@@ -47,5 +47,24 @@ under the License.
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <attribute name="changeNote" type="String" mode="IN" optional="true"/>
     </service>
-
+    
+     <!-- Sales Forecast Detail -->
+    <service name="createSalesForecastDetail" engine="simple" auth="true" default-entity-name="SalesForecastDetail"
+            location="org/ofbiz/order/opportunity/OpportunityServices.xml" invoke="createSalesForecastDetail">
+        <description>Creates a Sales Forecast Detail</description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override name="salesForecastDetailId" mode="OUT"/>
+    </service>
+    <service name="updateSalesForecastDetail" engine="simple" auth="true" default-entity-name="SalesForecastDetail"
+            location="org/ofbiz/order/opportunity/OpportunityServices.xml" invoke="updateSalesForecastDetail">
+        <description>Updates a Sales Forecast Detail</description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deleteSalesForecastDetail" engine="simple" default-entity-name="SalesForecastDetail"
+            location="org/ofbiz/order/opportunity/OpportunityServices.xml" invoke="deleteSalesForecastDetail">
+        <description>Delete a Sales Forecast Detail</description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
 </services>
