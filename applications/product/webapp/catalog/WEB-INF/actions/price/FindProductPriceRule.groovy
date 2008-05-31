@@ -17,15 +17,19 @@
  * under the License.
  */
 
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.util.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.widget.html.*;
+import org.ofbiz.entity.*
+import org.ofbiz.entity.util.*
 
 boolean activeOnly = true;
-if ("false".equals(request.getParameter("activeOnly"))) activeOnly = false;
-context.put("activeOnly", activeOnly);
+if ("false".equals(request.getParameter("activeOnly"))) {
+    activeOnly = false;
+}
+context.activeOnly = activeOnly;
 
 List productPriceRules = delegator.findList("ProductPriceRule", null, null, null, null, false);
-if (activeOnly) productPriceRules = EntityUtil.filterByDate(productPriceRules, true);
-if (productPriceRules != null && productPriceRules.size() > 0) context.put("productPriceRules", productPriceRules);
+if (activeOnly) {
+    productPriceRules = EntityUtil.filterByDate(productPriceRules, true);
+}
+if (productPriceRules && productPriceRules.size() > 0) {
+    context.productPriceRules = productPriceRules;
+}
