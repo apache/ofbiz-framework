@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -15,7 +15,7 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- *******************************************************************************/
+ */
 package org.ofbiz.entity;
 
 import java.io.FileNotFoundException;
@@ -47,7 +47,6 @@ import org.ofbiz.entity.cache.Cache;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
-import org.ofbiz.entity.condition.EntityFieldMap;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.config.DatasourceInfo;
 import org.ofbiz.entity.config.DelegatorInfo;
@@ -3196,15 +3195,21 @@ public class GenericDelegator implements DelegatorInterface {
     public void decryptFields(GenericEntity entity) throws GenericEntityException {
         ModelEntity model = entity.getModelEntity();
         String entityName = model.getEntityName();
-
+        
         Iterator<ModelField> i = model.getFieldsIterator();
         while (i.hasNext()) {
             ModelField field = i.next();
             if (field.getEncrypt()) {
+                String keyName = entityName;
+                if (model instanceof ModelViewEntity) {
+                    ModelViewEntity modelView = (ModelViewEntity) model;
+                    keyName = modelView.getAliasedEntity(modelView.getAlias(field.getName()).getEntityAlias(), modelReader).getEntityName();
+                }
+
                 String encHex = (String) entity.get(field.getName());
                 if (UtilValidate.isNotEmpty(encHex)) {
                     try {
-                        entity.dangerousSetNoCheckButFast(field, crypto.decrypt(entityName, encHex));
+                        entity.dangerousSetNoCheckButFast(field, crypto.decrypt(keyName, encHex));
                     } catch (EntityCryptoException e) {
                         // not fatal -- allow returning of the encrypted value
                         Debug.logWarning(e, "Problem decrypting field [" + entityName + " / " + field.getName() + "]", module);
