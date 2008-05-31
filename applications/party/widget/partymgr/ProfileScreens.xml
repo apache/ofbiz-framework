@@ -27,14 +27,52 @@
                     <field-map field-name="partyId" env-name="parameters.partyId"/>
                     <order-by field-name="-changeDate"/>
                 </entity-and>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/getPartyInfo.bsh"/>
+                <entity-one entity-name="PartyGroup" value-name="lookupGroup">
+                    <field-map field-name="partyId" env-name="parameters.partyId"/><!-- is required -->
+                </entity-one>
+                <entity-one entity-name="Person" value-name="lookupPerson">
+                    <field-map field-name="partyId" env-name="parameters.partyId"/><!-- is required -->
+                </entity-one>
             </actions>
             <widgets>
-                <platform-specific>
-                    <html>
-                        <html-template location="component://party/webapp/partymgr/party/profileblocks/Party.ftl"/>
-                    </html>
-                </platform-specific>
+                <section>
+                    <condition>
+                        <not><if-empty field-name="lookupPerson"/></not>
+                    </condition>
+                    <widgets>
+                        <screenlet title="${uiLabelMap.PartyPersonalInformation}" navigation-menu-name="personUpdate">
+                            <include-menu name="personUpdate" location="component://party/widget/partymgr/PartyMenus.xml"/>
+                            <include-form name="ViewPartyPerson" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                            <section>
+                                <condition>
+                                    <not><if-empty field-name="partyNameHistoryList"/></not>
+                                </condition>
+                                <widgets>
+                                    <include-form name="ViewPartyPersonHistory" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                </widgets>
+                            </section>
+                        </screenlet>
+                    </widgets>
+                </section>
+                <section>
+                    <condition>
+                        <not><if-empty field-name="lookupGroup"/></not>
+                    </condition>
+                    <widgets>
+                        <screenlet title="${uiLabelMap.PartyPartyGroupInformation}" navigation-menu-name="groupUpdate">
+                            <include-menu name="groupUpdate" location="component://party/widget/partymgr/PartyMenus.xml"/>
+                            <include-form name="ViewPartyGroup" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                            <section>
+                                <condition>
+                                    <not><if-empty field-name="partyNameHistoryList"/></not>
+                                </condition>
+                                <widgets>
+                                    <include-form name="ViewPartyGroupHistory" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                </widgets>
+                            </section>
+                        </screenlet>
+                    </widgets>
+                </section>
             </widgets>
         </section>
     </screen>
