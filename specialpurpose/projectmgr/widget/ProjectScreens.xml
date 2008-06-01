@@ -1069,7 +1069,7 @@ under the License.
                 
                 <set field="labelTitleProperty" value="PageTitleEditContactMech"/>
                 
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/HasPartyPermissions.bsh"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/HasPartyPermissions.groovy"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/editcontactmech.groovy"/>
             </actions>
             <widgets>
