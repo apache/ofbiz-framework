@@ -944,13 +944,13 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditPartySkills"/>
     </request-map>
-    <request-map uri="createPartySkill">
+    <request-map uri="createPartySkillExt">
         <security https="true" auth="true"/>
         <event type="service" invoke="createPartySkill"/>
         <response name="success" type="view" value="EditPartySkills"/>
         <response name="error" type="view" value="EditPartySkills"/>
     </request-map>
-    <request-map uri="updatePartySkill">
+    <request-map uri="updatePartySkillExt">
         <security https="true" auth="true"/>
         <event type="service-multi" invoke="updatePartySkill"/>
         <response name="success" type="view" value="EditPartySkills"/>
@@ -966,13 +966,13 @@ under the License.
         <response name="success" type="view" value="EditPersonTrainings"/>
         <response name="error" type="view" value="EditPersonTrainings"/>
     </request-map>
-    <request-map uri="createPersonTraining">
+    <request-map uri="createPersonTrainingExt">
         <security https="true" auth="true"/>
         <event type="service" invoke="createPersonTraining"/>
         <response name="success" type="view" value="EditPersonTrainings"/>
         <response name="error" type="view" value="EditPersonTrainings"/>
     </request-map>
-    <request-map uri="updatePersonTrainings">
+    <request-map uri="updatePersonTrainingsExt">
         <security https="true" auth="true"/>
         <event type="service-multi" invoke="updatePersonTraining"/>
         <response name="success" type="view" value="EditPersonTrainings"/>
@@ -1001,12 +1001,12 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditEmploymentApps"/>
     </request-map>
-    <request-map uri="createEmploymentApp">
+    <request-map uri="createEmploymentAppExt">
         <security https="true" auth="true"/>
         <event type="service" invoke="createEmploymentApp"/>
         <response name="success" type="request" value="EditEmploymentApps"/>
     </request-map>
-    <request-map uri="updateEmploymentApp">
+    <request-map uri="updateEmploymentAppExt">
         <security https="true" auth="true"/>
         <event type="service-multi" invoke="updateEmploymentApp"/>
         <response name="success" type="view" value="EditEmploymentApps"/>
@@ -1133,9 +1133,9 @@ under the License.
     <view-map name="editPartyInvitation" type="screen" page="component://party/widget/partymgr/PartyInvitationScreens.xml#EditPartyInvitation"/>
     <view-map name="PartyInvitationGroupAssocs" type="screen" page="component://party/widget/partymgr/PartyInvitationScreens.xml#EditPartyInvitationsGroupAssocs"/>
     <view-map name="PartyInvitationRoleAssocs" type="screen" page="component://party/widget/partymgr/PartyInvitationScreens.xml#EditPartyInvitationsRoleAssocs"/>
-    <view-map name="EditPartySkills" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#EditPartySkills"/>
-    <view-map name="EditPersonTrainings" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#EditPersonTrainings"/>
+    <view-map name="EditPartySkills" type="screen" page="component://humanres/widget/PartySkillScreens.xml#EditPartySkills"/>
+    <view-map name="EditPersonTrainings" type="screen" page="component://humanres/widget/PersonTrainingScreens.xml#EditPersonTrainings"/>
     <view-map name="EditPartyResumes" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#EditPartyResumes"/>
-    <view-map name="EditEmploymentApps" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#EditEmploymentApps"/>
+    <view-map name="EditEmploymentApps" type="screen" page="component://humanres/widget/EmploymentAppScreens.xml#EditEmploymentApps"/>
     <!-- end of view mappings -->
 </site-conf>

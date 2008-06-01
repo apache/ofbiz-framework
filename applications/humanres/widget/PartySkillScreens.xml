@@ -27,7 +27,6 @@
                 <set field="headerItem" value="PartySkills"/> 
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="partySkillsCtx" from-field="parameters"/>
-                <set field="insideParty.partySkills" value="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -63,6 +62,7 @@
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="skillTypeId" from-field="parameters.skillTypeId"/>
                 <set field="partySkillsCtx.partyId" from-field="parameters.partyId"/>
+                <set field="parameters.insideEmployee" value="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">

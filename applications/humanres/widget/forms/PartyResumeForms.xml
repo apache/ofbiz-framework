@@ -52,6 +52,7 @@ under the License.
     </form>     
     <form name="EditPartyResume" type="single" target="createPartyResume" title="" default-map-name="partyResume"
         header-row-style="header-row" default-table-style="basic-table">
+        <alt-target use-when="partyResume != null" target="updatePartyResume"/>
         <field name="resumeId" use-when="resumeId!=null" title="${uiLabelMap.HumanResResumeId}" widget-style="tabletext" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field name="resumeId" use-when="resumeId==null" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
         <field name="contentId"><lookup target-form-name="LookupContent"/></field>

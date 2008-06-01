@@ -1039,70 +1039,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="EditPartySkills">
-        <section>
-            <actions>
-                <set field="titleProperty" value="HumanResEditPartySkill"/>
-                <set field="headerItem" value="find"/>            
-                <set field="tabButtonItem" value="PartySkills"/>    
-                <set field="partyId" from-field="parameters.partyId"/>
-                <set field="skillTypeId" from-field="parameters.skillTypeId"/>
-                <set field="partySkillsCtx.partyId" from-field="parameters.partyId"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.HumanResListPartySkill}">
-                            <section>
-                                <widgets>
-                                    <include-form name="ListPartySkills" location="component://humanres/widget/forms/PartySkillForms.xml"/>
-                                </widgets>
-                            </section>
-                        </screenlet>
-                        <screenlet title="${uiLabelMap.HumanResNewPartySkill}">
-                            <section>
-                                <widgets>
-                                    <include-form name="AddPartySkills" location="component://humanres/widget/forms/PartySkillForms.xml"/>
-                                </widgets>
-                            </section>
-                        </screenlet>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section> 
-    </screen>
-    <screen name="EditPersonTrainings">
-        <section>
-            <actions>
-                <set field="titleProperty" value="HumanResAddPersonTraining"/>
-                <set field="headerItem" value="Training"/>
-                <set field="tabButtonItem" value="PersonTraining"/>
-                <set field="partyId" from-field="parameters.partyId"/>
-                <set field="trainingClassTypeId" from-field="parameters.trainingClassTypeId"/>
-                <set field="personTrainingsCtx.partyId" from-field="parameters.partyId"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.HumanResListPersonTraining}">
-                            <section>
-                                <widgets>
-                                    <include-form name="ListPersonTrainings" location="component://humanres/widget/forms/PersonTrainingForms.xml"/>
-                                </widgets>
-                            </section>
-                        </screenlet>
-                        <screenlet title="${uiLabelMap.HumanResNewPersonTraining}">
-                            <section>
-                                <widgets>
-                                    <include-form name="AddPersonTraining" location="component://humanres/widget/forms/PersonTrainingForms.xml"/>
-                                </widgets>
-                            </section>
-                        </screenlet>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
     <screen name="EditPartyResumes">
         <section>
             <actions>
@@ -1127,37 +1063,6 @@ under the License.
                             <section>
                                 <widgets>
                                     <include-form name="EditPartyResume" location="component://humanres/widget/forms/PartyResumeForms.xml"/>
-                                </widgets>
-                            </section>
-                        </screenlet>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-    <screen name="EditEmploymentApps">
-        <section>
-            <actions>
-                <set field="titleProperty" value="HumanResFindEmploymentApp"/>
-                <set field="headerItem" value="find"/>
-                <set field="tabButtonItem" value="EmploymentApplication"/>
-                <set field="referredByPartyId" from-field="parameters.partyId"/>
-                <set field="employmentAppCtx.applicationId" from-field="parameters.applicationId"/> 
-            </actions>
-            <widgets>
-                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.CommonList} ${uiLabelMap.HumanResEmploymentApp}">
-                            <section>
-                                <widgets>
-                                    <include-form name="ListEmploymentApps" location="component://humanres/widget/forms/EmploymentAppForms.xml"/>
-                                </widgets>
-                            </section>
-                        </screenlet>
-                        <screenlet title="${uiLabelMap.HumanResNewEmploymentApp}">
-                            <section>
-                                <widgets>
-                                    <include-form name="AddEmploymentApp" location="component://humanres/widget/forms/EmploymentAppForms.xml"/>
                                 </widgets>
                             </section>
                         </screenlet>

@@ -27,7 +27,6 @@
                 <set field="headerItem" value="Training"/>
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="personTrainingsCtx" from-field="parameters"/>
-                <set field="insideParty.personTraining" value="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -63,6 +62,7 @@
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="trainingClassTypeId" from-field="parameters.trainingClassTypeId"/>
                 <set field="personTrainingsCtx.partyId" from-field="parameters.partyId"/>
+                <set field="parameters.insideEmployee" value="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">

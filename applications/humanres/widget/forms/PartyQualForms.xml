@@ -49,7 +49,7 @@ under the License.
         </field>
         <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListPartyQuals" type="multi" list-name="listIt" use-row-submit="true" separate-columns="true" target="updatePartyQual" paginate-target="FindPartyQuals"
+    <form name="ListPartyQuals" type="multi" list-name="listIt" use-row-submit="true" separate-columns="true" target="updatePartyQualExt?partyId=${partyId}" paginate-target="FindPartyQuals"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
@@ -57,7 +57,9 @@ under the License.
                 <field-map field-name="entityName" value="PartyQual"/>
                 <field-map field-name="orderBy" value="fromDate"/>
             </service>
+            <set field="insideEmployee" from-field="parameters.insideEmployee"/>
         </actions>
+        <alt-target use-when="insideEmployee==null" target="updatePartyQual"/>
         <auto-fields-service service-name="updatePartyQual"/>        
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
             <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView">
@@ -92,6 +94,10 @@ under the License.
     </form>
     <form name="AddPartyQual" type="single" target="createPartyQual" 
         header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <set field="insideEmployee" from-field="parameters.insideEmployee"/>
+        </actions>
+        <alt-target use-when="insideEmployee != null" target="createPartyQualExt"/>
         <auto-fields-service service-name="createPartyQual"/>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}" use-when="partyQual!=null"><hidden/></field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}" use-when="partyQual==null" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><lookup target-form-name="LookupPartyName"/></field>
