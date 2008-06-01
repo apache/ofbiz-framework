@@ -1133,12 +1133,15 @@ under the License.
     <!-- Check the Status of a Shipment to see if it can be changed - meant to be called in-line -->
     <simple-method method-name="checkCanChangeShipmentStatusPacked" short-description="Check the Status of a Shipment to see if it can be changed - meant to be called in-line">
         <set value="SHIPMENT_PACKED" field="fromStatusId"/>
+        <call-simple-method method-name="checkCanChangeShipmentStatusGeneral"/>
     </simple-method>
     <simple-method method-name="checkCanChangeShipmentStatusShipped" short-description="Check the Status of a Shipment to see if it can be changed - meant to be called in-line">
         <set value="SHIPMENT_SHIPPED" field="fromStatusId"/>
+        <call-simple-method method-name="checkCanChangeShipmentStatusGeneral"/>        
     </simple-method>
     <simple-method method-name="checkCanChangeShipmentStatusDelivered" short-description="Check the Status of a Shipment to see if it can be changed - meant to be called in-line">
         <set value="SHIPMENT_DELIVERED" field="fromStatusId"/>
+        <call-simple-method method-name="checkCanChangeShipmentStatusGeneral"/>        
     </simple-method>
     <simple-method method-name="checkCanChangeShipmentStatusGeneral" short-description="Check the Status of a Shipment to see if it can be changed - meant to be called in-line">
         <entity-one entity-name="Shipment" value-name="testShipment"/>
@@ -1150,14 +1153,14 @@ under the License.
                             <if-empty field-name="fromStatusId"/>
                             <if-compare field-name="fromStatusId" operator="equals" value="SHIPMENT_PACKED"/>
                         </or>
-                        <if-compare field-name="shipment.statusId" operator="equals" value="SHIPMENT_PACKED"/>
+                        <if-compare field-name="testShipment.statusId" operator="equals" value="SHIPMENT_PACKED"/>
                     </and>
                     <and>
                         <or>
                             <if-compare field-name="fromStatusId" operator="equals" value="SHIPMENT_PACKED"/>
                             <if-compare field-name="fromStatusId" operator="equals" value="SHIPMENT_SHIPPED"/>
                         </or>
-                        <if-compare field-name="shipment.statusId" operator="equals" value="SHIPMENT_SHIPPED"/>
+                        <if-compare field-name="testShipment.statusId" operator="equals" value="SHIPMENT_SHIPPED"/>
                     </and>
                     <and>
                         <or>
@@ -1165,9 +1168,9 @@ under the License.
                             <if-compare field-name="fromStatusId" operator="equals" value="SHIPMENT_SHIPPED"/>
                             <if-compare field-name="fromStatusId" operator="equals" value="SHIPMENT_DELIVERED"/>
                         </or>
-                        <if-compare field-name="shipment.statusId" operator="equals" value="SHIPMENT_DELIVERED"/>
+                        <if-compare field-name="testShipment.statusId" operator="equals" value="SHIPMENT_DELIVERED"/>
                     </and>
-                    <if-compare field-name="shipment.statusId" operator="equals" value="SHIPMENT_CANCELLED"/>
+                    <if-compare field-name="testShipment.statusId" operator="equals" value="SHIPMENT_CANCELLED"/>
                 </or>
             </condition>
             <then>
