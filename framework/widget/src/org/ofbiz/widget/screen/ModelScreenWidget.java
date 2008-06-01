@@ -416,11 +416,11 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         }
 
         public String getPreferenceKey(Map<String, Object> context) {
-            String name = this.modelScreen.getName();
+            String name = this.idExdr.expandString(context);
             if (UtilValidate.isEmpty(name)) {
-                name = this.idExdr.expandString(context);
+                name = this.modelScreen.getName() + "_" + this.name;
             }
-            return name + "_" + this.name;
+            return name;
         }
 
         public String getId(Map<String, Object> context) {
@@ -430,7 +430,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         public String getTitle(Map<String, Object> context) {
             return this.titleExdr.expandString(context);
         }
-        
+
         public Menu getNavigationMenu() {
             return this.navigationMenu;
         }
