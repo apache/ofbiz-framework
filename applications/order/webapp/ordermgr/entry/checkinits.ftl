@@ -151,7 +151,7 @@ under the License.
         </#if>
         <tr>
           <td>&nbsp;</td>
-          <td align='right' valign='middle' nowrap><div class='tableheadtext'>${uiLabelMap.OrderOrderEntryInternalOrganziation}</div></td>
+          <td align='right' valign='middle' nowrap><div class='tableheadtext'>${uiLabelMap.OrderOrderEntryInternalOrganization}</div></td>
           <td>&nbsp;</td>
           <td valign='middle'>
             <div class='tabletext' valign='top'>

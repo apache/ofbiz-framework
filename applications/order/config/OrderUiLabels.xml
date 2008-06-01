@@ -4212,7 +4212,7 @@
         <value xml:lang="zh_CN">客户信息</value>
         <value xml:lang="zh">订单记录客户信息</value>
     </property>
-    <property key="OrderOrderEntryInternalOrganziation">
+    <property key="OrderOrderEntryInternalOrganization">
         <value xml:lang="en">Internal Organization</value>
         <value xml:lang="es">Organización interna</value>
         <value xml:lang="fr">Organisation interne</value>
