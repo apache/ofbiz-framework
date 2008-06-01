@@ -26,11 +26,6 @@ under the License.
                 <property-map resource="OagisUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
 
-                <!-- The two default (global) stylesheets are added to the list
-                     of stylesheets to the first and second position -->
-                <set field="layoutSettings.styleSheets[+0]" value="/images/maincss.css" global="true"/>
-                <set field="layoutSettings.companyName" value="OFBiz Oagis" global="true"/>
-                <set field="layoutSettings.companySubtitle"  value="OFBiz Oagis Impl" global="true"/>
                 <set field="layoutSettings.companyName" from-field="uiLabelMap.OagisCompanyName" global="true"/>
                 <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.OagisCompanySubtitle" global="true"/>
                 <set field="activeApp" value="oagis" global="true"/>
