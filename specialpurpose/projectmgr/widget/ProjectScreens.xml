@@ -867,8 +867,8 @@ under the License.
                 <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/control.progress_bar.js" global="true"/>                
                 <set field="layoutSettings.styleSheets[]" value="/images/prototypejs/progress_bar.css" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/partymgr/js/PartyProfileContent.js" global="true"/>                
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/viewprofile.bsh"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/getUserLoginPrimaryEmail.bsh"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/viewprofile.groovy"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/getUserLoginPrimaryEmail.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonListResourceDecorator" location="${parameters.mainDecoratorLocation}">
@@ -1070,7 +1070,7 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleEditContactMech"/>
                 
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/HasPartyPermissions.bsh"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/editcontactmech.bsh"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/editcontactmech.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonListResourceDecorator" location="${parameters.mainDecoratorLocation}">
@@ -1125,7 +1125,7 @@ under the License.
                 <entity-one entity-name="Party" use-cache="true" value-name="party"/>
                 <entity-one entity-name="Person" use-cache="true" value-name="lookupPerson"/>
                 <entity-one entity-name="CommunicationEvent" value-name="communicationEvent"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/findCommEventContactMechs.bsh"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/findCommEventContactMechs.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonListResourceDecorator" location="${parameters.mainDecoratorLocation}">
@@ -1256,7 +1256,7 @@ under the License.
                 <set field="headerItem" value="visits"/>
                 <set field="tabButtonItem" value="showvisits"/>
                 
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/visit/showvisits.bsh"/>                
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/visit/showvisits.groovy"/>                
             </actions>
             <widgets>
                 <decorator-screen name="CommonListResourceDecorator" location="${parameters.mainDecoratorLocation}">
@@ -1287,7 +1287,7 @@ under the License.
                 <set field="headerItem" value="visits"/>
                 <set field="tabButtonItem" value="visitdetail"/>
                 
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/visit/visitdetail.bsh"/>                
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/visit/visitdetail.groovy"/>                
             </actions>
             <widgets>
                 <decorator-screen name="CommonListResourceDecorator" location="${parameters.mainDecoratorLocation}">

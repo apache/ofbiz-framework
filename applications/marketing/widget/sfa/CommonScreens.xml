@@ -219,8 +219,8 @@ under the License.
                 <set field="layoutSettings.styleSheets[]" value="/images/prototypejs/progress_bar.css" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/partymgr/js/PartyProfileContent.js" global="true"/>                
                 
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/viewprofile.bsh"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/getUserLoginPrimaryEmail.bsh"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/viewprofile.groovy"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/getUserLoginPrimaryEmail.groovy"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/setRoleVars.groovy"/>
             </actions>
             <widgets>
