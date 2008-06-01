@@ -129,7 +129,7 @@ under the License.
                             <field-map field-name="productCategoryId" env-name="rootProductCategoryId"/>
                         </entity-one>
                         
-                        <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/SalesInvoiceByProductCategorySummary.bsh"/>
+                        <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/SalesInvoiceByProductCategorySummary.groovy"/>
                     </actions>
                     <widgets>
                         <decorator-screen name="CommonFinAccountDecorator" location="${parameters.mainDecoratorLocation}">
@@ -533,7 +533,7 @@ under the License.
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
                 <set field="fromDate" from-field="parameters.fromDate"/>
                 <set field="thruDate" from-field="parameters.thruDate"/>
-                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/TransactionTotals.bsh"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/TransactionTotals.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrganizationAccountingReportsDecorator" location="${parameters.mainDecoratorLocation}">
