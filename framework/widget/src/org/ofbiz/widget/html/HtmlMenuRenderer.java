@@ -18,6 +18,8 @@
  *******************************************************************************/
 package org.ofbiz.widget.html;
 
+import java.io.IOException;
+import java.io.Writer;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +29,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
@@ -60,7 +61,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
         this.response = response;
     }
 
-    public void appendOfbizUrl(StringBuffer buffer, String location) {
+    public void appendOfbizUrl(Writer writer, String location) throws IOException {
         ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
         if (ctx == null) {
             //if (Debug.infoOn()) Debug.logInfo("in appendOfbizUrl, ctx is null(0): buffer=" + buffer.toString() + " location:" + location, "");
@@ -71,7 +72,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
                 //if (Debug.infoOn()) Debug.logInfo("in appendOfbizUrl, session is null(1)", "");
             }
             if (ctx == null) {
-                throw new RuntimeException("ctx is null. buffer=" + buffer.toString() + " location:" + location);
+                throw new RuntimeException("ctx is null. location:" + location);
             }
                 //if (Debug.infoOn()) Debug.logInfo("in appendOfbizUrl, ctx is NOT null(2)", "");
         }
@@ -85,10 +86,10 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
         if (s.indexOf("null") >= 0) {
             //if (Debug.infoOn()) Debug.logInfo("in appendOfbizUrl(3), url: " + s, "");
         }
-        buffer.append(s);
+        writer.write(s);
     }
 
-    public void appendContentUrl(StringBuffer buffer, String location) {
+    public void appendContentUrl(Writer writer, String location) throws IOException {
         ServletContext ctx = (ServletContext) this.request.getAttribute("servletContext");
         if (ctx == null) {
             //if (Debug.infoOn()) Debug.logInfo("in appendContentUrl, ctx is null(0): buffer=" + buffer.toString() + " location:" + location, "");
@@ -99,7 +100,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
                 //if (Debug.infoOn()) Debug.logInfo("in appendContentUrl, session is null(1)", "");
             }
             if (ctx == null) {
-                throw new RuntimeException("ctx is null. buffer=" + buffer.toString() + " location:" + location);
+                throw new RuntimeException("ctx is null. location:" + location);
             }
             //if (Debug.infoOn()) Debug.logInfo("in appendContentUrl, ctx is NOT null(2)", "");
             this.request.setAttribute("servletContext", ctx);
@@ -108,28 +109,30 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
         if (delegator == null) {
                 //if (Debug.infoOn()) Debug.logInfo("in appendContentUrl, delegator is null(6)", "");
         }
+        StringBuffer buffer = new StringBuffer();
         ContentUrlTag.appendContentPrefix(this.request, buffer);
-        buffer.append(location);
+        writer.write(buffer.toString());
+        writer.write(location);
     }
 
-    public void appendTooltip(StringBuffer buffer, Map context, ModelMenuItem modelMenuItem) {
+    public void appendTooltip(Writer writer, Map<String, Object> context, ModelMenuItem modelMenuItem) throws IOException {
         // render the tooltip
         String tooltip = modelMenuItem.getTooltip(context);
         if (UtilValidate.isNotEmpty(tooltip)) {
-            buffer.append("<span class=\"");
+            writer.write("<span class=\"");
             String tooltipStyle = modelMenuItem.getTooltipStyle();
             if (UtilValidate.isNotEmpty(tooltipStyle)) {
-                buffer.append(tooltipStyle);
+                writer.write(tooltipStyle);
             } else {
-                buffer.append("tooltip");
+                writer.write("tooltip");
             }
-            buffer.append("\"");
-            buffer.append(tooltip);
-            buffer.append("</span>");
+            writer.write("\"");
+            writer.write(tooltip);
+            writer.write("</span>");
         }
     }
 
-    public void renderFormatSimpleWrapperRows(StringBuffer buffer, Map context, Object menuObj) {
+    public void renderFormatSimpleWrapperRows(Writer writer, Map<String, Object> context, Object menuObj) throws IOException {
 
         List menuItemList = ((ModelMenu)menuObj).getMenuItemList();
         Iterator menuItemIter = menuItemList.iterator();
@@ -137,11 +140,11 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
 
         while (menuItemIter.hasNext()) {
             currentMenuItem = (ModelMenuItem)menuItemIter.next();
-            renderMenuItem(buffer, context, currentMenuItem);
+            renderMenuItem(writer, context, currentMenuItem);
         }
     }
 
-    public void renderMenuItem(StringBuffer buffer, Map context, ModelMenuItem menuItem) {
+    public void renderMenuItem(Writer writer, Map<String, Object> context, ModelMenuItem menuItem) throws IOException {
         
         //Debug.logInfo("in renderMenuItem, menuItem:" + menuItem.getName() + " context:" + context ,"");
         boolean hideThisItem = isHideIfSelected(menuItem, context);
@@ -162,32 +165,32 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
             style = menuItem.getDisabledTitleStyle();
         }
         
-        buffer.append("  <li");
+        writer.write("  <li");
         String alignStyle = menuItem.getAlignStyle();
         if (UtilValidate.isNotEmpty(style) || UtilValidate.isNotEmpty(alignStyle)) {
-            buffer.append(" class=\"");
+            writer.write(" class=\"");
             if (UtilValidate.isNotEmpty(style)) {
-                buffer.append(style + " ");
+                writer.write(style + " ");
             }
             if (UtilValidate.isNotEmpty(alignStyle)) {
-                buffer.append(alignStyle);
+                writer.write(alignStyle);
             }
-            buffer.append("\"");
+            writer.write("\"");
         }
-        buffer.append(">");
+        writer.write(">");
         
         Link link = menuItem.getLink();
         //if (Debug.infoOn()) Debug.logInfo("in HtmlMenuRendererImage, link(0):" + link,"");
         if (link != null) {
-            renderLink(buffer, context, link);
+            renderLink(writer, context, link);
         } 
 
-        buffer.append("</li>");
+        writer.write("</li>");
         
-        appendWhitespace(buffer);
+        appendWhitespace(writer);
     }
 
-    public boolean isDisableIfEmpty(ModelMenuItem menuItem, Map context) {
+    public boolean isDisableIfEmpty(ModelMenuItem menuItem, Map<String, Object> context) {
 
         boolean disabled = false;
         String disableIfEmpty = menuItem.getDisableIfEmpty();
@@ -206,64 +209,64 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
     }
 
 /*
-    public String buildDivStr(ModelMenuItem menuItem, Map context) {
+    public String buildDivStr(ModelMenuItem menuItem, Map<String, Object> context) {
         String divStr = "";
         divStr =  menuItem.getTitle(context);
         return divStr;
     }
 */
-    public void renderMenuOpen(StringBuffer buffer, Map context, ModelMenu modelMenu) {
+    public void renderMenuOpen(Writer writer, Map<String, Object> context, ModelMenu modelMenu) throws IOException {
 
         if (!userLoginIdHasChanged) {
             userLoginIdHasChanged = userLoginIdHasChanged();
         }
 
             //Debug.logInfo("in HtmlMenuRenderer, userLoginIdHasChanged:" + userLoginIdHasChanged,"");
-        renderBeginningBoundaryComment(buffer, "Menu Widget", modelMenu);
-        buffer.append("<div");
+        renderBeginningBoundaryComment(writer, "Menu Widget", modelMenu);
+        writer.write("<div");
         String menuId = modelMenu.getId();
         if (UtilValidate.isNotEmpty(menuId)) {
-            buffer.append(" id=\"" + menuId + "\"");
+            writer.write(" id=\"" + menuId + "\"");
         } else {
             // TODO: Remove else after UI refactor - allow both id and style
             String menuContainerStyle = modelMenu.getMenuContainerStyle(context);
             if (UtilValidate.isNotEmpty(menuContainerStyle)) {
-                buffer.append(" class=\"" + menuContainerStyle + "\"");
+                writer.write(" class=\"" + menuContainerStyle + "\"");
             }
         }
         String menuWidth = modelMenu.getMenuWidth();
         // TODO: Eliminate embedded styling after refactor
         if (UtilValidate.isNotEmpty(menuWidth)) {
-            buffer.append(" style=\"width:" + menuWidth + ";\"");
+            writer.write(" style=\"width:" + menuWidth + ";\"");
         }
-        buffer.append(">");
+        writer.write(">");
         String menuTitle = modelMenu.getTitle(context);
         if (UtilValidate.isNotEmpty(menuTitle)) {
-            appendWhitespace(buffer);
-            buffer.append(" <h2>" + menuTitle + "</h2>");
+            appendWhitespace(writer);
+            writer.write(" <h2>" + menuTitle + "</h2>");
         }
-        appendWhitespace(buffer);
-        buffer.append(" <ul>");
+        appendWhitespace(writer);
+        writer.write(" <ul>");
         
-        appendWhitespace(buffer);
+        appendWhitespace(writer);
     }
 
     /* (non-Javadoc)
-     * @see org.ofbiz.widget.menu.MenuStringRenderer#renderMenuClose(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.menu.ModelMenu)
+     * @see org.ofbiz.widget.menu.MenuStringRenderer#renderMenuClose(java.io.Writer, java.util.Map, org.ofbiz.widget.menu.ModelMenu)
      */
-    public void renderMenuClose(StringBuffer buffer, Map context, ModelMenu modelMenu) {
+    public void renderMenuClose(Writer writer, Map<String, Object> context, ModelMenu modelMenu) throws IOException {
         String fillStyle = modelMenu.getFillStyle();
         if (UtilValidate.isNotEmpty(fillStyle)) {
-            buffer.append("<div class=\"" + fillStyle + "\">&nbsp;</div>");
+            writer.write("<div class=\"" + fillStyle + "\">&nbsp;</div>");
         }
         //String menuContainerStyle = modelMenu.getMenuContainerStyle(context);
-        buffer.append(" </ul>");
-        appendWhitespace(buffer);
-        buffer.append(" <br class=\"clear\"/>");
-        appendWhitespace(buffer);
-        buffer.append("</div>");
-        appendWhitespace(buffer);
-        renderEndingBoundaryComment(buffer, "Menu Widget", modelMenu);
+        writer.write(" </ul>");
+        appendWhitespace(writer);
+        writer.write(" <br class=\"clear\"/>");
+        appendWhitespace(writer);
+        writer.write("</div>");
+        appendWhitespace(writer);
+        renderEndingBoundaryComment(writer, "Menu Widget", modelMenu);
         
         userLoginIdHasChanged = userLoginIdHasChanged(); 
         GenericValue userLogin = (GenericValue)request.getSession().getAttribute("userLogin");
@@ -277,12 +280,12 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
         }
     }
 
-    public void renderFormatSimpleWrapperOpen(StringBuffer buffer, Map context, ModelMenu modelMenu) {
-        //appendWhitespace(buffer);
+    public void renderFormatSimpleWrapperOpen(Writer writer, Map<String, Object> context, ModelMenu modelMenu) throws IOException {
+        //appendWhitespace(writer);
     }
 
-    public void renderFormatSimpleWrapperClose(StringBuffer buffer, Map context, ModelMenu modelMenu) {
-        //appendWhitespace(buffer);
+    public void renderFormatSimpleWrapperClose(Writer writer, Map<String, Object> context, ModelMenu modelMenu) throws IOException {
+        //appendWhitespace(writer);
     }
 
     public void setRequest(HttpServletRequest request) {
@@ -309,7 +312,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
         return this.userLoginIdAtPermGrant;
     }
 
-    public boolean isHideIfSelected(ModelMenuItem menuItem, Map context) {
+    public boolean isHideIfSelected(ModelMenuItem menuItem, Map<String, Object> context) {
         ModelMenu menu = menuItem.getModelMenu();
         String currentMenuItemName = menu.getSelectedMenuItemContextFieldName(context);
         String currentItemName = menuItem.getName();
@@ -350,13 +353,13 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
     }
 
 
-    public String getTitle(ModelMenuItem menuItem, Map context) {
+    public String getTitle(ModelMenuItem menuItem, Map<String, Object> context) {
         String title = null;
         title = menuItem.getTitle(context);
         return title;
     }
 
-    public void renderLink(StringBuffer buffer, Map context, ModelMenuItem.Link link) {
+    public void renderLink(Writer writer, Map<String, Object> context, ModelMenuItem.Link link) throws IOException {
         ModelMenuItem menuItem = link.getLinkMenuItem();
         String target = link.getTarget(context);
         if (menuItem.getDisabled()) {
@@ -364,12 +367,12 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
         }
         if (UtilValidate.isNotEmpty(target)) {
             // open tag
-            buffer.append("<a");
+            writer.write("<a");
             String id = link.getId(context);
             if (UtilValidate.isNotEmpty(id)) {
-                buffer.append(" id=\"");
-                buffer.append(id);
-                buffer.append("\"");
+                writer.write(" id=\"");
+                writer.write(id);
+                writer.write("\"");
             }
         
 /*
@@ -392,24 +395,24 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
         }
         
         if (UtilValidate.isNotEmpty(style)) {
-            buffer.append(" class=\"");
-            buffer.append(style);
-            buffer.append("\"");
+            writer.write(" class=\"");
+            writer.write(style);
+            writer.write("\"");
         }
 */
         String name = link.getName(context);
             if (UtilValidate.isNotEmpty(name)) {
-                buffer.append(" name=\"");
-                buffer.append(name);
-                buffer.append("\"");
+                writer.write(" name=\"");
+                writer.write(name);
+                writer.write("\"");
             }
             String targetWindow = link.getTargetWindow(context);
             if (UtilValidate.isNotEmpty(targetWindow)) {
-                buffer.append(" target=\"");
-                buffer.append(targetWindow);
-                buffer.append("\"");
+                writer.write(" target=\"");
+                writer.write(targetWindow);
+                writer.write("\"");
             }
-            buffer.append(" href=\"");
+            writer.write(" href=\"");
             String urlMode = link.getUrlMode();
             String prefix = link.getPrefix(context);
             boolean fullPath = link.getFullPath();
@@ -422,17 +425,17 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
                     ServletContext ctx = (ServletContext) req.getAttribute("servletContext");
                     RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
                     String urlString = rh.makeLink(req, res, target, fullPath, secure, encode);
-                    buffer.append(urlString);
+                    writer.write(urlString);
                 } else if (prefix != null) {
-                    buffer.append(prefix + target);
+                    writer.write(prefix + target);
                 } else {
-                    buffer.append(target);
+                    writer.write(target);
                 }
             } else if (urlMode != null && urlMode.equalsIgnoreCase("content")) {
                 StringBuffer newURL = new StringBuffer();
                 ContentUrlTag.appendContentPrefix(req, newURL);
                 newURL.append(target);
-                buffer.append(newURL.toString());
+                writer.write(newURL.toString());
             } else if ("inter-app".equalsIgnoreCase(urlMode) && req != null) {
                 String externalLoginKey = (String) req.getAttribute("externalLoginKey");
                 if (UtilValidate.isNotEmpty(externalLoginKey)) {
@@ -441,63 +444,63 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
                     } else {
                         target += "?externalLoginKey=" + externalLoginKey;
                     }
-                    buffer.append(target);
+                    writer.write(target);
                 }
             } else {
-                buffer.append(target);
+                writer.write(target);
             }
-            buffer.append("\">");
+            writer.write("\">");
         }
         
         // the text
         Image img = link.getImage();
         if (img == null)
-            buffer.append(link.getText(context));
+            writer.write(link.getText(context));
         else
-            renderImage(buffer, context, img);
+            renderImage(writer, context, img);
         
         if (UtilValidate.isNotEmpty(target)) {
             // close tag
-            buffer.append("</a>");
+            writer.write("</a>");
         }
     }
 
-    public void renderImage(StringBuffer buffer, Map context, ModelMenuItem.Image image) {
+    public void renderImage(Writer writer, Map<String, Object> context, ModelMenuItem.Image image) throws IOException {
         // open tag
-        buffer.append("<img ");
+        writer.write("<img ");
         String id = image.getId(context);
         if (UtilValidate.isNotEmpty(id)) {
-            buffer.append(" id=\"");
-            buffer.append(id);
-            buffer.append("\"");
+            writer.write(" id=\"");
+            writer.write(id);
+            writer.write("\"");
         }
         String style = image.getStyle(context);
         if (UtilValidate.isNotEmpty(style)) {
-            buffer.append(" class=\"");
-            buffer.append(style);
-            buffer.append("\"");
+            writer.write(" class=\"");
+            writer.write(style);
+            writer.write("\"");
         }
         String wid = image.getWidth(context);
         if (UtilValidate.isNotEmpty(wid)) {
-            buffer.append(" width=\"");
-            buffer.append(wid);
-            buffer.append("\"");
+            writer.write(" width=\"");
+            writer.write(wid);
+            writer.write("\"");
         }
         String hgt = image.getHeight(context);
         if (UtilValidate.isNotEmpty(hgt)) {
-            buffer.append(" height=\"");
-            buffer.append(hgt);
-            buffer.append("\"");
+            writer.write(" height=\"");
+            writer.write(hgt);
+            writer.write("\"");
         }
         String border = image.getBorder(context);
         if (UtilValidate.isNotEmpty(border)) {
-            buffer.append(" border=\"");
-            buffer.append(border);
-            buffer.append("\"");
+            writer.write(" border=\"");
+            writer.write(border);
+            writer.write("\"");
         }
         String src = image.getSrc(context);
         if (UtilValidate.isNotEmpty(src)) {
-            buffer.append(" src=\"");
+            writer.write(" src=\"");
             String urlMode = image.getUrlMode();
             boolean fullPath = false;
             boolean secure = false;
@@ -509,24 +512,25 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
                     ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
                     RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
                     String urlString = rh.makeLink(request, response, src, fullPath, secure, encode);
-                    buffer.append(urlString);
+                    writer.write(urlString);
                 } else {
-                    buffer.append(src);
+                    writer.write(src);
                 }
             } else  if (urlMode != null && urlMode.equalsIgnoreCase("content")) {
                 if (request != null && response != null) {
                     StringBuffer newURL = new StringBuffer();
                     ContentUrlTag.appendContentPrefix(request, newURL);
                     newURL.append(src);
-                    buffer.append(newURL.toString());
+                    writer.write(newURL.toString());
                 }
             } else {
-                buffer.append(src);
+                writer.write(src);
             }
 
-            buffer.append("\"");
+            writer.write("\"");
         }
-        buffer.append("/>");
+        writer.write("/>");
     }
 }
+
 

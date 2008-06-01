@@ -159,7 +159,7 @@ public class ModelTree extends ModelWidget {
         return rootNodeName;
     }
 
-    public String getWrapStyle(Map context) {
+    public String getWrapStyle(Map<String, Object> context) {
         return this.defaultWrapStyleExdr.expandString(context);
     }
     
@@ -179,7 +179,7 @@ public class ModelTree extends ModelWidget {
         nodeIndices[i] = val;
     }
     
-    public String getExpandCollapseRequest(Map context) {
+    public String getExpandCollapseRequest(Map<String, Object> context) {
         String expColReq = this.expandCollapseRequestExdr.expandString(context);
         if (UtilValidate.isEmpty(expColReq)) {
             HttpServletRequest request = (HttpServletRequest)context.get("request");
@@ -193,7 +193,7 @@ public class ModelTree extends ModelWidget {
         return expColReq;
     }
     
-    public String getTrailName(Map context) {
+    public String getTrailName(Map<String, Object> context) {
         return this.trailNameExdr.expandString(context);
     }
     
@@ -232,7 +232,7 @@ public class ModelTree extends ModelWidget {
      *   different tree elements; implementing your own makes it possible to
      *   use the same tree definitions for many types of tree UIs
      */
-    public void renderTreeString(StringBuffer buf, Map context, TreeStringRenderer treeStringRenderer) throws GeneralException {
+    public void renderTreeString(StringBuffer buf, Map<String, Object> context, TreeStringRenderer treeStringRenderer) throws GeneralException {
         Map parameters = (Map) context.get("parameters");
         setWidgetBoundaryComments(context);
 
@@ -389,7 +389,7 @@ public class ModelTree extends ModelWidget {
             
         }
     
-        public void renderNodeString(Writer writer, Map context,
+        public void renderNodeString(Writer writer, Map<String, Object> context,
                 TreeStringRenderer treeStringRenderer, int depth, boolean isLast)
                 throws IOException, GeneralException {
             boolean passed = true;
@@ -507,7 +507,7 @@ public class ModelTree extends ModelWidget {
             }
         }
 
-        public boolean hasChildren(Map context) {
+        public boolean hasChildren(Map<String, Object> context) {
 
              boolean hasChildren = false;
              Long nodeCount = null;
@@ -585,7 +585,7 @@ public class ModelTree extends ModelWidget {
              return hasChildren;
         }
 
-        public void getChildren(Map context) {
+        public void getChildren(Map<String, Object> context) {
              this.subNodeValues = new ArrayList();
              Iterator nodeIter = subNodeList.iterator();
              while (nodeIter.hasNext()) {
@@ -687,7 +687,7 @@ public class ModelTree extends ModelWidget {
             return expandCollapseStyle;
         }
 
-        public String getWrapStyle(Map context) {
+        public String getWrapStyle(Map<String, Object> context) {
             String val = this.wrapStyleExdr.expandString(context);
             if (UtilValidate.isEmpty(val)) {
                 val = this.modelTree.getWrapStyle(context);
@@ -773,7 +773,7 @@ public class ModelTree extends ModelWidget {
                 return this.rootNode;
             }
         
-            public String getNodeName(Map context) {
+            public String getNodeName(Map<String, Object> context) {
                 return this.nodeNameExdr.expandString(context);
             }
     
@@ -807,7 +807,7 @@ public class ModelTree extends ModelWidget {
                 this.styleExdr = new FlexibleStringExpander(labelElement.getAttribute("style"));
             }
     
-            public void renderLabelString(Writer writer, Map context, TreeStringRenderer treeStringRenderer) {
+            public void renderLabelString(Writer writer, Map<String, Object> context, TreeStringRenderer treeStringRenderer) {
                 try {
                     treeStringRenderer.renderLabel(writer, context, this);
                 } catch (IOException e) {
@@ -817,15 +817,15 @@ public class ModelTree extends ModelWidget {
                 }
             }
             
-            public String getText(Map context) {
+            public String getText(Map<String, Object> context) {
                 return this.textExdr.expandString(context);
             }
             
-            public String getId(Map context) {
+            public String getId(Map<String, Object> context) {
                 return this.idExdr.expandString(context);
             }
             
-            public String getStyle(Map context) {
+            public String getStyle(Map<String, Object> context) {
                 return this.styleExdr.expandString(context);
             }
         }
@@ -882,7 +882,7 @@ public class ModelTree extends ModelWidget {
     
             }
     
-            public void renderLinkString(Writer writer, Map context, TreeStringRenderer treeStringRenderer) {
+            public void renderLinkString(Writer writer, Map<String, Object> context, TreeStringRenderer treeStringRenderer) {
                 try {
                     treeStringRenderer.renderLink(writer, context, this);
                 } catch (IOException e) {
@@ -892,30 +892,30 @@ public class ModelTree extends ModelWidget {
                 }
             }
             
-            public String getText(Map context) {
+            public String getText(Map<String, Object> context) {
                 return this.textExdr.expandString(context);
             }
             
-            public String getId(Map context) {
+            public String getId(Map<String, Object> context) {
                 return this.idExdr.expandString(context);
             }
             
-            public String getStyle(Map context) {
+            public String getStyle(Map<String, Object> context) {
                 return this.styleExdr.expandString(context);
             }
             
-            public String getName(Map context) {
+            public String getName(Map<String, Object> context) {
                 return this.nameExdr.expandString(context);
             }
-            public String getTitle(Map context) {
+            public String getTitle(Map<String, Object> context) {
                 return this.titleExdr.expandString(context);
             }
         
-            public String getTarget(Map context) {
+            public String getTarget(Map<String, Object> context) {
                 return this.targetExdr.expandString(context);
             }
             
-            public String getTargetWindow(Map context) {
+            public String getTargetWindow(Map<String, Object> context) {
                 return this.targetWindowExdr.expandString(context);
             }
             
@@ -923,7 +923,7 @@ public class ModelTree extends ModelWidget {
                 return this.urlMode;
             }
             
-            public String getPrefix(Map context) {
+            public String getPrefix(Map<String, Object> context) {
                 return this.prefixExdr.expandString(context);
             }
             
@@ -1034,7 +1034,7 @@ public class ModelTree extends ModelWidget {
     
             }
     
-            public void renderImageString(Writer writer, Map context, TreeStringRenderer treeStringRenderer) {
+            public void renderImageString(Writer writer, Map<String, Object> context, TreeStringRenderer treeStringRenderer) {
                 try {
                     treeStringRenderer.renderImage(writer, context, this);
                 } catch (IOException e) {
@@ -1044,27 +1044,27 @@ public class ModelTree extends ModelWidget {
                 }
             }
             
-            public String getSrc(Map context) {
+            public String getSrc(Map<String, Object> context) {
                 return this.srcExdr.expandString(context);
             }
             
-            public String getId(Map context) {
+            public String getId(Map<String, Object> context) {
                 return this.idExdr.expandString(context);
             }
             
-            public String getStyle(Map context) {
+            public String getStyle(Map<String, Object> context) {
                 return this.styleExdr.expandString(context);
             }
 
-            public String getWidth(Map context) {
+            public String getWidth(Map<String, Object> context) {
                 return this.widthExdr.expandString(context);
             }
 
-            public String getHeight(Map context) {
+            public String getHeight(Map<String, Object> context) {
                 return this.heightExdr.expandString(context);
             }
 
-            public String getBorder(Map context) {
+            public String getBorder(Map<String, Object> context) {
                 return this.borderExdr.expandString(context);
             }
             
@@ -1102,4 +1102,5 @@ public class ModelTree extends ModelWidget {
 
     }
 }
+
 

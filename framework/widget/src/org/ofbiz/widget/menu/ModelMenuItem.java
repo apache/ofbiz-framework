@@ -19,6 +19,7 @@
 package org.ofbiz.widget.menu;
 
 import java.io.IOException;
+import java.io.Writer;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -245,7 +246,7 @@ public class ModelMenuItem {
 */
     }
 
-    public void renderMenuItemString(StringBuffer buffer, Map context, MenuStringRenderer menuStringRenderer) {
+    public void renderMenuItemString(Writer writer, Map<String, Object> context, MenuStringRenderer menuStringRenderer) throws IOException {
         
       	boolean passed = true;
         if (this.condition != null) {
@@ -256,7 +257,7 @@ public class ModelMenuItem {
            //Debug.logInfo("in ModelMenu, name:" + this.getName(), module);
         if (passed) {
             ModelMenuAction.runSubActions(this.actions, context);
-            menuStringRenderer.renderMenuItem(buffer, context, this);
+            menuStringRenderer.renderMenuItem(writer, context, this);
         }
     }
 
@@ -317,7 +318,7 @@ public class ModelMenuItem {
     /**
      * @return
      */
-    public String getTitle(Map context) {
+    public String getTitle(Map<String, Object> context) {
             return title.expandString(context);
     }
 
@@ -367,7 +368,7 @@ public class ModelMenuItem {
     /**
      * @return
      */
-    public String getTooltip(Map context) {
+    public String getTooltip(Map<String, Object> context) {
         if (tooltip != null && !tooltip.isEmpty()) {
             return tooltip.expandString(context);
         } else {
@@ -484,7 +485,7 @@ public class ModelMenuItem {
     /**
      * @return
      */
-    public String getAssociatedContentId(Map context) {
+    public String getAssociatedContentId(Map<String, Object> context) {
         String retStr = null;
         if (this.associatedContentId != null) {
             retStr = associatedContentId.expandString(context);
@@ -553,23 +554,11 @@ public class ModelMenuItem {
         return this.hasPermission;
     }
 
-    public void dump(StringBuffer buffer ) {
-        buffer.append("ModelMenuItem:" + "\n     title=")
-                .append(this.title).append("\n     name=")
-                .append(this.name).append("\n     entityName=")
-                .append(this.entityName).append("\n     titleStyle=")
-                .append(this.titleStyle).append("\n     widgetStyle=")
-                .append(this.widgetStyle).append("\n     tooltipStyle=")
-                .append(this.tooltipStyle).append("\n     selectedStyle=")
-                .append(this.selectedStyle)
-                .append("\n\n");
-    }
-
     public Link getLink() {
        return this.link;
     }
     
-    public boolean isSelected(Map context) {
+    public boolean isSelected(Map<String, Object> context) {
         return this.name.equals(modelMenu.getSelectedMenuItemContextFieldName(context));
     }
 
@@ -610,22 +599,22 @@ public class ModelMenuItem {
 
         }
 
-        public void renderLinkString(StringBuffer buffer, Map context, MenuStringRenderer menuStringRenderer) {
-            menuStringRenderer.renderLink(buffer, context, this);
+        public void renderLinkString(Writer writer, Map<String, Object> context, MenuStringRenderer menuStringRenderer) throws IOException {
+            menuStringRenderer.renderLink(writer, context, this);
         }
 
-        public String getText(Map context) {
+        public String getText(Map<String, Object> context) {
             String txt = this.textExdr.expandString(context);
             if (UtilValidate.isEmpty(txt))
                 txt = linkMenuItem.getTitle(context);
             return txt;
         }
 
-        public String getId(Map context) {
+        public String getId(Map<String, Object> context) {
             return this.idExdr.expandString(context);
         }
 
-        public String getStyle(Map context) {
+        public String getStyle(Map<String, Object> context) {
             String style = this.styleExdr.expandString(context);
             if (UtilValidate.isEmpty(style)) {
                 style = this.linkMenuItem.getWidgetStyle();
@@ -633,15 +622,15 @@ public class ModelMenuItem {
             return style;
         }
 
-        public String getName(Map context) {
+        public String getName(Map<String, Object> context) {
             return this.nameExdr.expandString(context);
         }
 
-        public String getTarget(Map context) {
+        public String getTarget(Map<String, Object> context) {
             return this.targetExdr.expandString(context);
         }
 
-        public String getTargetWindow(Map context) {
+        public String getTargetWindow(Map<String, Object> context) {
             return this.targetWindowExdr.expandString(context);
         }
 
@@ -649,7 +638,7 @@ public class ModelMenuItem {
             return this.urlMode;
         }
 
-        public String getPrefix(Map context) {
+        public String getPrefix(Map<String, Object> context) {
             return this.prefixExdr.expandString(context);
         }
 
@@ -759,31 +748,31 @@ public class ModelMenuItem {
 
         }
 
-        public void renderImageString(StringBuffer buffer, Map context, MenuStringRenderer menuStringRenderer) {
-            menuStringRenderer.renderImage(buffer, context, this);
+        public void renderImageString(Writer writer, Map<String, Object> context, MenuStringRenderer menuStringRenderer) throws IOException {
+            menuStringRenderer.renderImage(writer, context, this);
         }
 
-        public String getSrc(Map context) {
+        public String getSrc(Map<String, Object> context) {
             return this.srcExdr.expandString(context);
         }
 
-        public String getId(Map context) {
+        public String getId(Map<String, Object> context) {
             return this.idExdr.expandString(context);
         }
 
-        public String getStyle(Map context) {
+        public String getStyle(Map<String, Object> context) {
             return this.styleExdr.expandString(context);
         }
 
-        public String getWidth(Map context) {
+        public String getWidth(Map<String, Object> context) {
             return this.widthExdr.expandString(context);
         }
 
-        public String getHeight(Map context) {
+        public String getHeight(Map<String, Object> context) {
             return this.heightExdr.expandString(context);
         }
 
-        public String getBorder(Map context) {
+        public String getBorder(Map<String, Object> context) {
             return this.borderExdr.expandString(context);
         }
 

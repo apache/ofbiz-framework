@@ -86,7 +86,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
         }
     }
 
-    public void renderWidgetString(Writer writer, Map context, ScreenStringRenderer screenStringRenderer) throws GeneralException {
+    public void renderWidgetString(Writer writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
     
         boolean isEntrySet = false;
         if (!(context instanceof MapStack)) {
@@ -162,7 +162,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
     /*
      * @return
      */
-    public String getPaginateTarget(Map context) {
+    public String getPaginateTarget(Map<String, Object> context) {
         return this.paginateTarget.expandString(context);
     }
     
@@ -230,7 +230,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
         return actualPageSize;
     }
     
-    public void getListLimits(Map context, List items) {
+    public void getListLimits(Map<String, Object> context, List items) {
         listSize = items.size();
         
        if (paginate) {
@@ -265,7 +265,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
     }
     
 
-    public void renderNextPrev(Writer writer, Map context) throws IOException {
+    public void renderNextPrev(Writer writer, Map<String, Object> context) throws IOException {
         String targetService = this.getPaginateTarget(context);
         if (targetService == null) {
             targetService = "${targetService}";
@@ -371,4 +371,5 @@ public class IterateSectionWidget extends ModelScreenWidget {
         return "<iterate-section/>";
     }
 }
+
 

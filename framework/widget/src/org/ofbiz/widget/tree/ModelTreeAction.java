@@ -70,7 +70,7 @@ public abstract class ModelTreeAction {
         this.modelTree = this.modelNode.getModelTree();
     }
     
-    public abstract void runAction(Map context);
+    public abstract void runAction(Map<String, Object> context);
     
 /*
     public static List readSubActions(ModelTree.ModelNode modelNode, Element parentElement) {
@@ -101,7 +101,7 @@ public abstract class ModelTreeAction {
     }
     */
     
-    public static void runSubActions(List actions, Map context) {
+    public static void runSubActions(List actions, Map<String, Object> context) {
         Iterator actionIter = actions.iterator();
         while (actionIter.hasNext()) {
             ModelTreeAction action = (ModelTreeAction) actionIter.next();
@@ -129,7 +129,7 @@ public abstract class ModelTreeAction {
             }
         }
         
-        public void runAction(Map context) {
+        public void runAction(Map<String, Object> context) {
             String globalStr = this.globalExdr.expandString(context);
             // default to false
             boolean global = "true".equals(globalStr);
@@ -180,7 +180,7 @@ public abstract class ModelTreeAction {
             this.location = scriptElement.getAttribute("location");
         }
         
-        public void runAction(Map context) {
+        public void runAction(Map<String, Object> context) {
             if (location.endsWith(".bsh")) {
                 try {
                     context.put("_LIST_ITERATOR_", null);
@@ -237,7 +237,7 @@ public abstract class ModelTreeAction {
             this.fieldMap = EntityFinderUtil.makeFieldMap(serviceElement);
         }
         
-        public void runAction(Map context) {
+        public void runAction(Map<String, Object> context) {
             String serviceNameExpanded = this.serviceNameExdr.expandString(context);
             if (UtilValidate.isEmpty(serviceNameExpanded)) {
                 throw new IllegalArgumentException("Service name was empty, expanded from: " + this.serviceNameExdr.getOriginal());
@@ -319,7 +319,7 @@ public abstract class ModelTreeAction {
             finder = new PrimaryKeyFinder(entityOneElement);
         }
         
-        public void runAction(Map context) {
+        public void runAction(Map<String, Object> context) {
             try {
                 finder.runFind(context, this.modelTree.getDelegator());
             } catch (GeneralException e) {
@@ -345,7 +345,7 @@ public abstract class ModelTreeAction {
             finder = new ByAndFinder(entityAndElement);
         }
         
-        public void runAction(Map context) {
+        public void runAction(Map<String, Object> context) {
             try {
                 context.put(this.listName, null);
                 finder.runFind(context, this.modelTree.getDelegator());
@@ -379,7 +379,7 @@ public abstract class ModelTreeAction {
             finder = new ByConditionFinder(entityConditionElement);
         }
         
-        public void runAction(Map context) {
+        public void runAction(Map<String, Object> context) {
             try {
                 context.put(this.listName, null);
                 finder.runFind(context, this.modelTree.getDelegator());

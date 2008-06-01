@@ -52,7 +52,7 @@ public class HtmlFormWrapper {
     protected HttpServletResponse response;
     protected ModelForm modelForm;
     protected FormStringRenderer renderer;
-    protected Map context;
+    protected Map<String, Object> context;
 
     protected HtmlFormWrapper() {}
 

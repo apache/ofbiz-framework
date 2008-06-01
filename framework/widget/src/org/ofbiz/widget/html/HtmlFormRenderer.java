@@ -18,6 +18,8 @@
  *******************************************************************************/
 package org.ofbiz.widget.html;
 
+import java.io.IOException;
+import java.io.Writer;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.HashSet;
@@ -97,61 +99,63 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         this.renderPagination = renderPagination;
     }
 
-    public void appendOfbizUrl(StringBuffer buffer, String location) {
-        buffer.append(this.rh.makeLink(this.request, this.response, location));
+    public void appendOfbizUrl(Writer writer, String location) throws IOException {
+        writer.write(this.rh.makeLink(this.request, this.response, location));
     }
 
-    public void appendContentUrl(StringBuffer buffer, String location) {
+    public void appendContentUrl(Writer writer, String location) throws IOException {
+        StringBuffer buffer = new StringBuffer();
         ContentUrlTag.appendContentPrefix(this.request, buffer);
-        buffer.append(location);
+        writer.write(buffer.toString());
+        writer.write(location);
     }
 
-    public void appendTooltip(StringBuffer buffer, Map context, ModelFormField modelFormField) {
+    public void appendTooltip(Writer writer, Map<String, Object> context, ModelFormField modelFormField) throws IOException {
         // render the tooltip, in other methods too
         String tooltip = modelFormField.getTooltip(context);
         if (UtilValidate.isNotEmpty(tooltip)) {
-            buffer.append("<span class=\"");
+            writer.write("<span class=\"");
             String tooltipStyle = modelFormField.getTooltipStyle();
             if (UtilValidate.isNotEmpty(tooltipStyle)) {
-                buffer.append(tooltipStyle);
+                writer.write(tooltipStyle);
             } else {
-                buffer.append("tooltip");
+                writer.write("tooltip");
             }
-            buffer.append("\">");
-            buffer.append(tooltip);
-            buffer.append("</span>");
+            writer.write("\">");
+            writer.write(tooltip);
+            writer.write("</span>");
         }
     }
 
-    public void addAstericks(StringBuffer buffer, Map context, ModelFormField modelFormField) {
+    public void addAsterisks(Writer writer, Map<String, Object> context, ModelFormField modelFormField) throws IOException {
            
         boolean requiredField = modelFormField.getRequiredField();
         if (requiredField) {
             String requiredStyle = modelFormField.getRequiredFieldStyle();
             
             if (UtilValidate.isEmpty(requiredStyle)) {
-               buffer.append("*");
+               writer.write("*");
             }
         }
     }
     
-    public void appendClassNames(StringBuffer buffer, Map context, ModelFormField modelFormField) {
+    public void appendClassNames(Writer writer, Map<String, Object> context, ModelFormField modelFormField) throws IOException {
         String className = modelFormField.getWidgetStyle();
         if (UtilValidate.isNotEmpty(className) || modelFormField.shouldBeRed(context)) {
-            buffer.append(" class=\"");
-            buffer.append(className);
+            writer.write(" class=\"");
+            writer.write(className);
             // add a style of red if redWhen is true
             if (modelFormField.shouldBeRed(context)) {
-                buffer.append(" alert");
+                writer.write(" alert");
             }
-            buffer.append('"');
+            writer.write('"');
         }
     }
     
     /* (non-Javadoc)
-     * @see org.ofbiz.widget.form.FormStringRenderer#renderDisplayField(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelFormField.DisplayField)
+     * @see org.ofbiz.widget.form.FormStringRenderer#renderDisplayField(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelFormField.DisplayField)
      */
-    public void renderDisplayField(StringBuffer buffer, Map context, DisplayField displayField) {
+    public void renderDisplayField(Writer writer, Map<String, Object> context, DisplayField displayField) throws IOException {
         ModelFormField modelFormField = displayField.getModelFormField();
 
         StringBuffer str = new StringBuffer();
@@ -167,38 +171,38 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         }
 
         if (str.length() > 0) {
-            buffer.append(str);
+            writer.write(str.toString());
         }
         String description = displayField.getDescription(context);
         //Replace new lines with <br/>
         description = description.replaceAll("\n", "<br/>");
 
         if (UtilValidate.isEmpty(description)) {
-            this.renderFormatEmptySpace(buffer, context, modelFormField.getModelForm());
+            this.renderFormatEmptySpace(writer, context, modelFormField.getModelForm());
         } else {
-            buffer.append(description);
+            writer.write(description);
         }
 
         if (str.length() > 0) {
-            buffer.append("</span>");
+            writer.write("</span>");
         }
 
         if (displayField instanceof DisplayEntityField) {
-            this.makeHyperlinkString(buffer, ((DisplayEntityField) displayField).getSubHyperlink(), context);
+            this.makeHyperlinkString(writer, ((DisplayEntityField) displayField).getSubHyperlink(), context);
         }
         
-        this.appendTooltip(buffer, context, modelFormField);
+        this.appendTooltip(writer, context, modelFormField);
 
-        //appendWhitespace(buffer);
+        //appendWhitespace(writer);
     }
 
     /* (non-Javadoc)
-     * @see org.ofbiz.widget.form.FormStringRenderer#renderHyperlinkField(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelFormField.HyperlinkField)
+     * @see org.ofbiz.widget.form.FormStringRenderer#renderHyperlinkField(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelFormField.HyperlinkField)
      */
-    public void renderHyperlinkField(StringBuffer buffer, Map context, HyperlinkField hyperlinkField) {
+    public void renderHyperlinkField(Writer writer, Map<String, Object> context, HyperlinkField hyperlinkField) throws IOException {
         ModelFormField modelFormField = hyperlinkField.getModelFormField();
         this.makeHyperlinkString(
-            buffer,
+            writer,
             modelFormField.getWidgetStyle(),
             hyperlinkField.getTargetType(),
             hyperlinkField.getTarget(context),
@@ -206,18 +210,18 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             hyperlinkField.getTargetWindow(context),
             modelFormField.getEvent(),
             modelFormField.getAction(context));
-        this.appendTooltip(buffer, context, modelFormField);
-        //appendWhitespace(buffer);
+        this.appendTooltip(writer, context, modelFormField);
+        //appendWhitespace(writer);
     }
 
-    public void makeHyperlinkString(StringBuffer buffer, ModelFormField.SubHyperlink subHyperlink, Map context) {
+    public void makeHyperlinkString(Writer writer, ModelFormField.SubHyperlink subHyperlink, Map<String, Object> context) throws IOException {
         if (subHyperlink == null) {
             return;
         }
         if (subHyperlink.shouldUse(context)) {
-            buffer.append(' ');
+            writer.write(' ');
             this.makeHyperlinkString(
-                buffer,
+                writer,
                 subHyperlink.getLinkStyle(),
                 subHyperlink.getTargetType(),
                 subHyperlink.getTarget(context),
@@ -227,160 +231,159 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         }
     }
 
-    public void makeHyperlinkString(StringBuffer buffer, String linkStyle, String targetType, String target, String description, String targetWindow, String event, String action) {
-        Map context = null;
-        WidgetWorker.makeHyperlinkString(buffer, linkStyle, targetType, target, description, this.request, this.response, context, targetWindow, event, action);
+    public void makeHyperlinkString(Writer writer, String linkStyle, String targetType, String target, String description, String targetWindow, String event, String action) throws IOException {
+        WidgetWorker.makeHyperlinkString(writer, linkStyle, targetType, target, description, this.request, this.response, null, targetWindow, event, action);
     }
 
     /* (non-Javadoc)
-     * @see org.ofbiz.widget.form.FormStringRenderer#renderTextField(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelFormField.TextField)
+     * @see org.ofbiz.widget.form.FormStringRenderer#renderTextField(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelFormField.TextField)
      */
-    public void renderTextField(StringBuffer buffer, Map context, TextField textField) {
+    public void renderTextField(Writer writer, Map<String, Object> context, TextField textField) throws IOException {
         ModelFormField modelFormField = textField.getModelFormField();
 
-        buffer.append("<input type=\"text\"");
+        writer.write("<input type=\"text\"");
 
-        appendClassNames(buffer, context, modelFormField);
+        appendClassNames(writer, context, modelFormField);
 
-        buffer.append(" name=\"");
-        buffer.append(modelFormField.getParameterName(context));
-        buffer.append('"');
+        writer.write(" name=\"");
+        writer.write(modelFormField.getParameterName(context));
+        writer.write('"');
 
         String value = modelFormField.getEntry(context, textField.getDefaultValue(context));
         if (UtilValidate.isNotEmpty(value)) {
-            buffer.append(" value=\"");
-            buffer.append(StringEscapeUtils.escapeHtml(value));
-            buffer.append('"');
+            writer.write(" value=\"");
+            writer.write(StringEscapeUtils.escapeHtml(value));
+            writer.write('"');
         }
 
-        buffer.append(" size=\"");
-        buffer.append(textField.getSize());
-        buffer.append('"');
+        writer.write(" size=\"");
+        writer.write(Integer.toString(textField.getSize()));
+        writer.write('"');
 
         Integer maxlength = textField.getMaxlength();
         if (maxlength != null) {
-            buffer.append(" maxlength=\"");
-            buffer.append(maxlength.intValue());
-            buffer.append('"');
+            writer.write(" maxlength=\"");
+            writer.write(maxlength.toString());
+            writer.write('"');
         }
 
         String idName = modelFormField.getIdName();
         if (UtilValidate.isNotEmpty(idName)) {
-            buffer.append(" id=\"");
-            buffer.append(idName);
-            buffer.append('"');
+            writer.write(" id=\"");
+            writer.write(idName);
+            writer.write('"');
         }
 
         String event = modelFormField.getEvent();
         String action = modelFormField.getAction(context);
         if (UtilValidate.isNotEmpty(event) && UtilValidate.isNotEmpty(action)) {
-            buffer.append(" ");
-            buffer.append(event);
-            buffer.append("=\"");
-            buffer.append(action);
-            buffer.append('"');
+            writer.write(" ");
+            writer.write(event);
+            writer.write("=\"");
+            writer.write(action);
+            writer.write('"');
         }
 
         List<ModelForm.UpdateArea> updateAreas = modelFormField.getOnChangeUpdateAreas();
         boolean ajaxEnabled = updateAreas != null && this.javaScriptEnabled;
         if (!textField.getClientAutocompleteField() || ajaxEnabled) {
-            buffer.append(" autocomplete=\"off\"");
+            writer.write(" autocomplete=\"off\"");
         }
 
-        buffer.append("/>");
+        writer.write("/>");
         
-        this.addAstericks(buffer, context, modelFormField);
+        this.addAsterisks(writer, context, modelFormField);
 
-        this.makeHyperlinkString(buffer, textField.getSubHyperlink(), context);
+        this.makeHyperlinkString(writer, textField.getSubHyperlink(), context);
 
-        this.appendTooltip(buffer, context, modelFormField);
+        this.appendTooltip(writer, context, modelFormField);
 
         if (ajaxEnabled) {
-            appendWhitespace(buffer);
-            buffer.append("<script language=\"JavaScript\" type=\"text/javascript\">");
-            appendWhitespace(buffer);
-            buffer.append("ajaxAutoCompleter('" + createAjaxParamsFromUpdateAreas(updateAreas, null, context) + "');");
-            appendWhitespace(buffer);
-            buffer.append("</script>");
+            appendWhitespace(writer);
+            writer.write("<script language=\"JavaScript\" type=\"text/javascript\">");
+            appendWhitespace(writer);
+            writer.write("ajaxAutoCompleter('" + createAjaxParamsFromUpdateAreas(updateAreas, null, context) + "');");
+            appendWhitespace(writer);
+            writer.write("</script>");
         }
-        appendWhitespace(buffer);
+        appendWhitespace(writer);
     }
 
     /* (non-Javadoc)
-     * @see org.ofbiz.widget.form.FormStringRenderer#renderTextareaField(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelFormField.TextareaField)
+     * @see org.ofbiz.widget.form.FormStringRenderer#renderTextareaField(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelFormField.TextareaField)
      */
-    public void renderTextareaField(StringBuffer buffer, Map context, TextareaField textareaField) {
+    public void renderTextareaField(Writer writer, Map<String, Object> context, TextareaField textareaField) throws IOException {
         ModelFormField modelFormField = textareaField.getModelFormField();
 
-        buffer.append("<textarea");
+        writer.write("<textarea");
 
-        appendClassNames(buffer, context, modelFormField);
+        appendClassNames(writer, context, modelFormField);
 
-        buffer.append(" name=\"");
-        buffer.append(modelFormField.getParameterName(context));
-        buffer.append('"');
+        writer.write(" name=\"");
+        writer.write(modelFormField.getParameterName(context));
+        writer.write('"');
 
-        buffer.append(" cols=\"");
-        buffer.append(textareaField.getCols());
-        buffer.append('"');
+        writer.write(" cols=\"");
+        writer.write(Integer.toString(textareaField.getCols()));
+        writer.write('"');
 
-        buffer.append(" rows=\"");
-        buffer.append(textareaField.getRows());
-        buffer.append('"');
+        writer.write(" rows=\"");
+        writer.write(Integer.toString(textareaField.getRows()));
+        writer.write('"');
 
         String idName = modelFormField.getIdName();
         if (UtilValidate.isNotEmpty(idName)) {
-            buffer.append(" id=\"");
-            buffer.append(idName);
-            buffer.append('"');
+            writer.write(" id=\"");
+            writer.write(idName);
+            writer.write('"');
         } else if (textareaField.getVisualEditorEnable()) {
-            buffer.append(" id=\"");
-            buffer.append("htmlEditArea");
-            buffer.append('"');
+            writer.write(" id=\"");
+            writer.write("htmlEditArea");
+            writer.write('"');
         }
 
         if (textareaField.isReadOnly()) {
-            buffer.append(" readonly");
+            writer.write(" readonly");
         }
  
-        buffer.append('>');
+        writer.write('>');
 
         String value = modelFormField.getEntry(context, textareaField.getDefaultValue(context));
         if (UtilValidate.isNotEmpty(value)) {
-            buffer.append(StringEscapeUtils.escapeHtml(value));
+            writer.write(StringEscapeUtils.escapeHtml(value));
         }
 
-        buffer.append("</textarea>");
+        writer.write("</textarea>");
         
         if (textareaField.getVisualEditorEnable()) {
-            buffer.append("<script language=\"javascript\" src=\"/images/htmledit/whizzywig.js\" type=\"text/javascript\"></script>");
-            buffer.append("<script language=\"javascript\" type=\"text/javascript\"> buttonPath = \"/images/htmledit/\"; cssFile=\"/images/htmledit/simple.css\";makeWhizzyWig(\"");
+            writer.write("<script language=\"javascript\" src=\"/images/htmledit/whizzywig.js\" type=\"text/javascript\"></script>");
+            writer.write("<script language=\"javascript\" type=\"text/javascript\"> buttonPath = \"/images/htmledit/\"; cssFile=\"/images/htmledit/simple.css\";makeWhizzyWig(\"");
             if (UtilValidate.isNotEmpty(idName)) { 
-                buffer.append(idName);
+                writer.write(idName);
             } else {
-                buffer.append("htmlEditArea");
+                writer.write("htmlEditArea");
             }
-            buffer.append("\",\"");
+            writer.write("\",\"");
             String buttons = textareaField.getVisualEditorButtons(context);
             if (UtilValidate.isNotEmpty(buttons)) {
-                buffer.append(buttons);
+                writer.write(buttons);
             } else {
-                buffer.append("all");
+                writer.write("all");
             }
-            buffer.append("\") </script>");
+            writer.write("\") </script>");
         }
 
-        this.addAstericks(buffer, context, modelFormField);
+        this.addAsterisks(writer, context, modelFormField);
 
-        this.appendTooltip(buffer, context, modelFormField);
+        this.appendTooltip(writer, context, modelFormField);
 
-        //appendWhitespace(buffer);
+        //appendWhitespace(writer);
     }
 
     /* (non-Javadoc)
-     * @see org.ofbiz.widget.form.FormStringRenderer#renderDateTimeField(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelFormField.DateTimeField)
+     * @see org.ofbiz.widget.form.FormStringRenderer#renderDateTimeField(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelFormField.DateTimeField)
      */
-    public void renderDateTimeField(StringBuffer buffer, Map context, DateTimeField dateTimeField) {
+    public void renderDateTimeField(Writer writer, Map<String, Object> context, DateTimeField dateTimeField) throws IOException {
         ModelFormField modelFormField = dateTimeField.getModelFormField();
         String paramName = modelFormField.getParameterName(context);
         String defaultDateTimeString = dateTimeField.getDefaultDateTimeString(context);
@@ -394,17 +397,17 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         // whether the date field is short form, yyyy-mm-dd
         boolean shortDateInput = ("date".equals(dateTimeField.getType()) || "time-dropdown".equals(dateTimeField.getInputMethod()) ? true : false);
 
-        buffer.append("<input type=\"text\"");
+        writer.write("<input type=\"text\"");
 
-        appendClassNames(buffer, context, modelFormField);
+        appendClassNames(writer, context, modelFormField);
 
-        buffer.append(" name=\"");
+        writer.write(" name=\"");
         if ("time-dropdown".equals(dateTimeField.getInputMethod())) {
-            buffer.append(UtilHttp.makeCompositeParam(paramName, "date"));
+            writer.write(UtilHttp.makeCompositeParam(paramName, "date"));
         } else {
-            buffer.append(paramName);
+            writer.write(paramName);
         }
-        buffer.append('"');
+        writer.write('"');
 
         // the default values for a timestamp
         int size = 25;
@@ -425,36 +428,36 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 localizedInputTitle = (String) uiLabelMap.get("CommonFormatDateTime");
             }
         }
-        buffer.append(" title=\"");
-        buffer.append(localizedInputTitle);
-        buffer.append('"');
+        writer.write(" title=\"");
+        writer.write(localizedInputTitle);
+        writer.write('"');
         
         String value = modelFormField.getEntry(context, dateTimeField.getDefaultValue(context));
         if (UtilValidate.isNotEmpty(value)) {
             if(value.length() > maxlength) {
                 value = value.substring(0, maxlength);
             }
-            buffer.append(" value=\"");
-            buffer.append(value);
-            buffer.append('"');
+            writer.write(" value=\"");
+            writer.write(value);
+            writer.write('"');
         }
         
-        buffer.append(" size=\"");
-        buffer.append(size);
-        buffer.append('"');
+        writer.write(" size=\"");
+        writer.write(Integer.toString(size));
+        writer.write('"');
 
-        buffer.append(" maxlength=\"");
-        buffer.append(maxlength);
-        buffer.append('"');
+        writer.write(" maxlength=\"");
+        writer.write(Integer.toString(maxlength));
+        writer.write('"');
 
         String idName = modelFormField.getIdName();
         if (UtilValidate.isNotEmpty(idName)) {
-            buffer.append(" id=\"");
-            buffer.append(idName);
-            buffer.append('"');
+            writer.write(" id=\"");
+            writer.write(idName);
+            writer.write('"');
         }
 
-        buffer.append("/>");
+        writer.write("/>");
 
         // search for a localized label for the icon
         if (uiLabelMap != null) {
@@ -464,28 +467,28 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         // add calendar pop-up button and seed data IF this is not a "time" type date-time
         if (!"time".equals(dateTimeField.getType())) {
             if (shortDateInput) {
-                buffer.append("<a href=\"javascript:call_cal_notime(document.");
+                writer.write("<a href=\"javascript:call_cal_notime(document.");
             } else {
-                buffer.append("<a href=\"javascript:call_cal(document.");
+                writer.write("<a href=\"javascript:call_cal(document.");
             }
-            buffer.append(modelFormField.getModelForm().getCurrentFormName(context));
-            buffer.append('.');
+            writer.write(modelFormField.getModelForm().getCurrentFormName(context));
+            writer.write('.');
             if ("time-dropdown".equals(dateTimeField.getInputMethod())) {
-                buffer.append(UtilHttp.makeCompositeParam(paramName, "date"));
+                writer.write(UtilHttp.makeCompositeParam(paramName, "date"));
             } else {
-                buffer.append(paramName);
+                writer.write(paramName);
             }
-            buffer.append(",'");
-            buffer.append(UtilHttp.encodeBlanks(modelFormField.getEntry(context, defaultDateTimeString)));
-            buffer.append("');\">");
+            writer.write(",'");
+            writer.write(UtilHttp.encodeBlanks(modelFormField.getEntry(context, defaultDateTimeString)));
+            writer.write("');\">");
            
-            buffer.append("<img src=\"");
-            this.appendContentUrl(buffer, "/images/cal.gif");
-            buffer.append("\" width=\"16\" height=\"16\" border=\"0\" alt=\"");
-            buffer.append(localizedIconTitle);
-            buffer.append("\" title=\"");
-            buffer.append(localizedIconTitle);
-            buffer.append("\"/></a>");
+            writer.write("<img src=\"");
+            this.appendContentUrl(writer, "/images/cal.gif");
+            writer.write("\" width=\"16\" height=\"16\" border=\"0\" alt=\"");
+            writer.write(localizedIconTitle);
+            writer.write("\" title=\"");
+            writer.write(localizedIconTitle);
+            writer.write("\"/></a>");
         }
         
         // if we have an input method of time-dropdown, then render two dropdowns
@@ -506,145 +509,145 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             }
 
             // write the select for hours
-            buffer.append("&nbsp;<select name=\"").append(UtilHttp.makeCompositeParam(paramName, "hour")).append("\"");
-            buffer.append(classString).append(">");
+            writer.write("&nbsp;<select name=\"" + UtilHttp.makeCompositeParam(paramName, "hour") + "\"");
+            writer.write(classString + ">");
 
             // keep the two cases separate because it's hard to understand a combined loop
             if (isTwelveHour) {
                 for (int i = 1; i <= 12; i++) {
-                    buffer.append("<option value=\"").append(i).append("\"");
+                    writer.write("<option value=\"" + Integer.toString(i) + "\"");
                     if (cal != null) { 
                         int hour = cal.get(Calendar.HOUR_OF_DAY);
                         if (hour == 0) hour = 12;
                         if (hour > 12) hour -= 12;
-                        if (i == hour) buffer.append(" selected");
+                        if (i == hour) writer.write(" selected");
                     }
-                    buffer.append(">").append(i).append("</option>");
+                    writer.write(">" + Integer.toString(i) + "</option>");
                 }
             } else {
                 for (int i = 0; i < 24; i++) {
-                    buffer.append("<option value=\"").append(i).append("\"");
+                    writer.write("<option value=\"" + Integer.toString(i) + "\"");
                     if (cal != null && i == cal.get(Calendar.HOUR_OF_DAY)) {
-                        buffer.append(" selected");
+                        writer.write(" selected");
                     }
-                    buffer.append(">").append(i).append("</option>");
+                    writer.write(">" + Integer.toString(i) + "</option>");
                 }
             }
             
             // write the select for minutes
-            buffer.append("</select>:<select name=\"");
-            buffer.append(UtilHttp.makeCompositeParam(paramName, "minutes")).append("\"");
-            buffer.append(classString).append(">");
+            writer.write("</select>:<select name=\"");
+            writer.write(UtilHttp.makeCompositeParam(paramName, "minutes") + "\"");
+            writer.write(classString + ">");
             for (int i = 0; i < 60; i++) {
-                buffer.append("<option value=\"").append(i).append("\"");
+                writer.write("<option value=\"" + Integer.toString(i) + "\"");
                 if (cal != null && i == cal.get(Calendar.MINUTE)) {
-                    buffer.append(" selected");
+                    writer.write(" selected");
                 }
-                buffer.append(">").append(i).append("</option>");
+                writer.write(">" + Integer.toString(i) + "</option>");
             }
-            buffer.append("</select>");
+            writer.write("</select>");
 
             // if 12 hour clock, write the AM/PM selector
             if (isTwelveHour) {
                 String amSelected = ((cal != null && cal.get(Calendar.AM_PM) == Calendar.AM) ? "selected" : "");
                 String pmSelected = ((cal != null && cal.get(Calendar.AM_PM) == Calendar.PM) ? "selected" : "");
-                buffer.append("<select name=\"").append(UtilHttp.makeCompositeParam(paramName, "ampm")).append("\"");
-                buffer.append(classString).append(">");
-                buffer.append("<option value=\"").append("AM").append("\" ").append(amSelected).append(">AM</option>");
-                buffer.append("<option value=\"").append("PM").append("\" ").append(pmSelected).append(">PM</option>");
-                buffer.append("</select>");
+                writer.write("<select name=\"" + UtilHttp.makeCompositeParam(paramName, "ampm") + "\"");
+                writer.write(classString + ">");
+                writer.write("<option value=\"" + "AM" + "\" " + amSelected + ">AM</option>");
+                writer.write("<option value=\"" + "PM" + "\" " + pmSelected + ">PM</option>");
+                writer.write("</select>");
             }
 
             // create a hidden field for the composite type, which is a Timestamp
-            buffer.append("<input type=\"hidden\" name=\"");
-            buffer.append(UtilHttp.makeCompositeParam(paramName, "compositeType"));
-            buffer.append("\" value=\"Timestamp\"/>");
+            writer.write("<input type=\"hidden\" name=\"");
+            writer.write(UtilHttp.makeCompositeParam(paramName, "compositeType"));
+            writer.write("\" value=\"Timestamp\"/>");
         }
 
-        this.appendTooltip(buffer, context, modelFormField);
+        this.appendTooltip(writer, context, modelFormField);
 
-        //appendWhitespace(buffer);
+        //appendWhitespace(writer);
     }
 
     /* (non-Javadoc)
-     * @see org.ofbiz.widget.form.FormStringRenderer#renderDropDownField(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelFormField.DropDownField)
+     * @see org.ofbiz.widget.form.FormStringRenderer#renderDropDownField(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelFormField.DropDownField)
      */
-    public void renderDropDownField(StringBuffer buffer, Map context, DropDownField dropDownField) {
+    public void renderDropDownField(Writer writer, Map<String, Object> context, DropDownField dropDownField) throws IOException {
         ModelFormField modelFormField = dropDownField.getModelFormField();
         ModelForm modelForm = modelFormField.getModelForm();
 
         String event = modelFormField.getEvent();
         String action = modelFormField.getAction(context);
 
-        buffer.append("<select");
+        writer.write("<select");
 
-        appendClassNames(buffer, context, modelFormField);
+        appendClassNames(writer, context, modelFormField);
 
-        buffer.append(" name=\"");
-        buffer.append(modelFormField.getParameterName(context));
-        buffer.append('"');
+        writer.write(" name=\"");
+        writer.write(modelFormField.getParameterName(context));
+        writer.write('"');
 
         String idName = modelFormField.getIdName();
         if (UtilValidate.isNotEmpty(idName)) {
-            buffer.append(" id=\"");
-            buffer.append(idName);
-            buffer.append('"');
+            writer.write(" id=\"");
+            writer.write(idName);
+            writer.write('"');
         }
 
         if (dropDownField.isAllowMultiple()) {
-            buffer.append(" multiple=\"multiple\"");
+            writer.write(" multiple=\"multiple\"");
         }
         
         int otherFieldSize = dropDownField.getOtherFieldSize();
         String otherFieldName = dropDownField.getParameterNameOther(context);
         if (otherFieldSize > 0) {
-            //buffer.append(" onchange=\"alert('ONCHANGE, process_choice:' + process_choice)\"");
-            //buffer.append(" onchange='test_js()' ");
-            buffer.append(" onchange=\"process_choice(this,document.");
-            buffer.append(modelForm.getName());
-            buffer.append(".");
-            buffer.append(otherFieldName);
-            buffer.append(")\" "); 
+            //writer.write(" onchange=\"alert('ONCHANGE, process_choice:' + process_choice)\"");
+            //writer.write(" onchange='test_js()' ");
+            writer.write(" onchange=\"process_choice(this,document.");
+            writer.write(modelForm.getName());
+            writer.write(".");
+            writer.write(otherFieldName);
+            writer.write(")\" "); 
         }
 
 
         if (UtilValidate.isNotEmpty(event) && UtilValidate.isNotEmpty(action)) {
-            buffer.append(" ");
-            buffer.append(event);
-            buffer.append("=\"");
-            buffer.append(action);
-            buffer.append('"');
+            writer.write(" ");
+            writer.write(event);
+            writer.write("=\"");
+            writer.write(action);
+            writer.write('"');
         }
 
-        buffer.append(" size=\"").append(dropDownField.getSize()).append("\">");
+        writer.write(" size=\"" + dropDownField.getSize() + "\">");
 
         String currentValue = modelFormField.getEntry(context);
         List allOptionValues = dropDownField.getAllOptionValues(context, modelForm.getDelegator(context));
 
         // if the current value should go first, stick it in
         if (UtilValidate.isNotEmpty(currentValue) && "first-in-list".equals(dropDownField.getCurrent())) {
-            buffer.append("<option");
-            buffer.append(" selected=\"selected\"");
-            buffer.append(" value=\"");
-            buffer.append(currentValue);
-            buffer.append("\">");
+            writer.write("<option");
+            writer.write(" selected=\"selected\"");
+            writer.write(" value=\"");
+            writer.write(currentValue);
+            writer.write("\">");
             String explicitDescription = dropDownField.getCurrentDescription(context);
             if (UtilValidate.isNotEmpty(explicitDescription)) {
-                buffer.append(explicitDescription);
+                writer.write(explicitDescription);
             } else {
-                buffer.append(ModelFormField.FieldInfoWithOptions.getDescriptionForOptionKey(currentValue, allOptionValues));
+                writer.write(ModelFormField.FieldInfoWithOptions.getDescriptionForOptionKey(currentValue, allOptionValues));
             }
-            buffer.append("</option>");
+            writer.write("</option>");
 
             // add a "separator" option
-            buffer.append("<option value=\"");
-            buffer.append(currentValue);
-            buffer.append("\">---</option>");
+            writer.write("<option value=\"");
+            writer.write(currentValue);
+            writer.write("\">---</option>");
         }
 
         // if allow empty is true, add an empty option
         if (dropDownField.isAllowEmpty()) {
-            buffer.append("<option value=\"\">&nbsp;</option>");
+            writer.write("<option value=\"\">&nbsp;</option>");
         }
 
         // list out all options according to the option list
@@ -652,21 +655,21 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         while (optionValueIter.hasNext()) {
             ModelFormField.OptionValue optionValue = (ModelFormField.OptionValue) optionValueIter.next();
             String noCurrentSelectedKey = dropDownField.getNoCurrentSelectedKey(context);
-            buffer.append("<option");
+            writer.write("<option");
             // if current value should be selected in the list, select it
             if (UtilValidate.isNotEmpty(currentValue) && currentValue.equals(optionValue.getKey()) && "selected".equals(dropDownField.getCurrent())) {
-                buffer.append(" selected=\"selected\"");
+                writer.write(" selected=\"selected\"");
             } else if (UtilValidate.isEmpty(currentValue) && noCurrentSelectedKey != null && noCurrentSelectedKey.equals(optionValue.getKey())) {
-                buffer.append(" selected=\"selected\"");
+                writer.write(" selected=\"selected\"");
             }
-            buffer.append(" value=\"");
-            buffer.append(optionValue.getKey());
-            buffer.append("\">");
-            buffer.append(optionValue.getDescription());
-            buffer.append("</option>");
+            writer.write(" value=\"");
+            writer.write(optionValue.getKey());
+            writer.write("\">");
+            writer.write(optionValue.getDescription());
+            writer.write("</option>");
         }
 
-        buffer.append("</select>");
+        writer.write("</select>");
 
         // Adapted from work by Yucca Korpela
         // http://www.cs.tut.fi/~jkorpela/forms/combo.html
@@ -680,50 +683,50 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             Object otherValueObj = dataMap.get(otherFieldName);
             String otherValue = (otherValueObj == null) ? "" : otherValueObj.toString();
             
-            buffer.append("<noscript>");
-            buffer.append("<input type='text' name='");
-            buffer.append(otherFieldName);
-            buffer.append("'/> ");
-            buffer.append("</noscript>");
-            buffer.append("\n<script type='text/javascript' language='JavaScript'><!--");
-            buffer.append("\ndisa = ' disabled';");
-            buffer.append("\nif(other_choice(document.");
-            buffer.append(modelForm.getName());
-            buffer.append(".");
-            buffer.append(fieldName);
-            buffer.append(")) disa = '';");
-            buffer.append("\ndocument.write(\"<input type=");
-            buffer.append("'text' name='");
-            buffer.append(otherFieldName);
-            buffer.append("' value='");
-            buffer.append(otherValue);
-            buffer.append("' size='");
-            buffer.append(otherFieldSize);
-            buffer.append("' ");
-            buffer.append("\" +disa+ \" onfocus='check_choice(document.");
-            buffer.append(modelForm.getName());
-            buffer.append(".");
-            buffer.append(fieldName);
-            buffer.append(")'/>\");");
-            buffer.append("\nif(disa && document.styleSheets)");
-            buffer.append(" document.");
-            buffer.append(modelForm.getName());
-            buffer.append(".");
-            buffer.append(otherFieldName);
-            buffer.append(".style.visibility  = 'hidden';");
-            buffer.append("\n//--></script>");
+            writer.write("<noscript>");
+            writer.write("<input type='text' name='");
+            writer.write(otherFieldName);
+            writer.write("'/> ");
+            writer.write("</noscript>");
+            writer.write("\n<script type='text/javascript' language='JavaScript'><!--");
+            writer.write("\ndisa = ' disabled';");
+            writer.write("\nif(other_choice(document.");
+            writer.write(modelForm.getName());
+            writer.write(".");
+            writer.write(fieldName);
+            writer.write(")) disa = '';");
+            writer.write("\ndocument.write(\"<input type=");
+            writer.write("'text' name='");
+            writer.write(otherFieldName);
+            writer.write("' value='");
+            writer.write(otherValue);
+            writer.write("' size='");
+            writer.write(Integer.toString(otherFieldSize));
+            writer.write("' ");
+            writer.write("\" +disa+ \" onfocus='check_choice(document.");
+            writer.write(modelForm.getName());
+            writer.write(".");
+            writer.write(fieldName);
+            writer.write(")'/>\");");
+            writer.write("\nif(disa && document.styleSheets)");
+            writer.write(" document.");
+            writer.write(modelForm.getName());
+            writer.write(".");
+            writer.write(otherFieldName);
+            writer.write(".style.visibility  = 'hidden';");
+            writer.write("\n//--></script>");
         }
-        this.makeHyperlinkString(buffer, dropDownField.getSubHyperlink(), context);
+        this.makeHyperlinkString(writer, dropDownField.getSubHyperlink(), context);
 
-        this.appendTooltip(buffer, context, modelFormField);
+        this.appendTooltip(writer, context, modelFormField);
 
-        //appendWhitespace(buffer);
+        //appendWhitespace(writer);
     }
 
     /* (non-Javadoc)
-     * @see org.ofbiz.widget.form.FormStringRenderer#renderCheckField(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelFormField.CheckField)
+     * @see org.ofbiz.widget.form.FormStringRenderer#renderCheckField(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelFormField.CheckField)
      */
-    public void renderCheckField(StringBuffer buffer, Map context, CheckField checkField) {
+    public void renderCheckField(Writer writer, Map<String, Object> context, CheckField checkField) throws IOException {
         ModelFormField modelFormField = checkField.getModelFormField();
         ModelForm modelForm = modelFormField.getModelForm();
         String currentValue = modelFormField.getEntry(context);
@@ -738,47 +741,47 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         while (optionValueIter.hasNext()) {
             ModelFormField.OptionValue optionValue = (ModelFormField.OptionValue) optionValueIter.next();
 
-            buffer.append("<input type=\"checkbox\"");
+            writer.write("<input type=\"checkbox\"");
 
-            appendClassNames(buffer, context, modelFormField);
+            appendClassNames(writer, context, modelFormField);
             
             // if current value should be selected in the list, select it
             if (Boolean.TRUE.equals(allChecked)) {
-                buffer.append(" checked=\"checked\"");
+                writer.write(" checked=\"checked\"");
             } else if (Boolean.FALSE.equals(allChecked)) {
                 // do nothing
             } else if (UtilValidate.isNotEmpty(currentValue) && currentValue.equals(optionValue.getKey())) {
-                buffer.append(" checked=\"checked\"");
+                writer.write(" checked=\"checked\"");
             }
-            buffer.append(" name=\"");
-            buffer.append(modelFormField.getParameterName(context));
-            buffer.append('"');
-            buffer.append(" value=\"");
-            buffer.append(optionValue.getKey());
-            buffer.append("\"");
+            writer.write(" name=\"");
+            writer.write(modelFormField.getParameterName(context));
+            writer.write('"');
+            writer.write(" value=\"");
+            writer.write(optionValue.getKey());
+            writer.write("\"");
 
             if (UtilValidate.isNotEmpty(event) && UtilValidate.isNotEmpty(action)) {
-                buffer.append(" ");
-                buffer.append(event);
-                buffer.append("=\"");
-                buffer.append(action);
-                buffer.append('"');
+                writer.write(" ");
+                writer.write(event);
+                writer.write("=\"");
+                writer.write(action);
+                writer.write('"');
             }
             
-            buffer.append("/>");
+            writer.write("/>");
 
-            buffer.append(optionValue.getDescription());
+            writer.write(optionValue.getDescription());
         }
 
-        this.appendTooltip(buffer, context, modelFormField);
+        this.appendTooltip(writer, context, modelFormField);
 
-        //appendWhitespace(buffer);
+        //appendWhitespace(writer);
     }
 
     /* (non-Javadoc)
-     * @see org.ofbiz.widget.form.FormStringRenderer#renderRadioField(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelFormField.RadioField)
+     * @see org.ofbiz.widget.form.FormStringRenderer#renderRadioField(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelFormField.RadioField)
      */
-    public void renderRadioField(StringBuffer buffer, Map context, RadioField radioField) {
+    public void renderRadioField(Writer writer, Map<String, Object> context, RadioField radioField) throws IOException {
         ModelFormField modelFormField = radioField.getModelFormField();
         ModelForm modelForm = modelFormField.getModelForm();
         List allOptionValues = radioField.getAllOptionValues(context, modelForm.getDelegator(context));
@@ -791,97 +794,97 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         while (optionValueIter.hasNext()) {
             ModelFormField.OptionValue optionValue = (ModelFormField.OptionValue) optionValueIter.next();
 
-            buffer.append("<div");
+            writer.write("<div");
 
-            appendClassNames(buffer, context, modelFormField);
+            appendClassNames(writer, context, modelFormField);
 
-            buffer.append("><input type=\"radio\"");
+            writer.write("><input type=\"radio\"");
             
             // if current value should be selected in the list, select it
             String noCurrentSelectedKey = radioField.getNoCurrentSelectedKey(context);
             if (UtilValidate.isNotEmpty(currentValue) && currentValue.equals(optionValue.getKey())) {
-                buffer.append(" checked=\"checked\"");
+                writer.write(" checked=\"checked\"");
             } else if (UtilValidate.isEmpty(currentValue) && noCurrentSelectedKey != null && noCurrentSelectedKey.equals(optionValue.getKey())) {
-                buffer.append(" checked=\"checked\"");
+                writer.write(" checked=\"checked\"");
             }
-            buffer.append(" name=\"");
-            buffer.append(modelFormField.getParameterName(context));
-            buffer.append('"');
-            buffer.append(" value=\"");
-            buffer.append(optionValue.getKey());
-            buffer.append("\"");
+            writer.write(" name=\"");
+            writer.write(modelFormField.getParameterName(context));
+            writer.write('"');
+            writer.write(" value=\"");
+            writer.write(optionValue.getKey());
+            writer.write("\"");
 
             if (UtilValidate.isNotEmpty(event) && UtilValidate.isNotEmpty(action)) {
-                buffer.append(" ");
-                buffer.append(event);
-                buffer.append("=\"");
-                buffer.append(action);
-                buffer.append('"');
+                writer.write(" ");
+                writer.write(event);
+                writer.write("=\"");
+                writer.write(action);
+                writer.write('"');
             }
             
-            buffer.append("/>");
+            writer.write("/>");
 
-            buffer.append(optionValue.getDescription());
-            buffer.append("</div>");
+            writer.write(optionValue.getDescription());
+            writer.write("</div>");
         }
 
-        this.appendTooltip(buffer, context, modelFormField);
+        this.appendTooltip(writer, context, modelFormField);
 
-        //appendWhitespace(buffer);
+        //appendWhitespace(writer);
     }
 
     /* (non-Javadoc)
-     * @see org.ofbiz.widget.form.FormStringRenderer#renderSubmitField(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelFormField.SubmitField)
+     * @see org.ofbiz.widget.form.FormStringRenderer#renderSubmitField(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelFormField.SubmitField)
      */
-    public void renderSubmitField(StringBuffer buffer, Map context, SubmitField submitField) {
+    public void renderSubmitField(Writer writer, Map<String, Object> context, SubmitField submitField) throws IOException {
         ModelFormField modelFormField = submitField.getModelFormField();
         ModelForm modelForm = modelFormField.getModelForm();
         String event = null;
         String action = null;        
 
         if ("text-link".equals(submitField.getButtonType())) {
-            buffer.append("<a");
+            writer.write("<a");
 
-            appendClassNames(buffer, context, modelFormField);
+            appendClassNames(writer, context, modelFormField);
 
-            buffer.append(" href=\"javascript:document.");
-            buffer.append(modelForm.getCurrentFormName(context));
-            buffer.append(".submit()\">");
+            writer.write(" href=\"javascript:document.");
+            writer.write(modelForm.getCurrentFormName(context));
+            writer.write(".submit()\">");
 
-            buffer.append(modelFormField.getTitle(context));
+            writer.write(modelFormField.getTitle(context));
 
-            buffer.append("</a>");
+            writer.write("</a>");
         } else if ("image".equals(submitField.getButtonType())) {
-            buffer.append("<input type=\"image\"");
+            writer.write("<input type=\"image\"");
 
-            appendClassNames(buffer, context, modelFormField);
+            appendClassNames(writer, context, modelFormField);
 
-            buffer.append(" name=\"");
-            buffer.append(modelFormField.getParameterName(context));
-            buffer.append('"');
+            writer.write(" name=\"");
+            writer.write(modelFormField.getParameterName(context));
+            writer.write('"');
 
             String title = modelFormField.getTitle(context);
             if (UtilValidate.isNotEmpty(title)) {
-                buffer.append(" alt=\"");
-                buffer.append(title);
-                buffer.append('"');
+                writer.write(" alt=\"");
+                writer.write(title);
+                writer.write('"');
             }
 
-            buffer.append(" src=\"");
-            this.appendContentUrl(buffer, submitField.getImageLocation());
-            buffer.append('"');
+            writer.write(" src=\"");
+            this.appendContentUrl(writer, submitField.getImageLocation());
+            writer.write('"');
             
             event = modelFormField.getEvent();
             action = modelFormField.getAction(context);
             if (UtilValidate.isNotEmpty(event) && UtilValidate.isNotEmpty(action)) {
-                buffer.append(" ");
-                buffer.append(event);
-                buffer.append("=\"");
-                buffer.append(action);
-                buffer.append('"');
+                writer.write(" ");
+                writer.write(event);
+                writer.write("=\"");
+                writer.write(action);
+                writer.write('"');
             }
             
-            buffer.append("/>");
+            writer.write("/>");
         } else {
             // default to "button"
 
@@ -899,148 +902,148 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
 
             boolean ajaxEnabled = (updateAreas != null || UtilValidate.isNotEmpty(backgroundSubmitRefreshTarget)) && this.javaScriptEnabled;
             if (ajaxEnabled) {
-                buffer.append("<input type=\"button\"");
+                writer.write("<input type=\"button\"");
             } else {
-                buffer.append("<input type=\"submit\"");
+                writer.write("<input type=\"submit\"");
             }
 
-            appendClassNames(buffer, context, modelFormField);
+            appendClassNames(writer, context, modelFormField);
 
-            buffer.append(" name=\"");
-            buffer.append(modelFormField.getParameterName(context));
-            buffer.append('"');
+            writer.write(" name=\"");
+            writer.write(modelFormField.getParameterName(context));
+            writer.write('"');
 
             String title = modelFormField.getTitle(context);
             if (UtilValidate.isNotEmpty(title)) {
-                buffer.append(" value=\"");
-                buffer.append(title);
-                buffer.append('"');
+                writer.write(" value=\"");
+                writer.write(title);
+                writer.write('"');
             }
 
             
             event = modelFormField.getEvent();
             action = modelFormField.getAction(context);
             if (UtilValidate.isNotEmpty(event) && UtilValidate.isNotEmpty(action)) {
-                buffer.append(" ");
-                buffer.append(event);
-                buffer.append("=\"");
-                buffer.append(action);
-                buffer.append('"');
+                writer.write(" ");
+                writer.write(event);
+                writer.write("=\"");
+                writer.write(action);
+                writer.write('"');
             } else {
             	//add single click JS onclick
-                // disabling for now, using form onSubmit action instead: buffer.append(singleClickAction);
+                // disabling for now, using form onSubmit action instead: writer.write(singleClickAction);
             }
             
             if (ajaxEnabled) {
-                buffer.append(" onclick=\"");
-                buffer.append("ajaxSubmitFormUpdateAreas($('");
-                buffer.append(formId);
-                buffer.append("'), '" + createAjaxParamsFromUpdateAreas(updateAreas, null, context));
-                buffer.append("')\"");
+                writer.write(" onclick=\"");
+                writer.write("ajaxSubmitFormUpdateAreas($('");
+                writer.write(formId);
+                writer.write("'), '" + createAjaxParamsFromUpdateAreas(updateAreas, null, context));
+                writer.write("')\"");
             }
             
-            buffer.append("/>");
+            writer.write("/>");
         }
 
-        this.appendTooltip(buffer, context, modelFormField);
+        this.appendTooltip(writer, context, modelFormField);
 
-        //appendWhitespace(buffer);
+        //appendWhitespace(writer);
     }
 
     /* (non-Javadoc)
-     * @see org.ofbiz.widget.form.FormStringRenderer#renderResetField(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelFormField.ResetField)
+     * @see org.ofbiz.widget.form.FormStringRenderer#renderResetField(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelFormField.ResetField)
      */
-    public void renderResetField(StringBuffer buffer, Map context, ResetField resetField) {
+    public void renderResetField(Writer writer, Map<String, Object> context, ResetField resetField) throws IOException {
         ModelFormField modelFormField = resetField.getModelFormField();
 
-        buffer.append("<input type=\"reset\"");
+        writer.write("<input type=\"reset\"");
 
-        appendClassNames(buffer, context, modelFormField);
+        appendClassNames(writer, context, modelFormField);
 
-        buffer.append(" name=\"");
-        buffer.append(modelFormField.getParameterName(context));
-        buffer.append('"');
+        writer.write(" name=\"");
+        writer.write(modelFormField.getParameterName(context));
+        writer.write('"');
 
         String title = modelFormField.getTitle(context);
         if (UtilValidate.isNotEmpty(title)) {
-            buffer.append(" value=\"");
-            buffer.append(title);
-            buffer.append('"');
+            writer.write(" value=\"");
+            writer.write(title);
+            writer.write('"');
         }
 
-        buffer.append("/>");
+        writer.write("/>");
 
-        this.appendTooltip(buffer, context, modelFormField);
+        this.appendTooltip(writer, context, modelFormField);
 
-        //appendWhitespace(buffer);
+        //appendWhitespace(writer);
     }
 
     /* (non-Javadoc)
-     * @see org.ofbiz.widget.form.FormStringRenderer#renderHiddenField(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelFormField.HiddenField)
+     * @see org.ofbiz.widget.form.FormStringRenderer#renderHiddenField(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelFormField.HiddenField)
      */
-    public void renderHiddenField(StringBuffer buffer, Map context, HiddenField hiddenField) {
+    public void renderHiddenField(Writer writer, Map<String, Object> context, HiddenField hiddenField) throws IOException {
         ModelFormField modelFormField = hiddenField.getModelFormField();
         String value = hiddenField.getValue(context);
-        this.renderHiddenField(buffer, context, modelFormField, value);
+        this.renderHiddenField(writer, context, modelFormField, value);
     }
 
-    public void renderHiddenField(StringBuffer buffer, Map context, ModelFormField modelFormField, String value) {
-        buffer.append("<input type=\"hidden\"");
+    public void renderHiddenField(Writer writer, Map<String, Object> context, ModelFormField modelFormField, String value) throws IOException {
+        writer.write("<input type=\"hidden\"");
 
-        buffer.append(" name=\"");
-        buffer.append(modelFormField.getParameterName(context));
-        buffer.append('"');
+        writer.write(" name=\"");
+        writer.write(modelFormField.getParameterName(context));
+        writer.write('"');
 
         if (UtilValidate.isNotEmpty(value)) {
-            buffer.append(" value=\"");
-            buffer.append(StringEscapeUtils.escapeHtml(value));
-            buffer.append('"');
+            writer.write(" value=\"");
+            writer.write(StringEscapeUtils.escapeHtml(value));
+            writer.write('"');
         }
 
-        buffer.append("/>");
-        appendWhitespace(buffer);
+        writer.write("/>");
+        appendWhitespace(writer);
     }
 
     /* (non-Javadoc)
-     * @see org.ofbiz.widget.form.FormStringRenderer#renderIgnoredField(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelFormField.IgnoredField)
+     * @see org.ofbiz.widget.form.FormStringRenderer#renderIgnoredField(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelFormField.IgnoredField)
      */
-    public void renderIgnoredField(StringBuffer buffer, Map context, IgnoredField ignoredField) {
+    public void renderIgnoredField(Writer writer, Map<String, Object> context, IgnoredField ignoredField) throws IOException {
         // do nothing, it's an ignored field; could add a comment or something if we wanted to
     }
 
     /* (non-Javadoc)
-     * @see org.ofbiz.widget.form.FormStringRenderer#renderFieldTitle(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelFormField)
+     * @see org.ofbiz.widget.form.FormStringRenderer#renderFieldTitle(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelFormField)
      */
-    public void renderFieldTitle(StringBuffer buffer, Map context, ModelFormField modelFormField) {
+    public void renderFieldTitle(Writer writer, Map<String, Object> context, ModelFormField modelFormField) throws IOException {
         String tempTitleText = modelFormField.getTitle(context);
         String titleText = UtilHttp.encodeAmpersands(tempTitleText);
         
         if (UtilValidate.isNotEmpty(titleText)) {
             if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle())) {
-                buffer.append("<span class=\"");
-                buffer.append(modelFormField.getTitleStyle());
-                buffer.append("\">");
+                writer.write("<span class=\"");
+                writer.write(modelFormField.getTitleStyle());
+                writer.write("\">");
             }
             if (" ".equals(titleText)) {
                 // If the title content is just a blank then render it colling renderFormatEmptySpace:
                 // the method will set its content to work fine in most browser
-                this.renderFormatEmptySpace(buffer, context, modelFormField.getModelForm());
+                this.renderFormatEmptySpace(writer, context, modelFormField.getModelForm());
             } else {
-                renderHyperlinkTitle(buffer, context, modelFormField, titleText);
+                renderHyperlinkTitle(writer, context, modelFormField, titleText);
             }
 
             if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle())) {
-                buffer.append("</span>");
+                writer.write("</span>");
             }
 
-            //appendWhitespace(buffer);
+            //appendWhitespace(writer);
         }
     }
 
     /* (non-Javadoc)
-     * @see org.ofbiz.widget.form.FormStringRenderer#renderFieldTitle(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelFormField)
+     * @see org.ofbiz.widget.form.FormStringRenderer#renderFieldTitle(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelFormField)
      */
-    public void renderSingleFormFieldTitle(StringBuffer buffer, Map context, ModelFormField modelFormField) {
+    public void renderSingleFormFieldTitle(Writer writer, Map<String, Object> context, ModelFormField modelFormField) throws IOException {
         boolean requiredField = modelFormField.getRequiredField();
         if (requiredField) {
             
@@ -1050,113 +1053,113 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             }
             
             if (UtilValidate.isNotEmpty(requiredStyle)) {
-                buffer.append("<span class=\"");
-                buffer.append(requiredStyle);
-                buffer.append("\">");
+                writer.write("<span class=\"");
+                writer.write(requiredStyle);
+                writer.write("\">");
             }
-            renderHyperlinkTitle(buffer, context, modelFormField, modelFormField.getTitle(context)); 
+            renderHyperlinkTitle(writer, context, modelFormField, modelFormField.getTitle(context)); 
             if (UtilValidate.isNotEmpty(requiredStyle)) {
-                buffer.append("</span>");
+                writer.write("</span>");
             }
 
-            //appendWhitespace(buffer);
+            //appendWhitespace(writer);
         } else {
-            renderFieldTitle(buffer, context, modelFormField);
+            renderFieldTitle(writer, context, modelFormField);
         }
     }
 
     /* (non-Javadoc)
-     * @see org.ofbiz.widget.form.FormStringRenderer#renderFormOpen(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelForm)
+     * @see org.ofbiz.widget.form.FormStringRenderer#renderFormOpen(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelForm)
      */
-    public void renderFormOpen(StringBuffer buffer, Map context, ModelForm modelForm) {
-        renderBeginningBoundaryComment(buffer, "Form Widget", modelForm);
-        buffer.append("<form method=\"post\" ");
+    public void renderFormOpen(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
+        renderBeginningBoundaryComment(writer, "Form Widget", modelForm);
+        writer.write("<form method=\"post\" ");
         String targetType = modelForm.getTargetType();
         String targ = modelForm.getTarget(context, targetType);
         // The 'action' attribute is mandatory in a form definition,
         // even if it is empty.
-        buffer.append(" action=\"");
+        writer.write(" action=\"");
         if (targ != null && targ.length() > 0) {
-            //this.appendOfbizUrl(buffer, "/" + targ);
-            WidgetWorker.buildHyperlinkUrl(buffer, targ, targetType, request, response, context);
+            //this.appendOfbizUrl(writer, "/" + targ);
+            WidgetWorker.buildHyperlinkUrl(writer, targ, targetType, request, response, context);
         }
-        buffer.append("\" ");
+        writer.write("\" ");
 
         String formType = modelForm.getType();
         if (formType.equals("upload") ) {
-            buffer.append(" enctype=\"multipart/form-data\"");
+            writer.write(" enctype=\"multipart/form-data\"");
         }
 
         String targetWindow = modelForm.getTargetWindow(context);
         if (UtilValidate.isNotEmpty(targetWindow)) {
-            buffer.append(" target=\"");
-            buffer.append(targetWindow);
-            buffer.append("\"");
+            writer.write(" target=\"");
+            writer.write(targetWindow);
+            writer.write("\"");
         }
 
         String containerId =  modelForm.getContainerId();
         if (UtilValidate.isNotEmpty(containerId)) {
-            buffer.append(" id=\"");
-            buffer.append(containerId);
-            buffer.append("\"");
+            writer.write(" id=\"");
+            writer.write(containerId);
+            writer.write("\"");
         }
 
-        buffer.append(" class=\"");
+        writer.write(" class=\"");
         String containerStyle =  modelForm.getContainerStyle();
         if (UtilValidate.isNotEmpty(containerStyle)) {
-            buffer.append(containerStyle);
+            writer.write(containerStyle);
         } else {
-            buffer.append("basic-form");
+            writer.write("basic-form");
         }
-        buffer.append("\"");
+        writer.write("\"");
         
-        buffer.append(" onSubmit=\"javascript:submitFormDisableSubmits(this)\"");
+        writer.write(" onSubmit=\"javascript:submitFormDisableSubmits(this)\"");
 
         if (!modelForm.getClientAutocompleteFields()) {
-            buffer.append(" autocomplete=\"off\"");
+            writer.write(" autocomplete=\"off\"");
         }
 
-        buffer.append(" name=\"");
-        buffer.append(modelForm.getCurrentFormName(context));
-        buffer.append("\">");
+        writer.write(" name=\"");
+        writer.write(modelForm.getCurrentFormName(context));
+        writer.write("\">");
 
-        appendWhitespace(buffer);
+        appendWhitespace(writer);
     }
 
     /* (non-Javadoc)
-     * @see org.ofbiz.widget.form.FormStringRenderer#renderFormClose(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelForm)
+     * @see org.ofbiz.widget.form.FormStringRenderer#renderFormClose(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelForm)
      */
-    public void renderFormClose(StringBuffer buffer, Map context, ModelForm modelForm) {
-        buffer.append("</form>");
+    public void renderFormClose(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
+        writer.write("</form>");
         String focusFieldName = modelForm.getfocusFieldName();
         if (UtilValidate.isNotEmpty(focusFieldName)) {
-            appendWhitespace(buffer);
-            buffer.append("<script language=\"JavaScript\" type=\"text/javascript\">");
-            appendWhitespace(buffer);
-            buffer.append("document." + modelForm.getCurrentFormName(context) + ".");
-            buffer.append(focusFieldName + ".focus();");
-            appendWhitespace(buffer);
-            buffer.append("</script>");
+            appendWhitespace(writer);
+            writer.write("<script language=\"JavaScript\" type=\"text/javascript\">");
+            appendWhitespace(writer);
+            writer.write("document." + modelForm.getCurrentFormName(context) + ".");
+            writer.write(focusFieldName + ".focus();");
+            appendWhitespace(writer);
+            writer.write("</script>");
         }
-        appendWhitespace(buffer);
-        renderEndingBoundaryComment(buffer, "Form Widget", modelForm);
+        appendWhitespace(writer);
+        renderEndingBoundaryComment(writer, "Form Widget", modelForm);
     }
 
     /* (non-Javadoc)
-     * @see org.ofbiz.widget.form.FormStringRenderer#renderFormClose(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelForm)
+     * @see org.ofbiz.widget.form.FormStringRenderer#renderFormClose(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelForm)
      */
-    public void renderMultiFormClose(StringBuffer buffer, Map context, ModelForm modelForm) {
+    public void renderMultiFormClose(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         String rowCount = modelForm.getPassedRowCount(context);
         if (UtilValidate.isEmpty(rowCount)) {
             int rCount = modelForm.getRowCount();
             rowCount = Integer.toString(rCount);
         }
         if (UtilValidate.isNotEmpty(rowCount)) {
-            buffer.append("<input type=\"hidden\" name=\"_rowCount\" value=\"" + rowCount + "\"/>");
+            writer.write("<input type=\"hidden\" name=\"_rowCount\" value=\"" + rowCount + "\"/>");
         }
         boolean useRowSubmit = modelForm.getUseRowSubmit();
         if (useRowSubmit) {
-            buffer.append("<input type=\"hidden\" name=\"_useRowSubmit\" value=\"Y\"/>");
+            writer.write("<input type=\"hidden\" name=\"_useRowSubmit\" value=\"Y\"/>");
         }
         
         Iterator submitFields = modelForm.getMultiSubmitFields().iterator();
@@ -1171,23 +1174,23 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 // we cannot call here the methods renderFormatItemRowCell*: for this reason
                 // they are now commented.
 
-                // this.renderFormatItemRowCellOpen(buffer, context, modelForm, submitField);
-                // this.renderFormatItemRowCellClose(buffer, context, modelForm, submitField);
+                // this.renderFormatItemRowCellOpen(writer, context, modelForm, submitField);
+                // this.renderFormatItemRowCellClose(writer, context, modelForm, submitField);
 
-                // this.renderFormatItemRowCellOpen(buffer, context, modelForm, submitField);
+                // this.renderFormatItemRowCellOpen(writer, context, modelForm, submitField);
 
-                submitField.renderFieldString(buffer, context, this);
+                submitField.renderFieldString(writer, context, this);
 
-                // this.renderFormatItemRowCellClose(buffer, context, modelForm, submitField);
+                // this.renderFormatItemRowCellClose(writer, context, modelForm, submitField);
 
             }
         }
-        buffer.append("</form>");
-        appendWhitespace(buffer);
-        renderEndingBoundaryComment(buffer, "Form Widget", modelForm);
+        writer.write("</form>");
+        appendWhitespace(writer);
+        renderEndingBoundaryComment(writer, "Form Widget", modelForm);
     }
 
-    public void renderFormatListWrapperOpen(StringBuffer buffer, Map context, ModelForm modelForm) {
+    public void renderFormatListWrapperOpen(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
 
         String queryString = null;
         if (UtilValidate.isNotEmpty((String)context.get("queryString"))) {
@@ -1202,325 +1205,325 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         }
         context.put("_QBESTRING_", queryString);
 
-        renderBeginningBoundaryComment(buffer, "Form Widget", modelForm);
+        renderBeginningBoundaryComment(writer, "Form Widget", modelForm);
 
         if (this.renderPagination) {
-            this.renderNextPrev(buffer, context, modelForm);
+            this.renderNextPrev(writer, context, modelForm);
         }
-        buffer.append(" <table cellspacing=\"0\" class=\"");
+        writer.write(" <table cellspacing=\"0\" class=\"");
         if(UtilValidate.isNotEmpty(modelForm.getDefaultTableStyle())) {
-            buffer.append(modelForm.getDefaultTableStyle());
+            writer.write(modelForm.getDefaultTableStyle());
         } else {
-            buffer.append("basic-table form-widget-table dark-grid");
+            writer.write("basic-table form-widget-table dark-grid");
         }
-        buffer.append("\">");
-        appendWhitespace(buffer);
+        writer.write("\">");
+        appendWhitespace(writer);
     }
 
-    public void renderFormatListWrapperClose(StringBuffer buffer, Map context, ModelForm modelForm) {
-        buffer.append(" </table>");
+    public void renderFormatListWrapperClose(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
+        writer.write(" </table>");
 
-        appendWhitespace(buffer);
+        appendWhitespace(writer);
         if (this.renderPagination) {
-            this.renderNextPrev(buffer, context, modelForm);
+            this.renderNextPrev(writer, context, modelForm);
         }
-        renderEndingBoundaryComment(buffer, "Form Widget", modelForm);
+        renderEndingBoundaryComment(writer, "Form Widget", modelForm);
     }
 
     /* (non-Javadoc)
-     * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatHeaderRowOpen(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelForm)
+     * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatHeaderRowOpen(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelForm)
      */
-    public void renderFormatHeaderRowOpen(StringBuffer buffer, Map context, ModelForm modelForm) {
-        buffer.append("  <tr");
+    public void renderFormatHeaderRowOpen(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
+        writer.write("  <tr");
         String headerStyle = modelForm.getHeaderRowStyle();
-        buffer.append(" class=\"");
+        writer.write(" class=\"");
         if (UtilValidate.isNotEmpty(headerStyle)) {
-            buffer.append(headerStyle);
+            writer.write(headerStyle);
         } else {
-            buffer.append("header-row");
+            writer.write("header-row");
         }
-        buffer.append("\">");
-        appendWhitespace(buffer);
+        writer.write("\">");
+        appendWhitespace(writer);
     }
 
     /* (non-Javadoc)
-     * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatHeaderRowClose(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelForm)
+     * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatHeaderRowClose(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelForm)
      */
-    public void renderFormatHeaderRowClose(StringBuffer buffer, Map context, ModelForm modelForm) {
-        buffer.append("  </tr>");
+    public void renderFormatHeaderRowClose(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
+        writer.write("  </tr>");
 
-        appendWhitespace(buffer);
+        appendWhitespace(writer);
     }
 
     /* (non-Javadoc)
-     * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatHeaderRowCellOpen(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelForm, org.ofbiz.widget.form.ModelFormField, int positionSpan)
+     * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatHeaderRowCellOpen(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelForm, org.ofbiz.widget.form.ModelFormField, int positionSpan)
      */
-    public void renderFormatHeaderRowCellOpen(StringBuffer buffer, Map context, ModelForm modelForm, ModelFormField modelFormField, int positionSpan) {
-        buffer.append("   <td");
+    public void renderFormatHeaderRowCellOpen(Writer writer, Map<String, Object> context, ModelForm modelForm, ModelFormField modelFormField, int positionSpan) throws IOException {
+        writer.write("   <td");
         String areaStyle = modelFormField.getTitleAreaStyle();
         if (positionSpan > 1) {
-            buffer.append(" colspan=\"");
-            buffer.append(positionSpan);
-            buffer.append("\"");
+            writer.write(" colspan=\"");
+            writer.write(Integer.toString(positionSpan));
+            writer.write("\"");
         }
         if (UtilValidate.isNotEmpty(areaStyle)) {
-            buffer.append(" class=\"");
-            buffer.append(areaStyle);
-            buffer.append("\"");
+            writer.write(" class=\"");
+            writer.write(areaStyle);
+            writer.write("\"");
         }
-        buffer.append(">");
-        //appendWhitespace(buffer);
+        writer.write(">");
+        //appendWhitespace(writer);
     }
 
     /* (non-Javadoc)
-     * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatHeaderRowCellClose(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelForm, org.ofbiz.widget.form.ModelFormField)
+     * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatHeaderRowCellClose(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelForm, org.ofbiz.widget.form.ModelFormField)
      */
-    public void renderFormatHeaderRowCellClose(StringBuffer buffer, Map context, ModelForm modelForm, ModelFormField modelFormField) {
-        buffer.append("</td>");
-        appendWhitespace(buffer);
+    public void renderFormatHeaderRowCellClose(Writer writer, Map<String, Object> context, ModelForm modelForm, ModelFormField modelFormField) throws IOException {
+        writer.write("</td>");
+        appendWhitespace(writer);
     }
 
-    public void renderFormatHeaderRowFormCellOpen(StringBuffer buffer, Map context, ModelForm modelForm) {
-        buffer.append("   <td");
+    public void renderFormatHeaderRowFormCellOpen(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
+        writer.write("   <td");
         String areaStyle = modelForm.getFormTitleAreaStyle();
         if (UtilValidate.isNotEmpty(areaStyle)) {
-            buffer.append(" class=\"");
-            buffer.append(areaStyle);
-            buffer.append("\"");
+            writer.write(" class=\"");
+            writer.write(areaStyle);
+            writer.write("\"");
         }
-        buffer.append(">");
-        //appendWhitespace(buffer);
+        writer.write(">");
+        //appendWhitespace(writer);
     }
 
     /* (non-Javadoc)
-     * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatHeaderRowFormCellClose(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelForm)
+     * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatHeaderRowFormCellClose(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelForm)
      */
-    public void renderFormatHeaderRowFormCellClose(StringBuffer buffer, Map context, ModelForm modelForm) {
-        buffer.append("</td>");
-        appendWhitespace(buffer);
+    public void renderFormatHeaderRowFormCellClose(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
+        writer.write("</td>");
+        appendWhitespace(writer);
     }
 
     /* (non-Javadoc)
-     * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatHeaderRowFormCellTitleSeparator(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelForm, boolean)
+     * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatHeaderRowFormCellTitleSeparator(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelForm, boolean)
      */
-    public void renderFormatHeaderRowFormCellTitleSeparator(StringBuffer buffer, Map context, ModelForm modelForm, ModelFormField modelFormField, boolean isLast) {
+    public void renderFormatHeaderRowFormCellTitleSeparator(Writer writer, Map<String, Object> context, ModelForm modelForm, ModelFormField modelFormField, boolean isLast) throws IOException {
         
         String titleStyle = modelFormField.getTitleStyle();
         if (UtilValidate.isNotEmpty(titleStyle)) {
-            buffer.append("<span class=\"");
-            buffer.append(titleStyle);
-            buffer.append("\">");
+            writer.write("<span class=\"");
+            writer.write(titleStyle);
+            writer.write("\">");
         }
         if (isLast) {
-            buffer.append(" - ");
+            writer.write(" - ");
         } else {
-            buffer.append(" - ");
+            writer.write(" - ");
         }
         if (UtilValidate.isNotEmpty(titleStyle)) {
-            buffer.append("</span>");
+            writer.write("</span>");
         }
     }
 
     /* (non-Javadoc)
-     * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatItemRowOpen(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelForm)
+     * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatItemRowOpen(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelForm)
      */
-    public void renderFormatItemRowOpen(StringBuffer buffer, Map context, ModelForm modelForm) {
+    public void renderFormatItemRowOpen(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         Integer itemIndex = (Integer)context.get("itemIndex"); 
         
-        buffer.append("  <tr");
+        writer.write("  <tr");
         if (itemIndex!=null) {
             
             if (itemIndex.intValue()%2==0) {
                String evenRowStyle = modelForm.getEvenRowStyle();
                if (UtilValidate.isNotEmpty(evenRowStyle)) {
-                   buffer.append(" class=\"");
-                   buffer.append(evenRowStyle);
-                   buffer.append("\"");
+                   writer.write(" class=\"");
+                   writer.write(evenRowStyle);
+                   writer.write("\"");
                 }
             } else {
                   String oddRowStyle = modelForm.getOddRowStyle();
                   if (UtilValidate.isNotEmpty(oddRowStyle)) {
-                      buffer.append(" class=\"");
-                      buffer.append(oddRowStyle);
-                      buffer.append("\"");
+                      writer.write(" class=\"");
+                      writer.write(oddRowStyle);
+                      writer.write("\"");
                   }
             }
         }
-        buffer.append(">");
-        appendWhitespace(buffer);
+        writer.write(">");
+        appendWhitespace(writer);
     }
 
     /* (non-Javadoc)
-     * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatItemRowClose(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelForm)
+     * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatItemRowClose(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelForm)
      */
-    public void renderFormatItemRowClose(StringBuffer buffer, Map context, ModelForm modelForm) {
-        buffer.append("  </tr>");
+    public void renderFormatItemRowClose(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
+        writer.write("  </tr>");
 
-        appendWhitespace(buffer);
+        appendWhitespace(writer);
     }
 
     /* (non-Javadoc)
-     * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatItemRowCellOpen(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelForm, org.ofbiz.widget.form.ModelFormField)
+     * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatItemRowCellOpen(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelForm, org.ofbiz.widget.form.ModelFormField)
      */
-    public void renderFormatItemRowCellOpen(StringBuffer buffer, Map context, ModelForm modelForm, ModelFormField modelFormField, int positionSpan) {
-        buffer.append("   <td");
+    public void renderFormatItemRowCellOpen(Writer writer, Map<String, Object> context, ModelForm modelForm, ModelFormField modelFormField, int positionSpan) throws IOException {
+        writer.write("   <td");
         String areaStyle = modelFormField.getWidgetAreaStyle();
         if (positionSpan > 1) {
-            buffer.append(" colspan=\"");
-            buffer.append(positionSpan);
-            buffer.append("\"");
+            writer.write(" colspan=\"");
+            writer.write(Integer.toString(positionSpan));
+            writer.write("\"");
         }
         if (UtilValidate.isNotEmpty(areaStyle)) {
-            buffer.append(" class=\"");
-            buffer.append(areaStyle);
-            buffer.append("\"");
+            writer.write(" class=\"");
+            writer.write(areaStyle);
+            writer.write("\"");
         }
-        buffer.append(">");
-        //appendWhitespace(buffer);
+        writer.write(">");
+        //appendWhitespace(writer);
     }
 
     /* (non-Javadoc)
-     * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatItemRowCellClose(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelForm, org.ofbiz.widget.form.ModelFormField)
+     * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatItemRowCellClose(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelForm, org.ofbiz.widget.form.ModelFormField)
      */
-    public void renderFormatItemRowCellClose(StringBuffer buffer, Map context, ModelForm modelForm, ModelFormField modelFormField) {
-        buffer.append("</td>");
-        appendWhitespace(buffer);
+    public void renderFormatItemRowCellClose(Writer writer, Map<String, Object> context, ModelForm modelForm, ModelFormField modelFormField) throws IOException {
+        writer.write("</td>");
+        appendWhitespace(writer);
     }
 
     /* (non-Javadoc)
-     * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatItemRowFormCellOpen(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelForm)
+     * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatItemRowFormCellOpen(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelForm)
      */
-    public void renderFormatItemRowFormCellOpen(StringBuffer buffer, Map context, ModelForm modelForm) {
-        buffer.append("   <td");
+    public void renderFormatItemRowFormCellOpen(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
+        writer.write("   <td");
         String areaStyle = modelForm.getFormWidgetAreaStyle();
         if (UtilValidate.isNotEmpty(areaStyle)) {
-            buffer.append(" class=\"");
-            buffer.append(areaStyle);
-            buffer.append("\"");
+            writer.write(" class=\"");
+            writer.write(areaStyle);
+            writer.write("\"");
         }
-        buffer.append(">");
-        //appendWhitespace(buffer);
+        writer.write(">");
+        //appendWhitespace(writer);
     }
 
     /* (non-Javadoc)
-     * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatItemRowFormCellClose(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelForm)
+     * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatItemRowFormCellClose(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelForm)
      */
-    public void renderFormatItemRowFormCellClose(StringBuffer buffer, Map context, ModelForm modelForm) {
-        buffer.append("</td>");
-        appendWhitespace(buffer);
+    public void renderFormatItemRowFormCellClose(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
+        writer.write("</td>");
+        appendWhitespace(writer);
     }
 
-    public void renderFormatSingleWrapperOpen(StringBuffer buffer, Map context, ModelForm modelForm) {
-        buffer.append(" <table cellspacing=\"0\"");
+    public void renderFormatSingleWrapperOpen(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
+        writer.write(" <table cellspacing=\"0\"");
         if(UtilValidate.isNotEmpty(modelForm.getDefaultTableStyle())) {
-            buffer.append(" class=\"" + modelForm.getDefaultTableStyle() + "\"");
+            writer.write(" class=\"" + modelForm.getDefaultTableStyle() + "\"");
         }
-        buffer.append(">");
-        appendWhitespace(buffer);
+        writer.write(">");
+        appendWhitespace(writer);
     }
 
-    public void renderFormatSingleWrapperClose(StringBuffer buffer, Map context, ModelForm modelForm) {
-        buffer.append(" </table>");
-        appendWhitespace(buffer);
-    }
-
-    /* (non-Javadoc)
-     * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatFieldRowOpen(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelForm)
-     */
-    public void renderFormatFieldRowOpen(StringBuffer buffer, Map context, ModelForm modelForm) {
-        buffer.append("  <tr>");
-        appendWhitespace(buffer);
+    public void renderFormatSingleWrapperClose(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
+        writer.write(" </table>");
+        appendWhitespace(writer);
     }
 
     /* (non-Javadoc)
-     * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatFieldRowClose(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelForm)
+     * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatFieldRowOpen(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelForm)
      */
-    public void renderFormatFieldRowClose(StringBuffer buffer, Map context, ModelForm modelForm) {
-        buffer.append("  </tr>");
-        appendWhitespace(buffer);
+    public void renderFormatFieldRowOpen(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
+        writer.write("  <tr>");
+        appendWhitespace(writer);
     }
 
     /* (non-Javadoc)
-     * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatFieldRowTitleCellOpen(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelFormField)
+     * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatFieldRowClose(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelForm)
      */
-    public void renderFormatFieldRowTitleCellOpen(StringBuffer buffer, Map context, ModelFormField modelFormField) {
-        buffer.append("   <td");
+    public void renderFormatFieldRowClose(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
+        writer.write("  </tr>");
+        appendWhitespace(writer);
+    }
+
+    /* (non-Javadoc)
+     * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatFieldRowTitleCellOpen(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelFormField)
+     */
+    public void renderFormatFieldRowTitleCellOpen(Writer writer, Map<String, Object> context, ModelFormField modelFormField) throws IOException {
+        writer.write("   <td");
         String areaStyle = modelFormField.getTitleAreaStyle();
         if (UtilValidate.isNotEmpty(areaStyle)) {
-            buffer.append(" class=\"");
-            buffer.append(areaStyle);
-            buffer.append("\"");
+            writer.write(" class=\"");
+            writer.write(areaStyle);
+            writer.write("\"");
         } else {
-            buffer.append(" class=\"label\"");
+            writer.write(" class=\"label\"");
         }
-        buffer.append(">");
-        //appendWhitespace(buffer);
+        writer.write(">");
+        //appendWhitespace(writer);
     }
 
     /* (non-Javadoc)
-     * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatFieldRowTitleCellClose(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelFormField)
+     * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatFieldRowTitleCellClose(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelFormField)
      */
-    public void renderFormatFieldRowTitleCellClose(StringBuffer buffer, Map context, ModelFormField modelFormField) {
-        buffer.append("</td>");
-        appendWhitespace(buffer);
+    public void renderFormatFieldRowTitleCellClose(Writer writer, Map<String, Object> context, ModelFormField modelFormField) throws IOException {
+        writer.write("</td>");
+        appendWhitespace(writer);
     }
 
     /* (non-Javadoc)
-     * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatFieldRowSpacerCell(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelFormField)
+     * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatFieldRowSpacerCell(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelFormField)
      */
-    public void renderFormatFieldRowSpacerCell(StringBuffer buffer, Map context, ModelFormField modelFormField) {
+    public void renderFormatFieldRowSpacerCell(Writer writer, Map<String, Object> context, ModelFormField modelFormField) throws IOException {
         // Embedded styling - bad idea
-        //buffer.append("<td>&nbsp;</td>");
+        //writer.write("<td>&nbsp;</td>");
 
-        //appendWhitespace(buffer);
+        //appendWhitespace(writer);
     }
 
     /* (non-Javadoc)
-     * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatFieldRowWidgetCellOpen(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelFormField, int)
+     * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatFieldRowWidgetCellOpen(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelFormField, int)
      */
-    public void renderFormatFieldRowWidgetCellOpen(StringBuffer buffer, Map context, ModelFormField modelFormField, int positions, int positionSpan, Integer nextPositionInRow) {
-//        buffer.append("<td width=\"");
+    public void renderFormatFieldRowWidgetCellOpen(Writer writer, Map<String, Object> context, ModelFormField modelFormField, int positions, int positionSpan, Integer nextPositionInRow) throws IOException {
+//        writer.write("<td width=\"");
 //        if (nextPositionInRow != null || modelFormField.getPosition() > 1) {
-//            buffer.append("30");
+//            writer.write("30");
 //        } else {
-//            buffer.append("80");
+//            writer.write("80");
 //        }
-//        buffer.append("%\"");
-        buffer.append("   <td");
+//        writer.write("%\"");
+        writer.write("   <td");
         if (positionSpan > 0) {
-            buffer.append(" colspan=\"");
+            writer.write(" colspan=\"");
             // do a span of 1 for this column, plus 3 columns for each spanned 
             //position or each blank position that this will be filling in 
-            buffer.append(1 + (positionSpan * 3));
-            buffer.append("\"");
+            writer.write(Integer.toString(1 + (positionSpan * 3)));
+            writer.write("\"");
         }
         String areaStyle = modelFormField.getWidgetAreaStyle();
         if (UtilValidate.isNotEmpty(areaStyle)) {
-            buffer.append(" class=\"");
-            buffer.append(areaStyle);
-            buffer.append("\"");
+            writer.write(" class=\"");
+            writer.write(areaStyle);
+            writer.write("\"");
         }
-        buffer.append(">");
+        writer.write(">");
 
-        //appendWhitespace(buffer);
+        //appendWhitespace(writer);
     }
 
     /* (non-Javadoc)
-     * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatFieldRowWidgetCellClose(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelFormField, int)
+     * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatFieldRowWidgetCellClose(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelFormField, int)
      */
-    public void renderFormatFieldRowWidgetCellClose(StringBuffer buffer, Map context, ModelFormField modelFormField, int positions, int positionSpan, Integer nextPositionInRow) {
-        buffer.append("</td>");
-        appendWhitespace(buffer);
+    public void renderFormatFieldRowWidgetCellClose(Writer writer, Map<String, Object> context, ModelFormField modelFormField, int positions, int positionSpan, Integer nextPositionInRow) throws IOException {
+        writer.write("</td>");
+        appendWhitespace(writer);
     }
 
-    public void renderFormatEmptySpace(StringBuffer buffer, Map context, ModelForm modelForm) {
-        buffer.append("&nbsp;");
+    public void renderFormatEmptySpace(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
+        writer.write("&nbsp;");
     }
 
     /* (non-Javadoc)
-     * @see org.ofbiz.widget.form.FormStringRenderer#renderTextFindField(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelFormField.TextFindField)
+     * @see org.ofbiz.widget.form.FormStringRenderer#renderTextFindField(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelFormField.TextFindField)
      */
-    public void renderTextFindField(StringBuffer buffer, Map context, TextFindField textFindField) {
+    public void renderTextFindField(Writer writer, Map<String, Object> context, TextFindField textFindField) throws IOException {
 
         ModelFormField modelFormField = textFindField.getModelFormField();
         
@@ -1532,86 +1535,86 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             String opContains = UtilProperties.getMessage("conditional", "contains", locale);
             String opIsEmpty = UtilProperties.getMessage("conditional", "is_empty", locale);
             String opNotEqual = UtilProperties.getMessage("conditional", "not_equal", locale);
-            buffer.append(" <select name=\"");
-            buffer.append(modelFormField.getParameterName(context));
-            buffer.append("_op\" class=\"selectBox\">");
-            buffer.append("<option value=\"equals\"" + ("equals".equals(defaultOption)? " selected": "") + ">" + opEquals + "</option>");
-            buffer.append("<option value=\"like\"" + ("like".equals(defaultOption)? " selected": "") + ">" + opBeginsWith + "</option>");
-            buffer.append("<option value=\"contains\"" + ("contains".equals(defaultOption)? " selected": "") + ">" + opContains + "</option>");
-            buffer.append("<option value=\"empty\"" + ("empty".equals(defaultOption)? " selected": "") + ">" + opIsEmpty + "</option>");
-            buffer.append("<option value=\"notEqual\"" + ("notEqual".equals(defaultOption)? " selected": "") + ">" + opNotEqual + "</option>");
-            buffer.append("</select>");
+            writer.write(" <select name=\"");
+            writer.write(modelFormField.getParameterName(context));
+            writer.write("_op\" class=\"selectBox\">");
+            writer.write("<option value=\"equals\"" + ("equals".equals(defaultOption)? " selected": "") + ">" + opEquals + "</option>");
+            writer.write("<option value=\"like\"" + ("like".equals(defaultOption)? " selected": "") + ">" + opBeginsWith + "</option>");
+            writer.write("<option value=\"contains\"" + ("contains".equals(defaultOption)? " selected": "") + ">" + opContains + "</option>");
+            writer.write("<option value=\"empty\"" + ("empty".equals(defaultOption)? " selected": "") + ">" + opIsEmpty + "</option>");
+            writer.write("<option value=\"notEqual\"" + ("notEqual".equals(defaultOption)? " selected": "") + ">" + opNotEqual + "</option>");
+            writer.write("</select>");
         } else {
-            buffer.append(" <input type=\"hidden\" name=\"");
-            buffer.append(modelFormField.getParameterName(context));
-            buffer.append("_op\" value=\"" + defaultOption + "\"/>");
+            writer.write(" <input type=\"hidden\" name=\"");
+            writer.write(modelFormField.getParameterName(context));
+            writer.write("_op\" value=\"" + defaultOption + "\"/>");
         }
         
-        buffer.append("<input type=\"text\"");
+        writer.write("<input type=\"text\"");
 
-        appendClassNames(buffer, context, modelFormField);
+        appendClassNames(writer, context, modelFormField);
 
-        buffer.append(" name=\"");
-        buffer.append(modelFormField.getParameterName(context));
-        buffer.append('"');
+        writer.write(" name=\"");
+        writer.write(modelFormField.getParameterName(context));
+        writer.write('"');
 
         String value = modelFormField.getEntry(context, textFindField.getDefaultValue(context));
         if (UtilValidate.isNotEmpty(value)) {
-            buffer.append(" value=\"");
-            buffer.append(value);
-            buffer.append('"');
+            writer.write(" value=\"");
+            writer.write(value);
+            writer.write('"');
         }
 
-        buffer.append(" size=\"");
-        buffer.append(textFindField.getSize());
-        buffer.append('"');
+        writer.write(" size=\"");
+        writer.write(Integer.toString(textFindField.getSize()));
+        writer.write('"');
 
         Integer maxlength = textFindField.getMaxlength();
         if (maxlength != null) {
-            buffer.append(" maxlength=\"");
-            buffer.append(maxlength.intValue());
-            buffer.append('"');
+            writer.write(" maxlength=\"");
+            writer.write(maxlength.toString());
+            writer.write('"');
         }
 
         if (!textFindField.getClientAutocompleteField()) {
-            buffer.append(" autocomplete=\"off\"");
+            writer.write(" autocomplete=\"off\"");
         }
 
-        buffer.append("/>");
+        writer.write("/>");
 
         if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle())) {
-            buffer.append(" <span class=\"");
-            buffer.append(modelFormField.getTitleStyle());
-            buffer.append("\">");
+            writer.write(" <span class=\"");
+            writer.write(modelFormField.getTitleStyle());
+            writer.write("\">");
         }
 
         String ignoreCase = UtilProperties.getMessage("conditional", "ignore_case", locale);
         boolean ignCase = textFindField.getIgnoreCase();
 
         if (!textFindField.getHideIgnoreCase()) {
-            buffer.append(" <input type=\"checkbox\" name=\"");
-            buffer.append(modelFormField.getParameterName(context));
-            buffer.append("_ic\" value=\"Y\"" + (ignCase ? " checked=\"checked\"" : "") + "/>");
-            buffer.append(ignoreCase);
+            writer.write(" <input type=\"checkbox\" name=\"");
+            writer.write(modelFormField.getParameterName(context));
+            writer.write("_ic\" value=\"Y\"" + (ignCase ? " checked=\"checked\"" : "") + "/>");
+            writer.write(ignoreCase);
         } else {
-            buffer.append( "<input type=\"hidden\" name=\"");
-            buffer.append(modelFormField.getParameterName(context));
-            buffer.append("_ic\" value=\"" + (ignCase ? "Y" : "") + "\"/>");
+            writer.write( "<input type=\"hidden\" name=\"");
+            writer.write(modelFormField.getParameterName(context));
+            writer.write("_ic\" value=\"" + (ignCase ? "Y" : "") + "\"/>");
         }
         
         if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle())) {
-            buffer.append("</span>");
+            writer.write("</span>");
         }
 
-        this.appendTooltip(buffer, context, modelFormField);
+        this.appendTooltip(writer, context, modelFormField);
 
-        //appendWhitespace(buffer);
+        //appendWhitespace(writer);
     }
 
     /* (non-Javadoc)
-     * @see org.ofbiz.widget.form.FormStringRenderer#renderRangeFindField(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelFormField.RangeFindField)
+     * @see org.ofbiz.widget.form.FormStringRenderer#renderRangeFindField(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelFormField.RangeFindField)
      */
-    public void renderRangeFindField(StringBuffer buffer, Map context, RangeFindField rangeFindField) {
+    public void renderRangeFindField(Writer writer, Map<String, Object> context, RangeFindField rangeFindField) throws IOException {
 
         ModelFormField modelFormField = rangeFindField.getModelFormField();
         Locale locale = (Locale)context.get("locale");
@@ -1622,114 +1625,114 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         String opLessThanEquals = UtilProperties.getMessage("conditional", "less_than_equals", locale);
         //String opIsEmpty = UtilProperties.getMessage("conditional", "is_empty", locale);
 
-        buffer.append("<input type=\"text\"");
+        writer.write("<input type=\"text\"");
 
-        appendClassNames(buffer, context, modelFormField);
+        appendClassNames(writer, context, modelFormField);
 
-        buffer.append(" name=\"");
-        buffer.append(modelFormField.getParameterName(context));
-        buffer.append("_fld0_value\"");
+        writer.write(" name=\"");
+        writer.write(modelFormField.getParameterName(context));
+        writer.write("_fld0_value\"");
 
         String value = modelFormField.getEntry(context, rangeFindField.getDefaultValue(context));
         if (UtilValidate.isNotEmpty(value)) {
-            buffer.append(" value=\"");
-            buffer.append(value);
-            buffer.append('"');
+            writer.write(" value=\"");
+            writer.write(value);
+            writer.write('"');
         }
 
-        buffer.append(" size=\"");
-        buffer.append(rangeFindField.getSize());
-        buffer.append('"');
+        writer.write(" size=\"");
+        writer.write(Integer.toString(rangeFindField.getSize()));
+        writer.write('"');
 
         Integer maxlength = rangeFindField.getMaxlength();
         if (maxlength != null) {
-            buffer.append(" maxlength=\"");
-            buffer.append(maxlength.intValue());
-            buffer.append('"');
+            writer.write(" maxlength=\"");
+            writer.write(maxlength.toString());
+            writer.write('"');
         }
 
         if (!rangeFindField.getClientAutocompleteField()) {
-            buffer.append(" autocomplete=\"off\"");
+            writer.write(" autocomplete=\"off\"");
         }
 
-        buffer.append("/>");
+        writer.write("/>");
 
         if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle())) {
-            buffer.append(" <span class=\"");
-            buffer.append(modelFormField.getTitleStyle());
-            buffer.append('"');
+            writer.write(" <span class=\"");
+            writer.write(modelFormField.getTitleStyle());
+            writer.write('"');
         }
-        buffer.append('>');
+        writer.write('>');
 
-        buffer.append(" <select name=\"");
-        buffer.append(modelFormField.getParameterName(context));
-        buffer.append("_fld0_op\" class=\"selectBox\">");
-        buffer.append("<option value=\"equals\" selected>" + opEquals + "</option>");
-        buffer.append("<option value=\"greaterThan\">" + opGreaterThan + "</option>");
-        buffer.append("<option value=\"greaterThanEqualTo\">" + opGreaterThanEquals + "</option>");
-        buffer.append("</select>");
+        writer.write(" <select name=\"");
+        writer.write(modelFormField.getParameterName(context));
+        writer.write("_fld0_op\" class=\"selectBox\">");
+        writer.write("<option value=\"equals\" selected>" + opEquals + "</option>");
+        writer.write("<option value=\"greaterThan\">" + opGreaterThan + "</option>");
+        writer.write("<option value=\"greaterThanEqualTo\">" + opGreaterThanEquals + "</option>");
+        writer.write("</select>");
 
-        buffer.append("</span>");
+        writer.write("</span>");
 
-        buffer.append(" <br/> ");
+        writer.write(" <br/> ");
 
-        buffer.append("<input type=\"text\"");
+        writer.write("<input type=\"text\"");
 
-        appendClassNames(buffer, context, modelFormField);
+        appendClassNames(writer, context, modelFormField);
 
-        buffer.append(" name=\"");
-        buffer.append(modelFormField.getParameterName(context));
-        buffer.append("_fld1_value\"");
+        writer.write(" name=\"");
+        writer.write(modelFormField.getParameterName(context));
+        writer.write("_fld1_value\"");
 
         value = modelFormField.getEntry(context);
         if (UtilValidate.isNotEmpty(value)) {
-            buffer.append(" value=\"");
-            buffer.append(value);
-            buffer.append('"');
+            writer.write(" value=\"");
+            writer.write(value);
+            writer.write('"');
         }
 
-        buffer.append(" size=\"");
-        buffer.append(rangeFindField.getSize());
-        buffer.append('"');
+        writer.write(" size=\"");
+        writer.write(Integer.toString(rangeFindField.getSize()));
+        writer.write('"');
 
         if (maxlength != null) {
-            buffer.append(" maxlength=\"");
-            buffer.append(maxlength.intValue());
-            buffer.append('"');
+            writer.write(" maxlength=\"");
+            writer.write(maxlength.toString());
+            writer.write('"');
         }
 
         if (!rangeFindField.getClientAutocompleteField()) {
-            buffer.append(" autocomplete=\"off\"");
+            writer.write(" autocomplete=\"off\"");
         }
 
-        buffer.append("/>");
+        writer.write("/>");
 
         if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle())) {
-            buffer.append(" <span class=\"");
-            buffer.append(modelFormField.getTitleStyle());
-            buffer.append("\">");
+            writer.write(" <span class=\"");
+            writer.write(modelFormField.getTitleStyle());
+            writer.write("\">");
         }
 
-        buffer.append(" <select name=\"");
-        buffer.append(modelFormField.getParameterName(context));
-        buffer.append("_fld1_op\" class=\"selectBox\">");
-        buffer.append("<option value=\"lessThan\">" + opLessThan + "</option>");
-        buffer.append("<option value=\"lessThanEqualTo\">" + opLessThanEquals + "</option>");
-        buffer.append("</select>");
+        writer.write(" <select name=\"");
+        writer.write(modelFormField.getParameterName(context));
+        writer.write("_fld1_op\" class=\"selectBox\">");
+        writer.write("<option value=\"lessThan\">" + opLessThan + "</option>");
+        writer.write("<option value=\"lessThanEqualTo\">" + opLessThanEquals + "</option>");
+        writer.write("</select>");
 
         if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle())) {
-            buffer.append("</span>");
+            writer.write("</span>");
         }
 
-        this.appendTooltip(buffer, context, modelFormField);
+        this.appendTooltip(writer, context, modelFormField);
 
-        //appendWhitespace(buffer);
+        //appendWhitespace(writer);
     }
 
     /* (non-Javadoc)
-     * @see org.ofbiz.widget.form.FormStringRenderer#renderDateFindField(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelFormField.DateFindField)
+     * @see org.ofbiz.widget.form.FormStringRenderer#renderDateFindField(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelFormField.DateFindField)
      */
-    public void renderDateFindField(StringBuffer buffer, Map context, DateFindField dateFindField) {
+    public void renderDateFindField(Writer writer, Map<String, Object> context, DateFindField dateFindField) throws IOException {
         ModelFormField modelFormField = dateFindField.getModelFormField();
 
         Locale locale = (Locale)context.get("locale");
@@ -1749,13 +1752,13 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         }
         String localizedInputTitle = "", localizedIconTitle = "";
 
-        buffer.append("<input type=\"text\"");
+        writer.write("<input type=\"text\"");
 
-        appendClassNames(buffer, context, modelFormField);
+        appendClassNames(writer, context, modelFormField);
 
-        buffer.append(" name=\"");
-        buffer.append(modelFormField.getParameterName(context));
-        buffer.append("_fld0_value\"");
+        writer.write(" name=\"");
+        writer.write(modelFormField.getParameterName(context));
+        writer.write("_fld0_value\"");
 
         // the default values for a timestamp
         int size = 25;
@@ -1776,29 +1779,29 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 localizedInputTitle = (String) uiLabelMap.get("CommonFormatDateTime");
             }
         }
-        buffer.append(" title=\"");
-        buffer.append(localizedInputTitle);
-        buffer.append('"');
+        writer.write(" title=\"");
+        writer.write(localizedInputTitle);
+        writer.write('"');
 
         String value = modelFormField.getEntry(context, dateFindField.getDefaultValue(context));
         if (UtilValidate.isNotEmpty(value)) {
             if (value.length() > maxlength) {
                 value = value.substring(0, maxlength);
             }
-            buffer.append(" value=\"");
-            buffer.append(value);
-            buffer.append('"');
+            writer.write(" value=\"");
+            writer.write(value);
+            writer.write('"');
         }
 
-        buffer.append(" size=\"");
-        buffer.append(size);
-        buffer.append('"');
+        writer.write(" size=\"");
+        writer.write(Integer.toString(size));
+        writer.write('"');
 
-        buffer.append(" maxlength=\"");
-        buffer.append(maxlength);
-        buffer.append('"');
+        writer.write(" maxlength=\"");
+        writer.write(Integer.toString(maxlength));
+        writer.write('"');
 
-        buffer.append("/>");
+        writer.write("/>");
 
         // search for a localized label for the icon
         if (uiLabelMap != null) {
@@ -1808,208 +1811,208 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         // add calendar pop-up button and seed data IF this is not a "time" type date-find
         if (!"time".equals(dateFindField.getType())) {
             if ("date".equals(dateFindField.getType())) {
-                buffer.append("<a href=\"javascript:call_cal_notime(document.");
+                writer.write("<a href=\"javascript:call_cal_notime(document.");
             } else {
-                buffer.append("<a href=\"javascript:call_cal(document.");            
+                writer.write("<a href=\"javascript:call_cal(document.");            
             }
-            buffer.append(modelFormField.getModelForm().getCurrentFormName(context));
-            buffer.append('.');
-            buffer.append(modelFormField.getParameterName(context));
-            buffer.append("_fld0_value,'");
-            buffer.append(UtilHttp.encodeBlanks(modelFormField.getEntry(context, dateFindField.getDefaultDateTimeString(context))));
-            buffer.append("');\">");
+            writer.write(modelFormField.getModelForm().getCurrentFormName(context));
+            writer.write('.');
+            writer.write(modelFormField.getParameterName(context));
+            writer.write("_fld0_value,'");
+            writer.write(UtilHttp.encodeBlanks(modelFormField.getEntry(context, dateFindField.getDefaultDateTimeString(context))));
+            writer.write("');\">");
 
-            buffer.append("<img src=\"");
-            this.appendContentUrl(buffer, "/images/cal.gif");
-            buffer.append("\" width=\"16\" height=\"16\" border=\"0\" alt=\"");
-            buffer.append(localizedIconTitle);
-            buffer.append("\" title=\"");
-            buffer.append(localizedIconTitle);
-            buffer.append("\"/></a>");
+            writer.write("<img src=\"");
+            this.appendContentUrl(writer, "/images/cal.gif");
+            writer.write("\" width=\"16\" height=\"16\" border=\"0\" alt=\"");
+            writer.write(localizedIconTitle);
+            writer.write("\" title=\"");
+            writer.write(localizedIconTitle);
+            writer.write("\"/></a>");
         }
 
         if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle())) {
-            buffer.append(" <span class=\"");
-            buffer.append(modelFormField.getTitleStyle());
-            buffer.append("\">");
+            writer.write(" <span class=\"");
+            writer.write(modelFormField.getTitleStyle());
+            writer.write("\">");
         }
 
-        buffer.append(" <select name=\"");
-        buffer.append(modelFormField.getParameterName(context));
-        buffer.append("_fld0_op\" class=\"selectBox\">");
-        buffer.append("<option value=\"equals\" selected>" + opEquals + "</option>");
-        buffer.append("<option value=\"sameDay\">" + opSameDay + "</option>");
-        buffer.append("<option value=\"greaterThanFromDayStart\">" + opGreaterThanFromDayStart + "</option>");
-        buffer.append("<option value=\"greaterThan\">" + opGreaterThan + "</option>");
-        buffer.append("</select>");
+        writer.write(" <select name=\"");
+        writer.write(modelFormField.getParameterName(context));
+        writer.write("_fld0_op\" class=\"selectBox\">");
+        writer.write("<option value=\"equals\" selected>" + opEquals + "</option>");
+        writer.write("<option value=\"sameDay\">" + opSameDay + "</option>");
+        writer.write("<option value=\"greaterThanFromDayStart\">" + opGreaterThanFromDayStart + "</option>");
+        writer.write("<option value=\"greaterThan\">" + opGreaterThan + "</option>");
+        writer.write("</select>");
 
         if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle())) {
-            buffer.append(" </span>");
+            writer.write(" </span>");
         }
 
-        buffer.append(" <br/> ");
+        writer.write(" <br/> ");
 
-        buffer.append("<input type=\"text\"");
+        writer.write("<input type=\"text\"");
 
-        appendClassNames(buffer, context, modelFormField);
+        appendClassNames(writer, context, modelFormField);
 
-        buffer.append(" name=\"");
-        buffer.append(modelFormField.getParameterName(context));
-        buffer.append("_fld1_value\"");
+        writer.write(" name=\"");
+        writer.write(modelFormField.getParameterName(context));
+        writer.write("_fld1_value\"");
 
-        buffer.append(" title=\"");
-        buffer.append(localizedInputTitle);
-        buffer.append('"');
+        writer.write(" title=\"");
+        writer.write(localizedInputTitle);
+        writer.write('"');
 
         value = modelFormField.getEntry(context);
         if (UtilValidate.isNotEmpty(value)) {
             if (value.length() > maxlength) {
                 value = value.substring(0, maxlength);
             }
-            buffer.append(" value=\"");
-            buffer.append(value);
-            buffer.append('"');
+            writer.write(" value=\"");
+            writer.write(value);
+            writer.write('"');
         }
 
-        buffer.append(" size=\"");
-        buffer.append(size);
-        buffer.append('"');
+        writer.write(" size=\"");
+        writer.write(Integer.toString(size));
+        writer.write('"');
 
-        buffer.append(" maxlength=\"");
-        buffer.append(maxlength);
-        buffer.append('"');
+        writer.write(" maxlength=\"");
+        writer.write(Integer.toString(maxlength));
+        writer.write('"');
 
-        buffer.append("/>");
+        writer.write("/>");
 
         // add calendar pop-up button and seed data IF this is not a "time" type date-find
         if (!"time".equals(dateFindField.getType())) {
             if ("date".equals(dateFindField.getType())) {
-                buffer.append("<a href=\"javascript:call_cal_notime(document.");
+                writer.write("<a href=\"javascript:call_cal_notime(document.");
             } else {
-                buffer.append("<a href=\"javascript:call_cal(document.");            
+                writer.write("<a href=\"javascript:call_cal(document.");            
             }
-            buffer.append(modelFormField.getModelForm().getCurrentFormName(context));
-            buffer.append('.');
-            buffer.append(modelFormField.getParameterName(context));
-            buffer.append("_fld1_value,'");
-            buffer.append(UtilHttp.encodeBlanks(modelFormField.getEntry(context, dateFindField.getDefaultDateTimeString(context))));
-            buffer.append("');\">");
+            writer.write(modelFormField.getModelForm().getCurrentFormName(context));
+            writer.write('.');
+            writer.write(modelFormField.getParameterName(context));
+            writer.write("_fld1_value,'");
+            writer.write(UtilHttp.encodeBlanks(modelFormField.getEntry(context, dateFindField.getDefaultDateTimeString(context))));
+            writer.write("');\">");
 
-            buffer.append("<img src=\"");
-            this.appendContentUrl(buffer, "/images/cal.gif");
-            buffer.append("\" width=\"16\" height=\"16\" border=\"0\" alt=\"");
-            buffer.append(localizedIconTitle);
-            buffer.append("\" title=\"");
-            buffer.append(localizedIconTitle);
-            buffer.append("\"/></a>");
+            writer.write("<img src=\"");
+            this.appendContentUrl(writer, "/images/cal.gif");
+            writer.write("\" width=\"16\" height=\"16\" border=\"0\" alt=\"");
+            writer.write(localizedIconTitle);
+            writer.write("\" title=\"");
+            writer.write(localizedIconTitle);
+            writer.write("\"/></a>");
         }
 
         if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle())) {
-            buffer.append(" <span class=\"");
-            buffer.append(modelFormField.getTitleStyle());
-            buffer.append("\">");
+            writer.write(" <span class=\"");
+            writer.write(modelFormField.getTitleStyle());
+            writer.write("\">");
         }
 
-        buffer.append(" <select name=\"");
-        buffer.append(modelFormField.getParameterName(context));
-        buffer.append("_fld1_op\" class=\"selectBox\">");
-        buffer.append("<option value=\"lessThan\">" + opLessThan + "</option>");
-        buffer.append("<option value=\"upToDay\">" + opUpToDay + "</option>");
-        buffer.append("<option value=\"upThruDay\">" + opUpThruDay + "</option>");
-        buffer.append("<option value=\"empty\">" + opIsEmpty + "</option>");
-        buffer.append("</select>");
+        writer.write(" <select name=\"");
+        writer.write(modelFormField.getParameterName(context));
+        writer.write("_fld1_op\" class=\"selectBox\">");
+        writer.write("<option value=\"lessThan\">" + opLessThan + "</option>");
+        writer.write("<option value=\"upToDay\">" + opUpToDay + "</option>");
+        writer.write("<option value=\"upThruDay\">" + opUpThruDay + "</option>");
+        writer.write("<option value=\"empty\">" + opIsEmpty + "</option>");
+        writer.write("</select>");
 
         if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle())) {
-            buffer.append("</span>");
+            writer.write("</span>");
         }
 
-        this.appendTooltip(buffer, context, modelFormField);
+        this.appendTooltip(writer, context, modelFormField);
 
-        //appendWhitespace(buffer);
+        //appendWhitespace(writer);
     }
 
     /* (non-Javadoc)
-     * @see org.ofbiz.widget.form.FormStringRenderer#renderLookupField(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelFormField.LookupField)
+     * @see org.ofbiz.widget.form.FormStringRenderer#renderLookupField(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelFormField.LookupField)
      */
-    public void renderLookupField(StringBuffer buffer, Map context, LookupField lookupField) {
+    public void renderLookupField(Writer writer, Map<String, Object> context, LookupField lookupField) throws IOException {
         ModelFormField modelFormField = lookupField.getModelFormField();
 
-        buffer.append("<input type=\"text\"");
+        writer.write("<input type=\"text\"");
 
-        appendClassNames(buffer, context, modelFormField);
+        appendClassNames(writer, context, modelFormField);
 
-        buffer.append(" name=\"");
-        buffer.append(modelFormField.getParameterName(context));
-        buffer.append('"');
+        writer.write(" name=\"");
+        writer.write(modelFormField.getParameterName(context));
+        writer.write('"');
 
         String value = modelFormField.getEntry(context, lookupField.getDefaultValue(context));
         if (UtilValidate.isNotEmpty(value)) {
-            buffer.append(" value=\"");
-            buffer.append(value);
-            buffer.append('"');
+            writer.write(" value=\"");
+            writer.write(value);
+            writer.write('"');
         }
 
-        buffer.append(" size=\"");
-        buffer.append(lookupField.getSize());
-        buffer.append('"');
+        writer.write(" size=\"");
+        writer.write(Integer.toString(lookupField.getSize()));
+        writer.write('"');
 
         Integer maxlength = lookupField.getMaxlength();
         if (maxlength != null) {
-            buffer.append(" maxlength=\"");
-            buffer.append(maxlength.intValue());
-            buffer.append('"');
+            writer.write(" maxlength=\"");
+            writer.write(maxlength.toString());
+            writer.write('"');
         }
 
         if (!lookupField.getClientAutocompleteField()) {
-            buffer.append(" autocomplete=\"off\"");
+            writer.write(" autocomplete=\"off\"");
         }
 
-        buffer.append("/>");
+        writer.write("/>");
 
         String descriptionFieldName = lookupField.getDescriptionFieldName();
         // add lookup pop-up button 
         if (UtilValidate.isNotEmpty(descriptionFieldName)) {
-            buffer.append("<a href=\"javascript:call_fieldlookup3(document.");
-            buffer.append(modelFormField.getModelForm().getCurrentFormName(context));
-            buffer.append('.');
-            buffer.append(modelFormField.getParameterName(context));
-            buffer.append(",'");
-            buffer.append(descriptionFieldName);
-            buffer.append(",'");
+            writer.write("<a href=\"javascript:call_fieldlookup3(document.");
+            writer.write(modelFormField.getModelForm().getCurrentFormName(context));
+            writer.write('.');
+            writer.write(modelFormField.getParameterName(context));
+            writer.write(",'");
+            writer.write(descriptionFieldName);
+            writer.write(",'");
         } else {
-            buffer.append("<a href=\"javascript:call_fieldlookup2(document.");
-            buffer.append(modelFormField.getModelForm().getCurrentFormName(context));
-            buffer.append('.');
-            buffer.append(modelFormField.getParameterName(context));
-            buffer.append(",'");
+            writer.write("<a href=\"javascript:call_fieldlookup2(document.");
+            writer.write(modelFormField.getModelForm().getCurrentFormName(context));
+            writer.write('.');
+            writer.write(modelFormField.getParameterName(context));
+            writer.write(",'");
         }
-        buffer.append(lookupField.getFormName(context));
-        buffer.append("'");
+        writer.write(lookupField.getFormName(context));
+        writer.write("'");
         List targetParameterList = lookupField.getTargetParameterList();
         if (targetParameterList.size() > 0) {
             Iterator targetParameterIter = targetParameterList.iterator();
             while (targetParameterIter.hasNext()) {
                 String targetParameter = (String) targetParameterIter.next();
                 // named like: document.${formName}.${targetParameter}.value
-                buffer.append(", document.");
-                buffer.append(modelFormField.getModelForm().getCurrentFormName(context));
-                buffer.append(".");
-                buffer.append(targetParameter);
-                buffer.append(".value");
+                writer.write(", document.");
+                writer.write(modelFormField.getModelForm().getCurrentFormName(context));
+                writer.write(".");
+                writer.write(targetParameter);
+                writer.write(".value");
             }
         }
-        buffer.append(");\">");
-        buffer.append("<img src=\"");
-        this.appendContentUrl(buffer, "/images/fieldlookup.gif");
-        buffer.append("\" width=\"16\" height=\"16\" border=\"0\" alt=\"Lookup\"/></a>");
+        writer.write(");\">");
+        writer.write("<img src=\"");
+        this.appendContentUrl(writer, "/images/fieldlookup.gif");
+        writer.write("\" width=\"16\" height=\"16\" border=\"0\" alt=\"Lookup\"/></a>");
 
-        this.makeHyperlinkString(buffer, lookupField.getSubHyperlink(), context);
-        this.appendTooltip(buffer, context, modelFormField);
+        this.makeHyperlinkString(writer, lookupField.getSubHyperlink(), context);
+        this.appendTooltip(writer, context, modelFormField);
 
-        //appendWhitespace(buffer);
+        //appendWhitespace(writer);
     }
 
-    public void renderNextPrev(StringBuffer buffer, Map context, ModelForm modelForm) {
+    public void renderNextPrev(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         boolean ajaxEnabled = false;
         List<ModelForm.UpdateArea> updateAreas = modelForm.getOnPaginateUpdateAreas();
         String targetService = modelForm.getPaginateTarget(context);
@@ -2096,300 +2099,302 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             prepLinkText = prepLinkText.replace("&amp;", "&");
         }
 
-        buffer.append("<div class=\"").append(modelForm.getPaginateStyle()).append("\">");
-        appendWhitespace(buffer);
-        buffer.append(" <ul>");
-        appendWhitespace(buffer);
+        writer.write("<div class=\"" + modelForm.getPaginateStyle() + "\">");
+        appendWhitespace(writer);
+        writer.write(" <ul>");
+        appendWhitespace(writer);
 
         String linkText;
 
         // First button
-        buffer.append("  <li class=\"").append(modelForm.getPaginateFirstStyle());
+        writer.write("  <li class=\"" + modelForm.getPaginateFirstStyle());
         if (viewIndex > 0) {
-            buffer.append("\"><a href=\"");
+            writer.write("\"><a href=\"");
             if (ajaxEnabled) {
-                buffer.append("javascript:ajaxUpdateAreas('" + createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + 0 + anchor, context) + "')");
+                writer.write("javascript:ajaxUpdateAreas('" + createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + 0 + anchor, context) + "')");
             } else {
                 linkText = prepLinkText + 0 + anchor;
-                buffer.append(rh.makeLink(this.request, this.response, urlPath + linkText));
+                writer.write(rh.makeLink(this.request, this.response, urlPath + linkText));
             }
-            buffer.append("\">").append(modelForm.getPaginateFirstLabel(context)).append("</a>");
+            writer.write("\">" + modelForm.getPaginateFirstLabel(context) + "</a>");
         } else {
             // disabled button
-            buffer.append("-disabled\">").append(modelForm.getPaginateFirstLabel(context));
+            writer.write("-disabled\">" + modelForm.getPaginateFirstLabel(context));
         }
-        buffer.append("</li>");
-        appendWhitespace(buffer);
+        writer.write("</li>");
+        appendWhitespace(writer);
 
         // Previous button
-        buffer.append("  <li class=\"").append(modelForm.getPaginatePreviousStyle());
+        writer.write("  <li class=\"" + modelForm.getPaginatePreviousStyle());
         if (viewIndex > 0) {
-            buffer.append("\"><a href=\"");
+            writer.write("\"><a href=\"");
             if (ajaxEnabled) {
-                buffer.append("javascript:ajaxUpdateAreas('" + createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + (viewIndex - 1) + anchor, context) + "')");
+                writer.write("javascript:ajaxUpdateAreas('" + createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + (viewIndex - 1) + anchor, context) + "')");
             } else {
                 linkText = prepLinkText + (viewIndex - 1) + anchor;
-                buffer.append(rh.makeLink(this.request, this.response, urlPath + linkText));
+                writer.write(rh.makeLink(this.request, this.response, urlPath + linkText));
             }
-            buffer.append("\">").append(modelForm.getPaginatePreviousLabel(context)).append("</a>");
+            writer.write("\">" + modelForm.getPaginatePreviousLabel(context) + "</a>");
         } else {
             // disabled button
-            buffer.append("-disabled\">").append(modelForm.getPaginatePreviousLabel(context));
+            writer.write("-disabled\">" + modelForm.getPaginatePreviousLabel(context));
         }
-        buffer.append("</li>");
-        appendWhitespace(buffer);
+        writer.write("</li>");
+        appendWhitespace(writer);
 
         // Page select dropdown
         if (listSize > 0 && this.javaScriptEnabled) {
-            buffer.append("  <li>").append(pageLabel).append(" <select name=\"page\" size=\"1\" onchange=\"");
+            writer.write("  <li>" + pageLabel + " <select name=\"page\" size=\"1\" onchange=\"");
             if (ajaxEnabled) {
-                buffer.append("javascript:ajaxUpdateAreas('" + createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + "' + this.value", context) + ")");
+                writer.write("javascript:ajaxUpdateAreas('" + createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + "' + this.value", context) + ")");
             } else {
                 linkText = prepLinkText;
                 if (linkText.startsWith("/")) {
                     linkText = linkText.substring(1);
                 }
-                buffer.append("location.href = '" + urlPath + linkText + "' + this.value;");
+                writer.write("location.href = '" + urlPath + linkText + "' + this.value;");
             }
-            buffer.append("\">");
+            writer.write("\">");
             // actual value
             int page = 0;
             for (int i = 0; i < listSize;) {
                 if (page == viewIndex) {
-                    buffer.append("<option selected value=\"");
+                    writer.write("<option selected value=\"");
                 } else {
-                    buffer.append("<option value=\"");
+                    writer.write("<option value=\"");
                 }
-                buffer.append(page);
-                buffer.append("\">");
-                buffer.append(1 + page);
-                buffer.append("</option>");
+                writer.write(Integer.toString(page));
+                writer.write("\">");
+                writer.write(Integer.toString(1 + page));
+                writer.write("</option>");
                 // increment page and calculate next index
                 page++;
                 i = page * viewSize;
             }
-            buffer.append("</select></li>");
-            buffer.append("<li>");
-            buffer.append((lowIndex + 1) + " - " + (lowIndex + actualPageSize) + " " + ofLabel + " " + listSize).append(" " + rowsLabel);
-            buffer.append("</li>");
-            appendWhitespace(buffer);
+            writer.write("</select></li>");
+            writer.write("<li>");
+            writer.write(Integer.toString((lowIndex + 1)) + " - " + Integer.toString((lowIndex + actualPageSize)) + " " + ofLabel + " " + Integer.toString(listSize) + " " + rowsLabel);
+            writer.write("</li>");
+            appendWhitespace(writer);
         }
 
         // Next button
-        buffer.append("  <li class=\"").append(modelForm.getPaginateNextStyle());
+        writer.write("  <li class=\"" + modelForm.getPaginateNextStyle());
         if (highIndex < listSize) {
-            buffer.append("\"><a href=\"");
+            writer.write("\"><a href=\"");
             if (ajaxEnabled) {
-                buffer.append("javascript:ajaxUpdateAreas('" + createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + (viewIndex + 1) + anchor, context) + "')");
+                writer.write("javascript:ajaxUpdateAreas('" + createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + (viewIndex + 1) + anchor, context) + "')");
             } else {
                 linkText = prepLinkText + (viewIndex + 1) + anchor;
-                buffer.append(rh.makeLink(this.request, this.response, urlPath + linkText));
+                writer.write(rh.makeLink(this.request, this.response, urlPath + linkText));
             }
-            buffer.append("\">").append(modelForm.getPaginateNextLabel(context)).append("</a>");
+            writer.write("\">" + modelForm.getPaginateNextLabel(context) + "</a>");
         } else {
             // disabled button
-            buffer.append("-disabled\">").append(modelForm.getPaginateNextLabel(context));
+            writer.write("-disabled\">" + modelForm.getPaginateNextLabel(context));
         }
-        buffer.append("</li>");
-        appendWhitespace(buffer);
+        writer.write("</li>");
+        appendWhitespace(writer);
 
         // Last button
-        buffer.append("  <li class=\"").append(modelForm.getPaginateLastStyle());
+        writer.write("  <li class=\"" + modelForm.getPaginateLastStyle());
         if (highIndex < listSize) {
-            buffer.append("\"><a href=\"");
+            writer.write("\"><a href=\"");
             if (ajaxEnabled) {
-                buffer.append("javascript:ajaxUpdateAreas('" + createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + (listSize / viewSize) + anchor, context) + "')");
+                writer.write("javascript:ajaxUpdateAreas('" + createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText + (listSize / viewSize) + anchor, context) + "')");
             } else {
                 linkText = prepLinkText + (listSize / viewSize) + anchor;
-                buffer.append(rh.makeLink(this.request, this.response, urlPath + linkText));
+                writer.write(rh.makeLink(this.request, this.response, urlPath + linkText));
             }
-            buffer.append("\">").append(modelForm.getPaginateLastLabel(context)).append("</a>");
+            writer.write("\">" + modelForm.getPaginateLastLabel(context) + "</a>");
         } else {
             // disabled button
-            buffer.append("-disabled\">").append(modelForm.getPaginateLastLabel(context));
+            writer.write("-disabled\">" + modelForm.getPaginateLastLabel(context));
         }
-        buffer.append("</li>");
-        appendWhitespace(buffer);
+        writer.write("</li>");
+        appendWhitespace(writer);
 
-        buffer.append(" </ul>");
-        appendWhitespace(buffer);
-        buffer.append("</div>");
-        appendWhitespace(buffer);
+        writer.write(" </ul>");
+        appendWhitespace(writer);
+        writer.write("</div>");
+        appendWhitespace(writer);
     }
 
     /* (non-Javadoc)
-     * @see org.ofbiz.widget.form.FormStringRenderer#renderFileField(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelFormField.FileField)
+     * @see org.ofbiz.widget.form.FormStringRenderer#renderFileField(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelFormField.FileField)
      */
-    public void renderFileField(StringBuffer buffer, Map context, FileField textField) {
+    public void renderFileField(Writer writer, Map<String, Object> context, FileField textField) throws IOException {
         ModelFormField modelFormField = textField.getModelFormField();
 
-        buffer.append("<input type=\"file\"");
+        writer.write("<input type=\"file\"");
 
-        appendClassNames(buffer, context, modelFormField);
+        appendClassNames(writer, context, modelFormField);
 
-        buffer.append(" name=\"");
-        buffer.append(modelFormField.getParameterName(context));
-        buffer.append('"');
+        writer.write(" name=\"");
+        writer.write(modelFormField.getParameterName(context));
+        writer.write('"');
 
         String value = modelFormField.getEntry(context, textField.getDefaultValue(context));
         if (UtilValidate.isNotEmpty(value)) {
-            buffer.append(" value=\"");
-            buffer.append(StringEscapeUtils.escapeHtml(value));
-            buffer.append('"');
+            writer.write(" value=\"");
+            writer.write(StringEscapeUtils.escapeHtml(value));
+            writer.write('"');
         }
 
-        buffer.append(" size=\"");
-        buffer.append(textField.getSize());
-        buffer.append('"');
+        writer.write(" size=\"");
+        writer.write(Integer.toString(textField.getSize()));
+        writer.write('"');
 
         Integer maxlength = textField.getMaxlength();
         if (maxlength != null) {
-            buffer.append(" maxlength=\"");
-            buffer.append(maxlength.intValue());
-            buffer.append('"');
+            writer.write(" maxlength=\"");
+            writer.write(maxlength.toString());
+            writer.write('"');
         }
 
         if (!textField.getClientAutocompleteField()) {
-            buffer.append(" autocomplete=\"off\"");
+            writer.write(" autocomplete=\"off\"");
         }
 
-        buffer.append("/>");
+        writer.write("/>");
 
-        this.makeHyperlinkString(buffer, textField.getSubHyperlink(), context);
+        this.makeHyperlinkString(writer, textField.getSubHyperlink(), context);
 
-        this.appendTooltip(buffer, context, modelFormField);
+        this.appendTooltip(writer, context, modelFormField);
 
-        //appendWhitespace(buffer);
+        //appendWhitespace(writer);
     }
 
     /* (non-Javadoc)
-     * @see org.ofbiz.widget.form.FormStringRenderer#renderPasswordField(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelFormField.PasswordField)
+     * @see org.ofbiz.widget.form.FormStringRenderer#renderPasswordField(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelFormField.PasswordField)
      */
-    public void renderPasswordField(StringBuffer buffer, Map context, PasswordField passwordField) {
+    public void renderPasswordField(Writer writer, Map<String, Object> context, PasswordField passwordField) throws IOException {
         ModelFormField modelFormField = passwordField.getModelFormField();
 
-        buffer.append("<input type=\"password\"");
+        writer.write("<input type=\"password\"");
 
-        appendClassNames(buffer, context, modelFormField);
+        appendClassNames(writer, context, modelFormField);
 
-        buffer.append(" name=\"");
-        buffer.append(modelFormField.getParameterName(context));
-        buffer.append('"');
+        writer.write(" name=\"");
+        writer.write(modelFormField.getParameterName(context));
+        writer.write('"');
 
         String value = modelFormField.getEntry(context, passwordField.getDefaultValue(context));
         if (UtilValidate.isNotEmpty(value)) {
-            buffer.append(" value=\"");
-            buffer.append(value);
-            buffer.append('"');
+            writer.write(" value=\"");
+            writer.write(value);
+            writer.write('"');
         }
 
-        buffer.append(" size=\"");
-        buffer.append(passwordField.getSize());
-        buffer.append('"');
+        writer.write(" size=\"");
+        writer.write(Integer.toString(passwordField.getSize()));
+        writer.write('"');
 
         Integer maxlength = passwordField.getMaxlength();
         if (maxlength != null) {
-            buffer.append(" maxlength=\"");
-            buffer.append(maxlength.intValue());
-            buffer.append('"');
+            writer.write(" maxlength=\"");
+            writer.write(maxlength.toString());
+            writer.write('"');
         }
 
         String idName = modelFormField.getIdName();
         if (UtilValidate.isNotEmpty(idName)) {
-            buffer.append(" id=\"");
-            buffer.append(idName);
-            buffer.append('"');
+            writer.write(" id=\"");
+            writer.write(idName);
+            writer.write('"');
         }
 
         if (!passwordField.getClientAutocompleteField()) {
-            buffer.append(" autocomplete=\"off\"");
+            writer.write(" autocomplete=\"off\"");
         }
 
-        buffer.append("/>");
+        writer.write("/>");
 
-        this.addAstericks(buffer, context, modelFormField);
+        this.addAsterisks(writer, context, modelFormField);
 
-        this.makeHyperlinkString(buffer, passwordField.getSubHyperlink(), context);
+        this.makeHyperlinkString(writer, passwordField.getSubHyperlink(), context);
 
-        this.appendTooltip(buffer, context, modelFormField);
+        this.appendTooltip(writer, context, modelFormField);
 
-        //appendWhitespace(buffer);
+        //appendWhitespace(writer);
     }
 
     /* (non-Javadoc)
-     * @see org.ofbiz.widget.form.FormStringRenderer#renderImageField(java.lang.StringBuffer, java.util.Map, org.ofbiz.widget.form.ModelFormField.ImageField)
+     * @see org.ofbiz.widget.form.FormStringRenderer#renderImageField(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelFormField.ImageField)
      */
-    public void renderImageField(StringBuffer buffer, Map context, ImageField imageField) {
+    public void renderImageField(Writer writer, Map<String, Object> context, ImageField imageField) throws IOException {
         ModelFormField modelFormField = imageField.getModelFormField();
 
-        buffer.append("<img ");
+        writer.write("<img ");
 
 
         String value = modelFormField.getEntry(context, imageField.getValue(context));
         if (UtilValidate.isNotEmpty(value)) {
-            buffer.append(" src=\"");
+            writer.write(" src=\"");
+            StringBuffer buffer = new StringBuffer();
             ContentUrlTag.appendContentPrefix(request, buffer);
-            buffer.append(value);
-            buffer.append('"');
+            writer.write(buffer.toString());
+            writer.write(value);
+            writer.write('"');
         }
 
-        buffer.append(" border=\"");
-        buffer.append(imageField.getBorder());
-        buffer.append('"');
+        writer.write(" border=\"");
+        writer.write(imageField.getBorder());
+        writer.write('"');
 
         Integer width = imageField.getWidth();
         if (width != null) {
-            buffer.append(" width=\"");
-            buffer.append(width.intValue());
-            buffer.append('"');
+            writer.write(" width=\"");
+            writer.write(width.toString());
+            writer.write('"');
         }
 
         Integer height = imageField.getHeight();
         if (height != null) {
-            buffer.append(" height=\"");
-            buffer.append(height.intValue());
-            buffer.append('"');
+            writer.write(" height=\"");
+            writer.write(height.toString());
+            writer.write('"');
         }
 
         String event = modelFormField.getEvent();
         String action = modelFormField.getAction(context);
         if (UtilValidate.isNotEmpty(event) && UtilValidate.isNotEmpty(action)) {
-            buffer.append(" ");
-            buffer.append(event);
-            buffer.append("=\"");
-            buffer.append(action);
-            buffer.append('"');
+            writer.write(" ");
+            writer.write(event);
+            writer.write("=\"");
+            writer.write(action);
+            writer.write('"');
         }
 
-        buffer.append("/>");
+        writer.write("/>");
 
-        this.makeHyperlinkString(buffer, imageField.getSubHyperlink(), context);
+        this.makeHyperlinkString(writer, imageField.getSubHyperlink(), context);
 
-        this.appendTooltip(buffer, context, modelFormField);
+        this.appendTooltip(writer, context, modelFormField);
 
-        //appendWhitespace(buffer);
+        //appendWhitespace(writer);
     }
     
-    public void renderFieldGroupOpen(StringBuffer buffer, Map context, ModelForm.FieldGroup fieldGroup) {
+    public void renderFieldGroupOpen(Writer writer, Map<String, Object> context, ModelForm.FieldGroup fieldGroup) throws IOException {
         String style = fieldGroup.getStyle(); 
         if (UtilValidate.isNotEmpty(style)) {
-            buffer.append("<div");
-            buffer.append(" class=\"");
-            buffer.append(style);
-            buffer.append("\">");
+            writer.write("<div");
+            writer.write(" class=\"");
+            writer.write(style);
+            writer.write("\">");
         }
     }
      
-    public void renderFieldGroupClose(StringBuffer buffer, Map context, ModelForm.FieldGroup fieldGroup) {
+    public void renderFieldGroupClose(Writer writer, Map<String, Object> context, ModelForm.FieldGroup fieldGroup) throws IOException {
         String style = fieldGroup.getStyle(); 
         if (UtilValidate.isNotEmpty(style)) {
-            buffer.append("</div>");
+            writer.write("</div>");
         }
     }
      
     // TODO: Remove embedded styling
-    public void renderBanner(StringBuffer buffer, Map context, ModelForm.Banner banner) {
-        buffer.append(" <table width=\"100%\">  <tr>");
+    public void renderBanner(Writer writer, Map<String, Object> context, ModelForm.Banner banner) throws IOException {
+        writer.write(" <table width=\"100%\">  <tr>");
         String style = banner.getStyle(context);
         String leftStyle = banner.getLeftTextStyle(context);
         if (UtilValidate.isEmpty(leftStyle)) leftStyle = style;
@@ -2398,66 +2403,66 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         
         String leftText = banner.getLeftText(context);
         if (UtilValidate.isNotEmpty(leftText)) {
-            buffer.append("   <td align=\"left\">");
+            writer.write("   <td align=\"left\">");
             if (UtilValidate.isNotEmpty(leftStyle)) {
-               buffer.append("<div");
-               buffer.append(" class=\"");
-               buffer.append(leftStyle);
-               buffer.append("\"");
-               buffer.append(">" );
+               writer.write("<div");
+               writer.write(" class=\"");
+               writer.write(leftStyle);
+               writer.write("\"");
+               writer.write(">" );
             }
-            buffer.append(leftText);
+            writer.write(leftText);
             if (UtilValidate.isNotEmpty(leftStyle)) {
-                buffer.append("</div>");
+                writer.write("</div>");
             }
-            buffer.append("</td>");
+            writer.write("</td>");
         }
         
         String text = banner.getText(context);
         if (UtilValidate.isNotEmpty(text)) {
-            buffer.append("   <td align=\"center\">");
+            writer.write("   <td align=\"center\">");
             if (UtilValidate.isNotEmpty(style)) {
-               buffer.append("<div");
-               buffer.append(" class=\"");
-               buffer.append(style);
-               buffer.append("\"");
-               buffer.append(">" );
+               writer.write("<div");
+               writer.write(" class=\"");
+               writer.write(style);
+               writer.write("\"");
+               writer.write(">" );
             }
-            buffer.append(text);
+            writer.write(text);
             if (UtilValidate.isNotEmpty(style)) {
-                buffer.append("</div>");
+                writer.write("</div>");
             }
-            buffer.append("</td>");
+            writer.write("</td>");
         }
         
         String rightText = banner.getRightText(context);
         if (UtilValidate.isNotEmpty(rightText)) {
-            buffer.append("   <td align=\"right\">");
+            writer.write("   <td align=\"right\">");
             if (UtilValidate.isNotEmpty(rightStyle)) {
-               buffer.append("<div");
-               buffer.append(" class=\"");
-               buffer.append(rightStyle);
-               buffer.append("\"");
-               buffer.append(">" );
+               writer.write("<div");
+               writer.write(" class=\"");
+               writer.write(rightStyle);
+               writer.write("\"");
+               writer.write(">" );
             }
-            buffer.append(rightText);
+            writer.write(rightText);
             if (UtilValidate.isNotEmpty(rightStyle)) {
-                buffer.append("</div>");
+                writer.write("</div>");
             }
-            buffer.append("</td>");
+            writer.write("</td>");
         }
-        buffer.append("</tr> </table>");
+        writer.write("</tr> </table>");
     }
     
     /**
      * Renders a link for the column header fields when there is a header-link="" specified in the <field > tag, using
      * style from header-link-style="".  Also renders a selectAll checkbox in multi forms.
-     * @param buffer
+     * @param writer
      * @param context
      * @param modelFormField
      * @param titleText
      */
-    public void renderHyperlinkTitle(StringBuffer buffer, Map context, ModelFormField modelFormField, String titleText) {
+    public void renderHyperlinkTitle(Writer writer, Map<String, Object> context, ModelFormField modelFormField, String titleText) throws IOException {
         if (UtilValidate.isNotEmpty(modelFormField.getHeaderLink())) {
             StringBuffer targetBuffer = new StringBuffer();
             FlexibleStringExpander target = new FlexibleStringExpander(modelFormField.getHeaderLink());         
@@ -2467,14 +2472,14 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             if (UtilValidate.isNotEmpty(targetBuffer.toString()) && targetBuffer.toString().toLowerCase().startsWith("javascript:")) {
             	targetType="plain";
             }
-            makeHyperlinkString(buffer, modelFormField.getHeaderLinkStyle(), targetType, targetBuffer.toString(), titleText, null, null, null);
+            makeHyperlinkString(writer, modelFormField.getHeaderLinkStyle(), targetType, targetBuffer.toString(), titleText, null, null, null);
         } else if (modelFormField.isRowSubmit()) {
-            if (UtilValidate.isNotEmpty(titleText)) buffer.append(titleText).append("<br/>");
-            buffer.append("<input type=\"checkbox\" name=\"selectAll\" value=\"Y\" onclick=\"javascript:toggleAll(this, '");
-            buffer.append(modelFormField.getModelForm().getName());
-            buffer.append("');\"/>");
+            if (UtilValidate.isNotEmpty(titleText)) writer.write(titleText + "<br/>");
+            writer.write("<input type=\"checkbox\" name=\"selectAll\" value=\"Y\" onclick=\"javascript:toggleAll(this, '");
+            writer.write(modelFormField.getModelForm().getName());
+            writer.write("');\"/>");
         } else {
-             buffer.append(titleText);
+             writer.write(titleText);
         }
     }
 

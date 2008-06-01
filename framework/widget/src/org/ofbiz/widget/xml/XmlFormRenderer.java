@@ -18,9 +18,11 @@
  *******************************************************************************/
 package org.ofbiz.widget.xml;
 
-import java.util.Iterator;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -60,280 +62,278 @@ public class XmlFormRenderer implements FormStringRenderer {
     HttpServletRequest request;
     HttpServletResponse response;
 
-    protected XmlFormRenderer() {}
+    protected XmlFormRenderer() throws IOException {}
 
-    public XmlFormRenderer(HttpServletRequest request, HttpServletResponse response) {
+    public XmlFormRenderer(HttpServletRequest request, HttpServletResponse response) throws IOException {
         this.request = request;
         this.response = response;
     }
 
-    public void appendWhitespace(StringBuffer buffer) {
+    public void appendWhitespace(Writer writer) throws IOException {
         // appending line ends for now, but this could be replaced with a simple space or something
-        buffer.append("\r\n");
-        //buffer.append(' ');
+        writer.write("\r\n");
+        //writer.write(' ');
     }
 
-    private void makeTextString(StringBuffer buffer, String widgetStyle, String text) {
+    private void makeTextString(Writer writer, String widgetStyle, String text) throws IOException {
         // TODO: escape characters here
-        buffer.append(text);
+        writer.write(text);
     }
 
-    public void renderDisplayField(StringBuffer buffer, Map context, DisplayField displayField) {
+    public void renderDisplayField(Writer writer, Map<String, Object> context, DisplayField displayField) throws IOException {
         ModelFormField modelFormField = displayField.getModelFormField();
-        this.makeTextString(buffer, modelFormField.getWidgetStyle(), displayField.getDescription(context));
-        this.appendWhitespace(buffer);
+        this.makeTextString(writer, modelFormField.getWidgetStyle(), displayField.getDescription(context));
+        this.appendWhitespace(writer);
     }
 
-    public void renderHyperlinkField(StringBuffer buffer, Map context, HyperlinkField hyperlinkField) {
+    public void renderHyperlinkField(Writer writer, Map<String, Object> context, HyperlinkField hyperlinkField) throws IOException {
         ModelFormField modelFormField = hyperlinkField.getModelFormField();
-        this.makeTextString(buffer, modelFormField.getWidgetStyle(), hyperlinkField.getDescription(context));
-        this.appendWhitespace(buffer);
+        this.makeTextString(writer, modelFormField.getWidgetStyle(), hyperlinkField.getDescription(context));
+        this.appendWhitespace(writer);
     }
 
-    public void renderTextField(StringBuffer buffer, Map context, TextField textField) {
+    public void renderTextField(Writer writer, Map<String, Object> context, TextField textField) throws IOException {
         ModelFormField modelFormField = textField.getModelFormField();
-        this.makeTextString(buffer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, textField.getDefaultValue(context)));
-        this.appendWhitespace(buffer);
+        this.makeTextString(writer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, textField.getDefaultValue(context)));
+        this.appendWhitespace(writer);
     }
 
-    public void renderTextareaField(StringBuffer buffer, Map context, TextareaField textareaField) {
+    public void renderTextareaField(Writer writer, Map<String, Object> context, TextareaField textareaField) throws IOException {
         ModelFormField modelFormField = textareaField.getModelFormField();
-        this.makeTextString(buffer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, textareaField.getDefaultValue(context)));
-        this.appendWhitespace(buffer);
+        this.makeTextString(writer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, textareaField.getDefaultValue(context)));
+        this.appendWhitespace(writer);
     }
 
-    public void renderDateTimeField(StringBuffer buffer, Map context, DateTimeField dateTimeField) {
+    public void renderDateTimeField(Writer writer, Map<String, Object> context, DateTimeField dateTimeField) throws IOException {
         ModelFormField modelFormField = dateTimeField.getModelFormField();
-        this.makeTextString(buffer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, dateTimeField.getDefaultValue(context)));
-        this.appendWhitespace(buffer);
+        this.makeTextString(writer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, dateTimeField.getDefaultValue(context)));
+        this.appendWhitespace(writer);
     }
 
-    public void renderDropDownField(StringBuffer buffer, Map context, DropDownField dropDownField) {
+    public void renderDropDownField(Writer writer, Map<String, Object> context, DropDownField dropDownField) throws IOException {
         ModelFormField modelFormField = dropDownField.getModelFormField();
         ModelForm modelForm = modelFormField.getModelForm();
         String currentValue = modelFormField.getEntry(context);
-        List allOptionValues = dropDownField.getAllOptionValues(context, modelForm.getDelegator(context));
+        List<ModelFormField.OptionValue> allOptionValues = dropDownField.getAllOptionValues(context, modelForm.getDelegator(context));
         // if the current value should go first, display it
         if (UtilValidate.isNotEmpty(currentValue) && "first-in-list".equals(dropDownField.getCurrent())) {
             String explicitDescription = dropDownField.getCurrentDescription(context);
             if (UtilValidate.isNotEmpty(explicitDescription)) {
-                this.makeTextString(buffer, modelFormField.getWidgetStyle(), explicitDescription);
+                this.makeTextString(writer, modelFormField.getWidgetStyle(), explicitDescription);
             } else {
-                this.makeTextString(buffer, modelFormField.getWidgetStyle(), ModelFormField.FieldInfoWithOptions.getDescriptionForOptionKey(currentValue, allOptionValues));
+                this.makeTextString(writer, modelFormField.getWidgetStyle(), ModelFormField.FieldInfoWithOptions.getDescriptionForOptionKey(currentValue, allOptionValues));
             }
         } else {
-            Iterator optionValueIter = allOptionValues.iterator();
-            while (optionValueIter.hasNext()) {
-                ModelFormField.OptionValue optionValue = (ModelFormField.OptionValue) optionValueIter.next();
+            for (ModelFormField.OptionValue optionValue : allOptionValues) {
                 String noCurrentSelectedKey = dropDownField.getNoCurrentSelectedKey(context);
                 if ((UtilValidate.isNotEmpty(currentValue) && currentValue.equals(optionValue.getKey()) && "selected".equals(dropDownField.getCurrent())) ||
                         (UtilValidate.isEmpty(currentValue) && noCurrentSelectedKey != null && noCurrentSelectedKey.equals(optionValue.getKey()))) {
-                    this.makeTextString(buffer, modelFormField.getWidgetStyle(), optionValue.getDescription());
+                    this.makeTextString(writer, modelFormField.getWidgetStyle(), optionValue.getDescription());
                     break;
                 }
             }
         }
-        this.appendWhitespace(buffer);
+        this.appendWhitespace(writer);
     }
 
-    public void renderCheckField(StringBuffer buffer, Map context, CheckField checkField) {
+    public void renderCheckField(Writer writer, Map<String, Object> context, CheckField checkField) throws IOException {
     }
 
-    public void renderRadioField(StringBuffer buffer, Map context, RadioField radioField) {
+    public void renderRadioField(Writer writer, Map<String, Object> context, RadioField radioField) throws IOException {
     }
 
-    public void renderSubmitField(StringBuffer buffer, Map context, SubmitField submitField) {
+    public void renderSubmitField(Writer writer, Map<String, Object> context, SubmitField submitField) throws IOException {
     }
 
-    public void renderResetField(StringBuffer buffer, Map context, ResetField resetField) {
+    public void renderResetField(Writer writer, Map<String, Object> context, ResetField resetField) throws IOException {
     }
 
-    public void renderHiddenField(StringBuffer buffer, Map context, HiddenField hiddenField) {
+    public void renderHiddenField(Writer writer, Map<String, Object> context, HiddenField hiddenField) throws IOException {
     }
 
-    public void renderHiddenField(StringBuffer buffer, Map context, ModelFormField modelFormField, String value) {
+    public void renderHiddenField(Writer writer, Map<String, Object> context, ModelFormField modelFormField, String value) throws IOException {
     }
 
-    public void renderIgnoredField(StringBuffer buffer, Map context, IgnoredField ignoredField) {
+    public void renderIgnoredField(Writer writer, Map<String, Object> context, IgnoredField ignoredField) throws IOException {
     }
 
-    public void renderFieldTitle(StringBuffer buffer, Map context, ModelFormField modelFormField) {
+    public void renderFieldTitle(Writer writer, Map<String, Object> context, ModelFormField modelFormField) throws IOException {
     }
 
-    public void renderSingleFormFieldTitle(StringBuffer buffer, Map context, ModelFormField modelFormField) {
-        renderFieldTitle(buffer, context, modelFormField);
+    public void renderSingleFormFieldTitle(Writer writer, Map<String, Object> context, ModelFormField modelFormField) throws IOException {
+        renderFieldTitle(writer, context, modelFormField);
     }
 
-    public void renderFormOpen(StringBuffer buffer, Map context, ModelForm modelForm) {
+    public void renderFormOpen(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
     }
 
-    public void renderFormClose(StringBuffer buffer, Map context, ModelForm modelForm) {
+    public void renderFormClose(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
     }
 
-    public void renderMultiFormClose(StringBuffer buffer, Map context, ModelForm modelForm) {
+    public void renderMultiFormClose(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
     }
 
-    public void renderFormatListWrapperOpen(StringBuffer buffer, Map context, ModelForm modelForm) {
-        buffer.append("<");
-        buffer.append(modelForm.getName());
-        buffer.append("Export>");
-        this.appendWhitespace(buffer);
+    public void renderFormatListWrapperOpen(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
+        writer.write("<");
+        writer.write(modelForm.getName());
+        writer.write("Export>");
+        this.appendWhitespace(writer);
     }
 
-    public void renderFormatListWrapperClose(StringBuffer buffer, Map context, ModelForm modelForm) {
-        buffer.append("</");
-        buffer.append(modelForm.getName());
-        buffer.append("Export>");
-        this.appendWhitespace(buffer);
+    public void renderFormatListWrapperClose(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
+        writer.write("</");
+        writer.write(modelForm.getName());
+        writer.write("Export>");
+        this.appendWhitespace(writer);
     }
 
-    public void renderFormatHeaderRowOpen(StringBuffer buffer, Map context, ModelForm modelForm) {
+    public void renderFormatHeaderRowOpen(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
     }
 
-    public void renderFormatHeaderRowClose(StringBuffer buffer, Map context, ModelForm modelForm) {
+    public void renderFormatHeaderRowClose(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
     }
 
-    public void renderFormatHeaderRowCellOpen(StringBuffer buffer, Map context, ModelForm modelForm, ModelFormField modelFormField, int positionSpan) {
+    public void renderFormatHeaderRowCellOpen(Writer writer, Map<String, Object> context, ModelForm modelForm, ModelFormField modelFormField, int positionSpan) throws IOException {
     }
 
-    public void renderFormatHeaderRowCellClose(StringBuffer buffer, Map context, ModelForm modelForm, ModelFormField modelFormField) {
+    public void renderFormatHeaderRowCellClose(Writer writer, Map<String, Object> context, ModelForm modelForm, ModelFormField modelFormField) throws IOException {
     }
 
-    public void renderFormatHeaderRowFormCellOpen(StringBuffer buffer, Map context, ModelForm modelForm) {
+    public void renderFormatHeaderRowFormCellOpen(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
     }
 
-    public void renderFormatHeaderRowFormCellClose(StringBuffer buffer, Map context, ModelForm modelForm) {
+    public void renderFormatHeaderRowFormCellClose(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
     }
 
-    public void renderFormatHeaderRowFormCellTitleSeparator(StringBuffer buffer, Map context, ModelForm modelForm, ModelFormField modelFormField, boolean isLast) {
+    public void renderFormatHeaderRowFormCellTitleSeparator(Writer writer, Map<String, Object> context, ModelForm modelForm, ModelFormField modelFormField, boolean isLast) throws IOException {
     }
 
-    public void renderFormatItemRowOpen(StringBuffer buffer, Map context, ModelForm modelForm) {
-        buffer.append("<");
-        buffer.append(modelForm.getName());
-        buffer.append(">");
-        this.appendWhitespace(buffer);
+    public void renderFormatItemRowOpen(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
+        writer.write("<");
+        writer.write(modelForm.getName());
+        writer.write(">");
+        this.appendWhitespace(writer);
     }
 
-    public void renderFormatItemRowClose(StringBuffer buffer, Map context, ModelForm modelForm) {
-        buffer.append("</");
-        buffer.append(modelForm.getName());
-        buffer.append(">");
-        this.appendWhitespace(buffer);
+    public void renderFormatItemRowClose(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
+        writer.write("</");
+        writer.write(modelForm.getName());
+        writer.write(">");
+        this.appendWhitespace(writer);
     }
 
-    public void renderFormatItemRowCellOpen(StringBuffer buffer, Map context, ModelForm modelForm, ModelFormField modelFormField, int positionSpan) {
-        buffer.append("<");
-        buffer.append(modelFormField.getName());
-        buffer.append(">");
-        this.appendWhitespace(buffer);
+    public void renderFormatItemRowCellOpen(Writer writer, Map<String, Object> context, ModelForm modelForm, ModelFormField modelFormField, int positionSpan) throws IOException {
+        writer.write("<");
+        writer.write(modelFormField.getName());
+        writer.write(">");
+        this.appendWhitespace(writer);
     }
 
-    public void renderFormatItemRowCellClose(StringBuffer buffer, Map context, ModelForm modelForm, ModelFormField modelFormField) {
-        buffer.append("</");
-        buffer.append(modelFormField.getName());
-        buffer.append(">");
-        this.appendWhitespace(buffer);
+    public void renderFormatItemRowCellClose(Writer writer, Map<String, Object> context, ModelForm modelForm, ModelFormField modelFormField) throws IOException {
+        writer.write("</");
+        writer.write(modelFormField.getName());
+        writer.write(">");
+        this.appendWhitespace(writer);
     }
 
-    public void renderFormatItemRowFormCellOpen(StringBuffer buffer, Map context, ModelForm modelForm) {
+    public void renderFormatItemRowFormCellOpen(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
     }
 
-    public void renderFormatItemRowFormCellClose(StringBuffer buffer, Map context, ModelForm modelForm) {
+    public void renderFormatItemRowFormCellClose(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
     }
 
-    public void renderFormatSingleWrapperOpen(StringBuffer buffer, Map context, ModelForm modelForm) {
-        buffer.append("<");
-        buffer.append(modelForm.getName());
-        buffer.append("Export>");
-        this.appendWhitespace(buffer);
+    public void renderFormatSingleWrapperOpen(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
+        writer.write("<");
+        writer.write(modelForm.getName());
+        writer.write("Export>");
+        this.appendWhitespace(writer);
     }
 
-    public void renderFormatSingleWrapperClose(StringBuffer buffer, Map context, ModelForm modelForm) {
-        buffer.append("</");
-        buffer.append(modelForm.getName());
-        buffer.append("Export>");
-        this.appendWhitespace(buffer);
+    public void renderFormatSingleWrapperClose(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
+        writer.write("</");
+        writer.write(modelForm.getName());
+        writer.write("Export>");
+        this.appendWhitespace(writer);
     }
 
-    public void renderFormatFieldRowOpen(StringBuffer buffer, Map context, ModelForm modelForm) {
+    public void renderFormatFieldRowOpen(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
     }
 
-    public void renderFormatFieldRowClose(StringBuffer buffer, Map context, ModelForm modelForm) {
+    public void renderFormatFieldRowClose(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
     }
 
 
-    public void renderFormatFieldRowTitleCellOpen(StringBuffer buffer, Map context, ModelFormField modelFormField) {
+    public void renderFormatFieldRowTitleCellOpen(Writer writer, Map<String, Object> context, ModelFormField modelFormField) throws IOException {
     }
 
-    public void renderFormatFieldRowTitleCellClose(StringBuffer buffer, Map context, ModelFormField modelFormField) {
+    public void renderFormatFieldRowTitleCellClose(Writer writer, Map<String, Object> context, ModelFormField modelFormField) throws IOException {
     }
 
-    public void renderFormatFieldRowSpacerCell(StringBuffer buffer, Map context, ModelFormField modelFormField) {
+    public void renderFormatFieldRowSpacerCell(Writer writer, Map<String, Object> context, ModelFormField modelFormField) throws IOException {
     }
 
-    public void renderFormatFieldRowWidgetCellOpen(StringBuffer buffer, Map context, ModelFormField modelFormField, int positions, int positionSpan, Integer nextPositionInRow) {
+    public void renderFormatFieldRowWidgetCellOpen(Writer writer, Map<String, Object> context, ModelFormField modelFormField, int positions, int positionSpan, Integer nextPositionInRow) throws IOException {
     }
 
-    public void renderFormatFieldRowWidgetCellClose(StringBuffer buffer, Map context, ModelFormField modelFormField, int positions, int positionSpan, Integer nextPositionInRow) {
+    public void renderFormatFieldRowWidgetCellClose(Writer writer, Map<String, Object> context, ModelFormField modelFormField, int positions, int positionSpan, Integer nextPositionInRow) throws IOException {
     }
 
-    public void renderFormatEmptySpace(StringBuffer buffer, Map context, ModelForm modelForm) {
+    public void renderFormatEmptySpace(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         // TODO
     }
 
-    public void renderTextFindField(StringBuffer buffer, Map context, TextFindField textFindField) {
+    public void renderTextFindField(Writer writer, Map<String, Object> context, TextFindField textFindField) throws IOException {
         ModelFormField modelFormField = textFindField.getModelFormField();
-        this.makeTextString(buffer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, textFindField.getDefaultValue(context)));
-        this.appendWhitespace(buffer);
+        this.makeTextString(writer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, textFindField.getDefaultValue(context)));
+        this.appendWhitespace(writer);
     }
 
-    public void renderRangeFindField(StringBuffer buffer, Map context, RangeFindField rangeFindField) {
+    public void renderRangeFindField(Writer writer, Map<String, Object> context, RangeFindField rangeFindField) throws IOException {
         ModelFormField modelFormField = rangeFindField.getModelFormField();
-        this.makeTextString(buffer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, rangeFindField.getDefaultValue(context)));
-        this.appendWhitespace(buffer);
+        this.makeTextString(writer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, rangeFindField.getDefaultValue(context)));
+        this.appendWhitespace(writer);
     }
 
-    public void renderDateFindField(StringBuffer buffer, Map context, DateFindField dateFindField) {
+    public void renderDateFindField(Writer writer, Map<String, Object> context, DateFindField dateFindField) throws IOException {
         ModelFormField modelFormField = dateFindField.getModelFormField();
-        this.makeTextString(buffer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, dateFindField.getDefaultValue(context)));
-        this.appendWhitespace(buffer);
+        this.makeTextString(writer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, dateFindField.getDefaultValue(context)));
+        this.appendWhitespace(writer);
     }
 
-    public void renderLookupField(StringBuffer buffer, Map context, LookupField lookupField) {
+    public void renderLookupField(Writer writer, Map<String, Object> context, LookupField lookupField) throws IOException {
         ModelFormField modelFormField = lookupField.getModelFormField();
-        this.makeTextString(buffer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, lookupField.getDefaultValue(context)));
-        this.appendWhitespace(buffer);
+        this.makeTextString(writer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, lookupField.getDefaultValue(context)));
+        this.appendWhitespace(writer);
     }
 
-    public void renderNextPrev(StringBuffer buffer, Map context, ModelForm modelForm) {
+    public void renderNextPrev(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
     }
 
-    public void renderFileField(StringBuffer buffer, Map context, FileField textField) {
+    public void renderFileField(Writer writer, Map<String, Object> context, FileField textField) throws IOException {
         ModelFormField modelFormField = textField.getModelFormField();
-        this.makeTextString(buffer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, textField.getDefaultValue(context)));
-        this.appendWhitespace(buffer);
+        this.makeTextString(writer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, textField.getDefaultValue(context)));
+        this.appendWhitespace(writer);
     }
 
-    public void renderPasswordField(StringBuffer buffer, Map context, PasswordField passwordField) {
+    public void renderPasswordField(Writer writer, Map<String, Object> context, PasswordField passwordField) throws IOException {
     }
 
-    public void renderImageField(StringBuffer buffer, Map context, ImageField imageField) {
+    public void renderImageField(Writer writer, Map<String, Object> context, ImageField imageField) throws IOException {
         // TODO
     }
 
-    public void renderFieldGroupOpen(StringBuffer buffer, Map context, ModelForm.FieldGroup fieldGroup) {
+    public void renderFieldGroupOpen(Writer writer, Map<String, Object> context, ModelForm.FieldGroup fieldGroup) throws IOException {
         // TODO
     }
 
-    public void renderFieldGroupClose(StringBuffer buffer, Map context, ModelForm.FieldGroup fieldGroup) {
-        // TODO
-    }
-    
-    public void renderBanner(StringBuffer buffer, Map context, ModelForm.Banner banner) {
+    public void renderFieldGroupClose(Writer writer, Map<String, Object> context, ModelForm.FieldGroup fieldGroup) throws IOException {
         // TODO
     }
     
-    public void renderHyperlinkTitle(StringBuffer buffer, Map context, ModelFormField modelFormField, String titleText) {
+    public void renderBanner(Writer writer, Map<String, Object> context, ModelForm.Banner banner) throws IOException {
+        // TODO
+    }
+    
+    public void renderHyperlinkTitle(Writer writer, Map<String, Object> context, ModelFormField modelFormField, String titleText) throws IOException {
     }
 }

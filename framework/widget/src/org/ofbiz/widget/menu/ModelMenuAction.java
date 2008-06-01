@@ -68,7 +68,7 @@ public abstract class ModelMenuAction {
         if (Debug.verboseOn()) Debug.logVerbose("Reading Screen action with name: " + actionElement.getNodeName(), module);
     }
     
-    public abstract void runAction(Map context);
+    public abstract void runAction(Map<String, Object> context);
     
     public static List readSubActions(ModelMenuItem modelMenuItem, Element parentElement) {
         return readSubActions(modelMenuItem.getModelMenu(), parentElement);
@@ -105,7 +105,7 @@ public abstract class ModelMenuAction {
         return actions;
     }
     
-    public static void runSubActions(List actions, Map context) {
+    public static void runSubActions(List actions, Map<String, Object> context) {
         if (actions == null) return;
         
         Iterator actionIter = actions.iterator();
@@ -141,7 +141,7 @@ public abstract class ModelMenuAction {
             }
         }
         
-        public void runAction(Map context) {
+        public void runAction(Map<String, Object> context) {
             String globalStr = this.globalExdr.expandString(context);
             // default to false
             boolean global = "true".equals(globalStr);
@@ -245,7 +245,7 @@ public abstract class ModelMenuAction {
             this.globalExdr = new FlexibleStringExpander(setElement.getAttribute("global"));
         }
         
-        public void runAction(Map context) {
+        public void runAction(Map<String, Object> context) {
             String globalStr = this.globalExdr.expandString(context);
             // default to false
             boolean global = "true".equals(globalStr);
@@ -285,7 +285,7 @@ public abstract class ModelMenuAction {
             this.globalExdr = new FlexibleStringExpander(setElement.getAttribute("global"));
         }
         
-        public void runAction(Map context) {
+        public void runAction(Map<String, Object> context) {
             // default to false
 
             Locale locale = (Locale) context.get("locale");
@@ -326,7 +326,7 @@ public abstract class ModelMenuAction {
             this.location = scriptElement.getAttribute("location");
         }
         
-        public void runAction(Map context) {
+        public void runAction(Map<String, Object> context) {
             if (location.endsWith(".bsh")) {
                 try {
                     BshUtil.runBshAtLocation(location, context);
@@ -367,7 +367,7 @@ public abstract class ModelMenuAction {
             }
         }
         
-        public void runAction(Map context) {
+        public void runAction(Map<String, Object> context) {
             String serviceNameExpanded = this.serviceNameExdr.expandString(context);
             if (UtilValidate.isEmpty(serviceNameExpanded)) {
                 throw new IllegalArgumentException("Service name was empty, expanded from: " + this.serviceNameExdr.getOriginal());
@@ -417,7 +417,7 @@ public abstract class ModelMenuAction {
             finder = new PrimaryKeyFinder(entityOneElement);
         }
         
-        public void runAction(Map context) {
+        public void runAction(Map<String, Object> context) {
             try {
                 finder.runFind(context, this.modelMenu.getDelegator());
             } catch (GeneralException e) {
@@ -436,7 +436,7 @@ public abstract class ModelMenuAction {
             finder = new ByAndFinder(entityAndElement);
         }
         
-        public void runAction(Map context) {
+        public void runAction(Map<String, Object> context) {
             try {
                 finder.runFind(context, this.modelMenu.getDelegator());
             } catch (GeneralException e) {
@@ -455,7 +455,7 @@ public abstract class ModelMenuAction {
             finder = new ByConditionFinder(entityConditionElement);
         }
         
-        public void runAction(Map context) {
+        public void runAction(Map<String, Object> context) {
             try {
                 finder.runFind(context, this.modelMenu.getDelegator());
             } catch (GeneralException e) {
@@ -466,5 +466,6 @@ public abstract class ModelMenuAction {
         }
     }
 }
+
 
 

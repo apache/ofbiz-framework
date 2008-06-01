@@ -66,7 +66,7 @@ public class ModelMenuCondition {
         this.rootCondition = readCondition(modelMenuItem, firstChildElement);
     }
 
-    public boolean eval(Map context) {
+    public boolean eval(Map<String, Object> context) {
         if (rootCondition == null) {
             return true;
         }
@@ -95,7 +95,7 @@ public class ModelMenuCondition {
             this.modelMenuItem = modelMenuItem;
         }
         
-        public abstract boolean eval(Map context);
+        public abstract boolean eval(Map<String, Object> context);
     }
     
     public static List readSubConditions(ModelMenuItem modelMenuItem, Element conditionElement) {
@@ -150,7 +150,7 @@ public class ModelMenuCondition {
             this.subConditions = readSubConditions(modelMenuItem, condElement);
         }
         
-        public boolean eval(Map context) {
+        public boolean eval(Map<String, Object> context) {
             // return false for the first one in the list that is false, basic and algo
             Iterator subConditionIter = this.subConditions.iterator();
             while (subConditionIter.hasNext()) {
@@ -171,7 +171,7 @@ public class ModelMenuCondition {
             this.subConditions = readSubConditions(modelMenuItem, condElement);
         }
         
-        public boolean eval(Map context) {
+        public boolean eval(Map<String, Object> context) {
             // if more than one is true stop immediately and return false; if all are false return false; if only one is true return true
             boolean foundOneTrue = false;
             Iterator subConditionIter = this.subConditions.iterator();
@@ -198,7 +198,7 @@ public class ModelMenuCondition {
             this.subConditions = readSubConditions(modelMenuItem, condElement);
         }
         
-        public boolean eval(Map context) {
+        public boolean eval(Map<String, Object> context) {
             // return true for the first one in the list that is true, basic or algo
             Iterator subConditionIter = this.subConditions.iterator();
             while (subConditionIter.hasNext()) {
@@ -220,7 +220,7 @@ public class ModelMenuCondition {
             this.subCondition = readCondition(modelMenuItem, firstChildElement);
         }
         
-        public boolean eval(Map context) {
+        public boolean eval(Map<String, Object> context) {
             return !this.subCondition.eval(context);
         }
     }
@@ -237,7 +237,7 @@ public class ModelMenuCondition {
             this.resExdr = new FlexibleStringExpander(condElement.getAttribute("resource-description"));            
         }
 
-        public boolean eval(Map context) {
+        public boolean eval(Map<String, Object> context) {
             // if no user is logged in, treat as if the user does not have permission
             GenericValue userLogin = (GenericValue) context.get("userLogin");
             if (userLogin != null) {
@@ -306,7 +306,7 @@ public class ModelMenuCondition {
             this.actionExdr = new FlexibleStringExpander(condElement.getAttribute("action"));
         }
         
-        public boolean eval(Map context) {
+        public boolean eval(Map<String, Object> context) {
             // if no user is logged in, treat as if the user does not have permission
             GenericValue userLogin = (GenericValue) context.get("userLogin");
             if (userLogin != null) {
@@ -342,7 +342,7 @@ public class ModelMenuCondition {
             this.classExdr = new FlexibleStringExpander(condElement.getAttribute("class"));
         }
         
-        public boolean eval(Map context) {
+        public boolean eval(Map<String, Object> context) {
             String methodName = this.methodExdr.expandString(context);
             String className = this.classExdr.expandString(context);
             
@@ -408,7 +408,7 @@ public class ModelMenuCondition {
             this.formatExdr = new FlexibleStringExpander(condElement.getAttribute("format"));
         }
         
-        public boolean eval(Map context) {
+        public boolean eval(Map<String, Object> context) {
             String value = this.valueExdr.expandString(context);
             String format = this.formatExdr.expandString(context);
             
@@ -457,7 +457,7 @@ public class ModelMenuCondition {
             this.formatExdr = new FlexibleStringExpander(condElement.getAttribute("format"));
         }
         
-        public boolean eval(Map context) {
+        public boolean eval(Map<String, Object> context) {
             String format = this.formatExdr.expandString(context);
             
             Object fieldVal = this.fieldAcsr.get(context);
@@ -500,7 +500,7 @@ public class ModelMenuCondition {
             this.exprExdr = new FlexibleStringExpander(condElement.getAttribute("expr"));
         }
         
-        public boolean eval(Map context) {
+        public boolean eval(Map<String, Object> context) {
             Object fieldVal = this.fieldAcsr.get(context);
             String expr = this.exprExdr.expandString(context);
             Pattern pattern = null;
@@ -533,7 +533,7 @@ public class ModelMenuCondition {
             this.fieldAcsr = new FlexibleMapAccessor(condElement.getAttribute("field-name"));
         }
         
-        public boolean eval(Map context) {
+        public boolean eval(Map<String, Object> context) {
             Object fieldVal = this.fieldAcsr.get(context);
             return ObjectType.isEmpty(fieldVal);
         }
@@ -546,12 +546,13 @@ public class ModelMenuCondition {
             this.permissionChecker = new EntityPermissionChecker(condElement);
         }
         
-        public boolean eval(Map context) {
+        public boolean eval(Map<String, Object> context) {
         	
         	boolean passed = permissionChecker.runPermissionCheck(context);
             return passed;
         }
     }
 }
+
 
 

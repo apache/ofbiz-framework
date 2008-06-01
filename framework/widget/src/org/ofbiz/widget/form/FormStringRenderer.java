@@ -18,77 +18,79 @@
  *******************************************************************************/
 package org.ofbiz.widget.form;
 
+import java.io.IOException;
+import java.io.Writer;
 import java.util.Map;
 
 /**
- * Widget Library - Form String Renderer interface
+ * Widget Library - Form String Renderer interface.
  */
 public interface FormStringRenderer {
-    public void renderDisplayField(StringBuffer buffer, Map context, ModelFormField.DisplayField displayField);
-    public void renderHyperlinkField(StringBuffer buffer, Map context, ModelFormField.HyperlinkField hyperlinkField);
+    public void renderDisplayField(Writer writer, Map<String, Object> context, ModelFormField.DisplayField displayField) throws IOException;
+    public void renderHyperlinkField(Writer writer, Map<String, Object> context, ModelFormField.HyperlinkField hyperlinkField) throws IOException;
 
-    public void renderTextField(StringBuffer buffer, Map context, ModelFormField.TextField textField);
-    public void renderTextareaField(StringBuffer buffer, Map context, ModelFormField.TextareaField textareaField);
-    public void renderDateTimeField(StringBuffer buffer, Map context, ModelFormField.DateTimeField dateTimeField);
+    public void renderTextField(Writer writer, Map<String, Object> context, ModelFormField.TextField textField) throws IOException;
+    public void renderTextareaField(Writer writer, Map<String, Object> context, ModelFormField.TextareaField textareaField) throws IOException;
+    public void renderDateTimeField(Writer writer, Map<String, Object> context, ModelFormField.DateTimeField dateTimeField) throws IOException;
 
-    public void renderDropDownField(StringBuffer buffer, Map context, ModelFormField.DropDownField dropDownField);
-    public void renderCheckField(StringBuffer buffer, Map context, ModelFormField.CheckField checkField);
-    public void renderRadioField(StringBuffer buffer, Map context, ModelFormField.RadioField radioField);
+    public void renderDropDownField(Writer writer, Map<String, Object> context, ModelFormField.DropDownField dropDownField) throws IOException;
+    public void renderCheckField(Writer writer, Map<String, Object> context, ModelFormField.CheckField checkField) throws IOException;
+    public void renderRadioField(Writer writer, Map<String, Object> context, ModelFormField.RadioField radioField) throws IOException;
 
-    public void renderSubmitField(StringBuffer buffer, Map context, ModelFormField.SubmitField submitField);
-    public void renderResetField(StringBuffer buffer, Map context, ModelFormField.ResetField resetField);
+    public void renderSubmitField(Writer writer, Map<String, Object> context, ModelFormField.SubmitField submitField) throws IOException;
+    public void renderResetField(Writer writer, Map<String, Object> context, ModelFormField.ResetField resetField) throws IOException;
 
-    public void renderHiddenField(StringBuffer buffer, Map context, ModelFormField modelFormField, String value);
-    public void renderHiddenField(StringBuffer buffer, Map context, ModelFormField.HiddenField hiddenField);
-    public void renderIgnoredField(StringBuffer buffer, Map context, ModelFormField.IgnoredField ignoredField);
+    public void renderHiddenField(Writer writer, Map<String, Object> context, ModelFormField modelFormField, String value) throws IOException;
+    public void renderHiddenField(Writer writer, Map<String, Object> context, ModelFormField.HiddenField hiddenField) throws IOException;
+    public void renderIgnoredField(Writer writer, Map<String, Object> context, ModelFormField.IgnoredField ignoredField) throws IOException;
 
-    public void renderFieldTitle(StringBuffer buffer, Map context, ModelFormField modelFormField);
-    public void renderSingleFormFieldTitle(StringBuffer buffer, Map context, ModelFormField modelFormField);
+    public void renderFieldTitle(Writer writer, Map<String, Object> context, ModelFormField modelFormField) throws IOException;
+    public void renderSingleFormFieldTitle(Writer writer, Map<String, Object> context, ModelFormField modelFormField) throws IOException;
     
-    public void renderFormOpen(StringBuffer buffer, Map context, ModelForm modelForm);
-    public void renderFormClose(StringBuffer buffer, Map context, ModelForm modelForm);
-    public void renderMultiFormClose(StringBuffer buffer, Map context, ModelForm modelForm);
+    public void renderFormOpen(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException;
+    public void renderFormClose(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException;
+    public void renderMultiFormClose(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException;
     
-    public void renderFormatListWrapperOpen(StringBuffer buffer, Map context, ModelForm modelForm);
-    public void renderFormatListWrapperClose(StringBuffer buffer, Map context, ModelForm modelForm);
+    public void renderFormatListWrapperOpen(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException;
+    public void renderFormatListWrapperClose(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException;
 
-    public void renderFormatHeaderRowOpen(StringBuffer buffer, Map context, ModelForm modelForm);
-    public void renderFormatHeaderRowClose(StringBuffer buffer, Map context, ModelForm modelForm);
-    public void renderFormatHeaderRowCellOpen(StringBuffer buffer, Map context, ModelForm modelForm, ModelFormField modelFormField, int positionSpan);
-    public void renderFormatHeaderRowCellClose(StringBuffer buffer, Map context, ModelForm modelForm, ModelFormField modelFormField);
+    public void renderFormatHeaderRowOpen(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException;
+    public void renderFormatHeaderRowClose(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException;
+    public void renderFormatHeaderRowCellOpen(Writer writer, Map<String, Object> context, ModelForm modelForm, ModelFormField modelFormField, int positionSpan) throws IOException;
+    public void renderFormatHeaderRowCellClose(Writer writer, Map<String, Object> context, ModelForm modelForm, ModelFormField modelFormField) throws IOException;
 
-    public void renderFormatHeaderRowFormCellOpen(StringBuffer buffer, Map context, ModelForm modelForm);
-    public void renderFormatHeaderRowFormCellClose(StringBuffer buffer, Map context, ModelForm modelForm);
-    public void renderFormatHeaderRowFormCellTitleSeparator(StringBuffer buffer, Map context, ModelForm modelForm, ModelFormField modelFormField, boolean isLast);
+    public void renderFormatHeaderRowFormCellOpen(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException;
+    public void renderFormatHeaderRowFormCellClose(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException;
+    public void renderFormatHeaderRowFormCellTitleSeparator(Writer writer, Map<String, Object> context, ModelForm modelForm, ModelFormField modelFormField, boolean isLast) throws IOException;
     
-    public void renderFormatItemRowOpen(StringBuffer buffer, Map context, ModelForm modelForm);
-    public void renderFormatItemRowClose(StringBuffer buffer, Map context, ModelForm modelForm);
-    public void renderFormatItemRowCellOpen(StringBuffer buffer, Map context, ModelForm modelForm, ModelFormField modelFormField, int positionSpan);
-    public void renderFormatItemRowCellClose(StringBuffer buffer, Map context, ModelForm modelForm, ModelFormField modelFormField);
-    public void renderFormatItemRowFormCellOpen(StringBuffer buffer, Map context, ModelForm modelForm);
-    public void renderFormatItemRowFormCellClose(StringBuffer buffer, Map context, ModelForm modelForm);
+    public void renderFormatItemRowOpen(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException;
+    public void renderFormatItemRowClose(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException;
+    public void renderFormatItemRowCellOpen(Writer writer, Map<String, Object> context, ModelForm modelForm, ModelFormField modelFormField, int positionSpan) throws IOException;
+    public void renderFormatItemRowCellClose(Writer writer, Map<String, Object> context, ModelForm modelForm, ModelFormField modelFormField) throws IOException;
+    public void renderFormatItemRowFormCellOpen(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException;
+    public void renderFormatItemRowFormCellClose(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException;
 
-    public void renderFormatSingleWrapperOpen(StringBuffer buffer, Map context, ModelForm modelForm);
-    public void renderFormatSingleWrapperClose(StringBuffer buffer, Map context, ModelForm modelForm);
+    public void renderFormatSingleWrapperOpen(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException;
+    public void renderFormatSingleWrapperClose(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException;
 
-    public void renderFormatFieldRowOpen(StringBuffer buffer, Map context, ModelForm modelForm);
-    public void renderFormatFieldRowClose(StringBuffer buffer, Map context, ModelForm modelForm);
-    public void renderFormatFieldRowTitleCellOpen(StringBuffer buffer, Map context, ModelFormField modelFormField);
-    public void renderFormatFieldRowTitleCellClose(StringBuffer buffer, Map context, ModelFormField modelFormField);
-    public void renderFormatFieldRowSpacerCell(StringBuffer buffer, Map context, ModelFormField modelFormField);
-    public void renderFormatFieldRowWidgetCellOpen(StringBuffer buffer, Map context, ModelFormField modelFormField, int positions, int positionSpan, Integer nextPositionInRow);
-    public void renderFormatFieldRowWidgetCellClose(StringBuffer buffer, Map context, ModelFormField modelFormField, int positions, int positionSpan, Integer nextPositionInRow);
+    public void renderFormatFieldRowOpen(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException;
+    public void renderFormatFieldRowClose(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException;
+    public void renderFormatFieldRowTitleCellOpen(Writer writer, Map<String, Object> context, ModelFormField modelFormField) throws IOException;
+    public void renderFormatFieldRowTitleCellClose(Writer writer, Map<String, Object> context, ModelFormField modelFormField) throws IOException;
+    public void renderFormatFieldRowSpacerCell(Writer writer, Map<String, Object> context, ModelFormField modelFormField) throws IOException;
+    public void renderFormatFieldRowWidgetCellOpen(Writer writer, Map<String, Object> context, ModelFormField modelFormField, int positions, int positionSpan, Integer nextPositionInRow) throws IOException;
+    public void renderFormatFieldRowWidgetCellClose(Writer writer, Map<String, Object> context, ModelFormField modelFormField, int positions, int positionSpan, Integer nextPositionInRow) throws IOException;
 
-    public void renderFormatEmptySpace(StringBuffer buffer, Map context, ModelForm modelForm);
+    public void renderFormatEmptySpace(Writer writer, Map<String, Object> context, ModelForm modelForm) throws IOException;
 
-    public void renderTextFindField(StringBuffer buffer, Map context, ModelFormField.TextFindField textField);
-    public void renderDateFindField(StringBuffer buffer, Map context, ModelFormField.DateFindField textField);
-    public void renderRangeFindField(StringBuffer buffer, Map context, ModelFormField.RangeFindField textField);
-    public void renderLookupField(StringBuffer buffer, Map context, ModelFormField.LookupField textField);
-    public void renderFileField(StringBuffer buffer, Map context, ModelFormField.FileField textField);
-    public void renderPasswordField(StringBuffer buffer, Map context, ModelFormField.PasswordField textField);
-    public void renderImageField(StringBuffer buffer, Map context, ModelFormField.ImageField textField);
-    public void renderBanner(StringBuffer buffer, Map context, ModelForm.Banner banner);
-    public void renderFieldGroupOpen(StringBuffer buffer, Map context, ModelForm.FieldGroup fieldGroup);
-    public void renderFieldGroupClose(StringBuffer buffer, Map context, ModelForm.FieldGroup fieldGroup);
+    public void renderTextFindField(Writer writer, Map<String, Object> context, ModelFormField.TextFindField textField) throws IOException;
+    public void renderDateFindField(Writer writer, Map<String, Object> context, ModelFormField.DateFindField textField) throws IOException;
+    public void renderRangeFindField(Writer writer, Map<String, Object> context, ModelFormField.RangeFindField textField) throws IOException;
+    public void renderLookupField(Writer writer, Map<String, Object> context, ModelFormField.LookupField textField) throws IOException;
+    public void renderFileField(Writer writer, Map<String, Object> context, ModelFormField.FileField textField) throws IOException;
+    public void renderPasswordField(Writer writer, Map<String, Object> context, ModelFormField.PasswordField textField) throws IOException;
+    public void renderImageField(Writer writer, Map<String, Object> context, ModelFormField.ImageField textField) throws IOException;
+    public void renderBanner(Writer writer, Map<String, Object> context, ModelForm.Banner banner) throws IOException;
+    public void renderFieldGroupOpen(Writer writer, Map<String, Object> context, ModelForm.FieldGroup fieldGroup) throws IOException;
+    public void renderFieldGroupClose(Writer writer, Map<String, Object> context, ModelForm.FieldGroup fieldGroup) throws IOException;
 }
