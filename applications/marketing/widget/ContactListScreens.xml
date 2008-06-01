@@ -286,7 +286,7 @@ under the License.
                 <entity-one entity-name="CommunicationEvent" value-name="communicationEvent"/>
                 
                 <!-- get the current log in user's default email -->
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/getUserLoginPrimaryEmail.bsh"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/getUserLoginPrimaryEmail.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonContactListDecorator" location="${parameters.mainDecoratorLocation}">
