@@ -40,20 +40,20 @@
         <field name="address1" title="${uiLabelMap.CommonAddress1}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="30" maxlength="60"/></field>
         <field name="address2" title="${uiLabelMap.CommonAddress2}"><text size="30" maxlength="60"/></field>
         <field name="city" title="${uiLabelMap.CommonCity}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="30" maxlength="60"/></field>
-        <field name="state" title="${uiLabelMap.CommonState}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
+        <field name="stateProvinceGeoId" title="${uiLabelMap.CommonState}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
             <drop-down allow-empty="true">
-                <entity-options entity-name="Geo" key-field-name="geoId" description="${geoId} - ${geoName}">
+                <entity-options entity-name="Geo" key-field-name="geoId" description="${geoName} - ${geoId}">
                     <entity-constraint name="geoTypeId" operator="in" value="STATE,PROVINCE"/>
-                    <entity-order-by field-name="geoId"/>
+                    <entity-order-by field-name="geoName"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="postalCode" title="${uiLabelMap.CommonZipPostalCode}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="10" maxlength="30"/></field>
-        <field name="country" title="${uiLabelMap.CommonCountry}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
+        <field name="countryGeoId" title="${uiLabelMap.CommonCountry}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
             <drop-down allow-empty="false" no-current-selected-key="${defaultCountryGeoId}">
-                <entity-options entity-name="Geo" key-field-name="geoId" description="${geoId}: ${geoName}">
+                <entity-options entity-name="Geo" key-field-name="geoId" description="${geoName} - ${geoId}">
                     <entity-constraint name="geoTypeId" value="COUNTRY"/>
-                    <entity-order-by field-name="geoId"/>
+                    <entity-order-by field-name="geoName"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -63,7 +63,7 @@
         <field name="contactNumber" title="${uiLabelMap.PartyPhoneNumber}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="15" maxlength="15"/></field>
         <field name="extension" title="${uiLabelMap.PartyContactExt}"><text size="6" maxlength="10"/></field>
         <field name="emailAddressTitle" title="${uiLabelMap.PartyEmailAddress}" title-area-style="group-label"><display/></field>
-        <field name="emailAddress" title="${uiLabelMap.CommonEmail}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="50" maxlength="60"/></field>
+        <field name="emailAddress" title="${uiLabelMap.CommonEmail}"><text size="50" maxlength="60"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 </forms>
