@@ -117,7 +117,7 @@ under the License.
                 <tr align="center">
                     <td>&nbsp;</td>
                     <td><input type="submit" value="${uiLabelMap.PartyLookupParty}" onClick="javascript:document.lookupparty.submit();"/>
-                        <a href="<@ofbizUrl>findEmployees?showAll=Y&amp;hideFields=Y&amp;lookupFlag=Y</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonShowAllRecords}</a>
+                        <a href="<@ofbizUrl>findEmployees?roleTypeId=EMPLOYEE&amp;hideFields=Y&amp;lookupFlag=Y</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonShowAllRecords}</a>
                     </td>
                 </tr>
             </table>
