@@ -80,7 +80,7 @@
     <screen name="Contact">
         <section>
             <actions>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/getContactMechs.bsh"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/getContactMechs.groovy"/>
             </actions>
             <widgets>
                 <platform-specific>
@@ -95,7 +95,7 @@
     <screen name="PaymentMethods">
         <section>
             <actions>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/getPaymentMethods.bsh"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/getPaymentMethods.groovy"/>
             </actions>
             <widgets>
                 <platform-specific>
@@ -144,7 +144,7 @@
     <screen name="Cart">
         <section>
             <actions>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/getCurrentCart.bsh"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/getCurrentCart.groovy"/>
             </actions>
             <widgets>
                 <platform-specific>
@@ -159,7 +159,7 @@
     <screen name="LoyaltyPoints">
         <section>
             <actions>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/getLoyaltyPoints.bsh"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/getLoyaltyPoints.groovy"/>
             </actions>
             <widgets>
                 <platform-specific>
