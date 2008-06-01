@@ -27,25 +27,22 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 import java.text.NumberFormat;
 
-delegator = request.getAttribute("delegator");
-dispatcher = request.getAttribute("dispatcher");
+fixedAssetId = parameters.fixedAssetId;
+fixedAsset = delegator.findByPrimaryKeyCache("FixedAsset", [fixedAssetId: fixedAssetId]);
 
-fixedAssetId = request.getParameter("fixedAssetId");
-fixedAsset = delegator.findByPrimaryKeyCache("FixedAsset", UtilMisc.toMap("fixedAssetId",fixedAssetId));
-
-String startMonth = request.getParameter("month"); //optional command to change the month
+String startMonth = parameters.month; //optional command to change the month
 Timestamp currentMonth = session.getAttribute("currentMonth");    // the month displayed the last time.
 
 Timestamp now = null;
-if (startMonth == null || currentMonth == null)    // a fresh start
+if (!startMonth || !currentMonth)    // a fresh start
     now = UtilDateTime.getMonthStart(UtilDateTime.nowTimestamp());
-else if (startMonth.equals("1") && currentMonth != null)
-        now = UtilDateTime.getMonthStart(UtilDateTime.getMonthStart(currentMonth, 35));
-else if (startMonth.equals("-1") && currentMonth != null)
+else if (startMonth.equals("1") && currentMonth)
+    now = UtilDateTime.getMonthStart(UtilDateTime.getMonthStart(currentMonth, 35));
+else if (startMonth.equals("-1") && currentMonth)
     now = UtilDateTime.getMonthStart(UtilDateTime.getMonthStart(currentMonth, -15));
-else if (startMonth.equals("3") && currentMonth != null)
+else if (startMonth.equals("3") && currentMonth)
     now = UtilDateTime.getMonthStart(UtilDateTime.getMonthStart(currentMonth, 100));
-else if (startMonth.equals("-3") && currentMonth != null)
+else if (startMonth.equals("-3") && currentMonth)
     now = UtilDateTime.getMonthStart(UtilDateTime.getMonthStart(currentMonth, -75));
 else
     now = UtilDateTime.getMonthStart(UtilDateTime.nowTimestamp());
@@ -84,12 +81,12 @@ while ( currentWeek.compareTo(calendarEndDay) <= 0 ){
             if (excDayRecord.get("exceptionCapacity") != null && excDayRecord.getDouble("exceptionCapacity").doubleValue() != 0)
                 available = excDayRecord.getString("exceptionCapacity");
             extraText = "Avail.: " + available + "<br/>Allocated: " + excDayRecord.getString("usedCapacity");
-            if (dbInt.hasNext())    {
+            if (dbInt.hasNext()) {
                 excDayRecord = dbInt.next();
                 dbValid = true;
-            }
-            else
+            } else {
                 dbValid = false;
+            }
         }
         days.put(UtilDateTime.days[day-1], UtilDateTime.getDayStart(currentWeek,day).toString().substring(8,10));
         days.put(UtilDateTime.days[day-1]+"Data", extraText);
@@ -99,9 +96,9 @@ while ( currentWeek.compareTo(calendarEndDay) <= 0 ){
     currentWeek = UtilDateTime.getWeekStart(currentWeek,7);
 }
 int monthNr = NumberFormat.getNumberInstance().parse(now.toString().substring(5,7)).intValue();
-context.put("month",UtilDateTime.months[monthNr-1]);
-context.put("year",now.toString().substring(0,4));
-context.put("weeks",weeks);
-context.put("now",now);
-context.put("nextMonth",nextMonth);
+context.month = UtilDateTime.months[monthNr-1];
+context.year = now.toString().substring(0,4);
+context.weeks = weeks;
+context.now = now;
+context.nextMonth = nextMonth;
 session.setAttribute("currentMonth",currentMonth);
