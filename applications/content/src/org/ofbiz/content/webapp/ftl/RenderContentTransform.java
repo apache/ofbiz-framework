@@ -20,8 +20,6 @@ package org.ofbiz.content.webapp.ftl;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -135,12 +133,10 @@ public class RenderContentTransform implements TemplateTransformModel {
                     delim = "&";
                 }
               
-                WidgetWorker.appendOfbizUrl(sb, fullRequest, request, response);
-                String url = sb.toString();
-                String link = "<a href=\"" + url + "\">Edit</a>";
-                out.write(link);
-                String divStr = "</div>";
-                out.write(divStr);
+                out.write("<a href=\"");
+                WidgetWorker.appendOfbizUrl(out, fullRequest, request, response);
+                out.write("\">Edit</a>");
+                out.write("</div>");
             }
 
             public String getEditStyle() {

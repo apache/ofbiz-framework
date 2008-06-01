@@ -39,12 +39,11 @@ import org.ofbiz.content.content.ContentWorker;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.model.ModelEntity;
-import org.ofbiz.widget.WidgetWorker;
 import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.widget.WidgetWorker;
 
 import freemarker.core.Environment;
 import freemarker.template.TemplateTransformModel;
-//import com.clarkware.profiler.Profiler;
 
 /**
  * RenderSubContentCacheTransform - Freemarker Transform for Content rendering
@@ -263,12 +262,10 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
                 }
               
                 if (Debug.infoOn()) Debug.logInfo("in Render(2), contentIdTo ." + contentIdTo , module);
-                WidgetWorker.appendOfbizUrl(sb, fullRequest, request, response);
-                String url = sb.toString();
-                String link = "<a href=\"" + url + "\">Edit</a>";
-                out.write(link);
-                String divStr = "</div>";
-                out.write(divStr);
+                out.write("<a href=\"");
+                WidgetWorker.appendOfbizUrl(out, fullRequest, request, response);
+                out.write("\">Edit</a>");
+                out.write("</div>");
             }
 
             public String getEditStyle() {
