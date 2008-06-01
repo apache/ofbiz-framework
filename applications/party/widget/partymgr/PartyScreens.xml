@@ -69,8 +69,8 @@ under the License.
                 <set field="layoutSettings.styleSheets[]" value="/images/prototypejs/progress_bar.css" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/partymgr/js/PartyProfileContent.js" global="true"/>                
 
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/viewprofile.bsh"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/getUserLoginPrimaryEmail.bsh"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/viewprofile.groovy"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/getUserLoginPrimaryEmail.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
@@ -141,8 +141,8 @@ under the License.
 
                 <set field="labelTitleProperty" value="PartyMemberRoles"/>
 
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/HasPartyPermissions.bsh"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/viewroles.bsh"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/HasPartyPermissions.groovy"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/viewroles.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
@@ -161,8 +161,8 @@ under the License.
                 <set field="titleProperty" value="PartyLink"/>
                 <set field="headerItem" value="link"/>
                 <set field="tabButtonItem" value="linkparty"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/HasPartyPermissions.bsh"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/linkparty.bsh"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/HasPartyPermissions.groovy"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/linkparty.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
@@ -371,7 +371,7 @@ under the License.
 
                 <set field="labelTitleProperty" value="PartyShoppingLists"/>
 
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/editShoppingList.bsh"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/editShoppingList.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
@@ -394,8 +394,8 @@ under the License.
 
                 <set field="labelTitleProperty" value="PageTitleEditContactMech"/>
 
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/HasPartyPermissions.bsh"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/editcontactmech.bsh"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/HasPartyPermissions.groovy"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/editcontactmech.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -950,7 +950,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleAddressMatches"/>
                 <set field="headerItem" value="addrmap"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/findMatches.bsh"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/findMatches.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">

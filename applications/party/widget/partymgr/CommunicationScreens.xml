@@ -174,7 +174,7 @@ under the License.
                 <set field="headerItem" value="comm"/>
                 <set field="tabButtonItem" value="find"/>
                 <set field="entityName" value="CommunicationEvent"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/listCommunications.bsh"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/listCommunications.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen location="${parameters.mainDecoratorLocation}" name="main-decorator">
@@ -298,7 +298,7 @@ under the License.
                 <entity-one entity-name="Party" use-cache="true" value-name="party"/>
                 <entity-one entity-name="Person" use-cache="true" value-name="lookupPerson"/>
                 <entity-one entity-name="CommunicationEvent" value-name="communicationEvent"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/findCommEventContactMechs.bsh"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/findCommEventContactMechs.groovy"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
             </actions>
