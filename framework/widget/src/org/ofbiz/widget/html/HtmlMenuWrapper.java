@@ -19,8 +19,11 @@
 package org.ofbiz.widget.html;
 
 import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,11 +33,10 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.entity.GenericValue;
 import org.ofbiz.widget.menu.MenuFactory;
 import org.ofbiz.widget.menu.MenuStringRenderer;
 import org.ofbiz.widget.menu.ModelMenu;
-import org.ofbiz.entity.GenericValue;
-
 import org.xml.sax.SAXException;
 
 
@@ -51,7 +53,7 @@ public class HtmlMenuWrapper {
     protected HttpServletResponse response;
     protected ModelMenu modelMenu;
     protected MenuStringRenderer renderer;
-    protected Map context;
+    protected Map<String, Object> context;
 
     protected HtmlMenuWrapper() {}
 
@@ -99,15 +101,15 @@ public class HtmlMenuWrapper {
         return new HtmlMenuRenderer(request, response);
     }
     
-    public String renderMenuString() {
+    public String renderMenuString() throws IOException {
         HttpServletRequest req = ((HtmlMenuRenderer)renderer).request;
         ServletContext ctx = (ServletContext) req.getAttribute("servletContext");
         if (ctx == null) {
             if (Debug.infoOn()) Debug.logInfo("in renderMenuString, ctx is null(0)" , "");
         }
 
-        StringBuffer buffer = new StringBuffer();
-        modelMenu.renderMenuString(buffer, context, renderer);
+        Writer writer = new StringWriter();
+        modelMenu.renderMenuString(writer, context, renderer);
 
         HttpServletRequest req2 = ((HtmlMenuRenderer)renderer).request;
         ServletContext ctx2 = (ServletContext) req2.getAttribute("servletContext");
@@ -115,7 +117,7 @@ public class HtmlMenuWrapper {
             if (Debug.infoOn()) Debug.logInfo("in renderMenuString, ctx is null(2)" , "");
         }
 
-        return buffer.toString();
+        return writer.toString();
     }
 
     /** 

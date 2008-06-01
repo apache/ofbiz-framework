@@ -57,7 +57,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
         return buf.toString();
     }
 
-    public void renderNodeBegin(Writer writer, Map context, ModelTree.ModelNode node, int depth, boolean isLast) throws IOException {
+    public void renderNodeBegin(Writer writer, Map<String, Object> context, ModelTree.ModelNode node, int depth, boolean isLast) throws IOException {
 
         String pathString = buildPathString(node.getModelTree(), depth);
         String currentNodeTrailPiped = null;
@@ -159,7 +159,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
         }
     }
 
-    public void renderNodeEnd(Writer writer, Map context, ModelTree.ModelNode node) throws IOException {
+    public void renderNodeEnd(Writer writer, Map<String, Object> context, ModelTree.ModelNode node) throws IOException {
         Boolean processChildren = (Boolean) context.get("processChildren");
         if (processChildren.booleanValue()) {
             appendWhitespace(writer);
@@ -175,7 +175,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
         }
     }
 
-    public void renderLastElement(Writer writer, Map context, ModelTree.ModelNode node) throws IOException {
+    public void renderLastElement(Writer writer, Map<String, Object> context, ModelTree.ModelNode node) throws IOException {
         Boolean processChildren = (Boolean) context.get("processChildren");
         if (processChildren.booleanValue()) {
             appendWhitespace(writer);
@@ -183,7 +183,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
         }
     }
     
-    public void renderLabel(Writer writer, Map context, ModelTree.ModelNode.Label label) throws IOException {
+    public void renderLabel(Writer writer, Map<String, Object> context, ModelTree.ModelNode.Label label) throws IOException {
         // open tag
         writer.write("<span");
         String id = label.getId(context);
@@ -210,7 +210,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
     }
 
 
-    public void renderLink(Writer writer, Map context, ModelTree.ModelNode.Link link) throws IOException {
+    public void renderLink(Writer writer, Map<String, Object> context, ModelTree.ModelNode.Link link) throws IOException {
         // open tag
         writer.write("<a");
         String id = link.getId(context);
@@ -300,7 +300,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
 //        appendWhitespace(writer);
     }
 
-    public void renderImage(Writer writer, Map context, ModelTree.ModelNode.Image image) throws IOException {
+    public void renderImage(Writer writer, Map<String, Object> context, ModelTree.ModelNode.Image image) throws IOException {
         // open tag
         writer.write("<img ");
         String id = image.getId(context);
@@ -368,7 +368,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
         
     }
 
-    public ScreenStringRenderer getScreenStringRenderer(Map context) {
+    public ScreenStringRenderer getScreenStringRenderer(Map<String, Object> context) {
 
         ScreenRenderer screenRenderer = (ScreenRenderer)context.get("screens"); 
         if (screenRenderer != null) {

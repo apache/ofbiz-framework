@@ -18,6 +18,8 @@
  *******************************************************************************/
 package org.ofbiz.widget.menu;
 
+import java.io.IOException;
+import java.io.Writer;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -28,8 +30,8 @@ import org.ofbiz.base.util.BshUtil;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
-import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.widget.ModelWidget;
@@ -279,7 +281,7 @@ public class ModelMenu extends ModelWidget {
             return existingMenuItem;
     }
 
-    public ModelMenuItem getModelMenuItemByContentId(String contentId, Map context) {
+    public ModelMenuItem getModelMenuItemByContentId(String contentId, Map<String, Object> context) {
 
         ModelMenuItem existingMenuItem = null;
         if (UtilValidate.isEmpty(contentId))
@@ -300,7 +302,7 @@ public class ModelMenu extends ModelWidget {
      * Renders this menu to a String, i.e. in a text format, as defined with the
      * MenuStringRenderer implementation.
      *
-     * @param buffer The StringBuffer that the menu text will be written to
+     * @param writer The Writer that the menu text will be written to
      * @param context Map containing the menu context; the following are
      *   reserved words in this context: parameters (Map), isError (Boolean),
      *   itemIndex (Integer, for lists only, otherwise null), bshInterpreter,
@@ -311,7 +313,7 @@ public class ModelMenu extends ModelWidget {
      *   different menu elements; implementing you own makes it possible to
      *   use the same menu definitions for many types of menu UIs
      */
-    public void renderMenuString(StringBuffer buffer, Map context, MenuStringRenderer menuStringRenderer) {
+    public void renderMenuString(Writer writer, Map<String, Object> context, MenuStringRenderer menuStringRenderer) throws IOException {
         setWidgetBoundaryComments(context);
 
         boolean passed = true;
@@ -320,7 +322,7 @@ public class ModelMenu extends ModelWidget {
         if (passed) {
             ModelMenuAction.runSubActions(this.actions, context);
             if ("simple".equals(this.type)) {
-                this.renderSimpleMenuString(buffer, context, menuStringRenderer);
+                this.renderSimpleMenuString(writer, context, menuStringRenderer);
             } else {
                 throw new IllegalArgumentException("The type " + this.getType() + " is not supported for menu with name " + this.getName());
             }
@@ -328,30 +330,30 @@ public class ModelMenu extends ModelWidget {
             //Debug.logInfo("in ModelMenu, buffer:" + buffer.toString(), module);
     }
 
-    public void renderSimpleMenuString(StringBuffer buffer, Map context, MenuStringRenderer menuStringRenderer) {
+    public void renderSimpleMenuString(Writer writer, Map<String, Object> context, MenuStringRenderer menuStringRenderer) throws IOException {
         //Iterator menuItemIter = null;
         //Set alreadyRendered = new TreeSet();
 
         // render menu open
-        menuStringRenderer.renderMenuOpen(buffer, context, this);
+        menuStringRenderer.renderMenuOpen(writer, context, this);
 
         // render formatting wrapper open
-        menuStringRenderer.renderFormatSimpleWrapperOpen(buffer, context, this);
+        menuStringRenderer.renderFormatSimpleWrapperOpen(writer, context, this);
 
             //Debug.logInfo("in ModelMenu, menuItemList:" + menuItemList, module);
         // render each menuItem row, except hidden & ignored rows
-        //menuStringRenderer.renderFormatSimpleWrapperRows(buffer, context, this);
+        //menuStringRenderer.renderFormatSimpleWrapperRows(writer, context, this);
         Iterator iter = menuItemList.iterator();
         while (iter.hasNext()) {
             ModelMenuItem item = (ModelMenuItem)iter.next();
-            item.renderMenuItemString(buffer, context, menuStringRenderer);
+            item.renderMenuItemString(writer, context, menuStringRenderer);
         }
 
         // render formatting wrapper close
-        menuStringRenderer.renderFormatSimpleWrapperClose(buffer, context, this);
+        menuStringRenderer.renderFormatSimpleWrapperClose(writer, context, this);
 
         // render menu close
-        menuStringRenderer.renderMenuClose(buffer, context, this);
+        menuStringRenderer.renderMenuClose(writer, context, this);
     }
 
 
@@ -437,7 +439,7 @@ public class ModelMenu extends ModelWidget {
     /**
      * @return
      */
-    public String getSelectedMenuItemContextFieldName(Map context) {
+    public String getSelectedMenuItemContextFieldName(Map<String, Object> context) {
         String menuItemName = (String)this.selectedMenuItemContextFieldName.get(context);
         if (UtilValidate.isEmpty(menuItemName)) {
             return this.defaultMenuItemName;
@@ -445,7 +447,7 @@ public class ModelMenu extends ModelWidget {
         return menuItemName;
     }
 
-    public String getCurrentMenuName(Map context) {
+    public String getCurrentMenuName(Map<String, Object> context) {
         return this.name;
     }
 
@@ -459,7 +461,7 @@ public class ModelMenu extends ModelWidget {
     /**
      * @return
      */
-    public String getTitle(Map context) {
+    public String getTitle(Map<String, Object> context) {
         return title.expandString(context);
     }
 
@@ -481,7 +483,7 @@ public class ModelMenu extends ModelWidget {
         return menuLocation + "#" + name;
     }
     
-    public Interpreter getBshInterpreter(Map context) throws EvalError {
+    public Interpreter getBshInterpreter(Map<String, Object> context) throws EvalError {
         Interpreter bsh = (Interpreter) context.get("bshInterpreter");
         if (bsh == null) {
             bsh = BshUtil.makeInterpreter(context);
@@ -599,13 +601,13 @@ public class ModelMenu extends ModelWidget {
     /**
      * @return
      */
-    public String getDefaultAssociatedContentId(Map context) {
+    public String getDefaultAssociatedContentId(Map<String, Object> context) {
         return defaultAssociatedContentId.expandString(context);
     }
     /**
      * @return
      */
-    public String getMenuContainerStyle(Map context) {
+    public String getMenuContainerStyle(Map<String, Object> context) {
         return menuContainerStyleExdr.expandString(context);
     }
 
@@ -723,30 +725,6 @@ public class ModelMenu extends ModelWidget {
 
     public List getMenuItemList() {
         return menuItemList;
-    }
-
-    public void dump(StringBuffer buffer ) {
-        buffer.append("ModelMenu:" 
-            + "\n name=" + this.name
-            + "\n type=" + this.type
-            + "\n target=" + this.target
-            + "\n id=" + this.id
-            + "\n title=" + this.title
-            + "\n tooltip=" + this.tooltip
-            + "\n defaultEntityName=" + this.defaultEntityName
-            + "\n defaultTitleStyle=" + this.defaultTitleStyle
-            + "\n defaultWidgetStyle=" + this.defaultWidgetStyle
-            + "\n defaultTooltipStyle=" + this.defaultTooltipStyle
-            + "\n defaultSelectedStyle=" + this.defaultSelectedStyle
-            + "\n defaultMenuItemName=" + this.defaultMenuItemName
-            + "\n\n");
-     
-        Iterator iter = menuItemList.iterator();
-        while (iter.hasNext()) {
-            ModelMenuItem menuItem = (ModelMenuItem)iter.next();
-            menuItem.dump(buffer);
-        }
-            
     }
 
 }

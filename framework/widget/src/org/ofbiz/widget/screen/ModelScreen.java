@@ -351,7 +351,7 @@ public class ModelScreen extends ModelWidget implements Serializable {
      *   different screen elements; implementing your own makes it possible to
      *   use the same screen definitions for many types of screen UIs
      */
-    public void renderScreenString(Writer writer, Map context, ScreenStringRenderer screenStringRenderer) throws ScreenRenderException {
+    public void renderScreenString(Writer writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws ScreenRenderException {
         // make sure the "null" object is in there for entity ops
         context.put("null", GenericEntity.NULL_FIELD);
 
@@ -435,14 +435,15 @@ public class ModelScreen extends ModelWidget implements Serializable {
         }
     }
 
-    public LocalDispatcher getDispatcher(Map context) {
+    public LocalDispatcher getDispatcher(Map<String, Object> context) {
         LocalDispatcher dispatcher = (LocalDispatcher) context.get("dispatcher");
         return dispatcher;
     }
 
-    public GenericDelegator getDelegator(Map context) {
+    public GenericDelegator getDelegator(Map<String, Object> context) {
         GenericDelegator delegator = (GenericDelegator) context.get("delegator");
         return delegator;
     }
 }
+
 

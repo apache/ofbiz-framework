@@ -46,14 +46,6 @@ public class HtmlWidgetRenderer {
     }
     
     /**
-     * Helper method used to append whitespace characters to the end of each rendered element.
-     * @param buffer The buffer to write to
-     */
-    public void appendWhitespace(StringBuffer buffer) {
-        buffer.append(whiteSpace);
-    }
-
-    /**
      * Helper method used to build the boundary comment string.
      * @param boundaryType The boundary type: "Begin" or "End"
      * @param widgetType The widget type: "Screen Widget", "Form Widget", etc.
@@ -65,18 +57,6 @@ public class HtmlWidgetRenderer {
     
     public static String formatBoundaryComment(String boundaryType, String widgetType, String widgetName) {
         return "<!-- " + boundaryType + " " + widgetType + " " + widgetName + " -->" + whiteSpace;
-    }
-
-    /**
-     * Renders the beginning boundary comment string.
-     * @param buffer The buffer to write to
-     * @param widgetType The widget type: "Screen Widget", "Form Widget", etc.
-     * @param modelWidget The widget
-     */
-    public void renderBeginningBoundaryComment(StringBuffer buffer, String widgetType, ModelWidget modelWidget) {
-        if (modelWidget.boundaryCommentsEnabled()) {
-            buffer.append(this.buildBoundaryComment("Begin", widgetType, modelWidget.getBoundaryCommentName()));
-        }
     }
 
     /**
@@ -103,18 +83,6 @@ public class HtmlWidgetRenderer {
         }
     }
 
-    /**
-     * Renders the ending boundary comment string.
-     * @param buffer The buffer to write to
-     * @param widgetType The widget type: "Screen Widget", "Form Widget", etc.
-     * @param modelWidget The widget
-     */
-    public void renderEndingBoundaryComment(StringBuffer buffer, String widgetType, ModelWidget modelWidget) {
-        if (modelWidget.boundaryCommentsEnabled()) {
-            buffer.append(this.buildBoundaryComment("End", widgetType, modelWidget.getBoundaryCommentName()));
-        }
-    }
-    
     /** Extracts parameters from a target URL string, prepares them for an Ajax
      * JavaScript call. This method is currently set to return a parameter string
      * suitable for the Prototype.js library.

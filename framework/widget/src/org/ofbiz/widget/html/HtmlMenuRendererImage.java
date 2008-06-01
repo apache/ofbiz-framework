@@ -18,17 +18,20 @@
  *******************************************************************************/
 package org.ofbiz.widget.html;
 
+import java.io.IOException;
+import java.io.StringWriter;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.widget.WidgetContentWorker;
-import org.ofbiz.widget.menu.ModelMenuItem;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.widget.WidgetContentWorker;
+import org.ofbiz.widget.menu.ModelMenuItem;
 
 /**
  * Widget Library - HTML Menu Renderer implementation
@@ -43,7 +46,7 @@ public class HtmlMenuRendererImage extends HtmlMenuRenderer {
     }
 
 
-    public String buildDivStr(ModelMenuItem menuItem, Map context) {
+    public String buildDivStr(ModelMenuItem menuItem, Map<String, Object> context) throws IOException {
 
         String imgStr = "<img src=\"";
         String contentId = menuItem.getAssociatedContentId(context);
@@ -61,7 +64,7 @@ public class HtmlMenuRendererImage extends HtmlMenuRenderer {
             throw new RuntimeException(e.getMessage());
         }
         String medallionLogoStr = webSitePublishPoint.getString("medallionLogo");
-        StringBuffer buf = new StringBuffer();
+        StringWriter buf = new StringWriter();
         appendContentUrl(buf, medallionLogoStr);
         imgStr += buf.toString();
                 //Debug.logInfo("in HtmlMenuRendererImage, imgStr:" + imgStr,"");

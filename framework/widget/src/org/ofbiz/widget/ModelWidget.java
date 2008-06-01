@@ -92,7 +92,7 @@ public class ModelWidget implements Serializable {
      * Enables/disables boundary comments for this widget.
      * @param context The screen rendering context
      */
-    public void setWidgetBoundaryComments(Map context) {
+    public void setWidgetBoundaryComments(Map<String, Object> context) {
         enableWidgetBoundaryComments = widgetBoundaryCommentsEnabled((Map) context.get("parameters"));
     }
 

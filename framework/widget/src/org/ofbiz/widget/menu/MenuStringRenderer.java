@@ -4,7 +4,7 @@
  * distributed with this work for additional information
  * regarding copyright ownership.  The ASF licenses this file
  * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
+ * "License") throws IOException ; you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
  * 
  * http://www.apache.org/licenses/LICENSE-2.0
@@ -18,6 +18,8 @@
  *******************************************************************************/
 package org.ofbiz.widget.menu;
 
+import java.io.IOException;
+import java.io.Writer;
 import java.util.Map;
 
 
@@ -25,13 +27,13 @@ import java.util.Map;
  * Widget Library - Form String Renderer interface
  */
 public interface MenuStringRenderer {
-    public void renderMenuItem(StringBuffer buffer, Map context, ModelMenuItem menuItem);
-    public void renderMenuOpen(StringBuffer buffer, Map context, ModelMenu menu);
-    public void renderMenuClose(StringBuffer buffer, Map context, ModelMenu menu);
-    public void renderFormatSimpleWrapperOpen(StringBuffer buffer, Map context, ModelMenu menu);
-    public void renderFormatSimpleWrapperClose(StringBuffer buffer, Map context, ModelMenu menu);
-    public void renderFormatSimpleWrapperRows(StringBuffer buffer, Map context, Object menu);
-    public void setUserLoginIdHasChanged(boolean b);
-    public void renderLink(StringBuffer buffer, Map context, ModelMenuItem.Link link);
-    public void renderImage(StringBuffer buffer, Map context, ModelMenuItem.Image image);
+    public void renderMenuItem(Writer writer, Map<String, Object> context, ModelMenuItem menuItem) throws IOException ;
+    public void renderMenuOpen(Writer writer, Map<String, Object> context, ModelMenu menu) throws IOException ;
+    public void renderMenuClose(Writer writer, Map<String, Object> context, ModelMenu menu) throws IOException ;
+    public void renderFormatSimpleWrapperOpen(Writer writer, Map<String, Object> context, ModelMenu menu) throws IOException ;
+    public void renderFormatSimpleWrapperClose(Writer writer, Map<String, Object> context, ModelMenu menu) throws IOException ;
+    public void renderFormatSimpleWrapperRows(Writer writer, Map<String, Object> context, Object menu) throws IOException ;
+    public void setUserLoginIdHasChanged(boolean b) throws IOException ;
+    public void renderLink(Writer writer, Map<String, Object> context, ModelMenuItem.Link link) throws IOException ;
+    public void renderImage(Writer writer, Map<String, Object> context, ModelMenuItem.Image image) throws IOException ;
 }

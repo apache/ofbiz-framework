@@ -63,14 +63,14 @@ public class HtmlWidget extends ModelScreenWidget {
         }
     }
 
-    public void renderWidgetString(Writer writer, Map context, ScreenStringRenderer screenStringRenderer) throws GeneralException {
+    public void renderWidgetString(Writer writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
         for (ModelScreenWidget subWidget : subWidgets) {
             subWidget.renderWidgetString(writer, context, screenStringRenderer);
         }
     }
 
     public String rawString() {
-        StringBuffer buffer = new StringBuffer("<html-widget>");
+        StringBuilder buffer = new StringBuilder("<html-widget>");
         for (ModelScreenWidget subWidget : subWidgets) {
             buffer.append(subWidget.rawString());
         }
@@ -78,7 +78,7 @@ public class HtmlWidget extends ModelScreenWidget {
         return buffer.toString();
     }
     
-    public static void renderHtmlTemplate(Writer writer, FlexibleStringExpander locationExdr, Map context) {
+    public static void renderHtmlTemplate(Writer writer, FlexibleStringExpander locationExdr, Map<String, Object> context) {
         String location = locationExdr.expandString(context);
         //Debug.logInfo("Rendering template at location [" + location + "] with context: \n" + context, module);
         
@@ -135,7 +135,7 @@ public class HtmlWidget extends ModelScreenWidget {
             this.locationExdr = new FlexibleStringExpander(htmlTemplateElement.getAttribute("location"));
         }
 
-        public void renderWidgetString(Writer writer, Map context, ScreenStringRenderer screenStringRenderer) {
+        public void renderWidgetString(Writer writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) {
             renderHtmlTemplate(writer, this.locationExdr, context);
         }
 
@@ -161,7 +161,7 @@ public class HtmlWidget extends ModelScreenWidget {
             }
         }
 
-        public void renderWidgetString(Writer writer, Map context, ScreenStringRenderer screenStringRenderer) {
+        public void renderWidgetString(Writer writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) {
             // isolate the scope
             if (!(context instanceof MapStack)) {
                 context = MapStack.create(context);
@@ -199,7 +199,7 @@ public class HtmlWidget extends ModelScreenWidget {
             this.subWidgets = ModelScreenWidget.readSubWidgets(this.modelScreen, subElementList);
         }
 
-        public void renderWidgetString(Writer writer, Map context, ScreenStringRenderer screenStringRenderer) throws GeneralException {
+        public void renderWidgetString(Writer writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
             // render sub-widgets
             renderSubWidgetsString(this.subWidgets, writer, context, screenStringRenderer);
         }

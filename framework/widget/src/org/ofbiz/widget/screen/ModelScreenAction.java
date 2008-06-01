@@ -75,7 +75,7 @@ public abstract class ModelScreenAction implements Serializable {
         if (Debug.verboseOn()) Debug.logVerbose("Reading Screen action with name: " + actionElement.getNodeName(), module);
     }
     
-    public abstract void runAction(Map context) throws GeneralException;
+    public abstract void runAction(Map<String, Object> context) throws GeneralException;
     
     public static List readSubActions(ModelScreen modelScreen, Element parentElement) {
         List actions = FastList.newInstance();
@@ -112,7 +112,7 @@ public abstract class ModelScreenAction implements Serializable {
         return actions;
     }
     
-    public static void runSubActions(List actions, Map context) throws GeneralException {
+    public static void runSubActions(List actions, Map<String, Object> context) throws GeneralException {
         if (actions == null) return;
         
         Iterator actionIter = actions.iterator();
@@ -148,7 +148,7 @@ public abstract class ModelScreenAction implements Serializable {
             }
         }
         
-        public void runAction(Map context) {
+        public void runAction(Map<String, Object> context) {
             String globalStr = this.globalExdr.expandString(context);
             // default to false
             boolean global = "true".equals(globalStr);
@@ -248,7 +248,7 @@ public abstract class ModelScreenAction implements Serializable {
             }
         }
         
-        public Object getInMemoryPersistedFromField(Object storeAgent, Map context) {
+        public Object getInMemoryPersistedFromField(Object storeAgent, Map<String, Object> context) {
             Object newValue = null;
             String originalName = this.fromField.getOriginalName();
             List currentWidgetTrail = (List)context.get("_WIDGETTRAIL_");
@@ -290,7 +290,7 @@ public abstract class ModelScreenAction implements Serializable {
             this.globalExdr = new FlexibleStringExpander(setElement.getAttribute("global"));
         }
         
-        public void runAction(Map context) {
+        public void runAction(Map<String, Object> context) {
             String globalStr = this.globalExdr.expandString(context);
             // default to false
             boolean global = "true".equals(globalStr);
@@ -343,7 +343,7 @@ public abstract class ModelScreenAction implements Serializable {
             this.globalExdr = new FlexibleStringExpander(setElement.getAttribute("global"));
         }
         
-        public void runAction(Map context) {
+        public void runAction(Map<String, Object> context) {
             //String globalStr = this.globalExdr.expandString(context);
             // default to false
             //boolean global = "true".equals(globalStr);
@@ -386,7 +386,7 @@ public abstract class ModelScreenAction implements Serializable {
             this.location = scriptElement.getAttribute("location");
         }
         
-        public void runAction(Map context) throws GeneralException {
+        public void runAction(Map<String, Object> context) throws GeneralException {
             if (location.endsWith(".bsh")) {
                 try {
                     BshUtil.runBshAtLocation(location, context);
@@ -432,7 +432,7 @@ public abstract class ModelScreenAction implements Serializable {
             this.fieldMap = EntityFinderUtil.makeFieldMap(serviceElement);
         }
         
-        public void runAction(Map context) {
+        public void runAction(Map<String, Object> context) {
             String serviceNameExpanded = this.serviceNameExdr.expandString(context);
             if (UtilValidate.isEmpty(serviceNameExpanded)) {
                 throw new IllegalArgumentException("Service name was empty, expanded from: " + this.serviceNameExdr.getOriginal());
@@ -501,7 +501,7 @@ public abstract class ModelScreenAction implements Serializable {
             finder = new PrimaryKeyFinder(entityOneElement);
         }
         
-        public void runAction(Map context) {
+        public void runAction(Map<String, Object> context) {
             try {
                 finder.runFind(context, this.modelScreen.getDelegator(context));
             } catch (GeneralException e) {
@@ -520,7 +520,7 @@ public abstract class ModelScreenAction implements Serializable {
             finder = new ByAndFinder(entityAndElement);
         }
         
-        public void runAction(Map context) {
+        public void runAction(Map<String, Object> context) {
             try {
                 finder.runFind(context, this.modelScreen.getDelegator(context));
             } catch (GeneralException e) {
@@ -539,7 +539,7 @@ public abstract class ModelScreenAction implements Serializable {
             finder = new ByConditionFinder(entityConditionElement);
         }
         
-        public void runAction(Map context) {
+        public void runAction(Map<String, Object> context) {
             try {
                 finder.runFind(context, this.modelScreen.getDelegator(context));
             } catch (GeneralException e) {
@@ -564,7 +564,7 @@ public abstract class ModelScreenAction implements Serializable {
             this.useCache = "true".equals(getRelatedOneElement.getAttribute("use-cache"));
         }
 
-        public void runAction(Map context) {
+        public void runAction(Map<String, Object> context) {
             Object valueObject = valueNameAcsr.get(context);
             if (valueObject == null) {
                 Debug.logVerbose("Value not found with name: " + valueNameAcsr + ", not getting related...", module);
@@ -609,7 +609,7 @@ public abstract class ModelScreenAction implements Serializable {
             this.useCache = "true".equals(getRelatedElement.getAttribute("use-cache"));
         }
 
-        public void runAction(Map context) {
+        public void runAction(Map<String, Object> context) {
             Object valueObject = valueNameAcsr.get(context);
             if (valueObject == null) {
                 Debug.logVerbose("Value not found with name: " + valueNameAcsr + ", not getting related...", module);

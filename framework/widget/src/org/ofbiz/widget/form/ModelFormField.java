@@ -18,6 +18,8 @@
  *******************************************************************************/
 package org.ofbiz.widget.form;
 
+import java.io.IOException;
+import java.io.Writer;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.NumberFormat;
@@ -49,8 +51,6 @@ import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.entity.condition.EntityConditionList;
-import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.finder.EntityFinderUtil;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
@@ -576,8 +576,8 @@ public class ModelFormField {
         return true;
     }
 
-    public void renderFieldString(StringBuffer buffer, Map context, FormStringRenderer formStringRenderer) {
-        this.fieldInfo.renderFieldString(buffer, context, formStringRenderer);
+    public void renderFieldString(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
+        this.fieldInfo.renderFieldString(writer, context, formStringRenderer);
     }
 
     public List<UpdateArea> getOnChangeUpdateAreas() {
@@ -662,11 +662,11 @@ public class ModelFormField {
      * @param context
      * @return
      */
-    public String getEntry(Map context) {
+    public String getEntry(Map<String, Object> context) {
         return this.getEntry(context, "");
     }
 
-    public String getEntry(Map context, String defaultValue) {
+    public String getEntry(Map<String, Object> context, String defaultValue) {
         Boolean isError = (Boolean) context.get("isError");
         Boolean useRequestParameters = (Boolean) context.get("useRequestParameters");
         
@@ -760,7 +760,7 @@ public class ModelFormField {
         }
     }
 
-    public Map getMap(Map context) {
+    public Map getMap(Map<String, Object> context) {
         if (this.mapAcsr == null || this.mapAcsr.isEmpty()) {
             //Debug.logInfo("Getting Map from default of the form because of no mapAcsr for field " + this.getName(), module);
             return this.modelForm.getDefaultMap(context);
@@ -814,7 +814,7 @@ public class ModelFormField {
      *
      * @return
      */
-    public String getParameterName(Map context) {
+    public String getParameterName(Map<String, Object> context) {
         String baseName;
         if (UtilValidate.isNotEmpty(this.parameterName)) {
             baseName = this.parameterName;
@@ -859,7 +859,7 @@ public class ModelFormField {
     /**
      * @return
      */
-    public String getAction(Map context) {
+    public String getAction(Map<String, Object> context) {
         if (this.action != null && this.action.getOriginal() != null) {
             return action.expandString(context);
         } else {
@@ -876,7 +876,7 @@ public class ModelFormField {
      * @param context
      * @return
      */
-    public boolean shouldBeRed(Map context) {
+    public boolean shouldBeRed(Map<String, Object> context) {
         // red-when ( never | before-now | after-now | by-name ) "by-name"
 
         String redCondition = this.redWhen;
@@ -996,7 +996,7 @@ public class ModelFormField {
     /**
      * @return
      */
-    public String getTitle(Map context) {
+    public String getTitle(Map<String, Object> context) {
         if (this.title != null && this.title.getOriginal() != null) {
             return title.expandString(context);
         } else {
@@ -1019,21 +1019,21 @@ public class ModelFormField {
             }
             
             // create a title from the name of this field; expecting a Java method/field style name, ie productName or productCategoryId
-            StringBuffer autoTitleBuffer = new StringBuffer();
+            StringBuffer autoTitlewriter = new StringBuffer();
 
             // always use upper case first letter...
-            autoTitleBuffer.append(Character.toUpperCase(this.name.charAt(0)));
+            autoTitlewriter.append(Character.toUpperCase(this.name.charAt(0)));
 
             // just put spaces before the upper case letters
             for (int i = 1; i < this.name.length(); i++) {
                 char curChar = this.name.charAt(i);
                 if (Character.isUpperCase(curChar)) {
-                    autoTitleBuffer.append(' ');
+                    autoTitlewriter.append(' ');
                 }
-                autoTitleBuffer.append(curChar);
+                autoTitlewriter.append(curChar);
             }
 
-            return autoTitleBuffer.toString();
+            return autoTitlewriter.toString();
         }
     }
 
@@ -1073,7 +1073,7 @@ public class ModelFormField {
     /**
      * @return
      */
-    public String getTooltip(Map context) {
+    public String getTooltip(Map<String, Object> context) {
         if (tooltip != null && !tooltip.isEmpty()) {
             return tooltip.expandString(context);
         } else {
@@ -1084,7 +1084,7 @@ public class ModelFormField {
     /**
      * @return
      */
-    public String getUseWhen(Map context) {
+    public String getUseWhen(Map<String, Object> context) {
         if (useWhen != null && !useWhen.isEmpty()) {
             return useWhen.expandString(context);
         } else {
@@ -1127,7 +1127,7 @@ public class ModelFormField {
         return this.useWhen.isEmpty();
     }
 
-    public boolean shouldUse(Map context) {
+    public boolean shouldUse(Map<String, Object> context) {
         String useWhenStr = this.getUseWhen(context);
         if (UtilValidate.isEmpty(useWhenStr)) {
             return true;
@@ -1491,7 +1491,7 @@ public class ModelFormField {
             }
         }
 
-        public abstract void renderFieldString(StringBuffer buffer, Map context, FormStringRenderer formStringRenderer);
+        public abstract void renderFieldString(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException;
     }
 
     public static abstract class FieldInfoWithOptions extends FieldInfo {
@@ -1500,7 +1500,7 @@ public class ModelFormField {
         }
 
         protected FlexibleStringExpander noCurrentSelectedKey = null;
-        protected List<OptionSource> optionSources = new LinkedList();
+        protected List<OptionSource> optionSources = new LinkedList<OptionSource>();
 
         public FieldInfoWithOptions(int fieldSource, int fieldType, ModelFormField modelFormField) {
             super(fieldSource, fieldType, modelFormField);
@@ -1531,7 +1531,7 @@ public class ModelFormField {
             }
         }
 
-        public List getAllOptionValues(Map context, GenericDelegator delegator) {
+        public List getAllOptionValues(Map<String, Object> context, GenericDelegator delegator) {
             List optionValues = new LinkedList();
             Iterator optionSourceIter = this.optionSources.iterator();
             while (optionSourceIter.hasNext()) {
@@ -1562,7 +1562,7 @@ public class ModelFormField {
             return key;
         }
 
-        public String getNoCurrentSelectedKey(Map context) {
+        public String getNoCurrentSelectedKey(Map<String, Object> context) {
             if (this.noCurrentSelectedKey == null) {
                 return null;
             }
@@ -1599,7 +1599,7 @@ public class ModelFormField {
     public static abstract class OptionSource {
         protected FieldInfo fieldInfo;
 
-        public abstract void addOptionValues(List optionValues, Map context, GenericDelegator delegator);
+        public abstract void addOptionValues(List optionValues, Map<String, Object> context, GenericDelegator delegator);
     }
 
     public static class SingleOption extends OptionSource {
@@ -1618,7 +1618,7 @@ public class ModelFormField {
             this.fieldInfo = fieldInfo;
         }
 
-        public void addOptionValues(List optionValues, Map context, GenericDelegator delegator) {
+        public void addOptionValues(List optionValues, Map<String, Object> context, GenericDelegator delegator) {
             optionValues.add(new OptionValue(key.expandString(context), description.expandString(context)));
         }
     }
@@ -1647,7 +1647,7 @@ public class ModelFormField {
             this.fieldInfo = fieldInfo;
         }
 
-        public void addOptionValues(List optionValues, Map context, GenericDelegator delegator) {
+        public void addOptionValues(List optionValues, Map<String, Object> context, GenericDelegator delegator) {
             List dataList = (List) this.listAcsr.get(context);
             if (dataList != null && dataList.size() != 0) {
                 Iterator dataIter = dataList.iterator();
@@ -1718,7 +1718,7 @@ public class ModelFormField {
             }
         }
 
-        public void addOptionValues(List optionValues, Map context, GenericDelegator delegator) {
+        public void addOptionValues(List optionValues, Map<String, Object> context, GenericDelegator delegator) {
             // first expand any conditions that need expanding based on the current context
             EntityCondition findCondition = null;
             if (this.constraintList != null && this.constraintList.size() > 0) {
@@ -1804,8 +1804,8 @@ public class ModelFormField {
             this.alsoHidden = !"false".equals(element.getAttribute("also-hidden"));
         }
 
-        public void renderFieldString(StringBuffer buffer, Map context, FormStringRenderer formStringRenderer) {
-            formStringRenderer.renderDisplayField(buffer, context, this);
+        public void renderFieldString(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
+            formStringRenderer.renderDisplayField(writer, context, this);
         }
 
         /**
@@ -1818,7 +1818,7 @@ public class ModelFormField {
         /**
          * @return
          */
-        public String getDescription(Map context) {
+        public String getDescription(Map<String, Object> context) {
             String retVal = null;
             if (this.description != null && !this.description.isEmpty()) {
                 retVal = this.description.expandString(context);
@@ -1916,7 +1916,7 @@ public class ModelFormField {
         /**
          * @return
          */
-        public String getDescription(Map context) {
+        public String getDescription(Map<String, Object> context) {
             Locale locale = UtilMisc.ensureLocale(context.get("locale"));
             
             // rather than using the context to expand the string, lookup the given entity and use it to expand the string
@@ -1998,8 +1998,8 @@ public class ModelFormField {
             this.targetWindowExdr = new FlexibleStringExpander(element.getAttribute("target-window"));
         }
 
-        public void renderFieldString(StringBuffer buffer, Map context, FormStringRenderer formStringRenderer) {
-            formStringRenderer.renderHyperlinkField(buffer, context, this);
+        public void renderFieldString(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
+            formStringRenderer.renderHyperlinkField(writer, context, this);
         }
 
         /**
@@ -2020,7 +2020,7 @@ public class ModelFormField {
             }
         }
 
-        public String getTargetWindow(Map context) {
+        public String getTargetWindow(Map<String, Object> context) {
             String targetWindow = this.targetWindowExdr.expandString(context);
             return targetWindow;
         }
@@ -2028,14 +2028,14 @@ public class ModelFormField {
         /**
          * @return
          */
-        public String getDescription(Map context) {
+        public String getDescription(Map<String, Object> context) {
             return this.description.expandString(context);
         }
 
         /**
          * @return
          */
-        public String getTarget(Map context) {
+        public String getTarget(Map<String, Object> context) {
             return this.target.expandString(context);
         }
 
@@ -2106,7 +2106,7 @@ public class ModelFormField {
         /**
          * @return
          */
-        public String getDescription(Map context) {
+        public String getDescription(Map<String, Object> context) {
             if (this.description != null) {
                 return this.description.expandString(context);
             } else {
@@ -2114,7 +2114,7 @@ public class ModelFormField {
             }
         }
 
-        public String getTargetWindow(Map context) {
+        public String getTargetWindow(Map<String, Object> context) {
             String targetWindow = this.targetWindowExdr.expandString(context);
             return targetWindow;
         }
@@ -2122,7 +2122,7 @@ public class ModelFormField {
         /**
          * @return
          */
-        public String getTarget(Map context) {
+        public String getTarget(Map<String, Object> context) {
             if (this.target != null) {
                 return this.target.expandString(context);
             } else {
@@ -2133,7 +2133,7 @@ public class ModelFormField {
         /**
          * @return
          */
-        public String getUseWhen(Map context) {
+        public String getUseWhen(Map<String, Object> context) {
             if (this.useWhen != null) {
                 return this.useWhen.expandString(context);
             } else {
@@ -2141,7 +2141,7 @@ public class ModelFormField {
             }
         }
 
-        public boolean shouldUse(Map context) {
+        public boolean shouldUse(Map<String, Object> context) {
             boolean shouldUse = true;
             String useWhen = this.getUseWhen(context);
             if (UtilValidate.isNotEmpty(useWhen)) {
@@ -2260,8 +2260,8 @@ public class ModelFormField {
             }
         }
 
-        public void renderFieldString(StringBuffer buffer, Map context, FormStringRenderer formStringRenderer) {
-            formStringRenderer.renderTextField(buffer, context, this);
+        public void renderFieldString(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
+            formStringRenderer.renderTextField(writer, context, this);
         }
 
         /**
@@ -2300,7 +2300,7 @@ public class ModelFormField {
         /**
          * @return
          */
-        public String getDefaultValue(Map context) {
+        public String getDefaultValue(Map<String, Object> context) {
             if (this.defaultValue != null) {
                 return this.defaultValue.expandString(context);
             } else {
@@ -2384,8 +2384,8 @@ public class ModelFormField {
             }
         }
 
-        public void renderFieldString(StringBuffer buffer, Map context, FormStringRenderer formStringRenderer) {
-            formStringRenderer.renderTextareaField(buffer, context, this);
+        public void renderFieldString(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
+            formStringRenderer.renderTextareaField(writer, context, this);
         }
 
         /**
@@ -2405,7 +2405,7 @@ public class ModelFormField {
         /**
          * @return
          */
-        public String getDefaultValue(Map context) {
+        public String getDefaultValue(Map<String, Object> context) {
             if (this.defaultValue != null) {
                 return this.defaultValue.expandString(context);
             } else {
@@ -2423,7 +2423,7 @@ public class ModelFormField {
         /**
          * @return
          */
-        public String getVisualEditorButtons(Map context) {
+        public String getVisualEditorButtons(Map<String, Object> context) {
             return this.visualEditorButtons.expandString(context);
         }
 
@@ -2503,8 +2503,8 @@ public class ModelFormField {
             clock = element.getAttribute("clock");
         }
 
-        public void renderFieldString(StringBuffer buffer, Map context, FormStringRenderer formStringRenderer) {
-            formStringRenderer.renderDateTimeField(buffer, context, this);
+        public void renderFieldString(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
+            formStringRenderer.renderDateTimeField(writer, context, this);
         }
 
         /**
@@ -2517,7 +2517,7 @@ public class ModelFormField {
         /**
          * @return
          */
-        public String getDefaultValue(Map context) {
+        public String getDefaultValue(Map<String, Object> context) {
             if (this.defaultValue != null) {
                 return this.defaultValue.expandString(context);
             } else {
@@ -2561,7 +2561,7 @@ public class ModelFormField {
          * @param context Context Map
          * @return Default value string for date-time
          */
-        public String getDefaultDateTimeString(Map context) {
+        public String getDefaultDateTimeString(Map<String, Object> context) {
             if (this.defaultValue != null && !this.defaultValue.isEmpty()) {
                 return this.getDefaultValue(context);
             }
@@ -2626,8 +2626,8 @@ public class ModelFormField {
             }
         }
 
-        public void renderFieldString(StringBuffer buffer, Map context, FormStringRenderer formStringRenderer) {
-            formStringRenderer.renderDropDownField(buffer, context, this);
+        public void renderFieldString(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
+            formStringRenderer.renderDropDownField(writer, context, this);
         }
 
         public boolean isAllowEmpty() {
@@ -2646,7 +2646,7 @@ public class ModelFormField {
             }
         }
 
-        public String getCurrentDescription(Map context) {
+        public String getCurrentDescription(Map<String, Object> context) {
             if (this.currentDescription == null)
                 return null;
             else
@@ -2686,7 +2686,7 @@ public class ModelFormField {
          *
          * @return
          */
-        public String getParameterNameOther(Map context) {
+        public String getParameterNameOther(Map<String, Object> context) {
             String baseName;
             if (UtilValidate.isNotEmpty(this.modelFormField.parameterName)) {
                 baseName = this.modelFormField.parameterName;
@@ -2722,8 +2722,8 @@ public class ModelFormField {
             super(element, modelFormField);
         }
 
-        public void renderFieldString(StringBuffer buffer, Map context, FormStringRenderer formStringRenderer) {
-            formStringRenderer.renderRadioField(buffer, context, this);
+        public void renderFieldString(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
+            formStringRenderer.renderRadioField(writer, context, this);
         }
     }
 
@@ -2748,11 +2748,11 @@ public class ModelFormField {
             allChecked = new FlexibleStringExpander(element.getAttribute("all-checked"));
         }
 
-        public void renderFieldString(StringBuffer buffer, Map context, FormStringRenderer formStringRenderer) {
-            formStringRenderer.renderCheckField(buffer, context, this);
+        public void renderFieldString(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
+            formStringRenderer.renderCheckField(writer, context, this);
         }
         
-        public Boolean isAllChecked(Map context) {
+        public Boolean isAllChecked(Map<String, Object> context) {
             String allCheckedStr = this.allChecked.expandString(context);
             if (UtilValidate.isNotEmpty(allCheckedStr)) {
                 return new Boolean("true".equals(allCheckedStr));
@@ -2786,8 +2786,8 @@ public class ModelFormField {
             this.backgroundSubmitRefreshTargetExdr = new FlexibleStringExpander(element.getAttribute("background-submit-refresh-target"));
         }
 
-        public void renderFieldString(StringBuffer buffer, Map context, FormStringRenderer formStringRenderer) {
-            formStringRenderer.renderSubmitField(buffer, context, this);
+        public void renderFieldString(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
+            formStringRenderer.renderSubmitField(writer, context, this);
         }
 
         /**
@@ -2818,7 +2818,7 @@ public class ModelFormField {
             imageLocation = string;
         }
         
-        public String getBackgroundSubmitRefreshTarget(Map context) {
+        public String getBackgroundSubmitRefreshTarget(Map<String, Object> context) {
             return this.backgroundSubmitRefreshTargetExdr.expandString(context);
         }
     }
@@ -2840,8 +2840,8 @@ public class ModelFormField {
             super(element, modelFormField);
         }
 
-        public void renderFieldString(StringBuffer buffer, Map context, FormStringRenderer formStringRenderer) {
-            formStringRenderer.renderResetField(buffer, context, this);
+        public void renderFieldString(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
+            formStringRenderer.renderResetField(writer, context, this);
         }
     }
 
@@ -2865,11 +2865,11 @@ public class ModelFormField {
             this.setValue(element.getAttribute("value"));
         }
 
-        public void renderFieldString(StringBuffer buffer, Map context, FormStringRenderer formStringRenderer) {
-            formStringRenderer.renderHiddenField(buffer, context, this);
+        public void renderFieldString(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
+            formStringRenderer.renderHiddenField(writer, context, this);
         }
 
-        public String getValue(Map context) {
+        public String getValue(Map<String, Object> context) {
             if (this.value != null && !this.value.isEmpty()) {
                 return this.value.expandString(context);
             } else {
@@ -2899,8 +2899,8 @@ public class ModelFormField {
             super(element, modelFormField);
         }
 
-        public void renderFieldString(StringBuffer buffer, Map context, FormStringRenderer formStringRenderer) {
-            formStringRenderer.renderIgnoredField(buffer, context, this);
+        public void renderFieldString(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
+            formStringRenderer.renderIgnoredField(writer, context, this);
         }
     }
 
@@ -2940,8 +2940,8 @@ public class ModelFormField {
             return this.hideOptions;
         }
 
-        public void renderFieldString(StringBuffer buffer, Map context, FormStringRenderer formStringRenderer) {
-            formStringRenderer.renderTextFindField(buffer, context, this);
+        public void renderFieldString(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
+            formStringRenderer.renderTextFindField(writer, context, this);
         }
     }
 
@@ -2954,8 +2954,8 @@ public class ModelFormField {
             super(fieldSource, modelFormField);
         }
 
-        public void renderFieldString(StringBuffer buffer, Map context, FormStringRenderer formStringRenderer) {
-            formStringRenderer.renderDateFindField(buffer, context, this);
+        public void renderFieldString(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
+            formStringRenderer.renderDateFindField(writer, context, this);
         }
     }
 
@@ -2968,8 +2968,8 @@ public class ModelFormField {
             super(fieldSource, modelFormField);
         }
 
-        public void renderFieldString(StringBuffer buffer, Map context, FormStringRenderer formStringRenderer) {
-            formStringRenderer.renderRangeFindField(buffer, context, this);
+        public void renderFieldString(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
+            formStringRenderer.renderRangeFindField(writer, context, this);
         }
     }
 
@@ -2989,11 +2989,11 @@ public class ModelFormField {
             super(fieldSource, modelFormField);
         }
 
-        public void renderFieldString(StringBuffer buffer, Map context, FormStringRenderer formStringRenderer) {
-            formStringRenderer.renderLookupField(buffer, context, this);
+        public void renderFieldString(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
+            formStringRenderer.renderLookupField(writer, context, this);
         }
 
-        public String getFormName(Map context) {
+        public String getFormName(Map<String, Object> context) {
             return this.formName.expandString(context);
         }
 
@@ -3031,8 +3031,8 @@ public class ModelFormField {
             super(fieldSource, modelFormField);
         }
 
-        public void renderFieldString(StringBuffer buffer, Map context, FormStringRenderer formStringRenderer) {
-            formStringRenderer.renderFileField(buffer, context, this);
+        public void renderFieldString(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
+            formStringRenderer.renderFileField(writer, context, this);
         }
     }
 
@@ -3046,8 +3046,8 @@ public class ModelFormField {
             super(fieldSource, modelFormField);
         }
 
-        public void renderFieldString(StringBuffer buffer, Map context, FormStringRenderer formStringRenderer) {
-            formStringRenderer.renderPasswordField(buffer, context, this);
+        public void renderFieldString(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
+            formStringRenderer.renderPasswordField(writer, context, this);
         }
     }
 
@@ -3114,8 +3114,8 @@ public class ModelFormField {
             }
         }
 
-        public void renderFieldString(StringBuffer buffer, Map context, FormStringRenderer formStringRenderer) {
-            formStringRenderer.renderImageField(buffer, context, this);
+        public void renderFieldString(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
+            formStringRenderer.renderImageField(writer, context, this);
         }
 
 
@@ -3155,7 +3155,7 @@ public class ModelFormField {
         /**
          * @return
          */
-        public String getDefaultValue(Map context) {
+        public String getDefaultValue(Map<String, Object> context) {
             if (this.defaultValue != null) {
                 return this.defaultValue.expandString(context);
             } else {
@@ -3163,7 +3163,7 @@ public class ModelFormField {
             }
         }
 
-        public String getValue(Map context) {
+        public String getValue(Map<String, Object> context) {
             if (this.value != null && !this.value.isEmpty()) {
                 return this.value.expandString(context);
             } else {
