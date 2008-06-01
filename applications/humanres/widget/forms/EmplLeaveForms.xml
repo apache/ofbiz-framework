@@ -32,7 +32,7 @@
         <field name="noConditionFind"><hidden value="Y"/></field>    
         <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListEmplLeaves" type="multi" use-row-submit="true" separate-columns="true" target="updateEmplLeave" list-name="listIt" paginate-target="FindEmplLeaves"
+    <form name="ListEmplLeaves" type="multi" use-row-submit="true" separate-columns="true" target="updateEmplLeaveExt?partyId=${partyId}" list-name="listIt" paginate-target="FindEmplLeaves"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
@@ -40,7 +40,9 @@
                 <field-map field-name="entityName" value="EmplLeave"/>
                 <field-map field-name="orderBy" value="fromDate"/>
             </service>
+            <set field="insideEmployee" from-field="parameters.insideEmployee"/>
         </actions>
+        <alt-target use-when="insideEmployee==null" target="updateEmplLeave"/>
         <auto-fields-service service-name="updateEmplLeave"/>
         <field name="partyId"><display/></field>
         <field name="leaveTypeId"><display/></field>
@@ -50,6 +52,10 @@
     </form>
     <form name="AddEmplLeave" type="single" target="createEmplLeave"
         header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <set field="insideEmployee" from-field="parameters.insideEmployee"/>
+        </actions>
+        <alt-target use-when="insideEmployee != null" target="createEmplLeaveExt"/>
         <auto-fields-service service-name="createEmplLeave"/>
         <field name="partyId" use-when="emplLeaveCtx!=null"><hidden/></field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}" use-when="emplLeaveCtx==null"><lookup target-form-name="LookupPartyName"/></field>

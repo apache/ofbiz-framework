@@ -34,14 +34,17 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/></field>
         <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListPersonTrainings" type="multi" list-name="listIt" separate-columns="true" target="updatePersonTrainings" paginate-target="FindPersonTrainings"
+    <form name="ListPersonTrainings" type="multi" list-name="listIt" separate-columns="true" target="updatePersonTrainingsExt?partyId=${partyId}" paginate-target="FindPersonTrainings"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="personTrainingsCtx"/>
                 <field-map field-name="entityName" value="PersonTraining"/>
+                <field-map field-name="orderBy" value="fromDate"/>
             </service>
+            <set field="insideEmployee" from-field="parameters.insideEmployee"/>
         </actions>
+        <alt-target use-when="insideEmployee==null" target="updatePersonTrainings"/>
         <auto-fields-service default-field-type="display" service-name="updatePersonTraining"/>
         <field name="partyId" title="PartyId" widget-style="linktext">
             <hyperlink also-hidden="true" target="viewprofile?partyId=${partyId}" target-type="plain" description="${partyId}"/>
@@ -52,6 +55,10 @@ under the License.
     </form>
     <form name="AddPersonTraining" type="single" target="createPersonTraining" default-map-name="party"
         header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <set field="insideEmployee" from-field="parameters.insideEmployee"/>
+        </actions>
+        <alt-target use-when="insideEmployee != null" target="createPersonTrainingExt"/>
         <field use-when="party!=null" name="partyId" widget-style="tabletext"><hidden/></field>
         <field use-when="party==null" name="partyId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><lookup target-form-name="LookupPartyName"/></field>
         <field name="trainingClassTypeId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">

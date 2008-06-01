@@ -37,7 +37,7 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/></field>
         <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>     
-    <form name="ListPartySkills" type="multi" list-name="listIt" use-row-submit="true" separate-columns="true" target="updatePartySkill?partyId=${partyId}" paginate-target="findPartySkills"
+    <form name="ListPartySkills" type="multi" list-name="listIt" use-row-submit="true" separate-columns="true" target="updatePartySkillExt?partyId=${partyId}" paginate-target="findPartySkills"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar"> 
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
@@ -46,16 +46,18 @@ under the License.
                 <field-map field-name="orderBy" value="partyId"/>
                 <field-map field-name="orderBy" value="skillTypeId"/>
             </service>
+            <set field="insideEmployee" from-field="parameters.insideEmployee"/>
         </actions>
         <row-actions>
             <set field="skillTypeId" from-field="skillTypeId"/>
         </row-actions>
+        <alt-target use-when="insideEmployee==null" target="updatePartySkill"/>
         <auto-fields-service default-field-type="hidden" service-name="updatePartySkill"/>        
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
             <display-entity description="${partyId}" entity-name="PartyNameView">
                 <sub-hyperlink target="viewprofile?partyId=${partyId}" link-style="smallSubmit" target-type="inter-app" description="${partyId}"/>
             </display-entity>
-        </field>       
+        </field>
         <field name="skillTypeId">
             <display-entity entity-name="SkillType" description="${description}"/>
         </field>
@@ -74,8 +76,12 @@ under the License.
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><hidden value="Y"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>
     </form>      
-    <form name="AddPartySkills" type="single" target="createPartySkill" default-map-name="party"
+    <form name="AddPartySkills" type="single" target="createPartySkill" default-map-name="partySkill"
         header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <set field="insideEmployee" from-field="parameters.insideEmployee"/>
+        </actions>
+        <alt-target use-when="insideEmployee != null" target="createPartySkillExt"/>
         <field name="partyId" use-when="partySkill != null"><hidden/></field>
         <field name="partyId" use-when="partySkill == null" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><lookup target-form-name="LookupPartyName"/></field>
         <field name="skillTypeId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">

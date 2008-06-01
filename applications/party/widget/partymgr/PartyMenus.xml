@@ -70,16 +70,16 @@ under the License.
         <menu-item name="PartyContents" title="${uiLabelMap.PartyContent}">
             <link target="EditPartyContents?partyId=${partyId}"/>
         </menu-item>
-        <menu-item name="PartySkills" title="${uiLabelMap.ProjectMgrPartySkills}">
+        <menu-item name="EditPartySkills" title="${uiLabelMap.ProjectMgrPartySkills}">
             <link target="EditPartySkills?partyId=${partyId}"/>
         </menu-item>
-        <menu-item name="PersonTraining" title="${uiLabelMap.HumanResTraining}">
+        <menu-item name="EditPersonTrainings" title="${uiLabelMap.HumanResTraining}">
             <link target="EditPersonTrainings?partyId=${partyId}"/>
         </menu-item>
-        <menu-item name="PartyResume" title="${uiLabelMap.HumanResPartyResume}">
+        <menu-item name="EditPartyResumes" title="${uiLabelMap.HumanResPartyResume}">
             <link target="EditPartyResumes?partyId=${partyId}"/>
         </menu-item>
-        <menu-item name="EmploymentApplication" title="${uiLabelMap.HumanResEmploymentApp}">
+        <menu-item name="EditEmploymentApps" title="${uiLabelMap.HumanResEmploymentApp}">
             <link target="EditEmploymentApps?partyId=${partyId}&amp;&amp;referredByPartyId=${partyId}"/>
         </menu-item>
     </menu>

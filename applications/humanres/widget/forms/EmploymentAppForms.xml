@@ -19,7 +19,7 @@ under the License.
 -->
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <form name="ListEmploymentApps" type="multi" list-name="listIt" use-row-submit="true" separate-columns="true" target="updateEmploymentApp?partyId=${partyId}&amp;&amp;referredByPartyId=${partyId}" paginate-target="FindEmploymentApps"
+    <form name="ListEmploymentApps" type="multi" list-name="listIt" use-row-submit="true" separate-columns="true" target="updateEmploymentAppExt?partyId=${partyId}&amp;&amp;referredByPartyId=${partyId}" paginate-target="FindEmploymentApps"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" >
         <actions>
             <set field="partyId" from-field="parameters.partyId"/>
@@ -30,10 +30,12 @@ under the License.
                 <field-map field-name="entityName" value="EmploymentApp"/>
                 <field-map field-name="orderBy" value="applicationId"/>
             </service>
+            <set field="insideEmployee" from-field="parameters.insideEmployee"/>
         </actions>
         <row-actions>
             <set field="applicationId" from-field="applicationId"/>
         </row-actions>
+        <alt-target use-when="insideEmployee==null" target="updateEmploymentApp"/>
         <auto-fields-service default-field-type="hidden" service-name="updateEmploymentApp"/> 
         <field name="applicationId" title="${uiLabelMap.HumanResApplicationId}"><display also-hidden="true"/></field>
         <field name="statusId">
@@ -96,6 +98,10 @@ under the License.
     </form>
     <form name="AddEmploymentApp" type="single" target="createEmploymentApp?applicationId=${applicationId}&amp;&amp;partyId=${referredByPartyId}" default-entity-name="EmploymentApp" paginate-target="FindEmploymentApps"
         header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <set field="insideEmployee" from-field="parameters.insideEmployee"/>
+        </actions>
+        <alt-target use-when="insideEmployee != null" target="createEmploymentAppExt"/>
         <auto-fields-service service-name="createEmploymentApp" default-field-type="hidden"/>
         <field name="applicationId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><lookup target-form-name="LookupEmploymentApp"/></field>.
         <field name="emplPositionId"><lookup target-form-name="LookupEmplPosition"/></field>

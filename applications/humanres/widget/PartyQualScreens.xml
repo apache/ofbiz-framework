@@ -55,7 +55,7 @@
             </widgets>
         </section>
     </screen>
-    <screen name="EditPartyQual">
+    <screen name="EditPartyQuals">
         <section>
             <actions>
                 <set field="titleProperty" value="HumanResViewPartyQual"/>
@@ -63,6 +63,7 @@
                 <set field="tabButtonItem" value="EditPartyQuals"/>
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="partyQualCtx.partyId" from-field="parameters.partyId"/>
+                <set field="parameters.insideEmployee" value="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
