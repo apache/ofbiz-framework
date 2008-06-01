@@ -61,7 +61,7 @@ under the License.
                 <property-map resource="ManufacturingReportsUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 
-                <script location="component://manufacturing/widget/manufacturing/CuttingListReport.bsh"/>
+                <script location="component://manufacturing/widget/manufacturing/CuttingListReport.groovy"/>
             </actions>
             <widgets>
                 <platform-specific>
@@ -83,7 +83,7 @@ under the License.
                 <set field="productCategoryIdPar" from-field="parameters.productCategoryIdPar"/>
                 <set field="productFeatureTypeIdPar" from-field="parameters.productFeatureTypeIdPar"/>
 
-                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/reports/PRunsProductsByFeature.bsh"/>
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/reports/PRunsProductsByFeature.groovy"/>
             </actions>
             <widgets>
                 <platform-specific>
@@ -108,7 +108,7 @@ under the License.
 
                 <entity-one entity-name="Shipment" value-name="shipment"/>
 
-                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/reports/PRunsProductsByFeature.bsh"/>
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/reports/PRunsProductsByFeature.groovy"/>
             </actions>
             <widgets>
                 <platform-specific>
@@ -131,7 +131,7 @@ under the License.
                 <set field="productCategoryIdPar" from-field="parameters.productCategoryIdPar"/>
                 <set field="productFeatureTypeIdPar" from-field="parameters.productFeatureTypeIdPar"/>
 
-                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/reports/PRunsComponentsByFeature.bsh"/>
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/reports/PRunsComponentsByFeature.groovy"/>
             </actions>
             <widgets>
                 <platform-specific>
@@ -157,7 +157,7 @@ under the License.
 
                 <entity-one entity-name="Shipment" value-name="shipment"/>
 
-                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/reports/PRunsComponentsByFeature.bsh"/>
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/reports/PRunsComponentsByFeature.groovy"/>
             </actions>
             <widgets>
                 <platform-specific>
@@ -182,7 +182,7 @@ under the License.
                 <property-map resource="ManufacturingReportsUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
 
-                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/reports/PRunsProductsStacks.bsh"/>
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/reports/PRunsProductsStacks.groovy"/>
             </actions>
             <widgets>
                 <platform-specific>
@@ -206,7 +206,7 @@ under the License.
                 <property-map resource="ManufacturingReportsUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
 
-                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/reports/PackageContentsAndOrder.bsh"/>
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/reports/PackageContentsAndOrder.groovy"/>
             </actions>
             <widgets>
                 <platform-specific>
@@ -231,7 +231,7 @@ under the License.
                 <property-map resource="ManufacturingReportsUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
 
-                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/reports/PRunsProductsAndOrder.bsh"/>
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/reports/PRunsProductsAndOrder.groovy"/>
             </actions>
             <widgets>
                 <platform-specific>
@@ -255,7 +255,7 @@ under the License.
                 <property-map resource="ManufacturingReportsUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
 
-                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/reports/PRunsInfoAndOrder.bsh"/>
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/reports/PRunsInfoAndOrder.groovy"/>
             </actions>
             <widgets>
                 <platform-specific>
@@ -273,7 +273,7 @@ under the License.
                 <property-map resource="ManufacturingReportsUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
 
-                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/reports/ShipmentPlanStockReport.bsh"/>
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/reports/ShipmentPlanStockReport.groovy"/>
             </actions>
             <widgets>
                 <platform-specific>
@@ -291,7 +291,7 @@ under the License.
                 <property-map resource="ManufacturingReportsUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
 
-                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/reports/ShipmentLabel.bsh"/>
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/reports/ShipmentLabel.groovy"/>
             </actions>
             <widgets>
                 <platform-specific>                    
@@ -309,7 +309,7 @@ under the License.
                 <property-map resource="ManufacturingReportsUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
 
-                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/reports/ShipmentWorkEffortTasks.bsh"/>
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/reports/ShipmentWorkEffortTasks.groovy"/>
             </actions>
             <widgets>
                 <platform-specific>

@@ -91,8 +91,8 @@ under the License.
                 <set field="headerItem" value="jobshop"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="500"/>
-                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/ViewProductionRun.bsh"/>
-                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/productionRunAllFixedAssets.bsh"/>
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/ViewProductionRun.groovy"/>
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/productionRunAllFixedAssets.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonJobshopDecorator" location="${parameters.commonJobshopDecorator}">
@@ -193,8 +193,8 @@ under the License.
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="500"/>
 
-                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/ProductionRunDeclaration.bsh"/>
-                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/productionRunAllFixedAssets.bsh"/>
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/ProductionRunDeclaration.groovy"/>
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/productionRunAllFixedAssets.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonJobshopDecorator" location="${parameters.commonJobshopDecorator}">
@@ -412,7 +412,7 @@ under the License.
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="ProductionRunReport"/>
-                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/ProductionRunDeclaration.bsh"/>
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/ProductionRunDeclaration.groovy"/>
             </actions>
             <widgets>
                 <platform-specific>
@@ -501,7 +501,7 @@ under the License.
                 <entity-one entity-name="WorkEffort" value-name="productionRunTask">
                     <field-map field-name="workEffortId" env-name="routingTaskId"/>
                 </entity-one>
-                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/ProductionRunTasks.bsh"/>
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/ProductionRunTasks.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonJobshopDecorator" location="${parameters.commonJobshopDecorator}">
@@ -552,7 +552,7 @@ under the License.
                 <entity-one entity-name="WorkEffort" value-name="productionRun">
                     <field-map field-name="workEffortId" env-name="productionRunId"/>
                 </entity-one>
-                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/ProductionRunComponents.bsh"/>
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/ProductionRunComponents.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonJobshopDecorator" location="${parameters.commonJobshopDecorator}">
@@ -596,7 +596,7 @@ under the License.
                 <entity-one entity-name="WorkEffort" value-name="productionRun">
                     <field-map field-name="workEffortId" env-name="productionRunId"/>
                 </entity-one>
-                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/ProductionRunActualComponents.bsh"/>
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/ProductionRunActualComponents.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonJobshopDecorator" location="${parameters.commonJobshopDecorator}">
@@ -636,7 +636,7 @@ under the License.
                 <entity-one entity-name="WorkEffort" value-name="productionRun">
                     <field-map field-name="workEffortId" env-name="productionRunId"/>
                 </entity-one>
-                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/ProductionRunFixedAssets.bsh"/>
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/ProductionRunFixedAssets.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonJobshopDecorator" location="${parameters.commonJobshopDecorator}">
@@ -678,7 +678,7 @@ under the License.
                 <entity-one entity-name="WorkEffort" value-name="productionRun">
                     <field-map field-name="workEffortId" env-name="productionRunId"/>
                 </entity-one>
-                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/ProductionRunCosts.bsh"/>
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/ProductionRunCosts.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonJobshopDecorator" location="${parameters.commonJobshopDecorator}">
@@ -748,7 +748,7 @@ under the License.
                 <set field="titleProperty" value="ManufacturingWorkWithShipmentPlans"/>
                 <set field="headerItem" value="ShipmentPlans"/>
 
-                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/WorkWithShipmentPlans.bsh"/>
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/WorkWithShipmentPlans.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

@@ -118,7 +118,7 @@ under the License.
                     <order-by field-name="-finishDateTime"/>
                     <limit-range start="0" size="5"/>
                 </entity-condition>
-                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/mrp/findInventoryEventPlan.bsh"/>
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/mrp/findInventoryEventPlan.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonMrpDecorator">
