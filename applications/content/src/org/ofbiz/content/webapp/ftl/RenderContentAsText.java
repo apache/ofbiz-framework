@@ -38,8 +38,8 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.template.FreeMarkerWorker;
 import org.ofbiz.content.content.ContentWorker;
 import org.ofbiz.entity.GenericDelegator;
-import org.ofbiz.widget.WidgetWorker;
 import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.widget.WidgetWorker;
 
 import freemarker.core.Environment;
 import freemarker.template.TemplateTransformModel;
@@ -208,7 +208,6 @@ public class RenderContentAsText implements TemplateTransformModel {
             public void closeEditWrap(Writer out, String editRequestName) throws IOException {
                 if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, contentId(3):" + templateRoot.get("contentId"), module);
                 if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, subContentId(3):" + templateRoot.get("subContentId"), module);
-                StringBuffer sb = new StringBuffer();
                 String fullRequest = editRequestName;
                 String contentId = null;
                 contentId = (String)templateRoot.get("subContentId");
@@ -218,12 +217,10 @@ public class RenderContentAsText implements TemplateTransformModel {
                     delim = "&";
                 }
               
-                WidgetWorker.appendOfbizUrl(sb, fullRequest, request, response);
-                String url = sb.toString();
-                String link = "<a href=\"" + url + "\">Edit</a>";
-                out.write(link);
-                String divStr = "</div>";
-                out.write(divStr);
+                out.write("<a href=\"");
+                WidgetWorker.appendOfbizUrl(out, fullRequest, request, response);
+                out.write("\">Edit</a>");
+                out.write("</div>");
             }
 
             public String getEditStyle() {
