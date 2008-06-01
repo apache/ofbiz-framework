@@ -476,7 +476,7 @@ under the License.
 
         <!-- make sure specified quantity is not greater than issued quantity left -->      
         <if-compare-field field-name="toCancelQuantity" operator="greater" to-field-name="qtyIssuedLeft" type="Double">
-            <add-error><fail-message message="Not cancelling ItemIssuanc because the quantity to cancel [${toCancelQuantity}] is greater than the quantity left [${qtyIssuedLeft}] for ItemIssuance [${itemIssuanceId}]"/></add-error>
+            <add-error><fail-message message="Not cancelling ItemIssuanc because the quantity to cancel [${toCancelQuantity}] is greater than the quantity left [${qtyIssuedLeft}] for ItemIssuance [${parameters.itemIssuanceId}]"/></add-error>
         </if-compare-field>
         <check-errors/>
 
