@@ -31,27 +31,27 @@ import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
 
 // get this field first, it determines which purpose this script satisfies
-orderPaymentPreferenceId = context.get("orderPaymentPreferenceId");
+orderPaymentPreferenceId = context.orderPaymentPreferenceId;
 
 // first purpose: retrieve orderId and pamentPreferenceId
-if (orderPaymentPreferenceId == null) {
-  paymentGatewayResponse = context.get("paymentGatewayResponse");
+if (!orderPaymentPreferenceId) {
+  paymentGatewayResponse = context.paymentGatewayResponse;
   orderPaymentPreference = paymentGatewayResponse.getRelatedOne("OrderPaymentPreference");
-  context.put("orderId", orderPaymentPreference.getString("orderId"));
-  context.put("orderPaymentPreferenceId", orderPaymentPreference.getString("orderPaymentPreferenceId"));
+  context.orderId = orderPaymentPreference.orderId;
+  context.orderPaymentPreferenceId = orderPaymentPreference.orderPaymentPreferenceId;
   return;
-} 
+}
 
 // second purpose: grab the latest gateway response of the orderaymentpreferenceId
-orderPaymentPreference = delegator.findByPrimaryKey("OrderPaymentPreference", UtilMisc.toMap("orderPaymentPreferenceId", orderPaymentPreferenceId));
-gatewayResponses = orderPaymentPreference.getRelated("PaymentGatewayResponse", UtilMisc.toList("transactionDate DESC"));
+orderPaymentPreference = delegator.findByPrimaryKey("OrderPaymentPreference", [orderPaymentPreferenceId : orderPaymentPreferenceId]);
+gatewayResponses = orderPaymentPreference.getRelated("PaymentGatewayResponse", ["transactionDate DESC"]);
 EntityUtil.filterByCondition(gatewayResponses, EntityCondition.makeCondition("transCodeEnumId", EntityOperator.EQUALS, "PGT_AUTHORIZE"));
 
-if (gatewayResponses.size() > 0) {
-    latestAuth = gatewayResponses.get(0);
-    context.put("paymentGatewayResponse", latestAuth);
+if (gatewayResponses) {
+    latestAuth = gatewayResponses[0];
+    context.paymentGatewayResponse = latestAuth;
 } else {
     // todo: some kind of error telling user to re-authorize
 }
 
-context.put("orderId", orderPaymentPreference.getString("orderId"));
+context.orderId = orderPaymentPreference.orderId;

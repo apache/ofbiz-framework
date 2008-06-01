@@ -20,29 +20,29 @@ import java.math.BigDecimal;
 import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.base.util.UtilMisc;
 
-orderId = context.get("orderId");
-orderPaymentPreferenceId = context.get("orderPaymentPreferenceId");
+orderId = context.orderId;
+orderPaymentPreferenceId = context.orderPaymentPreferenceId;
 
-if ((orderId == null) || (orderPaymentPreferenceId == null)) return;
+if ((!orderId) || (!orderPaymentPreferenceId)) return;
 
-if(orderId != null){
-   orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
-   context.put("orderHeader", orderHeader);
+if(orderId) {
+   orderHeader = delegator.findByPrimaryKey("OrderHeader", [orderId : orderId]);
+   context.orderHeader = orderHeader;
 }
 
-if(orderHeader != null){
+if(orderHeader) {
    orh = new OrderReadHelper(orderHeader);
-   context.put("orh", orh);
-   context.put("overrideAmount", new Double(orh.getOrderGrandTotal().doubleValue()));
+   context.orh = orh;
+   context.overrideAmount = new Double(orh.getOrderGrandTotal().doubleValue());
 }
 
-if(orderPaymentPreferenceId != null){
-   orderPaymentPreference = delegator.findByPrimaryKey("OrderPaymentPreference", UtilMisc.toMap("orderPaymentPreferenceId", orderPaymentPreferenceId));
-   context.put("orderPaymentPreference", orderPaymentPreference);
+if(orderPaymentPreferenceId) {
+   orderPaymentPreference = delegator.findByPrimaryKey("OrderPaymentPreference", [orderPaymentPreferenceId : orderPaymentPreferenceId]);
+   context.orderPaymentPreference = orderPaymentPreference;
 }
 
-if(orderPaymentPreference != null){
+if(orderPaymentPreference) {
    paymentMethodType = orderPaymentPreference.getRelatedOneCache("PaymentMethodType");
-   context.put("paymentMethodType", paymentMethodType);
-   context.put("overrideAmount", orderPaymentPreference.getDouble("maxAmount"));
+   context.paymentMethodType = paymentMethodType;
+   context.overrideAmount = orderPaymentPreference.getDouble("maxAmount");
 }
