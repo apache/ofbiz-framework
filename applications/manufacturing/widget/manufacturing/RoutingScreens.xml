@@ -487,7 +487,7 @@ under the License.
                     <field-map env-name="workEffortGoodStdTypeId" field-name="workEffortGoodStdTypeId"/>
                 </entity-and>
                 <entity-one entity-name="WorkEffortGoodStandard" value-name="routingProductLink" auto-field-map="true"/>
-                <!--<script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/routing/EditRoutingProductLink.bsh"/>-->
+                <!--<script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/routing/EditRoutingProductLink.groovy"/>-->
             </actions>
             <widgets>
                 <decorator-screen name="CommonRoutingDecorator">

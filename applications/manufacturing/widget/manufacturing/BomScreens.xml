@@ -59,7 +59,7 @@ under the License.
     
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-name="product"/>
-                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/bom/EditProductBom.bsh"/>
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/bom/EditProductBom.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonBomDecorator">
@@ -144,7 +144,7 @@ under the License.
                     <field-map env-name="productFeatureApplTypeId" field-name="productFeatureApplTypeId"/>
                     <order-by field-name="sequenceNum"/>
                 </entity-and>
-                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/bom/BomSimulation.bsh"/>
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/bom/BomSimulation.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonBomDecorator">
