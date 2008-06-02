@@ -585,8 +585,10 @@ under the License.
             <field field-name="delegator" type="org.ofbiz.entity.GenericDelegator"/>
             <field field-name="productId" type="java.lang.String"/>
         </call-class-method>
-        <log level="info" message="Got new average customer rating ${product.averageCustomerRating}"/>
-
+        <log level="info" message="Got new average customer rating ${averageCustomerRating}"/>
+        <if-compare field-name="averageCustomerRating" operator="equals" value="0" type="Double">
+            <return/>
+        </if-compare>
         <!-- update the review average on the ProductCalculatedInfo entity -->
         <entity-one entity-name="ProductCalculatedInfo" value-name="productCalculatedInfo"/>
         <if-empty field-name="productCalculatedInfo">
