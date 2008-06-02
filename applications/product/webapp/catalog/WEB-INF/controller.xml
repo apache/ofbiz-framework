@@ -25,7 +25,7 @@ under the License.
     <owner>Copyright 2001-2007 The Apache Software Foundation</owner>
 
     <handler name="service-multi" type="request" class="org.ofbiz.webapp.event.ServiceMultiEventHandler"/>
-    <handler name="bsf" type="request" class="org.ofbiz.webapp.event.BsfEventHandler"/>
+    <handler name="groovy" type="request" class="org.ofbiz.webapp.event.GroovyEventHandler"/>
 
     <firstvisit></firstvisit>
     <!-- Events to run on every request before security (chains exempt) -->
@@ -1992,7 +1992,7 @@ under the License.
     </request-map>
     <request-map uri="prepareCreateShipMeth">
         <security https="true" auth="true"/>
-        <event type="bsf" path="/store/" invoke="prepareCreateShipMeth.bsh"/>
+        <event type="groovy" path="component://product/webapp/catalog/store/" invoke="prepareCreateShipMeth.groovy"/>
         <response name="success" type="view" value="EditProductStoreShipSetup"/>
         <response name="error" type="view" value="EditProductStoreShipSetup"/>
     </request-map>
