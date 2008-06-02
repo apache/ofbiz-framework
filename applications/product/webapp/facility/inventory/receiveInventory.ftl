@@ -16,27 +16,16 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<div class="screenlet">
-    <div class="screenlet-title-bar">
-        <ul>
-            <li class="h3">${uiLabelMap.ProductReceiveInventory} ${uiLabelMap.CommonInto} <#if facility?has_content>"${facility.facilityName?default("Not Defined")}"</#if> [${uiLabelMap.CommonId} :${facility.facilityId?if_exists}]</li>
-        </ul>
-        <br class="clear"/>
-    </div>
-    <div class="screenlet-body">
+<script language="JavaScript">
+    function setNow(field) { eval('document.selectAllForm.' + field + '.value="${Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().toString()}"'); }
+</script>
+<h1>${title}</h1>
         <#if invalidProductId?exists>
             <div class="errorMessage">${invalidProductId}</div>
         </#if>        
         <div class="button-bar">
           <a href="<@ofbizUrl>EditFacility</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductNewFacility}</a>
         </div>
-
-        <script language="JavaScript">
-            function setNow(field) { eval('document.selectAllForm.' + field + '.value="${Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().toString()}"'); }
-        </script>
-
-        <br/>
-
         <#-- Receiving Results -->
         <#if receivedItems?has_content>
           <h3>${uiLabelMap.ProductReceiptPurchaseOrder} ${purchaseOrder.orderId}</h3>
@@ -472,41 +461,37 @@ under the License.
 
         <#-- Initial Screen -->
         <#else>
+          <h2>${uiLabelMap.ProductReceiveItem}</h2>
           <form name="selectAllForm" method="post" action="<@ofbizUrl>ReceiveInventory</@ofbizUrl>">
             <input type="hidden" name="facilityId" value="${requestParameters.facilityId?if_exists}"/>
             <input type="hidden" name="initialSelected" value="Y"/>
             <table class="basic-table" cellspacing="0">
-              <tr><td colspan="4"><h3>${uiLabelMap.ProductReceiveItem}</h3></td></tr>
               <tr>
-                <td width="25%" align="right" class="label">${uiLabelMap.ProductPurchaseOrderNumber}</td>
-                <td>&nbsp;</td>
-                <td width="25%">
+                <td class="label">${uiLabelMap.ProductPurchaseOrderNumber}</td>
+                <td>
                   <input type="text" name="purchaseOrderId" size="20" maxlength="20" value="${requestParameters.purchaseOrderId?if_exists}">
                     <a href="javascript:call_fieldlookup2(document.selectAllForm.purchaseOrderId,'LookupPurchaseOrderHeaderAndShipInfo');">
                       <img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="15" height="14" border="0" alt="Click here For Field Lookup"/>
                     </a>
+                    <span class="tooltip">${uiLabelMap.ProductLeaveSingleProductReceiving}</span>
                 </td>
-                <td class="tooltip">${uiLabelMap.ProductLeaveSingleProductReceiving}</td>
               </tr>
               <tr>
-                <td width="25%" align="right" class="label">${uiLabelMap.ProductProductId}</td>
-                <td>&nbsp;</td>
-                <td width="25%">
+                <td class="label">${uiLabelMap.ProductProductId}</td>
+                <td>
                   <input type="text" name="productId" size="20" maxlength="20" value="${requestParameters.productId?if_exists}"/>
                     <a href="javascript:call_fieldlookup2(document.selectAllForm.productId,'LookupProduct');">
                       <img src="<@ofbizContentUrl>/images/fieldlookup.gif"</@ofbizContentUrl>" width="15" height="14" border="0" alt="Click here For Field Lookup"/>
                     </a>
+                    <span class="tooltip">${uiLabelMap.ProductLeaveEntirePoReceiving}</span>
                 </td>
-                <td class="tooltip">${uiLabelMap.ProductLeaveEntirePoReceiving}</td>
               </tr>
               <tr>
-                <td colspan="2">&nbsp;</td>
-                <td colspan="2">
+                <td>&nbsp;</td>
+                <td>
                   <a href="javascript:document.selectAllForm.submit();" class="buttontext">${uiLabelMap.ProductReceiveProduct}</a>
                 </td>
               </tr>
             </table>
           </form>
         </#if>
-    </div>
-</div>

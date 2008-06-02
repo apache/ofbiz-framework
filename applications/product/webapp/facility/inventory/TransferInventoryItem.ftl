@@ -16,35 +16,23 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<div class="screenlet">
-    <div class="screenlet-title-bar">
-        <ul>
-            <li class="h3">${uiLabelMap.ProductInventoryTransfer} ${uiLabelMap.CommonFrom} <#if facility?exists>${(facility.facilityName)?if_exists}</#if> [${uiLabelMap.CommonId}:${facilityId?if_exists}]</li>
-            <li><a href="<@ofbizUrl>PickMoveStockSimple?facilityId=${facilityId?if_exists}</@ofbizUrl>">${uiLabelMap.CommonPrint}</a></li>
-        </ul>
-        <br class="clear"/>
-    </div>
-    <div class="screenlet-body">
+<h1>${title}</h1>
       <#if illegalInventoryItem?exists>
             <div class="errorMessage">${illegalInventoryItem}</div>
-        </#if>
-
+      </#if>
         <div class="button-bar">
           <a href="<@ofbizUrl>EditFacility</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductNewFacility}</a>
+          <a href="<@ofbizUrl>PickMoveStockSimple?facilityId=${facilityId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPrint}</a>
         </div>
-
        <#if !(inventoryItem?exists)>
             <form method="post" action="<@ofbizUrl>TransferInventoryItem</@ofbizUrl>">
+            <input type="hidden" name="facilityId" value="${facilityId}">
             <table cellspacing="0" class="basic-table">
             <tr>
-                <td width="25%" align="right" class="label">${uiLabelMap.ProductInventoryItemId}</td>
-                <td width="6%">&nbsp;</td>
-                <td width="25%">
-                <input type="text" name="inventoryItemId" size="20" maxlength="20">
-                <input type="hidden" name="facilityId" value="${facilityId}">
-                </td>
-                <td width="50%">
-                <input type="submit" value="${uiLabelMap.ProductGetItem}">
+                <td class="label">${uiLabelMap.ProductInventoryItemId}</td>
+                <td>
+                  <input type="text" name="inventoryItemId" size="20" maxlength="20">
+                  <input type="submit" value="${uiLabelMap.ProductGetItem}">
                 </td>
             </tr>
             </table>
@@ -250,5 +238,3 @@ under the License.
         </table>
         </form>
         </#if>
-    </div>
-</div>

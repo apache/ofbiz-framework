@@ -16,86 +16,85 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<div class="screenlet">
-    <div class="screenlet-title-bar">
-        <h3>${uiLabelMap.PageTitleEditFacilityLocation}</h3>
-    </div>
-    <div class="screenlet-body"> 
-        <h1>${uiLabelMap.ProductLocationFor} <#if facility?exists>${(facility.facilityName)?if_exists}</#if> [${uiLabelMap.CommonId}: ${facilityId?if_exists}]</h1>
-        <div class="button-bar">
-          <a href="<@ofbizUrl>EditFacility</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductNewFacility}</a>
-          <a href="<@ofbizUrl>EditFacilityLocation?facilityId=${facilityId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductNewFacilityLocation}</a>
-          <#if facilityId?exists && locationSeqId?exists>
-              <a href="<@ofbizUrl>EditInventoryItem?facilityId=${facilityId}&locationSeqId=${locationSeqId}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductNewInventoryItem}</a>
-          </#if>
-        </div>
-        
-        <#if facilityId?exists && !(facilityLocation?exists)> 
-            <form action="<@ofbizUrl>CreateFacilityLocation</@ofbizUrl>" method="post" style="margin: 0;">
-            <input type="hidden" name="facilityId" value="${facilityId}">  
-            <table class="basic-table" cellspacing="0">
-        <#elseif facilityLocation?exists>
-            <form action="<@ofbizUrl>UpdateFacilityLocation</@ofbizUrl>" method="post" style="margin: 0;">
-            <input type="hidden" name="facilityId" value="${facilityId?if_exists}">
-            <input type="hidden" name="locationSeqId" value="${locationSeqId}">
-            <table class="basic-table" cellspacing="0">
-            <tr>
-                <td class="label">${uiLabelMap.ProductFacilityId}</td>
-                <td>${facilityId?if_exists}</td>
-            </tr>
-            <tr>
-                <td class="label">${uiLabelMap.ProductLocationSeqId}</td>
-                <td>${locationSeqId}</td>
-            </tr>
+<h1>${title}</h1>
+<#if facilityId?exists && locationSeqId?exists>
+  <div class="button-bar">
+    <a href="<@ofbizUrl>EditFacility</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductNewFacility}</a>
+    <a href="<@ofbizUrl>EditFacilityLocation?facilityId=${facilityId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductNewFacilityLocation}</a>
+    <a href="<@ofbizUrl>EditInventoryItem?facilityId=${facilityId}&locationSeqId=${locationSeqId}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductNewInventoryItem}</a>
+  </div>
+</#if>
+
+<#if facilityId?exists && !(facilityLocation?exists)> 
+    <form action="<@ofbizUrl>CreateFacilityLocation</@ofbizUrl>" method="post">
+    <input type="hidden" name="facilityId" value="${facilityId}">  
+    <table class="basic-table" cellspacing="0">
+<#elseif facilityLocation?exists>
+    <form action="<@ofbizUrl>UpdateFacilityLocation</@ofbizUrl>" method="post">
+    <input type="hidden" name="facilityId" value="${facilityId?if_exists}">
+    <input type="hidden" name="locationSeqId" value="${locationSeqId}">
+    <table class="basic-table" cellspacing="0">
+    <tr>
+        <td class="label">${uiLabelMap.ProductFacilityId}</td>
+        <td>${facilityId?if_exists}</td>
+    </tr>
+    <tr>
+        <td class="label">${uiLabelMap.ProductLocationSeqId}</td>
+        <td>${locationSeqId}</td>
+    </tr>
+<#else>
+    <h1>${uiLabelMap.ProductNotCreateLocationFacilityId}</h1>
+</#if>
+
+<#if facilityId?exists>      
+    <tr>
+        <td class="label">${uiLabelMap.ProductType}</td>
+        <td>
+            <select name="locationTypeEnumId">
+                <#if (facilityLocation.locationTypeEnumId)?has_content>
+                    <#assign locationTypeEnum = facilityLocation.getRelatedOneCache("TypeEnumeration")?if_exists>
+                    <option value="${facilityLocation.locationTypeEnumId}">${(locationTypeEnum.get("description",locale))?default(facilityLocation.locationTypeEnumId)}</option>
+                    <option value="${facilityLocation.locationTypeEnumId}">----</option>
+                </#if>
+                <#list locationTypeEnums as locationTypeEnum>
+                    <option value="${locationTypeEnum.enumId}">${locationTypeEnum.get("description",locale)}</option>
+                </#list>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td class="label">${uiLabelMap.CommonArea}</td>
+        <td><input type="text" name="areaId" value="${(facilityLocation.areaId)?if_exists}" size="19" maxlength="20"></td>
+    </tr>
+    <tr>
+        <td class="label">${uiLabelMap.ProductAisle}</td>
+        <td><input type="text" name="aisleId" value="${(facilityLocation.aisleId)?if_exists}" size="19" maxlength="20"></td>
+    </tr>
+    <tr>
+        <td class="label">${uiLabelMap.ProductSection}</td>
+        <td><input type="text" name="sectionId" value="${(facilityLocation.sectionId)?if_exists}" size="19" maxlength="20"></td>
+    </tr>
+    <tr>
+        <td class="label">${uiLabelMap.ProductLevel}</td>
+        <td><input type="text" name="levelId" value="${(facilityLocation.levelId)?if_exists}" size="19" maxlength="20"></td>
+    </tr>
+    <tr>
+        <td class="label">${uiLabelMap.ProductPosition}</td>
+        <td><input type="text" name="positionId" value="${(facilityLocation.positionId)?if_exists}" size="19" maxlength="20"></td>
+    </tr>    
+    <tr>
+        <td>&nbsp;</td>
+        <#if locationSeqId?exists>
+          <td><input type="submit" value="${uiLabelMap.CommonUpdate}"></td>
         <#else>
-            <h1>${uiLabelMap.ProductNotCreateLocationFacilityId}</h1>
+          <td><input type="submit" value="${uiLabelMap.CommonSave}"></td>
         </#if>
-        
-        <#if facilityId?exists>      
-            <tr>
-                <td class="label">${uiLabelMap.ProductType}</td>
-                <td>
-                    <select name="locationTypeEnumId">
-                        <#if (facilityLocation.locationTypeEnumId)?has_content>
-                            <#assign locationTypeEnum = facilityLocation.getRelatedOneCache("TypeEnumeration")?if_exists>
-                            <option value="${facilityLocation.locationTypeEnumId}">${(locationTypeEnum.get("description",locale))?default(facilityLocation.locationTypeEnumId)}</option>
-                            <option value="${facilityLocation.locationTypeEnumId}">----</option>
-                        </#if>
-                        <#list locationTypeEnums as locationTypeEnum>
-                            <option value="${locationTypeEnum.enumId}">${locationTypeEnum.get("description",locale)}</option>
-                        </#list>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td class="label">${uiLabelMap.CommonArea}</td>
-                <td><input type="text" name="areaId" value="${(facilityLocation.areaId)?if_exists}" size="19" maxlength="20"></td>
-            </tr>
-            <tr>
-                <td class="label">${uiLabelMap.ProductAisle}</td>
-                <td><input type="text" name="aisleId" value="${(facilityLocation.aisleId)?if_exists}" size="19" maxlength="20"></td>
-            </tr>
-            <tr>
-                <td class="label">${uiLabelMap.ProductSection}</td>
-                <td><input type="text" name="sectionId" value="${(facilityLocation.sectionId)?if_exists}" size="19" maxlength="20"></td>
-            </tr>
-            <tr>
-                <td class="label">${uiLabelMap.ProductLevel}</td>
-                <td><input type="text" name="levelId" value="${(facilityLocation.levelId)?if_exists}" size="19" maxlength="20"></td>
-            </tr>
-            <tr>
-                <td class="label">${uiLabelMap.ProductPosition}</td>
-                <td><input type="text" name="positionId" value="${(facilityLocation.positionId)?if_exists}" size="19" maxlength="20"></td>
-            </tr>    
-            <tr>
-                <td>&nbsp;</td>
-                <td><input type="submit" value="${uiLabelMap.CommonUpdate}"></td>
-            </tr>
-        </table>
-        </form>
-    </div>
-</div> 
-<div class="screenlet">
+    </tr>
+  </table>
+  </form>
+  <#if locationSeqId?exists>
+  <br/>
+  <div class="screenlet">
     <div class="screenlet-title-bar">
         <h3>${uiLabelMap.ProductLocationProduct}</h3>
     </div>
@@ -125,8 +124,8 @@ under the License.
         </#list>
         </table>
     </div>
-</div> 
-<div class="screenlet">
+  </div> 
+  <div class="screenlet">
     <div class="screenlet-title-bar">
         <h3>${uiLabelMap.ProductAddProduct}</h3>
     </div>
@@ -141,5 +140,7 @@ under the License.
             <input type="submit" value="${uiLabelMap.CommonAdd}">
         </form>
     </div>
-</div> 
-        </#if>
+  </div> 
+  </#if>
+</#if>
+        
