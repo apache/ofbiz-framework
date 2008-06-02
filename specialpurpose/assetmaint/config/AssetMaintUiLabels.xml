@@ -28,16 +28,6 @@
         <value xml:lang="it">Posizione</value>
         <value xml:lang="th">ที่ตั้ง</value>
     </property>
-    <property key="AccountingFindFixedAsset">
-        <value xml:lang="en">Find Equipments</value>
-        <value xml:lang="it">Ricerca Cespite</value>
-        <value xml:lang="th">ค้นหาเครื่องมือ</value>
-    </property>
-    <property key="AccountingFixedAsset">
-        <value xml:lang="en">Equipment</value>
-        <value xml:lang="it">Cespite</value>
-        <value xml:lang="th">เครื่องมือ</value>
-    </property>
     <property key="AccountingFixedAssetChildren">
         <value xml:lang="en">Children</value>
         <value xml:lang="it">Figlio</value>
@@ -122,11 +112,6 @@
         <value xml:lang="en">Standard Costs</value>
         <value xml:lang="it">Costi Standard</value>
         <value xml:lang="th">ราคามาตรฐาน</value>
-    </property>
-    <property key="AccountingFixedAssets">
-        <value xml:lang="en">Equipments</value>
-        <value xml:lang="it">Cespiti</value>
-        <value xml:lang="th">เครื่องมือ</value>
     </property>
     <property key="AccountingInstanceOfProductId">
         <value xml:lang="en">Manufacturer Product Id</value>

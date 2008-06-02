@@ -31,12 +31,6 @@
         <response name="success" type="view" value="main"/>
     </request-map>
 
-    <request-map uri="findFixedAssets">
-        <security https="true" auth="true" />
-        <response name="success" type="view" value="FindFixedAssets" />
-        <response name="error" type="view" value="FindFixedAssets" />
-    </request-map>
-
     <!-- FixedAssetMaintenance -->
     <request-map uri="ListFixedAssetMaints">
         <security https="true" auth="true"/>
@@ -172,22 +166,10 @@
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
-    <view-map name="main" type="screen" page="component://assetmaint/widget/FixedAssetScreens.xml#FindFixedAssets"/>
-
-    <!-- FixedAsset and Relationship management screens -->    
-    <view-map name="FindFixedAssets" type="screen" page="component://assetmaint/widget/FixedAssetScreens.xml#FindFixedAssets" />
-    <view-map name="EditFixedAsset" type="screen" page="component://assetmaint/widget/FixedAssetScreens.xml#EditFixedAsset" />
-    <view-map name="FixedAssetChildren" type="screen" page="component://assetmaint/widget/FixedAssetScreens.xml#FixedAssetChildren"/>
-    <view-map name="updateFixedAssetCalendar" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#updateFixedAssetCalendar"/> 
-    <view-map name="EditFixedAssetStdCosts" type="screen" page="component://assetmaint/widget/FixedAssetScreens.xml#EditFixedAssetStdCosts"/>
-    <view-map name="EditFixedAssetIdents" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#EditFixedAssetIdents"/>
-    <view-map name="EditFixedAssetRegistrations" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#EditFixedAssetRegistrations"/>
-    <view-map name="ListFixedAssetMaints" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#ListFixedAssetMaints"/>
+    <view-map name="main" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#ListFixedAssets"/> 
 
     <!-- FixedAsset Maintenance screens -->
-    <view-map name="FindFixedAssetMaints" type="screen" page="component://assetmaint/widget/AssetmaintScreens.xml#FindFixedAssetMaints" />
     <view-map name="EditFixedAssetMaint" type="screen" page="component://assetmaint/widget/AssetmaintScreens.xml#EditFixedAssetMaint"/>
-    <view-map name="EditFixedAssetMaintMeters" type="screen" page="component://assetmaint/widget/AssetmaintScreens.xml#EditFixedAssetMaintMeters"/>
     <view-map name="EditWorkEfforts" type="screen" page="component://assetmaint/widget/AssetmaintScreens.xml#EditWorkEfforts"/>
     <view-map name="EditWorkEffortTimeEntries" type="screen" page="component://assetmaint/widget/AssetmaintScreens.xml#EditWorkEffortTimeEntries"/>
     <view-map name="EditWorkEffortNotes" type="screen" page="component://assetmaint/widget/AssetmaintScreens.xml#EditWorkEffortNotes"/>

@@ -21,7 +21,7 @@
     <h2>${uiLabelMap.AssetMaintApplication}</h2>
     <ul>                               
         <#if userLogin?has_content>
-            <li<#if selected == "fixedAssets"> class="selected"</#if>><a href="<@ofbizUrl>/findFixedAssets</@ofbizUrl>">${uiLabelMap.AccountingFixedAssets}</a></li>     
+            <li<#if selected == "ListFixedAssets"> class="selected"</#if>><a href="<@ofbizUrl>/ListFixedAssets</@ofbizUrl>">${uiLabelMap.AccountingFixedAssets}</a></li>     
             <li<#if selected == "fixedAssetMaints"> class="selected"</#if>><a href="<@ofbizUrl>/findFixedAssetMaints</@ofbizUrl>">${uiLabelMap.AccountingFixedAssetMaints}</a></li>      
             <li<#if selected == "facility"> class="selected"</#if>><a href="<@ofbizUrl>/FindFacility?facilityTypeId=WAREHOUSE</@ofbizUrl>">${uiLabelMap.ProductFacility}</a></li>
             <li class="opposed"><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
@@ -31,5 +31,9 @@
     </ul>
     <br class="clear"/>
 </div> 
+
+
+
+
 
 

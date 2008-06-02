@@ -43,6 +43,11 @@
         <param-value>component://assetmaint/widget/CommonScreens.xml</param-value>
         <description>The location of the CommonFacilityDecorator screen to use for this webapp; referred to as a context variable in screen def XML files.</description>
     </context-param>
+    <context-param>
+        <param-name>fixedAssetMaintDecoratorLocation</param-name>
+        <param-value>component://assetmaint/widget/AssetMaintScreens.xml</param-value>
+        <description>The location of the CommonFixedAssetMaintDecorator screen to use for this webapp; referred to as a context variable in screen def XML files.</description>
+    </context-param>
 
     <filter>
         <filter-name>ContextFilter</filter-name>
