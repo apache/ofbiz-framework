@@ -441,12 +441,11 @@ public class MrpServices {
         iteratorResult = null;
         GenericValue facility = null;
         try {
-            facility = delegator.findOne("Facility", parameters, false);
+            facility = delegator.findOne("Facility", UtilMisc.toMap("facilityId", facilityId), false);
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError("Problem, we can not find Facility, for more detail look at the log");
         }
         String partyId =  (String)facility.get("ownerPartyId");
-        parameters.put("organizationPartyId", partyId);
         try {
             resultList = delegator.findByAnd("SalesForecast", UtilMisc.toMap("organizationPartyId", partyId));
         } catch (GenericEntityException e) {
@@ -456,7 +455,6 @@ public class MrpServices {
         while (iteratorResult.hasNext()) {
             genericResult = (GenericValue) iteratorResult.next();
             String customTimePeriodId =  genericResult.getString("customTimePeriodId");
-            parameters.put("customTimePeriodId", customTimePeriodId);
             GenericValue customTimePeriod = null;
             try {
                 customTimePeriod = delegator.findOne("CustomTimePeriod", UtilMisc.toMap("customTimePeriodId", customTimePeriodId), false);
@@ -466,7 +464,6 @@ public class MrpServices {
             if (customTimePeriod.getDate("thruDate").before(UtilDateTime.nowDate())) {
                 continue;
             } else {
-                parameters.put("salesForecastId", genericResult.getString("salesForecastId"));
                 List salesForecastDetails = null;
                 Iterator sfdIter = null;
                 try {
