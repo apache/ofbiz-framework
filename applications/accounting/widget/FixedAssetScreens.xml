@@ -73,6 +73,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="AccountingFindFixedAssets"/>
+                <set field="headerItem" value="ListFixedAssets"/>
                 <set field="tabButtonItem" value="ListFixedAssets"/>
             </actions>
             <widgets>
@@ -357,11 +358,6 @@ under the License.
                             <widgets>
                                 <container style="button-bar"><link target="EditFixedAssetMaint?fixedAssetId=${fixedAssetId}" text="${uiLabelMap.AccountingNewFixedAssetMaint}" style="buttontext"/></container>
                             </widgets>
-                            <fail-widgets>
-                                <section><actions><set field="titleProperty" value="AccountingAddFixedAssetMaintenance"/></actions>
-                                    <widgets/>    
-                                </section>
-                            </fail-widgets>
                         </section>
                         <include-form name="EditFixedAssetMaint" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
                     </decorator-section>

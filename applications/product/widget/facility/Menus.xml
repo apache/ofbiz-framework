@@ -97,7 +97,8 @@ under the License.
             <link target="EditInventoryItemLabelAppls?inventoryItemLabelId=${inventoryItemLabelId}"/>
         </menu-item>
     </menu>
-    <menu name="InventoryItemTabBar" default-menu-item-name="EditInventoryItem" selected-menuitem-context-field-name="subTabButtonItem">
+    <menu name="InventoryItemTabBar" default-menu-item-name="EditInventoryItem" selected-menuitem-context-field-name="subTabButtonItem"
+        menu-container-style="button-bar tab-bar" default-selected-style="selected">
         <menu-item name="EditInventoryItem" title="${uiLabelMap.ProductInventoryItem}">
             <link target="EditInventoryItem?inventoryItemId=${inventoryItemId}&amp;facilityId=${facilityId}"/>
         </menu-item>

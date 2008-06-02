@@ -27,6 +27,8 @@ import org.ofbiz.webapp.control.*;
 
 String facilityId = parameters.get("facilityId");
 context.put("facilityId", facilityId);
+GenericValue facility = delegator.findByPrimaryKey("Facility", UtilMisc.toMap("facilityId", facilityId));
+context.put("facility", facility);
 
 Map mechMap = new HashMap();
 ContactMechWorker.getFacilityContactMechAndRelated(request, facilityId, mechMap);

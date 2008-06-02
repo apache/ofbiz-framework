@@ -73,7 +73,7 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="ListFacilityInventoryItems" type="list"  target="" title="" list-name="listIt" 
+    <form name="ListFacilityInventoryItems" type="list" list-name="listIt" header-row-style="header-row-2" 
         paginate-target="EditFacilityInventoryItems" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map-name="results" result-map-list-name="listIt">
@@ -102,7 +102,7 @@ under the License.
             <display-entity entity-name="Enumeration"/>
         </field>
         <field name="lotId" title="${uiLabelMap.ProductLotId}"><display/></field>
-        <field name="binNumber" title="${ProductBinNumber}"><display/></field>
+        <field name="binNumber" title="${uiLabelMap.ProductBinNumber}"><display/></field>
         <field name="serialNumber"><display/></field>
         <field name="softIdentifier"><display/></field>
         <field name="quantityOnHandTotal"><display description="${availableToPromiseTotal} / ${quantityOnHandTotal}"/></field>
@@ -351,7 +351,7 @@ under the License.
         </field>
     </form>
     <form name="ListFacilityInventoryByProduct" type="list" target="" title="" list-name="inventoryByProduct" 
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar"
         paginate-target="${facilityInventoryByProductScreen}" override-list-size="${overrideListSize}">
         <row-actions>
             <service service-name="getProductInventoryAndFacilitySummary" result-map-name="resultMap">
@@ -487,7 +487,7 @@ under the License.
     </form>
     <!-- FacilityGroups -->
     <form name="EditFacilityGroups" type="list" target="updateGroupToFacility" paginate-target="EditFacilityGroups" title="" list-name="facilityGroupMembers"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        header-row-style="header-row-2" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="FacilityGroupMember"/>
         <field name="facilityId"><hidden/></field>
         <field name="facilityGroupId" title="${uiLabelMap.ProductFacilityGroupId}">
@@ -515,7 +515,7 @@ under the License.
     </form>
     <!-- FacilityRoles -->
     <form name="EditFacilityRoles" type="list" paginate-target="EditFacilityRoles" title="" list-name="facilityRoles"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        header-row-style="header-row-2" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="FacilityRole" default-field-type="display"/>
         <field name="facilityId"><hidden/></field>
         <field name="partyId">
@@ -557,7 +557,7 @@ under the License.
         <field name="totalRetailPrice" title="${uiLabelMap.CommonTotal} ${uiLabelMap.ProductRetailPrice}"><display/></field>
     </form>
     <form name="ListInventoryItemGrandTotals" type="list" list-name="inventoryItemGrandTotals"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        header-row-style="header-row-2" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="qohGrandTotal" title="${uiLabelMap.ProductQoh} ${uiLabelMap.CommonTotal} ${uiLabelMap.CommonQty}"><display/></field>
         <field name="atpGrandTotal" title="${uiLabelMap.ProductAtp} ${uiLabelMap.CommonTotal} ${uiLabelMap.CommonQty}"><display/></field>
         <field name="totalCostPriceGrandTotal" title="${uiLabelMap.CommonTotal} ${uiLabelMap.ProductCostPrice}"><display/></field>

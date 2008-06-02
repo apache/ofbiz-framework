@@ -47,6 +47,7 @@ under the License.
     <screen name="CommonFacilityDecorator">
         <section>
             <actions>
+                <set field="headerItem" value="facility"/>
                 <set field="facilityId" from-field="parameters.facilityId"/>
                 <entity-one entity-name="Facility" value-name="facility"/>
             </actions>
@@ -55,7 +56,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-has-permission permission="FACILITY" action="_VIEW"/>
+                                <if-service-permission service-name="facilityGenericPermission" main-action="VIEW"/>
                             </condition>
                             <widgets>
                                 <section>

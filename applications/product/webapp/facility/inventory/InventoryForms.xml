@@ -97,7 +97,7 @@ under the License.
     </form>
 
     <form name="CreatePhysicalInventoryAndVariance" type="single" target="createPhysicalInventoryAndVariance" title=""
-        header-row-style="header-row" default-table-style="basic-table">
+        default-table-style="basic-table">
         <auto-fields-service service-name="createPhysicalInventoryAndVariance"/>
         <field name="physicalInventoryId"><ignored/></field>
         <field name="physicalInventoryDate"><ignored/></field>
@@ -115,7 +115,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ViewPhysicalInventoryAndVariance" type="list" target="" title="" list-name="physicalInventoryAndVarianceDatas"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        header-row-style="header-row-2" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="PhysicalInventoryAndVariance" map-name="physicalInventoryAndVariance" default-field-type="display"/>
         <field name="inventoryItemId"><hidden/></field>
         <field name="partyId"><display description="${person.firstName} ${person.lastName} ${partyGroup.groupName} [${physicalInventoryAndVariance.partyId}]"/></field>
@@ -150,7 +150,7 @@ under the License.
         itemIssuanceId, receiptId, physicalInventoryId - no natural screens to show these -->
     </form>
     <form name="InventoryItemReservations" type="list" target="" title="" list-name="inventoryItemReservations"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        header-row-style="header-row-2" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="OrderItemShipGrpInvRes" default-field-type="display"/>
         <field name="inventoryItemId"><hidden/></field>
         <field name="orderId" widget-style="buttontext">

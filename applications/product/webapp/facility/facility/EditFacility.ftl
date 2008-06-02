@@ -18,19 +18,20 @@ under the License.
 -->
 
 <#if security.hasEntityPermission("FACILITY", "_VIEW", session)>
-<h1>${uiLabelMap.ProductFacility} ${facility.facilityName?if_exists} [${uiLabelMap.CommonId}:${facilityId?if_exists}]</h1>
-<br/>
-<div class="button-bar">
-  <a href="<@ofbizUrl>EditFacility</@ofbizUrl>" name="EditFacilityForm" class="buttontext">${uiLabelMap.ProductNewFacility}</a>
-  <#if facilityId?has_content>
-    <a href="/workeffort/control/month?facilityId=${facilityId}&externalLoginKey=${requestAttributes.externalLoginKey?if_exists}" class="buttontext">${uiLabelMap.CommonViewCalendar}</a>
-  </#if>
-</div>
+<#if facilityId?has_content>
+  <h1>${uiLabelMap.ProductEditFacility} ${facility.facilityName?if_exists} [${facilityId?if_exists}]</h1>
+  <div class="button-bar">
+    <a href="<@ofbizUrl>EditFacility</@ofbizUrl>" name="EditFacilityForm" class="buttontext">${uiLabelMap.ProductNewFacility}</a>
+      <a href="/workeffort/control/month?facilityId=${facilityId}&externalLoginKey=${requestAttributes.externalLoginKey?if_exists}" class="buttontext">${uiLabelMap.CommonViewCalendar}</a>
+  </div>
+<#else>
+  <h1>${uiLabelMap.ProductNewFacility}</h1>
+</#if>
 
 <#if facility?exists && facilityId?has_content>
   <form action="<@ofbizUrl>UpdateFacility</@ofbizUrl>" name="EditFacilityForm" method="post">
-  <table class="basic-table" cellspacing='0'>
   <input type="hidden" name="facilityId" value="${facilityId?if_exists}">
+  <table class="basic-table" cellspacing='0'>
   <tr>
     <td class="label">${uiLabelMap.ProductFacilityId}</td>
     <td>
@@ -114,7 +115,11 @@ under the License.
 
   <tr>
     <td>&nbsp;</td>
-    <td align="left"><input type="submit" name="Update" value="${uiLabelMap.CommonUpdate}"></td>
+    <#if facilityId?has_content>
+      <td><input type="submit" name="Update" value="${uiLabelMap.CommonUpdate}"></td>
+    <#else>
+      <td><input type="submit" name="Update" value="${uiLabelMap.CommonSave}"></td>
+    </#if>
   </tr>
 </table>
 </form>
@@ -122,4 +127,5 @@ under the License.
 <#else>
   <h3>${uiLabelMap.ProductFacilityViewPermissionError}</h3>
 </#if>
+
 
