@@ -28,7 +28,7 @@ under the License.
     <description>Example Component Site Configuration File</description>
     <owner>Copyright 2001-2008 The Apache Software Foundation</owner>
 
-    <handler name="bsf" type="request" class="org.ofbiz.webapp.event.BsfEventHandler"/>
+    <handler name="groovy" type="request" class="org.ofbiz.webapp.event.GroovyEventHandler"/>
 
     <!--
       These can be used to return the reports as views; make sure the classes are compiled and available
@@ -160,7 +160,7 @@ under the License.
     </request-map>
     <request-map uri="findExampleFeatures">
         <security https="true" auth="true"/>
-        <event type="bsf" path="/WEB-INF/actions/includes/" invoke="findExampleFeatures.bsh"/>
+        <event type="groovy" path="component://example/webapp/example/WEB-INF/actions/includes/" invoke="findExampleFeatures.groovy"/>
         <response name="success" type="view" value="ajaxAutocompleteOptions"/>
         <response name="error" type="view" value="ajaxAutocompleteOptions"/>
     </request-map>
