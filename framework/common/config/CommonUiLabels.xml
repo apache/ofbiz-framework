@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
@@ -5186,6 +5186,10 @@
         <value xml:lang="zh_CN">自从</value>
         <value xml:lang="zh">自从</value>
     </property>
+    <property key="CommonSkipNavigation">
+        <value xml:lang="en">Skip navigation</value>
+        <value xml:lang="fr">Sauter la navigation</value>
+    </property>    
     <property key="CommonSmall">
         <value xml:lang="ar">صغير</value>
         <value xml:lang="de">Klein</value>
