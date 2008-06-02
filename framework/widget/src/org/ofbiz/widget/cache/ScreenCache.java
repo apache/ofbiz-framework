@@ -18,8 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.widget.cache;
 
-import java.util.Iterator;
-
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.cache.UtilCache;
 
@@ -37,8 +35,8 @@ public class ScreenCache extends AbstractCache {
     }
 
     public GenericWidgetOutput put(String screenName, WidgetContextCacheKey wcck, GenericWidgetOutput output) {
-        UtilCache screenCache = getOrCreateCache(screenName);
-        return (GenericWidgetOutput)screenCache.put(wcck, output);
+        UtilCache<WidgetContextCacheKey, GenericWidgetOutput> screenCache = getOrCreateCache(screenName);
+        return screenCache.put(wcck, output);
     }
 
     public GenericWidgetOutput remove(String screenName, WidgetContextCacheKey wcck) {

@@ -19,7 +19,6 @@
 package org.ofbiz.widget;
 
 import java.io.IOException;
-import java.io.Writer;
 import java.util.Map;
 
 import javax.servlet.ServletContext;

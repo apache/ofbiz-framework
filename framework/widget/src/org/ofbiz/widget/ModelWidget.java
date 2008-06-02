@@ -27,6 +27,7 @@ import org.ofbiz.base.util.UtilProperties;
  * Widget Library - Widget model class. ModelWidget is a base class that is
  * extended by other widget model classes.
  */
+@SuppressWarnings("serial")
 public class ModelWidget implements Serializable {
 
     /**

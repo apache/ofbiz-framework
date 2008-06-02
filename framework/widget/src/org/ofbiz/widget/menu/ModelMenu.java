@@ -19,7 +19,6 @@
 package org.ofbiz.widget.menu;
 
 import java.io.IOException;
-import java.io.Writer;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -43,6 +42,7 @@ import bsh.Interpreter;
 /**
  * Widget Library - Menu model class
  */
+@SuppressWarnings("serial")
 public class ModelMenu extends ModelWidget {
 
     public static final String module = ModelMenu.class.getName();

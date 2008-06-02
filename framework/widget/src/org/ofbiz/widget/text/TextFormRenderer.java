@@ -19,7 +19,6 @@
 package org.ofbiz.widget.text;
 
 import java.io.IOException;
-import java.io.Writer;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;

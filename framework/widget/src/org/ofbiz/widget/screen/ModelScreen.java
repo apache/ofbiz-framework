@@ -18,12 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.widget.screen;
 
-import java.io.File;
-import java.io.IOException;
 import java.io.Serializable;
-import java.io.Writer;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -32,9 +27,7 @@ import java.util.Set;
 import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.FileUtil;
 import org.ofbiz.base.util.GeneralException;
-import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
@@ -44,13 +37,13 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.webapp.control.ConfigXMLReader;
-import org.ofbiz.webapp.control.ConfigXMLReader.ControllerConfig;
 import org.ofbiz.widget.ModelWidget;
 import org.w3c.dom.Element;
 
 /**
  * Widget Library - Screen model class
  */
+@SuppressWarnings("serial")
 public class ModelScreen extends ModelWidget implements Serializable {
 
     public static final String module = ModelScreen.class.getName();

@@ -39,6 +39,7 @@ import javolution.util.FastSet;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilFormatOut;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
@@ -68,10 +69,10 @@ public class ScreenRenderer {
     public static final String module = ScreenRenderer.class.getName();
     
     protected Appendable writer;
-    protected MapStack context;
+    protected MapStack<String> context;
     protected ScreenStringRenderer screenStringRenderer;
     
-    public ScreenRenderer(Appendable writer, MapStack context, ScreenStringRenderer screenStringRenderer) {
+    public ScreenRenderer(Appendable writer, MapStack<String> context, ScreenStringRenderer screenStringRenderer) {
         this.writer = writer;
         this.context = context;
         if (this.context == null) this.context = MapStack.create();
@@ -139,7 +140,7 @@ public class ScreenRenderer {
         populateBasicContext(context, this, parameters, delegator, dispatcher, security, locale, userLogin);
     }
 
-    public static void populateBasicContext(MapStack context, ScreenRenderer screens, Map parameters, GenericDelegator delegator, LocalDispatcher dispatcher, Security security, Locale locale, GenericValue userLogin) {
+    public static void populateBasicContext(MapStack<String> context, ScreenRenderer screens, Map parameters, GenericDelegator delegator, LocalDispatcher dispatcher, Security security, Locale locale, GenericValue userLogin) {
         // ========== setup values that should always be in a screen context
         // include an object to more easily render screens
         context.put("screens", screens);
@@ -174,11 +175,11 @@ public class ScreenRenderer {
         populateContextForRequest(context, this, request, response, servletContext);
     }
 
-    public static void populateContextForRequest(MapStack context, ScreenRenderer screens, HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) {
+    public static void populateContextForRequest(MapStack<String> context, ScreenRenderer screens, HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) {
         HttpSession session = request.getSession();
 
         // attribute names to skip for session and application attributes; these are all handled as special cases, duplicating results and causing undesired messages
-        Set attrNamesToSkip = FastSet.newInstance();
+        Set<String> attrNamesToSkip = FastSet.newInstance();
         attrNamesToSkip.add("delegator");
         attrNamesToSkip.add("dispatcher");
         attrNamesToSkip.add("security");
@@ -248,17 +249,18 @@ public class ScreenRenderer {
         context.put("externalKeyParam", externalKeyParam);
 
         // setup message lists
-        List eventMessageList = (List) request.getAttribute("eventMessageList");
-        if (eventMessageList == null) eventMessageList = new LinkedList();
-        List errorMessageList = (List) request.getAttribute("errorMessageList");
-        if (errorMessageList == null) errorMessageList = new LinkedList();
+        List<String> eventMessageList = UtilGenerics.toList(request.getAttribute("eventMessageList"));
+        if (eventMessageList == null) eventMessageList = new LinkedList<String>();
+        List<String> errorMessageList = UtilGenerics.toList(request.getAttribute("errorMessageList"));
+        if (errorMessageList == null) errorMessageList = new LinkedList<String>();
 
         if (request.getAttribute("_EVENT_MESSAGE_") != null) {
             eventMessageList.add(UtilFormatOut.replaceString((String) request.getAttribute("_EVENT_MESSAGE_"), "\n", "<br/>"));
             request.removeAttribute("_EVENT_MESSAGE_");
         }
-        if (request.getAttribute("_EVENT_MESSAGE_LIST_") != null) {
-            eventMessageList.addAll((List) request.getAttribute("_EVENT_MESSAGE_LIST_"));
+        List<String> msgList = UtilGenerics.toList(request.getAttribute("_EVENT_MESSAGE_LIST_"));
+        if (msgList != null) {
+            eventMessageList.addAll(msgList);
             request.removeAttribute("_EVENT_MESSAGE_LIST_");
         }
         if (request.getAttribute("_ERROR_MESSAGE_") != null) {
@@ -269,8 +271,9 @@ public class ScreenRenderer {
             errorMessageList.add(UtilFormatOut.replaceString((String) session.getAttribute("_ERROR_MESSAGE_"), "\n", "<br/>"));
             session.removeAttribute("_ERROR_MESSAGE_");
         }
-        if (request.getAttribute("_ERROR_MESSAGE_LIST_") != null) {
-            errorMessageList.addAll((List) request.getAttribute("_ERROR_MESSAGE_LIST_"));
+        msgList = UtilGenerics.toList(request.getAttribute("_ERROR_MESSAGE_LIST_"));
+        if (msgList != null) {
+            errorMessageList.addAll(msgList);
             request.removeAttribute("_ERROR_MESSAGE_LIST_");
         }
         context.put("eventMessageList", eventMessageList);
@@ -297,7 +300,7 @@ public class ScreenRenderer {
         context.push();
     }
 
-    public Map getContext() {
+    public Map<String, Object> getContext() {
     	return context;
     }
 

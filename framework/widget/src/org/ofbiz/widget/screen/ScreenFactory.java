@@ -46,8 +46,8 @@ public class ScreenFactory {
     
     public static final String module = ScreenFactory.class.getName();
 
-    public static final UtilCache screenLocationCache = new UtilCache("widget.screen.locationResource", 0, 0, false);
-    public static final UtilCache screenWebappCache = new UtilCache("widget.screen.webappResource", 0, 0, false);
+    public static final UtilCache<String, Map<String, ModelScreen>> screenLocationCache = new UtilCache<String, Map<String, ModelScreen>>("widget.screen.locationResource", 0, 0, false);
+    public static final UtilCache<String, Map<String, ModelScreen>> screenWebappCache = new UtilCache<String, Map<String, ModelScreen>>("widget.screen.webappResource", 0, 0, false);
 
     public static boolean isCombinedName(String combinedName) {
         int numSignIndex = combinedName.lastIndexOf("#");
@@ -105,10 +105,10 @@ public class ScreenFactory {
 
     public static Map getScreensFromLocation(String resourceName) 
             throws IOException, SAXException, ParserConfigurationException {
-        Map modelScreenMap = (Map) screenLocationCache.get(resourceName);
+        Map<String, ModelScreen> modelScreenMap = screenLocationCache.get(resourceName);
         if (modelScreenMap == null) {
             synchronized (ScreenFactory.class) {
-                modelScreenMap = (Map) screenLocationCache.get(resourceName);
+                modelScreenMap = screenLocationCache.get(resourceName);
                 if (modelScreenMap == null) {
                     long startTime = System.currentTimeMillis();
                     ClassLoader loader = Thread.currentThread().getContextClassLoader();
@@ -142,10 +142,10 @@ public class ScreenFactory {
         String cacheKey = webappName + "::" + resourceName;
         
         
-        Map modelScreenMap = (Map) screenWebappCache.get(cacheKey);
+        Map<String, ModelScreen> modelScreenMap = screenWebappCache.get(cacheKey);
         if (modelScreenMap == null) {
             synchronized (ScreenFactory.class) {
-                modelScreenMap = (Map) screenWebappCache.get(cacheKey);
+                modelScreenMap = screenWebappCache.get(cacheKey);
                 if (modelScreenMap == null) {
                     ServletContext servletContext = (ServletContext) request.getAttribute("servletContext");
                     
@@ -164,8 +164,8 @@ public class ScreenFactory {
         return modelScreen;
     }
     
-    public static Map readScreenDocument(Document screenFileDoc, String sourceLocation) {
-        Map modelScreenMap = new HashMap();
+    public static Map<String, ModelScreen> readScreenDocument(Document screenFileDoc, String sourceLocation) {
+        Map<String, ModelScreen> modelScreenMap = new HashMap<String, ModelScreen>();
         if (screenFileDoc != null) {
             // read document and construct ModelScreen for each screen element
             Element rootElement = screenFileDoc.getDocumentElement();

@@ -19,30 +19,12 @@
 package org.ofbiz.widget.text;
 
 import java.io.IOException;
-import java.io.Writer;
-import java.util.Locale;
 import java.util.Map;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
-import org.ofbiz.base.util.UtilFormatOut;
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericDelegator;
-import org.ofbiz.entity.GenericValue;
-import org.ofbiz.webapp.control.RequestHandler;
-import org.ofbiz.webapp.taglib.ContentUrlTag;
-import org.ofbiz.widget.WidgetContentWorker;
 import org.ofbiz.widget.screen.ModelScreenWidget;
 import org.ofbiz.widget.screen.ScreenStringRenderer;
-import org.ofbiz.service.LocalDispatcher;
-import javolution.util.FastMap;
 
 /**
  * Widget Library - Text Screen Renderer implementation

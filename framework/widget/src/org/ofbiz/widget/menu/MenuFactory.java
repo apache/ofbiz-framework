@@ -48,8 +48,8 @@ public class MenuFactory {
     
     public static final String module = MenuFactory.class.getName();
 
-    public static final UtilCache menuWebappCache = new UtilCache("widget.menu.webappResource", 0, 0, false);
-    public static final UtilCache menuLocationCache = new UtilCache("widget.menu.locationResource", 0, 0, false);
+    public static final UtilCache<String, Map<String, ModelMenu>> menuWebappCache = new UtilCache<String, Map<String, ModelMenu>>("widget.menu.webappResource", 0, 0, false);
+    public static final UtilCache<String, Map<String, ModelMenu>> menuLocationCache = new UtilCache<String, Map<String, ModelMenu>>("widget.menu.locationResource", 0, 0, false);
     
     public static ModelMenu getMenuFromWebappContext(String resourceName, String menuName, HttpServletRequest request) 
             throws IOException, SAXException, ParserConfigurationException {
@@ -57,10 +57,10 @@ public class MenuFactory {
         String cacheKey = webappName + "::" + resourceName;
         
         
-        Map modelMenuMap = (Map) menuWebappCache.get(cacheKey);
+        Map<String, ModelMenu> modelMenuMap = menuWebappCache.get(cacheKey);
         if (modelMenuMap == null) {
             synchronized (MenuFactory.class) {
-                modelMenuMap = (Map) menuWebappCache.get(cacheKey);
+                modelMenuMap = menuWebappCache.get(cacheKey);
                 if (modelMenuMap == null) {
                     ServletContext servletContext = (ServletContext) request.getAttribute("servletContext");
                     GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
@@ -85,8 +85,8 @@ public class MenuFactory {
         return modelMenu;
     }
     
-    public static Map readMenuDocument(Document menuFileDoc, GenericDelegator delegator, LocalDispatcher dispatcher, String menuLocation) {
-        Map modelMenuMap = new HashMap();
+    public static Map<String, ModelMenu> readMenuDocument(Document menuFileDoc, GenericDelegator delegator, LocalDispatcher dispatcher, String menuLocation) {
+        Map<String, ModelMenu> modelMenuMap = new HashMap<String, ModelMenu>();
         if (menuFileDoc != null) {
             // read document and construct ModelMenu for each menu element
             Element rootElement = menuFileDoc.getDocumentElement();
@@ -104,10 +104,10 @@ public class MenuFactory {
 
     public static ModelMenu getMenuFromLocation(String resourceName, String menuName, GenericDelegator delegator, LocalDispatcher dispatcher) 
             throws IOException, SAXException, ParserConfigurationException {
-        Map modelMenuMap = (Map) menuLocationCache.get(resourceName);
+        Map<String, ModelMenu> modelMenuMap = menuLocationCache.get(resourceName);
         if (modelMenuMap == null) {
             synchronized (MenuFactory.class) {
-                modelMenuMap = (Map) menuLocationCache.get(resourceName);
+                modelMenuMap = menuLocationCache.get(resourceName);
                 if (modelMenuMap == null) {
                     ClassLoader loader = Thread.currentThread().getContextClassLoader();
                     if (loader == null) {

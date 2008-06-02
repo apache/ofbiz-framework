@@ -20,7 +20,6 @@ package org.ofbiz.widget.tree;
 
 import java.io.IOException;
 import java.io.StringWriter;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -60,6 +59,7 @@ import org.xml.sax.SAXException;
 /**
  * Widget Library - Tree model class
  */
+@SuppressWarnings("serial")
 public class ModelTree extends ModelWidget {
 
     public static final String module = ModelTree.class.getName();
@@ -68,14 +68,14 @@ public class ModelTree extends ModelWidget {
     protected String rootNodeName;
     protected String defaultRenderStyle;
     protected FlexibleStringExpander defaultWrapStyleExdr;
-    protected List nodeList = new ArrayList();
-    protected Map nodeMap = new HashMap();
+    protected List<ModelNode> nodeList = new ArrayList<ModelNode>();
+    protected Map<String, ModelNode> nodeMap = new HashMap<String, ModelNode>();
     protected GenericDelegator delegator;
     protected LocalDispatcher dispatcher;
     protected FlexibleStringExpander expandCollapseRequestExdr;
     protected FlexibleStringExpander trailNameExdr;
     protected List trail = new ArrayList();
-    protected List currentNodeTrail;
+    protected List<String> currentNodeTrail;
     protected int openDepth;
     protected int postTrailOpenDepth;
     protected int [] nodeIndices = new int[20];

@@ -30,6 +30,7 @@ import javax.servlet.http.HttpSession;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.template.FreeMarkerWorker;
 import org.ofbiz.entity.GenericDelegator;
@@ -62,26 +63,27 @@ public class MenuWrapTransform implements TemplateTransformModel {
         return FreeMarkerWorker.getWrappedObject(varName, env);
     }
 
-    public static String getArg(Map args, String key, Environment env) {
+    public static String getArg(Map<String, Object> args, String key, Environment env) {
         return FreeMarkerWorker.getArg(args, key, env);
     }
 
-    public static String getArg(Map args, String key, Map ctx) {
+    public static String getArg(Map<String, Object> args, String key, Map<String, Object> ctx) {
         return FreeMarkerWorker.getArg(args, key, ctx);
     }
 
     public Writer getWriter(final Writer out, Map args) {
+        Map<String, Object> checkedArgs = UtilGenerics.checkMap(args);
         final StringBuffer buf = new StringBuffer();
         final Environment env = Environment.getCurrentEnvironment();
-        final Map templateCtx = (Map) FreeMarkerWorker.getWrappedObject("context", env);
+        final Map<String, Object> templateCtx = UtilGenerics.checkMap(FreeMarkerWorker.getWrappedObject("context", env));
         final GenericDelegator delegator = (GenericDelegator) FreeMarkerWorker.getWrappedObject("delegator", env);
         final HttpServletRequest request = (HttpServletRequest) FreeMarkerWorker.getWrappedObject("request", env);
         final HttpServletResponse response = (HttpServletResponse) FreeMarkerWorker.getWrappedObject("response", env);
         final HttpSession session = (HttpSession) FreeMarkerWorker.getWrappedObject("session", env);
         FreeMarkerWorker.getSiteParameters(request, templateCtx);
-        final Map savedValuesUp = new HashMap();
+        final Map<String, Object> savedValuesUp = new HashMap<String, Object>();
         FreeMarkerWorker.saveContextValues(templateCtx, upSaveKeyNames, savedValuesUp);
-        FreeMarkerWorker.overrideWithArgs(templateCtx, args);
+        FreeMarkerWorker.overrideWithArgs(templateCtx, checkedArgs);
         //final String menuDefFile = (String)templateCtx.get("menuDefFile");
         //final String menuName = (String)templateCtx.get("menuName");
         //final String associatedContentId = (String)templateCtx.get("associatedContentId");
@@ -133,7 +135,7 @@ public class MenuWrapTransform implements TemplateTransformModel {
         templateCtx.put("dataResourceId", dataResourceId);
         templateCtx.put("subContentIdSub", subContentIdSub);
         templateCtx.put("subDataResourceTypeId", subDataResourceTypeId);
-        final Map savedValues = new HashMap();
+        final Map<String, Object> savedValues = new HashMap<String, Object>();
         FreeMarkerWorker.saveContextValues(templateCtx, saveKeyNames, savedValues);
 
         return new LoopWriter(out) {

@@ -34,7 +34,6 @@ import org.ofbiz.webapp.view.ViewHandler;
 import org.ofbiz.webapp.view.ViewHandlerException;
 import org.xml.sax.SAXException;
 
-import org.ofbiz.widget.screen.ScreenWidgetViewHandler;
 import org.ofbiz.widget.text.TextFormRenderer;
 import org.ofbiz.widget.text.TextScreenRenderer;
 

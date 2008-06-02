@@ -40,7 +40,7 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.GroovyUtil;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.StringUtil;
-import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
@@ -77,8 +77,8 @@ public abstract class ModelScreenAction implements Serializable {
     
     public abstract void runAction(Map<String, Object> context) throws GeneralException;
     
-    public static List readSubActions(ModelScreen modelScreen, Element parentElement) {
-        List actions = FastList.newInstance();
+    public static List<ModelScreenAction> readSubActions(ModelScreen modelScreen, Element parentElement) {
+        List<ModelScreenAction> actions = FastList.newInstance();
         
         List actionElementList = UtilXml.childElementList(parentElement);
         Iterator actionElementIter = actionElementList.iterator();
@@ -123,6 +123,7 @@ public abstract class ModelScreenAction implements Serializable {
         }
     }
     
+    @SuppressWarnings("serial")
     public static class SetField extends ModelScreenAction {
         protected FlexibleMapAccessor field;
         protected FlexibleMapAccessor fromField;
@@ -152,8 +153,6 @@ public abstract class ModelScreenAction implements Serializable {
             String globalStr = this.globalExdr.expandString(context);
             // default to false
             boolean global = "true".equals(globalStr);
-            
-            Locale locale = UtilMisc.ensureLocale(context.get("locale"));
             
             Object newValue = null;
             if (this.fromScope != null && this.fromScope.equals("user")) {
@@ -198,7 +197,7 @@ public abstract class ModelScreenAction implements Serializable {
             
             if (this.toScope != null && this.toScope.equals("user")) {
                 String originalName = this.field.getOriginalName();
-                List currentWidgetTrail = (List)context.get("_WIDGETTRAIL_");
+                List<String> currentWidgetTrail = UtilGenerics.toList(context.get("_WIDGETTRAIL_"));
                 String newKey = "";
                 if (currentWidgetTrail != null) {
                     newKey = StringUtil.join(currentWidgetTrail, "|");
@@ -212,7 +211,7 @@ public abstract class ModelScreenAction implements Serializable {
                 if (Debug.verboseOn()) Debug.logVerbose("In user setting value for field from [" + this.field.getOriginalName() + "]: " + newValue, module);
             } else if (this.toScope != null && this.toScope.equals("application")) {
                 String originalName = this.field.getOriginalName();
-                List currentWidgetTrail = (List)context.get("_WIDGETTRAIL_");
+                List<String> currentWidgetTrail = UtilGenerics.toList(context.get("_WIDGETTRAIL_"));
                 String newKey = "";
                 if (currentWidgetTrail != null) {
                     newKey = StringUtil.join(currentWidgetTrail, "|");
@@ -251,14 +250,14 @@ public abstract class ModelScreenAction implements Serializable {
         public Object getInMemoryPersistedFromField(Object storeAgent, Map<String, Object> context) {
             Object newValue = null;
             String originalName = this.fromField.getOriginalName();
-            List currentWidgetTrail = (List)context.get("_WIDGETTRAIL_");
-            List trailList = new ArrayList();
+            List<String> currentWidgetTrail = UtilGenerics.toList(context.get("_WIDGETTRAIL_"));
+            List<String> trailList = new ArrayList<String>();
             if (currentWidgetTrail != null) {
                 trailList.addAll(currentWidgetTrail);
             }
             
             for (int i=trailList.size(); i >= 0; i--) {
-                List subTrail = trailList.subList(0,i);
+                List<String> subTrail = trailList.subList(0,i);
                 String newKey = null;
                 if (subTrail.size() > 0)
                     newKey = StringUtil.join(subTrail, "|") + "|" + originalName;
@@ -278,6 +277,7 @@ public abstract class ModelScreenAction implements Serializable {
         }
     }
     
+    @SuppressWarnings("serial")
     public static class PropertyMap extends ModelScreenAction {
         protected FlexibleStringExpander resourceExdr;
         protected FlexibleMapAccessor mapNameAcsr;
@@ -322,6 +322,7 @@ public abstract class ModelScreenAction implements Serializable {
         }
     }
     
+    @SuppressWarnings("serial")
     public static class PropertyToField extends ModelScreenAction {
         
         protected FlexibleStringExpander resourceExdr;
@@ -378,6 +379,7 @@ public abstract class ModelScreenAction implements Serializable {
         }
     }
     
+    @SuppressWarnings("serial")
     public static class Script extends ModelScreenAction {
         protected String location;
         
@@ -402,7 +404,7 @@ public abstract class ModelScreenAction implements Serializable {
             } else if (location.contains(".xml#")) {
                 String xmlResource = ScreenFactory.getResourceNameFromCombined(location);
                 String methodName = ScreenFactory.getScreenNameFromCombined(location);
-                Map localContext = FastMap.newInstance();
+                Map<String, Object> localContext = FastMap.newInstance();
                 localContext.putAll(context);
                 DispatchContext ctx = this.modelScreen.getDispatcher(context).getDispatchContext();
                 MethodContext methodContext = new MethodContext(ctx, localContext, null);
@@ -418,11 +420,12 @@ public abstract class ModelScreenAction implements Serializable {
         }
     }
 
+    @SuppressWarnings("serial")
     public static class Service extends ModelScreenAction {
         protected FlexibleStringExpander serviceNameExdr;
         protected FlexibleMapAccessor resultMapNameAcsr;
         protected FlexibleStringExpander autoFieldMapExdr;
-        protected Map fieldMap;
+        protected Map<FlexibleMapAccessor, Object> fieldMap;
         
         public Service(ModelScreen modelScreen, Element serviceElement) {
             super (modelScreen, serviceElement);
@@ -441,20 +444,20 @@ public abstract class ModelScreenAction implements Serializable {
             String autoFieldMapString = this.autoFieldMapExdr.expandString(context);
             
             try {
-                Map serviceContext = null;
+                Map<String, Object> serviceContext = null;
                 if ("true".equals(autoFieldMapString)) {
                     DispatchContext dc = this.modelScreen.getDispatcher(context).getDispatchContext();
                     // try a map called "parameters", try it first so values from here are overriden by values in the main context
-                    Map combinedMap = FastMap.newInstance();
-                    Object parametersObj = context.get("parameters");
-                    if (parametersObj != null && parametersObj instanceof Map) {
-                        combinedMap.putAll((Map) parametersObj);
+                    Map<String, Object> combinedMap = FastMap.newInstance();
+                    Map<String, Object> parametersObj = UtilGenerics.toMap(context.get("parameters"));
+                    if (parametersObj != null) {
+                        combinedMap.putAll(parametersObj);
                     }
                     combinedMap.putAll(context);
                     serviceContext = dc.makeValidContext(serviceNameExpanded, ModelService.IN_PARAM, combinedMap);
                 } else if (UtilValidate.isNotEmpty(autoFieldMapString) && !"false".equals(autoFieldMapString)) {
                     FlexibleMapAccessor fieldFma = new FlexibleMapAccessor(autoFieldMapString);
-                    Map autoFieldMap = (Map) fieldFma.get(context);
+                    Map<String, Object> autoFieldMap = UtilGenerics.toMap(fieldFma.get(context));
                     if (autoFieldMap != null) {
                         serviceContext = this.modelScreen.getDispatcher(context).getDispatchContext().makeValidContext(serviceNameExpanded, ModelService.IN_PARAM, autoFieldMap);
                     }
@@ -467,7 +470,7 @@ public abstract class ModelScreenAction implements Serializable {
                     EntityFinderUtil.expandFieldMapToContext(this.fieldMap, context, serviceContext);
                 }
                 
-                Map result = this.modelScreen.getDispatcher(context).runSync(serviceNameExpanded, serviceContext);
+                Map<String, Object> result = this.modelScreen.getDispatcher(context).runSync(serviceNameExpanded, serviceContext);
                 
                 if (this.resultMapNameAcsr != null) {
                     this.resultMapNameAcsr.put(context, result);
@@ -493,6 +496,7 @@ public abstract class ModelScreenAction implements Serializable {
         }
     }
 
+    @SuppressWarnings("serial")
     public static class EntityOne extends ModelScreenAction {
         protected PrimaryKeyFinder finder;
         
@@ -512,6 +516,7 @@ public abstract class ModelScreenAction implements Serializable {
         }
     }
 
+    @SuppressWarnings("serial")
     public static class EntityAnd extends ModelScreenAction {
         protected ByAndFinder finder;
         
@@ -531,6 +536,7 @@ public abstract class ModelScreenAction implements Serializable {
         }
     }
 
+    @SuppressWarnings("serial")
     public static class EntityCondition extends ModelScreenAction {
         ByConditionFinder finder;
         
@@ -550,6 +556,7 @@ public abstract class ModelScreenAction implements Serializable {
         }
     }
 
+    @SuppressWarnings("serial")
     public static class GetRelatedOne extends ModelScreenAction {
         protected FlexibleMapAccessor valueNameAcsr;
         protected FlexibleMapAccessor toValueNameAcsr;
@@ -591,6 +598,7 @@ public abstract class ModelScreenAction implements Serializable {
         
     }
 
+    @SuppressWarnings("serial")
     public static class GetRelated extends ModelScreenAction {
         protected FlexibleMapAccessor valueNameAcsr;
         protected FlexibleMapAccessor listNameAcsr;
@@ -621,13 +629,13 @@ public abstract class ModelScreenAction implements Serializable {
                 throw new IllegalArgumentException(errMsg);
             }
             GenericValue value = (GenericValue) valueObject;
-            List orderByNames = null;
+            List<String> orderByNames = null;
             if (!orderByListAcsr.isEmpty()) {
-                orderByNames = (List) orderByListAcsr.get(context);
+                orderByNames = UtilGenerics.toList(orderByListAcsr.get(context));
             }
-            Map constraintMap = null;
+            Map<String, Object> constraintMap = null;
             if (!mapAcsr.isEmpty()) {
-                constraintMap = (Map) mapAcsr.get(context);
+                constraintMap = UtilGenerics.toMap(mapAcsr.get(context));
             }
             try {
                 if (useCache) {

@@ -19,6 +19,7 @@
 package org.ofbiz.widget.cache;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 
 import java.util.Iterator;
@@ -32,7 +33,7 @@ public class WidgetContextCacheKey {
 
     public static final String module = WidgetContextCacheKey.class.getName();
     
-    private static Set fieldNamesToSkip;
+    private static Set<String> fieldNamesToSkip;
     
     static {
         fieldNamesToSkip = FastSet.newInstance();
@@ -80,9 +81,9 @@ public class WidgetContextCacheKey {
         fieldNamesToSkip.add("visitor");
     }
             
-    protected Map context;
+    protected Map<String, Object> context;
 
-    public WidgetContextCacheKey(Map context) {
+    public WidgetContextCacheKey(Map<String, Object> context) {
         this.context = FastMap.newInstance();
         this.context.putAll(context);
     }
@@ -90,6 +91,7 @@ public class WidgetContextCacheKey {
     public int hashCode() {
         return 0;
     }
+
     public boolean equals(Object obj) {
         WidgetContextCacheKey key = null;
         if (obj instanceof WidgetContextCacheKey) {
@@ -102,7 +104,7 @@ public class WidgetContextCacheKey {
             return false;
         }
 
-        Set unifiedContext = FastSet.newInstance();
+        Set<String> unifiedContext = FastSet.newInstance();
         unifiedContext.addAll(this.context.keySet());
         unifiedContext.addAll(key.context.keySet());
         Iterator fieldNameIt = unifiedContext.iterator();
@@ -121,7 +123,7 @@ public class WidgetContextCacheKey {
                 return false;
             }
             if ("parameters".equals(fieldName)) {
-                if (!parametersAreEqual((Map)field1, (Map)field2)) {
+                if (!parametersAreEqual(UtilGenerics.checkMap(field1), UtilGenerics.checkMap(field2))) {
                     return false;
                 }
                 continue;
@@ -135,7 +137,7 @@ public class WidgetContextCacheKey {
     }
     
     public String toString() {
-        Map printableMap = FastMap.newInstance();
+        Map<String, Object> printableMap = FastMap.newInstance();
         Iterator fieldNameIt = this.context.keySet().iterator();
         while (fieldNameIt.hasNext()) {
             String fieldName = (String)fieldNameIt.next();
@@ -147,7 +149,7 @@ public class WidgetContextCacheKey {
     }
 
     public static String printMap(Map map) {
-        Map printableMap = FastMap.newInstance();
+        Map<String, Object> printableMap = FastMap.newInstance();
         Iterator fieldNameIt = map.keySet().iterator();
         while (fieldNameIt.hasNext()) {
             String fieldName = (String)fieldNameIt.next();
@@ -161,8 +163,8 @@ public class WidgetContextCacheKey {
         return UtilMisc.printMap(printableMap);
     }
 
-    public static boolean parametersAreEqual(Map map1, Map map2) {
-        Set unifiedContext = FastSet.newInstance();
+    public static boolean parametersAreEqual(Map<Object, Object> map1, Map<Object, Object> map2) {
+        Set<Object> unifiedContext = FastSet.newInstance();
         unifiedContext.addAll(map1.keySet());
         unifiedContext.addAll(map2.keySet());
         Iterator fieldNameIt = unifiedContext.iterator();
