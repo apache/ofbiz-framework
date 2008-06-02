@@ -66,7 +66,7 @@ if (tree != null) {
                                                                                               "userLogin", userLogin));
                 qoh = (Double)outMap.get("quantityOnHandTotal");
             }
-        } catch(GenericServiceException gse) {}
+        } catch(Exception e) {}
         productsData.add(UtilMisc.toMap("node", node, "unitCost", unitCost, "totalCost", totalCost, "qoh", qoh));
     }
     context.put("productsData", productsData);
