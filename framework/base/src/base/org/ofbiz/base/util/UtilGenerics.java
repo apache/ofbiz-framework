@@ -46,6 +46,7 @@ public class UtilGenerics {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public static <T> Collection<T> checkCollection(Object object) {
         return (Collection<T>) checkCollectionCast(object, Collection.class);
     }
@@ -55,6 +56,7 @@ public class UtilGenerics {
         return checkCollection(object);
     }
 
+    @SuppressWarnings("unchecked")
     public static <T> List<T> checkList(Object object) {
         return (List<T>) checkCollectionCast(object, List.class);
     }
@@ -64,6 +66,7 @@ public class UtilGenerics {
         return checkList(object);
     }
 
+    @SuppressWarnings("unchecked")
     public static <K, V> Map<K, V> checkMap(Object object) {
         if (object != null && !(object instanceof Map)) throw new ClassCastException("Not a map");
         return (Map<K, V>) object;
@@ -87,6 +90,7 @@ public class UtilGenerics {
         return checkMap(object);
     }
 
+    @SuppressWarnings("unchecked")
     public static <T> Set<T> checkSet(Object object) {
         return (Set<T>) checkCollectionCast(object, Set.class);
     }
@@ -94,6 +98,24 @@ public class UtilGenerics {
     public static <T> Set<T> checkSet(Object object, Class<T> type) {
         checkCollectionContainment(object, Set.class, type);
         return checkSet(object);
+    }
+
+    /** Returns the Object argument as a parameterized List if the Object argument
+     * is an instance of List. Otherwise returns null.
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> List<T> toList(Object object) {
+        if (object != null && !(object instanceof List)) return null;
+        return (List<T>) object;
+    }
+
+    /** Returns the Object argument as a parameterized Map if the Object argument
+     * is an instance of Map. Otherwise returns null.
+     */
+    @SuppressWarnings("unchecked")
+    public static <K, V> Map<K, V> toMap(Object object) {
+        if (object != null && !(object instanceof Map)) return null;
+        return (Map<K, V>) object;
     }
 
     public static <K, V> Map<K, V> toMap(Class<K> keyType, Class<V> valueType, Object... data) {
@@ -116,6 +138,7 @@ public class UtilGenerics {
         return map;
     }
 
+    @SuppressWarnings("hiding")
     public static <K, Object> Map<K, Object> toMap(Class<K> keyType, Object... data) {
         if (data == null) {
             return null;
