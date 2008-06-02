@@ -229,7 +229,7 @@
     </form>
 
     <form name="ListItemIssuance"  title="PageTitleFixedAssetMaintItemIssuance" type="list"  list-name="itemIssuanceList" 
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="productId" title="Part Id"><display/></field>
         <field name="quantity" position="1" title="${uiLabelMap.CommonQuantity}"><display/></field>
         <field name="productName" position="1" title="${uiLabelMap.CommonName}"><display/></field>

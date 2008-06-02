@@ -20,6 +20,7 @@ under the License.
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
     <screen name="main-decorator">
         <section>
             <actions>
@@ -43,72 +44,6 @@ under the License.
         </section>
     </screen>
 
-    <screen name="CommonFixedAssetDecorator"><!--Appbar level decorator-->
-        <section>
-            <actions>
-                <set field="headerItem" global="true" value="fixedAssets"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="main-decorator">
-                    <decorator-section name="body">
-                        <section>
-                            <condition>
-                                <if-has-permission permission="ASSETMAINT" action="_VIEW"/>
-                            </condition>
-                            <widgets>
-                                <section>
-                                    <condition><not><if-empty field-name="fixedAsset"/></not></condition>
-                                    <widgets>
-                                        <include-menu name="FixedAssetTabBar" location="component://assetmaint/widget/Menus.xml"/>
-                                    </widgets>
-                                </section>
-                                <decorator-section-include name="body"/>
-                            </widgets>
-                            <fail-widgets>
-                                <label style="h3" text="${uiLabelMap.AssetMaintViewPermissionError}"/>
-                            </fail-widgets>
-                        </section>                    
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-
-    <screen name="CommonFixedAssetMaintDecorator"><!--Appbar level decorator-->
-        <section>
-            <actions>
-                <set field="headerItem" value="fixedAssetMaints"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="main-decorator">
-                    <decorator-section name="body">
-                        <section>
-                            <condition>
-                                <if-has-permission permission="ASSETMAINT" action="_VIEW"/>
-                            </condition>
-                            <widgets>
-                                <section>
-                                    <condition><not><if-empty field-name="maintHistSeqId"/></not></condition>
-                                    <widgets>
-                                        <include-menu name="FixedAssetMaintTabBar" location="component://assetmaint/widget/Menus.xml"/>
-                                        <label style="h1" text="${uiLabelMap.${labelTitleProperty}} ${uiLabelMap.CommonFor}: ${fixedAsset.fixedAssetName} [${fixedAssetId}]  ${${extraFunctionName}}"/>
-                                    </widgets>
-                                    <fail-widgets>
-                                        <label style="h1" text="${uiLabelMap.${labelTitleProperty}}"/>
-                                    </fail-widgets>
-                                </section>
-                                <decorator-section-include name="body"/>
-                            </widgets>
-                            <fail-widgets>
-                                <label style="h3" text="${uiLabelMap.AssetMaintViewPermissionError}"/>
-                            </fail-widgets>
-                        </section>                    
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-
     <screen name="CommonFacilityDecorator">
         <section>
             <actions>
@@ -118,10 +53,13 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <include-menu name="FacilityTabBar" location="component://assetmaint/widget/Menus.xml"/>
+                    </decorator-section>
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-has-permission permission="ASSETMAINT" action="_VIEW"/>
+                                <if-service-permission service-name="facilityGenericPermission" main-action="VIEW"/>
                             </condition>
                             <widgets>
                                 <section>
@@ -132,7 +70,6 @@ under the License.
                                         </or>
                                     </condition>
                                     <widgets>
-                                        <include-menu name="FacilityTabBar" location="component://assetmaint/widget/Menus.xml"/>
                                         <decorator-section-include name="body"/>
                                     </widgets>
                                     <fail-widgets>
@@ -149,5 +86,6 @@ under the License.
             </widgets>
         </section>
     </screen>
+
 </screens>
         

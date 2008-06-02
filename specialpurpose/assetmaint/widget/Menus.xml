@@ -21,42 +21,7 @@
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
     
-    <menu name="FixedAssetTabBar" default-menu-item-name="EditFixedAsset" type="simple"
-         default-selected-style="selected" menu-container-style="button-bar tab-bar">
-        <menu-item name="EditFixedAsset" title="${uiLabelMap.AccountingFixedAsset}">
-            <link target="EditFixedAsset?fixedAssetId=${fixedAssetId}"/>
-        </menu-item>
-        <menu-item name="FixedAssetChildren" title="${uiLabelMap.AccountingFixedAssetChildren}">
-            <link target="FixedAssetChildren?rootAssetId=${fixedAssetId}&amp;trail=${fixedAssetId}"/>
-        </menu-item>
-        <menu-item name="ListFixedAssetCalendar" title="${uiLabelMap.AccountingFixedAssetCalendar}">
-            <link target="week?fixedAssetId=${fixedAssetId}"/>
-        </menu-item>
-        <menu-item name="EditFixedAssetStdCosts" title="${uiLabelMap.AccountingFixedAssetStdCosts}">
-            <link target="EditFixedAssetStdCosts?fixedAssetId=${fixedAssetId}"/>
-        </menu-item>
-        <menu-item name="EditFixedAssetIdents" title="${uiLabelMap.AccountingFixedAssetIdents}">
-            <link target="EditFixedAssetIdents?fixedAssetId=${fixedAssetId}"/>
-        </menu-item>
-        <menu-item name="EditFixedAssetRegistrations" title="${uiLabelMap.AccountingFixedAssetRegistrations}">
-            <link target="EditFixedAssetRegistrations?fixedAssetId=${fixedAssetId}"/>
-        </menu-item>
-        <menu-item name="ListFixedAssetMaints" title="${uiLabelMap.AccountingFixedAssetMaints}">
-            <link target="ListFixedAssetMaints?fixedAssetId=${fixedAssetId}"/>
-        </menu-item>
-        <menu-item name="EditPartyFixedAssetAssignments" title="${uiLabelMap.AccountingPartyFixedAssetAssignments}">
-            <link target="EditPartyFixedAssetAssignments?fixedAssetId=${fixedAssetId}"/>
-        </menu-item>
-    </menu>
-
-    <menu name="FixedAssetMaintTabBar" selected-menuitem-context-field-name="tabButtonItemFixedAssetMaint" default-menu-item-name="EditFixedAssetMaint"
-         default-selected-style="selected" menu-container-style="button-bar tab-bar">
-        <menu-item name="EditFixedAssetMaint" title="${uiLabelMap.AccountingFixedAssetMaint}">
-            <link target="EditFixedAssetMaint?fixedAssetId=${fixedAssetMaint.fixedAssetId}&amp;maintHistSeqId=${fixedAssetMaint.maintHistSeqId}"/>
-        </menu-item>
-        <menu-item name="EditFixedAssetMeter" title="${uiLabelMap.AccountingFixedAssetMaintMeters}">
-            <link target="EditFixedAssetMaintMeters?fixedAssetId=${fixedAssetMaint.fixedAssetId}&amp;maintHistSeqId=${fixedAssetMaint.maintHistSeqId}"/>
-        </menu-item>
+    <menu name="FixedAssetMaintTabBar" extends="FixedAssetMaintTabBar" extends-resource="component://accounting/widget/Menus.xml">
         <menu-item name="EditWorkEfforts" title="${uiLabelMap.WorkEffortAllTasks}">
             <link target="EditWorkEfforts?fixedAssetId=${fixedAssetMaint.fixedAssetId}&amp;maintHistSeqId=${fixedAssetMaint.maintHistSeqId}&amp;workEffortId=${fixedAssetMaint.scheduleWorkEffortId}"/>
         </menu-item>
@@ -69,13 +34,10 @@
         <menu-item name="EditItemIssuances" title="${uiLabelMap.FixedAssetMaintItemIssuance}">
             <link target="EditItemIssuances?fixedAssetId=${fixedAssetMaint.fixedAssetId}&amp;maintHistSeqId=${fixedAssetMaint.maintHistSeqId}"/>
         </menu-item>
-        <menu-item name="EditFixedAssetMaintOrders" title="${uiLabelMap.AccountingFixedAssetMaintOrders}">
-            <link target="EditFixedAssetMaintOrders?fixedAssetId=${fixedAssetMaint.fixedAssetId}&amp;maintHistSeqId=${fixedAssetMaint.maintHistSeqId}"/>
-        </menu-item>
     </menu>  
     
     <menu name="FacilityTabBar" default-menu-item-name="ViewFacilityInventoryByProduct"
-         default-selected-style="selected" menu-container-style="button-bar tab-bar">
+         default-selected-style="selected" menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="tabButtonItem">
         <menu-item name="EditFacility" title="${uiLabelMap.ProductFacility}">
             <link target="EditFacility?facilityId=${facilityId}"/>
         </menu-item>
@@ -87,6 +49,9 @@
         </menu-item>
         <menu-item name="ViewFacilityInventoryByProduct" title="${uiLabelMap.ProductInventory}">
             <link target="ViewFacilityInventoryByProduct?facilityId=${facilityId}"/>
+        </menu-item>
+        <menu-item name="EditFacilityInventoryItems" title="${uiLabelMap.ProductInventoryItems}">
+            <link target="EditFacilityInventoryItems?facilityId=${facilityId}"/>
         </menu-item>
         <menu-item name="ReceiveInventory" title="${uiLabelMap.ProductInventoryReceive}">
             <link target="ReceiveInventory?facilityId=${facilityId}"/>
@@ -108,4 +73,5 @@
             <link target="month?fixedAssetId=${fixedAssetId}"/>
         </menu-item>
     </menu>
+
 </menus>
