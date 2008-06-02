@@ -27,6 +27,7 @@ under the License.
     <!-- event handlers -->
     <handler name="service-multi" type="request" class="org.ofbiz.webapp.event.ServiceMultiEventHandler"/>
     <handler name="bsf" type="request" class="org.ofbiz.webapp.event.BsfEventHandler"/>
+    <handler name="groovy" type="request" class="org.ofbiz.webapp.event.GroovyEventHandler"/>
 
     <!-- Events to run on every request before security (chains exempt) -->
     <!--
@@ -443,7 +444,8 @@ under the License.
     </request-map>
     <request-map uri="ShowProductionRun">
         <security https="true" auth="true"/>
-        <event type="bsf" path="/jobshopmgt/" invoke="ShowProductionRun.bsh"/>
+        <!-- <event type="bsf" path="/jobshopmgt/" invoke="ShowProductionRun.bsh"/>  -->
+        <event type="groovy" path="component://manufacturing/webapp/manufacturing/jobshopmgt/" invoke="ShowProductionRun.groovy"/>
         <response name="docs_not_printed" type="view" value="EditProductionRun"/>
         <response name="docs_printed" type="view" value="ProductionRunDeclaration"/>
         <response name="error" type="view" value="FindProductionRun"/>
