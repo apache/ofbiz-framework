@@ -4201,7 +4201,7 @@
     <property key="PageTitleEditFacilityContactMech">
         <value xml:lang="en">Edit Facility Contact Mechanism for ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="es">Editar Mecanismos de Contacto de un Almacén</value>
-        <value xml:lang="fr">Édition des coordonnées du lieu de stockage</value>
+        <value xml:lang="fr">Édition des coordonnées du lieu de stockage ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="it">Aggiorna Contatto Stabilimento</value>
         <value xml:lang="ro">Actualizeaza Contact Compartiment</value>
         <value xml:lang="ru">Изменить способ контакта объекта</value>
@@ -4251,7 +4251,7 @@
     <property key="PageTitleEditFacilityGroups">
         <value xml:lang="en">Edit Facility Groups for ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="es">Editar Grupos de Almacén</value>
-        <value xml:lang="fr">Édition des groupes de lieux de stockage</value>
+        <value xml:lang="fr">Édition des groupes de lieux de stockage pour ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="it">Aggiorna Gruppi Stabilimento</value>
         <value xml:lang="ro">Actualizeaza Grupuri Compartimente</value>
         <value xml:lang="ru">Изменить группы объектов</value>
@@ -4261,7 +4261,7 @@
     <property key="PageTitleEditFacilityInventoryItems">
         <value xml:lang="en">Edit Facility Inventory Items for ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="es">Editar Artículos del Inventario de un Almacén</value>
-        <value xml:lang="fr">Édition des lignes de stocks</value>
+        <value xml:lang="fr">Édition des lignes de stocks pour ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="it">Aggiorna Righe Inventario Stabilimento</value>
         <value xml:lang="ru">Изменить позиции реестра ТМЦ объекта</value>
         <value xml:lang="th">แก้ไขรายคลังสินค้าสินค้าคงเหลือ</value>
@@ -4270,7 +4270,7 @@
     <property key="PageTitleEditFacilityLocation">
         <value xml:lang="en">Edit Facility Location for ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="es">Editar sitios de un Almacén</value>
-        <value xml:lang="fr">Édition des emplacements du lieu de stockage</value>
+        <value xml:lang="fr">Édition des emplacements du lieu de stockage ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="it">Aggiorna Posizione Stabilimento</value>
         <value xml:lang="ro">Actualizeaza Pozitie Compartiment</value>
         <value xml:lang="ru">Изменить местонахождение объекта</value>
@@ -4280,7 +4280,7 @@
     <property key="PageTitleEditFacilityRoles">
         <value xml:lang="en">Edit Facility Roles for ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="es">Editar Roles de un Almacén</value>
-        <value xml:lang="fr">Édition des rôles du lieu de stockage</value>
+        <value xml:lang="fr">Édition des rôles du lieu de stockage ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="it">Aggiorna Ruoli Stabilimento</value>
         <value xml:lang="ro">Actualizeaza Rol Compartiment</value>
         <value xml:lang="ru">Изменить роли объекта</value>
@@ -4994,7 +4994,7 @@
     </property>
     <property key="PageTitleFindFacilityInventoryItems">
         <value xml:lang="en">Find Facility Inventory Items for ${facility.facilityName} [${facility.facilityId}]</value>
-        <value xml:lang="fr">Rechercher les lignes de stock du lieu de stockage</value>
+        <value xml:lang="fr">Rechercher les lignes de stock du lieu de stockage ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="it">Ricerca Righe Inventario</value>
         <value xml:lang="th">ค้นหารายการคลังสินค้าสินค้าคงเหลือ</value>
     </property>
@@ -5007,7 +5007,7 @@
     <property key="PageTitleFindFacilityLocation">
         <value xml:lang="en">Find Facility Locations for ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="es">Buscar Sitio de Almacén</value>
-        <value xml:lang="fr">Rechercher l'emplacement d'un stock</value>
+        <value xml:lang="fr">Rechercher l'emplacement d'un stock pour ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="it">Ricerca Posizione Stabilimento</value>
         <value xml:lang="ro">Cauta Pozitie Compartiment</value>
         <value xml:lang="ru">Найти местонахождение объекта</value>
@@ -5097,7 +5097,7 @@
     </property>
     <property key="PageTitleInventoryItemGrandTotals">
         <value xml:lang="en">Inventory Item Grand Totals for ${facility.facilityName} [${facility.facilityId}]</value>
-        <value xml:lang="fr">Total général des lignes de stock</value>
+        <value xml:lang="fr">Total général des lignes de stock pour ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="it">Totale Generale Righe Inventario</value>
         <value xml:lang="th">ผลรวมรายการสินค้าคงเหลือดีเยี่ยม</value>
     </property>
@@ -5288,7 +5288,7 @@
     <property key="PageTitleNewFacilityContactMech">
         <value xml:lang="en">New Facility Contact Mechanism for ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="es">Editar Mecanismos de Contacto de un Almacén</value>
-        <value xml:lang="fr">Édition des coordonnées du lieu de stockage</value>
+        <value xml:lang="fr">Édition des coordonnées du lieu de stockage ${facility.facilityName} [${facility.facilityId}]</value> 
         <value xml:lang="it">Aggiorna Contatto Stabilimento</value>
         <value xml:lang="ro">Actualizeaza Contact Compartiment</value>
         <value xml:lang="ru">Изменить способ контакта объекта</value>
@@ -5298,7 +5298,7 @@
     <property key="PageTitleNewFacilityLocation">
         <value xml:lang="en">New Facility Location for ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="es">Editar sitios de un Almacén</value>
-        <value xml:lang="fr">Édition des emplacements du lieu de stockage</value>
+        <value xml:lang="fr">Édition des emplacements du lieu de stockage ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="it">Aggiorna Posizione Stabilimento</value>
         <value xml:lang="ro">Actualizeaza Pozitie Compartiment</value>
         <value xml:lang="ru">Изменить местонахождение объекта</value>
@@ -5400,7 +5400,7 @@
     <property key="PageTitleTransferInventoryItem">
         <value xml:lang="en">Transfer Inventory Item From ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="es">Transferir Artículo de Inventario</value>
-        <value xml:lang="fr">Transfert de stock</value>
+        <value xml:lang="fr">Transfert de stock depuis ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="it">Trasferimento Riga Inventario</value>
         <value xml:lang="ro">Transfer Linie Inventar</value>
         <value xml:lang="ru">Переместить позицию реестра</value>
@@ -5410,7 +5410,7 @@
     <property key="PageTitleViewFacilityContactMechanism">
         <value xml:lang="en">View Facility Contact Mechanisms for ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="es">Ver Mecanismo de Contacto de un Almacén</value>
-        <value xml:lang="fr">Voir les coordonnées du lieu de stockage</value>
+        <value xml:lang="fr">Voir les coordonnées du lieu de stockage ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="it">Mostra Contatto Stabilimento</value>
         <value xml:lang="ro">Afiseaza Contract Compartiment</value>
         <value xml:lang="ru">Просмотреть способ связи с объектом</value>
@@ -14556,7 +14556,7 @@
     <property key="ProductReceiveInventory">
         <value xml:lang="en">Receive Inventory Into ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="es">Recibir Inventario</value>
-        <value xml:lang="fr">Stock à recevoir</value>
+        <value xml:lang="fr">Stock à recevoir dans ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="it">Ricevi Inventario</value>
         <value xml:lang="ro">Intrare Inventar</value>
         <value xml:lang="ru">Получение ТМЦ</value>
