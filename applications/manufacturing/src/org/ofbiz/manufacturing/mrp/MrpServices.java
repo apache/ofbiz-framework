@@ -134,7 +134,7 @@ public class MrpServices {
         // ----------------------------------------
         // Loads all the approved sales order items and purchase order items
         // ----------------------------------------
-        // This is the default required date for orders without dates spesified:
+        // This is the default required date for orders without dates specified:
         // by convention it is a date far in the future of 100 years.
         Timestamp notAssignedDate = null;
         if (UtilValidate.isEmpty(defaultYearsOffset)) {
@@ -434,6 +434,64 @@ public class MrpServices {
             }
         }
         
+        // ----------------------------------------
+        // SALES FORECASTS
+        // ----------------------------------------
+        resultList = null;
+        iteratorResult = null;
+        GenericValue facility = null;
+        try {
+            facility = delegator.findOne("Facility", parameters, false);
+        } catch (GenericEntityException e) {
+            return ServiceUtil.returnError("Problem, we can not find Facility, for more detail look at the log");
+        }
+        String partyId =  (String)facility.get("ownerPartyId");
+        parameters.put("organizationPartyId", partyId);
+        try {
+            resultList = delegator.findByAnd("SalesForecast", UtilMisc.toMap("organizationPartyId", partyId));
+        } catch (GenericEntityException e) {
+            return ServiceUtil.returnError("Problem, we can not find SalesForecasts, for more detail look at the log");
+        }
+        iteratorResult = resultList.iterator();
+        while (iteratorResult.hasNext()) {
+            genericResult = (GenericValue) iteratorResult.next();
+            String customTimePeriodId =  genericResult.getString("customTimePeriodId");
+            parameters.put("customTimePeriodId", customTimePeriodId);
+            GenericValue customTimePeriod = null;
+            try {
+                customTimePeriod = delegator.findOne("CustomTimePeriod", UtilMisc.toMap("customTimePeriodId", customTimePeriodId), false);
+            } catch (GenericEntityException e) {
+                return ServiceUtil.returnError("Problem, we can not find CustomTimePeriod, for more detail look at the log");
+            }
+            if (customTimePeriod.getDate("thruDate").before(UtilDateTime.nowDate())) {
+                continue;
+            } else {
+                parameters.put("salesForecastId", genericResult.getString("salesForecastId"));
+                List salesForecastDetails = null;
+                Iterator sfdIter = null;
+                try {
+                    salesForecastDetails = delegator.findByAnd("SalesForecastDetail", UtilMisc.toMap("salesForecastId", genericResult.getString("salesForecastId")));
+                } catch (GenericEntityException e) {
+                    return ServiceUtil.returnError("Problem, we can not find SalesForecastDetails, for more detail look at the log");
+                }
+                sfdIter = salesForecastDetails.iterator();
+                while (sfdIter.hasNext()) {
+                    genericResult = (GenericValue) sfdIter.next();
+                    String productId =  genericResult.getString("productId");
+                    Double eventQuantityTmp = genericResult.getDouble("quantity");
+                    if (productId == null || eventQuantityTmp == null) {
+                        continue;
+                    }
+                    eventQuantityTmp = new Double(-1.0 * eventQuantityTmp.doubleValue());
+                    parameters = UtilMisc.toMap("mrpId", mrpId, "productId", productId, "eventDate", customTimePeriod.getDate("fromDate"), "mrpEventTypeId", "SALES_FORECAST");
+                    try {
+                    	InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, eventQuantityTmp, null, genericResult.getString("salesForecastDetailId"), false, delegator);
+                    } catch (GenericEntityException e) {
+                        return ServiceUtil.returnError("Problem initializing the MrpEvent entity (SalesForecastDetail)");
+                    }
+                }
+            }
+        }
         Map result = new HashMap();
         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         Debug.logInfo("return from initMrpEvent", module);
