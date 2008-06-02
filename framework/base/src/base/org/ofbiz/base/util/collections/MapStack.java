@@ -20,7 +20,6 @@ package org.ofbiz.base.util.collections;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -61,9 +60,14 @@ public class MapStack<K> implements Map<K, Object>, Reusable, LocalizedMap<Objec
         return newValue;
     }
 
+    @SuppressWarnings("unchecked")
     public static <K> MapStack<K> create(Map<K, Object> baseMap) {
         MapStack<K> newValue = MapStack.getMapStack();
-        newValue.stackList.add(0, baseMap);
+        if (baseMap instanceof MapStack) {
+            newValue.stackList.addAll(((MapStack) baseMap).stackList);
+        } else {
+            newValue.stackList.add(0, baseMap);
+        }
         return newValue;
     }
 
