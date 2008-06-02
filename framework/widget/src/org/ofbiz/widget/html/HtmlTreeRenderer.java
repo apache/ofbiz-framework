@@ -57,7 +57,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
         return buf.toString();
     }
 
-    public void renderNodeBegin(Writer writer, Map<String, Object> context, ModelTree.ModelNode node, int depth, boolean isLast) throws IOException {
+    public void renderNodeBegin(Appendable writer, Map<String, Object> context, ModelTree.ModelNode node, int depth, boolean isLast) throws IOException {
 
         String pathString = buildPathString(node.getModelTree(), depth);
         String currentNodeTrailPiped = null;
@@ -69,10 +69,10 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
         if (node.isRootNode()) {
             appendWhitespace(writer);
             renderBeginningBoundaryComment(writer, "Tree Widget", node.getModelTree());
-            writer.write("<ul class=\"basic-tree\">");
+            writer.append("<ul class=\"basic-tree\">");
         }
         appendWhitespace(writer);
-        writer.write("<li>");
+        writer.append("<li>");
 
         String pkName = node.getPkName();
         String entityId = null;
@@ -153,99 +153,99 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
             }
             renderLink( writer, context, expandCollapseLink);
         } else if (!hasChildren){
-                //writer.write(" ");
+                //writer.append(" ");
                 context.put("processChildren", Boolean.FALSE);
                 //currentNodeTrail.add(contentId);
         }
     }
 
-    public void renderNodeEnd(Writer writer, Map<String, Object> context, ModelTree.ModelNode node) throws IOException {
+    public void renderNodeEnd(Appendable writer, Map<String, Object> context, ModelTree.ModelNode node) throws IOException {
         Boolean processChildren = (Boolean) context.get("processChildren");
         if (processChildren.booleanValue()) {
             appendWhitespace(writer);
-            writer.write("</ul>");
+            writer.append("</ul>");
         }
         appendWhitespace(writer);
-        writer.write("</li>");
+        writer.append("</li>");
         if (node.isRootNode()){
             appendWhitespace(writer);
-            writer.write("</ul>");
+            writer.append("</ul>");
             appendWhitespace(writer);
             renderEndingBoundaryComment(writer, "Tree Widget", node.getModelTree());
         }
     }
 
-    public void renderLastElement(Writer writer, Map<String, Object> context, ModelTree.ModelNode node) throws IOException {
+    public void renderLastElement(Appendable writer, Map<String, Object> context, ModelTree.ModelNode node) throws IOException {
         Boolean processChildren = (Boolean) context.get("processChildren");
         if (processChildren.booleanValue()) {
             appendWhitespace(writer);
-            writer.write("<ul class=\"basic-tree\">");
+            writer.append("<ul class=\"basic-tree\">");
         }
     }
     
-    public void renderLabel(Writer writer, Map<String, Object> context, ModelTree.ModelNode.Label label) throws IOException {
+    public void renderLabel(Appendable writer, Map<String, Object> context, ModelTree.ModelNode.Label label) throws IOException {
         // open tag
-        writer.write("<span");
+        writer.append("<span");
         String id = label.getId(context);
         if (UtilValidate.isNotEmpty(id)) {
-            writer.write(" id=\"");
-            writer.write(id);
-            writer.write("\"");
+            writer.append(" id=\"");
+            writer.append(id);
+            writer.append("\"");
         }
         String style = label.getStyle(context);
         if (UtilValidate.isNotEmpty(style)) {
-            writer.write(" class=\"");
-            writer.write(style);
-            writer.write("\"");
+            writer.append(" class=\"");
+            writer.append(style);
+            writer.append("\"");
         }
-        writer.write(">");
+        writer.append(">");
         
         // the text
-        writer.write(label.getText(context));
+        writer.append(label.getText(context));
         
         // close tag
-        writer.write("</span>");
+        writer.append("</span>");
         
         appendWhitespace(writer);
     }
 
 
-    public void renderLink(Writer writer, Map<String, Object> context, ModelTree.ModelNode.Link link) throws IOException {
+    public void renderLink(Appendable writer, Map<String, Object> context, ModelTree.ModelNode.Link link) throws IOException {
         // open tag
-        writer.write("<a");
+        writer.append("<a");
         String id = link.getId(context);
         if (UtilValidate.isNotEmpty(id)) {
-            writer.write(" id=\"");
-            writer.write(id);
-            writer.write("\"");
+            writer.append(" id=\"");
+            writer.append(id);
+            writer.append("\"");
         }
         String style = link.getStyle(context);
         if (UtilValidate.isNotEmpty(style)) {
-            writer.write(" class=\"");
-            writer.write(style);
-            writer.write("\"");
+            writer.append(" class=\"");
+            writer.append(style);
+            writer.append("\"");
         }
         String name = link.getName(context);
         if (UtilValidate.isNotEmpty(name)) {
-            writer.write(" name=\"");
-            writer.write(name);
-            writer.write("\"");
+            writer.append(" name=\"");
+            writer.append(name);
+            writer.append("\"");
         }
         String title = link.getTitle(context);
         if (UtilValidate.isNotEmpty(title)) {
-            writer.write(" title=\"");
-            writer.write(title);
-            writer.write("\"");
+            writer.append(" title=\"");
+            writer.append(title);
+            writer.append("\"");
         }        
         String targetWindow = link.getTargetWindow(context);
         if (UtilValidate.isNotEmpty(targetWindow)) {
-            writer.write(" target=\"");
-            writer.write(targetWindow);
-            writer.write("\"");
+            writer.append(" target=\"");
+            writer.append(targetWindow);
+            writer.append("\"");
         }
         String target = link.getTarget(context);
         if (UtilValidate.isNotEmpty(target)) {
-            writer.write(" href=\"");
+            writer.append(" href=\"");
             String urlMode = link.getUrlMode();
             String prefix = link.getPrefix(context);
             boolean fullPath = link.getFullPath();
@@ -258,17 +258,17 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
                     ServletContext ctx = (ServletContext) req.getAttribute("servletContext");
                     RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
                     String urlString = rh.makeLink(req, res, target, fullPath, secure, encode);
-                    writer.write(urlString);
+                    writer.append(urlString);
                 } else if (prefix != null) {
-                    writer.write(prefix + target);
+                    writer.append(prefix + target);
                 } else {
-                    writer.write(target);
+                    writer.append(target);
                 }
             } else  if (urlMode != null && urlMode.equalsIgnoreCase("content")) {
                 StringBuffer newURL = new StringBuffer();
                 ContentUrlTag.appendContentPrefix(req, newURL);
                 newURL.append(target);
-                writer.write(newURL.toString());
+                writer.append(newURL.toString());
             } else if ("inter-app".equalsIgnoreCase(urlMode) && req != null) {
                 String externalLoginKey = (String) req.getAttribute("externalLoginKey");
                 if (UtilValidate.isNotEmpty(externalLoginKey)) {
@@ -277,65 +277,65 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
                     } else {
                         target += "?externalLoginKey=" + externalLoginKey;
                     }
-                    writer.write(target);
+                    writer.append(target);
                 }
             } else {
-                writer.write(target);
+                writer.append(target);
             }
 
-            writer.write("\"");
+            writer.append("\"");
         }
-        writer.write(">");
+        writer.append(">");
         
         // the text
         ModelTree.ModelNode.Image img = link.getImage();
         if (img == null)
-            writer.write(link.getText(context));
+            writer.append(link.getText(context));
         else
             renderImage(writer, context, img);
         
         // close tag
-        writer.write("</a>");
+        writer.append("</a>");
         
 //        appendWhitespace(writer);
     }
 
-    public void renderImage(Writer writer, Map<String, Object> context, ModelTree.ModelNode.Image image) throws IOException {
+    public void renderImage(Appendable writer, Map<String, Object> context, ModelTree.ModelNode.Image image) throws IOException {
         // open tag
-        writer.write("<img ");
+        writer.append("<img ");
         String id = image.getId(context);
         if (UtilValidate.isNotEmpty(id)) {
-            writer.write(" id=\"");
-            writer.write(id);
-            writer.write("\"");
+            writer.append(" id=\"");
+            writer.append(id);
+            writer.append("\"");
         }
         String style = image.getStyle(context);
         if (UtilValidate.isNotEmpty(style)) {
-            writer.write(" class=\"");
-            writer.write(style);
-            writer.write("\"");
+            writer.append(" class=\"");
+            writer.append(style);
+            writer.append("\"");
         }
         String wid = image.getWidth(context);
         if (UtilValidate.isNotEmpty(wid)) {
-            writer.write(" width=\"");
-            writer.write(wid);
-            writer.write("\"");
+            writer.append(" width=\"");
+            writer.append(wid);
+            writer.append("\"");
         }
         String hgt = image.getHeight(context);
         if (UtilValidate.isNotEmpty(hgt)) {
-            writer.write(" height=\"");
-            writer.write(hgt);
-            writer.write("\"");
+            writer.append(" height=\"");
+            writer.append(hgt);
+            writer.append("\"");
         }
         String border = image.getBorder(context);
         if (UtilValidate.isNotEmpty(border)) {
-            writer.write(" border=\"");
-            writer.write(border);
-            writer.write("\"");
+            writer.append(" border=\"");
+            writer.append(border);
+            writer.append("\"");
         }
         String src = image.getSrc(context);
         if (UtilValidate.isNotEmpty(src)) {
-            writer.write(" src=\"");
+            writer.append(" src=\"");
             String urlMode = image.getUrlMode();
             boolean fullPath = false;
             boolean secure = false;
@@ -347,24 +347,24 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
                     ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
                     RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
                     String urlString = rh.makeLink(request, response, src, fullPath, secure, encode);
-                    writer.write(urlString);
+                    writer.append(urlString);
                 } else {
-                    writer.write(src);
+                    writer.append(src);
                 }
             } else  if (urlMode != null && urlMode.equalsIgnoreCase("content")) {
                 if (request != null && response != null) {
                     StringBuffer newURL = new StringBuffer();
                     ContentUrlTag.appendContentPrefix(request, newURL);
                     newURL.append(src);
-                    writer.write(newURL.toString());
+                    writer.append(newURL.toString());
                 }
             } else {
-                writer.write(src);
+                writer.append(src);
             }
 
-            writer.write("\"");
+            writer.append("\"");
         }
-        writer.write("/>");
+        writer.append("/>");
         
     }
 

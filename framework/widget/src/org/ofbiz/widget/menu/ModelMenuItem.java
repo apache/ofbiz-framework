@@ -246,7 +246,7 @@ public class ModelMenuItem {
 */
     }
 
-    public void renderMenuItemString(Writer writer, Map<String, Object> context, MenuStringRenderer menuStringRenderer) throws IOException {
+    public void renderMenuItemString(Appendable writer, Map<String, Object> context, MenuStringRenderer menuStringRenderer) throws IOException {
         
       	boolean passed = true;
         if (this.condition != null) {
@@ -599,7 +599,7 @@ public class ModelMenuItem {
 
         }
 
-        public void renderLinkString(Writer writer, Map<String, Object> context, MenuStringRenderer menuStringRenderer) throws IOException {
+        public void renderLinkString(Appendable writer, Map<String, Object> context, MenuStringRenderer menuStringRenderer) throws IOException {
             menuStringRenderer.renderLink(writer, context, this);
         }
 
@@ -748,7 +748,7 @@ public class ModelMenuItem {
 
         }
 
-        public void renderImageString(Writer writer, Map<String, Object> context, MenuStringRenderer menuStringRenderer) throws IOException {
+        public void renderImageString(Appendable writer, Map<String, Object> context, MenuStringRenderer menuStringRenderer) throws IOException {
             menuStringRenderer.renderImage(writer, context, this);
         }
 

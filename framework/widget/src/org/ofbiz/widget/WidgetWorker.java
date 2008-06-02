@@ -37,82 +37,82 @@ public class WidgetWorker {
 
     public WidgetWorker () {}
 
-    public static void buildHyperlinkUrl(Writer writer, String requestName, String targetType, HttpServletRequest request, HttpServletResponse response, Map<String, Object> context) throws IOException {
+    public static void buildHyperlinkUrl(Appendable writer, String requestName, String targetType, HttpServletRequest request, HttpServletResponse response, Map<String, Object> context) throws IOException {
         String localRequestName = UtilHttp.encodeAmpersands(requestName);
         
         if ("intra-app".equals(targetType)) {
             appendOfbizUrl(writer, "/" + localRequestName, request, response);
         } else if ("inter-app".equals(targetType)) {
             String fullTarget = localRequestName;
-            writer.write(fullTarget);
+            writer.append(fullTarget);
             String externalLoginKey = (String) request.getAttribute("externalLoginKey");
             if (UtilValidate.isNotEmpty(externalLoginKey)) {
                 if (fullTarget.indexOf('?') == -1) {
-                    writer.write('?');
+                    writer.append('?');
                 } else {
-                    writer.write("&amp;");
+                    writer.append("&amp;");
                 }
-                writer.write("externalLoginKey=");
-                writer.write(externalLoginKey);
+                writer.append("externalLoginKey=");
+                writer.append(externalLoginKey);
             }
         } else if ("content".equals(targetType)) {
             appendContentUrl(writer, localRequestName, request);
         } else if ("plain".equals(targetType)) {
-            writer.write(localRequestName);
+            writer.append(localRequestName);
         } else {
-            writer.write(localRequestName);
+            writer.append(localRequestName);
         }
 
     }
 
-    public static void appendOfbizUrl(Writer writer, String location, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public static void appendOfbizUrl(Appendable writer, String location, HttpServletRequest request, HttpServletResponse response) throws IOException {
         ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
         RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
         // make and append the link
-        writer.write(rh.makeLink(request, response, location));
+        writer.append(rh.makeLink(request, response, location));
     }
 
-    public static void appendContentUrl(Writer writer, String location, HttpServletRequest request) throws IOException {
+    public static void appendContentUrl(Appendable writer, String location, HttpServletRequest request) throws IOException {
         StringBuffer buffer = new StringBuffer();
         ContentUrlTag.appendContentPrefix(request, buffer);
-        writer.write(buffer.toString());
-        writer.write(location);
+        writer.append(buffer.toString());
+        writer.append(location);
     }
 
-    public static void makeHyperlinkString(Writer writer, String linkStyle, String targetType, String target, String description, HttpServletRequest request, HttpServletResponse response, Map<String, Object> context, String targetWindow, String event, String action) throws IOException {
+    public static void makeHyperlinkString(Appendable writer, String linkStyle, String targetType, String target, String description, HttpServletRequest request, HttpServletResponse response, Map<String, Object> context, String targetWindow, String event, String action) throws IOException {
         if (UtilValidate.isNotEmpty(description)) {
-            writer.write("<a");
+            writer.append("<a");
 
             if (UtilValidate.isNotEmpty(linkStyle)) {
-                writer.write(" class=\"");
-                writer.write(linkStyle);
-                writer.write("\"");
+                writer.append(" class=\"");
+                writer.append(linkStyle);
+                writer.append("\"");
             }
 
-            writer.write(" href=\"");
+            writer.append(" href=\"");
 
             buildHyperlinkUrl(writer, target, targetType, request, response, context);
 
-            writer.write("\"");
+            writer.append("\"");
             
             if (UtilValidate.isNotEmpty(targetWindow)) {
-                writer.write(" target=\"");
-                writer.write(targetWindow);
-                writer.write("\"");
+                writer.append(" target=\"");
+                writer.append(targetWindow);
+                writer.append("\"");
             }
 
             if (UtilValidate.isNotEmpty(event) && UtilValidate.isNotEmpty(action)) {
-                writer.write(" ");
-                writer.write(event);
-                writer.write("=\"");
-                writer.write(action);
-                writer.write('"');
+                writer.append(" ");
+                writer.append(event);
+                writer.append("=\"");
+                writer.append(action);
+                writer.append('"');
             }
 
-            writer.write('>');
+            writer.append('>');
 
-            writer.write(description);
-            writer.write("</a>");
+            writer.append(description);
+            writer.append("</a>");
         }
     }
 }

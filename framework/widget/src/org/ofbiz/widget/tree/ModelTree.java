@@ -389,7 +389,7 @@ public class ModelTree extends ModelWidget {
             
         }
     
-        public void renderNodeString(Writer writer, Map<String, Object> context,
+        public void renderNodeString(Appendable writer, Map<String, Object> context,
                 TreeStringRenderer treeStringRenderer, int depth, boolean isLast)
                 throws IOException, GeneralException {
             boolean passed = true;
@@ -807,7 +807,7 @@ public class ModelTree extends ModelWidget {
                 this.styleExdr = new FlexibleStringExpander(labelElement.getAttribute("style"));
             }
     
-            public void renderLabelString(Writer writer, Map<String, Object> context, TreeStringRenderer treeStringRenderer) {
+            public void renderLabelString(Appendable writer, Map<String, Object> context, TreeStringRenderer treeStringRenderer) {
                 try {
                     treeStringRenderer.renderLabel(writer, context, this);
                 } catch (IOException e) {
@@ -882,7 +882,7 @@ public class ModelTree extends ModelWidget {
     
             }
     
-            public void renderLinkString(Writer writer, Map<String, Object> context, TreeStringRenderer treeStringRenderer) {
+            public void renderLinkString(Appendable writer, Map<String, Object> context, TreeStringRenderer treeStringRenderer) {
                 try {
                     treeStringRenderer.renderLink(writer, context, this);
                 } catch (IOException e) {
@@ -1034,7 +1034,7 @@ public class ModelTree extends ModelWidget {
     
             }
     
-            public void renderImageString(Writer writer, Map<String, Object> context, TreeStringRenderer treeStringRenderer) {
+            public void renderImageString(Appendable writer, Map<String, Object> context, TreeStringRenderer treeStringRenderer) {
                 try {
                     treeStringRenderer.renderImage(writer, context, this);
                 } catch (IOException e) {

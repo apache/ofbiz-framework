@@ -86,7 +86,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
         }
     }
 
-    public void renderWidgetString(Writer writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
+    public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
     
         boolean isEntrySet = false;
         if (!(context instanceof MapStack)) {
@@ -265,7 +265,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
     }
     
 
-    public void renderNextPrev(Writer writer, Map<String, Object> context) throws IOException {
+    public void renderNextPrev(Appendable writer, Map<String, Object> context) throws IOException {
         String targetService = this.getPaginateTarget(context);
         if (targetService == null) {
             targetService = "${targetService}";
@@ -327,12 +327,12 @@ public class IterateSectionWidget extends ModelScreenWidget {
         ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
         RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
 
-        writer.write("<table border=\"0\" width=\"100%\" cellpadding=\"2\">\n");
-        writer.write("  <tr>\n");
-        writer.write("    <td align=\"right\">\n");
-        writer.write("      <b>\n");
+        writer.append("<table border=\"0\" width=\"100%\" cellpadding=\"2\">\n");
+        writer.append("  <tr>\n");
+        writer.append("    <td align=\"right\">\n");
+        writer.append("      <b>\n");
         if (viewIndex > 0) {
-            writer.write(" <a href=\"");
+            writer.append(" <a href=\"");
             String linkText = targetService;
             if (linkText.indexOf("?") < 0)  linkText += "?";
             else linkText += "&amp;";
@@ -340,29 +340,29 @@ public class IterateSectionWidget extends ModelScreenWidget {
             linkText += "VIEW_SIZE=" + viewSize + "&amp;VIEW_INDEX=" + (viewIndex - 1) + "\"";
 
             // make the link
-            writer.write(rh.makeLink(request, response, linkText, false, false, false));
-            writer.write(" class=\"buttontext\">[Previous]</a>\n");
+            writer.append(rh.makeLink(request, response, linkText, false, false, false));
+            writer.append(" class=\"buttontext\">[Previous]</a>\n");
 
         }
         if (listSize > 0) {
-            writer.write("          <span class=\"tabletext\">" + (lowIndex + 1) + " - " + (lowIndex + actualPageSize) + " of " + listSize + "</span> \n");
+            writer.append("          <span class=\"tabletext\">" + (lowIndex + 1) + " - " + (lowIndex + actualPageSize) + " of " + listSize + "</span> \n");
         }
         if (highIndex < listSize) {
-            writer.write(" <a href=\"");
+            writer.append(" <a href=\"");
             String linkText = targetService;
             if (linkText.indexOf("?") < 0)  linkText += "?";
             else linkText += "&amp;";
             linkText +=  "VIEW_SIZE=" + viewSize + "&amp;VIEW_INDEX=" + (viewIndex + 1) + "\"";
 
             // make the link
-            writer.write(rh.makeLink(request, response, linkText, false, false, false));
-            writer.write(" class=\"buttontext\">[Next]</a>\n");
+            writer.append(rh.makeLink(request, response, linkText, false, false, false));
+            writer.append(" class=\"buttontext\">[Next]</a>\n");
 
         }
-        writer.write("      </b>\n");
-        writer.write("    </td>\n");
-        writer.write("  </tr>\n");
-        writer.write("</table>\n");
+        writer.append("      </b>\n");
+        writer.append("    </td>\n");
+        writer.append("  </tr>\n");
+        writer.append("</table>\n");
 
     }
 

@@ -76,7 +76,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         if (Debug.verboseOn()) Debug.logVerbose("Reading Screen sub-widget with name: " + widgetElement.getNodeName(), module);
     }
     
-    public abstract void renderWidgetString(Writer writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException;
+    public abstract void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException;
 
     public abstract String rawString();
     
@@ -126,7 +126,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         return subWidgets;
     }
     
-    public static void renderSubWidgetsString(List subWidgets, Writer writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
+    public static void renderSubWidgetsString(List subWidgets, Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
         if (subWidgets == null) {
             return;
         }
@@ -148,9 +148,9 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         protected Map sectionMap;
         protected ScreenStringRenderer screenStringRenderer;
         protected Map<String, Object> context;
-        protected Writer writer;
+        protected Appendable writer;
         
-        public SectionsRenderer(Map sectionMap, Map<String, Object> context, Writer writer, ScreenStringRenderer screenStringRenderer) {
+        public SectionsRenderer(Map sectionMap, Map<String, Object> context, Appendable writer, ScreenStringRenderer screenStringRenderer) {
             this.sectionMap = sectionMap;
             this.context = context;
             this.writer = writer;
@@ -203,7 +203,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
             }
         }
 
-        public void renderWidgetString(Writer writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
+        public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
             // check the condition, if there is one
             boolean condTrue = true;
             if (this.condition != null) {
@@ -282,7 +282,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
             this.subWidgets = ModelScreenWidget.readSubWidgets(this.modelScreen, subElementList);
         }
 
-        public void renderWidgetString(Writer writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
+        public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
             try {
                 screenStringRenderer.renderContainerBegin(writer, context, this);
                 
@@ -376,7 +376,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
             }
         }
 
-        public void renderWidgetString(Writer writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
+        public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
             boolean collapsed = initiallyCollapsed;
             if (this.collapsible) {
                 String preferenceKey = getPreferenceKey(context) + "_collapsed";
@@ -460,7 +460,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
             this.shareScopeExdr = new FlexibleStringExpander(includeScreenElement.getAttribute("share-scope"));
         }
 
-        public void renderWidgetString(Writer writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
+        public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
             // if we are not sharing the scope, protect it using the MapStack
             boolean protectScope = !shareScope(context);
             if (protectScope) {
@@ -565,7 +565,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
             }
         }
 
-        public void renderWidgetString(Writer writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
+        public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
             // isolate the scope
             if (!(context instanceof MapStack)) {
                 context = MapStack.create(context);
@@ -643,7 +643,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
             this.subWidgets = ModelScreenWidget.readSubWidgets(this.modelScreen, subElementList);
         }
 
-        public void renderWidgetString(Writer writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
+        public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
             // render sub-widgets
             renderSubWidgetsString(this.subWidgets, writer, context, screenStringRenderer);
         }
@@ -659,11 +659,11 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
             super(modelScreen, decoratorSectionElement);
         }
 
-        public void renderWidgetString(Writer writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
+        public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
             Map preRenderedContent = (Map) context.get("preRenderedContent");
             if (preRenderedContent != null && preRenderedContent.containsKey(this.name)) {
                 try {
-                    writer.write((String) preRenderedContent.get(this.name));
+                    writer.append((String) preRenderedContent.get(this.name));
                 } catch (IOException e) {
                     String errMsg = "Error rendering pre-rendered content in screen named [" + this.modelScreen.getName() + "]: " + e.toString();
                     Debug.logError(e, errMsg, module);
@@ -703,7 +703,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
             this.styleExdr = new FlexibleStringExpander(labelElement.getAttribute("style"));
         }
 
-        public void renderWidgetString(Writer writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) {
+        public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) {
             try {
                 screenStringRenderer.renderLabel(writer, context, this);
             } catch (IOException e) {
@@ -744,7 +744,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
             this.shareScopeExdr = new FlexibleStringExpander(formElement.getAttribute("share-scope"));
         }
 
-        public void renderWidgetString(Writer writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) {
+        public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) {
             boolean protectScope = !shareScope(context);
             if (protectScope) {
                 if (!(context instanceof MapStack)) {
@@ -829,7 +829,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
             this.shareScopeExdr = new FlexibleStringExpander(treeElement.getAttribute("share-scope"));
         }
 
-        public void renderWidgetString(Writer writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
+        public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
             boolean protectScope = !shareScope(context);
             if (protectScope) {
                 if (!(context instanceof MapStack)) {
@@ -878,7 +878,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
             StringBuffer renderBuffer = new StringBuffer();
             modelTree.renderTreeString(renderBuffer, context, treeStringRenderer);
             try {
-                writer.write(renderBuffer.toString());
+                writer.append(renderBuffer.toString());
             } catch (IOException e) {
                 String errMsg = "Error rendering included tree named [" + name + "] at location [" + location + "]: " + e.toString();
                 Debug.logError(e, errMsg, module);
@@ -933,7 +933,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
             }
         }
 
-        public void renderWidgetString(Writer writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
+        public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
             ModelScreenWidget subWidget = null;
             if (screenStringRenderer instanceof FoScreenRenderer) {
                 subWidget = (ModelScreenWidget)subWidgets.get("xsl-fo");
@@ -994,7 +994,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
             this.border = subContentElement.getAttribute("border");
         }
 
-        public void renderWidgetString(Writer writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) {
+        public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) {
             try {
                 // pushing the contentId on the context as "contentId" is done
                 // because many times there will be embedded "subcontent" elements
@@ -1128,7 +1128,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
             this.xmlEscape = "true".equals(subContentElement.getAttribute("xml-escape"));
         }
 
-        public void renderWidgetString(Writer writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) {
+        public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) {
             try {
                 screenStringRenderer.renderSubContentBegin(writer, context, this);
                 screenStringRenderer.renderSubContentBody(writer, context, this);
@@ -1181,7 +1181,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
             this.locationExdr = new FlexibleStringExpander(menuElement.getAttribute("location"));
         }
 
-        public void renderWidgetString(Writer writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws IOException {
+        public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws IOException {
             // try finding the menuStringRenderer by name in the context in case one was prepared and put there
             MenuStringRenderer menuStringRenderer = (MenuStringRenderer) context.get("menuStringRenderer");
             // if there was no menuStringRenderer put in place, now try finding the request/response in the context and creating a new one
@@ -1272,7 +1272,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
 
         }
 
-        public void renderWidgetString(Writer writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) {
+        public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) {
             try {
                 screenStringRenderer.renderLink(writer, context, this);
             } catch (IOException e) {
@@ -1410,7 +1410,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
             setUrlMode(UtilFormatOut.checkEmpty(imageElement.getAttribute("url-mode"), "content"));
         }
 
-        public void renderWidgetString(Writer writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) {
+        public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) {
             try {
                 screenStringRenderer.renderImage(writer, context, this);
             } catch (IOException e) {

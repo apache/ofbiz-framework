@@ -89,11 +89,11 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
     }
 
     // new rendering methods
-    public void renderContentAsTextExt(LocalDispatcher dispatcher, GenericDelegator delegator, String contentId, Writer out, Map templateContext, Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException {
+    public void renderContentAsTextExt(LocalDispatcher dispatcher, GenericDelegator delegator, String contentId, Appendable out, Map templateContext, Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException {
         renderContentAsText(dispatcher, delegator, contentId, out, templateContext, locale, mimeTypeId, cache);
     }
 
-    public void renderSubContentAsTextExt(LocalDispatcher dispatcher, GenericDelegator delegator, String contentId, Writer out, String mapKey, Map templateContext, Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException {
+    public void renderSubContentAsTextExt(LocalDispatcher dispatcher, GenericDelegator delegator, String contentId, Appendable out, String mapKey, Map templateContext, Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException {
         renderSubContentAsText(dispatcher, delegator, contentId, out, mapKey, templateContext, locale, mimeTypeId, cache);
     }
 
@@ -116,7 +116,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         return writer.toString();
     }
 
-    public static void renderContentAsText(LocalDispatcher dispatcher, GenericDelegator delegator, String contentId, Writer out,
+    public static void renderContentAsText(LocalDispatcher dispatcher, GenericDelegator delegator, String contentId, Appendable out,
             Map templateContext, Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException {
         GenericValue content;
         if (UtilValidate.isEmpty(contentId)) {
@@ -287,7 +287,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         return writer.toString();
     }
 
-    public static void renderSubContentAsText(LocalDispatcher dispatcher, GenericDelegator delegator, String contentId, Writer out, String mapKey,
+    public static void renderSubContentAsText(LocalDispatcher dispatcher, GenericDelegator delegator, String contentId, Appendable out, String mapKey,
             Map templateContext, Locale locale, String mimeTypeId, boolean cache) throws GeneralException, IOException {
 
         // find the sub-content with matching mapKey
@@ -304,7 +304,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
 
         if (subContent == null) {
             //throw new GeneralException("No sub-content found with map-key [" + mapKey + "] for content [" + contentId + "]");
-            out.write("<!-- no sub-content found with map-key [" + mapKey + "] for content [" + contentId + "] -->");
+            out.append("<!-- no sub-content found with map-key [" + mapKey + "] for content [" + contentId + "] -->");
         } else {
             String subContentId = subContent.getString("contentIdTo");
             templateContext.put("mapKey", mapKey);

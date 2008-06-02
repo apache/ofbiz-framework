@@ -313,7 +313,7 @@ public class ModelMenu extends ModelWidget {
      *   different menu elements; implementing you own makes it possible to
      *   use the same menu definitions for many types of menu UIs
      */
-    public void renderMenuString(Writer writer, Map<String, Object> context, MenuStringRenderer menuStringRenderer) throws IOException {
+    public void renderMenuString(Appendable writer, Map<String, Object> context, MenuStringRenderer menuStringRenderer) throws IOException {
         setWidgetBoundaryComments(context);
 
         boolean passed = true;
@@ -330,7 +330,7 @@ public class ModelMenu extends ModelWidget {
             //Debug.logInfo("in ModelMenu, buffer:" + buffer.toString(), module);
     }
 
-    public void renderSimpleMenuString(Writer writer, Map<String, Object> context, MenuStringRenderer menuStringRenderer) throws IOException {
+    public void renderSimpleMenuString(Appendable writer, Map<String, Object> context, MenuStringRenderer menuStringRenderer) throws IOException {
         //Iterator menuItemIter = null;
         //Set alreadyRendered = new TreeSet();
 
