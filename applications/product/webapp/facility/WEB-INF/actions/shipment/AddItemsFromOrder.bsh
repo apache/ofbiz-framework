@@ -80,6 +80,9 @@ if (UtilValidate.isNotEmpty(orderId) && shipment != null) {
                 if (itemIssuance.get("quantity") != null) {
                     totalQuantityIssued += itemIssuance.getDouble("quantity");
                 }
+                if (itemIssuance.get("cancelQuantity") != null) {
+                    totalQuantityIssued -= itemIssuance.getDouble("cancelQuantity");
+                }                
             }
 
             if (isSalesOrder) {
@@ -164,8 +167,14 @@ if (shipment != null && selectFromShipmentPlan != null) {
             if (itemIssuance.get("quantity") != null) {
                 totalQuantityIssued += itemIssuance.getDouble("quantity");
             }
+            if (itemIssuance.get("cancelQuantity") != null) {
+                totalQuantityIssued -= itemIssuance.getDouble("cancelQuantity");
+            } 
             if (itemIssuance.get("shipmentId") != null && itemIssuance.getString("shipmentId").equals(shipmentId)) {
                 totalQuantityIssuedInShipment += itemIssuance.getDouble("quantity");
+                if (itemIssuance.get("cancelQuantity") != null) {
+                    totalQuantityIssuedInShipment -= itemIssuance.getDouble("cancelQuantity");
+                } 
             }
         }
 

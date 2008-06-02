@@ -408,6 +408,11 @@ public class InvoiceServices {
                     BigDecimal billingQuantity = null;
                     if (itemIssuance != null) {
                         billingQuantity = itemIssuance.getBigDecimal("quantity");
+                        BigDecimal cancelQty = itemIssuance.getBigDecimal("cancelQuantity");
+                        if (cancelQty == null) {
+                            cancelQty = ZERO;
+                        }
+                        billingQuantity = billingQuantity.subtract(cancelQty).setScale(decimals, rounding);                        
                     } else if (shipmentReceipt != null) {
                         billingQuantity = shipmentReceipt.getBigDecimal("quantityAccepted");
                     } else {

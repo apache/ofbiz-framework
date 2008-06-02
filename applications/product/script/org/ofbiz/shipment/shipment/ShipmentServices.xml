@@ -1878,6 +1878,7 @@ under the License.
             <calculate field-name="issuedQuantity" type="Double">
                 <calcop field-name="issuedQuantity" operator="add">
                     <calcop field-name="itemIssuance.quantity" operator="get"/>
+                    <calcop field-name="itemIssuance.cancelQuantity" operator="negative"/>                    
                 </calcop>
             </calculate>
         </iterate>
@@ -1889,6 +1890,7 @@ under the License.
         </calculate>
         <calculate field-name="remainingQuantity" type="Double">
             <calcop field-name="orderItem.quantity" operator="subtract">
+                <calcop field-name="orderItem.cancelQuantity" operator="get"/>
                 <calcop field-name="totPlannedOrIssuedQuantity" operator="get"/>
             </calcop>
         </calculate>

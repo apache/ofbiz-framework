@@ -500,7 +500,7 @@ under the License.
                       </div>
                     </td>
                     <td align="center">
-                      <div>${itemIssuance.quantity?string.number}&nbsp;</div>
+                      <div>${itemIssuance.quantity?default(0) - itemIssuance.cancelQuantity?default(0)}&nbsp;</div>
                     </td>
                     <td colspan="4">&nbsp;</td>
                   </tr>
@@ -523,7 +523,7 @@ under the License.
                       </div>
                     </td>
                     <td align="center">
-                      <div>${itemIssuance.quantity?string.number}&nbsp;</div>
+                      <div>${itemIssuance.quantity?default(0) - itemIssuance.cancelQuantity?default(0)}</div>
                     </td>
                     <td colspan="4">&nbsp;</td>
                   </tr>
