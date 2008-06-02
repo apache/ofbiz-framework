@@ -24,9 +24,7 @@ under the License.
     <description>Content Manager Module Site Configuration File</description>
     <owner>Copyright 2001-2007 The Apache Software Foundation</owner>
     
-    <handler name="json" type="request" class="org.ofbiz.webapp.event.JSONServiceEventHandler"/>
     <handler name="service-multi" type="request" class="org.ofbiz.webapp.event.ServiceMultiEventHandler"/> 
-    <handler name="bsf" type="request" class="org.ofbiz.webapp.event.BsfEventHandler"/>
     <handler name="simplecontent" type="view" class="org.ofbiz.content.view.SimpleContentViewHandler"/>
 
     <!-- Events to run on every request before security (chains exempt) -->

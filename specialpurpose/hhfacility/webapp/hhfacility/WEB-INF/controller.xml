@@ -24,7 +24,6 @@ under the License.
     <description>Facility Handheld Demo</description>
     <owner>Copyright 2001-2007 The Apache Software Foundation</owner>
 
-    <handler name="bsf" type="request" class="org.ofbiz.webapp.event.BsfEventHandler"/>
     <handler name="service-multi" type="request" class="org.ofbiz.webapp.event.ServiceMultiEventHandler"/>
 
     <!-- view handlers -->
