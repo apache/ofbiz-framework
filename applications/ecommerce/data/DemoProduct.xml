@@ -479,9 +479,9 @@ under the License.
 
     <!-- some default product facility settings -->
     <ProductFacility productId="GZ-2644" facilityId="WebStoreWarehouse" minimumStock="2" reorderQuantity="10" daysToShip="15"/>
-    <ProductFacility productId="GZ-8544" facilityId="WebStoreWarehouse" minimumStock="10" reorderQuantity="50" daysToShip="1"/>
+    <ProductFacility productId="GZ-8544" facilityId="WebStoreWarehouse" minimumStock="20" reorderQuantity="50" daysToShip="1"/>
     <ProductFacility productId="WG-1111" facilityId="WebStoreWarehouse" minimumStock="2" reorderQuantity="10" daysToShip="1"/>
-    <ProductFacility productId="WG-5569" facilityId="WebStoreWarehouse" minimumStock="5" reorderQuantity="50" daysToShip="2"/>
+    <ProductFacility productId="WG-5569" facilityId="WebStoreWarehouse" minimumStock="15" reorderQuantity="40" daysToShip="2"/>
     <ProductFacility productId="WG-9943-B3" facilityId="WebStoreWarehouse" minimumStock="2" reorderQuantity="10" daysToShip="1"/>
     <ProductFacility productId="WG-9943-B4" facilityId="WebStoreWarehouse" minimumStock="2" reorderQuantity="10" daysToShip="1"/>
     <ProductFacility productId="WG-9943-S3" facilityId="WebStoreWarehouse" minimumStock="2" reorderQuantity="10" daysToShip="1"/>
