@@ -20,7 +20,6 @@ package org.ofbiz.widget.screen;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -36,6 +35,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilFormatOut;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
@@ -168,6 +168,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         }
     }
 
+    @SuppressWarnings("serial")
     public static class Section extends ModelScreenWidget {
         protected ModelScreenCondition condition;
         protected List<ModelScreenAction> actions;
@@ -261,6 +262,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         }
     }
 
+    @SuppressWarnings("serial")
     public static class Container extends ModelScreenWidget {
         protected FlexibleStringExpander idExdr;
         protected FlexibleStringExpander styleExdr;
@@ -448,6 +450,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         }
     }
 
+    @SuppressWarnings("serial")
     public static class IncludeScreen extends ModelScreenWidget {
         protected FlexibleStringExpander nameExdr;
         protected FlexibleStringExpander locationExdr;
@@ -471,9 +474,9 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
                 ((MapStack) context).push();
                 
                 // build the widgetpath
-                List widgetTrail = (List) context.get("_WIDGETTRAIL_");
+                List<String> widgetTrail = UtilGenerics.toList(context.get("_WIDGETTRAIL_"));
                 if (widgetTrail == null) {
-                    widgetTrail = new ArrayList();
+                    widgetTrail = new ArrayList<String>();
                 }
                 
                 String thisName = nameExdr.expandString(context);
@@ -546,10 +549,11 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         }
     }
 
+    @SuppressWarnings("serial")
     public static class DecoratorScreen extends ModelScreenWidget {
         protected FlexibleStringExpander nameExdr;
         protected FlexibleStringExpander locationExdr;
-        protected Map<String, DecoratorSection> sectionMap = new HashMap();
+        protected Map<String, DecoratorSection> sectionMap = new HashMap<String, DecoratorSection>();
         
         public DecoratorScreen(ModelScreen modelScreen, Element decoratorScreenElement) {
             super(modelScreen, decoratorScreenElement);
@@ -565,6 +569,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
             }
         }
 
+        @SuppressWarnings("unchecked")
         public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
             // isolate the scope
             if (!(context instanceof MapStack)) {
@@ -633,6 +638,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         }
     }
 
+    @SuppressWarnings("serial")
     public static class DecoratorSection extends ModelScreenWidget {
         protected List<ModelScreenWidget> subWidgets;
         
@@ -653,6 +659,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         }
     }
     
+    @SuppressWarnings("serial")
     public static class DecoratorSectionInclude extends ModelScreenWidget {
         
         public DecoratorSectionInclude(ModelScreen modelScreen, Element decoratorSectionElement) {
@@ -685,6 +692,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         }
     }
     
+    @SuppressWarnings("serial")
     public static class Label extends ModelScreenWidget {
         protected FlexibleStringExpander textExdr;
         
@@ -730,6 +738,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         }
     }
 
+    @SuppressWarnings("serial")
     public static class Form extends ModelScreenWidget {
         protected FlexibleStringExpander nameExdr;
         protected FlexibleStringExpander locationExdr;
@@ -816,6 +825,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         }
     }
 
+    @SuppressWarnings("serial")
     public static class Tree extends ModelScreenWidget {
         protected FlexibleStringExpander nameExdr;
         protected FlexibleStringExpander locationExdr;
@@ -909,12 +919,13 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         }
     }
 
+    @SuppressWarnings("serial")
     public static class PlatformSpecific extends ModelScreenWidget {
         protected Map<String, ModelScreenWidget> subWidgets;
         
         public PlatformSpecific(ModelScreen modelScreen, Element platformSpecificElement) {
             super(modelScreen, platformSpecificElement);
-            subWidgets = new HashMap();
+            subWidgets = new HashMap<String, ModelScreenWidget>();
             List childElements = UtilXml.childElementList(platformSpecificElement);
             if (childElements != null) {
                 Iterator childElementsIt = childElements.iterator();
@@ -965,6 +976,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         }
     }
 
+    @SuppressWarnings("serial")
     public static class Content extends ModelScreenWidget {
         
         protected FlexibleStringExpander contentId;
@@ -1105,6 +1117,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         }
     }
 
+    @SuppressWarnings("serial")
     public static class SubContent extends ModelScreenWidget {
         protected FlexibleStringExpander contentId;
         protected FlexibleStringExpander mapKey;
@@ -1170,6 +1183,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         }
     }
 
+    @SuppressWarnings("serial")
     public static class Menu extends ModelScreenWidget {
         protected FlexibleStringExpander nameExdr;
         protected FlexibleStringExpander locationExdr;
@@ -1236,6 +1250,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         }
     }
     
+    @SuppressWarnings("serial")
     public static class Link extends ModelScreenWidget {
         protected FlexibleStringExpander textExdr;
         protected FlexibleStringExpander idExdr;
@@ -1389,6 +1404,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         }
     }
 
+    @SuppressWarnings("serial")
     public static class Image extends ModelScreenWidget {
         protected FlexibleStringExpander srcExdr;
         protected FlexibleStringExpander idExdr;

@@ -19,7 +19,6 @@
 package org.ofbiz.widget.screen;
 
 import java.io.IOException;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -45,11 +44,12 @@ import org.w3c.dom.Element;
 /**
  * Widget Library - Screen model HTML class
  */
+@SuppressWarnings("serial")
 public class IterateSectionWidget extends ModelScreenWidget {
     public static final String module = IterateSectionWidget.class.getName();
     
     protected ModelScreenWidget childWidget;
-    protected List sectionList;
+    protected List<ModelScreenWidget.Section> sectionList;
     protected FlexibleMapAccessor listNameExdr;
     protected FlexibleStringExpander entryNameExdr;
     protected FlexibleStringExpander keyNameExdr;
@@ -76,7 +76,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
         paginate = "true".equals(iterateSectionElement.getAttribute("paginate"));
         if (iterateSectionElement.hasAttribute("view-size"))
             setViewSize(iterateSectionElement.getAttribute("view-size"));
-        sectionList = new ArrayList();
+        sectionList = new ArrayList<ModelScreenWidget.Section>();
         List childElementList = UtilXml.childElementList(iterateSectionElement);
         Iterator childElementIter = childElementList.iterator();
         while (childElementIter.hasNext()) {
@@ -89,14 +89,9 @@ public class IterateSectionWidget extends ModelScreenWidget {
     public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
     
         boolean isEntrySet = false;
-        if (!(context instanceof MapStack)) {
-            context = MapStack.create(context);
-        }
-        
-        MapStack contextMs = (MapStack) context;
-        contextMs.push();
-
         // create a standAloneStack, basically a "save point" for this SectionsRenderer, and make a new "screens" object just for it so it is isolated and doesn't follow the stack down
+        MapStack<String> contextMs = MapStack.create(context);
+
         String entryName = this.entryNameExdr.expandString(context);
         String keyName = this.keyNameExdr.expandString(context);
         Object obj = listNameExdr.get(context);
@@ -156,7 +151,6 @@ public class IterateSectionWidget extends ModelScreenWidget {
                 throw new RuntimeException(e.getMessage());
             }
         }
-        contextMs.pop();
 
     }
     /*

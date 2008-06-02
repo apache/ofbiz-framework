@@ -19,7 +19,6 @@
 package org.ofbiz.widget.screen;
 
 import java.io.IOException;
-import java.io.Writer;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -146,7 +145,7 @@ public class HtmlWidget extends ModelScreenWidget {
 
     public static class HtmlTemplateDecorator extends ModelScreenWidget {
         protected FlexibleStringExpander locationExdr;
-        protected Map sectionMap = new HashMap();
+        protected Map<String, HtmlTemplateDecoratorSection> sectionMap = new HashMap<String, HtmlTemplateDecoratorSection>();
         
         public HtmlTemplateDecorator(ModelScreen modelScreen, Element htmlTemplateDecoratorElement) {
             super(modelScreen, htmlTemplateDecoratorElement);
@@ -161,6 +160,7 @@ public class HtmlWidget extends ModelScreenWidget {
             }
         }
 
+        @SuppressWarnings("unchecked")
         public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) {
             // isolate the scope
             if (!(context instanceof MapStack)) {

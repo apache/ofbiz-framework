@@ -27,6 +27,7 @@ import org.ofbiz.base.util.*;
  * rendering process so that we avoid having to log redundant
  * exceptions.
  */
+@SuppressWarnings("serial")
 public class ScreenRenderException extends GeneralException {
 
     public ScreenRenderException() {

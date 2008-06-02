@@ -31,6 +31,7 @@ import javolution.util.FastList;
 import org.ofbiz.base.util.*;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entityext.permission.EntityPermissionChecker;
 import org.ofbiz.minilang.operation.BaseCompare;
@@ -48,6 +49,7 @@ import org.w3c.dom.Element;
 /**
  * Widget Library - Screen model condition class
  */
+@SuppressWarnings("serial")
 public class ModelScreenCondition implements Serializable {
     public static final String module = ModelScreenCondition.class.getName();
 
@@ -77,8 +79,8 @@ public class ModelScreenCondition implements Serializable {
         public abstract boolean eval(Map<String, Object> context);
     }
     
-    public static List readSubConditions(ModelScreen modelScreen, Element conditionElement) {
-        List condList = FastList.newInstance();
+    public static List<ScreenCondition> readSubConditions(ModelScreen modelScreen, Element conditionElement) {
+        List<ScreenCondition> condList = FastList.newInstance();
         List subElementList = UtilXml.childElementList(conditionElement);
         Iterator subElementIter = subElementList.iterator();
         while (subElementIter.hasNext()) {
@@ -235,11 +237,8 @@ public class ModelScreenCondition implements Serializable {
                     return false;
                 }
 
-                Map serviceContext;
-                Object internalSvcMap = context.get(contextMap);
-                if (internalSvcMap != null && (internalSvcMap instanceof Map)) {
-                    serviceContext = (Map) internalSvcMap;
-
+                Map<String, Object> serviceContext = UtilGenerics.toMap(context.get(contextMap));
+                if (serviceContext != null) {
                     // copy the required internal fields
                     serviceContext.put("userLogin", context.get("userLogin"));
                     serviceContext.put("locale", context.get("locale"));
@@ -262,14 +261,14 @@ public class ModelScreenCondition implements Serializable {
 
                 if (permService != null) {
                     // build the context
-                    Map svcCtx = permService.makeValid(serviceContext, ModelService.IN_PARAM);
+                    Map<String, Object> svcCtx = permService.makeValid(serviceContext, ModelService.IN_PARAM);
                     svcCtx.put("resourceDescription", resource);
                     if (UtilValidate.isNotEmpty(mainAction)) {
                         svcCtx.put("mainAction", mainAction);
                     }
 
                     // invoke the service
-                    Map resp;
+                    Map<String, Object> resp;
                     try {
                         resp = dispatcher.runSync(permService.name,  svcCtx, 300, true);
                     } catch (GenericServiceException e) {
@@ -413,7 +412,7 @@ public class ModelScreenCondition implements Serializable {
                 fieldVal = "";
             }
 
-            List messages = FastList.newInstance();
+            List<String> messages = FastList.newInstance();
             Boolean resultBool = BaseCompare.doRealCompare(fieldVal, value, operator, type, format, messages, null, null, true);
             if (messages.size() > 0) {
                 messages.add(0, "Error with comparison in if-compare between field [" + fieldAcsr.toString() + "] with value [" + fieldVal + "] and value [" + value + "] with operator [" + operator + "] and type [" + type + "]: ");
@@ -462,7 +461,7 @@ public class ModelScreenCondition implements Serializable {
                 fieldVal = "";
             }
 
-            List messages = FastList.newInstance();
+            List<String> messages = FastList.newInstance();
             Boolean resultBool = BaseCompare.doRealCompare(fieldVal, toFieldVal, operator, type, format, messages, null, null, false);
             if (messages.size() > 0) {
                 messages.add(0, "Error with comparison in if-compare-field between field [" + fieldAcsr.toString() + "] with value [" + fieldVal + "] and to-field [" + toFieldAcsr.toString() + "] with value [" + toFieldVal + "] with operator [" + operator + "] and type [" + type + "]: ");

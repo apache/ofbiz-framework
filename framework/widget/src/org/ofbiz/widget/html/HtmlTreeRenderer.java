@@ -19,7 +19,6 @@
 package org.ofbiz.widget.html;
 
 import java.io.IOException;
-import java.io.Writer;
 import java.util.List;
 import java.util.Map;
 
@@ -61,7 +60,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
 
         String pathString = buildPathString(node.getModelTree(), depth);
         String currentNodeTrailPiped = null;
-        List currentNodeTrail = node.getModelTree().getCurrentNodeTrail();
+        List<String> currentNodeTrail = node.getModelTree().getCurrentNodeTrail();
         String staticNodeTrailPiped = StringUtil.join(currentNodeTrail, "|");
         context.put("staticNodeTrailPiped", staticNodeTrailPiped);
         context.put("nodePathString", pathString);

@@ -58,9 +58,9 @@ public class HtmlMenuWrapperImage extends HtmlMenuWrapper {
             throws IOException, SAXException, ParserConfigurationException {
         
         super.init(resourceName, menuName, request, response);
-        String pubPt = (String)request.getAttribute("pubPt");
+        //String pubPt = (String)request.getAttribute("pubPt");
         //if (Debug.infoOn()) Debug.logInfo("in init, pubPt:" + pubPt, module);
-        Map dummyMap = new HashMap();
+        Map<String, Object> dummyMap = new HashMap<String, Object>();
         GenericDelegator delegator = (GenericDelegator)request.getAttribute("delegator");
         //if (Debug.infoOn()) Debug.logInfo("in init, delegator:" + delegator, module);
         try {

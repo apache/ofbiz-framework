@@ -19,7 +19,6 @@
 package org.ofbiz.widget.html;
 
 import java.io.IOException;
-import java.io.Writer;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Locale;
@@ -28,18 +27,17 @@ import java.util.Map;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
-import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.webapp.control.RequestHandler;
 import org.ofbiz.webapp.taglib.ContentUrlTag;
@@ -150,8 +148,9 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
             }
             if (screenlet.collapsible()) {
                 String toolTip = null;
-                Map uiLabelMap = (Map) context.get("uiLabelMap");
-                Map requestParameters = new HashMap((Map)context.get("requestParameters"));
+                Map<String, Object> uiLabelMap = UtilGenerics.checkMap(context.get("uiLabelMap"));
+                Map<String, Object> paramMap = UtilGenerics.checkMap(context.get("requestParameters"));
+                Map<String, Object> requestParameters = new HashMap<String, Object>(paramMap);
                 writer.append("<li class=\"");
                 if (collapsed) {
                     requestParameters.put(screenlet.getPreferenceKey(context) + "_collapsed", "false");
@@ -229,14 +228,10 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
 
         // needed for the "Page" and "rows" labels
         Map uiLabelMap = (Map) context.get("uiLabelMap");
-        String pageLabel = "";
-        String rowsLabel = "";
         String ofLabel = "";
         if (uiLabelMap == null) {
             Debug.logWarning("Could not find uiLabelMap in context", module);
         } else {
-            pageLabel = (String) uiLabelMap.get("CommonPage");
-            rowsLabel = (String) uiLabelMap.get("CommonRows");
             ofLabel = (String) uiLabelMap.get("CommonOf");
             ofLabel = ofLabel.toLowerCase();
         }
@@ -248,7 +243,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
         ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
         RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
 
-        Map inputFields = (Map) context.get("requestParameters");
+        Map<String, Object> inputFields = UtilGenerics.toMap(context.get("requestParameters"));
         // strip out any multi form fields if the form is of type multi
         if (modelForm.getType().equals("multi")) {
             inputFields = UtilHttp.removeMultiFormParameters(inputFields);
@@ -257,7 +252,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
         // strip legacy viewIndex/viewSize params from the query string
         queryString = UtilHttp.stripViewParamsFromQueryString(queryString);
         // strip parametrized index/size params from the query string
-        HashSet paramNames = new HashSet();
+        HashSet<String> paramNames = new HashSet<String>();
         paramNames.add(viewIndexParam);
         paramNames.add(viewSizeParam);
         queryString = UtilHttp.stripNamedParamsFromQueryString(queryString, paramNames);
@@ -600,7 +595,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
         GenericDelegator delegator = (GenericDelegator) context.get("delegator");
 
         // make a new map for content rendering; so our current map does not get clobbered
-        Map contentContext = FastMap.newInstance();
+        Map<String, Object> contentContext = FastMap.newInstance();
         contentContext.putAll(context);
         String dataResourceId = (String)contentContext.get("dataResourceId");
         if (Debug.verboseOn()) Debug.logVerbose("expandedContentId:" + expandedContentId, module);
@@ -736,7 +731,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
             GenericDelegator delegator = (GenericDelegator) context.get("delegator");
 
             // create a new map for the content rendering; so our current context does not get overwritten!
-            Map contentContext = FastMap.newInstance();
+            Map<String, Object> contentContext = FastMap.newInstance();
             contentContext.putAll(context);
 
             try {
@@ -796,8 +791,8 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
                 if (UtilValidate.isNotEmpty(expandedMapKey)) {
                     editRequest += "&amp;mapKey=" + expandedMapKey;
                 }
-                HttpSession session = request.getSession();
-                GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
+                //HttpSession session = request.getSession();
+                //GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
                 /* don't know why this is here. might come to me later. -amb
                 GenericDelegator delegator = (GenericDelegator)request.getAttribute("delegator");
                 String contentIdTo = content.getContentId(context);

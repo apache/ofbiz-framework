@@ -74,7 +74,7 @@ public class HtmlFormWrapper {
 
         this.renderer = new HtmlFormRenderer(request, response);
         
-        this.context = new HashMap();
+        this.context = new HashMap<String, Object>();
         Map parameterMap = UtilHttp.getParameterMap(request);
         context.put("parameters", parameterMap);
         
@@ -102,6 +102,7 @@ public class HtmlFormWrapper {
         }
     }
     
+    @SuppressWarnings("unchecked")
     public String renderFormString(Object contextStack) throws IOException {
         if (contextStack instanceof MapStack) {
             return renderFormString((MapStack) contextStack);
@@ -110,7 +111,7 @@ public class HtmlFormWrapper {
             return renderFormString();
         }
     }
-    public String renderFormString(MapStack contextStack) throws IOException {
+    public String renderFormString(MapStack<String> contextStack) throws IOException {
         // create a new context with the current context on the bottom
         contextStack.push(this.context);
         StringWriter buffer = new StringWriter();

@@ -19,7 +19,6 @@
 package org.ofbiz.widget.menu;
 
 import java.io.IOException;
-import java.io.Writer;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -46,7 +45,7 @@ public class ModelMenuItem {
 
     protected ModelMenu modelMenu;
 
-    protected Map dataMap = new HashMap();
+    protected Map<String, Object> dataMap = new HashMap<String, Object>();
     protected String name;
     protected String entityName;
     protected FlexibleStringExpander title;
@@ -66,8 +65,8 @@ public class ModelMenuItem {
     protected ModelMenu subMenu;
     protected Link link;
     
-    protected List menuItemList = new LinkedList();
-    protected Map menuItemMap = new HashMap();
+    protected List<ModelMenuItem> menuItemList = new LinkedList<ModelMenuItem>();
+    protected Map<String, ModelMenuItem> menuItemMap = new HashMap<String, ModelMenuItem>();
 
 
     public static String DEFAULT_TARGET_TYPE = "intra-app";

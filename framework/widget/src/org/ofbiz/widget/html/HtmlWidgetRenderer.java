@@ -19,7 +19,6 @@
 package org.ofbiz.widget.html;
 
 import java.io.IOException;
-import java.io.Writer;
 
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.widget.ModelWidget;

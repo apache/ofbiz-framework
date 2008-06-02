@@ -19,7 +19,6 @@
 package org.ofbiz.widget.form;
 
 import java.io.IOException;
-import java.io.Writer;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.NumberFormat;
@@ -40,6 +39,7 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilFormatOut;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
@@ -1415,7 +1415,7 @@ public class ModelFormField {
         public static final int SOURCE_AUTO_ENTITY = 2;
         public static final int SOURCE_AUTO_SERVICE = 3;
 
-        public static Map fieldTypeByName = new HashMap();
+        public static Map<String, Integer> fieldTypeByName = new HashMap<String, Integer>();
 
         static {
             fieldTypeByName.put("display", new Integer(1));
@@ -1531,8 +1531,8 @@ public class ModelFormField {
             }
         }
 
-        public List getAllOptionValues(Map<String, Object> context, GenericDelegator delegator) {
-            List optionValues = new LinkedList();
+        public List<OptionValue> getAllOptionValues(Map<String, Object> context, GenericDelegator delegator) {
+            List<OptionValue> optionValues = new LinkedList<OptionValue>();
             Iterator optionSourceIter = this.optionSources.iterator();
             while (optionSourceIter.hasNext()) {
                 OptionSource optionSource = (OptionSource) optionSourceIter.next();
@@ -1599,7 +1599,7 @@ public class ModelFormField {
     public static abstract class OptionSource {
         protected FieldInfo fieldInfo;
 
-        public abstract void addOptionValues(List optionValues, Map<String, Object> context, GenericDelegator delegator);
+        public abstract void addOptionValues(List<OptionValue> optionValues, Map<String, Object> context, GenericDelegator delegator);
     }
 
     public static class SingleOption extends OptionSource {
@@ -1618,7 +1618,7 @@ public class ModelFormField {
             this.fieldInfo = fieldInfo;
         }
 
-        public void addOptionValues(List optionValues, Map<String, Object> context, GenericDelegator delegator) {
+        public void addOptionValues(List<OptionValue> optionValues, Map<String, Object> context, GenericDelegator delegator) {
             optionValues.add(new OptionValue(key.expandString(context), description.expandString(context)));
         }
     }
@@ -1647,17 +1647,18 @@ public class ModelFormField {
             this.fieldInfo = fieldInfo;
         }
 
-        public void addOptionValues(List optionValues, Map<String, Object> context, GenericDelegator delegator) {
+        public void addOptionValues(List<OptionValue> optionValues, Map<String, Object> context, GenericDelegator delegator) {
             List dataList = (List) this.listAcsr.get(context);
             if (dataList != null && dataList.size() != 0) {
                 Iterator dataIter = dataList.iterator();
                 while (dataIter.hasNext()) {
                     Object data = dataIter.next();
-                    Map localContext = new HashMap(context);
+                    Map<String, Object> localContext = new HashMap<String, Object>(context);
                     if (UtilValidate.isNotEmpty(this.listEntryName)) {
                         localContext.put(this.listEntryName, data);
                     } else {
-                        localContext.putAll((Map) data);
+                        Map<String, Object> dataMap = UtilGenerics.checkMap(data);
+                        localContext.putAll(dataMap);
                     }
                     optionValues.add(new OptionValue((String) keyAcsr.get(localContext), description.expandString(localContext)));
                 }
@@ -1672,8 +1673,8 @@ public class ModelFormField {
         protected boolean cache = true;
         protected String filterByDate;
 
-        protected List constraintList = null;
-        protected List orderByList = null;
+        protected List<EntityFinderUtil.ConditionExpr> constraintList = null;
+        protected List<String> orderByList = null;
 
         public EntityOptions(FieldInfo fieldInfo) {
             this.fieldInfo = fieldInfo;
@@ -1688,7 +1689,7 @@ public class ModelFormField {
 
             List constraintElements = UtilXml.childElementList(entityOptionsElement, "entity-constraint");
             if (constraintElements != null && constraintElements.size() > 0) {
-                this.constraintList = new LinkedList();
+                this.constraintList = new LinkedList<EntityFinderUtil.ConditionExpr>();
                 Iterator constraintElementIter = constraintElements.iterator();
                 while (constraintElementIter.hasNext()) {
                     Element constraintElement = (Element) constraintElementIter.next();
@@ -1698,7 +1699,7 @@ public class ModelFormField {
 
             List orderByElements = UtilXml.childElementList(entityOptionsElement, "entity-order-by");
             if (orderByElements != null && orderByElements.size() > 0) {
-                this.orderByList = new LinkedList();
+                this.orderByList = new LinkedList<String>();
                 Iterator orderByElementIter = orderByElements.iterator();
                 while (orderByElementIter.hasNext()) {
                     Element orderByElement = (Element) orderByElementIter.next();
@@ -1718,11 +1719,11 @@ public class ModelFormField {
             }
         }
 
-        public void addOptionValues(List optionValues, Map<String, Object> context, GenericDelegator delegator) {
+        public void addOptionValues(List<OptionValue> optionValues, Map<String, Object> context, GenericDelegator delegator) {
             // first expand any conditions that need expanding based on the current context
             EntityCondition findCondition = null;
             if (this.constraintList != null && this.constraintList.size() > 0) {
-                List expandedConditionList = new LinkedList();
+                List<EntityCondition> expandedConditionList = new LinkedList<EntityCondition>();
                 Iterator constraintIter = constraintList.iterator();
                 while (constraintIter.hasNext()) {
                     EntityFinderUtil.Condition condition = (EntityFinderUtil.Condition) constraintIter.next();
@@ -1734,7 +1735,7 @@ public class ModelFormField {
             try {
                 Locale locale = UtilMisc.ensureLocale(context.get("locale"));
                 
-                List values = null;
+                List<GenericValue> values = null;
                 values = delegator.findList(this.entityName, findCondition, null, this.orderByList, null, this.cache);
 
                 // filter-by-date if requested
@@ -1752,12 +1753,7 @@ public class ModelFormField {
                 while (valueIter.hasNext()) {
                     GenericValue value = (GenericValue) valueIter.next();
                     // add key and description with string expansion, ie expanding ${} stuff, passing locale explicitly to expand value string because it won't be found in the Entity
-                    MapStack localContext = null;
-                    if (context instanceof MapStack) {
-                        localContext = ((MapStack) context).standAloneStack();
-                    } else {
-                        localContext = MapStack.create(context);
-                    }
+                    MapStack<String> localContext = MapStack.create(context);
                     localContext.push(value);
 
                     // expand with the new localContext, which is locale aware
@@ -1938,12 +1934,7 @@ public class ModelFormField {
             String retVal = null;
             if (value != null) {
                 // expanding ${} stuff, passing locale explicitly to expand value string because it won't be found in the Entity
-                MapStack localContext = null;
-                if (context instanceof MapStack) {
-                    localContext = ((MapStack) context).standAloneStack();
-                } else {
-                    localContext = MapStack.create(context);
-                }
+                MapStack<String> localContext = MapStack.create(context);
                 localContext.push(value);
 
                 // expand with the new localContext, which is locale aware
@@ -2997,8 +2988,8 @@ public class ModelFormField {
             return this.formName.expandString(context);
         }
 
-        public List getTargetParameterList() {
-            List paramList = FastList.newInstance();
+        public List<String> getTargetParameterList() {
+            List<String> paramList = FastList.newInstance();
             if (UtilValidate.isNotEmpty(this.targetParameter)) {
                 StringTokenizer stk = new StringTokenizer(this.targetParameter, ", ");
                 while (stk.hasMoreTokens()) {

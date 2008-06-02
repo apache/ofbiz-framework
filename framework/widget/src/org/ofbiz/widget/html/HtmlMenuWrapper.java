@@ -31,6 +31,7 @@ import javax.servlet.http.HttpSession;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericValue;
@@ -73,7 +74,7 @@ public class HtmlMenuWrapper {
 
         this.renderer = getMenuRenderer();
         
-        this.context = new HashMap();
+        this.context = new HashMap<String, Object>();
         Map parameterMap = UtilHttp.getParameterMap(request);
         context.put("parameters", parameterMap);
 
@@ -149,9 +150,9 @@ public class HtmlMenuWrapper {
     }
     
     public void putInContext(String menuItemName, String valueName,  Object value) {
-        Map valueMap = (Map)context.get(menuItemName);
+        Map<String, Object> valueMap = UtilGenerics.toMap(context.get(menuItemName));
         if (valueMap == null) {
-            valueMap = new HashMap();
+            valueMap = new HashMap<String, Object>();
             context.put(menuItemName, valueMap);
         }
         valueMap.put(valueName, value);
@@ -162,9 +163,9 @@ public class HtmlMenuWrapper {
     }
     
     public Object getFromContext(String menuItemName, String valueName) {
-        Map valueMap = (Map)context.get(menuItemName);
+        Map<String, Object> valueMap = UtilGenerics.toMap(context.get(menuItemName));
         if (valueMap == null) {
-            valueMap = new HashMap();
+            valueMap = new HashMap<String, Object>();
             context.put(menuItemName, valueMap);
         }
         return valueMap.get(valueName);

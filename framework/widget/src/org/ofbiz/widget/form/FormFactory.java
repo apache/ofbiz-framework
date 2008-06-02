@@ -49,15 +49,15 @@ public class FormFactory {
     
     public static final String module = FormFactory.class.getName();
 
-    public static final UtilCache formLocationCache = new UtilCache("widget.form.locationResource", 0, 0, false);
-    public static final UtilCache formWebappCache = new UtilCache("widget.form.webappResource", 0, 0, false);
+    public static final UtilCache<String, Map<String, ModelForm>> formLocationCache = new UtilCache<String, Map<String, ModelForm>>("widget.form.locationResource", 0, 0, false);
+    public static final UtilCache<String, Map<String, ModelForm>> formWebappCache = new UtilCache<String, Map<String, ModelForm>>("widget.form.webappResource", 0, 0, false);
     
-    public static Map getFormsFromLocation(String resourceName, ModelReader entityModelReader, DispatchContext dispatchContext) 
+    public static Map<String, ModelForm> getFormsFromLocation(String resourceName, ModelReader entityModelReader, DispatchContext dispatchContext) 
             throws IOException, SAXException, ParserConfigurationException {
-        Map modelFormMap = (Map) formLocationCache.get(resourceName);
+        Map<String, ModelForm> modelFormMap = formLocationCache.get(resourceName);
         if (modelFormMap == null) {
             synchronized (FormFactory.class) {
-                modelFormMap = (Map) formLocationCache.get(resourceName);
+                modelFormMap = formLocationCache.get(resourceName);
                 if (modelFormMap == null) {
                     ClassLoader loader = Thread.currentThread().getContextClassLoader();
                     if (loader == null) {
@@ -93,10 +93,10 @@ public class FormFactory {
         String cacheKey = webappName + "::" + resourceName;
         
         
-        Map modelFormMap = (Map) formWebappCache.get(cacheKey);
+        Map<String, ModelForm> modelFormMap = formWebappCache.get(cacheKey);
         if (modelFormMap == null) {
             synchronized (FormFactory.class) {
-                modelFormMap = (Map) formWebappCache.get(cacheKey);
+                modelFormMap = formWebappCache.get(cacheKey);
                 if (modelFormMap == null) {
                     ServletContext servletContext = (ServletContext) request.getAttribute("servletContext");
                     GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
@@ -117,8 +117,8 @@ public class FormFactory {
         return modelForm;
     }
     
-    public static Map readFormDocument(Document formFileDoc, ModelReader entityModelReader, DispatchContext dispatchContext, String formLocation) {
-        Map modelFormMap = new HashMap();
+    public static Map<String, ModelForm> readFormDocument(Document formFileDoc, ModelReader entityModelReader, DispatchContext dispatchContext, String formLocation) {
+        Map<String, ModelForm> modelFormMap = new HashMap<String, ModelForm>();
         if (formFileDoc != null) {
             // read document and construct ModelForm for each form element
             Element rootElement = formFileDoc.getDocumentElement();

@@ -19,7 +19,6 @@
 package org.ofbiz.widget.menu;
 
 import java.io.IOException;
-import java.io.Writer;
 import java.util.Map;
 
 

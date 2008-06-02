@@ -64,8 +64,8 @@ public abstract class ModelFormAction {
     
     public abstract void runAction(Map<String, Object> context);
     
-    public static List readSubActions(ModelForm modelForm, Element parentElement) {
-        List actions = new LinkedList();
+    public static List<ModelFormAction> readSubActions(ModelForm modelForm, Element parentElement) {
+        List<ModelFormAction> actions = new LinkedList<ModelFormAction>();
         
         List actionElementList = UtilXml.childElementList(parentElement);
         Iterator actionElementIter = actionElementList.iterator();
@@ -296,7 +296,7 @@ public abstract class ModelFormAction {
         protected FlexibleMapAccessor resultMapNameAcsr;
         protected FlexibleStringExpander autoFieldMapExdr;
         protected FlexibleStringExpander resultMapListNameExdr;
-        protected Map fieldMap;
+        protected Map<FlexibleMapAccessor, Object> fieldMap;
         
         public Service(ModelForm modelForm, Element serviceElement) {
             super (modelForm, serviceElement);
@@ -331,18 +331,18 @@ public abstract class ModelFormAction {
             boolean autoFieldMapBool = !"false".equals(autoFieldMapString);
             
             try {
-                Map serviceContext = null;
+                Map<String, Object> serviceContext = null;
                 if (autoFieldMapBool) {
                     serviceContext = this.modelForm.getDispatcher(context).getDispatchContext().makeValidContext(serviceNameExpanded, ModelService.IN_PARAM, context);
                 } else {
-                    serviceContext = new HashMap();
+                    serviceContext = new HashMap<String, Object>();
                 }
                 
                 if (this.fieldMap != null) {
                     EntityFinderUtil.expandFieldMapToContext(this.fieldMap, context, serviceContext);
                 }
                 
-                Map result = this.modelForm.getDispatcher(context).runSync(serviceNameExpanded, serviceContext);
+                Map<String, Object> result = this.modelForm.getDispatcher(context).runSync(serviceNameExpanded, serviceContext);
                 
                 if (this.resultMapNameAcsr != null) {
                     this.resultMapNameAcsr.put(context, result);

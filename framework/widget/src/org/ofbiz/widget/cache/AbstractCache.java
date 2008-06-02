@@ -48,12 +48,12 @@ public abstract class AbstractCache {
         return UtilCache.findCache(getCacheName(widgetName));
     }
 
-    protected UtilCache getOrCreateCache(String widgetName) {
+    protected UtilCache<WidgetContextCacheKey, GenericWidgetOutput> getOrCreateCache(String widgetName) {
         synchronized (UtilCache.utilCacheTable) {
             String name = getCacheName(widgetName);
-            UtilCache cache = UtilCache.findCache(name);
+            UtilCache<WidgetContextCacheKey, GenericWidgetOutput> cache = UtilCache.findCache(name);
             if (cache == null) {
-                cache = new UtilCache(name, 0, 0, true);
+                cache = new UtilCache<WidgetContextCacheKey, GenericWidgetOutput>(name, 0, 0, true);
                 cache.setPropertiesParams(new String[] {name});
             }
             return cache;

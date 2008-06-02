@@ -19,7 +19,6 @@
 package org.ofbiz.widget.html;
 
 import java.io.IOException;
-import java.io.Writer;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.HashSet;
@@ -36,6 +35,7 @@ import javolution.util.FastList;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -1196,7 +1196,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         if (UtilValidate.isNotEmpty((String)context.get("queryString"))) {
             queryString = (String)context.get("queryString");
         } else {
-            Map inputFields = (Map)context.get("requestParameters");
+            Map<String, Object> inputFields = UtilGenerics.checkMap(context.get("requestParameters"));
             // strip out any multi form fields if the form is of type multi
             if (modelForm.getType().equals("multi")) {
                 inputFields = UtilHttp.removeMultiFormParameters(inputFields);
@@ -2068,7 +2068,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         String queryString = UtilHttp.stripViewParamsFromQueryString(str);
 
         // strip parametrized index/size params from the query string
-        HashSet paramNames = new HashSet();
+        HashSet<String> paramNames = new HashSet<String>();
         paramNames.add(viewIndexParam);
         paramNames.add(viewSizeParam);
         queryString = UtilHttp.stripNamedParamsFromQueryString(queryString, paramNames);

@@ -345,7 +345,7 @@ public abstract class ModelMenuAction {
         protected FlexibleStringExpander serviceNameExdr;
         protected FlexibleMapAccessor resultMapNameAcsr;
         protected FlexibleStringExpander autoFieldMapExdr;
-        protected Map fieldMap;
+        protected Map<FlexibleMapAccessor, FlexibleMapAccessor> fieldMap;
         
         public Service(ModelMenu modelMenu, Element serviceElement) {
             super (modelMenu, serviceElement);
@@ -355,7 +355,7 @@ public abstract class ModelMenuAction {
             
             List fieldMapElementList = UtilXml.childElementList(serviceElement, "field-map");
             if (fieldMapElementList.size() > 0) {
-                this.fieldMap = new HashMap();
+                this.fieldMap = new HashMap<FlexibleMapAccessor, FlexibleMapAccessor>();
                 Iterator fieldMapElementIter = fieldMapElementList.iterator();
                 while (fieldMapElementIter.hasNext()) {
                     Element fieldMapElement = (Element) fieldMapElementIter.next();
@@ -377,11 +377,11 @@ public abstract class ModelMenuAction {
             boolean autoFieldMapBool = !"false".equals(autoFieldMapString);
             
             try {
-                Map serviceContext = null;
+                Map<String, Object> serviceContext = null;
                 if (autoFieldMapBool) {
                     serviceContext = this.modelMenu.getDispacher().getDispatchContext().makeValidContext(serviceNameExpanded, ModelService.IN_PARAM, context);
                 } else {
-                    serviceContext = new HashMap();
+                    serviceContext = new HashMap<String, Object>();
                 }
                 
                 if (this.fieldMap != null) {
@@ -394,7 +394,7 @@ public abstract class ModelMenuAction {
                     }
                 }
                 
-                Map result = this.modelMenu.getDispacher().runSync(serviceNameExpanded, serviceContext);
+                Map<String, Object> result = this.modelMenu.getDispacher().runSync(serviceNameExpanded, serviceContext);
                 
                 if (this.resultMapNameAcsr != null) {
                     this.resultMapNameAcsr.put(context, result);

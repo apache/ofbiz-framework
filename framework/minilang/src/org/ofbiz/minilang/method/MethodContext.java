@@ -296,7 +296,7 @@ public class MethodContext {
         this.results.put(key, value);
     }
 
-    public Map getResults() {
+    public Map<String, Object> getResults() {
         return this.results;
     }
     
