@@ -2026,9 +2026,14 @@ public class OrderReadHelper {
             while (i.hasNext()) {
                 GenericValue issue = (GenericValue) i.next();
                 BigDecimal issueQty = issue.getBigDecimal("quantity");
-                if (issueQty != null) {
-                    quantityShipped = quantityShipped.add(issueQty).setScale(scale, rounding);
+                BigDecimal cancelQty = issue.getBigDecimal("cancelQuantity");
+                if (cancelQty == null) {
+                    cancelQty = ZERO;
                 }
+                if (issueQty == null) {
+                    issueQty = ZERO;
+                }
+                quantityShipped = quantityShipped.add(issueQty.subtract(cancelQty)).setScale(scale, rounding);
             }
         }
         return quantityShipped.setScale(scale, rounding);

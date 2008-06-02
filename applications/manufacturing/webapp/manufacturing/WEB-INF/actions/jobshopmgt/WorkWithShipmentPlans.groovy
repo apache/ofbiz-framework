@@ -54,7 +54,12 @@ if (shipmentPlans != null) {
         //    oneRow.putAll(shipmentPlan.getRelatedOne("OrderItemInventoryRes"));
         orderItem = shipmentPlan.getRelatedOne("OrderItem");
         oneRow.put("productId", orderItem.getString("productId"));
-        oneRow.put("totOrderedQuantity", orderItem.getString("quantity"));
+        orderedQuantity = orderItem.getDouble("quantity");
+        canceledQuantity = orderItem.getDouble("cancelQuantity");
+        if (canceledQuantity != null) {
+            orderedQuantity = Double.valueOf(orderedQuantity.doubleValue() - canceledQuantity.doubleValue());
+        }
+        oneRow.put("totOrderedQuantity", orderedQuantity.intValue());
         // Total quantity issued
         issuedQuantity = 0.0;
         qtyIssuedInShipment = new HashMap();
@@ -64,12 +69,19 @@ if (shipmentPlans != null) {
             issuance = issuancesIt.next();
             if (issuance.get("quantity") != null) {
                 issuedQuantity += issuance.getDouble("quantity");
+                if (issuance.get("cancelQuantity") != null) {
+                    issuedQuantity -= issuance.getDouble("cancelQuantity");
+                }                 
                 if (qtyIssuedInShipment.containsKey(issuance.getString("shipmentId"))) {
                     qtyInShipment = ((Double)qtyIssuedInShipment.get(issuance.getString("shipmentId"))).doubleValue();
                     qtyInShipment += issuance.getDouble("quantity");
                     qtyIssuedInShipment.put(issuance.getString("shipmentId"), qtyInShipment);
                 } else {
-                    qtyIssuedInShipment.put(issuance.getString("shipmentId"), issuance.getDouble("quantity"));
+                    qtyInShipment = issuance.getDouble("quantity");
+                    if (issuance.get("cancelQuantity") != null) {
+                        qtyInShipment -= issuance.getDouble("cancelQuantity");
+                    }                    
+                    qtyIssuedInShipment.put(issuance.getString("shipmentId"), qtyInShipment);
                 }
             }
         }
