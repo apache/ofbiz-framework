@@ -5095,6 +5095,12 @@
         <value xml:lang="th">ค้นหาแหล่งข้อมูลการสั่งซื้อ</value>
         <value xml:lang="zh">查找订阅资源</value>
     </property>
+    <property key="PageTitleInventoryItemGrandTotals">
+        <value xml:lang="en">Inventory Item Grand Totals for ${facility.facilityName} [${facility.facilityId}]</value>
+        <value xml:lang="fr">Total général des lignes de stock</value>
+        <value xml:lang="it">Totale Generale Righe Inventario</value>
+        <value xml:lang="th">ผลรวมรายการสินค้าคงเหลือดีเยี่ยม</value>
+    </property>
     <property key="PageTitleLabelPrinting">
         <value xml:lang="en">Label Printing</value>
         <value xml:lang="fr">Impression d'étiquettes</value>
@@ -10364,7 +10370,7 @@
         <value xml:lang="zh">库存明细</value>
     </property>
     <property key="ProductInventoryItemGrandTotals">
-        <value xml:lang="en">Inventory Item Grand Totals for ${facility.facilityName} [${facility.facilityId}]</value>
+        <value xml:lang="en">Inventory Item Grand Totals</value>
         <value xml:lang="fr">Total général des lignes de stock</value>
         <value xml:lang="it">Totale Generale Righe Inventario</value>
         <value xml:lang="th">ผลรวมรายการสินค้าคงเหลือดีเยี่ยม</value>
