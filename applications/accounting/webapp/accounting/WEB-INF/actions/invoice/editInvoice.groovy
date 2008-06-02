@@ -53,10 +53,10 @@ if ("Y".equalsIgnoreCase(other)) {
                                                asOfDate : invoice.invoiceDate]);
     
     if (result.convertedValue != null) {
-      conversionRate = new BigDecimal(result.convertedValue.doubleValue());		
+      conversionRate = new BigDecimal(result.convertedValue.doubleValue());
       invoice.invoiceMessage = invoice.get("invoiceMessage") ? 
                           invoice.invoiceMessage.concat(" Converted from " + invoice.currencyUomId + " Rate: " + conversionRate.setScale(6, rounding).toString()) :
-                          "Converted from " + invoice.currencyUomId + " Rate: " + conversionRate.setScale(6, rounding).toString());
+                          "Converted from " + invoice.currencyUomId + " Rate: " + conversionRate.setScale(6, rounding).toString();
       invoice.currencyUomId = otherCurrency;
     }
   }
@@ -66,7 +66,7 @@ if (invoice) {
     invoiceItems = invoice.getRelatedOrderBy("InvoiceItem", ["invoiceItemSeqId"]);
     invoiceItemsConv = FastList.newInstance();
     invoiceItems.each { invoiceItem ->
-      invoiceItem.amount = new Double((invoiceItem.getBigDecimal("amount").multiply(conversionRate).setScale(decimals, rounding)).doubleValue()));
+      invoiceItem.amount = new Double((invoiceItem.getBigDecimal("amount").multiply(conversionRate).setScale(decimals, rounding)).doubleValue());
       invoiceItemsConv.add(invoiceItem);
     }
     
@@ -75,8 +75,8 @@ if (invoice) {
     
     invoiceTotal = InvoiceWorker.getInvoiceTotalBd(invoice).multiply(conversionRate).setScale(decimals, rounding).doubleValue();
     invoiceNoTaxTotal = InvoiceWorker.getInvoiceNoTaxTotalBd(invoice).multiply(conversionRate).setScale(decimals, rounding).doubleValue();
-    context.invoiceTotal = new Double(invoiceTotal));    
-    context.invoiceNoTaxTotal = new Double(invoiceNoTaxTotal));
+    context.invoiceTotal = new Double(invoiceTotal);    
+    context.invoiceNoTaxTotal = new Double(invoiceNoTaxTotal);
     
     // each invoice of course has two billing addresses, but the one that is relevant for purchase invoices is the PAYMENT_LOCATION of the invoice
     // (ie Accounts Payable address for the supplier), while the right one for sales invoices is the BILLING_LOCATION (ie Accounts Receivable or
@@ -128,7 +128,7 @@ if (invoice) {
     paymentAppls = delegator.findByAnd("PaymentApplication", [invoiceId : invoiceId]);
     context.payments = paymentAppls;
     
-    orderItemBillings = delegator.findByAnd("OrderItemBilling", [invoiceId : invoiceId], [orderId]);
+    orderItemBillings = delegator.findByAnd("OrderItemBilling", [invoiceId : invoiceId], ['orderId']);
     orders = new LinkedHashSet();
     orderItemBillings.each { orderIb ->
         orders.add(orderIb.orderId);
