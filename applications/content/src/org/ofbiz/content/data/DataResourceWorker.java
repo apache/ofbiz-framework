@@ -571,7 +571,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
         return writer.toString();
     }
 
-    public static void renderDataResourceAsText(GenericDelegator delegator, String dataResourceId, Writer out,
+    public static void renderDataResourceAsText(GenericDelegator delegator, String dataResourceId, Appendable out,
             Map templateContext, Locale locale, String targetMimeTypeId, boolean cache) throws GeneralException, IOException {
         if (dataResourceId == null) {
                 throw new GeneralException("Cannot lookup data resource with for a null dataResourceId");
@@ -696,7 +696,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
     }
 
     /** @deprecated */
-    public static void renderDataResourceAsText(GenericDelegator delegator, String dataResourceId, Writer out,
+    public static void renderDataResourceAsText(GenericDelegator delegator, String dataResourceId, Appendable out,
             Map templateContext, GenericValue view, Locale locale, String targetMimeTypeId) throws GeneralException, IOException {
         renderDataResourceAsText(delegator, dataResourceId, out, templateContext, locale, targetMimeTypeId, false);
     }
@@ -708,7 +708,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
     }
 
     /** @deprecated */
-    public static void renderDataResourceAsTextCache(GenericDelegator delegator, String dataResourceId, Writer out,
+    public static void renderDataResourceAsTextCache(GenericDelegator delegator, String dataResourceId, Appendable out,
             Map templateContext, GenericValue view, Locale locale, String targetMimeTypeId) throws GeneralException, IOException {
         renderDataResourceAsText(delegator, dataResourceId, out, templateContext, locale, targetMimeTypeId, true);
     }
@@ -725,7 +725,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
     }
 
     public static void writeDataResourceText(GenericValue dataResource, String mimeTypeId, Locale locale, Map templateContext,
-            GenericDelegator delegator, Writer out, boolean cache) throws IOException, GeneralException {
+            GenericDelegator delegator, Appendable out, boolean cache) throws IOException, GeneralException {
         Map context = (Map) templateContext.get("context");
         if (context == null) {
             context = FastMap.newInstance();
@@ -799,7 +799,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
                 URL fixedUrl = new URL(fixedUrlStr);
                 text = (String) fixedUrl.getContent();
             }
-            out.write(text);
+            out.append(text);
 
         // file types
         } else if (dataResourceTypeId.endsWith("_FILE_BIN")) {
@@ -826,7 +826,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
 
     /** @deprecated */
     public static void writeDataResourceTextCache(GenericValue dataResource, String mimeTypeId, Locale locale, Map context,
-            GenericDelegator delegator, Writer outWriter) throws IOException, GeneralException {
+            GenericDelegator delegator, Appendable outWriter) throws IOException, GeneralException {
         writeDataResourceText(dataResource, mimeTypeId, locale, context, delegator, outWriter, true);       
     }
 
@@ -838,11 +838,11 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
 
     /** @deprecated */
     public static void writeDataResourceText(GenericValue dataResource, String mimeTypeId, Locale locale, Map context,
-            GenericDelegator delegator, Writer out) throws IOException, GeneralException {
+            GenericDelegator delegator, Appendable out) throws IOException, GeneralException {
         writeDataResourceText(dataResource, mimeTypeId, locale, context, delegator, out, false);
     }
 
-    public static void writeText(GenericValue dataResource, String textData, Map context, String targetMimeTypeId, Locale locale, Writer out) throws GeneralException, IOException {
+    public static void writeText(GenericValue dataResource, String textData, Map context, String targetMimeTypeId, Locale locale, Appendable out) throws GeneralException, IOException {
         String dataResourceMimeTypeId = dataResource.getString("mimeTypeId");
         GenericDelegator delegator = dataResource.getDelegator();
 
@@ -873,12 +873,12 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
                 mimeContext.put("textData", textData);
                 
                 String mimeString = DataResourceWorker.renderMimeTypeTemplate(mimeTypeTemplate, context);
-                out.write(mimeString);
+                out.append(mimeString);
             } else {
-                out.write(textData);
+                out.append(textData);
             }
         } else if ("text/plain".equals(targetMimeTypeId)) {
-            out.write(textData);
+            out.append(textData);
         }
     }
 
@@ -894,7 +894,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
         return writer.toString();
     }
 
-    public static void renderFile(String dataResourceTypeId, String objectInfo, String rootDir, Writer out) throws GeneralException, IOException {
+    public static void renderFile(String dataResourceTypeId, String objectInfo, String rootDir, Appendable out) throws GeneralException, IOException {
         // TODO: this method assumes the file is a text file, if it is an image we should respond differently, see the comment above for IMAGE_OBJECT type data resource
 
         if (dataResourceTypeId.equals("LOCAL_FILE")) {
@@ -905,7 +905,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
             int c;
             FileReader in = new FileReader(file);
             while ((c = in.read()) != -1) {
-                out.write(c);
+                out.append((char)c);
             }
         } else if (dataResourceTypeId.equals("OFBIZ_FILE")) {
             String prefix = System.getProperty("ofbiz.home");
@@ -917,7 +917,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
             int c;
             FileReader in = new FileReader(file);
             while ((c = in.read()) != -1)
-                out.write(c);
+                out.append((char)c);
         } else if (dataResourceTypeId.equals("CONTEXT_FILE")) {
             String prefix = rootDir;
             String sep = "";
@@ -939,7 +939,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
                 Debug.logError(" in renderDataResourceAsHtml(CONTEXT_FILE), got exception:" + e.getMessage(), module);
             }
             while ((c = in.read()) != -1) {
-                out.write(c);
+                out.append((char)c);
             }
             //out.flush();
         }
@@ -1152,7 +1152,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
         return renderDataResourceAsText(delegator, dataResourceId, templateContext, locale, targetMimeTypeId, cache);
     }
     
-    public void renderDataResourceAsTextExt(GenericDelegator delegator, String dataResourceId, Writer out, Map templateContext,
+    public void renderDataResourceAsTextExt(GenericDelegator delegator, String dataResourceId, Appendable out, Map templateContext,
             Locale locale, String targetMimeTypeId, boolean cache) throws GeneralException, IOException {
         renderDataResourceAsText(delegator, dataResourceId, out, templateContext, locale, targetMimeTypeId, cache);
     }

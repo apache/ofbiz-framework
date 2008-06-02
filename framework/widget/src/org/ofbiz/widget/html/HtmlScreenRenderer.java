@@ -67,14 +67,14 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
         return "hsr" + elementId;
     }
 
-    public void renderSectionBegin(Writer writer, Map<String, Object> context, ModelScreenWidget.Section section) throws IOException {
+    public void renderSectionBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.Section section) throws IOException {
         renderBeginningBoundaryComment(writer, section.isMainSection?"Screen":"Section Widget", section);
     }
-    public void renderSectionEnd(Writer writer, Map<String, Object> context, ModelScreenWidget.Section section) throws IOException {
+    public void renderSectionEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.Section section) throws IOException {
         renderEndingBoundaryComment(writer, section.isMainSection?"Screen":"Section Widget", section);
     }
 
-    public void renderContainerBegin(Writer writer, Map<String, Object> context, ModelScreenWidget.Container container) throws IOException {
+    public void renderContainerBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.Container container) throws IOException {
         String containerId = container.getId(context);
         String autoUpdateTarget = container.getAutoUpdateTargetExdr(context);
         HttpServletRequest request = (HttpServletRequest) context.get("request");
@@ -86,95 +86,95 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
             ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
             RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
 
-            writer.write("<script type=\"text/javascript\">ajaxUpdateAreaPeriodic('");
-            writer.write(containerId);
-            writer.write("', '");
-            writer.write(rh.makeLink(request, response, autoUpdateTarget));
-            writer.write("', '");
-            writer.write("', '" + container.getAutoUpdateInterval() + "');</script>");
+            writer.append("<script type=\"text/javascript\">ajaxUpdateAreaPeriodic('");
+            writer.append(containerId);
+            writer.append("', '");
+            writer.append(rh.makeLink(request, response, autoUpdateTarget));
+            writer.append("', '");
+            writer.append("', '" + container.getAutoUpdateInterval() + "');</script>");
             appendWhitespace(writer);
         }
-        writer.write("<div");
+        writer.append("<div");
 
         if (UtilValidate.isNotEmpty(containerId)) {
-            writer.write(" id=\"");
-            writer.write(containerId);
-            writer.write("\"");
+            writer.append(" id=\"");
+            writer.append(containerId);
+            writer.append("\"");
         }
         
         String style = container.getStyle(context);
         if (UtilValidate.isNotEmpty(style)) {
-            writer.write(" class=\"");
-            writer.write(style);
-            writer.write("\"");
+            writer.append(" class=\"");
+            writer.append(style);
+            writer.append("\"");
         }
         
-        writer.write(">");
+        writer.append(">");
         appendWhitespace(writer);
     }
-    public void renderContainerEnd(Writer writer, Map<String, Object> context, ModelScreenWidget.Container container) throws IOException {
-        writer.write("</div>");
+    public void renderContainerEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.Container container) throws IOException {
+        writer.append("</div>");
         appendWhitespace(writer);
     }
 
-    public void renderScreenletBegin(Writer writer, Map<String, Object> context, boolean collapsed, ModelScreenWidget.Screenlet screenlet) throws IOException {
+    public void renderScreenletBegin(Appendable writer, Map<String, Object> context, boolean collapsed, ModelScreenWidget.Screenlet screenlet) throws IOException {
         HttpServletRequest request = (HttpServletRequest) context.get("request");
         HttpServletResponse response = (HttpServletResponse) context.get("response");
         ModelScreenWidget.Menu tabMenu = screenlet.getTabMenu();
         if (tabMenu != null) {
             tabMenu.renderWidgetString(writer, context, this);
         }
-        writer.write("<div class=\"screenlet\"");
+        writer.append("<div class=\"screenlet\"");
         String id = screenlet.getId(context);
         if (UtilValidate.isNotEmpty(id)) {
-            writer.write(" id=\"");
-            writer.write(id);
-            writer.write("\"");
+            writer.append(" id=\"");
+            writer.append(id);
+            writer.append("\"");
         }
-        writer.write(">");
+        writer.append(">");
         appendWhitespace(writer);
 
         String title = screenlet.getTitle(context);
         ModelScreenWidget.Menu navMenu = screenlet.getNavigationMenu();
         ModelScreenWidget.Form navForm = screenlet.getNavigationForm();
         if (UtilValidate.isNotEmpty(title) || navMenu != null || navForm != null || screenlet.collapsible()) {
-            writer.write("<div class=\"screenlet-title-bar\">");
+            writer.append("<div class=\"screenlet-title-bar\">");
             appendWhitespace(writer);
-            writer.write("<ul>");
+            writer.append("<ul>");
             appendWhitespace(writer);
             if (UtilValidate.isNotEmpty(title)) {
-                writer.write("<li class=\"h3\">");
-                writer.write(title);
-                writer.write("</li>");
+                writer.append("<li class=\"h3\">");
+                writer.append(title);
+                writer.append("</li>");
                 appendWhitespace(writer);
             }
             if (screenlet.collapsible()) {
                 String toolTip = null;
                 Map uiLabelMap = (Map) context.get("uiLabelMap");
                 Map requestParameters = new HashMap((Map)context.get("requestParameters"));
-                writer.write("<li class=\"");
+                writer.append("<li class=\"");
                 if (collapsed) {
                     requestParameters.put(screenlet.getPreferenceKey(context) + "_collapsed", "false");
                     String queryString = UtilHttp.urlEncodeArgs(requestParameters);
-                    writer.write("collapsed\"><a href=\"");
-                    writer.write(request.getRequestURI() + "?" + queryString);
+                    writer.append("collapsed\"><a href=\"");
+                    writer.append(request.getRequestURI() + "?" + queryString);
                     if (uiLabelMap != null) {
                         toolTip = (String) uiLabelMap.get("CommonExpand");
                     }
                 } else {
                     requestParameters.put(screenlet.getPreferenceKey(context) + "_collapsed", "true");
                     String queryString = UtilHttp.urlEncodeArgs(requestParameters);
-                    writer.write("expanded\"><a href=\"");
-                    writer.write(request.getRequestURI() + "?" + queryString);
+                    writer.append("expanded\"><a href=\"");
+                    writer.append(request.getRequestURI() + "?" + queryString);
                     if (uiLabelMap != null) {
                         toolTip = (String) uiLabelMap.get("CommonCollapse");
                     }
                 }
-                writer.write("\"");
+                writer.append("\"");
                 if (UtilValidate.isNotEmpty(toolTip)) {
-                    writer.write(" title=\"" + toolTip + "\"");
+                    writer.append(" title=\"" + toolTip + "\"");
                 }
-                writer.write(">&nbsp</a></li>");
+                writer.append(">&nbsp</a></li>");
                 appendWhitespace(writer);
             }
             if (!collapsed) {
@@ -188,20 +188,20 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
                     renderScreenletPaginateMenu(writer, context, navForm);
                 }
             }
-            writer.write("</ul>");
+            writer.append("</ul>");
             appendWhitespace(writer);
-            writer.write("<br class=\"clear\" />");
+            writer.append("<br class=\"clear\" />");
             appendWhitespace(writer);
-            writer.write("</div>");
+            writer.append("</div>");
             appendWhitespace(writer);
             if (screenlet.padded()) {
-                writer.write("<div class=\"screenlet-body\">");
+                writer.append("<div class=\"screenlet-body\">");
                 appendWhitespace(writer);
             }
         }
     }
     
-    protected void renderScreenletPaginateMenu(Writer writer, Map<String, Object> context, ModelScreenWidget.Form form) throws IOException {
+    protected void renderScreenletPaginateMenu(Appendable writer, Map<String, Object> context, ModelScreenWidget.Form form) throws IOException {
         HttpServletResponse response = (HttpServletResponse) context.get("response");
         HttpServletRequest request = (HttpServletRequest) context.get("request");
         ModelForm modelForm = form.getModelForm(context);
@@ -285,69 +285,69 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
         // The current screenlet title bar navigation syling requires rendering
         // these links in reverse order
         // Last button
-        writer.write("<li class=\"" + modelForm.getPaginateLastStyle());
+        writer.append("<li class=\"" + modelForm.getPaginateLastStyle());
         if (highIndex < listSize) {
-            writer.write("\"><a href=\"");
+            writer.append("\"><a href=\"");
             int page = (listSize / viewSize) - 1;
             linkText = prepLinkText + page + anchor;
             // - make the link
-            writer.write(rh.makeLink(request, response, linkText));
-            writer.write("\">" + modelForm.getPaginateLastLabel(context) + "</a>");
+            writer.append(rh.makeLink(request, response, linkText));
+            writer.append("\">" + modelForm.getPaginateLastLabel(context) + "</a>");
         } else {
             // disabled button
-            writer.write(" disabled\">" + modelForm.getPaginateLastLabel(context));
+            writer.append(" disabled\">" + modelForm.getPaginateLastLabel(context));
         }
-        writer.write("</li>");
+        writer.append("</li>");
         appendWhitespace(writer);
         // Next button
-        writer.write("<li class=\"" + modelForm.getPaginateNextStyle());
+        writer.append("<li class=\"" + modelForm.getPaginateNextStyle());
         if (highIndex < listSize) {
-            writer.write("\"><a href=\"");
+            writer.append("\"><a href=\"");
             linkText = prepLinkText + (viewIndex + 1) + anchor;
             // - make the link
-            writer.write(rh.makeLink(request, response, linkText));
-            writer.write("\">" + modelForm.getPaginateNextLabel(context) + "</a>");
+            writer.append(rh.makeLink(request, response, linkText));
+            writer.append("\">" + modelForm.getPaginateNextLabel(context) + "</a>");
         } else {
             // disabled button
-            writer.write(" disabled\">" + modelForm.getPaginateNextLabel(context));
+            writer.append(" disabled\">" + modelForm.getPaginateNextLabel(context));
         }
-        writer.write("</li>");
+        writer.append("</li>");
         appendWhitespace(writer);
         if (listSize > 0) {
-            writer.write("<li>");
-            writer.write((lowIndex + 1) + " - " + (lowIndex + actualPageSize ) + " " + ofLabel + " " + listSize);
-            writer.write("</li>");
+            writer.append("<li>");
+            writer.append((lowIndex + 1) + " - " + (lowIndex + actualPageSize ) + " " + ofLabel + " " + listSize);
+            writer.append("</li>");
             appendWhitespace(writer);
         }
         // Previous button
-        writer.write("<li class=\"nav-previous");
+        writer.append("<li class=\"nav-previous");
         if (viewIndex > 0) {
-            writer.write("\"><a href=\"");
+            writer.append("\"><a href=\"");
             linkText = prepLinkText + (viewIndex - 1) + anchor;
             // - make the link
-            writer.write(rh.makeLink(request, response, linkText));
-            writer.write("\">" + modelForm.getPaginatePreviousLabel(context) + "</a>");
+            writer.append(rh.makeLink(request, response, linkText));
+            writer.append("\">" + modelForm.getPaginatePreviousLabel(context) + "</a>");
         } else {
             // disabled button
-            writer.write(" disabled\">" + modelForm.getPaginatePreviousLabel(context));
+            writer.append(" disabled\">" + modelForm.getPaginatePreviousLabel(context));
         }
-        writer.write("</li>");
+        writer.append("</li>");
         appendWhitespace(writer);
         // First button
-        writer.write("<li class=\"nav-first");
+        writer.append("<li class=\"nav-first");
         if (viewIndex > 0) {
-            writer.write("\"><a href=\"");
+            writer.append("\"><a href=\"");
             linkText = prepLinkText + 0 + anchor;
-            writer.write(rh.makeLink(request, response, linkText));
-            writer.write("\">" + modelForm.getPaginateFirstLabel(context) + "</a>");
+            writer.append(rh.makeLink(request, response, linkText));
+            writer.append("\">" + modelForm.getPaginateFirstLabel(context) + "</a>");
         } else {
-            writer.write(" disabled\">" + modelForm.getPaginateFirstLabel(context));
+            writer.append(" disabled\">" + modelForm.getPaginateFirstLabel(context));
         }
-        writer.write("</li>");
+        writer.append("</li>");
         appendWhitespace(writer);
     }
     
-    public void renderScreenletSubWidget(Writer writer, Map<String, Object> context, ModelScreenWidget subWidget, ModelScreenWidget.Screenlet screenlet) throws GeneralException, IOException {
+    public void renderScreenletSubWidget(Appendable writer, Map<String, Object> context, ModelScreenWidget subWidget, ModelScreenWidget.Screenlet screenlet) throws GeneralException, IOException {
         if (subWidget.equals(screenlet.getNavigationForm())) {
             HttpServletRequest request = (HttpServletRequest) context.get("request");
             HttpServletResponse response = (HttpServletResponse) context.get("response");
@@ -364,12 +364,12 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
         }
     }
 
-    public void renderScreenletEnd(Writer writer, Map<String, Object> context, ModelScreenWidget.Screenlet screenlet) throws IOException {
+    public void renderScreenletEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.Screenlet screenlet) throws IOException {
         if (screenlet.padded()) {
-            writer.write("</div>");
+            writer.append("</div>");
             appendWhitespace(writer);
         }
-        writer.write("</div>");
+        writer.append("</div>");
         appendWhitespace(writer);
     }
 
@@ -377,11 +377,11 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
         public ScreenletMenuRenderer(HttpServletRequest request, HttpServletResponse response) {
             super(request, response);
         }
-        public void renderMenuOpen(Writer writer, Map<String, Object> context, ModelMenu modelMenu) {}
-        public void renderMenuClose(Writer writer, Map<String, Object> context, ModelMenu modelMenu) {}
+        public void renderMenuOpen(Appendable writer, Map<String, Object> context, ModelMenu modelMenu) {}
+        public void renderMenuClose(Appendable writer, Map<String, Object> context, ModelMenu modelMenu) {}
     }
 
-    public void renderLabel(Writer writer, Map<String, Object> context, ModelScreenWidget.Label label) throws IOException {
+    public void renderLabel(Appendable writer, Map<String, Object> context, ModelScreenWidget.Label label) throws IOException {
         String labelText = label.getText(context);
         if (UtilValidate.isEmpty(labelText)) {
             // nothing to render
@@ -391,63 +391,63 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
         String style = label.getStyle(context);
         String id = label.getId(context);
         if (UtilValidate.isNotEmpty(style) || UtilValidate.isNotEmpty(id) ) {
-               writer.write("<span");
+               writer.append("<span");
             
             if (UtilValidate.isNotEmpty(id)) {
-                writer.write(" id=\"");
-                writer.write(id);
-                writer.write("\"");
+                writer.append(" id=\"");
+                writer.append(id);
+                writer.append("\"");
             }
             if (UtilValidate.isNotEmpty(style)) {
-                writer.write(" class=\"");
-                writer.write(style);
-                writer.write("\"");
+                writer.append(" class=\"");
+                writer.append(style);
+                writer.append("\"");
             }
-            writer.write(">");
+            writer.append(">");
             
             // the text
-            writer.write(labelText);
+            writer.append(labelText);
             
             // close tag
-               writer.write("</span>");
+               writer.append("</span>");
             
         } else {
-            writer.write(labelText);
+            writer.append(labelText);
         }
         
         appendWhitespace(writer);
     }
 
-    public void renderLink(Writer writer, Map<String, Object> context, ModelScreenWidget.Link link) throws IOException {
+    public void renderLink(Appendable writer, Map<String, Object> context, ModelScreenWidget.Link link) throws IOException {
         // open tag
-        writer.write("<a");
+        writer.append("<a");
         String id = link.getId(context);
         if (UtilValidate.isNotEmpty(id)) {
-            writer.write(" id=\"");
-            writer.write(id);
-            writer.write("\"");
+            writer.append(" id=\"");
+            writer.append(id);
+            writer.append("\"");
         }
         String style = link.getStyle(context);
         if (UtilValidate.isNotEmpty(style)) {
-            writer.write(" class=\"");
-            writer.write(style);
-            writer.write("\"");
+            writer.append(" class=\"");
+            writer.append(style);
+            writer.append("\"");
         }
         String name = link.getName(context);
         if (UtilValidate.isNotEmpty(name)) {
-            writer.write(" name=\"");
-            writer.write(name);
-            writer.write("\"");
+            writer.append(" name=\"");
+            writer.append(name);
+            writer.append("\"");
         }
         String targetWindow = link.getTargetWindow(context);
         if (UtilValidate.isNotEmpty(targetWindow)) {
-            writer.write(" target=\"");
-            writer.write(targetWindow);
-            writer.write("\"");
+            writer.append(" target=\"");
+            writer.append(targetWindow);
+            writer.append("\"");
         }
         String target = link.getTarget(context);
         if (UtilValidate.isNotEmpty(target)) {
-            writer.write(" href=\"");
+            writer.append(" href=\"");
             String urlMode = link.getUrlMode();
             String prefix = link.getPrefix(context);
             boolean fullPath = link.getFullPath();
@@ -460,18 +460,18 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
                     ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
                     RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
                     String urlString = rh.makeLink(request, response, target, fullPath, secure, encode);
-                    writer.write(urlString);
+                    writer.append(urlString);
                 } else if (prefix != null) {
-                    writer.write(prefix + target);
+                    writer.append(prefix + target);
                 } else {
-                    writer.write(target);
+                    writer.append(target);
                 }
             } else  if (urlMode != null && urlMode.equalsIgnoreCase("content")) {
                 if (request != null && response != null) {
                     StringBuffer newURL = new StringBuffer();
                     ContentUrlTag.appendContentPrefix(request, newURL);
                     newURL.append(target);
-                    writer.write(newURL.toString());
+                    writer.append(newURL.toString());
                 }
             } else if ("inter-app".equalsIgnoreCase(urlMode) && request != null) {
                 String externalLoginKey = (String) request.getAttribute("externalLoginKey");
@@ -481,65 +481,65 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
                     } else {
                         target += "?externalLoginKey=" + externalLoginKey;
                     }
-                    writer.write(target);
+                    writer.append(target);
                 }
             } else {
-                writer.write(target);
+                writer.append(target);
             }
 
-            writer.write("\"");
+            writer.append("\"");
         }
-        writer.write(">");
+        writer.append(">");
         
         // the text
         ModelScreenWidget.Image img = link.getImage();
         if (img == null)
-            writer.write(link.getText(context));
+            writer.append(link.getText(context));
         else
             renderImage(writer, context, img);
         
         // close tag
-        writer.write("</a>");
+        writer.append("</a>");
         
         appendWhitespace(writer);
     }
 
-    public void renderImage(Writer writer, Map<String, Object> context, ModelScreenWidget.Image image) throws IOException {
+    public void renderImage(Appendable writer, Map<String, Object> context, ModelScreenWidget.Image image) throws IOException {
         // open tag
-        writer.write("<img ");
+        writer.append("<img ");
         String id = image.getId(context);
         if (UtilValidate.isNotEmpty(id)) {
-            writer.write(" id=\"");
-            writer.write(id);
-            writer.write("\"");
+            writer.append(" id=\"");
+            writer.append(id);
+            writer.append("\"");
         }
         String style = image.getStyle(context);
         if (UtilValidate.isNotEmpty(style)) {
-            writer.write(" class=\"");
-            writer.write(style);
-            writer.write("\"");
+            writer.append(" class=\"");
+            writer.append(style);
+            writer.append("\"");
         }
         String wid = image.getWidth(context);
         if (UtilValidate.isNotEmpty(wid)) {
-            writer.write(" width=\"");
-            writer.write(wid);
-            writer.write("\"");
+            writer.append(" width=\"");
+            writer.append(wid);
+            writer.append("\"");
         }
         String hgt = image.getHeight(context);
         if (UtilValidate.isNotEmpty(hgt)) {
-            writer.write(" height=\"");
-            writer.write(hgt);
-            writer.write("\"");
+            writer.append(" height=\"");
+            writer.append(hgt);
+            writer.append("\"");
         }
         String border = image.getBorder(context);
         if (UtilValidate.isNotEmpty(border)) {
-            writer.write(" border=\"");
-            writer.write(border);
-            writer.write("\"");
+            writer.append(" border=\"");
+            writer.append(border);
+            writer.append("\"");
         }
         String src = image.getSrc(context);
         if (UtilValidate.isNotEmpty(src)) {
-            writer.write(" src=\"");
+            writer.append(" src=\"");
             String urlMode = image.getUrlMode();
             boolean fullPath = false;
             boolean secure = false;
@@ -551,30 +551,30 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
                     ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
                     RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
                     String urlString = rh.makeLink(request, response, src, fullPath, secure, encode);
-                    writer.write(urlString);
+                    writer.append(urlString);
                 } else {
-                    writer.write(src);
+                    writer.append(src);
                 }
             } else  if (urlMode != null && urlMode.equalsIgnoreCase("content")) {
                 if (request != null && response != null) {
                     StringBuffer newURL = new StringBuffer();
                     ContentUrlTag.appendContentPrefix(request, newURL);
                     newURL.append(src);
-                    writer.write(newURL.toString());
+                    writer.append(newURL.toString());
                 }
             } else {
-                writer.write(src);
+                writer.append(src);
             }
 
-            writer.write("\"");
+            writer.append("\"");
         }
-        writer.write("/>");
+        writer.append("/>");
         
         
         appendWhitespace(writer);
     }
 
-    public void renderContentBegin(Writer writer, Map<String, Object> context, ModelScreenWidget.Content content) throws IOException {
+    public void renderContentBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.Content content) throws IOException {
         String editRequest = content.getEditRequest(context);
         String editContainerStyle = content.getEditContainerStyle(context);
         String enableEditName = content.getEnableEditName(context);
@@ -583,13 +583,13 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
         if (Debug.verboseOn()) Debug.logVerbose("directEditRequest:" + editRequest, module);
         
         if (UtilValidate.isNotEmpty(editRequest) && "true".equals(enableEditValue)) {
-            writer.write("<div");
-            writer.write(" class=\"" + editContainerStyle + "\"> ");
+            writer.append("<div");
+            writer.append(" class=\"" + editContainerStyle + "\"> ");
             appendWhitespace(writer);
         }
     }
 
-    public void renderContentBody(Writer writer, Map<String, Object> context, ModelScreenWidget.Content content) throws IOException {
+    public void renderContentBody(Appendable writer, Map<String, Object> context, ModelScreenWidget.Content content) throws IOException {
         Locale locale = UtilMisc.ensureLocale(context.get("locale"));
         //Boolean nullThruDatesOnly = new Boolean(false);
         String mimeTypeId = "text/html";
@@ -639,7 +639,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
                     renderedContent = UtilFormatOut.encodeXmlValue(renderedContent);
                 }
                 
-                writer.write(renderedContent);
+                writer.append(renderedContent);
             }
 
         } catch(GeneralException e) {
@@ -653,7 +653,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
         }
     }
 
-    public void renderContentEnd(Writer writer, Map<String, Object> context, ModelScreenWidget.Content content) throws IOException {
+    public void renderContentEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.Content content) throws IOException {
 
                 //Debug.logInfo("renderContentEnd, context:" + context, module);
         String expandedContentId = content.getContentId(context);
@@ -678,16 +678,16 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
                 RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
                 String urlString = rh.makeLink(request, response, editRequest, false, false, false);
                 String linkString = "<a href=\"" + urlString + "\">" + editMode + "</a>";
-                writer.write(linkString);
+                writer.append(linkString);
             }
             if (UtilValidate.isNotEmpty(editContainerStyle)) {
-                writer.write("</div>");
+                writer.append("</div>");
             }
             appendWhitespace(writer);
         }
     }
 
-    public void renderContentFrame(Writer writer, Map<String, Object> context, ModelScreenWidget.Content content) throws IOException {
+    public void renderContentFrame(Appendable writer, Map<String, Object> context, ModelScreenWidget.Content content) throws IOException {
         
         String dataResourceId = content.getDataResourceId(context);
 //        String urlString = "/content/control/ViewSimpleContent?dataResourceId=" + dataResourceId;
@@ -707,26 +707,26 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
             RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
             String fullUrlString = rh.makeLink(request, response, urlString, true, false, false);
             String linkString = "<iframe src=\"" + fullUrlString + "\" " + widthString + heightString + borderString + " />";
-            writer.write(linkString);
+            writer.append(linkString);
         }
         
     }
 
-    public void renderSubContentBegin(Writer writer, Map<String, Object> context, ModelScreenWidget.SubContent content) throws IOException {
+    public void renderSubContentBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.SubContent content) throws IOException {
 
         String editRequest = content.getEditRequest(context);
         String editContainerStyle = content.getEditContainerStyle(context);
         String enableEditName = content.getEnableEditName(context);
         String enableEditValue = (String)context.get(enableEditName);
         if (UtilValidate.isNotEmpty(editRequest) && "true".equals(enableEditValue)) {
-            writer.write("<div");
-            writer.write(" class=\"" + editContainerStyle + "\"> ");
+            writer.append("<div");
+            writer.append(" class=\"" + editContainerStyle + "\"> ");
     
             appendWhitespace(writer);
         }
     }
 
-    public void renderSubContentBody(Writer writer, Map<String, Object> context, ModelScreenWidget.SubContent content) throws IOException {
+    public void renderSubContentBody(Appendable writer, Map<String, Object> context, ModelScreenWidget.SubContent content) throws IOException {
             Locale locale = Locale.getDefault();
             String mimeTypeId = "text/html";
             String expandedContentId = content.getContentId(context);
@@ -760,7 +760,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
                         renderedContent = UtilFormatOut.encodeXmlValue(renderedContent);
                     }
                         
-                    writer.write(renderedContent);
+                    writer.append(renderedContent);
                 }
 
             } catch(GeneralException e) {
@@ -774,7 +774,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
             }
     }
 
-    public void renderSubContentEnd(Writer writer, Map<String, Object> context, ModelScreenWidget.SubContent content) throws IOException {
+    public void renderSubContentEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.SubContent content) throws IOException {
 
         String editMode = "Edit";
         String editRequest = content.getEditRequest(context);
@@ -813,10 +813,10 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
                 RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
                 String urlString = rh.makeLink(request, response, editRequest, false, false, false);
                 String linkString = "<a href=\"" + urlString + "\">" + editMode + "</a>";
-                writer.write(linkString);
+                writer.append(linkString);
             }
             if (UtilValidate.isNotEmpty(editContainerStyle)) {
-                writer.write("</div>");
+                writer.append("</div>");
             }
             appendWhitespace(writer);
         }

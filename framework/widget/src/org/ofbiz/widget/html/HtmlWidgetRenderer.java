@@ -41,8 +41,8 @@ public class HtmlWidgetRenderer {
      * Helper method used to append whitespace characters to the end of each rendered element.
      * @param writer The writer to write to
      */
-    public void appendWhitespace(Writer writer) throws IOException {
-        writer.write(whiteSpace);
+    public void appendWhitespace(Appendable writer) throws IOException {
+        writer.append(whiteSpace);
     }
     
     /**
@@ -65,9 +65,9 @@ public class HtmlWidgetRenderer {
      * @param widgetType The widget type: "Screen Widget", "Form Widget", etc.
      * @param modelWidget The widget
      */
-    public void renderBeginningBoundaryComment(Writer writer, String widgetType, ModelWidget modelWidget) throws IOException {
+    public void renderBeginningBoundaryComment(Appendable writer, String widgetType, ModelWidget modelWidget) throws IOException {
         if (modelWidget.boundaryCommentsEnabled()) {
-            writer.write(this.buildBoundaryComment("Begin", widgetType, modelWidget.getBoundaryCommentName()));
+            writer.append(this.buildBoundaryComment("Begin", widgetType, modelWidget.getBoundaryCommentName()));
         }
     }
 
@@ -77,9 +77,9 @@ public class HtmlWidgetRenderer {
      * @param widgetType The widget type: "Screen Widget", "Form Widget", etc.
      * @param modelWidget The widget
      */
-    public void renderEndingBoundaryComment(Writer writer, String widgetType, ModelWidget modelWidget) throws IOException {
+    public void renderEndingBoundaryComment(Appendable writer, String widgetType, ModelWidget modelWidget) throws IOException {
         if (modelWidget.boundaryCommentsEnabled()) {
-            writer.write(this.buildBoundaryComment("End", widgetType, modelWidget.getBoundaryCommentName()));
+            writer.append(this.buildBoundaryComment("End", widgetType, modelWidget.getBoundaryCommentName()));
         }
     }
 

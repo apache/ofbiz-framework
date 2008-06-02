@@ -67,11 +67,11 @@ public class ScreenRenderer {
 
     public static final String module = ScreenRenderer.class.getName();
     
-    protected Writer writer;
+    protected Appendable writer;
     protected MapStack context;
     protected ScreenStringRenderer screenStringRenderer;
     
-    public ScreenRenderer(Writer writer, MapStack context, ScreenStringRenderer screenStringRenderer) {
+    public ScreenRenderer(Appendable writer, MapStack context, ScreenStringRenderer screenStringRenderer) {
         this.writer = writer;
         this.context = context;
         if (this.context == null) this.context = MapStack.create();
@@ -121,9 +121,9 @@ public class ScreenRenderer {
                 modelScreen.renderScreenString(sw, context, screenStringRenderer);
                 gwo = new GenericWidgetOutput(sw.toString());
                 screenCache.put(screenCombinedName, wcck, gwo);
-                writer.write(gwo.toString());
+                writer.append(gwo.toString());
             } else {
-                writer.write(gwo.toString());
+                writer.append(gwo.toString());
             }
         } else {
             modelScreen.renderScreenString(writer, context, screenStringRenderer);

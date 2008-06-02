@@ -576,7 +576,7 @@ public class ModelFormField {
         return true;
     }
 
-    public void renderFieldString(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
+    public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
         this.fieldInfo.renderFieldString(writer, context, formStringRenderer);
     }
 
@@ -1491,7 +1491,7 @@ public class ModelFormField {
             }
         }
 
-        public abstract void renderFieldString(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException;
+        public abstract void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException;
     }
 
     public static abstract class FieldInfoWithOptions extends FieldInfo {
@@ -1804,7 +1804,7 @@ public class ModelFormField {
             this.alsoHidden = !"false".equals(element.getAttribute("also-hidden"));
         }
 
-        public void renderFieldString(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
+        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
             formStringRenderer.renderDisplayField(writer, context, this);
         }
 
@@ -1998,7 +1998,7 @@ public class ModelFormField {
             this.targetWindowExdr = new FlexibleStringExpander(element.getAttribute("target-window"));
         }
 
-        public void renderFieldString(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
+        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
             formStringRenderer.renderHyperlinkField(writer, context, this);
         }
 
@@ -2260,7 +2260,7 @@ public class ModelFormField {
             }
         }
 
-        public void renderFieldString(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
+        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
             formStringRenderer.renderTextField(writer, context, this);
         }
 
@@ -2384,7 +2384,7 @@ public class ModelFormField {
             }
         }
 
-        public void renderFieldString(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
+        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
             formStringRenderer.renderTextareaField(writer, context, this);
         }
 
@@ -2503,7 +2503,7 @@ public class ModelFormField {
             clock = element.getAttribute("clock");
         }
 
-        public void renderFieldString(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
+        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
             formStringRenderer.renderDateTimeField(writer, context, this);
         }
 
@@ -2626,7 +2626,7 @@ public class ModelFormField {
             }
         }
 
-        public void renderFieldString(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
+        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
             formStringRenderer.renderDropDownField(writer, context, this);
         }
 
@@ -2722,7 +2722,7 @@ public class ModelFormField {
             super(element, modelFormField);
         }
 
-        public void renderFieldString(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
+        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
             formStringRenderer.renderRadioField(writer, context, this);
         }
     }
@@ -2748,7 +2748,7 @@ public class ModelFormField {
             allChecked = new FlexibleStringExpander(element.getAttribute("all-checked"));
         }
 
-        public void renderFieldString(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
+        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
             formStringRenderer.renderCheckField(writer, context, this);
         }
         
@@ -2786,7 +2786,7 @@ public class ModelFormField {
             this.backgroundSubmitRefreshTargetExdr = new FlexibleStringExpander(element.getAttribute("background-submit-refresh-target"));
         }
 
-        public void renderFieldString(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
+        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
             formStringRenderer.renderSubmitField(writer, context, this);
         }
 
@@ -2840,7 +2840,7 @@ public class ModelFormField {
             super(element, modelFormField);
         }
 
-        public void renderFieldString(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
+        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
             formStringRenderer.renderResetField(writer, context, this);
         }
     }
@@ -2865,7 +2865,7 @@ public class ModelFormField {
             this.setValue(element.getAttribute("value"));
         }
 
-        public void renderFieldString(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
+        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
             formStringRenderer.renderHiddenField(writer, context, this);
         }
 
@@ -2899,7 +2899,7 @@ public class ModelFormField {
             super(element, modelFormField);
         }
 
-        public void renderFieldString(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
+        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
             formStringRenderer.renderIgnoredField(writer, context, this);
         }
     }
@@ -2940,7 +2940,7 @@ public class ModelFormField {
             return this.hideOptions;
         }
 
-        public void renderFieldString(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
+        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
             formStringRenderer.renderTextFindField(writer, context, this);
         }
     }
@@ -2954,7 +2954,7 @@ public class ModelFormField {
             super(fieldSource, modelFormField);
         }
 
-        public void renderFieldString(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
+        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
             formStringRenderer.renderDateFindField(writer, context, this);
         }
     }
@@ -2968,7 +2968,7 @@ public class ModelFormField {
             super(fieldSource, modelFormField);
         }
 
-        public void renderFieldString(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
+        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
             formStringRenderer.renderRangeFindField(writer, context, this);
         }
     }
@@ -2989,7 +2989,7 @@ public class ModelFormField {
             super(fieldSource, modelFormField);
         }
 
-        public void renderFieldString(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
+        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
             formStringRenderer.renderLookupField(writer, context, this);
         }
 
@@ -3031,7 +3031,7 @@ public class ModelFormField {
             super(fieldSource, modelFormField);
         }
 
-        public void renderFieldString(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
+        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
             formStringRenderer.renderFileField(writer, context, this);
         }
     }
@@ -3046,7 +3046,7 @@ public class ModelFormField {
             super(fieldSource, modelFormField);
         }
 
-        public void renderFieldString(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
+        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
             formStringRenderer.renderPasswordField(writer, context, this);
         }
     }
@@ -3114,7 +3114,7 @@ public class ModelFormField {
             }
         }
 
-        public void renderFieldString(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
+        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
             formStringRenderer.renderImageField(writer, context, this);
         }
 

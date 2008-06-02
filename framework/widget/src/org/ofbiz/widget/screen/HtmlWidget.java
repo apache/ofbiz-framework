@@ -63,7 +63,7 @@ public class HtmlWidget extends ModelScreenWidget {
         }
     }
 
-    public void renderWidgetString(Writer writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
+    public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
         for (ModelScreenWidget subWidget : subWidgets) {
             subWidget.renderWidgetString(writer, context, screenStringRenderer);
         }
@@ -78,7 +78,7 @@ public class HtmlWidget extends ModelScreenWidget {
         return buffer.toString();
     }
     
-    public static void renderHtmlTemplate(Writer writer, FlexibleStringExpander locationExdr, Map<String, Object> context) {
+    public static void renderHtmlTemplate(Appendable writer, FlexibleStringExpander locationExdr, Map<String, Object> context) {
         String location = locationExdr.expandString(context);
         //Debug.logInfo("Rendering template at location [" + location + "] with context: \n" + context, module);
         
@@ -91,11 +91,11 @@ public class HtmlWidget extends ModelScreenWidget {
                 Map parameters = (Map) context.get("parameters");
                 boolean insertWidgetBoundaryComments = ModelWidget.widgetBoundaryCommentsEnabled(parameters);
                 if (insertWidgetBoundaryComments) {
-                    writer.write(HtmlWidgetRenderer.formatBoundaryComment("Begin", "Template", location));
+                    writer.append(HtmlWidgetRenderer.formatBoundaryComment("Begin", "Template", location));
                 }
                 FreeMarkerWorker.renderTemplateAtLocation(location, context, writer);
                 if (insertWidgetBoundaryComments) {
-                    writer.write(HtmlWidgetRenderer.formatBoundaryComment("End", "Template", location));
+                    writer.append(HtmlWidgetRenderer.formatBoundaryComment("End", "Template", location));
                 }
             } catch (IllegalArgumentException e) {
                 String errMsg = "Error rendering included template at location [" + location + "]: " + e.toString();
@@ -120,9 +120,9 @@ public class HtmlWidget extends ModelScreenWidget {
     }
  
     // TODO: We can make this more fancy, but for now this is very functional
-    public static void writeError(Writer writer, String message) {
+    public static void writeError(Appendable writer, String message) {
         try {
-            writer.write(message);
+            writer.append(message);
         } catch (IOException e) {
         }
     }
@@ -135,7 +135,7 @@ public class HtmlWidget extends ModelScreenWidget {
             this.locationExdr = new FlexibleStringExpander(htmlTemplateElement.getAttribute("location"));
         }
 
-        public void renderWidgetString(Writer writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) {
+        public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) {
             renderHtmlTemplate(writer, this.locationExdr, context);
         }
 
@@ -161,7 +161,7 @@ public class HtmlWidget extends ModelScreenWidget {
             }
         }
 
-        public void renderWidgetString(Writer writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) {
+        public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) {
             // isolate the scope
             if (!(context instanceof MapStack)) {
                 context = MapStack.create(context);
@@ -199,7 +199,7 @@ public class HtmlWidget extends ModelScreenWidget {
             this.subWidgets = ModelScreenWidget.readSubWidgets(this.modelScreen, subElementList);
         }
 
-        public void renderWidgetString(Writer writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
+        public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
             // render sub-widgets
             renderSubWidgetsString(this.subWidgets, writer, context, screenStringRenderer);
         }

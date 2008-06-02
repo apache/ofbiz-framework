@@ -132,7 +132,7 @@ public class FreeMarkerWorker {
      * @param context The context Map
      * @param outWriter The Writer to render to
      */
-    public static void renderTemplateAtLocation(String templateLocation, Map<String, Object> context, Writer outWriter) throws MalformedURLException, TemplateException, IOException {
+    public static void renderTemplateAtLocation(String templateLocation, Map<String, Object> context, Appendable outWriter) throws MalformedURLException, TemplateException, IOException {
         renderTemplate(templateLocation, context, outWriter);
     }
     
@@ -143,7 +143,7 @@ public class FreeMarkerWorker {
      * @param context The context Map
      * @param outWriter The Writer to render to
      */
-    public static void renderTemplate(String templateLocation, String templateString, Map<String, Object> context, Writer outWriter) throws TemplateException, IOException {
+    public static void renderTemplate(String templateLocation, String templateString, Map<String, Object> context, Appendable outWriter) throws TemplateException, IOException {
         if (UtilValidate.isEmpty(templateString)) {
             renderTemplate(templateLocation, context, outWriter);
         } else {
@@ -158,12 +158,12 @@ public class FreeMarkerWorker {
      * @param context The context Map
      * @param outWriter The Writer to render to
      */
-    public static void renderTemplate(String templateLocation, Map<String, Object> context, Writer outWriter) throws TemplateException, IOException {
+    public static void renderTemplate(String templateLocation, Map<String, Object> context, Appendable outWriter) throws TemplateException, IOException {
         Template template = getTemplate(templateLocation);
         renderTemplate(template, context, outWriter);
     }
  
-    public static void renderTemplateFromString(String templateString, String templateLocation, Map<String, Object> context, Writer outWriter) throws TemplateException, IOException {
+    public static void renderTemplateFromString(String templateString, String templateLocation, Map<String, Object> context, Appendable outWriter) throws TemplateException, IOException {
         Template template = cachedTemplates.get(templateLocation);
         if (template == null) {
             synchronized (cachedTemplates) {
@@ -186,14 +186,18 @@ public class FreeMarkerWorker {
      * @param context The context Map
      * @param outWriter The Writer to render to
      */
-    public static void renderTemplate(Template template, Map<String, Object> context, Writer outWriter) throws TemplateException, IOException {
+    public static void renderTemplate(Template template, Map<String, Object> context, Appendable outWriter) throws TemplateException, IOException {
         addAllOfbizTransforms(context);
         // make sure there is no "null" string in there as FreeMarker will try to use it
         context.remove("null");
         // Since the template cache keeps a single instance of a Template that is shared among users,
         // and since that Template instance is immutable, we need to create an Environment instance and
         // use it to process the template with the user's settings.
-        Environment env = template.createProcessingEnvironment(context, outWriter);
+        //
+        // FIXME: the casting from Appendable to Writer is a temporary fix that could cause a
+        //        run time error if in the future we will pass a different class to the method
+        //        (such as a StringBuffer).
+        Environment env = template.createProcessingEnvironment(context, (Writer)outWriter);
         applyUserSettings(env, context);
         env.process();
     }

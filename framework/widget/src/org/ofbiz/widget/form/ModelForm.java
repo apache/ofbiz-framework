@@ -771,7 +771,7 @@ public class ModelForm extends ModelWidget {
      *   different form elements; implementing your own makes it possible to
      *   use the same form definitions for many types of form UIs
      */
-    public void renderFormString(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
+    public void renderFormString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
         runFormActions(context);
         
         setWidgetBoundaryComments(context);
@@ -814,7 +814,7 @@ public class ModelForm extends ModelWidget {
         }
     }
 
-    public void renderSingleFormString(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer, int positions) throws IOException {
+    public void renderSingleFormString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer, int positions) throws IOException {
         List tempFieldList = FastList.newInstance();
         tempFieldList.addAll(this.fieldList);
         
@@ -1048,7 +1048,7 @@ public class ModelForm extends ModelWidget {
 
     }
 
-    public void renderListFormString(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer, int positions) throws IOException {
+    public void renderListFormString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer, int positions) throws IOException {
         // render list/tabular type forms
 
         // prepare the items iterator and compute the pagination parameters
@@ -1071,7 +1071,7 @@ public class ModelForm extends ModelWidget {
 
     }
 
-    public void renderMultiFormString(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer, int positions) throws IOException {
+    public void renderMultiFormString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer, int positions) throws IOException {
         if (!skipStart) {
             formStringRenderer.renderFormOpen(writer, context, this);
         }
@@ -1092,7 +1092,7 @@ public class ModelForm extends ModelWidget {
 
     }
 
-    public int renderHeaderRow(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
+    public int renderHeaderRow(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
         int maxNumOfColumns = 0;
 
         // We will render one title/column for all the fields with the same name
@@ -1354,7 +1354,7 @@ public class ModelForm extends ModelWidget {
         }
     }
 
-    public void renderItemRows(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer, boolean formPerItem, int numOfColumns) throws IOException {
+    public void renderItemRows(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer, boolean formPerItem, int numOfColumns) throws IOException {
         this.rowCount = 0;
         String lookupName = this.getListName();
         if (UtilValidate.isEmpty(lookupName)) {
@@ -1574,7 +1574,7 @@ public class ModelForm extends ModelWidget {
     // The fields in the three lists, usually created in the preprocessing phase
     // of the renderItemRows method are rendered: this will create a visual representation
     // of one row (corresponding to one position).
-    public void renderItemRow(Writer writer, Map localContext, FormStringRenderer formStringRenderer, boolean formPerItem, List hiddenIgnoredFieldList, List innerDisplayHyperlinkFieldsBegin, List innerFormFields, List innerDisplayHyperlinkFieldsEnd, int position, int numOfColumns) throws IOException {
+    public void renderItemRow(Appendable writer, Map localContext, FormStringRenderer formStringRenderer, boolean formPerItem, List hiddenIgnoredFieldList, List innerDisplayHyperlinkFieldsBegin, List innerFormFields, List innerDisplayHyperlinkFieldsEnd, int position, int numOfColumns) throws IOException {
         int numOfCells = innerDisplayHyperlinkFieldsBegin.size() +
                          innerDisplayHyperlinkFieldsEnd.size() + 
                          (innerFormFields.size() > 0? 1: 0);
@@ -1692,7 +1692,7 @@ public class ModelForm extends ModelWidget {
         }
         return hiddenIgnoredFieldList;
     }
-    public void renderHiddenIgnoredFields(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer, List fieldList) throws IOException {
+    public void renderHiddenIgnoredFields(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer, List fieldList) throws IOException {
         Iterator fieldIter = fieldList.iterator();
         while (fieldIter.hasNext()) {
             ModelFormField modelFormField = (ModelFormField) fieldIter.next();
@@ -2737,12 +2737,12 @@ public class ModelForm extends ModelWidget {
             return this.style;   
         }
         
-        public void renderStartString(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
+        public void renderStartString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
             formStringRenderer.renderFieldGroupOpen(writer, context, this);
             formStringRenderer.renderFormatSingleWrapperOpen(writer, context, modelForm);
         }
         
-        public void renderEndString(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
+        public void renderEndString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
             formStringRenderer.renderFormatSingleWrapperClose(writer, context, modelForm);
             formStringRenderer.renderFieldGroupClose(writer, context, this);
         }
@@ -2777,7 +2777,7 @@ public class ModelForm extends ModelWidget {
         public String getRightText(Map<String, Object> context) { return this.rightText.expandString(context); }
         public String getRightTextStyle(Map<String, Object> context) { return this.rightTextStyle.expandString(context); }
         
-        public void renderString(Writer writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
+        public void renderString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
             formStringRenderer.renderBanner(writer, context, this);
         }
     }

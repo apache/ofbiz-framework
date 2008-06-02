@@ -53,76 +53,76 @@ public class TextScreenRenderer implements ScreenStringRenderer {
 
     public TextScreenRenderer() {}
 
-    public void renderSectionBegin(Writer writer, Map<String, Object> context, ModelScreenWidget.Section section) throws IOException {
+    public void renderSectionBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.Section section) throws IOException {
         // do nothing, this is just a place holder container for HTML
     }
-    public void renderSectionEnd(Writer writer, Map<String, Object> context, ModelScreenWidget.Section section) throws IOException {
+    public void renderSectionEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.Section section) throws IOException {
         // do nothing, this is just a place holder container for HTML
     }
 
-    public void renderContainerBegin(Writer writer, Map<String, Object> context, ModelScreenWidget.Container container) throws IOException {
+    public void renderContainerBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.Container container) throws IOException {
     }
-    public void renderContainerEnd(Writer writer, Map<String, Object> context, ModelScreenWidget.Container container) throws IOException {
+    public void renderContainerEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.Container container) throws IOException {
         appendWhitespace(writer);
     }
 
-    public void renderLabel(Writer writer, Map<String, Object> context, ModelScreenWidget.Label label) throws IOException {
+    public void renderLabel(Appendable writer, Map<String, Object> context, ModelScreenWidget.Label label) throws IOException {
         String labelText = label.getText(context);
         if (UtilValidate.isEmpty(labelText)) {
             // nothing to render
             return;
         }
-        writer.write(labelText);
+        writer.append(labelText);
         appendWhitespace(writer);
     }
 
-    public void renderLink(Writer writer, Map<String, Object> context, ModelScreenWidget.Link link) throws IOException {
+    public void renderLink(Appendable writer, Map<String, Object> context, ModelScreenWidget.Link link) throws IOException {
         // TODO: not implemented
     }
 
-    public void renderImage(Writer writer, Map<String, Object> context, ModelScreenWidget.Image image) throws IOException {
+    public void renderImage(Appendable writer, Map<String, Object> context, ModelScreenWidget.Image image) throws IOException {
         // TODO: not implemented
     }
 
-    public void renderContentBegin(Writer writer, Map<String, Object> context, ModelScreenWidget.Content content) throws IOException {
+    public void renderContentBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.Content content) throws IOException {
         // TODO: not implemented
     }
 
-    public void renderContentBody(Writer writer, Map<String, Object> context, ModelScreenWidget.Content content) throws IOException {
+    public void renderContentBody(Appendable writer, Map<String, Object> context, ModelScreenWidget.Content content) throws IOException {
         // TODO: not implemented
     }
 
-    public void renderContentEnd(Writer writer, Map<String, Object> context, ModelScreenWidget.Content content) throws IOException {
+    public void renderContentEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.Content content) throws IOException {
         // TODO: not implemented
     }
 
-    public void renderContentFrame(Writer writer, Map<String, Object> context, ModelScreenWidget.Content content) throws IOException {
+    public void renderContentFrame(Appendable writer, Map<String, Object> context, ModelScreenWidget.Content content) throws IOException {
         // TODO: not implemented
     }
 
-    public void renderSubContentBegin(Writer writer, Map<String, Object> context, ModelScreenWidget.SubContent content) throws IOException {
+    public void renderSubContentBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.SubContent content) throws IOException {
         // TODO: not implemented
     }
 
-    public void renderSubContentBody(Writer writer, Map<String, Object> context, ModelScreenWidget.SubContent content) throws IOException {
+    public void renderSubContentBody(Appendable writer, Map<String, Object> context, ModelScreenWidget.SubContent content) throws IOException {
         // TODO: not implemented
     }
 
-    public void renderSubContentEnd(Writer writer, Map<String, Object> context, ModelScreenWidget.SubContent content) throws IOException {
+    public void renderSubContentEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.SubContent content) throws IOException {
         // TODO: not implemented
     }
 
-    public void appendWhitespace(Writer writer) throws IOException {
+    public void appendWhitespace(Appendable writer) throws IOException {
         // appending line ends for now, but this could be replaced with a simple space or something
-        writer.write("\r\n");
+        writer.append("\r\n");
     }
-    public void renderScreenletBegin(Writer writer, Map<String, Object> context, boolean collapsed, ModelScreenWidget.Screenlet screenlet) throws IOException {
+    public void renderScreenletBegin(Appendable writer, Map<String, Object> context, boolean collapsed, ModelScreenWidget.Screenlet screenlet) throws IOException {
         // TODO: not implemented
     }
-    public void renderScreenletSubWidget(Writer writer, Map<String, Object> context, ModelScreenWidget subWidget, ModelScreenWidget.Screenlet screenlet) throws GeneralException {
+    public void renderScreenletSubWidget(Appendable writer, Map<String, Object> context, ModelScreenWidget subWidget, ModelScreenWidget.Screenlet screenlet) throws GeneralException {
         // TODO: not implemented
     }
-    public void renderScreenletEnd(Writer writer, Map<String, Object> context, ModelScreenWidget.Screenlet screenlet) throws IOException {
+    public void renderScreenletEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.Screenlet screenlet) throws IOException {
         // TODO: not implemented
     }
 }
