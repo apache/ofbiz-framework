@@ -48,43 +48,41 @@
     <screen name="FindFixedAssetMaints">
         <section>
             <actions>
+                <set field="headerItem" value="fixedAssetMaints"/>
                 <set field="titleProperty" value="PageTitleFindFixedAssetMaints"/>
                 <set field="labelTitleProperty" value="AccountingFixedAssetMaint"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonFixedAssetMaintDecorator">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleFindFixedAssetMaints}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <container style="button-bar">
-                                            <link target="EditFixedAssetMaint" text="${uiLabelMap.AccountingNewFixedAssetMaint}" style="buttontext"/>
-                                        </container>
+                        <section>
+                            <condition>
+                                <if-service-permission service-name="fixedAssetPermissionCheck" main-action="VIEW"/>
+                            </condition>
+                            <widgets>
+                                <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                                    <decorator-section name="menu-bar">
+                                        <section>
+                                            <condition>
+                                                <if-service-permission service-name="fixedAssetPermissionCheck" main-action="CREATE"/>
+                                            </condition>
+                                            <widgets>
+                                                <container style="button-bar"><link target="EditFixedAssetMaint" text="${uiLabelMap.AccountingNewFixedAssetMaint}" style="buttontext"/></container>
+                                            </widgets>
+                                        </section>
+                                    </decorator-section>
+                                    <decorator-section name="search-options">
                                         <include-form name="FindFixedAssetMaint" location="component://assetmaint/widget/forms/FixedAssetForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleFindFixedAssetMaints}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
+                                    </decorator-section>
+                                    <decorator-section name="search-results">
                                         <include-form name="ListFixedAssetMaints" location="component://assetmaint/widget/forms/FixedAssetForms.xml" />
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                                    </decorator-section>
+                                </decorator-screen>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.AssetMaintViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

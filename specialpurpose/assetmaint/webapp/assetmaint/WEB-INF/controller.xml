@@ -32,11 +32,6 @@
     </request-map>
 
     <!-- FixedAssetMaintenance -->
-    <request-map uri="ListFixedAssetMaints">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="ListFixedAssetMaints"/>
-        <response name="error" type="view" value="ListFixedAssetMaints"/>
-    </request-map>
     <request-map uri="printFixedAssetMaint.pdf">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="PrintFixedAssetMaint"/>
@@ -169,6 +164,7 @@
     <view-map name="main" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#ListFixedAssets"/> 
 
     <!-- FixedAsset Maintenance screens -->
+    <view-map name="FindFixedAssetMaints" type="screen" page="component://assetmaint/widget/AssetmaintScreens.xml#FindFixedAssetMaints"/>
     <view-map name="EditFixedAssetMaint" type="screen" page="component://assetmaint/widget/AssetmaintScreens.xml#EditFixedAssetMaint"/>
     <view-map name="EditWorkEfforts" type="screen" page="component://assetmaint/widget/AssetmaintScreens.xml#EditWorkEfforts"/>
     <view-map name="EditWorkEffortTimeEntries" type="screen" page="component://assetmaint/widget/AssetmaintScreens.xml#EditWorkEffortTimeEntries"/>
