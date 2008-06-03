@@ -82,7 +82,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-has-permission permission="WORKEFFORTMGR" action="_VIEW"/>
+                                <if-service-permission service-name="workEffortGenericPermission" main-action="VIEW"/>
                             </condition>
                             <widgets>
                                 <platform-specific><html><html-template location="component://workeffort/webapp/workeffort/task/mytasks.ftl"/></html></platform-specific>
