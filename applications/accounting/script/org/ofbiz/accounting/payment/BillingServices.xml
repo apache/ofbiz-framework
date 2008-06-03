@@ -21,9 +21,6 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="createBillingAccount" short-description="Create Billing Account">
-        <check-permission permission="ACCOUNTING" action="_CREATE"><fail-property resource="AccountingUiLabels" property="AccountingCreateBillingAccountPermissionError"/></check-permission>
-        <check-errors/>
-        
         <make-value value-name="newEntity" entity-name="BillingAccount"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         
@@ -40,9 +37,6 @@ under the License.
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateBillingAccount" short-description="Update Billing Account">
-        <check-permission permission="ACCOUNTING" action="_UPDATE"><fail-property resource="AccountingUiLabels" property="AccountingUpdateBillingAccountPermissionError"/></check-permission>
-        <check-errors/>
-        
         <make-value value-name="lookupPKMap" entity-name="BillingAccount"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>        
         <find-by-primary-key entity-name="BillingAccount" map-name="lookupPKMap" value-name="lookedUpValue"/>
@@ -50,9 +44,6 @@ under the License.
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="createBillingAccountRole" short-description="Create Billing Account Role">
-        <check-permission permission="ACCOUNTING" action="_CREATE"><fail-property resource="AccountingUiLabels" property="AccountingCreateBillingAccountRolePermissionError"/></check-permission>
-        <check-errors/>
-        
         <make-value value-name="newEntity" entity-name="BillingAccountRole"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
@@ -63,9 +54,6 @@ under the License.
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateBillingAccountRole" short-description="Update Billing Account Role">
-        <check-permission permission="ACCOUNTING" action="_UPDATE"><fail-property resource="AccountingUiLabels" property="AccountingUpdateBillingAccountRolePermissionError"/></check-permission>
-        <check-errors/>
-        
         <make-value value-name="lookupPKMap" entity-name="BillingAccountRole"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>        
         <find-by-primary-key entity-name="BillingAccountRole" map-name="lookupPKMap" value-name="lookedUpValue"/>
@@ -73,18 +61,12 @@ under the License.
         <store-value value-name="lookedUpValue"/>
     </simple-method>    
     <simple-method method-name="removeBillingAccountRole" short-description="Remove Billing Account Role">
-        <check-permission permission="ACCOUNTING" action="_UPDATE"><fail-property resource="AccountingUiLabels" property="AccountingRemoveBillingAccountRolePermissionError"/></check-permission>
-        <check-errors/>
-        
         <make-value value-name="lookupPKMap" entity-name="BillingAccountRole"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>        
         <find-by-primary-key entity-name="BillingAccountRole" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="createBillingAccountTerm" short-description="Create Billing Account Term">
-        <check-permission permission="ACCOUNTING" action="_CREATE"><fail-property resource="AccountingUiLabels" property="AccountingCreateBillingAccountTermPermissionError"/></check-permission>
-        <check-errors/>
-        
         <make-value value-name="newEntity" entity-name="BillingAccountTerm"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         
@@ -96,9 +78,6 @@ under the License.
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateBillingAccountTerm" short-description="Update Billing Account Term">
-        <check-permission permission="ACCOUNTING" action="_UPDATE"><fail-property resource="AccountingUiLabels" property="AccountingUpdateBillingAccountTermPermissionError"/></check-permission>
-        <check-errors/>
-        
         <make-value value-name="lookupPKMap" entity-name="BillingAccountTerm"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="BillingAccountTerm" map-name="lookupPKMap" value-name="lookedUpValue"/>
@@ -106,9 +85,6 @@ under the License.
         <store-value value-name="lookedUpValue"/>
     </simple-method>    
     <simple-method method-name="removeBillingAccountTerm" short-description="Remove Billing Account Term">
-        <check-permission permission="ACCOUNTING" action="_DELETE"><fail-property resource="AccountingUiLabels" property="AccountingDeleteBillingAccountTermPermissionError"/></check-permission>
-        <check-errors/>
-        
         <make-value entity-name="BillingAccountTerm" value-name="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="BillingAccountTerm" map-name="lookupPKMap" value-name="lookedUpValue"/>
