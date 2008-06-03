@@ -17,39 +17,34 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.util.*;
-import org.ofbiz.entity.condition.*;
-
-partyId = parameters.get("partyId");
-visitId = parameters.get("visitId");
+partyId = parameters.partyId;
+visitId = parameters.visitId;
 
 visit = null;
 serverHits = null;
-if (visitId != null) {
-    visit = delegator.findByPrimaryKey("Visit", UtilMisc.toMap("visitId", visitId));
-    if (visit != null) {
-        serverHits = delegator.findByAnd("ServerHit", UtilMisc.toMap("visitId", visitId), UtilMisc.toList("-hitStartDateTime"));
+if (visitId) {
+    visit = delegator.findByPrimaryKey("Visit", [visitId : visitId]);
+    if (visit) {
+        serverHits = delegator.findByAnd("ServerHit", [visitId : visitId], ["-hitStartDateTime"]);
     }
 }
 
 viewIndex = 0;
 try {
-    viewIndex = Integer.valueOf((String) parameters.get("VIEW_INDEX")).intValue();
+    viewIndex = Integer.valueOf((String) parameters.VIEW_INDEX).intValue();
 } catch (Exception e) {
     viewIndex = 0;
 }
 
 viewSize = 20;
 try {
-    viewSize = Integer.valueOf((String) parameters.get("VIEW_SIZE")).intValue();
+    viewSize = Integer.valueOf((String) parameters.VIEW_SIZE).intValue();
 } catch (Exception e) {
     viewSize = 20;
 }
 
 listSize = 0;
-if (serverHits != null) {
+if (serverHits) {
     listSize = serverHits.size();
 }
 lowIndex = viewIndex * viewSize;
@@ -58,13 +53,13 @@ if (listSize < highIndex) {
     highIndex = listSize;
 }
 
-context.put("partyId", partyId);
-context.put("visitId", visitId);
-context.put("visit", visit);
-context.put("serverHits", serverHits);
+context.partyId = partyId;
+context.visitId = visitId;
+context.visit = visit;
+context.serverHits = serverHits;
 
-context.put("viewIndex", viewIndex);
-context.put("viewSize", viewSize);
-context.put("listSize", listSize);
-context.put("lowIndex", lowIndex);
-context.put("highIndex", highIndex);
+context.viewIndex = viewIndex;
+context.viewSize = viewSize;
+context.listSize = listSize;
+context.lowIndex = lowIndex;
+context.highIndex = highIndex;
