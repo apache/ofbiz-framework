@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <entity-engine-xml>
+    <!-- demo owner -->
+    <Party partyId="admin"/>
+    <PartyRole partyId="admin" roleTypeId="OWNER"/>
+    
     <!-- demo accounts -->
     <Party partyId="sfa100" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="sfa100" groupName="A profitable Account"/>
@@ -26,13 +30,13 @@
     <!-- demo contacts -->
     <Party partyId="DemoCustomer1"/>
     <PartyRole partyId="DemoCustomer1" roleTypeId="CONTACT"/>
-    <PartyRelationship partyIdFrom="sfa100" roleTypeIdFrom="ACCOUNT" partyIdTo="DemoCustomer1" roleTypeIdTo="CONTACT" fromDate="2000-01-01 00:00:00.000" partyRelationshipTypeId="CONTACT_REL"/>
+    <PartyRelationship partyIdFrom="sfa100" roleTypeIdFrom="ACCOUNT" partyIdTo="DemoCustomer1" roleTypeIdTo="CONTACT" fromDate="2000-01-01 00:00:00.000" partyRelationshipTypeId="EMPLOYMENT"/>
     <Party partyId="DemoCustomer2"/>
     <PartyRole partyId="DemoCustomer2" roleTypeId="CONTACT"/>
-    <PartyRelationship partyIdFrom="DemoCustCompany" roleTypeIdFrom="ACCOUNT" partyIdTo="DemoCustomer2" roleTypeIdTo="CONTACT" fromDate="2000-01-01 00:00:00.000" partyRelationshipTypeId="CONTACT_REL"/>
+    <PartyRelationship partyIdFrom="DemoCustCompany" roleTypeIdFrom="ACCOUNT" partyIdTo="DemoCustomer2" roleTypeIdTo="CONTACT" fromDate="2000-01-01 00:00:00.000" partyRelationshipTypeId="EMPLOYMENT"/>
     <Party partyId="DemoCustomer3"/>
     <PartyRole partyId="DemoCustomer3" roleTypeId="CONTACT"/>
-    <PartyRelationship partyIdFrom="DemoCustCompany" roleTypeIdFrom="ACCOUNT" partyIdTo="DemoCustomer3" roleTypeIdTo="CONTACT" fromDate="2000-01-01 00:00:00.000" partyRelationshipTypeId="CONTACT_REL"/>
+    <PartyRelationship partyIdFrom="DemoCustCompany" roleTypeIdFrom="ACCOUNT" partyIdTo="DemoCustomer3" roleTypeIdTo="CONTACT" fromDate="2000-01-01 00:00:00.000" partyRelationshipTypeId="EMPLOYMENT"/>
     
     <!-- demo lead -->
     <Party partyId="sfa102" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
@@ -42,7 +46,10 @@
     <Person partyId="sfa101" firstName="John" lastName="Lead"/>
     <PartyRole partyId="sfa101" roleTypeId="_NA_"/>
     <PartyRole partyId="sfa101" roleTypeId="LEAD"/>
-    <PartyRelationship partyIdFrom="sfa102" roleTypeIdFrom="ACCOUNT_LEAD" partyIdTo="sfa101" roleTypeIdTo="LEAD" fromDate="2000-01-01 00:00:00.000" partyRelationshipTypeId="LEAD_REL"/>
+    <!-- company to lead relationship -->
+    <PartyRelationship partyIdFrom="sfa102" roleTypeIdFrom="ACCOUNT_LEAD" partyIdTo="sfa101" roleTypeIdTo="LEAD" fromDate="2000-01-01 00:00:00.000" partyRelationshipTypeId="EMPLOYMENT"/>
+    <!-- owner to lead relationship -->
+    <PartyRelationship partyIdFrom="admin" roleTypeIdFrom="OWNER" partyIdTo="sfa101" roleTypeIdTo="LEAD" fromDate="2000-01-01 00:00:00.000" partyRelationshipTypeId="LEAD_OWNER"/>
     <ContactMech contactMechId="sfa103" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztestLead@yahoo.com"/>
     <PartyContactMech partyId="sfa101" contactMechId="sfa103" fromDate="2000-01-01 00:00:00.000"/>
     <PartyContactMechPurpose partyId="sfa101" contactMechId="sfa103" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2000-01-01 00:00:00.000"/>
