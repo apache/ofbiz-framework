@@ -118,10 +118,10 @@ under the License.
                 <set field="layoutSettings.rtlStyleSheets[+0]" value="/images/mainrtl.css" global="true"/>
                 <!-- The default (global) java scripts -->
                 <!-- NOTE: this should be included on each screen that uses it to avoid including it in all screens: <set field="layoutSettings.javaScripts[]" value="/images/dojo/dojo.js" global="true"/> -->
+                <set field="layoutSettings.javaScripts[]" value="/images/calendar1.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/selectall.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/fieldlookup.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/prototype.js" global="true"/>
-                <set field="layoutSettings.javaScripts[]" value="/images/calendar_date_select.js" global="true"/>
                 <!-- The default (global) shortcut icon -->
                 <set field="layoutSettings.shortcutIcon" value="/images/ofbiz.ico" global="true"/>
                 <!-- The default (global) logo -->
