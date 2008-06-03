@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.webapp.control.RequestHandler;
 import org.ofbiz.webapp.taglib.ContentUrlTag;
@@ -60,7 +61,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
 
         String pathString = buildPathString(node.getModelTree(), depth);
         String currentNodeTrailPiped = null;
-        List<String> currentNodeTrail = node.getModelTree().getCurrentNodeTrail();
+        List<String> currentNodeTrail = UtilGenerics.toList(context.get("currentNodeTrail"));
         String staticNodeTrailPiped = StringUtil.join(currentNodeTrail, "|");
         context.put("staticNodeTrailPiped", staticNodeTrailPiped);
         context.put("nodePathString", pathString);
@@ -88,7 +89,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
         // check to see if this node needs to be expanded.
         if (hasChildren && node.isExpandCollapse()) {
             String targetEntityId = null;
-            List targetNodeTrail = node.getModelTree().getTrailList();
+            List<String> targetNodeTrail = UtilGenerics.toList(context.get("targetNodeTrail"));
             if (depth < targetNodeTrail.size()) {
                 targetEntityId = (String)targetNodeTrail.get(depth);
             }
@@ -103,7 +104,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
             int openDepth = node.getModelTree().getOpenDepth();
             if (depth >= openDepth && (targetEntityId == null || !targetEntityId.equals(entityId))) {
                 // Not on the trail
-                if( node.showPeers(depth)) {
+                if( node.showPeers(depth, context)) {
                     context.put("processChildren", Boolean.FALSE);
                     //expandCollapseLink.setText("&nbsp;+&nbsp;");
                     currentNodeTrailPiped = StringUtil.join(currentNodeTrail, "|");

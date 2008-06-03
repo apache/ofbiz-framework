@@ -47,15 +47,15 @@ public class TreeFactory {
     
     public static final String module = TreeFactory.class.getName();
 
-    public static final UtilCache treeLocationCache = new UtilCache("widget.tree.locationResource", 0, 0, false);
-    public static final UtilCache treeWebappCache = new UtilCache("widget.tree.webappResource", 0, 0, false);
+    public static final UtilCache<String, Map<String, ModelTree>> treeLocationCache = new UtilCache<String, Map<String, ModelTree>>("widget.tree.locationResource", 0, 0, false);
+    public static final UtilCache<String, Map<String, ModelTree>> treeWebappCache = new UtilCache<String, Map<String, ModelTree>>("widget.tree.webappResource", 0, 0, false);
     
     public static ModelTree getTreeFromLocation(String resourceName, String treeName, GenericDelegator delegator, LocalDispatcher dispatcher) 
             throws IOException, SAXException, ParserConfigurationException {
-        Map modelTreeMap = (Map) treeLocationCache.get(resourceName);
+        Map<String, ModelTree> modelTreeMap = treeLocationCache.get(resourceName);
         if (modelTreeMap == null) {
             synchronized (TreeFactory.class) {
-                modelTreeMap = (Map) treeLocationCache.get(resourceName);
+                modelTreeMap = treeLocationCache.get(resourceName);
                 if (modelTreeMap == null) {
                     ClassLoader loader = Thread.currentThread().getContextClassLoader();
                     if (loader == null) {
@@ -84,10 +84,10 @@ public class TreeFactory {
         String cacheKey = webappName + "::" + resourceName;
         
         
-        Map modelTreeMap = (Map) treeWebappCache.get(cacheKey);
+        Map<String, ModelTree> modelTreeMap = treeWebappCache.get(cacheKey);
         if (modelTreeMap == null) {
             synchronized (TreeFactory.class) {
-                modelTreeMap = (Map) treeWebappCache.get(cacheKey);
+                modelTreeMap = treeWebappCache.get(cacheKey);
                 if (modelTreeMap == null) {
                     ServletContext servletContext = (ServletContext) request.getAttribute("servletContext");
                     GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
@@ -108,8 +108,8 @@ public class TreeFactory {
         return modelTree;
     }
     
-    public static Map readTreeDocument(Document treeFileDoc, GenericDelegator delegator, LocalDispatcher dispatcher, String treeLocation) {
-        Map modelTreeMap = new HashMap();
+    public static Map<String, ModelTree> readTreeDocument(Document treeFileDoc, GenericDelegator delegator, LocalDispatcher dispatcher, String treeLocation) {
+        Map<String, ModelTree> modelTreeMap = new HashMap<String, ModelTree>();
         if (treeFileDoc != null) {
             // read document and construct ModelTree for each tree element
             Element rootElement = treeFileDoc.getDocumentElement();
