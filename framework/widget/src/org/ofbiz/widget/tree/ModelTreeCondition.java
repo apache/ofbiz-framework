@@ -79,7 +79,7 @@ public class ModelTreeCondition {
     }
     
     public static List readSubConditions(ModelTree modelTree, Element conditionElement) {
-        List condList = FastList.newInstance();
+        List<TreeCondition> condList = FastList.newInstance();
         List subElementList = UtilXml.childElementList(conditionElement);
         Iterator subElementIter = subElementList.iterator();
         while (subElementIter.hasNext()) {
@@ -326,7 +326,7 @@ public class ModelTreeCondition {
                 fieldVal = "";
             }
 
-            List messages = FastList.newInstance();
+            List<String> messages = FastList.newInstance();
             Boolean resultBool = BaseCompare.doRealCompare(fieldVal, value, operator, type, format, messages, null, null, true);
             if (messages.size() > 0) {
                 messages.add(0, "Error with comparison in if-compare between field [" + fieldAcsr.toString() + "] with value [" + fieldVal + "] and value [" + value + "] with operator [" + operator + "] and type [" + type + "]: ");
@@ -375,7 +375,7 @@ public class ModelTreeCondition {
                 fieldVal = "";
             }
 
-            List messages = FastList.newInstance();
+            List<String> messages = FastList.newInstance();
             Boolean resultBool = BaseCompare.doRealCompare(fieldVal, toFieldVal, operator, type, format, messages, null, null, false);
             if (messages.size() > 0) {
                 messages.add(0, "Error with comparison in if-compare-field between field [" + fieldAcsr.toString() + "] with value [" + fieldVal + "] and to-field [" + toFieldVal.toString() + "] with value [" + toFieldVal + "] with operator [" + operator + "] and type [" + type + "]: ");

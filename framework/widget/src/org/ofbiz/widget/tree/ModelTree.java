@@ -30,10 +30,13 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.parsers.ParserConfigurationException;
 
+import javolution.util.FastList;
+
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilFormatOut;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
@@ -74,8 +77,6 @@ public class ModelTree extends ModelWidget {
     protected LocalDispatcher dispatcher;
     protected FlexibleStringExpander expandCollapseRequestExdr;
     protected FlexibleStringExpander trailNameExdr;
-    protected List trail = new ArrayList();
-    protected List<String> currentNodeTrail;
     protected int openDepth;
     protected int postTrailOpenDepth;
     protected int [] nodeIndices = new int[20];
@@ -197,18 +198,6 @@ public class ModelTree extends ModelWidget {
         return this.trailNameExdr.expandString(context);
     }
     
-    public List getTrailList() {
-        return trail;
-    }
-    
-    public void setTrailList(List trailList) {
-        this.trail = trailList;
-    }
-    
-    public List getCurrentNodeTrail() {
-        return currentNodeTrail;
-    }
-    
     public String getBoundaryCommentName() {
         return treeLocation + "#" + name;
     }
@@ -237,21 +226,13 @@ public class ModelTree extends ModelWidget {
         setWidgetBoundaryComments(context);
 
         ModelNode node = (ModelNode)nodeMap.get(rootNodeName);
-        /*
-        List parentNodeTrail = (List)context.get("currentNodeTrail");
-        if (parentNodeTrail != null)
-            currentNodeTrail = new ArrayList(parentNodeTrail);
-        else
-        */
-            currentNodeTrail = new ArrayList();
-            
-        //Map requestParameters = (Map)context.get("requestParameters");
-        //String treeString = (String)requestParameters.get("trail");
+
         String trailName = trailNameExdr.expandString(context);
         String treeString = (String)context.get(trailName);
         if (UtilValidate.isEmpty(treeString)) {
             treeString = (String)parameters.get(trailName);
         }
+        List<String> trail = null;
         if (UtilValidate.isNotEmpty(treeString)) {
             trail = StringUtil.split(treeString, "|");
             if (trail == null || trail.size() == 0)
@@ -259,10 +240,11 @@ public class ModelTree extends ModelWidget {
             
             context.put("rootEntityId", trail.get(0));
             context.put(defaultPkName, trail.get(0));
-            context.put("targetNodeTrail", trail);
         } else {
-                Debug.logError("Trail value is empty.", module);
+            trail = FastList.newInstance();
         }
+        context.put("targetNodeTrail", trail);
+        context.put("currentNodeTrail", FastList.newInstance());
         StringWriter writer = new StringWriter();
         try {
             node.renderNodeString(writer, context, treeStringRenderer, 0, true);
@@ -272,15 +254,6 @@ public class ModelTree extends ModelWidget {
                 Debug.logError(e2, errMsg, module);
                 throw new RuntimeException(errMsg);
         }
-//        try {
-//            FileOutputStream fw = new FileOutputStream(new File("/usr/local/agi/ofbiz/hot-deploy/ofbizdoc/misc/profile.data"));
-//            Profiler.print(fw);
-//            fw.close();
-//        } catch (IOException e) {
-//           Debug.logError("[PROFILER] " + e.getMessage(),"");
-//        }
-
-
     }
 
     public LocalDispatcher getDispatcher() {
@@ -304,11 +277,11 @@ public class ModelTree extends ModelWidget {
         protected Label label;
         protected Link link;
         protected Image image;
-        protected List subNodeList = new ArrayList();
-        protected List actions = new ArrayList();
+        protected List<ModelSubNode> subNodeList = new ArrayList<ModelSubNode>();
+        protected List<ModelTreeAction> actions = new ArrayList<ModelTreeAction>();
         protected String name;
         protected ModelTree modelTree;
-        protected List subNodeValues;
+        protected List<Object []> subNodeValues;
         protected String expandCollapseStyle;
         protected FlexibleStringExpander wrapStyleExdr;
         protected ModelTreeCondition condition;
@@ -400,9 +373,7 @@ public class ModelTree extends ModelWidget {
             }
             //Debug.logInfo("in ModelMenu, name:" + this.getName(), module);
             if (passed) {
-                //this.subNodeValues = new ArrayList();
-                //context.put("subNodeValues", new ArrayList());
-                //if (Debug.infoOn()) Debug .logInfo(" renderNodeString, " + modelTree.getdefaultPkName() + " :" + context.get(modelTree.getdefaultPkName()), module);
+                List<String> currentNodeTrail = UtilGenerics.toList(context.get("currentNodeTrail"));
                 context.put("processChildren", Boolean.TRUE);
                 // this action will usually obtain the "current" entity
                 ModelTreeAction.runSubActions(this.actions, context);
@@ -415,10 +386,9 @@ public class ModelTree extends ModelWidget {
                     id = (String) context.get(pkName);
                 }
                 if (id != null) { 
-                    modelTree.currentNodeTrail.add(id);
+                    currentNodeTrail.add(id);
                 }
-                context.put("currentNodeTrail", modelTree.currentNodeTrail);
-                String currentNodeTrailPiped = StringUtil.join(modelTree.currentNodeTrail, "|");
+                String currentNodeTrailPiped = StringUtil.join(currentNodeTrail, "|");
                 context.put("currentNodeTrailPiped", currentNodeTrailPiped);
                 treeStringRenderer.renderNodeBegin(writer, context, this, depth, isLast);
                 //if (Debug.infoOn()) Debug.logInfo(" context:" +
@@ -454,13 +424,13 @@ public class ModelTree extends ModelWidget {
                             modelTree.setNodeIndexAtDepth(newDepth, nodeIndex);
                             Object[] arr = (Object[]) nodeIter.next();
                             ModelNode node = (ModelNode) arr[0];
-                            Map val = (Map) arr[1];
+                            Map<String, Object> val = UtilGenerics.checkMap(arr[1]);
                             //GenericPK pk = val.getPrimaryKey();
                             //if (Debug.infoOn()) Debug.logInfo(" pk:" + pk,
                             // module);
                             String thisPkName = node.getPkName();
                             String thisEntityId = (String) val.get(thisPkName);
-                            Map newContext = ((MapStack) context) .standAloneChildStack();
+                            MapStack<String> newContext = MapStack.create(context);
                             String nodeEntryName = node.getEntryName();
                             if (UtilValidate.isNotEmpty(nodeEntryName)) {
                                 newContext.put(nodeEntryName, val);                        
@@ -469,11 +439,11 @@ public class ModelTree extends ModelWidget {
                             }
                             newContext.put("currentNodeIndex", new Integer(nodeIndex));
                             String targetEntityId = null;
-                            List targetNodeTrail = this.modelTree .getTrailList();
+                            List targetNodeTrail = UtilGenerics.checkList(context.get("targetNodeTrail"));
                             if (newDepth < targetNodeTrail.size()) {
                                 targetEntityId = (String) targetNodeTrail .get(newDepth);
                             }
-                            if ((targetEntityId != null && targetEntityId .equals(thisEntityId)) || this.showPeers(newDepth)) {
+                            if ((targetEntityId != null && targetEntityId .equals(thisEntityId)) || this.showPeers(newDepth, context)) {
                                 boolean lastNode = !nodeIter.hasNext();
                                 newContext.put("lastNode", new Boolean(lastNode));
                                 node.renderNodeString(writer, newContext, treeStringRenderer, newDepth, lastNode);
@@ -502,8 +472,8 @@ public class ModelTree extends ModelWidget {
                     throw new RuntimeException(errMsg);
                 }
                 treeStringRenderer.renderNodeEnd(writer, context, this);
-                int removeIdx = modelTree.currentNodeTrail.size() - 1;
-                if (removeIdx >= 0) modelTree.currentNodeTrail.remove(removeIdx);
+                int removeIdx = currentNodeTrail.size() - 1;
+                if (removeIdx >= 0) currentNodeTrail.remove(removeIdx);
             }
         }
 
@@ -586,7 +556,7 @@ public class ModelTree extends ModelWidget {
         }
 
         public void getChildren(Map<String, Object> context) {
-             this.subNodeValues = new ArrayList();
+             this.subNodeValues = new ArrayList<Object []>();
              Iterator nodeIter = subNodeList.iterator();
              while (nodeIter.hasNext()) {
                  ModelSubNode subNode = (ModelSubNode)nodeIter.next();
@@ -658,9 +628,9 @@ public class ModelTree extends ModelWidget {
             return name.equals(modelTree.getRootNodeName());
         }
         
-        public boolean showPeers(int currentDepth) {
+        public boolean showPeers(int currentDepth, Map<String, Object> context) {
             int trailSize = 0;
-            List trail = modelTree.getTrailList();
+            List trail = UtilGenerics.checkList(context.get("targetNodeTrail"));
             int openDepth = modelTree.getOpenDepth();
             int postTrailOpenDepth = modelTree.getPostTrailOpenDepth();
             if (trail != null) trailSize = trail.size();
@@ -736,8 +706,7 @@ public class ModelTree extends ModelWidget {
     
             protected ModelNode rootNode;
             protected FlexibleStringExpander nodeNameExdr;
-            protected List actions = new ArrayList();
-            protected List outFieldMaps;
+            protected List<ModelTreeAction> actions = new ArrayList<ModelTreeAction>();
             protected ListIterator listIterator;
     
             public ModelSubNode() {}

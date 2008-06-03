@@ -32,6 +32,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilFormatOut;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
@@ -213,7 +214,7 @@ public abstract class ModelTreeAction {
         protected FlexibleStringExpander resultMapListIteratorNameExdr;
         protected FlexibleStringExpander resultMapValueNameExdr;
         protected FlexibleStringExpander valueNameExdr;
-        protected Map fieldMap;
+        protected Map<FlexibleMapAccessor, Object> fieldMap;
         
         public Service(ModelTree.ModelNode modelNode, Element serviceElement) {
             super (modelNode, serviceElement);
@@ -247,18 +248,18 @@ public abstract class ModelTreeAction {
             boolean autoFieldMapBool = !"false".equals(autoFieldMapString);
             
             try {
-                Map serviceContext = null;
+                Map<String, Object> serviceContext = null;
                 if (autoFieldMapBool) {
                     serviceContext = this.modelTree.getDispatcher().getDispatchContext().makeValidContext(serviceNameExpanded, ModelService.IN_PARAM, context);
                 } else {
-                    serviceContext = new HashMap();
+                    serviceContext = new HashMap<String, Object>();
                 }
                 
                 if (this.fieldMap != null) {
                     EntityFinderUtil.expandFieldMapToContext(this.fieldMap, context, serviceContext);
                 }
                 
-                Map result = this.modelTree.getDispatcher().runSync(serviceNameExpanded, serviceContext);
+                Map<String, Object> result = this.modelTree.getDispatcher().runSync(serviceNameExpanded, serviceContext);
                 
                 if (this.resultMapNameAcsr != null) {
                     this.resultMapNameAcsr.put(context, result);
@@ -296,7 +297,8 @@ public abstract class ModelTreeAction {
                         if (UtilValidate.isNotEmpty(valueName)) {
                             context.put(valueName, result.get(resultMapValueName));
                         } else {
-                            context.putAll((Map)result.get(resultMapValueName));
+                            Map<String, Object> resultMap = UtilGenerics.checkMap(result.get(resultMapValueName));
+                            context.putAll(resultMap);
                         }
                     }
                 }
