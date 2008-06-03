@@ -56,8 +56,8 @@ under the License.
             location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="updateProductionRun" auth="true">
         <description>Update a Production Run</description>
         <attribute name="productionRunId" type="String" mode="IN" optional="false"/>
-        <attribute name="quantity" type="Double" mode="IN"/>
-        <attribute name="estimatedStartDate" type="Timestamp" mode="IN"/>
+        <attribute name="quantity" type="Double" mode="IN" optional="true"/>
+        <attribute name="estimatedStartDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="workEffortName" type="String" mode="IN" optional="true"/>
         <attribute name="description" type="String" mode="IN" optional="true"/>
         <attribute name="facilityId" type="String" mode="IN" optional="true"/>
