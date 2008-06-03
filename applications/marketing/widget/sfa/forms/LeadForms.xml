@@ -33,7 +33,7 @@ under the License.
             <set field="statusId" from-field="partyRow.statusId"/>
         </row-actions>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
-            <hyperlink target="viewprofile?partyId=${partyRow.partyId}" description="${partyRow.partyId}" target-type="inter-app"/>
+            <hyperlink target="viewprofile?partyId=${partyRow.partyId}" description="${partyRow.partyId}"/>
         </field>
         <field name="partyName" title="${uiLabelMap.PartyName}"><display description="${person.lastName}, ${person.firstName}"/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" description="${description}" key-field-name="statusId"/></field>

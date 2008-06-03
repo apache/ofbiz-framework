@@ -81,17 +81,17 @@
                 <result-to-field result-name="partyId" field-name="partyGroupPartyId"/>        
             </call-service>
             <set field="createPartyRoleCtx.partyId" from-field="partyGroupPartyId"/>
-            <set field="createPartyRoleCtx.roleTypeId" value="LEAD"/>
+            <set field="createPartyRoleCtx.roleTypeId" value="ACCOUNT_LEAD"/>
             <call-service service-name="createPartyRole" in-map-name="createPartyRoleCtx"/>
 
             <set field="createPartyRoleCtx.partyId" from-field="partyId"/>
-            <set field="createPartyRoleCtx.roleTypeId" value="EMPLOYEE"/>
+            <set field="createPartyRoleCtx.roleTypeId" value="LEAD"/>
             <call-service service-name="createPartyRole" in-map-name="createPartyRoleCtx"/>
           
             <set field="partyRelationshipCtx.partyIdFrom" from-field="partyGroupPartyId"/>
             <set field="partyRelationshipCtx.partyIdTo" from-field="partyId"/>
-            <set field="partyRelationshipCtx.roleTypeIdFrom" value="LEAD"/>
-            <set field="partyRelationshipCtx.roleTypeIdTo" value="EMPLOYEE"/>
+            <set field="partyRelationshipCtx.roleTypeIdFrom" value="ACCOUNT_LEAD"/>
+            <set field="partyRelationshipCtx.roleTypeIdTo" value="LEAD"/>
             <set field="partyRelationshipCtx.positionTitle" from-field="parameters.title"/>
             <set field="partyRelationshipCtx.partyRelationshipTypeId" value="EMPLOYMENT"/>
             <call-service service-name="createPartyRelationship" in-map-name="partyRelationshipCtx"/>
