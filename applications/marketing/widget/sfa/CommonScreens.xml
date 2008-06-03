@@ -312,8 +312,10 @@ under the License.
                                                     <include-screen name="Party" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                                 </widgets>
                                             </section>
+                                            <include-screen name="Contact" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                         </container>
                                         <container style="profile-right">
+                                            <include-screen name="Content" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                             <include-screen name="Notes" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                         </container>
                                     </widgets>
