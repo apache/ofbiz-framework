@@ -1067,13 +1067,7 @@ public class ProductionRunServices {
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        /* TODO: security management  and finishing cleaning (ex copy from PartyServices.java)
-        if (!security.hasEntityPermission(secEntity, secOperation, userLogin)) {
-            result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
-            result.put(ModelService.ERROR_MESSAGE, "You do not have permission to perform this operation for this party");
-            return partyId;
-        }
-         */
+
         String productionRunId = (String) context.get("productionRunId");
         String routingTaskId = (String) context.get("routingTaskId");
         if (! UtilValidate.isEmpty(productionRunId) && ! UtilValidate.isEmpty(routingTaskId)) {
@@ -1088,7 +1082,11 @@ public class ProductionRunServices {
                 Timestamp estimatedStartDate = (Timestamp) context.get("estimatedStartDate");
                 Timestamp pRestimatedStartDate = productionRun.getEstimatedStartDate();
                 if (pRestimatedStartDate.after(estimatedStartDate)) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingRoutingTaskStartDateBeforePRun", locale));
+                    try {
+                        Map resultService = dispatcher.runSync("updateProductionRun", UtilMisc.toMap("productionRunId", productionRunId, "estimatedStartDate", estimatedStartDate, "userLogin", userLogin));
+                    } catch (GenericServiceException e) {
+                        return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingRoutingTaskStartDateBeforePRun", locale));
+                    }
                 }
                 
                 Long priority = (Long) context.get("priority");
