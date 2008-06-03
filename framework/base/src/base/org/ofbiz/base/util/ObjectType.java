@@ -426,7 +426,7 @@ public class ObjectType {
     }
 
     public static Object simpleTypeConvert(Object obj, String type, String format, Locale locale, boolean noTypeFail) throws GeneralException {
-        return simpleTypeConvert(obj, type, format, UtilDateTime.getDefaultTimeZone(), locale, noTypeFail);
+        return simpleTypeConvert(obj, type, format, null, locale, noTypeFail);
     }
 
     /** 
@@ -455,6 +455,14 @@ public class ObjectType {
         }
         if ("Object".equals(type) || "java.lang.Object".equals(type)) {
             return obj;
+        }
+
+        if (timeZone == null) {
+            timeZone = TimeZone.getDefault();
+        }
+
+        if (locale == null) {
+            locale = Locale.getDefault();
         }
 
         String fromType = null;
@@ -496,7 +504,7 @@ public class ObjectType {
             } else if ("BigDecimal".equals(type) || "java.math.BigDecimal".equals(type)) {
                 str = StringUtil.removeSpaces(str);
                 try {
-                    NumberFormat nf = locale == null ? NumberFormat.getNumberInstance() : NumberFormat.getNumberInstance(locale);
+                    NumberFormat nf = NumberFormat.getNumberInstance(locale);
                     Number tempNum = nf.parse(str);
                     return new BigDecimal(tempNum.toString());
                 } catch (ParseException e) {
@@ -505,7 +513,7 @@ public class ObjectType {
             } else if ("Double".equals(type) || "java.lang.Double".equals(type)) {
                 str = StringUtil.removeSpaces(str);
                 try {
-                    NumberFormat nf = locale == null ? NumberFormat.getNumberInstance() : NumberFormat.getNumberInstance(locale);
+                    NumberFormat nf = NumberFormat.getNumberInstance(locale);
                     Number tempNum = nf.parse(str);
 
                     return Double.valueOf(tempNum.doubleValue());
@@ -515,7 +523,7 @@ public class ObjectType {
             } else if ("Float".equals(type) || "java.lang.Float".equals(type)) {
                 str = StringUtil.removeSpaces(str);
                 try {
-                    NumberFormat nf = locale == null ? NumberFormat.getNumberInstance() : NumberFormat.getNumberInstance(locale);
+                    NumberFormat nf = NumberFormat.getNumberInstance(locale);
                     Number tempNum = nf.parse(str);
 
                     return Float.valueOf(tempNum.floatValue());
@@ -525,7 +533,7 @@ public class ObjectType {
             } else if ("Long".equals(type) || "java.lang.Long".equals(type)) {
                 str = StringUtil.removeSpaces(str);
                 try {
-                    NumberFormat nf = locale == null ? NumberFormat.getNumberInstance() : NumberFormat.getNumberInstance(locale);
+                    NumberFormat nf = NumberFormat.getNumberInstance(locale);
                     nf.setMaximumFractionDigits(0);
                     Number tempNum = nf.parse(str);
 
@@ -536,7 +544,7 @@ public class ObjectType {
             } else if ("Integer".equals(type) || "java.lang.Integer".equals(type)) {
                 str = StringUtil.removeSpaces(str);
                 try {
-                    NumberFormat nf = locale == null ? NumberFormat.getNumberInstance() : NumberFormat.getNumberInstance(locale);
+                    NumberFormat nf = NumberFormat.getNumberInstance(locale);
                     nf.setMaximumFractionDigits(0);
                     Number tempNum = nf.parse(str);
 
@@ -547,9 +555,9 @@ public class ObjectType {
             } else if ("Date".equals(type) || "java.sql.Date".equals(type)) {
                 DateFormat df = null;
                 if (format == null || format.length() == 0) {
-                    df = UtilDateTime.toDateFormat(UtilDateTime.DATE_FORMAT, timeZone, null);
+                    df = UtilDateTime.toDateFormat(UtilDateTime.DATE_FORMAT, timeZone, locale);
                 } else {
-                    df = UtilDateTime.toDateFormat(format, timeZone, null);
+                    df = UtilDateTime.toDateFormat(format, timeZone, locale);
                 }
                 try {
                     Date fieldDate = df.parse(str);
@@ -560,9 +568,9 @@ public class ObjectType {
             } else if ("Time".equals(type) || "java.sql.Time".equals(type)) {
                 DateFormat df = null;
                 if (format == null || format.length() == 0) {
-                    df = UtilDateTime.toTimeFormat(UtilDateTime.TIME_FORMAT, timeZone, null);
+                    df = UtilDateTime.toTimeFormat(UtilDateTime.TIME_FORMAT, timeZone, locale);
                 } else {
-                    df = UtilDateTime.toTimeFormat(format, timeZone, null);
+                    df = UtilDateTime.toTimeFormat(format, timeZone, locale);
                 }
                 try {
                     Date fieldDate = df.parse(str);
@@ -573,7 +581,7 @@ public class ObjectType {
             } else if ("Timestamp".equals(type) || "java.sql.Timestamp".equals(type)) {
                 DateFormat df = null;
                 if (format == null || format.length() == 0) {
-                    df = UtilDateTime.toDateTimeFormat(UtilDateTime.DATE_TIME_FORMAT, timeZone, null);
+                    df = UtilDateTime.toDateTimeFormat(UtilDateTime.DATE_TIME_FORMAT, timeZone, locale);
                     // if time is missing add zeros
                     if (str.length() > 0 && !str.contains(":")) {
                     	str = str + " 00:00:00.00";
@@ -591,7 +599,7 @@ public class ObjectType {
                         }
                     }
                 } else {
-                    df = UtilDateTime.toDateTimeFormat(format, timeZone, null);
+                    df = UtilDateTime.toDateTimeFormat(format, timeZone, locale);
                 }
                 try {
                     Date fieldDate = df.parse(str);
@@ -626,7 +634,7 @@ public class ObjectType {
             Double dbl = (Double) obj;
 
             if ("String".equals(type) || "java.lang.String".equals(type)) {
-                NumberFormat nf = locale == null ? NumberFormat.getNumberInstance() : NumberFormat.getNumberInstance(locale);
+                NumberFormat nf = NumberFormat.getNumberInstance(locale);
                 return nf.format(dbl.doubleValue());
             } else if ("BigDecimal".equals(type) || "java.math.BigDecimal".equals(type)) {
                 return new BigDecimal(dbl.doubleValue());
@@ -654,7 +662,7 @@ public class ObjectType {
             Float flt = (Float) obj;
 
             if ("String".equals(type)) {
-                NumberFormat nf = locale == null ? NumberFormat.getNumberInstance() : NumberFormat.getNumberInstance(locale);
+                NumberFormat nf = NumberFormat.getNumberInstance(locale);
                 return nf.format(flt.doubleValue());
             } else if ("BigDecimal".equals(type) || "java.math.BigDecimal".equals(type)) {
                 return new BigDecimal(flt.doubleValue());
@@ -682,7 +690,7 @@ public class ObjectType {
             Long lng = (Long) obj;
 
             if ("String".equals(type) || "java.lang.String".equals(type)) {
-                NumberFormat nf = locale == null ? NumberFormat.getNumberInstance() : NumberFormat.getNumberInstance(locale);
+                NumberFormat nf = NumberFormat.getNumberInstance(locale);
                 return nf.format(lng.longValue());
             } else if ("BigDecimal".equals(type) || "java.math.BigDecimal".equals(type)) {
                 return BigDecimal.valueOf(lng.longValue());
@@ -709,7 +717,7 @@ public class ObjectType {
             fromType = "Integer";
             Integer intgr = (Integer) obj;
             if ("String".equals(type) || "java.lang.String".equals(type)) {
-                NumberFormat nf = locale == null ? NumberFormat.getNumberInstance() : NumberFormat.getNumberInstance(locale);
+                NumberFormat nf = NumberFormat.getNumberInstance(locale);
                 return nf.format(intgr.longValue());
             } else if ("BigDecimal".equals(type) || "java.math.BigDecimal".equals(type)) {
                 return BigDecimal.valueOf(intgr.longValue());
@@ -736,7 +744,7 @@ public class ObjectType {
             fromType = "BigDecimal";
             BigDecimal bigDec = (BigDecimal) obj;
             if ("String".equals(type) || "java.lang.String".equals(type)) {
-                NumberFormat nf = locale == null ? NumberFormat.getNumberInstance() : NumberFormat.getNumberInstance(locale);
+                NumberFormat nf = NumberFormat.getNumberInstance(locale);
                 return nf.format(bigDec.doubleValue());
             } else if ("BigDecimal".equals(type) || "java.math.BigDecimal".equals(type)) {
                 return obj;
@@ -765,9 +773,9 @@ public class ObjectType {
             if ("String".equals(type) || "java.lang.String".equals(type)) {
                 DateFormat df = null;
                 if (format == null || format.length() == 0) {
-                    df = UtilDateTime.toDateFormat(UtilDateTime.DATE_FORMAT, timeZone, null);
+                    df = UtilDateTime.toDateFormat(UtilDateTime.DATE_FORMAT, timeZone, locale);
                 } else {
-                    df = UtilDateTime.toDateFormat(format, timeZone, null);
+                    df = UtilDateTime.toDateFormat(format, timeZone, locale);
                 }
                 return df.format(new java.util.Date(dte.getTime()));
             } else if ("Date".equals(type) || "java.sql.Date".equals(type)) {
@@ -794,9 +802,9 @@ public class ObjectType {
             if ("String".equals(type) || "java.lang.String".equals(type)) {
                 DateFormat df = null;
                 if (format == null || format.length() == 0) {
-                    df = UtilDateTime.toTimeFormat(UtilDateTime.TIME_FORMAT, timeZone, null);
+                    df = UtilDateTime.toTimeFormat(UtilDateTime.TIME_FORMAT, timeZone, locale);
                 } else {
-                    df = UtilDateTime.toTimeFormat(format, timeZone, null);
+                    df = UtilDateTime.toTimeFormat(format, timeZone, locale);
                 }
                 return df.format(new java.util.Date(tme.getTime()));
             } else if ("Date".equals(type) || "java.sql.Date".equals(type)) {
@@ -823,9 +831,9 @@ public class ObjectType {
             if ("String".equals(type) || "java.lang.String".equals(type)) {
                 DateFormat df = null;
                 if (format == null || format.length() == 0) {
-                    df = UtilDateTime.toDateTimeFormat(UtilDateTime.DATE_TIME_FORMAT, timeZone, null);
+                    df = UtilDateTime.toDateTimeFormat(UtilDateTime.DATE_TIME_FORMAT, timeZone, locale);
                 } else {
-                    df = UtilDateTime.toDateTimeFormat(format, timeZone, null);
+                    df = UtilDateTime.toDateTimeFormat(format, timeZone, locale);
                 }
                 return df.format(new java.util.Date(tme.getTime()));
             } else if ("Date".equals(type) || "java.sql.Date".equals(type)) {
