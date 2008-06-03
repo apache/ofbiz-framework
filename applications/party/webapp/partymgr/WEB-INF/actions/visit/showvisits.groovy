@@ -17,33 +17,31 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.util.*;
+import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.condition.*;
-import org.ofbiz.entity.transaction.*;
+import org.ofbiz.entity.transaction.TransactionUtil;
 
 module = "showvisits.bsh";
 
-partyId = parameters.get("partyId");
-context.put("partyId", partyId);
+partyId = parameters.partyId;
+context.partyId = partyId;
 
-showAll = parameters.get("showAll");
-if (showAll == null) showAll = "false";
-context.put("showAll", showAll);
+showAll = parameters.showAll;
+if (!showAll) showAll = "false";
+context.showAll = showAll;
 
-sort = parameters.get("sort");
-context.put("sort", sort);
+sort = parameters.sort;
+context.sort = sort;
 
 visitListIt = null;          
-sortList = UtilMisc.toList("-fromDate");
-if (sort != null) sortList.add(0, sort);
+sortList = ["-fromDate"];
+if (sort) sortList.add(0, sort);
     
 boolean beganTransaction = false;
 try {
     beganTransaction = TransactionUtil.begin();
 
-    if (partyId != null) {
+    if (partyId) {
         visitListIt = delegator.find("Visit", EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId), null, null, sortList, new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true));    
     } else if (showAll.equalsIgnoreCase("true")) {
         visitListIt = delegator.find("Visit", null, null, null, sortList, new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true));
@@ -55,18 +53,18 @@ try {
     viewIndex = 1;
     viewSize = 20;    
     try {
-        viewIndex = Integer.valueOf((String) parameters.get("VIEW_INDEX")).intValue();
+        viewIndex = Integer.valueOf((String) parameters.VIEW_INDEX).intValue();
     } catch (Exception e) {
         viewIndex = 1;
     }
-    context.put("viewIndex", viewIndex);
+    context.viewIndex = viewIndex;
     
     try {
-        viewSize = Integer.valueOf((String) parameters.get("VIEW_SIZE")).intValue();
+        viewSize = Integer.valueOf((String) parameters.VIEW_SIZE).intValue();
     } catch (Exception e) {
         viewSize = 20;
     }
-    context.put("viewSize", viewSize);
+    context.viewSize = viewSize;
      
     // get the indexes for the partial list
     lowIndex = (((viewIndex - 1) * viewSize) + 1);
@@ -74,7 +72,7 @@ try {
    
     // get the partial list for this page
     visitList = visitListIt.getPartialList(lowIndex, viewSize);
-    if (visitList == null) {
+    if (!visitList) {
         visitList = new ArrayList();
     }
     
@@ -84,16 +82,16 @@ try {
     if (highIndex > visitListSize) {
         highIndex = visitListSize;
     }
-    context.put("visitSize", visitListSize);
+    context.visitSize = visitListSize;
     
     visitListIt.close();
-} catch (GenericEntityException e) {
+} catch (Exception e) {
     String errMsg = "Failure in operation, rolling back transaction";
     Debug.logError(e, errMsg, module);
     try {
         // only rollback the transaction if we started one...
         TransactionUtil.rollback(beganTransaction, errMsg, e);
-    } catch (GenericEntityException e2) {
+    } catch (Exception e2) {
         Debug.logError(e2, "Could not rollback transaction: " + e2.toString(), module);
     }
     // after rolling back, rethrow the exception
@@ -103,14 +101,14 @@ try {
     TransactionUtil.commit(beganTransaction);
 }
 
-context.put("visitList", visitList);
-if (visitList != null) {
+context.visitList = visitList;
+if (visitList) {
     listSize = lowIndex + visitList.size();
 }
 
 if (listSize < highIndex) {
     highIndex = listSize;
 }
-context.put("lowIndex", lowIndex);
-context.put("highIndex", highIndex);
-context.put("listSize", listSize);
+context.lowIndex = lowIndex;
+context.highIndex = highIndex;
+context.listSize = listSize;
