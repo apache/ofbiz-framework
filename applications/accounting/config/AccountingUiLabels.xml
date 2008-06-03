@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
@@ -1363,20 +1363,6 @@
         <value xml:lang="th">สร้างยอดรวมของบัญชี</value>
         <value xml:lang="zh">新建账单账户</value>
     </property>
-    <property key="AccountingCreateBillingAccountPermissionError">
-        <value xml:lang="ar">Security Error: to run createBillingAccount you must have the ACCOUNTING_CREATE or ACCOUNTING_ADMIN permissionاتصل بمدير التطبيق</value>
-        <value xml:lang="en">Security Error: to run createBillingAccount you must have the ACCOUNTING_CREATE or ACCOUNTING_ADMIN permission </value>
-        <value xml:lang="es">Error de seguridad : Para ejecutar createBillingAccount debe tener el permiso ACCOUNTING_CREATE o ACCOUNTING_ADMIN</value>
-        <value xml:lang="fr">Erreur de sécurité : pour créer un compte de facturation, il faut avoir la permission ACCOUNTING_CREATE ou ACCOUNTING_ADMIN.</value>
-        <value xml:lang="it">Errore Sicurezza : per eseguire createBillingAccount tu devi avere il permesso ACCOUNTING_CREATE o ACCOUNTING_ADMIN</value>
-        <value xml:lang="nl">Toegangsfout: Om een nieuwe rekening aan te maken is ACCOUNTING_CREATE of ACCOUNTING_ADMIN permissie vereist </value>
-        <value xml:lang="pt_BR">Erro de Segurança; para "Criar Nota Fiscal" deverá obter permissões para ACCOUNTING_CREATE ou ACCOUNTING_ADMIN </value>
-        <value xml:lang="pt_PT">Erro de Segurança; para correr "Criar Conta para Pagamento" deverá obter permissões para ACCOUNTING_CREATE ou ACCOUNTING_ADMIN </value>
-        <value xml:lang="ro">Eroare de Securitate: pentru a executa createBillingAccount tu trebuie sa ai permisul ACCOUNTING_CREATE sau ACCOUNTING_ADMIN</value>
-        <value xml:lang="ru">Ошибка безопасности: для запуска createBillingAccount у вас должны быть права ACCOUNTING_CREATE или ACCOUNTING_ADMIN</value>
-        <value xml:lang="th">Security Error: ความผิดพลาด! ในการ createBillingAccount คุณต้องมี ACCOUNTING_CREATE หรือ ACCOUNTING_ADMIN ก่อน </value>
-        <value xml:lang="zh">安全错误：要运行新建账单账户，你必须具有ACCOUNTING_CREATE或ACCOUNTING_ADMIN权限</value>
-    </property>
     <property key="AccountingCreateBillingAccountRole">
         <value xml:lang="ar">استحداث دور حساب فوترة</value>
         <value xml:lang="en">Create Billing Account Role</value>
@@ -1391,19 +1377,6 @@
         <value xml:lang="th">สร้างสถานะยอดรวมของบัญชี</value>
         <value xml:lang="zh">新建账单账户角色</value>
     </property>
-    <property key="AccountingCreateBillingAccountRolePermissionError">
-        <value xml:lang="en">Security Error : to run createBillingAccountRole you must have the ACCOUNTING_CREATE or ACCOUNTING_ADMIN permission</value>
-        <value xml:lang="es">Para ejecutar createBillingAccountRole debe tener el permiso ACCOUNTING_CREATE o ACCOUNTING_ADMIN</value>
-        <value xml:lang="fr">Erreur de sécurité : pour associer un rôle à un compte de facturation, il faut avoir la permission ACCOUNTING_CREATE ou ACCOUNTING_ADMIN</value>
-        <value xml:lang="it">Errore Sicurezza : per eseguire createBillingAccountRole tu devi avere il permesso ACCOUNTING_CREATE o ACCOUNTING_ADMIN</value>
-        <value xml:lang="nl">Toegangsfout: om een nieuwe rol aan te maken is ACCOUNTING_CREATE of ACCOUNTING_ADMIN permissie nodig</value>
-        <value xml:lang="pt_BR">Erro de Segurança: para "Criar Função de Nota Fiscal" deverá obter permissões para ACCOUNTING_CREATE ou ACCOUNTING_ADMIN</value>
-        <value xml:lang="pt_PT">Erro de Segurança: para correr "Criar Função de Conta para Pagamento" deverá obter permissões para ACCOUNTING_CREATE ou ACCOUNTING_ADMIN</value>
-        <value xml:lang="ro">Eroare de Siguranta: pentru a executa  createBillingAccountRole tu trebuie sa ai permisul ACCOUNTING_CREATE sau ACCOUNTING_ADMIN</value>
-        <value xml:lang="ru">Ошибка безопасности: для запуска createBillingAccountRole у вас должны быть права ACCOUNTING_CREATE или ACCOUNTING_ADMIN</value>
-        <value xml:lang="th">Security Error : ความผิดพลาด! ในการ createBillingAccountRole คุณต้องมี ACCOUNTING_CREATE หรือ ACCOUNTING_ADMIN ก่อน</value>
-        <value xml:lang="zh">安全错误：要运行新建账单账户角色，你必须具有ACCOUNTING_CREATE或ACCOUNTING_ADMIN权限</value>
-    </property>
     <property key="AccountingCreateBillingAccountTerm">
         <value xml:lang="ar">استحداث بند لحساب الفوترة</value>
         <value xml:lang="en">Create Billing Account Term</value>
@@ -1417,19 +1390,6 @@
         <value xml:lang="ru">Создание условия</value>
         <value xml:lang="th">สร้างยอดรวมของบัญชีตามที่กำหนด</value>
         <value xml:lang="zh">新建账单账户条件</value>
-    </property>
-    <property key="AccountingCreateBillingAccountTermPermissionError">
-        <value xml:lang="en">Security Error : to run createBillingAccountTerm you must have the ACCOUNTING_CREATE or ACCOUNTING_ADMIN permission</value>
-        <value xml:lang="es">Para ejecutar createBillingAccountTerm debe tener el permiso ACCOUNTING_CREATE o ACCOUNTING_ADMIN</value>
-        <value xml:lang="fr">Erreur de sécurité : pour créer un terme sur un compte de facturation, il faut avoir la permission ACCOUNTING_CREATE ou ACCOUNTING_ADMIN</value>
-        <value xml:lang="it">Errore Sicurezza : per eseguire createBillingAccountTerm tu devi avere il permesso ACCOUNTING_CREATE o ACCOUNTING_ADMIN</value>
-        <value xml:lang="nl">Toegangsfout : om een betalingsvoorwaarde an te maken is ACCOUNTING_CREATE of ACCOUNTING_ADMIN permissie nodig</value>
-        <value xml:lang="pt_BR">Erro de Segurança: para  "Criar Termo de Nota Fiscal" deverá obter permissões para ACCOUNTING_CREATE ou ACCOUNTING_ADMIN</value>
-        <value xml:lang="pt_PT">Erro de Segurança: para  correr "Criar Termo de Conta para Pagamento" deverá obter permissões para ACCOUNTING_CREATE ou ACCOUNTING_ADMIN</value>
-        <value xml:lang="ro">Eroare de Siguranta: pentru a executa  createBillingAccountTerm tu trebuie sa ai permisul ACCOUNTING_CREATE o ACCOUNTING_ADMIN</value>
-        <value xml:lang="ru">Ошибка безопасности: для запуска createBillingAccountTerm у вас должны быть права ACCOUNTING_CREATE или ACCOUNTING_ADMIN</value>
-        <value xml:lang="th">Security Error : ความผิดพลาด! ในการ createBillingAccountTerm คุณต้องมี ACCOUNTING_CREATE หรือ ACCOUNTING_ADMIN ก่อน</value>
-        <value xml:lang="zh">安全错误：要运行新建账单账户条件，你必须具有ACCOUNTING_CREATE或ACCOUNTING_ADMIN权限</value>
     </property>
     <property key="AccountingCreateCostComponentCalc">
         <value xml:lang="en">Create New Cost Component Calc</value>
@@ -1630,19 +1590,6 @@
         <value xml:lang="ru">Для записи в ГК суммы дебита и кредита должны быть равны.</value>
         <value xml:lang="th">ผลรวมเดบิตและเครดิตต้องเท่ากับที่แจ้งถึง GL</value>
         <value xml:lang="zh">借方和贷方合计必须等于过帐到总账的金额。</value>
-    </property>
-    <property key="AccountingDeleteBillingAccountTermPermissionError">
-        <value xml:lang="en">Security Error : to run removeBillingAccountTerm you must have the ACCOUNTING_DELETE or ACCOUNTING_ADMIN permission</value>
-        <value xml:lang="es">Error de seguridad : Para ejecutar removeBillingAccountTerm debe tener el permiso ACCOUNTING_DELETE o ACCOUNTING_ADMIN</value>
-        <value xml:lang="fr">Erreur de sécurité : pour supprimer un terme de compte de facturation, il faut avoir la permission ACCOUNTING_DELETE ou ACCOUNTING_ADMIN.</value>
-        <value xml:lang="it">Errore Sicurezza  : per eseguire removeBillingAccountTerm tu devi avere il permesso ACCOUNTING_DELETE o ACCOUNTING_ADMIN</value>
-        <value xml:lang="nl">Security Error : to run removeBillingAccountTerm you must have the ACCOUNTING_DELETE or ACCOUNTING_ADMIN permission</value>
-        <value xml:lang="pt_BR">Erro de Segurança: para "Remover Termo de Nota Fiscal" deverá obter permissões para ACCOUNTING_DELETE ou ACCOUNTING_ADMIN</value>
-        <value xml:lang="pt_PT">Erro de Segurança: para correr "Remover Termo de Conta para Pagamento" deverá obter permissões para ACCOUNTING_DELETE ou ACCOUNTING_ADMIN</value>
-        <value xml:lang="ro">Eroare de Siguranta: pentru a executa removeBillingAccountTerm trebuie sa ai permisul ACCOUNTING_DELETE sau ACCOUNTING_ADMIN</value>
-        <value xml:lang="ru">Ошибка безопасности: для запуска removeBillingAccountTerm у вас должны быть права ACCOUNTING_DELETE или ACCOUNTING_ADMIN</value>
-        <value xml:lang="th">Security Error : ความผิดพลาด! ในการ removeBillingAccountTerm คุณต้องมี ACCOUNTING_DELETE หรือ ACCOUNTING_ADMIN ก่อน</value>
-        <value xml:lang="zh">安全错误：要运行删除账单账户条件，你必须具有ACCOUNTING_DELETE或ACCOUNTING_ADMIN权限</value>
     </property>
     <property key="AccountingDeleteFixedAssetMaintOrderPermissionError">
         <value xml:lang="en">Security Error: to run deleteFixedAssetMaintOrder you must have the ACCOUNTING_DELETE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_UPDATE permission</value>
@@ -5945,45 +5892,6 @@ esetata in mod automat</value>
         <value xml:lang="ru">Обновить кредитный счет</value>
         <value xml:lang="th">แก้ไขยอดรวมของบัญชี</value>
         <value xml:lang="zh">更新账单账户</value>
-    </property>
-    <property key="AccountingUpdateBillingAccountPermissionError">
-        <value xml:lang="en">Security Error : to run updateAcctgTrans you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission</value>
-        <value xml:lang="es">Error de seguridad : para ejecutar updateAcctgTrans debe tener el permiso ACCOUNTING_UPDATE o ACCOUNTING_ADMIN </value>
-        <value xml:lang="fr">Erreur de sécurité : pour éditer un compte de facturation, il faut avoir la permission ACCOUNTING_UPDATE ou ACCOUNTING_ADMIN.</value>
-        <value xml:lang="it">Errore Sicurezza : per eseguire updateAcctgTrans tu devi avere il permesso ACCOUNTING_UPDATE o ACCOUNTING_ADMIN</value>
-        <value xml:lang="nl">Toegangsfout : om accouttransacties aan te passen is ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permissie vereist</value>
-        <value xml:lang="pt_BR">Erro e Segurança: para "Atualizar Transação em Conta" deverá obter permissões para ACCOUNTING_UPDATE ou ACCOUNTING_ADMIN </value>
-        <value xml:lang="pt_PT">Erro e Segurança: para correr "Actualizar Transacção em Conta" deverá obter permissões para ACCOUNTING_UPDATE ou ACCOUNTING_ADMIN </value>
-        <value xml:lang="ro">Eroare de Siguranta: pentru  executarea updateAcctgTrans trebuie sa ai permisul ACCOUNTING_UPDATE sau ACCOUNTING_ADMIN</value>
-        <value xml:lang="ru">Ошибка безопасности: для запуска updateAcctgTrans у вас должны быть права ACCOUNTING_UPDATE или ACCOUNTING_ADMIN</value>
-        <value xml:lang="th">Security Error : ความปลอดภัยผิดพลาด! ในการดำเนินการ updateAcctgTrans คุณต้องมีการอนุญาต ACCOUNTING_UPDATE หรือ ACCOUNTING_ADMIN </value>
-        <value xml:lang="zh">安全错误：要运行更新账户交易，你必须具有ACCOUNTING_UPDATE或ACCOUNTING_ADMIN权限</value>
-    </property>
-    <property key="AccountingUpdateBillingAccountRolePermissionError">
-        <value xml:lang="en">Security Error : to run updateBillingAccountRole you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission</value>
-        <value xml:lang="es">Error de seguridad : para ejecutar updateBillingAccountRole debe tener el permiso ACCOUNTING_UPDATE o ACCOUNTING_ADMIN</value>
-        <value xml:lang="fr">Erreur de sécurité : pour éditer une association d'un rôle à un compte de facturation, il faut avoir la permission ACCOUNTING_UPDATE ou ACCOUNTING_ADMIN.</value>
-        <value xml:lang="it">Errore Sicurezza : per eseguire updateBillingAccountRole tu devi avere il permesso ACCOUNTING_UPDATE o ACCOUNTING_ADMIN</value>
-        <value xml:lang="nl">Toegansfout : om een faktuurrekening rol aan te passen is ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permissie nodig</value>
-        <value xml:lang="pt_BR">Erro de Segurança: para "Atualizar Função de Nota Fiscals" deverá obter permissões para ACCOUNTING_UPDATE ou ACCOUNTING_ADMIN</value>
-        <value xml:lang="pt_PT">Erro de Segurança: para correr "Actualizar Função de Conta para Pagamentos" deverá obter permissões para ACCOUNTING_UPDATE ou ACCOUNTING_ADMIN</value>
-        <value xml:lang="ro">Eroare de Siguranta: pentru a executa updateBillingAccountRole trebuie sa ai permisul ACCOUNTING_UPDATE sau ACCOUNTING_ADMIN</value>
-        <value xml:lang="ru">Ошибка безопасности: для запуска updateBillingAccountRole у вас должны быть права ACCOUNTING_UPDATE или ACCOUNTING_ADMIN</value>
-        <value xml:lang="th">Security Error : ความปลอดภัยผิดพลาด! ในการดำเนินการ updateBillingAccountRole คุณต้องมีการอนุญาต ACCOUNTING_UPDATE หรือ ACCOUNTING_ADMIN </value>
-        <value xml:lang="zh">安全错误：要运行更新账单账户角色，你必须具有ACCOUNTING_UPDATE或ACCOUNTING_ADMIN权限</value>
-    </property>
-    <property key="AccountingUpdateBillingAccountTermPermissionError">
-        <value xml:lang="en">Security Error : to run updateBillingAccountTerm you must have the ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permission</value>
-        <value xml:lang="es">Error de seguridad : para ejecutar updateBillingAccountTerm debe tener el permiso ACCOUNTING_UPDATE or ACCOUNTING_ADMIN</value>
-        <value xml:lang="fr">Erreur de sécurité : pour éditer un terme d'un compte de facturation, il faut avoir la permission ACCOUNTING_UPDATE ou ACCOUNTING_ADMIN.</value>
-        <value xml:lang="it">Errore Sicurezza : per eseguire updateBillingAccountTerm tu devi avere il permesso ACCOUNTING_UPDATE o ACCOUNTING_ADMIN</value>
-        <value xml:lang="nl">Toegansfout :om een faktuurrekening voorwaarde aan te passen is de ACCOUNTING_UPDATE or ACCOUNTING_ADMIN permissie nodig</value>
-        <value xml:lang="pt_BR">Erro de Segurança: para "Atualizar Termo de Nota Fiscal" deverá obter permissões para ACCOUNTING_UPDATE ou ACCOUNTING_ADMIN</value>
-        <value xml:lang="pt_PT">Erro de Segurança: para correr "Actualizar Termo de Conta para Pagamento" deverá obter permissões para ACCOUNTING_UPDATE ou ACCOUNTING_ADMIN</value>
-        <value xml:lang="ro">Eroare de Siguranta: pentru a executa updateBillingAccountTerm trebuie sa ai permisul ACCOUNTING_UPDATE sau ACCOUNTING_ADMIN</value>
-        <value xml:lang="ru">Ошибка безопасности: для запуска updateBillingAccountTerm у вас должны быть права ACCOUNTING_UPDATE или ACCOUNTING_ADMIN</value>
-        <value xml:lang="th">Security Error : ความปลอดภัยผิดพลาด! ในการดำเนินการ updateBillingAccountTerm คุณต้องมีการอนุญาต ACCOUNTING_UPDATE หรือ ACCOUNTING_ADMIN</value>
-        <value xml:lang="zh">安全错误：要运行更新账单账户条件，你必须具有ACCOUNTING_UPDATE或ACCOUNTING_ADMIN权限</value>
     </property>
     <property key="AccountingUpdateFX">
         <value xml:lang="ar">تحديث  نسب الصرف الأجنبي</value>
