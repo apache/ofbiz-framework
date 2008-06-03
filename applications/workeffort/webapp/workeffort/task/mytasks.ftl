@@ -16,20 +16,14 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-
-<#setting locale = locale.toString()>
-<#setting time_zone = timeZone.getID()>
-<div class="screenlet">
-  <div class="screenlet-title-bar">
-    <ul>
-      <li class="h3">${uiLabelMap.WorkEffortMyCurrentTaskList}</li>
-      <li><a href="<@ofbizUrl>EditWorkEffort?workEffortTypeId=TASK&amp;currentStatusId=CAL_NEEDS_ACTION</@ofbizUrl>">${uiLabelMap.WorkEffortNewTask}</a></li>
-    </ul>
-    <br class="clear"/>
-  </div>
-  <h3>${uiLabelMap.WorkEffortAssignedTasks}</h3>
+<h1>${uiLabelMap.PageTitleViewActivityAndTaskList}</h1>
+<div class="button-bar">
+  <a href="<@ofbizUrl>EditWorkEffort?workEffortTypeId=TASK&amp;currentStatusId=CAL_NEEDS_ACTION</@ofbizUrl>" class="buttontext">${uiLabelMap.WorkEffortNewTask}</a>
+</div>
+  <h2>${uiLabelMap.WorkEffortAssignedTasks}</h2>
+  <br/>
   <table class="basic-table hover-bar" cellspacing="0">
-    <tr class="header-row">
+    <tr class="header-row-2">
       <td>${uiLabelMap.CommonStartDateTime}</td>
       <td>${uiLabelMap.WorkEffortPriority}</td>
       <td>${uiLabelMap.WorkEffortStatus}</td>
@@ -49,9 +43,10 @@ under the License.
     </#list>
   </table>
   <#if (activities.size() > 0)>
-    <h3>${uiLabelMap.WorkEffortWorkflowActivitiesUser}</h3>
+    <h2>${uiLabelMap.WorkEffortWorkflowActivitiesUser}</h2>
+    <br/>
     <table class="basic-table hover-bar" cellspacing="0">
-      <tr class="header-row">
+      <tr class="header-row-2">
         <td>${uiLabelMap.CommonStartDateTime}</td>
         <td>${uiLabelMap.WorkEffortPriority}</td>
         <td>${uiLabelMap.WorkEffortActivityStatus}</td>
@@ -78,9 +73,10 @@ under the License.
     </table>
   </#if>
   <#if (roleActivities.size() > 0)>
-    <h3>${uiLabelMap.WorkEffortWorkflowActivitiesUserRole}</h3>
+    <h2>${uiLabelMap.WorkEffortWorkflowActivitiesUserRole}</h2>
+    <br/>
     <table class="basic-table hover-bar" cellspacing="0">
-      <tr class="header-row">
+      <tr class="header-row-2">
         <td>${uiLabelMap.CommonStartDateTime}</td>
         <td>${uiLabelMap.WorkEffortPriority}</td>
         <td>${uiLabelMap.WorkEffortActivityStatus}</td>
@@ -107,9 +103,10 @@ under the License.
     </table>
   </#if>
   <#if (groupActivities.size() > 0)>
-    <h3>${uiLabelMap.WorkEffortWorkflowActivitiesUserGroup}</h3>
+    <h2>${uiLabelMap.WorkEffortWorkflowActivitiesUserGroup}</h2>
+    <br/>
     <table class="basic-table hover-bar" cellspacing="0">
-      <tr class="header-row">
+      <tr class="header-row-2">
         <td>${uiLabelMap.CommonStartDateTime}</td>
         <td>${uiLabelMap.WorkEffortPriority}</td>
         <td>${uiLabelMap.WorkEffortActivityStatus}</td>
@@ -135,4 +132,3 @@ under the License.
       </#list>
     </table>
   </#if>
-</div>
