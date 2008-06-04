@@ -382,4 +382,22 @@ under the License.
         </section>
     </screen>
 
+    <screen name="help">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleHelp"></set>
+                <property-map resource="CommonHelpUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="helpText" value="${uiLabelMap.${parameters.topic}}" default-value="${uiLabelMap.HelpNotFound}"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="SimpleDecorator">
+                    <decorator-section name="body">
+                        <container style="h1"><label>${uiLabelMap.PageTitleHelp}</label></container>
+                        <container style="h3"><label>${helpText}</label></container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
 </screens>

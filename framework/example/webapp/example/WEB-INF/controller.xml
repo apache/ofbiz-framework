@@ -175,6 +175,7 @@ under the License.
 
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://example/widget/example/CommonScreens.xml#main"/>
+    <view-map name="help" type="screen" page="component://example/widget/example/ExampleScreens.xml#help"/>
 
     <view-map name="FindExample" type="screen" page="component://example/widget/example/ExampleScreens.xml#FindExample"/>
     <view-map name="EditExample" type="screen" page="component://example/widget/example/ExampleScreens.xml#EditExample"/>

@@ -2584,6 +2584,9 @@
         <value xml:lang="ru">Приостановленные</value>
         <value xml:lang="th">การควบคุม</value>
     </property>
+    <property key="CommonHelp">
+        <value xml:lang="en">Help</value>
+    </property>
     <property key="CommonHideFields">
         <value xml:lang="ar">اخفاء الحقول</value>
         <value xml:lang="de">Felder ausblenden</value>
