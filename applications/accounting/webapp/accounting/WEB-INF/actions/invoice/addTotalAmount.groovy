@@ -42,6 +42,6 @@ if (invoice) {
     newInvoice.putAll(invoice);
 }
 
-newInvoice.invoiceAmount = new Double(invoiceTotal);
+newInvoice.invoiceAmount = invoiceTotal;
 context.invoiceExt = newInvoice;
 context.invoiceId = invoiceId;

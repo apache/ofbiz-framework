@@ -25,13 +25,13 @@ import org.ofbiz.base.util.*;
 import org.ofbiz.base.util.UtilMisc;
 
 // Optional prefix parameter to filter InvoiceItemTypes by (i.e. "INV" or "PINV") defaults to INV
-invItemTypePrefix = context.invItemTypePrefix ? context.invItemTypePrefix : "INV";
+invItemTypePrefix = context.invItemTypePrefix ?: "INV";
 invItemTypePrefix += "_%"
 
 organizationPartyId = parameters.organizationPartyId;
 
 List invoiceItemTypes = delegator.findList("InvoiceItemType", EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.LIKE, invItemTypePrefix), null, null, null, false);
-List allTypes = new LinkedList();
+List allTypes = [];
 invoiceItemTypes.each { invoiceItemType ->
     String activeGlDescription = "";
     String remove = " ";
