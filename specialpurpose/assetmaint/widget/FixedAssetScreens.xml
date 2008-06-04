@@ -31,7 +31,7 @@
                 <set field="title" value="${uiLabelMap.AssetMaintMaintenanceCalendar}: ${fixedAsset.fixedAssetName}"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonFixedAssetDecorator" location="component://accounting/widget/FixedAssetScreens.xml">
                     <decorator-section name="body">
                         <include-menu name="CalendarTabBar" location="component://assetmaint/widget/Menus.xml"/>
                         <decorator-section-include name="body"/>
