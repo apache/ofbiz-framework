@@ -26,12 +26,12 @@ import org.ofbiz.accounting.payment.*;
 import org.ofbiz.accounting.util.UtilAccounting;
 import java.text.DateFormat;
 import java.math.*;
+import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.*;
 import java.text.NumberFormat;
-
 
 basePaymentId = parameters.paymentId;
 basePayment = delegator.findByPrimaryKey("Payment", [paymentId : basePaymentId]);
@@ -43,7 +43,6 @@ paymentsMapList = [];  // to pass back to the screeen list of unapplied payments
 
 // retrieve payments for the related parties which have not been (fully) applied yet
 List payments = null;
-GenericValue payment = null;
 exprList = [];
 expr = EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, basePayment.getString("partyIdFrom"));
 exprList.add(expr); 
@@ -76,9 +75,9 @@ if (payments)    {
            paymentMap.paymentId = basePaymentId;
            paymentMap.toPaymentId = payment.paymentId;
            paymentMap.currencyUomId = payment.currencyUomId;
-           paymentMap.effectiveDate = payment.effectiveDate.substring(0,10)); // list as YYYY-MM-DD
-           paymentMap.amount = payment.getBigDecimal("amount"));
-           paymentMap.amountApplied = PaymentWorker.getPaymentAppliedBd(payment));
+           paymentMap.effectiveDate = payment.effectiveDate.toString().substring(0,10); // list as YYYY-MM-DD
+           paymentMap.amount = payment.getBigDecimal("amount");
+           paymentMap.amountApplied = PaymentWorker.getPaymentAppliedBd(payment);
            paymentToApply = PaymentWorker.getPaymentNotAppliedBd(payment);
            if (paymentToApply.compareTo(basePaymentToApply) < 0 ) {
                 paymentMap.amountToApply = paymentToApply;

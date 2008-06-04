@@ -50,10 +50,10 @@ if (invoices)    {
             invoiceToApply = invoiceAmount.subtract(invoiceApplied); 
             invoiceMap = [:];
             invoiceMap.invoiceId = invoice.invoiceId;
-            invoiceMap.currencyUomId = invoice.currencyUomId);
+            invoiceMap.currencyUomId = invoice.currencyUomId;
             invoiceMap.amount = invoiceAmount;
             invoiceMap.description = invoice.description; 
-            invoiceMap.invoiceDate = invoice.invoiceDate.substring(0,10)); // display only YYYY-MM-DD
+            invoiceMap.invoiceDate = invoice.invoiceDate.toString().substring(0,10); // display only YYYY-MM-DD
             invoiceMap.amountApplied = invoiceApplied;
             if (paymentToApply.compareTo(invoiceToApply) < 0 ) {
                 invoiceMap.amountToApply = paymentToApply;
