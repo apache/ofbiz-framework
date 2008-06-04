@@ -32,7 +32,7 @@ fi
 # copy all lib files
 mkdir lib
 <#list classpathJars as jar>
-<#if (!jar.contains("j2eespec") && !jar.contains("geronimo") && !jar.contains("catalina"))>
+<#if (!jar.contains("j2eespec") && !jar.contains("geronimo") && !jar.contains("catalina") && !jar.contains("mx4j") && !jar.contains("commons-el") && !jar.equals("mail.jar"))>
 cp ${jar} ./lib
 </#if>
 </#list>
