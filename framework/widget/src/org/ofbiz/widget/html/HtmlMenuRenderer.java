@@ -176,6 +176,10 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
             }
             writer.append("\"");
         }
+        String toolTip = menuItem.getTooltip(context);
+        if (UtilValidate.isNotEmpty(toolTip)) {
+            writer.append(" title=\"" + toolTip + "\"");
+        }
         writer.append(">");
         
         Link link = menuItem.getLink();
@@ -373,33 +377,39 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
                 writer.append(id);
                 writer.append("\"");
             }
-        
-/*
-        boolean isSelected = menuItem.isSelected(context);
-        
-        String style = null;
-        
-        if (isSelected) {
-            style = menuItem.getSelectedStyle();
-        } else {
-            style = link.getStyle(context);
-            if (UtilValidate.isEmpty(style)) 
-                style = menuItem.getTitleStyle();
-            if (UtilValidate.isEmpty(style)) 
-                style = menuItem.getWidgetStyle();
-        }
-        
-        if (menuItem.getDisabled()) {
-            style = menuItem.getDisabledTitleStyle();
-        }
-        
-        if (UtilValidate.isNotEmpty(style)) {
-            writer.append(" class=\"");
-            writer.append(style);
-            writer.append("\"");
-        }
-*/
-        String name = link.getName(context);
+            
+            /*
+             boolean isSelected = menuItem.isSelected(context);
+             
+             String style = null;
+             
+             if (isSelected) {
+             style = menuItem.getSelectedStyle();
+             } else {
+             style = link.getStyle(context);
+             if (UtilValidate.isEmpty(style)) 
+             style = menuItem.getTitleStyle();
+             if (UtilValidate.isEmpty(style)) 
+             style = menuItem.getWidgetStyle();
+             }
+             
+             if (menuItem.getDisabled()) {
+             style = menuItem.getDisabledTitleStyle();
+             }
+             
+             if (UtilValidate.isNotEmpty(style)) {
+             writer.append(" class=\"");
+             writer.append(style);
+             writer.append("\"");
+             }
+             */
+            String style = link.getStyle(context);
+            if (UtilValidate.isNotEmpty(style)) {
+                writer.append(" class=\"");
+                writer.append(style);
+                writer.append("\"");
+            }
+            String name = link.getName(context);
             if (UtilValidate.isNotEmpty(name)) {
                 writer.append(" name=\"");
                 writer.append(name);
