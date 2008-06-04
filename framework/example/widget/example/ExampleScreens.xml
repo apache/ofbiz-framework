@@ -106,7 +106,6 @@ under the License.
     <screen name="EditExampleFeatureAppls">
         <section>
             <actions>
-            
                 <set field="layoutSettings.javaScripts[+0]" value="/images/prototypejs/scriptaculous.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/images/prototypejs/prototype.js" global="true"/>
                 <set field="layoutSettings.styleSheets[+0]" value="/images/prototypejs/scriptaculouscontrols.css" global="true"/>
@@ -121,6 +120,20 @@ under the License.
                         <include-form name="AddExampleFeatureAppl" location="component://example/widget/example/ExampleForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="help">
+        <section>
+            <actions>
+                <property-map resource="ExampleHelpUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ExampleUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="layoutSettings.companyName" from-field="uiLabelMap.ExampleCompanyName" global="true"/>
+            </actions>
+            <widgets>
+                <include-screen name="help" location="component://common/widget/CommonScreens.xml"/>
             </widgets>
         </section>
     </screen>
