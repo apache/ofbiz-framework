@@ -18,12 +18,12 @@
  */
 
 // standard partymgr permissions
-context.put("hasViewPermission", security.hasEntityPermission("PARTYMGR", "_VIEW", session));
-context.put("hasCreatePermission", security.hasEntityPermission("PARTYMGR", "_CREATE", session));
-context.put("hasUpdatePermission", security.hasEntityPermission("PARTYMGR", "_UPDATE", session));
-context.put("hasDeletePermission", security.hasEntityPermission("PARTYMGR", "_DELETE", session));
+context.hasViewPermission = security.hasEntityPermission("PARTYMGR", "_VIEW", session);
+context.hasCreatePermission = security.hasEntityPermission("PARTYMGR", "_CREATE", session);
+context.hasUpdatePermission = security.hasEntityPermission("PARTYMGR", "_UPDATE", session);
+context.hasDeletePermission = security.hasEntityPermission("PARTYMGR", "_DELETE", session);
 // extended pay_info permissions
-context.put("hasPayInfoPermission", security.hasEntityPermission("PAY_INFO", "_VIEW", session));
+context.hasPayInfoPermission = security.hasEntityPermission("PAY_INFO", "_VIEW", session);
 // extended pcm (party contact mechanism) permissions
-context.put("hasPcmCreatePermission", security.hasEntityPermission("PARTYMGR_PCM", "_CREATE", session));
-context.put("hasPcmUpdatePermission", security.hasEntityPermission("PARTYMGR_PCM", "_UPDATE", session));
+context.hasPcmCreatePermission = security.hasEntityPermission("PARTYMGR_PCM", "_CREATE", session);
+context.hasPcmUpdatePermission = security.hasEntityPermission("PARTYMGR_PCM", "_UPDATE", session);

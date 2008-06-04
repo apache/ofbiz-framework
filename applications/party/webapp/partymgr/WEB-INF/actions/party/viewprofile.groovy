@@ -17,29 +17,27 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
+import org.ofbiz.base.util.UtilDateTime;
 
-partyId = parameters.get("partyId");
-if (partyId == null)
-    partyId = parameters.get("party_id");
+partyId = parameters.partyId;
+if (!partyId)
+    partyId = parameters.party_id;
 
-userLoginId = parameters.get("userlogin_id");
-if (UtilValidate.isEmpty(userLoginId)) {
-    userLoginId = parameters.get("userLoginId");
+userLoginId = parameters.userlogin_id;
+if (!userLoginId) {
+    userLoginId = parameters.userLoginId;
 }
-if (UtilValidate.isEmpty(partyId) && UtilValidate.isNotEmpty(userLoginId)) {
-    thisUserLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", userLoginId));
-    if (thisUserLogin != null) {
-        partyId = thisUserLogin.getString("partyId");
-        parameters.put("partyId", partyId);
+if (!partyId && userLoginId) {
+    thisUserLogin = delegator.findByPrimaryKey("UserLogin", [userLoginId : userLoginId]);
+    if (thisUserLogin) {
+        partyId = thisUserLogin.partyId;
+        parameters.partyId = partyId;
     }
 }
 
-boolean showOld = "true".equals(parameters.get("SHOW_OLD"));
-context.put("showOld", new Boolean(showOld));
+boolean showOld = "true".equals(parameters.SHOW_OLD);
+context.showOld = new Boolean(showOld);
 
-context.put("partyId", partyId); 
-context.put("party", delegator.findByPrimaryKey("Party", UtilMisc.toMap("partyId", partyId)));
-context.put("nowStr", UtilDateTime.nowTimestamp().toString());
-
-
+context.partyId = partyId; 
+context.party = delegator.findByPrimaryKey("Party", [partyId : partyId]);
+context.nowStr = UtilDateTime.nowTimestamp().toString();

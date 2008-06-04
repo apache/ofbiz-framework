@@ -17,124 +17,113 @@
  * under the License.
  */
  
-import java.util.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.util.*;
-import org.ofbiz.entity.condition.*;
-import org.ofbiz.product.catalog.*;
+import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.base.util.UtilHttp;
+import org.ofbiz.product.catalog.CatalogWorker;
 
 prodCatalogId = CatalogWorker.getCurrentCatalogId(request);
 webSiteId = CatalogWorker.getWebSiteId(request);
 
-currencyUomId = request.getParameter("currencyUomId");
-if (currencyUomId == null) {
-    currencyUomId = UtilHttp.getCurrencyUom(request);
-}
-context.put("currencyUomId", currencyUomId);
+currencyUomId = parameters.currencyUomId ? parameters.currencyUomId : UtilHttp.getCurrencyUom(request);
+context.currencyUomId = currencyUomId;
 
-partyId = request.getParameter("partyId");
-if (partyId == null) partyId = (String) request.getAttribute("partyId");
+partyId = parameters.partyId;
+if (!partyId) partyId = parameters.partyId;
 
-party = delegator.findByPrimaryKey("Party", UtilMisc.toMap("partyId", partyId));
-context.put("party", party);
-if (party != null) {
-    context.put("lookupPerson", party.getRelatedOne("Person"));
-    context.put("lookupGroup", party.getRelatedOne("PartyGroup"));
+party = delegator.findByPrimaryKey("Party", [partyId : partyId]);
+context.party = party;
+if (party) {
+    context.lookupPerson = party.getRelatedOne("Person");
+    context.lookupGroup = party.getRelatedOne("PartyGroup");
 }
 
-shoppingListId = parameters.get("shoppingListId");
-if (shoppingListId == null || shoppingListId.equals("")) 
+shoppingListId = parameters.shoppingListId;
+if (!shoppingListId) 
     shoppingListId = request.getAttribute("shoppingListId");
 
 //get the party for listid if it exists    
-if(partyId == null && shoppingListId != null){
-    partyId = delegator.findByPrimaryKey("ShoppingList",UtilMisc.toMap("shoppingListId",shoppingListId)).getString("partyId");
+if(!partyId && shoppingListId){
+    partyId = delegator.findByPrimaryKey("ShoppingList", [shoppingListId : shoppingListId]).partyId;
 }
-context.put("partyId", partyId);
+context.partyId = partyId;
 
 // get the top level shopping lists for the party
-allShoppingLists = delegator.findByAnd("ShoppingList", UtilMisc.toMap("partyId",partyId), UtilMisc.toList("listName"));
-shoppingLists = EntityUtil.filterByAnd(allShoppingLists, UtilMisc.toMap("parentShoppingListId", null));
-context.put("allShoppingLists", allShoppingLists);
-context.put("shoppingLists", shoppingLists);
+allShoppingLists = delegator.findByAnd("ShoppingList", [partyId : partyId], ["listName"]);
+shoppingLists = EntityUtil.filterByAnd(allShoppingLists, [parentShoppingListId : null]);
+context.allShoppingLists = allShoppingLists;
+context.shoppingLists = shoppingLists;
 
 // get all shoppingListTypes
-shoppingListTypes = delegator.findList("ShoppingListType", null, null, UtilMisc.toList("description"), null, true);
-context.put("shoppingListTypes", shoppingListTypes);
+shoppingListTypes = delegator.findList("ShoppingListType", null, null, ["description"], null, true);
+context.shoppingListTypes = shoppingListTypes;
 
 // no passed shopping list id default to first list
-if (shoppingListId == null || shoppingListId.length() == 0) {
+if (!shoppingListId || shoppingListId.length() == 0) {
     firstList = EntityUtil.getFirst(shoppingLists);
-    if (firstList != null) {
-        shoppingListId = firstList.getString("shoppingListId");
+    if (firstList) {
+        shoppingListId = firstList.shoppingListId;
     }
 }
 
 // if we passed a shoppingListId get the shopping list info
-if (shoppingListId != null) {
-    shoppingList = delegator.findByPrimaryKey("ShoppingList", UtilMisc.toMap("shoppingListId", shoppingListId));
-    context.put("shoppingList", shoppingList);
+if (shoppingListId) {
+    shoppingList = delegator.findByPrimaryKey("ShoppingList", [shoppingListId : shoppingListId]);
+    context.shoppingList = shoppingList;
 
-    if (shoppingList != null) {
+    if (shoppingList) {
         shoppingListItemTotal = 0.0;
         shoppingListChildTotal = 0.0;
 
         shoppingListItems = shoppingList.getRelatedCache("ShoppingListItem");
-        if (shoppingListItems != null) {
+        if (shoppingListItems) {
             shoppingListItemDatas = new ArrayList(shoppingListItems.size());
-            shoppingListItemIter = shoppingListItems.iterator();
-            while (shoppingListItemIter.hasNext()) {
-                shoppingListItem = shoppingListItemIter.next();
+            shoppingListItemDatas.each { shoppingListItem ->
                 shoppingListItemData = new HashMap();
                 product = shoppingListItem.getRelatedOneCache("Product");
 
                 // DEJ20050704 not sure about calculating price here, will have some bogus data when not in a store webapp
-                calcPriceInMap = UtilMisc.toMap("product", product, "quantity", shoppingListItem.get("quantity"), "currencyUomId", currencyUomId, "userLogin", userLogin, "productStoreId", shoppingList.get("productStoreId"));
+                calcPriceInMap = [product : product, quantity : shoppingListItem.quantity , currencyUomId : currencyUomId, userLogin : userLogin, productStoreId : shoppingList.productStoreId];
                 calcPriceOutMap = dispatcher.runSync("calculateProductPrice", calcPriceInMap);
-                price = calcPriceOutMap.get("price");
+                price = calcPriceOutMap.price;
                 totalPrice = price * shoppingListItem.getDouble("quantity");
                 shoppingListItemTotal += totalPrice;
 
                 productVariantAssocs = null;
-                if ("Y".equals(product.getString("isVirtual"))) {
-                    productVariantAssocs = product.getRelatedCache("MainProductAssoc", UtilMisc.toMap("productAssocTypeId", "PRODUCT_VARIANT"), UtilMisc.toList("sequenceNum"));
+                if ("Y".equals(product.isVirtual)) {
+                    productVariantAssocs = product.getRelatedCache("MainProductAssoc", [productAssocTypeId : "PRODUCT_VARIANT"], ["sequenceNum"]);
                     productVariantAssocs = EntityUtil.filterByDate(productVariantAssocs);
                 }
 
-                shoppingListItemData.put("shoppingListItem", shoppingListItem);
-                shoppingListItemData.put("product", product);
-                shoppingListItemData.put("unitPrice", price);
-                shoppingListItemData.put("totalPrice", totalPrice);
-                shoppingListItemData.put("productVariantAssocs", productVariantAssocs);
+                shoppingListItemData.shoppingListItem = shoppingListItem;
+                shoppingListItemData.product = product;
+                shoppingListItemData.unitPrice = price;
+                shoppingListItemData.totalPrice = totalPrice;
+                shoppingListItemData.productVariantAssocs = productVariantAssocs;
                 shoppingListItemDatas.add(shoppingListItemData);
             }
-            context.put("shoppingListItemDatas", shoppingListItemDatas);
+            context.shoppingListItemDatas = shoppingListItemDatas;
         }
         
         shoppingListType = shoppingList.getRelatedOne("ShoppingListType");
-        context.put("shoppingListType", shoppingListType);
+        context.shoppingListType = shoppingListType;
     
         // get the child shopping lists of the current list for the logged in user
-        childShoppingLists = delegator.findByAndCache("ShoppingList", UtilMisc.toMap("partyId", partyId, "parentShoppingListId", shoppingListId), UtilMisc.toList("listName"));
+        childShoppingLists = delegator.findByAndCache("ShoppingList", [partyId : partyId, parentShoppingListId : shoppingListId], ["listName"]);
         // now get prices for each child shopping list...
-        if (childShoppingLists != null) {
+        if (childShoppingLists) {
             childShoppingListDatas = new ArrayList(childShoppingLists.size());
-            childShoppingListIter = childShoppingLists.iterator();
-            while (childShoppingListIter.hasNext()) {
-                childShoppingList = childShoppingListIter.next();
+            childShoppingListDatas.each { childShoppingList ->
                 childShoppingListData = new HashMap();
-
-                calcListPriceInMap = UtilMisc.toMap("shoppingListId", childShoppingList.get("shoppingListId"), "prodCatalogId", prodCatalogId, "webSiteId", webSiteId, "userLogin", userLogin);
-                childShoppingListData.put("childShoppingList", childShoppingList);
+                calcListPriceInMap = [shoppingListId : childShoppingList.shoppingListId , prodCatalogId : prodCatalogId , webSiteId : webSiteId, userLogin : userLogin];
+                childShoppingListData.childShoppingList = childShoppingList;
                 childShoppingListDatas.add(childShoppingListData);
             }
-            context.put("childShoppingListDatas", childShoppingListDatas);
+            context.childShoppingListDatas = childShoppingListDatas;
         }
 
         // get the parent shopping list if there is one
         parentShoppingList = shoppingList.getRelatedOne("ParentShoppingList");
-        context.put("parentShoppingList", parentShoppingList);
+        context.parentShoppingList = parentShoppingList;
     }
 }
  

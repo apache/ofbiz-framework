@@ -17,63 +17,62 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.util.*;
-import org.ofbiz.entity.condition.*;
-import org.ofbiz.entity.transaction.*;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.entity.util.EntityFindOptions;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.transaction.TransactionUtil;
 
-module = "pendingCommunications.bsh";
+import javolution.util.FastList;
 
-partyId = userLogin.getString("partyId");
+module = "pendingCommunications.groovy";
+
+partyId = userLogin.partyId;
 
 // indicator to display messages FROM this user
-fromFlag = request.getParameter("showFromEvents");
+fromFlag = parameters.showFromEvents;
 
 // get the sort field
-sortField = request.getParameter("sort");
-previousSort = request.getParameter("previousSort");
+sortField = parameters.sort;
+//previous sort field
+previousSort = parameters.previousSort;
 
-// previous sort field
-previousSort = request.getParameter("previousSort");
-if (previousSort != null && sortField != null && previousSort.equals(sortField)) {
+if (previousSort && sortField && previousSort.equals(sortField)) {
     sortField = sortField.startsWith("-") ? sortField : "-" + sortField;
 }
 
-if (sortField == null) sortField = previousSort;
-if (sortField == null) sortField = "entryDate";
-context.put("previousSort", sortField);
+if (!sortField) sortField = previousSort;
+if (!sortField) sortField = "entryDate";
+context.previousSort = sortField;
 
 // set the page parameters
 viewIndex = 1;
 try {
-    viewIndex = Integer.valueOf((String) request.getParameter("VIEW_INDEX")).intValue();
+    viewIndex = Integer.valueOf((String) parameters.VIEW_INDEX).intValue();
 } catch (Exception e) {
     viewIndex = 1;
 }
-context.put("viewIndex", viewIndex);
+context.viewIndex = viewIndex;
 
 viewSize = 20;
 try {
-    viewSize = Integer.valueOf((String) request.getParameter("VIEW_SIZE")).intValue();
+    viewSize = Integer.valueOf((String) parameters.VIEW_SIZE).intValue();
 } catch (Exception e) {
     viewSize = 20;
 }
 if (viewSize > 100) {
     viewSize = 100;
 }
-context.put("viewSize", viewSize);
+context.viewSize = viewSize;
 
 // get the logged in user's roles
-partyRoles = delegator.findByAnd("PartyRole", UtilMisc.toMap("partyId", partyId));
+partyRoles = delegator.findByAnd("PartyRole", [partyId : partyId]);
 
 // build the party role list
-pri = partyRoles.iterator();
-pRolesList = new ArrayList();
-while (pri.hasNext()) {
-    partyRole = (GenericValue) pri.next();
-    if (!partyRole.getString("roleTypeId").equals("_NA_")) {
-        pRolesList.add(EntityCondition.makeCondition("roleTypeIdTo", EntityOperator.EQUALS, partyRole.getString("roleTypeId")));
+pRolesList = FastList.newInstance();
+partyRoles.each { partyRole ->
+    if (!partyRole.roleTypeId.equals("_NA_")) {
+        pRolesList.add(EntityCondition.makeCondition("roleTypeIdTo", EntityOperator.EQUALS, partyRole.roleTypeId));
     }
 }
 
@@ -81,7 +80,7 @@ while (pri.hasNext()) {
 pRolesList.add(EntityCondition.makeCondition("roleTypeIdTo", EntityOperator.EQUALS, null));
 
 // limit to just this user's events, or those not attached to a user
-partyList = new ArrayList();
+partyList = FastList.newInstance();
 partyList.add(EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, null));
 partyList.add(EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, partyId));
 if ("Y".equalsIgnoreCase(fromFlag)) {
@@ -90,13 +89,13 @@ if ("Y".equalsIgnoreCase(fromFlag)) {
 }
 
 // limit to non-completed items
-statusList = new ArrayList();
+statusList = FastList.newInstance();
 statusList.add(EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "COM_COMPLETE"));
 statusList.add(EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "COM_RESOLVED"));
 statusList.add(EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "COM_REFERRED"));
 
 // build the condition
-expressions = new ArrayList();
+expressions = FastList.newInstance();
 expressions.add(EntityCondition.makeCondition(partyList, EntityOperator.OR));
 expressions.add(EntityCondition.makeCondition(pRolesList, EntityOperator.OR));
 expressions.add(EntityCondition.makeCondition(statusList, EntityOperator.AND));
@@ -106,7 +105,7 @@ condition = EntityCondition.makeCondition(expressions, EntityOperator.AND);
 fieldsToSelect = null;
 
 // sort order
-orderBy = UtilMisc.toList(sortField);
+orderBy = [sortField];
 
 // entity find options
 findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, false); 
@@ -125,7 +124,7 @@ try {
     
     // get the partial list for this page
     eventList = eli.getPartialList(lowIndex, viewSize);
-    if (eventList == null) {
+    if (!eventList) {
         eventList = new ArrayList();
     }
     
@@ -139,13 +138,13 @@ try {
     // close the list iterator
     eli.close();
     TransactionUtil.commit(beganTransaction);
-} catch (GenericEntityException e) {
+} catch (Exception e) {
     String errMsg = "Failure in operation, rolling back transaction";
     Debug.logError(e, errMsg, module);
     try {
         // only rollback the transaction if we started one...
         TransactionUtil.rollback(beganTransaction, errMsg, e);
-    } catch (GenericEntityException e2) {
+    } catch (Exception e2) {
         Debug.logError(e2, "Could not rollback transaction: " + e2.toString(), module);
     }
     // after rolling back, rethrow the exception
@@ -156,7 +155,7 @@ try {
 }
 
     
-context.put("eventList", eventList);
-context.put("eventListSize", eventListSize);
-context.put("highIndex", highIndex);
-context.put("lowIndex", lowIndex);
+context.eventList = eventList;
+context.eventListSize = eventListSize;
+context.highIndex = highIndex;
+context.lowIndex = lowIndex;
