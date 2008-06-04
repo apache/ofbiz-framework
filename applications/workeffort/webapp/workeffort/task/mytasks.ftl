@@ -25,19 +25,17 @@ under the License.
   <table class="basic-table hover-bar" cellspacing="0">
     <tr class="header-row-2">
       <td>${uiLabelMap.CommonStartDateTime}</td>
+      <td>${uiLabelMap.WorkEffortTaskName}</td>
       <td>${uiLabelMap.WorkEffortPriority}</td>
       <td>${uiLabelMap.WorkEffortStatus}</td>
-      <td>${uiLabelMap.WorkEffortTaskName}</td>
-      <td>${uiLabelMap.CommonEdit}</td>
     </tr>
     <#assign alt_row = false>
     <#list tasks as workEffort>
       <tr<#if alt_row> class="alternate-row"</#if>>
-        <td>${(workEffort.estimatedStartDate.toString())?if_exists}</td>
+        <td>${(workEffort.estimatedStartDate)?if_exists}</td>
+        <td><a href="<@ofbizUrl>WorkEffortSummary?workEffortId=${workEffort.workEffortId}</@ofbizUrl>">${workEffort.workEffortName}</a></td>
         <td>${workEffort.priority?if_exists}</td>
         <td>${(delegator.findByPrimaryKeyCache("StatusItem", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusId", workEffort.getString("currentStatusId"))).get("description",locale))?if_exists}</td>
-        <td><a href="<@ofbizUrl>WorkEffortSummary?workEffortId=${workEffort.workEffortId}</@ofbizUrl>">${workEffort.workEffortName}</a></td>
-        <td class="button-col"><a href="<@ofbizUrl>WorkEffortSummary?workEffortId=${workEffort.workEffortId}</@ofbizUrl>">${workEffort.workEffortId}</a></td>
       </tr>
       <#assign alt_row = !alt_row>
     </#list>
@@ -59,7 +57,7 @@ under the License.
       <#assign alt_row = false>
       <#list activities as workEffort>
         <tr<#if alt_row> class="alternate-row"</#if>>
-          <td>${(workEffort.estimatedStartDate.toString())?if_exists}</td>
+          <td>${(workEffort.estimatedStartDate)?if_exists}</td>
           <td>${workEffort.priority?if_exists}</td>
           <td>${(delegator.findByPrimaryKeyCache("StatusItem", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusId", workEffort.getString("currentStatusId"))).get("description",locale))?if_exists}</td>
           <td>${(delegator.findByPrimaryKeyCache("StatusItem", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusId", workEffort.getString("statusId"))).get("description",locale))?if_exists}</td>
@@ -89,7 +87,7 @@ under the License.
       <#assign alt_row = false>
       <#list roleActivities as workEffort>
         <tr<#if alt_row> class="alternate-row"</#if>>
-          <td>${(workEffort.estimatedStartDate.toString())?if_exists}</td>
+          <td>${(workEffort.estimatedStartDate)?if_exists}</td>
           <td>${workEffort.priority?if_exists}</td>
           <td>${(delegator.findByPrimaryKeyCache("StatusItem", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusId", workEffort.getString("currentStatusId"))).get("description",locale))?if_exists}</td>
           <td>${(delegator.findByPrimaryKeyCache("StatusItem", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusId", workEffort.getString("statusId"))).get("description",locale))?if_exists}</td>
@@ -119,7 +117,7 @@ under the License.
       <#assign alt_row = false>
       <#list groupActivities as workEffort>
         <tr<#if alt_row> class="alternate-row"</#if>>
-          <td>${(workEffort.estimatedStartDate.toString())?if_exists}</td>
+          <td>${(workEffort.estimatedStartDate)?if_exists}</td>
           <td>${workEffort.priority?if_exists}</td>
           <td>${(delegator.findByPrimaryKeyCache("StatusItem", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusId", workEffort.getString("currentStatusId"))).get("description",locale))?if_exists}</td>
           <td>${(delegator.findByPrimaryKeyCache("StatusItem", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusId", workEffort.getString("statusId"))).get("description",locale))?if_exists}</td>
