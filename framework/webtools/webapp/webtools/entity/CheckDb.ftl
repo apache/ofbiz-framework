@@ -81,6 +81,7 @@ under the License.
         <input type="hidden" name="option" value="removeidx"/>
         ${uiLabelMap.WebtoolsGroupName}: <input type="text" name="groupName" value="${groupName}" size="40"/>
         <input type="submit" value="${uiLabelMap.CommonRemove}"/>
+    </form>
     <h3>${uiLabelMap.WebtoolsCreateRemoveAllForeignKeyIndices}</h3>
     <form method="post" action="${encodeURLCheckDb}">
         <input type="hidden" name="option" value="createfkidxs"/>
