@@ -22,13 +22,11 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.accounting.util.UtilAccounting;
 
 // rounding mode
-int decimals = UtilAccounting.getBigDecimalScale("invoice.decimals");
-int rounding = UtilAccounting.getBigDecimalRoundingMode("invoice.rounding");
+decimals = UtilAccounting.getBigDecimalScale("invoice.decimals");
+rounding = UtilAccounting.getBigDecimalRoundingMode("invoice.rounding");
 context.decimals = decimals;
 context.rounding = rounding;
 
-// list of payments
-payments = new ArrayList();
 
 // first ensure ability to print
 if (!security.hasEntityPermission("ACCOUNTING", "_PRINT_CHECKS", session)) {
@@ -36,6 +34,8 @@ if (!security.hasEntityPermission("ACCOUNTING", "_PRINT_CHECKS", session)) {
     return;
 }
 
+// list of payments
+payments = [];
 // in the case of a single payment, the paymentId will be supplied
 paymentId = context.paymentId;
 if (paymentId) {

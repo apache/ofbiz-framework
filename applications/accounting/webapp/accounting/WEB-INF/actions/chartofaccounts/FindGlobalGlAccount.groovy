@@ -17,11 +17,6 @@
  * under the License.
  */
 
-if (security.hasEntityPermission("ACCOUNTING", "_VIEW", session)) {
-    context.hasPermission = true;
-} else {
-    context.hasPermission = false;
-}
+context.hasPermission = security.hasEntityPermission("ACCOUNTING", "_VIEW", session);
 
-glAccounts = delegator.findList("GlAccount", null, null, null, null, false);
-context.glAccounts = glAccounts;
+context.glAccounts = delegator.findList("GlAccount", null, null, null, null, false);

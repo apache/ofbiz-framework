@@ -28,12 +28,11 @@ import java.text.DateFormat;
 import java.text.*;
 import java.text.NumberFormat;
 
-int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
-int rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
+decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
+rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
 ZERO = BigDecimal.ZERO;
 
-invoiceId = request.getParameter("invoiceId");
-if (!invoiceId) invoiceId = context.invoiceId;
+invoiceId = request.getParameter("invoiceId") ?: context.invoiceId;
 invoice = delegator.findByPrimaryKey("Invoice", [invoiceId : invoiceId]);
 tabButtonItem = context.tabButtonItem;
 
@@ -107,4 +106,4 @@ if (invoice) {
 	context.invoiceId = invoiceId;
 }
 
-if(invoiceItems) context.put("invoiceApplications",invoiceItems);
+if(invoiceItems) context.invoiceApplications = invoiceItems;

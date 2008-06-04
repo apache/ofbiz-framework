@@ -30,10 +30,10 @@ import java.text.NumberFormat;
 fixedAssetId = parameters.fixedAssetId;
 fixedAsset = delegator.findByPrimaryKeyCache("FixedAsset", [fixedAssetId: fixedAssetId]);
 
-String startMonth = parameters.month; //optional command to change the month
-Timestamp currentMonth = session.getAttribute("currentMonth");    // the month displayed the last time.
+startMonth = parameters.month; //optional command to change the month
+currentMonth = session.getAttribute("currentMonth");    // the month displayed the last time.
 
-Timestamp now = null;
+now = null;
 if (!startMonth || !currentMonth)    // a fresh start
     now = UtilDateTime.getMonthStart(UtilDateTime.nowTimestamp());
 else if (startMonth.equals("1") && currentMonth)
@@ -50,13 +50,13 @@ else
 currentMonth = now;
 nextMonth = UtilDateTime.getMonthStart(UtilDateTime.getMonthStart(now, 35));
 
-condition = new ArrayList();
+condition = [];
 condition.add(EntityCondition.makeCondition("calendarId", EntityOperator.EQUALS, fixedAsset.getString("calendarId")));
 condition.add(EntityCondition.makeCondition("exceptionDateStartTime",EntityOperator.GREATER_THAN, now));
 condition.add(EntityCondition.makeCondition("exceptionDateStartTime",EntityOperator.LESS_THAN, nextMonth));
-EntityConditionList ecl = EntityCondition.makeCondition(condition, EntityOperator.AND);
-List allDates = delegator.findList("TechDataCalendarExcDay", ecl, null, null, null, false);
-Iterator dbInt = allDates.iterator();
+ecl = EntityCondition.makeCondition(condition, EntityOperator.AND);
+allDates = delegator.findList("TechDataCalendarExcDay", ecl, null, null, null, false);
+dbInt = allDates.iterator();
 dbValid = false;    // flag to see if the current dbInt is ok
 excDayRecord = null;
 if (dbInt.hasNext())    {
@@ -67,20 +67,20 @@ if (dbInt.hasNext())    {
 calendarStartWeek = UtilDateTime.getWeekStart(now);
 calendarEndDay = UtilDateTime.getWeekStart(nextMonth);
 
-Timestamp currentWeek = calendarStartWeek;
-weeks = new ArrayList();
+currentWeek = calendarStartWeek;
+weeks = [];
 while ( currentWeek.compareTo(calendarEndDay) <= 0 ){
-    days = UtilMisc.toMap("week",UtilDateTime.weekNumber(currentWeek));
+    days = [week : UtilDateTime.weekNumber(currentWeek)];
     
     for (int day = 1; day < 8 ; day++)    {
         String extraText = "";
         available = "N/A";
         if (dbValid == true && UtilDateTime.getDayStart(currentWeek,day).compareTo(excDayRecord.getTimestamp("exceptionDateStartTime")) == 0) {
-            if (fixedAsset.get("productionCapacity") != null && fixedAsset.getDouble("productionCapacity").doubleValue() != 0)
-                available = fixedAsset.getString("productionCapacity") + "*"; // default value
-            if (excDayRecord.get("exceptionCapacity") != null && excDayRecord.getDouble("exceptionCapacity").doubleValue() != 0)
-                available = excDayRecord.getString("exceptionCapacity");
-            extraText = "Avail.: " + available + "<br/>Allocated: " + excDayRecord.getString("usedCapacity");
+            if (fixedAsset.productionCapacity)
+                available = fixedAsset.productionCapacity + "*"; // default value
+            if (excDayRecord.exceptionCapacity)
+                available = excDayRecord.exceptionCapacity;
+            extraText = "Avail.: " + available + "<br/>Allocated: " + excDayRecord.usedCapacity;
             if (dbInt.hasNext()) {
                 excDayRecord = dbInt.next();
                 dbValid = true;
@@ -95,7 +95,7 @@ while ( currentWeek.compareTo(calendarEndDay) <= 0 ){
     weeks.add(days);
     currentWeek = UtilDateTime.getWeekStart(currentWeek,7);
 }
-int monthNr = NumberFormat.getNumberInstance().parse(now.toString().substring(5,7)).intValue();
+monthNr = NumberFormat.getNumberInstance().parse(now.toString().substring(5,7)).intValue();
 context.month = UtilDateTime.months[monthNr-1];
 context.year = now.toString().substring(0,4);
 context.weeks = weeks;

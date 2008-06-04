@@ -21,11 +21,7 @@ import org.ofbiz.base.util.*;
 import org.ofbiz.entity.*;
 import org.ofbiz.widget.html.*;
 
-if(security.hasEntityPermission("ACCOUNTING", "_VIEW", session)) {
-    context.hasPermission = true;
-} else {
-    context.hasPermission = false;
-}
+context.hasPermission = security.hasEntityPermission("ACCOUNTING", "_VIEW", session);
 
 glAccountId = request.getParameter("glAccountId");
 glAccount = delegator.findByPrimaryKey("GlAccount", [glAccountId : glAccountId]);
