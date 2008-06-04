@@ -147,7 +147,7 @@ public class JNDIFactory implements TransactionFactoryInterface {
         }
         
         if (datasourceInfo.inlineJdbcElement != null) {
-            Connection otherCon = ConnectionFactory.tryGenericConnectionSources(helperName, datasourceInfo.inlineJdbcElement);
+            Connection otherCon = ConnectionFactory.getManagedConnection(helperName, datasourceInfo.inlineJdbcElement);
             return TransactionFactory.getCursorConnection(helperName, otherCon);
         } else {
             //no real need to print an error here
@@ -196,7 +196,7 @@ public class JNDIFactory implements TransactionFactoryInterface {
                 if (ds != null) {
                     if (Debug.verboseOn()) Debug.logVerbose("Got a Datasource object.", module);
                     dsCache.put(jndiName, ds);
-                    Connection con = null;
+                    Connection con;
 
                     if (ds instanceof XADataSource) {
                         if (Debug.infoOn()) Debug.logInfo("Got XADataSource for name " + jndiName, module);
