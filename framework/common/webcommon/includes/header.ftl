@@ -66,7 +66,7 @@ under the License.
     <a ref="#column-container" title="${uiLabelMap.CommonSkipNavigation}" accesskey="2">
       ${uiLabelMap.CommonSkipNavigation}
     </a>
-  </div
+  </div>
   <div id="masthead">
     <ul>
       <#if layoutSettings.headerImageUrl?exists>
