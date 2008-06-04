@@ -61,16 +61,16 @@ under the License.
     
     <menu name="LeadTabBar" menu-container-style="button-bar tab-bar no-clear" default-selected-style="selected" type="simple" selected-menuitem-context-field-name="tabButtonItem"> 
         <menu-item name="profile" title="${uiLabelMap.PartyProfile}">
-            <link target="viewprofile?partyId=${parameters.partyId}"/>
+            <link target="viewprofile?partyId=${parameters.partyId}&amp;partyGroupId=${parameters.partyGroupId}"/>
         </menu-item>
         <menu-item name="ConvertLead" title="${uiLabelMap.SfaConvertLead}">
-            <link target="ConvertLead?partyId=${parameters.partyId}"/>
+            <link target="ConvertLead?partyId=${parameters.partyId}&amp;partyGroupId=${parameters.partyGroupId}"/>
         </menu-item>
         <menu-item name="CloneLead" title="${uiLabelMap.SfaCloneLead}">
-            <link target="CloneLead?partyId=${parameters.partyId}"/>
+            <link target="CloneLead?partyId=${parameters.partyId}&amp;partyGroupId=${parameters.partyGroupId}"/>
         </menu-item>
         <menu-item name="MergeLeads" title="${uiLabelMap.SfaMergeLeads}">
-            <link target="MergeLeads"/>
+            <link target="MergeLeads?partyId=${parameters.partyId}&amp;partyGroupId=${parameters.partyGroupId}"/>
         </menu-item>      
     </menu>
     

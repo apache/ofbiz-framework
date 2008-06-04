@@ -456,8 +456,9 @@ under the License.
         <attribute name="emailAddress" type="String" mode="IN" optional="true"/>
     </service>
     <service name="convertLeadToContact" engine="simple" location="org/ofbiz/sfa/lead/LeadServices.xml" invoke="convertLeadToContact">
-        <attribute name="leadPartyId" type="String" mode="IN" optional="false"/>
-        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="partyId" type="String" mode="INOUT" optional="false"/>
+        <attribute name="partyGroupId" type="String" mode="IN" optional="true"/>
+        <attribute name="partyGroupId" type="String" mode="OUT" optional="false"/>
     </service>
     
     <!-- VCard services -->

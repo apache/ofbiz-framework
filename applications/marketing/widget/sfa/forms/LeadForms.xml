@@ -80,12 +80,15 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     
-    <form name="ConvertLead" type="single" target="convertLead" id="ConvertLead" >
-        <actions>
-          <set field="leadPartyId" from-field="parameters.PartyId"></set>
-        </actions>
-        <field name="leadPartyId" title="${uiLabelMap.SfaCreateContactForLead}"><display description="${bsh:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, &quot;${leadPartyId}&quot;, false)} : [${leadPartyId}]"/></field>
-        <field name="partyId" title="${uiLabelMap.SfaAccountName}" tooltip="${uiLabelMap.SfaSelectExistingAccountOrLeaveBlankToCreateNew}">
+    <form name="ConvertLead" type="single" target="convertLead">
+        <field name="partyId"><hidden value="${parameters.partyId}"/></field>
+        <field name="leadId" entry-name="partyId" title="${uiLabelMap.SfaCreateContactForLead}">
+            <display-entity also-hidden="false" entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${firstName} ${lastName} [${parameters.partyId}]"/>
+        </field>
+        <field name="partyGroupId" title="${uiLabelMap.SfaCreateAccountForLead}" use-when="parameters.get(&quot;partyGroupId&quot;)!=&quot;&quot;">
+            <display-entity also-hidden="false" entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${firstName} ${lastName} [${parameters.partyGroupId}]"/>
+        </field>
+        <field name="partyGroupId" title="${uiLabelMap.SfaAccountName}" tooltip="${uiLabelMap.SfaSelectExistingAccountOrLeaveBlankToCreateNew}" use-when="parameters.get(&quot;partyGroupId&quot;)==&quot;&quot;">
             <drop-down allow-empty="true" current-description="">
               <entity-options entity-name="PartyRole" description="${bsh:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, &quot;${partyId}&quot;, false)} : [${partyId}]" key-field-name="partyId">
                   <entity-constraint name="roleTypeId" operator="equals" value="ACCOUNT"/>
