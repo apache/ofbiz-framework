@@ -222,6 +222,8 @@ under the License.
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/viewprofile.groovy"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/getUserLoginPrimaryEmail.groovy"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/setRoleVars.groovy"/>
+                <set field="parameters.partyId" from-field="partyId"/>
+                <set field="parameters.partyGroupId" from-field="partyGroupId"/>
             </actions>
             <widgets>
                 <section>
@@ -303,7 +305,14 @@ under the License.
                                     </condition>
                                     <widgets>
                                         <container style="profile-left">
-                                            <include-screen name="Party" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <section>
+                                                <actions>
+                                                    <set field="parameters.partyId" from-field="partyId"/>
+                                                </actions>
+                                                <widgets>
+                                                    <include-screen name="Party" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                                </widgets>
+                                            </section>
                                             <section>
                                                 <actions>
                                                     <set field="parameters.partyId" from-field="partyGroupId"/>
@@ -325,7 +334,6 @@ under the License.
                                         <not><if-empty field-name="contactDescription"/></not>                                        
                                     </condition>
                                     <widgets>
-                                        <label style="h1" text="Party ${party.partyId} in the Role of ${contactDescription}"/>
                                         <container style="profile-left">
                                             <include-screen name="Party" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                             <include-screen name="Contact" location="component://party/widget/partymgr/ProfileScreens.xml"/>
