@@ -1563,11 +1563,11 @@ public class UpsServices {
     private static void splitEstimatePackages(Document requestDoc, Element shipmentElement, List shippableItemInfo, double maxWeight, double minWeight) {
         List packages = getPackageSplit(shippableItemInfo, maxWeight);
         if (UtilValidate.isNotEmpty(packages)) {
-        Iterator i = packages.iterator();
-        while (i.hasNext()) {
-            Map packageMap = (Map) i.next();
-            addPackageElement(requestDoc, shipmentElement, shippableItemInfo, packageMap, minWeight);
-        }
+            Iterator i = packages.iterator();
+            while (i.hasNext()) {
+                Map packageMap = (Map) i.next();
+                addPackageElement(requestDoc, shipmentElement, shippableItemInfo, packageMap, minWeight);
+            }
         } else {
             
             // Add a dummy package
@@ -1627,7 +1627,7 @@ public class UpsServices {
     }
     
     private static List getPackageSplit(List shippableItemInfo, double maxWeight) {
-        // create the package list w/ the first pacakge
+        // create the package list w/ the first package
         List packages = new LinkedList();
 
         if (shippableItemInfo != null) {
