@@ -24,24 +24,20 @@
  * expanded to work off other communication event types.  
  */
  
-import org.ofbiz.base.util.*;
+import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.entity.util.EntityUtil;
 
-delegator = request.getAttribute("delegator");
-userLogin = request.getAttribute("userLogin");
-partyIdFrom = context.get("partyIdFrom");
-partyIdTo = context.get("partyIdTo");
+partyIdFrom = context.partyIdFrom;
+partyIdTo = context.partyIdTo;
 
-if (parameters.get("communicationEventTypeId") != null) {
-   if (parameters.get("communicationEventTypeId").equals("EMAIL_COMMUNICATION")) {
-      userEmailAddresses = delegator.findByAnd("PartyContactWithPurpose", UtilMisc.toMap("contactMechTypeId", "EMAIL_ADDRESS", "partyId",  partyIdFrom)); 
+if (parameters.communicationEventTypeId) {
+   if (parameters.communicationEventTypeId.equals("EMAIL_COMMUNICATION")) {
+      userEmailAddresses = delegator.findByAnd("PartyContactWithPurpose", [contactMechTypeId : "EMAIL_ADDRESS" , partyId : partyIdFrom]); 
       userEmailAddresses = EntityUtil.filterByDate(userEmailAddresses, UtilDateTime.nowTimestamp(), "contactFromDate", "contactThruDate", true);
-      context.put("userEmailAddresses", userEmailAddresses);    
+      context.userEmailAddresses = userEmailAddresses;    
       
-      targetEmailAddresses = delegator.findByAnd("PartyContactWithPurpose", UtilMisc.toMap("contactMechTypeId", "EMAIL_ADDRESS", "partyId", partyIdTo));
+      targetEmailAddresses = delegator.findByAnd("PartyContactWithPurpose", [contactMechTypeId : "EMAIL_ADDRESS", partyId : partyIdTo]);
       targetEmailAddresses = EntityUtil.filterByDate(targetEmailAddresses, UtilDateTime.nowTimestamp(), "contactFromDate", "contactThruDate", true);
-      context.put("targetEmailAddresses", targetEmailAddresses);    
+      context.targetEmailAddresses = targetEmailAddresses;    
    }
 }
-
-

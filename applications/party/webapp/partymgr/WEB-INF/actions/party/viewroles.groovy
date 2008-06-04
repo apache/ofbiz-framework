@@ -17,36 +17,32 @@
  * under the License.
  */
 
-import java.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.condition.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.securityext.login.*;
-import org.ofbiz.common.*;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityOperator;
 
-import org.ofbiz.party.contact.*;
-import org.ofbiz.party.party.*;
-import org.ofbiz.accounting.payment.*;
-import org.ofbiz.securityext.login.*;
+import javolution.util.FastList;
 
-partyId = request.getParameter("party_id");
-if (partyId == null) partyId = request.getParameter("partyId");
-if (partyId == null) partyId = (String) request.getAttribute("partyId");
-context.put("partyId", partyId);
+partyId = parameters.party_id;
+if (!partyId) partyId = parameters.partyId;
+if (!partyId) partyId = (String) request.getAttribute("partyId");
+context.partyId = partyId;
 
-EntityConditionList ecl = EntityCondition.makeCondition(UtilMisc.toList(
-                                EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId), 
-                                EntityCondition.makeCondition("roleTypeId", EntityOperator.NOT_EQUAL, "_NA_")),
-                            EntityOperator.AND);
-partyRoles = delegator.findList("RoleTypeAndParty", ecl, null, UtilMisc.toList("description"), null, false);
-context.put("partyRoles", partyRoles);
+List roleTypeAndPartyExprs = FastList.newInstance();
+expr = EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId);
+roleTypeAndPartyExprs.add(expr); 
+expr = EntityCondition.makeCondition("roleTypeId", EntityOperator.NOT_EQUAL, "_NA_");
+roleTypeAndPartyExprs.add(expr);
+ecl = EntityCondition.makeCondition(roleTypeAndPartyExprs, EntityOperator.AND);
 
-roles = delegator.findList("RoleType", null, null, UtilMisc.toList("description", "roleTypeId"), null, false);
-context.put("roles", roles);
+partyRoles = delegator.findList("RoleTypeAndParty", ecl, null, ["description"], null, false);
+context.partyRoles = partyRoles;
 
-party = delegator.findByPrimaryKey("Party", UtilMisc.toMap("partyId", partyId));
-context.put("party", party);
-if (party != null) {
-    context.put("lookupPerson", party.getRelatedOne("Person"));
-    context.put("lookupGroup", party.getRelatedOne("PartyGroup"));
+roles = delegator.findList("RoleType", null, null, ["description", "roleTypeId"], null, false);
+context.roles = roles;
+
+party = delegator.findByPrimaryKey("Party", [partyId : partyId]);
+context.party = party;
+if (party) {
+    context.lookupPerson = party.getRelatedOne("Person");
+    context.lookupGroup = party.getRelatedOne("PartyGroup");
 }

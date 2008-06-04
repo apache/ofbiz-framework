@@ -19,29 +19,27 @@
 
 import org.ofbiz.base.util.*;
 
-delegator = request.getAttribute("delegator");
-userLogin = request.getAttribute("userLogin");
-parentCommEventId = parameters.get("parentCommEventId");
+parentCommEventId = parameters.parentCommEventId;
 
-if (parentCommEventId != null) {
-    parentEvent = delegator.findByPrimaryKey("CommunicationEvent", UtilMisc.toMap("communicationEventId", parentCommEventId));
-    if (parentEvent != null) {
-        orgEventId = parentEvent.get("origCommEventId");
-        if (orgEventId == null) orgEventId = parentCommEventId;
+if (parentCommEventId) {
+    parentEvent = delegator.findByPrimaryKey("CommunicationEvent", [communicationEventId : parentCommEventId]);
+    if (parentEvent) {
+        orgEventId = parentEvent.origCommEventId;
+        if (!orgEventId) orgEventId = parentCommEventId;
 
-        parameters.put("communicationEventTypeId", parentEvent.get("communicationEventTypeId"));
-        parameters.put("parentCommEventId", parentCommEventId);
-        parameters.put("origCommEventId", orgEventId);
+        parameters.communicationEventTypeId = parentEvent.communicationEventTypeId;
+        parameters.parentCommEventId = parentCommEventId;
+        parameters.origCommEventId = orgEventId;
 
-        parameters.put("contactMechIdTo", parentEvent.get("contactMechIdFrom"));
-        parameters.put("contactMechIdFrom", parentEvent.get("contactMechIdTo"));
+        parameters.contactMechIdTo = parentEvent.contactMechIdFrom;
+        parameters.contactMechIdFrom = parentEvent.contactMechIdTo;
 
-        parameters.put("partyIdFrom", userLogin.get("partyId"));
-        parameters.put("partyIdTo", parentEvent.get("partyIdFrom"));        
-        parameters.put("toString", parentEvent.get("fromString"));
-        parameters.put("statusId", "COM_IN_PROGRESS");
+        parameters.partyIdFrom = userLogin.partyId;
+        parameters.partyIdTo = parentEvent.partyIdFrom;        
+        parameters.toString =parentEvent.fromString;
+        parameters.statusId = "COM_IN_PROGRESS";
         
-        parameters.put("subject", "RE: " + parentEvent.get("subject"));
-        parameters.put("content", "\n\n\n--------------- In reply to:\n\n" + parentEvent.get("content"));
+        parameters.subject = "RE: " + parentEvent.subject;
+        parameters.content = "\n\n\n--------------- In reply to:\n\n" + parentEvent.content;
     }
 }

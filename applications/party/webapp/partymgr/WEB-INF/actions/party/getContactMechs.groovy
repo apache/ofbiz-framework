@@ -17,13 +17,12 @@
  * under the License.
  */
 
-import org.ofbiz.party.contact.*;
+import org.ofbiz.party.contact.ContactMechWorker;
 
-if (partyId == null) {
-    partyId = parameters.get("partyId");
+if (!partyId) {
+    partyId = parameters.partyId;
 }
-boolean showOld = "true".equals(parameters.get("SHOW_OLD"));
-context.put("showOld", new Boolean(showOld));
+boolean showOld = "true".equals(parameters.SHOW_OLD);
+context.showOld = new Boolean(showOld);
 
-List partyContactMechValueMaps = ContactMechWorker.getPartyContactMechValueMaps(delegator, partyId, showOld);
-context.put("contactMeches", partyContactMechValueMaps);
+context.contactMeches = ContactMechWorker.getPartyContactMechValueMaps(delegator, partyId, showOld);

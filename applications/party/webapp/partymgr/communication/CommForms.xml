@@ -47,7 +47,7 @@ under the License.
             <entity-one entity-name="StatusItem" value-name="currentStatus" auto-field-map="false">
                 <field-map field-name="statusId" env-name="communicationEvent.statusId"/>
             </entity-one>
-            <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/prepCommEventReply.bsh"/>
+            <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/prepCommEventReply.groovy"/>
         </actions>
         
         <alt-target target="createCommunicationEvent" use-when="communicationEvent==null"/>

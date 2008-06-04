@@ -17,13 +17,12 @@
  * under the License.
  */
 
-import org.ofbiz.accounting.payment.*;
+import org.ofbiz.accounting.payment.PaymentWorker;
 
-if (partyId == null) {
-    partyId = parameters.get("partyId");
+if (!partyId) {
+    partyId = parameters.partyId;
 }
-boolean showOld = "true".equals(parameters.get("SHOW_OLD"));
-context.put("showOld", new Boolean(showOld));
+boolean showOld = "true".equals(parameters.SHOW_OLD);
+context.showOld = new Boolean(showOld);
 
-List paymentMethodValueMaps = PaymentWorker.getPartyPaymentMethodValueMaps(delegator, partyId, showOld);
-context.put("paymentMethodValueMaps", paymentMethodValueMaps);
+context.paymentMethodValueMaps = PaymentWorker.getPartyPaymentMethodValueMaps(delegator, partyId, showOld);
