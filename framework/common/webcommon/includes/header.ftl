@@ -62,7 +62,7 @@ under the License.
 </head>
 
 <body>
-  <div class="hide">
+  <div class="hidden">
     <a ref="#column-container" title="${uiLabelMap.CommonSkipNavigation}" accesskey="2">
       ${uiLabelMap.CommonSkipNavigation}
     </a>
