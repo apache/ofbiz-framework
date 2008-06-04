@@ -17,51 +17,47 @@
  * under the License.
  */
 
-import java.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.condition.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.party.party.*;
+import org.ofbiz.party.party.PartyWorker;
 
-match = request.getParameter("match");
-if (match != null) {
-    context.put("match", match);
+match = parameters.match;
+if (match) {
+    context.match = match;
     
-    lastName = request.getParameter("lastName");
-    if (UtilValidate.isEmpty(lastName)) lastName = null;
+    lastName = parameters.lastName;
+    if (!lastName) lastName = null;
 
-    firstName = request.getParameter("firstName");
-    if (UtilValidate.isEmpty(firstName)) firstName = null;
+    firstName = parameters.firstName;
+    if (!firstName) firstName = null;
 
-    address1 = request.getParameter("address1");
-    if (UtilValidate.isEmpty(address1)) address1 = null;
+    address1 = parameters.address1;
+    if (!address1) address1 = null;
 
-    address2 = request.getParameter("address2");
-    if (UtilValidate.isEmpty(address2)) address2 = null;
+    address2 = parameters.address2;
+    if (!address2) address2 = null;
 
-    city = request.getParameter("city");
-    if (UtilValidate.isEmpty(city)) city = null;
+    city = parameters.city;
+    if (!city) city = null;
 
-    state = request.getParameter("stateProvinceGeoId");
-    if (UtilValidate.isEmpty(state)) state = null;
+    state = parameters.stateProvinceGeoId;
+    if (!state) state = null;
     if ("ANY".equals(state)) state = null;
 
-    postalCode = request.getParameter("postalCode");
-    if (UtilValidate.isEmpty(postalCode)) postalCode = null;
+    postalCode = parameters.postalCode;
+    if (!postalCode) postalCode = null;
 
     if (state != null) {
-        context.put("currentStateGeo", delegator.findByPrimaryKey("Geo", UtilMisc.toMap("geoId", state)));
+        context.currentStateGeo = delegator.findByPrimaryKey("Geo", [geoId : state]);
     }
 
-    if (firstName == null || lastName == null || address1 == null || city == null || postalCode == null) {
+    if (!firstName || !lastName || !address1 || !city || !postalCode) {
         request.setAttribute("_ERROR_MESSAGE_", "Required fields not set!");
         return;
     }
     
-    context.put("matches", PartyWorker.findMatchingPartyAndPostalAddress(delegator, address1, address2, city,
-            state, postalCode, null, null, firstName, null, lastName));
+    context.matches = PartyWorker.findMatchingPartyAndPostalAddress(delegator, address1, address2, city,
+            state, postalCode, null, null, firstName, null, lastName);
 
-    context.put("addressString", PartyWorker.makeMatchingString(delegator, address1));
-    context.put("lastName", lastName);
-    context.put("firstName", firstName);
+    context.addressString = PartyWorker.makeMatchingString(delegator, address1);
+    context.lastName = lastName;
+    context.firstName = firstName;
 }
