@@ -22,9 +22,8 @@ import org.ofbiz.entity.condition.EntityOperator;
 
 import javolution.util.FastList;
 
-partyId = parameters.party_id;
-if (!partyId) partyId = parameters.partyId;
-if (!partyId) partyId = (String) request.getAttribute("partyId");
+partyId = parameters.party_id ?:parameters.partyId;
+partyId = partyId ?:request.getAttribute("partyId");
 context.partyId = partyId;
 
 List roleTypeAndPartyExprs = FastList.newInstance();

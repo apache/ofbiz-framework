@@ -23,29 +23,16 @@ match = parameters.match;
 if (match) {
     context.match = match;
     
-    lastName = parameters.lastName;
-    if (!lastName) lastName = null;
-
-    firstName = parameters.firstName;
-    if (!firstName) firstName = null;
-
-    address1 = parameters.address1;
-    if (!address1) address1 = null;
-
-    address2 = parameters.address2;
-    if (!address2) address2 = null;
-
-    city = parameters.city;
-    if (!city) city = null;
-
-    state = parameters.stateProvinceGeoId;
-    if (!state) state = null;
+    lastName = parameters.lastName ?: null;
+    firstName = parameters.firstName ?: null;
+    address1 = parameters.address1 ?: null;
+    address2 = parameters.address2 ?: null;
+    city = parameters.city ?: null;
+    state = parameters.stateProvinceGeoId ?: null;
     if ("ANY".equals(state)) state = null;
+    postalCode = parameters.postalCode ?: null;
 
-    postalCode = parameters.postalCode;
-    if (!postalCode) postalCode = null;
-
-    if (state != null) {
+    if (state) {
         context.currentStateGeo = delegator.findByPrimaryKey("Geo", [geoId : state]);
     }
 

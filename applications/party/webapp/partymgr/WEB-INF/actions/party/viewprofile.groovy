@@ -19,14 +19,9 @@
 
 import org.ofbiz.base.util.UtilDateTime;
 
-partyId = parameters.partyId;
-if (!partyId)
-    partyId = parameters.party_id;
+partyId = parameters.partyId ?: parameters.party_id;
+userLoginId = parameters.userlogin_id ?: parameters.userLoginId;
 
-userLoginId = parameters.userlogin_id;
-if (!userLoginId) {
-    userLoginId = parameters.userLoginId;
-}
 if (!partyId && userLoginId) {
     thisUserLogin = delegator.findByPrimaryKey("UserLogin", [userLoginId : userLoginId]);
     if (thisUserLogin) {
@@ -35,9 +30,7 @@ if (!partyId && userLoginId) {
     }
 }
 
-boolean showOld = "true".equals(parameters.SHOW_OLD);
-context.showOld = new Boolean(showOld);
-
+context.showOld = "true".equals(parameters.SHOW_OLD);
 context.partyId = partyId; 
 context.party = delegator.findByPrimaryKey("Party", [partyId : partyId]);
 context.nowStr = UtilDateTime.nowTimestamp().toString();

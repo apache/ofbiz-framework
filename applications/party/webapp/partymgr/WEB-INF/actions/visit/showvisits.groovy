@@ -26,8 +26,7 @@ module = "showvisits.bsh";
 partyId = parameters.partyId;
 context.partyId = partyId;
 
-showAll = parameters.showAll;
-if (!showAll) showAll = "false";
+showAll = parameters.showAll ?:"false";
 context.showAll = showAll;
 
 sort = parameters.sort;

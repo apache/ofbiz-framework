@@ -20,10 +20,7 @@
 import org.ofbiz.accounting.payment.PaymentWorker;
 import org.ofbiz.party.contact.ContactMechWorker;
 
-partyId = parameters.partyId;
-if (!partyId) {
-    partyId = parameters.party_id;
-}
+partyId = parameters.partyId ?: parameters.party_id;
 context.partyId = partyId;
 
 // payment info
@@ -41,23 +38,18 @@ context.postalAddressInfos = ContactMechWorker.getPartyPostalAddresses(request, 
 tryEntity = paymentResults.tryEntity;
 
 creditCardData = paymentResults.creditCard;
-if (!tryEntity.booleanValue()) creditCardData = parameters;
-if (!creditCardData) creditCardData = new HashMap();
-if (creditCardData) context.creditCardData = creditCardData;
+if (!tryEntity) creditCardData = parameters;
+context.creditCardData = creditCardData ?:[:]; 
 
 giftCardData = paymentResults.giftCard;
-if (!tryEntity.booleanValue()) giftCardData = parameters;
-if (!giftCardData) giftCardData = new HashMap();
-if (giftCardData) context.giftCardData = giftCardData;
+if (!tryEntity) giftCardData = parameters;
+context.giftCardData = giftCardData ?: [:];
 
 eftAccountData = paymentResults.eftAccount;
-if (!tryEntity.booleanValue()) eftAccountData = parameters;
-if (!eftAccountData) eftAccountData = new HashMap();
-if (eftAccountData) context.eftAccountData = eftAccountData;
+if (!tryEntity) eftAccountData = parameters;
+context.eftAccountData = eftAccountData ?: [:];
 
-donePage = parameters.DONE_PAGE;
-if (!donePage || donePage.length() <= 0) donePage = "viewprofile";
-context.donePage = donePage;
+context.donePage = parameters.DONE_PAGE ?:"viewprofile";
 
 paymentMethodData = paymentResults.paymentMethod;
 if (!tryEntity.booleanValue()) paymentMethodData = parameters;

@@ -40,7 +40,4 @@ if (cmNewPurposeTypeId) {
     }
     context.cmNewPurposeTypeId = cmNewPurposeTypeId;
 }
-
-donePage = parameters.DONE_PAGE;
-if (!donePage || donePage.length() <= 0) donePage = "viewprofile?party_id=" + partyId + "&partyId=" + partyId;
-context.donePage = donePage;
+context.donePage = parameters.DONE_PAGE ?:"viewprofile?party_id=" + partyId + "&partyId=" + partyId;;

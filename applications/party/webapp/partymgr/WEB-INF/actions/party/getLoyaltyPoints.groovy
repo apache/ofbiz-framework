@@ -19,9 +19,7 @@
 
 import org.ofbiz.base.util.*;
 
-if (!partyId) {
-    partyId = parameters.partyId;
-}
+partyId = partyId ?: parameters.partyId;
 
 if (partyId) {
     // get the system user
