@@ -31,7 +31,7 @@ under the License.
 
                 <set field="custRequestId" from-field="parameters.custRequestId"/>
                 <entity-one entity-name="CustRequest" value-name="custRequest"/>
-                <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/request/requestlist.bsh"/>
+                <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/request/RequestList.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
