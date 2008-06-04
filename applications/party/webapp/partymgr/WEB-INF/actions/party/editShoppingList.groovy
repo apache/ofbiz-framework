@@ -27,7 +27,7 @@ webSiteId = CatalogWorker.getWebSiteId(request);
 currencyUomId = parameters.currencyUomId ?: UtilHttp.getCurrencyUom(request);
 context.currencyUomId = currencyUomId;
 
-partyId = parameters.partyId ?:parameters.partyId;
+partyId = parameters.partyId ?:request.getAttribute("partyId");
 
 party = delegator.findByPrimaryKey("Party", [partyId : partyId]);
 context.party = party;
