@@ -47,7 +47,7 @@ under the License.
                 <set field="headerItem" value="calendar"/>
                 <set field="tabButtonItem" value="week"/>
 
-                <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/calendar/week.bsh"/>
+                <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/calendar/Week.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonCalendarDecorator" location="${parameters.mainDecoratorLocation}">
@@ -67,7 +67,7 @@ under the License.
                 <set field="headerItem" value="calendar"/>
                 <set field="tabButtonItem" value="month"/>
 
-                <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/calendar/month.bsh"/>
+                <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/calendar/Month.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonCalendarDecorator" location="${parameters.mainDecoratorLocation}">
@@ -87,7 +87,7 @@ under the License.
                 <set field="headerItem" value="calendar"/>
                 <set field="tabButtonItem" value="upcoming"/>
 
-                <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/calendar/upcoming.bsh"/>
+                <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/calendar/Upcoming.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonCalendarDecorator" location="${parameters.mainDecoratorLocation}">
