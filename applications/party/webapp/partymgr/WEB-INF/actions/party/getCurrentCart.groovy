@@ -17,19 +17,16 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
 import org.ofbiz.entity.util.EntityUtil;
 
-if (partyId == null) {
-    partyId = parameters.get("partyId");
+if (!partyId) {
+    partyId = parameters.partyId;
 }
 
-savedCartList = EntityUtil.getFirst(delegator.findByAnd("ShoppingList", UtilMisc.toMap("partyId", partyId,
-        "shoppingListTypeId", "SLT_SPEC_PURP", "listName", "auto-save")));
+savedCart = EntityUtil.getFirst(delegator.findByAnd("ShoppingList", [partyId : partyId,
+        shoppingListTypeId : "SLT_SPEC_PURP" , listName : "auto-save"]));
 
-if (savedCartList != null){
-      savedCartListId = savedCartList.getString("shoppingListId");
-      context.put("savedCartListId", savedCartListId);
-      savedCartItems = savedCartList.getRelated("ShoppingListItem");
-      context.put("savedCartItems", savedCartItems);
+if (savedCart){
+      context.savedCartListId = savedCart.shoppingListId;
+      context.savedCartItems = savedCart.getRelated("ShoppingListItem");
 }

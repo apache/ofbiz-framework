@@ -17,21 +17,17 @@
  * under the License.
  */
 
-import java.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.condition.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.party.party.*;
+import org.ofbiz.party.party.PartyWorker;
 
-partyIdFrom = request.getParameter("partyId");
-partyIdTo = request.getParameter("partyIdTo");
+partyIdFrom = parameters.partyId;
+partyIdTo = parameters.partyIdTo;
 
-if (partyIdFrom != null) {
+if (partyIdFrom) {
     otherValues = PartyWorker.getPartyOtherValues(request, partyIdFrom, "partyFrom", "personFrom", "groupFrom");
     context.putAll(otherValues);
 }
 
-if (partyIdTo != null) {
+if (partyIdTo) {
     otherValues = PartyWorker.getPartyOtherValues(request, partyIdTo, "partyTo", "personTo", "groupTo");
     context.putAll(otherValues);
 }

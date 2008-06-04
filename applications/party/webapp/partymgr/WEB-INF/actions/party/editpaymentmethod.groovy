@@ -17,54 +17,49 @@
  * under the License.
  */
 
-import java.util.HashMap;
-import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.accounting.payment.PaymentWorker;
 import org.ofbiz.party.contact.ContactMechWorker;
-import org.ofbiz.securityext.login.*;
-import org.ofbiz.webapp.control.*;
 
-partyId = parameters.get("partyId");
-if (partyId == null) {
-    partyId = parameters.get("party_id");
+partyId = parameters.partyId;
+if (!partyId) {
+    partyId = parameters.party_id;
 }
-context.put("partyId", partyId);
+context.partyId = partyId;
 
 // payment info
 paymentResults = PaymentWorker.getPaymentMethodAndRelated(request, partyId);
 //returns the following: "paymentMethod", "creditCard", "giftCard", "eftAccount", "paymentMethodId", "curContactMechId", "donePage", "tryEntity"
 context.putAll(paymentResults);
 
-curPostalAddressResults = ContactMechWorker.getCurrentPostalAddress(request, partyId, paymentResults.get("curContactMechId")); 
+curPostalAddressResults = ContactMechWorker.getCurrentPostalAddress(request, partyId, paymentResults.curContactMechId); 
 //returns the following: "curPartyContactMech", "curContactMech", "curPostalAddress", "curPartyContactMechPurposes"
 context.putAll(curPostalAddressResults);
 
-postalAddressInfos = ContactMechWorker.getPartyPostalAddresses(request, partyId, paymentResults.get("curContactMechId"));
-context.put("postalAddressInfos", postalAddressInfos);
+context.postalAddressInfos = ContactMechWorker.getPartyPostalAddresses(request, partyId, paymentResults.curContactMechId);
 
 //prepare "Data" maps for filling form input boxes
-tryEntity = paymentResults.get("tryEntity");
+tryEntity = paymentResults.tryEntity;
 
-creditCardData = paymentResults.get("creditCard");
+creditCardData = paymentResults.creditCard;
 if (!tryEntity.booleanValue()) creditCardData = parameters;
-if (creditCardData == null) creditCardData = new HashMap();
-if (creditCardData != null) context.put("creditCardData", creditCardData);
+if (!creditCardData) creditCardData = new HashMap();
+if (creditCardData) context.creditCardData = creditCardData;
 
-giftCardData = paymentResults.get("giftCard");
+giftCardData = paymentResults.giftCard;
 if (!tryEntity.booleanValue()) giftCardData = parameters;
-if (giftCardData == null) giftCardData = new HashMap();
-if (giftCardData != null) context.put("giftCardData", giftCardData);
+if (!giftCardData) giftCardData = new HashMap();
+if (giftCardData) context.giftCardData = giftCardData;
 
-eftAccountData = paymentResults.get("eftAccount");
+eftAccountData = paymentResults.eftAccount;
 if (!tryEntity.booleanValue()) eftAccountData = parameters;
-if (eftAccountData == null) eftAccountData = new HashMap();
-if (eftAccountData != null) context.put("eftAccountData", eftAccountData);
+if (!eftAccountData) eftAccountData = new HashMap();
+if (eftAccountData) context.eftAccountData = eftAccountData;
 
-donePage = parameters.get("DONE_PAGE");
-if (donePage == null || donePage.length() <= 0) donePage = "viewprofile";
-context.put("donePage", donePage);
+donePage = parameters.DONE_PAGE;
+if (!donePage || donePage.length() <= 0) donePage = "viewprofile";
+context.donePage = donePage;
 
-paymentMethodData = paymentResults.get("paymentMethod");
+paymentMethodData = paymentResults.paymentMethod;
 if (!tryEntity.booleanValue()) paymentMethodData = parameters;
-if (paymentMethodData == null) paymentMethodData = new HashMap();
-if (paymentMethodData != null) context.put("paymentMethodData", paymentMethodData);
+if (!paymentMethodData) paymentMethodData = new HashMap();
+if (paymentMethodData) context.paymentMethodData = paymentMethodData;

@@ -17,33 +17,38 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.condition.*;
+import org.ofbiz.entity.condition.EntityOperator; 
+import org.ofbiz.entity.condition.EntityCondition;
 
-partyId = parameters.get("partyId");
-context.put("partyId", partyId);
+import javolution.util.FastList;
 
-party = delegator.findByPrimaryKey("Party", UtilMisc.toMap("partyId", partyId));
-context.put("party", party);
+partyId = parameters.partyId;
+context.partyId = partyId;
+
+party = delegator.findByPrimaryKey("Party", [partyId : partyId]);
+context.party = party;
 
 // get the sort field
-sortField = request.getParameter("sort");
-if (sortField == null) sortField = "entryDate";
-context.put("previousSort", sortField);
+sortField = parameters.sort ? parameters.sort : "entryDate";
+context.previousSort = sortField;
 
 // previous sort field
-previousSort = request.getParameter("previousSort");
-if (previousSort != null && previousSort.equals(sortField)) {
+previousSort = parameters.previousSort;
+if (previousSort && previousSort.equals(sortField)) {
     sortField = "-" + sortField;
 }
 
-eventExprs = UtilMisc.toList(EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, partyId), EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, partyId));
+List eventExprs = FastList.newInstance();
+expr = EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, partyId);
+eventExprs.add(expr); 
+expr = EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, "partyId");
+eventExprs.add(expr);
 ecl = EntityCondition.makeCondition(eventExprs, EntityOperator.OR);
-events = delegator.findList("CommunicationEvent", ecl, null, UtilMisc.toList(sortField), null, false);
-context.put("eventList", events);
-context.put("eventListSize", events.size());
-context.put("highIndex", events.size());
-context.put("viewSize", events.size());
-context.put("lowIndex", 1);
-context.put("viewIndex", 1);
+events = delegator.findList("CommunicationEvent", ecl, null, [sortField], null, false);
+
+context.eventList = events;
+context.eventListSize = events.size();
+context.highIndex = events.size();
+context.viewSize = events.size();
+context.lowIndex = 1;
+context.viewIndex = 1;

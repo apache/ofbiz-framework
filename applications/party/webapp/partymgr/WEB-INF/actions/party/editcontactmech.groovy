@@ -17,41 +17,30 @@
  * under the License.
  */
 
-import java.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.securityext.login.*;
-import org.ofbiz.common.*;
-import org.ofbiz.party.contact.*;
-import org.ofbiz.webapp.control.*;
+import org.ofbiz.party.contact.ContactMechWorker;
 
-String partyId = parameters.get("partyId");
-context.put("partyId", partyId);
+partyId = parameters.partyId;
+context.partyId = partyId;
 
 Map mechMap = new HashMap();
 ContactMechWorker.getContactMechAndRelated(request, partyId, mechMap);
-context.put("mechMap", mechMap);
+context.mechMap = mechMap;
 
-String contactMechId = (String) mechMap.get("contactMechId");
-context.put("contactMechId", contactMechId);
+context.contactMechId = mechMap.contactMechId;
+context.preContactMechTypeId = parameters.preContactMechTypeId;
+context.paymentMethodId = parameters.paymentMethodId;
 
-preContactMechTypeId = parameters.get("preContactMechTypeId");
-context.put("preContactMechTypeId", preContactMechTypeId);
-
-paymentMethodId = parameters.get("paymentMethodId");
-context.put("paymentMethodId", paymentMethodId);
-
-cmNewPurposeTypeId = parameters.get("contactMechPurposeTypeId");
-if (cmNewPurposeTypeId != null) {
-    contactMechPurposeType = delegator.findByPrimaryKey("ContactMechPurposeType", UtilMisc.toMap("contactMechPurposeTypeId", cmNewPurposeTypeId));
-    if (contactMechPurposeType != null) {
-        context.put("contactMechPurposeType", contactMechPurposeType);
+cmNewPurposeTypeId = parameters.contactMechPurposeTypeId;
+if (cmNewPurposeTypeId) {
+    contactMechPurposeType = delegator.findByPrimaryKey("ContactMechPurposeType", [contactMechPurposeTypeId : cmNewPurposeTypeId]);
+    if (contactMechPurposeType) {
+        context.contactMechPurposeType = contactMechPurposeType;
     } else {
         cmNewPurposeTypeId = null;
     }
-    context.put("cmNewPurposeTypeId", cmNewPurposeTypeId);
+    context.cmNewPurposeTypeId = cmNewPurposeTypeId;
 }
 
-String donePage = parameters.get("DONE_PAGE");
-if (donePage == null || donePage.length() <= 0) donePage = "viewprofile?party_id=" + partyId + "&partyId=" + partyId;
-context.put("donePage", donePage);
+donePage = parameters.DONE_PAGE;
+if (!donePage || donePage.length() <= 0) donePage = "viewprofile?party_id=" + partyId + "&partyId=" + partyId;
+context.donePage = donePage;

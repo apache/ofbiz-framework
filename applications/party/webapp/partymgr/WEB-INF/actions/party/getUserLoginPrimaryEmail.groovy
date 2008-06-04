@@ -17,15 +17,12 @@
  * under the License.
  */
  
-import org.ofbiz.base.util.UtilMisc;
- 
 //figure out the PRIMARY_EMAIL of the logged in user, for setting in the send email link
 //maybe nice to put in some secondary emails later
-userLogin = request.getAttribute("userLogin");
-if (userLogin != null) {
+if (userLogin) {
   userLoginParty = userLogin.getRelatedOneCache("Party");
-  userLoginPartyPrimaryEmails = userLoginParty.getRelatedByAnd("PartyContactMechPurpose", UtilMisc.toMap("contactMechPurposeTypeId", "PRIMARY_EMAIL"));
-  if ((userLoginPartyPrimaryEmails != null) && (userLoginPartyPrimaryEmails.size() > 0)) {
-      context.put("thisUserPrimaryEmail", userLoginPartyPrimaryEmails.get(0));
+  userLoginPartyPrimaryEmails = userLoginParty.getRelatedByAnd("PartyContactMechPurpose", [contactMechPurposeTypeId : "PRIMARY_EMAIL"]);
+  if (userLoginPartyPrimaryEmails) {
+      context.thisUserPrimaryEmail = userLoginPartyPrimaryEmails.get(0);
   }
 }

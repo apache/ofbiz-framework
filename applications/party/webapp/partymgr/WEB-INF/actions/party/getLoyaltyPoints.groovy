@@ -19,13 +19,13 @@
 
 import org.ofbiz.base.util.*;
 
-if (partyId == null) {
-    partyId = parameters.get("partyId");
+if (!partyId) {
+    partyId = parameters.partyId;
 }
 
-if (partyId != null) {
+if (partyId) {
     // get the system user
-    system = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));
+    system = delegator.findByPrimaryKey("UserLogin", [userLoginId : "system"]);
 
     monthsToInclude = new Integer(12);
 
@@ -33,7 +33,7 @@ if (partyId != null) {
             "statusId", "ORDER_COMPLETED", "monthsToInclude", monthsToInclude, "userLogin", system);
     Map result = dispatcher.runSync("getOrderedSummaryInformation", serviceIn);
 
-    context.put("monthsToInclude", monthsToInclude);
-    context.put("totalSubRemainingAmount", result.get("totalSubRemainingAmount"));
-    context.put("totalOrders", result.get("totalOrders"));
+    context.monthsToInclude = monthsToInclude;
+    context.totalSubRemainingAmount = result.totalSubRemainingAmount;
+    context.totalOrders = result.totalOrders;
 }
