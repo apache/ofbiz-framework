@@ -31,7 +31,7 @@ partyIdFrom = context.partyIdFrom;
 partyIdTo = context.partyIdTo;
 
 if (parameters.communicationEventTypeId) {
-   if (parameters.communicationEventTypeId.equals("EMAIL_COMMUNICATION")) {
+   if ("EMAIL_COMMUNICATION".equals(parameters.communicationEventTypeId)) {
       userEmailAddresses = delegator.findByAnd("PartyContactWithPurpose", [contactMechTypeId : "EMAIL_ADDRESS" , partyId : partyIdFrom]); 
       userEmailAddresses = EntityUtil.filterByDate(userEmailAddresses, UtilDateTime.nowTimestamp(), "contactFromDate", "contactThruDate", true);
       context.userEmailAddresses = userEmailAddresses;    

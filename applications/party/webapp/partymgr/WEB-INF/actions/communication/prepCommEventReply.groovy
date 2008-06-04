@@ -24,9 +24,8 @@ parentCommEventId = parameters.parentCommEventId;
 if (parentCommEventId) {
     parentEvent = delegator.findByPrimaryKey("CommunicationEvent", [communicationEventId : parentCommEventId]);
     if (parentEvent) {
-        orgEventId = parentEvent.origCommEventId;
-        if (!orgEventId) orgEventId = parentCommEventId;
-
+        orgEventId = parentEvent.origCommEventId ?: parentCommEventId;
+        
         parameters.communicationEventTypeId = parentEvent.communicationEventTypeId;
         parameters.parentCommEventId = parentCommEventId;
         parameters.origCommEventId = orgEventId;

@@ -29,12 +29,12 @@ party = delegator.findByPrimaryKey("Party", [partyId : partyId]);
 context.party = party;
 
 // get the sort field
-sortField = parameters.sort ? parameters.sort : "entryDate";
+sortField = parameters.sort ?: "entryDate";
 context.previousSort = sortField;
 
 // previous sort field
 previousSort = parameters.previousSort;
-if (previousSort && previousSort.equals(sortField)) {
+if (previousSort?.equals(sortField)) {
     sortField = "-" + sortField;
 }
 

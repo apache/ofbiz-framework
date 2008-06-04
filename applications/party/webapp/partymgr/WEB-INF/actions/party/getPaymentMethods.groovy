@@ -19,10 +19,6 @@
 
 import org.ofbiz.accounting.payment.PaymentWorker;
 
-if (!partyId) {
-    partyId = parameters.partyId;
-}
-boolean showOld = "true".equals(parameters.SHOW_OLD);
-context.showOld = new Boolean(showOld);
-
+partyId = partyId ?: parameters.partyId;
+context.showOld = "true".equals(parameters.SHOW_OLD);
 context.paymentMethodValueMaps = PaymentWorker.getPartyPaymentMethodValueMaps(delegator, partyId, showOld);

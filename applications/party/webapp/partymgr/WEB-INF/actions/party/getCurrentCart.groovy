@@ -19,9 +19,7 @@
 
 import org.ofbiz.entity.util.EntityUtil;
 
-if (!partyId) {
-    partyId = parameters.partyId;
-}
+partyId = partyId ?: parameters.partyId;
 
 savedCart = EntityUtil.getFirst(delegator.findByAnd("ShoppingList", [partyId : partyId,
         shoppingListTypeId : "SLT_SPEC_PURP" , listName : "auto-save"]));

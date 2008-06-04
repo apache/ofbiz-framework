@@ -24,11 +24,10 @@ import org.ofbiz.product.catalog.CatalogWorker;
 prodCatalogId = CatalogWorker.getCurrentCatalogId(request);
 webSiteId = CatalogWorker.getWebSiteId(request);
 
-currencyUomId = parameters.currencyUomId ? parameters.currencyUomId : UtilHttp.getCurrencyUom(request);
+currencyUomId = parameters.currencyUomId ?: UtilHttp.getCurrencyUom(request);
 context.currencyUomId = currencyUomId;
 
-partyId = parameters.partyId;
-if (!partyId) partyId = parameters.partyId;
+partyId = parameters.partyId ?:parameters.partyId;
 
 party = delegator.findByPrimaryKey("Party", [partyId : partyId]);
 context.party = party;
@@ -37,9 +36,7 @@ if (party) {
     context.lookupGroup = party.getRelatedOne("PartyGroup");
 }
 
-shoppingListId = parameters.shoppingListId;
-if (!shoppingListId) 
-    shoppingListId = request.getAttribute("shoppingListId");
+shoppingListId = parameters.shoppingListId ?: request.getAttribute("shoppingListId");
 
 //get the party for listid if it exists    
 if(!partyId && shoppingListId){
@@ -58,7 +55,7 @@ shoppingListTypes = delegator.findList("ShoppingListType", null, null, ["descrip
 context.shoppingListTypes = shoppingListTypes;
 
 // no passed shopping list id default to first list
-if (!shoppingListId || shoppingListId.length() == 0) {
+if (!shoppingListId) {
     firstList = EntityUtil.getFirst(shoppingLists);
     if (firstList) {
         shoppingListId = firstList.shoppingListId;
@@ -78,7 +75,7 @@ if (shoppingListId) {
         if (shoppingListItems) {
             shoppingListItemDatas = new ArrayList(shoppingListItems.size());
             shoppingListItemDatas.each { shoppingListItem ->
-                shoppingListItemData = new HashMap();
+                shoppingListItemData = [:];
                 product = shoppingListItem.getRelatedOneCache("Product");
 
                 // DEJ20050704 not sure about calculating price here, will have some bogus data when not in a store webapp
@@ -113,7 +110,7 @@ if (shoppingListId) {
         if (childShoppingLists) {
             childShoppingListDatas = new ArrayList(childShoppingLists.size());
             childShoppingListDatas.each { childShoppingList ->
-                childShoppingListData = new HashMap();
+                childShoppingListData = [:];
                 calcListPriceInMap = [shoppingListId : childShoppingList.shoppingListId , prodCatalogId : prodCatalogId , webSiteId : webSiteId, userLogin : userLogin];
                 childShoppingListData.childShoppingList = childShoppingList;
                 childShoppingListDatas.add(childShoppingListData);
