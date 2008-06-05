@@ -51,6 +51,7 @@
                 <set field="headerItem" value="fixedAssetMaints"/>
                 <set field="titleProperty" value="PageTitleFindFixedAssetMaints"/>
                 <set field="labelTitleProperty" value="AccountingFixedAssetMaint"/>
+                <set field="noConditionFind" value="Y"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
