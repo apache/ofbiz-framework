@@ -1184,6 +1184,7 @@ MIT/X License:
 ofbiz/trunk/framework/base/lib/icu4j_3_6.jar
 ofbiz/trunk/framework/entity/lib/ofbiz-minerva.jar
 ofbiz/trunk/framework/images/webapp/images/htmledit/whizzywig_v55i.js
+ofbiz/trunk/framework/images/webapp/images/calendar_date_select.js
 =========================================================================
 The MIT License
 
@@ -2203,24 +2204,6 @@ State of California (excluding conflict-of-law provisions). Any litigation
 relating to this License shall be subject to the jurisdiction of the Federal 
 Courts of the Northern District of California and the state courts of the State 
 of California, with venue lying in Santa Clara County, California.
-
-=========================================================================
-Apache OFBiz includes the Tigra Calendar HTML and JavaScript files:
-ofbiz/trunk/framework/images/webapp/images/calendar.html
-ofbiz/trunk/framework/images/webapp/images/calendar1.js
-Tigra Calendar is licensed as follows:
-=========================================================================
-Title: Tigra Calendar
-URL: http://www.softcomplex.com/products/tigra_calendar/
-Version: 3.2
-Date: 10/14/2002 (mm/dd/yyyy)
-Feedback: feedback@softcomplex.com (specify product title in the subject)
-Note: Permission given to use this script in ANY kind of applications if
-   header lines are left unchanged.
-Note: Script consists of two files: calendar?.js and calendar.html
-About us: Our company provides offshore IT consulting services.
-    Contact us at sales@softcomplex.com if you have any programming task you
-    want to be handled by professionals. Our typical hourly rate is $20.
 
 =========================================================================
 Apache OFBiz includes the XML Schema files from the Open Applications Group, Inc

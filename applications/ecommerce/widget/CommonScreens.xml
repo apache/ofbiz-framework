@@ -41,7 +41,7 @@ under the License.
                 <!-- NOTE: this should be included on each screen that uses it to avoid including it in all screens: -->
                 <set field="layoutSettings.javaScripts[]" value="/images/fieldlookup.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/selectall.js" global="true"/>
-                <set field="layoutSettings.javaScripts[]" value="/images/calendar1.js" global="true"/>				
+                <set field="layoutSettings.javaScripts[]" value="/images/calendar_date_select.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/images/prototypejs/validation.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/images/prototypejs/prototype.js" global="true"/> 
 				            				

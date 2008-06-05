@@ -18,9 +18,25 @@
  */
 
 // ================= FIELD LOOKUP METHODS ============================
+var NS4 = (navigator.appName.indexOf("Netscape")>=0 && !document.getElementById)? true : false;
+var IE4 = (document.all && !document.getElementById)? true : false;
+var IE5 = (document.getElementById && document.all)? true : false;
+var NS6 = (document.getElementById && navigator.appName.indexOf("Netscape")>=0 )? true: false;
+var mx, my;
+
+function moveobj(evt) {
+    if (NS4 || NS6) {
+    mx=evt.screenX;
+    	my=evt.screenY;
+    } else if (IE5 || IE4) {
+    	mx=event.screenX;
+    	my=event.screenY;
+    }
+}
 
 var target = null;
 var target2 = null;
+var lookups = [];
 
 function call_fieldlookup(target, viewName, formName,viewWidth,viewheight) {   
     var fieldLookup = new fieldLookup1(target);  
