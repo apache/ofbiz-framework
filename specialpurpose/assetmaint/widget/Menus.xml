@@ -60,18 +60,5 @@
             <link target="FindFacilityTransfers?facilityId=${facilityId}"/>
         </menu-item>
     </menu>  
-    
-    <menu name="CalendarTabBar" selected-menuitem-context-field-name="parameters.viewMode"
-         type="simple" default-selected-style="selected" menu-container-style="button-bar tab-bar">
-        <menu-item name="D" title="${uiLabelMap.CommonDay}">
-            <link target="day?fixedAssetId=${fixedAssetId}"/>
-        </menu-item>
-        <menu-item name="W" title="${uiLabelMap.CommonWeek}">
-            <link target="week?fixedAssetId=${fixedAssetId}"/>
-        </menu-item>
-        <menu-item name="M" title="${uiLabelMap.CommonMonth}">
-            <link target="month?fixedAssetId=${fixedAssetId}"/>
-        </menu-item>
-    </menu>
 
 </menus>
