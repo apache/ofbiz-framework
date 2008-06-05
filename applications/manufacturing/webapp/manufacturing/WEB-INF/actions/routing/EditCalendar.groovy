@@ -17,32 +17,24 @@
  * under the License.
  */
 
-import java.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.base.util.*;
+import org.ofbiz.base.util.UtilHttp;
 
 requestParams = UtilHttp.getParameterMap(request);
-delegator = request.getAttribute("delegator");
-calendarId = requestParams.get("calendarId");
-if (calendarId == null) {
-    calendarId = request.getAttribute("calendarId");
-}
+calendarId = requestParams.get("calendarId") ?: request.getAttribute("calendarId");
 if (calendarId != null) {
-    techDataCalendar = delegator.findByPrimaryKey("TechDataCalendar", UtilMisc.toMap("calendarId", calendarId));
-    context.put("techDataCalendar", techDataCalendar);
+    techDataCalendar = delegator.findByPrimaryKey("TechDataCalendar", [calendarId : calendarId]);
+    context.techDataCalendar = techDataCalendar;
 }
 
 tryEntity = true;
 errorMessage = request.getAttribute("_ERROR_MESSAGE_");
-if (errorMessage != null && errorMessage.length() > 0) {
+if (errorMessage) {
     tryEntity = false;    
 }
 
-calendarData = context.get("techDataCalendar");
-if (!tryEntity) calendarData = requestParams;
-if (calendarData == null) calendarData = new HashMap();
-context.put("calendarData", calendarData);
+calendarData = context.techDataCalendar;
+if (!tryEntity) calendarData = requestParams ?: [:];
+context.calendarData = calendarData;
 
-List allCalendarWeek = delegator.findList("TechDataCalendarWeek", null, null, null, null, false);
-context.put("calendarWeeks", allCalendarWeek);
-
+allCalendarWeek = delegator.findList("TechDataCalendarWeek", null, null, null, null, false);
+context.calendarWeeks = allCalendarWeek;

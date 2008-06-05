@@ -20,61 +20,47 @@
 // The only required parameter is "productionRunId".
 // The "actionForm" parameter triggers actions (see "ProductionRunSimpleEvents.xml").
 
-import java.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.base.util.*;
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.widget.html.HtmlFormWrapper;
 import org.ofbiz.manufacturing.jobshopmgt.ProductionRun;
 
-delegator = request.getAttribute("delegator");
-
-productionRunId = parameters.get("productionRunId");
-if (!UtilValidate.isEmpty(productionRunId)) {
+productionRunId = parameters.productionRunId;
+if (productionRunId) {
     ProductionRun productionRun = new ProductionRun(productionRunId, delegator, dispatcher);
     if (productionRun.exist()){
-        productionRunId = productionRun.getGenericValue().getString("workEffortId");
-        context.put("productionRunId", productionRunId);
-        context.put("productionRun", productionRun.getGenericValue());
+        productionRunId = productionRun.getGenericValue().workEffortId;
+        context.productionRunId = productionRunId;
+        context.productionRun = productionRun.getGenericValue();
         // Prepare production run header data
-        HashMap productionRunData = new HashMap();
-        productionRunData.put("productionRunId", productionRunId);
-        productionRunData.put("productId", productionRun.getProductProduced().getString("productId"));
-        productionRunData.put("currentStatusId", productionRun.getGenericValue().getString("currentStatusId"));
-        productionRunData.put("facilityId", productionRun.getGenericValue().getString("facilityId"));
-        productionRunData.put("workEffortName", productionRun.getProductionRunName());
-        productionRunData.put("description", productionRun.getDescription());
-        productionRunData.put("quantity", productionRun.getQuantity());
-        productionRunData.put("estimatedStartDate",productionRun.getEstimatedStartDate());
-        productionRunData.put("estimatedCompletionDate",productionRun.getEstimatedCompletionDate());
-        context.put("productionRunData", productionRunData);
+        productionRunData = [:];
+        productionRunData.productionRunId = productionRunId;
+        productionRunData.productId = productionRun.getProductProduced().productId;
+        productionRunData.currentStatusId = productionRun.getGenericValue().currentStatusId;
+        productionRunData.facilityId = productionRun.getGenericValue().facilityId;
+        productionRunData.workEffortName = productionRun.getProductionRunName();
+        productionRunData.description = productionRun.getDescription();
+        productionRunData.quantity = productionRun.getQuantity();
+        productionRunData.estimatedStartDate = productionRun.getEstimatedStartDate();
+        productionRunData.estimatedCompletionDate = productionRun.getEstimatedCompletionDate();
+        context.productionRunData = productionRunData;
 
         // Find all the order items to which this production run is linked.
-        List orderItems = delegator.findByAnd("WorkOrderItemFulfillment", UtilMisc.toMap("workEffortId", productionRunId));
-        if (orderItems.size() > 0) {
-            context.put("orderItems", orderItems);
+        orderItems = delegator.findByAnd("WorkOrderItemFulfillment", [workEffortId , productionRunId]);
+        if (orderItems) {
+            context.orderItems = orderItems;
         }
-
         // Find all the work efforts that must be completed before this one.
-        List mandatoryWorkEfforts = EntityUtil.filterByDate(delegator.findByAnd("WorkEffortAssoc", UtilMisc.toMap("workEffortIdTo", productionRunId, "workEffortAssocTypeId", "WORK_EFF_PRECEDENCY")));
-        if (mandatoryWorkEfforts.size() > 0) {
-            context.put("mandatoryWorkEfforts", mandatoryWorkEfforts);
+        mandatoryWorkEfforts = EntityUtil.filterByDate(delegator.findByAnd("WorkEffortAssoc", [workEffortIdTo : productionRunId, workEffortAssocTypeId : "WORK_EFF_PRECEDENCY"]));
+        if (mandatoryWorkEfforts) {
+            context.mandatoryWorkEfforts = mandatoryWorkEfforts;
         }
         // Find all the work efforts that can start after this one.
-        List dependentWorkEfforts = EntityUtil.filterByDate(delegator.findByAnd("WorkEffortAssoc", UtilMisc.toMap("workEffortIdFrom", productionRunId, "workEffortAssocTypeId", "WORK_EFF_PRECEDENCY")));
-        if (dependentWorkEfforts.size() > 0) {
-            context.put("dependentWorkEfforts", dependentWorkEfforts);
+        dependentWorkEfforts = EntityUtil.filterByDate(delegator.findByAnd("WorkEffortAssoc", [workEffortIdFrom : productionRunId, workEffortAssocTypeId : "WORK_EFF_PRECEDENCY"]));
+        if (dependentWorkEfforts) {
+            context.dependentWorkEfforts = dependentWorkEfforts;
         }
-
         //  RoutingTasks list
-        List productionRunRoutingTasks = productionRun.getProductionRunRoutingTasks();
-        context.put("productionRunRoutingTasks", productionRunRoutingTasks);
-        context.put("quantity", productionRun.getQuantity()); // this is useful to compute the total estimates runtime in the form
-
+        context.productionRunRoutingTasks = productionRun.getProductionRunRoutingTasks();
+        context.quantity = productionRun.getQuantity(); // this is useful to compute the total estimates runtime in the form
         //  Product component/parts list
-        List productionRunComponentsData = productionRun.getProductionRunComponents();
-        context.put("productionRunComponents", productionRunComponentsData);
+        context.productionRunComponents = productionRun.getProductionRunComponents();;
     }
 }

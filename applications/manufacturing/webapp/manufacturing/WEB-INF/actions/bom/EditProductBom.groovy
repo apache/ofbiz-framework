@@ -17,68 +17,58 @@
  * under the License.
  */
 
-import java.util.*;
-import java.sql.*;
-import java.io.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.widget.html.*;
+import java.sql.Timestamp;
+import org.ofbiz.base.util.UtilHttp;
+import org.ofbiz.base.util.UtilDateTime;
 
-security = request.getAttribute("security");
-delegator = request.getAttribute("delegator");
-
-nowDate = UtilDateTime.nowDate();
-context.put("nowDate", nowDate);
-
-String nowTimestampString = UtilHttp.encodeBlanks(UtilDateTime.nowTimestamp().toString());
-context.put("nowTimestampString", nowTimestampString);
+context.nowDate = UtilDateTime.nowDate();
+context.nowTimestampString = UtilHttp.encodeBlanks(UtilDateTime.nowTimestamp().toString());
 
 boolean useValues = true;
-if (request.getAttribute("_ERROR_MESSAGE_") != null) useValues = false;
+if (request.getAttribute("_ERROR_MESSAGE_")) useValues = false;
 
-String productId = request.getParameter("productId");
-if (productId != null) context.put("productId", productId);
+productId = parameters.productId;
+if (productId) context.productId = productId;
 
-String productIdTo = request.getParameter("productIdTo");
-String updateMode = request.getParameter("UPDATE_MODE");
+productIdTo = parameters.productIdTo;
+updateMode = parameters.UPDATE_MODE;
 
-if (productIdTo != null) context.put("productIdTo", productIdTo);
+if (productIdTo) context.productIdTo = productIdTo;
 
-String productAssocTypeId = request.getParameter("productAssocTypeId");
-if (productAssocTypeId != null) context.put("productAssocTypeId", productAssocTypeId);
+productAssocTypeId = parameters.productAssocTypeId;
+if (productAssocTypeId) context.productAssocTypeId = productAssocTypeId;
 
-String fromDateStr = request.getParameter("fromDate");
+fromDateStr = parameters.fromDate;
 
 Timestamp fromDate = null;
-if (UtilValidate.isNotEmpty(fromDateStr)) fromDate = Timestamp.valueOf(fromDateStr);
-if (fromDate == null) fromDate = (Timestamp)request.getAttribute("ProductAssocCreateFromDate");
-if (fromDate != null) context.put("fromDate", fromDate);
+if (fromDateStr) fromDate = Timestamp.valueOf(fromDateStr) ?: (Timestamp)request.getAttribute("ProductAssocCreateFromDate");;
+context.fromDate = fromDate;
 
-GenericValue productAssoc = delegator.findByPrimaryKey("ProductAssoc", UtilMisc.toMap("productId", productId, "productIdTo", productIdTo, "productAssocTypeId", productAssocTypeId, "fromDate", fromDate));
-if (updateMode != null) {
-    productAssoc = null;
+productAssoc = delegator.findByPrimaryKey("ProductAssoc", [productId : productId, productIdTo : productIdTo, productAssocTypeId : productAssocTypeId, fromDate : fromDate]);
+if (updateMode) {
+    productAssoc = [:];
     context.remove("productIdTo");
 }
-if (productAssoc != null) {
-    context.put("productAssoc", productAssoc);
+if (productAssoc) {
+    context.productAssoc = productAssoc;
 }
 
 if("true".equalsIgnoreCase((String)request.getParameter("useValues"))) useValues = true;
-if(productAssoc == null) useValues = false;
+if(!productAssoc) useValues = false;
 
-context.put("useValues", useValues);
+context.useValues = useValues;
 
-Collection assocTypes = delegator.findByAnd("ProductAssocType", UtilMisc.toMap("parentTypeId", "PRODUCT_COMPONENT"), UtilMisc.toList("productAssocTypeId", "description"));
-context.put("assocTypes", assocTypes);
+Collection assocTypes = delegator.findByAnd("ProductAssocType", [parentTypeId : "PRODUCT_COMPONENT"], ["productAssocTypeId", "description"]);
+context.assocTypes = assocTypes;
 
-Collection formulae = delegator.findByAnd("CustomMethod", UtilMisc.toMap("customMethodTypeId", "BOM_FORMULA"), UtilMisc.toList("customMethodId", "description"));
-context.put("formulae", formulae);
+Collection formulae = delegator.findByAnd("CustomMethod", [customMethodTypeId : "BOM_FORMULA"], ["customMethodId", "description"]);
+context.formulae = formulae;
 
-if (product != null) {
-    List assocFromProducts = product.getRelated("MainProductAssoc", (productAssocTypeId != null? UtilMisc.toMap("productAssocTypeId", productAssocTypeId): null), UtilMisc.toList("sequenceNum"));
-    if (assocFromProducts != null) context.put("assocFromProducts", assocFromProducts);
+if (product) {
+    assocFromProducts = product.getRelated("MainProductAssoc", (productAssocTypeId ? [productAssocTypeId : productAssocTypeId]: [:]), ["sequenceNum"]);
+    if (assocFromProducts) context.assocFromProducts = assocFromProducts;
 
-    List assocToProducts = product.getRelatedByAnd("AssocProductAssoc", (productAssocTypeId != null? UtilMisc.toMap("productAssocTypeId", productAssocTypeId): null));
-    if (assocTOProducts != null) context.put("assocToProducts", assocToProducts);
+    assocToProducts = product.getRelatedByAnd("AssocProductAssoc", (productAssocTypeId ? [productAssocTypeId : productAssocTypeId]: [:]));
+    if (assocTOProducts) context.assocToProducts = assocToProducts;
 }
 

@@ -17,29 +17,14 @@
  * under the License.
  */
 
-import java.util.List;
-import java.util.Iterator;
-import java.util.ArrayList;
-
-import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.widget.html.HtmlFormWrapper;
 import org.ofbiz.manufacturing.jobshopmgt.ProductionRun;
 
-
-productionRunId = request.getParameter("productionRunId");
-if (UtilValidate.isEmpty(productionRunId)) {
-    productionRunId = request.getParameter("workEffortId");
-}
-
-
-if (!UtilValidate.isEmpty(productionRunId)) {
+productionRunId = parameters.productionRunId ?: parameters.workEffortId;
+if (productionRunId) {
     ProductionRun productionRun = new ProductionRun(productionRunId, delegator, dispatcher);
     if (productionRun.exist()){
-        List productionRunRoutingTasks = productionRun.getProductionRunRoutingTasks();
-        context.put("productionRunRoutingTasks", productionRunRoutingTasks);
-        context.put("quantity", productionRun.getQuantity()); // this is useful to compute the total estimates runtime in the form
+        productionRunRoutingTasks = productionRun.getProductionRunRoutingTasks();
+        context.productionRunRoutingTasks = productionRunRoutingTasks;
+        context.quantity = productionRun.getQuantity(); // this is useful to compute the total estimates runtime in the form
     }
 }

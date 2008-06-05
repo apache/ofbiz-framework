@@ -18,38 +18,27 @@
  */
 
 
-import java.util.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.widget.html.*;
-
-security = request.getAttribute("security");
-delegator = request.getAttribute("delegator");
+import org.ofbiz.widget.html.HtmlFormWrapper;
 
 if(security.hasEntityPermission("MANUFACTURING", "_VIEW", session)) {
-    context.put("hasPermission", Boolean.TRUE);
+    context.hasPermission = Boolean.TRUE;
 } else {
-    context.put("hasPermission", Boolean.FALSE);
+    context.hasPermission = Boolean.FALSE;
 }
-GenericValue techDataCalendar = null;
-List calendarExceptionWeeks = null;
+techDataCalendar = [:];
+calendarExceptionWeeks = [];
 
-String calendarId = request.getParameter("calendarId");
-if (calendarId == null) {
-    calendarId = request.getAttribute("calendarId");
-}
+calendarId = parameters.calendarId ?: request.getAttribute("calendarId");;
 if (calendarId != null) {
-    techDataCalendar = delegator.findByPrimaryKey("TechDataCalendar", UtilMisc.toMap("calendarId", calendarId));
+    techDataCalendar = delegator.findByPrimaryKey("TechDataCalendar", [calendarId : calendarId]);
 }
 if (techDataCalendar != null) {
     calendarExceptionWeeks = techDataCalendar.getRelated("TechDataCalendarExcWeek");
 }
-List calendarExceptionWeeksDatas = new LinkedList();
-Iterator calendarExceptionWeeksIter = calendarExceptionWeeks.iterator();
-while (calendarExceptionWeeksIter.hasNext()) {
-    GenericValue calendarExceptionWeek = (GenericValue) calendarExceptionWeeksIter.next();
-    GenericValue calendarWeek = calendarExceptionWeek.getRelatedOne("TechDataCalendarWeek");
-    calendarExceptionWeeksDatas.add(UtilMisc.toMap("calendarExceptionWeek", calendarExceptionWeek, "calendarWeek", calendarWeek));
+calendarExceptionWeeksDatas = [];
+calendarExceptionWeeks.each { calendarExceptionWeek ->
+    calendarWeek = calendarExceptionWeek.getRelatedOne("TechDataCalendarWeek");
+    calendarExceptionWeeksDatas.add([calendarExceptionWeek : calendarExceptionWeek , calendarWeek : calendarWeek]);
 }
 
 HtmlFormWrapper listCalendarExceptionWeekWrapper = new HtmlFormWrapper("component://manufacturing/webapp/manufacturing/routing/CalendarForms.xml", "ListCalendarExceptionWeek", request, response);
@@ -58,19 +47,17 @@ listCalendarExceptionWeekWrapper.putInContext("calendarExceptionWeeksDatas", cal
 HtmlFormWrapper addCalendarExceptionWeekWrapper = new HtmlFormWrapper("component://manufacturing/webapp/manufacturing/routing/CalendarForms.xml", "AddCalendarExceptionWeek", request, response);
 addCalendarExceptionWeekWrapper.putInContext("techDatacalendar", techDataCalendar);
 
-context.put("techDataCalendar", techDataCalendar);
-context.put("listCalendarExceptionWeekWrapper", listCalendarExceptionWeekWrapper);
-context.put("addCalendarExceptionWeekWrapper", addCalendarExceptionWeekWrapper);
+context.techDataCalendar = techDataCalendar;
+context.listCalendarExceptionWeekWrapper = listCalendarExceptionWeekWrapper;
+context.addCalendarExceptionWeekWrapper = addCalendarExceptionWeekWrapper;
 
-String exceptionDateStart = request.getParameter("exceptionDateStart");
-if (exceptionDateStart == null)
-    exceptionDateStart = request.getAttribute("exceptionDateStart");
-if (exceptionDateStart != null) {
-    calendarExceptionWeek = delegator.findByPrimaryKey("TechDataCalendarExcWeek", UtilMisc.toMap("calendarId", calendarId,"exceptionDateStart", exceptionDateStart));
-    if (calendarExceptionWeek != null) {
+exceptionDateStart = parameters.exceptionDateStart ?: request.getAttribute("exceptionDateStart");
+if (exceptionDateStart) {
+    calendarExceptionWeek = delegator.findByPrimaryKey("TechDataCalendarExcWeek", [calendarId : calendarId , exceptionDateStart : exceptionDateStart]);
+    if (calendarExceptionWeek) {
         HtmlFormWrapper updateCalendarExceptionWeekWrapper = new HtmlFormWrapper("component://manufacturing/webapp/manufacturing/routing/CalendarForms.xml", "UpdateCalendarExceptionWeek", request, response);
         updateCalendarExceptionWeekWrapper.putInContext("calendarExceptionWeek", calendarExceptionWeek);
-        context.put("calendarExceptionWeek", calendarExceptionWeek);
-        context.put("updateCalendarExceptionWeekWrapper", updateCalendarExceptionWeekWrapper);
+        context.calendarExceptionWeek = calendarExceptionWeek;
+        context.updateCalendarExceptionWeekWrapper = updateCalendarExceptionWeekWrapper;
     }
 }

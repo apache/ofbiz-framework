@@ -17,25 +17,20 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.manufacturing.jobshopmgt.ProductionRun;
 
 import javolution.util.FastList;
 
-productionRunId = request.getParameter("productionRunId");
-if (UtilValidate.isEmpty(productionRunId)) {
-    productionRunId = request.getParameter("workEffortId");
-}
-if (!UtilValidate.isEmpty(productionRunId)) {
+productionRunId = parameters.productionRunId ?: parameters.workEffortId;
+if (productionRunId) {
     ProductionRun productionRun = new ProductionRun(productionRunId, delegator, dispatcher);
     if (productionRun.exist()){
-        List productionRunFixedAssetsData = FastList.newInstance();
-        List productionRunRoutingTasks = productionRun.getProductionRunRoutingTasks();
-        for (Iterator tasksIt = productionRunRoutingTasks.iterator(); tasksIt.hasNext();) {
-            GenericValue prodRunTask = (GenericValue)tasksIt.next();
-            List taskFixedAssets = prodRunTask.getRelated("WorkEffortFixedAssetAssign");
+        productionRunFixedAssetsData = FastList.newInstance();
+        productionRunRoutingTasks = productionRun.getProductionRunRoutingTasks();
+        productionRunRoutingTasks.each { prodRunTask ->
+            taskFixedAssets = prodRunTask.getRelated("WorkEffortFixedAssetAssign");
             productionRunFixedAssetsData.addAll(taskFixedAssets);
         }
-	    context.put("productionRunFixedAssetsData", productionRunFixedAssetsData);
+	    context.productionRunFixedAssetsData = productionRunFixedAssetsData;
     }
 }
