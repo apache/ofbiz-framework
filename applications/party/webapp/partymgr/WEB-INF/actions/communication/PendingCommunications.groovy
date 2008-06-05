@@ -25,7 +25,7 @@ import org.ofbiz.entity.transaction.TransactionUtil;
 
 import javolution.util.FastList;
 
-module = "pendingCommunications.groovy";
+module = "PendingCommunications.groovy";
 
 partyId = userLogin.partyId;
 
