@@ -26,6 +26,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="ProductFindFacilities"/>
                 <set field="headerItem" value="facility"/>
+                <set field="noConditionFind" value="Y"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
