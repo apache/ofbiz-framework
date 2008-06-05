@@ -17,7 +17,7 @@
  * under the License.
  *******************************************************************************/
 
-package org.ofbiz.poi;
+package org.ofbiz.product.spreadsheetimport;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -39,14 +39,14 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
 
-public class FileImportService {
+public class ImportProductServices {
 
-    public static String module = FileImportService.class.getName();
+    public static String module = ImportProductServices.class.getName();
 
     /**
      * This method is responsible to import spreadsheet data into "Product" and
      * "InventoryItem" entities into database. The method uses the
-     * FileImportHelper class to perform its opertaion. The method uses "Apache
+     * ImportProductHelper class to perform its opertaion. The method uses "Apache
      * POI" api for importing spreadsheet(xls files) data.
      * 
      * Note : Create the spreadsheet directory in the ofbiz home folder and keep
@@ -56,7 +56,7 @@ public class FileImportService {
      * @param context
      * @return
      */
-    public static Map productImport(DispatchContext dctx, Map context) {
+    public static Map productImportFromSpreadsheet(DispatchContext dctx, Map context) {
         GenericDelegator delegator = dctx.getDelegator();
         Map responseMsgs = new HashMap();
         // System.getProperty("user.dir") returns the path upto ofbiz home
@@ -124,15 +124,15 @@ public class FileImportService {
                     // check productId if null then skip creating inventory item
                     // too.
 
-                    boolean productExists = FileImportHelper.checkProductExists(productId, delegator);
+                    boolean productExists = ImportProductHelper.checkProductExists(productId, delegator);
 
                     if (productId != null && !productId.trim().equalsIgnoreCase("") && !productExists) {
-                        products.add(FileImportHelper.prepareProduct(productId));
+                        products.add(ImportProductHelper.prepareProduct(productId));
                         if (quantityOnHand >= 0.0)
-                            inventoryItems.add(FileImportHelper.prepareInventoryItem(productId, quantityOnHand,
+                            inventoryItems.add(ImportProductHelper.prepareInventoryItem(productId, quantityOnHand,
                                     delegator.getNextSeqId("InventoryItem")));
                         else
-                            inventoryItems.add(FileImportHelper.prepareInventoryItem(productId, 0.0, delegator
+                            inventoryItems.add(ImportProductHelper.prepareInventoryItem(productId, 0.0, delegator
                                     .getNextSeqId("InventoryItem")));
                     }
                     int rowNum = row.getRowNum() + 1;
@@ -147,7 +147,7 @@ public class FileImportService {
             for (int j = 0; j < products.size(); j++) {
                 GenericValue productGV = delegator.makeValue("Product", (Map) products.get(j));
                 GenericValue inventoryItemGV = delegator.makeValue("InventoryItem", (Map) inventoryItems.get(j));
-                if (!FileImportHelper.checkProductExists(productGV.getString("productId"), delegator)) {
+                if (!ImportProductHelper.checkProductExists(productGV.getString("productId"), delegator)) {
                     try {
                         delegator.create(productGV);
                         delegator.create(inventoryItemGV);

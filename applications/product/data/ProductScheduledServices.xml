@@ -22,4 +22,9 @@ under the License.
     <RecurrenceRule recurrenceRuleId="420" untilDateTime="" frequency="DAILY" intervalNumber="1" countNumber="-1"/>
     <RecurrenceInfo recurrenceInfoId="420" startDateTime="2000-01-01 00:00:00.000" recurrenceRuleId="420" recurrenceCount="0"/>
     <JobSandbox jobId="8100" jobName="Purge Old Store Auto-Entered Promos" runTime="2000-01-01 00:00:00.000" serviceName="purgeOldStoreAutoPromos" poolId="pool" runAsUser="system" recurrenceInfoId="420"/>
+    
+    <!--Data for scheduling the service productImportFromSpreadsheet -->
+    <!--RecurrenceRule recurrenceRuleId="500" untilDateTime="" frequency="MINUTELY" intervalNumber="5" countNumber="-1"/>
+    <RecurrenceInfo recurrenceInfoId="500" startDateTime="2006-06-06 01:10:00.000" recurrenceRuleId="500" recurrenceCount="0"/>
+    <JobSandbox jobId="9000" jobName="Import Excel Sheet Minutely" runTime="2008-05-29 01:10:00.000" serviceName="productImportFromSpreadsheet" poolId="pool" runAsUser="admin" recurrenceInfoId="500"/-->
 </entity-engine-xml>

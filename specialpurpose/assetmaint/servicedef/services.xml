@@ -36,10 +36,4 @@ under the License.
         <description>Asset Maintentance Permission Checking Logic</description>
         <implements service="permissionInterface"/>
     </service>
-
-    <service name="productImport" engine="java"
-            location="org.ofbiz.poi.FileImportService" invoke="productImport" auth="true">
-        <description>Create product and inventory item</description>
-        <attribute name="dirName" type="java.lang.String" mode="IN" optional="true"/>
-    </service>
 </services>
