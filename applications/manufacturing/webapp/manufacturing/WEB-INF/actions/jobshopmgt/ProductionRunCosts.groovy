@@ -17,6 +17,7 @@
  * under the License.
  */
 
+import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.widget.html.HtmlFormWrapper;
 
 productionRunId = parameters.productionRunId ?: parameters.workEffortId;

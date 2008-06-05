@@ -20,6 +20,7 @@
 // The only required parameter is "productionRunId".
 // The "actionForm" parameter triggers actions (see "ProductionRunSimpleEvents.xml").
 
+import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.manufacturing.jobshopmgt.ProductionRun;
 
 productionRunId = parameters.productionRunId;
@@ -43,7 +44,7 @@ if (productionRunId) {
         context.productionRunData = productionRunData;
 
         // Find all the order items to which this production run is linked.
-        orderItems = delegator.findByAnd("WorkOrderItemFulfillment", [workEffortId , productionRunId]);
+        orderItems = delegator.findByAnd("WorkOrderItemFulfillment", [workEffortId : productionRunId]);
         if (orderItems) {
             context.orderItems = orderItems;
         }

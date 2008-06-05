@@ -69,6 +69,6 @@ if (product) {
     if (assocFromProducts) context.assocFromProducts = assocFromProducts;
 
     assocToProducts = product.getRelatedByAnd("AssocProductAssoc", (productAssocTypeId ? [productAssocTypeId : productAssocTypeId]: [:]));
-    if (assocTOProducts) context.assocToProducts = assocToProducts;
+    if (assocToProducts) context.assocToProducts = assocToProducts;
 }
 
