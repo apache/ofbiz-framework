@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied.  See the License for the
+  specific language governing permissions and limitations
+  under the License.
+  -->
+
+<!-- The Derby embedded database JCA connection factory config
+$Id: derby-ds.xml,v 1.1.4.1 2004/11/03 13:28:39 loubyansky Exp $ -->
+
+
+<datasources>
+   <local-tx-datasource>
+
+      <!-- The jndi name of the DataSource, it is prefixed with java:/ -->
+      <!-- Datasources are not available outside the virtual machine -->
+      <jndi-name>OFBizOlapDS</jndi-name>
+
+      <!-- for in-process persistent db, saved when jboss stops. The
+      org.jboss.jdbc.DerbyDatabase mbean is necessary for properly db shutdown -->
+      <connection-url>jdbc:derby:${jboss.server.data.dir}${/}derby${/}ofbizolap;create=true</connection-url>
+
+      <!-- The driver class -->
+      <driver-class>org.apache.derby.jdbc.EmbeddedDriver</driver-class>
+
+      <!-- The login and password -->
+      <user-name>sa</user-name>
+      <password></password>
+
+      <!-- The minimum connections in a pool/sub-pool. Pools are lazily constructed on first use -->
+      <min-pool-size>2</min-pool-size>
+
+      <!-- The maximum connections in a pool/sub-pool -->
+      <max-pool-size>5</max-pool-size>
+
+      <!-- The time before an unused connection is destroyed -->
+      <idle-timeout-minutes>15</idle-timeout-minutes>
+
+      <!-- Whether to check all statements are closed when the connection is returned to the pool,
+           this is a debugging feature that should be turned off in production -->
+      <track-statements/>
+
+      <!-- This mbean can be used when using in process persistent derby -->
+      <depends>jboss:service=OFBizOlap</depends>
+   </local-tx-datasource>
+
+   <mbean code="org.jboss.jdbc.DerbyDatabase" name="jboss:service=OFBizOlap"/>
+</datasources>
