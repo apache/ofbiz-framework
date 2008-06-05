@@ -17,51 +17,37 @@
  * under the License.
  */
 
-import java.util.*;
-import java.sql.Timestamp;
-import org.ofbiz.base.util.*;
-import org.ofbiz.service.*;
-import org.ofbiz.service.LocalDispatcher;
-import org.ofbiz.widget.html.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.service.DispatchContext;
-import org.ofbiz.entity.condition.*;
-import org.ofbiz.manufacturing.mrp.MrpServices;
-import org.ofbiz.base.util.Debug;
+import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.condition.EntityCondition;
 
-GenericDelegator delegator = request.getAttribute("delegator");
-LocalDispatcher dispatcher = request.getAttribute("dispatcher");
-
-productId = request.getParameter("productId");
+productId = parameters.productId;
 
 // get the lookup flag
-lookupFlag = request.getParameter("lookupFlag");
+lookupFlag = parameters.lookupFlag;
 
 // blank param list
 paramList = "";
-inventoryList = null;
+inventoryList = [];
 
-if (lookupFlag != null) {
+if (lookupFlag) {
     paramList = paramList + "&lookupFlag=" + lookupFlag;
-    lookupErrorMessage = null;   
-    andExprs = new ArrayList();
+    andExprs = [];
      
     //define main condition
     mainCond = null;
 
     // now do the filtering
     
-    eventDate = request.getParameter("eventDate");
-    if (eventDate != null && eventDate.length() > 8) {            
+    eventDate = parameters.eventDate;
+    if (eventDate?.length() > 8) {            
     eventDate = eventDate.trim();
     if (eventDate.length() < 14) eventDate = eventDate + " " + "00:00:00.000";
     paramList = paramList + "&eventDate=" + eventDate;
         andExprs.add(EntityCondition.makeCondition("eventDate", EntityOperator.GREATER_THAN, eventDate));
     }
     
-    if (productId != null && productId.length() > 0) {
-            paramList = paramList + "&productId=" + productId;
-        if ( productId.length() > 0)
+    if (productId) {
+        paramList = paramList + "&productId=" + productId;
         andExprs.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId));
     } 
     andExprs.add(EntityCondition.makeCondition("mrpEventTypeId", EntityOperator.NOT_EQUAL, "INITIAL_QOH"));
@@ -70,26 +56,26 @@ if (lookupFlag != null) {
 
     mainCond = EntityCondition.makeCondition(andExprs, EntityOperator.AND); 
     
-    if ( mainCond != null) {
+    if ( mainCond) {
     // do the lookup
-        inventoryList = delegator.findList("MrpEvent", mainCond, null, UtilMisc.toList("productId", "eventDate"), null, false);
+        inventoryList = delegator.findList("MrpEvent", mainCond, null, ["productId", "eventDate"], null, false);
     }
     
-    context.put("inventoryList", inventoryList);
+    context.inventoryList = inventoryList;
 }
-context.put("paramList", paramList);
+context.paramList = paramList;
 
 // set the page parameters
 viewIndex = 0;
 try {
-    viewIndex = Integer.valueOf((String) request.getParameter("VIEW_INDEX")).intValue();
+    viewIndex = Integer.valueOf((String) parameters.VIEW_INDEX).intValue();
 } catch (Exception e) {}
 viewSize = 100;
 try {
-    viewSize = Integer.valueOf((String) request.getParameter("VIEW_SIZE")).intValue();
+    viewSize = Integer.valueOf((String) parameters.VIEW_SIZE).intValue();
 } catch (Exception e) {}
 listSize = 0;
-if (inventoryList != null)
+if (inventoryList)
     listSize = inventoryList.size();
 
 lowIndex = viewIndex * viewSize;
@@ -98,9 +84,9 @@ if (listSize < highIndex)
     highIndex = listSize;
 if( highIndex < 1 )
     highIndex = 0;
-context.put("viewIndex", viewIndex);
-context.put("listSize", listSize);
-context.put("highIndex", highIndex);
-context.put("lowIndex", lowIndex);
-context.put("viewSize", viewSize);
+context.viewIndex = viewIndex;
+context.listSize = listSize;
+context.highIndex = highIndex;
+context.lowIndex = lowIndex;
+context.viewSize = viewSize;
 

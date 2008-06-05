@@ -20,240 +20,209 @@
 // The only required parameter is "productionRunId".
 // The "actionForm" parameter triggers actions (see "ProductionRunSimpleEvents.xml").
 
-import java.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.base.util.*;
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.entity.GenericValue;
 import org.ofbiz.widget.html.HtmlFormWrapper;
 import org.ofbiz.manufacturing.jobshopmgt.ProductionRun;
 
 import javolution.util.FastList;
 
-userLogin = request.getAttribute("userLogin");
-
-
-productionRunId = request.getParameter("productionRunId");
-if (UtilValidate.isEmpty(productionRunId)) {
-    productionRunId = request.getParameter("workEffortId");
-}
-if (!UtilValidate.isEmpty(productionRunId)) {
+productionRunId = parameters.productionRunId ?: parameters.workEffortId;
+if (productionRunId) {
     ProductionRun productionRun = new ProductionRun(productionRunId, delegator, dispatcher);
     if (productionRun.exist()){
-        productionRunId = productionRun.getGenericValue().getString("workEffortId");
-        context.put("productionRunId", productionRunId);
-        context.put("productionRun", productionRun.getGenericValue());
+        productionRunId = productionRun.getGenericValue().workEffortId;
+        context.productionRunId = productionRunId;
+        context.productionRun = productionRun.getGenericValue();
 
         // Find all the order items to which this production run is linked.
-        List orderItems = delegator.findByAnd("WorkOrderItemFulfillment", UtilMisc.toMap("workEffortId", productionRunId));
-        if (orderItems.size() > 0) {
-            context.put("orderItems", orderItems);
+        orderItems = delegator.findByAnd("WorkOrderItemFulfillment", [workEffortId : productionRunId]);
+        if (orderItems) {
+            context.orderItems = orderItems;
         }
 
         // Find all the work efforts that must be completed before this one.
-        List mandatoryWorkEfforts = EntityUtil.filterByDate(delegator.findByAnd("WorkEffortAssoc", UtilMisc.toMap("workEffortIdTo", productionRunId, "workEffortAssocTypeId", "WORK_EFF_PRECEDENCY")));
-        if (mandatoryWorkEfforts.size() > 0) {
-            context.put("mandatoryWorkEfforts", mandatoryWorkEfforts);
+        mandatoryWorkEfforts = EntityUtil.filterByDate(delegator.findByAnd("WorkEffortAssoc", [workEffortIdTo : productionRunId, workEffortAssocTypeId : "WORK_EFF_PRECEDENCY"]));
+        if (mandatoryWorkEfforts) {
+            context.mandatoryWorkEfforts = mandatoryWorkEfforts;
         }
         // Find all the work efforts that can start after this one.
-        List dependentWorkEfforts = EntityUtil.filterByDate(delegator.findByAnd("WorkEffortAssoc", UtilMisc.toMap("workEffortIdFrom", productionRunId, "workEffortAssocTypeId", "WORK_EFF_PRECEDENCY")));
-        if (dependentWorkEfforts.size() > 0) {
-            context.put("dependentWorkEfforts", dependentWorkEfforts);
+        dependentWorkEfforts = EntityUtil.filterByDate(delegator.findByAnd("WorkEffortAssoc", [workEffortIdFrom : productionRunId, workEffortAssocTypeId : "WORK_EFF_PRECEDENCY"]));
+        if (dependentWorkEfforts) {
+            context.dependentWorkEfforts = dependentWorkEfforts;
         }
 
-        Double quantityToProduce = productionRun.getGenericValue().getDouble("quantityToProduce");
-        if (quantityToProduce == null) {
-            quantityToProduce = new Double(0);
-        }
+        Double quantityToProduce = productionRun.getGenericValue().getDouble("quantityToProduce") ?: new Double(0);
 
         // Find the inventory items produced
-        List inventoryItems = delegator.findByAnd("WorkEffortInventoryProduced", UtilMisc.toMap("workEffortId", productionRunId));
-        context.put("inventoryItems", inventoryItems);
-        if (UtilValidate.isNotEmpty(inventoryItems)) {
-            GenericValue lastWorkEffortInventoryProduced = (GenericValue)inventoryItems.get(inventoryItems.size() - 1);
-            GenericValue lastInventoryItem = lastWorkEffortInventoryProduced.getRelatedOne("InventoryItem");
-            context.put("lastLotId", lastInventoryItem.getString("lotId"));
+        inventoryItems = delegator.findByAnd("WorkEffortInventoryProduced", [workEffortId : productionRunId]);
+        context.inventoryItems = inventoryItems;
+        if (inventoryItems) {
+            lastWorkEffortInventoryProduced = (GenericValue)inventoryItems.get(inventoryItems.size() - 1);
+            lastInventoryItem = lastWorkEffortInventoryProduced.getRelatedOne("InventoryItem");
+            context.lastLotId = lastInventoryItem.lotId;
         }
 
         // Find if the production run can produce inventory.
-        Double quantityProduced = productionRun.getGenericValue().getDouble("quantityProduced");
-        if (quantityProduced == null) {
-            quantityProduced = new Double(0);
-        }
-        Double quantityRejected = productionRun.getGenericValue().getDouble("quantityRejected");
-        if (quantityRejected == null) {
-            quantityRejected = new Double(0);
-        }
-
-        GenericValue lastTask = productionRun.getLastProductionRunRoutingTask();
-        Double quantityDeclared = (lastTask != null? lastTask.getDouble("quantityProduced"): null);
-        if (quantityDeclared == null) {
-            quantityDeclared = new Double(0);
-        }
-        if (lastTask != null && ("PRUN_RUNNING".equals(lastTask.getString("currentStatusId")) || "PRUN_COMPLETED".equals(lastTask.getString("currentStatusId")))) {
-            context.put("canDeclareAndProduce", "Y");
+        Double quantityProduced = productionRun.getGenericValue().getDouble("quantityProduced") ?: new Double(0);
+        Double quantityRejected = productionRun.getGenericValue().getDouble("quantityRejected")?: new Double(0);
+        
+        lastTask = productionRun.getLastProductionRunRoutingTask();
+        Double quantityDeclared = (lastTask ? lastTask.getDouble("quantityProduced"): new Double(0));
+        
+        if (lastTask && ("PRUN_RUNNING".equals(lastTask.currentStatusId) || "PRUN_COMPLETED".equals(lastTask.currentStatusId))) {
+            context.canDeclareAndProduce = "Y";
         }
         double maxQuantity = quantityDeclared.doubleValue() - quantityProduced.doubleValue();
 
-        HashMap productionRunData = new HashMap();
-        productionRunData.put("workEffortId",productionRunId);
-        productionRunData.put("productId", productionRun.getProductProduced().getString("productId"));
-        if (maxQuantity > 0 && !"WIP".equals(productionRun.getProductProduced().getString("productTypeId"))) {
-            productionRunData.put("quantity", new Double(maxQuantity));
-            context.put("canProduce", "Y");
+        productionRunData = [:];
+        productionRunData.workEffortId = productionRunId;
+        productionRunData.productId = productionRun.getProductProduced().productId;
+        if (maxQuantity > 0 && !"WIP".equals(productionRun.getProductProduced().productTypeId)) {
+            productionRunData.quantity = new Double(maxQuantity);
+            context.canProduce = "Y";
         }
-        productionRunData.put("quantityToProduce", quantityToProduce);
-        productionRunData.put("quantityProduced", quantityProduced);
-        productionRunData.put("quantityRejected", quantityRejected);
-        productionRunData.put("quantityRemaining", new Double(quantityToProduce.doubleValue() - quantityProduced.doubleValue()));
-        productionRunData.put("estimatedCompletionDate", productionRun.getEstimatedCompletionDate());
-        productionRunData.put("productionRunName", productionRun.getProductionRunName());
-        productionRunData.put("description", productionRun.getDescription());
-        productionRunData.put("estimatedStartDate", productionRun.getEstimatedStartDate());
-        productionRunData.put("actualStartDate", productionRun.getGenericValue().getTimestamp("actualStartDate"));
-        productionRunData.put("actualCompletionDate", productionRun.getGenericValue().getTimestamp("actualCompletionDate"));
-        productionRunData.put("currentStatusId", productionRun.getGenericValue().getString("currentStatusId"));
+        productionRunData.quantityToProduce = quantityToProduce;
+        productionRunData.quantityProduced = quantityProduced;
+        productionRunData.quantityRejected = quantityRejected;
+        productionRunData.quantityRemaining = new Double(quantityToProduce.doubleValue() - quantityProduced.doubleValue());
+        productionRunData.estimatedCompletionDate = productionRun.getEstimatedCompletionDate();
+        productionRunData.productionRunName = productionRun.getProductionRunName();
+        productionRunData.description = productionRun.getDescription();
+        productionRunData.estimatedStartDate = productionRun.getEstimatedStartDate();
+        productionRunData.actualStartDate = productionRun.getGenericValue().getTimestamp("actualStartDate");
+        productionRunData.actualCompletionDate = productionRun.getGenericValue().getTimestamp("actualCompletionDate");
+        productionRunData.currentStatusId = productionRun.getGenericValue().currentStatusId;
 
-        context.put("productionRunData", productionRunData);
+        context.productionRunData = productionRunData;
 
-        actionForm = request.getParameter("actionForm");
-        if (UtilValidate.isEmpty(actionForm)) {
-            actionForm = "beforeActionProductionRun";
-        }
-        context.put("actionForm",actionForm);
+        actionForm = parameters.actionForm ?: "beforeActionProductionRun";
+        context.actionForm = actionForm;
         //---------------
         // Routing tasks
         //---------------
         // routingTask update sub-screen
-        routingTaskId = request.getParameter("routingTaskId");
-        if (routingTaskId != null  && (actionForm.equals("UpdateRoutingTask") || actionForm.equals("EditRoutingTask"))){
-            GenericValue routingTask = delegator.findByPrimaryKey("WorkEffort", UtilMisc.toMap("workEffortId", routingTaskId));
+        routingTaskId = parameters.routingTaskId;
+        if (routingTaskId && (actionForm.equals("UpdateRoutingTask") || actionForm.equals("EditRoutingTask"))){
+            routingTask = delegator.findByPrimaryKey("WorkEffort", [workEffortId : routingTaskId]);
             Map routingTaskData = routingTask.getAllFields();
-            routingTaskData.put("estimatedSetupMillis", routingTask.getDouble("estimatedSetupMillis"));
-            routingTaskData.put("estimatedMilliSeconds", routingTask.getDouble("estimatedMilliSeconds"));
+            routingTaskData.estimatedSetupMillis = routingTask.getDouble("estimatedSetupMillis");
+            routingTaskData.estimatedMilliSeconds = routingTask.getDouble("estimatedMilliSeconds");
             HtmlFormWrapper editPrRoutingTaskWrapper = new HtmlFormWrapper("component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml", "EditProductionRunDeclRoutingTask", request, response);
             editPrRoutingTaskWrapper.putInContext("routingTaskData", routingTaskData);
             editPrRoutingTaskWrapper.putInContext("actionForm", "UpdateRoutingTask");
-            routingTaskData.put("partyId", userLogin.getString("partyId"));
-            context.put("editPrRoutingTaskWrapper",editPrRoutingTaskWrapper);
-            context.put("routingTaskId",routingTaskId);
+            routingTaskData.partyId = userLogin.partyId;
+            context.editPrRoutingTaskWrapper = editPrRoutingTaskWrapper;
+            context.routingTaskId = routingTaskId;
             // Get the list of deliverable products, i.e. the WorkEffortGoodStandard entries
             // with workEffortGoodStdTypeId = "PRUNT_PROD_DELIV":
             // first of all we get the template task (the routing task)
-            GenericValue templateTaskAssoc = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("WorkEffortAssoc", UtilMisc.toMap("workEffortIdTo", routingTask.getString("workEffortId"), "workEffortAssocTypeId", "WORK_EFF_TEMPLATE"))));
-            GenericValue templateTask = null;
-            if (templateTaskAssoc != null) {
+            templateTaskAssoc = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("WorkEffortAssoc", [workEffortIdTo : routingTask.workEffortId, workEffortAssocTypeId : "WORK_EFF_TEMPLATE"])));
+            templateTask = [:];
+            if (templateTaskAssoc) {
                 templateTask = templateTaskAssoc.getRelatedOne("FromWorkEffort");
             }
-            List delivProducts = null;
-            if (templateTask != null) {
-                delivProducts = EntityUtil.filterByDate(templateTask.getRelatedByAnd("WorkEffortGoodStandard", UtilMisc.toMap("workEffortGoodStdTypeId", "PRUNT_PROD_DELIV")));
+            delivProducts = [];
+            if (templateTask) {
+                delivProducts = EntityUtil.filterByDate(templateTask.getRelatedByAnd("WorkEffortGoodStandard", [workEffortGoodStdTypeId : "PRUNT_PROD_DELIV"]));
             }
             HtmlFormWrapper createRoutingTaskDelivProductForm = new HtmlFormWrapper("component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml", "CreateRoutingTaskDelivProduct", request, response);
-            createRoutingTaskDelivProductForm.putInContext("formData", UtilMisc.toMap("productionRunId", productionRunId, "workEffortId", routingTaskId));
-            context.put("createRoutingTaskDelivProductForm", createRoutingTaskDelivProductForm);
-            context.put("delivProducts", delivProducts);
+            createRoutingTaskDelivProductForm.putInContext("formData", [productionRunId : productionRunId, workEffortId : routingTaskId]);
+            context.createRoutingTaskDelivProductForm = createRoutingTaskDelivProductForm;
+            context.delivProducts = delivProducts;
             // Get the list of delivered products, i.e. inventory items
-            List prunInventoryProduced = delegator.findByAnd("WorkEffortAndInventoryProduced", UtilMisc.toMap("workEffortId", routingTaskId));
-            context.put("prunInventoryProduced", prunInventoryProduced);
+            prunInventoryProduced = delegator.findByAnd("WorkEffortAndInventoryProduced", [workEffortId : routingTaskId]);
+            context.prunInventoryProduced = prunInventoryProduced;
             HtmlFormWrapper prunInventoryProducedForm = new HtmlFormWrapper("component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml", "ProductionRunTaskInventoryProducedList", request, response);
             prunInventoryProducedForm.putInContext("prunInventoryProduced", prunInventoryProduced);
-            context.put("prunInventoryProducedForm", prunInventoryProducedForm);
+            context.prunInventoryProducedForm = prunInventoryProducedForm;
         }
 
         //  RoutingTasks list
         List productionRunRoutingTasks = productionRun.getProductionRunRoutingTasks();
-        Iterator tasksIt = productionRunRoutingTasks.iterator();
         String startTaskId = null;   // which production run task is ready to start and has the [Start] buton next to it
         String issueTaskId = null;   // which production run task is ready to have products issued with [Issue Components] button
         String completeTaskId = null;   // which task has the [Complete] button next to it
-        while (tasksIt.hasNext()) {
-            GenericValue task = (GenericValue)tasksIt.next();
+        productionRunRoutingTasks.each { task ->
             // only PRUN_RUNNING tasks can have items issued or production run completed
-            if (task.getString("currentStatusId").equals("PRUN_RUNNING")) {
+            if ("PRUN_RUNNING".equals(task.currentStatusId)) {
                 // Use WorkEffortGoodStandard to figure out if there are products which are needed for this task (PRUNT_PRODNEEDED) and which have not been issued (ie, WEGS_CREATED).
                 // If so this task should have products issued
-                List components = delegator.findByAnd("WorkEffortGoodStandard", UtilMisc.toMap("workEffortId", task.getString("workEffortId"), "workEffortGoodStdTypeId", "PRUNT_PROD_NEEDED"));
-                List notIssued = EntityUtil.filterByAnd(components, UtilMisc.toMap("statusId", "WEGS_CREATED"));
-                if (components.size() > 0 && notIssued.size() > 0) {
-                    issueTaskId = task.getString("workEffortId");
+                components = delegator.findByAnd("WorkEffortGoodStandard", [workEffortId : task.workEffortId, workEffortGoodStdTypeId : "PRUNT_PROD_NEEDED"]);
+                List notIssued = EntityUtil.filterByAnd(components, [statusId : "WEGS_CREATED"]);
+                if (components && notIssued) {
+                    issueTaskId = task.workEffortId;
                 }
-                if (issueTaskId == null) {
-                    completeTaskId = task.getString("workEffortId");
+                if (!issueTaskId) {
+                    completeTaskId = task.workEffortId;
                 }
             }
 
             // the first CREATED and SCHEDULED task will be the startTaskId.  As the issue and complete tasks are filled out this condition will no longer be true
-            if (startTaskId == null &&
-                  issueTaskId == null &&
-                  completeTaskId == null &&
-                  ("PRUN_CREATED".equals(task.getString("currentStatusId")) ||
-                   "PRUN_SCHEDULED".equals(task.getString("currentStatusId")))) {
-                startTaskId = task.getString("workEffortId");
+            if (!startTaskId &&
+                  !issueTaskId &&
+                  !completeTaskId &&
+                  ("PRUN_CREATED".equals(task.currentStatusId) ||
+                   "PRUN_SCHEDULED".equals(task.currentStatusId))) {
+                startTaskId = task.workEffortId;
             }
         }
-        context.put("productionRunRoutingTasks", productionRunRoutingTasks);
-        context.put("startTaskId", (startTaskId != null? startTaskId: "null"));
-        context.put("issueTaskId", (issueTaskId != null? issueTaskId: "null"));
-        context.put("completeTaskId", (completeTaskId != null? completeTaskId: "null"));
+        context.productionRunRoutingTasks = productionRunRoutingTasks;
+        context.startTaskId = (startTaskId ? startTaskId: "null");
+        context.issueTaskId = (issueTaskId? issueTaskId: "null");
+        context.completeTaskId = (completeTaskId != null? completeTaskId: "null");
 
         //  Product components list
-        List productionRunComponents = productionRun.getProductionRunComponents();
-        List productionRunComponentsData = FastList.newInstance();
-        List productionRunComponentsDataReadyForIssuance = FastList.newInstance();
-        List productionRunComponentsAlreadyIssued = FastList.newInstance();
-        if (productionRunComponents != null){
-            GenericValue component;
-            for (Iterator iter=productionRunComponents.iterator(); iter.hasNext();){
-                component = (GenericValue) iter.next();
-                GenericValue product = component.getRelatedOne("Product");
-                String componentName = product.getString("internalName");
-                GenericValue productionRunTask = component.getRelatedOne("WorkEffort");
-                String workEffortName = productionRunTask.getString("workEffortName");
+        productionRunComponents = productionRun.getProductionRunComponents();
+        productionRunComponentsData = FastList.newInstance();
+        productionRunComponentsDataReadyForIssuance = FastList.newInstance();
+        productionRunComponentsAlreadyIssued = FastList.newInstance();
+        if (productionRunComponents){
+            productionRunComponents.each { component ->
+                product = component.getRelatedOne("Product");
+                componentName = product.getString("internalName");
+                productionRunTask = component.getRelatedOne("WorkEffort");
+                workEffortName = productionRunTask.getString("workEffortName");
                 Map componentData = component.getAllFields();
-                componentData.put("internalName", componentName);
-                componentData.put("workEffortName", workEffortName);
-                componentData.put("facilityId", productionRunTask.getString("facilityId"));
-                Iterator issuances = (delegator.findByAnd("WorkEffortAndInventoryAssign", UtilMisc.toMap("workEffortId", component.getString("workEffortId"), "productId", product.getString("productId")))).iterator();
+                componentData.internalName = componentName;
+                componentData.workEffortName = workEffortName;
+                componentData.facilityId = productionRunTask.facilityId;
+                issuances = delegator.findByAnd("WorkEffortAndInventoryAssign", [workEffortId : component.workEffortId, productId : product.productId]);
                 double totalIssued = 0.0;
-                while (issuances.hasNext()) {
-                    GenericValue issuance = (GenericValue)issuances.next();
+                issuances.each { issuance ->
                     Double issued = issuance.getDouble("quantity");
-                    if (issued != null) {
+                    if (issued) {
                         totalIssued += issued.doubleValue();
                     }
                 }
-                Iterator returns = (delegator.findByAnd("WorkEffortAndInventoryProduced", UtilMisc.toMap("workEffortId", component.getString("workEffortId"), "productId", product.getString("productId")))).iterator();
+                returns = delegator.findByAnd("WorkEffortAndInventoryProduced", [workEffortId : component.workEffortId , productId : product.productId]);
                 double totalReturned = 0.0;
-                while (returns.hasNext()) {
-                    GenericValue returned = (GenericValue)returns.next();
-                    GenericValue returnDetail = EntityUtil.getFirst(delegator.findByAnd("InventoryItemDetail", UtilMisc.toMap("inventoryItemId", returned.getString("inventoryItemId")), UtilMisc.toList("inventoryItemDetailSeqId")));
-                    if (returnDetail != null) {
+                returns.each { returned ->
+                    returnDetail = EntityUtil.getFirst(delegator.findByAnd("InventoryItemDetail", [inventoryItemId : returned.inventoryItemId], ["inventoryItemDetailSeqId"]));
+                    if (returnDetail) {
                         Double qtyReturned = returnDetail.getDouble("quantityOnHandDiff");
-                        if (qtyReturned != null) {
+                        if (qtyReturned) {
                             totalReturned += qtyReturned.doubleValue();
                         }
                     }
                 }
-                componentData.put("issuedQuantity", totalIssued);
-                componentData.put("returnedQuantity", totalReturned);
-                componentData.put("currentStatusId", productionRunTask.getString("currentStatusId"));
-                if (productionRunTask.getString("currentStatusId").equals("PRUN_RUNNING")) {
-                    componentData.put("isRunning", "Y");
+                componentData.issuedQuantity = totalIssued;
+                componentData.returnedQuantity = totalReturned;
+                componentData.currentStatusId = productionRunTask.currentStatusId;
+                if ("PRUN_RUNNING".equals(productionRunTask.currentStatusId)) {
+                    componentData.isRunning = "Y";
                 } else {
-                    componentData.put("isRunning", "null");
+                    componentData.isRunning = "null";
                 }
                 productionRunComponentsData.add(componentData);
-                if (productionRunTask.getString("currentStatusId").equals("PRUN_RUNNING") && "WEGS_CREATED".equals(component.getString("statusId"))) {
+                if ("PRUN_RUNNING".equals(productionRunTask.currentStatusId) && "WEGS_CREATED".equals(component.getString("statusId"))) {
                     productionRunComponentsDataReadyForIssuance.add(componentData);
                 } else if (totalIssued > 0.0) {
                     productionRunComponentsAlreadyIssued.add(componentData);
                 }
             }
         }
-        context.put("productionRunComponentsData", productionRunComponentsData);
-        context.put("productionRunComponentsDataReadyForIssuance", productionRunComponentsDataReadyForIssuance);
-        context.put("productionRunComponentsAlreadyIssued", productionRunComponentsAlreadyIssued);
+        context.productionRunComponentsData = productionRunComponentsData;
+        context.productionRunComponentsDataReadyForIssuance = productionRunComponentsDataReadyForIssuance;
+        context.productionRunComponentsAlreadyIssued = productionRunComponentsAlreadyIssued;
     }
 }

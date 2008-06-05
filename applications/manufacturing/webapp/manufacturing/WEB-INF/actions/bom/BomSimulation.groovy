@@ -17,58 +17,50 @@
  * under the License.
  */
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
-
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.manufacturing.bom.BOMNode;
 
 tree = request.getAttribute("tree");
-String currencyUomId = request.getParameter("currencyUomId");
-String facilityId = request.getParameter("facilityId");
+currencyUomId = parameters.currencyUomId;
+facilityId = parameters.facilityId;
 
-if (tree != null) {
-    List treeArray = new ArrayList();
-    Map treeQty = new HashMap();
+if (tree) {
+    treeArray = [];
+    treeQty = [:];
 
     tree.print(treeArray);
     tree.sumQuantities(treeQty);
 
-    context.put("tree", treeArray);
+    context.tree = treeArray;
     Iterator treeQtyIt = treeQty.values().iterator();
-    List productsData = new ArrayList();
+    productsData = [];
     Double grandTotalCost = null;
-    while (treeQtyIt.hasNext()) {
+    while (treeQtyIt) {
         BOMNode node = (BOMNode)treeQtyIt.next();
         Double unitCost = null;
         Double totalCost = null;
         Double qoh = null;
         // The standard cost is retrieved
         try {
-            Map outMap = null;
-            if (UtilValidate.isNotEmpty(currencyUomId)) {
-                outMap = dispatcher.runSync("getProductCost", UtilMisc.toMap("productId", node.getProduct().getString("productId"),
-                                                                             "currencyUomId", currencyUomId,
-                                                                             "costComponentTypePrefix", "EST_STD",
-                                                                             "userLogin", userLogin));
-                unitCost = (Double)outMap.get("productCost");
+            outMap = [:];
+            if (currencyUomId) {
+                outMap = dispatcher.runSync("getProductCost", [productId : node.getProduct().productId,
+                                                                             currencyUomId : currencyUomId,
+                                                                             costComponentTypePrefix : "EST_STD",
+                                                                             userLogin : userLogin]);
+                unitCost = (Double)outMap.productCost;
                 totalCost = unitCost * node.getQuantity();
-                if (grandTotalCost == null) {
-                    grandTotalCost = 0;
-                }
-                grandTotalCost = grandTotalCost + totalCost;
+                grandTotalCost = grandTotalCost + totalCost ?: 0;
             }
-            if (UtilValidate.isNotEmpty(facilityId)) {
-                outMap = dispatcher.runSync("getInventoryAvailableByFacility", UtilMisc.toMap("productId", node.getProduct().getString("productId"),
-                                                                                              "facilityId", facilityId,
-                                                                                              "userLogin", userLogin));
-                qoh = (Double)outMap.get("quantityOnHandTotal");
+            if (facilityId) {
+                outMap = dispatcher.runSync("getInventoryAvailableByFacility", [productId : node.getProduct().productId,
+                                                                                              facilityId : facilityId,
+                                                                                              userLogin : userLogin]);
+                qoh = (Double)outMap.quantityOnHandTotal;
             }
         } catch(Exception e) {}
-        productsData.add(UtilMisc.toMap("node", node, "unitCost", unitCost, "totalCost", totalCost, "qoh", qoh));
+        productsData.add([node : node, unitCost : unitCost, totalCost : totalCost, qoh : qoh]);
     }
-    context.put("productsData", productsData);
-    context.put("grandTotalCost", grandTotalCost);
+    context.productsData = productsData;
+    context.grandTotalCost = grandTotalCost;
 }

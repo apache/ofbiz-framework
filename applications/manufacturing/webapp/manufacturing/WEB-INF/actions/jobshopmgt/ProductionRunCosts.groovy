@@ -17,31 +17,15 @@
  * under the License.
  */
 
-import java.util.List;
-import java.util.Iterator;
-import java.util.ArrayList;
-//import java.util.HashMap;
-
-import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.widget.html.HtmlFormWrapper;
 
-
-productionRunId = request.getParameter("productionRunId");
-if (UtilValidate.isEmpty(productionRunId)) {
-    productionRunId = request.getParameter("workEffortId");
-}
-
-List taskCosts = new ArrayList();
-List tasks = delegator.findByAnd("WorkEffort", UtilMisc.toMap("workEffortParentId", productionRunId, "workEffortTypeId", "PROD_ORDER_TASK"), UtilMisc.toList("workEffortId"));
-Iterator tasksIt = tasks.iterator();
-while (tasksIt.hasNext()) {
-    GenericValue task = (GenericValue)tasksIt.next();
-    List costs = EntityUtil.filterByDate(delegator.findByAnd("CostComponent", UtilMisc.toMap("workEffortId", task.getString("workEffortId"))));
+productionRunId = parameters.productionRunId ?: parameters.workEffortId;
+taskCosts = [];
+tasks = delegator.findByAnd("WorkEffort", [workEffortParentId : productionRunId, workEffortTypeId : "PROD_ORDER_TASK"], ["workEffortId"]);
+tasks.each { task ->
+    costs = EntityUtil.filterByDate(delegator.findByAnd("CostComponent", [workEffortId : task.workEffortId]));
     HtmlFormWrapper taskCostsForm = new HtmlFormWrapper("component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml", "ProductionRunTaskCosts", request, response);
     taskCostsForm.putInContext("taskCosts", costs);
-    taskCosts.add(UtilMisc.toMap("task", task, "costsForm", taskCostsForm));
+    taskCosts.add([task : task ,costsForm : taskCostsForm]);
 }
-context.put("taskCosts", taskCosts);
+context.taskCosts = taskCosts;

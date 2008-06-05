@@ -17,30 +17,16 @@
  * under the License.
  */
 
-import java.util.List;
-import java.util.Iterator;
-import java.util.ArrayList;
-
-import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.widget.html.HtmlFormWrapper;
 
+productionRunId = parameters.productionRunId ?: parameters.workEffortId;
 
-productionRunId = request.getParameter("productionRunId");
-if (UtilValidate.isEmpty(productionRunId)) {
-    productionRunId = request.getParameter("workEffortId");
-}
-
-List taskInfos = new ArrayList();
-List tasks = delegator.findByAnd("WorkEffort", UtilMisc.toMap("workEffortParentId", productionRunId, "workEffortTypeId", "PROD_ORDER_TASK"), UtilMisc.toList("workEffortId"));
-Iterator tasksIt = tasks.iterator();
-while (tasksIt.hasNext()) {
-    GenericValue task = (GenericValue)tasksIt.next();
-    List records = task.getRelated("WorkEffortFixedAssetAssign");
+taskInfos = [];
+tasks = delegator.findByAnd("WorkEffort", [workEffortParentId : productionRunId, workEffortTypeId : "PROD_ORDER_TASK"], ["workEffortId"]);
+tasks.each { task ->
+    records = task.getRelated("WorkEffortFixedAssetAssign");
     HtmlFormWrapper taskForm = new HtmlFormWrapper("component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml", "ProductionRunTaskFixedAssets", request, response);
     taskForm.putInContext("records", records);
-    taskInfos.add(UtilMisc.toMap("task", task, "taskForm", taskForm));
+    taskInfos.add([task : task, taskForm : taskForm]);
 }
-context.put("taskInfos", taskInfos);
+context.taskInfos = taskInfos;
