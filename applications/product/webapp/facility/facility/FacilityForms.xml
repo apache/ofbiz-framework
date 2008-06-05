@@ -38,16 +38,13 @@ under the License.
         <field name="ownerPartyId" title="${uiLabelMap.ProductFacilityOwner}"><display/></field>
         <field name="squareFootage" title="${uiLabelMap.ProductSqFt}"><display/></field>
         <field name="description"><display/></field>
-<!-- Is this needed? It duplicates the first field.
-        <field name="editLink" widget-style="buttontext" title="${uiLabelMap.CommonEmptyHeader}">
-            <hyperlink target="EditFacility?facilityId=${facilityId}" description="${uiLabelMap.CommonEdit}"/>
-        </field>
--->
         <on-event-update-area event-type="paginate" area-id="search-results" area-target="FacilitySearchResults"/>
     </form>
+
     <form name="FindFacilityOptions" extends="lookupFacility" extends-resource="component://product/webapp/facility/lookup/FieldLookupForms.xml" target="FindFacility">
         <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
+
     <form name="SearchInventoryItemsParams" type="single" target="EditFacilityInventoryItems"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="facilityId">
