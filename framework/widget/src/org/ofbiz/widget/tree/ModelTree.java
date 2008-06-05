@@ -431,6 +431,7 @@ public class ModelTree extends ModelWidget {
                             String thisPkName = node.getPkName();
                             String thisEntityId = (String) val.get(thisPkName);
                             MapStack<String> newContext = MapStack.create(context);
+                            newContext.push();
                             String nodeEntryName = node.getEntryName();
                             if (UtilValidate.isNotEmpty(nodeEntryName)) {
                                 newContext.put(nodeEntryName, val);                        
