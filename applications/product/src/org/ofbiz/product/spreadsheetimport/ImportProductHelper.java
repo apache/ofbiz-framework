@@ -17,7 +17,7 @@
  * under the License.
  *******************************************************************************/
 
-package org.ofbiz.poi;
+package org.ofbiz.product.spreadsheetimport;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,9 +28,9 @@ import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 
-public class FileImportHelper {
+public class ImportProductHelper {
 
-    static String module = FileImportHelper.class.getName();
+    static String module = ImportProductHelper.class.getName();
 
     // prepare the product map
     public static Map prepareProduct(String productId) {
