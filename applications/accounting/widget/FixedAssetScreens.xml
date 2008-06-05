@@ -111,6 +111,7 @@ under the License.
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="noConditionFind" value="Y"/>
             </actions>
             <widgets>
                 <include-form name="ListFixedAssets" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
@@ -178,42 +179,72 @@ under the License.
     </screen>
  
     <!-- provide a calendar to show occupation-->
-    <screen name="ListFixedAssetCalendar">
+    <screen name="CommonCalendarDecorator">
         <section>
             <actions>
-                <set field="layoutSettings.styleSheets[]" value="/images/calendarTable.css" global="true"/>
-                <set field="titleProperty" value="PageTitleListFixedAssetCalendar"/>
                 <set field="tabButtonItem" value="ListFixedAssetCalendar"/>
-                <set field="labelTitleProperty" value="AccountingFixedAssetCalendar"/>
-                <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/fixedasset/ViewCalendar.groovy"/>
                 <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
-                <script location="component://accounting/webapp/accounting/WEB-INF/actions/fixedasset/month.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.fixedAssetDecoratorLocation}">
+                <decorator-screen name="CommonFixedAssetDecorator" location="component://accounting/widget/FixedAssetScreens.xml">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleListFixedAssetCalendar}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <container style="button-bar">
-                                            <link target="ListFixedAssetCalendar?productId=${parameters.productId}&amp;fixedAssetId=${fixedAssetId}&amp;month=-3" text="${uiLabelMap.CommonPrevious} ${uiLabelMap.CommonQuarter}" style="buttontext"/>
-                                            <link target="ListFixedAssetCalendar?productId=${parameters.productId}&amp;fixedAssetId=${fixedAssetId}&amp;month=-1" text="${uiLabelMap.CommonPrevious} ${uiLabelMap.CommonMonth}" style="buttontext"/>
-                                            <link target="ListFixedAssetCalendar?productId=${parameters.productId}&amp;fixedAssetId=${fixedAssetId}" text="${uiLabelMap.CommonThis} ${uiLabelMap.CommonMonth}" style="buttontext"/>
-                                            <link target="ListFixedAssetCalendar?productId=${parameters.productId}&amp;fixedAssetId=${fixedAssetId}&amp;month=1" text="${uiLabelMap.CommonNext} ${uiLabelMap.CommonMonth}" style="buttontext"/>
-                                            <link target="ListFixedAssetCalendar?productId=${parameters.productId}&amp;fixedAssetId=${fixedAssetId}&amp;month=3" text="${uiLabelMap.CommonNext} ${uiLabelMap.CommonQuarter}" style="buttontext"/>
-                                        </container>
-                                        <include-form name="listFixedAssetCalendar" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
-                                        <label text="${uiLabelMap.AccountingFixedAssetMessage1}"></label>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <include-menu name="FixedAssetCalendarTabBar" location="component://accounting/widget/Menus.xml"/>
+                        <decorator-section-include name="body"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="CalendarDay">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleCalendarDay"/>
+                <set field="parameters.viewMode" value="D"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonCalendarDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://workeffort/webapp/workeffort/calendar/day.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="CalendarWeek">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleCalendarWeek"/>
+                <set field="parameters.viewMode" value="W"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonCalendarDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://workeffort/webapp/workeffort/calendar/week.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="CalendarMonth">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleCalendarMonth"/>
+                <set field="parameters.viewMode" value="M"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonCalendarDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://workeffort/webapp/workeffort/calendar/month.ftl"/></html>
+                        </platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
