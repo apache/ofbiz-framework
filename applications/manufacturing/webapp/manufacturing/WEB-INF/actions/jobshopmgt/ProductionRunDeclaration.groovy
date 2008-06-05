@@ -20,6 +20,7 @@
 // The only required parameter is "productionRunId".
 // The "actionForm" parameter triggers actions (see "ProductionRunSimpleEvents.xml").
 
+import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.widget.html.HtmlFormWrapper;
 import org.ofbiz.manufacturing.jobshopmgt.ProductionRun;
@@ -63,11 +64,11 @@ if (productionRunId) {
         }
 
         // Find if the production run can produce inventory.
-        Double quantityProduced = productionRun.getGenericValue().getDouble("quantityProduced") ?: new Double(0);
+        Double quantityProduced = productionRun.getGenericValue().getDouble("quantityProduced")?: new Double(0);
         Double quantityRejected = productionRun.getGenericValue().getDouble("quantityRejected")?: new Double(0);
         
         lastTask = productionRun.getLastProductionRunRoutingTask();
-        Double quantityDeclared = (lastTask ? lastTask.getDouble("quantityProduced"): new Double(0));
+        Double quantityDeclared = (lastTask ? (lastTask.getDouble("quantityProduced")?: new Double(0)): new Double(0));
         
         if (lastTask && ("PRUN_RUNNING".equals(lastTask.currentStatusId) || "PRUN_COMPLETED".equals(lastTask.currentStatusId))) {
             context.canDeclareAndProduce = "Y";

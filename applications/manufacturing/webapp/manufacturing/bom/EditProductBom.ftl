@@ -252,7 +252,7 @@ function lookupBom() {
         <td>&nbsp;</td>
       </tr>
     <#assign alt_row = false>
-    <#list assocFromProducts as assocFromProduct>
+    <#list assocFromProducts?if_exists as assocFromProduct>
     <#assign listToProduct = assocFromProduct.getRelatedOneCache("AssocProduct")>
     <#assign curProductAssocType = assocFromProduct.getRelatedOneCache("ProductAssocType")>
       <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
@@ -300,7 +300,7 @@ function lookupBom() {
             <td>&nbsp;</td>
         </tr>
         <#assign alt_row = false>
-        <#list assocToProducts as assocToProduct>
+        <#list assocToProducts?if_exists as assocToProduct>
         <#assign listToProduct = assocToProduct.getRelatedOneCache("MainProduct")>
         <#assign curProductAssocType = assocToProduct.getRelatedOneCache("ProductAssocType")>
         <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
