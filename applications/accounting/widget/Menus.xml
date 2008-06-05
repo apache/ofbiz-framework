@@ -358,6 +358,7 @@ under the License.
             <link target="printChecks.pdf?paymentId=${payment.paymentId}"/>
         </menu-item>
     </menu>
+
     <menu name="FixedAssetMaintTabBar" selected-menuitem-context-field-name="tabButtonItemFixedAssetMaint" default-menu-item-name="EditFixedAssetMaint"
         menu-container-style="button-bar tab-bar" type="simple">
         <menu-item name="EditFixedAssetMaint" title="${uiLabelMap.AccountingFixedAssetMaint}">
@@ -369,7 +370,8 @@ under the License.
         <menu-item name="EditFixedAssetMaintOrders" title="${uiLabelMap.AccountingFixedAssetMaintOrders}">
             <link target="EditFixedAssetMaintOrders?fixedAssetId=${fixedAssetMaint.fixedAssetId}&amp;maintHistSeqId=${fixedAssetMaint.maintHistSeqId}"/>
         </menu-item>
-    </menu>  
+    </menu>
+
     <menu name="FixedAssetTabBar" default-menu-item-name="EditFixedAsset" default-selected-style="selected"
         menu-container-style="button-bar tab-bar" type="simple" selected-menuitem-context-field-name="tabButtonItem">
         <menu-item name="EditFixedAsset" title="${uiLabelMap.AccountingFixedAsset}">
@@ -382,7 +384,7 @@ under the License.
             <link target="ListFixedAssetProducts?fixedAssetId=${fixedAssetId}"/>
         </menu-item>
         <menu-item name="ListFixedAssetCalendar" title="${uiLabelMap.AccountingFixedAssetCalendar}">
-            <link target="ListFixedAssetCalendar?fixedAssetId=${fixedAssetId}"/>
+            <link target="FixedAssetMonth?fixedAssetId=${fixedAssetId}"/>
         </menu-item>
         <menu-item name="EditFixedAssetStdCosts" title="${uiLabelMap.AccountingFixedAssetStdCosts}">
             <link target="EditFixedAssetStdCosts?fixedAssetId=${fixedAssetId}"/>
@@ -402,9 +404,21 @@ under the License.
         <menu-item name="FixedAssetDepreciation" title="${uiLabelMap.AccountingFixedAssetDepreciation}">
             <link target="showFixedAssetDepreciation?fixedAssetId=${fixedAssetId}"/>
         </menu-item>
-
     </menu>
     
+    <menu name="FixedAssetCalendarTabBar" selected-menuitem-context-field-name="parameters.viewMode"
+         type="simple" default-selected-style="selected" menu-container-style="button-bar tab-bar">
+        <menu-item name="D" title="${uiLabelMap.CommonDay}">
+            <link target="FixedAssetDay?fixedAssetId=${fixedAssetId}"/>
+        </menu-item>
+        <menu-item name="W" title="${uiLabelMap.CommonWeek}">
+            <link target="FixedAssetWeek?fixedAssetId=${fixedAssetId}"/>
+        </menu-item>
+        <menu-item name="M" title="${uiLabelMap.CommonMonth}">
+            <link target="FixedAssetMonth?fixedAssetId=${fixedAssetId}"/>
+        </menu-item>
+    </menu>
+
     <menu name="FinAccountTabBar" default-menu-item-name="EditFinAccount" default-selected-style="selected"
         menu-container-style="button-bar tab-bar" type="simple" selected-menuitem-context-field-name="tabButtonItem">  
         <menu-item name="EditFinAccount" title="${uiLabelMap.AccountingFinAccount}">
