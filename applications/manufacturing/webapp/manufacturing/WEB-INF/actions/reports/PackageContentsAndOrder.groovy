@@ -20,57 +20,50 @@
 // PackageContentsAndOrder
 // ReportB
 
-import java.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.util.*;
+import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.order.order.OrderContentWrapper;
-import org.ofbiz.product.category.CategoryWorker;
 
-if (!UtilValidate.isEmpty(productCategoryIdPar)) {
-    category = delegator.findByPrimaryKey("ProductCategory", UtilMisc.toMap("productCategoryId", productCategoryIdPar));
-    context.put("category", category);
+if (productCategoryIdPar) {
+    category = delegator.findByPrimaryKey("ProductCategory", [productCategoryId : productCategoryIdPar]);
+    context.category = category;
 }
-if (!UtilValidate.isEmpty(productFeatureTypeIdPar)) {
-    featureType = delegator.findByPrimaryKey("ProductFeatureType", UtilMisc.toMap("productFeatureTypeId", productFeatureTypeIdPar));
-    context.put("featureType", featureType);
+if (productFeatureTypeIdPar) {
+    featureType = delegator.findByPrimaryKey("ProductFeatureType", [productFeatureTypeId : productFeatureTypeIdPar]);
+    context.featureType = featureType;
 }
-packageContents = delegator.findByAnd("ShipmentPackageContent", UtilMisc.toMap("shipmentId", shipmentId));
+packageContents = delegator.findByAnd("ShipmentPackageContent", [shipmentId : shipmentId]);
 
-Map packagesMap = new HashMap();
-if (packageContents != null) {
-    packageContentsIt = packageContents.iterator();
-    while (packageContentsIt.hasNext()) {
-        packageContent = packageContentsIt.next();
-
-        orderShipments = delegator.findByAnd("OrderShipment", UtilMisc.toMap("shipmentId", shipmentId, "shipmentItemSeqId", packageContent.getString("shipmentItemSeqId")));
+packagesMap = [:];
+if (packageContents) {
+    packageContents.each { packageContent ->
+        orderShipments = delegator.findByAnd("OrderShipment", [shipmentId : shipmentId, shipmentItemSeqId : packageContent.shipmentItemSeqId]);
         orderShipment = EntityUtil.getFirst(orderShipments);
-        orderItem = delegator.findByPrimaryKey("OrderItem", UtilMisc.toMap("orderId", orderShipment.getString("orderId"), "orderItemSeqId", orderShipment.getString("orderItemSeqId")));
+        orderItem = delegator.findByPrimaryKey("OrderItem", [orderId : orderShipment.orderId, orderItemSeqId : orderShipment.orderItemSeqId]);
         product = orderItem.getRelatedOne("Product");
         // verify if the product is a member of the given category (based on the report's parameter)
-        if (!UtilValidate.isEmpty(productCategoryIdPar)) {
-            if (!isProductInCategory(delegator, product.getString("productId"), productCategoryIdPar)) {
+        if (productCategoryIdPar) {
+            if (!isProductInCategory(delegator, product.productId, productCategoryIdPar)) {
                 // the production run's product is not a member of the given category, skip it
                 continue;
             }
         }
 
-        if (!packagesMap.containsKey(packageContent.getString("shipmentPackageSeqId"))) {
-            OrderReadHelper orh = new OrderReadHelper(delegator, orderItem.getString("orderId"));
-            packagesMap.put(packageContent.getString("shipmentPackageSeqId"),
-                            UtilMisc.toMap("packageId", packageContent.getString("shipmentPackageSeqId"),
-                                           "party", orh.getPlacingParty(),
-                                           "address", orh.getShippingAddress(),
-                                           "orderHeader", orh.getOrderHeader(),
-                                           "orderShipment", orderShipment,
-                                           "components", new ArrayList()));
+        if (!packagesMap.containsKey(packageContent.shipmentPackageSeqId)) {
+            OrderReadHelper orh = new OrderReadHelper(delegator, orderItem.orderId);
+            packagesMap.put(packageContent.shipmentPackageSeqId,
+                            [packageId : packageContent.shipmentPackageSeqId,
+                             party : orh.getPlacingParty(),
+                             address : orh.getShippingAddress(),
+                             orderHeader : orh.getOrderHeader(),
+                             orderShipment : orderShipment,
+                             components : []]);
         }
         OrderContentWrapper orderContentWrapper = OrderContentWrapper.makeOrderContentWrapper(orderItem, request);
-        String imageUrl = orderContentWrapper.get("IMAGE_URL");
-        packageMap = (Map)packagesMap.get(packageContent.getString("shipmentPackageSeqId"));
-        components = (List)packageMap.get("components");
-        components.add(UtilMisc.toMap("product", product, "orderItem", orderItem, "imageUrl", imageUrl));
+        String imageUrl = orderContentWrapper.IMAGE_URL;
+        packageMap = (Map)packagesMap.packageContent.shipmentPackageSeqId;
+        components = (List)packageMap.components;
+        components.add([product : product, orderItem : orderItem, imageUrl : imageUrl]);
     }
 }
-context.put("packages", packagesMap.values());
+context.packages = packagesMap.values();

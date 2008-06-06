@@ -20,69 +20,63 @@
 // PRunsProductsByFeature
 // ReportE
 
-import java.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.util.*;
-import org.ofbiz.product.category.CategoryWorker;
+import org.ofbiz.entity.util.EntityUtil;
 
-if (!UtilValidate.isEmpty(productCategoryIdPar)) {
-    category = delegator.findByPrimaryKey("ProductCategory", UtilMisc.toMap("productCategoryId", productCategoryIdPar));
-    context.put("category", category);
+if (productCategoryIdPar) {
+    category = delegator.findByPrimaryKey("ProductCategory", [productCategoryId : productCategoryIdPar]);
+    context.category = category;
 }
-if (!UtilValidate.isEmpty(productFeatureTypeIdPar)) {
-    featureType = delegator.findByPrimaryKey("ProductFeatureType", UtilMisc.toMap("productFeatureTypeId", productFeatureTypeIdPar));
-    context.put("featureType", featureType);
+if (productFeatureTypeIdPar) {
+    featureType = delegator.findByPrimaryKey("ProductFeatureType", [productFeatureTypeId : productFeatureTypeIdPar]);
+    context.featureType = featureType;
 }
 
-allProductionRuns = delegator.findByAnd("WorkEffortAndGoods", UtilMisc.toMap("workEffortName", planName), UtilMisc.toList("productId"));
-productionRuns = new ArrayList();
-features = new HashMap();
-if (UtilValidate.isEmpty(productFeatureTypeIdPar)) {
+allProductionRuns = delegator.findByAnd("WorkEffortAndGoods", [workEffortName : planName], ["productId"]);
+productionRuns = [:];
+features = [];
+if (!productFeatureTypeIdPar) {
     features.put(null, UtilMisc.toMap("productFeature", null, "productionRuns", productionRuns));
 }
 
-if (allProductionRuns != null) {
-    allProductionRunsIt = allProductionRuns.iterator();
-    while (allProductionRunsIt.hasNext()) {
-        productionRun = allProductionRunsIt.next();
+if (allProductionRuns) {
+    allProductionRuns.each { productionRun ->
         // verify if the product is a member of the given category (based on the report's parameter)
-        if (!UtilValidate.isEmpty(productCategoryIdPar)) {
-            if (!isProductInCategory(delegator, productionRun.getString("productId"), productCategoryIdPar)) {
+        if (productCategoryIdPar) {
+            if (!isProductInCategory(delegator, productionRun.productId, productCategoryIdPar)) {
                 // the production run's product is not a member of the given category, skip it
                 continue;
             }
         }
-        productionRunProduct = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productionRun.getString("productId")));
+        productionRunProduct = delegator.findByPrimaryKey("Product", [productId : productionRun.productId]);
 
         // group by standard feature of type productFeatureTypeIdPar
-        if (productFeatureTypeIdPar != null) {
-            standardFeatures = delegator.findByAnd("ProductFeatureAndAppl", UtilMisc.toMap("productFeatureTypeId", productFeatureTypeIdPar, "productId", productionRun.getString("productId"), "productFeatureApplTypeId", "STANDARD_FEATURE"));
+        if (productFeatureTypeIdPar) {
+            standardFeatures = delegator.findByAnd("ProductFeatureAndAppl", [productFeatureTypeId : productFeatureTypeIdPar, productId : productionRun.productId, productFeatureApplTypeId : "STANDARD_FEATURE"]);
             standardFeatures = EntityUtil.filterByDate(standardFeatures);
             standardFeature = EntityUtil.getFirst(standardFeatures);
             standardFeatureId = null;
-            if (standardFeature != null) {
-                standardFeatureId = standardFeature.getString("productFeatureId");
+            if (standardFeature) {
+                standardFeatureId = standardFeature.productFeatureId;
             }
             if (!features.containsKey(standardFeatureId)) {
-                features.put(standardFeatureId, UtilMisc.toMap("productFeature", standardFeature, "productionRuns", new ArrayList()));
+                features.put(standardFeatureId, [productFeature : standardFeature, productionRuns : []]);
             }
-            feature = (Map)features.get(standardFeatureId);
-            productionRuns = (List)feature.get("productionRuns");
+            feature = (Map)features.standardFeatureId;
+            productionRuns = (List)feature.productionRuns;
         }
 
         // select the production run's task of a given name (i.e. type) if any (based on the report's parameter)
-        productionRunTasks = delegator.findByAnd("WorkEffort", UtilMisc.toMap("workEffortParentId", productionRun.getString("workEffortId"), "workEffortName", taskNamePar));
+        productionRunTasks = delegator.findByAnd("WorkEffort", [workEffortParentId : productionRun.workEffortId, workEffortName : taskNamePar]);
         productionRunTask = EntityUtil.getFirst(productionRunTasks);
-        if (productionRunTask == null) {
+        if (!productionRunTask) {
             // the production run doesn't include the given task, skip it
             continue;
         }
 
-        productionRunMap = UtilMisc.toMap("productionRun", productionRun,
-                                          "product", productionRunProduct,
-                                          "productionRunTask", productionRunTask);
+        productionRunMap = [productionRun : productionRun,
+                                          product : productionRunProduct,
+                                          productionRunTask  : productionRunTask];
         productionRuns.add(productionRunMap);
     }
-    context.put("features", features.values());
+    context.features = features.values();
 }
