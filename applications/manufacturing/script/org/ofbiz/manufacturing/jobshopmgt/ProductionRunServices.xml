@@ -262,62 +262,70 @@ under the License.
                     </calculate>
                 </if-compare>
             </if-compare>
-            <if-compare field-name="inventoryItem.inventoryItemTypeId" operator="equals" value="NON_SERIAL_INV_ITEM">
-                <if-compare field-name="parameters.useReservedItems" operator="equals" value="Y">
-                    <set field="inventoryItemQuantity" from-field="inventoryItem.quantityOnHandTotal"/>
-                <else>
-                    <set field="inventoryItemQuantity" from-field="inventoryItem.availableToPromiseTotal"/>
-                </else>
-                </if-compare>
-                
-                <if-not-empty field-name="inventoryItemQuantity">
-                    <!-- reduce atp on inventoryItem if availableToPromise greater than 0, if not the code at the end of this method will handle it -->
-                    <if-compare field-name="inventoryItemQuantity" operator="greater" value="0" type="Double">
-                        <if-compare-field field-name="parameters.quantityNotIssued" operator="greater" to-field-name="inventoryItemQuantity" type="Double">
-                            <set from-field="inventoryItemQuantity" field="parameters.deductAmount"/>
-                        <else>
-                            <set from-field="parameters.quantityNotIssued" field="parameters.deductAmount"/>
-                        </else>
-                        </if-compare-field>
-                        
-                        <!-- create WorkEffortInventoryAssign record -->
-                        <set from-field="parameters.workEffortId" field="issuanceCreateMap.workEffortId"/>
-                        <set from-field="inventoryItem.inventoryItemId" field="issuanceCreateMap.inventoryItemId"/>
-                        <set from-field="parameters.deductAmount" field="issuanceCreateMap.quantity"/>
-                        <call-service service-name="assignInventoryToWorkEffort" in-map-name="issuanceCreateMap">
-                        </call-service>
-
-                        <!-- instead of updating InventoryItem, add an InventoryItemDetail -->
-                        <set from-field="inventoryItem.inventoryItemId" field="createDetailMap.inventoryItemId"/>
-                        <set from-field="parameters.workEffortId" field="createDetailMap.workEffortId"/>
-                        <!-- update availableToPromiseDiff AND quantityOnHandDiff since this is an issuance -->
-                        <calculate field-name="createDetailMap.availableToPromiseDiff" type="Double">
-                            <calcop field-name="parameters.deductAmount" operator="negative"/>
-                        </calculate>
-                        <calculate field-name="createDetailMap.quantityOnHandDiff" type="Double">
-                            <calcop field-name="parameters.deductAmount" operator="negative"/>
-                        </calculate>
-                        <set field="createDetailMap.reasonEnumId" from-field="parameters.reasonEnumId"/>
-                        <set field="createDetailMap.description" from-field="parameters.description"/>
-                        <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
-                        <clear-field field-name="createDetailMap"/>
-                        
-                        <calculate field-name="quantityNotIssued" map-name="parameters">
-                            <calcop operator="subtract" field-name="parameters.quantityNotIssued">
-                                <calcop operator="get" field-name="parameters.deductAmount"/>
-                            </calcop>
-                        </calculate>
-                        <set field="balanceInventoryItemsInMap.inventoryItemId" from-field="inventoryItem.inventoryItemId"/>
-                        <call-service service-name="balanceInventoryItems" in-map-name="balanceInventoryItemsInMap"/>
-
-                        <clear-field field-name="issuanceCreateMap"/>
+            <if>
+                <condition>
+                    <and>
+                        <if-empty field-name="inventoryItem.statusId"/>
+                        <if-compare field-name="inventoryItem.inventoryItemTypeId" operator="equals" value="NON_SERIAL_INV_ITEM"/>
+                    </and>
+                </condition>
+                <then>
+                    <if-compare field-name="parameters.useReservedItems" operator="equals" value="Y">
+                        <set field="inventoryItemQuantity" from-field="inventoryItem.quantityOnHandTotal"/>
+                    <else>
+                        <set field="inventoryItemQuantity" from-field="inventoryItem.availableToPromiseTotal"/>
+                    </else>
                     </if-compare>
-                </if-not-empty>
-
-                <!-- keep track of the last non-serialized inventory item for use if inventory is not sufficient for amount already issued -->
-                <!-- use env variable named lastNonSerInventoryItem -->
-                <set from-field="inventoryItem" field="lastNonSerInventoryItem"/>
-            </if-compare>
+                    
+                    <if-not-empty field-name="inventoryItemQuantity">
+                        <!-- reduce atp on inventoryItem if availableToPromise greater than 0, if not the code at the end of this method will handle it -->
+                        <if-compare field-name="inventoryItemQuantity" operator="greater" value="0" type="Double">
+                            <if-compare-field field-name="parameters.quantityNotIssued" operator="greater" to-field-name="inventoryItemQuantity" type="Double">
+                                <set from-field="inventoryItemQuantity" field="parameters.deductAmount"/>
+                            <else>
+                                <set from-field="parameters.quantityNotIssued" field="parameters.deductAmount"/>
+                            </else>
+                            </if-compare-field>
+                            
+                            <!-- create WorkEffortInventoryAssign record -->
+                            <set from-field="parameters.workEffortId" field="issuanceCreateMap.workEffortId"/>
+                            <set from-field="inventoryItem.inventoryItemId" field="issuanceCreateMap.inventoryItemId"/>
+                            <set from-field="parameters.deductAmount" field="issuanceCreateMap.quantity"/>
+                            <call-service service-name="assignInventoryToWorkEffort" in-map-name="issuanceCreateMap">
+                            </call-service>
+    
+                            <!-- instead of updating InventoryItem, add an InventoryItemDetail -->
+                            <set from-field="inventoryItem.inventoryItemId" field="createDetailMap.inventoryItemId"/>
+                            <set from-field="parameters.workEffortId" field="createDetailMap.workEffortId"/>
+                            <!-- update availableToPromiseDiff AND quantityOnHandDiff since this is an issuance -->
+                            <calculate field-name="createDetailMap.availableToPromiseDiff" type="Double">
+                                <calcop field-name="parameters.deductAmount" operator="negative"/>
+                            </calculate>
+                            <calculate field-name="createDetailMap.quantityOnHandDiff" type="Double">
+                                <calcop field-name="parameters.deductAmount" operator="negative"/>
+                            </calculate>
+                            <set field="createDetailMap.reasonEnumId" from-field="parameters.reasonEnumId"/>
+                            <set field="createDetailMap.description" from-field="parameters.description"/>
+                            <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
+                            <clear-field field-name="createDetailMap"/>
+                            
+                            <calculate field-name="quantityNotIssued" map-name="parameters">
+                                <calcop operator="subtract" field-name="parameters.quantityNotIssued">
+                                    <calcop operator="get" field-name="parameters.deductAmount"/>
+                                </calcop>
+                            </calculate>
+                            <set field="balanceInventoryItemsInMap.inventoryItemId" from-field="inventoryItem.inventoryItemId"/>
+                            <call-service service-name="balanceInventoryItems" in-map-name="balanceInventoryItemsInMap"/>
+    
+                            <clear-field field-name="issuanceCreateMap"/>
+                        </if-compare>
+                    </if-not-empty>
+    
+                    <!-- keep track of the last non-serialized inventory item for use if inventory is not sufficient for amount already issued -->
+                    <!-- use env variable named lastNonSerInventoryItem -->
+                    <set from-field="inventoryItem" field="lastNonSerInventoryItem"/>
+                </then>
+            </if>
         </if-compare>
     </simple-method>
 

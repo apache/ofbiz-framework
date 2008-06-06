@@ -51,11 +51,28 @@ under the License.
             <text>
                 <sub-hyperlink use-when="productId!=null" target="/catalog/control/EditProduct?productId=${productId}" target-type="inter-app" description="${uiLabelMap.ProductEditProduct} [${productId}]"/>
             </text>
-        </field> 
-        <field name="statusId">
+        </field>
+        <field name="statusId" use-when="inventoryItem==null">
             <drop-down allow-empty="true">
                 <entity-options entity-name="StatusItem" description="${description}" key-field-name="statusId">
+                    <entity-constraint name="statusTypeId" operator="equals" value="INV_NON_SER_STTS"/> 
+                </entity-options>
+                <entity-options entity-name="StatusItem" description="${description}" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" operator="equals" value="INV_SERIALIZED_STTS"/> 
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="statusId" use-when="inventoryItem!=null&amp;&amp;&quot;SERIALIZED_INV_ITEM&quot;.equals(inventoryItem.getString(&quot;inventoryItemTypeId&quot;))">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="StatusItem" description="${description}" key-field-name="statusId">
+                    <entity-constraint name="statusTypeId" operator="equals" value="INV_SERIALIZED_STTS"/> 
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="statusId" use-when="inventoryItem!=null&amp;&amp;&quot;NON_SERIAL_INV_ITEM&quot;.equals(inventoryItem.getString(&quot;inventoryItemTypeId&quot;))">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="StatusItem" description="${description}" key-field-name="statusId">
+                    <entity-constraint name="statusTypeId" operator="equals" value="INV_NON_SER_STTS"/> 
                 </entity-options>
             </drop-down>
         </field>
