@@ -47,7 +47,7 @@ under the License.
 
     <!-- SecurityGroupPermission -->
     <form name="ListSecurityGroupPermissions" type="list" list-name="securityGroupPermissions"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        paginate-target="EditSecurityGroupPermissions" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="SecurityGroupPermission">
                 <condition-expr field-name="groupId" env-name="groupId"/>
