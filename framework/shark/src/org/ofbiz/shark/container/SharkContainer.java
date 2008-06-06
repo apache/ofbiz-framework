@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.shark.container;
 
+import java.io.IOException;
 import java.util.Properties;
 import java.util.StringTokenizer;
 
@@ -59,6 +60,7 @@ public class SharkContainer implements Container, Runnable
     private static GenericValue adminUser = null;
     private static String adminPass = null;
     private static Shark shark = null;
+    private static Process p = null;
 
     protected String configFile = null;
     private SharkCORBAServer corbaServer = null;
@@ -130,7 +132,32 @@ public class SharkContainer implements Container, Runnable
         // set the Shark configuration
         Properties props = UtilProperties.getProperties("shark.properties");
         Shark.configure(props);
-
+        
+        String java_home = System.getenv("JAVA_HOME");
+        if((java_home == null) && (java_home.length() > 0))
+        {
+            Debug.logError("OUT :Java home variable is undefined", module);
+        } else
+            if (iiopHost != null && iiopHost.value != null && iiopHost.value.length() > 0) {
+                if (iiopPort != null && iiopPort.value != null && iiopPort.value.length() > 0) {
+                       try {
+                            p = Runtime.getRuntime().exec( java_home + "\\" + "bin\\tnameserv"
+                                     + " -ORBInitialPort "
+                                     +  iiopPort.value);
+                            Thread.sleep(5000);
+                        } catch (IOException e) {
+                            Debug.logError("OUT : Could not start SERVER", module);
+                            e.printStackTrace();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                }
+                else
+                    Debug.logError("OUT : Error in iiop port property", module);
+            }
+            else
+                Debug.logError("OUT : Error in iiop host property", module);
+        
         SharkContainer.shark = Shark.getInstance();
         Debug.logInfo("Started Shark workflow service", module);
 
@@ -183,6 +210,9 @@ public class SharkContainer implements Container, Runnable
         // shut down the dispatcher
         if (dispatcher != null) {
             dispatcher.deregister();
+        }
+        if(p != null){
+            p.destroy();
         }
 
         // shutdown the corba server
