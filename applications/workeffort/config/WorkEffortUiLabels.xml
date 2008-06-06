@@ -3753,7 +3753,7 @@
         <value xml:lang="zh">人工服务标识为空</value>
     </property>
     <property key="WorkEffortWorkEffortManagerApplication">
-        <value xml:lang="en">WorkEffort Manager Application</value>
+        <value xml:lang="en">Work Effort Manager Application</value>
         <value xml:lang="es">Aplicación de administración de tareas</value>
         <value xml:lang="fr">Application de gestion de tâches</value>
         <value xml:lang="it">Applicazione Gestione Impegni di Lavoro</value>
