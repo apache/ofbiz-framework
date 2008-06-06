@@ -45,6 +45,9 @@
                     <entity-constraint name="statusTypeId" value="EVENT_STATUS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
+                <entity-options entity-name="StatusItem" key-field-name="statusId" description="${description}">
+                    <entity-constraint name="statusId" value="CAL_CANCELLED"/>
+                </entity-options>
             </drop-down>
         </field>
         <field map-name="workEffort" name="percentComplete" position="2"><text/></field>
@@ -84,6 +87,9 @@
                 <entity-options entity-name="StatusItem" key-field-name="statusId" description="${description}">
                     <entity-constraint name="statusTypeId" value="TASK_STATUS"/>
                     <entity-order-by field-name="description"/>
+                </entity-options>
+                <entity-options entity-name="StatusItem" key-field-name="statusId" description="${description}">
+                    <entity-constraint name="statusId" value="CAL_CANCELLED"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -126,6 +132,9 @@
                 <entity-options entity-name="StatusItem" key-field-name="statusId" description="${description}">
                     <entity-constraint name="statusTypeId" value="TASK_STATUS"/>
                     <entity-order-by field-name="description"/>
+                </entity-options>
+                <entity-options entity-name="StatusItem" key-field-name="statusId" description="${description}">
+                    <entity-constraint name="statusId" value="CAL_CANCELLED"/>
                 </entity-options>
             </drop-down>
         </field>
