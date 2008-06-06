@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements. See the NOTICE file
@@ -471,7 +471,7 @@
     </property>
     <property key="FormFieldTitle_allowPassword">
         <value xml:lang="en">Allow Password</value>
-        <value xml:lang="fr">Autoriser le mot de passe</value>
+        <value xml:lang="fr">Utiliser un mot de passe</value>
         <value xml:lang="it">Permetti Password</value>
         <value xml:lang="ro">Permiti Password</value>
         <value xml:lang="ru">Разрешить пароль</value>
@@ -541,7 +541,7 @@
     </property>
     <property key="FormFieldTitle_authDeclinedMessage">
         <value xml:lang="en">Auth Declined Message</value>
-        <value xml:lang="fr">Message d'autorisation refusé</value>
+        <value xml:lang="fr">Message d'autorisation de paiement refusé</value>
         <value xml:lang="it">Messaggio Autorizzazione Rifiutata</value>
         <value xml:lang="ro">Mesaj Autorizatie Refuzata</value>
         <value xml:lang="ru">Сообщение об отклоненной аутентификации</value>
@@ -559,7 +559,7 @@
     </property>
     <property key="FormFieldTitle_authFraudMessage">
         <value xml:lang="en">Auth Fraud Message</value>
-        <value xml:lang="fr">Message de fraude à l'autorisation</value>
+        <value xml:lang="fr">Message de tentative de fraude à l'autorisation de paiement</value>
         <value xml:lang="it">Messaggio Autorizzazione Fraudolenta</value>
         <value xml:lang="ro">Mesaj Autorizatie Frauduloasa</value>
         <value xml:lang="ru">Сообщение о мошеннической аутентификации</value>
@@ -695,6 +695,10 @@
         <value xml:lang="ru">Обещано</value>
         <value xml:lang="th">เปลี่ยนแปลงคำสัญญาที่มีอยู่</value>
         <value xml:lang="zh">承诺有效变量</value>
+    </property>        
+    <property key="FormFieldTitle_balanceResOnOrderCreation">
+        <value xml:lang="en">Balance Res On Order Creation</value>
+        <value xml:lang="fr">Expédition par un tiers : la réservation de stock est réévaluée suivant les dates d'expédition au plus tard</value>
     </property>
     <property key="FormFieldTitle_bccAddress">
         <value xml:lang="en">Bcc Address</value>
@@ -793,7 +797,7 @@
     </property>
     <property key="FormFieldTitle_checkGcBalance">
         <value xml:lang="en">Check Gc Balance</value>
-        <value xml:lang="fr">Contrôle de balance de carte cadeau</value>
+        <value xml:lang="fr">Contrôle du crédit de carte cadeau</value>
         <value xml:lang="it">Controlla Bilancio Gc</value>
         <value xml:lang="ro">Control Bilant Gc GcFormFieldTitle_retryFailedAuths=Mai Incearca, Autorizari Falite</value>
         <value xml:lang="ru">Проверить Gc баланс</value>
@@ -1245,7 +1249,7 @@
     </property>
     <property key="FormFieldTitle_defaultLocaleString">
         <value xml:lang="en">Default Locale String</value>
-        <value xml:lang="fr">Chaîne de caractère régionalisée par défaut</value>
+        <value xml:lang="fr">Langue et région par défaut</value>
         <value xml:lang="it">Stringa Localizzazione di Default</value>
         <value xml:lang="ro">Sir Localizare de Default</value>
         <value xml:lang="ru">Язык по умолчанию</value>
@@ -1602,7 +1606,7 @@
     </property>
     <property key="FormFieldTitle_headerDeclinedStatus">
         <value xml:lang="en">Header Declined Status</value>
-        <value xml:lang="fr">Titre de statut décliné</value>
+        <value xml:lang="fr">Titre de statut refusé</value>
         <value xml:lang="it">Testata in Stato Rifiutate</value>
         <value xml:lang="ro">Antet in Stare de Refuzare</value>
         <value xml:lang="ru">Статус Отклонен, заголовок</value>
@@ -1892,7 +1896,7 @@
     </property>
     <property key="FormFieldTitle_itemDeclinedStatus">
         <value xml:lang="en">Item Declined Status</value>
-        <value xml:lang="fr">Ligne en statut décliné</value>
+        <value xml:lang="fr">Ligne en statut refusé</value>
         <value xml:lang="it">Riga in Stato Rifiutate</value>
         <value xml:lang="ro">Linia in Stare de Refuzare</value>
         <value xml:lang="ru">Статус Отклонен, позиция</value>
@@ -2049,7 +2053,7 @@
     </property>
     <property key="FormFieldTitle_manualAuthIsCapture">
         <value xml:lang="en">Manual Auth Is Capture</value>
-        <value xml:lang="fr">L'autorisation manuelle vaut prélèvement</value>
+        <value xml:lang="fr">L'autorisation de paiement manuelle vaut prélèvement</value>
         <value xml:lang="it">Autorizzazione Manuale E' Catturata</value>
         <value xml:lang="ro">Autorizatie Manuala este Capturata</value>
         <value xml:lang="ru">Ручная аутент. при пров. оплаты</value>
@@ -2908,7 +2912,7 @@
     </property>
     <property key="FormFieldTitle_reqReturnInventoryReceive">
         <value xml:lang="en">Req Return Inventory Receive</value>
-        <value xml:lang="fr">Req. de reçu d'inventaire de retour</value>
+        <value xml:lang="fr">Les retours nécessitent un ajustement de stock</value>
         <value xml:lang="it">Richiesta Ricezione Inventario Resi</value>
         <value xml:lang="th">ได้รับสินค้าคงเหลือคืนจากรายการ</value>
     </property>
@@ -2975,7 +2979,7 @@
     </property>
     <property key="FormFieldTitle_requirementMethodEnumId">
         <value xml:lang="en">Requirement Method Enum Id</value>
-        <value xml:lang="fr">Demande : ref. de méthode</value>
+        <value xml:lang="fr">Méthode retenue pour le rechargement de stock</value>
         <value xml:lang="it">Richiesta Scelta Tipo Metodo Fabbisogno</value>
         <value xml:lang="ro">Cerere Alegere Tip Metoda Necesar</value>
         <value xml:lang="ru">Способ создание требования</value>
@@ -2993,7 +2997,7 @@
     </property>
     <property key="FormFieldTitle_reserveOrderEnumId">
         <value xml:lang="en">Reserve Order Enum Id</value>
-        <value xml:lang="fr">Réserver une réf. d'énumération de commande</value>
+        <value xml:lang="fr">Ordre de réservation</value>
         <value xml:lang="it">Scegli Tipo Riservamento Ordine</value>
         <value xml:lang="ro">Alege Tip Rezervare Comanda</value>
         <value xml:lang="ru">Способ резервирования по заказ</value>
@@ -3026,7 +3030,7 @@
     </property>
     <property key="FormFieldTitle_retryFailedAuths">
         <value xml:lang="en">Retry Failed Auths</value>
-        <value xml:lang="fr">Recommencer l'autorisation échouée</value>
+        <value xml:lang="fr">Retenter les autorisations de paiement ayant échoué</value>
         <value xml:lang="it">Riprova Autorizzazioni Fallite</value>
         <value xml:lang="ru">Повтор неудачных авторизаций</value>
         <value xml:lang="th">ระบุการทดสอบความผิดพลาดใหม่</value>
@@ -3290,7 +3294,7 @@
     </property>
     <property key="FormFieldTitle_splitPayPrefPerShpGrp">
         <value xml:lang="en">Split Pay Pref Per Shp Grp</value>
-        <value xml:lang="fr">Séparer les pref. de pay. par grp d'expéd.</value>
+        <value xml:lang="fr">Séparer les préférences de paiement par groupes d'expédition</value>
         <value xml:lang="it">Suddividere Preferenze Pagamento Per Gruppo di Spedizione</value>
         <value xml:lang="th">Split Pay Pref Per Shp Grp</value>
     </property>
