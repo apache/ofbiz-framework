@@ -25,7 +25,6 @@
   <!-- org.ofbiz.assetmaint.fixedasset -->
   <!-- ========================================================= -->
 
-    <entity-group group="org.ofbiz" entity="FixedAssetAndMaint" />
     <entity-group group="org.ofbiz" entity="FixedAssetAndIdent" />    
     <entity-group group="org.ofbiz" entity="FixedAssetMaintWorkEffort" />
     <entity-group group="org.ofbiz" entity="WorkEffortAndTimeEntry" />
