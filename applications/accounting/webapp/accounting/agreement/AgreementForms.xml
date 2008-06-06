@@ -472,4 +472,34 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
+    <!-- Agreement WorkEffort Appl-->
+    <form name="AddAgreementWorkEffortAppl" target="createAgreementWorkEffortAppl" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="agreementId"><hidden value="${agreementId}"/></field>
+        <field name="agreementItemSeqId">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="AgreementItem" description="${agreementItemSeqId}">
+                    <entity-constraint name="agreementId" operator="equals" env-name="agreementId"/>
+                    <entity-order-by field-name="agreementItemSeqId"/>
+                </entity-options> 
+            </drop-down>
+        </field>
+        <field name="workEffortId">
+            <lookup target-form-name="LookupWorkEffort"/>
+        </field>    
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListAgreementWorkEffortAppls" type="list" target="updateAgreementWorkEffortAppl" list-name="agreementWorkEffortAppls"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-and entity-name="AgreementWorkEffortAppl" use-cache="true" list-name="agreementWorkEffortAppls">
+                <field-map env-name="agreementId" field-name="agreementId" />
+            </entity-and>
+        </actions>  
+        <field name="agreementItemSeqId" widget-style="tabletext"><display/></field>
+        <field name="workEffortId" widget-style="tabletext"><display/></field>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteAgreementWorkEffortAppl?agreementId=${agreementId}&amp;agreementItemSeqId=${agreementItemSeqId}&amp;workEffortId=${workEffortId}"/>
+        </field>
+    </form>
 </forms>

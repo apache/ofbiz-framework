@@ -95,5 +95,8 @@ under the License.
         <menu-item name="WorkEffortContactMechs" title="${uiLabelMap.WorkEffortContactMechs}">
             <link target="EditWorkEffortContactMechs?workEffortId=${workEffortId}"/>
         </menu-item>
+        <menu-item name="WorkEffortAgreementAppls" title="${uiLabelMap.WorkEffortAgreementAppls}">
+            <link target="EditAgreementWorkEffortAppls?workEffortId=${workEffortId}"/>
+        </menu-item>
     </menu>    
 </menus>

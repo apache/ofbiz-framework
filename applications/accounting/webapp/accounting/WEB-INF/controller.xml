@@ -1108,6 +1108,24 @@ under the License.
         <response name="success" type="view" value="ListAgreementGeographicalApplic"/>
         <response name="error" type="view" value="EditAgreementGeographicalApplic"/>
     </request-map>
+    
+    <!--WorkEffort Agreements-->
+    <request-map uri="EditAgreementWorkEffortAppls">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditAgreementWorkEffortAppls"/>
+    </request-map>
+    <request-map uri="createAgreementWorkEffortAppl">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createAgreementWorkEffortAppl"/>
+        <response name="success" type="view" value="EditAgreementWorkEffortAppls"/>
+        <response name="error" type="view" value="EditAgreementWorkEffortAppls"/>
+    </request-map> 
+    <request-map uri="deleteAgreementWorkEffortAppl">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteAgreementWorkEffortAppl"/>
+        <response name="success" type="view" value="EditAgreementWorkEffortAppls"/>
+        <response name="error" type="view" value="EditAgreementWorkEffortAppls"/>
+    </request-map>
 
     <!-- TaxAuthority Requests -->
     <request-map uri="FindTaxAuthority"><security https="true" auth="true"/><response name="success" type="view" value="FindTaxAuthority"/></request-map>
@@ -1765,6 +1783,9 @@ under the License.
     <request-map uri="LookupFacility"><security https="true" auth="true"/><response name="success" type="view" value="LookupFacility"/></request-map>
     <request-map uri="LookupFacilityLocation"><security auth="true" https="true"/><response name="success" type="view" value="LookupFacilityLocation"/></request-map>
     <request-map uri="LookupShipment"><security auth="true" https="true"/><response name="success" type="view" value="LookupShipment"/></request-map>
+    <request-map uri="LookupAgreement"><security https="true" auth="true"/><response name="success" type="view" value="LookupAgreement"/></request-map>
+    <request-map uri="LookupAgreementItem"><security auth="true" https="true"/><response name="success" type="view" value="LookupAgreementItem"/></request-map>
+    
     
     <request-map uri="viewprofile"><security https="true" auth="true"/><response name="success" type="view" value="viewprofile"/></request-map>
     
@@ -1949,6 +1970,7 @@ under the License.
     <view-map name="EditAgreementItemParty" type="screen" page="component://accounting/widget/AgreementScreens.xml#EditAgreementItemParty"/>
     <view-map name="ListAgreementGeographicalApplic" type="screen" page="component://accounting/widget/AgreementScreens.xml#ListAgreementGeographicalApplic"/>
     <view-map name="EditAgreementGeographicalApplic" type="screen" page="component://accounting/widget/AgreementScreens.xml#EditAgreementGeographicalApplic"/>
+    <view-map name="EditAgreementWorkEffortAppls" type="screen" page="component://accounting/widget/AgreementScreens.xml#EditAgreementWorkEffortAppls"/>
     
     <!-- TaxAuthority -->
     <view-map name="FindTaxAuthority" type="screen" page="component://accounting/widget/TaxAuthorityScreens.xml#FindTaxAuthority"/>
@@ -2010,6 +2032,8 @@ under the License.
     <view-map name="LookupFacility" type="screen" page="component://product/widget/facility/LookupScreens.xml#LookupFacility"/>
     <view-map name="LookupFacilityLocation" type="screen" page="component://product/widget/facility/LookupScreens.xml#LookupFacilityLocation"/>
     <view-map name="LookupShipment" type="screen" page="component://product/widget/facility/LookupScreens.xml#LookupShipment"/>
+    <view-map name="LookupAgreement" type="screen" page="component://accounting/widget/LookupScreens.xml#LookupAgreement"/>
+    <view-map name="LookupAgreementItem" type="screen" page="component://accounting/widget/LookupScreens.xml#LookupAgreementItem"/>
     
     <!-- PDFs  -->
     <view-map name="InvoicePDF" type="screenfop" page="component://accounting/widget/AccountingPrintScreens.xml#InvoicePDF" content-type="application/pdf" encoding="none"/>

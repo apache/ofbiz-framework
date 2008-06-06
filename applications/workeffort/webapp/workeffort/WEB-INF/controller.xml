@@ -595,6 +595,27 @@ under the License.
     <request-map uri="LookupInvoice"><security https="true" auth="true"/><response name="success" type="view" value="LookupInvoice"/></request-map>
     <request-map uri="LookupContent"><security auth="true" https="true"/><response name="success" type="view" value="LookupContent"/></request-map>
     
+    <request-map uri="LookupAgreement"><security https="true" auth="true"/><response name="success" type="view" value="LookupAgreement"/></request-map>
+    <request-map uri="LookupAgreementItem"><security auth="true" https="true"/><response name="success" type="view" value="LookupAgreementItem"/></request-map>
+     
+    <!--WorkEffort Agreements-->
+    <request-map uri="EditAgreementWorkEffortAppls">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditAgreementWorkEffortAppls"/>
+    </request-map>
+    <request-map uri="createAgreementWorkEffortAppl">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createAgreementWorkEffortAppl"/>
+        <response name="success" type="view" value="EditAgreementWorkEffortAppls"/>
+        <response name="error" type="view" value="EditAgreementWorkEffortAppls"/>
+    </request-map> 
+    <request-map uri="deleteAgreementWorkEffortAppl">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteAgreementWorkEffortAppl"/>
+        <response name="success" type="view" value="EditAgreementWorkEffortAppls"/>
+        <response name="error" type="view" value="EditAgreementWorkEffortAppls"/>
+    </request-map>
+    
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -678,5 +699,9 @@ under the License.
     <view-map name="LookupInvoice" page="component://accounting/widget/LookupScreens.xml#LookupInvoice" type="screen"/>
     <view-map name="LookupContent" page="component://content/widget/content/ContentScreens.xml#LookupContent" type="screen"/>
     <view-map name="LookupContactMech" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupContactMech"/>
+    
+    <view-map name="EditAgreementWorkEffortAppls" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#EditAgreementWorkEffortAppls"/>
+    <view-map name="LookupAgreement" page="component://accounting/widget/LookupScreens.xml#LookupAgreement" type="screen"/>
+    <view-map name="LookupAgreementItem" page="component://accounting/widget/LookupScreens.xml#LookupAgreementItem" type="screen"/>
     <!-- end of view mappings -->
 </site-conf>
