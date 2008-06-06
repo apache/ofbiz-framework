@@ -20,55 +20,49 @@
 // PRunsProductsStacks
 // ReportC
 
-import java.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.util.*;
-import org.ofbiz.product.category.CategoryWorker;
+import org.ofbiz.entity.util.EntityUtil;
 
-if (!UtilValidate.isEmpty(productCategoryIdPar)) {
-    category = delegator.findByPrimaryKey("ProductCategory", UtilMisc.toMap("productCategoryId", productCategoryIdPar));
-    context.put("category", category);
+if (productCategoryIdPar) {
+    category = delegator.findByPrimaryKey("ProductCategory", [productCategoryId : productCategoryIdPar]);
+    context.category = category;
 }
-if (!UtilValidate.isEmpty(productFeatureTypeIdPar)) {
-    featureType = delegator.findByPrimaryKey("ProductFeatureType", UtilMisc.toMap("productFeatureTypeId", productFeatureTypeIdPar));
-    context.put("featureType", featureType);
+if (productFeatureTypeIdPar) {
+    featureType = delegator.findByPrimaryKey("ProductFeatureType", [productFeatureTypeId : productFeatureTypeIdPar]);
+    context.featureType = featureType;
 }
 
-allProductionRuns = delegator.findByAnd("WorkEffortAndGoods", UtilMisc.toMap("workEffortName", planName), UtilMisc.toList("productId"));
-productionRuns = new ArrayList();
-features = new HashMap();
-products = new HashMap();
+allProductionRuns = delegator.findByAnd("WorkEffortAndGoods", [workEffortName : planName], ["productId"]);
+productionRuns = [];
+features = [:];
+products = [:];
 
-if (allProductionRuns != null) {
-    allProductionRunsIt = allProductionRuns.iterator();
-    while (allProductionRunsIt.hasNext()) {
-        productionRun = allProductionRunsIt.next();
+if (allProductionRuns) {
+    allProductionRuns.each { productionRun ->
         // verify if the product is a member of the given category (based on the report's parameter)
-        if (!UtilValidate.isEmpty(productCategoryIdPar)) {
-            if (!isProductInCategory(delegator, productionRun.getString("productId"), productCategoryIdPar)) {
+        if (productCategoryIdPar) {
+            if (!isProductInCategory(delegator, productionRun.productId, productCategoryIdPar)) {
                 // the production run's product is not a member of the given category, skip it
                 continue;
             }
         }
-        productionRunProduct = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productionRun.getString("productId")));
-        location = null;
-        if (!UtilValidate.isEmpty(productionRunProduct)) {
-            locations = delegator.findByAnd("ProductFacilityLocation", UtilMisc.toMap("facilityId", productionRun.getString("facilityId"), "productId", productionRun.getString("productId")));
+        productionRunProduct = delegator.findByPrimaryKey("Product", [productId : productionRun.productId]);
+        location = [:];
+        if (productionRunProduct) {
+            locations = delegator.findByAnd("ProductFacilityLocation", [facilityId : productionRun.facilityId, productId : productionRun.productId]);
             location = EntityUtil.getFirst(locations);
         }
-        if (!UtilValidate.isEmpty(taskNamePar)) {
+        if (taskNamePar) {
             // select the production run's task of a given name (i.e. type) if any (based on the report's parameter)
-            productionRunTasks = delegator.findByAnd("WorkEffort", UtilMisc.toMap("workEffortParentId", productionRun.getString("workEffortId"), "workEffortName", taskNamePar));
+            productionRunTasks = delegator.findByAnd("WorkEffort", [workEffortParentId : productionRun.workEffortId , workEffortName : taskNamePar]);
             productionRunTask = EntityUtil.getFirst(productionRunTasks);
-            if (productionRunTask == null) {
+            if (!productionRunTask) {
                 // the production run doesn't include the given task, skip it
                 continue;
             }
         }
 
         // Stack information
-        stackInfos = new ArrayList();
+        stackInfos = [];
         productionRunQty = productionRun.getDouble("quantityToProduce");
         //numOfStacks = (int)productionRunQty / stackQty; // number of stacks
         numOfStacks = productionRunQty / stackQty; // number of stacks
@@ -80,15 +74,15 @@ if (allProductionRuns != null) {
             qtyInLastStack = stackQty;
         }
         for (int i = 1; i < numOfStacks; i++) {
-            stackInfos.add(UtilMisc.toMap("stackNum", "" + i, "numOfStacks", "" + numOfStacks, "qty", stackQty));
+            stackInfos.add([stackNum : "" + i, numOfStacks : "" + numOfStacks, qty : stackQty]);
         }
-        stackInfos.add(UtilMisc.toMap("stackNum", "" + numOfStacks, "numOfStacks", "" + numOfStacks, "qty", qtyInLastStack));
+        stackInfos.add([stackNum : "" + numOfStacks, numOfStacks : "" + numOfStacks, qty : qtyInLastStack]);
 
-        productionRunMap = UtilMisc.toMap("productionRun", productionRun,
-                                          "product", productionRunProduct,
-                                          "location", location,
-                                          "stackInfos", stackInfos);
+        productionRunMap = [productionRun : productionRun,
+                                          product : productionRunProduct,
+                                          location : location,
+                                          stackInfos : stackInfos];
         productionRuns.add(productionRunMap);
     }
-    context.put("productionRuns", productionRuns);
+    context.productionRuns = productionRuns;
 }

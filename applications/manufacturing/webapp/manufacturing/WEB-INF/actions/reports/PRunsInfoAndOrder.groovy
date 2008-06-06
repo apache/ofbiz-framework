@@ -20,70 +20,60 @@
 // PRunsInfoAndOrder
 // ReportG
 
-import java.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.util.*;
+import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.manufacturing.jobshopmgt.ProductionRunHelper;
 import org.ofbiz.order.order.OrderReadHelper;
-import org.ofbiz.product.category.CategoryWorker;
 
-if (!UtilValidate.isEmpty(productCategoryIdPar)) {
-    category = delegator.findByPrimaryKey("ProductCategory", UtilMisc.toMap("productCategoryId", productCategoryIdPar));
-    context.put("category", category);
+if (productCategoryIdPar) {
+    category = delegator.findByPrimaryKey("ProductCategory", [productCategoryId : productCategoryIdPar]);
+    context.category = category;
 }
 
-allProductionRuns = delegator.findByAnd("WorkEffortAndGoods", UtilMisc.toMap("workEffortName", planName, "statusId", "WEGS_CREATED", "workEffortGoodStdTypeId", "PRUN_PROD_DELIV"), UtilMisc.toList("productId"));
-productionRuns = new ArrayList();
+allProductionRuns = delegator.findByAnd("WorkEffortAndGoods", [workEffortName : planName, statusId : "WEGS_CREATED", workEffortGoodStdTypeId : "PRUN_PROD_DELIV"], ["productId"]);
+productionRuns = [];
 
-if (allProductionRuns != null) {
-    allProductionRunsIt = allProductionRuns.iterator();
-    while (allProductionRunsIt.hasNext()) {
-        productionRun = allProductionRunsIt.next();
+if (allProductionRuns) {
+    allProductionRuns.each { productionRun ->
         // verify if the product is a member of the given category (based on the report's parameter)
-        if (!UtilValidate.isEmpty(productCategoryIdPar)) {
-            if (!isProductInCategory(delegator, productionRun.getString("productId"), productCategoryIdPar)) {
+        if (productCategoryIdPar) {
+            if (!isProductInCategory(delegator, productionRun.productId, productCategoryIdPar)) {
                 // the production run's product is not a member of the given category, skip it
                 continue;
             }
         }
-        productionRunProduct = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productionRun.getString("productId")));
-        String rootProductionRunId = ProductionRunHelper.getRootProductionRun(delegator, productionRun.getString("workEffortId"));
+        productionRunProduct = delegator.findByPrimaryKey("Product", [productId : productionRun.productId]);
+        String rootProductionRunId = ProductionRunHelper.getRootProductionRun(delegator, productionRun.workEffortId);
 
-        productionRunOrders = delegator.findByAnd("WorkOrderItemFulfillment", UtilMisc.toMap("workEffortId", rootProductionRunId));
+        productionRunOrders = delegator.findByAnd("WorkOrderItemFulfillment", [workEffortId : rootProductionRunId]);
         productionRunOrder = EntityUtil.getFirst(productionRunOrders);
-        OrderReadHelper orh = new OrderReadHelper(delegator, productionRunOrder.getString("orderId"));
+        OrderReadHelper orh = new OrderReadHelper(delegator, productionRunOrder.orderId);
 
         // select the production run's task of a given name (i.e. type) if any (based on the report's parameter)
-        productionRunTasks = delegator.findByAnd("WorkEffort", UtilMisc.toMap("workEffortParentId", productionRun.getString("workEffortId"), "workEffortName", taskNamePar));
+        productionRunTasks = delegator.findByAnd("WorkEffort", [workEffortParentId : productionRun.workEffortId, workEffortName : taskNamePar]);
         productionRunTask = EntityUtil.getFirst(productionRunTasks);
-        if (productionRunTask == null) {
+        if (!productionRunTask) {
             // the production run doesn't include the given task, skip it
             continue;
         }
 
-        productionRunMap = UtilMisc.toMap("productionRun", productionRun,
-                                          "product", productionRunProduct,
-                                          "productionRunTask", productionRunTask,
-                                          "productionRunOrder", productionRunOrder,
-                                          "customer", orh.getPlacingParty(),
-                                          "address", orh.getShippingAddress());
-        allProductionComponents = delegator.findByAnd("WorkEffortAndGoods", UtilMisc.toMap("workEffortId", productionRunTask.getString("workEffortId"), "statusId", "WEGS_CREATED", "workEffortGoodStdTypeId", "PRUNT_PROD_NEEDED"), UtilMisc.toList("productId"));
-        componentList = new ArrayList();
+        productionRunMap = [productionRun : productionRun,
+                                          product : productionRunProduct,
+                                          productionRunTask : productionRunTask,
+                                          productionRunOrder : productionRunOrder,
+                                          customer : orh.getPlacingParty(),
+                                          address : orh.getShippingAddress()];
+        allProductionComponents = delegator.findByAnd("WorkEffortAndGoods", [workEffortId : productionRunTask.workEffortId, statusId : "WEGS_CREATED", workEffortGoodStdTypeId : "PRUNT_PROD_NEEDED"], ["productId"]);
+        componentList = [];
 
-        if (allProductionComponents != null) {
-            allProductionComponentsIt = allProductionComponents.iterator();
-            while (allProductionComponentsIt.hasNext()) {
-                productionComponent = allProductionComponentsIt.next();
-
-                productionRunProductComp = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productionComponent.getString("productId")));
-                productionRunProductMap = UtilMisc.toMap("component", productionComponent,
-                                                         "componentProduct", productionRunProductComp);
+        if (allProductionComponents) {
+            allProductionComponents.each { productionComponent ->
+                productionRunProductComp = delegator.findByPrimaryKey("Product", [productId : productionComponent.productId]);
+                productionRunProductMap = [component : productionComponent,componentProduct : productionRunProductComp];
                 componentList.add(productionRunProductMap);
             }
         }
-        productionRunMap.put("componentList", componentList);
+        productionRunMap.componentList = componentList;
         productionRuns.add(productionRunMap);
     }
 }
-context.put("productionRuns", productionRuns);
+context.productionRuns = productionRuns;

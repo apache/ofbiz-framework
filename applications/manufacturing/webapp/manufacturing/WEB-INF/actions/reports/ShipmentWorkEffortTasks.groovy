@@ -17,70 +17,54 @@
  * under the License.
  */
 
-import org.ofbiz.entity.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.order.order.*;
-import org.ofbiz.content.report.*;
+import org.ofbiz.entity.GenericValue;
 
-delegator = request.getAttribute("delegator");
-dispatcher = request.getAttribute("dispatcher");
-userLogin = request.getSession().getAttribute("userLogin");
+shipmentId = parameters.shipmentId;
+shipment = delegator.findByPrimaryKey("Shipment", [shipmentId : shipmentId]);
 
-shipmentId = request.getParameter("shipmentId");
-shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
-
-context.put("shipmentIdPar", shipment.getString("shipmentId"));
-context.put("date", new Date());
+context.shipmentIdPar = shipment.shipmentId;
+context.date = new Date();
 Double fixedAssetTime = new Double(0);
 
-if (shipment != null) {
-    shipmentPlans = delegator.findByAnd("OrderShipment", UtilMisc.toMap("shipmentId", shipmentId));
-    shipmentPlansIt = shipmentPlans.iterator();
-    records = new ArrayList();
-
-    while(shipmentPlansIt.hasNext()) {
-        shipmentPlan = shipmentPlansIt.next();
-        productionRuns = delegator.findByAnd("WorkOrderItemFulfillment", UtilMisc.toMap("orderId", shipmentPlan.getString("orderId"), "orderItemSeqId", shipmentPlan.getString("orderItemSeqId")), UtilMisc.toList("workEffortId")); // TODO: add shipmentId
-        if (productionRuns != null && productionRuns.size() > 0) {
-            productionRunsIt = productionRuns.iterator();
-            while (productionRunsIt.hasNext()) {
-                productionRun = productionRunsIt.next();
-                productionRunProduct = null;
-                productionRunProducts = delegator.findByAnd("WorkEffortGoodStandard", UtilMisc.toMap("workEffortId", productionRun.getString("workEffortId"), "workEffortGoodStdTypeId", "PRUN_PROD_DELIV", "statusId", "WEGS_CREATED"));
-                if (productionRunProducts != null && productionRunProducts.size() > 0) {
-                    //productionRunProduct = ((GenericValue)productionRunProducts.get(0)).getString("productId");
+if (shipment) {
+    shipmentPlans = delegator.findByAnd("OrderShipment", [shipmentId : shipmentId]);
+    shipmentPlans.each { shipmentPlan ->
+        productionRuns = delegator.findByAnd("WorkOrderItemFulfillment", [orderId : shipmentPlan.orderId, orderItemSeqId : shipmentPlan.orderItemSeqId] , ["workEffortId"]); // TODO: add shipmentId
+        if (productionRuns) {
+            productionRuns.each { productionRun ->
+                productionRunProduct = [:];
+                productionRunProducts = delegator.findByAnd("WorkEffortGoodStandard", [workEffortId : productionRun.workEffortId , workEffortGoodStdTypeId : "PRUN_PROD_DELIV", statusId : "WEGS_CREATED"]);
+                if (productionRunProducts) {
                     productionRunProduct = ((GenericValue)productionRunProducts.get(0)).getRelatedOne("Product");
                 }
-                tasks = delegator.findByAnd("WorkEffort", UtilMisc.toMap("workEffortParentId", productionRun.getString("workEffortId"), "workEffortTypeId", "PROD_ORDER_TASK"));
-                tasksIt = tasks.iterator();
-                while (tasksIt.hasNext()) {
-                    task = tasksIt.next();
-                    record = new HashMap();
-                    record.put("productId", productionRunProduct.getString("productId"));
-                    record.put("productName", productionRunProduct.getString("internalName"));
-                    record.put("fixedAssetId", task.getString("fixedAssetId"));
-                    record.put("priority", task.getLong("priority"));
-                    record.put("workEffortId", productionRun.getString("workEffortId"));
-                    record.put("taskId", task.getString("workEffortId"));
-                    record.put("taskName", task.getString("workEffortName"));
-                    record.put("taskDescription", task.getString("description"));
-                    record.put("taskEstimatedTime", task.getDouble("estimatedMilliSeconds"));
-                    record.put("taskEstimatedSetup", task.getDouble("estimatedSetupMillis"));
+                tasks = delegator.findByAnd("WorkEffort", [workEffortParentId : productionRun.workEffortId, workEffortTypeId : "PROD_ORDER_TASK"]);
+                tasks.each { task ->
+                    record = [:];
+                    record.productId = productionRunProduct.productId;
+                    record.productName = productionRunProduct.internalName;
+                    record.fixedAssetId = task.fixedAssetId;
+                    record.priority = task.getLong("priority");
+                    record.workEffortId = productionRun.workEffortId;
+                    record.taskId = task.workEffortId;
+                    record.taskName = task.workEffortName;
+                    record.taskDescription = task.description;
+                    record.taskEstimatedTime = task.getDouble("estimatedMilliSeconds");
+                    record.taskEstimatedSetup = task.getDouble("estimatedSetupMillis");
                     records.add(record);
                     fixedAssetTime = fixedAssetTime + task.getDouble("estimatedMilliSeconds");
                 }
             }
         }
     }
-    context.put("fixedAssetTime", fixedAssetTime);
-    context.put("records", records);
+    context.fixedAssetTime = fixedAssetTime;
+    context.records = records;
     
     // check permission
     hasPermission = false;
     if (security.hasEntityPermission("MANUFACTURING", "_VIEW", session)) {
         hasPermission = true;
     } 
-    context.put("hasPermission", hasPermission);
+    context.hasPermission = hasPermission;
 }
 
 return "success";

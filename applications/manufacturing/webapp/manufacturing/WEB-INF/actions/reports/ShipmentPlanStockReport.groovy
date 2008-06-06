@@ -19,88 +19,77 @@
 
 import org.ofbiz.entity.*;
 import org.ofbiz.base.util.*;
-import org.ofbiz.content.report.*;
 
-delegator = request.getAttribute("delegator");
-security = request.getAttribute("security");
-dispatcher = request.getAttribute("dispatcher");
-userLogin = request.getSession().getAttribute("userLogin");
+inventoryStock = [:];
+shipmentId = parameters.shipmentId;
+shipment = delegator.findByPrimaryKey("Shipment", [shipmentId : shipmentId]);
 
-inventoryStock = new HashMap();
-shipmentId = request.getParameter("shipmentId");
-shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
+context.shipmentIdPar = shipment.shipmentId;
+context.estimatedReadyDatePar = shipment.estimatedReadyDate;
+context.estimatedShipDatePar = shipment.estimatedShipDate;
 
-context.put("shipmentIdPar", shipment.getString("shipmentId"));
-context.put("estimatedReadyDatePar", shipment.getString("estimatedReadyDate"));
-context.put("estimatedShipDatePar", shipment.getString("estimatedShipDate"));
+if (shipment) {
+    shipmentPlans = delegator.findByAnd("OrderShipment", [shipmentId : shipmentId]);
+    shipmentPlans.each { shipmentPlan ->
+        orderLine = delegator.findByPrimaryKey("OrderItem", [orderId : shipmentPlan.orderId , orderItemSeqId : shipmentPlan.orderItemSeqId]);
+        recordGroup = [:];
+        recordGroup.ORDER_ID = shipmentPlan.orderId;
+        recordGroup.ORDER_ITEM_SEQ_ID = shipmentPlan.orderItemSeqId;
+        recordGroup.SHIPMENT_ID = shipmentPlan.shipmentId;
+        recordGroup.SHIPMENT_ITEM_SEQ_ID = shipmentPlan.shipmentItemSeqId;
 
-if (shipment != null) {
-    shipmentPlans = delegator.findByAnd("OrderShipment", UtilMisc.toMap("shipmentId", shipmentId));
-    shipmentPlansIt = shipmentPlans.iterator();
-    records = new ArrayList();
-
-    while(shipmentPlansIt.hasNext()) {
-        shipmentPlan = shipmentPlansIt.next();
-        orderLine = delegator.findByPrimaryKey("OrderItem", UtilMisc.toMap("orderId", shipmentPlan.getString("orderId"), "orderItemSeqId", shipmentPlan.getString("orderItemSeqId")));
-        recordGroup = new HashMap();
-        recordGroup.put("ORDER_ID", shipmentPlan.getString("orderId"));
-        recordGroup.put("ORDER_ITEM_SEQ_ID", shipmentPlan.getString("orderItemSeqId"));
-        recordGroup.put("SHIPMENT_ID", shipmentPlan.getString("shipmentId"));
-        recordGroup.put("SHIPMENT_ITEM_SEQ_ID", shipmentPlan.getString("shipmentItemSeqId"));
-
-        recordGroup.put("PRODUCT_ID", orderLine.getString("productId"));
-        recordGroup.put("QUANTITY", shipmentPlan.getDouble("quantity"));
-        product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", orderLine.getString("productId")));
-        recordGroup.put("PRODUCT_NAME", product.getString("internalName"));
+        recordGroup.PRODUCT_ID = orderLine.productId;
+        recordGroup.QUANTITY = shipmentPlan.getDouble("quantity");
+        product = delegator.findByPrimaryKey("Product", [productId : orderLine.productId]);
+        recordGroup.PRODUCT_NAME = product.internalName;
      
-        Map inputPar = UtilMisc.toMap("productId", orderLine.getString("productId"),
-                                     "quantity", shipmentPlan.getDouble("quantity"),
-                                     "fromDate", "" + new Date(),
-                                     "userLogin", userLogin);
+        inputPar = [productId : orderLine.productId,
+                                     quantity : shipmentPlan.getDouble("quantity"),
+                                     fromDate : "" + new Date(),
+                                     userLogin: userLogin];
                             
-        Map result = null;
+        result = [:];
         result = dispatcher.runSync("getNotAssembledComponents",inputPar);
-        if (result != null)
+        if (result)
             components = (List)result.get("notAssembledComponents");
         componentsIt = components.iterator();
-        while(componentsIt.hasNext()) {
+        while(componentsIt) {
             oneComponent = (org.ofbiz.manufacturing.bom.BOMNode)componentsIt.next();
             record = new HashMap(recordGroup);
-            record.put("componentId", oneComponent.getProduct().getString("productId"));
-            record.put("componentName", oneComponent.getProduct().getString("internalName"));
-            record.put("componentQuantity", new Float(oneComponent.getQuantity()));
-            facilityId = shipment.getString("originFacilityId");
+            record.componentId = oneComponent.getProduct().productId;
+            record.componentName = oneComponent.getProduct().internalName;
+            record.componentQuantity = new Float(oneComponent.getQuantity());
+            facilityId = shipment.originFacilityId;
             float qty = 0;
-            if (facilityId != null) {
-                if (!inventoryStock.containsKey(oneComponent.getProduct().getString("productId"))) {
-                    serviceInput = UtilMisc.toMap("productId",oneComponent.getProduct().getString("productId"), "facilityId", facilityId);
+            if (facilityId) {
+                if (!inventoryStock.containsKey(oneComponent.getProduct().productId)) {
+                    serviceInput = [productId : oneComponent.getProduct().productId , facilityId : facilityId];
                     serviceOutput = dispatcher.runSync("getInventoryAvailableByFacility",serviceInput);
-                    qha = serviceOutput.get("quantityOnHandTotal");
-                    if (qha == null) qha = new Double(0);
-                    inventoryStock.put(oneComponent.getProduct().getString("productId"), qha);
+                    qha = serviceOutput.quantityOnHandTotal ?: new Double(0);
+                    inventoryStock.oneComponent.getProduct().productId = qha;
                 }
-                qty = ((Double)inventoryStock.get(oneComponent.getProduct().getString("productId"))).floatValue();
+                qty = ((Double)inventoryStock.get(oneComponent.getProduct().productId)).floatValue();
                 qty = (float)(qty - oneComponent.getQuantity());
-                inventoryStock.put(oneComponent.getProduct().getString("productId"), new Double(qty));
+                inventoryStock.oneComponent.getProduct().productId = new Double(qty);
             }
-            record.put("componentOnHand", new Float(qty));
+            record.componentOnHand = new Float(qty);
             // Now we get the products qty already reserved by production runs
-            serviceInput = UtilMisc.toMap("productId", oneComponent.getProduct().getString("productId"),
-                                          "userLogin", userLogin);
+            serviceInput = [productId : oneComponent.getProduct().productId,
+                                          userLogin : userLogin];
             serviceOutput = dispatcher.runSync("getProductionRunTotResQty", serviceInput);
-            resQty = serviceOutput.get("reservedQuantity");
-            record.put("reservedQuantity", resQty);
+            resQty = serviceOutput.reservedQuantity;
+            record.reservedQuantity = resQty;
             records.add(record);
         }
     }
-    context.put("records", records);
+    context.records = records;
 
     // check permission
     hasPermission = false;
     if (security.hasEntityPermission("MANUFACTURING", "_VIEW", session)) {
         hasPermission = true;
     } 
-    context.put("hasPermission", hasPermission);
+    context.hasPermission = hasPermission;
 }
 
 return "success";

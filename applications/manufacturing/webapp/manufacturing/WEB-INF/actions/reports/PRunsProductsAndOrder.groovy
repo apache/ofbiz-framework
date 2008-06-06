@@ -20,54 +20,48 @@
 // PRunsProductsAndOrder
 // ReportD
 
-import java.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.util.*;
+import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.manufacturing.jobshopmgt.ProductionRunHelper;
 import org.ofbiz.order.order.OrderReadHelper;
-import org.ofbiz.product.category.CategoryWorker;
 
-if (!UtilValidate.isEmpty(productCategoryIdPar)) {
-    category = delegator.findByPrimaryKey("ProductCategory", UtilMisc.toMap("productCategoryId", productCategoryIdPar));
-    context.put("category", category);
+if (productCategoryIdPar) {
+    category = delegator.findByPrimaryKey("ProductCategory", [productCategoryId : productCategoryIdPar]);
+    context.category = category;
 }
 
 allProductionRuns = delegator.findByAnd("WorkEffortAndGoods", UtilMisc.toMap("workEffortName", planName, "statusId", "WEGS_CREATED", "workEffortGoodStdTypeId", "PRUN_PROD_DELIV"), UtilMisc.toList("productId"));
-productionRuns = new ArrayList();
+productionRuns = [];
 
-if (allProductionRuns != null) {
-    allProductionRunsIt = allProductionRuns.iterator();
-    while (allProductionRunsIt.hasNext()) {
-        productionRun = allProductionRunsIt.next();
+if (allProductionRuns) {
+    allProductionRuns.each { productionRun ->
         // verify if the product is a member of the given category (based on the report's parameter)
-        if (!UtilValidate.isEmpty(productCategoryIdPar)) {
-            if (!isProductInCategory(delegator, productionRun.getString("productId"), productCategoryIdPar)) {
+        if (productCategoryIdPar) {
+            if (!isProductInCategory(delegator, productionRun.productId, productCategoryIdPar)) {
                 // the production run's product is not a member of the given category, skip it
                 continue;
             }
         }
-        productionRunProduct = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productionRun.getString("productId")));
-        String rootProductionRunId = ProductionRunHelper.getRootProductionRun(delegator, productionRun.getString("workEffortId"));
+        productionRunProduct = delegator.findByPrimaryKey("Product", [productId : productionRun.productId]);
+        String rootProductionRunId = ProductionRunHelper.getRootProductionRun(delegator, productionRun.workEffortId);
 
-        productionRunOrders = delegator.findByAnd("WorkOrderItemFulfillment", UtilMisc.toMap("workEffortId", rootProductionRunId));
+        productionRunOrders = delegator.findByAnd("WorkOrderItemFulfillment", [workEffortId : rootProductionRunId]);
         productionRunOrder = EntityUtil.getFirst(productionRunOrders);
-        OrderReadHelper orh = new OrderReadHelper(delegator, productionRunOrder.getString("orderId"));
-        locations = delegator.findByAnd("ProductFacilityLocation", UtilMisc.toMap("productId", productionRun.getString("productId"), "facilityId", productionRun.getString("facilityId")));
+        OrderReadHelper orh = new OrderReadHelper(delegator, productionRunOrder.orderId);
+        locations = delegator.findByAnd("ProductFacilityLocation", [productId : productionRun.productId, facilityId : productionRun.facilityId]);
         location = EntityUtil.getFirst(locations);
 
-        productionRunMap = UtilMisc.toMap("productionRun", productionRun,
-                                          "product", productionRunProduct,
-                                          "productionRunOrder", productionRunOrder,
-                                          "customer", orh.getPlacingParty(),
-                                          "address", orh.getShippingAddress(),
-                                          "location", location);
+        productionRunMap = [productionRun : productionRun,
+                                          product : productionRunProduct,
+                                          productionRunOrder : productionRunOrder,
+                                          customer : orh.getPlacingParty(),
+                                          address : orh.getShippingAddress(),
+                                          location : location];
 
-        productionRunMap.put("plan", planName);
-        quantity = productionRun.get("estimatedQuantity");
+        productionRunMap.plan = planName;
+        quantity = productionRun.estimatedQuantity;
         for (int i = 0; i < quantity; i++) {
             productionRuns.add(productionRunMap);
         }
     }
 }
-context.put("productionRuns", productionRuns);
+context.productionRuns = productionRuns;

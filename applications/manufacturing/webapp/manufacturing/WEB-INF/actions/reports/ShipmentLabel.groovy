@@ -17,86 +17,73 @@
  * under the License.
  */
 
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.util.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.order.order.*;
-import org.ofbiz.content.report.*;
+import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.order.order.OrderReadHelper;
 
-delegator = request.getAttribute("delegator");
-dispatcher = request.getAttribute("dispatcher");
-userLogin = request.getSession().getAttribute("userLogin");
+shipmentId = parameters.shipmentId;
+shipment = delegator.findByPrimaryKey("Shipment", [shipmentId : shipmentId]);
 
-shipmentId = request.getParameter("shipmentId");
-shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
+context.shipmentIdPar = shipment.shipmentId;
 
-context.put("shipmentIdPar", shipment.getString("shipmentId"));
-
-if (shipment != null) {    
-    shipmentPackages = delegator.findByAnd("ShipmentPackage", UtilMisc.toMap("shipmentId", shipmentId));
-    shipmentPackagesIt = shipmentPackages.iterator();
-    records = new ArrayList();
-    orderReaders = new HashMap();
-    while(shipmentPackagesIt.hasNext()) {
-        shipmentPackage = shipmentPackagesIt.next();
-
-        shipmentPackageComponents = delegator.findByAnd("ShipmentPackageContent", UtilMisc.toMap("shipmentId", shipmentId, "shipmentPackageSeqId", shipmentPackage.getString("shipmentPackageSeqId")));
-        shipmentPackageComponentsIt = shipmentPackageComponents.iterator();
-        while(shipmentPackageComponentsIt.hasNext()) {
-            shipmentPackageComponent = shipmentPackageComponentsIt.next();
-
+if (shipment) {    
+    shipmentPackages = delegator.findByAnd("ShipmentPackage", [shipmentId : shipmentId]);
+    records = [];
+    orderReaders = [:];
+    shipmentPackages.each { shipmentPackage ->
+        shipmentPackageComponents = delegator.findByAnd("ShipmentPackageContent", [shipmentId : shipmentId, shipmentPackageSeqId : shipmentPackage.shipmentPackageSeqId]);
+        shipmentPackageComponents.each { shipmentPackageComponent ->
             shipmentItem = shipmentPackageComponent.getRelatedOne("ShipmentItem");
             orderShipments = shipmentItem.getRelated("OrderShipment");
             orderShipment = EntityUtil.getFirst(orderShipments);
             
             String orderId = null;
             String orderItemSeqId = null;
-            if (orderShipment != null) {            
-                orderId = orderShipment.getString("orderId");
-                orderItemSeqId = orderShipment.getString("orderItemSeqId");
+            if (orderShipment) {            
+                orderId = orderShipment.orderId;
+                orderItemSeqId = orderShipment.orderItemSeqId;
             }
 
-            record = new HashMap();
-            if (shipmentPackageComponent.get("subProductId") != null) {
-                record.put("productId", shipmentPackageComponent.getString("subProductId"));
-                record.put("quantity", shipmentPackageComponent.getDouble("subQuantity"));
+            record = [:];
+            if (shipmentPackageComponent.subProductId) {
+                record.productId = shipmentPackageComponent.subProductId;
+                record.quantity = shipmentPackageComponent.getDouble("subQuantity");
             } else {
-                record.put("productId", shipmentItem.getString("productId"));
-                record.put("quantity", shipmentPackageComponent.getDouble("quantity"));
+                record.productId = shipmentItem.productId;
+                record.quantity = shipmentPackageComponent.getDouble("quantity");
             }
-            record.put("shipmentPackageSeqId", shipmentPackageComponent.getString("shipmentPackageSeqId"));
-            record.put("orderId", orderId);
-            record.put("orderItemSeqId", orderItemSeqId);            
-            product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", (String)record.get("productId")));
-            record.put("productName", product.getString("internalName"));
-            record.put("shipDate", shipment.getString("estimatedShipDate"));
+            record.shipmentPackageSeqId = shipmentPackageComponent.shipmentPackageSeqId;
+            record.orderId = orderId;
+            record.orderItemSeqId = orderItemSeqId;            
+            product = delegator.findByPrimaryKey("Product", [productId : record.productId]);
+            record.productName = product.internalName;
+            record.shipDate = shipment.estimatedShipDate;
             // ---
             orderReadHelper = null;
             if (orderReaders.containsKey(orderId)) {
                 orderReadHelper = (OrderReadHelper)orderReaders.get(orderId);
             } else {
-                orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+                orderHeader = delegator.findByPrimaryKey("OrderHeader", [orderId : orderId]);
                 orderReadHelper = new OrderReadHelper(orderHeader);
                 orderReaders.put(orderId, orderReadHelper);
             }
             displayParty = orderReadHelper.getPlacingParty();
             shippingAddress = orderReadHelper.getShippingAddress();
-            record.put("shippingAddressName", shippingAddress.getString("toName"));
-            record.put("shippingAddressAddress", shippingAddress.getString("address1"));
-            record.put("shippingAddressCity", shippingAddress.getString("city"));
-            record.put("shippingAddressPostalCode", shippingAddress.getString("postalCode"));
-            record.put("shippingAddressCountry", shippingAddress.getString("countryGeoId"));
+            record.shippingAddressName = shippingAddress.toName;
+            record.shippingAddressAddress = shippingAddress.address1;
+            record.shippingAddressCity = shippingAddress.city;
+            record.shippingAddressPostalCode = shippingAddress.postalCode;
+            record.shippingAddressCountry = shippingAddress.countryGeoId;
             records.add(record);
         }
     }
-    context.put("records", records);
+    context.records = records;
     
     // check permission
     hasPermission = false;
     if (security.hasEntityPermission("MANUFACTURING", "_VIEW", session)) {
         hasPermission = true;
     } 
-    context.put("hasPermission", hasPermission);    
+    context.hasPermission = hasPermission;    
 }
 
 return "success";

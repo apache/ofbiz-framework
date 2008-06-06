@@ -20,98 +20,91 @@
 // PRunsComponentsByFeature
 // ReportF
 
-import java.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.util.*;
+import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.product.category.CategoryWorker;
 
-if (!UtilValidate.isEmpty(productCategoryIdPar)) {
-    category = delegator.findByPrimaryKey("ProductCategory", UtilMisc.toMap("productCategoryId", productCategoryIdPar));
-    context.put("category", category);
+if (productCategoryIdPar) {
+    category = delegator.findByPrimaryKey("ProductCategory", [productCategoryId : productCategoryIdPar]);
+    context.category = category;
 }
-if (!UtilValidate.isEmpty(productFeatureTypeIdPar)) {
-    featureType = delegator.findByPrimaryKey("ProductFeatureType", UtilMisc.toMap("productFeatureTypeId", productFeatureTypeIdPar));
-    context.put("featureType", featureType);
+if (productFeatureTypeIdPar) {
+    featureType = delegator.findByPrimaryKey("ProductFeatureType", [productFeatureTypeId : productFeatureTypeIdPar]);
+    context.featureType = featureType;
 }
 
-allProductionRuns = delegator.findByAnd("WorkEffortAndGoods", UtilMisc.toMap("workEffortName", planName), UtilMisc.toList("productId"));
-productionRuns = new ArrayList();
-features = new HashMap(); // each entry is a productFeatureId|{productFeature,products}
-products = new HashMap(); // each entry is a productId|{product,quantity} 
-if (UtilValidate.isEmpty(productFeatureTypeIdPar)) {
+allProductionRuns = delegator.findByAnd("WorkEffortAndGoods", [workEffortName : planName],["productId"]);
+productionRuns = [];
+features = [:]; // each entry is a productFeatureId|{productFeature,products}
+products = [:]; // each entry is a productId|{product,quantity} 
+if (!productFeatureTypeIdPar) {
     features.put(null, UtilMisc.toMap("productFeature", null, "products", products));
 }
 
-if (allProductionRuns != null) {
-    allProductionRunsIt = allProductionRuns.iterator();
-    while (allProductionRunsIt.hasNext()) {
-        productionRun = allProductionRunsIt.next();
+if (allProductionRuns) {
+    allProductionRuns.each { productionRun ->
         // select the production run's task of a given name (i.e. type) if any (based on the report's parameter)
-        productionRunTasks = delegator.findByAnd("WorkEffort", UtilMisc.toMap("workEffortParentId", productionRun.getString("workEffortId"), "workEffortName", taskNamePar));
+        productionRunTasks = delegator.findByAnd("WorkEffort", [workEffortParentId : productionRun.workEffortId, workEffortName : taskNamePar]);
         productionRunTask = EntityUtil.getFirst(productionRunTasks);
-        if (productionRunTask == null) {
+        if (!productionRunTask) {
             // the production run doesn't include the given task, skip it
             continue;
         }
 
         // select the task's components, if any
-        allProductionRunComponents = delegator.findByAnd("WorkEffortGoodStandard", UtilMisc.toMap("workEffortId", productionRunTask.getString("workEffortId"),"workEffortGoodStdTypeId", "PRUNT_PROD_NEEDED"));
-        allProductionRunComponentsIt = allProductionRunComponents.iterator();
-        while(allProductionRunComponentsIt.hasNext()) {
-            productionRunComponent = allProductionRunComponentsIt.next();
+        allProductionRunComponents = delegator.findByAnd("WorkEffortGoodStandard", [workEffortId : productionRunTask.workEffortId,workEffortGoodStdTypeId : "PRUNT_PROD_NEEDED"]);
+        allProductionRunComponents.each { productionRunComponent ->
             // verify if the product is a member of the given category (based on the report's parameter)
-            if (!UtilValidate.isEmpty(productCategoryIdPar)) {
-                if (!isProductInCategory(delegator, productionRunComponent.getString("productId"), productCategoryIdPar)) {
+            if (productCategoryIdPar) {
+                if (!isProductInCategory(delegator, productionRunComponent.productId, productCategoryIdPar)) {
                     // the production run's product is not a member of the given category, skip it
                     continue;
                 }
             }
-            productionRunProduct = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productionRunComponent.getString("productId")));
+            productionRunProduct = delegator.findByPrimaryKey("Product", [productId : productionRunComponent.productId]);
 
             location = null;
-            if (!UtilValidate.isEmpty(productionRunProduct)) {
-                locations = delegator.findByAnd("ProductFacilityLocation", UtilMisc.toMap("facilityId", productionRun.getString("facilityId"), "productId", productionRunProduct.getString("productId")));
+            if (productionRunProduct) {
+                locations = delegator.findByAnd("ProductFacilityLocation", [facilityId : productionRun.facilityId, productId : productionRunProduct.productId]);
                 location = EntityUtil.getFirst(locations);
             }
 
             // group by standard feature of type productFeatureTypeIdPar
-            if (productFeatureTypeIdPar != null) {
-                standardFeatures = delegator.findByAnd("ProductFeatureAndAppl", UtilMisc.toMap("productFeatureTypeId", productFeatureTypeIdPar, "productId", productionRunComponent.getString("productId"), "productFeatureApplTypeId", "STANDARD_FEATURE"));
+            if (productFeatureTypeIdPar) {
+                standardFeatures = delegator.findByAnd("ProductFeatureAndAppl", [productFeatureTypeId : productFeatureTypeIdPar, productId : productionRunComponent.productId, productFeatureApplTypeId : "STANDARD_FEATURE"]);
                 standardFeatures = EntityUtil.filterByDate(standardFeatures);
                 standardFeature = EntityUtil.getFirst(standardFeatures);
                 standardFeatureId = null;
-                if (standardFeature != null) {
-                    standardFeatureId = standardFeature.getString("productFeatureId");
+                if (standardFeature) {
+                    standardFeatureId = standardFeature.productFeatureId;
                 }
                 if (!features.containsKey(standardFeatureId)) {
-                    features.put(standardFeatureId, UtilMisc.toMap("productFeature", standardFeature, "products", new HashMap()));
+                    features.put(standardFeatureId, [productFeature : standardFeature, products : [:]]);
                 }
                 feature = (Map)features.get(standardFeatureId);
-                products = (Map)feature.get("products");
+                products = (Map)feature.products;
             }
 
             //
             // populate the products map and sum the quantities
             //
             if (!products.containsKey(productionRunComponent.getString("productId"))) {
-                products.put(productionRunComponent.getString("productId"), UtilMisc.toMap("product", productionRunProduct, "quantity", new Double(0), "location", location));
+                products.put(productionRunComponent.productId, [product : productionRunProduct, quantity : new Double(0), location : location]);
             }
-            Map productMap = (Map)products.get(productionRunComponent.getString("productId"));
-            Double productMapQty = (Double)productMap.get("quantity");
+            Map productMap = (Map)products.get(productionRunComponent.productId);
+            Double productMapQty = (Double)productMap.quantity;
             Double currentProductQty = productionRunComponent.getDouble("estimatedQuantity");
-            productMap.put("quantity", new Double(productMapQty.doubleValue() + currentProductQty.doubleValue()));
+            productMap.quantity = new Double(productMapQty.doubleValue() + currentProductQty.doubleValue());
         }
     }
     // now create lists of products for each feature group
     featuresIt = features.values().iterator();
-    while (featuresIt.hasNext()) {
+    while (featuresIt) {
         feature = featuresIt.next();
-        productsMap = feature.get("products");
+        productsMap = feature.products;
         productsMapIt = productsMap.values().iterator();
         while (productsMapIt.hasNext()) {
             productMap = productsMapIt.next();
-            if (productMap.get("product").get("productWidth") != null && productMap.get("product").get("productHeight") != null) {
+            if (productMap.product.productWidth && productMap.product.productHeight) {
                 Double productMapQty = (Double)productMap.get("quantity");
                 Double productHeight = (Double)productMap.get("product").get("productHeight");
                 Double productWidth = (Double)productMap.get("product").get("productWidth");
@@ -121,10 +114,10 @@ if (allProductionRuns != null) {
                 if (productArea > 0) panelQty = productMapQty.doubleValue() / productArea;
                 panelQtyInt = (int)panelQty;
                 if (panelQtyInt < panelQty) panelQtyInt++;
-                productMap.put("panelQuantity", new Integer(panelQtyInt));
+                productMap.panelQuantity = new Integer(panelQtyInt);
             }
         }
-        feature.put("productList", productsMap.values());
+        feature.productList = productsMap.values();
     }
-    context.put("features", features.values());
+    context.features = features.values();
 }
