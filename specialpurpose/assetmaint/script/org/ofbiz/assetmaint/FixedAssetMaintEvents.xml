@@ -47,6 +47,9 @@
         <!-- Maintenance WorkEffort entity -->
         <property-to-field field-name="workEffortNameText" resource="AssetMaintUiLabels" property="FixedAssetMaintWorkEffortName"/>
         <set value="${workEffortNameText} #${updateWorkEffortCtx.fixedAssetId}" field="updateWorkEffortCtx.workEffortName"/>
+        <set field="maintTypeLookup.productMaintTypeId" from-field="findAssetMaint.productMaintTypeId"/>
+        <find-by-primary-key entity-name="ProductMaintType" map-name="maintTypeLookup" value-name="maintType"/>
+        <set field="updateWorkEffortCtx.description" from-field="maintType.description"/>
         <call-service service-name="updateWorkEffort" in-map-name="updateWorkEffortCtx"/>
     </simple-method>    
     <simple-method method-name="updateFixedAssetMaintAndWorkEffort" login-required="true"

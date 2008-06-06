@@ -50,7 +50,6 @@
             <actions>
                 <set field="headerItem" value="fixedAssetMaints"/>
                 <set field="titleProperty" value="PageTitleFindFixedAssetMaints"/>
-                <set field="labelTitleProperty" value="AccountingFixedAssetMaint"/>
                 <set field="noConditionFind" value="Y"/>
             </actions>
             <widgets>
@@ -171,14 +170,11 @@
             <actions>
                 <set field="titleProperty" value="PageTitleListWorkEffortTimeEntries"/>
                 <set field="tabButtonItemFixedAssetMaint" value="EditWorkEffortTimeEntries"/>
-                <set field="labelTitleProperty" value="PageTitleListWorkEffortTimeEntries"/>
-                
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
                 <set field="maintHistSeqId" from-field="parameters.maintHistSeqId"/>
                 <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
                 <entity-one entity-name="FixedAssetMaint" value-name="fixedAssetMaint"/>
-                <script location="component://assetmaint/webapp/assetmaint/WEB-INF/actions/workeffort/EditWorkEfforts.bsh"/>                
             </actions>
             <widgets>
                 <decorator-screen name="CommonFixedAssetMaintDecorator">
@@ -196,16 +192,14 @@
     <screen name="EditWorkEffortNotes">
         <section>
             <actions>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="PageTitleListWorkEffortNotes"/>
                 <set field="tabButtonItemFixedAssetMaint" value="EditWorkEffortNotes"/>
-                <set field="labelTitleProperty" value="PageTitleListWorkEffortNotes"/>
-
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
                 <set field="maintHistSeqId" from-field="parameters.maintHistSeqId"/>
                 <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
                 <entity-one entity-name="FixedAssetMaint" value-name="fixedAssetMaint"/>
-                <script location="component://assetmaint/webapp/assetmaint/WEB-INF/actions/workeffort/EditWorkEfforts.bsh"/>                
             </actions>
             <widgets>
                 <decorator-screen name="CommonFixedAssetMaintDecorator">
@@ -213,7 +207,7 @@
                         <screenlet id="add-workeffort-note" title="${uiLabelMap.PageTitleAddWorkEffortNotes}" collapsible="true">
                             <include-form name="AddWorkEffortNote" location="component://assetmaint/widget/forms/WorkEffortForms.xml"/>
                         </screenlet>
-                        <include-form name="ListWorkEffortNotes" location="component://assetmaint/widget/forms/WorkEffortForms.xml"/>
+                        <include-form name="ListWorkEffortNotes" location="component://workeffort/widget/WorkEffortForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -225,8 +219,6 @@
             <actions>
                 <set field="titleProperty" value="PageTitleListItemIssuance"/>
                 <set field="tabButtonItemFixedAssetMaint" value="EditItemIssuances"/>
-                <set field="labelTitleProperty" value="PageTitleListItemIssuance"/>
-
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
                 <set field="maintHistSeqId" from-field="parameters.maintHistSeqId"/>
                 <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
