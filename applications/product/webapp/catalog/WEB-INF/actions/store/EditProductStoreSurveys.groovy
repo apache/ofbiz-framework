@@ -17,27 +17,20 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.util.*;
+import org.ofbiz.base.util.*
+import org.ofbiz.entity.condition.*
+import org.ofbiz.entity.util.*
 
-security = request.getAttribute("security");
-delegator = request.getAttribute("delegator");
-
-if (security.hasEntityPermission("CATALOG", "_VIEW", session)) {
-    context.hasPermission = Boolean.TRUE;
-} else {
-    context.hasPermission = Boolean.FALSE;
-}
+context.hasPermission = security.hasEntityPermission("CATALOG", "_VIEW", session);
 
 productStoreId = request.getParameter("productStoreId");
 if (productStoreId) {
-    productStore = delegator.findByPrimaryKey("ProductStore", ['productStoreId' : productStoreId]);
+    productStore = delegator.findOne("ProductStore", [productStoreId : productStoreId], false);
     context.productStoreId = productStoreId;
     context.productStore = productStore;
 }
 
-context.productStoreSurveys = EntityUtil.filterByDate(delegator.findByAnd("ProductStoreSurveyAppl", ['productStoreId' : productStoreId]));
+context.productStoreSurveys = EntityUtil.filterByDate(delegator.findList("ProductStoreSurveyAppl", EntityCondition.makeCondition([productStoreId : productStoreId]), null, null, null, false));
 
 context.surveys = delegator.findList("Survey", null, null, ['description'], null, false);
 

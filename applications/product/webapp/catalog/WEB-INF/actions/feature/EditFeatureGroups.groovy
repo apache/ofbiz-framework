@@ -17,13 +17,6 @@
  * under the License.
  */
 
-security = request.getAttribute("security");
-delegator = request.getAttribute("delegator");
-
-if(security.hasEntityPermission("CATALOG", "_VIEW", session)) {
-    context.hasPermission = Boolean.TRUE;
-} else {
-    context.hasPermission = Boolean.FALSE;
-}
+context.hasPermission = security.hasEntityPermission("CATALOG", "_VIEW", session)
 
 context.productFeatureGroups = delegator.findList("ProductFeatureGroup", null, null, null, null, false);

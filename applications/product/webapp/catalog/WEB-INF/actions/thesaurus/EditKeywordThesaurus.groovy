@@ -17,16 +17,15 @@
  * under the License.
  */
 
-import org.ofbiz.entity.*
-import org.ofbiz.base.util.*
+import org.ofbiz.entity.condition.*
 
-relationshipEnums = delegator.findByAndCache("Enumeration", ['enumTypeId' : 'KW_THES_REL'], ['sequenceId']);
+relationshipEnums = delegator.findList("Enumeration", EntityCondition.makeCondition([enumTypeId : 'KW_THES_REL']), null, ['sequenceId'], null, true);
 
 keywordThesauruses = delegator.findList("KeywordThesaurus", null, null, ['enteredKeyword'], null, false);
 
 //if no param sent in make firstLetter 'a' else use firstLetter passed in
 firstLetterString = request.getParameter("firstLetter");
-if (UtilValidate.isEmpty(firstLetterString)) {
+if (!firstLetterString) {
     firstLetter = 'a';
 }
 else {
@@ -36,11 +35,11 @@ else {
 //add elememts to new list as long as it is smaller then 20,
 //  but always get all of the first letter
 keywordThesaurusIter = keywordThesauruses.iterator();
-newKeywordThesaurus = new LinkedList();
-specialCharKeywordThesaurus = new LinkedList();
+newKeywordThesaurus = [];
+specialCharKeywordThesaurus = [];
 currentLetter = firstLetter;
-if (keywordThesaurusIter.hasNext()) {
-    while (keywordThesaurusIter.hasNext()) {
+if (keywordThesaurusIter) {
+    while (keywordThesaurusIter) {
         keywordThesaurus = keywordThesaurusIter.next();
         if (keywordThesaurus.get("enteredKeyword").charAt(0)<'a' ||
                 keywordThesaurus.get("enteredKeyword").charAt(0)>'z') {
@@ -56,14 +55,14 @@ if (keywordThesaurusIter.hasNext()) {
 }
 if ((specialCharKeywordThesaurus.size() > 0 && newKeywordThesaurus.size()<20) || firstLetter=='z') {
     specialCharKeywordThesaurusIter = specialCharKeywordThesaurus.iterator();
-    while (specialCharKeywordThesaurusIter.hasNext()) {
+    while (specialCharKeywordThesaurusIter) {
         keywordThesaurus = specialCharKeywordThesaurusIter.next();
         newKeywordThesaurus.add(keywordThesaurus);
     }
 }
 
 //create list for a-z
-letterList=new LinkedList();
+letterList = [];
 for (i='a'; i<='z'; i++) {
     letterList.add(i);
 }

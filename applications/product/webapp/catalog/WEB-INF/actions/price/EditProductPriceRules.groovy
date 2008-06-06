@@ -17,17 +17,15 @@
  * under the License.
  */
 
-import org.ofbiz.entity.*
-import org.ofbiz.entity.util.*
-import org.ofbiz.base.util.*
+import org.ofbiz.entity.condition.*
 
 String priceRuleId = request.getParameter("productPriceRuleId");
 if (priceRuleId) {
-    context.productPriceRule = delegator.findByPrimaryKey("ProductPriceRule", ['productPriceRuleId' : priceRuleId]);
+    context.productPriceRule = delegator.findOne("ProductPriceRule", [productPriceRuleId : priceRuleId], false);
 }
 
-context.inputParamEnums = delegator.findByAndCache("Enumeration", ['enumTypeId' : 'PROD_PRICE_IN_PARAM'], ['sequenceId']);
+context.inputParamEnums = delegator.findList("Enumeration", EntityCondition.makeCondition([enumTypeId : 'PROD_PRICE_IN_PARAM']), null, ['sequenceId'], null, true);
 
-context.condOperEnums = delegator.findByAndCache("Enumeration", ['enumTypeId' : 'PROD_PRICE_COND'], ['sequenceId']);
+context.condOperEnums = delegator.findList("Enumeration", EntityCondition.makeCondition([enumTypeId : 'PROD_PRICE_COND']), null, ['sequenceId'], null, true);
 
 context.productPriceActionTypes = delegator.findList("ProductPriceActionType", null, null, ['description'], null, true);

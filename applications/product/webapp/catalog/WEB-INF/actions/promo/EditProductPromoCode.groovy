@@ -17,14 +17,11 @@
  * under the License.
  */
 
-import org.ofbiz.entity.*
-import org.ofbiz.base.util.*
-
 productPromoCodeId = request.getParameter("productPromoCodeId");
-if (UtilValidate.isEmpty(productPromoCodeId)) {
+if (!productPromoCodeId) {
     productPromoCodeId = request.getAttribute("productPromoCodeId");
 }
-productPromoCode = delegator.findByPrimaryKey("ProductPromoCode", ['productPromoCodeId' : productPromoCodeId]);
+productPromoCode = delegator.findOne("ProductPromoCode", [productPromoCodeId : productPromoCodeId], false);
 
 productPromoId = null;
 if (productPromoCode) {
@@ -35,7 +32,7 @@ if (productPromoCode) {
 
 productPromo = null;
 if (productPromoId) {
-    productPromo = delegator.findByPrimaryKey("ProductPromo", ['productPromoId' : productPromoId]);
+    productPromo = delegator.findOne("ProductPromo", [productPromoId : productPromoId], false);
 }
 
 productPromoCodeEmails = null;
