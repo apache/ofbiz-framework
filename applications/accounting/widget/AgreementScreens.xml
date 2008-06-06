@@ -917,4 +917,48 @@ under the License.
             </widgets>
         </section>
     </screen>
+    
+    <screen name="EditAgreementWorkEffortAppls">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditAgreementWorkEffortAppls"/>
+                <set field="headerItem" value="agreement"/>
+                <set field="tabButtonItem" value="AgreementWorkEffortAppls"/>
+                <set field="agreementId" from-field="parameters.agreementId"/>
+                <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
+                    <decorator-section name="body">
+                       <container style="screenlet-title-bar">
+                            <container style="h3">
+                                <label text="${uiLabelMap.AccountingListAgreementWorkEffortAppls}"/>
+                            </container>
+                        </container>
+                        <container style="screenlet-body">
+                            <section>
+                                <widgets>    
+                                    <include-form name="ListAgreementWorkEffortAppls" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                                </widgets>
+                            </section>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
+                                    <label text="${uiLabelMap.AccountingAddAgreementWorkEffortAppl}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="AddAgreementWorkEffortAppl" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>                        
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>

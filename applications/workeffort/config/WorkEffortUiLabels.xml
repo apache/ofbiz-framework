@@ -3826,4 +3826,7 @@
         <value xml:lang="es">Hojas de trabajo</value>
         <value xml:lang="th">งาน</value>
     </property>
+    <property key="WorkEffortAgreementAppls">
+        <value xml:lang="en">Agreement Appls</value>
+    </property>
 </resource>

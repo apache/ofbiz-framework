@@ -137,6 +137,9 @@
         <value xml:lang="ru">Действительный код валюты</value>
         <value xml:lang="th">รหัสหน่วยวัดจำนวนเงิน</value>
     </property>
+    <property key="AccountingAddAgreementWorkEffortAppl">
+        <value xml:lang="en">Add Agreement Work Effort Appl</value>        
+    </property>
     <property key="AccountingAddCategoryGlAccount">
         <value xml:lang="en">Add Category GL Account</value>
         <value xml:lang="th">เพิ่มหมวดหมู่บัญชีแยกประเภททั่วไป</value>
@@ -414,6 +417,12 @@
         <value xml:lang="ru">Код типа договора</value>
         <value xml:lang="th">รหัสประเภทสัญญา</value>
         <value xml:lang="zh">合同类型标识</value>
+    </property>
+    <property key="AccountingAgreementWorkEffortApplAlreadyExists">
+        <value xml:lang="en">Agreement Work Effort Appl Already Exists</value>
+    </property>
+    <property key="AccountingAgreementWorkEffortAppls">        
+        <value xml:lang="en">Agreement Work Effort Appls</value>        
     </property>
     <property key="AccountingAgreements">
         <value xml:lang="ar">إتفاقيات</value>
@@ -3607,6 +3616,9 @@ esetata in mod automat</value>
         <value xml:lang="th">ผลรวมแถว</value>
         <value xml:lang="zh">总行数</value>
     </property>
+    <property key="AccountingListAgreementWorkEffortAppls">
+        <value xml:lang="en">List Agreement Work Effort Appls</value>
+    </property>
     <property key="AccountingListInvoiceItemType">
         <value xml:lang="en">Invoice Item Type List</value>
         <value xml:lang="it">Lista Tipi Riga Fattura</value>
@@ -3645,6 +3657,12 @@ esetata in mod automat</value>
         <value xml:lang="ru">Возможные для применения платежи</value>
         <value xml:lang="th">ความเป็นไปได้ของการชำระเงินที่นำไปใช้ได้</value>
         <value xml:lang="zh">可用的支付</value>
+    </property>
+    <property key="AccountingLookupAgreement">
+        <value xml:lang="en">Lookup Agreement</value>        
+    </property>
+    <property key="AccountingLookupAgreementItem">
+        <value xml:lang="en">Lookup Agreement Item</value>
     </property>
     <property key="AccountingLookupInvoices">
         <value xml:lang="ar">إطلالة على  الفواتير</value>
@@ -8221,6 +8239,9 @@ esetata in mod automat</value>
         <value xml:lang="ru">Изменить условие договора</value>
         <value xml:lang="th">แก้ไขสัญญาที่กำหนด</value>
         <value xml:lang="zh">编辑合同条件</value>
+    </property>
+    <property key="PageTitleEditAgreementWorkEffortAppls">
+        <value xml:lang="en">Edit Agreement Work Effort Appls</value>
     </property>
     <property key="PageTitleEditBillingAccount">
         <value xml:lang="en">Edit Billing Account</value>

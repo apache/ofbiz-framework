@@ -1243,4 +1243,47 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="EditAgreementWorkEffortAppls">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditAgreementWorkEffortAppls"/>
+                <set field="tabButtonItem" value="WorkEffortAgreementAppls"/>
+                <set field="workEffortId" from-field="parameters.workEffortId"  />
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonWorkEffortDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
+                                    <label text="${uiLabelMap.AccountingAgreementWorkEffortAppls}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="ListAgreementWorkEffortAppls" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
+                                    <label text="${uiLabelMap.AccountingAddAgreementWorkEffortAppl}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>    
+                                        <include-form name="AddAgreementWorkEffortAppl" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>  
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>

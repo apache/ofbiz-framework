@@ -232,6 +232,18 @@ under the License.
         <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="commissions" type="List" mode="OUT" optional="false"/>
     </service>
+    
+    <!--AgrementWorkEffortAppl-->
+    <service name="createAgreementWorkEffortAppl" engine="simple" default-entity-name="AgreementWorkEffortAppl"
+            location="org/ofbiz/accounting/agreement/AgreementServices.xml" invoke="createAgreementWorkEffortAppl">
+        <description> Create AgreementWorkEffortAppl </description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>       
+    </service>
+    <service name="deleteAgreementWorkEffortAppl" engine="simple" default-entity-name="AgreementWorkEffortAppl"
+            location="org/ofbiz/accounting/agreement/AgreementServices.xml" invoke="deleteAgreementWorkEffortAppl">
+        <description>Delete AgreementWorkEffortAppl</description>        
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
 
     <!-- Permission services -->
     <service name="acctgAgreementPermissionCheck" engine="simple"

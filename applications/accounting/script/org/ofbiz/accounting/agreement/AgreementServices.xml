@@ -308,4 +308,23 @@ under the License.
         <remove-value value-name="agreementRole"/>
     </simple-method>
 
+    <!--AgreementWorkEffortAppl-->
+    <simple-method method-name="createAgreementWorkEffortAppl" short-description="Create a link between a WorkEffort and a Agreement Appl">
+        <entity-one entity-name="AgreementWorkEffortAppl" value-name="agreementWorkEffortAppl"/>
+        <if-not-empty field-name="agreementWorkEffortAppl">
+            <add-error><fail-property resource="AccountingUiLabels" property="AccountingAgreementWorkEffortApplAlreadyExists"/></add-error>
+            <check-errors/>
+        <else>
+            <make-value value-name="newEntity" entity-name="AgreementWorkEffortAppl"/>  
+            <set-pk-fields map-name="parameters" value-name="newEntity"/>
+            <create-value value-name="newEntity"/>
+        </else>
+        </if-not-empty>
+    </simple-method>
+   
+    <simple-method method-name="deleteAgreementWorkEffortAppl" short-description="Remove a link between a WorkEffort and a Agreement Appl">
+        <entity-one entity-name="AgreementWorkEffortAppl" value-name="agreementWorkEffortAppl"/>
+        <remove-value value-name="agreementWorkEffortAppl"/>
+    </simple-method>
+
 </simple-methods>
