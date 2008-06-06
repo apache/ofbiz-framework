@@ -321,7 +321,7 @@ under the License.
             <result-to-field result-name="paymentMethodId"/>
             <result-to-field result-name="oldPaymentMethodId"/>
         </call-service>
-        <log level="info" message="====== New paymentMethodId [${paymentMethodId}] created for party [${partyId}] ======"/>
+        <log level="info" message="====== New paymentMethodId [${paymentMethodId}] created for party [${serviceCtx.partyId}] ======"/>
         <entity-one entity-name="PaymentMethodAndCreditCard" value-name="paymentMethodAndCreditCard"/>
         <assert>
             <not><if-empty field-name="paymentMethodAndCreditCard"/></not>
