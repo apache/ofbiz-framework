@@ -39,7 +39,6 @@
             <result-to-field result-name="maintHistSeqId" map-name="findAssetMaintLookup" field-name="maintHistSeqId"/>
             <result-to-request result-name="maintHistSeqId"/>
         </call-service>
-
         <set from-field="parameters.fixedAssetId" field="findAssetMaintLookup.fixedAssetId"/>
         <find-by-primary-key entity-name="FixedAssetMaint" map-name="findAssetMaintLookup" value-name="findAssetMaint"/>
         <set from-field="findAssetMaint.scheduleWorkEffortId" field="updateWorkEffortCtx.workEffortId"/>
@@ -51,19 +50,23 @@
         <find-by-primary-key entity-name="ProductMaintType" map-name="maintTypeLookup" value-name="maintType"/>
         <set field="updateWorkEffortCtx.description" from-field="maintType.description"/>
         <call-service service-name="updateWorkEffort" in-map-name="updateWorkEffortCtx"/>
-    </simple-method>    
+    </simple-method>
+
     <simple-method method-name="updateFixedAssetMaintAndWorkEffort" login-required="true"
         short-description="Update FixedAssetMaint and Schedule information in WorkEffort">
         <check-errors/>
         <set-service-fields map-name="parameters" service-name="updateFixedAssetMaint" to-map-name="updateFixedAssetMaintCtx"/>
         <call-service service-name="updateFixedAssetMaint" in-map-name="updateFixedAssetMaintCtx"/>
         <check-errors/>
+        <if-compare field-name="parameters.statusId" operator="equals" value="FAM_CANCELLED">
+            <set field="updateWorkEffortCtx.currentStatusId" value="CAL_CANCELLED"/>
+        </if-compare>
         <set from-field="parameters.scheduleWorkEffortId" field="updateWorkEffortCtx.workEffortId"/>
         <set-service-fields map-name="parameters" service-name="updateWorkEffort" to-map-name="updateWorkEffortCtx"/>
         <call-service service-name="updateWorkEffort" in-map-name="updateWorkEffortCtx"/>
         <check-errors/>
     </simple-method>    
-    
+
     <simple-method method-name="createWorkEffortAndAssoc" login-required="true"
         short-description="Create WorkEffort and Associate it with Parent (identified by workEffortFromId)">
         <set from-field="parameters.workEffortIdTo" field="parameters.workEffortId"/>
