@@ -26,8 +26,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleCalendarDay"/>
                 <set field="headerItem" value="calendar"/>
                 <set field="tabButtonItem" value="day"/>
-
-                <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/calendar/day.bsh"/>
+                <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/calendar/Days.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonCalendarDecorator" location="${parameters.mainDecoratorLocation}">
