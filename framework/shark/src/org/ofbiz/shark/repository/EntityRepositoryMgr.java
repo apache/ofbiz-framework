@@ -189,7 +189,7 @@ public class EntityRepositoryMgr implements RepositoryPersistenceManager {
 
     public List getExistingXPDLIds(RepositoryTransaction t) throws RepositoryException {
         Debug.log("Get Existing XPDL IDs", module);
-        List lookupList = this.getXpdlValues(null, null, false);
+        List lookupList = this.getXpdlValues(null, null, true);
         List idList = new ArrayList();
         if (UtilValidate.isNotEmpty(lookupList)) {
             Iterator i = lookupList.iterator();

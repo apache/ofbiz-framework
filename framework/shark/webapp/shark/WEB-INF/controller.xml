@@ -37,13 +37,13 @@ under the License.
     <handler name="http" type="view" class="org.ofbiz.webapp.view.HttpViewHandler"/>
         
     <preprocessor>
-    	<!-- Events to run on every request before security (chains exempt) -->
-    	<event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="check509CertLogin"/>
-    	<event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="checkExternalLoginKey"/>
+        <!-- Events to run on every request before security (chains exempt) -->
+        <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="check509CertLogin"/>
+        <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="checkExternalLoginKey"/>
     </preprocessor>
     <postprocessor>
-    	<!-- Events to run on every request after all other processing (chains exempt) -->
-    	<!-- <event type="java" path="org.ofbiz.webapp.event.TestEvent" invoke="test"/> -->
+        <!-- Events to run on every request after all other processing (chains exempt) -->
+        <!-- <event type="java" path="org.ofbiz.webapp.event.TestEvent" invoke="test"/> -->
     </postprocessor>
 
     <!-- Security Mappings -->
@@ -108,32 +108,32 @@ under the License.
     
     <request-map uri="main">
         <security https="true" auth="true"/>
-    	<response name="success" type="view" value="main"/>
+        <response name="success" type="view" value="main"/>
     </request-map>
 
     <request-map uri="repository">
         <security https="true" auth="true"/>
-    	<response name="success" type="view" value="repository"/>
+        <response name="success" type="view" value="repository"/>
     </request-map>    
     <request-map uri="processes">
         <security https="true" auth="true"/>
-    	<response name="success" type="view" value="processList"/>
+        <response name="success" type="view" value="processList"/>
     </request-map>
     <request-map uri="processDetailList">
         <security https="true" auth="true"/>
-    	<response name="success" type="view" value="processDetailList"/>
+        <response name="success" type="view" value="processDetailList"/>
     </request-map>
     <request-map uri="processHistory">
         <security https="true" auth="true"/>
-    	<response name="success" type="view" value="processHistory"/>
+        <response name="success" type="view" value="processHistory"/>
     </request-map>
     <request-map uri="processSteps">
         <security https="true" auth="true"/>
-    	<response name="success" type="view" value="processSteps"/>
+        <response name="success" type="view" value="processSteps"/>
     </request-map>
     <request-map uri="worklist">
         <security https="true" auth="true"/>
-    	<response name="success" type="view" value="worklist"/>
+        <response name="success" type="view" value="worklist"/>
     </request-map>
     <!-- end of request mappings -->
 
