@@ -17,8 +17,6 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.UtilMisc
-
 context.productFeatureTypes = delegator.findList("ProductFeatureType", null, null, ['description'], null, true);
 
-context.featureCategory = delegator.findByPrimaryKey("ProductFeatureCategory", ['productFeatureCategoryId' : parameters.productFeatureCategoryId]);
+context.featureCategory = delegator.findOne("ProductFeatureCategory", [productFeatureCategoryId : parameters.productFeatureCategoryId], false);

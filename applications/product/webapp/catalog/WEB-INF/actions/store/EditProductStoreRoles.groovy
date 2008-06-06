@@ -17,10 +17,10 @@
  * under the License.
  */
 
-import org.ofbiz.entity.*
+import org.ofbiz.entity.condition.*
 import org.ofbiz.entity.util.*
 
-List productStoreRoles = delegator.findByAnd("ProductStoreRole", ['productStoreId' : productStoreId], ['sequenceNum']);
+productStoreRoles = delegator.findList("ProductStoreRole", EntityCondition.makeCondition([productStoreId : productStoreId]), null, ['sequenceNum'], null, true);
 if (!request.getParameter("showAll")) {
     productStoreRoles = EntityUtil.filterByDate(productStoreRoles);
 }
