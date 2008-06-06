@@ -27,7 +27,7 @@ under the License.
                 -containerId
             If the service definitions are used then only one of these two will ever be specified, or neither of them.
 
-            Whatever it is called with, it will basicly get a list of InventoryItems and reserve the first available inventory.
+            Whatever it is called with, it will basically get a list of InventoryItems and reserve the first available inventory.
 
             If requireInventory is Y the quantity not reserved is returned, if N then a negative
             availableToPromise will be used to track quantity ordered beyond what is in stock.
@@ -417,9 +417,16 @@ under the License.
                 </if-compare>
             </if-compare>
             <if-compare field-name="inventoryItem.inventoryItemTypeId" operator="equals" value="NON_SERIAL_INV_ITEM">
-                <if-not-empty field-name="inventoryItem.availableToPromiseTotal">
-                    <!-- reduce atp on inventoryItem if availableToPromise greater than 0, if not the code at the end of this method will handle it -->
-                    <if-compare field-name="inventoryItem.availableToPromiseTotal" operator="greater" value="0" type="Double">
+                <!-- reduce atp on inventoryItem if availableToPromise greater than 0, if not the code at the end of this method will handle it -->
+                <if>
+                    <condition>
+                        <and>
+                            <if-empty field-name="inventoryItem.statusId"/>
+                            <not><if-empty field-name="inventoryItem.availableToPromiseTotal"/></not>
+                            <if-compare field-name="inventoryItem.availableToPromiseTotal" operator="greater" value="0" type="Double"/>
+                        </and>
+                    </condition>
+                    <then>
                         <if-compare-field field-name="parameters.quantityNotReserved" operator="greater" to-field-name="inventoryItem.availableToPromiseTotal" type="Double">
                             <set from-field="inventoryItem.availableToPromiseTotal" field="parameters.deductAmount"/>
                         <else>
@@ -457,12 +464,11 @@ under the License.
                                 <calcop operator="get" field-name="deductAmount" map-name="parameters"/>
                             </calcop>
                         </calculate>
-                    </if-compare>
-                </if-not-empty>
-
-                <!-- keep track of the last non-serialized inventory item for use if inventory is not required for purchase -->
-                <!-- use env variable named lastNonSerInventoryItem -->
-                <set from-field="inventoryItem" field="lastNonSerInventoryItem"/>
+                    </then>
+                    <!-- keep track of the last non-serialized inventory item for use if inventory is not required for purchase -->
+                    <!-- use env variable named lastNonSerInventoryItem -->
+                    <set from-field="inventoryItem" field="lastNonSerInventoryItem"/>
+                </if>
             </if-compare>
         </if-compare>
     </simple-method>
@@ -612,10 +618,3 @@ under the License.
         </if-compare>
     </simple-method>
 </simple-methods>
-
-
-
-
-
-
-

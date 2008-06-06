@@ -638,18 +638,34 @@ under the License.
                 </if-compare>
             </if-compare>
             <if-compare field-name="inventoryItem.inventoryItemTypeId" operator="equals" value="NON_SERIAL_INV_ITEM">
-                <if-not-empty field-name="inventoryItem.quantityOnHandTotal">
-                    <calculate field-name="parameters.quantityOnHandTotal" type="Double">
-                        <calcop operator="get" field-name="parameters.quantityOnHandTotal"/>
-                        <calcop operator="get" field-name="inventoryItem.quantityOnHandTotal"/>
-                    </calculate>
-                </if-not-empty>
-                <if-not-empty field-name="inventoryItem.availableToPromiseTotal">
-                    <calculate field-name="parameters.availableToPromiseTotal" type="Double">
-                        <calcop operator="get" field-name="parameters.availableToPromiseTotal"/>
-                        <calcop operator="get" field-name="inventoryItem.availableToPromiseTotal"/>
-                    </calculate>
-                </if-not-empty>
+                <if>
+                    <condition>
+                        <or>
+                            <and>
+                                <not><if-empty field-name="parameters.statusId"/></not>
+                                <if-compare-field operator="equals" field-name="parameters.statusId" to-field-name="inventoryItem.statusId"/>
+                            </and>
+                            <and>
+                                <if-empty field-name="parameters.statusId"/>
+                                <if-empty field-name="inventoryItem.statusId"/>
+                            </and>
+                        </or>
+                    </condition>
+                    <then>
+                        <if-not-empty field-name="inventoryItem.quantityOnHandTotal">
+                            <calculate field-name="parameters.quantityOnHandTotal" type="Double">
+                                <calcop operator="get" field-name="parameters.quantityOnHandTotal"/>
+                                <calcop operator="get" field-name="inventoryItem.quantityOnHandTotal"/>
+                            </calculate>
+                        </if-not-empty>
+                        <if-not-empty field-name="inventoryItem.availableToPromiseTotal">
+                            <calculate field-name="parameters.availableToPromiseTotal" type="Double">
+                                <calcop operator="get" field-name="parameters.availableToPromiseTotal"/>
+                                <calcop operator="get" field-name="inventoryItem.availableToPromiseTotal"/>
+                            </calculate>
+                        </if-not-empty>
+                    </then>
+                </if>
             </if-compare>
         </iterate>
 
@@ -676,6 +692,7 @@ under the License.
         <if-not-empty field-name="assocProducts">
             <set from-field="assocProducts" field="inventoryByAssocProductsParams.assocProducts"/>
             <set from-field="parameters.facilityId" field="inventoryByAssocProductsParams.facilityId"/>
+            <set from-field="parameters.statusId" field="inventoryByAssocProductsParams.statusId"/>
             <call-service service-name="getProductInventoryAvailableFromAssocProducts" in-map-name="inventoryByAssocProductsParams">
                 <result-to-field result-name="quantityOnHandTotal"/>
                 <result-to-field result-name="availableToPromiseTotal"/>

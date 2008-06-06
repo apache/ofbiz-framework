@@ -328,6 +328,7 @@ under the License.
                 <set field="productsSoldThruTimestamp" from-field="parameters.productsSoldThruTimestamp"/>
                 <set field="internalName" from-field="parameters.internalName"/>
                 <set field="productId" from-field="parameters.productId"/>
+                <set field="statusId" from-field="parameters.statusId"/>
                 <!-- do not use the countFacilityInventoryByProduct.bsh script unless the issues mentioned in it are correctly addressed -->
                 <script location="component://product/webapp/facility/WEB-INF/actions/facility/ViewFacilityInventoryByProduct.bsh"/>
                 <entity-one entity-name="Facility" value-name="facility"/>

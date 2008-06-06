@@ -176,6 +176,7 @@ if (action != null) {
         oneInventory.put("minimumStock", oneProd.getString("minimumStock"));
         oneInventory.put("reorderQuantity", oneProd.getString("reorderQuantity"));
         oneInventory.put("daysToShip", oneProd.getString("daysToShip"));
+        oneInventory.put("statusId", statusId);
         rows.add(oneInventory);
     }
 

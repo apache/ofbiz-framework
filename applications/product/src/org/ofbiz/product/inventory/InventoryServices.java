@@ -648,6 +648,7 @@ public class InventoryServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         List productAssocList = (List) context.get("assocProducts");
         String facilityId = (String)context.get("facilityId");
+        String statusId = (String)context.get("statusId");
         
         Double availableToPromiseTotal = new Double(0);
         Double quantityOnHandTotal = new Double(0);
@@ -672,7 +673,7 @@ public class InventoryServices {
                // figure out the inventory available for this associated product
                Map resultOutput = null;
                try {
-                   Map inputMap = UtilMisc.toMap("productId", productIdTo);
+                   Map inputMap = UtilMisc.toMap("productId", productIdTo, "statusId", statusId);
                    if (facilityId != null) {
                        inputMap.put("facilityId", facilityId);
                        resultOutput = dispatcher.runSync("getInventoryAvailableByFacility", inputMap);
@@ -728,12 +729,12 @@ public class InventoryServices {
 
         // get a list of all available facilities for looping
         List facilities = null;
-    try {
-        if (facilityId != null) {
+        try {
+            if (facilityId != null) {
                 facilities = delegator.findByAnd("Facility", UtilMisc.toMap("facilityId", facilityId)); 
             } else {
                 facilities = delegator.findList("Facility", null, null, null, null, false);
-            } 
+            }
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError("Unable to locate facilities." + e.getMessage());
         }
@@ -815,11 +816,12 @@ public class InventoryServices {
         String facilityId = (String)context.get("facilityId");
         String productId = (String)context.get("productId");
         String minimumStock = (String)context.get("minimumStock");
+        String statusId = (String)context.get("statusId");
 
         Map result = new HashMap();
         Map resultOutput = new HashMap();
 
-        Map contextInput = UtilMisc.toMap("productId", productId, "facilityId", facilityId);
+        Map contextInput = UtilMisc.toMap("productId", productId, "facilityId", facilityId, "statusId", statusId);
         GenericValue product = null;
         try {
             product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId));
