@@ -21,23 +21,27 @@
     <property key="FrameworkShark">
         <value xml:lang="en">Framework Shark</value>
         <value xml:lang="it">Applicazione Flussi di Lavoro</value>
+        <value xml:lang="fr">Shark workflow engine : moteur de gestion des flux de travail</value>
         <value xml:lang="ro">Aplictie Fluxuri de Lucru</value>
         <value xml:lang="th">Framework Shark</value>
     </property>
     <property key="SharkCompanyName">
         <value xml:lang="en">OFBiz: Shark</value>
+        <value xml:lang="fr">OFBiz : Shark</value>
         <value xml:lang="it">OFBiz: Flussi di Lavoro</value>
         <value xml:lang="ro">OFBiz: Fluxuri de Lucru</value>
         <value xml:lang="th">OFBiz: Shark</value>
     </property>
     <property key="SharkCompanySubtitle">
         <value xml:lang="en">Part of the Open For Business Family of Open Source Software</value>
+        <value xml:lang="fr">Un module de la famille Open For Business, logiciel libre de gestion d'entreprise.</value>
         <value xml:lang="it">Part of the Open For Business Family of Open Source Software</value>
         <value xml:lang="ro">Part of the Open For Business Family of Open Source Software</value>
         <value xml:lang="th">ส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value>
     </property>
     <property key="SharkMainPage">
         <value xml:lang="en">Shark Manager Main Page</value>
+        <value xml:lang="fr">Shark : page principale</value>
         <value xml:lang="it">Pagina Principale</value>
         <value xml:lang="ro">Pagina Principala</value>
         <value xml:lang="th">หน้าหลักของการจัดการ Shark</value>
