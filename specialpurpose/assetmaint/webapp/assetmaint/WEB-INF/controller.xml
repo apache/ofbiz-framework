@@ -185,6 +185,6 @@
     <view-map name="LookupWorkEffortShort" type="screen" page="component://workeffort/widget/LookupScreens.xml#LookupWorkEffortShort"/>
 
     <view-map name="EditWorkEffort" type="screen" page="component://assetmaint/widget/AssetmaintScreens.xml#EditFixedAssetMaint"/>
-    <view-map name="WorkEffortSummary" type="screen" page="component://assetmaint/widget/AssetmaintScreens.xml#EditFixedAssetMaint"/>
+    <view-map name="WorkEffortSummary" type="screen" page="component://assetmaint/widget/AssetmaintScreens.xml#EditWorkEfforts"/>
     <!-- end of view mappings -->
 </site-conf>

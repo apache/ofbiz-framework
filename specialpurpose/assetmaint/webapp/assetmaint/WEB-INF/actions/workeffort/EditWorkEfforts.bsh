@@ -24,7 +24,6 @@ import org.ofbiz.entity.*;
 import org.ofbiz.entity.condition.*;
 import org.ofbiz.entity.util.*;
 
-
 maintHistSeqId = context.get("maintHistSeqId");
 fixedAssetId = context.get("fixedAssetId");
 workEffortId = context.get("workEffortId");
@@ -32,20 +31,15 @@ workEffortId = context.get("workEffortId");
 if (maintHistSeqId == null) {
     maintHistSeqId = parameters.get("maintHistSeqId");
 }
-if (fixedAssetId == null) {
-    fixedAssetId = parameters.get("fixedAssetId");
-}
-
 if (maintHistSeqId == null) {
     maintHistSeqId = request.getParameter("maintHistSeqId");
 }
 if (fixedAssetId == null) {
+    fixedAssetId = parameters.get("fixedAssetId");
+}
+if (fixedAssetId == null) {
     fixedAssetId = request.getParameter("fixedAssetId");
 }
-
-// Following two cases are just to cover in forseen situation. In normal situation these will never execute.
-// If request is coming from EditWorkEffort or EditWorkEffortAndAssoc then we'll not have fixedAssetId and maintSeqId
-
 if (workEffortId == null) {
     workEffortId = parameters.get("workEffortId");
 }
@@ -53,34 +47,32 @@ if (workEffortId == null) {
     workEffortId = request.getParameter("workEffortId");
 }
 
-
 fixedAssetMaint = null;
 workEffort = null;
 fixedAsset = null;
 
-//Prefer to get workEffortId from FixedAssetMaint. 
-if (maintHistSeqId !=null && fixedAssetId !=null) {
-    fixedAssetMaint = delegator.findByPrimaryKey("FixedAssetMaint", UtilMisc.toMap("fixedAssetId",fixedAssetId ,"maintHistSeqId",maintHistSeqId));
-    if (fixedAssetMaint != null) {
-        workEffortId = fixedAssetMaint.get("scheduleWorkEffortId");
-    }
-}
-
 if (workEffortId != null) {
-    workEffort = delegator.findByPrimaryKey("WorkEffort", UtilMisc.toMap("workEffortId",workEffortId));
-    if (fixedAssetId == null && workEffort != null) {
+    workEffort = delegator.findByPrimaryKey("WorkEffort", UtilMisc.toMap("workEffortId", workEffortId));
+    if (workEffort != null) {
         fixedAssetId = workEffort.get("fixedAssetId");
     }
 }
 
-if (fixedAssetId != null) {
-    fixedAsset = delegator.findByPrimaryKey("FixedAsset", UtilMisc.toMap("fixedAssetId",fixedAssetId));
+if (workEffortId != null && fixedAssetId != null) {
+    fixedAssetMaint = EntityUtil.getFirst(delegator.findByAnd("FixedAssetMaint", UtilMisc.toMap("fixedAssetId", fixedAssetId , "scheduleWorkEffortId", workEffortId)));
+    if (fixedAssetMaint != null) {
+        maintHistSeqId = fixedAssetMaint.get("maintHistSeqId");
+    }
 }
-context.put("fixedAssetMaint",fixedAssetMaint);       
-context.put("workEffort",workEffort);       
-context.put("fixedAsset",fixedAsset);   
 
-context.put("maintHistSeqId",maintHistSeqId);       
-context.put("fixedAssetId",fixedAssetId);       
-context.put("workEffortId",workEffortId); 
-context.put("workEffortIdFrom",workEffortId); 
+if (fixedAssetId != null) {
+    fixedAsset = delegator.findByPrimaryKey("FixedAsset", UtilMisc.toMap("fixedAssetId", fixedAssetId));
+}
+
+context.put("fixedAssetMaint", fixedAssetMaint);       
+context.put("workEffort", workEffort);       
+context.put("fixedAsset", fixedAsset);   
+context.put("maintHistSeqId", maintHistSeqId);       
+context.put("fixedAssetId", fixedAssetId);       
+context.put("workEffortId", workEffortId); 
+context.put("workEffortIdFrom", workEffortId); 
