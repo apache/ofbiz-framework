@@ -698,7 +698,7 @@
     </property>        
     <property key="FormFieldTitle_balanceResOnOrderCreation">
         <value xml:lang="en">Balance Res On Order Creation</value>
-        <value xml:lang="fr">Expédition par un tiers : la réservation de stock est réévaluée suivant les dates d'expédition au plus tard</value>
+        <value xml:lang="fr">Expédition par un tiers : réservation de stock réévaluée suivant les dates d'exp. au plus tard</value>
     </property>
     <property key="FormFieldTitle_bccAddress">
         <value xml:lang="en">Bcc Address</value>
