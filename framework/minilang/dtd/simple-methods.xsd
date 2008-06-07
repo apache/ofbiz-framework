@@ -2308,7 +2308,7 @@ under the License.
     <xs:element name="entity-and" substitutionGroup="EntityFindOperations">
         <xs:annotation>
             <xs:documentation>
-                Does a find-by-and, returns a list of Generic values if any are found, otherwise returns null.
+                Does a find-by-and, returns a list of GenericValues if any are found, otherwise returns an empty list.
                 Uses name/value pairs, that will be used for the query and will all be "anded" together.
 
                 The result-set-type by default is scroll which is flexible so you can go forward.
@@ -2384,7 +2384,7 @@ under the License.
     <xs:element name="entity-condition" substitutionGroup="EntityFindOperations">
         <xs:annotation>
             <xs:documentation>
-                Like entity-and returns a list of Generic values if any are found, otherwise returns null.
+                Like entity-and returns a list of Generic values if any are found, otherwise returns an empty list.
                 Uses any of condition-expression, condition-list and condition-object.                
             </xs:documentation>
         </xs:annotation>
