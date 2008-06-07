@@ -216,7 +216,7 @@ under the License.
                 <set field="tabButtonItem" value="FindAcctgTrans"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
                 <set field="acctgTransId" from-field="parameters.acctgTransId"/>
-                <script location="component://accounting/webapp/accounting/WEB-INF/actions/chartofaccounts/editGlJournalEntry.groovy"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/chartofaccounts/EditGlJournalEntry.groovy"/>
                 
                 <entity-one entity-name="AcctgTrans" value-name="acctgTrans"/>
                 <entity-one entity-name="AcctgTransEntry" value-name="acctgTransEntry">
@@ -388,7 +388,7 @@ under the License.
                     </condition-list>
                     <order-by field-name="effectiveDate"/>
                 </entity-condition>
-                <script location="component://accounting/webapp/accounting/WEB-INF/actions/admin/filterOutReceipts.groovy"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/admin/FilterOutReceipts.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonAdminChecksDecorator" location="${parameters.mainDecoratorLocation}">
@@ -437,7 +437,7 @@ under the License.
                     </condition-list>
                     <order-by field-name="effectiveDate"/>
                 </entity-condition>
-                <script location="component://accounting/webapp/accounting/WEB-INF/actions/admin/filterOutReceipts.groovy"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/admin/FilterOutReceipts.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonAdminChecksDecorator" location="${parameters.mainDecoratorLocation}">

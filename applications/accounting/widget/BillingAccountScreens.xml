@@ -67,21 +67,10 @@ under the License.
                                         <entity-condition entity-name="BillingAccount" list-name="billingAccounts"/>
                                     </actions>
                                     <widgets>
-                                        <container style="screenlet">
-                                            <container style="screenlet-title-bar">
-                                                <container style="h3">
-                                                    <label text="${uiLabelMap.PageTitleFindBillingAccount}"/>
-                                                </container>
-                                            </container>
-                                            <container style="screenlet-body">
-                                                <section>
-                                                    <widgets>    
-                                                           <container><link target="EditBillingAccount" text="${uiLabelMap.CommonNew}" style="buttontext"/></container>
-                                                        <include-form name="ListBillingAccounts" location="component://accounting/widget/BillingAccountForms.xml"/>
-                                                    </widgets>
-                                                </section>
-                                            </container>
-                                        </container>                                        
+                                        <screenlet title="${uiLabelMap.PageTitleFindBillingAccount}">
+                                            <link target="EditBillingAccount" text="${uiLabelMap.CommonNew}" style="buttontext"/>
+                                            <include-form name="ListBillingAccounts" location="component://accounting/widget/BillingAccountForms.xml"/>
+                                        </screenlet>                                      
                                     </widgets>
                                 </section>
                             </widgets>
@@ -93,21 +82,10 @@ under the License.
                                         </entity-condition>
                                     </actions>
                                     <widgets>
-                                        <container style="screenlet">
-                                            <container style="screenlet-title-bar">
-                                                <container style="h3">
-                                                    <label text="${uiLabelMap.PageTitleFindBillingAccount}"/>
-                                                </container>
-                                            </container>
-                                            <container style="screenlet-body">
-                                                <section>
-                                                    <widgets>    
-                                                           <container><link target="EditBillingAccount?partyId=${parameters.partyId}&amp;roleTypeId=BILL_TO_CUSTOMER" text="${uiLabelMap.CommonNew} " style="buttontext"/></container>
-                                                        <include-form name="ListBillingAccountsByParty" location="component://accounting/widget/BillingAccountForms.xml"/>
-                                                    </widgets>
-                                                </section>
-                                            </container>
-                                        </container>                                        
+                                        <screenlet title="${uiLabelMap.PageTitleFindBillingAccount}">
+                                            <link target="EditBillingAccount?partyId=${parameters.partyId}&amp;roleTypeId=BILL_TO_CUSTOMER" text="${uiLabelMap.CommonNew} " style="buttontext"/>
+                                            <include-form name="ListBillingAccountsByParty" location="component://accounting/widget/BillingAccountForms.xml"/>
+                                        </screenlet>
                                     </widgets>
                                 </section>
                             </fail-widgets>
@@ -132,20 +110,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonBillingAccountDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditBillingAccount}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="EditBillingAccount" location="component://accounting/widget/BillingAccountForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>                        
+                        <screenlet title="${uiLabelMap.PageTitleEditBillingAccount}">
+                            <include-form name="EditBillingAccount" location="component://accounting/widget/BillingAccountForms.xml"/>
+                        </screenlet>                       
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -164,34 +131,12 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonBillingAccountDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditBillingAccountRoles}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="ListBillingAccountRoles" location="component://accounting/widget/BillingAccountForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleAddBillingAccountRoles}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="AddBillingAccountRole" location="component://accounting/widget/BillingAccountForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.PageTitleEditBillingAccountRoles}">
+                            <include-form name="ListBillingAccountRoles" location="component://accounting/widget/BillingAccountForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.PageTitleAddBillingAccountRoles}">
+                            <include-form name="AddBillingAccountRole" location="component://accounting/widget/BillingAccountForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -326,7 +271,7 @@ under the License.
                     
                 <set field="billingAccountId" from-field="parameters.billingAccountId"/> 
                 <entity-one entity-name="BillingAccount" value-name="billingAccount"/>
-                <script location="component://accounting/webapp/accounting/WEB-INF/actions/order/billingAccountOrders.groovy"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/order/OrderListInvoiceItem.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonBillingAccountDecorator">
