@@ -232,8 +232,8 @@ under the License.
                     <field-map env-name="parameters.invoiceId" field-name="invoiceId"/>
                     <order-by field-name="timeEntryId"/>
                 </entity-and>
-                <script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/createApplicationList.groovy"/>
-                <script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/orderListInvoiceItem.groovy"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/CreateApplicationList.groovy"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/OrderListInvoiceItem.groovy"/>
                 <set field="invoiceAmount" value="${bsh:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotalBd(invoice)}"/>
                 <set field="notAppliedAmount" value="${bsh:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(invoice)}"/>
                 <set field="appliedAmount" value="${bsh:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceAppliedBd(invoice)}"/>
@@ -529,8 +529,8 @@ under the License.
                 <set field="tabButtonItem" value="editInvoiceApplications"/>
                 
                 <set field="invoiceId" from-field="parameters.invoiceId"/>
-                <script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/createApplicationList.groovy"/>
-                <script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/listNotAppliedPayments.groovy"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/CreateApplicationList.groovy"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/ListNotAppliedPayments.groovy"/>
                 <set field="invoiceAmount" value="${bsh:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotalBd(invoice)}"/>
                 <set field="notAppliedAmount" value="${bsh:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(invoice)}"/>
                 <set field="appliedAmount" value="${bsh:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceAppliedBd(invoice)}"/>
@@ -646,7 +646,7 @@ under the License.
                     <field-map field-name="invoiceId" env-name="parameters.invoiceId"/>
                     <order-by field-name="invoiceItemSeqId"/>
                 </entity-and>
-                <script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/getInvoiceItemTypes.groovy"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/GetInvoiceItemTypes.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonInvoiceDecorator" location="${parameters.invoiceDecoratorLocation}">
