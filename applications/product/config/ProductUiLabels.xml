@@ -8604,7 +8604,7 @@
     <property key="ProductDuplicateRemoveSelectedWithNewId">
         <value xml:lang="en">Duplicate / Remove Selected with New ID</value>
         <value xml:lang="es">Duplicar / Remover seleccionado con nuevo código</value>
-        <value xml:lang="fr">Duplique l'article en cours avec cette nouvelle référence (et supprime l'ancien en cochant ci-dessous)</value>
+        <value xml:lang="fr">Dupliquer avec cette nvlle réf. (et suppr. l'actuel en cochant ci-dessous)</value>
         <value xml:lang="it">Duplica / Rimuovi Selezionato con nuovo Codice</value>
         <value xml:lang="ro">Duplicheaza / Sterge Selectia cu noul Cod</value>
         <value xml:lang="ru">Копировать/удалить выбранное для продукта с кодом</value>
@@ -17548,6 +17548,10 @@
         <value xml:lang="th">สินค้าเกือบทั้งหมด?</value>
         <value xml:lang="zh">是虚拟产品吗?</value>
     </property>
+    <property key="ProductVirtualVariantMethod">
+        <value xml:lang="en">Virtual Variant Method</value>
+        <value xml:lang="fr">Méthode utilisée pour les variantes</value>
+    </property>    
     <property key="ProductVoidUpsShipment">
         <value xml:lang="en">Void UPS Shipment</value>
         <value xml:lang="es">Envío vacío de UPS</value>
