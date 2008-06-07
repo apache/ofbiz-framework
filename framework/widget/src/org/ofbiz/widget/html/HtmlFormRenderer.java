@@ -2377,17 +2377,27 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
     
     public void renderFieldGroupOpen(Appendable writer, Map<String, Object> context, ModelForm.FieldGroup fieldGroup) throws IOException {
         String style = fieldGroup.getStyle(); 
-        if (UtilValidate.isNotEmpty(style)) {
+        String id = fieldGroup.getId(); 
+        if (UtilValidate.isNotEmpty(style) || UtilValidate.isNotEmpty(id)) {
             writer.append("<div");
-            writer.append(" class=\"");
-            writer.append(style);
-            writer.append("\">");
+            if (UtilValidate.isNotEmpty(style)) {
+                writer.append(" class=\"");
+                writer.append(style);
+                writer.append("\"");
+            }
+            if (UtilValidate.isNotEmpty(id)) {
+                writer.append(" id=\"");
+                writer.append(id);
+                writer.append("\"");
+            }
+            writer.append(">");
         }
     }
      
     public void renderFieldGroupClose(Appendable writer, Map<String, Object> context, ModelForm.FieldGroup fieldGroup) throws IOException {
         String style = fieldGroup.getStyle(); 
-        if (UtilValidate.isNotEmpty(style)) {
+        String id = fieldGroup.getId(); 
+        if (UtilValidate.isNotEmpty(style) || UtilValidate.isNotEmpty(id)) {
             writer.append("</div>");
         }
     }
