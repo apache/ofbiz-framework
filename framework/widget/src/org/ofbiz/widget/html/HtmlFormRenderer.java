@@ -2004,7 +2004,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         writer.append(");\">");
         writer.append("<img src=\"");
         this.appendContentUrl(writer, "/images/fieldlookup.gif");
-        writer.append("\" width=\"16\" height=\"16\" border=\"0\" alt=\"Lookup\"/></a>");
+        writer.append("\" width=\"15\" height=\"14\" border=\"0\" alt=\"Lookup\"/></a>");
 
         this.makeHyperlinkString(writer, lookupField.getSubHyperlink(), context);
         this.appendTooltip(writer, context, modelFormField);
