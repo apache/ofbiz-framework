@@ -32,10 +32,10 @@ context.imageServerPath = imageServerPath;
 context.imageUrlPrefix = imageUrlPrefix;
 
 filenameExpander = new FlexibleStringExpander(imageFilenameFormat);
-context.imageNameSmall = imageUrlPrefix + "/" + filenameExpander.expandString(['location' : 'products', 'type' : 'small' , 'id' : productId]);
-context.imageNameMedium = imageUrlPrefix + "/" + filenameExpander.expandString(['location' : 'products', 'type' : 'medium', 'id' : productId]);
-context.imageNameLarge = imageUrlPrefix + "/" + filenameExpander.expandString(['location' : 'products', 'type' : 'large' , 'id' : productId]);
-context.imageNameDetail = imageUrlPrefix + "/" + filenameExpander.expandString(['location' : 'products', 'type' : 'detail', 'id' : productId]);
+context.imageNameSmall  = imageUrlPrefix + "/" + filenameExpander.expandString([location : 'products', type : 'small' , id : productId]);
+context.imageNameMedium = imageUrlPrefix + "/" + filenameExpander.expandString([location : 'products', type : 'medium', id : productId]);
+context.imageNameLarge  = imageUrlPrefix + "/" + filenameExpander.expandString([location : 'products', type : 'large' , id : productId]);
+context.imageNameDetail = imageUrlPrefix + "/" + filenameExpander.expandString([location : 'products', type : 'detail', id : productId]);
 
 // Start ProductContent stuff
 productContent = null;
@@ -45,7 +45,7 @@ if (product) {
 context.productContent = productContent;
 // End ProductContent stuff
 
-boolean tryEntity = true;
+tryEntity = true;
 if (request.getAttribute("_ERROR_MESSAGE_")) {
     tryEntity = false;
 }
@@ -65,7 +65,7 @@ String fileType = request.getParameter("upload_file_type");
 if (fileType) {
     context.fileType = fileType;
     
-    fileLocation = filenameExpander.expandString(['location' : 'products', 'type' : fileType, 'id' : productId]);
+    fileLocation = filenameExpander.expandString([location : 'products', type : fileType, id : productId]);
     filePathPrefix = "";
     filenameToUse = fileLocation;
     if (fileLocation.lastIndexOf("/") != -1) {
