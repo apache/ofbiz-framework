@@ -23,7 +23,7 @@ under the License.
     </div>
     <div class="screenlet-body" style="text-align: center;">
         <form method="post" name="chooseLanguage" action="<@ofbizUrl>setSessionLocale</@ofbizUrl>" style="margin: 0;">
-          <select name="newLocale" class="selectBox" style="width:95%">
+          <select name="newLocale" class="selectBox" style="width:95%" onchange="submit()">
             <#list availableLocales as availableLocale>
               <#assign langAttr = availableLocale.toString()?replace("_", "-")>
               <#assign langDir = "ltr">
@@ -33,7 +33,6 @@ under the License.
               <option lang="${langAttr}" dir="${langDir}" value="${availableLocale.toString()}"<#if locale.toString() = availableLocale.toString()> selected="selected"</#if>>${availableLocale.getDisplayName(availableLocale)}</option>
             </#list>
           </select>
-          <div><a href="javascript:document.chooseLanguage.submit()" class="buttontext">${uiLabelMap.CommonChange}</a></div>
         </form>
     </div>
 </div>

@@ -28,7 +28,7 @@ under the License.
     </div>
     <div class="screenlet-body" style="text-align: center;">
         <form name="choosecatalogform" method="post" action="<@ofbizUrl>main</@ofbizUrl>" style='margin: 0;'>
-          <select name='CURRENT_CATALOG_ID' class='selectBox'>
+          <select name='CURRENT_CATALOG_ID' class='selectBox' onchange="submit()">
             <option value='${currentCatalogId}'>${currentCatalogName}</option>
             <option value='${currentCatalogId}'></option>
             <#list catalogCol as catalogId>
@@ -36,7 +36,6 @@ under the License.
               <option value='${catalogId}'>${thisCatalogName}</option>
             </#list>
           </select>
-          <div><a href="javascript:document.choosecatalogform.submit()" class="buttontext">${uiLabelMap.CommonChange}</a></div>
         </form>
     </div>
 </div>
