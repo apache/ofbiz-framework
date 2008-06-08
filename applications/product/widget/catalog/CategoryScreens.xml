@@ -80,7 +80,7 @@ under the License.
                     <order-by field-name="description"/>
                 </entity-condition>
 
-                <script location="component://product/webapp/catalog/WEB-INF/actions/category/EditCategory.bsh"/>
+                <script location="component://product/webapp/catalog/WEB-INF/actions/category/EditCategory.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonCategoryDecorator">
@@ -281,7 +281,7 @@ under the License.
 
                 <set field="productCategoryId" from-field="parameters.productCategoryId"/>
 
-                <script location="component://product/webapp/catalog/WEB-INF/actions/category/EditCategoryProducts.bsh"/>
+                <script location="component://product/webapp/catalog/WEB-INF/actions/category/EditCategoryProducts.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonCategoryDecorator">
@@ -471,7 +471,7 @@ under the License.
             </widgets>
         </section>
     </screen>    
-    <screen name="createProductInCategoryCheckExisting">
+    <screen name="CreateProductInCategoryCheckExisting">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleCreateProductCategoryCheckExisting"/>
@@ -481,7 +481,7 @@ under the License.
                 <set field="productCategoryId" from-field="parameters.productCategoryId"/>
                 <entity-one entity-name="ProductCategory" value-name="productCategory"/>
 
-                <script location="component://product/webapp/catalog/WEB-INF/actions/category/createProductInCategoryCheckExisting.bsh"/>
+                <script location="component://product/webapp/catalog/WEB-INF/actions/category/CreateProductInCategoryCheckExisting.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonCategoryDecorator">

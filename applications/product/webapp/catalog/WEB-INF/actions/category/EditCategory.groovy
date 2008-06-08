@@ -17,38 +17,37 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.base.util.string.*;
-import org.ofbiz.entity.*;
+import org.ofbiz.base.util.*
+import org.ofbiz.base.util.string.*
 
 productCategoryType = null;
-if (productCategory != null) {
+if (productCategory) {
     productCategoryType = productCategory.getRelatedOne("ProductCategoryType");
-    context.put("productCategoryType", productCategoryType);
+    context.productCategoryType = productCategoryType;
 }
 
 primaryParentCategory = null;
 primParentCatIdParam = request.getParameter("primaryParentCategoryId");
-if(productCategory != null) {
+if(productCategory) {
     primaryParentCategory = productCategory.getRelatedOne("PrimaryParentProductCategory");
-} else if (primParentCatIdParam != null && primParentCatIdParam.length() > 0) {
-    primaryParentCategory = delegator.findByPrimaryKey("ProductCategory", UtilMisc.toMap("productCategoryId", primParentCatIdParam));
+} else if (primParentCatIdParam && primParentCatIdParam.length() > 0) {
+    primaryParentCategory = delegator.findOne("ProductCategory", [productCategoryId : primParentCatIdParam], false);
 }
-context.put("primaryParentCategory", primaryParentCategory);
+context.primaryParentCategory = primaryParentCategory;
 
 
 // make the image file formats
 String imageFilenameFormat = UtilProperties.getPropertyValue("catalog", "image.filename.format");
 String imageServerPath = UtilProperties.getPropertyValue("catalog", "image.server.path");
 String imageUrlPrefix = UtilProperties.getPropertyValue("catalog", "image.url.prefix");
-context.put("imageFilenameFormat", imageFilenameFormat);
-context.put("imageServerPath", imageServerPath);
-context.put("imageUrlPrefix", imageUrlPrefix);
+context.imageFilenameFormat = imageFilenameFormat;
+context.imageServerPath = imageServerPath;
+context.imageUrlPrefix = imageUrlPrefix;
 
 FlexibleStringExpander filenameExpander = new FlexibleStringExpander(imageFilenameFormat);
-context.put("imageNameCategory", imageUrlPrefix + "/" + filenameExpander.expandString(UtilMisc.toMap("location","categories", "type", "category", "id", productCategoryId)));
-context.put("imageNameLinkOne", imageUrlPrefix + "/" + filenameExpander.expandString(UtilMisc.toMap("location","categories", "type", "linkOne", "id", productCategoryId)));
-context.put("imageNameLinkTwo", imageUrlPrefix + "/" + filenameExpander.expandString(UtilMisc.toMap("location","categories", "type", "linkTwo", "id", productCategoryId)));
+context.imageNameCategory = imageUrlPrefix + "/" + filenameExpander.expandString([location : "categories", type : "category", id : productCategoryId]);
+context.imageNameLinkOne  = imageUrlPrefix + "/" + filenameExpander.expandString([location : "categories", type : "linkOne", id : productCategoryId]);
+context.imageNameLinkTwo  = imageUrlPrefix + "/" + filenameExpander.expandString([location : "categories", type : "linkTwo", id : productCategoryId]);
 
 
 // UPLOADING STUFF
@@ -56,10 +55,10 @@ context.put("imageNameLinkTwo", imageUrlPrefix + "/" + filenameExpander.expandSt
 Object forLock = new Object();
 String contentType = null;
 String fileType = request.getParameter("upload_file_type");
-if (fileType != null) {
-    context.put("fileType", fileType);
+if (fileType) {
+    context.fileType = fileType;
 
-    String fileLocation = filenameExpander.expandString(UtilMisc.toMap("location", "categories", "type", fileType, "id", productCategoryId));
+    String fileLocation = filenameExpander.expandString([location : "categories", type : fileType, id : productCategoryId]);
     String filePathPrefix = "";
     String filenameToUse = fileLocation;
     if (fileLocation.lastIndexOf("/") != -1) {
@@ -68,7 +67,7 @@ if (fileType != null) {
     }
 
     int i1;
-    if (contentType != null && (i1 = contentType.indexOf("boundary=")) != -1) {
+    if (contentType && (i1 = contentType.indexOf("boundary=")) != -1) {
         contentType = contentType.substring(i1 + 9);
         contentType = "--" + contentType;
     }
@@ -80,17 +79,19 @@ if (fileType != null) {
     uploadObject.doUpload(request);
 
     String clientFileName = uploadObject.getFilename();
-    if (clientFileName != null) context.put("clientFileName", clientFileName);
+    if (clientFileName) {
+        context.clientFileName = clientFileName;
+    }
 
-    if (clientFileName != null && clientFileName.length() > 0) {
+    if (clientFileName && clientFileName.length() > 0) {
         if (clientFileName.lastIndexOf(".") > 0 && clientFileName.lastIndexOf(".") < clientFileName.length()) {
             filenameToUse += clientFileName.substring(clientFileName.lastIndexOf("."));
         } else {
             filenameToUse += ".jpg";
         }
 
-        context.put("clientFileName", clientFileName);
-        context.put("filenameToUse", filenameToUse);
+        context.clientFileName = clientFileName;
+        context.filenameToUse = filenameToUse;
 
         String characterEncoding = request.getCharacterEncoding();
         String imageUrl = imageUrlPrefix + "/" + filePathPrefix + java.net.URLEncoder.encode(filenameToUse, characterEncoding);
@@ -108,8 +109,8 @@ if (fileType != null) {
             e.printStackTrace();
         }
 
-        if (imageUrl != null && imageUrl.length() > 0) {
-            context.put("imageUrl", imageUrl);
+        if (imageUrl && imageUrl.length() > 0) {
+            context.imageUrl = imageUrl;
             productCategory.set(fileType + "ImageUrl", imageUrl);
             productCategory.store();
         }

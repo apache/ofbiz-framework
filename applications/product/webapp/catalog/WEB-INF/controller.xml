@@ -225,9 +225,9 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="createProductInCategoryStart"/>
     </request-map>
-    <request-map uri="createProductInCategoryCheckExisting">
+    <request-map uri="CreateProductInCategoryCheckExisting">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="createProductInCategoryCheckExisting"/>
+        <response name="success" type="view" value="CreateProductInCategoryCheckExisting"/>
     </request-map>
     <request-map uri="createProductInCategory">
         <security https="true" auth="true"/>
@@ -2544,7 +2544,7 @@ under the License.
     <view-map name="EditProductCategoryLinks" type="screen" page="component://product/widget/catalog/CategoryScreens.xml#EditProductCategoryLinks"/>
 
     <view-map name="createProductInCategoryStart" type="screen" page="component://product/widget/catalog/CategoryScreens.xml#createProductInCategoryStart"/>
-    <view-map name="createProductInCategoryCheckExisting" type="screen" page="component://product/widget/catalog/CategoryScreens.xml#createProductInCategoryCheckExisting"/>
+    <view-map name="CreateProductInCategoryCheckExisting" type="screen" page="component://product/widget/catalog/CategoryScreens.xml#CreateProductInCategoryCheckExisting"/>
 
     <view-map name="EditProduct" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditProduct"/>
     <view-map name="EditProductPrices" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditProductPrices"/>
