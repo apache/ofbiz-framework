@@ -17,23 +17,19 @@
  * under the License.
  */
 
-import org.ofbiz.entity.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.widget.html.*;
-
+import org.ofbiz.widget.html.*
 
 HtmlFormWrapper createConfigOptionWrapper = new HtmlFormWrapper("component://product/webapp/catalog/config/ConfigForms.xml", "CreateConfigOption", request, response);
 createConfigOptionWrapper.putInContext("configItemId", configItemId);
 createConfigOptionWrapper.putInContext("configOption", configOption);
 
-context.put("createConfigOptionWrapper", createConfigOptionWrapper);
+context.createConfigOptionWrapper = createConfigOptionWrapper;
 
 
-if (configOption != null) {
+if (configOption) {
     HtmlFormWrapper createConfigProductWrapper = new HtmlFormWrapper("component://product/webapp/catalog/config/ConfigForms.xml", "CreateProductConfigProduct", request, response);
     createConfigProductWrapper.putInContext("productConfigProduct", configProduct);
     createConfigProductWrapper.putInContext("configOptionId", configOptionId);
     createConfigProductWrapper.putInContext("configItemId", configItemId);
-    context.put("createConfigProductWrapper", createConfigProductWrapper);
+    context.createConfigProductWrapper = createConfigProductWrapper;
 }
-

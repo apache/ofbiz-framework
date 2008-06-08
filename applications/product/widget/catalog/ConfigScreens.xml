@@ -68,7 +68,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleFindConfigItems"/>
                 <set field="headerItem" value="configs"/>
                 
-                <script location="component://product/webapp/catalog/WEB-INF/actions/config/FindProductConfigItems.bsh"/>
+                <script location="component://product/webapp/catalog/WEB-INF/actions/config/FindProductConfigItems.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonConfigDecorator">
@@ -187,7 +187,7 @@ under the License.
                 <set field="configItemId" from-field="parameters.configItemId"/>
                 <entity-one entity-name="ProductConfigItem" value-name="configItem" auto-field-map="true"/>
                 
-                <script location="component://product/webapp/catalog/WEB-INF/actions/config/EditProductConfigItemContent.bsh"/>
+                <script location="component://product/webapp/catalog/WEB-INF/actions/config/EditProductConfigItemContent.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonConfigDecorator">
@@ -211,7 +211,7 @@ under the License.
                 <set field="configItemId" from-field="parameters.configItemId"/>
                 <entity-one entity-name="ProductConfigItem" value-name="configItem" auto-field-map="true"/>
                 
-                <script location="component://product/webapp/catalog/WEB-INF/actions/config/EditProductConfigItemContentContent.bsh"/>
+                <script location="component://product/webapp/catalog/WEB-INF/actions/config/EditProductConfigItemContentContent.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonConfigDecorator">
