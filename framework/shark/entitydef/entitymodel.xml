@@ -150,12 +150,12 @@ under the License.
       <field name="activityName" type="long-varchar"></field>
       <field name="description" type="long-varchar"></field>
       <field name="currentState" type="long-varchar"></field>
-      <field name="priority" type="long"></field>
+      <field name="priority" type="numeric"></field>
         <field name="accepted" type="indicator"></field>
-        <field name="timeLimit" type="long"></field>
-        <field name="activatedTime" type="long"></field>
-        <field name="acceptedTime" type="long"></field>
-        <field name="lastStateTime" type="long"></field>
+        <field name="timeLimit" type="numeric"></field>
+        <field name="activatedTime" type="numeric"></field>
+        <field name="acceptedTime" type="numeric"></field>
+        <field name="lastStateTime" type="numeric"></field>
       <prim-key field="activityId"/>
       <relation type="one" fk-name="WF_ACT_PROC" rel-entity-name="WfProcess">
           <key-map field-name="processId"/>
@@ -173,7 +173,7 @@ under the License.
       <field name="definitionId" type="long-varchar"></field>
       <field name="valueField" type="name"></field>
       <field name="strValue" type="long-varchar"></field>
-      <field name="numValue" type="long"></field>
+      <field name="numValue" type="numeric"></field>
       <field name="dblValue" type="floating-point"></field>
       <field name="objValue" type="blob"></field>
       <field name="isModified" type="indicator"></field>
@@ -217,7 +217,7 @@ under the License.
       <field name="processId" type="long-varchar"></field>
       <field name="activityId" type="long-varchar"></field>
       <field name="exceptionName" type="long-varchar"></field>
-      <field name="timeLimit" type="long"></field>
+      <field name="timeLimit" type="numeric"></field>
       <field name="isExecuted" type="indicator"></field>
       <field name="isSync" type="indicator"></field>
       <prim-key field="deadlineId"/>
@@ -239,15 +239,15 @@ under the License.
       <field name="activityReqProcessId" type="long-varchar"></field>
       <field name="activityReqId" type="long-varchar"></field>
       <field name="resourceReqId" type="long-varchar"></field>
-        <field name="timeLimit" type="long"></field>
+        <field name="timeLimit" type="numeric"></field>
       <field name="processName" type="long-varchar"></field>
       <field name="description" type="long-varchar"></field>
       <field name="currentState" type="long-varchar"></field>
-      <field name="priority" type="long"></field>
+      <field name="priority" type="numeric"></field>
       <field name="externalReq" type="blob"></field>
-      <field name="createdTime" type="long"></field>
-      <field name="startedTime" type="long"></field>
-      <field name="lastStateTime" type="long"></field>
+      <field name="createdTime" type="numeric"></field>
+      <field name="startedTime" type="numeric"></field>
+      <field name="lastStateTime" type="numeric"></field>
             <field name="ExternalRequesterClassName" type="long-varchar"></field>
       <prim-key field="processId"/>
       <relation type="one" fk-name="WF_PROC_MGR" rel-entity-name="WfProcessMgr">
@@ -261,8 +261,8 @@ under the License.
       <field name="packageId" type="long-varchar"></field>
       <field name="packageVer" type="long-varchar"></field>
       <field name="definitionId" type="long-varchar"></field>
-      <field name="created" type="long"></field>
-      <field name="currentState" type="long"></field>
+      <field name="created" type="numeric"></field>
+      <field name="currentState" type="numeric"></field>
       <prim-key field="mgrName"/>
     </entity>
     <entity entity-name="WfProcessVariable"
@@ -273,7 +273,7 @@ under the License.
       <field name="definitionId" type="long-varchar"></field>
       <field name="valueField" type="name"></field>
       <field name="strValue" type="long-varchar"></field>
-      <field name="numValue" type="long"></field>
+      <field name="numValue" type="numeric"></field>
       <field name="dblValue" type="floating-point"></field>
       <field name="objValue" type="blob"></field>
       <prim-key field="processVariableId"/>
@@ -299,7 +299,7 @@ under the License.
       <field name="userName" type="long-varchar"></field>
       <field name="passwd" type="long-varchar"></field>
       <field name="applicationName" type="long-varchar"></field>
-      <field name="applicationMode" type="long"></field>
+      <field name="applicationMode" type="numeric"></field>
       <prim-key field="packageId"/>
       <prim-key field="processDefId"/>
       <prim-key field="applicationDefId"/>
@@ -351,8 +351,8 @@ under the License.
             title="">
       <field name="requesterId" type="long-varchar"></field>
       <field name="processId" type="long-varchar"></field>
-      <field name="fromDate" type="long"></field>
-      <field name="thruDate" type="long"></field>
+      <field name="fromDate" type="numeric"></field>
+      <field name="thruDate" type="numeric"></field>
       <field name="className" type="long-varchar"></field>
       <field name="classData" type="long-varchar"></field>
       <prim-key field="requesterId"/>
