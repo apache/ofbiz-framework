@@ -22,16 +22,14 @@
  * Puts productFeatureGroup and productFeatures which are put of this group into the context.  Currently does not break out the features by view size.
  */
 
-import org.ofbiz.base.util.UtilMisc
-import org.ofbiz.entity.GenericDelegator
-import org.ofbiz.entity.GenericEntity
+import org.ofbiz.entity.*
 
 productFeatureGroupId = parameters.get("productFeatureGroupId");
-if ((productFeatureGroupId != null) && !(productFeatureGroupId.equals(""))) {
-    productFeatureGroup = delegator.findByPrimaryKey("ProductFeatureGroup", ['productFeatureGroupId' : productFeatureGroupId]);
-    productFeatures = new LinkedList();
+if ((productFeatureGroupId) && !(productFeatureGroupId.equals(""))) {
+    productFeatureGroup = delegator.findOne("ProductFeatureGroup", [productFeatureGroupId : productFeatureGroupId], false);
+    productFeatures = [];
     productFeatureGroupAppls = productFeatureGroup.getRelated("ProductFeatureGroupAppl", ['sequenceNum']);
-    for (pFGAi = productFeatureGroupAppls.iterator(); pFGAi.hasNext(); ) {
+    for (pFGAi = productFeatureGroupAppls.iterator(); pFGAi;) {
         productFeatureGroupAppl = (GenericEntity)pFGAi.next();
         productFeature = (GenericEntity)productFeatureGroupAppl.getRelatedOne("ProductFeature");
         productFeature.set("defaultSequenceNum", productFeatureGroupAppl.getLong("sequenceNum"));
@@ -39,6 +37,7 @@ if ((productFeatureGroupId != null) && !(productFeatureGroupId.equals(""))) {
     }
     context.productFeatureGroup = productFeatureGroup;
     context.productFeatures = productFeatures;
+    
     // this will not break out the product features by view size
     context.listSize = productFeatures.size();
     context.highIndex = productFeatures.size();

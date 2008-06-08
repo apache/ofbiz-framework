@@ -20,7 +20,7 @@
 import org.ofbiz.entity.condition.*;
 
 context.productFeatureAndAppls = delegator.findList('ProductFeatureAndAppl',
-        EntityCondition.makeCondition(['productId' : productId]), null,
+        EntityCondition.makeCondition([productId : productId]), null,
         ['sequenceNum', 'productFeatureApplTypeId', 'productFeatureTypeId', 'description'], null, false);
 
 context.productFeatureCategories = delegator.findList('ProductFeatureCategory', null, null, ['description'], null, false);

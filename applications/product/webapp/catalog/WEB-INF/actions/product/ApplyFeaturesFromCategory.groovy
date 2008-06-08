@@ -21,7 +21,7 @@ import org.ofbiz.entity.*
 import org.ofbiz.entity.condition.*
 import org.ofbiz.entity.util.EntityFindOptions
 import org.ofbiz.entity.transaction.*
-import org.ofbiz.base.util.*;
+import org.ofbiz.base.util.*
 
 module = "ApplyFeaturesFromCategory.groovy";
 
@@ -32,22 +32,22 @@ context.productFeatureCategoryId = productFeatureCategoryId;
 
 context.selFeatureApplTypeId = request.getParameter("productFeatureApplTypeId");
 
-context.curProductFeatureCategory = delegator.findByPrimaryKey("ProductFeatureCategory", ['productFeatureCategoryId' : productFeatureCategoryId]);
+context.curProductFeatureCategory = delegator.findOne("ProductFeatureCategory", [productFeatureCategoryId : productFeatureCategoryId], false);
 
 context.productFeatureTypes = delegator.findList("ProductFeatureType", null, null, ['description'], null, false);
 
 context.productFeatureCategories = delegator.findList("ProductFeatureCategory", null, null, ['description'], null, false);
 
 //we only need these if we will be showing the apply feature to category forms
-if (productId != null && productId.length() > 0) {
+if (productId) {
     context.productFeatureApplTypes = delegator.findList("ProductFeatureApplType", null, null, ['description'], null, false);
 }
 
-productFeaturesSize = delegator.findCountByCondition("ProductFeature", new EntityExpr("productFeatureCategoryId", EntityOperator.EQUALS, productFeatureCategoryId), null, null);
+productFeaturesSize = delegator.findCountByCondition("ProductFeature", EntityCondition.makeCondition("productFeatureCategoryId", EntityOperator.EQUALS, productFeatureCategoryId), null, null);
 
-int highIndex = 0;
-int lowIndex = 0;
-int listSize = (int) productFeaturesSize;
+highIndex = 0;
+lowIndex = 0;
+listSize = (int) productFeaturesSize;
 
 if (viewIndex == null) {
     viewIndex = 0;
@@ -64,7 +64,7 @@ context.listSize = listSize;
 context.lowIndex = lowIndex;
 context.highIndex = highIndex;
 
-whereCondition = new EntityFieldMap(['productFeatureCategoryId' : productFeatureCategoryId], EntityOperator.AND);
+whereCondition = EntityCondition.makeCondition([productFeatureCategoryId : productFeatureCategoryId], EntityOperator.AND);
 EntityFindOptions efo = new EntityFindOptions();
 efo.setDistinct(true);
 efo.setResultSetType(EntityFindOptions.TYPE_SCROLL_INSENSITIVE);
@@ -94,15 +94,15 @@ try {
 
 context.productFeatures = productFeatures;
 
-productFeatureApplMap = new HashMap();
+productFeatureApplMap = [:];
 productFeatureAppls = null;
 productFeatureIter = productFeatures.iterator();
 productFeatureApplIter = null;
-while (productFeatureIter.hasNext()) {
+while (productFeatureIter) {
     productFeature = productFeatureIter.next();
-    productFeatureAppls = delegator.findByAnd("ProductFeatureAppl", ['productId' : productId, 'productFeatureId' : productFeature.productFeatureId], null);
+    productFeatureAppls = delegator.findList("ProductFeatureAppl", EntityCondition.makeCondition([productId : productId, productFeatureId : productFeature.productFeatureId]), null, null, null, false);
     productFeatureApplIter = productFeatureAppls.iterator();
-    while (productFeatureApplIter.hasNext()) {
+    while (productFeatureApplIter) {
         productFeatureAppl = productFeatureApplIter.next();
         productFeatureApplMap.put(productFeatureAppl.productFeatureId, productFeatureAppl.productFeatureApplTypeId);
     }

@@ -21,33 +21,33 @@ import org.ofbiz.entity.condition.*
 import org.ofbiz.product.inventory.InventoryWorker
 
 //If product is virtual gather summary data from variants
-if (product.isVirtual != null && "Y".equals(product.isVirtual)) {
+if (product.isVirtual && "Y".equals(product.isVirtual)) {
     //Get the virtual product feature types
-    result = dispatcher.runSync("getProductFeaturesByType", ['productId' : productId, 'productFeatureApplTypeId' : 'SELECTABLE_FEATURE']);
+    result = dispatcher.runSync("getProductFeaturesByType", [productId : productId, productFeatureApplTypeId : 'SELECTABLE_FEATURE']);
     featureTypeIds = result.productFeatureTypes;
     
     //Get the variants
-    result = dispatcher.runSync("getAllProductVariants", ['productId' : productId]);
+    result = dispatcher.runSync("getAllProductVariants", [productId : productId]);
     variants = result.assocProducts;
     variantIterator = variants.iterator();
-    variantInventorySummaries = new ArrayList();
-    while(variantIterator.hasNext()) {
+    variantInventorySummaries = [];
+    while(variantIterator) {
         variant = variantIterator.next();
 
         //create a map of each variant id and inventory summary (all facilities)
-        inventoryAvailable = dispatcher.runSync("getProductInventoryAvailable", ['productId' : variant.productIdTo]);
+        inventoryAvailable = dispatcher.runSync("getProductInventoryAvailable", [productId : variant.productIdTo]);
 
-        variantInventorySummary = ['productId' :  variant.productIdTo, 
-                                   'availableToPromiseTotal' : inventoryAvailable.availableToPromiseTotal,
-                                   'quantityOnHandTotal' : inventoryAvailable.quantityOnHandTotal];
+        variantInventorySummary = [productId : variant.productIdTo, 
+                                   availableToPromiseTotal : inventoryAvailable.availableToPromiseTotal,
+                                   quantityOnHandTotal : inventoryAvailable.quantityOnHandTotal];
 
         //add the applicable features to the map
         featureTypeIdsIterator = featureTypeIds.iterator();
-        while (featureTypeIdsIterator.hasNext()) {
+        while (featureTypeIdsIterator) {
             featureTypeId = featureTypeIdsIterator.next();
-            result = dispatcher.runSync("getProductFeatures", ['productId' : variant.productIdTo, 'type' : 'STANDARD_FEATURE', 'distinct' : featureTypeId]);
+            result = dispatcher.runSync("getProductFeatures", [productId : variant.productIdTo, type : 'STANDARD_FEATURE', distinct : featureTypeId]);
             variantFeatures = result.productFeatures;
-            if (variantFeatures.size() > 0) {
+            if (variantFeatures) {
                 //there should only be one result in this collection
                 variantInventorySummary.put(featureTypeId, variantFeatures.get(0));
             }
@@ -57,15 +57,15 @@ if (product.isVirtual != null && "Y".equals(product.isVirtual)) {
     context.featureTypeIds = featureTypeIds;
     context.variantInventorySummaries = variantInventorySummaries;
 } else { //Gather information for a non virtual product
-    quantitySummaryByFacility = new HashMap();
-    manufacturingInQuantitySummaryByFacility = new HashMap();
-    manufacturingOutQuantitySummaryByFacility = new HashMap();
+    quantitySummaryByFacility = [:];
+    manufacturingInQuantitySummaryByFacility = [:];
+    manufacturingOutQuantitySummaryByFacility = [:];
     // The warehouse list is selected
     showAllFacilities = parameters.showAllFacilities;
-    if (showAllFacilities != null && showAllFacilities.equals("Y")) {
+    if (showAllFacilities && "Y".equals(showAllFacilities)) {
         facilityList = delegator.findList("Facility", null, null, null, null, false);
     } else {
-        facilityList = delegator.findByAnd("ProductFacility", ['productId' : productId]);
+        facilityList = delegator.findList("ProductFacility", EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId), null, null, null, false);
     }
     facilityIterator = facilityList.iterator();
     dispatcher = request.getAttribute("dispatcher");
@@ -74,65 +74,65 @@ if (product.isVirtual != null && "Y".equals(product.isVirtual)) {
     
     // inventory quantity summary by facility: For every warehouse the product's atp and qoh 
     // are obtained (calling the "getInventoryAvailableByFacility" service)
-    while (facilityIterator.hasNext()) {
+    while (facilityIterator) {
         facility = facilityIterator.next();
-        resultOutput = dispatcher.runSync("getInventoryAvailableByFacility", ['productId' : productId, 'facilityId' : facility.facilityId]);
+        resultOutput = dispatcher.runSync("getInventoryAvailableByFacility", [productId : productId, facilityId : facility.facilityId]);
         
-        quantitySummary = new HashMap();
-        quantitySummary.put("facilityId", facility.facilityId);
-        quantitySummary.put("totalQuantityOnHand", resultOutput.quantityOnHandTotal);
-        quantitySummary.put("totalAvailableToPromise", resultOutput.availableToPromiseTotal);
+        quantitySummary = [:];
+        quantitySummary.facilityId = facility.facilityId;
+        quantitySummary.totalQuantityOnHand = resultOutput.quantityOnHandTotal;
+        quantitySummary.totalAvailableToPromise = resultOutput.availableToPromiseTotal;
 
         // if the product is a MARKETING_PKG_AUTO/PICK, then also get the quantity which can be produced from components
         if ("MARKETING_PKG_AUTO".equals(product.productTypeId) ||
             "MARKETING_PKG_PICK".equals(product.productTypeId)) {
-            resultOutput = dispatcher.runSync("getMktgPackagesAvailable", ['productId' : productId, 'facilityId' : facility.facilityId]);
-            quantitySummary.put("mktgPkgQOH", resultOutput.quantityOnHandTotal);
-            quantitySummary.put("mktgPkgATP", resultOutput.availableToPromiseTotal);
+            resultOutput = dispatcher.runSync("getMktgPackagesAvailable", [productId : productId, facilityId : facility.facilityId]);
+            quantitySummary.mktgPkgQOH = resultOutput.quantityOnHandTotal;
+            quantitySummary.mktgPkgATP = resultOutput.availableToPromiseTotal;
         }
         
         quantitySummaryByFacility.put(facility.facilityId, quantitySummary);
     }
 
     productInventoryItems = delegator.findByAnd("InventoryItem",
-            ['productId' : productId],
+            [productId : productId],
             ['facilityId', '-datetimeReceived', '-inventoryItemId']);
 
     // TODO: get all incoming shipments not yet arrived coming into each facility that this product is in, use a view entity with ShipmentAndItem
-    findIncomingShipmentsConds = new LinkedList();
+    findIncomingShipmentsConds = [];
 
-    findIncomingShipmentsConds.add(new EntityExpr('productId', EntityOperator.EQUALS, productId));
+    findIncomingShipmentsConds.add(EntityCondition.makeCondition('productId', EntityOperator.EQUALS, productId));
 
-    findIncomingShipmentsTypeConds = new LinkedList();
-    findIncomingShipmentsTypeConds.add(new EntityExpr("shipmentTypeId", EntityOperator.EQUALS, "INCOMING_SHIPMENT"));
-    findIncomingShipmentsTypeConds.add(new EntityExpr("shipmentTypeId", EntityOperator.EQUALS, "PURCHASE_SHIPMENT"));
-    findIncomingShipmentsTypeConds.add(new EntityExpr("shipmentTypeId", EntityOperator.EQUALS, "SALES_RETURN"));
-    findIncomingShipmentsConds.add(new EntityConditionList(findIncomingShipmentsTypeConds, EntityOperator.OR));
+    findIncomingShipmentsTypeConds = [];
+    findIncomingShipmentsTypeConds.add(EntityCondition.makeCondition("shipmentTypeId", EntityOperator.EQUALS, "INCOMING_SHIPMENT"));
+    findIncomingShipmentsTypeConds.add(EntityCondition.makeCondition("shipmentTypeId", EntityOperator.EQUALS, "PURCHASE_SHIPMENT"));
+    findIncomingShipmentsTypeConds.add(EntityCondition.makeCondition("shipmentTypeId", EntityOperator.EQUALS, "SALES_RETURN"));
+    findIncomingShipmentsConds.add(EntityCondition.makeCondition(findIncomingShipmentsTypeConds, EntityOperator.OR));
 
-    findIncomingShipmentsStatusConds = new LinkedList();
-    findIncomingShipmentsStatusConds.add(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "SHIPMENT_DELIVERED"));
-    findIncomingShipmentsStatusConds.add(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "SHIPMENT_CANCELLED"));
-    findIncomingShipmentsStatusConds.add(new EntityExpr("statusId", EntityOperator.NOT_EQUAL, "PURCH_SHIP_RECEIVED"));
-    findIncomingShipmentsConds.add(new EntityConditionList(findIncomingShipmentsStatusConds, EntityOperator.AND));
+    findIncomingShipmentsStatusConds = [];
+    findIncomingShipmentsStatusConds.add(EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "SHIPMENT_DELIVERED"));
+    findIncomingShipmentsStatusConds.add(EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "SHIPMENT_CANCELLED"));
+    findIncomingShipmentsStatusConds.add(EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PURCH_SHIP_RECEIVED"));
+    findIncomingShipmentsConds.add(EntityCondition.makeCondition(findIncomingShipmentsStatusConds, EntityOperator.AND));
 
-    findIncomingShipmentsStatusCondition = new EntityConditionList(findIncomingShipmentsConds, EntityOperator.AND);
+    findIncomingShipmentsStatusCondition = EntityCondition.makeCondition(findIncomingShipmentsConds, EntityOperator.AND);
     incomingShipmentAndItems = delegator.findList("ShipmentAndItem", findIncomingShipmentsStatusCondition, null, ['-estimatedArrivalDate'], null, false);
     incomingShipmentAndItemIter = incomingShipmentAndItems.iterator();
-    while (incomingShipmentAndItemIter.hasNext()) {
+    while (incomingShipmentAndItemIter) {
         incomingShipmentAndItem = incomingShipmentAndItemIter.next();
         facilityId = incomingShipmentAndItem.destinationFacilityId;
 
         quantitySummary = quantitySummaryByFacility.get(facilityId);
-        if (quantitySummary == null) {
-            quantitySummary = new HashMap();
-            quantitySummary.put("facilityId", facilityId);
-            quantitySummaryByFacility.put(facilityId, quantitySummary);
+        if (!quantitySummary) {
+            quantitySummary = [:];
+            quantitySummary.facilityId = facilityId;
+            quantitySummaryByFacility.facilityId = quantitySummary;
         }
 
         incomingShipmentAndItemList = quantitySummary.incomingShipmentAndItemList;
-        if (incomingShipmentAndItemList == null) {
-            incomingShipmentAndItemList = new LinkedList();
-            quantitySummary.put("incomingShipmentAndItemList", incomingShipmentAndItemList);
+        if (!incomingShipmentAndItemList) {
+            incomingShipmentAndItemList = [];
+            quantitySummary.incomingShipmentAndItemList = incomingShipmentAndItemList;
         }
 
         incomingShipmentAndItemList.add(incomingShipmentAndItem);
@@ -141,7 +141,7 @@ if (product.isVirtual != null && "Y".equals(product.isVirtual)) {
     // --------------------
     // Production Runs
     resultOutput = dispatcher.runSync("getProductManufacturingSummaryByFacility", 
-                   ['productId' : productId, 'userLogin' : userLogin]);
+                   [productId : productId, userLogin : userLogin]);
     // incoming products
     manufacturingInQuantitySummaryByFacility = resultOutput.summaryInByFacility;
     // outgoing products (materials)
