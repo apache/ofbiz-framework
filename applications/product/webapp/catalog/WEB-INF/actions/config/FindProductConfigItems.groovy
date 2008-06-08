@@ -17,12 +17,8 @@
  * under the License.
  */
 
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.condition.*;
-import org.ofbiz.base.util.*;
-
-itemsList = delegator.findList("ProductConfigItem", null, null, UtilMisc.toList("configItemId"), null, false);
-context.put("itemsList", itemsList);
+itemsList = delegator.findList("ProductConfigItem", null, null, ['configItemId'], null, false);
+context.itemsList = itemsList;
 
 // set the page parameters
 viewIndex = 0;
@@ -40,7 +36,7 @@ try {
 }
 
 listSize = 0;
-if (itemsList != null) {
+if (itemsList) {
     listSize = itemsList.size();
 }
 
@@ -50,8 +46,8 @@ highIndex = (viewIndex + 1) * viewSize;
 if (listSize < highIndex) {
     highIndex = listSize;
 }
-context.put("viewIndex", viewIndex);
-context.put("listSize", listSize);
-context.put("highIndex", highIndex);
-context.put("lowIndex", lowIndex);
-context.put("viewSize", viewSize);
+context.viewIndex = viewIndex;
+context.listSize = listSize;
+context.highIndex = highIndex;
+context.lowIndex = lowIndex;
+context.viewSize = viewSize;

@@ -17,100 +17,110 @@
  * under the License.
  */
 
-import org.ofbiz.entity.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.base.util.string.*;
-import org.ofbiz.widget.html.*;
+import org.ofbiz.base.util.*
+import org.ofbiz.base.util.string.*
+import org.ofbiz.entity.*
+import org.ofbiz.widget.html.*
 
 // make the image file formats
-String imageFilenameFormat = "configitems/${size}/${configItemId}";
-String imageServerPath = UtilProperties.getPropertyValue("catalog", "image.server.path");
-String imageUrlPrefix = UtilProperties.getPropertyValue("catalog", "image.url.prefix");
-context.put("imageFilenameFormat", imageFilenameFormat);
-context.put("imageServerPath", imageServerPath);
-context.put("imageUrlPrefix", imageUrlPrefix);
+imageFilenameFormat = "configitems/${configItemId}";
+imageServerPath = UtilProperties.getPropertyValue("catalog", "image.server.path");
+imageUrlPrefix = UtilProperties.getPropertyValue("catalog", "image.url.prefix");
+context.imageFilenameFormat = imageFilenameFormat;
+context.imageServerPath = imageServerPath;
+context.imageUrlPrefix = imageUrlPrefix;
 
 FlexibleStringExpander filenameExpander = new FlexibleStringExpander(imageFilenameFormat);
-context.put("imageNameSmall", imageUrlPrefix + "/" + filenameExpander.expandString(UtilMisc.toMap("size", "small", "configItemId", configItemId)));
+context.imageNameSmall = imageUrlPrefix + "/" + filenameExpander.expandString(['size' : 'small', configItemId : configItemId]);
+
 // Start ProdConfItemContent stuff
 productContent = null;
-if (configItem != null) productContent = configItem.getRelated("ProdConfItemContent", null, UtilMisc.toList("confItemContentTypeId"));
-context.put("productContent", productContent);
+if (configItem) {
+    productContent = configItem.getRelated("ProdConfItemContent", null, ['confItemContentTypeId']);
+}
+context.productContent = productContent;
 
-List productContentDatas = new LinkedList();
+productContentDatas = [];
 Iterator productContentIter = productContent.iterator();
-while (productContentIter.hasNext()) {
+while (productContentIter) {
     GenericValue productContent = (GenericValue) productContentIter.next();
     GenericValue content = productContent.getRelatedOne("Content");
-    productContentDatas.add(UtilMisc.toMap("productContent", productContent, "content", content));
+    productContentDatas.add([productContent : productContent, content : content]);
 }
 
 HtmlFormWrapper updateProductContentWrapper = new HtmlFormWrapper("component://product/webapp/catalog/config/ConfigForms.xml", "UpdateProductConfigItemContentAssoc", request, response);
-context.put("updateProductContentWrapper", updateProductContentWrapper);
+context.updateProductContentWrapper = updateProductContentWrapper;
 updateProductContentWrapper.putInContext("productContentDatas", productContentDatas);
 
 HtmlFormWrapper prepareAddProductContentWrapper = new HtmlFormWrapper("component://product/webapp/catalog/config/ConfigForms.xml", "PrepareAddProductConfigItemContentAssoc", request, response);
-context.put("prepareAddProductContentWrapper", prepareAddProductContentWrapper);
+context.prepareAddProductContentWrapper = prepareAddProductContentWrapper;
 prepareAddProductContentWrapper.putInContext("configItem", configItem);
 
 HtmlFormWrapper addProductContentWrapper = new HtmlFormWrapper("component://product/webapp/catalog/config/ConfigForms.xml", "AddProductConfigItemContentAssoc", request, response);
-context.put("addProductContentWrapper", addProductContentWrapper);
+context.addProductContentWrapper = addProductContentWrapper;
 addProductContentWrapper.putInContext("configItem", configItem);
 
-context.put("productContentList", productContentDatas);
+context.productContentList = productContentDatas;
 // End ProductContent stuff
 
-boolean tryEntity = true;
-if (request.getAttribute("_ERROR_MESSAGE_") != null) tryEntity = false;
-if (configItem == null) tryEntity = false;
-if("true".equalsIgnoreCase((String) request.getParameter("tryEntity"))) tryEntity = true;
-context.put("tryEntity", tryEntity);
+tryEntity = true;
+if (request.getAttribute("_ERROR_MESSAGE_")) {
+    tryEntity = false;
+}
+if (!configItem) {
+    tryEntity = false;
+}
+if ("true".equalsIgnoreCase((String)request.getParameter("tryEntity"))) {
+    tryEntity = true;
+}
+context.tryEntity = tryEntity;
 
 // UPLOADING STUFF
 
 Object forLock = new Object();
 String contentType = null;
 String fileType = request.getParameter("upload_file_type");
-if (fileType != null) {
-    context.put("fileType", fileType);
+if (fileType) {
+    context.fileType = fileType;
 
-    //String fileNameToUse = "productConfigItem." + configItemId + "." + fileType;
-    String fileNameToUse = "productConfigItem." + configItemId;
-    String fileLocation = filenameExpander.expandString(UtilMisc.toMap("size", fileType, "configItemId", configItemId));
-    String filePathPrefix = "";
-    String filenameToUse = fileLocation;
+    fileNameToUse = "productConfigItem." + configItemId;
+    fileLocation = filenameExpander.expandString(['size', fileType, configItemId, configItemId]);
+    filePathPrefix = "";
+    filenameToUse = fileLocation;
     if (fileLocation.lastIndexOf("/") != -1) {
         filePathPrefix = fileLocation.substring(0, fileLocation.lastIndexOf("/") + 1); // adding 1 to include the trailing slash
         filenameToUse = fileLocation.substring(fileLocation.lastIndexOf("/") + 1);
     }
 
     int i1;
-    if (contentType != null && (i1 = contentType.indexOf("boundary=")) != -1) {
+    if (contentType && (i1 = contentType.indexOf("boundary=")) != -1) {
         contentType = contentType.substring(i1 + 9);
         contentType = "--" + contentType;
     }
         
-    String defaultFileName = filenameToUse + "_temp";
+    defaultFileName = filenameToUse + "_temp";
     HttpRequestFileUpload uploadObject = new HttpRequestFileUpload();
     uploadObject.setOverrideFilename(defaultFileName);
     uploadObject.setSavePath(imageServerPath + "/" + filePathPrefix);
     uploadObject.doUpload(request);
     
-    String clientFileName = uploadObject.getFilename();
-    if (clientFileName != null) context.put("clientFileName", clientFileName);
+    clientFileName = uploadObject.getFilename();
+    if (clientFileName) {
+        context.clientFileName = clientFileName;
+    }
     
-    if (clientFileName != null && clientFileName.length() > 0) {
+    if (clientFileName && clientFileName.length() > 0) {
         if (clientFileName.lastIndexOf(".") > 0 && clientFileName.lastIndexOf(".") < clientFileName.length()) {
             filenameToUse += clientFileName.substring(clientFileName.lastIndexOf("."));
         } else {
             filenameToUse += ".jpg";
         }
-    
-        context.put("clientFileName", clientFileName);        
-        context.put("filenameToUse", filenameToUse);
         
-        String characterEncoding = request.getCharacterEncoding();
-        String imageUrl = imageUrlPrefix + "/" + filePathPrefix + java.net.URLEncoder.encode(filenameToUse, characterEncoding);
+        context.clientFileName = clientFileName;
+        context.filenameToUse = filenameToUse;
+        
+        characterEncoding = request.getCharacterEncoding();
+        imageUrl = imageUrlPrefix + "/" + filePathPrefix + java.net.URLEncoder.encode(filenameToUse, characterEncoding);
         
         try {
             File file = new File(imageServerPath + "/" + filePathPrefix, defaultFileName);
@@ -124,12 +134,11 @@ if (fileType != null) {
         } catch(Exception e) { 
             e.printStackTrace();
         }
-    
-        if (imageUrl != null && imageUrl.length() > 0) {
-            context.put("imageUrl", imageUrl);
+        
+        if (imageUrl && imageUrl.length() > 0) {
+            context.imageUrl = imageUrl;
             configItem.set("imageUrl", imageUrl);
             configItem.store();
         }
     }
 }
-

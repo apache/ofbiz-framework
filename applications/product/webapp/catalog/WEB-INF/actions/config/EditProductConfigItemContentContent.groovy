@@ -21,60 +21,69 @@ import org.ofbiz.entity.*;
 import org.ofbiz.entity.util.*;
 import org.ofbiz.base.util.*;
 import org.ofbiz.widget.html.*;
-import javax.servlet.HttpServletRequest;
 
 contentId = request.getParameter("contentId");
-if("".equals(contentId)) contentId = null;
+if ("".equals(contentId)) {
+    contentId = null;
+}
 
 confItemContentTypeId = request.getParameter("confItemContentTypeId");
 fromDate = request.getParameter("fromDate");
-if("".equals(fromDate)) fromDate = null;
+if ("".equals(fromDate)) {
+    fromDate = null;
+}
 
 description = request.getParameter("description");
-if("".equals(description)) description = null;
-
-productContent = delegator.findByPrimaryKey("ProdConfItemContent", UtilMisc.toMap("contentId", contentId, "configItemId", configItemId, "confItemContentTypeId", confItemContentTypeId, "fromDate", fromDate));
-if(productContent == null) {
-    productContent = new HashMap();
-    productContent.put("configItemId", configItemId);
-    productContent.put("contentId", contentId);
-    productContent.put("confItemContentTypeId", confItemContentTypeId);
-    productContent.put("fromDate", fromDate);
-    productContent.put("thruDate", request.getParameter("thruDate"));
+if ("".equals(description)) {
+    description = null;
 }
-context.put("productContent", productContent);
 
-productContentData = new HashMap();
+productContent = delegator.findOne("ProdConfItemContent", [contentId : contentId, configItemId : configItemId, confItemContentTypeId : confItemContentTypeId, fromDate : fromDate], false);
+if (!productContent) {
+    productContent = [:];
+    productContent.configItemId = configItemId;
+    productContent.contentId = contentId;
+    productContent.confItemContentTypeId = confItemContentTypeId;
+    productContent.fromDate = fromDate;
+    productContent.thruDate = request.getParameter("thruDate");
+}
+context.productContent = productContent;
+
+productContentData = [:];
 productContentData.putAll(productContent);
 Map content = null;
 
-context.put("contentId", contentId);
-if(contentId != null) {
-    content = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentId));
-    context.put("content", content);
+context.contentId = contentId;
+if (contentId) {
+    content = delegator.findOne("Content", [contentId : contentId], false);
+    context.content = content;
 } else {
-    content = new HashMap();
-    if(description != null) content.put("description", description);
+    content = [:];
+    if (description) {
+        content.description = description;
+    }
 }
 
 HtmlFormWrapper updateProductContentWrapper = null;
 
 //Assume it is a generic simple text content
-textData = new HashMap();
-if (contentId != null && content != null) {
+textData = [:];
+if (contentId && content) {
     textDr = content.getRelatedOne("DataResource");
-    if (textDr != null) {
+    if (textDr) {
         text = textDr.getRelatedOne("ElectronicText");
-        textData.put("text", text.get("textData"));
-        textData.put("textDataResourceId", text.get("dataResourceId"));
+        if (text) {
+            textData.text = text.textData;
+            textData.textDataResourceId = text.dataResourceId;
+        }
     }
 }
 updateProductContentWrapper = new HtmlFormWrapper("component://product/webapp/catalog/config/ConfigForms.xml", "EditProductConfigItemContentSimpleText", request, response);
 updateProductContentWrapper.putInContext("textData", textData);
 
-context.put("updateProductContentWrapper", updateProductContentWrapper);
+context.updateProductContentWrapper = updateProductContentWrapper;
 updateProductContentWrapper.putInContext("productContentData", productContentData);
 
-context.put("productContentData", productContentData);
+context.productContentData = productContentData;
 updateProductContentWrapper.putInContext("content", content);
 updateProductContentWrapper.putInContext("contentId", contentId);
