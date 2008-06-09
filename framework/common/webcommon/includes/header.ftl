@@ -69,13 +69,18 @@ under the License.
   </div>
   <div id="masthead">
     <ul>
-      <#if layoutSettings.headerImageUrl?exists>
-        <li class="logo-area"><img alt="${layoutSettings.companyName}" src="<@ofbizContentUrl>${layoutSettings.headerImageUrl}</@ofbizContentUrl>"/></li>
+      <#if layoutSettings.headerImageLinkUrl?exists>
+        <#assign logoLinkURL = "${layoutSettings.headerImageLinkUrl}">
       <#else>
-        <li class="logo-area"><img alt="${layoutSettings.companyName}" src="<@ofbizContentUrl>${layoutSettings.commonHeaderImageUrl}</@ofbizContentUrl>"/></li>
+        <#assign logoLinkURL = "${layoutSettings.commonHeaderImageLinkUrl}">
+      </#if>
+
+      <#if layoutSettings.headerImageUrl?exists>
+        <li class="logo-area"><a href="${logoLinkURL}"><img alt="${layoutSettings.companyName}" src="<@ofbizContentUrl>${layoutSettings.headerImageUrl}</@ofbizContentUrl>"/></a></li>
+      <#else>
+        <li class="logo-area"><a href="${logoLinkURL}"><img alt="${layoutSettings.companyName}" src="<@ofbizContentUrl>${layoutSettings.commonHeaderImageUrl}</@ofbizContentUrl>"/></a></li>
       </#if>
       <li class="control-area"<#if layoutSettings.headerRightBackgroundUrl?has_content> background="${layoutSettings.headerRightBackgroundUrl}"</#if>>
-        <br />
         <p>
         <#if person?has_content>
           ${uiLabelMap.CommonWelcome} ${person.firstName?if_exists} ${person.lastName?if_exists} [${userLogin.userLoginId}]
