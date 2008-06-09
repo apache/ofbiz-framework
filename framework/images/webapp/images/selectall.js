@@ -299,6 +299,34 @@ function ajaxAutoCompleter(areaCsvString) {
         new Ajax.Autocompleter($(areaArray[i]), optionsDivId, areaArray[i + 1], {parameters: areaArray[i + 2]});	
     }
 }
+
+Event.observe(window,'load', function() {
+    var collapseablePanels = $$('li.collapsed', 'li.expanded');
+    collapseablePanels.each( function(e) {
+      if(e){
+          atag = e.down('a');
+          atag.observe('click', toggleCollapsablePanel);
+      }
+  });    
+
+});
+
+function toggleCollapsablePanel(event){
+	var atag = event.element();
+	titleDiv = atag.up('div.screenlet-title-bar');
+	bodyDiv = titleDiv.next();
+    liElement = atag.up('li');
+    if(bodyDiv.visible()){
+        liElement.removeClassName('expanded');
+        liElement.addClassName('collapsed');
+    } else {
+        liElement.removeClassName('collapsed');
+    	liElement.addClassName('expanded');
+    	
+    }
+	Effect.toggle(bodyDiv, 'appear');
+	Event.stop(event);
+}
 // ===== End of Ajax Functions ===== //
 
 function submitFormDisableSubmits(form) {
