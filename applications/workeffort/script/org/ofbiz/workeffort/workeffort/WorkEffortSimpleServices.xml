@@ -227,9 +227,11 @@ under the License.
         </entity-and>
         <if-not-empty field-name="currentAssignments">
             <first-from-list entry-name="firstAssignment" list-name="currentAssignments"/>
-            <log level="info" message="Party: ${parameters.partyId} with role ${parameters.roleTypeId} already assigned to workEffortId ${parameters.workEffortId} startDate: ${firstAssignment.startDate}, not adding again"></log>
-            <return/>
+            <add-error>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortPartyAssignmentError"/>
+            </add-error>
         </if-not-empty>
+        <check-errors/>
 
         <make-value value-name="newEntity" entity-name="WorkEffortPartyAssignment"/>
 

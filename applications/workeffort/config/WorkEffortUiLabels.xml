@@ -2939,6 +2939,9 @@
         <value xml:lang="th">กลุ่มผู้ใช้</value>
         <value xml:lang="zh">会员</value>
     </property>
+    <property key="WorkEffortPartyAssignmentError">
+        <value xml:lang="en">Party ${parameters.partyId} with role ${parameters.roleTypeId} is already assigned to work effort Id ${parameters.workEffortId}, not adding again</value>
+    </property>
     <property key="WorkEffortPartyId">
         <value xml:lang="en">Party Id</value>
         <value xml:lang="es">Código del participante</value>
@@ -3764,7 +3767,7 @@
         <value xml:lang="zh">人工服务管理应用</value>
     </property>
     <property key="WorkEffortWorkEffortManagerMainPage">
-        <value xml:lang="en">WorkEffort Manager Main Page</value>
+        <value xml:lang="en">Work Effort Manager Main Page</value>
         <value xml:lang="es">Página principal de adminstración de tareas</value>
         <value xml:lang="fr">Page principale de gestion des tâches</value>
         <value xml:lang="it">Pagina Principale Gestione Impegni di Lavoro</value>
@@ -3775,13 +3778,14 @@
         <value xml:lang="zh">人工服务首页</value>
     </property>
     <property key="WorkEffortWorkEffortReviewAlreadyExist">
-        <value xml:lang="en">WorkEffort - Review already exist</value>
+        <value xml:lang="en">Work Effort - Review already exist</value>
         <value xml:lang="it">Impegno di Lavoro - Recensione già esistente</value>
         <value xml:lang="th">งาน - ยังคงมีการตรวจสอบอยู่แล้ว</value>
         <value xml:lang="zh">人工服务 - 检查已存在</value>
     </property>
     <property key="WorkEffortWorkEfforts">
         <value xml:lang="en">Work Efforts</value>
+        <value xml:lang="es">Hojas de trabajo</value>
         <value xml:lang="it">Impegni di Lavoro</value>
         <value xml:lang="nl">Acties</value>
         <value xml:lang="ro">Sarcini de Lucru </value>
@@ -3820,11 +3824,6 @@
         <value xml:lang="ru">Работы, задания и документы, назначенные роли пользователя</value>
         <value xml:lang="th">กำหนดกิจกรรมขั้นตอนการทำงานถึงสถานะของผู้ใช้</value>
         <value xml:lang="zh">把工作流行动指派给用户角色</value>
-    </property>
-    <property key="WorkEfforts">
-        <value xml:lang="en">WorkEfforts</value>
-        <value xml:lang="es">Hojas de trabajo</value>
-        <value xml:lang="th">งาน</value>
     </property>
     <property key="WorkEffortAgreementAppls">
         <value xml:lang="en">Agreement Appls</value>
