@@ -17,6 +17,32 @@ specific language governing permissions and limitations
 under the License.
 -->
 
+<#macro paginationControls>
+    <#assign viewIndexMax = Static["java.lang.Math"].ceil((listSize - 1)?double / viewSize?double)>
+    <#if (viewIndexMax?int > 1)>
+        <div class="product-prevnext">
+            <#-- Start Page Select Drop-Down -->
+            <select name="pageSelect" onchange="window.location=this[this.selectedIndex].value;">
+                <option value="#">${uiLabelMap.CommonPage} ${viewIndex?int} ${uiLabelMap.CommonOf} ${viewIndexMax + 1}</option>
+                <#list 0..viewIndexMax as curViewNum>
+                     <option value="<@ofbizUrl>category/~category_id=${productCategoryId}/~VIEW_SIZE=${viewSize}/~VIEW_INDEX=${curViewNum?int + 1}</@ofbizUrl>">${uiLabelMap.CommonGotoPage} ${curViewNum + 1}</option>
+                </#list>
+            </select>
+            <#-- End Page Select Drop-Down -->
+            <#if (viewIndex?int > 1)>
+                <a href="<@ofbizUrl>category/~category_id=${productCategoryId}/~VIEW_SIZE=${viewSize}/~VIEW_INDEX=${viewIndex?int - 1}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPrevious}</a> |
+            </#if>
+            <#if (listSize?int > 0)>
+                <span class="tabletext">${lowIndex} - ${highIndex} ${uiLabelMap.CommonOf} ${listSize}</span>
+            </#if>
+            <#if highIndex?int < listSize?int>
+             | <a href="<@ofbizUrl>category/~category_id=${productCategoryId}/~VIEW_SIZE=${viewSize}/~VIEW_INDEX=${viewIndex?int + 1}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonNext}</a>
+            </#if>
+        </div>
+    </#if>
+</#macro>
+
+
 <#if productCategory?exists>
     <h1>
         <div>${categoryContentWrapper.get("CATEGORY_NAME")?if_exists}</div>
@@ -58,29 +84,7 @@ under the License.
 </#if>
 
 <#if productCategoryMembers?has_content>
-    <div class="product-prevnext">
-      <#-- Start Page Select Drop-Down -->
-      <#assign viewIndexMax = Static["java.lang.Math"].ceil((listSize - 1)?double / viewSize?double)>
-      <select name="pageSelect" onchange="window.location=this[this.selectedIndex].value;">
-        <option value="#">${uiLabelMap.CommonPage} ${viewIndex?int} ${uiLabelMap.CommonOf} ${viewIndexMax + 1}</option>
-        <#list 0..viewIndexMax as curViewNum>
-          <option value="<@ofbizUrl>category/~category_id=${productCategoryId}/~VIEW_SIZE=${viewSize}/~VIEW_INDEX=${curViewNum?int + 1}</@ofbizUrl>">${uiLabelMap.CommonGotoPage} ${curViewNum + 1}</option>
-        </#list>
-      </select>
-      <#-- End Page Select Drop-Down -->
-      <b>
-        <#if (viewIndex?int > 1)>
-          <a href="<@ofbizUrl>category/~category_id=${productCategoryId}/~VIEW_SIZE=${viewSize}/~VIEW_INDEX=${viewIndex?int - 1}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPrevious}</a> |
-        </#if>
-        <#if (listSize?int > 0)>
-          <span class="tabletext">${lowIndex} - ${highIndex} ${uiLabelMap.CommonOf} ${listSize}</span>
-        </#if>
-        <#if highIndex?int < listSize?int>
-          | <a href="<@ofbizUrl>category/~category_id=${productCategoryId}/~VIEW_SIZE=${viewSize}/~VIEW_INDEX=${viewIndex?int + 1}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonNext}</a>
-        </#if>
-      </b>
-    </div>
-
+    <@paginationControls/>
     <div class="productsummary-container">
         <#list productCategoryMembers as productCategoryMember>
             ${setRequestAttribute("optProductId", productCategoryMember.productId)}
@@ -89,30 +93,7 @@ under the License.
             ${screens.render(productsummaryScreen)}
         </#list>
     </div>
-
-    <div class="product-prevnext">
-      <#-- Start Page Select Drop-Down -->
-      <#assign viewIndexMax = Static["java.lang.Math"].ceil((listSize - 1)?double / viewSize?double)>
-      <select name="pageSelect" onchange="window.location=this[this.selectedIndex].value;">
-        <option value="#">${uiLabelMap.CommonPage} ${viewIndex?int} ${uiLabelMap.CommonOf} ${viewIndexMax + 1}</option>
-        <#list 0..viewIndexMax as curViewNum>
-          <option value="<@ofbizUrl>category/~category_id=${productCategoryId}/~VIEW_SIZE=${viewSize}/~VIEW_INDEX=${curViewNum?int + 1}</@ofbizUrl>">${uiLabelMap.CommonGotoPage} ${curViewNum + 1}</option>
-        </#list>
-      </select>
-      <#-- End Page Select Drop-Down -->
-      <b>
-        <#if (viewIndex?int > 1)>
-          <a href="<@ofbizUrl>category?category_id=${productCategoryId}&amp;VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex?int - 1}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPrevious}</a> |
-        </#if>
-        <#if (listSize?int > 0)>
-          <span class="tabletext">${lowIndex} - ${highIndex} ${uiLabelMap.CommonOf} ${listSize}</span>
-        </#if>
-        <#if highIndex?int < listSize?int>
-          | <a href="<@ofbizUrl>category?category_id=${productCategoryId}&amp;VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex?int + 1}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonNext}</a>
-        </#if>
-      </b>
-    </div>
-
+    <@paginationControls/>
 <#else>
     <div><hr class='sepbar'/></div>
     <div class='tabletext'>${uiLabelMap.ProductNoProductsInThisCategory}</div>

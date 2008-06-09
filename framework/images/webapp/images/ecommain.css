@@ -885,6 +885,10 @@ color: red;
 text-align: right;
 }
 
+.product-prevnext .tabletext {
+font-weight: bold;
+}
+
 .productcategorylink-container {
 position: relative;
 margin-top: 10px;
