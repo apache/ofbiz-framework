@@ -42,7 +42,13 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field position="2" name="virtualVariantMethodEnum" title="${uiLabelMap.ProductVirtualVariantMethod}"> 
+        <field position="1" name="isVirtual" title="${uiLabelMap.ProductVirtualProduct}">
+            <drop-down><option key="N" description="${uiLabelMap.CommonN}"/><option key="Y" description="${uiLabelMap.CommonY}"/></drop-down>
+        </field>
+        <field position="2" name="isVariant" title="${uiLabelMap.ProductVariantProduct}">
+            <drop-down><option key="N" description="${uiLabelMap.CommonN}"/><option key="Y" description="${uiLabelMap.CommonY}"/></drop-down>
+        </field>
+        <field position="3" name="virtualVariantMethodEnum" title="${uiLabelMap.ProductVirtualVariantMethod}"> 
             <drop-down allow-empty="true">
                 <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
                     <entity-constraint name="enumTypeId" value="PROD_VVMETHOD"/>
@@ -50,13 +56,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field position="1" name="isVirtual" title="${uiLabelMap.ProductVirtualProduct}">
-            <drop-down><option key="N" description="${uiLabelMap.CommonN}"/><option key="Y" description="${uiLabelMap.CommonY}"/></drop-down>
-        </field>
-        <field position="2" name="isVariant" title="${uiLabelMap.ProductVariantProduct}">
-            <drop-down><option key="N" description="${uiLabelMap.CommonN}"/><option key="Y" description="${uiLabelMap.CommonY}"/></drop-down>
-        </field>
-        <field name="primaryProductCategoryId" title="${uiLabelMap.ProductPrimaryCategory}">
+        <field position="1" name="primaryProductCategoryId" title="${uiLabelMap.ProductPrimaryCategory}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="ProductCategoryAndMember" key-field-name="productCategoryId" description="${categoryName} [${productCategoryId}]">
                     <entity-constraint name="productId" env-name="product.productId"/>
@@ -64,9 +64,9 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-
-        <field name="internalName" title="${uiLabelMap.ProductInternalName}"><text size="30" maxlength="255"/></field>
-        <field name="brandName" title="${uiLabelMap.ProductBrandName}" ><text size="30" maxlength="60"/></field>
+        
+        <field position="1" name="internalName" title="${uiLabelMap.ProductInternalName}"><text size="30" maxlength="255"/></field>
+        <field position="2" name="brandName" title="${uiLabelMap.ProductBrandName}" ><text size="30" maxlength="60"/></field>
         <field name="manufacturerPartyId" title="${uiLabelMap.ProductOemPartyId}" ><text size="20" maxlength="20"/></field>
         <field name="comments" title="${uiLabelMap.CommonComments}"><text size="60" maxlength="250"/></field>
 
@@ -120,7 +120,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field position="1" title="${uiLabelMap.ProductShippingHeight}" name="shippingHeight"><text size="10" maxlength="20"/></field>
+        <field position="3" title="${uiLabelMap.ProductShippingHeight}" name="shippingHeight"><text size="10" maxlength="20"/></field>
 
         <field position="1" title="${uiLabelMap.ProductProductWidth}" name="productWidth"><text size="10" maxlength="20"/></field>
         <field position="2" name="widthUomId" title="${uiLabelMap.ProductWidthUomId}">
@@ -131,7 +131,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field position="1" title="${uiLabelMap.ProductShippingWidth}" name="shippingWidth"><text size="10" maxlength="20"/></field>
+        <field position="3" title="${uiLabelMap.ProductShippingWidth}" name="shippingWidth"><text size="10" maxlength="20"/></field>
 
         <field position="1" title="${uiLabelMap.ProductProductDepth}" name="productDepth"><text size="10" maxlength="20"/></field>
         <field position="2" name="depthUomId" title="${uiLabelMap.ProductDepthUomId}">
@@ -142,7 +142,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field position="1" title="${uiLabelMap.ProductShippingDepth}" name="shippingDepth"><text size="10" maxlength="20"/></field>
+        <field position="3" title="${uiLabelMap.ProductShippingDepth}" name="shippingDepth"><text size="10" maxlength="20"/></field>
 
         <field position="1" name="weight" title="${uiLabelMap.ProductWeight}"><text size="10" maxlength="20"/></field>
         <field position="2" name="weightUomId" title="${uiLabelMap.ProductWeightUomId}">
@@ -192,7 +192,7 @@ under the License.
             <drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
 
-        <field position="1" name="inShippingBox" title="${uiLabelMap.ProductShippingBox}">
+        <field position="3" name="inShippingBox" title="${uiLabelMap.ProductShippingBox}">
             <drop-down><option key="N" description="${uiLabelMap.CommonN}"/><option key="Y" description="${uiLabelMap.CommonY}"/></drop-down>
         </field>
 
