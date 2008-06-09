@@ -33,6 +33,8 @@ import java.io.Writer;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.io.FileUtils;
+
 import javolution.util.FastList;
 import javolution.util.FastSet;
 
@@ -64,6 +66,29 @@ public class FileUtil {
                     Debug.logError(e, module);
                 }
             }
+        }
+    }
+    
+    /**
+     * Writes a file from a string with a specified encoding.
+     *
+     * @param path
+     * @param name
+     * @param encoding
+     * @param s
+     * @throws IOException
+     */
+    public static void writeString(String path, String name, String encoding, String s) throws IOException {
+        String fileName = getPatchedFileName(path, name);
+        if (UtilValidate.isEmpty(fileName)) {
+            throw new IOException("Cannot obtain buffered writer for an empty filename!");
+        }
+
+        try {
+            FileUtils.writeStringToFile(new File(fileName), s, encoding);
+        } catch (IOException e) {
+            Debug.logError(e, module);
+            throw e;
         }
     }
         
