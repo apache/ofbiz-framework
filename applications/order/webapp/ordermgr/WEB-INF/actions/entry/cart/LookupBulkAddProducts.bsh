@@ -22,6 +22,7 @@ import org.ofbiz.entity.condition.EntityFunction;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.condition.EntityFieldValue;
 import org.ofbiz.entity.condition.EntityConditionList;
+import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.base.util.UtilMisc;
 
 productId = request.getParameter("productId");
@@ -55,4 +56,5 @@ mainConditions = EntityCondition.makeCondition(mainConditionList, EntityOperator
 
 productList = delegator.findList("Product", mainConditions, UtilMisc.toSet("productId", "brandName", "internalName"), UtilMisc.toList("productId"), null, false);
 context.put("productList", productList);
+
 
