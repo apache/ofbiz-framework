@@ -30,8 +30,8 @@ context.imageFilenameFormat = imageFilenameFormat;
 context.imageServerPath = imageServerPath;
 context.imageUrlPrefix = imageUrlPrefix;
 
-FlexibleStringExpander filenameExpander = new FlexibleStringExpander(imageFilenameFormat);
-context.imageNameSmall = imageUrlPrefix + "/" + filenameExpander.expandString(['size' : 'small', configItemId : configItemId]);
+filenameExpander = new FlexibleStringExpander(imageFilenameFormat);
+context.imageNameSmall = imageUrlPrefix + "/" + filenameExpander.expandString([size : 'small', configItemId : configItemId]);
 
 // Start ProdConfItemContent stuff
 productContent = null;
@@ -41,22 +41,20 @@ if (configItem) {
 context.productContent = productContent;
 
 productContentDatas = [];
-Iterator productContentIter = productContent.iterator();
-while (productContentIter) {
-    GenericValue productContent = (GenericValue) productContentIter.next();
-    GenericValue content = productContent.getRelatedOne("Content");
+productContent.each { productContent ->
+    content = productContent.getRelatedOne("Content");
     productContentDatas.add([productContent : productContent, content : content]);
 }
 
-HtmlFormWrapper updateProductContentWrapper = new HtmlFormWrapper("component://product/webapp/catalog/config/ConfigForms.xml", "UpdateProductConfigItemContentAssoc", request, response);
+updateProductContentWrapper = new HtmlFormWrapper("component://product/webapp/catalog/config/ConfigForms.xml", "UpdateProductConfigItemContentAssoc", request, response);
 context.updateProductContentWrapper = updateProductContentWrapper;
 updateProductContentWrapper.putInContext("productContentDatas", productContentDatas);
 
-HtmlFormWrapper prepareAddProductContentWrapper = new HtmlFormWrapper("component://product/webapp/catalog/config/ConfigForms.xml", "PrepareAddProductConfigItemContentAssoc", request, response);
+prepareAddProductContentWrapper = new HtmlFormWrapper("component://product/webapp/catalog/config/ConfigForms.xml", "PrepareAddProductConfigItemContentAssoc", request, response);
 context.prepareAddProductContentWrapper = prepareAddProductContentWrapper;
 prepareAddProductContentWrapper.putInContext("configItem", configItem);
 
-HtmlFormWrapper addProductContentWrapper = new HtmlFormWrapper("component://product/webapp/catalog/config/ConfigForms.xml", "AddProductConfigItemContentAssoc", request, response);
+addProductContentWrapper = new HtmlFormWrapper("component://product/webapp/catalog/config/ConfigForms.xml", "AddProductConfigItemContentAssoc", request, response);
 context.addProductContentWrapper = addProductContentWrapper;
 addProductContentWrapper.putInContext("configItem", configItem);
 
@@ -70,16 +68,16 @@ if (request.getAttribute("_ERROR_MESSAGE_")) {
 if (!configItem) {
     tryEntity = false;
 }
-if ("true".equalsIgnoreCase((String)request.getParameter("tryEntity"))) {
+if ("true".equalsIgnoreCase(request.getParameter("tryEntity"))) {
     tryEntity = true;
 }
 context.tryEntity = tryEntity;
 
 // UPLOADING STUFF
 
-Object forLock = new Object();
-String contentType = null;
-String fileType = request.getParameter("upload_file_type");
+forLock = new Object();
+contentType = null;
+fileType = request.getParameter("upload_file_type");
 if (fileType) {
     context.fileType = fileType;
 
@@ -99,7 +97,7 @@ if (fileType) {
     }
         
     defaultFileName = filenameToUse + "_temp";
-    HttpRequestFileUpload uploadObject = new HttpRequestFileUpload();
+    uploadObject = new HttpRequestFileUpload();
     uploadObject.setOverrideFilename(defaultFileName);
     uploadObject.setSavePath(imageServerPath + "/" + filePathPrefix);
     uploadObject.doUpload(request);
@@ -107,9 +105,6 @@ if (fileType) {
     clientFileName = uploadObject.getFilename();
     if (clientFileName) {
         context.clientFileName = clientFileName;
-    }
-    
-    if (clientFileName && clientFileName.length() > 0) {
         if (clientFileName.lastIndexOf(".") > 0 && clientFileName.lastIndexOf(".") < clientFileName.length()) {
             filenameToUse += clientFileName.substring(clientFileName.lastIndexOf("."));
         } else {
@@ -123,8 +118,8 @@ if (fileType) {
         imageUrl = imageUrlPrefix + "/" + filePathPrefix + java.net.URLEncoder.encode(filenameToUse, characterEncoding);
         
         try {
-            File file = new File(imageServerPath + "/" + filePathPrefix, defaultFileName);
-            File file1 = new File(imageServerPath + "/" + filePathPrefix, filenameToUse);
+            file = new File(imageServerPath + "/" + filePathPrefix, defaultFileName);
+            file1 = new File(imageServerPath + "/" + filePathPrefix, filenameToUse);
             try {
                 file1.delete();
             } catch(Exception e) { 
@@ -135,7 +130,7 @@ if (fileType) {
             e.printStackTrace();
         }
         
-        if (imageUrl && imageUrl.length() > 0) {
+        if (imageUrl) {
             context.imageUrl = imageUrl;
             configItem.set("imageUrl", imageUrl);
             configItem.store();

@@ -26,33 +26,29 @@ import org.ofbiz.webapp.stats.VisitHandler;
 visitId = VisitHandler.getVisitId(session);
 
 featureIdByType = ParametricSearch.makeFeatureIdByTypeMap(request);
-featureIdSet = new HashSet();
-if (featureIdByType != null) {
+featureIdSet = [] as Set;
+if (featureIdByType) {
     featureIdSet.addAll(featureIdByType.values());
 }
 
 productIds = ProductSearch.parametricKeywordSearch(featureIdSet, null, delegator, productCategoryId, true, visitId, true, true, false);
 
 // get the product for each ID
-productIdIter = productIds.iterator();
 products = new ArrayList(productIds.size());
-while (productIdIter.hasNext()) {
-    productId = productIdIter.next();
+productIds.each { productId ->
     product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
     products.add(product);
 }
 
 productFeatureAndTypeDatas = new ArrayList(featureIdByType.size());
-featureIdByTypeIter = featureIdByType.entrySet().iterator();
-while (featureIdByTypeIter.hasNext()) {
-    featureIdByTypeEntry = featureIdByTypeIter.next();
-    productFeatureType = delegator.findByPrimaryKeyCache("ProductFeatureType", UtilMisc.toMap("productFeatureTypeId", featureIdByTypeEntry.getKey()));
-    productFeature = delegator.findByPrimaryKeyCache("ProductFeature", UtilMisc.toMap("productFeatureId", featureIdByTypeEntry.getValue()));
-    productFeatureAndTypeData = new HashMap();
-    productFeatureAndTypeData.put("productFeatureType", productFeatureType);
-    productFeatureAndTypeData.put("productFeature", productFeature);
+featureIdByType.each { featureIdByTypeEntry ->
+    productFeatureType = delegator.findByPrimaryKeyCache("ProductFeatureType", UtilMisc.toMap("productFeatureTypeId", featureIdByTypeEntry.key));
+    productFeature = delegator.findByPrimaryKeyCache("ProductFeature", UtilMisc.toMap("productFeatureId", featureIdByTypeEntry.value));
+    productFeatureAndTypeData = [:];
+    productFeatureAndTypeData.productFeatureType = productFeatureType;
+    productFeatureAndTypeData.productFeature = productFeature;
     productFeatureAndTypeDatas.add(productFeatureAndTypeData);
 }
 
-context.put("productFeatureAndTypeDatas", productFeatureAndTypeDatas);
-context.put("products", products);
+context.productFeatureAndTypeDatas = productFeatureAndTypeDatas;
+context.products = products;

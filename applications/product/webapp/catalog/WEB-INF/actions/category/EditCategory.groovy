@@ -20,31 +20,29 @@
 import org.ofbiz.base.util.*
 import org.ofbiz.base.util.string.*
 
-productCategoryType = null;
 if (productCategory) {
-    productCategoryType = productCategory.getRelatedOne("ProductCategoryType");
-    context.productCategoryType = productCategoryType;
+    context.productCategoryType = productCategory.getRelatedOne("ProductCategoryType");
 }
 
 primaryParentCategory = null;
 primParentCatIdParam = request.getParameter("primaryParentCategoryId");
 if(productCategory) {
     primaryParentCategory = productCategory.getRelatedOne("PrimaryParentProductCategory");
-} else if (primParentCatIdParam && primParentCatIdParam.length() > 0) {
+} else if (primParentCatIdParam) {
     primaryParentCategory = delegator.findOne("ProductCategory", [productCategoryId : primParentCatIdParam], false);
 }
 context.primaryParentCategory = primaryParentCategory;
 
 
 // make the image file formats
-String imageFilenameFormat = UtilProperties.getPropertyValue("catalog", "image.filename.format");
-String imageServerPath = UtilProperties.getPropertyValue("catalog", "image.server.path");
-String imageUrlPrefix = UtilProperties.getPropertyValue("catalog", "image.url.prefix");
+imageFilenameFormat = UtilProperties.getPropertyValue("catalog", "image.filename.format");
+imageServerPath = UtilProperties.getPropertyValue("catalog", "image.server.path");
+imageUrlPrefix = UtilProperties.getPropertyValue("catalog", "image.url.prefix");
 context.imageFilenameFormat = imageFilenameFormat;
 context.imageServerPath = imageServerPath;
 context.imageUrlPrefix = imageUrlPrefix;
 
-FlexibleStringExpander filenameExpander = new FlexibleStringExpander(imageFilenameFormat);
+filenameExpander = new FlexibleStringExpander(imageFilenameFormat);
 context.imageNameCategory = imageUrlPrefix + "/" + filenameExpander.expandString([location : "categories", type : "category", id : productCategoryId]);
 context.imageNameLinkOne  = imageUrlPrefix + "/" + filenameExpander.expandString([location : "categories", type : "linkOne", id : productCategoryId]);
 context.imageNameLinkTwo  = imageUrlPrefix + "/" + filenameExpander.expandString([location : "categories", type : "linkTwo", id : productCategoryId]);
@@ -52,9 +50,9 @@ context.imageNameLinkTwo  = imageUrlPrefix + "/" + filenameExpander.expandString
 
 // UPLOADING STUFF
 
-Object forLock = new Object();
-String contentType = null;
-String fileType = request.getParameter("upload_file_type");
+forLock = new Object();
+contentType = null;
+fileType = request.getParameter("upload_file_type");
 if (fileType) {
     context.fileType = fileType;
 
@@ -72,18 +70,18 @@ if (fileType) {
         contentType = "--" + contentType;
     }
 
-    String defaultFileName = filenameToUse + "_temp";
-    HttpRequestFileUpload uploadObject = new HttpRequestFileUpload();
+    defaultFileName = filenameToUse + "_temp";
+    uploadObject = new HttpRequestFileUpload();
     uploadObject.setOverrideFilename(defaultFileName);
     uploadObject.setSavePath(imageServerPath + "/" + filePathPrefix);
     uploadObject.doUpload(request);
 
-    String clientFileName = uploadObject.getFilename();
+    clientFileName = uploadObject.getFilename();
     if (clientFileName) {
         context.clientFileName = clientFileName;
     }
 
-    if (clientFileName && clientFileName.length() > 0) {
+    if (clientFileName) {
         if (clientFileName.lastIndexOf(".") > 0 && clientFileName.lastIndexOf(".") < clientFileName.length()) {
             filenameToUse += clientFileName.substring(clientFileName.lastIndexOf("."));
         } else {
@@ -93,12 +91,12 @@ if (fileType) {
         context.clientFileName = clientFileName;
         context.filenameToUse = filenameToUse;
 
-        String characterEncoding = request.getCharacterEncoding();
-        String imageUrl = imageUrlPrefix + "/" + filePathPrefix + java.net.URLEncoder.encode(filenameToUse, characterEncoding);
+        characterEncoding = request.getCharacterEncoding();
+        imageUrl = imageUrlPrefix + "/" + filePathPrefix + java.net.URLEncoder.encode(filenameToUse, characterEncoding);
 
         try {
-            File file = new File(imageServerPath + "/" + filePathPrefix, defaultFileName);
-            File file1 = new File(imageServerPath + "/" + filePathPrefix, filenameToUse);
+            file = new File(imageServerPath + "/" + filePathPrefix, defaultFileName);
+            file1 = new File(imageServerPath + "/" + filePathPrefix, filenameToUse);
             try {
                 file1.delete();
             } catch(Exception e) {
@@ -109,7 +107,7 @@ if (fileType) {
             e.printStackTrace();
         }
 
-        if (imageUrl && imageUrl.length() > 0) {
+        if (imageUrl) {
             context.imageUrl = imageUrl;
             productCategory.set(fileType + "ImageUrl", imageUrl);
             productCategory.store();
