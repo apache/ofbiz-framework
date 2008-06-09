@@ -22,21 +22,12 @@ import org.ofbiz.entity.util.*;
 import org.ofbiz.base.util.*;
 import org.ofbiz.widget.html.*;
 
-contentId = request.getParameter("contentId");
-if ("".equals(contentId)) {
-    contentId = null;
-}
+contentId = request.getParameter("contentId") ?: null;
 
 confItemContentTypeId = request.getParameter("confItemContentTypeId");
-fromDate = request.getParameter("fromDate");
-if ("".equals(fromDate)) {
-    fromDate = null;
-}
+fromDate = request.getParameter("fromDate") ?: null;
 
-description = request.getParameter("description");
-if ("".equals(description)) {
-    description = null;
-}
+description = request.getParameter("description") ?: null;
 
 productContent = delegator.findOne("ProdConfItemContent", [contentId : contentId, configItemId : configItemId, confItemContentTypeId : confItemContentTypeId, fromDate : fromDate], false);
 if (!productContent) {
@@ -63,8 +54,6 @@ if (contentId) {
         content.description = description;
     }
 }
-
-HtmlFormWrapper updateProductContentWrapper = null;
 
 //Assume it is a generic simple text content
 textData = [:];

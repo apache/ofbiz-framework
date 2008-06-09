@@ -25,23 +25,22 @@ productFeatureIds = "";
 product = delegator.findOne("Product", [productId : productId], false);
 
 result = dispatcher.runSync("getProductFeaturesByType", [productId : productId, productFeatureApplTypeId : "SELECTABLE_FEATURE"]);
-featureTypes = result.get("productFeatureTypes");
-featuresByTypes = result.get("productFeaturesByType");
+featureTypes = result.productFeatureTypes;
+featuresByTypes = result.productFeaturesByType;
 searchFeatures = [];
 selectedFeatureTypeValues = [];
 if (featureTypes) {
-    for (int i = 0; i < featureTypes.size(); i++) {
-        featureType = featureTypes.get(i);
-        featuresByType = featuresByTypes.get(featureType);
+    featureTypes.each { featureType ->
+        featuresByType = featuresByTypes[featureType];
         featureTypeAndValues = [featureType : featureType, features : featuresByType];
         searchFeatures.add(featureTypeAndValues);
         //
         selectedFeatureTypeValue = request.getParameter(featureType);
-        if (selectedFeatureTypeValue && selectedFeatureTypeValue.length() > 0) {
+        if (selectedFeatureTypeValue) {
             featureTypeAndValues.selectedFeatureId = selectedFeatureTypeValue;
             selectedFeatureTypeValues.add(selectedFeatureTypeValue);
             feature = delegator.findOne("ProductFeature", [productFeatureId : selectedFeatureTypeValue]);
-            productVariantId += (feature.getString("idCode") != null? feature.getString("idCode"): "");
+            productVariantId += feature.getString("idCode") ?: "";
             productFeatureIds += "|" + selectedFeatureTypeValue;
         }
     }
@@ -50,7 +49,7 @@ if (featureTypes) {
 variants = [];
 //if (selectedFeatureTypeValues) {
     result = dispatcher.runSync("getAllExistingVariants", [productId : productId, productFeatureAppls : selectedFeatureTypeValues]);
-    variants = result.get("variantProductIds");
+    variants = result.variantProductIds;
 //}
 
 // Quick Add Variant
@@ -66,9 +65,7 @@ context.variants = variants;
 
 // also need the variant products themselves
 variantProducts = [];
-iter = variants.iterator();
-while (iter) {
-    variantId = iter.next();
+variants.each { variantId ->
     variantProducts.add(delegator.findOne("Product", [productId : variantId], true));
 }
 context.variantProducts = variantProducts;

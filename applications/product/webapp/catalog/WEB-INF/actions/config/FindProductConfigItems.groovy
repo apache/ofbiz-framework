@@ -23,14 +23,14 @@ context.itemsList = itemsList;
 // set the page parameters
 viewIndex = 0;
 try {
-    viewIndex = Integer.valueOf((String) parameters.get("VIEW_INDEX")).intValue();
+    viewIndex = parameters.VIEW_INDEX as int;
 } catch (Exception e) {
     viewIndex = 0;
 }
 
 viewSize = 20;
 try {
-    viewSize = Integer.valueOf((String) parameters.get("VIEW_SIZE")).intValue();
+    viewSize = parameters.VIEW_SIZE as int;
 } catch (Exception e) {
     viewSize = 20;
 }
