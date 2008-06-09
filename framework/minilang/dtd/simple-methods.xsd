@@ -1791,7 +1791,7 @@ under the License.
     <xs:element name="clear-field" substitutionGroup="EnvOperations">
         <xs:annotation>
             <xs:documentation>
-                The clear-field tag clears/removes the specified field.
+                Sets the value of the specified field to null.
             </xs:documentation>
         </xs:annotation>        
         <xs:complexType>
