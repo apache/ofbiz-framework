@@ -903,7 +903,9 @@ position: relative;
 }
 
 #column-container h1,
-#column-container .h1 {
+#column-container .h1,
+#column-container h2,
+#column-container .h2 {
 margin-bottom: 0.5em;
 }
 
@@ -1573,7 +1575,13 @@ border-right: none;
 .basic-table {
 background-color: #ffffff;
 color: #000000;
+margin-bottom: 1em;
 width: 100%;
+}
+
+form .basic-table,
+.screenlet-body .basic-table {
+margin-bottom: 0;
 }
 
 .basic-table tr td {
