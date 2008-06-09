@@ -471,7 +471,7 @@
     </property>
     <property key="FormFieldTitle_allowPassword">
         <value xml:lang="en">Allow Password</value>
-        <value xml:lang="fr">Utiliser un mot de passe</value>
+        <value xml:lang="fr">Permettre la création d'un mot de passe par les clients</value>
         <value xml:lang="it">Permetti Password</value>
         <value xml:lang="ro">Permiti Password</value>
         <value xml:lang="ru">Разрешить пароль</value>
@@ -582,7 +582,7 @@
     </property>
     <property key="FormFieldTitle_autoApproveReviews">
         <value xml:lang="en">Auto Approve Reviews</value>
-        <value xml:lang="fr">Approbation automatique des revues</value>
+        <value xml:lang="fr">Approbation automatique des commentaires</value>
         <value xml:lang="it">Approvazione Automatica Recensioni</value>
         <value xml:lang="ro">Aprobare Automatica Recenzii</value>
         <value xml:lang="ru">Одобрять отзывы автоматически</value>
@@ -806,7 +806,7 @@
     </property>
     <property key="FormFieldTitle_checkInventory">
         <value xml:lang="en">Check Inventory</value>
-        <value xml:lang="fr">Contrôle d'inventaire</value>
+        <value xml:lang="fr">Contrôle du stock</value>
         <value xml:lang="it">Controlla Inventario</value>
         <value xml:lang="ro">Controleaza Inventar</value>
         <value xml:lang="ru">Проверить наличие</value>
@@ -2230,7 +2230,7 @@
     </property>
     <property key="FormFieldTitle_oneInventoryFacility">
         <value xml:lang="en">One Inventory Facility</value>
-        <value xml:lang="fr">Lieu de stockage avec un seul inventaire</value>
+        <value xml:lang="fr">Lieu de stockage avec un seul stock</value>
         <value xml:lang="it">Una Stabilimento Inventario</value>
         <value xml:lang="ro">Un Compartiment Inventar</value>
         <value xml:lang="ru">Один склад ТМЦ</value>
@@ -2963,7 +2963,7 @@
     </property>
     <property key="FormFieldTitle_requireInventory">
         <value xml:lang="en">Require Inventory</value>
-        <value xml:lang="fr">Nécessite un inventaire</value>
+        <value xml:lang="fr">Nécessite une présence en stock</value>
         <value xml:lang="it">Richiesto Inventario</value>
         <value xml:lang="ro">Cerere Inventar</value>
         <value xml:lang="ru">Требуется наличие</value>
@@ -2988,7 +2988,7 @@
     </property>
     <property key="FormFieldTitle_reserveInventory">
         <value xml:lang="en">Reserve Inventory</value>
-        <value xml:lang="fr">Réserver l'inventaire</value>
+        <value xml:lang="fr">Réserver le stock</value>
         <value xml:lang="it">Riserva Inventario</value>
         <value xml:lang="ro">Rezerva Inventar</value>
         <value xml:lang="ru">Зарезервировать на складе</value>
