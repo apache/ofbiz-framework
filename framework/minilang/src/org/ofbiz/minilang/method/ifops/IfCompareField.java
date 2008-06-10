@@ -36,26 +36,36 @@ public class IfCompareField extends MethodOperation {
     
     public static final String module = IfCompareField.class.getName();
 
-    List<MethodOperation> subOps = FastList.newInstance();
-    List<MethodOperation> elseSubOps = null;
+    protected List<MethodOperation> subOps = FastList.newInstance();
+    protected List<MethodOperation> elseSubOps = null;
 
-    ContextAccessor mapAcsr;
-    ContextAccessor fieldAcsr;
-    ContextAccessor toMapAcsr;
-    ContextAccessor toFieldAcsr;
+    protected ContextAccessor mapAcsr;
+    protected ContextAccessor fieldAcsr;
+    protected ContextAccessor toMapAcsr;
+    protected ContextAccessor toFieldAcsr;
 
-    String operator;
-    String type;
-    String format;
+    protected String operator;
+    protected String type;
+    protected String format;
 
     public IfCompareField(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
+        // NOTE: this is still supported, but is deprecated
         this.mapAcsr = new ContextAccessor(element.getAttribute("map-name"));
-        this.fieldAcsr = new ContextAccessor(element.getAttribute("field-name"));
+        this.fieldAcsr = new ContextAccessor(element.getAttribute("field"));
+        if (this.fieldAcsr.isEmpty()) {
+            // NOTE: this is still supported, but is deprecated
+            this.fieldAcsr = new ContextAccessor(element.getAttribute("field-name"));
+        }
         
+        // NOTE: this is still supported, but is deprecated
         this.toMapAcsr = new ContextAccessor(element.getAttribute("to-map-name"));
         // set fieldAcsr to their defualt value of fieldAcsr if empty
-        this.toFieldAcsr = new ContextAccessor(element.getAttribute("to-field-name"), element.getAttribute("field-name"));
+        this.toFieldAcsr = new ContextAccessor(element.getAttribute("to-field"), element.getAttribute("field"));
+        if (this.toFieldAcsr.isEmpty()) {
+            // NOTE: this is still supported, but is deprecated
+            this.toFieldAcsr = new ContextAccessor(element.getAttribute("to-field-name"), element.getAttribute("field-name"));
+        }
 
         // do NOT default the to-map-name to the map-name because that
         //would make it impossible to compare from a map field to an 

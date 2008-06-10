@@ -36,15 +36,15 @@ under the License.
 
         <!-- handle statusId change stuff; first put the current statusId in the oldStatusId result -->
         <field-to-result field-name="lookedUpValue.statusId" result-name="oldStatusId"/>
-        <if-compare-field field-name="lookedUpValue.statusId" operator="not-equals" to-field-name="parameters.statusId">
+        <if-compare-field field="lookedUpValue.statusId" operator="not-equals" to-field="parameters.statusId">
             <!-- if the record exists there should be a statusId, but just in case make it so it won't blow up -->
-            <if-not-empty field-name="lookedUpValue.statusId">
+            <if-not-empty field="lookedUpValue.statusId">
                 <!-- if statusId change is not in the StatusValidChange list, complain... -->
                 <entity-one entity-name="StatusValidChange" value-name="statusValidChange" auto-field-map="false">
                     <field-map field-name="statusId" env-name="lookedUpValue.statusId"/>
                     <field-map field-name="statusIdTo" env-name="parameters.statusId"/>
                 </entity-one>
-                <if-empty field-name="statusValidChange">
+                <if-empty field="statusValidChange">
                     <!-- no valid change record found? return an error... -->
                     <add-error><fail-property resource="ExampleUiLabels" property="ExampleErrorNoExampleStatusValidChange"/></add-error>
                     <check-errors/>
@@ -72,7 +72,7 @@ under the License.
             <order-by field-name="-statusDate"/>
         </entity-and>
         <first-from-list entry-name="oldExampleStatus" list-name="oldExampleStatusList"/>
-        <if-not-empty field-name="oldExampleStatus">
+        <if-not-empty field="oldExampleStatus">
             <set field="oldExampleStatus.statusEndDate" from-field="nowTimestamp"/>
             <store-value value-name="oldExampleStatus"/>
         </if-not-empty>
@@ -120,10 +120,10 @@ under the License.
         <entity-one entity-name="Example" value-name="example"/>
         
         <assert>
-            <not><if-empty field-name="example"/></not>
-            <if-compare-field field-name="example.exampleTypeId" to-field-name="createExampleMap.exampleTypeId" operator="equals"/>
-            <if-compare-field field-name="example.exampleName" to-field-name="createExampleMap.exampleName" operator="equals"/>
-            <if-compare-field field-name="example.statusId" to-field-name="createExampleMap.statusId" operator="equals"/>
+            <not><if-empty field="example"/></not>
+            <if-compare-field field="example.exampleTypeId" to-field="createExampleMap.exampleTypeId" operator="equals"/>
+            <if-compare-field field="example.exampleName" to-field="createExampleMap.exampleName" operator="equals"/>
+            <if-compare-field field="example.statusId" to-field="createExampleMap.statusId" operator="equals"/>
         </assert>
 
         <check-errors/>

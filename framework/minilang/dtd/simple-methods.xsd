@@ -4161,18 +4161,10 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.if-compare">
-        <xs:attribute type="xs:string" name="map-name">
+        <xs:attribute type="xs:string" name="field" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    The name of the method environment field that contains the map that the field to be validated will come from. 
-                    If not specified the field-name will be treated as a method environment field name (an env-name).
-                </xs:documentation>
-            </xs:annotation>            
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="field-name" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the map field that will be compared.
+                    The name of the field in the context (environment) that will be compared.
                 </xs:documentation>
             </xs:annotation>            
         </xs:attribute>
@@ -4226,35 +4218,18 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.if-compare-field">
-        <xs:attribute type="xs:string" name="map-name">
+        <xs:attribute type="xs:string" name="field" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    The name of the method environment field that contains the map that the field to be validated will come from. 
-                    If not specified the field-name will be treated as a method environment field name (an env-name).                    
+                    The name of the context field that will be compared.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="field-name" use="required">
+        <xs:attribute type="xs:string" name="to-field">
             <xs:annotation>
                 <xs:documentation>
-                    The name of the map field that will be compared.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="to-map-name">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the method environment field that contains the map that the field to be compared will come from. 
-                    If left empty will default to the method environment. 
-                    It does not default to the map-name because that would make it impossible to compare a map field to an environment field.    
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="to-field-name">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the to-map field that the main field will be compared to. 
-                    If left empty will default to the field-name.                    
+                    The name of the context field that the main field will be compared to. 
+                    If left empty will default to the field attribute's value.                    
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -4353,18 +4328,10 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.if-empty">
-        <xs:attribute type="xs:string" name="map-name">
+        <xs:attribute type="xs:string" name="field" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    The name of the method environment field that contains the map that the field to be validated will come from. 
-                    If not specified the field-name will be treated as a method environment field name (an env-name).
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="field-name" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the map field that will be compared.
+                    The name of the context field that will be compared.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -4401,18 +4368,10 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.if-not-empty">
-        <xs:attribute type="xs:string" name="map-name">
+        <xs:attribute type="xs:string" name="field" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    The name of the method environment field that contains the map that the field to be validated will come from. 
-                    If not specified the field-name will be treated as a method environment field name (an env-name).
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="field-name" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the map field that will be compared.
+                    The name of the context field that will be compared.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
