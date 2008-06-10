@@ -59,7 +59,6 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
-import org.ofbiz.workflow.WfUtil;
 
 import javax.transaction.Transaction;
 
@@ -2436,14 +2435,19 @@ public class OrderServices {
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemWithEntityLookup", locale));
         }
-        if (party != null)
+        if (party != null) {
             assignedToEmails = ContactHelper.getContactMechByPurpose(party, "PRIMARY_EMAIL", false);
+        }
 
         Map templateData = new HashMap(context);
-        String omgStatusId = WfUtil.getOMGStatus(workEffort.getString("currentStatusId"));
         templateData.putAll(orderHeader);
         templateData.putAll(workEffort);
+        
+        /* NOTE DEJ20080609 commenting out this code because the old OFBiz Workflow Engine is being deprecated and this was only for that
+        String omgStatusId = WfUtil.getOMGStatus(workEffort.getString("currentStatusId"));
         templateData.put("omgStatusId", omgStatusId);
+        */
+        templateData.put("omgStatusId", workEffort.getString("currentStatusId"));
 
         // get the assignments
         List assignments = null;

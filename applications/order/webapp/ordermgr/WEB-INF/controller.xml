@@ -78,10 +78,6 @@ under the License.
         <response name="success" type="view" value="findorders"/>
         <response name="error" type="view" value="findorders"/>
     </request-map>
-    <request-map uri="tasklist">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="ordertasklist"/>
-    </request-map>
     <request-map uri="orderlist">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="orderlist"/>
@@ -146,42 +142,6 @@ under the License.
         <event type="service" path="" invoke="massCreateFileForOrders"/>
         <response name="success" type="request-redirect" value="findorders"/>
         <response name="error" type="request-redirect" value="findorders"/>
-    </request-map>
-
-    <!-- Order Manager Task List Requests -->
-    <request-map uri="acceptassignment">
-        <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.task.TaskEvents" invoke="acceptRoleAssignment"/>
-        <response name="success" type="view" value="orderview"/>
-        <response name="error" type="view" value="ordertasklist"/>
-    </request-map>
-
-    <request-map uri="delegateassignment">
-        <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.task.TaskEvents" invoke="delegateAndAcceptAssignment"/>
-        <response name="success" type="view" value="orderview"/>
-        <response name="error" type="view" value="ordertasklist"/>
-    </request-map>
-
-    <request-map uri="completeassignment">
-        <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.order.task.TaskEvents" invoke="completeAssignment"/>
-        <response name="success" type="view" value="ordertasklist"/>
-        <response name="error" type="view" value="ordertasklist"/>
-    </request-map>
-
-    <request-map uri="holdorder">
-        <security https="true" auth="true"/>
-        <event type="service" path="" invoke="wfSuspendActivity"/>
-        <response name="success" type="view" value="ordertasklist"/>
-        <response name="error" type="view" value="ordertasklist"/>
-    </request-map>
-
-    <request-map uri="releasehold">
-        <security https="true" auth="true"/>
-        <event type="service" path="" invoke="wfResumeActivity"/>
-        <response name="success" type="view" value="ordertasklist"/>
-        <response name="error" type="view" value="ordertasklist"/>
     </request-map>
 
     <!-- Delivery Info Requests, intended for sales orders but can be used for purchase orders as well -->
@@ -1543,7 +1503,6 @@ under the License.
     <view-map name="editorderitems" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#OrderItemEdit"/>
     <view-map name="createnewnote" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#OrderNewNote"/>
     <view-map name="receivepayment" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#OrderReceivePayment"/>
-    <view-map name="ordertasklist" type="screen" page="component://order/widget/ordermgr/OrderTaskScreens.xml#OrderTaskList"/>
     <view-map name="viewimage" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#ViewImage"/>
     <view-map name="ListOrderTerms" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#ListOrderTerms"/>
 

@@ -17,6 +17,54 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
+
+<!-- 
+To use these screens add these entries to the controller.xml file:
+
+<request-map uri="tasklist"><security https="true" auth="true"/><response name="success" type="view" value="ordertasklist"/></request-map>
+
+<!- - Order Manager Task List Requests - ->
+<request-map uri="acceptassignment">
+    <security https="true" auth="true"/>
+    <event type="java" path="org.ofbiz.order.task.TaskEvents" invoke="acceptRoleAssignment"/>
+    <response name="success" type="view" value="orderview"/>
+    <response name="error" type="view" value="ordertasklist"/>
+</request-map>
+<request-map uri="delegateassignment">
+    <security https="true" auth="true"/>
+    <event type="java" path="org.ofbiz.order.task.TaskEvents" invoke="delegateAndAcceptAssignment"/>
+    <response name="success" type="view" value="orderview"/>
+    <response name="error" type="view" value="ordertasklist"/>
+</request-map>
+<request-map uri="completeassignment">
+    <security https="true" auth="true"/>
+    <event type="java" path="org.ofbiz.order.task.TaskEvents" invoke="completeAssignment"/>
+    <response name="success" type="view" value="ordertasklist"/>
+    <response name="error" type="view" value="ordertasklist"/>
+</request-map>
+<request-map uri="holdorder">
+    <security https="true" auth="true"/>
+    <event type="service" path="" invoke="wfSuspendActivity"/>
+    <response name="success" type="view" value="ordertasklist"/>
+    <response name="error" type="view" value="ordertasklist"/>
+</request-map>
+<request-map uri="releasehold">
+    <security https="true" auth="true"/>
+    <event type="service" path="" invoke="wfResumeActivity"/>
+    <response name="success" type="view" value="ordertasklist"/>
+    <response name="error" type="view" value="ordertasklist"/>
+</request-map>
+
+
+<view-map name="ordertasklist" type="screen" page="component://order/widget/ordermgr/OrderTaskScreens.xml#OrderTaskList"/>
+
+==================
+Also add this back to appheader.ftl:
+
+<li<#if selected = "tasklist"> class="selected"</#if>><a href="<@ofbizUrl>tasklist</@ofbizUrl>">${uiLabelMap.OrderOrderTasks}</a></li>
+
+-->
+
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="CommonOrderTaskDecorator">
         <section>

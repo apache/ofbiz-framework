@@ -26,11 +26,10 @@ under the License.
                catalina/build.xml,jetty/build.xml,
                security/build.xml,service/build.xml,entityext/build.xml,
                datafile/build.xml,minilang/build.xml,
-               common/build.xml,workflow/build.xml,
+               common/build.xml,
                webapp/build.xml,guiapp/build.xml,widget/build.xml,
                testtools/build.xml,
                appserver/build.xml,webtools/build.xml,example/build.xml"/>
-      <!-- For Shark add "shark/build.xml" to the list above, in the framework-builds list (after workflow, before webapp works fine)  -->
 
     <filelist id="test-builds" dir="." files="base/build.xml,entity/build.xml"/>
 

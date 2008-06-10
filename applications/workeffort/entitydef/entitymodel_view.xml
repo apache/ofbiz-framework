@@ -110,23 +110,6 @@ under the License.
       <relation type="many" rel-entity-name="WorkEffortStatus">
         <key-map field-name="workEffortId"/>
       </relation>
-      <relation type="one-nofk" rel-entity-name="WorkflowPackage">
-        <key-map field-name="workflowPackageId" rel-field-name="packageId"/>
-        <key-map field-name="workflowPackageVersion" rel-field-name="packageVersion"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="WorkflowProcess">
-        <key-map field-name="workflowPackageId" rel-field-name="packageId"/>
-        <key-map field-name="workflowPackageVersion" rel-field-name="packageVersion"/>
-        <key-map field-name="workflowProcessId" rel-field-name="processId"/>
-        <key-map field-name="workflowProcessVersion" rel-field-name="processVersion"/>
-      </relation>
-      <relation type="one-nofk" rel-entity-name="WorkflowActivity">
-        <key-map field-name="workflowPackageId" rel-field-name="packageId"/>
-        <key-map field-name="workflowPackageVersion" rel-field-name="packageVersion"/>
-        <key-map field-name="workflowProcessId" rel-field-name="processId"/>
-        <key-map field-name="workflowProcessVersion" rel-field-name="processVersion"/>
-        <key-map field-name="workflowActivityId" rel-field-name="activityId"/>
-      </relation>
       <relation type="many" rel-entity-name="QuoteItem">
         <key-map field-name="workEffortId"/>
       </relation>
