@@ -35,6 +35,7 @@
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel.xml"/>
     <entity-resource type="group" reader-name="main" loader="main" location="entitydef/entitygroup.xml"/>  
     <entity-resource type="data" reader-name="seed" loader="main" location="data/AssetMaintSecurityData.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/AssetMaintSeedData.xml"/>
 
     <!-- service resources: model(s), eca(s) and group definitions -->
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>

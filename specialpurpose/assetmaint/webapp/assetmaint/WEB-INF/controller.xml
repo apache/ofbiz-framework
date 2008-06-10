@@ -77,21 +77,27 @@
         <response name="success" type="view" value="EditWorkEfforts"/>
         <response name="error" type="view" value="EditWorkEfforts"/>
     </request-map>
-    <request-map uri="updateWorkEffort">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updateWorkEffort"/>
-        <response name="success" type="view" value="EditWorkEfforts"/>
-        <response name="error" type="view" value="EditWorkEfforts"/>
-    </request-map>
     <request-map uri="createWorkEffort">
         <security https="true" auth="true"/>
         <event type="service" invoke="createWorkEffort"/>
         <response name="success" type="view" value="EditWorkEfforts"/>
         <response name="error" type="view" value="EditWorkEfforts"/>
     </request-map>
+    <request-map uri="createWorkEffortPartyAssign">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="assignPartyToWorkEffort"/>
+        <response name="success" type="view" value="EditWorkEfforts"/>
+        <response name="error" type="view" value="EditWorkEfforts"/>
+    </request-map>
     <request-map uri="updateWorkEffort">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateWorkEffort"/>
+        <response name="success" type="view" value="EditWorkEfforts"/>
+        <response name="error" type="view" value="EditWorkEfforts"/>
+    </request-map>
+    <request-map uri="updateWorkEffortPartyAssign">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updatePartyToWorkEffortAssignment"/>
         <response name="success" type="view" value="EditWorkEfforts"/>
         <response name="error" type="view" value="EditWorkEfforts"/>
     </request-map>

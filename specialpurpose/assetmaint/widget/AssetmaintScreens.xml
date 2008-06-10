@@ -139,11 +139,21 @@
             <actions>
                 <set field="titleProperty" value="PageTitleEditWorkEffort"/>
                 <set field="tabButtonItemFixedAssetMaint" value="EditWorkEfforts"/>
-                <script location="component://assetmaint/webapp/assetmaint/WEB-INF/actions/workeffort/EditWorkEfforts.bsh"/>                
+                <script location="component://assetmaint/webapp/assetmaint/WEB-INF/actions/workeffort/EditWorkEfforts.bsh"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFixedAssetMaintDecorator">
                     <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <not><if-empty field-name="parameters.workEffortIdFrom"/></not>
+                            </condition>
+                            <widgets>
+                                <container style="button-bar">
+                                    <link target="EditWorkEfforts?workEffortId=${parameters.workEffortIdFrom}" text="${uiLabelMap.AssetMaintParentWorkEffort}" style="buttontext"/>
+                                </container>
+                            </widgets>
+                        </section>
                         <section>
                             <condition>
                                 <if-empty field-name="workEffort"/>
@@ -153,10 +163,44 @@
                             </widgets>
                             <fail-widgets>
                                 <include-form name="EditWorkEffort" location="component://assetmaint/widget/forms/WorkEffortForms.xml"/>
-                                <screenlet id="add-workeffort-task" title="${uiLabelMap.WorkEffortAddTask}" collapsible="true">
-                                    <include-form name="AddWorkEffortChild" location="component://assetmaint/widget/forms/WorkEffortForms.xml"/>
-                                </screenlet>
-                                <include-form name="WorkEffortChildren" location="component://assetmaint/widget/forms/WorkEffortForms.xml"/>
+                                <container style="h2">
+                                    <label text="${uiLabelMap.PageTitleListWorkEffortPartyAssigns}"/>
+                                </container>
+                                <section>
+                                    <condition>
+                                        <if-compare field-name="parameters.mode" operator="equals" value="addAssignment"/>
+                                    </condition>
+                                    <widgets>
+                                        <screenlet id="add-party-assignment" title="${uiLabelMap.PageTitleAddWorkEffortPartyAssign}" collapsible="true">
+                                            <include-form name="EditWorkEffortPartyAssign" location="component://assetmaint/widget/forms/WorkEffortForms.xml"/>
+                                        </screenlet>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <container style="button-bar">
+                                            <link target="EditWorkEfforts?workEffortId=${workEffortId}&amp;mode=addAssignment" text="${uiLabelMap.CommonNew}" style="buttontext"/>
+                                        </container>
+                                    </fail-widgets>
+                                </section>
+                                <include-form name="ListWorkEffortPartyAssigns" location="component://assetmaint/widget/forms/WorkEffortForms.xml"/>
+                                <container style="h2">
+                                    <label text="${uiLabelMap.PageTitleTreeWorkEfforts}"/>
+                                </container>
+                                <section>
+                                    <condition>
+                                        <if-compare field-name="parameters.mode" operator="equals" value="addChildTask"/>
+                                    </condition>
+                                    <widgets>
+                                        <screenlet id="add-workeffort-task" title="${uiLabelMap.WorkEffortAddTask}" collapsible="true">
+                                            <include-form name="AddWorkEffortChild" location="component://assetmaint/widget/forms/WorkEffortForms.xml"/>
+                                        </screenlet>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <container style="button-bar">
+                                            <link target="EditWorkEfforts?workEffortId=${workEffortId}&amp;mode=addChildTask" text="${uiLabelMap.CommonNew}" style="buttontext"/>
+                                        </container>
+                                    </fail-widgets>
+                                </section>
+                                 <include-form name="ListWorkEffortChildren" location="component://assetmaint/widget/forms/WorkEffortForms.xml"/>
                             </fail-widgets>
                         </section>
                     </decorator-section>

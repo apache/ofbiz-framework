@@ -163,9 +163,8 @@
         <value xml:lang="it">"Livello Inventario Disponibile per ${productId} è ${quantity}"</value>
         <value xml:lang="th">รดับสินค้าคงเหลือของ ${productId} คือ ${quantity}</value>
     </property>
-    <property key="AssetMaintMaintenanceCalendar">
-        <value xml:lang="en">Maintenance Calendar</value>
-        <value xml:lang="th">ซ่อมบำรุงปฏิทิน</value>
+    <property key="AssetMaintParentWorkEffort">
+        <value xml:lang="en">Parent Work Effort</value>
     </property>
     <property key="AssetMaintViewPermissionError">
         <value xml:lang="en">View Permission Error</value>
@@ -265,30 +264,5 @@
         <value xml:lang="en">Purpose</value>
         <value xml:lang="it">Funzione</value>
         <value xml:lang="th">วัตถุประสงค์</value>
-    </property>
-    <property key="de">
-        <value xml:lang="en">German</value>
-        <value xml:lang="it">Tedesco</value>
-        <value xml:lang="th">เยอรมัน</value>
-    </property>
-    <property key="en">
-        <value xml:lang="en">English</value>
-        <value xml:lang="it">Inglese</value>
-        <value xml:lang="th">อังกฤษ</value>
-    </property>
-    <property key="fr">
-        <value xml:lang="en">French</value>
-        <value xml:lang="it">Francese</value>
-        <value xml:lang="th">ฝรั่งเศส</value>
-    </property>
-    <property key="it">
-        <value xml:lang="en">Italian</value>
-        <value xml:lang="it">Italiano</value>
-        <value xml:lang="th">อิตาลี</value>
-    </property>
-    <property key="nl">
-        <value xml:lang="en">Dutch</value>
-        <value xml:lang="it">Olandese</value>
-        <value xml:lang="th">เนเธอแลนด์</value>
     </property>
 </resource>

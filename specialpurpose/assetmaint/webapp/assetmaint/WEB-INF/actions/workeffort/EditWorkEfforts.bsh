@@ -50,16 +50,27 @@ if (workEffortId == null) {
 fixedAssetMaint = null;
 workEffort = null;
 fixedAsset = null;
+lookupWorkEffortId = null;
 
 if (workEffortId != null) {
     workEffort = delegator.findByPrimaryKey("WorkEffort", UtilMisc.toMap("workEffortId", workEffortId));
     if (workEffort != null) {
         fixedAssetId = workEffort.get("fixedAssetId");
+        // If this is a child workeffort, locate the "root" workeffort
+        parentWorkEffort = EntityUtil.getFirst(delegator.findByAnd("WorkEffortAssoc", UtilMisc.toMap("workEffortIdTo", workEffortId)));
+        while (parentWorkEffort != null) {
+            lookupWorkEffortId = parentWorkEffort.get("workEffortIdFrom");
+            parentWorkEffort = EntityUtil.getFirst(delegator.findByAnd("WorkEffortAssoc", UtilMisc.toMap("workEffortIdTo", lookupWorkEffortId)));
+        }
     }
 }
 
-if (workEffortId != null && fixedAssetId != null) {
-    fixedAssetMaint = EntityUtil.getFirst(delegator.findByAnd("FixedAssetMaint", UtilMisc.toMap("fixedAssetId", fixedAssetId , "scheduleWorkEffortId", workEffortId)));
+if (lookupWorkEffortId == null) {
+    lookupWorkEffortId = workEffortId;
+}
+
+if (lookupWorkEffortId != null && fixedAssetId != null) {
+    fixedAssetMaint = EntityUtil.getFirst(delegator.findByAnd("FixedAssetMaint", UtilMisc.toMap("fixedAssetId", fixedAssetId , "scheduleWorkEffortId", lookupWorkEffortId)));
     if (fixedAssetMaint != null) {
         maintHistSeqId = fixedAssetMaint.get("maintHistSeqId");
     }
@@ -75,4 +86,3 @@ context.put("fixedAsset", fixedAsset);
 context.put("maintHistSeqId", maintHistSeqId);       
 context.put("fixedAssetId", fixedAssetId);       
 context.put("workEffortId", workEffortId); 
-context.put("workEffortIdFrom", workEffortId); 
