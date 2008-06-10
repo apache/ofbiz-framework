@@ -101,8 +101,6 @@ under the License.
         </if-compare>                        
         <check-errors/>
         <make-value entity-name="PostalAddress" value-name="newValue"/>
-        <call-map-processor xml-resource="org/ofbiz/party/contact/ContactMechMapProcs.xml"
-            processor-name="contactMech" in-map-name="parameters" out-map-name="context"/>
         <set field="context.contactMechTypeId" value="POSTAL_ADDRESS"/>
         <call-service service-name="createContactMech" in-map-name="context">
             <default-message resource="PartyUiLabels" property="PartyPostalAddressSuccessfullyCreated"/>
@@ -135,8 +133,6 @@ under the License.
         <find-by-primary-key entity-name="PostalAddress" map-name="newValue" value-name="oldValue" />
         <set-nonpk-fields map-name="parameters" value-name="newValue"/>
           
-        <call-map-processor xml-resource="org/ofbiz/party/contact/ContactMechMapProcs.xml"
-            processor-name="contactMech" in-map-name="parameters" out-map-name="context"/>
         <set field="context.contactMechTypeId" value="POSTAL_ADDRESS"/>
         
         <if-compare-field field-name="oldValue" to-field-name="newValue" operator="not-equals" type="Object">
@@ -168,8 +164,6 @@ under the License.
     
     <simple-method method-name="createTelecomNumber" short-description="Create Contact Mechanism with Telecom Number">
         <make-value entity-name="TelecomNumber" value-name="newValue"/>
-        <call-map-processor xml-resource="org/ofbiz/party/contact/ContactMechMapProcs.xml"
-            processor-name="contactMech" in-map-name="parameters" out-map-name="context"/>
         <set field="context.contactMechTypeId" value="TELECOM_NUMBER"/>
         <call-service service-name="createContactMech" in-map-name="context">
             <default-message resource="PartyUiLabels" property="PartyTelecomNumberSuccessfullyCreated"/>
@@ -186,10 +180,6 @@ under the License.
         <set-pk-fields value-name="newValue" map-name="parameters"/>
         <find-by-primary-key entity-name="TelecomNumber" map-name="newValue" value-name="oldValue" />
         <set-nonpk-fields map-name="parameters" value-name="newValue"/>
-        
-        
-        <call-map-processor xml-resource="org/ofbiz/party/contact/ContactMechMapProcs.xml"
-            processor-name="contactMech" in-map-name="parameters" out-map-name="context"/>
         <set field="context.contactMechTypeId" value="TELECOM_NUMBER"/>
         
         <if-compare-field field-name="oldValue" to-field-name="newValue" operator="not-equals" type="Object">
