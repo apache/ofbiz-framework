@@ -23,11 +23,24 @@
 
     <form name="EditWorkEffort" target="updateWorkEffort" title="" type="single" default-map-name="workEffort"
         header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <entity-one entity-name="WorkEffortAssoc" value-name="workEffortAssoc"/>
+            <set field="workEffortIdFrom" from-field="parameters.workEffortIdFrom"/>
+        </actions>
         <alt-target target="createWorkEffort" use-when="workEffort==null"/>
+        <alt-target target="updateWorkEffortAndAssoc" use-when="workEffortIdFrom!=null"/>
         <field name="maintHistSeqId" map-name="fixedAssetMaint"><hidden/></field>
         <field map-name="workEffort" name="workEffortId" title="${uiLabelMap.WorkEffortWorkEffortId}*"><display/></field>
         <field map-name="workEffort" name="workEffortName" position="1" title="${uiLabelMap.CommonName}*"><text size="60"/></field>
         <field map-name="workEffort" name="description" position="1" title="${uiLabelMap.CommonDescription}*"><text size="60"/></field>
+        <!-- Child workeffort fields -->
+        <field name="workEffortIdFrom"><hidden value="${parameters.workEffortIdFrom}"/></field>
+        <field name="workEffortIdTo"><hidden value="${parameters.workEffortId}"/></field>
+        <field name="fromDate"><hidden value="${parameters.fromDate}"/></field>
+        <field map-name="workEffortAssoc" name="workEffortAssocTypeId" title="${uiLabelMap.WorkEffortWorkEffortAssocTypeId}" use-when="workEffortIdFrom!=null">
+            <display-entity entity-name="WorkEffortAssocType" description="${description}"/>
+        </field>
+        <!-- End of child workeffort fields -->
         <field map-name="workEffort" name="workEffortPurposeTypeId" title="${uiLabelMap.CommonPurpose}" position="1">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="WorkEffortPurposeType" key-field-name="workEffortPurposeTypeId">
@@ -55,7 +68,6 @@
         <field map-name="workEffort" name="estimatedCompletionDate" position="2"><date-time/></field>
         <field map-name="workEffort" name="actualStartDate" position="1"><date-time/></field>
         <field map-name="workEffort" name="actualCompletionDate" position="2"><date-time/></field>
-        <field map-name="workEffort" name="workEffortParentId" title="${uiLabelMap.WorkEffortWorkEffortParentId}*"><lookup target-form-name="LookupWorkEffortShort"/></field>
         <field map-name="workEffort" name="facilityId" title="${uiLabelMap.AccountingFacilityId}"><lookup target-form-name="LookupFacility"/></field>
         <field map-name="fixedAssetMaint" name="fixedAssetId"><hidden/></field>
         <field map-name="workEffort" name="moneyUomId" title="${uiLabelMap.CommonCurrency}"><ignored/></field>
@@ -63,13 +75,51 @@
         <field map-name="workEffort" name="submitButton" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
 
-    <form name="AddWorkEffortChild"  target="createWorkEffortAndAssoc" title="" type="single"
+    <form name="EditWorkEffortPartyAssign" extends="EditWorkEffortPartyAssign" extends-resource="component://workeffort/widget/WorkEffortPartyAssignForms.xml"
+        target="createWorkEffortPartyAssign">
+        <actions>
+            <entity-condition entity-name="PartyRoleDetailAndPartyDetail" list-name="listMaintParties">
+                <condition-expr field-name="parentTypeId" value="FAM_ASSIGNEE"/>
+            </entity-condition>
+            <entity-condition entity-name="RoleType" list-name="listMaintRoles">
+                <condition-expr field-name="parentTypeId" value="FAM_ASSIGNEE"/>
+            </entity-condition>
+        </actions>
+        <field name="roleTypeId">
+            <drop-down>
+                <list-options list-name="listMaintRoles" key-name="roleTypeId" description="${description}"/>
+            </drop-down>
+        </field>
+        <field name="fromDate"><date-time default-value="${nowTimestamp}"/></field>
+        <field name="partyId">
+            <drop-down>
+                <list-options list-name="listMaintParties" key-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName}"/>
+            </drop-down>
+        </field>
+        <field name="expectationEnumId"><ignored/></field>
+        <field name="facilityId"><hidden value="${facilityId}"/></field>
+    </form>
+
+    <form name="ListWorkEffortPartyAssigns" extends="ListWorkEffortPartyAssigns" extends-resource="component://workeffort/widget/WorkEffortPartyAssignForms.xml"
+        header-row-style="header-row-2" default-table-style="basic-table">
+        <field name="partyId">
+            <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}"/>
+        </field>
+        <field name="statusDateTime"><ignored/></field>
+        <field name="expectationEnumId"><ignored/></field>
+        <field name="facilityId"><ignored/></field>
+        <field name="mustRsvp"><ignored/></field>
+        <field name="comments"><ignored/></field>
+    </form>
+
+    <form name="AddWorkEffortChild" target="createWorkEffortAndAssoc" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="fixedAssetId"><hidden/></field>
         <field name="maintHistSeqId"><hidden/></field>
         <field name="workEffortIdTo"><hidden/></field>
-        <field name="workEffortIdFrom"><hidden/></field>
+        <field name="workEffortIdFrom"><hidden value="${workEffortId}"/></field>
         <field name="workEffortTypeId"><hidden value="TASK"/></field>
+        <field name="description"><hidden value="${workEffort.description}"/></field>
 
         <field name="workEffortAssocTypeId" title="${uiLabelMap.WorkEffortWorkEffortAssocTypeId}">
             <drop-down>
@@ -79,9 +129,9 @@
             </drop-down>
         </field>
         <field name="sequenceNum"><text/></field>
-        <field name="fromDate"><date-time/></field>
+        <field name="fromDate"><date-time default-value="${nowTimestamp}"/></field>
         <field name="thruDate"><date-time/></field>
-        <field name="workEffortName" position="1" title="${uiLabelMap.CommonName}*"><text size="30"/></field>
+        <field name="workEffortName" title="${uiLabelMap.CommonName}"><text size="30"/></field>
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
             <drop-down>
                 <entity-options entity-name="StatusItem" key-field-name="statusId" description="${description}">
@@ -105,49 +155,27 @@
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
     
-    <form name="WorkEffortChildren" target="updateWorkEffortAndAssoc" title="" type="list" separate-columns="true"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+    <form name="ListWorkEffortChildren" type="list"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table">
         <actions>
             <entity-condition entity-name="WorkEffortAssocView">
-                <condition-expr field-name="workEffortIdFrom" operator="equals" env-name="workEffortIdFrom"/>
+                <condition-expr field-name="workEffortIdFrom" operator="equals" env-name="workEffortId"/>
             </entity-condition>
         </actions>
-        <field name="workEffortTypeId"><hidden/></field>
-        <field name="fixedAssetId"><hidden/></field>
-        <field name="maintHistSeqId"><hidden/></field>
-        <field name="workEffortIdTo"><hidden/></field>
-        <field name="workEffortIdFrom"><hidden/></field>
-        <field name="fromDate"><hidden/></field>
-        <field name="workEffortId" entry-name="workEffortIdTo"><hidden/></field> 
-        <field name="workEffortName" entry-name="workEffortToName" position="1" title="${uiLabelMap.CommonName}*"><text size="30"/></field>
-        <field name="workEffortAssocTypeId" title="${uiLabelMap.WorkEffortWorkEffortAssocTypeId}">
-            <drop-down>
-                <entity-options entity-name="WorkEffortAssocType" description="${description}">
-                    <entity-order-by field-name="description"/>
-                </entity-options>
-            </drop-down>
+        <field name="workEffortName" entry-name="workEffortToName" title="${uiLabelMap.CommonName}">
+            <hyperlink also-hidden="false" description="${workEffortToName}" target="EditWorkEfforts?workEffortId=${workEffortIdTo}&amp;workEffortIdFrom=${workEffortId}&amp;fromDate=${fromDate}&amp;workEffortAssocTypeId=${workEffortAssocTypeId}"/>
         </field>
-        <field name="currentStatusId" entry-name="workEffortToCurrentStatusId">
-            <drop-down>
-                <entity-options entity-name="StatusItem" key-field-name="statusId" description="${description}">
-                    <entity-constraint name="statusTypeId" value="TASK_STATUS"/>
-                    <entity-order-by field-name="description"/>
-                </entity-options>
-                <entity-options entity-name="StatusItem" key-field-name="statusId" description="${description}">
-                    <entity-constraint name="statusId" value="CAL_CANCELLED"/>
-                </entity-options>
-            </drop-down>
+        <field name="workEffortAssocTypeId" title="${uiLabelMap.WorkEffortWorkEffortAssocTypeId}">
+            <display-entity entity-name="WorkEffortAssocType" description="${description}"/>
+        </field>
+        <field name="currentStatusId" entry-name="workEffortToCurrentStatusId" title="${uiLabelMap.CommonStatus}">
+            <display-entity entity-name="StatusItem" description="${description}" key-field-name="statusId"/>
         </field>
         <field name="workEffortPurposeTypeId" entry-name="workEffortToWorkEffortPurposeTypeId" title="${uiLabelMap.CommonPurpose}">
-            <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="WorkEffortPurposeType" key-field-name="workEffortPurposeTypeId">
-                    <entity-order-by field-name="description"/>
-                </entity-options>
-            </drop-down>
+            <display-entity entity-name="WorkEffortPurposeType" description="${description}"/>
         </field>
-        <field name="actualStartDate" entry-name="workEffortToActualStartDate" title="${uiLabelMap.WorkEffortActualStartDate}"><date-time/></field>
-        <field name="actualCompletionDate"  entry-name="workEffortToActualCompletionDate" title="${uiLabelMap.WorkEffortActualCompletionDate}"><date-time/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+        <field name="actualStartDate" entry-name="workEffortToActualStartDate" title="${uiLabelMap.WorkEffortActualStartDate}"><display/></field>
+        <field name="actualCompletionDate"  entry-name="workEffortToActualCompletionDate" title="${uiLabelMap.WorkEffortActualCompletionDate}"><display/></field>
     </form>
 
     <!-- TimeEntry -->

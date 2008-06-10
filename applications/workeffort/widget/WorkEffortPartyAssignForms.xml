@@ -34,10 +34,9 @@ under the License.
                 <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyId}" target-type="inter-app" description="${partyId}" link-style="buttontext"/>
             </display-entity>
         </field>
-        <field name="fromDate"><display/></field>
         <field name="roleTypeId" title="${uiLabelMap.PartyRoleType}"><display-entity entity-name="RoleType"/></field>
         <field name="statusDateTime"><display/></field>
-        
+        <field name="fromDate"><display/></field>
         <field name="thruDate"><date-time/></field>
         <field name="statusId">
             <drop-down no-current-selected-key="PARTYASSIGN_UNASSIGNED">
@@ -73,7 +72,6 @@ under the License.
             </drop-down>
         </field>
         <field name="fromDate"><date-time/></field>
-
         <field name="thruDate"><date-time/></field>
         <field name="statusId">
             <drop-down no-current-selected-key="PRTYASGN_ASSIGNED">
