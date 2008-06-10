@@ -766,6 +766,7 @@ under the License.
     <simple-method method-name="createPartyRelationship" short-description="createPartyRelationship">
         <if-empty field-name="parameters.roleTypeIdFrom"><set field="parameters.roleTypeIdFrom" value="_NA_"/></if-empty>
         <if-empty field-name="parameters.roleTypeIdTo"><set field="parameters.roleTypeIdTo" value="_NA_"/></if-empty>
+        <if-empty field-name="parameters.partyIdFrom"><set field="parameters.partyIdFrom" from-field="userLogin.partyId"/></if-empty> 
 
         <if-empty field-name="parameters.fromDate"><now-timestamp-to-env env-name="parameters.fromDate"/></if-empty>
         
