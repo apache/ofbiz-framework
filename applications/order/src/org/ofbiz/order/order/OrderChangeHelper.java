@@ -33,8 +33,6 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
-import org.ofbiz.workflow.WfException;
-import org.ofbiz.workflow.client.WorkflowClient;
 
 /**
  * Order Helper - Helper Methods For Non-Read Actions
@@ -306,6 +304,7 @@ public class OrderChangeHelper {
 
 
     public static boolean releaseInitialOrderHold(LocalDispatcher dispatcher, String orderId) {
+        /* NOTE DEJ20080609 commenting out this code because the old OFBiz Workflow Engine is being deprecated and this was only for that
         // get the delegator from the dispatcher
         GenericDelegator delegator = dispatcher.getDelegator();
 
@@ -342,9 +341,12 @@ public class OrderChangeHelper {
             Debug.logWarning("No WF found for order ID : " + orderId, module);
         }
         return false;
+        */
+        return true;
     }
 
     public static boolean abortOrderProcessing(LocalDispatcher dispatcher, String orderId) {
+        /* NOTE DEJ20080609 commenting out this code because the old OFBiz Workflow Engine is being deprecated and this was only for that
         Debug.logInfo("Aborting workflow for order " + orderId, module);
         GenericDelegator delegator = dispatcher.getDelegator();
 
@@ -376,5 +378,7 @@ public class OrderChangeHelper {
             }
         }
         return false;
+        */
+        return true;
     }
 }

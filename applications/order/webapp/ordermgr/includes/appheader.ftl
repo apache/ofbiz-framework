@@ -40,7 +40,6 @@ under the License.
     </#if>
     <#if security.hasRolePermission("ORDERMGR", "_VIEW", "", "", session) || security.hasRolePermission("ORDERMGR_ROLE", "_VIEW", "", "", session)>
     <li<#if selected = "requirement"> class="selected"</#if>><a href="<@ofbizUrl>FindRequirements</@ofbizUrl>">${uiLabelMap.OrderRequirements}</a></li>
-    <li<#if selected = "tasklist"> class="selected"</#if>><a href="<@ofbizUrl>tasklist</@ofbizUrl>">${uiLabelMap.OrderOrderTasks}</a></li>
     </#if>
     <li<#if selected = "reports"> class="selected"</#if>><a href="<@ofbizUrl>OrderPurchaseReportOptions</@ofbizUrl>">${uiLabelMap.CommonReports}</a></li>
     <li<#if selected = "stats"> class="selected"</#if>><a href="<@ofbizUrl>orderstats</@ofbizUrl>">${uiLabelMap.CommonStats}</a></li>

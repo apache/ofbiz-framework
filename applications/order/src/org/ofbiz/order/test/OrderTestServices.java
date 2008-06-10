@@ -18,50 +18,27 @@
  *******************************************************************************/
 package org.ofbiz.order.test;
 
-import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.text.NumberFormat;
-import java.text.ParseException;
-import java.util.*;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Random;
 
 import javolution.util.FastList;
-import javolution.util.FastMap;
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.base.util.collections.ResourceBundleMapWrapper;
-import org.ofbiz.common.DataModelConstants;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
-import org.ofbiz.entity.GenericEntity;
-import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.transaction.TransactionUtil;
-import org.ofbiz.entity.transaction.GenericTransactionException;
-import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.entity.condition.EntityConditionList;
-import org.ofbiz.entity.condition.EntityExpr;
-import org.ofbiz.entity.condition.EntityOperator;
-import org.ofbiz.entity.util.EntityListIterator;
-import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.order.OrderChangeHelper;
-import org.ofbiz.order.shoppingcart.CartItemModifyException;
 import org.ofbiz.order.shoppingcart.CheckOutHelper;
-import org.ofbiz.order.shoppingcart.ItemNotFoundException;
 import org.ofbiz.order.shoppingcart.ShoppingCart;
-import org.ofbiz.order.shoppingcart.ShoppingCartItem;
-import org.ofbiz.order.shoppingcart.shipping.ShippingEvents;
-import org.ofbiz.party.contact.ContactHelper;
-import org.ofbiz.party.party.PartyWorker;
-import org.ofbiz.product.product.ProductWorker;
-import org.ofbiz.product.store.ProductStoreWorker;
-import org.ofbiz.security.Security;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
-import org.ofbiz.workflow.WfUtil;
-
-import javax.transaction.Transaction;
 
 /**
  * Order Processing Services

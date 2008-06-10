@@ -19,9 +19,19 @@
 -->
 
 <project name="OFBiz Special Purpose Applications Build" default="build" basedir=".">
-    <filelist id="application-builds" dir="."
-        files="pos/build.xml, hhfacility/build.xml, assetmaint/build.xml, oagis/build.xml, bi/build.xml, googlebase/build.xml, ebay/build.xml, projectmgr/build.xml"/>
-
+    <filelist id="specialpurpose-builds" dir="."
+        files="
+        pos/build.xml, 
+        hhfacility/build.xml, 
+        assetmaint/build.xml, 
+        oagis/build.xml, 
+        bi/build.xml, 
+        googlebase/build.xml, 
+        ebay/build.xml, 
+        projectmgr/build.xml"/>
+    <!-- For the old OFBiz Workflow Engine add "workflow/build.xml" to the list above -->
+    <!-- For Shark add "shark/build.xml" to the list above, in the specialpurpose-builds list (after workflow) -->
+    
     <!-- ================================================================== -->
     <!-- Removes all created files and directories                          -->
     <!-- ================================================================== -->
@@ -47,7 +57,7 @@
 
     <target name="clean">
         <subant target="clean">
-            <filelist refid="application-builds"/>
+            <filelist refid="specialpurpose-builds"/>
         </subant>
         <delete file="ofbiz.jar"/>
         <echo message="[clean] ========== Done Cleaning Special purpose =========="/>
@@ -61,7 +71,7 @@
         <echo message="[build] ========== Start Building Special Purpose (Compile) =========="/>
 
         <subant inheritall="false">
-            <filelist refid="application-builds"/>
+            <filelist refid="specialpurpose-builds"/>
         </subant>
 
         <echo message="[build] ========== Done Building Special Purpose (Compile) =========="/>
@@ -75,7 +85,7 @@
         <echo message="[docs] ========== Start Building Special Purpose (JavaDoc) =========="/>
 
         <subant target="docs">
-            <filelist refid="application-builds"/>
+            <filelist refid="specialpurpose-builds"/>
         </subant>
 
         <echo message="[docs] ========== Done Building Special Purpose (JavaDocs) =========="/>

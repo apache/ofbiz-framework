@@ -238,11 +238,6 @@ under the License.
       <field name="lastStatusUpdate" type="date-time"></field>
       <field name="workEffortPurposeTypeId" type="id"></field>
       <field name="workEffortParentId" type="id"></field>
-      <field name="workflowPackageId" type="id-long"></field>
-      <field name="workflowPackageVersion" type="short-varchar"></field>
-      <field name="workflowProcessId" type="id-long"></field>
-      <field name="workflowProcessVersion" type="short-varchar"></field>
-      <field name="workflowActivityId" type="id-long"></field>
       <field name="scopeEnumId" type="id"></field>
       <field name="priority" type="numeric"></field>
       <field name="percentComplete" type="numeric"></field>
@@ -323,23 +318,6 @@ under the License.
       </relation>
       <relation type="one" fk-name="WK_EFFRT_NOTE" rel-entity-name="NoteData">
         <key-map field-name="noteId"/>
-      </relation>
-      <relation type="one" fk-name="WK_EFFRT_WFLW_PKG" rel-entity-name="WorkflowPackage">
-        <key-map field-name="workflowPackageId" rel-field-name="packageId"/>
-        <key-map field-name="workflowPackageVersion" rel-field-name="packageVersion"/>
-      </relation>
-      <relation type="one" fk-name="WK_EFFRT_WFLW_PRC" rel-entity-name="WorkflowProcess">
-        <key-map field-name="workflowPackageId" rel-field-name="packageId"/>
-        <key-map field-name="workflowPackageVersion" rel-field-name="packageVersion"/>
-        <key-map field-name="workflowProcessId" rel-field-name="processId"/>
-        <key-map field-name="workflowProcessVersion" rel-field-name="processVersion"/>
-      </relation>
-      <relation type="one" fk-name="WK_EFFRT_WFLW_ACT" rel-entity-name="WorkflowActivity">
-        <key-map field-name="workflowPackageId" rel-field-name="packageId"/>
-        <key-map field-name="workflowPackageVersion" rel-field-name="packageVersion"/>
-        <key-map field-name="workflowProcessId" rel-field-name="processId"/>
-        <key-map field-name="workflowProcessVersion" rel-field-name="processVersion"/>
-        <key-map field-name="workflowActivityId" rel-field-name="activityId"/>
       </relation>
       <relation type="one" fk-name="WK_EFFRT_CUS_MET" rel-entity-name="CustomMethod">
         <key-map field-name="estimateCalcMethod" rel-field-name="customMethodId"/>
