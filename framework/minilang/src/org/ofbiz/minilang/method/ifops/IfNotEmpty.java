@@ -34,16 +34,21 @@ public class IfNotEmpty extends MethodOperation {
     
     public static final String module = IfNotEmpty.class.getName();
 
-    List<MethodOperation> subOps = FastList.newInstance();
-    List<MethodOperation> elseSubOps = null;
+    protected List<MethodOperation> subOps = FastList.newInstance();
+    protected List<MethodOperation> elseSubOps = null;
 
-    ContextAccessor mapAcsr;
-    ContextAccessor fieldAcsr;
+    protected ContextAccessor mapAcsr;
+    protected ContextAccessor fieldAcsr;
 
     public IfNotEmpty(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
+        // NOTE: this is still supported, but is deprecated
         this.mapAcsr = new ContextAccessor(element.getAttribute("map-name"));
-        this.fieldAcsr = new ContextAccessor(element.getAttribute("field-name"));
+        this.fieldAcsr = new ContextAccessor(element.getAttribute("field"));
+        if (this.fieldAcsr.isEmpty()) {
+            // NOTE: this is still supported, but is deprecated
+            this.fieldAcsr = new ContextAccessor(element.getAttribute("field-name"));
+        }
 
         SimpleMethod.readOperations(element, subOps, simpleMethod);
 

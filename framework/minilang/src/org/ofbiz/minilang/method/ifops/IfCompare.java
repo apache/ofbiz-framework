@@ -36,21 +36,26 @@ public class IfCompare extends MethodOperation {
     
     public static final String module = IfCompare.class.getName();
 
-    List<MethodOperation> subOps = FastList.newInstance();
-    List<MethodOperation> elseSubOps = null;
+    protected List<MethodOperation> subOps = FastList.newInstance();
+    protected List<MethodOperation> elseSubOps = null;
 
-    ContextAccessor mapAcsr;
-    ContextAccessor fieldAcsr;
-    String value;
+    protected ContextAccessor mapAcsr;
+    protected ContextAccessor fieldAcsr;
+    protected String value;
 
-    String operator;
-    String type;
-    String format;
+    protected String operator;
+    protected String type;
+    protected String format;
 
     public IfCompare(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
+        // NOTE: this is still supported, but is deprecated
         this.mapAcsr = new ContextAccessor(element.getAttribute("map-name"));
-        this.fieldAcsr = new ContextAccessor(element.getAttribute("field-name"));
+        this.fieldAcsr = new ContextAccessor(element.getAttribute("field"));
+        if (this.fieldAcsr.isEmpty()) {
+            // NOTE: this is still supported, but is deprecated
+            this.fieldAcsr = new ContextAccessor(element.getAttribute("field-name"));
+        }
         this.value = element.getAttribute("value");
 
         this.operator = element.getAttribute("operator");

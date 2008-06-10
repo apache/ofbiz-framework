@@ -42,8 +42,13 @@ public class IfEmpty extends MethodOperation {
 
     public IfEmpty(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
+        // NOTE: this is still supported, but is deprecated
         this.mapAcsr = new ContextAccessor(element.getAttribute("map-name"));
-        this.fieldAcsr = new ContextAccessor(element.getAttribute("field-name"));
+        this.fieldAcsr = new ContextAccessor(element.getAttribute("field"));
+        if (this.fieldAcsr.isEmpty()) {
+            // NOTE: this is still supported, but is deprecated
+            this.fieldAcsr = new ContextAccessor(element.getAttribute("field-name"));
+        }
 
         SimpleMethod.readOperations(element, subOps, simpleMethod);
 
