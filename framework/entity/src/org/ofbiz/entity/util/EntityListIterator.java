@@ -67,6 +67,14 @@ public class EntityListIterator implements ListIterator<GenericValue> {
         this.modelFieldTypeReader = modelFieldTypeReader;
     }
 
+    public EntityListIterator(ResultSet resultSet, ModelEntity modelEntity, List selectFields, ModelFieldTypeReader modelFieldTypeReader) {
+        this.sqlp = null; 
+        this.resultSet = resultSet; 
+        this.modelEntity = modelEntity;
+        this.selectFields = selectFields;
+        this.modelFieldTypeReader = modelFieldTypeReader;
+    }
+
     public void setDelegator(GenericDelegator delegator) {
         this.delegator = delegator;
     }
@@ -128,8 +136,19 @@ public class EntityListIterator implements ListIterator<GenericValue> {
             //maybe not the best way: throw new GenericResultSetClosedException("This EntityListIterator has been closed, this operation cannot be performed");
             Debug.logWarning("This EntityListIterator for Entity [" + modelEntity==null?"":modelEntity.getEntityName() + "] has already been closed, not closing again.", module);
         } else {
-            sqlp.close();
-            closed = true;
+            if (sqlp != null) {
+                sqlp.close();
+                closed = true;
+            } else if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    throw new GenericEntityException("Cannot close EntityListIterator with ResultSet", e);
+                }
+                closed = true;
+            } else {
+                throw new GenericEntityException("Cannot close an EntityListIterator without a SQLProcessor or a ResultSet");
+            } 
         }
     }
 
