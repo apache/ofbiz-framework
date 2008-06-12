@@ -27,9 +27,6 @@ under the License.
     <!--test-case case-name="inventoryAdjustment-test">
         <junit-test-suite class-name="org.ofbiz.product.test.PhysicalInventoryAdjustmentTest"/>
     </test-case-->
-    <test-case case-name="userLoginEntityXmlAssert">
-        <entity-xml action="assert" entity-xml-url="component://product/testdef/assertdata/TestUserLoginData.xml"/>
-    </test-case>
     <test-case case-name="testReceiveShipment Direct Simple Method">
         <simple-method-test location="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml" name="testCreateShipmentRouteSegment"/>
     </test-case>

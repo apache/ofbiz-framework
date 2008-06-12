@@ -20,9 +20,6 @@
 <test-suite suite-name="workefforttests"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
-    <test-case case-name="userLoginEntityXmlAssert">
-        <entity-xml action="assert" entity-xml-url="component://workeffort/testdef/assertdata/TestUserLoginData.xml"/>
-    </test-case>
     <test-case case-name="testCreateEventService Direct Simple Method">
         <simple-method-test location="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" name="testCreateEventService"/>
     </test-case>
