@@ -139,7 +139,7 @@ under the License.
     
     <!-- SurveyPage -->
     <form name="ListSurveyPages" type="list" target="updateSurveyPage" title="" list-name="surveyPageList"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="SurveyPage">
                 <condition-expr field-name="surveyId" env-name="surveyId"/>

@@ -2199,14 +2199,6 @@
         <value xml:lang="th">แก้ไขหัวข้อคุณสมบัติ</value>
         <value xml:lang="zh">编辑内容属性</value>
     </property>
-    <property key="PageTitleEditContentMetadata">
-        <value xml:lang="ar">تعرير ميتا معلومات محتوى</value>
-        <value xml:lang="en">Edit Content Metadata</value>
-        <value xml:lang="it">Aggiorna Metadata Contenuto</value>
-        <value xml:lang="ro">Actualizeaza Metadata Continut</value>
-        <value xml:lang="th">แก้ไขหัวข้อข้อมูล</value>
-        <value xml:lang="zh">编辑内容元数据</value>
-    </property>
     <property key="PageTitleEditContentOperation">
         <value xml:lang="ar">تعرير عملية محتوى</value>
         <value xml:lang="en">Edit Content Operation</value>
@@ -2238,14 +2230,6 @@
         <value xml:lang="th">แก้ไขหัวข้อประเภทวัตถุประสงค์</value>
         <value xml:lang="zh">编辑内容目的类型</value>
     </property>
-    <property key="PageTitleEditContentRole">
-        <value xml:lang="ar">تعرير دور محتوى</value>
-        <value xml:lang="en">Edit Content Role</value>
-        <value xml:lang="it">Aggiorna Ruolo Contenuto</value>
-        <value xml:lang="ro">Actualizeaza Drept Continut</value>
-        <value xml:lang="th">แก้ไขหัวข้อสถานะ</value>
-        <value xml:lang="zh">编辑内容角色</value>
-    </property>
     <property key="PageTitleEditContentType">
         <value xml:lang="ar">تعرير نوع محتوى</value>
         <value xml:lang="en">Edit Content Type</value>
@@ -2268,13 +2252,6 @@
         <value xml:lang="ro">Permisiuni</value>
         <value xml:lang="th">อนุญาต</value>
         <value xml:lang="zh">权限</value>
-    </property>
-    <property key="PageTitleEditContentWorkEffort">
-        <value xml:lang="ar">تعرير مجهود عمل محتوى</value>
-        <value xml:lang="en">Edit Content WorkEffort</value>
-        <value xml:lang="it">Aggiorna Contenuto Impegni di Lavoro</value>
-        <value xml:lang="th">แก้ไขหัวข้อ WorkEffort</value>
-        <value xml:lang="zh">编辑内容人工服务</value>
     </property>
     <property key="PageTitleEditDataResource">
         <value xml:lang="ar">تعرير مورد معلومات</value>
@@ -2481,14 +2458,6 @@
         <value xml:lang="it">Aggiorna Contenuto Sito Web</value>
         <value xml:lang="th">แก้ไขหัวข้อ WebSite</value>
     </property>
-    <property key="PageTitleEditWebSiteParties">
-        <value xml:lang="ar">تحرير أطراف موقع الويب</value>
-        <value xml:lang="en">Edit WebSite Parties</value>
-        <value xml:lang="it">Aggiorna Soggetti Sito Web</value>
-        <value xml:lang="ro">Actualizeaza Subiecti Sit Web</value>
-        <value xml:lang="th">แก้ไขกลุ่มผู้ใช้ WebSite</value>
-        <value xml:lang="zh">编辑网站会员</value>
-    </property>
     <property key="PageTitleFindCMSContent">
         <value xml:lang="en">CMS Content Find</value>
         <value xml:lang="it">Ricerca Contenuto CMS</value>
@@ -2622,12 +2591,6 @@
         <value xml:lang="en">List Layout</value>
         <value xml:lang="it">Lista Layout</value>
         <value xml:lang="th">รายการ Layout</value>
-    </property>
-    <property key="PageTitleListSurveyPages">
-        <value xml:lang="en">List Survey Pages</value>
-        <value xml:lang="fr">Liste des pages de sondage</value>
-        <value xml:lang="it">Lista Pagine Sondaggio</value>
-        <value xml:lang="th">รายการหน้าการสำรวจ</value>
     </property>
     <property key="PageTitleListSurveyResponse">
         <value xml:lang="en">List Survey Response</value>

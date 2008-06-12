@@ -391,34 +391,10 @@ under the License.
             <widgets>
                 <decorator-screen name="commonDataResourceDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditDataResourceAttribute}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="ListDataResourceAttribute" location="component://content/widget/content/DataResourceForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditDataResourceAttribute}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="AddDataResourceAttribute" location="component://content/widget/content/DataResourceForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet id="DataResourceAttributePanel" title="${uiLabelMap.PageTitleEditDataResourceAttribute}" collapsible="true">
+                            <include-form name="AddDataResourceAttribute" location="component://content/widget/content/DataResourceForms.xml"/>
+                        </screenlet>
+                        <include-form name="ListDataResourceAttribute" location="component://content/widget/content/DataResourceForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -438,34 +414,10 @@ under the License.
             <widgets>
                 <decorator-screen name="commonDataResourceDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditDataResourceRole}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="ListDataResourceRole" location="component://content/widget/content/DataResourceForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditDataResourceRole}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="AddDataResourceRole" location="component://content/widget/content/DataResourceForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet id="DataResourceRolePanel" title="${uiLabelMap.PageTitleEditDataResourceRole}" collapsible="true">
+                            <include-form name="AddDataResourceRole" location="component://content/widget/content/DataResourceForms.xml"/>
+                        </screenlet>
+                        <include-form name="ListDataResourceRole" location="component://content/widget/content/DataResourceForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -485,34 +437,10 @@ under the License.
             <widgets>
                 <decorator-screen name="commonDataResourceDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditDataResourceProductFeatures}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="ListDataResourceProductFeature" location="component://content/widget/content/DataResourceForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditDataResourceProductFeatures}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="AddDataResourceProductFeature" location="component://content/widget/content/DataResourceForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet id="DataResourceProductFeaturePanel" title="${uiLabelMap.PageTitleEditDataResourceProductFeatures}" collapsible="true">
+                            <include-form name="AddDataResourceProductFeatures" location="component://content/widget/content/DataResourceForms.xml"/>
+                        </screenlet>
+                        <include-form name="ListDataResourceProductFeature" location="component://content/widget/content/DataResourceForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

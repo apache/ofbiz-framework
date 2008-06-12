@@ -312,7 +312,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListContentRole" target="update${contentRoleTarget}ContentRole" title="" type="list"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="ContentRole" use-cache="true">
                 <field-map env-name="contentId" field-name="contentId" />
@@ -342,7 +342,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListContentPurpose" target="updateContentPurpose" title="" type="list"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="ContentPurpose" use-cache="true">
                 <field-map env-name="contentId" field-name="contentId" />
@@ -365,7 +365,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListContentAttribute" target="updateContentAttribute" title="" type="list"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">  
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">  
         <actions>
             <entity-and entity-name="ContentAttribute" use-cache="true">
                 <field-map env-name="contentId" field-name="contentId" />
@@ -394,7 +394,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListContentMetaData" target="updateContentMetaData" title="" type="list"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="ContentMetaData" use-cache="true">
                 <field-map env-name="contentId" field-name="contentId" />
@@ -445,7 +445,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListWorkEffortContents" type="list" target="updateWorkEffortContent" list-name="workEffortContents"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="WorkEffortContent" use-cache="true" list-name="workEffortContents">
                 <field-map env-name="contentId" field-name="contentId" />

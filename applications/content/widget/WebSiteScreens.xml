@@ -201,9 +201,9 @@ under the License.
     <screen name="EditWebSiteParties">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleEditWebSiteParties"/>
+                <set field="titleProperty" value="PageTitleCreateWebSiteParties"/>
                 <set field="tabButtonItem" value="EditWebSiteParties"/>
-                <set field="labelTitleProperty" value="PageTitleEditWebSiteParties"/>
+                <set field="labelTitleProperty" value="PageTitleCreateWebSiteParties"/>
                 <set field="webSiteId" from-field="parameters.webSiteId"/>
                 <entity-one entity-name="WebSite" value-name="webSite"/>
                 <script location="component://content/webapp/content/WEB-INF/actions/website/EditWebSiteParties.bsh"/>
@@ -213,34 +213,10 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleEditWebSiteParties}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>    
-                                                <include-form name="UpdateWebSiteRole" location="component://content/webapp/content/website/WebSiteForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleCreateWebSiteParties}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>    
-                                                <include-form name="CreateWebSiteRole" location="component://content/webapp/content/website/WebSiteForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
+                                <screenlet id="WebSiteRolePanel" title="${uiLabelMap.PageTitleCreateWebSiteParties}" collapsible="true">
+                                    <include-form name="CreateWebSiteRole" location="component://content/webapp/content/website/WebSiteForms.xml"/>
+                                </screenlet>
+                                <include-form name="UpdateWebSiteRole" location="component://content/webapp/content/website/WebSiteForms.xml"/>
                             </widgets>
                         </section>
                     </decorator-section>
