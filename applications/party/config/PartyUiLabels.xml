@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
@@ -1123,6 +1123,12 @@
         <value xml:lang="it">Aggiorna Ruolo Associazioni Inviti Soggetto</value>
         <value xml:lang="th">เพิ่มสถานะการเชิญชวนกลุ่มผู้ใช้</value>
     </property>
+    <property key="PageTitleAddPartyTaxAuthInfos">
+        <value xml:lang="en">Add Party Tax Authority Info</value>
+    </property>
+    <property key="PageTitleAddPartySegmentRoles">
+        <value xml:lang="en">Add Party Segment Role</value>
+    </property>
     <property key="PageTitleAddressMatchMap">
         <value xml:lang="en">Address Match Map</value>
         <value xml:lang="it">Mappatura Uguaglianza Indirizzi</value>
@@ -1140,11 +1146,6 @@
         <value xml:lang="ru">Соответствия адресов</value>
         <value xml:lang="th">ที่อยู่ที่เหมือนกัน</value>
         <value xml:lang="zh">地址匹配</value>
-    </property>
-    <property key="PageTitleChildCommunicationEvents">
-        <value xml:lang="en">Child Communication events</value>
-        <value xml:lang="it">Eventi Comunicazione Figli</value>
-        <value xml:lang="th">ผลการติดต่อสื่อสารกับเด็ก</value>
     </property>
     <property key="PageTitleCommEvents">
         <value xml:lang="en">Communication Events</value>
@@ -1292,16 +1293,6 @@
         <value xml:lang="th">แก้ไขการแบ่งกลุ่มผู้ใช้</value>
         <value xml:lang="zh">编辑分类组会员</value>
     </property>
-    <property key="PageTitleEditPartyInvitationGroupAssoc">
-        <value xml:lang="en">Edit Party Invitation GroupAssoc</value>
-        <value xml:lang="it">Aggiorna Associazione Gruppo Invito</value>
-        <value xml:lang="th">แก้ไขการเชิญชวนกลุ่มผู้ใช้</value>
-    </property>
-    <property key="PageTitleEditPartyInvitationRoleAssoc">
-        <value xml:lang="en">Edit Party Invitation RoleAssoc</value>
-        <value xml:lang="it">Aggiorna Associazione Ruolo Invito</value>
-        <value xml:lang="th">แก้ไขสถานะการเชิญชวนกลุ่มผู้ใช้</value>
-    </property>
     <property key="PageTitleEditPartyRates">
         <value xml:lang="en">Edit Party Rates</value>
         <value xml:lang="es">Editar tasas de participación</value>
@@ -1322,16 +1313,6 @@
         <value xml:lang="ru">Изменить отношения участника</value>
         <value xml:lang="th">แก้ไขความสัมพันธ์กลุ่มผู้ใช้</value>
         <value xml:lang="zh">编辑会员关系</value>
-    </property>
-    <property key="PageTitleEditPartyTaxAuthInfos">
-        <value xml:lang="en">Edit Party Tax Authority Info</value>
-        <value xml:lang="es">Editar información de impuestos</value>
-        <value xml:lang="it">Aggiorna Informazioni Autorità Tasse Soggetto</value>
-        <value xml:lang="nl">Wijzig BTW informatie</value>
-        <value xml:lang="ro">Actualizare Informatii Taxe Autoritati Subiect</value>
-        <value xml:lang="ru">Изменить информацию о налоговом органе участника</value>
-        <value xml:lang="th">แก้ไขข้อมูลการเสียภาษีของกลุ่มผู้ใช้</value>
-        <value xml:lang="zh">编辑会员税务机关信息</value>
     </property>
     <property key="PageTitleEditPersonalInformation">
         <value xml:lang="en">Edit Personal Information</value>
@@ -1367,18 +1348,6 @@
         <value xml:lang="ru">Изменить права группы безопасности</value>
         <value xml:lang="th">แก้ไขการอนุญาตกลุ่มความปลอดภัย</value>
         <value xml:lang="zh">编辑安全组权限</value>
-    </property>
-    <property key="PageTitleEditSecurityGroupUserLogins">
-        <value xml:lang="en">Edit Security Group UserLogins</value>
-        <value xml:lang="es">Editar grupo de ususario</value>
-        <value xml:lang="fr">Édition utilisateurs groupe de sécurité</value>
-        <value xml:lang="it">Aggiorna Gruppo Sicurezza Utente</value>
-        <value xml:lang="nl">Wijzig rechten users</value>
-        <value xml:lang="pt_PT">Editar Inícios Dos Utilizadores De Segurança</value>
-        <value xml:lang="ro">Actualizare Grup Siguranta Utilizator</value>
-        <value xml:lang="ru">Изменить имена пользователей группы безопасности</value>
-        <value xml:lang="th">แก้ไขกลุ่มความปลอดภัยของผู้เข้าใช้ระบบ</value>
-        <value xml:lang="zh">编辑安全组用户登录</value>
     </property>
     <property key="PageTitleEditUserLoginSecurityGroups">
         <value xml:lang="en">Edit UserLogin Security Groups</value>
@@ -1636,16 +1605,6 @@
         <value xml:lang="ru">Просмотреть роли участника</value>
         <value xml:lang="th">แสดงสถานะของกลุ่มผู้ใช้</value>
         <value xml:lang="zh">浏览会员角色</value>
-    </property>
-    <property key="PageTitleViewPartySegmentRoles">
-        <value xml:lang="en">View Party Segment Roles</value>
-        <value xml:lang="es">Ver segmento de roles</value>
-        <value xml:lang="it">Mostra Ruoli Segmento Soggetto</value>
-        <value xml:lang="nl">View Party Segment Roles</value>
-        <value xml:lang="ro">Afisare Roluri Segment Subiect</value>
-        <value xml:lang="ru">Просмотреть роли участника в сегменте</value>
-        <value xml:lang="th">แสดงสถานะในส่วนของกลุ่มผู้ใช้</value>
-        <value xml:lang="zh">浏览会员分区角色</value>
     </property>
     <property key="PageTitleViewVendorParty">
         <value xml:lang="en">View Vendor Party Info</value>

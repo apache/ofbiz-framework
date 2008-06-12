@@ -352,7 +352,7 @@ under the License.
     </form>
 
     <form name="ListChildCommEvents" type="list" extends="ListCommEvents" paginate-target="EditCommunicationEvent"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="CommunicationEvent">
                 <condition-list combine="or">

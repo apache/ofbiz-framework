@@ -162,7 +162,7 @@ under the License.
     <screen name="EditSecurityGroupUserLogins">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleEditSecurityGroupUserLogins"/>
+                <set field="titleProperty" value="PartyAddUserLoginToSecurityGroup"/>
                 <set field="tabButtonItem" value="EditSecurityGroupUserLogins"/>
                 <set field="labelTitleProperty" value="PartyUserLoginsForSecurityGroup"/>
                 
@@ -172,34 +172,10 @@ under the License.
             <widgets>
                 <decorator-screen name="SecurityGroupDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditSecurityGroupUserLogins}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="ListSecurityGroupUserLogins" location="component://party/widget/partymgr/SecurityForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PartyAddUserLoginToSecurityGroup}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="AddSecurityGroupUserLogin" location="component://party/widget/partymgr/SecurityForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet id="SecurityGroupUserLoginsPanel" title="${uiLabelMap.PartyAddUserLoginToSecurityGroup}" collapsible="true">
+                            <include-form name="AddSecurityGroupUserLogin" location="component://party/widget/partymgr/SecurityForms.xml"/>
+                        </screenlet>
+                        <include-form name="ListSecurityGroupUserLogins" location="component://party/widget/partymgr/SecurityForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

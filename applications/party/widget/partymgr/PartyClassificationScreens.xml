@@ -36,34 +36,10 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PartyClassifications}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="ListPartyClassifications" location="component://party/widget/partymgr/PartyClassificationForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PartyClassifications}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="AddPartyClassification" location="component://party/widget/partymgr/PartyClassificationForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet id="PartyClassificationPanel" title="${uiLabelMap.PartyClassifications}" collapsible="true">
+                            <include-form name="AddPartyClassification" location="component://party/widget/partymgr/PartyClassificationForms.xml"/>
+                        </screenlet>
+                        <include-form name="ListPartyClassifications" location="component://party/widget/partymgr/PartyClassificationForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -95,34 +71,10 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PartyClassificationGroups}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <include-form name="ListPartyClassificationGroupParties" location="component://party/widget/partymgr/PartyClassificationForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PartyClassificationGroups}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <include-form name="AddPartyClassificationParty" location="component://party/widget/partymgr/PartyClassificationForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
+                                <screenlet id="PartyClassificationGroupPartiesPanel" title="${uiLabelMap.PartyClassificationGroups}" collapsible="true">
+                                    <include-form name="AddPartyClassificationParty" location="component://party/widget/partymgr/PartyClassificationForms.xml"/>
+                                </screenlet>
+                                <include-form name="ListPartyClassificationGroupParties" location="component://party/widget/partymgr/PartyClassificationForms.xml"/>
                             </widgets>
                         </section>
                     </decorator-section>
