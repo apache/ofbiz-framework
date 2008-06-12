@@ -312,7 +312,7 @@ under the License.
     <screen name="EditPartyTaxAuthInfos">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleEditPartyTaxAuthInfos"/>
+                <set field="titleProperty" value="PageTitleAddPartyTaxAuthInfos"/>
                 <set field="headerItem" value="find"/>
                 <set field="tabButtonItem" value="EditPartyTaxAuthInfos"/>
                 <set field="labelTitleProperty" value="PartyTaxAuthInfos"/>
@@ -329,34 +329,10 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditPartyTaxAuthInfos}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="UpdatePartyTaxAuthInfo" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleAddPartyTaxAuthInfos}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="AddPartyTaxAuthInfo" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet id="PartyTaxAuthInfospanel" title="${uiLabelMap.PageTitleAddPartyTaxAuthInfos}" collapsible="true">
+                            <include-form name="AddPartyTaxAuthInfo" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                        </screenlet>
+                        <include-form name="UpdatePartyTaxAuthInfo" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -580,7 +556,7 @@ under the License.
     <screen name="EditUserLoginSecurityGroups">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleEditUserLoginSecurityGroups"/>
+                <set field="titleProperty" value="PartyAddUserLoginToSecurityGroup"/>
                 <set field="tabButtonItem" value="viewprofile"/>
                 <set field="labelTitleProperty" value="PageTitleEditUserLoginSecurityGroups"/>
 
@@ -591,34 +567,10 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditUserLoginSecurityGroups}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="ListUserLoginSecurityGroups" location="component://party/widget/partymgr/SecurityForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PartyAddUserLoginToSecurityGroup}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="AddUserLoginSecurityGroup" location="component://party/widget/partymgr/SecurityForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container> 
+                        <screenlet id="UserLoginSecurityGroupsPanel" title="${uiLabelMap.PartyAddUserLoginToSecurityGroup}" collapsible="true">
+                            <include-form name="AddUserLoginSecurityGroup" location="component://party/widget/partymgr/SecurityForms.xml"/>
+                        </screenlet>
+                        <include-form name="ListUserLoginSecurityGroups" location="component://party/widget/partymgr/SecurityForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -671,34 +623,10 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditPartyRates}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="ListPartyRates" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleAddPartyRates}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="AddPartyRate" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>         
+                        <screenlet id="PartyRatesPanel" title="${uiLabelMap.PageTitleEditPartyRates}" collapsible="true">
+                            <include-form name="AddPartyRate" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                        </screenlet>
+                        <include-form name="ListPartyRates" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -708,7 +636,7 @@ under the License.
     <screen name="ViewSegmentRoles">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleViewPartySegmentRoles"/>
+                <set field="titleProperty" value="PageTitleAddPartySegmentRoles"/>
                 <set field="headerItem" value="find"/>
                 <set field="tabButtonItem" value="ViewSegmentRoles"/>
                 
@@ -720,34 +648,10 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleViewPartySegmentRoles}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="ListSegmentRoles" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleAddPartySegmentRoles}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="AddSegmentRole" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet id="SegmentRolePanel" title="${uiLabelMap.PageTitleAddPartySegmentRoles}" collapsible="true">
+                            <include-form name="AddSegmentRole" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                        </screenlet>
+                        <include-form name="ListSegmentRoles" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
