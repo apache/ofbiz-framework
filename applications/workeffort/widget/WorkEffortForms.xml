@@ -667,7 +667,7 @@ under the License.
 
     <!-- WorkEffortAssignmentRate -->
     <form name="ListWorkEffortAssignmentRates" type="list" list-name="workEffortAssignmentRates" target="updateWorkEffortAssignmentRate"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="WorkEffortAssignmentRate">
                 <condition-expr field-name="workEffortId" env-name="workEffortId"/>
@@ -845,7 +845,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListWorkEffortContents" type="list" target="updateWorkEffortContent" list-name="workEffortContents"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="WorkEffortContent" use-cache="true" list-name="workEffortContents">
                 <field-map env-name="workEffortId" field-name="workEffortId" />
@@ -892,7 +892,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListWorkEffortGoodStandards" type="list" target="updateWorkEffortGoodStandard" list-name="workEffortGoodStandards"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="WorkEffortGoodStandard" use-cache="true" list-name="workEffortGoodStandards">
                 <field-map env-name="workEffortId" field-name="workEffortId" />
@@ -942,7 +942,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListWorkEffortReviews" type="list" target="updateWorkEffortReview" list-name="productWorkEfforts"  separate-columns="true"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="WorkEffortReview" use-cache="true" list-name="workEffortReviews">
                 <field-map env-name="workEffortId" field-name="workEffortId" />
@@ -979,7 +979,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListWorkEffortKeywords" type="list" target="" list-name="listWorkEffortKeywords"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="WorkEffortKeyword" use-cache="true" list-name="workEffortkeywords">
                 <field-map env-name="workEffortId" field-name="workEffortId" />
@@ -1002,7 +1002,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
     <form name="ListWorkEffortContactMechs" type="list" target="" list-name="workEffortContactMechs"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="WorkEffortContactMech" list-name="workEffortContactMechs">
                 <field-map env-name="workEffortId" field-name="workEffortId" />
@@ -1036,7 +1036,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListAgreementWorkEffortAppls" type="list" target="updateAgreementWorkEffortAppl" list-name="agreementWorkEffortAppls"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="AgreementWorkEffortAppl" use-cache="true" list-name="agreementWorkEffortAppls">
                 <field-map env-name="workEffortId" field-name="workEffortId" />
