@@ -826,7 +826,7 @@
     <view-map name="EditTimesheetEntries" type="screen" page="component://projectmgr/widget/TimeSheetScreens.xml#EditTimeSheetEntries"/>
     <view-map name="EditTimesheetRoles" type="screen" page="component://projectmgr/widget/TimeSheetScreens.xml#EditTimesheetRoles"/>
     <view-map name="MyTimesheet" type="screen" page="component://projectmgr/widget/TimeSheetScreens.xml#MyTimesheet"/>
-    <view-map name="EditSkillTypes" type="screen" page="component://humanres/widget/PartyAbilityScreens.xml#EditSkillTypes"/>
+    <view-map name="EditSkillTypes" type="screen" page="component://humanres/widget/GlobalHRSettingScreens.xml#EditSkillTypes"/>
     <view-map name="EditPartySkills" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditPartySkills"/>
     <view-map name="EditWorkEffortNotes" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditProjectNotes"/>
     <view-map name="EditTaskNotes" type="screen" page="component://projectmgr/widget/TaskScreens.xml#EditTaskNotes"/>
