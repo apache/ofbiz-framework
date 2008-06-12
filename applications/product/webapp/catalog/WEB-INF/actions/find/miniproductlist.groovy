@@ -17,40 +17,37 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.*;
-
-dispatcher = request.getAttribute("dispatcher");
+import org.ofbiz.base.util.*
 
 state = request.getParameter("CategoryProductsState");
 isOpen = true;
-if (state != null) {
+if (state) {
     session.setAttribute("CategoryProductsState", state);
     isOpen = "open".equals(state);
 } else {
     state = (String) session.getAttribute("CategoryProductsState");
-    if (state != null) {
+    if (state) {
         isOpen = "open".equals(state);
     }
 }
-context.put("isOpen", isOpen);
+context.isOpen = isOpen;
 
 // Get a list of all products in the current category
 if (isOpen) {
-    paramInMap = new HashMap();
-    paramInMap.put("productCategoryId", UtilFormatOut.checkNull(request.getParameter("productCategoryId")));
-    paramInMap.put("defaultViewSize", 30);
-    paramInMap.put("limitView", true);
-    paramInMap.put("useCacheForMembers", false);
-    paramInMap.put("checkViewAllow", false);
+    paramInMap = [:];
+    paramInMap.productCategoryId = UtilFormatOut.checkNull(request.getParameter("productCategoryId"));
+    paramInMap.defaultViewSize = 30;
+    paramInMap.limitView = true;
+    paramInMap.useCacheForMembers = false;
+    paramInMap.checkViewAllow = false;
 
     // Returns: viewIndex, viewSize, lowIndex, highIndex, listSize, productCategory, productCategoryMembers
     outMap = dispatcher.runSync("getProductCategoryAndLimitedMembers", paramInMap);
-    context.put("viewIndex", outMap.get("viewIndex"));
-    context.put("viewSize", outMap.get("viewSize"));
-    context.put("lowIndex", outMap.get("lowIndex"));
-    context.put("highIndex", outMap.get("highIndex"));
-    context.put("listSize", outMap.get("listSize"));
-    context.put("productCategory", outMap.get("productCategory"));
-    context.put("productCategoryMembers", outMap.get("productCategoryMembers"));
+    context.viewIndex = outMap.viewIndex;
+    context.viewSize = outMap.viewSize;
+    context.lowIndex = outMap.lowIndex;
+    context.highIndex = outMap.highIndex;
+    context.listSize = outMap.listSize;
+    context.productCategory = outMap.productCategory;
+    context.productCategoryMembers = outMap.productCategoryMembers;
 }

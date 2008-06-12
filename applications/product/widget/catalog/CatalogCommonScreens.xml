@@ -237,7 +237,7 @@ under the License.
                     <condition-expr field-name="showInSelect" operator="not-equals" value="N"/>
                     <order-by field-name="description"/>
                 </entity-condition>
-                <script location="component://product/webapp/catalog/WEB-INF/actions/find/keywordsearchbox.bsh"/>
+                <script location="component://product/webapp/catalog/WEB-INF/actions/find/keywordsearchbox.groovy"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://product/webapp/catalog/find/keywordsearchbox.ftl"/></html></platform-specific>
@@ -247,7 +247,7 @@ under the License.
     <screen name="sidecatalogs">
         <section>
             <actions>
-                <script location="component://product/webapp/catalog/WEB-INF/actions/find/sidecatalogs.bsh"/>
+                <script location="component://product/webapp/catalog/WEB-INF/actions/find/sidecatalogs.groovy"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://product/webapp/catalog/find/sidecatalogs.ftl"/></html></platform-specific>
@@ -257,7 +257,7 @@ under the License.
     <screen name="sidedeepcategory">
         <section>
             <actions>
-                <script location="component://product/webapp/catalog/WEB-INF/actions/find/sidedeepcategory.bsh"/>
+                <script location="component://product/webapp/catalog/WEB-INF/actions/find/sidedeepcategory.groovy"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://product/webapp/catalog/find/sidedeepcategory.ftl"/></html></platform-specific>
@@ -267,7 +267,7 @@ under the License.
     <screen name="miniproductlist">
         <section>
             <actions>
-                <script location="component://product/webapp/catalog/WEB-INF/actions/find/miniproductlist.bsh"/>
+                <script location="component://product/webapp/catalog/WEB-INF/actions/find/miniproductlist.groovy"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://product/webapp/catalog/find/miniproductlist.ftl"/></html></platform-specific>
@@ -283,7 +283,7 @@ under the License.
                 <set field="MainColumnStyle" value="leftonly"/>
     
                 <set field="titleProperty" value="PageTitleChooseTopCategory"/>
-                <script location="component://product/webapp/catalog/WEB-INF/actions/ChooseTopCategory.bsh"/>
+                <script location="component://product/webapp/catalog/WEB-INF/actions/ChooseTopCategory.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -302,7 +302,7 @@ under the License.
                 <set field="MainColumnStyle" value="leftonly"/>
     
                 <set field="titleProperty" value="ProductFastLoadCatalogIntoCache"/>
-                <script location="component://product/webapp/catalog/WEB-INF/actions/FastLoadCache.bsh"/>
+                <script location="component://product/webapp/catalog/WEB-INF/actions/FastLoadCache.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

@@ -17,10 +17,15 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.product.category.*;
-
-CategoryWorker.getCategoriesWithNoParent(request, "noParentCategories");
-noParentCategories = request.getAttribute("noParentCategories");
-context.put("noParentCategories", noParentCategories);
+state = request.getParameter("SearchProductsState");
+isOpen = true;
+if (state) {
+    session.setAttribute("SearchProductsState", state);
+    isOpen = "open".equals(state);
+} else {
+    state = (String) session.getAttribute("SearchProductsState");
+    if (state) {
+        isOpen = "open".equals(state);
+    }
+}
+context.isOpen = isOpen;

@@ -17,26 +17,26 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.product.catalog.*;
-import org.ofbiz.product.feature.*;
-import org.ofbiz.product.product.*;
+import org.ofbiz.entity.condition.*
+import org.ofbiz.product.catalog.*
+import org.ofbiz.product.feature.*
+import org.ofbiz.product.product.*
 
-searchCategoryId = parameters.get("SEARCH_CATEGORY_ID");
-if (searchCategoryId == null || searchCategoryId.length() == 0) {
+searchCategoryId = parameters.SEARCH_CATEGORY_ID;
+if (!searchCategoryId || searchCategoryId.length() == 0) {
     currentCatalogId = CatalogWorker.getCurrentCatalogId(request);
     searchCategoryId = CatalogWorker.getCatalogSearchCategoryId(request, currentCatalogId);
 }
-searchCategory = delegator.findByPrimaryKey("ProductCategory", UtilMisc.toMap("productCategoryId", searchCategoryId));
+searchCategory = delegator.findOne("ProductCategory", [productCategoryId : searchCategoryId], false);
 
-if (UtilValidate.isNotEmpty(searchCategoryId)) {
+if (searchCategoryId) {
     productFeaturesByTypeMap = ParametricSearch.makeCategoryFeatureLists(searchCategoryId, delegator, 2000);
 } else {
     productFeaturesByTypeMap = ParametricSearch.getAllFeaturesByType(delegator, 2000);
 }
 productFeatureTypeIdsOrdered = new ArrayList(new TreeSet(productFeaturesByTypeMap.keySet()));
 
-searchOperator = parameters.get("SEARCH_OPERATOR");
+searchOperator = parameters.SEARCH_OPERATOR;
 if (!"AND".equals(searchOperator) && !"OR".equals(searchOperator)) {
   searchOperator = "OR";
 }
@@ -45,17 +45,17 @@ searchConstraintStrings = ProductSearchSession.searchGetConstraintStrings(false,
 searchSortOrderString = ProductSearchSession.searchGetSortOrderString(false, request);
 
 // get suppliers in system
-supplerPartyRoleAndPartyDetails = delegator.findByAnd("PartyRoleAndPartyDetail", UtilMisc.toMap("roleTypeId", "SUPPLIER"), UtilMisc.toList("groupName", "firstName"));
+supplerPartyRoleAndPartyDetails = delegator.findList("PartyRoleAndPartyDetail", EntityCondition.makeCondition([roleTypeId : 'SUPPLIER']), null, ['groupName', 'firstName'], null, false);
 
 // get the GoodIdentification types
-goodIdentificationTypes = delegator.findList("GoodIdentificationType", null, null, UtilMisc.toList("description"), null, false);
+goodIdentificationTypes = delegator.findList("GoodIdentificationType", null, null, ['description'], null, false);
 
-context.put("searchCategoryId", searchCategoryId);
-context.put("searchCategory", searchCategory);
-context.put("productFeaturesByTypeMap", productFeaturesByTypeMap);
-context.put("productFeatureTypeIdsOrdered", productFeatureTypeIdsOrdered);
-context.put("searchOperator", searchOperator);
-context.put("searchConstraintStrings", searchConstraintStrings);
-context.put("searchSortOrderString", searchSortOrderString);
-context.put("supplerPartyRoleAndPartyDetails", supplerPartyRoleAndPartyDetails);
-context.put("goodIdentificationTypes", goodIdentificationTypes);
+context.searchCategoryId = searchCategoryId;
+context.searchCategory = searchCategory;
+context.productFeaturesByTypeMap = productFeaturesByTypeMap;
+context.productFeatureTypeIdsOrdered = productFeatureTypeIdsOrdered;
+context.searchOperator = searchOperator;
+context.searchConstraintStrings = searchConstraintStrings;
+context.searchSortOrderString = searchSortOrderString;
+context.supplerPartyRoleAndPartyDetails = supplerPartyRoleAndPartyDetails;
+context.goodIdentificationTypes = goodIdentificationTypes;
