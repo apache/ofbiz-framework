@@ -127,7 +127,7 @@
         </field>
     </form>           
     <form name="ListPartyBenefits" type="multi" target="updatePartyBenefit?benefitTypeId=${benefitTypeId}&amp;roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;fromDate=${fromDate}" title="" paginate-target="findPartyBenefits"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="PartyBenefit"><order-by field-name="fromDate"/></entity-condition>
         </actions>
@@ -178,7 +178,7 @@
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
     <form name="ListPayrollPreferences" type="multi" target="updatePayrollPreference?partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;payrollPreferenceSeqId=${payrollPreferenceSeqId}" separate-columns="true" paginate-target="findPayRollPreferences"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="PayrollPreference">
                 <condition-list combine="and">
@@ -258,7 +258,7 @@
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>        
     </form>
     <form name="ListUnemploymentClaims" type="multi" target="updateUnemploymentClaim?unemploymentClaimId=${unemploymentClaimId}&amp;roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;fromDate=${fromDate}" paginate-target="FindUnemploymentClaim"
-         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
          <actions>
             <entity-condition entity-name="UnemploymentClaim" filter-by-date="true">
                 <condition-list combine="and">
@@ -312,7 +312,7 @@
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>        
     </form>
     <form name="ListAgreementEmploymentAppls" type="multi" title="" target="updateAgreementEmploymentAppl?agreementId=${agreementId}&amp;partyIdTo=${partyIdTo}&amp;partyIdFrom=${partyIdFrom}&amp;roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;fromDate=${fromDate}&amp;agreementItemSeqId=${agreementItemSeqId}" paginate-target="EditAgreementEmploymentAppls"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="AgreementEmploymentAppl"><order-by field-name="fromDate"/></entity-condition>
         </actions>

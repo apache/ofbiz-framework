@@ -90,20 +90,10 @@
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.CommonList} ${uiLabelMap.HumanResEmplLeave}">
-                            <section>
-                                <widgets>
-                                    <include-form name="ListEmplLeaves" location="component://humanres/widget/forms/EmplLeaveForms.xml"/>
-                                </widgets>
-                            </section>
+                        <screenlet id="EmplLeavePanel" title="${uiLabelMap.HumanResAddEmplLeave}" collapsible="true">
+                            <include-form name="AddEmplLeave" location="component://humanres/widget/forms/EmplLeaveForms.xml"/>
                         </screenlet>
-                        <screenlet title="${uiLabelMap.HumanResAddEmplLeave}">
-                            <section>
-                                <widgets>
-                                    <include-form name="AddEmplLeave" location="component://humanres/widget/forms/EmplLeaveForms.xml"/>
-                                </widgets>
-                            </section>
-                        </screenlet>
+                        <include-form name="ListEmplLeaves" location="component://humanres/widget/forms/EmplLeaveForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -121,20 +111,10 @@
             <widgets>
                 <decorator-screen name="GlobalHRSettingsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.HumanResListEmplLeaveType}">
-                            <section>
-                                <widgets>
-                                    <include-form name="ListEmplLeaveTypes" location="component://humanres/widget/forms/EmplLeaveForms.xml"/>
-                                </widgets>
-                            </section>
+                        <screenlet id="EmplLeaveTypePanel" title="${uiLabelMap.HumanResAddEmplLeaveType}" collapsible="true">
+                            <include-form name="AddEmplLeaveType" location="component://humanres/widget/forms/EmplLeaveForms.xml"/>
                         </screenlet>
-                        <screenlet title="${uiLabelMap.HumanResAddEmplLeaveType}">
-                            <section>
-                                <widgets>
-                                    <include-form name="AddEmplLeaveType" location="component://humanres/widget/forms/EmplLeaveForms.xml"/>
-                                </widgets>
-                            </section>
-                        </screenlet>
+                        <include-form name="ListEmplLeaveTypes" location="component://humanres/widget/forms/EmplLeaveForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

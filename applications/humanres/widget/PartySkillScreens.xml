@@ -67,20 +67,10 @@
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.HumanResListPartySkill}">
-                             <section>
-                                 <widgets>
-                                    <include-form name="ListPartySkills" location="component://humanres/widget/forms/PartySkillForms.xml"/>
-                                 </widgets>
-                             </section>
+                        <screenlet id="PartySkillPanel" title="${uiLabelMap.HumanResAddPartySkill}" collapsible="true">
+                            <include-form name="AddPartySkills" location="component://humanres/widget/forms/PartySkillForms.xml"/>
                         </screenlet>
-                        <screenlet title="${uiLabelMap.HumanResNewPartySkill}">
-                            <section>
-                                <widgets>
-                                    <include-form name="AddPartySkills" location="component://humanres/widget/forms/PartySkillForms.xml"/>
-                                </widgets>
-                            </section>
-                        </screenlet>
+                        <include-form name="ListPartySkills" location="component://humanres/widget/forms/PartySkillForms.xml"/>
                      </decorator-section>
                  </decorator-screen>
             </widgets>

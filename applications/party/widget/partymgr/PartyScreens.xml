@@ -1052,20 +1052,10 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.HumanResListPartyResumes}">
-                            <section>
-                                <widgets>
-                                    <include-form name="ListPartyResumes" location="component://humanres/widget/forms/PartyResumeForms.xml"/>
-                                </widgets>
-                            </section>
+                        <screenlet id="PartyResumePanel" title="${uiLabelMap.CommonAdd} ${uiLabelMap.PartyParty} ${uiLabelMap.HumanResPartyResume}" collapsible="true">
+                            <include-form name="EditPartyResume" location="component://humanres/widget/forms/PartyResumeForms.xml"/>
                         </screenlet>
-                        <screenlet title="${uiLabelMap.HumanResNewPartyResume}">
-                            <section>
-                                <widgets>
-                                    <include-form name="EditPartyResume" location="component://humanres/widget/forms/PartyResumeForms.xml"/>
-                                </widgets>
-                            </section>
-                        </screenlet>
+                        <include-form name="ListPartyResumes" location="component://humanres/widget/forms/PartyResumeForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
