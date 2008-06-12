@@ -89,12 +89,10 @@
             <widgets>
                 <decorator-screen name="CommonPayGradeDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.PageTitleListSalarySteps}">
-                            <include-form name="ListSalarySteps" location="component://humanres/widget/forms/PayGradeForms.xml"/>
-                        </screenlet>
-                        <screenlet title="${uiLabelMap.HumanResAddSalaryStep}">
+                        <screenlet id="SalaryStepPanel" title="${uiLabelMap.HumanResAddSalaryStep}" collapsible="true">
                             <include-form name="AddSalaryStep" location="component://humanres/widget/forms/PayGradeForms.xml"/>
                         </screenlet>
+                        <include-form name="ListSalarySteps" location="component://humanres/widget/forms/PayGradeForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

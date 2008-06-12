@@ -50,7 +50,7 @@
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListSalarySteps" type="multi" target="updateSalaryStep?salaryStepSeqId=${salaryStepSeqId}&amp;payGradeId=${payGradeId}" paginate-target="findSalarySteps"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-one entity-name="SalaryStep" auto-field-map="true"/>
             <entity-condition entity-name="SalaryStep"><order-by field-name="salaryStepSeqId"/></entity-condition>

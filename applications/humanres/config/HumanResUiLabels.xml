@@ -375,6 +375,9 @@
     <property key="HumanResAddPerfReviewItems">
         <value xml:lang="en">Add PerfReview Items</value>
     </property>
+    <property key="HumanResAddPartySkill">
+        <value xml:lang="en">Add Party Skill</value>
+    </property>
     <property key="HumanResAddPersonTraining">
         <value xml:lang="en">Add Person Training</value>
     </property>
@@ -587,15 +590,6 @@
     <property key="HumanResGlobalHRSettings">
         <value xml:lang="en">Global HR Settings</value>
     </property>
-    <property key="HumanResListEmplLeaveType">
-        <value xml:lang="en">List EmplLeave Type</value>
-    </property>
-    <property key="HumanResListEmplPositionsReportedTo">
-        <value xml:lang="en">List Employee Positions, Reported To [${parameters.emplPositionId}]</value>
-    </property>
-    <property key="HumanResListEmplPositionsReportsTo">
-        <value xml:lang="en">List Employee Positions, [${parameters.emplPositionId}]  Reports To</value>
-    </property>
     <property key="HumanResListEmployments">
         <value xml:lang="en">List Employment</value>
         <value xml:lang="it">Lista Impiegato</value>
@@ -606,65 +600,14 @@
         <value xml:lang="it">Lista Benefits Soggetto </value>
         <value xml:lang="th">รายการกลุ่มผลประโยชน์</value>
     </property>
-    <property key="HumanResListPartyQual">
-        <value xml:lang="en">List Party Qualification</value>
-        <value xml:lang="it">Lista Qualifica Soggetto</value>
-        <value xml:lang="th">รายการกลุ่มคุณสมบัติ</value>
-    </property>
-    <property key="HumanResListPartyResumes">
-        <value xml:lang="en">List Party Resumes</value>
-        <value xml:lang="it">Lista Riassunti Soggetto</value>
-        <value xml:lang="th">รายการกลุ่มประวัติย่อ</value>
-    </property>
-    <property key="HumanResListPartySkill">
-        <value xml:lang="en">List Party Skills</value>
-        <value xml:lang="it">Lista Abilità Soggetto</value>
-        <value xml:lang="th">รายการกลุ่มทักษะ</value>
-    </property>
-    <property key="HumanResListPayGrade">
-        <value xml:lang="en">List Pay Grades</value>
-        <value xml:lang="it">Lista Grado Paga</value>
-        <value xml:lang="th">รายการระดับการจ่าย</value>
-    </property>
     <property key="HumanResListPayHistories">
         <value xml:lang="en">List Pay Histories</value>
         <value xml:lang="it">Lista Storia Paghe</value>
         <value xml:lang="th">รายการจ่ายข้อมูล</value>
     </property>
-    <property key="HumanResListPayrollPreferences">
-        <value xml:lang="en">List Payroll Preferences</value>
-        <value xml:lang="it">Lista Preferenze Paghe</value>
-        <value xml:lang="th">รายการอ้างอิงเงินเดือน</value>
-    </property>
-    <property key="HumanResListPersonTraining">
-        <value xml:lang="en">List Person Training</value>
-    </property>
-    <property key="HumanResListSalaryStep">
-        <value xml:lang="en">List Salary Step</value>
-        <value xml:lang="it">Lista Passi Salario</value>
-        <value xml:lang="th">รายการขั้นเงินเดือน</value>
-    </property>
-    <property key="PageTitleListSalarySteps">
-        <value xml:lang="en">List Salary Steps</value>
-    </property>
     <property key="HumanResListSkillTypes">
         <value xml:lang="en">List Skill Types</value>
         <value xml:lang="th">รายการประเภททักษะ</value>
-    </property>
-    <property key="HumanResListTerminationReasons">
-        <value xml:lang="en">List Termination Reasons</value>
-        <value xml:lang="it">Lista Motivazioni Licenziamento</value>
-        <value xml:lang="th">รายการขอบเขตเหตุผล</value>
-    </property>
-    <property key="HumanResListUnemploymentClaim">
-        <value xml:lang="en">List Unemployment Claim</value>
-        <value xml:lang="it">Lista Reclamo Disoccupazione</value>
-        <value xml:lang="th">รายการจำนวนผู้ว่างงานเรียกร้อง</value>
-    </property>
-    <property key="HumanResListValidResponsibility">
-        <value xml:lang="en">List Valid Responsibility</value>
-        <value xml:lang="it">Lista Validità Responsibilità</value>
-        <value xml:lang="th">รายการหน้าที่รับผิดชอบ</value>
     </property>
     <property key="HumanResLookupBudgetByName">
         <value xml:lang="en">Lookup Budget by Name</value>
@@ -1079,20 +1022,10 @@
         <value xml:lang="it">Lista Posizione Impiegato</value>
         <value xml:lang="th">รายการตำแหน่งพนักงาน</value>
     </property>
-    <property key="PageTitleListEmplPositionFulfillments">
-        <value xml:lang="en">List EmplPosition Fulfillments</value>
-        <value xml:lang="it">Lista Posizione Impiegato Adempimenti</value>
-        <value xml:lang="th">รายการตำแหน่งพนักงานที่ปฏิบัติภารกิจ</value>
-    </property>
     <property key="PageTitleListEmplPositionReportingStructs">
         <value xml:lang="en">List EmplPosition Reporting Structs</value>
         <value xml:lang="it">Lista Posizione Impiegato Struttura Stampe</value>
         <value xml:lang="th">แสดงรายงานโครงสร้างตำแหน่งพนักงาน</value>
-    </property>
-    <property key="PageTitleListEmplPositionResponsibilities">
-        <value xml:lang="en">List EmplPosition Responsibilities</value>
-        <value xml:lang="it">Lista Posizione Responsabilità Impiegato</value>
-        <value xml:lang="th">รายการตำแหน่งพนักงานที่มีหน้าที่รับผิดชอบ</value>
     </property>
     <property key="PageTitleListPartyReview">
         <value xml:lang="en">List PerfReview</value>

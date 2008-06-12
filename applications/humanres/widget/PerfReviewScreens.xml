@@ -87,20 +87,10 @@
             <widgets>
                 <decorator-screen name="CommonPerfReviewDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.CommonList} ${uiLabelMap.HumanResEditPerfReviewItems}">
-                            <section>
-                                <widgets>
-                                    <include-form name="ListPerfReviewItems" location="component://humanres/widget/forms/PerfReviewForms.xml"/>
-                                </widgets>
-                            </section>
+                        <screenlet id="PerfReviewItemPanel" title="${uiLabelMap.HumanResAddPerfReviewItems}" collapsible="true">
+                            <include-form name="AddPerfReviewItem" location="component://humanres/widget/forms/PerfReviewForms.xml"/>
                         </screenlet>
-                        <screenlet title="${uiLabelMap.HumanResAddPerfReviewItems}">
-                            <section>
-                                <widgets>
-                                    <include-form name="AddPerfReviewItem" location="component://humanres/widget/forms/PerfReviewForms.xml"/>
-                                </widgets>
-                            </section>
-                        </screenlet>
+                        <include-form name="ListPerfReviewItems" location="component://humanres/widget/forms/PerfReviewForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

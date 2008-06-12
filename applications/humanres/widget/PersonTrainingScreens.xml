@@ -67,20 +67,10 @@
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.HumanResListPersonTraining}">
-                            <section>
-                                <widgets>
-                                    <include-form name="ListPersonTrainings" location="component://humanres/widget/forms/PersonTrainingForms.xml"/>
-                                </widgets>
-                            </section>
+                        <screenlet id="PersonTrainingPanel" title="${uiLabelMap.HumanResAddPersonTraining}" collapsible="true">
+                            <include-form name="AddPersonTraining" location="component://humanres/widget/forms/PersonTrainingForms.xml"/>
                         </screenlet>
-                        <screenlet title="${uiLabelMap.HumanResNewPersonTraining}">
-                            <section>
-                                <widgets>
-                                    <include-form name="AddPersonTraining" location="component://humanres/widget/forms/PersonTrainingForms.xml"/>
-                                </widgets>
-                            </section>
-                        </screenlet>
+                        <include-form name="ListPersonTrainings" location="component://humanres/widget/forms/PersonTrainingForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
