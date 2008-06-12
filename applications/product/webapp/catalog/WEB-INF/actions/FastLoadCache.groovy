@@ -17,21 +17,21 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.util.*;
+import org.ofbiz.base.util.*
+import org.ofbiz.entity.*
+import org.ofbiz.entity.util.*
 
-List messageList = new LinkedList();
+messageList = [];
 
 messageList.add("Loading Categories...");
 UtilTimer ctimer = new UtilTimer();
 messageList.add(ctimer.timerString("Before category find"));
-EntityListIterator categories = delegator.find("ProductCategory", null, null, null, null, null);
+categories = delegator.find("ProductCategory", null, null, null, null, null);
 messageList.add(ctimer.timerString("Before load all categories into cache"));
 
-GenericValue category = null;
+category = null;
 long numCategories = 0;
-while ((category = (GenericValue) categories.next()) != null) {
+while ((category = (GenericValue) categories.next())) {
     delegator.putInPrimaryKeyCache(category.getPrimaryKey(), category);
     numCategories++;
 }
@@ -45,11 +45,11 @@ messageList.add("&nbsp;");
 messageList.add("Loading Products...");
 UtilTimer ptimer = new UtilTimer();
 messageList.add(ptimer.timerString("Before product find"));
-EntityListIterator products = delegator.find("Product", null, null, null, null, null);
+products = delegator.find("Product", null, null, null, null, null);
 messageList.add(ptimer.timerString("Before load all products into cache"));
-GenericValue product = null;
+product = null;
 long numProducts = 0;
-while ((product = (GenericValue) products.next()) != null) {
+while ((product = (GenericValue) products.next())) {
     delegator.putInPrimaryKeyCache(product.getPrimaryKey(), product);
     numProducts++;
 }
@@ -58,4 +58,4 @@ products.close();
 messageList.add(ptimer.timerString("Finished Products"));
 messageList.add("Loaded " + numProducts + " products");
 
-context.put("messageList", messageList);
+context.messageList = messageList;

@@ -17,44 +17,41 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.product.category.*;
-import javolution.util.FastMap;
-
-delegator = request.getAttribute("delegator");
+import org.ofbiz.base.util.*
+import org.ofbiz.entity.*
+import org.ofbiz.product.category.*
 
 state = request.getParameter("BrowseCategoriesState");
 isOpen = true;
-if (state != null) {
+if (state) {
     session.setAttribute("BrowseCategoriesState", state);
     isOpen = "open".equals(state);
 } else {
     state = (String) session.getAttribute("BrowseCategoriesState");
-    if (state != null) {
+    if (state) {
         isOpen = "open".equals(state);
     }
 }
-context.put("isOpen", isOpen);
+context.isOpen = isOpen;
 
 requestParameters = UtilHttp.getParameterMap(request);
-defaultTopCategoryId = requestParameters.get("TOP_CATEGORY") != null ? requestParameters.get("TOP_CATEGORY") : UtilProperties.getPropertyValue("catalog", "top.category.default");
+defaultTopCategoryId = requestParameters.TOP_CATEGORY ? requestParameters.TOP_CATEGORY : UtilProperties.getPropertyValue("catalog", "top.category.default");
 currentTopCategoryId = CategoryWorker.getCatalogTopCategory(request, defaultTopCategoryId);
 currentTopCategory = null;
 if (isOpen) {
     CategoryWorker.getRelatedCategories(request, "topLevelList", currentTopCategoryId, false);
-    currentTopCategory = delegator.findByPrimaryKeyCache("ProductCategory", UtilMisc.toMap("productCategoryId", currentTopCategoryId));
-    context.put("topLevelList", request.getAttribute("topLevelList"));
+    currentTopCategory = delegator.findOne("ProductCategory", [productCategoryId : currentTopCategoryId], true);
+    context.topLevelList = request.getAttribute("topLevelList");
 }
-curCategoryId = UtilFormatOut.checkNull(requestParameters.get("productCategoryId"));
+curCategoryId = UtilFormatOut.checkNull(requestParameters.productCategoryId);
 CategoryWorker.setTrail(request, curCategoryId);
 
-context.put("curCategoryId", curCategoryId);
-context.put("currentTopCategory", currentTopCategory);
+context.curCategoryId = curCategoryId;
+context.currentTopCategory = currentTopCategory;
 
 categoryList = request.getAttribute("topLevelList");
-if(categoryList != null) {
-    catContentWrappers = FastMap.newInstance();
-    CategoryWorker.getCategoryContentWrappers(catContentWrappers, categoryList, request);            
-    context.put("catContentWrappers", catContentWrappers);
+if (categoryList) {
+    catContentWrappers = [:];
+    CategoryWorker.getCategoryContentWrappers(catContentWrappers, categoryList, request);
+    context.catContentWrappers = catContentWrappers;
 }

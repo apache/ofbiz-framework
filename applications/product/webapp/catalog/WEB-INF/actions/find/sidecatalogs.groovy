@@ -17,36 +17,30 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.*;
-
-delegator = request.getAttribute("delegator");
-
 state = request.getParameter("BrowseCatalogsState");
 isOpen = true;
-if (state != null) {
+if (state) {
     session.setAttribute("BrowseCatalogsState", state);
     isOpen = "open".equals(state);
 } else {
     state = (String) session.getAttribute("BrowseCatalogsState");
-    if (state != null) {
+    if (state) {
         isOpen = "open".equals(state);
     }
 }
-context.put("isOpen", isOpen);
+context.isOpen = isOpen;
 
 //prodCatalogs
 if (isOpen) {
     prodCatalogs = delegator.findList("ProdCatalog", null, null, null, null, false);
-    context.put("prodCatalogs", prodCatalogs);
+    context.prodCatalogs = prodCatalogs;
 }
 
 //get the current prodCatalogId
 curProdCatalogId = request.getParameter("prodCatalogId");
-if (UtilValidate.isNotEmpty(curProdCatalogId)) {
+if (curProdCatalogId) {
     session.setAttribute("curProdCatalogId", curProdCatalogId);
 } else {
     curProdCatalogId = (String) session.getAttribute("curProdCatalogId");
 }
-context.put("curProdCatalogId", curProdCatalogId);
-
+context.curProdCatalogId = curProdCatalogId;
