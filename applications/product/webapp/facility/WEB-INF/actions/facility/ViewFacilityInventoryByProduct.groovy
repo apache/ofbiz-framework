@@ -17,41 +17,35 @@
  * under the License.
  */
 
-
-import java.util.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.condition.*;
-import org.ofbiz.entity.transaction.*;
-import org.ofbiz.entity.model.DynamicViewEntity;
-import org.ofbiz.entity.model.ModelKeyMap;
-import org.ofbiz.entity.util.EntityFindOptions;
-import org.ofbiz.product.inventory.*;
-
-import org.ofbiz.widget.html.*;
-import java.sql.Timestamp;
-
-delegator = request.getAttribute("delegator");
-dispatcher = request.getAttribute("dispatcher");
+import java.util.*
+import java.sql.Timestamp
+import org.ofbiz.base.util.*
+import org.ofbiz.entity.*
+import org.ofbiz.entity.condition.*
+import org.ofbiz.entity.transaction.*
+import org.ofbiz.entity.model.DynamicViewEntity
+import org.ofbiz.entity.model.ModelKeyMap
+import org.ofbiz.entity.util.EntityFindOptions
+import org.ofbiz.product.inventory.*
 
 action = request.getParameter("action");
 
-String searchParameterString = "";
+searchParameterString = "";
 searchParameterString = "action=Y&facilityId=" + facilityId;
 
 offsetQOH = -1;
 offsetATP = -1;
-boolean hasOffsetQOH = false;
-boolean hasOffsetATP = false;
+hasOffsetQOH = false;
+hasOffsetATP = false;
 
-List rows = new ArrayList();
+rows = [] as ArrayList;
 
-if (action != null) {
+if (action) {
     // ------------------------------
-    DynamicViewEntity prodView = new DynamicViewEntity();
-    Map conditionMap = UtilMisc.toMap("facilityId", facilityId);
+    prodView = new DynamicViewEntity();
+    conditionMap = [facilityId : facilityId];
 
-    if (offsetQOHQty != null && offsetQOHQty.length() > 0) {
+    if (offsetQOHQty) {
         try {
             offsetQOH = Integer.parseInt(offsetQOHQty);
             hasOffsetQOH = true;
@@ -59,7 +53,7 @@ if (action != null) {
         } catch(NumberFormatException nfe) {
         }
     }
-    if (offsetATPQty != null && offsetATPQty.length() > 0) {
+    if (offsetATPQty) {
         try {
             offsetATP = Integer.parseInt(offsetATPQty);
             hasOffsetATP = true;
@@ -76,67 +70,69 @@ if (action != null) {
     prodView.addAlias("PROD", "internalName");
     prodView.addAlias("PROD", "isVirtual");
     prodView.addAlias("PROD", "salesDiscontinuationDate");
-    if (productTypeId != null && productTypeId.length() > 0) {
+    if (productTypeId) {
         prodView.addAlias("PROD", "productTypeId");
-        conditionMap.put("productTypeId", productTypeId);
+        conditionMap.productTypeId = productTypeId;
         searchParameterString = searchParameterString + "&productTypeId=" + productTypeId;
     }
-    if (searchInProductCategoryId != null && searchInProductCategoryId.length() > 0) {
+    if (searchInProductCategoryId) {
         prodView.addMemberEntity("PRCA", "ProductCategoryMember");
         prodView.addViewLink("PRFA", "PRCA", Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
         prodView.addAlias("PRCA", "productCategoryId");
-        conditionMap.put("productCategoryId", searchInProductCategoryId);
+        conditionMap.productCategoryId = searchInProductCategoryId;
         searchParameterString = searchParameterString + "&searchInProductCategoryId=" + searchInProductCategoryId;
     }
 
-    if (productSupplierId != null && productSupplierId.length() > 0) {
+    if (productSupplierId) {
         prodView.addMemberEntity("SPPR", "SupplierProduct");
         prodView.addViewLink("PRFA", "SPPR", Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
         prodView.addAlias("SPPR", "partyId");
-        conditionMap.put("partyId", productSupplierId);
+        conditionMap.partyId = productSupplierId;
         searchParameterString = searchParameterString + "&productSupplierId=" + productSupplierId;
     }
     
     // set distinct on so we only get one row per product
-    EntityFindOptions findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
-    EntityCondition searchCondition = EntityCondition.makeCondition(conditionMap, EntityOperator.AND);
-    EntityCondition notVirtualCondition = EntityCondition.makeCondition(EntityCondition.makeCondition("isVirtual", EntityOperator.EQUALS, null),
+    findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
+    searchCondition = EntityCondition.makeCondition(conditionMap, EntityOperator.AND);
+    notVirtualCondition = EntityCondition.makeCondition(EntityCondition.makeCondition("isVirtual", EntityOperator.EQUALS, null),
                                                          EntityOperator.OR,
                                                          EntityCondition.makeCondition("isVirtual", EntityOperator.NOT_EQUAL, "Y"));
 
-    whereConditionsList = UtilMisc.toList(searchCondition, notVirtualCondition);
+    whereConditionsList = [searchCondition, notVirtualCondition];
     // add the discontinuation date condition
-    if (UtilValidate.isNotEmpty(productsSoldThruTimestamp)) {
-        EntityCondition discontinuationDateCondition = EntityCondition.makeCondition(UtilMisc.toList(
+    if (productsSoldThruTimestamp) {
+        discontinuationDateCondition = EntityCondition.makeCondition(
+               [
                 EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.EQUALS, null),
-                EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.GREATER_THAN, productsSoldThruTimestamp)),
-            EntityOperator.OR);
+                EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.GREATER_THAN, productsSoldThruTimestamp)
+               ],
+               EntityOperator.OR);
         whereConditionsList.add(discontinuationDateCondition);
         searchParameterString = searchParameterString + "&productsSoldThruTimestamp=" + productsSoldThruTimestamp;
     }
 
     // add search on internal name
-    if (UtilValidate.isNotEmpty(internalName)) {
+    if (internalName) {
         whereConditionsList.add(EntityCondition.makeCondition("internalName", true, EntityOperator.LIKE, "%" + internalName + "%", true));
         searchParameterString = searchParameterString + "&internalName=" + internalName;
     }
     
     // add search on productId 
-    if (UtilValidate.isNotEmpty(productId)) {
+    if (productId) {
         whereConditionsList.add(EntityCondition.makeCondition("productId", true, EntityOperator.LIKE, productId + "%", true));
         searchParameterString = searchParameterString + "&productId=" + productId;
     }
-    EntityCondition whereCondition = EntityCondition.makeCondition(whereConditionsList, EntityOperator.AND);
+    whereCondition = EntityCondition.makeCondition(whereConditionsList, EntityOperator.AND);
 
-    boolean beganTransaction = false;
+    beganTransaction = false;
     List prods = null;
     try {
         beganTransaction = TransactionUtil.begin();
-        prodsEli = delegator.findListIteratorByCondition(prodView, whereCondition, null, null, UtilMisc.toList("productId"), findOpts);
+        prodsEli = delegator.findListIteratorByCondition(prodView, whereCondition, null, null, ['productId'], findOpts);
         prods = prodsEli.getCompleteList();
         prodsEli.close();
     } catch (GenericEntityException e) {
-        String errMsg = "Failure in operation, rolling back transaction";
+        errMsg = "Failure in operation, rolling back transaction";
         Debug.logError(e, errMsg, "ViewFacilityInventoryByProduct");
         try {
             // only rollback the transaction if we started one...
@@ -154,7 +150,7 @@ if (action != null) {
     // If the user has specified a number of months over which to sum usage quantities, define the correct timestamp
     Timestamp checkTime = null;
     monthsInPastLimitStr = request.getParameter("monthsInPastLimit");
-    if (UtilValidate.isNotEmpty(monthsInPastLimitStr)) {
+    if (monthsInPastLimitStr) {
         try {
             monthsInPastLimit = Integer.parseInt(monthsInPastLimitStr);
             cal = UtilDateTime.toCalendar(null);
@@ -166,20 +162,17 @@ if (action != null) {
         }
     }
 
-    prodsIt = prods.iterator();
-    while (prodsIt.hasNext()) {
-        oneProd = prodsIt.next();
-        Map oneInventory = new HashMap();
-        oneInventory.put("checkTime", checkTime);
-        oneInventory.put("facilityId", facilityId);
-        oneInventory.put("productId", oneProd.getString("productId"));
-        oneInventory.put("minimumStock", oneProd.getString("minimumStock"));
-        oneInventory.put("reorderQuantity", oneProd.getString("reorderQuantity"));
-        oneInventory.put("daysToShip", oneProd.getString("daysToShip"));
-        oneInventory.put("statusId", statusId);
+    prods.each { oneProd ->
+        oneInventory = [:];
+        oneInventory.checkTime = checkTime;
+        oneInventory.facilityId = facilityId;
+        oneInventory.productId = oneProd.productId;
+        oneInventory.minimumStock = oneProd.minimumStock as String;
+        oneInventory.reorderQuantity = oneProd.reorderQuantity;
+        oneInventory.daysToShip = oneProd.daysToShip;
         rows.add(oneInventory);
     }
 
 }
-context.put("inventoryByProduct", rows);
-context.put("searchParameterString", searchParameterString);
+context.inventoryByProduct = rows;
+context.searchParameterString = searchParameterString;
