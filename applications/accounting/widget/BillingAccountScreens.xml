@@ -245,7 +245,7 @@ under the License.
                     
                 <set field="billingAccountId" from-field="parameters.billingAccountId"/> 
                 <entity-one entity-name="BillingAccount" value-name="billingAccount"/>
-                <script location="component://accounting/webapp/accounting/WEB-INF/actions/order/OrderListInvoiceItem.groovy"/>
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/order/BillingAccountOrders.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonBillingAccountDecorator">
