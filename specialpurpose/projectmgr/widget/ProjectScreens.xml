@@ -36,35 +36,11 @@ under the License.
             </actions>                                                
             <widgets>  
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">                                                                                                                
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleListSubProjects}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="EditSubProjects" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleAddSubProject}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="AddSubProject" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                    <decorator-section name="body">
+                        <screenlet id="SubProjectsPanel" title="${uiLabelMap.PageTitleAddSubProject}" collapsible="true">
+                            <include-form name="AddSubProject" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                        </screenlet>
+                        <include-form name="EditSubProjects" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -86,39 +62,11 @@ under the License.
             </actions>                                                
             <widgets>  
                 <decorator-screen name="CommonResourceDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">                                                                                                                
-                        <section>                                                        
-                            <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleListResources}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>    
-                                                <include-form name="ListResources" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleAddResource}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>    
-                                                <include-form name="AddResource" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
-                            </widgets>                            
-                        </section>
+                    <decorator-section name="body">
+                        <screenlet id="AddResourcePanel" title="${uiLabelMap.PageTitleAddResource}" collapsible="true">
+                            <include-form name="AddResource" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                        </screenlet>
+                        <include-form name="ListResources" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -453,38 +401,10 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <section>                            
-                            <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.${titleProperty}}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>    
-                                                <include-form name="ListPhases" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleAddPhase}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>    
-                                                <include-form name="AddPhase" location="component://projectmgr/widget/forms/TaskForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
-                            </widgets>                            
-                        </section>
+                        <screenlet id="AddPhasePanel" title="${uiLabelMap.PageTitleAddPhase}" collapsible="true">
+                            <include-form name="AddPhase" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                        </screenlet>
+                        <include-form name="ListPhases" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -505,34 +425,10 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleListPartyAssigns}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="EditWorkEffortPartyAssigns" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleAddPartyAssign}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="AddWorkEffortPartyAssign" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet id="WorkEffortPartyAssignPanel" title="${uiLabelMap.PageTitleAddPartyAssign}" collapsible="true">
+                            <include-form name="AddWorkEffortPartyAssign" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                        </screenlet>
+                        <include-form name="EditWorkEffortPartyAssigns" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -618,34 +514,10 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.${titleProperty}}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="ListProjectNotes" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleAddProjectNotes}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="AddWorkEffortNote" location="component://workeffort/widget/WorkEffortForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>             
+                        <screenlet id="WorkEffortNotePanel" title="${uiLabelMap.PageTitleAddProjectNotes}" collapsible="true">
+                            <include-form name="AddWorkEffortNote" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                        </screenlet>
+                        <include-form name="ListProjectNotes" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -921,38 +793,10 @@ under the License.
             <widgets>               
                 <decorator-screen name="CommonListResourceDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <section>
-                            <widgets>           
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleProjectInformation}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>    
-                                                <include-form name="listResourcesProjects" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleAddProject}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>    
-                                                <include-form name="AddResourceProjectParty" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
-                            </widgets>
-                        </section>             
+                        <screenlet id="ResourceProjectPartyPanel" title="${uiLabelMap.PageTitleAddProject}" collapsible="true">
+                            <include-form name="AddResourceProjectParty" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                        </screenlet>
+                        <include-form name="listResourcesProjects" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                     </decorator-section>
                 </decorator-screen>   
             </widgets>
@@ -979,38 +823,10 @@ under the License.
             <widgets>   
                 <decorator-screen name="CommonListResourceDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <section>
-                            <widgets>                     
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleTaskInformation}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>    
-                                                <include-form name="listResourcesTasks" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleAddTask}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>    
-                                                <include-form name="AddResourceTaskParty" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
-                            </widgets>
-                        </section>
+                        <screenlet id="ResourceTaskPartyPanel" title="${uiLabelMap.PageTitleAddTask}" collapsible="true">
+                            <include-form name="AddResourceTaskParty" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                        </screenlet>
+                        <include-form name="listResourcesTasks" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                     </decorator-section>
                 </decorator-screen>                   
             </widgets>
@@ -1194,34 +1010,10 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonListResourceDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditPartyRates}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="ListPartyRates" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditPartyRates}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="AddPartyRate" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet id="PartyRatePanel" title="${uiLabelMap.PageTitleEditPartyRates}" collapsible="true">
+                            <include-form name="AddPartyRate" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                        </screenlet>
+                        <include-form name="ListPartyRates" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
