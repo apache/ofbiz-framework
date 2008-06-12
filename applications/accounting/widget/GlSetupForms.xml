@@ -29,7 +29,7 @@ under the License.
     </form>
 
     <form name="ListGlAccountOrganization" list-name="listIt" target="" title="" type="list" view-size="50"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="ListGlAccountOrganization">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" paginate-target="ListGlAccountOrganization">
         <actions>
             <entity-condition entity-name="GlAccountOrganizationAndClass">
                 <condition-expr field-name="organizationPartyId" env-name="organizationPartyId"/>
@@ -304,7 +304,7 @@ under the License.
      
     <!-- forms for managing FX rates -->
     <form name="ListConversions" type="list" list-name="conversions"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="uomId" title="${uiLabelMap.CommonFrom} ${uiLabelMap.CommonCurrency}"><display/></field>
         <field name="uomIdTo" title="${uiLabelMap.CommonTo} ${uiLabelMap.CommonCurrency}"><display/></field>
         <field name="conversionFactor"><display/></field>
@@ -336,7 +336,7 @@ under the License.
     </form>
 
     <form name="ListGlAccountTypeDefaults" type="list" target="" list-name="glAccountTypeDefaults"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="GlAccountTypeDefault" list-name="glAccountTypeDefaults">
                 <condition-list>
@@ -379,7 +379,7 @@ under the License.
 
     <!-- forms for Sales invoice Itemtypes to GLAccount number -->
     <form name="ListSalInvoiceItemTypeGlAssignments" type="list" list-name="invoiceItemTypes"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <script location="component://accounting/webapp/accounting/WEB-INF/actions/admin/ListInvoiceItemTypesGlAccount.groovy"/>
         </actions>
@@ -424,7 +424,7 @@ under the License.
     
     <!-- forms for Purchase invoice Itemtypes to GLAccount number -->
     <form name="ListPurInvoiceItemTypeGlAssignments" type="list" list-name="invoiceItemTypes" default-map-name="iTypes"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <set field="invItemTypePrefix" value="PINV"/>
             <script location="component://accounting/webapp/accounting/WEB-INF/actions/admin/ListInvoiceItemTypesGlAccount.groovy"/>
@@ -469,7 +469,7 @@ under the License.
     
     <!-- forms for payment types to GLAccount type -->
     <form name="ListPaymentTypeGlAssignments" type="list"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="PaymentGlAccountTypeMap">
                 <condition-expr field-name="organizationPartyId" operator="equals" value="${organizationPartyId}"/>
@@ -506,7 +506,7 @@ under the License.
     </form>
     <!-- forms for payment method Type to GLAccounts -->
     <form name="ListPaymentMethodTypeGlAssignments" type="list"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="PaymentMethodTypeGlAccount">
                 <condition-expr field-name="organizationPartyId" operator="equals" value="${organizationPartyId}"/>
@@ -610,7 +610,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
     </form>
     <form name="ListGlJournals" type="list"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="GlJournal">
                 <condition-expr field-name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
@@ -628,7 +628,7 @@ under the License.
     </form>
     
     <form name="ListProductGlAccounts" type="list" target="updateProductGlAccount" list-name="productGlAccounts"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="updateProductGlAccount" default-field-type="display"/>
         <field name="organizationPartyId"><hidden/></field>
         <field name="glAccountTypeId"><display-entity entity-name="GlAccountType"/></field>
@@ -671,7 +671,7 @@ under the License.
     </form>
     
     <form name="ListFinAccountTypeGlAccounts" type="list" target="updateFinAccountTypeGlAccount" list-name="finAccountTypeGlAccounts"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="updateFinAccountTypeGlAccount"/>
         <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
         <field name="finAccountTypeId"><display-entity entity-name="FinAccountType"/></field>
@@ -709,7 +709,7 @@ under the License.
     </form>
     
     <form name="ListProductCategoryGlAccounts" type="list" target="updateProductCategoryGlAccount" list-name="productCategoryGlAccounts"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="updateProductCategoryGlAccount" default-field-type="display"/>
         <field name="organizationPartyId"><hidden/></field>
         <field name="glAccountTypeId"><display-entity entity-name="GlAccountType"/></field>
@@ -752,7 +752,7 @@ under the License.
     </form>
     
     <form name="ListVarianceReasonGlAccounts" type="list" target="updateVarianceReasonGlAccount" list-name="varianceReasonGlAccounts"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="updateVarianceReasonGlAccount" default-field-type="display"/>
         <field name="organizationPartyId"><hidden/></field>
         <field name="varianceReasonId"><display-entity entity-name="VarianceReason"/></field>
@@ -792,7 +792,7 @@ under the License.
     </form>
     
     <form name="ListCreditCardTypeGlAccounts" type="list" target="updateCreditCardTypeGlAccount" list-name="creditCardTypeGlAccounts"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="updateCreditCardTypeGlAccount" default-field-type="display"/> 
         <field name="organizationPartyId"><hidden/></field>
         <field name="glAccountId" title="${uiLabelMap.AccountingGlAccountId}"> 
@@ -832,7 +832,7 @@ under the License.
     </form>
     
     <form name="ListTaxAuthorityGlAccounts" type="list" target="updateOrganizationTaxAuthorityGlAccount" list-name="taxAuthorityGlAccounts"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="updateTaxAuthorityGlAccount" default-field-type="display"/>
         <field name="organizationPartyId"><hidden/></field>
         <field name="taxAuthGeoId" title="${uiLabelMap.AccountingTaxAuthorityGeo}">
@@ -880,7 +880,7 @@ under the License.
     </form>
 
     <form name="ListPartyGlAccounts" type="list" target="updatePartyGlAccount" list-name="partyGlAccounts"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="updatePartyGlAccount" default-field-type="display"/>
         <field name="organizationPartyId"><hidden/></field>       
         <field name="glAccountId" title="${uiLabelMap.AccountingGlAccountId}">

@@ -252,34 +252,10 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleListAgreementTerms}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="ListAgreementTerms" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditAgreementTerm}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="AddAgreementTerm" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet id="AgreementTermPanel" title="${uiLabelMap.PageTitleEditAgreementTerm}" collapsible="true">
+                            <include-form name="AddAgreementTerm" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                        </screenlet>
+                        <include-form name="ListAgreementTerms" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -930,32 +906,10 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
                     <decorator-section name="body">
-                       <container style="screenlet-title-bar">
-                            <container style="h3">
-                                <label text="${uiLabelMap.AccountingListAgreementWorkEffortAppls}"/>
-                            </container>
-                        </container>
-                        <container style="screenlet-body">
-                            <section>
-                                <widgets>    
-                                    <include-form name="ListAgreementWorkEffortAppls" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
-                                </widgets>
-                            </section>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.AccountingAddAgreementWorkEffortAppl}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="AddAgreementWorkEffortAppl" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>                        
+                        <screenlet id="AgreementWorkEffortApplsPanel" title="${uiLabelMap.AccountingAddAgreementWorkEffortAppl}" collapsible="true">
+                            <include-form name="AddAgreementWorkEffortAppl" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                        </screenlet>
+                        <include-form name="ListAgreementWorkEffortAppls" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
