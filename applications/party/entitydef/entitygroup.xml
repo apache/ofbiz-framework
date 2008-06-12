@@ -48,7 +48,7 @@ under the License.
 
     <entity-group group="org.ofbiz" entity="AgreementItemAndProductAppl" />
     <entity-group group="org.ofbiz" entity="AgreementItemAndPartyAppl" />
-
+    <entity-group group="org.ofbiz" entity="AgreementAndRole"/>
   <!-- ========================================================= -->
   <!-- org.ofbiz.party.communication -->
   <!-- ========================================================= -->

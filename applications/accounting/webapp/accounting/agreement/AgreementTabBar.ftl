@@ -24,6 +24,7 @@ under the License.
       <li<#if selected == "AgreementTerms"> class="selected"</#if>><a href="<@ofbizUrl>EditAgreementTerms?agreementId=${agreement.agreementId}</@ofbizUrl>">${uiLabelMap.AccountingAgreementTerms}</a></li>
       <li<#if selected == "AgreementItems"> class="selected"</#if>><a href="<@ofbizUrl>ListAgreementItems?agreementId=${agreement.agreementId}</@ofbizUrl>">${uiLabelMap.AccountingAgreementItems}</a></li>
       <li<#if selected == "AgreementWorkEffortAppls"> class="selected"</#if>><a href="<@ofbizUrl>EditAgreementWorkEffortAppls?agreementId=${agreement.agreementId}</@ofbizUrl>">${uiLabelMap.AccountingAgreementWorkEffortAppls}</a></li>      
+      <li<#if selected == "AgreementRoles"> class="selected"</#if>><a href="<@ofbizUrl>EditAgreementRoles?agreementId=${agreement.agreementId}</@ofbizUrl>">${uiLabelMap.AccountingAgreementRoles}</a></li>  
     </ul>
     <br class="clear"/>
   </div>

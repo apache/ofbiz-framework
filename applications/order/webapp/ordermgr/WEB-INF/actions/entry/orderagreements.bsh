@@ -28,6 +28,11 @@ import org.ofbiz.product.catalog.CatalogWorker;
 import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.order.shoppingcart.product.ProductDisplayWorker;
 import org.ofbiz.order.shoppingcart.product.ProductPromoWorker;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityExpr;
+import org.ofbiz.entity.condition.EntityOperator;
+import javolution.util.FastList;
+
 
 // Get the Cart and Prepare Size
 shoppingCart = ShoppingCartEvents.getCartObject(request);
@@ -44,19 +49,38 @@ if (UtilValidate.isNotEmpty(productStoreId)) {
         payToPartyId = productStore.getString("payToPartyId");
         partyId = shoppingCart.getOrderPartyId();
         
+        List exprsAgreements = FastList.newInstance();
+        List exprsAgreementRoles = FastList.newInstance();
         // get applicable agreements for order entry
         if ("PURCHASE_ORDER".equals(shoppingCart.getOrderType())) {
             // the agreement for a PO is from customer to payToParty (ie, us)
-            agreements = delegator.findByAndCache("Agreement", UtilMisc.toMap("partyIdTo", partyId, "partyIdFrom", payToPartyId));
+            exprsAgreements.add(EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, partyId));
+            exprsAgreements.add(EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, payToPartyId));
+            agreements = delegator.findList("Agreement", EntityCondition.makeCondition(exprsAgreements, EntityOperator.AND), null, null, null, true);
+            exprsAgreementRoles.add(EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId));
+            exprsAgreementRoles.add(EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, "SUPPLIER"));
+            agreementRoles = delegator.findList("AgreementRole", EntityCondition.makeCondition(exprsAgreementRoles, EntityOperator.AND), null, null, null, true);
             catalogCol = CatalogWorker.getAllCatalogIds(request);
         } else {
             // the agreement for a sales order is from us to the customer
-            agreements = delegator.findByAndCache("Agreement", UtilMisc.toMap("partyIdTo", payToPartyId, "partyIdFrom", partyId));
+            exprsAgreements.add(EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, payToPartyId));
+            exprsAgreements.add(EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, partyId));
+            agreements = delegator.findList("Agreement", EntityCondition.makeCondition(exprsAgreements, EntityOperator.AND), null, null, null, true);
+            exprsAgreementRoles.add(EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId));
+            exprsAgreementRoles.add(EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, "CUSTOMER"));
+            agreementRoles = delegator.findList("AgreementRole", EntityCondition.makeCondition(exprsAgreementRoles, EntityOperator.AND), null, null, null, true);
             catalogCol = CatalogWorker.getCatalogIdsAvailable(delegator, productStoreId, partyId);
         }
+        
         if (agreements != null && agreements.size() > 0) {
+        	agreements = EntityUtil.filterByDate(agreements);
             context.put("agreements", agreements);
         }
+        if (UtilValidate.isNotEmpty(agreementRoles)) {
+            context.put("agreementRoles", agreementRoles);
+        }
+        
+        
         if (catalogCol != null && catalogCol.size() > 0) {
             currentCatalogId = (String) catalogCol.get(0);
             currentCatalogName = CatalogWorker.getCatalogName(request, currentCatalogId);

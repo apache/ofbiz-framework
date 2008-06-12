@@ -76,37 +76,23 @@ under the License.
                                 <if-service-permission service-name="acctgAgreementPermissionCheck" main-action="VIEW"/>
                             </condition>
                             <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleFindAgreement}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>    
-                                                   <container style="button-bar">
-                                                    <link target="EditAgreement" text="${uiLabelMap.AccountingNewAgreement}" style="buttontext"/>
-                                                </container>
-                                                <include-form name="FindAgreements" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>                                                
-                                            </widgets>
-                                        </section>
-                                    </container>
+                                <container style="button-bar">
+                                    <link target="EditAgreement" text="${uiLabelMap.AccountingNewAgreement}" style="buttontext"/>
                                 </container>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleListAgreement}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>    
-                                                <include-form name="ListAgreements" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
+                                <screenlet title="${uiLabelMap.PageTitleFindAgreement}">
+                                    <section>
+                                        <widgets>
+                                            <include-form name="FindAgreements" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                                        </widgets>
+                                    </section>
+                                </screenlet>
+                                <screenlet title="${uiLabelMap.PageTitleListAgreement}">
+                                    <section>
+                                        <widgets>
+                                            <include-form name="ListAgreements" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                                        </widgets>
+                                    </section>
+                                </screenlet>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.AcccountingViewPermissionError}</label>
@@ -911,6 +897,31 @@ under the License.
                         </screenlet>
                         <include-form name="ListAgreementWorkEffortAppls" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
                     </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditAgreementRoles">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleFindAgreementRoles"/>
+                <set field="headerItem" value="agreement"/>
+                <set field="tabButtonItem" value="AgreementRoles"/>
+                <set field="agreementId" from-field="parameters.agreementId"/>
+                <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet id="add-agreement-roles"  title="${uiLabelMap.PageTitleAddAgreementRoles}" collapsible="true">
+                            <section>
+                                <widgets>
+                                    <include-form name="AddAgreementRole" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>                                    
+                                </widgets>
+                            </section>
+                        </screenlet>
+                        <include-form name="ListAgreementRoles" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
+                    </decorator-section>   
                 </decorator-screen>
             </widgets>
         </section>

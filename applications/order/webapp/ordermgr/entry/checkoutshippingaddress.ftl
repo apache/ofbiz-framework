@@ -54,7 +54,6 @@ function toggleBillingAccount(box) {
 // -->
 </script>
 <#assign cart = shoppingCart?if_exists/>
-
 <form method="post" name="checkoutInfoForm" style="margin:0;">
     <input type="hidden" name="checkoutpage" value="shippingaddress"/>
     <div class="screenlet" style="height: 100%;">
@@ -98,7 +97,37 @@ function toggleBillingAccount(box) {
                    <tr><td colspan="2"><hr/></td></tr>
                  </#list>
                </#if>
-             </table>
+              </table>
+             <div class="tableheadtext">&nbsp;${uiLabelMap.AccountingAgreementInformation}</div>              
+               <table>                         
+                 <#if agreements?exists>
+                   <#if agreements.size()!=1>            
+                     <tr>
+                       <td>&nbsp;</td>
+                       <td align='left' valign='top' nowrap>
+                         <div class='tableheadtext'>
+                           ${uiLabelMap.OrderSelectAgreement}
+                         </div>
+                       </td>
+                       <td>&nbsp;</td>
+                       <td valign='middle'>
+                         <div class='tabletext' valign='top'>
+                           <select name="agreementId" class="selectBox">
+                             <#list agreements as agreement>
+                               <option value='${agreement.agreementId?if_exists}'>${agreement.agreementId} - ${agreement.description?if_exists}</option>
+                             </#list>
+                           </select>
+                         </div>
+                       </td>
+                     </tr>    
+                   <#else>
+                     <#list agreements as agreement> 
+                        <input type="radio" name="agreementId" value="${agreement.agreementId?if_exists}"<#if checkThisAddress> checked</#if>>${agreement.description?if_exists} will be used for this order. 
+                     </#list> 
+                   </#if>
+                 </#if>            
+               </table>
+             <br />              
             <#-- Party Tax Info -->
             <div class="tableheadtext">&nbsp;${uiLabelMap.PartyTaxIdentification}</div>
             ${screens.render("component://order/widget/ordermgr/OrderEntryOrderScreens.xml#customertaxinfo")}
