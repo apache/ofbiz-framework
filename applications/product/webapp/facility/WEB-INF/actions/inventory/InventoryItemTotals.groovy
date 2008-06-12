@@ -17,19 +17,13 @@
  * under the License.
  */
 
-import java.util.*;
-import javolution.util.FastList;
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.condition.*;
-import org.ofbiz.entity.transaction.*;
-
-delegator = request.getAttribute("delegator");
-dispatcher = request.getAttribute("dispatcher");
+import org.ofbiz.entity.*
+import org.ofbiz.entity.condition.*
+import org.ofbiz.entity.transaction.*
 
 action = request.getParameter("action");
 
-inventoryItemTotals = FastList.newInstance();
+inventoryItemTotals = [];
 qohGrandTotal = 0.0;
 atpGrandTotal = 0.0;
 costPriceGrandTotal = 0.0;
@@ -37,65 +31,63 @@ retailPriceGrandTotal = 0.0;
 totalCostPriceGrandTotal = 0.0;
 totalRetailPriceGrandTotal = 0.0;
 boolean beganTransaction = false;
-if (action != null) {
-    conditions = UtilMisc.toList(EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "INV_DELIVERED")); 
+if (action) {
+    conditions = [EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "INV_DELIVERED")]; 
     conditions.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, null));
     conditionList = EntityCondition.makeCondition(conditions, EntityOperator.OR);
     try {
         // create resultMap to stop issue with the first puts in the while loop
-        resultMap = new HashMap();
+        resultMap = [:];
         beganTransaction = TransactionUtil.begin();
-        invItemListItr = delegator.find("InventoryItem", conditionList, null, null, UtilMisc.toList("productId"), null);
-        while ((inventoryItem = invItemListItr.next()) != null) {
-            productId = inventoryItem.getString("productId");
-            product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId));
-            productFacility = delegator.findByPrimaryKey("ProductFacility", UtilMisc.toMap("productId", productId, "facilityId", facilityId));
-            if (productFacility != null) {
+        invItemListItr = delegator.find("InventoryItem", conditionList, null, null, ['productId'], null);
+        invItemListItr.each { inventoryItem ->
+            productId = inventoryItem.productId;
+            product = delegator.findOne("Product", [productId : productId], false);
+            productFacility = delegator.findOne("ProductFacility", [productId : productId, facilityId : facilityId], false);
+            if (productFacility) {
                 quantityOnHandTotal = inventoryItem.getDouble("quantityOnHandTotal");
                 availableToPromiseTotal = inventoryItem.getDouble("availableToPromiseTotal");
                 costPrice = inventoryItem.getDouble("unitCost");
                 retailPrice = 0.0;
                 productPrices = product.getRelated("ProductPrice");
-                if (productPrices != null) {
-                    productPriceItr = productPrices.iterator();
-                    while (productPriceItr.hasNext()) {
-                        productPrice = productPriceItr.next();
-                        if (("DEFAULT_PRICE").equals(productPrice.getString("productPriceTypeId"))) {
+                if (productPrices) {
+                    productPrices.each { productPrice ->                   
+                        if (("DEFAULT_PRICE").equals(productPrice.productPriceTypeId)) {
                             retailPrice = productPrice.getDouble("price");
                         }
                     }
                 }
-                if(costPrice != null && quantityOnHandTotal != null){
+                if (costPrice && quantityOnHandTotal) {
                     totalCostPrice = costPrice * quantityOnHandTotal;
-                    resultMap.put("totalCostPrice", totalCostPrice);
+                    resultMap.totalCostPrice = totalCostPrice;
                     totalCostPriceGrandTotal += totalCostPrice;
                 }
-                if(retailPrice != null && quantityOnHandTotal != null){
+                if (retailPrice && quantityOnHandTotal) {
                     totalRetailPrice = retailPrice * quantityOnHandTotal;
-                    resultMap.put("totalRetailPrice", totalRetailPrice);
+                    resultMap.totalRetailPrice = totalRetailPrice;
                     totalRetailPriceGrandTotal += totalRetailPrice;
                 }
-                if(quantityOnHandTotal != null){
+                if (quantityOnHandTotal) {
                     qohGrandTotal += quantityOnHandTotal;
                 }
-                if(availableToPromiseTotal != null){
+                if (availableToPromiseTotal) {
                     atpGrandTotal += availableToPromiseTotal;
                 }
-                if(costPrice != null){
+                if (costPrice) {
                     costPriceGrandTotal += costPrice;
                 }
-                if(retailPrice != null){
+                if (retailPrice) {
                     retailPriceGrandTotal += retailPrice;
                 }
                 
-                resultMap = UtilMisc.toMap("productId", product.getString("productId"), "quantityOnHand", quantityOnHandTotal, "availableToPromise", availableToPromiseTotal, 
-                        "costPrice", costPrice, "retailPrice", retailPrice);
+                resultMap = [productId : product.productId, quantityOnHand : quantityOnHandTotal, availableToPromise : availableToPromiseTotal, 
+                             costPrice : costPrice, retailPrice : retailPrice];
                 inventoryItemTotals.add(resultMap);
             }
         }
         invItemListItr.close();
     } catch (GenericEntityException e) {
-        String errMsg = "Failure in operation, rolling back transaction";
+        errMsg = "Failure in operation, rolling back transaction";
         Debug.logError(e, errMsg, "findInventoryItemsByLabels");
         try {
             // only rollback the transaction if we started one...
@@ -112,9 +104,9 @@ if (action != null) {
     
 }
 
-inventoryItemGrandTotals = FastList.newInstance();
-inventoryItemGrandTotals.add(UtilMisc.toMap("qohGrandTotal", qohGrandTotal, "atpGrandTotal", atpGrandTotal, 
-        "totalCostPriceGrandTotal", totalCostPriceGrandTotal, "totalRetailPriceGrandTotal", totalRetailPriceGrandTotal));
+inventoryItemGrandTotals = [];
+inventoryItemGrandTotals.add([qohGrandTotal : qohGrandTotal, atpGrandTotal : atpGrandTotal, 
+                              totalCostPriceGrandTotal : totalCostPriceGrandTotal, totalRetailPriceGrandTotal : totalRetailPriceGrandTotal]);
 
-context.put("inventoryItemTotals", inventoryItemTotals);
-context.put("inventoryItemGrandTotals", inventoryItemGrandTotals);
+context.inventoryItemTotals = inventoryItemTotals;
+context.inventoryItemGrandTotals = inventoryItemGrandTotals;
