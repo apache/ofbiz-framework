@@ -558,7 +558,7 @@ under the License.
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
                 
                 <entity-one entity-name="Facility" value-name="facility" use-cache="true"/>
-                <script location="component://product/webapp/facility/WEB-INF/actions/inventory/InventoryItemTotals.bsh"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/inventory/InventoryItemTotals.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
@@ -590,7 +590,7 @@ under the License.
                 <set field="tabButtonItem" value="ViewFacilityInventoryByProduct"/>
                 <set field="facilityId" from-field="parameters.facilityId"/>
                 <entity-one entity-name="Facility" value-name="facility" use-cache="true"/>
-                <script location="component://product/webapp/facility/WEB-INF/actions/inventory/InventoryItemTotals.bsh"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/inventory/InventoryItemTotals.groovy"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
                 <set field="title" value="${uiLabelMap.PageTitleInventoryItemGrandTotals}"/>
             </actions>
@@ -618,7 +618,7 @@ under the License.
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10000"/>
                 
                 <entity-one entity-name="Facility" value-name="facility" use-cache="true"/>
-                <script location="component://product/webapp/facility/WEB-INF/actions/inventory/InventoryItemTotals.bsh"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/inventory/InventoryItemTotals.groovy"/>
             </actions>
             <widgets>
                 <container>
@@ -823,7 +823,7 @@ under the License.
                                 <if-compare field-name="inventoryItem.inventoryItemTypeId" operator="equals" value="NON_SERIAL_INV_ITEM"/>
                             </condition>
                             <actions>
-                                <script location="component://product/webapp/facility/WEB-INF/actions/inventory/PhysicalInventoryVariance.bsh"/>
+                                <script location="component://product/webapp/facility/WEB-INF/actions/inventory/PhysicalInventoryVariance.groovy"/>
                             </actions>
                             <widgets>
                                 <screenlet id="physical-inventory-variances" title="${uiLabelMap.ProductPhysicalInventoryVariances}" collapsible="true">
@@ -929,7 +929,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleFindFacilityPhysicalInventory"/>
                 <set field="headerItem" value="facility"/>
                 <set field="tabButtonItem" value="PhysicalInventory"/>
-                <script location="component://product/webapp/facility/WEB-INF/actions/inventory/FindFacilityPhysicalInventory.bsh"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/inventory/FindFacilityPhysicalInventory.groovy"/>
 
             </actions>
             <widgets>
@@ -973,7 +973,7 @@ under the License.
         <section>
             <actions>
                 <set field="tabButtonItem" value="FindFacilityTransfers"/>
-                <script location="component://product/webapp/facility/WEB-INF/actions/inventory/TransferInventoryItem.bsh"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/inventory/TransferInventoryItem.groovy"/>
                 <set field="facilityId" from-field="parameters.facilityId"/>
                 <entity-one entity-name="Facility" value-name="facility"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
@@ -995,7 +995,7 @@ under the License.
         <section>
             <actions>
                 <set field="tabButtonItem" value="ReceiveInventory"/>
-                <script location="component://product/webapp/facility/WEB-INF/actions/inventory/receiveInventory.bsh"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/inventory/ReceiveInventory.groovy"/>
                 <set field="facilityId" from-field="parameters.facilityId"/>
                 <entity-one entity-name="Facility" value-name="facility"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
@@ -1019,7 +1019,7 @@ under the License.
                 <set field="headerItem" value="facility"/>
                 <set field="tabButtonItem" value="ReceiveReturn"/>
 
-                <script location="component://product/webapp/facility/WEB-INF/actions/returns/receiveReturn.bsh"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/returns/ReceiveReturn.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
