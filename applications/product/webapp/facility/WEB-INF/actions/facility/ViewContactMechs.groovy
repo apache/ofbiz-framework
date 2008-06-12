@@ -17,27 +17,25 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.party.contact.*;
+import org.ofbiz.base.util.*
+import org.ofbiz.party.contact.*
 
-context.put("nowStr", UtilDateTime.nowTimestamp());
+context.nowStr = UtilDateTime.nowTimestamp();
 
-facilityId = parameters.get("facilityId");
-facility = delegator.findByPrimaryKey("Facility", UtilMisc.toMap("facilityId", facilityId));
+facilityId = parameters.facilityId;
+facility = delegator.findOne("Facility", [facilityId : facilityId], false);
 facilityType = null;
-if (facility == null) {
-  context.put("facility", delegator.makeValue( "Facility", null ) );
-  context.put("facilityType", delegator.makeValue( "FacilityType", null ) );
+if (!facility) {
+  context.facility = delegator.makeValue("Facility", null);
+  context.facilityType = delegator.makeValue("FacilityType", null);
 } else {
   facilityType = facility.getRelatedOne("FacilityType");
 }
-context.put("facility", facility);
-context.put("facilityType", facilityType);
-context.put("facilityId", facilityId);
+context.facility = facility;
+context.facilityType = facilityType;
+context.facilityId = facilityId;
 
-boolean showOld = "true".equals(request.getParameter("SHOW_OLD"));
-context.put("showOld", new Boolean(showOld));
+showOld = "true".equals(request.getParameter("SHOW_OLD"));
+context.showOld = new Boolean(showOld);
 
-List facilityContactMechValueMaps = ContactMechWorker.getFacilityContactMechValueMaps(delegator, facilityId, showOld, null);
-context.put("contactMeches", facilityContactMechValueMaps);
-
+context.contactMeches = ContactMechWorker.getFacilityContactMechValueMaps(delegator, facilityId, showOld, null);

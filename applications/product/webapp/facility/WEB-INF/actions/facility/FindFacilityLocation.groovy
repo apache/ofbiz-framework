@@ -17,45 +17,37 @@
  * under the License.
  */
 
-import java.util.*;
-import java.io.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.widget.html.*;
+import org.ofbiz.entity.condition.*
+import org.ofbiz.base.util.*
 
-delegator = request.getAttribute("delegator");
-
-facilityId = parameters.get("facilityId");
-context.put("facilityId", facilityId);
+facilityId = parameters.facilityId;
+context.facilityId = facilityId;
 
 lookup = request.getParameter("look_up");
 itemId = request.getParameter("inventoryItemId");
-if (itemId != null) {
+if (itemId) {
     session.setAttribute("inventoryItemId", itemId);
 }
 
 itemId = session.getAttribute("inventoryItemId");
-context.put("itemId", itemId);
+context.itemId = itemId;
 
-facility = delegator.findByPrimaryKey("Facility", UtilMisc.toMap("facilityId", facilityId));
-context.put("facility", facility);
+facility = delegator.findOne("Facility", [facilityId : facilityId], false);
+context.facility = facility;
 
 UtilHttp.parametersToAttributes(request);
-List foundLocations = null;
-if (lookup != null) {
-    Map reqParamMap = UtilHttp.getParameterMap(request);
-    Map paramMap = new HashMap(reqParamMap);
+if (lookup) {
+    reqParamMap = UtilHttp.getParameterMap(request);
+    paramMap = new HashMap(reqParamMap);
     paramMap.remove("look_up");
-    Iterator i = reqParamMap.keySet().iterator();
-    while (i.hasNext()) {
-        Object key = i.next();
-        String value = (String) paramMap.get(key);
-        if (value == null || value.length() == 0) {
+    reqParamMap.keySet().each { key ->
+        value = paramMap.get(key);
+        if (!value || value.length() == 0) {
             paramMap.remove(key);
         }
     }
-    foundLocations = delegator.findByAnd("FacilityLocation", paramMap);
-    if (foundLocations != null && foundLocations.size() > 0) {
-        context.put("foundLocations", foundLocations);
+    foundLocations = delegator.findList("FacilityLocation", EntityCondition.makeCondition(paramMap), null, null, null, false);
+    if (foundLocations) {
+        context.foundLocations = foundLocations;
     }
 }
