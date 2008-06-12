@@ -38,34 +38,10 @@ under the License.
                         <container>
                             <label style="h1">${uiLabelMap.ManufacturingManageCostComponentCalc}</label>
                         </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.ManufacturingListCostComponentCalc}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="ListCostComponentCalc" location="component://manufacturing/widget/manufacturing/CostForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.ManufacturingEditCostComponentCalc}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="EditCostComponentCalc" location="component://manufacturing/widget/manufacturing/CostForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>                        
+                        <screenlet id="CostComponentCalcPanel" title="${uiLabelMap.ManufacturingEditCostComponentCalc}" collapsible="true">
+                            <include-form name="EditCostComponentCalc" location="component://manufacturing/widget/manufacturing/CostForms.xml"/>
+                        </screenlet>
+                        <include-form name="ListCostComponentCalc" location="component://manufacturing/widget/manufacturing/CostForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

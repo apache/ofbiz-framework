@@ -144,7 +144,7 @@ under the License.
         </field>
     </form>
     <form name="ListRoutingTaskCosts" type="list" title="" list-name="allCosts"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="WorkEffortCostCalc" default-field-type="display"/>
         <field name="workEffortId"><hidden/></field>
         <field name="costComponentTypeId">
@@ -198,7 +198,7 @@ under the License.
     
     <!-- Routing Task Assoc Forms -->
     <form name="ListRoutingTaskAssoc" type="list" target="EditRoutingTaskAssoc" title="" list-name="allRoutingTasks"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="updateWorkEffortAssoc" map-name="routingTaskAssoc"/>
         <field name="workEffortIdFrom"><hidden/></field>
         <field name="sequenceNum" title="${uiLabelMap.CommonSequenceNum}"><display/></field>
@@ -260,7 +260,7 @@ under the License.
     </form>
 
    <form name="ListRoutingProductLink" type="list" target="EditRoutingProductLink" title="" list-name="allRoutingProductLinks"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="productId" widget-style="buttontext">
             <hyperlink description="${productId}" target="/catalog/control/ViewProductManufacturing?productId=${productId}" also-hidden="false" target-type="inter-app"/>
         </field>
@@ -278,7 +278,7 @@ under the License.
         </field>
     </form>
    <form name="ListRoutingTaskProducts" type="list" target="ListRoutingTaskProducts" title="" list-name="allProducts"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="productId" title="${uiLabelMap.ProductProductName}">
             <display-entity entity-name="Product" description="${productId} ${internalName}"/>
         </field>
@@ -313,7 +313,7 @@ under the License.
     
     <!-- RoutingTask-FixedAsset association (WorkEffortFixedAssetStd) -->
     <form name="ListRoutingTaskFixedAssets" type="list" title="" target="updateRoutingTaskFixedAsset" list-name="allFixedAssets"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="WorkEffortFixedAssetStd" />
         <field name="workEffortId"><hidden/></field>
         <field name="fixedAssetTypeId">
