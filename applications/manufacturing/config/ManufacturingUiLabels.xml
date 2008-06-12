@@ -1363,14 +1363,6 @@
         <value xml:lang="th">รายการของสัปดาห์</value>
         <value xml:lang="zh">周列表</value>
     </property>
-    <property key="ManufacturingListCostComponentCalc">
-        <value xml:lang="en">List Cost Component Calc Entries</value>
-        <value xml:lang="es">Lista de calculo de componentes</value>
-        <value xml:lang="it">Lista Costi Componenti Voci Calcolo</value>
-        <value xml:lang="ro">Lista Costuri Componente Date Calcul</value>
-        <value xml:lang="th">เข้าสู่ส่วนของรายการคำนวณราคา</value>
-        <value xml:lang="zh">列出费用组成计算记录</value>
-    </property>
     <property key="ManufacturingListOfProductionRunComponents">
         <value xml:lang="en">List Of Production Run Components</value>
         <value xml:lang="es">Lista de componentes de la corrida de produción</value>
@@ -2845,23 +2837,6 @@
         <value xml:lang="ro">Lista saptamanilor</value>
         <value xml:lang="th">รายการของสัปดาห์</value>
         <value xml:lang="zh">周列表</value>
-    </property>
-    <property key="PageTitleListRoutingProductLink">
-        <value xml:lang="en">List Routing Product Link</value>
-        <value xml:lang="it">Lista Link Prodotti Operazioni</value>
-        <value xml:lang="th">รายการเชื่อมต่อกับงานสินค้า</value>
-    </property>
-    <property key="PageTitleListRoutingTaskAssoc">
-        <value xml:lang="en">List Routing Task Assoc</value>
-        <value xml:lang="it">Lista Associazioni Operazioni</value>
-        <value xml:lang="th">รายการกลลุ่มของงาน</value>
-    </property>
-    <property key="PageTitleListRoutingTaskProducts">
-        <value xml:lang="en">Edit Routing Task Products</value>
-        <value xml:lang="it">Aggiorna Operazione Prodotti</value>
-        <value xml:lang="ro">Actualizare Operatii Produse</value>
-        <value xml:lang="th">แก้ไขงานด้านสินค้า</value>
-        <value xml:lang="zh">编辑规程任务的产品</value>
     </property>
     <property key="PageTitleListRoutingTaskRoutings">
         <value xml:lang="en">Edit Routing Task Routings</value>
