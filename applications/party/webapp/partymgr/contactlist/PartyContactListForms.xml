@@ -20,7 +20,7 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
     <form name="ListPartyContactLists" type="list" target="updateContactListParty"
-        separate-columns="false"  odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        separate-columns="false" header-row-style="header-row-2"  odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="ContactListParty">
                 <field-map field-name="partyId"/>
