@@ -4222,36 +4222,6 @@
         <value xml:lang="th">แก้ไขกลุ่มคลังสินค้า</value>
         <value xml:lang="zh">编辑场所组</value>
     </property>
-    <property key="PageTitleEditFacilityGroupMembers">
-        <value xml:lang="en">Edit Facility Group Members</value>
-        <value xml:lang="es">Editar Miembros de un Grupo de Almacén</value>
-        <value xml:lang="fr">Édition des membres du groupe de lieux de stockage</value>
-        <value xml:lang="it">Aggiorna Membri Gruppo Stabilimento</value>
-        <value xml:lang="ro">Actualizeaza Membri Grup Compartiment</value>
-        <value xml:lang="ru">Изменить членов группы объектов</value>
-        <value xml:lang="th">แก้ไขสมาชิกกลุ่มคลังสินค้า</value>
-        <value xml:lang="zh">编辑场所组成员</value>
-    </property>
-    <property key="PageTitleEditFacilityGroupRoles">
-        <value xml:lang="en">Edit Facility Group Roles</value>
-        <value xml:lang="es">Editar Roles de un Grupo de Almacén</value>
-        <value xml:lang="fr">Édition des rôles du groupe de lieux de stockage</value>
-        <value xml:lang="it">Aggiorna Ruoli Gruppo Stabilimento</value>
-        <value xml:lang="ro">Actualizeaza Roluri Grup Compartiment</value>
-        <value xml:lang="ru">Изменить роли группы объектов</value>
-        <value xml:lang="th">แก้ไขสถานะกลุ่มคลังสินค้า</value>
-        <value xml:lang="zh">编辑场所组角色</value>
-    </property>
-    <property key="PageTitleEditFacilityGroupRollup">
-        <value xml:lang="en">Edit Facility Group Rollup</value>
-        <value xml:lang="es">Editar jerarquía de un Grupo de Almacén</value>
-        <value xml:lang="fr">Édition des nomenclatures du groupe de lieux de stockage</value>
-        <value xml:lang="it">Aggiorna Gruppo Stabilimento Arrivo</value>
-        <value xml:lang="ro">Actualizeaza Grup Compartiment Sosire</value>
-        <value xml:lang="ru">Изменить подчиненность группы объектов</value>
-        <value xml:lang="th">Edit Facility Group Rollup</value>
-        <value xml:lang="zh">编辑场所组汇总</value>
-    </property>
     <property key="PageTitleEditFacilityGroups">
         <value xml:lang="en">Edit Facility Groups for ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="es">Editar Grupos de Almacén</value>
@@ -4356,18 +4326,6 @@
         <value xml:lang="ru">Изменить позицию реестра ТМЦ</value>
         <value xml:lang="th">แก้ไขรายการสินค้าคงเหลือ</value>
         <value xml:lang="zh">编辑库存明细</value>
-    </property>
-    <property key="PageTitleEditInventoryItemLabelAppls">
-        <value xml:lang="en">Edit Inventory Item Label Appls</value>
-        <value xml:lang="fr">Éditer l'étiquette d'article d'inventaire applicable</value>
-        <value xml:lang="it">Aggiorna Applicabilità Etichetta Riga Inventario</value>
-        <value xml:lang="th">Edit Inventory Item Label Appls</value>
-    </property>
-    <property key="PageTitleEditInventoryItemLabelTypes">
-        <value xml:lang="en">Edit Inventory Item Label Types</value>
-        <value xml:lang="fr">Éditer les types d'étiquette d'article d'inventaire</value>
-        <value xml:lang="it">Aggiorna Tipo Etichetta Riga Inventario</value>
-        <value xml:lang="th">Edit Inventory Item Label Types</value>
     </property>
     <property key="PageTitleEditProduct">
         <value xml:lang="en">Edit Product</value>
@@ -9922,16 +9880,6 @@
         <value xml:lang="ru">Поддержка членов группы</value>
         <value xml:lang="th">การรักษาสภาพกลุ่มสมาชิก</value>
         <value xml:lang="zh">组成员维护</value>
-    </property>
-    <property key="ProductGroupRollupChildGroups">
-        <value xml:lang="en">Group Rollup : Update Child Groups</value>
-        <value xml:lang="es">Jerarquía de Grupo: Grupos hijos</value>
-        <value xml:lang="fr">Nomenclature de groupe : groupe enfant</value>
-        <value xml:lang="it">Aggiorna Gruppo Stabilimento Arrivo : Gruppi Figlio</value>
-        <value xml:lang="ro">Grup Sosire : Grupuri Fiu</value>
-        <value xml:lang="ru">Подчиненность группы: подчиненные группы</value>
-        <value xml:lang="th">Group Rollup : Update Child Groups</value>
-        <value xml:lang="zh">组汇总：下级组</value>
     </property>
     <property key="ProductGroupRollupChildGroupsAdd">
         <value xml:lang="en">Group Rollup : Add Child Groups</value>
