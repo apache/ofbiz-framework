@@ -257,35 +257,11 @@ under the License.
                         <include-form name="ListSurveyQuestions" location="component://content/webapp/content/survey/SurveyForms.xml"/>
                         <include-form name="CreateSurveyQuestion" location="component://content/webapp/content/survey/SurveyForms.xml"/>
                         -->
-                        
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleListSurveyPages} ${uiLabelMap.SurveySurveyId} ${surveyId}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="ListSurveyPages" location="component://content/webapp/content/survey/SurveyForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditSurveyPages} ${uiLabelMap.SurveySurveyId} ${surveyId}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="AddSurveyPage" location="component://content/webapp/content/survey/SurveyForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+
+                        <screenlet id="SurveyPagePanel" title="${uiLabelMap.PageTitleEditSurveyPages} ${uiLabelMap.SurveySurveyId} ${surveyId}" collapsible="true">
+                            <include-form name="AddSurveyPage" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                        </screenlet>
+                        <include-form name="ListSurveyPages" location="component://content/webapp/content/survey/SurveyForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

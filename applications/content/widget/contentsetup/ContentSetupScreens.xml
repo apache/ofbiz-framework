@@ -32,34 +32,10 @@ under the License.
             <widgets>
                 <decorator-screen name="commonContentSetupDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditContentType}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="UpdateContentType" location="component://content/webapp/content/contentsetup/ContentSetupForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditContentType}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="AddContentType" location="component://content/webapp/content/contentsetup/ContentSetupForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet id="ContentTypePanel" title="${uiLabelMap.PageTitleEditContentType}" collapsible="true">
+                            <include-form name="AddContentType" location="component://content/webapp/content/contentsetup/ContentSetupForms.xml"/>
+                        </screenlet>
+                        <include-form name="UpdateContentType" location="component://content/webapp/content/contentsetup/ContentSetupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -76,34 +52,10 @@ under the License.
             <widgets>
                 <decorator-screen name="commonContentSetupDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditContentAttribute}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="UpdateContentTypeAttr" location="component://content/webapp/content/contentsetup/ContentSetupForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditContentAttribute}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="AddContentTypeAttr" location="component://content/webapp/content/contentsetup/ContentSetupForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container> 
+                        <screenlet id="ContentTypeAttrPanel" title="${uiLabelMap.PageTitleEditContentAttribute}" collapsible="true">
+                            <include-form name="AddContentTypeAttr" location="component://content/webapp/content/contentsetup/ContentSetupForms.xml"/>
+                        </screenlet>
+                        <include-form name="UpdateContentTypeAttr" location="component://content/webapp/content/contentsetup/ContentSetupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -120,34 +72,10 @@ under the License.
             <widgets>
                 <decorator-screen name="commonContentSetupDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditContentAssoc}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="UpdateContentAssocType" location="component://content/webapp/content/contentsetup/ContentSetupForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditContentAssoc}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="AddContentAssocType" location="component://content/webapp/content/contentsetup/ContentSetupForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet id="ContentAssocTypePanel" title="${uiLabelMap.PageTitleEditContentAssoc}" collapsible="true">
+                            <include-form name="AddContentAssocType" location="component://content/webapp/content/contentsetup/ContentSetupForms.xml"/>
+                        </screenlet>
+                        <include-form name="UpdateContentAssocType" location="component://content/webapp/content/contentsetup/ContentSetupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -164,34 +92,10 @@ under the License.
             <widgets>
                 <decorator-screen name="commonContentSetupDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditContentPurpose}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="UpdateContentPurposeType" location="component://content/webapp/content/contentsetup/ContentSetupForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditContentPurpose}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="AddContentPurposeType" location="component://content/webapp/content/contentsetup/ContentSetupForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet id="ContentPurposeTypePanel" title="${uiLabelMap.PageTitleEditContentPurpose}" collapsible="true">
+                            <include-form name="AddContentPurposeType" location="component://content/webapp/content/contentsetup/ContentSetupForms.xml"/>
+                        </screenlet>
+                        <include-form name="UpdateContentPurposeType" location="component://content/webapp/content/contentsetup/ContentSetupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -208,34 +112,10 @@ under the License.
             <widgets>
                 <decorator-screen name="commonContentSetupDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditContentAssocPredicate}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="UpdateContentAssocPredicate" location="component://content/webapp/content/contentsetup/ContentSetupForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditContentAssocPredicate}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="AddContentAssocPredicate" location="component://content/webapp/content/contentsetup/ContentSetupForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet id="ContentAssocPredicatePanel" title="${uiLabelMap.PageTitleEditContentAssocPredicate}" collapsible="true">
+                            <include-form name="AddContentAssocPredicate" location="component://content/webapp/content/contentsetup/ContentSetupForms.xml"/>
+                        </screenlet>
+                        <include-form name="UpdateContentAssocPredicate" location="component://content/webapp/content/contentsetup/ContentSetupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -252,34 +132,10 @@ under the License.
             <widgets>
                 <decorator-screen name="commonContentSetupDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditContentPurposeOperation}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="UpdateContentPurposeOperation" location="component://content/webapp/content/contentsetup/ContentSetupForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditContentPurposeOperation}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="AddContentPurposeOperation" location="component://content/webapp/content/contentsetup/ContentSetupForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet id="ContentPurposeOperationPanel" title="${uiLabelMap.PageTitleEditContentPurposeOperation}" collapsible="true">
+                            <include-form name="AddContentPurposeOperation" location="component://content/webapp/content/contentsetup/ContentSetupForms.xml"/>
+                        </screenlet>
+                        <include-form name="UpdateContentPurposeOperation" location="component://content/webapp/content/contentsetup/ContentSetupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -318,34 +174,10 @@ under the License.
             <widgets>
                 <decorator-screen name="commonContentSetupDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditContentOperation}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="UpdateContentOperation" location="component://content/webapp/content/contentsetup/ContentSetupForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditContentOperation}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="AddContentOperation" location="component://content/webapp/content/contentsetup/ContentSetupForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet id="ContentOperationPanel" title="${uiLabelMap.PageTitleEditContentOperation}" collapsible="true">
+                            <include-form name="AddContentOperation" location="component://content/webapp/content/contentsetup/ContentSetupForms.xml"/>
+                        </screenlet>
+                        <include-form name="UpdateContentOperation" location="component://content/webapp/content/contentsetup/ContentSetupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

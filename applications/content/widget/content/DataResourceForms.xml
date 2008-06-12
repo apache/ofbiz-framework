@@ -283,7 +283,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListDataResourceAttribute" list-name="dataResourceAttribute" target="updateDataResourceAttribute" title="" type="list"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -312,7 +312,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListDataResourceRole" list-name="dataResourceRole" target="updateDataResourceRole" title="" type="list"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -336,7 +336,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListDataResourceProductFeature" list-name="productFeatureDataResource" target="" title="" type="list"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
