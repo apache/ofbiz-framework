@@ -580,4 +580,10 @@ under the License.
             <link target="editInvoiceItemType"/>
         </menu-item>    
     </menu>
+    <menu name="AgreementTabBar" menu-container-style="button-bar tab-bar" default-selected-style="selected">
+        <menu-item name="createNewAgreement" title="${uiLabelMap.AccountingNewAgreement}">
+            <link target="EditAgreement"/>
+        </menu-item>
+    </menu>
+
 </menus>

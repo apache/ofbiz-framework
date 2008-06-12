@@ -1761,6 +1761,25 @@ under the License.
         <response name="success" type="view" value="EditPaymentMethodType"/>
         <response name="error" type="view" value="EditPaymentMethodType"/>         
     </request-map>
+    <request-map uri="EditAgreementRoles">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditAgreementRoles"/>
+    </request-map>
+    <request-map uri="createAgreementRole">
+        <event type="service" invoke="createAgreementRole"/>
+        <response name="success" type="view" value="EditAgreementRoles"/>
+        <response name="error" type="view" value="EditAgreementRoles"/>
+    </request-map>
+    <request-map uri="updateAgreementRole">
+        <event type="service" invoke="updateAgreementRole"/>
+        <response name="success" type="view" value="EditAgreementRoles"/>
+        <response name="error" type="view" value="EditAgreementRoles"/>
+    </request-map>
+    <request-map uri="deleteAgreementRole">
+        <event type="service" invoke="deleteAgreementRole"/>
+        <response name="success" type="view" value="EditAgreementRoles"/>
+        <response name="error" type="view" value="EditAgreementRoles"/>
+    </request-map>
     
     <!-- ================ Entity Lookup Requests ================= -->
     <request-map uri="LookupProduct"><security auth="true" https="true"/><response name="success" type="view" value="LookupProduct"/></request-map>
@@ -2056,6 +2075,9 @@ under the License.
     
     <!-- Payment Method Type   -->
     <view-map name="EditPaymentMethodType" type="screen" page="component://accounting/widget/PaymentMethodTypeScreens.xml#EditPaymentMethodType"/>
+
+    <!-- Agreements Views   -->
+    <view-map name="EditAgreementRoles" type="screen" page="component://accounting/widget/AgreementScreens.xml#EditAgreementRoles"/>
     
     <!-- end of view mappings -->
 </site-conf>

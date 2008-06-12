@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
+    
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -306,6 +307,9 @@
         <value xml:lang="th">รหัสสัญญา</value>
         <value xml:lang="zh">合同编号</value>
     </property>
+    <property key="AccountingAgreementInformation">
+        <value xml:lang="en">Agreement Information</value>
+    </property>
     <property key="AccountingAgreementIsNotSetForSupplierProducts">
         <value xml:lang="en">Please set a supplier in Agreement.partyIdTo and a currency in the AgreementItem before editing the price list</value>
         <value xml:lang="th">กรุณากำหนดผู้จัดหาสิ่งของในสัญญา ถึงกลุ่มผู้ใช้และเงินในสิ่งของที่ตกลงก่อนแก้ไขรายการราคา
@@ -381,6 +385,9 @@
         <value xml:lang="ru">Акции</value>
         <value xml:lang="th">โปรโมชัน</value>
         <value xml:lang="zh">促销</value>
+    </property>
+    <property key="AccountingAgreementRoles">
+        <value xml:lang="en">Agreement Roles</value>
     </property>
     <property key="AccountingAgreementTermId">
         <value xml:lang="ar">رمز بند إتفاق</value>
@@ -3887,6 +3894,9 @@ esetata in mod automat</value>
         <value xml:lang="ru">Добавить новую акцию</value>
         <value xml:lang="th">เพิ่มโปรโมชันใหม่</value>
         <value xml:lang="zh">新建促销</value>
+    </property>
+    <property key="AccountingNewAgreementRole">
+        <value xml:lang="en">Create New Agreement Role</value>
     </property>
     <property key="AccountingNewAgreementTerm">
         <value xml:lang="ar">اضافة بند إتفاقية</value>
@@ -8098,6 +8108,9 @@ esetata in mod automat</value>
         <value xml:lang="th">รายการบัญชีแยกประเภททั่วไป</value>
         <value xml:lang="zh">总账账户列表</value>
     </property>
+    <property key="OrderSelectAgreementRoles">
+        <value xml:lang="en">Select order agreement Roles</value>
+    </property>
     <property key="Organization">
         <value xml:lang="ar">المؤسسة</value>
         <value xml:lang="en">Organization</value>
@@ -8109,6 +8122,9 @@ esetata in mod automat</value>
         <value xml:lang="ru">Организация</value>
         <value xml:lang="th">องค์กร</value>
         <value xml:lang="zh">团体</value>
+    </property>
+    <property key="PageTitleAddAgreementRoles">
+        <value xml:lang="en">Add Agreement Roles</value>
     </property>
     <property key="PageTitleAddBillingAccountRoles">
         <value xml:lang="en">Add Billing Account Roles</value>
@@ -8559,6 +8575,9 @@ esetata in mod automat</value>
         <value xml:lang="th">หาสัญญา</value>
         <value xml:lang="zh">查找合同</value>
     </property>
+    <property key="PageTitleFindAgreementRoles">
+        <value xml:lang="en">Find Agreement Roles</value>
+    </property>
     <property key="PageTitleFindBillingAccount">
         <value xml:lang="en">Find Billing Account(s)</value>
         <value xml:lang="es">Encontrar Cuenta(s) de Facturación</value>
@@ -8702,6 +8721,9 @@ esetata in mod automat</value>
         <value xml:lang="it">Lista Applicazioni Promozionali Contratto</value>
         <value xml:lang="ru">Список акций элемента договора</value>
         <value xml:lang="th">List Agreement Promo Appls</value>
+    </property>
+    <property key="PageTitleListAgreementRoles">
+        <value xml:lang="en">List Agreement Roles</value>
     </property>
     <property key="PageTitleListAgreementTerms">
         <value xml:lang="en">List Agreement Terms</value>

@@ -79,8 +79,9 @@ under the License.
     <form name="EditAgreement" type="single" target="updateAgreement" title="" default-map-name="agreement"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="agreement==null" target="createAgreement"/>
-        <auto-fields-entity entity-name="Agreement" default-field-type="edit"/>
-        <field name="agreementId" title="${uiLabelMap.AccountingAgreementId}"><display/></field>
+        <auto-fields-service service-name="updateAgreement" default-field-type="edit" map-name="agreement"/>
+        <field name="agreementId" use-when="agreementId!=null" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field name="agreementId" use-when="agreement==null&amp;&amp;agreementId==null"><ignored/></field>
         <field name="productId" title="${uiLabelMap.AccountingProductId}">
             <lookup target-form-name="LookupProduct"/>
         </field>
@@ -501,5 +502,32 @@ under the License.
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteAgreementWorkEffortAppl?agreementId=${agreementId}&amp;agreementItemSeqId=${agreementItemSeqId}&amp;workEffortId=${workEffortId}"/>
         </field>
+    </form>
+    <form name="ListAgreementRoles" list-name="agreementRoles" type="list" paginate-target="FindAgreementRoles"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-and entity-name="AgreementRole" use-cache="true" list-name="agreementRoles">
+                <field-map field-name="agreementId" env-name="agreementId"/>
+            </entity-and>
+        </actions>
+        <auto-fields-entity entity-name="AgreementRole" default-field-type="display"/>
+        <field name="agreementId"><hidden/></field>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}"><display/></field>
+        <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}"><display/></field>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink target="deleteAgreementRole?agreementId=${agreementId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}" description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
+        </field>
+    </form>
+    <form name="AddAgreementRole" type="single" target="createAgreementRole" 
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-entity entity-name="AgreementRole" default-field-type="edit"/>
+        <field name="agreementId"><hidden/></field>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>        
     </form>
 </forms>

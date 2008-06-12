@@ -52,8 +52,28 @@ under the License.
           </div>
         </td>
       </tr>
-
       <#else><input type='hidden' name='hasAgreements' value='N'/>
+      </#if>
+      <#if agreementRoles?exists>
+        <tr>
+          <td>&nbsp;</td>
+          <td align='right' valign='top' nowrap>
+            <div class='tableheadtext'>
+              ${uiLabelMap.OrderSelectAgreementRoles}
+            </div>
+          </td>
+          <td>&nbsp;</td>
+          <td valign='middle'>
+            <div class='tabletext' valign='top'>
+              <select name="agreementId" class="inputBox">
+              <option value="">${uiLabelMap.CommonNone}</option>
+              <#list agreementRoles as agreementRole>
+                  <option value='${agreementRole.agreementId?if_exists}' >${agreementRole.agreementId?if_exists} - ${agreementRole.roleTypeId?if_exists}</option>
+              </#list>
+              </select>
+            </div>
+          </td>
+        </tr>
       </#if>
 
       <tr>
