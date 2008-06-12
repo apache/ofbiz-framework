@@ -297,7 +297,7 @@
         <field name="addButton"><submit/></field>
     </form>
     <form name="DependenciesBefore" target="removeDependency" title="" list-name="depList" type="list" separate-columns="true" paginate-target="Dependencies"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <row-actions>
             <service service-name="getProjectTask" result-map-name="r">
                 <field-map field-name="taskId" env-name="workEffortIdFrom"/>
@@ -317,7 +317,7 @@
         <field name="deleteButton"><submit button-type="button"/></field>
     </form>
     <form name="DependenciesAfter" target="removeDependency" title="" list-name="depList" type="list" separate-columns="true" paginate-target="Dependencies"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <row-actions>
             <service service-name="getProjectTask" result-map-name="r">
                 <field-map field-name="taskId" env-name="workEffortIdTo"/>
@@ -455,7 +455,7 @@
         <field name="addButton" title="${uiLabelMap.CommonAdd}"><submit/></field>
     </form>    
     <form name="ListTaskNotes" extends="ListWorkEffortNotes" extends-resource="component://workeffort/widget/WorkEffortForms.xml" type="list" list-name="taskNotes" paginate-target="EditTaskNotes"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="WorkEffortNoteAndData">
                 <condition-expr field-name="workEffortId" env-name="workEffortId"/>
@@ -491,7 +491,7 @@
         <field name="createdDate"><display type="date"/></field>
     </form>                                         
     <form name="EditWorkEffortPartyAssigns" target="deleteTaskPartyAssign" title="" type="list" paginate-target="EditTaskPartyAssigns"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="WorkEffortPartyAssignment">
                 <condition-expr field-name="workEffortId" operator="equals" env-name="workEffortId"/>

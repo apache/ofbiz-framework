@@ -78,7 +78,7 @@
         <field name="find" title="${uiLabelMap.CommonFind}"><submit/></field>
     </form>
     <form name="ListResources" type="list" list-name="resources" paginate-target="FindResource"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <row-actions>
             <service service-name="getPartyEmail" result-map-name="emailResult"/>
             <service service-name="getPartyTelephone" result-map-name="telResult"/>
@@ -157,7 +157,7 @@
         <field name="createdStamp" title="${uiLabelMap.FormFieldTitle_createdDate}"><display type="date"/></field>
     </form>                                        	
     <form name="EditSubProjects" list-name="projects" type="list" target="RemoveSubProject"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="WorkEffort">
                 <field-map field-name="workEffortParentId" env-name="projectId"/>
@@ -302,7 +302,7 @@
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>       
     <form name="ListPhases" target="updateProjectPhase" title="" list-name="phases" type="list" separate-columns="true" paginate-target="FindPhase"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="projectId"><hidden value="${parameters.projectId}"/></field>
         <field name="phaseId" parameter-name="workEffortId"><hidden/></field>
         <field name="phaseName" parameter-name="workEffortName" title="${uiLabelMap.CommonName}*"><text/></field>
@@ -368,7 +368,7 @@
         </field>
     </form>
     <form name="EditWorkEffortPartyAssigns" target="deleteWorkEffortPartyAssign" title="" type="list" paginate-target="ListWorkEffortPartyAssigns"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="WorkEffortPartyAssignView">
                 <condition-expr field-name="workEffortId" operator="equals" env-name="workEffortId"/>
@@ -424,7 +424,7 @@
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListProjectNotes" extends="ListWorkEffortNotes" extends-resource="component://workeffort/widget/WorkEffortForms.xml" type="list" paginate-target="EditWorkEffortNotes"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="WorkEffortNoteAndData">
                 <condition-expr field-name="workEffortId" env-name="workEffortId"/>
@@ -436,7 +436,7 @@
         <field name="noteParty" title="${uiLabelMap.CommonBy}" widget-style="tabletext"><display description="${bsh:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, noteParty, true)} at ${bsh: org.ofbiz.base.util.UtilDateTime.timeStampToString(noteDateTime, &quot;dd-MM-yyyy HH:mm&quot;, TimeZone.getDefault(), context.get(&quot;locale&quot;))}"/></field>
     </form>
     <form name="listResourcesTasks" type="list" list-name="tasks" paginate-target="listResourcesTask" target="updateResourcesTaskAssigment"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <row-actions>
             <service service-name="getProjectIdAndNameFromTask" result-map-name="resultProject">
                 <field-map field-name="taskId" env-name="workEffortId"/>
@@ -470,7 +470,7 @@
         <field name="toComplete" title="${uiLabelMap.CommonStatustoComplete}"><hyperlink target="updateResourcesTaskAssigment?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=PAS_COMPLETED" description="${uiLabelMap.CommonStatustoComplete}"/></field>
     </form>
     <form name="listResourcesProjects" type="list" list-name="parties"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <row-actions>
             <service service-name="getProject" result-map-name="result">
                 <field-map field-name="projectId" env-name="workEffortId"/>

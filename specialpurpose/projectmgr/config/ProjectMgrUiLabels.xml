@@ -221,12 +221,6 @@
         <value xml:lang="th">ชั่วโมงที่ทำรายการไม่เสร็จ</value>
         <value xml:lang="zh">未开账单的工时</value>
     </property>
-    <property key="PageTitleListPartyAssigns">
-        <value xml:lang="en">Current Resource Assignments</value>
-        <value xml:lang="it">Risorse Attualmente Assegnate</value>
-        <value xml:lang="th">กำหนดแหล่งที่มาที่ใช้กันอยู่ในปัจจุบัน</value>
-        <value xml:lang="zh">当前资源分配</value>
-    </property>
     <property key="PageTitleListProjectByParty">
         <value xml:lang="en">List Project by Party</value>
         <value xml:lang="it">Lista Progetti per Soggetto</value>
@@ -244,12 +238,6 @@
         <value xml:lang="it">Risorse</value>
         <value xml:lang="th">แหล่งที่มา</value>
         <value xml:lang="zh">资源</value>
-    </property>
-    <property key="PageTitleListSubProjects">
-        <value xml:lang="en">List of Subprojects</value>
-        <value xml:lang="it">Lista dei Sotto-Progetti</value>
-        <value xml:lang="th">แสดงรายการของโปรเจคย่อย</value>
-        <value xml:lang="zh">子项目列表</value>
     </property>
     <property key="PageTitleListTaskByParty">
         <value xml:lang="en">List Task by Party</value>
