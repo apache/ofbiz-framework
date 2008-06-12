@@ -914,34 +914,10 @@ under the License.
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
                         <include-menu name="InventoryItemTabBar" location="component://product/widget/facility/Menus.xml"/>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.ProductInventoryItemLabels} ${uiLabelMap.CommonFor} [${inventoryItemId}]"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>    
-                                    <widgets>
-                                        <include-form name="UpdateInventoryItemLabelAppls" location="component://product/webapp/facility/inventory/InventoryForms.xml"/>                                        
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.ProductInventoryItemLabels} ${uiLabelMap.CommonFor} [${inventoryItemId}]"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>    
-                                    <widgets>
-                                        <include-form name="AddInventoryItemLabelAppl" location="component://product/webapp/facility/inventory/InventoryForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet id="InventoryItemLabelPanel" title="${uiLabelMap.ProductInventoryItemLabels} ${uiLabelMap.CommonFor} [${inventoryItemId}]" collapsible="true">
+                            <include-form name="AddInventoryItemLabelAppl" location="component://product/webapp/facility/inventory/InventoryForms.xml"/>
+                        </screenlet>
+                        <include-form name="UpdateInventoryItemLabelAppls" location="component://product/webapp/facility/inventory/InventoryForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

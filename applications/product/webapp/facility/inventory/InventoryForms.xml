@@ -176,7 +176,7 @@ under the License.
     </form>
     <!-- Inventory Item Labels -->
     <form name="UpdateInventoryItemLabelAppls" type="list" target="updateInventoryItemLabelApplFromItem" title="" list-name="inventoryItemLabelAppls"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="updateInventoryItemLabelAppl"/>
         <field name="inventoryItemLabelId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="EditInventoryItemLabel?inventoryItemLabelId=${inventoryItemLabelId}" description="${inventoryItemLabelId}" also-hidden="true"/>
