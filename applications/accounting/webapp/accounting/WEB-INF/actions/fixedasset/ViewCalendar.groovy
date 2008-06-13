@@ -25,25 +25,22 @@ import java.sql.Timestamp;
 import java.text.*;
 
 // The view mode - Day, Week, or Month
-String viewMode = parameters.get("viewMode");
-if (UtilValidate.isEmpty(viewMode)) {
-    viewMode = "W";
-    parameters.put("viewMode", viewMode);
-}
+viewMode = parameters.viewMode ?: "W";
+parameters.viewMode = viewMode;
 
 // Prepare vars for mode-specific date calculations
-String startParam = parameters.get("start");
-if(startParam == null) {
+startParam = parameters.start;
+if(!startParam) {
     start = nowTimestamp.clone();
 } else {
     start = new Timestamp(Long.parseLong(startParam));
 }
-int numPeriods = 24;
-int periodType = Calendar.HOUR;
-Timestamp getFrom = null;
-Timestamp prev = null;
-Timestamp next = null;
-Timestamp end = null;
+numPeriods = 24;
+periodType = Calendar.HOUR;
+getFrom = null;
+prev = null;
+next = null;
+end = null;
 
 if ("D".equals(viewMode)) {
     // Day view
@@ -55,22 +52,22 @@ if ("D".equals(viewMode)) {
     // Week view
     start = UtilDateTime.getWeekStart(start, timeZone, locale);
     getFrom = new Timestamp(start.getTime());
-    prev = UtilDateTime.getDayStart(start,-7, timeZone, locale);
-    next = UtilDateTime.getDayStart(start,7, timeZone, locale);
+    prev = UtilDateTime.getDayStart(start, -7, timeZone, locale);
+    next = UtilDateTime.getDayStart(start, 7, timeZone, locale);
     end = UtilDateTime.getDayStart(start,6, timeZone, locale);
     numPeriods = 7;
     periodType = Calendar.DATE;
 } else {
     // Month view
     start = UtilDateTime.getMonthStart(start, timeZone, locale);
-    Calendar tempCal = UtilDateTime.toCalendar(start, timeZone, locale);
-    int firstWeekNum = tempCal.get(Calendar.WEEK_OF_YEAR);
-    globalContext.put("firstWeekNum", new Integer(firstWeekNum));
+    tempCal = UtilDateTime.toCalendar(start, timeZone, locale);
+    firstWeekNum = tempCal.get(Calendar.WEEK_OF_YEAR);
+    globalContext.firstWeekNum = firstWeekNum;
     numPeriods = tempCal.getActualMaximum(Calendar.DAY_OF_MONTH);
     prev = UtilDateTime.getDayStart(start, -1, timeZone, locale);
     next = UtilDateTime.getDayStart(start, numPeriods+1, timeZone, locale);
     end = UtilDateTime.getDayStart(start, numPeriods, timeZone, locale);
-    int prevMonthDays = tempCal.get(Calendar.DAY_OF_WEEK) - tempCal.getFirstDayOfWeek();
+    prevMonthDays = tempCal.get(Calendar.DAY_OF_WEEK) - tempCal.getFirstDayOfWeek();
     if (prevMonthDays < 0) {
         prevMonthDays = 7 + prevMonthDays;
     }
@@ -78,23 +75,23 @@ if ("D".equals(viewMode)) {
     numPeriods += prevMonthDays;
     getFrom = new Timestamp(tempCal.getTimeInMillis());
     periodType = Calendar.DATE;
-    globalContext.put("end", end);
+    globalContext.end = end;
 }
 
-List entityExprList = UtilMisc.toList(EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "CAL_CANCELLED"),
-    EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, "TASK"), EntityCondition.makeCondition("workEffortPurposeTypeId", EntityOperator.EQUALS, "WEPT_MAINTENANCE"));
-String fixedAssetId = parameters.get("fixedAssetId");
-if (UtilValidate.isNotEmpty(fixedAssetId)) {
+entityExprList = [EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "CAL_CANCELLED"),
+    EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, "TASK"), EntityCondition.makeCondition("workEffortPurposeTypeId", EntityOperator.EQUALS, "WEPT_MAINTENANCE")];
+fixedAssetId = parameters.fixedAssetId;
+if (fixedAssetId) {
     entityExprList.add(EntityCondition.makeCondition("fixedAssetId", EntityOperator.EQUALS, fixedAssetId));
-    globalContext.put("fixedAssetId", fixedAssetId);
-    globalContext.put("addlParam", "&fixedAssetId=" + fixedAssetId);
+    globalContext.fixedAssetId = fixedAssetId;
+    globalContext.addlParam = "&fixedAssetId=" + fixedAssetId;
 }
-serviceCtx = UtilMisc.toMap("userLogin", userLogin, "start", getFrom, "numPeriods", new Integer(numPeriods), "periodType", new Integer(periodType));
-serviceCtx.putAll(UtilMisc.toMap("entityExprList", entityExprList, "locale", locale, "timeZone", timeZone));
+serviceCtx = [userLogin : userLogin, start : getFrom, numPeriods : numPeriods, periodType : periodType];
+serviceCtx.putAll([entityExprList : entityExprList, locale : locale, timeZone : timeZone]);
 result = dispatcher.runSync("getWorkEffortEventsByPeriod", serviceCtx);
-globalContext.put("periods", result.get("periods"));
-globalContext.put("maxConcurrentEntries", result.get("maxConcurrentEntries"));
+globalContext.periods = result.periods;
+globalContext.maxConcurrentEntries = result.maxConcurrentEntries;
 
-globalContext.put("start", start);
-globalContext.put("prev", prev);
-globalContext.put("next", next);
+globalContext.start = start;
+globalContext.prev = prev;
+globalContext.next = next;

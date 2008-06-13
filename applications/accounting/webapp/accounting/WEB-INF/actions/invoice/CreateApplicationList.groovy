@@ -28,82 +28,50 @@ import java.text.DateFormat;
 import java.text.*;
 import java.text.NumberFormat;
 
-decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
-rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
-ZERO = BigDecimal.ZERO;
+// @param GenericValue invoice - The Invoice entity to find payment applications for
+if (!invoice) return;
 
-invoiceId = request.getParameter("invoiceId") ?: context.invoiceId;
-invoice = delegator.findByPrimaryKey("Invoice", [invoiceId : invoiceId]);
-tabButtonItem = context.tabButtonItem;
-
-invoiceItems = [];  // to pass back to the screeen with payment applications added
-if (invoice) {    
-    // retrieve related applications with null itemnumber
-    invoiceAppl = null;  
-    invoiceAppls = delegator.findByAnd("PaymentApplication", [invoiceId : invoiceId, invoiceItemSeqId : null]);
-    invoiceAppls.each { invoiceAppl ->
-        itemmap = [:];
-        itemmap.invoiceId = invoiceId;
-        itemmap.invoiceItemSeqId = invoiceAppl.invoiceItemSeqId;
-        itemmap.total = InvoiceWorker.getInvoiceTotalBd(invoice).doubleValue();
-        itemmap.paymentApplicationId = invoiceAppl.paymentApplicationId;
-        itemmap.paymentId = invoiceAppl.paymentId;
-        itemmap.billingAccountId = invoiceAppl.billingAccountId;
-        itemmap.taxAuthGeoId = invoiceAppl.taxAuthGeoId;
-        itemmap.amountToApply = invoiceAppl.amountApplied;
-        itemmap.amountApplied = invoiceAppl.amountApplied;
-        invoiceItems.add(itemmap);
-    }
-
-	
-	// retrieve related applications with an existing itemnumber
-    invoice.getRelated("InvoiceItem").each { item ->
-        BigDecimal itemTotal = null;
-        if (item.amount != null) {
-              if (item.quantity == null || item.getBigDecimal("quantity").compareTo(ZERO) == 0) {
-                  itemTotal = item.getBigDecimal("amount");
-              } else {
-                  itemTotal = item.getBigDecimal("amount").multiply(item.getBigDecimal("quantity"));
-              }
-        }
-
-        // get relation payment applications for every item(can be more than 1 per item number)
-        paymentApplications = item.getRelated("PaymentApplication");
-        if (paymentApplications) {
-              paymentApplications.each { paymentApplication ->
-                  itemmap = [:];
-                  itemmap.putAll(item);
-                  itemmap.total = NumberFormat.getInstance(locale).format(itemTotal);
-                  itemmap.paymentApplicationId = paymentApplication.paymentApplicationId;
-                  itemmap.paymentId = paymentApplication.paymentId;
-                  itemmap.toPaymentId = paymentApplication.toPaymentId;
-                  itemmap.amountApplied = paymentApplication.getBigDecimal("amountApplied");
-                  itemmap.amountToApply = paymentApplication.getBigDecimal("amountApplied");
-                  itemmap.billingAccountId = paymentApplication.billingAccountId;
-                  itemmap.taxAuthGeoId = paymentApplication.taxAuthGeoId;
-                  invoiceItems.add(itemmap);
-              }
-        }
-
-/*
-        // create an extra line for input when not completely applied but not in the overview 
-        if (tabButtonItem.equals("invoiceOverview") != true && 
-                      (paymentApplications == null || paymentApplications.size() == 0 
-                      || (applied < itemTotal && appliedAmount < invoiceAmount)))    {
-                  Map itemmap = new HashMap();
-                  itemmap.putAll(item);
-                  itemmap.put("total",itemTotal);
-                  itemmap.put("paymentApplicationId","");
-                  itemmap.put("paymentId","");
-                  itemmap.put("amountToApply", NumberFormat.getNumberInstance(locale).format(itemTotal - applied));
-                  itemmap.put("billingAccountId","");
-                  itemmap.put("taxAuthGeoId","");
-                  invoiceItems.add(itemmap);
-        }
-*/
-    }
-	context.invoice = invoice;
-	context.invoiceId = invoiceId;
+invoiceApplications = [];  // to pass back to the screen with payment applications added
+// retrieve related applications with null itemnumber
+invoiceAppls = invoice.getRelated("PaymentApplication", [invoiceItemSeqId : null]);
+invoiceAppls.each { invoiceAppl ->
+    itemmap = [:];
+    itemmap.invoiceId = invoiceAppl.invoiceId;
+    itemmap.invoiceItemSeqId = invoiceAppl.invoiceItemSeqId;
+    itemmap.total = InvoiceWorker.getInvoiceTotalBd(invoice).doubleValue();
+    itemmap.paymentApplicationId = invoiceAppl.paymentApplicationId;
+    itemmap.paymentId = invoiceAppl.paymentId;
+    itemmap.billingAccountId = invoiceAppl.billingAccountId;
+    itemmap.taxAuthGeoId = invoiceAppl.taxAuthGeoId;
+    itemmap.amountToApply = invoiceAppl.amountApplied;
+    itemmap.amountApplied = invoiceAppl.amountApplied;
+    invoiceApplications.add(itemmap);
 }
 
-if(invoiceItems) context.invoiceApplications = invoiceItems;
+
+// retrieve related applications with an existing itemnumber
+invoice.getRelated("InvoiceItem").each { item ->
+    BigDecimal itemTotal = null;
+    if (item.amount != null) {
+          if (!item.quantity) {
+              itemTotal = item.getBigDecimal("amount");
+          } else {
+              itemTotal = item.getBigDecimal("amount").multiply(item.getBigDecimal("quantity"));
+          }
+    }
+    // get relation payment applications for every item(can be more than 1 per item number)
+    item.getRelated("PaymentApplication").each { paymentApplication ->
+        itemmap = [:];
+        itemmap.putAll(item);
+        itemmap.total = NumberFormat.getInstance(locale).format(itemTotal);
+        itemmap.paymentApplicationId = paymentApplication.paymentApplicationId;
+        itemmap.paymentId = paymentApplication.paymentId;
+        itemmap.toPaymentId = paymentApplication.toPaymentId;
+        itemmap.amountApplied = paymentApplication.getBigDecimal("amountApplied");
+        itemmap.amountToApply = paymentApplication.getBigDecimal("amountApplied");
+        itemmap.billingAccountId = paymentApplication.billingAccountId;
+        itemmap.taxAuthGeoId = paymentApplication.taxAuthGeoId;
+        invoiceApplications.add(itemmap);
+    }
+}
+if (invoiceApplications) context.invoiceApplications = invoiceApplications;
