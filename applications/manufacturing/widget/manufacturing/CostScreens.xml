@@ -38,7 +38,7 @@ under the License.
                         <container>
                             <label style="h1">${uiLabelMap.ManufacturingManageCostComponentCalc}</label>
                         </container>
-                        <screenlet id="CostComponentCalcPanel" title="${uiLabelMap.ManufacturingEditCostComponentCalc}" collapsible="true">
+                        <screenlet id="ManufacturingCostComponentCalcPanel" title="${uiLabelMap.ManufacturingEditCostComponentCalc}" collapsible="true">
                             <include-form name="EditCostComponentCalc" location="component://manufacturing/widget/manufacturing/CostForms.xml"/>
                         </screenlet>
                         <include-form name="ListCostComponentCalc" location="component://manufacturing/widget/manufacturing/CostForms.xml"/>

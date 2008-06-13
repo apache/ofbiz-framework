@@ -36,7 +36,7 @@ under the License.
             <widgets>
                 <decorator-screen name="GlobalGLSettingsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet id="CostComponentCalcPanel" title="${uiLabelMap.AccountingCreateCostComponentCalc}" collapsible="true">
+                        <screenlet id="AccountingCostComponentCalcPanel" title="${uiLabelMap.AccountingCreateCostComponentCalc}" collapsible="true">
                             <include-form name="AddCostComponentCalc" location="component://accounting/widget/CostForms.xml"/>
                         </screenlet>
                         <include-form name="ListCostComponentCalc" location="component://accounting/widget/CostForms.xml"/>

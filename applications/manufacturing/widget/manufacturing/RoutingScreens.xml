@@ -399,12 +399,36 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonRoutingDecorator">
                     <decorator-section name="body">
-                        <screenlet id="RoutingTaskAssocPanel" title="${uiLabelMap.PageTitleEditRoutingTaskAssoc}" collapsible="true">
-                            <platform-specific>
-                                <html><html-template location="component://manufacturing/webapp/manufacturing/routing/EditRoutingTaskAssoc.ftl"/></html>
-                            </platform-specific>
-                        </screenlet>
-                        <include-form name="ListRoutingTaskAssoc" location="component://manufacturing/webapp/manufacturing/routing/RoutingTaskForms.xml"/>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
+                                    <label text="${uiLabelMap.PageTitleEditRoutingTaskAssoc}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>                                        
+                                        <platform-specific>
+                                            <html><html-template location="component://manufacturing/webapp/manufacturing/routing/EditRoutingTaskAssoc.ftl"/></html>
+                                        </platform-specific>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
+                                    <label text="${uiLabelMap.PageTitleListRoutingTaskAssoc}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>                                                                                
+                                        <include-form name="ListRoutingTaskAssoc" location="component://manufacturing/webapp/manufacturing/routing/RoutingTaskForms.xml"/>                                        
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
