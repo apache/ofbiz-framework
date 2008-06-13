@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<entity-engine-xml>
+    <EnumerationType description="Workflow Graph Conformance Classifications" enumTypeId="WORKFLOW_GRAPH_CONF" hasTable="N" parentTypeId="WORKFLOW"/>
+    <EnumerationType description="Workflow Formal Parameter Mode" enumTypeId="WORKFLOW_PARAM_MODE" hasTable="N" parentTypeId="WORKFLOW"/>
+    <EnumerationType description="Workflow Activity Mode" enumTypeId="WFLOW_ACTIVITY_MODE" hasTable="N" parentTypeId="WORKFLOW"/>
+    <EnumerationType description="Workflow Activity Type" enumTypeId="WFLOW_ACTIVITY_TYPE" hasTable="N" parentTypeId="WORKFLOW"/>
+    <EnumerationType description="Workflow Instantiation" enumTypeId="WFLOW_INSTANTIATION" hasTable="N" parentTypeId="WORKFLOW"/>
+    <EnumerationType description="Workflow Join Type" enumTypeId="WORKFLOW_JOIN_TYPE" hasTable="N" parentTypeId="WORKFLOW"/>
+    <EnumerationType description="Workflow Split Type" enumTypeId="WORKFLOW_SPLIT_TYPE" hasTable="N" parentTypeId="WORKFLOW"/>
+    <EnumerationType description="Workflow Tool Type" enumTypeId="WORKFLOW_TOOL_TYPE" hasTable="N" parentTypeId="WORKFLOW"/>
+    <EnumerationType description="Workflow SubFlow Execution" enumTypeId="WORKFLOW_SUB_EXEC" hasTable="N" parentTypeId="WORKFLOW"/>
+    <EnumerationType description="Workflow Loop Kind" enumTypeId="WORKFLOW_LOOP_KIND" hasTable="N" parentTypeId="WORKFLOW"/>
+    <EnumerationType description="Workflow Transition Loop Type" enumTypeId="WORKFLOW_TRANS_LOOP" hasTable="N" parentTypeId="WORKFLOW"/>
+    <EnumerationType description="Workflow Transition Condition Type" enumTypeId="WORKFLOW_TRANS_COND" hasTable="N" parentTypeId="WORKFLOW"/>
+    <EnumerationType description="Workflow Data Type Enum Type" enumTypeId="WORKFLOW_DATA_TYPE" hasTable="N" parentTypeId="WORKFLOW"/>
+
+    <Enumeration description="No restriction on network structure (DEFAULT)" enumCode="NON_BLOCKED" enumId="WGC_NON_BLOCKED" sequenceId="01" enumTypeId="WORKFLOW_GRAPH_CONF"/>
+    <Enumeration description="Network structure restricted to proper nesting of LOOP" enumCode="LOOP_BLOCKED" enumId="WGC_LOOP_BLOCKED" sequenceId="02" enumTypeId="WORKFLOW_GRAPH_CONF"/>
+    <Enumeration description="Network structure restricted to proper nesting of SPLIT/JOIN and LOOP" enumCode="FULL_BLOCKED" enumId="WGC_FULL_BLOCKED" sequenceId="03" enumTypeId="WORKFLOW_GRAPH_CONF"/>
+
+    <Enumeration description="Input Parameter" enumCode="IN" enumId="WPM_IN" sequenceId="01" enumTypeId="WORKFLOW_PARAM_MODE"/>
+    <Enumeration description="Output Parameter" enumCode="OUT" enumId="WPM_OUT" sequenceId="02" enumTypeId="WORKFLOW_PARAM_MODE"/>
+    <Enumeration description="Parameter Used for Input and Output" enumCode="INOUT" enumId="WPM_INOUT" sequenceId="03" enumTypeId="WORKFLOW_PARAM_MODE"/>
+
+    <Enumeration description="Automatic Mode" enumCode="Automatic" enumId="WAM_AUTOMATIC" sequenceId="01" enumTypeId="WFLOW_ACTIVITY_MODE"/>
+    <Enumeration description="Manual Mode" enumCode="Manual" enumId="WAM_MANUAL" sequenceId="02" enumTypeId="WFLOW_ACTIVITY_MODE"/>
+
+    <Enumeration description="Route" enumCode="Route" enumId="WAT_ROUTE" sequenceId="01" enumTypeId="WFLOW_ACTIVITY_TYPE"/>
+    <Enumeration description="No Implementation" enumCode="No" enumId="WAT_NO" sequenceId="02" enumTypeId="WFLOW_ACTIVITY_TYPE"/>
+    <Enumeration description="Tools Implementation" enumCode="Tool" enumId="WAT_TOOL" sequenceId="03" enumTypeId="WFLOW_ACTIVITY_TYPE"/>
+    <Enumeration description="Subflow Implementation" enumCode="Subflow" enumId="WAT_SUBFLOW" sequenceId="04" enumTypeId="WFLOW_ACTIVITY_TYPE"/>
+    <Enumeration description="Loop Implementation" enumCode="Loop" enumId="WAT_LOOP" sequenceId="05" enumTypeId="WFLOW_ACTIVITY_TYPE"/>
+
+    <Enumeration description="Activity can only be instantiated once (DEFAULT)" enumCode="ONCE" enumId="WFI_ONCE" sequenceId="01" enumTypeId="WFLOW_INSTANTIATION"/>
+    <Enumeration description="Activity can be instantiated multiple times" enumCode="MULTIPLE" enumId="WFI_MULTIPLE" sequenceId="02" enumTypeId="WFLOW_INSTANTIATION"/>
+
+    <Enumeration description="Synchronize all incoming transitions (wait for all)" enumCode="AND" enumId="WJT_AND" sequenceId="01" enumTypeId="WORKFLOW_JOIN_TYPE"/>
+    <Enumeration description="No incoming synchronization required (start on first)" enumCode="XOR" enumId="WJT_XOR" sequenceId="02" enumTypeId="WORKFLOW_JOIN_TYPE"/>
+
+    <Enumeration description="Allow concurrent outgoing transitions" enumCode="AND" enumId="WST_AND" sequenceId="01" enumTypeId="WORKFLOW_SPLIT_TYPE"/>
+    <Enumeration description="Only allow a single outgoing transition" enumCode="XOR" enumId="WST_XOR" sequenceId="02" enumTypeId="WORKFLOW_SPLIT_TYPE"/>
+
+    <Enumeration description="Application" enumCode="APPLICATION" enumId="WTT_APPLICATION" sequenceId="01" enumTypeId="WORKFLOW_TOOL_TYPE"/>
+    <Enumeration description="Procedure" enumCode="PROCEDURE" enumId="WTT_PROCEDURE" sequenceId="02" enumTypeId="WORKFLOW_TOOL_TYPE"/>
+
+    <Enumeration description="Asynchronous Execution" enumCode="ASYNCHR" enumId="WSE_ASYNCHR" sequenceId="01" enumTypeId="WORKFLOW_SUB_EXEC"/>
+    <Enumeration description="Synchronous Execution" enumCode="SYNCHR" enumId="WSE_SYNCHR" sequenceId="02" enumTypeId="WORKFLOW_SUB_EXEC"/>
+
+    <Enumeration description="While loop - go until condition evaluates to false" enumCode="WHILE" enumId="WLK_WHILE" sequenceId="01" enumTypeId="WORKFLOW_LOOP_KIND"/>
+    <Enumeration description="Repeat Until loop - go until condition evaluates to true" enumCode="REPEAT_UNTIL" enumId="WLK_REPEAT_UNTIL" sequenceId="02" enumTypeId="WORKFLOW_LOOP_KIND"/>
+
+    <Enumeration description="No Loop" enumCode="NOLOOP" enumId="WTL_NOLOOP" sequenceId="01" enumTypeId="WORKFLOW_TRANS_LOOP"/>
+    <Enumeration description="From Loop" enumCode="FROMLOOP" enumId="WTL_FROMLOOP" sequenceId="02" enumTypeId="WORKFLOW_TRANS_LOOP"/>
+    <Enumeration description="To Loop" enumCode="TOLOOP" enumId="WTL_TOLOOP" sequenceId="03" enumTypeId="WORKFLOW_TRANS_LOOP"/>
+
+    <Enumeration description="Condition" enumCode="CONDITION" enumId="WTC_CONDITION" sequenceId="01" enumTypeId="WORKFLOW_TRANS_COND"/>
+    <Enumeration description="Otherwise" enumCode="OTHERWISE" enumId="WTC_OTHERWISE" sequenceId="02" enumTypeId="WORKFLOW_TRANS_COND"/>
+
+    <Enumeration description="Boolean - Plain Type" enumCode="BOOLEAN" enumId="WDT_BOOLEAN" sequenceId="01" enumTypeId="WORKFLOW_DATA_TYPE"/>
+    <Enumeration description="Unit - Plain Type" enumCode="UNIT" enumId="WDT_UNIT" sequenceId="02" enumTypeId="WORKFLOW_DATA_TYPE"/>
+    <Enumeration description="Performer - Plain Type" enumCode="PERFORMER" enumId="WDT_PERFORMER" sequenceId="03" enumTypeId="WORKFLOW_DATA_TYPE"/>
+    <Enumeration description="String - Basic Type" enumCode="STRING" enumId="WDT_STRING" sequenceId="04" enumTypeId="WORKFLOW_DATA_TYPE"/>
+    <Enumeration description="Float - Basic Type" enumCode="FLOAT" enumId="WDT_FLOAT" sequenceId="05" enumTypeId="WORKFLOW_DATA_TYPE"/>
+    <Enumeration description="Integer - Basic Type" enumCode="INTEGER" enumId="WDT_INTEGER" sequenceId="06" enumTypeId="WORKFLOW_DATA_TYPE"/>
+    <Enumeration description="Reference - Basic Type" enumCode="REFERENCE" enumId="WDT_REFERENCE" sequenceId="07" enumTypeId="WORKFLOW_DATA_TYPE"/>
+    <Enumeration description="Date-Time - Basic Type" enumCode="DATETIME" enumId="WDT_DATETIME" sequenceId="08" enumTypeId="WORKFLOW_DATA_TYPE"/>
+    <Enumeration description="Record - Complex Type" enumCode="RECORD" enumId="WDT_RECORD" sequenceId="09" enumTypeId="WORKFLOW_DATA_TYPE"/>
+    <Enumeration description="Union - Complex Type" enumCode="UNION" enumId="WDT_UNION" sequenceId="10" enumTypeId="WORKFLOW_DATA_TYPE"/>
+    <Enumeration description="Enumeration - Complex Type" enumCode="ENUMERATION" enumId="WDT_ENUMERATION" sequenceId="11" enumTypeId="WORKFLOW_DATA_TYPE"/>
+    <Enumeration description="Array - Complex Type" enumCode="ARRAY" enumId="WDT_ARRAY" sequenceId="12" enumTypeId="WORKFLOW_DATA_TYPE"/>
+    <Enumeration description="List - Complex Type" enumCode="LIST" enumId="WDT_LIST" sequenceId="13" enumTypeId="WORKFLOW_DATA_TYPE"/>
+    <Enumeration description="Declared Type" enumCode="DECLARED" enumId="WDT_DECLARED" sequenceId="14" enumTypeId="WORKFLOW_DATA_TYPE"/>
+
+    <!-- workflow status -->
+    <StatusType description="Workflow" hasTable="N" parentTypeId="WORK_EFFORT_STATUS" statusTypeId="WORKFLOW_STATUS"/>
+    <StatusItem description="Not Started" sequenceId="01" statusCode="open.not_running.not_started" statusId="WF_NOT_STARTED" statusTypeId="WORKFLOW_STATUS"/>
+    <StatusItem description="Suspended" sequenceId="02" statusCode="open.not_running.suspended" statusId="WF_SUSPENDED" statusTypeId="WORKFLOW_STATUS"/>
+    <StatusItem description="Running" sequenceId="03" statusCode="open.running" statusId="WF_RUNNING" statusTypeId="WORKFLOW_STATUS"/>
+    <StatusItem description="Completed" sequenceId="04" statusCode="closed.completed" statusId="WF_COMPLETED" statusTypeId="WORKFLOW_STATUS"/>
+    <StatusItem description="Terminated" sequenceId="05" statusCode="closed.terminated" statusId="WF_TERMINATED" statusTypeId="WORKFLOW_STATUS"/>
+    <StatusItem description="Aborted" sequenceId="06" statusCode="closed.aborted" statusId="WF_ABORTED" statusTypeId="WORKFLOW_STATUS"/>
+
+    <StatusType description="Workflow Publish" hasTable="N" parentTypeId="" statusTypeId="WORKFLOW_PUB_STATUS"/>
+    <StatusItem description="Under Revision" sequenceId="01" statusCode="UNDER_REVISION" statusId="WPS_UNDER_REVISION" statusTypeId="WORKFLOW_PUB_STATUS"/>
+    <StatusItem description="Under Test" sequenceId="02" statusCode="UNDER_TEST" statusId="WPS_UNDER_TEST" statusTypeId="WORKFLOW_PUB_STATUS"/>
+    <StatusItem description="Released" sequenceId="03" statusCode="RELEASED" statusId="WPS_RELEASED" statusTypeId="WORKFLOW_PUB_STATUS"/>
+
+    <StatusValidChange condition="" statusId="WF_NOT_STARTED" statusIdTo="WF_RUNNING" transitionName="Start"/>
+    <StatusValidChange condition="" statusId="WF_RUNNING" statusIdTo="WF_SUSPENDED" transitionName="Suspend"/>
+    <StatusValidChange condition="" statusId="WF_RUNNING" statusIdTo="WF_COMPLETED" transitionName="Complete"/>
+    <StatusValidChange condition="" statusId="WF_RUNNING" statusIdTo="WF_TERMINATED" transitionName="Terminate"/>
+    <StatusValidChange condition="" statusId="WF_RUNNING" statusIdTo="WF_ABORTED" transitionName="Abort"/>
+    <StatusValidChange condition="" statusId="WF_SUSPENDED" statusIdTo="WF_RUNNING" transitionName="Un-suspend"/>
+
+    <WorkflowParticipantType description="A set of resource" hasTable="N" parentTypeId="" participantTypeId="RESOURCE_SET" typeCode="RESOURCE_SET"/>
+    <WorkflowParticipantType description="A specific resource agent" hasTable="N" parentTypeId="" participantTypeId="RESOURCE" typeCode="RESOURCE"/>
+    <WorkflowParticipantType description="Specifies a role that may map to a group of humans" hasTable="N" parentTypeId="" participantTypeId="ROLE" typeCode="ROLE"/>
+    <WorkflowParticipantType description="Department or other unit in an organization" hasTable="N" parentTypeId="" participantTypeId="ORGANIZATIONAL_UNIT" typeCode="ORGANIZATIONAL_UNIT"/>
+    <WorkflowParticipantType description="Human interacting with the system through an application" hasTable="N" parentTypeId="" participantTypeId="HUMAN" typeCode="HUMAN"/>
+    <WorkflowParticipantType description="An automatic agent" hasTable="N" parentTypeId="" participantTypeId="SYSTEM" typeCode="SYSTEM"/>
+
+    <WorkflowSpecification specificationId="XPDL" currentVersion="0.03"/>
+    
+</entity-engine-xml>
