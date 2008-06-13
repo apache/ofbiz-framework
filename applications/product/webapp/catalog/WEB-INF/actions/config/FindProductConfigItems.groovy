@@ -21,20 +21,11 @@ itemsList = delegator.findList("ProductConfigItem", null, null, ['configItemId']
 context.itemsList = itemsList;
 
 // set the page parameters
-Integer viewIndex = 0;
-if (parameters.VIEW_INDEX) {
-	viewIndex = new Integer(parameters.VIEW_INDEX);
-}
+viewIndex = parameters.VIEW_INDEX ?: 0;
 
-Integer viewSize = 20;
-if (parameters.VIEW_SIZE) {
-	viewSize = new Integer(parameters.VIEW_SIZE);
-}
+viewSize = parameters.VIEW_SIZE ?: 20;
 
-listSize = 0;
-if (itemsList) {
-    listSize = itemsList.size();
-}
+listSize = itemsList.size();
 
 lowIndex = viewIndex * viewSize;
 highIndex = (viewIndex + 1) * viewSize;
