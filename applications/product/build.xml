@@ -90,10 +90,10 @@ under the License.
         <!-- check for applet required classes -->
         <condition property="noapplet" value="ShipmentScaleApplet.java">
             <not>
-                <or>
+                <and>
                     <available classname="javax.comm.SerialPort" classpathref="local.class.path"/>
                     <available classname="netscape.javascript.JSObject" classpathref="local.class.path" property="jsobject.avail"/>
-                </or>
+                </and>
             </not>
         </condition>
 
