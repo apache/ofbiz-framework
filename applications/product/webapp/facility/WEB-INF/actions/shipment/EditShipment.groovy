@@ -17,46 +17,45 @@
  * under the License.
  */
 
-import java.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.widget.html.*;
-
-delegator = request.getAttribute("delegator");
+import org.ofbiz.entity.condition.*
+import org.ofbiz.widget.html.HtmlFormWrapper
 
 shipmentId = request.getParameter("shipmentId");
-if (UtilValidate.isEmpty(shipmentId)) shipmentId = request.getAttribute("shipmentId");
-shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
+if (!shipmentId) {
+   shipmentId = request.getAttribute("shipmentId");
+}
+shipment = delegator.findOne("Shipment", [shipmentId : shipmentId], false);
 
 // orderHeader is needed here to determine type of order and hence types of shipment status
-orderHeader = null;
-primaryOrderId = null;
-if (shipment == null) {
+if (!shipment) {
     primaryOrderId = request.getParameter("primaryOrderId");
 } else {
-    primaryOrderId = shipment.get("primaryOrderId");
+    primaryOrderId = shipment.primaryOrderId;
 }
-orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", primaryOrderId));
+orderHeader = delegator.findOne("OrderHeader", [orderId : primaryOrderId], false);
 
 HtmlFormWrapper editShipmentWrapper = new HtmlFormWrapper("component://product/webapp/facility/shipment/ShipmentForms.xml", "EditShipment", request, response);
 editShipmentWrapper.putInContext("shipmentId", shipmentId);
 editShipmentWrapper.putInContext("shipment", shipment);
 editShipmentWrapper.putInContext("productStoreId", null); // seems to be needed not exist != null
-if (shipment == null) editShipmentWrapper.setUseRequestParameters(true);
+
+if (!shipment) {
+    editShipmentWrapper.setUseRequestParameters(true);
+}
 
 // the kind of StatusItem to use is based on the type of order 
-if ((orderHeader != null) && (orderHeader.getString("orderTypeId").equals("PURCHASE_ORDER"))) {
+if (orderHeader && "PURCHASE_ORDER".equals(orderHeader.orderTypeId)) {
     statusItemType = "PURCH_SHIP_STATUS";
 } else {
     statusItemType = "SHIPMENT_STATUS";
 }
 editShipmentWrapper.putInContext("statusItemType", statusItemType);    
 
-context.put("shipmentId", shipmentId);
-context.put("shipment", shipment);
-context.put("editShipmentWrapper", editShipmentWrapper);
+context.shipmentId = shipmentId;
+context.shipment = shipment;
+context.editShipmentWrapper = editShipmentWrapper;
 
-if (shipment != null) {
+if (shipment) {
     currentStatus = shipment.getRelatedOne("StatusItem");
     originPostalAddress = shipment.getRelatedOne("OriginPostalAddress");
     destinationPostalAddress = shipment.getRelatedOne("DestinationPostalAddress");
@@ -78,27 +77,23 @@ if (shipment != null) {
     editShipmentWrapper.putInContext("fromPerson", fromPerson);
     editShipmentWrapper.putInContext("fromPartyGroup", fromPartyGroup);
     editShipmentWrapper.putInContext("orderHeader", orderHeader);
-    if (orderHeader != null) {
+    if (orderHeader) {
         editShipmentWrapper.putInContext("productStoreId", orderHeader.get("productStoreId"));
     }
 
-    context.put("currentStatus", currentStatus);
-    context.put("originPostalAddress", originPostalAddress);
-    context.put("destinationPostalAddress", destinationPostalAddress);
-    context.put("originTelecomNumber", originTelecomNumber);
-    context.put("destinationTelecomNumber", destinationTelecomNumber);
-    context.put("toPerson", toPerson);
-    context.put("toPartyGroup", toPartyGroup);
-    context.put("fromPerson", fromPerson);
-    context.put("fromPartyGroup", fromPartyGroup);
+    context.currentStatus = currentStatus;
+    context.originPostalAddress = originPostalAddress;
+    context.destinationPostalAddress = destinationPostalAddress;
+    context.originTelecomNumber = originTelecomNumber;
+    context.destinationTelecomNumber = destinationTelecomNumber;
+    context.toPerson = toPerson;
+    context.toPartyGroup = toPartyGroup;
+    context.fromPerson = fromPerson;
+    context.fromPartyGroup = fromPartyGroup;
     
-    if (primaryOrderId != null) {
-        ord = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", primaryOrderId));
+    if (primaryOrderId) {
+        ord = delegator.findOne("OrderHeader", [orderId : primaryOrderId], false);
         pfc = delegator.findList("ProductStoreFacility", null, null, null, null, false);
-        fac = delegator.findByAnd("ProductStoreFacilityByOrder", UtilMisc.toMap("orderId", primaryOrderId));
-        Debug.log("" + ord);
-        Debug.log("" + pfc);
-        Debug.log("" + fac);
+        fac = delegator.findList("ProductStoreFacilityByOrder", EntityCondition.makeCondition([orderId : primaryOrderId]), null, null, null, false);        
     }
 }
-

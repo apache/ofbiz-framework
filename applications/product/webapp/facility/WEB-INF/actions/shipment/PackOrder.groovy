@@ -17,55 +17,53 @@
  * under the License.
  */
 
-import org.ofbiz.entity.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.order.order.*;
-import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.base.util.*
+import org.ofbiz.order.order.*
+import org.ofbiz.entity.util.EntityUtil
 
-facilityId = parameters.get("facilityId");
-if (UtilValidate.isNotEmpty(facilityId)) {
-    facility = delegator.findByPrimaryKey("Facility", UtilMisc.toMap("facilityId", facilityId));
-    context.put("facilityId", facilityId);
-    context.put("facility", facility);
+facilityId = parameters.facilityId;
+if (facilityId) {
+    facility = delegator.findOne("Facility", [facilityId : facilityId], false);
+    context.facilityId = facilityId;
+    context.facility = facility;
 }
 
 // order based packing
-orderId = parameters.get("orderId");
-shipGroupSeqId = parameters.get("shipGroupSeqId");
-shipmentId = parameters.get("shipmentId");
-if (shipmentId == null) {
+orderId = parameters.orderId;
+shipGroupSeqId = parameters.shipGroupSeqId;
+shipmentId = parameters.shipmentId;
+if (!shipmentId) {
     shipmentId = request.getAttribute("shipmentId");
 }
-context.put("shipmentId", shipmentId);
+context.shipmentId = shipmentId;
 
 // If a shipment exists, provide the IDs of any related invoices
-if (UtilValidate.isNotEmpty(shipmentId)) {
-
+if (shipmentId) {
     // Get the primaryOrderId from the shipment
-    shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
-    if (shipment != null && shipment.getString("primaryOrderId") != null) {
-        orderItemBillingList = delegator.findByAnd("OrderItemBilling", UtilMisc.toMap("orderId", shipment.getString("primaryOrderId")), UtilMisc.toList("invoiceId"));
+    shipment = delegator.findOne("Shipment",  [shipmentId : shipmentId], false);
+    if (shipment && shipment.primaryOrderId) {
+        orderItemBillingList = delegator.findList("OrderItemBilling", EntityCondition.makeCondition([orderId : shipment.primaryOrderId]), null, ['invoiceId'], null, false);
         invoiceIds = EntityUtil.getFieldListFromEntityList(orderItemBillingList, "invoiceId", true);
-        if (invoiceIds != null) {
-            context.put("invoiceIds", invoiceIds);
+        if (invoiceIds) {
+            context.invoiceIds = invoiceIds;
         }
     }
 }
 
 // validate order information
-if (UtilValidate.isNotEmpty(orderId) && UtilValidate.isEmpty(shipGroupSeqId) && orderId.indexOf("/") > -1) {
+if (orderId && !shipGroupSeqId && orderId.indexOf("/") > -1) {
     // split the orderID/shipGroupSeqID
     idSplit = orderId.split("\\/");
     orderId = idSplit[0];
     shipGroupSeqId = idSplit[1];
-} else if (orderId != null && UtilValidate.isEmpty(shipGroupSeqId)) {
+} else if (orderId && !shipGroupSeqId) {
     shipGroupSeqId = "00001";
 }
 
 // setup the packing session
 packSession = session.getAttribute("packingSession");
-clear = parameters.get("clear");
-if (packSession == null) {
+clear = parameters.clear;
+if (!packSession) {
     packSession = new org.ofbiz.shipment.packing.PackingSession(dispatcher, userLogin);
     session.setAttribute("packingSession", packSession);
     Debug.log("Created NEW packing session!!");
@@ -73,31 +71,31 @@ if (packSession == null) {
     if (packSession.getStatus() == 0) {
         OrderReadHelper orh = new OrderReadHelper(delegator, orderId);
         shipGrp = orh.getOrderItemShipGroup(shipGroupSeqId);
-        context.put("shippedShipGroupSeqId", shipGroupSeqId);
-        context.put("shippedOrderId", orderId);
-        context.put("shippedCarrier", shipGrp.get("carrierPartyId"));
+        context.shippedShipGroupSeqId = shipGroupSeqId;
+        context.shippedOrderId = orderId;
+        context.shippedCarrier = shipGrp.carrierPartyId;
 
         packSession.clear();
         shipGroupSeqId = null;
         orderId = null;
-    } else if (clear != null) {
+    } else if (clear) {
         packSession.clear();
     }
 }
 packSession.clearItemInfos();
 
 // picklist based packing information
-picklistBinId = parameters.get("picklistBinId");
+picklistBinId = parameters.picklistBinId;
 // see if the bin ID is already set
-if (UtilValidate.isEmpty(picklistBinId)) {
+if (!picklistBinId) {
     picklistBinId = packSession.getPicklistBinId();
 }
-if (UtilValidate.isNotEmpty(picklistBinId)) {
-    bin = delegator.findByPrimaryKey("PicklistBin", UtilMisc.toMap("picklistBinId", picklistBinId));
-    if (bin != null) {
-        orderId = bin.getString("primaryOrderId");
-        shipGroupSeqId = bin.getString("primaryShipGroupSeqId");
-        packSession.addItemInfo(bin.getRelatedByAnd("PicklistItem", UtilMisc.toMap("itemStatusId", "PICKITEM_PENDING")));
+if (picklistBinId) {
+    bin = delegator.findOne("PicklistBin", [picklistBinId : picklistBinId], false);
+    if (bin) {
+        orderId = bin.primaryOrderId;
+        shipGroupSeqId = bin.primaryShipGroupSeqId;
+        packSession.addItemInfo(bin.getRelatedByAnd("PicklistItem", [itemStatusId : 'PICKITEM_PENDING']));
         //context.put("picklistItemInfos", bin.getRelatedByAnd("PicklistItem", UtilMisc.toMap("itemStatusId", "PICKITEM_PENDING")));
     }
 } else {
@@ -110,57 +108,57 @@ packSession.setPrimaryOrderId(orderId);
 packSession.setPicklistBinId(picklistBinId);
 packSession.setFacilityId(facilityId);
 
-context.put("packingSession", packSession);
-context.put("orderId", orderId);
-context.put("shipGroupSeqId", shipGroupSeqId);
-context.put("picklistBinId", picklistBinId);
+context.packingSession = packSession;
+context.orderId = orderId;
+context.shipGroupSeqId = shipGroupSeqId;
+context.picklistBinId = picklistBinId;
 
 // grab the order information
-if (UtilValidate.isNotEmpty(orderId)) {
-    orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
-    if (orderHeader != null) {
+if (orderId) {
+    orderHeader = delegator.findOne("OrderHeader", [orderId : orderId], false);
+    if (orderHeader) {
         OrderReadHelper orh = new OrderReadHelper(orderHeader);
-        context.put("orderId", orderId);
-        context.put("orderHeader", orderHeader);
-        context.put("orderReadHelper", orh);
+        context.orderId = orderId;
+        context.orderHeader = orderHeader;
+        context.orderReadHelper = orh;
         orderItemShipGroup = orh.getOrderItemShipGroup(shipGroupSeqId);
-        context.put("orderItemShipGroup", orderItemShipGroup);
+        context.orderItemShipGroup = orderItemShipGroup;
 
-        if ("ORDER_APPROVED".equals(orderHeader.getString("statusId"))) {
-            if (UtilValidate.isNotEmpty(shipGroupSeqId)) {
+        if ("ORDER_APPROVED".equals(orderHeader.statusId)) {
+            if (shipGroupSeqId) {
 
                 // Generate the shipment cost estimate for the ship group
                 productStoreId = orh.getProductStoreId();
                 shippableItemInfo = orh.getOrderItemAndShipGroupAssoc(shipGroupSeqId);
-                shippableItems = delegator.findByAnd("OrderItemAndShipGrpInvResAndItemSum", UtilMisc.toMap("orderId", orderId, "shipGroupSeqId", shipGroupSeqId));
+                shippableItems = delegator.findList("OrderItemAndShipGrpInvResAndItemSum", EntityCondition.makeCondition([orderId : orderId, shipGroupSeqId : shipGroupSeqId]), null, null, null, false);
                 shippableTotal = new Double(orh.getShippableTotal(shipGroupSeqId).doubleValue());
                 shippableWeight = new Double(orh.getShippableWeight(shipGroupSeqId).doubleValue());
                 shippableQuantity = new Double(orh.getShippableQuantity(shipGroupSeqId).doubleValue());
                 shipmentCostEstimate = packSession.getShipmentCostEstimate(orderItemShipGroup, productStoreId, shippableItemInfo, shippableTotal, shippableWeight, shippableQuantity);
-                context.put("shipmentCostEstimateForShipGroup", shipmentCostEstimate);
-                context.put("productStoreId", productStoreId);
+                context.shipmentCostEstimateForShipGroup = shipmentCostEstimate;
+                context.productStoreId = productStoreId;
 
-                if (picklistBinId == null) {
+                if (!picklistBinId) {
                     packSession.addItemInfo(shippableItems);
                     //context.put("itemInfos", shippableItemInfo);
                 }
             } else {
-                request.setAttribute("errorMessageList", UtilMisc.toList("No ship group sequence ID. Cannot process."));
+                request.setAttribute("errorMessageList", ['No ship group sequence ID. Cannot process.']);
             }
         } else {
-            request.setAttribute("errorMessageList", UtilMisc.toList("Order #" + orderId + " is not approved for packing."));
+            request.setAttribute("errorMessageList", ["Order #" + orderId + " is not approved for packing."]);
         }
     } else {
-        request.setAttribute("errorMessageList", UtilMisc.toList("Order #" + orderId + " cannot be found."));
+        request.setAttribute("errorMessageList", ["Order #" + orderId + " cannot be found."]);
     }
 }
 
 // Try to get the defaultWeightUomId first from the facility, then from the shipment properties, and finally defaulting to kilos
 defaultWeightUomId = null; 
-if (! UtilValidate.isEmpty(facility)) {
-    defaultWeightUomId = facility.getString("defaultWeightUomId");
+if (facility) {
+    defaultWeightUomId = facility.defaultWeightUomId;
 }
-if (UtilValidate.isEmpty(defaultWeightUomId)) {
+if (!defaultWeightUomId) {
     defaultWeightUomId = UtilProperties.getPropertyValue("shipment.properties", "shipment.default.weight.uom", "WT_kg");
 }
-context.put("defaultWeightUomId", defaultWeightUomId);
+context.defaultWeightUomId = defaultWeightUomId;

@@ -17,13 +17,12 @@
  * under the License.
  */
 
-import java.util.*;
-import java.sql.Timestamp;
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.util.*;
-import org.ofbiz.entity.condition.*;
-import org.ofbiz.entity.transaction.*;
+import java.util.*
+import java.sql.Timestamp
+import org.ofbiz.entity.*
+import org.ofbiz.entity.util.*
+import org.ofbiz.entity.condition.*
+import org.ofbiz.entity.transaction.*
 
 delegator = request.getAttribute("delegator");
 
@@ -42,7 +41,7 @@ try {
 } catch (Exception e) {
     viewIndex = 1;
 }
-context.put("viewIndex", viewIndex);
+context.viewIndex = viewIndex;
 
 viewSize = 20;
 try {
@@ -50,71 +49,71 @@ try {
 } catch (Exception e) {
     viewSize = 20;
 }
-context.put("viewSize", viewSize);
+context.viewSize = viewSize;
 
-findShipmentExprs = new LinkedList();
+findShipmentExprs = [] as LinkedList;
 paramListBuffer = new StringBuffer();
-if (UtilValidate.isNotEmpty(shipmentTypeId)) {
+if (shipmentTypeId) {
     paramListBuffer.append("&shipmentTypeId=");
     paramListBuffer.append(shipmentTypeId);
     findShipmentExprs.add(EntityCondition.makeCondition("shipmentTypeId", EntityOperator.EQUALS, shipmentTypeId));
-
-    currentShipmentType = delegator.findByPrimaryKeyCache("ShipmentType", UtilMisc.toMap("shipmentTypeId", shipmentTypeId));
-    context.put("currentShipmentType", currentShipmentType);
+    currentShipmentType = delegator.findOne("ShipmentType", [shipmentTypeId : shipmentTypeId], true);
+    context.currentShipmentType = currentShipmentType;
 }
-if (UtilValidate.isNotEmpty(originFacilityId)) {
+if (originFacilityId) {
     paramListBuffer.append("&originFacilityId=");
     paramListBuffer.append(originFacilityId);
     findShipmentExprs.add(EntityCondition.makeCondition("originFacilityId", EntityOperator.EQUALS, originFacilityId));
-
-    currentOriginFacility = delegator.findByPrimaryKeyCache("Facility", UtilMisc.toMap("facilityId", originFacilityId));
-    context.put("currentOriginFacility", currentOriginFacility);
+    currentOriginFacility = delegator.findOne("Facility", [facilityId : originFacilityId], true);
+    context.currentOriginFacility = currentOriginFacility;
 }
-if (UtilValidate.isNotEmpty(destinationFacilityId)) {
+if (destinationFacilityId) {
     paramListBuffer.append("&destinationFacilityId=");
     paramListBuffer.append(destinationFacilityId);
     findShipmentExprs.add(EntityCondition.makeCondition("destinationFacilityId", EntityOperator.EQUALS, destinationFacilityId));
-
-    currentDestinationFacility = delegator.findByPrimaryKeyCache("Facility", UtilMisc.toMap("facilityId", destinationFacilityId));
-    context.put("currentDestinationFacility", currentDestinationFacility);
+    currentDestinationFacility = delegator.findOne("Facility", [facilityId : destinationFacilityId], true);
+    context.currentDestinationFacility = currentDestinationFacility;
 }
-if (UtilValidate.isNotEmpty(statusId)) {
+if (statusId) {
     paramListBuffer.append("&statusId=");
     paramListBuffer.append(statusId);
     findShipmentExprs.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, statusId));
-
-    currentStatus = delegator.findByPrimaryKeyCache("StatusItem", UtilMisc.toMap("statusId", statusId));
-    context.put("currentStatus", currentStatus);
+    currentStatus = delegator.findOne("StatusItem", [statusId : statusId], true);
+    context.currentStatus = currentStatus;
 }
-if (minDate != null && minDate.length() > 8) {            
+if (minDate && minDate.length() > 8) {
     minDate = minDate.trim();
-    if (minDate.length() < 14) minDate = minDate + " " + "00:00:00.000";
+    if (minDate.length() < 14) {
+        minDate = minDate + " " + "00:00:00.000";
+    }
     paramListBuffer.append("&minDate=");
     paramListBuffer.append(minDate);
     findShipmentExprs.add(EntityCondition.makeCondition("estimatedShipDate", EntityOperator.GREATER_THAN_EQUAL_TO, ObjectType.simpleTypeConvert(minDate, "Timestamp", null, null)));        
 }
-if (maxDate != null && maxDate.length() > 8) {
+if (maxDate && maxDate.length() > 8) {
     maxDate = maxDate.trim();
-    if (maxDate.length() < 14) maxDate = maxDate + " " + "23:59:59.999";
+    if (maxDate.length() < 14) {
+        maxDate = maxDate + " " + "23:59:59.999";
+    }
     paramListBuffer.append("&maxDate=");
     paramListBuffer.append(maxDate);
     findShipmentExprs.add(EntityCondition.makeCondition("estimatedShipDate", EntityOperator.LESS_THAN_EQUAL_TO, ObjectType.simpleTypeConvert(maxDate, "Timestamp", null, null)));
 }
 
 if ("Y".equals(lookupFlag)) {
-    context.put("paramList", paramListBuffer.toString());
+    context.paramList = paramListBuffer.toString();
 
     if (findShipmentExprs.size() > 0) {
-        EntityFindOptions findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
+        findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
         mainCond = EntityCondition.makeCondition(findShipmentExprs, EntityOperator.AND);
-        List orderBy = UtilMisc.toList("-estimatedShipDate");
+        orderBy = ['-estimatedShipDate'];
 
-        boolean beganTransaction = false;
+        beganTransaction = false;
         try {
             beganTransaction = TransactionUtil.begin();
 
             // using list iterator
-            EntityListIterator orli = delegator.find("Shipment", mainCond, null, null, orderBy, findOpts);
+            orli = delegator.find("Shipment", mainCond, null, null, orderBy, findOpts);
 
             // get the indexes for the partial list
             lowIndex = (((viewIndex - 1) * viewSize) + 1);
@@ -132,13 +131,13 @@ if ("Y".equals(lookupFlag)) {
             if (shipmentListSize > 0) {
                 shipmentList = orli.getPartialList(lowIndex, viewSize);
             } else {
-                shipmentList = new ArrayList();
+                shipmentList = [] as ArrayList;
             }
 
             // close the list iterator
             orli.close();
         } catch (GenericEntityException e) {
-            String errMsg = "Failure in operation, rolling back transaction";
+            errMsg = "Failure in operation, rolling back transaction";
             Debug.logError(e, errMsg, module);
             try {
                 // only rollback the transaction if we started one...
@@ -153,31 +152,27 @@ if ("Y".equals(lookupFlag)) {
             TransactionUtil.commit(beganTransaction);
         }
     } else {
-        shipmentList = new ArrayList();
+        shipmentList = [] as ArrayList;
         shipmentListSize = 0;
         highIndex = 0;
         lowIndex = 0;
     }
 
-    context.put("shipmentList", shipmentList);
-    context.put("listSize", shipmentListSize);
-    context.put("highIndex", highIndex);
-    context.put("lowIndex", lowIndex);
+    context.shipmentList = shipmentList;
+    context.listSize = shipmentListSize;
+    context.highIndex = highIndex;
+    context.lowIndex = lowIndex;
 }
 
 // =============== Prepare the Option Data for the Find Form =================
 
-shipmentTypes = delegator.findList("ShipmentType", null, null, UtilMisc.toList("description"), null, false);
-context.put("shipmentTypes", shipmentTypes);
+context.shipmentTypes = delegator.findList("ShipmentType", null, null, ['description'], null, false);
 
-facilities = delegator.findList("Facility", null, null, UtilMisc.toList("facilityName"), null, false);
-context.put("facilities", facilities);
+context.facilities = delegator.findList("Facility", null, null, ['facilityName'], null, false);
 
 // since purchase and sales shipments have different status codes, we'll need to make two separate lists
-shipmentStatuses = delegator.findByAnd("StatusItem", UtilMisc.toMap("statusTypeId", "SHIPMENT_STATUS"), UtilMisc.toList("sequenceId"));
-context.put("shipmentStatuses", shipmentStatuses);
-purchaseShipmentStatuses = delegator.findByAnd("StatusItem", UtilMisc.toMap("statusTypeId", "PURCH_SHIP_STATUS"), UtilMisc.toList("sequenceId"));
-context.put("purchaseShipmentStatuses", purchaseShipmentStatuses);
+context.shipmentStatuses = delegator.findList("StatusItem", EntityCondition.makeCondition([statusTypeId : 'SHIPMENT_STATUS']), null, ['sequenceId'], null, false);
+context.purchaseShipmentStatuses = delegator.findList("StatusItem", EntityCondition.makeCondition([statusTypeId : 'PURCH_SHIP_STATUS']), null, ['sequenceId'], null, false);
 
 // create the fromDate for calendar
 fromCal = Calendar.getInstance();
@@ -190,7 +185,7 @@ fromCal.set(Calendar.MILLISECOND, fromCal.getActualMinimum(Calendar.MILLISECOND)
 fromTs = new Timestamp(fromCal.getTimeInMillis());
 fromStr = fromTs.toString();
 fromStr = fromStr.substring(0, fromStr.indexOf('.'));
-context.put("fromDateStr", fromStr);
+context.fromDateStr = fromStr;
 
 // create the thruDate for calendar
 toCal = Calendar.getInstance();
@@ -202,5 +197,4 @@ toCal.set(Calendar.SECOND, toCal.getActualMaximum(Calendar.SECOND));
 toCal.set(Calendar.MILLISECOND, toCal.getActualMaximum(Calendar.MILLISECOND));
 toTs = new Timestamp(toCal.getTimeInMillis());
 toStr = toTs.toString();
-context.put("thruDateStr", toStr);
-
+context.thruDateStr = toStr;
