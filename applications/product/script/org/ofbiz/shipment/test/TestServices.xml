@@ -152,4 +152,46 @@ under the License.
         <log level="info" message="=============Shipment Notification ===========${sendShipmentCompleteNotificationOutMap}========="/>
         <log level="info" message="=============Test case completed===================================="/>
     </simple-method>
+   
+    <simple-method method-name="testReceiveInventoryNonSerialized" short-description="Test Receive Non-Serialized Inventory" login-required="false">
+        <now-timestamp-to-env env-name="nowTimeStamp"/>
+        <entity-one entity-name="UserLogin" value-name="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.facilityId" value="WebStoreWarehouse"/>
+        <set field="serviceCtx.productId" value="GZ-2644"/>
+        <set field="serviceCtx.quantityAccepted" value="5" type="Double"/>
+        <set field="serviceCtx.quantityRejected" value="0" type="Double"/>
+        <set field="serviceCtx.unitCost" value="24" type="Double"/>
+        <set field="serviceCtx.inventoryItemTypeId" value="NON_SERIAL_INV_ITEM"/>
+        <set field="serviceCtx.datetimeReceived" from-field="nowTimeStamp"/>
+        <call-service service-name="receiveInventoryProduct" in-map-name="serviceCtx">
+            <result-to-field  field-name="inventoryItemId" result-name="inventoryItemId"/>
+        </call-service>
+        
+        <entity-one entity-name="InventoryItem" value-name="inventoryItem"/>
+        <entity-condition entity-name="InventoryItemDetail" list-name="inventoryItemDetails">
+            <condition-expr field-name="inventoryItemId" env-name="inventoryItemId"/>
+            <order-by field-name="-createdStamp"/>
+        </entity-condition>
+        <first-from-list list-name="inventoryItemDetails" entry-name="inventoryItemDetail"/>        
+        <entity-condition entity-name="ShipmentReceipt" list-name="shipmentReceipts">
+            <condition-expr field-name="inventoryItemId" env-name="inventoryItemId"/>
+            <order-by field-name="datetimeReceived"/>
+        </entity-condition>
+        <first-from-list list-name="shipmentReceipts" entry-name="shipmentReceipt"/>
+        <assert>
+            <not><if-empty field="inventoryItem"></if-empty></not>
+            <not><if-empty field="inventoryItemDetail"></if-empty></not>
+            <not><if-empty field="shipmentReceipt"></if-empty></not>
+            <if-compare-field field="inventoryItem.productId" operator="equals" to-field="serviceCtx.productId"/>
+            <if-compare-field field="inventoryItem.facilityId" operator="equals" to-field="serviceCtx.facilityId"/>
+            <if-compare-field field="inventoryItem.quantityOnHandTotal" operator="equals" to-field="serviceCtx.quantityAccepted"/>
+            <if-compare-field field="inventoryItem.availableToPromiseTotal" operator="equals" to-field="serviceCtx.quantityAccepted"/>
+            <if-compare-field field="shipmentReceipt.quantityAccepted" operator="equals" to-field="serviceCtx.quantityAccepted"/>
+            <if-compare-field field="shipmentReceipt.productId" operator="equals" to-field="serviceCtx.productId"/>
+        </assert>
+        <check-errors/>
+    </simple-method>   
 </simple-methods>
