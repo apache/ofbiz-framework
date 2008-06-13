@@ -25,7 +25,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="ProductFindShipment"/>
                 <set field="headerItem" value="shipment"/>
-                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/FindShipment.bsh"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/FindShipment.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -75,10 +75,10 @@ under the License.
                 <set field="headerItem" value="shipment"/>
                 <set field="tabButtonItem" value="ViewShipment"/>
 
-                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/ViewShipment.bsh"/>
-                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/EditShipmentItems.bsh"/>
-                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/EditShipmentPackages.bsh"/>
-                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/EditShipmentRouteSegments.bsh"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/ViewShipment.groovy"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/EditShipmentItems.groovy"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/EditShipmentPackages.groovy"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/EditShipmentRouteSegments.groovy"/>
             </actions>
             <widgets>
                 <section>
@@ -122,7 +122,7 @@ under the License.
                 <set field="headerItem" value="shipment"/>
                 <set field="tabButtonItem" value="EditShipment"/>
 
-                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/EditShipment.bsh"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/EditShipment.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonShipmentDecorator">
@@ -142,7 +142,7 @@ under the License.
                 <set field="headerItem" value="shipment"/>
                 <set field="tabButtonItem" value="EditShipmentItems"/>
 
-                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/EditShipmentItems.bsh"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/EditShipmentItems.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonShipmentDecorator">
@@ -162,7 +162,7 @@ under the License.
                 <set field="headerItem" value="shipment"/>
                 <set field="tabButtonItem" value="EditShipmentPlan"/>
 
-                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/EditShipmentPlan.bsh"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/EditShipmentPlan.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonShipmentDecorator">
@@ -182,7 +182,7 @@ under the License.
                 <set field="headerItem" value="shipment"/>
                 <set field="tabButtonItem" value="EditShipmentPackages"/>
 
-                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/EditShipmentPackages.bsh"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/EditShipmentPackages.grovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonShipmentDecorator">
@@ -202,7 +202,7 @@ under the License.
                 <set field="headerItem" value="shipment"/>
                 <set field="tabButtonItem" value="EditShipmentRouteSegments"/>
 
-                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/EditShipmentRouteSegments.bsh"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/EditShipmentRouteSegments.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonShipmentDecorator">
@@ -222,7 +222,7 @@ under the License.
                 <set field="headerItem" value="shipment"/>
                 <set field="tabButtonItem" value="AddItemsFromOrder"/>
 
-                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/AddItemsFromOrder.bsh"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/AddItemsFromOrder.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonShipmentDecorator">
@@ -241,10 +241,10 @@ under the License.
             <actions>
                 <set field="titleProperty" value="ProductQuickShipOrder"/>
                 <set field="headerItem" value="shipment"/>
-                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/QuickShipOrder.bsh"/>
-                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/EditShipmentItems.bsh"/>
-                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/EditShipmentPackages.bsh"/>
-                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/EditShipmentRouteSegments.bsh"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/QuickShipOrder.groovy"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/EditShipmentItems.groovy"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/EditShipmentPackages.groovy"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/EditShipmentRouteSegments.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -263,7 +263,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="ProductPackOrder"/>
                 <set field="headerItem" value="shipment"/>
-                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/PackOrder.bsh"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/PackOrder.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -286,8 +286,8 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
 
                 <set field="shipmentId" from-field="parameters.shipmentId"/>
-                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/ViewShipment.bsh"/>
-                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/PackingSlip.bsh"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/ViewShipment.groovy"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/PackingSlip.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="FoReportDecorator" location="component://common/widget/CommonScreens.xml">
@@ -347,8 +347,8 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
 
                 <set field="shipmentId" from-field="parameters.shipmentId"/>
-                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/ViewShipment.bsh"/>
-                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/ShipmentManifest.bsh"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/ViewShipment.groovy"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/ShipmentManifest.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="FoReportDecorator" location="component://common/widget/CommonScreens.xml">
@@ -392,7 +392,7 @@ under the License.
                 <set field="headerItem" value="shipment"/>
                 <set field="tabButtonItem" value="ProductReceiveInventoryAgainstPO"/>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
-                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/ReceiveInventoryAgainstPurchaseOrder.bsh"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/ReceiveInventoryAgainstPurchaseOrder.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonShipmentDecorator">
