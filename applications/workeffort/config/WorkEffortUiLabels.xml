@@ -2875,6 +2875,7 @@
     </property>
     <property key="WorkEffortPartyAssignmentError">
         <value xml:lang="en">Party ${parameters.partyId} with role ${parameters.roleTypeId} is already assigned to work effort Id ${parameters.workEffortId}, not adding again</value>
+        <value xml:lang="fr">L'acteur ${parameters.partyId} ayant le role ${parameters.roleTypeId} est déjà assigé à la tâche de réf. ${parameters.workEffortId}</value>
     </property>
     <property key="WorkEffortPartyId">
         <value xml:lang="en">Party Id</value>
