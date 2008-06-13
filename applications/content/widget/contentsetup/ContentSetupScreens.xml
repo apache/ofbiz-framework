@@ -149,7 +149,7 @@ under the License.
                 <set field="headerItem" value="ContentSetupMenu"/>
                 <set field="currentMenuItemName" to-scope="user" value="userpermission"/>
                 <set field="webSitePublishPoint" from-field="parameters.webSitePublishPoint" default-value="OFBIZDOCROOT"/>
-                <script location="component://content/widget/contentsetup/userpermprep.bsh"/>
+                <script location="component://content/widget/contentsetup/UserPermPrep.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="commonContentSetupDecorator" location="${parameters.mainDecoratorLocation}">
