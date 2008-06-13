@@ -27,7 +27,7 @@ import org.ofbiz.entity.condition.EntityOperator;
 
 
 andExprs = [];
-fieldValue = parameters.exampleFeatureId;
+fieldValue = request.getParameter("exampleFeatureId");
 if (fieldValue) {
     andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER(EntityFieldValue.makeFieldValue("exampleFeatureId")),
             EntityOperator.LIKE, "%" + fieldValue.toUpperCase() + "%"));
@@ -36,8 +36,7 @@ if (fieldValue) {
 autocompleteOptions = [];
 if (andExprs) {
     entityConditionList = EntityCondition.makeCondition(andExprs, EntityOperator.AND);
-    autocompleteOptions = delegator.findList("ExampleFeature", entityConditionList, 
-            new TreeSet(['exampleFeatureId', 'description'], ['-exampleFeatureId'], null, false);
+    autocompleteOptions = delegator.findList("ExampleFeature", entityConditionList, ['exampleFeatureId', 'description'] as Set, ['-exampleFeatureId'], null, false);
     //context.autocompleteOptions = autocompleteOptions;
 	request.setAttribute("autocompleteOptions", autocompleteOptions);
 }
