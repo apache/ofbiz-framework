@@ -2829,6 +2829,11 @@
         <value xml:lang="th">ค้นหา - แก้ไข งาน</value>
         <value xml:lang="zh">查找 - 编辑规程任务</value>
     </property>
+    <property key="PageTitleListRoutingTaskAssoc">
+        <value xml:lang="en">List Routing Task Assoc</value>
+        <value xml:lang="it">Lista Associazioni Operazioni</value>
+        <value xml:lang="th">รายการกลลุ่มของงาน</value>
+    </property>
     <property key="PageTitleListCalendarWeek">
         <value xml:lang="en">List of weeks</value>
         <value xml:lang="es">Lista de semanas</value>

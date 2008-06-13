@@ -609,6 +609,11 @@
         <value xml:lang="en">List Skill Types</value>
         <value xml:lang="th">รายการประเภททักษะ</value>
     </property>
+    <property key="HumanResListValidResponsibility">
+        <value xml:lang="en">List Valid Responsibility</value>
+        <value xml:lang="it">Lista Validità Responsibilità</value>
+        <value xml:lang="th">รายการหน้าที่รับผิดชอบ</value>
+    </property>
     <property key="HumanResLookupBudgetByName">
         <value xml:lang="en">Lookup Budget by Name</value>
         <value xml:lang="it">Ricerca Budget per Nome</value>
