@@ -33,14 +33,14 @@ under the License.
         <!-- Post condition: 
              1. Selected party and information should be displayed in search result
         -->
-        <set field="serviceCtx.partyId" value="DemoCustomer"/>
-        <set field="serviceCtx.roleTypeId" value="CUSTOMER"/>
-
+        <set field="searchParams.partyId" value="DemoCustomer"/>
+        <set field="searchParams.roleTypeId" value="CUSTOMER"/>
+        <map-to-map map-name="searchParams" to-map-name="serviceCtx"/>
         <call-service service-name="findParty" in-map-name="serviceCtx">
             <results-to-map map-name="partyList"/>
         </call-service>
         
-        <find-by-primary-key entity-name="PartyRoleDetailAndPartyDetail" map-name="serviceCtx" value-name="partyRoleDetailAndPartyDetail"/>
+        <find-by-primary-key entity-name="PartyRoleDetailAndPartyDetail" map-name="searchParams" value-name="partyRoleDetailAndPartyDetail"/>
         <if-not-empty field-name="partyRoleDetailAndPartyDetail">
             <assert><not><if-empty field-name="partyList"/></not></assert>
         <else>
