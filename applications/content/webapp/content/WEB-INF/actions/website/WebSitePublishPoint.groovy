@@ -17,35 +17,34 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.util.*;
+import org.ofbiz.entity.condition.*
+import org.ofbiz.entity.util.*
 
-Map pplookupMap = UtilMisc.toMap("webSiteId", webSiteId, "webSiteContentTypeId", "PUBLISH_POINT");
-List webSiteContents = delegator.findByAnd("WebSiteContent", pplookupMap, UtilMisc.toList("-fromDate"));
+pplookupMap = [webSiteId : webSiteId, webSiteContentTypeId : 'PUBLISH_POINT'];
+webSiteContents = delegator.findList("WebSiteContent", EntityCondition.makeCondition(pplookupMap), null, ['-fromDate'], null, false);
 webSiteContents = EntityUtil.filterByDate(webSiteContents);
 webSiteContent = EntityUtil.getFirst(webSiteContents);
-if (webSiteContent != null) {
+if (webSiteContent) {
     content = webSiteContent.getRelatedOne("Content");
-    contentRoot = content.getString("contentId");
-    context.put("content", content);
-    context.put("contentRoot", contentRoot);
+    contentRoot = content.contentId;
+    context.content = content;
+    context.contentRoot = contentRoot;
 
     // get all sub content for the publish point
-    List subsites = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentRoot));
-    context.put("subsites", subsites);
+    subsites = delegator.findList("ContentAssoc", [contentId : contentRoot], null, null, null, false);
+    context.subsites = subsites;
 }
 
-Map mnlookupMap = UtilMisc.toMap("webSiteId", webSiteId, "webSiteContentTypeId", "MENU_ROOT");
-List webSiteMenus = delegator.findByAnd("WebSiteContent", mnlookupMap, UtilMisc.toList("-fromDate"));
+mnlookupMap = [webSiteId : webSiteId, webSiteContentTypeId : 'MENU_ROOT'];
+webSiteMenus = delegator.findList("WebSiteContent", EntityCondition.makeCondition(mnlookupMap), null, ['-fromDate'], null, false);
 webSiteMenu = EntityUtil.getFirst(webSiteMenus);
-if (webSiteMenu != null) {
+if (webSiteMenu) {
     menu = webSiteMenu.getRelatedOne("Content");
-    menuRoot = menu.getString("contentId");
-    context.put("menu", menu);
-    context.put("menuRoot", menuRoot);
+    menuRoot = menu.contentId;
+    context.menu = menu;
+    context.menuRoot = menuRoot;
 
     // get all sub content for the publish point
-    List menus = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", menuRoot));
-    context.put("menus", menus);
+    menus = delegator.findList("ContentAssoc", EntityCondition.makeCondition([contentId : menuRoot]), null, null, null, false);
+    context.menus = menus;
 }

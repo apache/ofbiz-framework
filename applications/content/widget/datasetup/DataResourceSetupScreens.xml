@@ -173,7 +173,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditDataResourceCategory"/>
                 <set field="headerItem" value="DataResourceSetupMenu"/>
                 <set field="tabButtonItem" to-scope="user" value="EditDataCategory"/>
-                <script location="component://content/webapp/content/WEB-INF/actions/datasetup/datacategoryprep.bsh"/>
+                <script location="component://content/webapp/content/WEB-INF/actions/datasetup/DataCategoryPrep.groovy"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
             </actions>
