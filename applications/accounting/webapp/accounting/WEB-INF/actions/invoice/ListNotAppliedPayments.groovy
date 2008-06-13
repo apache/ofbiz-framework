@@ -26,6 +26,7 @@ import org.ofbiz.accounting.payment.*;
 import org.ofbiz.accounting.util.UtilAccounting;
 import java.text.DateFormat;
 import java.math.*;
+import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
