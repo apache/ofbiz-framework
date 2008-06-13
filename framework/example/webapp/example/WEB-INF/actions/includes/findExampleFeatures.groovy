@@ -18,30 +18,27 @@
  */
 
 import java.util.TreeSet;
-import javolution.util.FastList;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityFieldValue;
 import org.ofbiz.entity.condition.EntityFunction;
 import org.ofbiz.entity.condition.EntityOperator;
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilValidate;
 
-delegator = request.getAttribute("delegator");
 
-andExprs = FastList.newInstance();
-fieldValue = request.getParameter("exampleFeatureId");
-if (UtilValidate.isNotEmpty(fieldValue)) {
+andExprs = [];
+fieldValue = parameters.exampleFeatureId;
+if (fieldValue) {
     andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER(EntityFieldValue.makeFieldValue("exampleFeatureId")),
             EntityOperator.LIKE, "%" + fieldValue.toUpperCase() + "%"));
 }
 
-List autocompleteOptions = null;
-if (andExprs.size() > 0) {
+autocompleteOptions = [];
+if (andExprs) {
     entityConditionList = EntityCondition.makeCondition(andExprs, EntityOperator.AND);
-    autocompleteOptions = delegator.findList("ExampleFeature", entityConditionList, new TreeSet(UtilMisc.toList("exampleFeatureId", "description")), UtilMisc.toList("-exampleFeatureId"), null, false);
-    //context.put("autocompleteOptions", autocompleteOptions);
+    autocompleteOptions = delegator.findList("ExampleFeature", entityConditionList, 
+            new TreeSet(['exampleFeatureId', 'description'], ['-exampleFeatureId'], null, false);
+    //context.autocompleteOptions = autocompleteOptions;
 	request.setAttribute("autocompleteOptions", autocompleteOptions);
 }
 return "success";
