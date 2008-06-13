@@ -17,35 +17,31 @@
  * under the License.
  */
 
-import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.GenericDelegator;
-import org.ofbiz.entity.GenericEntityException;
-import org.ofbiz.entity.transaction.TransactionUtil;
-import org.ofbiz.entity.util.EntityListIterator;
-import org.ofbiz.entity.condition.EntityOperator;
-import org.ofbiz.entity.condition.EntityExpr;
-import org.ofbiz.entity.condition.EntityConditionList;
-import org.ofbiz.marketing.report.ReportHelper;
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.Debug;
+import org.ofbiz.entity.transaction.TransactionUtil
+import org.ofbiz.entity.util.EntityListIterator
+import org.ofbiz.entity.condition.EntityOperator
+import org.ofbiz.entity.condition.EntityExpr
+import org.ofbiz.entity.condition.EntityCondition
+import org.ofbiz.entity.condition.EntityConditionList
+import org.ofbiz.marketing.report.ReportHelper
 
 //query for both number of visits and number of orders
 
 marketingCampaignId = request.getParameter("marketingCampaignId");
 fromDateStr = request.getParameter("fromDate");
 thruDateStr = request.getParameter("thruDate");
-visitConditionList = new LinkedList();
-orderConditionList = new LinkedList();
+visitConditionList = [] as LinkedList;
+orderConditionList = [] as LinkedList;
 
-if ((fromDateStr != null) && !(fromDateStr.equals(""))) {
+if (fromDateStr && !(fromDateStr.equals(""))) {
     visitConditionList.add(EntityCondition.makeCondition("fromDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDateStr));
-    orderConditionList.add(EntityCondition.makeCondition("orderDate",EntityOperator.GREATER_THAN_EQUAL_TO,fromDateStr));
+    orderConditionList.add(EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDateStr));
 }
-if ((thruDateStr != null) && !(thruDateStr.equals(""))) {
-    visitConditionList.add(EntityCondition.makeCondition("fromDate",EntityOperator.LESS_THAN_EQUAL_TO,thruDateStr));
-    orderConditionList.add(EntityCondition.makeCondition("orderDate",EntityOperator.LESS_THAN_EQUAL_TO,thruDateStr));
+if (thruDateStr && !(thruDateStr.equals(""))) {
+    visitConditionList.add(EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDateStr));
+    orderConditionList.add(EntityCondition.makeCondition("orderDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDateStr));
 }
-if ((marketingCampaignId != null) && !(marketingCampaignId.equals(""))) {
+if (marketingCampaignId && !(marketingCampaignId.equals(""))) {
     visitConditionList.add(EntityCondition.makeCondition("marketingCampaignId", EntityOperator.EQUALS, marketingCampaignId));
     orderConditionList.add(EntityCondition.makeCondition("marketingCampaignId", EntityOperator.EQUALS, marketingCampaignId));
 }
@@ -53,9 +49,9 @@ if ((marketingCampaignId != null) && !(marketingCampaignId.equals(""))) {
 visitConditions = EntityCondition.makeCondition(visitConditionList, EntityOperator.AND);
 orderConditions = EntityCondition.makeCondition(orderConditionList, EntityOperator.AND);
 
-visits = delegator.findList("MarketingCampaignAndVisit", visitConditions, UtilMisc.toSet("marketingCampaignId", "visitId"), UtilMisc.toList("marketingCampaignId"), null, false);
-orders = delegator.findList("MarketingCampaignAndOrderHeader", orderConditions, UtilMisc.toSet("marketingCampaignId", "orderId", "grandTotal"), UtilMisc.toList("marketingCampaignId"), null, false);
+visits = delegator.findList("MarketingCampaignAndVisit", visitConditions, ['marketingCampaignId', 'visitId'] as Set, ['marketingCampaignId'], null, false);
+orders = delegator.findList("MarketingCampaignAndOrderHeader", orderConditions, ['marketingCampaignId', 'orderId', 'grandTotal'] as Set, ['marketingCampaignId'], null, false);
 
 //use this helper to build a List of visits, orders, order totals, and conversion rates
 marketingCampaignVisitAndOrders = ReportHelper.calcConversionRates(visits, orders, "marketingCampaignId");
-context.put("marketingCampaignVisitAndOrders", marketingCampaignVisitAndOrders);
+context.marketingCampaignVisitAndOrders = marketingCampaignVisitAndOrders;

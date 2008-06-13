@@ -141,7 +141,7 @@ under the License.
             <actions>
                 <set field="headerItem" value="Leads"/>
                 <set field="tabButtonItem" value="CloneLead"/>
-                <script location="component://marketing/webapp/sfa/WEB-INF/action/cloneLead.bsh"/>
+                <script location="component://marketing/webapp/sfa/WEB-INF/action/CloneLead.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
@@ -172,7 +172,7 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="Leads"/>
-                <script location="component://marketing/webapp/sfa/WEB-INF/action/mergeContacts.bsh"/>
+                <script location="component://marketing/webapp/sfa/WEB-INF/action/MergeContacts.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
