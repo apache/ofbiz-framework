@@ -171,7 +171,7 @@ under the License.
     <screen name="RequestRoles">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleRequestRoles"/>
+                <set field="titleProperty" value="PageTitleEditRequestRoles"/>
                 <set field="tabButtonItem" value="requestroles"/>
                 <set field="headerItem" value="request"/>
                 <set field="custRequestId" from-field="parameters.custRequestId"/>
@@ -183,34 +183,10 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonRequestDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleRequestRoles}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="ListRequestRoles" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>                                        
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditRequestRoles}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="EditRequestRole" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>                        
+                        <screenlet id="RequestRolePanel" title="${uiLabelMap.PageTitleEditRequestRoles}" collapsible="true">
+                            <include-form name="EditRequestRole" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                        </screenlet>
+                        <include-form name="ListRequestRoles" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -520,37 +496,11 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonRequestDecorator">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.CommonId}:${custRequestItem.custRequestItemSeqId} ${custRequestItem.description}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <container>
-                                            <link  target="EditRequestItem?custRequestId=${custRequestId}" text="${uiLabelMap.OrderNewRequestItem}" style="buttontext"/>
-                                        </container>
-                                        <include-form name="ListCustRequestItemWorkEfforts" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>                                        
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="PageTitleEditRequestItemWorkEffort"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>                                        
-                                        <include-form name="AddCustRequestItemWorkEffort" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet id="CustRequestItemWorkEffortPanel" title="${uiLabelMap.CommonId}:${custRequestItem.custRequestItemSeqId} ${custRequestItem.description}" collapsible="true">
+                            <link  target="EditRequestItem?custRequestId=${custRequestId}" text="${uiLabelMap.OrderNewRequestItem}" style="buttontext"/>
+                            <include-form name="AddCustRequestItemWorkEffort" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                        </screenlet>
+                        <include-form name="ListCustRequestItemWorkEfforts" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

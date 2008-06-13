@@ -318,7 +318,7 @@ under the License.
     </form>
 
     <form name="ListRequestRoles" type="list" use-row-submit="true" title="" list-name="custRequestRoles" 
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="RequestRoles">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" paginate-target="RequestRoles">
         <auto-fields-entity entity-name="CustRequestRole" default-field-type="display"/>
         <field name="custRequestId"><hidden/></field>
         <field name="partyId" widget-style="buttontext">
@@ -357,7 +357,7 @@ under the License.
         </field>
     </form>
     <form name="ListCustRequestItemWorkEfforts" type="list" target="" title=""
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="custRequestId"><hidden/></field>
         <field name="custRequestItemSeqId"><hidden/></field>
         <field name="workEffortId">
