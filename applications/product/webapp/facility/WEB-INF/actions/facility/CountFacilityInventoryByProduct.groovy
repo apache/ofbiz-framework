@@ -33,13 +33,12 @@
 import org.ofbiz.entity.*
 import org.ofbiz.entity.condition.*
 import org.ofbiz.entity.transaction.*
-import org.ofbiz.entity.util.EntityListIterator
+import org.ofbiz.entity.util.*
 import org.ofbiz.entity.model.DynamicViewEntity
 import org.ofbiz.entity.model.ModelKeyMap
 import org.ofbiz.entity.model.ModelViewEntity.ComplexAlias
 import org.ofbiz.entity.model.ModelViewEntity.ComplexAliasField
 import org.ofbiz.entity.model.ModelViewEntity.ComplexAliasMember
-import org.ofbiz.entity.util.EntityFindOptions
 import org.ofbiz.product.inventory.*
 
 action = request.getParameter("action");
