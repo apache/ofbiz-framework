@@ -17,28 +17,25 @@
  * under the License.
  */
 
-import java.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.base.util.*;
 import org.ofbiz.content.survey.*;
 
-if (survey == null) {
-    surveyResponseId = parameters.get("surveyResponseId");
-    if (!UtilValidate.isEmpty(surveyResponseId)) {
-        surveyResponse = delegator.findByPrimaryKey("SurveyResponse", UtilMisc.toMap("surveyResponseId", surveyResponseId));
-        if (surveyResponse != null) {
-            surveyId = surveyResponse.getString("surveyId");
-            if (!UtilValidate.isEmpty(surveyId)) {
-                survey = delegator.findByPrimaryKey("Survey", UtilMisc.toMap("surveyId", surveyId));
-                context.put("survey", survey);
-                context.put("surveyId", surveyId);
+if (!survey) {
+    surveyResponseId = parameters.surveyResponseId;
+    if (surveyResponseId) {
+        surveyResponse = delegator.findOne("SurveyResponse", [surveyResponseId : surveyResponseId], false);
+        if (surveyResponse) {
+            surveyId = surveyResponse.surveyId;
+            if (surveyId) {
+                survey = delegator.findOne("Survey", [surveyId : surveyId], false);
+                context.survey = survey;
+                context.surveyId = surveyId;
             }
         }
     }
 }
 
-if (survey != null) {
+if (survey) {
     surveyWrapper = new SurveyWrapper(delegator, surveyId);
-    context.put("surveyWrapper", surveyWrapper);
-    context.put("sequenceSort", UtilMisc.toList("sequenceNum"));
+    context.surveyWrapper = surveyWrapper;
+    context.sequenceSort = ['sequenceNum'];
 }

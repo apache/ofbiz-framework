@@ -17,23 +17,16 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.*;
-
-List webSiteRoles = null;
-List webSiteRoleDatas = new LinkedList();
-if (webSite != null) {
-    webSiteRoles = webSite.getRelated("WebSiteRole", null, UtilMisc.toList("sequenceNum", "partyId"));
-    Iterator webSiteRoleIter = webSiteRoles.iterator();
-    while (webSiteRoleIter.hasNext()) {
-        GenericValue webSiteRole = (GenericValue) webSiteRoleIter.next();
-        Map webSiteRoleData = new HashMap();
-        webSiteRoleData.put("webSiteRole", webSiteRole);
-        webSiteRoleData.put("person", webSiteRole.getRelatedOne("Person"));
-        webSiteRoleData.put("partyGroup", webSiteRole.getRelatedOne("PartyGroup"));
-        webSiteRoleData.put("roleType", webSiteRole.getRelatedOneCache("RoleType"));
+webSiteRoleDatas = [] as LinkedList;
+if (webSite) {
+    webSiteRoles = webSite.getRelated("WebSiteRole", null, ['sequenceNum', 'partyId']);
+    webSiteRoles.each { webSiteRole ->
+        Map webSiteRoleData = [:];
+        webSiteRoleData.webSiteRole = webSiteRole;
+        webSiteRoleData.person = webSiteRole.getRelatedOne("Person");
+        webSiteRoleData.partyGroup = webSiteRole.getRelatedOne("PartyGroup");
+        webSiteRoleData.roleType = webSiteRole.getRelatedOneCache("RoleType");
         webSiteRoleDatas.add(webSiteRoleData);
     }
 }
-
-context.put("webSiteRoleDatas", webSiteRoleDatas);
+context.webSiteRoleDatas = webSiteRoleDatas;

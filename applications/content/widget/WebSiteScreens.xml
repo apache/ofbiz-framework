@@ -206,7 +206,7 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleCreateWebSiteParties"/>
                 <set field="webSiteId" from-field="parameters.webSiteId"/>
                 <entity-one entity-name="WebSite" value-name="webSite"/>
-                <script location="component://content/webapp/content/WEB-INF/actions/website/EditWebSiteParties.bsh"/>
+                <script location="component://content/webapp/content/WEB-INF/actions/website/EditWebSiteParties.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonWebSiteDecorator">
@@ -235,7 +235,7 @@ under the License.
                 <set field="webSiteId" from-field="parameters.webSiteId"/>
                 <entity-one entity-name="WebSite" value-name="webSite"/>
                 
-                <script location="component://content/webapp/content/WEB-INF/actions/website/WebSitePublishPoint.bsh"/>
+                <script location="component://content/webapp/content/WEB-INF/actions/website/WebSitePublishPoint.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonWebSiteDecorator">
@@ -268,11 +268,11 @@ under the License.
 
     <screen name="WebSiteCMSNav">
         <section>
-            <actions>                                                                
+            <actions>
                 <set field="webSiteId" from-field="parameters.webSiteId"/>
                 <entity-one entity-name="WebSite" value-name="webSite"/>
 
-                <script location="component://content/webapp/content/WEB-INF/actions/website/WebSitePublishPoint.bsh"/>
+                <script location="component://content/webapp/content/WEB-INF/actions/website/WebSitePublishPoint.groovy"/>
             </actions>
             <widgets>
                 <container style="screenlet">
@@ -400,7 +400,7 @@ under the License.
                 <set field="contentId" from-field="parameters.contentId"/>
                 <entity-one entity-name="Content" value-name="content"/>
 
-                <script location="component://content/webapp/content/WEB-INF/actions/website/WebSiteCMSMetaInfo.bsh"/>
+                <script location="component://content/webapp/content/WEB-INF/actions/website/WebSiteCMSMetaInfo.groovy"/>
             </actions>
             <widgets>
                 <platform-specific>

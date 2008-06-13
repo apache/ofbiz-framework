@@ -17,26 +17,20 @@
  * under the License.
  */
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.content.data.DataResourceWorker;
+import org.ofbiz.entity.*
+import org.ofbiz.content.data.DataResourceWorker
 
 /**
  * This script calls two methods in DataResourceWorker to build an indented
  * DataCategory picklist.
  */
 
-
-List dataCategoryTrail = new ArrayList();
-Map rootNode = new HashMap();
-rootNode.put("id", "ROOT");
+dataCategoryTrail = [] as ArrayList;
+rootNode = [:];
+rootNode.id = "ROOT";
 DataResourceWorker.getDataCategoryMap(delegator, 0, rootNode, dataCategoryTrail, true);
-List dataCategoryList = new ArrayList();
+
+dataCategoryList = [] as ArrayList;
 DataResourceWorker.buildList(rootNode, dataCategoryList, 0);
 
-context.put("dataCategoryList", dataCategoryList);
+context.dataCategoryList = dataCategoryList;

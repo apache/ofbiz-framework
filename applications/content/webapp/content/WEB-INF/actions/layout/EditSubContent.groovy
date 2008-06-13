@@ -17,50 +17,38 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.security.*;
-import org.ofbiz.service.*;
-import org.ofbiz.entity.model.*;
-import org.ofbiz.widget.html.*;
-import org.ofbiz.widget.form.*;
-import org.ofbiz.content.data.DataResourceWorker;
-import org.ofbiz.webapp.ftl.FreeMarkerViewHandler;
+import org.ofbiz.base.util.*
+import org.ofbiz.entity.*
+import org.ofbiz.entity.model.*
+import org.ofbiz.content.data.DataResourceWorker
+import org.ofbiz.webapp.ftl.FreeMarkerViewHandler
 
-import java.io.StringWriter;
-import freemarker.ext.beans.BeansWrapper;
-import freemarker.template.WrappingTemplateModel;
+import java.io.StringWriter
+import freemarker.ext.beans.BeansWrapper
+import freemarker.template.WrappingTemplateModel
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-
-// load edit or create Content form
-dispatcher    = (LocalDispatcher)request.getAttribute("dispatcher");
-delegator = (GenericDelegator) request.getAttribute("delegator");
+import javax.servlet.*
+import javax.servlet.http.*
 
 Locale locale = UtilHttp.getLocale(request);
-if (currentValue != null) {
-    dataResourceId = (String)currentValue.get("drDataResourceId");
-    dataResourceTypeId =  (String)currentValue.get("drDataResourceTypeId");
-    if (UtilValidate.isNotEmpty(dataResourceTypeId)) {
-        mimeTypeId =  (String)currentValue.get("drMimeTypeId");
+if (currentValue) {
+    dataResourceId = currentValue.drDataResourceId;
+    dataResourceTypeId = currentValue.drDataResourceTypeId;
+    if (dataResourceTypeId) {
+        mimeTypeId = currentValue.drMimeTypeId;
         rootDir = request.getSession().getServletContext().getRealPath("/");
         wrapper = BeansWrapper.getDefaultInstance();
         WrappingTemplateModel.setDefaultObjectWrapper(wrapper);
-        templateRoot = new HashMap();
+        templateRoot = [:];
         FreeMarkerViewHandler.prepOfbizRoot(templateRoot, request, response);
-        ctx = new HashMap();
-        ctx.put("rootDir", rootDir);
+        ctx = [:];
+        ctx.rootDir = rootDir;
         // webSiteId and https need to go here, too
-        templateRoot.put("context", ctx);
+        templateRoot.context = ctx;
         out = new StringWriter();
-        currentValue.set("drDataTemplateTypeId", "NONE");
+        currentValue.drDataTemplateTypeId = "NONE";
         DataResourceWorker.renderDataResourceAsText(delegator, dataResourceId, out, templateRoot, currentValue, locale, mimeTypeId);
         textData = out.toString();
-        context.put("textData", textData);
+        context.textData = textData;
     }
 }
-
-//context.put("contentIdTo", contentIdTo);
-//mapKey = (String)paramMap.get("mapKey");
-

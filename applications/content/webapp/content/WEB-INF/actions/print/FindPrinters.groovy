@@ -16,17 +16,18 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilValidate;
 
-seqNo = context.get("caSequenceNum");
-if (UtilValidate.isEmpty(seqNo)) {
-	seqNo = context.get("sequenceNum");
+import javax.print.PrintService
+import javax.print.PrintServiceLookup
+import javax.print.attribute.PrintServiceAttribute
+import javax.print.attribute.standard.PrinterName
+
+printers = [];
+PrintService[] services = PrintServiceLookup.lookupPrintServices(null, null);
+if (services.length > 0) {
+    for (int i = 0; i < services.length; i++) {
+        PrintServiceAttribute attr = services[i].getAttribute(PrinterName.class);
+        printers.add(((PrinterName)attr).getValue());
+    }
 }
-Debug.logInfo("caSequenceNum:" + seqNo, "");
-if (seqNo != null) {
-    seqNumBefore = seqNo - 1;
-    context.put("seqNumBefore", seqNumBefore);
-    seqNumAfter = seqNo + 1;
-    context.put("seqNumAfter", seqNumAfter);
-}
+context.printers = printers;

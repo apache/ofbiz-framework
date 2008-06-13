@@ -17,27 +17,24 @@
  * under the License.
  */
 
-import java.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.content.survey.*;
+import org.ofbiz.content.survey.*
+import org.ofbiz.base.util.*
 
-surveyResponseId = parameters.get("surveyResponseId");
-//causes problems, not sure why was here: partyId = parameters.get("partyId");
+surveyResponseId = parameters.surveyResponseId;
 partyId = null;
 
-if ((surveyId == null) && (surveyResponseId != null)) {
-   surveyResponse = delegator.findByPrimaryKey("SurveyResponse", UtilMisc.toMap("surveyResponseId", surveyResponseId));
-   surveyId = surveyResponse.getString("surveyId");
-   context.put("surveyId", surveyId);
+if (!surveyId && surveyResponseId) {
+   surveyResponse = delegator.findOne("SurveyResponse", [surveyResponseId : surveyResponseId], false);
+   surveyId = surveyResponse.surveyId;
+   context.surveyId = surveyId;
 }
 
 surveyWrapper = new SurveyWrapper(delegator, surveyResponseId, partyId, surveyId, null);
 surveyWrapper.setEdit(true);
 
 templateUrl = UtilURL.fromOfbizHomePath("applications/content/template/survey/genericsurvey.ftl");
-if (templateUrl != null) {
+if (templateUrl) {
     writer = new StringWriter();
     surveyWrapper.render(templateUrl, writer);
-    context.put("surveyString", writer.toString());
+    context.surveyString = writer.toString();
 }

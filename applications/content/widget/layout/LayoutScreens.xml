@@ -150,7 +150,7 @@ under the License.
                 <set field="tabButtonItem" to-scope="user" value="EditLayoutSubContent"/>
                 
                 <entity-one entity-name="SubContentDataResourceView" value-name="currentValue"/>
-                <script location="component://content/webapp/content/WEB-INF/actions/layout/editsubcontent.bsh"/>
+                <script location="component://content/webapp/content/WEB-INF/actions/layout/EditSubContent.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="commonLayoutDecorator" location="${parameters.mainDecoratorLocation}">
@@ -182,7 +182,7 @@ under the License.
                 <set field="tabButtonItem" to-scope="user" value="EditLayoutText"/>
                 
                 <entity-one entity-name="SubContentDataResourceView" value-name="currentValue"/>
-                <script location="component://content/webapp/content/WEB-INF/actions/layout/editsubcontent.bsh"/>
+                <script location="component://content/webapp/content/WEB-INF/actions/layout/EditSubContent.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="commonLayoutDecorator" location="${parameters.mainDecoratorLocation}">
@@ -203,7 +203,7 @@ under the License.
                 <set field="tabButtonItem" to-scope="user" value="EditLayoutHtml"/>
                 
                 <entity-one entity-name="SubContentDataResourceView" value-name="currentValue"/>
-                <script location="component://content/webapp/content/WEB-INF/actions/layout/editsubcontent.bsh"/>
+                <script location="component://content/webapp/content/WEB-INF/actions/layout/EditSubContent.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="commonLayoutDecorator" location="${parameters.mainDecoratorLocation}">
@@ -224,7 +224,7 @@ under the License.
                 <set field="tabButtonItem" to-scope="user" value="EditLayoutUrl"/>
                 
                 <entity-one entity-name="SubContentDataResourceView" value-name="currentValue"/>
-                <script location="component://content/webapp/content/WEB-INF/actions/layout/editsubcontent.bsh"/>
+                <script location="component://content/webapp/content/WEB-INF/actions/layout/EditSubContent.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="commonLayoutDecorator" location="${parameters.mainDecoratorLocation}">
@@ -245,7 +245,7 @@ under the License.
                 <set field="tabButtonItem" to-scope="user" value="EditLayoutImage"/>
                 
                 <entity-one entity-name="SubContentDataResourceView" value-name="currentValue"/>
-                <script location="component://content/webapp/content/WEB-INF/actions/layout/editsubcontent.bsh"/>
+                <script location="component://content/webapp/content/WEB-INF/actions/layout/EditSubContent.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="commonLayoutDecorator" location="${parameters.mainDecoratorLocation}">
