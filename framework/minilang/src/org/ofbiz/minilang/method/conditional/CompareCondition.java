@@ -46,8 +46,13 @@ public class CompareCondition implements Conditional {
     public CompareCondition(Element element, SimpleMethod simpleMethod) {
         this.simpleMethod = simpleMethod;
         
+        // NOTE: this is still supported, but is deprecated
         this.mapAcsr = new ContextAccessor(element.getAttribute("map-name"));
-        this.fieldAcsr = new ContextAccessor(element.getAttribute("field-name"));
+        this.fieldAcsr = new ContextAccessor(element.getAttribute("field"));
+        if (this.fieldAcsr.isEmpty()) {
+            // NOTE: this is still supported, but is deprecated
+            this.fieldAcsr = new ContextAccessor(element.getAttribute("field-name"));
+        }
         this.value = element.getAttribute("value");
 
         this.operator = element.getAttribute("operator");
