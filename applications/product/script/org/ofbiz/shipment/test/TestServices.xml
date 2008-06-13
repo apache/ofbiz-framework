@@ -171,11 +171,7 @@ under the License.
         </call-service>
         
         <entity-one entity-name="InventoryItem" value-name="inventoryItem"/>
-        <entity-condition entity-name="InventoryItemDetail" list-name="inventoryItemDetails">
-            <condition-expr field-name="inventoryItemId" env-name="inventoryItemId"/>
-            <order-by field-name="-createdStamp"/>
-        </entity-condition>
-        <first-from-list list-name="inventoryItemDetails" entry-name="inventoryItemDetail"/>        
+        <get-related value-name="inventoryItem" relation-name="InventoryItemDetail" list-name="inventoryItemDetails"/>
         <entity-condition entity-name="ShipmentReceipt" list-name="shipmentReceipts">
             <condition-expr field-name="inventoryItemId" env-name="inventoryItemId"/>
             <order-by field-name="datetimeReceived"/>
@@ -183,7 +179,7 @@ under the License.
         <first-from-list list-name="shipmentReceipts" entry-name="shipmentReceipt"/>
         <assert>
             <not><if-empty field="inventoryItem"></if-empty></not>
-            <not><if-empty field="inventoryItemDetail"></if-empty></not>
+            <not><if-empty field="inventoryItemDetails"></if-empty></not>
             <not><if-empty field="shipmentReceipt"></if-empty></not>
             <if-compare-field field="inventoryItem.productId" operator="equals" to-field="serviceCtx.productId"/>
             <if-compare-field field="inventoryItem.facilityId" operator="equals" to-field="serviceCtx.facilityId"/>
