@@ -94,7 +94,7 @@ under the License.
         <field name="productStoreId"> <display-entity entity-name="ProductStore"/> </field>
     </form>
     <form name="ListOrderTerms" type="list" list-name="orderTerms" target="updateOrderTerm" title=""
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="ListOrderTerms">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" paginate-target="ListOrderTerms">
         <auto-fields-entity entity-name="OrderTerm" default-field-type="edit"/>
         <field name="termTypeId"><display-entity also-hidden="true" entity-name="TermType"/></field>
         <field name="orderId"><hidden/></field>
