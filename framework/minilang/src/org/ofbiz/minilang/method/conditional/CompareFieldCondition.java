@@ -46,12 +46,22 @@ public class CompareFieldCondition implements Conditional {
     public CompareFieldCondition(Element element, SimpleMethod simpleMethod) {
         this.simpleMethod = simpleMethod;
         
+        // NOTE: this is still supported, but is deprecated
         this.mapAcsr = new ContextAccessor(element.getAttribute("map-name"));
-        this.fieldAcsr = new ContextAccessor(element.getAttribute("field-name"));
+        this.fieldAcsr = new ContextAccessor(element.getAttribute("field"));
+        if (this.fieldAcsr.isEmpty()) {
+            // NOTE: this is still supported, but is deprecated
+            this.fieldAcsr = new ContextAccessor(element.getAttribute("field-name"));
+        }
         
+        // NOTE: this is still supported, but is deprecated
         this.toMapAcsr = new ContextAccessor(element.getAttribute("to-map-name"));
-        // set fieldAcsr to their defualt value of fieldAcsr if empty
-        this.toFieldAcsr = new ContextAccessor(element.getAttribute("to-field-name"), this.fieldAcsr.toString());
+        // set fieldAcsr to their default value of fieldAcsr if empty
+        this.toFieldAcsr = new ContextAccessor(element.getAttribute("to-field"), element.getAttribute("field"));
+        if (this.toFieldAcsr.isEmpty()) {
+            // NOTE: this is still supported, but is deprecated
+            this.toFieldAcsr = new ContextAccessor(element.getAttribute("to-field-name"), element.getAttribute("field-name"));
+        }
 
         // do NOT default the to-map-name to the map-name because that
         //would make it impossible to compare from a map field to an 
