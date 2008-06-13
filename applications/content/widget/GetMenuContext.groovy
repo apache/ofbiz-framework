@@ -16,15 +16,17 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import java.util.HashMap;
+
 import org.ofbiz.base.util.Debug;
+
 Debug.logInfo("In getMenuContext.", "");
 
-session = context.get("session");
+session = context.session;
 menuContext = session.getAttribute("menuContext");
 Debug.logInfo("menuContext(0):" + menuContext, "");
-if (menuContext == null) {
-    menuContext = new HashMap();
+
+if (!menuContext) {
+    menuContext = [:];
     session.setAttribute("menuContext", menuContext);
 }
-context.put("menuContext", menuContext);
+context.menuContext = menuContext;

@@ -233,7 +233,7 @@ under the License.
     <screen name="EditContentRole">
         <section>
             <actions>
-                <script location="component://content/widget/getMenuContext.bsh"/>                
+                <script location="component://content/widget/GetMenuContext.groovy"/>
                 <set field="titleProperty" value="PageTitleAddRole"/>
                 <set field="tabButtonItem" value="role"/>
                 
@@ -259,7 +259,7 @@ under the License.
     <screen name="EditContentPurpose">
         <section>
             <actions>
-                <script location="component://content/widget/getMenuContext.bsh"/>                
+                <script location="component://content/widget/GetMenuContext.groovy"/>
                 <set field="titleProperty" value="PageTitleAddPurpose"/>
                 <set field="tabButtonItem" value="purpose"/>
                 <set field="contentId" from-field="parameters.contentId"  />
@@ -283,7 +283,7 @@ under the License.
     <screen name="EditContentAttribute">
         <section>
             <actions>
-                <script location="component://content/widget/getMenuContext.bsh"/>            
+                <script location="component://content/widget/GetMenuContext.groovy"/>
                 <set field="titleProperty" value="PageTitleAddAttribute"/>
                 <set field="tabButtonItem" value="attribute"/>
                 <set field="contentId" from-field="parameters.contentId"  />
@@ -308,7 +308,7 @@ under the License.
     <screen name="EditContentMetaData">
         <section>
             <actions>
-                <script location="component://content/widget/getMenuContext.bsh"/>                
+                <script location="component://content/widget/GetMenuContext.groovy"/>
                 <set field="titleProperty" value="PageTitleAddMetaData"/>
                 <set field="tabButtonItem" value="metaData"/>
                 <set field="contentId" from-field="parameters.contentId"  />
@@ -332,7 +332,7 @@ under the License.
     <screen name="EditContentWorkEfforts">
         <section>
             <actions>
-                <script location="component://content/widget/getMenuContext.bsh"/>                
+                <script location="component://content/widget/GetMenuContext.groovy"/>
                 <set field="titleProperty" value="PageTitleAddWorkEffort"/>
                 <set field="tabButtonItem" value="workEffort"/>
                 <set field="contentId" from-field="parameters.contentId"  />
