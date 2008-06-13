@@ -99,7 +99,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleCreateContact"/>
                 <set field="headerItem" value="Contacts"/>
                 <set field="tabButtonItem" value="MergeContacts"/>
-                <script location="component://marketing/webapp/sfa/WEB-INF/action/mergeContacts.bsh"/>
+                <script location="component://marketing/webapp/sfa/WEB-INF/action/MergeContacts.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
