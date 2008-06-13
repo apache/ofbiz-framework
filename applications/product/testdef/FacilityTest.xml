@@ -39,4 +39,9 @@ under the License.
     <test-case case-name="testShipmentServices-test">
         <simple-method-test location="component://product/script/org/ofbiz/shipment/test/TestServices.xml" name="testShipmentServices"/>
     </test-case>
+   
+    <!-- Receive Inventory Item test -->
+    <test-case case-name="receiveInventoryItemNonSerialized-test">
+        <simple-method-test location="component://product/script/org/ofbiz/shipment/test/TestServices.xml" name="testReceiveInventoryNonSerialized"/>
+    </test-case>    
 </test-suite>
