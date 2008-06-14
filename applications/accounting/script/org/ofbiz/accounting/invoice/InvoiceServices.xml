@@ -283,7 +283,7 @@ under the License.
 
         <!-- check if the productNumber is updated, when yes retrieve product description and price -->
         <if-not-empty field="productId">
-        <if-compare-field to-field="lookedUpValue." field="savedValue.productId" operator="not-equals">
+        <if-compare-field to-field="lookedUpValue.productId" field="savedValue.productId" operator="not-equals">
             <entity-one entity-name="Product" value-name="product"/>
             <set from-field="product.description" field="lookedUpValue.description"/>
 

@@ -93,7 +93,7 @@ under the License.
         <store-value value-name="facilityContactMech"/>
         <create-value value-name="newFacilityContactMech"/>
 
-        <if-compare-field to-field="newFacilityContactMech." field="parameters.contactMechId" operator="not-equals">
+        <if-compare-field to-field="newFacilityContactMech.contactMechId" field="parameters.contactMechId" operator="not-equals">
             <get-related value-name="facilityContactMech" relation-name="FacilityContactMechPurpose" list-name="facilityContactMechPurposes"/>
             <iterate entry-name="facilityContactMechPurposeOld" list-name="facilityContactMechPurposes">
                 <clone-value value-name="facilityContactMechPurposeOld" new-value-name="facilityContactMechPurpose"/>

@@ -64,7 +64,7 @@ under the License.
         <make-value entity-name="ContactMech" value-name="ContactMechMap"/>
         <set-pk-fields value-name="ContactMechMap" map-name="parameters"/>
         <find-by-primary-key entity-name="ContactMech" map-name="ContactMechMap" value-name="oldValue" /> 
-        <if-compare-field to-field="oldValue." field="parameters.infoString" operator="not-equals">
+        <if-compare-field to-field="oldValue.infoString" field="parameters.infoString" operator="not-equals">
              <log level="info" message="Contact mech need updating"/> 
             <clone-value value-name="oldValue" new-value-name="newValue"/>
             <set-nonpk-fields map-name="parameters" value-name="newValue" set-if-null="false"/>
@@ -148,7 +148,7 @@ under the License.
                     <default-message resource="PartyUiLabels" property="PartyPostalAddressSuccessfullyUpdated"/>
                     <result-to-field result-name="contactMechId" map-name="newValue"/>
                 </call-service>
-                <if-compare-field to-field="newValue." field="oldValue.contactMechId" operator="not-equals">
+                <if-compare-field to-field="newValue.contactMechId" field="oldValue.contactMechId" operator="not-equals">
                     <log level="info" message="Postal address need updating, contact mech changed"/>
                     <create-value value-name="newValue"/>
                     <else>
@@ -195,7 +195,7 @@ under the License.
                     <default-message resource="PartyUiLabels" property="PartyTelecomNumberSuccessfullyUpdated"/>
                     <result-to-field result-name="contactMechId" map-name="newValue"/>
                 </call-service>
-                <if-compare-field to-field="newValue." field="oldValue.contactMechId" operator="not-equals">
+                <if-compare-field to-field="newValue.contactMechId" field="oldValue.contactMechId" operator="not-equals">
                     <log level="info" message="Telecom Number need updating, contact mech changed"/>
                     <create-value value-name="newValue"/>
                     <else>

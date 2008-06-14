@@ -106,7 +106,7 @@ under the License.
         <!-- if setting the primaryParentCategoryId, create a rollup entity too -->
         <!-- THIS IS REMOVED BECAUSE IT CAUSES PROBLEMS FOR WORKING ON PRODUCTION SITES
         <if-not-empty field="lookedUpValue.primaryProductCategoryId">
-            <if-compare-field to-field="saveIdMap." field="lookedUpValue.primaryProductCategoryId" operator="equals">
+            <if-compare-field to-field="saveIdMap.primaryProductCategoryId" field="lookedUpValue.primaryProductCategoryId" operator="equals">
                 <make-value entity-name="ProductCategoryMember" value-name="newMember"/>
                 <set from-field="productId" map-name="newEntity" to-field-name="productId" to-map-name="newMember"/>
                 <set from-field="primaryProductCategoryId" map-name="newEntity" to-field-name="productCategoryId" to-map-name="newMember"/>
