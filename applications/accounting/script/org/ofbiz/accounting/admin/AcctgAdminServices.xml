@@ -28,7 +28,7 @@ under the License.
         <set from-field="parameters.partyId" field="lookupParams.partyId"/>
         <set value="INTERNAL_ORGANIZATIO" field="lookupParams.roleTypeId"/>
         <find-by-primary-key use-cache="true" entity-name="PartyRole" value-name="partyRole" map-name="lookupParams"/>
-        <if-empty field-name="partyRole">
+        <if-empty field="partyRole">
             <add-error><fail-property resource="AccountingUiLabels" property="AccountingPartyMustBeInternalOrganization"/></add-error>
             <check-errors/>
         </if-empty>
@@ -57,8 +57,8 @@ under the License.
         <while>
             <condition>
                 <and>
-                    <not><if-empty field-name="currentOrganizationPartyId"></if-empty></not>
-                    <if-compare field-name="containsEmptyFields" operator="equals" value="true"/>
+                    <not><if-empty field="currentOrganizationPartyId"></if-empty></not>
+                    <if-compare field="containsEmptyFields" operator="equals" value="true"/>
                 </and>
             </condition>
             <then>
@@ -70,10 +70,10 @@ under the License.
                 </entity-one>
                 <set field="containsEmptyFields" type="Boolean" value="false"/>
                 
-                <if-not-empty field-name="currentPartyAcctgPref">
+                <if-not-empty field="currentPartyAcctgPref">
                     <iterate-map map-name="currentPartyAcctgPref" key-name="entityKey" value-name="entityValue">
-                        <if-empty field-name="aggregatedPartyAcctgPref.${entityKey}">
-                            <if-not-empty field-name="entityValue">
+                        <if-empty field="aggregatedPartyAcctgPref.${entityKey}">
+                            <if-not-empty field="entityValue">
                                 <set field="aggregatedPartyAcctgPref.${entityKey}" from-field="entityValue"/>
                             <else>
                                 <set field="containsEmptyFields" type="Boolean" value="true"/>
@@ -94,7 +94,7 @@ under the License.
                 </entity-and>
                 <filter-list-by-date list-name="parentPartyRelationships"/>
                 
-                <if-not-empty field-name="parentPartyRelationships">
+                <if-not-empty field="parentPartyRelationships">
                     <first-from-list list-name="parentPartyRelationships" entry-name="parentPartyRelationship"/>
                     <set field="currentOrganizationPartyId" from-field="parentPartyRelationship.partyIdFrom"/>
                 <else>
@@ -104,7 +104,7 @@ under the License.
             </then>
         </while>
         
-        <if-not-empty field-name="aggregatedPartyAcctgPref">
+        <if-not-empty field="aggregatedPartyAcctgPref">
             <set field="aggregatedPartyAcctgPref.partyId" from-field="parameters.organizationPartyId"/>
             <field-to-result field-name="aggregatedPartyAcctgPref" result-name="partyAccountingPreference"/>
         </if-not-empty>
@@ -113,7 +113,7 @@ under the License.
     <!-- update currency conversion rates in the UomConversionDated entity -->
     <simple-method method-name="updateFXConversion" short-description="Update Foreign Exchange conversion rate">
         <!-- set the FX rate changes as of now -->
-        <if-empty field-name="parameters.asOfTimestamp">
+        <if-empty field="parameters.asOfTimestamp">
             <now-timestamp-to-env env-name="nowTimestamp"/>
         <else>
             <set from-field="parameters.asOfTimestamp" field="nowTimestamp"/>  
