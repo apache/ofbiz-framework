@@ -158,8 +158,8 @@ under the License.
                   <td align="right" valign="top" nowrap="nowrap">
                     <table>
                       <tr valign="top">
-                        <#assign remainingQuantity = (orderItem.quantity?default(0) - orderItem.cancelQuantity?default(0))>
                         <#assign shippedQuantity = orderReadHelper.getItemShippedQuantity(orderItem)>
+                        <#assign remainingQuantity = (orderItem.quantity?default(0) - orderItem.cancelQuantity?default(0) - shippedQuantity)>
                         <#-- to compute shortfall amount, sum up the orderItemShipGrpInvRes.quantityNotAvailable -->
                         <#assign shortfalledQuantity = 0/>
                         <#list orderItemShipGrpInvResList as orderItemShipGrpInvRes>
