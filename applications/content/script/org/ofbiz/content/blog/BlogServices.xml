@@ -29,10 +29,10 @@
             <condition>
                 <and>
                     <not>
-                        <if-empty field-name="parameters.uploadedFile"/>
+                        <if-empty field="parameters.uploadedFile"/>
                     </not>
                     <not>
-                        <if-empty field-name="parameters.textData"/>
+                        <if-empty field="parameters.textData"/>
                     </not>
                 </and>
             </condition>
@@ -63,7 +63,7 @@
         <if>
             <condition>
                 <not>
-                    <if-empty field-name="parameters.uploadedFile"/>
+                    <if-empty field="parameters.uploadedFile"/>
                 </not>
             </condition>
             <then>
@@ -87,7 +87,7 @@
                     <result-to-field result-name="contentId" field-name="imageContentId"/>
                 </call-service>
 
-                <if-empty field-name="contentId">
+                <if-empty field="contentId">
                     <set field="contentIdFrom" from-field="imageContentId"/>
                     <set field="contentId" from-field="imageContentId"/>
                     <set field="contentAssocTypeId" value="SUB_CONTENT"/>
@@ -98,7 +98,7 @@
         <if>
             <condition>
                 <not>
-                    <if-empty field-name="parameters.textData"/>
+                    <if-empty field="parameters.textData"/>
                 </not>
             </condition>
             <then>
@@ -121,7 +121,7 @@
                     <result-to-field result-name="contentId" field-name="textContentId"/>
                 </call-service>
 
-                <if-empty field-name="contentId">
+                <if-empty field="contentId">
                     <set field="contentIdFrom" from-field="textContentId"/>
                     <set field="contentId" from-field="textContentId"/>
                     <set field="contentAssocTypeId" value="SUB_CONTENT"/>
@@ -134,10 +134,10 @@
             <condition>
                 <and>
                     <not>
-                        <if-empty field-name="contentId"/>
+                        <if-empty field="contentId"/>
                     </not>
                     <not>
-                        <if-empty field-name="parameters.summaryData"/>
+                        <if-empty field="parameters.summaryData"/>
                     </not>
                 </and>
             </condition>
@@ -189,7 +189,7 @@
                 <result-to-field result-name="permissionStatus" field-name="permissionStatus"/>
             </call-service>
             <log level="info" message="permissionStatus: ${permissionStatus}"/>
-            <if-compare operator="equals" field-name="permissionStatus" value="granted">
+            <if-compare operator="equals" field="permissionStatus" value="granted">
                 <set field="blogList[]" from-field="view"/>
             </if-compare>
         </iterate>

@@ -38,7 +38,7 @@ under the License.
             <default-message>Credit Card successfully created.</default-message>
             <result-to-request result-name="paymentMethodId"/>
         </call-service>
-        <if-compare map-name="parameters" field-name="contactMechId" operator="equals" value="_NEW_">
+        <if-compare field="parameters.contactMechId" operator="equals" value="_NEW_">
             <set value="address" field="_response_code_"/>
             <set value="POSTAL_ADDRESS" field="preContactMechTypeId"/>
             <set value="BILLING_LOCATION" field="contactMechPurposeTypeId"/>
@@ -58,7 +58,7 @@ under the License.
             <default-message>Credit Card Info successfully updated.</default-message>
             <result-to-request result-name="paymentMethodId" request-name="paymentMethodId"/>
         </call-service>
-        <if-compare map-name="parameters" field-name="contactMechId" operator="equals" value="_NEW_">
+        <if-compare field="parameters.contactMechId" operator="equals" value="_NEW_">
             <set value="address" field="_response_code_"/>
             <set value="POSTAL_ADDRESS" field="preContactMechTypeId"/>
             <set value="BILLING_LOCATION" field="contactMechPurposeTypeId"/>

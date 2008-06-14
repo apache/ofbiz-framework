@@ -56,7 +56,7 @@ under the License.
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <!-- fromDate is part of the PK, but optional in the service def, so make sure something is there -->
-        <if-empty field-name="newEntity.fromDate"><now-timestamp-to-env env-name="newEntity.fromDate"/></if-empty>        
+        <if-empty field="newEntity.fromDate"><now-timestamp-to-env env-name="newEntity.fromDate"/></if-empty>        
         <create-value value-name="newEntity"/>  
     </simple-method>   
     <simple-method method-name="updateExampleFeatureAppl" short-description="update a ExampleFeatureAppl">

@@ -61,12 +61,12 @@ under the License.
         
     <simple-method method-name="convertUom" short-description="Convert UOM values" login-required="false">
         <!-- base case: if both uomIds are the same, return the original value -->
-        <if-compare-field field-name="parameters.uomId" operator="equals" to-field-name="parameters.uomIdTo">
+        <if-compare-field field="parameters.uomId" to-field="parameters.uomIdTo" operator="equals">
             <field-to-result field-name="parameters.originalValue" result-name="convertedValue"/>
             <return/>
         </if-compare-field>
 
-        <if-empty field-name="parameters.asOfDate">
+        <if-empty field="parameters.asOfDate">
             <now-timestamp-to-env env-name="nowTimestamp"/>
             <set field="asOfDate" from-field="nowTimestamp"/>
             <else>
@@ -78,7 +78,7 @@ under the License.
         <entity-one entity-name="UomConversion" value-name="uomConversion" auto-field-map="true" use-cache="true"/>
         
         <!-- if not found, try the dated uom conversion entity -->
-        <if-empty field-name="uomConversion">
+        <if-empty field="uomConversion">
             <entity-condition entity-name="UomConversionDated" list-name="uomConversions" use-cache="true">
                 <condition-list combine="and">
                     <condition-expr field-name="uomId" env-name="parameters.uomId"/>
@@ -96,13 +96,13 @@ under the License.
         </if-empty>
         <log level="verbose" message="using conversion factor=${uomConversion.conversionFactor}"/>
     
-        <if-empty field-name="uomConversion">
+        <if-empty field="uomConversion">
             <!-- if still no uom conversion entity, then no conversion is possible -->
             <add-error><fail-property property="NoUomConversionFound" resource="CommonUiLabels"/></add-error>
             <check-errors/>        
         <else>
             <!-- Do custom conversion, if we have customMethodId -->
-            <if-not-empty field-name="uomConversion.customMethodId">  <!-- custom conversion? -->
+            <if-not-empty field="uomConversion.customMethodId">  <!-- custom conversion? -->
                 <log level="verbose" message="using custom conversion customMethodId=${uomConversion.customMethodId}"/>
                 <set field="customParms" from-field="parameters"/>
                 <set field="customParms.uomConversion" from-field="uomConversion"/>
@@ -123,7 +123,7 @@ under the License.
 
             <!-- round result, if UomConversion[Dated] so specifies -->
             <set field="roundingMode" from-field="uomConversion.roundingMode"/>
-            <if-not-empty field-name="uomConversion.roundingMode">
+            <if-not-empty field="uomConversion.roundingMode">
                 <calculate field-name="roundedValue" type="Double" decimal-scale="${uomConversion.decimalScale}" rounding-mode="${roundingMode}">
                     <calcop operator="get" field-name="convertedValue"/>
                 </calculate>
@@ -143,7 +143,7 @@ under the License.
         <set field="customMethodId" from-field="parameters.uomConversion.customMethodId"/>
         <entity-one entity-name="CustomMethod" value-name="customMethod" auto-field-map="true" use-cache="true"/>
         
-        <if-empty field-name="customMethod.customMethodName">
+        <if-empty field="customMethod.customMethodName">
             <add-error> <fail-property property="NoCustomMethodName" resource="CommonUiLabels"/> </add-error>
             <check-errors/>
         <else>
@@ -157,7 +157,7 @@ under the License.
     </simple-method>
     <simple-method method-name="getFileUploadProgressStatus" short-description="Look up progress made in File Upload process">
         <set field="uploadProgressListener" from-field="parameters.uploadProgressListener"/>
-        <if-not-empty field-name="uploadProgressListener">
+        <if-not-empty field="uploadProgressListener">
             <call-object-method obj-field-name="uploadProgressListener" method-name="getContentLength" ret-field-name="parameters.contentLength"/>
             <field-to-result field-name="parameters.contentLength" result-name="contentLength"/>
             <call-object-method obj-field-name="uploadProgressListener" method-name="getBytesRead" ret-field-name="parameters.bytesRead"/>

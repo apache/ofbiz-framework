@@ -27,7 +27,7 @@ under the License.
             <condition>
                 <and>
                     <not><if-has-permission permission="ORDERMGR" action="_CREATE"/></not>
-                    <not><if-compare-field field-name="partyId" map-name="userLogin" operator="equals" to-field-name="fromPartyId" to-map-name="parameters"/></not>
+                    <not><if-compare-field field="userLogin.partyId" to-field="parameters.fromPartyId" operator="equals"/></not>
                 </and>
             </condition>
             <then>
@@ -35,9 +35,9 @@ under the License.
             </then>
         </if>
 
-        <if-empty field-name="parameters.toPartyId">
+        <if-empty field="parameters.toPartyId">
             <!-- no toPartyId was specified.  use destination facility to determine the party of the return -->
-            <if-not-empty field-name="parameters.destinationFacilityId">
+            <if-not-empty field="parameters.destinationFacilityId">
                 <entity-one entity-name="Facility" value-name="destinationFacility" auto-field-map="false">
                     <field-map field-name="facilityId" env-name="parameters.destinationFacilityId"/>
                 </entity-one>
@@ -51,7 +51,7 @@ under the License.
                 <field-map field-name="partyId" env-name="parameters.toPartyId"/>
                 <field-map field-name="roleTypeId" value="INTERNAL_ORGANIZATIO"/>
             </entity-one>
-            <if-empty field-name="partyRole">
+            <if-empty field="partyRole">
                 <add-error><fail-message message="Error: a return must be to a party in the role of internal organization"/></add-error>
             </if-empty>
          </else>
@@ -59,7 +59,7 @@ under the License.
         <check-errors/>
 
         <!-- check the needs (auto) inventory receive flag (default to no) -->
-        <if-empty field-name="parameters.needsInventoryReceive">
+        <if-empty field="parameters.needsInventoryReceive">
             <set field="parameters.needsInventoryReceive" value="N"/>
         </if-empty>
 
@@ -71,7 +71,7 @@ under the License.
         <call-service service-name="getPartyAccountingPreferences" in-map-name="partyAccountingPreferencesCallMap">
              <result-to-field result-name="partyAccountingPreference" field-name="partyAcctgPreference"/>
         </call-service>
-        <if-compare field-name="partyAcctgPreference.useInvoiceIdForReturns" operator="equals" value="Y">
+        <if-compare field="partyAcctgPreference.useInvoiceIdForReturns" operator="equals" value="Y">
             <set field="getNextInvoiceIdMap.partyId" from-field="parameters.toPartyId"/>
             <call-service service-name="getNextInvoiceId" in-map-name="getNextInvoiceIdMap">
                 <result-to-field result-name="invoiceId" field-name="newEntity.returnId"/>
@@ -93,11 +93,11 @@ under the License.
             </then>
         </if>
 
-        <if-empty field-name="newEntity.entryDate">
+        <if-empty field="newEntity.entryDate">
             <set from-field="nowTimestamp" field="newEntity.entryDate"/>
         </if-empty>
 
-        <if-empty field-name="newEntity.statusId">
+        <if-empty field="newEntity.statusId">
             <set value="RETURN_REQUESTED" field="newEntity.statusId"/>
         </if-empty>
         <set field="newEntity.createdBy" from-field="userLogin.userLoginId"/>
@@ -113,7 +113,7 @@ under the License.
         <entity-one entity-name="ReturnHeader" value-name="returnHeader"/>
 
         <!-- test the total return amount vs the total order amount -->
-        <if-compare field-name="parameters.statusId" value="RETURN_ACCEPTED" operator="equals">
+        <if-compare field="parameters.statusId" value="RETURN_ACCEPTED" operator="equals">
             <!-- get the list of ReturnItems.  Note: return may be associated with many different orders -->
             <entity-condition entity-name="ReturnItem" list-name="returnItems" distinct="true">
                 <condition-expr field-name="returnId" env-name="returnHeader.returnId"/>
@@ -143,11 +143,11 @@ under the License.
               <if>
                   <condition>
                       <and>
-                          <if-empty field-name="returnHeader.paymentMethodId"/>
-                          <if-empty field-name="parameters.paymentMethodId"/><!-- because we haven't done the set-nonpk-fields yet, check this too -->
+                          <if-empty field="returnHeader.paymentMethodId"/>
+                          <if-empty field="parameters.paymentMethodId"/><!-- because we haven't done the set-nonpk-fields yet, check this too -->
                           <or>
-                              <if-compare field-name="returnItem.returnTypeId" operator="equals" value="RTN_CSREPLACE"/>
-                              <if-compare field-name="returnItem.returnTypeId" operator="equals" value="RTN_REPAIR_REPLACE"/>
+                              <if-compare field="returnItem.returnTypeId" operator="equals" value="RTN_CSREPLACE"/>
+                              <if-compare field="returnItem.returnTypeId" operator="equals" value="RTN_REPAIR_REPLACE"/>
                           </or>
                       </and>
                   </condition>
@@ -167,7 +167,7 @@ under the License.
                 </calculate>
 
                 <!-- compare return vs order total -->
-                <if-not-empty field-name="returnItem.orderId">
+                <if-not-empty field="returnItem.orderId">
                     <set field="returnTotalCtx.orderId" from-field="returnItem.orderId"/>
                     <!-- no adjustment needed: adjustment is passed in to calculate the effect of an additional item on return total.  -->
                     <calculate field-name="returnTotalCtx.adjustment" type="BigDecimal"><number value="0.0"/></calculate>
@@ -178,7 +178,7 @@ under the License.
                     </call-service>
                     <log level="info" message="Available amount for return on order #${returnItem.orderId} is [${availableReturnTotal}] (orderTotal = [${orderTotal}] - returnTotal = [${returnTotal}]"/>
 
-                    <if-compare field-name="availableReturnTotal" operator="less" value="-0.01" type="BigDecimal">
+                    <if-compare field="availableReturnTotal" operator="less" value="-0.01" type="BigDecimal">
                         <add-error><fail-property resource="OrderErrorUiLabels" property="OrderReturnPriceCannotExceedTheOrderTotal"/></add-error>
                     </if-compare>
                     <check-errors/>
@@ -191,15 +191,15 @@ under the License.
             <if>
                 <condition>
                     <and>
-                        <not><if-empty field-name="parameters.statusId"></if-empty></not>
-                        <if-compare-field operator="not-equals" field-name="parameters.statusId" to-field-name="returnHeader.statusId"/>
+                        <not><if-empty field="parameters.statusId"></if-empty></not>
+                        <if-compare-field operator="not-equals" field="parameters.statusId" to-field="returnHeader.statusId"/>
                     </and>
                 </condition>
                 <then>
                     <set field="statusIdTo" from-field="parameters.statusId"/>
                     <set field="statusId" from-field="returnHeader.statusId"/>
                     <entity-one entity-name="StatusValidChange" value-name="statusValidChange"/>
-                    <if-empty field-name="statusValidChange">
+                    <if-empty field="statusValidChange">
                         <add-error><fail-property resource="OrderErrorUiLabels" property="OrderErrorReturnHeaderItemStatusNotChangedIsNotAValidChange"/></add-error>
                     </if-empty>
                     <check-errors/>
@@ -215,7 +215,7 @@ under the License.
                          </calcop>
                   </calculate>
             </iterate>
-            <if-compare field-name="returnTotalAmount" operator="less" value="0" type="Double">
+            <if-compare field="returnTotalAmount" operator="less" value="0" type="Double">
                 <add-error><fail-property resource="OrderErrorUiLabels" property="OrderReturnTotalCannotLessThanZero"/></add-error>
             </if-compare>
             <check-errors/>
@@ -234,7 +234,7 @@ under the License.
           <condition>
             <and>
               <not><if-has-permission permission="ORDERMGR" action="_CREATE"/></not>
-              <not><if-compare-field field-name="partyId" map-name="userLogin" operator="equals" to-field-name="fromPartyId" to-map-name="returnHeader"/></not>
+              <not><if-compare-field field="userLogin.partyId" to-field="returnHeader.fromPartyId" operator="equals"/></not>
             </and>
           </condition>
           <then>
@@ -243,13 +243,13 @@ under the License.
         </if>
         <check-errors/>
 
-        <if-empty field-name="returnItemTypeId"  map-name="parameters">
-            <if-not-empty field-name="returnItemMapKey" map-name="parameters">
+        <if-empty field="parameters.returnItemTypeId">
+            <if-not-empty field="parameters.returnItemMapKey">
                 <!-- find the item mapping -->
             </if-not-empty>
         </if-empty>
 
-        <if-empty field-name="returnItemTypeId" map-name="parameters">
+        <if-empty field="parameters.returnItemTypeId">
             <add-error><fail-message message="Return Item Type is not defined for this item; or no mapping was found."/></add-error>
             <check-errors/>
         </if-empty>
@@ -257,11 +257,11 @@ under the License.
         <if>
             <condition>
                 <and>
-                    <if-empty field-name="returnHeader.paymentMethodId"/>
-                    <if-compare field-name="returnHeader.statusId" operator="equals" value="RETURN_ACCEPTED"/>
+                    <if-empty field="returnHeader.paymentMethodId"/>
+                    <if-compare field="returnHeader.statusId" operator="equals" value="RETURN_ACCEPTED"/>
                     <or>
-                        <if-compare field-name="parameters.returnTypeId" operator="equals" value="RTN_CSREPLACE"/>
-                        <if-compare field-name="parameters.returnTypeId" operator="equals" value="RTN_REPAIR_REPLACE"/>
+                        <if-compare field="parameters.returnTypeId" operator="equals" value="RTN_CSREPLACE"/>
+                        <if-compare field="parameters.returnTypeId" operator="equals" value="RTN_REPAIR_REPLACE"/>
                     </or>
                 </and>
             </condition>
@@ -271,7 +271,7 @@ under the License.
         </if>
         <check-errors/>
 
-        <if-compare field-name="returnQuantity" map-name="parameters" operator="equals" value="0" type="Double">
+        <if-compare field="parameters.returnQuantity" operator="equals" value="0" type="Double">
             <add-error><fail-property resource="OrderErrorUiLabels" property="OrderNoReturnQuantityAvailablePreviousReturnsMayExist"/></add-error>
             <check-errors/>
         </if-compare>
@@ -281,10 +281,10 @@ under the License.
         <set field="returnablePrice" value="0" type="Double"/>
 
         <!-- if an orderItemSeqId  is provided, then find the corresponding orderItem  -->
-        <if-not-empty field-name="parameters.orderItemSeqId">
+        <if-not-empty field="parameters.orderItemSeqId">
             <make-value value-name="itemLookup" entity-name="OrderItem"/>
             <set-pk-fields map-name="parameters" value-name="itemLookup"/>
-            <if-not-empty field-name="parameters.orderItemSeqId">
+            <if-not-empty field="parameters.orderItemSeqId">
                 <find-by-primary-key entity-name="OrderItem" value-name="orderItem" map-name="itemLookup"/>
                 <log level="info" message="Return item is an OrderItem - ${orderItem.orderItemSeqId}"/>
             </if-not-empty>
@@ -292,7 +292,7 @@ under the License.
 
         <!-- get the returnableQuantity and returnablePrice: for orderItems, it's found by getReturnableQuantity; for adjustments,
              either order adjustments or manual adjustments, it's always 1 and based on input parameter -->
-        <if-not-empty field-name="orderItem">
+        <if-not-empty field="orderItem">
             <set field="serviceContext.orderItem" from-field="orderItem"/>
             <call-service service-name="getReturnableQuantity" in-map-name="serviceContext">
                 <result-to-field result-name="returnableQuantity" field-name="returnableQuantity"/>
@@ -301,7 +301,7 @@ under the License.
         </if-not-empty>
 
 
-        <if-compare field-name="returnableQuantity" value="0" operator="greater" type="Double">
+        <if-compare field="returnableQuantity" value="0" operator="greater" type="Double">
             <!-- the user is only allowed to set a returnPrice if he has ORDERMGR_CREATE privilege, otherwise only the returnablePrice
                  calculated by service is used -->
             <if>
@@ -314,13 +314,13 @@ under the License.
             </if>
 
             <!-- make sure the returnQuantity is not greater than the returnableQuantity from service or the quantity on the original orderItem -->
-            <if-compare-field field-name="returnQuantity" map-name="parameters" operator="greater" to-field-name="returnableQuantity" type="Double">
+            <if-compare-field field="parameters.returnQuantity" to-field="returnableQuantity" operator="greater" type="Double">
                 <add-error><fail-property resource="OrderErrorUiLabels" property="OrderRequestedReturnQuantityNotAvailablePreviousReturnsMayExist"/></add-error>
             </if-compare-field>
 
             <!-- SC 20060202: Is this really needed?  Or does the above duplicate it.  If not, we should remove it -->
-            <if-not-empty field-name="orderItem">
-                <if-compare-field field-name="returnQuantity" map-name="parameters" operator="greater" to-field-name="quantity" to-map-name="orderItem" type="Double">
+            <if-not-empty field="orderItem">
+                <if-compare-field field="parameters.returnQuantity" to-field="orderItem.quantity" operator="greater" type="Double">
                     <add-error><fail-property resource="OrderErrorUiLabels" property="OrderReturnQuantityCannotExceedTheOrderedQuantity"/></add-error>
                 </if-compare-field>
             </if-not-empty>
@@ -336,8 +336,8 @@ under the License.
             </calculate>
 
             <!-- just checking greater-equals sometimes returns an error if the difference is actually zero -->
-            <if-compare-field field-name="returnPriceDelta" operator="not-equals" to-field-name="zero" type="Double">
-                <if-compare-field field-name="returnPriceDelta" operator="greater-equals" to-field-name="epsilon" type="Double">
+            <if-compare-field field="returnPriceDelta" to-field="zero" operator="not-equals" type="Double">
+                <if-compare-field field="returnPriceDelta" to-field="epsilon" operator="greater-equals" type="Double">
                     <add-error><fail-property resource="OrderErrorUiLabels" property="OrderReturnPriceCannotExceedThePurchasePrice"/></add-error>
                 </if-compare-field >
             </if-compare-field>
@@ -360,7 +360,7 @@ under the License.
         <set from-field="parameters.returnId" field="lookupMap.returnId"/>
         <string-to-list string="-returnItemSeqId" list-name="orderBy"/>
         <find-by-and entity-name="ReturnItem" list-name="currentItems" map-name="lookupMap" order-by-list-name="orderBy"></find-by-and>
-        <if-empty field-name="currentItems">
+        <if-empty field="currentItems">
             <set value="1" field="newEntity.returnItemSeqId"/>
         <else>
            <first-from-list entry-name="newestItem" list-name="currentItems"/>
@@ -383,13 +383,13 @@ under the License.
         <if>
             <condition>
                 <or>
-                    <if-empty field-name="parameters.includeAdjustments"/>
-                    <if-compare field-name="parameters.includeAdjustments" operator="equals" value="Y"/>
+                    <if-empty field="parameters.includeAdjustments"/>
+                    <if-compare field="parameters.includeAdjustments" operator="equals" value="Y"/>
                 </or>
             </condition>
             <then>
                 <!-- create return adjustments for all adjustments associated with the order item -->
-                <if-not-empty field-name="orderItem">
+                <if-not-empty field="orderItem">
                     <get-related value-name="orderItem" relation-name="OrderAdjustment" list-name="orderAdjustments"/>
                     <iterate entry-name="orderAdjustment" list-name="orderAdjustments">
                         <clear-field field-name="returnAdjCtx"/>
@@ -450,7 +450,7 @@ under the License.
 
         <set from-field="parameters.returnId" field="headerPKMap.returnId"/>
         <find-by-primary-key entity-name="ReturnHeader" map-name="headerPKMap" value-name="returnHeader"/>
-        <if-compare field-name="statusId" map-name="returnHeader" operator="not-equals" type="String" value="RETURN_REQUESTED">
+        <if-compare field="returnHeader.statusId" operator="not-equals" type="String" value="RETURN_REQUESTED">
             <add-error><fail-property resource="OrderErrorUiLabels" property="OrderCannotRemoveItemsOnceReturnIsApproved"/></add-error>
             <check-errors/>
         </if-compare>
@@ -495,7 +495,7 @@ under the License.
 
         <set from-field="parameters.returnAdjustmentId" field="lookupPKMap.returnAdjustmentId"/>
         <find-by-primary-key entity-name="ReturnAdjustment" map-name="lookupPKMap" value-name="returnAdjustment"/>
-        <if-not-empty field-name="returnAdjustment">
+        <if-not-empty field="returnAdjustment">
             <remove-value value-name="returnAdjustment"/>
         </if-not-empty>
     </simple-method>
@@ -508,7 +508,7 @@ under the License.
         <find-by-primary-key entity-name="ReturnHeader" map-name="lookupPKMap" value-name="returnHeader"/>
         <find-by-and entity-name="ShipmentReceipt" map-name="lookupPKMap" list-name="shipmentReceipts"/>
         <iterate list-name="shipmentReceipts" entry-name="receipt">
-            <if-empty field-name="${receipt.returnItemSeqId}" map-name="totalsMap">
+            <if-empty field="totalsMap.${receipt.returnItemSeqId}">
                 <calculate field-name="${receipt.returnItemSeqId}" map-name="totalsMap">
                     <number value="0"/>
                 </calculate>
@@ -526,7 +526,7 @@ under the License.
             </entity-one>
             <set field="returnItem.receivedQuantity" from-field="totalsMap.${receipt.returnItemSeqId}"/>
             
-            <if-compare-field field-name="totalsMap.${receipt.returnItemSeqId}" operator="greater-equals" to-field-name="returnItem.returnQuantity" type="Double">
+            <if-compare-field field="totalsMap.${receipt.returnItemSeqId}" to-field="returnItem.returnQuantity" operator="greater-equals" type="Double">
                 <!-- update the status for the item -->
                 <set field="returnItem.statusId" value="RETURN_RECEIVED"/>
                 <store-value value-name="returnItem"/>
@@ -553,8 +553,8 @@ under the License.
         <set field="allReceived" value="true"/>
         <find-by-and entity-name="ReturnItem" map-name="lookupPKMap" list-name="allReturnItems"/>
         <iterate list-name="allReturnItems" entry-name="item">
-            <if-compare field-name="statusId" map-name="item" operator="not-equals" value="RETURN_RECEIVED">
-                <if-not-empty field-name="orderItemSeqId" map-name="item">
+            <if-compare field="item.statusId" operator="not-equals" value="RETURN_RECEIVED">
+                <if-not-empty field="item.orderItemSeqId">
                     <!-- non-order items (i.e. adjustments) are not received -->
                     <set value="false" field="allReceived"/>
                 </if-not-empty>
@@ -562,15 +562,15 @@ under the License.
         </iterate>
         
         <!-- if the items are all received, then update the return header, store the status history change, and set the shipment to received -->
-        <if-compare field-name="allReceived" operator="equals" value="true">
+        <if-compare field="allReceived" operator="equals" value="true">
             
             <!--  Go through all the items yet again and set their shipment status to PURCH_SHIP_RECEIVED (if it isn't already)
                 This activates SECAS such as creating return invoices. This MUST be done before updating the return header so that
                 the ReturnItemBillings are created and then whatever SECA binds to the return header update will have them. . -->
             <iterate list-name="shipmentReceipts" entry-name="receipt">
                 <get-related-one relation-name="Shipment" value-name="receipt" to-value-name="shipment"/>
-                <if-not-empty field-name="shipment.shipmentId">
-                    <if-compare field-name="statusId" map-name="shipment" operator="not-equals" value="RETURN_RECEIVED">
+                <if-not-empty field="shipment.shipmentId">
+                    <if-compare field="shipment.statusId" operator="not-equals" value="RETURN_RECEIVED">
                         <set field="serviceInput.shipmentId" from-field="shipment.shipmentId"/>
                         <set field="serviceInput.statusId" value="PURCH_SHIP_RECEIVED"/>
                         <call-service service-name="updateShipment" in-map-name="serviceInput"/>
@@ -610,7 +610,7 @@ under the License.
             <condition>
                 <and>
                     <not><if-has-permission permission="ORDERMGR" action="_CREATE"/></not>
-                    <not><if-compare-field field-name="partyId" map-name="userLogin" operator="equals" to-field-name="fromPartyId" to-map-name="parameters"/></not>
+                    <not><if-compare-field field="userLogin.partyId" to-field="parameters.fromPartyId" operator="equals"/></not>
                 </and>
             </condition>
             <then>
@@ -643,7 +643,7 @@ under the License.
         <get-related-one relation-name="ProductStore" value-name="orderHeader" to-value-name="productStore"/>
         <set from-field="productStore.payToPartyId" field="createHeaderCtx.toPartyId"/>
 
-        <if-empty field-name="destinationFacilityId" map-name="createHeaderCtx">
+        <if-empty field="createHeaderCtx.destinationFacilityId">
             <get-related-one value-name="orderHeader" relation-name="ProductStore" to-value-name="productStore"/>
             <set from-field="productStore.inventoryFacilityId" field="createHeaderCtx.destinationFacilityId"/>
         </if-empty>
@@ -663,10 +663,10 @@ under the License.
             </condition-list>
         </entity-condition>
 
-        <if-empty field-name="returnReasonId" map-name="parameters">
+        <if-empty field="parameters.returnReasonId">
             <set value="RTN_NOT_WANT" field="parameters.returnReasonId"/>
         </if-empty>
-        <if-empty field-name="returnTypeId" map-name="parameters">
+        <if-empty field="parameters.returnTypeId">
             <set value="RTN_REFUND" field="parameters.returnTypeId"/>
         </if-empty>
 
@@ -676,7 +676,7 @@ under the License.
             <set from-field="parameters.returnReasonId" field="newItemCtx.returnReasonId"/>
             <set from-field="parameters.returnTypeId" field="newItemCtx.returnTypeId"/>
 
-            <if-not-empty field-name="orderItem.productId">
+            <if-not-empty field="orderItem.productId">
                 <set from-field="orderItem.productId" field="newItemCtx.productId"/>
             </if-not-empty>
 
@@ -694,7 +694,7 @@ under the License.
             <!-- get the matching return item type from the order item type -->
 
             <set from-field="orderItem.orderItemTypeId" field="orderItemTypeId"/>
-            <if-compare field-name="orderItemTypeId" value="PRODUCT_ORDER_ITEM" operator="equals">
+            <if-compare field="orderItemTypeId" value="PRODUCT_ORDER_ITEM" operator="equals">
             <!-- Check if orderItemTypeId equals PRODUCT_ORDER_ITEM, if so, use ProductType and ReturnItemTypeMap to get ReturnItemType-->
                 <entity-one entity-name="Product" value-name="product">
                     <field-map field-name="productId" env-name="orderItem.productId"/>
@@ -714,7 +714,7 @@ under the License.
             </else>
             </if-compare>
 
-            <if-empty field-name="returnItemTypeId" map-name="returnItemTypeMapping" >
+            <if-empty field="returnItemTypeMapping.returnItemTypeId">
                 <add-error><fail-message message="No matching return item type map found for order item: [${orderItem}]"/></add-error>
                 <check-errors/>
             <else>
@@ -723,11 +723,11 @@ under the License.
             </if-empty>
 
             <!-- create the return item -->
-            <if-not-empty field-name="newItemCtx.orderAdjustmentId">
+            <if-not-empty field="newItemCtx.orderAdjustmentId">
                 <log level="info" message="Found unexpected orderAdjustment:${newItemCtx.orderAdjustmentId}"/>
                 <clear-field field-name="newItemCtx.orderAdjustmentId"/>
             </if-not-empty>
-            <if-compare field-name="newItemCtx.returnQuantity" value="0" operator="greater" type="Double">
+            <if-compare field="newItemCtx.returnQuantity" value="0" operator="greater" type="Double">
                 <!-- otherwise, items which have been fully returned would still get passed in and then come back with an error -->
                 <call-service service-name="createReturnItem" in-map-name="newItemCtx" include-user-login="true"/>
             <else>
@@ -751,7 +751,7 @@ under the License.
             <entity-count entity-name="ReturnAdjustment" count-name="returnCount">
                 <condition-expr field-name="orderAdjustmentId" operator="equals" env-name="orderAdjustment.orderAdjustmentId"/>
             </entity-count>
-            <if-compare field-name="returnCount" value="0" operator="equals">
+            <if-compare field="returnCount" value="0" operator="equals">
                 <log level="info" message="Create new return adjustment: ${returnAdjCtx}"/>
                 <call-service service-name="createReturnAdjustment" in-map-name="returnAdjCtx" include-user-login="true"/>
             </if-compare>
@@ -766,7 +766,7 @@ under the License.
         <log level="info" message="OrderTotal [${orderTotal}] - ReturnTotal [${returnTotal}] = available Return Total [${availableReturnTotal}]"/>
 
         <!-- create a manual balance adjustment based on the difference between order total and return total -->
-        <if-compare field-name="availableReturnTotal" operator="not-equals" value="0.00" type="BigDecimal">
+        <if-compare field="availableReturnTotal" operator="not-equals" value="0.00" type="BigDecimal">
             <set value="Balance Adjustment" field="balanceItemCtx.description"/>
             <set value="RET_MAN_ADJ" field="balanceItemCtx.returnAdjustmentTypeId"/>
 
@@ -785,7 +785,7 @@ under the License.
         <call-service service-name="updateReturnHeader" in-map-name="updateHeaderCtx" include-user-login="true"/>
 
         <!-- auto-receive this return if we passed in the flag -->
-        <if-compare field-name="receiveReturn" map-name="parameters" operator="equals" value="true" type="Boolean">
+        <if-compare field="parameters.receiveReturn" operator="equals" value="true" type="Boolean">
             <set from-field="returnId" field="receiveCtx.returnId"/>
             <call-service service-name="quickReceiveReturn" in-map-name="receiveCtx"/>
         <else>
@@ -798,7 +798,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createReturnAndItemOrAdjustment" short-description="If returnId is null, create a return; then create Return Item or Adjustment based on the parameters passed in">
-        <if-empty field-name="parameters.returnId">
+        <if-empty field="parameters.returnId">
             <set-service-fields service-name="createReturnHeader" map-name="parameters" to-map-name="returnHeaderInMap"/>
             <call-service service-name="createReturnHeader" in-map-name="returnHeaderInMap">
                 <result-to-field result-name="returnId" field-name="returnId"/>
@@ -845,9 +845,9 @@ under the License.
         <if>
             <condition>
                 <or>
-                    <if-compare field-name="returnItem.returnTypeId" operator="equals" value="RTN_REPLACE"/>
-                    <if-compare field-name="returnItem.returnTypeId" operator="equals" value="RTN_CSREPLACE"/>
-                    <if-compare field-name="returnItem.returnTypeId" operator="equals" value="RTN_REPAIR_REPLACE"/>
+                    <if-compare field="returnItem.returnTypeId" operator="equals" value="RTN_REPLACE"/>
+                    <if-compare field="returnItem.returnTypeId" operator="equals" value="RTN_CSREPLACE"/>
+                    <if-compare field="returnItem.returnTypeId" operator="equals" value="RTN_REPAIR_REPLACE"/>
                 </or>
             </condition>
             <then>

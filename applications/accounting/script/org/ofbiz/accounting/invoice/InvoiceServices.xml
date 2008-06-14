@@ -30,12 +30,12 @@ under the License.
 
         <if>
             <condition>
-                <if-compare field-name="partyAcctgPreference.invoiceSequenceEnumId" operator="equals" value="INVSQ_ENF_SEQ"/>
+                <if-compare field="partyAcctgPreference.invoiceSequenceEnumId" operator="equals" value="INVSQ_ENF_SEQ"/>
             </condition>
             <then>
                 <log level="info" message="In createInvoice sequence enum INVSQ_ENF_SEQ"/>
                 <!-- this is sequential sequencing, we can't skip a number, also it must be a unique sequence per partyIdFrom -->
-                <if-not-empty field-name="partyAcctgPreference.lastInvoiceNumber">
+                <if-not-empty field="partyAcctgPreference.lastInvoiceNumber">
                     <calculate field-name="partyAcctgPreference.lastInvoiceNumber" type="Long">
                         <calcop operator="add" field-name="partyAcctgPreference.lastInvoiceNumber"/>
                         <number value="1"/>
@@ -49,14 +49,14 @@ under the License.
             </then>
             <else-if>
                 <condition>
-                    <if-compare field-name="partyAcctgPreference.invoiceSequenceEnumId" operator="equals" value="INVSQ_RESTARTYR"/>
+                    <if-compare field="partyAcctgPreference.invoiceSequenceEnumId" operator="equals" value="INVSQ_RESTARTYR"/>
                 </condition>
                 <then>
                     <log level="info" message="In createInvoice sequence enum INVSQ_RESTARTYR"/>
                     <!-- this is sequential sequencing, we can't skip a number; except that it is restarted each fiscal year -->
 
                     <now-timestamp-to-env env-name="nowTimestamp"/>
-                    <if-empty field-name="partyAcctgPreference.lastInvoiceRestartDate">
+                    <if-empty field="partyAcctgPreference.lastInvoiceRestartDate">
                         <!-- if no lastInvoiceRestartDate then it's easy, just start now with 1 -->
                         <calculate field-name="partyAcctgPreference.lastInvoiceNumber" type="Long"><number value="1"/></calculate>
                         <set from-field="nowTimestamp" field="partyAcctgPreference.lastInvoiceRestartDate"/>
@@ -72,8 +72,8 @@ under the License.
                             <if>
                                 <condition>
                                     <and>
-                                        <if-compare-field field-name="partyAcctgPreference.lastInvoiceRestartDate" operator="less" to-field-name="curYearFiscalStartDate" type="Timestamp"/>
-                                        <if-compare-field field-name="nowTimestamp" operator="greater-equals" to-field-name="curYearFiscalStartDate" type="Timestamp"/>
+                                        <if-compare-field field="partyAcctgPreference.lastInvoiceRestartDate" to-field="curYearFiscalStartDate" operator="less" type="Timestamp"/>
+                                        <if-compare-field field="nowTimestamp" to-field="curYearFiscalStartDate" operator="greater-equals" type="Timestamp"/>
                                     </and>
                                 </condition>
                                 <then>
@@ -106,7 +106,7 @@ under the License.
                 <log level="info" message="In createInvoice sequence enum INVSQ_STANDARD"/>
                 <!-- default to the default sequencing: INVSQ_STANDARD -->
                 <set from-field="parameters.invoiceId" field="invoiceIdTemp"/>
-                <if-empty field-name="invoiceIdTemp">
+                <if-empty field="invoiceIdTemp">
                     <sequenced-id-to-env sequence-name="Invoice" env-name="invoiceIdTemp"/>
                     <else>
                         <!-- check the provided ID -->
@@ -131,7 +131,7 @@ under the License.
 
         <!-- call getNextInvoiceId service with the parameters.partyIdFrom when invoice Id is not suplied
                             else use it from the input -->
-        <if-empty field-name="parameters.invoiceId">
+        <if-empty field="parameters.invoiceId">
             <set field="getNextInvoiceIdMap.partyId" from-field="parameters.partyIdFrom"/>
             <call-service service-name="getNextInvoiceId" in-map-name="getNextInvoiceIdMap">
                 <result-to-field result-name="invoiceId" field-name="newEntity.invoiceId"/>
@@ -142,10 +142,10 @@ under the License.
         </if-empty>
         <field-to-result field-name="newEntity.invoiceId" result-name="invoiceId"/>
 
-        <if-empty field-name="parameters.invoiceDate">
+        <if-empty field="parameters.invoiceDate">
             <set from-field="nowTimestamp" field="newEntity.invoiceDate"/>
         </if-empty>
-        <if-empty field-name="parameters.currencyUomId">
+        <if-empty field="parameters.currencyUomId">
             <set from-field="partyAcctgPreference.baseCurrencyUomId" field="newEntity.currencyUomId"/>
         </if-empty>
 
@@ -169,7 +169,7 @@ under the License.
         <now-timestamp-to-env env-name="nowTimestamp"/>
         <set field="invoice.invoiceDate" from-field="nowTimestamp"/>
         <set field="invoice.statusId" value="INVOICE_IN_PROCESS"/>
-        <if-not-empty field-name="parameters.invoiceTypeId">
+        <if-not-empty field="parameters.invoiceTypeId">
             <set field="invoice.invoiceTypeId" from-field="parameters.invoiceTypeId"/>
         </if-not-empty>
         <set-service-fields service-name="createInvoice" map-name="invoice" to-map-name="newInvoice"/>
@@ -205,13 +205,13 @@ under the License.
         <find-by-primary-key entity-name="Invoice" map-name="lookupPKMap" value-name="lookedUpValue"/>
 
         <!-- only try to update content if the status is in process.... -->
-        <if-compare field-name="statusId" map-name="lookedUpValue" operator="equals" value="INVOICE_IN_PROCESS">
+        <if-compare field="lookedUpValue.statusId" operator="equals" value="INVOICE_IN_PROCESS">
             <clone-value value-name="lookedUpValue" new-value-name="savedValue"/>
             <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
 
             <!-- only save if something has changed, do not update status here -->
             <set from-field="savedValue.statusId" field="lookedUpValue.statusId"/>  <!-- get old status back -->
-            <if-compare-field field-name="lookedUpValue" operator="not-equals" to-field-name="savedValue" type="Object">
+            <if-compare-field field="lookedUpValue" to-field="savedValue" operator="not-equals" type="Object">
                 <store-value value-name="lookedUpValue"/> <!-- update all non status and key fields -->
             </if-compare-field>
             <else>
@@ -222,7 +222,7 @@ under the License.
         </if-compare>
 
         <!-- check if there is a status change if yes call invoice status update service -->
-        <if-compare-field field-name="parameters.statusId" operator="not-equals" to-field-name="savedValue.statusId">
+        <if-compare-field field="parameters.statusId" to-field="savedValue.statusId" operator="not-equals">
             <set from-field="parameters.invoiceId" field="inputMap.invoiceId"/>
             <set from-field="parameters.statusId" field="inputMap.statusId"/>
             <now-timestamp-to-env env-name="inputMap.statusDate"/>
@@ -246,14 +246,14 @@ under the License.
         <make-value value-name="newEntity" entity-name="InvoiceItem"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <if-empty field-name="newEntity.invoiceItemSeqId">
+        <if-empty field="newEntity.invoiceItemSeqId">
             <make-next-seq-id value-name="newEntity" seq-field-name="invoiceItemSeqId"/> <!-- this finds the next sub-sequence ID -->
             <!--field-to-result field-name="newEntity.invoiceItemSeqId" result-name="invoiceItemSeqId"/-->
         </if-empty>
         <!-- if there is no amount and a productItem is supplied fill the amount(price) and description from the product record
              TODO: there are return adjustments now that make this code very broken. The check for price was added as a quick fix. -->
-        <if-empty field-name="parameters.amount">
-            <if-not-empty field-name="parameters.productId">
+        <if-empty field="parameters.amount">
+            <if-not-empty field="parameters.productId">
                 <entity-one entity-name="Product" value-name="product"/>
                 <set from-field="product.description" field="newEntity.description"/>
                 <set from-field="product" field="calculateProductPriceMap.product"/>
@@ -262,7 +262,7 @@ under the License.
                 </call-service>
             </if-not-empty>
         </if-empty>
-        <if-empty field-name="newEntity.amount">
+        <if-empty field="newEntity.amount">
             <add-error>
                 <fail-message message="The amount value is mandatory"/>
             </add-error>
@@ -282,8 +282,8 @@ under the License.
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
 
         <!-- check if the productNumber is updated, when yes retrieve product description and price -->
-        <if-not-empty field-name="productId">
-        <if-compare-field field-name="productId"  map-name="savedValue" operator="not-equals" to-map-name="lookedUpValue">
+        <if-not-empty field="productId">
+        <if-compare-field to-field="lookedUpValue." field="savedValue.productId" operator="not-equals">
             <entity-one entity-name="Product" value-name="product"/>
             <set from-field="product.description" field="lookedUpValue.description"/>
 
@@ -293,12 +293,12 @@ under the License.
             </call-service>
         </if-compare-field>
         </if-not-empty>
-        <if-empty field-name="newEntity.amount">
+        <if-empty field="newEntity.amount">
             <add-error>
                 <fail-message message="The amount value is mandatory"/>
             </add-error>
         </if-empty>
-        <if-compare-field field-name="lookedUpValue" operator="not-equals" to-field-name="savedValue" type="Object">
+        <if-compare-field field="lookedUpValue" to-field="savedValue" operator="not-equals" type="Object">
             <store-value value-name="lookedUpValue"/>
         </if-compare-field>
     </simple-method>
@@ -309,7 +309,7 @@ under the License.
 
         <set field="paymentApplicationMap.invoiceId" from-field="parameters.invoiceId"/>
         <set field="paymentApplicationMap.invoiceItemSeqId" from-field="parameters.invoiceItemSeqId"/>
-        <if-not-empty field-name="parameters.invoiceItemSeqId">
+        <if-not-empty field="parameters.invoiceItemSeqId">
             <!-- check if there are specific item paymentApplications when yes remove those -->
             <remove-by-and entity-name="PaymentApplication" map-name="paymentApplicationMap"/>
             <else><!-- update global application with a null sequence number -->
@@ -325,19 +325,19 @@ under the License.
         <entity-one entity-name="PaymentApplication" value-name="paymentApplication">
             <field-map field-name="paymentApplicationId" value="${parameters.paymentApplicationId}"/>
         </entity-one>
-        <if-empty field-name="paymentApplication">
+        <if-empty field="paymentApplication">
             <add-error>
                 <fail-message message="Cannot find payment application record [${parameters.paymentApplicationId}]"/>
             </add-error>
             <check-errors/>
         </if-empty>
         <!-- payment -->
-        <if-not-empty field-name="paymentApplication.paymentId">
+        <if-not-empty field="paymentApplication.paymentId">
             <entity-one entity-name="Payment" value-name="payment">
                 <field-map field-name="paymentId" value="${paymentApplication.paymentId}"/>
             </entity-one>
-            <if-not-empty field-name="payment">
-                <if-compare field-name="payment.statusId" operator="equals" value="PMNT_CONFIRMED">
+            <if-not-empty field="payment">
+                <if-compare field="payment.statusId" operator="equals" value="PMNT_CONFIRMED">
                     <add-error><fail-message message="PaymentID [${payment.paymentId}] has status 'confirmed', cannot remove application."/></add-error>
                 </if-compare>
                 <check-errors/>
@@ -346,17 +346,17 @@ under the License.
         </if-not-empty>
         <property-to-field resource="AccountingUiLabels" property="AccountingPaymentApplRemoved" field-name="successMessage"/>
         <!-- check invoice -->
-        <if-not-empty field-name="paymentApplication.invoiceId">
+        <if-not-empty field="paymentApplication.invoiceId">
             <entity-one entity-name="Invoice" value-name="invoice">
                 <field-map field-name="invoiceId" value="${paymentApplication.invoiceId}"/>
             </entity-one>
-            <if-empty field-name="invoice">
+            <if-empty field="invoice">
                 <add-error><fail-message message="Invoice not found, invoice Id: ${paymentApplication.invoiceId}"/></add-error>
                 <log level="info" message="Invoice not found, invoice Id: ${invoiceId}"/>
                 <check-errors/>
             </if-empty>
             <!-- if the invoice is already PAID, then set it back to READY and clear out the paidDate -->
-            <if-compare field-name="invoice.statusId" operator="equals" value="INVOICE_PAID">
+            <if-compare field="invoice.statusId" operator="equals" value="INVOICE_PAID">
                 <set field="invoiceStatusMap.invoiceId" value="${paymentApplication.invoiceId}" />
                 <set field="invoiceStatusMap.statusId" value="INVOICE_READY"/>
                 <now-timestamp-to-env env-name="nowTimestamp"/>
@@ -368,17 +368,17 @@ under the License.
             <property-to-field resource="AccountingUiLabels" property="AccountingPaymentApplToInvoice" field-name="toMessage"/>
         </if-not-empty>
         <!-- invoice item -->
-        <if-not-empty field-name="paymentApplication.invoiceItemSeqId">
+        <if-not-empty field="paymentApplication.invoiceItemSeqId">
             <field-to-result field-name="paymentApplication.invoiceItemSeqId" result-name="invoiceItemSeqId"/>
             <property-to-field resource="AccountingUiLabels" property="AccountingApplicationToInvoiceItem" field-name="toMessage"/>
         </if-not-empty>
         <!-- toPayment -->
-        <if-not-empty field-name="paymentApplication.toPaymentId">
+        <if-not-empty field="paymentApplication.toPaymentId">
             <entity-one entity-name="Payment" value-name="toPayment">
                 <field-map field-name="paymentId" value="${paymentApplication.toPaymentId}"/>
             </entity-one>
-            <if-not-empty field-name="toPayment">
-                <if-compare field-name="toPayment.statusId" operator="equals" value="PMNT_CONFIRMED">
+            <if-not-empty field="toPayment">
+                <if-compare field="toPayment.statusId" operator="equals" value="PMNT_CONFIRMED">
                     <add-error><fail-message message="Related payment [${toPayment.paymentId}] has status 'confirmed', cannot remove application."/></add-error>
                 </if-compare>
                 <check-errors/>
@@ -387,12 +387,12 @@ under the License.
             <field-to-result field-name="paymentApplication.toPaymentId" result-name="toPaymentId"/>
         </if-not-empty>
         <!-- billing account -->
-        <if-not-empty field-name="paymentApplication.billingAccountId">
+        <if-not-empty field="paymentApplication.billingAccountId">
             <field-to-result field-name="paymentApplication.billingAccountId" result-name="billingAccountId"/>
             <property-to-field resource="AccountingUiLabels" property="AccountingPaymentApplToBillingAccount" field-name="toMessage"/>
         </if-not-empty>
         <!-- tax authority -->
-        <if-not-empty field-name="paymentApplication.taxAuthGeoId">
+        <if-not-empty field="paymentApplication.taxAuthGeoId">
             <field-to-result field-name="paymentApplication.taxAuthGeoId" result-name="taxAuthGeoId"/>
             <property-to-field resource="AccountingUiLabels" property="AccountingPaymentApplToTaxAuth" field-name="toMessage"/>
         </if-not-empty>
@@ -406,7 +406,7 @@ under the License.
         <make-value value-name="newEntity" entity-name="InvoiceRole"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
-        <if-empty field-name="newEntity.datetimePerformed"><now-timestamp-to-env env-name="newEntity.datetimePerformed"/></if-empty>
+        <if-empty field="newEntity.datetimePerformed"><now-timestamp-to-env env-name="newEntity.datetimePerformed"/></if-empty>
         <create-value value-name="newEntity"/>
     </simple-method>
 
@@ -419,26 +419,26 @@ under the License.
     <simple-method method-name="setInvoiceStatus" short-description="Set The Invoice Status">
         <entity-one entity-name="Invoice" value-name="invoice"/>
         <field-to-result field-name="invoice.statusId" result-name="oldStatusId"/>
-        <if-compare-field field-name="invoice.statusId" operator="not-equals" to-field-name="parameters.statusId">
+        <if-compare-field field="invoice.statusId" to-field="parameters.statusId" operator="not-equals">
             <entity-one entity-name="StatusValidChange" value-name="statusChange" auto-field-map="false">
                 <field-map field-name="statusId" env-name="invoice.statusId"/>
                 <field-map field-name="statusIdTo" env-name="parameters.statusId"/>
             </entity-one>
-            <if-empty field-name="statusChange">
+            <if-empty field="statusChange">
                 <add-error><fail-message message="Status is not a valid change"/></add-error>
                 <log level="error" message="Cannot change from ${invoice.statusId} to ${parameters.statusId}"/>
                 <check-errors/>
             <else>
                 <!-- if new status is paid check if the complete invoice is applied. -->
-                <if-compare field-name="parameters.statusId" operator="equals" value="INVOICE_PAID">
+                <if-compare field="parameters.statusId" operator="equals" value="INVOICE_PAID">
                     <set field="notApplied" type="Double" value="${bsh:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(invoice)}"/>
-                    <if-compare field-name="notApplied" operator="not-equals" value="0.00" type="Double">
+                    <if-compare field="notApplied" operator="not-equals" value="0.00" type="Double">
                         <add-error><fail-message message="Cannot change status to 'paid', invoice ${invoice.invoiceId} has an unapplied balance of [${notApplied}]"/></add-error>
                         <check-errors/>
                     </if-compare>
 
                     <!-- if it's OK to mark invoice paid, use parameter for paidDate -->
-                    <if-empty field-name="parameters.paidDate">
+                    <if-empty field="parameters.paidDate">
                        <now-timestamp-to-env env-name="nowTimestamp"/>
                        <set from-field="nowTimestamp" field="invoice.paidDate"/>
                     <else>
@@ -447,8 +447,8 @@ under the License.
                     </if-empty>
                 </if-compare>
 
-                <if-not-empty field-name="invoice.paidDate">
-                   <if-compare field-name="parameters.statusId" operator="equals" value="INVOICE_READY">
+                <if-not-empty field="invoice.paidDate">
+                   <if-compare field="parameters.statusId" operator="equals" value="INVOICE_READY">
                        <clear-field field-name="invoice.paidDate" />
                    </if-compare>
                 </if-not-empty>
@@ -460,13 +460,13 @@ under the License.
                 <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
                 <set-pk-fields map-name="parameters" value-name="newEntity"/>
 
-                <if-empty field-name="newEntity.statusDate">
+                <if-empty field="newEntity.statusDate">
                     <now-timestamp-to-env env-name="newEntity.statusDate"/>
                 </if-empty>
                 <create-value value-name="newEntity"/>
 
                 <!-- if new status is cancelled remove existing payment applications. -->
-                <if-compare field-name="parameters.statusId" operator="equals" value="INVOICE_CANCELLED">
+                <if-compare field="parameters.statusId" operator="equals" value="INVOICE_CANCELLED">
                     <set field="removePaymentApplicationMap.invoiceId" from-field="parameters.invoiceId"/>
                     <remove-by-and entity-name="PaymentApplication" map-name="removePaymentApplicationMap"/>
                 </if-compare>
@@ -489,10 +489,10 @@ under the License.
 
     <simple-method method-name="copyInvoiceToTemplate" short-description="copy a invoice to a InvoiceType starting with 'template'">
         <set field="parameters.invoiceIdToCopyFrom" from-field="parameters.invoiceId"/>
-        <if-compare field-name="parameters.invoiceTypeId" operator="equals" value="SALES_INVOICE">
+        <if-compare field="parameters.invoiceTypeId" operator="equals" value="SALES_INVOICE">
             <set field="parameters.invoiceTypeId" value="SALES_INV_TEMPLATE"/>
         </if-compare>
-        <if-compare field-name="parameters.invoiceTypeId" operator="equals" value="PURCHASE_INVOICE">
+        <if-compare field="parameters.invoiceTypeId" operator="equals" value="PURCHASE_INVOICE">
             <set field="parameters.invoiceTypeId" value="PUR_INV_TEMPLATE"/>
         </if-compare>
         <call-simple-method method-name="copyInvoice"/>
@@ -502,13 +502,13 @@ under the License.
     <simple-method method-name="InvoiceStatusInProgress" short-description="Check if the invoiceStatus is in progress">
         <!-- find the current header record -->
         <entity-one entity-name="Invoice" value-name="headerValue"/>
-        <if-empty field-name="headerValue">
+        <if-empty field="headerValue">
             <add-error><fail-message message="Invoice not found, invoice Id: ${invoiceId}"/></add-error>
             <log level="info" message="Invoice not found, invoice Id: ${invoiceId}"/>
             <check-errors/>
         </if-empty>
         <!-- check if the status is in progress... -->
-        <if-compare field-name="headerValue.statusId" operator="not-equals" value="INVOICE_IN_PROCESS">
+        <if-compare field="headerValue.statusId" operator="not-equals" value="INVOICE_IN_PROCESS">
             <add-error><fail-message message="Can only update Invoice, when status is in-process...is now: ${headerValue.statusId}"/></add-error>
             <log level="info" message="Can only update Invoice, when status is in-process...is now: ${headerValue.statusId}"/>
         </if-compare>

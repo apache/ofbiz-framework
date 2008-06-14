@@ -24,8 +24,8 @@ under the License.
         <if>
             <condition>
                 <and>
-                    <not><if-empty field-name="parameters.fromPartyId"/></not>
-                    <not><if-compare-field field-name="parameters.fromPartyId" operator="equals" to-field-name="userLogin.partyId"/></not>
+                    <not><if-empty field="parameters.fromPartyId"/></not>
+                    <not><if-compare-field field="parameters.fromPartyId" to-field="userLogin.partyId" operator="equals"/></not>
                     <not><if-has-permission permission="ORDERMGR" action="_CRQ_CREATE"/></not>
                 </and>
             </condition>
@@ -43,7 +43,7 @@ under the License.
         <set from-field="userLogin.userLoginId" field="newEntity.lastModifiedByUserLogin"/>
         <set from-field="userLogin.userLoginId" field="newEntity.createdByUserLogin"/>
         
-        <if-empty field-name="statusId" map-name="parameters">
+        <if-empty field="parameters.statusId">
             <set value="CRQ_SUBMITTED" field="newEntity.statusId"/>
         </if-empty>
 
@@ -57,8 +57,8 @@ under the License.
              then we associate it to the request as the request taker.
              This is not done if they are the same e.g. a logged in customer that is creating a request for its
              own sake. -->
-        <if-not-empty field-name="userLogin.partyId">  <!-- just in case the service is called by the "system" userLogin -->
-            <if-compare-field field-name="parameters.fromPartyId" operator="not-equals" to-field-name="userLogin.partyId">
+        <if-not-empty field="userLogin.partyId">  <!-- just in case the service is called by the "system" userLogin -->
+            <if-compare-field field="parameters.fromPartyId" to-field="userLogin.partyId" operator="not-equals">
                 <set from-field="newEntity.custRequestId" field="takerMap.custRequestId"/>
                 <set from-field="userLogin.partyId" field="takerMap.partyId"/>
                 <set value="REQ_TAKER" field="takerMap.roleTypeId"/>
@@ -74,7 +74,7 @@ under the License.
              There is now the fromPartyId field in the CustRequest entity for this. -->
         <!--
         <field-to-field field-name="custRequestId" map-name="newEntity" to-map-name="requesterMap"/>
-        <if-not-empty field-name="requestPartyId" map-name="parameters">
+        <if-not-empty field="parameters.requestPartyId">
             <field-to-field field-name="requestPartyId" map-name="parameters" to-map-name="requesterMap" to-field-name="partyId"/>
           <else>
               <field-to-field field-name="partyId" map-name="userLogin" to-map-name="requesterMap"/>
@@ -87,7 +87,7 @@ under the License.
     <simple-method method-name="updateCustRequest" short-description="Update Customer Request">
         <set from-field="parameters.custRequestId" field="lookupPKMap.custRequestId"/>
         <find-by-primary-key entity-name="CustRequest" map-name="lookupPKMap" value-name="custRequest"/>
-        <if-compare-field field-name="custRequest.statusId" operator="not-equals" to-field-name="parameters.statusId">
+        <if-compare-field field="custRequest.statusId" to-field="parameters.statusId" operator="not-equals">
             <!-- save the changed status in the history -->
             <set field="custRequest.statusId" from-field="parameters.statusId"/>
             <set-service-fields to-map-name="statusMap" service-name="createCustRequestStatus" map-name="custRequest"/>
@@ -118,10 +118,10 @@ under the License.
         <make-value value-name="newEntity" entity-name="CustRequestItem"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <if-empty field-name="custRequestItemSeqId" map-name="parameters">
+        <if-empty field="parameters.custRequestItemSeqId">
             <make-next-seq-id value-name="newEntity" seq-field-name="custRequestItemSeqId"/>
         </if-empty>
-        <if-empty field-name="statusId" map-name="parameters">
+        <if-empty field="parameters.statusId">
             <set value="CRQ_SUBMITTED" field="newEntity.statusId"/>
         </if-empty>
         <create-value value-name="newEntity"/>
@@ -140,7 +140,7 @@ under the License.
         <set from-field="parameters.partyId" field="lookupPKMap.partyId"/>
         <set from-field="parameters.roleTypeId" field="lookupPKMap.roleTypeId"/>
         <find-by-primary-key entity-name="PartyRole" map-name="lookupPKMap" value-name="partyRole"/>
-        <if-empty map-name="partyRole" field-name="partyId">
+        <if-empty field="partyRole.partyId">
             <make-value value-name="partyRole" entity-name="PartyRole"/>
             <set-pk-fields map-name="lookupPKMap" value-name="partyRole"/>
             <create-value value-name="partyRole"/>
@@ -212,12 +212,12 @@ under the License.
             <!-- a new request item is created -->
             <clear-field field-name="createCustRequestItemInMap"/>
             <call-object-method obj-field-name="item" method-name="getConfigWrapper" ret-field-name="configWrapper"/>
-            <if-not-empty field-name="configWrapper">
+            <if-not-empty field="configWrapper">
                 <call-object-method obj-field-name="configWrapper" method-name="getConfigId" ret-field-name="configId"/>
                 <set from-field="configId" field="createCustRequestItemInMap.configId"/>
             </if-not-empty>
             <call-object-method obj-field-name="item" method-name="getIsPromo" ret-field-name="isPromo"/>
-            <if-compare field-name="isPromo" value="false" operator="equals" type="Boolean">
+            <if-compare field="isPromo" value="false" operator="equals" type="Boolean">
                 <set from-field="custRequest.custRequestId" field="createCustRequestItemInMap.custRequestId"/>
                 <call-object-method obj-field-name="item" method-name="getProductId" ret-field-name="createCustRequestItemInMap.productId"/>
                 <call-object-method obj-field-name="item" method-name="getQuantity" ret-field-name="createCustRequestItemInMap.quantity"/>
@@ -261,8 +261,8 @@ under the License.
         <set-service-fields service-name="createCustRequestItem" to-map-name="createCustRequestItemInMap" map-name="custRequestItem"/>
         <set field="createCustRequestItemInMap.custRequestId" from-field="parameters.custRequestIdTo"/>
         <set field="createCustRequestItemInMap.custRequestItemSeqId" from-field="parameters.custRequestItemSeqId"/>
-        <if-empty field-name="parameters.custRequestIdTo">
-            <if-empty field-name="parameters.custRequestItemSeqIdTo">
+        <if-empty field="parameters.custRequestIdTo">
+            <if-empty field="parameters.custRequestItemSeqIdTo">
                 <clear-field field-name="createCustRequestItemInMap.custRequestItemSeqId"/>
             </if-empty>
         </if-empty>
@@ -274,7 +274,7 @@ under the License.
 
         <check-errors/>
                 
-        <if-compare field-name="parameters.copyLinkedQuotes" value="Y" operator="equals">
+        <if-compare field="parameters.copyLinkedQuotes" value="Y" operator="equals">
             <get-related value-name="custRequestItem" relation-name="QuoteItem" list-name="quoteItems"/>
             <iterate list-name="quoteItems" entry-name="quoteItem">
                 <clear-field field-name="createQuoteItemInMap"/>
@@ -293,7 +293,7 @@ under the License.
         <make-value value-name="newEntity" entity-name="CustRequestStatus"/>
         <make-next-seq-id value-name="newEntity" seq-field-name="custRequestStatusId"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <if-empty field-name="newEntity.statusDatetime">
+        <if-empty field="newEntity.statusDatetime">
             <now-timestamp-to-env env-name="nowTimestamp"/>
             <set from-field="nowTimestamp" field="newEntity.statusDatetime"/>
         </if-empty>

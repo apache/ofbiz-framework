@@ -34,7 +34,7 @@ under the License.
         <iterate entry-name="affiliatePartyRelationship" list-name="affiliatePartyRelationshipList">
             <!-- calculate a commission for each commission partner, identified by affiliatePartyRelationship.partyIdTo -->
             <if>
-                <condition><if-compare field-name="affiliatePartyRelationship.roleTypeIdTo" operator="equals" value="AFFILIATE"/></condition>
+                <condition><if-compare field="affiliatePartyRelationship.roleTypeIdTo" operator="equals" value="AFFILIATE"/></condition>
                 <then>
                     <!-- calculate a simple commission with a base amount + a percentage of the payment -->
                     <calculate field-name="commissionAmount" type="Double">
@@ -52,7 +52,7 @@ under the License.
                 </then>
                 <else-if>
                     <!-- NOTE: this is just an example of another type of commission partner associated with a customer, doesn't really exist -->
-                    <condition><if-compare field-name="affiliatePartyRelationship.roleTypeIdTo" operator="equals" value="TIERED_COMMISSION"/></condition>
+                    <condition><if-compare field="affiliatePartyRelationship.roleTypeIdTo" operator="equals" value="TIERED_COMMISSION"/></condition>
                     <then></then>
                 </else-if>
             </if>

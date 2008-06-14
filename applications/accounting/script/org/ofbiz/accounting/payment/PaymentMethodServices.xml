@@ -32,11 +32,11 @@ under the License.
             <call-service service-name="capturePayment" in-map-name="captureParams" error-code="ignore-error">
                 <result-to-field map-name="captureResult" result-name="responseMessage" />
             </call-service>
-            <if-compare map-name="captureResult" operator="equals" field-name="responseMessage" value="error">
+            <if-compare operator="equals" field="captureResult.responseMessage" value="error">
                 <field-to-list map-name="orderHeaderAndPaymentPref" field-name="orderId" list-name="badOrders" />
             </if-compare>
         </iterate>
-        <if-not-empty field-name="badOrders">
+        <if-not-empty field="badOrders">
             <string-to-field string="mail.smtp.host" field-name="sendType" map-name="emailParams" />
 
             <property-to-field resource="payment" property="mailhost" field-name="sendVia" map-name="emailParams"/>
@@ -56,19 +56,19 @@ under the License.
         <make-value value-name="lookupPKMap" entity-name="PaymentMethod"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="PaymentMethod" map-name="lookupPKMap" value-name="lookedUpValue"/>
-        <if-compare map-name="lookedUpValue" field-name="paymentMethodTypeId" operator="equals" value="CREDIT_CARD">
+        <if-compare field="lookedUpValue.paymentMethodTypeId" operator="equals" value="CREDIT_CARD">
             <find-by-primary-key entity-name="CreditCard" map-name="lookupPKMap" value-name="mainValue"/>
             <clone-value value-name="mainValue" new-value-name="savedValue"/>
             <set-nonpk-fields map-name="parameters" value-name="mainValue"/>
-            <if-compare-field field-name="mainValue" operator="not-equals" to-field-name="savedValue" type="Object">
+            <if-compare-field field="mainValue" to-field="savedValue" operator="not-equals" type="Object">
                 <store-value value-name="mainValue"/>
             </if-compare-field>
         </if-compare>
-        <if-compare map-name="lookedUpValue" field-name="paymentMethodTypeId" operator="equals" value="EFT_ACCOUNT">
+        <if-compare field="lookedUpValue.paymentMethodTypeId" operator="equals" value="EFT_ACCOUNT">
             <find-by-primary-key entity-name="CreditCard" map-name="lookupPKMap" value-name="mainValue"/>
             <clone-value value-name="mainValue" new-value-name="savedValue"/>
             <set-nonpk-fields map-name="parameters" value-name="mainValue"/>
-            <if-compare-field field-name="mainValue" operator="not-equals" to-field-name="savedValue" type="Object">
+            <if-compare-field field="mainValue" to-field="savedValue" operator="not-equals" type="Object">
                 <store-value value-name="mainValue"/>
             </if-compare-field>
         </if-compare>
@@ -83,7 +83,7 @@ under the License.
             <call-class-method class-name="org.ofbiz.base.util.UtilValidate" method-name="isDateAfterToday" ret-field-name="isNotExpired">
                 <field field-name="creditCard.expireDate"/>
             </call-class-method>
-            <if-compare field-name="isNotExpired" operator="equals" type="Boolean" value="true">
+            <if-compare field="isNotExpired" operator="equals" type="Boolean" value="true">
                 <set-service-fields service-name="updateCreditCard" map-name="creditCard" to-map-name="uccMap"/>
                 <set field="uccMap.contactMechId" from-field="parameters.contactMechId"/>
                 <set field="uccMap.partyId" from-field="parameters.partyId"/>

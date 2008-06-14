@@ -22,7 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="createContactMech" short-description="Create Contact Mechanism">
         <make-value value-name="newValue" entity-name="ContactMech"/>
-        <if-empty field-name="parameters.contactMechId">
+        <if-empty field="parameters.contactMechId">
             <sequenced-id-to-env sequence-name="ContactMech" env-name="newValue.contactMechId"/>
             <else>
                 <set field="newValue.contactMechId" from-field="parameters.contactMechId"/>
@@ -36,35 +36,35 @@ under the License.
     </simple-method>
     
     <simple-method method-name="updateContactMech" short-description="Update Contact Mechanism">
-        <if-compare field-name="contactMechTypeId" operator="equals" value="POSTAL_ADDRESS">
+        <if-compare field="contactMechTypeId" operator="equals" value="POSTAL_ADDRESS">
             <add-error><fail-property resource="PartyUiLabels" property="PartyServiceNotForPostalAddress"/></add-error>
         </if-compare>
-        <if-compare field-name="contactMechTypeId" operator="equals" value="TELECOM_NUMBER">
+        <if-compare field="contactMechTypeId" operator="equals" value="TELECOM_NUMBER">
             <add-error><fail-property resource="PartyUiLabels" property="PartyServiceNotForTelecomNumber"/></add-error>
         </if-compare>                       
         <check-errors/>
 
         <set field="successMessageProperty" value="PartyContactMechanismSuccessfullyUpdated"/>                        
-        <if-compare map-name="context" field-name="contactMechTypeId" operator="equals" value="EMAIL_ADDRESS">
+        <if-compare field="context.contactMechTypeId" operator="equals" value="EMAIL_ADDRESS">
             <set field="successMessageProperty" value="PartyEmailAddressSuccessfullyUpdated"/>
         </if-compare>
-        <if-compare map-name="context" field-name="contactMechTypeId" operator="equals" value="WEB_ADDRESS">
+        <if-compare field="context.contactMechTypeId" operator="equals" value="WEB_ADDRESS">
             <set field="successMessageProperty" value="PartyWebAddressSuccessfullyUpdated"/>
         </if-compare>
-        <if-compare map-name="context" field-name="contactMechTypeId" operator="equals" value="IP_ADDRESS">
+        <if-compare field="context.contactMechTypeId" operator="equals" value="IP_ADDRESS">
             <set field="successMessageProperty" value="PartyIpAddressSuccessfullyUpdated"/>
         </if-compare>
-        <if-compare map-name="context" field-name="contactMechTypeId" operator="equals" value="ELECTRONIC_ADDRESS">
+        <if-compare field="context.contactMechTypeId" operator="equals" value="ELECTRONIC_ADDRESS">
             <set field="successMessageProperty" value="PartyElectronicAddressSuccessfullyUpdated"/>
         </if-compare>
-        <if-compare map-name="context" field-name="contactMechTypeId" operator="equals" value="DOMAIN_NAME">
+        <if-compare field="context.contactMechTypeId" operator="equals" value="DOMAIN_NAME">
             <set field="successMessageProperty" value="PartyDomainNameSuccessfullyUpdated"/>
         </if-compare>
 
         <make-value entity-name="ContactMech" value-name="ContactMechMap"/>
         <set-pk-fields value-name="ContactMechMap" map-name="parameters"/>
         <find-by-primary-key entity-name="ContactMech" map-name="ContactMechMap" value-name="oldValue" /> 
-        <if-compare-field map-name="parameters" field-name="infoString" to-map-name="oldValue" operator="not-equals">
+        <if-compare-field to-field="oldValue." field="parameters.infoString" operator="not-equals">
              <log level="info" message="Contact mech need updating"/> 
             <clone-value value-name="oldValue" new-value-name="newValue"/>
             <set-nonpk-fields map-name="parameters" value-name="newValue" set-if-null="false"/>
@@ -85,15 +85,15 @@ under the License.
     </simple-method>
     
     <simple-method method-name="createPostalAddress" short-description="Create Contact Mechanism with PostalAddress">
-        <if-compare value="USA" operator="equals" field-name="countryGeoId" map-name="parameters">
-          <if-empty field-name="stateProvinceGeoId" map-name="parameters">
+        <if-compare value="USA" operator="equals" field="parameters.countryGeoId">
+          <if-empty field="parameters.stateProvinceGeoId">
             <add-error>
               <fail-property resource="PartyUiLabels" property="PartyStateInUsMissing"/>
             </add-error>                        
           </if-empty>
         </if-compare>        
-        <if-compare value="CAN" operator="equals" field-name="countryGeoId" map-name="parameters">
-          <if-empty field-name="stateProvinceGeoId" map-name="parameters">
+        <if-compare value="CAN" operator="equals" field="parameters.countryGeoId">
+          <if-empty field="parameters.stateProvinceGeoId">
             <add-error>
               <fail-property resource="PartyUiLabels" property="PartyProveinceInCanadaMissing"/>
             </add-error>
@@ -113,15 +113,15 @@ under the License.
     </simple-method>
     
     <simple-method method-name="updatePostalAddress" short-description="Update Contact Mechanism with PostalAddress">
-        <if-compare value="USA" operator="equals" field-name="countryGeoId" map-name="parameters">
-          <if-empty field-name="stateProvinceGeoId" map-name="parameters">
+        <if-compare value="USA" operator="equals" field="parameters.countryGeoId">
+          <if-empty field="parameters.stateProvinceGeoId">
             <add-error>
               <fail-property resource="PartyUiLabels" property="PartyStateInUsMissing"/>
             </add-error>                        
           </if-empty>
         </if-compare>        
-        <if-compare value="CAN" operator="equals" field-name="countryGeoId" map-name="parameters">
-          <if-empty field-name="stateProvinceGeoId" map-name="parameters">
+        <if-compare value="CAN" operator="equals" field="parameters.countryGeoId">
+          <if-empty field="parameters.stateProvinceGeoId">
             <add-error>
               <fail-property resource="PartyUiLabels" property="PartyProveinceInCanadaMissing"/>
             </add-error>
@@ -135,7 +135,7 @@ under the License.
           
         <set field="context.contactMechTypeId" value="POSTAL_ADDRESS"/>
         
-        <if-compare-field field-name="oldValue" to-field-name="newValue" operator="not-equals" type="Object">
+        <if-compare-field field="oldValue" to-field="newValue" operator="not-equals" type="Object">
             <log level="info" message="Postal address need updating"/>
             <call-service service-name="createContactMech" in-map-name="context">
                 <default-message resource="PartyUiLabels" property="PartyPostalAddressSuccessfullyUpdated"/>
@@ -148,7 +148,7 @@ under the License.
                     <default-message resource="PartyUiLabels" property="PartyPostalAddressSuccessfullyUpdated"/>
                     <result-to-field result-name="contactMechId" map-name="newValue"/>
                 </call-service>
-                <if-compare-field map-name="oldValue" to-map-name="newValue" field-name="contactMechId" operator="not-equals">
+                <if-compare-field to-field="newValue." field="oldValue.contactMechId" operator="not-equals">
                     <log level="info" message="Postal address need updating, contact mech changed"/>
                     <create-value value-name="newValue"/>
                     <else>
@@ -182,7 +182,7 @@ under the License.
         <set-nonpk-fields map-name="parameters" value-name="newValue"/>
         <set field="context.contactMechTypeId" value="TELECOM_NUMBER"/>
         
-        <if-compare-field field-name="oldValue" to-field-name="newValue" operator="not-equals" type="Object">
+        <if-compare-field field="oldValue" to-field="newValue" operator="not-equals" type="Object">
             <log level="info" message="Telecom number needs updating"/>
             <call-service service-name="createContactMech" in-map-name="context">
                 <default-message resource="PartyUiLabels" property="PartyTelecomNumberSuccessfullyUpdated"/>
@@ -195,7 +195,7 @@ under the License.
                     <default-message resource="PartyUiLabels" property="PartyTelecomNumberSuccessfullyUpdated"/>
                     <result-to-field result-name="contactMechId" map-name="newValue"/>
                 </call-service>
-                <if-compare-field map-name="oldValue" to-map-name="newValue" field-name="contactMechId" operator="not-equals">
+                <if-compare-field to-field="newValue." field="oldValue.contactMechId" operator="not-equals">
                     <log level="info" message="Telecom Number need updating, contact mech changed"/>
                     <create-value value-name="newValue"/>
                     <else>
@@ -274,7 +274,7 @@ under the License.
         <find-by-primary-key value-name="emailAddressVerification" entity-name="EmailAddressVerification" map-name="lookupHash"/>
         <set field="bodyParameters.verifyHash" from-field="emailAddressVerification.verifyHash"/>
         <first-from-list entry-name="storeEmail" list-name="productStoreEmailSettings"/>
-        <if-not-empty field-name="bodyScreenLocation" map-name="storeEmail">                        
+        <if-not-empty field="storeEmail.bodyScreenLocation">                        
             <set field="emailParams.sendTo" from-field="parameters.emailAddress"/>
             <set field="emailParams.subject" from-field="storeEmail.subject"/>
             <set field="emailParams.sendFrom" from-field="storeEmail.fromAddress"/>
@@ -293,9 +293,9 @@ under the License.
         </entity-and>
         
         <first-from-list list-name="emailAddressVerifications" entry-name="emailAddressVerification"/>
-        <if-not-empty field-name="emailAddressVerification">
+        <if-not-empty field="emailAddressVerification">
             <now-timestamp-to-env env-name="nowTimestamp"/>
-            <if-compare-field field-name="emailAddressVerification.expireDate" operator="less" to-field-name="nowTimestamp">
+            <if-compare-field field="emailAddressVerification.expireDate" to-field="nowTimestamp" operator="less">
                  <add-error><fail-property resource="PartyUiLabels" property="PartyEmailAddressVerificationExpired"/></add-error>
             </if-compare-field>
         <else>

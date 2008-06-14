@@ -35,7 +35,7 @@ under the License.
         <set field="organizationPartyId" from-field="finAccount.organizationPartyId"/>
         
         <!-- Figure out which GlAccount to post to using finAccount.postToGlAccountId or if not specified then use FinAccountTypeGlAccount -->
-        <if-not-empty field-name="finAccount.postToGlAccountId">
+        <if-not-empty field="finAccount.postToGlAccountId">
             <set field="glAccountId" from-field="finAccount.postToGlAccountId"/>
             
             <else>
@@ -43,7 +43,7 @@ under the License.
                     <field-map field-name="organizationPartyId"/>
                     <field-map field-name="finAccountTypeId" env-name="finAccount.finAccountTypeId"/>
                 </entity-one>
-                <if-not-empty field-name="finAccountTypeGlAccount">
+                <if-not-empty field="finAccountTypeGlAccount">
                     <set field="glAccountId" from-field="finAccountTypeGlAccount.glAccountId"/>
                 </if-not-empty>
             </else>
@@ -77,7 +77,7 @@ under the License.
             if from account refill product purchase pull from special account where those funds wait; 
             if purchase on account, balance like bank acount received or something -->
         <if>
-            <condition><if-compare field-name="finAccountTrans.finAccountTransTypeId" operator="equals" value="DEPOSIT"/></condition>
+            <condition><if-compare field="finAccountTrans.finAccountTransTypeId" operator="equals" value="DEPOSIT"/></condition>
             <then>
                 <!-- TODO: somehow check to see if the deposit was not from a product, or didn't get into the general CUSTOMER CREDITS 213000 account -->
                 
@@ -93,7 +93,7 @@ under the License.
                 <set field="createAcctgTransAndEntriesMap.acctgTransTypeId" value="RECEIPT"/>
             </then>
             <else-if>
-                <condition><if-compare field-name="finAccountTrans.finAccountTransTypeId" operator="equals" value="WITHDRAWAL"/></condition>
+                <condition><if-compare field="finAccountTrans.finAccountTransTypeId" operator="equals" value="WITHDRAWAL"/></condition>
                 <then>
                     <!-- TODO: somehow determine if this is an order placed against the account or some other type of withdrawal -->
                     
@@ -105,7 +105,7 @@ under the License.
                 </then>
             </else-if>
             <else-if>
-                <condition><if-compare field-name="finAccountTrans.finAccountTransTypeId" operator="equals" value="ADJUSTMENT"/></condition>
+                <condition><if-compare field="finAccountTrans.finAccountTransTypeId" operator="equals" value="ADJUSTMENT"/></condition>
                 <then>
                     <!-- TODO: what to do for an adjustment? for now nothing, will error out below -->
                     
@@ -119,13 +119,13 @@ under the License.
         </if>
         
         <!-- Make sure we have the glAccountId, glAccountIdOffset, organizationPartyId -->
-        <if-empty field-name="mainAcctgTransEntry.glAccountId">
+        <if-empty field="mainAcctgTransEntry.glAccountId">
             <add-error><fail-message message="Cannot post FinAccountTrans with ID [${parameters.finAccountTransId}] to GL, could not find Main glAccountId"/></add-error>
         </if-empty>
-        <if-empty field-name="offsetAcctgTransEntry.glAccountId">
+        <if-empty field="offsetAcctgTransEntry.glAccountId">
             <add-error><fail-message message="Cannot post FinAccountTrans with ID [${parameters.finAccountTransId}] to GL, could not find Offset glAccountId"/></add-error>
         </if-empty>
-        <if-empty field-name="organizationPartyId">
+        <if-empty field="organizationPartyId">
             <add-error><fail-message message="Cannot post FinAccountTrans with ID [${parameters.finAccountTransId}] to GL, could not find organizationPartyId"/></add-error>
         </if-empty>
         <check-errors/>

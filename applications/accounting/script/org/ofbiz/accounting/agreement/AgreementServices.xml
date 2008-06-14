@@ -36,7 +36,7 @@ under the License.
         <set from-field="agreementId" field="newEntity.agreementId"/>
         <field-to-result field-name="agreementId" result-name="agreementId"/>
 
-        <if-empty field-name="fromDate" map-name="newEntity">
+        <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="nowTimestamp"/>
             <set from-field="nowTimestamp" field="newEntity.fromDate"/>
         </if-empty>
@@ -81,7 +81,7 @@ under the License.
             <set from-field="agreementIdTo" field="createAgreementItemInMap.agreementId"/>
             <call-service service-name="createAgreementItem" in-map-name="createAgreementItemInMap"/>
         </iterate>
-        <if-compare field-name="parameters.copyAgreementTerms" value="Y" operator="equals">
+        <if-compare field="parameters.copyAgreementTerms" value="Y" operator="equals">
             <get-related value-name="agreement" relation-name="AgreementTerm" list-name="agreementTerms"/>
             <iterate list-name="agreementTerms" entry-name="agreementTerm">
                 <clear-field field-name="createAgreementTermInMap"/>
@@ -90,7 +90,7 @@ under the License.
                 <call-service service-name="createAgreementTerm" in-map-name="createAgreementTermInMap"/>
             </iterate>
         </if-compare>
-        <if-compare field-name="parameters.copyAgreementProducts" value="Y" operator="equals">
+        <if-compare field="parameters.copyAgreementProducts" value="Y" operator="equals">
             <get-related value-name="agreement" relation-name="AgreementProductAppl" list-name="agreementProductAppls"/>
             <iterate list-name="agreementProductAppls" entry-name="agreementProductAppl">
                 <clear-field field-name="createAgreementProductApplInMap"/>
@@ -99,7 +99,7 @@ under the License.
                 <call-service service-name="createAgreementProductAppl" in-map-name="createAgreementProductApplInMap"/>
             </iterate>
         </if-compare>
-        <if-compare field-name="parameters.copyAgreementParties" value="Y" operator="equals">
+        <if-compare field="parameters.copyAgreementParties" value="Y" operator="equals">
             <get-related value-name="agreement" relation-name="AgreementPartyApplic" list-name="agreementPartyApplic"/>
             <iterate list-name="agreementPartyApplics" entry-name="agreementPartyApplic">
                 <clear-field field-name="createAgreementPartyApplicInMap"/>
@@ -119,7 +119,7 @@ under the License.
 
         <set from-field="parameters.agreementId" field="newEntity.agreementId"/>
         <!-- create a non existing ID -->
-        <if-empty field-name="parameters.agreementItemSeqId">
+        <if-empty field="parameters.agreementItemSeqId">
             <make-next-seq-id value-name="newEntity" seq-field-name="agreementItemSeqId"/>
             <set from-field="agreementItemSeqId" field="newEntity.agreementItemSeqId"/>
         <else>
@@ -311,7 +311,7 @@ under the License.
     <!--AgreementWorkEffortAppl-->
     <simple-method method-name="createAgreementWorkEffortAppl" short-description="Create a link between a WorkEffort and a Agreement Appl">
         <entity-one entity-name="AgreementWorkEffortAppl" value-name="agreementWorkEffortAppl"/>
-        <if-not-empty field-name="agreementWorkEffortAppl">
+        <if-not-empty field="agreementWorkEffortAppl">
             <add-error><fail-property resource="AccountingUiLabels" property="AccountingAgreementWorkEffortApplAlreadyExists"/></add-error>
             <check-errors/>
         <else>

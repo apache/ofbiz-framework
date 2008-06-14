@@ -26,7 +26,7 @@ under the License.
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <sequenced-id-to-env sequence-name="CostComponent" env-name="newEntity.costComponentId"/>
         <field-to-result field-name="costComponentId" map-name="newEntity"/>
-        <if-empty field-name="newEntity.fromDate">
+        <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="newEntity.fromDate"/>
         </if-empty>
         <create-value value-name="newEntity"/>
@@ -67,7 +67,7 @@ under the License.
         <make-value value-name="newEntity" entity-name="CostComponent"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <sequenced-id-to-env sequence-name="CostComponent" env-name="newEntity.costComponentId"/>
-        <if-empty field-name="newEntity.fromDate">
+        <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="newEntity.fromDate"/>
         </if-empty>
         <create-value value-name="newEntity"/>
@@ -108,14 +108,14 @@ under the License.
             </calcop>
         </calculate>
         <!-- if the cost is zero, and the product is a variant, get the cost of the virtual -->
-        <if-compare field-name="productCost" operator="equals" value="0" type="Double">
+        <if-compare field="productCost" operator="equals" value="0" type="Double">
             <entity-one entity-name="Product" value-name="product"/>
             <set from-field="product.productId" field="assocAndMap.productIdTo"/>
             <set value="PRODUCT_VARIANT" field="assocAndMap.productAssocTypeId"/>
             <find-by-and entity-name="ProductAssoc" map-name="assocAndMap" list-name="virtualAssocs"/>
             <filter-list-by-date list-name="virtualAssocs"/>
             <first-from-list list-name="virtualAssocs" entry-name="virtualAssoc"/>
-            <if-not-empty field-name="virtualAssoc">
+            <if-not-empty field="virtualAssoc">
                 <set from-field="virtualAssoc.productId" field="inputMap.productId"/>
                 <set from-field="parameters.currencyUomId" field="inputMap.currencyUomId"/>
                 <set from-field="parameters.costComponentTypePrefix" field="inputMap.costComponentTypePrefix"/>
@@ -125,7 +125,7 @@ under the License.
             </if-not-empty>
         </if-compare>
         <!-- if the cost is zero, get the purchase cost from the SupplierProduct -->
-        <if-compare field-name="productCost" operator="equals" value="0" type="Double">
+        <if-compare field="productCost" operator="equals" value="0" type="Double">
             <set field="orderByList[]" value="+supplierPrefOrderId"/>
             <set field="orderByList[]" value="+lastPrice"/>
             <clear-field field-name="costsAndMap"/>
@@ -134,20 +134,20 @@ under the License.
             <find-by-and entity-name="SupplierProduct" map-name="costsAndMap" list-name="priceCosts" order-by-list-name="orderByList"/>
             <filter-list-by-date list-name="priceCosts" from-field-name="availableFromDate" thru-field-name="availableThruDate"/>
             <first-from-list list-name="priceCosts" entry-name="priceCost"/>
-            <if-not-empty field-name="priceCost.lastPrice">
+            <if-not-empty field="priceCost.lastPrice">
                 <set from-field="priceCost.lastPrice" field="productCost"/>
             </if-not-empty>
             <!-- if the cost is zero, get the purchase cost from the SupplierProduct
                  in a different currency and try to convert
             -->
-            <if-compare field-name="productCost" operator="equals" value="0" type="Double">
+            <if-compare field="productCost" operator="equals" value="0" type="Double">
                 <clear-field field-name="costsAndMap"/>
                 <set from-field="parameters.productId" field="costsAndMap.productId"/>
                 <set from-field="parameters.productPriceTypeId" field="costsAndMap.productPriceTypeId"/>
                 <find-by-and entity-name="SupplierProduct" map-name="costsAndMap" list-name="priceCosts" order-by-list-name="orderByList"/>
                 <filter-list-by-date list-name="priceCosts" from-field-name="availableFromDate" thru-field-name="availableThruDate"/>
                 <first-from-list list-name="priceCosts" entry-name="priceCost"/>
-                <if-not-empty field-name="priceCost.lastPrice">
+                <if-not-empty field="priceCost.lastPrice">
                     <!-- we try to convert the lastPrice to the desired currency -->
                     <clear-field field-name="inputMap"/>
                     <set from-field="priceCost.lastPrice" field="inputMap.originalValue"/>
@@ -160,7 +160,7 @@ under the License.
             </if-compare>
         </if-compare>
         <!--
-        <if-compare field-name="productCost" operator="equals" value="0" type="Double">
+        <if-compare field="productCost" operator="equals" value="0" type="Double">
             <clear-field field-name="costsAndMap"/>
             <set from-field="parameters.productId" field="costsAndMap.productId"/>
             <set from-field="parameters.currencyUomId" field="costsAndMap.currencyUomId"/>
@@ -168,7 +168,7 @@ under the License.
             <find-by-and entity-name="ProductPrice" map-name="costsAndMap" list-name="priceCosts"/>
             <filter-list-by-date list-name="priceCosts"/>
             <first-from-list list-name="priceCosts" entry-name="priceCost"/>
-            <if-not-empty field-name="priceCost.price">
+            <if-not-empty field="priceCost.price">
                 <set from-field="priceCost.price" field="productCost"/>
             </if-not-empty>
         </if-compare>
@@ -191,7 +191,7 @@ under the License.
         </calculate>
         
         <entity-one entity-name="WorkEffort" value-name="task"/>
-        <if-not-empty field-name="task">
+        <if-not-empty field="task">
             <get-related-one value-name="task" relation-name="FixedAsset" to-value-name="fixedAsset"/>
             <set from-field="parameters.currencyUomId" field="costsAndMap.amountUomId"/>
             <set value="SETUP_COST" field="costsAndMap.fixedAssetStdCostTypeId"/>
@@ -251,7 +251,7 @@ under the License.
         <call-service service-name="getManufacturingComponents" in-map-name="callSvcMap">
             <result-to-field result-name="componentsMap"/>
         </call-service>
-        <if-not-empty field-name="componentsMap">
+        <if-not-empty field="componentsMap">
             <iterate entry-name="componentMap" list-name="componentsMap">
                 <clear-field field-name="inputMap"/>
                 <set field="product" from-field="componentMap.product"/>
@@ -311,8 +311,8 @@ under the License.
         </calculate>
         
         <!-- The CostComponent records are created. -->
-        <if-not-empty field-name="totalTaskCost">
-            <if-compare field-name="totalTaskCost" operator="greater" value="0" type="Double">
+        <if-not-empty field="totalTaskCost">
+            <if-compare field="totalTaskCost" operator="greater" value="0" type="Double">
                 <clear-field field-name="callSvcMap"/>
                 <set value="${parameters.costComponentTypePrefix}_ROUTE_COST" field="callSvcMap.costComponentTypeId"/>
                 <set from-field="parameters.productId" field="callSvcMap.productId"/>
@@ -321,8 +321,8 @@ under the License.
                 <call-service service-name="recreateCostComponent" in-map-name="callSvcMap"/>
             </if-compare>
         </if-not-empty>
-        <if-not-empty field-name="totalProductsCost">
-            <if-compare field-name="totalProductsCost" operator="greater" value="0" type="Double">
+        <if-not-empty field="totalProductsCost">
+            <if-compare field="totalProductsCost" operator="greater" value="0" type="Double">
                 <clear-field field-name="callSvcMap"/>
                 <set value="${parameters.costComponentTypePrefix}_MAT_COST" field="callSvcMap.costComponentTypeId"/>
                 <set from-field="parameters.productId" field="callSvcMap.productId"/>

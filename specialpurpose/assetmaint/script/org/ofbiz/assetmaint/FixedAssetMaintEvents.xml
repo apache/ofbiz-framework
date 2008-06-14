@@ -23,13 +23,13 @@
 
     <simple-method method-name="createFixedAssetMaintUpdateWorkEffort" login-required="true"
         short-description="Create FixedAssetMaint and Update Schedule information in WorkEffort">
-        <if-empty field-name="parameters.fixedAssetId">
+        <if-empty field="parameters.fixedAssetId">
             <add-error><fail-property resource="AssetMaintUiLabels" property="AccountingFixedAssetIdRequiredError"/></add-error>
         </if-empty>
-        <if-not-empty field-name="parameters.fixedAssetId">
+        <if-not-empty field="parameters.fixedAssetId">
             <set from-field="parameters.fixedAssetId" field="fixedAssetExistsMap.fixedAssetId"/>
             <find-by-primary-key entity-name="FixedAsset" map-name="fixedAssetExistsMap" value-name="existingFixedAssset"/>
-            <if-empty field-name="existingFixedAssset">
+            <if-empty field="existingFixedAssset">
                 <add-error><fail-property resource="AssetMaintUiLabels" property="AccountingFixedAssetIdInvalidError"/></add-error>
             </if-empty>
         </if-not-empty>
@@ -58,7 +58,7 @@
         <set-service-fields map-name="parameters" service-name="updateFixedAssetMaint" to-map-name="updateFixedAssetMaintCtx"/>
         <call-service service-name="updateFixedAssetMaint" in-map-name="updateFixedAssetMaintCtx"/>
         <check-errors/>
-        <if-compare field-name="parameters.statusId" operator="equals" value="FAM_CANCELLED">
+        <if-compare field="parameters.statusId" operator="equals" value="FAM_CANCELLED">
             <set field="updateWorkEffortCtx.currentStatusId" value="CAL_CANCELLED"/>
         </if-compare>
         <set from-field="parameters.scheduleWorkEffortId" field="updateWorkEffortCtx.workEffortId"/>

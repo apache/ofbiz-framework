@@ -58,7 +58,7 @@ under the License.
         </call-map-processor>
         
         <!-- Create the Postal Address -->
-        <if-compare field-name="parameters.useAddress" operator="equals" value="true">
+        <if-compare field="parameters.useAddress" operator="equals" value="true">
             <call-map-processor in-map-name="parameters" out-map-name="addressContext">
                 <simple-map-processor name="newAddress">
                     <make-in-string field="fullName">
@@ -91,15 +91,15 @@ under the License.
                     <process field="allowSolicitation"><copy/></process>
                 </simple-map-processor>
             </call-map-processor>
-            <if-compare value="USA" operator="equals" field-name="countryGeoId" map-name="parameters">
-                <if-empty field-name="stateProvinceGeoId" map-name="parameters">
+            <if-compare value="USA" operator="equals" field="parameters.countryGeoId">
+                <if-empty field="parameters.stateProvinceGeoId">
                     <add-error>
                         <fail-property resource="PartyUiLabels" property="PartyStateInUsMissing"/>
                     </add-error>  
                 </if-empty>
             </if-compare>
-            <if-compare value="CAN" operator="equals" field-name="countryGeoId" map-name="parameters">
-                <if-empty field-name="stateProvinceGeoId" map-name="parameters">
+            <if-compare value="CAN" operator="equals" field="parameters.countryGeoId">
+                <if-empty field="parameters.stateProvinceGeoId">
                     <add-error>
                         <fail-property resource="PartyUiLabels" property="PartyProveinceInCanadaMissing"/>
                     </add-error>
@@ -142,14 +142,14 @@ under the License.
     
     <simple-method method-name="createUpdateCustomerInfo" short-description="Create Customer" login-required="false">
         <!-- update the email address -->
-        <if-not-empty field-name="parameters.emailContactMechId">
+        <if-not-empty field="parameters.emailContactMechId">
             <set from-field="partyId" field="emailMap.partyId"/>
             <set from-field="parameters.emailContactMechId" field="emailMap.contactMechId"/>
             <!-- call the update email service -->
             <call-service service-name="updatePartyEmailAddress" in-map-name="emailMap"/>
         <else>
             <!-- create the email address -->
-            <if-not-empty field-name="parameters.emailAddress">
+            <if-not-empty field="parameters.emailAddress">
                 <set from-field="partyId" field="emailMap.partyId"/>
                 <set field="emailMap.contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
                 <!-- call the create email service -->
@@ -160,14 +160,14 @@ under the License.
         
         
         <!-- create home phone -->
-        <if-not-empty field-name="parameters.homePhoneContactMechId">
+        <if-not-empty field="parameters.homePhoneContactMechId">
             <set from-field="partyId" field="homePhoneMap.partyId"/>
             <set from-field="parameters.homePhoneContactMechId" field="homePhoneMap.contactMechId"/>
             <!-- call update telecom service -->
             <call-service service-name="updatePartyTelecomNumber" in-map-name="homePhoneMap"/>
         <else>
             <!-- create home phone -->
-            <if-not-empty field-name="homeContactNumber" map-name="parameters">
+            <if-not-empty field="parameters.homeContactNumber">
                 <set from-field="partyId" field="homePhoneMap.partyId"/>
                 <set field="homePhoneMap.contactMechPurposeTypeId" value="PHONE_HOME"/>
                 <!-- call create telecom service -->
@@ -177,14 +177,14 @@ under the License.
         </if-not-empty>
         
         <!-- create work phone -->
-        <if-not-empty field-name="parameters.workPhoneContactMechId">
+        <if-not-empty field="parameters.workPhoneContactMechId">
             <set from-field="partyId" field="workPhoneMap.partyId"/>
             <set from-field="parameters.workPhoneContactMechId" field="workPhoneMap.contactMechId"/>
             <!-- call update telecom service -->
             <call-service service-name="updatePartyTelecomNumber" in-map-name="workPhoneMap"/>
         <else>
             <!-- create work phone -->
-            <if-not-empty field-name="workContactNumber" map-name="parameters">
+            <if-not-empty field="parameters.workContactNumber">
                 <set from-field="partyId" field="workPhoneMap.partyId"/>
                 <set field="workPhoneMap.contactMechPurposeTypeId" value="PHONE_WORK"/>
                 <!-- call create telecom service -->
@@ -194,7 +194,7 @@ under the License.
         </if-not-empty>
         
         <!-- shipping address -->
-        <if-not-empty field-name="parameters.shippingContactMechId">
+        <if-not-empty field="parameters.shippingContactMechId">
             <set from-field="partyId" field="addressContext.partyId"/>
             <set from-field="parameters.shippingContactMechId" field="addressContext.contactMechId"/>
             <!-- call the update address service -->
@@ -203,7 +203,7 @@ under the License.
                 <result-to-request result-name="contactMechId"/>
             </call-service>
         <else>
-            <if-compare field-name="parameters.useAddress" operator="equals" value="true">
+            <if-compare field="parameters.useAddress" operator="equals" value="true">
                 <set from-field="partyId" field="addressContext.partyId"/>
                 <call-service service-name="createPartyPostalAddress" in-map-name="addressContext">
                     <result-to-field result-name="contactMechId" map-name="addressPurposeContext"/>
@@ -234,13 +234,13 @@ under the License.
         </call-service>
         
         <!-- the rest of the methods require a userLogin object; so if we are anonymous lets fake it -->
-        <if-empty field-name="userLogin">
+        <if-empty field="userLogin">
             <set field="ulLookup.userLoginId" value="anonymous"/>
             <find-by-primary-key entity-name="UserLogin" map-name="ulLookup" value-name="userLogin"/>
             <set field="userLogin.partyId" from-field="tempMap.partyId"/>
             <set-current-user-login value-name="userLogin"/>
             <else><!-- of an anonymous vistor is coming back, update the party id in the userLogin object -->
-                <if-compare field-name="userLogin.userLoginId" value="anonymous" operator="equals">
+                <if-compare field="userLogin.userLoginId" value="anonymous" operator="equals">
                     <set field="userLogin.partyId" from-field="tempMap.partyId"/>
                 </if-compare>
             </else>
@@ -257,7 +257,7 @@ under the License.
         <call-simple-method method-name="createUpdateCustomerInfo"/>
         
         <!-- create userLogin -->
-        <if-not-empty field-name="userLoginId" map-name="parameters">
+        <if-not-empty field="parameters.userLoginId">
             <set field="loginMap.userLoginId" from-field="parameters.userLoginId"/>
             <!-- call create userLogin -->
             <!-- call reset password (to email a password) -->
@@ -265,7 +265,7 @@ under the License.
     </simple-method>
     
     <simple-method method-name="updateCustomer" short-description="Update Customer" login-required="true">
-        <if-empty field-name="parameters.partyId"><add-error><fail-property resource="EcommerceUiLabels" property="PartyNoPartyForUpdateCustomer"/></add-error></if-empty>
+        <if-empty field="parameters.partyId"><add-error><fail-property resource="EcommerceUiLabels" property="PartyNoPartyForUpdateCustomer"/></add-error></if-empty>
         
         <call-simple-method method-name="validateCustomerInfo"/>
         

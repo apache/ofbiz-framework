@@ -71,8 +71,8 @@ under the License.
         <if>
             <condition>
                 <and>
-                   <if-compare-field field-name="partySkill.partyId" operator="equals" to-field-name="parameters.partyId"/>                    
-                   <if-compare-field field-name="partySkill.skillTypeId" operator="equals" to-field-name="parameters.skillTypeId"/>                        
+                   <if-compare-field field="partySkill.partyId" to-field="parameters.partyId" operator="equals"/>                    
+                   <if-compare-field field="partySkill.skillTypeId" to-field="parameters.skillTypeId" operator="equals"/>                        
                 </and>
             </condition>
             <then>
@@ -142,7 +142,7 @@ under the License.
         <make-value entity-name="PerformanceNote" value-name="newEntity"/>
         <set-pk-fields value-name="newEntity" map-name="parameters"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <if-empty field-name="newEntity.fromDate">
+        <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="nowTimeStamp"/>
             <set field="newEntity.fromDate" from-field="nowTimeStamp"/>
         </if-empty>
@@ -164,7 +164,7 @@ under the License.
         <make-value entity-name="PersonTraining" value-name="newEntity"/>
         <set-pk-fields value-name="newEntity" map-name="parameters"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <if-empty field-name="newEntity.fromDate">
+        <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="nowTimeStamp"/>
             <set field="newEntity.fromDate" from-field="nowTimeStamp"/>
         </if-empty>
@@ -187,7 +187,7 @@ under the License.
         <make-value entity-name="Employment" value-name="newEntity"/>
         <set-pk-fields value-name="newEntity" map-name="parameters"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <if-empty field-name="newEntity.fromDate">
+        <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="nowTimeStamp"/>
             <set field="newEntity.fromDate" from-field="nowTimeStamp"/>
         </if-empty>
@@ -231,7 +231,7 @@ under the License.
         <make-value entity-name="PartyBenefit" value-name="newEntity"/>
         <set-pk-fields value-name="newEntity" map-name="parameters"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <if-empty field-name="newEntity.fromDate">
+        <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="nowTimeStamp"/>
             <set field="newEntity.fromDate" from-field="nowTimeStamp"/>
         </if-empty>
@@ -255,7 +255,7 @@ under the License.
     <simple-method method-name="createPayGrade" short-description="Create a Pay Grade">
         <make-value entity-name="PayGrade" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <if-not-empty field-name="parameters.payGradeId">
+        <if-not-empty field="parameters.payGradeId">
             <set field="newEntity.payGradeId" from-field="parameters.payGradeId"/>
         <else>
             <sequenced-id-to-env sequence-name="PayGrade" env-name="newEntity.payGradeId"/>
@@ -280,7 +280,7 @@ under the License.
         <make-value entity-name="PayHistory" value-name="newEntity"/>
         <set-pk-fields value-name="newEntity" map-name="parameters"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <if-empty field-name="newEntity.fromDate">
+        <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="nowTimeStamp"/>
             <set field="newEntity.fromDate" from-field="nowTimeStamp"/>
         </if-empty>        
@@ -405,7 +405,7 @@ under the License.
         <make-value entity-name="EmplPositionFulfillment" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <if-empty field-name="newEntity.fromDate">
+        <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="nowTimeStamp"/>
             <set field="newEntity.fromDate" from-field="nowTimeStamp"/>
         </if-empty>
@@ -427,13 +427,13 @@ under the License.
         <make-value entity-name="EmplPositionReportingStruct" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <if-empty field-name="newEntity.fromDate">
+        <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="nowTimeStamp"/>
             <set field="newEntity.fromDate" from-field="nowTimeStamp"/>
         </if-empty>
         <if>
             <condition>
-                <if-compare-field field-name="parameters.emplPositionIdManagedBy" operator="not-equals" to-field-name="parameters.emplPositionIdReportingTo"/>
+                <if-compare-field field="parameters.emplPositionIdManagedBy" to-field="parameters.emplPositionIdReportingTo" operator="not-equals"/>
             </condition>
             <then>
                 <create-value value-name="newEntity"/>
@@ -462,7 +462,7 @@ under the License.
         <make-value entity-name="EmplPositionResponsibility" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <if-empty field-name="newEntity.fromDate">
+        <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="nowTimeStamp"/>
             <set field="newEntity.fromDate" from-field="nowTimeStamp"/>
         </if-empty>
@@ -484,7 +484,7 @@ under the License.
         <make-value entity-name="ValidResponsibility" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <if-empty field-name="newEntity.fromDate">
+        <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="nowTimeStamp"/>
             <set field="newEntity.fromDate" from-field="nowTimeStamp"/>
         </if-empty>
@@ -524,7 +524,7 @@ under the License.
     <simple-method method-name="createEmployee" short-description="Create New Employee">
         <set field="parameters.roleTypeId" value="EMPLOYEE"/>
         <call-simple-method method-name="createPersonRoleAndContactMechs" xml-resource="org/ofbiz/party/party/PartySimpleMethods.xml"/>
-        <if-not-empty field-name="parameters.partyIdFrom">
+        <if-not-empty field="parameters.partyIdFrom">
             <set field="partyRelationshipCtx.partyId" from-field="partyId"/>
             <set field="partyRelationshipCtx.partyIdFrom" from-field="parameters.partyIdFrom"/>
             <set field="partyRelationshipCtx.partyIdTo" from-field="partyId"/>
@@ -533,7 +533,7 @@ under the License.
             <set field="partyRelationshipCtx.relationshipName" value="EMPLOYMENT"/>
             <set field="partyRelationshipCtx.fromDate" from-field="parameters.fromDate"/>
             <now-timestamp-to-env env-name="nowTimestamp"/>
-            <if-empty field-name="partyRelationshipCtx.fromDate">
+            <if-empty field="partyRelationshipCtx.fromDate">
                 <set field="partyRelationshipCtx.fromDate" from-field="nowTimestamp"/>
             </if-empty>
             <call-service service-name="createPartyRelationship" in-map-name="partyRelationshipCtx"/>
@@ -546,7 +546,7 @@ under the License.
         <make-value entity-name="ResponsibilityType" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <if-empty field-name="newEntity.responsibilityTypeId">
+        <if-empty field="newEntity.responsibilityTypeId">
             <sequenced-id-to-env sequence-name="ResponsibilityType" env-name="newEntity.responsibilityTypeId"/>
         </if-empty>
         <field-to-result field-name="newEntity.responsibilityTypeId" result-name="responsibilityTypeId"/>
@@ -567,7 +567,7 @@ under the License.
     <simple-method method-name="createTerminationType" short-description="Create a TerminationType">
         <make-value entity-name="TerminationType" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <if-empty field-name="newEntity.terminationTypeId">      
+        <if-empty field="newEntity.terminationTypeId">      
         <sequenced-id-to-env sequence-name="TerminationType" env-name="newEntity.terminationTypeId"/>
         </if-empty>        
         <field-to-result field-name="newEntity.terminationTypeId" result-name="terminationTypeId"/>
@@ -588,7 +588,7 @@ under the License.
     <simple-method method-name="createEmplPositionType" short-description="Create a PositionType">
         <make-value entity-name="EmplPositionType" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <if-empty field-name="newEntity.emplPositionTypeId">      
+        <if-empty field="newEntity.emplPositionTypeId">      
             <sequenced-id-to-env sequence-name="EmplPositionType" env-name="newEntity.emplPositionTypeId"/>
         </if-empty>        
         <field-to-result field-name="newEntity.emplPositionTypeId" result-name="emplPositionTypeId"/>
@@ -658,7 +658,7 @@ under the License.
         <make-value entity-name="EmplLeaveType" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <if-empty field-name="newEntity.leaveTypeId">
+        <if-empty field="newEntity.leaveTypeId">
             <sequenced-id-to-env sequence-name="EmplLeaveType" env-name="newEntity.leaveTypeId"/>
         </if-empty>        
         <field-to-result field-name="newEntity.leaveTypeId" result-name="leaveTypeId"/>

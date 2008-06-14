@@ -23,7 +23,7 @@
 
     <simple-method method-name="createOpportunity" short-description="Create Opportunity for SFA">
         <make-value entity-name="SalesOpportunity" value-name="newEntity"/>
-        <if-empty field-name="parameters.salesOpportunityId">
+        <if-empty field="parameters.salesOpportunityId">
             <sequenced-id-to-env sequence-name="SalesOpportunity" env-name="parameters.salesOpportunityId"/>
         </if-empty>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>

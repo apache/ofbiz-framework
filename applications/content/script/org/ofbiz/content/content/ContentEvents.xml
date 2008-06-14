@@ -55,7 +55,7 @@ under the License.
             <result-to-field field-name="contentId" result-name="contentId"/>
             <result-to-request request-name="contentId" result-name="contentId"/>
         </call-service>
-        <if-empty field-name="contentId">
+        <if-empty field="contentId">
             <add-error>
                 <fail-message message="Permission not granted."/>
             </add-error>
@@ -63,7 +63,7 @@ under the License.
         <check-errors/>
 
         <session-to-field session-name="currentEntityMap" field-name="entityMap"/>
-        <if-not-empty field-name="entityMap">
+        <if-not-empty field="entityMap">
             <set field="currentEntityMap" from-field="entityMap"/>
         </if-not-empty>
         <make-value entity-name="Content" value-name="contentPK"/>
@@ -73,7 +73,7 @@ under the License.
         <log level="always" message="currentEntityMap: ${currentEntityMap}"/>
         <field-to-session session-name="currentEntityMap" field-name="currentEntityMap"/>
 
-        <if-not-empty field-name="contentPurposeTypeId" map-name="parameters">
+        <if-not-empty field="parameters.contentPurposeTypeId">
             <log level="always" message="contentPurposeTypeId: ${parameters.contentPurposeTypeId}"/>
             <make-value entity-name="ContentPurpose" value-name="newContentPurpose"/>
             <set field="newContentPurpose.contentPurposeTypeId" from-field="parameters.contentPurposeTypeId"/>

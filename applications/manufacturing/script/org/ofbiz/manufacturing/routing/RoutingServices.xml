@@ -25,21 +25,21 @@ under the License.
         <set from-field="parameters.productId" field="lookupRouting.productId"/>
         <set value="ROU_PROD_TEMPLATE" field="lookupRouting.workEffortGoodStdTypeId"/>
         <!-- If applicableDate has been passed use the value with all filter-by-date calls-->
-        <if-not-empty field-name="applicableDate" map-name="parameters">
+        <if-not-empty field="parameters.applicableDate">
                 <set from-field="parameters.applicableDate" field="filterDate"/>
             <else>
                 <now-timestamp-to-env env-name="filterDate"/>
             </else>
         </if-not-empty>
         <!-- If a workEffortId has been passed, use it to look up the desired routing-->
-        <if-not-empty field-name="workEffortId" map-name="parameters">
+        <if-not-empty field="parameters.workEffortId">
             <set from-field="parameters.workEffortId" field="lookupRouting.workEffortId"/>
             <find-by-and entity-name="WorkEffortGoodStandard" list-name="routings" map-name="lookupRouting"/>
             <filter-list-by-date list-name="routings" valid-date-name="filterDate"/>
             <first-from-list list-name="routings" entry-name="routingGS"/>
             <!-- If the routing is not associated with our product and it's a variant, then 
                  check to see if it's virtual product has the routing -->
-            <if-empty field-name="routingGS">
+            <if-empty field="routingGS">
                 <entity-condition entity-name="ProductAssoc" list-name="virtualProductAssocList">
                     <condition-list combine="and">
                         <condition-expr field-name="productIdTo" env-name="parameters.productId" />
@@ -48,7 +48,7 @@ under the License.
                 </entity-condition>
                 <filter-list-by-date list-name="virtualProductAssocList" valid-date-name="filterDate"/>
                 <first-from-list list-name="virtualProductAssocList" entry-name="virtualProductAssoc"/>
-                <if-not-empty field-name="virtualProductAssoc">
+                <if-not-empty field="virtualProductAssoc">
                     <set from-field="virtualProductAssoc.productId" field="lookupRouting.productId"/>
                     <find-by-and entity-name="WorkEffortGoodStandard" list-name="routings" map-name="lookupRouting"/>
                     <!-- Consider the validity against a date passed as (optional) parameter -->
@@ -65,7 +65,7 @@ under the License.
                 <first-from-list list-name="routings" entry-name="routingGS"/>
                 <!-- If there are no routings associated with our product and it's a variant, then 
                      check to see if it's virtual product has a routing -->
-                <if-empty field-name="routingGS">
+                <if-empty field="routingGS">
                     <entity-condition entity-name="ProductAssoc" list-name="virtualProductAssocList">
                         <condition-list combine="and">
                             <condition-expr field-name="productIdTo" env-name="parameters.productId" />
@@ -74,7 +74,7 @@ under the License.
                     </entity-condition>
                     <filter-list-by-date list-name="virtualProductAssocList" valid-date-name="filterDate"/>
                     <first-from-list list-name="virtualProductAssocList" entry-name="virtualProductAssoc"/>
-                    <if-not-empty field-name="virtualProductAssoc">
+                    <if-not-empty field="virtualProductAssoc">
                         <set from-field="virtualProductAssoc.productId" field="lookupRouting.productId"/>
                         <set value="ROU_PROD_TEMPLATE" field="lookupRouting.workEffortGoodStdTypeId"/>
                         <find-by-and entity-name="WorkEffortGoodStandard" list-name="routings" map-name="lookupRouting"/>
@@ -86,7 +86,7 @@ under the License.
                 </if-empty>
             </else>
         </if-not-empty>
-        <if-not-empty field-name="routingGS">
+        <if-not-empty field="routingGS">
             <clear-field field-name="lookupRouting"/>
             <set from-field="routingGS.workEffortId" field="lookupRouting.workEffortId"/>
             <find-by-primary-key entity-name="WorkEffort" value-name="routing" map-name="lookupRouting"/>
@@ -96,8 +96,8 @@ under the License.
                 <if>
                     <condition>
                     <or>
-                        <if-empty field-name="parameters.ignoreDefaultRouting"/>
-                        <if-compare field-name="parameters.ignoreDefaultRouting" operator="equals" value="N"/>
+                        <if-empty field="parameters.ignoreDefaultRouting"/>
+                        <if-compare field="parameters.ignoreDefaultRouting" operator="equals" value="N"/>
                     </or>
                     </condition>
                     <then>
@@ -108,7 +108,7 @@ under the License.
                 </if>
             </else>
         </if-not-empty>
-        <if-not-empty field-name="routing">
+        <if-not-empty field="routing">
             <set from-field="routing.workEffortId" field="lookupTasks.workEffortIdFrom"/>
             <string-to-list string="sequenceNum" list-name="tasksOrder"/>
             <set value="ROUTING_COMPONENT" field="lookupTasks.workEffortAssocTypeId"/>

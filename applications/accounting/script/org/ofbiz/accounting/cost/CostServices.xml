@@ -42,7 +42,7 @@ under the License.
         <make-value entity-name="WorkEffortCostCalc" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <if-empty field-name="newEntity.fromDate">
+        <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="newEntity.fromDate"/>
         </if-empty>
         <create-value value-name="newEntity"/>

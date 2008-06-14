@@ -23,11 +23,11 @@ under the License.
 
     <simple-method method-name="loadSalesInvoiceFact" short-description="">
         <entity-one entity-name="Invoice" value-name="invoice"/>
-        <if-empty field-name="invoice">
+        <if-empty field="invoice">
             <add-error><fail-message message="Invoice with id [${parameters.invoiceId}] doesn't exist."/></add-error>
         </if-empty>
         <check-errors/>
-        <if-compare field-name="invoice.invoiceTypeId" operator="equals" value="SALES_INVOICE">
+        <if-compare field="invoice.invoiceTypeId" operator="equals" value="SALES_INVOICE">
             <set field="andConditions.invoiceItemTypeId" value="INV_FPROD_ITEM"/>
             <get-related relation-name="InvoiceItem" value-name="invoice" list-name="invoiceItems" map-name="andConditions"/>
             <iterate list-name="invoiceItems" entry-name="invoiceItem">
@@ -41,39 +41,39 @@ under the License.
     <simple-method method-name="loadSalesInvoiceItemFact" short-description="">
         <set field="invoice" from-field="parameters.invoice"/>
         <set field="invoiceItem" from-field="parameters.invoiceItem"/>
-        <if-empty field-name="invoice">
+        <if-empty field="invoice">
             <entity-one entity-name="Invoice" value-name="invoice"/>
         </if-empty>
-        <if-empty field-name="invoiceItem">
+        <if-empty field="invoiceItem">
             <entity-one entity-name="InvoiceItem" value-name="invoiceItem"/>
         </if-empty>
-        <if-empty field-name="invoice">
+        <if-empty field="invoice">
             <add-error><fail-message message="Invoice with id [${parameters.invoiceId}] doesn't exist."/></add-error>
         </if-empty>
-        <if-empty field-name="invoiceItem">
+        <if-empty field="invoiceItem">
             <add-error><fail-message message="The Invoice Item with id [${parameters.invoiceItemSeqId}] doesn't exist."/></add-error>
         </if-empty>
         <check-errors/>
 
-        <if-compare field-name="invoice.invoiceTypeId" operator="equals" value="SALES_INVOICE">
+        <if-compare field="invoice.invoiceTypeId" operator="equals" value="SALES_INVOICE">
             <entity-one entity-name="SalesInvoiceItemFact" value-name="fact" auto-field-map="false">
                 <field-map field-name="invoiceId" env-name="invoiceItem.invoiceId"/>
                 <field-map field-name="invoiceItemSeqId" env-name="invoiceItem.invoiceItemSeqId"/>
             </entity-one>
             <!-- key handling -->
-            <if-empty field-name="fact">
+            <if-empty field="fact">
                 <make-value entity-name="SalesInvoiceItemFact" value-name="fact"/>
                 <set field="fact.invoiceId" from-field="invoice.invoiceId"/>
                 <set field="fact.invoiceItemSeqId" from-field="invoiceItem.invoiceItemSeqId"/>
                 <!-- conversion of the invoice date -->
-                <if-not-empty field-name="invoice.invoiceDate">
+                <if-not-empty field="invoice.invoiceDate">
                     <clear-field field-name="inMap"/>
                     <set field="inMap.dimensionEntityName" value="DateDimension"/>
                     <set field="inMap.naturalKeyFields.dateValue" from-field="invoice.invoiceDate"/>
                     <call-service service-name="getDimensionIdFromNaturalKey" in-map-name="inMap">
                         <result-to-field result-name="dimensionId" field-name="fact.invoiceDateDimId"/>
                     </call-service>
-                    <if-empty field-name="fact.invoiceDateDimId">
+                    <if-empty field="fact.invoiceDateDimId">
                         <set field="fact.invoiceDateDimId" value="_NF_"/>
                     </if-empty>
                 <else>
@@ -81,14 +81,14 @@ under the License.
                 </else>
                 </if-not-empty>
                 <!-- conversion of the product id -->
-                <if-not-empty field-name="invoiceItem.productId">
+                <if-not-empty field="invoiceItem.productId">
                     <clear-field field-name="inMap"/>
                     <set field="inMap.dimensionEntityName" value="ProductDimension"/>
                     <set field="inMap.naturalKeyFields.productId" from-field="invoiceItem.productId"/>
                     <call-service service-name="getDimensionIdFromNaturalKey" in-map-name="inMap">
                         <result-to-field result-name="dimensionId" field-name="fact.productDimId"/>
                     </call-service>
-                    <if-empty field-name="fact.productDimId">
+                    <if-empty field="fact.productDimId">
                         <set field="fact.productDimId" value="_NF_"/>
                     </if-empty>
                 <else>
@@ -96,14 +96,14 @@ under the License.
                 </else>
                 </if-not-empty>
                 <!-- conversion of the invoice currency -->
-                <if-not-empty field-name="invoice.currencyUomId">
+                <if-not-empty field="invoice.currencyUomId">
                     <clear-field field-name="inMap"/>
                     <set field="inMap.dimensionEntityName" value="CurrencyDimension"/>
                     <set field="inMap.naturalKeyFields.currencyId" from-field="invoice.currencyUomId"/>
                     <call-service service-name="getDimensionIdFromNaturalKey" in-map-name="inMap">
                         <result-to-field result-name="dimensionId" field-name="fact.origCurrencyDimId"/>
                     </call-service>
-                    <if-empty field-name="fact.origCurrencyDimId">
+                    <if-empty field="fact.origCurrencyDimId">
                         <set field="fact.origCurrencyDimId" value="_NF_"/>
                     </if-empty>
                 <else>

@@ -65,22 +65,22 @@ under the License.
         
         <set field="locationSeqId" value="${parameters.areaId}${parameters.aisleId}${parameters.sectionId}${parameters.levelId}${parameters.positionId}"/>
         <!-- check to see if it exists already, if so try a simple suffix, then give up and use a sequenced id -->
-        <if-not-empty field-name="locationSeqId">
+        <if-not-empty field="locationSeqId">
             <set field="checkLocationSeqIdMap.locationSeqId" from-field="locationSeqId" />
             <set field="checkLocationSeqIdMap.facilityId" from-field="parameters.facilityId" />
             <find-by-primary-key entity-name="FacilityLocation" map-name="checkLocationSeqIdMap" value-name="checkLocationSeqIdValue"/>
-            <if-not-empty field-name="checkLocationSeqIdValue">
+            <if-not-empty field="checkLocationSeqIdValue">
                 <set field="locationSeqId" value="${locationSeqId}_2" />
                 <set field="checkLocationSeqIdMap.locationSeqId" from-field="locationSeqId" />
                 <set field="checkLocationSeqIdMap.facilityId" from-field="parameters.facilityId" />
                 <find-by-primary-key entity-name="FacilityLocation" map-name="checkLocationSeqIdMap" value-name="checkLocationSeqIdValue"/>
-                <if-not-empty field-name="checkLocationSeqIdValue">
+                <if-not-empty field="checkLocationSeqIdValue">
                     <set field="locationSeqId" value="" />
                 </if-not-empty>
             </if-not-empty>
         </if-not-empty>
 
-        <if-empty field-name="locationSeqId">
+        <if-empty field="locationSeqId">
             <sequenced-id-to-env sequence-name="FacilityLocation" env-name="locationSeqId"/>
             <to-string field-name="locationSeqId"/>
         </if-empty>
@@ -133,7 +133,7 @@ under the License.
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         
-        <if-empty field-name="fromDate" map-name="newEntity">
+        <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="nowTimestamp"/>
             <set field="newEntity.fromDate" from-field="nowTimestamp" />
         </if-empty>
@@ -160,7 +160,7 @@ under the License.
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         
-        <if-empty field-name="fromDate" map-name="newEntity">
+        <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="nowTimestamp"/>
             <set field="newEntity.fromDate" from-field="nowTimestamp" />
         </if-empty>

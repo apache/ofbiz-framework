@@ -22,7 +22,7 @@
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     
     <simple-method method-name="createProject" short-description="Create a project">
-        <if-not-empty field-name="parameters.templateId">
+        <if-not-empty field="parameters.templateId">
             <set field="parameters.projectId" from-field="parameters.templateId"/>
             <call-simple-method method-name="copyProject"/>
             <else>
@@ -33,19 +33,19 @@
     
     <simple-method method-name="createProjectTask" short-description="Create a project task and optionally assign">
         <!-- create task -->
-        <if-empty field-name="parameters.statusId">
+        <if-empty field="parameters.statusId">
             <set field="parameters.statusId" value="PTS_CREATED"/>            
         </if-empty>
         <call-simple-method method-name="createWorkEffort" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
         <set field="parameters.workEffortId" from-field="newEntity.workEffortId"/>
         <!-- optionally assign to party -->
-        <if-not-empty field-name="parameters.partyId">
+        <if-not-empty field="parameters.partyId">
             <call-simple-method method-name="assignPartyToWorkEffort" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
         </if-not-empty>
         <!-- optionally enter estimated time and required skill -->
-        <if-not-empty field-name="parameters.estimatedHours">
+        <if-not-empty field="parameters.estimatedHours">
             <set field="parameters.estimatedDuration" from-field="parameters.estimatedHours"/>
-            <if-empty field-name="parameters.skillTypeId">
+            <if-empty field="parameters.skillTypeId">
                 <set field="parameters.skillTypeId" value="_NA_"/>
             </if-empty>
             <call-simple-method method-name="createWorkEffortSkillStandard" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
@@ -61,15 +61,15 @@
                 <or>
                     <and>
                         <not>
-                            <if-empty field-name="parameters.newPartyId"/>
+                            <if-empty field="parameters.newPartyId"/>
                         </not>
-                        <if-compare-field field-name="parameters.partyId" to-field-name="parameters.newPartyId" operator="not-equals"/>
+                        <if-compare-field field="parameters.partyId" to-field="parameters.newPartyId" operator="not-equals"/>
                     </and>
                     <and>
                         <not>
-                            <if-empty field-name="parameters.newRoleTypeId"/>
+                            <if-empty field="parameters.newRoleTypeId"/>
                         </not>
-                        <if-compare-field field-name="parameters.roleTypeId" to-field-name="parameters.newRoleTypeId" operator="not-equals"/>
+                        <if-compare-field field="parameters.roleTypeId" to-field="parameters.newRoleTypeId" operator="not-equals"/>
                     </and>
                 </or>
             </condition>
@@ -88,7 +88,7 @@
                 <create-value value-name="newAssign"/>
             </then>
             <else>
-                <if-not-empty field-name="parameters.fromDate">
+                <if-not-empty field="parameters.fromDate">
                     <!-- status changed or assignment ended -->
                     <entity-one entity-name="WorkEffortPartyAssignment" value-name="assignment">
                         <field-map field-name="workEffortId" env-name="parameters.workEffortId"/>
@@ -96,14 +96,14 @@
                         <field-map field-name="roleTypeId" env-name="parameters.roleTypeId"/>
                         <field-map field-name="fromDate" env-name="parameters.fromDate"/>
                     </entity-one>
-                    <if-compare field-name="parameters.statusId" value="PAS_ENDED" operator="equals">
+                    <if-compare field="parameters.statusId" value="PAS_ENDED" operator="equals">
                         <!-- special case to indicate end of assignment -->
                         <now-date-to-env env-name="assignment.thruDate"/>
                         <clear-field field-name="parameters.statusId"/>
                     </if-compare>
                     <set-nonpk-fields value-name="assignment" map-name="parameters"/>
                     <store-value value-name="assignment"/>
-                    <if-compare field-name="assignment.statusId" value="PAS_COMPLETED" operator="equals">
+                    <if-compare field="assignment.statusId" value="PAS_COMPLETED" operator="equals">
                         <call-simple-method method-name="updateTaskStatus"/>
                     </if-compare>
                     <else>
@@ -121,14 +121,14 @@
             <field-map field-name="workEffortId" env-name="parameters.workEffortId"/>
         </entity-and>
         <!-- check if all open assignments were completed -->
-        <if-not-empty field-name="assignments">
+        <if-not-empty field="assignments">
             <iterate entry-name="assignment" list-name="assignments">
-                <if-compare field-name="assignment.statusId" value="PAS_COMPLETED" operator="not-equals">
+                <if-compare field="assignment.statusId" value="PAS_COMPLETED" operator="not-equals">
                     <set field="status" value="notcomplete"/>
                 </if-compare>
             </iterate>
         </if-not-empty>
-        <if-empty field-name="status">
+        <if-empty field="status">
             <now-timestamp-to-env env-name="parameters.actualCompletionDate"/>
             <set field="parameters.currentStatusId" value="PTS_COMPLETED"/>
             <call-simple-method method-name="updateWorkEffort" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
@@ -167,13 +167,13 @@
             <field-map field-name="workEffortId" env-name="parameters.projectId"/>
         </entity-one>
         <get-related value-name="project" relation-name="ChildWorkEffort" list-name="phases"/>
-        <if-not-empty field-name="phases">
+        <if-not-empty field="phases">
             <iterate entry-name="phase" list-name="phases">
                 <get-related value-name="phase" relation-name="ChildWorkEffort" list-name="tasks"/>
-                <if-not-empty field-name="tasks">
+                <if-not-empty field="tasks">
                     <iterate entry-name="task" list-name="tasks">
                         <get-related value-name="task" relation-name="ToWorkEffortAssoc" list-name="t.prevTasks"/>
-                        <if-empty field-name="t.prevTasks">
+                        <if-empty field="t.prevTasks">
                             <!-- no predecessors so i can set the dates -->
                             <now-timestamp-to-env env-name="upd.estimatedStartDate"/>
                             <now-timestamp-to-env env-name="currentDate"/>
@@ -198,10 +198,10 @@
     
     <simple-method method-name="updateTimeEntryByWorkeffort" short-description="Update workeffort by workeffort and timesheetId ">
         <field-to-result field-name="parameters.timesheetId" result-name="timesheetId"/>
-        <if-empty field-name="parameters.workEffortId">
+        <if-empty field="parameters.workEffortId">
             <return/>
         </if-empty>
-        <if-compare field-name="parameters.workEffortId" operator="equals" value="Totals">
+        <if-compare field="parameters.workEffortId" operator="equals" value="Totals">
             <return/>
         </if-compare>
         <entity-one entity-name="Timesheet" value-name="timesheet"/>
@@ -211,7 +211,7 @@
             <field-map field-name="workEffortId" env-name="parameters.workEffortId"/>
             <field-map field-name="partyId" env-name="timesheet.partyId"/>
         </entity-and>
-        <if-empty field-name="assigns">
+        <if-empty field="assigns">
             <set field="getpr.taskId" from-field="parameters.workEffortId"/>
             <call-service service-name="getProjectIdAndNameFromTask" in-map-name="getpr">
                 <result-to-field result-name="projectId"/>
@@ -230,7 +230,7 @@
         <check-errors/>
         
         <!-- check if the actual start date is set, when not set it to todays date -->
-        <if-empty field-name="project.actualStartDate">
+        <if-empty field="project.actualStartDate">
             <entity-one entity-name="WorkEffort" value-name="workEffort"/>
             <now-timestamp-to-env env-name="workEffort.actualStartDate"/>
             <store-value value-name="workEffort"/>
@@ -240,12 +240,12 @@
 
         <!-- update existing entries -->
         <set field="hours" value="0" type="Double"/>
-        <if-not-empty field-name="timeEntries">
+        <if-not-empty field="timeEntries">
             <iterate entry-name="timeEntry" list-name="timeEntries">
-                <if-compare-field field-name="timeEntry.workEffortId" operator="equals" to-field-name="parameters.workEffortId">
-                    <if-compare-field field-name="timeEntry.rateTypeId" operator="equals" to-field-name="parameters.rateTypeId">
+                <if-compare-field field="timeEntry.workEffortId" to-field="parameters.workEffortId" operator="equals">
+                    <if-compare-field field="timeEntry.rateTypeId" to-field="parameters.rateTypeId" operator="equals">
                         <!-- check if the entry does not contain any hours, then delete -->
-                        <if-empty field-name="timeEntry.hours">
+                        <if-empty field="timeEntry.hours">
                             <remove-value value-name="timeEntry"/> 
                             <else>
                                 <!-- translate the date into the daynumber -->
@@ -254,7 +254,7 @@
                                     <field field-name="timeEntry.fromDate" type="java.sql.Timestamp"/>
                                 </call-class-method>
                                 <!-- get the related field -->
-                                <if-not-empty field-name="parameters.hoursDay${dayNumber}">
+                                <if-not-empty field="parameters.hoursDay${dayNumber}">
                                     <set field="hours" from-field="parameters.hoursDay${dayNumber}"/>
                                     <else>
                                         <set field="hours" value="0"/>
@@ -271,8 +271,8 @@
         
         <!-- process not yet done fields -->
         <loop count="7" field="dayNr">
-            <if-not-empty field-name="parameters.hoursDay${dayNr}">
-                <if-compare field-name="parameters.hoursDay${dayNr}" value="-999999" operator="not-equals">
+            <if-not-empty field="parameters.hoursDay${dayNr}">
+                <if-compare field="parameters.hoursDay${dayNr}" value="-999999" operator="not-equals">
                     <set field="hours" from-field="parameters.hoursDay${dayNr}"/>
                     <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="addDaysToTimestamp" ret-field-name="fromDate">
                         <field field-name="timesheet.fromDate" type="java.sql.Timestamp"/>
@@ -284,9 +284,9 @@
         </loop>
         
         <!-- update the assignment status -->
-        <if-compare field-name="parameters.checkComplete" value="Y" operator="equals">
+        <if-compare field="parameters.checkComplete" value="Y" operator="equals">
             <entity-one entity-name="WorkEffortPartyAssignment" value-name="alreadyAssign"/>
-            <if-compare field-name="alreadyAssign.statusId" value="PAS_COMPLETED" operator="not-equals">
+            <if-compare field="alreadyAssign.statusId" value="PAS_COMPLETED" operator="not-equals">
                 <set field="parameters.partyId" from-field="timesheet.partyId"/>
                 <set field="parameters.statusId" value="PAS_COMPLETED"/>
                 <call-simple-method method-name="updateTaskAssigment"/>
@@ -295,12 +295,12 @@
     </simple-method>          
 
     <simple-method method-name="getProjectIdAndNameFromTask" short-description="Get the projectId when a phase or task is provided." login-required="true">
-        <if-empty field-name="parameters.taskId">
-            <if-empty field-name="parameters.phaseId">
+        <if-empty field="parameters.taskId">
+            <if-empty field="parameters.phaseId">
                 <return/>
             </if-empty>
         </if-empty>
-        <if-not-empty field-name="parameters.taskId">
+        <if-not-empty field="parameters.taskId">
             <entity-one entity-name="WorkEffort" value-name="task">
                 <field-map field-name="workEffortId" env-name="parameters.taskId"/>
             </entity-one>
@@ -328,17 +328,17 @@
             <field-map field-name="workEffortId" env-name="parameters.projectId"/>
         </entity-one> 
         
-        <if-empty field-name="project">
+        <if-empty field="project">
             <field-to-result map-name="parameters" field-name="projectId"/>
             <add-error error-list-name="error_list"><fail-message message="Project: ${parameters.projectId} not found"/></add-error>
         </if-empty>
-        <if-not-empty field-name="parameters.workEffortName">
+        <if-not-empty field="parameters.workEffortName">
             <set field="newProject.workEffortName" from-field="parameters.workEffortName"/>
             <else>
                 <set field="newProject.workEffortName" from-field="project.workEffortName"/>
             </else>
         </if-not-empty>
-        <if-not-empty field-name="toTemplate">
+        <if-not-empty field="toTemplate">
             <set field="parameters.workEffortTypeId" value="PROJECT_TEMPLATE"/>
             <else>
                 <set field="parameters.workEffortTypeId" value="PROJECT"/>
@@ -353,7 +353,7 @@
         
         <!-- copy assigned parties -->
         <get-related value-name="project" relation-name="WorkEffortPartyAssignment" list-name="parties"/>
-        <if-not-empty field-name="parties">
+        <if-not-empty field="parties">
             <iterate entry-name="party" list-name="parties">
                 <set field="parameters.workEffortId" from-field="newProjectId"/>            
                 <set field="parameters.partyId" from-field="party.partyId"/>
@@ -364,10 +364,10 @@
         </if-not-empty>
         
         <get-related value-name="project" relation-name="ChildWorkEffort" list-name="phases"/>
-        <if-not-empty field-name="phases">
+        <if-not-empty field="phases">
             <iterate entry-name="phase" list-name="phases">
                 <clear-field field-name="newPhase"/>
-                <if-not-empty field-name="toTemplate">
+                <if-not-empty field="toTemplate">
                     <set field="parameters.workEffortTypeId" value="PHASE_TEMPLATE"/>
                     <else>
                         <set field="parameters.workEffortTypeId" value="PHASE"/>
@@ -381,10 +381,10 @@
                 <set field="newPhaseId" from-field="newEntity.workEffortId"/>
                 
                 <get-related value-name="phase" relation-name="ChildWorkEffort" list-name="tasks"/>
-                <if-not-empty field-name="tasks">
+                <if-not-empty field="tasks">
                     <iterate entry-name="task" list-name="tasks">
                         <clear-field field-name="newTask"/>
-                        <if-not-empty field-name="toTemplate">
+                        <if-not-empty field="toTemplate">
                             <set field="newTask.workEffortTypeId" value="TASK_TEMPLATE"/>
                             <else>
                                 <set field="newTask.workEffortTypeId" value="TASK"/>
@@ -404,7 +404,7 @@
     </simple-method>
     
     <simple-method method-name="getProject" short-description="get Project information" login-required="true">
-        <if-empty field-name="parameters.projectId">
+        <if-empty field="parameters.projectId">
             <return/>
         </if-empty>
         <entity-one entity-name="WorkEffort" value-name="project">
@@ -422,13 +422,13 @@
         <set field="highInfo.parentProjectId" from-field="parentProject.workEffortId"/> 
         <!-- loop through the related phases and tasks -->
         <get-related value-name="project" relation-name="ChildWorkEffort" list-name="phases"/>
-        <if-not-empty field-name="phases">
+        <if-not-empty field="phases">
             <iterate entry-name="phase" list-name="phases">
                 <get-related value-name="phase" relation-name="ChildWorkEffort" list-name="tasks"/>
-                <if-not-empty field-name="tasks">
+                <if-not-empty field="tasks">
                     <iterate entry-name="lowInfo" list-name="tasks">
-                        <if-compare field-name="lowInfo.currentStatusId" value="PTS_COMPLETED" operator="not-equals">
-                            <if-compare field-name="lowInfo.currentStatusId" value="PTS_CANCELLED" operator="not-equals">
+                        <if-compare field="lowInfo.currentStatusId" value="PTS_COMPLETED" operator="not-equals">
+                            <if-compare field="lowInfo.currentStatusId" value="PTS_CANCELLED" operator="not-equals">
                                 <set field="allTaskStatus" value="notComplete"/>
                             </if-compare>
                         </if-compare>
@@ -451,11 +451,11 @@
             <condition>
                 <and>
                     <or>
-                        <if-compare field-name="highInfo.currentStatusId" value="PTS_COMPLETED" operator="equals"/>
-                        <if-compare field-name="highInfo.currentStatusId" value="PTS_ON_HOLD" operator="equals"/>
+                        <if-compare field="highInfo.currentStatusId" value="PTS_COMPLETED" operator="equals"/>
+                        <if-compare field="highInfo.currentStatusId" value="PTS_ON_HOLD" operator="equals"/>
                     </or>
                     <not>
-                        <if-empty field-name="allTaskStatus"/>
+                        <if-empty field="allTaskStatus"/>
                     </not>
                 </and>
             </condition>
@@ -472,13 +472,13 @@
     </simple-method>
     
     <simple-method method-name="getProjectPhaseList" short-description="get Project Phase information" login-required="true">
-        <if-empty field-name="parameters.projectId">
+        <if-empty field="parameters.projectId">
             <return/>
         </if-empty>
         <entity-and entity-name="WorkEffort" list-name="phases">
             <field-map field-name="workEffortParentId" env-name="parameters.projectId"/>
         </entity-and>        
-        <if-not-empty field-name="phases">
+        <if-not-empty field="phases">
         <iterate entry-name="phase" list-name="phases">
             <!-- get the phase seq id -->
             <entity-one entity-name="StatusItem" value-name="highSeq">
@@ -493,10 +493,10 @@
             
             <!-- loop through the related tasks and combine information -->
             <get-related value-name="phase" relation-name="ChildWorkEffort" list-name="tasks"/>
-            <if-not-empty field-name="tasks">
+            <if-not-empty field="tasks">
                 <iterate entry-name="lowInfo" list-name="tasks">
-                    <if-compare field-name="lowInfo.currentStatusId" value="PTS_COMPLETED" operator="not-equals">
-                        <if-compare field-name="lowInfo.currentStatusId" value="PTS_CANCELLED" operator="not-equals">
+                    <if-compare field="lowInfo.currentStatusId" value="PTS_COMPLETED" operator="not-equals">
+                        <if-compare field="lowInfo.currentStatusId" value="PTS_CANCELLED" operator="not-equals">
                             <set field="allTaskStatus" value="notComplete"/>
                         </if-compare>
                     </if-compare>
@@ -522,11 +522,11 @@
                 <condition>
                     <and>
                         <or>
-                            <if-compare field-name="highInfo.currentStatusId" value="PTS_COMPLETED" operator="equals"/>
-                            <if-compare field-name="highInfo.currentStatusId" value="PTS_ON_HOLD" operator="equals"/>
+                            <if-compare field="highInfo.currentStatusId" value="PTS_COMPLETED" operator="equals"/>
+                            <if-compare field="highInfo.currentStatusId" value="PTS_ON_HOLD" operator="equals"/>
                         </or>
                         <not>
-                            <if-empty field-name="allTaskStatus"/>
+                            <if-empty field="allTaskStatus"/>
                         </not>
                     </and>
                 </condition>
@@ -545,13 +545,13 @@
     </simple-method>
     
     <simple-method method-name="getProjectTaskList" short-description="get Project Phase/task information" login-required="true">
-        <if-empty field-name="parameters.projectId">
+        <if-empty field="parameters.projectId">
             <return/>
         </if-empty>
         <entity-and entity-name="ProjectAndPhaseAndTask" list-name="tasks">
             <field-map field-name="projectId" env-name="parameters.projectId"/>
         </entity-and>        
-        <if-not-empty field-name="tasks">
+        <if-not-empty field="tasks">
             <iterate entry-name="lowInfo" list-name="tasks">
                 <set field="highInfo.phaseName" from-field="lowInfo.phaseName"/>
                 <call-simple-method method-name="combineInfo"/>
@@ -587,10 +587,10 @@
 
     <simple-method method-name="getProjectsByParties" short-description="get Project information by party member" login-required="true">
         <!-- get the list of tasks optionaly selected for a party -->
-        <if-empty field-name="parameters.partyId">
+        <if-empty field="parameters.partyId">
             <set field="parameters.partyId" value="%"/>
         </if-empty>
-        <if-empty field-name="parameters.projectId">
+        <if-empty field="parameters.projectId">
             <set field="parameters.projectId" value="%"/>
         </if-empty>
         <entity-condition entity-name="ProjectPartyAndPhaseAndTask" list-name="tasks">
@@ -601,15 +601,15 @@
             <order-by field-name="projectId"/>
             <order-by field-name="partyId"/>
         </entity-condition>
-        <if-not-empty field-name="tasks">
+        <if-not-empty field="tasks">
             <iterate entry-name="task" list-name="tasks">
                 <if>
                     <condition >
                         <and>
                             <not>
-                                <if-empty field-name="projectParty"/>
+                                <if-empty field="projectParty"/>
                             </not>
-                            <if-compare-field field-name="task.partyId" operator="not-equals" to-field-name="projectParty.partyId"/>
+                            <if-compare-field field="task.partyId" to-field="projectParty.partyId" operator="not-equals"/>
                         </and>
                     </condition>
                     <then>
@@ -618,12 +618,12 @@
                     </then>
                 </if>
                 
-                <if-empty field-name="projectParty">
+                <if-empty field="projectParty">
                     <set field="projectParty.partyId" from-field="task.partyId"/>
                     <entity-one entity-name="PartyNameView" value-name="partyNameView">
                         <field-map field-name="partyId" env-name="task.partyId"/>
                     </entity-one>
-                    <if-not-empty field-name="partyNameView">
+                    <if-not-empty field="partyNameView">
                         <set field="projectParty.partyName" value="${partyNameView.lastName},${partyNameView.firstName}${partyNameView.groupName}"/>
                     </if-not-empty>
                     <set field="projectParty.roleTypeId" from-field="task.roleTypeId"/>
@@ -639,10 +639,10 @@
                 <set field="projectParty.actualHours" from-field="highInfo.actualHours"/>                    
                 
             </iterate>
-            <if-not-empty field-name="projectParty">
+            <if-not-empty field="projectParty">
                 <field-to-list field-name="projectParty" list-name="projectParties"/>
             </if-not-empty>
-            <if-not-empty field-name="projectParties">
+            <if-not-empty field="projectParties">
                 <field-to-result field-name="projectParties"/>                                                                                       
             </if-not-empty>
         </if-not-empty>
@@ -650,10 +650,10 @@
     
     <simple-method method-name="getTasksByParties" short-description="get task information by party member" login-required="true">
         <!-- get the list of tasks optionaly selected for a party -->
-        <if-empty field-name="parameters.partyId">
+        <if-empty field="parameters.partyId">
             <set field="parameters.partyId" value="%"/>
         </if-empty>
-        <if-empty field-name="parameters.workEffortId">
+        <if-empty field="parameters.workEffortId">
             <set field="parameters.workEffortId" value="%"/>
         </if-empty>
         <entity-condition entity-name="WorkEffortPartyAssignment" list-name="tasks">
@@ -664,15 +664,15 @@
             <order-by field-name="workEffortId"/>
             <order-by field-name="partyId"/>
         </entity-condition>
-        <if-not-empty field-name="tasks">
+        <if-not-empty field="tasks">
             <iterate entry-name="task" list-name="tasks">
                 <if>
                     <condition >
                         <and>
                             <not>
-                                <if-empty field-name="taskParty"/>
+                                <if-empty field="taskParty"/>
                             </not>
-                            <if-compare-field field-name="task.partyId" operator="not-equals" to-field-name="taskParty.partyId"/>
+                            <if-compare-field field="task.partyId" to-field="taskParty.partyId" operator="not-equals"/>
                         </and>
                     </condition>
                     <then>
@@ -681,12 +681,12 @@
                     </then>
                 </if>
                 
-                <if-empty field-name="taskParty">
+                <if-empty field="taskParty">
                     <set field="taskParty.partyId" from-field="task.partyId"/>
                     <entity-one entity-name="PartyNameView" value-name="partyNameView">
                         <field-map field-name="partyId" env-name="task.partyId"/>
                     </entity-one>
-                    <if-not-empty field-name="partyNameView">
+                    <if-not-empty field="partyNameView">
                         <set field="taskParty.partyName" value="${partyNameView.lastName},${partyNameView.firstName}${partyNameView.groupName}"/>
                     </if-not-empty>
                     <set field="taskParty.roleTypeId" from-field="task.roleTypeId"/>
@@ -704,10 +704,10 @@
                 <set field="taskParty.actualHours" from-field="highInfo.actualHours"/>                    
                 
             </iterate>
-            <if-not-empty field-name="taskParty">
+            <if-not-empty field="taskParty">
                 <field-to-list field-name="taskParty" list-name="taskParties"/>
             </if-not-empty>
-            <if-not-empty field-name="taskParties">
+            <if-not-empty field="taskParties">
                 <field-to-result field-name="taskParties"/>                                                                                       
             </if-not-empty>
         </if-not-empty>
@@ -718,41 +718,41 @@
         <!-- in/output highInfo infoMap -->
         <!-- input lowInfo info map -->
         <!-- set the dates from the lower level tasks -->
-        <if-not-empty field-name="lowInfo.estimatedStartDate">
-            <if-empty field-name="highInfo.estimatedStartDate">
+        <if-not-empty field="lowInfo.estimatedStartDate">
+            <if-empty field="highInfo.estimatedStartDate">
                 <set field="highInfo.estimatedStartDate" from-field="lowInfo.estimatedStartDate" />
                 <else>
-                    <if-compare-field map-name="highInfo" to-map-name="lowInfo" field-name="estimatedStartDate" operator="greater">
+                    <if-compare-field to-field="lowInfo." field="highInfo.estimatedStartDate" operator="greater">
                         <set field="highInfo.estimatedStartDate" from-field="lowInfo.estimatedStartDate" />
                     </if-compare-field>
                 </else>
             </if-empty>
         </if-not-empty>
-        <if-not-empty field-name="lowInfo.estimatedCompletionDate">
-            <if-empty field-name="highInfo.estimatedCompletionDate">
+        <if-not-empty field="lowInfo.estimatedCompletionDate">
+            <if-empty field="highInfo.estimatedCompletionDate">
                 <set field="highInfo.estimatedCompletionDate" from-field="lowInfo.estimatedCompletionDate" />
                 <else>
-                    <if-compare-field map-name="highInfo" to-map-name="lowInfo" field-name="estimatedCompletionDate" operator="less">
+                    <if-compare-field to-field="lowInfo." field="highInfo.estimatedCompletionDate" operator="less">
                         <set field="highInfo.estimatedCompletionDate" from-field="lowInfo.estimatedCompletionDate" />
                     </if-compare-field>
                 </else>
             </if-empty>
         </if-not-empty>
-        <if-not-empty field-name="lowInfo.actualStartDate">
-            <if-empty field-name="highInfo.actualStartDate">
+        <if-not-empty field="lowInfo.actualStartDate">
+            <if-empty field="highInfo.actualStartDate">
                 <set field="highInfo.actualStartDate" from-field="lowInfo.actualStartDate" />
                 <else>
-                    <if-compare-field map-name="highInfo" to-map-name="lowInfo" field-name="actualStartDate" operator="greater">
+                    <if-compare-field to-field="lowInfo." field="highInfo.actualStartDate" operator="greater">
                         <set field="highInfo.actualStartDate" from-field="lowInfo.actualStartDate" />
                     </if-compare-field>
                 </else>
             </if-empty>
         </if-not-empty>
-        <if-not-empty field-name="lowInfo.actualCompletionDate">
-            <if-empty field-name="highInfo.actualCompletionDate">
+        <if-not-empty field="lowInfo.actualCompletionDate">
+            <if-empty field="highInfo.actualCompletionDate">
                 <set field="highInfo.actualCompletionDate" from-field="lowInfo.actualCompletionDate" />
                 <else>
-                    <if-compare-field map-name="highInfo" to-map-name="lowInfo" field-name="actualCompletionDate" operator="less">
+                    <if-compare-field to-field="lowInfo." field="highInfo.actualCompletionDate" operator="less">
                         <set field="highInfo.actualCompletionDate" from-field="lowInfo.actualCompletionDate" />
                     </if-compare-field>
                 </else>
@@ -760,11 +760,11 @@
         </if-not-empty>
         
         <!-- combine the priorities -->
-        <if-not-empty field-name="lowInfo.priority">
-            <if-empty field-name="highInfo.priority">
+        <if-not-empty field="lowInfo.priority">
+            <if-empty field="highInfo.priority">
                 <set field="highInfo.priority" from-field="lowInfo.priority" />
                 <else>
-                    <if-compare-field map-name="highInfo" to-map-name="lowInfo" field-name="priority" operator="greater">
+                    <if-compare-field to-field="lowInfo." field="highInfo.priority" operator="greater">
                         <set field="highInfo.priority" from-field="lowInfo.priority" />
                     </if-compare-field>
                 </else>
@@ -772,15 +772,15 @@
         </if-not-empty>
         
         <!-- if lowlevel type equals TASK then get create the status first -->
-        <if-compare field-name="lowInfo.workEffortTypeId" value="TASK" operator="equals">
-            <if-compare field-name="lowInfo.currentStatusId" value="PTS_CREATED" operator="equals">
+        <if-compare field="lowInfo.workEffortTypeId" value="TASK" operator="equals">
+            <if-compare field="lowInfo.currentStatusId" value="PTS_CREATED" operator="equals">
                 <get-related value-name="lowInfo" relation-name="WorkEffortPartyAssignment" list-name="assignsAll"/>
                 <filter-list-by-date list-name="assignsAll" to-list-name="assigns"/>
-                <if-not-empty field-name="assigns">
+                <if-not-empty field="assigns">
                     <set field="lowInfo.currentStatusId" value="PTS_CREATED_AS"/><!-- task is assigned -->
                 </if-not-empty>
                 <get-related value-name="lowInfo" relation-name="TimeEntry" list-name="entries"/>
-                <if-not-empty field-name="entries">
+                <if-not-empty field="entries">
                     <set field="lowInfo.currentStatusId" value="PTS_CREATED_IP"/><!-- task is in progress -->
                 </if-not-empty>
             </if-compare>
@@ -789,10 +789,10 @@
         <entity-one entity-name="StatusItem" value-name="status">
             <field-map field-name="statusId" env-name="lowInfo.currentStatusId"/>
         </entity-one>
-        <if-empty field-name="highInfo.sequenceId">
+        <if-empty field="highInfo.sequenceId">
             <set field="highInfo.sequenceId" from-field="status.sequenceId"/>
             <else>
-                <if-compare-field field-name="highInfo.sequenceId" operator="less" to-field-name="status.sequenceId">
+                <if-compare-field field="highInfo.sequenceId" to-field="status.sequenceId" operator="less">
                     <set field="highInfo.sequenceId" from-field="status.sequenceId"/>
                 </if-compare-field>
             </else>
@@ -807,10 +807,10 @@
         <!-- hoursPartyId: if provided only the hours of that party -->
         <!-- add the planned hours together -->
         <get-related value-name="lowInfo" relation-name="WorkEffortSkillStandard" list-name="estimates"/>
-        <if-not-empty field-name="estimates">
+        <if-not-empty field="estimates">
             <iterate entry-name="estimate" list-name="estimates">
-                <if-not-empty field-name="estimate.estimatedDuration">
-                    <if-not-empty field-name="highInfo.plannedHours">
+                <if-not-empty field="estimate.estimatedDuration">
+                    <if-not-empty field="highInfo.plannedHours">
                         <calculate field-name="highInfo.plannedHours">
                             <calcop operator="get" field-name="highInfo.plannedHours"></calcop>
                             <calcop operator="add" field-name="estimate.estimatedDuration"/>
@@ -824,22 +824,22 @@
         </if-not-empty>
         <!-- get the actual hours -->
         <get-related value-name="lowInfo" relation-name="TimeEntry" list-name="actuals"/>
-        <if-not-empty field-name="actuals">
+        <if-not-empty field="actuals">
             <iterate entry-name="actual" list-name="actuals">
-                <if-not-empty field-name="actual.hours">
+                <if-not-empty field="actual.hours">
                     <get-related-one value-name="actual" relation-name="Timesheet" to-value-name="timesheet"/>
                     <if>
                         <condition>
                             <or>
-                                <if-empty field-name="parameters.hoursPartyId"/>
+                                <if-empty field="parameters.hoursPartyId"/>
                                 <and>
-                                    <not><if-empty field-name="parameters.hoursPartyId"/></not>
-                                    <if-compare-field field-name="timesheet.partyId" operator="equals" to-field-name="parameters.hoursPartyId"/>
+                                    <not><if-empty field="parameters.hoursPartyId"/></not>
+                                    <if-compare-field field="timesheet.partyId" to-field="parameters.hoursPartyId" operator="equals"/>
                                 </and>
                             </or>
                         </condition>
                         <then>
-                            <if-not-empty field-name="highInfo.actualHours">
+                            <if-not-empty field="highInfo.actualHours">
                                 <calculate field-name="highInfo.actualHours">
                                     <calcop operator="get" field-name="highInfo.actualHours"/>
                                     <calcop operator="add" field-name="actual.hours"></calcop>
@@ -851,7 +851,7 @@
                         </then>
                     </if>
                     <!-- keep also a general total for the actual hours of all participants -->
-                    <if-not-empty field-name="highInfo.actualTotalHours">
+                    <if-not-empty field="highInfo.actualTotalHours">
                         <calculate field-name="highInfo.actualTotalHours">
                             <calcop operator="get" field-name="highInfo.actualTotalHours"/>
                             <calcop operator="add" field-name="actual.hours"></calcop>
@@ -870,13 +870,13 @@
         <!-- input/output is 'highInfo map -->
         
         <!-- create dates taking the last known one to save space on the list -->
-        <if-not-empty field-name="highInfo.actualStartDate">
+        <if-not-empty field="highInfo.actualStartDate">
             <set field="highInfo.startDate" from-field="highInfo.actualStartDate"/>
             <else>
                 <set field="highInfo.startDate" from-field="highInfo.estimatedStartDate"/>
             </else>
         </if-not-empty> 
-        <if-not-empty field-name="highInfo.actualCompletionDate">
+        <if-not-empty field="highInfo.actualCompletionDate">
             <set field="highInfo.completionDate" from-field="highInfo.actualCompletionDate"/>
             <else>
                 <set field="highInfo.completionDate" from-field="highInfo.estimatedCompletionDate"/>
@@ -885,11 +885,11 @@
     </simple-method>    
 
     <simple-method method-name="updateTimeEntry" short-description="">
-        <if-compare field-name="hours" value="-1" operator="equals">
+        <if-compare field="hours" value="-1" operator="equals">
             <return/>
         </if-compare>
-        <if-not-empty field-name="timeEntry.timeEntryId">
-            <if-compare field-name="hours" operator="equals" value="0">
+        <if-not-empty field="timeEntry.timeEntryId">
+            <if-compare field="hours" operator="equals" value="0">
                 <set  field="teDelMap.timeEntryId" from-field="timeEntry.timeEntryId"/>
                 <call-service service-name="deleteTimeEntry" in-map-name="teDelMap"/>
                 <else>
@@ -901,7 +901,7 @@
                 </else>
             </if-compare>
             <else>
-                <if-compare field-name="hours" operator="not-equals" value="0">
+                <if-compare field="hours" operator="not-equals" value="0">
                     <set-service-fields service-name="createTimeEntry" map-name="parameters" to-map-name="teCreMap"/>
                     <set field="teCreMap.hours" from-field="hours"/>
                     <set field="teCreMap.fromDate" from-field="fromDate"/>
@@ -912,8 +912,8 @@
     </simple-method>
     
     <simple-method method-name="createTimeEntryInTimesheet" short-description="Creates TimeEntry and searches for a timesheetId if not provided">
-        <if-not-empty field-name="parameters.fromDate">
-            <if-empty field-name="parameters.timesheetId">
+        <if-not-empty field="parameters.fromDate">
+            <if-empty field="parameters.timesheetId">
                 <entity-condition entity-name="Timesheet" list-name="timesheets">
                     <condition-list combine="and">
                         <condition-expr field-name="fromDate" operator="less-equals" env-name="parameters.fromDate"/>
@@ -921,10 +921,10 @@
                         <condition-expr field-name="partyId" operator="equals" env-name="parameters.partyId"/>
                     </condition-list>
                 </entity-condition>
-                <if-not-empty field-name="timesheets">
+                <if-not-empty field="timesheets">
                     <!-- use existing timesheet -->
                     <first-from-list entry-name="timesheet" list-name="timesheets"/>
-                    <if-compare field-name="timesheet.statusId" value="TIMESHEET_IN_PROCESS" operator="equals">
+                    <if-compare field="timesheet.statusId" value="TIMESHEET_IN_PROCESS" operator="equals">
                         <set field="parameters.timesheetId" from-field="timesheet.timesheetId"/>
                         <else>
                             <add-error>

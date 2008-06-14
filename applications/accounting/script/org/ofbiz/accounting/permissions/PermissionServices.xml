@@ -49,7 +49,7 @@ under the License.
     <simple-method method-name="acctgFxPermissionCheck" short-description="Foreign exchange permission logic">
         <set field="primaryPermission" value="ACCTG_FX"/>
         <call-simple-method method-name="genericBasePermissionCheck" xml-resource="component://common/script/org/ofbiz/common/permission/CommonPermissionServices.xml"/>
-        <if-compare field-name="hasPermission" operator="not-equals" value="true">
+        <if-compare field="hasPermission" operator="not-equals" value="true">
             <!-- Check for deprecated permission -->
             <if-has-permission permission="ACCTG_FX_ENTRY">
                 <set field="hasPermission" type="Boolean" value="true"/>

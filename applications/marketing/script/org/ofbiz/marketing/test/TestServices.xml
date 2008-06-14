@@ -60,10 +60,10 @@ under the License.
         <log level="info" message="========  Created contactListId [${contactListId}] ======="/>
         <entity-one entity-name="ContactList" value-name="contactList"/>
         <assert>
-            <not><if-empty field-name="contactList"/></not>
-            <if-compare-field field-name="contactList.contactListTypeId" operator="equals" to-field-name="contactListTypeId"/>
-            <if-compare-field field-name="contactList.contactListName" operator="equals" to-field-name="contactListName"/>
-            <if-compare-field field-name="contactList.contactMechTypeId" operator="equals" to-field-name="contactMechTypeId"/>
+            <not><if-empty field="contactList"/></not>
+            <if-compare-field field="contactList.contactListTypeId" to-field="contactListTypeId" operator="equals"/>
+            <if-compare-field field="contactList.contactListName" to-field="contactListName" operator="equals"/>
+            <if-compare-field field="contactList.contactMechTypeId" to-field="contactMechTypeId" operator="equals"/>
         </assert>
         <check-errors/>
 
@@ -82,10 +82,10 @@ under the License.
 
         <entity-one entity-name="ContactList" value-name="contactList"/>
         <assert>
-            <not><if-empty field-name="contactList"/></not>
-            <if-compare-field field-name="contactList.contactListTypeId" operator="equals" to-field-name="contactListTypeId"/>
-            <if-compare-field field-name="contactList.contactListName" operator="equals" to-field-name="contactListName"/>
-            <if-compare-field field-name="contactList.contactMechTypeId" operator="equals" to-field-name="contactMechTypeId"/>
+            <not><if-empty field="contactList"/></not>
+            <if-compare-field field="contactList.contactListTypeId" to-field="contactListTypeId" operator="equals"/>
+            <if-compare-field field="contactList.contactListName" to-field="contactListName" operator="equals"/>
+            <if-compare-field field="contactList.contactMechTypeId" to-field="contactMechTypeId" operator="equals"/>
         </assert>
         <check-errors/>
     </simple-method>

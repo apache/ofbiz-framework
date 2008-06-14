@@ -28,10 +28,10 @@ under the License.
         <check-errors/>
 
         <set field="createFixedAsset.fixedAssetTypeId" value="PROPERTY"/>
-        <if-not-empty field-name="parameters.productName">
+        <if-not-empty field="parameters.productName">
             <set field="createFixedAsset.fixedAssetName" from-field="parameters.productName"/>
         </if-not-empty>
-        <if-not-empty field-name="parameters.internalName">
+        <if-not-empty field="parameters.internalName">
             <set field="createFixedAsset.fixedAssetName" from-field="parameters.internalName"/>
         </if-not-empty>
         <call-service service-name="createFixedAsset" in-map-name="createFixedAsset">
@@ -52,7 +52,7 @@ under the License.
 
         <entity-one entity-name="Product" value-name="product"/>
         <get-related relation-name="FixedAssetProduct" value-name="product" list-name="productFixedAssets"/>
-        <if-not-empty field-name="productFixedAssets">
+        <if-not-empty field="productFixedAssets">
             <first-from-list list-name="productFixedAssets" entry-name="productFixedAsset"/>
               <field-to-result field-name="productFixedAsset.fixedAssetId" result-name="fixedAssetId"/>
         </if-not-empty>

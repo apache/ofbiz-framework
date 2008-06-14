@@ -41,9 +41,9 @@
         <if>
             <condition>
                 <and>
-                    <if-empty field-name="parameters.ownerContentId"/>
+                    <if-empty field="parameters.ownerContentId"/>
                     <not>
-                        <if-empty field-name="parameters.contentIdFrom"/>
+                        <if-empty field="parameters.contentIdFrom"/>
                     </not>
                 </and>
             </condition>
@@ -56,14 +56,14 @@
         <if>
             <condition>
                 <not>
-                    <if-compare field-name="hasPermission" value="true" type="Boolean" operator="equals"/>
+                    <if-compare field="hasPermission" value="true" type="Boolean" operator="equals"/>
                 </not>
             </condition>
             <then>
                 <if>
                     <!-- view content -->
                     <condition>
-                        <if-compare field-name="parameters.mainAction" value="VIEW" operator="equals"/>
+                        <if-compare field="parameters.mainAction" value="VIEW" operator="equals"/>
                     </condition>
                     <then>
                         <call-simple-method method-name="viewContentPermission"/>
@@ -71,11 +71,11 @@
                     <else-if>
                         <!-- create content -->
                         <condition>
-                            <if-compare field-name="parameters.mainAction" value="CREATE" operator="equals"/>
+                            <if-compare field="parameters.mainAction" value="CREATE" operator="equals"/>
                         </condition>
                         <then>
                             <!-- setup default operation -->
-                            <if-empty field-name="parameters.contentOperationId">
+                            <if-empty field="parameters.contentOperationId">
                                 <set field="contentOperationId" value="CONTENT_CREATE"/>
                             </if-empty>
                             <call-simple-method method-name="createContentPermission"/>
@@ -84,11 +84,11 @@
                     <else-if>
                         <!-- update content -->
                         <condition>
-                            <if-compare field-name="parameters.mainAction" value="UPDATE" operator="equals"/>
+                            <if-compare field="parameters.mainAction" value="UPDATE" operator="equals"/>
                         </condition>
                         <then>
                             <!-- setup default operation -->
-                            <if-empty field-name="parameters.contentOperationId">
+                            <if-empty field="parameters.contentOperationId">
                                 <set field="contentOperationId" value="CONTENT_UPDATE"/> 
                             </if-empty>
                             <call-simple-method method-name="updateContentPermission"/>
@@ -108,7 +108,7 @@
 
     <simple-method method-name="viewContentPermission" short-description="Check user can view content">
         <!-- if called directly check the main permission -->
-        <if-empty field-name="hasPermission">
+        <if-empty field="hasPermission">
             <set field="primaryPermission" value="CONTENTMGR"/>
             <set field="mainAction" value="VIEW"/>
             <call-simple-method method-name="genericBasePermissionCheck"
@@ -123,19 +123,19 @@
         <!-- must have the security permission to continue -->
         <if>
             <condition>
-                <if-compare field-name="hasPermission" value="true" type="Boolean" operator="equals"/>
+                <if-compare field="hasPermission" value="true" type="Boolean" operator="equals"/>
             </condition>
             <then>
                 <!-- if no operation is passed; we use the CONTENT_VIEW operation -->
-                <if-empty field-name="parameters.contentOperationId">
+                <if-empty field="parameters.contentOperationId">
                     <set field="parameters.contentOperationId" value="CONTENT_VIEW"/>
                 </if-empty>
 
 		        <!-- contentId is required for update checking -->
-		        <if-empty field-name="contentId">
+		        <if-empty field="contentId">
 		            <set field="contentId" from-field="parameters.contentId"/>
 		        </if-empty>
-		        <if-empty field-name="contentId">
+		        <if-empty field="contentId">
 		            <add-error><fail-message message="Content Permission Service VIEW requires a contentId!"/></add-error>
 		        </if-empty>
 		        <check-errors/>
@@ -156,7 +156,7 @@
 
     <simple-method method-name="createContentPermission" short-description="Check user can create new content">
         <!-- if called directly check the main permission -->
-        <if-empty field-name="hasPermission">
+        <if-empty field="hasPermission">
             <set field="primaryPermission" value="CONTENTMGR"/>
             <set field="mainAction" value="CREATE"/>
             <call-simple-method method-name="genericBasePermissionCheck"
@@ -164,17 +164,17 @@
         </if-empty>
 
         <!-- ownerContentId can be set from a calling method -->
-        <if-empty field-name="ownerContentId">
+        <if-empty field="ownerContentId">
             <set field="ownerContentId" from-field="parameters.ownerContentId"/>
         </if-empty>
 
         <!-- operation ID can be set from the calling method -->
-        <if-empty field-name="contentOperationId">
+        <if-empty field="contentOperationId">
             <set field="contentOperationId" from-field="parameters.contentOperationId"/>
         </if-empty>
 
         <!-- statusId can be set from the calling method -->
-        <if-empty field-name="statusId">
+        <if-empty field="statusId">
             <set field="statusId" from-field="parameters.statusId"/>
         </if-empty>
 
@@ -186,7 +186,7 @@
         <!-- must have the security permission to continue -->
         <if>
             <condition>
-                <if-compare field-name="hasPermission" value="true" type="Boolean" operator="equals"/>
+                <if-compare field="hasPermission" value="true" type="Boolean" operator="equals"/>
             </condition>
             <then>
                 <log level="verbose" message="Found necessary ROLE permission: ${primaryPermission}_${mainAction} :: ${contentOperationId}"/>
@@ -195,7 +195,7 @@
                 <if>
                     <condition>
                         <not>
-                            <if-empty field-name="contentOperationId"/>
+                            <if-empty field="contentOperationId"/>
                         </not>
                     </condition>
                     <then>
@@ -208,15 +208,15 @@
                 <if>
                     <condition>
                         <or>
-                            <if-empty field-name="contentOperationId"/>
-                            <if-compare field-name="hasPermission" value="false" type="Boolean" operator="equals"/>
+                            <if-empty field="contentOperationId"/>
+                            <if-compare field="hasPermission" value="false" type="Boolean" operator="equals"/>
                         </or>
                     </condition>
                     <then>
                         <if>
                             <condition>
                                 <not>
-                                    <if-empty field-name="ownerContentId"/>
+                                    <if-empty field="ownerContentId"/>
                                 </not>
                             </condition>
                             <then>
@@ -226,7 +226,7 @@
                                 <call-simple-method method-name="checkOwnership"/>
                                 <if>
                                     <condition>
-                                        <if-compare field-name="hasPermission" value="false" type="Boolean" operator="equals"/>
+                                        <if-compare field="hasPermission" value="false" type="Boolean" operator="equals"/>
                                     </condition>
                                     <then>
                                         <!-- no permission on this parent; check the parent's parent(s) -->
@@ -234,9 +234,9 @@
                                             <condition>
                                                 <!-- iterate until either we have permission or there are no more parents -->
                                                 <and>
-                                                    <if-compare field-name="hasPermission" value="false" type="Boolean" operator="equals"/>
+                                                    <if-compare field="hasPermission" value="false" type="Boolean" operator="equals"/>
                                                     <not>
-                                                        <if-empty field-name="checkId"/>
+                                                        <if-empty field="checkId"/>
                                                     </not>
                                                 </and>                                                 
                                             </condition>
@@ -247,7 +247,7 @@
                                                 <if>
                                                     <condition>
                                                         <not>
-                                                            <if-empty field-name="currentContent.ownerContentId"/>
+                                                            <if-empty field="currentContent.ownerContentId"/>
                                                         </not>
                                                     </condition>
                                                     <then>
@@ -278,7 +278,7 @@
 
     <simple-method method-name="updateContentPermission" short-description="Check user can update existing content">
         <!-- if called directly check the main permission -->
-        <if-empty field-name="hasPermission">
+        <if-empty field="hasPermission">
             <set field="primaryPermission" value="CONTENTMGR"/>
             <set field="mainAction" value="UPDATE"/>
             <call-simple-method method-name="genericBasePermissionCheck"
@@ -286,21 +286,21 @@
         </if-empty>
 
         <!-- contentId is required for update checking -->
-        <if-empty field-name="contentId">
+        <if-empty field="contentId">
             <set field="contentId" from-field="parameters.contentId"/>
         </if-empty>
-        <if-empty field-name="contentId">
+        <if-empty field="contentId">
             <add-error><fail-message message="Content Permission Service UPDATE requires a contentId!"/></add-error>
         </if-empty>
         <check-errors/>
 
         <!-- ownerContentId can be set from a calling method -->
-        <if-empty field-name="ownerContentId">
+        <if-empty field="ownerContentId">
             <set field="ownerContentId" from-field="parameters.ownerContentId"/>
         </if-empty>
 
         <!-- operation ID can be set from the calling method -->
-        <if-empty field-name="contentOperationId">
+        <if-empty field="contentOperationId">
             <set field="contentOperationId" from-field="parameters.contentOperationId"/>
         </if-empty>
 
@@ -312,7 +312,7 @@
         <!-- must have permission to continue -->
         <if>
             <condition>
-                <if-compare field-name="hasPermission" value="true" type="Boolean" operator="equals"/>
+                <if-compare field="hasPermission" value="true" type="Boolean" operator="equals"/>
             </condition>
             <then>
                 <log level="verbose" message="Found necessary ROLE permission: ${primaryPermission}_${mainAction}"/>
@@ -321,7 +321,7 @@
                 <entity-one entity-name="Content" value-name="thisContent">
                     <field-map field-name="contentId"/>
                 </entity-one>
-                <if-empty field-name="thisContent">
+                <if-empty field="thisContent">
                     <add-error><fail-message message="Content record not found for ID [${contentId}]"/></add-error>
                     <check-errors/>
                 </if-empty>
@@ -330,7 +330,7 @@
                 <if>
                     <condition>
                         <not>
-                            <if-empty field-name="contentOperationId"/>
+                            <if-empty field="contentOperationId"/>
                         </not>
                     </condition>
                     <then>
@@ -344,8 +344,8 @@
                 <if>
                     <condition>
                         <or>
-                            <if-empty field-name="contentOperationId"/>
-                            <if-compare field-name="hasPermission" value="false" type="Boolean" operator="equals"/>
+                            <if-empty field="contentOperationId"/>
+                            <if-compare field="hasPermission" value="false" type="Boolean" operator="equals"/>
                         </or>
                     </condition>
 
@@ -360,9 +360,9 @@
                             <condition>
                                 <and>
                                     <not>
-                                        <if-empty field-name="ownerContentId"/>
+                                        <if-empty field="ownerContentId"/>
                                     </not>
-                                    <if-compare-field field-name="ownerContentId" operator="not-equals" to-field-name="ownerContentId" map-name="thisContent"/>
+                                    <if-compare-field field="thisContent.ownerContentId" to-field="ownerContentId" operator="not-equals"/>
                                 </and>
                             </condition>
                             <then>
@@ -371,7 +371,7 @@
                                 <call-simple-method method-name="checkOwnership"/>
                                 <if>
                                     <condition>
-                                        <if-compare field-name="hasPermission" value="false" type="Boolean" operator="equals"/>
+                                        <if-compare field="hasPermission" value="false" type="Boolean" operator="equals"/>
                                     </condition>
                                     <then>
                                         <!-- no permission on this parent; check the parent's parent(s) -->
@@ -379,9 +379,9 @@
                                             <condition>
                                                 <!-- iterate until either we have permission or there are no more parents -->
                                                 <and>
-                                                    <if-compare field-name="hasPermission" value="false" type="Boolean" operator="equals"/>
+                                                    <if-compare field="hasPermission" value="false" type="Boolean" operator="equals"/>
                                                     <not>
-                                                        <if-empty field-name="checkId"/>
+                                                        <if-empty field="checkId"/>
                                                     </not>
                                                 </and>
                                             </condition>
@@ -392,7 +392,7 @@
                                                 <if>
                                                     <condition>
                                                         <not>
-                                                            <if-empty field-name="currentContent.ownerContentId"/>
+                                                            <if-empty field="currentContent.ownerContentId"/>
                                                         </not>
                                                     </condition>
                                                     <then>
@@ -423,14 +423,14 @@
         <!-- resetting the permission flag -->
         <set field="hasPermission" type="Boolean" value="false"/>
 
-        <if-empty field-name="contentOperationId">
+        <if-empty field="contentOperationId">
             <add-error><fail-message message="Required field 'contentOperationId' is missing in simple method call [checkContentOperationSecurity]"/></add-error>
         </if-empty>
 
-        <if-empty field-name="contentPurposeTypeId">
+        <if-empty field="contentPurposeTypeId">
             <set field="contentPurposeTypeId" from-field="parameters.contentPurposeTypeId"/>
         </if-empty>
-        <if-empty field-name="contentPurposeTypeId">
+        <if-empty field="contentPurposeTypeId">
             <set field="contentPurposeTypeId" value="_NA_"/>
         </if-empty>
 
@@ -444,9 +444,9 @@
         <if>
             <condition>
                 <and>
-                    <if-compare value="CONTENT_CREATE" field-name="contentOperationId" operator="equals"/>
+                    <if-compare value="CONTENT_CREATE" field="contentOperationId" operator="equals"/>
                     <not>
-                        <if-empty field-name="contentPurposeTypeId"/>
+                        <if-empty field="contentPurposeTypeId"/>
                     </not>
                 </and>
             </condition>
@@ -476,7 +476,7 @@
                 </iterate>
 
                 <!-- check the _NA_ purpose but only if no other purposes were found -->
-                <if-empty field-name="contentPurposes">
+                <if-empty field="contentPurposes">
                     <entity-condition entity-name="ContentPurposeOperation" list-name="operations">
                         <condition-list combine="and">
                             <condition-expr field-name="contentPurposeTypeId" operator="equals" value="_NA_"/>
@@ -494,7 +494,7 @@
 
         <if>
             <condition>
-                <if-empty field-name="operations"/>
+                <if-empty field="operations"/>
             </condition>
             <!-- there are no ContentPurposeOperation entries for this operation/purpose; default is approve permission -->
             <then>
@@ -508,14 +508,14 @@
 
                 <!-- check each operation security -->
                 <iterate entry-name="operation" list-name="operations">
-                    <if-compare field-name="hasPermission" value="false" type="Boolean" operator="equals">
+                    <if-compare field="hasPermission" value="false" type="Boolean" operator="equals">
                         <!-- reset the checkId if needed -->
                         <if>
                             <condition>
                                 <and>
-                                    <if-empty field-name="checkId"/>
+                                    <if-empty field="checkId"/>
                                     <not>
-                                        <if-empty field-name="toCheckContentId"/>
+                                        <if-empty field="toCheckContentId"/>
                                     </not>
                                 </and>
                             </condition>
@@ -530,12 +530,12 @@
                         <if>
                             <condition>
                                 <or>
-                                    <if-compare field-name="operation.statusId" value="_NA_" operator="equals"/>
+                                    <if-compare field="operation.statusId" value="_NA_" operator="equals"/>
                                     <and>
                                         <not>
-                                            <if-empty field-name="statusId"/>
+                                            <if-empty field="statusId"/>
                                         </not>
-                                        <if-compare-field field-name="operation.statusId" operator="equals" to-field-name="statusId"/>    
+                                        <if-compare-field field="operation.statusId" to-field="statusId" operator="equals"/>    
                                     </and>
                                 </or>
                             </condition>
@@ -544,16 +544,16 @@
 
                                 <!-- first check passed; now we test for the role membership(s) -->
                                 <iterate entry-name="thisPartyId" list-name="partyIdList">
-                                    <if-compare field-name="hasPermission" value="false" type="Boolean" operator="equals">
+                                    <if-compare field="hasPermission" value="false" type="Boolean" operator="equals">
                                         <set field="checkRoleTypeId" from-field="operation.roleTypeId"/>
                                         <set field="checkPartyId" from-field="thisPartyId"/>
                                         <!-- reset the checkId if needed -->
                                         <if>
                                             <condition>
                                                 <and>
-                                                    <if-empty field-name="checkId"/>
+                                                    <if-empty field="checkId"/>
                                                     <not>
-                                                        <if-empty field-name="toCheckContentId"/>
+                                                        <if-empty field="toCheckContentId"/>
                                                     </not>
                                                 </and>
                                             </condition>
@@ -567,9 +567,9 @@
                                         <if>
                                             <condition>
                                                 <and>
-                                                    <if-compare field-name="hasPermission" value="false" type="Boolean" operator="equals"/>
+                                                    <if-compare field="hasPermission" value="false" type="Boolean" operator="equals"/>
                                                     <not>
-                                                        <if-empty field-name="checkId"/>
+                                                        <if-empty field="checkId"/>
                                                     </not>
                                                 </and>
                                             </condition>
@@ -579,9 +579,9 @@
                                                     <condition>
                                                         <!-- iterate until either we have permission or there are no more parents -->
                                                         <and>
-                                                            <if-compare field-name="hasPermission" value="false" type="Boolean" operator="equals"/>
+                                                            <if-compare field="hasPermission" value="false" type="Boolean" operator="equals"/>
                                                             <not>
-                                                                <if-empty field-name="checkId"/>
+                                                                <if-empty field="checkId"/>
                                                             </not>
                                                         </and>
                                                     </condition>
@@ -592,7 +592,7 @@
                                                         <if>
                                                             <condition>
                                                                 <not>
-                                                                    <if-empty field-name="currentContent.ownerContentId"/>
+                                                                    <if-empty field="currentContent.ownerContentId"/>
                                                                 </not>
                                                             </condition>
                                                             <then>
@@ -624,10 +624,10 @@
         <!-- resetting the permission flag -->
         <set field="hasPermission" type="Boolean" value="false"/>
 
-        <if-empty field-name="checkId">
+        <if-empty field="checkId">
             <add-error><fail-message message="Required field 'checkId' is missing in simple method call [checkOwnership]"/></add-error>
         </if-empty>
-        <if-empty field-name="partyId">
+        <if-empty field="partyId">
             <set field="partyId" from-field="userLogin.partyId"/>
         </if-empty>
         <check-errors/>
@@ -643,7 +643,7 @@
             <if>
                 <condition>
                     <not>
-                        <if-compare field-name="hasPermission" value="true" operator="equals"/>
+                        <if-compare field="hasPermission" value="true" operator="equals"/>
                     </not>
                 </condition>
                 <then>
@@ -665,19 +665,19 @@
         <log level="verbose" message="checkRoleSecurity: just reset hasPermission value to false!"/>
 
         <!-- roleEntity is required to determine which content role table to look: ContentRole, DataResourceRole, etc -->
-        <if-empty field-name="roleEntity">
+        <if-empty field="roleEntity">
             <add-error><fail-message message="Required field 'roleEntity' is missing in simple method call [checkRoleSecurity]"/></add-error>
         </if-empty>
         <!-- roleEntityField is required to determine the pk field to check; contentId, dataResourceId, etc -->
-        <if-empty field-name="roleEntityField">
+        <if-empty field="roleEntityField">
             <add-error><fail-message message="Required field 'roleEntityField' is missing in simple method call [checkRoleSecurity]"/></add-error>
         </if-empty>
         <!-- setting the env field contentId is required for this simple method -->
-        <if-empty field-name="checkId">
+        <if-empty field="checkId">
             <add-error><fail-message message="Required field 'checkId' is missing in simple method call [checkRoleSecurity]"/></add-error>
         </if-empty>
         <!-- the party ID to check is required for this check -->
-        <if-empty field-name="checkPartyId">
+        <if-empty field="checkPartyId">
             <add-error><fail-message message="Required field 'checkPartyId' is missing in simple method call [checkRoleSecurity]"/></add-error>
         </if-empty>
         <check-errors/>
@@ -688,9 +688,9 @@
             <condition>
                 <and>
                     <not>
-                        <if-empty field-name="checkRoleTypeId"/>
+                        <if-empty field="checkRoleTypeId"/>
                     </not>
-                    <if-compare field-name="checkRoleTypeId" value="_NA_" operator="equals"/>
+                    <if-compare field="checkRoleTypeId" value="_NA_" operator="equals"/>
                 </and>
             </condition>
             <then>
@@ -703,7 +703,7 @@
                 <if>
                     <condition>
                         <not>
-                            <if-empty field-name="checkRoleTypeId"/>
+                            <if-empty field="checkRoleTypeId"/>
                         </not>
                     </condition>
                     <then>
@@ -742,7 +742,7 @@
                 <if>
                     <condition>
                         <not>
-                            <if-empty field-name="foundRoles"/>
+                            <if-empty field="foundRoles"/>
                         </not>
                     </condition>
                     <then>
@@ -756,7 +756,7 @@
 
     <!-- method to get the content purposes -->
     <simple-method method-name="findAllContentPurposes" short-description="Find all content purposes for the specified content">
-        <if-empty field-name="checkId">
+        <if-empty field="checkId">
             <add-error><fail-message message="Required field 'checkId' (contentId) is missing in simple method call [findAllContentPurposes]"/></add-error>
         </if-empty>
         <check-errors/>
@@ -778,7 +778,7 @@
 
     <!-- method to get content associations -->
     <simple-method method-name="findAllParentContent" short-description="Finds all associated parent content">
-        <if-empty field-name="contentId">
+        <if-empty field="contentId">
             <add-error><fail-message message="Required field 'contentId' is missing in simple method call [findAllParentContent]"/></add-error>
         </if-empty>
         <check-errors/>

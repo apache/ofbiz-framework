@@ -24,11 +24,11 @@ under the License.
         <make-value value-name="lookupPKMap" entity-name="PartyIcsAvsOverride"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="PartyIcsAvsOverride" map-name="lookupPKMap" value-name="lookedUpValue"/>
-        <if-not-empty map-name="lookedUpValue" field-name="partyId">
+        <if-not-empty field="lookedUpValue.partyId">
             <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
             <store-value value-name="lookedUpValue"/>
         </if-not-empty>
-        <if-empty map-name="lookedUpValue" field-name="partyId">
+        <if-empty field="lookedUpValue.partyId">
             <set-nonpk-fields map-name="parameters" value-name="lookupPKMap"/>
             <create-value value-name="lookupPKMap"/>
         </if-empty>
@@ -38,20 +38,20 @@ under the License.
         <make-value value-name="lookupPKMap" entity-name="PartyIcsAvsOverride"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="PartyIcsAvsOverride" map-name="lookupPKMap" value-name="lookedUpValue"/>
-        <if-not-empty map-name="lookedUpValue" field-name="partyId">
+        <if-not-empty field="lookedUpValue.partyId">
             <remove-value value-name="lookedUpValue"/>
         </if-not-empty>
     </simple-method>
 
     <simple-method method-name="ensureNaPartyRole" short-description="Ensure Party is in _NA_ or the specified Role" login-required="false">
         <!-- must have a partyId, partyIdFrom, or partyIdTo in the parameters map, should be called through different service defs for each one -->
-        <if-not-empty field-name="parameters.partyId">
+        <if-not-empty field="parameters.partyId">
             <set field="lookupPKMap.partyId" from-field="parameters.partyId"/>
             <else>
-                <if-not-empty field-name="parameters.partyIdFrom">
+                <if-not-empty field="parameters.partyIdFrom">
                     <set field="lookupPKMap.partyId" from-field="parameters.partyIdFrom"/>
                     <else>
-                        <if-not-empty field-name="parameters.partyIdTo">
+                        <if-not-empty field="parameters.partyIdTo">
                             <set field="lookupPKMap.partyId" from-field="parameters.partyIdTo"/>
                         </if-not-empty>
                     </else>
@@ -59,14 +59,14 @@ under the License.
             </else>
         </if-not-empty>
 
-        <if-empty field-name="parameters.roleTypeId">
+        <if-empty field="parameters.roleTypeId">
             <set field="lookupPKMap.roleTypeId" value="_NA_"/>
         <else>
             <set from-field="parameters.roleTypeId" field="lookupPKMap.roleTypeId"/>
         </else>
         </if-empty>
         <find-by-primary-key entity-name="PartyRole" map-name="lookupPKMap" value-name="lookedUpValue"/>
-        <if-empty field-name="lookedUpValue">
+        <if-empty field="lookedUpValue">
             <make-value value-name="newValue" entity-name="PartyRole" map-name="lookupPKMap"/>
             <create-value value-name="newValue"/>
         </if-empty>
@@ -100,12 +100,12 @@ under the License.
         <call-map-processor processor-name="postalAddress" in-map-name="parameters" out-map-name="postalAddressContext"
             xml-resource="org/ofbiz/party/contact/PartyContactMechMapProcs.xml"/>
      
-        <if-not-empty field-name="parameters.contactNumber">
+        <if-not-empty field="parameters.contactNumber">
             <call-map-processor processor-name="telecomNumber" in-map-name="parameters" out-map-name="telecomNumberContext"
                 xml-resource="org/ofbiz/party/contact/PartyContactMechMapProcs.xml"/>
         </if-not-empty>
      
-        <if-not-empty field-name="parameters.emailAddress">
+        <if-not-empty field="parameters.emailAddress">
             <call-map-processor in-map-name="parameters" out-map-name="emailAddressContext">
                 <simple-map-processor name="emailAddress">
                     <process field="emailAddress">
@@ -121,7 +121,7 @@ under the License.
             <result-to-field result-name="partyId" field-name="partyId"/>
         </call-service>
      
-        <if-not-empty field-name="parameters.roleTypeId">
+        <if-not-empty field="parameters.roleTypeId">
             <set field="createPartyRoleCtx.partyId" from-field="partyId"/>
             <set field="createPartyRoleCtx.roleTypeId" from-field="parameters.roleTypeId"/>
             <call-service service-name="createPartyRole" in-map-name="createPartyRoleCtx"/>
@@ -143,12 +143,12 @@ under the License.
         <call-map-processor processor-name="postalAddress" in-map-name="parameters" out-map-name="postalAddressContext"
             xml-resource="org/ofbiz/party/contact/PartyContactMechMapProcs.xml"/>
      
-        <if-not-empty field-name="parameters.contactNumber">
+        <if-not-empty field="parameters.contactNumber">
             <call-map-processor processor-name="telecomNumber" in-map-name="parameters" out-map-name="telecomNumberContext"
                 xml-resource="org/ofbiz/party/contact/PartyContactMechMapProcs.xml"/>
         </if-not-empty>
      
-        <if-not-empty field-name="parameters.emailAddress">
+        <if-not-empty field="parameters.emailAddress">
             <call-map-processor in-map-name="parameters" out-map-name="emailAddressContext">
                 <simple-map-processor name="emailAddress">
                     <process field="emailAddress">
@@ -165,7 +165,7 @@ under the License.
             <result-to-field result-name="partyId" field-name="partyId"/>
         </call-service>
      
-        <if-not-empty field-name="parameters.roleTypeId">
+        <if-not-empty field="parameters.roleTypeId">
             <set field="createPartyRoleCtx.partyId" from-field="partyId"/>
             <set field="createPartyRoleCtx.roleTypeId" from-field="parameters.roleTypeId"/>
             <call-service service-name="createPartyRole" in-map-name="createPartyRoleCtx"/>
@@ -189,27 +189,27 @@ under the License.
             <result-to-field result-name="contactMechId" map-name="postalAddressContext"/>
         </call-service>
      
-        <if-not-empty field-name="postalAddContactMechPurpTypeId">
+        <if-not-empty field="postalAddContactMechPurpTypeId">
             <set-service-fields service-name="createPartyContactMechPurpose" map-name="postalAddressContext" to-map-name="serviceCtx"/>
             <set field="serviceCtx.contactMechPurposeTypeId" from-field="postalAddContactMechPurpTypeId"/>
             <call-service service-name="createPartyContactMechPurpose" in-map-name="serviceCtx"/>
         </if-not-empty>
      
         <!-- phone number -->
-        <if-not-empty field-name="contactNumber">
+        <if-not-empty field="contactNumber">
             <set field="telecomNumberContext.partyId" from-field="partyId"/>
             <set field="telecomNumberContext.contactMechPurposeTypeId" value="PRIMARY_PHONE"/>
-            <if-not-empty field-name="phoneContactMechPurpTypeId"> <!-- override with purpose present in parameters, if any (This field is not used now, just here for future implementations) -->
+            <if-not-empty field="phoneContactMechPurpTypeId"> <!-- override with purpose present in parameters, if any (This field is not used now, just here for future implementations) -->
                 <set field="telecomNumberContext.contactMechPurposeTypeId" from-field="phoneContactMechPurpTypeId"/>
             </if-not-empty>
             <call-service service-name="createPartyTelecomNumber" in-map-name="telecomNumberContext"/>
         </if-not-empty>
      
         <!-- email address -->
-        <if-not-empty field-name="emailAddress">
+        <if-not-empty field="emailAddress">
             <set field="emailAddressContext.partyId" from-field="partyId"/>
             <set field="emailAddressContext.contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
-            <if-not-empty field-name="emailContactMechPurpTypeId"> <!-- override with purpose present in parameters, if any (This field is not used now, just here for future implementations) -->
+            <if-not-empty field="emailContactMechPurpTypeId"> <!-- override with purpose present in parameters, if any (This field is not used now, just here for future implementations) -->
                 <set field="emailAddressContext.contactMechPurposeTypeId" from-field="emailContactMechPurpTypeId"/>
             </if-not-empty>
             <call-service service-name="createPartyEmailAddress" in-map-name="emailAddressContext"/>

@@ -23,11 +23,11 @@ under the License.
     <simple-method method-name="createPartyContactMech" short-description="Create a PartyContactMech">
         <make-value entity-name="PartyContactMech" value-name="newValue"/>
         <make-value entity-name="PartyContactMech" value-name="newPartyContactMech"/><!-- DEJ20061016: is this really needed? doesn't seem to be used... -->
-        <if-empty map-name="parameters" field-name="partyId">
+        <if-empty field="parameters.partyId">
             <set field="parameters.partyId" from-field="userLogin.partyId"/>
         </if-empty>
         
-        <if-empty map-name="parameters" field-name="contactMechId">
+        <if-empty field="parameters.contactMechId">
             <set-service-fields service-name="createContactMech" map-name="parameters" to-map-name="createContactMechMap"/>
             <call-service service-name="createContactMech" in-map-name="createContactMechMap">
                 <result-to-field result-name="contactMechId" map-name="newValue"/>
@@ -48,7 +48,7 @@ under the License.
     
     <simple-method method-name="updatePartyContactMech" short-description="Update a PartyContactMech">
         <make-value entity-name="PartyContactMech" value-name="newPartyContactMech"/>
-        <if-empty map-name="parameters" field-name="partyId">
+        <if-empty field="parameters.partyId">
             <set field="parameters.partyId" from-field="userLogin.partyId"/>
         </if-empty>
         
@@ -58,7 +58,7 @@ under the License.
         <find-by-and entity-name="PartyContactMech" list-name="partyContactMechs" map-name="partyContactMechMap"/>
         <filter-list-by-date list-name="partyContactMechs" to-list-name="validPartyContactMechs"/>
         <first-from-list entry-name="partyContactMech" list-name="validPartyContactMechs"/>
-        <if-empty field-name="partyContactMech">
+        <if-empty field="partyContactMech">
             <add-error><fail-property resource="PartyUiLabels" property="PartyCannotUpdateContactBecauseNotWithSpecifiedParty"/></add-error>
         </if-empty>
 
@@ -67,7 +67,7 @@ under the License.
         <clone-value value-name="partyContactMech" new-value-name="newPartyContactMech"/>
         
         <!-- If we already have a new contactMechId don't update ContactMech -->
-        <if-empty map-name="parameters" field-name="newContactMechId">                
+        <if-empty field="parameters.newContactMechId">                
             <set-service-fields service-name="updateContactMech" map-name="parameters" to-map-name="updateContactMechMap"/>
             <call-service service-name="updateContactMech" in-map-name="updateContactMechMap">
                 <default-message resource="PartyUiLabels" property="PartyContactMechanismSuccessfullyUpdated"/>
@@ -86,7 +86,7 @@ under the License.
         <store-value value-name="partyContactMech"/>
         <create-value value-name="newPartyContactMech"/>
         
-        <if-compare-field field-name="contactMechId" map-name="parameters" to-map-name="newPartyContactMech" operator="not-equals">
+        <if-compare-field to-field="newPartyContactMech." field="parameters.contactMechId" operator="not-equals">
             <get-related value-name="partyContactMech" relation-name="PartyContactMechPurpose" list-name="partyContactMechPurposes"/>   
             <iterate entry-name="partyContactMechPurposeOld" list-name="partyContactMechPurposes">
                 <clone-value value-name="partyContactMechPurposeOld" new-value-name="partyContactMechPurpose"/>
@@ -99,7 +99,7 @@ under the License.
                 <set field="purposeMap.contactMechId" from-field="partyContactMechPurpose.contactMechId"/>
                 <find-by-and entity-name="PartyContactMechPurpose" list-name="purposeResult" map-name="purposeMap"/>
                     
-                <if-empty field-name="purposeResult">
+                <if-empty field="purposeResult">
                     <create-value value-name="partyContactMechPurpose"/>
                 </if-empty>
             </iterate>
@@ -112,7 +112,7 @@ under the License.
     
     <simple-method method-name="deletePartyContactMech" short-description="Delete a PartyContactMech">
         <make-value entity-name="PartyContactMech" value-name="newPartyContactMech"/>
-        <if-empty map-name="parameters" field-name="partyId">
+        <if-empty field="parameters.partyId">
             <set field="parameters.partyId" from-field="userLogin.partyId"/>
         </if-empty>
         
@@ -121,7 +121,7 @@ under the License.
         <find-by-and entity-name="PartyContactMech" list-name="partyContactMechs" map-name="partyContactMechMap"/>
         <filter-list-by-date list-name="partyContactMechs" to-list-name="validPartyContactMechs"/>
         <first-from-list entry-name="partyContactMech" list-name="validPartyContactMechs"/>
-        <if-empty field-name="partyContactMech">
+        <if-empty field="partyContactMech">
             <add-error>
                 <fail-property resource="PartyUiLabels" property="PartyContactMechNotFoundCannotDelete"/>
             </add-error>
@@ -132,7 +132,7 @@ under the License.
     </simple-method>
     
     <simple-method method-name="createPartyPostalAddress" short-description="Create a PostalAddress for party">
-        <if-empty map-name="parameters" field-name="partyId">
+        <if-empty field="parameters.partyId">
             <set field="parameters.partyId" from-field="userLogin.partyId"/>
         </if-empty>        
 
@@ -156,7 +156,7 @@ under the License.
     
     <simple-method method-name="updatePartyPostalAddress" short-description="Update a PostalAddress for party">
         <make-value entity-name="PartyContactMech" value-name="newPartyContactMech"/>
-        <if-empty map-name="parameters" field-name="partyId">
+        <if-empty field="parameters.partyId">
             <set field="parameters.partyId" from-field="userLogin.partyId"/>
         </if-empty>
         
@@ -178,7 +178,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createPartyTelecomNumber" short-description="Create a TelecomNumber for party">
-        <if-empty map-name="parameters" field-name="partyId">
+        <if-empty field="parameters.partyId">
             <set field="parameters.partyId" from-field="userLogin.partyId"/>
         </if-empty>
                 
@@ -203,7 +203,7 @@ under the License.
     
     <simple-method method-name="updatePartyTelecomNumber" short-description="Update a TelecomNumber for party">
         <make-value entity-name="PartyContactMech" value-name="newPartyContactMech"/>
-        <if-empty map-name="parameters" field-name="partyId">
+        <if-empty field="parameters.partyId">
             <set field="parameters.partyId" from-field="userLogin.partyId"/>
         </if-empty>
         
@@ -227,7 +227,7 @@ under the License.
     </simple-method>  
     
     <simple-method method-name="createPartyEmailAddress" short-description="Create an email address for party">
-        <if-empty map-name="parameters" field-name="partyId">
+        <if-empty field="parameters.partyId">
             <set field="parameters.partyId" from-field="userLogin.partyId"/>
         </if-empty>
 
@@ -247,7 +247,7 @@ under the License.
     </simple-method>
     
     <simple-method method-name="updatePartyEmailAddress" short-description="Update an email address for party">
-        <if-empty map-name="parameters" field-name="partyId">
+        <if-empty field="parameters.partyId">
             <set field="parameters.partyId" from-field="userLogin.partyId"/>
         </if-empty>
 
@@ -272,7 +272,7 @@ under the License.
         <set field="input.filterByDate" value="Y"/>
         <set field="input.inputFields.infoString" from-field="parameters.address"/>
         
-        <if-empty field-name="parameters.fromDate">
+        <if-empty field="parameters.fromDate">
             <now-timestamp-to-env env-name="input.filterByDateValue"/>
             <else>
                 <set field="input.filterByDateValue" from-field="parameters.fromDate"/>
@@ -283,7 +283,7 @@ under the License.
             <results-to-map map-name="results"/>
         </call-service>
         
-        <if-not-empty field-name="results.item">
+        <if-not-empty field="results.item">
             <field-to-result field-name="results.item.partyId" result-name="partyId"/>
             <field-to-result field-name="results.item.contactMechId" result-name="contactMechId"/>
         </if-not-empty>

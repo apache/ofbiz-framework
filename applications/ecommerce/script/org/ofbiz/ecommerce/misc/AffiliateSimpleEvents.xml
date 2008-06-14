@@ -83,7 +83,7 @@ under the License.
                 processor-name="newAffilFax" in-map-name="parameters" out-map-name="fax_context"/>
         <check-errors/>
 
-        <if-not-empty field-name="contactNumber" map-name="fax_context">
+        <if-not-empty field="fax_context.contactNumber">
           <call-service service-name="createTelecomNumber" in-map-name="fax_context">
               <result-to-field result-name="contactMechId" map-name="parameters"/>
           </call-service>
@@ -93,7 +93,7 @@ under the License.
         <call-map-processor xml-resource="org/ofbiz/ecommerce/misc/AffiliateMapProcs.xml"
                 processor-name="newAffilFaxPurpose" in-map-name="parameters" out-map-name="faxp_context"/>
         <check-errors/>
-        <if-not-empty field-name="contactNumber" map-name="faxp_context">
+        <if-not-empty field="faxp_context.contactNumber">
             <call-service service-name="createPartyContactMechPurpose" in-map-name="faxp_context"/>
         </if-not-empty>
 

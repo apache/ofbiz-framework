@@ -77,8 +77,8 @@ under the License.
         </entity-one>
         
         <assert>
-        <not><if-empty field-name="shipment"/></not>
-        <if-compare-field field-name="shipment.shipmentId" operator="equals" to-field-name="completePackOutMap.shipmentId"/>
+        <not><if-empty field="shipment"/></not>
+        <if-compare-field field="shipment.shipmentId" to-field="completePackOutMap.shipmentId" operator="equals"/>
         </assert>
         <check-errors/>
         
@@ -97,7 +97,7 @@ under the License.
             </entity-one>
         
             <assert>
-            <not><if-empty field-name="invoice"/></not>
+            <not><if-empty field="invoice"/></not>
             </assert>
             <check-errors/>
         </iterate>
@@ -136,9 +136,9 @@ under the License.
         </entity-one>
         
         <assert>
-        <not><if-empty field-name="shipment"/></not>
-        <if-compare-field field-name="shipment.shipmentId" operator="equals" to-field-name="updateShipmentOutMap.shipmentId"/>
-        <if-compare-field field-name="shipment.statusId" operator="equals" to-field-name="updateShipmentInMap.statusId"/>
+        <not><if-empty field="shipment"/></not>
+        <if-compare-field field="shipment.shipmentId" to-field="updateShipmentOutMap.shipmentId" operator="equals"/>
+        <if-compare-field field="shipment.statusId" to-field="updateShipmentInMap.statusId" operator="equals"/>
         </assert>
         <check-errors/>
 

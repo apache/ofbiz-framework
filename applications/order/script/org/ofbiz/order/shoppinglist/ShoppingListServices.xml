@@ -24,8 +24,8 @@ under the License.
         <if>
             <condition>
                   <and>
-                    <not><if-empty field-name="partyId" map-name="parameters"/></not>
-                    <not><if-compare-field field-name="partyId" map-name="parameters" operator="equals" to-map-name="userLogin"/></not>
+                    <not><if-empty field="parameters.partyId"/></not>
+                    <not><if-compare-field to-field="userLogin." field="parameters.partyId" operator="equals"/></not>
                     <not><if-has-permission permission="PARTYMGR" action="_CREATE"/></not>
                 </and>
             </condition>
@@ -38,25 +38,25 @@ under the License.
         <make-value value-name="newEntity" entity-name="ShoppingList"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         
-        <if-empty field-name="newEntity.partyId">
+        <if-empty field="newEntity.partyId">
             <set from-field="userLogin.partyId" field="newEntity.partyId"/>
         </if-empty>
         
-        <if-empty field-name="newEntity.shoppingListTypeId">
+        <if-empty field="newEntity.shoppingListTypeId">
             <set value="SLT_WISH_LIST" field="newEntity.shoppingListTypeId"/>
         </if-empty>
                 
-        <if-empty field-name="listName" map-name="newEntity">
+        <if-empty field="newEntity.listName">
             <property-to-field field-name="newEntity.listName" 
                 resource="OrderUiLabels" property="OrderNewShoppingList" default="New Shopping List"/>
         </if-empty>
         
-        <if-empty field-name="isPublic" map-name="newEntity">
+        <if-empty field="newEntity.isPublic">
             <set value="N" field="newEntity.isPublic"/>
         </if-empty>
         
-        <if-empty field-name="isActive" map-name="newEntity">
-            <if-compare field-name="newEntity.shoppingListTypeId" operator="equals" value="SLT_AUTO_REODR">
+        <if-empty field="newEntity.isActive">
+            <if-compare field="newEntity.shoppingListTypeId" operator="equals" value="SLT_AUTO_REODR">
                 <set value="N" field="newEntity.isActive"/>
             <else>
                 <set value="Y" field="newEntity.isActive"/>
@@ -83,12 +83,12 @@ under the License.
         <if>
             <condition>
                 <and>
-                    <if-compare field-name="shoppingList.shoppingListTypeId" operator="equals" value="SLT_AUTO_REODR"/>
+                    <if-compare field="shoppingList.shoppingListTypeId" operator="equals" value="SLT_AUTO_REODR"/>
                     <or>
-                        <if-empty field-name="shoppingList.recurrenceInfoId"/>
-                        <if-empty field-name="shoppingList.paymentMethodId"/>
-                        <if-empty field-name="shoppingList.contactMechId"/>
-                        <if-empty field-name="shoppingList.shipmentMethodTypeId"/>
+                        <if-empty field="shoppingList.recurrenceInfoId"/>
+                        <if-empty field="shoppingList.paymentMethodId"/>
+                        <if-empty field="shoppingList.contactMechId"/>
+                        <if-empty field="shoppingList.shipmentMethodTypeId"/>
                     </or>
                 </and>
             </condition>
@@ -119,7 +119,7 @@ under the License.
 
         <entity-one entity-name="ShoppingList" value-name="shoppingList"/>
         <entity-one entity-name="Product" value-name="product"/>
-        <if-empty field-name="product">
+        <if-empty field="product">
             <add-error> <fail-property property="ProductErrorProductNotFound" resource="OrderUiLabels"/> </add-error>
             <check-errors/>
         </if-empty>
@@ -132,7 +132,7 @@ under the License.
         <field-to-result field-name="newEntity.shoppingListId" result-name="shoppingListId"/>
         <create-value value-name="newEntity"/>
 
-        <if-compare-field field-name="shoppingList.partyId" operator="not-equals" to-field-name="userLogin.partyId">
+        <if-compare-field field="shoppingList.partyId" to-field="userLogin.partyId" operator="not-equals">
             <now-timestamp-to-env env-name="shoppingList.lastAdminModified"/>
             <store-value value-name="shoppingList"/>
         </if-compare-field>
@@ -147,7 +147,7 @@ under the License.
         <entity-one entity-name="ShoppingList" value-name="shoppingList"/>
         <entity-one entity-name="ShoppingListItem" value-name="shoppingListItem"/>
 
-        <if-compare field-name="parameters.quantity" operator="equals" value="0" type="Double">
+        <if-compare field="parameters.quantity" operator="equals" value="0" type="Double">
           <!-- if we're setting quantity to 0.0 then remove the item -->
             <set-service-fields service-name="removeShoppingListItem" map-name="parameters" to-map-name="removeParams"/>
             <call-service service-name="removeShoppingListItem" in-map-name="removeParams"/>
@@ -158,7 +158,7 @@ under the License.
         </else>
         </if-compare>
 
-        <if-compare-field field-name="shoppingList.partyId" operator="not-equals" to-field-name="userLogin.partyId">
+        <if-compare-field field="shoppingList.partyId" to-field="userLogin.partyId" operator="not-equals">
             <now-timestamp-to-env env-name="shoppingList.lastAdminModified"/>
             <store-value value-name="shoppingList"/>
         </if-compare-field>
@@ -174,7 +174,7 @@ under the License.
         <entity-one entity-name="ShoppingListItem" value-name="shoppingListItem"/>
         <remove-value value-name="shoppingListItem"/>
 
-        <if-compare-field field-name="shoppingList.partyId" operator="not-equals" to-field-name="userLogin.partyId">
+        <if-compare-field field="shoppingList.partyId" to-field="userLogin.partyId" operator="not-equals">
             <now-timestamp-to-env env-name="shoppingList.lastAdminModified"/>
             <store-value value-name="shoppingList"/>
         </if-compare-field>
@@ -187,7 +187,7 @@ under the License.
         </entity-condition>
 
         <iterate list-name="shoppingListItemList" entry-name="shoppingListItem">
-            <if-compare-field field-name="parameters.productId" operator="equals" to-field-name="shoppingListItem.productId">
+            <if-compare-field field="parameters.productId" to-field="shoppingListItem.productId" operator="equals">
                 <field-to-result field-name="shoppingListItem.shoppingListItemSeqId" result-name="shoppingListItemSeqId" />
                 <return />
             </if-compare-field>
@@ -261,7 +261,7 @@ under the License.
         <if>
             <condition>
                 <and>
-                    <not><if-compare-field field-name="partyId" map-name="userLogin" operator="equals" to-map-name="shoppingList"/></not>
+                    <not><if-compare-field to-field="shoppingList." field="userLogin.partyId" operator="equals"/></not>
                     <not><if-has-permission permission="PARTYMGR" action="_${permissionAction}"/></not>
                 </and>
             </condition>
@@ -275,7 +275,7 @@ under the License.
         <if>
             <condition>
                 <and>
-                    <not><if-compare-field field-name="userLogin.partyId" operator="equals" to-field-name="shoppingList.partyId"/></not>
+                    <not><if-compare-field field="userLogin.partyId" to-field="shoppingList.partyId" operator="equals"/></not>
                     <not><if-has-permission permission="PARTYMGR" action="_${permissionAction}"/></not>
                 </and>
             </condition>
@@ -287,12 +287,12 @@ under the License.
     <simple-method method-name="addSuggestionsToShoppingList" short-description="Add suggestions to a shopping list">
         <!-- first check the ProductStore.enableAutoSuggestionList indicator -->
         <entity-one entity-name="OrderHeader" value-name="orderHeader"/>
-        <if-empty field-name="orderHeader.productStoreId"><return/></if-empty>
+        <if-empty field="orderHeader.productStoreId"><return/></if-empty>
         
         <entity-one entity-name="ProductStore" value-name="productStore" auto-field-map="false">
             <field-map field-name="productStoreId" env-name="orderHeader.productStoreId"/>
         </entity-one>
-        <if-compare field-name="productStore.enableAutoSuggestionList" operator="not-equals" value="Y"><return/></if-compare>
+        <if-compare field="productStore.enableAutoSuggestionList" operator="not-equals" value="Y"><return/></if-compare>
         
         <entity-condition entity-name="OrderRole" list-name="orderRoleList">
             <condition-list combine="and">
@@ -309,7 +309,7 @@ under the License.
             </condition-list>
         </entity-condition>
         <first-from-list list-name="shoppingListList" entry-name="shoppingList" />
-        <if-empty field-name="shoppingList">
+        <if-empty field="shoppingList">
             <set field="createShoppingListInMap.partyId" from-field="orderRole.partyId" />
             <set field="createShoppingListInMap.listName" value="Auto Suggestions" />
             <set field="createShoppingListInMap.shoppingListTypeId" value="SLT_WISH_LIST" />
@@ -326,7 +326,7 @@ under the License.
             <order-by field-name="orderItemSeqId" />
         </entity-condition>
         <iterate list-name="orderItemList" entry-name="orderItem">
-            <if-not-empty field-name="orderItem.productId">
+            <if-not-empty field="orderItem.productId">
                 <entity-condition entity-name="ProductAssoc" list-name="compProductAssocList" filter-by-date="true">
                     <condition-list combine="and">
                         <condition-expr field-name="productId" env-name="orderItem.productId" />
@@ -343,7 +343,7 @@ under the License.
                 <entity-one entity-name="Product" value-name="product" auto-field-map="false" >
                     <field-map field-name="productId" env-name="orderItem.productId" />
                 </entity-one>
-                <if-compare field-name="product.isVariant" operator="equals" value="Y">
+                <if-compare field="product.isVariant" operator="equals" value="Y">
                     <entity-condition entity-name="ProductAssoc" list-name="virtualProductAssocList" filter-by-date="true">
                         <condition-list combine="and">
                             <condition-expr field-name="productIdTo" env-name="orderItem.productId" />
@@ -351,7 +351,7 @@ under the License.
                         </condition-list>
                     </entity-condition>
                     <first-from-list list-name="virtualProductAssocList" entry-name="virtualProductAssoc" />
-                    <if-not-empty field-name="virtualProductAssoc">
+                    <if-not-empty field="virtualProductAssoc">
                         <entity-condition entity-name="ProductAssoc" list-name="compProductAssocList" filter-by-date="true">
                             <condition-list combine="and">
                                 <condition-expr field-name="productId" env-name="virtualProductAssoc.productId" />

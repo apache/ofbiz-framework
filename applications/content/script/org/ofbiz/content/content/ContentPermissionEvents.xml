@@ -23,7 +23,7 @@ under the License.
         <make-value entity-name="Content" value-name="currentContent"/>
         <set-pk-fields map-name="parameters" value-name="currentContent"/>
         <set-nonpk-fields map-name="parameters" value-name="currentContent"/>
-        <if-empty field-name="contentId" map-name="currentContent">
+        <if-empty field="currentContent.contentId">
             <make-next-seq-id seq-field-name="contentId" value-name="currentContent"/>
             <sequenced-id-to-env env-name="id" sequence-name="Content"/>
             <set field="currentContent.contentId" from-field="id"/>
@@ -45,16 +45,16 @@ under the License.
 
         <log level="always" message="permissionStatus:${permissionStatus}"/>
 
-        <if-compare field-name="permissionStatus" operator="not-equals" type="String" value="granted">
+        <if-compare field="permissionStatus" operator="not-equals" type="String" value="granted">
             <add-error>
                 <fail-message message="Permission not granted."/>
             </add-error>
         </if-compare>
         <check-errors/>
 
-        <if-compare field-name="permissionStatus" operator="equals" type="String" value="granted">
+        <if-compare field="permissionStatus" operator="equals" type="String" value="granted">
             <create-value value-name="currentContent"/>
-            <if-not-empty field-name="contentPurposeTypeId" map-name="parameters">
+            <if-not-empty field="parameters.contentPurposeTypeId">
                 <make-value entity-name="ContentPurpose" value-name="newContentPurpose"/>
                 <set field="newContentPurpose.contentPurposeTypeId" from-field="parameters.contentPurposeTypeId"/>
                 <set field="newContentPurpose.contentId" from-field="currentContent.contentId"/>

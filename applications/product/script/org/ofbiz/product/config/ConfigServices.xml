@@ -34,7 +34,7 @@ under the License.
 
         <now-timestamp-to-env env-name="nowTimestamp"/>
 
-        <if-empty field-name="fromDate" map-name="newEntity">
+        <if-empty field="newEntity.fromDate">
             <set field="newEntity.fromDate" from-field="nowTimestamp" />
         </if-empty>
         <field-to-result field-name="fromDate" map-name="newEntity"/>

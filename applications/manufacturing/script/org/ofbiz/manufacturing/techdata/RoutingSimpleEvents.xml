@@ -22,7 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="addRoutingTaskAssoc" 
             short-description="If copyTask field = Y create a copy of the routingTask,  in all the case add a RoutingTaskAssociation">
-        <if-compare field-name="parameters.copyTask" operator="equals" value="Y">
+        <if-compare field="parameters.copyTask" operator="equals" value="Y">
             <make-value value-name="lookupPKMap" entity-name="WorkEffort"/>
             <set field="lookupPKMap.workEffortId" from-field="parameters.workEffortIdTo"/>
             <find-by-primary-key entity-name="WorkEffort" map-name="lookupPKMap" value-name="lookedUpValue"/>
@@ -33,7 +33,7 @@ under the License.
                 <result-to-field result-name="workEffortId" map-name="parameters" field-name="workEffortIdTo"/>
             </call-service>
         </if-compare>
-        <if-empty field-name="fromDate" map-name="parameters">
+        <if-empty field="parameters.fromDate">
             <now-timestamp-to-env env-name="parameters.fromDate"/>
         </if-empty>    
         <call-map-processor xml-resource="org/ofbiz/manufacturing/techdata/RoutingMapProcs.xml"
@@ -43,7 +43,7 @@ under the License.
         <call-service service-name="checkRoutingTaskAssoc" in-map-name="context1">
             <result-to-field result-name="sequenceNumNotOk"  field-name="sequenceNumNotOk"/>
         </call-service>
-        <if-compare field-name="sequenceNumNotOk" operator="equals" value="Y">
+        <if-compare field="sequenceNumNotOk" operator="equals" value="Y">
             <add-error>
                 <fail-property resource="ManufacturingUiLabels" property="ManufacturingTwoRoutingTaskWithSameSeqId"/>
             </add-error>
@@ -64,7 +64,7 @@ under the License.
         <call-service service-name="checkRoutingTaskAssoc" in-map-name="context1">
             <result-to-field result-name="sequenceNumNotOk"  field-name="sequenceNumNotOk"/>
         </call-service>
-        <if-compare field-name="sequenceNumNotOk" operator="equals" value="Y">
+        <if-compare field="sequenceNumNotOk" operator="equals" value="Y">
             <add-error>
                 <fail-property resource="ManufacturingUiLabels" property="ManufacturingTwoRoutingTaskWithSameSeqId"/>
             </add-error>
