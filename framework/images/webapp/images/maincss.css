@@ -1331,7 +1331,6 @@ color: #CCCCCC;
 .screenlet-title-bar ul .collapsed,
 .screenlet-title-bar ul .collapsed:hover {
 background: url(/images/expand.gif) no-repeat center center;
-/*border-left: none; */
 min-height: 1em;
 min-width: 1em;
 }
@@ -1339,9 +1338,14 @@ min-width: 1em;
 .screenlet-title-bar ul .expanded,
 .screenlet-title-bar ul .expanded:hover {
 background: url(/images/collapse.gif) no-repeat center center;
-/*border-left: none; */
 min-height: 1em;
 min-width: 1em;
+}
+
+.screenlet-title-bar ul .collapsed a,
+.screenlet-title-bar ul .expanded a {
+/* IE fix */
+cursor: default;
 }
 
 .screenlet-title-bar ul .h1:hover,
