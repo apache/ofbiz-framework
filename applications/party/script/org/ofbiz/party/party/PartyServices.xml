@@ -303,7 +303,7 @@ under the License.
         <if-empty field="parameters.partyId">
             <if-not-empty field="parameters.userLogin">
                 <set from-field="userLogin.partyId" field="parameters.partyId"/>
-                <if-compare-field to-field="userLogin." field="parameters.partyId" operator="not-equals">
+                <if-compare-field to-field="userLogin.partyId" field="parameters.partyId" operator="not-equals">
                     <check-permission permission="PARTYMGR" action="_UPDATE">
                         <fail-property resource="PartyUiLabels" property="PartyPermissionErrorForThisParty"/>
                     </check-permission>
@@ -383,7 +383,7 @@ under the License.
         <if-empty field="parameters.partyId">
             <if-not-empty field="parameters.userLogin">
                 <set from-field="userLogin.partyId" field="parameters.partyId"/>
-                <if-compare-field to-field="userLogin." field="parameters.partyId" operator="not-equals">
+                <if-compare-field to-field="userLogin.partyId" field="parameters.partyId" operator="not-equals">
                     <check-permission permission="PARTYMGR" action="_UPDATE">
                         <fail-property resource="PartyUiLabels" property="PartyPermissionErrorForThisParty"/>
                     </check-permission>

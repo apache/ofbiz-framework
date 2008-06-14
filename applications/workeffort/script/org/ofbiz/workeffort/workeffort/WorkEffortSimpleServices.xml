@@ -345,7 +345,7 @@ under the License.
             </else> 
         </if-empty> 
         
-        <if-compare-field to-field="newWorkEffortContactMech." field="parameters.contactMechId" operator="not-equals">                
+        <if-compare-field to-field="newWorkEffortContactMech.contactMechId" field="parameters.contactMechId" operator="not-equals">                
             <set-nonpk-fields value-name="newWorkEffortContactMech" map-name="parameters" set-if-null="false"/>
             <create-value value-name="newWorkEffortContactMech"/>
             <remove-value value-name="workEffortContactMech"/>

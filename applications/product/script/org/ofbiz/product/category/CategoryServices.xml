@@ -90,7 +90,7 @@ under the License.
         <!-- if setting the primaryParentCategoryId, create a rollup entity too -->
         <!-- NOTE: this is commented out to disable because it is dangerous to add category rollups on a live site without being able to specify a fromDate
         <if-not-empty field="lookedUpValue.primaryParentCategoryId">
-            <if-compare-field to-field="saveIdMap." field="lookedUpValue.primaryParentCategoryId" operator="not-equals">
+            <if-compare-field to-field="saveIdMap.primaryParentCategoryId" field="lookedUpValue.primaryParentCategoryId" operator="not-equals">
                 <make-value entity-name="ProductCategoryRollup" value-name="newRollup"/>
                 <field-to-field field-name="productCategoryId" map-name="lookedUpValue" to-field-name="productCategoryId" to-map-name="newRollup"/>
                 <field-to-field field-name="primaryParentCategoryId" map-name="lookedUpValue" to-field-name="parentProductCategoryId" to-map-name="newRollup"/>
