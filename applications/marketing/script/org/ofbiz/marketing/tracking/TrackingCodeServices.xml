@@ -143,7 +143,7 @@ under the License.
     </simple-method>
         
     <simple-method method-name="createTrackingCodeOrderReturns" short-description="Create TrackingCodeOrderReturn for all the Return Items with Orders that have trackingCodeOrder entry">
-        <if-not-empty field-name="returnId" map-name="parameters">
+        <if-not-empty field="parameters.returnId">
             <set field="returnHeaderFindContext.returnId" from-field="parameters.returnId" />
             <find-by-primary-key entity-name="ReturnHeader" value-name="returnHeader" map-name="returnHeaderFindContext"/>
             <get-related list-name="returnItems" relation-name="ReturnItem" value-name="returnHeader"/>
@@ -157,7 +157,7 @@ under the License.
                 <find-by-and entity-name="TrackingCodeOrder" list-name="trackingCodeOrders" map-name="trackingCodeOrderFindContext"/>
                 <set field="trackingCodeOrder" from-field="trackingCodeOrders[0]"/>
                 <log level="info" message="Create  Tracking Code Order Return  For ${trackingCodeOrder}"/>
-                <if-not-empty field-name="trackingCodeOrder">
+                <if-not-empty field="trackingCodeOrder">
                     <set-service-fields to-map-name="trackingCodeOrderReturnContext" service-name="createTrackingCodeOrderReturn" map-name="trackingCodeOrder"/>
                     <set field="trackingCodeOrderReturnContext.returnId" from-field="parameters.returnId"/>
                     <set field="trackingCodeOrderReturnContext.orderId" from-field="trackingCodeOrder.orderId"/>

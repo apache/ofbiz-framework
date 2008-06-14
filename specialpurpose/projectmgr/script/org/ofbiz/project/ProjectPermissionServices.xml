@@ -28,19 +28,19 @@
         <set field="mainAction" from-field="parameters.mainAction"/>
         
         <!-- find object -->
-        <if-compare field-name="parameters.resourceDescription" value="Timesheet" operator="contains">
+        <if-compare field="parameters.resourceDescription" value="Timesheet" operator="contains">
             <set field="sec_object" value="TIMESHEET"/>
             <else>
-                <if-compare field-name="parameters.resourceDescription" value="TimeEntry" operator="contains">
+                <if-compare field="parameters.resourceDescription" value="TimeEntry" operator="contains">
                     <set field="sec_object" value="TIMEENTRY"/>
                     <else>
-                        <if-compare field-name="parameters.resourceDescription" value="Task" operator="contains">
+                        <if-compare field="parameters.resourceDescription" value="Task" operator="contains">
                             <set field="sec_object" value="TASK"/><!-- task before project because of name 'getProjectTask' -->
                             <else>
-                                <if-compare field-name="parameters.resourceDescription" value="Phase" operator="contains">
+                                <if-compare field="parameters.resourceDescription" value="Phase" operator="contains">
                                     <set field="sec_object" value="PHASE"/>
                                     <else>
-                                        <if-compare field-name="parameters.resourceDescription" value="Project" operator="contains">
+                                        <if-compare field="parameters.resourceDescription" value="Project" operator="contains">
                                             <set field="sec_object" value="PROJECT"/>
                                         </if-compare>
                                     </else>
@@ -53,7 +53,7 @@
         </if-compare>      
         
         <!-- PROJECT -->
-        <if-compare field-name="sec_object" value="PROJECT" operator="equals">
+        <if-compare field="sec_object" value="PROJECT" operator="equals">
             <!--log level="info" message="======ProjectMGR Security=====  action: ${parameters.mainAction} object: ${sec_object} Id: ${parameters.projectId} resourceDescription: ${parameters.resourceDescription}"/-->
             <set field="projectId" from-field="parameters.projectId"/>
             <set field="partyId" from-field="parameters.userLogin.partyId"/>
@@ -63,8 +63,8 @@
                     <or>
                         <and>
                             <!-- view a project with a null id is a null operation, so ok... -->
-                            <if-empty field-name="parameters.projectIdId"/>
-                            <if-compare field-name="parameters.mainAction" value="VIEW" operator="equals"/>
+                            <if-empty field="parameters.projectIdId"/>
+                            <if-compare field="parameters.mainAction" value="VIEW" operator="equals"/>
                         </and>
                         <and>
                             <if-has-permission permission="PROJECTMGR_ADMIN"/>
@@ -72,17 +72,17 @@
                         </and>
                         <and>
                             <if-has-permission permission="PROJECTMGR_ROLE_ADMIN"/>
-                            <if-compare field-name="isMember" value="true" operator="equals"/>
+                            <if-compare field="isMember" value="true" operator="equals"/>
                         </and>
                         <and>
                             <if-has-permission permission="PROJECTMGR_VIEW"/>
                             <not><if-has-permission permission="PROJECTMGR_ROLE_VIEW"/></not>
-                            <if-compare field-name="parameters.mainAction" value="VIEW" operator="equals"/>
+                            <if-compare field="parameters.mainAction" value="VIEW" operator="equals"/>
                         </and>
                         <and>
                             <if-has-permission permission="PROJECTMGR_ROLE_VIEW"/>
-                            <if-compare field-name="isMember" value="true" operator="equals"/>
-                            <if-compare field-name="parameters.mainAction" value="VIEW" operator="equals"/>
+                            <if-compare field="isMember" value="true" operator="equals"/>
+                            <if-compare field="parameters.mainAction" value="VIEW" operator="equals"/>
                         </and>
                     </or>
                 </condition>
@@ -100,7 +100,7 @@
         </if-compare>        
         
         <!-- PHASE -->
-        <if-compare field-name="sec_object" value="PHASE" operator="equals">
+        <if-compare field="sec_object" value="PHASE" operator="equals">
             <!--log level="info" message="======ProjectMGR Security=====  action: ${parameters.mainAction} object: ${sec_object} Id: ${parameters.projectId} resourceDescription: ${parameters.resourceDescription}"/-->
             <set field="projectId" from-field="parameters.projectId"/>
             <set field="partyId" from-field="parameters.userLogin.partyId"/>
@@ -114,17 +114,17 @@
                         </and>
                         <and>
                             <if-has-permission permission="PROJECTMGR_ROLE_ADMIN"/>
-                            <if-compare field-name="isMember" value="true" operator="equals"/>
+                            <if-compare field="isMember" value="true" operator="equals"/>
                         </and>
                         <and>
                             <if-has-permission permission="PROJECTMGR_VIEW"/>
                             <not><if-has-permission permission="PROJECTMGR_ROLE_VIEW"/></not>
-                            <if-compare field-name="parameters.mainAction" value="VIEW" operator="equals"/>
+                            <if-compare field="parameters.mainAction" value="VIEW" operator="equals"/>
                         </and>
                         <and>
                             <if-has-permission permission="PROJECTMGR_ROLE_VIEW"/>
-                            <if-compare field-name="isMember" value="true" operator="equals"/>
-                            <if-compare field-name="parameters.mainAction" value="VIEW" operator="equals"/>
+                            <if-compare field="isMember" value="true" operator="equals"/>
+                            <if-compare field="parameters.mainAction" value="VIEW" operator="equals"/>
                         </and>
                     </or>
                 </condition>
@@ -142,9 +142,9 @@
         </if-compare>        
 
         <!-- TASK -->
-        <if-compare field-name="sec_object" value="TASK" operator="equals">
+        <if-compare field="sec_object" value="TASK" operator="equals">
             <set field="taskId" from-field="parameters.taskId" default-value="${parameters.workEffortId}"/>
-            <if-empty field-name="taskId">
+            <if-empty field="taskId">
                 <set field="phaseId" from-field="parameters.workEffortParentId"/>
             </if-empty>
             <set field="partyId" from-field="parameters.userLogin.partyId"/>
@@ -155,9 +155,9 @@
                     <or>
                         <and>
                             <!-- view a task with a null id is a null operation, so ok... -->
-                            <if-empty field-name="parameters.taskId"/>
-                            <if-empty field-name="parameters.workEffortId"/>
-                            <if-compare field-name="parameters.mainAction" value="VIEW" operator="equals"/>
+                            <if-empty field="parameters.taskId"/>
+                            <if-empty field="parameters.workEffortId"/>
+                            <if-compare field="parameters.mainAction" value="VIEW" operator="equals"/>
                         </and>
                         <and>
                             <if-has-permission permission="PROJECTMGR_ADMIN"/>
@@ -165,24 +165,24 @@
                         </and>
                         <and>
                             <if-has-permission permission="PROJECTMGR_ROLE_ADMIN"/>
-                            <if-compare field-name="isMember" value="true" operator="equals"/>
+                            <if-compare field="isMember" value="true" operator="equals"/>
                         </and>
                         <and>
                             <if-has-permission permission="PROJECTMGR_VIEW"/>
                             <not><if-has-permission permission="PROJECTMGR_ROLE_VIEW"/></not>
-                            <if-compare field-name="parameters.mainAction" value="VIEW" operator="equals"/>
+                            <if-compare field="parameters.mainAction" value="VIEW" operator="equals"/>
                         </and>
                         <and>
                             <if-has-permission permission="PROJECTMGR_ROLE_VIEW"/>
-                            <if-compare field-name="isMember" value="true" operator="equals"/>
-                            <if-compare field-name="parameters.mainAction" value="VIEW" operator="equals"/>
+                            <if-compare field="isMember" value="true" operator="equals"/>
+                            <if-compare field="parameters.mainAction" value="VIEW" operator="equals"/>
                         </and>
                         <and>
                             <if-has-permission permission="PROJECTMGR_ROLE_TASK_CREATE"/>
-                            <if-compare field-name="isMember" value="true" operator="equals"/>
+                            <if-compare field="isMember" value="true" operator="equals"/>
                             <or>
-                                <if-compare field-name="parameters.mainAction" value="CREATE" operator="equals"/>
-                                <if-compare field-name="parameters.mainAction" value="UPDATE" operator="equals"/>
+                                <if-compare field="parameters.mainAction" value="CREATE" operator="equals"/>
+                                <if-compare field="parameters.mainAction" value="UPDATE" operator="equals"/>
                             </or>
                         </and>
                     </or>
@@ -203,7 +203,7 @@
         
         
         <!-- TIMESHEET -->
-        <if-compare field-name="sec_object" value="TIMESHEET" operator="equals">
+        <if-compare field="sec_object" value="TIMESHEET" operator="equals">
             <!--log level="info" message="======ProjectMGR Security=====  action: ${mainAction} object: ${sec_object} Id: ${parameters.timesheetId} partyId: ${parameters.partyId} resourceDescription: ${parameters.resourceDescription}"/-->
             <if>
                 <condition>
@@ -211,27 +211,27 @@
                         <if-has-permission permission="PROJECTMGR_ADMIN"/>
                         <and>
                             <if-has-permission permission="PROJECTMGR_VIEW"/>
-                            <if-compare field-name="mainAction" value="VIEW" operator="equals"/>
+                            <if-compare field="mainAction" value="VIEW" operator="equals"/>
                         </and>
                         <and>
                             <if-has-permission permission="PROJECTMGR_TIMESHEET_CREATE"/>
                             <not><if-has-permission permission="PROJECTMGR_ROLE_TIMESHEET_CREATE"/></not>
-                            <if-compare field-name="mainAction" value="CREATE" operator="equals"/>
+                            <if-compare field="mainAction" value="CREATE" operator="equals"/>
                         </and>
                         <and>
                             <if-has-permission permission="PROJECTMGR_TIMESHEET_UPDATE"/>
                             <not><if-has-permission permission="PROJECTMGR_ROLE_TIMESHEET_UPDATE"/></not>
-                            <if-compare field-name="mainAction" value="UPDATE" operator="equals"/>
+                            <if-compare field="mainAction" value="UPDATE" operator="equals"/>
                         </and>
                         <and>
                             <if-has-permission permission="PROJECTMGR_ROLE_TIMESHEET_CREATE"/>
-                            <if-compare field-name="mainAction" value="CREATE" operator="equals"/>
-                            <if-compare-field field-name="parameters.partyId" to-field-name="parameters.userLogin.partyId" operator="equals"/>
+                            <if-compare field="mainAction" value="CREATE" operator="equals"/>
+                            <if-compare-field field="parameters.partyId" to-field="parameters.userLogin.partyId" operator="equals"/>
                         </and>
                         <and>
                             <if-has-permission permission="PROJECTMGR_ROLE_TIMESHEET_UPDATE"/>
-                            <if-compare field-name="mainAction" value="UPDATE" operator="equals"/>
-                            <if-compare-field field-name="parameters.partyId" to-field-name="parameters.userLogin.userLoginId" operator="equals"/>
+                            <if-compare field="mainAction" value="UPDATE" operator="equals"/>
+                            <if-compare-field field="parameters.partyId" to-field="parameters.userLogin.userLoginId" operator="equals"/>
                         </and>
                     </or>
                 </condition>
@@ -249,7 +249,7 @@
         </if-compare>
         
         <!-- TIMEENTRY -->
-        <if-compare field-name="sec_object" value="TIMEENTRY" operator="equals">
+        <if-compare field="sec_object" value="TIMEENTRY" operator="equals">
             <!--log level="info" message="======ProjectMGR Security=====  action: ${parameters.mainAction} object: ${sec_object} value: ${parameters.timeEntryId} workEffortId: ${parameters.workEffortId} timesheetId: ${parameters.timesheetId} resourceDescription: ${parameters.resourceDescription}"/-->
             <entity-one entity-name="Timesheet" value-name="timesheet"/>
             <set field="timesheetId" from-field="timesheet.timesheetId"/>
@@ -259,35 +259,35 @@
             <if>
                 <condition>
                     <or>
-                        <if-empty field-name="parameters.workEffortId"/><!-- no use without a workeffortId -->
-                        <if-compare field-name="parameters.workEfortId" value="Totals" operator="equals"/>
-                        <if-empty field-name="parameters.timesheetId"/>
+                        <if-empty field="parameters.workEffortId"/><!-- no use without a workeffortId -->
+                        <if-compare field="parameters.workEfortId" value="Totals" operator="equals"/>
+                        <if-empty field="parameters.timesheetId"/>
                         <if-has-permission permission="PROJECTMGR_ADMIN"/>
                         <and>
                             <if-has-permission permission="PROJECTMGR_VIEW"/>
-                            <if-compare field-name="mainAction" value="VIEW" operator="equals"/>
+                            <if-compare field="mainAction" value="VIEW" operator="equals"/>
                         </and>
                         <and>
                             <if-has-permission permission="PROJECTMGR_TIMESHEET_CREATE"/>
                             <not><if-has-permission permission="PROJECTMGR_ROLE_TIMESHEET_CREATE"/></not>
-                            <if-compare field-name="mainAction" value="CREATE" operator="equals"/>
+                            <if-compare field="mainAction" value="CREATE" operator="equals"/>
                         </and>
                         <and>
                             <if-has-permission permission="PROJECTMGR_TIMESHEET_UPDATE"/>
                             <not><if-has-permission permission="PROJECTMGR_ROLE_TIMESHEET_UPDATE"/></not>
-                            <if-compare field-name="mainAction" value="UPDATE" operator="equals"/>
+                            <if-compare field="mainAction" value="UPDATE" operator="equals"/>
                         </and>
                         <and>
                             <if-has-permission permission="PROJECTMGR_ROLE_TIMESHEET_CREATE"/>
-                            <if-compare field-name="mainAction" value="CREATE" operator="equals"/>
-                            <if-compare-field field-name="timesheet.partyId" to-field-name="parameters.userLogin.userLoginId" operator="equals"/>
-                            <if-compare field-name="isMember" value="true" operator="equals"/>
+                            <if-compare field="mainAction" value="CREATE" operator="equals"/>
+                            <if-compare-field field="timesheet.partyId" to-field="parameters.userLogin.userLoginId" operator="equals"/>
+                            <if-compare field="isMember" value="true" operator="equals"/>
                         </and>
                         <and>
                             <if-has-permission permission="PROJECTMGR_ROLE_TIMESHEET_UPDATE"/>
-                            <if-compare field-name="mainAction" value="UPDATE" operator="equals"/>
-                            <if-compare-field field-name="timesheet.partyId" to-field-name="parameters.userLogin.userLoginId" operator="equals"/>
-                            <if-compare field-name="isMember" value="true" operator="equals"/>
+                            <if-compare field="mainAction" value="UPDATE" operator="equals"/>
+                            <if-compare-field field="timesheet.partyId" to-field="parameters.userLogin.userLoginId" operator="equals"/>
+                            <if-compare field="isMember" value="true" operator="equals"/>
                         </and>
                     </or>
                 </condition>
@@ -312,25 +312,25 @@
     </simple-method>
     
     <simple-method method-name="checkProjectMembership" short-description="check if a party is member of a project, input either 'taskId', 'phaseId' or 'projectId', returns 'isMember' ">
-        <if-not-empty field-name="taskId">
+        <if-not-empty field="taskId">
             <entity-one entity-name="WorkEffort" value-name="task">
                 <field-map field-name="workEffortId" env-name="taskId"/>
             </entity-one>
             <set field="phaseId" from-field="task.workEffortParentId"/>
         </if-not-empty>
-        <if-not-empty field-name="phaseId">
+        <if-not-empty field="phaseId">
             <entity-one entity-name="WorkEffort" value-name="phase">
                 <field-map field-name="workEffortId" env-name="phaseId"/>
             </entity-one>
             <set field="projectId" from-field="phase.workEffortParentId"/>
         </if-not-empty>
-        <if-not-empty field-name="projectId">
+        <if-not-empty field="projectId">
             <entity-and entity-name="WorkEffortPartyAssignment" list-name="projectAssigns" filter-by-date="true">
                 <field-map field-name="workEffortId" env-name="projectId"/>
                 <field-map field-name="partyId" env-name="partyId"/>
             </entity-and>
             <filter-list-by-date list-name="projectAssigns" to-list-name="projectAssignsDated"/>
-            <if-empty field-name="projectAssignsDated">
+            <if-empty field="projectAssignsDated">
                 <set field="isMember" value="false" type="Boolean"/>
                 <else>
                     <set field="isMember" value="true" type="Boolean"/>

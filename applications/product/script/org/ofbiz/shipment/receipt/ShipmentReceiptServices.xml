@@ -32,7 +32,7 @@ under the License.
         <set field="newEntity.receiptId" from-field="receiptId"/>       
         <field-to-result field-name="receiptId" result-name="receiptId"/>
         
-        <if-empty field-name="datetimeReceived" map-name="newEntity">
+        <if-empty field="newEntity.datetimeReceived">
             <now-timestamp-to-env env-name="nowTimestamp"/>
             <set field="newEntity.datetimeReceived" from-field="nowTimestamp"/>
         </if-empty>
@@ -40,7 +40,7 @@ under the License.
         <set field="newEntity.receivedByUserLoginId" from-field="userLogin.userLoginId"/>
         <create-value value-name="newEntity"/>
 
-        <if-not-empty field-name="inventoryItemDetailSeqId" map-name="parameters">
+        <if-not-empty field="parameters.inventoryItemDetailSeqId">
             <entity-one entity-name="InventoryItemDetail" value-name="invDet">
                 <field-map field-name="inventoryItemDetailSeqId" env-name="parameters.inventoryItemDetailSeqId"/>
                 <field-map field-name="inventoryItemId" env-name="parameters.inventoryItemId"/>
@@ -81,16 +81,16 @@ under the License.
             - DEJ20070822: something to consider for the future: maybe instead of this funny looping maybe for serialized items we should only allow a quantity of 1, ie return an error if it is not 1
         -->
         <set field="loops" value="1" type="Double"/>
-        <if-compare value="SERIALIZED_INV_ITEM" operator="equals" field-name="parameters.inventoryItemTypeId">
+        <if-compare value="SERIALIZED_INV_ITEM" operator="equals" field="parameters.inventoryItemTypeId">
             <!-- if we are serialized and either a serialNumber or inventoyItemId is passed in and the quantityAccepted is greater than 1 then complain -->
             <if>
                 <condition>
                     <and>
                         <or>
-                            <not><if-empty field-name="parameters.serialNumber"/></not>
-                            <not><if-empty field-name="parameters.currentInventoryItemId"/></not>
+                            <not><if-empty field="parameters.serialNumber"/></not>
+                            <not><if-empty field="parameters.currentInventoryItemId"/></not>
                         </or>
-                        <if-compare field-name="parameters.quantityAccepted" operator="greater" value="1" type="Double"/>         
+                        <if-compare field="parameters.quantityAccepted" operator="greater" value="1" type="Double"/>         
                     </and>
                 </condition>
                 <then>
@@ -115,14 +115,14 @@ under the License.
             <clear-field field-name="serviceInMap"/>
             <clear-field field-name="currentInventoryItemId"/>
             
-            <if-empty field-name="parameters.currentInventoryItemId">
+            <if-empty field="parameters.currentInventoryItemId">
                 <set-service-fields service-name="createInventoryItem" map-name="parameters" to-map-name="serviceInMap"/>
                 <call-service service-name="createInventoryItem" in-map-name="serviceInMap">
                     <result-to-field result-name="inventoryItemId" field-name="currentInventoryItemId"/>
                 </call-service>
                 
                 <else>
-                    <if-not-empty field-name="parameters.currentInventoryItemId">
+                    <if-not-empty field="parameters.currentInventoryItemId">
                         <set field="parameters.inventoryItemId" from-field="parameters.currentInventoryItemId"/>
                     </if-not-empty> 
                     <set-service-fields service-name="updateInventoryItem" map-name="parameters" to-map-name="serviceInMap"/>
@@ -132,7 +132,7 @@ under the License.
             </if-empty>
 
             <!-- do this only for non-serialized inventory -->
-            <if-compare value="SERIALIZED_INV_ITEM" operator="not-equals" field-name="parameters.inventoryItemTypeId">
+            <if-compare value="SERIALIZED_INV_ITEM" operator="not-equals" field="parameters.inventoryItemTypeId">
                 <clear-field field-name="serviceInMap"/>
                 <set-service-fields service-name="createInventoryItemDetail" map-name="parameters" to-map-name="serviceInMap"/>
                 <set field="serviceInMap.inventoryItemId" from-field="currentInventoryItemId"/>
@@ -150,8 +150,8 @@ under the License.
             <if>
                 <condition>
                     <and>
-                        <if-compare value="SERIALIZED_INV_ITEM" operator="equals" field-name="parameters.inventoryItemTypeId"/>
-                        <if-empty field-name="parameters.returnId"/>
+                        <if-compare value="SERIALIZED_INV_ITEM" operator="equals" field="parameters.inventoryItemTypeId"/>
+                        <if-empty field="parameters.returnId"/>
                     </and>
                 </condition>
                 <then>
@@ -162,8 +162,8 @@ under the License.
                     <if>
                         <condition>
                             <and>
-                                <if-compare value="INV_PROMISED" operator="not-equals" field-name="inventoryItem.statusId"/>
-                                <if-compare value="INV_ON_HOLD" operator="not-equals" field-name="inventoryItem.statusId"/>
+                                <if-compare value="INV_PROMISED" operator="not-equals" field="inventoryItem.statusId"/>
+                                <if-compare value="INV_ON_HOLD" operator="not-equals" field="inventoryItem.statusId"/>
                             </and>
                         </condition>
                         <then>
@@ -195,13 +195,13 @@ under the License.
             <field-map field-name="returnId" env-name="parameters.returnId"/>
         </entity-one>
 
-        <if-compare field-name="needsInventoryReceive" map-name="returnHeader" operator="equals" value="Y">
+        <if-compare field="returnHeader.needsInventoryReceive" operator="equals" value="Y">
             <!-- before receiving inventory, check to see if there is inventory information in this database -->
             <entity-count entity-name="InventoryItem" count-name="iiCount">
                 <condition-expr field-name="facilityId" operator="equals" env-name="returnHeader.destinationFacilityId"/>
             </entity-count>
 
-            <if-compare field-name="iiCount" operator="greater" value="0" type="Double">
+            <if-compare field="iiCount" operator="greater" value="0" type="Double">
                 <!-- create a return shipment for this return -->
                 <set field="shipmentCtx.returnId" from-field="parameters.returnId"/>
                 <call-service service-name="createShipmentForReturn" in-map-name="shipmentCtx">
@@ -214,7 +214,7 @@ under the License.
                 </entity-condition>
 
                 <!-- if no inventory item type specified, get default from facility -->
-                <if-empty field-name="inventoryItemTypeId" map-name="parameters">
+                <if-empty field="parameters.inventoryItemTypeId">
                     <get-related-one value-name="returnHeader" relation-name="Facility" to-value-name="facility"/>
                     <set from-field="facility.defaultInventoryItemTypeId" field="parameters.inventoryItemTypeId"/>
                 </if-empty>
@@ -240,11 +240,11 @@ under the License.
                 <iterate entry-name="returnItem" list-name="returnItems">
                     <clear-field field-name="receiveCtx"/>
                                         
-                    <if-empty field-name="expectedItemStatus" map-name="returnItem">
+                    <if-empty field="returnItem.expectedItemStatus">
                         <set value="INV_RETURNED" field="returnItem.expectedItemStatus" type="String"/>
                     </if-empty>
                     <get-related-one value-name="returnItem" relation-name="OrderItem" to-value-name="orderItem"/>
-                    <if-not-empty field-name="productId" map-name="orderItem">
+                    <if-not-empty field="orderItem.productId">
                         <set field="costCtx.returnItemSeqId" from-field="returnItem.returnItemSeqId"/>
                         <set field="costCtx.returnId" from-field="returnItem.returnId"/>
                         <call-service service-name="getReturnItemInitialCost" in-map-name="costCtx">
@@ -260,13 +260,13 @@ under the License.
                         </entity-count>
                         <get-related-one value-name="returnHeader" relation-name="Facility" to-value-name="destinationFacility"/>
                         <set field="setNonSerial" value="false"/>
-                        <if-compare field-name="destinationFacility.defaultInventoryItemTypeId" value="NON_SERIAL_INV_ITEM" operator="equals">
-                            <if-compare field-name="serializedItemCount" value="0" operator="equals">                                
+                        <if-compare field="destinationFacility.defaultInventoryItemTypeId" value="NON_SERIAL_INV_ITEM" operator="equals">
+                            <if-compare field="serializedItemCount" value="0" operator="equals">                                
                                 <set field="parameters.inventoryItemTypeId" value="NON_SERIAL_INV_ITEM"/>
                                 <set field="setNonSerial" value="true"/>
                             </if-compare>
                         </if-compare>                                               
-                        <if-compare field-name="setNonSerial" value="false" operator="equals">
+                        <if-compare field="setNonSerial" value="false" operator="equals">
                             <set field="parameters.inventoryItemTypeId" value="SERIALIZED_INV_ITEM"/>
                             <set field="returnItem.returnQuantity" value="1" type="Double"/>
                         </if-compare>
@@ -302,7 +302,7 @@ under the License.
                 <store-value value-name="returnHeader"/>
                 
                 <!-- check if we need to manually update the status -->
-                <if-compare-field field-name="nonProductItems" operator="equals" to-field-name="returnItemCount" type="Long">                
+                <if-compare-field field="nonProductItems" to-field="returnItemCount" operator="equals" type="Long">                
                     <set field="retStCtx.returnId" from-field="returnHeader.returnId"/>
                     <set field="retStCtx.statusId" value="RETURN_RECEIVED"/>
                     <call-service service-name="updateReturnHeader" in-map-name="retStCtx"/>

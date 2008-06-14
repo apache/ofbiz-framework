@@ -26,7 +26,7 @@ under the License.
         <make-value entity-name="FacilityContactMech" value-name="newValue"/>
         <make-value entity-name="FacilityContactMech" value-name="newFacilityContactMech"/>
         <log level="info" message="contactMechId is ${parameters.contactMechId}"/>
-        <if-empty map-name="parameters" field-name="contactMechId">
+        <if-empty field="parameters.contactMechId">
 
             <set-service-fields service-name="createContactMech" map-name="parameters" to-map-name="createContactMechMap"/>
             <set field="createContactMechMap.contactMechTypeId" from-field="parameters.contactMechTypeId" />
@@ -62,7 +62,7 @@ under the License.
         <find-by-and entity-name="FacilityContactMech" list-name="facilityContactMechs" map-name="facilityContactMechMap"/>
         <filter-list-by-date list-name="facilityContactMechs" to-list-name="validFacilityContactMechs"/>
         <first-from-list entry-name="facilityContactMech" list-name="validFacilityContactMechs"/>
-        <if-empty field-name="facilityContactMech">
+        <if-empty field="facilityContactMech">
             <add-error><fail-message message="ERROR: Cannot update specified contact info because it does not correspond to the specified facility"/></add-error>
         </if-empty>
         <check-errors/>
@@ -71,7 +71,7 @@ under the License.
         <clone-value value-name="facilityContactMech" new-value-name="newFacilityContactMech"/>
         <log message="parameters: ${parameters}" level="info"/>
         <!-- If we already have a new contactMechId don't update ContactMech -->
-        <if-empty map-name="parameters" field-name="newContactMechId">
+        <if-empty field="parameters.newContactMechId">
             <set-service-fields service-name="updateContactMech" map-name="parameters" to-map-name="updateContactMechMap"/>
             <set field="updateContactMechMap.contactMechTypeId" from-field="parameters.contactMechTypeId" />
             <call-service service-name="updateContactMech" in-map-name="updateContactMechMap">
@@ -93,7 +93,7 @@ under the License.
         <store-value value-name="facilityContactMech"/>
         <create-value value-name="newFacilityContactMech"/>
 
-        <if-compare-field field-name="contactMechId" map-name="parameters" to-map-name="newFacilityContactMech" operator="not-equals">
+        <if-compare-field to-field="newFacilityContactMech." field="parameters.contactMechId" operator="not-equals">
             <get-related value-name="facilityContactMech" relation-name="FacilityContactMechPurpose" list-name="facilityContactMechPurposes"/>
             <iterate entry-name="facilityContactMechPurposeOld" list-name="facilityContactMechPurposes">
                 <clone-value value-name="facilityContactMechPurposeOld" new-value-name="facilityContactMechPurpose"/>
@@ -107,7 +107,7 @@ under the License.
                 <set field="purposeMap.contactMechId" from-field="facilityContactMechPurpose.contactMechId"/>
                 <find-by-and entity-name="FacilityContactMechPurpose" list-name="purposeResult" map-name="purposeMap"/>
 
-                <if-empty field-name="purposeResult">
+                <if-empty field="purposeResult">
 
                     <create-value value-name="facilityContactMechPurpose"/>
                 </if-empty>
@@ -130,7 +130,7 @@ under the License.
         <filter-list-by-date list-name="facilityContactMechs" to-list-name="validFacilityContactMechs"/>
 
         <first-from-list entry-name="facilityContactMech" list-name="validFacilityContactMechs"/>
-        <if-empty field-name="facilityContactMech">
+        <if-empty field="facilityContactMech">
             <add-error>
                 <fail-property resource="PartyUiLabels" property="PartyContactMechNotFoundCannotDelete"/>
             </add-error>
@@ -289,7 +289,7 @@ under the License.
         <find-by-and entity-name="FacilityContactMechPurpose" map-name="lookUpMap" list-name="purposeList"/>
         <filter-list-by-date list-name="purposeList"/>
 
-        <if-not-empty field-name="purposeList">
+        <if-not-empty field="purposeList">
             <add-error><fail-message message="Could not create new purpose, a purpose with that type already exists"/></add-error>
 
             <check-errors/>
@@ -316,7 +316,7 @@ under the License.
         <set-pk-fields map-name="parameters" value-name="lookUpMap"/>
         <find-by-primary-key value-name="purposeEntity" entity-name="FacilityContactMechPurpose" map-name="lookUpMap"/>
 
-        <if-empty field-name="purposeEntity">
+        <if-empty field="purposeEntity">
             <add-error><fail-message message="Unable to locate purpose; cannot delete"/></add-error>
             <check-errors/>
         </if-empty>

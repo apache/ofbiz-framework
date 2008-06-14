@@ -25,8 +25,8 @@ under the License.
             <condition>
                 <and>
                     <not><if-has-permission permission="PAY_INFO" action="_CREATE"/></not>
-                    <not><if-compare-field field-name="partyId" map-name="userLogin" operator="equals" to-field-name="partyIdFrom" to-map-name="parameters"/></not>
-                    <not><if-compare-field field-name="partyId" map-name="userLogin" operator="equals" to-field-name="partyIdTo" to-map-name="parameters"/></not>
+                    <not><if-compare-field field="userLogin.partyId" to-field="parameters.partyIdFrom" operator="equals"/></not>
+                    <not><if-compare-field field="userLogin.partyId" to-field="parameters.partyIdTo" operator="equals"/></not>
                 </and>                
             </condition>
             <then>
@@ -36,7 +36,7 @@ under the License.
         <check-errors/>
         
         <make-value entity-name="Payment" value-name="payment"/>
-        <if-empty field-name="parameters.paymentId">
+        <if-empty field="parameters.paymentId">
             <sequenced-id-to-env sequence-name="Payment" env-name="payment.paymentId"/>
             <else>
                 <set field="payment.paymentId" from-field="parameters.paymentId"/>
@@ -44,21 +44,21 @@ under the License.
         </if-empty>
         <field-to-result field-name="payment.paymentId" result-name="paymentId"/>
         
-        <if-not-empty field-name="parameters.paymentMethodId">
+        <if-not-empty field="parameters.paymentMethodId">
             <entity-one entity-name="PaymentMethod" value-name="paymentMethod">
                 <field-map field-name="paymentMethodId" env-name="parameters.paymentMethodId"/>
             </entity-one>
             <log level="info" message="Replacing passed payment method type [${parameters.paymentMethodTypeId}] with payment method type [${paymentMethod.paymentMethodTypeId}] for payment method [${parameters.paymentMethodId}]"/>
             <set field="parameters.paymentMethodTypeId" from-field="paymentMethod.paymentMethodTypeId"/>
         </if-not-empty>
-        <if-empty field-name="parameters.paymentMethodTypeId">
+        <if-empty field="parameters.paymentMethodTypeId">
             <add-error>
                 <fail-property resource="AccountingUiLabels" property="AccountingPaymentMethodIdPaymentMethodTypeIdNullError"/>
             </add-error>
         </if-empty>
         
         <set-nonpk-fields map-name="parameters" value-name="payment"/>
-        <if-empty field-name="payment.effectiveDate">
+        <if-empty field="payment.effectiveDate">
             <now-timestamp-to-env env-name="payment.effectiveDate"/>
         </if-empty>
         <create-value value-name="payment"/>
@@ -72,8 +72,8 @@ under the License.
             <condition>
                 <and>
                     <not><if-has-permission permission="PAY_INFO" action="_UPDATE"/></not>
-                    <not><if-compare-field field-name="partyId" map-name="userLogin" operator="equals" to-field-name="partyIdFrom" to-map-name="payment"/></not>
-                    <not><if-compare-field field-name="partyId" map-name="userLogin" operator="equals" to-field-name="partyIdTo" to-map-name="payment"/></not>
+                    <not><if-compare-field field="userLogin.partyId" to-field="payment.partyIdFrom" operator="equals"/></not>
+                    <not><if-compare-field field="userLogin.partyId" to-field="payment.partyIdTo" operator="equals"/></not>
                 </and>                
             </condition>
             <then>
@@ -82,7 +82,7 @@ under the License.
         </if>
         <check-errors/>
 
-        <if-compare field-name="payment.statusId" value="PMNT_NOT_PAID" operator="not-equals">
+        <if-compare field="payment.statusId" value="PMNT_NOT_PAID" operator="not-equals">
             <!-- check if only status change -->
             <make-value value-name="newPayment" entity-name="Payment"/>
             <make-value value-name="oldPayment" entity-name="Payment"/>
@@ -90,7 +90,7 @@ under the License.
             <set-nonpk-fields value-name="oldPayment" map-name="payment"/>
             <set-nonpk-fields value-name="newPayment" map-name="parameters"/>
             <set field="newPayment.statusId" from-field="oldPayment.statusId"/>
-            <if-compare-field field-name="oldPayment"  to-field-name="newPayment" operator="not-equals">
+            <if-compare-field field="oldPayment" to-field="newPayment" operator="not-equals">
                 <log level="always" message="=========Old: ${oldPayment} ============New: ${newPayment}"></log>
                 <add-error>
                     <fail-property resource="AccountingUiLabels" property="AccountingPSUpdateNotAllowedBecauseOfStatus"/>
@@ -103,22 +103,22 @@ under the License.
         <set-nonpk-fields map-name="parameters" value-name="payment"/>
         <set field="payment.statusId" from-field="statusIdSave"/>    <!-- do not allow status change here -->
         
-        <if-empty field-name="payment.effectiveDate">
+        <if-empty field="payment.effectiveDate">
             <now-timestamp-to-env env-name="payment.effectiveDate"/>
         </if-empty>
-        <if-not-empty field-name="payment.paymentMethodId">
+        <if-not-empty field="payment.paymentMethodId">
             <entity-one entity-name="PaymentMethod" value-name="paymentMethod">
                 <field-map field-name="paymentMethodId" env-name="payment.paymentMethodId"/>
             </entity-one>
-            <if-compare-field field-name="payment.paymentMethodTypeId" operator="not-equals" to-field-name="paymentMethod.paymentMethodTypeId">
+            <if-compare-field field="payment.paymentMethodTypeId" to-field="paymentMethod.paymentMethodTypeId" operator="not-equals">
                 <log level="info" message="Replacing passed payment method type [${payment.paymentMethodTypeId}] with payment method type [${paymentMethod.paymentMethodTypeId}] for payment method [${payment.paymentMethodId}]"/>
             </if-compare-field>
             <set field="payment.paymentMethodTypeId" from-field="paymentMethod.paymentMethodTypeId"/>
         </if-not-empty>
         <store-value value-name="payment"/>
         
-        <if-not-empty field-name="parameters.statusId">
-            <if-compare-field field-name="parameters.statusId" operator="not-equals" to-field-name="statusIdSave">
+        <if-not-empty field="parameters.statusId">
+            <if-compare-field field="parameters.statusId" to-field="statusIdSave" operator="not-equals">
                 <set-service-fields service-name="setPaymentStatus" map-name="parameters" to-map-name="param"/>
                 <call-service service-name="setPaymentStatus" in-map-name="param"/>
                 <check-errors/>
@@ -126,10 +126,10 @@ under the License.
         </if-not-empty>
     </simple-method>
     <simple-method method-name="createPaymentApplication" short-description="Create a Payment Application">
-        <if-empty field-name="invoiceId" map-name="parameters">
-            <if-empty field-name="billingAccountId" map-name="parameters">
-                <if-empty field-name="taxAuthGeoId" map-name="parameters">
-                    <if-empty field-name="overrideGlAccountId" map-name="parameters">
+        <if-empty field="parameters.invoiceId">
+            <if-empty field="parameters.billingAccountId">
+                <if-empty field="parameters.taxAuthGeoId">
+                    <if-empty field="parameters.overrideGlAccountId">
                       <add-error><fail-property resource="AccountingUiLabels" property="AccountingPaymentApplicationParameterMissing"/></add-error>
                       <check-errors/>
                     </if-empty>
@@ -141,19 +141,19 @@ under the License.
         <set-nonpk-fields map-name="parameters" value-name="paymentAppl"/>
 
         <!-- get the invoice and do some further validation against it -->
-        <if-not-empty field-name="parameters.invoiceId">
+        <if-not-empty field="parameters.invoiceId">
             <entity-one entity-name="Invoice" value-name="invoice"/>
 
             <!-- get the amount that has not been applied yet for the invoice (outstanding amount) -->
             <set field="notApplied" value="${bsh:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(invoice).doubleValue()}" type="Double"/>
 
             <!-- if the amount to apply goes over the outstanding amount, then use the notApplied amount and log a warning -->
-            <if-compare-field field-name="paymentAppl.amountApplied" operator="greater" to-field-name="notApplied" type="Double">
+            <if-compare-field field="paymentAppl.amountApplied" to-field="notApplied" operator="greater" type="Double">
                 <log level="warning" message="Create Payment Application: Amount to apply [${paymentAppl.amountApplied}] is greater than the outstanding amount [${notApplied}] of the invoice [${invoice.invoiceId}]. Creating Payment Application for outstanding amount [${notApplied}] instead."/>
                 <set field="paymentAppl.amountApplied" from-field="notApplied"/>
             </if-compare-field>
 
-            <if-not-empty field-name="invoice.billingAccountId">
+            <if-not-empty field="invoice.billingAccountId">
                 <set field="paymentAppl.billingAccountId" from-field="invoice.billingAccountId"/>
             </if-not-empty>
         </if-not-empty>
@@ -173,28 +173,28 @@ under the License.
         <entity-one entity-name="Payment" value-name="payment"/>
         <field-to-result field-name="payment.paymentId" result-name="oldStatusId"/>
         
-        <if-compare-field field-name="payment.statusId" operator="not-equals" to-field-name="parameters.statusId">
+        <if-compare-field field="payment.statusId" to-field="parameters.statusId" operator="not-equals">
             <entity-one entity-name="StatusValidChange" value-name="statusChange" auto-field-map="false">
                 <field-map field-name="statusId" env-name="payment.statusId"/>
                 <field-map field-name="statusIdTo" env-name="parameters.statusId"/>
             </entity-one>
-            <if-empty field-name="statusChange">
+            <if-empty field="statusChange">
                 <add-error><fail-property resource="AccountingUiLabels" property="AccountingPSInvalidStatusChange"/></add-error>
                 <log level="error" message="Cannot change from ${payment.statusId} to ${parameters.statusId}"/>
                 <check-errors/>
                 <else>
                     
                     <!-- check if the payment fully applied when set to confirmed-->
-                    <if-compare field-name="parameters.statusId" operator="equals" value="PMNT_CONFIRMED">
+                    <if-compare field="parameters.statusId" operator="equals" value="PMNT_CONFIRMED">
                         <set field="notYetApplied" value="${bsh:org.ofbiz.accounting.payment.PaymentWorker.getPaymentNotAppliedBd(payment)}"/>
-                        <if-compare field-name="notYetApplied" operator="greater" value="0.00">
+                        <if-compare field="notYetApplied" operator="greater" value="0.00">
                             <add-error><fail-property resource="AccountingUiLabels" property="AccountingPSNotConfirmedNotFullyApplied"/></add-error>
                             <log level="error" message="Cannot change from ${payment.statusId} to ${parameters.statusId}, payment not fully applied: ${notYetapplied}"/>
                             <check-errors/>
                         </if-compare>
                     </if-compare>    
                     
-                    <if-compare field-name="parameters.statusId" operator="equals" value="PMNT_CANCELLED">
+                    <if-compare field="parameters.statusId" operator="equals" value="PMNT_CANCELLED">
                         <!-- if new status is cancelled delete existing payment applications. -->
                         <get-related value-name="payment" relation-name="PaymentApplication" list-name="paymentApplications"/>
                         <iterate list-name="paymentApplications" entry-name="paymentApplication">
@@ -203,7 +203,7 @@ under the License.
                         </iterate>
                         <!-- if new status is cancelled and the payment is associated to an OrderPaymentPreference, update the status of that record too. -->
                         <get-related-one value-name="payment" relation-name="OrderPaymentPreference" to-value-name="orderPaymentPreference"/>
-                        <if-not-empty field-name="orderPaymentPreference">
+                        <if-not-empty field="orderPaymentPreference">
                             <set field="updateOrderPaymentPreferenceMap.orderPaymentPreferenceId" from-field="orderPaymentPreference.orderPaymentPreferenceId"/>
                             <set field="updateOrderPaymentPreferenceMap.cancelThis" value="true"/>
                             <call-service service-name="updateOrderPaymentPreference" in-map-name="updateOrderPaymentPreferenceMap"/>
@@ -244,7 +244,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="getInvoicePaymentInfoList" short-description="Create a list with information on payment due dates and amounts for the invoice">
-        <if-empty field-name="parameters.invoice">
+        <if-empty field="parameters.invoice">
             <entity-one entity-name="Invoice" value-name="invoice"/>
         <else>
             <set field="invoice" from-field="parameters.invoice"/>
@@ -261,7 +261,7 @@ under the License.
         <set field="computedTotalAmount" value="0.0" type="BigDecimal"/>
         <iterate list-name="invoiceTerms" entry-name="invoiceTerm">
             <get-related-one relation-name="TermType" value-name="invoiceTerm" to-value-name="termType" use-cache="true"/>
-            <if-compare field-name="termType.parentTypeId" operator="equals" value="FIN_PAYMENT_TERM">
+            <if-compare field="termType.parentTypeId" operator="equals" value="FIN_PAYMENT_TERM">
                 <clear-field field-name="invoicePaymentInfo"/>
                 <set field="invoicePaymentInfo.invoiceId" from-field="invoice.invoiceId"/>
                 <set field="invoicePaymentInfo.invoiceTermId" from-field="invoiceTerm.invoiceTermId"/>
@@ -286,7 +286,7 @@ under the License.
                         <calcop field-name="invoicePaymentInfo.amount" operator="get"/>
                     </calcop>
                 </calculate>
-                <if-compare-field field-name="remainingAppliedAmount" operator="greater-equals" to-field-name="invoiceTermAmount" type="BigDecimal">
+                <if-compare-field field="remainingAppliedAmount" to-field="invoiceTermAmount" operator="greater-equals" type="BigDecimal">
                     <set field="invoicePaymentInfo.paidAmount" from-field="invoiceTermAmount" type="BigDecimal"/>
                     <calculate field-name="remainingAppliedAmount" type="BigDecimal">
                         <calcop field-name="remainingAppliedAmount" operator="subtract">
@@ -309,9 +309,9 @@ under the License.
         <if>
             <condition>
                 <or>
-                    <if-compare field-name="remainingAppliedAmount" operator="greater" value="0.0" type="BigDecimal"/>
-                    <if-compare field-name="invoiceTotalAmount" operator="equals" value="0.0" type="BigDecimal"/>
-                    <if-compare-field field-name="computedTotalAmount" operator="less" to-field-name="invoiceTotalAmount" type="BigDecimal"/>
+                    <if-compare field="remainingAppliedAmount" operator="greater" value="0.0" type="BigDecimal"/>
+                    <if-compare field="invoiceTotalAmount" operator="equals" value="0.0" type="BigDecimal"/>
+                    <if-compare-field field="computedTotalAmount" to-field="invoiceTotalAmount" operator="less" type="BigDecimal"/>
                 </or>
             </condition>
             <then>
@@ -319,7 +319,7 @@ under the License.
                 <set field="andMap.termTypeId" value="FIN_PAYMENT_TERM"/>
                 <filter-list-by-and list-name="invoiceTerms" map-name="andMap"/>
                 <first-from-list list-name="invoiceTerms" entry-name="invoiceTerm"/>
-                <if-not-empty field-name="invoiceTerm">
+                <if-not-empty field="invoiceTerm">
                     <set field="invoicePaymentInfo.termTypeId" from-field="invoiceTerm.termTypeId"/>
                     <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getDayEnd" ret-field-name="invoicePaymentInfo.dueDate">
                         <field field-name="invoice.invoiceDate" type="Timestamp"/>
@@ -375,8 +375,8 @@ under the License.
                 <if>
                     <condition>
                         <and>
-                            <if-compare field-name="invoicePaymentInfo.outstandingAmount" operator="greater" value="0.0" type="BigDecimal"/>
-                            <if-compare-field field-name="invoicePaymentInfo.dueDate" operator="less" to-field-name="asOfDate" type="Timestamp"/>
+                            <if-compare field="invoicePaymentInfo.outstandingAmount" operator="greater" value="0.0" type="BigDecimal"/>
+                            <if-compare-field field="invoicePaymentInfo.dueDate" to-field="asOfDate" operator="less" type="Timestamp"/>
                         </and>
                     </condition>
                     <then>

@@ -68,7 +68,7 @@ under the License.
         <call-simple-method method-name="checkProductRelatedPermission" xml-resource="org/ofbiz/product/product/ProductServices.xml"/>
         <check-errors/>
         
-        <if-empty field-name="parameters.fromDate">
+        <if-empty field="parameters.fromDate">
             <now-timestamp-to-env env-name="parameters.fromDate"/>
         </if-empty>
         <make-value value-name="newEntity" entity-name="ProductFeatureAppl"/>
@@ -94,7 +94,7 @@ under the License.
         
         <entity-one entity-name="ProductFeatureAppl" value-name="productFeatureAppl"/>
         <!-- This is old code that just sets the thru date; the current codes actually removes the db row
-        <if-empty field-name="thruDate" map-name="parameters">
+        <if-empty field="parameters.thruDate">
             <now-timestamp-to-env env-name="nowStamp"/>
             <env-to-field env-name="nowStamp" field-name="thruDate" map-name="parameters"/>
         </if-empty>
@@ -120,7 +120,7 @@ under the License.
             <set-service-fields service-name="applyFeatureToProduct" map-name="parameters" to-map-name="applyFeatureContext"/>
             <set field="applyFeatureContext.productFeatureId" from-field="productFeature.productFeatureId"/>
 
-            <if-empty field-name="applyFeatureContext.sequenceNum">
+            <if-empty field="applyFeatureContext.sequenceNum">
                 <set field="applyFeatureContext.sequenceNum" from-field="productFeature.defaultSequenceNum"/>
             </if-empty>
             
@@ -137,7 +137,7 @@ under the License.
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         
-        <if-empty field-name="newEntity.fromDate">
+        <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="newEntity.fromDate"/>
         </if-empty>
         
@@ -172,7 +172,7 @@ under the License.
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         
-        <if-empty field-name="newEntity.fromDate">
+        <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="newEntity.fromDate"/>
         </if-empty>
         
@@ -227,7 +227,7 @@ under the License.
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
 
-        <if-empty field-name="newEntity.fromDate">
+        <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="newEntity.fromDate"/>
         </if-empty>
 
@@ -311,7 +311,7 @@ under the License.
         <make-value value-name="newEntity" entity-name="ProductFeatureApplAttr"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <if-empty field-name="fromDate" map-name="newEntity">
+        <if-empty field="newEntity.fromDate">
             <entity-condition entity-name="ProductFeatureAppl" list-name="productFeatureAppls" filter-by-date="true">
                 <condition-list combine="and">
                     <condition-expr field-name="productId" env-name="newEntity.productId"/>
@@ -354,7 +354,7 @@ under the License.
     <!-- Feature Price Service -->
     <simple-method method-name="createFeaturePrice" short-description="Create a Feature Price">
         <make-value value-name="newEntity" entity-name="ProductFeaturePrice"/>
-        <if-empty field-name="parameters.productFeatureId">
+        <if-empty field="parameters.productFeatureId">
             <sequenced-id-to-env sequence-name="ProductFeaturePrice" env-name="parameters.productFeatureId"/>
         </if-empty>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
@@ -362,7 +362,7 @@ under the License.
         
         <now-timestamp-to-env env-name="nowTimestamp"/>
         
-        <if-empty field-name="fromDate" map-name="newEntity">
+        <if-empty field="newEntity.fromDate">
             <set field="newEntity.fromDate" from-field="nowTimestamp" />
         </if-empty>
         <field-to-result field-name="fromDate" map-name="newEntity"/>

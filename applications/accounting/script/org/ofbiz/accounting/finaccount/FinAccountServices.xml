@@ -31,7 +31,7 @@ under the License.
         <call-simple-method method-name="getArithmeticSettingsInline"/>
         
         <!-- if no statusId set to default to FNACT_ACTIVE -->
-        <if-empty field-name="parameters.statusId">
+        <if-empty field="parameters.statusId">
             <set field="parameters.statusId" value="FNACT_ACTIVE"/>
         </if-empty>
         
@@ -39,21 +39,21 @@ under the License.
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
-        <if-empty field-name="newEntity.finAccountId">
+        <if-empty field="newEntity.finAccountId">
             <sequenced-id-to-env sequence-name="FinAccount" env-name="finAccountId"/>
             <to-string field-name="finAccountId"/>
             <set from-field="finAccountId" field="newEntity.finAccountId"/>
         </if-empty>
 
         <!-- set the currency if none is already set -->
-        <if-empty field-name="newEntity.currencyUomId">
+        <if-empty field="newEntity.currencyUomId">
             
             <property-to-field resource="general" property="currency.uom.id.default" field-name="defaultCurrency"/>
             <set field="newEntity.currencyUomId" from-field="defaultCurrency"/>  
         </if-empty>
 
         <!-- set the refundable flag from the type; if not set -->
-        <if-empty field-name="newEntity.isRefundable">
+        <if-empty field="newEntity.isRefundable">
             <entity-one entity-name="FinAccountType" value-name="finAccountType">
                 <field-map field-name="finAccountTypeId" env-name="parameters.finAccountTypeId"/>
             </entity-one>
@@ -61,9 +61,9 @@ under the License.
                 <condition>
                     <and>
                         <not>
-                            <if-empty field-name="finAccountType.isRefundable"/>
+                            <if-empty field="finAccountType.isRefundable"/>
                         </not>
-                        <if-compare field-name="finAccountType.isRefundable" value="Y" operator="equals"/>
+                        <if-compare field="finAccountType.isRefundable" value="Y" operator="equals"/>
                     </and>
                 </condition>
                 <then>
@@ -95,19 +95,19 @@ under the License.
         <if>
             <condition>
                 <and>
-                    <not><if-empty field-name="parameters.statusId"></if-empty></not>
-                    <if-compare-field operator="not-equals" field-name="lookedUpValue.statusId" to-field-name="parameters.statusId"></if-compare-field>
+                    <not><if-empty field="parameters.statusId"></if-empty></not>
+                    <if-compare-field operator="not-equals" field="lookedUpValue.statusId" to-field="parameters.statusId"></if-compare-field>
                 </and>
             </condition>
             <then>
                 <!-- if the record exists there should be a statusId, but just in case make it so it won't blow up -->
-                <if-not-empty field-name="lookedUpValue.statusId">
+                <if-not-empty field="lookedUpValue.statusId">
                     <!-- if statusId change is not in the StatusValidChange list, complain... -->
                     <entity-one entity-name="StatusValidChange" value-name="statusValidChange" auto-field-map="false">
                         <field-map field-name="statusId" env-name="lookedUpValue.statusId"/>
                         <field-map field-name="statusIdTo" env-name="parameters.statusId"/>
                     </entity-one>
-                    <if-empty field-name="statusValidChange">
+                    <if-empty field="statusValidChange">
                         <!-- no valid change record found? return an error... -->
                         <add-error><fail-property resource="CommonUiLabels" property="CommonErrorNoStatusValidChange"/></add-error>
                         <check-errors/>
@@ -146,7 +146,7 @@ under the License.
             <order-by field-name="-statusDate"/>
         </entity-and>
         <first-from-list entry-name="oldFinAccountStatus" list-name="oldFinAccountStatusList"/>
-        <if-not-empty field-name="oldFinAccountStatus">
+        <if-not-empty field="oldFinAccountStatus">
             <set field="oldFinAccountStatus.statusEndDate" from-field="nowTimestamp"/>
             <store-value value-name="oldFinAccountStatus"/>
         </if-not-empty>
@@ -167,10 +167,10 @@ under the License.
         <sequenced-id-to-env sequence-name="FinAccountTrans" env-name="newEntity.finAccountTransId"/>
 
         <now-timestamp-to-env env-name="nowTimestamp"/>
-        <if-empty field-name="newEntity.transactionDate">
+        <if-empty field="newEntity.transactionDate">
             <set from-field="nowTimestamp" field="newEntity.transactionDate"/>
         </if-empty>
-        <if-empty field-name="newEntity.entryDate">
+        <if-empty field="newEntity.entryDate">
             <set from-field="nowTimestamp" field="newEntity.entryDate"/>
         </if-empty>
         
@@ -181,7 +181,7 @@ under the License.
         <calculate field-name="newEntity.amount" decimal-scale="${roundingDecimals}" rounding-mode="${roundingMode}">
             <calcop operator="get" field-name="newEntity.amount"/>
         </calculate>
-        <if-compare-field field-name="newEntity.amount" operator="not-equals" to-field-name="originalAmount" type="BigDecimal">
+        <if-compare-field field="newEntity.amount" to-field="originalAmount" operator="not-equals" type="BigDecimal">
             <log level="warning" message="In createFinAccountTrans had to round the amount from [${originalAmount}] to [${newEntity.amount}]"></log>
         </if-compare-field>
 
@@ -195,7 +195,7 @@ under the License.
         <set-pk-fields value-name="newEntity" map-name="parameters"/>
         <set-nonpk-fields value-name="newEntity" map-name="parameters"/>
 
-        <if-empty field-name="newEntity.fromDate">
+        <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="newEntity.fromDate"/>
         </if-empty>
 
@@ -221,10 +221,10 @@ under the License.
         <sequenced-id-to-env sequence-name="FinAccountAuth" env-name="newEntity.finAccountAuthId"/>
         
         <now-timestamp-to-env env-name="nowTimestamp"/>
-        <if-empty field-name="newEntity.authorizationDate">
+        <if-empty field="newEntity.authorizationDate">
             <set from-field="nowTimestamp" field="newEntity.authorizationDate"/>
         </if-empty>
-        <if-empty field-name="newEntity.fromDate">
+        <if-empty field="newEntity.fromDate">
             <set from-field="nowTimestamp" field="newEntity.fromDate"/>
         </if-empty>
 
@@ -233,7 +233,7 @@ under the License.
         <calculate field-name="newEntity.amount" decimal-scale="${roundingDecimals}" rounding-mode="${roundingMode}">
             <calcop operator="get" field-name="newEntity.amount"/>
         </calculate>
-        <if-compare-field field-name="newEntity.amount" operator="not-equals" to-field-name="originalAmount" type="BigDecimal">
+        <if-compare-field field="newEntity.amount" to-field="originalAmount" operator="not-equals" type="BigDecimal">
             <log level="warning" message="In createFinAccountAuth had to round the amount from [${originalAmount}] to [${newEntity.amount}]"></log>
         </if-compare-field>
         
@@ -242,7 +242,7 @@ under the License.
     </simple-method>
     <simple-method method-name="expireFinAccountAuth" short-description="Expire a Financial Account Authorization">
         <entity-one entity-name="FinAccountAuth" value-name="finAccountAuth"/>
-        <if-empty field-name="parameters.expireDateTime">
+        <if-empty field="parameters.expireDateTime">
             <now-timestamp-to-env env-name="finAccountAuth.thruDate"/>
         <else>
             <set from-field="parameters.expireDatetime" field="finAccountAuth.thruDate"/>
@@ -253,7 +253,7 @@ under the License.
     
     <!-- Some methods to maintain FinAccount.actualBalance and FinAccount.availableBalance -->
     <simple-method method-name="updateFinAccountBalancesFromTrans" short-description="">
-        <if-not-empty field-name="parameters.finAccountId">
+        <if-not-empty field="parameters.finAccountId">
             <set field="finAccountId" from-field="parameters.finAccountId"/>
             <else>
                 <entity-one entity-name="FinAccountTrans" value-name="mainFinAccountTrans"/>
@@ -264,7 +264,7 @@ under the License.
         <call-simple-method method-name="inlineUpdateFinAccountActualAndAvailableBalance"/>
     </simple-method>
     <simple-method method-name="updateFinAccountBalancesFromAuth" short-description="">
-        <if-not-empty field-name="parameters.finAccountId">
+        <if-not-empty field="parameters.finAccountId">
             <set field="finAccountId" from-field="parameters.finAccountId"/>
             <else>
                 <entity-one entity-name="FinAccountAuth" value-name="mainFinAccountAuth"/>
@@ -286,14 +286,14 @@ under the License.
         <set field="actualBalanceSum" value="0" type="BigDecimal"/>
         <iterate entry-name="finAccountTrans" list-name="finAccountTransList">
             <if>
-                <condition><if-compare field-name="finAccountTrans.finAccountTransTypeId" operator="equals" value="DEPOSIT"/></condition>
+                <condition><if-compare field="finAccountTrans.finAccountTransTypeId" operator="equals" value="DEPOSIT"/></condition>
                 <then><set field="amountForCalc" from-field="finAccountTrans.amount"/></then>
                 <else-if>
-                    <condition><if-compare field-name="finAccountTrans.finAccountTransTypeId" operator="equals" value="WITHDRAWAL"/></condition>
+                    <condition><if-compare field="finAccountTrans.finAccountTransTypeId" operator="equals" value="WITHDRAWAL"/></condition>
                     <then><calculate field-name="amountForCalc"><calcop operator="negative" field-name="finAccountTrans.amount"/></calculate></then>
                 </else-if>
                 <else-if>
-                    <condition><if-compare field-name="finAccountTrans.finAccountTransTypeId" operator="equals" value="ADJUSTMENT"/></condition>
+                    <condition><if-compare field="finAccountTrans.finAccountTransTypeId" operator="equals" value="ADJUSTMENT"/></condition>
                     <then><set field="amountForCalc" from-field="finAccountTrans.amount"/></then>
                 </else-if>
             </if>

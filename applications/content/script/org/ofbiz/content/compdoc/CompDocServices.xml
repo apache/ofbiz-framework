@@ -28,14 +28,14 @@ under the License.
         <log message="genCompDocInstance> rootTemplateContent: ${rootTemplateContent}" level="info"/>
 
         <!--  if not passed in, get latest template contentRevisionSeqId from db -->
-        <if-empty field-name="parameters.contentRevisionSeqId">
+        <if-empty field="parameters.contentRevisionSeqId">
             <entity-condition entity-name="ContentRevision" list-name="contentRevisionList">
                 <condition-list>
                     <condition-expr field-name="contentId" operator="equals" env-name="parameters.instanceOfContentId"/>
                 </condition-list>
                 <order-by field-name="-contentRevisionSeqId"/>
             </entity-condition>
-            <if-not-empty field-name="contentRevisionList">
+            <if-not-empty field="contentRevisionList">
                 <set from-field="contentRevisionList[0].contentRevisionSeqId" field="contentRevisionSeqId"/>
                 <else>
                     <set value="" field="contentRevisionSeqId"/>
@@ -48,7 +48,7 @@ under the License.
         <log message="genCompDocInstance> contentRevisionSeqId: ${contentRevisionSeqId}" level="info"/>
 
         <make-value entity-name="Content" value-name="rootInstanceContent"/>
-        <if-empty field-name="parameters.rootInstanceContentId">
+        <if-empty field="parameters.rootInstanceContentId">
             <sequenced-id-to-env sequence-name="Content" env-name="rootInstanceContent.contentId"/>
             <log level="info" message="genCompDocInstance 2> rootInstanceContent: ${rootInstanceContent}"/>
             <else>
@@ -56,7 +56,7 @@ under the License.
                 <entity-one entity-name="Content" value-name="existingContent">
                     <field-map field-name="contentId" env-name="parameters.rootInstanceContentId"/>
                 </entity-one>
-                <if-not-empty field-name="existingContent">
+                <if-not-empty field="existingContent">
                     <add-error>
                         <fail-message message="Instance compdoc Content for ${parameters.rootInstanceContentId} already exists"/>
                     </add-error>
@@ -144,13 +144,13 @@ under the License.
     <simple-method method-name="persistCompDoc" short-description="Create CompDoc">
         <!--  create the compdoc Content entity -->
         <set-service-fields service-name="persistContentAndAssoc" map-name="parameters" to-map-name="persistMap"/>
-        <if-not-empty field-name="parameters.mimeTypeId">
+        <if-not-empty field="parameters.mimeTypeId">
             <if>
                 <condition>
                     <or>
-                        <if-compare field-name="parameters.mimeTypeId" operator="equals" value="application/msword"/>
-                        <if-compare field-name="parameters.mimeTypeId" operator="equals" value="application/pdf"/>
-                        <if-compare field-name="parameters.mimeTypeId" operator="equals" value="application/octet-stream"/>
+                        <if-compare field="parameters.mimeTypeId" operator="equals" value="application/msword"/>
+                        <if-compare field="parameters.mimeTypeId" operator="equals" value="application/pdf"/>
+                        <if-compare field="parameters.mimeTypeId" operator="equals" value="application/octet-stream"/>
                     </or>
                 </condition>
                 <then>
@@ -159,10 +159,10 @@ under the License.
                 <else-if>
                     <condition>
                         <or>
-                            <if-compare field-name="parameters.mimeTypeId" operator="equals" value="image/jpeg"/>
-                            <if-compare field-name="parameters.mimeTypeId" operator="equals" value="image/gif"/>
-                            <if-compare field-name="parameters.mimeTypeId" operator="equals" value="image/tiff"/>
-                            <if-compare field-name="parameters.mimeTypeId" operator="equals" value="image/png"/>
+                            <if-compare field="parameters.mimeTypeId" operator="equals" value="image/jpeg"/>
+                            <if-compare field="parameters.mimeTypeId" operator="equals" value="image/gif"/>
+                            <if-compare field="parameters.mimeTypeId" operator="equals" value="image/tiff"/>
+                            <if-compare field="parameters.mimeTypeId" operator="equals" value="image/png"/>
                         </or>
                     </condition>
                     <then>
@@ -171,7 +171,7 @@ under the License.
                 </else-if>
                 <else-if>
                     <condition>
-                        <if-compare field-name="parameters.mimeTypeId" operator="equals" value="application/vnd.ofbiz.survey"/>
+                        <if-compare field="parameters.mimeTypeId" operator="equals" value="application/vnd.ofbiz.survey"/>
                     </condition>
                     <then>
                         <set value="SURVEY" field="persistMap.dataResourceTypeId"/>
@@ -179,7 +179,7 @@ under the License.
                 </else-if>
                 <else-if>
                     <condition>
-                        <if-compare field-name="parameters.mimeTypeId" operator="equals" value="application/vnd.ofbiz.survey.response"/>
+                        <if-compare field="parameters.mimeTypeId" operator="equals" value="application/vnd.ofbiz.survey.response"/>
                     </condition>
                     <then>
                         <set value="SURVEY_RESPONSE" field="persistMap.dataResourceTypeId"/>
@@ -202,7 +202,7 @@ under the License.
         </iterate-map>
 
         <log level="info" message="pResults : ${pResults}"/>
-        <if-not-empty field-name="pResults.contentIdTo">
+        <if-not-empty field="pResults.contentIdTo">
             <set from-field="pResults.contentIdTo" field="resequenceMap.contentIdTo"/>
             <set value="COMPDOC_PART" field="resequenceMap.typeList[]"/>
             <set value="10" field="resequenceMap.seqInc" type="Integer"/>
@@ -212,8 +212,8 @@ under the License.
         <if>
             <condition>
                 <or>
-                    <if-compare field-name="persistMap.contentTypeId" operator="equals" value="COMPDOC_TEMPLATE"/>
-                    <if-compare field-name="persistMap.contentTypeId" operator="equals" value="TEMPLATE"/>
+                    <if-compare field="persistMap.contentTypeId" operator="equals" value="COMPDOC_TEMPLATE"/>
+                    <if-compare field="persistMap.contentTypeId" operator="equals" value="TEMPLATE"/>
                 </or>
             </condition>
             <then>
@@ -224,8 +224,8 @@ under the License.
         <if>
             <condition>
                 <or>
-                    <if-compare field-name="persistMap.contentTypeId" operator="equals" value="COMPDOC_INSTANCE"/>
-                    <if-compare field-name="persistMap.contentTypeId" operator="equals" value="DOCUMENT"/>
+                    <if-compare field="persistMap.contentTypeId" operator="equals" value="COMPDOC_INSTANCE"/>
+                    <if-compare field="persistMap.contentTypeId" operator="equals" value="DOCUMENT"/>
                 </or>
             </condition>
             <then>
@@ -247,8 +247,8 @@ under the License.
         <if>
             <condition>
                 <or>
-                    <if-compare field-name="persistMap.contentTypeId" operator="equals" value="COMPDOC_TEMPLATE"/>
-                    <if-compare field-name="persistMap.contentTypeId" operator="equals" value="TEMPLATE"/>
+                    <if-compare field="persistMap.contentTypeId" operator="equals" value="COMPDOC_TEMPLATE"/>
+                    <if-compare field="persistMap.contentTypeId" operator="equals" value="TEMPLATE"/>
                 </or>
             </condition>
             <then>
@@ -397,7 +397,7 @@ under the License.
             <order-by field-name="contentRevisionSeqId DESC"/>
         </entity-condition>
         <log level="info" message="contentRevisionList: ${contentRevisionList}"/>
-        <if-not-empty field-name="contentRevisionList">
+        <if-not-empty field="contentRevisionList">
             <set field="newEntity" from-field="contentRevisionList[0]"/>
             <set field="incrementedSeq" from-field="newEntity.contentRevisionSeqId"/>
             <else>
@@ -406,7 +406,7 @@ under the License.
         </if-not-empty>
         <log level="info" message="incrementedSeq(0): ${incrementedSeq}"/>
         <log level="info" message="ContentRevision(0): ${newEntity}"/>
-        <if-not-empty field-name="incrementedSeq">
+        <if-not-empty field="incrementedSeq">
             <calculate field-name="incrementedSeq" type="Long">
                 <calcop operator="add">
                     <calcop operator="get" field-name="incrementedSeq"/>
@@ -431,7 +431,7 @@ under the License.
         <set field="newEntity.contentRevisionSeqId" from-field="paddedSeqId"/>
         <log level="info" message="ContentRevision(1): ${newEntity}"/>
         <create-value value-name="newEntity"/>
-        <if-not-empty field-name="parameters.itemContentId">
+        <if-not-empty field="parameters.itemContentId">
             <make-value entity-name="ContentRevisionItem" value-name="newEntity"/>
             <set-pk-fields map-name="parameters" value-name="newEntity"/>
             <set field="newEntity.contentRevisionSeqId" from-field="paddedSeqId"/>
@@ -451,12 +451,12 @@ under the License.
             </condition-list>
             <order-by field-name="-contentRevisionSeqId"/>
         </entity-condition>
-        <if-not-empty field-name="contentRevisionItems">
+        <if-not-empty field="contentRevisionItems">
             <set field="contentRevisionItem" from-field="contentRevisionItems[0]"/>
             <entity-one entity-name="Content" value-name="content" use-cache="true">
                 <field-map field-name="contentId" env-name="contentRevisionItem.itemContentId"/>
             </entity-one>
-            <if-not-empty field-name="content">
+            <if-not-empty field="content">
                 <entity-one entity-name="DataResource" value-name="dataResource" use-cache="true">
                     <field-map field-name="dataResourceId" env-name="content.dataResourceId"/>
                 </entity-one>
@@ -473,7 +473,7 @@ under the License.
         <entity-one entity-name="Content" value-name="content" use-cache="true">
             <field-map field-name="contentId" env-name="contentRevisionItem.itemContentId"/>
         </entity-one>
-        <if-not-empty field-name="content">
+        <if-not-empty field="content">
             <entity-one entity-name="DataResource" value-name="dataResource" use-cache="true">
                 <field-map field-name="dataResourceId" env-name="content.dataResourceId"/>
             </entity-one>
@@ -493,7 +493,7 @@ under the License.
         <make-value entity-name="ContentApproval" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
-        <if-empty field-name="newEntity.contentApprovalId">
+        <if-empty field="newEntity.contentApprovalId">
             <sequenced-id-to-env sequence-name="ContentApproval" env-name="newEntity.contentApprovalId"/>
         </if-empty>
         <create-value value-name="newEntity"/>
@@ -555,7 +555,7 @@ under the License.
                 <order-by field-name="-sequenceNum"/>
             </entity-condition>
             <log level="info" message="contentApprovalList2: ${contentApprovalList2}"/>
-            <if-not-empty field-name="contentApprovalList2">
+            <if-not-empty field="contentApprovalList2">
                 <set from-field="contentApprovalList2[0].contentApprovalId" field="contentApprovalId"/>
                 <set from-field="contentApprovalList2[0]" field="contentApproval"/>
                 <log level="info" message="contentApproval: ${contentApproval}"/>
@@ -627,7 +627,7 @@ under the License.
         <set from-field="maxContentApprovalList[0].maxContentRevisionSeqId" field="maxContentRevisionSeqId"/>
         <if>
             <condition>
-                <if-empty field-name="maxContentRevisionSeqId"/>
+                <if-empty field="maxContentRevisionSeqId"/>
             </condition>
             <then>
                 <!--  if an instance track, check to see if there any new or deleted records on the template -->
@@ -675,13 +675,13 @@ under the License.
 
                     <sequenced-id-to-env sequence-name="ContentApproval" env-name="contentApproval.contentApprovalId"/>
                     <set from-field="nowTimestamp" field="contentApproval.approvalDate"/>
-                    <if-compare field-name="content.contentTypeId" operator="equals" value="COMPDOC_INSTANCE">
+                    <if-compare field="content.contentTypeId" operator="equals" value="COMPDOC_INSTANCE">
                         <if>
                             <!-- not rejected, soft rejected or approved, reset to ready -->
                             <condition>
                                 <or>
-                                    <if-compare field-name="finalApprovalStatusId" operator="equals" value="CNTAP_REJECTED"/>
-                                    <if-compare field-name="finalApprovalStatusId" operator="equals" value="CNTAP_APPROVED"/>
+                                    <if-compare field="finalApprovalStatusId" operator="equals" value="CNTAP_REJECTED"/>
+                                    <if-compare field="finalApprovalStatusId" operator="equals" value="CNTAP_APPROVED"/>
                                 </or>
                             </condition>
                             <then>
@@ -691,10 +691,10 @@ under the License.
                                 <!-- soft rejected, reset rejected (shouldn't be any) and soft rejected entities to ready -->
                                 <condition>
                                     <and>
-                                        <if-compare field-name="finalApprovalStatusId" operator="equals" value="CNTAP_SOFT_REJ"/>
+                                        <if-compare field="finalApprovalStatusId" operator="equals" value="CNTAP_SOFT_REJ"/>
                                         <or>
-                                            <if-compare field-name="existingContentApproval.approvalStatusId" operator="equals" value="CNTAP_SOFT_REJ"/>
-                                            <if-compare field-name="existingContentApproval.approvalStatusId" operator="equals" value="CNTAP_REJECTED"/>
+                                            <if-compare field="existingContentApproval.approvalStatusId" operator="equals" value="CNTAP_SOFT_REJ"/>
+                                            <if-compare field="existingContentApproval.approvalStatusId" operator="equals" value="CNTAP_REJECTED"/>
                                         </or>
                                     </and>
                                 </condition>
@@ -706,8 +706,8 @@ under the License.
                                 <condition>
                                     <and>
                                         <!-- soft rejected and current record is not soft/rejected, keep currentstatus -->
-                                        <if-compare field-name="finalApprovalStatusId" operator="equals" value="CNTAP_SOFT_REJ"/>
-                                        <if-compare field-name="existingContentApproval.approvalStatusId" operator="equals" value="CNTAP_APPROVED"/>
+                                        <if-compare field="finalApprovalStatusId" operator="equals" value="CNTAP_SOFT_REJ"/>
+                                        <if-compare field="existingContentApproval.approvalStatusId" operator="equals" value="CNTAP_APPROVED"/>
                                     </and>
                                 </condition>
                                 <then>
@@ -748,7 +748,7 @@ under the License.
                             <condition-expr field-name="roleTypeId" operator="equals" env-name="templateContentApproval.roleTypeId" ignore-if-empty="true"/>
                         </condition-list>
                     </entity-condition>
-                    <if-empty field-name="newContentApprovalList">
+                    <if-empty field="newContentApprovalList">
                         <clone-value value-name="templateContentApproval" new-value-name="contentApproval"/>
                         <set from-field="thisContentRevisionSeqId" field="contentApproval.contentRevisionSeqId"/>
                         <set field="contentApproval.contentId" from-field="thisContentId"/>
@@ -769,13 +769,13 @@ under the License.
         <find-by-primary-key entity-name="ContentApproval" value-name="contentApproval" map-name="contentApprovalPK" use-cache="true"/>
         <set field="partyId" from-field="parameters.userLogin.partyId"/>
         <log level="info" message="contentApproval: ${contentApproval}"/>
-        <if-compare field-name="contentApproval.partyId" value="${partyId}" operator="equals">
+        <if-compare field="contentApproval.partyId" value="${partyId}" operator="equals">
             <set field="approvalPermExists" value="true"/>
             <log level="info" message="approvalPermExists: ${approvalPermExists}"/>
             <field-to-result result-name="approvalPermExists" field-name="approvalPermExists"/>
             <return/>
         </if-compare>
-        <if-not-empty field-name="contentApproval.roleTypeId">
+        <if-not-empty field="contentApproval.roleTypeId">
             <now-timestamp-to-env env-name="nowTimestamp"/>
             <entity-condition entity-name="ContentRole" list-name="contentRoleList">
                 <condition-list combine="and">
@@ -788,7 +788,7 @@ under the License.
                     </condition-list>
                 </condition-list>
             </entity-condition>
-            <if-not-empty field-name="contentRoleList">
+            <if-not-empty field="contentRoleList">
                 <set field="approvalPermExists" value="true"/>
                 <field-to-result field-name="approvalPermExists" result-name="approvalPermExists"/>
                 <return/>
@@ -828,7 +828,7 @@ under the License.
         <if>
             <condition>
                 <not>
-                    <if-empty field-name="contentApprovalList"/>
+                    <if-empty field="contentApprovalList"/>
                 </not>
             </condition>
             <then>
@@ -837,8 +837,8 @@ under the License.
                     <if>
                         <condition>
                             <or>
-                                <if-compare field-name="existingContentApproval.approvalStatusId" operator="equals" value="CNTAP_SOFT_REJ"/>
-                                <if-compare field-name="existingContentApproval.approvalStatusId" operator="equals" value="CNTAP_REJECTED"/>
+                                <if-compare field="existingContentApproval.approvalStatusId" operator="equals" value="CNTAP_SOFT_REJ"/>
+                                <if-compare field="existingContentApproval.approvalStatusId" operator="equals" value="CNTAP_REJECTED"/>
                             </or>
                         </condition>
                         <then>
@@ -846,7 +846,7 @@ under the License.
                         </then>
                         <else-if>
                             <condition>
-                                <if-compare field-name="existingContentApproval.approvalStatusId" operator="equals" value="CNTAP_APPROVED"/>
+                                <if-compare field="existingContentApproval.approvalStatusId" operator="equals" value="CNTAP_APPROVED"/>
                             </condition>
                             <then>
                                 <set value="CNTAP_APPROVED" field="finalApprovalStatusId"/>
@@ -855,8 +855,8 @@ under the License.
                         <else-if>
                             <condition>
                                 <and>
-                                    <if-compare field-name="existingContentApproval.approvalStatusId" operator="equals" value="CNTAP_READY"/>
-                                    <if-compare field-name="finalApprovalStatusId" operator="equals" value="CNTAP_APPROVED"/>
+                                    <if-compare field="existingContentApproval.approvalStatusId" operator="equals" value="CNTAP_READY"/>
+                                    <if-compare field="finalApprovalStatusId" operator="equals" value="CNTAP_APPROVED"/>
                                 </and>
                             </condition>
                             <then>
@@ -914,7 +914,7 @@ under the License.
                 <order-by field-name="-sequenceNum"/>
             </entity-condition>
             <log level="info" message="contentApprovalList2: ${contentApprovalList2}"/>
-            <if-not-empty field-name="contentApprovalList2">
+            <if-not-empty field="contentApprovalList2">
                 <set from-field="contentApprovalList2[0].contentApprovalId" field="contentApprovalId"/>
                 <log level="info" message="contentApproval: ${contentApproval}"/>
                 <set field="contentApprovalIdList[]" from-field="contentApprovalId"/>
@@ -939,7 +939,7 @@ under the License.
             <order-by field-name="-contentRevisionSeqId"/>
         </entity-condition>
         <log level="info" message="contentRevisions: ${contentRevisions}"/>
-        <if-not-empty field-name="contentRevisions">
+        <if-not-empty field="contentRevisions">
             <set from-field="contentRevisions[0].contentRevisionSeqId" field="mostRecentRevisionSeqId"/>
         </if-not-empty>
         <field-to-result field-name="mostRecentRevisionSeqId" result-name="mostRecentRevisionSeqId"/>

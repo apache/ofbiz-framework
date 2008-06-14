@@ -47,7 +47,7 @@ under the License.
         <make-value value-name="newEntity" entity-name="WebSiteContent"/>
         <set-pk-fields value-name="newEntity" map-name="parameters"/>
         <set-nonpk-fields value-name="newEntity" map-name="parameters"/>
-        <if-empty field-name="newEntity.fromDate">
+        <if-empty field="newEntity.fromDate">
             <now-date-to-env env-name="nowTimestamp"/>
             <set field="newEntity.fromDate" from-field="nowTimestamp"/> 
         </if-empty>
@@ -72,7 +72,7 @@ under the License.
         <make-value value-name="newEntity" entity-name="WebSiteContentType"/>
         <set-pk-fields value-name="newEntity" map-name="parameters"/>
         <set-nonpk-fields value-name="newEntity" map-name="parameters"/>
-        <if-empty field-name="newEntity.webSiteContentTypeId">
+        <if-empty field="newEntity.webSiteContentTypeId">
             <sequenced-id-to-env sequence-name="WebSiteContentTypeId" env-name="webSiteContentTypeId"/>
             <set field="newEntity.webSiteContentTypeId" from-field="webSiteContentTypeId"/>
         </if-empty>
@@ -125,7 +125,7 @@ under the License.
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         
-        <if-empty field-name="fromDate" map-name="newEntity">
+        <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="nowTimestamp"/>
             <set field="newEntity.fromDate" from-field="nowTimestamp" />
         </if-empty>

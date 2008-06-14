@@ -27,12 +27,12 @@
         <set-nonpk-fields value-name="content" map-name="parameters"/>
         <set-pk-fields value-name="content" map-name="parameters"/>
 
-        <if-empty field-name="content.contentId">
+        <if-empty field="content.contentId">
             <sequenced-id-to-env sequence-name="Content" env-name="contentId"/>
             <set field="content.contentId" from-field="contentId"/>
         </if-empty>
 
-        <if-empty field-name="content.statusId">
+        <if-empty field="content.statusId">
             <!-- get the first status item -->
             <entity-and entity-name="StatusItem" list-name="contentStatus">
                 <field-map field-name="statusTypeId" value="CONTENT_STATUS"/>
@@ -79,7 +79,7 @@
         <set field="assoc.contentId" from-field="parameters.contentIdFrom" default-value="${parameters.contentId}" />
 
         <now-timestamp-to-env env-name="nowTimestamp"/>
-        <if-empty field-name="assoc.fromDate">
+        <if-empty field="assoc.fromDate">
             <set field="assoc.fromDate" from-field="nowTimestamp"/>
         </if-empty>
         
@@ -117,13 +117,13 @@
         <entity-one entity-name="Content" value-name="content"/>
         <field-to-result field-name="content.statusId" result-name="oldStatusId"/>
 
-       <if-compare-field field-name="content.statusId" operator="not-equals" to-field-name="parameters.statusId">
+       <if-compare-field field="content.statusId" to-field="parameters.statusId" operator="not-equals">
             <entity-one entity-name="StatusValidChange" value-name="statusChange" auto-field-map="false">
                 <field-map field-name="statusId" env-name="content.statusId"/>
                 <field-map field-name="statusIdTo" env-name="parameters.statusId"/>
             </entity-one>
             
-            <if-empty field-name="statusChange">
+            <if-empty field="statusChange">
                 <add-error><fail-message message="Cannot change from ${content.statusId} to ${parameters.statusId}"/></add-error>
                 <log level="error" message="Cannot change from ${content.statusId} to ${parameters.statusId}"/>
                 <check-errors/>
@@ -140,7 +140,7 @@
         <call-service service-name="getContent" in-map-name="getC">
             <result-to-field result-name="view" field-name="content"/>
         </call-service>
-        <if-not-empty field-name="content.dataResourceId">
+        <if-not-empty field="content.dataResourceId">
             <set-service-fields service-name="getElectronicText" map-name="content" to-map-name="getEt"/>
             <call-service service-name="getElectronicText" in-map-name="getEt">
                 <result-to-field result-name="textData" field-name="et.textData"/>
@@ -202,7 +202,7 @@
         <find-by-primary-key value-name="currentContent" entity-name="Content" map-name="pk" />
         <find-by-primary-key value-name="fromContent" entity-name="Content" map-name="pk" />
 
-        <if-compare field-name="permissionStatus" operator="equals" type="String" value="granted">
+        <if-compare field="permissionStatus" operator="equals" type="String" value="granted">
             <make-value entity-name="ContentAssoc" value-name="newContentAssoc"/>
             <set from-field="parameters.contentIdTo"           field="newContentAssoc.contentIdTo"/>
             <set from-field="parameters.contentIdFrom"         field="newContentAssoc.contentId"/>
@@ -212,12 +212,12 @@
             <now-timestamp-to-env                           env-name="newContentAssoc.createdDate"/>
             <now-timestamp-to-env                           env-name="newContentAssoc.lastModifiedDate"/>
             
-            <if-empty map-name="parameters" field-name="fromDate" >
+            <if-empty field="parameters.fromDate">
                 <now-timestamp-to-env env-name="parameters.fromDate"/>
                 <to-string map-name="parameters" field-name="fromDate" />
             </if-empty>
             <set from-field="parameters.fromDate" field="newContentAssoc.fromDate"/>
-            <if-not-empty map-name="parameters" field-name="thruDate" >
+            <if-not-empty field="parameters.thruDate">
                 <set from-field="parameters.thruDate" field="newContentAssoc.thruDate"/>
             </if-not-empty>
             <create-value value-name="newContentAssoc" />
@@ -248,13 +248,13 @@
     
     <!-- Methods for ContentRole -->
     <simple-method method-name="createContentRole" short-description="Create Content Role">
-        <if-empty field-name="parameters.fromDate">
+        <if-empty field="parameters.fromDate">
             <now-timestamp-to-env env-name="parameters.fromDate"/>
         </if-empty>
         <make-value value-name="partyRolePK" entity-name="PartyRole"/>
         <set-pk-fields value-name="partyRolePK" map-name="parameters"/>
         <find-by-primary-key entity-name="PartyRole" map-name="partyRolePK" value-name="partyRole"/>
-        <if-empty field-name="partyRole">
+        <if-empty field="partyRole">
             <make-value entity-name="PartyRole" map-name="partyRolePK" value-name="partyRole"/>
             <create-value value-name="partyRole"/>
         </if-empty>
@@ -263,7 +263,7 @@
         <make-value entity-name="ContentRole" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <find-by-primary-key entity-name="ContentRole" map-name="newEntity" value-name="contentRole"/>
-        <if-empty field-name="contentRole">
+        <if-empty field="contentRole">
             <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
             <create-value value-name="newEntity"/>
         </if-empty>
@@ -359,7 +359,7 @@
         <make-value entity-name="ContentPurposeType" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
-		<if-empty field-name="contentPurposeTypeId" map-name="newEntity">
+		<if-empty field="newEntity.contentPurposeTypeId">
 			<make-next-seq-id seq-field-name="contentPurposeTypeId" value-name="newEntity"/>
 		</if-empty>
         <create-value value-name="newEntity"/>
@@ -542,7 +542,7 @@
 
         <log level="always" message="${parameters}"/>
 
-        <if-not-empty field-name="uploadedFile" map-name="parameters">
+        <if-not-empty field="parameters.uploadedFile">
             <log level="always" message="Uploaded file found; processing sub-content"/>
             <set-service-fields service-name="createContentFromUploadedFile" map-name="parameters" to-map-name="uploadContext"/>
             <set field="uploadContext.ownerContentId" from-field="parameters.parentContentId"/>
@@ -570,7 +570,7 @@
         </iterate>
         <if>
             <condition>
-                <if-empty field-name="mapKey" map-name="parameters"/>
+                <if-empty field="parameters.mapKey"/>
             </condition>
             <then>
                 <field-to-result field-name="result" result-name="contentAssocs"/>
@@ -631,17 +631,17 @@
         </check-permission>
         <check-errors/>
 
-        <if-not-empty field-name="subjectDataResourceId" map-name="parameters">
+        <if-not-empty field="parameters.subjectDataResourceId">
             <set from-field="parameters.subjectDataResourceId" field="updateSubjectEt.dataResourceId"/>
             <set from-field="parameters.subject" field="updateSubjectEt.textData"/>
             <call-service service-name="updateElectronicText" in-map-name="updateSubjectEt"/>
         </if-not-empty>
-        <if-not-empty field-name="plainBodyDataResourceId" map-name="parameters">
+        <if-not-empty field="parameters.plainBodyDataResourceId">
             <set from-field="parameters.plainBodyDataResourceId" field="updatePlainBodyEt.dataResourceId"/>
             <set from-field="parameters.plainBody" field="updatePlainBodyEt.textData"/>
             <call-service service-name="updateElectronicText" in-map-name="updatePlainBodyEt"/>
         </if-not-empty>
-        <if-not-empty field-name="htmlBodyDataResourceId" map-name="parameters">
+        <if-not-empty field="parameters.htmlBodyDataResourceId">
             <set from-field="parameters.htmlBodyDataResourceId"  field="updateHtmlBodyEt.dataResourceId"/>
             <set from-field="parameters.htmlBody" field="updateHtmlBodyEt.textData"/>
             <call-service service-name="updateElectronicText" in-map-name="updateHtmlBodyEt"/>
@@ -669,7 +669,7 @@
         </check-permission>
         <check-errors/>
 
-        <if-not-empty field-name="fileDataResourceId" map-name="parameters">
+        <if-not-empty field="parameters.fileDataResourceId">
             <set from-field="parameters.fileDataResourceId" field="updateFile.dataResourceId"/>
             <set from-field="parameters.file" field="updateFile.dataResourceContent"/>
             <call-service service-name="updateOtherDataResource" in-map-name="updateFile"/>
@@ -708,7 +708,7 @@
         </check-permission>
         <check-errors/>
 
-        <if-not-empty field-name="textDataResourceId" map-name="parameters">
+        <if-not-empty field="parameters.textDataResourceId">
             <set from-field="parameters.textDataResourceId" field="updateSimpleText.dataResourceId"/>
             <set from-field="parameters.text" field="updateSimpleText.textData"/>
             <call-service service-name="updateElectronicText" in-map-name="updateSimpleText"/>
@@ -734,26 +734,26 @@
         <entity-one entity-name="DataResource" value-name="dataResource">
             <field-map field-name="dataResourceId" env-name="parameters.dataResourceId"/>
         </entity-one>
-        <if-empty field-name="dataResource">
+        <if-empty field="dataResource">
             <add-error><fail-message message="No data resource found for ID: [$parameters.dataResourceId}]"/></add-error>
         </if-empty>
         <check-errors/>
 
         <set-service-fields service-name="createContent" map-name="parameters" to-map-name="createContentMap"/>
 
-        <if-empty field-name="createContentMap.contentName">
+        <if-empty field="createContentMap.contentName">
             <set field="createContentMap.contentName" from-field="dataResource.dataResourceName"/>
         </if-empty>
 
-        <if-empty field-name="createContentMap.contentTypeId">
+        <if-empty field="createContentMap.contentTypeId">
             <set field="createContentMap.contentTypeId" value="DOCUMENT"/> 
         </if-empty>
 
-        <if-empty field-name="createContentMap.statusId">
+        <if-empty field="createContentMap.statusId">
             <set field="createContentMap.statusId" value="CTNT_INITIAL_DRAFT"/>
         </if-empty>
 
-        <if-empty field-name="createContentMap.mimeTypeId">
+        <if-empty field="createContentMap.mimeTypeId">
             <set from-field="dataResource.mimeTypeId" field="createContentMap.mimeTypeId"/>
         </if-empty>
 
@@ -780,7 +780,7 @@
 		<now-timestamp-to-env env-name="nowTimestamp"/>
 		<set-service-fields to-map-name="persistIn" service-name="persistContentAndAssoc" map-name="parameters"/>
 		<!-- let's take a guess at what the dataResourceTypeId should be if it is empty -->
-		<if-empty field-name="persistIn.dataResourceTypeId">
+		<if-empty field="persistIn.dataResourceTypeId">
 		<log level="info" message="persistIn.drMimeTypeId: ${persistIn.drMimeTypeId}" />
 			<if-regexp expr="text.*" field-name="persistIn.drMimeTypeId">
 				<set field="persistIn.dataResourceTypeId" value="ELECTRONIC_TEXT"/>
@@ -843,7 +843,7 @@
 		<make-value entity-name="CommEventContentAssoc" value-name="commEventContentAssoc" />
 		<set-pk-fields value-name="commEventContentAssoc" map-name="parameters"/>
 		<set-nonpk-fields value-name="commEventContentAssoc" map-name="parameters"/>
-		<if-empty field-name="commEventContentAssoc.fromDate">
+		<if-empty field="commEventContentAssoc.fromDate">
 			<now-timestamp-to-env env-name="commEventContentAssoc.fromDate"/>
 		</if-empty>
 		<create-value value-name="commEventContentAssoc" />
@@ -856,7 +856,7 @@
 		<make-value entity-name="CommEventContentAssoc" value-name="pkCommEventContentAssoc" />
 		<set-pk-fields value-name="pkCommEventContentAssoc" map-name="parameters"/>
 		<find-by-primary-key value-name="commEventContentAssoc" map-name="pkCommEventContentAssoc" entity-name="CommEventContentAssoc"/>
-		<if-empty field-name="commEventContentAssoc">
+		<if-empty field="commEventContentAssoc">
 			<add-error>
 				<fail-message message="CommEventContentAssoc entity not found for update, communicationEventId: ${parameters.communicationEventId} and contentId: ${parameters.contentId}"/>
 			</add-error>
@@ -869,7 +869,7 @@
         <make-value entity-name="CommEventContentAssoc" value-name="pkCommEventContentAssoc" />
         <set-pk-fields value-name="pkCommEventContentAssoc" map-name="parameters"/>
         <find-by-primary-key value-name="commEventContentAssoc" map-name="pkCommEventContentAssoc" entity-name="CommEventContentAssoc"/>
-        <if-empty field-name="commEventContentAssoc">
+        <if-empty field="commEventContentAssoc">
             <add-error>
                 <fail-message message="CommEventContentAssoc entity not found for removal, communicationEventId: ${parameters.communicationEventId} and contentId: ${parameters.contentId}"/>
             </add-error>
@@ -882,7 +882,7 @@
         <call-service service-name="createContent" in-map-name="contentData">
             <result-to-field result-name="contentId" field-name="newContentId"/>
         </call-service>
-        <if-not-empty field-name="newContentId">
+        <if-not-empty field="newContentId">
             <set-service-fields service-name="createContentAssoc" map-name="parameters" to-map-name="assocData"/>
             <set field="assocData.contentId" from-field="newContentId"/> 
             <call-service service-name="createContentAssoc" in-map-name="assocData">
@@ -898,12 +898,12 @@
         <entity-one entity-name="DataResource" value-name="resultData.dataResource">
             <field-map field-name="dataResourceId" env-name="parameters.dataResourceId"/>
         </entity-one>
-        <if-not-empty field-name="resultData.dataResource">
-            <if-compare field-name="resultData.dataResource.dataResourceTypeId" value="ELECTRONIC_TEXT" operator="equals">
+        <if-not-empty field="resultData.dataResource">
+            <if-compare field="resultData.dataResource.dataResourceTypeId" value="ELECTRONIC_TEXT" operator="equals">
                 <get-related-one value-name="resultData.dataResource" relation-name="ElectronicText" 
                     to-value-name="resultData.electronicText"/>
             </if-compare>
-            <if-compare field-name="resultData.dataResource.dataResourceTypeId" value="IMAGE_OBJECT" operator="equals">
+            <if-compare field="resultData.dataResource.dataResourceTypeId" value="IMAGE_OBJECT" operator="equals">
                 <get-related-one value-name="resultData.dataResource" relation-name="ImageDataResource" 
                     to-value-name="resultData.imageDataResource"/>
             </if-compare>
@@ -915,8 +915,8 @@
         <entity-one entity-name="Content" value-name="resultDataContent.content">
             <field-map field-name="contentId" env-name="parameters.contentId"/>
         </entity-one>
-        <if-not-empty field-name="resultDataContent.content">
-            <if-not-empty field-name="resultDataContent.content.dataResourceId">
+        <if-not-empty field="resultDataContent.content">
+            <if-not-empty field="resultDataContent.content.dataResourceId">
                 <set field="parameters.dataResourceId" from-field="resultDataContent.content.dataResourceId"/>
                 <call-simple-method method-name="getDataResource"/>
                 <set field="resultDataContent.dataResource" from-field="resultData.dataResource"/>
@@ -938,12 +938,12 @@
             <condition>
                 <and>
                     <not>
-                        <if-empty field-name="parameters.contentIdFrom"/>
+                        <if-empty field="parameters.contentIdFrom"/>
                     </not>
                     <not>
-                        <if-empty field-name="parameters.contentId"/>
+                        <if-empty field="parameters.contentId"/>
                     </not>
-                    <if-empty field-name="parameters.contentIdTo"/>
+                    <if-empty field="parameters.contentIdTo"/>
                 </and>
             </condition>
             <then>
@@ -954,7 +954,7 @@
             <else-if>
                 <condition>
                     <not>
-                        <if-empty field-name="parameters.contentIdTo"/>
+                        <if-empty field="parameters.contentIdTo"/>
                     </not>
                 </condition>
                 <then>
@@ -973,7 +973,7 @@
         <set field="contentAssocTypeId" from-field="parameters.contentAssocTypeId"/>
         <set field="origContentAssocTypeId" from-field="parameters.contentAssocTypeId"/>
         <set field="ownerContentId" from-field="parameters.threadContentId"/>
-        <if-compare operator="equals" field-name="origContentAssocTypeId" value="PUBLISH_LINK">
+        <if-compare operator="equals" field="origContentAssocTypeId" value="PUBLISH_LINK">
             <set field="ownerContentId" from-field="parameters.pubPtContentId"/>
         </if-compare>
         <set field="contentIdFrom" from-field="parameters.contentIdFrom"/>         
@@ -996,7 +996,7 @@
             <field field-name="intSubStringLen" type="int"/>
         </call-object-method>
         <log level="info" message="subDescript:${subDescript}"/>
-        <if-compare operator="equals" field-name="contentAssocTypeId" value="PUBLISH_LINK">
+        <if-compare operator="equals" field="contentAssocTypeId" value="PUBLISH_LINK">
             <set field="ownerContentId" from-field="pubPtContentId"/>
         </if-compare>  
 
@@ -1005,10 +1005,10 @@
             <condition>
                 <and>
                     <not>
-                        <if-empty field-name="parameters.uploadedFile"/>
+                        <if-empty field="parameters.uploadedFile"/>
                     </not>
                     <not>
-                        <if-empty field-name="parameters.textData"/>
+                        <if-empty field="parameters.textData"/>
                     </not>
                 </and>
             </condition>
@@ -1039,7 +1039,7 @@
         <if>
             <condition>
                 <not>
-                    <if-empty field-name="parameters.uploadedFile"/>
+                    <if-empty field="parameters.uploadedFile"/>
                 </not>
             </condition>
             <then>
@@ -1063,7 +1063,7 @@
                     <result-to-field result-name="contentId" field-name="imageContentId"/>
                 </call-service>
 
-                <if-empty field-name="contentId">
+                <if-empty field="contentId">
                     <set field="contentIdFrom" from-field="imageContentId"/>
                     <set field="contentId" from-field="imageContentId"/>
                     <set field="contentAssocTypeId" value="SUB_CONTENT"/>
@@ -1074,7 +1074,7 @@
         <if>
             <condition>
                 <not>
-                    <if-empty field-name="parameters.textData"/>
+                    <if-empty field="parameters.textData"/>
                 </not>
             </condition>
             <then>
@@ -1097,7 +1097,7 @@
                     <result-to-field result-name="contentId" field-name="textContentId"/>
                 </call-service>
 
-                <if-empty field-name="contentId">
+                <if-empty field="contentId">
                     <set field="contentIdFrom" from-field="textContentId"/>
                     <set field="contentId" from-field="textContentId"/>
                     <set field="contentAssocTypeId" value="SUB_CONTENT"/>
@@ -1110,10 +1110,10 @@
             <condition>
                 <and>
                     <not>
-                        <if-empty field-name="contentId"/>
+                        <if-empty field="contentId"/>
                     </not>
                     <not>
-                        <if-empty field-name="parameters.summaryData"/>
+                        <if-empty field="parameters.summaryData"/>
                     </not>
                 </and>
             </condition>
@@ -1137,7 +1137,7 @@
         </if>
         
         <!-- If a response, still link it to the publish point -->
-        <if-compare operator="equals" field-name="origContentAssocTypeId" value="RESPONSE">
+        <if-compare operator="equals" field="origContentAssocTypeId" value="RESPONSE">
             <set field="contentAssocMap.contentId" from-field="pubPtContentId"/>
             <set field="contentAssocMap.contentIdTo" from-field="contentId"/>
             <set field="contentAssocMap.contentAssocTypeId" value="RESPONSE"/>
@@ -1167,10 +1167,10 @@
                 <condition>
                     <and>
 	                    <not>
-	                        <if-empty field-name="parameters.mainAction"/>
+	                        <if-empty field="parameters.mainAction"/>
 	                    </not>
 	                    <not>
-	                        <if-empty field-name="parameters.userLogin"/>
+	                        <if-empty field="parameters.userLogin"/>
 	                    </not>
                     </and>
                 </condition>
@@ -1184,7 +1184,7 @@
                     </call-service>
                 </then>
             </if>
-            <if-compare operator="equals" field-name="hasPermission" value="true" type="Boolean">
+            <if-compare operator="equals" field="hasPermission" value="true" type="Boolean">
                 <set field="contentViewList[]" from-field="view"/>
             </if-compare>
         </iterate>

@@ -22,18 +22,18 @@ under the License.
 
     <simple-method method-name="genericBasePermissionCheck" short-description="Basic Permission check">
         <!-- allow mainAction to be set from outside methods or direct to the service -->
-        <if-empty field-name="mainAction">
+        <if-empty field="mainAction">
             <set field="mainAction" from-field="parameters.mainAction"/>
-            <if-empty field-name="mainAction">
+            <if-empty field="mainAction">
                 <add-error><fail-property resource="CommonUiLabels" property="CommonPermissionMainActionAttributeMissing"/></add-error>
             </if-empty>
         </if-empty>
         <check-errors/>
 
         <!-- allow primary permission to be set from outside methods or direct to the service -->
-        <if-empty field-name="primaryPermission">
+        <if-empty field="primaryPermission">
             <set field="primaryPermission" from-field="parameters.primaryPermission"/>
-            <if-empty field-name="primaryPermission">
+            <if-empty field="primaryPermission">
                 <add-error><fail-property resource="CommonUiLabels" property="CommonPermissionPrimaryPermissionMissing"/></add-error>
             </if-empty>
         </if-empty>
@@ -41,10 +41,10 @@ under the License.
         <log level="info" message="Checking for primary permission ${primaryPermission}_${mainAction}"/>
 
         <!-- allow alt permission to be set from outside methods or direct to the service -->
-        <if-empty field-name="altPermission">
+        <if-empty field="altPermission">
             <set field="altPermission" from-field="parameters.altPermission"/>
         </if-empty>
-        <if-not-empty field-name="altPermission">
+        <if-not-empty field="altPermission">
             <log level="info" message="Checking for alternate permission ${altPermission}_${mainAction}"/>
             <set field="altPermissionList" value=", ${altPermission}_${mainAction}, ${altPermission}_ADMIN"/>
         </if-not-empty>
@@ -52,7 +52,7 @@ under the License.
 
         <!-- set up called service name -->
         <set field="resourceDescription" from-field="parameters.resourceDescription"/>
-        <if-empty field-name="resourceDescription">
+        <if-empty field="resourceDescription">
             <property-to-field resource="CommonUiLabels" property="CommonPermissionThisOperation" field-name="resourceDescription"/>
         </if-empty>
 

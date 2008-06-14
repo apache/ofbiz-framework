@@ -63,23 +63,23 @@ under the License.
         <set field="default_user_password" value="ungssblepsswd" />
         <now-timestamp-to-env env-name="nowStamp"/>
 
-        <if-compare field-name="create_allow_password" operator="not-equals" value="true">
+        <if-compare field="create_allow_password" operator="not-equals" value="true">
             <set field="parameters.PASSWORD" from-field="default_user_password" />
             <set field="parameters.CONFIRM_PASSWORD" from-field="default_user_password" />
             <set field="parameters.PASSWORD_HINT" value="No hint set, accout not yet enabled" />
         </if-compare>
 
         <!-- if username and/or password should be lowercased, do that now -->
-        <if-compare field-name="username_lowercase" operator="equals" value="true">
+        <if-compare field="username_lowercase" operator="equals" value="true">
             <call-object-method obj-field-name="USERNAME" obj-map-name="parameters" method-name="toLowerCase" ret-field-name="USERNAME" ret-map-name="parameters"/>
         </if-compare>
-        <if-compare field-name="password_lowercase" operator="equals" value="true">
+        <if-compare field="password_lowercase" operator="equals" value="true">
             <call-object-method obj-field-name="PASSWORD" obj-map-name="parameters" method-name="toLowerCase" ret-field-name="PASSWORD" ret-map-name="parameters"/>
             <call-object-method obj-field-name="CONFIRM_PASSWORD" obj-map-name="parameters" method-name="toLowerCase" ret-field-name="CONFIRM_PASSWORD" ret-map-name="parameters"/>
         </if-compare>
 
         <!-- Create the UserLogin Record -->
-        <if-not-empty field-name="USERNAME" map-name="parameters">
+        <if-not-empty field="parameters.USERNAME">
             <call-map-processor in-map-name="parameters" out-map-name="userLoginContext">
                 <simple-map-processor name="newUserLogin">
                     <process field="USERNAME"><copy to-field="userLoginId"/><not-empty><fail-property resource="PartyUiLabels" property="PartyUserNameMissing"/></not-empty></process>
@@ -92,10 +92,10 @@ under the License.
                     <process field="PASSWORD_HINT"><copy to-field="passwordHint"/></process>
                 </simple-map-processor>
             </call-map-processor>
-            <if-not-empty field-name="userLoginId" map-name="userLoginContext">
+            <if-not-empty field="userLoginContext.userLoginId">
                 <set field="userLoginExistsMap.userLoginId"  from-field="userLoginContext.userLoginId" />
                 <find-by-primary-key entity-name="UserLogin" map-name="userLoginExistsMap" value-name="existingUserLogin"/>
-                <if-not-empty field-name="existingUserLogin">
+                <if-not-empty field="existingUserLogin">
                     <set field="tempErrorMessage" value="Username in use, please choose another." />
                     <field-to-list field-name="tempErrorMessage" list-name="error_list"/>
                 </if-not-empty>
@@ -114,7 +114,7 @@ under the License.
                 org.ofbiz.common.login.LoginServices.checkNewPassword(newUserLogin, null, password, confirmPassword, passwordHint, error_list, true, locale);
             ]]></call-bsh>
         <else>
-            <if-compare field-name="require_login" operator="equals" value="true">
+            <if-compare field="require_login" operator="equals" value="true">
                 <add-error><fail-property resource="PartyUiLabels" property="PartyUserNameMissing"/></add-error>
                 <check-errors/>
             </if-compare>
@@ -138,7 +138,7 @@ under the License.
         <set field="partyRoleContext.roleTypeId" from-field="parameters.roleTypeId" />
 
         <!-- Create the Postal Address -->
-        <if-compare field-name="USE_ADDRESS" map-name="parameters" operator="equals" value="false">
+        <if-compare field="parameters.USE_ADDRESS" operator="equals" value="false">
             <!-- address not used, do nothing -->
             <else>
                 <call-map-processor in-map-name="parameters" out-map-name="addressContext">
@@ -159,14 +159,14 @@ under the License.
                         <process field="USER_ADDRESS_ALLOW_SOL"><copy to-field="allowSolicitation"/></process>
                     </simple-map-processor>
                 </call-map-processor>
-                <if-compare value="USA" operator="equals" field-name="USER_COUNTRY" map-name="parameters">
-                    <if-empty field-name="USER_STATE" map-name="parameters">
+                <if-compare value="USA" operator="equals" field="parameters.USER_COUNTRY">
+                    <if-empty field="parameters.USER_STATE">
                         <set field="tempErrorMessage" value="State is missing, and is required for an address in the United States." />
                         <field-to-list field-name="tempErrorMessage" list-name="error_list"/>
                     </if-empty>
                 </if-compare>
-                <if-compare value="CAN" operator="equals" field-name="USER_COUNTRY" map-name="parameters">
-                    <if-empty field-name="USER_STATE" map-name="parameters">
+                <if-compare value="CAN" operator="equals" field="parameters.USER_COUNTRY">
+                    <if-empty field="parameters.USER_STATE">
                         <set field="tempErrorMessage" value="State is missing, and is required for an address in Canada." />
                         <field-to-list field-name="tempErrorMessage" list-name="error_list"/>
                     </if-empty>
@@ -175,7 +175,7 @@ under the License.
         </if-compare>
 
         <!-- Create the Home Phone -->
-        <if-not-empty field-name="USER_HOME_CONTACT" map-name="parameters">
+        <if-not-empty field="parameters.USER_HOME_CONTACT">
             <call-map-processor in-map-name="parameters" out-map-name="homePhoneContext">
                 <simple-map-processor name="newTelecomNumber">
                     <process field="roleTypeId"><copy/></process>
@@ -189,7 +189,7 @@ under the License.
         </if-not-empty>
 
         <!-- Create the Work Phone -->
-        <if-not-empty field-name="USER_WORK_CONTACT" map-name="parameters">
+        <if-not-empty field="parameters.USER_WORK_CONTACT">
             <call-map-processor in-map-name="parameters" out-map-name="workPhoneContext">
                 <simple-map-processor name="newTelecomNumber">
                     <process field="roleTypeId"><copy/></process>
@@ -203,7 +203,7 @@ under the License.
         </if-not-empty>
 
         <!-- Create the Fax Phone -->
-        <if-not-empty field-name="USER_FAX_CONTACT" map-name="parameters">
+        <if-not-empty field="parameters.USER_FAX_CONTACT">
             <call-map-processor in-map-name="parameters" out-map-name="faxPhoneContext">
                 <simple-map-processor name="newTelecomNumber">
                     <process field="roleTypeId"><copy/></process>
@@ -217,7 +217,7 @@ under the License.
         </if-not-empty>
 
         <!-- Create the Mobile Phone -->
-        <if-not-empty field-name="USER_MOBILE_CONTACT" map-name="parameters">
+        <if-not-empty field="parameters.USER_MOBILE_CONTACT">
             <call-map-processor in-map-name="parameters" out-map-name="mobilePhoneContext">
                 <simple-map-processor name="newTelecomNumber">
                     <process field="roleTypeId"><copy/></process>
@@ -231,10 +231,10 @@ under the License.
         </if-not-empty>
 
         <!-- Check for required Phone -->
-        <if-compare field-name="require_phone" operator="equals" value="true">
-            <if-empty field-name="USER_HOME_CONTACT" map-name="parameters">
-                <if-empty field-name="USER_WORK_CONTACT" map-name="parameters">
-                    <if-empty field-name="USER_MOBILE_CONTACT" map-name="parameters">
+        <if-compare field="require_phone" operator="equals" value="true">
+            <if-empty field="parameters.USER_HOME_CONTACT">
+                <if-empty field="parameters.USER_WORK_CONTACT">
+                    <if-empty field="parameters.USER_MOBILE_CONTACT">
                         <call-map-processor in-map-name="parameters" out-map-name="dummymap">
                             <simple-map-processor name="checkRequiredPhone">
                                 <process field="REQUIRED_PHONE">
@@ -257,8 +257,8 @@ under the License.
         </call-map-processor>
 
         <!-- Check for required E-Mail -->
-        <if-compare field-name="require_email" operator="equals" value="true">
-            <if-empty field-name="emailAddress" map-name="emailContext">
+        <if-compare field="require_email" operator="equals" value="true">
+            <if-empty field="emailContext.emailAddress">
                 <call-map-processor in-map-name="emailContext" out-map-name="dummymap">
                     <simple-map-processor name="checkRequiredEmail">
                         <process field="emailAddress">
@@ -267,7 +267,7 @@ under the License.
                     </simple-map-processor>
                </call-map-processor>
            </if-empty>
-           <if-not-empty field-name="emailAddress" map-name="emailContext">
+           <if-not-empty field="emailContext.emailAddress">
                 <call-map-processor in-map-name="emailContext" out-map-name="dummymap">
                     <simple-map-processor name="checkRequiredEmailFormat">
                         <process field="emailAddress">
@@ -308,7 +308,7 @@ under the License.
         <set field="mobilePhoneContext.partyId" from-field="tempMap.partyId" />
         <set field="emailContext.partyId" from-field="tempMap.partyId" />        
 
-        <if-not-empty field-name="newUserLogin">
+        <if-not-empty field="newUserLogin">
             <!-- If password encryption is enabled, encrpyt it now -->
             <call-bsh><![CDATA[
                 boolean useEncryption = "true".equals(org.ofbiz.base.util.UtilProperties.getPropertyValue("security", "password.encrypt"));
@@ -325,7 +325,7 @@ under the License.
         <call-service service-name="createPartyRole" in-map-name="partyRoleContext"/>
         
         <!-- shipping address -->
-        <if-compare field-name="USE_ADDRESS" map-name="parameters" operator="equals" value="false">
+        <if-compare field="parameters.USE_ADDRESS" operator="equals" value="false">
             <!-- address not used, do nothing -->
             <else>
                 <call-service service-name="createPartyPostalAddress" in-map-name="addressContext">
@@ -342,7 +342,7 @@ under the License.
         </if-compare>
 
         <!-- home phone -->
-        <if-not-empty field-name="USER_HOME_CONTACT" map-name="parameters">
+        <if-not-empty field="parameters.USER_HOME_CONTACT">
             <call-service service-name="createPartyTelecomNumber" in-map-name="homePhoneContext">
                 <result-to-field result-name="contactMechId" map-name="homePhonePurposeContext"/>
             </call-service>
@@ -352,7 +352,7 @@ under the License.
         </if-not-empty>
 
         <!-- work phone -->
-        <if-not-empty field-name="USER_WORK_CONTACT" map-name="parameters">
+        <if-not-empty field="parameters.USER_WORK_CONTACT">
             <call-service service-name="createPartyTelecomNumber" in-map-name="workPhoneContext">
                 <result-to-field result-name="contactMechId" map-name="workPhonePurposeContext"/>
             </call-service>
@@ -362,7 +362,7 @@ under the License.
         </if-not-empty>
 
         <!-- fax phone -->
-        <if-not-empty field-name="USER_FAX_CONTACT" map-name="parameters">
+        <if-not-empty field="parameters.USER_FAX_CONTACT">
             <call-service service-name="createPartyTelecomNumber" in-map-name="faxPhoneContext">
                 <result-to-field result-name="contactMechId" map-name="faxPhonePurposeContext"/>
             </call-service>
@@ -372,7 +372,7 @@ under the License.
         </if-not-empty>
 
         <!-- mobile phone -->
-        <if-not-empty field-name="USER_MOBILE_CONTACT" map-name="parameters">
+        <if-not-empty field="parameters.USER_MOBILE_CONTACT">
             <call-service service-name="createPartyTelecomNumber" in-map-name="mobilePhoneContext">
                 <result-to-field result-name="contactMechId" map-name="mobilePhonePurposeContext"/>
             </call-service>
@@ -382,7 +382,7 @@ under the License.
         </if-not-empty>
 
         <!-- email address -->
-        <if-not-empty field-name="USER_EMAIL" map-name="parameters">
+        <if-not-empty field="parameters.USER_EMAIL">
             <call-service service-name="createPartyEmailAddress" in-map-name="emailContext">
                 <result-to-field result-name="contactMechId" map-name="emailPurposeContext"/>
             </call-service>

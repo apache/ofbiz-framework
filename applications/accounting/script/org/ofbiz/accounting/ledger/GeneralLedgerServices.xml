@@ -27,7 +27,7 @@ under the License.
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
         <!-- GlAccount uses a sequenced id, so get the next one now and set it... -->
-        <if-empty field-name="parameters.glAccountId">
+        <if-empty field="parameters.glAccountId">
             <sequenced-id-to-env sequence-name="GlAccount" env-name="newEntity.glAccountId"/>
         <else>
             <set-pk-fields map-name="parameters" value-name="newEntity"/>
@@ -171,7 +171,7 @@ under the License.
             <results-to-map map-name="trialBalanceResultMap"/>
         </call-service>
         
-        <if-compare field-name="trialBalanceResultMap.debitCreditDifference" operator="not-equals" value="0" type="Double">
+        <if-compare field="trialBalanceResultMap.debitCreditDifference" operator="not-equals" value="0" type="Double">
             <add-error><fail-message message="Not posting GL Journal with ID [${parameters.glJournalId}] because the trial balance failed: Debit Total=${trialBalanceResultMap.debitTotal} Credit Total=${trialBalanceResultMap.creditTotal} Debit/Credit Difference=${trialBalanceResultMap.debitCreditDifference}"/></add-error>
             <check-errors/>
         </if-compare>
@@ -226,7 +226,7 @@ under the License.
     <simple-method method-name="createGlReconciliationEntry" short-description="Add Entry To GlReconciliation">
         <!-- first of all, make sure that the AcctgTransEntry is not already reconciled -->
         <entity-one entity-name="AcctgTransEntry" value-name="acctgTransEntry"/>
-        <if-compare field-name="acctgTransEntry.reconcileStatusId" operator="equals" value="AES_RECONCILED">
+        <if-compare field="acctgTransEntry.reconcileStatusId" operator="equals" value="AES_RECONCILED">
             <add-error><fail-message message="The accounting transaction entry ${acctgTransEntry.acctgTransId}/${acctgTransEntry.acctgTransEntrySeqId} is already reconciled: cannot reconcile."/></add-error>
             <check-errors/>
         </if-compare>
@@ -265,7 +265,7 @@ under the License.
     <!-- ========== GL Posting Services ========== -->
     <simple-method method-name="completeAcctgTransEntries" short-description="Completes, if possible, the AcctgTransEntries using the mappings defined in the gl setup">
         <entity-one entity-name="AcctgTrans" value-name="acctgTrans"/>
-        <if-compare field-name="acctgTrans.isPosted" operator="equals" value="Y">
+        <if-compare field="acctgTrans.isPosted" operator="equals" value="Y">
             <add-error><fail-property resource="AccountingUiLabels" property="AccountingTransactionHasBeenAlreadyPosted"/></add-error>
             <check-errors/>    
         </if-compare>
@@ -273,7 +273,7 @@ under the License.
         <iterate list-name="acctgTransEntries" entry-name="acctgTransEntry">
             <!-- if the glAccountId is empty, but we have a glAccountTypeId, then we will determine the
                  correct glAccountId from the gl setup settings -->
-            <if-empty field-name="acctgTransEntry.glAccountId">
+            <if-empty field="acctgTransEntry.glAccountId">
                 <clear-field field-name="getGlAccountFromAccountTypeInMap"/>
                 <set field="getGlAccountFromAccountTypeInMap.organizationPartyId" from-field="acctgTransEntry.organizationPartyId"/>
                 <set field="getGlAccountFromAccountTypeInMap.acctgTransTypeId" from-field="acctgTrans.acctgTransTypeId"/>
@@ -288,13 +288,13 @@ under the License.
                     <result-to-field result-name="glAccountId" field-name="acctgTransEntry.glAccountId"/>
                 </call-service>
             </if-empty>
-            <if-empty field-name="acctgTransEntry.origAmount">
+            <if-empty field="acctgTransEntry.origAmount">
                 <set field="acctgTransEntry.origAmount" from-field="acctgTransEntry.amount"/>
             </if-empty>
             <entity-one entity-name="GlAccountType" value-name="glAccountType" use-cache="true" auto-field-map="false">
                 <field-map field-name="glAccountTypeId" env-name="acctgTransEntry.glAccountTypeId"/>
             </entity-one>
-            <if-empty field-name="glAccountType">
+            <if-empty field="glAccountType">
                 <clear-field field-name="acctgTransEntry.glAccountTypeId"/>
             </if-empty>
             <store-value value-name="acctgTransEntry"/>
@@ -313,25 +313,25 @@ under the License.
                 <field-map field-name="partyId" env-name="acctgTransEntry.organizationPartyId"/>
                 <field-map field-name="roleTypeId" value="INTERNAL_ORGANIZATIO"/>
             </entity-one>
-            <if-empty field-name="partyRole">
+            <if-empty field="partyRole">
                 <log level="warning" message="The party with id [${acctgTransEntry.organizationPartyId}] is not an internal organization; the following accounting transaction will be ignored: ${acctgTransEntry}"/>
             <else>
 	            <set field="partyAccountingPreferencesCallMap.organizationPartyId" from-field="acctgTransEntry.organizationPartyId"/>
 	            <call-service service-name="getPartyAccountingPreferences" in-map-name="partyAccountingPreferencesCallMap">
 	                 <result-to-field result-name="partyAccountingPreference" field-name="partyAcctgPreference"/>
 	            </call-service>
-                <if-empty field-name="partyAcctgPreference">
+                <if-empty field="partyAcctgPreference">
                     <log level="warning" message="The internal organization with id [${acctgTransEntry.organizationPartyId}] has no PartyAcctgPreference setting; the following accounting transaction will be ignored: ${acctgTransEntry}"/>
                 <else>
                     <!-- if the amount field is empty, then determine it from the origAmount and origCurrencyUomId fields:
                          if origCurrencyUomId is different from the base currency of the organization, then the amount value will be converted -->
-                    <if-empty field-name="acctgTransEntry.amount">
-                        <if-not-empty field-name="acctgTransEntry.origAmount">
-                            <if-empty field-name="acctgTransEntry.origCurrencyUomId">
+                    <if-empty field="acctgTransEntry.amount">
+                        <if-not-empty field="acctgTransEntry.origAmount">
+                            <if-empty field="acctgTransEntry.origCurrencyUomId">
                                 <set field="acctgTransEntry.origCurrencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
                             </if-empty>
                             <set field="acctgTransEntry.currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
-                            <if-compare-field field-name="acctgTransEntry.origCurrencyUomId" operator="not-equals" to-field-name="acctgTransEntry.currencyUomId">
+                            <if-compare-field field="acctgTransEntry.origCurrencyUomId" to-field="acctgTransEntry.currencyUomId" operator="not-equals">
                                 <clear-field field-name="convertUomInMap"/>
                                 <set field="convertUomInMap.originalValue" from-field="acctgTransEntry.origAmount" type="Double"/>
                                 <set field="convertUomInMap.uomId" from-field="acctgTransEntry.origCurrencyUomId"/>
@@ -348,7 +348,7 @@ under the License.
                     </if-empty>
                     <!-- if the glAccountId is empty, but we have a glAccountTypeId, then we will determine the
                          correct glAccountId from the gl setup settings -->
-                    <if-empty field-name="acctgTransEntry.glAccountId">
+                    <if-empty field="acctgTransEntry.glAccountId">
                         <clear-field field-name="getGlAccountFromAccountTypeInMap"/>
                         <set field="getGlAccountFromAccountTypeInMap.organizationPartyId" from-field="acctgTransEntry.organizationPartyId"/>
                         <set field="getGlAccountFromAccountTypeInMap.acctgTransTypeId" from-field="parameters.acctgTransTypeId"/>
@@ -363,13 +363,13 @@ under the License.
                             <result-to-field result-name="glAccountId" field-name="acctgTransEntry.glAccountId"/>
                         </call-service>
                     </if-empty>
-                    <if-empty field-name="acctgTransEntry.origAmount">
+                    <if-empty field="acctgTransEntry.origAmount">
                         <set field="acctgTransEntry.origAmount" from-field="acctgTransEntry.amount"/>
                     </if-empty>
                     <entity-one entity-name="GlAccountType" value-name="glAccountType" use-cache="true" auto-field-map="false">
                         <field-map field-name="glAccountTypeId" env-name="acctgTransEntry.glAccountTypeId"/>
                     </entity-one>
-                    <if-empty field-name="glAccountType">
+                    <if-empty field="glAccountType">
                         <clear-field field-name="acctgTransEntry.glAccountTypeId"/>
                     </if-empty>
                     <set field="normalizedAcctgTransEntries[]" from-field="acctgTransEntry"/>
@@ -379,10 +379,10 @@ under the License.
             </if-empty>
         </iterate>
 
-        <if-not-empty field-name="normalizedAcctgTransEntries">
+        <if-not-empty field="normalizedAcctgTransEntries">
             <!-- now do the posting. First, create the AcctgTrans entity -->
             <set-service-fields service-name="createAcctgTrans" map-name="parameters" to-map-name="createAcctgTransParams"/>
-            <if-empty field-name="createAcctgTransParams.transactionDate">
+            <if-empty field="createAcctgTransParams.transactionDate">
                 <now-timestamp-to-env env-name="createAcctgTransParams.transactionDate"/>
             </if-empty>
             <call-service service-name="createAcctgTrans" in-map-name="createAcctgTransParams">
@@ -392,7 +392,7 @@ under the License.
             <!-- Next, create the AcctgTransEntry entities one by one -->
             <iterate list-name="normalizedAcctgTransEntries" entry-name="acctgTransEntry">
                 <!-- if any amount is negative, then get the absolute (positive) value of that amount, and flip the Debit/Credit flag  -->
-                <if-compare field-name="acctgTransEntry.origAmount" operator="less" value="0">
+                <if-compare field="acctgTransEntry.origAmount" operator="less" value="0">
                     <log level="verbose" message="${acctgTransEntry} is going to get inverted"/>
                     <calculate field-name="acctgTransEntry.origAmount">
                         <calcop field-name="acctgTransEntry.origAmount" operator="negative"/>
@@ -400,10 +400,10 @@ under the License.
                     <calculate field-name="acctgTransEntry.amount">
                         <calcop field-name="acctgTransEntry.amount" operator="negative"/>
                     </calculate>
-                    <if-compare field-name="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
+                    <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
                         <set value="C" field="acctgTransEntry.debitCreditFlag"/>
                     <else>
-                        <if-compare field-name="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
+                        <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
                             <set value="D" field="acctgTransEntry.debitCreditFlag"/>
                         </if-compare>
                     </else>
@@ -429,9 +429,9 @@ under the License.
 
     <simple-method method-name="getGlAccountFromAccountType" short-description="Look up a GlAccountId from GlAccountTypeId">
         <!-- if this is an inventory variance then the glAccountTypeId contains the varianceReasonId; the value is used to lookup the account id in the VarianceReasonGlAccount entity -->
-        <if-compare field-name="parameters.acctgTransTypeId" operator="equals" value="ITEM_VARIANCE">
+        <if-compare field="parameters.acctgTransTypeId" operator="equals" value="ITEM_VARIANCE">
             <call-simple-method method-name="getVarianceReasonGlAccountInline"/>
-            <if-not-empty field-name="varianceReasonGlAccount.glAccountId">
+            <if-not-empty field="varianceReasonGlAccount.glAccountId">
                 <field-to-result field-name="varianceReasonGlAccount.glAccountId" result-name="glAccountId"/>
                 <return/>
             </if-not-empty>
@@ -440,14 +440,14 @@ under the License.
         <if>
             <condition>
                 <and>
-                    <not><if-empty field-name="parameters.glAccountTypeId"/></not>
-                    <not><if-empty field-name="parameters.partyId"/></not>
-                    <not><if-empty field-name="parameters.roleTypeId"/></not>
+                    <not><if-empty field="parameters.glAccountTypeId"/></not>
+                    <not><if-empty field="parameters.partyId"/></not>
+                    <not><if-empty field="parameters.roleTypeId"/></not>
                 </and>
             </condition>
             <then>
                 <call-simple-method method-name="getPartyGlAccountInline"/>
-                <if-not-empty field-name="partyGlAccount.glAccountId">
+                <if-not-empty field="partyGlAccount.glAccountId">
                     <field-to-result field-name="partyGlAccount.glAccountId" result-name="glAccountId"/>
                     <return/>
                 </if-not-empty>
@@ -458,51 +458,51 @@ under the License.
                 <and>
                     <or>
                         <and>
-                            <if-compare field-name="parameters.acctgTransTypeId" operator="equals" value="OUTGOING_PAYMENT"/>
-                            <if-compare field-name="parameters.debitCreditFlag" operator="equals" value="C"/>
+                            <if-compare field="parameters.acctgTransTypeId" operator="equals" value="OUTGOING_PAYMENT"/>
+                            <if-compare field="parameters.debitCreditFlag" operator="equals" value="C"/>
                         </and>
                         <and>
-                            <if-compare field-name="parameters.acctgTransTypeId" operator="equals" value="INCOMING_PAYMENT"/>
-                            <if-compare field-name="parameters.debitCreditFlag" operator="equals" value="D"/>
+                            <if-compare field="parameters.acctgTransTypeId" operator="equals" value="INCOMING_PAYMENT"/>
+                            <if-compare field="parameters.debitCreditFlag" operator="equals" value="D"/>
                         </and>
                     </or>
-                    <not><if-empty field-name="parameters.paymentId"/></not>
+                    <not><if-empty field="parameters.paymentId"/></not>
                 </and>
             </condition>
             <then>
                 <entity-one entity-name="Payment" value-name="payment"/>
                 <get-related-one value-name="payment" relation-name="PaymentMethod" to-value-name="paymentMethod"/>
-                <if-not-empty field-name="paymentMethod.glAccountId">
+                <if-not-empty field="paymentMethod.glAccountId">
                     <field-to-result field-name="paymentMethod.glAccountId" result-name="glAccountId"/>
                     <return/>
                 </if-not-empty>
-                <if-compare field-name="payment.paymentMethodTypeId" operator="equals" value="CREDIT_CARD">
+                <if-compare field="payment.paymentMethodTypeId" operator="equals" value="CREDIT_CARD">
                     <get-related-one value-name="payment" relation-name="CreditCard" to-value-name="creditCard"/>
                     <call-simple-method method-name="getCreditCardTypeGlAccountInline"/>
-                    <if-not-empty field-name="creditCardTypeGlAccount.glAccountId">
+                    <if-not-empty field="creditCardTypeGlAccount.glAccountId">
                         <field-to-result field-name="creditCardTypeGlAccount.glAccountId" result-name="glAccountId"/>
                         <return/>
                     </if-not-empty>
                 </if-compare>
                 <call-simple-method method-name="getPaymentMethodTypeGlAccountInline"/>
-                <if-not-empty field-name="paymentMethodTypeGlAccount.glAccountId">
+                <if-not-empty field="paymentMethodTypeGlAccount.glAccountId">
                     <field-to-result field-name="paymentMethodTypeGlAccount.glAccountId" result-name="glAccountId"/>
                     <return/>
                 </if-not-empty>
                 <return/>
             </then>
         </if>
-        <if-not-empty field-name="parameters.productId">
+        <if-not-empty field="parameters.productId">
             <call-simple-method method-name="getProductGlAccountInline"/>
             <!-- if nothing found look if the parameters.productId is member of any ProductCategory in ProductCategoryGlAccount --> 
-            <if-empty field-name="productGlAccount.glAccountId">
+            <if-empty field="productGlAccount.glAccountId">
                 <entity-and entity-name="ProductCategoryMember" list-name="productCategoryMembers" filter-by-date="true">
                     <field-map field-name="productId" env-name="parameters.productId"/>
                     <order-by field-name="-fromDate"/>
                 </entity-and>
                 <iterate list-name="productCategoryMembers" entry-name="productCategoryMember">
                     <call-simple-method method-name="getProductCategoryGlAccountInline"/>
-                    <if-not-empty field-name="productCategoryGlAccount.glAccountId">
+                    <if-not-empty field="productCategoryGlAccount.glAccountId">
                         <field-to-result field-name="productCategoryGlAccount.glAccountId" result-name="glAccountId"/>
                         <return/>
                     </if-not-empty>
@@ -518,22 +518,22 @@ under the License.
                 <and>
                     <or>
                         <and>
-                            <if-compare field-name="parameters.acctgTransTypeId" operator="equals" value="PURCHASE_INVOICE"/>
-                            <if-compare field-name="parameters.debitCreditFlag" operator="equals" value="D"/>
+                            <if-compare field="parameters.acctgTransTypeId" operator="equals" value="PURCHASE_INVOICE"/>
+                            <if-compare field="parameters.debitCreditFlag" operator="equals" value="D"/>
                         </and>
                         <and>
-                            <if-compare field-name="parameters.acctgTransTypeId" operator="equals" value="SALES_INVOICE"/>
-                            <if-compare field-name="parameters.debitCreditFlag" operator="equals" value="C"/>
+                            <if-compare field="parameters.acctgTransTypeId" operator="equals" value="SALES_INVOICE"/>
+                            <if-compare field="parameters.debitCreditFlag" operator="equals" value="C"/>
                         </and>
                     </or>
-                    <not><if-empty field-name="parameters.invoiceId"/></not>
-                    <not><if-empty field-name="parameters.glAccountTypeId"/></not>
+                    <not><if-empty field="parameters.invoiceId"/></not>
+                    <not><if-empty field="parameters.glAccountTypeId"/></not>
                 </and>
             </condition>
             <then>
 
-                <if-not-empty field-name="parameters.productId">
-                    <if-compare field-name="parameters.acctgTransTypeId" operator="equals" value="PURCHASE_INVOICE">
+                <if-not-empty field="parameters.productId">
+                    <if-compare field="parameters.acctgTransTypeId" operator="equals" value="PURCHASE_INVOICE">
                         <set field="parameters.glAccountTypeId" value="UNINVOICED_SHIP_RCPT"/>
                         <call-simple-method method-name="getGlAccountTypeDefaultInline"/>
                         <set field="glAccountTypeDefault" from-field="lookedUpValue"/>
@@ -543,20 +543,20 @@ under the License.
                         <set field="glAccountTypeDefault" from-field="lookedUpValue"/>
                     </else>
                     </if-compare>
-                    <if-not-empty field-name="glAccountTypeDefault.glAccountId">
+                    <if-not-empty field="glAccountTypeDefault.glAccountId">
                         <field-to-result field-name="glAccountTypeDefault.glAccountId" result-name="glAccountId"/>
                         <return/>
                     </if-not-empty>
                 </if-not-empty>
                 <call-simple-method method-name="getInvoiceItemTypeGlAccountInline"/>
-                <if-not-empty field-name="invoiceItemTypeGlAccount.glAccountId">
+                <if-not-empty field="invoiceItemTypeGlAccount.glAccountId">
                     <field-to-result field-name="invoiceItemTypeGlAccount.glAccountId" result-name="glAccountId"/>
                     <return/>
                 </if-not-empty>
                 <entity-one entity-name="InvoiceItemType" value-name="invoiceItemType">
                     <field-map field-name="invoiceItemTypeId" env-name="parameters.glAccountTypeId"/>
                 </entity-one>
-                <if-not-empty field-name="invoiceItemType.defaultGlAccountId">
+                <if-not-empty field="invoiceItemType.defaultGlAccountId">
                     <field-to-result field-name="invoiceItemType.defaultGlAccountId" result-name="glAccountId"/>
                     <return/>
                 </if-not-empty>
@@ -564,7 +564,7 @@ under the License.
             </then>
         </if>
         <!-- if nothing found or if no such parameters were passed (lookedUpValue empty in both cases), try GlAccountTypeDefault -->
-        <if-empty field-name="lookedUpValue.glAccountId">
+        <if-empty field="lookedUpValue.glAccountId">
             <call-simple-method method-name="getGlAccountTypeDefaultInline"/>
         </if-empty>
         <field-to-result field-name="lookedUpValue.glAccountId" result-name="glAccountId"/> 
@@ -572,7 +572,7 @@ under the License.
 
     <simple-method method-name="getInventoryItemOwner" short-description="Get an ownerPartyId from inventoryItemId">
         <entity-one entity-name="InventoryItem" value-name="inventoryItem"/>
-        <if-empty field-name="inventoryItem.ownerPartyId">
+        <if-empty field="inventoryItem.ownerPartyId">
             <get-related-one value-name="inventoryItem" relation-name="Facility" to-value-name="facility"/>
             <field-to-result field-name="facility.ownerPartyId" result-name="ownerPartyId"/>
         <else>
@@ -596,7 +596,7 @@ under the License.
             <result-to-field result-name="lastClosedDate"/>
             <result-to-field result-name="lastClosedTimePeriod"/>
         </call-service>
-        <if-empty field-name="lastClosedDate">
+        <if-empty field="lastClosedDate">
             <add-error><fail-message message="Unable to find a last closed date for time period [${customTimePeriod.customTimePeriodId}] of type [${customTimePeriod.customTimePeriodId}] for organization [${customTimePeriod.organizationPartyId}]"/></add-error>
         </if-empty>
         <check-errors/>
@@ -672,12 +672,12 @@ under the License.
                 <condition>
                     <or>
                         <and>
-                            <if-compare field-name="acctgTransAndEntry.debitCreditFlag" operator="equals" value="D"/>
-                            <if-compare field-name="isCreditAccount" operator="equals" value="true" type="Boolean"/>
+                            <if-compare field="acctgTransAndEntry.debitCreditFlag" operator="equals" value="D"/>
+                            <if-compare field="isCreditAccount" operator="equals" value="true" type="Boolean"/>
                         </and>
                         <and>
-                            <if-compare field-name="acctgTransAndEntry.debitCreditFlag" operator="equals" value="C"/>
-                            <if-compare field-name="isDebitAccount" operator="equals" value="true" type="Boolean"/>
+                            <if-compare field="acctgTransAndEntry.debitCreditFlag" operator="equals" value="C"/>
+                            <if-compare field="isDebitAccount" operator="equals" value="true" type="Boolean"/>
                         </and>
                     </or>
                 </condition>
@@ -687,7 +687,7 @@ under the License.
                     </calculate>
                 </then>
             </if>
-            <if-compare field-name="isExpenseAccount" operator="equals" value="true" type="Boolean">
+            <if-compare field="isExpenseAccount" operator="equals" value="true" type="Boolean">
                 <calculate field-name="amount">
                     <calcop field-name="amount" operator="negative"/>
                 </calculate>
@@ -710,12 +710,12 @@ under the License.
             <field-map field-name="customTimePeriodId" env-name="customTimePeriod.customTimePeriodId"/>
             <field-map field-name="glAccountId" env-name="profitLossAccount.glAccountId"/>
         </entity-one>
-        <if-not-empty field-name="profitLossAccountHistory">
+        <if-not-empty field="profitLossAccountHistory">
             <!-- already posted: verify if numbers match -->
             <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="getNetBalance" ret-field-name="postedBalance">
                 <field field-name="profitLossAccountHistory" type="GenericValue"/>
             </call-class-method>
-            <if-compare-field field-name="postedBalance" operator="not-equals" to-field-name="totalAmount" type="Double">
+            <if-compare-field field="postedBalance" to-field="totalAmount" operator="not-equals" type="Double">
                 <add-error><fail-message message="There is already a posted balance [${postedBalance}] that doesn't match with the current one [${totalAmount}]."/></add-error>
             </if-compare-field>
             <check-errors/>
@@ -756,7 +756,7 @@ under the License.
             <set field="glAccountHistory.endingBalance" from-field="endingBalance" type="Double"/>
             <store-value value-name="glAccountHistory"/>
         </iterate>
-        <if-not-empty field-name="lastClosedTimePeriod">
+        <if-not-empty field="lastClosedTimePeriod">
             <entity-condition entity-name="GlAccountAndHistory" list-name="lastPeriodGlAccountAndHistories">
                 <condition-list combine="and">
                     <condition-expr field-name="organizationPartyId" operator="equals" env-name="customTimePeriod.organizationPartyId"/>
@@ -776,7 +776,7 @@ under the License.
                     <field-map field-name="customTimePeriodId" env-name="customTimePeriod.customTimePeriodId"/>
                     <field-map field-name="glAccountId" env-name="lastPeriodGlAccountHistory.glAccountId"/>
                 </entity-one>
-                <if-empty field-name="thisPeriodGlAccountHistory">
+                <if-empty field="thisPeriodGlAccountHistory">
                     <make-value entity-name="GlAccountHistory" value-name="thisPeriodGlAccountHistory"/>
                     <set field="thisPeriodGlAccountHistory.customTimePeriodId" from-field="customTimePeriod.customTimePeriodId"/>
                     <set field="thisPeriodGlAccountHistory.organizationPartyId" from-field="customTimePeriod.organizationPartyId"/>
@@ -840,12 +840,12 @@ under the License.
                     <condition>
                         <or>
                             <and>
-                                <if-compare field-name="acctgTransAndEntry.debitCreditFlag" operator="equals" value="D"/>
-                                <if-compare field-name="isCreditAccount" operator="equals" value="true" type="Boolean"/>
+                                <if-compare field="acctgTransAndEntry.debitCreditFlag" operator="equals" value="D"/>
+                                <if-compare field="isCreditAccount" operator="equals" value="true" type="Boolean"/>
                             </and>
                             <and>
-                                <if-compare field-name="acctgTransAndEntry.debitCreditFlag" operator="equals" value="C"/>
-                                <if-compare field-name="isDebitAccount" operator="equals" value="true" type="Boolean"/>
+                                <if-compare field="acctgTransAndEntry.debitCreditFlag" operator="equals" value="C"/>
+                                <if-compare field="isDebitAccount" operator="equals" value="true" type="Boolean"/>
                             </and>
                         </or>
                     </condition>
@@ -855,7 +855,7 @@ under the License.
                         </calculate>
                     </then>
                 </if>
-                <if-compare field-name="isExpenseAccount" operator="equals" value="true" type="Boolean">
+                <if-compare field="isExpenseAccount" operator="equals" value="true" type="Boolean">
                     <calculate field-name="amount">
                         <calcop field-name="amount" operator="negative"/>
                     </calculate>
@@ -930,12 +930,12 @@ under the License.
                 <condition>
                     <or>
                         <and>
-                            <if-compare field-name="acctgTransAndEntry.debitCreditFlag" operator="equals" value="D"/>
-                            <if-compare field-name="isCreditAccount" operator="equals" value="true" type="Boolean"/>
+                            <if-compare field="acctgTransAndEntry.debitCreditFlag" operator="equals" value="D"/>
+                            <if-compare field="isCreditAccount" operator="equals" value="true" type="Boolean"/>
                         </and>
                         <and>
-                            <if-compare field-name="acctgTransAndEntry.debitCreditFlag" operator="equals" value="C"/>
-                            <if-compare field-name="isDebitAccount" operator="equals" value="true" type="Boolean"/>
+                            <if-compare field="acctgTransAndEntry.debitCreditFlag" operator="equals" value="C"/>
+                            <if-compare field="isDebitAccount" operator="equals" value="true" type="Boolean"/>
                         </and>
                     </or>
                 </condition>
@@ -945,7 +945,7 @@ under the License.
                     </calculate>
                 </then>
             </if>
-            <if-compare field-name="isExpenseAccount" operator="equals" value="true" type="Boolean">
+            <if-compare field="isExpenseAccount" operator="equals" value="true" type="Boolean">
                 <calculate field-name="amount">
                     <calcop field-name="amount" operator="negative"/>
                 </calculate>
@@ -953,15 +953,15 @@ under the License.
             <calculate field-name="totalNetIncome" type="Double">
                 <calcop field-name="totalNetIncome" operator="add"><calcop field-name="amount" operator="get"/></calcop>
             </calculate>
-            <if-compare field-name="isExpenseAccount" operator="equals" value="true" type="Boolean">
-                <if-empty field-name="glAccountTotalsExpenseMap.${glAccount.glAccountId}">
+            <if-compare field="isExpenseAccount" operator="equals" value="true" type="Boolean">
+                <if-empty field="glAccountTotalsExpenseMap.${glAccount.glAccountId}">
                     <set field="glAccountTotalsExpenseMap.${glAccount.glAccountId}" value="0.0" type="Double"/>
                 </if-empty>
                 <calculate field-name="glAccountTotalsExpenseMap.${glAccount.glAccountId}" type="Double">
                     <calcop field-name="glAccountTotalsExpenseMap.${glAccount.glAccountId}" operator="add"><calcop field-name="amount" operator="get"/></calcop>
                 </calculate>
             <else>
-                <if-empty field-name="glAccountTotalsProfitMap.${glAccount.glAccountId}">
+                <if-empty field="glAccountTotalsProfitMap.${glAccount.glAccountId}">
                     <set field="glAccountTotalsProfitMap.${glAccount.glAccountId}" value="0.0" type="Double"/>
                 </if-empty>
                 <calculate field-name="glAccountTotalsProfitMap.${glAccount.glAccountId}" type="Double">
@@ -1015,12 +1015,12 @@ under the License.
             <result-to-field result-name="lastClosedDate"/>
             <result-to-field result-name="lastClosedTimePeriod"/>
         </call-service>
-        <if-empty field-name="lastClosedDate">
+        <if-empty field="lastClosedDate">
             <add-error><fail-message message="Unable to find a last closed date for time period for organization [${customTimePeriod.organizationPartyId}]"/></add-error>
         </if-empty>
         <check-errors/>
 
-        <if-not-empty field-name="lastClosedTimePeriod">
+        <if-not-empty field="lastClosedTimePeriod">
             <entity-condition entity-name="GlAccountAndHistory" list-name="glAccountAndHistories">
                 <condition-list combine="and">
                     <condition-expr field-name="organizationPartyId" operator="equals" env-name="parameters.organizationPartyId"/>
@@ -1071,12 +1071,12 @@ under the License.
         </entity-condition>
         <iterate list-name="acctgTransAndEntries" entry-name="acctgTransAndEntry">
             <set field="amount" from-field="acctgTransAndEntry.amount" type="Double"/>
-            <if-compare field-name="acctgTransAndEntry.debitCreditFlag" operator="equals" value="C">
+            <if-compare field="acctgTransAndEntry.debitCreditFlag" operator="equals" value="C">
                 <calculate field-name="amount">
                     <calcop field-name="amount" operator="negative"/>
                 </calculate>
             </if-compare>
-            <if-empty field-name="glAccountTotalsAssetMap.${acctgTransAndEntry.glAccountId}">
+            <if-empty field="glAccountTotalsAssetMap.${acctgTransAndEntry.glAccountId}">
                 <set field="glAccountTotalsAssetMap.${acctgTransAndEntry.glAccountId}" value="0.0" type="Double"/>
             </if-empty>
             <calculate field-name="glAccountTotalsAssetMap.${acctgTransAndEntry.glAccountId}" type="Double">
@@ -1098,12 +1098,12 @@ under the License.
         </entity-condition>
         <iterate list-name="acctgTransAndEntries" entry-name="acctgTransAndEntry">
             <set field="amount" from-field="acctgTransAndEntry.amount" type="Double"/>
-            <if-compare field-name="acctgTransAndEntry.debitCreditFlag" operator="equals" value="D">
+            <if-compare field="acctgTransAndEntry.debitCreditFlag" operator="equals" value="D">
                 <calculate field-name="amount">
                     <calcop field-name="amount" operator="negative"/>
                 </calculate>
             </if-compare>
-            <if-empty field-name="glAccountTotalsLiabilityMap.${acctgTransAndEntry.glAccountId}">
+            <if-empty field="glAccountTotalsLiabilityMap.${acctgTransAndEntry.glAccountId}">
                 <set field="glAccountTotalsLiabilityMap.${acctgTransAndEntry.glAccountId}" value="0.0" type="Double"/>
             </if-empty>
             <calculate field-name="glAccountTotalsLiabilityMap.${acctgTransAndEntry.glAccountId}" type="Double">
@@ -1125,12 +1125,12 @@ under the License.
         </entity-condition>
         <iterate list-name="acctgTransAndEntries" entry-name="acctgTransAndEntry">
             <set field="amount" from-field="acctgTransAndEntry.amount" type="Double"/>
-            <if-compare field-name="acctgTransAndEntry.debitCreditFlag" operator="equals" value="D">
+            <if-compare field="acctgTransAndEntry.debitCreditFlag" operator="equals" value="D">
                 <calculate field-name="amount">
                     <calcop field-name="amount" operator="negative"/>
                 </calculate>
             </if-compare>
-            <if-empty field-name="glAccountTotalsEquityMap.${acctgTransAndEntry.glAccountId}">
+            <if-empty field="glAccountTotalsEquityMap.${acctgTransAndEntry.glAccountId}">
                 <set field="glAccountTotalsEquityMap.${acctgTransAndEntry.glAccountId}" value="0.0" type="Double"/>
             </if-empty>
             <calculate field-name="glAccountTotalsEquityMap.${acctgTransAndEntry.glAccountId}" type="Double">
@@ -1151,8 +1151,8 @@ under the License.
             <field-map field-name="organizationPartyId" env-name="parameters.organizationPartyId"/>
             <field-map field-name="glAccountTypeId" value="RETAINED_EARNINGS"/>
         </entity-one>
-        <if-not-empty field-name="retainedEarningsAccount">
-            <if-empty field-name="glAccountTotalsEquityMap.${retainedEarningsAccount.glAccountId}">
+        <if-not-empty field="retainedEarningsAccount">
+            <if-empty field="glAccountTotalsEquityMap.${retainedEarningsAccount.glAccountId}">
                 <set field="glAccountTotalsEquityMap.${retainedEarningsAccount.glAccountId}" value="0.0" type="Double"/>
             </if-empty>
             <calculate field-name="glAccountTotalsEquityMap.${retainedEarningsAccount.glAccountId}" type="Double">
@@ -1209,7 +1209,7 @@ under the License.
             <calculate field-name="amount">
                 <calcop field-name="amount" operator="negative"/>
             </calculate>
-            <if-empty field-name="assetBalancesMap.${period1AssetBalance.glAccountId}">
+            <if-empty field="assetBalancesMap.${period1AssetBalance.glAccountId}">
                 <set field="assetBalancesMap.${period1AssetBalance.glAccountId}" value="0.0" type="Double"/>
             </if-empty>
             <calculate field-name="assetBalancesMap.${period1AssetBalance.glAccountId}" type="Double">
@@ -1225,7 +1225,7 @@ under the License.
             <calculate field-name="amount">
                 <calcop field-name="amount" operator="negative"/>
             </calculate>
-            <if-empty field-name="liabilityBalancesMap.${period1LiabilityBalance.glAccountId}">
+            <if-empty field="liabilityBalancesMap.${period1LiabilityBalance.glAccountId}">
                 <set field="liabilityBalancesMap.${period1LiabilityBalance.glAccountId}" value="0.0" type="Double"/>
             </if-empty>
             <calculate field-name="liabilityBalancesMap.${period1LiabilityBalance.glAccountId}" type="Double">
@@ -1241,7 +1241,7 @@ under the License.
             <calculate field-name="amount">
                 <calcop field-name="amount" operator="negative"/>
             </calculate>
-            <if-empty field-name="equityBalancesMap.${period1EquityBalance.glAccountId}">
+            <if-empty field="equityBalancesMap.${period1EquityBalance.glAccountId}">
                 <set field="equityBalancesMap.${period1EquityBalance.glAccountId}" value="0.0" type="Double"/>
             </if-empty>
             <calculate field-name="equityBalancesMap.${period1EquityBalance.glAccountId}" type="Double">
@@ -1305,7 +1305,7 @@ under the License.
         <set field="creditEntry.productId" from-field="inventoryItem.productId"/>
         <set field="creditEntry.origAmount" from-field="origAmount"/>
         <set field="creditEntry.origCurrencyUomId" from-field="inventoryItem.currencyUomId"/>
-        <if-not-empty field-name="billToCustomer">
+        <if-not-empty field="billToCustomer">
             <set field="creditEntry.partyId" from-field="billToCustomer.partyId"/>
             <set field="creditEntry.roleTypeId" from-field="billToCustomer.roleTypeId"/>
         </if-not-empty>
@@ -1318,7 +1318,7 @@ under the License.
         <set field="debitEntry.productId" from-field="inventoryItem.productId"/>
         <set field="debitEntry.origAmount" from-field="origAmount"/>
         <set field="debitEntry.origCurrencyUomId" from-field="inventoryItem.currencyUomId"/>
-        <if-not-empty field-name="billToCustomer">
+        <if-not-empty field="billToCustomer">
             <set field="debitEntry.partyId" from-field="billToCustomer.partyId"/>
             <set field="debitEntry.roleTypeId" from-field="billToCustomer.roleTypeId"/>
         </if-not-empty>
@@ -1363,7 +1363,7 @@ under the License.
         <set field="creditEntry.productId" from-field="inventoryItem.productId"/>
         <set field="creditEntry.origAmount" from-field="origAmount"/>
         <set field="creditEntry.origCurrencyUomId" from-field="inventoryItem.currencyUomId"/>
-        <if-not-empty field-name="billToCustomer">
+        <if-not-empty field="billToCustomer">
             <set field="creditEntry.partyId" from-field="billToCustomer.partyId"/>
             <set field="creditEntry.roleTypeId" from-field="billToCustomer.roleTypeId"/>
         </if-not-empty>
@@ -1376,7 +1376,7 @@ under the License.
         <set field="debitEntry.productId" from-field="inventoryItem.productId"/>
         <set field="debitEntry.origAmount" from-field="origAmount"/>
         <set field="debitEntry.origCurrencyUomId" from-field="inventoryItem.currencyUomId"/>
-        <if-not-empty field-name="billToCustomer">
+        <if-not-empty field="billToCustomer">
             <set field="debitEntry.partyId" from-field="billToCustomer.partyId"/>
             <set field="debitEntry.roleTypeId" from-field="billToCustomer.roleTypeId"/>
         </if-not-empty>
@@ -1401,7 +1401,7 @@ under the License.
         <entity-one entity-name="ShipmentReceipt" value-name="shipmentReceipt"/>
         <get-related-one value-name="shipmentReceipt" relation-name="InventoryItem" to-value-name="inventoryItem"/>
         <get-related-one value-name="shipmentReceipt" relation-name="Shipment" to-value-name="shipment"/>
-        <if-not-empty field-name="shipmentReceipt.returnId">
+        <if-not-empty field="shipmentReceipt.returnId">
             <set field="creditAccountTypeId" value="COGS_ACCOUNT"/>
         <else>
             <set field="creditAccountTypeId" value="UNINVOICED_SHIP_RCPT"/>
@@ -1463,7 +1463,7 @@ under the License.
             <order-by field-name="-effectiveDate"/>
         </entity-condition>
         <first-from-list list-name="inventoryItemDetails" entry-name="oldInventoryItemDetail"/>
-        <if-not-empty field-name="oldInventoryItemDetail">
+        <if-not-empty field="oldInventoryItemDetail">
             <calculate field-name="origAmount" type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
                 <calcop operator="multiply" field-name="newinventoryItem.quantityOnHandTotal">
                     <calcop operator="subtract">
@@ -1605,8 +1605,8 @@ under the License.
             <field-map field-name="workEffortId" env-name="parameters.workEffortId"/>
         </entity-one>
         <get-related-one value-name="workEffort" relation-name="Facility"  to-value-name="facility"/>
-        <if-compare field-name="workEffort.workEffortTypeId" operator="equals" value="PROD_ORDER_TASK">
-            <if-not-empty field-name="workEffort.workEffortParentId">
+        <if-compare field="workEffort.workEffortTypeId" operator="equals" value="PROD_ORDER_TASK">
+            <if-not-empty field="workEffort.workEffortParentId">
                 <entity-and entity-name="WorkEffortGoodStandard" list-name="workEffortGoodStandards">
                     <field-map field-name="workEffortId" env-name="workEffort.workEffortParentId"/>
                     <field-map field-name="workEffortGoodStdTypeId" value="PRUN_PROD_DELIV"/>
@@ -1627,7 +1627,7 @@ under the License.
         <!-- Debit -->
         <make-value entity-name="AcctgTransEntry" value-name="debitEntry"/>
         <set field="debitEntry.debitCreditFlag" value="D"/>
-        <if-not-empty field-name="costComponentCalc.offsettingGlAccountTypeId">
+        <if-not-empty field="costComponentCalc.offsettingGlAccountTypeId">
             <set field="debitEntry.glAccountTypeId" value="costComponentCalc.offsettingGlAccountTypeId"/>
         <else>
             <set field="debitEntry.glAccountTypeId" value="WIP_INVENTORY"/>
@@ -1659,7 +1659,7 @@ under the License.
         <entity-one entity-name="InventoryItem" value-name="inventoryItem"/>
         
         <!-- TODO: handle serialized inventory -->
-        <if-not-empty field-name="inventoryItem.quantityOnHandTotal">
+        <if-not-empty field="inventoryItem.quantityOnHandTotal">
             <calculate field-name="origAmount" type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
                 <calcop operator="multiply">
                     <calcop operator="get" field-name="inventoryItem.quantityOnHandTotal"/>
@@ -1730,8 +1730,8 @@ under the License.
         <entity-one entity-name="WorkEffort" value-name="workEffort">
             <field-map field-name="workEffortId" env-name="parameters.workEffortId"/>
         </entity-one>
-        <if-compare field-name="workEffort.workEffortTypeId" operator="equals" value="PROD_ORDER_TASK">
-            <if-not-empty field-name="workEffort.workEffortParentId">
+        <if-compare field="workEffort.workEffortTypeId" operator="equals" value="PROD_ORDER_TASK">
+            <if-not-empty field="workEffort.workEffortParentId">
                 <entity-and entity-name="WorkEffortGoodStandard" list-name="workEffortGoodStandards">
                     <field-map field-name="workEffortId" env-name="workEffort.workEffortParentId"/>
                     <field-map field-name="workEffortGoodStdTypeId" value="PRUN_PROD_DELIV"/>
@@ -1838,7 +1838,7 @@ under the License.
             <field field-name="payment" type="org.ofbiz.entity.GenericValue"/>
         </call-class-method>
      
-        <if-compare field-name="isReceiptValue" operator="equals" value="true" type="Boolean">
+        <if-compare field="isReceiptValue" operator="equals" value="true" type="Boolean">
             <set field="origCurrencyUomId" from-field="payment.currencyUomId"/>
             <set field="organizationPartyId" from-field="payment.partyIdTo"/>
             <set field="partyId" from-field="payment.partyIdFrom"/>
@@ -1868,7 +1868,7 @@ under the License.
                 <set field="creditEntry.debitCreditFlag" value="C"/>
                 <set field="creditEntry.origAmount" from-field="paymentApplication.amountApplied"/>
                 <set field="creditEntry.origCurrencyUomId" from-field="origCurrencyUomId"/>
-                <if-not-empty field-name="paymentApplication.overrideGlAccountId">
+                <if-not-empty field="paymentApplication.overrideGlAccountId">
                     <set field="creditEntry.glAccountId" from-field="paymentApplication.overrideGlAccountId"/>
                 <else>
                     <set field="creditEntry.glAccountId" from-field="payment.overrideGlAccountId"/>                  
@@ -1891,7 +1891,7 @@ under the License.
                     <calcop operator="get" field-name="amountAppliedTotal"/>
                 </calcop>
             </calculate>
-            <if-compare field-name="diffAmount" operator="greater" value="0" type="BigDecimal">
+            <if-compare field="diffAmount" operator="greater" value="0" type="BigDecimal">
                 <!-- credit for diff amount-->
                 <make-value entity-name="AcctgTransEntry" value-name="creditEntryWithDiffAmount"/> 
                 <set field="creditEntryWithDiffAmount.debitCreditFlag" value="C"/>
@@ -1926,12 +1926,12 @@ under the License.
         <set field="totalAmountFromInvoice" type="BigDecimal" value="0"/>
         
         <entity-one entity-name="Invoice" value-name="invoice"/>
-        <if-compare field-name="invoice.invoiceTypeId" operator="equals" value="PURCHASE_INVOICE">
+        <if-compare field="invoice.invoiceTypeId" operator="equals" value="PURCHASE_INVOICE">
             <get-related value-name="invoice" relation-name="InvoiceItem" list-name="invoiceItems"/>
             <iterate list-name="invoiceItems" entry-name="invoiceItem">
                 <set field="amountFromOrder" type="BigDecimal" value="0"/>
                 <set field="amountFromInvoice" type="BigDecimal" value="0"/>
-                <if-empty field-name="invoiceItem.quantity">
+                <if-empty field="invoiceItem.quantity">
                     <set field="invoiceItem.quantity" value="1"/>
                 </if-empty>
                 <calculate field-name="amountFromInvoice"  type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
@@ -1962,8 +1962,8 @@ under the License.
                 <if>
                     <condition>
                         <and>
-                            <if-compare-field field-name="amountFromInvoice" operator="not-equals" to-field-name="amountFromOrder"/>
-                            <if-compare field-name="amountFromOrder" operator="greater" value="0" type="BigDecimal"/>
+                            <if-compare-field field="amountFromInvoice" to-field="amountFromOrder" operator="not-equals"/>
+                            <if-compare field="amountFromOrder" operator="greater" value="0" type="BigDecimal"/>
                         </and>
                     </condition>
                     <then>
@@ -1993,7 +1993,7 @@ under the License.
                 <set field="debitEntry.productId" from-field="invoiceItem.productId"/>
                 <set field="debitEntry.glAccountTypeId" from-field="invoiceItem.invoiceItemTypeId"/>
                 <set field="debitEntry.glAccountId" from-field="invoiceItem.overrideGlAccountId"/>
-                <if-compare field-name="amountFromOrder" operator="greater" value="0" type="BigDecimal">
+                <if-compare field="amountFromOrder" operator="greater" value="0" type="BigDecimal">
                     <set field="origAmount" from-field="amountFromOrder"/>
                 <else>
                     <set field="origAmount" from-field="amountFromInvoice"/>
@@ -2036,13 +2036,13 @@ under the License.
         <set field="totalOrigAmount" value="0"/>
            
         <entity-one entity-name="Invoice" value-name="invoice"/>
-        <if-compare field-name="invoice.invoiceTypeId" value="SALES_INVOICE" operator="equals">
+        <if-compare field="invoice.invoiceTypeId" value="SALES_INVOICE" operator="equals">
             <entity-and entity-name="InvoiceItem" list-name="invoiceItems">
                 <field-map field-name="invoiceId" env-name="parameters.invoiceId" />                
             </entity-and> 
             <iterate list-name="invoiceItems" entry-name="invoiceItem">
                 <!-- TODO: handle serialized inventory -->
-                <if-empty field-name="invoiceItem.quantity">
+                <if-empty field="invoiceItem.quantity">
                     <set field="invoiceItem.quantity" value="1"/>
                 </if-empty> 
                 <calculate field-name="origAmount" type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
@@ -2066,7 +2066,7 @@ under the License.
                 <set field="creditEntry.origAmount" from-field="origAmount"/>
                 <set field="creditEntry.origCurrencyUomId" from-field="invoice.currencyUomId"/>
                 <set field="creditEntry.glAccountId" from-field="invoiceItem.overrideGlAccountId"/>
-                <if-not-empty field-name="invoiceItem.taxAuthPartyId">
+                <if-not-empty field="invoiceItem.taxAuthPartyId">
                     <set field="creditEntry.partyId" from-field="invoiceItem.taxAuthPartyId"/>
                     <set field="creditEntry.roleTypeId" value="TAX_AUTHORITY"/>
                 </if-not-empty>
@@ -2105,7 +2105,7 @@ under the License.
             <field field-name="payment" type="org.ofbiz.entity.GenericValue"/>
         </call-class-method>
         
-        <if-compare value="true" field-name="isDisbursement" operator="equals" type="Boolean">
+        <if-compare value="true" field="isDisbursement" operator="equals" type="Boolean">
             <set field="organizationPartyId" from-field="payment.partyIdFrom"/>
             <set field="partyId" from-field="payment.partyIdTo"/>
             <set field="roleTypeId" value="BILL_FROM_VENDOR"/>
@@ -2137,10 +2137,10 @@ under the License.
                 <set field="debitEntry.origCurrencyUomId" from-field="payment.currencyUomId"/>
                 <set field="debitEntry.glAccountTypeId" from-field="debitGlAccountTypeId"/>
                 <set field="debitEntry.organizationPartyId" from-field="organizationPartyId"/>
-                <if-not-empty field-name="paymentApplication.overrideGlAccountId">
+                <if-not-empty field="paymentApplication.overrideGlAccountId">
                     <set field="debitEntry.glAccountId" from-field="paymentApplication.overrideGlAccountId"/>   
                 <else>
-                    <if-not-empty field-name="paymentApplication.taxAuthGeoId">
+                    <if-not-empty field="paymentApplication.taxAuthGeoId">
                         <entity-one entity-name="TaxAuthorityGlAccount" value-name="taxAuthorityGlAccount">
                             <field-map field-name="organizationPartyId" env-name="organizationPartyId" />
                             <field-map field-name="taxAuthGeoId" env-name="paymentApplication.taxAuthGeoId"/>
@@ -2167,7 +2167,7 @@ under the License.
                     <calcop operator="get" field-name="amountAppliedTotal"/>
                 </calcop>
             </calculate>
-            <if-compare field-name="amount" operator="greater" value="0" type="BigDecimal">
+            <if-compare field="amount" operator="greater" value="0" type="BigDecimal">
                 <make-value entity-name="AcctgTransEntry" value-name="debitEntryWithDiffAmount"/>
                 <set field="debitEntryWithDiffAmount.debitCreditFlag" value="D"/>
                 <set field="debitEntryWithDiffAmount.origAmount" from-field="amount"/>
@@ -2215,11 +2215,11 @@ under the License.
             <clone-value value-name="acctgTransEntry" new-value-name="newAcctgTransEntry"/>
             <set-service-fields to-map-name="createAcctgTransAndEntryInMap" service-name="createAcctgTransEntry" map-name="newAcctgTransEntry"/>
             <set field="createAcctgTransAndEntryInMap.acctgTransId" from-field="newAcctgTrans.acctgTransId"/>
-            <if-compare field-name="parameters.revert" operator="equals" value="Y">
-                <if-compare field-name="newAcctgTransEntry.debitCreditFlag" operator="equals" value="D">
+            <if-compare field="parameters.revert" operator="equals" value="Y">
+                <if-compare field="newAcctgTransEntry.debitCreditFlag" operator="equals" value="D">
                     <set field="createAcctgTransAndEntryInMap.debitCreditFlag" value="C"/>
                 </if-compare>
-                <if-compare field-name="newAcctgTransEntry.debitCreditFlag" operator="equals" value="C">
+                <if-compare field="newAcctgTransEntry.debitCreditFlag" operator="equals" value="C">
                     <set field="createAcctgTransAndEntryInMap.debitCreditFlag" value="D"/>
                 </if-compare>
             <else>
@@ -2239,7 +2239,7 @@ under the License.
         <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="isReceipt" ret-field-name="isReceipt">
             <field field-name="payment" type="org.ofbiz.entity.GenericValue"/>
         </call-class-method>
-        <if-compare field-name="isReceipt" operator="equals" type="Boolean" value="true">
+        <if-compare field="isReceipt" operator="equals" type="Boolean" value="true">
             <entity-one entity-name="PaymentGlAccountTypeMap" value-name="paymentGlAccountTypeMap">
                 <field-map field-name="paymentTypeId" env-name="payment.paymentTypeId"/>
                 <field-map field-name="organizationPartyId" env-name="payment.partyIdTo"/>
@@ -2296,7 +2296,7 @@ under the License.
         <set field="createAcctgTransAndEntriesInMap.glFiscalTypeId" value="ACTUAL"/>        
         <set field="createAcctgTransAndEntriesInMap.paymentId" from-field="paymentApplication.paymentId"/>
         <set field="createAcctgTransAndEntriesInMap.invoiceId" from-field="paymentApplication.invoiceId"/>
-        <if-compare field-name="isReceipt" operator="equals" type="Boolean" value="true">
+        <if-compare field="isReceipt" operator="equals" type="Boolean" value="true">
             <set field="createAcctgTransAndEntriesInMap.partyId" from-field="payment.partyIdFrom"/>
             <set field="createAcctgTransAndEntriesInMap.roleTypeId" value="BILL_TO_CUSTOMER"/>
             <else>

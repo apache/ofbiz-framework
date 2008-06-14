@@ -49,7 +49,7 @@ under the License.
         <!-- TODO: add some code to make sure, as much as possible, that this really isn't running -->
         <set field="lookupPKMap.entitySyncId" from-field="parameters.entitySyncId"/>        
         <find-by-primary-key entity-name="EntitySync" map-name="lookupPKMap" value-name="valueToStore"/>
-        <if-compare field-name="valueToStore.runStatusId" operator="equals" value="ESR_RUNNING">
+        <if-compare field="valueToStore.runStatusId" operator="equals" value="ESR_RUNNING">
             <set field="valueToStore.runStatusId" value="ESR_NOT_STARTED"/>
             <store-value value-name="valueToStore"/>
         </if-compare>

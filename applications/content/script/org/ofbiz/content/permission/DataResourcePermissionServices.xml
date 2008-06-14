@@ -32,14 +32,14 @@
         <if>
             <condition>
                 <not>
-                    <if-compare field-name="hasPermission" value="true" type="Boolean" operator="equals"/>
+                    <if-compare field="hasPermission" value="true" type="Boolean" operator="equals"/>
                 </not>
             </condition>
             <then>
                 <if>
                     <!-- view data resource -->
                     <condition>
-                        <if-compare field-name="parameters.mainAction" value="VIEW" operator="equals"/>
+                        <if-compare field="parameters.mainAction" value="VIEW" operator="equals"/>
                     </condition>
                     <then>
                         <call-simple-method method-name="viewDataResourcePermission"/>
@@ -47,7 +47,7 @@
                     <else-if>
                         <!-- create data resource -->
                         <condition>
-                            <if-compare field-name="parameters.mainAction" value="CREATE" operator="equals"/>
+                            <if-compare field="parameters.mainAction" value="CREATE" operator="equals"/>
                         </condition>
                         <then>
                             <call-simple-method method-name="createDataResourcePermission"/>
@@ -56,7 +56,7 @@
                     <else-if>
                         <!-- update data resource -->
                         <condition>
-                            <if-compare field-name="parameters.mainAction" value="UPDATE" operator="equals"/>
+                            <if-compare field="parameters.mainAction" value="UPDATE" operator="equals"/>
                         </condition>
                         <then>
                             <call-simple-method method-name="updateDataResourcePermission"/>
@@ -77,7 +77,7 @@
     <!-- DataResource View Permission -->
     <simple-method method-name="viewDataResourcePermission" short-description="Check user can view data resource">
         <!-- if called directly check the main permission -->
-        <if-empty field-name="hasPermission">
+        <if-empty field="hasPermission">
             <set field="primaryPermission" value="CONTENTMGR"/>
             <set field="mainAction" value="VIEW"/>
             <call-simple-method method-name="genericBasePermissionCheck"
@@ -93,7 +93,7 @@
     <!-- DataResource Create Permission -->
     <simple-method method-name="createDataResourcePermission" short-description="Check user can create new content">
         <!-- if called directly check the main permission -->
-        <if-empty field-name="hasPermission">
+        <if-empty field="hasPermission">
             <set field="primaryPermission" value="CONTENTMGR"/>
             <set field="mainAction" value="CREATE"/>
             <call-simple-method method-name="genericBasePermissionCheck"
@@ -111,7 +111,7 @@
     <!-- DataResource Update Permission -->
     <simple-method method-name="updateDataResourcePermission" short-description="Check user can update existing content">
         <!-- if called directly check the main permission -->
-        <if-empty field-name="hasPermission">
+        <if-empty field="hasPermission">
             <set field="primaryPermission" value="CONTENTMGR"/>
             <set field="mainAction" value="UPDATE"/>
             <call-simple-method method-name="genericBasePermissionCheck"
@@ -119,10 +119,10 @@
         </if-empty>
 
         <!-- dataResourceId is required for update checking -->
-        <if-empty field-name="dataResourceId">
+        <if-empty field="dataResourceId">
             <set field="dataResourceId" from-field="parameters.dataResourceId"/>
         </if-empty>
-        <if-empty field-name="dataResourceId">
+        <if-empty field="dataResourceId">
             <add-error><fail-message message="DataResource Permission Service UPDATE requires a dataResourceId!"/></add-error>
         </if-empty>
         <check-errors/>
@@ -135,7 +135,7 @@
         <!-- must have permission to continue -->
         <if>
             <condition>
-                <if-compare field-name="hasPermission" value="true" type="Boolean" operator="equals"/>
+                <if-compare field="hasPermission" value="true" type="Boolean" operator="equals"/>
             </condition>
             <then>
                 <log level="verbose" message="Found necessary ROLE permission: ${primaryPermission}_${mainAction}"/>
@@ -144,7 +144,7 @@
                 <entity-one entity-name="DataResource" value-name="thisDataResource">
                     <field-map field-name="dataResourceId"/>
                 </entity-one>
-                <if-empty field-name="thisDataResource">
+                <if-empty field="thisDataResource">
                     <add-error><fail-message message="DataResource record not found for ID [${dataResourceId}]"/></add-error>
                     <check-errors/>
                 </if-empty>

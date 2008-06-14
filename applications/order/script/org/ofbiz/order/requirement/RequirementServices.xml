@@ -26,7 +26,7 @@ under the License.
         <to-string field-name="requirementId"/>
         <set from-field="requirementId" field="newEntity.requirementId"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <if-empty field-name="statusId" map-name="parameters">
+        <if-empty field="parameters.statusId">
             <set value="REQ_CREATED" field="newEntity.statusId"/>
         </if-empty>
         <now-timestamp-to-env env-name="nowTimestamp"/>
@@ -68,8 +68,8 @@ under the License.
     <simple-method method-name="autoAssignRequirementToSupplier" short-description="If the requirement is a product requirement (purchasing) try to assign it to the primary supplier">
         <entity-one entity-name="Requirement" value-name="requirement" auto-field-map="true"/>
         <check-errors/>
-        <if-compare field-name="requirement.requirementTypeId" operator="equals" value="PRODUCT_REQUIREMENT">
-            <if-not-empty field-name="requirement.productId">
+        <if-compare field="requirement.requirementTypeId" operator="equals" value="PRODUCT_REQUIREMENT">
+            <if-not-empty field="requirement.productId">
                 <entity-condition entity-name="SupplierProduct" list-name="supplierProducts">
                     <condition-list>
                         <condition-expr field-name="productId" env-name="requirement.productId"/>
@@ -80,7 +80,7 @@ under the License.
                 </entity-condition>
                 <filter-list-by-date list-name="supplierProducts" valid-date-name="requirement.requiredByDate" from-field-name="availableFromDate" thru-field-name="availableThruDate"/>
                 <first-from-list list-name="supplierProducts" entry-name="supplierProduct"/>
-                <if-not-empty field-name="supplierProduct.partyId">
+                <if-not-empty field="supplierProduct.partyId">
                     <make-value value-name="requirementSupplier" entity-name="RequirementRole"/>
                     <set field="requirementSupplier.requirementId" from-field="requirement.requirementId"/>
                     <set field="requirementSupplier.partyId" from-field="supplierProduct.partyId"/>
@@ -101,7 +101,7 @@ under the License.
         <set from-field="parameters.partyId" field="lookupPKMap.partyId"/>
         <set from-field="parameters.roleTypeId" field="lookupPKMap.roleTypeId"/>
         <find-by-primary-key entity-name="PartyRole" map-name="lookupPKMap" value-name="partyRole"/>
-        <if-empty map-name="partyRole" field-name="partyId">
+        <if-empty field="partyRole.partyId">
             <make-value value-name="partyRole" entity-name="PartyRole"/>
             <set-pk-fields map-name="lookupPKMap" value-name="partyRole"/>
             <create-value value-name="partyRole"/>
@@ -110,7 +110,7 @@ under the License.
         <make-value value-name="newEntity" entity-name="RequirementRole"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <if-empty field-name="newEntity.fromDate">
+        <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="newEntity.fromDate"/>
         </if-empty>
         <create-value value-name="newEntity"/>
@@ -158,7 +158,7 @@ under the License.
             <result-to-field field-name="quantityNotTransferred" result-name="quantityNotTransferred"/>
         </call-service>
         <check-errors/>
-        <if-compare field-name="quantityNotTransferred" value="0.0" operator="greater" type="Double">
+        <if-compare field="quantityNotTransferred" value="0.0" operator="greater" type="Double">
             <!-- we create a new requirement for the quantity not trasferred (because not available) -->
             <clear-field field-name="inputMap"/>
             <set-service-fields service-name="createRequirement" map-name="requirement" to-map-name="inputMap"/>

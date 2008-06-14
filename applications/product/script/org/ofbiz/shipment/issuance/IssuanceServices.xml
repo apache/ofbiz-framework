@@ -39,10 +39,10 @@ under the License.
 
         <!-- if the InventoryItem issued is serialized, then change its status to DELIVERED -->
         <get-related-one value-name="newEntity" relation-name="InventoryItem" to-value-name="inventoryItem"/>
-        <if-not-empty field-name="inventoryItem">
-            <if-compare field-name="inventoryItem.inventoryItemTypeId" operator="equals" value="SERIALIZED_INV_ITEM">
+        <if-not-empty field="inventoryItem">
+            <if-compare field="inventoryItem.inventoryItemTypeId" operator="equals" value="SERIALIZED_INV_ITEM">
                 <get-related-one value-name="newEntity" relation-name="OrderHeader" to-value-name="orderHeader"/>
-                <if-not-empty field-name="orderHeader">
+                <if-not-empty field="orderHeader">
                     <set field="orderRoleAndMap.orderId" from-field="orderHeader.orderId"/>
                     <set field="orderRoleAndMap.roleTypeId" value="END_USER_CUSTOMER"/>
                     <find-by-and entity-name="OrderRole" list-name="orderRoles" map-name="orderRoleAndMap"/>
@@ -53,11 +53,11 @@ under the License.
                     <if>
                         <condition>
                             <and>
-                                <not><if-empty field-name="orderRole"/></not>
+                                <not><if-empty field="orderRole"/></not>
                                 <or>
-                                    <if-empty field-name="productStore"/>
-                                    <if-empty field-name="productStore.setOwnerUponIssuance"/>
-                                    <if-compare field-name="productStore.setOwnerUponIssuance" operator="equals" value="Y"/>
+                                    <if-empty field="productStore"/>
+                                    <if-empty field="productStore.setOwnerUponIssuance"/>
+                                    <if-compare field="productStore.setOwnerUponIssuance" operator="equals" value="Y"/>
                                 </or>
                             </and>
                         </condition>
@@ -138,7 +138,7 @@ under the License.
         <entity-one entity-name="OrderHeader" value-name="orderHeader" auto-field-map="true"/>
 
         <!-- make sure the order is NOT of orderTypeId: SALES_ORDER -->
-        <if-compare field-name="orderTypeId" map-name="orderHeader" operator="equals" value="SALES_ORDER">
+        <if-compare field="orderHeader.orderTypeId" operator="equals" value="SALES_ORDER">
             <string-to-list string="Not issuing Order Item to shipment [${parameters.shipmentId}] because the order is a Sales Order for order [${orderHeader.orderId}] order item [${parameters.orderItemSeqId}] (should call the issueOrderItemShipGrpInvResToShipment service)" list-name="error_list"/>
         </if-compare>
         <check-errors/>
@@ -177,24 +177,24 @@ under the License.
         <find-by-primary-key map-name="orderHeaderLookupPk" value-name="orderHeader"/>
 
         <!-- make sure the order is of orderTypeId: SALES_ORDER -->
-        <if-compare field-name="orderTypeId" map-name="orderHeader" operator="not-equals" value="SALES_ORDER">
+        <if-compare field="orderHeader.orderTypeId" operator="not-equals" value="SALES_ORDER">
             <string-to-list string="Not issuing Order Item Ship Group Inventory Reservation to shipment [${parameters.shipmentId}] because the order is not a Sales Order for order [${orderItemShipGrpInvRes.orderId}] order item [${orderItemShipGrpInvRes.orderItemSeqId}] inventoryItem [${orderItemShipGrpInvRes.inventoryItemId}] (should call the issueOrderItemToShipment service)" list-name="error_list"/>
         </if-compare>
 
         <!-- make sure specified quantity is not empty -->
-        <if-empty field-name="parameters.quantity">
+        <if-empty field="parameters.quantity">
             <add-error><fail-message message="Not issuing Order Item Ship Group Inventory Reservation to shipment [${parameters.shipmentId}] because the quantity to issue is empty for order [${orderItemShipGrpInvRes.orderId}] order item [${orderItemShipGrpInvRes.orderItemSeqId}] inventoryItem [${orderItemShipGrpInvRes.inventoryItemId}]"/></add-error>
         </if-empty>
-        <if-empty field-name="orderItemShipGrpInvRes.quantity">
+        <if-empty field="orderItemShipGrpInvRes.quantity">
             <log level="info" message="Order item reservation amount is null! PK lookup: ${OrderItemShipGrpInvResLookupPk}"/>
         </if-empty>
 
         <!-- make sure specified quantity is not less than or equal to 0 -->
-        <if-compare field-name="parameters.quantity" operator="less-equals" value="0" type="Double">
+        <if-compare field="parameters.quantity" operator="less-equals" value="0" type="Double">
             <add-error><fail-message message="Not issuing Order Item Ship Group Inventory Reservation to shipment [${parameters.shipmentId}] because the quantity to issue [${parameters.quantity}] is less than or equal to 0 for order [${orderItemShipGrpInvRes.orderId}] order item [${orderItemShipGrpInvRes.orderItemSeqId}] inventoryItem [${orderItemShipGrpInvRes.inventoryItemId}]"/></add-error>
         </if-compare>
         <!-- make sure specified quantity is not greater than reserved quantity left to be issued, ie orderItemShipGrpInvRes.quantity -->
-        <if-compare-field field-name="parameters.quantity" operator="greater" to-field-name="orderItemShipGrpInvRes.quantity" type="Double">
+        <if-compare-field field="parameters.quantity" to-field="orderItemShipGrpInvRes.quantity" operator="greater" type="Double">
             <add-error><fail-message message="Not issuing Order Item Ship Group Inventory Reservation to shipment [${parameters.shipmentId}] because the quantity to issue [${parameters.quantity}] is greater than the quantity left to issue [${orderItemShipGrpInvRes.quantity}] for order [${orderItemShipGrpInvRes.orderId}] order item [${orderItemShipGrpInvRes.orderItemSeqId}] inventoryItem [${orderItemShipGrpInvRes.inventoryItemId}]"/></add-error>
         </if-compare-field>
 
@@ -219,9 +219,9 @@ under the License.
             </calcop>
         </calculate>
 
-        <if-compare value="0" operator="greater-equals" field-name="qtyForShipmentItem" type="Double">
+        <if-compare value="0" operator="greater-equals" field="qtyForShipmentItem" type="Double">
             <!-- remove the orderShipment.quantity -->
-            <if-not-empty field-name="orderShipment">
+            <if-not-empty field="orderShipment">
                 <field-to-result field-name="orderShipment.shipmentItemSeqId" result-name="shipmentItemSeqId"/>
                 <make-value entity-name="ShipmentItem" value-name="shipmentItemLookupPk"/>
                 <set-pk-fields value-name="shipmentItemLookupPk" map-name="parameters"/>
@@ -229,7 +229,7 @@ under the License.
                 <find-by-primary-key map-name="shipmentItemLookupPk" value-name="shipmentItem"/>
                 <remove-value value-name="orderShipment"/>
             </if-not-empty>
-            <if-compare value="0" operator="not-equals" field-name="qtyForShipmentItem" type="Double">
+            <if-compare value="0" operator="not-equals" field="qtyForShipmentItem" type="Double">
                 <!-- add the qtyForShipmentItem to the shipmentItem -->
                 <set from-field="paremeters.quantity" field="originalQuantity"/>
                 <set from-field="qtyForShipmentItem" field="paremeters.quantity"/>
@@ -263,12 +263,12 @@ under the License.
                 <calcop operator="get" field-name="parameters.quantity"/>
             </calcop>
         </calculate>
-        <if-compare value="0" operator="equals" field-name="orderItemShipGrpInvRes.quantity" type="Double">
+        <if-compare value="0" operator="equals" field="orderItemShipGrpInvRes.quantity" type="Double">
             <!-- if none left reserved, remove OIIR -->
             <remove-value value-name="orderItemShipGrpInvRes"/>
             <!-- if there are no more OIIRs for the orderItem, set the orderItem.statusId to ITEM_COMPLETED -->
             <get-related value-name="orderItem" relation-name="OrderItemShipGrpInvRes" list-name="otherOiirs"/>
-            <if-empty field-name="otherOiirs">
+            <if-empty field="otherOiirs">
                 <set value="ITEM_COMPLETED" field="changeOrderItemStatusMap.statusId"/>
                 <set from-field="orderItem.orderId" field="changeOrderItemStatusMap.orderId"/>
                 <set from-field="orderItem.orderItemSeqId" field="changeOrderItemStatusMap.orderItemSeqId"/>
@@ -299,7 +299,7 @@ under the License.
     <simple-method method-name="findCreateIssueShipmentItem" short-description="Find or Create ShipmentItem to Issue To - meant to be called in-line">
         <!-- try to find an existing shipmentItem and attach to it, if none found create a new shipmentItem -->
         <!-- if there is NO productId on the orderItem, ALWAYS create a new shipmentItem -->
-        <if-not-empty field-name="productId" map-name="orderItem">
+        <if-not-empty field="orderItem.productId">
             <entity-condition entity-name="ShipmentItem" list-name="shipmentItems">
                 <condition-list combine="and">
                     <condition-expr field-name="productId" env-name="orderItem.productId"/>
@@ -311,7 +311,7 @@ under the License.
             <first-from-list entry-name="shipmentItem" list-name="shipmentItems"/>
         </if-not-empty>
 
-        <if-empty field-name="shipmentItem">
+        <if-empty field="shipmentItem">
             <set from-field="orderItem.productId" field="shipmentItemCreate.productId"/>
             <set from-field="parameters.shipmentId" field="shipmentItemCreate.shipmentId"/>
             <set from-field="parameters.quantity" field="shipmentItemCreate.quantity"/>
@@ -339,12 +339,12 @@ under the License.
         <set from-field="orderItem.orderId" field="itemIssuanceCreate.orderId"/>
         <set from-field="orderItem.orderItemSeqId" field="itemIssuanceCreate.orderItemSeqId"/>
 
-        <if-not-empty field-name="orderItemShipGrpInvRes">
+        <if-not-empty field="orderItemShipGrpInvRes">
             <!-- if this is coming from an OrderItem issue instead of an OrderItemShipGrpInvRes issue, we won't have this info -->
             <set from-field="orderItemShipGrpInvRes.inventoryItemId" field="itemIssuanceCreate.inventoryItemId"/>
             <set from-field="orderItemShipGrpInvRes.shipGroupSeqId" field="itemIssuanceCreate.shipGroupSeqId"/>
         </if-not-empty>
-        <if-not-empty field-name="orderItemShipGroupAssoc">
+        <if-not-empty field="orderItemShipGroupAssoc">
             <!-- If we have a ShipGroup Assoc for this Item to focus on, set that; this is mostly the case for purchase orders and such -->
             <set from-field="orderItemShipGroupAssoc.shipGroupSeqId" field="itemIssuanceCreate.shipGroupSeqId"/>
         </if-not-empty>
@@ -361,7 +361,7 @@ under the License.
         <set field="partyRole.partyId" from-field="userLogin.partyId"/>
         <set field="partyRole.roleTypeId" value="PACKER"/>
         <find-by-primary-key entity-name="PartyRole" map-name="partyRole" value-name="checkPartyRole"/>
-        <if-empty field-name="checkPartyRole">
+        <if-empty field="checkPartyRole">
             <create-value value-name="partyRole"/>
         </if-empty>
 
@@ -377,11 +377,11 @@ under the License.
         <entity-one entity-name="FixedAssetMaint" value-name="fixedAssetMaint"/>
 
         <!-- make sure specified quantity is not less than or equal to 0 -->
-        <if-compare field-name="parameters.quantity" operator="less-equals" value="0" type="Double">
+        <if-compare field="parameters.quantity" operator="less-equals" value="0" type="Double">
             <add-error><fail-message message="Not issuing InventoryItem to FixedAssetMaint [${fixedAssetMaint.fixedAssetId:fixedAssetMaint.maintHistSeqId}] because the quantity to issue [${parameters.quantity}] is less than or equal to 0 for inventoryItem [${inventoryItem.inventoryItemId}]"/></add-error>
         </if-compare>
         <!-- make sure specified quantity is not greater than available quantity left to be issued, ie intentoryItem.availableToPromiseTotal -->
-        <if-compare-field field-name="parameters.quantity" operator="greater" to-field-name="inventoryItem.availableToPromiseTotal" type="Double">
+        <if-compare-field field="parameters.quantity" to-field="inventoryItem.availableToPromiseTotal" operator="greater" type="Double">
             <add-error><fail-message message="Not issuing InventoryItem to FixedAssetMaint [${fixedAssetMaint.fixedAssetId:fixedAssetMaint.maintHistSeqId}] because the quantity to issue [${parameters.quantity}] is greater than the quantity left to issue (ie the ATP or Available To Promise) [${intentoryItem.availableToPromiseTotal}] for inventoryItem [${orderItemShipGrpInvRes.inventoryItemId}]"/></add-error>
         </if-compare-field>
         
@@ -452,7 +452,7 @@ under the License.
         <check-errors/>
         
         <!-- make sure the order is of orderTypeId: SALES_ORDER -->
-        <if-compare field-name="orderTypeId" map-name="orderHeader" operator="not-equals" value="SALES_ORDER">
+        <if-compare field="orderHeader.orderTypeId" operator="not-equals" value="SALES_ORDER">
             <add-error><fail-message message="Not canceling ItemIssuance because the order is not a Sales Order"/></add-error>
         </if-compare>
 
@@ -465,17 +465,17 @@ under the License.
 
         <!-- if not provided, get the left issued quantity -->
          <set from-field="parameters.cancelQuantity" field="toCancelQuantity"/>
-         <if-empty field-name="toCancelQuantity">
+         <if-empty field="toCancelQuantity">
             <set from-field="qtyIssuedLeft" field="toCancelQuantity"/>
          </if-empty>
 
         <!-- make sure specified cancel Quantity is not less than or equal to 0 -->
-        <if-compare field-name="toCancelQuantity" operator="less-equals" value="0" type="Double">
+        <if-compare field="toCancelQuantity" operator="less-equals" value="0" type="Double">
             <add-error><fail-message message="Not cancelling ItemIssuance [${parameters.itemIssuanceId}] because the quantity to cancel [${toCancelQuantity}] is less than or equal to 0 "/></add-error>
         </if-compare>
 
         <!-- make sure specified quantity is not greater than issued quantity left -->      
-        <if-compare-field field-name="toCancelQuantity" operator="greater" to-field-name="qtyIssuedLeft" type="Double">
+        <if-compare-field field="toCancelQuantity" to-field="qtyIssuedLeft" operator="greater" type="Double">
             <add-error><fail-message message="Not cancelling ItemIssuance because the quantity to cancel [${toCancelQuantity}] is greater than the quantity left [${qtyIssuedLeft}] for ItemIssuance [${parameters.itemIssuanceId}]"/></add-error>
         </if-compare-field>
         <check-errors/>
@@ -506,7 +506,7 @@ under the License.
         <entity-one entity-name="ProductStore" value-name="productStore" auto-field-map="false">
             <field-map field-name="productStoreId" env-name="orderHeader.productStoreId"/>
         </entity-one>           
-        <if-compare value="Y" operator="equals" field-name="productStore.isImmediatelyFulfilled">
+        <if-compare value="Y" operator="equals" field="productStore.isImmediatelyFulfilled">
             <log level="verbose" message="ProductStore with id ${productStore.productStoreId}, is immediatly fulfilled. Not reserving inventory"/>
         	<else>
 	            <set field="reserveStoreInventoryMap.productId" from-field="inventoryItem.productId"/>

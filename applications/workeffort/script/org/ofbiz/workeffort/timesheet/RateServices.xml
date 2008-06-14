@@ -27,7 +27,7 @@ under the License.
         <check-errors/>
         <make-value value-name="newEntity" entity-name="PartyRate"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
-        <if-empty field-name="newEntity.fromDate"><now-timestamp-to-env env-name="newEntity.fromDate"/></if-empty>
+        <if-empty field="newEntity.fromDate"><now-timestamp-to-env env-name="newEntity.fromDate"/></if-empty>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <call-simple-method method-name="checkOtherDefaultRate"/>
         <create-value value-name="newEntity"/>
@@ -41,12 +41,12 @@ under the License.
         <store-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="checkOtherDefaultRate" short-description="remove an other defaultRate flag">
-        <if-compare field-name="newEntity.defaultRate" value="Y" operator="equals">
+        <if-compare field="newEntity.defaultRate" value="Y" operator="equals">
             <entity-and entity-name="PartyRate" list-name="rates" filter-by-date="true">
                 <field-map field-name="partyId" env-name="newEntity.partyId"/>
                 <field-map field-name="defaultRate" value="Y"/>
             </entity-and>
-            <if-not-empty field-name="rates">
+            <if-not-empty field="rates">
                 <first-from-list entry-name="rate" list-name="rates"/>
                 <set field="rate.defaultRate" value="N"/>
                 <store-value value-name="rate"/>
@@ -68,7 +68,7 @@ under the License.
         
         <make-value value-name="newEntity" entity-name="WorkEffortAssignmentRate"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
-        <if-empty field-name="newEntity.fromDate"><now-timestamp-to-env env-name="newEntity.fromDate"/></if-empty>
+        <if-empty field="newEntity.fromDate"><now-timestamp-to-env env-name="newEntity.fromDate"/></if-empty>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>

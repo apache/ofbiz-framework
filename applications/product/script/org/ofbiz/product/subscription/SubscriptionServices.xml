@@ -25,7 +25,7 @@ under the License.
         <check-permission permission="CATALOG" action="${securityAction}"><fail-property resource="ProductUiLabels" property="GeneralCatalogPermissionError"/></check-permission>
         <check-errors/>
         <make-value entity-name="Subscription" value-name="newEntity"/>
-        <if-empty field-name="parameters.subscriptionId">
+        <if-empty field="parameters.subscriptionId">
             <sequenced-id-to-env sequence-name="Subscription" env-name="newEntity.subscriptionId"/> <!-- get the next sequenced ID -->
             <else>
                 <set field="newEntity.subscriptionId" from-field="parameters.subscriptionId"/>
@@ -34,15 +34,15 @@ under the License.
         <field-to-result field-name="newEntity.subscriptionId" result-name="subscriptionId"/>
         
         <!-- lookup the product subscription resource (if exists) -->
-        <if-not-empty field-name="parameters.subscriptionResourceId">
-            <if-not-empty field-name="parameters.productId">
+        <if-not-empty field="parameters.subscriptionResourceId">
+            <if-not-empty field="parameters.productId">
                 <entity-and entity-name="ProductSubscriptionResource" list-name="resourceList" filter-by-date="true">
                     <field-map field-name="subscriptionResourceId" env-name="parameters.subscriptionResourceId"/>
                     <field-map field-name="productId" env-name="parameters.productId"/>
                     <order-by field-name="-fromDate"/>
                 </entity-and>
                 <first-from-list entry-name="resource" list-name="resourceList"/>
-                <if-not-empty field-name="resource">
+                <if-not-empty field="resource">
                     <set-nonpk-fields value-name="newEntity" map-name="resource"/>
                 </if-not-empty>
             </if-not-empty>
@@ -66,7 +66,7 @@ under the License.
         <check-errors/>
         <set field="pfInput.inputFields" from-field="parameters"/>
         <set field="pfInput.entityName" value="Subscription"/>
-        <if-empty field-name="parameters.filterByDate">
+        <if-empty field="parameters.filterByDate">
             <set field="pfInput.filterByDate" value="Y"/>
             <else>
                 <set field="pfInput.filterByDate" from-field="parameters.filterByDate"/>
@@ -77,7 +77,7 @@ under the License.
             <result-to-field result-name="list" field-name="pfResultList"/>
         </call-service>
         
-        <if-empty field-name="pfResultList">
+        <if-empty field="pfResultList">
             <set field="found" value="false" type="Boolean"/>
             <else>
                 <set field="found" value="true" type="Boolean"/>
@@ -95,7 +95,7 @@ under the License.
         <check-errors/>
         <entity-one entity-name="Subscription" value-name="subscription"/>
         <field-to-result field-name="parameters.subscriptionId" result-name="subscriptionId"/>
-        <if-not-empty field-name="subscription">
+        <if-not-empty field="subscription">
             <field-to-result field-name="subscription" result-name="subscription"/>
         </if-not-empty>
     </simple-method>
@@ -125,7 +125,7 @@ under the License.
         <check-errors/>
         <make-value entity-name="ProductSubscriptionResource" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
-        <if-empty field-name="newEntity.fromDate"><now-timestamp-to-env env-name="newEntity.fromDate"/></if-empty>
+        <if-empty field="newEntity.fromDate"><now-timestamp-to-env env-name="newEntity.fromDate"/></if-empty>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>   
@@ -150,7 +150,7 @@ under the License.
         <check-errors/>
         <field-to-result field-name="parameters.subscriptionId" result-name="subscriptionId"/>
         <entity-one entity-name="SubscriptionAttribute" value-name="lookedUpValue"/>
-        <if-empty field-name="lookedUpValue">
+        <if-empty field="lookedUpValue">
             <make-value entity-name="SubscriptionAttribute" value-name="newEntity"/>
             <set-pk-fields map-name="parameters" value-name="newEntity"/>
             <set-nonpk-fields map-name="parameters" value-name="newEntity"/>

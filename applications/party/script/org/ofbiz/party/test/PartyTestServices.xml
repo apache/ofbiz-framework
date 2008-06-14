@@ -41,10 +41,10 @@ under the License.
         </call-service>
         
         <find-by-primary-key entity-name="PartyRoleDetailAndPartyDetail" map-name="searchParams" value-name="partyRoleDetailAndPartyDetail"/>
-        <if-not-empty field-name="partyRoleDetailAndPartyDetail">
-            <assert><not><if-empty field-name="partyList"/></not></assert>
+        <if-not-empty field="partyRoleDetailAndPartyDetail">
+            <assert><not><if-empty field="partyList"/></not></assert>
         <else>
-            <assert><if-empty field-name="partyList"/></assert>
+            <assert><if-empty field="partyList"/></assert>
         </else>    
         </if-not-empty>
         <check-errors/>
@@ -66,7 +66,7 @@ under the License.
             <result-to-field result-name="partyList"/>
         </call-service>
         <!-- At least one party will always exists in the system in any case -->
-        <assert><not><if-empty field-name="partyList"/></not></assert>
+        <assert><not><if-empty field="partyList"/></not></assert>
         <check-errors/>
     </simple-method>
 
@@ -105,9 +105,9 @@ under the License.
         <log level="info" message="====== contactMechId [${contactMechId}] ======"/>
         <entity-one entity-name="ContactMech" value-name="contactMech"/>
         <assert>
-            <not><if-empty field-name="contactMech"/></not>
-            <if-compare-field field-name="contactMechId" operator="equals" to-field-name="serviceCtx.contactMechId"/>
-            <if-compare-field field-name="contactMech.infoString" operator="equals" to-field-name="serviceCtx.emailAddress"/>
+            <not><if-empty field="contactMech"/></not>
+            <if-compare-field field="contactMechId" to-field="serviceCtx.contactMechId" operator="equals"/>
+            <if-compare-field field="contactMech.infoString" to-field="serviceCtx.emailAddress" operator="equals"/>
         </assert>
         <check-errors/>
         
@@ -122,9 +122,9 @@ under the License.
             <field-map field-name="contactMechId" env-name="newContactMechId"/>
         </entity-one>
         <assert>
-            <not><if-empty field-name="contactMech"/></not>
-            <if-compare-field field-name="newContactMechId" operator="not-equals" to-field-name="serviceCtx.contactMechId"/>
-            <if-compare-field field-name="contactMech.infoString" operator="equals" to-field-name="serviceCtx.emailAddress"/>
+            <not><if-empty field="contactMech"/></not>
+            <if-compare-field field="newContactMechId" to-field="serviceCtx.contactMechId" operator="not-equals"/>
+            <if-compare-field field="contactMech.infoString" to-field="serviceCtx.emailAddress" operator="equals"/>
         </assert>
         <check-errors/>      
     </simple-method>
@@ -162,15 +162,15 @@ under the License.
         <log level="info" message="====== contactMechId [${contactMechId}] ======"/>
         <entity-one entity-name="ContactMech" value-name="contactMech"/>
         <assert>
-            <not><if-empty field-name="contactMech"/></not>
-            <if-compare-field field-name="contactMechId" operator="equals" to-field-name="serviceCtx.contactMechId"/>
+            <not><if-empty field="contactMech"/></not>
+            <if-compare-field field="contactMechId" to-field="serviceCtx.contactMechId" operator="equals"/>
         </assert>
         <clear-field field-name="telecomNumber"/>
         <get-related-one  value-name="contactMech" relation-name="TelecomNumber" to-value-name="telecomNumber"/>
         <assert>
-            <not><if-empty field-name="telecomNumber"/></not>
-            <if-compare-field field-name="telecomNumber.areaCode" operator="equals" to-field-name="serviceCtx.areaCode"/>
-            <if-compare-field field-name="telecomNumber.contactNumber" operator="equals" to-field-name="serviceCtx.contactNumber"/>
+            <not><if-empty field="telecomNumber"/></not>
+            <if-compare-field field="telecomNumber.areaCode" to-field="serviceCtx.areaCode" operator="equals"/>
+            <if-compare-field field="telecomNumber.contactNumber" to-field="serviceCtx.contactNumber" operator="equals"/>
         </assert>
         <check-errors/>
         
@@ -187,13 +187,13 @@ under the License.
             <field-map field-name="contactMechId" env-name="newContactMechId"/>
         </entity-one>
         <assert>
-            <not><if-empty field-name="contactMech"/></not>
-            <if-compare-field field-name="newContactMechId" operator="not-equals" to-field-name="serviceCtx.contactMechId"/>
+            <not><if-empty field="contactMech"/></not>
+            <if-compare-field field="newContactMechId" to-field="serviceCtx.contactMechId" operator="not-equals"/>
         </assert>
         <get-related-one  value-name="contactMech" relation-name="TelecomNumber" to-value-name="telecomNumber"/>
         <assert>
-            <not><if-empty field-name="telecomNumber"/></not>
-            <if-compare-field field-name="telecomNumber.contactNumber" operator="equals" to-field-name="serviceCtx.contactNumber"/>
+            <not><if-empty field="telecomNumber"/></not>
+            <if-compare-field field="telecomNumber.contactNumber" to-field="serviceCtx.contactNumber" operator="equals"/>
         </assert>
         <check-errors/>        
     </simple-method>
@@ -231,16 +231,16 @@ under the License.
         <log level="info" message="====== contactMechId [${contactMechId}] ======"/>
         <entity-one entity-name="ContactMech" value-name="contactMech"/>
         <assert>
-            <not><if-empty field-name="contactMech"/></not>
-            <if-compare-field field-name="contactMechId" operator="equals" to-field-name="serviceCtx.contactMechId"/>
+            <not><if-empty field="contactMech"/></not>
+            <if-compare-field field="contactMechId" to-field="serviceCtx.contactMechId" operator="equals"/>
         </assert>
         <clear-field field-name="postalAddress"/>
         <get-related-one  value-name="contactMech" relation-name="PostalAddress" to-value-name="postalAddress"/>
         <assert>
-            <not><if-empty field-name="postalAddress"/></not>
-            <if-compare-field field-name="postalAddress.address1" operator="equals" to-field-name="serviceCtx.address1"/>
-            <if-compare-field field-name="postalAddress.stateProvinceGeoId" operator="equals" to-field-name="serviceCtx.stateProvinceGeoId"/>
-            <if-compare-field field-name="postalAddress.postalCode" operator="equals" to-field-name="serviceCtx.postalCode"/>
+            <not><if-empty field="postalAddress"/></not>
+            <if-compare-field field="postalAddress.address1" to-field="serviceCtx.address1" operator="equals"/>
+            <if-compare-field field="postalAddress.stateProvinceGeoId" to-field="serviceCtx.stateProvinceGeoId" operator="equals"/>
+            <if-compare-field field="postalAddress.postalCode" to-field="serviceCtx.postalCode" operator="equals"/>
         </assert>
         <check-errors/>
         
@@ -258,14 +258,14 @@ under the License.
             <field-map field-name="contactMechId" env-name="newContactMechId"/>
         </entity-one>
         <assert>
-            <not><if-empty field-name="contactMech"/></not>
-            <if-compare-field field-name="newContactMechId" operator="not-equals" to-field-name="serviceCtx.contactMechId"/>
+            <not><if-empty field="contactMech"/></not>
+            <if-compare-field field="newContactMechId" to-field="serviceCtx.contactMechId" operator="not-equals"/>
         </assert>
         <get-related-one  value-name="contactMech" relation-name="PostalAddress" to-value-name="postalAddress"/>
         <assert>
-            <not><if-empty field-name="postalAddress"/></not>
-            <if-compare-field field-name="postalAddress.stateProvinceGeoId" operator="equals" to-field-name="serviceCtx.stateProvinceGeoId"/>
-            <if-compare-field field-name="postalAddress.postalCode" operator="equals" to-field-name="serviceCtx.postalCode"/>
+            <not><if-empty field="postalAddress"/></not>
+            <if-compare-field field="postalAddress.stateProvinceGeoId" to-field="serviceCtx.stateProvinceGeoId" operator="equals"/>
+            <if-compare-field field="postalAddress.postalCode" to-field="serviceCtx.postalCode" operator="equals"/>
         </assert>
         <check-errors/>
     </simple-method>
@@ -303,10 +303,10 @@ under the License.
         <clear-field field-name="paymentMethodAndCreditCard"/>
         <entity-one entity-name="PaymentMethodAndCreditCard" value-name="paymentMethodAndCreditCard"/>
         <assert>
-            <not><if-empty field-name="paymentMethodAndCreditCard"/></not>
-            <if-compare-field field-name="paymentMethodId" operator="equals" to-field-name="oldPaymentMethodId"/>
-            <if-compare-field field-name="paymentMethodAndCreditCard.cardType" operator="equals" to-field-name="serviceCtx.cardType"/>
-            <if-compare-field field-name="paymentMethodAndCreditCard.cardNumber" operator="equals" to-field-name="serviceCtx.cardNumber"/>
+            <not><if-empty field="paymentMethodAndCreditCard"/></not>
+            <if-compare-field field="paymentMethodId" to-field="oldPaymentMethodId" operator="equals"/>
+            <if-compare-field field="paymentMethodAndCreditCard.cardType" to-field="serviceCtx.cardType" operator="equals"/>
+            <if-compare-field field="paymentMethodAndCreditCard.cardNumber" to-field="serviceCtx.cardNumber" operator="equals"/>
         </assert>
         <check-errors/>
         
@@ -324,10 +324,10 @@ under the License.
         <log level="info" message="====== New paymentMethodId [${paymentMethodId}] created for party [${serviceCtx.partyId}] ======"/>
         <entity-one entity-name="PaymentMethodAndCreditCard" value-name="paymentMethodAndCreditCard"/>
         <assert>
-            <not><if-empty field-name="paymentMethodAndCreditCard"/></not>
-            <if-compare-field field-name="paymentMethodId" operator="not-equals" to-field-name="oldPaymentMethodId"/>
-            <if-compare-field field-name="paymentMethodAndCreditCard.cardType" operator="equals" to-field-name="serviceCtx.cardType"/>
-            <if-compare-field field-name="paymentMethodAndCreditCard.cardNumber" operator="equals" to-field-name="serviceCtx.cardNumber"/>
+            <not><if-empty field="paymentMethodAndCreditCard"/></not>
+            <if-compare-field field="paymentMethodId" to-field="oldPaymentMethodId" operator="not-equals"/>
+            <if-compare-field field="paymentMethodAndCreditCard.cardType" to-field="serviceCtx.cardType" operator="equals"/>
+            <if-compare-field field="paymentMethodAndCreditCard.cardNumber" to-field="serviceCtx.cardNumber" operator="equals"/>
         </assert>
         <check-errors/>                
     </simple-method>
@@ -376,9 +376,9 @@ under the License.
             <field field-name="hashType" type="java.lang.String"/>
         </call-class-method>
         <assert>
-            <not><if-empty field-name="partyAndUserLogin"/></not>
-            <if-compare-field field-name="partyAndUserLogin.currentPassword" operator="equals"  to-field-name="newPasswordHash"/>
-            <if-compare-field field-name="partyAndUserLogin.userLoginId" operator="equals"  to-field-name="userLoginId"/>
+            <not><if-empty field="partyAndUserLogin"/></not>
+            <if-compare-field field="partyAndUserLogin.currentPassword" to-field="newPasswordHash" operator="equals"/>
+            <if-compare-field field="partyAndUserLogin.userLoginId" to-field="userLoginId" operator="equals"/>
         </assert>
         <check-errors/>
      </simple-method>

@@ -27,7 +27,7 @@ under the License.
         
         <!-- make sure it doesn't already exist: motivation: if it already exists we'll get a HUGE error message on the create with the whole XML file in it if debug is on for that, so we want a smaller error message -->
         <find-by-primary-key map-name="newEntity" value-name="currentOagisMessageInfo"/>
-        <if-not-empty field-name="currentOagisMessageInfo">
+        <if-not-empty field="currentOagisMessageInfo">
             <add-error><fail-message message="This message was already received, ie we have a duplicate combined ID for the message: ${newEntity}"/></add-error>
             <check-errors/>
         </if-not-empty>
@@ -65,7 +65,7 @@ under the License.
         <set field="createOagisMsgErrCtx.component" from-field="parameters.component"/>
         <set field="createOagisMsgErrCtx.task" from-field="parameters.task"/>
         <set field="createOagisMsgErrCtx.referenceId" from-field="parameters.referenceId"/>
-        <if-not-empty field-name="parameters.errorMapList">
+        <if-not-empty field="parameters.errorMapList">
             <iterate list-name="parameters.errorMapList" entry-name="errorMap">
                 <set field="createOagisMsgErrCtx.description" from-field="errorMap.description"/>
                 <set field="createOagisMsgErrCtx.reasonCode" from-field="errorMap.reasonCode"/>

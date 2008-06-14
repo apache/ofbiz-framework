@@ -22,21 +22,21 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <!-- ProductAssoc -->
     <simple-method method-name="createBOMAssoc" short-description="Create Product to Product Association">
-        <if-empty field-name="parameters.fromDate">
+        <if-empty field="parameters.fromDate">
             <now-timestamp-to-env env-name="parameters.fromDate"/>
         </if-empty>
         <set field="" from-field=""/>
 
         <set field="searchDuplicatedAncestorContext.productId" from-field="parameters.productId"/>
         <set field="searchDuplicatedAncestorContext.productIdTo" from-field="parameters.productIdTo"/>
-        <if-not-empty field-name="parameters.fromDate">
+        <if-not-empty field="parameters.fromDate">
             <set field="searchDuplicatedAncestorContext.fromDate" from-field="parameters.fromDate"/>
         </if-not-empty>
         <set field="searchDuplicatedAncestorContext.productAssocTypeId" from-field="parameters.productAssocTypeId"/>
         <call-service service-name="searchDuplicatedAncestor" in-map-name="searchDuplicatedAncestorContext">
             <result-to-field result-name="duplicatedProductAssoc" field-name="duplicatedProductAssoc"/>
         </call-service>
-        <if-not-empty field-name="duplicatedProductAssoc">
+        <if-not-empty field="duplicatedProductAssoc">
             <set field="productToProduct[]" from-field="duplicatedProductAssoc.productId"/>
             <set field="productToProduct[]" from-field="duplicatedProductAssoc.productIdTo"/>
             <property-to-field property="ManufacturingDuplicatedComponentInBOM" resource="ManufacturingUiLabels" field-name="errorMessage" arg-list-name="productToProduct"/>
@@ -60,7 +60,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="eventEditBOM" short-description="Add, update, delete components in BOM">
-        <if-compare value="UPDATE" field-name="UPDATE_MODE" map-name="parameters" operator="equals">
+        <if-compare value="UPDATE" field="parameters.UPDATE_MODE" operator="equals">
             <set-service-fields service-name="updateProductAssoc" map-name="parameters" to-map-name="context"/>
             <call-map-processor xml-resource="org/ofbiz/manufacturing/bom/BomMapProcs.xml"
                                 processor-name="prepareUpdateBOMAssoc" 
@@ -69,7 +69,7 @@ under the License.
             <call-service service-name="updateProductAssoc" in-map-name="context"/>
             <check-errors/>
         </if-compare>
-        <if-compare value="CREATE" field-name="UPDATE_MODE" map-name="parameters" operator="equals">
+        <if-compare value="CREATE" field="parameters.UPDATE_MODE" operator="equals">
             <set-service-fields service-name="createBOMAssoc" map-name="parameters" to-map-name="context"/>
             <call-map-processor xml-resource="org/ofbiz/manufacturing/bom/BomMapProcs.xml"
                                 processor-name="prepareUpdateBOMAssoc" 
@@ -78,14 +78,14 @@ under the License.
             <call-service service-name="createBOMAssoc" in-map-name="context">
                 <result-to-field field-name="errorMessage" result-name="errorMessage"/>
             </call-service>
-             <if-not-empty field-name="errorMessage">
+             <if-not-empty field="errorMessage">
                 <add-error>
                     <fail-message message="${errorMessage}"/>
                 </add-error>
             </if-not-empty>
             <!--<check-errors/>-->
         </if-compare>
-        <if-compare value="DELETE" field-name="UPDATE_MODE" map-name="parameters" operator="equals">
+        <if-compare value="DELETE" field="parameters.UPDATE_MODE" operator="equals">
             <set-service-fields service-name="deleteProductAssoc" map-name="parameters" to-map-name="context"/>
             <call-map-processor xml-resource="org/ofbiz/manufacturing/bom/BomMapProcs.xml"
                                 processor-name="prepareDeleteProductAssoc" 
@@ -94,7 +94,7 @@ under the License.
             <call-service service-name="deleteProductAssoc" in-map-name="context"/>
             <check-errors/>
         </if-compare>
-        <if-compare value="COPY" field-name="UPDATE_MODE" map-name="parameters" operator="equals">
+        <if-compare value="COPY" field="parameters.UPDATE_MODE" operator="equals">
             <set-service-fields service-name="copyBOMAssocs" map-name="parameters" to-map-name="context"/>
             <call-service service-name="copyBOMAssocs" in-map-name="context"/>
             <check-errors/>
@@ -121,14 +121,14 @@ under the License.
         <make-value value-name="lookupPKMap" entity-name="ProductManufacturingRule"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>        
         <find-by-primary-key entity-name="ProductManufacturingRule" map-name="lookupPKMap" value-name="newEntity"/>
-        <if-not-empty field-name="ruleId" map-name="newEntity">
+        <if-not-empty field="newEntity.ruleId">
             <add-error>
                 <fail-property resource="ManufacturingUiLabels" property="ManufacturingMachineGroupIdAlreadyExist"/>
             </add-error>
             <check-errors/>
         <else>
             <make-value value-name="newEntity" entity-name="ProductManufacturingRule"/>
-            <if-empty field-name="parameters.ruleId">
+            <if-empty field="parameters.ruleId">
                 <sequenced-id-to-env sequence-name="ProductManufacturingRule" env-name="parameters.ruleId"/>
             </if-empty>
             <set-pk-fields map-name="parameters" value-name="newEntity"/>
@@ -146,7 +146,7 @@ under the License.
         <make-value value-name="lookupPKMap" entity-name="ProductManufacturingRule"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductManufacturingRule" map-name="lookupPKMap" value-name="lookedUpValue"/>
-        <if-not-empty field-name="lookedUpValue.ruleId">
+        <if-not-empty field="lookedUpValue.ruleId">
             <remove-value value-name="lookedUpValue"/>
         </if-not-empty>
     </simple-method>

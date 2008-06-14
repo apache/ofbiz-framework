@@ -123,7 +123,7 @@ under the License.
         <if>
             <condition>
                 <and>
-                    <if-compare-field field-name="userLogin.partyId" operator="not-equals" to-field-name="parameters.partyId"/>
+                    <if-compare-field field="userLogin.partyId" to-field="parameters.partyId" operator="not-equals"/>
                     <not><if-has-permission permission="MARKETING" action="_CREATE"/></not>
                 </and>
             </condition>
@@ -147,7 +147,7 @@ under the License.
         <if>
             <condition>
                 <and>
-                    <if-compare-field field-name="userLogin.partyId" operator="not-equals" to-field-name="parameters.partyId"/>
+                    <if-compare-field field="userLogin.partyId" to-field="parameters.partyId" operator="not-equals"/>
                     <not><if-has-permission permission="MARKETING" action="_UPDATE"/></not>
                 </and>
             </condition>

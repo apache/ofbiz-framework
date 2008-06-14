@@ -29,7 +29,7 @@ under the License.
 
         <make-value entity-name="OrderDeliverySchedule" value-name="schedule"/>
         <set-pk-fields map-name="parameters" value-name="schedule"/>
-        <if-empty field-name="orderItemSeqId" map-name="schedule">
+        <if-empty field="schedule.orderItemSeqId">
             <set value="_NA_" field="schedule.orderItemSeqId"/>
         </if-empty>
     
@@ -75,7 +75,7 @@ under the License.
         <call-simple-method method-name="checkSupplierRelatedPermission"/>
         <check-errors/>
 
-        <if-empty field-name="parameters.orderItemSeqId">
+        <if-empty field="parameters.orderItemSeqId">
             <set field="parameters.orderItemSeqId" value="_NA_"/>
         </if-empty>
         
@@ -109,7 +109,7 @@ under the License.
         
         <!-- set subject, contentType, templateName, templateData -->
         <set field="sendEmailMap.subject" value="Delivery Information Updated for Order #${orderDeliverySchedule.orderId}"/>
-        <if-compare field-name="orderDeliverySchedule.orderItemSeqId" operator="not-equals" value="_NA_">
+        <if-compare field="orderDeliverySchedule.orderItemSeqId" operator="not-equals" value="_NA_">
             <string-append string=" Item #${orderDeliverySchedule.orderItemSeqId}" field-name="subject" map-name="sendEmailMap"/>
         </if-compare>
         <set field="sendEmailMap.contentType" value="text/html"/>
@@ -121,8 +121,8 @@ under the License.
         <if>
             <condition>
                 <and>
-                    <not><if-empty field-name="sendTo" map-name="sendEmailMap"/></not>
-                    <not><if-empty field-name="sendFrom" map-name="sendEmailMap"/></not>
+                    <not><if-empty field="sendEmailMap.sendTo"/></not>
+                    <not><if-empty field="sendEmailMap.sendFrom"/></not>
                 </and>
             </condition>
             <then>
@@ -143,10 +143,10 @@ under the License.
     
     <!-- Should be called in-line to use its out parameter indicating whether the user has permission or not. -->
     <simple-method method-name="checkSupplierRelatedPermission" short-description="Check Supplier Related Permission">
-        <if-empty field-name="callingMethodName">
+        <if-empty field="callingMethodName">
             <set value="this operation" field="callingMethodName"/>
         </if-empty>
-        <if-empty field-name="checkAction">
+        <if-empty field="checkAction">
             <set value="UPDATE" field="checkAction"/>
         </if-empty>
         <set field="hasSupplierRelatedPermission" value="false"/>
@@ -164,7 +164,7 @@ under the License.
                 <find-by-primary-key entity-name="OrderRole" map-name="lookupOrderRoleMap" value-name="permOrderRole"/>
                 <if>
                     <condition>
-                        <if-empty field-name="permOrderRole"/>
+                        <if-empty field="permOrderRole"/>
                     </condition>
                     <then>
                         <set field="hasSupplierRelatedPermission" value="false"/>

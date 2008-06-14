@@ -26,7 +26,7 @@ under the License.
         <make-value value-name="lookupPKMap" entity-name="TechDataCalendar"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="TechDataCalendar" map-name="lookupPKMap" value-name="newEntity"/>
-        <if-not-empty field-name="calendarId" map-name="newEntity">
+        <if-not-empty field="newEntity.calendarId">
             <add-error>
                 <fail-property resource="ManufacturingUiLabels" property="ManufacturingCalendarIdAlreadyExist"/>
             </add-error>
@@ -35,7 +35,7 @@ under the License.
             <make-value value-name="lookupPKMap" entity-name="TechDataCalendarWeek"/>
             <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
             <find-by-primary-key entity-name="TechDataCalendarWeek" map-name="lookupPKMap" value-name="newEntity"/>
-            <if-empty field-name="calendarWeekId" map-name="newEntity">
+            <if-empty field="newEntity.calendarWeekId">
                 <add-error>
                     <fail-property resource="ManufacturingUiLabels" property="ManufacturingCalendarWeekIdNotExisting"/>
                 </add-error>
@@ -68,7 +68,7 @@ under the License.
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <get-related value-name="lookupPKMap" relation-name="TechDataCalendarExcDay" list-name="relatedResultList" />
         <first-from-list entry-name="relatedResult" list-name="relatedResultList"/>
-        <if-not-empty  field-name="relatedResult">
+        <if-not-empty field="relatedResult">
             <add-error>
                 <fail-property resource="ManufacturingUiLabels" property="ManufacturingCalendarExceptionDayUseCalendar"/>
             </add-error>
@@ -76,14 +76,14 @@ under the License.
         </if-not-empty>
         <get-related value-name="lookupPKMap" relation-name="TechDataCalendarExcWeek" list-name="relatedResultList" />
         <first-from-list entry-name="relatedResult" list-name="relatedResultList"/>
-        <if-not-empty  field-name="relatedResult">
+        <if-not-empty field="relatedResult">
             <add-error>
                 <fail-property resource="ManufacturingUiLabels" property="ManufacturingCalendarExceptionWeekUseCalendar"/>
             </add-error>
             <check-errors/>
         </if-not-empty>
         <find-by-primary-key entity-name="TechDataCalendar" map-name="lookupPKMap" value-name="lookedUpValue"/>
-        <if-not-empty map-name="lookedUpValue" field-name="calendarWeekId">
+        <if-not-empty field="lookedUpValue.calendarWeekId">
             <remove-value value-name="lookedUpValue"/>
         </if-not-empty>
     </simple-method>
@@ -94,7 +94,7 @@ under the License.
         <make-value value-name="lookupPKMap" entity-name="TechDataCalendarWeek"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="TechDataCalendarWeek" map-name="lookupPKMap" value-name="newEntity"/>
-        <if-not-empty field-name="calendarWeekId" map-name="newEntity">
+        <if-not-empty field="newEntity.calendarWeekId">
             <add-error>
                 <fail-property resource="ManufacturingUiLabels" property="ManufacturingCalendarWeekIdAlreadyExist"/>
             </add-error>
@@ -125,7 +125,7 @@ under the License.
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <get-related value-name="lookupPKMap" relation-name="TechDataCalendar" list-name="relatedResultList" />
         <first-from-list entry-name="relatedResult" list-name="relatedResultList"/>
-        <if-not-empty  field-name="relatedResult">
+        <if-not-empty field="relatedResult">
             <add-error>
                 <fail-property resource="ManufacturingUiLabels" property="ManufacturingCalendarUseCalendarWeek"/>
             </add-error>
@@ -133,14 +133,14 @@ under the License.
         </if-not-empty>
         <get-related value-name="lookupPKMap" relation-name="TechDataCalendarExcWeek" list-name="relatedResultList" />
         <first-from-list entry-name="relatedResult" list-name="relatedResultList"/>
-        <if-not-empty  field-name="relatedResult">
+        <if-not-empty field="relatedResult">
             <add-error>
                 <fail-property resource="ManufacturingUiLabels" property="ManufacturingCalendarWeekExceptionUseCalendarWeek"/>
             </add-error>
             <check-errors/>
         </if-not-empty>
         <find-by-primary-key entity-name="TechDataCalendarWeek" map-name="lookupPKMap" value-name="lookedUpValue"/>
-        <if-not-empty map-name="lookedUpValue" field-name="calendarWeekId">
+        <if-not-empty field="lookedUpValue.calendarWeekId">
             <remove-value value-name="lookedUpValue"/>
         </if-not-empty>
     </simple-method>
@@ -151,7 +151,7 @@ under the License.
         <make-value value-name="lookupPKMap" entity-name="TechDataCalendarExcDay"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="TechDataCalendarExcDay" map-name="lookupPKMap" value-name="newEntity"/>
-        <if-not-empty field-name="calendarId" map-name="newEntity">
+        <if-not-empty field="newEntity.calendarId">
             <add-error>
                 <fail-property resource="ManufacturingUiLabels" property="ManufacturingCalendarExceptionDayIdAlreadyExist"/>
             </add-error>
@@ -181,7 +181,7 @@ under the License.
         <make-value value-name="lookupPKMap" entity-name="TechDataCalendarExcDay"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="TechDataCalendarExcDay" map-name="lookupPKMap" value-name="lookedUpValue"/>
-        <if-not-empty map-name="lookedUpValue" field-name="calendarId">
+        <if-not-empty field="lookedUpValue.calendarId">
             <remove-value value-name="lookedUpValue"/>
         </if-not-empty>
     </simple-method>
@@ -192,7 +192,7 @@ under the License.
         <make-value value-name="lookupPKMap" entity-name="TechDataCalendarExcWeek"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="TechDataCalendarExcWeek" map-name="lookupPKMap" value-name="newEntity"/>
-        <if-not-empty field-name="calendarId" map-name="newEntity">
+        <if-not-empty field="newEntity.calendarId">
             <add-error>
                 <fail-property resource="ManufacturingUiLabels" property="ManufacturingCalendarExceptionWeekIdAlreadyExist"/>
             </add-error>
@@ -222,7 +222,7 @@ under the License.
         <make-value value-name="lookupPKMap" entity-name="TechDataCalendarExcWeek"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="TechDataCalendarExcWeek" map-name="lookupPKMap" value-name="lookedUpValue"/>
-        <if-not-empty map-name="lookedUpValue" field-name="calendarId">
+        <if-not-empty field="lookedUpValue.calendarId">
             <remove-value value-name="lookedUpValue"/>
         </if-not-empty>
     </simple-method>

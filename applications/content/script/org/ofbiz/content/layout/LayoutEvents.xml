@@ -40,7 +40,7 @@ under the License.
             <result-to-field field-name="contentId" result-name="contentId"/>
             <result-to-field field-name="dataResourceId" result-name="dataResourceId"/>
         </call-service>
-        <if-empty field-name="contentId">
+        <if-empty field="contentId">
             <add-error>
                 <fail-message message="Permission not granted."/>
             </add-error>
@@ -66,7 +66,7 @@ under the License.
         <call-service in-map-name="context" service-name="checkContentPermission">
             <result-to-field field-name="permissionStatus" result-name="permissionStatus"/>
         </call-service>
-        <if-compare field-name="permissionStatus" operator="not-equals" value="granted" type="String">
+        <if-compare field="permissionStatus" operator="not-equals" value="granted" type="String">
             <add-error>
                 <fail-message message="Permission not granted."/>
             </add-error>
@@ -127,7 +127,7 @@ under the License.
 
         <set field="context2.contentIdTo" from-field="parameters.contentIdTo"/>
         <set field="context2.mapKey" from-field="parameters.mapKey"/>
-        <if-not-empty map-name="context2" field-name="activeContentId">
+        <if-not-empty field="context2.activeContentId">
             <call-service in-map-name="context2" service-name="deactivateAssocs">
                 <result-to-field field-name="deactivateList" result-name="deactivateList"/>
             </call-service>
@@ -223,7 +223,7 @@ under the License.
 
         <set field="context2.contentIdTo" from-field="formInput.contentIdTo"/>
         <set field="context2.mapKey" from-field="formInput.mapKey"/>
-        <if-not-empty map-name="context2" field-name="activeContentId">
+        <if-not-empty field="context2.activeContentId">
             <call-service in-map-name="context2" service-name="deactivateAssocs">
                 <result-to-field field-name="deactivateList" result-name="deactivateList"/>
             </call-service>
@@ -281,7 +281,7 @@ under the License.
 
         <set field="context2.contentIdTo" from-field="parameters.contentIdTo"/>
         <set field="context2.mapKey" from-field="parameters.mapKey"/>
-        <if-not-empty map-name="context2" field-name="activeContentId">
+        <if-not-empty field="context2.activeContentId">
             <call-service in-map-name="context2" service-name="deactivateAssocs">
                 <result-to-field field-name="deactivateList" result-name="deactivateList"/>
             </call-service>

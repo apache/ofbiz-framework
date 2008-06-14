@@ -55,18 +55,18 @@ under the License.
         <entity-condition  entity-name="AcctgTransEntry" list-name="acctgTransEntries">
             <condition-expr field-name="productId" env-name="productId"/>
         </entity-condition>
-        <assert><not><if-empty field-name="acctgTransEntries"/></not></assert>
+        <assert><not><if-empty field="acctgTransEntries"/></not></assert>
         <iterate list-name="acctgTransEntries" entry-name="acctgTransEntry">
-            <if-compare field-name="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
+            <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
                 <assert>
-                    <if-compare field-name="acctgTransEntry.glAccountTypeId" operator="equals" value="UNINVOICED_SHIP_RCPT"/>
-                    <if-compare field-name="acctgTransEntry.glAccountId" operator="equals" value="214000"/>
+                    <if-compare field="acctgTransEntry.glAccountTypeId" operator="equals" value="UNINVOICED_SHIP_RCPT"/>
+                    <if-compare field="acctgTransEntry.glAccountId" operator="equals" value="214000"/>
                 </assert>
             <else>
-                <if-compare field-name="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
+                <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
                     <assert>
-                        <if-compare field-name="acctgTransEntry.glAccountTypeId" operator="equals" value="INVENTORY_ACCOUNT"/>
-                        <if-compare field-name="acctgTransEntry.glAccountId" operator="equals" value="140000"/>
+                        <if-compare field="acctgTransEntry.glAccountTypeId" operator="equals" value="INVENTORY_ACCOUNT"/>
+                        <if-compare field="acctgTransEntry.glAccountId" operator="equals" value="140000"/>
                     </assert>
                 </if-compare>
             </else>    
@@ -107,18 +107,18 @@ under the License.
         <set field="debitTotal" type="Double" value="0.0"/>
         <set field="creditTotal" type="Double" value="0.0"/>
         
-        <assert><not><if-empty field-name="acctgTransEntries"/></not></assert>
+        <assert><not><if-empty field="acctgTransEntries"/></not></assert>
         <iterate list-name="acctgTransEntries" entry-name="acctgTransEntry">
-            <if-compare field-name="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
+            <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
                 <assert>
-                    <if-compare field-name="acctgTransEntry.glAccountTypeId" operator="equals" value="ACCOUNTS_PAYABLE"/>
-                    <if-compare field-name="acctgTransEntry.glAccountId" operator="equals" value="210000"/>
+                    <if-compare field="acctgTransEntry.glAccountTypeId" operator="equals" value="ACCOUNTS_PAYABLE"/>
+                    <if-compare field="acctgTransEntry.glAccountId" operator="equals" value="210000"/>
                 </assert>
                 <calculate field-name="creditTotal">
                     <calcop operator="add" field-name="acctgTransEntry.origAmount"/>
                 </calculate>
             <else>
-                <if-compare field-name="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
+                <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
                     <calculate field-name="debitTotal">
                         <calcop operator="add" field-name="acctgTransEntry.origAmount"/>
                     </calculate>
@@ -127,7 +127,7 @@ under the License.
             </if-compare>
         </iterate>
         <assert>
-            <if-compare field-name="debitTotal" operator="equals" value="creditTotal"/>
+            <if-compare field="debitTotal" operator="equals" value="creditTotal"/>
         </assert>
         <check-errors/>            
     </simple-method>
@@ -161,19 +161,19 @@ under the License.
         <set field="debitTotal" type="Double" value="0.0"/>
         <set field="creditTotal" type="Double" value="0.0"/>
         
-        <assert><not><if-empty field-name="acctgTransEntries"/></not></assert>
+        <assert><not><if-empty field="acctgTransEntries"/></not></assert>
         <iterate list-name="acctgTransEntries" entry-name="acctgTransEntry">
-            <if-compare field-name="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
+            <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
             <!--<assert>
-                    <if-compare field-name="acctgTransEntry.glAccountTypeId" operator="equals" value="GENERAL_CHECKING_ACCOUNT"/>
-                    <if-compare field-name="acctgTransEntry.glAccountId" operator="equals" value="111100"/>
+                    <if-compare field="acctgTransEntry.glAccountTypeId" operator="equals" value="GENERAL_CHECKING_ACCOUNT"/>
+                    <if-compare field="acctgTransEntry.glAccountId" operator="equals" value="111100"/>
                 </assert>-->
                 <set field="creditTotal" from-field="acctgTransEntry.origAmount"/>
             <else>
-                <if-compare field-name="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
+                <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
                     <assert>
-                        <if-compare field-name="acctgTransEntry.glAccountTypeId" operator="equals" value="ACCOUNTS_PAYABLE"/>
-                        <if-compare field-name="acctgTransEntry.glAccountId" operator="equals" value="210000"/>
+                        <if-compare field="acctgTransEntry.glAccountTypeId" operator="equals" value="ACCOUNTS_PAYABLE"/>
+                        <if-compare field="acctgTransEntry.glAccountId" operator="equals" value="210000"/>
                     </assert>
                     <set field="debitTotal" from-field="acctgTransEntry.origAmount"/>
                 </if-compare>
@@ -181,7 +181,7 @@ under the License.
             </if-compare>
         </iterate>
         <assert>
-            <if-compare field-name="debitTotal" operator="equals" value="creditTotal"/>
+            <if-compare field="debitTotal" operator="equals" value="creditTotal"/>
         </assert>
         <check-errors/>   
     </simple-method>
@@ -225,18 +225,18 @@ under the License.
             <condition-expr field-name="productId" operator="equals" env-name="productId"/>
         </entity-condition>
         
-        <assert><not><if-empty field-name="acctgTransEntries"/></not></assert>
+        <assert><not><if-empty field="acctgTransEntries"/></not></assert>
         <iterate list-name="acctgTransEntryList" entry-name="acctgTransEntry">
-            <if-compare field-name="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
+            <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
                 <assert>
-                    <if-compare field-name="acctgTransEntry.glAccountTypeId" operator="equals" value="INVENTORY_ACCOUNT"/>
-                    <if-compare field-name="acctgTransEntry.glAccountId" operator="equals" value="140000"/>
+                    <if-compare field="acctgTransEntry.glAccountTypeId" operator="equals" value="INVENTORY_ACCOUNT"/>
+                    <if-compare field="acctgTransEntry.glAccountId" operator="equals" value="140000"/>
                 </assert>
             <else>
-                <if-compare field-name="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
+                <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
                     <assert>
-                        <if-compare field-name="acctgTransEntry.glAccountTypeId" operator="equals" value="COGS_ACCOUNT"/>
-                        <if-compare field-name="acctgTransEntry.glAccountId" operator="equals" value="500000"/>
+                        <if-compare field="acctgTransEntry.glAccountTypeId" operator="equals" value="COGS_ACCOUNT"/>
+                        <if-compare field="acctgTransEntry.glAccountId" operator="equals" value="500000"/>
                     </assert>
                 </if-compare>
             </else>
@@ -278,18 +278,18 @@ under the License.
         <first-from-list list-name="acctgTransList" entry-name="acctgTrans"/>
         <get-related value-name="acctgTrans" relation-name="AcctgTransEntry" list-name="acctgTransEntries"/>
 
-        <assert><not><if-empty field-name="acctgTransEntries"/></not></assert>
+        <assert><not><if-empty field="acctgTransEntries"/></not></assert>
         <iterate entry-name="acctgTransEntry" list-name="acctgTransEntries">
-            <if-compare field-name="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
+            <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
             <!--<assert>
-                    <if-compare field-name="acctgTransEntry.glAccountTypeId" operator="equals" value="SALES_ACCOUNT"/>
-                    <if-compare field-name="acctgTransEntry.glAccountId" operator="equals" value="400000"/>
+                    <if-compare field="acctgTransEntry.glAccountTypeId" operator="equals" value="SALES_ACCOUNT"/>
+                    <if-compare field="acctgTransEntry.glAccountId" operator="equals" value="400000"/>
                 </assert>-->
             <else>
-                <if-compare field-name="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
+                <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
                     <assert>
-                        <if-compare field-name="acctgTransEntry.glAccountTypeId" operator="equals" value="ACCOUNTS_RECEIVABLE"/>
-                        <if-compare field-name="acctgTransEntry.glAccountId" operator="equals" value="120000"/>
+                        <if-compare field="acctgTransEntry.glAccountTypeId" operator="equals" value="ACCOUNTS_RECEIVABLE"/>
+                        <if-compare field="acctgTransEntry.glAccountId" operator="equals" value="120000"/>
                     </assert>
                 </if-compare>
             </else>
@@ -329,21 +329,21 @@ under the License.
         <set field="debitTotal" type="Double" value="0.0"/>
         <set field="creditTotal" type="Double" value="0.0"/>
 
-        <assert><not><if-empty field-name="acctgTransEntries"/></not></assert>
+        <assert><not><if-empty field="acctgTransEntries"/></not></assert>
         <iterate entry-name="acctgTransEntry" list-name="acctgTransEntries">
-            <if-compare field-name="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
+            <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
             <!--<assert>
-                    <if-compare field-name="acctgTransEntry.glAccountTypeId" operator="equals" value="ACCOUNTS_RECEIVABLE"/>
-                    <if-compare field-name="acctgTransEntry.glAccountId" operator="equals" value="120000"/>
+                    <if-compare field="acctgTransEntry.glAccountTypeId" operator="equals" value="ACCOUNTS_RECEIVABLE"/>
+                    <if-compare field="acctgTransEntry.glAccountId" operator="equals" value="120000"/>
                 </assert>-->
                 <calculate field-name="creditTotal">
                     <calcop operator="add" field-name="acctgTransEntry.origAmount"/>
                 </calculate>
             </if-compare>
-            <if-compare field-name="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
+            <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
             <!--<assert>
-                    <if-compare field-name="acctgTransEntry.glAccountTypeId" operator="equals" value="UNDEPOSITED_RECEIPTS"/>
-                    <if-compare field-name="acctgTransEntry.glAccountId" operator="equals" value="112000"/>
+                    <if-compare field="acctgTransEntry.glAccountTypeId" operator="equals" value="UNDEPOSITED_RECEIPTS"/>
+                    <if-compare field="acctgTransEntry.glAccountId" operator="equals" value="112000"/>
                 </assert>-->
                 <calculate field-name="debitTotal">
                     <calcop operator="add" field-name="acctgTransEntry.origAmount"/>
@@ -351,7 +351,7 @@ under the License.
             </if-compare>
         </iterate>
         <assert>
-            <if-compare field-name="debitTotal" operator="equals" value="creditTotal"/>
+            <if-compare field="debitTotal" operator="equals" value="creditTotal"/>
         </assert>
         <check-errors/>
     </simple-method>
@@ -387,12 +387,12 @@ under the License.
                 </condition-list>
             </condition-list>
         </entity-condition>
-        <assert><not><if-empty field-name="workEffortAndInventoryAssigns"/></not></assert>
+        <assert><not><if-empty field="workEffortAndInventoryAssigns"/></not></assert>
 
         <set field="totalIssuedQty_MAT_A_COST" value="0.0" type="Double"/>
         <set field="totalIssuedQty_MAT_B_COST" value="0.0" type="Double"/>
         <iterate list-name="workEffortAndInventoryAssigns" entry-name="workEffortAndInventoryAssign">
-            <if-compare field-name="workEffortAndInventoryAssign.productId" operator="equals" value="MAT_A_COST">   
+            <if-compare field="workEffortAndInventoryAssign.productId" operator="equals" value="MAT_A_COST">   
                 <calculate field-name="totalIssuedQty_MAT_A_COST">
                     <calcop operator="add">
                         <calcop operator="get" field-name="workEffortAndInventoryAssign.quantity"/>
@@ -400,7 +400,7 @@ under the License.
                     </calcop>
                 </calculate>
             <else>
-                <if-compare field-name="workEffortAndInventoryAssign.productId" operator="equals" value="MAT_B_COST">    
+                <if-compare field="workEffortAndInventoryAssign.productId" operator="equals" value="MAT_B_COST">    
                     <calculate field-name="totalIssuedQty_MAT_B_COST">
                         <calcop operator="add">
                             <calcop operator="get" field-name="workEffortAndInventoryAssign.quantity" />
@@ -412,33 +412,33 @@ under the License.
             </if-compare>
         </iterate>
         <assert>
-            <if-compare field-name="totalIssuedQty_MAT_A_COST" operator="equals" value="4.0" type="Double"/>
-            <if-compare field-name="totalIssuedQty_MAT_B_COST" operator="equals" value="6.0" type="Double"/> 
+            <if-compare field="totalIssuedQty_MAT_A_COST" operator="equals" value="4.0" type="Double"/>
+            <if-compare field="totalIssuedQty_MAT_B_COST" operator="equals" value="6.0" type="Double"/> 
         </assert>
         <entity-and entity-name="AcctgTrans" list-name="acctgTransList">
             <field-map field-name="acctgTransTypeId" value="INVENTORY"/>
         </entity-and>
-        <assert><not><if-empty field-name="acctgTransList"/></not></assert>
+        <assert><not><if-empty field="acctgTransList"/></not></assert>
 
         <iterate list-name="acctgTransList" entry-name="acctgTrans">
             <get-related list-name="acctgTransEntryList" relation-name="AcctgTransEntry" value-name="acctgTrans"/>
-            <assert><not><if-empty field-name="acctgTransEntryList"/></not></assert>
+            <assert><not><if-empty field="acctgTransEntryList"/></not></assert>
             <iterate list-name="acctgTransEntryList" entry-name="acctgTransEntry">
-                <if-compare field-name="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
+                <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
                     <assert>
                         <or>
-                            <if-compare field-name="acctgTransEntry.productId" operator="equals" value="MAT_A_COST"/>
-                            <if-compare field-name="acctgTransEntry.productId" operator="equals" value="MAT_B_COST"/>    
+                            <if-compare field="acctgTransEntry.productId" operator="equals" value="MAT_A_COST"/>
+                            <if-compare field="acctgTransEntry.productId" operator="equals" value="MAT_B_COST"/>    
                         </or>
-                        <if-compare field-name="acctgTransEntry.glAccountTypeId" operator="equals" value="RAWMAT_INVENTORY"/>
-                        <if-compare field-name="acctgTransEntry.glAccountId" operator="equals" value="141000"/>
+                        <if-compare field="acctgTransEntry.glAccountTypeId" operator="equals" value="RAWMAT_INVENTORY"/>
+                        <if-compare field="acctgTransEntry.glAccountId" operator="equals" value="141000"/>
                     </assert>
                 <else>
-                    <if-compare field-name="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
+                    <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
                         <assert>
-                            <if-compare field-name="acctgTransEntry.productId" operator="equals" value="PROD_COST"/>
-                            <if-compare field-name="acctgTransEntry.glAccountTypeId" operator="equals" value="WIP_INVENTORY"/>
-                            <if-compare field-name="acctgTransEntry.glAccountId" operator="equals" value="142000"/>
+                            <if-compare field="acctgTransEntry.productId" operator="equals" value="PROD_COST"/>
+                            <if-compare field="acctgTransEntry.glAccountTypeId" operator="equals" value="WIP_INVENTORY"/>
+                            <if-compare field="acctgTransEntry.glAccountId" operator="equals" value="142000"/>
                         </assert>
                     </if-compare>
                 </else>
@@ -471,22 +471,22 @@ under the License.
             <field-map field-name="workEffortId" env-name="workEffortId"/>
         </entity-one>
         <get-related  value-name="workEffort" relation-name="AcctgTrans" list-name="acctgTransList"/>
-        <assert><not><if-empty field-name="acctgTransList"></if-empty></not></assert>
+        <assert><not><if-empty field="acctgTransList"></if-empty></not></assert>
         <iterate list-name="acctgTransList" entry-name="acctgTrans">
             <get-related value-name="acctgTrans" relation-name="AcctgTransEntry" list-name="acctgTransEntryList"/>
             <iterate list-name="acctgTransEntryList" entry-name="acctgTransEntry">
-                <if-compare field-name="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
+                <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
                     <assert>
-                        <if-compare field-name="acctgTransEntry.productId" operator="equals" value="PROD_COST"/>
-                        <if-compare field-name="acctgTransEntry.glAccountTypeId" operator="equals" value="OPERATING_EXPENSE"/>
-                        <if-compare field-name="acctgTransEntry.glAccountId" operator="equals" value="600000"/>
+                        <if-compare field="acctgTransEntry.productId" operator="equals" value="PROD_COST"/>
+                        <if-compare field="acctgTransEntry.glAccountTypeId" operator="equals" value="OPERATING_EXPENSE"/>
+                        <if-compare field="acctgTransEntry.glAccountId" operator="equals" value="600000"/>
                     </assert>
                 <else>
-                    <if-compare field-name="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
+                    <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
                         <assert>
-                            <if-compare field-name="acctgTransEntry.productId" operator="equals" value="PROD_COST"/>
-                            <if-compare field-name="acctgTransEntry.glAccountTypeId" operator="equals" value="WIP_INVENTORY"/>
-                            <if-compare field-name="acctgTransEntry.glAccountId" operator="equals" value="142000"/>
+                            <if-compare field="acctgTransEntry.productId" operator="equals" value="PROD_COST"/>
+                            <if-compare field="acctgTransEntry.glAccountTypeId" operator="equals" value="WIP_INVENTORY"/>
+                            <if-compare field="acctgTransEntry.glAccountId" operator="equals" value="142000"/>
                         </assert>
                     </if-compare> 
                 </else>
@@ -523,8 +523,8 @@ under the License.
         </entity-and>
         <first-from-list list-name="acctgTransEntryList" entry-name="acctgTransEntry"/>
         <assert>
-            <if-compare field-name="acctgTransEntry.debitCreditFlag" operator="equals" value="C"/>
-            <if-compare field-name="acctgTransEntry.origAmount" operator="equals" value="328" type="Double"/>
+            <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="C"/>
+            <if-compare field="acctgTransEntry.origAmount" operator="equals" value="328" type="Double"/>
         </assert>
         
         <!-- For debit entry -->
@@ -536,8 +536,8 @@ under the License.
         </entity-and>
         <first-from-list list-name="acctgTransEntryList" entry-name="acctgTransEntry"/>
         <assert>
-            <if-compare field-name="acctgTransEntry.debitCreditFlag" operator="equals" value="D"/>
-            <if-compare field-name="acctgTransEntry.origAmount" operator="equals" value="328" type="Double"/>
+            <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="D"/>
+            <if-compare field="acctgTransEntry.origAmount" operator="equals" value="328" type="Double"/>
         </assert>
         <check-errors/> 
     </simple-method>

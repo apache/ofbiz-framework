@@ -25,7 +25,7 @@ under the License.
             <condition>
                 <and>
                     <not><if-has-permission permission="ORDERMGR" action="_VIEW"/></not>
-                    <if-compare-field field-name="parameters.partyId" operator="not-equals" to-field-name="userLogin.partyId"/>
+                    <if-compare-field field="parameters.partyId" to-field="userLogin.partyId" operator="not-equals"/>
                 </and>
             </condition>
             <then>
@@ -34,7 +34,7 @@ under the License.
         </if>
         <check-errors/>
         
-        <if-not-empty field-name="monthsToInclude">
+        <if-not-empty field="monthsToInclude">
             <now-timestamp-to-env env-name="nowTimestamp"/>
             <call-bsh><![CDATA[
                 calendar = java.util.Calendar.getInstance();
@@ -45,13 +45,13 @@ under the License.
             <set from-field="nowTimestamp" field="parameters.thruDate"/>
         </if-not-empty>
 
-        <if-empty field-name="parameters.roleTypeId">
+        <if-empty field="parameters.roleTypeId">
             <set value="PLACING_CUSTOMER" field="parameters.roleTypeId"/>
         </if-empty>
-        <if-empty field-name="parameters.orderTypeId">
+        <if-empty field="parameters.orderTypeId">
             <set value="SALES_ORDER" field="parameters.orderTypeId"/>
         </if-empty>
-        <if-empty field-name="parameters.statusId">
+        <if-empty field="parameters.statusId">
             <set value="ORDER_COMPLETED" field="parameters.statusId"/>
         </if-empty>
 
@@ -80,7 +80,7 @@ under the License.
 
         <!-- because we specified the partyId and the roleTypeId, should only be one item in list returned -->
         <first-from-list list-name="orderInfoList" entry-name="orderInfo"/>
-        <if-not-empty field-name="orderInfo">
+        <if-not-empty field="orderInfo">
             <field-to-result field-name="orderInfo.totalGrandAmount" result-name="totalGrandAmount"/>
             <field-to-result field-name="orderInfo.totalSubRemainingAmount" result-name="totalSubRemainingAmount"/>
             <field-to-result field-name="orderInfo.totalOrders" result-name="totalOrders"/>
@@ -142,7 +142,7 @@ under the License.
         <!-- Include the facilityId corresponding to this order by looking up the ProductStore -->
         <entity-one entity-name="OrderHeader" value-name="orderHeader" auto-field-map="true"/>
         <get-related-one value-name="orderHeader" relation-name="ProductStore" to-value-name="productStore" use-cache="true"/>
-        <if-not-empty field-name="productStore.inventoryFacilityId">
+        <if-not-empty field="productStore.inventoryFacilityId">
             <set from-field="productStore.inventoryFacilityId" field="inputMap.facilityId"/>
         </if-not-empty>
 
@@ -175,19 +175,19 @@ under the License.
     </simple-method>
 
     <simple-method method-name="getProductRequirementMethod" short-description="finds the requirement method for the product">
-        <if-not-empty field-name="parameters.orderId">
+        <if-not-empty field="parameters.orderId">
             <entity-one entity-name="OrderHeader" auto-field-map="true" value-name="order"/>
         </if-not-empty>
         <entity-one entity-name="Product" auto-field-map="true" value-name="product"/>
         <set from-field="product.requirementMethodEnumId" field="requirementMethodId"/>
-        <if-empty field-name="requirementMethodId">
+        <if-empty field="requirementMethodId">
             <if>
                 <condition>
                     <and>
-                        <if-compare field-name="product.productTypeId" operator="not-equals" value="MARKETING_PKG_AUTO"/>
-                        <if-compare field-name="product.productTypeId" operator="not-equals" value="MARKETING_PKG_PICK"/>
-                        <if-compare field-name="product.productTypeId" operator="not-equals" value="DIGITAL_GOOD"/>
-                        <not><if-empty field-name="order"/></not>
+                        <if-compare field="product.productTypeId" operator="not-equals" value="MARKETING_PKG_AUTO"/>
+                        <if-compare field="product.productTypeId" operator="not-equals" value="MARKETING_PKG_PICK"/>
+                        <if-compare field="product.productTypeId" operator="not-equals" value="DIGITAL_GOOD"/>
+                        <not><if-empty field="order"/></not>
                     </and>
                 </condition>
                 <then>
@@ -206,8 +206,8 @@ under the License.
         </check-permission>
         <check-errors/>
         <call-simple-method method-name="getProductRequirementMethod"/>
-        <if-compare field-name="order.orderTypeId" operator="equals" value="SALES_ORDER">
-            <if-compare field-name="requirementMethodId" operator="equals" value="PRODRQM_AUTO">
+        <if-compare field="order.orderTypeId" operator="equals" value="SALES_ORDER">
+            <if-compare field="requirementMethodId" operator="equals" value="PRODRQM_AUTO">
                 <!-- create the requirement -->
                 <set from-field="parameters.productId" field="inputMap.productId"/>
                 <set from-field="parameters.quantity" field="inputMap.quantity"/>
@@ -223,7 +223,7 @@ under the License.
         <check-errors/>
 
         <!-- If the service is triggered by the updateItemIssuance service, get the ItemIssuance by the passed itemIssuanceId -->
-        <if-not-empty field-name="parameters.itemIssuanceId">
+        <if-not-empty field="parameters.itemIssuanceId">
             <entity-one entity-name="ItemIssuance" auto-field-map="true" value-name="itemIssuance"/>
             <entity-one entity-name="InventoryItem" value-name="inventoryItem">
                 <field-map env-name="itemIssuance.inventoryItemId" field-name="inventoryItemId"/>
@@ -236,23 +236,23 @@ under the License.
         <set from-field="inventoryItem.productId" field="parameters.productId"/>
         <call-simple-method method-name="getProductRequirementMethod"/>
 
-        <if-compare field-name="requirementMethodId" operator="equals" value="PRODRQM_STOCK">
+        <if-compare field="requirementMethodId" operator="equals" value="PRODRQM_STOCK">
             <!-- get QOH, ATP quantities and find ProductFacility which has the minimum stock -->
             <call-simple-method method-name="getProductFacilityAndQuantities"/>
 
-            <if-not-empty field-name="productFacility.minimumStock">
+            <if-not-empty field="productFacility.minimumStock">
                 <!-- No requirements are created if we are already under stock -->
-                <if-compare-field field-name="quantityOnHandTotal" to-field-name="productFacility.minimumStock" operator="greater-equals" type="Double">
+                <if-compare-field field="quantityOnHandTotal" to-field="productFacility.minimumStock" operator="greater-equals" type="Double">
                     <calculate field-name="newQuantityOnHand">
                         <calcop field-name="quantityOnHandTotal" operator="subtract">
                             <calcop operator="get" field-name="parameters.quantity"/>
                         </calcop>
                     </calculate>
                     <!-- If this new issuance will cause the quantityOnHandTotal to go below the minimumStock, create a new requirement -->
-                    <if-compare-field field-name="newQuantityOnHand" to-field-name="productFacility.minimumStock" operator="less" type="Double">
+                    <if-compare-field field="newQuantityOnHand" to-field="productFacility.minimumStock" operator="less" type="Double">
                         <set from-field="inventoryItem.productId" field="inputMap.productId"/>
                         <set from-field="productFacility.facilityId" field="inputMap.facilityId"/>
-                        <if-not-empty field-name="productFacility.reorderQuantity">
+                        <if-not-empty field="productFacility.reorderQuantity">
                             <set from-field="productFacility.reorderQuantity" field="inputMap.quantity"/>
                         <else>
                             <set from-field="parameters.quantity" field="inputMap.quantity"/>
@@ -282,24 +282,24 @@ under the License.
         <set from-field="inventoryItem.productId" field="parameters.productId"/>
         <call-simple-method method-name="getProductRequirementMethod"/>
 
-        <if-compare field-name="requirementMethodId" operator="equals" value="PRODRQM_STOCK_ATP">
+        <if-compare field="requirementMethodId" operator="equals" value="PRODRQM_STOCK_ATP">
             <!-- get QOH, ATP quantities and find ProductFacility which has the minimum stock -->
             <call-simple-method method-name="getProductFacilityAndQuantities"/>
 
-            <if-not-empty field-name="productFacility.minimumStock">
+            <if-not-empty field="productFacility.minimumStock">
                 <!-- No requirements are created if we are not under stock -->
                 <!-- this service is supposed to be called after inventory is reserved, so inventory should have been updated already -->
-                <if-compare-field field-name="availableToPromiseTotal" to-field-name="productFacility.minimumStock" operator="less" type="Double">
+                <if-compare-field field="availableToPromiseTotal" to-field="productFacility.minimumStock" operator="less" type="Double">
                     <calculate field-name="oldAvailableToPromise">
                         <calcop field-name="availableToPromiseTotal" operator="add">
                             <calcop operator="get" field-name="parameters.quantity"/>
                         </calcop>
                     </calculate>
                     <!-- If before this reservation the availableToPromiseTotal was over minimumStock, create a new requirement -->
-                    <if-compare-field field-name="oldAvailableToPromise" to-field-name="productFacility.minimumStock" operator="greater-equals" type="Double">
+                    <if-compare-field field="oldAvailableToPromise" to-field="productFacility.minimumStock" operator="greater-equals" type="Double">
                         <set from-field="inventoryItem.productId" field="inputMap.productId"/>
                         <set from-field="productFacility.facilityId" field="inputMap.facilityId"/>
-                        <if-not-empty field-name="productFacility.reorderQuantity">
+                        <if-not-empty field="productFacility.reorderQuantity">
                             <set from-field="productFacility.reorderQuantity" field="inputMap.quantity"/>
                         <else>
                             <set from-field="parameters.quantity" field="inputMap.quantity"/>
@@ -329,20 +329,20 @@ under the License.
         <set from-field="inventoryItem.productId" field="parameters.productId"/>
         <call-simple-method method-name="getProductRequirementMethod"/>
 
-        <if-compare field-name="requirementMethodId" operator="equals" value="PRODRQM_ATP">
+        <if-compare field="requirementMethodId" operator="equals" value="PRODRQM_ATP">
             <!-- get the ATP, QOH quantities and the product facility's minimum stock -->
             <call-simple-method method-name="getProductFacilityAndQuantities"/>
 
-            <if-not-empty field-name="productFacility">
+            <if-not-empty field="productFacility">
             <!-- are we below minimum stock?  this service is supposed to be called after inventory is reserved, so inventory should have been updated already -->
-            <if-compare-field field-name="availableToPromiseTotal" to-field-name="productFacility.minimumStock" operator="less" type="Double">
+            <if-compare-field field="availableToPromiseTotal" to-field="productFacility.minimumStock" operator="less" type="Double">
                 <!-- what is the right quantity?  It is the lesser of the actual quantity and the quantity required to bring us back up to minimum stock -->
                 <calculate field-name="quantityShortfall">
                     <calcop field-name="productFacility.minimumStock" operator="subtract">
                         <calcop operator="get" field-name="availableToPromiseTotal"/>
                     </calcop>
                 </calculate>
-                <if-compare-field field-name="quantityShortfall" operator="less" type="Double" to-field-name="parameters.quantity">
+                <if-compare-field field="quantityShortfall" operator="less" to-field="parameters.quantity" type="Double">
                     <set from-field="quantityShortfall" field="inputMap.quantity"/>
                 <else>
                     <set from-field="parameters.quantity" field="inputMap.quantity"/>
@@ -381,7 +381,7 @@ under the License.
                 </calculate>
 
                 <!-- If a new requirement needs to be created, create it for the difference between the required quantity and the total quantity of existing requirements -->
-                <if-compare field-name="newRequirementTotal" operator="greater-equals" value="0">
+                <if-compare field="newRequirementTotal" operator="greater-equals" value="0">
                     <set from-field="inputMap.quantity" field="newRequirementTotal"/>
                     <call-simple-method method-name="createRequirementAndCommitment"/>
                 </if-compare>
@@ -405,21 +405,21 @@ under the License.
             <set from-field="productFacility.productId" field="parameters.productId"/>
             <clear-field field-name="requirementMethodId"/>
             <call-simple-method method-name="getProductRequirementMethod"/>
-            <if-empty field-name="requirementMethodId">
+            <if-empty field="requirementMethodId">
                 <set field="requirementMethodId" from-field="parameters.defaultRequirementMethodId"/>
             </if-empty>
             <if>
                 <condition>
                     <or>
-                        <if-compare field-name="requirementMethodId" operator="equals" value="PRODRQM_STOCK"/>
-                        <if-compare field-name="requirementMethodId" operator="equals" value="PRODRQM_STOCK_ATP"/>
+                        <if-compare field="requirementMethodId" operator="equals" value="PRODRQM_STOCK"/>
+                        <if-compare field="requirementMethodId" operator="equals" value="PRODRQM_STOCK_ATP"/>
                     </or>
                 </condition>
                 <then>
 
                     <!-- get QOH, ATP and find ProductFacility which has the minimum stock -->
 
-                    <if-not-empty field-name="productFacility.minimumStock">
+                    <if-not-empty field="productFacility.minimumStock">
                         <!-- Get the product's total quantityOnHand in the facility -->
                         <clear-field field-name="inputMap"/>
                         <set from-field="productFacility.productId" field="inputMap.productId"/>
@@ -429,7 +429,7 @@ under the License.
                            <result-to-field field-name="availableToPromiseTotal" result-name="availableToPromiseTotal"/>
                         </call-service>
 
-                        <if-compare field-name="requirementMethodId" operator="equals" value="PRODRQM_STOCK">
+                        <if-compare field="requirementMethodId" operator="equals" value="PRODRQM_STOCK">
                             <set from-field="quantityOnHandTotal" field="currentQuantity"/>
                         <else>
                             <set from-field="availableToPromiseTotal" field="currentQuantity"/>
@@ -437,10 +437,10 @@ under the License.
                         </if-compare>
 
                         <!-- No requirements are created if we are already under stock -->
-                        <if-compare-field field-name="currentQuantity" to-field-name="productFacility.minimumStock" operator="less" type="Double">
+                        <if-compare-field field="currentQuantity" to-field="productFacility.minimumStock" operator="less" type="Double">
                             <clear-field field-name="inputMap"/>
                             <set from-field="productFacility.productId" field="inputMap.productId"/>
-                            <if-not-empty field-name="productFacility.reorderQuantity">
+                            <if-not-empty field="productFacility.reorderQuantity">
                                 <set from-field="productFacility.reorderQuantity" field="inputMap.quantity" type="Double"/>
                             <else>
                                 <set value="0" field="inputMap.quantity" type="Double"/>
@@ -452,7 +452,7 @@ under the License.
                                     <calcop operator="get" field-name="currentQuantity"/>
                                 </calcop>
                             </calculate>
-                            <if-compare-field field-name="inputMap.quantity" to-field-name="quantityShortfall" operator="less" type="Double">
+                            <if-compare-field field="inputMap.quantity" to-field="quantityShortfall" operator="less" type="Double">
                                 <set from-field="quantityShortfall" field="inputMap.quantity" type="Double"/>
                             </if-compare-field>
 
@@ -476,12 +476,12 @@ under the License.
         
         <if>
             <condition>
-                <if-compare field-name="partyAcctgPreference.orderSequenceEnumId" operator="equals" value="ODRSQ_ENF_SEQ"/>
+                <if-compare field="partyAcctgPreference.orderSequenceEnumId" operator="equals" value="ODRSQ_ENF_SEQ"/>
             </condition>
             <then>
                 <!-- <log level="info" message="In getNextOrderId sequence enum ODRSQ_ENF_SEQ"/> -->
                 <!-- this is sequential sequencing, we can't skip a number, also it must be a unique sequence per partyIdFrom -->
-                <if-not-empty field-name="partyAcctgPreference.lastOrderNumber">
+                <if-not-empty field="partyAcctgPreference.lastOrderNumber">
                     <calculate field-name="partyAcctgPreference.lastOrderNumber" type="Long">
                         <calcop operator="add" field-name="partyAcctgPreference.lastOrderNumber"/>
                         <number value="1"/>
@@ -497,7 +497,7 @@ under the License.
                 <!-- <log level="info" message="In getNextOrderId sequence enum ODRSQ_STANDARD"/> -->
                 <!-- default to the default sequencing: ODRSQ_STANDARD -->
                 <set from-field="parameters.orderId" field="orderIdTemp"/>
-                <if-empty field-name="orderIdTemp">
+                <if-empty field="orderIdTemp">
                     <sequenced-id-to-env sequence-name="OrderHeader" env-name="orderIdTemp"/>
                     <else>
                         <!-- check the provided ID --> 
@@ -508,7 +508,7 @@ under the License.
             </else>
         </if>
 
-        <if-not-empty field-name="parameters.productStoreId">
+        <if-not-empty field="parameters.productStoreId">
             <entity-one entity-name="ProductStore" value-name="productStore"/>
         </if-not-empty>
         
@@ -525,7 +525,7 @@ under the License.
         <check-errors/>
 
         <make-value value-name="newEntity" entity-name="OrderHeader"/>
-        <if-not-empty field-name="parameters.orderId">        
+        <if-not-empty field="parameters.orderId">        
             <set field="newEntity.orderId" from-field="parameters.orderId"/>
         <else>
             <sequenced-id-to-env sequence-name="OrderHeader" env-name="newEntity.orderId"/>
@@ -544,7 +544,7 @@ under the License.
         <check-errors/>
 
         <entity-one entity-name="OrderHeader" value-name="orderHeader"/>
-        <if-empty field-name="orderHeader">
+        <if-empty field="orderHeader">
             <add-error><fail-message message="ERROR: Cannot update specified contact info because it does not correspond to the specified work effort"/></add-error>
         </if-empty>
         <check-errors/>
@@ -564,8 +564,8 @@ under the License.
             <if>
                 <condition>
                     <and>
-                        <if-compare field-name="orderItem.isPromo" value="Y" operator="equals"/>
-                        <if-compare field-name="orderItem.statusId" value="ITEM_CANCELLED" operator="not-equals"/>
+                        <if-compare field="orderItem.isPromo" value="Y" operator="equals"/>
+                        <if-compare field="orderItem.statusId" value="ITEM_CANCELLED" operator="not-equals"/>
                     </and>
                 </condition>
                 <then>
@@ -584,7 +584,7 @@ under the License.
         <iterate list-name="orderAdjustments" entry-name="orderAdjustment">
             <if>
                 <condition>
-                    <not><if-empty field-name="orderAdjustment.productPromoId"/></not>
+                    <not><if-empty field="orderAdjustment.productPromoId"/></not>
                 </condition>
                 <then>
                     <calculate field-name="existingOrderAdjustmentTotal" decimal-scale="3">
@@ -607,7 +607,7 @@ under the License.
         <call-object-method obj-field-name="cart" method-name="items" ret-field-name="items"/>
         <iterate list-name="items" entry-name="item">
             <call-object-method obj-field-name="item" method-name="getOrderItemSeqId" ret-field-name="orderItemSeqId"/>
-            <if-empty field-name="orderItemSeqId">
+            <if-empty field="orderItemSeqId">
                 <!-- this is a new (promo) item -->
                 <!-- a new order item is created -->
                 <make-value value-name="newOrderItem" entity-name="OrderItem"/>
@@ -622,7 +622,7 @@ under the License.
                 <call-object-method obj-field-name="item" method-name="getQuantity" ret-field-name="newOrderItem.quantity"/>
                 <set field="newOrderItem.isModifiedPrice" value="N"/>
                 <set field="newOrderItem.isPromo" value="Y"/>
-                <if-empty field-name="newOrderItem.statusId">
+                <if-empty field="newOrderItem.statusId">
                     <set field="newOrderItem.statusId" value="ITEM_CREATED"/>
                 </if-empty>
                 <make-next-seq-id value-name="newOrderItem" seq-field-name="orderItemSeqId"/>
@@ -640,7 +640,7 @@ under the License.
         <iterate list-name="adjustments" entry-name="adjustment">
             <if>
                 <condition>
-                    <not><if-empty field-name="orderAdjustment.productPromoId"/></not>
+                    <not><if-empty field="orderAdjustment.productPromoId"/></not>
                 </condition>
                 <then>
                     <calculate field-name="newOrderAdjustmentTotal" decimal-scale="3">
@@ -661,7 +661,7 @@ under the License.
         </calculate>
         
         <!-- If the total has changed, create an OrderAdjustment to reflect the fact -->
-        <if-compare field-name="orderAdjustmentTotalDifference" value="0" operator="not-equals" type="BigDecimal">
+        <if-compare field="orderAdjustmentTotalDifference" value="0" operator="not-equals" type="BigDecimal">
             <set field="createOrderAdjContext.orderAdjustmentTypeId" value="PROMOTION_ADJUSTMENT"/>
             <set field="createOrderAdjContext.orderId" from-field="parameters.orderId"/>
             <set field="createOrderAdjContext.orderItemSeqId" value="_NA_"/>
@@ -685,12 +685,12 @@ under the License.
         <set from-field="parameters.orderId" field="inputMap.orderId"/>
         <set from-field="parameters.contactMechPurposeTypeId" field="inputMap.contactMechPurposeTypeId"/>
         <set from-field="parameters.contactMechId" field="inputMap.contactMechId"/>
-        <if-compare value="SHIPPING_LOCATION" field-name="parameters.contactMechPurposeTypeId" operator="equals">
-           <if-compare value="parameters.oldContactMechId" field-name="parameters.contactMechId" operator="not-equals">
+        <if-compare value="SHIPPING_LOCATION" field="parameters.contactMechPurposeTypeId" operator="equals">
+           <if-compare value="parameters.oldContactMechId" field="parameters.contactMechId" operator="not-equals">
            <set field="orderItemShipGroupMap.orderId" from-field="parameters.orderId"/>
            <set field="orderItemShipGroupMap.contactMechId" from-field="parameters.oldContactMechId"/>    
            <find-by-and entity-name="OrderItemShipGroup" list-name="shipGroupList" map-name="orderItemShipGroupMap"/>
-           <if-not-empty field-name="shipGroupList">
+           <if-not-empty field="shipGroupList">
               <iterate list-name="shipGroupList" entry-name="shipGroup">
                  <set field="inputMap.shipGroupSeqId" from-field="shipGroup.shipGroupSeqId"/>  
                  <set field="inputMap.shipmentMethod" value="${shipGroup.shipmentMethodTypeId}@${shipGroup.carrierPartyId}"/>
@@ -703,7 +703,7 @@ under the License.
         <else>
         <find-by-and entity-name="OrderContactMech" map-name="inputMap" list-name="orderContactMechList"/>
         <!-- If orderContactMechList value is null then create new entry in OrderContactMech entity-->
-        <if-empty field-name="orderContactMechList">
+        <if-empty field="orderContactMechList">
             <set-service-fields service-name="createOrderContactMech" map-name="parameters" to-map-name="createOrderContactMechMap"/>
             <call-service service-name="createOrderContactMech" in-map-name="createOrderContactMechMap" include-user-login="true"/>
             <set from-field="parameters.orderId" field="orderContactMechLookupMap.orderId"/>
@@ -743,7 +743,7 @@ under the License.
         <set from-field="parameters.contactMechId" field="inputMap.contactMechId"/>
         <find-by-and entity-name="OrderContactMech" map-name="inputMap" list-name="orderContactMechList"/>
         <!-- If orderContactMechList value is null then create new entry in OrderContactMech entity-->
-        <if-empty field-name="orderContactMechList">
+        <if-empty field="orderContactMechList">
             <set-service-fields service-name="createOrderContactMech" map-name="parameters" to-map-name="createOrderContactMechMap"/>
             <call-service service-name="createOrderContactMech" in-map-name="createOrderContactMechMap" include-user-login="true"/>
         </if-empty>    
@@ -752,7 +752,7 @@ under the License.
         <set from-field="parameters.orderId" field="shipGroupLookupMap.orderId"/>
         <set from-field="parameters.oldContactMechId" field="shipGroupLookupMap.contactMechId"/>
         <find-by-and entity-name="OrderItemShipGroup" map-name="shipGroupLookupMap" list-name="orderItemShipGroupList"/>
-        <if-empty field-name="orderItemShipGroupList">
+        <if-empty field="orderItemShipGroupList">
             <set from-field="parameters.orderId" field="inputMap.orderId"/>
             <set from-field="parameters.contactMechPurposeTypeId" field="inputMap.contactMechPurposeTypeId"/>
             <set from-field="parameters.oldContactMechId" field="inputMap.contactMechId"/>
@@ -764,7 +764,7 @@ under the License.
 
     <simple-method method-name="getOrderItemShipGroupEstimatedShipDate" short-description="Compute and return the OrderItemShipGroup estimated ship date based on the associated items.">
         <entity-one entity-name="OrderItemShipGroup" value-name="orderItemShipGroup"/>
-        <if-compare field-name="orderItemShipGroup.maySplit" operator="equals" value="Y">
+        <if-compare field="orderItemShipGroup.maySplit" operator="equals" value="Y">
             <set field="orderByList[]" value="+promisedDatetime"/>
         <else>
             <set field="orderByList[]" value="-promisedDatetime"/>
@@ -858,7 +858,7 @@ under the License.
 
     <simple-method method-name="getOrderStatus" short-description="Gets an order status" login-required="false">
         <entity-one entity-name="OrderHeader" value-name="order"/>
-        <if-empty field-name="order">
+        <if-empty field="order">
             <add-error><fail-message message="Order not found [{parameters.orderId}]"/></add-error>
             <check-errors/>
         </if-empty>
@@ -874,7 +874,7 @@ under the License.
                 <condition-expr field-name="quantityNotAvailable" operator="greater" env-name="zeroEnv"/>
             </condition-list>
         </entity-condition>
-        <if-empty field-name="orderItemShipGrpInvResList">
+        <if-empty field="orderItemShipGrpInvResList">
             <set field="isBackOrder" value="false" type="Boolean"/>
             <else>
                 <set field="isBackOrder" value="true" type="Boolean"/>
@@ -886,11 +886,11 @@ under the License.
     <simple-method method-name="createOrderItemChange" short-description="Creates a new Order Item Change record">
         <make-value value-name="newEntity" entity-name="OrderItemChange"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <if-empty field-name="parameters.changeDatetime">
+        <if-empty field="parameters.changeDatetime">
             <now-timestamp-to-env env-name="nowTimestamp"/>
             <set field="newEntity.changeDatetime" from-field="nowTimestamp"/>
         </if-empty>
-        <if-empty field-name="parameters.changeUserLogin">
+        <if-empty field="parameters.changeUserLogin">
             <set field="newEntity.changeUserLogin" from-field="userLogin.userLoginId"/>
         </if-empty>
         <sequenced-id-to-env sequence-name="OrderItemChange" env-name="newEntity.orderItemChangeId"/>

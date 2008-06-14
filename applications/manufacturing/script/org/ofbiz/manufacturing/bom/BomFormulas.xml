@@ -53,7 +53,7 @@ under the License.
                 <calcop operator="get" field-name="arguments.width"/>
             </calcop>
         </calculate>
-        <if-compare-field field-name="quantityInt" to-field-name="quantityDou" operator="less">
+        <if-compare-field field="quantityInt" to-field="quantityDou" operator="less">
             <calculate field-name="quantity">
                 <calcop operator="add">
                     <calcop operator="get" field-name="quantityInt"/>

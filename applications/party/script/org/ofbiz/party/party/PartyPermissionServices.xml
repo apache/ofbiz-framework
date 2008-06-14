@@ -31,15 +31,15 @@ under the License.
 
     <!-- Returns hasPermission=true if userLogin partyId equals partyId parameter -->
     <simple-method method-name="partyIdPermissionCheck" short-description="Party ID Permission Check">
-        <if-empty field-name="partyId">
+        <if-empty field="partyId">
             <set field="partyId" from-field="parameters.partyId"/>
         </if-empty>
         <if>
             <condition>
                 <and>
-                    <not><if-empty field-name="partyId"/></not>
-                    <not><if-empty field-name="userLogin.partyId"/></not>
-                    <if-compare-field field-name="partyId" operator="equals" to-field-name="userLogin.partyId"/>
+                    <not><if-empty field="partyId"/></not>
+                    <not><if-empty field="userLogin.partyId"/></not>
+                    <if-compare-field field="partyId" to-field="userLogin.partyId" operator="equals"/>
                 </and>
             </condition>
             <then>
@@ -47,7 +47,7 @@ under the License.
             </then>
             <else>
                 <set field="resourceDescription" from-field="parameters.resourceDescription"/>
-                <if-empty field-name="resourceDescription">
+                <if-empty field="resourceDescription">
                     <property-to-field resource="CommonUiLabels" property="CommonPermissionThisOperation" field-name="resourceDescription"/>
                 </if-empty>
                 <property-to-field resource="PartyUiLabels" property="PartyPermissionErrorPartyId" field-name="failMessage"/>
@@ -62,7 +62,7 @@ under the License.
         user has one of the base PARTYMGR CRUD+ADMIN permissions -->
     <simple-method method-name="basePlusPartyIdPermissionCheck" short-description="Base Permission Plus Party ID Permission Check">
         <call-simple-method method-name="basePermissionCheck"/>
-        <if-compare field-name="hasPermission" operator="not-equals" value="true">
+        <if-compare field="hasPermission" operator="not-equals" value="true">
             <call-simple-method method-name="partyIdPermissionCheck"/>
         </if-compare>
     </simple-method>
@@ -73,13 +73,13 @@ under the License.
          user has one of the base PARTYMGR or PARTYMGR_STS CRUD+ADMIN permissions -->
     <simple-method method-name="partyStatusPermissionCheck" short-description="Party status permission logic">
         <set field="hasPermission" type="Boolean" value="false"/>
-        <if-not-empty field-name="parameters.partyId">
-            <if-compare-field field-name="parameters.partyId" operator="equals" to-field-name="userLogin.partyId">
+        <if-not-empty field="parameters.partyId">
+            <if-compare-field field="parameters.partyId" to-field="userLogin.partyId" operator="equals">
                 <set field="hasPermission" type="Boolean" value="true"/>
                 <field-to-result field-name="hasPermission"/>
             </if-compare-field>
         </if-not-empty>
-        <if-compare field-name="hasPermission" operator="not-equals" value="true">
+        <if-compare field="hasPermission" operator="not-equals" value="true">
             <set field="altPermission" value="PARTYMGR_STS"/>
             <call-simple-method method-name="basePermissionCheck"/>
         </if-compare>
@@ -106,7 +106,7 @@ under the License.
 
     <!-- Returns hasPermission=true if user has one of the base PARTYMGR or PARTYMGR_REL CRUD+ADMIN permissions -->
     <simple-method method-name="partyRelationshipPermissionCheck" short-description="Party relationship permission logic">
-        <if-empty field-name="parameters.partyIdFrom">
+        <if-empty field="parameters.partyIdFrom">
             <set field="parameters.partyIdFrom" from-field="userLogin.partyId"/>
             <set field="hasPermission" type="Boolean" value="true"/>
             <field-to-result field-name="hasPermission"/>
@@ -120,10 +120,10 @@ under the License.
     <!-- Returns hasPermission=true if userLogin partyId equals partyId parameter OR
          user has one of the base PARTYMGR or PARTYMGR_PCM CRUD+ADMIN permissions -->
     <simple-method method-name="partyContactMechPermissionCheck" short-description="Party contact mech permission logic">
-        <if-empty map-name="parameters" field-name="partyId">
+        <if-empty field="parameters.partyId">
             <set field="parameters.partyId" from-field="userLogin.partyId"/>
         </if-empty>
-        <if-compare-field field-name="partyId" map-name="parameters" to-map-name="userLogin" operator="equals">
+        <if-compare-field to-field="userLogin." field="parameters.partyId" operator="equals">
             <set field="hasPermission" type="Boolean" value="true"/>
             <field-to-result field-name="hasPermission"/>
             
@@ -141,10 +141,10 @@ under the License.
             <set field="hasPermission" type="Boolean" value="true"/>
             <field-to-result field-name="hasPermission"/>
         </if-has-permission>
-        <if-compare field-name="hasPermission" operator="not-equals" value="true">
+        <if-compare field="hasPermission" operator="not-equals" value="true">
             <entity-one entity-name="PartyInvitation" value-name="partyInvitation"/>
-            <if-empty field-name="partyInvitation.partyId">
-                <if-empty field-name="partyInvitation.emailAddress">
+            <if-empty field="partyInvitation.partyId">
+                <if-empty field="partyInvitation.emailAddress">
                     <add-error>
                         <fail-property property="PartyInvitationNotValidError" resource="PartyUiLabels"/>
                     </add-error>
@@ -153,8 +153,8 @@ under the License.
                     <call-service service-name="findPartyFromEmailAddress" in-map-name="findPartyCtx">
                         <result-to-field result-name="partyId" field-name="partyId"/>
                     </call-service>
-                    <if-not-empty field-name="partyId">
-                        <if-compare-field field-name="partyId" operator="equals" to-field-name="userLogin.partyId">
+                    <if-not-empty field="partyId">
+                        <if-compare-field field="partyId" to-field="userLogin.partyId" operator="equals">
                             <set field="hasPermission" type="Boolean" value="true"/>
                             <field-to-result field-name="hasPermission"/>
                         </if-compare-field>
@@ -167,7 +167,7 @@ under the License.
                 </else>    
                 </if-empty>
             <else>
-                <if-compare-field field-name="partyInvitation.partyId" operator="equals" to-field-name="userLogin.partyId">
+                <if-compare-field field="partyInvitation.partyId" to-field="userLogin.partyId" operator="equals">
                     <set field="hasPermission" type="Boolean" value="true"/>
                     <field-to-result field-name="hasPermission"/>
                 </if-compare-field>
@@ -175,7 +175,7 @@ under the License.
             </if-empty>
             <check-errors/>
         </if-compare>
-        <if-compare field-name="hasPermission" operator="not-equals" value="true">
+        <if-compare field="hasPermission" operator="not-equals" value="true">
             <property-to-field property="PartyInvitationAccAndDecPermissionError" field-name="failMessage" resource="PartyUiLabels"/>
             <field-to-result field-name="hasPermission"/>
             <field-to-result field-name="failMessage"/>
@@ -187,17 +187,17 @@ under the License.
             <set field="hasPermission" type="Boolean" value="true"/>
             <field-to-result field-name="hasPermission"/>
         </if-has-permission>
-        <if-compare field-name="hasPermission" operator="not-equals" value="true">
+        <if-compare field="hasPermission" operator="not-equals" value="true">
             <entity-one entity-name="PartyInvitation" value-name="partyInvitation"/>
-            <if-not-empty field-name="partyInvitation.partyIdFrom">
-                <if-compare-field field-name="partyInvitation.partyIdFrom" operator="equals" to-field-name="userLogin.partyId">
+            <if-not-empty field="partyInvitation.partyIdFrom">
+                <if-compare-field field="partyInvitation.partyIdFrom" to-field="userLogin.partyId" operator="equals">
                     <set field="hasPermission" type="Boolean" value="true"/>
                     <field-to-result field-name="hasPermission"/>
                 </if-compare-field>
             </if-not-empty>
-            <if-compare field-name="hasPermission" operator="not-equals" value="true">
-                <if-empty field-name="partyInvitation.partyId">
-                    <if-empty field-name="partyInvitation.emailAddress">
+            <if-compare field="hasPermission" operator="not-equals" value="true">
+                <if-empty field="partyInvitation.partyId">
+                    <if-empty field="partyInvitation.emailAddress">
                         <add-error>
                             <fail-property property="PartyInvitationNotValidError" resource="PartyUiLabels"/>
                         </add-error>
@@ -206,8 +206,8 @@ under the License.
                         <call-service service-name="findPartyFromEmailAddress" in-map-name="findPartyCtx">
                             <result-to-field result-name="partyId" field-name="partyId"/>
                         </call-service>
-                        <if-not-empty field-name="partyId">
-                            <if-compare-field field-name="partyId" operator="equals" to-field-name="userLogin.partyId">
+                        <if-not-empty field="partyId">
+                            <if-compare-field field="partyId" to-field="userLogin.partyId" operator="equals">
                                 <set field="hasPermission" type="Boolean" value="true"/>
                                 <field-to-result field-name="hasPermission"/>
                             </if-compare-field>
@@ -220,7 +220,7 @@ under the License.
                     </else>    
                     </if-empty>
                 <else>
-                    <if-compare-field field-name="partyInvitation.partyId" operator="equals" to-field-name="userLogin.partyId">
+                    <if-compare-field field="partyInvitation.partyId" to-field="userLogin.partyId" operator="equals">
                         <set field="hasPermission" type="Boolean" value="true"/>
                         <field-to-result field-name="hasPermission"/>
                     </if-compare-field>
@@ -229,7 +229,7 @@ under the License.
                 <check-errors/>
             </if-compare>
         </if-compare>
-        <if-compare field-name="hasPermission" operator="not-equals" value="true">
+        <if-compare field="hasPermission" operator="not-equals" value="true">
             <property-to-field property="PartyInvitationCancelPermissionError" field-name="failMessage" resource="PartyUiLabels"/>
             <field-to-result field-name="hasPermission"/>
             <field-to-result field-name="failMessage"/>
@@ -242,8 +242,8 @@ under the License.
         <if>
             <condition>
                 <and>
-                    <if-compare-field field-name="parameters.partyIdFrom" operator="not-equals" to-field-name="userLogin.partyId"/>
-                    <if-compare-field field-name="parameters.partyIdTo" operator="not-equals" to-field-name="userLogin.partyId"/>
+                    <if-compare-field field="parameters.partyIdFrom" to-field="userLogin.partyId" operator="not-equals"/>
+                    <if-compare-field field="parameters.partyIdTo" to-field="userLogin.partyId" operator="not-equals"/>
                 </and>
             </condition>
             <then>

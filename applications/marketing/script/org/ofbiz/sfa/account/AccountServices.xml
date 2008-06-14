@@ -20,14 +20,14 @@
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="createAccount"  short-description="create Account Group">
-        <if-not-empty field-name="parameters.accountType">
+        <if-not-empty field="parameters.accountType">
             <set field="accountType" from-field="parameters.accountType"/>
             <else>
                 <set field="accountType" value="GROUP"/>
             </else>
         </if-not-empty>
         <set field="parameters.roleTypeId" value="ACCOUNT"/>
-        <if-compare field-name="accountType" operator="equals" value="GROUP">
+        <if-compare field="accountType" operator="equals" value="GROUP">
             <call-simple-method method-name="createPartyGroupRoleAndContactMechs" xml-resource="org/ofbiz/party/party/PartySimpleMethods.xml"/>
         </if-compare>
     </simple-method>

@@ -26,7 +26,7 @@ under the License.
         <make-value entity-name="PartyInvitation" value-name="newEntity"/>
         <sequenced-id-to-env sequence-name="PartyInvitation" env-name="newEntity.partyInvitationId"/>
         <field-to-result field-name="newEntity.partyInvitationId" result-name="partyInvitationId"/>
-        <if-not-empty field-name="parameters.partyId">
+        <if-not-empty field="parameters.partyId">
             <entity-one entity-name="Person" value-name="person" auto-field-map="false">
                 <field-map field-name="partyId" env-name="parameters.partyId"/>
             </entity-one>
@@ -39,7 +39,7 @@ under the License.
     </simple-method>
     <simple-method method-name="updatePartyInvitation" short-description="Update a PartyInvitation">
         <entity-one entity-name="PartyInvitation" value-name="lookedUpValue"/>
-        <if-not-empty field-name="parameters.partyId">
+        <if-not-empty field="parameters.partyId">
             <entity-one entity-name="Person" value-name="person" auto-field-map="false">
                 <field-map field-name="partyId" env-name="parameters.partyId"/>
             </entity-one>
@@ -74,7 +74,7 @@ under the License.
         <entity-and entity-name="PartyInvitationGroupAssoc" list-name="partyInvitationGroupAssocs">
             <field-map field-name="partyInvitationId" env-name="parameters.partyInvitationId"/>
         </entity-and>
-        <if-not-empty field-name="partyInvitationGroupAssocs">
+        <if-not-empty field="partyInvitationGroupAssocs">
             <set field="createPartyRelationshipCtx.partyIdTo" from-field="parameters.partyId"/>
             <set field="createPartyRelationshipCtx.partyRelationshipTypeId" value="GROUP_ROLLUP"/>            
             <iterate list-name="partyInvitationGroupAssocs" entry-name="partyInvitationGroupAssoc">
@@ -85,7 +85,7 @@ under the License.
         <entity-and entity-name="PartyInvitationRoleAssoc" list-name="partyInvitationRoleAssocs">
             <field-map field-name="partyInvitationId" env-name="parameters.partyInvitationId"/>
         </entity-and>
-        <if-not-empty field-name="partyInvitationRoleAssocs">
+        <if-not-empty field="partyInvitationRoleAssocs">
             <set field="createPartyRoleCtx.partyId" from-field="parameters.partyId"/>
             <iterate list-name="partyInvitationRoleAssocs" entry-name="partyInvitationRoleAssoc">
                 <set field="createPartyRoleCtx.roleTypeId" from-field="partyInvitationRoleAssoc.roleTypeId"/>

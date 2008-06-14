@@ -65,7 +65,7 @@ under the License.
 
         <now-timestamp-to-env env-name="nowTimestamp"/>
 
-        <if-empty field-name="orderHeaderList" map-name="parameters">
+        <if-empty field="parameters.orderHeaderList">
             <log level="info" message="No order header list found in parameters; finding orders to pick."/>
 
             <entity-condition entity-name="OrderHeader" list-name="orderHeaderList">
@@ -101,13 +101,13 @@ under the License.
                         <and>
                             <!-- only pick if it is the right shipmentMethodTypeId, if one was passed in -->
                             <or>
-                                <if-empty field-name="parameters.shipmentMethodTypeId"/>
-                                <if-compare-field field-name="parameters.shipmentMethodTypeId" operator="equals" to-field-name="orderItemShipGroup.shipmentMethodTypeId"/>
+                                <if-empty field="parameters.shipmentMethodTypeId"/>
+                                <if-compare-field field="parameters.shipmentMethodTypeId" to-field="orderItemShipGroup.shipmentMethodTypeId" operator="equals"/>
                             </or>
                             <!-- only pick if now is after the shipAfterDate or the shipAfterDate is empty -->
                             <or>
-                                <if-empty field-name="orderItemShipGroup.shipAfterDate"/>
-                                <if-compare-field field-name="nowTimestamp" operator="greater-equals" to-field-name="orderItemShipGroup.shipAfterDate"/>
+                                <if-empty field="orderItemShipGroup.shipAfterDate"/>
+                                <if-compare-field field="nowTimestamp" to-field="orderItemShipGroup.shipAfterDate" operator="greater-equals"/>
                             </or>
                         </and>
                     </condition>
@@ -130,11 +130,11 @@ under the License.
                         <set value="N" field="hasStockToPick"/>
                         <iterate entry-name="orderItemShipGrpInvRes" list-name="orderItemShipGrpInvResList">
                             <get-related-one value-name="orderItemShipGrpInvRes" relation-name="OrderItem" to-value-name="orderItem"/>
-                            <if-compare field-name="orderItem.statusId" value="ITEM_APPROVED" operator="not-equals">
+                            <if-compare field="orderItem.statusId" value="ITEM_APPROVED" operator="not-equals">
                                 <set value="N" field="pickThisOrder"/>
                             </if-compare>
 
-                            <if-compare field-name="pickThisOrder" operator="equals" value="Y">
+                            <if-compare field="pickThisOrder" operator="equals" value="Y">
                                 <get-related-one value-name="orderItemShipGrpInvRes" relation-name="InventoryItem" to-value-name="inventoryItem"/>
                                 <!-- Look for other picklists which might include this order item ship group inventory reservation.  If it is on another picklist, then
                                     we should not include it again.  We screen out picklists which are either cancelled or already picked or packed, so that we can re-pick items if
@@ -154,7 +154,7 @@ under the License.
                                 </entity-condition>
                                 <log level="info" message="Pick list ITEMS - ${picklistItemList}"/>
                                 <!-- if all picklistItemList are not empty, don't include order as a pick candidate; keep a flag to see -->
-                                <if-empty field-name="picklistItemList">
+                                <if-empty field="picklistItemList">
                                     <log level="info" message="The pick list item list is empty!"/>
                                     <!-- note that this is separate because we can't really use it as a break condition, must check all of them before any useful information is to be had -->
                                     <set value="N" field="allPickStarted"/>
@@ -164,12 +164,12 @@ under the License.
                                             <or>
                                                 <!-- check all OISGIRs and if quantityNotAvailable is not empty and > 0 for any, don't pick order -->
                                                 <and>
-                                                    <if-compare field-name="maySplit"  map-name="orderItemShipGroup" operator="equals" value="N"/>
-                                                    <not><if-empty field-name="orderItemShipGrpInvRes.quantityNotAvailable"/></not>
-                                                    <if-compare field-name="orderItemShipGrpInvRes.quantityNotAvailable" operator="greater" value="0" type="Double"/>
+                                                    <if-compare field="orderItemShipGroup.maySplit" operator="equals" value="N"/>
+                                                    <not><if-empty field="orderItemShipGrpInvRes.quantityNotAvailable"/></not>
+                                                    <if-compare field="orderItemShipGrpInvRes.quantityNotAvailable" operator="greater" value="0" type="Double"/>
                                                 </and>
                                                 <!-- make sure the inventoryItem is in the specified facility -->
-                                                <if-compare-field field-name="parameters.facilityId" operator="not-equals" to-field-name="inventoryItem.facilityId"/>
+                                                <if-compare-field field="parameters.facilityId" to-field="inventoryItem.facilityId" operator="not-equals"/>
                                             </or>
                                         </condition>
                                         <then>
@@ -181,11 +181,11 @@ under the License.
                                             <if>
                                                 <condition>
                                                     <or>
-                                                        <if-empty field-name="orderItemShipGrpInvRes.quantityNotAvailable"/>
-                                                        <if-compare field-name="orderItemShipGrpInvRes.quantityNotAvailable" operator="equals" value="0" type="Double"/>
+                                                        <if-empty field="orderItemShipGrpInvRes.quantityNotAvailable"/>
+                                                        <if-compare field="orderItemShipGrpInvRes.quantityNotAvailable" operator="equals" value="0" type="Double"/>
                                                         <and>
-                                                            <if-compare-field field-name="orderItemShipGrpInvRes.quantity" operator="greater" to-field-name="orderItemShipGrpInvRes.quantityNotAvailable" type="Double"/>
-                                                            <if-compare field-name="orderItemShipGroup.maySplit" operator="equals" value="Y"/>
+                                                            <if-compare-field field="orderItemShipGrpInvRes.quantity" to-field="orderItemShipGrpInvRes.quantityNotAvailable" operator="greater" type="Double"/>
+                                                            <if-compare field="orderItemShipGroup.maySplit" operator="equals" value="Y"/>
                                                         </and>
                                                     </or>
                                                 </condition>
@@ -200,8 +200,8 @@ under the License.
 
                                             <!-- check InventoryItem->FacilityLocation (if exists), if it is of type FLT_BULK set needs stock move to true -->
                                             <get-related-one value-name="inventoryItem" relation-name="FacilityLocation" to-value-name="facilityLocation"/>
-                                            <if-not-empty field-name="facilityLocation">
-                                                <if-compare field-name="facilityLocation.locationTypeEnumId" operator="equals" value="FLT_BULK">
+                                            <if-not-empty field="facilityLocation">
+                                                <if-compare field="facilityLocation.locationTypeEnumId" operator="equals" value="FLT_BULK">
                                                     <set value="Y" field="needsStockMove"/>
                                                 </if-compare>
                                             </if-not-empty>
@@ -219,15 +219,15 @@ under the License.
                         </iterate>
 
                         <!-- another check to see if we should pick this order -->
-                        <if-compare field-name="hasStockToPick" operator="equals" value="N">
+                        <if-compare field="hasStockToPick" operator="equals" value="N">
                             <set value="N" field="pickThisOrder"/>
                         </if-compare>
 
                         <if>
                             <condition>
                                 <and>
-                                    <not><if-empty field-name="parameters.maxNumberOfOrders"/></not>
-                                    <if-compare-field field-name="numberSoFar" type="Long" operator="greater-equals" to-field-name="maxNumberOfOrders"/>
+                                    <not><if-empty field="parameters.maxNumberOfOrders"/></not>
+                                    <if-compare-field field="numberSoFar" type="Long" to-field="maxNumberOfOrders" operator="greater-equals"/>
                                 </and>
                             </condition>
                             <then>
@@ -242,8 +242,8 @@ under the License.
                         <if>
                             <condition>
                                 <and>
-                                    <if-compare field-name="pickThisOrder" operator="equals" value="Y"/>
-                                    <if-compare field-name="allPickStarted" operator="equals" value="N"/>
+                                    <if-compare field="pickThisOrder" operator="equals" value="Y"/>
+                                    <if-compare field="allPickStarted" operator="equals" value="N"/>
                                 </and>
                             </condition>
                             <then>
@@ -257,17 +257,17 @@ under the License.
                                 <!-- pick now, or needs stock move first? -->
                                 <!-- put in pick or move lists for the given shipmentMethodTypeId -->
                                 <set from-field="orderItemShipGroup.shipmentMethodTypeId" field="shipmentMethodTypeId"/>
-                                <if-empty field-name="pickMoveByShipmentMethodInfoMap.${shipmentMethodTypeId}">
+                                <if-empty field="pickMoveByShipmentMethodInfoMap.${shipmentMethodTypeId}">
                                     <get-related-one value-name="orderItemShipGroup" relation-name="ShipmentMethodType" to-value-name="pickMoveByShipmentMethodInfoMap.${shipmentMethodTypeId}.shipmentMethodType"/>
                                 </if-empty>
-                                <if-compare field-name="needsStockMove" operator="equals" value="Y">
+                                <if-compare field="needsStockMove" operator="equals" value="Y">
                                     <field-to-list field-name="orderHeaderInfo" list-name="pickMoveByShipmentMethodInfoMap.${shipmentMethodTypeId}.orderNeedsStockMoveInfoList"/>
-                                    <if-compare field-name="orderHeader.isRushOrder" operator="equals" value="Y">
+                                    <if-compare field="orderHeader.isRushOrder" operator="equals" value="Y">
                                         <field-to-list field-name="orderHeaderInfo" list-name="rushOrderInfo.orderNeedsStockMoveInfoList"/>
                                     </if-compare>
                                 <else>
                                     <field-to-list field-name="orderHeaderInfo" list-name="pickMoveByShipmentMethodInfoMap.${shipmentMethodTypeId}.orderReadyToPickInfoList"/>
-                                    <if-compare field-name="orderHeader.isRushOrder" operator="equals" value="Y">
+                                    <if-compare field="orderHeader.isRushOrder" operator="equals" value="Y">
                                         <field-to-list field-name="orderHeaderInfo" list-name="rushOrderInfo.orderReadyToPickInfoList"/>
                                     </if-compare>
                                 </else>
@@ -303,7 +303,7 @@ under the License.
         </entity-condition>
 
         <iterate entry-name="shipmentMethodType" list-name="shipmentMethodTypeList">
-            <if-not-empty field-name="pickMoveByShipmentMethodInfoMap.${shipmentMethodType.shipmentMethodTypeId}">
+            <if-not-empty field="pickMoveByShipmentMethodInfoMap.${shipmentMethodType.shipmentMethodTypeId}">
                 <field-to-list field-name="pickMoveByShipmentMethodInfoMap.${shipmentMethodType.shipmentMethodTypeId}" list-name="pickMoveByShipmentMethodInfoList"/>
             </if-not-empty>
         </iterate>
@@ -323,8 +323,8 @@ under the License.
             <if>
                 <condition>
                     <or>
-                        <if-empty field-name="parameters.maxNumberOfOrders"/>
-                        <if-compare-field field-name="numberSoFar" operator="less" to-field-name="parameters.maxNumberOfOrders"></if-compare-field>
+                        <if-empty field="parameters.maxNumberOfOrders"/>
+                        <if-compare-field field="numberSoFar" to-field="parameters.maxNumberOfOrders" operator="less"></if-compare-field>
                     </or>
                 </condition>
                 <then>
@@ -341,7 +341,7 @@ under the License.
         <iterate entry-name="pickMoveByShipmentMethodInfo" list-name="pickMoveByShipmentMethodInfoList">
             <iterate entry-name="orderReadyToPickInfo" list-name="pickMoveByShipmentMethodInfo.orderReadyToPickInfoList">
                 <iterate entry-name="orderItemAndShipGroupAssoc" list-name="orderReadyToPickInfo.orderItemAndShipGroupAssocList">
-                    <if-compare value="ITEM_APPROVED" operator="equals" field-name="orderItemAndShipGroupAssoc.statusId">
+                    <if-compare value="ITEM_APPROVED" operator="equals" field="orderItemAndShipGroupAssoc.statusId">
                         <calculate field-name="reservedQuantity" type="Double"><number value="0"/></calculate>
 
                         <set from-field="orderItemAndShipGroupAssoc.orderItemSeqId" field="itemFilterMap.orderItemSeqId"/>
@@ -350,19 +350,19 @@ under the License.
                             <set from-field="orderItemShipGrpInvRes.inventoryItemId" field="inventoryItemId"/>
                             <!-- update reserved quantity per inventoryItem, keep track of orderItems this came from -->
                             <set from-field="inventoryItems.${inventoryItemId}" field="inventoryItem"/>
-                            <if-empty field-name="inventoryItem">
+                            <if-empty field="inventoryItem">
                                 <entity-one entity-name="InventoryItem" value-name="inventoryItem"></entity-one>
                                 <set field="inventoryItems.${inventoryItemId}" from-field="inventoryItem"/>
                             </if-empty>
 
-                            <if-compare-field field-name="inventoryItem.facilityId" operator="equals" to-field-name="parameters.facilityId">
+                            <if-compare-field field="inventoryItem.facilityId" to-field="parameters.facilityId" operator="equals">
                                 <set field="perItemResListValid[]" from-field="orderItemShipGrpInvRes"/>
 
                                 <set field="inventoryItemOrderItemList" from-field="inventoryItemOrderItems.${inventoryItemId}"/>
                                 <set field="inventoryItemOrderItemList[]" from-field="orderItemAndShipGroupAssoc"/>
                                 <set field="inventoryItemOrderItems.${orderItemShipGrpInvRes.inventoryItemId}" from-field="inventoryItemOrderItemList"/>
                                 <clear-field field-name="inventoryItemOrderItemList"/>
-                                <if-not-empty field-name="inventoryItemQuantities.${inventoryItemId}">
+                                <if-not-empty field="inventoryItemQuantities.${inventoryItemId}">
                                     <calculate field-name="inventoryItemQuantities.${inventoryItemId}" type="Double">
                                         <calcop field-name="inventoryItemQuantities.${inventoryItemId}" operator="add">
                                             <calcop field-name="orderItemShipGrpInvRes.quantity" operator="get"/>
@@ -382,7 +382,7 @@ under the License.
                             </calculate>
                         </iterate>
 
-                        <if-not-empty field-name="perItemResListValid">
+                        <if-not-empty field="perItemResListValid">
                             <clear-field field-name="orderItemInfo"/>
                             <set field="orderItemInfo.orderItemAndShipGroupAssoc" from-field="orderItemAndShipGroupAssoc"/>
                             <set field="orderItemInfo.orderItemShipGrpInvResList" from-field="perItemResListValid"/>
@@ -408,7 +408,7 @@ under the License.
                                 <calcop operator="get" field-name="issuedQuantity"/>
                             </calcop>
                         </calculate>
-                        <if-compare-field field-name="reservedIssuedQuantity" operator="not-equals" to-field-name="orderItemAndShipGroupAssoc.quantity" type="Double">
+                        <if-compare-field field="reservedIssuedQuantity" to-field="orderItemAndShipGroupAssoc.quantity" operator="not-equals" type="Double">
                             <set field="wrongQuantityReserved.orderItemAndShipGroupAssoc" from-field="orderItemAndShipGroupAssoc"/>
                             <set field="wrongQuantityReserved.reservedQuantity" from-field="reservedQuantity"/>
                             <set field="wrongQuantityReserved.issuedQuantity" from-field="issuedQuantity"/>
@@ -420,7 +420,7 @@ under the License.
                 </iterate>
 
                 <!-- keep the order info for easy handling of order pack info -->
-                <if-not-empty field-name="orderItemInfoList">
+                <if-not-empty field="orderItemInfoList">
                     <set field="orderHeaderInfo.orderHeader" from-field="orderReadyToPickInfo.orderHeader"/>
                     <set field="orderHeaderInfo.orderItemShipGroup" from-field="orderReadyToPickInfo.orderItemShipGroup"/>
                     <set field="orderHeaderInfo.orderItemInfoList" from-field="orderItemInfoList"/>
@@ -439,17 +439,17 @@ under the License.
             <if>
                 <condition>
                     <and>
-                        <if-compare value="1" operator="less-equals" field-name="quantityNeeded" type="Double"/>
+                        <if-compare value="1" operator="less-equals" field="quantityNeeded" type="Double"/>
                         <or>
                             <and>
-                                <if-compare value="SERIALIZED_INV_ITEM" operator="equals" field-name="inventoryItem.inventoryItemTypeId"/>
-                                <if-compare value="1" operator="less" field-name="quantityNeeded" type="Double"/>
+                                <if-compare value="SERIALIZED_INV_ITEM" operator="equals" field="inventoryItem.inventoryItemTypeId"/>
+                                <if-compare value="1" operator="less" field="quantityNeeded" type="Double"/>
                             </and>
                             <and>
-                                <if-compare value="NON_SERIAL_INV_ITEM" operator="equals" field-name="inventoryItem.inventoryItemTypeId"/>
+                                <if-compare value="NON_SERIAL_INV_ITEM" operator="equals" field="inventoryItem.inventoryItemTypeId"/>
                                 <or>
-                                    <if-empty field-name="inventoryItem.quantityOnHandTotal"/>
-                                    <if-compare-field field-name="quantityNeeded" operator="greater" to-field-name="inventoryItem.quantityOnHandTotal" type="Double"/>
+                                    <if-empty field="inventoryItem.quantityOnHandTotal"/>
+                                    <if-compare-field field="quantityNeeded" to-field="inventoryItem.quantityOnHandTotal" operator="greater" type="Double"/>
                                 </or>
                             </and>
                         </or>
@@ -487,7 +487,7 @@ under the License.
         <!-- <log level="info" message="orderHeaderInfoList=${orderHeaderInfoList}"/> -->
 
         <!-- if the orderHeaderInfoList is not empty, create a Picklist, then populate it -->
-        <if-not-empty field-name="orderHeaderInfoList">
+        <if-not-empty field="orderHeaderInfoList">
             <set from-field="parameters.facilityId" field="createPicklistMap.facilityId"/>
             <set from-field="parameters.shipmentMethodTypeId" field="createPicklistMap.shipmentMethodTypeId"/>
             <call-service service-name="createPicklist" in-map-name="createPicklistMap">
@@ -522,8 +522,8 @@ under the License.
                         <if>
                             <condition>
                                 <and>
-                                    <not><if-empty field-name="orderItemShipGrpInvRes.quantityNotAvailable"/></not>
-                                    <if-compare field-name="orderItemShipGrpInvRes.quantityNotAvailable" value="0" operator="greater"/>
+                                    <not><if-empty field="orderItemShipGrpInvRes.quantityNotAvailable"/></not>
+                                    <if-compare field="orderItemShipGrpInvRes.quantityNotAvailable" value="0" operator="greater"/>
                                 </and>
                             </condition>
                             <then>
@@ -538,7 +538,7 @@ under the License.
                         </if>
 
                         <log level="info" message="Order #${orderItemShipGrpInvRes.orderId} / ${orderItemShipGrpInvRes.orderItemSeqId} - ${quantityToPick}"/>
-                        <if-compare field-name="quantityToPick" value="0" operator="greater" type="Double">
+                        <if-compare field="quantityToPick" value="0" operator="greater" type="Double">
                             <clear-field field-name="createPicklistItemMap"/>
                             <set from-field="picklistBinId" field="createPicklistItemMap.picklistBinId"/>
                             <set field="createPicklistItemMap.itemStatusId" value="PICKITEM_PENDING"/>
@@ -555,7 +555,7 @@ under the License.
                 </iterate>
 
                 <!-- if we put nothing into this bin, delete the bin -->
-                <if-compare field-name="itemsInBin" value="0" operator="equals">
+                <if-compare field="itemsInBin" value="0" operator="equals">
                     <entity-one entity-name="PicklistBin" value-name="binToRemove">
                         <field-map field-name="picklistBinId" env-name="picklistBinId"/>
                     </entity-one>
@@ -584,7 +584,7 @@ under the License.
         <sequenced-id-to-env sequence-name="Picklist" env-name="newEntity.picklistId"/>
         <field-to-result field-name="newEntity.picklistId" result-name="picklistId"/>
 
-        <if-empty field-name="newEntity.statusId">
+        <if-empty field="newEntity.statusId">
             <set value="PICKLIST_INPUT" field="newEntity.statusId"/>
         </if-empty>
 
@@ -606,14 +606,14 @@ under the License.
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
 
-        <if-not-empty field-name="parameters.statusId">
-            <if-compare-field field-name="parameters.statusId" operator="not-equals" to-field-name="lookedUpValue.statusId">
+        <if-not-empty field="parameters.statusId">
+            <if-compare-field field="parameters.statusId" to-field="lookedUpValue.statusId" operator="not-equals">
                 <!-- make sure a StatusValidChange record exists, if not return error -->
                 <entity-one entity-name="StatusValidChange" value-name="checkStatusValidChange" auto-field-map="false">
                     <field-map env-name="lookedUpValue.statusId" field-name="statusId"/>
                     <field-map env-name="parameters.statusId" field-name="statusIdTo"/>
                 </entity-one>
-                <if-empty field-name="checkStatusValidChange">
+                <if-empty field="checkStatusValidChange">
                     <set value="ERROR: Changing the status from ${lookedUpValue.statusId} to ${parameters.statusId} is not allowed." field="error_list[]"/>
                 </if-empty>
 
@@ -712,14 +712,14 @@ under the License.
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
 
-        <if-not-empty field-name="parameters.itemStatusId">
-            <if-compare-field field-name="parameters.itemStatusId" operator="not-equals" to-field-name="lookedUpValue.itemStatusId">
+        <if-not-empty field="parameters.itemStatusId">
+            <if-compare-field field="parameters.itemStatusId" to-field="lookedUpValue.itemStatusId" operator="not-equals">
                 <!-- make sure a StatusValidChange record exists, if not return error -->
                 <entity-one entity-name="StatusValidChange" value-name="checkStatusValidChange" auto-field-map="false">
                     <field-map env-name="lookedUpValue.itemStatusId" field-name="statusId"/>
                     <field-map env-name="parameters.itemStatusId" field-name="statusIdTo"/>
                 </entity-one>
-                <if-empty field-name="checkStatusValidChange">
+                <if-empty field="checkStatusValidChange">
                     <set value="ERROR: Changing the status from ${lookedUpValue.itemStatusId} to ${parameters.itemStatusId} is not allowed." field="error_list[]"/>
                 </if-empty>
             </if-compare-field>
@@ -769,7 +769,7 @@ under the License.
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
-        <if-empty field-name="newEntity.fromDate">
+        <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="newEntity.fromDate"/>
         </if-empty>
 
@@ -857,7 +857,7 @@ under the License.
                          AND
                          A Map with a List of PicklistItemInfo records keyed by the productId
                 -->
-                <if-not-empty field-name="picklistItemInfo.inventoryItemAndLocation.locationSeqId">
+                <if-not-empty field="picklistItemInfo.inventoryItemAndLocation.locationSeqId">
                     <make-value value-name="facilityLocation" entity-name="FacilityLocation" map-name="picklistItemInfo.inventoryItemAndLocation"/>
                     <set from-field="facilityLocation" field="facilityLocationByLocationSeqIdMap.${facilityLocation.locationSeqId}"/>
 
@@ -867,7 +867,7 @@ under the License.
                     <set field="picklistItemInfoListByLocationSeqIdMap.${facilityLocation.locationSeqId}" from-field="picklistItemInfoTempList"/>
                 <else>
                     <!-- handle case where an InventoryItem is not associated with a location -->
-                    <if-not-empty field-name="picklistItemInfo.orderItem.productId">
+                    <if-not-empty field="picklistItemInfo.orderItem.productId">
                         <clear-field field-name="productValueTemp"/>
                         <set field="productId" from-field="picklistItemInfo.inventoryItemAndLocation.productId"/>
                         <entity-one entity-name="Product" value-name="productValueTemp" use-cache="true">
@@ -934,10 +934,10 @@ under the License.
                 </calculate>
 
                 <!-- also put the product record in place -->
-                <if-empty field-name="facilityLocationInfo.product">
+                <if-empty field="facilityLocationInfo.product">
                     <set from-field="picklistItemInfo.product" field="facilityLocationInfo.product"/>
                 <else>
-                    <if-compare-field field-name="facilityLocationInfo.product.productId" operator="not-equals" to-field-name="picklistItemInfo.product.productId">
+                    <if-compare-field field="facilityLocationInfo.product.productId" to-field="picklistItemInfo.product.productId" operator="not-equals">
                         <!-- Uh oh, have different products in the same location... what to do about this? -->
                         <log level="error" message="When creating picklist report found in the same location [${facilityLocation.locationSeqId}] two different products: ${facilityLocationInfo.product.productId} and ${picklistItemInfo.product.productId}"/>
                         <string-append string=" WARNING: products with different IDs are sharing the same bin location, you must check products and quantities required against orders : ${facilityLocationInfo.product.productId} and ${picklistItemInfo.product.productId}" field-name="facilityLocationInfo.message"/>
@@ -1140,7 +1140,7 @@ under the License.
             <!-- create a list of locations, then sort it, will have to create a reverse Map to go from location to inventory item -->
             <clear-field field-name="facilityLocation"/>
             <get-related-one value-name="inventoryItem" relation-name="FacilityLocation" to-value-name="facilityLocation"/>
-            <if-not-empty field-name="facilityLocation">
+            <if-not-empty field="facilityLocation">
                 <set from-field="facilityLocation" field="facilityLocationMap.${facilityLocation.locationSeqId}"/>
                 <!-- support multiple invnetoryItemIds per facilityLocation.locationSeqId -->
                 <clear-field field-name="inventoryItemIdList"/>
@@ -1252,11 +1252,11 @@ under the License.
         <!-- determine if all the items are completed and/or cancelled -->
         <iterate entry-name="item" list-name="picklistItem">
             <log level="info" message="checking status for item: ${item}"/>
-            <if-compare field-name="item.itemStatusId" value="PICKITEM_CANCELLED" operator="not-equals">
+            <if-compare field="item.itemStatusId" value="PICKITEM_CANCELLED" operator="not-equals">
                 <log level="info" message="item is not cancelled; all cancelled set to false"/>
                 <set field="allCancelled" type="Boolean" value="false"/>
 
-                <if-compare field-name="item.itemStatusId" value="PICKITEM_COMPLETED" operator="not-equals">
+                <if-compare field="item.itemStatusId" value="PICKITEM_COMPLETED" operator="not-equals">
                     <log level="info" message="item is not completed; all completed set to false"/>
                     <set field="allCompleteOrCancelled" type="Boolean" value="false"/>
                 </if-compare>
@@ -1264,13 +1264,13 @@ under the License.
         </iterate>
 
         <!-- update the picklist status -->
-        <if-compare field-name="allCancelled" value="true" type="Boolean" operator="equals">
+        <if-compare field="allCancelled" value="true" type="Boolean" operator="equals">
             <log level="info" message="Setting picklist #${picklist.picklistId} to cancelled"/>
             <set field="picklist.statusId" value="PICKLIST_CANCELLED"/>
             <store-value value-name="picklist"/>
         <else>
             <log level="info" message="Not all items were cancelled; now check if we can complete the picklist : ${allCompleteOrCancelled}"/>
-            <if-compare field-name="allCompleteOrCancelled" value="true" type="Boolean" operator="equals">
+            <if-compare field="allCompleteOrCancelled" value="true" type="Boolean" operator="equals">
                 <log level="info" message="Setting picklist #${picklist.picklistId} to completed"/>
                 <set field="picklist.statusId" value="PICKLIST_PICKED"/>
                 <store-value value-name="picklist"/>

@@ -26,7 +26,7 @@ under the License.
         <set-pk-fields value-name="partyContent" map-name="parameters"/>
         <set-nonpk-fields value-name="partyContent" map-name="parameters"/>
 
-        <if-empty field-name="fromDate" map-name="partyContent">
+        <if-empty field="partyContent.fromDate">
             <now-timestamp-to-env env-name="nowTimestamp"/>
             <set field="partyContent.fromDate" from-field="nowTimestamp"/>
         </if-empty>

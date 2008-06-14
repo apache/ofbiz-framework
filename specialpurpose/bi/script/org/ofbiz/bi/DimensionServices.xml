@@ -29,7 +29,7 @@ under the License.
             <entity-and entity-name="CurrencyDimension" list-name="currencyDims">
                 <field-map field-name="currencyId" env-name="currency.uomId"/>
             </entity-and>
-            <if-not-empty field-name="currencyDims">
+            <if-not-empty field="currencyDims">
                 <iterate list-name="currencyDims" entry-name="currencyDim">
                     <set field="currencyDim.description" from-field="currency.description"/>
                     <store-value value-name="currencyDim"/>
@@ -47,7 +47,7 @@ under the License.
 
     <simple-method method-name="prepareProductDimensionData" short-description="">
         <entity-one entity-name="Product" value-name="product"/>
-        <if-empty field-name="product">
+        <if-empty field="product">
             <add-error><fail-message message="Product with id [${productId}] doesn't exist."/></add-error>
         </if-empty>
         <check-errors/>
