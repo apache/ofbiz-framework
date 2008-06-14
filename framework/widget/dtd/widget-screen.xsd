@@ -766,6 +766,16 @@ under the License.
             </xs:annotation>
         </xs:attribute>
     </xs:attributeGroup>
+    <xs:element name="horizontal-separator" substitutionGroup="AllWidgets">
+        <xs:complexType mixed="true">
+            <xs:attributeGroup ref="attlist.horizontal-separator"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.horizontal-separator">
+        <xs:attribute type="xs:string" name="id"/>
+        <xs:attribute type="xs:string" name="name"/>
+        <xs:attribute type="xs:string" name="style"/>
+    </xs:attributeGroup>
     <xs:element name="image" substitutionGroup="AllWidgets">
         <xs:complexType mixed="true">
             <xs:attributeGroup ref="attlist.image"/>
@@ -861,12 +871,8 @@ under the License.
         <xs:attribute type="xs:string" name="title">
             <xs:annotation><xs:documentation>Title text to be placed in the screenlet title bar.</xs:documentation></xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="id">
-            <xs:annotation><xs:documentation>Collapsible screenlets must have a name or ID.</xs:documentation></xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="name">
-            <xs:annotation><xs:documentation>Collapsible screenlets must have a name or ID.</xs:documentation></xs:annotation>
-        </xs:attribute>
+        <xs:attribute type="xs:string" name="id"/>
+        <xs:attribute type="xs:string" name="name"/>
         <xs:attribute name="collapsible" default="false">
             <xs:simpleType>
                 <xs:restriction base="xs:token">

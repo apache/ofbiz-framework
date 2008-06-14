@@ -38,6 +38,7 @@ public interface ScreenStringRenderer {
     public void renderSubContentBody(Appendable writer, Map<String, Object> context, ModelScreenWidget.SubContent content) throws IOException;
     public void renderSubContentEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.SubContent content) throws IOException;
 
+    public void renderHorizontalSeparator(Appendable writer, Map<String, Object> context, ModelScreenWidget.HorizontalSeparator separator) throws IOException;
     public void renderLabel(Appendable writer, Map<String, Object> context, ModelScreenWidget.Label label) throws IOException;
     public void renderLink(Appendable writer, Map<String, Object> context, ModelScreenWidget.Link link) throws IOException;
     public void renderImage(Appendable writer, Map<String, Object> context, ModelScreenWidget.Image image) throws IOException;
@@ -47,5 +48,6 @@ public interface ScreenStringRenderer {
     public void renderScreenletSubWidget(Appendable writer, Map<String, Object> context, ModelScreenWidget subWidget, ModelScreenWidget.Screenlet screenlet) throws GeneralException, IOException;
     public void renderScreenletEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.Screenlet screenlet) throws IOException;
 }
+
 
 

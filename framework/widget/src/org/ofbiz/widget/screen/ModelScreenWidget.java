@@ -118,6 +118,8 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
                 subWidgets.add(new Image(modelScreen, subElement));
             } else if ("iterate-section".equals(subElement.getNodeName())) {
                 subWidgets.add(new IterateSectionWidget(modelScreen, subElement));
+            } else if ("horizontal-separator".equals(subElement.getNodeName())) {
+                subWidgets.add(new HorizontalSeparator(modelScreen, subElement));
             } else {
                 throw new IllegalArgumentException("Found invalid screen widget element with name: " + subElement.getNodeName());
             }
@@ -337,6 +339,9 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
             this.idExdr = new FlexibleStringExpander(screenletElement.getAttribute("id"));
             this.collapsible = "true".equals(screenletElement.getAttribute("collapsible"));
             this.initiallyCollapsed = "true".equals(screenletElement.getAttribute("initially-collapsed"));
+            if (this.initiallyCollapsed) {
+                this.collapsible = true;
+            }
             this.padded = !"false".equals(screenletElement.getAttribute("padded"));
             if (this.collapsible && UtilValidate.isEmpty(this.name) && idExdr.isEmpty()) {
                 throw new IllegalArgumentException("Collapsible screenlets must have a name or id [" + this.modelScreen.getName() + "]");
@@ -420,7 +425,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         public String getPreferenceKey(Map<String, Object> context) {
             String name = this.idExdr.expandString(context);
             if (UtilValidate.isEmpty(name)) {
-                name = this.modelScreen.getName() + "_" + this.name;
+                name = "screenlet" + "_" + Integer.toHexString(hashCode());
             }
             return name;
         }
@@ -447,6 +452,34 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
 
         public String rawString() {
             return "<screenlet id=\"" + this.idExdr.getOriginal() + "\" title=\"" + this.titleExdr.getOriginal() + "\">";
+        }
+    }
+
+    @SuppressWarnings("serial")
+    public static class HorizontalSeparator extends ModelScreenWidget {
+        protected FlexibleStringExpander idExdr;
+        protected FlexibleStringExpander styleExdr;
+        
+        public HorizontalSeparator(ModelScreen modelScreen, Element separatorElement) {
+            super(modelScreen, separatorElement);
+            this.idExdr = new FlexibleStringExpander(separatorElement.getAttribute("id"));
+            this.styleExdr = new FlexibleStringExpander(separatorElement.getAttribute("style"));
+        }
+
+        public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
+            screenStringRenderer.renderHorizontalSeparator(writer, context, this);
+        }
+        
+        public String getId(Map<String, Object> context) {
+            return this.idExdr.expandString(context);
+        }
+        
+        public String getStyle(Map<String, Object> context) {
+            return this.styleExdr.expandString(context);
+        }
+
+        public String rawString() {
+            return "<horizontal-separator id=\"" + this.idExdr.getOriginal() + "\" name=\"" + this.idExdr.getOriginal() + "\" style=\"" + this.styleExdr.getOriginal() + "\">";
         }
     }
 
@@ -1497,6 +1530,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         }
     }
 }
+
 
 
 

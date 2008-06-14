@@ -58,6 +58,10 @@ public class TextScreenRenderer implements ScreenStringRenderer {
         appendWhitespace(writer);
     }
 
+    public void renderHorizontalSeparator(Appendable writer, Map<String, Object> context, ModelScreenWidget.HorizontalSeparator separator) throws IOException {
+        // TODO: not implemented
+    }
+
     public void renderLink(Appendable writer, Map<String, Object> context, ModelScreenWidget.Link link) throws IOException {
         // TODO: not implemented
     }

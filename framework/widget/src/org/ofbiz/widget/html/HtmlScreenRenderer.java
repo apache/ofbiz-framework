@@ -115,9 +115,24 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
         appendWhitespace(writer);
     }
 
+    public void renderHorizontalSeparator(Appendable writer, Map<String, Object> context, ModelScreenWidget.HorizontalSeparator separator) throws IOException {
+        writer.append("<hr");
+        String className = separator.getStyle(context);
+        if (UtilValidate.isNotEmpty(className)) {
+            writer.append(" class=\"" + className + "\"");
+        }
+        String idName = separator.getId(context);
+        if (UtilValidate.isNotEmpty(idName)) {
+            writer.append(" id=\"" + idName + "\"");
+        }
+        writer.append("/>");
+        appendWhitespace(writer);
+    }
+
     public void renderScreenletBegin(Appendable writer, Map<String, Object> context, boolean collapsed, ModelScreenWidget.Screenlet screenlet) throws IOException {
         HttpServletRequest request = (HttpServletRequest) context.get("request");
         HttpServletResponse response = (HttpServletResponse) context.get("response");
+        boolean javaScriptEnabled = UtilHttp.isJavaScriptEnabled(request);
         ModelScreenWidget.Menu tabMenu = screenlet.getTabMenu();
         if (tabMenu != null) {
             tabMenu.renderWidgetString(writer, context, this);
@@ -135,6 +150,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
         String title = screenlet.getTitle(context);
         ModelScreenWidget.Menu navMenu = screenlet.getNavigationMenu();
         ModelScreenWidget.Form navForm = screenlet.getNavigationForm();
+        String collapsibleAreaId = null;
         if (UtilValidate.isNotEmpty(title) || navMenu != null || navForm != null || screenlet.collapsible()) {
             writer.append("<div class=\"screenlet-title-bar\">");
             appendWhitespace(writer);
@@ -147,31 +163,41 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
                 appendWhitespace(writer);
             }
             if (screenlet.collapsible()) {
-                String toolTip = null;
+                collapsibleAreaId = this.getNextElementId();
+                String expandToolTip = null;
+                String collapseToolTip = null;
                 Map<String, Object> uiLabelMap = UtilGenerics.checkMap(context.get("uiLabelMap"));
                 Map<String, Object> paramMap = UtilGenerics.checkMap(context.get("requestParameters"));
                 Map<String, Object> requestParameters = new HashMap<String, Object>(paramMap);
+                if (uiLabelMap != null) {
+                    expandToolTip = (String) uiLabelMap.get("CommonExpand");
+                    collapseToolTip = (String) uiLabelMap.get("CommonCollapse");
+                }
                 writer.append("<li class=\"");
                 if (collapsed) {
-                    requestParameters.put(screenlet.getPreferenceKey(context) + "_collapsed", "false");
-                    String queryString = UtilHttp.urlEncodeArgs(requestParameters);
-                    writer.append("collapsed\"><a href=\"");
-                    writer.append(request.getRequestURI() + "?" + queryString);
-                    if (uiLabelMap != null) {
-                        toolTip = (String) uiLabelMap.get("CommonExpand");
+                    writer.append("collapsed\"><a ");
+                    if (javaScriptEnabled) {
+                        writer.append("onclick=\"javascript:toggleCollapsiblePanel(this, '" + collapsibleAreaId + "', '" + expandToolTip + "', '" + collapseToolTip + "');\"");
+                    } else {
+                        requestParameters.put(screenlet.getPreferenceKey(context) + "_collapsed", "false");
+                        String queryString = UtilHttp.urlEncodeArgs(requestParameters);
+                        writer.append("href=\"" + request.getRequestURI() + "?" + queryString + "\"");
+                    }
+                    if (UtilValidate.isNotEmpty(expandToolTip)) {
+                        writer.append(" title=\"" + expandToolTip + "\"");
                     }
                 } else {
-                    requestParameters.put(screenlet.getPreferenceKey(context) + "_collapsed", "true");
-                    String queryString = UtilHttp.urlEncodeArgs(requestParameters);
-                    writer.append("expanded\"><a href=\"");
-                    writer.append(request.getRequestURI() + "?" + queryString);
-                    if (uiLabelMap != null) {
-                        toolTip = (String) uiLabelMap.get("CommonCollapse");
+                    writer.append("expanded\"><a ");
+                    if (javaScriptEnabled) {
+                        writer.append("onclick=\"javascript:toggleCollapsiblePanel(this, '" + collapsibleAreaId + "', '" + expandToolTip + "', '" + collapseToolTip + "');\"");
+                    } else {
+                        requestParameters.put(screenlet.getPreferenceKey(context) + "_collapsed", "true");
+                        String queryString = UtilHttp.urlEncodeArgs(requestParameters);
+                        writer.append("href=\"" + request.getRequestURI() + "?" + queryString + "\"");
                     }
-                }
-                writer.append("\"");
-                if (UtilValidate.isNotEmpty(toolTip)) {
-                    writer.append(" title=\"" + toolTip + "\"");
+                    if (UtilValidate.isNotEmpty(collapseToolTip)) {
+                        writer.append(" title=\"" + collapseToolTip + "\"");
+                    }
                 }
                 writer.append(">&nbsp</a></li>");
                 appendWhitespace(writer);
@@ -193,10 +219,15 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
             appendWhitespace(writer);
             writer.append("</div>");
             appendWhitespace(writer);
-            if (screenlet.padded()) {
-                writer.append("<div class=\"screenlet-body\">");
-                appendWhitespace(writer);
+            writer.append("<div");
+            if (UtilValidate.isNotEmpty(collapsibleAreaId)) {
+                writer.append(" id=\"" + collapsibleAreaId + "\"");
             }
+            if (screenlet.padded()) {
+                writer.append(" class=\"screenlet-body\"");
+            }
+            writer.append(">");
+            appendWhitespace(writer);
         }
     }
     
@@ -360,10 +391,8 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
     }
 
     public void renderScreenletEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.Screenlet screenlet) throws IOException {
-        if (screenlet.padded()) {
-            writer.append("</div>");
-            appendWhitespace(writer);
-        }
+        writer.append("</div>");
+        appendWhitespace(writer);
         writer.append("</div>");
         appendWhitespace(writer);
     }

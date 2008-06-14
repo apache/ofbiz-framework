@@ -91,6 +91,15 @@ public class FoScreenRenderer extends HtmlWidgetRenderer implements ScreenString
         appendWhitespace(writer);
     }
 
+    public void renderHorizontalSeparator(Appendable writer, Map<String, Object> context, ModelScreenWidget.HorizontalSeparator separator) throws IOException {
+        writer.append("<fo:block>");
+        appendWhitespace(writer);
+        writer.append("<fo:leader leader-length=\"100%\" leader-pattern=\"rule\" rule-style=\"solid\" rule-thickness=\"0.1mm\" color=\"black\"/>");
+        appendWhitespace(writer);
+        writer.append("</fo:block>");
+        appendWhitespace(writer);
+    }
+
     public void renderLink(Appendable writer, Map<String, Object> context, ModelScreenWidget.Link link) throws IOException {
         // TODO: not implemented
     }

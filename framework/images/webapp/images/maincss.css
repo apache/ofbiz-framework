@@ -1331,15 +1331,15 @@ color: #CCCCCC;
 .screenlet-title-bar ul .collapsed,
 .screenlet-title-bar ul .collapsed:hover {
 background: url(/images/expand.gif) no-repeat center center;
-min-height: 1em;
-min-width: 1em;
+min-height: 1.1em;
+min-width: 1.1em;
 }
 
 .screenlet-title-bar ul .expanded,
 .screenlet-title-bar ul .expanded:hover {
 background: url(/images/collapse.gif) no-repeat center center;
-min-height: 1em;
-min-width: 1em;
+min-height: 1.1em;
+min-width: 1.1em;
 }
 
 .screenlet-title-bar ul .collapsed a,
