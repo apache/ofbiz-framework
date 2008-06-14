@@ -20,6 +20,7 @@
 import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.condition.*;
 import org.ofbiz.entity.transaction.TransactionUtil;
+import org.ofbiz.base.util.*
 
 module = "showvisits.bsh";
 
@@ -49,20 +50,9 @@ try {
         visitListIt = delegator.find("Visit", EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null), null, null, sortList, new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true));  
     }
     
-    viewIndex = 1;
-    viewSize = 20;    
-    try {
-        viewIndex = Integer.valueOf((String) parameters.VIEW_INDEX).intValue();
-    } catch (Exception e) {
-        viewIndex = 1;
-    }
+    viewIndex = Integer.valueOf(parameters.VIEW_INDEX  ?: 1);
+    viewSize = Integer.valueOf(parameters.VIEW_SIZE ?: UtilProperties.getPropertyValue("widget", "widget.form.defaultViewSize"));
     context.viewIndex = viewIndex;
-    
-    try {
-        viewSize = Integer.valueOf((String) parameters.VIEW_SIZE).intValue();
-    } catch (Exception e) {
-        viewSize = 20;
-    }
     context.viewSize = viewSize;
      
     // get the indexes for the partial list

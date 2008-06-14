@@ -16,14 +16,14 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+import org.ofbiz.base.util.*
 
 itemsList = delegator.findList("ProductConfigItem", null, null, ['configItemId'], null, false);
 context.itemsList = itemsList;
 
 // set the page parameters
 viewIndex = Integer.valueOf(parameters.VIEW_INDEX  ?: 0);
-
-viewSize = Integer.valueOf(parameters.VIEW_SIZE ?: 20);
+viewSize = Integer.valueOf(parameters.VIEW_SIZE ?: UtilProperties.getPropertyValue("widget", "widget.form.defaultViewSize"));
 
 listSize = itemsList.size();
 
