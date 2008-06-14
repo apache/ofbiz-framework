@@ -40,4 +40,13 @@
     <test-case case-name="test-Update password">
         <simple-method-test location="component://party/script/org/ofbiz/party/test/PartyTestServices.xml" name="testUpdateUserPassword"/>
     </test-case>
+    <test-case case-name="test-Add role">
+        <simple-method-test location="component://party/script/org/ofbiz/party/test/PartyTestServices.xml" name="testAddRole"/>
+    </test-case>
+    <test-case case-name="test-CreateNewCommEvent">
+        <simple-method-test location="component://party/script/org/ofbiz/party/test/PartyTestServices.xml" name="testCreateNewCommEvent"/>
+    </test-case>
+    <test-case case-name="test-CreateNewRequest">
+        <simple-method-test location="component://party/script/org/ofbiz/party/test/PartyTestServices.xml" name="testCreateNewRequest"/>
+    </test-case>
 </test-suite>
