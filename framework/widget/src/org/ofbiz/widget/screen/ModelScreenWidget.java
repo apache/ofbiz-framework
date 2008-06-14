@@ -397,10 +397,8 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
             }
             try {
                 screenStringRenderer.renderScreenletBegin(writer, context, collapsed, this);
-                if (!collapsed) {
-                    for (ModelScreenWidget subWidget : this.subWidgets) {
-                        screenStringRenderer.renderScreenletSubWidget(writer, context, subWidget, this);
-                    }
+                for (ModelScreenWidget subWidget : this.subWidgets) {
+                    screenStringRenderer.renderScreenletSubWidget(writer, context, subWidget, this);
                 }
                 screenStringRenderer.renderScreenletEnd(writer, context, this);
             } catch (IOException e) {
@@ -1530,6 +1528,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         }
     }
 }
+
 
 
 
