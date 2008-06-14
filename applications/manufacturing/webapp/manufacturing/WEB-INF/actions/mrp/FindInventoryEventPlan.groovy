@@ -66,14 +66,8 @@ if (lookupFlag) {
 context.paramList = paramList;
 
 // set the page parameters
-viewIndex = 0;
-try {
-    viewIndex = Integer.valueOf((String) parameters.VIEW_INDEX).intValue();
-} catch (Exception e) {}
-viewSize = 100;
-try {
-    viewSize = Integer.valueOf((String) parameters.VIEW_SIZE).intValue();
-} catch (Exception e) {}
+viewIndex = Integer.valueOf(parameters.VIEW_INDEX  ?: 0);
+viewSize = Integer.valueOf(parameters.VIEW_SIZE ?: 20);
 listSize = 0;
 if (inventoryList)
     listSize = inventoryList.size();

@@ -23,6 +23,8 @@ import org.ofbiz.entity.*
 import org.ofbiz.entity.util.*
 import org.ofbiz.entity.condition.*
 import org.ofbiz.entity.transaction.*
+import org.ofbiz.base.util.*
+
 
 delegator = request.getAttribute("delegator");
 
@@ -35,20 +37,9 @@ minDate = request.getParameter("minDate");
 maxDate = request.getParameter("maxDate");
 
 // set the page parameters
-viewIndex = 1;
-try {
-    viewIndex = Integer.valueOf((String) request.getParameter("VIEW_INDEX")).intValue();
-} catch (Exception e) {
-    viewIndex = 1;
-}
+viewIndex = Integer.valueOf(parameters.VIEW_INDEX  ?: 0);
+viewSize = Integer.valueOf(parameters.VIEW_SIZE ?: UtilProperties.getPropertyValue("widget", "widget.form.defaultViewSize"));
 context.viewIndex = viewIndex;
-
-viewSize = 20;
-try {
-    viewSize = Integer.valueOf((String) request.getParameter("VIEW_SIZE")).intValue();
-} catch (Exception e) {
-    viewSize = 20;
-}
 context.viewSize = viewSize;
 
 findShipmentExprs = [] as LinkedList;
