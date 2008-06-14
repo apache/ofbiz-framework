@@ -222,6 +222,9 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
             writer.append("<div");
             if (UtilValidate.isNotEmpty(collapsibleAreaId)) {
                 writer.append(" id=\"" + collapsibleAreaId + "\"");
+                if (collapsed) {
+                    writer.append(" style=\"display: none;\"");
+                }
             }
             if (screenlet.padded()) {
                 writer.append(" class=\"screenlet-body\"");
