@@ -300,33 +300,27 @@ function ajaxAutoCompleter(areaCsvString) {
     }
 }
 
-Event.observe(window,'load', function() {
-    var collapseablePanels = $$('li.collapsed', 'li.expanded');
-    collapseablePanels.each( function(e) {
-      if(e){
-          atag = e.down('a');
-          atag.observe('click', toggleCollapsablePanel);
-      }
-  });    
-
-});
-
-function toggleCollapsablePanel(event){
-	var atag = event.element();
-	titleDiv = atag.up('div.screenlet-title-bar');
-	bodyDiv = titleDiv.next();
-    liElement = atag.up('li');
-    if(bodyDiv.visible()){
+/** Toggle area visibility on/off.
+  * @param link The <a> element calling this function
+  * @param areaId The id of the HTML container to toggle
+  * @param expandTxt Localized 'Expand' text
+  * @param collapseTxt Localized 'Collapse' text
+*/
+function toggleCollapsiblePanel(link, areaId, expandTxt, collapseTxt){
+    var container = $(areaId);
+    var liElement = $(link).up('li');
+    if(container.visible()){
         liElement.removeClassName('expanded');
         liElement.addClassName('collapsed');
+        link.title = expandTxt;
     } else {
         liElement.removeClassName('collapsed');
-    	liElement.addClassName('expanded');
-    	
+        liElement.addClassName('expanded');
+        link.title = collapseTxt;
     }
-	Effect.toggle(bodyDiv, 'appear');
-	Event.stop(event);
+    Effect.toggle(container, 'appear');
 }
+
 // ===== End of Ajax Functions ===== //
 
 function submitFormDisableSubmits(form) {
