@@ -26,22 +26,4 @@
     <test-case case-name="testCreateProjectService Direct Simple Method">
         <simple-method-test location="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" name="testCreateProjectService"/>
     </test-case>
-    <test-case case-name="testUpdateContactInfo Direct Simple Method">
-        <simple-method-test location="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" name="testUpdateContactInfo"/>
-    </test-case>
-    <test-case case-name="testUpdateTeleCom Direct Simple Method">
-        <simple-method-test location="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" name="testUpdateTeleCom"/>
-    </test-case>
-    <test-case case-name="testUpdatePostalAddr Direct Simple Method">
-        <simple-method-test location="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" name="testUpdatePostalAddr"/>
-    </test-case>
-    <test-case case-name="testAddRole Direct Simple Method">
-        <simple-method-test location="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" name="testAddRole"/>
-    </test-case>
-    <test-case case-name="testCreateNewCommEvent Direct Simple Method">
-        <simple-method-test location="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" name="testCreateNewCommEvent"/>
-    </test-case>
-    <test-case case-name="testCreateNewRequest Direct Simple Method">
-        <simple-method-test location="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" name="testCreateNewRequest"/>
-    </test-case>
 </test-suite>
