@@ -17,6 +17,7 @@
  * under the License.
  */
 
+/*
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -36,8 +37,7 @@ import org.ofbiz.widget.form.*;
 import org.ofbiz.securityext.login.*;
 import org.ofbiz.common.*;
 import org.ofbiz.entity.model.*;
-import org.ofbiz.content.ContentManagementWorker;
-import org.ofbiz.content.content.ContentWorker;
+
 import org.ofbiz.widget.html.HtmlMenuWrapper;
 import org.ofbiz.widget.WidgetWorker;
 import org.ofbiz.entity.condition.EntityConditionList;
@@ -49,34 +49,30 @@ import freemarker.template.SimpleSequence;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
+*/
 
+import org.ofbiz.base.util.*
+import org.ofbiz.entity.util.*
+import org.ofbiz.content.ContentManagementWorker;
+import org.ofbiz.content.content.ContentWorker;
 
 Debug.logInfo("in mostrecentprep(1):","");
-delegator = request.getAttribute("delegator");
 paramMap = UtilHttp.getParameterMap(request);
 forumId = ContentManagementWorker.getFromSomewhere("moderatedSiteId", paramMap, request, context);
 
-if (UtilValidate.isNotEmpty(forumId)) {
-    exprList = new ArrayList();
+if (forumId) {
+    exprList = [] as ArrayList;
     fromDate = UtilDateTime.nowTimestamp();
-    //thruList = new ArrayList();
-    //thruExpr = EntityCondition.makeCondition("caThruDate", EntityOperator.GREATER_THAN, fromDate);
-    //thruList.add(thruExpr);
     thruExpr2 = EntityCondition.makeCondition("caThruDate", EntityOperator.EQUALS, null);
-    //thruList.add(thruExpr2);
-    //thruExprList = EntityCondition.makeCondition(thruList, EntityOperator.OR);
     exprList.add(thruExpr2);
-    //contentAssocTypeExpr = EntityCondition.makeCondition("caContentAssocTypeId", EntityOperator.EQUALS, "RESPONSE");
-    //exprList.add(contentAssocTypeExpr);
     statusIdExpr = EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "CTNT_IN_PROGRESS");
     exprList.add(statusIdExpr);
     contentIdToExpr = EntityCondition.makeCondition("caContentIdTo", EntityOperator.EQUALS, forumId);
     exprList.add(contentIdToExpr);
     expr = EntityCondition.makeCondition(exprList, EntityOperator.AND);
-    entityList = delegator.findList("ContentAssocViewFrom", expr, null, UtilMisc.toList("-caFromDate"), null, false);
+    entityList = delegator.findList("ContentAssocViewFrom", expr, null, ['-caFromDate'], null, false);
     
     Debug.logInfo("in mostrecentprep(1), entityList.size():" + entityList.size(),"");
     Debug.logInfo("in mostrecentprep(1), entityList:" + entityList,"");
-    context.put("mostRecentList", entityList);
+    context.mostRecentList = entityList;
 }
-
