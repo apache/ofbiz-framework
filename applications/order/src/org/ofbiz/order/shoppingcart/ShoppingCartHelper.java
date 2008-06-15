@@ -440,14 +440,8 @@ public class ShoppingCartHelper {
         //boolean checkGlobalScope = (!context.containsKey("_checkGlobalScope"))? false :
         //        "Y".equalsIgnoreCase((String)context.get("_checkGlobalScope"));
         
-        int rowCount = 0; // parsed int value
-        try {
-            if (context.containsKey("_rowCount")) {
-                rowCount = Integer.parseInt((String)context.get("_rowCount"));
-            }
-        } catch (NumberFormatException e) {
-            //throw new EventHandlerException("Invalid value for _rowCount");
-        }
+        // The number of multi form rows is retrieved
+        int rowCount = UtilHttp.getMultiFormRowCount(context);
 
         // assume that the facility is the same for all requirements
         String facilityId = (String) context.get("facilityId_o_0");

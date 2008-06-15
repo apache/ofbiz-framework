@@ -386,11 +386,11 @@ public class UploadContentAndImage {
             }
             if (Debug.infoOn()) Debug.logInfo("[UploadContentAndImage]passedParams: " + passedParams, module);
 
-            String strRowCount = (String)passedParams.get("_rowCount");
-            if (UtilValidate.isEmpty(strRowCount)) {
-                strRowCount = "1";
+            // The number of multi form rows is retrieved
+            int rowCount = UtilHttp.getMultiFormRowCount(request);
+            if (rowCount < 1) {
+                rowCount = 1;
             }
-            int rowCount = Integer.parseInt(strRowCount);
             TransactionUtil.begin();
             for (int i=0; i < rowCount; i++) {
                 String suffix = "_o_" + i;

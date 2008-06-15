@@ -1123,6 +1123,11 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         writer.append(modelForm.getCurrentFormName(context));
         writer.append("\">");
 
+        boolean useRowSubmit = modelForm.getUseRowSubmit();
+        if (useRowSubmit) {
+            writer.append("<input type=\"hidden\" name=\"_useRowSubmit\" value=\"Y\"/>");
+        }
+
         appendWhitespace(writer);
     }
 
@@ -1149,19 +1154,6 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
      * @see org.ofbiz.widget.form.FormStringRenderer#renderFormClose(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelForm)
      */
     public void renderMultiFormClose(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
-        String rowCount = modelForm.getPassedRowCount(context);
-        if (UtilValidate.isEmpty(rowCount)) {
-            int rCount = modelForm.getRowCount();
-            rowCount = Integer.toString(rCount);
-        }
-        if (UtilValidate.isNotEmpty(rowCount)) {
-            writer.append("<input type=\"hidden\" name=\"_rowCount\" value=\"" + rowCount + "\"/>");
-        }
-        boolean useRowSubmit = modelForm.getUseRowSubmit();
-        if (useRowSubmit) {
-            writer.append("<input type=\"hidden\" name=\"_useRowSubmit\" value=\"Y\"/>");
-        }
-        
         Iterator submitFields = modelForm.getMultiSubmitFields().iterator();
         while (submitFields.hasNext()) {
             ModelFormField submitField = (ModelFormField)submitFields.next();
