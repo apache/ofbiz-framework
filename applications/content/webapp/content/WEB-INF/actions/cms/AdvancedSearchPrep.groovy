@@ -17,12 +17,9 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.product.catalog.*;
-import org.ofbiz.product.feature.*;
-import org.ofbiz.product.product.*;
-
-delegator = request.getAttribute("delegator");
+import org.ofbiz.product.catalog.*
+import org.ofbiz.product.feature.*
+import org.ofbiz.product.product.*
 
 productFeaturesByTypeMap = ParametricSearch.getAllFeaturesByType(delegator, 2000);
 productFeatureTypeIdsOrdered = new ArrayList(new TreeSet(productFeaturesByTypeMap.keySet()));
@@ -35,8 +32,8 @@ if (!"AND".equals(searchOperator) && !"OR".equals(searchOperator)) {
 searchConstraintStrings = ProductSearchSession.searchGetConstraintStrings(false, session, delegator);
 searchSortOrderString = ProductSearchSession.searchGetSortOrderString(false, request);
 
-context.put("productFeaturesByTypeMap", productFeaturesByTypeMap);
-context.put("productFeatureTypeIdsOrdered", productFeatureTypeIdsOrdered);
-context.put("searchOperator", searchOperator);
-context.put("searchConstraintStrings", searchConstraintStrings);
-context.put("searchSortOrderString", searchSortOrderString);
+context.productFeaturesByTypeMap = productFeaturesByTypeMap;
+context.productFeatureTypeIdsOrdered = productFeatureTypeIdsOrdered;
+context.searchOperator = searchOperator;
+context.searchConstraintStrings = searchConstraintStrings;
+context.searchSortOrderString = searchSortOrderString;

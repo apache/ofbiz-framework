@@ -86,7 +86,7 @@ under the License.
                 <set field="dataResourceId" from-field="parameters.drDataResourceId"/>
                 <set field="rootForumId" value="WebStoreFORUM" />
                 <set field="rootForumId2" value="WebStoreCONTENT" />
-                <script location="component://content/widget/cms/featureprep.bsh"/>
+                <script location="component://content/webapp/content/WEB-INF/actions/cms/FeaturePrep.groovy"/>
                 <set field="menuContext.contentTarget" value="CMSContentEdit?contentId=${contentId}&amp;drDataResourceId=${dataResourceId}"/>
             </actions>
             <widgets>
@@ -168,7 +168,7 @@ under the License.
                 <set field="caFromDate" from-field="MASTER_caFromDate" />
                 
                 
-                <script location="component://content/widget/cms/cmseditaddprep.bsh"/>
+                <script location="component://content/webapp/content/WEB-INF/actions/cms/CmsEditAddPrep.groovy"/>
                 <set field="currentCMSMenuItemName" value="EditAddContent" to-scope="user"/>
                 <set field="enableEdit" value="true" />
             </actions>
@@ -215,7 +215,7 @@ under the License.
                 <set field="caContentIdTo" from-field="parameters.contentId"/>
                 <set field="caMapKey" from-field="parameters.mapKey"/>
                 
-                <script location="component://content/widget/cms/cmseditaddprep.bsh"/>
+                <script location="component://content/webapp/content/WEB-INF/actions/cms/CmsEditAddPrep.groovy"/>
                 <set field="currentCMSMenuItemName" value="EditAddContent" to-scope="user"/>
             </actions>
             <widgets>
@@ -246,8 +246,8 @@ under the License.
         <section>
             <actions>
                 <script location="component://content/widget/GetMenuContext.groovy"/>
-                <script location="component://content/widget/cms/advancedsearchprep.bsh"/>
-                <script location="component://content/widget/cms/search.bsh"/>
+                <script location="component://content/webapp/content/WEB-INF/actions/cms/AdvancedSearchPrep.groovy"/>
+                <script location="component://content/webapp/content/WEB-INF/actions/cms/Search.groovy"/>
                 <set field="title" value="CMS Search Page"/>
                 <set field="titleProperty" value="PageTitleSearchContent"/>
                 <set field="currentCMSMenuItemName" value="search" to-scope="user"/>
@@ -322,8 +322,8 @@ under the License.
                 <set field="forumId" from-field="parameters.contentId"/>
                 <set field="defaultSiteId" value="WebStoreFORUM"/>
                 <set field="currentCMSMenuItemName" value="subsites" to-scope="user"/>
-                <script location="component://content/widget/cms/userpermprep.bsh"/>
-                <script location="component://content/widget/cms/mostrecentprep.bsh"/>
+                <script location="component://content/webapp/content/WEB-INF/actions/cms/UserPermPrep.groovy"/>
+                <script location="component://content/webapp/content/WEB-INF/actions/cms/MostRecentPrep.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">

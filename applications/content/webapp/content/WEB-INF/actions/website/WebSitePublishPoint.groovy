@@ -31,7 +31,7 @@ if (webSiteContent) {
     context.contentRoot = contentRoot;
 
     // get all sub content for the publish point
-    subsites = delegator.findList("ContentAssoc", [contentId : contentRoot], null, null, null, false);
+    subsites = delegator.findList("ContentAssoc", EntityCondition.makeCondition([contentId : contentRoot]), null, null, null, false);
     context.subsites = subsites;
 }
 
