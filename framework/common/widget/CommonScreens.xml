@@ -188,16 +188,25 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
             </actions>
             <widgets>
-                <platform-specific>
-                    <html>
-                        <html-template-decorator location="component://common/webcommon/includes/lookup.ftl">
-                            <html-template-decorator-section name="body">
-                                <platform-specific><html><html-template location="component://common/webcommon/includes/messages.ftl"/></html></platform-specific>
-                                <decorator-section-include name="body"/>
-                            </html-template-decorator-section>
-                        </html-template-decorator>
-                    </html>
-                </platform-specific>
+                <platform-specific><html><html-template location="component://common/webcommon/includes/lookup.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="component://common/webcommon/includes/messages.ftl"/></html></platform-specific>
+                <section>
+                    <condition>
+                        <not><if-empty field-name="sections.body"/></not>
+                    </condition>
+                    <widgets>
+                        <decorator-section-include name="body"/>
+                    </widgets>
+                    <fail-widgets>
+                        <screenlet title="${title}" name="findScreenlet" collapsible="true" padded="false">
+                            <decorator-section-include name="search-options"/>
+                        </screenlet>
+                        <screenlet>
+                            <decorator-section-include name="search-results"/>
+                        </screenlet>
+                    </fail-widgets>
+                </section>
+                <platform-specific><html><html-template location="component://common/webcommon/includes/lookupFooter.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>

@@ -23,6 +23,7 @@ under the License.
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>${title}</title>
     <script language="javascript" src="<@ofbizContentUrl>/images/prototypejs/prototype.js</@ofbizContentUrl>" type="text/javascript"></script>
+    <script language="javascript" src="<@ofbizContentUrl>/images/prototypejs/scriptaculous.js</@ofbizContentUrl>" type="text/javascript"></script>
     <script language="javascript" src="<@ofbizContentUrl>/images/fieldlookup.js</@ofbizContentUrl>" type="text/javascript"></script>
     <script language="javascript" src="<@ofbizContentUrl>/images/selectall.js</@ofbizContentUrl>" type="text/javascript"></script>
     <script language="javascript" src="<@ofbizContentUrl>/images/calendar_date_select.js</@ofbizContentUrl>" type="text/javascript"></script>
@@ -75,6 +76,3 @@ under the License.
     </script>
 </head>
 <body style="background-color: WHITE;">
-${sections.render("body")}
-</body>
-</html>
