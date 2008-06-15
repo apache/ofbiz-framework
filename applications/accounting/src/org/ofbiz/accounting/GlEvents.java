@@ -36,6 +36,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.service.GenericServiceException;
+import org.ofbiz.webapp.event.EventHandlerException;
 
 public class GlEvents {
     
@@ -52,10 +53,8 @@ public static String createReconcileAccount(HttpServletRequest request,HttpServl
     double reconciledBalance = 0.00;
     boolean isSelected;
     String debitCreditFlag;
-    int rowCount = 0;
-    if (ctx.containsKey("_rowCount")) {
-        rowCount = Integer.parseInt((String)ctx.get("_rowCount")); //get the number of rows
-    }
+    // The number of multi form rows is retrieved
+    int rowCount = UtilHttp.getMultiFormRowCount(ctx);
     for (int i = 0; i < rowCount; i++) {  //for calculating amount per glAccountId
         double amount = 0.00;
         String suffix = UtilHttp.MULTI_ROW_DELIMITER + i;

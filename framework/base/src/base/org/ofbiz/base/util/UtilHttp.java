@@ -1161,4 +1161,41 @@ public class UtilHttp {
         }
         return false;
     }
+
+    /** Returns the number or rows submitted by a multi form.
+     */
+    public static int getMultiFormRowCount(HttpServletRequest request) {
+        // The number of multi form rows is computed selecting the maximum index
+        int rowCount = 0;
+        return UtilHttp.getMultiFormRowCount(UtilHttp.getParameterMap(request));
+    }
+    /** Returns the number or rows submitted by a multi form.
+     */
+    public static int getMultiFormRowCount(Map requestMap) {
+        // The number of multi form rows is computed selecting the maximum index
+        int rowCount = 0;
+        Set<String> parameterNames = requestMap.keySet();
+        String maxRowIndex = "";
+        int rowDelimiterLength = UtilHttp.MULTI_ROW_DELIMITER.length();
+        for (String parameterName: parameterNames) {
+            int rowDelimiterIndex = (parameterName != null? parameterName.indexOf(UtilHttp.MULTI_ROW_DELIMITER): -1);
+            if (rowDelimiterIndex > 0) {
+                String thisRowIndex = parameterName.substring(rowDelimiterIndex + rowDelimiterLength);
+                if (maxRowIndex.length() < thisRowIndex.length()) {
+                    maxRowIndex = thisRowIndex;
+                } else if (maxRowIndex.length() == thisRowIndex.length() && maxRowIndex.compareTo(thisRowIndex) < 0) {
+                    maxRowIndex = thisRowIndex;
+                }
+            }
+        }
+        if (UtilValidate.isNotEmpty(maxRowIndex)) {
+            try {
+                rowCount = Integer.parseInt(maxRowIndex);
+                rowCount++; // row indexes are zero based
+            } catch (NumberFormatException e) {
+                Debug.logWarning("Invalid value for row index found: " + maxRowIndex, module);
+            }
+        }
+        return rowCount;
+    }
 }

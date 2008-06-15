@@ -1700,10 +1700,6 @@ public class ShoppingCartEvents {
         String itemType = null;
         String itemDescription = "";
 
-        String rowCountField = null;
-        int rowCount = 0;            // number of rows of products to add
-        String DELIMITER = "_o_";    // delimiter, separating field from row number
-
         // Get the parameters as a MAP, remove the productId and quantity params.
         Map paramMap = UtilHttp.getParameterMap(request);
 
@@ -1713,24 +1709,14 @@ public class ShoppingCartEvents {
         String shoppingListId = request.getParameter("shoppingListId");
         String shoppingListItemSeqId = request.getParameter("shoppingListItemSeqId");
 
-        // try to get the rowCount information passed in from request
-        if (paramMap.containsKey("_rowCount")) {
-            rowCountField = (String) paramMap.remove("_rowCount");
-        } else {
-            Debug.logWarning("No _rowCount was passed in", ShoppingCartEvents.module);
-        }
-        try {
-            rowCount = Integer.parseInt(rowCountField);
-        } catch (NumberFormatException e) {
-            Debug.logWarning("Invalid value for rowCount =" + rowCountField, module);
-        }
-
+        // The number of multi form rows is retrieved
+        int rowCount = UtilHttp.getMultiFormRowCount(paramMap);
         if (rowCount < 1) {
             Debug.logWarning("No rows to process, as rowCount = " + rowCount, module);
         } else {
             for (int i = 0; i < rowCount; i++) {
                 controlDirective = null;                // re-initialize each time
-                String thisSuffix = DELIMITER + i;        // current suffix after each field id
+                String thisSuffix = UtilHttp.MULTI_ROW_DELIMITER + i;        // current suffix after each field id
 
                 // get the productId
                 if (paramMap.containsKey("productId" + thisSuffix)) {

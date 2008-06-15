@@ -1088,7 +1088,9 @@ public class ModelForm extends ModelWidget {
 
         formStringRenderer.renderFormatListWrapperClose(writer, context, this);
         
-        formStringRenderer.renderMultiFormClose(writer, context, this);
+        if (!skipEnd) {
+            formStringRenderer.renderMultiFormClose(writer, context, this);
+        }
 
     }
 

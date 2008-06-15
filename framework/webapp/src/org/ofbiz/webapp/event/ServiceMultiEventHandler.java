@@ -139,18 +139,8 @@ public class ServiceMultiEventHandler implements EventHandler {
         boolean checkGlobalScope = request.getParameter("_checkGlobalScope") == null ? true :
                 !"N".equalsIgnoreCase(request.getParameter("_checkGlobalScope"));
 
-        // get the number of rows
-        String rowCountField = request.getParameter("_rowCount");
-        if (rowCountField == null) {
-            throw new EventHandlerException("Required field _rowCount is missing");
-        }
-
-        int rowCount = 0; // parsed int value
-        try {
-            rowCount = Integer.parseInt(rowCountField);
-        } catch (NumberFormatException e) {
-            throw new EventHandlerException("Invalid value for _rowCount");
-        }
+        // The number of multi form rows is retrieved
+        int rowCount = UtilHttp.getMultiFormRowCount(request);
         if (rowCount < 1) {
             throw new EventHandlerException("No rows to process");
         }
