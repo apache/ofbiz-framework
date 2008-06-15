@@ -146,14 +146,14 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         return modelScreen.boundaryCommentsEnabled();
     }
     
-    public static class SectionsRenderer {
-        protected Map sectionMap;
+    @SuppressWarnings("serial")
+    public static class SectionsRenderer extends HashMap<String, Object> {
         protected ScreenStringRenderer screenStringRenderer;
         protected Map<String, Object> context;
         protected Appendable writer;
         
-        public SectionsRenderer(Map sectionMap, Map<String, Object> context, Appendable writer, ScreenStringRenderer screenStringRenderer) {
-            this.sectionMap = sectionMap;
+        public SectionsRenderer(Map<String, ? extends Object> sectionMap, Map<String, Object> context, Appendable writer, ScreenStringRenderer screenStringRenderer) {
+            this.putAll(sectionMap);
             this.context = context;
             this.writer = writer;
             this.screenStringRenderer = screenStringRenderer;
@@ -161,7 +161,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
 
         /** This is a lot like the ScreenRenderer class and returns an empty String so it can be used more easily with FreeMarker */
         public String render(String sectionName) throws GeneralException, IOException {
-            ModelScreenWidget section = (ModelScreenWidget) this.sectionMap.get(sectionName);
+            ModelScreenWidget section = (ModelScreenWidget) this.get(sectionName);
             // if no section by that name, write nothing
             if (section != null) {
                 section.renderWidgetString(this.writer, this.context, this.screenStringRenderer);
