@@ -24,7 +24,7 @@ import org.ofbiz.entity.util.EntityUtil;
 import javolution.util.FastMap;
 
 invoiceId = context.invoiceId;
-if (invoiceId) return;
+if (!invoiceId) return;
 
 List invoiceItems = [];
 invoiceItemList = delegator.findByAnd("InvoiceItem", [invoiceId : invoiceId], ["invoiceItemSeqId"]);
