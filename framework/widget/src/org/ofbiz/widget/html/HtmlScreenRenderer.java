@@ -177,7 +177,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
                 if (collapsed) {
                     writer.append("collapsed\"><a ");
                     if (javaScriptEnabled) {
-                        writer.append("onclick=\"javascript:toggleCollapsiblePanel(this, '" + collapsibleAreaId + "', '" + expandToolTip + "', '" + collapseToolTip + "');\"");
+                        writer.append("onclick=\"javascript:toggleScreenlet(this, '" + collapsibleAreaId + "', '" + expandToolTip + "', '" + collapseToolTip + "');\"");
                     } else {
                         requestParameters.put(screenlet.getPreferenceKey(context) + "_collapsed", "false");
                         String queryString = UtilHttp.urlEncodeArgs(requestParameters);
@@ -189,7 +189,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
                 } else {
                     writer.append("expanded\"><a ");
                     if (javaScriptEnabled) {
-                        writer.append("onclick=\"javascript:toggleCollapsiblePanel(this, '" + collapsibleAreaId + "', '" + expandToolTip + "', '" + collapseToolTip + "');\"");
+                        writer.append("onclick=\"javascript:toggleScreenlet(this, '" + collapsibleAreaId + "', '" + expandToolTip + "', '" + collapseToolTip + "');\"");
                     } else {
                         requestParameters.put(screenlet.getPreferenceKey(context) + "_collapsed", "true");
                         String queryString = UtilHttp.urlEncodeArgs(requestParameters);
