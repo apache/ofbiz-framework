@@ -321,7 +321,56 @@ function toggleCollapsiblePanel(link, areaId, expandTxt, collapseTxt){
     Effect.toggle(container, 'appear');
 }
 
+/** Toggle screenlet visibility on/off.
+  * @param link The <a> element calling this function
+  * @param areaId The id of the HTML container to toggle
+  * @param expandTxt Localized 'Expand' text
+  * @param collapseTxt Localized 'Collapse' text
+*/
+function toggleScreenlet(link, areaId, expandTxt, collapseTxt){
+    toggleCollapsiblePanel(link, areaId, expandTxt, collapseTxt);
+    var container = $(areaId);
+    var screenlet = container.up('div');
+    if(container.visible()){
+        var currentParam = screenlet.id + "_collapsed=false";
+        var newParam = screenlet.id + "_collapsed=true";
+    } else {
+        var currentParam = screenlet.id + "_collapsed=true";
+        var newParam = screenlet.id + "_collapsed=false";
+    }
+    var paginationMenus = $$('div.nav-pager');
+    paginationMenus.each(function(menu) {
+        if (menu) {
+            var childElements = menu.getElementsByTagName('a');
+            for (var i = 0; i < childElements.length; i++) {
+                childElements[i].href = replaceQueryParam(childElements[i].href, currentParam, newParam);
+            }
+            childElements = menu.getElementsByTagName('select');
+            for (i = 0; i < childElements.length; i++) {
+                Element.extend(childElements[i]);
+                childElements[i].writeAttribute("onchange", replaceQueryParam(childElements[i].readAttribute("onchange"), currentParam, newParam));
+            }
+        }
+    });    
+}
+
 // ===== End of Ajax Functions ===== //
+
+function replaceQueryParam(queryString, currentParam, newParam) {
+    var result = queryString.replace(currentParam, newParam);
+    if (result.indexOf(newParam) < 0) {
+        if (result.indexOf("?") < 0) {
+            result = result + "?" + newParam;
+        } else if (result.endsWith("#")) {
+            result = result.replace("#", "&" + newParam + "#");
+        } else if (result.endsWith(";")) {
+            result = result.replace(";", " + '&" + newParam + "';");
+        } else {
+            result = result + "&" + newParam;
+        }
+    }
+    return result;
+}
 
 function submitFormDisableSubmits(form) {
     for (var i=0;i<form.length;i++) {
