@@ -31,6 +31,7 @@ startParam = parameters.get("start");
 facilityId = parameters.get("facilityId");
 fixedAssetId = parameters.get("fixedAssetId");
 partyId = parameters.get("partyId");
+workEffortTypeId = parameters.get("workEffortTypeId");
 
 eventsParam = "";
 if (facilityId != null) {
@@ -41,6 +42,10 @@ if (fixedAssetId != null) {
 }
 if (partyId != null) {
     eventsParam = "partyId=" + partyId;
+}
+
+if (workEffortTypeId != null) {
+    eventsParam = "workEffortTypeId=" + workEffortTypeId;
 }
 
 start = null;
@@ -71,7 +76,7 @@ firstWeekNum = tempCal.get(Calendar.WEEK_OF_YEAR);
 context.put("firstWeekNum", new Integer(firstWeekNum));
 
 serviceCtx = UtilMisc.toMap("userLogin", userLogin, "start", getFrom,"numPeriods", new Integer(numDays), "periodType", new Integer(Calendar.DATE));
-serviceCtx.putAll(UtilMisc.toMap("partyId", partyId, "facilityId", facilityId, "fixedAssetId", fixedAssetId, "locale", locale, "timeZone", timeZone));
+serviceCtx.putAll(UtilMisc.toMap("partyId", partyId, "facilityId", facilityId, "fixedAssetId", fixedAssetId, "workEffortTypeId", workEffortTypeId, "locale", locale, "timeZone", timeZone));
 
 result = dispatcher.runSync("getWorkEffortEventsByPeriod", serviceCtx);
 

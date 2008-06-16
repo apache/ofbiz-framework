@@ -227,6 +227,7 @@ under the License.
         <attribute name="partyIds" type="java.util.Collection" mode="IN" optional="true"/>
         <attribute name="facilityId" type="String" mode="IN" optional="true"/>
         <attribute name="fixedAssetId" type="String" mode="IN" optional="true"/>
+        <attribute name="workEffortTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="start" type="java.sql.Timestamp" mode="IN" optional="false"/>
         <attribute name="numPeriods" type="java.lang.Integer" mode="IN" optional="false"/>
         <attribute name="periodType" type="java.lang.Integer" mode="IN" optional="false"/>

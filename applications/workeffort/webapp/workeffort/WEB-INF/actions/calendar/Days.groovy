@@ -30,6 +30,7 @@ String startParam = parameters.get("start");
 facilityId = parameters.get("facilityId");
 fixedAssetId = parameters.get("fixedAssetId");
 partyId = parameters.get("partyId");
+workEffortTypeId = parameters.get("workEffortTypeId");
 
 eventsParam = "";
 if (facilityId != null) {
@@ -40,6 +41,10 @@ if (fixedAssetId != null) {
 }
 if (partyId != null) {
     eventsParam = "partyId=" + partyId;
+}
+
+if (workEffortTypeId != null) {
+    eventsParam = "workEffortTypeId=" + workEffortTypeId;
 }
 
 Timestamp start = null;
@@ -56,7 +61,7 @@ Timestamp prev = UtilDateTime.getDayStart(start, -1, timeZone, locale);
 Timestamp next = UtilDateTime.getDayStart(start, 1, timeZone, locale);
 
 Map serviceCtx = UtilMisc.toMap("userLogin", userLogin,"start",start,"numPeriods",new Integer(24),"periodType",new Integer(Calendar.HOUR));
-serviceCtx.putAll(UtilMisc.toMap("partyId", partyId, "facilityId", facilityId, "fixedAssetId", fixedAssetId, "locale", locale, "timeZone", timeZone));
+serviceCtx.putAll(UtilMisc.toMap("partyId", partyId, "facilityId", facilityId, "fixedAssetId", fixedAssetId, "workEffortTypeId", workEffortTypeId, "locale", locale, "timeZone", timeZone));
 
 Map result = dispatcher.runSync("getWorkEffortEventsByPeriod",serviceCtx);
 context.put("periods",result.get("periods"));

@@ -142,6 +142,9 @@ under the License.
                                 <entity-condition entity-name="FixedAsset" list-name="allFixedAssets">
                                     <order-by field-name="fixedAssetId"/>
                                 </entity-condition>
+                                <entity-condition entity-name="WorkEffortType" list-name="allWorkEffortTypes">
+                                    <order-by field-name="description"/>
+                                </entity-condition>
                             </actions>
                             <widgets>
                                 <platform-specific>
