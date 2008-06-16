@@ -18,6 +18,7 @@
  */
  
 import org.ofbiz.entity.*;
+import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.util.*;
 
 facilityId = request.getParameter("facilityId"); 
@@ -64,12 +65,12 @@ if (returnItems) {
                     totalReceived += rejected.doubleValue();
             }
         }
-        receivedQuantities.put(thisItem.returnItemSeqId = new Double(totalReceived));
+        receivedQuantities[thisItem.returnItemSeqId] = new Double(totalReceived);
     }
 }
 
 if (returnHeader) {
-    context.receivedItems = delegator.findList("ShipmentReceipt", [returnId : returnId], null, null, null, false);
+    context.receivedItems = delegator.findList("ShipmentReceipt", EntityCondition.makeCondition("returnId", returnId), null, null, null, false);
 }
 
 // facilities
