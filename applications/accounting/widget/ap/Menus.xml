@@ -26,11 +26,11 @@ under the License.
         <menu-item name="payments" title="${uiLabelMap.AccountingPaymentsMenu}"><link target="findPayments"/></menu-item>
         <menu-item name="findVendors" title="${uiLabelMap.PartyVendor} ${uiLabelMap.CommonList}"><link target="findVendors"/></menu-item>
         <menu-item name="reports" title="${uiLabelMap.AccountingReports}"><link target="listReports"/></menu-item>
-        <menu-item name="Logout" title="${uiLabelMap.CommonLogout}" align-style="col-right" selected-style="selected">
+        <menu-item name="Logout" title="${uiLabelMap.CommonLogout}" align-style="opposed">
             <condition><not><if-empty field-name="userLogin"/></not></condition>
             <link target="logout"/>
         </menu-item>
-        <menu-item name="Login" title="${uiLabelMap.PageTitleLogin}" align-style="col-right" selected-style="selected">
+        <menu-item name="Login" title="${uiLabelMap.PageTitleLogin}" align-style="opposed">
             <condition><if-empty field-name="userLogin"/></condition>
             <link target="${checkLoginUrl}"/>
         </menu-item>
