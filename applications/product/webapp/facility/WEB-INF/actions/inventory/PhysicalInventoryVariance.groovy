@@ -17,6 +17,8 @@
  * under the License.
  */
 
+import org.ofbiz.entity.condition.EntityCondition;
+
 // get physicalInventoryAndVarianceDatas if this is a NON_SERIAL_INV_ITEM
 if (inventoryItem && "NON_SERIAL_INV_ITEM".equals(inventoryItem.inventoryItemTypeId)) {
     physicalInventoryAndVariances = delegator.findList("PhysicalInventoryAndVariance", EntityCondition.makeCondition([inventoryItemId : inventoryItemId]), null, ['-physicalInventoryDate', '-physicalInventoryId'], null, false);
