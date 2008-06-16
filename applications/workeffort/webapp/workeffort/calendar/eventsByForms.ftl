@@ -43,7 +43,7 @@ under the License.
     </form>
     <br/>
     &nbsp; 
-    <form action="<@ofbizUrl>${parameters.targetRequestUri}</@ofbizUrl>" method="post">
+    <form style="display: inline;" action="<@ofbizUrl>${parameters.targetRequestUri}</@ofbizUrl>" method="post">
       <input type="hidden" name="start" value="${start.time?string("#")}"/>
       <span class="label">${uiLabelMap.WorkEffortByFixedAsset}</span>
       <select name="fixedAssetId">
@@ -54,5 +54,17 @@ under the License.
       </select>
       <input type="submit" value="${uiLabelMap.CommonView}"/>
     </form>
+    &nbsp;|
+    <form style="display: inline;" action="<@ofbizUrl>${parameters.targetRequestUri}</@ofbizUrl>" method="post">
+      <input type="hidden" name="start" value="${start.time?string("#")}"/>
+      <span class="label">${uiLabelMap.CommonType}</span>
+      <select name="workEffortTypeId">
+        <option value=""></option>
+        <#list allWorkEffortTypes as WorkEffortType>
+          <option value="${WorkEffortType.workEffortTypeId}"<#if requestParameters.workEffortTypeId?has_content && requestParameters.workEffortTypeId == WorkEffortType.workEffortTypeId>${uiLabelMap.WorkEffortSelected}</#if>>${WorkEffortType.description}</option>
+        </#list>
+      </select>
+      <input type="submit" value="${uiLabelMap.CommonView}"/>
+    </form>    
   </div>
 </div>

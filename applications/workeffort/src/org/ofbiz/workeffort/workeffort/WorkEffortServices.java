@@ -338,9 +338,12 @@ public class WorkEffortServices {
         return resultMap;
     } 
         
-    private static List getDefaultWorkEffortExprList(Collection partyIds, String facilityId, String fixedAssetId) {
+    private static List getDefaultWorkEffortExprList(Collection partyIds, String facilityId, String fixedAssetId, String workEffortTypeId) {
         List entityExprList = UtilMisc.toList(EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "CAL_CANCELLED"), EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_CANCELLED"));
-        List typesList = UtilMisc.toList(EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, "EVENT"));
+        List typesList = FastList.newInstance();
+        if (UtilValidate.isNotEmpty(workEffortTypeId)) {
+            typesList.add(EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, workEffortTypeId));
+        }        
         if (partyIds != null && partyIds.size() > 0) {
             entityExprList.add(EntityCondition.makeCondition("partyId", EntityOperator.IN, partyIds));
         }
@@ -359,7 +362,9 @@ public class WorkEffortServices {
             entityExprList.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_CLOSED"));
         }
         EntityCondition typesCondition = null;
-        if (typesList.size() == 1) {
+        if (typesList.size() == 0) {
+            return entityExprList;
+        } else if (typesList.size() == 1) {
             typesCondition = (EntityExpr) typesList.get(0);
         } else {
             typesCondition = EntityCondition.makeCondition(typesList, EntityJoinOperator.OR);
@@ -421,6 +426,7 @@ public class WorkEffortServices {
         Collection partyIds = (Collection) context.get("partyIds");
         String facilityId = (String) context.get("facilityId");
         String fixedAssetId = (String) context.get("fixedAssetId");
+        String workEffortTypeId = (String) context.get("workEffortTypeId");
         Boolean filterOutCanceledEvents = (Boolean) context.get("filterOutCanceledEvents");
         if (filterOutCanceledEvents == null) {
             filterOutCanceledEvents = Boolean.FALSE;
@@ -467,7 +473,7 @@ public class WorkEffortServices {
 
         List entityExprList = (List) context.get("entityExprList");
         if (entityExprList == null) {
-            entityExprList = getDefaultWorkEffortExprList(partyIds, facilityId, fixedAssetId);
+            entityExprList = getDefaultWorkEffortExprList(partyIds, facilityId, fixedAssetId, workEffortTypeId);
         }
         entityExprList.add(EntityCondition.makeCondition("estimatedCompletionDate", EntityOperator.GREATER_THAN_EQUAL_TO, startStamp));
         entityExprList.add(EntityCondition.makeCondition("estimatedStartDate", EntityOperator.LESS_THAN, endStamp));

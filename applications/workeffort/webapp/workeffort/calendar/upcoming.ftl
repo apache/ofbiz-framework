@@ -26,18 +26,20 @@ under the License.
       <tr class="header-row">
         <td>${uiLabelMap.CommonStartDateTime}</td>
         <td>${uiLabelMap.CommonEndDateTime}</td>
-        <td>${uiLabelMap.WorkEffortEventName}</td>
+        <td>${uiLabelMap.CommonType}</td>
+        <td>${uiLabelMap.WorkEffortName}</td>        
       </tr>
       <#list days as day>
         <#assign workEfforts = day.calendarEntries>
         <#if workEfforts?has_content>
-          <tr class="header-row"><th colspan="3"><hr/></th></tr>
+          <tr class="header-row"><th colspan="4"><hr/></th></tr>
           <#assign alt_row = false>
           <#list workEfforts as calendarEntry>
             <#assign workEffort = calendarEntry.workEffort>
             <tr<#if alt_row> class="alternate-row"</#if>>
               <td>${workEffort.estimatedStartDate}</td>
               <td>${workEffort.estimatedStartDate}</td>
+              <td>${workEffort.getRelatedOne("WorkEffortType").get("description",locale)}</td>
               <td class="button-col"><a href="<@ofbizUrl>EditWorkEffort?workEffortId=${workEffort.workEffortId}${addlParam?if_exists}</@ofbizUrl>">${workEffort.workEffortName}</a></td>
             </tr>
             <#assign alt_row = !alt_row>
