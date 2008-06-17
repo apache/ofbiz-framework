@@ -92,7 +92,7 @@ public class CheckOutEvents {
             } catch (CartItemModifyException e) {
                 Debug.logError(e, module);
             }
-        }else if ("shippingoptions".equals(curPage) == true){
+        } else if ("shippingoptions".equals(curPage) == true) {
             //remove empty ship group
             cart.cleanUpShipGroups();
         }
