@@ -2144,7 +2144,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 if (linkText.startsWith("/")) {
                     linkText = linkText.substring(1);
                 }
-                writer.append("location.href = '" + urlPath + linkText + "' + this.value;");
+                writer.append("location.href = '" + rh.makeLink(this.request, this.response, urlPath + linkText) + "' + this.value;");
             }
             writer.append("\">");
             // actual value
