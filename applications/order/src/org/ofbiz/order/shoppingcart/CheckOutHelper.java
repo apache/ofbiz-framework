@@ -1341,7 +1341,8 @@ public class CheckOutHelper {
     public Map finalizeOrderEntryOptions(int shipGroupIndex, String shippingMethod, String shippingInstructions, String maySplit,
             String giftMessage, String isGift, String internalCode, String shipBeforeDate, String shipAfterDate) {
 
-        Map result;
+        Map result = ServiceUtil.returnSuccess();
+
         String errMsg=null;
         //Verify the shipping method is valid
         if (UtilValidate.isNotEmpty(shippingMethod)) {
@@ -1398,7 +1399,6 @@ public class CheckOutHelper {
             }
         }
 
-        result = ServiceUtil.returnSuccess();
         return result;
     }
 
