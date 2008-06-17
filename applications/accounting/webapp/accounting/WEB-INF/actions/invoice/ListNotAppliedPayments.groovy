@@ -76,7 +76,7 @@ if (payments)    {
            // put in the map
            paymentMap = [:];
            paymentMap.paymentId = payment.paymentId;
-           paymentMap.effectiveDate = payment.effectiveDate.substring(0,10); // list as YYYY-MM-DD
+           paymentMap.effectiveDate = payment.effectiveDate; // list as YYYY-MM-DD
            paymentMap.amount = payment.amount;
            paymentMap.currencyUomId = payment.currencyUomId;
            paymentMap.amountApplied = PaymentWorker.getPaymentAppliedBd(payment);

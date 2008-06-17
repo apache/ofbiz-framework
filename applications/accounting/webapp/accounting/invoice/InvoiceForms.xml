@@ -422,7 +422,7 @@ under the License.
         <field name="invoiceId"><hidden/></field>
         <field name="paymentId" widget-style="buttontext"><hyperlink target="paymentOverview?paymentId=${paymentId}" description="[${paymentId}]"/></field>
         <field name="amount"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="effectiveDate"><display/></field>
+        <field name="effectiveDate"><display type="date"/></field>
         <field name="amountApplied" parameter-name="dummy"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="amountToApply" parameter-name="amountApplied"><text size="10"/></field>
         <field name="applyButton" widget-style="smallSubmit">
