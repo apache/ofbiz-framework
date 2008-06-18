@@ -288,4 +288,10 @@ under the License.
         <attribute name="refundAmount" type="Double" mode="IN" optional="false"/>
         <attribute name="paymentId" type="String" mode="OUT" optional="false"/>
     </service>
+
+    <service name="createReturnItemShipment" engine="simple"
+            location="org/ofbiz/order/order/OrderReturnServices.xml" invoke="createReturnItemShipment">
+        <description>Create a new ReturnItemShipment</description>
+        <auto-attributes entity-name="ReturnItemShipment" include="all" mode="IN" optional="false"/>
+    </service>
 </services>

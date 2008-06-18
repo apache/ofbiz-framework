@@ -880,4 +880,13 @@ under the License.
         <set field="inMap.returnTypeId" value="RTN_REPAIR_REPLACE"/>
         <call-service service-name="processReplacementReturn" in-map-name="inMap"/>
     </simple-method>
+
+    <simple-method method-name="createReturnItemShipment" short-description="Create a ReturnItemShipment">
+        <check-permission permission="ORDERMGR" action="_CREATE"><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateReturnItemShipment"/></check-permission>
+        <check-errors/>
+        <make-value value-name="newEntity" entity-name="ReturnItemShipment"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>
+    </simple-method>
 </simple-methods>

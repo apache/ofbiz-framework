@@ -65,21 +65,13 @@ under the License.
     </tr>    
 </#macro>
 
-<#assign selected = tabButtonItem?default("void")>
 
-<div class="button-bar tab-bar">
-    <ul>
-        <li<#if selected="OrderReturnHeader"> class="selected"</#if>><a href="<@ofbizUrl>returnMain?returnId=${returnId?if_exists}</@ofbizUrl>">${uiLabelMap.OrderReturnHeader}</a></li>
-        <li<#if selected="OrderReturnItems"> class="selected"</#if>><a href="<@ofbizUrl>returnItems?returnId=${returnId?if_exists}</@ofbizUrl>">${uiLabelMap.OrderReturnItems}</a></li>
-    </ul>
-    <br/>
-</div>
-<div>
-    <a href="<@ofbizUrl>return.pdf?returnId=${returnId?if_exists}</@ofbizUrl>" class="buttontext">PDF</a>
     <#if returnHeader?has_content && returnHeader.destinationFacilityId?has_content && returnHeader.statusId == "RETURN_ACCEPTED">
-      <a href="/facility/control/ReceiveReturn?facilityId=${returnHeader.destinationFacilityId}&returnId=${returnHeader.returnId?if_exists}${externalKeyParam}" class="buttontext">${uiLabelMap.OrderReturnReceive}</a>
+      <#list returnShipmentIds as returnShipmentId>
+        <a href="/facility/control/ViewShipment?shipmentId=${returnShipmentId.shipmentId}${externalKeyParam}" class="buttontext">${uiLabelMap.ProductShipmentId} ${returnShipmentId.shipmentId}</a>
+        <a href="/facility/control/ReceiveReturn?facilityId=${returnHeader.destinationFacilityId}&returnId=${returnHeader.returnId?if_exists}&shipmentId=${returnShipmentId.shipmentId}${externalKeyParam}" class="buttontext">${uiLabelMap.OrderReceiveReturn}</a>
+      </#list>
     </#if>
-</div>
 
 <div class="screenlet">
     <div class="screenlet-title-bar">
@@ -143,6 +135,7 @@ under the License.
               <#assign returnReason = item.getRelatedOne("ReturnReason")?if_exists>
               <#assign returnType = item.getRelatedOne("ReturnType")?if_exists>
               <#assign status = item.getRelatedOne("InventoryStatusItem")?if_exists>
+              <#assign shipmentReceipts = item.getRelated("ShipmentReceipt")?if_exists>
               <#if (item.get("returnQuantity")?exists && item.get("returnPrice")?exists)>
                  <#assign returnTotal = returnTotal + item.get("returnQuantity") * item.get("returnPrice") >
                  <#assign returnItemSubTotal = item.get("returnQuantity") * item.get("returnPrice") >
@@ -175,7 +168,12 @@ under the License.
                     <#else>
                         <input name="returnQuantity_o_${rowCount}" value="${item.returnQuantity}" type="text" size="8" align="right">
                     </#if>
-                    <#if item.receivedQuantity?exists> (${item.receivedQuantity} received)</#if>
+                    <#if item.receivedQuantity?exists>
+                    <br/>Received: ${item.receivedQuantity}
+                        <#list shipmentReceipts?if_exists as shipmentReceipt>
+                            <br/>Qty: ${shipmentReceipt.quantityAccepted}, ${shipmentReceipt.datetimeReceived}, <a href="/facility/control/EditInventoryItem?inventoryItemId=${shipmentReceipt.inventoryItemId}" class="buttontext">${shipmentReceipt.inventoryItemId}</a>
+                        </#list>
+                    </#if>
                     </div></td>
                 <td><div>
                     <#if readOnly>
