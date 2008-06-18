@@ -19,6 +19,8 @@
  
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.*;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.order.order.OrderReadHelper;
 import java.math.BigDecimal;
 
@@ -83,3 +85,9 @@ if (orderId != null) {
 
 partyOrders = delegator.findByAnd("OrderHeaderAndRoles", UtilMisc.toMap("roleTypeId", "PLACING_CUSTOMER", "partyId", returnHeader.getString("fromPartyId")), UtilMisc.toList("orderId"));
 context.put("partyOrders", partyOrders);
+
+// get the list of return shipments associated to the return
+EntityFindOptions findOptions = new EntityFindOptions();
+findOptions.setDistinct(true);
+List returnShipmentIds = delegator.findList("ReturnItemShipment", EntityCondition.makeCondition("returnId", returnId), UtilMisc.toSet("shipmentId"), null, findOptions, true);
+context.put("returnShipmentIds", returnShipmentIds);

@@ -108,6 +108,15 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute name="shipmentId" type="String" mode="OUT" optional="false"/>
     </service>
+    <service name="createShipmentAndItemsForReturn" default-entity-name="ReturnHeader" engine="simple"
+            location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="createShipmentAndItemsForReturn">
+        <description>Create a Return Shipment and ShipmentItems with information from ReturnHeader and ReturnItems</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="FACILITY" action="_CREATE"/>
+        </required-permissions>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <attribute name="shipmentId" type="String" mode="OUT" optional="false"/>
+    </service>
     
     <service name="createShipment" default-entity-name="Shipment" engine="simple"
             location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="createShipment" auth="true">

@@ -16,29 +16,6 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#assign selected = tabButtonItem?default("void")>
-
-<#if returnHeader?exists>
-<div class="button-bar tab-bar">
-    <ul>
-        <li<#if selected="OrderReturnHeader"> class="selected"</#if>><a href="<@ofbizUrl>returnMain?returnId=${returnId?if_exists}</@ofbizUrl>">${uiLabelMap.OrderReturnHeader}</a></li>
-        <li<#if selected="OrderReturnItems"> class="selected"</#if>><a href="<@ofbizUrl>returnItems?returnId=${returnId?if_exists}<#if requestParameters.orderId?exists>&orderId=${requestParameters.orderId}</#if></@ofbizUrl>">${uiLabelMap.OrderReturnItems}</a></li>
-    </ul>
-    <br/>
-</div>
-<div>
-    <a href="<@ofbizUrl>return.pdf?returnId=${returnId?if_exists}</@ofbizUrl>" class="buttontext">PDF</a>
-    <#if returnHeader?has_content && returnHeader.destinationFacilityId?has_content && returnHeader.statusId == "RETURN_ACCEPTED">
-      <a href="/facility/control/ReceiveReturn?facilityId=${returnHeader.destinationFacilityId}&returnId=${returnHeader.returnId?if_exists}${externalKeyParam}" class="buttontext">${uiLabelMap.OrderReceiveReturn}</a>
-    </#if>
-</div>
-<#else>
-  <h1>${uiLabelMap.OrderCreateNewReturn}</h1>
-  <#if requestParameters.returnId?has_content>
-    <h2>${uiLabelMap.OrderNoReturnFoundWithId} : ${requestParameters.returnId}</h2>
-  </#if>
-  <br/>
-</#if>
 
 <div class="screenlet">
     <div class="screenlet-title-bar">
@@ -179,7 +156,7 @@ under the License.
                   </#if>
                 </select>
               <#else>
-                <input type='text' size='20' name='paymentMethodId'>
+                <input type='text' size='20' name='paymentMethodId' value="${returnHeader?if_exists.paymentMethodId?if_exists}"/>
               </#if>
               <#if (returnHeader.fromPartyId)?has_content>
                 <a href="/partymgr/control/editcreditcard?partyId=${returnHeader.fromPartyId}${externalKeyParam}" target="partymgr" class="smallSubmit">${uiLabelMap.AccountingCreateNewCreditCard}</a>

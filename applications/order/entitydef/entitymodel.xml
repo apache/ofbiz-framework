@@ -2529,6 +2529,33 @@ under the License.
         <key-map field-name="shipmentReceiptId" rel-field-name="receiptId"/>
       </relation>
     </entity>
+    <entity entity-name="ReturnItemShipment"
+            package-name="org.ofbiz.order.return"
+            title="Return Item And Shipment Association Entity">
+      <field name="returnId" type="id-ne"></field>
+      <field name="returnItemSeqId" type="id-ne"></field>
+      <field name="shipmentId" type="id-ne"></field>
+      <field name="shipmentItemSeqId" type="id-ne"></field>
+      <field name="quantity" type="floating-point"></field>
+      <prim-key field="returnId"/>
+      <prim-key field="returnItemSeqId"/>
+      <prim-key field="shipmentId"/>
+      <prim-key field="shipmentItemSeqId"/>
+      <relation type="one" fk-name="RIT_SHPMT_RHDR" rel-entity-name="ReturnHeader">
+        <key-map field-name="returnId"/>
+      </relation>
+      <relation type="one" fk-name="RIT_SHPMT_RITM" rel-entity-name="ReturnItem">
+        <key-map field-name="returnId"/>
+        <key-map field-name="returnItemSeqId"/>
+      </relation>
+      <relation type="one" fk-name="RIT_SHPMT_SHPMT" rel-entity-name="Shipment">
+        <key-map field-name="shipmentId"/>
+      </relation>
+      <relation type="one" fk-name="RIT_SHPMT_SHPITM" rel-entity-name="ShipmentItem">
+        <key-map field-name="shipmentId"/>
+        <key-map field-name="shipmentItemSeqId"/>
+      </relation>
+    </entity>
 
   <!-- ========================================================= -->
   <!-- org.ofbiz.order.shoppingcart -->

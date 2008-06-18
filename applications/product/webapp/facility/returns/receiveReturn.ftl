@@ -71,7 +71,10 @@ under the License.
               <#else>
                 <tr>
                   <td>
-                    <h3>${uiLabelMap.ProductReceiveReturn} <a href="/ordermgr/control/returnMain?returnId=${returnHeader.returnId}${externalKeyParam?if_exists}" class="buttontext">#${returnHeader.returnId}</a></h3>
+                    <h3>
+                      ${uiLabelMap.ProductReceiveReturn} <a href="/ordermgr/control/returnMain?returnId=${returnHeader.returnId}${externalKeyParam?if_exists}" class="buttontext">#${returnHeader.returnId}</a>
+                      <#if parameters.shipmentId?has_content>${uiLabelMap.ProductShipmentId} <a href="<@ofbizUrl>ViewShipment?shipmentId=${parameters.shipmentId}</@ofbizUrl>" class="buttontext">${parameters.shipmentId}</a></#if>
+                    </h3>
                   </td>
                   <td align="right">
                     ${uiLabelMap.ProductSelectAll}&nbsp;
@@ -86,6 +89,7 @@ under the License.
                   <#assign orderItemType = (orderItem.getRelatedOne("OrderItemType"))?if_exists>
                   <input type="hidden" name="returnId_o_${rowCount}" value="${returnItem.returnId}">
                   <input type="hidden" name="returnItemSeqId_o_${rowCount}" value="${returnItem.returnItemSeqId}"> 
+                  <input type="hidden" name="shipmentId_o_${rowCount}" value="${parameters.shipmentId?if_exists}">
                   <input type="hidden" name="facilityId_o_${rowCount}" value="${requestParameters.facilityId?if_exists}">       
                   <input type="hidden" name="datetimeReceived_o_${rowCount}" value="${now}">
                   <input type="hidden" name="quantityRejected_o_${rowCount}" value="0">         

@@ -177,6 +177,7 @@ under the License.
     <eca service="updateReturnHeader" event="commit">
         <condition field-name="statusId" operator="equals" value="RETURN_ACCEPTED"/>
         <condition field-name="currentStatusId" operator="not-equals" value="RETURN_ACCEPTED"/>
+        <action service="createShipmentAndItemsForReturn" mode="sync"/>
         <action service="processCrossShipReplacementReturn" mode="sync"/>
         <action service="createTrackingCodeOrderReturns" mode="sync" run-as-user="system"/>
         <action service="sendReturnAcceptNotification" mode="async" persist="true"/>

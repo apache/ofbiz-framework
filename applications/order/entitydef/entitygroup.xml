@@ -177,6 +177,7 @@ under the License.
     <entity-group group="org.ofbiz" entity="ReturnStatus" />
     <entity-group group="org.ofbiz" entity="ReturnType" />            
     <entity-group group="org.ofbiz" entity="ReturnItemBilling" />
+    <entity-group group="org.ofbiz" entity="ReturnItemShipment" />
 
     <!-- ========================================================= -->
     <!-- org.ofbiz.order.shoppingcart -->
