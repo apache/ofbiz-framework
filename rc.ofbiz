@@ -25,6 +25,7 @@
 # description: OFBiz server
 
 # Source function library
+# this does not exist in Debian/Ubuntu/etc. => use "echo failure" and "echo success" in place of echo_failure and echo_success (minor anyway)  
 . /etc/rc.d/init.d/functions
 
 # Source networking configuration
@@ -33,7 +34,7 @@
 # Paths - Edit for your locations
 JAVA_BINARY=/usr/java/j2sdk1.4.2/bin/java
 OFBIZ_HOME=/home/ofbiz/ofbiz
-OFBIZ_LOG=$OFBIZ_HOME/logs/console.log
+OFBIZ_LOG=$OFBIZ_HOME/runtime/logs/console.log
 
 # VM Options
 JAVA_VMOPTIONS=-Xmx128M
