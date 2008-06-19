@@ -83,6 +83,13 @@ under the License.
     </service>
 
     <service name="testSoap" engine="soap" export="true"
+            location="http://localhost:8080/webtools/control/SOAPService" invoke="testScv">
+        <description>Test SOAP service; calls the OFBiz test service</description>
+        <attribute name="message" type="String" mode="IN" optional="true"/>
+        <attribute name="resp" type="String" mode="OUT"/>
+    </service>
+
+    <service name="testRemoteSoap" engine="soap" export="true"
             location="http://nagoya.apache.org:5049/axis/servlet/AxisServlet" invoke="echoString">
         <description>Test SOAP service; calls echoString service on Axis server</description>
         <namespace>http://soapinterop.org/</namespace>
