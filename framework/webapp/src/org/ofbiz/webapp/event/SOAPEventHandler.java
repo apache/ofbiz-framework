@@ -35,6 +35,7 @@ import javax.wsdl.WSDLException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.base.util.StringOutputStream;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
@@ -149,7 +150,8 @@ public class SOAPEventHandler implements EventHandler {
             throw new EventHandlerException("Problems with the AXIS server", e);
         }
         MessageContext mctx = new MessageContext(axisServer);
-
+        mctx.setEncodingStyle(Constants.URI_LITERAL_ENC); // sets the response encoding
+        
         // get the SOAP message
         Message msg = null;
 
@@ -164,6 +166,16 @@ public class SOAPEventHandler implements EventHandler {
         if (msg == null) {
             sendError(response, "No message");
             throw new EventHandlerException("SOAP Message is null");
+        }
+
+        // log the request message
+        if (Debug.verboseOn()) {
+            try {
+                StringOutputStream out = new StringOutputStream();
+                msg.writeTo(out);
+                Debug.logInfo("Request Message:\n" + out.toString() + "\n", module);
+            } catch (Throwable t) {
+            }
         }
 
         mctx.setRequestMessage(msg);
@@ -261,6 +273,16 @@ public class SOAPEventHandler implements EventHandler {
         if (msg == null) {
             sendError(response, "No response message available");
             throw new EventHandlerException("No response message available");
+        }
+
+        // log the response message
+        if (Debug.verboseOn()) {
+            try {
+                StringOutputStream out = new StringOutputStream();
+                msg.writeTo(out);
+                Debug.log("Response Message:\n" + out.toString() + "\n", module);
+            } catch (Throwable t) {
+            }
         }
 
         try {            

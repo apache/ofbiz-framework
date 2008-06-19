@@ -118,8 +118,8 @@ public final class SOAPClientEngine extends GenericAsyncEngine {
         for (ModelParam p: inModelParamList) {
             if (Debug.infoOn()) Debug.logInfo("[SOAPClientEngine.invoke} : Parameter: " + p.name + " (" + p.mode + ") - " + i, module);
             
-            //Exclude params that ModelServiceReader insert into
-            if(!p.name.trim().equals("userLogin") && !p.name.trim().equals("locale")) {
+            // exclude params that ModelServiceReader insert into (internal params)
+            if (!p.internal) {
                 QName qName = call.getParameterTypeByName(p.name); //.getTypeMapping().getTypeQName((Class) ObjectType.classNameClassMap.get(p.type));
                 call.addParameter(p.name, qName, getMode(p.mode));
                 vParams.add(context.get(p.name));
