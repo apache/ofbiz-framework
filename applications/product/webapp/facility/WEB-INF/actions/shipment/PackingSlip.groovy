@@ -19,6 +19,7 @@
 
 // This script gets shipment items grouped by package for use in the packing slip PDF or any screens that require by-package layout
 
+import org.ofbiz.base.util.*;
 import org.ofbiz.entity.condition.*;
 
 // Since this script is run after ViewShipment, we will re-use the shipment in the context
