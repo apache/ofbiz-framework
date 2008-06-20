@@ -25,10 +25,12 @@
 # description: OFBiz server
 
 # Source function library
-# this does not exist in Debian/Ubuntu/etc. => use "echo failure" and "echo success" in place of echo_failure and echo_success (minor anyway)  
+# this does not exist in Debian/Ubuntu/etc. 
+# => comment out and use "echo failure" and "echo success" in place of echo_failure and echo_success (minor anyway)  
 . /etc/rc.d/init.d/functions
 
 # Source networking configuration
+# this does not exist in Debian/Ubuntu/etc. => comment out  
 . /etc/sysconfig/network
 
 # Paths - Edit for your locations
@@ -122,6 +124,8 @@ stop() {
 }
 
 # If root is running this script, su to $OFBIZ_USER first
+# Note that under Debian/Ubuntu/etc. you should use instead 
+# if [ "$USER" = "root" ]; then
 if [ "$UID" = "0" ]; then
     exec su - $OFBIZ_USER -c "$0 $1"
 fi
