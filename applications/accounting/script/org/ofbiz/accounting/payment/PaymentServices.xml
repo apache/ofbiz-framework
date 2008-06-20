@@ -295,7 +295,6 @@ under the License.
                     </calculate>
                 <else>
                     <set field="invoicePaymentInfo.paidAmount" from-field="remainingAppliedAmount" type="BigDecimal"/>
-                    <set field="" from-field="remainingAppliedAmount" type="BigDecimal"/>
                     <set field="remainingAppliedAmount" value="0.0" type="BigDecimal"/>
                 </else>
                 </if-compare-field>
@@ -304,6 +303,7 @@ under the License.
                         <calcop field-name="invoicePaymentInfo.paidAmount" operator="get"/>
                     </calcop>
                 </calculate>
+        <set field="invoicePaymentInfoList[]" from-field="invoicePaymentInfo"/>
             </if-compare>
         </iterate>
         <if>
@@ -343,9 +343,9 @@ under the License.
                         <calcop field-name="invoicePaymentInfo.paidAmount" operator="get"/>
                     </calcop>
                 </calculate>
+                <set field="invoicePaymentInfoList[]" from-field="invoicePaymentInfo"/>
             </then>
         </if>
-        <set field="invoicePaymentInfoList[]" from-field="invoicePaymentInfo"/>
         <field-to-result field-name="invoicePaymentInfoList" result-name="invoicePaymentInfoList"/>
     </simple-method>
 
