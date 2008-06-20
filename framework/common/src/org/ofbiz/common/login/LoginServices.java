@@ -64,10 +64,22 @@ public class LoginServices {
      * @return Map of results including (userLogin) GenericValue object
      */
     public static Map userLogin(DispatchContext ctx, Map context) {
-        Map result = FastMap.newInstance();
-        GenericDelegator delegator = ctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
 
+        // Authenticate to LDAP if configured to do so
+        if ("true".equals(UtilProperties.getPropertyValue("security", "security.ldap.enable"))) {
+            if (!LdapAuthenticationServices.userLogin(ctx, context)) {
+                String errMsg = UtilProperties.getMessage(resource, "loginservices.ldap_authentication_failed", locale);
+                if ("true".equals(UtilProperties.getPropertyValue("security", "security.ldap.fail.login"))) {
+                    return ServiceUtil.returnError(errMsg);
+                } else {
+                    Debug.logInfo(errMsg, module);
+                }
+            }
+        }
+        
+        Map result = FastMap.newInstance();
+        GenericDelegator delegator = ctx.getDelegator();
         boolean useEncryption = "true".equals(UtilProperties.getPropertyValue("security.properties", "password.encrypt"));
 
         // if isServiceAuth is not specified, default to not a service auth
@@ -743,6 +755,9 @@ public class LoginServices {
         }
         if (context.containsKey("successiveFailedLogins")) {
             userLoginToUpdate.set("successiveFailedLogins", context.get("successiveFailedLogins"), true);
+        }
+        if (context.containsKey("userLdapDn")) {
+            userLoginToUpdate.set("userLdapDn", context.get("userLdapDn"), true);
         }
 
         // if was disabled and we are enabling it, clear disabledDateTime
