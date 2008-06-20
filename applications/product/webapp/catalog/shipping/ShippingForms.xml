@@ -47,7 +47,7 @@
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListShipmentMethodTypes" target="" title="" type="list"  list-name="shipmentMethodTypes"
-        paginate-target="ListQuantityBreaks" odd-row-style="alternate-row" default-table-style="basic-table">
+        paginate-target="ListShipmentMethodTypes" odd-row-style="alternate-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="ShipmentMethodType" default-field-type="display"/>
         <field name="shipmentMethodTypeId" widget-style="buttontext">
             <hyperlink target="ListShipmentMethodTypes?shipmentMethodTypeId=${shipmentMethodTypeId}" description="${shipmentMethodTypeId}" also-hidden="false"/>
@@ -64,7 +64,7 @@
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListCarrierShipmentMethods" target="" title="" type="list"  list-name="carrierShipmentMethods"
-        paginate-target="ListQuantityBreaks" odd-row-style="alternate-row" default-table-style="basic-table">
+        paginate-target="ListCarrierShipmentMethods" odd-row-style="alternate-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="CarrierShipmentMethod" default-field-type="display"/>
         <field name="shipmentMethodTypeId"><display-entity also-hidden="false" entity-name="ShipmentMethodType"/></field>
         <field name="roleTypeId"><display-entity also-hidden="false" entity-name="RoleType"/></field>
