@@ -48,6 +48,7 @@ import org.ofbiz.order.shoppingcart.CheckOutHelper;
 import org.ofbiz.order.shoppingcart.ItemNotFoundException;
 import org.ofbiz.order.shoppingcart.ShoppingCart;
 import org.ofbiz.order.shoppingcart.ShoppingCartItem;
+import org.ofbiz.order.shoppingcart.product.ProductPromoWorker;
 import org.ofbiz.order.shoppingcart.shipping.ShippingEvents;
 import org.ofbiz.party.contact.ContactHelper;
 import org.ofbiz.party.party.PartyWorker;
@@ -3278,7 +3279,7 @@ public class OrderServices {
 
                 // set quantity
                 try {
-                    cartItem.setQuantity(qty.doubleValue(), dispatcher, cart, true, false); // trigger external ops, don't reset ship groups (and update prices for both PO and SO items)
+                    cartItem.setQuantity(qty.doubleValue(), dispatcher, cart, false, false); // trigger external ops, don't reset ship groups (and update prices for both PO and SO items)
                 } catch (CartItemModifyException e) {
                     Debug.logError(e, module);
                     return ServiceUtil.returnError(e.getMessage());
@@ -3359,6 +3360,9 @@ public class OrderServices {
             }
         }
 
+        // run promotions to handle all changes in the cart
+        ProductPromoWorker.doPromotions(cart, dispatcher);
+        
         // save all the updated information
         try {
             saveUpdatedCartToOrder(dispatcher, delegator, cart, locale, userLogin, orderId, UtilMisc.toMap("itemReasonMap", itemReasonMap, "itemCommentMap", itemCommentMap));

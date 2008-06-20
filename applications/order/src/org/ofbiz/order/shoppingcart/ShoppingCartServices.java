@@ -303,6 +303,12 @@ public class ShoppingCartServices {
                 if (quantity != null) {
                     quantityDbl = quantity.doubleValue();
                 }
+                
+                Double unitPrice = null;
+                if ("Y".equals(item.getString("isModifiedPrice"))) {
+                    unitPrice = item.getDouble("unitPrice");
+                }
+                
                 int itemIndex = -1;
                 if (item.get("productId") == null) {
                     // non-product item
@@ -310,7 +316,7 @@ public class ShoppingCartServices {
                     String desc = item.getString("itemDescription");
                     try {
                         // TODO: passing in null now for itemGroupNumber, but should reproduce from OrderItemGroup records
-                        itemIndex = cart.addNonProductItem(itemType, desc, null, null, quantity.doubleValue(), null, null, null, dispatcher);
+                        itemIndex = cart.addNonProductItem(itemType, desc, null, unitPrice, quantity.doubleValue(), null, null, null, dispatcher);
                     } catch (CartItemModifyException e) {
                         Debug.logError(e, module);
                         return ServiceUtil.returnError(e.getMessage());
@@ -366,9 +372,7 @@ public class ShoppingCartServices {
                         configWrapper = ProductConfigWorker.loadProductConfigWrapper(delegator, dispatcher, configId, productId, productStoreId, prodCatalogId, website, currency, locale, userLogin);
                     }                     
                     try {
-                    
-                               itemIndex = cart.addItemToEnd(productId, amount, quantityDbl, null, reservStart, reservLength, reservPersons,accommodationMapId,accommodationSpotId, null, null, prodCatalogId, configWrapper, item.getString("orderItemTypeId"), dispatcher, null, null, skipInventoryChecks, skipProductChecks);
-                    
+                        itemIndex = cart.addItemToEnd(productId, amount, quantityDbl, unitPrice, reservStart, reservLength, reservPersons,accommodationMapId,accommodationSpotId, null, null, prodCatalogId, configWrapper, item.getString("orderItemTypeId"), dispatcher, null, unitPrice == null ? null : false, skipInventoryChecks, skipProductChecks);
                     } catch (ItemNotFoundException e) {
                         Debug.logError(e, module);
                         return ServiceUtil.returnError(e.getMessage());
@@ -394,8 +398,6 @@ public class ShoppingCartServices {
                 cartItem.setShipAfterDate(item.getTimestamp("shipAfterDate"));
                 cartItem.setShoppingList(item.getString("shoppingListId"), item.getString("shoppingListItemSeqId"));
                 cartItem.setIsModifiedPrice("Y".equals(item.getString("isModifiedPrice")));
-                if(cartItem.getIsModifiedPrice())
-                    cartItem.setBasePrice(item.getDouble("unitPrice").doubleValue());
                 
                 // set the PO number on the cart
                 cart.setPoNumber(item.getString("correspondingPoId"));
