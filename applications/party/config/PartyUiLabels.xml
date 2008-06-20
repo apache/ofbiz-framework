@@ -1045,6 +1045,7 @@
     </property>
     <property key="FormFieldTitle_userLdapDn">
         <value xml:lang="en">LDAP Distinguished Name</value>
+        <value xml:lang="fr">Nom LDAP distinct</value>
     </property>
     <property key="FormFieldTitle_userLoginId">
         <value xml:lang="en">User Login Id</value>
