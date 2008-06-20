@@ -138,6 +138,8 @@ under the License.
         <description>Create a list with information on payment due dates and amounts.</description>
         <attribute name="invoiceTypeId" type="String" mode="IN" optional="false"/>
         <attribute name="daysOffset" type="Long" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="partyIdFrom" type="String" mode="IN" optional="true"/>
         <attribute name="invoicePaymentInfoList" type="List" mode="OUT" optional="true"/>
     </service>
 </services>
