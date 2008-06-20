@@ -1043,6 +1043,9 @@
         <value xml:lang="th">ผลรวมของปีที่มีประสบการณ์การทำงาน</value>
         <value xml:lang="zh">工作经历年数合计</value>
     </property>
+    <property key="FormFieldTitle_userLdapDn">
+        <value xml:lang="en">LDAP Distinguished Name</value>
+    </property>
     <property key="FormFieldTitle_userLoginId">
         <value xml:lang="en">User Login Id</value>
         <value xml:lang="fr">Utilisateur de connexion</value>

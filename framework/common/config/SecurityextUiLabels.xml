@@ -611,4 +611,7 @@
         <value xml:lang="th">มันจะไม่สามารถใช้ได้อีกครั้ง ${reEnableTime}.</value>
         <value xml:lang="zh">将重新启用 ${reEnableTime}。</value>
     </property>
+    <property key="loginservices.ldap_authentication_failed">
+        <value xml:lang="en">LDAP authentication failed.</value>
+    </property>
 </resource>
