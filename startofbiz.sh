@@ -34,7 +34,7 @@ ADMIN="-Dofbiz.admin.port=$ADMIN_PORT -Dofbiz.admin.key=$ADMIN_KEY"
 #automatic IP address for linux
 #IPADDR=`/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'`
 #RMIIF="-Djava.rmi.server.hostname=$IPADDR"
-MEMIF="-Xms128M -Xmx256M -Duser.language=en"
+MEMIF="-Xms128M -Xmx512M -Duser.language=en"
 VMARGS="$MEMIF $DEBUG $RMIIF $ADMIN"
 
 # Worldpay Config
