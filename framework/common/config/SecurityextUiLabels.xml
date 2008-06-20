@@ -613,5 +613,6 @@
     </property>
     <property key="loginservices.ldap_authentication_failed">
         <value xml:lang="en">LDAP authentication failed.</value>
+        <value xml:lang="fr">L'authentification LDAP a échouée.</value>
     </property>
 </resource>
