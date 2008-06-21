@@ -3618,7 +3618,7 @@
     <property key="OrderNewRequest">
         <value xml:lang="en">New Request</value>
         <value xml:lang="es">Nueva petición</value>
-        <value xml:lang="fr">Nouvelle requête</value>
+        <value xml:lang="fr">Nouvelle demande</value>
         <value xml:lang="it">Nuova Richiesta</value>
         <value xml:lang="nl">Nieuwe aanvraag</value>
         <value xml:lang="ro">Noua Cerere </value>
@@ -3630,7 +3630,7 @@
     <property key="OrderNewRequestItem">
         <value xml:lang="en">New Request Item</value>
         <value xml:lang="es">Nuevo pedido de ítem</value>
-        <value xml:lang="fr">Nouvelle requête d'article</value>
+        <value xml:lang="fr">Nouvelle demande d'article</value>
         <value xml:lang="it">Nuova Riga Richiesta</value>
         <value xml:lang="nl">Nieuwe aanvraag item</value>
         <value xml:lang="ro">Noua Linie Cerere</value>
