@@ -290,10 +290,10 @@ public class FlexibleStringExpander implements Serializable {
                         buffer.append(scriptResult);
                     }
                 } else {
-                    Debug.logWarning("BSH scriplet evaluated to null [" + scriptlet + "], got no return so inserting nothing.", module);
+                    Debug.logWarning("BSH scriptlet evaluated to null [" + scriptlet + "], got no return so inserting nothing.", module);
                 }
             } catch (EvalError e) {
-                Debug.logWarning(e, "Error evaluating BSH scriplet [" + scriptlet + "], inserting nothing; error was: " + e.toString(), module);
+                Debug.logWarning(e, "Error evaluating BSH scriptlet [" + scriptlet + "], inserting nothing; error was: " + e.toString(), module);
             }
         }
     }
@@ -407,7 +407,7 @@ public class FlexibleStringExpander implements Serializable {
         }
 
         public void handleBsh(String original, int start, int end) {
-            //run the scriplet and append the result
+            //run the scriptlet and append the result
             String scriptlet = original.substring(start, end);
             try {
                 Object scriptResult = BshUtil.eval(scriptlet, UtilMisc.makeMapWritable(context));
@@ -418,10 +418,10 @@ public class FlexibleStringExpander implements Serializable {
                         targetBuffer.append(scriptResult);
                     }
                 } else {
-                    Debug.logWarning("BSH scriplet evaluated to null [" + scriptlet + "], got no return so inserting nothing.", module);
+                    Debug.logWarning("BSH scriptlet evaluated to null [" + scriptlet + "], got no return so inserting nothing.", module);
                 }
             } catch (EvalError e) {
-                Debug.logWarning(e, "Error evaluating BSH scriplet [" + scriptlet + "], inserting nothing; error was: " + e.toString(), module);
+                Debug.logWarning(e, "Error evaluating BSH scriptlet [" + scriptlet + "], inserting nothing; error was: " + e.toString(), module);
             }
         }
     }

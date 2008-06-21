@@ -46,7 +46,7 @@ under the License.
         <field name="fromDate"><display/></field>
         <field name="thruDate"><display/></field>
         <field name="partyId"><display/></field>
-        <field name="roleTypeId"><display-entity entity-name="RoleType"/></field>
+        <field name="roleTypeId" title="${uiLabelMap.AccountingRoleType}"><display-entity entity-name="RoleType"/></field>
     </form>
 
     <form name="ListBillingAccountInvoices" type="list" list-name="billingAccountInvoices" paginate-target="BillingAccountInvoices" default-entity-name="Invoice"
@@ -100,7 +100,7 @@ under the License.
     <form name="EditBillingAccount" type="single" target="updateBillingAccount" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
-            <set field="availableBalance" value="${bsh:org.ofbiz.accounting.payment.BillingAccountWorker.getBillingAccountBalance(billingAccount)}" type="BigDecimal"/>
+            <set field="availableBalance" value="${bsh:billingAccount != null ? org.ofbiz.accounting.payment.BillingAccountWorker.getBillingAccountBalance(billingAccount) : 0}" type="BigDecimal"/>
         </actions>
         <alt-target use-when="billingAccount==null" target="createBillingAccount"/>
         <auto-fields-service service-name="updateBillingAccount" map-name="billingAccount"/>
