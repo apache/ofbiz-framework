@@ -38,25 +38,14 @@ under the License.
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
             </actions>
             <widgets>
-               <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
-                <decorator-section name="body">
-                    <container style="screenlet">
-                        <container style="screenlet-title-bar">
-                            <container style="h3">
-                                <label text="${uiLabelMap.PageTitleLookupSegmentGroup}"/>
-                            </container>
-                        </container>
-                        <container style="screenlet-body">
-                            <section>
-                                <widgets>
-                                    <include-form name="LookupSegmentGroup" location="component://marketing/webapp/marketing/lookup/LookupForms.xml"/>
-                                    <include-form name="listLookupSegmentGroup" location="component://marketing/webapp/marketing/lookup/LookupForms.xml"/>
-                                </widgets>
-                            </section>
-                        </container>
-                    </container>
-                </decorator-section>
-              </decorator-screen>
+                <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="search-options">
+                        <include-form name="LookupSegmentGroup" location="component://marketing/webapp/marketing/lookup/LookupForms.xml"/>
+                    </decorator-section>
+                    <decorator-section name="search-results">
+                        <include-form name="listLookupSegmentGroup" location="component://marketing/webapp/marketing/lookup/LookupForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
             </widgets>
         </section>
     </screen>
@@ -76,22 +65,11 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
-                    <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleLookupSalesForecast}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="LookupSalesForecast" location="component://marketing/webapp/marketing/lookup/LookupForms.xml"/>
-                                        <include-form name="ListLookupSalesForecast" location="component://marketing/webapp/marketing/lookup/LookupForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                    <decorator-section name="search-options">
+                        <include-form name="LookupSalesForecast" location="component://marketing/webapp/marketing/lookup/LookupForms.xml"/>
+                    </decorator-section>
+                    <decorator-section name="search-results">
+                        <include-form name="ListLookupSalesForecast" location="component://marketing/webapp/marketing/lookup/LookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

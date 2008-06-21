@@ -36,22 +36,11 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
-                    <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.AccountingLookupPayment}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="lookupPayment" location="component://accounting/webapp/accounting/lookup/FieldLookupForms.xml" />
-                                        <include-form name="listPayment" location="component://accounting/webapp/accounting/lookup/FieldLookupForms.xml" />
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>                        
+                    <decorator-section name="search-options">
+                        <include-form name="lookupPayment" location="component://accounting/webapp/accounting/lookup/FieldLookupForms.xml" />
+                    </decorator-section>
+                    <decorator-section name="search-results">
+                        <include-form name="listPayment" location="component://accounting/webapp/accounting/lookup/FieldLookupForms.xml" />
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -73,22 +62,11 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
-                    <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.AccountingLookupInvoices}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="lookupInvoice" location="component://accounting/webapp/accounting/lookup/FieldLookupForms.xml" />
-                                        <include-form name="listInvoice" location="component://accounting/webapp/accounting/lookup/FieldLookupForms.xml" />
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>                        
+                    <decorator-section name="search-options">
+                        <include-form name="lookupInvoice" location="component://accounting/webapp/accounting/lookup/FieldLookupForms.xml" />
+                    </decorator-section>
+                    <decorator-section name="search-results">
+                        <include-form name="listInvoice" location="component://accounting/webapp/accounting/lookup/FieldLookupForms.xml" />
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -108,22 +86,11 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
-                    <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleLookupFixedAsset}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="lookupFixedAsset" location="component://accounting/webapp/accounting/lookup/FieldLookupForms.xml" />
-                                        <include-form name="listLookupFixedAsset" location="component://accounting/webapp/accounting/lookup/FieldLookupForms.xml" />
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>                        
+                    <decorator-section name="search-options">
+                        <include-form name="lookupFixedAsset" location="component://accounting/webapp/accounting/lookup/FieldLookupForms.xml" />
+                    </decorator-section>
+                    <decorator-section name="search-results">
+                        <include-form name="listLookupFixedAsset" location="component://accounting/webapp/accounting/lookup/FieldLookupForms.xml" />
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -147,22 +114,11 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
-                    <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleLookupBillingAccount}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="lookupBillingAccount" location="component://accounting/webapp/accounting/lookup/FieldLookupForms.xml"/>
-                                        <include-form name="listBillingAccount" location="component://accounting/webapp/accounting/lookup/FieldLookupForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>                        
+                    <decorator-section name="search-options">
+                        <include-form name="lookupBillingAccount" location="component://accounting/webapp/accounting/lookup/FieldLookupForms.xml"/>
+                    </decorator-section>
+                    <decorator-section name="search-results">
+                        <include-form name="listBillingAccount" location="component://accounting/webapp/accounting/lookup/FieldLookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -185,22 +141,11 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
-                    <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleLookupGlAccount}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="lookupGlAccount" location="component://accounting/webapp/accounting/lookup/FieldLookupForms.xml" />
-                                        <include-form name="listLookupGlAccount" location="component://accounting/webapp/accounting/lookup/FieldLookupForms.xml" />
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                    <decorator-section name="search-options">
+                        <include-form name="lookupGlAccount" location="component://accounting/webapp/accounting/lookup/FieldLookupForms.xml" />
+                    </decorator-section>
+                    <decorator-section name="search-results">
+                        <include-form name="listLookupGlAccount" location="component://accounting/webapp/accounting/lookup/FieldLookupForms.xml" />
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -221,22 +166,11 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
-                    <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.AccountingLookupAgreement}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="lookupAgreement" location="component://accounting/webapp/accounting/lookup/FieldLookupForms.xml"/>
-                                        <include-form name="listAgreements" location="component://accounting/webapp/accounting/lookup/FieldLookupForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>                        
+                    <decorator-section name="search-options">
+                        <include-form name="lookupAgreement" location="component://accounting/webapp/accounting/lookup/FieldLookupForms.xml"/>
+                    </decorator-section>
+                    <decorator-section name="search-results">
+                        <include-form name="listAgreements" location="component://accounting/webapp/accounting/lookup/FieldLookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -257,22 +191,11 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
-                    <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.AccountingLookupAgreementItem}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="lookupAgreementItem" location="component://accounting/webapp/accounting/lookup/FieldLookupForms.xml" />
-                                        <include-form name="listAgreementItems" location="component://accounting/webapp/accounting/lookup/FieldLookupForms.xml" />
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>                        
+                    <decorator-section name="search-options">
+                        <include-form name="lookupAgreementItem" location="component://accounting/webapp/accounting/lookup/FieldLookupForms.xml" />
+                    </decorator-section>
+                    <decorator-section name="search-results">
+                        <include-form name="listAgreementItems" location="component://accounting/webapp/accounting/lookup/FieldLookupForms.xml" />
                     </decorator-section>
                 </decorator-screen>
             </widgets>

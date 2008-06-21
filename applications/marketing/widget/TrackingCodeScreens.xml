@@ -396,22 +396,11 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
-                    <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleLookupVisit}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="LookupVisit" location="component://marketing/webapp/marketing/trackingcode/TrackingCodeForms.xml"/>
-                                        <include-form name="ListLookupVisit" location="component://marketing/webapp/marketing/trackingcode/TrackingCodeForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                    <decorator-section name="search-options">
+                        <include-form name="LookupVisit" location="component://marketing/webapp/marketing/trackingcode/TrackingCodeForms.xml"/>
+                    </decorator-section>
+                    <decorator-section name="search-results">
+                        <include-form name="ListLookupVisit" location="component://marketing/webapp/marketing/trackingcode/TrackingCodeForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -428,22 +417,11 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
-                    <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleLookupTrackingCode}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="LookupTrackingCode" location="component://marketing/webapp/marketing/trackingcode/TrackingCodeForms.xml"/>
-                                        <include-form name="ListLookupTrackingCode" location="component://marketing/webapp/marketing/trackingcode/TrackingCodeForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                    <decorator-section name="search-options">
+                        <include-form name="LookupTrackingCode" location="component://marketing/webapp/marketing/trackingcode/TrackingCodeForms.xml"/>
+                    </decorator-section>
+                    <decorator-section name="search-results">
+                        <include-form name="ListLookupTrackingCode" location="component://marketing/webapp/marketing/trackingcode/TrackingCodeForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -552,22 +530,11 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
-                    <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleLookupTrackingCodeType}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="LookupTrackingCodeType" location="component://marketing/webapp/marketing/trackingcode/TrackingCodeForms.xml"/>
-                                        <include-form name="ListLookupTrackingCodeType" location="component://marketing/webapp/marketing/trackingcode/TrackingCodeForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                    <decorator-section name="search-options">
+                        <include-form name="LookupTrackingCodeType" location="component://marketing/webapp/marketing/trackingcode/TrackingCodeForms.xml"/>
+                    </decorator-section>
+                    <decorator-section name="search-results">
+                        <include-form name="ListLookupTrackingCodeType" location="component://marketing/webapp/marketing/trackingcode/TrackingCodeForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

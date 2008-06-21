@@ -36,21 +36,8 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
-                    <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleLookupListLayout}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="lookupListLayout" location="component://content/webapp/content/lookup/LookupForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                    <decorator-section name="search-results">
+                        <include-form name="lookupListLayout" location="component://content/webapp/content/lookup/LookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -72,22 +59,11 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
-                    <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleLookupSubContent}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="lookupDataResourceContent" location="component://content/webapp/content/lookup/LookupForms.xml"/>
-                                        <include-form name="listLookupDataResourceContent" location="component://content/webapp/content/lookup/LookupForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                    <decorator-section name="search-options">
+                        <include-form name="lookupDataResourceContent" location="component://content/webapp/content/lookup/LookupForms.xml"/>
+                    </decorator-section>
+                    <decorator-section name="search-results">
+                        <include-form name="listLookupDataResourceContent" location="component://content/webapp/content/lookup/LookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

@@ -37,22 +37,11 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
-                    <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleLookupWorkEffort}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="lookupWorkEffort" location="component://workeffort/widget/LookupForms.xml"/>
-                                        <include-form name="listLookupWorkEffort" location="component://workeffort/widget/LookupForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                    <decorator-section name="search-options">
+                        <include-form name="lookupWorkEffort" location="component://workeffort/widget/LookupForms.xml"/>
+                    </decorator-section>
+                    <decorator-section name="search-results">
+                        <include-form name="listLookupWorkEffort" location="component://workeffort/widget/LookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -76,22 +65,11 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
-                    <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleLookupTimesheet}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="lookupTimesheet" location="component://workeffort/widget/LookupForms.xml"/>
-                                        <include-form name="listLookupTimesheet" location="component://workeffort/widget/LookupForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                    <decorator-section name="search-options">
+                        <include-form name="lookupTimesheet" location="component://workeffort/widget/LookupForms.xml"/>
+                    </decorator-section>
+                    <decorator-section name="search-results">
+                        <include-form name="listLookupTimesheet" location="component://workeffort/widget/LookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -115,22 +93,11 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
-                    <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleLookupWorkEffort}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="lookupWorkEffortShort" location="component://workeffort/widget/LookupForms.xml"/>
-                                        <include-form name="listLookupWorkEffort" location="component://workeffort/widget/LookupForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                    <decorator-section name="search-options">
+                        <include-form name="lookupWorkEffortShort" location="component://workeffort/widget/LookupForms.xml"/>
+                    </decorator-section>
+                    <decorator-section name="search-results">
+                        <include-form name="listLookupWorkEffort" location="component://workeffort/widget/LookupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
