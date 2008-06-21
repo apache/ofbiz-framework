@@ -71,7 +71,9 @@ public class EntityCrypto {
     /** Encrypts a String into an encrypted hex encoded byte array */
     public String encrypt(String keyName, Object obj) throws EntityCryptoException {
         try {
-            return StringUtil.toHexString(DesCrypt.encrypt(this.getKey(keyName), UtilObject.getBytes(obj)));
+            byte[] encryptedBytes = DesCrypt.encrypt(this.getKey(keyName), UtilObject.getBytes(obj));
+            String hexString = StringUtil.toHexString(encryptedBytes);
+            return hexString;
         } catch (GeneralException e) {
             throw new EntityCryptoException(e);
         }
@@ -80,7 +82,15 @@ public class EntityCrypto {
     /** Decrypts a hex encoded byte array into a String */
     public Object decrypt(String keyName, String str) throws EntityCryptoException {
         try {
-            return UtilObject.getObject(DesCrypt.decrypt(this.getKey(keyName), StringUtil.fromHexString(str)));
+            byte[] encryptedBytes = StringUtil.fromHexString(str);
+            byte[] decryptedBytes = DesCrypt.decrypt(this.getKey(keyName), encryptedBytes);
+            if (encryptedBytes.equals(decryptedBytes)) {
+                // try using the old/bad hex encoding approach
+                encryptedBytes = StringUtil.fromHexStringOldFunnyVariety(str);
+                decryptedBytes = DesCrypt.decrypt(this.getKey(keyName), encryptedBytes);
+            }
+            
+            return UtilObject.getObject(decryptedBytes);
         } catch (GeneralException e) {
             throw new EntityCryptoException(e);
         }
