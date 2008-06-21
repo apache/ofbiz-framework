@@ -2645,7 +2645,7 @@
     </property>
     <property key="WorkEffortNewRequest">
         <value xml:lang="en">New  Request</value>
-        <value xml:lang="fr">Nouvelle requête</value>
+        <value xml:lang="fr">Nouvelle demande</value>
         <value xml:lang="th">การร้องขอใหม่</value>
     </property>
     <property key="WorkEffortNewRequirement">
