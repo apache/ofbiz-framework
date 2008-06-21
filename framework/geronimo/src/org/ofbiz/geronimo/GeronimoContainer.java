@@ -21,7 +21,7 @@ package org.ofbiz.geronimo;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import org.apache.geronimo.transaction.context.TransactionContextManager;
+import org.apache.geronimo.transaction.manager.GeronimoTransactionManager;
 import org.ofbiz.base.container.Container;
 import org.ofbiz.base.container.ContainerConfig;
 import org.ofbiz.base.container.ContainerException;
@@ -35,7 +35,6 @@ public class GeronimoContainer implements Container {
     public static final String module = GeronimoContainer.class.getName();
 
     protected String configFile = null;
-    protected TransactionContextManager geronimoTcm = null;
 
     /**
      * @see org.ofbiz.base.container.Container#init(java.lang.String[], java.lang.String)
@@ -58,15 +57,12 @@ public class GeronimoContainer implements Container {
 
         //String carolPropName = ContainerConfig.getPropertyValue(cc, "jndi-config", "iiop.properties");
 
-        // start Geronimo
-        this.geronimoTcm = new TransactionContextManager();
-
         // bind UserTransaction and TransactionManager to JNDI
         try {
             InitialContext ic = new InitialContext();
             // TODO: for some reason this is not working, throwing an error: java.lang.IllegalArgumentException: RegistryContext: object to bind must be Remote, Reference, or Referenceable
-            ic.rebind("java:comp/UserTransaction", this.geronimoTcm.getTransactionManager());
-        } catch (NamingException e) {
+            ic.rebind("java:comp/UserTransaction", new GeronimoTransactionManager());
+        } catch (Exception e) {
             throw new ContainerException("Unable to bind UserTransaction/TransactionManager to JNDI", e);
         }
 

@@ -26,13 +26,11 @@ import javax.transaction.TransactionManager;
 import javax.transaction.UserTransaction;
 import javax.transaction.xa.XAException;
 
-import org.apache.geronimo.transaction.ExtendedTransactionManager;
-import org.apache.geronimo.transaction.context.GeronimoTransactionManager;
-import org.apache.geronimo.transaction.context.TransactionContextManager;
 import org.apache.geronimo.transaction.log.UnrecoverableLog;
+import org.apache.geronimo.transaction.manager.GeronimoTransactionManager;
 import org.apache.geronimo.transaction.manager.TransactionLog;
-import org.apache.geronimo.transaction.manager.TransactionManagerImpl;
-import org.apache.geronimo.transaction.manager.XidImporter;
+import org.apache.geronimo.transaction.manager.XidFactory;
+import org.apache.geronimo.transaction.manager.XidFactoryImpl;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.config.DatasourceInfo;
@@ -47,9 +45,6 @@ public class GeronimoTransactionFactory implements TransactionFactoryInterface {
 
     public static final String module = GeronimoTransactionFactory.class.getName();        
     
-    // just use the transactionManager for this private static XidImporter xidImporter;
-    private static ExtendedTransactionManager transactionManager;
-    private static TransactionContextManager transactionContextManager;
     private static int defaultTransactionTimeoutSeconds = 60;
     private static TransactionLog transactionLog;
     private static Collection resourceManagers = null;
@@ -59,9 +54,7 @@ public class GeronimoTransactionFactory implements TransactionFactoryInterface {
         // creates an instance of Geronimo transaction context, etc with a local transaction factory which is not bound to a registry
         try {
             transactionLog = new UnrecoverableLog();
-            transactionManager = new TransactionManagerImpl(defaultTransactionTimeoutSeconds, transactionLog, resourceManagers);
-            transactionContextManager = new TransactionContextManager(transactionManager, (XidImporter) transactionManager);
-            geronimoTransactionManager = new GeronimoTransactionManager(transactionContextManager);
+            geronimoTransactionManager = new GeronimoTransactionManager(defaultTransactionTimeoutSeconds, (XidFactory)new XidFactoryImpl(), transactionLog);
         } catch (XAException e) {
             Debug.logError(e, "Error initializing Geronimo transaction manager: " + e.toString(), module);
         }
@@ -98,9 +91,11 @@ public class GeronimoTransactionFactory implements TransactionFactoryInterface {
     
     public void shutdown() {
         ConnectionFactory.closeAllManagedConnections();
+        /*
         if (transactionContextManager != null) {
             // TODO: need to do anything for this?
             transactionContextManager = null;
-        }           
+        }
+        */          
     }
 }
