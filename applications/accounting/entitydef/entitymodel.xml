@@ -90,6 +90,9 @@ under the License.
       <field name="justification" type="long-varchar"></field>
       <prim-key field="budgetId"/>
       <prim-key field="budgetItemSeqId"/>
+      <relation type="one" fk-name="BDGTITM_TO_BDGT" rel-entity-name="Budget">
+        <key-map field-name="budgetId"/>
+      </relation>       
       <relation type="one" fk-name="BUDGET_ITEM_BTYP" rel-entity-name="BudgetItemType">
         <key-map field-name="budgetItemTypeId"/>
       </relation>
