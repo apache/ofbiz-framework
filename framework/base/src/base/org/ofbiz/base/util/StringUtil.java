@@ -352,7 +352,23 @@ public class StringUtil {
             throw new GeneralRuntimeException(e);
         }
     }
+    
+    public static byte[] fromHexStringOldFunnyVariety(String str) {
+        str = cleanHexString(str);
+        int stringLength = str.length();
+        if ((stringLength & 0x1) != 0) {
+            throw new IllegalArgumentException("fromHexString requires an even number of hex characters");
+        }
+        byte[] b = new byte[stringLength / 2];
 
+        for (int i = 0, j = 0; i < stringLength; i+= 2, j++) {
+            int high = convertChar(str.charAt(i));
+            int low = convertChar(str.charAt(i+1));
+            b[j] = (byte) ((high << 4) | low);
+        }
+        return b;
+    }
+    
     private static char[] hexChar = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
     public static int convertChar(char c) {
         if ( '0' <= c && c <= '9' ) {
