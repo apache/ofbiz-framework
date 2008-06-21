@@ -1184,17 +1184,15 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
 
     public void renderFormatListWrapperOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
 
-        String queryString = null;
-        if (UtilValidate.isNotEmpty((String)context.get("queryString"))) {
-            queryString = (String)context.get("queryString");
-        } else {
-            Map<String, Object> inputFields = UtilGenerics.checkMap(context.get("requestParameters"));
-            // strip out any multi form fields if the form is of type multi
-            if (modelForm.getType().equals("multi")) {
-                inputFields = UtilHttp.removeMultiFormParameters(inputFields);
-            }
-            queryString = UtilHttp.urlEncodeArgs(inputFields);
+        Map<String, Object> inputFields = UtilGenerics.checkMap(context.get("requestParameters"));
+        Map<String, Object> queryStringMap = UtilGenerics.toMap(context.get("queryStringMap"));
+        if (UtilValidate.isNotEmpty(queryStringMap)) {
+            inputFields.putAll(queryStringMap);
         }
+        if (modelForm.getType().equals("multi")) {
+            inputFields = UtilHttp.removeMultiFormParameters(inputFields);
+        }
+        String queryString = UtilHttp.urlEncodeArgs(inputFields);
         context.put("_QBESTRING_", queryString);
 
         renderBeginningBoundaryComment(writer, "Form Widget", modelForm);
