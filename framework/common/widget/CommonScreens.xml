@@ -198,7 +198,7 @@ under the License.
                         <decorator-section-include name="body"/>
                     </widgets>
                     <fail-widgets>
-                        <screenlet title="${title}" name="findScreenlet" collapsible="true" padded="false">
+                        <screenlet title="${title}" id="findScreenlet" collapsible="true" padded="false">
                             <decorator-section-include name="search-options"/>
                         </screenlet>
                         <screenlet>
