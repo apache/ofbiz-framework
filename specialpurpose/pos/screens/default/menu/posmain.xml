@@ -36,19 +36,19 @@ under the License.
         <Button name="SKU.WG-5569" x="510" y="62" w="100" h="60" style="skuButtonWidget" content="WIDGET 1" alignment="Center"/>
 
         <!-- line 3 -->
-        <Button name="SKU.GC-001-C10" x="0" y="124" w="100" h="60" style="skuButtonGiftCard" content="GIFT CARD 1" alignment="Center"/>
-        <Button name="SKU.GC-001-C100" x="102" y="124" w="100" h="60" style="skuButtonGiftCard" content="GC-C100" alignment="Center"/>
-        <Button name="SKU.GC-001-C25" x="204" y="124" w="100" h="60" style="skuButtonGiftCard" content="GC-C25" alignment="Center"/>
-        <Button name="SKU.GC-001-C50" x="306" y="124" w="100" h="60" style="skuButtonGiftCard" content="GC-C50" alignment="Center"/>
-        <Button name="SKU.GC-001-CO" x="408" y="124" w="100" h="60" style="skuButtonGiftCard" content="GC-CO" alignment="Center"/>
-        <Button name="SKU.GZ-1000" x="510" y="124" w="100" h="60" style="skuButtonGizmo" content="GZ-1000" alignment="Center"/>
+        <Button name="" x="0" y="124" w="100" h="60" style="posButton" content="" alignment="Center"/>
+        <Button name="" x="102" y="124" w="100" h="60" style="posButton" content="" alignment="Center"/>
+        <Button name="" x="204" y="124" w="100" h="60" style="posButton" content="" alignment="Center"/>
+        <Button name="" x="306" y="124" w="100" h="60" style="posButton" content="" alignment="Center"/>
+        <Button name="" x="408" y="124" w="100" h="60" style="posButton" content="" alignment="Center"/>
+        <Button name="" x="510" y="124" w="100" h="60" style="posButton" content="" alignment="Center"/>
 
         <!-- line 4 -->
-        <Button name="SKU.GC-001-H10" x="0" y="186" w="100" h="60" style="skuButtonGiftCard" content="GC-H10" alignment="Center"/>
-        <Button name="SKU.GC-001-H100" x="102" y="186" w="100" h="60" style="skuButtonGiftCard" content="GC-H100" alignment="Center"/>
-        <Button name="SKU.GC-001-H25" x="204" y="186" w="100" h="60" style="skuButtonGiftCard" content="GC-H125" alignment="Center"/>
-        <Button name="SKU.GC-001-H50" x="306" y="186" w="100" h="60" style="skuButtonGiftCard" content="GC-H50" alignment="Center"/>
-        <Button name="SKU.GC-001-HO" x="408" y="186" w="100" h="60" style="skuButtonGiftCard" content="GC-HO" alignment="Center"/>
+        <Button name="" x="0" y="186" w="100" h="60" style="posButton" content="" alignment="Center"/>
+        <Button name="" x="102" y="186" w="100" h="60" style="posButton" content="" alignment="Center"/>
+        <Button name="" x="204" y="186" w="100" h="60" style="posButton" content="" alignment="Center"/>
+        <Button name="" x="306" y="186" w="100" h="60" style="posButton" content="" alignment="Center"/>
+        <Button name="" x="408" y="186" w="100" h="60" style="posButton" content="" alignment="Center"/>
         <Button name="SKU.GZ-DIG" x="510" y="186" w="100" h="60" style="skuButtonGizmo" content="GZ-DIG" alignment="Center"/>
 
         <!-- line 5 -->
