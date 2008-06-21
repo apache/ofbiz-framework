@@ -679,6 +679,7 @@ public class ComponentConfig {
         public String[] basePermission;
         public String position;        
         public boolean appBarDisplay;
+        public boolean sessionCookieAccepted;
 
         public WebappInfo(ComponentConfig componentConfig, Element element) {
         	this.virtualHosts = FastList.newInstance();
@@ -691,6 +692,7 @@ public class ComponentConfig {
             this.mountPoint = element.getAttribute("mount-point");
             this.location = element.getAttribute("location");
             this.appBarDisplay = !"false".equals(element.getAttribute("app-bar-display"));
+            this.sessionCookieAccepted = !"false".equals(element.getAttribute("session-cookie-accepted"));
             String basePermStr = element.getAttribute("base-permission");
             if (UtilValidate.isNotEmpty(basePermStr)) {
                 this.basePermission = basePermStr.split(",");
@@ -793,6 +795,10 @@ public class ComponentConfig {
 
         public Map<String, String> getInitParameters() {
             return initParameters;
+        }
+        
+        public boolean isSessionCookieAccepted() {
+            return sessionCookieAccepted;
         }
     }
 }

@@ -509,6 +509,9 @@ public class CatalinaContainer implements Container {
         context.setJ2EEApplication(J2EE_APP);
         context.setJ2EEServer(J2EE_SERVER);
         context.setLoader(embedded.createLoader(ClassLoaderContainer.getClassLoader()));
+        
+        context.setCookies(appInfo.isSessionCookieAccepted());
+        context.addParameter("cookies", appInfo.isSessionCookieAccepted() ? "true" : "false");
 
         context.setDisplayName(appInfo.name);
         context.setDocBase(location);
