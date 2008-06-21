@@ -92,7 +92,15 @@ public class EntityCrypto {
             
             return UtilObject.getObject(decryptedBytes);
         } catch (GeneralException e) {
-            throw new EntityCryptoException(e);
+            try {
+                // try using the old/bad hex encoding approach; this is another path the code may take, ie if there is an exception thrown in decrypt
+                byte[] encryptedBytes = StringUtil.fromHexStringOldFunnyVariety(str);
+                byte[] decryptedBytes = DesCrypt.decrypt(this.getKey(keyName), encryptedBytes);
+                return UtilObject.getObject(decryptedBytes);
+            } catch (GeneralException e1) {
+                // NOTE: this throws the original exception back, not the new one if it fails using the other approach
+                throw new EntityCryptoException(e);
+            }
         }
     }
 
