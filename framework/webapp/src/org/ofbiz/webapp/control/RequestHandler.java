@@ -809,7 +809,7 @@ public class RequestHandler implements Serializable {
 
         String encodedUrl;
         if (encode) {
-            boolean forceManualJsessionid = false;
+            boolean forceManualJsessionid = "false".equals(getServletContext().getInitParameter("cookies")) ? true : false;
             boolean isSpider = false;
             
             // if the current request comes from a spider, we will not add the jsessionid to the link
