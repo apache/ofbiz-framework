@@ -21,11 +21,14 @@ under the License.
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
+    <!-- list all examples in a tabular format -->
     <screen name="FindExample">
         <section>
             <actions>
                 <set field="headerItem" value="Example"/>
                 <set field="titleProperty" value="PageTitleFindExample"/>
+                <set field="exampleCtx" from-field="parameters"/>
+                <set field="noConditionFind" value="Y"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -35,9 +38,17 @@ under the License.
                                 <if-has-permission permission="EXAMPLE" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <container style="h1"><label>${uiLabelMap.${titleProperty}}</label></container>
-                                <container style="button-bar"><link target="EditExample" text="${uiLabelMap.ExampleNewExample}" style="buttontext"/></container>
-                                <include-form name="ListExamples" location="component://example/widget/example/ExampleForms.xml"/>
+                                <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                                    <decorator-section name="menu-bar">
+                                        <container style="button-bar"><link target="EditExample" text="${uiLabelMap.ExampleNewExample}" style="buttontext"/></container>
+                                    </decorator-section>
+                                    <decorator-section name="search-options">
+                                        <include-form name="FindExamples" location="component://example/widget/example/ExampleForms.xml"/>
+                                    </decorator-section>
+                                    <decorator-section name="search-results">
+                                        <include-form name="ListExamples" location="component://example/widget/example/ExampleForms.xml"/>
+                                    </decorator-section>
+                                </decorator-screen>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.ExampleViewPermissionError}</label>

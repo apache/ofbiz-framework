@@ -21,12 +21,20 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
-    <form name="ListExampleFeatures" type="list"  list-name="examples"
-        paginate-target="FindExampleFeature">
+    <form name="FindExampleFeatures" type="single" target="FindExampleFeature" default-entity-name="ExampleFeature" default-field-type="find">
+        <field name="exampleFeatureId" title="${uiLabelMap.ExampleExampleFeatureId}"><text-find/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><text-find/></field>
+        <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+
+    <form name="ListExampleFeatures" type="list" list-name="listIt" paginate-target="FindExampleFeature" default-entity-name="ExampleFeature"
+        separate-columns="true" odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-condition entity-name="ExampleFeature">
-                <order-by field-name="description"/>
-            </entity-condition>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="exampleFeatureCtx"/>
+                <field-map field-name="entityName" value="ExampleFeature"/>
+            </service>
         </actions>
         <field name="exampleFeatureId" title="${uiLabelMap.ExampleExampleFeatureId}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${exampleFeatureId}" target="EditExampleFeature?exampleFeatureId=${exampleFeatureId}"/>
