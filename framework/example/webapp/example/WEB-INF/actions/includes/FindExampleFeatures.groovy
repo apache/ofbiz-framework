@@ -25,6 +25,7 @@ import org.ofbiz.entity.condition.EntityFieldValue;
 import org.ofbiz.entity.condition.EntityFunction;
 import org.ofbiz.entity.condition.EntityOperator;
 
+delegator = request.getAttribute("delegator");
 
 andExprs = [];
 fieldValue = request.getParameter("exampleFeatureId");
