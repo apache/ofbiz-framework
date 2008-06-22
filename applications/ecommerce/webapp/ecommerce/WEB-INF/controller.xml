@@ -343,7 +343,7 @@ under the License.
         <security https="true" auth="false"/>
         <response name="success" type="view" value="optionsetting"/>
     </request-map>
-	
+
     <request-map uri="processShipOptions">
         <security https="true" auth="false"/>
         <event type="simple" path="org/ofbiz/ecommerce/customer/CustomerEvents.xml" invoke="processShipOptions"/>
@@ -671,7 +671,7 @@ under the License.
     </request-map>
 
     <!-- this request chain is for calculating shipping & tax before getting to the payments page, so that the visitor
-    	will know the full shipping & tax charges when trying to split payments between various payment methods -->
+         will know the full shipping & tax charges when trying to split payments between various payment methods -->
     <request-map uri="calcShippingBeforePayment">
         <security direct-request="false"/>
         <event type="java" path="org.ofbiz.order.shoppingcart.shipping.ShippingEvents" invoke="getShipEstimate"/>
@@ -1607,7 +1607,7 @@ under the License.
     <view-map name="shipsetting" type="screen" page="component://ecommerce/widget/OrderScreens.xml#shipsettings"/>
     <view-map name="optionsetting" type="screen" page="component://ecommerce/widget/OrderScreens.xml#optionsettings"/>
     <view-map name="paymentoptions" type="screen" page="component://ecommerce/widget/OrderScreens.xml#paymentoptions"/>
-	<view-map name="paymentinformation" type="screen" page="component://ecommerce/widget/OrderScreens.xml#paymentinformation"/>
+    <view-map name="paymentinformation" type="screen" page="component://ecommerce/widget/OrderScreens.xml#paymentinformation"/>
 
     <view-map name="quickcheckout" type="screen" page="component://ecommerce/widget/OrderScreens.xml#checkoutoptions"/>
     <view-map name="checkoutshippingaddress" type="screen" page="component://ecommerce/widget/OrderScreens.xml#checkoutshippingaddress"/>
@@ -1631,7 +1631,7 @@ under the License.
     <view-map name="quickAnonOrderItems" type="screen" page="component://ecommerce/widget/OrderScreens.xml#quickAnonOrderItems"/>    
     <view-map name="quickAnonCcInfo" type="screen" page="component://ecommerce/widget/OrderScreens.xml#quickAnonCcInfo"/>
     <view-map name="quickAnonGcInfo" type="screen" page="component://ecommerce/widget/OrderScreens.xml#quickAnonGcInfo"/>
-    <view-map name="quickAnonEftInfo" type="screen" page="component://ecommerce/widget/OrderScreens.xml#quickAnonEftInfo"/>	
+    <view-map name="quickAnonEftInfo" type="screen" page="component://ecommerce/widget/OrderScreens.xml#quickAnonEftInfo"/>
 
     <!-- Customer Info Views -->
     <view-map name="survey" type="screen" page="component://ecommerce/widget/CustomerScreens.xml#survey"/>
