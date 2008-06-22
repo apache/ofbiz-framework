@@ -21,9 +21,34 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
-    <form name="ListExamples" type="list" list-name="examples" paginate-target="FindExample">
+    <form name="FindExamples" type="single" target="FindExample" default-entity-name="Example" default-field-type="find">
+        <field name="exampleId" title="${uiLabelMap.ExampleExampleId}"><text-find/></field>
+        <field name="exampleName" title="${uiLabelMap.CommonName}"><text-find/></field>
+        <field name="exampleTypeId" title="${uiLabelMap.CommonType}">
+            <drop-down allow-empty="true" current-description="">
+                <entity-options description="${description}" key-field-name="exampleTypeId" entity-name="ExampleType">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}">
+            <drop-down allow-empty="true" current-description="">
+                <entity-options description="${description}" key-field-name="statusId" entity-name="StatusItem">
+                    <entity-constraint name="statusTypeId" operator="equals" value="EXAMPLE_STATUS"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <form name="ListExamples" type="list" list-name="listIt" paginate-target="FindExample" default-entity-name="Example" separate-columns="true"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-condition entity-name="Example"><order-by field-name="exampleName"/></entity-condition>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="exampleCtx"/>
+                <field-map field-name="entityName" value="Example"/>
+            </service>
         </actions>
         <field name="exampleId" title="${uiLabelMap.ExampleExampleId}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${exampleId}" target="EditExample?exampleId=${exampleId}"/>
