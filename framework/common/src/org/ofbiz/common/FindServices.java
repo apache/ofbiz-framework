@@ -32,6 +32,7 @@ import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -400,6 +401,10 @@ public class FindServices {
             // try finding in inputFields Map
             noConditionFind = (String) inputFields.get("noConditionFind");
         }
+        if (UtilValidate.isEmpty(noConditionFind)) {
+            // Use configured default
+            noConditionFind = UtilProperties.getPropertyValue("widget", "widget.defaultNoConditionFind");
+        }
         String filterByDate = (String) context.get("filterByDate");
         if (UtilValidate.isEmpty(filterByDate)) {
             // try finding in inputFields Map
@@ -450,6 +455,10 @@ public class FindServices {
         if (UtilValidate.isEmpty(noConditionFind)) {
             // try finding in inputFields Map
             noConditionFind = (String) inputFields.get("noConditionFind");
+        }
+        if (UtilValidate.isEmpty(noConditionFind)) {
+            // Use configured default
+            noConditionFind = UtilProperties.getPropertyValue("widget", "widget.defaultNoConditionFind");
         }
         String filterByDate = (String) context.get("filterByDate");
         if (UtilValidate.isEmpty(filterByDate)) {
