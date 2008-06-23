@@ -89,6 +89,7 @@ public class HashCrypt {
     }
     
     public static String getDigestHashOldFunnyHexEncode(String str, String hashType) {
+        if (UtilValidate.isEmpty(hashType)) hashType = "SHA";
         if (str == null) return null;
         try {
             MessageDigest messagedigest = MessageDigest.getInstance(hashType);

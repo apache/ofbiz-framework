@@ -59,7 +59,7 @@ public class EntityCrypto {
                 if (size == 0) {
                     for (int i = 0; i < 20; i++) {
                         String randomName = this.getRandomString();
-                        this.getKeyFromStore(randomName);
+                        this.getKeyFromStore(randomName, false);
                     }
                 }
             } catch (GenericEntityException e) {
@@ -68,10 +68,10 @@ public class EntityCrypto {
         }
     }
 
-    /** Encrypts a String into an encrypted hex encoded byte array */
+    /** Encrypts an Object into an encrypted hex encoded String */
     public String encrypt(String keyName, Object obj) throws EntityCryptoException {
         try {
-            byte[] encryptedBytes = DesCrypt.encrypt(this.getKey(keyName), UtilObject.getBytes(obj));
+            byte[] encryptedBytes = DesCrypt.encrypt(this.getKey(keyName, false), UtilObject.getBytes(obj));
             String hexString = StringUtil.toHexString(encryptedBytes);
             return hexString;
         } catch (GeneralException e) {
@@ -79,47 +79,51 @@ public class EntityCrypto {
         }
     }
 
-    /** Decrypts a hex encoded byte array into a String */
-    public Object decrypt(String keyName, String str) throws EntityCryptoException {
+    /** Decrypts a hex encoded String into an Object */
+    public Object decrypt(String keyName, String encryptedString) throws EntityCryptoException {
+        Object decryptedObj = null;
+        byte[] encryptedBytes = StringUtil.fromHexString(encryptedString);
         try {
-            byte[] encryptedBytes = StringUtil.fromHexString(str);
-            byte[] decryptedBytes = DesCrypt.decrypt(this.getKey(keyName), encryptedBytes);
-            if (encryptedBytes.equals(decryptedBytes)) {
-                // try using the old/bad hex encoding approach
-                encryptedBytes = StringUtil.fromHexStringOldFunnyVariety(str);
-                decryptedBytes = DesCrypt.decrypt(this.getKey(keyName), encryptedBytes);
-            }
+            SecretKey decryptKey = this.getKey(keyName, false);
+            byte[] decryptedBytes = DesCrypt.decrypt(decryptKey, encryptedBytes);
             
-            return UtilObject.getObject(decryptedBytes);
+            decryptedObj = UtilObject.getObject(decryptedBytes);
         } catch (GeneralException e) {
             try {
                 // try using the old/bad hex encoding approach; this is another path the code may take, ie if there is an exception thrown in decrypt
-                byte[] encryptedBytes = StringUtil.fromHexStringOldFunnyVariety(str);
-                byte[] decryptedBytes = DesCrypt.decrypt(this.getKey(keyName), encryptedBytes);
-                return UtilObject.getObject(decryptedBytes);
+                Debug.logInfo("Decrypt with DES key from standard key name hash failed, trying old/funny variety of key name hash", module);
+                SecretKey decryptKey = this.getKey(keyName, true);
+                byte[] decryptedBytes = DesCrypt.decrypt(decryptKey, encryptedBytes);
+                decryptedObj = UtilObject.getObject(decryptedBytes);
+                //Debug.logInfo("Old/funny variety succeeded: Decrypted value [" + encryptedString + "]", module);
             } catch (GeneralException e1) {
                 // NOTE: this throws the original exception back, not the new one if it fails using the other approach
                 throw new EntityCryptoException(e);
             }
         }
+        
+        // NOTE: this is definitely for debugging purposes only, do not uncomment in production server for security reasons: Debug.logInfo("Decrypted value [" + encryptedString + "] to result: " + decryptedObj, module);
+        return decryptedObj;
     }
 
-    protected SecretKey getKey(String name) throws EntityCryptoException {
-        SecretKey key = keyMap.get(name);
+    protected SecretKey getKey(String name, boolean useOldFunnyKeyHash) throws EntityCryptoException {
+        String keyMapName = name + useOldFunnyKeyHash;
+        SecretKey key = keyMap.get(keyMapName);
         if (key == null) {
             synchronized(this) {
-                String keyName = HashCrypt.getDigestHash(name);
-                key = this.getKeyFromStore(keyName);
-                keyMap.put(name, key);
+                key = this.getKeyFromStore(name, useOldFunnyKeyHash);
+                keyMap.put(keyMapName, key);
             }
         }
         return key;
     }
 
-    protected SecretKey getKeyFromStore(String keyName) throws EntityCryptoException {
+    protected SecretKey getKeyFromStore(String originalKeyName, boolean useOldFunnyKeyHash) throws EntityCryptoException {
+        String hashedKeyName = useOldFunnyKeyHash? HashCrypt.getDigestHashOldFunnyHexEncode(originalKeyName, null) : HashCrypt.getDigestHash(originalKeyName);
+
         GenericValue keyValue = null;
         try {
-            keyValue = delegator.findOne("EntityKeyStore", false, "keyName", keyName);
+            keyValue = delegator.findOne("EntityKeyStore", false, "keyName", hashedKeyName);
         } catch (GenericEntityException e) {
             throw new EntityCryptoException(e);
         }
@@ -132,7 +136,7 @@ public class EntityCrypto {
             }
             GenericValue newValue = delegator.makeValue("EntityKeyStore");
             newValue.set("keyText", StringUtil.toHexString(key.getEncoded()));
-            newValue.set("keyName", keyName);
+            newValue.set("keyName", hashedKeyName);
 
             Transaction parentTransaction = null;
             boolean beganTrans = false;
