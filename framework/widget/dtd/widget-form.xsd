@@ -485,6 +485,26 @@ under the License.
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute type="xs:string" name="default-value"/>
+        <xs:attribute name="default-option-from" default="equals">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="equals"/>
+                    <xs:enumeration value="sameDay"/>
+                    <xs:enumeration value="greaterThanFromDayStart"/>
+                    <xs:enumeration value="greaterThan"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="default-option-thru" default="lessThan">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="lessThan"/>
+                    <xs:enumeration value="upToDay"/>
+                    <xs:enumeration value="upThruDay"/>
+                    <xs:enumeration value="empty"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="date-time" substitutionGroup="AllFields">
         <xs:annotation>
@@ -809,6 +829,23 @@ under the License.
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
                     <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="default-option-from" default="greaterThanEqualTo">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="equals"/>
+                    <xs:enumeration value="greaterThan"/>
+                    <xs:enumeration value="greaterThanEqualTo"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="default-option-thru" default="lessThanEqualTo">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="lessThan"/>
+                    <xs:enumeration value="lessThanEqualTo"/>
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
