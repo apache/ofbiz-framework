@@ -28,7 +28,6 @@ under the License.
                 <set field="headerItem" value="Example"/>
                 <set field="titleProperty" value="PageTitleFindExample"/>
                 <set field="exampleCtx" from-field="parameters"/>
-                <set field="noConditionFind" value="Y"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

@@ -111,7 +111,6 @@ under the License.
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="noConditionFind" value="Y"/>
             </actions>
             <widgets>
                 <include-form name="ListFixedAssets" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
