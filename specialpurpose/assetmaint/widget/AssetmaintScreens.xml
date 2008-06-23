@@ -50,7 +50,8 @@
             <actions>
                 <set field="headerItem" value="fixedAssetMaints"/>
                 <set field="titleProperty" value="PageTitleFindFixedAssetMaints"/>
-                <set field="noConditionFind" value="Y"/>
+                <property-to-field field="initialResultsProp" resource="widget" property="widget.findscreen.initial.results"/>
+                <set field="noConditionFind" from-field="parameters.noConditionFind" default-value="${initialResultsProp}"></set>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
