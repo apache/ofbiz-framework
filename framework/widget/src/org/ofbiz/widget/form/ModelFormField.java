@@ -2937,8 +2937,13 @@ public class ModelFormField {
     }
 
     public static class DateFindField extends DateTimeField {
+        protected String defaultOptionFrom = "greaterThanEqualTo";
+        protected String defaultOptionThru = "lessThanEqualTo";
+
         public DateFindField(Element element, ModelFormField modelFormField) {
             super(element, modelFormField);
+            this.defaultOptionFrom = element.getAttribute("default-option-from");
+            this.defaultOptionThru = element.getAttribute("default-option-thru");
         }
 
         public DateFindField(int fieldSource, ModelFormField modelFormField) {
@@ -2948,11 +2953,24 @@ public class ModelFormField {
         public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
             formStringRenderer.renderDateFindField(writer, context, this);
         }
+
+        public String getDefaultOptionFrom() {
+            return this.defaultOptionFrom;
+        }
+
+        public String getDefaultOptionThru() {
+            return this.defaultOptionThru;
+        }
     }
 
     public static class RangeFindField extends TextField {
+        protected String defaultOptionFrom = "greaterThanEqualTo";
+        protected String defaultOptionThru = "lessThanEqualTo";
+
         public RangeFindField(Element element, ModelFormField modelFormField) {
             super(element, modelFormField);
+            this.defaultOptionFrom = element.getAttribute("default-option-from");
+            this.defaultOptionThru = element.getAttribute("default-option-thru");
         }
 
         public RangeFindField(int fieldSource, ModelFormField modelFormField) {
@@ -2961,6 +2979,14 @@ public class ModelFormField {
 
         public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
             formStringRenderer.renderRangeFindField(writer, context, this);
+        }
+
+        public String getDefaultOptionFrom() {
+            return this.defaultOptionFrom;
+        }
+
+        public String getDefaultOptionThru() {
+            return this.defaultOptionThru;
         }
     }
 

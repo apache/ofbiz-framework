@@ -1650,16 +1650,16 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle())) {
             writer.append(" <span class=\"");
             writer.append(modelFormField.getTitleStyle());
-            writer.append('"');
+            writer.append("\">");
         }
-        writer.append('>');
 
+        String defaultOptionFrom = rangeFindField.getDefaultOptionFrom();
         writer.append(" <select name=\"");
         writer.append(modelFormField.getParameterName(context));
         writer.append("_fld0_op\" class=\"selectBox\">");
-        writer.append("<option value=\"equals\" selected>" + opEquals + "</option>");
-        writer.append("<option value=\"greaterThan\">" + opGreaterThan + "</option>");
-        writer.append("<option value=\"greaterThanEqualTo\">" + opGreaterThanEquals + "</option>");
+        writer.append("<option value=\"equals\"" + ("equals".equals(defaultOptionFrom)? " selected": "") + ">" + opEquals + "</option>");
+        writer.append("<option value=\"greaterThan\"" + ("greaterThan".equals(defaultOptionFrom)? " selected": "") + ">" + opGreaterThan + "</option>");
+        writer.append("<option value=\"greaterThanEqualTo\"" + ("greaterThanEqualTo".equals(defaultOptionFrom)? " selected": "") + ">" + opGreaterThanEquals + "</option>");
         writer.append("</select>");
 
         writer.append("</span>");
@@ -1697,17 +1697,12 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
 
         writer.append("/>");
 
-        if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle())) {
-            writer.append(" <span class=\"");
-            writer.append(modelFormField.getTitleStyle());
-            writer.append("\">");
-        }
-
+        String defaultOptionThru = rangeFindField.getDefaultOptionThru();
         writer.append(" <select name=\"");
         writer.append(modelFormField.getParameterName(context));
         writer.append("_fld1_op\" class=\"selectBox\">");
-        writer.append("<option value=\"lessThan\">" + opLessThan + "</option>");
-        writer.append("<option value=\"lessThanEqualTo\">" + opLessThanEquals + "</option>");
+        writer.append("<option value=\"lessThan\"" + ("lessThan".equals(defaultOptionThru)? " selected": "") + ">" + opLessThan + "</option>");
+        writer.append("<option value=\"lessThanEqualTo\"" + ("lessThanEqualTo".equals(defaultOptionThru)? " selected": "") + ">" + opLessThanEquals + "</option>");
         writer.append("</select>");
 
         if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle())) {
@@ -1827,13 +1822,14 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             writer.append("\">");
         }
 
+        String defaultOptionFrom = dateFindField.getDefaultOptionFrom();
         writer.append(" <select name=\"");
         writer.append(modelFormField.getParameterName(context));
         writer.append("_fld0_op\" class=\"selectBox\">");
-        writer.append("<option value=\"equals\" selected>" + opEquals + "</option>");
-        writer.append("<option value=\"sameDay\">" + opSameDay + "</option>");
-        writer.append("<option value=\"greaterThanFromDayStart\">" + opGreaterThanFromDayStart + "</option>");
-        writer.append("<option value=\"greaterThan\">" + opGreaterThan + "</option>");
+        writer.append("<option value=\"equals\"" + ("equals".equals(defaultOptionFrom)? " selected": "") + ">" + opEquals + "</option>");
+        writer.append("<option value=\"sameDay\"" + ("sameDay".equals(defaultOptionFrom)? " selected": "") + ">" + opSameDay + "</option>");
+        writer.append("<option value=\"greaterThanFromDayStart\"" + ("greaterThanFromDayStart".equals(defaultOptionFrom)? " selected": "") + ">" + opGreaterThanFromDayStart + "</option>");
+        writer.append("<option value=\"greaterThan\"" + ("greaterThan".equals(defaultOptionFrom)? " selected": "") + ">" + opGreaterThan + "</option>");
         writer.append("</select>");
 
         if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle())) {
@@ -1903,13 +1899,14 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             writer.append("\">");
         }
 
+        String defaultOptionThru = dateFindField.getDefaultOptionThru();
         writer.append(" <select name=\"");
         writer.append(modelFormField.getParameterName(context));
         writer.append("_fld1_op\" class=\"selectBox\">");
-        writer.append("<option value=\"lessThan\">" + opLessThan + "</option>");
-        writer.append("<option value=\"upToDay\">" + opUpToDay + "</option>");
-        writer.append("<option value=\"upThruDay\">" + opUpThruDay + "</option>");
-        writer.append("<option value=\"empty\">" + opIsEmpty + "</option>");
+        writer.append("<option value=\"lessThan\"" + ("lessThan".equals(defaultOptionThru)? " selected": "") + ">" + opLessThan + "</option>");
+        writer.append("<option value=\"upToDay\"" + ("upToDay".equals(defaultOptionThru)? " selected": "") + ">" + opUpToDay + "</option>");
+        writer.append("<option value=\"upThruDay\"" + ("upThruDay".equals(defaultOptionThru)? " selected": "") + ">" + opUpThruDay + "</option>");
+        writer.append("<option value=\"empty\"" + ("empty".equals(defaultOptionThru)? " selected": "") + ">" + opIsEmpty + "</option>");
         writer.append("</select>");
 
         if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle())) {
