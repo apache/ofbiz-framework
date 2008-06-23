@@ -51,7 +51,7 @@
                 <set field="headerItem" value="fixedAssetMaints"/>
                 <set field="titleProperty" value="PageTitleFindFixedAssetMaints"/>
                 <property-to-field field="initialResultsProp" resource="widget" property="widget.findscreen.initial.results"/>
-                <set field="noConditionFind" from-field="parameters.noConditionFind" default-value="${initialResultsProp}"></set>
+                <set field="noConditionFind" from-field="parameters.noConditionFind" default-value="${initialResultsProp}"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
