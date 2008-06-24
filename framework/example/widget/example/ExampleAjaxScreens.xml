@@ -26,6 +26,7 @@ under the License.
             <actions>
                 <set field="headerItem" value="AjaxExample"/>
                 <set field="titleProperty" value="PageTitleFindExample"/>
+                <set field="exampleCtx" from-field="parameters"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
