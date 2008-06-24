@@ -36,7 +36,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet id="PartyClassificationPanel" title="${uiLabelMap.PartyClassifications}" collapsible="true">
+                        <screenlet id="AddPartyClassificationPanel" title="${uiLabelMap.PartyClassifications}" collapsible="true">
                             <include-form name="AddPartyClassification" location="component://party/widget/partymgr/PartyClassificationForms.xml"/>
                         </screenlet>
                         <include-form name="ListPartyClassifications" location="component://party/widget/partymgr/PartyClassificationForms.xml"/>
@@ -71,7 +71,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <widgets>
-                                <screenlet id="PartyClassificationGroupPartiesPanel" title="${uiLabelMap.PartyClassificationGroups}" collapsible="true">
+                                <screenlet id="AddPartyClassificationGroupPartiesPanel" title="${uiLabelMap.PartyClassificationGroups}" collapsible="true">
                                     <include-form name="AddPartyClassificationParty" location="component://party/widget/partymgr/PartyClassificationForms.xml"/>
                                 </screenlet>
                                 <include-form name="ListPartyClassificationGroupParties" location="component://party/widget/partymgr/PartyClassificationForms.xml"/>

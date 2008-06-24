@@ -321,13 +321,13 @@ under the License.
                                         <if-compare field-name="okayToUpdate" operator="equals" value="true" type="Boolean"/>
                                     </condition>
                                     <widgets>
-                                        <screenlet id="CommunicationEventPanel" title="${uiLabelMap.PartyEditCommunicationEvent}" collapsible="true">
+                                        <screenlet id="EditCommunicationEventPanel" title="${uiLabelMap.PartyEditCommunicationEvent}" collapsible="true">
                                             <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="EditCommEvent"/>
                                         </screenlet>
                                         <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="ListChildCommEvents"/>
                                     </widgets>
                                     <fail-widgets>
-                                        <screenlet id="PartyNewCommunicationPanel" title="${uiLabelMap.PartyNewCommunication}" collapsible="true">
+                                        <screenlet id="ViewPartyNewCommunicationPanel" title="${uiLabelMap.PartyNewCommunication}" collapsible="true">
                                             <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="ViewCommEvent"/>
                                         </screenlet>
                                         <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="ListChildCommEvents"/>

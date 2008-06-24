@@ -37,7 +37,7 @@ under the License.
                                 <if-has-permission action="_VIEW" permission="PARTYMGR"/>
                             </condition>
                             <widgets>
-                                <screenlet id="PartyContactListPanel" title="${uiLabelMap.PartyContactListPartyCreate}" collapsible="true">
+                                <screenlet id="AddPartyContactListPanel" title="${uiLabelMap.PartyContactListPartyCreate}" collapsible="true">
                                     <include-form location="component://party/webapp/partymgr/contactlist/PartyContactListForms.xml" name="AddPartyContactList"/>
                                 </screenlet>
                                 <include-form location="component://party/webapp/partymgr/contactlist/PartyContactListForms.xml" name="ListPartyContactLists"/>

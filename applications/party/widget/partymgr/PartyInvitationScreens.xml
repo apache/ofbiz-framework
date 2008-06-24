@@ -193,14 +193,14 @@ under the License.
     <screen name="EditPartyInvitationsGroupAssocs">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleAddPartyInvitationGroupAssoc"/>
+                <set field="titleProperty" value="PageTitleEditPartyInvitationGroupAssoc"/>
                 <set field="tabButtonItem" value="PartyInvitationGroupAssocs"/>
                 <set field="partyInvitationId" from-field="parameters.partyInvitationId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyInvitationDecorator">
                     <decorator-section name="body">
-                        <screenlet id="PartyInvitationsGroupAssocsPanel" title="${uiLabelMap.PageTitleAddPartyInvitationGroupAssoc}" collapsible="true">
+                        <screenlet id="AddPartyInvitationsGroupAssocsPanel" title="${uiLabelMap.PageTitleAddPartyInvitationGroupAssoc}" collapsible="true">
                             <include-form name="AddPartyInvitationGroupAssoc" location="component://party/widget/partymgr/PartyInvitationForms.xml"/>
                         </screenlet>
                         <include-form name="ListPartyInvitationGroupAssocs" location="component://party/widget/partymgr/PartyInvitationForms.xml"/>
@@ -213,14 +213,14 @@ under the License.
     <screen name="EditPartyInvitationsRoleAssocs">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleAddPartyInvitationRoleAssoc"/>
+                <set field="titleProperty" value="PageTitleEditPartyInvitationRoleAssoc"/>
                 <set field="tabButtonItem" value="PartyInvitationRoleAssocs"/>
                 <set field="partyInvitationId" from-field="parameters.partyInvitationId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyInvitationDecorator">
                     <decorator-section name="body">
-                        <screenlet id="PartyInvitationRoleAssocsPanel" title="${uiLabelMap.PageTitleAddPartyInvitationRoleAssoc}" collapsible="true">
+                        <screenlet id="AddPartyInvitationRoleAssocsPanel" title="${uiLabelMap.PageTitleAddPartyInvitationRoleAssoc}" collapsible="true">
                             <include-form name="AddPartyInvitationRoleAssoc" location="component://party/widget/partymgr/PartyInvitationForms.xml"/>
                         </screenlet>
                         <include-form name="ListPartyInvitationRoleAssocs" location="component://party/widget/partymgr/PartyInvitationForms.xml"/>
