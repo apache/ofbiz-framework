@@ -49,7 +49,7 @@ if ("Y".equalsIgnoreCase(other)) {
   if (otherCurrency && invoice.currencyUomId && !otherCurrency.equals(invoice.currencyUomId)) {
     result = dispatcher.runSync("convertUom", [uomId : invoice.currencyUomId, 
                                                uomIdTo : otherCurrency, 
-                                               originalValue : 1.00, 
+                                               originalValue : new Double("1.00"), 
                                                asOfDate : invoice.invoiceDate]);
     
     if (result.convertedValue != null) {
