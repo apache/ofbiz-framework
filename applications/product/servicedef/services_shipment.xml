@@ -175,6 +175,11 @@ under the License.
         </description>
         <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
     </service>
+    <service name="checkCancelItemIssuanceAndOrderShipmentFromShipment" engine="simple"
+            location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="checkCancelItemIssuanceAndOrderShipmentFromShipment" auth="true">
+        <description>Check Shipment Items and cancel Item Issuance and Order Shipment</description>
+        <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
+    </service>
     <service name="quickDropShipOrder" engine="simple"
             location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="quickDropShipOrder" auth="true">
         <description>Creates a drop shipment for a ship group and calls updateShipment twice in succession to set 

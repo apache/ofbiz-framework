@@ -1929,6 +1929,30 @@ under the License.
         <field-to-result field-name="remainingQuantity"/>
     </simple-method>
 
+    <simple-method method-name="checkCancelItemIssuanceAndOrderShipmentFromShipment" short-description="Check Shipment Items and Cancel Item Issuance and Order Shipment">
+        <set value="Cancel Item Issuance and Order Shipment from a Sales Shipment" field="operationName"/>
+        <check-permission permission="FACILITY" action="_UPDATE">
+            <fail-message message="Security Error: to run ${operationName} you must have the FACILITY_UPDATE or FACILITY_ADMIN permission"/>
+        </check-permission>
+        
+        <entity-and entity-name="OrderShipment" list-name="orderShipmentList">
+            <field-map field-name="shipmentId" env-name="parameters.shipmentId"/>
+        </entity-and>
+        <iterate entry-name="orderShipment" list-name="orderShipmentList">
+            <clear-field field-name="deleteOrderShipmentMap"/>
+            <set-service-fields service-name="deleteOrderShipment" map-name="orderShipment" to-map-name="deleteOrderShipmentMap"/>
+            <call-service service-name="deleteOrderShipment" in-map-name="deleteOrderShipmentMap"/>
+        </iterate>        
+        
+        <log level="info" message="Cancelling Item Issuances for shimpentId: ${parameters.shipmentId}"/>
+        <entity-one entity-name="Shipment" value-name="shipment"/>
+        <get-related value-name="shipment" relation-name="ItemIssuance" list-name="issuances"/>
+        <iterate list-name="issuances" entry-name="issuance">
+            <set from-field="issuance.itemIssuanceId" field="inputMap.itemIssuanceId"/>
+            <call-service service-name="cancelOrderItemIssuanceFromSalesShipment" in-map-name="inputMap"/>
+        </iterate>
+    </simple-method>
+
     <!-- QuantityBreak services -->
     <!-- create a new QuantityBreak -->
     <simple-method method-name="createQuantityBreak" short-description="Create a QuoteAttribute">
