@@ -65,10 +65,10 @@ under the License.
          For the Ajax example we want all example entities listed, so the we use the entity-condition
          instead of the performFind service. -->
     <form name="ListExamplesAjax" extends="ListExamples" type="list" paginate-target="authview/findExampleAjax">
-        <on-event-update-area event-type="paginate" area-id="ListExamplesAjax" area-target="ListExampleFormOnly"/>
         <actions>
             <entity-condition entity-name="Example"><order-by field-name="exampleName"/></entity-condition>
         </actions>
+        <on-event-update-area event-type="paginate" area-id="ListExamplesAjax" area-target="ListExampleFormOnly"/>
     </form>
 
     <form name="EditExample" type="single" target="updateExample" title="" default-map-name="example">
