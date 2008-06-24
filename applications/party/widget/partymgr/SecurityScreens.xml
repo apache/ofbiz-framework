@@ -172,7 +172,7 @@ under the License.
             <widgets>
                 <decorator-screen name="SecurityGroupDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet id="SecurityGroupUserLoginsPanel" title="${uiLabelMap.PartyAddUserLoginToSecurityGroup}" collapsible="true">
+                        <screenlet id="AddSecurityGroupUserLoginsPanel" title="${uiLabelMap.PartyAddUserLoginToSecurityGroup}" collapsible="true">
                             <include-form name="AddSecurityGroupUserLogin" location="component://party/widget/partymgr/SecurityForms.xml"/>
                         </screenlet>
                         <include-form name="ListSecurityGroupUserLogins" location="component://party/widget/partymgr/SecurityForms.xml"/>
