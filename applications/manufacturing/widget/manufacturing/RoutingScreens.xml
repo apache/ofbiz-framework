@@ -274,7 +274,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonRoutingTaskDecorator">
                     <decorator-section name="body">
-                        <screenlet id="RoutingTaskCostPanel" title="${uiLabelMap.CommonAdd} ${uiLabelMap.ManufacturingRoutingTaskCosts}" collapsible="true">
+                        <screenlet id="AddRoutingTaskCostPanel" title="${uiLabelMap.CommonAdd} ${uiLabelMap.ManufacturingRoutingTaskCosts}" collapsible="true">
                             <include-form name="AddRoutingTaskCost" location="component://manufacturing/webapp/manufacturing/routing/RoutingTaskForms.xml"/>
                         </screenlet>
                         <include-form name="ListRoutingTaskCosts" location="component://manufacturing/webapp/manufacturing/routing/RoutingTaskForms.xml"/>
@@ -321,7 +321,7 @@ under the License.
     <screen name="ListRoutingTaskProducts">
         <section>
             <actions>
-                <set field="titleProperty" value="ManufacturingNewRoutingTaskProduct"/>
+                <set field="titleProperty" value="PageTitleListRoutingTaskProducts"/>
                 <set field="headerItem" value="routingTask"/>
                 <set field="tabButtonItem" value="listRoutingTaskProducts"/>
                 
@@ -335,10 +335,10 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonRoutingTaskDecorator">
                     <decorator-section name="body">
-                        <screenlet id="RoutingTaskProductPanel" title="${uiLabelMap.ManufacturingNewRoutingTaskProduct}" collapsible="true">
+                        <screenlet id="EditRoutingTaskProductPanel" title="${uiLabelMap.PageTitleListRoutingTaskProducts}">
                             <link target="EditRoutingTaskProduct?workEffortId=${workEffortId}" text="${uiLabelMap.ManufacturingNewRoutingTaskProduct}" style="buttontext"/>
+                            <include-form name="ListRoutingTaskProducts" location="component://manufacturing/webapp/manufacturing/routing/RoutingTaskForms.xml"/>
                         </screenlet>
-                        <include-form name="ListRoutingTaskProducts" location="component://manufacturing/webapp/manufacturing/routing/RoutingTaskForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -455,7 +455,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonRoutingDecorator">
                     <decorator-section name="body">
-                        <screenlet id="RoutingProductLinkPanel" title="${uiLabelMap.PageTitleEditRoutingProductLink}" collapsible="true">
+                        <screenlet id="EditRoutingProductLinkPanel" title="${uiLabelMap.PageTitleEditRoutingProductLink}" collapsible="true">
                             <include-form name="EditRoutingProductLink" location="component://manufacturing/webapp/manufacturing/routing/RoutingTaskForms.xml"/>
                         </screenlet>
                         <include-form name="ListRoutingProductLink" location="component://manufacturing/webapp/manufacturing/routing/RoutingTaskForms.xml"/>
@@ -478,7 +478,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonRoutingTaskDecorator">
                     <decorator-section name="body">
-                        <screenlet id="RoutingTaskFixedAssetPanel" title="${uiLabelMap.CommonAdd} ${uiLabelMap.ManufacturingRoutingTasks} ${uiLabelMap.ManufacturingRoutingTaskFixedAssets}" collapsible="true">
+                        <screenlet id="EditRoutingTaskFixedAssetPanel" title="${uiLabelMap.CommonAdd} ${uiLabelMap.ManufacturingRoutingTasks} ${uiLabelMap.ManufacturingRoutingTaskFixedAssets}" collapsible="true">
                             <include-form name="EditRoutingTaskFixedAsset" location="component://manufacturing/webapp/manufacturing/routing/RoutingTaskForms.xml"/>
                         </screenlet>
                         <include-form name="ListRoutingTaskFixedAssets" location="component://manufacturing/webapp/manufacturing/routing/RoutingTaskForms.xml"/>

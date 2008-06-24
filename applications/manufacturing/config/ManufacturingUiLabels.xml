@@ -2843,6 +2843,13 @@
         <value xml:lang="th">รายการของสัปดาห์</value>
         <value xml:lang="zh">周列表</value>
     </property>
+    <property key="PageTitleListRoutingTaskProducts">
+        <value xml:lang="en">Edit Routing Task Products</value>
+        <value xml:lang="it">Aggiorna Operazione Prodotti</value>
+        <value xml:lang="ro">Actualizare Operatii Produse</value>
+        <value xml:lang="th">แก้ไขงานด้านสินค้า</value>
+        <value xml:lang="zh">编辑规程任务的产品</value>
+    </property>
     <property key="PageTitleListRoutingTaskRoutings">
         <value xml:lang="en">Edit Routing Task Routings</value>
         <value xml:lang="it">Aggiorna Cicli Associati all'Operazione</value>
