@@ -90,7 +90,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonBomDecorator">
                     <decorator-section name="body">
-                        <screenlet id="ProductManufacturingRulePanel" title="${uiLabelMap.PageTitleEditProductManufacturingRules}" collapsible="true">
+                        <screenlet id="EditProductManufacturingRulePanel" title="${uiLabelMap.PageTitleEditProductManufacturingRules}" collapsible="true">
                             <include-form name="UpdateProductManufacturingRule" location="component://manufacturing/webapp/manufacturing/bom/BomForms.xml"/>
                         </screenlet>
                         <include-form name="ListProductManufacturingRules" location="component://manufacturing/webapp/manufacturing/bom/BomForms.xml"/>

@@ -506,7 +506,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonJobshopDecorator" location="${parameters.commonJobshopDecorator}">
                     <decorator-section name="body">
-                        <screenlet id="ProductionRunRoutingTaskPanel" title="${uiLabelMap.ManufacturingProductionRunTasks}" collapsible="true">
+                        <screenlet id="EditProductionRunRoutingTaskPanel" title="${uiLabelMap.ManufacturingProductionRunTasks}" collapsible="true">
                             <include-form name="EditProductionRunRoutingTask" location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml"/>
                         </screenlet>
                         <include-form name="ListProductionRunRoutingTasks" location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml"/>
