@@ -234,7 +234,7 @@ under the License.
         <section>
             <actions>
                 <script location="component://content/widget/GetMenuContext.groovy"/>
-                <set field="titleProperty" value="PageTitleAddRole"/>
+                <set field="titleProperty" value="PageTitleEditContentRole"/>
                 <set field="tabButtonItem" value="role"/>
                 
                 <set field="contentId" from-field="parameters.contentId"  />
@@ -246,7 +246,7 @@ under the License.
             <widgets>
                 <decorator-screen name="commonContentDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet id="ContentRolePanel" title="${uiLabelMap.PageTitleAddRole}" collapsible="true">
+                        <screenlet id="AddContentRolePanel" title="${uiLabelMap.PageTitleAddRole}" collapsible="true">
                             <include-form name="AddContentRole" location="component://content/widget/content/ContentForms.xml"/>
                         </screenlet>
                         <include-form name="ListContentRole" location="component://content/widget/content/ContentForms.xml"/>
@@ -260,7 +260,7 @@ under the License.
         <section>
             <actions>
                 <script location="component://content/widget/GetMenuContext.groovy"/>
-                <set field="titleProperty" value="PageTitleAddPurpose"/>
+                <set field="titleProperty" value="PageTitleEditContentPurpose"/>
                 <set field="tabButtonItem" value="purpose"/>
                 <set field="contentId" from-field="parameters.contentId"  />
                 <entity-one entity-name="Content" value-name="currentValue">
@@ -270,7 +270,7 @@ under the License.
             <widgets>
                 <decorator-screen name="commonContentDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet id="ContentPurposePanel" title="${uiLabelMap.PageTitleAddPurpose}" collapsible="true">
+                        <screenlet id="AddContentPurposePanel" title="${uiLabelMap.PageTitleAddPurpose}" collapsible="true">
                             <include-form name="AddContentPurpose" location="component://content/widget/content/ContentForms.xml"/>
                         </screenlet>
                         <include-form name="ListContentPurpose" location="component://content/widget/content/ContentForms.xml"/>
@@ -284,7 +284,7 @@ under the License.
         <section>
             <actions>
                 <script location="component://content/widget/GetMenuContext.groovy"/>
-                <set field="titleProperty" value="PageTitleAddAttribute"/>
+                <set field="titleProperty" value="PageTitleEditContentAttribute"/>
                 <set field="tabButtonItem" value="attribute"/>
                 <set field="contentId" from-field="parameters.contentId"  />
                 <entity-one entity-name="Content" value-name="currentValue">
@@ -294,7 +294,7 @@ under the License.
             <widgets>
                 <decorator-screen name="commonContentDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet id="ContentAttributePanel" title="${uiLabelMap.PageTitleAddAttribute}" collapsible="true">
+                        <screenlet id="AddContentAttributePanel" title="${uiLabelMap.PageTitleAddAttribute}" collapsible="true">
                             <include-form name="AddContentAttribute" location="component://content/widget/content/ContentForms.xml"/>
                         </screenlet>
                         <include-form name="ListContentAttribute" location="component://content/widget/content/ContentForms.xml"/>
@@ -309,7 +309,7 @@ under the License.
         <section>
             <actions>
                 <script location="component://content/widget/GetMenuContext.groovy"/>
-                <set field="titleProperty" value="PageTitleAddMetaData"/>
+                <set field="titleProperty" value="PageTitleEditContentMetadata"/>
                 <set field="tabButtonItem" value="metaData"/>
                 <set field="contentId" from-field="parameters.contentId"  />
                 <entity-one entity-name="Content" value-name="currentValue">
@@ -319,7 +319,7 @@ under the License.
             <widgets>
                 <decorator-screen name="commonContentDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet id="ContentMetaDataPanel" title="${uiLabelMap.PageTitleAddMetaData}" collapsible="true">
+                        <screenlet id="AddContentMetaDataPanel" title="${uiLabelMap.PageTitleAddMetaData}" collapsible="true">
                             <include-form name="AddContentMetaData" location="component://content/widget/content/ContentForms.xml"/>
                         </screenlet>
                         <include-form name="ListContentMetaData" location="component://content/widget/content/ContentForms.xml"/>
@@ -333,7 +333,7 @@ under the License.
         <section>
             <actions>
                 <script location="component://content/widget/GetMenuContext.groovy"/>
-                <set field="titleProperty" value="PageTitleAddWorkEffort"/>
+                <set field="titleProperty" value="PageTitleEditContentWorkEffort"/>
                 <set field="tabButtonItem" value="workEffort"/>
                 <set field="contentId" from-field="parameters.contentId"  />
                 <entity-one entity-name="Content" value-name="currentValue">
@@ -343,7 +343,7 @@ under the License.
             <widgets>
                 <decorator-screen name="commonContentDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet id="WorkEffortContentPanel" title="${uiLabelMap.PageTitleAddWorkEffort}" collapsible="true">
+                        <screenlet id="AddWorkEffortContentPanel" title="${uiLabelMap.PageTitleAddWorkEffort}" collapsible="true">
                             <include-form name="AddWorkEffortContent" location="component://content/widget/content/ContentForms.xml"/>
                         </screenlet>
                         <include-form name="ListWorkEffortContents" location="component://content/widget/content/ContentForms.xml"/>
