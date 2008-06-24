@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<XPage class="net.xoetrope.swing.XDialog">
+    <Components>
+        <Panel x="0" y="0" w="760" h="50" style="numButton">
+            <Edit name="keyboard_input" x="2" y="2" w="600" h="42" style="editAndList" border="1" alignment="Left"/>
+            <Button name="charDel" x="659" y="2" w="100" h="42" style="numButton" content="Backspace" alignment="Center"/>
+        </Panel>
+        <Panel x="0" y="50" w="760" h="282" style="numButton"> 
+            <Button name="charQ" x="0" y="0" w="75" h="68" style="numButton" content="q" alignment="Center"/>
+            <Button name="charW" x="76" y="0" w="75" h="68" style="numButton" content="w" alignment="Center"/>
+            <Button name="charE" x="152" y="0" w="75" h="68" style="numButton" content="e" alignment="Center"/>
+            <Button name="charR" x="228" y="0" w="75" h="68" style="numButton" content="r" alignment="Center"/>
+            <Button name="charT" x="304" y="0" w="75" h="68" style="numButton" content="t" alignment="Center"/>
+            <Button name="charY" x="380" y="0" w="75" h="68" style="numButton" content="y" alignment="Center"/>
+            <Button name="charU" x="456" y="0" w="75" h="68" style="numButton" content="u" alignment="Center"/>
+            <Button name="charI" x="532" y="0" w="75" h="68" style="numButton" content="i" alignment="Center"/>
+            <Button name="charO" x="608" y="0" w="75" h="68" style="numButton" content="o" alignment="Center"/>
+            <Button name="charP" x="684" y="0" w="75" h="68" style="numButton" content="p" alignment="Center"/>
+            <Button name="charA" x="10" y="69" w="75" h="68" style="numButton" content="a" alignment="Center"/>
+            <Button name="charS" x="86" y="69" w="75" h="68" style="numButton" content="s" alignment="Center"/>
+            <Button name="charD" x="162" y="69" w="75" h="68" style="numButton" content="d" alignment="Center"/>
+            <Button name="charF" x="238" y="69" w="75" h="68" style="numButton" content="f" alignment="Center"/>
+            <Button name="charG" x="314" y="69" w="75" h="68" style="numButton" content="g" alignment="Center"/>
+            <Button name="charH" x="390" y="69" w="75" h="68" style="numButton" content="h" alignment="Center"/>
+            <Button name="charJ" x="466" y="69" w="75" h="68" style="numButton" content="j" alignment="Center"/>
+            <Button name="charK" x="542" y="69" w="75" h="68" style="numButton" content="k" alignment="Center"/>
+            <Button name="charL" x="618" y="69" w="75" h="68" style="numButton" content="l" alignment="Center"/>
+            <Button name="menuEnter" x="694" y="69" w="65" h="136" style="numButton" content="Enter" alignment="Center"/>
+            <Button name="charZ" x="40" y="138" w="75" h="68" style="numButton" content="z" alignment="Center"/>
+            <Button name="charX" x="116" y="138" w="75" h="68" style="numButton" content="x" alignment="Center"/>
+            <Button name="charC" x="192" y="138" w="75" h="68" style="numButton" content="c" alignment="Center"/>
+            <Button name="charV" x="268" y="138" w="75" h="68" style="numButton" content="v" alignment="Center"/>
+            <Button name="charB" x="344" y="138" w="75" h="68" style="numButton" content="b" alignment="Center"/>
+            <Button name="charN" x="420" y="138" w="75" h="68" style="numButton" content="n" alignment="Center"/>
+            <Button name="charM" x="496" y="138" w="75" h="68" style="numButton" content="m" alignment="Center"/>
+            <Button name="menuClear" x="0" y="207" w="75" h="68" style="numButton" content="Clear" alignment="Center"/>
+            <Button name="menuShift" x="76" y="207" w="75" h="68" style="numButton" content="Shift" alignment="Center"/>
+            <Button name="menuShiftLock" x="152" y="207" w="75" h="68" style="numButton" content="Lock" alignment="Center"/>
+            <Button name="charSpace" x="228" y="207" w="300" h="68" style="numButton" content="Space Bar" alignment="Center"/>
+            <Button name="menuCancel" x="684" y="207" w="75" h="68" style="numButton" content="Cancel" alignment="Center"/>
+        </Panel>
+    </Components>    
+</XPage>
