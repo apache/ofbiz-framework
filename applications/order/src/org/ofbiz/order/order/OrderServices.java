@@ -4782,10 +4782,10 @@ public class OrderServices {
         try {
             beganTransaction = TransactionUtil.begin();
         
-            List exprs = UtilMisc.toList(new EntityExpr("automaticExtend", EntityOperator.EQUALS, "Y"),
-            		new EntityExpr("orderId", EntityOperator.NOT_EQUAL, null),
-            		new EntityExpr("productId", EntityOperator.NOT_EQUAL, null));
-            EntityCondition cond = new EntityConditionList(exprs, EntityOperator.AND);
+            List exprs = UtilMisc.toList(EntityCondition.makeCondition("automaticExtend", EntityOperator.EQUALS, "Y"),
+                    EntityCondition.makeCondition("orderId", EntityOperator.NOT_EQUAL, null),
+                    EntityCondition.makeCondition("productId", EntityOperator.NOT_EQUAL, null));
+            EntityCondition cond = EntityCondition.makeCondition(exprs, EntityOperator.AND);
             EntityListIterator eli = null;
             eli = delegator.find("Subscription", cond, null, null, null, null);
     

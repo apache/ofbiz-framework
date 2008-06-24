@@ -385,10 +385,10 @@ public class CatalinaContainer implements Container {
             mcast.setMcastBindAddress(mcb);
         }
 
-        mcast.setMcastAddr(mca);
-        mcast.setMcastPort(mcp);
+        mcast.setAddress(mca);
+        mcast.setPort(mcp);
         mcast.setMcastDropTime(mcd);
-        mcast.setMcastFrequency(mcf);
+        mcast.setFrequency(mcf);
 
         String tla = ContainerConfig.getPropertyValue(clusterProps, "tcp-listen-host", "auto");
         int tlp = ContainerConfig.getPropertyValue(clusterProps, "tcp-listen-port", 4001);
@@ -401,10 +401,11 @@ public class CatalinaContainer implements Container {
         }
 
         NioReceiver listener = new NioReceiver();
-        listener.setTcpListenAddress(tla);
-        listener.setTcpListenPort(tlp);
-        listener.setTcpSelectorTimeout(tlt);
-        listener.setTcpThreadCount(tlc);
+        listener.setAddress(tla);
+        listener.setPort(tlp);
+        listener.setSelectorTimeout(tlt);
+        listener.setMaxThreads(tlc);
+        listener.setMinThreads(tlc);
         //listener.setIsSenderSynchronized(false);
 
         ReplicationTransmitter trans = new ReplicationTransmitter();

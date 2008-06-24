@@ -75,7 +75,7 @@ public class AliasKeyManager implements X509KeyManager {
         return certArray;
     }
 
-    public String[] getClientAliases(String keyType, Principal... issuers) {
+    public String[] getClientAliases(String keyType, Principal[] issuers) {
         return keyManager.getClientAliases(keyType, issuers);
     }
 
@@ -86,7 +86,7 @@ public class AliasKeyManager implements X509KeyManager {
         return pk;
     }
 
-    public String[] getServerAliases(String keyType, Principal... issuers) {
+    public String[] getServerAliases(String keyType, Principal[] issuers) {
         return keyManager.getServerAliases(keyType, issuers);
     }
 }

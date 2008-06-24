@@ -617,7 +617,7 @@ public class ServiceUtil {
         }
 
         String jobId = (String) context.get("jobId");
-        Map fields = UtilMisc.toMap("jobId", jobId);
+        Map<String, ? extends Object> fields = UtilMisc.toMap("jobId", jobId);
         GenericValue job;
         try {
             job = delegator.findOne("JobSandbox", fields, false);

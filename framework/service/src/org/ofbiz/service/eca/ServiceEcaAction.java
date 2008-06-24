@@ -156,7 +156,7 @@ public class ServiceEcaAction implements java.io.Serializable {
 
         // use the result to update the result fields
         if (resultToResult) {
-        	Map normalizedActionResult = dctx.getModelService(selfService).makeValid(actionResult, ModelService.OUT_PARAM, false, null);
+        	Map<String, Object> normalizedActionResult = dctx.getModelService(selfService).makeValid(actionResult, ModelService.OUT_PARAM, false, null);
         	// don't copy over the error messages, use the combining code to do that later
         	normalizedActionResult.remove(ModelService.ERROR_MESSAGE);
         	normalizedActionResult.remove(ModelService.ERROR_MESSAGE_LIST);
