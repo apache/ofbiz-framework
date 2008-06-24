@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -39,7 +40,7 @@ public class OrderedMap extends HashMap {
      * @see java.util.Map#keySet()
      */   
     public Set keySet() {
-        return new OrderedSet(orderedKeys);
+        return new LinkedHashSet(orderedKeys);
     }
 
     /**
