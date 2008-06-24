@@ -17,9 +17,11 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*
-import org.ofbiz.order.order.*
-import org.ofbiz.entity.util.EntityUtil
+import org.ofbiz.base.util.*;
+import org.ofbiz.order.order.*;
+import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.condition.EntityCondition;
+
 
 facilityId = parameters.facilityId;
 if (facilityId) {
