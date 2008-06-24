@@ -36,7 +36,8 @@ under the License.
     <SecurityPermission description="Be able to create a weekly timesheet for the loginid." permissionId="PROJECTMGR_ROLE_TIMESHEET_CREATE"/>
     <SecurityPermission description="Be able to update(report) on an existing own timesheet" permissionId="PROJECTMGR_ROLE_TIMESHEET_UPDATE"/>
     
-    <!-- allow the security group FULLADMIN (userlogin 'admin') full access -->
+    <!-- add permission to general groups -->
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="PROJECTMGR_ADMIN"/>
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="PROJECTMGR_ADMIN"/>
     
     <SecurityGroup description="Project Admin group, has update access to own projects." groupId="PROJECTADMIN"/>
