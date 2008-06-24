@@ -5279,7 +5279,7 @@
     <property key="OrderOutstanding">
         <value xml:lang="en">Outstanding</value>
         <value xml:lang="es">Increible</value>
-        <value xml:lang="en">En attente</value>
+        <value xml:lang="fr">En attente</value>
         <value xml:lang="it">Inevasa</value>
         <value xml:lang="nl">Outstanding</value>
         <value xml:lang="ro">Nerezolvata</value>
@@ -5836,7 +5836,7 @@
     </property>
     <property key="OrderQtyShipped">
         <value xml:lang="en">Qty Shipped</value>
-        <value xml:lang="en">Qté expédiée</value>
+        <value xml:lang="fn">Qté expédiée</value>
         <value xml:lang="it">Qnt Spedita</value>
         <value xml:lang="th">จำนวนการขนส่ง</value>
     </property>
