@@ -445,11 +445,15 @@ under the License.
         <entity-one entity-name="ItemIssuance" value-name="itemIssuance"/>
         <get-related-one value-name="itemIssuance" relation-name="OrderHeader" to-value-name="orderHeader"/>
         <get-related-one value-name="itemIssuance" relation-name="InventoryItem" to-value-name="inventoryItem"/>
+        <get-related-one value-name="itemIssuance" relation-name="Shipment" to-value-name="shipment"/>        
         
-        <!-- issuance can be canceled only if the sales shipment is not packed --> 
-        <set from-field="itemIssuance.shipmentId" field="shipmentId"/>        
-        <call-simple-method method-name="checkCanChangeShipmentStatusPacked" xml-resource="org/ofbiz/shipment/shipment/ShipmentServices.xml"/>
-        <check-errors/>
+        <!-- issuance can be canceled only if the sales shipment is not packed -->
+ 
+        <if-compare field="shipment.statusId" operator="not-equals" value="SHIPMENT_CANCELLED">
+            <set from-field="itemIssuance.shipmentId" field="shipmentId"/>        
+            <call-simple-method method-name="checkCanChangeShipmentStatusPacked" xml-resource="org/ofbiz/shipment/shipment/ShipmentServices.xml"/>
+            <check-errors/>
+        </if-compare>
         
         <!-- make sure the order is of orderTypeId: SALES_ORDER -->
         <if-compare field="orderHeader.orderTypeId" operator="not-equals" value="SALES_ORDER">
@@ -470,8 +474,12 @@ under the License.
          </if-empty>
 
         <!-- make sure specified cancel Quantity is not less than or equal to 0 -->
-        <if-compare field="toCancelQuantity" operator="less-equals" value="0" type="Double">
-            <add-error><fail-message message="Not cancelling ItemIssuance [${parameters.itemIssuanceId}] because the quantity to cancel [${toCancelQuantity}] is less than or equal to 0 "/></add-error>
+        <if-compare field="toCancelQuantity" operator="less" value="0" type="Double">
+            <add-error><fail-message message="Not cancelling ItemIssuance [${parameters.itemIssuanceId}] because the quantity to cancel [${toCancelQuantity}] is less than 0 "/></add-error>
+        </if-compare>
+
+        <if-compare field="toCancelQuantity" operator="equals" value="0" type="Double">
+            <return response-code="success"/>
         </if-compare>
 
         <!-- make sure specified quantity is not greater than issued quantity left -->      
