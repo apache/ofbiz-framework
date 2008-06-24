@@ -18,6 +18,7 @@
  */
 
 import org.ofbiz.widget.html.*;
+import org.ofbiz.entity.condition.EntityCondition;
 
 shipmentId = request.getParameter("shipmentId");
 orderId = request.getParameter("orderId");
@@ -29,7 +30,7 @@ if (!shipmentId) {
 action = request.getParameter("action");
 
 shipment = null;
-if (!shipmentId) {
+if (shipmentId) {
     shipment = delegator.findOne("Shipment", [shipmentId : shipmentId], false);
 }
 
