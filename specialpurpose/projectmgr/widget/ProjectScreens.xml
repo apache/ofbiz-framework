@@ -37,7 +37,7 @@ under the License.
             <widgets>  
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet id="SubProjectsPanel" title="${uiLabelMap.PageTitleAddSubProject}" collapsible="true">
+                        <screenlet id="AddSubProjectsPanel" title="${uiLabelMap.PageTitleAddSubProject}" collapsible="true">
                             <include-form name="AddSubProject" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                         </screenlet>
                         <include-form name="EditSubProjects" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
@@ -425,7 +425,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet id="WorkEffortPartyAssignPanel" title="${uiLabelMap.PageTitleAddPartyAssign}" collapsible="true">
+                        <screenlet id="AddWorkEffortPartyAssignPanel" title="${uiLabelMap.PageTitleAddPartyAssign}" collapsible="true">
                             <include-form name="AddWorkEffortPartyAssign" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                         </screenlet>
                         <include-form name="EditWorkEffortPartyAssigns" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
@@ -514,7 +514,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet id="WorkEffortNotePanel" title="${uiLabelMap.PageTitleAddProjectNotes}" collapsible="true">
+                        <screenlet id="AddWorkEffortNotePanel" title="${uiLabelMap.PageTitleAddProjectNotes}" collapsible="true">
                             <include-form name="AddWorkEffortNote" location="component://workeffort/widget/WorkEffortForms.xml"/>
                         </screenlet>
                         <include-form name="ListProjectNotes" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
@@ -793,7 +793,7 @@ under the License.
             <widgets>               
                 <decorator-screen name="CommonListResourceDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet id="ResourceProjectPartyPanel" title="${uiLabelMap.PageTitleAddProject}" collapsible="true">
+                        <screenlet id="AddResourceProjectPartyPanel" title="${uiLabelMap.PageTitleAddProject}" collapsible="true">
                             <include-form name="AddResourceProjectParty" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                         </screenlet>
                         <include-form name="listResourcesProjects" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
@@ -823,7 +823,7 @@ under the License.
             <widgets>   
                 <decorator-screen name="CommonListResourceDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet id="ResourceTaskPartyPanel" title="${uiLabelMap.PageTitleAddTask}" collapsible="true">
+                        <screenlet id="AddResourceTaskPartyPanel" title="${uiLabelMap.PageTitleAddTask}" collapsible="true">
                             <include-form name="AddResourceTaskParty" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                         </screenlet>
                         <include-form name="listResourcesTasks" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
@@ -1010,7 +1010,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonListResourceDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet id="PartyRatePanel" title="${uiLabelMap.PageTitleEditPartyRates}" collapsible="true">
+                        <screenlet id="AddPartyRatePanel" title="${uiLabelMap.PageTitleEditPartyRates}" collapsible="true">
                             <include-form name="AddPartyRate" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
                         </screenlet>
                         <include-form name="ListPartyRates" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
