@@ -49,7 +49,7 @@ if (!UtilValidate.isEmpty(tasks)) {
                     // check the role of his part, if party is a provider
                     exprs = UtilMisc.toList(
                                 EntityCondition.makeCondition("workEffortId", EntityOperator.EQUALS, timeEntry.getString("workEffortId")),
-                                EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, timeEntry.getString("partyId")),
+                                EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, timesheet.getString("partyId")),
                                 EntityCondition.makeCondition("roleTypeId", EntityOperator.LIKE, "PROVIDER_%"));
                     ecl = EntityCondition.makeCondition(exprs, EntityOperator.AND);
                     providerRoles = EntityUtil.filterByDate(delegator.findList("WorkEffortPartyAssignment", ecl, null, null, null, false));
