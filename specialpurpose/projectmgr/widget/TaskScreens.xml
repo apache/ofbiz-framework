@@ -80,11 +80,6 @@ under the License.
                 <set field="titleProperty" value="WorkEffortMyTasks"/>
                 <set field="headerItem" value="mytasks"/>
                 <set field="labelTitleProperty" value="ProjectMgrMyTasks"/>
-                <entity-and entity-name="WorkEffortAndPartyAssign" list-name="tasks" filter-by-date="true">
-                    <field-map field-name="partyId" env-name="userLogin.partyId"/>
-                    <field-map field-name="workEffortTypeId" value="TASK"/>
-                    <field-map field-name="statusId" value="PAS_ASSIGNED"/>
-                </entity-and>
                 <entity-and entity-name="WorkEffortAndPartyAssign" list-name="projects" filter-by-date="true">
                     <field-map field-name="partyId" env-name="userLogin.partyId"/>
                     <field-map field-name="workEffortTypeId" value="PROJECT"/>
@@ -101,31 +96,7 @@ under the License.
                     <decorator-section name="body">                                                                                                                
                         <section>                                                        
                             <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleTaskAssignedToMe}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <condition>
-                                                <not><if-empty field-name="tasks"/></not>                                        
-                                            </condition>
-                                            <widgets>
-                                                <include-form name="MyTasks" location="component://projectmgr/widget/forms/TaskForms.xml"/>
-                                            </widgets>
-                                            <fail-widgets>
-                                                <container>
-                                                <label style="h3" text="${uiLabelMap.ProjectMgrTaskNoOpen1}"></label>
-                                                </container>
-                                                <container>
-                                                <label style="h3" text="${uiLabelMap.ProjectMgrTaskNoOpen2}"></label>
-                                                </container>
-                                            </fail-widgets>
-                                        </section>
-                                    </container>
-                                </container>
+                                <include-screen name="MyTaskList"/>
                                 <section>
                                     <condition>
                                         <not><if-empty field-name="projects"/></not>                                        
@@ -173,6 +144,37 @@ under the License.
                         </section>
                     </decorator-section>
                 </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="MyTaskList">
+        <section>
+            <actions>
+                <entity-and entity-name="WorkEffortAndPartyAssign" list-name="tasks" filter-by-date="true">
+                    <field-map field-name="partyId" env-name="userLogin.partyId"/>
+                    <field-map field-name="workEffortTypeId" value="TASK"/>
+                    <field-map field-name="statusId" value="PAS_ASSIGNED"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <screenlet title="${uiLabelMap.PageTitleTaskAssignedToMe}">
+                    <section>
+                        <condition>
+                            <not><if-empty field-name="tasks"/></not>                                        
+                        </condition>
+                        <widgets>
+                            <include-form name="MyTasks" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                        </widgets>
+                        <fail-widgets>
+                            <container>
+                                <label style="h3" text="${uiLabelMap.ProjectMgrTaskNoOpen1}"></label>
+                            </container>
+                            <container>
+                                <label style="h3" text="${uiLabelMap.ProjectMgrTaskNoOpen2}"></label>
+                            </container>
+                        </fail-widgets>
+                    </section>
+                </screenlet>
             </widgets>
         </section>
     </screen>
