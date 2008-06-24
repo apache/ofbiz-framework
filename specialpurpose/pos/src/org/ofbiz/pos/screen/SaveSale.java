@@ -33,6 +33,8 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.pos.PosTransaction;
 
+//PATCH - importing DeviceLoader for pop.drawer - BSTRICKLAND
+import org.ofbiz.pos.device.DeviceLoader;
 
 public class SaveSale extends XPage {
 
@@ -46,6 +48,8 @@ public class SaveSale extends XPage {
     protected XButton m_cancel = null;
     protected XButton m_save = null;
     protected XButton m_saveAndClear = null;
+	//PATCH - New button for Save and Print funtion - BSTRICKLAND
+    protected XButton m_saveAndPrint = null;
     protected static PosTransaction m_trans = null;
     public static SimpleDateFormat sdf = new SimpleDateFormat(UtilProperties.getMessage("pos","DateTimeFormat",Locale.getDefault()));
 
@@ -66,11 +70,15 @@ public class SaveSale extends XPage {
         m_cancel = (XButton) m_dialog.findComponent("BtnCancel");
         m_save = (XButton) m_dialog.findComponent("BtnSave");
         m_saveAndClear = (XButton) m_dialog.findComponent("BtnSaveAndClear");
-
+	//PATCH - Save and Print - BSTRICKLAND
+	m_saveAndPrint = (XButton) m_dialog.findComponent("BtnSaveAndPrint");
         
         XEventHelper.addMouseHandler(this, m_cancel, "cancel");
         XEventHelper.addMouseHandler(this, m_save, "save");
         XEventHelper.addMouseHandler(this, m_saveAndClear, "saveAndClear");
+        //PATCH - Save and Print - BSTRICKLAND
+	XEventHelper.addMouseHandler(this, m_saveAndPrint, "saveAndPrint"); 
+        XEventHelper.addMouseHandler(this, m_saleName, "editSaleName");
 
         m_dialog.pack();
         m_dialog.showDialog(this);
@@ -101,6 +109,34 @@ public class SaveSale extends XPage {
                 m_pos.refresh();
             }
         }
+    }
+    
+//PATCH - function for save and print - BSTRICKLAND
+    public synchronized void saveAndPrint() {
+        if (wasMouseClicked()) {
+            String sale = m_saleName.getText();
+            if (null != sale) {
+                saveSale(sale);
+//DO PRINT HERE
+		DeviceLoader.receipt.printReceipt(m_trans, true);
+                m_trans.voidSale();
+                m_pos.refresh();
+            }
+        }
+    }
+    
+    public synchronized void editSaleName(){
+        if (wasMouseClicked()) {
+            try {
+                Keyboard keyboard = new Keyboard(m_pos);
+                keyboard.setText(m_saleName.getText());                
+                m_saleName.setText(keyboard.openDlg());
+            }catch(Exception e){
+                Debug.logError(e, module);
+            }
+            m_dialog.repaint();
+        }
+        return;
     }
 
     private void saveSale(String sale) {
