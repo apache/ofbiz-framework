@@ -52,7 +52,7 @@
         <field name="total" title="${uiLabelMap.ProjectMgrActualTotal}"><display/></field>
         <field name="plannedHours" title="${uiLabelMap.ProjectMgrPlanHours}"><display/></field>
         <field name="updateButton"><submit button-type="button"/></field>
-        <field name="_rowSubmit" title="${uiLabelMap.ProjectMgrRowSubmit}"><check all-checked="true"/></field>
+        <field name="_rowSubmit" title="${uiLabelMap.ProjectMgrRowSubmit}"><hidden value="Y"/></field>
     </form>
 
     <form name="ListTimeSheets" type="list" list-name="timesheets" paginate-target="MyTimesheet"
