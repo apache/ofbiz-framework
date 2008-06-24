@@ -790,6 +790,24 @@
         <value xml:lang="th">รายการสถานะแผนการตลาด</value>
         <value xml:lang="zh">市场攻势角色列表</value>
     </property>
+    <property key="PageTitleListSegmentGroupGeo">
+        <value xml:lang="en">List Segment Group Geos</value>
+        <value xml:lang="es">Mostrar ubicación de segmento</value>
+        <value xml:lang="fr">Liste des zones géographiques de groupe de segment</value>
+        <value xml:lang="it">Lista Gruppo Segmento Geos</value>
+        <value xml:lang="ro">Lista Grup Segment Geos</value>
+        <value xml:lang="th">รายการส่วนของโครงสร้างกลุ่ม</value>
+        <value xml:lang="zh">分区组地理</value>
+    </property>
+    <property key="PageTitleListSegmentGroupRole">
+        <value xml:lang="en">List Segment Group Roles</value>
+        <value xml:lang="es">Mostrar roles de segmentos</value>
+        <value xml:lang="fr">Liste des rôles du groupe de segment</value>
+        <value xml:lang="it">Visualizza Ruoli Gruppo Segmento</value>
+        <value xml:lang="ro">Visualizeaza Rol Grup Segment</value>
+        <value xml:lang="th">รายการส่วนของสถานะกลุ่ม</value>
+        <value xml:lang="zh">分区组角色列表</value>
+    </property>
     <property key="PageTitleListTrackingCode">
         <value xml:lang="en">List Tracking Code</value>
         <value xml:lang="es">Mostrar seguimientos</value>
