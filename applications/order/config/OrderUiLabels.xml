@@ -8428,6 +8428,16 @@
         <value xml:lang="th">หัวข้อการร้องขอ</value>
         <value xml:lang="zh">请求明细</value>
     </property>
+    <property key="PageTitleRequestRoles">
+        <value xml:lang="en">Request Roles</value>
+        <value xml:lang="fr">Demande de rôles</value>
+        <value xml:lang="it">Ruoli Richiesta</value>
+        <value xml:lang="nl">Request Roles</value>
+        <value xml:lang="ro">Roluri Cerere</value>
+        <value xml:lang="ru">Роли запроса</value>
+        <value xml:lang="th">สถานะการร้องขอ</value>
+        <value xml:lang="zh">请求角色</value>
+    </property>
     <property key="PageTitleReturnHeader">
         <value xml:lang="en">Return Header</value>
         <value xml:lang="fr">Entête de retour</value>
