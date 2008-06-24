@@ -28,14 +28,14 @@ public class UtilJ2eeCompat {
     
     public static final String module = UtilJ2eeCompat.class.getName();
 
-    public static final String TOMCAT = "Apache Tomcat";
-    public static final String ORION = "Orion";
-    public static final String RESIN = "Resin";
-    public static final String REX_IP = "TradeCity";
-    public static final String OC4J = "Oracle";
-    public static final String JRUN = "JRun";
-    public static final String JETTY = "Jetty";
-    public static final String WEBSPHERE = "Websphere";
+    public static final String TOMCAT = "apache tomcat";
+    public static final String ORION = "orion";
+    public static final String RESIN = "resin";
+    public static final String REX_IP = "tradecity";
+    public static final String OC4J = "oracle";
+    public static final String JRUN = "jrun";
+    public static final String JETTY = "jetty";
+    public static final String WEBSPHERE = "websphere";
 
     protected static Boolean doFlushOnRenderValue = null;
     protected static Boolean useOutputStreamNotWriterValue = null;
@@ -64,7 +64,7 @@ public class UtilJ2eeCompat {
             boolean usestream = true;
             boolean nestjspexception = true;
             // if context is null use an empty string here which will cause the defaults to be used
-            String serverInfo = context == null ? "" : context.getServerInfo();
+            String serverInfo = context == null ? "" : context.getServerInfo().toLowerCase();
 
             Debug.logInfo("serverInfo: " + serverInfo, module);
 
