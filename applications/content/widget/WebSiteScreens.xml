@@ -201,9 +201,9 @@ under the License.
     <screen name="EditWebSiteParties">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleCreateWebSiteParties"/>
+                <set field="titleProperty" value="PageTitleEditWebSiteParties"/>
                 <set field="tabButtonItem" value="EditWebSiteParties"/>
-                <set field="labelTitleProperty" value="PageTitleCreateWebSiteParties"/>
+                <set field="labelTitleProperty" value="PageTitleEditWebSiteParties"/>
                 <set field="webSiteId" from-field="parameters.webSiteId"/>
                 <entity-one entity-name="WebSite" value-name="webSite"/>
                 <script location="component://content/webapp/content/WEB-INF/actions/website/EditWebSiteParties.groovy"/>
@@ -213,7 +213,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <widgets>
-                                <screenlet id="WebSiteRolePanel" title="${uiLabelMap.PageTitleCreateWebSiteParties}" collapsible="true">
+                                <screenlet id="AddWebSiteRolePanel" title="${uiLabelMap.PageTitleCreateWebSiteParties}" collapsible="true">
                                     <include-form name="CreateWebSiteRole" location="component://content/webapp/content/website/WebSiteForms.xml"/>
                                 </screenlet>
                                 <include-form name="UpdateWebSiteRole" location="component://content/webapp/content/website/WebSiteForms.xml"/>
