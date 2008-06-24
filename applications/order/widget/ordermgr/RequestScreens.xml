@@ -171,7 +171,7 @@ under the License.
     <screen name="RequestRoles">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleEditRequestRoles"/>
+                <set field="titleProperty" value="PageTitleRequestRoles"/>
                 <set field="tabButtonItem" value="requestroles"/>
                 <set field="headerItem" value="request"/>
                 <set field="custRequestId" from-field="parameters.custRequestId"/>
@@ -183,7 +183,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonRequestDecorator">
                     <decorator-section name="body">
-                        <screenlet id="RequestRolePanel" title="${uiLabelMap.PageTitleEditRequestRoles}" collapsible="true">
+                        <screenlet id="EditRequestRolePanel" title="${uiLabelMap.PageTitleEditRequestRoles}" collapsible="true">
                             <include-form name="EditRequestRole" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
                         </screenlet>
                         <include-form name="ListRequestRoles" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
@@ -496,7 +496,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonRequestDecorator">
                     <decorator-section name="body">
-                        <screenlet id="CustRequestItemWorkEffortPanel" title="${uiLabelMap.CommonId}:${custRequestItem.custRequestItemSeqId} ${custRequestItem.description}" collapsible="true">
+                        <screenlet id="AddCustRequestItemWorkEffortPanel" title="${uiLabelMap.CommonId}:${custRequestItem.custRequestItemSeqId} ${custRequestItem.description}" collapsible="true">
                             <link  target="EditRequestItem?custRequestId=${custRequestId}" text="${uiLabelMap.OrderNewRequestItem}" style="buttontext"/>
                             <include-form name="AddCustRequestItemWorkEffort" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
                         </screenlet>
