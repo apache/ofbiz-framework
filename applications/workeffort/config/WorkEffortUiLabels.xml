@@ -1027,11 +1027,35 @@
         <value xml:lang="th">อัตราการมอบหมายงาน</value>
         <value xml:lang="zh">人工服务指派费率</value>
     </property>
+    <property key="PageTitleListWorkEffortCommEvents">
+        <value xml:lang="en">Work Effort Communication Events</value>
+        <value xml:lang="es">Eventos de comunicación</value>
+        <value xml:lang="it">Lista Impegno di Lavoro Eventi Comunicazioni</value>
+        <value xml:lang="nl">Communicatie evenementen</value>
+        <value xml:lang="ro">Lista Sarcina de Lucru Evenimente Comunicatii</value>
+        <value xml:lang="th">ผลที่ได้จากการติดต่องาน</value>
+        <value xml:lang="zh">人工服务沟通事件</value>
+    </property>
+    <property key="PageTitleListWorkEffortKeyword">
+        <value xml:lang="en">Work Effort Keywords</value>
+        <value xml:lang="it">Chiavi Impegno di Lavoro</value>
+        <value xml:lang="th">คีย์เวิร์ดงาน</value>
+        <value xml:lang="zh">人工服务关键字</value>
+    </property>
     <property key="PageTitleListWorkEffortNotes">
         <value xml:lang="en">Work Effort Notes</value>
         <value xml:lang="it">Note Impegno di Lavoro</value>
         <value xml:lang="th">ข้อความงาน</value>
         <value xml:lang="zh">人工服务便笺</value>
+    </property>
+    <property key="PageTitleListWorkEffortQuotes">
+        <value xml:lang="en">Work Effort Quotes</value>
+        <value xml:lang="es">Cotizaciones</value>
+        <value xml:lang="it">Lista Impegno di Lavoro Preventivi</value>
+        <value xml:lang="nl">Activiteit Quotes</value>
+        <value xml:lang="ro">Lista Sarcini de Lucru Preventive</value>
+        <value xml:lang="th">การอ้างอิงงาน</value>
+        <value xml:lang="zh">人工服务询价</value>
     </property>
     <property key="PageTitleListWorkEffortOrderHeaders">
         <value xml:lang="en">Work Effort Orders</value>
@@ -1059,6 +1083,30 @@
         <value xml:lang="ro">Lista Sarcina de Lucru Cerere</value>
         <value xml:lang="th">คำร้องงาน</value>
         <value xml:lang="zh">人工服务请求</value>
+    </property>
+    <property key="PageTitleListWorkEffortRequirements">
+        <value xml:lang="en">Work Effort Requirements</value>
+        <value xml:lang="es">Requerimientos</value>
+        <value xml:lang="it">Lista Impegno di Lavoro Fabbisogni</value>
+        <value xml:lang="nl">Activiteit Requirements</value>
+        <value xml:lang="ro">Lista Sarcini de Lucru Necesar</value>
+        <value xml:lang="th">ความต้องการงาน</value>
+        <value xml:lang="zh">人工服务需求</value>
+    </property>
+    <property key="PageTitleListWorkEffortReviews">
+        <value xml:lang="en">Work Effort Reviews</value>
+        <value xml:lang="it">Recensioni Impegno di Lavoro</value>
+        <value xml:lang="th">ตรวจสอบงาน</value>
+        <value xml:lang="zh">人工服务检查</value>
+    </property>
+    <property key="PageTitleListWorkEffortShopLists">
+        <value xml:lang="en">Work Effort Shopping Lists</value>
+        <value xml:lang="es">Listas de compras</value>
+        <value xml:lang="it">Lista Liste Acquisto Impegno di Lavoro</value>
+        <value xml:lang="nl">Activiteit Shopping Lists</value>
+        <value xml:lang="ro">Lista Listelor de Cumparari Prestari Servicii </value>
+        <value xml:lang="th">งานรายการซื้อสินค้า</value>
+        <value xml:lang="zh">人工服务购买列表</value>
     </property>
     <property key="PageTitleListWorkEffortTimeEntries">
         <value xml:lang="en">Work Effort Time Entries</value>
