@@ -1,3 +1,21 @@
+/*******************************************************************************
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ *******************************************************************************/
 package org.ofbiz.pos.screen;
 
 import java.awt.Color;
@@ -8,54 +26,45 @@ import net.xoetrope.xui.PageSupport;
 import net.xoetrope.xui.XPage;
 import net.xoetrope.xui.events.XEventHelper;
 
-public class Keyboard extends XPage
-{
+public class Keyboard extends XPage {
     public static final String module = Keyboard.class.getName();
 
     XEdit m_edit = null;
     XDialog m_dialog = null;
     PosScreen m_pos = null;
     PageSupport m_pageSupport = null;
-    
+
     String originalText;
     boolean m_shift = false;
     boolean m_shiftLock = false;
 
-    public Keyboard(PosScreen pos){
+    public Keyboard(PosScreen pos) {
         m_pos = pos;
-        
-        m_pageSupport = pageMgr.loadPage(
-                m_pos.getScreenLocation() + "/dialog/keyboard");        
-        m_dialog = (XDialog)m_pageSupport;
-        
+        m_pageSupport = pageMgr.loadPage(m_pos.getScreenLocation() + "/dialog/keyboard");
+        m_dialog = (XDialog) m_pageSupport;
         m_edit = (XEdit) m_pageSupport.findComponent("keyboard_input");
         m_edit.setText("");
-
-        return;
     }
-            
+
     public String openDlg() {
- 
         setupEvents();
-        
         originalText = getText();
         m_dialog.pack();
         m_dialog.showDialog(this);
-        
         return m_edit.getText();
     }
 
-    //call before openDlg
-    public void setText(String text){
+    // call before openDlg
+    public void setText(String text) {
         clear();
         m_edit.setText(text);
     }
-    
-    public String getText(){
+
+    public String getText() {
         return m_edit.getText();
     }
-    
-    private void reverseButtonColors(String button){
+
+    private void reverseButtonColors(String button) {
         XButton xbutton = (XButton) m_dialog.findComponent(button);
         Color fore = xbutton.getForeground();
         Color back = xbutton.getBackground();
@@ -64,7 +73,7 @@ public class Keyboard extends XPage
         return;
     }
 
-    private void setupEvents(){
+    private void setupEvents() {
         XButton button = (XButton) m_dialog.findComponent("charA");
         XEventHelper.addMouseHandler(this, button, "triggerA");
         button = (XButton) m_dialog.findComponent("charB");
@@ -125,23 +134,20 @@ public class Keyboard extends XPage
         XEventHelper.addMouseHandler(this, button, "triggerClear");
         button = (XButton) m_dialog.findComponent("menuEnter");
         XEventHelper.addMouseHandler(this, button, "triggerEnter");
-	button = (XButton) m_dialog.findComponent("menuCancel");
-	XEventHelper.addMouseHandler(this, button, "triggerCancel");
-	button = (XButton) m_dialog.findComponent("menuShift");
-	XEventHelper.addMouseHandler(this, button, "triggerShift");
-	button = (XButton) m_dialog.findComponent("menuShiftLock");
-	XEventHelper.addMouseHandler(this, button, "triggerShiftLock");
-
-        return;
+        button = (XButton) m_dialog.findComponent("menuCancel");
+        XEventHelper.addMouseHandler(this, button, "triggerCancel");
+        button = (XButton) m_dialog.findComponent("menuShift");
+        XEventHelper.addMouseHandler(this, button, "triggerShift");
+        button = (XButton) m_dialog.findComponent("menuShiftLock");
+        XEventHelper.addMouseHandler(this, button, "triggerShiftLock");
     }
-    
-    private void setButtonText(String buttonName, String newText){
+
+    private void setButtonText(String buttonName, String newText) {
         XButton button = (XButton) m_dialog.findComponent(buttonName);
         button.setText(newText);
-        return;
     }
-    
-    private void setUppercase(){
+
+    private void setUppercase() {
         setButtonText("charA", "A");
         setButtonText("charB", "B");
         setButtonText("charC", "C");
@@ -167,12 +173,10 @@ public class Keyboard extends XPage
         setButtonText("charW", "W");
         setButtonText("charX", "X");
         setButtonText("charY", "Y");
-        setButtonText("charZ", "Z");        
-        
-        return;
+        setButtonText("charZ", "Z");
     }
 
-    private void setLowercase(){
+    private void setLowercase() {
         setButtonText("charA", "a");
         setButtonText("charB", "b");
         setButtonText("charC", "c");
@@ -199,208 +203,173 @@ public class Keyboard extends XPage
         setButtonText("charX", "x");
         setButtonText("charY", "y");
         setButtonText("charZ", "z");
-        
-        return;
     }
 
-    public void triggerA()
-    {
-        keypress('a','A');
+    public void triggerA() {
+        keypress('a', 'A');
     }
 
-    public void triggerB()
-    {
-        keypress('b','B');
+    public void triggerB() {
+        keypress('b', 'B');
     }
 
-    public void triggerC()
-    {
+    public void triggerC() {
         keypress('c', 'C');
     }
 
-    public void triggerD()
-    {
+    public void triggerD() {
         keypress('d', 'D');
     }
 
-    public void triggerE()
-    {
-        keypress('e','E');
+    public void triggerE() {
+        keypress('e', 'E');
     }
 
-    public void triggerF()
-    {
-        keypress('f','F');
+    public void triggerF() {
+        keypress('f', 'F');
     }
 
-    public void triggerG()
-    {
-        keypress('g','G');
+    public void triggerG() {
+        keypress('g', 'G');
     }
 
-    public void triggerH()
-    {
-        keypress('h','H');
+    public void triggerH() {
+        keypress('h', 'H');
     }
 
-    public void triggerI()
-    {
-        keypress('i','I');
+    public void triggerI() {
+        keypress('i', 'I');
     }
 
-    public void triggerJ()
-    {
-        keypress('j','J');
+    public void triggerJ() {
+        keypress('j', 'J');
     }
 
-    public void triggerK()
-    {
-        keypress('k','K');
+    public void triggerK() {
+        keypress('k', 'K');
     }
 
-    public void triggerL()
-    {
-        keypress('l','L');
+    public void triggerL() {
+        keypress('l', 'L');
     }
 
-    public void triggerM()
-    {
-        keypress('m','M');
+    public void triggerM() {
+        keypress('m', 'M');
     }
 
-    public void triggerN()
-    {
-        keypress('n','N');
+    public void triggerN() {
+        keypress('n', 'N');
     }
 
-    public void triggerO()
-    {
-        keypress('o','O');
+    public void triggerO() {
+        keypress('o', 'O');
     }
 
-    public void triggerP()
-    {
-        keypress('p','P');
+    public void triggerP() {
+        keypress('p', 'P');
     }
 
-    public void triggerQ()
-    {
-        keypress('q','Q');
+    public void triggerQ() {
+        keypress('q', 'Q');
     }
 
-    public void triggerR()
-    {
-        keypress('r','R');
+    public void triggerR() {
+        keypress('r', 'R');
     }
 
-    public void triggerS()
-    {
-        keypress('s','S');
+    public void triggerS() {
+        keypress('s', 'S');
     }
 
-    public void triggerT()
-    {
-        keypress('t','T');
+    public void triggerT() {
+        keypress('t', 'T');
     }
 
-    public void triggerU()
-    {
-        keypress('u','U');
+    public void triggerU() {
+        keypress('u', 'U');
     }
 
-    public void triggerV()
-    {
-        keypress('v','V');
+    public void triggerV() {
+        keypress('v', 'V');
     }
 
-    public void triggerW()
-    {
-        keypress('w','W');
+    public void triggerW() {
+        keypress('w', 'W');
     }
 
-    public void triggerX()
-    {
-        keypress('x','X');
+    public void triggerX() {
+        keypress('x', 'X');
     }
 
-    public void triggerY()
-    {
-        keypress('y','Y');
+    public void triggerY() {
+        keypress('y', 'Y');
     }
 
-    public void triggerZ()
-    {
-        keypress('z','Z');
+    public void triggerZ() {
+        keypress('z', 'Z');
     }
 
-    public void triggerClear()
-    {
+    public void triggerClear() {
         clear();
     }
 
-    public void triggerSpace()
-    {
+    public void triggerSpace() {
         keypress(' ', ' ');
     }
-    
-    public void triggerDel() 
-    {
-	delete();
+
+    public void triggerDel() {
+        delete();
     }
-   
-    public void triggerEnter()
-    {
+
+    public void triggerEnter() {
         close();
     }
 
-    public void triggerCancel()
-    {
+    public void triggerCancel() {
         cancel();
     }
 
-    public void triggerShift()
-    {
-        if(wasMouseClicked()){
-            shift();        
+    public void triggerShift() {
+        if (wasMouseClicked()) {
+            shift();
         }
     }
-    
-    public void triggerShiftLock()
-    {
-        if(wasMouseClicked()){
+
+    public void triggerShiftLock() {
+        if (wasMouseClicked()) {
             shiftLock();
         }
     }
 
-    private synchronized void keypress(char lower, char upper){
-        if(wasMouseClicked()){
-            if(m_shiftLock){
-                if(m_shift){
+    private synchronized void keypress(char lower, char upper) {
+        if (wasMouseClicked()) {
+            if (m_shiftLock) {
+                if (m_shift) {
                     append(lower);
                     shift();
-                }else{
+                } else {
                     append(upper);
                 }
-            }else{
-                if(m_shift){
+            } else {
+                if (m_shift) {
                     append(upper);
                     shift();
-                }else{
+                } else {
                     append(lower);
                 }
             }
         }
     }
-    
-    private synchronized void shiftLock(){
-        if(m_shiftLock){
+
+    private synchronized void shiftLock() {
+        if (m_shiftLock) {
             m_shiftLock = false;
             this.setLowercase();
-        }else{
+        } else {
             m_shiftLock = true;
             this.setUppercase();
         }
-        if(m_shift){  // turn off shift button
+        if (m_shift) { // turn off shift button
             m_shift = false;
             reverseButtonColors("menuShift");
         }
@@ -410,100 +379,97 @@ public class Keyboard extends XPage
         return;
     }
 
-    private synchronized void shift(){
-        if(m_shiftLock){
-            if(m_shift){
+    private synchronized void shift() {
+        if (m_shiftLock) {
+            if (m_shift) {
                 m_shift = false;
                 this.setUppercase();
-            }else{
+            } else {
                 m_shift = true;
                 this.setLowercase();
             }
-        }else{
-            if(m_shift){
+        } else {
+            if (m_shift) {
                 m_shift = false;
                 this.setLowercase();
-            }else{
+            } else {
                 m_shift = true;
                 this.setUppercase();
             }
         }
-        
+
         reverseButtonColors("menuShift");
         m_dialog.repaint();
         return;
     }
-    
-    private synchronized void close(){
-        if(wasMouseClicked()){
+
+    private synchronized void close() {
+        if (wasMouseClicked()) {
             m_dialog.closeDlg();
             return;
         }
     }
-    
-    private synchronized void clear(){
-        if(wasMouseClicked()){
+
+    private synchronized void clear() {
+        if (wasMouseClicked()) {
             String text = "";
-            m_edit.setText(text);            
+            m_edit.setText(text);
             m_dialog.repaint();
             return;
         }
     }
 
-    private synchronized void cancel(){
-        if(wasMouseClicked()){
+    private synchronized void cancel() {
+        if (wasMouseClicked()) {
             this.setText(originalText);
             m_dialog.closeDlg();
             return;
         }
     }
 
-    private synchronized void append(char c){
+    private synchronized void append(char c) {
         String text = "";
-        try{
-            text = m_edit.getText();            
-        }catch (NullPointerException e){
+        try {
+            text = m_edit.getText();
+        } catch (NullPointerException e) {
             // getText throws exception if no text
             text = "";
-        }finally{
-            m_edit.setText(text + c);            
-        }      
+        } finally {
+            m_edit.setText(text + c);
+        }
         m_dialog.repaint();
         return;
     }
 
-    private synchronized void append(String c){
+    private synchronized void append(String c) {
         String text = "";
-        try{
-            text = m_edit.getText();            
-        }catch (NullPointerException e){
+        try {
+            text = m_edit.getText();
+        } catch (NullPointerException e) {
             // getText throws exception if no text
             text = "";
-        }finally{
-            m_edit.setText(text + c);            
-        }      
+        } finally {
+            m_edit.setText(text + c);
+        }
         m_dialog.repaint();
         return;
     }
 
-    private synchronized void delete(){
-        if(wasMouseClicked()){
+    private synchronized void delete() {
+        if (wasMouseClicked()) {
             String text = "";
-            try{
-                text = m_edit.getText();            
-            }catch (NullPointerException e){
+            try {
+                text = m_edit.getText();
+            } catch (NullPointerException e) {
                 // getText throws exception if no text
                 text = "";
-            }finally{
-		if (text.length() > 1)
-		{
-                m_edit.setText(text.substring(0,text.length()-1));            
-		}
-		else 
-		{
-		  m_edit.setText("");
-		}
-            }      
+            } finally {
+                if (text.length() > 1) {
+                    m_edit.setText(text.substring(0, text.length() - 1));
+                } else {
+                    m_edit.setText("");
+                }
+            }
             m_dialog.repaint();
             return;
         }
