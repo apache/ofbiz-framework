@@ -913,7 +913,7 @@ under the License.
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
                         <include-menu name="InventoryItemTabBar" location="component://product/widget/facility/Menus.xml"/>
-                        <screenlet id="InventoryItemLabelPanel" title="${uiLabelMap.ProductInventoryItemLabels} ${uiLabelMap.CommonFor} [${inventoryItemId}]" collapsible="true">
+                        <screenlet id="AddInventoryItemLabelPanel" title="${uiLabelMap.ProductInventoryItemLabels} ${uiLabelMap.CommonFor} [${inventoryItemId}]" collapsible="true">
                             <include-form name="AddInventoryItemLabelAppl" location="component://product/webapp/facility/inventory/InventoryForms.xml"/>
                         </screenlet>
                         <include-form name="UpdateInventoryItemLabelAppls" location="component://product/webapp/facility/inventory/InventoryForms.xml"/>
