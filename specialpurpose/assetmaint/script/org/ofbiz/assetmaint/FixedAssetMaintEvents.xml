@@ -45,11 +45,39 @@
         <set-service-fields map-name="parameters" service-name="updateWorkEffort" to-map-name="updateWorkEffortCtx"/>
         <!-- Maintenance WorkEffort entity -->
         <property-to-field field-name="workEffortNameText" resource="AssetMaintUiLabels" property="FixedAssetMaintWorkEffortName"/>
-        <set value="${workEffortNameText} #${updateWorkEffortCtx.fixedAssetId}" field="updateWorkEffortCtx.workEffortName"/>
+        <set value="${workEffortNameText} ${updateWorkEffortCtx.fixedAssetId}" field="updateWorkEffortCtx.workEffortName"/>
         <set field="maintTypeLookup.productMaintTypeId" from-field="findAssetMaint.productMaintTypeId"/>
         <find-by-primary-key entity-name="ProductMaintType" map-name="maintTypeLookup" value-name="maintType"/>
         <set field="updateWorkEffortCtx.description" from-field="maintType.description"/>
         <call-service service-name="updateWorkEffort" in-map-name="updateWorkEffortCtx"/>
+        <check-errors/>
+        <!-- Assign fixed asset parties to workeffort -->
+        <set field="workEffortId" from-field="findAssetMaint.scheduleWorkEffortId"/>
+        <call-simple-method method-name="assignFixedAssetPartiesToWorkEffort"/>
+    </simple-method>
+
+    <simple-method method-name="assignFixedAssetPartiesToWorkEffort" login-required="true"
+        short-description="Assign Fixed Asset Parties to a Work Effort">
+        <if-empty field="fixedAssetId">
+            <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
+        </if-empty>
+        <if-empty field="workEffortId">
+            <set field="workEffortId" from-field="parameters.workEffortId"/>
+        </if-empty>
+        <entity-condition list-name="assignedParties" entity-name="PartyFixedAssetAssignAndRole" filter-by-date="true">
+            <condition-list>
+                <condition-expr field-name="fixedAssetId" env-name="fixedAssetId"/>
+                <condition-expr field-name="parentTypeId" value="FAM_ASSIGNEE"/>
+            </condition-list>
+        </entity-condition>
+        <iterate list-name="assignedParties" entry-name="assignedParty">
+            <set field="assignPartyCtx.partyId" from-field="assignedParty.partyId"/>
+            <set field="assignPartyCtx.roleTypeId" from-field="assignedParty.roleTypeId"/>
+            <set field="assignPartyCtx.workEffortId" from-field="workEffortId"/>
+            <set field="assignPartyCtx.statusId" value="PRTYASGN_ASSIGNED"/>
+            <call-service service-name="assignPartyToWorkEffort" in-map-name="assignPartyCtx"/>
+            <check-errors/>
+        </iterate>
     </simple-method>
 
     <simple-method method-name="updateFixedAssetMaintAndWorkEffort" login-required="true"

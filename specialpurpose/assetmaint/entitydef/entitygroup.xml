@@ -26,6 +26,7 @@
   <!-- ========================================================= -->
 
     <entity-group group="org.ofbiz" entity="FixedAssetAndIdent" />    
+    <entity-group group="org.ofbiz" entity="PartyFixedAssetAssignAndRole" />    
     <entity-group group="org.ofbiz" entity="FixedAssetMaintWorkEffort" />
     <entity-group group="org.ofbiz" entity="WorkEffortAndTimeEntry" />
     <entity-group group="org.ofbiz" entity="FixedAssetMaintWorkEffortAndPartyAssignment" />
