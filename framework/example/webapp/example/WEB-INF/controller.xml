@@ -29,6 +29,7 @@ under the License.
     <owner>Copyright 2001-2008 The Apache Software Foundation</owner>
 
     <handler name="groovy" type="request" class="org.ofbiz.webapp.event.GroovyEventHandler"/>
+    <handler name="jsonservice" type="request" class="org.ofbiz.webapp.event.JSONServiceEventHandler"/>
 
     <!--
       These can be used to return the reports as views; make sure the classes are compiled and available
@@ -72,9 +73,9 @@ under the License.
     </request-map>
     <request-map uri="createExampleAjax">
         <security https="true" auth="true"/>
-        <event type="service" invoke="createExample"/>
-        <response name="success" type="view" value="findExampleAjax"/>
-        <response name="error" type="view" value="findExampleAjax"/>
+        <event type="jsonservice" invoke="createExample"/>
+        <response name="success" type="none" value="findExampleAjax"/>
+        <response name="error" type="none" value="findExampleAjax"/>
     </request-map>
     <request-map uri="updateExampleAjax">
         <security https="true" auth="true"/>
