@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -15,20 +15,21 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- *******************************************************************************/
+ */
 package org.ofbiz.webapp.event;
 
 import java.util.Map;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import javolution.util.FastMap;
+
 import org.ofbiz.base.util.GroovyUtil;
 import org.ofbiz.base.util.UtilHttp;
-import org.ofbiz.entity.GenericValue;
-
-import javolution.util.FastMap;
+import org.ofbiz.base.util.UtilMisc;
 
 public class GroovyEventHandler implements EventHandler {
     
@@ -42,16 +43,16 @@ public class GroovyEventHandler implements EventHandler {
             Map<String, Object> groovyContext = FastMap.newInstance();
             groovyContext.put("request", request);
             groovyContext.put("response", response);
+            HttpSession session = request.getSession();
+            groovyContext.put("session", session);
 
             groovyContext.put("dispatcher", request.getAttribute("dispatcher"));
             groovyContext.put("delegator", request.getAttribute("delegator"));
             groovyContext.put("security", request.getAttribute("security"));
             groovyContext.put("locale", UtilHttp.getLocale(request));
             groovyContext.put("timeZone", UtilHttp.getTimeZone(request));
-            HttpSession session = request.getSession();
-            groovyContext.put("session", session);
             groovyContext.put("userLogin", session.getAttribute("userLogin"));
-            groovyContext.put("parameters", request.getParameterMap());
+            groovyContext.put("parameters", UtilHttp.getCombinedMap(request, UtilMisc.toSet("delegator", "dispatcher", "security", "locale", "timeZone", "userLogin")));
 
             Object result = GroovyUtil.runScriptAtLocation(eventPath + eventMethod, groovyContext);
             // check the result
