@@ -313,9 +313,9 @@ under the License.
                         <screenlet title="${uiLabelMap.${titleProperty}}">
                             <include-form name="ListTaskSkills" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                         </screenlet>
-                        <platform-specific>
-                            <html><html-template location="component://projectmgr/webapp/projectmgr/project/edittaskskills.ftl"/></html>
-                        </platform-specific>
+                        <screenlet title="${uiLabelMap.${titleProperty}}">
+                            <include-form name="AddTaskSkill" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
