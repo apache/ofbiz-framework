@@ -154,9 +154,9 @@ under the License.
                 <set field="createInvoiceItemMap.taxableFlag" value="N"/>
                 <set field="createInvoiceItemMap.invoiceItemTypeId" value="INV_TE_ITEM"/>
                 
-                <set field="createInvoiceItemMap.quantity" from-field="timeEntry.hours"/>
+                <set field="createInvoiceItemMap.quantity" from-field="timeEntry.hours" default-value="0.0" type="Double"/>
                 <set field="createInvoiceItemMap.uomId" value="TF_hr"/>
-                <set field="createInvoiceItemMap.amount" from-field="rateAmount"/>
+                <set field="createInvoiceItemMap.amount" from-field="rateAmount" default-value="0.0" type="Double"/>
                 
                 <set field="createInvoiceItemMap.description" from-field="timeEntry.comments"/>
                 
