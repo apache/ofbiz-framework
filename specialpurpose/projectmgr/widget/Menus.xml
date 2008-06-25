@@ -172,7 +172,7 @@
             <link target="projectBilling?projectId=${projectId}"/>
         </menu-item>
     </menu>
-    <menu name="ProjectSubTabBar" type="simple" menu-container-style="button-bar button-style-2" default-selected-style="selected">
+    <menu name="ProjectSubTabBar" type="simple" menu-container-style="button-bar button-style-2" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem">
         <actions>
             <set field="projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
             <set field="hasUpdatePermission" value="${bsh:
@@ -225,7 +225,7 @@
             <link target="copyProjectToTemplate?projectId=${projectId}"></link>
         </menu-item>
     </menu>
-    <menu name="TaskTabBar" type="simple" menu-container-style="button-bar tab-bar" default-selected-style="selected">
+    <menu name="TaskTabBar" type="simple" menu-container-style="button-bar tab-bar" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem">
         <menu-item name="taskView" title="${uiLabelMap.ProjectMgrTaskSummary}"><link target="taskView?workEffortId=${workEffortId}"/></menu-item>
         <menu-item name="edittask" title="${uiLabelMap.ProjectMgrEditTask}">
             <condition>
@@ -317,7 +317,7 @@
             <link target="setTaskStatus?workEffortId=${workEffortId}&amp;currentStatusId=PTS_CANCELLED"/>
         </menu-item>
     </menu>
-    <menu name="TimesheetTabBar" menu-container-style="button-bar tab-bar" default-selected-style="selected">
+    <menu name="TimesheetTabBar" menu-container-style="button-bar tab-bar" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem">
         <menu-item name="findtimesheet" title="${uiLabelMap.CommonFind}">
             <link target="FindTimeSheet"/>
         </menu-item>
@@ -325,7 +325,7 @@
             <link target="addWeeklyTimesheet"/>
         </menu-item>
     </menu>
-    <menu name="TimesheetSubTabBar" menu-container-style="button-bar button-style-2" default-menu-item-name="StatustoProgress">  
+    <menu name="TimesheetSubTabBar" menu-container-style="button-bar button-style-2" default-menu-item-name="StatustoProgress" selected-menuitem-context-field-name="tabButtonItem">  
         <menu-item name="addTimesheet" title="${uiLabelMap.CommonNew}">
             <link target="addWeeklyTimesheet"/>
         </menu-item>
@@ -348,7 +348,7 @@
             <link target="TimeSheetStatustoProgress?timesheetId=${timesheet.timesheetId}&amp;statusId=TIMESHEET_IN_PROCESS"/>
         </menu-item>
     </menu>
-    <menu name="MyTimeSubTabBar" menu-container-style="button-bar button-style-2" default-selected-style="selected">  
+    <menu name="MyTimeSubTabBar" menu-container-style="button-bar button-style-2" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem">  
         <menu-item name="TimeSheetStatustoComplete" title="${uiLabelMap.CommonStatustoComplete}">
             <condition>
                 <and>

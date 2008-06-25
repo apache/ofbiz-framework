@@ -383,6 +383,18 @@
         <field name="estimatedCost" title="${uiLabelMap.ProjectMgrEstimatedCost}" widget-style="linktext"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form> 
+    <form name="AddTaskSkill" type="single" target="createTaskSkillStandard"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="workEffortId"><hidden value="${workEffortId}"/></field>
+        <field name="skillTypeId"><drop-down>
+            <entity-options entity-name="SkillType" description="${description}"/>    
+        </drop-down>
+        </field>
+        <field name="estimatedNumPeople" title="${uiLabelMap.ProjectMgrEstimatedNumPeople}"><text/></field>
+        <field name="estimatedDuration" title="${uiLabelMap.ProjectMgrEstimatedDuration}"><text/></field>
+        <field name="estimatedCost" title="${uiLabelMap.ProjectMgrEstimatedCost}" widget-style="linktext"><text/></field>
+        <field name="add" title="${uiLabelMap.CommonAdd}"><submit/></field>
+    </form>
     <form name="ListTimeEntries" type="list" list-name="timesheetEntries" target="updateTimeEntry" paginate-target="EditTimeEntries"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
