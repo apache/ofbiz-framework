@@ -321,35 +321,16 @@ under the License.
     
     <screen name="Main">
         <section>
+            <actions>
+                <set field="parameters.currentStatus" value="_NA_"/>
+            </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container>
-                        <label style="h1" text="Introduction to the Project Manager Application"/>
-                        </container>
-                        <section>
-                            <actions>
-                                <set field="text1" value="The projectmanager supports the administration/sheduling of projects, task assignment/re-assignment with time registration and invoicing.
-                                    For comments and requirements please add this to the documents below or open an issue in Jira.&lt;br/&gt;&lt;br/&gt;
-                                    This component is now fairly complete, the current status of the component is documented in the development document below." />
-                                <set field="text2" value="The following documents/systems are available:"/>
-                                <set field="link1Text" value="A development document."/>
-                                <set field="link1" value="http://docs.ofbiz.org/display/OFBIZ/Complete+the+implementation+of+the+ProjectMgr+component."/>
-                                <set field="link2Text" value="User document"/>
-                                <set field="link2" value="http://docs.ofbiz.org/display/OFBENDUSER/Project+Manager+Application+Roles"/>
-                                <set field="link3Text" value="A Jira issue system for fault reports and change requests"/>
-                                <set field="link3" value="https://issues.apache.org/jira/browse/OFBIZ/component/12312073"/>
-                                
-                            </actions>
-                            <widgets>
-                                <platform-specific>
-                                    <html>
-                                        <html-template location="component://projectmgr/main.ftl"/>
-                                    </html>
-                                </platform-specific>
-                            </widgets>
-                        </section>
-                        
+                        <screenlet title="${uiLabelMap.ProjectMgrProjectSummary}" navigation-form-name="main" navigation-menu-name="ProjectSubTabBar">
+                            <include-menu name="ProjectSubTabBar" location="component://projectmgr/widget/Menus.xml"/>
+                            <include-form name="ListProjects" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

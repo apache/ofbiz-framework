@@ -242,7 +242,7 @@
         </field>
         <field name="phaseName" title="${uiLabelMap.ProjectMgrPhaseName}"><display description="${resultProject.phaseName}"/></field>
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}"><hyperlink target="projectView?projectId=${resultProject.projectId}" description="${resultProject.projectName}"/></field>
-        <field entry-name="result.taskInfo.currentStatusId" name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
+        <!--field entry-name="result.taskInfo.currentStatusId" name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field-->
         <field name="priority"><display/></field>
         <field name="estimatedStartDate"><display type="date"/></field>
         <field name="estimatedCompletionDate" red-when="before-now"><display type="date"/></field>
