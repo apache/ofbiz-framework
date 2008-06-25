@@ -262,6 +262,11 @@ under the License.
                 </call-service>
             </if-not-empty>
         </if-empty>
+        <if-not-empty field="parameters.productId">
+            <if-empty field="parameters.quantity">
+                <set field="newEntity.quantity" value="1.0" type="Double"/>
+             </if-empty>
+        </if-not-empty>
         <if-empty field="newEntity.amount">
             <add-error>
                 <fail-message message="The amount value is mandatory"/>
