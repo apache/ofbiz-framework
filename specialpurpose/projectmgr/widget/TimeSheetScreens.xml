@@ -270,7 +270,9 @@ under the License.
                 <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/EditWeekTimesheet.bsh"/>
             </actions>
             <widgets>
-                <screenlet title="${uiLabelMap.PageTitleCurrentTimesheet} ${uiLabelMap.CommonNbr} ${timesheet.timesheetId} ${uiLabelMap.ProjectMgrWeek}: ${weekNumber} ${uiLabelMap.CommonFrom} ${bsh:timesheet.get(&quot;fromDate&quot;).toString().substring(0,10)} ${uiLabelMap.CommonTo} ${bsh:timesheet.get(&quot;thruDate&quot;).toString().substring(0,10)}">
+                <screenlet title="${uiLabelMap.PageTitleCurrentTimesheet} ${uiLabelMap.CommonNbr} ${timesheet.timesheetId} ${uiLabelMap.ProjectMgrWeek}: ${weekNumber} ${uiLabelMap.CommonFrom} ${bsh:timesheet.get(&quot;fromDate&quot;).toString().substring(0,10)} ${uiLabelMap.CommonTo} ${bsh:timesheet.get(&quot;thruDate&quot;).toString().substring(0,10)}"
+                    navigation-menu-name="TimesheetBar">
+                    <include-menu name="TimesheetBar" location="component://projectmgr/widget/Menus.xml"/>
                     <section>
                         <condition>
                             <if-compare field-name="timesheet.statusId" operator="equals" value="TIMESHEET_COMPLETED"/>
@@ -297,6 +299,15 @@ under the License.
     </screen>    
     <screen name="ListTimesheets">
         <section>
+            <actions>
+                <entity-and entity-name="Timesheet" list-name="timesheets">
+                    <field-map field-name="partyId" env-name="userLogin.partyId"/>
+                    <order-by field-name="-fromDate"/>
+                </entity-and>
+                <entity-one entity-name="PartyNameView" value-name="partyNameView">
+                    <field-map field-name="partyId" env-name="userLogin.partyId"/>
+                </entity-one>
+            </actions>
             <widgets>
                 <container style="screenlet">
                     <container style="screenlet-title-bar">
