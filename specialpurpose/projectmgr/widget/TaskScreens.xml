@@ -153,7 +153,7 @@ under the License.
                 <entity-and entity-name="WorkEffortAndPartyAssign" list-name="tasks" filter-by-date="true">
                     <field-map field-name="partyId" env-name="userLogin.partyId"/>
                     <field-map field-name="workEffortTypeId" value="TASK"/>
-                    <field-map field-name="statusId" value="PAS_ASSIGNED"/>
+                    <field-map field-name="currentStatusId" value="PTS_CREATED"/>
                 </entity-and>
             </actions>
             <widgets>
