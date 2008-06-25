@@ -126,7 +126,6 @@ under the License.
     <form name="EditExampleBackgroundSubmit" type="single" extends="EditExample" target="updateExampleAjax">
         <alt-target use-when="example==null" target="createExampleAjax"/>
         <on-event-update-area event-type="submit" area-id="ListExamplesAjax" area-target="ListExampleFormOnly"/>
-        <on-event-update-area event-type="submit" area-id="EditExampleAjax" area-target="CreateExampleFormOnly"/>
     </form>
 
     <!-- ExampleItem -->
