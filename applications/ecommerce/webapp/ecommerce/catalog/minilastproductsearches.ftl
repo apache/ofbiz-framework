@@ -21,7 +21,7 @@ under the License.
 <#assign searchOptionsHistoryList = Static["org.ofbiz.product.product.ProductSearchSession"].getSearchOptionsHistoryList(session)?if_exists/>
 <#if searchOptionsHistoryList?has_content>
     <#if (searchOptionsHistoryList?size > maxToShow)><#assign limit=maxToShow/><#else><#assign limit=(searchOptionsHistoryList?size-1)/></#if>
-    <div class="screenlet">
+    <div id="minilastproductsearches" class="screenlet">
         <div class="screenlet-header">
             <div class="boxlink">
                 <a href="<@ofbizUrl>clearLastViewed</@ofbizUrl>" class="lightbuttontextsmall">[${uiLabelMap.CommonClear}]</a>

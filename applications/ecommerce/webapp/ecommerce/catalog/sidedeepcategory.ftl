@@ -41,7 +41,7 @@ under the License.
       <#assign browseCategoryButtonClass = "browsecategorybutton">
   </#if>
   <#if wrapInBox == "Y">
-  <div class="screenlet">
+  <div  id="sidedeepcategory" class="screenlet">
     <div class="screenlet-header">
       <div class="boxhead"><#if categoryDescription?has_content>${categoryDescription}<#else>${categoryName?default("")}</#if></div>
     </div>
@@ -69,7 +69,7 @@ under the License.
 </#macro>
 
 <#if topLevelList?has_content>
-<div class="screenlet">
+<div id="sidedeepcategory" class="screenlet">
     <div class="screenlet-header">
         <div class="boxhead">${uiLabelMap.ProductBrowseCategories}</div>
     </div>

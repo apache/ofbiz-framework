@@ -23,7 +23,7 @@ under the License.
 </#if>
 
 <#if randomSurvey?has_content>
-<div class="screenlet">
+<div id="minipoll" class="screenlet">
     <div class="screenlet-header">
         <div class="boxhead">${randomSurvey.getSurveyName()?if_exists}</div>
     </div>

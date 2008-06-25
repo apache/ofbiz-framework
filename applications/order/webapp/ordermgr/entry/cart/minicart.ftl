@@ -24,7 +24,7 @@ under the License.
     <#assign shoppingCartSize = 0>
 </#if>
 
-<div class="screenlet">
+<div id="minicart" class="screenlet">
     <div class="screenlet-header">
         <div class='boxhead'><b>${uiLabelMap.OrderCartSummary}</b></div>
     </div>

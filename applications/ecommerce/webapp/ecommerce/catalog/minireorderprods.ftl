@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <#if reorderProducts?has_content>
-<div class="screenlet">
+<div id ="minireorderprods" class="screenlet">
     <div class="screenlet-header">
         <div class="boxhead">${uiLabelMap.ProductQuickReorder}...</div>
     </div>

@@ -21,7 +21,7 @@ under the License.
 <#assign lastViewedProducts = sessionAttributes.lastViewedProducts?if_exists/>
 <#if lastViewedProducts?has_content>
     <#if (lastViewedProducts?size > maxToShow)><#assign limit=maxToShow/><#else><#assign limit=(lastViewedProducts?size-1)/></#if>
-    <div class="screenlet">
+    <div id="minilastviewedproducts" class="screenlet">
         <div class="screenlet-header">
             <div class="boxlink">
                 <a href="<@ofbizUrl>clearLastViewed</@ofbizUrl>" class="lightbuttontextsmall">[${uiLabelMap.CommonClear}]</a>

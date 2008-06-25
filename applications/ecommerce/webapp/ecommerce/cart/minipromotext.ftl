@@ -18,7 +18,7 @@ under the License.
 -->
 
 <#if showPromoText>
-<div class="screenlet">
+<div id="minipromotext" class="screenlet">
     <div class="screenlet-header">
         <div class="boxhead">${uiLabelMap.OrderSpecialOffers}</div>
     </div>
