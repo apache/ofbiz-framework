@@ -22,8 +22,12 @@ import java.util.Map;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.ofbiz.base.util.GroovyUtil;
+import org.ofbiz.base.util.UtilHttp;
+import org.ofbiz.entity.GenericValue;
+
 import javolution.util.FastMap;
 
 public class GroovyEventHandler implements EventHandler {
@@ -38,6 +42,17 @@ public class GroovyEventHandler implements EventHandler {
             Map<String, Object> groovyContext = FastMap.newInstance();
             groovyContext.put("request", request);
             groovyContext.put("response", response);
+
+            groovyContext.put("dispatcher", request.getAttribute("dispatcher"));
+            groovyContext.put("delegator", request.getAttribute("delegator"));
+            groovyContext.put("security", request.getAttribute("security"));
+            groovyContext.put("locale", UtilHttp.getLocale(request));
+            groovyContext.put("timeZone", UtilHttp.getTimeZone(request));
+            HttpSession session = request.getSession();
+            groovyContext.put("session", session);
+            groovyContext.put("userLogin", session.getAttribute("userLogin"));
+            groovyContext.put("parameters", request.getParameterMap());
+
             Object result = GroovyUtil.runScriptAtLocation(eventPath + eventMethod, groovyContext);
             // check the result
             if (result != null && !(result instanceof String)) {
