@@ -282,8 +282,8 @@ function submitFormInBackground(form, areaId, submitUrl) {
   * form of: areaId, target, target parameters [, areaId, target, target parameters...].
 */
 function ajaxSubmitFormUpdateAreas(form, areaCsvString) {
-    submitFormDisableSubmits(form);
-    ajaxSubmitRequestUpdateAreas(form.action, form.serialize(true), areaCsvString);
+    submitFormDisableSubmits($(form));
+    ajaxSubmitRequestUpdateAreas($(form).action, $(form).serialize(true), areaCsvString);
 }
 
 /** Enable auto-completion for text elements.

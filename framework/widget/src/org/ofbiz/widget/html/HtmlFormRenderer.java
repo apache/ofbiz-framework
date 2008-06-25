@@ -943,9 +943,9 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             
             if (ajaxEnabled) {
                 writer.append(" onclick=\"");
-                writer.append("ajaxSubmitFormUpdateAreas($('");
+                writer.append("ajaxSubmitFormUpdateAreas('");
                 writer.append(formId);
-                writer.append("'), '" + createAjaxParamsFromUpdateAreas(updateAreas, null, context));
+                writer.append("', '" + createAjaxParamsFromUpdateAreas(updateAreas, null, context));
                 writer.append("')\"");
             }
             
