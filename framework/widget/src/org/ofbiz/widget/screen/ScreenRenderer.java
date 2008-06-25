@@ -34,7 +34,6 @@ import javax.servlet.http.HttpSession;
 import javax.xml.parsers.ParserConfigurationException;
 
 import javolution.util.FastMap;
-import javolution.util.FastSet;
 
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilDateTime;
@@ -136,11 +135,11 @@ public class ScreenRenderer {
         return this.screenStringRenderer;
     }
 
-    public void populateBasicContext(Map parameters, GenericDelegator delegator, LocalDispatcher dispatcher, Security security, Locale locale, GenericValue userLogin) {
+    public void populateBasicContext(Map<String, Object> parameters, GenericDelegator delegator, LocalDispatcher dispatcher, Security security, Locale locale, GenericValue userLogin) {
         populateBasicContext(context, this, parameters, delegator, dispatcher, security, locale, userLogin);
     }
 
-    public static void populateBasicContext(MapStack<String> context, ScreenRenderer screens, Map parameters, GenericDelegator delegator, LocalDispatcher dispatcher, Security security, Locale locale, GenericValue userLogin) {
+    public static void populateBasicContext(MapStack<String> context, ScreenRenderer screens, Map<String, Object> parameters, GenericDelegator delegator, LocalDispatcher dispatcher, Security security, Locale locale, GenericValue userLogin) {
         // ========== setup values that should always be in a screen context
         // include an object to more easily render screens
         context.put("screens", screens);
@@ -179,13 +178,9 @@ public class ScreenRenderer {
         HttpSession session = request.getSession();
 
         // attribute names to skip for session and application attributes; these are all handled as special cases, duplicating results and causing undesired messages
-        Set<String> attrNamesToSkip = FastSet.newInstance();
-        attrNamesToSkip.add("delegator");
-        attrNamesToSkip.add("dispatcher");
-        attrNamesToSkip.add("security");
-        attrNamesToSkip.add("webSiteId");
+        Set<String> attrNamesToSkip = UtilMisc.toSet("delegator", "dispatcher", "security", "webSiteId");
+        Map<String, Object> parameterMap = UtilHttp.getCombinedMap(request, attrNamesToSkip);      
 
-        Map parameterMap = UtilHttp.getCombinedMap(request, attrNamesToSkip);      
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         
         populateBasicContext(context, screens, parameterMap, (GenericDelegator) request.getAttribute("delegator"),
@@ -304,7 +299,7 @@ public class ScreenRenderer {
     	return context;
     }
 
-    public void populateContextForService(DispatchContext dctx, Map serviceContext) {
+    public void populateContextForService(DispatchContext dctx, Map<String, Object> serviceContext) {
         this.populateBasicContext(serviceContext, dctx.getDelegator(), dctx.getDispatcher(), dctx.getSecurity(),
                 (Locale) serviceContext.get("locale"), (GenericValue) serviceContext.get("userLogin"));
     }
