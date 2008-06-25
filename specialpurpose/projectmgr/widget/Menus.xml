@@ -384,4 +384,12 @@
             <link target="EditRequest?custRequestId=${parameters.custRequestId}"/>
         </menu-item>
     </menu>
+    <menu name="TimesheetBar">
+        <menu-item name="setToComplete" title="${uiLabelMap.CommonStatustoComplete}">
+            <condition>
+                <if-compare field-name="timesheet.statusId" operator="equals" value="TIMESHEET_IN_PROCESS"/>
+            </condition>
+            <link target="${my}StatusToComplete?timesheetId=${timesheet.timesheetId}&amp;statusId=TIMESHEET_COMPLETED"/>
+        </menu-item>
+    </menu>
 </menus>
