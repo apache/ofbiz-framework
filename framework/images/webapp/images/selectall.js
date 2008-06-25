@@ -283,7 +283,13 @@ function submitFormInBackground(form, areaId, submitUrl) {
 */
 function ajaxSubmitFormUpdateAreas(form, areaCsvString) {
     submitFormDisableSubmits($(form));
-    ajaxSubmitRequestUpdateAreas($(form).action, $(form).serialize(true), areaCsvString);
+    updateFunction = function(transport) {
+    	$(form).reset();
+        ajaxUpdateAreas(areaCsvString);
+    }
+    new Ajax.Request($(form).action, {
+        parameters: $(form).serialize(true),
+        onComplete: updateFunction });
 }
 
 /** Enable auto-completion for text elements.
