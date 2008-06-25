@@ -284,8 +284,25 @@ function submitFormInBackground(form, areaId, submitUrl) {
 function ajaxSubmitFormUpdateAreas(form, areaCsvString) {
     submitFormDisableSubmits($(form));
     updateFunction = function(transport) {
-    	$(form).reset();
-        ajaxUpdateAreas(areaCsvString);
+        var data = transport.responseText.evalJSON(true);
+        if (data._ERROR_MESSAGE_LIST_ != undefined || data._ERROR_MESSAGE_ != undefined) {
+            if(!$('content-messages')) {
+               //add this div just after app-navigation
+               if($('app-navigation')){
+                   $('app-navigation' ).insert({after: '<div id="content-messages"></div>'});
+               }
+            }
+           $('content-messages').addClassName('errorMessage');
+           $('content-messages' ).update(data._ERROR_MESSAGE_LIST_ + " " + data._ERROR_MESSAGE_);
+           new Effect.Appear('content-messages',{duration: 0.5}); 
+        }else {
+        	if($('content-messages')) {
+                $('content-messages').removeClassName('errorMessage');
+                new Effect.Fade('content-messages',{duration: 0.0});   
+            }
+            $(form).reset();
+            ajaxUpdateAreas(areaCsvString);
+        }
     }
     new Ajax.Request($(form).action, {
         parameters: $(form).serialize(true),
