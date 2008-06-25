@@ -19,7 +19,7 @@ under the License.
 
 <#assign associatedProducts = Static["org.ofbiz.order.shoppingcart.product.ProductDisplayWorker"].getRandomCartProductAssoc(request, true)?if_exists>
 <#if associatedProducts?has_content>
-<div class="screenlet">
+<div id="miniassocproducts" class="screenlet">
     <div class="screenlet-header">
         <div class='boxhead'><b>${uiLabelMap.EcommerceYouMightLike}...</b></div>
     </div>

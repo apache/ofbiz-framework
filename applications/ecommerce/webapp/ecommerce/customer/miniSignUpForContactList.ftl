@@ -27,7 +27,7 @@ under the License.
     </select>
 </#macro>
 
-<div class="screenlet">
+<div id="miniSignUpForContactList" class="screenlet">
     <div class="screenlet-header">
         <div class="boxhead">${uiLabelMap.EcommerceSignUpForContactList}</div>
     </div>

@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<div class="screenlet">
+<div id="keywordsearchbox" class="screenlet">
     <div class="screenlet-header">
         <div class="boxhead">${uiLabelMap.ProductSearchCatalog}</div>
     </div>

@@ -30,7 +30,7 @@ under the License.
   </#if>
 </#if>
 
-<div class="screenlet">
+<div id="factoids" class="screenlet">
     <div class="screenlet-header">
         <div class="boxhead">${uiLabelMap.Factoids}</div>
     </div>

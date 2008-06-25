@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<div class="screenlet">
+<div id="browse-blogs" class="screenlet">
     <div class="screenlet-header">
         <div class="boxhead">${uiLabelMap.ProductBrowseBlogs}</div>
     </div>

@@ -18,7 +18,7 @@ under the License.
 -->
 
 <#if mrvList?has_content>
-    <div class="screenlet">
+    <div id="recentlyviewed" class="screenlet">
         <div class="screenlet-header">
             <div class="boxhead">${uiLabelMap.EcommerceLastContent}</div>
         </div>
