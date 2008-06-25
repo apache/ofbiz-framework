@@ -120,21 +120,4 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="ExampleFeatureOptions">
-        <section>
-            <actions>
-                <script location="component://example/webapp/example/WEB-INF/actions/findExampleFeatures.bsh"/> <!--
-                <set field="parameters.noConditionFind" value="Y"/>
-                <service service-name="performFind" result-map-name="result">
-                    <field-map field-name="inputFields" env-name="parameters"/>
-                    <field-map field-name="orderBy" value="description"/>
-                    <field-map field-name="entityName" value="ExampleFeature"/>
-                </service>
-                <set field="listIt" from-field="result.listIt"/> -->
-            </actions>
-            <widgets>
-                <platform-specific><html><html-template location="component://example/webapp/example/includes/exampleFeatures.ftl"/></html></platform-specific>
-            </widgets>
-        </section>
-    </screen>
 </screens>
