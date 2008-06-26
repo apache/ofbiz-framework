@@ -116,8 +116,6 @@ under the License.
                 <set field="headerItem" value="comm"/>
                 <set field="tabButtonItem" value="find"/>
                 <set field="entityName" value="CommunicationEvent"/>
-                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
             </actions>
             <widgets>
                 <decorator-screen location="${parameters.mainDecoratorLocation}" name="main-decorator">
@@ -135,11 +133,11 @@ under the License.
                                         <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="ProfileTabBar"/>
                                     </widgets>
                                 </section>
-                                <screenlet title="${uiLabelMap.PartyFindCommunicationEvents}" collapsible="true" id="FindCommunicationEvents">
+                                <screenlet title="${uiLabelMap.PartyFindCommunicationEvents}" collapsible="true" name="FindCommunicationEvents">
                                     <container><link style="smallSubmit" target="EditCommunicationEvent" text="${uiLabelMap.PartyNewCommunication}"/></container>
                                     <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="findCommEvents"/>
                                 </screenlet>
-                                <screenlet title="${uiLabelMap.PartyFoundCommunicationEvents}" navigation-form-name="FindCommunicationEvents">
+                                <screenlet title="${uiLabelMap.PartyFoundCommunicationEvents}" navigation-form-name="ListLookupCommEvents">
                                     <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="ListLookupCommEvents"/>
                                 </screenlet>
                             </widgets>
