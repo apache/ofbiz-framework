@@ -582,11 +582,18 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
     public void renderDropDownField(Appendable writer, Map<String, Object> context, DropDownField dropDownField) throws IOException {
         ModelFormField modelFormField = dropDownField.getModelFormField();
         ModelForm modelForm = modelFormField.getModelForm();
+        ModelFormField.AutoComplete autoComplete = dropDownField.getAutoComplete();
+        boolean ajaxEnabled = autoComplete != null && this.javaScriptEnabled;
+        List allOptionValues = dropDownField.getAllOptionValues(context, modelForm.getDelegator(context));
 
         String event = modelFormField.getEvent();
         String action = modelFormField.getAction(context);
 
-        writer.append("<select");
+        if (ajaxEnabled) {
+        	writer.append("<input type=\"text\"");
+        } else {
+        	writer.append("<select");
+        }
 
         appendClassNames(writer, context, modelFormField);
 
@@ -600,129 +607,155 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             writer.append(idName);
             writer.append('"');
         }
-
-        if (dropDownField.isAllowMultiple()) {
-            writer.append(" multiple=\"multiple\"");
-        }
         
-        int otherFieldSize = dropDownField.getOtherFieldSize();
-        String otherFieldName = dropDownField.getParameterNameOther(context);
-        if (otherFieldSize > 0) {
-            //writer.append(" onchange=\"alert('ONCHANGE, process_choice:' + process_choice)\"");
-            //writer.append(" onchange='test_js()' ");
-            writer.append(" onchange=\"process_choice(this,document.");
-            writer.append(modelForm.getName());
-            writer.append(".");
-            writer.append(otherFieldName);
-            writer.append(")\" "); 
-        }
-
-
-        if (UtilValidate.isNotEmpty(event) && UtilValidate.isNotEmpty(action)) {
-            writer.append(" ");
-            writer.append(event);
-            writer.append("=\"");
-            writer.append(action);
-            writer.append('"');
-        }
-
-        writer.append(" size=\"" + dropDownField.getSize() + "\">");
-
-        String currentValue = modelFormField.getEntry(context);
-        List allOptionValues = dropDownField.getAllOptionValues(context, modelForm.getDelegator(context));
-
-        // if the current value should go first, stick it in
-        if (UtilValidate.isNotEmpty(currentValue) && "first-in-list".equals(dropDownField.getCurrent())) {
-            writer.append("<option");
-            writer.append(" selected=\"selected\"");
-            writer.append(" value=\"");
-            writer.append(currentValue);
-            writer.append("\">");
-            String explicitDescription = dropDownField.getCurrentDescription(context);
-            if (UtilValidate.isNotEmpty(explicitDescription)) {
-                writer.append(explicitDescription);
-            } else {
-                writer.append(ModelFormField.FieldInfoWithOptions.getDescriptionForOptionKey(currentValue, allOptionValues));
+        if (ajaxEnabled) {
+        	writer.append("/>");
+        	
+        	appendWhitespace(writer);
+            writer.append("<script language=\"JavaScript\" type=\"text/javascript\">");
+            appendWhitespace(writer);
+            writer.append("var data = [");
+            Iterator optionValueIter = allOptionValues.iterator();
+            int count = 0;
+            while (optionValueIter.hasNext()) {
+            	count++;
+                ModelFormField.OptionValue optionValue = (ModelFormField.OptionValue) optionValueIter.next();
+                writer.append("['"+optionValue.getKey()+"',");
+                writer.append(" '"+optionValue.getDescription()+"']");
+                if (count != allOptionValues.size()) {
+                	writer.append(", ");
+                }
             }
-            writer.append("</option>");
-
-            // add a "separator" option
-            writer.append("<option value=\"");
-            writer.append(currentValue);
-            writer.append("\">---</option>");
-        }
-
-        // if allow empty is true, add an empty option
-        if (dropDownField.isAllowEmpty()) {
-            writer.append("<option value=\"\">&nbsp;</option>");
-        }
-
-        // list out all options according to the option list
-        Iterator optionValueIter = allOptionValues.iterator();
-        while (optionValueIter.hasNext()) {
-            ModelFormField.OptionValue optionValue = (ModelFormField.OptionValue) optionValueIter.next();
-            String noCurrentSelectedKey = dropDownField.getNoCurrentSelectedKey(context);
-            writer.append("<option");
-            // if current value should be selected in the list, select it
-            if (UtilValidate.isNotEmpty(currentValue) && currentValue.equals(optionValue.getKey()) && "selected".equals(dropDownField.getCurrent())) {
-                writer.append(" selected=\"selected\"");
-            } else if (UtilValidate.isEmpty(currentValue) && noCurrentSelectedKey != null && noCurrentSelectedKey.equals(optionValue.getKey())) {
-                writer.append(" selected=\"selected\"");
+            writer.append("];");
+            appendWhitespace(writer);
+            writer.append("ajaxAutoCompleteDropDown('"+idName+"', data, {autoSelect: "+autoComplete.getAutoSelect()+", frequency: "+autoComplete.getFrequency()+", minChars: "+autoComplete.getMinChars()+", choices: "+autoComplete.getChoices()+", partialSearch: "+autoComplete.getPartialSearch()+", partialChars: "+autoComplete.getPartialChars()+", ignoreCase: "+autoComplete.getIgnoreCase()+", fullSearch: "+autoComplete.getFullSearch()+"});");
+            appendWhitespace(writer);
+            writer.append("</script>");
+        } else {
+        	if (dropDownField.isAllowMultiple()) {
+                writer.append(" multiple=\"multiple\"");
             }
-            writer.append(" value=\"");
-            writer.append(optionValue.getKey());
-            writer.append("\">");
-            writer.append(optionValue.getDescription());
-            writer.append("</option>");
-        }
-
-        writer.append("</select>");
-
-        // Adapted from work by Yucca Korpela
-        // http://www.cs.tut.fi/~jkorpela/forms/combo.html
-        if (otherFieldSize > 0) {
-        
-            String fieldName = modelFormField.getParameterName(context);
-            Map dataMap = modelFormField.getMap(context);
-            if (dataMap == null) {
-                dataMap = context;
-            }
-            Object otherValueObj = dataMap.get(otherFieldName);
-            String otherValue = (otherValueObj == null) ? "" : otherValueObj.toString();
             
-            writer.append("<noscript>");
-            writer.append("<input type='text' name='");
-            writer.append(otherFieldName);
-            writer.append("'/> ");
-            writer.append("</noscript>");
-            writer.append("\n<script type='text/javascript' language='JavaScript'><!--");
-            writer.append("\ndisa = ' disabled';");
-            writer.append("\nif(other_choice(document.");
-            writer.append(modelForm.getName());
-            writer.append(".");
-            writer.append(fieldName);
-            writer.append(")) disa = '';");
-            writer.append("\ndocument.write(\"<input type=");
-            writer.append("'text' name='");
-            writer.append(otherFieldName);
-            writer.append("' value='");
-            writer.append(otherValue);
-            writer.append("' size='");
-            writer.append(Integer.toString(otherFieldSize));
-            writer.append("' ");
-            writer.append("\" +disa+ \" onfocus='check_choice(document.");
-            writer.append(modelForm.getName());
-            writer.append(".");
-            writer.append(fieldName);
-            writer.append(")'/>\");");
-            writer.append("\nif(disa && document.styleSheets)");
-            writer.append(" document.");
-            writer.append(modelForm.getName());
-            writer.append(".");
-            writer.append(otherFieldName);
-            writer.append(".style.visibility  = 'hidden';");
-            writer.append("\n//--></script>");
+            int otherFieldSize = dropDownField.getOtherFieldSize();
+            String otherFieldName = dropDownField.getParameterNameOther(context);
+            if (otherFieldSize > 0) {
+                //writer.append(" onchange=\"alert('ONCHANGE, process_choice:' + process_choice)\"");
+                //writer.append(" onchange='test_js()' ");
+                writer.append(" onchange=\"process_choice(this,document.");
+                writer.append(modelForm.getName());
+                writer.append(".");
+                writer.append(otherFieldName);
+                writer.append(")\" "); 
+            }
+
+
+            if (UtilValidate.isNotEmpty(event) && UtilValidate.isNotEmpty(action)) {
+                writer.append(" ");
+                writer.append(event);
+                writer.append("=\"");
+                writer.append(action);
+                writer.append('"');
+            }
+
+            writer.append(" size=\"" + dropDownField.getSize() + "\">");
+
+            String currentValue = modelFormField.getEntry(context);
+
+            // if the current value should go first, stick it in
+            if (UtilValidate.isNotEmpty(currentValue) && "first-in-list".equals(dropDownField.getCurrent())) {
+                writer.append("<option");
+                writer.append(" selected=\"selected\"");
+                writer.append(" value=\"");
+                writer.append(currentValue);
+                writer.append("\">");
+                String explicitDescription = dropDownField.getCurrentDescription(context);
+                if (UtilValidate.isNotEmpty(explicitDescription)) {
+                    writer.append(explicitDescription);
+                } else {
+                    writer.append(ModelFormField.FieldInfoWithOptions.getDescriptionForOptionKey(currentValue, allOptionValues));
+                }
+                writer.append("</option>");
+
+                // add a "separator" option
+                writer.append("<option value=\"");
+                writer.append(currentValue);
+                writer.append("\">---</option>");
+            }
+
+            // if allow empty is true, add an empty option
+            if (dropDownField.isAllowEmpty()) {
+                writer.append("<option value=\"\">&nbsp;</option>");
+            }
+
+            // list out all options according to the option list
+            Iterator optionValueIter = allOptionValues.iterator();
+            while (optionValueIter.hasNext()) {
+                ModelFormField.OptionValue optionValue = (ModelFormField.OptionValue) optionValueIter.next();
+                String noCurrentSelectedKey = dropDownField.getNoCurrentSelectedKey(context);
+                writer.append("<option");
+                // if current value should be selected in the list, select it
+                if (UtilValidate.isNotEmpty(currentValue) && currentValue.equals(optionValue.getKey()) && "selected".equals(dropDownField.getCurrent())) {
+                    writer.append(" selected=\"selected\"");
+                } else if (UtilValidate.isEmpty(currentValue) && noCurrentSelectedKey != null && noCurrentSelectedKey.equals(optionValue.getKey())) {
+                    writer.append(" selected=\"selected\"");
+                }
+                writer.append(" value=\"");
+                writer.append(optionValue.getKey());
+                writer.append("\">");
+                writer.append(optionValue.getDescription());
+                writer.append("</option>");
+            }
+
+            writer.append("</select>");
+            
+
+            // Adapted from work by Yucca Korpela
+            // http://www.cs.tut.fi/~jkorpela/forms/combo.html
+            if (otherFieldSize > 0) {
+            
+                String fieldName = modelFormField.getParameterName(context);
+                Map dataMap = modelFormField.getMap(context);
+                if (dataMap == null) {
+                    dataMap = context;
+                }
+                Object otherValueObj = dataMap.get(otherFieldName);
+                String otherValue = (otherValueObj == null) ? "" : otherValueObj.toString();
+                
+                writer.append("<noscript>");
+                writer.append("<input type='text' name='");
+                writer.append(otherFieldName);
+                writer.append("'/> ");
+                writer.append("</noscript>");
+                writer.append("\n<script type='text/javascript' language='JavaScript'><!--");
+                writer.append("\ndisa = ' disabled';");
+                writer.append("\nif(other_choice(document.");
+                writer.append(modelForm.getName());
+                writer.append(".");
+                writer.append(fieldName);
+                writer.append(")) disa = '';");
+                writer.append("\ndocument.write(\"<input type=");
+                writer.append("'text' name='");
+                writer.append(otherFieldName);
+                writer.append("' value='");
+                writer.append(otherValue);
+                writer.append("' size='");
+                writer.append(Integer.toString(otherFieldSize));
+                writer.append("' ");
+                writer.append("\" +disa+ \" onfocus='check_choice(document.");
+                writer.append(modelForm.getName());
+                writer.append(".");
+                writer.append(fieldName);
+                writer.append(")'/>\");");
+                writer.append("\nif(disa && document.styleSheets)");
+                writer.append(" document.");
+                writer.append(modelForm.getName());
+                writer.append(".");
+                writer.append(otherFieldName);
+                writer.append(".style.visibility  = 'hidden';");
+                writer.append("\n//--></script>");
+            }
         }
+        	
         this.makeHyperlinkString(writer, dropDownField.getSubHyperlink(), context);
 
         this.appendTooltip(writer, context, modelFormField);

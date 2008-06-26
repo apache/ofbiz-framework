@@ -612,6 +612,7 @@ under the License.
     <xs:element name="drop-down" substitutionGroup="AllFields">
         <xs:complexType>
             <xs:sequence>
+                <xs:element ref="auto-complete" minOccurs="0" maxOccurs="1"/>
                 <xs:choice minOccurs="0" maxOccurs="unbounded">
                     <xs:element ref="entity-options"/>
                     <xs:element ref="list-options"/>
@@ -623,15 +624,6 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.drop-down">
-        <xs:attribute name="type" default="traditional">
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="traditional"/>
-                    <xs:enumeration value="auto-complete-server"/>
-                    <!-- <xs:enumeration value="auto-complete-client"/> something to consider for the future -->
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
         <xs:attribute name="allow-empty" default="false">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -1008,6 +1000,49 @@ under the License.
     </xs:attributeGroup>
 
     <!-- ================== FIELD SUB-ELEMENTS ==================== -->
+    <xs:element name="auto-complete">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.auto-complete"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.auto-complete">
+        <xs:attribute name="auto-select" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute type="xs:integer" name="frequency" default="0.4"/>
+        <xs:attribute type="xs:positiveInteger" name="min-chars" default="1"/>
+        <xs:attribute type="xs:positiveInteger" name="choices" default="10"/>
+        <xs:attribute name="partial-search" default="true">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute type="xs:positiveInteger" name="partial-chars" default="2"/>
+        <xs:attribute name="ignore-case" default="true">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="full-search" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:attributeGroup>
     <xs:element name="entity-constraint">
         <xs:complexType>
             <xs:attributeGroup ref="attlist.entity-constraint"/>
