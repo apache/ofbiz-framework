@@ -53,19 +53,19 @@ public class PosButtonWrapper {
         this.origText = xbutton.getText();
 
         // load the disabled style
-        this.disabledStyle = XProjectManager.getStyleManager().getStyle(disabledAll);
+        this.disabledStyle = XProjectManager.getCurrentProject().getStyleManager().getStyle(disabledAll);
         if (this.disabledStyle == null) {
             Debug.logError("ERROR: The disabled button style \"buttonDisabled\" was not found!", module);
         }
 
         // load the enabled style
         if (styleName != null) {
-            this.enabledStyle = XProjectManager.getStyleManager().getStyle(styleName);
+            this.enabledStyle = XProjectManager.getCurrentProject().getStyleManager().getStyle(styleName);
             if (this.enabledStyle == null) {
                 Debug.logError("ERROR: The enabled button style \""+ styleName + "\" was not found!", module);
             }
         } else {
-            this.enabledStyle = XProjectManager.getStyleManager().getStyle(enabledMenu);
+            this.enabledStyle = XProjectManager.getCurrentProject().getStyleManager().getStyle(enabledMenu);
             if (this.enabledStyle == null) {
                 Debug.logError("ERROR: The enabled button style \""+ enabledMenu + "\" was not found!", module);
             }

@@ -27,7 +27,6 @@ import java.awt.event.FocusListener;
 
 import java.util.*;
 
-import net.xoetrope.builder.NavigationHelper;
 import net.xoetrope.xui.XPage;
 import net.xoetrope.xui.XProject;
 import net.xoetrope.xui.XProjectManager;
@@ -47,7 +46,7 @@ import org.ofbiz.pos.component.Output;
 import org.ofbiz.pos.component.PosButton;
 import org.ofbiz.pos.device.DeviceLoader;
 
-public class PosScreen extends NavigationHelper implements Runnable, DialogCallback, FocusListener {
+public class PosScreen extends XPage implements Runnable, DialogCallback, FocusListener {
 
     public static final String module = PosScreen.class.getName();
     public static final Frame appFrame = XProjectManager.getCurrentProject().getAppFrame();
