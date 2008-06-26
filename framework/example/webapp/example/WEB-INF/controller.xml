@@ -30,6 +30,7 @@ under the License.
 
     <handler name="groovy" type="request" class="org.ofbiz.webapp.event.GroovyEventHandler"/>
     <handler name="jsonservice" type="request" class="org.ofbiz.webapp.event.JSONServiceEventHandler"/>
+    <handler name="jsonsimple" type="request" class="org.ofbiz.webapp.event.JSONSimpleEventHandler"/>
 
     <!--
       These can be used to return the reports as views; make sure the classes are compiled and available
