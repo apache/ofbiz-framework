@@ -253,8 +253,8 @@
         <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" description="${description}"/></field>
         <field name="partyId" parameter-name="newPartyId">
             <drop-down>
-                <entity-options entity-name="PartyDetailAndWorkEffortAssign" description="${firstName} ${middleName} ${lastName}">
-                    <entity-constraint name="workEffortId" env-name="projectId"/>
+                <entity-options entity-name="PartyDetailAndWorkEffortAssign" description="${firstName} ${middleName} ${lastName} ${groupName}">
+                    <entity-constraint name="workEffortId" env-name="resultProject.projectId"/>
                     <entity-constraint name="workEffortTypeId" value="PROJECT"/>
                 </entity-options>    
             </drop-down>
