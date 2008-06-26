@@ -323,6 +323,29 @@ function ajaxAutoCompleter(areaCsvString) {
     }
 }
 
+/** Enable auto-completion for dorp-down elements.
+  * @param areaId The id of the drop-down
+  * @param data Choices for Autocompleter.Local
+  * @param options
+*/
+
+function ajaxAutoCompleteDropDown(element, data, options) {
+    var key = [];
+    var description = [];
+    for (var i=0; i < data.length; i++) {
+        currData = data[i];
+        key[i] = currData[0];
+        description[i] = currData[1];
+    }
+	var update = element + "_autoCompleterOptions";
+    $(element).insert({after: '<div class="autocomplete"' + 'id=' + update + '></div>'});
+    new Autocompleter.Local($(element), update, description, {autoSelect: options.autoSelect, frequency: options.frequency, minChars: options.minChars, choices: options.choices, partialSearch: options.partialSearch, partialChars: options.partialChars, ignoreCase: options.ignoreCase, fullSearch: options.fullSearch, afterUpdateElement: setKeyAsParameter});
+    
+    function setKeyAsParameter() {
+        $(element).value = key[description.indexOf($F(element))];
+    }
+}
+
 /** Toggle area visibility on/off.
   * @param link The <a> element calling this function
   * @param areaId The id of the HTML container to toggle

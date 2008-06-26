@@ -2197,6 +2197,92 @@ public class ModelFormField {
             this.useWhen = new FlexibleStringExpander(string);
         }
     }
+    
+    public static class AutoComplete {
+    	protected String autoSelect;
+    	protected String frequency;
+    	protected String minChars;
+    	protected String choices;
+    	protected String partialSearch;
+    	protected String partialChars;
+    	protected String ignoreCase;
+    	protected String fullSearch;
+    	
+    	public AutoComplete(Element element) {
+    		this.autoSelect = element.getAttribute("auto-select");
+    		this.frequency = element.getAttribute("frequency");
+    		this.minChars = element.getAttribute("min-chars");
+    		this.choices = element.getAttribute("choices");
+    		this.partialSearch = element.getAttribute("partial-search");
+    		this.partialChars = element.getAttribute("partial-chars");
+    		this.ignoreCase = element.getAttribute("ignore-case");
+    		this.fullSearch = element.getAttribute("full-search");
+    	}
+    	
+    	public String getAutoSelect() {
+    		return this.autoSelect;
+    	}
+    	
+    	public String getFrequency() {
+    		return this.frequency;
+    	}
+    	
+    	public String getMinChars() {
+    		return this.minChars;
+    	}
+    	
+    	public String getChoices() {
+    		return this.choices;
+    	}
+    	
+    	public String getPartialSearch() {
+    		return this.partialSearch;
+    	}
+    	
+    	public String getPartialChars() {
+    		return this.partialChars;
+    	}
+    	
+    	public String getIgnoreCase() {
+    		return this.ignoreCase;
+    	}
+    	
+    	public String getFullSearch() {
+    		return this.fullSearch;
+    	}
+    	
+    	public void setAutoSelect(String string) {
+    		this.autoSelect = string;
+    	}
+    	
+    	public void setFrequency(String string) {
+    		this.frequency = string;
+    	}
+    	
+    	public void setMinChars(String string) {
+    		this.minChars = string;
+    	}
+    	
+    	public void setChoices(String string) {
+    		this.choices = string;
+    	}
+    	
+    	public void setPartialSearch(String string) {
+    		this.partialSearch = string;
+    	}
+    	
+    	public void setPartialChars(String string) {
+    		this.partialChars = string;
+    	}
+    	
+    	public void setIgnoreCase(String string) {
+    		this.ignoreCase = string;
+    	}
+    	
+    	public void setFullSearch(String string) {
+    		this.fullSearch = string;
+    	}
+    }
 
     public static class TextField extends FieldInfo {
         protected int size = 25;
@@ -2575,6 +2661,7 @@ public class ModelFormField {
         protected FlexibleStringExpander currentDescription;
         protected SubHyperlink subHyperlink;
         protected int otherFieldSize = 0;
+        protected AutoComplete autoComplete;
 
         protected DropDownField() {
             super();
@@ -2614,6 +2701,11 @@ public class ModelFormField {
             Element subHyperlinkElement = UtilXml.firstChildElement(element, "sub-hyperlink");
             if (subHyperlinkElement != null) {
                 this.subHyperlink = new SubHyperlink(subHyperlinkElement);
+            }
+            
+            Element autoCompleteElement = UtilXml.firstChildElement(element, "auto-complete");
+            if (autoCompleteElement != null) {
+            	this.autoComplete = new AutoComplete(autoCompleteElement);
             }
         }
 
@@ -2661,6 +2753,14 @@ public class ModelFormField {
         }
         public void setSubHyperlink(SubHyperlink newSubHyperlink) {
             this.subHyperlink = newSubHyperlink;
+        }
+        
+        public AutoComplete getAutoComplete() {
+        	return this.autoComplete;
+        }
+        
+        public void setAutoComplete(AutoComplete newAutoComplete) {
+        	this.autoComplete = newAutoComplete;
         }
         
         public int getOtherFieldSize() {

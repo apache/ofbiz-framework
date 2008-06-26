@@ -125,6 +125,23 @@ under the License.
         have these settings. -->
     <form name="EditExampleBackgroundSubmit" type="single" extends="EditExample" target="updateExampleAjax">
         <alt-target use-when="example==null" target="createExampleAjax"/>
+        <field name="exampleTypeId" title="${uiLabelMap.CommonType}" id-name="exampleTypeId">
+            <drop-down allow-empty="false">
+                <auto-complete/>
+                <entity-options entity-name="ExampleType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="statusId" use-when="example==null" title="${uiLabelMap.CommonStatus}" id-name="statusId">
+            <drop-down allow-empty="false">
+                <auto-complete/>
+                <entity-options entity-name="StatusItem" description="${description}">
+                    <entity-constraint name="statusTypeId" value="EXAMPLE_STATUS"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <on-event-update-area event-type="submit" area-id="ListExamplesAjax" area-target="ListExampleFormOnly"/>
     </form>
 
