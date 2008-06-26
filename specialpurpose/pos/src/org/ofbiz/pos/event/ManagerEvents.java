@@ -39,7 +39,7 @@ import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.entity.condition.EntityConditionList;
+import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.guiapp.xui.XuiSession;
@@ -312,7 +312,7 @@ public class ManagerEvents {
                 Timestamp orderDate = orderHeader.getTimestamp("orderDate");
                 if (orderDate.after(openDate)) {
                     LocalDispatcher dispatcher = session.getDispatcher();
-                    Map returnResp = null;
+                    Map<String, Object> returnResp = null;
                     try {
                         returnResp = dispatcher.runSync("quickReturnOrder", UtilMisc.<String, Object>toMap("orderId", orderId,
                                                         "returnHeaderTypeId", "CUSTOMER_RETURN", "userLogin", session.getUserLogin()));
@@ -378,7 +378,7 @@ public class ManagerEvents {
         if (!mgrLoggedIn) {
             pos.showDialog("dialog/error/mgrnotloggedin");
         } else {
-            XProjectManager.getPageManager().reset();
+            XProjectManager.getCurrentProject().getPageManager().reset();
             pos.refresh();
         }
     }
@@ -475,7 +475,7 @@ public class ManagerEvents {
         double total = 0.00;
 
         GenericDelegator delegator = pos.getSession().getDelegator();
-        List exprs = UtilMisc.toList(EntityCondition.makeCondition("originFacilityId", EntityOperator.EQUALS, trans.getFacilityId()),
+        List<EntityExpr> exprs = UtilMisc.toList(EntityCondition.makeCondition("originFacilityId", EntityOperator.EQUALS, trans.getFacilityId()),
                 EntityCondition.makeCondition("terminalId", EntityOperator.EQUALS, trans.getTerminalId()));
         EntityListIterator eli = null;
 
@@ -521,7 +521,7 @@ public class ManagerEvents {
             }
         }
 
-        Map reportMap = new HashMap();
+        Map<String, String> reportMap = new HashMap<String, String>();
         String reportTemplate = "totals.txt";
 
         // miscellaneous

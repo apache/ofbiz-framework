@@ -58,7 +58,7 @@ public class Operator {
    
 
     public Operator(PosScreen page) {
-        this.titleStyle = XProjectManager.getStyleManager().getStyle(style);
+        this.titleStyle = XProjectManager.getCurrentProject().getStyleManager().getStyle(style);
         this.operPanel = (XPanel) page.findComponent("oper_panel");
         this.operatorField = operPanel.getComponents();
         this.operPanel.setVisible(false);
