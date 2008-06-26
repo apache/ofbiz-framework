@@ -52,4 +52,16 @@ under the License.
             <link target="pendingCommunications?partyId=${partyId}&amp;communicationEventId=${communicationEventId}" url-mode="intra-app"/>
         </menu-item>
     </menu>
+    
+    <menu name="CommSubTabBar" menu-container-style="button-bar button-style-2">
+        <menu-item name="new" title="${uiLabelMap.PartyNewCommunication}">
+            <link target="EditCommunicationEvent?partyId=${partyId}&amp;partyIdFrom=${partyId}"/>
+        </menu-item>
+        <menu-item name="reply" title="${uiLabelMap.PartyReply}">
+            <condition>
+                <not><if-empty field-name="communicationEventId"/></not>
+            </condition>
+            <link target="EditCommunicationEvent?partyId=${partyId}&amp;parentCommEventId=${communicationEventId}"/>
+        </menu-item>
+    </menu>
 </menus>

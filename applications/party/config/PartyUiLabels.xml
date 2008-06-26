@@ -2186,6 +2186,9 @@
         <value xml:lang="th">เปลี่ยนกลุ่มผู้ใช้</value>
         <value xml:lang="zh">修改会员</value>
     </property>
+    <property key="PartyChildCommunicationEvents">
+        <value xml:lang="en">Child Communication Events</value>
+    </property>
     <property key="PartyChildShoppingList">
         <value xml:lang="en">Child Shopping List</value>
         <value xml:lang="es">Lista de compras hijas</value>
