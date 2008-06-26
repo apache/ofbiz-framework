@@ -20,27 +20,6 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
-    <!--form name="viewCommunication1" type="single" target="editCommunication" default-map-name="communicationEvent">
-        <alt-target target="createCommunicationEvent" use-when="communicationEvent==null"/>
-        <field name="communicationEventId" use-when="communicationEvent != null"><display/></field>
-        <field name="partyIdFrom" title="${uiLabelMap.PartyPartyFrom}"><display-entity entity-name="PartyNameView"><sub-hyperlink target="viewprofile?partyId=${partyIdFrom}" description="${firstName} ${middleName} ${lastName} ${groupName}"/></display-entity></field>
-        <field name="partyIdTo" title="${uiLabelMap.PartyPartyTo}"><display/></field>
-        <field name="statusId" use-when="statusId==null"><display/></field>
-        <field name="statusId" use-when="statusId!=null"><display/></field>
-        <field name="contactMechTypeId" use-when="commEventContactMechType!=null&amp;&amp;parentCommEventContactMechType==null"><display/></field>
-        <field name="contactMechTypeId" use-when="commEventContactMechType==null&amp;&amp;parentCommEventContactMechType!=null"><display/></field>
-        <field name="contactMechTypeId" use-when="commEventContactMechType==null&amp;&amp;parentCommEventContactMechType==null"><display/></field>
-        <field name="roleTypeIdFrom" use-when="commEventRoleTypeIdFrom!=null"><display/></field>
-        <field name="roleTypeIdTo" use-when="commEventRoleTypeIdTo!=null"><display/></field>
-        <field name="custRequestId"><display/></field>
-        <field name="datetimeStarted" title="${uiLabelMap.CommonStartDate}"><display/></field>
-        <field name="datetimeEnded" title="${uiLabelMap.CommonFinishDate}"><display/></field>
-        <field map-name="subjectMap" name="subject"><display/></field>
-        <field map-name="subjectMap" name="note" title="${uiLabelMap.CommonNote}"><display/></field>
-        <field name="content" title="${uiLabelMap.CommonContent}"><text size="1"/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonEdit}"><submit button-type="button"/></field>
-    </form-->
-
     <form name="EditCommEvent" type="single" target="updateCommunicationEvent" default-map-name="communicationEvent"
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
@@ -244,7 +223,7 @@ under the License.
         </field>
     </form>
 
-    <form name="findCommEvents" type="single" target="ListLookupCommEvents" paginate="true" 
+    <form name="findCommEvents" type="single" target="FindCommunicationEvents" paginate="true" 
         header-row-style="header-row" default-table-style="basic-table">
         <field name="communicationEventId" use-when="communicationEvent != null"><text-find/></field>
         <field name="parentCommEventId"><text-find/></field>
@@ -268,7 +247,7 @@ under the License.
                 <entity-options description="${description}" entity-name="ContactMechType" key-field-name="contactMechTypeId"/>
             </drop-down>
         </field>
-        <field name="roleTypeIdFrom">
+        <!--field name="roleTypeIdFrom">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/>
             </drop-down>
@@ -277,9 +256,9 @@ under the License.
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/>
             </drop-down>
-        </field>
+        </field-->
         <field name="custRequestId"><lookup size="20" target-form-name="LookupCustRequest"/></field>
-        <field name="datetimeStarted" title="${uiLabelMap.CommonStartDate}"><date-find/></field>
+        <!--field name="datetimeStarted" title="${uiLabelMap.CommonStartDate}"><date-find/></field>
         <field name="datetimeEnded" title="${uiLabelMap.CommonFinishDate}"><date-find/></field>
         <field name="reasonEnumId">
             <drop-down no-current-selected-key="" allow-empty="true">
@@ -288,7 +267,7 @@ under the License.
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
             </drop-down>
-        </field>   
+        </field-->   
         <field map-name="subjectMap" name="subject"><text-find/></field>
 
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
@@ -296,8 +275,10 @@ under the License.
     </form>
 
     <form name="ListCommEvents" type="list" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="communicationEventId" widget-style="smallSubmit">
-            <hyperlink description="${communicationEventId}" target="EditCommunicationEvent?communicationEventId=${communicationEventId}" target-type="intra-app"/>
+        <field name="communicationEventId"><hidden/></field>
+        <field name="communicationEventTypeId"><display-entity description="${description}" entity-name="CommunicationEventType" key-field-name="communicationEventTypeId"/></field>
+        <field name="subject">
+            <hyperlink description="${subject}" target="EditCommunicationEvent?communicationEventId=${communicationEventId}"/>
         </field>
         <field name="partyIdFrom" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.CommonFrom}">
             <display-entity description="${firstName} ${lastName} [${partyId}]" entity-name="Person" key-field-name="partyId"/>
@@ -305,8 +286,6 @@ under the License.
         <field name="partyIdTo" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.CommonTo}">
             <display-entity description="${firstName} ${lastName} [${partyId}]" entity-name="Person" key-field-name="partyId"/>
         </field>
-        <field map-name="subjectMap" name="subject"><display/></field>
-        <field name="communicationEventTypeId"><display-entity description="${description}" entity-name="CommunicationEventType" key-field-name="communicationEventTypeId"/></field>
         <field name="statusId"><display-entity description="${description}" entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="contactMechTypeId"><display-entity description="${description}" entity-name="ContactMechType" key-field-name="contactMechTypeId"/></field>
         <!-- Next two fields don't seem to be used, commenting out for now -->
@@ -329,9 +308,6 @@ under the License.
                 <order-by field-name="-lastUpdatedStamp"/>
             </entity-condition>
         </actions>
-        <field name="communicationEventId" widget-style="smallSubmit">
-            <hyperlink description="${communicationEventId}" target="EditCommunicationEvent?communicationEventId=${communicationEventId}&amp;partyId=${partyId}" target-type="intra-app"/>
-        </field>
         <field name="removeLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deletePartyCommunicationEvent?partyId=${partyId}&amp;communicationEventId=${communicationEventId}"/>
         </field>

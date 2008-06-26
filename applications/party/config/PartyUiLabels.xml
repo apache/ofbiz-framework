@@ -248,7 +248,7 @@
         <value xml:lang="zh">沟通事件目的类型标识</value>
     </property>
     <property key="FormFieldTitle_communicationEventTypeId">
-        <value xml:lang="en">Communication Event Type Id</value>
+        <value xml:lang="en">Comm.Type Id</value>
         <value xml:lang="fr">Identifiant type de communication</value>
         <value xml:lang="it">Tipo Evento Communicazioni</value>
         <value xml:lang="nl">Communication Event Type Id</value>
