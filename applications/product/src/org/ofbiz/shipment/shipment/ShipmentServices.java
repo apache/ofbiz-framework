@@ -132,15 +132,30 @@ public class ShipmentServices {
         try {
             estimate = delegator.findByPrimaryKey("ShipmentCostEstimate", UtilMisc.toMap("shipmentCostEstimateId", shipmentCostEstimateId));
             estimate.remove();
-            if (estimate.get("weightBreakId") != null)
-                delegator.removeRelated("WeightQuantityBreak", estimate);
-            if (estimate.get("quantityBreakId") != null)
-                delegator.removeRelated("QuantityQuantityBreak", estimate);
-            if (estimate.get("priceBreakId") != null)
-                delegator.removeRelated("PriceQuantityBreak", estimate);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError("Problem removing entity or related entities (" + e.toString() + ")");
+        }
+        try {
+            if (estimate.get("weightBreakId") != null) {
+                delegator.removeRelated("WeightQuantityBreak", estimate);
+            }
+        } catch (GenericEntityException e) {
+            Debug.logInfo("Not removing WeightQuantityBreak records related to ShipmentCostEstimate [" + shipmentCostEstimateId + "] because they are used by other entities.", module);
+        }
+        try {
+            if (estimate.get("quantityBreakId") != null) {
+                delegator.removeRelated("QuantityQuantityBreak", estimate);
+            }
+        } catch (GenericEntityException e) {
+            Debug.logInfo("Not removing QuantityQuantityBreak records related to ShipmentCostEstimate [" + shipmentCostEstimateId + "] because they are used by other entities.", module);
+        }
+        try {
+            if (estimate.get("priceBreakId") != null) {
+                delegator.removeRelated("PriceQuantityBreak", estimate);
+            }
+        } catch (GenericEntityException e) {
+            Debug.logInfo("Not removing PriceQuantityBreak records related to ShipmentCostEstimate [" + shipmentCostEstimateId + "] because they are used by other entities.", module);
         }
         return ServiceUtil.returnSuccess();
     }
