@@ -274,7 +274,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
 
-    <form name="ListCommEvents" type="list" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+    <form name="ListCommEvents" type="list" odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate="true">
         <field name="communicationEventId"><hidden/></field>
         <field name="communicationEventTypeId"><display-entity description="${description}" entity-name="CommunicationEventType" key-field-name="communicationEventTypeId"/></field>
         <field name="subject">
@@ -339,8 +339,7 @@ under the License.
         </actions>
     </form>
 
-    <form name="ListLookupCommEvents" type="list" list-name="listIt" extends="ListCommEvents" target="updateCommunicationEvent"
-        paginate-target="ListLookupCommEvents" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+    <form name="ListLookupCommEvents" type="list" list-name="listIt" extends="ListCommEvents">
         <actions>
             <service result-map-list-name="listIt" result-map-name="result" service-name="performFind">
                 <field-map env-name="parameters" field-name="inputFields"/>
