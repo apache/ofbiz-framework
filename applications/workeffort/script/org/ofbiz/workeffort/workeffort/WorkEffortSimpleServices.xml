@@ -115,6 +115,7 @@ under the License.
                 <set from-field="lookedUpValue.workEffortId" field="newWorkEffortStatus.workEffortId"/>
                 <set from-field="parameters.currentStatusId" field="newWorkEffortStatus.statusId"/>
                 <set from-field="nowTimestamp" field="newWorkEffortStatus.statusDatetime"/>
+                <set from-field="lookedUpValue.statusChangeNote" field="newWorkEffortStatus.reason"/>
                 <set from-field="userLogin.userLoginId" field="newWorkEffortStatus.setByUserLogin"/>
                 <create-value value-name="newWorkEffortStatus"/>
             </then>
