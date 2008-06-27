@@ -6808,6 +6808,7 @@
     </property>
     <property key="FormFieldTitle_sendButton">
         <value xml:lang="en">Send</value>
+        <value xml:lang="fr">Envoyer</value>
     </property>
     <property key="FormFieldTitle_sequenceNum">
         <value xml:lang="ar">رقم التسلسل</value>
