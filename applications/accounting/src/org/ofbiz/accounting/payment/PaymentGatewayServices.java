@@ -1770,16 +1770,16 @@ public class PaymentGatewayServices {
             // set the status of the OrderPaymentPreference
             if (context != null && authResult.booleanValue()) {
                 orderPaymentPreference.set("statusId", "PAYMENT_AUTHORIZED");
-                orderPaymentPreference.set("securityCode", null);
-                orderPaymentPreference.set("track2", null);                
             } else if (context != null && !authResult.booleanValue()) {
                 orderPaymentPreference.set("statusId", "PAYMENT_DECLINED");
             } else {
                 orderPaymentPreference.set("statusId", "PAYMENT_ERROR");
-                orderPaymentPreference.set("securityCode", null);
-                orderPaymentPreference.set("track2", null);                
             }
             
+            // remove sensitive credit card data regardless of outcome
+            orderPaymentPreference.set("securityCode", null);
+            orderPaymentPreference.set("track2", null);    
+                
             boolean needsNsfRetry = needsNsfRetry(orderPaymentPreference, context, delegator);
             if (needsNsfRetry) {
                 orderPaymentPreference.set("needsNsfRetry", "Y");
