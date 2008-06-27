@@ -67,7 +67,7 @@
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet id="PersonTrainingPanel" title="${uiLabelMap.HumanResAddPersonTraining}" collapsible="true">
+                        <screenlet id="AddPersonTrainingPanel" title="${uiLabelMap.HumanResAddPersonTraining}" collapsible="true">
                             <include-form name="AddPersonTraining" location="component://humanres/widget/forms/PersonTrainingForms.xml"/>
                         </screenlet>
                         <include-form name="ListPersonTrainings" location="component://humanres/widget/forms/PersonTrainingForms.xml"/>

@@ -84,14 +84,14 @@
     <screen name="EditEmplPositionFulfillments">
         <section>
             <actions>
-                <set field="titleProperty" value="HumanResAddEmplPositionFulfillment"/>
+                <set field="titleProperty" value="PageTitleListEmplPositionFulfillments"/>
                 <set field="tabButtonItem" value="EditEmplPositionFulfillments"/>                
                 <set field="emplPositionId" from-field="parameters.emplPositionId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonEmplPositionDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet id="EmplPositionFulfillmentPanel" title="${uiLabelMap.HumanResAddEmplPositionFulfillment}" collapsible="true">
+                        <screenlet id="AddEmplPositionFulfillmentPanel" title="${uiLabelMap.HumanResAddEmplPositionFulfillment}" collapsible="true">
                             <include-form name="AddEmplPositionFulfillment" location="component://humanres/widget/forms/EmplPositionForms.xml"/>
                         </screenlet>
                         <include-form name="ListEmplPositionFulfillments" location="component://humanres/widget/forms/EmplPositionForms.xml"/>
@@ -103,14 +103,14 @@
     <screen name="EditEmplPositionResponsibilities">
         <section>
             <actions>
-                <set field="titleProperty" value="HumanResAddEmplPositionResponsibility"/>
+                <set field="titleProperty" value="PageTitleListEmplPositionResponsibilities"/>
                 <set field="tabButtonItem" value="EditEmplPositionResponsibilities"/>                
                 <set field="emplPositionId" from-field="parameters.emplPositionId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonEmplPositionDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet id="EmplPositionResponsibilityPanel" title="${uiLabelMap.HumanResAddEmplPositionResponsibility}" collapsible="true">
+                        <screenlet id="AddEmplPositionResponsibilityPanel" title="${uiLabelMap.HumanResAddEmplPositionResponsibility}" collapsible="true">
                             <include-form name="AddEmplPositionResponsibility" location="component://humanres/widget/forms/EmplPositionForms.xml"/>
                         </screenlet>
                         <include-form name="ListEmplPositionResponsibilities" location="component://humanres/widget/forms/EmplPositionForms.xml"/>
@@ -132,11 +132,11 @@
                         <container>
                             <label style="h1" text="${uiLabelMap.HumanResEditEmplPositionReportingStruct} ${uiLabelMap.CommonFor}: [${uiLabelMap.CommonId}:${parameters.emplPositionId}]"/>
                         </container>
-                        <screenlet id="ReportsToEmplPositionReportingStructPanel" title="${uiLabelMap.HumanResAddReportsToEmplPositionReportingStruct}" collapsible="true">
+                        <screenlet id="AddReportsToEmplPositionReportingStructPanel" title="${uiLabelMap.HumanResAddReportsToEmplPositionReportingStruct}" collapsible="true">
                             <include-form name="AddReportsToEmplPositionReportingStruct" location="component://humanres/widget/forms/EmplPositionForms.xml"/>
                         </screenlet>
                         <include-form name="ListReportsToEmplPositionReportingStructs" location="component://humanres/widget/forms/EmplPositionForms.xml"/>
-                        <screenlet id="ReportedToEmplPositionReportingStructPanel" title="${uiLabelMap.HumanResAddReportedToEmplPositionReportingStruct}" collapsible="true">
+                        <screenlet id="AddReportedToEmplPositionReportingStructPanel" title="${uiLabelMap.HumanResAddReportedToEmplPositionReportingStruct}" collapsible="true">
                             <include-form name="AddReportedToEmplPositionReportingStruct" location="component://humanres/widget/forms/EmplPositionForms.xml"/>
                         </screenlet>
                         <include-form name="ListReportedToEmplPositionReportingStructs" location="component://humanres/widget/forms/EmplPositionForms.xml"/>

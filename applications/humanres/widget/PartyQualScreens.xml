@@ -68,7 +68,7 @@
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet id="PartyQualPanel" title="${uiLabelMap.HumanResAddPartyQual}" collapsible="true">
+                        <screenlet id="AddPartyQualPanel" title="${uiLabelMap.HumanResAddPartyQual}" collapsible="true">
                             <include-form name="AddPartyQual" location="component://humanres/widget/forms/PartyQualForms.xml"/>
                         </screenlet>
                         <include-form name="ListPartyQuals" location="component://humanres/widget/forms/PartyQualForms.xml"/>
