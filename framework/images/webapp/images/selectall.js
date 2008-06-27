@@ -232,7 +232,7 @@ function ajaxUpdateAreas(areaCsvString) {
     var areaArray = areaCsvString.split(",");
     var numAreas = parseInt(areaArray.length / 3);
     for (var i = 0; i < numAreas * 3; i = i + 3) {
-        new Ajax.Updater(areaArray[i], areaArray[i + 1], {parameters: areaArray[i + 2], onComplete: responseFunction});
+        new Ajax.Updater(areaArray[i], areaArray[i + 1], {parameters: areaArray[i + 2], onComplete: responseFunction,evalScripts: true });
     }
 }
 
@@ -300,7 +300,6 @@ function ajaxSubmitFormUpdateAreas(form, areaCsvString) {
                 $('content-messages').removeClassName('errorMessage');
                 new Effect.Fade('content-messages',{duration: 0.0});   
             }
-            $(form).reset();
             ajaxUpdateAreas(areaCsvString);
         }
     }
