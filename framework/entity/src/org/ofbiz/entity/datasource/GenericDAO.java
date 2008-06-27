@@ -979,7 +979,9 @@ public class GenericDAO {
                 }
             }
             if (isGroupBy) {
-                while (resultSet.next()) count++;
+                while (resultSet.next()) {
+                    count++;
+                }
             }
             else if (resultSet.next()) {
                 count = resultSet.getLong(1);
