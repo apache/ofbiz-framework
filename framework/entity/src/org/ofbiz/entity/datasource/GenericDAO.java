@@ -982,8 +982,7 @@ public class GenericDAO {
                 while (resultSet.next()) {
                     count++;
                 }
-            }
-            else if (resultSet.next()) {
+            } else if (resultSet.next()) {
                 count = resultSet.getLong(1);
             }
             return count;
