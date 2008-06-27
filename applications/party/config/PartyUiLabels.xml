@@ -4200,6 +4200,9 @@
         <value xml:lang="th">การติดต่อใหม่</value>
         <value xml:lang="zh">新建沟通</value>
     </property>
+    <property key="PartyNewEmail">
+        <value xml:lang="en">New Email</value>
+    </property>
     <property key="PartyNewEvent">
         <value xml:lang="en">New Event</value>
         <value xml:lang="es">Nuevo evento</value>

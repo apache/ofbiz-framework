@@ -36,7 +36,7 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
         <field name="submitButton" title="${uiLabelMap.CommonLookup}"><submit button-type="button"/></field>
     </form>
-
+    
     <form name="listLookupPartyName" type="list" list-name="listIt" paginate-target="LookupPartyName"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
@@ -57,7 +57,44 @@ under the License.
         <field name="lastName"  title="${uiLabelMap.PartyLastName}"><display/></field>
         <field name="groupName" title="${uiLabelMap.PartyGroupName}"><display/></field>
     </form>
-
+    
+    <form name="lookupPartyEmail" target="LookupPartyName" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}"><text-find/></field>
+        <field name="partyTypeId" title="${uiLabelMap.PartyTypeId}">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="PartyType"/>
+            </drop-down>
+        </field>
+        <field name="firstName" title="${uiLabelMap.PartyFirstName}"><text-find/></field>
+        <field name="lastName"  title="${uiLabelMap.PartyLastName}"><text-find/></field>
+        <field name="groupName" title="${uiLabelMap.PartyGroupName}"><text-find/></field>
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
+        <field name="submitButton" title="${uiLabelMap.CommonLookup}"><submit button-type="button"/></field>
+    </form>
+    
+    <form name="listLookupPartyEmail" type="list" list-name="listIt" paginate-target="LookupPartyEmail"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <set field="parameters.contactMechTypeId" value="EMAIL_ADDRESS"/>
+            <set field="filterByDate" value="Y"/>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="orderBy" value="partyId"/>
+                <field-map field-name="entityName" value="PartyNameContactMechView"/>
+            </service>
+        </actions>
+        <row-actions>
+            <set field="name" value="${firstName} ${middleName} ${lastName} ${groupName}"/>
+        </row-actions>
+        <!--<auto-fields-entity entity-name="PartyNameView" default-field-type="display"/>-->
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}"  widget-style="smallSubmit">
+            <hyperlink also-hidden="false" target-type="plain" description="${partyId}" target="javascript:set_value('${contactMechId}')"/>
+        </field>
+        <field name="name" title="${uiLabelMap.PartyName}"><display/></field>
+        <field name="infoString" title="${uiLabelMap.PartyEmailAddress}"><display/></field>
+    </form>
+    
     <form name="lookupCustomerName" target="LookupCustomerName" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="roleTypeId"><hidden value="CUSTOMER"/></field>

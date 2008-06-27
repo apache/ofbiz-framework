@@ -1920,7 +1920,48 @@ under the License.
             <key-map field-name="partyInvitationId"/>
         </relation>
     </entity>
-    <entity entity-name="PartyNameHistory"
+  <view-entity entity-name="PartyNameContactMechView"
+    package-name="org.ofbiz.party.party"
+    title="Party Name Contact Mech View Entity">
+    <member-entity entity-alias="PTY" entity-name="Party"/>
+    <member-entity entity-alias="PER" entity-name="Person"/>
+    <member-entity entity-alias="PTYGRP" entity-name="PartyGroup"/>
+    <member-entity entity-alias="PTYPCM" entity-name="PartyContactMech"/>
+    <member-entity entity-alias="PTYCM" entity-name="ContactMech"/>
+    <alias entity-alias="PTY" name="partyId"/>
+    <alias entity-alias="PTY" name="partyTypeId"/>
+    <alias entity-alias="PTY" name="description"/>
+    <alias entity-alias="PER" name="firstName"/>
+    <alias entity-alias="PER" name="middleName"/>
+    <alias entity-alias="PER" name="lastName"/>
+    <alias entity-alias="PER" name="firstNameLocal"/>
+    <alias entity-alias="PER" name="lastNameLocal"/>
+    <alias entity-alias="PER" name="personalTitle"/>
+    <alias entity-alias="PER" name="suffix"/>
+    <alias entity-alias="PTYGRP" name="groupName"/>
+    <alias entity-alias="PTYGRP" name="groupNameLocal"/>
+    <alias entity-alias="PTYPCM" name="contactMechId"/>
+    <alias entity-alias="PTYPCM" name="fromDate"/>
+    <alias entity-alias="PTYPCM" name="thruDate"/>
+    <alias entity-alias="PTYCM" name="contactMechTypeId"/>
+    <alias entity-alias="PTYCM" name="infoString"/>
+    <view-link entity-alias="PTY" rel-entity-alias="PER" rel-optional="true">
+      <key-map field-name="partyId"/>
+    </view-link>
+    <view-link entity-alias="PTY" rel-entity-alias="PTYGRP" rel-optional="true">
+      <key-map field-name="partyId"/>
+    </view-link>
+    <view-link entity-alias="PTY" rel-entity-alias="PTYPCM" rel-optional="false">
+      <key-map field-name="partyId"/>
+    </view-link>
+    <view-link entity-alias="PTYPCM" rel-entity-alias="PTYCM" rel-optional="false">
+      <key-map field-name="contactMechId"/>
+    </view-link>
+    <relation type="one-nofk" rel-entity-name="Party">
+      <key-map field-name="partyId"/>
+    </relation>
+  </view-entity>
+  <entity entity-name="PartyNameHistory"
         package-name="org.ofbiz.party.party"
         title="Party Note Entity">
         <field name="partyId" type="id-ne"></field>
