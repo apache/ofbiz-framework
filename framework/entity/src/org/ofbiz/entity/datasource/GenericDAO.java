@@ -972,19 +972,20 @@ public class GenericDAO {
             ResultSet resultSet = sqlP.getResultSet();
             boolean isGroupBy = false;
             if (modelEntity instanceof ModelViewEntity) {
-              ModelViewEntity modelViewEntity = (ModelViewEntity) modelEntity;
-              String groupByString = modelViewEntity.colNameString(modelViewEntity.getGroupBysCopy(), ", ", "", false);
-
-              if (UtilValidate.isNotEmpty(groupByString)) isGroupBy = true;
+                ModelViewEntity modelViewEntity = (ModelViewEntity) modelEntity;
+                String groupByString = modelViewEntity.colNameString(modelViewEntity.getGroupBysCopy(), ", ", "", false);
+                if (UtilValidate.isNotEmpty(groupByString)) {
+                    isGroupBy = true;                  
+                }
             }
-
             if (isGroupBy) {
-              while (resultSet.next()) count++;
+                while (resultSet.next()) count++;
             }
             else if (resultSet.next()) {
                 count = resultSet.getLong(1);
             }
             return count;
+            
         } catch (SQLException e) {
             throw new GenericDataSourceException("Error getting count value", e);
         } finally {
