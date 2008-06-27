@@ -37,6 +37,19 @@ under the License.
         </if-empty>
         <field-to-result field-name="newEntity.communicationEventId" result-name="communicationEventId"/>
         
+        <!-- if only contactmechid and no partyTo is provided for creation email address create it -->
+        <if-empty field="parameters.partyIdTo">
+            <if-not-empty field="parameters.contactMechIdTo">
+                <entity-and entity-name="PartyAndContactMech" list-name="partyContactMechs">
+                    <field-map field-name="contactMechId" env-name="parameters.contactMechIdTo"/>
+                    <field-map field-name="contactMechTypeId" value="EMAIL_ADDRESS"/>
+                </entity-and>
+                <filter-list-by-date list-name="partyContactMechs"/>
+                <first-from-list entry-name="partyContactMech" list-name="partyContactMechs"/>
+                <set field="newEntity.partyIdTo" from-field="partyContactMech.partyId"/>
+            </if-not-empty>
+        </if-empty>
+        
         <now-timestamp-to-env env-name="newEntity.entryDate"/>
         
         <create-value value-name="newEntity"/>

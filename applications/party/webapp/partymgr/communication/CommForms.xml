@@ -31,7 +31,7 @@ under the License.
         
         <alt-target target="createCommunicationEvent" use-when="communicationEvent==null"/>
         <field name="partyId" map-name="parameters"><hidden/></field>
-                
+        
         <field name="communicationEventId" use-when="communicationEvent!=null"><display/></field>
         <field name="communicationEventTypeId" use-when="${bsh:communicationEvent==null||communicationEvent.getString(&quot;statusId&quot;).equals(&quot;COM_ENTERED&quot;)}">
             <drop-down>
@@ -43,7 +43,7 @@ under the License.
         <field name="communicationEventTypeId" use-when="${bsh:(communicationEvent!=null&amp;&amp;!communicationEvent.getString(&quot;statusId&quot;).equals(&quot;COM_ENTERED&quot;))}">
             <display-entity entity-name="CommunicationEventType" description="${description}" key-field-name="communicationEventTypeId"/>
         </field>
-
+        
         <field name="parentCommEventId">
             <lookup target-form-name="LookupCommEvent">
                 <sub-hyperlink use-when="&quot;${communicationEvent.parentCommEventId}&quot;.length()>0" link-style="buttontext" target="EditCommunicationEvent?communicationEventId=${communicationEvent.parentCommEventId}" description="${uiLabelMap.PartyGoToParent}"/>
@@ -67,7 +67,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-
+        
         <!-- auto email fields -->
         <field name="fromString" use-when="${bsh:communicationEvent!=null&amp;&amp;communicationEvent.getString(&quot;fromString&quot;)!=null}">
             <display/>
@@ -89,7 +89,7 @@ under the License.
         <field name="partyIdTo" title="${uiLabelMap.PartyPartyTo}">
             <lookup target-form-name="LookupPartyName"/>
         </field>
-
+        
         <!-- contact mech type -->
         <field name="contactMechTypeId" use-when="${bsh:communicationEvent==null||communicationEvent.getString(&quot;statusId&quot;).equals(&quot;COM_ENTERED&quot;)}">
             <drop-down>
@@ -101,7 +101,7 @@ under the License.
         <field name="contactMechTypeId" use-when="${bsh:communicationEvent!=null&amp;&amp;!communicationEvent.getString(&quot;statusId&quot;).equals(&quot;COM_ENTERED&quot;)}">
             <display-entity entity-name="ContactMechType" description="${description}" key-field-name="contactMechTypeId"/>
         </field>
-
+        
         <!-- this is an example of how to display different types of contact mech to the user -->
         <field name="contactMechIdFrom" title="${uiLabelMap.PartyFromEmailAddress}"
             use-when="${bsh:(parameters.get(&quot;communicationEventTypeId&quot;)!=null)&amp;&amp;(parameters.get(&quot;communicationEventTypeId&quot;).equals(&quot;EMAIL_COMMUNICATION&quot;)||parameters.get(&quot;communicationEventTypeId&quot;).equals(&quot;AUTO_EMAIL_COMM&quot;))}">
@@ -119,13 +119,13 @@ under the License.
         <field name="contactMechIdTo" title="${uiLabelMap.PartyToEmailAddress}"
             use-when="${bsh:(parameters.get(&quot;communicationEventTypeId&quot;)!=null)&amp;&amp;(parameters.get(&quot;communicationEventTypeId&quot;).equals(&quot;EMAIL_COMMUNICATION&quot;))}">
             <drop-down allow-empty="false" current="selected" no-current-selected-key="${parameters.contactMechIdTo}">
-              <list-options key-name="contactMechId" list-name="targetEmailAddresses" description="${infoString}"/>
+                <list-options key-name="contactMechId" list-name="targetEmailAddresses" description="${infoString}"/>
             </drop-down>            
         </field>
         <field name="contactMechIdTo" title="${uiLabelMap.PartyToContactMech}"
             use-when="${bsh:(parameters.get(&quot;communicationEventTypeId&quot;)==null)||!(parameters.get(&quot;communicationEventTypeId&quot;).equals(&quot;EMAIL_COMMUNICATION&quot;))}">
             <lookup target-form-name="LookupPreferredContactMech" target-parameter="partyIdTo"/></field>
-
+        
         <!-- role type info -->
         <field name="roleTypeIdFrom" use-when="${bsh:communicationEvent==null||communicationEvent.getString(&quot;statusId&quot;).equals(&quot;COM_ENTERED&quot;)}">
             <drop-down no-current-selected-key="_NA_">
@@ -137,7 +137,7 @@ under the License.
         <field name="roleTypeIdFrom" use-when="${bsh:communicationEvent!=null&amp;&amp;!communicationEvent.getString(&quot;statusId&quot;).equals(&quot;COM_ENTERED&quot;)}">
             <display-entity entity-name="RoleType" description="${description}" key-field-name="roleTypeId"/>
         </field>
-
+        
         <field name="roleTypeIdTo" use-when="${bsh:communicationEvent==null||communicationEvent.getString(&quot;statusId&quot;).equals(&quot;COM_ENTERED&quot;)}">
             <drop-down no-current-selected-key="_NA_">
                 <entity-options description="${description}" entity-name="RoleType" key-field-name="roleTypeId">
@@ -148,7 +148,7 @@ under the License.
         <field name="roleTypeIdTo" use-when="${bsh:communicationEvent!=null&amp;&amp;!communicationEvent.getString(&quot;statusId&quot;).equals(&quot;COM_ENTERED&quot;)}">
             <display-entity entity-name="RoleType" description="${description}" key-field-name="roleTypeId"/>
         </field>
-
+        
         <!-- contact list -->
         <field name="contactListId" use-when="${bsh:communicationEvent==null||communicationEvent.getString(&quot;statusId&quot;).equals(&quot;COM_ENTERED&quot;)}">
             <lookup size="20" target-form-name="LookupContactList">
@@ -156,13 +156,13 @@ under the License.
             </lookup>
         </field>
         <field name="contactListId" use-when="${bsh:communicationEvent!=null&amp;&amp;communicationEvent.getString(&quot;contactListId&quot;)!=null&amp;&amp;!communicationEvent.getString(&quot;statusId&quot;).equals(&quot;COM_ENTERED&quot;)}"><display/></field>
-
+        
         <field name="datetimeStarted" title="${uiLabelMap.CommonStartDate}"><date-time/></field>
         <field name="datetimeEnded" title="${uiLabelMap.CommonFinishDate}"><date-time/></field>
-
+        
         <field name="subject" use-when="${bsh:communicationEvent==null||communicationEvent.getString(&quot;statusId&quot;).equals(&quot;COM_ENTERED&quot;)}"><text size="60"/></field>
         <field name="subject" use-when="${bsh:communicationEvent!=null&amp;&amp;!communicationEvent.getString(&quot;statusId&quot;).equals(&quot;COM_ENTERED&quot;)}"><display/></field>
-
+        
         <field name="reasonEnumId">
             <drop-down no-current-selected-key="" allow-empty="true">
                 <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
@@ -179,15 +179,39 @@ under the License.
             </drop-down>
         </field>
         <field name="contentMimeTypeId" use-when="${bsh:communicationEvent!=null&amp;&amp;!communicationEvent.getString(&quot;statusId&quot;).equals(&quot;COM_ENTERED&quot;)}"><display/></field>
-
+        
         <field name="content" title="${uiLabelMap.CommonContent}" use-when="${bsh:communicationEvent==null||communicationEvent.getString(&quot;statusId&quot;).equals(&quot;COM_ENTERED&quot;)}"><textarea cols="60" rows="10"/></field>
         <field name="content" title="${uiLabelMap.CommonContent}" use-when="${bsh:communicationEvent!=null&amp;&amp;!communicationEvent.getString(&quot;statusId&quot;).equals(&quot;COM_ENTERED&quot;)}"><textarea cols="60" rows="10" read-only="true"/></field>
-
+        
         <field name="note" title="${uiLabelMap.CommonNote}"><textarea cols="60" rows="3"/></field>
         <field name="messageId" use-when="${bsh:communicationEvent!=null&amp;&amp;communicationEvent.getString(&quot;messageId&quot;)!=null}"><display/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit button-type="button"/></field>
     </form>
-
+    
+    <form name="NewEmail" type="single" target="createCommunicationEvent" default-map-name="communicationEvent">
+        <field name="communicationEventTypeId"><hidden/></field>
+        <field name="parentCommEventId"><hidden value="${parentCommEventId}"/></field>
+        <field name="statusId"><hidden value="COM_ENTERED"/></field>
+        <field name="partyIdFrom"><hidden value="${partyIdFrom}"/></field>
+        <field name="emailAddress" parameter-name="contactMechIdFrom">
+            <drop-down>
+                <entity-options entity-name="PartyAndContactMech" description="${infoString}" key-field-name="contactMechId">
+                    <entity-constraint name="partyId" value="${userLogin.partyId}"/>
+                    <entity-constraint name="contactMechTypeId" value="EMAIL_ADDRESS"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="contactMechIdTo" title="${uiLabelMap.PartyPartyTo}">
+            <lookup target-form-name="LookupPartyEmail"/>
+        </field>
+        <field name="datetimeStarted" title="${uiLabelMap.CommonSendDate}"><date-time/></field>
+        <field name="subject"><text size="60"/></field>
+        <field name="contentMimeTypeId"><hidden value="text/plain"/></field>
+        <field name="content" title="${uiLabelMap.CommonContent}"><textarea cols="60" rows="10"/></field>
+        <field name="note" title="${uiLabelMap.CommonNote}"><textarea cols="60" rows="3"/></field>
+        <field name="sendButton"><submit button-type="button"/></field>
+    </form>
+    
     <form name="ViewCommEvent" type="single" default-map-name="communicationEvent"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="communicationEventId"><display/></field>
@@ -294,8 +318,6 @@ under the License.
         <field name="roleTypeIdTo"><display-entity description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/></field>
         -->
         <field name="datetimeStarted" title="${uiLabelMap.CommonStartDate}"><display/></field>
-        <field name="datetimeEnded" title="${uiLabelMap.CommonFinishDate}"><display/></field>
-        <field name="custRequestId" widget-style="smallSubmit"><hyperlink target="/ordermgr/control/EditRequest?custRequestId=${custRequestId}" target-type="inter-app"/></field>
     </form>
 
     <form name="ListPartyCommEvents" type="list"  extends="ListCommEvents" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">

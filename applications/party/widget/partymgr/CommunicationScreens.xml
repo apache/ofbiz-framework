@@ -217,17 +217,17 @@ under the License.
                 <set field="tabButtonItem" value="PartyCommEvents"/>
                 <set field="subTabButtonItem" value="CommunicationEvent"/>
                 <set field="entityName" value="CommunicationEvent"/>
-
+                
                 <set field="communicationEventId" from-field="parameters.communicationEventId"/>
                 <set field="parentCommEventId" from-field="parameters.parentCommEventId"/>
-
+                
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="partyIdFrom" from-field="parameters.partyIdFrom" default-value="${userLogin.partyId}"/>
                 <set field="partyIdTo" from-field="parameters.partyIdTo"/>
                 <set field="contactMechIdFrom" from-field="parameters.contactMechIdFrom"/>
                 <set field="contactMechIdTo" from-field="parameters.contactMechIdTo"/>
                 <set field="contactMechTypeId" from-field="parameters.contactMechTypeId"/>
-
+                
                 <entity-one entity-name="Party" use-cache="true" value-name="party"/>
                 <entity-one entity-name="Person" use-cache="true" value-name="lookupPerson"/>
                 <entity-one entity-name="CommunicationEvent" value-name="communicationEvent"/>
@@ -264,6 +264,40 @@ under the License.
                                 </screenlet>
                             </fail-widgets>
                         </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="newEmail">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditCommunication"/>
+                <set field="tabButtonItem" value="PartyCommEvents"/>
+                <set field="subTabButtonItem" value="CommunicationEvent"/>
+                <set field="entityName" value="CommunicationEvent"/>
+                
+                <set field="parentCommEventId" from-field="parameters.parentCommEventId"/>
+                <set field="partyId" from-field="parameters.partyId"/>
+                <set field="partyIdFrom" from-field="parameters.partyIdFrom" default-value="${userLogin.partyId}"/>
+                <set field="partyIdTo" from-field="parameters.partyIdTo"/>
+                <set field="contactMechIdFrom" from-field="parameters.contactMechIdFrom"/>
+                <set field="contactMechIdTo" from-field="parameters.contactMechIdTo"/>
+                <set field="contactMechTypeId" from-field="parameters.contactMechTypeId"/>
+                
+                <entity-one entity-name="Party" use-cache="true" value-name="party"/>
+                <entity-one entity-name="Person" use-cache="true" value-name="lookupPerson"/>
+                <entity-one entity-name="CommunicationEvent" value-name="communicationEvent"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/FindCommEventContactMechs.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonCommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-menu name="CommSubTabBar" location="component://party/webapp/partymgr/communication/CommMenus.xml"/>
+                        <screenlet id="EditCommunicationEventPanel" title="${uiLabelMap.PartyEditCommunicationEvent}" collapsible="true">
+                            <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="NewEmail"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
