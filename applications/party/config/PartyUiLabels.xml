@@ -4225,6 +4225,9 @@
         <value xml:lang="th">ค้นหาใหม่</value>
         <value xml:lang="zh">新建查找</value>
     </property>
+    <property key="PartyNewInternalNote">
+        <value xml:lang="en">New Internal Note</value>
+    </property>
     <property key="PartyNewRelationship">
         <value xml:lang="en">New Relationship</value>
         <value xml:lang="it">Nuovo Rapporto</value>

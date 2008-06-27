@@ -58,11 +58,11 @@ under the License.
             <link target="EditCommunicationEvent?partyId=${partyId}&amp;partyIdFrom=${partyId}"/>
         </menu-item>
         <menu-item name="newEmail" title="${uiLabelMap.PartyNewEmail}">
-            <link target="newEmail?partyIdFrom=${partyId}"/>
+            <link target="newEmail"/>
         </menu-item>
-        <!--menu-item name="newInternalNote" title="${uiLabelMap.PartyNewInternalNote}">
-            <link target="newInternalNote?partyIdFrom=${partyId}"/>
-        </menu-item-->
+        <menu-item name="newInternalNote" title="${uiLabelMap.PartyNewInternalNote}">
+            <link target="newInternalNote"/>
+        </menu-item>
         <menu-item name="reply" title="${uiLabelMap.PartyReply}">
             <condition>
                 <not><if-empty field-name="communicationEventId"/></not>
