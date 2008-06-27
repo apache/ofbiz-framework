@@ -323,6 +323,7 @@ under the License.
         <section>
             <actions>
                 <set field="parameters.currentStatus" value="_NA_"/>
+                <set field="headerItem" value="main"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
