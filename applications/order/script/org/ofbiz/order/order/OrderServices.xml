@@ -492,8 +492,6 @@ under the License.
                 </if-not-empty>
                 <store-value value-name="partyAcctgPreference"/>
                 <set from-field="partyAcctgPreference.lastOrderNumber" field="orderIdTemp"/>
-                <!-- Bypass localization of Long->String conversion -->
-                <set field="orderIdTemp" value="${bsh:orderIdTemp.toString();}"/>
             </then>
             <else>
                 <!-- <log level="info" message="In getNextOrderId sequence enum ODRSQ_STANDARD"/> -->
@@ -515,7 +513,8 @@ under the License.
         </if-not-empty>
         
         <!-- use orderIdTemp along with the orderIdPrefix to create the real ID -->
-        <set field="orderId" value="${productStore.orderNumberPrefix}${partyAcctgPreference.orderIdPrefix}${orderIdTemp}"/>
+        <!-- The ${bsh:orderIdTemp.toString();} bypasses localization of Long->String conversion -->
+        <set field="orderId" value="${productStore.orderNumberPrefix}${partyAcctgPreference.orderIdPrefix}${bsh:orderIdTemp.toString();}"/>
         <field-to-result field-name="orderId" result-name="orderId"/>
     </simple-method>
     
