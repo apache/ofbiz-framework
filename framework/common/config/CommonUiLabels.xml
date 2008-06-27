@@ -6806,6 +6806,9 @@
         <value xml:lang="th">ค้นหา</value>
         <value xml:lang="zh">搜索</value>
     </property>
+    <property key="FormFieldTitle_sendButton">
+        <value xml:lang="en">Send</value>
+    </property>
     <property key="FormFieldTitle_sequenceNum">
         <value xml:lang="ar">رقم التسلسل</value>
         <value xml:lang="en">Sequence Num</value>
