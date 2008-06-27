@@ -970,7 +970,18 @@ public class GenericDAO {
             sqlP.executeQuery();
             long count = 0;
             ResultSet resultSet = sqlP.getResultSet();
-            if (resultSet.next()) {
+            boolean isGroupBy = false;
+            if (modelEntity instanceof ModelViewEntity) {
+              ModelViewEntity modelViewEntity = (ModelViewEntity) modelEntity;
+              String groupByString = modelViewEntity.colNameString(modelViewEntity.getGroupBysCopy(), ", ", "", false);
+
+              if (UtilValidate.isNotEmpty(groupByString)) isGroupBy = true;
+            }
+
+            if (isGroupBy) {
+              while (resultSet.next()) count++;
+            }
+            else if (resultSet.next()) {
                 count = resultSet.getLong(1);
             }
             return count;
