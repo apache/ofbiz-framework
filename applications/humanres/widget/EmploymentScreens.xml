@@ -125,7 +125,7 @@
             <widgets>
                 <decorator-screen name="CommonEmploymentDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet id="PartyBenefitPanel" title="${uiLabelMap.HumanResAddPartyBenefit}" collapsible="true">
+                        <screenlet id="AddPartyBenefitPanel" title="${uiLabelMap.HumanResAddPartyBenefit}" collapsible="true">
                             <include-form name="AddPartyBenefit" location="component://humanres/widget/forms/EmploymentForms.xml"/>
                         </screenlet>
                         <include-form name="ListPartyBenefits" location="component://humanres/widget/forms/EmploymentForms.xml"/>
@@ -137,7 +137,7 @@
     <screen name="EditPayrollPreferences">
         <section>
             <actions>
-                <set field="titleProperty" value="HumanResAddPayrollPreference"/>
+                <set field="titleProperty" value="HumanResListPayrollPreferences"/>
                 <set field="headerItem" value="Employment"/>
                 <set field="tabButtonItem" value="EditPayrollPreference"/>
                 <set field="roleTypeIdFrom" from-field="parameters.roleTypeIdFrom"/>
@@ -153,7 +153,7 @@
             <widgets>
                 <decorator-screen name="CommonEmploymentDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet id="PayrollPreferencePanel" title="${uiLabelMap.HumanResAddPayrollPreference}" collapsible="true">
+                        <screenlet id="AddPayrollPreferencePanel" title="${uiLabelMap.HumanResAddPayrollPreference}" collapsible="true">
                             <include-form name="AddPayrollPreference" location="component://humanres/widget/forms/EmploymentForms.xml"/>
                         </screenlet>
                         <include-form name="ListPayrollPreferences" location="component://humanres/widget/forms/EmploymentForms.xml"/>
@@ -179,7 +179,7 @@
             <widgets>
                 <decorator-screen name="CommonEmploymentDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">                        
-                        <screenlet id="UnemploymentClaimPanel" title="${uiLabelMap.HumanResAddUnemploymentClaim}" collapsible="true">
+                        <screenlet id="AddUnemploymentClaimPanel" title="${uiLabelMap.HumanResAddUnemploymentClaim}" collapsible="true">
                             <include-form name="AddUnemploymentClaim" location="component://humanres/widget/forms/EmploymentForms.xml"/>
                         </screenlet>
                         <include-form name="ListUnemploymentClaims" location="component://humanres/widget/forms/EmploymentForms.xml"/>
@@ -199,7 +199,7 @@
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet id="PerformanceNotePanel" title="${uiLabelMap.HumanResAddPerfNote}" collapsible="true">
+                        <screenlet id="AddPerformanceNotePanel" title="${uiLabelMap.HumanResAddPerfNote}" collapsible="true">
                             <include-form name="AddPerformanceNote" location="component://humanres/widget/forms/EmploymentForms.xml"/>
                         </screenlet>
                         <include-form name="ListPerformanceNotes" location="component://humanres/widget/forms/EmploymentForms.xml"/>
@@ -225,7 +225,7 @@
             <widgets>
                 <decorator-screen name="CommonEmploymentDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">                                                                                       
-                        <screenlet id="AgreementEmploymentApplPanel" title="${uiLabelMap.CommonAdd} ${uiLabelMap.HumanResAgreementEmploymentAppl}" collapsible="true">
+                        <screenlet id="AddAgreementEmploymentApplPanel" title="${uiLabelMap.CommonAdd} ${uiLabelMap.HumanResAgreementEmploymentAppl}" collapsible="true">
                             <include-form name="AddAgreementEmploymentAppl" location="component://humanres/widget/forms/EmploymentForms.xml"/>
                         </screenlet>
                         <include-form name="ListAgreementEmploymentAppls" location="component://humanres/widget/forms/EmploymentForms.xml"/>

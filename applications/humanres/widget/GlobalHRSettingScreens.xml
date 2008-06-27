@@ -31,7 +31,7 @@
             <widgets>
                 <decorator-screen name="GlobalHRSettingsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">                                                                                       
-                        <screenlet id="SkillTypePanel" title="${uiLabelMap.CommonAdd} ${uiLabelMap.ProjectMgrSkillType}" collapsible="true">
+                        <screenlet id="AddSkillTypePanel" title="${uiLabelMap.CommonAdd} ${uiLabelMap.ProjectMgrSkillType}" collapsible="true">
                             <include-form name="AddSkillType" location="component://humanres/widget/forms/GlobalHRSettingForms.xml"/>
                         </screenlet> 
                         <include-form name="ListSkillTypes" location="component://humanres/widget/forms/GlobalHRSettingForms.xml"/>
@@ -51,7 +51,7 @@
             <widgets>
                 <decorator-screen name="GlobalHRSettingsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet id="ResponsibilityTypePanel" title="${uiLabelMap.HumanResAddEmplPositionResponsibility}" collapsible="true">
+                        <screenlet id="AddResponsibilityTypePanel" title="${uiLabelMap.HumanResAddEmplPositionResponsibility}" collapsible="true">
                             <include-form name="AddResponsibilityType" location="component://humanres/widget/forms/GlobalHRSettingForms.xml"/>
                         </screenlet>    
                         <include-form name="ListResponsibilityTypes" location="component://humanres/widget/forms/GlobalHRSettingForms.xml"/>                        
@@ -71,7 +71,7 @@
             <widgets>
                 <decorator-screen name="GlobalHRSettingsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">                                                                                       
-                        <screenlet id="TerminationTypePanel" title="${uiLabelMap.CommonAdd} ${uiLabelMap.HumanResTerminationType}" collapsible="true">
+                        <screenlet id="AddTerminationTypePanel" title="${uiLabelMap.CommonAdd} ${uiLabelMap.HumanResTerminationType}" collapsible="true">
                             <include-form name="AddTerminationType" location="component://humanres/widget/forms/GlobalHRSettingForms.xml"/>
                         </screenlet>
                         <include-form name="ListTerminationTypes" location="component://humanres/widget/forms/GlobalHRSettingForms.xml"/>
@@ -159,7 +159,7 @@
                 <decorator-screen name="GlobalHRSettingsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <include-menu location="component://humanres/widget/Menus.xml" name="EmplPositionTypeTabBar"/>
-                        <screenlet id="EmplPositionTypeRatePanel" title="${uiLabelMap.CommonAdd} ${uiLabelMap.HumanResEmplPositionType} ${uiLabelMap.CommonRate}" collapsible="true">
+                        <screenlet id="AddEmplPositionTypeRatePanel" title="${uiLabelMap.CommonAdd} ${uiLabelMap.HumanResEmplPositionType} ${uiLabelMap.CommonRate}" collapsible="true">
                             <include-form name="AddEmplPositionTypeRate" location="component://humanres/widget/forms/GlobalHRSettingForms.xml"/>
                         </screenlet>
                             <include-form name="ListEmplPositionTypeRates" location="component://humanres/widget/forms/GlobalHRSettingForms.xml"/>
@@ -179,7 +179,7 @@
             <widgets>
                 <decorator-screen name="GlobalHRSettingsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">                        
-                        <screenlet id="TerminationReasonPanel" title="${uiLabelMap.HumanResAddTerminationReason}" collapsible="true">
+                        <screenlet id="AddTerminationReasonPanel" title="${uiLabelMap.HumanResAddTerminationReason}" collapsible="true">
                             <include-form name="AddTerminationReason" location="component://humanres/widget/forms/GlobalHRSettingForms.xml"/>
                         </screenlet>
                         <include-form name="ListTerminationReasons" location="component://humanres/widget/forms/GlobalHRSettingForms.xml"/>

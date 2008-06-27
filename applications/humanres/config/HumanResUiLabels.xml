@@ -605,6 +605,11 @@
         <value xml:lang="it">Lista Storia Paghe</value>
         <value xml:lang="th">รายการจ่ายข้อมูล</value>
     </property>
+    <property key="HumanResListPayrollPreferences">
+        <value xml:lang="en">List Payroll Preferences</value>
+        <value xml:lang="it">Lista Preferenze Paghe</value>
+        <value xml:lang="th">รายการอ้างอิงเงินเดือน</value>
+    </property>
     <property key="HumanResListSkillTypes">
         <value xml:lang="en">List Skill Types</value>
         <value xml:lang="th">รายการประเภททักษะ</value>
@@ -1027,10 +1032,20 @@
         <value xml:lang="it">Lista Posizione Impiegato</value>
         <value xml:lang="th">รายการตำแหน่งพนักงาน</value>
     </property>
+    <property key="PageTitleListEmplPositionFulfillments">
+        <value xml:lang="en">List EmplPosition Fulfillments</value>
+        <value xml:lang="it">Lista Posizione Impiegato Adempimenti</value>
+        <value xml:lang="th">รายการตำแหน่งพนักงานที่ปฏิบัติภารกิจ</value>
+    </property>
     <property key="PageTitleListEmplPositionReportingStructs">
         <value xml:lang="en">List EmplPosition Reporting Structs</value>
         <value xml:lang="it">Lista Posizione Impiegato Struttura Stampe</value>
         <value xml:lang="th">แสดงรายงานโครงสร้างตำแหน่งพนักงาน</value>
+    </property>
+    <property key="PageTitleListEmplPositionResponsibilities">
+        <value xml:lang="en">List EmplPosition Responsibilities</value>
+        <value xml:lang="it">Lista Posizione Responsabilità Impiegato</value>
+        <value xml:lang="th">รายการตำแหน่งพนักงานที่มีหน้าที่รับผิดชอบ</value>
     </property>
     <property key="PageTitleListPartyReview">
         <value xml:lang="en">List PerfReview</value>
