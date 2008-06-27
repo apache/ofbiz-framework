@@ -46,6 +46,8 @@ under the License.
                 </if-not-empty>
                 <store-value value-name="partyAcctgPreference"/>
                 <set from-field="partyAcctgPreference.lastInvoiceNumber" field="invoiceIdTemp"/>
+                <!-- Bypass localization of Long->String conversion -->
+                <set field="invoiceIdTemp" value="${bsh:invoiceIdTemp.toString();}"/>
             </then>
             <else-if>
                 <condition>
