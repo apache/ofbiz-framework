@@ -189,9 +189,8 @@ under the License.
     </form>
     
     <form name="NewEmail" type="single" target="createCommunicationEvent" default-map-name="communicationEvent">
-        <field name="communicationEventTypeId"><hidden/></field>
+        <field name="communicationEventTypeId"><hidden value="EMAIL_COMMUNICATION"/></field>
         <field name="parentCommEventId"><hidden value="${parentCommEventId}"/></field>
-        <field name="statusId"><hidden value="COM_ENTERED"/></field>
         <field name="partyIdFrom"><hidden value="${partyIdFrom}"/></field>
         <field name="emailAddress" parameter-name="contactMechIdFrom">
             <drop-down>
@@ -205,6 +204,21 @@ under the License.
             <lookup target-form-name="LookupPartyEmail"/>
         </field>
         <field name="datetimeStarted" title="${uiLabelMap.CommonSendDate}"><date-time/></field>
+        <field name="subject"><text size="60"/></field>
+        <field name="contentMimeTypeId"><hidden value="text/plain"/></field>
+        <field name="content" title="${uiLabelMap.CommonContent}"><textarea cols="60" rows="10"/></field>
+        <field name="note" title="${uiLabelMap.CommonNote}"><textarea cols="60" rows="3"/></field>
+        <field name="sendButton"><submit button-type="button"/></field>
+    </form>
+    
+    <form name="NewInternalNote" type="single" target="createCommunicationEvent" default-map-name="communicationEvent">
+        <field name="communicationEventTypeId"><hidden value="COMMENT_NOTE"/></field>
+        <field name="parentCommEventId"><hidden value="${parentCommEventId}"/></field>
+        <field name="statusId"><hidden value="COM_ENTERED"/></field>
+        <field name="partyIdFrom"><hidden value="${partyIdFrom}"/></field>
+        <field name="partyIdTo" title="${uiLabelMap.PartyPartyTo}">
+            <lookup target-form-name="LookupPartyName"/>
+        </field>
         <field name="subject"><text size="60"/></field>
         <field name="contentMimeTypeId"><hidden value="text/plain"/></field>
         <field name="content" title="${uiLabelMap.CommonContent}"><textarea cols="60" rows="10"/></field>
