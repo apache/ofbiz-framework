@@ -180,7 +180,11 @@ public class GenericWebEvent {
             }
             
             String fval = request.getParameter(field.getName());
-            if (fval != null && fval.length() > 0) {
+            if (fval != null && fval.length() <= 0) {
+                fval = null;
+            }
+            if (fval == null || fval.length() > 0) {
+
                 try {
                     findByEntity.setString(field.getName(), fval);
                 } catch (Exception e) {
