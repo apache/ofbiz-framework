@@ -35,6 +35,7 @@ import org.ofbiz.pos.PosTransaction;
 // importing DeviceLoader for pop.drawer
 import org.ofbiz.pos.device.DeviceLoader;
 
+@SuppressWarnings("serial")
 public class SaveSale extends XPage {
 
     /**
@@ -51,6 +52,7 @@ public class SaveSale extends XPage {
     protected XButton m_saveAndPrint = null;
     protected static PosTransaction m_trans = null;
     public static SimpleDateFormat sdf = new SimpleDateFormat(UtilProperties.getMessage("pos","DateTimeFormat",Locale.getDefault()));
+    private static boolean ShowKeyboardInSaveSale = UtilProperties.propertyValueEqualsIgnoreCase("parameters", "ShowKeyboardInSaveSale", "Y");
 
     //TODO : make getter and setter for members (ie m_*) if needed (extern calls).  For that in Eclipse use Source/Generate Getters and setters
 
@@ -125,7 +127,7 @@ public class SaveSale extends XPage {
     }
 
     public synchronized void editSaleName(){
-        if (wasMouseClicked()) {
+        if (wasMouseClicked() && ShowKeyboardInSaveSale) {
             try {
                 Keyboard keyboard = new Keyboard(m_pos);
                 keyboard.setText(m_saleName.getText());                
