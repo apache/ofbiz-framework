@@ -36,7 +36,7 @@ under the License.
               <form name="cartForm" id="cartForm" method="post" action="<@ofbizUrl></@ofbizUrl>">
                 Shopping cart information.
               </form>
-              <div><h3><span class="editStep"><a href="javascript:void(0);" id="editShippingAndPersonalDetail"><h3>Continue for step 2</h3></a></span></h3></div>              
+              <div><h3><span class="editStep"><a href="javascript:void(0);" id="editShipping"><h3>Continue for step 2</h3></a></span></h3></div>              
             </div>
           </div>
 
@@ -52,23 +52,23 @@ under the License.
              <form name="shippingForm" id="shippingForm" action="<@ofbizUrl></@ofbizUrl>" method="post">
                Shipping Detail.
              </form>
-              <div><h3><span class="editStep"><a href="javascript:void(0);" id="editShipmentOptions"><h3>Continue for step 3</h3></a></span></h3></div>              
+              <div><h3><span class="editStep"><a href="javascript:void(0);" id="editShippingOptions"><h3>Continue for step 3</h3></a></span></h3></div>              
             </div>
           </div>
 
-          <div id="shipmentOptionPanel" class="screenlet">
-            <div class="screenlet-header"><div class="boxhead" align="left">Step 3: Shipment Options</div></div>
-            <div id="shipmentOptionSummaryPanel">
-              <div align="left" style="width: auto; padding: 10px 40px 30px 40px;"><a href="javascript:void(0);" id="openShipmentOptionPanel"><h3>Click here to edit</h3></a></div>
-              <div id="shipmentOptionSummary" style="display: none;">
+          <div id="shippingOptionPanel" class="screenlet">
+            <div class="screenlet-header"><div class="boxhead" align="left">Step 3: Shipping Options</div></div>
+            <div id="shippingOptionSummaryPanel">
+              <div align="left" style="width: auto; padding: 10px 40px 30px 40px;"><a href="javascript:void(0);" id="openShippingOptionPanel"><h3>Click here to edit</h3></a></div>
+              <div id="shippingOptionSummary" style="display: none;">
                Shipping Methods summary.
               </div>
             </div>
-            <div id="editShipmentOptionPanel" style="display: none;">
-              <form name="shipmentOptionForm" id="shipmentOptionForm" action="<@ofbizUrl></@ofbizUrl>" method="post">
+            <div id="editShippingOptionPanel" style="display: none;">
+              <form name="shippingOptionForm" id="shippingOptionForm" action="<@ofbizUrl></@ofbizUrl>" method="post">
                 Shipping Methods.
               </form>
-              <div><h3><span class="editStep"><a href="javascript:void(0);" id="editBillingAndPayment"><h3>Continue for step 4</h3></a></span></h3></div>
+              <div><h3><span class="editStep"><a href="javascript:void(0);" id="editBilling"><h3>Continue for step 4</h3></a></span></h3></div>
             </div>
           </div>
 
@@ -84,7 +84,7 @@ under the License.
               <form name="billingForm" id="billingForm" class="theform" action="<@ofbizUrl></@ofbizUrl>" method="post">
                 Billing and Payment Detail.
               </form>
-              <div><h3><span class="editStep"><a href="javascript:void(0);" id=""><h3>Continue for step 5</h3></a></span></h3></div>
+              <div><h3><span class="editStep"><a href="javascript:void(0);" id="openOrderSubmitPanel"><h3>Continue for step 5</h3></a></span></h3></div>
             </div>
           </div>
 

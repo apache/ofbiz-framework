@@ -612,9 +612,11 @@ under the License.
         <section>
             <actions>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/cart/showcart.bsh"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/ecommerce/images/checkoutProcess.js" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/images/prototypejs/scriptaculous.js" global="true"/>
             </actions>
             <widgets>
-                <decorator-screen name="quickAnonCheckoutDecorator">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/order/OnePageCheckoutProcess.ftl"/></html></platform-specific>
                     </decorator-section>
