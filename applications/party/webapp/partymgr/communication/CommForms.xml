@@ -213,7 +213,7 @@ under the License.
     
     <form name="NewInternalNote" type="single" target="createCommunicationEvent" default-map-name="communicationEvent">
         <actions>
-            <script location="component://mypage/script/recentVisitor.groovy"/>
+            <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/recentVisitor.groovy"/>
         </actions>
         <field name="communicationEventTypeId"><hidden value="COMMENT_NOTE"/></field>
         <field name="parentCommEventId"><hidden value="${parentCommEventId}"/></field>
