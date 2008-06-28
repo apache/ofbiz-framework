@@ -1574,6 +1574,14 @@ under the License.
         <security auth="false" https="false"/>
         <response name="success" type="view" value="ViewSimpleContent"/>
     </request-map>
+
+    <!-- ============== One Page Checkout Requests ============== -->
+    <request-map uri="onePageCheckout">
+        <security auth="false" https="true"/>
+        <response name="success" type="view" value="OnePageCheckout"/>
+        <response name="error" type="view" value="main"/>        
+    </request-map>
+    
     <!-- End of Request Mappings -->
 
     <!-- View Mappings -->
@@ -1701,5 +1709,8 @@ under the License.
     <!-- PDFs  -->
     <view-map name="OrderPDF" type="screenfop" page="component://order/widget/ordermgr/OrderPrintScreens.xml#OrderPDF" content-type="application/pdf" encoding="none"/>
     <view-map name="InvoicePDF" type="screenfop" page="component://accounting/widget/AccountingPrintScreens.xml#InvoicePDF" content-type="application/pdf" encoding="none"/>
+
+    <!-- One Page Checkout -->
+    <view-map name="OnePageCheckout" type="screen" page="component://ecommerce/widget/OrderScreens.xml#OnePageCheckout"/>
     <!-- End of View Mappings -->
 </site-conf>

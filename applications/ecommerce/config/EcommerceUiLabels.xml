@@ -2402,6 +2402,9 @@
         <value xml:lang="th">ยังไม่ทราบ</value>
         <value xml:lang="zh">未知</value>
     </property>
+    <property key="EcommerceOnePageCheckout">
+        <value xml:lang="en">One Page Checkout</value>
+    </property>     
     <property key="EcommerceOrderInLast">
         <value xml:lang="en">order(s) in the last</value>
         <value xml:lang="es">orden(s) en los últimos</value>
