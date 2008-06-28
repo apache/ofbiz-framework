@@ -86,10 +86,10 @@ under the License.
 <input type="hidden" name="emailProductStoreId" value="${productStoreId}"/>
 
 <div class="screenlet">
-    <div class="screenlet-header">
+    <div class="screenlet-header" id="toggleNameAndShippingAddressPanel">
         <div class='boxhead'>&nbsp;${uiLabelMap.PartyNameAndShippingAddress}</div>
     </div>
-    <div class="screenlet-body">
+    <div class="screenlet-body" id="nameAndShippingAddressPanel">
         <div class="form-row">
             <div class="form-label">${uiLabelMap.CommonTitle}</div>
             <div class="form-field">
@@ -202,10 +202,10 @@ under the License.
 </div>
 
 <div class="screenlet">
-    <div class="screenlet-header">
+    <div class="screenlet-header" id="togglePhoneNumberPanel">
         <div class='boxhead'>&nbsp;${uiLabelMap.PartyPhoneNumbers}</div>
     </div>
-    <div class="screenlet-body">
+    <div class="screenlet-body" id="phoneNumberPanel">
         <div class="form-row">
             <div class="form-label">${uiLabelMap.PartyAllPhoneNumbers}</div>
             <div class="form-field">
@@ -287,10 +287,10 @@ under the License.
 </div>
 
 <div class="screenlet">
-    <div class="screenlet-header">
+    <div class="screenlet-header" id="toggleEmailAddressPanel">
         <div class='boxhead'>&nbsp;${uiLabelMap.PartyEmailAddress}</div>
     </div>
-    <div class="screenlet-body">
+    <div class="screenlet-body" id="emailAddressPanel">
         <div class="form-row">
             <div class="form-label"><div>${uiLabelMap.PartyEmailAddress}</div><div>(${uiLabelMap.PartyAllowSolicitation}?)</div></div>
             <div class="form-field">
@@ -316,10 +316,10 @@ under the License.
 </div>
 
 <div class="screenlet">
-    <div class="screenlet-header">
+    <div class="screenlet-header" id="toggleUsernameAndPasswordPanel">
         <div class='boxhead'>&nbsp;<#if getUsername>${uiLabelMap.CommonUsername} & </#if>${uiLabelMap.CommonPassword}</div>
     </div>
-    <div class="screenlet-body">
+    <div class="screenlet-body" id="usernameAndPasswordPanel">
         <#if getUsername>
             <div class="form-row">
                 <div class="form-label"><span class="tabletext">${uiLabelMap.CommonUsername}</span></div>
