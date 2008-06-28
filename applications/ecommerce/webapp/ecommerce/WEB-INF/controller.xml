@@ -31,6 +31,7 @@ under the License.
     <handler name="service-multi" type="request" class="org.ofbiz.webapp.event.ServiceMultiEventHandler"/>
     <handler name="simple" type="request" class="org.ofbiz.webapp.event.SimpleEventHandler"/>
     <handler name="rome" type="request" class="org.ofbiz.webapp.event.RomeEventHandler"/>
+    <handler name="jsonsimple" type="request" class="org.ofbiz.webapp.event.JSONSimpleEventHandler"/>
 
     <handler name="jsp" type="view" class="org.ofbiz.webapp.view.JspViewHandler"/>
     <handler name="http" type="view" class="org.ofbiz.webapp.view.HttpViewHandler"/>
@@ -1581,7 +1582,14 @@ under the License.
         <response name="success" type="view" value="OnePageCheckout"/>
         <response name="error" type="view" value="main"/>        
     </request-map>
-    
+
+    <request-map uri="createUpdateShippingAddress">
+        <security https="true" auth="false"/>
+        <event type="jsonsimple" path="org/ofbiz/ecommerce/customer/CustomerEvents.xml" invoke="createUpdateCustomerAndShippingContact"/>
+        <response name="success" type="none"/>
+        <response name="error" type="none"/>
+    </request-map>
+
     <!-- End of Request Mappings -->
 
     <!-- View Mappings -->

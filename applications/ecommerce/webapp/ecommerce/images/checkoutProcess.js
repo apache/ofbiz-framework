@@ -29,6 +29,7 @@ Event.observe(window, 'load', function() {
 
     // Shipping
     Event.observe($('editShippingOptions'), 'click', function() {
+        processShippingAddress();
     	displayShippingOptionPanel();
     });
 
@@ -91,6 +92,7 @@ function displayCartPanel() {
 function displayShippingOptionPanel() {
     if(!$('editShippingOptionPanel').visible()) {
         Effect.BlindDown('editShippingOptionPanel', {duration: 0.5});
+        Effect.BlindDown('shippingCompleted', {duration: 0.5});
         Effect.BlindUp('editCartPanel', {duration: 0.5});
         Effect.BlindUp('editShippingPanel', {duration: 0.5});
         Effect.BlindUp('editBillingPanel', {duration: 0.5});
@@ -102,6 +104,7 @@ function displayShippingOptionPanel() {
         Effect.Appear('billingSummaryPanel', {duration: 0.5});
         //Effect.Appear('orderSubmitPanel', {duration: 0.5});
     }
+    setDataInShippingCompleted();
 }
 
 // Billing
@@ -136,4 +139,44 @@ function displayOrderSubmitPanel() {
         Effect.Appear('shippingOptionSummaryPanel', {duration: 0.5});
         Effect.Appear('billingSummaryPanel', {duration: 0.5});
     }    	
+}
+
+function processShippingAddress() {
+    console.log('shippingForm' +$('shippingForm').serialize());
+    new Ajax.Request('/ecommerce/control/createUpdateShippingAddress', {
+        asynchronous: true, 
+        onSuccess: function(transport) {
+            var data = transport.responseText.evalJSON(true);
+            console.log(data);
+            if (data._ERROR_MESSAGE_LIST_ != undefined) {
+                console.log(data._ERROR_MESSAGE_LIST_);
+            }else if (data._ERROR_MESSAGE_ != undefined) {
+                if (data._ERROR_MESSAGE_LIST_ == "SessionTimedOut"){
+                    console.log('session time out');
+                }
+                console.log(data._ERROR_MESSAGE_); 
+            }else {
+                // Process Shipping data response.
+                $('shippingPartyId').value = data.partyId;
+                $('shippingContactMechId').value = data.shippingContactMechId;
+                $('phoneContactMechId').value = data.phoneContactMechId;
+                $('emailContactMechId').value = data.emailContactMechId;
+                $('completedShippingMethod').update(data.shippingDescription);
+            }
+        }, parameters: $('shippingForm').serialize(), requestHeaders: {Accept: 'application/json'}
+    });
+}
+
+function setDataInShippingCompleted() {
+    console.log('calling the set method');
+    var fullName = $('firstName').value + " " +$('lastName').value;
+    var shippingContactPhoneNumber = $F('shippingCountryCode')+ "-" + $F('shippingAreaCode') 
+            + "-" + $F('shippingContactNumber')+ "-" + $F('shippingExtension');
+    $('completedShipToAttn').update("Attn: " + fullName);
+    $('completedShippingContactNumber').update(shippingContactPhoneNumber);
+    $('completedEmailAddress').update($('emailAddress').value);
+    $('completedShipToAddress1').update($F('shipToAddress1'));
+    $('completedShipToAddress2').update($('shipToAddress2').value);
+    var shipToGeo = $('shipToCity').value+","+$('shipToStateProvinceGeoId').value +" "+$('shipToCountryGeoId').value+" "+$('shipToPostalCode').value;
+    $('completedShipToGeo').update(shipToGeo);
 }
