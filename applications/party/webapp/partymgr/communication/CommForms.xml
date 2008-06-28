@@ -212,12 +212,17 @@ under the License.
     </form>
     
     <form name="NewInternalNote" type="single" target="createCommunicationEvent" default-map-name="communicationEvent">
+        <actions>
+            <script location="component://mypage/script/recentVisitor.groovy"/>
+        </actions>
         <field name="communicationEventTypeId"><hidden value="COMMENT_NOTE"/></field>
         <field name="parentCommEventId"><hidden value="${parentCommEventId}"/></field>
         <field name="statusId"><hidden value="COM_ENTERED"/></field>
         <field name="partyIdFrom"><hidden value="${partyIdFrom}"/></field>
         <field name="partyIdTo" title="${uiLabelMap.PartyPartyTo}">
-            <lookup target-form-name="LookupPartyName"/>
+            <drop-down>
+                <list-options list-name="recentParties" key-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName}"/>
+            </drop-down>
         </field>
         <field name="subject"><text size="60"/></field>
         <field name="contentMimeTypeId"><hidden value="text/plain"/></field>
