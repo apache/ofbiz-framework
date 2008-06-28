@@ -6262,6 +6262,9 @@
         <value xml:lang="th">รหัสพื้นที่</value>
         <value xml:lang="zh">地区代码</value>
     </property>
+    <property key="PartyAreaCodeMissingError">
+        <value xml:lang="en">Area code is missing</value>
+    </property>
     <property key="PartyAttentionName">
         <value xml:lang="cs">Jméno</value>
         <value xml:lang="de">Zu Händen von</value>
@@ -6375,6 +6378,12 @@
         <value xml:lang="ru">Рабочий телефон</value>
         <value xml:lang="th">เบอร์โทรศัพท์ของบริษัท</value>
         <value xml:lang="zh">办公电话</value>
+    </property>
+    <property key="PartyCardNumberMissingError">
+        <value xml:lang="en">Card number is missing</value>
+    </property>
+    <property key="PartyCardTypeMissingError">
+        <value xml:lang="en">Card type is missing</value>
     </property>
     <property key="PartyChangePassword">
         <value xml:lang="cs">Změnit heslo</value>
@@ -6612,6 +6621,9 @@
         <value xml:lang="th">รหัสประเทศ</value>
         <value xml:lang="zh">国家代码</value>
     </property>
+    <property key="PartyCountryCodeMissing">
+        <value xml:lang="en">Country code is Missing</value>
+    </property>
     <property key="PartyCountryMissing">
         <value xml:lang="cs">Chybí země</value>
         <value xml:lang="de">Land fehlt</value>
@@ -6832,6 +6844,15 @@
         <value xml:lang="th">คุณต้องเข้ารหัสของคุณสองครั้ง</value>
         <value xml:lang="zh">你必须输入密码两次</value>
     </property>
+    <property key="PartyExpDateBeforeTodayError">
+        <value xml:lang="en">The expiration date is before today</value>
+    </property>
+    <property key="PartyExpMonthMissingError">
+        <value xml:lang="en">Expiration month is missing</value>
+    </property>
+    <property key="PartyExpYearMissingError">
+        <value xml:lang="en">Expiration year is missing</value>
+    </property>
     <property key="PartyExtension">
         <value xml:lang="cs">Linka</value>
         <value xml:lang="de">Durchwahl</value>
@@ -6896,6 +6917,9 @@
         <value xml:lang="ru">Отсутствует имя</value>
         <value xml:lang="th">ไม่ได้ใส่ชื่อ</value>
         <value xml:lang="zh">找不到名字</value>
+    </property>
+    <property key="PartyFirstNameOnCardMissingError">
+        <value xml:lang="en">First name on card is missing </value>
     </property>
     <property key="PartyGender">
         <value xml:lang="cs">Pohlaví</value>
@@ -7034,6 +7058,9 @@
         <value xml:lang="ru">Отсутствует фамилия</value>
         <value xml:lang="th">ไม่ได้ใส่นามสกุล</value>
         <value xml:lang="zh">找不到姓氏</value>
+    </property>
+    <property key="PartyLastNameOnCardMissingError">
+        <value xml:lang="en">Last name on card is missing</value>
     </property>
     <property key="PartyMaidenName">
         <value xml:lang="cs">Rodné jméno</value>
@@ -7720,6 +7747,9 @@
         <value xml:lang="ru">Штат/Провинция</value>
         <value xml:lang="th">เมือง/จังหวัด</value>
         <value xml:lang="zh">州/省</value>
+    </property>
+    <property key="PartyStateMissingError">
+        <value xml:lang="en">State is missing</value>
     </property>
     <property key="PartySuffix">
         <value xml:lang="cs">Přípona</value>

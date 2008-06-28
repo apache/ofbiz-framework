@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-map-processors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
+
+    <simple-map-processor name="person">
+        <process field="firstName">
+            <copy/>
+            <not-empty>
+                <fail-property resource="EcommerceUiLabels" property="PartyFirstNameMissing"/>
+            </not-empty>
+        </process>
+        <process field="lastName">
+            <copy/>
+            <not-empty>
+                <fail-property resource="EcommerceUiLabels" property="PartyLastNameMissingError"/>
+            </not-empty>
+        </process>
+    </simple-map-processor>
+
+    <simple-map-processor name="phoneNumber">
+        <process field="phoneContactMechId">
+            <copy to-field="contactMechId" set-if-null="false"/>
+        </process>
+        <process field="countryCode">
+            <copy/>
+            <not-empty>
+                <fail-property resource="EcommerceUiLabels" property="PartyCountryCodeMissing"/>
+            </not-empty>
+        </process>
+        <process field="areaCode">
+            <copy/>
+            <not-empty>
+                <fail-property resource="EcommerceUiLabels" property="PartyAreaCodeMissingError"/>
+            </not-empty>
+        </process>
+        <process field="contactNumber">
+            <copy/>
+            <not-empty>
+                <fail-property resource="EcommerceUiLabels" property="PartyContactTelephoneMissingError"/>
+            </not-empty>
+        </process>
+        <process field="extension">
+            <copy/>
+        </process>
+    </simple-map-processor>
+
+    <simple-map-processor name="emailAddress">
+        <process field="emailContactMechId">
+            <copy to-field="contactMechId" set-if-null="false"/>
+        </process>
+        <process field="emailAddress">
+            <not-empty>
+                <fail-property resource="EcommerceUiLabels" property="PartyEmailAddressMissingError"/>
+            </not-empty>
+            <validate-method method="isEmail">
+                <fail-property resource="EcommerceUiLabels" property="PartyEmailAddressNotFormattedCorrectly"/>
+            </validate-method>
+            <copy/>
+        </process>
+    </simple-map-processor>
+
+    <simple-map-processor name="shipToAddress">
+        <process field="shippingContactMechId">
+            <copy to-field="contactMechId" set-if-null="false"/>
+        </process>
+        <process field="shipToAddress1">
+            <copy to-field="address1"/>
+            <not-empty>
+                <fail-property resource="EcommerceUiLabels" property="PartyAddressLine1MissingError"/>
+            </not-empty>
+        </process>
+        <process field="shipToAddress2">
+            <copy to-field="address2"/>
+        </process>
+        <process field="shipToCity">
+            <copy to-field="city"/>
+            <not-empty>
+                <fail-property resource="EcommerceUiLabels" property="PartyCityMissing"/>
+            </not-empty>
+        </process>
+        <process field="shipToStateProvinceGeoId">
+            <copy to-field="stateProvinceGeoId"/>
+            <not-empty>
+                <fail-property resource="EcommerceUiLabels" property="PartyStateMissingError"/>
+            </not-empty>
+        </process>
+        <process field="shipToPostalCode">
+            <copy to-field="postalCode"/>
+            <not-empty>
+                <fail-property resource="EcommerceUiLabels" property="PartyPostalInformationNotFound"/>
+            </not-empty>
+        </process>
+        <process field="shipToCountryGeoId">
+            <copy to-field="countryGeoId"/>
+            <not-empty>
+                <fail-property resource="EcommerceUiLabels" property="PartyCountryMissing"/>
+            </not-empty>
+        </process>
+    </simple-map-processor>
+
+    <simple-map-processor name="billToAddress">
+        <process field="billToContactMechId">
+            <copy to-field="contactMechId" set-if-null="false"/>
+        </process>
+        <process field="billToToName">
+            <copy to-field="toName" set-if-null="false"/>
+        </process>
+        <process field="billToAttnName">
+            <copy to-field="attnName" set-if-null="false"/>
+        </process>
+        <process field="billToAddress1">
+            <copy to-field="address1"/>
+            <not-empty>
+                <fail-property resource="EcommerceUiLabels" property="PartyAddressLine1MissingError"/>
+            </not-empty>
+        </process>
+        <process field="billToAddress2">
+            <copy to-field="address2"/>
+        </process>
+        <process field="billToCity">
+            <copy to-field="city"/>
+            <not-empty>
+                <fail-property resource="EcommerceUiLabels" property="PartyCityMissing"/>
+            </not-empty>
+        </process>
+        <process field="billToStateProvinceGeoId">
+            <copy to-field="stateProvinceGeoId"/>
+            <not-empty>
+                <fail-property resource="EcommerceUiLabels" property="PartyStateMissingError"/>
+            </not-empty>
+        </process>
+        <process field="billToPostalCode">
+            <copy to-field="postalCode"/>
+            <not-empty>
+                <fail-property resource="EcommerceUiLabels" property="PartyPostalInformationNotFound"/>
+            </not-empty>
+        </process>
+        <process field="billToCountryGeoId">
+            <copy to-field="countryGeoId"/>
+            <not-empty>
+                <fail-property resource="EcommerceUiLabels" property="PartyCountryMissing"/>
+            </not-empty>
+        </process>
+    </simple-map-processor>
+
+    <simple-map-processor name="creditCard">
+        <make-in-string field="expireDate">
+            <in-field field="expMonth"/>
+            <constant>/</constant>
+            <in-field field="expYear"/>
+        </make-in-string>
+        <process field="productStoreId"><copy/></process>
+        <process field="paymentMethodId">
+            <copy/>
+        </process>
+        <process field="contactMechId">
+            <copy/>
+        </process>
+        <process field="firstNameOnCard">
+            <copy/>
+            <not-empty>
+                <fail-property resource="EcommerceUiLabels" property="PartyFirstNameOnCardMissingError"/>
+            </not-empty>
+        </process>
+        <process field="middleNameOnCard">
+            <copy/>
+        </process>
+        <process field="lastNameOnCard">
+            <copy/>
+            <not-empty>
+                <fail-property resource="EcommerceUiLabels" property="PartyLastNameOnCardMissingError"/>
+        </not-empty>
+        </process>
+        <process field="cardType">
+            <copy/>
+            <not-empty>
+                <fail-property resource="EcommerceUiLabels" property="PartyCardTypeMissingError"/>
+            </not-empty>
+        </process>
+        <process field="cardNumber">
+            <copy/>
+            <not-empty>
+                <fail-property resource="EcommerceUiLabels" property="PartyCardNumberMissingError"/>
+            </not-empty>
+        </process>
+        <process field="expMonth">
+            <copy/>
+            <not-empty>
+                <fail-property resource="EcommerceUiLabels" property="PartyExpMonthMissingError"/>
+        </not-empty>
+        </process>
+        <process field="expYear">
+            <copy/>
+            <not-empty>
+                <fail-property resource="EcommerceUiLabels" property="PartyExpYearMissingError"/>
+            </not-empty>
+        </process>
+        <process field="expireDate">
+            <copy/>
+            <validate-method method="isDateAfterToday">
+                <fail-property resource="EcommerceUiLabels" property="PartyExpDateBeforeTodayError"/>
+            </validate-method>
+        </process>
+    </simple-map-processor>
+
+</simple-map-processors>

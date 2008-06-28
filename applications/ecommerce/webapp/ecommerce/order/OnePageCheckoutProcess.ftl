@@ -44,14 +44,162 @@ under the License.
             <div class="screenlet-header"><div class="boxhead" align="left">Step 2: Shipping</div></div>
             <div id="shippingSummaryPanel">
               <div align="left" style="width: auto; padding: 10px 40px 30px 40px;"><a href="javascript:void(0);" id="openShippingPanel"><h3>Click here to edit</h3></a></div>
-              <div id="shippingSummary" style="display: none;">
-                Shipping Summary.
+                <div id="shippingSummary"><a href="javascript:void(0);" id="openShippingAndPersonlDetail">
+                <h3>Shipping Summary</h3></a>
+                  <div class="completed" style="display:none" id="shippingCompleted">
+                    <table  cellpadding="0" cellspacing="0">
+                      <tbody>
+                        <tr>
+                          <td  style=" padding: 6px; width: 60px;" valign="top">Ship To:</td>
+                          <td  style=" padding: 6px; width: 60px;" valign="top">
+                            <div>
+                              <div id="completedShipToAttn"></div>
+                              <div id="completedShippingContactNumber"></div>
+                              <div id="completedEmailAddress"></div>
+                            </div>
+                          </td>
+                          <td style=" padding: 6px; width: 60px;" valign="top">Location:</td>
+                          <td  style="padding: 6px; width: 60px;" valign="top">
+                            <div>    
+                              <div id="completedShipToAddress1"></div>
+                              <div id="completedShipToAddress2"></div>
+                              <div id="completedShipToGeo"></div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr><td colspan="10"><hr class="sepbar"/></td></tr>
+                      </tbody>
+                    </table>
+                  </div>
               </div>
             </div>
             <div id="editShippingPanel" style="display: none;">
-             <form name="shippingForm" id="shippingForm" action="<@ofbizUrl></@ofbizUrl>" method="post">
-               Shipping Detail.
-             </form>
+              <form name="shippingForm" id="shippingForm" action="<@ofbizUrl>createUpdateCustomerAndShippingContact</@ofbizUrl>" method="post">
+                <input type="hidden" id="shippingContactMechId" name="shippingContactMechId" value="${parameters.shippingContactMechId?if_exists}"/>
+                <input type="hidden" name="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
+                <input type="hidden" id="shippingPartyId" name="partyId" value="${parameters.partyId?if_exists}"/>
+                <input type="hidden" name="userLogin" value="${parameters.userLogin?if_exists}"/>
+                <input type="hidden" id="phoneContactMechId" name="phoneContactMechId" value="${parameters.phoneContactMechId?if_exists}"/>
+                <input type="hidden" id="emailContactMechId" name="emailContactMechId" value="${parameters.emailContactMechId?if_exists}"/>
+                  <div class="screenlet">
+                      <div class="screenlet-header">
+                        <div class='boxhead'>&nbsp;${uiLabelMap.PartyNameAndShippingAddress}</div>
+                      </div>
+                      <div class="screenlet-body">
+                        <div class="theform validation-advice" id="shippingContactAndMethodTypeServerError"></div>
+                          <table id="shippingTable">
+                            <tr><td>
+                              <fieldset class="left">
+                                <div class="form-row">
+                                  <div class="field-label">
+                                     <label for="firstName1">${uiLabelMap.PartyFirstName}<span class="requiredLabel"> *</span><span id="advice-required-firstName" class="custom-advice" style="display:none">(required)</span></label>
+                                  </div>
+                                  <div class="field-widget">
+                                    <input id="firstName" name="firstName" class="required" type="text" value="${parameters.firstName?if_exists}"/>
+                                  </div>
+                                </div>
+                                <div class="form-row">
+                                  <div class="field-label">
+                                    <label for="lastName1">${uiLabelMap.PartyLastName}<span class="requiredLabel"> *</span><span id="advice-required-lastName" class="custom-advice" style="display:none">(required)</span></label>
+                                  </div>
+                                  <div class="field-widget">
+                                     <input id="lastName" name="lastName" class="required" type="text" value="${parameters.lastName?if_exists}"/>
+                                  </div>
+                                </div>
+                                <div class="form-row">
+                                  <div class="field-label">
+                                    <label for="countryCode">Country Code<span class="requiredLabel"> *</span><span id="advice-required-shippingContactPhoneNumber" class="custom-advice" style="display:none">(required)</span><span id="advice-validate-phone-shippingContactPhoneNumber" class="custom-advice" style="display:none">(required)</span></label>
+                                    <input name="countryCode" class="input_mask mask_phone required validate-phone" id="shippingCountryCode" value="${parameters.countryCode?if_exists}" size="3" maxlength=3>
+                                  </div>
+                                  <div class="field-label">
+                                    <label for="areaCode">Area Code<span class="requiredLabel"> *</span><span id="advice-required-shippingContactPhoneNumber" class="custom-advice" style="display:none">(required)</span><span id="advice-validate-phone-shippingContactPhoneNumber" class="custom-advice" style="display:none">(required)</span></label>
+                                    <input name="areaCode" class="input_mask mask_phone required validate-phone" id="shippingAreaCode" value="${parameters.areaCode?if_exists}" size="3" maxlength=4>
+                                  </div>
+                                  <div class="field-label">
+                                    <label for="contactNumber">Contact Number<span class="requiredLabel"> *</span><span id="advice-required-shippingContactPhoneNumber" class="custom-advice" style="display:none">(required)</span><span id="advice-validate-phone-shippingContactPhoneNumber" class="custom-advice" style="display:none">(required)</span></label>
+                                    <input name="contactNumber" class="input_mask mask_phone required validate-phone" id="shippingContactNumber" value="${parameters.contactNumber?if_exists}" size="5" maxlength=6>
+                                  </div>
+                                  <div class="field-label">
+                                    <label for="extension">Extention<span class="requiredLabel"> *</span><span id="advice-required-shippingContactPhoneNumber" class="custom-advice" style="display:none">(required)</span><span id="advice-validate-phone-shippingContactPhoneNumber" class="custom-advice" style="display:none">(required)</span></label>
+                                    <input name="extension" class="input_mask mask_phone required validate-phone" id="shippingExtension" value="${parameters.extension?if_exists}" size="3" maxlength=3>
+                                  </div>
+                                </div>
+                                <div class="form-row">
+                                  <div class="field-label">
+                                    <label for="emailAddress">${uiLabelMap.PartyEmailAddress}<span class="requiredLabel"> *</span><span id="advice-required-emailAddress" class="custom-advice" style="display:none">(required)</span><span id="advice-validate-email-emailAddress" class="custom-advice" style="display:none">(required)</span></label>
+                                  </div>
+                                  <div class="field-widget">
+                                    <input id="emailAddress" name="emailAddress" class="required validate-email" type="text" value="${parameters.emailAddress?if_exists}"/>
+                                  </div>
+                                </div>
+                              </fieldset>
+                              <fieldset class="right">
+                            <div class="form-row">
+                              <div class="field-label">
+                                <label for="shipToAddress1">${uiLabelMap.FormFieldTitleStreetAddress}<span class="requiredLabel"> *</span><span id="advice-required-shipToAddress1" class="custom-advice" style="display:none">(required)</span><span id="advice-validate-no-po-address-shipToAddress1" class="custom-advice" style="display:none">(No PO or APO Address)</span></label>
+                              </div>
+                              <div class="field-widget">
+                                <input id="shipToAddress1" name="shipToAddress1" class="required validate-no-po-address" type="text" value="${parameters.shipToAddress1?if_exists}"/>
+                              </div>
+                            </div>
+                            <div class="form-row">
+                              <div class="field-label">
+                                <label for="address2">${uiLabelMap.FormFieldTitleStreetAddress2}</label>
+                              </div>
+                              <div class="field-widget">
+                                <input id="shipToAddress2" name="shipToAddress2" type="text" value="${parameters.shipToAddress2?if_exists}" />
+                              </div>
+                            </div>
+                            <div class="form-row">
+                              <div class="field-label">
+                                <label for="city">${uiLabelMap.CommonCity}<span class="requiredLabel"> *</span><span id="advice-required-shipToCity" class="custom-advice" style="display:none">(required)</span></label>
+                              </div>
+                              <div class="field-widget">
+                                <input id="shipToCity" name="shipToCity" class="required" type="text" value="${parameters.shipToCity?if_exists}" />
+                              </div>
+                            </div>
+                            <div class="form-row">
+                              <div class="field-label">
+                                <label for="state">${uiLabelMap.CommonState}<span class="requiredLabel"> *</span></label>
+                              </div>
+                              <div class="field-label" style="clear:both;"> 
+                                  <select class="required" id="shipToStateProvinceGeoId" name="shipToStateProvinceGeoId">
+                                    <#if (parameters.shipToStateProvinceGeoId)?exists>
+                                      <option>${parameters.shipToStateProvinceGeoId}</option>
+                                        <option value="${parameters.shipToStateProvinceGeoId}"</option>
+                                    <#else>
+                                      <option value="CA">CA - California</option>
+                                    </#if>
+                                    ${screens.render("component://common/widget/CommonScreens.xml#states")}
+                                  </select>
+                              </div> 
+                            </div>
+                            <div class="form-row">
+                              <div class="field-label">
+                                <label for="shipToPostalCode">&nbsp;&nbsp;&nbsp;&nbsp;${uiLabelMap.FormFieldTitleZipCode}<span class="requiredLabel"> *</span><span id="advice-required-shipToPostalCode" class="custom-advice" style="display:none">(required)</span><span id="advice-validate-zip-shipToPostalCode" class="custom-advice" style="display:none">(required)</span></label>
+                              </div>
+                              <div class="field-widget">
+                                <input id="shipToPostalCode" name="shipToPostalCode" class="required validate-zip input_mask mask_zip" type="text" value="${parameters.shipToPostalCode?if_exists}"/>
+                              </div>
+                            </div>
+                            <div class="form-row">
+                              <div class="form-label">${uiLabelMap.PartyCountry}</div>
+                                <div class="form-field">
+                                  <select name="shipToCountryGeoId" id="shipToCountryGeoId" class="selectBox">
+                                    <#if (parameters.shipToCountryGeoId)?exists>
+                                      <option>${parameters.shipToCountryGeoId}</option>
+                                      <option value="${parameters.shipToCountryGeoId}">---</option>
+                                    </#if>
+                                    ${screens.render("component://common/widget/CommonScreens.xml#countries")}
+                                  </select>*
+                                </div>
+                              </div>
+                          </fieldset>
+                        </td></tr>
+                      </table>
+                    </div>
+                  </div>
+              </form>
               <div><h3><span class="editStep"><a href="javascript:void(0);" id="editShippingOptions"><h3>Continue for step 3</h3></a></span></h3></div>              
             </div>
           </div>

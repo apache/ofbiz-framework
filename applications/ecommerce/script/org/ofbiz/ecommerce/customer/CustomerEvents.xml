@@ -842,5 +842,164 @@ under the License.
            </if-not-empty>
        </if-not-empty>
     </simple-method>
+    
+    <simple-method method-name="createUpdateCustomerAndShippingContact" 
+            short-description="Create/Update Customer, Shipping Address and other contact details. Set shipping method type" login-required="false">
        
+        <set field="shoppingCart" from-field="parameters.shoppingCart"/>
+        <set field="partyId" from-field="parameters.partyId"/>
+        <set field="userLogin" from-field="parameters.userLogin"/>
+
+        <if-empty field="userLogin">
+            <session-to-field field-name="userLogin" session-name="userLogin"/>
+        </if-empty>        
+        <if-empty field="shoppingCart">
+            <session-to-field field-name="shoppingCart"/>
+        </if-empty>
+        <if-not-empty field="shoppingCart">
+            <if-empty field="partyId">
+                <call-object-method obj-field-name="shoppingCart" method-name="getPartyId" ret-field-name="partyId"/>
+            </if-empty>
+            <if-empty field="userLogin">
+                <call-object-method obj-field-name="shoppingCart" method-name="getUserLogin" ret-field-name="userLogin"/>
+            </if-empty>
+            <call-object-method obj-field-name="shoppingCart" method-name="getShippingContactMechId" ret-field-name="shippingContactMechId"/>
+        </if-not-empty>
+
+        <if-empty field="shippingContactMechId">
+           <set field="shippingContactMechId" from-field="parameters.shippingContactMechId"/>
+        </if-empty>
+
+        <call-map-processor xml-resource="org/ofbiz/ecommerce/customer/CheckoutMapProcs.xml"
+                processor-name="person" in-map-name="parameters" out-map-name="personMap"/>
+        <call-map-processor xml-resource="org/ofbiz/ecommerce/customer/CheckoutMapProcs.xml"
+                processor-name="phoneNumber" in-map-name="parameters" out-map-name="phoneContext"/>
+        <call-map-processor xml-resource="org/ofbiz/ecommerce/customer/CheckoutMapProcs.xml"
+                processor-name="emailAddress" in-map-name="parameters" out-map-name="emailAddressContext"/>
+        <call-map-processor xml-resource="org/ofbiz/ecommerce/customer/CheckoutMapProcs.xml"
+                processor-name="shipToAddress" in-map-name="parameters" out-map-name="shipToAddressContext"/>
+        <check-errors/>
+
+        <!-- person and userLogin -->
+        <set-service-fields service-name="createPerson"  map-name="personMap" to-map-name="personContext"/>
+        <set field="personContext.userLogin" from-field="userLogin"/>
+        <if-empty field="partyId">
+            <call-service service-name="createPerson" in-map-name="personContext">
+                <result-to-field result-name="partyId" field-name="partyId"/>
+            </call-service>
+
+            <!-- the rest of the methods require a userLogin object; so if we are anonymous lets fake it -->
+            <if-empty field="userLogin">
+                <set field="ulLookup.userLoginId" value="anonymous"/>
+                <find-by-primary-key entity-name="UserLogin" map-name="ulLookup" value-name="userLogin"/>
+                <set field="userLogin.partyId" from-field="partyId"/>
+                <set-current-user-login value-name="userLogin"/>
+            <else>
+                <!-- If an anonymous vistor is coming back, update the party id in the userLogin object -->
+                <if-compare field="userLogin.userLoginId" value="anonymous" operator="equals">
+                    <set field="userLogin.partyId" from-field="partyId"/>
+                </if-compare>
+            </else>
+            </if-empty>
+            <log level="info" message="userLogin is ${userLogin}"/>
+
+            <!-- Party role -->
+            <set field="parameters.roleTypeId" value="CUSTOMER"/>
+            <set field="partyRoleContext.partyId" from-field="partyId"/>
+            <set field="partyRoleContext.roleTypeId" from-field="parameters.roleTypeId"/>
+            <set field="partyRoleContext.userLogin" from-field="userLogin"/>
+            <call-service service-name="createPartyRole" in-map-name="partyRoleContext"/>
+        <else><!-- If partyId already exists. -->
+            <set field="personContext.partyId" from-field="partyId"/>
+            <call-service service-name="updatePerson" in-map-name="personContext"/>
+            <log level="info" message="Party Updated partyId is ${partyId}"/>
+        </else>
+        </if-empty>
+
+        <field-to-request field-name="partyId" request-name="partyId"/>
+        <field-to-request field-name="userLogin" request-name="userLogin"/>
+        <log level="info" message=" ${partyId}"/>
+
+        <!-- Create Or Update ship to address.-->
+        <set field="shipToAddressContext.partyId" from-field="partyId"/>
+        <set field="shipToAddressContext.roleTypeId" from-field="parameters.roleTypeId"/>
+        <set field="shipToAddressContext.attnName"  value="${personContext.firstName} ${personContext.lastName}"/>
+        <set field="shipToAddressContext.userLogin" from-field="userLogin"/>
+        
+        <if-empty field="shippingContactMechId">
+            <set field="shipToAddressContext.contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
+            <call-service service-name="createPartyPostalAddress" in-map-name="shipToAddressContext">
+                <result-to-field result-name="contactMechId" map-name="shipToAddressPurposeContext"/>
+                <result-to-field result-name="contactMechId" field-name="parameters.shippingContactMechId"/>
+            </call-service>
+            <log level="info" message="Shipping Postal Address created shippingContactMechId is ${parameters.shippingContactMechId}"></log>
+        <else>
+            <set field="shipToAddressContext.contactMechId" from-field="shippingContactMechId"/>
+            <call-service service-name="updatePartyPostalAddress" in-map-name="shipToAddressContext">
+                <result-to-field result-name="contactMechId" field-name="parameters.shippingContactMechId"/>
+            </call-service>
+            <log level="info" message="Shipping Postal Address Updated shippingContactMechId is ${parameters.shippingContactMechId}"></log>
+        </else>
+        </if-empty>
+        <field-to-request field-name="parameters.shippingContactMechId" request-name="shippingContactMechId"/>
+
+        <!-- Create or Update phone -->
+        <set field="phoneContext.partyId" from-field="partyId"/>
+        <set field="phoneContext.roleTypeId" from-field="parameters.roleTypeId"/>
+        <set field="phoneContext.userLogin" from-field="userLogin"/>
+        <if-empty field="parameters.phoneContactMechId">
+            <set field="phoneContext.contactMechPurposeTypeId" value="PHONE_WORK"/>
+            <call-service service-name="createPartyTelecomNumber" in-map-name="phoneContext">
+                <result-to-field result-name="contactMechId" field-name="parameters.phoneContactMechId"/>
+            </call-service>
+            <log level="info" message="Phone Contact created phoneContactMechId is ${parameters.phoneContactMechId}"></log>
+        <else>
+            <set field="phoneContext.contactMechId" from-field="parameters.phoneContactMechId"/>
+            <log level="info" message="Updating phoneContactMechId is ${parameters.phoneContactMechId}"></log>
+            <call-service service-name="updatePartyTelecomNumber" in-map-name="phoneContext">
+                <result-to-field result-name="contactMechId" field-name="parameters.phoneContactMechId"/>
+            </call-service> 
+            <log level="info" message="Phone Contact updated phoneContactMechId is ${parameters.phoneContactMechId}"></log>
+        </else>
+        </if-empty>
+        <field-to-request field-name="parameters.phoneContactMechId" request-name="phoneContactMechId"/>
+        
+        <!-- Create Or Update email address -->
+        <set  field="emailAddressContext.partyId" from-field="partyId"/>
+        <set field="emailAddressContext.userLogin" from-field="userLogin"/>
+        <if-empty field="parameters.emailContactMechId">
+            <set field="emailAddressContext.contactMechPurposeTypeId" value="PRIMARY_EMAIL" />
+            <call-service service-name="createPartyEmailAddress" in-map-name="emailAddressContext">
+                <result-to-field result-name="contactMechId" field-name="parameters.emailContactMechId"/>
+            </call-service>
+            <log level="info" message="Email Contact Created emailContactMechId is ${parameters.emailContactMechId}"></log>
+        <else>
+            <set field="emailAddressContext.contactMechId" from-field="parameters.emailContactMechId"/>
+            <!-- call update Email address -->
+            <call-service service-name="updatePartyEmailAddress" in-map-name="emailAddressContext">
+                <result-to-field result-name="contactMechId" field-name="parameters.emailContactMechId"/>
+            </call-service> 
+            <log level="info" message="Email Contact updated emailContactMechId is ${parameters.emailContactMechId}"></log>
+        </else>
+        </if-empty>
+        <field-to-request field-name="parameters.emailContactMechId" request-name="emailContactMechId"/>
+        
+        <!-- Set partyId, in shoppingCart -->
+        <call-object-method obj-field-name="shoppingCart" method-name="setUserLogin">
+            <field field-name="userLogin" type="org.ofbiz.entity.GenericValue"/>
+            <field field-name="dispatcher" type="org.ofbiz.service.LocalDispatcher"/>
+        </call-object-method>
+        <call-object-method obj-field-name="shoppingCart" method-name="addContactMech">
+            <string value="SHIPPING_LOCATION"/>
+            <field field-name="parameters.shippingContactMechId"/>
+        </call-object-method>
+        <call-object-method obj-field-name="shoppingCart" method-name="setShippingContactMechId">
+            <field field-name="shippingContactMechId"/>
+        </call-object-method>
+        <log level="info" message="updated shopping cart shippingContactMechId ${parameters.shippingContactMechId}"/>
+        <call-object-method obj-field-name="shoppingCart" method-name="setOrderPartyId">
+            <field field-name="partyId"/>
+        </call-object-method>
+    </simple-method>
+    
 </simple-methods>
