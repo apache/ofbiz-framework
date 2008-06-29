@@ -19,77 +19,40 @@ under the License.
 -->
 
 <project name="OFBiz - Shark" default="jar" basedir=".">
+    <import file="../../common.xml"/>
 
     <!-- ================================================================== -->
     <!-- Initialization of all property settings                            -->
     <!-- ================================================================== -->
 
-    <target name="init">
-        <property environment="env"/>
-        <property name="desc" value="Shark Component"/>
-        <property name="name" value="ofbiz-shark"/>
-        <property name="ofbiz.home.dir" value="../.."/>
-        <property name="src.dir" value="src"/>
-        <property name="dtd.dir" value="dtd"/>
-        <property name="lib.dir" value="lib"/>
-        <property name="build.dir" value="build"/>
-    </target>
+    <property name="desc" value="Shark Component"/>
+    <property name="name" value="ofbiz-shark"/>
 
-    <target name="classpath">
-        <path id="local.class.path">
-            <fileset dir="${lib.dir}" includes="*.jar"/>
-            <fileset dir="../base/lib" includes="*.jar"/>
-            <fileset dir="../base/lib/commons" includes="*.jar"/>
-            <fileset dir="../base/lib/j2eespecs" includes="*.jar"/>
-            <fileset dir="../base/lib/scripting" includes="*.jar"/>
-            <fileset dir="../base/build/lib" includes="*.jar"/>
-            <fileset dir="../entity/lib" includes="*.jar"/>
-            <fileset dir="../entity/build/lib" includes="*.jar"/>
-            <fileset dir="../security/build/lib" includes="*.jar"/>
-            <fileset dir="../service/lib" includes="*.jar"/>
-            <fileset dir="../service/build/lib" includes="*.jar"/>
-            <fileset dir="../entityext/build/lib" includes="*.jar"/>
-            <fileset dir="../common/build/lib" includes="*.jar"/>
-        </path>
-    </target>
-
-    <!-- ================================================================== -->
-    <!-- Removes all created files and directories                          -->
-    <!-- ================================================================== -->
-
-    <target name="clean" depends="clean-lib">
-        <delete dir="${build.dir}"/>
-    </target>
-
-    <target name="clean-lib" depends="init">
-        <delete dir="${build.dir}/lib"/>
-    </target>
-
-    <!-- ================================================================== -->
-    <!-- Makes sure the needed directory structure is in place              -->
-    <!-- ================================================================== -->
-
-    <target name="prepare" depends="clean-lib">
-        <mkdir dir="${build.dir}/classes"/>
-        <mkdir dir="${build.dir}/lib"/>
-    </target>
-
-    <target name="prepare-docs" depends="init">
-        <mkdir dir="${build.dir}/javadocs"/>
-    </target>
+    <path id="local.class.path">
+        <fileset dir="${lib.dir}" includes="*.jar"/>
+        <fileset dir="../base/lib" includes="*.jar"/>
+        <fileset dir="../base/lib/commons" includes="*.jar"/>
+        <fileset dir="../base/lib/j2eespecs" includes="*.jar"/>
+        <fileset dir="../base/lib/scripting" includes="*.jar"/>
+        <fileset dir="../base/build/lib" includes="*.jar"/>
+        <fileset dir="../entity/lib" includes="*.jar"/>
+        <fileset dir="../entity/build/lib" includes="*.jar"/>
+        <fileset dir="../security/build/lib" includes="*.jar"/>
+        <fileset dir="../service/lib" includes="*.jar"/>
+        <fileset dir="../service/build/lib" includes="*.jar"/>
+        <fileset dir="../entityext/build/lib" includes="*.jar"/>
+        <fileset dir="../common/build/lib" includes="*.jar"/>
+    </path>
 
     <!-- ================================================================== -->
     <!-- Compilation of the source files                                                                                                                         -->
     <!-- ================================================================== -->
 
-    <target name="classes" depends="prepare,classpath">
-        <javac debug="on" source="1.5" deprecation="on" destdir="${build.dir}/classes">
-            <classpath>
-                <path refid="local.class.path"/>
-            </classpath>
+    <target name="classes" depends="prepare">
+        <javac15 classpathref="local.class.path">
             <src path="${src.dir}"/>
             <exclude name="org/ofbiz/shark/SharkGuiContainer.java"/>
-        </javac>
+        </javac15>
         <!-- also put the DTDs in the jar file... -->
         <copy todir="${build.dir}/classes">
             <!--<fileset dir="${dtd.dir}" includes="*.dtd"/>-->
@@ -102,15 +65,11 @@ under the License.
         </copy>        
     </target>
 
-    <target name="jar" depends="classes">
-        <jar jarfile="${build.dir}/lib/${name}.jar" basedir="${build.dir}/classes"/>
-    </target>
-
     <!-- ================================================================== -->
     <!-- Build JavaDoc                                                      -->
     <!-- ================================================================== -->
 
-    <target name="docs" depends="prepare-docs,classpath">
+    <target name="docs" depends="prepare-docs">
         <javadoc packagenames="org.ofbiz.shark.*"
                  classpathref="local.class.path"
                  destdir="${build.dir}/javadocs"
@@ -118,8 +77,6 @@ under the License.
             <sourcepath path="${src.dir}"/>
         </javadoc>
     </target>
-
-    <target name="all" depends="jar,docs"/>
 
     <!-- ================================================================== -->
     <!-- Copy Libs                                                          -->
