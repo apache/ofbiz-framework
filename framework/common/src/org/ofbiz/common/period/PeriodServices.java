@@ -40,7 +40,7 @@ public class PeriodServices {
     /* find the date of the last closed CustomTimePeriod, or, if none available, the earliest date available of any
      * CustomTimePeriod
      */
-    public static Map findLastClosedDate(DispatchContext dctx, Map context) {
+    public static Map<String, Object> findLastClosedDate(DispatchContext dctx, Map<String, ?> context) {
         GenericDelegator delegator = dctx.getDelegator();
         String organizationPartyId = (String) context.get("organizationPartyId"); // input parameters
         String periodTypeId = (String) context.get("periodTypeId");
@@ -53,34 +53,34 @@ public class PeriodServices {
         
         Timestamp lastClosedDate = null;          // return parameters
         GenericValue lastClosedTimePeriod = null;
-        Map result = ServiceUtil.returnSuccess();
+        Map<String, Object> result = ServiceUtil.returnSuccess();
         
         try {
             // try to get the ending date of the most recent accounting time period before findDate which has been closed
-            List findClosedConditions = UtilMisc.toList(EntityCondition.makeConditionMap("organizationPartyId", organizationPartyId),
+            List<EntityCondition> findClosedConditions = UtilMisc.toList(EntityCondition.makeConditionMap("organizationPartyId", organizationPartyId),
                     EntityCondition.makeCondition("thruDate", EntityOperator.LESS_THAN_EQUAL_TO, findDate),
                     EntityCondition.makeConditionMap("isClosed", "Y"));
             if ((periodTypeId != null) && !(periodTypeId.equals(""))) {
                 // if a periodTypeId was supplied, use it
                 findClosedConditions.add(EntityCondition.makeConditionMap("periodTypeId", periodTypeId));
             }
-            List closedTimePeriods = delegator.findList("CustomTimePeriod", EntityCondition.makeCondition(findClosedConditions), 
+            List<GenericValue> closedTimePeriods = delegator.findList("CustomTimePeriod", EntityCondition.makeCondition(findClosedConditions), 
                     UtilMisc.toSet("customTimePeriodId", "periodTypeId", "isClosed", "fromDate", "thruDate"), 
                     UtilMisc.toList("thruDate DESC"), null, false);
 
-            if ((closedTimePeriods != null) && (closedTimePeriods.size() > 0) && (((GenericValue) closedTimePeriods.get(0)).get("thruDate") != null)) {
-                lastClosedTimePeriod = (GenericValue) closedTimePeriods.get(0);
+            if ((closedTimePeriods != null) && (closedTimePeriods.size() > 0) && (closedTimePeriods.get(0).get("thruDate") != null)) {
+                lastClosedTimePeriod = closedTimePeriods.get(0);
                 lastClosedDate = UtilDateTime.toTimestamp(lastClosedTimePeriod.getDate("thruDate"));
             } else {
                 // uh oh, no time periods have been closed?  in that case, just find the earliest beginning of a time period for this organization
                 // and optionally, for this period type
-                Map findParams = UtilMisc.toMap("organizationPartyId", organizationPartyId);
+                Map<String, String> findParams = UtilMisc.toMap("organizationPartyId", organizationPartyId);
                 if ((periodTypeId != null) && !(periodTypeId.equals(""))) {
                     findParams.put("periodTypeId", periodTypeId);
                 }
-                List timePeriods = delegator.findByAnd("CustomTimePeriod", findParams, UtilMisc.toList("fromDate ASC")); 
-                if ((timePeriods != null) && (timePeriods.size() > 0) && (((GenericValue) timePeriods.get(0)).get("fromDate") != null)) {
-                    lastClosedDate = UtilDateTime.toTimestamp(((GenericValue) timePeriods.get(0)).getDate("fromDate"));
+                List<GenericValue> timePeriods = delegator.findByAnd("CustomTimePeriod", findParams, UtilMisc.toList("fromDate ASC")); 
+                if ((timePeriods != null) && (timePeriods.size() > 0) && (timePeriods.get(0).get("fromDate") != null)) {
+                    lastClosedDate = UtilDateTime.toTimestamp(timePeriods.get(0).getDate("fromDate"));
                 } else {
                     return ServiceUtil.returnError("Cannot get a starting date for net income");
                 }

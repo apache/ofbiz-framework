@@ -30,6 +30,7 @@ import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.Set;
 
+import javolution.util.FastList;
 import javolution.util.FastSet;
 
 /**
@@ -39,7 +40,7 @@ public class GeoWorker {
 
     public static final String module = GeoWorker.class.getName();
 
-    public static List expandGeoGroup(String geoId, GenericDelegator delegator) {
+    public static List<GenericValue> expandGeoGroup(String geoId, GenericDelegator delegator) {
         GenericValue geo = null;
         try {
             geo = delegator.findByPrimaryKeyCache("Geo", UtilMisc.toMap("geoId", geoId));
@@ -49,9 +50,9 @@ public class GeoWorker {
         return expandGeoGroup(geo);
     }
 
-    public static List expandGeoGroup(GenericValue geo) {
+    public static List<GenericValue> expandGeoGroup(GenericValue geo) {
         if (geo == null) {
-            return new ArrayList();
+            return FastList.newInstance();
         }
         if (!"GROUP".equals(geo.getString("geoTypeId"))) {
             return UtilMisc.toList(geo);
@@ -59,17 +60,15 @@ public class GeoWorker {
 
         //Debug.log("Expanding geo : " + geo, module);
 
-        List geoList = new LinkedList();
-        List thisGeoAssoc = null;
+        List<GenericValue> geoList = FastList.newInstance();
+        List<GenericValue> thisGeoAssoc = null;
         try {
             thisGeoAssoc = geo.getRelated("AssocGeoAssoc", UtilMisc.toMap("geoAssocTypeId", "GROUP_MEMBER"), null);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Unable to get associated Geo GROUP_MEMBER relationship(s)", module);
         }
         if (thisGeoAssoc != null && thisGeoAssoc.size() > 0) {
-            Iterator gi = thisGeoAssoc.iterator();
-            while (gi.hasNext()) {
-                GenericValue nextGeoAssoc = (GenericValue) gi.next();
+            for (GenericValue nextGeoAssoc: thisGeoAssoc) {
                 GenericValue nextGeo = null;
                 try {
                     nextGeo = nextGeoAssoc.getRelatedOne("MainGeo");
@@ -87,29 +86,25 @@ public class GeoWorker {
         return geoList;
     }
     
-    public static Set expandGeoRegionDeep(Set geoIdSet, GenericDelegator delegator) throws GenericEntityException {
+    public static Set<String> expandGeoRegionDeep(Set<String> geoIdSet, GenericDelegator delegator) throws GenericEntityException {
         if (geoIdSet == null || geoIdSet.size() == 0) {
             return geoIdSet;
         }
-        Set geoIdSetTemp = FastSet.newInstance();
-        Iterator geoIdIter = geoIdSet.iterator();
-        while (geoIdIter.hasNext()) {
-            String curGeoId = (String) geoIdIter.next();
-            List geoAssocList = delegator.findByAndCache("GeoAssoc", UtilMisc.toMap("geoIdTo", curGeoId, "geoAssocTypeId", "REGIONS"));
-            Iterator geoAssocIter = geoAssocList.iterator();
-            while (geoAssocIter.hasNext()) {
-                GenericValue geoAssoc = (GenericValue) geoAssocIter.next();
-                geoIdSetTemp.add(geoAssoc.get("geoId"));
+        Set<String> geoIdSetTemp = FastSet.newInstance();
+        for (String curGeoId: geoIdSet) {
+            List<GenericValue> geoAssocList = delegator.findByAndCache("GeoAssoc", UtilMisc.toMap("geoIdTo", curGeoId, "geoAssocTypeId", "REGIONS"));
+            for (GenericValue geoAssoc: geoAssocList) {
+                geoIdSetTemp.add(geoAssoc.getString("geoId"));
             }
         }
         geoIdSetTemp = expandGeoRegionDeep(geoIdSetTemp, delegator);
-        Set geoIdSetNew = FastSet.newInstance();
+        Set<String> geoIdSetNew = FastSet.newInstance();
         geoIdSetNew.addAll(geoIdSet);
         geoIdSetNew.addAll(geoIdSetTemp);
         return geoIdSetNew;
     }
 
-    public static boolean containsGeo(List geoList, String geoId, GenericDelegator delegator) {
+    public static boolean containsGeo(List<GenericValue> geoList, String geoId, GenericDelegator delegator) {
         GenericValue geo = null;
         try {
             geo = delegator.findByPrimaryKeyCache("Geo", UtilMisc.toMap("geoId", geoId));
@@ -119,7 +114,7 @@ public class GeoWorker {
         return containsGeo(geoList, geo);
     }
 
-    public static boolean containsGeo(List geoList, GenericValue geo) {
+    public static boolean containsGeo(List<GenericValue> geoList, GenericValue geo) {
         if (geoList == null || geo == null) {
             return false;
         }

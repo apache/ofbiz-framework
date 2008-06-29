@@ -56,7 +56,7 @@ public class PreferenceWorker {
      * @throws GeneralException
      * @return user preference map
      */
-    public static Map<Object, Object> addPrefToMap(GenericValue rec, Map<Object, Object> userPrefMap) throws GeneralException {
+    public static Map<String, Object> addPrefToMap(GenericValue rec, Map<String, Object> userPrefMap) throws GeneralException {
         String prefDataType = rec.getString("userPrefDataType");
         if (UtilValidate.isEmpty(prefDataType)) {
             // default to String
@@ -77,7 +77,7 @@ public class PreferenceWorker {
      * @param context Map containing the input arguments.
      * @return Map with the result of the service, the output parameters.
      */
-    public static Map checkCopyPermission(DispatchContext ctx, Map context) {
+    public static Map<String, Object> checkCopyPermission(DispatchContext ctx, Map<String, ?> context) {
         boolean hasPermission = false;
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         if (userLogin != null) {
@@ -92,7 +92,7 @@ public class PreferenceWorker {
             }
         }
         Map<String, Object> result = ServiceUtil.returnSuccess();
-        result.put("hasPermission", new Boolean(hasPermission));
+        result.put("hasPermission", hasPermission);
         return result;
     }
 
@@ -104,7 +104,7 @@ public class PreferenceWorker {
      * @param context Map containing the input arguments.
      * @return Map with the result of the service, the output parameters.
      */
-    public static Map checkPermission(DispatchContext ctx, Map context) {
+    public static Map<String, Object> checkPermission(DispatchContext ctx, Map<String, ?> context) {
         boolean hasPermission = false;
         String mainAction = (String) context.get("mainAction");
         if ("VIEW".equals(mainAction)) {
@@ -119,7 +119,7 @@ public class PreferenceWorker {
             hasPermission = false;
         }
         Map<String, Object> result = ServiceUtil.returnSuccess();
-        result.put("hasPermission", new Boolean(hasPermission));
+        result.put("hasPermission", hasPermission);
         return result;
     }
 
@@ -129,8 +129,8 @@ public class PreferenceWorker {
      * @throws GeneralException
      * @return user preference map
      */
-    public static Map createUserPrefMap(GenericValue rec) throws GeneralException {
-        return addPrefToMap(rec, FastMap.newInstance());
+    public static Map<String, Object> createUserPrefMap(GenericValue rec) throws GeneralException {
+        return addPrefToMap(rec, FastMap.<String, Object>newInstance());
     }
 
     /**
@@ -139,11 +139,11 @@ public class PreferenceWorker {
      * @throws GeneralException
      * @return user preference map
      */
-    public static Map<Object, Object> createUserPrefMap(List recList) throws GeneralException {
-        Map<Object, Object> userPrefMap = FastMap.newInstance();
+    public static Map<String, Object> createUserPrefMap(List<GenericValue> recList) throws GeneralException {
+        Map<String, Object> userPrefMap = FastMap.newInstance();
         if (recList != null) {
-            for (Iterator i = recList.iterator(); i.hasNext();) {
-                addPrefToMap((GenericValue) i.next(), userPrefMap);
+            for (GenericValue value: recList) {
+                addPrefToMap(value, userPrefMap);
             }
         }
         return userPrefMap;
@@ -160,7 +160,7 @@ public class PreferenceWorker {
      * @param returnDefault return <a href="#DEFAULT_UID">DEFAULT_UID</a> if no userLoginId is found.
      * @return userLoginId String
      */
-    public static String getUserLoginId(Map context, boolean returnDefault) {
+    public static String getUserLoginId(Map<String, ?> context, boolean returnDefault) {
         String userLoginId = (String) context.get("userLoginId");
         if (UtilValidate.isEmpty(userLoginId)) {
             GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -192,7 +192,7 @@ public class PreferenceWorker {
      * @param context Map containing the input arguments.
      * @return true if the userLoginId arguments are valid
      */
-    public static boolean isValidGetId(DispatchContext ctx, Map context) {
+    public static boolean isValidGetId(DispatchContext ctx, Map<String, ?> context) {
         String currentUserLoginId = null;
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         if (userLogin == null) {
@@ -226,7 +226,7 @@ public class PreferenceWorker {
      * @param context Map containing the input arguments.
      * @return true if arguments are valid
      */
-    public static boolean isValidSetId(DispatchContext ctx, Map context) {
+    public static boolean isValidSetId(DispatchContext ctx, Map<String, ?> context) {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         if (userLogin == null) {
             return false;

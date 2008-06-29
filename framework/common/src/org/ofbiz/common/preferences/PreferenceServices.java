@@ -26,6 +26,7 @@ import java.util.Map;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.ObjectType;
+import static org.ofbiz.base.util.UtilGenerics.checkMap;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -59,7 +60,7 @@ public class PreferenceServices {
      * @param context Map containing the input arguments.
      * @return Map with the result of the service, the output parameters.
      */
-    public static Map getUserPreference(DispatchContext ctx, Map context) {
+    public static Map<String, Object> getUserPreference(DispatchContext ctx, Map<String, ?> context) {
         GenericDelegator delegator = ctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
 
@@ -68,13 +69,13 @@ public class PreferenceServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "getPreference.invalidArgument", locale));
         }
         String userLoginId = PreferenceWorker.getUserLoginId(context, true);
-        Map fieldMap = UtilMisc.toMap("userLoginId", userLoginId, "userPrefTypeId", userPrefTypeId);
+        Map<String, String> fieldMap = UtilMisc.toMap("userLoginId", userLoginId, "userPrefTypeId", userPrefTypeId);
         String userPrefGroupId = (String) context.get("userPrefGroupId");
         if (UtilValidate.isNotEmpty(userPrefGroupId)) {
             fieldMap.put("userPrefGroupId", userPrefGroupId);
         }
 
-        Map userPrefMap = null;
+        Map<String, Object> userPrefMap = null;
         try {
             GenericValue preference = EntityUtil.getFirst(delegator.findByAnd("UserPreference", fieldMap));
             if (preference != null) {
@@ -109,7 +110,7 @@ public class PreferenceServices {
      * @param context Map containing the input arguments.
      * @return Map with the result of the service, the output parameters.
      */
-    public static Map getUserPreferenceGroup(DispatchContext ctx, Map context) {
+    public static Map<String, Object> getUserPreferenceGroup(DispatchContext ctx, Map<String, ?> context) {
         GenericDelegator delegator = ctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
 
@@ -119,9 +120,9 @@ public class PreferenceServices {
         }
         String userLoginId = PreferenceWorker.getUserLoginId(context, true);
 
-        Map userPrefMap = null;
+        Map<String, Object> userPrefMap = null;
         try {
-            Map fieldMap = UtilMisc.toMap("userLoginId", userLoginId, "userPrefGroupId", userPrefGroupId);
+            Map<String, String> fieldMap = UtilMisc.toMap("userLoginId", userLoginId, "userPrefGroupId", userPrefGroupId);
             userPrefMap = PreferenceWorker.createUserPrefMap(delegator.findByAnd("UserPreference", fieldMap));
         } catch (GenericEntityException e) {
             Debug.logWarning(e.getMessage(), module);
@@ -145,7 +146,7 @@ public class PreferenceServices {
      * @param context Map containing the input arguments.
      * @return Map with the result of the service, the output parameters.
      */
-    public static Map setUserPreference(DispatchContext ctx, Map context) {
+    public static Map<String, Object> setUserPreference(DispatchContext ctx, Map<String, ?> context) {
         GenericDelegator delegator = ctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
 
@@ -184,12 +185,12 @@ public class PreferenceServices {
      * @param context Map containing the input arguments.
      * @return Map with the result of the service, the output parameters.
      */
-    public static Map setUserPreferenceGroup(DispatchContext ctx, Map context) {
+    public static Map<String, Object> setUserPreferenceGroup(DispatchContext ctx, Map<String, ?> context) {
         GenericDelegator delegator = ctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
 
         String userLoginId = PreferenceWorker.getUserLoginId(context, false);
-        Map userPrefMap = (Map) context.get("userPrefMap");
+        Map<String, Object> userPrefMap = checkMap(context.get("userPrefMap"), String.class, Object.class);
         String userPrefGroupId = (String) context.get("userPrefGroupId");
         if (UtilValidate.isEmpty(userLoginId) || UtilValidate.isEmpty(userPrefGroupId) || userPrefMap == null) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "setPreference.invalidArgument", locale));
@@ -221,7 +222,7 @@ public class PreferenceServices {
      * @param context Map containing the input arguments.
      * @return Map with the result of the service, the output parameters.
      */
-    public static Map copyUserPreferenceGroup(DispatchContext ctx, Map context) {
+    public static Map<String, Object> copyUserPreferenceGroup(DispatchContext ctx, Map<String, ?> context) {
         GenericDelegator delegator = ctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
 
@@ -233,11 +234,10 @@ public class PreferenceServices {
         }
 
         try {
-            Map fieldMap = UtilMisc.toMap("userLoginId", fromUserLoginId, "userPrefGroupId", userPrefGroupId);
+            Map<String, String> fieldMap = UtilMisc.toMap("userLoginId", fromUserLoginId, "userPrefGroupId", userPrefGroupId);
             List<GenericValue> resultList = delegator.findByAnd("UserPreference", fieldMap);
             if (resultList != null) {
-                for (Iterator i = resultList.iterator(); i.hasNext();) {
-                    GenericValue preference = (GenericValue) i.next();
+                for (GenericValue preference: resultList) {
                     preference.set("userLoginId", userLoginId);
                 }
                 delegator.storeAll(resultList);
