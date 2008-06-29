@@ -28,6 +28,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import javolution.util.FastMap;
+
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilHttp;
@@ -46,7 +48,7 @@ public class CommonEvents {
     
     public static final String module = CommonEvents.class.getName();
            
-    public static UtilCache appletSessions = new UtilCache("AppletSessions", 0, 600000, true);
+    public static UtilCache<String, Map<String, String>> appletSessions = new UtilCache<String, Map<String, String>>("AppletSessions", 0, 600000, true);
     
     public static String checkAppletRequest(HttpServletRequest request, HttpServletResponse response) { 
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");                
@@ -65,9 +67,9 @@ public class CommonEvents {
         }
        
         if (visit != null && visit.getString("sessionId").equals(sessionId) && appletSessions.containsKey(sessionId)) {            
-            Map sessionMap = (Map) appletSessions.get(sessionId);
+            Map<String, String> sessionMap = appletSessions.get(sessionId);
             if (sessionMap != null && sessionMap.containsKey("followPage"))
-                responseString = (String) sessionMap.remove("followPage");                                                             
+                responseString = sessionMap.remove("followPage");                                                             
         } 
         
         try {
@@ -101,13 +103,11 @@ public class CommonEvents {
         if (visit.getString("sessionId").equals(sessionId)) {                                                                             
             String currentPage = request.getParameter("currentPage");
             if (appletSessions.containsKey(sessionId)) {              
-                Map sessionMap = (Map) appletSessions.get(sessionId);
-                String followers = (String) sessionMap.get("followers");
-                List folList = StringUtil.split(followers, ",");
-                Iterator i = folList.iterator();
-                while (i.hasNext()) {
-                    String follower = (String) i.next();
-                    Map folSesMap = UtilMisc.toMap("followPage", currentPage);
+                Map<String, String> sessionMap = appletSessions.get(sessionId);
+                String followers = sessionMap.get("followers");
+                List<String> folList = StringUtil.split(followers, ",");
+                for (String follower: folList) {
+                    Map<String, String> folSesMap = UtilMisc.toMap("followPage", currentPage);
                     appletSessions.put(follower, folSesMap);
                 }
             }           
@@ -134,8 +134,8 @@ public class CommonEvents {
         if (security.hasPermission("SEND_CONTROL_APPLET", userLogin)) { 
             String followerSessionId = request.getParameter("followerSid");
             String followSessionId = request.getParameter("followSid");
-            Map follow = (Map) appletSessions.get(followSessionId);
-            if (follow == null) follow = new HashMap();
+            Map<String, String> follow = appletSessions.get(followSessionId);
+            if (follow == null) follow = FastMap.newInstance();
             String followerListStr = (String) follow.get("followers");
             if (followerListStr == null) {
                 followerListStr = followerSessionId;
@@ -156,8 +156,8 @@ public class CommonEvents {
         if (security.hasPermission("SEND_CONTROL_APPLET", userLogin)) { 
             String followerSessionId = request.getParameter("followerSid");
             String pageUrl = request.getParameter("pageUrl");
-            Map follow = (Map) appletSessions.get(followerSessionId);
-            if (follow == null) follow = new HashMap();
+            Map<String, String> follow = appletSessions.get(followerSessionId);
+            if (follow == null) follow = FastMap.newInstance();
             follow.put("followPage", pageUrl);
             appletSessions.put(followerSessionId, follow);
         }

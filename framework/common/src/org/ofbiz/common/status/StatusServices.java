@@ -18,17 +18,18 @@
  *******************************************************************************/
 package org.ofbiz.common.status;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import javolution.util.FastList;
+import javolution.util.FastMap;
+
 import org.ofbiz.base.util.Debug;
+import static org.ofbiz.base.util.UtilGenerics.checkList;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
 
@@ -39,39 +40,37 @@ public class StatusServices {
     
     public static final String module = StatusServices.class.getName();
     
-    public static Map getStatusItems(DispatchContext ctx, Map context) {
+    public static Map<String, Object> getStatusItems(DispatchContext ctx, Map<String, ?> context) {
         GenericDelegator delegator = ctx.getDelegator();
-        List statusTypes = (List) context.get("statusTypeIds");
+        List<String> statusTypes = checkList(context.get("statusTypeIds"), String.class);
         if (statusTypes == null || statusTypes.size() == 0) {
             return ServiceUtil.returnError("Parameter statusTypeIds can not be null and must contain at least one element");
         }
         
-        Iterator i = statusTypes.iterator();
-        List statusItems = new LinkedList();
-        while (i.hasNext()) {
-            String statusTypeId = (String) i.next();
+        List<GenericValue> statusItems = FastList.newInstance();
+        for (String statusTypeId: statusTypes) {
             try {
-                Collection myStatusItems = delegator.findByAndCache("StatusItem", UtilMisc.toMap("statusTypeId", statusTypeId), UtilMisc.toList("sequenceId"));
+                List<GenericValue> myStatusItems = delegator.findByAndCache("StatusItem", UtilMisc.toMap("statusTypeId", statusTypeId), UtilMisc.toList("sequenceId"));
                 statusItems.addAll(myStatusItems);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }
         }        
-        Map ret = new HashMap();
+        Map<String, Object> ret = FastMap.newInstance();
         ret.put("statusItems",statusItems);
         return ret;
     }
 
-    public static Map getStatusValidChangeToDetails(DispatchContext ctx, Map context) {
+    public static Map<String, Object> getStatusValidChangeToDetails(DispatchContext ctx, Map<String, ?> context) {
         GenericDelegator delegator = ctx.getDelegator();
-        List statusValidChangeToDetails = null;
+        List<GenericValue> statusValidChangeToDetails = null;
         String statusId = (String) context.get("statusId");
         try {
             statusValidChangeToDetails = delegator.findByAndCache("StatusValidChangeToDetail", UtilMisc.toMap("statusId", statusId), UtilMisc.toList("sequenceId"));
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
-        Map ret = ServiceUtil.returnSuccess();
+        Map<String, Object> ret = ServiceUtil.returnSuccess();
         if (statusValidChangeToDetails != null) {
             ret.put("statusValidChangeToDetails", statusValidChangeToDetails);
         }

@@ -41,8 +41,8 @@ public class CommonWorkers {
     
     public final static String module = CommonWorkers.class.getName();
 
-    public static List getCountryList(GenericDelegator delegator) {
-        List geoList = FastList.newInstance();
+    public static List<GenericValue> getCountryList(GenericDelegator delegator) {
+        List<GenericValue> geoList = FastList.newInstance();
         String defaultCountry = UtilProperties.getPropertyValue("general.properties", "country.geo.id.default");
         GenericValue defaultGeo = null;
         if (defaultCountry != null && defaultCountry.length() > 0) { 
@@ -53,7 +53,7 @@ public class CommonWorkers {
             }       
         }        
         try {
-        	List countryGeoList = delegator.findByAndCache("Geo", UtilMisc.toMap("geoTypeId", "COUNTRY"), UtilMisc.toList("geoName"));
+        	List<GenericValue> countryGeoList = delegator.findByAndCache("Geo", UtilMisc.toMap("geoTypeId", "COUNTRY"), UtilMisc.toList("geoName"));
             if (defaultGeo != null) {
                 geoList.add(defaultGeo);
             	geoList.addAll(countryGeoList);
@@ -66,8 +66,8 @@ public class CommonWorkers {
         return geoList;            
     }
     
-    public static List getStateList(GenericDelegator delegator) {
-        List geoList = FastList.newInstance();       
+    public static List<GenericValue> getStateList(GenericDelegator delegator) {
+        List<GenericValue> geoList = FastList.newInstance();       
         EntityCondition condition = EntityCondition.makeCondition(EntityOperator.OR,
                 EntityCondition.makeCondition("geoTypeId", "STATE"), EntityCondition.makeCondition("geoTypeId", "PROVINCE"),
                 EntityCondition.makeCondition("geoTypeId", "TERRITORY"));

@@ -45,7 +45,7 @@ public class LdapAuthenticationServices {
 
     public static final String module = LdapAuthenticationServices.class.getName();
 
-    public static boolean userLogin(DispatchContext ctx, Map<String, Object> context) {
+    public static boolean userLogin(DispatchContext ctx, Map<String, ?> context) {
         Debug.logVerbose("Starting LDAP authentication", module);
         Properties env = UtilProperties.getProperties("jndiLdap");
         String username = (String) context.get("login.username");

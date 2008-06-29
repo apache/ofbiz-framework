@@ -18,16 +18,17 @@
  *******************************************************************************/
 package org.ofbiz.common.status;
 
-import java.util.Collection;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.jsp.PageContext;
+
+import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.GenericValue;
 
 /**
  * StatusWorker
@@ -40,7 +41,7 @@ public class StatusWorker {
         GenericDelegator delegator = (GenericDelegator) pageContext.getRequest().getAttribute("delegator");
 
         try {
-            Collection statusItems = delegator.findByAndCache("StatusItem", UtilMisc.toMap("statusTypeId", statusTypeId), UtilMisc.toList("sequenceId"));
+            List<GenericValue> statusItems = delegator.findByAndCache("StatusItem", UtilMisc.toMap("statusTypeId", statusTypeId), UtilMisc.toList("sequenceId"));
 
             if (statusItems != null)
                 pageContext.setAttribute(attributeName, statusItems);
@@ -51,10 +52,10 @@ public class StatusWorker {
 
     public static void getStatusItems(PageContext pageContext, String attributeName, String statusTypeIdOne, String statusTypeIdTwo) {
         GenericDelegator delegator = (GenericDelegator) pageContext.getRequest().getAttribute("delegator");
-        List statusItems = new LinkedList();
+        List<GenericValue> statusItems = FastList.newInstance();
 
         try {
-            Collection calItems = delegator.findByAndCache("StatusItem", UtilMisc.toMap("statusTypeId", statusTypeIdOne), UtilMisc.toList("sequenceId"));
+            List<GenericValue> calItems = delegator.findByAndCache("StatusItem", UtilMisc.toMap("statusTypeId", statusTypeIdOne), UtilMisc.toList("sequenceId"));
 
             if (calItems != null)
                 statusItems.addAll(calItems);
@@ -62,7 +63,7 @@ public class StatusWorker {
             Debug.logError(e, module);
         }
         try {
-            Collection taskItems = delegator.findByAndCache("StatusItem", UtilMisc.toMap("statusTypeId", statusTypeIdTwo), UtilMisc.toList("sequenceId"));
+            List<GenericValue> taskItems = delegator.findByAndCache("StatusItem", UtilMisc.toMap("statusTypeId", statusTypeIdTwo), UtilMisc.toList("sequenceId"));
 
             if (taskItems != null)
                 statusItems.addAll(taskItems);
@@ -76,7 +77,7 @@ public class StatusWorker {
 
     public static void getStatusValidChangeToDetails(PageContext pageContext, String attributeName, String statusId) {
         GenericDelegator delegator = (GenericDelegator) pageContext.getRequest().getAttribute("delegator");
-        Collection statusValidChangeToDetails = null;
+        List<GenericValue> statusValidChangeToDetails = null;
 
         try {
             statusValidChangeToDetails = delegator.findByAndCache("StatusValidChangeToDetail", UtilMisc.toMap("statusId", statusId), UtilMisc.toList("sequenceId"));

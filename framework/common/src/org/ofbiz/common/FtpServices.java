@@ -23,12 +23,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javolution.util.FastList;
+
 import org.ofbiz.base.util.Debug;
+import static org.ofbiz.base.util.UtilGenerics.checkList;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
 
@@ -44,7 +45,7 @@ public class FtpServices {
 
     public final static String module = FtpServices.class.getName();
 
-    public static Map putFile(DispatchContext dctx, Map context) {
+    public static Map<String, Object> putFile(DispatchContext dctx, Map<String, ?> context) {
         Debug.logInfo("[putFile] starting...", module);
 
         InputStream localFile = null;
@@ -55,7 +56,7 @@ public class FtpServices {
             return ServiceUtil.returnError("ERROR: Could not open local file");
         }
 
-        List errorList = new ArrayList();
+        List<String> errorList = FastList.newInstance();
 
         FTPClient ftp = new FTPClient();
         try {
@@ -86,11 +87,9 @@ public class FtpServices {
                         errorList.add("File not sent succesfully: " + ftp.getReplyString());
                     } else {
                         Debug.logInfo("[putFile] store was successful", module);
-                        List siteCommands = (List) context.get("siteCommands");
+                        List<String> siteCommands = checkList(context.get("siteCommands"), String.class);
                         if (siteCommands != null) {
-                            Iterator ci = siteCommands.iterator();
-                            while (ci.hasNext()) {
-                                String command = (String) ci.next();
+                            for (String command: siteCommands) {
                                 Debug.logInfo("[putFile] sending SITE command: " + command, module);
                                 if (!ftp.sendSiteCommand(command)) {
                                     errorList.add("SITE command (" + command + ") failed: " + ftp.getReplyString());
@@ -130,7 +129,7 @@ public class FtpServices {
         return ServiceUtil.returnSuccess();
     }
 
-    public static Map getFile(DispatchContext dctx, Map context) {
+    public static Map<String, Object> getFile(DispatchContext dctx, Map<String, ?> context) {
 
         String localFilename = (String) context.get("localFilename");
 
@@ -142,7 +141,7 @@ public class FtpServices {
             return ServiceUtil.returnError("ERROR: Could not open local file");
         }
 
-        List errorList = new ArrayList();
+        List<String> errorList = FastList.newInstance();
 
         FTPClient ftp = new FTPClient();
         try {

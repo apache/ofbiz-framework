@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.common;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -27,6 +26,7 @@ import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.TreeSet;
 
+import javolution.util.FastMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
@@ -42,8 +42,8 @@ public class KeywordSearchUtil {
 
     public static final String module = KeywordSearchUtil.class.getName();
 
-    public static Set thesaurusRelsToInclude = new HashSet();
-    public static Set thesaurusRelsForReplace = new HashSet();
+    public static Set<String> thesaurusRelsToInclude = new HashSet<String>();
+    public static Set<String> thesaurusRelsForReplace = new HashSet<String>();
 
     static {
         thesaurusRelsToInclude.add("KWTR_UF");
@@ -74,9 +74,9 @@ public class KeywordSearchUtil {
         String removeStemsStr = UtilProperties.getPropertyValue("keywordsearch", "remove.stems");
         return "true".equals(removeStemsStr);
     }
-    public static Set getStemSet() {
+    public static Set<String> getStemSet() {
         String stemBag = UtilProperties.getPropertyValue("keywordsearch", "stem.bag");
-        Set stemSet = new TreeSet();
+        Set<String> stemSet = new TreeSet<String>();
         if (UtilValidate.isNotEmpty(stemBag)) {
             String curToken;
             StringTokenizer tokenizer = new StringTokenizer(stemBag, ": ");
@@ -88,34 +88,32 @@ public class KeywordSearchUtil {
         return stemSet;
     }
     
-    public static void processForKeywords(String str, Map keywords, boolean forSearch, boolean anyPrefix, boolean anySuffix, boolean isAnd) {
+    public static void processForKeywords(String str, Map<String, Long> keywords, boolean forSearch, boolean anyPrefix, boolean anySuffix, boolean isAnd) {
         String separators = getSeparators();
         String stopWordBagOr = getStopWordBagOr();
         String stopWordBagAnd = getStopWordBagAnd();
 
         boolean removeStems = getRemoveStems();
-        Set stemSet = getStemSet();
+        Set<String> stemSet = getStemSet();
         
         processForKeywords(str, keywords, separators, stopWordBagAnd, stopWordBagOr, removeStems, stemSet, forSearch, anyPrefix, anySuffix, isAnd);
     }
     
-    public static void processKeywordsForIndex(String str, Map keywords, String separators, String stopWordBagAnd, String stopWordBagOr, boolean removeStems, Set stemSet) {
+    public static void processKeywordsForIndex(String str, Map<String, Long> keywords, String separators, String stopWordBagAnd, String stopWordBagOr, boolean removeStems, Set<String> stemSet) {
         processForKeywords(str, keywords, separators, stopWordBagAnd, stopWordBagOr, removeStems, stemSet, false, false, false, false);
     }
 
-    public static void processForKeywords(String str, Map keywords, String separators, String stopWordBagAnd, String stopWordBagOr, boolean removeStems, Set stemSet, boolean forSearch, boolean anyPrefix, boolean anySuffix, boolean isAnd) {
-        Set keywordSet = makeKeywordSet(str, separators, forSearch);
+    public static void processForKeywords(String str, Map<String, Long> keywords, String separators, String stopWordBagAnd, String stopWordBagOr, boolean removeStems, Set<String> stemSet, boolean forSearch, boolean anyPrefix, boolean anySuffix, boolean isAnd) {
+        Set<String> keywordSet = makeKeywordSet(str, separators, forSearch);
         fixupKeywordSet(keywordSet, keywords, stopWordBagAnd, stopWordBagOr, removeStems, stemSet, forSearch, anyPrefix, anySuffix, isAnd);
     }
     
-    public static void fixupKeywordSet(Set keywordSet, Map keywords, String stopWordBagAnd, String stopWordBagOr, boolean removeStems, Set stemSet, boolean forSearch, boolean anyPrefix, boolean anySuffix, boolean isAnd) {
+    public static void fixupKeywordSet(Set<String> keywordSet, Map<String, Long> keywords, String stopWordBagAnd, String stopWordBagOr, boolean removeStems, Set<String> stemSet, boolean forSearch, boolean anyPrefix, boolean anySuffix, boolean isAnd) {
         if (keywordSet == null) {
             return;
         }
         
-        Iterator keywordIter = keywordSet.iterator();
-        while (keywordIter.hasNext()) {
-            String token = (String) keywordIter.next();
+        for (String token: keywordSet) {
             
             // when cleaning up the tokens the ordering is inportant: check stop words, remove stems, then get rid of 1 character tokens (1 digit okay)
             
@@ -133,9 +131,7 @@ public class KeywordSearchUtil {
             
             // remove stems
             if (removeStems) {
-                Iterator stemIter = stemSet.iterator();
-                while (stemIter.hasNext()) {
-                    String stem = (String) stemIter.next();
+                for (String stem: stemSet) {
                     if (token.endsWith(stem)) {
                         token = token.substring(0, token.length() - stem.length());
                     }
@@ -170,17 +166,17 @@ public class KeywordSearchUtil {
             // group by word, add up weight
             Long curWeight = (Long) keywords.get(token);
             if (curWeight == null) {
-                keywords.put(token, new Long(1));
+                keywords.put(token, Long.valueOf(1));
             } else {
-                keywords.put(token, new Long(curWeight.longValue() + 1));
+                keywords.put(token, Long.valueOf(curWeight.longValue() + 1));
             }
         }
     }
 
-    public static Set makeKeywordSet(String str, String separators, boolean forSearch) {
+    public static Set<String> makeKeywordSet(String str, String separators, boolean forSearch) {
         if (separators == null) separators = getSeparators();
         
-        Set keywords = new TreeSet();
+        Set<String> keywords = new TreeSet<String>();
         if (str.length() > 0) {
             // strip off weird characters
             str = str.replaceAll("\\\302\\\240|\\\240", " ");
@@ -210,22 +206,20 @@ public class KeywordSearchUtil {
             }
         }
         return keywords;
-    }
-    
-    public static Set fixKeywordsForSearch(Set keywordSet, boolean anyPrefix, boolean anySuffix, boolean removeStems, boolean isAnd) {
-        Map keywords = new HashMap();
+}
+
+    public static Set<String> fixKeywordsForSearch(Set<String> keywordSet, boolean anyPrefix, boolean anySuffix, boolean removeStems, boolean isAnd) {
+        Map<String, Long> keywords = FastMap.newInstance();
         fixupKeywordSet(keywordSet, keywords, getStopWordBagAnd(), getStopWordBagOr(), removeStems, getStemSet(), true, anyPrefix, anySuffix, isAnd);
         return keywords.keySet();
     }
 
-    public static boolean expandKeywordForSearch(String enteredKeyword, Set addToSet, GenericDelegator delegator) {
+    public static boolean expandKeywordForSearch(String enteredKeyword, Set<String> addToSet, GenericDelegator delegator) {
         boolean replaceEnteredKeyword = false;
 
         try {
-            List thesaurusList = delegator.findByAndCache("KeywordThesaurus", UtilMisc.toMap("enteredKeyword", enteredKeyword));
-            Iterator thesaurusIter = thesaurusList.iterator();
-            while (thesaurusIter.hasNext()) {
-                GenericValue keywordThesaurus = (GenericValue) thesaurusIter.next();
+            List<GenericValue> thesaurusList = delegator.findByAndCache("KeywordThesaurus", UtilMisc.toMap("enteredKeyword", enteredKeyword));
+            for (GenericValue keywordThesaurus: thesaurusList) {
                 String relationshipEnumId = (String) keywordThesaurus.get("relationshipEnumId");
                 if (thesaurusRelsToInclude.contains(relationshipEnumId)) {
                     addToSet.addAll(makeKeywordSet(keywordThesaurus.getString("alternateKeyword"), null, true));

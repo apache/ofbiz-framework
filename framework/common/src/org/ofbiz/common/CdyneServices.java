@@ -49,7 +49,7 @@ public class CdyneServices {
      *@param context Map containing the input parameters
      *@return Map with the result of the service, the output parameters
      */
-    public static Map cdyneReturnCityState(DispatchContext dctx, Map context) {
+    public static Map<String, Object> cdyneReturnCityState(DispatchContext dctx, Map<String, ?> context) {
         String zipcode = (String) context.get("zipcode");
         
         String serviceUrl = "http://ws.cdyne.com/psaddress/addresslookup.asmx/ReturnCityState?zipcode=" + zipcode + "&LicenseKey=" + licenseKey; 
@@ -59,7 +59,7 @@ public class CdyneServices {
             Document addressDocument = UtilXml.readXmlDocument(httpResponse);
             Element addressRootElement = addressDocument.getDocumentElement();
 
-            Map response = ServiceUtil.returnSuccess();
+            Map<String, Object> response = ServiceUtil.returnSuccess();
             populateCdyneAddress(addressRootElement, response);
             
             if ("true".equals(response.get("ServiceError"))) {
@@ -89,7 +89,7 @@ public class CdyneServices {
         }
     }
     
-    public static void populateCdyneAddress(Element addressRootElement, Map targetContext) {
+    public static void populateCdyneAddress(Element addressRootElement, Map<String, Object> targetContext) {
         targetContext.put("ServiceError", UtilXml.childElementValue(addressRootElement, "ServiceError"));
         targetContext.put("AddressError", UtilXml.childElementValue(addressRootElement, "AddressError"));
         targetContext.put("AddressFoundBeMoreSpecific", UtilXml.childElementValue(addressRootElement, "AddressFoundBeMoreSpecific"));
