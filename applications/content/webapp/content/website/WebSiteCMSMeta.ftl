@@ -31,7 +31,7 @@
     <#if (content?has_content)>
         <a href="javascript:void(0);" onclick="javascript:callEditor(true, '${content.contentId}', '', 'ELECTRONIC_TEXT');" class="tabButton">Quick Sub-Content</a>
         <a href="javascript:void(0);" onclick="javascript:callPathAlias('${content.contentId}');" class="tabButton">Path Alias</a>
-        <a href="javascript:void(0);" onclick="javascript:callMetaInfo('${content.contentId}');" class="tabButtonSelected">Meta Tags</a>
+        <a href="javascript:void(0);" onclick="javascript:callMetaInfo('${content.contentId}');" class="selected">Meta Tags</a>
     </#if>
 </div>
 
