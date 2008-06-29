@@ -124,7 +124,7 @@ under the License.
                                 </container> 
                             </container>
                         </container>
-                        <container style="endcolumns"/>
+                        <container style="clear"/>
                         <container>
                             <label style="h1">${uiLabelMap.AccountingInvoicesMenu}</label>
                             <container>
