@@ -19,6 +19,7 @@ under the License.
 -->
 
 <project name="OFBiz Framework Build" default="build" basedir=".">
+    <import file="../macros.xml"/>
 
     <filelist id="framework-builds" dir="."
         files="base/build.xml,
@@ -121,9 +122,7 @@ under the License.
     </target>
 
     <target name="clean">
-        <subant target="clean">
-            <filelist refid="framework-builds"/>
-        </subant>
+        <iterate target="clean" filelist="framework-builds"/>
         <echo message="[clean] ========== Done Cleaning Framework =========="/>
     </target>
 
@@ -138,9 +137,7 @@ under the License.
         <mkdir dir="../runtime/data"/>
         <mkdir dir="../runtime/logs"/>
 
-        <subant inheritall="false">
-            <filelist refid="framework-builds"/>
-        </subant>
+        <iterate inheritall="false" filelist="framework-builds"/>
         
         <echo message="[build] ========== Done Building Framework (Compile) =========="/>
     </target>
@@ -152,9 +149,7 @@ under the License.
     <target name="docs">
         <echo message="[docs] ========== Start Building Framework (JavaDoc) =========="/>
 
-        <subant target="docs">
-            <filelist refid="framework-builds"/>
-        </subant>
+        <iterate target="docs" filelist="framework-builds"/>
 
         <echo message="[docs] ========== Done Building Framework (JavaDocs) =========="/>
     </target>
