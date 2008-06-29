@@ -163,7 +163,7 @@ public class RecordIterator {
 
             // if this record has children, put it on the parentStack and get/check the children now
             if (this.curRecord.getModelRecord().childRecords.size() > 0) {
-                Stack parentStack = new Stack();
+                Stack<Record> parentStack = new Stack<Record>();
                 parentStack.push(curRecord);
                 
                 while (this.nextRecord != null && this.nextRecord.getModelRecord().parentRecord != null) {
@@ -171,7 +171,7 @@ public class RecordIterator {
                     Record parentRecord = null;
 
                     while (parentStack.size() > 0) {
-                        parentRecord = (Record) parentStack.peek();
+                        parentRecord = parentStack.peek();
                         if (parentRecord.recordName.equals(this.nextRecord.getModelRecord().parentName)) {
                             break;
                         } else {
@@ -226,8 +226,7 @@ public class RecordIterator {
         // if (Debug.infoOn()) Debug.logInfo("[DataFile.findModelForLine] line: " + line, module);
         ModelRecord modelRecord = null;
 
-        for (int i = 0; i < modelDataFile.records.size(); i++) {
-            ModelRecord curModelRecord = (ModelRecord) modelDataFile.records.get(i);
+        for (ModelRecord curModelRecord: modelDataFile.records) {
 
             if (curModelRecord.tcPosition < 0) {
                 modelRecord = curModelRecord;

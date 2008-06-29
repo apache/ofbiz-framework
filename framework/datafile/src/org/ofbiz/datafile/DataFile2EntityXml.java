@@ -50,13 +50,10 @@ public class DataFile2EntityXml {
             outFile.newLine();
             outFile.write("<entity-engine-xml>");
             outFile.newLine();
-            List records = dataFile.getRecords();
-            for(int r=0; r<records.size(); r++) {
-                Record record = (Record)records.get(r);
+            for (Record record: dataFile.getRecords()) {
                 ModelRecord modelRecord = record.getModelRecord();
                 outFile.write("<" + modelRecord.name + " ");
-                for (int f=0;f<modelRecord.fields.size(); f++) {
-                    ModelField modelField = (ModelField)modelRecord.fields.get(f);
+                for (ModelField modelField: modelRecord.fields) {
                     if (modelField.ignored) continue;
                     Object value = record.get(modelField.name);
                     if (value == null) {
@@ -115,13 +112,10 @@ public class DataFile2EntityXml {
         }
 
         // -----------------------------------------
-        List records = dataFile.getRecords();
-        for(int r=0; r<records.size(); r++) {
-            Record record = (Record)records.get(r);
+        for (Record record: dataFile.getRecords()) {
             ModelRecord modelRecord = record.getModelRecord();
             outFile.write("<" + modelRecord.name + " ");
-            for (int f=0;f<modelRecord.fields.size(); f++) {
-                ModelField modelField = (ModelField)modelRecord.fields.get(f);
+            for (ModelField modelField: modelRecord.fields) {
                 Object value = record.get(modelField.name);
                 if (value instanceof String) {
                     value = ((String)value).trim();

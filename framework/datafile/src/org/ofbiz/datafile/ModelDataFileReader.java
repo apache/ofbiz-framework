@@ -47,19 +47,19 @@ public class ModelDataFileReader {
     
     public static final String module = ModelDataFileReader.class.getName();
 
-    public static UtilCache readers = new UtilCache("ModelDataFile", 0, 0);
+    public static UtilCache<URL, ModelDataFileReader> readers = new UtilCache<URL, ModelDataFileReader>("ModelDataFile", 0, 0);
 
     public URL readerURL = null;
-    public Map modelDataFiles = null;
+    public Map<String, ModelDataFile> modelDataFiles = null;
 
     public static ModelDataFileReader getModelDataFileReader(URL readerURL) {
         ModelDataFileReader reader = null;
 
-        reader = (ModelDataFileReader) readers.get(readerURL);
+        reader = readers.get(readerURL);
         if (reader == null) { // don't want to block here
             synchronized (ModelDataFileReader.class) {
                 // must check if null again as one of the blocked threads can still enter
-                reader = (ModelDataFileReader) readers.get(readerURL);
+                reader = readers.get(readerURL);
                 if (reader == null) {
                     if (Debug.infoOn()) Debug.logInfo("[ModelDataFileReader.getModelDataFileReader] : creating reader.", module);
                     reader = new ModelDataFileReader(readerURL);
@@ -82,12 +82,12 @@ public class ModelDataFileReader {
         getModelDataFiles();
     }
 
-    public Map getModelDataFiles() {
+    public Map<String, ModelDataFile> getModelDataFiles() {
         if (modelDataFiles == null) { // don't want to block here
             synchronized (ModelDataFileReader.class) {
                 // must check if null again as one of the blocked threads can still enter
                 if (modelDataFiles == null) { // now it's safe
-                    modelDataFiles = new HashMap();
+                    modelDataFiles = new HashMap<String, ModelDataFile>();
 
                     UtilTimer utilTimer = new UtilTimer();
 
@@ -153,10 +153,10 @@ public class ModelDataFileReader {
      * @return An DataFile object describing the specified dataFile of the specified descriptor file.
      */
     public ModelDataFile getModelDataFile(String dataFileName) {
-        Map ec = getModelDataFiles();
+        Map<String, ModelDataFile> ec = getModelDataFiles();
 
         if (ec != null) {
-            return (ModelDataFile) ec.get(dataFileName);
+            return ec.get(dataFileName);
         } else {
             return null;
         }
@@ -165,8 +165,8 @@ public class ModelDataFileReader {
     /** Creates a Iterator with the dataFileName of each DataFile defined in the specified XML DataFile Descriptor file.
      * @return A Iterator of dataFileName Strings
      */
-    public Iterator getDataFileNamesIterator() {
-        Collection collection = getDataFileNames();
+    public Iterator<String> getDataFileNamesIterator() {
+        Collection<String> collection = getDataFileNames();
 
         if (collection != null) {
             return collection.iterator();
@@ -178,8 +178,8 @@ public class ModelDataFileReader {
     /** Creates a Collection with the dataFileName of each DataFile defined in the specified XML DataFile Descriptor file.
      * @return A Collection of dataFileName Strings
      */
-    public Collection getDataFileNames() {
-        Map ec = getModelDataFiles();
+    public Collection<String> getDataFileNames() {
+        Map<String, ModelDataFile> ec = getModelDataFiles();
 
         return ec.keySet();
     }
@@ -218,8 +218,7 @@ public class ModelDataFileReader {
             }
         }
 
-        for (int i = 0; i < dataFile.records.size(); i++) {
-            ModelRecord modelRecord = (ModelRecord) dataFile.records.get(i);
+        for (ModelRecord modelRecord: dataFile.records) {
 
             if (modelRecord.parentName.length() > 0) {
                 ModelRecord parentRecord = dataFile.getModelRecord(modelRecord.parentName);
@@ -250,7 +249,7 @@ public class ModelDataFileReader {
 
         tempStr = UtilXml.checkEmpty(recordElement.getAttribute("tc-isnum"));
         if (tempStr != null && tempStr.length() > 0) {
-            record.tcIsNum = Boolean.valueOf(tempStr).booleanValue();
+            record.tcIsNum = Boolean.parseBoolean(tempStr);
         }
 
         tempStr = UtilXml.checkEmpty(recordElement.getAttribute("tc-position"));
@@ -313,17 +312,17 @@ public class ModelDataFileReader {
         
         tempStr = UtilXml.checkEmpty(fieldElement.getAttribute("prim-key"));
         if (tempStr != null && tempStr.length() > 0) {
-            field.isPk = Boolean.valueOf(tempStr).booleanValue();
+            field.isPk = Boolean.parseBoolean(tempStr);
         }
 
         tempStr = UtilXml.checkEmpty(fieldElement.getAttribute("ignored"));
         if (tempStr != null && tempStr.length() > 0) {
-            field.ignored = Boolean.valueOf(tempStr).booleanValue();
+            field.ignored = Boolean.parseBoolean(tempStr);
         }
 
         tempStr = UtilXml.checkEmpty(fieldElement.getAttribute("expression"));
         if (tempStr != null && tempStr.length() > 0) {
-            field.expression = Boolean.valueOf(tempStr).booleanValue();
+            field.expression = Boolean.parseBoolean(tempStr);
         }
 
         return field;

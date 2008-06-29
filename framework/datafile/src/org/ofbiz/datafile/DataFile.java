@@ -44,7 +44,7 @@ public class DataFile {
     public static final String module = DataFile.class.getName();
 
     /** List of record in the file, contains Record objects */
-    protected List records = new ArrayList();
+    protected List<Record> records = new ArrayList<Record>();
 
     /** Contains the definition for the file */
     protected ModelDataFile modelDataFile;
@@ -98,7 +98,7 @@ public class DataFile {
         return modelDataFile;
     }
 
-    public List getRecords() {
+    public List<Record> getRecords() {
         return records;
     }
 
@@ -221,9 +221,8 @@ public class DataFile {
         writeRecords(outStream, this.records);
     }
 
-    protected void writeRecords(OutputStream outStream, List records) throws DataFileException {
-        for (int r = 0; r < records.size(); r++) {
-            Record record = (Record) records.get(r);
+    protected void writeRecords(OutputStream outStream, List<Record> records) throws DataFileException {
+        for (Record record: records) {
             String line = record.writeLineString(modelDataFile);
 
             try {

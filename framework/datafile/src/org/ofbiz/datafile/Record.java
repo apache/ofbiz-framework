@@ -36,7 +36,7 @@ import java.util.NoSuchElementException;
 public class Record implements Serializable {
 
     /** Contains a map with field data by name */
-    protected Map fields;
+    protected Map<String, Object> fields;
 
     /** Contains the name of the record definition */
     protected String recordName;
@@ -45,7 +45,7 @@ public class Record implements Serializable {
     protected transient ModelRecord modelRecord;
 
     protected Record parentRecord = null;
-    protected List childRecords = new ArrayList();
+    protected List<Record> childRecords = new ArrayList<Record>();
 
     /** Creates new Record */
     protected Record(ModelRecord modelRecord) {
@@ -53,16 +53,16 @@ public class Record implements Serializable {
             throw new IllegalArgumentException("Cannont create a Record with a null modelRecord parameter");
         this.recordName = modelRecord.name;
         this.modelRecord = modelRecord;
-        this.fields = new HashMap();
+        this.fields = new HashMap<String, Object>();
     }
 
     /** Creates new Record from existing Map */
-    protected Record(ModelRecord modelRecord, Map fields) {
+    protected Record(ModelRecord modelRecord, Map<String, Object> fields) {
         if (modelRecord == null)
             throw new IllegalArgumentException("Cannont create a Record with a null modelRecord parameter");
         this.recordName = modelRecord.name;
         this.modelRecord = modelRecord;
-        this.fields = (fields == null ? new HashMap() : new HashMap(fields));
+        this.fields = (fields == null ? new HashMap<String, Object>() : new HashMap<String, Object>(fields));
     }
 
     public String getRecordName() {
@@ -259,7 +259,7 @@ public class Record implements Serializable {
             double divisor = Math.pow(10.0, decimalPlaces);
 
             number = number / divisor;
-            set(name, new Double(number));
+            set(name, Double.valueOf(number));
         } // standard types
         else if (fieldType.equals("java.lang.String") || fieldType.equals("String"))
             set(name, value);
@@ -281,11 +281,11 @@ public class Record implements Serializable {
         else if (fieldType.equals("java.lang.Double") || fieldType.equals("Double"))
             set(name, Double.valueOf(value));
         else if (fieldType.equals("LEShort"))
-            set(name, new Short(readLEShort(value.getBytes())));
+            set(name, Short.valueOf(readLEShort(value.getBytes())));
         else if (fieldType.equals("LEInteger"))
-            set(name, new Integer(readLEInt(value.getBytes())));
+            set(name, Integer.valueOf(readLEInt(value.getBytes())));
         else if (fieldType.equals("LELong"))
-            set(name, new Long(readLELong(value.getBytes())));
+            set(name, Long.valueOf(readLELong(value.getBytes())));
        else {
             throw new IllegalArgumentException("Field type " + fieldType + " not currently supported. Sorry.");
         }
@@ -380,8 +380,7 @@ public class Record implements Serializable {
 
         StringBuilder lineBuf = new StringBuilder();
 
-        for (int f = 0; f < modelRecord.fields.size(); f++) {
-            ModelField modelField = (ModelField) modelRecord.fields.get(f);
+        for (ModelField modelField: modelRecord.fields) {
             String data = this.getFixedString(modelField.name);
 
             // if field is null (not set) then assume we want to pad the field
@@ -444,7 +443,7 @@ public class Record implements Serializable {
         return parentRecord;
     }
 
-    public List getChildRecords() {
+    public List<Record> getChildRecords() {
         return childRecords;
     }
 
@@ -469,7 +468,7 @@ public class Record implements Serializable {
      * @throws DataFileException Exception thown for various errors, generally has a nested exception
      * @return
      */
-    public static Record createRecord(ModelRecord modelRecord, Map fields) throws DataFileException {
+    public static Record createRecord(ModelRecord modelRecord, Map<String, Object> fields) throws DataFileException {
         Record record = new Record(modelRecord, fields);
 
         return record;
@@ -485,8 +484,7 @@ public class Record implements Serializable {
     public static Record createRecord(String line, int lineNum, ModelRecord modelRecord) throws DataFileException {
         Record record = new Record(modelRecord);
 
-        for (int i = 0; i < modelRecord.fields.size(); i++) {
-            ModelField modelField = (ModelField) modelRecord.fields.get(i);
+        for (ModelField modelField: modelRecord.fields) {
             String strVal = null;
 
             
@@ -528,8 +526,7 @@ public class Record implements Serializable {
         else {
             st = new StringTokenizer(line, "" + delimiter, true);
         }
-        for (int i = 0; i < modelRecord.fields.size(); i++) {
-            ModelField modelField = (ModelField) modelRecord.fields.get(i);
+        for (ModelField modelField: modelRecord.fields) {
             String strVal = null;
 
             if (modelField.expression) {

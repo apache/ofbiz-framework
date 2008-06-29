@@ -57,11 +57,10 @@ public class ModelDataFile {
     public String description = "";
 
     /** List of record definitions for the file */
-    public List records = new ArrayList();
+    public List<ModelRecord> records = new ArrayList<ModelRecord>();
 
     public ModelRecord getModelRecord(String recordName) {
-        for (int i = 0; i < records.size(); i++) {
-            ModelRecord curRecord = (ModelRecord) records.get(i);
+        for (ModelRecord curRecord: records) {
 
             if (curRecord.name.equals(recordName)) {
                 return curRecord;
@@ -134,11 +133,11 @@ public class ModelDataFile {
         this.description = description;
     }
 
-    public List getRecords() {
+    public List<ModelRecord> getRecords() {
         return records;
     }
 
-    public void setRecords(List records) {
+    public void setRecords(List<ModelRecord> records) {
         this.records = records;
     }
 }
