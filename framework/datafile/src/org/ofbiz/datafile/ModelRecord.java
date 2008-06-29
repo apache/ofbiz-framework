@@ -65,14 +65,13 @@ public class ModelRecord {
     public String limit = "";
 
     public ModelRecord parentRecord = null;
-    public List childRecords = new ArrayList();
+    public List<ModelRecord> childRecords = new ArrayList<ModelRecord>();
 
     /** List of the fields that compose this record */
-    public List fields = new ArrayList();
+    public List<ModelField> fields = new ArrayList<ModelField>();
 
     ModelField getModelField(String fieldName) {
-        for (int i = 0; i < fields.size(); i++) {
-            ModelField curField = (ModelField) fields.get(i);
+        for (ModelField curField: fields) {
 
             if (curField.name.equals(fieldName)) {
                 return curField;
@@ -105,11 +104,11 @@ public class ModelRecord {
         this.parentName = parentName;
     }
 
-    public List getFields() {
+    public List<ModelField> getFields() {
         return fields;
     }
 
-    public void setFields(List fields) {
+    public void setFields(List<ModelField> fields) {
         this.fields = fields;
     }
 }
