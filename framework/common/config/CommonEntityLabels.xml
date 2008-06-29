@@ -20,6 +20,7 @@
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="CustomMethod.description.6000">
         <value xml:lang="en">Example task formula (qty * estimatedMilliSeconds * 10)</value>
+        <value xml:lang="fr">Exemple de formule de tâche (qté * millisecondes estimées * 10)</value>
         <value xml:lang="it">Esempio formula compito (qnt * Milli Secondi Stimati * 10)</value>
         <value xml:lang="pt">Example de fórmula para tarefa(qty * miliSegundosEstimados * 10)</value>
         <value xml:lang="ro">Exemplu formula sarcina(cant * Mili Secunde Stimate * 10)</value>
@@ -29,6 +30,7 @@
     </property>
     <property key="CustomMethod.description.6001">
         <value xml:lang="en">Example bom formula (qty * k)</value>
+        <value xml:lang="fr">Exemple de formule de nomenclature (qté * k)</value>
         <value xml:lang="it">Esempio formula distinta base (qnt * k)</value>
         <value xml:lang="pt">Fórmula Bom exemplo (qty * k)</value>
         <value xml:lang="ro">Exemplu formula fisa tehnologica (cant * k)</value>
@@ -38,6 +40,7 @@
     </property>
     <property key="CustomMethod.description.6002">
         <value xml:lang="en">Bom formula for linear components</value>
+        <value xml:lang="fr">Formule de nomenclature pour composants linéaires</value>
         <value xml:lang="it">Formula distinta base per componenti lineari</value>
         <value xml:lang="pt">Fórmula Bom para operações lineares</value>
         <value xml:lang="ro">Formula fisa tehnologica pentru componente lineare</value>
@@ -177,6 +180,7 @@
     </property>
     <property key="Enumeration.description.EBAY_SALES_CHANNEL">
         <value xml:lang="en">eBay Channel</value>
+        <value xml:lang="fr">Canal de vente : eBay</value>
         <value xml:lang="it">Canale eBay</value>
         <value xml:lang="pt">Canal eBay</value>
         <value xml:lang="th">ช่องทาง eBay</value>
@@ -208,6 +212,7 @@
     </property>
     <property key="Enumeration.description.FAC_BOAT">
         <value xml:lang="en">Boat</value>
+        <value xml:lang="fr">Bateau</value>
         <value xml:lang="it">Barca</value>
         <value xml:lang="pt">Boat</value>
         <value xml:lang="ro">Barca</value>
@@ -217,6 +222,7 @@
     </property>
     <property key="Enumeration.description.FAC_COMPRESSOR">
         <value xml:lang="en">Compressor</value>
+        <value xml:lang="fr">Compresseur</value>
         <value xml:lang="it">Compressore</value>
         <value xml:lang="pt">Compressor</value>
         <value xml:lang="ro">Compresor</value>
@@ -226,6 +232,7 @@
     </property>
     <property key="Enumeration.description.FAC_DIGGER">
         <value xml:lang="en">Digger</value>
+        <value xml:lang="fr">Pelleteuse</value>
         <value xml:lang="it">Escavatore</value>
         <value xml:lang="pt">Digger</value>
         <value xml:lang="ro">Escavator</value>
@@ -235,6 +242,7 @@
     </property>
     <property key="Enumeration.description.FAC_FORKLIFT">
         <value xml:lang="en">Forklift</value>
+        <value xml:lang="fr">Chariot élévateur à fourche</value>
         <value xml:lang="it">Carrello Elevatore</value>
         <value xml:lang="pt">Forklift</value>
         <value xml:lang="ro">Car Elevator</value>
@@ -244,6 +252,7 @@
     </property>
     <property key="Enumeration.description.FAC_MANLIFT">
         <value xml:lang="en">Manlift</value>
+        <value xml:lang="fr">Ascenseur</value>
         <value xml:lang="it">Ascensore</value>
         <value xml:lang="pt">Manlift</value>
         <value xml:lang="ro">Ascensor</value>
@@ -587,7 +596,7 @@
     <property key="Enumeration.description.KWTR_LANG_FR">
         <value xml:lang="en">Lang: French</value>
         <value xml:lang="es">Idioma: Francés</value>
-        <value xml:lang="fr">Lang : Français</value>
+        <value xml:lang="fr">Langue : français</value>
         <value xml:lang="it">Lingua: Francese</value>
         <value xml:lang="nl">Taal: Frans</value>
         <value xml:lang="pt">Lang: Francês</value>
@@ -598,13 +607,14 @@
     </property>
     <property key="Enumeration.description.KWTR_LANG_NL">
         <value xml:lang="en">Lang: NL</value>
+        <value xml:lang="fr">Langue : hollandais</value>
         <value xml:lang="nl">Taal: Nederlands</value>
         <value xml:lang="th">ภาษา : เนเธอร์แลนด์</value>
     </property>
     <property key="Enumeration.description.KWTR_LANG_SP">
         <value xml:lang="en">Lang: Spanish</value>
         <value xml:lang="es">Idioma: Español</value>
-        <value xml:lang="fr">Terme le plus proche</value>
+        <value xml:lang="fr">Langue : espagnol</value>
         <value xml:lang="it">Lingua: Spagnolo</value>
         <value xml:lang="nl">Taal: Spaans</value>
         <value xml:lang="pt">Lang: Espanhol</value>
@@ -2186,7 +2196,7 @@
     </property>
     <property key="EnumerationType.description.PROD_PRICE_IN_PARAM">
         <value xml:lang="en">Product Price Input Parameter</value>
-        <value xml:lang="fr">Paramétre d'entrée des prix articles</value>
+        <value xml:lang="fr">Paramètre d'entrée des prix articles</value>
         <value xml:lang="it">Parametri Input Prezzo Prodotto</value>
         <value xml:lang="pt">Parâmetro de Entrada de Preço de Produto</value>
         <value xml:lang="ro">Parametri Input Pret Produs</value>

@@ -570,7 +570,7 @@
         <value xml:lang="ar">نموذج</value>
         <value xml:lang="en">Template</value>
         <value xml:lang="es">Plantilla</value>
-        <value xml:lang="fr">Modéle</value>
+        <value xml:lang="fr">Modèle</value>
         <value xml:lang="it">Template</value>
         <value xml:lang="ro">Template</value>
         <value xml:lang="th">รูปแบบ</value>
@@ -579,6 +579,7 @@
     <property key="ContentTemplates">
         <value xml:lang="ar">نماذج</value>
         <value xml:lang="en">Templates</value>
+        <value xml:lang="fr">Modèles</value>
         <value xml:lang="it">Templates</value>
         <value xml:lang="ro">Templates</value>
         <value xml:lang="th">รูปแบบ</value>
