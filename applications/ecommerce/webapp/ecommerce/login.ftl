@@ -101,7 +101,7 @@ under the License.
     </div>
     </#if>
   </div>
-  <div class="clear">&nbsp;</div>
+  <div class="endcolumns">&nbsp;</div>
 </div>
 
 <script language="JavaScript" type="text/javascript">
