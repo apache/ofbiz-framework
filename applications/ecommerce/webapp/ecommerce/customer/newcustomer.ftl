@@ -197,7 +197,7 @@ under the License.
                 </select>
             </div>
         </div>
-        <div class="clear"><span></span></div>
+        <div class="endcolumns"><span></span></div>
     </div>
 </div>
 
@@ -282,7 +282,7 @@ under the License.
                 </select>
             </div>
         </div>
-        <div class="clear"><span></span></div>
+        <div class="endcolumns"><span></span></div>
     </div>
 </div>
 
@@ -311,7 +311,7 @@ under the License.
         <div>Order Email addresses (comma separated)</div>
         <input type="text" name="CUSTOMER_ORDER_EMAIL" value="${requestParameters.CUSTOMER_ORDER_EMAIL?if_exists}" size="40" maxlength="80">
 -->
-        <div class="clear"><span></span></div>
+        <div class="endcolumns"><span></span></div>
     </div>
 </div>
 
@@ -360,7 +360,7 @@ under the License.
                 </div>
             </div>
         </#if>
-        <div class="clear"><span></span></div>
+        <div class="endcolumns"><span></span></div>
     </div>
 </div>
 
