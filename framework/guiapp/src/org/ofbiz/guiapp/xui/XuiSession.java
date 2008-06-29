@@ -18,9 +18,10 @@
  *******************************************************************************/
 package org.ofbiz.guiapp.xui;
 
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -43,7 +44,7 @@ public class XuiSession {
     protected LocalDispatcher dispatcher = null;
     protected GenericValue userLogin = null;
     protected XuiContainer container = null;
-    protected Map attributes = new HashMap();
+    protected Map<String, Object> attributes = FastMap.newInstance();
     protected String id = null;
     protected final boolean IS_SAME_LOGIN = UtilProperties.propertyValueEqualsIgnoreCase("xui.properties", "isSameLogin", "true");
     private Locale locale = (Locale) Locale.getDefault();
@@ -130,7 +131,7 @@ public class XuiSession {
         }
 
         // call the login service
-        Map result = null;
+        Map<String, Object> result = null;
         try {
             result = dispatcher.runSync("userLogin", UtilMisc.toMap("login.username", username, "login.password", password));
         } catch (GenericServiceException e) {
