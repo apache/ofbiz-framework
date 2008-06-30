@@ -621,7 +621,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
         if (value instanceof BigDecimal) {
             return new Double(((BigDecimal) value).doubleValue());
         } else {
-            return (Double) get(name);
+            return (Double) value;
         }
     }
 
