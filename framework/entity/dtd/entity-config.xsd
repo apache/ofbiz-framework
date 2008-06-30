@@ -117,6 +117,7 @@ under the License.
         <xs:attribute type="xs:string" name="distributed-cache-clear-class-name" default="org.ofbiz.entityext.cache.EntityCacheServices"/>
         <xs:attribute type="xs:string" name="distributed-cache-clear-user-login-id" default="system"/>
         <xs:attribute type="xs:string" name="sequenced-id-prefix"/>
+        <xs:attribute type="xs:string" name="default-group-name" default="org.ofbiz"/>
     </xs:attributeGroup>
     <xs:element name="group-map">
         <xs:complexType>

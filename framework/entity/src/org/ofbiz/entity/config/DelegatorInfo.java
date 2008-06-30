@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -15,12 +15,10 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- *******************************************************************************/
+ */
 package org.ofbiz.entity.config;
 
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import org.ofbiz.base.util.UtilValidate;
@@ -42,6 +40,7 @@ public class DelegatorInfo extends NamedInfo {
     public String distributedCacheClearClassName;
     public String distributedCacheClearUserLoginId;
     public String sequencedIdPrefix;
+    public String defaultGroupName;
     public Map<String, String> groupMap = new HashMap<String, String>();
 
     public DelegatorInfo(Element element) {
@@ -60,9 +59,12 @@ public class DelegatorInfo extends NamedInfo {
         if (UtilValidate.isEmpty(this.distributedCacheClearClassName)) this.distributedCacheClearClassName = "org.ofbiz.entityext.cache.EntityCacheServices";
         
         this.distributedCacheClearUserLoginId = element.getAttribute("distributed-cache-clear-user-login-id");
-        if (UtilValidate.isEmpty(this.distributedCacheClearUserLoginId)) this.distributedCacheClearUserLoginId= "admin";
+        if (UtilValidate.isEmpty(this.distributedCacheClearUserLoginId)) this.distributedCacheClearUserLoginId = "admin";
 
         this.sequencedIdPrefix = element.getAttribute("sequenced-id-prefix");
+        
+        this.defaultGroupName = element.getAttribute("default-group-name");
+        if (UtilValidate.isEmpty(this.defaultGroupName)) this.defaultGroupName = "org.ofbiz";
         
         for (Element groupMapElement: UtilXml.childElementList(element, "group-map")) {
             groupMap.put(groupMapElement.getAttribute("group-name"), groupMapElement.getAttribute("datasource-name"));

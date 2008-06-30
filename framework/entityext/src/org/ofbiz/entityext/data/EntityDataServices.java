@@ -41,6 +41,8 @@ import java.net.URI;
 import java.net.URL;
 import java.net.URISyntaxException;
 
+import javolution.util.FastList;
+
 /**
  * Entity Data Import/Export Services
  *
@@ -336,14 +338,21 @@ public class EntityDataServices {
         String groupName = (String) context.get("groupName");
         Boolean fixSizes = (Boolean) context.get("fixColSizes");
         if (fixSizes == null) fixSizes = Boolean.FALSE;
-        List messages = new ArrayList();
+        List<String> messages = FastList.newInstance();
 
         String helperName = delegator.getGroupHelperName(groupName);
         DatabaseUtil dbUtil = new DatabaseUtil(helperName);
-        Map modelEntities = delegator.getModelEntityMapByGroup(groupName);
-        Set modelEntityNames = new TreeSet(modelEntities.keySet());
+        Map<String, ModelEntity> modelEntities;
+        try {
+            modelEntities = delegator.getModelEntityMapByGroup(groupName);
+        } catch (GenericEntityException e) {
+            String errorMessage = "Error getting list of entities in group: " + e.toString();
+            Debug.logError(e, errorMessage, module);
+            return ServiceUtil.returnError(errorMessage);
+        }
+        Set<String> modelEntityNames = new TreeSet(modelEntities.keySet());
 
-        Iterator modelEntityNameIter = null;
+        Iterator<String> modelEntityNameIter = null;
 
         // step 1 - remove FK indices
         Debug.logImportant("Removing all foreign key indices", module);
@@ -388,7 +397,7 @@ public class EntityDataServices {
         // step 5 - repair field sizes
         if (fixSizes.booleanValue()) {
             Debug.logImportant("Updating column field size changes", module);
-            List fieldsWrongSize = new LinkedList();
+            List fieldsWrongSize = FastList.newInstance();
             dbUtil.checkDb(modelEntities, fieldsWrongSize, messages, true, true, true, true);
             if (fieldsWrongSize.size() > 0) {
                 dbUtil.repairColumnSizeChanges(modelEntities, fieldsWrongSize, messages);

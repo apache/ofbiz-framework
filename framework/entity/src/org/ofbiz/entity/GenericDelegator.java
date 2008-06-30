@@ -191,8 +191,8 @@ public class GenericDelegator implements DelegatorInterface {
         //if (Debug.infoOn()) Debug.logInfo("Creating new Delegator with name \"" + delegatorName + "\".", module);
 
         this.delegatorName = delegatorName;
-        modelReader = ModelReader.getModelReader(delegatorName);
-        modelGroupReader = ModelGroupReader.getModelGroupReader(delegatorName);
+        this.modelReader = ModelReader.getModelReader(delegatorName);
+        this.modelGroupReader = ModelGroupReader.getModelGroupReader(delegatorName);
 
         cache = new Cache(delegatorName);
 
@@ -242,7 +242,7 @@ public class GenericDelegator implements DelegatorInterface {
 
         // NOTE: doing some things before the ECAs and such to make sure it is in place just in case it is used in a service engine startup thing or something
         // put the delegator in the master Map by its name
-        delegatorCache.put(delegatorName, this);
+        this.delegatorCache.put(delegatorName, this);
 
         // setup the crypto class
         this.crypto = new EntityCrypto(this);
@@ -305,10 +305,10 @@ public class GenericDelegator implements DelegatorInterface {
     }
     
     protected DelegatorInfo getDelegatorInfo() {
-        if (delegatorInfo == null) {
-            delegatorInfo = EntityConfigUtil.getDelegatorInfo(this.delegatorName);
+        if (this.delegatorInfo == null) {
+            this.delegatorInfo = EntityConfigUtil.getDelegatorInfo(this.delegatorName);
         }
-        return delegatorInfo;
+        return this.delegatorInfo;
     }
 
     /** Gets the instance of ModelReader that corresponds to this delegator
@@ -344,55 +344,47 @@ public class GenericDelegator implements DelegatorInterface {
      */
     public String getEntityGroupName(String entityName) {
         String groupName = getModelGroupReader().getEntityGroupName(entityName);
+        if (UtilValidate.isEmpty(groupName)) {
+            groupName = this.getDelegatorInfo().defaultGroupName;
+        }
 
         return groupName;
-    }
-
-    /** Gets a list of entity models that are in a group corresponding to the specified group name
-     *@param groupName The name of the group
-     *@return List of ModelEntity instances
-     */
-    public List<ModelEntity> getModelEntitiesByGroup(String groupName) {
-        Iterator<String> enames = UtilMisc.toIterator(getModelGroupReader().getEntityNamesByGroup(groupName));
-        List<ModelEntity> entities = FastList.newInstance();
-
-        if (enames == null || !enames.hasNext())
-            return entities;
-        while (enames.hasNext()) {
-            String ename = enames.next();
-            ModelEntity entity = this.getModelEntity(ename);
-
-            if (entity != null)
-                entities.add(entity);
-        }
-        return entities;
     }
 
     /** Gets a Map of entity name & entity model pairs that are in the named group
      *@param groupName The name of the group
      *@return Map of entityName String keys and ModelEntity instance values
      */
-    public Map<String, ModelEntity> getModelEntityMapByGroup(String groupName) {
-        Iterator<String> enames = UtilMisc.toIterator(getModelGroupReader().getEntityNamesByGroup(groupName));
+    public Map<String, ModelEntity> getModelEntityMapByGroup(String groupName) throws GenericEntityException {
+        Set<String> entityNameSet = getModelGroupReader().getEntityNamesByGroup(groupName);
+        
+        if (this.getDelegatorInfo().defaultGroupName.equals(groupName)) {
+            // add all entities with no group name to the Set
+            Set<String> allEntityNames = this.getModelReader().getEntityNames();
+            for (String entityName: allEntityNames) {
+                if (UtilValidate.isEmpty(getModelGroupReader().getEntityGroupName(entityName))) {
+                    entityNameSet.add(entityName);
+                }
+            }
+        }
+        
         Map<String, ModelEntity> entities = FastMap.newInstance();
-
-        if (enames == null || !enames.hasNext()) {
+        if (entityNameSet == null || entityNameSet.size() == 0) {
             return entities;
         }
 
         int errorCount = 0;
-        while (enames.hasNext()) {
-            String ename = enames.next();
+        for (String entityName: entityNameSet) {
             try {
-                ModelEntity entity = getModelReader().getModelEntity(ename);
+                ModelEntity entity = getModelReader().getModelEntity(entityName);
                 if (entity != null) {
                     entities.put(entity.getEntityName(), entity);
                 } else {
-                    throw new IllegalStateException("Could not find entity with name " + ename);
+                    throw new IllegalStateException("Could not find entity with name " + entityName);
                 }
             } catch (GenericEntityException ex) {
                 errorCount++;
-                Debug.logError("Entity " + ename + " named in Entity Group with name " + groupName + " are not defined in any Entity Definition file", module);
+                Debug.logError("Entity [" + entityName + "] named in Entity Group with name " + groupName + " are not defined in any Entity Definition file", module);
             }
         }
 
@@ -416,9 +408,7 @@ public class GenericDelegator implements DelegatorInterface {
      *@return String with the helper name that corresponds to this delegator and the specified entityName
      */
     public String getEntityHelperName(String entityName) {
-        String groupName = getModelGroupReader().getEntityGroupName(entityName);
-
-        return this.getGroupHelperName(groupName);
+        return this.getGroupHelperName(this.getEntityGroupName(entityName));
     }
 
     /** Gets the helper name that corresponds to this delegator and the specified entity
@@ -438,10 +428,11 @@ public class GenericDelegator implements DelegatorInterface {
     public GenericHelper getEntityHelper(String entityName) throws GenericEntityException {
         String helperName = getEntityHelperName(entityName);
 
-        if (helperName != null && helperName.length() > 0)
+        if (helperName != null && helperName.length() > 0) {
             return GenericHelperFactory.getHelper(helperName);
-        else
+        } else {
             throw new GenericEntityException("Helper name not found for entity " + entityName);
+        }
     }
 
     /** Gets the an instance of helper that corresponds to this delegator and the specified entity
