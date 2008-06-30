@@ -168,7 +168,7 @@ public class EntityTestSuite extends TestCase {
             testing.put("testingName", "leaf-#" + node.getString("testingNodeId"));
             testing.put("description", "level1 leaf");
             testing.put("comments", "No-comments");
-            testing.put("testingSize", new Long(10));
+            testing.put("testingSize", Long.valueOf(10));
             testing.put("testingDate", now);
 
             newValues.add(testing);
@@ -212,7 +212,7 @@ public class EntityTestSuite extends TestCase {
      */
     public void testFindDistinct() throws Exception {
         List<EntityExpr> exprList = UtilMisc.toList(
-                EntityCondition.makeCondition("testingSize", EntityOperator.EQUALS, new Long(10)),
+                EntityCondition.makeCondition("testingSize", EntityOperator.EQUALS, Long.valueOf(10)),
                 EntityCondition.makeCondition("comments", EntityOperator.EQUALS, "No-comments"));
         EntityConditionList<EntityExpr> condition = EntityCondition.makeCondition(exprList);
 
