@@ -22,25 +22,26 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import javolution.util.FastSet;
+
 import org.ofbiz.base.component.ComponentConfig;
 import org.ofbiz.base.config.GenericConfigException;
 import org.ofbiz.base.config.MainResourceHandler;
 import org.ofbiz.base.config.ResourceHandler;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilTimer;
+import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.entity.GenericEntityConfException;
 import org.ofbiz.entity.config.DelegatorInfo;
 import org.ofbiz.entity.config.EntityConfigUtil;
 import org.ofbiz.entity.config.EntityGroupReaderInfo;
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.cache.UtilCache;
-import org.ofbiz.base.util.UtilTimer;
-import org.ofbiz.base.util.UtilXml;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -173,28 +174,31 @@ public class ModelGroupReader implements Serializable {
     public String getEntityGroupName(String entityName) {
         Map<String, String> gc = getGroupCache();
 
-        if (gc != null)
+        if (gc != null) {
             return gc.get(entityName);
-        else
+        } else {
             return null;
+        }
     }
 
-    /** Creates a Collection with all of the groupNames defined in the specified XML Entity Group Descriptor file.
-     * @return A Collection of groupNames Strings
+    /** Creates a Set with all of the groupNames defined in the specified XML Entity Group Descriptor file.
+     * @return A Set of groupNames Strings
      */
-    public Collection<String> getGroupNames() {
+    public Set<String> getGroupNames() {
         getGroupCache();
         if (this.groupNames == null) return null;
-        return new ArrayList<String>(this.groupNames);
+        Set<String> newSet = FastSet.newInstance();
+        newSet.addAll(this.groupNames);
+        return newSet;
     }
 
-    /** Creates a Collection with names of all of the entities for a given group
+    /** Creates a Set with names of all of the entities for a given group
      * @param groupName
-     * @return A Collection of entityName Strings
+     * @return A Set of entityName Strings
      */
-    public Collection<String> getEntityNamesByGroup(String groupName) {
+    public Set<String> getEntityNamesByGroup(String groupName) {
         Map<String, String> gc = getGroupCache();
-        Collection<String> enames = new LinkedList<String>();
+        Set<String> enames = FastSet.newInstance();
 
         if (groupName == null || groupName.length() <= 0) return enames;
         if (gc == null || gc.size() == 0) return enames;

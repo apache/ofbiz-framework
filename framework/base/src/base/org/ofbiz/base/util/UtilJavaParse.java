@@ -158,7 +158,6 @@ public class UtilJavaParse {
     static {
         entityMethodNames.add("getModelEntity");
         entityMethodNames.add("getEntityGroupName");
-        entityMethodNames.add("getModelEntitiesByGroup");
         entityMethodNames.add("getModelEntityMapByGroup");
         entityMethodNames.add("getGroupHelperName");
         entityMethodNames.add("getEntityHelperName");
