@@ -23,37 +23,39 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import javolution.util.FastList;
 /**
  * @deprecated
  * OrderedMap - HashMap backed by a linked list.
  *
  */
-public class OrderedMap extends HashMap {
+public class OrderedMap<K, V> extends HashMap<K, V> {
 
-    private List orderedKeys = new LinkedList();
+    private List<K> orderedKeys = FastList.newInstance();
 
     /**
      * @see java.util.Map#keySet()
      */   
-    public Set keySet() {
-        return new LinkedHashSet(orderedKeys);
+    public Set<K> keySet() {
+        return new LinkedHashSet<K>(orderedKeys);
     }
 
     /**
      * @return List a copy of the ordered keys list which backs this map
      */
-    public List getOrderedKeys() {
-        return new LinkedList(this.orderedKeys);
+    public List<K> getOrderedKeys() {
+        List<K> keys = FastList.newInstance();
+        keys.addAll(this.orderedKeys);
+        return keys;
     }
 
     /**
      * @see java.util.Map#put(java.lang.Object, java.lang.Object)
      */
-    public Object put(Object key, Object value) {
+    public V put(K key, V value) {
         if (!orderedKeys.contains(key))
             orderedKeys.add(key);
         return super.put(key, value);
@@ -70,7 +72,7 @@ public class OrderedMap extends HashMap {
     /**
      * @see java.util.Map#remove(java.lang.Object)
      */
-    public Object remove(Object key) {
+    public V remove(Object key) {
         if (orderedKeys.contains(key))
             orderedKeys.remove(key);
         return super.remove(key);
@@ -79,17 +81,16 @@ public class OrderedMap extends HashMap {
     /**
      * @see java.util.Map#values()
      */
-    public Collection values() {
-        Iterator i = orderedKeys.iterator();
-        if (!i.hasNext()) {
+    public Collection<V> values() {
+        if (orderedKeys.isEmpty()) {
             return null;
         }
         
-        List values = new ArrayList();        
-        while (i.hasNext()) {
-            values.add(this.get(i.next()));
+        List<V> values = FastList.newInstance();
+        for (K key: orderedKeys) {
+            values.add(this.get(key));
         }
-        return (Collection) values;
+        return values;
     }
 
     public int indexOf(Object key) {

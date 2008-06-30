@@ -29,10 +29,10 @@ import java.util.List;
  * OrderedSet - Set interface wrapper around a LinkedList
  *
  */
-public class OrderedSet extends AbstractSet {
+public class OrderedSet<V> extends AbstractSet<V> {
 
     // This set's back LinkedList
-    private List backedList = new LinkedList();
+    private List<V> backedList = new LinkedList<V>();
 
     /**
      * Constructs a set containing the elements of the specified
@@ -48,17 +48,14 @@ public class OrderedSet extends AbstractSet {
      *
      * @param c the collection whose elements are to be placed into this set.
      */
-    public OrderedSet(Collection c) {
-        Iterator i = c.iterator();
-
-        while (i.hasNext())
-            add(i.next());
+    public OrderedSet(Collection<? extends V> c) {
+        addAll(c);
     }
 
     /**
      * @see java.util.Collection#iterator()
      */  
-    public Iterator iterator() {
+    public Iterator<V> iterator() {
         return backedList.iterator();
     }
 
@@ -72,7 +69,7 @@ public class OrderedSet extends AbstractSet {
     /**
      * @see java.util.Collection#add(java.lang.Object)
      */
-    public boolean add(Object obj) {
+    public boolean add(V obj) {
         int index = backedList.indexOf(obj);
 
         if (index == -1)
