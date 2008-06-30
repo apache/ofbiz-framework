@@ -981,7 +981,7 @@ public class ModelForm extends ModelWidget {
             if (nextFormField != null) {
                 if (nextFormField.getPosition() > currentFormField.getPosition()) {
                     positionSpan = nextFormField.getPosition() - currentFormField.getPosition() - 1;
-                    nextPositionInRow = new Integer(nextFormField.getPosition());
+                    nextPositionInRow = Integer.valueOf(nextFormField.getPosition());
                 } else {
                     positionSpan = positions - currentFormField.getPosition();
                     if (!stayingOnRow && nextFormField.getPosition() > 1) {
@@ -1344,9 +1344,9 @@ public class ModelForm extends ModelWidget {
         if ((itemIndex + 1) < highIndex) {
             highIndex = itemIndex + 1;
             // if list size is overridden, use full listSize
-            context.put("highIndex", new Integer(isOverridenListSize() ? listSize : highIndex));
+            context.put("highIndex", Integer.valueOf(isOverridenListSize() ? listSize : highIndex));
         }
-        context.put("actualPageSize", new Integer(highIndex - lowIndex));
+        context.put("actualPageSize", Integer.valueOf(highIndex - lowIndex));
 
         if (iter instanceof EntityListIterator) {
             try {
@@ -1426,7 +1426,7 @@ public class ModelForm extends ModelWidget {
 
                 ModelFormAction.runSubActions(this.rowActions, localContext);
 
-                localContext.put("itemIndex", new Integer(itemIndex - lowIndex));
+                localContext.put("itemIndex", Integer.valueOf(itemIndex - lowIndex));
                 this.resetBshInterpreter(localContext);
 
                 if (Debug.verboseOn()) Debug.logVerbose("In form got another row, context is: " + localContext, module);
@@ -1560,9 +1560,9 @@ public class ModelForm extends ModelWidget {
             if ((itemIndex + 1) < highIndex) {
                 highIndex = itemIndex + 1;
                 // if list size is overridden, use full listSize
-                context.put("highIndex", new Integer(isOverridenListSize() ? listSize : highIndex));
+                context.put("highIndex", Integer.valueOf(isOverridenListSize() ? listSize : highIndex));
             }
-            context.put("actualPageSize", new Integer(highIndex - lowIndex));
+            context.put("actualPageSize", Integer.valueOf(highIndex - lowIndex));
             
             if (iter instanceof EntityListIterator) {
                 try {
@@ -1722,7 +1722,7 @@ public class ModelForm extends ModelWidget {
         Iterator fieldListIter = modelFormFieldList.iterator();
         while (fieldListIter.hasNext()) {
             ModelFormField modelFormField = (ModelFormField) fieldListIter.next();
-            Integer position = new Integer(modelFormField.getPosition());
+            Integer position = Integer.valueOf(modelFormField.getPosition());
             List<ModelFormField> fieldListByPosition = fieldsByPosition.get(position);
             if (fieldListByPosition == null) {
                 fieldListByPosition = FastList.newInstance();
@@ -2434,7 +2434,7 @@ public class ModelForm extends ModelWidget {
 
     public void setDefaultViewSize(String val) {
         try {
-            Integer sz = new Integer(val);
+            Integer sz = Integer.valueOf(val);
             defaultViewSize = sz.intValue();
         } catch(NumberFormatException e) {
             defaultViewSize = DEFAULT_PAGE_SIZE;   
@@ -2524,11 +2524,11 @@ public class ModelForm extends ModelWidget {
             highIndex = defaultViewSize;
         }
         
-        context.put("listSize", new Integer(listSize));
-        context.put("viewIndex", new Integer(viewIndex));
-        context.put("viewSize", new Integer(viewSize));
-        context.put("lowIndex", new Integer(lowIndex));
-        context.put("highIndex", new Integer(highIndex));
+        context.put("listSize", Integer.valueOf(listSize));
+        context.put("viewIndex", Integer.valueOf(viewIndex));
+        context.put("viewSize", Integer.valueOf(viewSize));
+        context.put("lowIndex", Integer.valueOf(lowIndex));
+        context.put("highIndex", Integer.valueOf(highIndex));
     }
     
     public String getPassedRowCount(Map<String, Object> context) {

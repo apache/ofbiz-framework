@@ -442,27 +442,27 @@ public class ModelFormField {
             if ("id".equals(modelField.getType()) || "id-ne".equals(modelField.getType())) {
                 ModelFormField.TextFindField textField = new ModelFormField.TextFindField(ModelFormField.FieldInfo.SOURCE_AUTO_ENTITY, this);
                 textField.setSize(20);
-                textField.setMaxlength(new Integer(20));
+                textField.setMaxlength(Integer.valueOf(20));
                 this.setFieldInfo(textField);
             } else if ("id-long".equals(modelField.getType()) || "id-long-ne".equals(modelField.getType())) {
                 ModelFormField.TextFindField textField = new ModelFormField.TextFindField(ModelFormField.FieldInfo.SOURCE_AUTO_ENTITY, this);
                 textField.setSize(40);
-                textField.setMaxlength(new Integer(60));
+                textField.setMaxlength(Integer.valueOf(60));
                 this.setFieldInfo(textField);
             } else if ("id-vlong".equals(modelField.getType()) || "id-vlong-ne".equals(modelField.getType())) {
                 ModelFormField.TextFindField textField = new ModelFormField.TextFindField(ModelFormField.FieldInfo.SOURCE_AUTO_ENTITY, this);
                 textField.setSize(60);
-                textField.setMaxlength(new Integer(250));
+                textField.setMaxlength(Integer.valueOf(250));
                 this.setFieldInfo(textField);
             } else if ("very-short".equals(modelField.getType())) {
                 ModelFormField.TextField textField = new ModelFormField.TextField(ModelFormField.FieldInfo.SOURCE_AUTO_ENTITY, this);
                 textField.setSize(6);
-                textField.setMaxlength(new Integer(10));
+                textField.setMaxlength(Integer.valueOf(10));
                 this.setFieldInfo(textField);
             } else if ("name".equals(modelField.getType()) || "short-varchar".equals(modelField.getType())) {
                 ModelFormField.TextFindField textField = new ModelFormField.TextFindField(ModelFormField.FieldInfo.SOURCE_AUTO_ENTITY, this);
                 textField.setSize(40);
-                textField.setMaxlength(new Integer(60));
+                textField.setMaxlength(Integer.valueOf(60));
                 this.setFieldInfo(textField);
             } else if (
                 "value".equals(modelField.getType())
@@ -473,7 +473,7 @@ public class ModelFormField {
                     || "email".equals(modelField.getType())) {
                 ModelFormField.TextFindField textField = new ModelFormField.TextFindField(ModelFormField.FieldInfo.SOURCE_AUTO_ENTITY, this);
                 textField.setSize(60);
-                textField.setMaxlength(new Integer(250));
+                textField.setMaxlength(Integer.valueOf(250));
                 this.setFieldInfo(textField);
             } else if (
                 "floating-point".equals(modelField.getType()) || "currency-amount".equals(modelField.getType()) || "numeric".equals(modelField.getType())) {
@@ -504,17 +504,17 @@ public class ModelFormField {
             if ("id".equals(modelField.getType()) || "id-ne".equals(modelField.getType())) {
                 ModelFormField.TextField textField = new ModelFormField.TextField(ModelFormField.FieldInfo.SOURCE_AUTO_ENTITY, this);
                 textField.setSize(20);
-                textField.setMaxlength(new Integer(20));
+                textField.setMaxlength(Integer.valueOf(20));
                 this.setFieldInfo(textField);
             } else if ("id-long".equals(modelField.getType()) || "id-long-ne".equals(modelField.getType())) {
                 ModelFormField.TextField textField = new ModelFormField.TextField(ModelFormField.FieldInfo.SOURCE_AUTO_ENTITY, this);
                 textField.setSize(40);
-                textField.setMaxlength(new Integer(60));
+                textField.setMaxlength(Integer.valueOf(60));
                 this.setFieldInfo(textField);
             } else if ("id-vlong".equals(modelField.getType()) || "id-vlong-ne".equals(modelField.getType())) {
                 ModelFormField.TextField textField = new ModelFormField.TextField(ModelFormField.FieldInfo.SOURCE_AUTO_ENTITY, this);
                 textField.setSize(60);
-                textField.setMaxlength(new Integer(250));
+                textField.setMaxlength(Integer.valueOf(250));
                 this.setFieldInfo(textField);
             } else if ("indicator".equals(modelField.getType())) {
                 ModelFormField.DropDownField dropDownField = new ModelFormField.DropDownField(ModelFormField.FieldInfo.SOURCE_AUTO_ENTITY, this);
@@ -524,12 +524,12 @@ public class ModelFormField {
                 this.setFieldInfo(dropDownField);
                 //ModelFormField.TextField textField = new ModelFormField.TextField(ModelFormField.FieldInfo.SOURCE_AUTO_ENTITY, this);
                 //textField.setSize(1);
-                //textField.setMaxlength(new Integer(1));
+                //textField.setMaxlength(Integer.valueOf(1));
                 //this.setFieldInfo(textField);
             } else if ("very-short".equals(modelField.getType())) {
                 ModelFormField.TextField textField = new ModelFormField.TextField(ModelFormField.FieldInfo.SOURCE_AUTO_ENTITY, this);
                 textField.setSize(6);
-                textField.setMaxlength(new Integer(10));
+                textField.setMaxlength(Integer.valueOf(10));
                 this.setFieldInfo(textField);
             } else if ("very-long".equals(modelField.getType())) {
                 ModelFormField.TextareaField textareaField = new ModelFormField.TextareaField(ModelFormField.FieldInfo.SOURCE_AUTO_ENTITY, this);
@@ -539,7 +539,7 @@ public class ModelFormField {
             } else if ("name".equals(modelField.getType()) || "short-varchar".equals(modelField.getType())) {
                 ModelFormField.TextField textField = new ModelFormField.TextField(ModelFormField.FieldInfo.SOURCE_AUTO_ENTITY, this);
                 textField.setSize(40);
-                textField.setMaxlength(new Integer(60));
+                textField.setMaxlength(Integer.valueOf(60));
                 this.setFieldInfo(textField);
             } else if (
                 "value".equals(modelField.getType())
@@ -550,7 +550,7 @@ public class ModelFormField {
                     || "email".equals(modelField.getType())) {
                 ModelFormField.TextField textField = new ModelFormField.TextField(ModelFormField.FieldInfo.SOURCE_AUTO_ENTITY, this);
                 textField.setSize(60);
-                textField.setMaxlength(new Integer(250));
+                textField.setMaxlength(Integer.valueOf(250));
                 this.setFieldInfo(textField);
             } else if (
                 "floating-point".equals(modelField.getType()) || "currency-amount".equals(modelField.getType()) || "numeric".equals(modelField.getType())) {
@@ -1252,7 +1252,7 @@ public class ModelFormField {
      * @param i
      */
     public void setPosition(int i) {
-        position = new Integer(i);
+        position = Integer.valueOf(i);
     }
 
     /**
@@ -1418,26 +1418,26 @@ public class ModelFormField {
         public static Map<String, Integer> fieldTypeByName = new HashMap<String, Integer>();
 
         static {
-            fieldTypeByName.put("display", new Integer(1));
-            fieldTypeByName.put("hyperlink", new Integer(2));
-            fieldTypeByName.put("text", new Integer(3));
-            fieldTypeByName.put("textarea", new Integer(4));
-            fieldTypeByName.put("date-time", new Integer(5));
-            fieldTypeByName.put("drop-down", new Integer(6));
-            fieldTypeByName.put("check", new Integer(7));
-            fieldTypeByName.put("radio", new Integer(8));
-            fieldTypeByName.put("submit", new Integer(9));
-            fieldTypeByName.put("reset", new Integer(10));
-            fieldTypeByName.put("hidden", new Integer(11));
-            fieldTypeByName.put("ignored", new Integer(12));
-            fieldTypeByName.put("text-find", new Integer(13));
-            fieldTypeByName.put("date-find", new Integer(14));
-            fieldTypeByName.put("range-find", new Integer(15));
-            fieldTypeByName.put("lookup", new Integer(16));
-            fieldTypeByName.put("file", new Integer(17));
-            fieldTypeByName.put("password", new Integer(18));
-            fieldTypeByName.put("image", new Integer(19));
-            fieldTypeByName.put("display-entity", new Integer(20));
+            fieldTypeByName.put("display", Integer.valueOf(1));
+            fieldTypeByName.put("hyperlink", Integer.valueOf(2));
+            fieldTypeByName.put("text", Integer.valueOf(3));
+            fieldTypeByName.put("textarea", Integer.valueOf(4));
+            fieldTypeByName.put("date-time", Integer.valueOf(5));
+            fieldTypeByName.put("drop-down", Integer.valueOf(6));
+            fieldTypeByName.put("check", Integer.valueOf(7));
+            fieldTypeByName.put("radio", Integer.valueOf(8));
+            fieldTypeByName.put("submit", Integer.valueOf(9));
+            fieldTypeByName.put("reset", Integer.valueOf(10));
+            fieldTypeByName.put("hidden", Integer.valueOf(11));
+            fieldTypeByName.put("ignored", Integer.valueOf(12));
+            fieldTypeByName.put("text-find", Integer.valueOf(13));
+            fieldTypeByName.put("date-find", Integer.valueOf(14));
+            fieldTypeByName.put("range-find", Integer.valueOf(15));
+            fieldTypeByName.put("lookup", Integer.valueOf(16));
+            fieldTypeByName.put("file", Integer.valueOf(17));
+            fieldTypeByName.put("password", Integer.valueOf(18));
+            fieldTypeByName.put("image", Integer.valueOf(19));
+            fieldTypeByName.put("display-entity", Integer.valueOf(20));
         }
 
         protected int fieldType;
@@ -2846,7 +2846,7 @@ public class ModelFormField {
         public Boolean isAllChecked(Map<String, Object> context) {
             String allCheckedStr = this.allChecked.expandString(context);
             if (UtilValidate.isNotEmpty(allCheckedStr)) {
-                return new Boolean("true".equals(allCheckedStr));
+                return Boolean.valueOf("true".equals(allCheckedStr));
             } else {
                 return null;
             }

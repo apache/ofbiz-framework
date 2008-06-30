@@ -438,7 +438,7 @@ public class ModelTree extends ModelWidget {
                             } else {
                                 newContext.putAll(val);
                             }
-                            newContext.put("currentNodeIndex", new Integer(nodeIndex));
+                            newContext.put("currentNodeIndex", Integer.valueOf(nodeIndex));
                             String targetEntityId = null;
                             List targetNodeTrail = UtilGenerics.checkList(context.get("targetNodeTrail"));
                             if (newDepth < targetNodeTrail.size()) {
@@ -446,7 +446,7 @@ public class ModelTree extends ModelWidget {
                             }
                             if ((targetEntityId != null && targetEntityId .equals(thisEntityId)) || this.showPeers(newDepth, context)) {
                                 boolean lastNode = !nodeIter.hasNext();
-                                newContext.put("lastNode", new Boolean(lastNode));
+                                newContext.put("lastNode", Boolean.valueOf(lastNode));
                                 node.renderNodeString(writer, newContext, treeStringRenderer, newDepth, lastNode);
                             }
                         }
@@ -522,7 +522,7 @@ public class ModelTree extends ModelWidget {
                      }
                  }
                  */
-                 nodeCount = new Long(this.subNodeValues.size());
+                 nodeCount = Long.valueOf(this.subNodeValues.size());
                 String pkName = this.getPkName();
                 String id = null;
                 if (UtilValidate.isNotEmpty(this.entryName)) {
@@ -546,7 +546,7 @@ public class ModelTree extends ModelWidget {
              } else if (nodeCount == null) {
                  getChildren(context);
                 if (subNodeValues != null)
-                    nodeCount = new Long(subNodeValues.size());
+                    nodeCount = Long.valueOf(subNodeValues.size());
              }
              
              if (nodeCount != null && nodeCount.intValue() > 0) 

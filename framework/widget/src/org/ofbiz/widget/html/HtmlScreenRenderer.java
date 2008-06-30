@@ -618,7 +618,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
 
     public void renderContentBody(Appendable writer, Map<String, Object> context, ModelScreenWidget.Content content) throws IOException {
         Locale locale = UtilMisc.ensureLocale(context.get("locale"));
-        //Boolean nullThruDatesOnly = new Boolean(false);
+        //Boolean nullThruDatesOnly = Boolean.valueOf(false);
         String mimeTypeId = "text/html";
         String expandedContentId = content.getContentId(context);
         String expandedDataResourceId = content.getDataResourceId(context);
@@ -831,7 +831,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
                 String mapKey = content.getAssocName(context);
                 GenericValue view = null;
                 try {
-                    view = ContentWorker.getSubContentCache(delegator, contentIdTo, mapKey, userLogin, null, UtilDateTime.nowTimestamp(), new Boolean(false), null);
+                    view = ContentWorker.getSubContentCache(delegator, contentIdTo, mapKey, userLogin, null, UtilDateTime.nowTimestamp(), Boolean.valueOf(false), null);
                 } catch(GenericEntityException e) {
                     throw new IOException("Originally a GenericEntityException. " + e.getMessage());
                 }

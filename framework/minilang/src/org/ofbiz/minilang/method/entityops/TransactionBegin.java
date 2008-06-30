@@ -53,7 +53,7 @@ public class TransactionBegin extends MethodOperation {
             return false;
         }
         
-        beganTransactionAcsr.put(methodContext, new Boolean(beganTransaction));
+        beganTransactionAcsr.put(methodContext, Boolean.valueOf(beganTransaction));
         return true;
     }
 

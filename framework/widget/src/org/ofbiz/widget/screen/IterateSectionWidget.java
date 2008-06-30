@@ -130,7 +130,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
             } else {
                 contextMs.put(entryName, item);
             }
-            contextMs.put("itemIndex", new Integer(itemIndex));
+            contextMs.put("itemIndex", Integer.valueOf(itemIndex));
             
             rowCount++;
             Iterator sectionIter = this.sectionList.iterator();
@@ -178,7 +178,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
 
     public void setViewSize(String val) {
         try {
-            Integer sz = new Integer(val);
+            Integer sz = Integer.valueOf(val);
             viewSize = sz.intValue();
         } catch(NumberFormatException e) {
             viewSize = DEFAULT_PAGE_SIZE;   
@@ -239,7 +239,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
                     viewIndex = 0;
                 }
             }
-            context.put("viewIndex", new Integer(this.viewIndex));
+            context.put("viewIndex", Integer.valueOf(this.viewIndex));
     
             try {
                 viewSize = ((Integer) context.get("viewSize")).intValue();

@@ -68,7 +68,7 @@ public class JasperReportsXmlViewHandler implements ViewHandler {
         }
 
         // tell the ContextFilter we are forwarding
-        request.setAttribute(ContextFilter.FORWARDED_FROM_SERVLET, new Boolean(true));
+        request.setAttribute(ContextFilter.FORWARDED_FROM_SERVLET, Boolean.valueOf(true));
 
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
 

@@ -169,18 +169,18 @@ public class Calculate extends MethodOperation {
         Object resultObj = null;
         switch (type) {
         case TYPE_DOUBLE:
-            resultObj = new Double(resultValue.doubleValue());
+            resultObj = Double.valueOf(resultValue.doubleValue());
             break;
         case TYPE_FLOAT:
-            resultObj = new Float(resultValue.floatValue());
+            resultObj = Float.valueOf(resultValue.floatValue());
             break;
         case TYPE_LONG:
             resultValue = resultValue.setScale(0, roundingMode);
-            resultObj = new Long(resultValue.longValue());
+            resultObj = Long.valueOf(resultValue.longValue());
             break;
         case TYPE_INTEGER:
             resultValue = resultValue.setScale(0, roundingMode);
-            resultObj = new Integer(resultValue.intValue());
+            resultObj = Integer.valueOf(resultValue.intValue());
             break;
         case TYPE_STRING:
             // run the decimal-formatting         

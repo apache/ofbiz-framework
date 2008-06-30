@@ -133,7 +133,7 @@ public class HtmlFormWrapper {
      * parameters Map instead of the value Map. 
      */
     public void setIsError(boolean isError) {
-        this.context.put("isError", new Boolean(isError));
+        this.context.put("isError", Boolean.valueOf(isError));
     }
     
     public boolean getIsError() {
@@ -155,7 +155,7 @@ public class HtmlFormWrapper {
      * @param useRequestParameters
      */
     public void setUseRequestParameters(boolean useRequestParameters) {
-        this.context.put("useRequestParameters", new Boolean(useRequestParameters));
+        this.context.put("useRequestParameters", Boolean.valueOf(useRequestParameters));
     }
     
     public boolean getUseRequestParameters() {

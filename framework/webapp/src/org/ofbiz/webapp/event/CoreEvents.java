@@ -219,13 +219,13 @@ public class CoreEvents {
         // the frequency map
         Map freqMap = new HashMap();
 
-        freqMap.put("SECONDLY", new Integer(1));
-        freqMap.put("MINUTELY", new Integer(2));
-        freqMap.put("HOURLY", new Integer(3));
-        freqMap.put("DAILY", new Integer(4));
-        freqMap.put("WEEKLY", new Integer(5));
-        freqMap.put("MONTHLY", new Integer(6));
-        freqMap.put("YEARLY", new Integer(7));
+        freqMap.put("SECONDLY", Integer.valueOf(1));
+        freqMap.put("MINUTELY", Integer.valueOf(2));
+        freqMap.put("HOURLY", Integer.valueOf(3));
+        freqMap.put("DAILY", Integer.valueOf(4));
+        freqMap.put("WEEKLY", Integer.valueOf(5));
+        freqMap.put("MONTHLY", Integer.valueOf(6));
+        freqMap.put("YEARLY", Integer.valueOf(7));
 
         // some defaults
         long startTime = (new Date()).getTime();
@@ -578,7 +578,7 @@ public class CoreEvents {
         // load the file
         File file = new File(filePath);
         if (file.exists()) {
-            Long longLen = new Long(file.length());
+            Long longLen = Long.valueOf(file.length());
             int length = longLen.intValue();
             try {
                 FileInputStream fis = new FileInputStream(file);                                

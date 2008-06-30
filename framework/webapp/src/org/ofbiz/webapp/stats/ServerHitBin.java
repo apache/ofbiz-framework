@@ -553,10 +553,10 @@ public class ServerHitBin {
                     serverHitBin.set("hitTypeId", ServerHitBin.typeIds[this.type]);
                     serverHitBin.set("binStartDateTime", new java.sql.Timestamp(this.startTime));
                     serverHitBin.set("binEndDateTime", new java.sql.Timestamp(this.endTime));
-                    serverHitBin.set("numberHits", new Long(this.numberHits));
-                    serverHitBin.set("totalTimeMillis", new Long(this.totalRunningTime));
-                    serverHitBin.set("minTimeMillis", new Long(this.minTime));
-                    serverHitBin.set("maxTimeMillis", new Long(this.maxTime));
+                    serverHitBin.set("numberHits", Long.valueOf(this.numberHits));
+                    serverHitBin.set("totalTimeMillis", Long.valueOf(this.totalRunningTime));
+                    serverHitBin.set("minTimeMillis", Long.valueOf(this.minTime));
+                    serverHitBin.set("maxTimeMillis", Long.valueOf(this.maxTime));
                     // get localhost ip address and hostname to store
                     try {
                         InetAddress address = InetAddress.getLocalHost();
@@ -626,7 +626,7 @@ public class ServerHitBin {
                 }
             }
             serverHit.set("contentId", this.id);
-            serverHit.set("runningTimeMillis", new Long(runningTime));
+            serverHit.set("runningTimeMillis", Long.valueOf(runningTime));
 
             String fullRequestUrl = UtilHttp.getFullRequestUrl(request).toString();
 

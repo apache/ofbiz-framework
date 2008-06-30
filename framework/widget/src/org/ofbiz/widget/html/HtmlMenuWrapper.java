@@ -129,7 +129,7 @@ public class HtmlMenuWrapper {
      * parameters Map instead of the value Map. 
      */
     public void setIsError(boolean isError) {
-        this.context.put("isError", new Boolean(isError));
+        this.context.put("isError", Boolean.valueOf(isError));
     }
     
     public boolean getIsError() {
