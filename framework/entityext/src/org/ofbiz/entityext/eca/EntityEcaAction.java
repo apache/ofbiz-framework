@@ -64,12 +64,12 @@ public class EntityEcaAction implements java.io.Serializable {
         this.valueAttr = action.getAttribute("value-attr");
     }
 
-    public void runAction(DispatchContext dctx, Map context, GenericEntity newValue) throws GenericEntityException {
-        Map actionResult = null;
+    public void runAction(DispatchContext dctx, Map<String, ? extends Object> context, GenericEntity newValue) throws GenericEntityException {
+        Map<String, Object> actionResult = null;
         
         try {
             // pull out context parameters needed for this service.
-            Map actionContext = dctx.getModelService(serviceName).makeValid(context, ModelService.IN_PARAM);
+            Map<String, Object> actionContext = dctx.getModelService(serviceName).makeValid(context, ModelService.IN_PARAM);
             // if value-attr is specified, insert the value object in that attr name
             if (valueAttr != null && valueAttr.length() > 0) {
                 actionContext.put(valueAttr, newValue);

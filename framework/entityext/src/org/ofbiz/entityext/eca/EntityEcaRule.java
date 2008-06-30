@@ -45,8 +45,8 @@ public class EntityEcaRule implements java.io.Serializable {
     protected String operationName = null;
     protected String eventName = null;
     protected boolean runOnError = false;
-    protected List conditions = FastList.newInstance();
-    protected List actionsAndSets = FastList.newInstance();
+    protected List<EntityEcaCondition> conditions = FastList.newInstance();
+    protected List<Object> actionsAndSets = FastList.newInstance();
     protected boolean enabled = true;
 
     protected EntityEcaRule() {}
@@ -57,27 +57,20 @@ public class EntityEcaRule implements java.io.Serializable {
         this.eventName = eca.getAttribute("event");
         this.runOnError = "true".equals(eca.getAttribute("run-on-error"));
 
-        List condList = UtilXml.childElementList(eca, "condition");
-        Iterator ci = condList.iterator();
-        while (ci.hasNext()) {
-            conditions.add(new EntityEcaCondition((Element) ci.next(), true));
+        for (Element element: UtilXml.childElementList(eca, "condition")) {
+            conditions.add(new EntityEcaCondition(element, true));
         }
 
-        List condFList = UtilXml.childElementList(eca, "condition-field");
-        Iterator cfi = condFList.iterator();
-        while (cfi.hasNext()) {
-            conditions.add(new EntityEcaCondition((Element) cfi.next(), false));
+        for (Element element: UtilXml.childElementList(eca, "condition-field")) {
+            conditions.add(new EntityEcaCondition(element, false));
         }
 
         if (Debug.verboseOn()) Debug.logVerbose("Conditions: " + conditions, module);
 
-        Set nameSet = FastSet.newInstance();
+        Set<String> nameSet = FastSet.newInstance();
         nameSet.add("set");
         nameSet.add("action");
-        List actionAndSetList = UtilXml.childElementList(eca, nameSet);
-        Iterator si = actionAndSetList.iterator();
-        while (si.hasNext()) {
-            Element actionOrSetElement = (Element) si.next();
+        for (Element actionOrSetElement: UtilXml.childElementList(eca, nameSet)) {
             if ("action".equals(actionOrSetElement.getNodeName())) {
                 this.actionsAndSets.add(new EntityEcaAction(actionOrSetElement));
             } else {
@@ -88,7 +81,7 @@ public class EntityEcaRule implements java.io.Serializable {
         if (Debug.verboseOn()) Debug.logVerbose("actions and sets (intermixed): " + actionsAndSets, module);
     }
 
-    public void eval(String currentOperation, DispatchContext dctx, GenericEntity value, boolean isError, Set actionsRun) throws GenericEntityException {
+    public void eval(String currentOperation, DispatchContext dctx, GenericEntity value, boolean isError, Set<String> actionsRun) throws GenericEntityException {
         if (!enabled) {
             Debug.logInfo("Entity ECA [" + this.entityName + "] on [" + this.eventName + "] is disabled; not running.", module);
             return;
@@ -103,13 +96,11 @@ public class EntityEcaRule implements java.io.Serializable {
             return;
         }
         
-        Map context = FastMap.newInstance();
+        Map<String, Object> context = FastMap.newInstance();
         context.putAll(value);
 
         boolean allCondTrue = true;
-        Iterator c = conditions.iterator();
-        while (c.hasNext()) {
-            EntityEcaCondition ec = (EntityEcaCondition) c.next();
+        for (EntityEcaCondition ec: conditions) {
             if (!ec.eval(dctx, value)) {
                 allCondTrue = false;
                 break;
@@ -117,9 +108,7 @@ public class EntityEcaRule implements java.io.Serializable {
         }
 
         if (allCondTrue) {
-            Iterator actionsAndSetIter = actionsAndSets.iterator();
-            while (actionsAndSetIter.hasNext()) {
-                Object actionOrSet = actionsAndSetIter.next();
+            for (Object actionOrSet: actionsAndSets) {
                 if (actionOrSet instanceof EntityEcaAction) {
                     EntityEcaAction ea = (EntityEcaAction) actionOrSet;
                     // in order to enable OR logic without multiple calls to the given service,

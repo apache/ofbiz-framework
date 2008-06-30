@@ -48,13 +48,13 @@ public class EntityEcaUtil {
 
     public static final String module = EntityEcaUtil.class.getName();
 
-    public static UtilCache entityEcaReaders = new UtilCache("entity.EcaReaders", 0, 0, false);
+    public static UtilCache<String, Map<String, Map<String, List<EntityEcaRule>>>> entityEcaReaders = new UtilCache<String, Map<String, Map<String, List<EntityEcaRule>>>>("entity.EcaReaders", 0, 0, false);
 
     public static Map<String, Map<String, List<EntityEcaRule>>> getEntityEcaCache(String entityEcaReaderName) {
-        Map<String, Map<String, List<EntityEcaRule>>> ecaCache = (Map) entityEcaReaders.get(entityEcaReaderName);
+        Map<String, Map<String, List<EntityEcaRule>>> ecaCache = entityEcaReaders.get(entityEcaReaderName);
         if (ecaCache == null) {
             synchronized (EntityEcaUtil.class) {
-                ecaCache = (Map) entityEcaReaders.get(entityEcaReaderName);
+                ecaCache = entityEcaReaders.get(entityEcaReaderName);
                 if (ecaCache == null) {
                     ecaCache = FastMap.newInstance();
                     readConfig(entityEcaReaderName, ecaCache);
@@ -74,32 +74,27 @@ public class EntityEcaUtil {
         return delegatorInfo.entityEcaReader;
     }
 
-    protected static void readConfig(String entityEcaReaderName, Map ecaCache) {
+    protected static void readConfig(String entityEcaReaderName, Map<String, Map<String, List<EntityEcaRule>>> ecaCache) {
         EntityEcaReaderInfo entityEcaReaderInfo = EntityConfigUtil.getEntityEcaReaderInfo(entityEcaReaderName);
         if (entityEcaReaderInfo == null) {
             Debug.logError("BAD ERROR: Could not find entity-eca-reader config with name: " + entityEcaReaderName, module);
             return;
         }
 
-        Iterator eecaResourceIter = entityEcaReaderInfo.resourceElements.iterator();
-        while (eecaResourceIter.hasNext()) {
-            Element eecaResourceElement = (Element) eecaResourceIter.next();
+        for (Element eecaResourceElement: entityEcaReaderInfo.resourceElements) {
             ResourceHandler handler = new MainResourceHandler(EntityConfigUtil.ENTITY_ENGINE_XML_FILENAME, eecaResourceElement);
             addEcaDefinitions(handler, ecaCache);
         }
 
         // get all of the component resource eca stuff, ie specified in each ofbiz-component.xml file
-        List componentResourceInfos = ComponentConfig.getAllEntityResourceInfos("eca");
-        Iterator componentResourceInfoIter = componentResourceInfos.iterator();
-        while (componentResourceInfoIter.hasNext()) {
-            ComponentConfig.EntityResourceInfo componentResourceInfo = (ComponentConfig.EntityResourceInfo) componentResourceInfoIter.next();
+        for (ComponentConfig.EntityResourceInfo componentResourceInfo: ComponentConfig.getAllEntityResourceInfos("eca")) {
             if (entityEcaReaderName.equals(componentResourceInfo.readerName)) {
                 addEcaDefinitions(componentResourceInfo.createResourceHandler(), ecaCache);
             }
         }
     }
 
-    protected static void addEcaDefinitions(ResourceHandler handler, Map ecaCache) {
+    protected static void addEcaDefinitions(ResourceHandler handler, Map<String, Map<String, List<EntityEcaRule>>> ecaCache) {
         Element rootElement = null;
         try {
             rootElement = handler.getDocument().getDocumentElement();
@@ -108,22 +103,19 @@ public class EntityEcaUtil {
             return;
         }
 
-        List ecaList = UtilXml.childElementList(rootElement, "eca");
-        Iterator ecaIt = ecaList.iterator();
         int numDefs = 0;
-        while (ecaIt.hasNext()) {
-            Element e = (Element) ecaIt.next();
+        for (Element e: UtilXml.childElementList(rootElement, "eca")) {
             String entityName = e.getAttribute("entity");
             String eventName = e.getAttribute("event");
-            Map eventMap = (Map) ecaCache.get(entityName);
-            List rules = null;
+            Map<String, List<EntityEcaRule>> eventMap = ecaCache.get(entityName);
+            List<EntityEcaRule> rules = null;
             if (eventMap == null) {
                 eventMap = FastMap.newInstance();
                 rules = FastList.newInstance();
                 ecaCache.put(entityName, eventMap);
                 eventMap.put(eventName, rules);
             } else {
-                rules = (List) eventMap.get(eventName);
+                rules = eventMap.get(eventName);
                 if (rules == null) {
                     rules = FastList.newInstance();
                     eventMap.put(eventName, rules);
@@ -135,14 +127,12 @@ public class EntityEcaUtil {
         Debug.logImportant("Loaded " + numDefs + " Entity ECA definitions from " + handler.getLocation() + " in loader " + handler.getLoaderName(), module);
     }
 
-    public static Collection getEntityEcaRules(GenericDelegator delegator, String entityName, String event) {
-        Map ecaCache = EntityEcaUtil.getEntityEcaCache(EntityEcaUtil.getEntityEcaReaderName(delegator.getDelegatorName()));
-        Map eventMap = (Map) ecaCache.get(entityName);
+    public static Collection<EntityEcaRule> getEntityEcaRules(GenericDelegator delegator, String entityName, String event) {
+        Map<String, Map<String, List<EntityEcaRule>>> ecaCache = EntityEcaUtil.getEntityEcaCache(EntityEcaUtil.getEntityEcaReaderName(delegator.getDelegatorName()));
+        Map<String, List<EntityEcaRule>> eventMap = ecaCache.get(entityName);
         if (eventMap != null) {
             if (event != null) {
-                return (Collection) eventMap.get(event);
-            } else {
-                return eventMap.values();
+                return eventMap.get(event);
             }
         }
         return null;
