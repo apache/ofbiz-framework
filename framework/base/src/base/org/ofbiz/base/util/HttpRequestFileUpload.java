@@ -122,7 +122,7 @@ public class HttpRequestFileUpload {
         int requestLength = 0;
 
         try {
-            requestLength = new Integer(reqLengthString).intValue();
+            requestLength = Integer.valueOf(reqLengthString).intValue();
         } catch (Exception e2) {
             e2.printStackTrace();
             return;

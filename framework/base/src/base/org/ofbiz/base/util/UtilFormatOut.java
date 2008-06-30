@@ -61,10 +61,10 @@ public class UtilFormatOut {
 
     public static Double formatPriceNumber(double price) {
         try {
-            return new Double(priceDecimalFormat.parse(formatPrice(price)).doubleValue());
+            return Double.valueOf(priceDecimalFormat.parse(formatPrice(price)).doubleValue());
         } catch (ParseException e) {
             Debug.logError(e, module);
-            return new Double(price);
+            return Double.valueOf(price);
         }
     }
 

@@ -44,6 +44,6 @@ public class UtilParse {
         if (doubleString.length() < 1) {
             return null;
         }
-        return new Double(doubleString);
+        return Double.valueOf(doubleString);
     }
 }

@@ -226,7 +226,7 @@ public class UtilDateTime {
     }
 
     public static java.sql.Timestamp getDayEnd(java.sql.Timestamp stamp) {
-        return getDayEnd(stamp, new Long(0));
+        return getDayEnd(stamp, Long.valueOf(0));
     }
 
     public static java.sql.Timestamp getDayEnd(java.sql.Timestamp stamp, Long daysLater) {
@@ -803,7 +803,7 @@ public class UtilDateTime {
     }
 
     public static Timestamp getDayEnd(Timestamp stamp, TimeZone timeZone, Locale locale) {
-        return getDayEnd(stamp, new Long(0), timeZone, locale);
+        return getDayEnd(stamp, Long.valueOf(0), timeZone, locale);
     }
 
     public static Timestamp getDayEnd(Timestamp stamp, Long daysLater, TimeZone timeZone, Locale locale) {
