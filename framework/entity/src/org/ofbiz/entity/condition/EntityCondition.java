@@ -24,6 +24,7 @@ import java.util.Map;
 import javolution.lang.Reusable;
 import javolution.util.FastList;
 
+import static org.ofbiz.base.util.UtilGenerics.cast;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericModelException;
@@ -62,25 +63,25 @@ public abstract class EntityCondition extends EntityConditionBase implements Reu
     }
 
     public static <T extends EntityCondition> EntityConditionList<T> makeCondition(EntityJoinOperator operator, T... conditionList) {
-        EntityConditionList<T> ecl = EntityConditionList.entityConditionListFactory.object();
+        EntityConditionList<T> ecl = cast(EntityConditionList.entityConditionListFactory.object());
         ecl.init(operator, conditionList);
         return ecl;
     }
 
     public static <T extends EntityCondition> EntityConditionList<T> makeCondition(T... conditionList) {
-        EntityConditionList<T> ecl = EntityConditionList.entityConditionListFactory.object();
+        EntityConditionList<T> ecl = cast(EntityConditionList.entityConditionListFactory.object());
         ecl.init(EntityOperator.AND, conditionList);
         return ecl;
     }
 
     public static <T extends EntityCondition> EntityConditionList<T> makeCondition(List<T> conditionList, EntityJoinOperator operator) {
-        EntityConditionList<T> ecl = EntityConditionList.entityConditionListFactory.object();
+        EntityConditionList<T> ecl = cast(EntityConditionList.entityConditionListFactory.object());
         ecl.init(conditionList, operator);
         return ecl;
     }
 
     public static <T extends EntityCondition> EntityConditionList<T> makeCondition(List<T> conditionList) {
-        EntityConditionList<T> ecl = EntityConditionList.entityConditionListFactory.object();
+        EntityConditionList<T> ecl = cast(EntityConditionList.entityConditionListFactory.object());
         ecl.init(conditionList, EntityOperator.AND);
         return ecl;
     }
