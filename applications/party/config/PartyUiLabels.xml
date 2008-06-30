@@ -1515,7 +1515,7 @@
     <property key="PageTitleListCommCustRequests">
         <value xml:lang="en">List Comm Customer Requests</value>
         <value xml:lang="es">Lista de pedidos</value>
-        <value xml:lang="fr">Lister les demandes de communication du client</value>
+        <value xml:lang="fr">Afficher les demandes de communication du client</value>
         <value xml:lang="it">Lista Richiesta Comunicazioni Clienti</value>
         <value xml:lang="nl">Lijst klanten aanvragen</value>
         <value xml:lang="ro">Lista Cerere Comunicatii Clienti</value>
@@ -1526,7 +1526,7 @@
     <property key="PageTitleListCommWorkEfforts">
         <value xml:lang="en">List Comm WorkEfforts</value>
         <value xml:lang="es">Lista de esfuerzos</value>
-        <value xml:lang="fr">Lister les tâches de communication</value>
+        <value xml:lang="fr">Afficher les tâches de communication</value>
         <value xml:lang="it">Lista Comunicazioni Impegni di Lavoro</value>
         <value xml:lang="nl">Lijst communivatieve werkinspanningen</value>
         <value xml:lang="ro">Lista Comunicatii Sarcini de Lucru</value>
@@ -1537,7 +1537,7 @@
     <property key="PageTitleListCommunications">
         <value xml:lang="en">List Communications</value>
         <value xml:lang="es">Lista de comunicaciones</value>
-        <value xml:lang="fr">Lister les communications</value>
+        <value xml:lang="fr">Afficher les communications</value>
         <value xml:lang="it">Lista Comunicazioni</value>
         <value xml:lang="nl">Lijst communicaties</value>
         <value xml:lang="pt_PT">Listar Comunicações</value>
@@ -1650,6 +1650,7 @@
     <property key="PageTitleViewCommRoles">
         <value xml:lang="en">View Communication Roles</value>
         <value xml:lang="es">Ver roles de comunicación</value>
+        <value xml:lang="fr">Afficher les rôles de communication</value>
         <value xml:lang="it">Mostra Ruoli Comunicazione </value>
         <value xml:lang="nl">Laat communciatie rollen zien</value>
         <value xml:lang="ro">Afisare Roluri Comunicare </value>
@@ -1659,12 +1660,14 @@
     </property>
     <property key="PageTitleViewPartyClassificationGroupParties">
         <value xml:lang="en">View Party Classification Group Parties</value>
+        <value xml:lang="fr">Afficher les groupes de classification de l'acteur de vue</value>
         <value xml:lang="it">Mostra Gruppo Classificazioni Soggetto</value>
         <value xml:lang="th">แสดงกลุ่มผู้ใช้ที่มีการแบ่งประเภทกลุ่มผู้ใช้</value>
     </property>
     <property key="PageTitleViewPartyClassifications">
         <value xml:lang="en">View Party Classifications</value>
         <value xml:lang="es">Ver clasificaciones</value>
+        <value xml:lang="fr">Afficher les classifications de l'acteur</value>
         <value xml:lang="it">Mostra Classificazioni Soggetto</value>
         <value xml:lang="nl">View Party Classifications</value>
         <value xml:lang="ro">Afisare Clasificari Subiect</value>
@@ -1675,7 +1678,7 @@
     <property key="PageTitleViewPartyProfile">
         <value xml:lang="en">View Party Profile</value>
         <value xml:lang="es">Ver perfil de participante</value>
-        <value xml:lang="fr">Affichage détail acteur</value>
+        <value xml:lang="fr">Affichage du détail de l'acteur</value>
         <value xml:lang="it">Mostra Profilo Soggetto</value>
         <value xml:lang="nl">View Party Profile</value>
         <value xml:lang="pt_PT">Ver Perfil Das Secções</value>
@@ -1687,7 +1690,7 @@
     <property key="PageTitleViewPartyRole">
         <value xml:lang="en">View Party Roles</value>
         <value xml:lang="es">Ver roles</value>
-        <value xml:lang="fr">Affichage rôles acteur</value>
+        <value xml:lang="fr">Affichage des rôles de l'acteur</value>
         <value xml:lang="it">Mostra Ruoli Soggetto</value>
         <value xml:lang="nl">View Party Roles</value>
         <value xml:lang="pt_PT">Ver Funções das Secções</value>
@@ -1699,6 +1702,7 @@
     <property key="PageTitleViewPartySegmentRoles">
         <value xml:lang="en">View Party Segment Roles</value>
         <value xml:lang="es">Ver segmento de roles</value>
+        <value xml:lang="fr">Afficher les rôles de segmentation de l'acteur</value>
         <value xml:lang="it">Mostra Ruoli Segmento Soggetto</value>
         <value xml:lang="nl">View Party Segment Roles</value>
         <value xml:lang="ro">Afisare Roluri Segment Subiect</value>
@@ -1756,6 +1760,7 @@
     <property key="Parties">
         <value xml:lang="en">Parties</value>
         <value xml:lang="es">Participantes</value>
+        <value xml:lang="fr">Acteurs</value>
         <value xml:lang="it">Soggetti</value>
         <value xml:lang="nl">Relaties</value>
         <value xml:lang="ro">Subiecti</value>
@@ -1800,6 +1805,7 @@
     </property>
     <property key="PartyAddCommContent">
         <value xml:lang="en">Add Communication Content</value>
+        <value xml:lang="fr">Ajouter le contenu communication</value>
         <value xml:lang="it">Aggiungi Contenuto Comunicazioni</value>
         <value xml:lang="nl">Voeg communicatie evenement toe</value>
         <value xml:lang="ro">Adauga Continut Comunicatii</value>
@@ -1820,6 +1826,7 @@
     </property>
     <property key="PartyAddNewAddress">
         <value xml:lang="en">New Address</value>
+        <value xml:lang="fr">Nouvelle adresse</value>
         <value xml:lang="th">ที่อยู่ใหม่</value>
     </property>
     <property key="PartyAddPermissionManuallyToSecurityGroup">
@@ -1989,6 +1996,7 @@
     </property>
     <property key="PartyAddressMailingShipping">
         <value xml:lang="en">Mailing/Shipping Address</value>
+        <value xml:lang="fr">Adresse postale/ de livraison</value>
         <value xml:lang="it">Indirizzo di Posta/Spedizione</value>
         <value xml:lang="nl">Mailing/Verzend Adres</value>
         <value xml:lang="ro">Adresa de Posta/Expediere</value>
@@ -1998,6 +2006,7 @@
     </property>
     <property key="PartyAddressMatchKey">
         <value xml:lang="en">Match Key</value>
+        <value xml:lang="fr">Clé de comparaison</value>
         <value xml:lang="it">Chiave Uguaglianza</value>
         <value xml:lang="nl">Match Key</value>
         <value xml:lang="ro">Cheie Egalitate</value>
@@ -2007,6 +2016,7 @@
     </property>
     <property key="PartyAddressMatchMessage1">
         <value xml:lang="en">Format: key,value,sequence (sequence is optional)</value>
+        <value xml:lang="fr">Format: clé, valeur, séquence (séquence est optionnelle)</value>
         <value xml:lang="it">Formato: chiave,valore,sequenza (sequenza è opzionale)</value>
         <value xml:lang="nl">Format: key,value,sequence (sequence is optional)</value>
         <value xml:lang="ro">Format: cheie,valoare,secventa (secventa este optionala)</value>
@@ -2016,6 +2026,7 @@
     </property>
     <property key="PartyAddressMatchValue">
         <value xml:lang="en">Match Value</value>
+        <value xml:lang="fr">Valeur de comparaison</value>
         <value xml:lang="it">Valore Uguaglianza</value>
         <value xml:lang="nl">Match Value</value>
         <value xml:lang="ro">Valoare Egalitate</value>
@@ -2025,6 +2036,7 @@
     </property>
     <property key="PartyAddressMatching">
         <value xml:lang="en">Matching</value>
+        <value xml:lang="fr">Comparer</value>
         <value xml:lang="it">Uguale</value>
         <value xml:lang="nl">Matching</value>
         <value xml:lang="ro">Egal</value>
@@ -2057,6 +2069,7 @@
     </property>
     <property key="PartyAttachContent">
         <value xml:lang="en">Attach Content</value>
+        <value xml:lang="fr">Joindre le contenu</value>
         <value xml:lang="it">Allega Contenuto</value>
         <value xml:lang="ru">Присоединить содержание</value>
         <value xml:lang="th">หัวข้อติดกัน</value>
@@ -2064,7 +2077,7 @@
     <property key="PartyAttentionName">
         <value xml:lang="en">Attention Name</value>
         <value xml:lang="es">A nombre de</value>
-        <value xml:lang="fr">à l'attention de</value>
+        <value xml:lang="fr">A l'attention de</value>
         <value xml:lang="it">Attenzione Di</value>
         <value xml:lang="nl">T.a.v.</value>
         <value xml:lang="pt_PT">Ao Cuidado de Nome</value>
@@ -2076,6 +2089,7 @@
     <property key="PartyAttribute">
         <value xml:lang="en">Party Attribute</value>
         <value xml:lang="es">Atributo</value>
+        <value xml:lang="fr">Attribut de l'acteur</value>
         <value xml:lang="it">Attributo Soggetto</value>
         <value xml:lang="nl">Relatie kenmerk</value>
         <value xml:lang="ro">Atribut Subiect</value>
@@ -2096,6 +2110,7 @@
     </property>
     <property key="PartyAvsOver">
         <value xml:lang="en">AVS Override (CC Fraud Screening)</value>
+        <value xml:lang="fr">Dépassement d'AVS (CC criblage de fraude)</value>
         <value xml:lang="ru">AVS Override (Проверка против мошенничества с кр. картами)</value>
         <value xml:lang="th">ยกเลิก AVS (CC ป้องกันการทุจริต)</value>
     </property>
@@ -2125,6 +2140,7 @@
     </property>
     <property key="PartyBillingAddress">
         <value xml:lang="en">Party Billing Address</value>
+        <value xml:lang="fr">Adresse de facturation de l'acteur</value>
         <value xml:lang="it">Indirizzo Fatturazione Soggetto</value>
         <value xml:lang="nl">Fakturadres</value>
         <value xml:lang="ro">Adresa Facturare Subiect</value>
@@ -2180,52 +2196,62 @@
     </property>
     <property key="PartyCertComponent">
         <value xml:lang="en">Component</value>
+        <value xml:lang="fr">Composant</value>
         <value xml:lang="it">Componente</value>
         <value xml:lang="th">ส่วนประกอบ</value>
     </property>
     <property key="PartyCertImportIssuer">
         <value xml:lang="en">Import Issuer</value>
+        <value xml:lang="fr">Émetteur d'importation</value>
         <value xml:lang="it">Importa Certificato</value>
         <value xml:lang="th">ปัญหา</value>
     </property>
     <property key="PartyCertInvalid">
         <value xml:lang="en">Invalid certificate</value>
+        <value xml:lang="fr">Certficat invalide</value>
         <value xml:lang="it">Certificato Invalido</value>
         <value xml:lang="th">หนังสือรับรองไม่ถูกต้อง</value>
     </property>
     <property key="PartyCertIssuers">
         <value xml:lang="en">Cert Issuers</value>
+        <value xml:lang="fr">Émetteurs de certificat</value>
         <value xml:lang="it">Fornitori di Certificati</value>
         <value xml:lang="ru">Эмитенты сертификата</value>
         <value xml:lang="th">ประเด็น</value>
     </property>
     <property key="PartyCertKeyAlias">
         <value xml:lang="en">Key Alias</value>
+        <value xml:lang="fr">Clé d'alias</value>
         <value xml:lang="it">Chiave Alias</value>
         <value xml:lang="th">ใช้อีกชื่อหนึ่งว่า</value>
     </property>
     <property key="PartyCertKeyStore">
         <value xml:lang="en">Keystore</value>
+        <value xml:lang="fr">Clé de magasin</value>
         <value xml:lang="it">Keystore</value>
         <value xml:lang="th">รหัสการเก็บข้อมูล</value>
     </property>
     <property key="PartyCertName">
         <value xml:lang="en">Cert Name</value>
+        <value xml:lang="fr">Nom de Certificat</value>
         <value xml:lang="it">Nome Certificato</value>
         <value xml:lang="th">ชื่อจริง</value>
     </property>
     <property key="PartyCertSaveToKeyStore">
         <value xml:lang="en">Save to KeyStore</value>
+        <value xml:lang="fr">Sauver dans le magasin de clés</value>
         <value xml:lang="it">Salva sul KeyStore</value>
         <value xml:lang="th">บันทึกรหัสการเก็บข้อมูล</value>
     </property>
     <property key="PartyCertSerialNumber">
         <value xml:lang="en">Cert Serial Number</value>
+        <value xml:lang="fr">N° de série de Certificat</value>
         <value xml:lang="it">Numero di Serie Certificato</value>
         <value xml:lang="th">หมายเลขลำดับ</value>
     </property>
     <property key="PartyCertType">
         <value xml:lang="en">Cert Type</value>
+        <value xml:lang="fr">Type de Certificat</value>
         <value xml:lang="it">Tipo Certificato</value>
         <value xml:lang="th">ประเภท</value>
     </property>
@@ -2242,6 +2268,7 @@
     </property>
     <property key="PartyChildCommunicationEvents">
         <value xml:lang="en">Child Communication Events</value>
+        <value xml:lang="fr">Evènement de communication rattaché</value>        
     </property>
     <property key="PartyChildShoppingList">
         <value xml:lang="en">Child Shopping List</value>
@@ -2303,6 +2330,7 @@
     <property key="PartyClassificationGroupParties">
         <value xml:lang="en">Classification Group Parties</value>
         <value xml:lang="es">Participantes del grupo</value>
+        <value xml:lang="fr">Groupe de classification d'acteurs</value>
         <value xml:lang="it">Gruppo Classificazione Soggetti</value>
         <value xml:lang="nl">Classificatie Groepen</value>
         <value xml:lang="ro">Grup Clasificare Subiecti</value>
@@ -2369,6 +2397,7 @@
     </property>
     <property key="PartyCommContent">
         <value xml:lang="en">Communication Content</value>
+        <value xml:lang="fr">Contenu de communication</value>
         <value xml:lang="it">Contenuto Comunicazioni</value>
         <value xml:lang="nl">Communication Content</value>
         <value xml:lang="ro">Continut Comunicari</value>
@@ -2379,6 +2408,7 @@
     <property key="PartyCommCustRequests">
         <value xml:lang="en">Communication Customer Requests</value>
         <value xml:lang="es">Peticiones de comunicación</value>
+        <value xml:lang="fr">Demandes de communication</value>
         <value xml:lang="it">Comunicazione Richieste Cliente</value>
         <value xml:lang="nl">Communication Customer Requests</value>
         <value xml:lang="ro">Comunicare Cerere Client</value>
@@ -2400,6 +2430,7 @@
     </property>
     <property key="PartyCommEventPurposes">
         <value xml:lang="en">Communication Event Purposes</value>
+        <value xml:lang="fr">Buts d'événement de communication</value>
         <value xml:lang="it">Funzioni Evento Comunicazioni</value>
         <value xml:lang="nl">Communication Event Purposes</value>
         <value xml:lang="ro">Comunicari Functii Eveniment </value>
@@ -2409,6 +2440,7 @@
     </property>
     <property key="PartyCommEventRoles">
         <value xml:lang="en">Communication Event Roles</value>
+        <value xml:lang="fr">Rôles d'événement de communication</value>
         <value xml:lang="it">Ruoli Evento Comunicazioni</value>
         <value xml:lang="nl">Communication Event Roles</value>
         <value xml:lang="ro">Comunicari Roluri Eveniment </value>
@@ -2418,6 +2450,7 @@
     </property>
     <property key="PartyCommEventSubject">
         <value xml:lang="en">Party Comm Event Subject</value>
+        <value xml:lang="fr">Objet d'événement de communication de l'acteur</value>
         <value xml:lang="it">Soggetto Eventi Comunicazioni</value>
         <value xml:lang="nl">Party Comm Event Subject</value>
         <value xml:lang="ro">Comunicari Evenimente Subiect </value>
@@ -2428,6 +2461,7 @@
     <property key="PartyCommEvents">
         <value xml:lang="en">Comm Events</value>
         <value xml:lang="es">Acontecimientos</value>
+        <value xml:lang="fr">Evènements de communication</value>
         <value xml:lang="it">Eventi Comunicazioni</value>
         <value xml:lang="nl">Comm Events</value>
         <value xml:lang="ro">Comunicari Evenimente </value>
@@ -2438,7 +2472,7 @@
     <property key="PartyCommWorkEfforts">
         <value xml:lang="en">Communication Work Efforts</value>
         <value xml:lang="es">Esfuerzos</value>
-        <value xml:lang="fr">tâche de communication</value>
+        <value xml:lang="fr">Tâche de communication</value>
         <value xml:lang="it">Comunicazione Impegni di Lavoro</value>
         <value xml:lang="nl">Communicatie Activiteiten</value>
         <value xml:lang="ro">Comunicare Sarcini de Lucru</value>
@@ -2755,6 +2789,7 @@
     </property>
     <property key="PartyContent">
         <value xml:lang="en">Party Content</value>
+        <value xml:lang="fr">Contenu de l'acteur</value>
         <value xml:lang="it">Contenuto Soggetto</value>
         <value xml:lang="ru">Контент участника</value>
         <value xml:lang="th">หัวข้อกลุ่มผู้ใช้</value>
@@ -2821,6 +2856,7 @@
     <property key="PartyCreateAttributePermissionError">
         <value xml:lang="en">Security Error: to run createPartyAttribute you must have the PARTYMGR_CREATE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para acceder a esta funcionalidad debe contar con los permisos PARTYMGR_CREATE o PARTYMGR_ADMIN</value>
+        <value xml:lang="fr">Erreur sécurité: pour exécuter createPartyAttribute : vous devez avoir la permission PARTYMGR_CREATE ou PARTYMGR_ADMIN</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire createPartyAttribute tu devi avere il permesso PARTYMGR_CREATE o PARTYMGR_ADMIN</value>
         <value xml:lang="nl">Security Error: to run createPartyAttribute you must have the PARTYMGR_CREATE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="ro">Eroare De Siguranta : pentru a folosi createPartyAttribute trebbie sa ai permisul PARTYMGR_CREATE sau PARTYMGR_ADMIN</value>
@@ -2879,6 +2915,7 @@
     <property key="PartyCreateNewCustRequest">
         <value xml:lang="en">Create Request</value>
         <value xml:lang="es">Nuevo pedido de cotización</value>
+        <value xml:lang="fr">Créer la demande</value>
         <value xml:lang="it">Creare Richiesta </value>
         <value xml:lang="nl">Nieuwe aanvraag</value>
         <value xml:lang="ro">Creare Cerere de Oferta</value>
@@ -2913,7 +2950,7 @@
     <property key="PartyCreateNewParty">
         <value xml:lang="en">Create New Party Detail</value>
         <value xml:lang="es">Nuevo participante</value>
-        <value xml:lang="fr">Créer un nouvel acteur</value>
+        <value xml:lang="fr">Créer un nouveau détail pour l'acteur</value>
         <value xml:lang="it">Creare Nuovo Dettaglio Soggetto</value>
         <value xml:lang="nl">Nieuwe detail relatie</value>
         <value xml:lang="pt_PT">CriarNovo Detalhe de Secção</value>
@@ -2960,6 +2997,7 @@
     <property key="PartyCreateNewProspect">
         <value xml:lang="en">Create Prospect</value>
         <value xml:lang="es">Nuevo prospecto</value>
+        <value xml:lang="fr">Créez le prospect</value>
         <value xml:lang="it">Creare Prospetto</value>
         <value xml:lang="nl">Nieuwe prospect</value>
         <value xml:lang="ro">Creare Prospect</value>
@@ -2970,6 +3008,7 @@
     <property key="PartyCreateNewQuote">
         <value xml:lang="en">Create Quote</value>
         <value xml:lang="es">Crear cotización</value>
+        <value xml:lang="fr">Créez le devis</value>
         <value xml:lang="it">Creare Preventivo</value>
         <value xml:lang="nl">Nieuwe Offerte</value>
         <value xml:lang="ro">Creare Oferta</value>
@@ -3003,7 +3042,7 @@
     <property key="PartyCreatePartyClassificationPermissionError">
         <value xml:lang="en">Security Error: to run createPartyClassification you must have the PARTYMGR_CREATE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para acceder a esta funcionalidad debe contar con los permisos PARTYMGR_CREATE o PARTYMGR_ADMIN</value>
-        <value xml:lang="fr">Erreur sécurité : pour ajouter une classification d'acteur il faut avoir avoir la permission PARTYMGR_CREATE ou PARTYMGR_ADMIN</value>
+        <value xml:lang="fr">Erreur sécurité : pour exécuter createPartyClassification il faut avoir la permission PARTYMGR_CREATE ou PARTYMGR_ADMIN</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire createPartyClassification tu devi avere il permesso PARTYMGR_CREATE o PARTYMGR_ADMIN</value>
         <value xml:lang="nl">Security Error: to run createPartyClassification you must have the PARTYMGR_CREATE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="ro">EROARE De Siguranta : pentru a executa createPartyClassification trebuie sa ai permisul PARTYMGR_CREATE sau PARTYMGR_ADMIN</value>
@@ -3013,6 +3052,7 @@
     </property>
     <property key="PartyCreatePartyRolePermissionError">
         <value xml:lang="en">Security Error: to run createPartyRole you must have the PARTYMGR_ROLE_CREATE or PARTYMGR_ADMIN permission</value>
+        <value xml:lang="fr">Erreur sécurité : pour exécuter createPartyRole vous devez avoir la permission PARTYMGR_ROLE_CREATE or PARTYMGR_ADMIN</value>
         <value xml:lang="ru">Ошибка доступа: для запуска createPartyRole у вас должны быть права PARTYMGR_ROLE_CREATE или PARTYMGR_ADMIN</value>
         <value xml:lang="th">Security Error: ผิดพลาด ! ในการสร้างสถานะกลุ่มผู้ใช้ คุณต้องได้รับความยินยอมจาก PARTYMGR_CREATE หรือ PARTYMGR_ADMIN ก่อน</value>
     </property>
@@ -3084,6 +3124,7 @@
     </property>
     <property key="PartyCustomerTemporaryPassword">
         <value xml:lang="en">Customer will receive a temporary password by email.</value>
+        <value xml:lang="fr">Le client recevra un mot de passe provisoire par courriel.</value>
         <value xml:lang="it">Il cliente riceverà una password temporanea per email.</value>
         <value xml:lang="nl">Klant wil een tijdelijk wachtwoord per e-mail ontvangen</value>
         <value xml:lang="ro">Clientul va primi o password provizorie pentru  email.</value>
@@ -3103,6 +3144,7 @@
     </property>
     <property key="PartyDeletePartyRolePermissionError">
         <value xml:lang="en">Security Error: to run deletePartyRole you must have the PARTYMGR_DELETE or PARTYMGR_ADMIN permission</value>
+        <value xml:lang="fr">Erreur sécurité: pour exécuter deletePartyRole vous devez avoir la permission PARTYMGR_DELETE or PARTYMGR_ADMIN</value>
         <value xml:lang="ru">Ошибка доступа: для запуска deletePartyRole у вас должны быть права PARTYMGR_DELETE или PARTYMGR_ADMIN</value>
         <value xml:lang="th">Security Error: ผิดพลาด ! ในการลบสถานะกลุ่มผู้ใช้ คุณต้องได้รับความยินยอมจาก PARTYMGR_DELETE หรือ PARTYMGR_ADMIN ก่อน</value>
     </property>
@@ -3146,6 +3188,7 @@
     <property key="PartyEditCommCustRequest">
         <value xml:lang="en">Edit Communication Customer Request</value>
         <value xml:lang="es">Editar pedido de comunicación</value>
+        <value xml:lang="fr">Éditer la demande de communication</value>
         <value xml:lang="it">Aggiorna Richiesta Comunicazione Soggetto</value>
         <value xml:lang="nl">Wijzig communicatie aanvraag klant</value>
         <value xml:lang="ro">Actualizare Cerere Comunicare Subiect</value>
@@ -3156,6 +3199,7 @@
     <property key="PartyEditCommPurpose">
         <value xml:lang="en">Edit Communication Work Purpose</value>
         <value xml:lang="es">Editar propósito de trabajo</value>
+        <value xml:lang="fr">Editer la communication de but d'activité</value>
         <value xml:lang="it">Aggiorna Comunicazione Work</value>
         <value xml:lang="nl">Wijzig doel communicatie</value>
         <value xml:lang="ro">Actualizare Comunicare Work</value>
@@ -3166,6 +3210,7 @@
     <property key="PartyEditCommRole">
         <value xml:lang="en">Edit Communication Role</value>
         <value xml:lang="es">Editar rol de comunicación</value>
+        <value xml:lang="fr">Editer le rôle de communication</value>
         <value xml:lang="it">Aggiorna Ruolo Comunicazione</value>
         <value xml:lang="nl">Wijzig communicatie rol</value>
         <value xml:lang="ro">Actualizare Comunicare Rol</value>
@@ -3176,6 +3221,7 @@
     <property key="PartyEditCommWorkEffort">
         <value xml:lang="en">New Communication Work Effort</value>
         <value xml:lang="es">Nuevo esfuerzo</value>
+        <value xml:lang="fr">Nouvelle tâche de communication</value>
         <value xml:lang="it">Nuova Comunicazione Impegno di Lavoro</value>
         <value xml:lang="nl">Nieuwe soort communicatie actie</value>
         <value xml:lang="ro">Noua Comunicare Sarcina de Lucru</value>
@@ -3186,7 +3232,7 @@
     <property key="PartyEditCommunicationEvent">
         <value xml:lang="en">Edit Communication Event</value>
         <value xml:lang="es">Editar evento de comunicación</value>
-        <value xml:lang="fr">Édition de l'événement de communication</value>
+        <value xml:lang="fr">Editer l'événement de communication</value>
         <value xml:lang="it">Aggiorna Evento Comunicazione</value>
         <value xml:lang="nl">Wijzig communicatie actie</value>
         <value xml:lang="ro">Actualizare Eveniment Comunicare</value>
@@ -3196,7 +3242,7 @@
     </property>
     <property key="PartyEditContactInformation">
         <value xml:lang="en">Edit Contact Information</value>
-        <value xml:lang="fr">Édition de coordonnées</value>
+        <value xml:lang="fr">Editer les coordonnées</value>
         <value xml:lang="it">Aggiorna Informazioni Contatto</value>
         <value xml:lang="nl">Wijzig Contact Informatie</value>
         <value xml:lang="pt_PT">Editar Informação de Contacto</value>
@@ -3255,6 +3301,7 @@
     </property>
     <property key="PartyEmailAddressNotExist">
         <value xml:lang="en">The Email Address cannot be verified.  This Email Address does not exists.</value>
+        <value xml:lang="fr">L'adresse courriel ne peut pas être vérifiée. Cette adresse courriel n'existe pas</value>
         <value xml:lang="th">ไม่สามารถตรวจสอบที่อยู่อีเมล์ได้. ที่อยู่อีเมล์นี้ไม่มีอยู่ในนี้</value>
     </property>
     <property key="PartyEmailAddressNotFormattedCorrectly">
@@ -3285,10 +3332,12 @@
     </property>
     <property key="PartyEmailAddressVerificationExpired">
         <value xml:lang="en">The Email Address Verification has been expired.</value>
+        <value xml:lang="fr">La vérification de cette adresse courriel a expirée</value>
         <value xml:lang="th">ที่อยู่อีเมล์นี้จากการตรวจสอบพบว่าหมดอายุ</value>
     </property>
     <property key="PartyEmailAddresses">
         <value xml:lang="en">Email Addresses</value>
+        <value xml:lang="fr">Adresses courriel</value>
         <value xml:lang="th">ที่อยู่อีเมล์</value>
     </property>
     <property key="PartyEnabled">
@@ -3386,6 +3435,7 @@
     </property>
     <property key="PartyFindPartyInvitations">
         <value xml:lang="en">Find Party Invitations</value>
+        <value xml:lang="fr">Trouver les invitations de l'acteur</value>
         <value xml:lang="it">Ricerca Inviti Soggetto</value>
         <value xml:lang="th">ค้นหาการเชิญชวนของกลุ่มผู้ใช้</value>
     </property>
@@ -3449,6 +3499,7 @@
     <property key="PartyFromEmailAddress">
         <value xml:lang="en">From Email Address</value>
         <value xml:lang="es">De (e-mail)</value>
+        <value xml:lang="fr">Depuis adresse courriel</value>
         <value xml:lang="it">Da Indirizzo Email</value>
         <value xml:lang="nl">Van email adres</value>
         <value xml:lang="ro">La Adresa Email</value>
@@ -3479,6 +3530,7 @@
     </property>
     <property key="PartyGoToParent">
         <value xml:lang="en">Go to Parent</value>
+        <value xml:lang="fr">Aller au parent</value>
         <value xml:lang="th">ไปยังผู้ดูแล</value>
     </property>
     <property key="PartyGotoList">
@@ -3516,6 +3568,7 @@
     </property>
     <property key="PartyGroupNumEmployeeIsInvalid">
         <value xml:lang="en">Number of employees is invalid</value>
+        <value xml:lang="fr">Le nombre d'employés n'est pas valable</value>
     </property>    
     <property key="PartyHeight">
         <value xml:lang="en">Height</value>
@@ -3554,6 +3607,7 @@
     </property>
     <property key="PartyHistoryChanged">
         <value xml:lang="en">Changed</value>
+        <value xml:lang="fr">Changé</value>
         <value xml:lang="it">Cambiato</value>
         <value xml:lang="nl">Veranders</value>
         <value xml:lang="ro">Schimbat</value>
@@ -3563,6 +3617,7 @@
     </property>
     <property key="PartyHistoryName">
         <value xml:lang="en">Name History</value>
+        <value xml:lang="fr">Historique du nom</value>
         <value xml:lang="it">Nome Storia</value>
         <value xml:lang="nl">Naam historie</value>
         <value xml:lang="ro">Nume Istoric</value>
@@ -3572,6 +3627,7 @@
     </property>
     <property key="PartyHistoryWas">
         <value xml:lang="en">Was</value>
+        <value xml:lang="fr">Etait</value>
         <value xml:lang="it">Era</value>
         <value xml:lang="nl">Was</value>
         <value xml:lang="ro">Era</value>
@@ -3669,52 +3725,61 @@
     </property>
     <property key="PartyInvitationAccAndDecPermissionError">
         <value xml:lang="en">You do not have permission to accept or decline Party Invitation</value>
+        <value xml:lang="fr">Vous n'avez pas la permission d'accepter ou de décliner l'invitation de l'acteur</value>
         <value xml:lang="it">Tu non sei autorizzato ad accettare o declinare Inviti Soggetti</value>
         <value xml:lang="th">คุณไม่ได้รับการอนุญาตให้ยอมรับหรือปฏิเสธคำเชิญของกลุ่มผู้ใช้</value>
     </property>
     <property key="PartyInvitationCancelPermissionError">
         <value xml:lang="en">You do not have permission to cancel the Party Invitation</value>
+        <value xml:lang="fr">Vous n'avez pas la permission d'annuler l'invitation de l'acteur</value>
         <value xml:lang="it">Tu non sei autorizzato a cancellare Inviti Soggetti</value>
         <value xml:lang="th">คุณไม่ได้รับการอนุญาตให้ยกเลิกคำเชิญของกลุ่มผู้ใช้</value>
     </property>
     <property key="PartyInvitationGroupAssoc">
         <value xml:lang="en">GroupAssoc </value>
+        <value xml:lang="fr">Groupe d'associations</value>
         <value xml:lang="it">Gruppo Associazione Inviti</value>
         <value xml:lang="th">รวมกลุ่ม</value>
     </property>
     <property key="PartyInvitationGroupAssocPartyIdTo">
         <value xml:lang="en">Party Id To</value>
+        <value xml:lang="fr">Réf. d'acteur dest.</value>
         <value xml:lang="it">Soggetto A</value>
         <value xml:lang="th">รหัสกลุ่มผู้ใช้ถึง</value>
     </property>
     <property key="PartyInvitationLastInviteDate">
         <value xml:lang="en">Last Invite Date</value>
+        <value xml:lang="fr">Date de la dernière invitation</value>
         <value xml:lang="it">Ultima Data Invito</value>
         <value xml:lang="th">วันเชิญครั้งสุดท้าย</value>
     </property>
     <property key="PartyInvitationNewPartyInvitation">
         <value xml:lang="en">New Party Invitation</value>
+        <value xml:lang="fr">Nouvelle invitation pour l'acteur</value>
         <value xml:lang="it">Nuovo Soggetto Invito</value>
         <value xml:lang="th">คำเชิญของกลุ่มผู้ใช้ใหม่</value>
     </property>
     <property key="PartyInvitationNotValidError">
         <value xml:lang="en">This is not a valid Party Invitation</value>
+        <value xml:lang="fr">Ceci est une invitation d'acteur non valide</value>
         <value xml:lang="it">Questo non è un'Invito Soggetto valido</value>
         <value xml:lang="th">นี่ไม่ใช่คำเชิญของกลุ่มผู้ใช้</value>
     </property>
     <property key="PartyInvitationPartyInvitationId">
         <value xml:lang="en">Party Invitation Id</value>
+        <value xml:lang="fr">Réf. d'invitation d'acteur</value>
         <value xml:lang="it">Invito Soggetto</value>
         <value xml:lang="th">รหัสคำเชิญของกลุ่มผู้ใช้</value>
     </property>
     <property key="PartyInvitationRoleAssoc">
         <value xml:lang="en">RoleAssoc</value>
+        <value xml:lang="fr">Association de rôle</value>
         <value xml:lang="it">Ruolo Associazione Inviti</value>
         <value xml:lang="th">สถานะที่เกี่ยวเนื่องกัน</value>
     </property>
     <property key="PartyIpAddressSuccessfullyCreated">
         <value xml:lang="en">Web IP Address successfully created.</value>
-        <value xml:lang="fr">Adresse IP créée.</value>
+        <value xml:lang="fr">Adresse web IP créée avec succès.</value>
         <value xml:lang="ru">Web IP адрес создан успешно.</value>
         <value xml:lang="th">สร้าง IP ที่อยู่อีเมล์ของเว็บเป็นผลสำเร็จ</value>
         <value xml:lang="zh">已成功创建网站IP地址。</value>
@@ -3728,10 +3793,12 @@
     </property>
     <property key="PartyIsPublic">
         <value xml:lang="en">Is Public</value>
+        <value xml:lang="fr">C'est public</value>
         <value xml:lang="th">เป็นสาธารณะ</value>
     </property>
     <property key="PartyIsUsps">
         <value xml:lang="en">Is USPS</value>
+        <value xml:lang="fr">C'est USPS</value>
         <value xml:lang="th">เป็น USPS</value>
     </property>
     <property key="PartyLastName">
@@ -3781,6 +3848,7 @@
     </property>
     <property key="PartyLinkMessage1">
         <value xml:lang="en">WARNING: This cannot be un-done, confirm you wish to link the two party records listed below.</value>
+        <value xml:lang="fr">ATTENTION: Ceci ne peut pas être défait, confirmez votre souhait de lier les deux enregistrements de l'acteur énumérés ci-dessous.</value>
         <value xml:lang="it">ATTENZIONE: Non è possibile non confermare, conferma che vuoi legare i due soggetti elencati qui sotto.</value>
         <value xml:lang="nl">WAARSCHUWING: Dit kan niet ongedaan gemaakt, bevestig hiermee dat u de onderstaande twee relaties aan elkaar wilt laten relateren</value>
         <value xml:lang="ro">ATENTIE: Nu este posibil sa nu confirmi, confirma ca vrei sa legi cei doi subiecti afisati dedesubt.</value>
@@ -3791,6 +3859,7 @@
     <property key="PartyListCommCustRequest">
         <value xml:lang="en">Found Communication Customer Requests</value>
         <value xml:lang="es">Pedidos de comunicación</value>
+        <value xml:lang="fr">Demandes de communication du client trouvées</value>
         <value xml:lang="it">Trovate Richieste Comunicazione Cliente</value>
         <value xml:lang="nl">Gevonden communicatie over klanten aanvragen</value>
         <value xml:lang="ro">Gasite Cereri Comunicare Client</value>
@@ -3801,6 +3870,7 @@
     <property key="PartyListCommPurpose">
         <value xml:lang="en">Found Communication Work Purposes</value>
         <value xml:lang="es">Propósitos</value>
+        <value xml:lang="fr">Buts de communication de tâche trouvés</value>
         <value xml:lang="it">Trovate Funzioni Comunicazione Work</value>
         <value xml:lang="nl">Gevonden doelstellingen communicatie acties</value>
         <value xml:lang="ro">Gasite Functii Comunicare Work</value>
@@ -3811,6 +3881,7 @@
     <property key="PartyListCommRole">
         <value xml:lang="en">Found Communication Roles</value>
         <value xml:lang="es">Roles de comunicación</value>
+        <value xml:lang="fr">Rôles de communication trouvés</value>
         <value xml:lang="it">Trovate Ruoli Comunicazione</value>
         <value xml:lang="nl">Gevonden communicatie rollen</value>
         <value xml:lang="ro">Gasite Roluri Comunicare</value>
@@ -3821,6 +3892,7 @@
     <property key="PartyListCommWorkEffort">
         <value xml:lang="en">Found Communication Work Efforts</value>
         <value xml:lang="es">Esfuerzos</value>
+        <value xml:lang="fr">Tâches de communication trouvées</value>
         <value xml:lang="it">Trovata Comunicazione Impegni di Lavoro</value>
         <value xml:lang="nl">Gevonden Communicatie Activiteiten</value>
         <value xml:lang="ro">Gasita Comunicare Sarcini de Lucru</value>
@@ -3831,6 +3903,7 @@
     <property key="PartyListCommunicationEvents">
         <value xml:lang="en">Found Communication Events</value>
         <value xml:lang="es">Eventos de comunicación</value>
+        <value xml:lang="fr">Evènements de communication trouvés</value>
         <value xml:lang="it">Trovati Eventi Comunicazione</value>
         <value xml:lang="nl">Gevonden communicatie acties</value>
         <value xml:lang="ro">Gasite Evenimente Comunicare</value>
@@ -3873,6 +3946,7 @@
     </property>
     <property key="PartyLookupContactMech">
         <value xml:lang="en">Lookup Contact Mech</value>
+        <value xml:lang="fr">Consulter les coordonnées</value>
         <value xml:lang="it">Ricerca Contatti</value>
         <value xml:lang="ru">Искать способ связи</value>
         <value xml:lang="th">ค้นหาการติดต่อที่เหมือนกัน</value>
@@ -3880,7 +3954,7 @@
     <property key="PartyLookupParty">
         <value xml:lang="en">Lookup Party</value>
         <value xml:lang="es">Buscar participante</value>
-        <value xml:lang="fr">Lancer recherche acteur(s)</value>
+        <value xml:lang="fr">Lancer la recherche d'acteur(s)</value>
         <value xml:lang="it">Ricerca Soggetto</value>
         <value xml:lang="nl">Zoek relatie</value>
         <value xml:lang="ro">Cauta Subiect</value>
@@ -3890,6 +3964,7 @@
     </property>
     <property key="PartyLookupPartyAndUserLoginAndPerson">
         <value xml:lang="en">Lookup PartyAndUserLoginAndPerson</value>
+        <value xml:lang="fr">Consulter l'acteur et son identifiant</value>
         <value xml:lang="it">Ricerca Soggetti Utenti e Persone</value>
         <value xml:lang="nl">Zoek relatie gebruiker en of persoon</value>
         <value xml:lang="ro">Cauta Subiecti Utilizzatori si Persoane</value>
@@ -3899,6 +3974,7 @@
     </property>
     <property key="PartyLookupPartyByName">
         <value xml:lang="en">Lookup Party by Name</value>
+        <value xml:lang="fr">Rechercher l'acteur par son nom</value>
         <value xml:lang="it">Ricerca Soggetti per Nome</value>
         <value xml:lang="nl">Zoek relatie op naam</value>
         <value xml:lang="ro">Cauta Subiecti pe Nume</value>
@@ -3908,6 +3984,7 @@
     </property>
     <property key="PartyLookupPartyClassificationGroup">
         <value xml:lang="en">Lookup Party Classification Group</value>
+        <value xml:lang="fr">Consulter les groupe de classification de l'acteur</value>
         <value xml:lang="it">Ricerca Gruppi Classificazione Soggetti</value>
         <value xml:lang="nl">Lookup Party Classification Group</value>
         <value xml:lang="ro">Cauta Grup Clasificare Subiecti</value>
@@ -3917,6 +3994,7 @@
     </property>
     <property key="PartyLookupPartyCommEvent">
         <value xml:lang="en">Lookup Communication Event</value>
+        <value xml:lang="fr">Consulter l'évènement de communication</value>
         <value xml:lang="it">Ricerca Eventi Comunicazioni</value>
         <value xml:lang="nl">Lookup Communication Event</value>
         <value xml:lang="ro">Cauta Comunicari Evenimente </value>
@@ -3926,6 +4004,7 @@
     </property>
     <property key="PartyLookupPartyGroup">
         <value xml:lang="en">Lookup Group</value>
+        <value xml:lang="fr">Consulter le groupe</value>
         <value xml:lang="it">Ricerca Gruppi</value>
         <value xml:lang="nl">Zoek groep</value>
         <value xml:lang="ro">Cauta Grupuri</value>
@@ -3935,6 +4014,7 @@
     </property>
     <property key="PartyLookupPartyPerson">
         <value xml:lang="en">Lookup Person</value>
+        <value xml:lang="fr">Consulter la personne</value>
         <value xml:lang="it">Ricerca Persone</value>
         <value xml:lang="nl">Zoek persoon</value>
         <value xml:lang="ro">Cauta Persoane</value>
@@ -3944,6 +4024,7 @@
     </property>
     <property key="PartyLookupUserLoginAndPartyDetails">
         <value xml:lang="en">Lookup UserLoginAndPartyDetails</value>
+        <value xml:lang="fr">Consulter l'identifant et les détails de l'acteur</value>
         <value xml:lang="it">Ricerca Soggetti Utenti e Dettagli</value>
         <value xml:lang="ru">Искать подробности имени входа/участника</value>
         <value xml:lang="th">ค้นหาผู้ใช้ระบบและรายละเอียดกลุ่มผู้ใช้</value>
@@ -4032,6 +4113,7 @@
     </property>
     <property key="PartyMaritalStatusDivorced">
         <value xml:lang="en">Divorced</value>
+        <value xml:lang="fr">Divorcé(e)</value>
         <value xml:lang="it">Divorziato/a</value>
         <value xml:lang="nl">Divorced</value>
         <value xml:lang="ro">Divortat/a</value>
@@ -4041,6 +4123,7 @@
     </property>
     <property key="PartyMaritalStatusMarried">
         <value xml:lang="en">Married</value>
+        <value xml:lang="fr">Marié(e)</value>
         <value xml:lang="it">Sposato/a</value>
         <value xml:lang="nl">Married</value>
         <value xml:lang="ro">Casatorit/a</value>
@@ -4050,6 +4133,7 @@
     </property>
     <property key="PartyMaritalStatusSeparated">
         <value xml:lang="en">Separated</value>
+        <value xml:lang="fr">Séparé(e)</value>
         <value xml:lang="it">Separato/a</value>
         <value xml:lang="nl">Separated</value>
         <value xml:lang="ro">Separat/a</value>
@@ -4059,6 +4143,7 @@
     </property>
     <property key="PartyMaritalStatusSingle">
         <value xml:lang="en">Single</value>
+        <value xml:lang="fr">Célibataire</value>
         <value xml:lang="it">Singolo/a</value>
         <value xml:lang="nl">Single</value>
         <value xml:lang="ro">Single</value>
@@ -4068,6 +4153,7 @@
     </property>
     <property key="PartyMaritalStatusWidowed">
         <value xml:lang="en">Widowed</value>
+        <value xml:lang="fr">Veuf(ve)</value>
         <value xml:lang="it">Vedovo/a</value>
         <value xml:lang="nl">Widowed</value>
         <value xml:lang="ro">Vaduv/a</value>
@@ -4165,8 +4251,7 @@
         <value xml:lang="pt_PT">Nota:este novo contacto servirá o propósito de</value>
         <value xml:lang="ro">Nota: aceasta noua informatie contact va avea functia</value>
         <value xml:lang="ru">Примечание: эта новая контактная информация будет иметь назначение</value>
-        <value xml:lang="th">Note: หมายเหตุ นี่คือข้อมูลการติดต่อใหม่จะมีวัตถุประสงค์
-        </value>
+        <value xml:lang="th">Note: หมายเหตุ นี่คือข้อมูลการติดต่อใหม่จะมีวัตถุประสงค์</value>
         <value xml:lang="zh">注意：这个新的联系信息的目的是</value>
     </property>
     <property key="PartyMsgContactNotBelongToYou">
@@ -4195,6 +4280,7 @@
     </property>
     <property key="PartyNewCommContent">
         <value xml:lang="en">New Communication Content</value>
+        <value xml:lang="fr">Nouveau contenu de communication</value>
         <value xml:lang="it">Nuova Comunicazione Contenuto</value>
         <value xml:lang="nl">New Communication Content</value>
         <value xml:lang="ro">Noua Comunicare Continut</value>
@@ -4205,6 +4291,7 @@
     <property key="PartyNewCommCustRequest">
         <value xml:lang="en">New Communication Customer Request</value>
         <value xml:lang="es">Nuevo pedido de comunicación</value>
+        <value xml:lang="fr">Nouvelle demande de communication</value>
         <value xml:lang="it">Nuova Comunicazione Richiesta Cliente</value>
         <value xml:lang="nl">New Communication Customer Request</value>
         <value xml:lang="ro">Noua Comunicare Ceruta Client</value>
@@ -4215,6 +4302,7 @@
     <property key="PartyNewCommPurpose">
         <value xml:lang="en">New Communication Work Purpose</value>
         <value xml:lang="es">Nuevo propósito de comunicación</value>
+        <value xml:lang="fr">Nouveau objet de communication lié à une tâche</value>
         <value xml:lang="it">Nuova Funzione Comunicazione</value>
         <value xml:lang="nl">New Communication Work Purpose</value>
         <value xml:lang="ro">Noua Functie de Comunicare</value>
@@ -4225,6 +4313,7 @@
     <property key="PartyNewCommRole">
         <value xml:lang="en">New Communication Role</value>
         <value xml:lang="es">Nuevo rol de comunicación</value>
+        <value xml:lang="fr">Nouveau rôle de communication</value>
         <value xml:lang="it">Nuovo Ruolo Comunicazione</value>
         <value xml:lang="nl">New Communication Role</value>
         <value xml:lang="ro">Nou Rol Comunicare</value>
@@ -4235,6 +4324,7 @@
     <property key="PartyNewCommWorkEffort">
         <value xml:lang="en">New Communication Work Effort</value>
         <value xml:lang="es">Nuevo esfuerzo</value>
+        <value xml:lang="fr">Nouvelle communication liée à une tâche</value>
         <value xml:lang="it">Nuova Comunicazione Impegno di Lavoro</value>
         <value xml:lang="nl">New Communication Work Effort</value>
         <value xml:lang="ro">Noua Comunicare Sarcina de Lucru</value>
@@ -4256,6 +4346,7 @@
     </property>
     <property key="PartyNewEmail">
         <value xml:lang="en">New Email</value>
+        <value xml:lang="fr">Nouveau courriel</value>
     </property>
     <property key="PartyNewEvent">
         <value xml:lang="en">New Event</value>
@@ -4281,9 +4372,11 @@
     </property>
     <property key="PartyNewInternalNote">
         <value xml:lang="en">New Internal Note</value>
+        <value xml:lang="fr">Nouvelle note interne</value>        
     </property>
     <property key="PartyNewRelationship">
         <value xml:lang="en">New Relationship</value>
+        <value xml:lang="fr">Nouvelle relation</value>
         <value xml:lang="it">Nuovo Rapporto</value>
         <value xml:lang="ru">Новое отношение</value>
         <value xml:lang="th">ความสัมพันธ์ใหม่</value>
@@ -4384,12 +4477,14 @@
     </property>
     <property key="PartyNoContent">
         <value xml:lang="en">No Content</value>
+        <value xml:lang="fr">Aucun contenu</value>
         <value xml:lang="it">Nessun Contenuto</value>
         <value xml:lang="ru">Нет содержимого</value>
         <value xml:lang="th">ไม่มีหัวข้อ</value>
     </property>
     <property key="PartyNoMatch">
         <value xml:lang="en">No records match.</value>
+        <value xml:lang="fr">Aucun enregistrement ne correspond</value>
         <value xml:lang="it">Nessun record di uguaglianza.</value>
         <value xml:lang="nl">Geen records matchen.</value>
         <value xml:lang="ro">Nici-un record di egalitate.</value>
@@ -4399,13 +4494,14 @@
     </property>
     <property key="PartyNoNameFound">
         <value xml:lang="en">No name found</value>
+        <value xml:lang="fr">Aucun nom trouvé</value>
         <value xml:lang="ru">Имя не найдено</value>
         <value xml:lang="th">ไม่พบชื่อ</value>
     </property>
     <property key="PartyNoNameGroup">
         <value xml:lang="en">No name (group)</value>
         <value xml:lang="es">No nombre (grupo)</value>
-        <value xml:lang="fr">Pas de nom (group)</value>
+        <value xml:lang="fr">Pas de nom (groupe)</value>
         <value xml:lang="it">Nessn nome (gruppo)</value>
         <value xml:lang="nl">Geen groepnaam</value>
         <value xml:lang="pt_PT">Sem nome (grupo)</value>
@@ -4507,6 +4603,7 @@
     </property>
     <property key="PartyNoServerHitsFound">
         <value xml:lang="en">No Server Hits found for this Visit</value>
+        <value xml:lang="fr">Aucun accès au serveur n'ont été trouvé pour cette visite</value>
         <value xml:lang="it">Nessun Server Hits trovato per questa Visita</value>
         <value xml:lang="th">ไม่พบผู้ให้บริการสำหรับการเยี่ยมชมนี้</value>
     </property>
@@ -4581,11 +4678,12 @@
     </property>
     <property key="PartyOptional">
         <value xml:lang="en">Optional</value>
+        <value xml:lang="fr">Optionnel</value>
         <value xml:lang="th">ทางเลือก</value>
     </property>
     <property key="PartyOrderInLast">
         <value xml:lang="en">order(s) in the last</value>
-        <value xml:lang="fr">commande(s) sur les derniers </value>
+        <value xml:lang="fr">Commande(s) dans les derniers</value>
         <value xml:lang="it">ordine(i) negli ultimi</value>
         <value xml:lang="nl">order(s) in the last</value>
         <value xml:lang="ro">Comanda(comenzi) in ultimele </value>
@@ -4596,6 +4694,7 @@
     <property key="PartyOrganizationParty">
         <value xml:lang="en">Organization Party</value>
         <value xml:lang="es">Participante</value>
+        <value xml:lang="fr">Organisation de l'acteur</value>
         <value xml:lang="it">Organizzazione</value>
         <value xml:lang="nl">Organization Party</value>
         <value xml:lang="ro">Organizzazione</value>
@@ -4606,6 +4705,7 @@
     <property key="PartyOrganizationPartyId">
         <value xml:lang="en">Organization Party ID</value>
         <value xml:lang="es">Código de participante</value>
+        <value xml:lang="fr">Réf. de l'organisation de l'acteur</value>
         <value xml:lang="it">Codice Organizzazione</value>
         <value xml:lang="nl">Organization Party ID</value>
         <value xml:lang="ro">Cod Organizatie</value>
@@ -4686,6 +4786,7 @@
     </property>
     <property key="PartyPartyCurrentInTheRoleOf">
         <value xml:lang="en">The current party in the role of</value>
+        <value xml:lang="fr">L'acteur courant dans le rôle de</value>
         <value xml:lang="it">Il Soggetto attuale nel ruolo di</value>
         <value xml:lang="nl">The current party in the role of</value>
         <value xml:lang="ro">Subiectul actual in rol de</value>
@@ -4769,6 +4870,7 @@
     </property>
     <property key="PartyPartyIdMissing">
         <value xml:lang="en">Party ID missing</value>
+        <value xml:lang="fr">Réf. d'acteur disparue</value>
         <value xml:lang="th">ไม่ได้ใส่รหัสกลุ่มผู้ใช้</value>
     </property>
     <property key="PartyPartyInTheRoleOf">
@@ -4804,6 +4906,7 @@
     </property>
     <property key="PartyPartyRequests">
         <value xml:lang="en">Requests</value>
+        <value xml:lang="fr">Requêtes</value>
         <value xml:lang="it">Richieste</value>
         <value xml:lang="ru">Запросы</value>
         <value xml:lang="th">คำร้อง</value>
@@ -4910,6 +5013,7 @@
     <property key="PartyPending">
         <value xml:lang="en">Pending</value>
         <value xml:lang="es">Pendiente</value>
+        <value xml:lang="fr">En attente</value>
         <value xml:lang="it">Sospeso</value>
         <value xml:lang="nl">Lopend</value>
         <value xml:lang="ro">Suspendata</value>
@@ -4920,6 +5024,7 @@
     <property key="PartyPendingCommunicationEvents">
         <value xml:lang="en">Pending Communication Events</value>
         <value xml:lang="es">Eventos de comunicación pendientes</value>
+        <value xml:lang="fr">Evènements de communication en attente</value>
         <value xml:lang="it">Eventi Comunicazioni Sospese</value>
         <value xml:lang="nl">Pending Communication Events</value>
         <value xml:lang="ro">Evenimente Comunicatii Suspendate</value>
@@ -4942,6 +5047,7 @@
     <property key="PartyPermissionError">
         <value xml:lang="en">Security Error: to run ${methodShortDescription} you must have the PARTYMGR${securityAction} or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para acceder a esta funcionalidad debe contar con los permisos PARTYMGR_CREATE o PARTYMGR_ADMIN</value>
+        <value xml:lang="fr">Erreur de sécurité: Pour exécuter ${methodShortDescription} vous devez avoir la permission PARTYMGR${securityAction} ou PARTYMGR_ADMIN</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire ${methodShortDescription} tu devi avere i permessi PARTYMGR${securityAction} o PARTYMGR_ADMIN</value>
         <value xml:lang="nl">Security Error: to run ${methodShortDescription} you must have the PARTYMGR${securityAction} or PARTYMGR_ADMIN permission</value>
         <value xml:lang="ro">EROARE De Siguranta : pentru a executa ${methodShortDescription} trbuie sa ai permisul PARTYMGR${securityAction} sau PARTYMGR_ADMIN</value>
