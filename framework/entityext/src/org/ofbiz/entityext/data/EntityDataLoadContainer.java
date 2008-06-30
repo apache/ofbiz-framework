@@ -22,10 +22,10 @@ import java.net.URL;
 import java.net.MalformedURLException;
 import java.text.NumberFormat;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.ArrayList;
 import java.io.File;
+
+import javolution.util.FastList;
 
 import org.ofbiz.base.container.Container;
 import org.ofbiz.base.container.ContainerConfig;
@@ -51,7 +51,7 @@ public class EntityDataLoadContainer implements Container {
     protected String configFile = null;
     protected String readers = null;
     protected String directory = null;
-    protected ArrayList files = new ArrayList();
+    protected List<String> files = FastList.newInstance();
     protected String component = null;
     protected boolean useDummyFks = false;
     protected boolean maintainTxs = false;
@@ -86,8 +86,7 @@ public class EntityDataLoadContainer implements Container {
            $ java -jar ofbiz.jar -install -file=/tmp/dataload.xml
         */
         if (args != null) {
-            for (int i = 0; i < args.length; i++) {
-                String argument = args[i];
+            for (String argument: args) {
                 // arguments can prefix w/ a '-'. Just strip them off
                 if (argument.startsWith("-")) {
                     int subIdx = 1;
@@ -179,10 +178,10 @@ public class EntityDataLoadContainer implements Container {
         }
 
         // parse the pass in list of readers to use
-        List readerNames = null;
+        List<String> readerNames = null;
         if (this.readers != null && !"none".equalsIgnoreCase(this.readers)) {
             if (this.readers.indexOf(",") == -1) {
-                readerNames = new LinkedList();
+                readerNames = FastList.newInstance();
                 readerNames.add(this.readers);
             } else {
                 readerNames = StringUtil.split(this.readers, ",");
@@ -202,7 +201,7 @@ public class EntityDataLoadContainer implements Container {
         }
 
         // get the reader name URLs first
-        List urlList = null;
+        List<URL> urlList = null;
         if (readerNames != null) {
             urlList = EntityDataLoader.getUrlList(helperName, component, readerNames);
         } else if (!"none".equalsIgnoreCase(this.readers)) {
@@ -211,13 +210,12 @@ public class EntityDataLoadContainer implements Container {
 
         // need a list if it is empty
         if (urlList == null) {
-            urlList = new ArrayList();
+            urlList = FastList.newInstance();
         }
 
         // add in the defined extra files
-        Iterator it = this.files.iterator();
-        while (it.hasNext()) {
-            URL fileUrl = UtilURL.fromResource((String) it.next());
+        for (String fileName: this.files) {
+            URL fileUrl = UtilURL.fromResource((String) fileName);
             if (fileUrl != null) {
                 urlList.add(fileUrl);
             }
@@ -229,12 +227,12 @@ public class EntityDataLoadContainer implements Container {
             if (dir.exists() && dir.isDirectory() && dir.canRead()) {
                 File[] fileArray = dir.listFiles();
                 if (fileArray != null && fileArray.length > 0) {
-                    for (int i = 0; i < fileArray.length; i++) {
-                        if (fileArray[i].getName().toLowerCase().endsWith(".xml")) {
+                    for (File file: fileArray) {
+                        if (file.getName().toLowerCase().endsWith(".xml")) {
                             try {
-                                urlList.add(fileArray[i].toURI().toURL());
+                                urlList.add(file.toURI().toURL());
                             } catch (MalformedURLException e) {
-                                Debug.logError(e, "Unable to load file (" + fileArray[i].getName() + "); not a valid URL.", module);
+                                Debug.logError(e, "Unable to load file (" + file.getName() + "); not a valid URL.", module);
                             }
                         }
                     }
@@ -247,22 +245,18 @@ public class EntityDataLoadContainer implements Container {
         changedFormat.setMinimumIntegerDigits(5);
         changedFormat.setGroupingUsed(false);
         
-        List errorMessages = new LinkedList();
-        List infoMessages = new LinkedList();
+        List<Object> errorMessages = FastList.newInstance();
+        List<String> infoMessages = FastList.newInstance();
         int totalRowsChanged = 0;
         if (urlList != null && urlList.size() > 0) {
             Debug.logImportant("=-=-=-=-=-=-= Doing a data load with the following files:", module);
-            Iterator urlIter = urlList.iterator();
-            while (urlIter.hasNext()) {
-                URL dataUrl = (URL) urlIter.next();
+            for (URL dataUrl: urlList) {
                 Debug.logImportant(dataUrl.toExternalForm(), module);
             }
 
             Debug.logImportant("=-=-=-=-=-=-= Starting the data load...", module);
 
-            urlIter = urlList.iterator();
-            while (urlIter.hasNext()) {
-                URL dataUrl = (URL) urlIter.next();
+            for (URL dataUrl: urlList) {
                 try {
                     int rowsChanged = EntityDataLoader.loadData(dataUrl, helperName, delegator, errorMessages, txTimeout, useDummyFks, maintainTxs, tryInserts);
                     totalRowsChanged += rowsChanged;
@@ -277,17 +271,15 @@ public class EntityDataLoadContainer implements Container {
 
         if (infoMessages.size() > 0) {
             Debug.logImportant("=-=-=-=-=-=-= Here is a summary of the data load:", module);
-            Iterator infoIter = infoMessages.iterator();
-            while (infoIter.hasNext()){
-              Debug.logImportant((String) infoIter.next(), module);
+            for (String message: infoMessages) {
+              Debug.logImportant(message, module);
             }
         }
         
         if (errorMessages.size() > 0) {
             Debug.logImportant("The following errors occured in the data load:", module);
-            Iterator errIter = errorMessages.iterator();
-            while (errIter.hasNext()){
-              Debug.logImportant((String) errIter.next(), module);
+            for (Object message: errorMessages) {
+              Debug.logImportant(message.toString(), module);
             }
         }
 

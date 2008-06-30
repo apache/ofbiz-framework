@@ -19,8 +19,9 @@
 package org.ofbiz.entityext.eca;
 
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
+
+import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
@@ -83,14 +84,13 @@ public class EntityEcaCondition implements java.io.Serializable {
         if (Debug.verboseOn()) Debug.logVerbose("Comparing : " + lhsValue + " " + operator + " " + rhsValue, module);
 
         // evaluate the condition & invoke the action(s)
-        List messages = new LinkedList();
+        List<Object> messages = FastList.newInstance();
         Boolean cond = ObjectType.doRealCompare(lhsValue, rhsValue, operator, compareType, format, messages, null, dctx.getClassLoader(), constant);
 
         // if any messages were returned send them out
         if (messages.size() > 0) {
-            Iterator m = messages.iterator();
-            while (m.hasNext()) {
-                Debug.logWarning((String) m.next(), module);
+            for (Object message: messages) {
+                Debug.logWarning((String) message, module);
             }
         }
         if (cond != null) {
@@ -102,12 +102,12 @@ public class EntityEcaCondition implements java.io.Serializable {
 
     public String toString() {
         StringBuilder buf = new StringBuilder();
-        buf.append("[" + lhsValueName + "]");
-        buf.append("[" + operator + "]");
-        buf.append("[" + rhsValueName + "]");
-        buf.append("[" + constant + "]");
-        buf.append("[" + compareType + "]");
-        buf.append("[" + format + "]");
+        buf.append("[").append(lhsValueName).append("]");
+        buf.append("[").append(operator).append("]");
+        buf.append("[").append(rhsValueName).append("]");
+        buf.append("[").append(constant).append("]");
+        buf.append("[").append(compareType).append("]");
+        buf.append("[").append(format).append("]");
         return buf.toString();
     }
 }

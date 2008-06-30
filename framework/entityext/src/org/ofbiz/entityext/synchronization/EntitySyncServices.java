@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +33,10 @@ import java.net.URL;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import javolution.util.FastMap;
+
 import org.ofbiz.base.util.Debug;
+import static org.ofbiz.base.util.UtilGenerics.checkList;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
@@ -73,7 +75,7 @@ public class EntitySyncServices {
      *@param context Map containing the input parameters
      *@return Map with the result of the service, the output parameters
      */
-    public static Map runEntitySync(DispatchContext dctx, Map context) {
+    public static Map<String, Object> runEntitySync(DispatchContext dctx, Map<String, ? extends Object> context) {
         EntitySyncContext esc = null;
         try {
             esc = new EntitySyncContext(dctx, context);
@@ -97,11 +99,11 @@ public class EntitySyncServices {
                 // saves info about removed, all entities that don't have no-auto-stamp set, this will be done in the GenericDAO like the stamp sets
                 
                 // ===== INSERTS =====
-                ArrayList valuesToCreate = esc.assembleValuesToCreate();
+                ArrayList<GenericValue> valuesToCreate = esc.assembleValuesToCreate();
                 // ===== UPDATES =====
-                ArrayList valuesToStore = esc.assembleValuesToStore();
+                ArrayList<GenericValue> valuesToStore = esc.assembleValuesToStore();
                 // ===== DELETES =====
-                List keysToRemove = esc.assembleKeysToRemove();
+                List<GenericEntity> keysToRemove = esc.assembleKeysToRemove();
                 
                 esc.runPushSendData(valuesToCreate, valuesToStore, keysToRemove);
                 
@@ -233,15 +235,15 @@ public class EntitySyncServices {
                 }
             }
             
-            Map result = ServiceUtil.returnSuccess();
-            result.put("toCreateInserted", new Long(toCreateInserted));
-            result.put("toCreateUpdated", new Long(toCreateUpdated));
-            result.put("toCreateNotUpdated", new Long(toCreateNotUpdated));
-            result.put("toStoreInserted", new Long(toStoreInserted));
-            result.put("toStoreUpdated", new Long(toStoreUpdated));
-            result.put("toStoreNotUpdated", new Long(toStoreNotUpdated));
-            result.put("toRemoveDeleted", new Long(toRemoveDeleted));
-            result.put("toRemoveAlreadyDeleted", new Long(toRemoveAlreadyDeleted));
+            Map<String, Object> result = ServiceUtil.returnSuccess();
+            result.put("toCreateInserted", Long.valueOf(toCreateInserted));
+            result.put("toCreateUpdated", Long.valueOf(toCreateUpdated));
+            result.put("toCreateNotUpdated", Long.valueOf(toCreateNotUpdated));
+            result.put("toStoreInserted", Long.valueOf(toStoreInserted));
+            result.put("toStoreUpdated", Long.valueOf(toStoreUpdated));
+            result.put("toStoreNotUpdated", Long.valueOf(toStoreNotUpdated));
+            result.put("toRemoveDeleted", Long.valueOf(toRemoveDeleted));
+            result.put("toRemoveAlreadyDeleted", Long.valueOf(toRemoveAlreadyDeleted));
             if (Debug.infoOn()) Debug.logInfo("Finisching storeEntitySyncData (" + entitySyncId + ") - [" + keysToRemove.size() + "] to remove. Actually removed: " + toRemoveDeleted  + " already removed: " + toRemoveAlreadyDeleted, module);
             return result;
         } catch (GenericEntityException e) {
@@ -286,7 +288,7 @@ public class EntitySyncServices {
             gotMoreData = false;
             
             // call pullAndReportEntitySyncData, initially with no results, then with results from last loop
-            Map remoteCallContext = new HashMap();
+            Map<String, Object> remoteCallContext = FastMap.newInstance();
             remoteCallContext.put("entitySyncId", entitySyncId);
             remoteCallContext.put("delegatorName", context.get("remoteDelegatorName"));
             remoteCallContext.put("userLogin", context.get("userLogin"));
@@ -302,7 +304,7 @@ public class EntitySyncServices {
             remoteCallContext.put("toRemoveAlreadyDeleted", toRemoveAlreadyDeleted);
             
             try {
-                Map result = dispatcher.runSync(remotePullAndReportEntitySyncDataName, remoteCallContext);
+                Map<String, Object> result = dispatcher.runSync(remotePullAndReportEntitySyncDataName, remoteCallContext);
                 if (ServiceUtil.isError(result)) {
                     String errMsg = "Error calling remote pull and report EntitySync service with name: " + remotePullAndReportEntitySyncDataName;
                     return ServiceUtil.returnError(errMsg, null, null, result);
@@ -322,19 +324,19 @@ public class EntitySyncServices {
                         gotMoreData = true;
 
                         // at least one of the is not empty, make sure none of them are null now too...
-                        List valuesToCreate = (List) result.get("valuesToCreate");
-                        if (valuesToCreate == null) valuesToCreate = Collections.EMPTY_LIST;
-                        List valuesToStore = (List) result.get("valuesToStore");
-                        if (valuesToStore == null) valuesToStore = Collections.EMPTY_LIST;
-                        List keysToRemove = (List) result.get("keysToRemove");
-                        if (keysToRemove == null) keysToRemove = Collections.EMPTY_LIST;
+                        List<GenericValue> valuesToCreate = checkList(result.get("valuesToCreate"), GenericValue.class);
+                        if (valuesToCreate == null) valuesToCreate = Collections.emptyList();
+                        List<GenericValue> valuesToStore = checkList(result.get("valuesToStore"), GenericValue.class);
+                        if (valuesToStore == null) valuesToStore = Collections.emptyList();
+                        List<GenericEntity> keysToRemove = checkList(result.get("keysToRemove"), GenericEntity.class);
+                        if (keysToRemove == null) keysToRemove = Collections.emptyList();
                         
-                        Map callLocalStoreContext = UtilMisc.toMap("entitySyncId", entitySyncId, "delegatorName", context.get("localDelegatorName"),
+                        Map<String, Object> callLocalStoreContext = UtilMisc.toMap("entitySyncId", entitySyncId, "delegatorName", context.get("localDelegatorName"),
                                 "valuesToCreate", valuesToCreate, "valuesToStore", valuesToStore, 
                                 "keysToRemove", keysToRemove);
                         
                         callLocalStoreContext.put("userLogin", context.get("userLogin"));
-                        Map storeResult = dispatcher.runSync("storeEntitySyncData", callLocalStoreContext);
+                        Map<String, Object> storeResult = dispatcher.runSync("storeEntitySyncData", callLocalStoreContext);
                         if (ServiceUtil.isError(storeResult)) {
                             String errMsg = "Error calling service to store data locally";
                             return ServiceUtil.returnError(errMsg, null, null, storeResult);
@@ -375,7 +377,7 @@ public class EntitySyncServices {
      *@param context Map containing the input parameters
      *@return Map with the result of the service, the output parameters
      */
-    public static Map pullAndReportEntitySyncData(DispatchContext dctx, Map context) {
+    public static Map<String, Object> pullAndReportEntitySyncData(DispatchContext dctx, Map<String, ? extends Object> context) {
         EntitySyncContext esc = null;
         try {
             esc = new EntitySyncContext(dctx, context);
@@ -406,18 +408,18 @@ public class EntitySyncServices {
                 // Part 2a: return it back for storage but leave the EntitySyncHistory without results, and don't update the EntitySync last time
 
                 // ===== INSERTS =====
-                ArrayList valuesToCreate = esc.assembleValuesToCreate();
+                ArrayList<GenericValue> valuesToCreate = esc.assembleValuesToCreate();
                 // ===== UPDATES =====
-                ArrayList valuesToStore = esc.assembleValuesToStore();
+                ArrayList<GenericValue> valuesToStore = esc.assembleValuesToStore();
                 // ===== DELETES =====
-                List keysToRemove = esc.assembleKeysToRemove();
+                List<GenericEntity> keysToRemove = esc.assembleKeysToRemove();
                 
                 esc.setTotalRowCounts(valuesToCreate, valuesToStore, keysToRemove);
 
                 if (Debug.infoOn()) Debug.logInfo("Service pullAndReportEntitySyncData returning - [" + valuesToCreate.size() + "] to create; [" + valuesToStore.size() + "] to store; [" + keysToRemove.size() + "] to remove; [" + esc.totalRowsPerSplit + "] total rows per split.", module); 
                 if (esc.totalRowsPerSplit > 0) {
                     // stop if we found some data, otherwise look and try again
-                    Map result = ServiceUtil.returnSuccess();
+                    Map<String, Object> result = ServiceUtil.returnSuccess();
                     result.put("startDate", esc.startDate);
                     result.put("valuesToCreate", valuesToCreate);
                     result.put("valuesToStore", valuesToStore);
@@ -443,7 +445,7 @@ public class EntitySyncServices {
         return ServiceUtil.returnSuccess();
     }
 
-    public static Map runOfflineEntitySync(DispatchContext dctx, Map context) {
+    public static Map<String, Object> runOfflineEntitySync(DispatchContext dctx, Map<String, ? extends Object> context) {
         String fileName = (String) context.get("fileName");
         EntitySyncContext esc = null;
         long totalRowsExported = 0;
@@ -462,9 +464,9 @@ public class EntitySyncServices {
             while (esc.hasMoreTimeToSync()) {
                 esc.totalSplits++;
 
-                ArrayList valuesToCreate = esc.assembleValuesToCreate();
-                ArrayList valuesToStore = esc.assembleValuesToStore();
-                List keysToRemove = esc.assembleKeysToRemove();
+                ArrayList<GenericValue> valuesToCreate = esc.assembleValuesToCreate();
+                ArrayList<GenericValue> valuesToStore = esc.assembleValuesToStore();
+                List<GenericEntity> keysToRemove = esc.assembleKeysToRemove();
 
                 long currentRows = esc.setTotalRowCounts(valuesToCreate, valuesToStore, keysToRemove);
                 totalRowsExported += currentRows;
@@ -523,7 +525,7 @@ public class EntitySyncServices {
         return ServiceUtil.returnSuccess();
     }
 
-    public static Map loadOfflineSyncData(DispatchContext dctx, Map context) {
+    public static Map<String, Object> loadOfflineSyncData(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericDelegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -545,11 +547,9 @@ public class EntitySyncServices {
                 return ServiceUtil.returnError("EntitySync XML document (" + fileName + ") is not valid!");
             }
 
-            List syncElements = UtilXml.childElementList(xmlSyncDoc.getDocumentElement());
+            List<? extends Element> syncElements = UtilXml.childElementList(xmlSyncDoc.getDocumentElement());
             if (syncElements != null) {
-                Iterator i = syncElements.iterator();
-                while (i.hasNext()) {
-                    Element entitySync = (Element) i.next();
+                for (Element entitySync: syncElements) {
                     String entitySyncId = entitySync.getAttribute("entitySyncId");
                     String startTime = entitySync.getAttribute("lastSuccessfulSynchTime");
 
@@ -559,15 +559,15 @@ public class EntitySyncServices {
 
                     // de-serialize the value lists
                     try {
-                        List valuesToCreate = (List) XmlSerializer.deserialize(createString, delegator);
-                        List valuesToStore = (List) XmlSerializer.deserialize(storeString, delegator);
-                        List keysToRemove = (List) XmlSerializer.deserialize(removeString, delegator);
+                        List<GenericValue> valuesToCreate = checkList(XmlSerializer.deserialize(createString, delegator), GenericValue.class);
+                        List<GenericValue> valuesToStore = checkList(XmlSerializer.deserialize(storeString, delegator), GenericValue.class);
+                        List<GenericEntity> keysToRemove = checkList(XmlSerializer.deserialize(removeString, delegator), GenericEntity.class);
 
-                        Map storeContext = UtilMisc.toMap("entitySyncId", entitySyncId, "valuesToCreate", valuesToCreate,
+                        Map<String, Object> storeContext = UtilMisc.toMap("entitySyncId", entitySyncId, "valuesToCreate", valuesToCreate,
                                 "valuesToStore", valuesToStore, "keysToRemove", keysToRemove, "userLogin", userLogin);
 
                         // store the value(s)
-                        Map storeResult = dispatcher.runSync("storeEntitySyncData", storeContext);
+                        Map<String, Object> storeResult = dispatcher.runSync("storeEntitySyncData", storeContext);
                         if (ServiceUtil.isError(storeResult)) {
                             throw new Exception(ServiceUtil.getErrorMessage(storeResult));
                         }
@@ -596,7 +596,7 @@ public class EntitySyncServices {
      *@param context Map containing the input parameters
      *@return Map with the result of the service, the output parameters
      */
-    public static Map cleanSyncRemoveInfo(DispatchContext dctx, Map context) {
+    public static Map<String, Object> cleanSyncRemoveInfo(DispatchContext dctx, Map<String, ? extends Object> context) {
         Debug.logInfo("Running cleanSyncRemoveInfo", module);
         GenericDelegator delegator = dctx.getDelegator();
         
@@ -604,10 +604,8 @@ public class EntitySyncServices {
             // find the largest keepRemoveInfoHours value on an EntitySyncRemove and kill everything before that, if none found default to 10 days (240 hours)
             double keepRemoveInfoHours = 24;
             
-            List entitySyncRemoveList = delegator.findList("EntitySync", null, null, null, null, false);
-            Iterator entitySyncRemoveIter = entitySyncRemoveList.iterator();
-            while (entitySyncRemoveIter.hasNext()) {
-                GenericValue entitySyncRemove = (GenericValue) entitySyncRemoveIter.next();
+            List<GenericValue> entitySyncRemoveList = delegator.findList("EntitySync", null, null, null, null, false);
+            for (GenericValue entitySyncRemove: entitySyncRemoveList) {
                 Double curKrih = entitySyncRemove.getDouble("keepRemoveInfoHours");
                 if (curKrih != null) {
                     double curKrihVal = curKrih.doubleValue();

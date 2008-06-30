@@ -35,6 +35,8 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.base.util.UtilMisc;
 
+import javolution.util.FastList;
+
 import java.util.*;
 import java.io.*;
 import java.net.URI;
@@ -51,11 +53,11 @@ public class EntityDataServices {
 
     public static final String module = EntityDataServices.class.getName();
 
-    public static Map exportDelimitedToDirectory(DispatchContext dctx, Map context) {
+    public static Map<String, Object> exportDelimitedToDirectory(DispatchContext dctx, Map<String, Object> context) {
         return ServiceUtil.returnError("This service is not implemented yet.");
     }
 
-    public static Map importDelimitedFromDirectory(DispatchContext dctx, Map context) {
+    public static Map<String, Object> importDelimitedFromDirectory(DispatchContext dctx, Map<String, Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Security security = dctx.getSecurity();
 
@@ -90,13 +92,11 @@ public class EntityDataServices {
         }
 
         // get the file list
-        List files = getFileList(root);
+        List<File> files = getFileList(root);
         if (files != null && files.size() > 0) {
-            Iterator i = files.iterator();
-            while (i.hasNext()) {
-                File file = (File) i.next();
+            for (File file: files) {
                 try {
-                    Map serviceCtx = UtilMisc.toMap("file", file, "delimiter", delimiter, "userLogin", userLogin);
+                    Map<String, Object> serviceCtx = UtilMisc.toMap("file", file, "delimiter", delimiter, "userLogin", userLogin);
                     dispatcher.runSyncIgnore("importDelimitedEntityFile", serviceCtx);
                 } catch (GenericServiceException e) {
                     Debug.logError(e, module);
@@ -109,7 +109,7 @@ public class EntityDataServices {
         return ServiceUtil.returnSuccess();
     }
 
-    public static Map importDelimitedFile(DispatchContext dctx, Map context) {
+    public static Map<String, Object> importDelimitedFile(DispatchContext dctx, Map<String, Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
         Security security = dctx.getSecurity();
 
@@ -144,13 +144,13 @@ public class EntityDataServices {
         long runTime = endTime - startTime;
 
         Debug.logInfo("Imported/Updated [" + records + "] from : " + file.getAbsolutePath() + " [" + runTime + "ms]", module);
-        Map result = ServiceUtil.returnSuccess();
-        result.put("records", new Integer(records));
+        Map<String, Object> result = ServiceUtil.returnSuccess();
+        result.put("records", Integer.valueOf(records));
         return result;
     }
 
-    private static List getFileList(File root) {
-        List fileList = new ArrayList();
+    private static List<File> getFileList(File root) {
+        List<File> fileList = FastList.newInstance();
 
         // check for a file list file
         File listFile = new File(root, "FILELIST.txt");
@@ -186,11 +186,10 @@ public class EntityDataServices {
                 Debug.logInfo("Read file list : " + fileList.size() + " entities.", module);
             }
         } else {
-            File[] files = root.listFiles();
-            for (int i = 0; i < files.length; i++) {
-                String fileName = files[i].getName();
+            for (File file: root.listFiles()) {
+                String fileName = file.getName();
                 if (!fileName.startsWith("_") && fileName.endsWith(".txt")) {
-                    fileList.add(files[i]);
+                    fileList.add(file);
                 }
             }
             Debug.logInfo("No file list found; using directory order : " + fileList.size() + " entities.", module);
@@ -311,21 +310,21 @@ public class EntityDataServices {
         if (entity == null) {
             return null;
         }
-        List modelFields = entity.getFieldsUnmodifiable();
+        List<ModelField> modelFields = entity.getFieldsUnmodifiable();
         if (modelFields == null) {
             return null;
         }
 
         String[] fieldNames = new String[modelFields.size()];
         for (int i = 0; i < modelFields.size(); i++) {
-            ModelField field = (ModelField) modelFields.get(i);
+            ModelField field = modelFields.get(i);
             fieldNames[i] = field.getName();
         }
 
         return fieldNames;
     }
 
-    public static Map rebuildAllIndexesAndKeys(DispatchContext dctx, Map context) {
+    public static Map<String, Object> rebuildAllIndexesAndKeys(DispatchContext dctx, Map<String, Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
         Security security = dctx.getSecurity();
 
@@ -350,54 +349,35 @@ public class EntityDataServices {
             Debug.logError(e, errorMessage, module);
             return ServiceUtil.returnError(errorMessage);
         }
-        Set<String> modelEntityNames = new TreeSet(modelEntities.keySet());
-
-        Iterator<String> modelEntityNameIter = null;
 
         // step 1 - remove FK indices
         Debug.logImportant("Removing all foreign key indices", module);
-        modelEntityNameIter = modelEntityNames.iterator();
-        while (modelEntityNameIter.hasNext()) {
-      	    String modelEntityName = (String) modelEntityNameIter.next();
-      	    ModelEntity modelEntity = (ModelEntity) modelEntities.get(modelEntityName);
+        for (ModelEntity modelEntity: modelEntities.values()) {
             dbUtil.deleteForeignKeyIndices(modelEntity, messages);
         }
-        modelEntityNameIter = null;
 
         // step 2 - remove FKs
         Debug.logImportant("Removing all foreign keys", module);
-        modelEntityNameIter = modelEntityNames.iterator();
-        while (modelEntityNameIter.hasNext()) {
-      	    String modelEntityName = (String) modelEntityNameIter.next();
-      	    ModelEntity modelEntity = (ModelEntity) modelEntities.get(modelEntityName);
+        for (ModelEntity modelEntity: modelEntities.values()) {
             dbUtil.deleteForeignKeys(modelEntity, modelEntities, messages);
         }
-        modelEntityNameIter = null;
 
         // step 3 - remove PKs
         Debug.logImportant("Removing all primary keys", module);
-        modelEntityNameIter = modelEntityNames.iterator();
-        while (modelEntityNameIter.hasNext()) {
-            String modelEntityName = (String) modelEntityNameIter.next();
-            ModelEntity modelEntity = (ModelEntity) modelEntities.get(modelEntityName);
+        for (ModelEntity modelEntity: modelEntities.values()) {
             dbUtil.deletePrimaryKey(modelEntity, messages);
         }
-        modelEntityNameIter = null;
 
         // step 4 - remove declared indices
         Debug.logImportant("Removing all declared indices", module);
-        modelEntityNameIter = modelEntityNames.iterator();
-        while (modelEntityNameIter.hasNext()) {
-            String modelEntityName = (String) modelEntityNameIter.next();
-            ModelEntity modelEntity = (ModelEntity) modelEntities.get(modelEntityName);
+        for (ModelEntity modelEntity: modelEntities.values()) {
             dbUtil.deleteDeclaredIndices(modelEntity, messages);
         }
-        modelEntityNameIter = null;
 
         // step 5 - repair field sizes
         if (fixSizes.booleanValue()) {
             Debug.logImportant("Updating column field size changes", module);
-            List fieldsWrongSize = FastList.newInstance();
+            List<String> fieldsWrongSize = FastList.newInstance();
             dbUtil.checkDb(modelEntities, fieldsWrongSize, messages, true, true, true, true);
             if (fieldsWrongSize.size() > 0) {
                 dbUtil.repairColumnSizeChanges(modelEntities, fieldsWrongSize, messages);
@@ -410,54 +390,38 @@ public class EntityDataServices {
 
         // step 6 - create PKs
         Debug.logImportant("Creating all primary keys", module);
-        modelEntityNameIter = modelEntityNames.iterator();
-        while (modelEntityNameIter.hasNext()) {
-            String modelEntityName = (String) modelEntityNameIter.next();
-            ModelEntity modelEntity = (ModelEntity) modelEntities.get(modelEntityName);
+        for (ModelEntity modelEntity: modelEntities.values()) {
             dbUtil.createPrimaryKey(modelEntity, messages);
         }
-        modelEntityNameIter = null;
 
         // step 7 - create FK indices
         Debug.logImportant("Creating all foreign key indices", module);
-        modelEntityNameIter = modelEntityNames.iterator();
-        while (modelEntityNameIter.hasNext()) {
-      	    String modelEntityName = (String) modelEntityNameIter.next();
-      	    ModelEntity modelEntity = (ModelEntity) modelEntities.get(modelEntityName);
+        for (ModelEntity modelEntity: modelEntities.values()) {
             dbUtil.createForeignKeyIndices(modelEntity, messages);
         }
-        modelEntityNameIter = null;
 
         // step 8 - create FKs
         Debug.logImportant("Creating all foreign keys", module);
-        modelEntityNameIter = modelEntityNames.iterator();
-        while (modelEntityNameIter.hasNext()) {
-      	    String modelEntityName = (String) modelEntityNameIter.next();
-      	    ModelEntity modelEntity = (ModelEntity) modelEntities.get(modelEntityName);
+        for (ModelEntity modelEntity: modelEntities.values()) {
             dbUtil.createForeignKeys(modelEntity, modelEntities, messages);
         }
-        modelEntityNameIter = null;
 
         // step 8 - create FKs
         Debug.logImportant("Creating all declared indices", module);
-        modelEntityNameIter = modelEntityNames.iterator();
-        while (modelEntityNameIter.hasNext()) {
-      	    String modelEntityName = (String) modelEntityNameIter.next();
-      	    ModelEntity modelEntity = (ModelEntity) modelEntities.get(modelEntityName);
+        for (ModelEntity modelEntity: modelEntities.values()) {
             dbUtil.createDeclaredIndices(modelEntity, messages);
         }
-        modelEntityNameIter = null;
 
         // step 8 - checkdb
         Debug.logImportant("Running DB check with add missing enabled", module);
         dbUtil.checkDb(modelEntities, messages, true);
         
-        Map result = ServiceUtil.returnSuccess();
+        Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("messages", messages);
         return result;
     }
     
-    public static Map unwrapByteWrappers(DispatchContext dctx, Map context) {
+    public static Map<String, Object> unwrapByteWrappers(DispatchContext dctx, Map<String, Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
         String entityName = (String) context.get("entityName");
         String fieldName = (String) context.get("fieldName");

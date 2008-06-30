@@ -46,7 +46,7 @@ public class EntityEcaSetField {
         this.format = set.getAttribute("format");
     }
 
-    public void eval(Map context) {
+    public void eval(Map<String, Object> context) {
         if (fieldName != null) {
             // try to expand the envName
             if (UtilValidate.isEmpty(value)) {
@@ -69,19 +69,19 @@ public class EntityEcaSetField {
         }
     }
 
-    protected Object format(String s, Map c) {
+    protected Object format(String s, Map<String, ? extends Object> c) {
         if (UtilValidate.isEmpty(s) || UtilValidate.isEmpty(format)) {            
             return s;
         }
 
         // string formats
         if ("append".equalsIgnoreCase(format) && envName != null) {
-            String newStr = "";
+            StringBuilder newStr = new StringBuilder();
             if (c.get(envName) != null) {
-                newStr = newStr + c.get(envName);
+                newStr.append(c.get(envName));
             }
-            newStr = newStr + s;
-            return newStr; 
+            newStr.append(s);
+            return newStr.toString(); 
         }
         if ("to-upper".equalsIgnoreCase(format)) {
             return s.toUpperCase();
@@ -90,13 +90,13 @@ public class EntityEcaSetField {
             return s.toLowerCase();
         }
         if ("hash-code".equalsIgnoreCase(format)) {
-            return new Integer(s.hashCode());
+            return Integer.valueOf(s.hashCode());
         }
         if ("long".equalsIgnoreCase(format)) {
-            return new Long(s);
+            return Long.valueOf(s);
         }
         if ("double".equalsIgnoreCase(format)) {
-            return new Double(s);
+            return Double.valueOf(s);
         }
 
         // entity formats
