@@ -388,7 +388,7 @@ public class FlexibleStringExpander implements Serializable {
             Object envVal = fma.get(context, locale);
             if (envVal != null) {
                 if (localizeCurrency) {
-                    targetBuffer.append(UtilFormatOut.formatCurrency(new Double(envVal.toString()), currencyCode, locale));
+                    targetBuffer.append(UtilFormatOut.formatCurrency(Double.valueOf(envVal.toString()), currencyCode, locale));
                 } else {
                     try {
                         targetBuffer.append(ObjectType.simpleTypeConvert(envVal, "String", null, timeZone, locale, true));

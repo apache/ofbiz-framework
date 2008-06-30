@@ -93,9 +93,9 @@ public class UtilJ2eeCompat {
                 usestream = false;
             }
 
-            doFlushOnRenderValue = new Boolean(doflush);
-            useOutputStreamNotWriterValue = new Boolean(usestream);
-            useNestedJspException = new Boolean(nestjspexception);
+            doFlushOnRenderValue = Boolean.valueOf(doflush);
+            useOutputStreamNotWriterValue = Boolean.valueOf(usestream);
+            useNestedJspException = Boolean.valueOf(nestjspexception);
         }
     }
 }
