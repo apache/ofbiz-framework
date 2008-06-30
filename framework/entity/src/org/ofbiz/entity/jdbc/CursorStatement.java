@@ -79,7 +79,7 @@ public class CursorStatement extends AbstractCursorHandler {
         } else if ("setCursorName".equals(method.getName())) {
             setCursorName((String) args[0]);
         } else if ("getFetchSize".equals(method.getName())) {
-            return new Integer(getFetchSize());
+            return Integer.valueOf(getFetchSize());
         } else if ("setFetchSize".equals(method.getName())) {
             setFetchSize(((Integer) args[0]).intValue());
         }

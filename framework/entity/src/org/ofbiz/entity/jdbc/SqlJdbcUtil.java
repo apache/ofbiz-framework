@@ -602,7 +602,7 @@ public class SqlJdbcUtil {
                     if (rs.wasNull()) {
                         entity.dangerousSetNoCheckButFast(curField, null);
                     } else {
-                        entity.dangerousSetNoCheckButFast(curField, new Integer(intValue));
+                        entity.dangerousSetNoCheckButFast(curField, Integer.valueOf(intValue));
                     }
                     break;
 
@@ -611,7 +611,7 @@ public class SqlJdbcUtil {
                     if (rs.wasNull()) {
                         entity.dangerousSetNoCheckButFast(curField, null);
                     } else {
-                        entity.dangerousSetNoCheckButFast(curField, new Long(longValue));
+                        entity.dangerousSetNoCheckButFast(curField, Long.valueOf(longValue));
                     }
                     break;
 
@@ -620,7 +620,7 @@ public class SqlJdbcUtil {
                     if (rs.wasNull()) {
                         entity.dangerousSetNoCheckButFast(curField, null);
                     } else {
-                        entity.dangerousSetNoCheckButFast(curField, new Float(floatValue));
+                        entity.dangerousSetNoCheckButFast(curField, Float.valueOf(floatValue));
                     }
                     break;
 
@@ -629,7 +629,7 @@ public class SqlJdbcUtil {
                     if (rs.wasNull()) {
                         entity.dangerousSetNoCheckButFast(curField, null);
                     } else {
-                        entity.dangerousSetNoCheckButFast(curField, new Double(doubleValue));
+                        entity.dangerousSetNoCheckButFast(curField, Double.valueOf(doubleValue));
                     }
                     break;
 
@@ -647,7 +647,7 @@ public class SqlJdbcUtil {
                     if (rs.wasNull()) {
                         entity.dangerousSetNoCheckButFast(curField, null);
                     } else {
-                        entity.dangerousSetNoCheckButFast(curField, new Boolean(booleanValue));
+                        entity.dangerousSetNoCheckButFast(curField, Boolean.valueOf(booleanValue));
                     }
                     break;
                 }
@@ -823,46 +823,46 @@ public class SqlJdbcUtil {
 
     protected static Map<String, Integer> fieldTypeMap = FastMap.newInstance();
     static {
-        fieldTypeMap.put("java.lang.String", new Integer(1));
-        fieldTypeMap.put("String", new Integer(1));
-        fieldTypeMap.put("java.sql.Timestamp", new Integer(2));
-        fieldTypeMap.put("Timestamp", new Integer(2));
-        fieldTypeMap.put("java.sql.Time", new Integer(3));
-        fieldTypeMap.put("Time", new Integer(3));
-        fieldTypeMap.put("java.sql.Date", new Integer(4));
-        fieldTypeMap.put("Date", new Integer(4));
-        fieldTypeMap.put("java.lang.Integer", new Integer(5));
-        fieldTypeMap.put("Integer", new Integer(5));
-        fieldTypeMap.put("java.lang.Long", new Integer(6));
-        fieldTypeMap.put("Long", new Integer(6));
-        fieldTypeMap.put("java.lang.Float", new Integer(7));
-        fieldTypeMap.put("Float", new Integer(7));
-        fieldTypeMap.put("java.lang.Double", new Integer(8));
-        fieldTypeMap.put("Double", new Integer(8));
-        fieldTypeMap.put("java.math.BigDecimal", new Integer(9));
-        fieldTypeMap.put("BigDecimal", new Integer(9));
-        fieldTypeMap.put("java.lang.Boolean", new Integer(10));
-        fieldTypeMap.put("Boolean", new Integer(10));
+        fieldTypeMap.put("java.lang.String", 1);
+        fieldTypeMap.put("String", 1);
+        fieldTypeMap.put("java.sql.Timestamp", 2);
+        fieldTypeMap.put("Timestamp", 2);
+        fieldTypeMap.put("java.sql.Time", 3);
+        fieldTypeMap.put("Time", 3);
+        fieldTypeMap.put("java.sql.Date", 4);
+        fieldTypeMap.put("Date", 4);
+        fieldTypeMap.put("java.lang.Integer", 5);
+        fieldTypeMap.put("Integer", 5);
+        fieldTypeMap.put("java.lang.Long", 6);
+        fieldTypeMap.put("Long", 6);
+        fieldTypeMap.put("java.lang.Float", 7);
+        fieldTypeMap.put("Float", 7);
+        fieldTypeMap.put("java.lang.Double", 8);
+        fieldTypeMap.put("Double", 8);
+        fieldTypeMap.put("java.math.BigDecimal", 9);
+        fieldTypeMap.put("BigDecimal", 9);
+        fieldTypeMap.put("java.lang.Boolean", 10);
+        fieldTypeMap.put("Boolean", 10);
         
-        fieldTypeMap.put("java.lang.Object", new Integer(11));
-        fieldTypeMap.put("Object", new Integer(11));
+        fieldTypeMap.put("java.lang.Object", 11);
+        fieldTypeMap.put("Object", 11);
         
-        fieldTypeMap.put("java.sql.Blob", new Integer(12));
-        fieldTypeMap.put("Blob", new Integer(12));
-        fieldTypeMap.put("byte[]", new Integer(12));
-        fieldTypeMap.put("java.nio.ByteBuffer", new Integer(12));
-        fieldTypeMap.put("java.nio.HeapByteBuffer", new Integer(12));
+        fieldTypeMap.put("java.sql.Blob", 12);
+        fieldTypeMap.put("Blob", 12);
+        fieldTypeMap.put("byte[]", 12);
+        fieldTypeMap.put("java.nio.ByteBuffer", 12);
+        fieldTypeMap.put("java.nio.HeapByteBuffer", 12);
         
-        fieldTypeMap.put("java.sql.Clob", new Integer(13));
-        fieldTypeMap.put("Clob", new Integer(13));
+        fieldTypeMap.put("java.sql.Clob", 13);
+        fieldTypeMap.put("Clob", 13);
 
-        fieldTypeMap.put("java.util.Date", new Integer(14));
+        fieldTypeMap.put("java.util.Date", 14);
 
         // all of these treated as Collection
-        fieldTypeMap.put("java.util.ArrayList", new Integer(15));
-        fieldTypeMap.put("java.util.HashSet", new Integer(15));
-        fieldTypeMap.put("java.util.LinkedHashSet", new Integer(15));
-        fieldTypeMap.put("java.util.LinkedList", new Integer(15));
+        fieldTypeMap.put("java.util.ArrayList", 15);
+        fieldTypeMap.put("java.util.HashSet", 15);
+        fieldTypeMap.put("java.util.LinkedHashSet", 15);
+        fieldTypeMap.put("java.util.LinkedList", 15);
     }
 
     public static int getType(String fieldType) throws GenericNotImplementedException {
