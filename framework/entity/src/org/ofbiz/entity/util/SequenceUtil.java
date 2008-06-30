@@ -91,7 +91,7 @@ public class SequenceUtil {
     }
     
     private SequenceBank getBank(String seqName, ModelEntity seqModelEntity) {
-        SequenceBank bank = (SequenceBank) sequences.get(seqName);
+        SequenceBank bank = sequences.get(seqName);
 
         if (bank == null) {
             synchronized(this) {
@@ -137,13 +137,13 @@ public class SequenceUtil {
             }
             
             if ((curSeqId + stagger) <= maxSeqId) {
-                Long retSeqId = new Long(curSeqId);
+                Long retSeqId = Long.valueOf(curSeqId);
                 curSeqId += stagger;
                 return retSeqId;
             } else {
                 fillBank(stagger, this.seqModelEntity);
                 if ((curSeqId + stagger) <= maxSeqId) {
-                    Long retSeqId = new Long(curSeqId);
+                    Long retSeqId = Long.valueOf(curSeqId);
                     curSeqId += stagger;
                     return retSeqId;
                 } else {

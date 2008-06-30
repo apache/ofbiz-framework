@@ -928,7 +928,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
     }
 
     // ======= XML Related Methods ========
-    public static Document makeXmlDocument(Collection values) {
+    public static Document makeXmlDocument(Collection<GenericValue> values) {
         Document document = UtilXml.makeEmptyXmlDocument("entity-engine-xml");
 
         if (document == null) return null;
