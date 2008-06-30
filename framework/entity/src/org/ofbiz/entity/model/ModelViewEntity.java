@@ -748,7 +748,7 @@ public class ModelViewEntity extends ModelEntity {
             String primKeyValue = UtilXml.checkEmpty(aliasElement.getAttribute("prim-key"));
 
             if (UtilValidate.isNotEmpty(primKeyValue)) {
-                this.isPk = new Boolean("true".equals(primKeyValue));
+                this.isPk = Boolean.valueOf("true".equals(primKeyValue));
             } else {
                 this.isPk = null;
             }

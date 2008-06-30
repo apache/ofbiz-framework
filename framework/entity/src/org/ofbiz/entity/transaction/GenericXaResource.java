@@ -165,7 +165,7 @@ public abstract class GenericXaResource extends Thread implements XAResource {
      * Note: the valus is saved but in the current implementation this is not used.
      */
     public boolean setTransactionTimeout(int seconds) throws XAException {
-        this.timeout = (seconds == 0 ? null : new Integer(seconds));
+        this.timeout = (seconds == 0 ? null : Integer.valueOf(seconds));
         return true;
     }
 

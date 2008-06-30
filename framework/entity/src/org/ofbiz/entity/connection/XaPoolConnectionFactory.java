@@ -110,12 +110,12 @@ public class XaPoolConnectionFactory {
             
             // configure the pool settings           
             try {            
-                pds.setMaxSize(new Integer(jotmJdbcElement.getAttribute("pool-maxsize")).intValue());
-                pds.setMinSize(new Integer(jotmJdbcElement.getAttribute("pool-minsize")).intValue());
-                pds.setSleepTime(new Long(jotmJdbcElement.getAttribute("pool-sleeptime")).longValue());
-                pds.setLifeTime(new Long(jotmJdbcElement.getAttribute("pool-lifetime")).longValue());
-                pds.setDeadLockMaxWait(new Long(jotmJdbcElement.getAttribute("pool-deadlock-maxwait")).longValue());
-                pds.setDeadLockRetryWait(new Long(jotmJdbcElement.getAttribute("pool-deadlock-retrywait")).longValue());
+                pds.setMaxSize(Integer.parseInt(jotmJdbcElement.getAttribute("pool-maxsize")));
+                pds.setMinSize(Integer.parseInt(jotmJdbcElement.getAttribute("pool-minsize")));
+                pds.setSleepTime(Long.parseLong(jotmJdbcElement.getAttribute("pool-sleeptime")));
+                pds.setLifeTime(Long.parseLong(jotmJdbcElement.getAttribute("pool-lifetime")));
+                pds.setDeadLockMaxWait(Long.parseLong(jotmJdbcElement.getAttribute("pool-deadlock-maxwait")));
+                pds.setDeadLockRetryWait(Long.parseLong(jotmJdbcElement.getAttribute("pool-deadlock-retrywait")));
                 
                 // set the test statement to test connections
                 String testStmt = jotmJdbcElement.getAttribute("pool-jdbc-test-stmt");

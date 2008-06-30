@@ -547,7 +547,7 @@ public class SQLProcessor {
             //if (field.length() > 4000) {
                 //Clob clb = new Cl
                 // doesn't work with Oracle drivers, need the funky work-around: _ps.setCharacterStream(_ind, new StringReader(field), field.length());
-                //_needClobWorkAroundWrite.put(new Integer(_ind), field);
+                //_needClobWorkAroundWrite.put(Integer.valueOf(_ind), field);
                 //_ps.setString(_ind, " ");
             //} else {
                 _ps.setString(_ind, field);

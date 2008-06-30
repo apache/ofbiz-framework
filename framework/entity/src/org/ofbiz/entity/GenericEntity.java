@@ -619,7 +619,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
         // this "hack" is needed for now until the Double/BigDecimal issues are all resolved
         Object value = get(name);
         if (value instanceof BigDecimal) {
-            return new Double(((BigDecimal) value).doubleValue());
+            return Double.valueOf(((BigDecimal) value).doubleValue());
         } else {
             return (Double) value;
         }
