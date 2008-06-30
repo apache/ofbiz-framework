@@ -355,7 +355,7 @@ public class ModelScreenCondition implements Serializable {
             Class[] paramTypes = new Class[] {String.class};
             Object[] params = new Object[] {fieldString};
 
-            Class valClass;
+            Class<?> valClass;
             try {
                 valClass = ObjectType.loadClass(className);
             } catch (ClassNotFoundException cnfe) {
