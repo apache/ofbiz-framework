@@ -29,6 +29,11 @@ public class UtilGenerics {
 
     public static final String module = UtilMisc.class.getName();
 
+    @SuppressWarnings("unchecked")
+    public static <V> V cast(Object object) {
+        return (V) object;
+    }
+
     private static <C extends Collection<?>> C checkCollectionCast(Object object, Class<C> clz) {
         return clz.cast(object);
     }
