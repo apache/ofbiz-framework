@@ -67,7 +67,7 @@ public class EntityListIterator implements ListIterator<GenericValue> {
         this.modelFieldTypeReader = modelFieldTypeReader;
     }
 
-    public EntityListIterator(ResultSet resultSet, ModelEntity modelEntity, List selectFields, ModelFieldTypeReader modelFieldTypeReader) {
+    public EntityListIterator(ResultSet resultSet, ModelEntity modelEntity, List<ModelField> selectFields, ModelFieldTypeReader modelFieldTypeReader) {
         this.sqlp = null; 
         this.resultSet = resultSet; 
         this.modelEntity = modelEntity;
