@@ -31,7 +31,7 @@ public abstract class AbstractParameterTag extends TagSupport {
     private Map inParameters = null;
     private Map outParameters = null;
 
-    public void addInParameter(Object name, Object value) {
+    public void addInParameter(String name, Object value) {
         if (this.inParameters == null)
             this.inParameters = new HashMap();
         inParameters.put(name, value);
