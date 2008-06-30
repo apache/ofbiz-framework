@@ -22,6 +22,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Stack;
 
 import javolution.util.FastMap;
 
@@ -93,6 +94,16 @@ public class UtilGenerics {
             }
         }
         return checkMap(object);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T> Stack<T> checkStack(Object object) {
+        return (Stack<T>) checkCollectionCast(object, Stack.class);
+    }
+
+    public static <T> Stack<T> checkStack(Object object, Class<T> type) {
+        checkCollectionContainment(object, Stack.class, type);
+        return checkStack(object);
     }
 
     @SuppressWarnings("unchecked")
