@@ -91,8 +91,6 @@ under the License.
         </field>
         <field name="percentComplete" position="2"/>
         
-        <field name="statusChangeNote" use-when="workEffort==null"><ignored/></field>
-                
         <field name="priority" position="1">
             <drop-down allow-empty="true">
                 <option key="1" description="1 (${uiLabelMap.WorkEffortPriorityHigh})"/><option key="2"/><option key="3"/><option key="4"/><option key="5"/>
@@ -166,7 +164,6 @@ under the License.
             <sort-field name="workEffortPurposeTypeId"/>
             <sort-field name="currentStatusId"/>
             <sort-field name="percentComplete"/>
-            <sort-field name="statusChangeNote"/>
             <sort-field name="priority"/>
             <sort-field name="scopeEnumId"/>
             <sort-field name="estimatedStartDate"/>

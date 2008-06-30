@@ -245,7 +245,6 @@ under the License.
       <field name="showAsEnumId" type="id"></field>
       <field name="sendNotificationEmail" type="indicator"></field>
       <field name="description" type="description"></field>
-      <field name="statusChangeNote" type="description"></field>
       <field name="locationDesc" type="description"></field>
       <field name="estimatedStartDate" type="date-time"></field>
       <field name="estimatedCompletionDate" type="date-time"></field>
