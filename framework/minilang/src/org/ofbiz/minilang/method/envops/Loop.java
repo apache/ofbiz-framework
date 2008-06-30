@@ -54,7 +54,7 @@ public class Loop extends MethodOperation {
         String countStrExp = methodContext.expandString(this.countStr);
         int count = 0;
         try {
-            Double ctDbl = new Double(countStrExp);
+            Double ctDbl = Double.valueOf(countStrExp);
             if (ctDbl != null) {
                 count = ctDbl.intValue();    
             }
@@ -69,7 +69,7 @@ public class Loop extends MethodOperation {
         }
 
         for (int i = 0; i < count; i++) {
-            fieldAcsr.put(methodContext, new Integer(i));
+            fieldAcsr.put(methodContext, Integer.valueOf(i));
             if (!SimpleMethod.runSubOps(subOps, methodContext)) {
                 // only return here if it returns false, otherwise just carry on
                 return false;

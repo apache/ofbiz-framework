@@ -83,9 +83,9 @@ public class OfbizCurrencyTransform implements TemplateTransformModel {
             }
             if (o instanceof SimpleScalar) {
                 SimpleScalar s = (SimpleScalar) o;
-                return new Double( s.getAsString() );
+                return Double.valueOf( s.getAsString() );
             }
-            return new Double( o.toString() );
+            return Double.valueOf( o.toString() );
         }
         return 0.00;
     }
@@ -110,9 +110,9 @@ public class OfbizCurrencyTransform implements TemplateTransformModel {
             }
             if (o instanceof SimpleScalar) {
                 SimpleScalar s = (SimpleScalar) o;
-                return new Integer( s.getAsString() );
+                return Integer.valueOf( s.getAsString() );
             }
-            return new Integer(o.toString());
+            return Integer.valueOf(o.toString());
         }
         return 0;
     }

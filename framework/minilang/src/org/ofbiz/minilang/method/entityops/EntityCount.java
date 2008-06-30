@@ -102,7 +102,7 @@ public class EntityCount extends MethodOperation {
             
             long count = delegator.findCountByCondition(entityName, whereEntityCondition, havingEntityCondition, null);
             
-            this.countAcsr.put(context, new Long(count));
+            this.countAcsr.put(context, Long.valueOf(count));
         } catch (GeneralException e) {
             Debug.logError(e, module);
             String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process: " + e.getMessage();

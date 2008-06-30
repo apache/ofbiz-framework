@@ -125,7 +125,7 @@ public class WebToolsServices {
         Integer txTimeout = (Integer)context.get("txTimeout");
 
         if (txTimeout == null) {
-            txTimeout = new Integer(7200);
+            txTimeout = Integer.valueOf(7200);
         }
         InputSource ins = null;
         URL url = null;
@@ -244,10 +244,10 @@ public class WebToolsServices {
         Long filePause = (Long)context.get("filePause");
 
         if (txTimeout == null) {
-            txTimeout = new Integer(7200);
+            txTimeout = Integer.valueOf(7200);
         }
         if (filePause == null) {
-            filePause = new Long(0);
+            filePause = Long.valueOf(0);
         }
 
         if (path != null && path.length() > 0) {
@@ -458,10 +458,10 @@ public class WebToolsServices {
         Integer txTimeout = (Integer)context.get("txTimeout");
 
         if (txTimeout == null) {
-            txTimeout = new Integer(7200);
+            txTimeout = Integer.valueOf(7200);
         }
 
-        Long rowProcessed = new Long(0);
+        Long rowProcessed = Long.valueOf(0);
         try {
             EntitySaxReader reader = new EntitySaxReader(delegator);
             reader.setUseTryInsertMethod(mostlyInserts);
@@ -471,7 +471,7 @@ public class WebToolsServices {
             reader.setCheckDataOnly(checkDataOnly); 
 
             long numberRead = (url != null ? reader.parse(url) : reader.parse(xmltext));
-            rowProcessed = new Long(numberRead);
+            rowProcessed = Long.valueOf(numberRead);
         } catch (Exception ex){
             return ServiceUtil.returnError("Error parsing entity xml file: " + ex.toString());
         }
@@ -486,7 +486,7 @@ public class WebToolsServices {
         String outpath = (String)context.get("outpath"); // mandatory
         Integer txTimeout = (Integer)context.get("txTimeout");
         if (txTimeout == null) {
-            txTimeout = new Integer(7200);
+            txTimeout = Integer.valueOf(7200);
         }
 
         List results = new ArrayList();
@@ -913,7 +913,7 @@ public class WebToolsServices {
         } catch (Exception e) {
             viewIndex = 0;
         }
-        result.put("viewIndex", new Integer(viewIndex));
+        result.put("viewIndex", Integer.valueOf(viewIndex));
 
         int viewSize = 50;
         try {
@@ -921,7 +921,7 @@ public class WebToolsServices {
         } catch (Exception e) {
             viewSize = 50;
         }
-        result.put("viewSize", new Integer(viewSize));
+        result.put("viewSize", Integer.valueOf(viewSize));
         
 //      get the lookup flag
         String lookupFlag = (String) context.get("lookupFlag");
@@ -1021,10 +1021,10 @@ public class WebToolsServices {
        if (jobList == null) jobList = FastList.newInstance();
        String paramString = StringUtil.join(paramList, "&amp;");
        result.put("paramList", (paramString != null ? paramString: ""));
-       result.put("lowIndex", new Integer(lowIndex));
-       result.put("highIndex", new Integer(highIndex));
+       result.put("lowIndex", Integer.valueOf(lowIndex));
+       result.put("highIndex", Integer.valueOf(highIndex));
        result.put("jobs", jobList);
-       result.put("jobListSize", new Integer(jobListSize));
+       result.put("jobListSize", Integer.valueOf(jobListSize));
        return result;
     }
     

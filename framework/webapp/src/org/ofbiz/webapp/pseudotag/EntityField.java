@@ -149,7 +149,7 @@ public class EntityField {
 
                     try {
                         if (objStr.length() > 0) {
-                            fieldObject = new Double(objStr);
+                            fieldObject = Double.valueOf(objStr);
                         }
                     } catch (NumberFormatException nfe) {
                         throw new IllegalStateException("String not a number for printing of type currency: " + objStr);

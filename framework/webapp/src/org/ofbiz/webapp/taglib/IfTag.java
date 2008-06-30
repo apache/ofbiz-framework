@@ -125,7 +125,7 @@ public class IfTag extends BodyTagSupport {
                 Boolean b = (Boolean) object;
 
                 if (value != null) {
-                    Boolean v = new Boolean(value);
+                    Boolean v = Boolean.valueOf(value);
 
                     if (b.equals(v))
                         return EVAL_BODY_AGAIN;

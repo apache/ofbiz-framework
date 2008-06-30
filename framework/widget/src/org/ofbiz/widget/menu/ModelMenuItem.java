@@ -433,7 +433,7 @@ public class ModelMenuItem {
      * @param i
      */
     public void setPosition(int i) {
-        position = new Integer(i);
+        position = Integer.valueOf(i);
     }
 
 

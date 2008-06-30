@@ -441,7 +441,7 @@ public class LoginWorker {
         } catch (GenericServiceException e) {
             Debug.logError(e, "Error getting user preference", module);
         }
-        session.setAttribute("javaScriptEnabled", new Boolean("Y".equals(javaScriptEnabled)));
+        session.setAttribute("javaScriptEnabled", Boolean.valueOf("Y".equals(javaScriptEnabled)));
 
         ModelEntity modelUserLogin = userLogin.getModelEntity();
         if (modelUserLogin.isField("partyId")) {

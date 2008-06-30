@@ -70,7 +70,7 @@ public class JasperReportsPdfViewHandler implements ViewHandler {
         }
 
         // tell the ContextFilter we are forwarding
-        request.setAttribute(ContextFilter.FORWARDED_FROM_SERVLET, new Boolean(true));
+        request.setAttribute(ContextFilter.FORWARDED_FROM_SERVLET, Boolean.valueOf(true));
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         if (delegator == null) {
             throw new ViewHandlerException("The delegator object was null, how did that happen?");
