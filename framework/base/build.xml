@@ -19,42 +19,21 @@ under the License.
 -->
 
 <project name="OFBiz - Base" default="jar" basedir=".">
+    <import file="../../common.xml"/>
 
     <!-- ================================================================== -->
     <!-- Initialization of all property settings                            -->
     <!-- ================================================================== -->
 
-    <target name="init">                
-        <property environment="env"/>
-        <property name="name" value="ofbiz-base"/>
-        <property name="ofbiz.home.dir" value="../.."/>
-        <property name="src.dir" value="src"/>
-        <property name="dtd.dir" value="dtd"/>
-        <property name="lib.dir" value="lib"/>
-        <property name="build.dir" value="build"/>        
-    </target>
-    
-    <target name="classpath">		        
-        <path id="local.class.path">
-            <fileset dir="${lib.dir}" includes="*.jar"/>
-            <fileset dir="${lib.dir}/commons" includes="*.jar"/>
-            <fileset dir="${lib.dir}/j2eespecs" includes="*.jar"/>
-            <fileset dir="${lib.dir}/scripting" includes="*.jar"/>
-        </path>
-    </target>
-    
-    <!-- ================================================================== -->
-    <!-- Removes all created files and directories                          -->
-    <!-- ================================================================== -->
+    <property name="name" value="ofbiz-base"/>
+    <property name="ofbiz.home.dir" value="../.."/>
 
-    <target name="clean" depends="clean-lib">
-        <delete dir="${build.dir}"/>
-        <delete file="../../ofbiz.jar"/>
-    </target>
-
-    <target name="clean-lib" depends="init">
-        <delete dir="${build.dir}/lib"/>        
-    </target>
+    <path id="local.class.path">
+        <fileset dir="${lib.dir}" includes="*.jar"/>
+        <fileset dir="${lib.dir}/commons" includes="*.jar"/>
+        <fileset dir="${lib.dir}/j2eespecs" includes="*.jar"/>
+        <fileset dir="${lib.dir}/scripting" includes="*.jar"/>
+    </path>
     
     <!-- ================================================================== -->
     <!-- Makes sure the needed directory structure is in place              -->
@@ -67,20 +46,13 @@ under the License.
         <mkdir dir="${build.dir}/lib"/>
     </target>
     
-    <target name="prepare-docs" depends="init">
-        <mkdir dir="${build.dir}/javadocs"/>        
-    </target>
-    
     <!-- ================================================================== -->
     <!-- Compilation of the source files                                    -->
     <!-- ================================================================== -->               
 
-    <target name="classes" depends="prepare,classpath">
+    <target name="classes" depends="prepare">
         <!-- compile start -->
-    	<javac debug="on" source="1.5" deprecation="on" destdir="${build.dir}/classes/start">
-            <compilerarg value="-Xlint:unchecked"/>
-            <src path="${src.dir}/start"/>
-        </javac>
+	<javac15 destdir="${build.dir}/classes/start" classpathref="local.class.path" srcdir="${src.dir}/start"/>
         <copy todir="${build.dir}/classes/start">
           <fileset dir="${src.dir}/start" includes="**/*.properties,**/*.xml,**/*.bsh,**/*.logic,**/*.js,**/*.jacl,**/*.py"/>
         </copy>
@@ -93,15 +65,14 @@ under the License.
         </condition>
 
         <!-- compile base -->
-    	<javac debug="on" source="1.5" deprecation="on" destdir="${build.dir}/classes/base">            
+	<javac15 destdir="${build.dir}/classes/base" srcdir="${src.dir}/base">            
             <classpath>
                 <path refid="local.class.path"/>
                 <pathelement path="${build.dir}/classes/start"/>
             </classpath>
-            <src path="${src.dir}/base"/>
             <exclude name="${exclude.crypto}"/>
             <exclude name="org/ofbiz/base/util/OfbizJsBsfEngine.java"/>
-        </javac>
+        </javac15>
         <!-- also put the DTDs in the jar file... -->
         <copy todir="${build.dir}/classes/base">
             <fileset dir="${dtd.dir}" includes="*.dtd"/>
@@ -130,7 +101,7 @@ under the License.
     <!-- Build JavaDoc                                                      -->
     <!-- ================================================================== -->
 
-    <target name="docs" depends="prepare-docs,classpath">
+    <target name="docs" depends="prepare-docs">
         <javadoc packagenames="org.ofbiz.base.*" 
                  classpathref="local.class.path"
                  destdir="${build.dir}/javadocs" 
@@ -139,6 +110,4 @@ under the License.
             <sourcepath path="${src.dir}/base"/>            
         </javadoc>
     </target>
-    
-    <target name="all" depends="jar,docs"/>   
 </project>
