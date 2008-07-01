@@ -431,7 +431,7 @@ public class GenericDelegator implements DelegatorInterface {
         if (helperName != null && helperName.length() > 0) {
             return GenericHelperFactory.getHelper(helperName);
         } else {
-            throw new GenericEntityException("Helper name not found for entity " + entityName);
+            throw new GenericEntityException("There is no datasource (Helper) configured for the entity-group [" + this.getEntityGroupName(entityName) + "]; was trying to find datesource (helper) for entity [" + entityName + "]");
         }
     }
 

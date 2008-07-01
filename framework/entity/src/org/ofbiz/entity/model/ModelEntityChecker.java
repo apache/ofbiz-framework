@@ -81,10 +81,11 @@ public class ModelEntityChecker {
                 String groupName = delegator.getEntityGroupName(entityName);
                 ModelEntity entity = reader.getModelEntity(entityName);
                 if (helperName == null) {
-                    warningList.add("[HelperNotFound] No Helper (DataSource) definition found for entity " + entity.getEntityName() + ".");
                     //only show group name warning if helper name not found
-                    if (groupName == null) {
+                    if (UtilValidate.isEmpty(groupName)) {
                             warningList.add("[GroupNotFound] No Group Name found for entity " + entity.getEntityName() + ".");
+                    } else {
+                        warningList.add("[HelperNotFound] No Helper (DataSource) definition found for entity [" + entity.getEntityName() + "] because there is no helper (datasource) configured for the entity group it is in: [" + groupName + "]");
                     }
                 }
                 if (entity.getPlainTableName() != null && entity.getPlainTableName().length() > 30) {
