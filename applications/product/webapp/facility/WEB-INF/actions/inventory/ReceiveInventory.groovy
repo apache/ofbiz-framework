@@ -134,25 +134,24 @@ if (purchaseOrderItems) {
         totalReceived = 0.0;
         receipts = thisItem.getRelated("ShipmentReceipt");
         if (receipts) {
-            while (rec = receipts.next()) {
-                if (shipment) {
-                    if (!rec.shipmentId || !rec.shipmentId.equals(shipment.shipmentId)) {
-                        continue;
+            receipts.each { rec ->
+                if (!shipment || (rec.shipmentId && rec.shipmentId.equals(shipment.shipmentId))) {
+                    accepted = rec.getDouble("quantityAccepted");
+                    rejected = rec.getDouble("quantityRejected");
+                    if (accepted) {
+                        totalReceived += accepted.doubleValue();
                     }
+                    if (rejected) {
+                        totalReceived += rejected.doubleValue();
+                    }                                            
                 }
-                accepted = rec.getDouble("quantityAccepted");
-                rejected = rec.getDouble("quantityRejected");
-                if (accepted)
-                    totalReceived += accepted.doubleValue();
-                if (rejected)
-                    totalReceived += rejected.doubleValue();                                            
             }            
         }
         receivedQuantities.put(thisItem.orderItemSeqId, new Double(totalReceived));
         //----------------------
-        salesOrderItemAssocs = delegator.findList("OrderItemAssoc", [orderItemAssocTypeId : 'PURCHASE_ORDER',
+        salesOrderItemAssocs = delegator.findList("OrderItemAssoc", EntityCondition.makeCondition([orderItemAssocTypeId : 'PURCHASE_ORDER',
                                                                      toOrderId : thisItem.orderId,
-                                                                     toOrderItemSeqId : thisItem.orderItemSeqId], 
+                                                                     toOrderItemSeqId : thisItem.orderItemSeqId]), 
                                                                      null, null, null, false);
         if (salesOrderItemAssocs) {
             salesOrderItem = EntityUtil.getFirst(salesOrderItemAssocs);
@@ -163,7 +162,7 @@ if (purchaseOrderItems) {
 
 receivedItems = null;
 if (purchaseOrder) {
-    receivedItems = delegator.findList("ShipmentReceiptAndItem", [orderId : purchaseOrderId, facilityId : facilityId], null, null, null, false);
+    receivedItems = delegator.findList("ShipmentReceiptAndItem", EntityCondition.makeCondition([orderId : purchaseOrderId, facilityId : facilityId]), null, null, null, false);
     context.receivedItems = receivedItems;
 }
 
@@ -188,16 +187,14 @@ if (ownerAcctgPref) {
 
     // get the unit cost of the products in a shipment
     if (purchaseOrderItems) {
-        while (orderItem = purchaseOrderItems.next()) {        
+        purchaseOrderItems.each { orderItem ->
             productId = orderItem.productId;
-            if (!productId) {
-                continue;
-            }
-
-            result = dispatcher.runSync("getProductCost", [productId : productId, currencyUomId : ownerAcctgPref.baseCurrencyUomId, 
-                                                           costComponentTypePrefix : 'EST_STD', userLogin : request.getAttribute("userLogin")]);
-            if (!ServiceUtil.isError(result)) {
-                standardCosts.put(productId, result.productCost);
+            if (productId) {
+                result = dispatcher.runSync("getProductCost", [productId : productId, currencyUomId : ownerAcctgPref.baseCurrencyUomId, 
+                                                               costComponentTypePrefix : 'EST_STD', userLogin : request.getAttribute("userLogin")]);
+                if (!ServiceUtil.isError(result)) {
+                    standardCosts.put(productId, result.productCost);
+                }
             }
         }
     }
