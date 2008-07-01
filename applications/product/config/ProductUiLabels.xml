@@ -7,9 +7,9 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License. You may obtain a copy of the License at
-    
+
     http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -695,7 +695,7 @@
         <value xml:lang="ru">Обещано</value>
         <value xml:lang="th">เปลี่ยนแปลงคำสัญญาที่มีอยู่</value>
         <value xml:lang="zh">承诺有效变量</value>
-    </property>        
+    </property>
     <property key="FormFieldTitle_balanceResOnOrderCreation">
         <value xml:lang="en">Balance Res On Order Creation</value>
         <value xml:lang="fr">Expédition par un tiers : réservation de stock réévaluée suivant les dates d'exp. au plus tard</value>
@@ -3252,7 +3252,7 @@
     </property>
     <property key="FormFieldTitle_showPricesWithVatTax">
         <value xml:lang="en">Show Prices With Vat Tax</value>
-        <value xml:lang="fr">Montrer les prix avec la TVA (prix et TVA)</value>
+        <value xml:lang="fr">Montrer les prix avec la TVA incluse (TTC)</value>
         <value xml:lang="it">Mostra Prezzi Con IVA</value>
         <value xml:lang="ro">Afiseaza Pret Cu IVA</value>
         <value xml:lang="ru">Показывать цены с НДС</value>
@@ -3347,7 +3347,7 @@
         <value xml:lang="ru">Послать заголовок</value>
         <value xml:lang="th">ยอมรับคำชี้แจง</value>
         <value xml:lang="zh">提交标题</value>
-    </property>  
+    </property>
     <property key="FormFieldTitle_subscriptionId">
         <value xml:lang="en">Subscription Id</value>
         <value xml:lang="fr">Réf. de l'abonnement</value>
@@ -4330,7 +4330,7 @@
         <value xml:lang="ru">Изменить категории особенностей</value>
         <value xml:lang="th">แก้ไขประเภทการทำงาน</value>
         <value xml:lang="zh">编辑特征类型</value>
-    </property> 
+    </property>
     <property key="AddFeatureInteraction">
         <value xml:lang="en">Add Feature Interaction</value>
         <value xml:lang="fr">Ajouter une interaction avec une caractéristique</value>
@@ -4338,14 +4338,14 @@
     <property key="ListFeatureInteractions">
         <value xml:lang="en">List Feature Interactions</value>
         <value xml:lang="fr">Lister les interactions avec une caractéristique</value>
-    </property>  
+    </property>
     <property key="PageTitleEditProductFeatureInteractions">
         <value xml:lang="en">Edit Product Feature Interactions</value>
-        <value xml:lang="fr">Éditer les interactions avec une caractéristique de produit</value>    
+        <value xml:lang="fr">Éditer les interactions avec une caractéristique de produit</value>
     </property>
     <property key="PageTitleEditFeatureInterActions">
         <value xml:lang="en">Edit Feature InterActions</value>
-        <value xml:lang="fr">Éditer les interactions avec une caractéristique</value>    
+        <value xml:lang="fr">Éditer les interactions avec une caractéristique</value>
     </property>
     <property key="PageTitleEditInventoryItem">
         <value xml:lang="en">Edit Inventory Item</value>
@@ -5295,7 +5295,7 @@
     <property key="PageTitleNewFacilityContactMech">
         <value xml:lang="en">New Facility Contact Mechanism for ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="es">Editar Mecanismos de Contacto de un Almacén</value>
-        <value xml:lang="fr">Édition des coordonnées du lieu de stockage ${facility.facilityName} [${facility.facilityId}]</value> 
+        <value xml:lang="fr">Édition des coordonnées du lieu de stockage ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="it">Aggiorna Contatto Stabilimento</value>
         <value xml:lang="ro">Actualizeaza Contact Compartiment</value>
         <value xml:lang="ru">Изменить способ контакта объекта</value>
@@ -17544,7 +17544,7 @@
     <property key="ProductVirtualVariantMethod">
         <value xml:lang="en">Virtual Variant Method</value>
         <value xml:lang="fr">Méthode utilisée pour les variantes</value>
-    </property>    
+    </property>
     <property key="ProductVoidUpsShipment">
         <value xml:lang="en">Void UPS Shipment</value>
         <value xml:lang="es">Envío vacío de UPS</value>
