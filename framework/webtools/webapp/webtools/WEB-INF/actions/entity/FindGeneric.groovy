@@ -41,25 +41,25 @@ import java.sql.Time;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
-String entityName = parameters.get("entityName");
+entityName = parameters.entityName;
 
 ModelReader reader = delegator.getModelReader();
 ModelEntity modelEntity = reader.getModelEntity(entityName);
 
-context.put("entityName", modelEntity.getEntityName());
-context.put("plainTableName", modelEntity.getPlainTableName());
+context.entityName = modelEntity.getEntityName();
+context.plainTableName = modelEntity.getPlainTableName();
 
 String hasViewPermission = (security.hasEntityPermission("ENTITY_DATA", "_VIEW", session) || security.hasEntityPermission(modelEntity.getPlainTableName(), "_VIEW", session)) == true ? "Y" : "N";
 String hasCreatePermission = (security.hasEntityPermission("ENTITY_DATA", "_CREATE", session) || security.hasEntityPermission(modelEntity.getPlainTableName(), "_CREATE", session)) == true ? "Y" : "N";
 String hasUpdatePermission = (security.hasEntityPermission("ENTITY_DATA", "_UPDATE", session) || security.hasEntityPermission(modelEntity.getPlainTableName(), "_UPDATE", session)) == true ? "Y" : "N";
 String hasDeletePermission = (security.hasEntityPermission("ENTITY_DATA", "_DELETE", session) || security.hasEntityPermission(modelEntity.getPlainTableName(), "_DELETE", session)) == true ? "Y" : "N";
 
-context.put("hasViewPermission", hasViewPermission);
-context.put("hasCreatePermission", hasCreatePermission);
-context.put("hasUpdatePermission", hasUpdatePermission);
-context.put("hasDeletePermission", hasDeletePermission);
+context.hasViewPermission = hasViewPermission;
+context.hasCreatePermission = hasCreatePermission;
+context.hasUpdatePermission = hasUpdatePermission;
+context.hasDeletePermission = hasDeletePermission;
 
-String find = parameters.get("find");
+String find = parameters.find;
 if (find == null) {
     find = "false";
 }
@@ -83,12 +83,12 @@ for (int fnum = 0; fnum < modelEntity.getFieldsSize(); fnum++) {
         }
     }
 }
-if (errMsgList.size() > 0) {
+if (errMsgList) {
     request.setAttribute("_ERROR_MESSAGE_LIST_", errMsgList);
 }
 
 curFindString = UtilFormatOut.encodeQuery(curFindString);
-context.put("curFindString", curFindString);
+context.curFindString = curFindString;
 
 try { 
     viewIndex = Integer.valueOf((String)parameters.get("VIEW_INDEX")).intValue(); 
@@ -96,11 +96,10 @@ try {
     viewIndex = 0; 
 }
 
-int viewIndexFirst = 0;
-context.put("viewIndexFirst",viewIndexFirst);
-context.put("viewIndex", viewIndex);
-context.put("viewIndexPrevious", viewIndex-1);
-context.put("viewIndexNext", viewIndex+1);
+context.viewIndexFirst = 0;
+context.viewIndex = viewIndex;
+context.viewIndexPrevious = viewIndex-1;
+context.viewIndexNext = viewIndex+1;
 
 try {
     viewSize = Integer.valueOf((String)parameters.get("VIEW_SIZE")).intValue();
@@ -108,11 +107,11 @@ try {
     viewSize = 10; 
 }
 
-context.put("viewSize", viewSize);
+context.viewSize = viewSize;
 
 int lowIndex = viewIndex*viewSize+1;
 int highIndex = (viewIndex+1)*viewSize;
-context.put("lowIndex", lowIndex);
+context.lowIndex = lowIndex;
 
 int arraySize = 0;
 List resultPartialList = null;
@@ -134,10 +133,7 @@ if ("true".equals(find)) {
     }
     condition = EntityCondition.makeCondition(conditionList, EntityOperator.AND);
     
-    arraySize = (int) delegator.findCountByCondition(entityName, condition, null, null);
-    if (arraySize < highIndex) {
-        highIndex = arraySize;
-    }
+    // DEJ 20080701 avoid using redundant query, will use eli.getResultsSizeAfterPartialList() below instead: arraySize = (int) delegator.findCountByCondition(entityName, condition, null, null);
     
     if ((highIndex - lowIndex + 1) > 0) {
         boolean beganTransaction = false;
@@ -149,6 +145,12 @@ if ("true".equals(find)) {
             EntityListIterator resultEli = null;
             resultEli = delegator.find(entityName, condition, null, null, null, efo);
             resultPartialList = resultEli.getPartialList(lowIndex, highIndex - lowIndex + 1);
+            
+            arraySize = resultEli.getResultsSizeAfterPartialList();
+            if (arraySize < highIndex) {
+                highIndex = arraySize;
+            }
+            
             resultEli.close();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Failure in operation, rolling back transaction", "FindGeneric.bsh");
@@ -166,16 +168,12 @@ if ("true".equals(find)) {
         }
     }
 }
-context.put("highIndex", highIndex);
-context.put("arraySize", arraySize);
-context.put("resultPartialList", resultPartialList);
-viewIndexLast = arraySize/viewSize;
-if (arraySize%2 != 0)
-   {
-      context.put("viewIndexLast",viewIndexLast);      
-   }else{
-        context.put("viewIndexLast",viewIndexLast-1);        
-   }
+context.highIndex = highIndex;
+context.arraySize = arraySize;
+context.resultPartialList = resultPartialList;
+
+viewIndexLast = (int) (arraySize/viewSize);
+context.viewIndexLast = viewIndexLast;      
 
 List fieldList = FastList.newInstance();
 for (int fnum = 0; fnum < modelEntity.getFieldsSize(); fnum++) {
@@ -191,8 +189,8 @@ for (int fnum = 0; fnum < modelEntity.getFieldsSize(); fnum++) {
     
     fieldList.add(fieldMap);
 }
-context.put("fieldList", fieldList);
-context.put("columnCount", (fieldList.size())+2);
+context.fieldList = fieldList;
+context.columnCount = fieldList.size()+2;
 
 List records = FastList.newInstance();
 if (resultPartialList != null) {
@@ -213,4 +211,4 @@ if (resultPartialList != null) {
         records.add(record);
     }
 }
-context.put("records", records);
+context.records = records;
