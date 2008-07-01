@@ -20,37 +20,87 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <form name="EditReturn" type="single" target="updateReturnHeader" 
+    <form name="EditReturn" type="single" target="updateReturn" default-map-name="returnHeader"
         header-row-style="header-row" default-table-style="basic-table">
-        <alt-target use-when="returnHeader==null" target="createReturnHeader"/>
+        <alt-target use-when="returnHeader==null" target="createReturn"/>
         <auto-fields-service service-name="updateReturnHeader"/>
+        <actions>
+            <entity-one entity-name="StatusItem" value-name="currentStatus" auto-field-map="false">
+                <field-map field-name="statusId" env-name="returnHeader.statusId"/>
+            </entity-one>
+        </actions>
         <field use-when="returnHeader!=null" name="returnId" tooltip="This cannot be changed without re-creating the Return."><display/></field>
         <field use-when="returnHeader==null&amp;&amp;returnId!=null" name="returnId" tooltip="Could not find Return with ID [${returnId}]"><text size="20" maxlength="20"/></field>
         <field use-when="returnHeader==null&amp;&amp;returnId==null" name="returnId"><ignored/></field>
-        
-        <field position="1" name="entryDate"/>
-        <field name="statusId">
+        <field name="currentStatusId" entry-name="statusId"><hidden/></field>
+        <field name="returnHeaderTypeId">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="ReturnHeaderType" description="${description}"/>
+            </drop-down>
+        </field>
+        <field name="statusId" use-when="returnHeader==null">
             <drop-down>
                 <entity-options entity-name="StatusItem" description="${description}">
                     <entity-constraint name="statusTypeId" value="ORDER_RETURN_STTS"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
+                <list-options key-name="statusIdTo" list-name="returnStatus" description="${transitionName}"/>
             </drop-down>
         </field>
+        <field name="statusId" use-when="returnHeader!=null">
+            <drop-down current-description="${currentStatus.description}">
+                <entity-options entity-name="StatusValidChangeToDetail" key-field-name="statusIdTo" description="${transitionName} (${description})">
+                    <entity-constraint name="statusId" env-name="returnHeader.statusId"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="currencyUomId" use-when="returnHeader==null">
+            <drop-down no-current-selected-key="${defaultCurrencyUomId}">
+                <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
+                    <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
+                    <entity-order-by field-name="abbreviation"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="currencyUomId" use-when="returnHeader!=null">
+            <display-entity entity-name="Uom" key-field-name="uomId" description="${abbreviation} - ${description}"/>
+        </field>
         <field name="destinationFacilityId">
-            <radio no-current-selected-key="">
-                <option key="" description="No Facility Specified"/>
+            <drop-down allow-empty="true">
                 <entity-options entity-name="Facility" key-field-name="facilityId" description="${facilityName}">
                     <entity-order-by field-name="facilityName"/>
                 </entity-options>
-            </radio>
+            </drop-down>
+        </field>
+        <field name="fromPartyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="toPartyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="originContactMechId" use-when="returnHeader!=null">
+            <display-entity entity-name="PostalAddress" key-field-name="contactMechId" description="${toName} ${attnName} ${address1} ${address2} ${city} ${stateProvinceGeoId} ${postalCode} ${countryGeoId}"/>
+        </field>
+        <field name="originContactMechId" use-when="returnHeader!=null&amp;&amp;&quot;RETURN_REQUESTED&quot;.equals(returnHeader.getString(&quot;statusId&quot;))">
+            <drop-down allow-empty="true">
+                <list-options key-name="postalAddress.contactMechId" list-name="addresses" description="${postalAddress.toName} ${postalAddress.attnName} ${postalAddress.address1} ${postalAddress.address2} ${postalAddress.city} ${postalAddress.stateProvinceGeoId} ${postalAddress.postalCode} ${postalAddress.countryGeoId}"/>
+            </drop-down>
+        </field>
+        <field name="billingAccountId" use-when="billingAccountList!=null&amp;&amp;billingAccountList.size()&gt;0">
+            <drop-down allow-empty="true">
+                <list-options key-name="billingAccountId" list-name="billingAccountList" description="${billingAccountId}: ${description}"/>
+            </drop-down>
+        </field>
+        <field name="paymentMethodId" use-when="creditCardList!=null&amp;&amp;creditCardList.size()&gt;0">
+            <drop-down allow-empty="true">
+                <list-options key-name="paymentMethodId" list-name="creditCardList" list-entry-name="creditCardPm" description="${bsh:org.ofbiz.party.contact.ContactHelper.formatCreditCard(creditCardPm.getRelatedOne(&quot;CreditCard&quot;))}"/>
+            </drop-down>
+        </field>
+        <field name="newCreditCard" widget-style="buttontext" use-when="returnHeader!=null&amp;&amp;returnHeader.getString(&quot;fromPartyId&quot;)!=null">
+            <hyperlink also-hidden="false" target="/partymgr/control/editcreditcard?partyId=${returnHeader.fromPartyId}${externalKeyParam}" target-window="partymgr" description="${uiLabelMap.AccountingCreateNewCreditCard}" target-type="inter-app"/>
         </field>
         <field name="needsInventoryReceive" tooltip="If this is Y then the return will be automatically Completed when it is Accepted, skipping the Received status and process.">
             <drop-down no-current-selected-key="N"><option key="N"/><option key="Y"/></drop-down>
         </field>
-        
-        <field service-name="updateReturnHeader" name="fromPartyId"/>
-        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="createdBy"><display/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     
     <form name="ReturnItems" type="multi" list-name="orderItems" target="createReturnItem" 
