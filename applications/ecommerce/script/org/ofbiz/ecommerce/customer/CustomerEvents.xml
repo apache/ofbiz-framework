@@ -332,6 +332,8 @@ under the License.
             <set from-field="tempMap.partyId" field="homePhonePurposeContext.partyId"/>
             <set value="PHONE_HOME" field="homePhonePurposeContext.contactMechPurposeTypeId"/>
             <call-service service-name="createPartyContactMechPurpose" in-map-name="homePhonePurposeContext"/>
+            <set value="PRIMARY_PHONE" field="homePhonePurposeContext.contactMechPurposeTypeId"/>
+            <call-service service-name="createPartyContactMechPurpose" in-map-name="homePhonePurposeContext"/>
         </if-not-empty>
 
         <!-- work phone -->
