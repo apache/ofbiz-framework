@@ -392,7 +392,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
                 Debug.logWarning(e, module);
             }
             if (type == null) {
-                throw new IllegalArgumentException("Type " + modelField.getType() + " not found");
+                throw new IllegalArgumentException("Type " + modelField.getType() + " not found for entity [" + this.getEntityName() + "]; probably because there is no datasource (helper) setup for the entity group that this entity is in: [" + this.getDelegator().getEntityGroupName(this.getEntityName()) + "]");
             }
 
             if (value instanceof Boolean) {
