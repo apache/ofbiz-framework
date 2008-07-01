@@ -132,13 +132,13 @@ public class SetCalendar extends MethodOperation {
         }
         
         // Convert Strings to ints
-        int years = Integer.parseInt("0" + methodContext.expandString(this.yearsExdr));
-        int months = Integer.parseInt("0" + methodContext.expandString(this.monthsExdr));
-        int days = Integer.parseInt("0" + methodContext.expandString(this.daysExdr));
-        int hours = Integer.parseInt("0" + methodContext.expandString(this.hoursExdr));
-        int minutes = Integer.parseInt("0" + methodContext.expandString(this.minutesExdr));
-        int seconds = Integer.parseInt("0" + methodContext.expandString(this.secondsExdr));
-        int millis = Integer.parseInt("0" + methodContext.expandString(this.millisExdr));
+        int years = this.yearsExdr.isEmpty() ? 0 : Integer.parseInt(methodContext.expandString(this.yearsExdr));
+        int months = this.monthsExdr.isEmpty() ? 0 : Integer.parseInt(methodContext.expandString(this.monthsExdr));
+        int days = this.daysExdr.isEmpty() ? 0 : Integer.parseInt(methodContext.expandString(this.daysExdr));
+        int hours = this.hoursExdr.isEmpty() ? 0 : Integer.parseInt(methodContext.expandString(this.hoursExdr));
+        int minutes = this.minutesExdr.isEmpty() ? 0 : Integer.parseInt(methodContext.expandString(this.minutesExdr));
+        int seconds = this.secondsExdr.isEmpty() ? 0 : Integer.parseInt(methodContext.expandString(this.secondsExdr));
+        int millis = this.millisExdr.isEmpty() ? 0 : Integer.parseInt(methodContext.expandString(this.millisExdr));
 
         // Adjust calendar
         Calendar cal = UtilDateTime.toCalendar(fromStamp, timeZone, locale);
