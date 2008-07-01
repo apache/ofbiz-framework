@@ -115,6 +115,11 @@ under the License.
 
     <form name="FindReturns" type="single"  target="findreturn" title=""
         header-row-style="header-row" default-table-style="basic-table">
+        <field name="returnHeaderTypeId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="ReturnHeaderType" description="${description}"/>
+            </drop-down>
+        </field>
         <field name="returnId" title="${uiLabelMap.OrderReturnId}"><text-find/></field>
         <field name="fromPartyId" title="${uiLabelMap.OrderReturnFromParty}">
             <lookup target-form-name="LookupPartyName"/>
