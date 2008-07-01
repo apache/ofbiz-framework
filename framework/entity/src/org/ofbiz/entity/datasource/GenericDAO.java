@@ -882,14 +882,36 @@ public class GenericDAO {
             // put this inside an if statement so that we don't have to generate the string when not used...
             Debug.logVerbose("Doing selectListIteratorByCondition with whereEntityCondition: " + whereEntityCondition, module);
         }
+        
+        boolean isGroupBy = false;
+        ModelViewEntity modelViewEntity = null;
+        String groupByString = null;
+        if (modelEntity instanceof ModelViewEntity) {
+            modelViewEntity = (ModelViewEntity) modelEntity;
+            groupByString = modelViewEntity.colNameString(modelViewEntity.getGroupBysCopy(), ", ", "", false);
+            if (UtilValidate.isNotEmpty(groupByString)) {
+                isGroupBy = true;                  
+            }
+        }
+        
+        // To get a count of the rows that will be returned when there is a GROUP BY, must do something like:
+        //     SELECT COUNT(1) FROM (SELECT COUNT(1) FROM OFBIZ.POSTAL_ADDRESS PA GROUP BY PA.CITY) TEMP_NAME
+        // instead of a simple:
+        //     SELECT COUNT(1) FROM OFBIZ.POSTAL_ADDRESS PA GROUP BY PA.CITY
 
         StringBuilder sqlBuffer = new StringBuilder("SELECT ");
-
-        if (findOptions.getDistinct()) {
-            sqlBuffer.append("DISTINCT ");
+        
+        if (isGroupBy) {
+            sqlBuffer.append("COUNT(1) FROM (SELECT ");
         }
 
-        sqlBuffer.append("COUNT(*) ");
+        if (findOptions.getDistinct()) {
+            sqlBuffer.append("DISTINCT COUNT(*) ");
+        } else {
+            // NOTE DEJ20080701 Changed from COUNT(*) to COUNT(1) to improve performance, and should get the same results at least when there is no DISTINCT
+            sqlBuffer.append("COUNT(1) ");
+        }
+
 
         // FROM clause and when necessary the JOIN or LEFT JOIN clause(s) as well
         sqlBuffer.append(SqlJdbcUtil.makeFromClause(modelEntity, datasourceInfo));
@@ -922,10 +944,7 @@ public class GenericDAO {
         }
 
         // GROUP BY clause for view-entity
-        if (modelEntity instanceof ModelViewEntity) {
-            ModelViewEntity modelViewEntity = (ModelViewEntity) modelEntity;
-            String groupByString = modelViewEntity.colNameString(modelViewEntity.getGroupBysCopy(), ", ", "", false);
-
+        if (isGroupBy) {
             if (UtilValidate.isNotEmpty(groupByString)) {
                 sqlBuffer.append(" GROUP BY ");
                 sqlBuffer.append(groupByString);
@@ -942,8 +961,13 @@ public class GenericDAO {
             sqlBuffer.append(" HAVING ");
             sqlBuffer.append(entityCondHavingString);
         }
+        
+        if (isGroupBy) {
+            sqlBuffer.append(") TEMP_NAME");
+        }
 
         String sql = sqlBuffer.toString();
+        Debug.logInfo("Count select sql: " + sql, module);
 
         SQLProcessor sqlP = new SQLProcessor(helperName);
         sqlP.prepareStatement(sql, findOptions.getSpecifyTypeAndConcur(), findOptions.getResultSetType(),
@@ -970,19 +994,7 @@ public class GenericDAO {
             sqlP.executeQuery();
             long count = 0;
             ResultSet resultSet = sqlP.getResultSet();
-            boolean isGroupBy = false;
-            if (modelEntity instanceof ModelViewEntity) {
-                ModelViewEntity modelViewEntity = (ModelViewEntity) modelEntity;
-                String groupByString = modelViewEntity.colNameString(modelViewEntity.getGroupBysCopy(), ", ", "", false);
-                if (UtilValidate.isNotEmpty(groupByString)) {
-                    isGroupBy = true;                  
-                }
-            }
-            if (isGroupBy) {
-                while (resultSet.next()) {
-                    count++;
-                }
-            } else if (resultSet.next()) {
+            if (resultSet.next()) {
                 count = resultSet.getLong(1);
             }
             return count;
