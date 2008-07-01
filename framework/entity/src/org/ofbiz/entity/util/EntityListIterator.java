@@ -488,6 +488,15 @@ public class EntityListIterator implements ListIterator<GenericValue> {
             throw new GenericEntityException(e.getNonNestedMessage(), e.getNested());
         }
     }
+    
+    public int getResultsSizeAfterPartialList() throws GenericEntityException {
+        if (this.last()) {
+            return this.currentIndex();
+        } else {
+            // evidently no valid rows in the ResultSet, so return 0
+            return 0;
+        }
+    }
 
     public void add(GenericValue obj) {
         throw new GeneralRuntimeException("CursorListIterator currently only supports read-only access");
