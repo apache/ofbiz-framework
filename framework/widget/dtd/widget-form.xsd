@@ -1014,7 +1014,7 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:integer" name="frequency" default="0.4"/>
+        <xs:attribute type="xs:double" name="frequency" default="0.4"/>
         <xs:attribute type="xs:positiveInteger" name="min-chars" default="1"/>
         <xs:attribute type="xs:positiveInteger" name="choices" default="10"/>
         <xs:attribute name="partial-search" default="true">
