@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
+    <screen name="newEvent">
+        <section>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet>
+                            <include-form name="newEvent" location="component://mypage/widget/MyPageForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="CurrentTimesheet">
+        <section>
+            <actions>
+                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/EditWeekTimesheet.bsh"/>
+            </actions>
+            <widgets>
+                <screenlet title="${uiLabelMap.PageTitleCurrentTimesheet} ${uiLabelMap.CommonNbr} ${timesheet.timesheetId} ${uiLabelMap.ProjectMgrWeek}: ${weekNumber} ${uiLabelMap.CommonFrom} ${bsh:timesheet.get(&quot;fromDate&quot;).toString().substring(0,10)} ${uiLabelMap.CommonTo} ${bsh:timesheet.get(&quot;thruDate&quot;).toString().substring(0,10)}"
+                    navigation-menu-name="TimesheetMenu" collapsible="true" name="timesheet">
+                    <include-menu name="TimesheetMenu" location="component://mypage/widget/MyPageMenus.xml"/>
+                    <section>
+                        <condition>
+                            <if-compare field-name="timesheet.statusId" operator="equals" value="TIMESHEET_COMPLETED"/>
+                        </condition>          
+                        <widgets>
+                            <include-form name="WeekTimesheet" location="component://projectmgr/widget/forms/TimeSheetForms.xml"/>
+                        </widgets>
+                        <fail-widgets>
+                            <include-form name="EditWeekTimesheet" location="component://mypage/widget/MyPageForms.xml"/>
+                        </fail-widgets>
+                    </section>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>    
+    <screen name="MyTaskList">
+        <section>
+            <actions>
+                <entity-and entity-name="WorkEffortAndPartyAssign" list-name="tasks" filter-by-date="true">
+                    <field-map field-name="partyId" env-name="userLogin.partyId"/>
+                    <field-map field-name="workEffortTypeId" value="TASK"/>
+                    <field-map field-name="currentStatusId" value="PTS_CREATED"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <screenlet title="${uiLabelMap.PageTitleTaskAssignedToMe}" name="mytasks" collapsible="true" navigation-menu-name="TaskMenu">
+                    <include-menu name="TaskMenu" location="component://mypage/widget/MyPageMenus.xml"/>
+                    <section>
+                        <condition>
+                            <not><if-empty field-name="tasks"/></not>                                        
+                        </condition>
+                        <widgets>
+                            <include-form name="MyTasks" location="component://mypage/widget/MyPageForms.xml"/>
+                        </widgets>
+                        <fail-widgets>
+                            <container>
+                                <label style="h3" text="${uiLabelMap.ProjectMgrTaskNoOpen1}"></label>
+                            </container>
+                            <container>
+                                <label style="h3" text="${uiLabelMap.ProjectMgrTaskNoOpen2}"></label>
+                            </container>
+                        </fail-widgets>
+                    </section>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="CalendarUpcoming">
+        <section>
+            <widgets>
+                <screenlet title="Company events" navigation-menu-name="EventMenu" name="companyEvents" collapsible="true">
+                    <include-menu name="EventMenu" location="component://mypage/widget/MyPageMenus.xml"/>
+                    <include-form name="CalendarUpcoming" location="component://mypage/widget/MyPageForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+
+
+    <screen name="MyMessages">
+        <section>
+            <actions>
+                <set field="partyId" from-field="userLogin.partyId"/>
+            </actions>
+            <widgets>
+                    <screenlet title="Communications" navigation-menu-name="MessageMenu" navigation-form-name="ListPartyCommEvents" name="comms">
+                        <include-menu name="MessageMenu" location="component://mypage/widget/MyPageMenus.xml"/>
+                        <include-form name="ListPartyCommEvents" location="component://party/webapp/partymgr/communication/CommForms.xml"/>
+                    </screenlet>
+                <!--container style="righthalf">
+                    <screenlet title="Pending outgoing">
+                        <include-form name="ListPendingCommEvents" location="component://party/webapp/partymgr/communication/CommForms.xml"/>
+                    </screenlet>
+                </container>
+                <container style="clear"/-->
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="CompanyMessages">
+        <section>
+            <actions>
+                <set field="partyId" from-field="userLogin.partyId"/>
+            </actions>
+            <widgets>
+                <screenlet tab-menu-name="Company messages" name="companyMessages" collapsible="true">
+                <container style="lefthalf">
+                    <screenlet title="Incoming communications" navigation-menu-name="MessageMenu">
+                        <include-menu name="MessageMenu" location="component://mypage/widget/MyPageMenus.xml"/>
+                        <include-form name="ListPartyCommEvents" location="component://party/webapp/partymgr/communication/CommForms.xml"/>
+                    </screenlet>
+                </container>
+                <container style="righthalf">
+                    <screenlet title="Pending outgoing">
+                        <include-form name="ListPendingCommEvents" location="component://party/webapp/partymgr/communication/CommForms.xml"/>
+                    </screenlet>
+                </container>
+                <container style="clear"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+    
+</screens>
+
+
+
+
+
+
+
+
