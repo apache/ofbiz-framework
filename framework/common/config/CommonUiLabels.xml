@@ -2586,6 +2586,9 @@
     </property>
     <property key="CommonHelp">
         <value xml:lang="en">Help</value>
+        <value xml:lang="en">Aide</value>
+        <value xml:lang="zh_CN">帮助</value>
+        <value xml:lang="zh">帮助</value>
     </property>
     <property key="CommonHideFields">
         <value xml:lang="ar">اخفاء الحقول</value>
@@ -3065,11 +3068,6 @@
         <value xml:lang="th">ออกจากระบบ</value>
         <value xml:lang="zh_CN">注销</value>
         <value xml:lang="zh">退出</value>
-    </property>
-    <property key="CommonHelp">
-        <value xml:lang="en">Help</value>
-        <value xml:lang="zh_CN">帮助</value>
-        <value xml:lang="zh">帮助</value>
     </property>
     <property key="CommonLookup">
         <value xml:lang="ar">البحث</value>
