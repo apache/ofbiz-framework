@@ -229,7 +229,7 @@ under the License.
                 <if-has-permission permission="ENTITY_MAINT"/>
             </condition>
             <actions>
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/FindGeneric.bsh"/>
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/FindGeneric.groovy"/>
                 <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap"/>
                 <set field="title" value="${uiLabelMap.WebtoolsFindValues}: ${entityName}"/>
             </actions>
@@ -253,7 +253,7 @@ under the License.
                 <if-has-permission permission="ENTITY_MAINT"/>
             </condition>
             <actions>
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/ViewGeneric.bsh"/>
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/ViewGeneric.groovy"/>
                 <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap"/>
                 <set field="title" value="${uiLabelMap.WebtoolsViewValue}: ${entityName}"/>
             </actions>
