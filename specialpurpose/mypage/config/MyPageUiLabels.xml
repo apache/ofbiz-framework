@@ -20,8 +20,10 @@
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="MyProfile">
         <value xml:lang="en">My Profile</value>
+        <value xml:lang="fr">Mon Profil</value>
     </property>
     <property key="MyPageNewMessage">
-        <value>New Message</value>
+        <value xml:lang="en">New Message</value>
+        <value xml:lang="fr">Nouveau message</value>
     </property>
 </resource>
