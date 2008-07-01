@@ -17,7 +17,6 @@ specific language governing permissions and limitations
 under the License.
 -->
 <#assign selected = tabButtonItem?default("void")>
-<#if requestParameters.orderId?exists>&orderId=${requestParameters.orderId}</#if>
 <#if returnHeader?exists>
 <div class="button-bar tab-bar">
     <ul>
