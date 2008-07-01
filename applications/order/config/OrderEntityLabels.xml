@@ -92,7 +92,7 @@
     </property>
     <property key="CustRequestType.description.RF_FEATURE">
         <value xml:lang="en">Request For Feature</value>
-        <value xml:lang="fr">Demande de caracté</value>
+        <value xml:lang="fr">Demande de caractéristique</value>
         <value xml:lang="it">Richiesta Di Caratteristica</value>
         <value xml:lang="ro">Cerere Caracteristica</value>
         <value xml:lang="ru">Запрос особенности</value>
@@ -119,6 +119,7 @@
     </property>
     <property key="CustRequestType.description.RF_PUR_QUOTE">
         <value xml:lang="en">Request For Purchase Quote</value>
+        <value xml:lang="fr">Demande de devis pour achat</value>
         <value xml:lang="it">Richiesta Di Preventivo Acquisto</value>
         <value xml:lang="ru">Запрос закупочных цен</value>
         <value xml:lang="th">คำขอร้องสำหรับการอ้างอิงการสั่งซื้อ</value>
@@ -144,7 +145,7 @@
     <property key="OrderAdjustmentType.description.ADDITIONAL_FEATURE">
         <value xml:lang="en">Additional Feature</value>
         <value xml:lang="es">Gastos adicionales</value>
-        <value xml:lang="fr">Frais additionnels</value>
+        <value xml:lang="fr">Caractéristique additionnelle</value>
         <value xml:lang="it">Caratteristica Aggiuntiva</value>
         <value xml:lang="ro">Caracteristica Suplimentara</value>
         <value xml:lang="ru">Дополнительная возможность</value>
@@ -183,7 +184,7 @@
     </property>
     <property key="OrderAdjustmentType.description.MKTG_PKG_AUTO_ADJUST">
         <value xml:lang="en">Marketing Package Adjustment</value>
-        <value xml:lang="fr">Offre marketing</value>
+        <value xml:lang="fr">Offre marketing (ajustement)</value>
         <value xml:lang="it">Aggiustamento Paccho Vendita</value>
         <value xml:lang="ro">Adaptare Pachet Vanzare</value>
         <value xml:lang="ru">Настройка маркетингового пакета</value>
@@ -203,7 +204,7 @@
     <property key="OrderAdjustmentType.description.REPLACE_ADJUSTMENT">
         <value xml:lang="en">Replacement</value>
         <value xml:lang="es">Reemplazo</value>
-        <value xml:lang="fr">Replacement</value>
+        <value xml:lang="fr">Remplacement</value>
         <value xml:lang="it">Sostituzione</value>
         <value xml:lang="ro">Substituire</value>
         <value xml:lang="ru">Замена</value>
@@ -273,26 +274,31 @@
     <property key="OrderContentType.description.IMAGE_URL">
         <value xml:lang="en">IMAGE_URL</value>
         <value xml:lang="es">Imagen</value>
+        <value xml:lang="fr">URL d'image</value>
         <value xml:lang="th">รูปภาพ</value>
     </property>
     <property key="OrderItemType.description.BULK_ORDER_ITEM">
         <value xml:lang="en">BULK_ORDER_ITEM</value>
         <value xml:lang="es">Ítem a granel</value>
+        <value xml:lang="fr">Vrac</value>
         <value xml:lang="th">รายการความจุ</value>
     </property>
     <property key="OrderItemType.description.PRODUCT_ORDER_ITEM">
         <value xml:lang="en">PRODUCT_ORDER_ITEM</value>
         <value xml:lang="es">Ítem</value>
+        <value xml:lang="fr">Article</value>
     	<value xml:lang="th">รายการ</value>
     </property>
     <property key="OrderItemType.description.RENTAL_ORDER_ITEM">
         <value xml:lang="en">RENTAL_ORDER_ITEM</value>
         <value xml:lang="es">Ítem de alquiler</value>
+        <value xml:lang="fr">Location</value>
         <value xml:lang="th">รายการการเช่า</value>
     </property>
     <property key="OrderItemType.description.WORK_ORDER_ITEM">
         <value xml:lang="en">WORK_ORDER_ITEM</value>
         <value xml:lang="es">Ítem de trabajo</value>
+        <value xml:lang="fr">Tâche</value>
         <value xml:lang="th">รายการงาน</value>
     </property>
     <property key="OrderType.description.PURCHASE_ORDER">
@@ -318,6 +324,7 @@
     <property key="OrderType.description.WORK_ORDER">
         <value xml:lang="en">WORK_ORDER</value>
         <value xml:lang="es">Trabajo</value>
+        <value xml:lang="fr">Tâche</value>
         <value xml:lang="th">งาน</value>
     </property>
     <property key="QuoteType.description.OTHER_QUOTE">
@@ -343,7 +350,7 @@
     <property key="QuoteType.description.PROPOSAL">
         <value xml:lang="en">Proposal</value>
         <value xml:lang="es">Propuesta</value>
-        <value xml:lang="fr">Proposé</value>
+        <value xml:lang="fr">Proposition</value>
         <value xml:lang="it">Proposta</value>
         <value xml:lang="ro">Propunere</value>
         <value xml:lang="ru">Предложение</value>
@@ -353,6 +360,7 @@
     <property key="QuoteType.description.PROPOSAL_PURCHASE">
         <value xml:lang="en">PROPOSAL_PURCHASE</value>
         <value xml:lang="es">Propuesta de compra</value>
+        <value xml:lang="fr">Proposition d'achat</value>
         <value xml:lang="th">ข้อเสนอการซื้อ</value>
     </property>
     <property key="QuoteType.description.PURCHASE_QUOTE">
@@ -386,12 +394,14 @@
     </property>
     <property key="RequirementType.description.MRP_PRO_PROD_ORDER">
         <value xml:lang="en">MRP_PRO_PROD_ORDER</value>
+        <value xml:lang="fr">Besoins du cycle de production proposé au processus MRP</value>
         <value xml:lang="it">Fabbisogno Ciclo Produzione proposto dal processo MRP</value>
         <value xml:lang="ro">Necesar Ciclu Productie propus de procesul MRP</value>
         <value xml:lang="th">MRP_PRO_PROD_ORDER</value>
     </property>
     <property key="RequirementType.description.MRP_PRO_PURCH_ORDER">
         <value xml:lang="en">MRP_PRO_PURCH_ORDER</value>
+        <value xml:lang="fr">Besoins d'achat proposé au processus MRP</value>
         <value xml:lang="it">Fabbisogno Ordine Acquisto proposto dal processo MRP</value>
         <value xml:lang="ro">Necesar Comanda Comparare propusa de procesul MRP</value>
         <value xml:lang="th">MRP_PRO_PURCH_ORDER</value>
@@ -399,7 +409,7 @@
     <property key="RequirementType.description.PRODUCT_REQUIREMENT">
         <value xml:lang="en">Product Requirement</value>
         <value xml:lang="es">Requerimiento de producto</value>
-        <value xml:lang="fr">Besoin produit</value>
+        <value xml:lang="fr">Besoin en produit</value>
         <value xml:lang="it">Fabbisogno Prodotto</value>
         <value xml:lang="ro">Necesar Produs</value>
         <value xml:lang="ru">Требование продукции</value>
@@ -409,7 +419,7 @@
     <property key="RequirementType.description.WORK_REQUIREMENT">
         <value xml:lang="en">Work Requirement</value>
         <value xml:lang="es">Requerimiento de trabajo</value>
-        <value xml:lang="fr">Besoin produciton</value>
+        <value xml:lang="fr">Besoin de production</value>
         <value xml:lang="it">Fabbisogno Lavoro</value>
         <value xml:lang="ro">Necesar de Lucru</value>
         <value xml:lang="ru">Требование работ</value>
@@ -418,6 +428,7 @@
     </property>
     <property key="ReturnReason.description.RTN_COD_REJECT">
         <value xml:lang="en">COD Payment Rejected</value>
+        <value xml:lang="fr">COD paiement rejeté</value>
         <value xml:lang="it">Pagmento Contrassegno Rifiutato</value>
         <value xml:lang="ru">COD платеж не принят</value>
         <value xml:lang="th">ปฏิเสธการชำระเงินด่วน</value>
@@ -474,7 +485,7 @@
     </property>
     <property key="ReturnType.description.RTN_CSREPLACE">
         <value xml:lang="en">Cross-Ship Replacement</value>
-        <value xml:lang="fr">Remplacement ฀ la livraison </value>
+        <value xml:lang="fr">Remplacement à la livraison </value>
         <value xml:lang="it">Sostituzione Cross-Ship</value>
         <value xml:lang="ro">Substitutie Cross-Ship</value>
         <value xml:lang="ru">Замена на другой продукт</value>
@@ -492,6 +503,7 @@
     </property>
     <property key="ReturnType.description.RTN_REPAIR_REPLACE">
         <value xml:lang="en">Repair Replacement</value>
+        <value xml:lang="fr">Réparation</value>
         <value xml:lang="it">Riparato Sostituito</value>
         <value xml:lang="ru">Замена при ремонте</value>
         <value xml:lang="th">ชดเชยการทดแทน</value>
@@ -558,17 +570,19 @@
     <property key="TaxAuthorityRateType.description.SALES_TAX">
         <value xml:lang="en">SALES_TAX</value>
         <value xml:lang="es">Impuesto de ventas</value>
+        <value xml:lang="fr">Taxe de vente (TVA)</value>
         <value xml:lang="th">ภาษีการขาย</value>
     </property>
     <property key="TaxAuthorityRateType.description.USE_TAX">
         <value xml:lang="en">USE_TAX</value>
         <value xml:lang="es">Impuesto de uso</value>
+        <value xml:lang="fr">Taxe d'utilisation (pas en France)</value>
         <value xml:lang="th">ภาษีการใช้</value>
     </property>
     <property key="WorkReqFulfType.description.WRF_DELIVERS">
         <value xml:lang="en">Delivers</value>
         <value xml:lang="es">Entregas</value>
-        <value xml:lang="fr">Délivrer</value>
+        <value xml:lang="fr">Livraisons</value>
         <value xml:lang="it">Consegna</value>
         <value xml:lang="ro">Livreaza</value>
         <value xml:lang="ru">Доставка</value>
@@ -578,7 +592,7 @@
     <property key="WorkReqFulfType.description.WRF_DEPLOYS">
         <value xml:lang="en">Deploys</value>
         <value xml:lang="es">Despliegues</value>
-        <value xml:lang="fr">Déployer</value>
+        <value xml:lang="fr">Déployements</value>
         <value xml:lang="it">Distribuisci</value>
         <value xml:lang="ro">Distribuie</value>
         <value xml:lang="ru">Развертывание</value>
@@ -588,7 +602,7 @@
     <property key="WorkReqFulfType.description.WRF_FIXES">
         <value xml:lang="en">Fixes</value>
         <value xml:lang="es">Arreglos</value>
-        <value xml:lang="fr">Difficulté</value>
+        <value xml:lang="fr">Corrections</value>
         <value xml:lang="it">Fissa</value>
         <value xml:lang="ro">Fixeaza</value>
         <value xml:lang="ru">Исправления</value>
@@ -598,7 +612,7 @@
     <property key="WorkReqFulfType.description.WRF_IMPLEMENTS">
         <value xml:lang="en">Implements</value>
         <value xml:lang="es">Implementos</value>
-        <value xml:lang="fr">Instruments</value>
+        <value xml:lang="fr">Implémentations</value>
         <value xml:lang="it">Implementa</value>
         <value xml:lang="ro">Implementeaza</value>
         <value xml:lang="ru">Реализация</value>
@@ -608,7 +622,7 @@
     <property key="WorkReqFulfType.description.WRF_TESTS">
         <value xml:lang="en">Tests</value>
         <value xml:lang="es">Pruebas</value>
-        <value xml:lang="fr">Tester</value>
+        <value xml:lang="fr">Tests</value>
         <value xml:lang="it">Testa</value>
         <value xml:lang="ro">Testeaza</value>
         <value xml:lang="ru">Тестирование</value>
