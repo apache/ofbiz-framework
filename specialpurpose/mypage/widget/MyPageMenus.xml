@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
+    <menu name="MyPageAppBar" id="app-navigation" type="simple" selected-menuitem-context-field-name="headerItem" default-selected-style="selected" title="My Personal Page" menu-container-style="button-bar tab-bar">
+        <menu-item name="main" title="${uiLabelMap.CommonMain}">
+            <condition>
+                <not><if-empty field-name="userLogin"/></not>
+            </condition>
+            <link target="main"/>
+        </menu-item>
+        <menu-item name="myProfile" title="${uiLabelMap.MyProfile}">
+            <condition>
+                <not><if-empty field-name="userLogin"/></not>
+            </condition>
+            <link target="/partymgr/control/viewprofile?partyId=${userLogin.partyId}" url-mode="inter-app" target-window="_BLANK"/>
+        </menu-item>
+        <!--menu-item name="help" title="${uiLabelMap.CommonHelp}" align-style="opposed">
+            <condition><not><if-empty field-name="userLogin"/></not></condition>
+            <link target="http://docs.ofbiz.org/display/OFBENDUSER/Project+Manager+Application+Roles?decorator=printable" url-mode="plain" target-window="new"/>
+        </menu-item-->
+        <menu-item name="Logout" title="${uiLabelMap.CommonLogout}" align-style="opposed">
+            <condition><not><if-empty field-name="userLogin"/></not></condition>
+            <link target="logout"/>
+        </menu-item>
+        <menu-item name="Login" title="${uiLabelMap.CommonLogin}" align-style="opposed">
+            <condition><if-empty field-name="userLogin"/></condition>
+            <link target="${checkLoginUrl}"/>
+        </menu-item>
+    </menu>    
+    
+    <menu name="EventMenu">
+        <menu-item name="newEvent" title="${uiLabelMap.WorkEffortNewEvent}"><link target="newEvent"/></menu-item>
+    </menu>    
+    
+    <menu name="MessageMenu">
+        <menu-item name="newEmail" title="${uiLabelMap.PartyNewEmail}"><link target="newEmail"/></menu-item>
+        <menu-item name="newNote" title="${uiLabelMap.PartyNewInternalNote}"><link target="newInternalNote"/></menu-item>
+    </menu>    
+    
+    <menu name="TaskMenu">
+        <menu-item name="myTasks" title="myTasks"><link target="/projectmgr/control/MyTasks" url-mode="inter-app"/></menu-item>
+    </menu>
+    
+    <menu name="TimesheetMenu" extends="TimesheetBar" extends-resource="component://projectmgr/widget/Menus.xml">
+        <menu-item name="myTime" title="myTime"><link target="/projectmgr/control/MyTimeSheet" url-mode="inter-app"/></menu-item>
+    </menu>
+    
+</menus>

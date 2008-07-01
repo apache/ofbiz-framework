@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+
+    <form name="MyTasks" extends="MyTasks" extends-resource="component://projectmgr/widget/forms/TaskForms.xml">
+        <field name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${workEffortName}" target="/projectmgr/control/taskView?workEffortId=${workEffortId}" target-type="inter-app" target-window="_BLANK"/>
+        </field>
+        <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}"><hyperlink target="/projectmgr/control/projectView?projectId=${resultProject.projectId}"  target-type="inter-app" target-window="_BLANK" description="${resultProject.projectName}"/></field>
+    </form>
+    
+    <form name="EditWeekTimesheet" extends="EditWeekTimesheet" extends-resource="component://projectmgr/widget/forms/TimeSheetForms.xml">
+        <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="ProjectPartyAndPhaseAndTask" description="${workEffortName} -- ${phaseName} -- ${projectName}">
+                    <entity-constraint name="workEffortTypeId" operator="not-equals" value="TASK_TEMPLATE"/>
+                    <entity-constraint name="partyId" env-name="timesheet.partyId"/>
+                    <entity-order-by field-name="projectName"/>
+                    <entity-order-by field-name="phaseName"/>
+                    <entity-order-by field-name="workEffortName"/>
+                </entity-options>
+                <sub-hyperlink target="/projectmgr/control/taskView?workEffortId=${workEffortId}" target-type="inter-app" target-window="_BLANK" link-style="buttontext" description="${bsh:workEffortId != void &amp;&amp; !workEffortId.equals(&quot;Totals&quot;) ? workEffortId : &quot;&quot;}"/>
+            </drop-down>
+        </field>
+        <field name="updateButton"><submit/></field>
+    </form>
+
+    <form name="CalendarUpcoming" type="list" list-name="events" target="deleteEvent" paginate-target="FindTask"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <set field="nowDate" value="${bsh:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;yyyy-MM-dd HH:mm:ss.S&quot;)}" type="String"/>
+            <entity-condition entity-name="WorkEffort">
+                <condition-list combine="and">
+                    <condition-expr field-name="workEffortTypeId" operator="equals" value="COMPANY_EVENT"/>
+                    <condition-expr field-name="actualStartDate" operator="greater-equals" env-name="nowDate"/>
+                </condition-list>
+                <order-by field-name="actualStartDate"/>
+            </entity-condition>
+        </actions>
+        <field name="workEffortId"><hidden/></field>
+        <field name="workEffortName" title="${uiLabelMap.WorkEffortEventName}"><display/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
+        <field name="actualStartDate" title="Date"><display type="date"/></field>
+        <field name="delete"><submit button-type="text-link"/></field>
+    </form>
+    
+    <form name="newEvent" type="single" target="createEvent">
+        <field name="workEffortTypeId"><hidden value="COMPANY_EVENT"/></field>
+        <field name="currentStatusId"><hidden value="_NA_"/></field>
+        <field name="workEffortName" title="${uiLabelMap.WorkEffortEventName}"><text/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
+        <field name="actualStartDate"><date-time type="date"/></field>
+        <field name="add"><submit/></field>
+    </form>
+
+</forms>

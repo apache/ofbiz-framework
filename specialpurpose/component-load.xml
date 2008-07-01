@@ -29,6 +29,7 @@ under the License.
     <load-component component-location="bi"/>
     <load-component component-location="googlebase"/>
     <load-component component-location="ebay"/>
+    <load-component component-location="mypage"/>
     <!-- <load-component component-location="workflow"/> -->
     <!-- <load-component component-location="shark"/> -->
 </component-loader>

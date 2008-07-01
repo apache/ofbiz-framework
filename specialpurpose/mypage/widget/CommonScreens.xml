@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
+    <screen name="main-decorator">
+        <section>
+            <actions>
+                <!-- base/top/specific map first, then more common map added for shared labels --> 
+                <property-map resource="MyPageUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ProjectMgrUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="HumanResUiLabels" map-name="uiLabelMap" global="true"/>
+
+                <set field="layoutSettings.companyName" value="My Information" global="true"/>
+                <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.PartyCompanySubtitle" global="true"/>
+                <!-- layoutSettings.headerImageUrl can be used to specify an application specific logo; if not set,
+                     then the global layoutSettings.commonHeaderImageUrl (specified in GlobalDecorator) will be used. -->
+                <!--<set field="layoutSettings.headerImageUrl" value="/images/ofbiz_logo.jpg" global="true"/>-->
+
+                <!-- <set field="layoutSettings.headerMiddleBackgroundUrl" value="" global="true"/> -->
+                <!-- <set field="layoutSettings.headerRightBackgroundUrl" value="" global="true"/> -->
+                <!-- TODO: Use transform to specify component URI -->
+                <set field="layoutSettings.javaScripts[]" value="/partymgr/static/partymgr.js" global="true"/>
+                <set field="layoutSettings.styleSheets[]" value="/partymgr/static/partymgr.css" global="true"/>
+                <set field="activeApp" value="mypage" global="true"/>
+                <set field="applicationMenuName" value="MyPageAppBar" global="true"/>
+                <set field="applicationMenuLocation" value="component://mypage/widget/MyPageMenus.xml" global="true"/>
+            </actions>
+            <widgets>
+                <include-screen name="GlobalDecorator" location="component://common/widget/CommonScreens.xml"/>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="CommonCalendarDecorator">
+        <section>
+            <widgets>
+                <decorator-section-include name="body"/>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="CommonTimesheetDecorator">
+        <section>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body"/>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="CommonCommunicationEventDecorator">
+        <section>
+            <actions>
+                <set field="headerItem" value="comm"/>
+                <set field="communicationEventId" from-field="parameters.communicationEventId"/>
+                <entity-one entity-name="CommunicationEvent" value-name="communicationEvent"/>
+                <set field="okayToUpdate" value="true" type="Boolean" global="true"/>
+            </actions>
+            <widgets>
+                <section>
+                    <condition>
+                        <and>
+                            <not><if-empty field-name="communicationEvent.statusId"/></not>
+                            <or>
+                                <if-compare field-name="communicationEvent.statusId" operator="equals" type="String" value="COM_COMPLETE"/>
+                                <if-compare field-name="communicationEvent.statusId" operator="equals" type="String" value="COM_RESOLVED"/>
+                                <if-compare field-name="communicationEvent.statusId" operator="equals" type="String" value="COM_REFERRED"/>
+                                <if-compare field-name="communicationEvent.statusId" operator="equals" type="String" value="COM_CANCELLED"/>
+                            </or>
+                        </and>
+                    </condition>
+                    <actions>
+                        <set field="okayToUpdate" value="false" type="Boolean" global="true"/>
+                    </actions>
+                    <widgets/>
+                </section>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <section>
+                            <condition>
+                                <and>
+                                    <if-has-permission permission="PARTYMGR" action="_VIEW"/>
+                                    <not><if-empty field-name="communicationEvent"/></not>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <include-menu location="component://party/webapp/partymgr/communication/CommMenus.xml" name="CommEventTabBar"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission action="_VIEW" permission="PARTYMGR"/>
+                            </condition>
+                            <widgets>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field-name="partyId"/></not>
+                                    </condition>
+                                    <widgets>
+                                        <container style="button-bar button-style-2">
+                                            <link target="/accounting/control/FindBillingAccount?partyId=${partyId}" url-mode="inter-app" 
+                                                text="${uiLabelMap.AccountingBillingAccount}"/>
+                                            <section>
+                                                <condition><if-has-permission permission="ORDERMGR" action="_VIEW"/></condition>
+                                                <widgets>
+                                                    <link target="/ordermgr/control/searchorders?lookupFlag=Y&amp;hideFields=Y&amp;partyId=${partyId}&amp;viewIndex=1&amp;viewSize=20" url-mode="inter-app" 
+                                                        text="${uiLabelMap.OrderOrders}"/>
+                                                </widgets>
+                                            </section>
+                                            <section>
+                                                <condition><if-has-permission permission="ORDERMGR" action="_CREATE"/></condition>
+                                                <widgets>
+                                                    <link target="/ordermgr/control/checkinits?partyId=${partyId}" url-mode="inter-app" 
+                                                        text="${uiLabelMap.OrderNewOrder}"/>
+                                                </widgets>
+                                            </section>
+                                            <section>
+                                                <condition><if-has-permission permission="ACCOUNTING" action="_VIEW"/></condition>
+                                                <widgets>
+                                                    <link target="/accounting/control/findPayments?lookupFlag=Y&amp;hideFields=Y&amp;partyIdTo=${partyId}" url-mode="inter-app" 
+                                                        text="${uiLabelMap.AccountingPaymentsSent}"/>
+                                                    <link target="/accounting/control/findPayments?lookupFlag=Y&amp;hideFields=Y&amp;partyIdFrom=${partyId}" url-mode="inter-app" 
+                                                        text="${uiLabelMap.AccountingPaymentsReceived}"/>
+                                                </widgets>
+                                            </section>
+                                        </container>
+                                    </widgets>
+                                </section>
+                                <section>
+                                    <widgets>
+                                        <decorator-section-include name="body"/>
+                                    </widgets>
+                                </section>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.PartyMgrViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="CommonMyTaskDecorator">
+        <section>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body"/>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="main">
+        <section>
+            <actions>
+                <set field="headerItem" value="main"/>
+                <!-- refresh every 3 minutes -->
+                <!--set field="layoutSettings.extraHead" value="&lt;META HTTP-EQUIV=&quot;REFRESH&quot; CONTENT=&quot;180&quot;&gt;"/-->
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <!--include-screen name="CompanyMessages" location="component://mypage/widget/MyPageScreens.xml"/-->
+                        <include-screen name="MyMessages" location="component://mypage/widget/MyPageScreens.xml"/>
+                        <include-screen name="CalendarUpcoming" location="component://mypage/widget/MyPageScreens.xml"/>
+                        <include-screen name="MyTaskList" location="component://mypage/widget/MyPageScreens.xml"/>
+                        <include-screen name="CurrentTimesheet" location="component://mypage/widget/MyPageScreens.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+</screens>
+
+
+
+
+
+
+
+
