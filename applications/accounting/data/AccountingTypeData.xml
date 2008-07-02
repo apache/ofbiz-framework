@@ -135,7 +135,7 @@ under the License.
     <Enumeration description="Manlift" enumCode="MANLIFT" enumId="FAC_MANLIFT" sequenceId="01" enumTypeId="FXAST_CLASS"/>
     <Enumeration description="Service Body" enumCode="SERVICE_BODY" enumId="FAC_SERVICE_BODY" sequenceId="01" enumTypeId="FXAST_CLASS"/>
     <Enumeration description="Tractor" enumCode="TRACTOR" enumId="FAC_TRACTOR" sequenceId="01" enumTypeId="FXAST_CLASS"/>
-    <Enumeration description="Passneger Vehicle" enumCode="PASSENGER" enumId="FAC_PASSENGER" sequenceId="01" enumTypeId="FXAST_CLASS"/>
+    <Enumeration description="Passenger Vehicle" enumCode="PASSENGER" enumId="FAC_PASSENGER" sequenceId="01" enumTypeId="FXAST_CLASS"/>
     <Enumeration description="Compressor" enumCode="COMPRESSOR" enumId="FAC_COMPRESSOR" sequenceId="01" enumTypeId="FXAST_CLASS"/>
     <Enumeration description="Trencher" enumCode="TRENCHER" enumId="FAC_TRENCHER" sequenceId="01" enumTypeId="FXAST_CLASS"/>
     <Enumeration description="Puller" enumCode="PULLER" enumId="FAC_PULLER" sequenceId="01" enumTypeId="FXAST_CLASS"/>

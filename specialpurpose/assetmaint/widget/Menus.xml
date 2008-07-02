@@ -21,6 +21,13 @@
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
     
+    <menu name="FixedAssetTabBar" extends="FixedAssetTabBar" extends-resource="component://accounting/widget/Menus.xml">
+        <menu-item name="EditProductMaints" title="${uiLabelMap.AssetMaintProductMaint}">
+            <condition><not><if-empty field-name="fixedAsset.instanceOfProductId"/></not></condition>
+            <link target="EditProductMaints?fixedAssetId=${fixedAsset.fixedAssetId}&amp;productId=${fixedAsset.instanceOfProductId}"/>
+        </menu-item>
+    </menu>
+
     <menu name="FixedAssetMaintTabBar" extends="FixedAssetMaintTabBar" extends-resource="component://accounting/widget/Menus.xml">
         <menu-item name="EditWorkEfforts" title="${uiLabelMap.WorkEffortAllTasks}">
             <link target="EditWorkEfforts?fixedAssetId=${fixedAssetMaint.fixedAssetId}&amp;maintHistSeqId=${fixedAssetMaint.maintHistSeqId}&amp;workEffortId=${fixedAssetMaint.scheduleWorkEffortId}"/>

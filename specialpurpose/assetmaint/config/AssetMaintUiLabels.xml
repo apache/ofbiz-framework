@@ -166,6 +166,9 @@
     <property key="AssetMaintParentWorkEffort">
         <value xml:lang="en">Parent Work Effort</value>
     </property>
+    <property key="AssetMaintProductMaint">
+        <value xml:lang="en">Product Maint</value>
+    </property>
     <property key="AssetMaintViewPermissionError">
         <value xml:lang="en">View Permission Error</value>
         <value xml:lang="th">แสดงข้อผิดพลาดในการอนุญาต</value>
