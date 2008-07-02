@@ -75,6 +75,14 @@ public class CommunicationEventServices {
                 return ServiceUtil.returnError(errMsg + " " + communicationEventId);
             }
 
+            // assign some default values because required by sendmail and better not make them defaults over there
+            if (UtilValidate.isEmpty(communicationEvent.getString("subject"))) {
+            	communicationEvent.put("subject", " ");
+            }
+            if (UtilValidate.isEmpty(communicationEvent.getString("content"))) {
+            	communicationEvent.put("content", " ");
+            }
+            
             // prepare the email
             Map sendMailParams = new HashMap();
             sendMailParams.put("sendFrom", communicationEvent.getRelatedOne("FromContactMech").getString("infoString"));
@@ -108,21 +116,22 @@ public class CommunicationEventServices {
                 if (ServiceUtil.isError(tmpResult)) {
                     errorMessages.add(ServiceUtil.getErrorMessage(tmpResult));
                 } else {
+                    // set the message ID on this communication event
+                    String messageId = (String) tmpResult.get("messageId");
+                    communicationEvent.set("messageId", messageId);
+                    try {
+                        communicationEvent.store();
+                    } catch (GenericEntityException e) {
+                        Debug.logError(e, module);
+                        return ServiceUtil.returnError(e.getMessage());
+                    }
+
                     Map completeResult = dispatcher.runSync("setCommEventComplete", UtilMisc.<String, Object>toMap("communicationEventId", communicationEventId, "userLogin", userLogin));                    
                     if (ServiceUtil.isError(completeResult)) {
                         errorMessages.add(ServiceUtil.getErrorMessage(completeResult));
                     }
                 }
 
-                // set the message ID on this communication event
-                String messageId = (String) tmpResult.get("messageId");
-                communicationEvent.set("messageId", messageId);
-                try {
-                    communicationEvent.store();
-                } catch (GenericEntityException e) {
-                    Debug.logError(e, module);
-                    return ServiceUtil.returnError(e.getMessage());
-                }
             } else {
                 // Call the sendEmailToContactList service if there's a contactListId present
                 Map sendEmailToContactListContext = new HashMap();
