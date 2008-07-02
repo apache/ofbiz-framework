@@ -93,17 +93,23 @@ under the License.
     <StatusValidChange condition="" statusId="TIMESHEET_IN_PROCESS" statusIdTo="TIMESHEET_COMPLETED" transitionName="Confirm complete"/>
     
     <!-- Project Statuses -->
-    <StatusType description="Project" hasTable="N" parentTypeId="PROJECT_STATUS" statusTypeId="WORK_EFF_ASSET_STTS"/>
-    <StatusItem description="Planning" sequenceId="01" statusCode="PLANNING" statusId="WEPR_PLANNING" statusTypeId="EVENT_STATUS"/>
-    <StatusItem description="In Progress" sequenceId="02" statusCode="IN_PROGRESS" statusId="WEPR_IN_PROGRESS" statusTypeId="EVENT_STATUS"/>
-    <StatusItem description="Complete" sequenceId="05" statusCode="COMPLETE" statusId="WEPR_COMPLETE" statusTypeId="EVENT_STATUS"/>
-    <StatusItem description="On Hold" sequenceId="98" statusCode="ON_HOLD" statusId="WEPR_ON_HOLD" statusTypeId="EVENT_STATUS"/>
-    <StatusItem description="Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="WEPR_CANCELLED" statusTypeId="EVENT_STATUS"/>
+    <StatusType description="Project" hasTable="N" parentTypeId="WORK_EFFORT_STATUS" statusTypeId="WE_PROJECT_STATUS"/>
+    <StatusItem description="Planning" sequenceId="01" statusCode="PLANNING" statusId="WEPR_PLANNING" statusTypeId="WE_PROJECT_STATUS"/>
+    <StatusItem description="In Progress" sequenceId="02" statusCode="IN_PROGRESS" statusId="WEPR_IN_PROGRESS" statusTypeId="WE_PROJECT_STATUS"/>
+    <StatusItem description="Complete" sequenceId="05" statusCode="COMPLETE" statusId="WEPR_COMPLETE" statusTypeId="WE_PROJECT_STATUS"/>
+    <StatusItem description="On Hold" sequenceId="98" statusCode="ON_HOLD" statusId="WEPR_ON_HOLD" statusTypeId="WE_PROJECT_STATUS"/>
+    <StatusItem description="Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="WEPR_CANCELLED" statusTypeId="WE_PROJECT_STATUS"/>
     <StatusValidChange condition="" statusId="WEPR_PLANNING" statusIdTo="WEPR_IN_PROGRESS" transitionName="Begin Project"/>
     <StatusValidChange condition="" statusId="WEPR_IN_PROGRESS" statusIdTo="WEPR_ON_HOLD" transitionName="Begin Project"/>
     <StatusValidChange condition="" statusId="WEPR_ON_HOLD" statusIdTo="WEPR_IN_PROGRESS" transitionName="Resume Project"/>
     <StatusValidChange condition="" statusId="WEPR_IN_PROGRESS" statusIdTo="WEPR_CANCELLED" transitionName="Cancel"/>
     <StatusValidChange condition="" statusId="WEPR_ON_HOLD" statusIdTo="WEPR_CANCELLED" transitionName="Cancel"/>
+
+    <!-- Status items for WorkEffortPartyAssignment.statusId -->
+    <StatusType description="Party Assignment Status" hasTable="N" parentTypeId="WORK_EFFORT_STATUS" statusTypeId="PRTYASGN_STATUS"/>
+    <StatusItem description="Offered" sequenceId="01" statusCode="OFFERED" statusId="PRTYASGN_OFFERED" statusTypeId="PRTYASGN_STATUS"/>
+    <StatusItem description="Assigned" sequenceId="02" statusCode="ASSIGNED" statusId="PRTYASGN_ASSIGNED" statusTypeId="PRTYASGN_STATUS"/>
+    <StatusItem description="Unassigned" sequenceId="03" statusCode="UNASSIGNED" statusId="PRTYASGN_UNASSIGNED" statusTypeId="PRTYASGN_STATUS"/>
     
     <!-- Status items for WorkEffortPartyAssignment.availabilityStatusId -->
     <StatusType description="Work Effort Party Availability" hasTable="N" parentTypeId="" statusTypeId="WEPA_AVAILABILITY"/>
@@ -158,11 +164,6 @@ under the License.
     <WorkEffortType description="Production Run Task" hasTable="N" parentTypeId="" workEffortTypeId="PROD_ORDER_TASK"/>
     <WorkEffortType description="Fixed Asset Usage (rental)" hasTable="N" parentTypeId="" workEffortTypeId="ASSET_USAGE"/>
     
-    <StatusType description="Party" hasTable="N" parentTypeId="WORK_EFFORT_STATUS" statusTypeId="PRTYASGN_STATUS"/>
-    <StatusItem description="Offered" sequenceId="01" statusCode="OFFERED" statusId="PRTYASGN_OFFERED" statusTypeId="PRTYASGN_STATUS"/>
-    <StatusItem description="Assigned" sequenceId="02" statusCode="ASSIGNED" statusId="PRTYASGN_ASSIGNED" statusTypeId="PRTYASGN_STATUS"/>
-    <StatusItem description="Unassigned" sequenceId="03" statusCode="UNASSIGNED" statusId="PRTYASGN_UNASSIGNED" statusTypeId="PRTYASGN_STATUS"/>
-
     <!-- Routing status, (workEffort Template) -->
     <StatusType description="Manufacturing Task and Routing status" hasTable="N" parentTypeId="WORK_EFFORT_STATUS" statusTypeId="ROUTING_STATUS"/>
     

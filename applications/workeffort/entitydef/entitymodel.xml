@@ -675,14 +675,14 @@ under the License.
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
       <field name="assignedByUserLoginId" type="id-vlong"></field>
-      <field name="statusId" type="id"></field>
+      <field name="statusId" type="id"><description>Point to StatusItem value with statusTypeId="PRTYASGN_STATUS"</description></field>
       <field name="statusDateTime" type="date-time"></field>
       <field name="expectationEnumId" type="id"><description>Point to Enumeration value with enumTypeId="WORK_EFF_EXPECT"</description></field>
       <field name="delegateReasonEnumId" type="id"><description>Point to Enumeration value with enumTypeId="WORK_EFF_DEL_REAS"</description></field>
       <field name="facilityId" type="id"></field>
       <field name="comments" type="comment"></field>
       <field name="mustRsvp" type="indicator"></field>
-      <field name="availabilityStatusId" type="id"></field>
+      <field name="availabilityStatusId" type="id"><description>Point to StatusItem value with statusTypeId="WEPA_AVAILABILITY"</description></field>
       <prim-key field="workEffortId"/>
       <prim-key field="partyId"/>
       <prim-key field="roleTypeId"/>
