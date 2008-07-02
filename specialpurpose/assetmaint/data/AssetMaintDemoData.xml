@@ -23,7 +23,7 @@ under the License.
     <Product productId="FORKLIFT_PROPANE" productTypeId="ASSET_USAGE" productName="Forklift - Propane" internalName="Forklift - Propane" description="Forklift - Propane Powered."/>
     <Product productId="FORKLIFT_BATTERY" productTypeId="ASSET_USAGE" productName="Forklift - Battery" internalName="Forklift - Battery" description="Forklift - Battery Powered."/>
     <Product productId="COMPANY_VEHICLE" productTypeId="ASSET_USAGE" productName="Company Vehicle" internalName="Company Vehicle" description="Company Vehicle."/>
-    <Product productId="HVAC_UNIT" productTypeId="ASSET_USAGE" primaryProductCategoryId="FAM_PRODUCTS" productName="Heating/Cooling Unit" internalName="Heating/Cooling Unit" description="Heating/Cooling Unit."/>
+    <Product productId="HVAC_UNIT" productTypeId="ASSET_USAGE" productName="Heating/Cooling Unit" internalName="Heating/Cooling Unit" description="Heating/Cooling Unit."/>
     <ProductMaintType description="Tune Up" productMaintTypeId="TUNE_UP" parentTypeId="VEHICLE_MAINT"/>
     <ProductMaintType description="Check Battery" productMaintTypeId="CHECK_BATTERY" parentTypeId="VEHICLE_MAINT"/>
     <ProductMaintType description="Chassis Lubrication" productMaintTypeId="CHASSIS_LUBE" parentTypeId="VEHICLE_MAINT"/>
