@@ -24,16 +24,12 @@
     <screen name="LookupPartsProduct">
         <section>
             <condition>
-                <or>
-                    <if-has-permission permission="OFBTOOLS" action="_VIEW"/>
-                </or>
+                <if-has-permission permission="ASSETMAINT" action="_VIEW"/>
             </condition>
             <actions>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="title" value="${uiLabelMap.PageTitleLookupProduct}"/>
                 <set field="queryString" from-field="result.queryString"/>
-                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
                 <set field="primaryProductCategoryId" value="PARTS"/>
                 <set field="submitTarget" value="LookupPartsProduct"/>
             </actions>
@@ -49,4 +45,31 @@
             </widgets>
         </section>
     </screen>
+
+    <screen name="EditProductMaints">
+        <section>
+            <actions>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="PageTitleEditProductMaintenance"/>
+                <set field="labelTitleProperty" value="ProductMaintenance"/>
+                <set field="tabButtonItem" value="EditProductMaints"/>
+                <set field="productId" from-field="parameters.productId"/>
+                <entity-one entity-name="Product" value-name="product"/>
+                <set field="productName" from-field="product.productName"/>                
+                <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
+                <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.fixedAssetDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet id="addProductMaint" title="${uiLabelMap.PageTitleAddProductMaintenance}" collapsible="true">
+                            <include-form name="AddProductMaint" location="component://assetmaint/widget/forms/ProductForms.xml"/>
+                        </screenlet>            
+                        <include-form name="ListProductMaints" location="component://assetmaint/widget/forms/ProductForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
 </screens>

@@ -103,4 +103,39 @@
             <hyperlink also-hidden="false" target-type="plain" description="${uiLabelMap.ProductVariants}" target="LookupVariantProduct?productId=${productId}"/>
         </field>
     </form>
+
+    <form name="AddProductMaint" extends="AddProductMaint" extends-resource="component://product/webapp/catalog/product/ProductForms.xml">
+        <field name="fixedAssetId"><hidden value="${parameters.fixedAssetId}"></hidden></field>
+    </form>
+
+    <form name="ListProductMaints" type="list" list-name="listIt" target="updateProductMaint" paginate-target="EditProductMaints"
+        header-row-style="header-row-2" odd-row-style="alternate-row" default-table-style="basic-table">
+        <actions>
+            <entity-condition entity-name="ProductMaint" list-name="listIt">
+                <condition-expr field-name="productId" env-name="productId"/>
+            </entity-condition>
+        </actions>
+        <field name="fixedAssetId"><hidden value="${parameters.fixedAssetId}"></hidden></field>
+        <field name="productId"><hidden/></field>
+        <field name="productMaintSeqId"><hidden/></field>
+        <field name="productMaintTypeId">
+            <display-entity entity-name="ProductMaintType" key-field-name="productMaintTypeId" description="${description}"/>
+        </field>
+        <field name="maintName"><display/></field> 
+        <field name="intervalMeterTypeId">
+            <display-entity entity-name="ProductMeterType" key-field-name="productMeterTypeId" description="${description}"/>
+        </field>
+        <field name="intervalUomId">
+            <display-entity entity-name="Uom" key-field-name="uomId" description="${description}"/>
+        </field>
+        <field name="intervalQuantity"><text/></field>
+        <field name="repeatCount"><text/></field>
+        <field name="maintTemplateWorkEffortId"><lookup target-form-name="LookupWorkEffort"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
+            <hyperlink target="deleteProductMaint?fixedAssetId=${parameters.fixedAssetId}&amp;productId=${productId}&amp;productMaintSeqId=${productMaintSeqId}"
+                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+    </form>
+
 </forms>

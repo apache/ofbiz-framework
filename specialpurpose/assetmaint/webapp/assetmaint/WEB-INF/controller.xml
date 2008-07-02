@@ -156,13 +156,37 @@
         <response name="error" type="view" value="EditItemIssuances"/>
     </request-map>
 
-   <!-- ================ Lookup Requests ================= -->
+    <!-- ================ ProductMaints Requests ================= -->
+    <request-map uri="EditProductMaints">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditProductMaints"/>
+    </request-map>
+    <request-map uri="createProductMaint">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createProductMaint"/>
+        <response name="success" type="view" value="EditProductMaints"/>
+        <response name="error" type="view" value="EditProductMaints"/>
+    </request-map>
+    <request-map uri="updateProductMaint">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateProductMaint"/>
+        <response name="success" type="view" value="EditProductMaints"/>
+        <response name="error" type="view" value="EditProductMaints"/>
+    </request-map>
+    <request-map uri="deleteProductMaint">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="deleteProductMaint"/>
+        <response name="success" type="view" value="EditProductMaints"/>
+        <response name="error" type="view" value="EditProductMaints"/>
+    </request-map>
+
+    <!-- ================ Lookup Requests ================= -->
     <request-map uri="LookupFixedAsset"><security auth="true" https="true"/><response name="success" type="view" value="LookupFixedAsset"/></request-map>
     <request-map uri="LookupPartyName"><security auth="true" https="true"/><response name="success" type="view" value="LookupPartyName"/></request-map>
     <request-map uri="LookupPerson"><security https="true" auth="true"/><response name="success" type="view" value="LookupPerson"/></request-map>
     <request-map uri="LookupPartyGroup"><security https="true" auth="true"/><response name="success" type="view" value="LookupPartyGroup"/></request-map>
     <request-map uri="LookupOrderHeader"><security https="true" auth="true"/><response name="success" type="view" value="LookupOrderHeader"/></request-map>
-    <request-map uri="LookupProduct"><security auth="true" https="true"/><response name="success" type="view" value="LookupVehicleTypeProduct"/></request-map>
+    <request-map uri="LookupProduct"><security auth="true" https="true"/><response name="success" type="view" value="LookupProduct"/></request-map>
     <request-map uri="LookupFacility"><security https="true" auth="true"/><response name="success" type="view" value="LookupFacility"/></request-map>
     <request-map uri="LookupFacilityLocation"><security auth="true" https="true"/><response name="success" type="view" value="LookupFacilityLocation"/></request-map>
     <request-map uri="LookupPartsProduct"><security auth="true" https="true"/><response name="success" type="view" value="LookupPartsProduct"/></request-map>
@@ -192,5 +216,6 @@
 
     <view-map name="EditWorkEffort" type="screen" page="component://assetmaint/widget/AssetmaintScreens.xml#EditFixedAssetMaint"/>
     <view-map name="WorkEffortSummary" type="screen" page="component://assetmaint/widget/AssetmaintScreens.xml#EditWorkEfforts"/>
+    <view-map name="EditProductMaints" type="screen" page="component://assetmaint/widget/ProductScreens.xml#EditProductMaints"/>
     <!-- end of view mappings -->
 </site-conf>

@@ -87,5 +87,52 @@ under the License.
         </section>
     </screen>
 
+    <screen name="CommonFixedAssetDecorator">
+        <section>
+            <actions>
+                <set field="headerItem" value="ListFixedAssets"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="pre-body">
+                        <section>
+                            <condition>
+                                <not><if-empty field-name="fixedAssetId"/></not>
+                            </condition>
+                            <widgets>
+                                <include-menu name="FixedAssetTabBar" location="component://assetmaint/widget/Menus.xml"/>
+                            </widgets>
+                        </section>
+                        <decorator-section-include name="pre-body"/>
+                    </decorator-section>
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-service-permission service-name="fixedAssetPermissionCheck" main-action="VIEW"/>
+                            </condition>
+                            <widgets>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field-name="fixedAssetId"/></not>
+                                    </condition>
+                                    <widgets>
+                                        <container style="h1"><label text="${uiLabelMap.${titleProperty}} ${uiLabelMap.CommonFor} ${fixedAsset.fixedAssetName} [${fixedAssetId}]  ${${extraFunctionName}}"/></container>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <container style="h1"><label text="${uiLabelMap.${titleProperty}}"/></container>
+                                    </fail-widgets>
+                                </section>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3" text="${uiLabelMap.AcccountingViewPermissionError}"/>
+                            </fail-widgets>
+                        </section>                    
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
 </screens>
         
