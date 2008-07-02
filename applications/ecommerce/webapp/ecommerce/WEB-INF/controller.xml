@@ -1590,6 +1590,20 @@ under the License.
         <response name="error" type="none"/>
     </request-map>
 
+    <request-map uri="setShippingOption">
+        <security https="true" auth="false"/>
+        <event type="jsonsimple" path="org/ofbiz/ecommerce/customer/CustomerEvents.xml" invoke="setShippingOption"/>
+        <response name="success" type="request" value="onePageCheckout"/>
+        <response name="error" type="none"/>
+    </request-map>
+    
+    <request-map uri="createUpdateBillingAndPayment">
+        <security https="true" auth="false"/>
+        <event type="jsonsimple" path="org/ofbiz/ecommerce/customer/CustomerEvents.xml" invoke="createUpdateBillingAndPayment"/>
+        <response name="success" type="none"/>
+        <response name="error" type="none"/>
+    </request-map>
+
     <!-- End of Request Mappings -->
 
     <!-- View Mappings -->

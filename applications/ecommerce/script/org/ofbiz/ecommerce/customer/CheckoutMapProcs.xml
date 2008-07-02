@@ -82,6 +82,12 @@ under the License.
         <process field="shippingContactMechId">
             <copy to-field="contactMechId" set-if-null="false"/>
         </process>
+        <process field="shipToName">
+            <copy to-field="toName" set-if-null="false"/>
+        </process>
+        <process field="shipToAttnName">
+            <copy to-field="attnName" set-if-null="false"/>
+        </process>
         <process field="shipToAddress1">
             <copy to-field="address1"/>
             <not-empty>
@@ -121,7 +127,7 @@ under the License.
         <process field="billToContactMechId">
             <copy to-field="contactMechId" set-if-null="false"/>
         </process>
-        <process field="billToToName">
+        <process field="billToName">
             <copy to-field="toName" set-if-null="false"/>
         </process>
         <process field="billToAttnName">
@@ -159,66 +165,6 @@ under the License.
             <not-empty>
                 <fail-property resource="EcommerceUiLabels" property="PartyCountryMissing"/>
             </not-empty>
-        </process>
-    </simple-map-processor>
-
-    <simple-map-processor name="creditCard">
-        <make-in-string field="expireDate">
-            <in-field field="expMonth"/>
-            <constant>/</constant>
-            <in-field field="expYear"/>
-        </make-in-string>
-        <process field="productStoreId"><copy/></process>
-        <process field="paymentMethodId">
-            <copy/>
-        </process>
-        <process field="contactMechId">
-            <copy/>
-        </process>
-        <process field="firstNameOnCard">
-            <copy/>
-            <not-empty>
-                <fail-property resource="EcommerceUiLabels" property="PartyFirstNameOnCardMissingError"/>
-            </not-empty>
-        </process>
-        <process field="middleNameOnCard">
-            <copy/>
-        </process>
-        <process field="lastNameOnCard">
-            <copy/>
-            <not-empty>
-                <fail-property resource="EcommerceUiLabels" property="PartyLastNameOnCardMissingError"/>
-        </not-empty>
-        </process>
-        <process field="cardType">
-            <copy/>
-            <not-empty>
-                <fail-property resource="EcommerceUiLabels" property="PartyCardTypeMissingError"/>
-            </not-empty>
-        </process>
-        <process field="cardNumber">
-            <copy/>
-            <not-empty>
-                <fail-property resource="EcommerceUiLabels" property="PartyCardNumberMissingError"/>
-            </not-empty>
-        </process>
-        <process field="expMonth">
-            <copy/>
-            <not-empty>
-                <fail-property resource="EcommerceUiLabels" property="PartyExpMonthMissingError"/>
-        </not-empty>
-        </process>
-        <process field="expYear">
-            <copy/>
-            <not-empty>
-                <fail-property resource="EcommerceUiLabels" property="PartyExpYearMissingError"/>
-            </not-empty>
-        </process>
-        <process field="expireDate">
-            <copy/>
-            <validate-method method="isDateAfterToday">
-                <fail-property resource="EcommerceUiLabels" property="PartyExpDateBeforeTodayError"/>
-            </validate-method>
         </process>
     </simple-map-processor>
 
