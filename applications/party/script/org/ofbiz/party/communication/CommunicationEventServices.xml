@@ -189,4 +189,31 @@ under the License.
             </then>
         </if>        
     </simple-method>
+
+    <simple-method method-name="sendEmailDated"
+        short-description="Checks for email communication events with the status COM__ENTERED and a startdate which is expired, then send the email">
+        <transaction-begin/>
+        <now-timestamp-to-env env-name="nowDate" />
+        <entity-condition entity-name="CommunicationEvent" list-name="communicationEvents">
+            <condition-list combine="and">
+                <condition-list combine="or">
+                    <condition-expr field-name="communicationEventTypeId" operator="equals" value="EMAIL_COMMUNICATION" />
+                    <condition-expr field-name="communicationEventTypeId" operator="equals" value="AUTO_EMAIL_COMM" />
+                </condition-list>
+                <condition-expr field-name="statusId" operator="equals" value="COM_ENTERED" />
+                <condition-list combine="or">
+                    <condition-expr field-name="datetimeStarted" operator="less" env-name="nowDate" />
+                    <condition-expr field-name="datetimeStarted" operator="equals" env-name="nullField" />
+                </condition-list>
+            </condition-list>
+        </entity-condition>
+        <transaction-commit/>
+        <iterate entry-name="communicationEvent" list-name="communicationEvents">
+            <transaction-begin/>
+            <set-service-fields service-name="sendCommEventAsEmail" map-name="communicationEvent" to-map-name="inMap"/>
+            <call-service service-name="sendCommEventAsEmail" in-map-name="inMap"/>
+            <transaction-commit/>
+        </iterate>
+    </simple-method>    
+    
 </simple-methods>
