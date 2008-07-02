@@ -1080,14 +1080,14 @@ under the License.
         </field>
         <field name="maintTemplateWorkEffortId"><lookup target-form-name="LookupWorkEffort"/></field>
         <field name="intervalUomId">
-            <drop-down allow-empty="false">
+            <drop-down allow-empty="true">
                 <entity-options entity-name="Uom" description="${description}" key-field-name="uomId">
                     <entity-order-by field-name="description"/>
                 </entity-options> 
             </drop-down>
         </field>
         <field name="intervalMeterTypeId">
-            <drop-down allow-empty="false">
+            <drop-down allow-empty="true">
                 <entity-options entity-name="ProductMeterType" description="${description}" key-field-name="productMeterTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options> 
