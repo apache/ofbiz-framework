@@ -28,13 +28,18 @@ under the License.
     <EnumerationType description="Parent Type for all Work Effort enum types" enumTypeId="WORK_EFFORT" hasTable="N" parentTypeId=""/>
     <EnumerationType description="Parent Type for all Workflow enum types" enumTypeId="WORKFLOW" hasTable="N" parentTypeId=""/>
 
-    <EnumerationType description="Work Effort Expectations" enumTypeId="WORK_EFF_EXPECT" hasTable="N" parentTypeId="WORK_EFFORT"/>
+    <EnumerationType description="Work Effort Expectation" enumTypeId="WORK_EFF_EXPECT" hasTable="N" parentTypeId="WORK_EFFORT"/>
     <Enumeration description="For Your Information" enumCode="FYI" enumId="WEE_FYI" sequenceId="01" enumTypeId="WORK_EFF_EXPECT"/>
     <Enumeration description="Involvement Required" enumCode="REQUIRE" enumId="WEE_REQUIRE" sequenceId="02" enumTypeId="WORK_EFF_EXPECT"/>
     <Enumeration description="Involvement Requested" enumCode="REQUEST" enumId="WEE_REQUEST" sequenceId="03" enumTypeId="WORK_EFF_EXPECT"/>
     <Enumeration description="Immediate Response Requested" enumCode="IMMEDIATE" enumId="WEE_IMMEDIATE" sequenceId="04" enumTypeId="WORK_EFF_EXPECT"/>
 
-    <EnumerationType description="Work Effort Scope Classifications" enumTypeId="WORK_EFF_SCOPE" hasTable="N" parentTypeId="WORK_EFFORT"/>
+    <EnumerationType description="Work Effort Delegate Reason" enumTypeId="WORK_EFF_DEL_REAS" hasTable="N" parentTypeId="WORK_EFFORT"/>
+    <Enumeration description="Need Support or Help" enumCode="NEED_HELP" enumId="WEDR_NEED_HELP" sequenceId="01" enumTypeId="WORK_EFF_DEL_REAS"/>
+    <Enumeration description="My Part Finished" enumCode="PART_FINISHED" enumId="WEDR_PART_FINISHED" sequenceId="02" enumTypeId="WORK_EFF_DEL_REAS"/>
+    <Enumeration description="Completely Finished" enumCode="WHOLE_FINISHED" enumId="WEDR_WHOLE_FINISHED" sequenceId="03" enumTypeId="WORK_EFF_DEL_REAS"/>
+    
+    <EnumerationType description="Work Effort Scope Classification" enumTypeId="WORK_EFF_SCOPE" hasTable="N" parentTypeId="WORK_EFFORT"/>
     <Enumeration description="General, public access" enumCode="PUBLIC" enumId="WES_PUBLIC" sequenceId="01" enumTypeId="WORK_EFF_SCOPE"/>
     <Enumeration description="Restricted, private access" enumCode="PRIVATE" enumId="WES_PRIVATE" sequenceId="02" enumTypeId="WORK_EFF_SCOPE"/>
     <Enumeration description="Very restricted, confidential access" enumCode="CONFIDENTIAL" enumId="WES_CONFIDENTIAL" sequenceId="03" enumTypeId="WORK_EFF_SCOPE"/>
@@ -80,13 +85,26 @@ under the License.
     <StatusValidChange condition="" statusId="CAL_TENTATIVE" statusIdTo="CAL_CANCELLED" transitionName="Cancel"/>
     <StatusValidChange condition="" statusId="CAL_TENTATIVE" statusIdTo="CAL_CONFIRMED" transitionName="Confirm"/>
     <StatusValidChange condition="" statusId="CAL_CONFIRMED" statusIdTo="CAL_COMPLETED" transitionName="Complete"/>
-
+    
+    <!-- Project Statuses -->
+    <StatusType description="Project" hasTable="N" parentTypeId="PROJECT_STATUS" statusTypeId="WORK_EFF_ASSET_STTS"/>
+    <StatusItem description="Planning" sequenceId="01" statusCode="PLANNING" statusId="WEPR_PLANNING" statusTypeId="EVENT_STATUS"/>
+    <StatusItem description="In Progress" sequenceId="02" statusCode="IN_PROGRESS" statusId="WEPR_IN_PROGRESS" statusTypeId="EVENT_STATUS"/>
+    <StatusItem description="Complete" sequenceId="05" statusCode="COMPLETE" statusId="WEPR_COMPLETE" statusTypeId="EVENT_STATUS"/>
+    <StatusItem description="On Hold" sequenceId="98" statusCode="ON_HOLD" statusId="WEPR_ON_HOLD" statusTypeId="EVENT_STATUS"/>
+    <StatusItem description="Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="WEPR_CANCELLED" statusTypeId="EVENT_STATUS"/>
+    <StatusValidChange condition="" statusId="WEPR_PLANNING" statusIdTo="WEPR_IN_PROGRESS" transitionName="Begin Project"/>
+    <StatusValidChange condition="" statusId="WEPR_IN_PROGRESS" statusIdTo="WEPR_ON_HOLD" transitionName="Begin Project"/>
+    <StatusValidChange condition="" statusId="WEPR_ON_HOLD" statusIdTo="WEPR_IN_PROGRESS" transitionName="Resume Project"/>
+    <StatusValidChange condition="" statusId="WEPR_IN_PROGRESS" statusIdTo="WEPR_CANCELLED" transitionName="Cancel"/>
+    <StatusValidChange condition="" statusId="WEPR_ON_HOLD" statusIdTo="WEPR_CANCELLED" transitionName="Cancel"/>
+    
     <!-- Status items for WorkEffortPartyAssignment.availabilityStatusId -->
     <StatusType description="Work Effort Party Availability" hasTable="N" parentTypeId="" statusTypeId="WEPA_AVAILABILITY"/>
     <StatusItem description="Available" sequenceId="01" statusCode="AVAILABLE" statusId="WEPA_AV_AVAILABLE" statusTypeId="WEPA_AVAILABILITY"/>
     <StatusItem description="Busy" sequenceId="02" statusCode="BUSY" statusId="WEPA_AV_BUSY" statusTypeId="WEPA_AVAILABILITY"/>
     <StatusItem description="Away" sequenceId="03" statusCode="AWAY" statusId="WEPA_AV_AWAY" statusTypeId="WEPA_AVAILABILITY"/>
-
+    
     <WorkEffortAssocType description="Breakdown/Detail" hasTable="N" parentTypeId="" workEffortAssocTypeId="WORK_EFF_BREAKDOWN"/>
     <WorkEffortAssocType description="Dependency" hasTable="N" parentTypeId="" workEffortAssocTypeId="WORK_EFF_DEPENDENCY"/>
     <WorkEffortAssocType description="Concurrency" hasTable="N" parentTypeId="WORK_EFF_DEPENDENCY" workEffortAssocTypeId="WORK_EFF_CONCURRENCY"/>

@@ -668,9 +668,7 @@ under the License.
         <key-map field-name="noteId"/>
       </relation>
     </entity>
-    <entity entity-name="WorkEffortPartyAssignment"
-            package-name="org.ofbiz.workeffort.workeffort"
-            title="Work Effort Party Assignment Entity">
+    <entity entity-name="WorkEffortPartyAssignment" package-name="org.ofbiz.workeffort.workeffort" title="Work Effort Party Assignment Entity">
       <field name="workEffortId" type="id-ne"></field>
       <field name="partyId" type="id-ne"></field>
       <field name="roleTypeId" type="id-ne"></field>
@@ -678,7 +676,8 @@ under the License.
       <field name="thruDate" type="date-time"></field>
       <field name="statusId" type="id"></field>
       <field name="statusDateTime" type="date-time"></field>
-      <field name="expectationEnumId" type="id"></field>
+      <field name="expectationEnumId" type="id"><description>Point to Enumeration value with enumTypeId="WORK_EFF_EXPECT"</description></field>
+      <field name="delegateReasonEnumId" type="id"><description>Point to Enumeration value with enumTypeId="WORK_EFF_DEL_REAS"</description></field>
       <field name="facilityId" type="id"></field>
       <field name="comments" type="comment"></field>
       <field name="mustRsvp" type="indicator"></field>
@@ -712,14 +711,15 @@ under the License.
       <relation type="one" fk-name="WKEFF_PA_EXP_ENUM" title="Expectation" rel-entity-name="Enumeration">
         <key-map field-name="expectationEnumId" rel-field-name="enumId"/>
       </relation>
+        <relation type="one" fk-name="WKEFF_PA_DELR_ENM" title="DelegateReason" rel-entity-name="Enumeration">
+            <key-map field-name="delegateReasonEnumId" rel-field-name="enumId"/>
+        </relation>
       <relation type="one" fk-name="WKEFF_PA_AVSTTS" title="Availability" rel-entity-name="StatusItem">
         <key-map field-name="availabilityStatusId" rel-field-name="statusId"/>
       </relation>
     </entity>
-    <entity entity-name="WorkEffortPurposeType"
-            package-name="org.ofbiz.workeffort.workeffort"
-            title="Work Effort Purpose Type Entity"
-            default-resource-name="WorkEffortEntityLabels">
+    <entity entity-name="WorkEffortPurposeType" package-name="org.ofbiz.workeffort.workeffort" title="Work Effort Purpose Type Entity"
+           default-resource-name="WorkEffortEntityLabels">
       <field name="workEffortPurposeTypeId" type="id-ne"></field>
       <field name="description" type="description"></field>
       <prim-key field="workEffortPurposeTypeId"/>
