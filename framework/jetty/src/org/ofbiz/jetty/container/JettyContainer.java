@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -18,42 +18,37 @@
  *******************************************************************************/
 package org.ofbiz.jetty.container;
 
-import java.io.IOException;
-import java.net.UnknownHostException;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-import org.apache.log4j.Priority;
-import org.mortbay.http.NCSARequestLog;
-import org.mortbay.http.SocketListener;
-import org.mortbay.http.SunJsseListener;
-import org.mortbay.http.ajp.AJP13Listener;
-import org.mortbay.jetty.Server;
-import org.mortbay.jetty.servlet.WebApplicationContext;
-import org.mortbay.jetty.servlet.SessionManager;
-import org.mortbay.jetty.servlet.HashSessionManager;
-import org.mortbay.util.Frame;
-import org.mortbay.util.Log;
-import org.mortbay.util.LogSink;
-import org.mortbay.util.MultiException;
-import org.mortbay.util.ThreadedServer;
+import java.io.File;
 
 import org.ofbiz.base.component.ComponentConfig;
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilURL;
-import org.ofbiz.base.util.SSLUtil;
 import org.ofbiz.base.container.Container;
-import org.ofbiz.base.container.ContainerException;
 import org.ofbiz.base.container.ContainerConfig;
+import org.ofbiz.base.container.ContainerException;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.SSLUtil;
+
+import org.mortbay.jetty.AbstractConnector;
+import org.mortbay.jetty.NCSARequestLog;
+import org.mortbay.jetty.Server;
+import org.mortbay.jetty.ajp.Ajp13SocketConnector;
+import org.mortbay.jetty.bio.SocketConnector;
+import org.mortbay.jetty.handler.RequestLogHandler;
+import org.mortbay.jetty.nio.SelectChannelConnector;
+import org.mortbay.jetty.security.SslSelectChannelConnector;
+import org.mortbay.jetty.security.SslSocketConnector;
+import org.mortbay.jetty.servlet.HashSessionManager;
+import org.mortbay.jetty.servlet.SessionHandler;
+import org.mortbay.jetty.webapp.WebAppContext;
+import org.mortbay.thread.BoundedThreadPool;
+
 
 /**
- * JettyContainer - Container implementation for Jetty
- * This container depends on the ComponentContainer as well.
+ * JettyContainer - Container implementation for Jetty 6
+ *
  */
 public class JettyContainer implements Container {
 
@@ -63,76 +58,76 @@ public class JettyContainer implements Container {
     private Map<String, Server> servers = new HashMap<String, Server>();
 
     /**
-     * @see org.ofbiz.base.container.Container#init(java.lang.String[], java.lang.String)
+     * @see org.ofbiz.base.container.Container#init(java.lang.String[],java.lang.String)
      */
     public void init(String[] args, String configFile) {
         this.configFile = configFile;
     }
 
     private void initJetty() throws ContainerException {
+
         // configure JSSE properties
         SSLUtil.loadJsseProperties();
-
-        // configure jetty logging
-        Log log = Log.instance();
-        log.disableLog();
-        Log4jSink sink = new Log4jSink();
-        log.add(sink);
-        sink.setOptions(UtilURL.fromResource("debug.properties").toExternalForm());
-        try {
-            sink.start();
-        } catch (Exception e) {
-            Debug.logWarning(e, module);
-        }
 
         // get the container
         ContainerConfig.Container jc = ContainerConfig.getContainer("jetty-container", configFile);
 
         // create the servers
-        for (ContainerConfig.Container.Property prop: jc.properties.values()) {
-            servers.put(prop.name, createServer(prop));
+        for (ContainerConfig.Container.Property property : jc.properties.values()) {
+            servers.put(property.name, createServer(property));
         }
 
         // load the applications
-        Collection<ComponentConfig> componentConfigs = ComponentConfig.getAllComponents();
+        Collection componentConfigs = ComponentConfig.getAllComponents();
         if (componentConfigs != null) {
-            for (ComponentConfig component: componentConfigs) {
-                for (ComponentConfig.WebappInfo appInfo: component.getWebappInfos()) {
-                    List<String> virtualHosts = appInfo.getVirtualHosts();
-                    Map<String, String> initParameters = appInfo.getInitParameters();
-                    Server server = servers.get(appInfo.server);
+
+            for (Object componentConfig : componentConfigs) {
+
+                ComponentConfig component = (ComponentConfig) componentConfig;
+
+                for (ComponentConfig.WebappInfo webappInfo : component.getWebappInfos()) {
+
+                    List virtualHosts = webappInfo.getVirtualHosts();
+                    Map initParameters = webappInfo.getInitParameters();
+
+                    Server server = servers.get(webappInfo.server);
+
                     if (server == null) {
-                        Debug.logWarning("Server with name [" + appInfo.server + "] not found; not mounting [" + appInfo.name + "]", module);
+                        Debug.logWarning("Server with name [" + webappInfo.server + "] not found; not mounting [" + webappInfo.name + "]", module);
                     } else {
-                        try {
-                            // set the root location (make sure we set the paths correctly)
-                            String location = component.getRootLocation() + appInfo.location;
-                            location = location.replace('\\', '/');
-                            if (!location.endsWith("/")) {
-                                location = location + "/";
-                            }
 
-                            // load the application
-                            WebApplicationContext ctx = server.addWebApplication(appInfo.mountPoint, location);
-                            ctx.setAttribute("_serverId", appInfo.server);
-
-                            // set the session manager
-                            SessionManager sm = new HashSessionManager();
-                            ctx.getWebApplicationHandler().setSessionManager(sm);
-                            
-                            // set the virtual hosts
-                            for (String vh: virtualHosts) {
-                                ctx.addVirtualHost(vh);
-                            }
-
-                            // set the init parameters
-                            for (Map.Entry<String, String> entry: initParameters.entrySet()) {
-                                ctx.setInitParameter(entry.getKey(), entry.getValue());
-                            }
-
-                        } catch (IOException e) {
-                            Debug.logError(e, "Problem mounting application [" + appInfo.name + " / " + appInfo.location + "]", module);
+                        // set the root location (make sure we set the paths correctly)
+                        String location = component.getRootLocation() + webappInfo.location;
+                        location = location.replace('\\', '/');
+                        if (location.endsWith("/")) {
+                            location = location.substring(0, location.lastIndexOf("/"));
                         }
+
+                        // load the application
+                        String mountPoint = webappInfo.mountPoint;
+                        if (mountPoint.endsWith("/*")) {
+                            mountPoint = mountPoint.substring(0, mountPoint.lastIndexOf("/"));
+                        }
+
+                        WebAppContext context = new WebAppContext(location, mountPoint);
+                        context.setAttribute("_serverId", webappInfo.server);
+                        context.setLogUrlOnStart(true);
+
+                         // set the session manager
+                        HashSessionManager sm = new HashSessionManager();
+                        context.setSessionHandler(new SessionHandler(sm));
+
+                        // set the virtual hosts
+                        if (virtualHosts != null && !virtualHosts.isEmpty()) {
+                            context.setVirtualHosts((String[]) virtualHosts.toArray());
+                        }
+
+                        // set the init parameters
+                        if (initParameters != null && !initParameters.isEmpty()) {
+                            context.setInitParams(initParameters);
+                        }
+
+                        server.addHandler(context);
                     }
                 }
             }
@@ -140,133 +135,106 @@ public class JettyContainer implements Container {
     }
 
     private Server createServer(ContainerConfig.Container.Property serverConfig) throws ContainerException {
+
         Server server = new Server();
 
-        // configure the listeners/loggers
-        for (ContainerConfig.Container.Property props: serverConfig.properties.values()) {
-            if ("listener".equals(props.value)) {
-                if ("default".equals(props.getProperty("type").value)) {
-                    SocketListener listener = new SocketListener();
-                    setListenerOptions(listener, props);
-                    if (props.getProperty("identify-listener") != null) {
-                        boolean identifyListener = "true".equalsIgnoreCase(props.getProperty("identify-listener").value);
-                        listener.setIdentifyListener(identifyListener);
-                    }
-                    if (props.getProperty("buffer-size") != null) {
-                        int value = 0;
-                        try {
-                            value = Integer.parseInt(props.getProperty("buffer-size").value);
-                        } catch (NumberFormatException e) {
-                            value = 0;
-                        }
-                        if (value > 0) {
-                            listener.setBufferSize(value);
-                        }
-                    }
-                    if (props.getProperty("low-resource-persist-time") != null) {
-                        int value = 0;
-                        try {
-                            value = Integer.parseInt(props.getProperty("low-resource-persist-time").value);
-                        } catch (NumberFormatException e) {
-                            value = 0;
-                        }
-                        if (value > 0) {
-                            listener.setLowResourcePersistTimeMs(value);
-                        }
-                    }
-                    server.addListener(listener);
-                } else if ("sun-jsse".equals(props.getProperty("type").value)) {
-                    SunJsseListener listener = new SunJsseListener();
-                    setListenerOptions(listener, props);
+        // configure the connectors / loggers
+        for (ContainerConfig.Container.Property props : serverConfig.properties.values()) {
+
+            if ("send-server-version".equals(props.name)) {
+                if ("false".equalsIgnoreCase(props.value)) {
+                    server.setSendServerVersion(false);
+                }
+            } else if ("connector".equals(props.value)) {
+
+                if ("http".equals(props.getProperty("type").value)) {
+
+                    AbstractConnector connector = new SocketConnector();
+                    setConnectorOptions(connector, props);
+                    server.addConnector(connector);
+
+                } else if ("https".equals(props.getProperty("type").value)) {
+
+                    SslSocketConnector connector = new SslSocketConnector();
+                    setConnectorOptions(connector, props);
+
                     if (props.getProperty("keystore") != null) {
-                        listener.setKeystore(props.getProperty("keystore").value);
+                        connector.setKeystore(props.getProperty("keystore").value);
                     }
                     if (props.getProperty("password") != null) {
-                        listener.setPassword(props.getProperty("password").value);
+                        connector.setPassword(props.getProperty("password").value);
                     }
                     if (props.getProperty("key-password") != null) {
-                        listener.setKeyPassword(props.getProperty("key-password").value);
+                        connector.setKeyPassword(props.getProperty("key-password").value);
+                    }
+                    if (props.getProperty("client-auth") != null) {
+                        if ("need".equals(props.getProperty("client-auth").value)) {
+                            connector.setNeedClientAuth(true);
+                        } else if ("want".equals(props.getProperty("client-auth").value)) {
+                            connector.setWantClientAuth(true);
+                        }
+                    }
+
+                    server.addConnector(connector);
+
+                } else if ("nio-http".equals(props.getProperty("type").value)) {
+
+                    AbstractConnector connector = new SelectChannelConnector();
+                    setConnectorOptions(connector, props);
+                    server.addConnector(connector);
+
+                } else if ("nio-https".equals(props.getProperty("type").value)) {
+
+                    SslSelectChannelConnector connector = new SslSelectChannelConnector();
+                    setConnectorOptions(connector, props);
+
+                    if (props.getProperty("keystore") != null) {
+                        connector.setKeystore(props.getProperty("keystore").value);
+                    }
+                    if (props.getProperty("password") != null) {
+                        connector.setPassword(props.getProperty("password").value);
+                    }
+                    if (props.getProperty("key-password") != null) {
+                        connector.setKeyPassword(props.getProperty("key-password").value);
                     }
                     if (props.getProperty("need-client-auth") != null) {
                         boolean needClientAuth = "true".equalsIgnoreCase(props.getProperty("need-client-auth").value);
-                        listener.setNeedClientAuth(needClientAuth);
+                        connector.setNeedClientAuth(needClientAuth);
                     }
-                    if (props.getProperty("identify-listener") != null) {
-                        boolean identifyListener = "true".equalsIgnoreCase(props.getProperty("identify-listener").value);
-                        listener.setIdentifyListener(identifyListener);
-                    }
-                    if (props.getProperty("buffer-size") != null) {
-                        int value = 0;
-                        try {
-                            value = Integer.parseInt(props.getProperty("buffer-size").value);
-                        } catch (NumberFormatException e) {
-                            value = 0;
-                        }
-                        if (value > 0) {
-                            listener.setBufferSize(value);
-                        }
-                    }
-                    if (props.getProperty("low-resource-persist-time") != null) {
-                        int value = 0;
-                        try {
-                            value = Integer.parseInt(props.getProperty("low-resource-persist-time").value);
-                        } catch (NumberFormatException e) {
-                            value = 0;
-                        }
-                        if (value > 0) {
-                            listener.setLowResourcePersistTimeMs(value);
-                        }
-                    }
-                    server.addListener(listener);
-                } else if ("ibm-jsse".equals(props.getProperty("type").value)) {
-                    throw new ContainerException("Listener not supported yet [" + props.getProperty("type").value + "]");
-                } else if ("nio".equals(props.getProperty("type").value)) {
-                    throw new ContainerException("Listener not supported yet [" + props.getProperty("type").value + "]");
+
+                    server.addConnector(connector);
+
                 } else if ("ajp13".equals(props.getProperty("type").value)) {
-                    AJP13Listener listener = new AJP13Listener();
-                    setListenerOptions(listener, props);
-                    if (props.getProperty("identify-listener") != null) {
-                        boolean identifyListener = "true".equalsIgnoreCase(props.getProperty("identify-listener").value);
-                        listener.setIdentifyListener(identifyListener);
-                    }
-                    if (props.getProperty("buffer-size") != null) {
-                        int value = 0;
-                        try {
-                            value = Integer.parseInt(props.getProperty("buffer-size").value);
-                        } catch (NumberFormatException e) {
-                            value = 0;
-                        }
-                        if (value > 0) {
-                            listener.setBufferSize(value);
-                        }
-                    }
-                    server.addListener(listener);
+
+                    AbstractConnector connector = new Ajp13SocketConnector();
+                    setConnectorOptions(connector, props);
+                    server.addConnector(connector);
                 }
+
             } else if ("request-log".equals(props.value)) {
-                NCSARequestLog rl = new NCSARequestLog();
+
+                RequestLogHandler requestLogHandler = new RequestLogHandler();
+
+                NCSARequestLog requestLog = new NCSARequestLog();
 
                 if (props.getProperty("filename") != null) {
-                    rl.setFilename(props.getProperty("filename").value);
+                    requestLog.setFilename(props.getProperty("filename").value);
                 }
 
                 if (props.getProperty("append") != null) {
-                    rl.setAppend("true".equalsIgnoreCase(props.getProperty("append").value));
-                }
-
-                if (props.getProperty("buffered") != null) {
-                    rl.setBuffered("true".equalsIgnoreCase(props.getProperty("buffered").value));
+                    requestLog.setAppend("true".equalsIgnoreCase(props.getProperty("append").value));
                 }
 
                 if (props.getProperty("extended") != null) {
-                    rl.setExtended("true".equalsIgnoreCase(props.getProperty("extended").value));
+                    requestLog.setExtended("true".equalsIgnoreCase(props.getProperty("extended").value));
                 }
 
                 if (props.getProperty("timezone") != null) {
-                    rl.setLogTimeZone(props.getProperty("timezone").value);
+                    requestLog.setLogTimeZone(props.getProperty("timezone").value);
                 }
 
                 if (props.getProperty("date-format") != null) {
-                    rl.setLogDateFormat(props.getProperty("date-format").value);
+                    requestLog.setLogDateFormat(props.getProperty("date-format").value);
                 }
 
                 if (props.getProperty("retain-days") != null) {
@@ -276,51 +244,47 @@ public class JettyContainer implements Container {
                     } catch (NumberFormatException e) {
                         days = 90;
                     }
-                    rl.setRetainDays(days);
+                    requestLog.setRetainDays(days);
                 }
-                server.setRequestLog(rl);
+
+                requestLogHandler.setRequestLog(requestLog);
+                server.addHandler(requestLogHandler);
             }
         }
+
         return server;
     }
 
-    private void setListenerOptions(ThreadedServer listener, ContainerConfig.Container.Property listenerProps) throws ContainerException {
+    private void setConnectorOptions(AbstractConnector connector, ContainerConfig.Container.Property props) throws ContainerException {
+
         String systemHost = null;
-        if ("default".equals(listenerProps.getProperty("type").value)) {
-            systemHost = System.getProperty(listenerProps.name + ".host");
+        if ("default".equals(props.getProperty("type").value)) {
+            systemHost = System.getProperty(props.name + ".host");
         }
-        if (listenerProps.getProperty("host") != null && systemHost == null) {
-            try {
-                listener.setHost(listenerProps.getProperty("host").value);
-            } catch (UnknownHostException e) {
-                throw new ContainerException(e);
-            }
+        if (props.getProperty("host") != null && systemHost == null) {
+            connector.setHost(props.getProperty("host").value);
         } else {
             String host = "0.0.0.0";
             if (systemHost != null) {
                 host = systemHost;
             }
-            try {
-                listener.setHost(host);
-            } catch (UnknownHostException e) {
-                throw new ContainerException(e);
-            }
+            connector.setHost(host);
         }
 
         String systemPort = null;
-        if ("default".equals(listenerProps.getProperty("type").value)) {
-            systemPort = System.getProperty(listenerProps.name + ".port");
+        if ("default".equals(props.getProperty("type").value)) {
+            systemPort = System.getProperty(props.name + ".port");
         }
-        if (listenerProps.getProperty("port") != null && systemPort == null) {
+        if (props.getProperty("port") != null && systemPort == null) {
             int value = 8080;
             try {
-                value = Integer.parseInt(listenerProps.getProperty("port").value);
+                value = Integer.parseInt(props.getProperty("port").value);
             } catch (NumberFormatException e) {
                 value = 8080;
             }
             if (value == 0) value = 8080;
 
-            listener.setPort(value);
+            connector.setPort(value);
         } else {
             int port = 8080;
             if (systemPort != null) {
@@ -330,56 +294,98 @@ public class JettyContainer implements Container {
                     port = 8080;
                 }
             }
-            listener.setPort(port);
+            connector.setPort(port);
         }
 
-        if (listenerProps.getProperty("min-threads") != null) {
+        if (props.getProperty("buffer-size") != null) {
             int value = 0;
             try {
-                value = Integer.parseInt(listenerProps.getProperty("min-threads").value);
+                value = Integer.parseInt(props.getProperty("buffer-size").value);
             } catch (NumberFormatException e) {
                 value = 0;
             }
             if (value > 0) {
-                listener.setMinThreads(value);
+                connector.setResponseBufferSize(value);
             }
         }
 
-        if (listenerProps.getProperty("max-threads") != null) {
+        if (props.getProperty("linger-time") != null) {
             int value = 0;
             try {
-                value = Integer.parseInt(listenerProps.getProperty("max-threads").value);
+                value = Integer.parseInt(props.getProperty("linger-time").value);
             } catch (NumberFormatException e) {
                 value = 0;
             }
             if (value > 0) {
-                listener.setMaxThreads(value);
+                connector.setSoLingerTime(value);
             }
         }
 
-        if (listenerProps.getProperty("max-idle-time") != null) {
+        if (props.getProperty("low-resource-max-idle-time") != null) {
             int value = 0;
             try {
-                value = Integer.parseInt(listenerProps.getProperty("max-idle-time").value);
+                value = Integer.parseInt(props.getProperty("low-resource-max-idle-time").value);
             } catch (NumberFormatException e) {
                 value = 0;
             }
             if (value > 0) {
-                listener.setMaxIdleTimeMs(value);
+                connector.setLowResourceMaxIdleTime(value);
             }
         }
 
-        if (listenerProps.getProperty("linger-time") != null) {
+
+        BoundedThreadPool threadPool = new BoundedThreadPool();
+
+        if (props.getProperty("min-threads") != null) {
             int value = 0;
             try {
-                value = Integer.parseInt(listenerProps.getProperty("linger-time").value);
+                value = Integer.parseInt(props.getProperty("min-threads").value);
             } catch (NumberFormatException e) {
                 value = 0;
             }
             if (value > 0) {
-                listener.setLingerTimeSecs(value);
+                threadPool.setMinThreads(value);
             }
         }
+
+        if (props.getProperty("max-threads") != null) {
+            int value = 0;
+            try {
+                value = Integer.parseInt(props.getProperty("max-threads").value);
+            } catch (NumberFormatException e) {
+                value = 0;
+            }
+            if (value > 0) {
+                threadPool.setMaxThreads(value);
+            }
+        }
+
+        if (props.getProperty("max-idle-time") != null) {
+            int value = 0;
+            try {
+                value = Integer.parseInt(props.getProperty("max-idle-time").value);
+            } catch (NumberFormatException e) {
+                value = 0;
+            }
+            if (value > 0) {
+                threadPool.setMaxIdleTimeMs(value);
+            }
+        }
+
+        if (props.getProperty("low-threads") != null) {
+            int value = 0;
+            try {
+                value = Integer.parseInt(props.getProperty("low-threads").value);
+            } catch (NumberFormatException e) {
+                value = 0;
+            }
+            if (value > 0) {
+                threadPool.setLowThreads(value);
+            }
+        }
+
+        connector.setThreadPool(threadPool);
+
     }
 
     /**
@@ -389,11 +395,12 @@ public class JettyContainer implements Container {
         // start the server(s)
         this.initJetty();
         if (servers != null) {
-            for (Server server: servers.values()) {
+            for (Server server : servers.values()) {
                 try {
                     server.start();
-                } catch (MultiException e) {
-                    Debug.logError(e, "Jetty Server Multi-Exception", module);
+                    server.join();
+                } catch (Exception e) {
+                    Debug.logError(e, "Jetty Server Exception", module);
                     throw new ContainerException(e);
                 }
             }
@@ -406,70 +413,13 @@ public class JettyContainer implements Container {
      */
     public void stop() throws ContainerException {
         if (servers != null) {
-            for (Server server: servers.values()) {
+            for (Server server : servers.values()) {
                 try {
                     server.stop();
-                } catch (InterruptedException e) {
+                } catch (Exception e) {
                     Debug.logWarning(e, module);
                 }
             }
         }
-    }
-}
-
-// taken from JettyPlus
-class Log4jSink implements LogSink {
-
-    private String _options;
-    private transient boolean _started;
-
-    public void setOptions(String filename) {
-        _options=filename;
-    }
-
-    public String getOptions() {
-        return _options;
-    }
-
-    public void start() throws Exception {
-        _started=true;
-    }
-
-    public void stop() {
-        _started=false;
-    }
-
-    public boolean isStarted() {
-        return _started;
-    }
-
-    public void log(String tag, Object msg, Frame frame, long time) {
-        String method = frame.getMethod();
-        int lb = method.indexOf('(');
-        int ld = (lb > 0) ? method.lastIndexOf('.', lb) : method.lastIndexOf('.');
-        if (ld < 0) ld = lb;
-        String class_name = (ld > 0) ? method.substring(0,ld) : method;
-
-        Logger log = Logger.getLogger(class_name);
-
-        Priority priority = Level.INFO;
-
-        if (Log.DEBUG.equals(tag)) {
-            priority = Level.DEBUG;
-        } else if (Log.WARN.equals(tag) || Log.ASSERT.equals(tag)) {
-            priority = Level.ERROR;
-        } else if (Log.FAIL.equals(tag)) {
-            priority = Level.FATAL;
-        }
-
-        if (!log.isEnabledFor(priority)) {
-            return;
-        }
-
-        log.log(Log4jSink.class.getName(), priority, "" + msg, null);
-    }
-
-    public synchronized void log(String s) {
-        Logger.getRootLogger().log("jetty.log4jSink", Level.INFO, s, null);
     }
 }
