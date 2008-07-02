@@ -50,29 +50,30 @@ under the License.
     <StatusType description="Workeffort" hasTable="N" parentTypeId="" statusTypeId="WORK_EFFORT_STATUS"/>
 
     <StatusType description="Calendar" hasTable="N" parentTypeId="WORK_EFFORT_STATUS" statusTypeId="CALENDAR_STATUS"/>
-    <StatusItem description="Needs Action" sequenceId="01" statusCode="NEEDS ACTION" statusId="CAL_NEEDS_ACTION" statusTypeId="CALENDAR_STATUS"/>
-    <StatusItem description="Sent" sequenceId="02" statusCode="SENT" statusId="CAL_SENT" statusTypeId="CALENDAR_STATUS"/>
-    <StatusItem description="Declined" sequenceId="03" statusCode="DECLINED" statusId="CAL_DECLINED" statusTypeId="CALENDAR_STATUS"/>
-    <StatusItem description="Delegated" sequenceId="04" statusCode="DELEGATED" statusId="CAL_DELEGATED" statusTypeId="CALENDAR_STATUS"/>
-    <StatusItem description="Cancelled" sequenceId="05" statusCode="CANCELLED" statusId="CAL_CANCELLED" statusTypeId="CALENDAR_STATUS"/>
+    <StatusItem description="In Planning" sequenceId="01" statusCode="IN_PLANNING" statusId="CAL_IN_PLANNING" statusTypeId="CALENDAR_STATUS"/>
+    <StatusItem description="Planned" sequenceId="02" statusCode="PLANNED" statusId="CAL_PLANNED" statusTypeId="CALENDAR_STATUS"/>
+    <StatusItem description="Needs Action (Approved)" sequenceId="03" statusCode="NEEDS_ACTION" statusId="CAL_NEEDS_ACTION" statusTypeId="CALENDAR_STATUS"/>
+    <StatusItem description="Sent" sequenceId="04" statusCode="SENT" statusId="CAL_SENT" statusTypeId="CALENDAR_STATUS"/>
+    <StatusItem description="Declined" sequenceId="10" statusCode="DECLINED" statusId="CAL_DECLINED" statusTypeId="CALENDAR_STATUS"/>
+    <StatusItem description="Delegated" sequenceId="11" statusCode="DELEGATED" statusId="CAL_DELEGATED" statusTypeId="CALENDAR_STATUS"/>
+    <StatusItem description="Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="CAL_CANCELLED" statusTypeId="CALENDAR_STATUS"/>
+    <StatusValidChange condition="" statusId="CAL_IN_PLANNING" statusIdTo="CAL_PLANNED" transitionName="Send"/>
+    <StatusValidChange condition="" statusId="CAL_IN_PLANNING" statusIdTo="CAL_NEEDS_ACTION" transitionName="Send"/>
+    <StatusValidChange condition="" statusId="CAL_PLANNED" statusIdTo="CAL_NEEDS_ACTION" transitionName="Send"/>
     <StatusValidChange condition="" statusId="CAL_NEEDS_ACTION" statusIdTo="CAL_SENT" transitionName="Send"/>
     <StatusValidChange condition="" statusId="CAL_NEEDS_ACTION" statusIdTo="CAL_CANCELLED" transitionName="Cancel"/>
     <StatusValidChange condition="" statusId="CAL_SENT" statusIdTo="CAL_DECLINED" transitionName="Decline"/>
     <StatusValidChange condition="" statusId="CAL_SENT" statusIdTo="CAL_DELEGATED" transitionName="Delegate"/>
     <StatusValidChange condition="" statusId="CAL_SENT" statusIdTo="CAL_CANCELLED" transitionName="Cancel"/>
-
+    
     <StatusType description="Task" hasTable="N" parentTypeId="CALENDAR_STATUS" statusTypeId="TASK_STATUS"/>
     <StatusItem description="Accepted" sequenceId="01" statusCode="ACCEPTED" statusId="CAL_ACCEPTED" statusTypeId="TASK_STATUS"/>
     <StatusItem description="Completed" sequenceId="02" statusCode="COMPLETED" statusId="CAL_COMPLETED" statusTypeId="TASK_STATUS"/>
+    <StatusValidChange condition="" statusId="CAL_NEEDS_ACTION" statusIdTo="CAL_COMPLETED" transitionName="Complete"/>
     <StatusValidChange condition="" statusId="CAL_SENT" statusIdTo="CAL_ACCEPTED" transitionName="Accept"/>
     <StatusValidChange condition="" statusId="CAL_ACCEPTED" statusIdTo="CAL_COMPLETED" transitionName="Complete"/>
     <StatusValidChange condition="" statusId="CAL_ACCEPTED" statusIdTo="CAL_CANCELLED" transitionName="Cancel"/>
     <StatusValidChange condition="" statusId="CAL_ACCEPTED" statusIdTo="CAL_DELEGATED" transitionName="Delegate"/>
-
-    <StatusType description="Timesheet" hasTable="N" parentTypeId="" statusTypeId="TIMESHEET_STATUS"/>
-    <StatusItem description="In-Process" sequenceId="01" statusCode="IN_PROCESS" statusId="TIMESHEET_IN_PROCESS" statusTypeId="TIMESHEET_STATUS"/>
-    <StatusItem description="Completed" sequenceId="02" statusCode="COMPLETED" statusId="TIMESHEET_COMPLETED" statusTypeId="TIMESHEET_STATUS"/>
-    <StatusValidChange condition="" statusId="TIMESHEET_IN_PROCESS" statusIdTo="TIMESHEET_COMPLETED" transitionName="Confirm complete"/>
     
     <StatusType description="Event" hasTable="N" parentTypeId="CALENDAR_STATUS" statusTypeId="EVENT_STATUS"/>
     <StatusItem description="Tentative" sequenceId="01" statusCode="TENTATIVE" statusId="CAL_TENTATIVE" statusTypeId="EVENT_STATUS"/>
@@ -85,6 +86,11 @@ under the License.
     <StatusValidChange condition="" statusId="CAL_TENTATIVE" statusIdTo="CAL_CANCELLED" transitionName="Cancel"/>
     <StatusValidChange condition="" statusId="CAL_TENTATIVE" statusIdTo="CAL_CONFIRMED" transitionName="Confirm"/>
     <StatusValidChange condition="" statusId="CAL_CONFIRMED" statusIdTo="CAL_COMPLETED" transitionName="Complete"/>
+    
+    <StatusType description="Timesheet" hasTable="N" parentTypeId="" statusTypeId="TIMESHEET_STATUS"/>
+    <StatusItem description="In-Process" sequenceId="01" statusCode="IN_PROCESS" statusId="TIMESHEET_IN_PROCESS" statusTypeId="TIMESHEET_STATUS"/>
+    <StatusItem description="Completed" sequenceId="02" statusCode="COMPLETED" statusId="TIMESHEET_COMPLETED" statusTypeId="TIMESHEET_STATUS"/>
+    <StatusValidChange condition="" statusId="TIMESHEET_IN_PROCESS" statusIdTo="TIMESHEET_COMPLETED" transitionName="Confirm complete"/>
     
     <!-- Project Statuses -->
     <StatusType description="Project" hasTable="N" parentTypeId="PROJECT_STATUS" statusTypeId="WORK_EFF_ASSET_STTS"/>
