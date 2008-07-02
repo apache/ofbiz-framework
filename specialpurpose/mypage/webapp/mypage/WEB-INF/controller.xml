@@ -74,8 +74,12 @@
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="main"/>
     </request-map>
-    
-    
+    <request-map uri="deletePartyCommunicationEvent">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteCommunicationEvent"/>
+        <response name="success" type="view" value="main"/>
+        <response name="error" type="view" value="main"/>
+    </request-map>
 
     <view-map name="main" type="screen" page="component://mypage/widget/CommonScreens.xml#main"/>
     <view-map name="newEvent" type="screen" page="component://mypage/widget/MyPageScreens.xml#newEvent"/>
