@@ -189,7 +189,7 @@ under the License.
     </form>
     
     <form name="NewEmail" type="single" target="createCommunicationEvent" default-map-name="communicationEvent">
-        <field name="communicationEventTypeId"><hidden value="EMAIL_COMMUNICATION"/></field>
+        <field name="communicationEventTypeId"><hidden value="AUTO_EMAIL_COMM"/></field>
         <field name="parentCommEventId"><hidden value="${parentCommEventId}"/></field>
         <field name="partyIdFrom"><hidden value="${partyIdFrom}"/></field>
         <field name="emailAddress" parameter-name="contactMechIdFrom">
@@ -319,24 +319,29 @@ under the License.
 
     <form name="ListCommEvents" type="list" odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate="true">
         <field name="communicationEventId"><hidden/></field>
-        <field name="communicationEventTypeId"><display-entity description="${description}" entity-name="CommunicationEventType" key-field-name="communicationEventTypeId"/></field>
         <field name="subject">
             <hyperlink description="${subject}" target="EditCommunicationEvent?communicationEventId=${communicationEventId}"/>
         </field>
+        <field name="communicationEventTypeId"><display-entity description="${description}" entity-name="CommunicationEventType" key-field-name="communicationEventTypeId"/></field>
         <field name="partyIdFrom" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.CommonFrom}">
-            <display-entity description="${firstName} ${lastName} [${partyId}]" entity-name="Person" key-field-name="partyId"/>
+            <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView" key-field-name="partyId">
+                <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyIdFrom}" target-type="inter-app" description="[${partyIdFrom}]"/>
+            </display-entity>
         </field>
         <field name="partyIdTo" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.CommonTo}">
-            <display-entity description="${firstName} ${lastName} [${partyId}]" entity-name="Person" key-field-name="partyId"/>
+            <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView" key-field-name="partyId">
+                <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyIdTo}" target-type="inter-app" description="[${partyIdTo}]"/>
+            </display-entity>
         </field>
         <field name="statusId"><display-entity description="${description}" entity-name="StatusItem" key-field-name="statusId"/></field>
-        <field name="contactMechTypeId"><display-entity description="${description}" entity-name="ContactMechType" key-field-name="contactMechTypeId"/></field>
+        <!--field name="contactMechTypeId"><display-entity description="${description}" entity-name="ContactMechType" key-field-name="contactMechTypeId"/></field-->
         <!-- Next two fields don't seem to be used, commenting out for now -->
         <!--
         <field name="roleTypeIdFrom"><display-entity description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/></field>
         <field name="roleTypeIdTo"><display-entity description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/></field>
         -->
-        <field name="datetimeStarted" title="${uiLabelMap.CommonStartDate}"><display/></field>
+        <field name="createdStamp" title="${uiLabelMap.CommonCreated}"><display description="${bsh:createdStamp.toString().substring(0,16)}"/></field>
+        <field name="datetimeStarted" title="${uiLabelMap.CommonSend}"><display description="${bsh:datetimeStarted==null?&quot;&quot;:datetimeStarted.toString().substring(0,16);}"/></field>
     </form>
 
     <form name="ListPartyCommEvents" type="list"  extends="ListCommEvents" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
