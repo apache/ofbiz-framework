@@ -182,7 +182,7 @@ under the License.
                                 <label for="shipToPostalCode">&nbsp;&nbsp;&nbsp;&nbsp;${uiLabelMap.FormFieldTitleZipCode}<span class="requiredLabel"> *</span><span id="advice-required-shipToPostalCode" class="custom-advice" style="display:none">(required)</span><span id="advice-validate-zip-shipToPostalCode" class="custom-advice" style="display:none">(required)</span></label>
                               </div>
                               <div class="field-widget">
-                                <input id="shipToPostalCode" name="shipToPostalCode" class="required validate-zip input_mask mask_zip" type="text" value="${parameters.shipToPostalCode?if_exists}"/>
+                                <input id="shipToPostalCode" name="shipToPostalCode" class="required validate-zip input_mask mask_zip" type="text" value="${parameters.shipToPostalCode?if_exists}" maxlength=8/>
                               </div>
                             </div>
                             <div class="form-row">
@@ -283,8 +283,40 @@ under the License.
             <div class="screenlet-header"><div class="boxhead" align="left">Step 4: Billing</div></div>
             <div id="billingSummaryPanel">
               <div align="left" style="width: auto; padding: 10px 40px 30px 40px;"><a href="javascript:void(0);" id="openBillingPanel"><h3>Click here to edit</h3></a></div>
-              <div id="billingSummary" style="display: none;">
-                Billing and Payment summary.
+              <div class="completed" id="billingCompleted" style="display: none;">
+                <a href="javascript:void(0);" id="openBillingAndPersonlDetail">
+                  <h3>Billing and Payment Summary</h3>
+                </a>
+                <table  cellpadding="0" cellspacing="0">
+                  <tbody>
+                    <tr>
+                      <td  style=" padding: 6px; width: 60px;" valign="top">Bill To:</td>
+                      <td  style=" padding: 6px; width: 60px;" valign="top">
+                        <div>
+                          <div id="completedBillToAttn"></div>
+                          <div id="completedCCNumber"></div>
+                          <div id="completedExpiryDate"></div>
+                        </div>
+                      </td>
+                      <td style=" padding: 6px; width: 60px;" valign="top">Location:</td>
+                      <td  style="padding: 6px; width: 60px;" valign="top">
+                        <div>    
+                          <div id="completedBillToAddress1"></div>
+                          <div id="completedBillToAddress2"></div>
+                          <div id="completedBillToGeo"></div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style=" padding: 6px; width: 60px;" valign="top">Payment Method:</td>
+                      <td  style="padding: 6px; width: 80px;" valign="top">
+                        <div>
+                          <div id="paymentMethod"></div>
+                        </div> 
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
             <div id="editBillingPanel" style="display: none;">
@@ -293,13 +325,10 @@ under the License.
                 <input type="hidden" id ="billToContactMechId" name="billToContactMechId" value="${parameters.billToContactMechId?if_exists}"/>
                 <input type="hidden" id="shippingContactMechIdInBillingForm" name="shippingContactMechId" value="${parameters.shippingContactMechId?if_exists}"/>
                 <input type="hidden" id="paymentMethodId" name="paymentMethodId" value="${parameters.paymentMethodId?if_exists}"/>
-                <input type="hidden" name="singleUsePayment" value="Y"/>
-                <input type="hidden" name="appendPayment" value="Y"/>
                 <input type="hidden" id="paymentMethodTypeId" name="paymentMethodTypeId" value="CREDIT_CARD"/>
                 <input type="hidden" id="billingPartyId" name="partyId" value="${parameters.partyId?if_exists}"/>
                 <input type="hidden" name="userLogin" value="${parameters.userLogin?if_exists}"/>
                 <input type="hidden" name="expireDate" value="${parameters.expireDate?if_exists}"/>
-                <input type="hidden" id="billToPhoneContactMechId" name="phoneContactMechId" value="${parameters.billToPhoneContactMechId?if_exists}"/>                        
                 <input type="hidden" id="cardType" name="cardType" value="Visa"/>
                 <div class="panelBody" id="billingId">
                   <table id="billingTable">
@@ -362,12 +391,12 @@ under the License.
                       <fieldset class="right">
                         <div class="form-row">
                           <span>
-                            <input class="checkbox" id="sameAsShipping" name="sameAsShipping" type="checkbox" value="Y" <#if parameters.sameAsShipping?has_content && parameters.sameAsShipping?default("")=="Y">checked</#if>>
+                            <input class="checkbox" id="useShippingAddressForBilling" name="useShippingAddressForBilling" type="checkbox" value="Y" <#if parameters.useShippingAddressForBilling?has_content && parameters.useShippingAddressForBilling?default("")=="Y">checked</#if>>
                             <span style="font-size:10px; float:left; padding:0px 0px 0px 6px; margin-top:10px; width:300px">${uiLabelMap.FacilityBillingAddressSameShipping}</span>
                           </span>
                         </div>
                         <div style="clear: both"></div>
-                        <div id="billingAddress" <#if parameters.sameAsShipping?has_content && parameters.sameAsShipping?default("")=="Y">style="display:none"</#if>>
+                        <div id="billingAddress" <#if parameters.useShippingAddressForBilling?has_content && parameters.useShippingAddressForBilling?default("")=="Y">style="display:none"</#if>>
                           <div class="form-row">
                             <div class="field-label">
                               <label for="address1">${uiLabelMap.PartyAddressLine1}<span class="requiredLabel"> *</span><span id="advice-required-billToAddress1" class="custom-advice" style="display:none">(required)</span></label>
@@ -414,28 +443,10 @@ under the License.
 
                           <div class="form-row">
                             <div class="field-label">
-                              <label for="billingContactPhoneNumber">${uiLabelMap.PartyZipCode}<span class="requiredLabel"> *</span><span id="advice-required-billingContactPhoneNumber" class="custom-advice" style="display:none">(required)</span><span id="advice-validate-phone-billingContactPhoneNumber" class="custom-advice" style="display:none">(required)</span></label>   
+                              <label for="billToPostalCode">${uiLabelMap.PartyZipCode}<span class="requiredLabel"> *</span><span id="advice-required-billToPostalCode" class="custom-advice" style="display:none">(required)</span><span id="advice-validate-billToPostalCode" class="custom-advice" style="display:none">(required)</span></label>   
                             </div>
                             <div class="field-widget">
                               <input id="billToPostalCode" name="billToPostalCode" class="required validate-zip input_mask mask_zip" type="text" value="${parameters.billToPostalCode?if_exists}" />
-                            </div>
-                          </div>
-                          <div class="form-row">
-                            <div class="field-label">
-                              <label for="countryCode">Country Code<span class="requiredLabel"> *</span><span id="advice-required-shippingContactPhoneNumber" class="custom-advice" style="display:none">(required)</span><span id="advice-validate-phone-shippingContactPhoneNumber" class="custom-advice" style="display:none">(required)</span></label>
-                              <input name="countryCode" class="input_mask mask_phone required validate-phone" id="billingCountryCode" value="${parameters.countryCode?if_exists}" size="3" maxlength=3>
-                            </div>
-                            <div class="field-label">
-                              <label for="areaCode">Area Code<span class="requiredLabel"> *</span><span id="advice-required-billingContactPhoneNumber" class="custom-advice" style="display:none">(required)</span><span id="advice-validate-phone-billingContactPhoneNumber" class="custom-advice" style="display:none">(required)</span></label>
-                              <input name="areaCode" class="input_mask mask_phone required validate-phone" id="billingAreaCode" value="${parameters.areaCode?if_exists}" size="3" maxlength=4>
-                            </div>
-                            <div class="field-label">
-                              <label for="contactNumber">Contact Number<span class="requiredLabel"> *</span><span id="advice-required-billingContactPhoneNumber" class="custom-advice" style="display:none">(required)</span><span id="advice-validate-phone-billingContactPhoneNumber" class="custom-advice" style="display:none">(required)</span></label>
-                              <input name="contactNumber" class="input_mask mask_phone required validate-phone" id="billingContactNumber" value="${parameters.contactNumber?if_exists}" size="5" maxlength=6>
-                            </div>
-                            <div class="field-label">
-                              <label for="extension">Extention<span class="requiredLabel"> *</span><span id="advice-required-billingContactPhoneNumber" class="custom-advice" style="display:none">(required)</span><span id="advice-validate-phone-billingContactPhoneNumber" class="custom-advice" style="display:none">(required)</span></label>
-                              <input name="extension" class="input_mask mask_phone required validate-phone" id="billingExtension" value="${parameters.extension?if_exists}" size="3" maxlength=3>
                             </div>
                           </div>
                           <div class="form-row">
@@ -460,7 +471,6 @@ under the License.
               <div><h3><span class="editStep"><a href="javascript:void(0);" id="openOrderSubmitPanel"><h3>Continue for step 5</h3></a></span></h3></div>
             </div>
           </div>
-
           <div id="" class="screenlet">
             <div class="screenlet-header"><div class="boxhead" align="left">Step 5: Submit Order</div></div>
             <div id="orderSubmitPanel" style="display: none;">

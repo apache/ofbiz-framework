@@ -847,7 +847,6 @@ under the License.
     
     <simple-method method-name="createUpdateCustomerAndShippingContact" 
             short-description="Create/Update Customer, Shipping Address and other contact details. Set shipping method type" login-required="false">
-       
         <set field="shoppingCart" from-field="parameters.shoppingCart"/>
         <set field="partyId" from-field="parameters.partyId"/>
         <set field="userLogin" from-field="parameters.userLogin"/>
@@ -871,6 +870,7 @@ under the License.
         <if-empty field="shippingContactMechId">
            <set field="shippingContactMechId" from-field="parameters.shippingContactMechId"/>
         </if-empty>
+        <set field="parameters.shipToName"  value="${parameters.firstName} ${parameters.lastName}"/>
 
         <call-map-processor xml-resource="org/ofbiz/ecommerce/customer/CheckoutMapProcs.xml"
                 processor-name="person" in-map-name="parameters" out-map-name="personMap"/>
@@ -925,7 +925,6 @@ under the License.
         <!-- Create Or Update ship to address.-->
         <set field="shipToAddressContext.partyId" from-field="partyId"/>
         <set field="shipToAddressContext.roleTypeId" from-field="parameters.roleTypeId"/>
-        <set field="shipToAddressContext.attnName"  value="${personContext.firstName} ${personContext.lastName}"/>
         <set field="shipToAddressContext.userLogin" from-field="userLogin"/>
         
         <if-empty field="shippingContactMechId">
@@ -996,7 +995,7 @@ under the License.
             <field field-name="parameters.shippingContactMechId"/>
         </call-object-method>
         <call-object-method obj-field-name="shoppingCart" method-name="setShippingContactMechId">
-            <field field-name="shippingContactMechId"/>
+            <field field-name="parameters.shippingContactMechId"/>
         </call-object-method>
         <log level="info" message="updated shopping cart shippingContactMechId ${parameters.shippingContactMechId}"/>
         <call-object-method obj-field-name="shoppingCart" method-name="setOrderPartyId">
@@ -1004,4 +1003,153 @@ under the License.
         </call-object-method>
     </simple-method>
     
+
+    <simple-method method-name="setShippingOption" 
+         short-description="Set shipping method" login-required="false">
+    </simple-method>
+
+    <simple-method method-name="createUpdateBillingAndPayment" short-description="Create/update billing address and payment information" login-required="false">
+        <set field="shoppingCart" from-field="parameters.shoppingCart"/>
+        <if-empty field="shoppingCart">
+            <session-to-field field-name="shoppingCart"/>
+        </if-empty>
+        <if-not-empty field="shoppingCart">
+            <call-object-method obj-field-name="shoppingCart" method-name="getPartyId" ret-field-name="partyId"/>
+            <call-object-method obj-field-name="shoppingCart" method-name="getUserLogin" ret-field-name="userLogin"/>
+            <call-object-method obj-field-name="shoppingCart" method-name="getShippingContactMechId" ret-field-name="shippingContactMechId"/>
+        </if-not-empty>
+        <if-empty field="parameters.shippingContactMechId">
+            <set field="parameters.shippingContactMechId" from-field="shippingContactMechId"/>
+        </if-empty>
+        <set-current-user-login value-name="userLogin"/>
+
+        <!--=================== Validate Bill and Payment settings ================-->
+        <call-map-processor xml-resource="org/ofbiz/accounting/payment/PaymentMapProcs.xml"
+                processor-name="createCreditCard" in-map-name="parameters" out-map-name="creditCardContext"/>
+
+        <if-compare field="parameters.useShippingAddressForBilling" operator="not-equals" value="Y">
+            <set field="parameters.billToName"  value="${parameters.firstNameOnCard} ${parameters.lastNameOnCard}"/>
+            <call-map-processor xml-resource="org/ofbiz/ecommerce/customer/CheckoutMapProcs.xml"
+                    processor-name="billToAddress" in-map-name="parameters" out-map-name="billToAddressContext"/>
+            <map-to-map map-name="billToAddressContext" to-map-name="billToAddressAndCreditCardCtx"/>
+            <map-to-map map-name="creditCardContext" to-map-name="billToAddressAndCreditCardCtx"/>
+            <if-compare field="parameters.billToCountryGeoId" value="USA" operator="equals">
+                <if-empty field="parameters.billToStateProvinceGeoId">
+                    <set field="tempErrorMessage" value="State is missing, and is required for an address in the United States."/>
+                    <field-to-list field-name="tempErrorMessage" list-name="error_list"/>
+                </if-empty>
+            </if-compare>
+            <check-errors/>
+            <set field="billToAddressAndCreditCardCtx.partyId" from-field="partyId"/>
+            <set field="creditCardContext.partyId" from-field="partyId"/>
+            <set field="creditCardContext.userLogin" from-field="userLogin"/>
+            <if-empty field="parameters.billToContactMechId">
+                <entity-and entity-name="PartyContactMechPurpose" list-name="pcmpList">
+                    <field-map field-name="partyId" env-name="userLogin.partyId"/>
+                    <field-map field-name="contactMechPurposeTypeId" value="BILLING_LOCATION"/>
+                </entity-and>
+                <filter-list-by-date list-name="pcmpList"/>
+                <first-from-list list-name="pcmpList" entry-name="pcmp"/>
+                <if-not-empty field="pcmp">
+                    <set-service-fields service-name="deletePartyContactMechPurposeIfExists" map-name="pcmp" to-map-name="deletePartyContactMechPurposeCtx"/>
+                    <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="deletePartyContactMechPurposeCtx"/>
+                </if-not-empty>
+                <entity-and entity-name="PaymentMethod" list-name="paymentMethodList">
+                    <field-map field-name="partyId" env-name="parameters.partyId"/>
+                    <order-by field-name="-fromDate"/>
+                </entity-and>
+                <filter-list-by-date list-name="paymentMethodList"/>
+                <first-from-list list-name="paymentMethodList" entry-name="paymentMethod"/>
+                <set field="billToAddressAndCreditCardCtx.paymentMethodId" from-field="paymentMethod.paymentMethodId"/>
+                <!-- Create Credit Card and Address -->
+                <call-service service-name="createCreditCardAndAddress" in-map-name="billToAddressAndCreditCardCtx">
+                    <result-to-field result-name="contactMechId" field-name="parameters.billToContactMechId"/>
+                    <result-to-field result-name="paymentMethodId" field-name="parameters.paymentMethodId"/>
+                </call-service>
+            <else>
+                <!-- Update Credit Card and Address -->
+                <set field="billToAddressAndCreditCardCtx.contactMechId" from-field="parameters.billToContactMechId"/>
+                <set field="billToAddressAndCreditCardCtx.paymentMethodId" from-field="parameters.paymentMethodId"/>
+                <call-service service-name="updateCreditCardAndAddress" in-map-name="billToAddressAndCreditCardCtx">
+                    <result-to-field result-name="contactMechId" field-name="parameters.billToContactMechId"/>
+                    <result-to-field result-name="paymentMethodId" field-name="parameters.paymentMethodId"/>
+                </call-service>    
+                <entity-and entity-name="PartyContactMechPurpose" list-name="pcmpList">
+                    <field-map field-name="partyId" env-name="userLogin.partyId"/>
+                    <field-map field-name="contactMechPurposeTypeId" value="BILLING_LOCATION"/>
+                </entity-and>
+                <filter-list-by-date list-name="pcmpList"/>
+                <first-from-list list-name="pcmpList" entry-name="pcmp"/>
+                <if-compare-field field="parameters.billToContactMechId" operator="not-equals" to-field="pcmp.contactMechId">
+                    <if-not-empty field="pcmp">                    
+                        <set-service-fields service-name="deletePartyContactMechPurposeIfExists" map-name="pcmp" to-map-name="deletePartyContactMechPurposeCtx"/>
+                        <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="deletePartyContactMechPurposeCtx"/>
+                        <set-service-fields service-name="deletePartyContactMech" map-name="pcmp" to-map-name="serviceInMap"/>
+                        <call-service service-name="deletePartyContactMech" in-map-name="serviceInMap"/>
+                     </if-not-empty>   
+                </if-compare-field>
+            </else>
+            </if-empty>
+            <field-to-request field-name="parameters.paymentMethodId" request-name="paymentMethodId"/>
+            <field-to-request field-name="parameters.billToContactMechId" request-name="billToContactMechId"/>
+        </if-compare>
+
+        <if-compare field="parameters.useShippingAddressForBilling" operator="equals" value="Y">
+            <entity-and entity-name="PartyContactMechPurpose" list-name="pcmpList">
+                <field-map field-name="partyId" env-name="userLogin.partyId"/>
+                <field-map field-name="contactMechPurposeTypeId" value="BILLING_LOCATION"/>
+            </entity-and>
+            <filter-list-by-date list-name="pcmpList"/>
+            <first-from-list list-name="pcmpList" entry-name="pcmp"/>
+            <if-compare-field field="parameters.shippingContactMechId" operator="not-equals" to-field="pcmp.contactMechId">
+                <if-not-empty field="pcmp">
+                    <set-service-fields service-name="deletePartyContactMechPurposeIfExists" map-name="pcmp" to-map-name="deletePartyContactMechPurposeCtx"/>
+                    <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="deletePartyContactMechPurposeCtx"/>
+                    <set-service-fields service-name="deletePartyContactMech" map-name="pcmp" to-map-name="serviceInMap"/>
+                    <call-service service-name="deletePartyContactMech" in-map-name="serviceInMap"/>
+                </if-not-empty>
+                <set field="createPartyContactMechPurposeCtx.partyId" from-field="userLogin.partyId"/>
+                <set field="createPartyContactMechPurposeCtx.contactMechId" from-field="parameters.shippingContactMechId"/>
+                <set field="createPartyContactMechPurposeCtx.contactMechPurposeTypeId" value="BILLING_LOCATION"/>
+                <call-service service-name="createPartyContactMechPurpose" in-map-name="createPartyContactMechPurposeCtx"/>
+            </if-compare-field>
+            <field-to-request field-name="parameters.shippingContactMechId" request-name="billToContactMechId"/>
+
+            <set field="creditCardContext.contactMechId" from-field="parameters.shippingContactMechId"/>
+            <if-empty field="parameters.paymentMethodId">
+                <!-- Create Credit Card -->
+                <call-service service-name="createCreditCard" in-map-name="creditCardContext">
+                    <result-to-field result-name="paymentMethodId" field-name="parameters.paymentMethodId"/>
+                </call-service>
+            <else>
+                <entity-and entity-name="PaymentMethod" list-name="paymentMethodList">
+                    <field-map field-name="partyId" env-name="parameters.partyId"/>
+                    <order-by field-name="-fromDate"/>
+                </entity-and>
+                <filter-list-by-date list-name="paymentMethodList"/>
+                <first-from-list list-name="paymentMethodList" entry-name="paymentMethod"/>
+                <set field="creditCardContext.paymentMethodId" from-field="paymentMethod.paymentMethodId"/>
+                <!-- Update Credit Card -->
+                <set field="creditCardContext.paymentMethodId" from-field="parameters.paymentMethodId"/> 
+                <call-service service-name="updateCreditCard" in-map-name="creditCardContext">
+                    <result-to-field result-name="paymentMethodId" field-name="parameters.paymentMethodId"/>
+                </call-service>
+            </else>
+            </if-empty>
+            <field-to-request field-name="parameters.paymentMethodId" request-name="paymentMethodId"/>
+        </if-compare>    
+
+        <!--============== Set Payment Method ================-->
+        <set field="paymentMethodId" from-field="parameters.paymentMethodId"/>
+        <set field="cardSecurityCode" from-field="parameters.cardSecurityCode"/>
+        <call-bsh>
+            <![CDATA[
+                import org.ofbiz.order.shoppingcart.ShoppingCart;
+                checkOutHelper = new org.ofbiz.order.shoppingcart.CheckOutHelper(dispatcher, delegator, shoppingCart);
+                callResult = checkOutHelper.finalizeOrderEntryPayment(paymentMethodId, null, false, false);
+                ShoppingCart.CartPaymentInfo cpi = shoppingCart.getPaymentInfo(paymentMethodId, null, null, null, true);
+                cpi.securityCode = cardSecurityCode;
+            ]]>
+        </call-bsh>
+    </simple-method>
 </simple-methods>
