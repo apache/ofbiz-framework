@@ -47,10 +47,12 @@
 	<classpathentry kind="lib" path="framework/service/lib/wsdl4j.jar"/>
 	<classpathentry kind="lib" path="framework/service/lib/axis-ant.jar"/>
 	<classpathentry kind="lib" path="framework/service/lib/axis.jar"/>
-	<classpathentry kind="lib" path="framework/jetty/lib/org.mortbay.jmx.jar"/>
-	<classpathentry kind="lib" path="framework/jetty/lib/org.mortbay.jetty.jar"/>
-	<classpathentry kind="lib" path="framework/jetty/lib/jasper-runtime.jar"/>
-	<classpathentry kind="lib" path="framework/jetty/lib/jasper-compiler.jar"/>
+	<classpathentry kind="lib" path="framework/jetty/lib/jetty-6.1.11.jar"/>
+    <classpathentry kind="lib" path="framework/jetty/lib/jetty-ajp-6.1.11.jar"/>
+    <classpathentry kind="lib" path="framework/jetty/lib/jetty-sslengine-6.1.11.jar"/>
+    <classpathentry kind="lib" path="framework/jetty/lib/jetty-util-6.1.11.jar"/>
+	<classpathentry kind="lib" path="framework/jetty/lib/jasper-runtime-5.5.15.jar"/>
+	<classpathentry kind="lib" path="framework/jetty/lib/jasper-compiler-5.5.15.jar"/>
 	<classpathentry kind="lib" path="framework/guiapp/lib/XuiCoreSwing-v3.2rc2b.jar"/>
 	<classpathentry kind="lib" path="framework/guiapp/lib/XuiOptional-v3.2rc2b.jar"/>
 	<classpathentry kind="lib" path="applications/content/lib/poi.jar"/>
