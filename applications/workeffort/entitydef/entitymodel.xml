@@ -66,6 +66,8 @@ under the License.
             title="Rate Type Entity">
       <field name="rateTypeId" type="id-ne"></field>
       <field name="description" type="description"></field>
+      <field name="normalRate" type="currency-amount"></field>
+      <field name="rateUomId" type="id"></field>
       <prim-key field="rateTypeId"/>
     </entity>
     <entity entity-name="TimeEntry"
