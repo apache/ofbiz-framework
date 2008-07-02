@@ -58,47 +58,8 @@ under the License.
         <condition field-name="workEffortId" operator="is-empty"/>
         <action service="createWorkEffort" mode="sync" />
     </eca>
-    
-    <!-- when an email communictaion event for a contact list is marked "IN PROGRESS", launch a background process to send them out -->
-    <eca service="updateCommunicationEvent" event="commit">
-        <condition field-name="statusId" operator="equals" value="COM_IN_PROGRESS"/>
-        <condition field-name="communicationEventTypeId" operator="equals" value="EMAIL_COMMUNICATION"/>
-        <condition field-name="contactListId" operator="is-not-empty"/>
-        <action service="sendCommEventAsEmail" mode="async"/>
-    </eca>
-    <!-- if there is no contact list, then send it in the same thread and complete it -->
-    <eca service="updateCommunicationEvent" event="commit">
-        <condition field-name="statusId" operator="equals" value="COM_IN_PROGRESS"/>
-        <condition field-name="communicationEventTypeId" operator="equals" value="EMAIL_COMMUNICATION"/>
-        <condition field-name="contactListId" operator="is-empty"/>
-        <action service="sendCommEventAsEmail" mode="sync"/>
-    </eca>
 
-    <!-- same for auto email -->
-    <eca service="createCommunicationEvent" event="commit">
-        <condition field-name="statusId" operator="equals" value="COM_IN_PROGRESS"/>
-        <condition field-name="communicationEventTypeId" operator="equals" value="AUTO_EMAIL_COMM"/>
-        <condition field-name="contactListId" operator="is-empty"/>
-        <action service="sendCommEventAsEmail" mode="sync"/>
-    </eca>
-    <eca service="createCommunicationEvent" event="commit">
-        <condition field-name="statusId" operator="equals" value="COM_IN_PROGRESS"/>
-        <condition field-name="communicationEventTypeId" operator="equals" value="AUTO_EMAIL_COMM"/>
-        <condition field-name="contactListId" operator="is-not-empty"/>
-        <action service="sendCommEventAsEmail" mode="async"/>
-    </eca>
-    <eca service="updateCommunicationEvent" event="commit">
-        <condition field-name="statusId" operator="equals" value="COM_IN_PROGRESS"/>
-        <condition field-name="communicationEventTypeId" operator="equals" value="AUTO_EMAIL_COMM"/>
-        <condition field-name="contactListId" operator="is-empty"/>
-        <action service="sendCommEventAsEmail" mode="sync"/>
-    </eca>    
-    <eca service="updateCommunicationEvent" event="commit">
-        <condition field-name="statusId" operator="equals" value="COM_IN_PROGRESS"/>
-        <condition field-name="communicationEventTypeId" operator="equals" value="AUTO_EMAIL_COMM"/>
-        <condition field-name="contactListId" operator="is-not-empty"/>
-        <action service="sendCommEventAsEmail" mode="async"/>
-    </eca>
+    <!-- all these secas are now replaced by a sheduled job (sendEmailDated) which runs every 5 minutes -->    
 
     <!-- After all the emails have been sent to a contact list, mark it as complete. -->
     <eca service="sendEmailToContactList" event="commit">
