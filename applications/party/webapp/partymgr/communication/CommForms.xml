@@ -190,6 +190,7 @@ under the License.
     
     <form name="NewEmail" type="single" target="createCommunicationEvent" default-map-name="communicationEvent">
         <field name="communicationEventTypeId"><hidden value="AUTO_EMAIL_COMM"/></field>
+        <field name="statusId"><hidden value="COM_IN_PROGRESS"/></field>
         <field name="parentCommEventId"><hidden value="${parentCommEventId}"/></field>
         <field name="partyIdFrom"><hidden value="${partyIdFrom}"/></field>
         <field name="emailAddress" parameter-name="contactMechIdFrom">
@@ -207,8 +208,32 @@ under the License.
         <field name="subject"><text size="60"/></field>
         <field name="contentMimeTypeId"><hidden value="text/plain"/></field>
         <field name="content" title="${uiLabelMap.CommonContent}"><textarea cols="60" rows="10"/></field>
-        <field name="note" title="${uiLabelMap.CommonNote}"><textarea cols="60" rows="3"/></field>
         <field name="sendButton"><submit button-type="button"/></field>
+    </form>
+    <form name="DisplayEmail" type="single" default-map-name="communicationEvent">
+        <actions>
+            <entity-one entity-name="ContactMech" value-name="contactMechFrom">
+                <field-map field-name="contactMechId" env-name="communicationEvent.contactMechIdFrom"/>
+            </entity-one>
+            <entity-one entity-name="ContactMech" value-name="contactMechTo">
+                <field-map field-name="contactMechId" env-name="communicationEvent.contactMechIdTo"/>
+            </entity-one>
+        </actions>
+        <field name="communicationEventTypeId"><display-entity entity-name="CommunicationEventType" description="${description}"/></field>
+        <field name="partyIdFrom">
+            <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName} (${contactMechFrom.infoString})">
+                <sub-hyperlink description=" [${partyIdFrom}]" target="/partymgr/control/viewprofile?partyId=${partyIdFrom}" target-type="inter-app"/>
+            </display-entity>
+        </field>
+        <field name="partyIdTo">
+            <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName} (${contactMechTo.infoString})">
+                <sub-hyperlink description=" [${partyIdTo}]" target="/partymgr/control/viewprofile?partyId=${partyIdTo}" target-type="inter-app"/>
+            </display-entity>
+        </field>
+        <field name="datetimeStarted" title="${uiLabelMap.CommonSendDate}"><display type="date"/></field>
+        <field name="subject"><display/></field>
+        <field name="content" title="${uiLabelMap.CommonContent}"><display/></field>
+        <field name="note" title="${uiLabelMap.CommonNote}"><display/></field>
     </form>
     
     <form name="NewInternalNote" type="single" target="createCommunicationEvent" default-map-name="communicationEvent">
@@ -217,7 +242,7 @@ under the License.
         </actions>
         <field name="communicationEventTypeId"><hidden value="COMMENT_NOTE"/></field>
         <field name="parentCommEventId"><hidden value="${parentCommEventId}"/></field>
-        <field name="statusId"><hidden value="COM_ENTERED"/></field>
+        <field name="statusId"><hidden value="COM_COMPLETE"/></field>
         <field name="partyIdFrom"><hidden value="${partyIdFrom}"/></field>
         <field name="partyIdTo" title="${uiLabelMap.PartyPartyTo}">
             <drop-down>
@@ -227,7 +252,6 @@ under the License.
         <field name="subject"><text size="60"/></field>
         <field name="contentMimeTypeId"><hidden value="text/plain"/></field>
         <field name="content" title="${uiLabelMap.CommonContent}"><textarea cols="60" rows="10"/></field>
-        <field name="note" title="${uiLabelMap.CommonNote}"><textarea cols="60" rows="3"/></field>
         <field name="sendButton"><submit button-type="button"/></field>
     </form>
     
@@ -320,7 +344,7 @@ under the License.
     <form name="ListCommEvents" type="list" odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate="true">
         <field name="communicationEventId"><hidden/></field>
         <field name="subject">
-            <hyperlink description="${subject}" target="EditCommunicationEvent?communicationEventId=${communicationEventId}"/>
+            <hyperlink description="${subject}" target="ViewCommunicationEvent?communicationEventId=${communicationEventId}"/>
         </field>
         <field name="communicationEventTypeId"><display-entity description="${description}" entity-name="CommunicationEventType" key-field-name="communicationEventTypeId"/></field>
         <field name="partyIdFrom" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.CommonFrom}">
