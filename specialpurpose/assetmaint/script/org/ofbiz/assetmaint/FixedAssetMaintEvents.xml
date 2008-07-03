@@ -51,25 +51,25 @@
         <set field="updateWorkEffortCtx.description" from-field="maintType.description"/>
         <call-service service-name="updateWorkEffort" in-map-name="updateWorkEffortCtx"/>
         <check-errors/>
-        <!-- Assign fixed asset parties to workeffort -->
-        <set field="workEffortId" from-field="findAssetMaint.scheduleWorkEffortId"/>
-        <call-simple-method method-name="assignFixedAssetPartiesToWorkEffort"/>
     </simple-method>
 
-    <simple-method method-name="assignFixedAssetPartiesToWorkEffort" login-required="true"
-        short-description="Assign Fixed Asset Parties to a Work Effort">
+    <simple-method method-name="assignFixedAssetPartiesToMaintenance" login-required="true"
+        short-description="Assign Fixed Asset Parties to a Fixed Asset Maintenance">
+        <log level="info" message="assignFixedAssetPartiesToMaintenance invoked"/>
+        <if-empty field="maintHistSeqId">
+            <set field="maintHistSeqId" from-field="parameters.maintHistSeqId"/>
+        </if-empty>
         <if-empty field="fixedAssetId">
             <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
         </if-empty>
+        <entity-one entity-name="FixedAssetMaint" value-name="maintValue"/>
         <if-empty field="workEffortId">
-            <set field="workEffortId" from-field="parameters.workEffortId"/>
+            <set field="workEffortId" from-field="maintValue.scheduleWorkEffortId"/>
         </if-empty>
-        <entity-condition list-name="assignedParties" entity-name="PartyFixedAssetAssignAndRole" filter-by-date="true">
-            <condition-list>
-                <condition-expr field-name="fixedAssetId" env-name="fixedAssetId"/>
-                <condition-expr field-name="parentTypeId" value="FAM_ASSIGNEE"/>
-            </condition-list>
-        </entity-condition>
+        <entity-and list-name="assignedParties" entity-name="PartyFixedAssetAssignAndRole" filter-by-date="true">
+            <field-map field-name="fixedAssetId" env-name="fixedAssetId"/>
+            <field-map field-name="parentTypeId" value="FAM_ASSIGNEE"/>
+        </entity-and>
         <iterate list-name="assignedParties" entry-name="assignedParty">
             <set field="assignPartyCtx.partyId" from-field="assignedParty.partyId"/>
             <set field="assignPartyCtx.roleTypeId" from-field="assignedParty.roleTypeId"/>
