@@ -150,19 +150,19 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
-    <screen name="ViewCommunicationEvent">
-        <section>
-            <actions>
-                <set field="titleProperty" value="PageTitleViewCommunication"/>
-                <set field="tabButtonItem" value="PartyCommEvents"/>
-                <set field="subTabButtonItem" value="CommunicationEvent"/>
-
-                <set field="communicationEventId" from-field="parameters.communicationEventId"/>
-                <set field="parentCommEventId" from-field="parameters.parentCommEventId"/>
-                <set default-value="" field="partyId" value="${parameters.partyId}"/>
-                <set default-value="${userLogin.partyId}" field="partyIdFrom" value="${parameters.partyId}"/>
-                <set default-value="${userLogin.partyId}" field="partyIdTo" value="${parameters.partyId}"/>
+	<screen name="ViewCommunicationEvent">
+		<section>
+			<actions>
+				<set field="titleProperty" value="PageTitleViewCommunication" />
+				<set field="tabButtonItem" value="PartyCommEvents" />
+				<set field="subTabButtonItem" value="CommunicationEvent" />
+				<set field="communicationEventId" from-field="parameters.communicationEventId" />
+				<set field="parentCommEventId" from-field="parameters.parentCommEventId" />
+				<set default-value="" field="partyId" value="${parameters.partyId}" />
+				<set default-value="${userLogin.partyId}" field="partyIdFrom"
+					value="${parameters.partyId}" />
+				<set default-value="${userLogin.partyId}" field="partyIdTo"
+					value="${parameters.partyId}" />
                 <entity-one entity-name="Party" value-name="party"/>
                 <entity-one entity-name="Person" value-name="lookupPerson"/>
                 <entity-one entity-name="CommunicationEvent" value-name="communicationEvent"/>
@@ -185,31 +185,36 @@ under the License.
                 <entity-one entity-name="RoleType" value-name="toRoleType">
                     <field-map env-name="communicationEvent.roleTypeIdTo" field-name="roleTypeId"/>
                 </entity-one>
-            </actions>
-            <widgets>
-                <decorator-screen name="CommonCommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <section>
-                            <widgets>
-                                <section>
-                                    <condition>
-                                        <not><if-empty field-name="communicationEvent"/></not>
-                                    </condition>
-                                    <widgets>
-                                        <label style="h1" text="${uiLabelMap.PartyViewCommunicationEvent}"/>
-                                    </widgets>
-                                    <fail-widgets>
-                                        <label style="h1" text="${uiLabelMap.PartyNewCommunication}"/>
-                                    </fail-widgets>
-                                </section>
-                                <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="ViewCommEvent"/>
-                            </widgets>
-                        </section>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
+			</actions>
+			<widgets>
+				<decorator-screen name="CommonCommunicationEventDecorator"
+					location="${parameters.mainDecoratorLocation}">
+					<decorator-section name="body">
+						<section>
+							<condition>
+								<or>
+									<if-compare field-name="communicationEvent.communicationEventTypeId"
+										operator="equals" value="EMAIL_COMMUNICATION" />
+									<if-compare field-name="communicationEvent.communicationEventTypeId"
+										operator="equals" value="AUTO_EMAIL_COMM" />
+								</or>
+							</condition>
+							<widgets>
+                                <include-form
+                                    location="component://party/webapp/partymgr/communication/CommForms.xml"
+                                    name="DisplayEmail" />
+							</widgets>
+							<fail-widgets>
+								<include-form
+									location="component://party/webapp/partymgr/communication/CommForms.xml"
+									name="ViewCommEvent" />
+							</fail-widgets>
+						</section>
+					</decorator-section>
+				</decorator-screen>
+			</widgets>
+		</section>
+	</screen>
     <screen name="EditCommunicationEvent">
         <section>
             <actions>
@@ -238,11 +243,6 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonCommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <section>
-                            <widgets>
-                                <include-menu name="CommSubTabBar" location="component://party/webapp/partymgr/communication/CommMenus.xml"/>
-                            </widgets>
-                        </section>
                         <section>
                             <condition>
                                 <if-compare field-name="okayToUpdate" operator="equals" value="true" type="Boolean"/>
@@ -294,7 +294,6 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonCommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu name="CommSubTabBar" location="component://party/webapp/partymgr/communication/CommMenus.xml"/>
                         <screenlet id="EditCommunicationEventPanel" title="${uiLabelMap.PartyEditCommunicationEvent}" collapsible="true">
                             <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="NewEmail"/>
                         </screenlet>
@@ -325,7 +324,6 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonCommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu name="CommSubTabBar" location="component://party/webapp/partymgr/communication/CommMenus.xml"/>
                         <screenlet id="EditCommunicationEventPanel" title="${uiLabelMap.PartyEditCommunicationEvent}" collapsible="true">
                             <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="NewInternalNote"/>
                         </screenlet>
