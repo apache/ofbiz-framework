@@ -55,7 +55,6 @@
 
     <simple-method method-name="assignFixedAssetPartiesToMaintenance" login-required="true"
         short-description="Assign Fixed Asset Parties to a Fixed Asset Maintenance">
-        <log level="info" message="assignFixedAssetPartiesToMaintenance invoked"/>
         <if-empty field="maintHistSeqId">
             <set field="maintHistSeqId" from-field="parameters.maintHistSeqId"/>
         </if-empty>
