@@ -3251,7 +3251,7 @@
         <value xml:lang="zh">在选择中显示</value>
     </property>
     <property key="FormFieldTitle_showPricesWithVatTax">
-        <value xml:lang="en">Show Prices With Vat Tax</value>
+        <value xml:lang="en">Show prices with vat tax included</value>
         <value xml:lang="fr">Montrer les prix avec la TVA incluse (TTC)</value>
         <value xml:lang="it">Mostra Prezzi Con IVA</value>
         <value xml:lang="ro">Afiseaza Pret Cu IVA</value>
