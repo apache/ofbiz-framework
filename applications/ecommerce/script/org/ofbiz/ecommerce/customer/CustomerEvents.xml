@@ -1001,11 +1001,114 @@ under the License.
         <call-object-method obj-field-name="shoppingCart" method-name="setOrderPartyId">
             <field field-name="partyId"/>
         </call-object-method>
-    </simple-method>
-    
 
-    <simple-method method-name="setShippingOption" 
-         short-description="Set shipping method" login-required="false">
+        <!--  Preparing Shippping Options -->
+        <call-bsh>
+            <![CDATA[
+                import org.ofbiz.order.shoppingcart.shipping.ShippingEstimateWrapper;
+                shippingEstWpr = ShippingEstimateWrapper.getWrapper(dispatcher, shoppingCart, 0);
+                parameters.put("shippingEstWpr", shippingEstWpr);
+            ]]>
+        </call-bsh>
+        <set field="shippingEstWpr" from-field="parameters.shippingEstWpr"/>
+        <call-object-method obj-field-name="shippingEstWpr" method-name="getShippingMethods" ret-field-name="carrierShipmentMethodList"/>
+        <call-object-method obj-field-name="shoppingCart" method-name="getShipmentMethodTypeId" ret-field-name="shipmentMethodTypeId"/>
+        <call-object-method obj-field-name="shoppingCart" method-name="getCarrierPartyId" ret-field-name="carrierPartyId"/>
+        <call-object-method obj-field-name="shoppingCart" method-name="getCurrency" ret-field-name="currency"/>
+        <if-not-empty field="shipmentMethodTypeId">
+            <if-not-empty field="carrierPartyId">
+                 <set field="chosenShippingMethod" value="${shipmentMethodTypeId}@${carrierPartyId}"/>
+            </if-not-empty>
+        </if-not-empty>
+        <iterate list-name="carrierShipmentMethodList"  entry-name="carrierShipmentMethod">
+            <call-object-method obj-field-name="shippingEstWpr" method-name="getShippingEstimate" ret-field-name="shippingEst">
+                <field field-name="carrierShipmentMethod" type="org.ofbiz.entity.GenericValue"/>
+            </call-object-method>
+            <if-empty field="shippingEst">
+                <set field="shippingEst" value="-1" type="Integer"/>
+            </if-empty>
+            <set field="negValue" value="-1" type="Integer"/>
+            <set field="shippingMethod" value="${carrierShipmentMethod.shipmentMethodTypeId}@${carrierShipmentMethod.partyId}"/>
+
+            <if-compare-field field="shippingEst" operator="greater" to-field="negValue">
+                <set field="shippingDesc" value="${carrierShipmentMethod.description} - ${currency}${shippingEst}"/>
+                <else>
+                    <set field="shippingDesc" value="${carrierShipmentMethod.description} - ${currency}+${uiLabelMap.OrderCalculatedOffline}"/>
+                </else>
+            </if-compare-field>
+            <set field="shippingOptionMap.shippingMethod" from-field="shippingMethod"/>
+            <set field="shippingOptionMap.shippingDesc" from-field="shippingDesc"/>
+            <field-to-list field-name="shippingOptionMap" list-name="shippingOptions"/>
+            <clear-field field-name="shippingOptionMap"/>
+        </iterate>
+         <set field="parameters.shippingOptions" from-field="shippingOptions"/>
+         <field-to-request field-name="parameters.shippingOptions" request-name="shippingOptions"/>
+    </simple-method>
+
+    <simple-method method-name="setShippingOption" short-description="Set shipping method" login-required="false">
+        <call-bsh><![CDATA[
+            shippingMethod = parameters.get("shipMethod");
+            if(shippingMethod != null) {
+                shipmentMethodTypeId = shippingMethod.substring(0, shippingMethod.indexOf("@"));
+                carrierPartyId = shippingMethod.substring(shippingMethod.indexOf("@")+1);
+                parameters.put("shipmentMethodTypeId", shipmentMethodTypeId);
+                parameters.put("carrierPartyId", carrierPartyId);
+            }
+        ]]></call-bsh>
+        <set field="shipmentMethodTypeId" from-field="parameters.shipmentMethodTypeId"/>
+        <set field="carrierPartyId" from-field="parameters.carrierPartyId"/>
+        <log level="info" message=" shipmentMethodTypeId is ${shipmentMethodTypeId} "/>
+        <log level="info" message=" carrierPartyId is ${carrierPartyId}"/>
+        
+        <entity-one entity-name="CarrierAndShipmentMethod" value-name="shipmentMethod">
+            <field-map field-name="shipmentMethodTypeId" env-name="shipmentMethodTypeId"/>
+            <field-map field-name="partyId" env-name="carrierPartyId"/>
+            <field-map field-name="roleTypeId" value="CARRIER"/>
+        </entity-one>
+        <field-to-request field-name="shipmentMethod.shippingDescription" request-name="shippingDescription"/>
+
+        <set field="shoppingCart" from-field="parameters.shoppingCart"/>
+        <if-empty field="shoppingCart">
+            <session-to-field field-name="shoppingCart"/>
+        </if-empty>
+        <call-object-method obj-field-name="shoppingCart" method-name="setShipmentMethodTypeId">
+            <field field-name="shipmentMethodTypeId"/>
+        </call-object-method>
+        <call-object-method obj-field-name="shoppingCart" method-name="setCarrierPartyId">
+            <field field-name="carrierPartyId"/>
+        </call-object-method>
+        <call-object-method  obj-field-name="shoppingCart" method-name="getCurrency" ret-field-name="isoCode"/>
+        <set field="dispatcher" from-field="parameters.dispatcher" type="Object"/>
+        <set field="delegator" from-field="parameters.delegator" type="Object"/>
+        <set field="locale" from-field="parameters.locale" type="Object"/>
+ 
+        <call-bsh><![CDATA[
+            Map shipCost = org.ofbiz.order.shoppingcart.shipping.ShippingEvents.getShipGroupEstimate(dispatcher, delegator, shoppingCart, 0);
+            Double shippingTotal = (Double) shipCost.get("shippingTotal");
+            if (shippingTotal == null) {
+                shippingTotal = new Double(0.00);
+            }
+            shoppingCart.setItemShipGroupEstimate(shippingTotal.doubleValue(), 0);
+            parameters.put("shippingTotal", org.ofbiz.base.util.UtilFormatOut.formatCurrency(shippingTotal.doubleValue(), isoCode, locale));
+
+            checkOutHelper = new org.ofbiz.order.shoppingcart.CheckOutHelper(dispatcher, delegator, shoppingCart);
+            // Calculate and add the tax adjustments
+            checkOutHelper.calcAndAddTax();
+
+            double salesTax = shoppingCart.getTotalSalesTax();
+            totalSalesTax = org.ofbiz.base.util.UtilFormatOut.formatCurrency(salesTax, isoCode, locale);
+            parameters.put("totalSalesTax", totalSalesTax);
+ 
+            cartGrandTotal = org.ofbiz.base.util.UtilFormatOut.formatCurrency(shoppingCart.getGrandTotal(), isoCode, locale);
+            parameters.put("cartGrandTotal", cartGrandTotal);
+ 
+        ]]></call-bsh>
+        <field-to-request field-name="parameters.shippingTotal" request-name="shippingTotal"/>
+        <field-to-request field-name="parameters.cartGrandTotal" request-name="cartGrandTotal"/>
+        <field-to-request field-name="parameters.totalSalesTax" request-name="totalSalesTax"/>
+        <log level="info" message="Shipping total is : ${parameters.shippingTotal}"/>
+        <log level="info" message="Cart Grand total is : ${parameters.cartGrandTotal}"/>
+        <log level="info" message="Total sale tax is : ${parameters.totalSalesTax}"/>
     </simple-method>
 
     <simple-method method-name="createUpdateBillingAndPayment" short-description="Create/update billing address and payment information" login-required="false">
