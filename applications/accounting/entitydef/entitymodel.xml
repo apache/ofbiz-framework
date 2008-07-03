@@ -770,7 +770,7 @@ under the License.
     </entity>
     <entity entity-name="FixedAssetMaintMeter"
         package-name="org.ofbiz.accounting.fixedasset"
-        title="Fixed Asset Maintenance Entity">
+        title="Deprecated - use FixedAssetMeter">
         <field name="fixedAssetId" type="id-ne"></field>
         <field name="maintHistSeqId" type="id-ne"></field>
         <field name="productMeterTypeId" type="id-ne"></field>
@@ -778,6 +778,27 @@ under the License.
         <prim-key field="fixedAssetId"/>
         <prim-key field="maintHistSeqId"/>
         <prim-key field="productMeterTypeId"/>
+        <relation type="one" fk-name="FXDASTMNMT_FAMNT" rel-entity-name="FixedAssetMaint">
+            <key-map field-name="fixedAssetId"/>
+            <key-map field-name="maintHistSeqId"/>
+        </relation>
+        <relation type="one" fk-name="FXDASTMNMT_PMTYP" rel-entity-name="ProductMeterType">
+            <key-map field-name="productMeterTypeId"/>
+        </relation>
+    </entity>
+    <entity entity-name="FixedAssetMeter"
+        package-name="org.ofbiz.accounting.fixedasset"
+        title="Fixed Asset Meter Entity">
+        <field name="fixedAssetId" type="id-ne"></field>
+        <field name="productMeterTypeId" type="id-ne"></field>
+        <field name="readingDate" type="date-time"></field>
+        <field name="meterValue" type="floating-point"></field>
+        <field name="readingReasonEnumId" type="id"></field>
+        <field name="maintHistSeqId" type="id"></field>
+        <field name="workEffortId" type="id"></field>
+        <prim-key field="fixedAssetId"/>
+        <prim-key field="productMeterTypeId"/>
+        <prim-key field="readingDate"/>
         <relation type="one" fk-name="FXDASTMNMT_FAMNT" rel-entity-name="FixedAssetMaint">
             <key-map field-name="fixedAssetId"/>
             <key-map field-name="maintHistSeqId"/>

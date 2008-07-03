@@ -819,28 +819,28 @@ under the License.
         <response name="error" type="view" value="EditFixedAssetRegistrations"/>
     </request-map>
     <!-- FixedAssetMaintenance Meter -->
-    <request-map uri="EditFixedAssetMaintMeters">
+    <request-map uri="EditFixedAssetMeters">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditFixedAssetMaintMeters"/>
-        <response name="error" type="view" value="EditFixedAssetMaintMeters"/>
+        <response name="success" type="view" value="EditFixedAssetMeters"/>
+        <response name="error" type="view" value="EditFixedAssetMeters"/>
     </request-map>
-    <request-map uri="createFixedAssetMaintMeter">
+    <request-map uri="createFixedAssetMeter">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="createFixedAssetMaintMeter"/>
-        <response name="success" type="view" value="EditFixedAssetMaintMeters"/>
-        <response name="error" type="view" value="EditFixedAssetMaintMeters"/>
+        <event type="service" path="" invoke="createFixedAssetMeter"/>
+        <response name="success" type="view" value="EditFixedAssetMeters"/>
+        <response name="error" type="view" value="EditFixedAssetMeters"/>
     </request-map>
-    <request-map uri="updateFixedAssetMaintMeter">
+    <request-map uri="updateFixedAssetMeter">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="updateFixedAssetMaintMeter"/>
-        <response name="success" type="view" value="EditFixedAssetMaintMeters"/>
-        <response name="error" type="view" value="EditFixedAssetMaintMeters"/>
+        <event type="service" path="" invoke="updateFixedAssetMeter"/>
+        <response name="success" type="view" value="EditFixedAssetMeters"/>
+        <response name="error" type="view" value="EditFixedAssetMeters"/>
     </request-map>
-    <request-map uri="deleteFixedAssetMaintMeter">
+    <request-map uri="deleteFixedAssetMeter">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="deleteFixedAssetMaintMeter"/>
-        <response name="success" type="view" value="EditFixedAssetMaintMeters"/>
-        <response name="error" type="view" value="EditFixedAssetMaintMeters"/>
+        <event type="service" path="" invoke="deleteFixedAssetMeter"/>
+        <response name="success" type="view" value="EditFixedAssetMeters"/>
+        <response name="error" type="view" value="EditFixedAssetMeters"/>
     </request-map>
     <!-- FixedAssetMaintenance -->
     <request-map uri="ListFixedAssetMaints">
@@ -1959,7 +1959,7 @@ under the License.
     <view-map name="EditFixedAssetRegistrations" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#EditFixedAssetRegistrations"/>
     <view-map name="EditFixedAssetMaint" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#EditFixedAssetMaint"/>
     <view-map name="ListFixedAssetMaints" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#ListFixedAssetMaints"/>
-    <view-map name="EditFixedAssetMaintMeters" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#EditFixedAssetMaintMeters"/>
+    <view-map name="EditFixedAssetMeters" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#EditFixedAssetMeters"/>
     <view-map name="EditFixedAssetMaintOrders" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#EditFixedAssetMaintOrders"/>
     <view-map name="FixedAssetDay" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#CalendarDay"/>
     <view-map name="FixedAssetWeek" type="screen" page="component://accounting/widget/FixedAssetScreens.xml#CalendarWeek"/>

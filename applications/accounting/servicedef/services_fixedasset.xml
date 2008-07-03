@@ -166,25 +166,30 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <!-- FixedAsset Maintenance Meter Create/Update/Delete-->
-    <service name="createFixedAssetMaintMeter" default-entity-name="FixedAssetMaintMeter" engine="simple"
-                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="createFixedAssetMaintMeter" auth="true">
+    <service name="createFixedAssetMeter" default-entity-name="FixedAssetMeter" engine="simple"
+                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="createFixedAssetMeter" auth="true">
         <description>Create a Fixed Asset Maintenance Meter</description>
         <permission-service service-name="fixedAssetPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateFixedAssetMaintMeter" default-entity-name="FixedAssetMaintMeter" engine="simple"
-                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="updateFixedAssetMaintMeter" auth="true">
+    <service name="updateFixedAssetMeter" default-entity-name="FixedAssetMeter" engine="simple"
+                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="updateFixedAssetMeter" auth="true">
         <description>Update a Fixed Asset Maintenance Meter</description>
         <permission-service service-name="fixedAssetPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteFixedAssetMaintMeter" default-entity-name="FixedAssetMaintMeter" engine="simple"
-                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="deleteFixedAssetMaintMeter" auth="true">
+    <service name="deleteFixedAssetMeter" default-entity-name="FixedAssetMeter" engine="simple"
+                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="deleteFixedAssetMeter" auth="true">
         <description>Remove a Fixed Asset Maintenance Meter</description>
         <permission-service service-name="fixedAssetPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="migrateFixedAssetMaintMeter" engine="simple"
+                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="migrateFixedAssetMaintMeter" auth="true">
+        <description>Copy the FixedAssetMaintMeter entity to FixedAssetMeter. FixedAssetMeter.readingDate will be replaced with FixedAssetMaintMeter.createdStamp.</description>
+        <permission-service service-name="fixedAssetPermissionCheck" main-action="CREATE"/>
     </service>
     <!-- FixedAsset Maintenance Order Create/Update/Delete-->
     <service name="createFixedAssetMaintOrder" default-entity-name="FixedAssetMaintOrder" engine="simple"

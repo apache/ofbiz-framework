@@ -169,8 +169,8 @@
         <value xml:lang="th">แก้ไขการบำรุงรักษาทรัพย์สินไม่หมุนเวียน</value>
         <value xml:lang="zh">编辑固定资产维修保养</value>
     </property>
-    <property key="AccountingAddFixedAssetMaintMeter">
-        <value xml:lang="en">Add Fixed Asset Maintenance Meter</value>
+    <property key="AccountingAddFixedAssetMeter">
+        <value xml:lang="en">Add Fixed Asset Meter Reading</value>
         <value xml:lang="fr">Ajouter une mesure de la maintenance d'immobilisation</value>
         <value xml:lang="it">Aggiorna Manutenzione Cespite Contatori</value>
         <value xml:lang="th">Add Fixed Asset Maintenance Meter</value>
@@ -2350,7 +2350,7 @@ esetata in mod automat</value>
         <value xml:lang="ru">Если вместе с Обслуживанием продукта указан Шаблон обслуживанияe, поле будет устанавливаться/сбрасываться автоматически</value>
         <value xml:lang="th">ถ้าการบำรุงรักษาเทมเพลตเป็นพิเศษด้วยการบำรุงรักษาสินค้า นี่จะกำหนดอัตโนมัติ</value>
     </property>
-    <property key="AccountingFixedAssetMaintMeterValue">
+    <property key="AccountingFixedAssetMeterValue">
         <value xml:lang="ar">قيمة المقياس</value>
         <value xml:lang="en">Meter Value</value>
         <value xml:lang="es">Valor de Contador</value>
@@ -2361,9 +2361,9 @@ esetata in mod automat</value>
         <value xml:lang="th">ค่ามิเตอร์</value>
         <value xml:lang="zh">仪表数值</value>
     </property>
-    <property key="AccountingFixedAssetMaintMeters">
+    <property key="AccountingFixedAssetMeters">
         <value xml:lang="ar">قراءات المقاييس</value>
-        <value xml:lang="en">Meters Readings</value>
+        <value xml:lang="en">Meter Readings</value>
         <value xml:lang="es">Lecturas de contador</value>
         <value xml:lang="fr">Lectures au compteur</value>
         <value xml:lang="it">Lettura Contatore</value>
@@ -2393,7 +2393,7 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingFixedAssetMaintType">
         <value xml:lang="ar">نوع الصيانة</value>
-        <value xml:lang="en">Maintenace Type</value>
+        <value xml:lang="en">Maintenance Type</value>
         <value xml:lang="es">Tipo de mantenimiento</value>
         <value xml:lang="fr">Type de maintenance</value>
         <value xml:lang="it">Tipo Manutenzione</value>
@@ -8373,8 +8373,8 @@ esetata in mod automat</value>
         <value xml:lang="th">แก้ไขการแยกแยะกลุ่มทรัพย์สินไม่หมุนเวียน</value>
         <value xml:lang="zh">编辑固定资产标识</value>
     </property>
-    <property key="PageTitleEditFixedAssetMaintMeters">
-        <value xml:lang="en">Edit Fixed Asset Maint Meters</value>
+    <property key="PageTitleEditFixedAssetMeters">
+        <value xml:lang="en">Fixed Asset Meter Readings</value>
         <value xml:lang="it">Aggiorna Manutenzione Cespite Contatori</value>
         <value xml:lang="th">Edit Fixed Asset Maint Meters</value>
     </property>
@@ -8786,7 +8786,7 @@ esetata in mod automat</value>
         <value xml:lang="it">Lista Identificazione Cespiti</value>
         <value xml:lang="th">รายการแยกแยะทรัพย์สินไม่หมุนเวียน</value>
     </property>
-    <property key="PageTitleListFixedAssetMaintMeters">
+    <property key="PageTitleListFixedAssetMeters">
         <value xml:lang="en">List Fixed Asset Maint Meters</value>
         <value xml:lang="it">Lista Manutenzioni Cespiti Contatori</value>
         <value xml:lang="th">List Fixed Asset Maint Meters</value>
