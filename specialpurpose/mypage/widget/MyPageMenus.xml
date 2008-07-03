@@ -45,6 +45,9 @@ under the License.
             <condition><if-empty field-name="userLogin"/></condition>
             <link target="${checkLoginUrl}"/>
         </menu-item>
+        <menu-item name="preferences" title="${uiLabelMap.CommonPreferences}" align-style="opposed">
+            <link target="preferences"/>
+        </menu-item>
     </menu>    
     
     <menu name="EventMenu">

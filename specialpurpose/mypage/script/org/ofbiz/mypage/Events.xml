@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
+	<simple-method method-name="updatePreferences"
+		short-description="Update the user preferences">
+        <if-compare operator="equals" value="Y" field="parameters.myCompanyComms">
+            <set field="parameters.userPrefMap.myCompanyComms" value="Y" />
+            <else>
+                <set field="parameters.userPrefMap.myCompanyComms" value="N" />
+            </else>
+        </if-compare>
+        <if-compare operator="equals" value="Y" field="parameters.myTimesheet">
+            <set field="parameters.userPrefMap.myTimesheet" value="Y" />
+            <else>
+                <set field="parameters.userPrefMap.myTimesheet" value="N" />
+            </else>
+        </if-compare>
+        <if-compare operator="equals" value="Y" field="parameters.myTasks">
+            <set field="parameters.userPrefMap.myTasks" value="Y" />
+            <else>
+                <set field="parameters.userPrefMap.myTasks" value="N" />
+            </else>
+        </if-compare>
+        <if-compare operator="equals" value="Y" field="parameters.myCommunications">
+            <set field="parameters.userPrefMap.myCommunications" value="Y" />
+            <else>
+                <set field="parameters.userPrefMap.myCommunications" value="N" />
+            </else>
+        </if-compare>
+		<set-service-fields service-name="setUserPreferenceGroup"
+			map-name="parameters" to-map-name="inMap" />
+		<call-service service-name="setUserPreferenceGroup"
+			in-map-name="inMap" />
+	</simple-method>
+    
+</simple-methods>
