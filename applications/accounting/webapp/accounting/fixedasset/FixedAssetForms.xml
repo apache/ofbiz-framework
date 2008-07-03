@@ -369,37 +369,41 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <!-- List all fixed asset Maintenance Meter  -->
-    <form name="ListFixedAssetMaintMeters" type="list"  list-name="fixedAssetMaintMeters" target="updateFixedAssetMaintMeter"
+    <!-- List all fixed asset meter readings -->
+    <form name="ListFixedAssetMeters" type="list" list-name="listIt" target="updateFixedAssetMeter" paginate-target="EditFixedAssetMeters"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-condition entity-name="FixedAssetMaintMeter">
-                <condition-list combine="and">
-                    <condition-expr field-name="fixedAssetId" env-name="fixedAssetId"/>
-                    <condition-expr field-name="maintHistSeqId" env-name="maintHistSeqId"/>
-                </condition-list>
-            </entity-condition>
+            <set field="findParams.fixedAssetId" from-field="parameters.fixedAssetId"/>
+            <set field="findParams.maintHistSeqId" from-field="parameters.maintHistSeqId" default-value=""/>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="findParams"/>
+                <field-map field-name="entityName" value="FixedAssetMeter"/>
+                <field-map field-name="orderBy" value="-readingDate"/>
+            </service>
         </actions>
-        <auto-fields-service service-name="updateFixedAssetMaintMeter"/>
         <field name="fixedAssetId"><hidden/></field>
-        <field name="maintHistSeqId"><hidden/></field>
-        <field name="productMeterTypeId">            
-            <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="ProductMeterType" key-field-name="productMeterTypeId">
-                    <entity-order-by field-name="productMeterTypeId"/>
-                </entity-options>
-            </drop-down>
+        <field name="productMeterTypeId">
+            <display-entity entity-name="ProductMeterType" key-field-name="productMeterTypeId" description="${description}"/>
         </field>
-        <field name="meterValue" title="${uiLabelMap.AccountingFixedAssetMaintMeterValue}"><text size="20" /></field> 
+        <field name="readingDate"><display/></field>
+        <field name="meterValue" title="${uiLabelMap.AccountingFixedAssetMeterValue}"><text/></field> 
+        <field name="maintHistSeqId" title="${uiLabelMap.AccountingFixedAssetMaint}">
+            <hyperlink target="EditFixedAssetMaint?fixedAssetId=${fixedAssetId}&amp;maintHistSeqId=${maintHistSeqId}"
+                description="${maintHistSeqId}" also-hidden="false"/>
+        </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="deleteLink" title="${uiLabelMap.CommonRemove}" widget-style="buttontext">
+            <hyperlink target="deleteFixedAssetMeter?fixedAssetId=${fixedAssetId}&amp;productMeterTypeId=${productMeterTypeId}&amp;readingDate=${readingDate}&amp;maintHistSeqId=${maintHistSeqId}"
+                description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
+        </field>
     </form>
-    <!-- create a fixed asset MaintMeter-->
-    <form name="AddFixedAssetMaintMeter" type="single" target="createFixedAssetMaintMeter" title=""
+    <!-- create a fixed asset meter reading -->
+    <form name="AddFixedAssetMeter" type="single" target="createFixedAssetMeter" title=""
         header-row-style="header-row" default-table-style="basic-table">
-        <auto-fields-service service-name="createFixedAssetMaintMeter" /> 
+        <auto-fields-service service-name="createFixedAssetMeter" /> 
         <field name="fixedAssetId"><hidden/></field>
-        <field name="maintHistSeqId"><hidden/></field>
+        <field name="maintHistSeqId" use-when="maintHistSeqId != null"><hidden/></field>
+        <field name="maintHistSeqId" use-when="maintHistSeqId == null"><ignored/></field>
         <field name="productMeterTypeId" > 
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="ProductMeterType" key-field-name="productMeterTypeId">
@@ -407,7 +411,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="meterValue" title="${uiLabelMap.AccountingFixedAssetMaintMeterValue}"><text size="20" /></field> 
+        <field name="meterValue" title="${uiLabelMap.AccountingFixedAssetMeterValue}"><text size="20" /></field> 
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <!-- List all fixed asset Maintenance Order  -->

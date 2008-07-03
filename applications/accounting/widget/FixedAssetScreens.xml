@@ -384,7 +384,12 @@ under the License.
                 <decorator-screen name="CommonFixedAssetMaintDecorator" location="${parameters.fixedAssetMaintDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
-                            <condition><not><if-empty field-name="maintHistSeqId"/></not></condition>
+                            <condition>
+                                <and>
+                                    <not><if-empty field-name="maintHistSeqId"/></not>
+                                    <if-service-permission service-name="fixedAssetPermissionCheck" main-action="CREATE"/>
+                                </and>
+                            </condition>
                             <widgets>
                                 <container style="button-bar"><link target="EditFixedAssetMaint?fixedAssetId=${fixedAssetId}" text="${uiLabelMap.AccountingNewFixedAssetMaint}" style="buttontext"/></container>
                             </widgets>
@@ -395,13 +400,13 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <!-- Fixed Asset MaintMeter --> 
-    <screen name="EditFixedAssetMaintMeters">
+    <!-- Fixed Asset Meter --> 
+    <screen name="EditFixedAssetMeters">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleEditFixedAssetMaintMeters"/>
-                <set field="tabButtonItem" value="ListFixedAssetMaints"/>                
-                <set field="tabButtonItemFixedAssetMaint" value="EditFixedAssetMaintMeters"/>
+                <set field="titleProperty" value="PageTitleEditFixedAssetMeters"/>
+                <set field="tabButtonItem" value="EditFixedAssetMeters"/>                
+                <set field="tabButtonItemFixedAssetMaint" value="EditFixedAssetMeters"/>
                 <set field="labelTitleProperty" value="PageTitleEditFixedAssetMaintenance"/>
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
                 <set field="maintHistSeqId" from-field="parameters.maintHistSeqId"/>
@@ -411,10 +416,10 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFixedAssetMaintDecorator" location="${parameters.fixedAssetMaintDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet id="add-fixedasset-maint-meter" title="${uiLabelMap.AccountingAddFixedAssetMaintMeter}" collapsible="true">
-                            <include-form name="AddFixedAssetMaintMeter" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
+                        <screenlet id="add-fixedasset-meter" title="${uiLabelMap.AccountingAddFixedAssetMeter}" collapsible="true">
+                            <include-form name="AddFixedAssetMeter" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
                         </screenlet>
-                        <include-form name="ListFixedAssetMaintMeters" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
+                        <include-form name="ListFixedAssetMeters" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

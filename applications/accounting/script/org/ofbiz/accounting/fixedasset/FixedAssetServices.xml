@@ -249,21 +249,99 @@ under the License.
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 
-    <!--  create/update/delete FixedAssetMaintMeter -->
-    <simple-method method-name="createFixedAssetMaintMeter" short-description="create a FixedAssetMaintMeter">
-        <make-value entity-name="FixedAssetMaintMeter" value-name="newEntity"/>
+    <!--  create/update/delete FixedAssetMeter -->
+    <simple-method method-name="createFixedAssetMeter" short-description="Create a Fixed Asset Meter Reading">
+        <make-value entity-name="FixedAssetMeter" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>  
+        <check-errors/>
+        <set field="meterValue" from-field="newEntity"/>
+        <call-simple-method method-name="createMaintsFromMeterReading"/>
     </simple-method>   
-    <simple-method method-name="updateFixedAssetMaintMeter" short-description="Update an existing FixedAsset Maintenance Meter Reading">
-        <entity-one entity-name="FixedAssetMaintMeter" value-name="lookedUpValue"/>
+    <simple-method method-name="updateFixedAssetMeter" short-description="Update a Fixed Asset Meter Reading">
+        <entity-one entity-name="FixedAssetMeter" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
+        <check-errors/>
+        <set field="meterValue" from-field="lookedUpValue"/>
+        <call-simple-method method-name="createMaintsFromMeterReading"/>
     </simple-method>
-    <simple-method method-name="deleteFixedAssetMaintMeter" short-description="Delete FixedAsset Maintenance Meter">
-        <entity-one entity-name="FixedAssetMaintMeter" value-name="lookedUpValue"/>
+    <simple-method method-name="deleteFixedAssetMeter" short-description="Delete a Fixed Asset Meter Reading">
+        <entity-one entity-name="FixedAssetMeter" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="createMaintsFromMeterReading" short-description="Create Fixed Asset Maintenances From A Meter Reading">
+        <if-not-empty field="meterValue.maintHistSeqId">
+            <return/>
+        </if-not-empty>
+        <entity-one entity-name="FixedAsset" value-name="fixedAssetValue"/>
+        <if-empty field="fixedAssetValue.instanceOfProductId">
+            <return/>
+        </if-empty>
+        <entity-and list-name="productMaintList" entity-name="ProductMaint">
+            <field-map field-name="productId" env-name="fixedAssetValue.instanceOfProductId"/>
+            <field-map field-name="intervalMeterTypeId" env-name="meterValue.productMeterTypeId"/>
+        </entity-and>
+        <iterate list-name="productMaintList" entry-name="productMaintValue">
+            <set field="repeatCount" from-field="productMaintValue.repeatCount" default-value="0" type="Long"/>
+            <entity-condition list-name="maintList" entity-name="FixedAssetMaint">
+                <condition-list combine="and">
+                    <condition-expr field-name="fixedAssetId" operator="equals" env-name="fixedAssetValue.fixedAssetId"/>
+                    <condition-expr field-name="productMaintTypeId" operator="equals" env-name="productMaintValue.productMaintTypeId"/>
+                    <condition-expr field-name="intervalMeterTypeId" operator="equals" env-name="productMaintValue.intervalMeterTypeId"/>
+                    <condition-expr field-name="statusId" operator="not-equals" value="FAM_CANCELLED"/>
+                </condition-list>
+            </entity-condition>
+            <set field="listSize" value="0" type="Long"/>
+            <if-not-empty field="maintList">
+                <set field="listSize" value="${bsh:maintList.size();}" type="Long"/>
+            </if-not-empty>
+            <set field="maxIntervalQty" value="0" type="Double"/>
+            <iterate list-name="maintList" entry-name="maintValue">
+                <if-compare-field field="maintValue.intervalQuantity" operator="greater" to-field="maxIntervalQty" type="Double">
+                    <set field="maxIntervalQty" from-field="maintValue.intervalQuantity" type="Double"/>
+                </if-compare-field>
+            </iterate>
+            <set field="nextIntervalQty" value="${bsh:maxIntervalQty + productMaintValue.getDouble(&quot;intervalQuantity&quot;);}" type="Double"/>
+            <if-compare-field field="nextIntervalQty" operator="less-equals" to-field="meterValue.meterValue" type="Double">
+                <set field="maintDue" value="false"/>
+                <if-compare field="repeatCount" operator="greater" value="0" type="Long">
+                    <if-compare-field field="listSize" operator="less" to-field="repeatCount" type="Long">
+                        <set field="maintDue" value="true"/>
+                    </if-compare-field>
+                    <else>
+                        <set field="maintDue" value="true"/>
+                    </else>
+                </if-compare>
+                <if-compare field="maintDue" operator="equals" value="true">
+                    <set-service-fields service-name="createFixedAssetMaint" to-map-name="createMaintCxt" map-name="productMaintValue"/>
+                    <set field="createMaintCxt.fixedAssetId" from-field="fixedAssetValue.fixedAssetId"/>
+                    <set field="createMaintCxt.intervalQuantity" from-field="meterValue.meterValue"/>
+                    <set field="createMaintCxt.statusId" value="FAM_CREATED"/>
+                    <call-service service-name="createFixedAssetMaint" in-map-name="createMaintCxt"/>
+                    <check-errors/>
+                </if-compare>
+            </if-compare-field>
+        </iterate>
+    </simple-method>
+    <simple-method method-name="migrateFixedAssetMaintMeter" short-description="Copy FixedAssetMaintMeter To FixedAssetMeter">
+        <entity-condition list-name="maintMeterList" entity-name="FixedAssetMaintMeter"/>
+        <iterate list-name="maintMeterList" entry-name="maintMeter">
+            <make-value value-name="newEntity" entity-name="FixedAssetMeter"/>
+            <set-pk-fields map-name="maintMeter" value-name="newEntity"/>
+            <set-nonpk-fields map-name="maintMeter" value-name="newEntity"/>
+            <set field="newEntity.readingDate" from-field="maintMeter.createdStamp"/>
+            <entity-one entity-name="FixedAssetMeter" value-name="lookedUpValue" auto-field-map="false">
+                <field-map field-name="fixedAssetId" env-name="newEntity.fixedAssetId"/>
+                <field-map field-name="productMeterTypeId" env-name="newEntity.productMeterTypeId"/>
+                <field-map field-name="readingDate" env-name="newEntity.readingDate"/>
+            </entity-one>
+            <if-empty field="lookedUpValue">
+                <create-value value-name="newEntity"/>
+                <check-errors/>
+            </if-empty>
+        </iterate>
     </simple-method>
     
     <!--  create/update/delete FixedAssetMaintOrder -->

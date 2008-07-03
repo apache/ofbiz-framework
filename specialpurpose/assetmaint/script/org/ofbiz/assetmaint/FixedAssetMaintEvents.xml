@@ -50,7 +50,6 @@
         <find-by-primary-key entity-name="ProductMaintType" map-name="maintTypeLookup" value-name="maintType"/>
         <set field="updateWorkEffortCtx.description" from-field="maintType.description"/>
         <call-service service-name="updateWorkEffort" in-map-name="updateWorkEffortCtx"/>
-        <check-errors/>
     </simple-method>
 
     <simple-method method-name="assignFixedAssetPartiesToMaintenance" login-required="true"
