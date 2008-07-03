@@ -28,7 +28,7 @@
                 <set field="tabButtonItem" value="ListFixedAssetMaints"/>                
             </actions>
             <widgets>
-                <decorator-screen name="CommonFixedAssetDecorator" location="component://accounting/widget/FixedAssetScreens.xml">
+                <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.fixedAssetDecoratorLocation}">
                     <decorator-section name="pre-body">
                         <section>
                             <condition><not><if-empty field-name="maintHistSeqId"/></not></condition>
@@ -139,6 +139,7 @@
                 <set field="titleProperty" value="PageTitleEditWorkEffort"/>
                 <set field="tabButtonItemFixedAssetMaint" value="EditWorkEfforts"/>
                 <script location="component://assetmaint/webapp/assetmaint/WEB-INF/actions/workeffort/EditWorkEfforts.bsh"/>
+                <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFixedAssetMaintDecorator">
