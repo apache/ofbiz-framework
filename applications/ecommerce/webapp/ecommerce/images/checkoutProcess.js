@@ -60,6 +60,9 @@ Event.observe(window, 'load', function() {
     
     //  For Billing Address Same As Shipping
     Event.observe('useShippingAddressForBilling', 'click', useShippingAddressForBillingToggel);
+    
+    // Initiate Observing Edit Cart Events
+    initCartProcessObservers();
 });
 
 // Cart
@@ -271,4 +274,101 @@ function setDataInBillingCompleted() {
     var billToGeo = $F('billToCity')+","+$F('billToStateProvinceGeoId') +" "+$F('billToCountryGeoId')+" "+$F('billToPostalCode');
     $('completedBillToGeo').update(billToGeo);
     $('paymentMethod').update($F('paymentMethodTypeId'));
+}
+
+function initCartProcessObservers() {
+    var cartFormElement = $('cartForm');
+    var inputs = cartFormElement.getInputs('text');
+    inputs.each( function(e) {
+        Event.observe(e, 'keyup', cartItemQtyChanged);
+    });
+    var removeLinks = cartFormElement.getElementsByTagName('a');
+    var links = $A(removeLinks);
+    links.each( function(e) {
+        Event.observe(e, 'click', removeItem);
+    });
+}
+
+function getProductLineItemIndex(event, productId) {
+    var itemIndex = null;
+    var productIdParam = "productId=" + productId;
+    var formValues = $('cartForm').serialize() + "&" + productIdParam;
+    new Ajax.Request('/ecommerce/control/getShoppingCartItemIndex', {
+        asynchronous: false, 
+        onSuccess: function(transport) {
+            var data = transport.responseText.evalJSON(true);
+            itemIndex = data.itemIndex;
+        },
+        parameters: formValues
+    });
+    return itemIndex;
+}
+
+function removeItem(event) {
+    var removeElement = Event.element(event);
+    var elementId = removeElement.id;
+    var qtyId = elementId.sub('remove_', 'qty_');
+    var productIdElementId =  elementId.sub('remove_', 'cartLineProductId_');
+    var productId = $(productIdElementId).value;
+    var itemIndex = getProductLineItemIndex(event,productId);
+    var formValues = "update_" + itemIndex + "= 0";
+    updateCartData(qtyId, formValues, 0, itemIndex); 
+}
+
+function cartItemQtyChanged(event) {
+    var qtyElement = Event.element(event);
+    var elementId = qtyElement.id;
+    var productIdElementId = elementId.sub('qty_', 'cartLineProductId_');
+    var productId = $(productIdElementId).value;
+    if (qtyElement.value >= 0) {
+        if ((event.keyCode > 47 && event.keyCode < 58) || (event.keyCode > 95 && event.keyCode < 106)) {
+            var itemIndex = getProductLineItemIndex(event, productId);
+            var formValues = $('cartForm').serialize();
+            updateCartData(elementId, formValues, qtyElement.value, itemIndex);
+        }
+    }
+}
+
+function updateCartData(elementId, formValues, itemQty, itemIndex) {
+    new Ajax.Request('/ecommerce/control/cartItemQtyUpdate', {
+        asynchronous: true, 
+        onSuccess: function(transport) {
+            var data = transport.responseText.evalJSON(true);
+            if (data.totalQuantity == 0) {
+                $('emptyCartCheckoutPanel').show();
+                $('checkoutPanel').hide();
+            } else {
+                // Used for edit cart
+                $('cartSubTotal').update(data.subTotalCurrencyFormatted);
+                $('cartDiscountValue').update(data.displayDiscountTotalCurrencyFormatted);
+                $('cartTotalShipping').update(data.totalShippingCurrencyFormatted);
+                $('cartTotalSalesTax').update(data.totalSalesTaxCurrencyFormatted);
+                $('cartDisplayGrandTotal').update(data.displayGrandTotalCurrencyFormatted);
+                // Used for summary 
+                $('completedCartSubTotal').update(data.subTotalCurrencyFormatted);
+                $('completedCartTotalShipping').update(data.totalShippingCurrencyFormatted);
+                $('completedCartTotalSalesTax').update(data.totalSalesTaxCurrencyFormatted);
+                $('completedCartDisplayGrandTotal').update(data.displayGrandTotalCurrencyFormatted);
+                $('completedCartDiscount').update(data.displayDiscountTotalCurrencyFormatted);
+                if (elementId != undefined && $(elementId).value != "") {
+                    if (itemQty == 0) {
+                        var cartItemRowId = elementId.sub('qty_','cartItemRow_');
+                        $(cartItemRowId).remove();
+                        var cartItemDisplayRowId = elementId.sub('qty_','cartItemDisplayRow_');
+                        $(cartItemDisplayRowId).remove();
+                    } else {
+                        var itemsHash = $H(data.cartItemData);
+                        var lineTotalId = elementId.sub('qty_','displayItem_');
+                        var lineItemTotal = itemsHash.get("displayItemSubTotalCurrencyFormatted_"+itemIndex);
+                        $(lineTotalId).update(lineItemTotal);
+                        var completedLineItemQtyId =  elementId.sub('qty_','completedCartItemQty_');
+                        $(completedLineItemQtyId).update($(elementId).value);
+                        var completedCartItemSubTotalId = elementId.sub('qty_','completedCartItemSubTotal_');
+                        $(completedCartItemSubTotalId).update(lineItemTotal);
+                    }
+                }
+            }
+        },
+        parameters: formValues
+    });
 }
