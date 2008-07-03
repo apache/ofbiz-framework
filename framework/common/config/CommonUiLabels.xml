@@ -4149,6 +4149,9 @@
         <value xml:lang="th">โพสต์วันที่</value>
         <value xml:lang="zh">过账日期</value>
     </property>
+    <property key="CommonPreferences">
+        <value xml:lang="en">Preferences</value>
+    </property>
     <property key="CommonPrepared">
         <value xml:lang="ar">معدة</value>
         <value xml:lang="en">Prepared</value>

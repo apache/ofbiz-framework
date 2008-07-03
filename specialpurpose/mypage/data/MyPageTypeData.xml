@@ -20,5 +20,11 @@ under the License.
 <entity-engine-xml>
 
     <WorkEffortType description="Company Events" hasTable="N" parentTypeId="EVENT" workEffortTypeId="COMPANY_EVENT"/>
+    
+    <UserPrefGroupType userPrefGroupId="MyPage" description="User settings of the MyPage component"/>
+    <UserPreference userLoginId="_NA_" userPrefGroupId="MyPage" userPrefTypeId="myTasks" userPrefValue="Y"/> 
+    <UserPreference userLoginId="_NA_" userPrefGroupId="MyPage" userPrefTypeId="myTimesheet" userPrefValue="Y"/> 
+    <UserPreference userLoginId="_NA_" userPrefGroupId="MyPage" userPrefTypeId="myCommunications" userPrefValue="Y"/> 
+    <UserPreference userLoginId="_NA_" userPrefGroupId="MyPage" userPrefTypeId="myCompanyComms" userPrefValue="Y"/> 
 
 </entity-engine-xml>

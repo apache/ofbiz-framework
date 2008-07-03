@@ -72,4 +72,12 @@ under the License.
         <field name="add"><submit/></field>
     </form>
 
+    <form name="preferences" type="single" target="updatePreferences" default-map-name="preferences.userPrefMap">
+        <field name="userPrefGroupId"><hidden value="MyPage"/></field>
+        <field name="myCompanyComms"><check/></field>
+        <field name="myTimesheet"><check/></field>
+        <field name="myTasks"><check/></field>
+        <field name="myCommunications"><check/></field>
+        <field name="updateButton"><submit/></field>
+    </form>
 </forms>
