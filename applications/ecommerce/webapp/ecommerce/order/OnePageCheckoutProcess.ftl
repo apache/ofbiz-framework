@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-  <div class="screenlet">
+<div class="screenlet">
   <#assign shoppingCart = sessionAttributes.shoppingCart?if_exists>
     <div class="screenlet-header">
       <div class="boxhead">${uiLabelMap.OrderCheckout}</div>
@@ -28,16 +28,207 @@ under the License.
           <div id="cartPanel" class="screenlet">
             <div class="screenlet-header"><div class="boxhead" align="left">Step 1: ${uiLabelMap.PageTitleShoppingCart}</div></div>
             <div id="cartSummaryPanel" style="display: none;">
-              <div align="left" style="width: auto; padding: 10px 40px 30px 40px;"><a href="javascript:void(0);" id="openCartPanel"><h3>Click here to edit</h3></a></div>
-              <div id="cartSummary" style="display: none;">
-                Shopping cart summary.
+              <div align="left" style="width: auto; padding: 4px 20px 20px 1px;"><a href="javascript:void(0);" id="openCartPanel"><h3>Click here to edit</h3></a><div align="center"><h2>${uiLabelMap.OrderShoppingCart} ${uiLabelMap.EcommerceSummary}</h2></div></div>
+              <div id="cartSummary">
+                <div>
+                  <table cellborder="0" border="0" cellpadding="0" cellspacing="0">
+                    <thead>
+                      <tr>
+                        <td style="padding: 6px; width: 80px;" valign="top" align="center"><div>${uiLabelMap.OrderItem}</div></td>
+                        <td style="padding: 6px; width: 90px;" align="left" valign="top" >${uiLabelMap.CommonDescription}</div></td>
+                        <td style="padding: 6px; width: 90px;"><div  align="center"><nobr>${uiLabelMap.EcommerceUnitPrice}</nobr></div></td>
+                        <td style="padding: 6px; width: 90px;"><div  align="center">${uiLabelMap.OrderQuantity}</div></td>
+                        <td style="padding: 6px; width: 90px;"><div  align="center">${uiLabelMap.EcommerceItemTotal}</div></td>
+                      </tr>
+                    </thead>                
+                    <tbody>
+                      <#assign itemCount = 0>
+                      <#list shoppingCart.items() as cartLine>
+                        <#assign cartLineIndex = itemCount>
+                        <#if cartLine.getProductId()?exists>
+                          <#if cartLine.getParentProductId()?exists>
+                            <#assign parentProductId = cartLine.getParentProductId()/>
+                          <#else>
+                            <#assign parentProductId = cartLine.getProductId()/>
+                          </#if>
+                          <#assign smallImageUrl = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(cartLine.getProduct(), "SMALL_IMAGE_URL", locale, dispatcher)?if_exists>
+                          <#if !smallImageUrl?has_content><#assign smallImageUrl = ""></#if>
+                        </#if>
+                        <tr id="cartItemDisplayRow_${cartLineIndex}">
+                          <td align="center" valign="top" style="padding: 6px; width: 90px;"><div><img src="<@ofbizContentUrl>${requestAttributes.contentPathPrefix?if_exists}${smallImageUrl}</@ofbizContentUrl>" align="center" height="20" hspace="0" vspace="0" width="20"></div></td>
+                          <td align="center" valign="top" style="padding: 6px; width: 90px;"><div style="text-align: left;">${cartLine.getName()?if_exists}</div> 
+                          <td align="center" valign="top" style="padding: 6px; width: 90px;"><div>@${cartLine.getDisplayPrice()}</div></td>
+                          <td align="center" valign="top" style="padding: 6px; width: 90px;"><div><span id="completedCartItemQty_${cartLineIndex}">${cartLine.getQuantity()?string.number}</span></div></td>
+                          <td align="center" valign="top" style="padding: 6px; width: 90px;"><div id="completedCartItemSubTotal_${cartLineIndex}"><@ofbizCurrency amount=cartLine.getDisplayItemSubTotalNoAdj() isoCode=shoppingCart.getCurrency()/></div></td>
+                        </tr>
+                        <#assign itemCount = itemCount + 1>
+                      </#list>
+                      <tr id="completedCartSubtotalRow">
+                        <td colspan="2"></td>
+                        <td><div style="padding: 6px;">${uiLabelMap.CommonSubtotal}:</div></td>
+                        <#assign initializedSubTotal = shoppingCart.getDisplaySubTotal() - shoppingCart.getProductPromoTotal()>
+                        <td><div style="padding: 6px;" id="completedCartSubTotal"><@ofbizCurrency amount=initializedSubTotal isoCode=shoppingCart.getCurrency()/></div></td>
+                      </tr>
+                      <tr id="completedCartDiscountRow">
+                        <input type="hidden" value="${shoppingCart.getProductPromoTotal()}" id="initializedCompletedCartDiscount"/>
+                        <td colspan="2"></td>
+                        <td><div style="padding: 6px;">${uiLabelMap.ProductDiscount}:</div></td>
+                        <td><div style="padding: 6px;" id="completedCartDiscount"><@ofbizCurrency amount=shoppingCart.getProductPromoTotal() isoCode=shoppingCart.getCurrency()/></div></td>
+                      </tr>
+                      <tr>
+                        <td colspan="2"></td>
+                        <td style="padding: 6px;"><div>${uiLabelMap.OrderShippingAndHandling}:</div></td>
+                        <td style="padding: 6px;">
+                          <div id="completedCartTotalShipping">
+                            <#if (shoppingCart.getTotalShipping() > 0.0)>
+                              <@ofbizCurrency amount=shoppingCart.getTotalShipping() isoCode=shoppingCart.getCurrency()/>
+                            <#else>$0.00
+                            </#if>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="2"></td>
+                        <td style="padding: 6px;"><div>${uiLabelMap.OrderSalesTax}:</div></td>
+                        <td style="padding: 6px;">
+                          <div id="completedCartTotalSalesTax">
+                            <#if (shoppingCart.getTotalSalesTax() > 0.0)>
+                              <@ofbizCurrency amount=shoppingCart.getTotalSalesTax() isoCode=shoppingCart.getCurrency()/>
+                            <#else>$0.00
+                            </#if>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="2"></td>
+                        <td style="padding: 6px;"><div >${uiLabelMap.OrderGrandTotal}:</div></td>
+                        <td style="padding: 6px;"><div  id="completedCartDisplayGrandTotal"><@ofbizCurrency amount=shoppingCart.getDisplayGrandTotal() isoCode=shoppingCart.getCurrency()/></div></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
             <div id="editCartPanel">
               <form name="cartForm" id="cartForm" method="post" action="<@ofbizUrl></@ofbizUrl>">
-                Shopping cart information.
+                <div class="screenlet">
+                  <div align="center"><h2>${uiLabelMap.OrderShoppingCart}</h2></div>
+                  <input type="hidden" name="removeSelected" value="false">
+                  <div>
+                    <div id="cartHeading" style="border-bottom: 1px solid #333333; height: auto;">
+                      <table>
+                        <thead>
+                          <tr>
+                            <td style="padding: 6px; width: 80px;" valign="top" align="center"><div>${uiLabelMap.OrderItem}</div></td>
+                            <td align="left" valign="top" style="padding: 6px; width: 90px;">${uiLabelMap.CommonDescription}</div></td>
+                            <td style="padding: 6px; width: 90px;"><div  align="center"><nobr>${uiLabelMap.EcommerceUnitPrice}</nobr></div></td>
+                            <td style="padding: 6px; width: 90px;"><div  align="center">${uiLabelMap.OrderQuantity}</div></td>
+                            <td style="padding: 6px; width: 90px;"><div  align="center">${uiLabelMap.EcommerceItemTotal}</div></td>
+                            <td style="padding: 6px; width: 90px;"><div  align="center">${uiLabelMap.FormFieldTitle_removeButton}</div></td>
+                          </tr>
+                        </thead>
+                        <tbody id="updateBody">
+                          <#assign itemCount = 0>
+                          <#list shoppingCart.items() as cartLine>
+                            <#assign cartLineIndex = itemCount>
+                            <#assign productId = cartLineIndex>
+                            <tr id="cartItemRow_${cartLineIndex}">
+                              <div id="updateArea">
+                                <td style="padding: 1px;" align="center" valign="top">
+                                  <#if cartLine.getProductId()?exists>
+                                    <#if cartLine.getParentProductId()?exists>
+                                      <#assign parentProductId = cartLine.getParentProductId()/>
+                                    <#else>
+                                      <#assign parentProductId = cartLine.getProductId()/>
+                                    </#if>
+                                    <#assign smallImageUrl = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(cartLine.getProduct(), "SMALL_IMAGE_URL", locale, dispatcher)?if_exists>
+                                    <#if !smallImageUrl?has_content><#assign smallImageUrl = ""></#if>
+                                    <#if smallImageUrl?has_content>
+                                      <img src="<@ofbizContentUrl>${requestAttributes.contentPathPrefix?if_exists}${smallImageUrl}</@ofbizContentUrl>" border="0" height="50" hspace="0" vspace="0" width="50"/>
+                                    </#if>
+                                  </#if>
+                                </td>
+                                <td style="padding: 6px;" valign="top"><div style="text-align: left;">${cartLine.getName()?if_exists}</div></td>
+                                <td  style="padding: 6px;" align="center" valign="top"><div id="itemUnitPrice_${cartLineIndex}">
+                                  <@ofbizCurrency amount=cartLine.getDisplayPrice() isoCode=shoppingCart.getCurrency() rounding=2/></div>
+                                </td>
+                                <td style="padding: 6px;" align="center" valign="top">
+                                  <#if cartLine.getIsPromo()>
+                                    ${cartLine.getQuantity()?string.number}
+                                  <#else>
+                                    <input type="hidden" name="cartLineProductId" id="cartLineProductId_${cartLineIndex}" value="${cartLine.getProductId()}">
+                                    <input size="2" id="qty_${cartLineIndex}" type="text" name="update_${cartLineIndex}" value="${cartLine.getQuantity()?string.number}">
+                                  </#if> 
+                                </td>
+                                <#if cartLine.getIsPromo()>
+                                  <td  style="padding: 6px;" align="center" valign="top">FREE</td>
+                                <#else>
+                                  <td  style="padding: 6px;" align="center" valign="top"><div id="displayItem_${cartLineIndex}"><@ofbizCurrency amount=cartLine.getDisplayItemSubTotalNoAdj() isoCode=shoppingCart.getCurrency()/></div></td>
+                                </#if>
+                                <#if cartLine.getIsPromo()>
+                                <#else>
+                                  <td style="padding: 2px;"align="center" valign="top"><a href="javascript:void(0);"><img id="remove_${cartLineIndex?if_exists}" src="<@ofbizContentUrl>/ecommerce/images/remove.png</@ofbizContentUrl>" border="0" height="30" hspace="0" vspace="0" width="40"></a></td>
+                                </#if>
+                              </div>
+                            </tr>
+                            <#assign itemCount = itemCount + 1>
+                          </#list>                      
+                        </tbody>
+                      </table>
+                      <div align="righthalf"> 
+                        <table cellborder="0" border="0" cellpadding="0" cellspacing="0">
+                          <tbody>
+                            <tr>
+                              <tr>
+                                <td style="padding: 6px; width: 90px;"><div align="left">${uiLabelMap.CommonSubtotal}:</div></td>
+                                <#assign initializedSubTotal = shoppingCart.getDisplaySubTotal() - shoppingCart.getProductPromoTotal()>
+                                <td style="padding: 6px; width: 60px;"><div  id="cartSubTotal"><@ofbizCurrency amount=initializedSubTotal isoCode=shoppingCart.getCurrency()/></div></td>
+                              </tr>
+                              <tr>
+                                <td style="padding: 6px; width: 90px;"><div  id="cartDiscount">${uiLabelMap.ProductDiscount}:</div></td>
+                                <td style="padding: 6px; width: 60px;">
+                                  <div id="cartDiscountValue"><@ofbizCurrency amount=shoppingCart.getProductPromoTotal() isoCode=shoppingCart.getCurrency()/></div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td style="padding: 6px; width: 90px;"><div>${uiLabelMap.OrderShippingAndHandling}:</div></td>
+                                <td style="padding: 6px; width: 60px;">
+                                  <div  id="cartTotalShipping">
+                                    <#if (shoppingCart.getTotalShipping() > 0.0)>
+                                      <@ofbizCurrency amount=shoppingCart.getTotalShipping() isoCode=shoppingCart.getCurrency()/>
+                                    <#else>$0.00
+                                    </#if>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td style="padding: 6px; width: 90px;"><div>${uiLabelMap.OrderSalesTax}:</div></td>
+                                <td style="padding: 6px; width: 60px;">
+                                  <div  id="cartTotalSalesTax">
+                                    <#if (shoppingCart.getTotalSalesTax() > 0.0)>
+                                      <@ofbizCurrency amount=shoppingCart.getTotalSalesTax() isoCode=shoppingCart.getCurrency()/>
+                                    <#else>$0.00
+                                    </#if>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td style="padding: 6px; width: 90px;"><div>${uiLabelMap.OrderGrandTotal}:</div></td>
+                                <td style="padding: 6px; width: 60px;">
+                                  <div  id="cartDisplayGrandTotal">
+                                    <@ofbizCurrency amount=shoppingCart.getDisplayGrandTotal() isoCode=shoppingCart.getCurrency()/>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>  
               </form>
-              <div><h3><span class="editStep"><a href="javascript:void(0);" id="editShipping"><h3>Continue for step 2</h3></a></span></h3></div>              
+              <div align="right"><h3><span class="editStep"><a href="javascript:void(0);" id="editShipping"><h3>Continue for step 2</h3></a></span></h3></div>              
             </div>
           </div>
 
@@ -203,7 +394,7 @@ under the License.
                     </div>
                   </div>
               </form>
-              <div><h3><span class="editStep"><a href="javascript:void(0);" id="editShippingOptions"><h3>Continue for step 3</h3></a></span></h3></div>              
+              <div align="right"><h3><span class="editStep"><a href="javascript:void(0);" id="editShippingOptions"><h3>Continue for step 3</h3></a></span></h3></div>              
             </div>
           </div>
 
@@ -275,7 +466,7 @@ under the License.
                 </table>
               </form>
               </#if>
-              <div><h3><span class="editStep"><a href="javascript:void(0);" id="editBilling"><h3>Continue for step 4</h3></a></span></h3></div>
+              <div align="right"><h3><span class="editStep"><a href="javascript:void(0);" id="editBilling"><h3>Continue for step 4</h3></a></span></h3></div>
             </div>
           </div>
 
@@ -468,7 +659,7 @@ under the License.
                 </table>
               </div>
               </form>
-              <div><h3><span class="editStep"><a href="javascript:void(0);" id="openOrderSubmitPanel"><h3>Continue for step 5</h3></a></span></h3></div>
+              <div align="right"><h3><span class="editStep"><a href="javascript:void(0);" id="openOrderSubmitPanel"><h3>Continue for step 5</h3></a></span></h3></div>
             </div>
           </div>
           <div id="" class="screenlet">
@@ -476,7 +667,7 @@ under the License.
             <div id="orderSubmitPanel" style="display: none;">
               <form name="orderSubmitForm" id="orderSubmitForm" action="<@ofbizUrl></@ofbizUrl>" method="post">
               </form>
-              <div><h3><span class="editStep"><a href="javascript:void(0);" id=""><h3>Submit Order.</h3></a></span></h3></div>  
+              <div align="right"><h3><span class="editStep"><a href="javascript:void(0);" id=""><h3>Submit Order.</h3></a></span></h3></div>  
             </div>
           </div>
         </div>

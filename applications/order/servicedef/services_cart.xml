@@ -132,6 +132,7 @@ under the License.
         <attribute name="displayGrandTotal" type="Double" mode="OUT" optional="true"/>
         <attribute name="displayGrandTotalCurrencyFormatted" type="String" mode="OUT" optional="true"/>
         <attribute name="cartItemData" type="Map" mode="OUT"/>
+        <attribute name="displayDiscountTotalCurrencyFormatted" type="String" mode="OUT" optional="true"/>
     </service>
 
     <service name="getShoppingCartItemIndex" engine="java" auth="false"
