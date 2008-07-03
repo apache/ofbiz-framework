@@ -560,7 +560,6 @@ public class InvoiceServices {
                             createInvoiceItemAdjContext.put("invoiceId", invoiceId);
                             createInvoiceItemAdjContext.put("invoiceItemSeqId", invoiceItemSeqId);
                             createInvoiceItemAdjContext.put("invoiceItemTypeId", getInvoiceItemType(delegator, adj.getString("orderAdjustmentTypeId"), null, invoiceType, "INVOICE_ITM_ADJ"));
-                            createInvoiceItemAdjContext.put("description", adj.get("description"));
                             createInvoiceItemAdjContext.put("quantity", new Double(1));
                             createInvoiceItemAdjContext.put("amount", new Double(amount.doubleValue()));
                             createInvoiceItemAdjContext.put("productId", orderItem.get("productId"));
@@ -573,6 +572,10 @@ public class InvoiceServices {
                             createInvoiceItemAdjContext.put("taxAuthPartyId", adj.get("taxAuthPartyId"));
                             createInvoiceItemAdjContext.put("taxAuthGeoId", adj.get("taxAuthGeoId"));
                             createInvoiceItemAdjContext.put("taxAuthorityRateSeqId", adj.get("taxAuthorityRateSeqId"));
+
+                            // some adjustments fill out the comments field instead
+                            String description = (UtilValidate.isEmpty(adj.getString("description")) ? adj.getString("comments") : adj.getString("description"));
+                            createInvoiceItemAdjContext.put("description", description);
         
                             // invoice items for sales tax are not taxable themselves
                             // TODO: This is not an ideal solution. Instead, we need to use OrderAdjustment.includeInTax when it is implemented
