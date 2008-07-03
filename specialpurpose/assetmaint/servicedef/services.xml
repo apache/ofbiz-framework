@@ -31,6 +31,14 @@ under the License.
         <attribute type="String" mode="IN" name="facilityId" optional="false"/>
     </service>
     
+    <service name="assignFixedAssetPartiesToMaintenance" engine="simple"
+                location="component://assetmaint/script/org/ofbiz/assetmaint/FixedAssetMaintEvents.xml" invoke="assignFixedAssetPartiesToMaintenance" auth="true">
+        <description>Assign Fixed Asset Parties to a Fixed Asset Maintenance</description>
+        <permission-service service-name="fixedAssetPermissionCheck" main-action="UPDATE"/>
+        <attribute name="fixedAssetId" mode="IN" type="String" optional="false"/>
+        <attribute name="maintHistSeqId" mode="IN" type="String" optional="false"/>
+    </service>
+
     <service name="assetMaintPermissionCheck" engine="simple"
             location="component://assetmaint/script/org/ofbiz/assetmaint/FixedAssetMaintEvents.xml" invoke="assetMaintPermissionCheck">
         <description>Asset Maintentance Permission Checking Logic</description>
