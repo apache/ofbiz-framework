@@ -35,6 +35,7 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.DispatchContext;
+import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 
 /**
@@ -112,6 +113,7 @@ public class PreferenceServices {
      */
     public static Map<String, Object> getUserPreferenceGroup(DispatchContext ctx, Map<String, ?> context) {
         GenericDelegator delegator = ctx.getDelegator();
+        LocalDispatcher dispatcher = ctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
 
         String userPrefGroupId = (String) context.get("userPrefGroupId");
@@ -124,6 +126,13 @@ public class PreferenceServices {
         try {
             Map<String, String> fieldMap = UtilMisc.toMap("userLoginId", userLoginId, "userPrefGroupId", userPrefGroupId);
             userPrefMap = PreferenceWorker.createUserPrefMap(delegator.findByAnd("UserPreference", fieldMap));
+            
+            // if preference map not found, copy from the "_NA_" userlogin being the default settings
+            if (UtilValidate.isEmpty(userPrefMap)) {
+            	dispatcher.runSync("copyUserPrefGroup", UtilMisc.toMap("userLogin", context.get("userLogin"), "fromUserLoginId", "_NA_", "userPrefGroupId", userPrefGroupId)); 
+                userPrefMap = PreferenceWorker.createUserPrefMap(delegator.findByAnd("UserPreference", fieldMap));
+            }
+            
         } catch (GenericEntityException e) {
             Debug.logWarning(e.getMessage(), module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "getPreference.readFailure", new Object[] { e.getMessage() }, locale));
