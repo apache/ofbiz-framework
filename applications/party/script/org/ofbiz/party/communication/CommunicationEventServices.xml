@@ -200,7 +200,7 @@ under the License.
                     <condition-expr field-name="communicationEventTypeId" operator="equals" value="EMAIL_COMMUNICATION" />
                     <condition-expr field-name="communicationEventTypeId" operator="equals" value="AUTO_EMAIL_COMM" />
                 </condition-list>
-                <condition-expr field-name="statusId" operator="equals" value="COM_ENTERED" />
+                <condition-expr field-name="statusId" operator="equals" value="COM_IN_PROGRESS" />
                 <condition-list combine="or">
                     <condition-expr field-name="datetimeStarted" operator="less" env-name="nowDate" />
                     <condition-expr field-name="datetimeStarted" operator="equals" env-name="nullField" />
