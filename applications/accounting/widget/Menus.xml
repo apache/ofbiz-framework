@@ -111,7 +111,7 @@ under the License.
             <condition>
                 <not><if-empty field-name="invoice.invoiceId"/></not>
             </condition>
-            <link target="sendPerEmail?invoiceId=${invoice.invoiceId}"/>
+            <link target="sendPerEmail?invoiceId=${invoice.invoiceId}&amp;other=Y"/><!--  always try to send in the currency of the recipient -->
         </menu-item>
     </menu>
     <menu name="InvoiceSubTabBar" menu-container-style="button-bar button-style-2" default-selected-style="selected">  
