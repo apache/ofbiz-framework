@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -35,6 +35,7 @@ import net.xoetrope.swing.XComboBox;
 import net.xoetrope.xui.XPage;
 import net.xoetrope.xui.events.XEventHelper;
 
+import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.pos.PosTransaction;
@@ -43,22 +44,23 @@ import org.ofbiz.pos.PosTransaction;
 public class PaidInOut extends XPage {
 
     /**
-     * To allow creating or choising a reason for a PAID IN or OUT 
+     * To allow creating or choising a reason for a PAID IN or OUT
      */
     public static final String module = PaidInOut.class.getName();
     protected static PosScreen m_pos = null;
     protected XDialog m_dialog = null;
-    protected XLabel m_amoutLabel = null;    
+    protected XLabel m_amoutLabel = null;
     protected XEdit m_amountEdit = null;
     protected XLabel m_reasonLabel = null;
     static protected Hashtable m_reasonMap = new Hashtable();
     protected XComboBox m_reasonsCombo = null;
     protected XButton m_cancel = null;
     protected XButton m_ok = null;
-    protected DefaultComboBoxModel m_comboModel = null; 
+    protected DefaultComboBoxModel m_comboModel = null;
     protected static PosTransaction m_trans = null;
-    protected String m_type = null; 
+    protected String m_type = null;
     protected boolean cancelled = false;
+    private static boolean ShowKeyboardInSaveSale = UtilProperties.propertyValueEqualsIgnoreCase("parameters", "ShowKeyboardInSaveSale", "Y");
 
     //TODO : make getter and setter for members (ie m_*) if needed (extern calls). For that in Eclipse use Source/Generate Getters and setters
 
@@ -75,16 +77,17 @@ public class PaidInOut extends XPage {
 
         m_cancel = (XButton) m_dialog.findComponent("BtnCancel");
         m_ok = (XButton) m_dialog.findComponent("BtnOk");
-        m_amoutLabel = (XLabel) m_dialog.findComponent("amoutLabel");        
+        m_amoutLabel = (XLabel) m_dialog.findComponent("amoutLabel");
         m_reasonLabel = (XLabel) m_dialog.findComponent("reasonLabel");
-        
+
         XEventHelper.addMouseHandler(this, m_cancel, "cancel");
         XEventHelper.addMouseHandler(this, m_ok, "verify");
+        XEventHelper.addMouseHandler(this, m_amountEdit, "editAmount");
 
         m_comboModel = new DefaultComboBoxModel();
         ResourceBundle reasons = null;
-        Enumeration reasonsKeys = null; 
-        
+        Enumeration reasonsKeys = null;
+
         if (m_type.equals("IN")) {
             m_dialog.setCaption(UtilProperties.getMessage("pos", "PaidInTitle", Locale.getDefault()));
             reasons = ResourceBundle.getBundle(m_pos.getScreenLocation() + "/dialog/PaidIn", Locale.getDefault());
@@ -95,7 +98,7 @@ public class PaidInOut extends XPage {
             reasons = ResourceBundle.getBundle(m_pos.getScreenLocation() + "/dialog/PaidOut", Locale.getDefault());
             reasonsKeys = reasons.getKeys();
         }
-            
+
         while (reasonsKeys.hasMoreElements()) {
             String key = (String)reasonsKeys.nextElement();
             String val = reasons.getString(key);
@@ -125,9 +128,24 @@ public class PaidInOut extends XPage {
         if (wasMouseClicked()) {
             String amount = m_amountEdit.getText();
             String reason = (String) m_reasonsCombo.getSelectedItem();
-            if (null != amount && amount.length() > 0 && null != reason && reason.length() > 0 ) {                
+            if (null != amount && amount.length() > 0 && null != reason && reason.length() > 0 ) {
                 m_dialog.closeDlg();
             }
         }
     }
+
+    public synchronized void editAmount(){
+        if (wasMouseClicked() && ShowKeyboardInSaveSale) {
+            try {
+                Keyboard keyboard = new Keyboard(m_pos);
+                keyboard.setText(m_amountEdit.getText());
+                m_amountEdit.setText(keyboard.openDlg());
+            }catch(Exception e){
+                Debug.logError(e, module);
+            }
+            m_dialog.repaint();
+        }
+        return;
+    }
+
 }
