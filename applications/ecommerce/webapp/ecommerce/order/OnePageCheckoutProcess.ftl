@@ -423,7 +423,6 @@ under the License.
             </div>
 
             <div id="editShippingOptionPanel" style="display: none;">
-            <#if shoppingCart.getPartyId()?exists>
               <form name="shippingOptionForm" id="shippingOptionForm" action="<@ofbizUrl></@ofbizUrl>" method="post">
                 <table id="shippingTable">
                   <tr><td>
@@ -432,40 +431,12 @@ under the License.
                         <div class="field-label">
                           <label for="shipmethod">${uiLabelMap.FormFieldTitleShippingMethod}<span class="requiredLabel"> *</span><span id="advice-required-shipping_method" class="custom-advice" style="display:none">(required)</span></label>
                         </div>
-                        <#if shoppingCart?exists>
-                          <#assign shippingEstWpr = Static["org.ofbiz.order.shoppingcart.shipping.ShippingEstimateWrapper"].getWrapper(dispatcher, shoppingCart, 0)>
-                          <#assign carrierShipmentMethodList = shippingEstWpr.getShippingMethods()>
-                          <#if shoppingCart.getShipmentMethodTypeId()?exists && shoppingCart.getCarrierPartyId()?exists>
-                            <#assign chosenShippingMethod = shoppingCart.getShipmentMethodTypeId() + '@' + shoppingCart.getCarrierPartyId()>
-                          </#if>
-                        </#if>
-                        <div class="field-widget">
-                          <select id="shipMethod" name="shipMethod" class="required">
-                            <#list carrierShipmentMethodList as carrierShipmentMethod>
-                              <#assign shippingEst = shippingEstWpr.getShippingEstimate(carrierShipmentMethod)?default(-1)>
-                              <#if (shippingEst > -1)>
-                                <#assign shippingMethod = carrierShipmentMethod.shipmentMethodTypeId + "@" + carrierShipmentMethod.partyId>                                        
-                                <option value="${shippingMethod}" 
-                                  <#if ((chosenShippingMethod)?exists && chosenShippingMethod == shippingMethod)>SELECTED</#if>>
-                                  ${carrierShipmentMethod.description?if_exists}
-                                  <#if shippingEst?has_content> - 
-                                    <#if (shippingEst > -1)?exists> 
-                                      <@ofbizCurrency amount=shippingEst isoCode=shoppingCart.getCurrency()/> 
-                                    <#else> 
-                                      ${uiLabelMap.OrderCalculatedOffline} 
-                                    </#if> 
-                                  </#if> 
-                                </option>
-                              </#if>                                         
-                            </#list> 
-                          </select>
-                        </div>
+                        <select id="shipMethod" name="shipMethod" class="required"></select>
                       </div>
                     </fieldset>
                   </td></tr>
                 </table>
               </form>
-              </#if>
               <div align="right"><h3><span class="editStep"><a href="javascript:void(0);" id="editBilling"><h3>Continue for step 4</h3></a></span></h3></div>
             </div>
           </div>

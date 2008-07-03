@@ -39,8 +39,7 @@ Event.observe(window, 'load', function() {
 
     // Shipping Options
     Event.observe($('editBilling'), 'click', function() {
-        // TODO : Will be uncomment soon.
-        //setShippingOption(); 
+        setShippingOption(); 
         displayBillingPanel();
     });
 
@@ -154,11 +153,18 @@ function displayOrderSubmitPanel() {
 }
 
 function processShippingAddress() {
+    var shipOptions = null;
+    var optionList = [];
     new Ajax.Request('/ecommerce/control/createUpdateShippingAddress', {
         asynchronous: false, 
         onSuccess: function(transport) {
             var data = transport.responseText.evalJSON(true);
             console.log(data);
+            shipOptions = data.shippingOptions;
+            shipOptions.each( function(shipOption) {
+                optionList.push("<option value = " + shipOption.shippingMethod + " > " + shipOption.shippingDesc + " </option>");
+            });
+            $('shipMethod').innerHTML = optionList;
             if (data._ERROR_MESSAGE_LIST_ != undefined) {
                 console.log(data._ERROR_MESSAGE_LIST_);
             } else if (data._ERROR_MESSAGE_ != undefined) {
@@ -219,6 +225,7 @@ function setShippingOption() {
             }
         }, parameters: $('shippingOptionForm').serialize(), requestHeaders: {Accept: 'application/json'}
     });
+    updateCartData();
 }
 
 function setDataInShippingOptionCompleted() {
