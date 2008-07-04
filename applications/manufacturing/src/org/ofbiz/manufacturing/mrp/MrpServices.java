@@ -422,7 +422,7 @@ public class MrpServices {
                 Debug.logError(e, "Unable to count MrpEvent records.", module);
                 return ServiceUtil.returnError("Unable to count MrpEvent records.");
             }
-            double qoh = findProductMrpQoh(productId, facilityId, dispatcher, delegator);
+            double qoh = findProductMrpQoh(mrpId, productId, facilityId, dispatcher, delegator);
             if (qoh >= minimumStock.longValue()) {
                 continue;
             }
@@ -503,10 +503,10 @@ public class MrpServices {
      * @param product the product for which the Quantity Available is required
      * @return the sum of all the totalAvailableToPromise of the inventoryItem related to the product, if the related facility is Mrp available (not yet implemented!!)
      */
-    public static double findProductMrpQoh(GenericValue product, String facilityId, LocalDispatcher dispatcher, GenericDelegator delegator) {
-        return findProductMrpQoh(product.getString("productId"), facilityId, dispatcher, delegator);
+    public static double findProductMrpQoh(String mrpId, GenericValue product, String facilityId, LocalDispatcher dispatcher, GenericDelegator delegator) {
+        return findProductMrpQoh(mrpId, product.getString("productId"), facilityId, dispatcher, delegator);
     }
-    public static double findProductMrpQoh(String productId, String facilityId, LocalDispatcher dispatcher, GenericDelegator delegator) {
+    public static double findProductMrpQoh(String mrpId, String productId, String facilityId, LocalDispatcher dispatcher, GenericDelegator delegator) {
         Map resultMap = null;
         try{
             if (facilityId == null) {
@@ -516,16 +516,16 @@ public class MrpServices {
             }
         } catch (GenericServiceException e) {
             Debug.logError(e, "Error calling getProductInventoryAvailableByFacility service", module);
-            logMrpError(productId, "Unable to count inventory", delegator);
+            logMrpError(mrpId, productId, "Unable to count inventory", delegator);
             return 0;
         }
         return ((Double)resultMap.get("quantityOnHandTotal")).doubleValue();
     }
 
-    public static void logMrpError(String productId, String errorMessage, GenericDelegator delegator) {
-        logMrpError(productId, UtilDateTime.nowTimestamp(), errorMessage, delegator);
+    public static void logMrpError(String mrpId, String productId, String errorMessage, GenericDelegator delegator) {
+        logMrpError(mrpId, productId, UtilDateTime.nowTimestamp(), errorMessage, delegator);
     }
-    public static void logMrpError(String productId, Timestamp eventDate, String errorMessage, GenericDelegator delegator) {
+    public static void logMrpError(String mrpId, String productId, Timestamp eventDate, String errorMessage, GenericDelegator delegator) {
         try {
             if (UtilValidate.isNotEmpty(productId) && UtilValidate.isNotEmpty(errorMessage)) {
                 GenericValue inventoryEventError = delegator.makeValue("MrpEvent", UtilMisc.toMap("productId", productId, 
@@ -574,7 +574,7 @@ public class MrpServices {
                         InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, new Double(-1.0 * componentEventQuantity), null, product.get("productId") + ": " + eventDate, false, delegator);
                     } catch (GenericEntityException e) {
                         Debug.logError("Error : delegator.findByPrimaryKey(\"MrpEvent\", parameters) ="+parameters+"--"+e.getMessage(), module);
-                        logMrpError(node.getProduct().getString("productId"), "Unable to create event (processBomComponent)", delegator);
+                        logMrpError(mrpId, node.getProduct().getString("productId"), "Unable to create event (processBomComponent)", delegator);
                     }
                 }
             }
@@ -713,7 +713,7 @@ public class MrpServices {
                         } catch (GenericEntityException e) {
                             return ServiceUtil.returnError("Problem, can not find the product for a event, for more detail look at the log");
                         }
-                        stockTmp = findProductMrpQoh(product, facilityId, dispatcher, delegator);
+                        stockTmp = findProductMrpQoh(mrpId, product, facilityId, dispatcher, delegator);
                         try {
                             InventoryEventPlannedServices.createOrUpdateMrpEvent(UtilMisc.toMap("mrpId", mrpId, "productId", product.getString("productId"), "mrpEventTypeId", "INITIAL_QOH", "eventDate", now),
                                                                                               new Double(stockTmp), facilityId, null, false,
@@ -805,7 +805,7 @@ public class MrpServices {
                             requirementId = proposedOrder.create(ctx, userLogin);
                         }
                         if (UtilValidate.isEmpty(productFacility) && !isBuilt) {
-                            logMrpError(productId, now, "No ProductFacility record for [" + facilityId + "]; no requirement created.", delegator);
+                            logMrpError(mrpId, productId, now, "No ProductFacility record for [" + facilityId + "]; no requirement created.", delegator);
                         }
                         String eventName = null;
                         if (UtilValidate.isNotEmpty(requirementId)) {
