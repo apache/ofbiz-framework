@@ -1210,7 +1210,7 @@
     <property key="FormFieldTitle_daysToCancelNonPay">
         <value xml:lang="en">Days To Cancel Non Pay</value>
         <value xml:lang="fr">Nb de jour avant d'annuler un paiement non effectué</value>
-        <value xml:lang="it">Giorni Per Cancellazione Nessun Pagamento</value>
+        <value xml:lang="it">Giorni Per Annullamento Per Pagamento Non Pervenuto</value>
         <value xml:lang="ro">Zile Pentru Stergere NePlata</value>
         <value xml:lang="ru">Дней до отмены, при отст. оплаты</value>
         <value xml:lang="th">ยกเลิกวันที่ไม่มีการชำระเงิน</value>
@@ -1598,7 +1598,7 @@
     <property key="FormFieldTitle_headerCancelStatus">
         <value xml:lang="en">Header Cancel Status</value>
         <value xml:lang="fr">Titre de statut annulé</value>
-        <value xml:lang="it">Testata in Stato Cancellato</value>
+        <value xml:lang="it">Testata in Stato Annullato</value>
         <value xml:lang="ro">Antet in Stare Stergere</value>
         <value xml:lang="ru">Статус Отменен, заголовок</value>
         <value xml:lang="th">ยกเลิกสถานะของหัวข้อ</value>
@@ -1879,7 +1879,7 @@
     <property key="FormFieldTitle_itemCancelStatus">
         <value xml:lang="en">Item Cancel Status</value>
         <value xml:lang="fr">Ligne en statut annulé</value>
-        <value xml:lang="it">Riga in Stato Cancellato</value>
+        <value xml:lang="it">Riga in Stato Annullato</value>
         <value xml:lang="ro">Linie in Stare Stergere</value>
         <value xml:lang="ru">Статус Отменен, позиция</value>
         <value xml:lang="th">ยกเลิกสถานะรายการ</value>
@@ -10894,7 +10894,7 @@
         <value xml:lang="en">Latest Cancel Date</value>
         <value xml:lang="es">Fecha de anulación</value>
         <value xml:lang="fr">Dernière date de suppression</value>
-        <value xml:lang="it">Data Ultima Cancellazione</value>
+        <value xml:lang="it">Data Ultimo Annullamento</value>
         <value xml:lang="ro">Data Ultimei Stergeri</value>
         <value xml:lang="ru">Последняя дата отмены</value>
         <value xml:lang="th">วันที่ยกเลิกครั้งสุดท้าย
@@ -17967,7 +17967,6 @@
         <value xml:lang="es">No se pudo remover producto-palabra clave (no existe).</value>
         <value xml:lang="fr">Impossible de supprimer le mot-clé de l'article (n'existe pas).</value>
         <value xml:lang="it">Non è possibile cancellare chiave-prodotto (non esiste).</value>
-        <value xml:lang="ro">Non è possibile cancellare chiave-prodotto (non esiste).</value>
         <value xml:lang="ru">Невозможно удалить ключевое слово (не существует).</value>
         <value xml:lang="th">ไม่สามารถลบคีย์เวิร์ดสินค้า (ไม่มีอยู่);</value>
         <value xml:lang="zh">没有删除产品-关键字(不存在)。</value>
@@ -18237,7 +18236,6 @@
         <value xml:lang="es">se removieron ${numRemoved} artículos.</value>
         <value xml:lang="fr">${numRemoved} articles supprimés.</value>
         <value xml:lang="it">${numRemoved} righe cancellate.</value>
-        <value xml:lang="ro">${numRemoved} righe cancellate.</value>
         <value xml:lang="ru">удалено ${numRemoved} позиций.</value>
         <value xml:lang="th">ลบ ${numRemoved} รายการ.</value>
         <value xml:lang="zh">已删除 ${numRemoved} 明细。</value>

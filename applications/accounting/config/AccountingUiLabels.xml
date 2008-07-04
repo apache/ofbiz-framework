@@ -2631,21 +2631,15 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingFromPartySameToParty">
         <value xml:lang="ar">على الأقل 'من' طرف يجب أن تكون مماثلة ل 'إلى' الطرف للتسديد الآخر</value>
-        <value xml:lang="en">At least the 'from' party should be the same as the 'to' party of the other payment
-</value>
+        <value xml:lang="en">At least the 'from' party should be the same as the 'to' party of the other payment</value>
         <value xml:lang="es">Al menos el grupo 'origen' debe ser el mismo que  el grupo 'destino' del otro pago</value>
         <value xml:lang="fr">L'acteur "de" doit être le même que l'acteur "vers" de l'autre paiement</value>
-        <value xml:lang="it">Al minimo 'da' Soggetto deve essere lo stesso del Soggetto 'a' dell'altro pagamento
-</value>
-        <value xml:lang="nl">Tenminste de 'van' partij moet hetzelfde zijn als de 'aan' party van de andere betaling
-</value>
-        <value xml:lang="ro">Perioada 'de la'- ' pina la ' trebuie sa fie aceiasi cu a celeilalte Plati
-</value>
-        <value xml:lang="ru">Как минимум, участник 'от' должен быть таким же как участник 'на' другого платежа
-</value>
+        <value xml:lang="it">Al minimo 'da' Soggetto deve essere lo stesso del Soggetto 'a' dell'altro pagamento</value>
+        <value xml:lang="nl">Tenminste de 'van' partij moet hetzelfde zijn als de 'aan' party van de andere betaling</value>
+        <value xml:lang="ro">Perioada 'de la'- ' pina la ' trebuie sa fie aceiasi cu a celeilalte Plati</value>
+        <value xml:lang="ru">Как минимум, участник 'от' должен быть таким же как участник 'на' другого платежа</value>
         <value xml:lang="th">อย่างน้อยที่สุดจากกลุ่มผู้ใช้ควรเหมือนกับถึงกลุ่มผู้ใช้ในการชำระเงินอื่น ๆ</value>
-        <value xml:lang="zh">至少'自会员'应该与其它支付的'到会员'一致
-</value>
+        <value xml:lang="zh">至少'自会员'应该与其它支付的'到会员'一致</value>
     </property>
     <property key="AccountingGatewayResponse">
         <value xml:lang="ar">ممر الإجابة</value>
@@ -2884,22 +2878,15 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingInvoiceCancelledCannotApplyTo">
         <value xml:lang="ar">الفاتورة  [${invoiceId}] قد ألغيت, لا يمكن تطبيقها على</value>
-        <value xml:lang="en">Invoice [${invoiceId}] is cancelled, cannot be applied to...
-</value>
-        <value xml:lang="es">Factura [${invoiceId}] esta cancelada, no puede ser aplicada...
-</value>
+        <value xml:lang="en">Invoice [${invoiceId}] is cancelled, cannot be applied to...</value>
+        <value xml:lang="es">Factura [${invoiceId}] esta cancelada, no puede ser aplicada...</value>
         <value xml:lang="fr">Facture  [${invoiceId}] annullée, il ne peut y être alloué de paiement...</value>
-        <value xml:lang="it">Fattura [${invoiceId}] è cancellato, non può essere applicato a...
-</value>
-        <value xml:lang="nl">Faktuur [${invoiceId}] is geannuleerd, kan niet worden toegewezen...
-</value>
-        <value xml:lang="ro">Factura [${invoiceId}] este stearsa , nu  poate fi aplicata la...
-</value>
-        <value xml:lang="ru">Накладная [${invoiceId}] отменена, не может быть применена к ...
-</value>
+        <value xml:lang="it">Fattura [${invoiceId}] è annullata, non può essere applicata a...</value>
+        <value xml:lang="nl">Faktuur [${invoiceId}] is geannuleerd, kan niet worden toegewezen...</value>
+        <value xml:lang="ro">Factura [${invoiceId}] este stearsa , nu  poate fi aplicata la...</value>
+        <value xml:lang="ru">Накладная [${invoiceId}] отменена, не может быть применена к ...</value>
         <value xml:lang="th">ใบกำกับสินค้า [${invoiceId}] ถูกยกเลิก, ไม่สามารถที่จะนำมาใช้ได้...</value>
-        <value xml:lang="zh">发票[${invoiceId}]已取消，无法应用...
-</value>
+        <value xml:lang="zh">发票[${invoiceId}]已取消，无法应用...</value>
     </property>
     <property key="AccountingInvoiceCapitals">
         <value xml:lang="ar">فاتورة</value>
@@ -3408,7 +3395,7 @@ esetata in mod automat</value>
         <value xml:lang="en">Status to 'Cancelled'</value>
         <value xml:lang="es">Status a 'Cancelado'</value>
         <value xml:lang="fr">Statut à 'Annullée'</value>
-        <value xml:lang="it">Stato a 'Cancellato'</value>
+        <value xml:lang="it">Stato a 'Annullato'</value>
         <value xml:lang="nl">Status naar 'Geannuleerd'</value>
         <value xml:lang="ro">Stadiul 'Eliminat'</value>
         <value xml:lang="ru">Статус в 'Отменено'</value>
@@ -4637,21 +4624,15 @@ esetata in mod automat</value>
         <value xml:lang="zh">支付程序需要提供发票编号、账单账户标识或税务机关辖区编号</value>
     </property>
     <property key="AccountingPaymentCancelled">
-        <value xml:lang="en">Payment [${paymentId}] is cancelled and cannot be applied
-</value>
+        <value xml:lang="en">Payment [${paymentId}] is cancelled and cannot be applied</value>
         <value xml:lang="es">Pago [${paymentId}] ha sido concelado y no puede ser aplicado</value>
         <value xml:lang="fr">Le paiement [${paymentId}] est annullé est ne peut être alloué</value>
-        <value xml:lang="it">Pagamento [${paymentId}] è cancellato e non può essere applicato
-</value>
-        <value xml:lang="nl">Betaling [${paymentId}] is geannuleerd en kan niet worden toegewezen
-</value>
-        <value xml:lang="ro">Plata [${paymentId}] a fost stearsa si nu  poate fi  aplicata
-</value>
-        <value xml:lang="ru">Платеж [${paymentId}] отменен и не может быть применен
-</value>
+        <value xml:lang="it">Pagamento [${paymentId}] è annullato e non può essere applicato</value>
+        <value xml:lang="nl">Betaling [${paymentId}] is geannuleerd en kan niet worden toegewezen</value>
+        <value xml:lang="ro">Plata [${paymentId}] a fost stearsa si nu  poate fi  aplicata</value>
+        <value xml:lang="ru">Платеж [${paymentId}] отменен и не может быть применен</value>
         <value xml:lang="th">การชำระเงิน [${paymentId}] ถูกยกเลิกและไม่สามารถนำไปใช้ได้</value>
-        <value xml:lang="zh">支付[${paymentId}]被取消或无法应用
-</value>
+        <value xml:lang="zh">支付[${paymentId}]被取消或无法应用</value>
     </property>
     <property key="AccountingPaymentCheckMessage1">
         <value xml:lang="ar">آسف, لا تسديدات مختارة</value>
@@ -4936,7 +4917,7 @@ esetata in mod automat</value>
         <value xml:lang="en">Status to 'Cancelled'</value>
         <value xml:lang="es">Status a 'Cancelado'</value>
         <value xml:lang="fr">Statut à 'Annullé'</value>
-        <value xml:lang="it">Stato a 'Cancellato'</value>
+        <value xml:lang="it">Stato a 'Annullato'</value>
         <value xml:lang="nl">Status naar 'Geannuleerd'</value>
         <value xml:lang="ro">Stadiu 'Eliminat'</value>
         <value xml:lang="ru">Статус в 'Отменен'</value>
@@ -9268,7 +9249,7 @@ esetata in mod automat</value>
     </property>
     <property key="payPalEvents.previousPayPalOrderHasBeenCancelled">
         <value xml:lang="en">Previous PayPal order has been cancelled.</value>
-        <value xml:lang="it">Ordine PayPal precedente è stato cancellato.</value>
+        <value xml:lang="it">Ordine PayPal precedente è stato annullato.</value>
         <value xml:lang="th">กลับไปยังรายการpaypalที่ถูกยกเลิก</value>
     </property>
     <property key="payPalEvents.problemsConnectingWithPayPal">

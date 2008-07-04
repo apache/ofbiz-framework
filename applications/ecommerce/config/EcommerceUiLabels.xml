@@ -1003,7 +1003,7 @@
         <value xml:lang="en">Unsubscribe</value>
         <value xml:lang="es">des-Subscribir</value>
         <value xml:lang="fr">Se désinscrire</value>
-        <value xml:lang="it">Cancella Sottoscrizione</value>
+        <value xml:lang="it">Annulla Sottoscrizione</value>
         <value xml:lang="ro">Sterge Subscrierea</value>
         <value xml:lang="ru">Отменить подписку</value>
         <value xml:lang="th">ไม่ได้ชำระค่าสั่งซื้อ</value>
@@ -2734,7 +2734,7 @@
         <value xml:lang="es">ha sido cancelado</value>
         <value xml:lang="fr">a été annulée.</value>
         <value xml:lang="hi_IN">रद्द किया गया</value>
-        <value xml:lang="it">Richiesta di Reso è stata cancellata.</value>
+        <value xml:lang="it">Richiesta di Reso è stata annullata.</value>
         <value xml:lang="ja">has been cancelled.</value>
         <value xml:lang="nl">is geannuleerd.</value>
         <value xml:lang="ro">a fost sters.</value>
@@ -3882,7 +3882,7 @@
         <value xml:lang="es">Su orden ha sido cancelada y no será procesada. Favor de contactar a servicio al cliente en caso tener dudas</value>
         <value xml:lang="fr">Votre commande a été annulé et ne sera pas traité. S'il vous plaît contactez le service client si vous avez des questions.</value>
         <value xml:lang="hi_IN">इस समय आपका आर्डर ख़ारीज किया जाता है, किसी प्रश्न के लिए ग्राहक सेवा से संपर्क किजीये</value>
-        <value xml:lang="it">Il tuo ordine è stato cancellato e non sarà processato. Per favore contatta l'assistenza clienti per qualsiasi informazione.</value>
+        <value xml:lang="it">Il tuo ordine è stato annullato e non sarà processato. Per favore contatta l'assistenza clienti per qualsiasi informazione.</value>
         <value xml:lang="ja">At this time your order has been cancelled and will not be processed. Please contact customer service if you have any questions.</value>
         <value xml:lang="nl">Uw bestelling is geannuleerd en zal niet worden uitgevoerd. Stel U in verbinding met de klantenservice als u vragen hebt.</value>
         <value xml:lang="ro">In acest moment comanda ta a fost stearsa si nu va fi procesata. Te rugam contacteaza Serviciul Clienti pentru orice nelamurire.</value>
@@ -4505,7 +4505,7 @@
         <value xml:lang="es">Su orden ha sido cancelada. Favor, contactar a servicio al cliente si tiene alguna consulta.</value>
         <value xml:lang="fr">Votre commande a été annulée et ne sera pas traitée.  Veuillez entrer en contact avec le service clientèle si vous avez des questions.</value>
         <value xml:lang="hi_IN">इस समय आपका आर्डर ख़ारीज किया जाता है, किसी प्रश्न के लिए ग्राहक सेवा से संपर्क किजीये</value>
-        <value xml:lang="it">Il tuo ordine è stato cancellato e non sarà processato. Per favore contatta l'assistenza clienti per qualsiasi informazione.</value>
+        <value xml:lang="it">Il tuo ordine è stato annullato e non sarà processato. Per favore contatta l'assistenza clienti per qualsiasi informazione.</value>
         <value xml:lang="ja">At this time your order has been cancelled and will not be processed. Please contact customer service if you have any questions.</value>
         <value xml:lang="nl">Uw bestelling is geannuleerd en zal niet worden uitgevoerd. Stel U in verbinding met de klantenservice als u vragen hebt.</value>
         <value xml:lang="ro">In acest moment comanda ta a fost stearsa si nu  poate fi procesata. Va rugam contactati Serviciul Clienti daca tu ai vreo intrebare.</value>
@@ -4555,7 +4555,7 @@
         <value xml:lang="es">Cant. Cancelada</value>
         <value xml:lang="fr">Qté annulée</value>
         <value xml:lang="hi_IN">कुल सामान ख़ारिज</value>
-        <value xml:lang="it">Qnt Cancellata</value>
+        <value xml:lang="it">Qnt Annullata</value>
         <value xml:lang="ja">Qty Cancelled</value>
         <value xml:lang="nl">Aantal geannuleerd</value>
         <value xml:lang="pt_PT">Quantidade Cancelada</value>

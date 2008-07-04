@@ -1879,7 +1879,7 @@
         <value xml:lang="en">Cancel all Items</value>
         <value xml:lang="es">Cancelar todos los ítems</value>
         <value xml:lang="fr">Supprimer tous les articles</value>
-        <value xml:lang="it">Cancella tutte le Righe</value>
+        <value xml:lang="it">Annulla tutte le Righe</value>
         <value xml:lang="nl">Cancel alle Items</value>
         <value xml:lang="ru">Отменить все позиции</value>
         <value xml:lang="th">ยกเลิกรายการทั้งหมด</value>
@@ -1896,7 +1896,7 @@
         <value xml:lang="en">Cancelled</value>
         <value xml:lang="es">Cancelada</value>
         <value xml:lang="fr">Annulée</value>
-        <value xml:lang="it">Cancellata</value>
+        <value xml:lang="it">Annullato</value>
         <value xml:lang="nl">Cancelled</value>
         <value xml:lang="ro">Stearsa</value>
         <value xml:lang="ru">Отменен</value>
@@ -1909,7 +1909,7 @@
         <value xml:lang="en">(cannot be changed without clearing order.)</value>
         <value xml:lang="es">(no puede ser cambiado sin reiniciar la orden)</value>
         <value xml:lang="fr">(Ne peut être modifié sans réinitialiser la commande.)</value>
-        <value xml:lang="it">(Non è possibile cambiarlo senza cancellare l'ordine.)</value>
+        <value xml:lang="it">(Non è possibile cambiarlo senza annullare l'ordine.)</value>
         <value xml:lang="nl">(kan niet worden gewijzigd zonder de reeds opgestartte bestelling op te ruimen.)</value>
         <value xml:lang="ro">(Nu este posibila schimbarea fara stergerea comenzii.)</value>
         <value xml:lang="ru">(нельзя изменить без очистки заказа.)</value>
@@ -2075,7 +2075,7 @@
         <value xml:lang="en">Clear Order</value>
         <value xml:lang="es">Reiniciar la orden</value>
         <value xml:lang="fr">Réinitialisation</value>
-        <value xml:lang="it">Cancella Ordine</value>
+        <value xml:lang="it">Annulla Ordine</value>
         <value xml:lang="nl">Wis Bestelling</value>
         <value xml:lang="ru">Очистить</value>
         <value xml:lang="th">เคลียร์รายการสั่งซื้อสินค้า</value>
@@ -9095,7 +9095,7 @@
         <value xml:lang="en">Cannot cancel item at this time; please try again.</value>
         <value xml:lang="es">No se puede cancelar el ítem en este momento, por favor vuelva a intentar.</value>
         <value xml:lang="fr">Impossible d'annuler l'article maintenant. Réessayez, s'il vous plait.</value>
-        <value xml:lang="it">Non è possibile cancellare la riga in questo momento; perfavore prova dinuovo.</value>
+        <value xml:lang="it">Non è possibile annullare la riga in questo momento; perfavore prova dinuovo.</value>
         <value xml:lang="nl">Cannot cancel item at this time; please try again.</value>
         <value xml:lang="ro">Nu este posibila stergerea liniei in acest moment; te rogam incearca din nou.</value>
         <value xml:lang="ru">Не могу отменить позицию; пожалуйста попробуйте снова.</value>

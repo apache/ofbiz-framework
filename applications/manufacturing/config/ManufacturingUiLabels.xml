@@ -49,7 +49,7 @@
     </property>
     <property key="FormFieldTitle_cancelDateTime">
         <value xml:lang="en">Cancel Date Time</value>
-        <value xml:lang="it">Data/Ora di Cancellazione</value>
+        <value xml:lang="it">Data/Ora di Annullamento</value>
         <value xml:lang="th">ยกเลิกวัน เวลา</value>
     </property>
     <property key="FormFieldTitle_costCustomMethodId">
@@ -745,7 +745,7 @@
     <property key="ManufacturingCancel">
         <value xml:lang="en">Cancel</value>
         <value xml:lang="es">Cancelar</value>
-        <value xml:lang="it">Cancella</value>
+        <value xml:lang="it">Annulla</value>
         <value xml:lang="ro">Sterge</value>
         <value xml:lang="th">ยกเลิก</value>
         <value xml:lang="zh">取消</value>
