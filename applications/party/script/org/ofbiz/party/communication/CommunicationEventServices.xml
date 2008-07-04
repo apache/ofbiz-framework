@@ -191,7 +191,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="sendEmailDated"
-        short-description="Checks for email communication events with the status COM__ENTERED and a startdate which is expired, then send the email">
+        short-description="Checks for email communication events with the status COM_IN_PROGRESS and a startdate which is expired, then send the email">
         <transaction-begin/>
         <now-timestamp-to-env env-name="nowDate" />
         <entity-condition entity-name="CommunicationEvent" list-name="communicationEvents">
