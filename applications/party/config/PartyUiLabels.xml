@@ -3732,7 +3732,7 @@
     <property key="PartyInvitationCancelPermissionError">
         <value xml:lang="en">You do not have permission to cancel the Party Invitation</value>
         <value xml:lang="fr">Vous n'avez pas la permission d'annuler l'invitation de l'acteur</value>
-        <value xml:lang="it">Tu non sei autorizzato a cancellare Inviti Soggetti</value>
+        <value xml:lang="it">Tu non sei autorizzato a annullare Inviti Soggetti</value>
         <value xml:lang="th">คุณไม่ได้รับการอนุญาตให้ยกเลิกคำเชิญของกลุ่มผู้ใช้</value>
     </property>
     <property key="PartyInvitationGroupAssoc">

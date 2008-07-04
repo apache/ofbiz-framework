@@ -60,7 +60,7 @@
     </property>
     <property key="FormFieldTitle_cancelDateTime">
         <value xml:lang="en">Cancel Date Time</value>
-        <value xml:lang="it">Data/Ora Cancellazione</value>
+        <value xml:lang="it">Data/Ora Annullamento</value>
         <value xml:lang="th">ยกเลิกวันเวลา</value>
     </property>
     <property key="FormFieldTitle_clientPartyId">

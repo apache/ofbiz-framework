@@ -583,7 +583,7 @@ under the License.
                 -containerId
             If the service definitions are used then only some of these will ever be specified, or none of them.
 
-            Whatever it is called with, it will basicly get a list of InventoryItems and total the available amount.
+            Whatever it is called with, it will basically get a list of InventoryItems and total the available amount.
         -->
 
         <!-- this is not normally needed...

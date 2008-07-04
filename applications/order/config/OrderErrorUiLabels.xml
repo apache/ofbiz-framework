@@ -342,7 +342,7 @@
         <value xml:lang="en">ERROR : Cannot cancel item; item not found : ${itemMsgInfo}</value>
         <value xml:lang="es">ERROR: No se puede cancelar el ítem; ítem no encontrado: ${itemMsgInfo}</value>
         <value xml:lang="fr">Erreur : Ne peut pas annuler l'article; article non trouvé : ${itemMsgInfo}</value>
-        <value xml:lang="it">ERRORE : Non è possibile cancellare la riga; riga non trovata : ${itemMsgInfo}</value>
+        <value xml:lang="it">ERRORE : Non è possibile annullare la riga; riga non trovata : ${itemMsgInfo}</value>
         <value xml:lang="ro">EROARE : Nu este posibila stergerea linie; Linie negasita: ${itemMsgInfo}</value>
         <value xml:lang="ru">ОШИБКА: невозможно отменить позицию; позиция не найдена: ${itemMsgInfo}</value>
         <value xml:lang="th">ERROR : ข้อผิดพลาด ! ไม่สามาถยกเลิกรายการ; ไม่พบรายการ : ${itemMsgInfo}</value>
@@ -947,7 +947,7 @@
         <value xml:lang="en">Invalid cancel quantity; cannot cancel ${thisCancelQty}</value>
         <value xml:lang="es">Cantidad cancelada inválida; no se puede cancelar ${thisCancelQty}</value>
         <value xml:lang="fr">Quantité annulée invalide; ne peut pas annuler ${thisCancelQty}</value>
-        <value xml:lang="it">Quantità cancellata Invalida; non è possibile cancellare ${thisCancelQty}</value>
+        <value xml:lang="it">Quantità annullata Invalida; non è possibile annullare ${thisCancelQty}</value>
         <value xml:lang="ro">Cantitate stearsa Invalida; nu este posibila stergerea ${thisCancelQty}</value>
         <value xml:lang="ru">Отменяется неверное количество; не могу отменить ${thisCancelQty}</value>
         <value xml:lang="th">ไม่มีค่าจำนวนที่ยกเลิก; ไม่สามารถยกเลิก ${thisCancelQty}</value>
@@ -2233,7 +2233,7 @@
         <value xml:lang="en">Unable to cancel item inventory reservation</value>
         <value xml:lang="es">No se pudo cancelar la reserva del item</value>
         <value xml:lang="fr">Impossible d'annuler la réservation d'article de l'inventaire</value>
-        <value xml:lang="it">Non è possibile cancellare la riga di inventario riservata</value>
+        <value xml:lang="it">Non è possibile annullare la riga di inventario riservata</value>
         <value xml:lang="ro">Nu este posibila stergerea liniei de inventar rezervata.</value>
         <value xml:lang="ru">Невозможно отменить зарезервированную позицию ТМЦ</value>
         <value xml:lang="th">ไม่สามารถยกเลิกรายการการจองสินค้าคงเหลือ</value>
@@ -2243,7 +2243,7 @@
         <value xml:lang="en">Unable to cancel order Item : </value>
         <value xml:lang="es">No se pudo cancelar el artículo :</value>
         <value xml:lang="fr">Impossible d'annuler l'article de la commande : </value>
-        <value xml:lang="it">Non è possibile cancellare la Riga Prodotto : </value>
+        <value xml:lang="it">Non è possibile annullare la Riga Prodotto : </value>
         <value xml:lang="ro">Nu este posibila stergerea liniei  Produs : </value>
         <value xml:lang="ru">Невозможно отменить позицию заказа: </value>
         <value xml:lang="th">ไม่สามารถยกเลิกรายการใบคำสั่งซื้อ</value>
@@ -2253,7 +2253,7 @@
         <value xml:lang="en">Unable to cancel order line : ${itemMsgInfo}</value>
         <value xml:lang="es">No se pudo cancelar el producto seleccionado .  ${itemMsgInfo}</value>
         <value xml:lang="fr">Impossible d'annuler la ligne de la commande : ${itemMsgInfo}</value>
-        <value xml:lang="it">Non è possibile cancellare la Riga Ordine : ${itemMsgInfo}</value>
+        <value xml:lang="it">Non è possibile annullare la Riga Ordine : ${itemMsgInfo}</value>
         <value xml:lang="ro">Nu este posibila stergerea liniei Comanda : ${itemMsgInfo}</value>
         <value xml:lang="ru">Невозможно отменить строку заказа: ${itemMsgInfo}</value>
         <value xml:lang="th">ไม่สามารถยกเลิกแถวของรายการ : ${itemMsgInfo}</value>
@@ -2379,7 +2379,7 @@
         <value xml:lang="en">Unable to set cancel quantity : ${itemMsgInfo}</value>
         <value xml:lang="es">No se puede poner la cantidad cancelada : ${itemMsgInfo}</value>
         <value xml:lang="fr">Impossible de mettre la quantité annulée : ${itemMsgInfo}</value>
-        <value xml:lang="it">Non è possibile impostare la quantità cancellata : ${itemMsgInfo}</value>
+        <value xml:lang="it">Non è possibile impostare la quantità annullata : ${itemMsgInfo}</value>
         <value xml:lang="ro">Nu este posibila setarea cantitatii sterse : ${itemMsgInfo}</value>
         <value xml:lang="ru">Невозможно установить отменяемое количество: ${itemMsgInfo}</value>
         <value xml:lang="th">ไม่สามารถตั้งค่าการยกเลิกจำนวน : ${itemMsgInfo}</value>
@@ -2399,7 +2399,7 @@
         <value xml:lang="en">Unable to update cancel quantity of item</value>
         <value xml:lang="es">No se puede actualizar la cantidad de ítem cancelada</value>
         <value xml:lang="fr">Impossible de mettre à jour la quantité d'article annulée</value>
-        <value xml:lang="it">Non è possibile aggiornare quantità cancellata delle riga</value>
+        <value xml:lang="it">Non è possibile aggiornare quantità annullata delle riga</value>
         <value xml:lang="ro">Nu este posibila actualizarea  cantitatii sterse din liniile</value>
         <value xml:lang="ru">Невозможно обновить отменяемое количество для позиции</value>
         <value xml:lang="th">ไม่สามารถอัพเดทการยกเลิกจำนวนของรายการ</value>
