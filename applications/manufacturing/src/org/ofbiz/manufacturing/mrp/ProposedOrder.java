@@ -181,7 +181,6 @@ public class ProposedOrder {
             } else { 
                 // routing is null
                 Debug.logError("No routing found for product = "+ product.getString("productId"), module);
-                MrpServices.logMrpError(product.getString("productId"), "No routing found", delegator);
             }
         } else {
             // the product is purchased
@@ -256,7 +255,6 @@ public class ProposedOrder {
             return (String) result.get("requirementId");
         } catch (GenericServiceException e) {
             Debug.logError(e,"Error : createRequirement with parameters = "+parameters+"--"+e.getMessage(), module);
-            MrpServices.logMrpError(productId, "Error creating requirement", delegator);
             return null;
         }
     }
