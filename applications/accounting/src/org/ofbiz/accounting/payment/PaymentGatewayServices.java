@@ -995,8 +995,9 @@ public class PaymentGatewayServices {
         }
 
         if (testOrderId == null || !allSameOrder) {
-            Debug.logWarning("Attempt to settle Invoice #" + invoiceId + " which contained none/multiple orders", module);
-            return ServiceUtil.returnFailure("Attempt to settle Invoice #" + invoiceId + " which contained none/multiple orders");
+            String errorMsg = "Attempt to settle Invoice #" + invoiceId + " which contained none/multiple orders";
+            Debug.logWarning(errorMsg, module);
+            return ServiceUtil.returnFailure(errorMsg);
         }
 
         // get the invoice amount (amount to bill)
