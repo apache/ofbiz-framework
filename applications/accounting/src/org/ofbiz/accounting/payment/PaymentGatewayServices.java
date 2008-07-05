@@ -996,8 +996,7 @@ public class PaymentGatewayServices {
 
         if (testOrderId == null || !allSameOrder) {
             Debug.logWarning("Attempt to settle Invoice #" + invoiceId + " which contained none/multiple orders", module);
-            Map result = ServiceUtil.returnSuccess();
-            result.put("processResult", "FAILED");
+            Map result = ServiceUtil.returnFailure("Attempt to settle Invoice #" + invoiceId + " which contained none/multiple orders");
             return result;
         }
 
