@@ -115,6 +115,7 @@ public class PreferenceServices {
         GenericDelegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
 
         String userPrefGroupId = (String) context.get("userPrefGroupId");
         if (UtilValidate.isEmpty(userPrefGroupId)) {
@@ -129,7 +130,7 @@ public class PreferenceServices {
             
             // if preference map not found, copy from the "_NA_" userlogin being the default settings
             if (UtilValidate.isEmpty(userPrefMap)) {
-            	dispatcher.runSync("copyUserPrefGroup", UtilMisc.toMap("userLogin", context.get("userLogin"), "fromUserLoginId", "_NA_", "userPrefGroupId", userPrefGroupId)); 
+            	dispatcher.runSync("copyUserPrefGroup", UtilMisc.toMap("userLogin", userLogin, "fromUserLoginId", "_NA_", "userPrefGroupId", userPrefGroupId)); 
                 userPrefMap = PreferenceWorker.createUserPrefMap(delegator.findByAnd("UserPreference", fieldMap));
             }
             

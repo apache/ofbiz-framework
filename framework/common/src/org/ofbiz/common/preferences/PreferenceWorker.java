@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.common.preferences;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -28,10 +27,12 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
+
 
 /**
  * User preference worker methods.
@@ -81,11 +82,10 @@ public class PreferenceWorker {
         boolean hasPermission = false;
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         if (userLogin != null) {
-            String userLoginId = userLogin.getString("userLoginId");
-            String userLoginIdArg = (String) context.get("userLoginId");
-            if (userLoginId.equals(userLoginIdArg)) {
-                // users can copy to their own preferences
-                hasPermission = true;
+            String userLoginId = userLogin.getString("userLoginId"); 
+            String userLoginIdArg = (String) context.get("userLoginId"); // is an optional parameters which defaults to the logged on user
+            if (userLoginIdArg == null || (userLoginIdArg != null && userLoginId.equals(userLoginIdArg))) {
+                hasPermission = true; // users can copy to their own preferences
             } else {
                 Security security = ctx.getSecurity();
                 hasPermission = security.hasPermission(ADMIN_PERMISSION, userLogin);
