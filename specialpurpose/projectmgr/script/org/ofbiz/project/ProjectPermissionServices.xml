@@ -223,13 +223,11 @@
                             <not><if-has-permission permission="PROJECTMGR_ROLE_TIMESHEET_UPDATE"/></not>
                             <if-compare field="mainAction" value="UPDATE" operator="equals"/>
                         </and>
-                        <and>
-                            <if-has-permission permission="PROJECTMGR_ROLE_TIMESHEET_CREATE"/>
+                        <and><!-- can always create ones own timesheet -->
                             <if-compare field="mainAction" value="CREATE" operator="equals"/>
                             <if-compare-field field="parameters.partyId" to-field="parameters.userLogin.partyId" operator="equals"/>
                         </and>
-                        <and>
-                            <if-has-permission permission="PROJECTMGR_ROLE_TIMESHEET_UPDATE"/>
+                        <and><!-- can always update ones own timesheet -->
                             <if-compare field="mainAction" value="UPDATE" operator="equals"/>
                             <if-compare-field field="parameters.partyId" to-field="parameters.userLogin.userLoginId" operator="equals"/>
                         </and>
