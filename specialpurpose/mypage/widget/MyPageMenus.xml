@@ -33,6 +33,42 @@ under the License.
             </condition>
             <link target="/partymgr/control/viewprofile?partyId=${userLogin.partyId}" url-mode="inter-app" target-window="_BLANK"/>
         </menu-item>
+        <menu-item name="myCommunications" title="${uiLabelMap.MyCommunications}">
+            <condition>
+            	<and>
+	                <not><if-empty field-name="userLogin"/></not>
+    	            <if-compare field-name="preferences.userPrefMap.myCommunications" operator="not-equals" value="Y"/>
+                </and>
+            </condition>
+            <link target="myCommunications"/>
+        </menu-item>
+        <menu-item name="myCompanyComms" title="${uiLabelMap.MyCompanyComms}">
+            <condition>
+            	<and>
+	                <not><if-empty field-name="userLogin"/></not>
+    	            <if-compare field-name="preferences.userPrefMap.myCompanyComms" operator="not-equals" value="Y"/>
+                </and>
+            </condition>
+            <link target="myCompanyComms"/>
+        </menu-item>
+        <menu-item name="myTimesheet" title="${uiLabelMap.myTimesheet}">
+            <condition>
+            	<and>
+	                <not><if-empty field-name="userLogin"/></not>
+    	            <if-compare field-name="preferences.userPrefMap.myTimesheet" operator="not-equals" value="Y"/>
+                </and>
+            </condition>
+            <link target="myTimesheet"/>
+        </menu-item>
+        <menu-item name="myTasks" title="${uiLabelMap.myTasks}">
+            <condition>
+            	<and>
+	                <not><if-empty field-name="userLogin"/></not>
+    	            <if-compare field-name="preferences.userPrefMap.myTasks" operator="not-equals" value="Y"/>
+                </and>
+            </condition>
+            <link target="myTasks"/>
+        </menu-item>
         <!--menu-item name="help" title="${uiLabelMap.CommonHelp}" align-style="opposed">
             <condition><not><if-empty field-name="userLogin"/></not></condition>
             <link target="http://docs.ofbiz.org/display/OFBENDUSER/Project+Manager+Application+Roles?decorator=printable" url-mode="plain" target-window="new"/>
@@ -46,25 +82,28 @@ under the License.
             <link target="${checkLoginUrl}"/>
         </menu-item>
         <menu-item name="preferences" title="${uiLabelMap.CommonPreferences}" align-style="opposed">
+            <condition>
+                <not><if-empty field-name="userLogin"/></not>
+            </condition>
             <link target="preferences"/>
         </menu-item>
     </menu>    
     
-    <menu name="EventMenu">
+    <menu name="MyCompanyCommsMenu">
         <menu-item name="newEvent" title="${uiLabelMap.WorkEffortNewEvent}"><link target="newEvent"/></menu-item>
     </menu>    
     
-    <menu name="MessageMenu">
+    <menu name="MyCommunicationsMenu">
         <menu-item name="newEmail" title="${uiLabelMap.PartyNewEmail}"><link target="newEmail"/></menu-item>
         <menu-item name="newNote" title="${uiLabelMap.PartyNewInternalNote}"><link target="newInternalNote"/></menu-item>
     </menu>    
     
-    <menu name="TaskMenu">
+    <menu name="MyTasksMenu">
         <menu-item name="myTasks" title="myTasks"><link target="/projectmgr/control/MyTasks" url-mode="inter-app"/></menu-item>
     </menu>
     
-    <menu name="TimesheetMenu" extends="TimesheetBar" extends-resource="component://projectmgr/widget/Menus.xml">
-        <menu-item name="myTime" title="myTime"><link target="/projectmgr/control/MyTimeSheet" url-mode="inter-app"/></menu-item>
+    <menu name="MyTimesheetMenu" extends="TimesheetBar" extends-resource="component://projectmgr/widget/Menus.xml">
+        <menu-item name="myTime" title="myTime"><link target="/projectmgr/control/MyTimesheet" url-mode="inter-app"/></menu-item>
     </menu>
     
 </menus>

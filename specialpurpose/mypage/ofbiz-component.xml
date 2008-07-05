@@ -31,7 +31,6 @@ under the License.
         title="MyPage"
         server="default-server"
         location="webapp/mypage"
-        base-permission="OFBTOOLS"
         mount-point="/mypage"
         app-bar-display="true"/>
 </ofbiz-component>
