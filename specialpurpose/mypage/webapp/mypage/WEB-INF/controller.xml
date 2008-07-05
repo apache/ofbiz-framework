@@ -84,6 +84,22 @@
         <security https="true" auth="true"/>
         <response name="success" type="view" value="preferences"/>
     </request-map>
+    <request-map uri="myTasks">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="myTasks"/>
+    </request-map>
+    <request-map uri="myTimesheet">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="myTimesheet"/>
+    </request-map>
+    <request-map uri="myCommunications">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="myCommunications"/>
+    </request-map>
+    <request-map uri="myCompanyComms">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="myCompanyComms"/>
+    </request-map>
     <request-map uri="updatePreferences">
         <security https="true" auth="true"/>
         <event invoke="updatePreferences" path="org/ofbiz/mypage/Events.xml" type="simple"/>
@@ -97,5 +113,9 @@
 
     <view-map name="main" type="screen" page="component://mypage/widget/CommonScreens.xml#main"/>
     <view-map name="preferences" type="screen" page="component://mypage/widget/CommonScreens.xml#preferences"/>
+    <view-map name="myTasks" type="screen" page="component://mypage/widget/CommonScreens.xml#MyTasks"/>
+    <view-map name="myCommunications" type="screen" page="component://mypage/widget/CommonScreens.xml#MyCommunications"/>
+    <view-map name="myCompanyComms" type="screen" page="component://mypage/widget/CommonScreens.xml#MyCompanyComms"/>
+    <view-map name="myTimesheet" type="screen" page="component://mypage/widget/CommonScreens.xml#MyTimesheet"/>
     <view-map name="newEvent" type="screen" page="component://mypage/widget/MyPageScreens.xml#newEvent"/>
 </site-conf>

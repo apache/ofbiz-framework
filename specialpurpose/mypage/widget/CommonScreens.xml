@@ -100,23 +100,19 @@ under the License.
                     <widgets/>
                 </section>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="pre-body">
-                        <section>
-                            <condition>
-                                <and>
-                                    <if-has-permission permission="PARTYMGR" action="_VIEW"/>
-                                    <not><if-empty field-name="communicationEvent"/></not>
-                                </and>
-                            </condition>
-                            <widgets>
-                                <include-menu location="component://party/webapp/partymgr/communication/CommMenus.xml" name="CommEventTabBar"/>
-                            </widgets>
-                        </section>
-                    </decorator-section>
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-has-permission action="_VIEW" permission="PARTYMGR"/>
+                            	<or>
+                                	<if-has-permission action="_VIEW" permission="PARTYMGR"/>
+                                	<and><!-- everybody can see his own communication events -->
+                                    	<not><if-empty field-name="communicationEvent"/></not>
+                                    	<or>
+	                               			<if-compare field-name="communicationEvent.partyIdFrom" operator="equals" value="${userLogin.partyId}"/>
+	                               			<if-compare field-name="communicationEvent.partyIdTo" operator="equals" value="${userLogin.partyId}"/>
+	                               		</or>
+	                               	</and>
+                                </or>
                             </condition>
                             <widgets>
                                 <section>
@@ -202,7 +198,7 @@ under the License.
 									operator="equals" value="Y" />
 							</condition>
 							<widgets>
-								<include-screen name="MyMessages"
+								<include-screen name="MyCommunications"
 									location="component://mypage/widget/MyPageScreens.xml" />
 							</widgets>
 						</section>
@@ -212,7 +208,7 @@ under the License.
 									operator="equals" value="Y" />
 							</condition>
 							<widgets>
-								<include-screen name="CalendarUpcoming"
+								<include-screen name="MyCompanyComms"
 									location="component://mypage/widget/MyPageScreens.xml" />
 							</widgets>
 						</section>
@@ -222,7 +218,7 @@ under the License.
 									operator="equals" value="Y" />
 							</condition>
 							<widgets>
-								<include-screen name="MyTaskList"
+								<include-screen name="MyTasks"
 									location="component://mypage/widget/MyPageScreens.xml" />
 							</widgets>
 						</section>
@@ -232,7 +228,7 @@ under the License.
 									operator="equals" value="Y" />
 							</condition>
 							<widgets>
-								<include-screen name="CurrentTimesheet"
+								<include-screen name="MyTimesheet"
 									location="component://mypage/widget/MyPageScreens.xml" />
 							</widgets>
 						</section>
@@ -260,6 +256,86 @@ under the License.
             </widgets>
         </section>
     </screen>
+	<screen name="MyTasks">
+		<section>
+			<actions>
+				<set field="headerItem" value="myTasks" />
+				<service service-name="getUserPreferenceGroup"
+					result-map-name="preferences">
+					<field-map field-name="userPrefGroupId" value="MyPage" />
+				</service>
+			</actions>
+			<widgets>
+				<decorator-screen name="main-decorator"
+					location="${parameters.mainDecoratorLocation}">
+					<decorator-section name="body">
+								<include-screen name="MyTasks"
+									location="component://mypage/widget/MyPageScreens.xml" />
+					</decorator-section>
+				</decorator-screen>
+			</widgets>
+		</section>
+	</screen>
+	<screen name="MyCommunications">
+		<section>
+			<actions>
+				<set field="headerItem" value="myCommunications" />
+				<service service-name="getUserPreferenceGroup"
+					result-map-name="preferences">
+					<field-map field-name="userPrefGroupId" value="MyPage" />
+				</service>
+			</actions>
+			<widgets>
+				<decorator-screen name="main-decorator"
+					location="${parameters.mainDecoratorLocation}">
+					<decorator-section name="body">
+								<include-screen name="MyCommunications"
+									location="component://mypage/widget/MyPageScreens.xml" />
+					</decorator-section>
+				</decorator-screen>
+			</widgets>
+		</section>
+	</screen>
+	<screen name="MyCompanyComms">
+		<section>
+			<actions>
+				<set field="headerItem" value="myCompanyComms" />
+				<service service-name="getUserPreferenceGroup"
+					result-map-name="preferences">
+					<field-map field-name="userPrefGroupId" value="MyPage" />
+				</service>
+			</actions>
+			<widgets>
+				<decorator-screen name="main-decorator"
+					location="${parameters.mainDecoratorLocation}">
+					<decorator-section name="body">
+								<include-screen name="MyCompanyComms"
+									location="component://mypage/widget/MyPageScreens.xml" />
+					</decorator-section>
+				</decorator-screen>
+			</widgets>
+		</section>
+	</screen>
+	<screen name="MyTimesheet">
+		<section>
+			<actions>
+				<set field="headerItem" value="myTimesheet" />
+				<service service-name="getUserPreferenceGroup"
+					result-map-name="preferences">
+					<field-map field-name="userPrefGroupId" value="MyPage" />
+				</service>
+			</actions>
+			<widgets>
+				<decorator-screen name="main-decorator"
+					location="${parameters.mainDecoratorLocation}">
+					<decorator-section name="body">
+								<include-screen name="MyTimesheet"
+									location="component://mypage/widget/MyPageScreens.xml" />
+					</decorator-section>
+				</decorator-screen>
+			</widgets>
+		</section>
+	</screen>
 </screens>
 
 
