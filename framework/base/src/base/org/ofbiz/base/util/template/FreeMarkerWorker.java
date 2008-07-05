@@ -44,7 +44,6 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
@@ -60,14 +59,11 @@ import freemarker.template.SimpleHash;
 import freemarker.template.SimpleScalar;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import freemarker.template.TemplateHashModel;
 import freemarker.template.TemplateModel;
 import freemarker.template.TemplateModelException;
 //import com.clarkware.profiler.Profiler;
 
-
-/**
- * FreemarkerViewHandler - Freemarker Template Engine Util
+/** FreeMarkerWorker - Freemarker Template Engine Utilities.
  *
  */
 public class FreeMarkerWorker {
@@ -76,15 +72,23 @@ public class FreeMarkerWorker {
     
     // use soft references for this so that things from Content records don't kill all of our memory, or maybe not for performance reasons... hmmm, leave to config file...
     public static UtilCache<String, Template> cachedTemplates = new UtilCache<String, Template>("template.ftl.general", 0, 0, false);
-    private static Configuration defaultOfbizConfig = null;
+    protected static Configuration defaultOfbizConfig = new Configuration();
 
-    // TemplateModel
-    public static Map<String, Object> ftlTransforms = FastMap.newInstance();
-    
     public static final String FRAMEWORK_TRANSFORMS = "frameworkTransforms";
     public static final String APPLICATION_TRANSFORMS = "applicationTransforms";
 
     static {
+        BeansWrapper wrapper = BeansWrapper.getDefaultInstance();
+        defaultOfbizConfig.setObjectWrapper(wrapper);
+        defaultOfbizConfig.setSharedVariable("Static", wrapper.getStaticModels());
+        defaultOfbizConfig.setLocalizedLookup(false);
+        defaultOfbizConfig.setTemplateLoader(new FlexibleTemplateLoader());
+        try {
+            defaultOfbizConfig.setSetting("datetime_format", "yyyy-MM-dd HH:mm:ss.SSS");
+            defaultOfbizConfig.setSetting("number_format", "0.##########");
+        } catch (TemplateException e) {
+            Debug.logError("Unable to set date/time and number formats in FreeMarker: " + e, module);
+        }
         // Load framework transforms first.
         // Transforms properties file set up as key=transform name, property=transform class name
         Properties props = UtilProperties.getProperties(FRAMEWORK_TRANSFORMS);
@@ -97,7 +101,7 @@ public class FreeMarkerWorker {
         // Load application transforms next.
         props = UtilProperties.getProperties(APPLICATION_TRANSFORMS);
         if (props == null || props.isEmpty()) {
-            Debug.logError("Unable to locate properties file " + APPLICATION_TRANSFORMS, module);
+            Debug.logWarning("Unable to locate properties file " + APPLICATION_TRANSFORMS + ". If you are using only the OFBiz framework, then this warning can be ignored.", module);
         } else {
             loadTransforms(props);
         }
@@ -108,20 +112,16 @@ public class FreeMarkerWorker {
      */
     protected static void loadTransforms(Properties props) {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        for (Iterator i = props.keySet().iterator(); i.hasNext();) {
+        for (Iterator<Object> i = props.keySet().iterator(); i.hasNext();) {
             String key = (String)i.next();
             String className = props.getProperty(key);
             if (Debug.verboseOn()) {
                 Debug.logVerbose("Adding FTL Transform " + key + " with class " + className, module);
             }
             try {
-                ftlTransforms.put(key, loader.loadClass(className).newInstance());
-            } catch (ClassNotFoundException e) {
-                Debug.logError(e, "Could not pre-initialize dynamically loaded class: " + className + " ", module);
-            } catch (IllegalAccessException e) {
-                Debug.logError(e, "Could not pre-initialize dynamically loaded class: " + className + " ", module);
-            } catch (InstantiationException e) {
-                Debug.logError(e, "Could not pre-initialize dynamically loaded class: " + className + " ", module);
+                defaultOfbizConfig.setSharedVariable(key, loader.loadClass(className).newInstance());
+            } catch (Exception e) {
+                Debug.logError(e, "Could not pre-initialize dynamically loaded class: " + className + ": " + e, module);
             }
         }
     }
@@ -170,7 +170,7 @@ public class FreeMarkerWorker {
                 template = cachedTemplates.get(templateLocation);
                 if (template == null) {
                     Reader templateReader = new StringReader(templateString);
-                    template = new Template(templateLocation, templateReader, getDefaultOfbizConfig());
+                    template = new Template(templateLocation, templateReader, defaultOfbizConfig);
                     templateReader.close();
                     cachedTemplates.put(templateLocation, template);
                 }
@@ -187,7 +187,6 @@ public class FreeMarkerWorker {
      * @param outWriter The Writer to render to
      */
     public static void renderTemplate(Template template, Map<String, Object> context, Appendable outWriter) throws TemplateException, IOException {
-        addAllOfbizTransforms(context);
         // make sure there is no "null" string in there as FreeMarker will try to use it
         context.remove("null");
         // Since the template cache keeps a single instance of a Template that is shared among users,
@@ -202,16 +201,6 @@ public class FreeMarkerWorker {
         env.process();
     }
     
-    public static void addAllOfbizTransforms(Map<String, Object> context) {
-        BeansWrapper wrapper = BeansWrapper.getDefaultInstance();
-        TemplateHashModel staticModels = wrapper.getStaticModels();
-        if (context == null) {
-            context = FastMap.newInstance();
-        }
-        context.put("Static", staticModels);
-        context.putAll(ftlTransforms);
-    }
-
     /**
      * Apply user settings to an Environment instance.
      * @param env An Environment instance
@@ -231,22 +220,7 @@ public class FreeMarkerWorker {
         env.setTimeZone(timeZone);
     }
 
-    public static Configuration getDefaultOfbizConfig() throws TemplateException, IOException {
-        if (defaultOfbizConfig == null) {
-            synchronized (FreeMarkerWorker.class) {
-                if (defaultOfbizConfig == null) {
-                    Configuration config = new Configuration();            
-                    config.setObjectWrapper(BeansWrapper.getDefaultInstance());
-                    // the next two settings don't do anything - Freemarker will format
-                    // output according to the user's locale
-                    config.setSetting("datetime_format", "yyyy-MM-dd HH:mm:ss.SSS");
-                    config.setSetting("number_format", "0.##########");
-                    config.setLocalizedLookup(false);
-                    config.setTemplateLoader(new FlexibleTemplateLoader());
-                    defaultOfbizConfig = config;
-                }
-            }
-        }
+    public static Configuration getDefaultOfbizConfig() {
         return defaultOfbizConfig;
     }
     
@@ -275,7 +249,7 @@ public class FreeMarkerWorker {
             int lastSlash = locationFile.lastIndexOf("/");
             String locationDir = locationFile.substring(0, lastSlash);
             String filename = locationFile.substring(lastSlash + 1);
-            if (Debug.verboseOn()) Debug.logVerbose("FreeMarker render: filename=" + filename + ", locationDir=" + locationDir, module);
+            Debug.logVerbose("FreeMarker render: filename=" + filename + ", locationDir=" + locationDir, module);
         }
         
         return templateReader;
@@ -294,7 +268,7 @@ public class FreeMarkerWorker {
                 if (template == null) {
                     // only make the reader if we need it, and then close it right after!
                     Reader templateReader = makeReader(templateLocation);
-                    template = new Template(templateLocation, templateReader, getDefaultOfbizConfig());
+                    template = new Template(templateLocation, templateReader, defaultOfbizConfig);
                     templateReader.close();
                     cachedTemplates.put(templateLocation, template);
                 }
@@ -505,7 +479,7 @@ public class FreeMarkerWorker {
                 map.putAll(UtilGenerics.checkMap(o));
                 context.put(key, map);
             } else if (o instanceof List) {
-                List<Object> list = new ArrayList();
+                List<Object> list = new ArrayList<Object>();
                 list.addAll(UtilGenerics.checkList(o));
                 context.put(key, list);
             } else {
