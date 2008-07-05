@@ -30,7 +30,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import javolution.util.FastList;
 import javolution.util.FastMap;
 import javolution.util.FastSet;
 
@@ -44,8 +43,6 @@ import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.entity.condition.EntityConditionList;
-import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.entity.util.EntityFindOptions;
@@ -191,7 +188,6 @@ public class SurveyWrapper {
             templateContext = FastMap.newInstance();
         }
 
-        FreeMarkerWorker.addAllOfbizTransforms(templateContext);
         templateContext.put("partyId", partyId);
         templateContext.put("survey", survey);
         templateContext.put("surveyResults", results);
@@ -218,14 +214,7 @@ public class SurveyWrapper {
     // returns the FTL Template object
     // Note: the template will not be cached
     protected Template getTemplate(URL templateUrl) {
-        Configuration config = null;
-        try {
-            config = FreeMarkerWorker.getDefaultOfbizConfig();
-        } catch (IOException e) {
-            Debug.logError(e, "Error creating default OFBiz FreeMarker Configuration", module);
-        } catch (TemplateException e) {
-            Debug.logError(e, "Error creating default OFBiz FreeMarker Configuration", module);
-        }
+        Configuration config = FreeMarkerWorker.getDefaultOfbizConfig();
 
         Template template = null;
         try {
