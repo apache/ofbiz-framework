@@ -40,7 +40,7 @@ under the License.
             </actions>
             <widgets>
                 <screenlet title="${uiLabelMap.PageTitleCurrentTimesheet} ${uiLabelMap.CommonNbr} ${timesheet.timesheetId} ${uiLabelMap.ProjectMgrWeek}: ${weekNumber} ${uiLabelMap.CommonFrom} ${bsh:timesheet.get(&quot;fromDate&quot;).toString().substring(0,10)} ${uiLabelMap.CommonTo} ${bsh:timesheet.get(&quot;thruDate&quot;).toString().substring(0,10)}"
-                    navigation-menu-name="TimesheetMenu" collapsible="true" name="timesheet">
+                    navigation-menu-name="MyTimesheetMenu" collapsible="true" name="timesheet">
                     <include-menu name="MyTimesheetMenu" location="component://mypage/widget/MyPageMenus.xml"/>
                     <section>
                         <condition>
