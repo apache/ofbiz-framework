@@ -799,11 +799,11 @@ under the License.
         <prim-key field="fixedAssetId"/>
         <prim-key field="productMeterTypeId"/>
         <prim-key field="readingDate"/>
-        <relation type="one" fk-name="FXDASTMNMT_FAMNT" rel-entity-name="FixedAssetMaint">
+        <relation type="one" fk-name="FXDASTMTR_FAMNT" rel-entity-name="FixedAssetMaint">
             <key-map field-name="fixedAssetId"/>
             <key-map field-name="maintHistSeqId"/>
         </relation>
-        <relation type="one" fk-name="FXDASTMNMT_PMTYP" rel-entity-name="ProductMeterType">
+        <relation type="one" fk-name="FXDASTMTR_PMTYP" rel-entity-name="ProductMeterType">
             <key-map field-name="productMeterTypeId"/>
         </relation>
     </entity>
