@@ -20,8 +20,8 @@
 
 <site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
-    <include location="component://party/webapp/partymgr/WEB-INF/controller.xml"/>    
     <include location="component://projectmgr/webapp/projectmgr/WEB-INF/controller.xml"/>    
+    <include location="component://party/webapp/partymgr/WEB-INF/controller.xml"/>    
     
     <description>Show personal information in the system</description>
 
@@ -106,12 +106,6 @@
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="preferences"/>
     </request-map>
-    
-    <request-map uri="viewprofile">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="viewprofile"/>
-        <response name="error" type="view" value="main"/>
-    </request-map>
 
     <view-map name="main" type="screen" page="component://mypage/widget/CommonScreens.xml#main"/>
     <view-map name="preferences" type="screen" page="component://mypage/widget/CommonScreens.xml#preferences"/>
@@ -120,6 +114,5 @@
     <view-map name="myCompanyComms" type="screen" page="component://mypage/widget/CommonScreens.xml#MyCompanyComms"/>
     <view-map name="myTimesheet" type="screen" page="component://mypage/widget/CommonScreens.xml#MyTimesheet"/>
     <view-map name="newEvent" type="screen" page="component://mypage/widget/MyPageScreens.xml#newEvent"/>
-    <view-map name="viewprofile" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#viewprofile"/>
     
 </site-conf>
