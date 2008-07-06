@@ -41,7 +41,14 @@
                     </condition>
                     <widgets>
                         <screenlet title="${uiLabelMap.PartyPersonalInformation}" navigation-menu-name="personUpdate" collapsible="true" id="PartyPersonalInformationPanel">
-                            <include-menu name="personUpdate" location="component://party/widget/partymgr/PartyMenus.xml"/>
+                        	<section>
+                        		<condition>
+                        			<if-has-permission permission="PARTYMGR" action="_GRP_UPDATE"/>
+                        		</condition>
+                        		<widgets>
+	                            	<include-menu name="personUpdate" location="component://party/widget/partymgr/PartyMenus.xml"/>
+                        		</widgets>
+                        	</section>
                             <include-form name="ViewPartyPerson" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
                             <section>
                                 <condition>
@@ -60,7 +67,14 @@
                     </condition>
                     <widgets>
                         <screenlet title="${uiLabelMap.PartyPartyGroupInformation}" navigation-menu-name="groupUpdate" collapsible="true" id="PartyGroupInformationPanel">
-                            <include-menu name="groupUpdate" location="component://party/widget/partymgr/PartyMenus.xml"/>
+                        	<section>
+                        		<condition>
+                        			<if-has-permission permission="PARTYMGR" action="_GRP_UPDATE"/>
+                        		</condition>
+                        		<widgets>
+		                            <include-menu name="groupUpdate" location="component://party/widget/partymgr/PartyMenus.xml"/>
+                        		</widgets>
+                        	</section>
                             <include-form name="ViewPartyGroup" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
                             <section>
                                 <condition>
