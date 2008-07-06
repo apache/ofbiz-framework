@@ -78,6 +78,7 @@ under the License.
         <field name="myTimesheet"><check/></field>
         <field name="myTasks"><check/></field>
         <field name="myCommunications"><check/></field>
+        <field name="otherCommunications"><check/></field>
         <field name="updateButton"><submit/></field>
     </form>
 </forms>

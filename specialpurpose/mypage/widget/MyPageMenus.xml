@@ -42,6 +42,15 @@ under the License.
             </condition>
             <link target="myCommunications"/>
         </menu-item>
+        <menu-item name="otherCommunications" title="${uiLabelMap.OtherCommunications}">
+            <condition>
+            	<and>
+	                <not><if-empty field-name="userLogin"/></not>
+    	            <if-compare field-name="preferences.userPrefMap.otherCommunications" operator="not-equals" value="Y"/>
+                </and>
+            </condition>
+            <link target="otherCommunications"/>
+        </menu-item>
         <menu-item name="myCompanyComms" title="${uiLabelMap.MyCompanyComms}">
             <condition>
             	<and>
@@ -94,15 +103,15 @@ under the License.
     </menu>    
     
     <menu name="MyCommunicationsMenu">
-        <menu-item name="newEmail" title="${uiLabelMap.PartyNewEmail}"><link target="newEmail"/></menu-item>
-        <menu-item name="newNote" title="${uiLabelMap.PartyNewInternalNote}"><link target="newInternalNote"/></menu-item>
+        <menu-item name="newEmail" title="${uiLabelMap.PartyNewEmail}"><link target="newEmail?partyIdFrom=${partyId}"/></menu-item>
+        <menu-item name="newNote" title="${uiLabelMap.PartyNewInternalNote}"><link target="newInternalNote?partyIdFrom=${partyId}"/></menu-item>
     </menu>    
     
-    <menu name="MyTasksMenu">
+    <menu name="MyTasksMenu" type="simple" menu-container-style="button-bar button-style-2" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem">
         <menu-item name="myTasks" title="myTasks"><link target="/projectmgr/control/MyTasks" url-mode="inter-app"/></menu-item>
     </menu>
     
-    <menu name="MyTimesheetMenu" extends="TimesheetBar" extends-resource="component://projectmgr/widget/Menus.xml">
+    <menu name="MyTimesheetMenu" extends="TimesheetBar" extends-resource="component://projectmgr/widget/Menus.xml" type="simple" menu-container-style="button-bar button-style-2" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem">
         <menu-item name="myTime" title="myTime"><link target="/projectmgr/control/MyTimesheet" url-mode="inter-app"/></menu-item>
     </menu>
     

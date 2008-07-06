@@ -45,6 +45,12 @@ under the License.
                 <set field="parameters.userPrefMap.myCommunications" value="N" />
             </else>
         </if-compare>
+        <if-compare operator="equals" value="Y" field="parameters.otherCommunications">
+            <set field="parameters.userPrefMap.otherCommunications" value="Y" />
+            <else>
+                <set field="parameters.userPrefMap.otherCommunications" value="N" />
+            </else>
+        </if-compare>
 		<set-service-fields service-name="setUserPreferenceGroup"
 			map-name="parameters" to-map-name="inMap" />
 		<call-service service-name="setUserPreferenceGroup"

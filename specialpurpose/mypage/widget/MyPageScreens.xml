@@ -114,52 +114,54 @@ under the License.
             </widgets>
         </section>
     </screen>
-
-
-    <screen name="MyCommunications">
-        <section>
-            <actions>
-                <set field="partyId" from-field="userLogin.partyId"/>
-            </actions>
-            <widgets>
-                    <screenlet title="MyCommunications" navigation-menu-name="MyCommunicationsMenu" navigation-form-name="ListPartyCommEvents" name="comms">
-                        <include-menu name="MyCommunicationsMenu" location="component://mypage/widget/MyPageMenus.xml"/>
-                        <include-form name="ListPartyCommEvents" location="component://party/webapp/partymgr/communication/CommForms.xml"/>
-                    </screenlet>
-                <!--container style="righthalf">
-                    <screenlet title="Pending outgoing">
-                        <include-form name="ListPendingCommEvents" location="component://party/webapp/partymgr/communication/CommForms.xml"/>
-                    </screenlet>
-                </container>
-                <container style="clear"/-->
-            </widgets>
-        </section>
-    </screen>
-    
-    <screen name="MyCompanyComms1">
-        <section>
-            <actions>
-                <set field="partyId" from-field="userLogin.partyId"/>
-            </actions>
-            <widgets>
-                <screenlet tab-menu-name="Company messages" name="companyMessages" collapsible="true">
-                <container style="lefthalf">
-                    <screenlet title="Incoming communications" navigation-menu-name="MessageMenu">
-                        <include-menu name="MessageMenu" location="component://mypage/widget/MyPageMenus.xml"/>
-                        <include-form name="ListPartyCommEvents" location="component://party/webapp/partymgr/communication/CommForms.xml"/>
-                    </screenlet>
-                </container>
-                <container style="righthalf">
-                    <screenlet title="Pending outgoing">
-                        <include-form name="ListPendingCommEvents" location="component://party/webapp/partymgr/communication/CommForms.xml"/>
-                    </screenlet>
-                </container>
-                <container style="clear"/>
-                </screenlet>
-            </widgets>
-        </section>
-    </screen>
-    
+	<screen name="MyCommunications">
+		<section>
+			<actions>
+				<set field="partyId" from-field="userLogin.partyId" />
+			</actions>
+			<widgets>
+				<screenlet title="${uiLabelMap.MyCommunications}" navigation-menu-name="MyCommunicationsMenu"
+					navigation-form-name="ListPartyCommEvents" name="comms">
+					<include-menu name="MyCommunicationsMenu"
+						location="component://mypage/widget/MyPageMenus.xml" />
+					<include-form name="ListPartyCommEvents"
+						location="component://party/webapp/partymgr/communication/CommForms.xml" />
+				</screenlet>
+			</widgets>
+		</section>
+	</screen>
+	<screen name="OtherCommunications">
+		<section>
+			<actions>
+				<entity-and list-name="emailOwners" entity-name="PartyRelationship" filter-by-date="true">
+					<field-map field-name="partyIdFrom" value="${userLogin.partyId}" />
+					<field-map field-name="roleTypeIdFrom" value="EMAIL_ADMIN" />
+				</entity-and>
+			</actions>
+			<widgets>
+				<iterate-section entry-name="emailOwner" list-name="emailOwners">
+					<section>
+						<actions>
+							<set field="partyId" from-field="emailOwner.partyIdTo" />
+							<entity-one entity-name="PartyNameView" value-name="partyName">
+								<field-map field-name="partyId" env-name="partyId"/>
+							</entity-one>
+						</actions>
+						<widgets>
+							<screenlet title="${uiLabelMap.OtherCommunicationsOfParty}: ${partyName.firstName} ${partyName.middleName} ${partyName.lastName} ${partyName.groupName} [${partyId}] "
+								navigation-menu-name="MyCommunicationsMenu"
+								navigation-form-name="ListPartyCommEvents" name="comms">
+								<include-menu name="MyCommunicationsMenu"
+									location="component://mypage/widget/MyPageMenus.xml" />
+								<include-form name="ListPartyCommEvents"
+									location="component://party/webapp/partymgr/communication/CommForms.xml" />
+							</screenlet>
+						</widgets>
+					</section>
+				</iterate-section>
+			</widgets>
+		</section>
+	</screen>
 </screens>
 
 

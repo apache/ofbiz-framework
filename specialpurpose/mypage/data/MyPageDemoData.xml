@@ -17,21 +17,10 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
+<entity-engine-xml>
 
-<ofbiz-component name="mypage"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-component.xsd">
-    <resource-loader name="main" type="component"/>
-    <classpath type="dir" location="config"/>
-    <classpath type="dir" location="script"/>
+	<!-- allow admin to read company communications -->
+    <PartyRole partyId="admin" roleTypeId="EMAIL_ADMIN"/>
+    <PartyRelationship partyIdFrom="admin" roleTypeIdFrom="EMAIL_ADMIN" partyIdTo="Company" roleTypeIdTo="_NA_" fromDate="2000-01-01 00:00:00"/>
 
-    <entity-resource type="data" reader-name="seed" loader="main" location="data/MyPageTypeData.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/MyPageDemoData.xml"/>
-    
-    <webapp name="mypage"
-        title="MyPage"
-        server="default-server"
-        location="webapp/mypage"
-        mount-point="/mypage"
-        app-bar-display="true"/>
-</ofbiz-component>
+</entity-engine-xml>

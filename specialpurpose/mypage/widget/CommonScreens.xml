@@ -239,6 +239,16 @@ under the License.
 						</section>
 						<section>
 							<condition>
+								<if-compare field-name="preferences.userPrefMap.otherCommunications"
+									operator="equals" value="Y" />
+							</condition>
+							<widgets>
+								<include-screen name="OtherCommunications"
+									location="component://mypage/widget/MyPageScreens.xml" />
+							</widgets>
+						</section>
+						<section>
+							<condition>
 								<if-compare field-name="preferences.userPrefMap.myCompanyComms"
 									operator="equals" value="Y" />
 							</condition>
@@ -318,6 +328,22 @@ under the License.
 					location="${parameters.mainDecoratorLocation}">
 					<decorator-section name="body">
 								<include-screen name="MyCommunications"
+									location="component://mypage/widget/MyPageScreens.xml" />
+					</decorator-section>
+				</decorator-screen>
+			</widgets>
+		</section>
+	</screen>
+	<screen name="OtherCommunications">
+		<section>
+			<actions>
+				<set field="headerItem" value="otherCommunications" />
+			</actions>
+			<widgets>
+				<decorator-screen name="main-decorator"
+					location="${parameters.mainDecoratorLocation}">
+					<decorator-section name="body">
+								<include-screen name="OtherCommunications"
 									location="component://mypage/widget/MyPageScreens.xml" />
 					</decorator-section>
 				</decorator-screen>
