@@ -18,6 +18,9 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="MyCommunications">
+        <value xml:lang="en">My Communications</value>
+    </property>
     <property key="MyProfile">
         <value xml:lang="en">My Profile</value>
         <value xml:lang="fr">Mon Profil</value>
@@ -25,5 +28,11 @@
     <property key="MyPageNewMessage">
         <value xml:lang="en">New Message</value>
         <value xml:lang="fr">Nouveau message</value>
+    </property>
+    <property key="OtherCommunications">
+        <value xml:lang="en">Other Communications</value>
+    </property>
+    <property key="OtherCommunicationsOfParty">
+        <value xml:lang="en">Other Communications of party</value>
     </property>
 </resource>

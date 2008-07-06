@@ -25,6 +25,9 @@ under the License.
     <UserPreference userLoginId="_NA_" userPrefGroupId="MyPage" userPrefTypeId="myTasks" userPrefValue="Y"/> 
     <UserPreference userLoginId="_NA_" userPrefGroupId="MyPage" userPrefTypeId="myTimesheet" userPrefValue="Y"/> 
     <UserPreference userLoginId="_NA_" userPrefGroupId="MyPage" userPrefTypeId="myCommunications" userPrefValue="Y"/> 
+    <UserPreference userLoginId="_NA_" userPrefGroupId="MyPage" userPrefTypeId="otherCommunications" userPrefValue="Y"/> 
     <UserPreference userLoginId="_NA_" userPrefGroupId="MyPage" userPrefTypeId="myCompanyComms" userPrefValue="Y"/> 
+
+    <RoleType description="Email Administrator" hasTable="N" parentTypeId="PERSON_ROLE" roleTypeId="EMAIL_ADMIN"/>
 
 </entity-engine-xml>
