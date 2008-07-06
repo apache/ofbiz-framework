@@ -85,6 +85,7 @@ under the License.
         <field use-when="partyGroup==null&amp;&amp;partyId!=null" name="partyId" title="${uiLabelMap.PartyPartyId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${partyId}]"><display also-hidden="false"/></field>
         <field name="groupName" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"></field>
         <field name="partyTypeId"><ignored/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
         <field name="preferredCurrencyUomId">
             <drop-down allow-empty="true">
                 <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
@@ -100,16 +101,9 @@ under the License.
     <form name="ViewPartyGroup" type="single" default-map-name="lookupGroup">
         <auto-fields-entity entity-name="PartyGroup" default-field-type="display"/>
         <field name="partyTypeId"><ignored/></field>
-        <field name="preferredCurrencyUomId">
-            <drop-down allow-empty="true">
-                <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
-                    <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
-                    <entity-order-by field-name="abbreviation"/>
-                </entity-options>
-            </drop-down>
-        </field>
         <field name="comments"><ignored/></field>
         <field name="logoImageUrl"><ignored/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
         <field name="preferredCurrencyUomId" title="${uiLabelMap.CommonCurrency}"><display-entity entity-name="Uom" key-field-name="uomId" description="${description}"/></field>
     </form>
     
