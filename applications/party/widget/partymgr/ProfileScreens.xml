@@ -27,10 +27,10 @@
                     <field-map field-name="partyId" env-name="parameters.partyId"/>
                     <order-by field-name="-changeDate"/>
                 </entity-and>
-                <entity-one entity-name="PartyGroup" value-name="lookupGroup">
+                <entity-one entity-name="PartyAndGroup" value-name="lookupGroup">
                     <field-map field-name="partyId" env-name="parameters.partyId"/><!-- is required -->
                 </entity-one>
-                <entity-one entity-name="Person" value-name="lookupPerson">
+                <entity-one entity-name="PartyAndPerson" value-name="lookupPerson">
                     <field-map field-name="partyId" env-name="parameters.partyId"/><!-- is required -->
                 </entity-one>
             </actions>
