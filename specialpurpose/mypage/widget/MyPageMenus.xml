@@ -27,11 +27,11 @@ under the License.
             </condition>
             <link target="main"/>
         </menu-item>
-        <menu-item name="myProfile" title="${uiLabelMap.MyProfile}">
+        <menu-item name="viewprofile" title="${uiLabelMap.MyProfile}">
             <condition>
                 <not><if-empty field-name="userLogin"/></not>
             </condition>
-            <link target="/partymgr/control/viewprofile?partyId=${userLogin.partyId}" url-mode="inter-app" target-window="_BLANK"/>
+            <link target="viewprofile?partyId=${userLogin.partyId}"/>
         </menu-item>
         <menu-item name="myCommunications" title="${uiLabelMap.MyCommunications}">
             <condition>

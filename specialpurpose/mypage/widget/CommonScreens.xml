@@ -51,11 +51,45 @@ under the License.
                 <set field="applicationMenuLocation" value="component://mypage/widget/MyPageMenus.xml" global="true"/>
             </actions>
             <widgets>
+            	<section>
+            		<condition><not><if-empty field-name="userLogin"/></not></condition>
+            		<actions>
+                		<service service-name="getUserPreferenceGroup" result-map-name="preferences">
+							<field-map field-name="userPrefGroupId" value="MyPage" />
+						</service>
+            		</actions>
+            		<widgets/>
+            	</section>
                 <include-screen name="GlobalDecorator" location="component://common/widget/CommonScreens.xml"/>
             </widgets>
         </section>
     </screen>
     
+   <screen name="CommonPartyDecorator">
+        <section>
+            <actions>
+            	<set field="headerItem" value="viewprofile"/>
+                <set field="partyId" from-field="userLogin.partyId"/>
+                <set field="parameters.partyId" from-field="userLogin.partyId"/>
+                <entity-one entity-name="Party" value-name="party"/>
+                <entity-one entity-name="Person" value-name="lookupPerson"/>
+                <entity-one entity-name="PartyGroup" value-name="lookupGroup"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <label style="h1" text="${uiLabelMap.PartyTheProfileOf} ${lookupPerson.personalTitle} ${lookupPerson.firstName} ${lookupPerson.middleName} ${lookupPerson.lastName} ${lookupPerson.suffix} ${lookupGroup.groupName} [${partyId}]"/>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+     
     <screen name="CommonCalendarDecorator">
         <section>
             <widgets>
@@ -112,6 +146,7 @@ under the License.
 	                               			<if-compare field-name="communicationEvent.partyIdTo" operator="equals" value="${userLogin.partyId}"/>
 	                               		</or>
 	                               	</and>
+                                   	<if-empty field-name="communicationEvent"/><!-- new one -->
                                 </or>
                             </condition>
                             <widgets>
@@ -241,9 +276,10 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="preferences"/>
-                <service service-name="getUserPreferenceGroup" result-map-name="preferences">
-                    <field-map field-name="userPrefGroupId" value="MyPage"/>
-                </service>
+                				<service service-name="getUserPreferenceGroup"
+					result-map-name="preferences">
+					<field-map field-name="userPrefGroupId" value="MyPage" />
+				</service>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -260,10 +296,6 @@ under the License.
 		<section>
 			<actions>
 				<set field="headerItem" value="myTasks" />
-				<service service-name="getUserPreferenceGroup"
-					result-map-name="preferences">
-					<field-map field-name="userPrefGroupId" value="MyPage" />
-				</service>
 			</actions>
 			<widgets>
 				<decorator-screen name="main-decorator"
@@ -280,10 +312,6 @@ under the License.
 		<section>
 			<actions>
 				<set field="headerItem" value="myCommunications" />
-				<service service-name="getUserPreferenceGroup"
-					result-map-name="preferences">
-					<field-map field-name="userPrefGroupId" value="MyPage" />
-				</service>
 			</actions>
 			<widgets>
 				<decorator-screen name="main-decorator"
@@ -300,10 +328,6 @@ under the License.
 		<section>
 			<actions>
 				<set field="headerItem" value="myCompanyComms" />
-				<service service-name="getUserPreferenceGroup"
-					result-map-name="preferences">
-					<field-map field-name="userPrefGroupId" value="MyPage" />
-				</service>
 			</actions>
 			<widgets>
 				<decorator-screen name="main-decorator"
@@ -320,10 +344,6 @@ under the License.
 		<section>
 			<actions>
 				<set field="headerItem" value="myTimesheet" />
-				<service service-name="getUserPreferenceGroup"
-					result-map-name="preferences">
-					<field-map field-name="userPrefGroupId" value="MyPage" />
-				</service>
 			</actions>
 			<widgets>
 				<decorator-screen name="main-decorator"
