@@ -20,18 +20,6 @@ under the License.
 
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
 
-
-    <menu name="personUpdate">
-        <menu-item name="update" title="${uiLabelMap.CommonUpdate}">
-            <link target="editperson?partyId=${party.partyId}"/>
-        </menu-item>
-    </menu>
-    <menu name="groupUpdate">
-        <menu-item name="update" title="${uiLabelMap.CommonUpdate}">
-            <link target="editpartygroup?partyId=${party.partyId}"/>
-        </menu-item>
-    </menu>
-    
     <menu name="ProfileTabBar" default-menu-item-name="viewprofile" default-selected-style="selected"
         type="simple" menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="tabButtonItem">
         <menu-item name="viewprofile" title="${uiLabelMap.PartyProfile}">
@@ -172,4 +160,17 @@ under the License.
             <link target="PartyInvitationRoleAssocs?partyInvitationId=${partyInvitationId}"/>
         </menu-item>
     </menu>
+
+    <menu name="personUpdate">
+        <menu-item name="update" title="${uiLabelMap.CommonUpdate}">
+            <link target="editperson?partyId=${party.partyId}"/>
+        </menu-item>
+    </menu>
+
+    <menu name="groupUpdate">
+        <menu-item name="update" title="${uiLabelMap.CommonUpdate}">
+            <link target="editpartygroup?partyId=${party.partyId}"/>
+        </menu-item>
+    </menu>
+    
 </menus>
