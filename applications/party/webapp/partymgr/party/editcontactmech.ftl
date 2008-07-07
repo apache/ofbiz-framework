@@ -16,8 +16,6 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-
-<!-- begin editcontactmech.ftl -->
 <#if !mechMap.contactMech?exists>
   <#-- When creating a new contact mech, first select the type, then actually create -->
   <#if !preContactMechTypeId?has_content>
@@ -49,15 +47,8 @@ under the License.
 </#if>
 <#if mechMap.contactMechTypeId?has_content>
   <#if !mechMap.contactMech?has_content>
-<div class="screenlet">
-  <div class="screenlet-title-bar">
-    <h3>${uiLabelMap.PartyCreateNewContact}</h3>        
-  </div>
-  <div class="screenlet-body">
-    <div class="button-bar">
-      <a href="<@ofbizUrl>authview/${donePage?if_exists}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonGoBack}</a>
-      <a href="javascript:document.editcontactmechform.submit()" class="smallSubmit">${uiLabelMap.CommonSave}</a>
-    </div>
+    <h1>${uiLabelMap.PartyCreateNewContact}</h1>
+    <div id="mech-purpose-types">
     <#if contactMechPurposeType?exists>
       <p>(${uiLabelMap.PartyMsgContactHavePurpose} <b>"${contactMechPurposeType.get("description",locale)?if_exists}"</b>)</p>
     </#if>
@@ -71,15 +62,7 @@ under the License.
         <#if contactMechPurposeTypeId?exists><input type="hidden" name="contactMechPurposeTypeId" value="${contactMechPurposeTypeId?if_exists}"></#if>
         <#if paymentMethodId?has_content><input type='hidden' name='paymentMethodId' value='${paymentMethodId}'></#if>
   <#else>
-<div class="screenlet">
-  <div class="screenlet-title-bar">
-    <h3>${uiLabelMap.PartyEditContactInformation}</h3>        
-  </div>
-  <div class="screenlet-body">    
-    <div class="button-bar">
-      <a href="<@ofbizUrl>authview/${donePage}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonGoBack}</a>
-      <a href="javascript:document.editcontactmechform.submit()" class="smallSubmit">${uiLabelMap.CommonSave}</a>
-    </div>
+    <h1>${uiLabelMap.PartyEditContactInformation}</h1>
     <div id="mech-purpose-types">
       <table class="basic-table" cellspacing="0">
       <#if mechMap.purposeTypes?has_content>
@@ -246,13 +229,11 @@ under the License.
   </tr>
   </form>
   </table>
+  </div>
   <div class="button-bar">
     <a href="<@ofbizUrl>authview/${donePage}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonGoBack}</a>
     <a href="javascript:document.editcontactmechform.submit()" class="smallSubmit">${uiLabelMap.CommonSave}</a>
-  </div>  
   </div>
-</div>
 <#else>
   <a href="<@ofbizUrl>authview/${donePage}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonGoBack}</a>
 </#if>
-<!-- end editcontactmech.ftl -->

@@ -368,7 +368,8 @@ under the License.
         <field name="datetimeStarted" title="${uiLabelMap.CommonSend}"><display description="${bsh:datetimeStarted==null?&quot;&quot;:datetimeStarted.toString().substring(0,16);}"/></field>
     </form>
 
-    <form name="ListPartyCommEvents" type="list"  extends="ListCommEvents" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+    <form name="ListPartyCommEvents" type="list" extends="ListCommEvents"
+        header-row-style="header-row-2" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="CommunicationEvent">
                 <condition-list combine="or">
@@ -378,7 +379,7 @@ under the License.
                 <order-by field-name="-lastUpdatedStamp"/>
             </entity-condition>
         </actions>
-        <field name="removeLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
+        <field name="removeLink" title="${uiLabelMap.CommonDelete}" widget-style="smallSubmit">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deletePartyCommunicationEvent?partyId=${partyId}&amp;communicationEventId=${communicationEventId}"/>
         </field>
     </form>
@@ -408,7 +409,7 @@ under the License.
         </actions>
     </form>
 
-    <form name="ListLookupCommEvents" type="list" list-name="listIt" extends="ListCommEvents">
+    <form name="ListLookupCommEvents" type="list" list-name="listIt" extends="ListCommEvents" header-row-style="header-row-2">
         <actions>
             <service result-map-list-name="listIt" result-map-name="result" service-name="performFind">
                 <field-map env-name="parameters" field-name="inputFields"/>
@@ -416,7 +417,7 @@ under the License.
                 <field-map value="datetimeStarted DESC" field-name="orderBy"/>
             </service>
         </actions>
-        <field name="removeLink" widget-style="smallSubmit">
+        <field name="removeLink" title="${uiLabelMap.CommonDelete}" widget-style="smallSubmit">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteCommunicationEvent?communicationEventId=${communicationEventId}"/>
         </field>
     </form>
@@ -512,8 +513,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.PartyAddRole}"><submit button-type="button"/></field>
     </form>
   
-    <form name="listCommContent" type="list" list-name="contentDataResourceList"
-        paginate-target="/ListCommContent" view-size="20" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+    <form name="listCommContent" type="list" list-name="contentDataResourceList" paginate-target="/ListCommContent"
+        view-size="20" header-row-style="header-row-2" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="CommEventContentDataResource" list-name="contentDataResourceList">
                 <field-map field-name="communicationEventId"/>
