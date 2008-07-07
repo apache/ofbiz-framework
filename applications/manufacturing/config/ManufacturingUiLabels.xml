@@ -1263,7 +1263,7 @@
     <property key="ManufacturingInventoryEventPlanned">
         <value xml:lang="en">Inventory Event Planned</value>
         <value xml:lang="es">Movimiento de stock planeado</value>
-        <value xml:lang="fr">mouvements planifiés de stock</value>
+        <value xml:lang="fr">mouvements de stock planifiés</value>
         <value xml:lang="ro">Inventar Eveniment Planificat</value>
         <value xml:lang="th">ประมาณสินค้าคงเหลือ</value>
         <value xml:lang="zh">已计划的库存事件</value>
@@ -1727,7 +1727,6 @@
     <property key="ManufacturingProduceQuantity">
         <value xml:lang="en">Stock in</value>
         <value xml:lang="es">Invetario</value>
-        <value xml:lang="fr">Stock in</value>
         <value xml:lang="it">Quantità in Giacenza</value>
         <value xml:lang="ro">Cantitate Stoc</value>
         <value xml:lang="th">คลังสินค้าใน</value>
@@ -2789,7 +2788,7 @@
     <property key="PageTitleFindInventoryEventPlan">
         <value xml:lang="en">Find Inventory Event Planned</value>
         <value xml:lang="es">Buscar plan de stock</value>
-        <value xml:lang="fr">Liste mouvements planifiés de stock</value>
+        <value xml:lang="fr">Liste des mouvements de stock planifiés</value>
         <value xml:lang="it">Ricerca Evento Inventario Pianificato</value>
         <value xml:lang="ro">Cauta Eveniment Inventar Planificat</value>
         <value xml:lang="th">ค้นหาสินค้าคงเหลือ</value>

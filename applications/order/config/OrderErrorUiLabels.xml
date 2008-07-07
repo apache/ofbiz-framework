@@ -401,7 +401,7 @@
     <property key="OrderErrorCannotGetOrderItemAssocEntity">
         <value xml:lang="en">ERROR : Cannot get OrderItem Assoc entity : ${itemMsgInfo}</value>
         <value xml:lang="es">ERROR: No puede obtener la entidad de la asociación de los ítems de la orden ${itemMsgInfo}</value>
-        <value xml:lang="fr">Erreur : ne peut pas obtenir l'entité d'association des articles de la commande ${itemMsgInfo}</value>
+        <value xml:lang="fr">Erreur : impossible d'obtenir l'entité d'association des articles de la commande ${itemMsgInfo}</value>
         <value xml:lang="it">ERRORE : Non è possibile ottenere entità OrderItem Assoc : ${itemMsgInfo}</value>
         <value xml:lang="ro">EROARE : Nu este posibila obtinerea entitatii OrderItem Assoc : ${itemMsgInfo}</value>
         <value xml:lang="ru">ОШИБКА: Невозможно получить объект OrderItem Assoc: ${itemMsgInfo}</value>
@@ -411,7 +411,7 @@
     <property key="OrderErrorCannotGetOrderItemEntity">
         <value xml:lang="en">ERROR: Cannot get OrderItem entity :</value>
         <value xml:lang="es">ERROR: No puede obtener la entidad de los ítems de la orden :</value>
-        <value xml:lang="fr">Erreur : ne peut pas obtenir l'entité des articles de la commande : </value>
+        <value xml:lang="fr">Erreur : impossible d'obtenir l'entité des articles de la commande : </value>
         <value xml:lang="it">ERRORE: Non è possibile ottenere entità OrderItem :</value>
         <value xml:lang="ro">EROARE: Nu este posibila obtinerea entitatii OrderItem :</value>
         <value xml:lang="ru">ОШИБКА: Невозможно получить объект OrderItem:</value>
@@ -421,7 +421,7 @@
     <property key="OrderErrorCannotGetOrderRoleEntity">
         <value xml:lang="en">ERROR : Cannot get OrderRole entity : ${itemMsgInfo}</value>
         <value xml:lang="es">ERROR: No puede obtener la entidad del rol de la orden : ${itemMsgInfo}</value>
-        <value xml:lang="fr">Erreur : ne peut pas obtenir l'entité du rôle de la commande ${itemMsgInfo}</value>
+        <value xml:lang="fr">Erreur : impossible d'obtenir l'entité du rôle de la commande ${itemMsgInfo}</value>
         <value xml:lang="it">ERRORE : Non è possibile ottenere entità OrderRole : ${itemMsgInfo}</value>
         <value xml:lang="ro">EROARE : Nu este posibila obtinerea entitatii OrderRole : ${itemMsgInfo}</value>
         <value xml:lang="ru">ОШИБКА: Невозможно получить объект OrderRole: ${itemMsgInfo}</value>
@@ -431,7 +431,7 @@
     <property key="OrderErrorCannotGetProductEntity">
         <value xml:lang="en">ERROR : Cannot get Product entity : </value>
         <value xml:lang="es">ERROR: No se pudo obtener la entidad del producto:</value>
-        <value xml:lang="fr">Erreur : ne peut pas obtenir l'entité produit</value>
+        <value xml:lang="fr">Erreur : impossible d'obtenir l'entité produit</value>
         <value xml:lang="it">ERRORE : Non è possibile ottenere entità Product : </value>
         <value xml:lang="ro">EROARE : Nu este posibila obtinerea entitatii Product : </value>
         <value xml:lang="ru">ОШИБКА: Невозможно получить объект Product: </value>
@@ -447,7 +447,7 @@
     <property key="OrderErrorCannotResetOrderTotals">
         <value xml:lang="en">ERROR : Cannot reset order totals - ${orderId} : ${resetResult}</value>
         <value xml:lang="es">ERROR: No puede volver a poner los totales de la orden - ${orderId} : ${resetResult}</value>
-        <value xml:lang="fr">Erreur : ne peut pas remettre à zéro les totaux de la commande - ${orderId} : ${resetResult}</value>
+        <value xml:lang="fr">Erreur : impossible de remettre à zéro les totaux de la commande - ${orderId} : ${resetResult}</value>
         <value xml:lang="it">ERRORE : Non è possibile azzerare totali ordine - ${orderId} : ${resetResult}</value>
         <value xml:lang="ro">EROARE : Nu este posibila azerarea totalului comenzii - ${orderId} : ${resetResult}</value>
         <value xml:lang="ru">ОШИБКА: Невозможно сбросить итоги заказа - ${orderId}: ${resetResult}</value>
@@ -457,7 +457,7 @@
     <property key="OrderErrorCannotStoreStatusChanges">
         <value xml:lang="en">ERROR : Cannot store status changes : </value>
         <value xml:lang="es">ERROR: No puede almacenar los cambios de estado:</value>
-        <value xml:lang="fr">Erreur : ne peut pas stocker les changements de statut : </value>
+        <value xml:lang="fr">Erreur : impossible d'enregistrer les changements de statut : </value>
         <value xml:lang="it">ERRORE : Non è possibile registrare cambi di stato :</value>
         <value xml:lang="ro">EROARE : Nu este posibila registrarea schimbului de stat :</value>
         <value xml:lang="ru">ОШИБКА: Невозможно сохранить изменения статуса: </value>
@@ -467,7 +467,7 @@
     <property key="OrderErrorCouldNotChangeItemStatus">
         <value xml:lang="en">ERROR: Could not change item status : </value>
         <value xml:lang="es">Error: No puede cambiar el estado del ítem</value>
-        <value xml:lang="fr">Erreur : ne peut pas changer le status de l'article : </value>
+        <value xml:lang="fr">Erreur : impossible de changer le status de l'article : </value>
         <value xml:lang="it">ERRORE: Non è possibile cambiare stato riga :</value>
         <value xml:lang="ro">EROARE: Nu este posibila schimbarea starii liniei :</value>
         <value xml:lang="ru">ОШИБКА: Невозможно изменить статус позиции: </value>
@@ -487,7 +487,7 @@
     <property key="OrderErrorCouldNotChangeOrderStatusOrderCannotBeFound">
         <value xml:lang="en">ERROR : Could not change order status; order cannot be found.</value>
         <value xml:lang="es">ERROR: No puede cambiar el estado de la orden; orden no pudo ser encontrada.</value>
-        <value xml:lang="fr">Erreur : ne peut pas changer le statut de la commande; commande introuvable. </value>
+        <value xml:lang="fr">Erreur : impossible de changer le statut de la commande; commande introuvable. </value>
         <value xml:lang="it">ERRORE : Non è possibile cambiare stato ordine; ordine non può essere trovato.</value>
         <value xml:lang="ro">EROARE : Nu este posibila schimbarea starii comenzii; comanda nu poate fi gasita.</value>
         <value xml:lang="ru">ОШИБКА: Невозможно изменить статус заказа; заказ не найден.</value>
@@ -497,7 +497,7 @@
     <property key="OrderErrorCouldNotChangeOrderStatusStatusIsNotAValidChange">
         <value xml:lang="en">ERROR : Could not change order status; status is not a valid change. </value>
         <value xml:lang="es">ERROR: No puede cambiar el estado de la orden; el estado no puede cambiarse.</value>
-        <value xml:lang="fr">Erreur : ne peut pas changer le statut de la commande; le statut ne peut pas être changé.</value>
+        <value xml:lang="fr">Erreur : impossible de changer le statut de la commande; le statut ne peut pas être changé.</value>
         <value xml:lang="it">ERRORE : Non è possibile cambiare stato ordine; stato non è un cambio valido. </value>
         <value xml:lang="ro">EROARE : Nu este posibila schimbarea starii comenzii; stare nu este o schimbare valida. </value>
         <value xml:lang="ru">ОШИБКА: Невозможно изменить статус заказа; неверное изменение статуса. </value>
@@ -507,7 +507,7 @@
     <property key="OrderErrorCouldNotCreateOrderPaymentPreferenceIdGenerationFailure">
         <value xml:lang="en">ERROR : Could not create OrderPaymentPreference (id generation failure)</value>
         <value xml:lang="es">ERROR: No puede crear la preferencia de pago de la orden (fallo de la generación de código)</value>
-        <value xml:lang="fr">Erreur : ne peut pas créer la préférence de paiement de la commande (échec de l'identifiant de la génération)</value>
+        <value xml:lang="fr">Erreur : impossible de créer la préférence de paiement de la commande (échec de l'identifiant de la génération)</value>
         <value xml:lang="it">ERRORE : Non è possibile creare OrderPaymentPreference (generazione Codice fallito)</value>
         <value xml:lang="ro">EROARE : Nu este posibila crearea OrderPaymentPreference (generare Cod falit)</value>
         <value xml:lang="ru">ОШИБКА: Невозможно создать OrderPaymentPreference (ошибка генерации идентификатора)</value>
@@ -517,7 +517,7 @@
     <property key="OrderErrorCouldNotCreateOrderWriteError">
         <value xml:lang="en">ERROR : Could not create order (write error : </value>
         <value xml:lang="es">ERROR: No se puede crear la orden (error de escritura) :</value>
-        <value xml:lang="fr">Erreur : ne peut pas créer la commande (erreur d'écriture : </value>
+        <value xml:lang="fr">Erreur : impossible de créer la commande (erreur d'écriture : </value>
         <value xml:lang="it">ERRORE : Non è possibile creare ordine (errore scrittura : </value>
         <value xml:lang="ro">EROARE : Nu este posibila crearea comenzii (eroare la scriere : </value>
         <value xml:lang="ru">ОШИБКА: Невозможно создать заказ (ошибка записи: </value>
@@ -532,7 +532,7 @@
     <property key="OrderErrorCouldNotFindProductStoreWithID">
         <value xml:lang="en">ERROR : Could not find ProductStore with ID [ ${productStoreId} ]</value>
         <value xml:lang="es">ERROR: No se pudo obtener una tienda con código [ ${productStoreId} ]</value>
-        <value xml:lang="fr">Erreur : ne peut pas trouver le dépôt de produit avec l'identifiant [ ${productStoreId} ]</value>
+        <value xml:lang="fr">Erreur : impossible de trouver le dépôt de produit avec l'identifiant [ ${productStoreId} ]</value>
         <value xml:lang="it">ERRORE : Non è possibile trovare ProductStore con Codice [ ${productStoreId} ]</value>
         <value xml:lang="ro">EROARE : Nu este posibila gasirea  ProductStore cu Codul [ ${productStoreId} ]</value>
         <value xml:lang="ru">ОШИБКА: Невозможно найти ProductStore с кодом [ ${productStoreId} ]</value>
@@ -542,7 +542,7 @@
     <property key="OrderErrorCouldNotGetNextSequenceIdForOrderAdjustmentCannotCreateOrder">
         <value xml:lang="en">ERROR : Could not get next sequence id for OrderAdjustment, cannot create order.</value>
         <value xml:lang="es">ERROR: No se pudo obtener el código de la secuencia siguiente para el ajuste de la orden, no puede crear la orden.</value>
-        <value xml:lang="fr">Erreur : ne peut pas obtenir l'identifiant de la séquence suivante pour l'ajustement de la commande, ne peut pas créer la commande.</value>
+        <value xml:lang="fr">Erreur : impossible d'obtenir l'identifiant de la séquence suivante pour l'ajustement de la commande, impossible de créer la commande.</value>
         <value xml:lang="it">ERRORE :  Non è possibile ottenere il successivo Codice sequenza per OrderAdjustment, non è possibile creare l'ordine.</value>
         <value xml:lang="ro">EROARE :  Nu este posibila obtinerea urmatorului Id.secv.OrderAdjustment, nu este posibila crearea comenzii.</value>
         <value xml:lang="ru">ОШИБКА: Невозможно получить следующий последовательный идентификатор для OrderAdjustment, не могу создать заказ.</value>
@@ -552,7 +552,7 @@
     <property key="OrderErrorCouldNotGetNextSequenceIdForOrderItemPriceInfoCannotCreateOrder">
         <value xml:lang="en">ERROR : Could not get next sequence id for OrderItemPriceInfo, cannot create order.</value>
         <value xml:lang="es">ERROR: No se pudo obtener el código de la secuencia siguiente para la información sobre los precios de los ítems encargados, no puede crear la orden.</value>
-        <value xml:lang="fr">Erreur : ne peut pas obtenir l'identifiant de la séquence suivante pour les informations sur les prix des articles commandés, ne peut pas créer la commande.</value>
+        <value xml:lang="fr">Erreur : impossible d'obtenir l'identifiant de la séquence suivante pour les informations sur les prix des articles commandés, impossible de créer la commande.</value>
         <value xml:lang="it">ERRORE : Non è possibile ottenere il successivo Codice sequenza per OrderItemPriceInfo, non è possibile creare l'ordine.</value>
         <value xml:lang="ro">EROARE : Nu este posibila obtinerea urmatorului cod de secventa pentru  OrderItemPriceInfo, nu  este posibila  crearea comenzii.</value>
         <value xml:lang="ru">ОШИБКА: Невозможно получить следующий последовательный идентификатор для OrderItemPriceInfo, не могу создать заказ.</value>
@@ -562,7 +562,7 @@
     <property key="OrderErrorCouldNotGetOrderInformation">
         <value xml:lang="en">ERROR : Could not get order information (</value>
         <value xml:lang="es">ERROR: No se pudo obtener información de la orden (</value>
-        <value xml:lang="fr">Erreur : ne peut pas otenir les informations de la commande (</value>
+        <value xml:lang="fr">Erreur : impossible d'otenir les informations de la commande (</value>
         <value xml:lang="it">ERRORE : Non è possibile ottenere informazioni ordine (</value>
         <value xml:lang="ro">EROARE : Nu este posibila obtinerea de informatii despre comanda (</value>
         <value xml:lang="ru">ОШИБКА: Невозможно получить информацию о заказ (</value>
@@ -946,7 +946,7 @@
     <property key="OrderInvalidCancelQuantityCannotCancel">
         <value xml:lang="en">Invalid cancel quantity; cannot cancel ${thisCancelQty}</value>
         <value xml:lang="es">Cantidad cancelada inválida; no se puede cancelar ${thisCancelQty}</value>
-        <value xml:lang="fr">Quantité annulée invalide; ne peut pas annuler ${thisCancelQty}</value>
+        <value xml:lang="fr">Quantité annulée invalide; impossible d'annuler ${thisCancelQty}</value>
         <value xml:lang="it">Quantità annullata Invalida; non è possibile annullare ${thisCancelQty}</value>
         <value xml:lang="ro">Cantitate stearsa Invalida; nu este posibila stergerea ${thisCancelQty}</value>
         <value xml:lang="ru">Отменяется неверное количество; не могу отменить ${thisCancelQty}</value>
@@ -1399,7 +1399,7 @@
     <property key="OrderProblemStoringReceivedPaymentInformation">
         <value xml:lang="en"> Problem storing received payment information.</value>
         <value xml:lang="es"> Problema almacenando la información recibida del pago.</value>
-        <value xml:lang="fr"> Problème en stockant les informations de paiement recus. </value>
+        <value xml:lang="fr"> Problème en enregistrant les informations de paiement recus. </value>
         <value xml:lang="it"> Problema registrazione informazioni pagamento ricevuto.</value>
         <value xml:lang="ro"> Problema la inregistrarea informatiilor pentru platile primite.</value>
         <value xml:lang="ru"> Проблема при сохранении полученной платежной информации.</value>
@@ -1409,7 +1409,7 @@
     <property key="OrderProblemStoringReturnItemUpdates">
         <value xml:lang="en">Problem storing ReturnItem updates</value>
         <value xml:lang="es">Problema almacenando actualizaciones de los ítems de devolución</value>
-        <value xml:lang="fr">Problème en stockant les mises à jour des retours d'articles</value>
+        <value xml:lang="fr">Problème en enregistrant les mises à jour des retours d'articles</value>
         <value xml:lang="it">Problema registrando ReturnItem aggiornamento</value>
         <value xml:lang="ro">Problema la inregistrarea actualizarii ReturnItem </value>
         <value xml:lang="ru">Проблема при сохранении обновлений ReturnItem</value>
@@ -1747,7 +1747,7 @@
     <property key="OrderSecurityErrorToRunAutoUpdateQuotePrice">
         <value xml:lang="en">Security Error : to run autoUpdateQuotePrice you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para correr autoUpdateQuotePrice debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
-        <value xml:lang="fr">Erreur de sécurité : pour mettre la mise à jour automatique du prix de la citation, vous devez avoir la permission d'administrer ou de créer la commande</value>
+        <value xml:lang="fr">Erreur de sécurité : pour exécuter autoUpdateQuotePrice, vous devez avoir la permission d'administrer ou de créer la commande</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire autoUpdateQuotePrice tu devi avere il permesso ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="ro">Eroare Siguranta : pentru a executa   autoUpdateQuotePrice trebuie sa ai permisul ORDERMGR_CREATE sau ORDERMGR_ADMIN</value>
         <value xml:lang="ru">Ошибка безопасности: для выполнения autoUpdateQuotePrice у вас должны быть права ORDERMGR_CREATE или ORDERMGR_ADMIN</value>
@@ -1763,7 +1763,7 @@
     <property key="OrderSecurityErrorToRunCheckCreateOrderRequirement">
         <value xml:lang="en">Security Error : to run checkCreateOrderRequirement you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para correr checkCreateOrderRequirement debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
-        <value xml:lang="fr">Erreur de sécurité : pour mettre le contrôle de la création de l'exigence de la commande, vous devez avoir la permission d'administrer ou de créer la commande</value>
+        <value xml:lang="fr">Erreur de sécurité : pour exécuter checkCreateOrderRequirement, vous devez avoir la permission d'administrer ou de créer la commande</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire checkCreateOrderRequirement tu devi avere il permesso ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="ro">Eroare Siguranta : pentru  executarea checkCreateOrderRequirement trebuie sa ai permisul ORDERMGR_CREATE sau ORDERMGR_ADMIN</value>
         <value xml:lang="ru">Ошибка безопасности: для выполнения checkCreateOrderRequirement у вас должны быть права ORDERMGR_CREATE или ORDERMGR_ADMIN </value>
@@ -1782,7 +1782,7 @@
     <property key="OrderSecurityErrorToRunCheckCreateStockRequirement">
         <value xml:lang="en">Security Error : to run checkCreateStockRequirement you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para correr checkCreateStockRequirement debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
-        <value xml:lang="fr">Erreur de sécurité : pour mettre le contrôle de la création de l'exigence du stock, vous devez avoir la permission d'administrer ou de créer la commande</value>
+        <value xml:lang="fr">Erreur de sécurité : pour exécuter checkCreateStockRequirement, vous devez avoir la permission d'administrer ou de créer la commande</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire checkCreateStockRequirement tu devi avere il permesso ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="ro">Eroare Siguranta : pentru  executarea checkCreateStockRequirement trebuie sa ai permisul ORDERMGR_CREATE sau  ORDERMGR_ADMIN</value>
         <value xml:lang="ru">Ошибка безопасности: для выполнения checkCreateStockRequirement у вас должны быть ORDERMGR_CREATE или ORDERMGR_ADMIN </value>
@@ -1792,7 +1792,7 @@
     <property key="OrderSecurityErrorToRunCreateOrderAdjustement">
         <value xml:lang="en">Security Error : to run createOrderAdjustment you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para correr createOrderAdjustment debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
-        <value xml:lang="fr">Erreur de sécurité : pour mettre la création de l'ajustement de commande, vous devez avoir la permission d'administrer ou de créer la commande</value>
+        <value xml:lang="fr">Erreur de sécurité : pour exécuter createOrderAdjustment, vous devez avoir la permission d'administrer ou de créer la commande</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire createOrderAdjustment tu devi avere il permesso ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="ro">Eroare Siguranta : pentru  executarea createOrderAdjustment trebuie sa ai permisul ORDERMGR_CREATE sau ORDERMGR_ADMIN</value>
         <value xml:lang="ru">Ошибка безопасности: для выполнения createOrderAdjustment у вас должны быть права ORDERMGR_CREATE или ORDERMGR_ADMIN </value>
@@ -1808,7 +1808,7 @@
     <property key="OrderSecurityErrorToRunCreateOrderShipment">
         <value xml:lang="en">Security Error : to run createOrderShipment you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para correr createOrderShipment debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
-        <value xml:lang="fr">Erreur de sécurité : pour mettre la création de l'expédition de la commande, vous devez avoir la permission d'administrer ou de créer la commande</value>
+        <value xml:lang="fr">Erreur de sécurité : pour exécuter createOrderShipment, vous devez avoir la permission d'administrer ou de créer la commande</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire createOrderShipment tu devi avere il permesso ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="ro">Eroare Siguranta : pentru executarea  createOrderShipment trebuie sa ai permisul ORDERMGR_CREATE sau ORDERMGR_ADMIN</value>
         <value xml:lang="ru">Ошибка безопасности: для выполнения createOrderShipment у вас должны быть права ORDERMGR_CREATE или ORDERMGR_ADMIN </value>
@@ -1818,7 +1818,7 @@
     <property key="OrderSecurityErrorToRunCreateQuote">
         <value xml:lang="en">Security Error : to run createQuote you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para correr createQuote debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
-        <value xml:lang="fr">Erreur de sécurité : pour mettre la création de la citation, vous devez avoir la permission d'administrer ou de créer la commande</value>
+        <value xml:lang="fr">Erreur de sécurité : pour exécuter createQuote, vous devez avoir la permission d'administrer ou de créer la commande</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire createQuote tu devi avere il permesso ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="ro">Eroare Siguranta : pentru executarea  createQuote trebuie sa ai permisul ORDERMGR_CREATE sau ORDERMGR_ADMIN</value>
         <value xml:lang="ru">Ошибка безопасности: для выполнения createQuote у вас должны быть права ORDERMGR_CREATE или ORDERMGR_ADMIN </value>
@@ -1828,7 +1828,7 @@
     <property key="OrderSecurityErrorToRunCreateQuoteAndQuoteItemForRequest">
         <value xml:lang="en">Security Error : to run createQuoteAndQuoteItemForRequest you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para correr createQuoteAndQuoteItemForRequest debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
-        <value xml:lang="fr">Erreur de sécurité : pour mettre la création de la citation et la citation de l'article comme demande, vous devez avoir la permission d'administrer ou de créer la commande</value>
+        <value xml:lang="fr">Erreur de sécurité : pour exécuter createQuoteAndQuoteItemForRequest, vous devez avoir la permission d'administrer ou de créer la commande</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire createQuoteAndQuoteItemForRequest tu devi avere il permesso ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="ro">Eroare Siguranta : pentru executarea createQuoteAndQuoteItemForRequest tu trebuie sa ai permisul ORDERMGR_CREATE sau ORDERMGR_ADMIN</value>
         <value xml:lang="th">Security Error: ความปลอดภัยผิดพลาด ! ถึงการดำเนินการ createQuoteAndQuoteItemForRequest คุณต้องมี ORDERMGR_CREATE หรือ ORDERMGR_ADMIN อนุญาต</value>
@@ -1842,7 +1842,7 @@
     <property key="OrderSecurityErrorToRunCreateQuoteAttribute">
         <value xml:lang="en">Security Error : to run createQuoteAttribute you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para correr createQuoteAttribute debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
-        <value xml:lang="fr">Erreur de sécurité : pour mettre la création d'attribut de la citation, vous devez avoir la permission d'administrer ou de créer la commande</value>
+        <value xml:lang="fr">Erreur de sécurité : pour exécuter createQuoteAttribute, vous devez avoir la permission d'administrer ou de créer la commande</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire createQuoteAttribute tu devi avere il permesso ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="ro">Eroare de Siguranta : pentru  executarea createQuoteAttribute trebuie sa ai permisul ORDERMGR_CREATE sau ORDERMGR_ADMIN</value>
         <value xml:lang="ru">Ошибка безопасности: для выполнения createQuoteAttribute у вас должны быть права ORDERMGR_CREATE или ORDERMGR_ADMIN </value>
@@ -1852,7 +1852,7 @@
     <property key="OrderSecurityErrorToRunCreateQuoteCoefficient">
         <value xml:lang="en">Security Error : to run createQuoteCoefficient you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para correr createQuoteCoefficient debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
-        <value xml:lang="fr">Erreur de sécurité : pour mettre la création du coeeficient de la citation, vous devez avoir la permission d'administrer ou de créer la commande</value>
+        <value xml:lang="fr">Erreur de sécurité : pour exécuter createQuoteCoefficient, vous devez avoir la permission d'administrer ou de créer la commande</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire createQuoteCoefficient tu devi avere il permesso ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="ro">Eroare Siguranta : pentru  executarea createQuoteCoefficient tu trebuie sa ai permisul ORDERMGR_CREATE sau ORDERMGR_ADMIN</value>
         <value xml:lang="ru">Ошибка безопасности: для выполнения createQuoteCoefficient у вас должны быть права ORDERMGR_CREATE или ORDERMGR_ADMIN </value>
@@ -1862,7 +1862,7 @@
     <property key="OrderSecurityErrorToRunCreateQuoteItem">
         <value xml:lang="en">Security Error : to run createQuoteItem you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para correr createQuoteItem debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
-        <value xml:lang="fr">Erreur de sécurité : pour mettre la création de la citation d'article, vous devez avoir la permission d'administrer ou de créer la commande</value>
+        <value xml:lang="fr">Erreur de sécurité : pour exécuter createQuoteItem, vous devez avoir la permission d'administrer ou de créer la commande</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire createQuoteItem tu devi avere il permesso ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="ro">Eroare Siguranta : pentru executarea  createQuoteItem trebuie sa ai permisul ORDERMGR_CREATE sau ORDERMGR_ADMIN</value>
         <value xml:lang="ru">Ошибка безопасности: для выполнения createQuoteItem у вас должны быть права ORDERMGR_CREATE или ORDERMGR_ADMIN </value>
@@ -1881,7 +1881,7 @@
     <property key="OrderSecurityErrorToRunCreateReturnHeader">
         <value xml:lang="en">Security Error : to run createReturnHeader you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para correr createReturnHeader debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
-        <value xml:lang="fr">Erreur de sécurité : pour mettre la création du retour d'en-tête, vous devez avoir la permission d'administrer ou de créer la commande</value>
+        <value xml:lang="fr">Erreur de sécurité : pour exécuter createReturnHeader, vous devez avoir la permission d'administrer ou de créer la commande</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire createReturnHeader tu devi avere il permesso ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="ro">Eroare de Siguranta: pentru executarea  createReturnHeader tu trebuie sa ai permisul ORDERMGR_CREATE sau ORDERMGR_ADMIN</value>
         <value xml:lang="ru">Ошибка безопасности: для выполнения createReturnHeader у вас должны быть права ORDERMGR_CREATE или ORDERMGR_ADMIN </value>
@@ -1891,7 +1891,7 @@
     <property key="OrderSecurityErrorToRunCreateReturnItem">
         <value xml:lang="en">Security Error : to run createReturnItem you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para correr createReturnItem debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
-        <value xml:lang="fr">Erreur de sécurité : pour mettre la création du retour d'article, vous devez avoir la permission d'administrer ou de créer la commande</value>
+        <value xml:lang="fr">Erreur de sécurité : pour exécuter createReturnItem, vous devez avoir la permission d'administrer ou de créer la commande</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire createReturnItem tu devi avere il permesso ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="ro">Eroare de Siguranta: per eseguire createReturnItem tu devi avere il permesso ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="ru">Ошибка безопасности: для выполнения createReturnItem у вас должны быть права ORDERMGR_CREATE или ORDERMGR_ADMIN </value>
@@ -1901,7 +1901,7 @@
     <property key="OrderSecurityErrorToRunCreateShoppingListForAnotherParty">
         <value xml:lang="en">Security Error : to run createShoppingList for another party you must have the PARTYMGR_CREATE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para correr createShoppingList debe contar con los permisos PARTYMGR_CREATE o PARTYMGR_ADMIN</value>
-        <value xml:lang="fr">Erreur de sécurité : pour mettre la création d'une liste d'achat pour un autre acteur, vous devez avoir la permission d'administrer ou de créer la commande</value>
+        <value xml:lang="fr">Erreur de sécurité : pour exécuter createShoppingList pour un autre acteur, vous devez avoir la permission d'administrer ou de créer la commande</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire createShoppingList per un'altro soggetto tu devi avere il permesso PARTYMGR_CREATE o PARTYMGR_ADMIN</value>
         <value xml:lang="ro">Eroare de Siguranta: pentru executarea createShoppingList pentru un alt subiect trebuie sa ai permisul PARTYMGR_CREATE sau PARTYMGR_ADMIN</value>
         <value xml:lang="ru">Ошибка безопасности: для выполнения createShoppingList для другого участника у вас должны быть права PARTYMGR_CREATE или PARTYMGR_ADMIN </value>
@@ -1911,7 +1911,7 @@
     <property key="OrderSecurityErrorToRunCreateTaxRate">
         <value xml:lang="en">Security Error : to run createTaxRate you must have the TAXRATE_CREATE or TAXRATE_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para correr createTaxRate debe contar con los permisos TAXRATE_CREATE o TAXRATE_ADMIN</value>
-        <value xml:lang="fr">Erreur de sécurité : pour mettre la création du taux fiscal, vous devez avoir la permission d'administrer ou de créer le taux fiscal</value>
+        <value xml:lang="fr">Erreur de sécurité : pour exécuter createTaxRate, vous devez avoir la permission d'administrer ou de créer le taux fiscal</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire createTaxRate tu devi avere il permesso TAXRATE_CREATE o TAXRATE_ADMIN</value>
         <value xml:lang="ro">Eroare de Siguranta: pentru executarea  createTaxRate trebuie sa ai permisul TAXRATE_CREATE sau TAXRATE_ADMIN</value>
         <value xml:lang="ru">Ошибка безопасности: для выполнения createTaxRate у вас должны быть права TAXRATE_CREATE или TAXRATE_ADMIN </value>
@@ -1927,7 +1927,7 @@
     <property key="OrderSecurityErrorToRunDeleteOrderShipment">
         <value xml:lang="en">Security Error : to run deleteOrderShipment you must have the ORDERMGR_DELETE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para correr deleteOrderShipment debe contar con los permisos ORDERMGR_DELETE o ORDERMGR_ADMIN</value>
-        <value xml:lang="fr">Erreur de sécurité : pour mettre le retour rapide de la commande, vous devez avoir la permission d'administrer ou de supprimer la commande</value>
+        <value xml:lang="fr">Erreur de sécurité : pour exécuter deleteOrderShipment, vous devez avoir la permission d'administrer ou de supprimer la commande</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire deleteOrderShipment tu devi avere il permesso ORDERMGR_DELETE o ORDERMGR_ADMIN</value>
         <value xml:lang="ro">Eroare de Siguranta: pentru executarea deleteOrderShipment trebuie sa ai permisul ORDERMGR_DELETE sau ORDERMGR_ADMIN</value>
         <value xml:lang="ru">Ошибка безопасности: для выполнения deleteOrderShipment у вас должны быть права ORDERMGR_DELETE или ORDERMGR_ADMIN </value>
@@ -1937,7 +1937,7 @@
     <property key="OrderSecurityErrorToRunForAnotherParty">
         <value xml:lang="en">Security Error : to run ${parentMethodName} for another party you must have the PARTYMGR_${permissionAction} or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para correr ${parentMethodName} debe contar con los permisos PARTYMGR_${permissionAction} o PARTYMGR_ADMIN</value>
-        <value xml:lang="fr">Erreur de sécurité : pour mettre ${parentMethodName} pour un autre acteur, vous devez avoir la permission d'administrer ou ${permissionAction} la commande</value>
+        <value xml:lang="fr">Erreur de sécurité : pour exécuter ${parentMethodName} pour un autre acteur, vous devez avoir la permission d'administrer ou ${permissionAction} la commande</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire ${parentMethodName} per altri soggetti tu devi avere il permesso PARTYMGR_${permissionAction} o PARTYMGR_ADMIN.</value>
         <value xml:lang="ro">Eroare Siguranta : pentru a putea executa  ${parentMethodName} pentru alti subiecti trebuie sa ai permis PARTYMGR_${permissionAction} sau PARTYMGR_ADMIN.</value>
         <value xml:lang="ru">Ошибка безопасности: для выполнения ${parentMethodName} для другого участника у вас должны быть права PARTYMGR_${permissionAction} или PARTYMGR_ADMIN</value>
@@ -1947,7 +1947,7 @@
     <property key="OrderSecurityErrorToRunQuickReturnFromOrder">
         <value xml:lang="en">Security Error : to run quickReturnFromOrder you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para correr quickReturnFromOrder debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
-        <value xml:lang="fr">Erreur de sécurité : pour mettre la création du retour d'article, vous devez avoir la permission d'administrer ou de créer la commande</value>
+        <value xml:lang="fr">Erreur de sécurité : pour exécuter quickReturnFromOrder, vous devez avoir la permission d'administrer ou de créer la commande</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire quickReturnFromOrder tu devi avere il permesso ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="ro">Eroare de Siguranta: pentru  executarea quickReturnFromOrder tu trebuie sa ai permisul ORDERMGR_CREATE sau ORDERMGR_ADMIN</value>
         <value xml:lang="ru">Ошибка безопасности: для выполнения quickReturnFromOrder у вас должны быть права ORDERMGR_CREATE или ORDERMGR_ADMIN </value>
@@ -1963,7 +1963,7 @@
     <property key="OrderSecurityErrorToRunRemoveQuoteAttribute">
         <value xml:lang="en">Security Error : to run removeQuoteAttribute you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para correr removeQuoteAttribute debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
-        <value xml:lang="fr">Erreur de sécurité : pour mettre l'annulation de l'attribut de la citation, vous devez avoir la permission d'administrer ou de créer la commande</value>
+        <value xml:lang="fr">Erreur de sécurité : pour exécuter removeQuoteAttribute, vous devez avoir la permission d'administrer ou de créer la commande</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire removeQuoteAttribute tu devi avere il permesso ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="ro">Eroare de Siguranta: pentru  executarea removeQuoteAttribute trebiuie sa ai permisul ORDERMGR_CREATE sau ORDERMGR_ADMIN</value>
         <value xml:lang="ru">Ошибка безопасности: для выполнения removeQuoteAttribute у вас должны быть права ORDERMGR_CREATE или ORDERMGR_ADMIN </value>
@@ -1973,7 +1973,7 @@
     <property key="OrderSecurityErrorToRunRemoveQuoteCoefficient">
         <value xml:lang="en">Security Error : to run removeQuoteCoefficient you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para correr removeQuoteCoefficient debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
-        <value xml:lang="fr">Erreur de sécurité : pour mettre l'annulation du coefficient de la citation, vous devez avoir la permission d'administrer ou de créer la commande</value>
+        <value xml:lang="fr">Erreur de sécurité : pour exécuter removeQuoteCoefficient, vous devez avoir la permission d'administrer ou de créer la commande</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire removeQuoteCoefficient tu devi avere il permesso ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="ro">Eroare de Siguranta: pentru  executarea removeQuoteCoefficient trebuie sa ai permisul ORDERMGR_CREATE sau ORDERMGR_ADMIN</value>
         <value xml:lang="ru">Ошибка безопасности: для выполнения removeQuoteCoefficient у вас должны быть права ORDERMGR_CREATE или ORDERMGR_ADMIN </value>
@@ -1983,7 +1983,7 @@
     <property key="OrderSecurityErrorToRunRemoveQuoteItem">
         <value xml:lang="en">Security Error : to run removeQuoteItem you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para correr removeQuoteItem debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
-        <value xml:lang="fr">Erreur de sécurité : pour mettre l'annulation deu retour de l'article, vous devez avoir la permission d'administrer ou de créer la commande</value>
+        <value xml:lang="fr">Erreur de sécurité : pour exécuter removeQuoteItem, vous devez avoir la permission d'administrer ou de créer la commande</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire removeQuoteItem tu devi avere il permesso ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="ro">Eroare de Siguranta: pentru executarea   removeQuoteItem trebuie sa ai permisul ORDERMGR_CREATE sau ORDERMGR_ADMIN</value>
         <value xml:lang="ru">Ошибка безопасности: для выполнения removeQuoteItem у вас должны быть права ORDERMGR_CREATE или ORDERMGR_ADMIN </value>
@@ -1993,7 +1993,7 @@
     <property key="OrderSecurityErrorToRunRemoveReturnItem">
         <value xml:lang="en">Security Error : to run removeReturnItem you must have the ORDERMGR_DELETE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para correr removeReturnItem debe contar con los permisos ORDERMGR_DELETE o ORDERMGR_ADMIN</value>
-        <value xml:lang="fr">Erreur de sécurité : pour mettre l'annulation de la citation de l'article, vous devez avoir la permission d'administrer ou de supprimer la commande</value>
+        <value xml:lang="fr">Erreur de sécurité : pour exécuter removeReturnItem, vous devez avoir la permission d'administrer ou de supprimer la commande</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire removeReturnItem tu devi avere il permesso ORDERMGR_DELETE o ORDERMGR_ADMIN</value>
         <value xml:lang="ro">Eroare de Siguranta: pentru executarea  removeReturnItem trebuie sa ai permisul ORDERMGR_DELETE sau ORDERMGR_ADMIN</value>
         <value xml:lang="ru">Ошибка безопасности: для выполнения removeReturnItem у вас должны быть права ORDERMGR_DELETE или ORDERMGR_ADMIN </value>
@@ -2003,7 +2003,7 @@
     <property key="OrderSecurityErrorToRunRemoveTaxRate">
         <value xml:lang="en">Security Error : to run RemoveTaxRate you must have the TAXRATE_DELETE or TAXRATE_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para correr RemoveTaxRate debe contar con los permisos TAXRATE_DELETE o TAXRATE_ADMIN</value>
-        <value xml:lang="fr">Erreur de sécurité : pour mettre l'annulation du taux fiscal, vous devez avoir la permission d'administrer ou de supprimer le taux fiscal</value>
+        <value xml:lang="fr">Erreur de sécurité : pour exécuter RemoveTaxRate, vous devez avoir la permission d'administrer ou de supprimer le taux fiscal</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire RemoveTaxRate tu devi avere il permesso TAXRATE_DELETE o TAXRATE_ADMIN</value>
         <value xml:lang="ro">Eroare de Siguranta: pentru executarea  RemoveTaxRate trebuie sa ai permisul TAXRATE_DELETE sau TAXRATE_ADMIN</value>
         <value xml:lang="ru">Ошибка безопасности: для выполнения RemoveTaxRate у вас должны быть права TAXRATE_DELETE или TAXRATE_ADMIN </value>
@@ -2031,7 +2031,7 @@
     <property key="OrderSecurityErrorToRunUpdateOrderStatusFromReceipt">
         <value xml:lang="en">Security Error : to run updateOrderStatusFromReceipt you must have the ORDERMGR_UPDATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para correr updateOrderStatusFromReceipt debe contar con los permisos ORDERMGR_UPDATE o ORDERMGR_ADMIN</value>
-        <value xml:lang="fr">Erreur de sécurité : pour mettre la mise à jour du status de la commande, vous devez avoir la permission d'administrer ou de mettre à jour la commande</value>
+        <value xml:lang="fr">Erreur de sécurité : pour exécuter updateOrderStatusFromReceipt, vous devez avoir la permission d'administrer ou de mettre à jour la commande</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire updateOrderStatusFromReceipt tu devi avere il permesso ORDERMGR_UPDATE o ORDERMGR_ADMIN</value>
         <value xml:lang="ro">Eroare de Siguranta: pentru  executarea updateOrderStatusFromReceipt trebuie sa ai permisul ORDERMGR_UPDATE sau ORDERMGR_ADMIN</value>
         <value xml:lang="ru">Ошибка безопасности: для выполнения updateOrderStatusFromReceipt у вас должны быть права ORDERMGR_UPDATE или ORDERMGR_ADMIN </value>
@@ -2041,7 +2041,7 @@
     <property key="OrderSecurityErrorToRunUpdateQuote">
         <value xml:lang="en">Security Error : to run updateQuote you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para correr updateQuote debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
-        <value xml:lang="fr">Erreur de sécurité : pour mettre la mise à jour de la citation, vous devez avoir la permission d'administrer ou de créer la commande</value>
+        <value xml:lang="fr">Erreur de sécurité : pour exécuter updateQuote, vous devez avoir la permission d'administrer ou de créer la commande</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire updateQuote tu devi avere il permesso ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="ro">Eroare de Siguranta: pentru executarea  updateQuote trebuie sa ai permisul ORDERMGR_CREATE sau ORDERMGR_ADMIN</value>
         <value xml:lang="ru">Ошибка безопасности: для выполнения updateQuote у вас должны быть права ORDERMGR_CREATE или ORDERMGR_ADMIN </value>
@@ -2051,7 +2051,7 @@
     <property key="OrderSecurityErrorToRunUpdateQuoteAttribute">
         <value xml:lang="en">Security Error : to run updateQuoteAttribute you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para correr updateQuoteAttribute debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
-        <value xml:lang="fr">Erreur de sécurité : pour mettre la mise à jour de l'attribut de la citation, vous devez avoir la permission d'administrer ou de créer la commande</value>
+        <value xml:lang="fr">Erreur de sécurité : pour exécuter updateQuoteAttribute, vous devez avoir la permission d'administrer ou de créer la commande</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire updateQuoteAttribute tu devi avere il permesso ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="ro">Eroare de Siguranta: pentru executarea updateQuoteAttribute trebuie sa ai permisul ORDERMGR_CREATE sau ORDERMGR_ADMIN</value>
         <value xml:lang="ru">Ошибка безопасности: для выполнения updateQuoteAttribute у вас должны быть права ORDERMGR_CREATE или ORDERMGR_ADMIN </value>
@@ -2061,7 +2061,7 @@
     <property key="OrderSecurityErrorToRunUpdateQuoteCoefficient">
         <value xml:lang="en">Security Error : to run updateQuoteCoefficient you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para correr updateQuoteCoefficient debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
-        <value xml:lang="fr">Erreur de sécurité : pour mettre la mise à jour du coefficient de la citation, vous devez avoir la permission d'administrer ou de créer la commande</value>
+        <value xml:lang="fr">Erreur de sécurité : pour exécuter updateQuoteCoefficient, vous devez avoir la permission d'administrer ou de créer la commande</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire updateQuoteCoefficient tu devi avere il permesso ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="ro">Eroare de Siguranta: pentru executarea updateQuoteCoefficient trebuie sa ai permisul ORDERMGR_CREATE sau ORDERMGR_ADMIN</value>
         <value xml:lang="ru">Ошибка безопасности: для выполнения updateQuoteCoefficient у вас должны быть права ORDERMGR_CREATE или ORDERMGR_ADMIN </value>
@@ -2071,7 +2071,7 @@
     <property key="OrderSecurityErrorToRunUpdateQuoteItem">
         <value xml:lang="en">Security Error : to run updateQuoteItem you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para correr updateQuoteItem debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
-        <value xml:lang="fr">Erreur de sécurité : pour mettre la mise à jour de la citation de l'article, vous devez avoir la permission d'administrer ou de créer la commande</value>
+        <value xml:lang="fr">Erreur de sécurité : pour exécuter updateQuoteItem, vous devez avoir la permission d'administrer ou de créer la commande</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire updateQuoteItem tu devi avere il permesso ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="ro">Eroare de Siguranta: pentru executarea updateQuoteItem trebuie sa ai permisul ORDERMGR_CREATE sau ORDERMGR_ADMIN</value>
         <value xml:lang="ru">Ошибка безопасности: для выполнения updateQuoteItem у вас должны быть права ORDERMGR_CREATE или ORDERMGR_ADMIN </value>
@@ -2081,7 +2081,7 @@
     <property key="OrderSecurityErrorToRunUpdateReturnHeader">
         <value xml:lang="en">Security Error : to run  </value>
         <value xml:lang="es">Error de seguridad: Para correr updateReturnHeader debe contar con los permisos ORDERMGR_UPDATE o ORDERMGR_ADMIN</value>
-        <value xml:lang="fr">Erreur de sécurité : pour mettre la mise à jour du retour d'en-tête, vous devez avoir la permission d'administrer ou de cmettre à jour la commande</value>
+        <value xml:lang="fr">Erreur de sécurité : pour exécuter updateReturnHeader, vous devez avoir la permission d'administrer ou de cmettre à jour la commande</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire updateReturnHeader tu devi avere il permesso ORDERMGR_UPDATE o ORDERMGR_ADMIN</value>
         <value xml:lang="ro">Eroare de Siguranta: pentru executarea updateReturnHeader trebuie sa ai permisul ORDERMGR_UPDATE sau ORDERMGR_ADMIN</value>
         <value xml:lang="ru">Ошибка безопасности: для выполнения updateReturnHeader у вас должны быть права ORDERMGR_UPDATE или ORDERMGR_ADMIN </value>
@@ -2388,7 +2388,7 @@
     <property key="OrderUnableToStoreAutoSaveCart">
         <value xml:lang="en">Unable to store auto-save cart</value>
         <value xml:lang="es">No se pudo almacenar el carro automáticamente</value>
-        <value xml:lang="fr">Impossible de stocker le chariot sauvegardé automatiquement</value>
+        <value xml:lang="fr">Impossible d'enregistrer la sauvegarde automatique du chariot</value>
         <value xml:lang="it">Non è possibile registrare sul negozio carrello con salvataggio automatico</value>
         <value xml:lang="ro">Nu este posibila inregistrarea in magazin  a cosului cu salvare automatica</value>
         <value xml:lang="ru">Невозможно сохранить корзину с автосохранением</value>

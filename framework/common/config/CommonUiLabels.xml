@@ -6598,7 +6598,7 @@
         <value xml:lang="de">Lager</value>
         <value xml:lang="en">Facility</value>
         <value xml:lang="es">Almacén</value>
-        <value xml:lang="fr">Stocks</value>
+        <value xml:lang="fr">Entreposage</value>
         <value xml:lang="it">Stabilimenti</value>
         <value xml:lang="nl">Faciliteit</value>
         <value xml:lang="pt">Instalação</value>
@@ -6944,6 +6944,10 @@
         <value xml:lang="th">การผลิต</value>
         <value xml:lang="zh_CN">制造</value>
         <value xml:lang="zh">生产</value>
+    </property>
+    <property key="MyPage">
+        <value xml:lang="en">MyPage</value>
+        <value xml:lang="fr">Ma page</value>
     </property>
     <property key="Marketing">
         <value xml:lang="ar">التسويق</value>
