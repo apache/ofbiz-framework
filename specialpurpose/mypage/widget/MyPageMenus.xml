@@ -35,45 +35,45 @@ under the License.
         </menu-item>
         <menu-item name="myCommunications" title="${uiLabelMap.MyCommunications}">
             <condition>
-            	<and>
-	                <not><if-empty field-name="userLogin"/></not>
-    	            <if-compare field-name="preferences.userPrefMap.myCommunications" operator="not-equals" value="Y"/>
+                <and>
+                    <not><if-empty field-name="userLogin"/></not>
+                    <if-compare field-name="preferences.userPrefMap.myCommunications" operator="not-equals" value="Y"/>
                 </and>
             </condition>
             <link target="myCommunications"/>
         </menu-item>
         <menu-item name="otherCommunications" title="${uiLabelMap.OtherCommunications}">
             <condition>
-            	<and>
-	                <not><if-empty field-name="userLogin"/></not>
-    	            <if-compare field-name="preferences.userPrefMap.otherCommunications" operator="not-equals" value="Y"/>
+                <and>
+                    <not><if-empty field-name="userLogin"/></not>
+                    <if-compare field-name="preferences.userPrefMap.otherCommunications" operator="not-equals" value="Y"/>
                 </and>
             </condition>
             <link target="otherCommunications"/>
         </menu-item>
         <menu-item name="myCompanyComms" title="${uiLabelMap.MyCompanyComms}">
             <condition>
-            	<and>
-	                <not><if-empty field-name="userLogin"/></not>
-    	            <if-compare field-name="preferences.userPrefMap.myCompanyComms" operator="not-equals" value="Y"/>
+                <and>
+                    <not><if-empty field-name="userLogin"/></not>
+                    <if-compare field-name="preferences.userPrefMap.myCompanyComms" operator="not-equals" value="Y"/>
                 </and>
             </condition>
             <link target="myCompanyComms"/>
         </menu-item>
         <menu-item name="myTimesheet" title="${uiLabelMap.myTimesheet}">
             <condition>
-            	<and>
-	                <not><if-empty field-name="userLogin"/></not>
-    	            <if-compare field-name="preferences.userPrefMap.myTimesheet" operator="not-equals" value="Y"/>
+                <and>
+                    <not><if-empty field-name="userLogin"/></not>
+                    <if-compare field-name="preferences.userPrefMap.myTimesheet" operator="not-equals" value="Y"/>
                 </and>
             </condition>
             <link target="myTimesheet"/>
         </menu-item>
         <menu-item name="myTasks" title="${uiLabelMap.myTasks}">
             <condition>
-            	<and>
-	                <not><if-empty field-name="userLogin"/></not>
-    	            <if-compare field-name="preferences.userPrefMap.myTasks" operator="not-equals" value="Y"/>
+                <and>
+                    <not><if-empty field-name="userLogin"/></not>
+                    <if-compare field-name="preferences.userPrefMap.myTasks" operator="not-equals" value="Y"/>
                 </and>
             </condition>
             <link target="myTasks"/>
