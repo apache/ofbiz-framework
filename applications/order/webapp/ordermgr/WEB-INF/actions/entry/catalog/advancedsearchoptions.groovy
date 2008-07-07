@@ -27,17 +27,17 @@ import org.ofbiz.product.catalog.*;
 import org.ofbiz.product.feature.*;
 import org.ofbiz.product.product.*;
 
-searchCategoryId = parameters.get("SEARCH_CATEGORY_ID");
-if (searchCategoryId == null || searchCategoryId.length() == 0) {
+searchCategoryId = parameters.SEARCH_CATEGORY_ID;
+if (!searchCategoryId) {
     currentCatalogId = CatalogWorker.getCurrentCatalogId(request);
     searchCategoryId = CatalogWorker.getCatalogSearchCategoryId(request, currentCatalogId);
 }
-searchCategory = delegator.findByPrimaryKey("ProductCategory", UtilMisc.toMap("productCategoryId", searchCategoryId));
+searchCategory = delegator.findByPrimaryKey("ProductCategory", [productCategoryId : searchCategoryId]);
 
 productFeaturesByTypeMap = ParametricSearch.makeCategoryFeatureLists(searchCategoryId, delegator);
-productFeatureTypeIdsOrdered = new ArrayList(new TreeSet(productFeaturesByTypeMap.keySet()));
+productFeatureTypeIdsOrdered = new TreeSet(productFeaturesByTypeMap.keySet()) as List;
 
-searchOperator = parameters.get("SEARCH_OPERATOR");
+searchOperator = parameters.SEARCH_OPERATOR;
 if (!"AND".equals(searchOperator) && !"OR".equals(searchOperator)) {
   searchOperator = "OR";
 }
@@ -45,10 +45,10 @@ if (!"AND".equals(searchOperator) && !"OR".equals(searchOperator)) {
 searchConstraintStrings = ProductSearchSession.searchGetConstraintStrings(false, session, delegator);
 searchSortOrderString = ProductSearchSession.searchGetSortOrderString(false, request);
 
-context.put("searchCategoryId", searchCategoryId);
-context.put("searchCategory", searchCategory);
-context.put("productFeaturesByTypeMap", productFeaturesByTypeMap);
-context.put("productFeatureTypeIdsOrdered", productFeatureTypeIdsOrdered);
-context.put("searchOperator", searchOperator);
-context.put("searchConstraintStrings", searchConstraintStrings);
-context.put("searchSortOrderString", searchSortOrderString);
+context.searchCategoryId = searchCategoryId;
+context.searchCategory = searchCategory;
+context.productFeaturesByTypeMap = productFeaturesByTypeMap;
+context.productFeatureTypeIdsOrdered = productFeatureTypeIdsOrdered;
+context.searchOperator = searchOperator;
+context.searchConstraintStrings = searchConstraintStrings;
+context.searchSortOrderString = searchSortOrderString;

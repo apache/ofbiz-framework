@@ -410,7 +410,7 @@ under the License.
 
                 <set field="titleProperty" value="PageTitleAdvancedSearch"/>
                 <set field="headerItem" value="Advanced Search"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/advancedsearchoptions.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/advancedsearchoptions.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
