@@ -31,8 +31,10 @@
     </property>
     <property key="OtherCommunications">
         <value xml:lang="en">Other Communications</value>
+        <value xml:lang="fr">Autres communications</value>
     </property>
     <property key="OtherCommunicationsOfParty">
         <value xml:lang="en">Other Communications of party</value>
+        <value xml:lang="fr">Autres communications ou acteur</value>
     </property>
 </resource>
