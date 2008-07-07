@@ -20,6 +20,7 @@
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="MyCommunications">
         <value xml:lang="en">My Communications</value>
+        <value xml:lang="fr">Mes communications</value>
     </property>
     <property key="MyProfile">
         <value xml:lang="en">My Profile</value>
