@@ -118,10 +118,12 @@ public class ResourceBundleMapWrapper implements Map<String, Object>, Serializab
         Object value = this.rbmwStack.get(arg0);
         if (value == null) {
             value = arg0;
-        } else {
-            String str = (String) value;
-            if (str.contains("${") && context != null) {
+        } else if (context != null){
+            try {
+                String str = (String) value;
                 return FlexibleStringExpander.expandString(str, context);
+            } catch (Exception e) {
+                // Potential ClassCastException - do nothing
             }
         }
         return value;
