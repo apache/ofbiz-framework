@@ -17,25 +17,18 @@
  * under the License.
  */
 
-import org.ofbiz.entity.condition.EntityExpr;
-import org.ofbiz.entity.condition.EntityFunction;
-import org.ofbiz.entity.condition.EntityOperator;
-import org.ofbiz.entity.condition.EntityFieldValue;
-import org.ofbiz.entity.condition.EntityConditionList;
+import org.ofbiz.entity.condition.*;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.order.shoppingcart.ShoppingCart;
 import org.ofbiz.order.shoppingcart.ShoppingCartEvents;
 
-productId = request.getParameter("productId");
-if (productId == null) {
-    productId = "";
-}
+productId = request.getParameter("productId") ?: "";
 
 ShoppingCart shoppingCart = ShoppingCartEvents.getCartObject(request);
 
-conditionList = new LinkedList();
+conditionList = [];
 
 // make sure the look up is case insensitive
 conditionList.add(EntityCondition.makeCondition(EntityFunction.UPPER(EntityFieldValue.makeFieldValue("productId")),
@@ -45,9 +38,9 @@ conditionList.add(EntityCondition.makeCondition("partyId", EntityOperator.EQUALS
 conditionList.add(EntityCondition.makeCondition("currencyUomId", EntityOperator.EQUALS, shoppingCart.getCurrency()));
 conditions = EntityCondition.makeCondition(conditionList, EntityOperator.AND);
 
-List selectedFields = UtilMisc.toSet("productId", "supplierProductId", "supplierProductName", "lastPrice", "minimumOrderQuantity");
+selectedFields = ["productId", "supplierProductId", "supplierProductName", "lastPrice", "minimumOrderQuantity"] as Set;
 selectedFields.add("availableFromDate");
 selectedFields.add("availableThruDate");
-productList = delegator.findList("SupplierProduct", conditions, selectedFields, UtilMisc.toList("productId"), null, false);
-productList = EntityUtil.filterByDate(productList, UtilDateTime.nowTimestamp(), "availableFromDate", "availableThruDate", true);
-context.put("productList", productList);
+productList = delegator.findList("SupplierProduct", conditions, selectedFields, ["productId"], null, false);
+
+context.productList = EntityUtil.filterByDate(productList, nowTimestamp, "availableFromDate", "availableThruDate", true);

@@ -171,7 +171,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleLookupBulkAddProduct"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/> <!-- 10 rows seems more appropriate given screen size, etc. -->
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/cart/LookupBulkAddProducts.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/cart/LookupBulkAddProducts.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderCatalogDecorator" location="component://order/widget/ordermgr/OrderEntryCommonScreens.xml">
@@ -186,7 +186,7 @@ under the License.
      <section>
             <actions>
                 <set field="title" value="Bulk Add Supplier Product"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/cart/LookupBulkAddSupplierProducts.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/cart/LookupBulkAddSupplierProducts.groovy"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
             </actions>

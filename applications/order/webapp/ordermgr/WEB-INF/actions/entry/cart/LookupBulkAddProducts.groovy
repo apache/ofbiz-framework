@@ -23,22 +23,18 @@ import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.condition.EntityFieldValue;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.base.util.UtilMisc;
 
-productId = request.getParameter("productId");
-if (productId == null) {
-    productId = "";
-}
+productId = request.getParameter("productId") ?: "";
 
-conditionList = new LinkedList();
-orConditionList = new LinkedList();
-mainConditionList = new LinkedList();
+conditionList = [];
+orConditionList = [];
+mainConditionList = [];
 
 //make sure the look up is case insensitive
 conditionList.add(EntityCondition.makeCondition(EntityFunction.UPPER(EntityFieldValue.makeFieldValue("productId")),
         EntityOperator.LIKE, productId.toUpperCase() + "%"));
 
-// do not include configurabl products
+// do not include configurable products
 conditionList.add(EntityCondition.makeCondition("productTypeId", EntityOperator.NOT_EQUAL, "AGGREGATED"));
 
 // no virtual products: note that isVirtual could be null, which in some databases is different than isVirtual != "Y".
@@ -54,7 +50,4 @@ mainConditionList.add(orConditions);
 mainConditionList.add(conditions);
 mainConditions = EntityCondition.makeCondition(mainConditionList, EntityOperator.AND);
 
-productList = delegator.findList("Product", mainConditions, UtilMisc.toSet("productId", "brandName", "internalName"), UtilMisc.toList("productId"), null, false);
-context.put("productList", productList);
-
-
+context.productList = delegator.findList("Product", mainConditions, ["productId", "brandName", "internalName"] as Set, ["productId"], null, false);
