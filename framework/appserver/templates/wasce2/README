@@ -104,3 +104,10 @@ by
     And last but not least you may appreciate http://docs.ofbiz.org/display/OFBIZ/FAQ+-+Tips+-+Tricks+-+Cookbook+-+HowTo#FAQ-Tips-Tricks-Cookbook-HowTo-HowtouseRMIwithoutSSL
 =======================================================================================================================================================
 
+Derby
+-----
+If you are using the embedded Derby database you should consider this.
+OFBiz creates 2 folders for the Derby Database under the runtime directory: ofbiz and ofbizolap, these contain all the setup data for OFBiz.
+If you run Geronimo, under your Geronimo bin directory you will see the 2 same directories. 
+But those will not contain any data as you are not running OFBiz with the necessary parameters (you are running Geronimo, not OFBiz). 
+Simply replace the 2 directories: ofbiz & ofbizolap in your Geronimo bin directory by the 2 directories from your OFBiz runtime directory.
