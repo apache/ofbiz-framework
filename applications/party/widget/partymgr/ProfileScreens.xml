@@ -40,25 +40,38 @@
                         <not><if-empty field-name="lookupPerson"/></not>
                     </condition>
                     <widgets>
-                        <screenlet title="${uiLabelMap.PartyPersonalInformation}" navigation-menu-name="personUpdate" collapsible="true" id="PartyPersonalInformationPanel">
-                        	<section>
-                        		<condition>
-                        			<if-has-permission permission="PARTYMGR" action="_GRP_UPDATE"/>
-                        		</condition>
-                        		<widgets>
-	                            	<include-menu name="personUpdate" location="component://party/widget/partymgr/PartyMenus.xml"/>
-                        		</widgets>
-                        	</section>
-                            <include-form name="ViewPartyPerson" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
-                            <section>
-                                <condition>
-                                    <not><if-empty field-name="partyNameHistoryList"/></not>
-                                </condition>
-                                <widgets>
-                                    <include-form name="ViewPartyPersonHistory" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
-                                </widgets>
-                            </section>
-                        </screenlet>
+                        <section>
+                            <condition>
+                                <if-has-permission permission="PARTYMGR" action="_GRP_UPDATE"/>
+                               </condition>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.PartyPersonalInformation}" navigation-menu-name="personUpdate" id="PartyPersonalInformationPanel">
+                                           <include-menu name="personUpdate" location="component://party/widget/partymgr/PartyMenus.xml"/>
+                                    <include-form name="ViewPartyPerson" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                    <section>
+                                        <condition>
+                                            <not><if-empty field-name="partyNameHistoryList"/></not>
+                                        </condition>
+                                        <widgets>
+                                            <include-form name="ViewPartyPersonHistory" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                            </widgets>
+                                    </section>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <screenlet title="${uiLabelMap.PartyPersonalInformation}" id="PartyPersonalInformationPanel">
+                                    <include-form name="ViewPartyPerson" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                    <section>
+                                        <condition>
+                                            <not><if-empty field-name="partyNameHistoryList"/></not>
+                                        </condition>
+                                        <widgets>
+                                            <include-form name="ViewPartyPersonHistory" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                        </widgets>
+                                    </section>
+                                </screenlet>
+                            </fail-widgets>
+                        </section>
                     </widgets>
                 </section>
                 <section>
@@ -66,25 +79,38 @@
                         <not><if-empty field-name="lookupGroup"/></not>
                     </condition>
                     <widgets>
-                        <screenlet title="${uiLabelMap.PartyPartyGroupInformation}" navigation-menu-name="groupUpdate" collapsible="true" id="PartyGroupInformationPanel">
-                        	<section>
-                        		<condition>
-                        			<if-has-permission permission="PARTYMGR" action="_GRP_UPDATE"/>
-                        		</condition>
-                        		<widgets>
-		                            <include-menu name="groupUpdate" location="component://party/widget/partymgr/PartyMenus.xml"/>
-                        		</widgets>
-                        	</section>
-                            <include-form name="ViewPartyGroup" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
-                            <section>
-                                <condition>
-                                    <not><if-empty field-name="partyNameHistoryList"/></not>
-                                </condition>
-                                <widgets>
-                                    <include-form name="ViewPartyGroupHistory" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
-                                </widgets>
-                            </section>
-                        </screenlet>
+                        <section>
+                            <condition>
+                                <if-has-permission permission="PARTYMGR" action="_GRP_UPDATE"/>
+                               </condition>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.PartyPartyGroupInformation}" navigation-menu-name="groupUpdate" id="PartyGroupInformationPanel">
+                                    <include-menu name="groupUpdate" location="component://party/widget/partymgr/PartyMenus.xml"/>
+                                    <include-form name="ViewPartyGroup" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                    <section>
+                                        <condition>
+                                            <not><if-empty field-name="partyNameHistoryList"/></not>
+                                        </condition>
+                                        <widgets>
+                                            <include-form name="ViewPartyGroupHistory" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                        </widgets>
+                                    </section>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <screenlet title="${uiLabelMap.PartyPartyGroupInformation}" id="PartyGroupInformationPanel">
+                                    <include-form name="ViewPartyGroup" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                    <section>
+                                        <condition>
+                                            <not><if-empty field-name="partyNameHistoryList"/></not>
+                                        </condition>
+                                        <widgets>
+                                            <include-form name="ViewPartyGroupHistory" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                        </widgets>
+                                    </section>
+                                </screenlet>
+                            </fail-widgets>
+                        </section>
                     </widgets>
                 </section>
             </widgets>
