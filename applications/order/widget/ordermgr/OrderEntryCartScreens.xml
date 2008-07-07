@@ -138,7 +138,7 @@ under the License.
 
                 <set field="title" value="Show Promotion Details"/>
                 <set field="productsummaryScreen" value="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#productsummary"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/cart/showPromotionDetails.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/cart/showPromotionDetails.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderEntryDecorator" location="component://order/widget/ordermgr/OrderEntryCommonScreens.xml">

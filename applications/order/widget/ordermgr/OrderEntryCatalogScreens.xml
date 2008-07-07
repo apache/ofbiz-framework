@@ -216,7 +216,7 @@ under the License.
                 
                 <set field="title-property" value="PageTitleAdvancedSearch"/>
                 <set field="headerItem" value="Advanced Search"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/advancedsearchoptions.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/advancedsearchoptions.groovy"/>
                 
                 <entity-condition entity-name="PartyRoleAndPartyDetail" list-name="supplerPartyRoleAndPartyDetails">
                     <condition-expr field-name="roleTypeId" value="SUPPLIER"/>
