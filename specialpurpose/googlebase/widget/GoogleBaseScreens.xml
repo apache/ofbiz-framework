@@ -137,7 +137,7 @@ under the License.
                 <entity-condition entity-name="ProdCatalog" list-name="prodCatalogs">
                     <order-by field-name="catalogName"/>
                 </entity-condition>  
-                <script location="component://product/webapp/catalog/WEB-INF/actions/find/advancedsearchoptions.bsh"/>
+                <script location="component://product/webapp/catalog/WEB-INF/actions/find/advancedsearchoptions.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFindDecorator">
