@@ -25,8 +25,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.regex.PatternSyntaxException;
 import java.util.TimeZone;
+import java.util.regex.PatternSyntaxException;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -47,8 +47,8 @@ import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.collections.ResourceBundleMapWrapper;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
-import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.finder.ByAndFinder;
 import org.ofbiz.entity.finder.ByConditionFinder;
 import org.ofbiz.entity.finder.EntityFinderUtil;
@@ -300,7 +300,7 @@ public abstract class ModelScreenAction implements Serializable {
             
             ResourceBundleMapWrapper existingPropMap = (ResourceBundleMapWrapper) this.mapNameAcsr.get(context);
             if (existingPropMap == null) {
-                this.mapNameAcsr.put(context, UtilProperties.getResourceBundleMap(resource, locale));
+                this.mapNameAcsr.put(context, UtilProperties.getResourceBundleMap(resource, locale, context));
             } else {
                 existingPropMap.addBottomResourceBundle(resource);
             }
@@ -310,7 +310,7 @@ public abstract class ModelScreenAction implements Serializable {
                 if (globalCtx != null) {
                     ResourceBundleMapWrapper globalExistingPropMap = (ResourceBundleMapWrapper) this.mapNameAcsr.get(globalCtx);
                     if (globalExistingPropMap == null) {
-                        this.mapNameAcsr.put(globalCtx, UtilProperties.getResourceBundleMap(resource, locale));
+                        this.mapNameAcsr.put(globalCtx, UtilProperties.getResourceBundleMap(resource, locale, context));
                     } else {
                         // is it the same object? if not add it in here too...
                         if (existingPropMap != globalExistingPropMap) {

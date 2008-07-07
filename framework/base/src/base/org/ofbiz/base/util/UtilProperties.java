@@ -503,6 +503,17 @@ public class UtilProperties implements java.io.Serializable {
         return new ResourceBundleMapWrapper(getResourceBundle(resource, locale));
     }
 
+    /** Returns the specified resource/properties file as a Map with the original
+     *  ResourceBundle in the Map under the key _RESOURCE_BUNDLE_
+     * @param resource The name of the resource - can be a file, class, or URL
+     * @param locale The locale that the given resource will correspond to
+     * @param context The screen rendering context
+     * @return Map containing all entries in The ResourceBundle
+     */
+    public static Map<String, Object> getResourceBundleMap(String resource, Locale locale, Map<String, Object> context) {
+        return new ResourceBundleMapWrapper(getResourceBundle(resource, locale), context);
+    }
+
     /** Returns the specified resource/properties file.<p>Note that this method
      * will return a Properties instance for the specified locale <em>only</em> -
      * if you need <a href="http://www.w3.org/International/">I18n</a> properties, then use

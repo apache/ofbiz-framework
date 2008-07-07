@@ -28,7 +28,7 @@ import java.util.ResourceBundle;
 import java.util.Set;
 
 import org.ofbiz.base.util.UtilProperties;
-
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 
 /**
  * Generic ResourceBundle Map Wrapper, given ResourceBundle allows it to be used as a Map
@@ -38,6 +38,7 @@ public class ResourceBundleMapWrapper implements Map<String, Object>, Serializab
     
     protected MapStack<String> rbmwStack;
     protected ResourceBundle initialResourceBundle;
+    protected Map<String, Object> context;
 
     protected ResourceBundleMapWrapper() {
         rbmwStack = MapStack.create();
@@ -51,8 +52,7 @@ public class ResourceBundleMapWrapper implements Map<String, Object>, Serializab
         this.rbmwStack = MapStack.create(initialInternalRbmWrapper);
     }
     
-    /**
-     * When creating new from a ResourceBundle the one passed to the constructor should be the most specific or local ResourceBundle, with more common ones pushed onto the stack progressively.
+    /** When creating new from a ResourceBundle the one passed to the constructor should be the most specific or local ResourceBundle, with more common ones pushed onto the stack progressively.
      */
     public ResourceBundleMapWrapper(ResourceBundle initialResourceBundle) {
         if (initialResourceBundle == null) {
@@ -60,6 +60,17 @@ public class ResourceBundleMapWrapper implements Map<String, Object>, Serializab
         }
         this.initialResourceBundle = initialResourceBundle;
         this.rbmwStack = MapStack.create(new InternalRbmWrapper(initialResourceBundle));
+    }
+    
+    /** When creating new from a ResourceBundle the one passed to the constructor should be the most specific or local ResourceBundle, with more common ones pushed onto the stack progressively.
+     */
+    public ResourceBundleMapWrapper(ResourceBundle initialResourceBundle, Map<String, Object> context) {
+        if (initialResourceBundle == null) {
+            throw new IllegalArgumentException("Cannot create ResourceBundleMapWrapper with a null initial ResourceBundle.");
+        }
+        this.initialResourceBundle = initialResourceBundle;
+        this.rbmwStack = MapStack.create(new InternalRbmWrapper(initialResourceBundle));
+        this.context = context;
     }
     
     /** Puts ResourceBundle on the BOTTOM of the stack (bottom meaning will be overriden by higher layers on the stack, ie everything else already there) */
@@ -107,6 +118,11 @@ public class ResourceBundleMapWrapper implements Map<String, Object>, Serializab
         Object value = this.rbmwStack.get(arg0);
         if (value == null) {
             value = arg0;
+        } else {
+            String str = (String) value;
+            if (str.contains("${") && context != null) {
+                return FlexibleStringExpander.expandString(str, context);
+            }
         }
         return value;
     }
@@ -114,7 +130,7 @@ public class ResourceBundleMapWrapper implements Map<String, Object>, Serializab
         return this.rbmwStack.isEmpty();
     }
     public Set<String> keySet() {
-        return this.keySet();
+        return this.rbmwStack.keySet();
     }
     public Object put(String key, Object value) {
         return this.rbmwStack.put(key, value);
