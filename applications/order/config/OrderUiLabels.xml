@@ -191,6 +191,7 @@
         <value xml:lang="en">Payment Information</value>
         <value xml:lang="es">Información del pago</value>
         <value xml:lang="fr">Information de paiement</value>
+        <value xml:lang="it">Informazioni pagamento</value>
         <value xml:lang="th">ข้อมูลการชำระเงิน</value>
     </property>
     <property key="AccountingPleaseSendPaymentTo">
@@ -851,7 +852,7 @@
     <property key="FormFieldTitle_orderDate">
         <value xml:lang="en">Order Date</value>
         <value xml:lang="fr">Date de commande</value>
-        <value xml:lang="it">Data Ordine</value>
+        <value xml:lang="it">Data ordine</value>
         <value xml:lang="nl">Bestel datum</value>
         <value xml:lang="ro">Data Comanda</value>
         <value xml:lang="ru">Дата заказа</value>
@@ -1917,6 +1918,10 @@
         <value xml:lang="zh_CN">(必须清空订单才能改变)</value>
         <value xml:lang="zh">(不清除订单的话不能修改。)</value>
     </property>
+    <property key="OrderCannotChangeQuantityInPromotion">
+        <value xml:lang="en">Sorry, you can't change the quantity on the promotion item ${productName} (product ID: ${productId}, not setting quantity.</value>
+        <value xml:lang="it">Spiacente, non puoi cambiare la quantità del prodotto in promozione ${productName} (product ID: ${productId}.</value>
+    </property>
     <property key="OrderCaptureService">
         <value xml:lang="en">Service capture</value>
         <value xml:lang="fr">Service de prélèvement</value>
@@ -2006,7 +2011,7 @@
         <value xml:lang="es">Ir a compras rápido</value>
         <value xml:lang="fr">Validation rapide</value>
         <value xml:lang="hi_IN">जल्द छोड़ें</value>
-        <value xml:lang="it">Chiusura Veloce</value>
+        <value xml:lang="it">Chiusura veloce</value>
         <value xml:lang="ja">クイックチェックアウト</value>
         <value xml:lang="nl">Snel afrekenen</value>
         <value xml:lang="ro">Inchidere Rapida</value>
@@ -2457,7 +2462,7 @@
         <value xml:lang="en">Current Status</value>
         <value xml:lang="es">Estado actual</value>
         <value xml:lang="fr">Statut Actuel</value>
-        <value xml:lang="it">Stato Attuale</value>
+        <value xml:lang="it">Stato attuale</value>
         <value xml:lang="nl">Huidige status</value>
         <value xml:lang="ro">Stare  Actual</value>
         <value xml:lang="ru">Текущий статус</value>
@@ -2518,7 +2523,7 @@
         <value xml:lang="en">Order Date</value>
         <value xml:lang="es">Fecha de la orden</value>
         <value xml:lang="fr">Date de la commande</value>
-        <value xml:lang="it">Data Ordine</value>
+        <value xml:lang="it">Data ordine</value>
         <value xml:lang="nl">Order Datum</value>
         <value xml:lang="ro">Data Comanda</value>
         <value xml:lang="ru">Дата заказа</value>
@@ -2531,7 +2536,7 @@
         <value xml:lang="en">Date Ordered</value>
         <value xml:lang="es">Fecha de la orden</value>
         <value xml:lang="fr">Date commandée</value>
-        <value xml:lang="it">Data Ordine</value>
+        <value xml:lang="it">Data ordine</value>
         <value xml:lang="nl">Bestel datum</value>
         <value xml:lang="ro">Data Comanda</value>
         <value xml:lang="ru">Date Ordered</value>
@@ -2570,6 +2575,10 @@
         <value xml:lang="th">จุดหมายปลายทาง</value>
         <value xml:lang="zh_CN">目的地</value>
         <value xml:lang="zh">目的地</value>
+    </property>
+    <property key="OrderDoNotHaveEnoughProducts">
+        <value xml:lang="en">Sorry, we do not have enough (you tried ${requestedQuantity}) of the product ${productName} (product ID: ${productId}) in stock, not adding to cart. Please try a lower quantity, try again later, or call customer service for more information.</value>
+        <value xml:lang="it">Spiacente, al momento non disponiamo in magazzino di ${requestedQuantity} pezzi del prodotto ${productName} (product ID: ${productId}), questi non saranno aggiunti al carrello. Puoi provare a richiedere una quantità minore, a riprovare più tardi, o contattare il servizio assistenza clienti.</value>
     </property>
     <property key="OrderDoPromotions">
         <value xml:lang="en">Run Promotions</value>
@@ -5162,7 +5171,7 @@
         <value xml:lang="en">Order Terms</value>
         <value xml:lang="es">Condiciones de la orden</value>
         <value xml:lang="fr">Conditions de commande</value>
-        <value xml:lang="it">Termini Ordine</value>
+        <value xml:lang="it">Condizioni d'ordine</value>
         <value xml:lang="nl">Bestelling Terms</value>
         <value xml:lang="ro">Termene Comenzi</value>
         <value xml:lang="ru">Условия заказа</value>
@@ -7263,7 +7272,7 @@
         <value xml:lang="en">Shipment Information</value>
         <value xml:lang="es">Información del envío</value>
         <value xml:lang="fr">Informations sur le contenu de l'expédition</value>
-        <value xml:lang="it">Informazioni Spedizione</value>
+        <value xml:lang="it">Informazioni spedizione</value>
         <value xml:lang="nl">Shipment Information</value>
         <value xml:lang="ro">Informatii Expediere</value>
         <value xml:lang="ru">Информация по поставке</value>
@@ -7883,7 +7892,7 @@
         <value xml:lang="es">Ver Carro</value>
         <value xml:lang="fr">Voir le panier</value>
         <value xml:lang="hi_IN">टोकरी देखें</value>
-        <value xml:lang="it">Visualizza carrello</value>
+        <value xml:lang="it">Vis. carrello</value>
         <value xml:lang="ja">買い物かごを見る</value>
         <value xml:lang="nl">Kijk in de winkelwagen</value>
         <value xml:lang="pt_PT">Ver o Cesto</value>
@@ -9108,7 +9117,7 @@
         <value xml:lang="en">Cart is empty.</value>
         <value xml:lang="es">El carro está vacío.</value>
         <value xml:lang="fr">Le panier est vide</value>
-        <value xml:lang="it">Carrello è vuoto.</value>
+        <value xml:lang="it">Il carrello è vuoto.</value>
         <value xml:lang="nl">Cart is empty.</value>
         <value xml:lang="ro">Cosul este gol.</value>
         <value xml:lang="ru">Корзина пустая.</value>
@@ -9656,7 +9665,7 @@
     <property key="item.notAvailable">
         <value xml:lang="en">I am sorry, not available at these dates: ${resultMessage} item not added to the shopping cart.....</value>
         <value xml:lang="fr">je suis désolé, pas disponible à ces dates: ${resultMessage}, article non ajouté au panier d'achats...</value>
-        <value xml:lang="it">Sono spiacente, nessuna disponibilità a queste date: ${resultMessage} prodotto non aggiunto al carrello.....</value>
+        <value xml:lang="it">Spiacente, nessuna disponibilità a queste date: ${resultMessage} prodotto non aggiunto al carrello.....</value>
         <value xml:lang="ro">Imi pare rau, nici-o disponibilitate la aceste date: ${resultMessage} produs neadaugat in cos.....</value>
         <value xml:lang="ru">Извините, не доступно в эти даты: ${resultMessage} позиция в корзину покупок не добавлена....</value>
         <value xml:lang="th">ขอโทษค่ะ, วันที่สิ่งนี้ไม่สามารใช้ได้: ${resultMessage} ไม่เพิ่มรายการในบัตรซื้อของ.....</value>

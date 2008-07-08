@@ -790,7 +790,7 @@
         <value xml:lang="es">Vía de pago</value>
         <value xml:lang="fr">Paiement Via</value>
         <value xml:lang="hi_IN">भुगतान मार्ग</value>
-        <value xml:lang="it">Con Pagamento</value>
+        <value xml:lang="it">Con pagamento</value>
         <value xml:lang="ja">Payment Via</value>
         <value xml:lang="nl">Betaling Via</value>
         <value xml:lang="pt_PT">Pagamento Via</value>
@@ -3711,7 +3711,7 @@
         <value xml:lang="es">Usted puede agregar otras direcciones de email separadas por coma aquí que serán utilizadas solamente para la compra actual</value>
         <value xml:lang="fr">Vous pouvez ajouter d'autre adresses courriel (séparées par des virgules) qui seront utilisées seulement pour cette commande.</value>
         <value xml:lang="hi_IN">कोमा (,) के अलग करके आप अपना एक से ज्यादा ईमेल पता डाल सकते हैं, जिस तरह से आपने डाला है उस तरह से उपयोग होगा</value>
-        <value xml:lang="it">Tu puoi aggiungere altri indirizzi email separati da virgola qui che sarà usato solamente per l'ordine attuale</value>
+        <value xml:lang="it">Puoi aggiungere altri indirizzi email separati da virgola qui, saranno usati solamente per l'ordine attuale</value>
         <value xml:lang="ja">You may add other comma separated email addresses here that will be used only for the current order</value>
         <value xml:lang="nl">U mag een aantal email adressen hier toevoegen gescheiden door een comma die alleen voor de huidige bestelling worden gebruikt</value>
         <value xml:lang="pt_PT">Você pode adicionar outros endereços de e-mail, separados por vírgulas, utilizados apenas para esta encomenda</value>
@@ -4351,7 +4351,7 @@
         <value xml:lang="es">No comprado todavía</value>
         <value xml:lang="fr">Pas encore commandé</value>
         <value xml:lang="hi_IN">अभी आर्डर नही हुआ</value>
-        <value xml:lang="it">Non Ancora Ordinato</value>
+        <value xml:lang="it">Non ancora ordinato</value>
         <value xml:lang="ja">Not Yet Ordered</value>
         <value xml:lang="nl">Nog niet besteld</value>
         <value xml:lang="pt_PT">Não foi ainda encomendado</value>
@@ -4847,7 +4847,7 @@
         <value xml:lang="es">Por favor Envíe El Pago A</value>
         <value xml:lang="fr">Envoyer le paiement à</value>
         <value xml:lang="hi_IN">भुगतान इसे दें</value>
-        <value xml:lang="it">Perfavore Inviare Pagamento A</value>
+        <value xml:lang="it">Prego inviare pagamento a</value>
         <value xml:lang="ja">Please Send Payment To</value>
         <value xml:lang="nl">Stuur de betaling naar:</value>
         <value xml:lang="pt_PT">Por Favor, Envie Pagamento Para</value>
@@ -4984,7 +4984,7 @@
         <value xml:lang="es">Instrucciones Especiales</value>
         <value xml:lang="fr">Instructions spéciales</value>
         <value xml:lang="hi_IN">ख़ास सूचना</value>
-        <value xml:lang="it">Istruzioni Speciali</value>
+        <value xml:lang="it">Istruzioni speciali</value>
         <value xml:lang="ja">Special Instructions</value>
         <value xml:lang="nl">Speciale instructies</value>
         <value xml:lang="pt_PT">Instruções Especiais</value>
@@ -5000,7 +5000,7 @@
         <value xml:lang="es">La orden espefificada no se encontró, por favor inténtelo de nuevo</value>
         <value xml:lang="fr">La commande spécifiée n'existe pas, réessayez</value>
         <value xml:lang="hi_IN">आपका आर्डर नही मिला, दुबारा कोशिश करें</value>
-        <value xml:lang="it">L'ordine specificato non è stato trovato, perfavore riprovare</value>
+        <value xml:lang="it">L'ordine specificato non è stato trovato, riprovare prego</value>
         <value xml:lang="ja">The specified order was not found, please try again</value>
         <value xml:lang="nl">De gespecificeerde bestalling was niet gevonden, probeer het opnieuw</value>
         <value xml:lang="pt_PT">A encomenda especificada não foi encontrada, por favor tente de novo</value>
@@ -5149,7 +5149,7 @@
         <value xml:lang="es">Puede actualizarlo en su</value>
         <value xml:lang="fr">Vous pouvez mettre à jour celle-ci dans votre</value>
         <value xml:lang="hi_IN">आप इनको अपडेट कर सकते हैं</value>
-        <value xml:lang="it">Tu potresti aggiornare questo nel tuo</value>
+        <value xml:lang="it">Puoi cambiarli accedendo al tuo</value>
         <value xml:lang="ja">Your may update these in your</value>
         <value xml:lang="nl">U kan deze aanpassen in uw</value>
         <value xml:lang="pt_PT">Você pode actualizar isto no seu</value>
@@ -6819,7 +6819,7 @@
         <value xml:lang="es">Direcciones de Email</value>
         <value xml:lang="fr">Adresses courriel</value>
         <value xml:lang="hi_IN">ईमेल पता</value>
-        <value xml:lang="it">Indirizzi Email</value>
+        <value xml:lang="it">Indirizzi email</value>
         <value xml:lang="ja">Email Addresses</value>
         <value xml:lang="nl">Email Adressen</value>
         <value xml:lang="pt_PT">Moradas de E-mail</value>
@@ -8614,6 +8614,7 @@
         <value xml:lang="en">Refine Search</value>
         <value xml:lang="es">Afinar búsqueda</value>
         <value xml:lang="fr">Affiner la recherche</value>
+        <value xml:lang="it">Raffina la ricerca</value>
         <value xml:lang="ja">Refine Search</value>
         <value xml:lang="nl">Zoeken verfijnen</value>
         <value xml:lang="th">ปรับปรุงการค้นหา</value>

@@ -305,7 +305,7 @@
         <value xml:lang="en">Purchase Order</value>
         <value xml:lang="es">Compra</value>
         <value xml:lang="fr">Achats</value>
-        <value xml:lang="it">Ordine di Acquisto</value>
+        <value xml:lang="it">Ordine di acquisto</value>
         <value xml:lang="ro">Cumparare</value>
         <value xml:lang="ru">Закупка</value>
         <value xml:lang="th">รายการการสั่งซื้อ</value>
@@ -315,7 +315,7 @@
         <value xml:lang="en">Sales Order</value>
         <value xml:lang="es">Venta</value>
         <value xml:lang="fr">Ventes</value>
-        <value xml:lang="it">Ordine di Vendita</value>
+        <value xml:lang="it">Ordine di vendita</value>
         <value xml:lang="ro">Vanzare</value>
         <value xml:lang="ru">Продажи</value>
         <value xml:lang="th">รายการขาย</value>

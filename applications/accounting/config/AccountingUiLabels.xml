@@ -4273,7 +4273,7 @@ esetata in mod automat</value>
         <value xml:lang="en">Order #</value>
         <value xml:lang="es">Orden #</value>
         <value xml:lang="fr">Commande #</value>
-        <value xml:lang="it">Ordine #</value>
+        <value xml:lang="it">Ordine n°</value>
         <value xml:lang="nl">Order #</value>
         <value xml:lang="ro">Comanda #</value>
         <value xml:lang="ru">Заказ №</value>
@@ -7234,7 +7234,7 @@ esetata in mod automat</value>
     </property>
     <property key="FormFieldTitle_orderDate">
         <value xml:lang="en">Order Date</value>
-        <value xml:lang="it">Data Ordine</value>
+        <value xml:lang="it">Data ordine</value>
         <value xml:lang="th">รายการสั่งซื้อวันที่</value>
     </property>
     <property key="FormFieldTitle_orderIdPrefix">

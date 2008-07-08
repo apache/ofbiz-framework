@@ -35,7 +35,7 @@
     </property>
     <property key="BusinessIntelligenceCurrentStatus">
         <value xml:lang="en">Current Status</value>
-        <value xml:lang="it">Stato Attuale</value>
+        <value xml:lang="it">Stato attuale</value>
         <value xml:lang="th">สถานะในปัจจุบัน</value>
     </property>
     <property key="BusinessIntelligenceFieldDescription">

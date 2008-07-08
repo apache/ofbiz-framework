@@ -4822,10 +4822,12 @@
     <property key="CommonSearchOptions">
         <value xml:lang="en">Search Options</value>
         <value xml:lang="fr">Options de la recherche</value>
+        <value xml:lang="it">Opzioni di ricerca</value>
     </property>
     <property key="CommonSearchResults">
         <value xml:lang="en">Search Results</value>
         <value xml:lang="fr">Résultats de la recherche</value>
+        <value xml:lang="it">Risultati ricerca</value>
     </property>
     <property key="CommonSearchResultfor">
         <value xml:lang="ar">نتائج البحث ل</value>
@@ -5522,7 +5524,7 @@
         <value xml:lang="en">Tell-A-Friend</value>
         <value xml:lang="es">Contar a un amigo</value>
         <value xml:lang="fr">Dites-le à un ami</value>
-        <value xml:lang="it">Dillo-Ad-un'Amico</value>
+        <value xml:lang="it">Invia questa pagina ad un amico</value>
         <value xml:lang="nl">stuur-aan-een-kennis</value>
         <value xml:lang="pt">Dizer-A-Amigo</value>
         <value xml:lang="ro">Spune-i unui Prieten</value>

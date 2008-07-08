@@ -973,7 +973,10 @@ public class ShoppingCartItem implements java.io.Serializable {
         }
 
         if (this.isPromo) {
-            throw new CartItemModifyException("Sorry, you can't change the quantity on the promotion item " + this.getName() + " (product ID: " + productId + "), not setting quantity.");
+            Map messageMap = UtilMisc.toMap("productName", this.getName(),
+                                            "productId",   productId);
+            String excMsg = UtilProperties.getMessage(resource, "OrderCannotChangeQuantityInPromotion", messageMap , cart.getLocale() );
+            throw new CartItemModifyException(excMsg);
         }
 
         // needed for inventory checking and auto-save
@@ -983,7 +986,10 @@ public class ShoppingCartItem implements java.io.Serializable {
             // check inventory if new quantity is greater than old quantity; don't worry about inventory getting pulled out from under, that will be handled at checkout time
             if (_product != null && quantity > this.quantity) {
                 if (!isInventoryAvailableOrNotRequired(quantity, productStoreId, dispatcher)) {
-                    String excMsg = "Sorry, we do not have enough (you tried " + UtilFormatOut.formatQuantity(quantity) + ") of the product " + this.getName() + " (product ID: " + productId + ") in stock, not adding to cart. Please try a lower quantity, try again later, or call customer service for more information.";
+                    Map messageMap = UtilMisc.toMap("requestedQuantity", UtilFormatOut.formatQuantity(quantity),
+                                                    "productName",       this.getName(),
+                                                    "productId",         productId);
+                    String excMsg = UtilProperties.getMessage(resource, "OrderDoNotHaveEnoughProducts", messageMap , cart.getLocale() );
                     Debug.logWarning(excMsg, module);
                     throw new CartItemModifyException(excMsg);
                 }

@@ -2240,7 +2240,7 @@
     <property key="FormFieldTitle_orderDate">
         <value xml:lang="en">Order Date</value>
         <value xml:lang="fr">Date de commande</value>
-        <value xml:lang="it">Data Ordine</value>
+        <value xml:lang="it">Data ordine</value>
         <value xml:lang="ro">Data Comanda</value>
         <value xml:lang="ru">Дата заказа</value>
         <value xml:lang="th">รายการสั่งซื้อวันที่</value>
@@ -8041,7 +8041,7 @@
         <value xml:lang="en">Create New Category</value>
         <value xml:lang="es">Crear nueva Categoría</value>
         <value xml:lang="fr">Création d'une nouvelle catégorie</value>
-        <value xml:lang="it">Creare Nuova Categoria</value>
+        <value xml:lang="it">Creare nuova categoria</value>
         <value xml:lang="ro">Creare Noua Categorie</value>
         <value xml:lang="ru">Новая категория</value>
         <value xml:lang="th">สร้างหมวดหมู่ใหม่</value>
@@ -8051,7 +8051,7 @@
         <value xml:lang="en">Create New Facility</value>
         <value xml:lang="es">Crear nuevo Almacén</value>
         <value xml:lang="fr">Création d'un nouveau lieu de stockage</value>
-        <value xml:lang="it">Creare Nuova Stabilimento</value>
+        <value xml:lang="it">Creare nuovo stabilimento</value>
         <value xml:lang="ro">Creare Nou Compartiment</value>
         <value xml:lang="ru">Создать новый объект</value>
         <value xml:lang="th">สร้างคลังสินค้าใหม่</value>
@@ -8061,7 +8061,7 @@
         <value xml:lang="en">Create New Feature</value>
         <value xml:lang="es">Crear nueva Característica</value>
         <value xml:lang="fr">Création d'une nouvelle caractéristique</value>
-        <value xml:lang="it">Creare Nuova Caratteristica</value>
+        <value xml:lang="it">Creare nuova caratteristica</value>
         <value xml:lang="ro">Creare Noua Caracteristica</value>
         <value xml:lang="ru">Создать новую особенность</value>
         <value xml:lang="th">สร้างลักษณะใหม่</value>
@@ -12560,6 +12560,10 @@
         <value xml:lang="th">นำมาใช้เท่านั้นถ้าอยู่ภายในระยะเวลา</value>
         <value xml:lang="zh">必须在范围内</value>
     </property>
+    <property key="ProductOnlyShowingFirstN">
+        <value xml:lang="en">NOTE: Only showing the first ${viewSize} of ${listSize} products. To view the rest, use the Products tab for this category.</value>
+        <value xml:lang="it">NOTA: Sono elencati solo ${viewSize} di ${listSize} prodotti. Per visualizzare gli altri, usa il pannello Prodotti di questa categoria.</value>
+    </property>
     <property key="ProductOpenQuantity">
         <value xml:lang="en">Open</value>
         <value xml:lang="fr">Ouvert</value>
@@ -15106,7 +15110,7 @@
         <value xml:lang="en">Rollup</value>
         <value xml:lang="es">Jerarquía</value>
         <value xml:lang="fr">Nomenclature</value>
-        <value xml:lang="it">Arrivo</value>
+        <value xml:lang="it">Gerarchia</value>
         <value xml:lang="ro">Sosire</value>
         <value xml:lang="ru">Иерархия</value>
         <value xml:lang="th">Rollup</value>
@@ -15116,7 +15120,7 @@
         <value xml:lang="en">Rollup</value>
         <value xml:lang="es">Jerarquía</value>
         <value xml:lang="fr">Nomencl.</value>
-        <value xml:lang="it">Arrivo</value>
+        <value xml:lang="it">Gerarchia</value>
         <value xml:lang="ro">Sosire</value>
         <value xml:lang="ru">Иерархия</value>
         <value xml:lang="th">Rollup</value>
