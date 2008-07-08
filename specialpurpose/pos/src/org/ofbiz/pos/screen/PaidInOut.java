@@ -46,6 +46,7 @@ public class PaidInOut extends XPage {
     /**
      * To allow creating or choising a reason for a PAID IN or OUT
      */
+    private static final String resource = "PosUiLabels";
     public static final String module = PaidInOut.class.getName();
     protected static PosScreen m_pos = null;
     protected XDialog m_dialog = null;
@@ -89,12 +90,12 @@ public class PaidInOut extends XPage {
         Enumeration reasonsKeys = null;
 
         if (m_type.equals("IN")) {
-            m_dialog.setCaption(UtilProperties.getMessage("PosUiLabels", "PaidInTitle", Locale.getDefault()));
+            m_dialog.setCaption(UtilProperties.getMessage(resource, "PaidInTitle", Locale.getDefault()));
             reasons = ResourceBundle.getBundle(m_pos.getScreenLocation() + "/dialog/PaidIn", Locale.getDefault());
             reasonsKeys = reasons.getKeys();
         }
         else { // OUT
-            m_dialog.setCaption(UtilProperties.getMessage("PosUiLabels", "PaidOutTitle", Locale.getDefault()));
+            m_dialog.setCaption(UtilProperties.getMessage(resource, "PaidOutTitle", Locale.getDefault()));
             reasons = ResourceBundle.getBundle(m_pos.getScreenLocation() + "/dialog/PaidOut", Locale.getDefault());
             reasonsKeys = reasons.getKeys();
         }
@@ -105,7 +106,7 @@ public class PaidInOut extends XPage {
             m_comboModel.addElement(val);
         }
         m_reasonsCombo.setModel(m_comboModel);
-        m_reasonsCombo.setToolTipText(UtilProperties.getMessage("PosUiLabels", "CreateOrChooseReasonInOut", Locale.getDefault()));
+        m_reasonsCombo.setToolTipText(UtilProperties.getMessage(resource, "CreateOrChooseReasonInOut", Locale.getDefault()));
 
         m_dialog.pack();
         m_reasonsCombo.requestFocusInWindow();

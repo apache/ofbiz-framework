@@ -28,6 +28,7 @@ import java.util.Locale;
 
 public class Output {
 
+    private static final String resource = "PosUiLabels";
     public static final String module = Output.class.getName();
 
     // login labels
@@ -45,12 +46,12 @@ public class Output {
 
     public void setLock(boolean lock) {
         if (lock) {
-            this.print(UtilProperties.getMessage("PosUiLabels","ULOGIN",defaultLocale));
+            this.print(UtilProperties.getMessage(resource,"ULOGIN",defaultLocale));
         } else {
             if (PosTransaction.getCurrentTx(session).isOpen()) {
-                this.print(UtilProperties.getMessage("PosUiLabels","ISOPEN",defaultLocale));
+                this.print(UtilProperties.getMessage(resource,"ISOPEN",defaultLocale));
             } else {
-                this.print(UtilProperties.getMessage("PosUiLabels","ISCLOSED",defaultLocale));
+                this.print(UtilProperties.getMessage(resource,"ISCLOSED",defaultLocale));
             }
         }
     }
