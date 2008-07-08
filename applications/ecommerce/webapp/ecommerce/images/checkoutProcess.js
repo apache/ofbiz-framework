@@ -21,8 +21,12 @@ Event.observe(window, 'load', function() {
 	// Cart
     var isCartStepValidate = false;
     var isShipStepValidate = false;
+    var isShipOptionStepValidate = false;
+    var isBillStepValidate = false;
     var validateCart = new Validation('cartForm', {immediate: true, onSubmit: false});
     var validateShip = new Validation('shippingForm', {immediate: true, onSubmit: false});
+    var validateShipOption = new Validation('shippingOptionForm', {immediate: true, onSubmit: false});
+    var validateBill = new Validation('billingForm', {immediate: true, onSubmit: false});    
     Event.observe($('editShipping'), 'click', function() {
         if (validateCart.validate()) {
             displayShippingPanel();
@@ -41,36 +45,50 @@ Event.observe(window, 'load', function() {
                 processShippingAddress();
                 displayShippingOptionPanel();
                 isShipStepValidate = true;
-            }    
-        }    
+            }
+        }
     });
 
     Event.observe($('openShippingPanel'), 'click', function() {
     	if (isCartStepValidate) {
-    	    if (isShipStepValidate) {
+            if (isShipStepValidate) {
                 displayShippingPanel();
-    	    }    
+            }
     	}
     });
 
     // Shipping Options
     Event.observe($('editBilling'), 'click', function() {
-        setShippingOption(); 
-        displayBillingPanel();
+        if (isCartStepValidate && isShipStepValidate) {
+            if (validateShipOption.validate()) {
+                setShippingOption(); 
+                displayBillingPanel();
+                isShipOptionStepValidate = true;
+            }
+        }    	
     });
 
     Event.observe($('openShippingOptionPanel'), 'click', function() {
-        displayShippingOptionPanel();
+        if (isCartStepValidate && isShipStepValidate && isShipOptionStepValidate) {
+            displayShippingOptionPanel();
+        }
     });
 
     // Billing
     Event.observe($('openBillingPanel'), 'click', function() {
-        displayBillingPanel();
+   	    if (isBillStepValidate) {
+            displayBillingPanel();
+        }  
     });
 
     Event.observe($('openOrderSubmitPanel'), 'click', function() {
-        processBillingAndPayment();
-        displayOrderSubmitPanel();
+        if (isCartStepValidate && isShipStepValidate && isShipOptionStepValidate) {
+            if (validateBill.validate()) {    	
+                processBillingAndPayment();
+                displayOrderSubmitPanel();
+                isBillStepValidate = true;
+            }
+        }
     });
     
     //  For Billing Address Same As Shipping

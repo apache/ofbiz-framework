@@ -361,13 +361,13 @@ under the License.
                             </div>
                             <div class="form-row">
                               <div class="field-label">
-                                <label for="state">${uiLabelMap.CommonState}<span>*</span></label>
+                                <label for="state">${uiLabelMap.CommonState}<span>*</span><span id="advice-required-shipToStateProvinceGeoId" style="display:none">(required)</span></label>
                               </div>
                               <div class="field-widget"> 
                                   <select name="shipToStateProvinceGeoId" id="shipToStateProvinceGeoId" class="required">
                                     <#if (parameters.shipToStateProvinceGeoId)?exists>
                                       <option>${parameters.shipToStateProvinceGeoId}</option>
-                                        <option value="${parameters.shipToStateProvinceGeoId}"</option>
+                                        <option value="${parameters.shipToStateProvinceGeoId}"></option>
                                     <#else>
                                       <option value="">${uiLabelMap.PartyNoState}</option>
                                     </#if>
@@ -505,7 +505,7 @@ under the License.
                     <tr><td>
                         <div class="form-row">
                           <div class="field-label">
-                            <label for="cardFirstname">${uiLabelMap.PartyFirstName}<span class="requiredLabel"> *</span><span id="advice-required-firstNameOnCard" class="custom-advice" style="display:none">(req)</span></label>
+                            <label for="cardFirstname">${uiLabelMap.PartyFirstName}<span>*</span><span id="advice-required-firstNameOnCard" style="display: none;">(required)</span></label>
                           </div>
                           <div class="field-widget">
                             <input id="firstNameOnCard" name="firstNameOnCard" class="required" type="text" value="${parameters.firstNameOnCard?if_exists}"/>
@@ -513,7 +513,7 @@ under the License.
                         </div>
                         <div class="form-row">
                           <div class="field-label">
-                            <label for="cardLastName">${uiLabelMap.PartyLastName}<span class="requiredLabel"> *</span><span id="advice-required-lastNameOnCard" class="custom-advice" style="display:none">(req)</span></label>
+                            <label for="cardLastName">${uiLabelMap.PartyLastName}<span>*</span><span id="advice-required-lastNameOnCard" style="display: none;">(required)</span></label>
                           </div>
                           <div class="field-widget">
                             <input id="lastNameOnCard" name="lastNameOnCard" class="required" type="text" value="${parameters.lastNameOnCard?if_exists}"/>
@@ -521,31 +521,31 @@ under the License.
                         </div>
                         <div class="form-row">
                           <div class="field-label">
-                            <label for="cardNumber">${uiLabelMap.AccountingCardNumber} (no spaces)<span class="requiredLabel"> *</span><span id="advice-required-cardNumber" class="custom-advice" style="display:none">(req)</span><span id="advice-validate-creditcard-cardNumber" class="custom-advice" style="display:none">(req)</span></label>
+                            <label for="cardNumber">${uiLabelMap.AccountingCardNumber}<span>*</span><span id="advice-required-cardNumber" style="display: none;">(required)</span></label>
                           </div>
                           <div class="field-widget">
-                            <input id="cardNumber" autocomplete="off" name="cardNumber" class="validate-creditcard" type="text" value="${parameters.cardNumber?if_exists}" size=30 maxlength=16  />
+                            <input id="cardNumber" autocomplete="off" name="cardNumber" class="required" type="text" value="${parameters.cardNumber?if_exists}" size=30 maxlength=16  />
                           </div>
                         </div>
                         <div class="form-row">
                           <div class="field-label">
-                            <label for="CVV2">CVV2 (no spaces)<span class="requiredLabel"> *</span><span id="advice-required-cardNumber" class="custom-advice" style="display:none">(req)</span><span id="advice-validate-creditcard-cardNumber" class="custom-advice" style="display:none">(req)</span></label>
+                            <label for="CVV2">CVV2<span>*</span><span id="advice-required-CVV2" style="display:none">(required)</span></label>
                           </div>
                           <div class="field-widget">
-                            <input id="CVV2" autocomplete="off" name="cardSecurityCode" class="required validate-cvv2" size="4" type="text" maxlength="4" value=""/>
+                            <input id="CVV2" autocomplete="off" name="cardSecurityCode" class="required" size="4" type="text" maxlength="4" value=""/>
                           </div>
                         </div>
                         <div class="form-row">
                           <div class="field-label">
-                            <label for="expirationdate">${uiLabelMap.AccountingExpirationDate}<span class="requiredLabel"> *</span><span id="advice-validate-creditcard-expiration-expMonth" class="custom-advice" style="display:none">(required)</span></label>
+                            <label for="expirationdate">${uiLabelMap.AccountingExpirationDate}<span>*</span><span id="advice-validate-expMonth" class="custom-advice" style="display:none">(required)</span></label>
                           </div>
                         </div>
                         <div class="form-row">
                           <span>
-                            <label for="expMonth">Month</label>
+                            <label for="expMonth">${uiLabelMap.CommonMonth}:<span>*</span><span id="advice-required-expMonth" style="display:none">(required)</span></label>
                           </span>
                           <span>
-                            <label for="expYear">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Year</label>
+                            <label for="expYear">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${uiLabelMap.CommonYear}:<span>*</span><span id="advice-required-expYear" style="display:none">(required)</span></label>
                           </span>
                           <br>
                           <span>
@@ -574,7 +574,7 @@ under the License.
                         <div id="billingAddress" <#if parameters.useShippingAddressForBilling?has_content && parameters.useShippingAddressForBilling?default("")=="Y">style="display:none"</#if>>
                           <div class="form-row">
                             <div class="field-label">
-                              <label for="address1">${uiLabelMap.PartyAddressLine1}<span class="requiredLabel"> *</span><span id="advice-required-billToAddress1" class="custom-advice" style="display:none">(required)</span></label>
+                              <label for="address1">${uiLabelMap.PartyAddressLine1}<span> *</span><span id="advice-required-billToAddress1" style="display:none">(required)</span></label>
                             </div>
                             <div class="field-widget">
                               <input id="billToAddress1" name="billToAddress1" class="required" size=30 type="text" value="${parameters.billToAddress1?if_exists}"/>
@@ -590,7 +590,7 @@ under the License.
                           </div>
                           <div class="form-row">
                             <div class="field-label">                
-                              <label for="city">${uiLabelMap.CommonCity}<span class="requiredLabel"> *</span><span id="advice-required-billToCity" class="custom-advice" style="display:none">(required)</span></label>
+                              <label for="city">${uiLabelMap.CommonCity}<span>*</span><span id="advice-required-billToCity" style="display:none">(required)</span></label>
                             </div>
                             <div class="field-widget">
                               <input id="billToCity" name="billToCity" class="required" type="text" value="${parameters.billToCity?if_exists}"/>
@@ -598,7 +598,7 @@ under the License.
                           </div>
                           <div class="form-row">
                             <div class="field-label">
-                               <label for="state">${uiLabelMap.CommonState}<span class="requiredLabel"> *</span></label>
+                               <label for="state">${uiLabelMap.CommonState}<span>*</span><span id="advice-required-billToStateProvinceGeoId" style="display:none">(required)</span></label>
                             </div>
                             <div class="field-widget"> 
                               <select id="billToStateProvinceGeoId" name="billToStateProvinceGeoId" class="required">
@@ -614,15 +614,15 @@ under the License.
                           </div>
                           <div class="form-row">
                             <div class="field-label">
-                              <label for="billToPostalCode">${uiLabelMap.PartyZipCode}<span class="requiredLabel"> *</span><span id="advice-required-billToPostalCode" class="custom-advice" style="display:none">(required)</span><span id="advice-validate-billToPostalCode" class="custom-advice" style="display:none">(required)</span></label>   
+                              <label for="billToPostalCode">${uiLabelMap.PartyZipCode}<span>*</span><span id="advice-required-billToPostalCode" style="display:none">(required)</span></label>   
                             </div>
                             <div class="field-widget">
-                              <input id="billToPostalCode" name="billToPostalCode" class="required validate-zip input_mask mask_zip" type="text" value="${parameters.billToPostalCode?if_exists}"/>
+                              <input id="billToPostalCode" name="billToPostalCode" class="required" type="text" value="${parameters.billToPostalCode?if_exists}"/>
                             </div>
                           </div>
                           <div class="form-row">
                             <div class="field-label">
-                              <label for="billToCountryGeoId">${uiLabelMap.PartyCountry}<span class="requiredLabel"> *</span></label>
+                              <label for="billToCountryGeoId">${uiLabelMap.PartyCountry}<span>*</span><span id="advice-required-billToCountryGeoId" style="display:none">(required)</span></label>
                             </div>
                             <div class="field-widget">
                               <select name="billToCountryGeoId" id="billToCountryGeoId" class="required">
