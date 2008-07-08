@@ -636,9 +636,9 @@ under the License.
           <div id="" class="screenlet">
             <div class="screenlet-header"><div class="boxhead" align="left">Step 5: Submit Order</div></div>
             <div id="orderSubmitPanel" style="display: none;">
-              <form name="orderSubmitForm" id="orderSubmitForm" action="<@ofbizUrl></@ofbizUrl>" method="post">
+              <form name="orderSubmitForm" id="orderSubmitForm" action="<@ofbizUrl>onePageProcessOrder</@ofbizUrl>" method="post">
+                <div align="right"><input type="button" name="processButton" value="${uiLabelMap.OrderSubmitOrder}" class="mediumSubmit"></div>
               </form>
-              <div align="right"><h3><span class="editStep"><a href="javascript:void(0);" id=""><h3>Submit Order.</h3></a></span></h3></div>  
             </div>
           </div>
         </div>
