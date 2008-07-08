@@ -19,8 +19,13 @@
  
 Event.observe(window, 'load', function() {
 	// Cart
+    var isCartStepValidate = false;
+    var validateCart = new Validation('cartForm', {immediate: true, onSubmit: false});	
     Event.observe($('editShipping'), 'click', function() {
-        displayShippingPanel();
+        if (validateCart.validate()) {
+            displayShippingPanel();
+            isCartStepValidate = true;
+        }
     });
 
     Event.observe($('openCartPanel'), 'click', function() {
@@ -327,12 +332,12 @@ function cartItemQtyChanged(event) {
     var elementId = qtyElement.id;
     var productIdElementId = elementId.sub('qty_', 'cartLineProductId_');
     var productId = $(productIdElementId).value;
-    if (qtyElement.value >= 0) {
-        if ((event.keyCode > 47 && event.keyCode < 58) || (event.keyCode > 95 && event.keyCode < 106)) {
-            var itemIndex = getProductLineItemIndex(event, productId);
-            var formValues = $('cartForm').serialize();
-            updateCartData(elementId, formValues, qtyElement.value, itemIndex);
-        }
+    if (qtyElement.value >= 0 && !isNaN(qtyElement.value)) {
+        var itemIndex = getProductLineItemIndex(event, productId);
+        var formValues = $('cartForm').serialize();
+        updateCartData(elementId, formValues, qtyElement.value, itemIndex);
+    } else {
+    	qtyElement.value = "";	
     }
 }
 

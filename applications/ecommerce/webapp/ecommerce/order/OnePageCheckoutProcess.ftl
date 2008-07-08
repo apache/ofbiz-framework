@@ -157,8 +157,15 @@ under the License.
                                     ${cartLine.getQuantity()?string.number}
                                   <#else>
                                     <input type="hidden" name="cartLineProductId" id="cartLineProductId_${cartLineIndex}" value="${cartLine.getProductId()}">
-                                    <input size="2" id="qty_${cartLineIndex}" type="text" name="update_${cartLineIndex}" value="${cartLine.getQuantity()?string.number}">
-                                  </#if> 
+                                    <div>
+                                      <label for="qty_${cartLineIndex}">
+                                        <span id="advice-required-qty_${cartLineIndex}" style="display:none;">Quantity required.</span>
+                                      </label>
+                                      <span>
+                                        <input type="text" name="update_${cartLineIndex}" id="qty_${cartLineIndex}" value="${cartLine.getQuantity()?string.number}" size="2" class="required validate-number"><span>*</span>
+                                      </span>
+                                    </div>
+                                  </#if>
                                 </td>
                                 <#if cartLine.getIsPromo()>
                                   <td  style="padding: 6px;" align="center" valign="top">FREE</td>
@@ -645,19 +652,21 @@ under the License.
       </#if>
 
       <div id="emptyCartCheckoutPanel" align="center" <#if shoppingCart?has_content && shoppingCart.size() gt 0> style="display: none; border: 1px solid #333333; height: auto;"</#if>>
-        <div>${uiLabelMap.OrderCheckout}</div>
         <div>
-          <div><span style="display: none"><a href="javascript:void(0);"><img src="<@ofbizContentUrl></@ofbizContentUrl>"></a></span></div>
-          <div>STEP 1: Confirm Totals</div><br>
+          <div class="screenlet-header"><div class="boxhead" align="left">Step 1: ${uiLabelMap.PageTitleShoppingCart}</div></div><br/>
           <div>You currently have no items in your cart. Click <a href="<@ofbizUrl>main</@ofbizUrl>">here</a> to view our products.</div>
-        </div>
+        </div><br/>
         <div>
-          <div><span style="display: none"><a href="javascript:void(0);"><img src="<@ofbizContentUrl></@ofbizContentUrl>"></a></span></div>
-          <div>STEP 2: Shipping</div>
-        </div>
+          <div class="screenlet-header"><div class="boxhead" align="left">Step 2: Shipping</div></div>
+        </div><br/>
         <div>
-          <div><span style="display: none"><a href="javascript:void(0);"><img src="<@ofbizContentUrl></@ofbizContentUrl>"></a></span></div>
-          <div>STEP 3: Billing</div>          
+          <div class="screenlet-header"><div class="boxhead" align="left">Step 3: Shipping Options</div></div>
+        </div><br/>
+        <div>
+          <div class="screenlet-header"><div class="boxhead" align="left">Step 4: Billing</div></div>
+        </div><br/>
+        <div>
+          <div class="screenlet-header"><div class="boxhead" align="left">Step 5: Submit Order</div></div>
         </div>
       </div>
     </div>
