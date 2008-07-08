@@ -214,25 +214,25 @@ public class PosScreen extends XPage implements Runnable, DialogCallback, FocusL
             operator.refresh();
             if (updateOutput) {
                 if (input.isFunctionSet("PAID")) {
-                    output.print(UtilProperties.getMessage("pos","CHANGE",defaultLocale)
+                    output.print(UtilProperties.getMessage("PosUiLabels","CHANGE",defaultLocale)
                             + UtilFormatOut.formatPrice(trans.getTotalDue() * -1));
                 } else if (input.isFunctionSet("TOTAL")) {
                     if (trans.getTotalDue() > 0) {
-                        output.print(UtilProperties.getMessage("pos","TOTALD",defaultLocale) + " " + UtilFormatOut.formatPrice(trans.getTotalDue()));
+                        output.print(UtilProperties.getMessage("PosUiLabels","TOTALD",defaultLocale) + " " + UtilFormatOut.formatPrice(trans.getTotalDue()));
                     } else {
-                        output.print(UtilProperties.getMessage("pos","PAYFIN",defaultLocale));
+                        output.print(UtilProperties.getMessage("PosUiLabels","PAYFIN",defaultLocale));
                     }
                 } else {
                     if (PosTransaction.getCurrentTx(session).isOpen()) {
-                        output.print(UtilProperties.getMessage("pos","ISOPEN",defaultLocale));
+                        output.print(UtilProperties.getMessage("PosUiLabels","ISOPEN",defaultLocale));
                     } else {
-                        output.print(UtilProperties.getMessage("pos","ISCLOSED",defaultLocale));
+                        output.print(UtilProperties.getMessage("PosUiLabels","ISCLOSED",defaultLocale));
                     }
                 }
             }
             //journal.focus();
         } else {
-            output.print(UtilProperties.getMessage("pos","ULOGIN",defaultLocale));
+            output.print(UtilProperties.getMessage("PosUiLabels","ULOGIN",defaultLocale));
             //input.focus();
         }
 

@@ -776,14 +776,14 @@ public class PosTransaction implements Serializable {
         cart.setOrderPartyId(partyId);
 
         // validate payment methods
-        output.print(UtilProperties.getMessage("pos","Validating",defaultLocale));
+        output.print(UtilProperties.getMessage("PosUiLabels","Validating",defaultLocale));
         Map valRes = ch.validatePaymentMethods();
         if (valRes != null && ServiceUtil.isError(valRes)) {
             throw new GeneralException(ServiceUtil.getErrorMessage(valRes));
         }
 
         // store the "order"
-        output.print(UtilProperties.getMessage("pos","Saving",defaultLocale));
+        output.print(UtilProperties.getMessage("PosUiLabels","Saving",defaultLocale));
         Map orderRes = ch.createOrder(session.getUserLogin());
         //Debug.log("Create Order Resp : " + orderRes, module);
 
@@ -794,7 +794,7 @@ public class PosTransaction implements Serializable {
         }
 
         // process the payment(s)
-        output.print(UtilProperties.getMessage("pos","Processing",defaultLocale));
+        output.print(UtilProperties.getMessage("PosUiLabels","Processing",defaultLocale));
         Map payRes = null;
         try {
             payRes = ch.processPayment(ProductStoreWorker.getProductStore(productStoreId, session.getDelegator()), session.getUserLogin(), true);
@@ -811,7 +811,7 @@ public class PosTransaction implements Serializable {
         double change = (grandTotal - paymentAmt);
 
         // notify the change due
-        output.print(UtilProperties.getMessage("pos","CHANGE",defaultLocale) + " " + UtilFormatOut.formatPrice(this.getTotalDue() * -1));
+        output.print(UtilProperties.getMessage("PosUiLabels","CHANGE",defaultLocale) + " " + UtilFormatOut.formatPrice(this.getTotalDue() * -1));
 
         // threaded drawer/receipt printing
         final PosTransaction currentTrans = this;
@@ -921,7 +921,7 @@ public class PosTransaction implements Serializable {
                     // append the promo info
                     XModel promo = Journal.appendNode(model, "tr", "itemadjustment", "");
                     Journal.appendNode(promo, "td", "sku", "");
-                    Journal.appendNode(promo, "td", "desc", UtilProperties.getMessage("pos","(ItemDiscount)",defaultLocale));
+                    Journal.appendNode(promo, "td", "desc", UtilProperties.getMessage("PosUiLabels","(ItemDiscount)",defaultLocale));
                     Journal.appendNode(promo, "td", "qty", "");
                     Journal.appendNode(promo, "td", "price", UtilFormatOut.formatPrice(adjustment));
                 }
@@ -960,7 +960,7 @@ public class PosTransaction implements Serializable {
                     XModel adjustmentLine = Journal.appendNode(model, "tr", "adjustment", "");
                     Journal.appendNode(adjustmentLine, "td", "sku", "");
                     Journal.appendNode(adjustmentLine, "td", "desc", 
-                            UtilProperties.getMessage("pos", "(SalesDiscount)",defaultLocale));
+                            UtilProperties.getMessage("PosUiLabels", "(SalesDiscount)",defaultLocale));
                     if (UtilValidate.isNotEmpty(amount)) {
                         Journal.appendNode(adjustmentLine, "td", "qty", "");
                         Journal.appendNode(adjustmentLine, "td", "price", UtilFormatOut.formatPrice(amount));
@@ -977,14 +977,14 @@ public class PosTransaction implements Serializable {
             XModel taxLine = Journal.appendNode(model, "tr", "tax", "");
             Journal.appendNode(taxLine, "td", "sku", "");
 
-            Journal.appendNode(taxLine, "td", "desc", UtilProperties.getMessage("pos","Sales_Tax",defaultLocale));
+            Journal.appendNode(taxLine, "td", "desc", UtilProperties.getMessage("PosUiLabels","Sales_Tax",defaultLocale));
             Journal.appendNode(taxLine, "td", "qty", "");
             Journal.appendNode(taxLine, "td", "price", UtilFormatOut.formatPrice(taxAmount));
             Journal.appendNode(taxLine, "td", "index", "-1");
             
             XModel totalLine = Journal.appendNode(model, "tr", "total", "");
             Journal.appendNode(totalLine, "td", "sku", "");
-            Journal.appendNode(totalLine, "td", "desc", UtilProperties.getMessage("pos","Grand_Total",defaultLocale));
+            Journal.appendNode(totalLine, "td", "desc", UtilProperties.getMessage("PosUiLabels","Grand_Total",defaultLocale));
             Journal.appendNode(totalLine, "td", "qty", "");
             Journal.appendNode(totalLine, "td", "price", UtilFormatOut.formatPrice(total));
             Journal.appendNode(totalLine, "td", "index", "-1");

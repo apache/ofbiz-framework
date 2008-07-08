@@ -86,11 +86,11 @@ public class SecurityEvents {
         String text = input.value();
         if (func != null && func[0].equals(loginFunc)) {
             if (UtilValidate.isEmpty(func[1]) && UtilValidate.isEmpty(text)) {
-                output.print(UtilProperties.getMessage("pos","ULOGIN",Locale.getDefault()));
+                output.print(UtilProperties.getMessage("PosUiLabels","ULOGIN",Locale.getDefault()));
                 input.setFunction(loginFunc);
                 input.setPasswordInput( false);
             } else if (UtilValidate.isEmpty(func[1])) {
-                output.print(UtilProperties.getMessage("pos","UPASSW",Locale.getDefault()));
+                output.print(UtilProperties.getMessage("PosUiLabels","UPASSW",Locale.getDefault()));
                 input.setFunction(loginFunc);
                 input.setPasswordInput( true);
             } else {
@@ -105,7 +105,7 @@ public class SecurityEvents {
                     } catch (XuiSession.UserLoginFailure e) {
                         input.clear();
                         input.setFunction(loginFunc);
-                        output.print(e.getMessage() + " " +  UtilProperties.getMessage("pos","ULOGIN",Locale.getDefault()));
+                        output.print(e.getMessage() + " " +  UtilProperties.getMessage("PosUiLabels","ULOGIN",Locale.getDefault()));
                     }
                     if (passed) {
                         input.clear();
@@ -124,7 +124,7 @@ public class SecurityEvents {
                     if (mgrUl != null) {
                         boolean isMgr = session.hasRole(mgrUl, "MANAGER");
                         if (!isMgr) {
-                            output.print(UtilProperties.getMessage("pos","UserNotmanager",Locale.getDefault()));
+                            output.print(UtilProperties.getMessage("PosUiLabels","UserNotmanager",Locale.getDefault()));
                             input.clear();
                         } else {
                             ManagerEvents.mgrLoggedIn = true;

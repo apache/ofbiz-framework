@@ -70,7 +70,7 @@ public class ManagerEvents {
         }
 
         if (sku == null) {
-            pos.getOutput().print(UtilProperties.getMessage("pos","Invalid_Selection",Locale.getDefault()));
+            pos.getOutput().print(UtilProperties.getMessage("PosUiLabels","Invalid_Selection",Locale.getDefault()));
             pos.getJournal().refresh(pos);
             pos.getInput().clear();
         }
@@ -144,7 +144,7 @@ public class ManagerEvents {
             } else {
                 input.clear();
                 input.setFunction("OPEN");
-                pos.getOutput().print(UtilProperties.getMessage("pos","OPDRAM",Locale.getDefault()));
+                pos.getOutput().print(UtilProperties.getMessage("PosUiLabels","OPDRAM",Locale.getDefault()));
                 return;
             }
         } else {
@@ -190,19 +190,19 @@ public class ManagerEvents {
             }
             switch (closeInfo.length) {
                 case 0:
-                    output.print(UtilProperties.getMessage("pos","ENTCAS",Locale.getDefault()));
+                    output.print(UtilProperties.getMessage("PosUiLabels","ENTCAS",Locale.getDefault()));
                     break;
                 case 1:
-                    output.print(UtilProperties.getMessage("pos","ENTCHK",Locale.getDefault()));
+                    output.print(UtilProperties.getMessage("PosUiLabels","ENTCHK",Locale.getDefault()));
                     break;
                 case 2:
-                    output.print(UtilProperties.getMessage("pos","ENTCRC",Locale.getDefault()));
+                    output.print(UtilProperties.getMessage("PosUiLabels","ENTCRC",Locale.getDefault()));
                     break;
                 case 3:
-                    output.print(UtilProperties.getMessage("pos","ENTGFC",Locale.getDefault()));
+                    output.print(UtilProperties.getMessage("PosUiLabels","ENTGFC",Locale.getDefault()));
                     break;
                 case 4:
-                    output.print(UtilProperties.getMessage("pos","ENTOTH",Locale.getDefault()));
+                    output.print(UtilProperties.getMessage("PosUiLabels","ENTOTH",Locale.getDefault()));
                     break;
                 case 5:
                     GenericValue state = trans.getTerminalState();
@@ -231,7 +231,7 @@ public class ManagerEvents {
                     }
 
                     // print the totals report
-                    output.print(UtilProperties.getMessage("pos","WaitingFinalSales",Locale.getDefault()));
+                    output.print(UtilProperties.getMessage("PosUiLabels","WaitingFinalSales",Locale.getDefault()));
                     //pos.showDialog("dialog/error/terminalclosed"); JLR 14/11/06 : Pb with that don't know why, useless => commented out
                     printTotals(pos, state, true);
 
@@ -266,7 +266,7 @@ public class ManagerEvents {
             trans.popDrawer();
             input.clear();
             input.setFunction("CLOSE");
-            output.print(UtilProperties.getMessage("pos","ENTCAS",Locale.getDefault()));
+            output.print(UtilProperties.getMessage("PosUiLabels","ENTCAS",Locale.getDefault()));
         }
     }
 
@@ -342,7 +342,7 @@ public class ManagerEvents {
             }
         } else {
             input.setFunction("VOID");
-            output.print(UtilProperties.getMessage("pos","VOID",Locale.getDefault()));
+            output.print(UtilProperties.getMessage("PosUiLabels","VOID",Locale.getDefault()));
         }
     }
 
@@ -387,7 +387,7 @@ public class ManagerEvents {
         if (!mgrLoggedIn) {
             pos.showDialog("dialog/error/mgrnotloggedin");
         } else {
-            pos.getOutput().print(UtilProperties.getMessage("pos","Shutting_down",Locale.getDefault()));
+            pos.getOutput().print(UtilProperties.getMessage("PosUiLabels","Shutting_down",Locale.getDefault()));
             PosTransaction.getCurrentTx(pos.getSession()).closeTx();
             System.exit(0);
         }
@@ -525,18 +525,18 @@ public class ManagerEvents {
         String reportTemplate = "totals.txt";
 
         // miscellaneous
-        reportMap.put("term", UtilFormatOut.padString(UtilProperties.getMessage("pos","term",Locale.getDefault()), 20, false, ' '));
-        reportMap.put("draw", UtilFormatOut.padString(UtilProperties.getMessage("pos","draw",Locale.getDefault()), 20, false, ' '));
-        reportMap.put("clerk", UtilFormatOut.padString(UtilProperties.getMessage("pos","clerk",Locale.getDefault()), 20, false, ' '));
-        reportMap.put("total_report", UtilFormatOut.padString(UtilProperties.getMessage("pos","total_report",Locale.getDefault()), 20, false, ' '));
+        reportMap.put("term", UtilFormatOut.padString(UtilProperties.getMessage("PosUiLabels","term",Locale.getDefault()), 20, false, ' '));
+        reportMap.put("draw", UtilFormatOut.padString(UtilProperties.getMessage("PosUiLabels","draw",Locale.getDefault()), 20, false, ' '));
+        reportMap.put("clerk", UtilFormatOut.padString(UtilProperties.getMessage("PosUiLabels","clerk",Locale.getDefault()), 20, false, ' '));
+        reportMap.put("total_report", UtilFormatOut.padString(UtilProperties.getMessage("PosUiLabels","total_report",Locale.getDefault()), 20, false, ' '));
 
         // titles
-        reportMap.put("cashTitle", UtilFormatOut.padString(UtilProperties.getMessage("pos","CASH",Locale.getDefault()), 20, false, ' '));
-        reportMap.put("checkTitle", UtilFormatOut.padString(UtilProperties.getMessage("pos","CHECK",Locale.getDefault()), 20, false, ' '));
-        reportMap.put("giftCardTitle", UtilFormatOut.padString(UtilProperties.getMessage("pos","GIFT_CARD",Locale.getDefault()), 20, false, ' '));
-        reportMap.put("creditCardTitle", UtilFormatOut.padString(UtilProperties.getMessage("pos","CREDIT_CARD",Locale.getDefault()), 20, false, ' '));
-        reportMap.put("otherTitle", UtilFormatOut.padString(UtilProperties.getMessage("pos","OTHER",Locale.getDefault()), 20, false, ' '));
-        reportMap.put("grossSalesTitle", UtilFormatOut.padString(UtilProperties.getMessage("pos","GROSS_SALES",Locale.getDefault()), 20, false, ' '));
+        reportMap.put("cashTitle", UtilFormatOut.padString(UtilProperties.getMessage("PosUiLabels","CASH",Locale.getDefault()), 20, false, ' '));
+        reportMap.put("checkTitle", UtilFormatOut.padString(UtilProperties.getMessage("PosUiLabels","CHECK",Locale.getDefault()), 20, false, ' '));
+        reportMap.put("giftCardTitle", UtilFormatOut.padString(UtilProperties.getMessage("PosUiLabels","GIFT_CARD",Locale.getDefault()), 20, false, ' '));
+        reportMap.put("creditCardTitle", UtilFormatOut.padString(UtilProperties.getMessage("PosUiLabels","CREDIT_CARD",Locale.getDefault()), 20, false, ' '));
+        reportMap.put("otherTitle", UtilFormatOut.padString(UtilProperties.getMessage("PosUiLabels","OTHER",Locale.getDefault()), 20, false, ' '));
+        reportMap.put("grossSalesTitle", UtilFormatOut.padString(UtilProperties.getMessage("PosUiLabels","GROSS_SALES",Locale.getDefault()), 20, false, ' '));
         reportMap.put("+/-", UtilFormatOut.padString("+/-", 20, false, ' '));
         reportMap.put("spacer", UtilFormatOut.padString("", 20, false, ' '));
 

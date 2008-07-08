@@ -63,7 +63,7 @@ public class SelectProduct extends XPage {
     public String openDlg() {
         XDialog dlg = (XDialog) pageMgr.loadPage(m_pos.getScreenLocation() + "/dialog/SelectProduct");
         m_dialog = dlg;
-        dlg.setCaption(UtilProperties.getMessage("pos", "SelectAProduct", Locale.getDefault()));
+        dlg.setCaption(UtilProperties.getMessage("PosUiLabels", "SelectAProduct", Locale.getDefault()));
         //dlg.setModal(true);
         m_productsList = (XList) dlg.findComponent("productsList");
         XEventHelper.addMouseHandler(this, m_productsList, "DoubleClick");
@@ -85,7 +85,7 @@ public class SelectProduct extends XPage {
         m_productsList.setVisibleRowCount(-1);
         m_productsList.ensureIndexIsVisible(m_productsList.getItemCount());
         m_productsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        m_productsList.setToolTipText(UtilProperties.getMessage("pos", "SelectProductListDblClickTip", Locale.getDefault()));
+        m_productsList.setToolTipText(UtilProperties.getMessage("PosUiLabels", "SelectProductListDblClickTip", Locale.getDefault()));
 
         dlg.pack();
         dlg.showDialog(this);
