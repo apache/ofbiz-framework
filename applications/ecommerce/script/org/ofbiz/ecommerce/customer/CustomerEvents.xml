@@ -1245,6 +1245,7 @@ under the License.
         <!--============== Set Payment Method ================-->
         <set field="paymentMethodId" from-field="parameters.paymentMethodId"/>
         <set field="cardSecurityCode" from-field="parameters.cardSecurityCode"/>
+        <field-to-session field-name="userLogin" session-name="userLogin"/>
         <call-bsh>
             <![CDATA[
                 import org.ofbiz.order.shoppingcart.ShoppingCart;

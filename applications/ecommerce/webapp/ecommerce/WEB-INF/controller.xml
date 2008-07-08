@@ -1626,6 +1626,49 @@ under the License.
         <response name="error" type="none"/>
     </request-map>    
 
+    <request-map uri="onePageProcessOrder">
+        <security https="true" auth="false"/>
+        <event type="java" path="org.ofbiz.order.shoppingcart.CheckOutEvents" invoke="createOrder"/>
+        <response name="sales_order" type="request" value="onePageCheckBlacklist"/>
+        <response name="work_order" type="request" value="onePageCheckBlacklist"/>
+        <response name="error" type="view" value="OnePageCheckout"/>
+    </request-map>
+
+    <request-map uri="onePageCheckBlacklist">
+        <security direct-request="false"/>
+        <event type="java" path="org.ofbiz.order.shoppingcart.CheckOutEvents" invoke="checkOrderBlacklist"/>
+        <response name="success" type="request" value="onePageProcessPayment"/>
+        <response name="failed" type="request" value="failedBlacklist"/>
+        <response name="error" type="view" value="OnePageCheckout"/>
+    </request-map>
+
+    <request-map uri="onePageProcessPayment">
+        <security https="true" direct-request="false"/>
+        <event type="java" path="org.ofbiz.order.shoppingcart.CheckOutEvents" invoke="processPayment"/>
+        <response name="success" type="request" value="onePageClearCartForOrder"/>
+        <response name="fail" type="request" value="checkouterror"/>
+        <response name="error" type="view" value="OnePageCheckout"/>
+    </request-map>
+
+    <request-map uri="onePageClearCartForOrder">
+        <security direct-request="false"/>
+        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="clearCart"/>
+        <response name="success" type="request" value="onePageCheckExternalPayment"/>
+        <response name="error" type="view" value="OnePageCheckout"/>
+    </request-map>
+
+    <request-map uri="onePageCheckExternalPayment">
+        <security https="true" direct-request="false"/>
+        <event type="java" path="org.ofbiz.order.shoppingcart.CheckOutEvents" invoke="checkExternalPayment"/>
+        <response name="none" type="request" value="emailorder"/>
+        <!-- these are not yet supported
+        <response name="offline" type="request" value="emailorder"/>
+        <response name="worldpay" type="request" value="callWorldPay"/>
+        <response name="paypal" type="request" value="callPayPal"/>
+        <response name="billact" type="request" value="emailorder"/>
+        <response name="cod" type="request" value="emailorder"/> -->
+        <response name="error" type="view" value="OnePageCheckout"/>
+    </request-map>
     <!-- End of Request Mappings -->
 
     <!-- View Mappings -->
