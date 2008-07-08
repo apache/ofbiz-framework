@@ -235,7 +235,7 @@ under the License.
                   </div>
                 </div>  
               </form>
-              <div align="right"><h3><span class="editStep"><a href="javascript:void(0);" id="editShipping"><h3>Continue for step 2</h3></a></span></h3></div>              
+              <div align="right"><h3><span><a class="buttontext" href="javascript:void(0);" id="editShipping">Continue for step 2</a></span></h3></div>              
             </div>
           </div>
 
@@ -309,19 +309,19 @@ under the License.
                                 </div>
                                 <div class="form-row">
                                   <div class="field-label">
-                                    <label for="countryCode">Country Code<span class="requiredLabel"> *</span><span id="advice-required-shippingContactPhoneNumber" class="custom-advice" style="display:none">(required)</span><span id="advice-validate-phone-shippingContactPhoneNumber" class="custom-advice" style="display:none">(required)</span></label>
+                                    <label for="countryCode">${uiLabelMap.PartyCountryCode}<span class="requiredLabel"> *</span><span id="advice-required-shippingContactPhoneNumber" class="custom-advice" style="display:none">(required)</span><span id="advice-validate-phone-shippingContactPhoneNumber" class="custom-advice" style="display:none">(required)</span></label>
                                     <input name="countryCode" class="input_mask mask_phone required validate-phone" id="shippingCountryCode" value="${parameters.countryCode?if_exists}" size="3" maxlength=3>
                                   </div>
                                   <div class="field-label">
-                                    <label for="areaCode">Area Code<span class="requiredLabel"> *</span><span id="advice-required-shippingContactPhoneNumber" class="custom-advice" style="display:none">(required)</span><span id="advice-validate-phone-shippingContactPhoneNumber" class="custom-advice" style="display:none">(required)</span></label>
+                                    <label for="areaCode">${uiLabelMap.PartyAreaCode}<span class="requiredLabel"> *</span><span id="advice-required-shippingContactPhoneNumber" class="custom-advice" style="display:none">(required)</span><span id="advice-validate-phone-shippingContactPhoneNumber" class="custom-advice" style="display:none">(required)</span></label>
                                     <input name="areaCode" class="input_mask mask_phone required validate-phone" id="shippingAreaCode" value="${parameters.areaCode?if_exists}" size="3" maxlength=4>
                                   </div>
                                   <div class="field-label">
-                                    <label for="contactNumber">Contact Number<span class="requiredLabel"> *</span><span id="advice-required-shippingContactPhoneNumber" class="custom-advice" style="display:none">(required)</span><span id="advice-validate-phone-shippingContactPhoneNumber" class="custom-advice" style="display:none">(required)</span></label>
+                                    <label for="contactNumber">${uiLabelMap.PartyContactNumber}<span class="requiredLabel"> *</span><span id="advice-required-shippingContactPhoneNumber" class="custom-advice" style="display:none">(required)</span><span id="advice-validate-phone-shippingContactPhoneNumber" class="custom-advice" style="display:none">(required)</span></label>
                                     <input name="contactNumber" class="input_mask mask_phone required validate-phone" id="shippingContactNumber" value="${parameters.contactNumber?if_exists}" size="5" maxlength=6>
                                   </div>
                                   <div class="field-label">
-                                    <label for="extension">Extention<span class="requiredLabel"> *</span><span id="advice-required-shippingContactPhoneNumber" class="custom-advice" style="display:none">(required)</span><span id="advice-validate-phone-shippingContactPhoneNumber" class="custom-advice" style="display:none">(required)</span></label>
+                                    <label for="extension">${uiLabelMap.PartyExtension}<span class="requiredLabel"></span><span id="advice-required-shippingContactPhoneNumber" class="custom-advice" style="display:none">(required)</span><span id="advice-validate-phone-shippingContactPhoneNumber" class="custom-advice" style="display:none">(required)</span></label>
                                     <input name="extension" class="input_mask mask_phone required validate-phone" id="shippingExtension" value="${parameters.extension?if_exists}" size="3" maxlength=3>
                                   </div>
                                 </div>
@@ -337,16 +337,14 @@ under the License.
                               <fieldset class="right">
                             <div class="form-row">
                               <div class="field-label">
-                                <label for="shipToAddress1">${uiLabelMap.FormFieldTitleStreetAddress}<span class="requiredLabel"> *</span><span id="advice-required-shipToAddress1" class="custom-advice" style="display:none">(required)</span><span id="advice-validate-no-po-address-shipToAddress1" class="custom-advice" style="display:none">(No PO or APO Address)</span></label>
+                                <label for="shipToAddress1">${uiLabelMap.PartyAddressLine1}<span class="requiredLabel"> *</span><span id="advice-required-shipToAddress1" class="custom-advice" style="display:none">(required)</span><span id="advice-validate-no-po-address-shipToAddress1" class="custom-advice" style="display:none">(No PO or APO Address)</span></label>
                               </div>
                               <div class="field-widget">
                                 <input id="shipToAddress1" name="shipToAddress1" class="required validate-no-po-address" type="text" value="${parameters.shipToAddress1?if_exists}"/>
                               </div>
                             </div>
                             <div class="form-row">
-                              <div class="field-label">
-                                <label for="address2">${uiLabelMap.FormFieldTitleStreetAddress2}</label>
-                              </div>
+                              <div class="field-label"><label for="address2">${uiLabelMap.PartyAddressLine2}</label></div>
                               <div class="field-widget">
                                 <input id="shipToAddress2" name="shipToAddress2" type="text" value="${parameters.shipToAddress2?if_exists}" />
                               </div>
@@ -377,7 +375,7 @@ under the License.
                             </div>
                             <div class="form-row">
                               <div class="field-label">
-                                <label for="shipToPostalCode">&nbsp;&nbsp;&nbsp;&nbsp;${uiLabelMap.FormFieldTitleZipCode}<span class="requiredLabel"> *</span><span id="advice-required-shipToPostalCode" class="custom-advice" style="display:none">(required)</span><span id="advice-validate-zip-shipToPostalCode" class="custom-advice" style="display:none">(required)</span></label>
+                                <label for="shipToPostalCode">${uiLabelMap.PartyZipCode}<span class="requiredLabel"> *</span><span id="advice-required-shipToPostalCode" class="custom-advice" style="display:none">(required)</span><span id="advice-validate-zip-shipToPostalCode" class="custom-advice" style="display:none">(required)</span></label>
                               </div>
                               <div class="field-widget">
                                 <input id="shipToPostalCode" name="shipToPostalCode" class="required validate-zip input_mask mask_zip" type="text" value="${parameters.shipToPostalCode?if_exists}" maxlength=8/>
@@ -401,7 +399,7 @@ under the License.
                     </div>
                   </div>
               </form>
-              <div align="right"><h3><span class="editStep"><a href="javascript:void(0);" id="editShippingOptions"><h3>Continue for step 3</h3></a></span></h3></div>              
+              <div align="right"><h3><span><a class="buttontext" href="javascript:void(0);" id="editShippingOptions">Continue for step 3</a></span></h3></div>              
             </div>
           </div>
 
@@ -444,7 +442,7 @@ under the License.
                   </td></tr>
                 </table>
               </form>
-              <div align="right"><h3><span class="editStep"><a href="javascript:void(0);" id="editBilling"><h3>Continue for step 4</h3></a></span></h3></div>
+              <div align="right"><h3><span><a class="buttontext" href="javascript:void(0);" id="editBilling">Continue for step 4</a></span></h3></div>
             </div>
           </div>
 
@@ -507,11 +505,11 @@ under the License.
                         <span style="float:left;  margin-top:10px; width:300px"></span>
                         <div class="form-row">
                           <span>
-                            <label for="cardname">First Name<span class="requiredLabel"> *</span><span id="advice-required-firstNameOnCard" class="custom-advice" style="display:none">(req)</span></label>
+                            <label for="cardname">${uiLabelMap.PartyFirstName}<span class="requiredLabel"> *</span><span id="advice-required-firstNameOnCard" class="custom-advice" style="display:none">(req)</span></label>
                             <input id="firstNameOnCard" name="firstNameOnCard" class="required" type="text" value="${parameters.firstNameOnCard?if_exists}" />
                           </span>
                           <span>
-                            <label for="cardname">Last Name<span class="requiredLabel"> *</span><span id="advice-required-lastNameOnCard" class="custom-advice" style="display:none">(req)</span></label>
+                            <label for="cardname">${uiLabelMap.PartyLastName}<span class="requiredLabel"> *</span><span id="advice-required-lastNameOnCard" class="custom-advice" style="display:none">(req)</span></label>
                             <input id="lastNameOnCard" name="lastNameOnCard" class="required" type="text" value="${parameters.lastNameOnCard?if_exists}" />
                           </span>
                         </div>
@@ -637,7 +635,7 @@ under the License.
                 </table>
               </div>
               </form>
-              <div align="right"><h3><span class="editStep"><a href="javascript:void(0);" id="openOrderSubmitPanel"><h3>Continue for step 5</h3></a></span></h3></div>
+              <div align="right"><h3><span><a class="buttontext" href="javascript:void(0);" id="openOrderSubmitPanel">Continue for step 5</a></span></h3></div>
             </div>
           </div>
           <div id="" class="screenlet">
