@@ -1197,7 +1197,7 @@
         <value xml:lang="en">Order creation failed; please notify customer service. </value>
         <value xml:lang="es">Falló creación de orden; por favor notifique al servicio al cliente.</value>
         <value xml:lang="fr">La création de commande a échouée; Veuillez contacter le service après-vente.</value>
-        <value xml:lang="it">Creazione Ordine fallita; perfavore notificare al servizio clienti. </value>
+        <value xml:lang="it">Creazione ordine fallita; contattare il servizio di assistenza clienti. </value>
         <value xml:lang="ro">Creare Comanda falita; Va rugam  transmiteti serviciului Clienti. </value>
         <value xml:lang="ru">Создание заказа завершилось неудачно; пожалуйста, сообщите в службу поддержки. </value>
         <value xml:lang="th">การสร้างรายการผิดพลาด; กรุณาแจ้งบริการลูกค้า. </value>
@@ -1267,7 +1267,7 @@
         <value xml:lang="en">Please contact customer service; payment return code unknown. </value>
         <value xml:lang="es">Por favor, contacte el servicio al cliente; código de pago de devolución desconocido.</value>
         <value xml:lang="fr">Veuillez contacter le service après-vente;code de retour de paiement inconnu.</value>
-        <value xml:lang="it">Perfavore contattare il servizio clienti; codice ritorno pagamento sconosciuto. </value>
+        <value xml:lang="it">Codice ritorno pagamento sconosciuto; contattare il servizio di assistenza clienti.</value>
         <value xml:lang="ro">Va rugam contactati serviciul clienti; cod returnare plata necunoscut. </value>
         <value xml:lang="ru">Пожалуйста свяжитесь со службой поддержки; неизвестный возращаемый код платежа. </value>
         <value xml:lang="th">กรุณาติดต่อบริการลูกค้า; ไม่ทราบรหัสการคืนค่าการชำระเงิน. </value>

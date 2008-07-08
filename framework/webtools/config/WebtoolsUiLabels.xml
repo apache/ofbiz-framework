@@ -1507,7 +1507,7 @@
     </property>
     <property key="WebtoolsMessage5">
         <value xml:lang="en">This page can be used to import exported Entity Engine XML documents. These documents all have a root tag of "&lt;entity-engine-xml&gt;"</value>
-        <value xml:lang="it">Questa pagina non può essere usata per importare esportare documenti XML dal Entity Engine. Tutti questi documenti hanno un root tag "&lt;entity-engine-xml&gt;"</value>
+        <value xml:lang="it">Questa pagina può essere usata per importare documenti XML contenenti export di Entita'. Tali documenti hanno un tag root "&lt;entity-engine-xml&gt;"</value>
         <value xml:lang="ro">Aceasta pagina nu poate fi folosita pentru importarea exportarea documentelor XML de Entity Engine. Toate aceste documente au un root tag "&lt;entity-engine-xml&gt;"</value>
         <value xml:lang="th">หน้านี้ใช้การนำเข้าข้อมูลที่มีการส่งออกเอนติตี้เอนจินเอกสาร XML โดยใช้คำสั่ง "&lt;entity-engine-xml&gt;"</value>
         <value xml:lang="zh">本页面用于导入导出的实体引擎XML文档。这些文档都有一个根标签 "&lt;entity-engine-xml&gt;"</value>
@@ -2741,7 +2741,7 @@
     </property>
     <property key="WebtoolsWorkflowCurrentStatus">
         <value xml:lang="en">Current Status</value>
-        <value xml:lang="it">Stato Attuale</value>
+        <value xml:lang="it">Stato attuale</value>
         <value xml:lang="th">สถานะทั่ว ๆ ไป</value>
     </property>
     <property key="WebtoolsWorkflowEngineTools">
