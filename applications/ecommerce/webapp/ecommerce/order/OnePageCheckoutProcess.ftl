@@ -286,7 +286,6 @@ under the License.
                       <div class="screenlet-body">
                           <table id="shippingTable">
                             <tr><td>
-                              <fieldset>
                                 <div class="form-row">
                                   <div class="field-label">
                                      <label for="firstName">${uiLabelMap.PartyFirstName}<span>*</span>
@@ -309,21 +308,21 @@ under the License.
                                 </div>
                                 <div class="form-row">
                                   <div class="field-label">
-                                    <label for="countryCode">${uiLabelMap.PartyCountryCode}<span>*</span>
+                                    <label for="countryCode">${uiLabelMap.PartyCountry}<span>*</span>
                                       <span id="advice-required-shippingCountryCode" style="display:none">(required)</span>
                                     </label>
-                                    <input name="countryCode" class="required" id="shippingCountryCode" value="${parameters.countryCode?if_exists}" size="3" maxlength=3>
+                                    <label for="areaCode">${uiLabelMap.PartyAreaCode}<span>*</span><span id="advice-required-shippingAreaCode" style="display:none">(required)</span></label>
                                   </div>
-                                  <div class="field-label">
-                                    <label for="areaCode">${uiLabelMap.PartyAreaCode}<span>*</span><span id="advice-required-shippingAreaCode" style="display:none">(required)/span></label>
+                                  <div class="field-widget">
+                                    <input name="countryCode" class="required" id="shippingCountryCode" value="${parameters.countryCode?if_exists}" size="3" maxlength=3>&nbsp;&nbsp;
                                     <input name="areaCode" class="required" id="shippingAreaCode" value="${parameters.areaCode?if_exists}" size="3" maxlength=3>
                                   </div>
                                   <div class="field-label">
                                     <label for="contactNumber">${uiLabelMap.PartyContactNumber}<span>*</span><span id="advice-required-shippingContactNumber" style="display:none">(required)</span></label>
-                                    <input name="contactNumber" class="required" id="shippingContactNumber" value="${parameters.contactNumber?if_exists}" size="7" maxlength=7>
-                                  </div>
-                                  <div class="field-label">
                                     <label for="extension">${uiLabelMap.PartyExtension}</label>
+                                  </div>
+                                  <div class="field-widget">
+                                    <input name="contactNumber" class="required" id="shippingContactNumber" value="${parameters.contactNumber?if_exists}" size="7" maxlength=7>&nbsp;&nbsp;&nbsp;&nbsp;
                                     <input name="extension" id="shippingExtension" value="${parameters.extension?if_exists}" size="3" maxlength=3>
                                   </div>
                                 </div>
@@ -337,8 +336,6 @@ under the License.
                                     <input id="emailAddress" name="emailAddress" class="required validate-email" type="text" value="${parameters.emailAddress?if_exists}"/>
                                   </div>
                                 </div>
-                            </fieldset>
-                            <fieldset class="right">
                               <div class="form-row">
                                 <div class="field-label">
                                   <label for="shipToAddress1">${uiLabelMap.PartyAddressLine1}<span>*</span><span id="advice-required-shipToAddress1" class="custom-advice" style="display:none">(required)</span></label>
@@ -347,6 +344,7 @@ under the License.
                                   <input id="shipToAddress1" name="shipToAddress1" class="required" type="text" value="${parameters.shipToAddress1?if_exists}"/>
                                 </div>
                               </div>
+                              </td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td>
                             <div class="form-row">
                               <div class="field-label"><label for="address2">${uiLabelMap.PartyAddressLine2}</label></div>
                               <div class="field-widget">
@@ -365,13 +363,13 @@ under the License.
                               <div class="field-label">
                                 <label for="state">${uiLabelMap.CommonState}<span>*</span></label>
                               </div>
-                              <div class="field-label" style="clear:both;"> 
-                                  <select class="required" id="shipToStateProvinceGeoId" name="shipToStateProvinceGeoId">
+                              <div class="field-widget"> 
+                                  <select name="shipToStateProvinceGeoId" id="shipToStateProvinceGeoId" class="required">
                                     <#if (parameters.shipToStateProvinceGeoId)?exists>
                                       <option>${parameters.shipToStateProvinceGeoId}</option>
                                         <option value="${parameters.shipToStateProvinceGeoId}"</option>
                                     <#else>
-                                      <option value="CA">CA - California</option>
+                                      <option value="">${uiLabelMap.PartyNoState}</option>
                                     </#if>
                                     ${screens.render("component://common/widget/CommonScreens.xml#states")}
                                   </select>
@@ -386,9 +384,11 @@ under the License.
                               </div>
                             </div>
                             <div class="form-row">
-                              <div class="form-label">${uiLabelMap.PartyCountry}<span>*</span></div>
-                                <div class="form-field">
-                                  <select name="shipToCountryGeoId" id="shipToCountryGeoId" class="selectBox">
+                              <div class="field-label">
+                                <label for="shipToCountryGeoId">${uiLabelMap.PartyCountry}<span class="requiredLabel"> *</span></label>
+                              </div>
+                              <div class="field-widget">
+                                  <select name="shipToCountryGeoId" id="shipToCountryGeoId" class="required">
                                     <#if (parameters.shipToCountryGeoId)?exists>
                                       <option>${parameters.shipToCountryGeoId}</option>
                                       <option value="${parameters.shipToCountryGeoId}">---</option>
