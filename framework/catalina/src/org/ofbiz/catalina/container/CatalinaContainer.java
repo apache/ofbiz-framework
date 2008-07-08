@@ -44,11 +44,16 @@ import org.apache.catalina.Host;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.Manager;
 import org.apache.catalina.ServerFactory;
-import org.apache.catalina.cluster.mcast.McastService;
-import org.apache.catalina.cluster.tcp.ReplicationListener;
-import org.apache.catalina.cluster.tcp.ReplicationTransmitter;
-import org.apache.catalina.cluster.tcp.ReplicationValve;
-import org.apache.catalina.cluster.tcp.SimpleTcpCluster;
+import org.apache.catalina.ha.tcp.ReplicationValve;
+import org.apache.catalina.ha.tcp.SimpleTcpCluster;
+import org.apache.catalina.tribes.Channel;
+import org.apache.catalina.tribes.ChannelReceiver;
+import org.apache.catalina.tribes.group.GroupChannel;
+import org.apache.catalina.tribes.membership.McastService;
+import org.apache.catalina.tribes.transport.MultiPointSender;
+import org.apache.catalina.tribes.transport.ReplicationTransmitter;
+import org.apache.catalina.tribes.transport.nio.NioReceiver;
+
 import org.apache.catalina.connector.Connector;
 import org.apache.catalina.core.StandardContext;
 import org.apache.catalina.core.StandardEngine;
@@ -224,7 +229,7 @@ public class CatalinaContainer implements Container {
             ProtocolHandler ph = con.getProtocolHandler();
             if (ph instanceof Http11Protocol) {
                 Http11Protocol hph = (Http11Protocol) ph;
-                Debug.logInfo("Connector " + hph.getProtocol() + " @ " + hph.getPort() + " - " +
+                Debug.logInfo("Connector " + hph.getProtocols() + " @ " + hph.getPort() + " - " +
                     (hph.getSecure() ? "secure" : "not-secure") + " [" + con.getProtocolHandlerClassName() + "] started.", module);
             } else {
                 Debug.logInfo("Connector " + con.getProtocol() + " @ " + con.getPort() + " - " +
@@ -380,10 +385,10 @@ public class CatalinaContainer implements Container {
             mcast.setMcastBindAddress(mcb);
         }
 
-        mcast.setMcastAddr(mca);
-        mcast.setMcastPort(mcp);
+        mcast.setAddress(mca);
+        mcast.setPort(mcp);
         mcast.setMcastDropTime(mcd);
-        mcast.setMcastFrequency(mcf);
+        mcast.setFrequency(mcf);
 
         String tla = ContainerConfig.getPropertyValue(clusterProps, "tcp-listen-host", "auto");
         int tlp = ContainerConfig.getPropertyValue(clusterProps, "tcp-listen-port", 4001);
@@ -395,16 +400,21 @@ public class CatalinaContainer implements Container {
             throw new ContainerException("Cluster configuration requires tcp-listen-port property");
         }
 
-        ReplicationListener listener = new ReplicationListener();
-        listener.setTcpListenAddress(tla);
-        listener.setTcpListenPort(tlp);
-        listener.setTcpSelectorTimeout(tlt);
-        listener.setTcpThreadCount(tlc);
+        NioReceiver listener = new NioReceiver();
+        listener.setAddress(tla);
+        listener.setPort(tlp);
+        listener.setSelectorTimeout(tlt);
+        listener.setMaxThreads(tlc);
+        listener.setMinThreads(tlc);
         //listener.setIsSenderSynchronized(false);
 
         ReplicationTransmitter trans = new ReplicationTransmitter();
-        trans.setReplicationMode(ContainerConfig.getPropertyValue(clusterProps, "replication-mode", "pooled"));
-
+        try {
+            MultiPointSender mps = (MultiPointSender)Class.forName(ContainerConfig.getPropertyValue(clusterProps, "replication-mode", "org.apache.catalina.tribes.transport.bio.PooledMultiSender")).newInstance();
+            trans.setTransport(mps);
+        } catch(Exception exc) {
+            throw new ContainerException("Cluster configuration requires a valid replication-mode property: " + exc.getMessage());
+        }
         String mgrClassName = ContainerConfig.getPropertyValue(clusterProps, "manager-class", "org.apache.catalina.cluster.session.DeltaManager");
         //int debug = ContainerConfig.getPropertyValue(clusterProps, "debug", 0);
         // removed since 5.5.9? boolean expireSession = ContainerConfig.getPropertyValue(clusterProps, "expire-session", false);
@@ -417,9 +427,12 @@ public class CatalinaContainer implements Container {
         // removed since 5.5.9? cluster.setExpireSessionsOnShutdown(expireSession);
         // removed since 5.5.9? cluster.setUseDirtyFlag(useDirty);
 
-        cluster.setClusterReceiver(listener);
-        cluster.setClusterSender(trans);
-        cluster.setMembershipService(mcast);
+        GroupChannel channel = new GroupChannel();
+        channel.setChannelReceiver(listener);
+        channel.setChannelSender(trans);
+        channel.setMembershipService(mcast);
+        
+        cluster.setChannel(channel);
         cluster.addValve(clusterValve);
         // removed since 5.5.9? cluster.setPrintToScreen(true);
 
@@ -497,6 +510,9 @@ public class CatalinaContainer implements Container {
         context.setJ2EEApplication(J2EE_APP);
         context.setJ2EEServer(J2EE_SERVER);
         context.setLoader(embedded.createLoader(ClassLoaderContainer.getClassLoader()));
+        
+        context.setCookies(appInfo.isSessionCookieAccepted());
+        context.addParameter("cookies", appInfo.isSessionCookieAccepted() ? "true" : "false");
 
         context.setDisplayName(appInfo.name);
         context.setDocBase(location);
