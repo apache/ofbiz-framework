@@ -129,6 +129,18 @@
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="main"/>
     </request-map>
+    <request-map uri="deletePartyCommunicationEventMy">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteCommunicationEvent"/>
+        <response name="success" type="view" value="myCommunications"/>
+        <response name="error" type="view" value="myCommunications"/>
+    </request-map>
+    <request-map uri="deletePartyCommunicationEventOthers">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteCommunicationEvent"/>
+        <response name="success" type="view" value="otherCommunications"/>
+        <response name="error" type="view" value="otherCommunications"/>
+    </request-map>
     
     <!-- PREFERENCES -->
     <request-map uri="preferences">

@@ -196,7 +196,7 @@ under the License.
                     <include-menu name="MyCommunicationsMenu"
                         location="component://mypage/widget/MyPageMenus.xml" />
                     <include-form name="ListPartyCommEvents"
-                        location="component://party/webapp/partymgr/communication/CommForms.xml" />
+                        location="component://mypage/widget/MyPageForms.xml" />
                 </screenlet>
             </widgets>
         </section>
@@ -225,7 +225,7 @@ under the License.
                                 <include-menu name="MyCommunicationsMenu"
                                     location="component://mypage/widget/MyPageMenus.xml" />
                                 <include-form name="ListPartyCommEvents"
-                                    location="component://party/webapp/partymgr/communication/CommForms.xml" />
+                                    location="component://mypage/widget/MyPageForms.xml" />
                             </screenlet>
                         </widgets>
                     </section>
