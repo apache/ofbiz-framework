@@ -176,7 +176,7 @@ public class Journal {
         // create the header
         XModel headerNode = appendNode(jmodel, "th", "header", "");
         for (int i = 0 ; i < field.length; i++) {
-            appendNode(headerNode, "td", field[i],UtilProperties.getMessage("pos",name[i],defaultLocale));
+            appendNode(headerNode, "td", field[i],UtilProperties.getMessage("PosUiLabels",name[i],defaultLocale));
         }
 
         return jmodel;

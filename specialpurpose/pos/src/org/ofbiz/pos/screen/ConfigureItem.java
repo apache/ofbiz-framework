@@ -82,7 +82,7 @@ public class ConfigureItem extends XPage {
         // cache must be set to false because there's no method to remove actionhandlers
         m_dialog = (XDialog) pageMgr.loadPage(
                 m_pos.getScreenLocation() + "/dialog/ConfigureItem", false);
-        m_dialog.setCaption(UtilProperties.getMessage("pos", "ConfigureItem", Locale.getDefault()));
+        m_dialog.setCaption(UtilProperties.getMessage("PosUiLabels", "ConfigureItem", Locale.getDefault()));
 
         m_optionListPane = (XScrollPane) m_dialog.findComponent("optionListPane");
         m_configList = (XList) m_dialog.findComponent("configList");
