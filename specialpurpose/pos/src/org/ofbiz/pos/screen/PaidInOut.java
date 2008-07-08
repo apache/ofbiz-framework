@@ -137,9 +137,10 @@ public class PaidInOut extends XPage {
     public synchronized void editAmount(){
         if (wasMouseClicked() && ShowKeyboardInSaveSale) {
             try {
-                Keyboard keyboard = new Keyboard(m_pos);
-                keyboard.setText(m_amountEdit.getText());
-                m_amountEdit.setText(keyboard.openDlg());
+                NumericKeypad numericKeypad = new NumericKeypad(m_pos);
+                numericKeypad.setMinus(true);
+                numericKeypad.setPercent(false);               
+                m_amountEdit.setText(numericKeypad.openDlg());
             }catch(Exception e){
                 Debug.logError(e, module);
             }
