@@ -19,11 +19,7 @@ under the License.
 <#if !mechMap.contactMech?exists>
   <#-- When creating a new contact mech, first select the type, then actually create -->
   <#if !preContactMechTypeId?has_content>
-<div class="screenlet">
-  <div class="screenlet-title-bar">
-    <h3>${uiLabelMap.PartyCreateNewContact}</h3>        
-  </div>
-  <div class="screenlet-body">
+    <h1>${uiLabelMap.PartyCreateNewContact}</h1>
     <form method="post" action="<@ofbizUrl>editcontactmech</@ofbizUrl>" name="createcontactmechform">
       <input type="hidden" name="DONE_PAGE" value="${donePage}">
       <input type="hidden" name="partyId" value="${partyId}">
@@ -41,8 +37,6 @@ under the License.
         </tr>
       </table>
     </form>
-  </div>
-</div>
     </#if>
 </#if>
 <#if mechMap.contactMechTypeId?has_content>

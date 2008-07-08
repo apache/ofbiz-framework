@@ -382,6 +382,7 @@ under the License.
                                     <if-compare field-name="hasViewPermission" operator="equals" value="true" type="Boolean"/>
                                     <if-compare field-name="hasPcmCreatePermission" operator="equals" value="true" type="Boolean"/>
                                     <if-compare field-name="hasPcmUpdatePermission" operator="equals" value="true" type="Boolean"/>
+                                    <if-compare-field field-name="parameters.partyId" operator="equals" to-field-name="userLogin.partyId" type="String"/>
                                     <not><if-empty field-name="mechMap.partyContactMech"/></not>
                                 </or>
                             </condition>
@@ -391,11 +392,11 @@ under the License.
                                 </platform-specific>
                             </widgets>
                             <fail-widgets>
-                                <container>
-                                    <label style="h3">${uiLabelMap.PartyMsgContactNotBelongToYou}</label>
+                                <container style="button-bar">
+                                    <link target="authview/${donePage}" text="[${uiLabelMap.CommonBack}]" style="smallSubmit"/>
                                 </container>
                                 <container>
-                                    <link target="authview/${donePage}" text="[${uiLabelMap.CommonBack}]" style="smallSubmit"/>
+                                    <label style="h3">${uiLabelMap.PartyMsgContactNotBelongToYou}</label>
                                 </container>
                             </fail-widgets>
                         </section>
