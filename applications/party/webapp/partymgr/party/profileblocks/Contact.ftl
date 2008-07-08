@@ -21,7 +21,7 @@ under the License.
     <div class="screenlet-title-bar">
       <ul>
         <li class="h3">${uiLabelMap.PartyContactInformation}</li>
-        <#if security.hasEntityPermission("PARTYMGR", "_CREATE", session)>
+        <#if security.hasEntityPermission("PARTYMGR", "_CREATE", session) || userLogin.partyId == party.partyId>
           <li><a href="<@ofbizUrl>editcontactmech?partyId=${party.partyId}</@ofbizUrl>">${uiLabelMap.CommonCreateNew}</a></li>
         </#if>
       </ul>
@@ -127,10 +127,10 @@ under the License.
               </td>
               <td valign="top"><b>(${partyContactMech.allowSolicitation?if_exists})</b></td>
               <td class="button-col">
-                <#if security.hasEntityPermission("PARTYMGR", "_UPDATE", session)>
+                <#if security.hasEntityPermission("PARTYMGR", "_UPDATE", session) || userLogin.partyId == party.partyId>
                   <a href="<@ofbizUrl>editcontactmech?partyId=${party.partyId}&contactMechId=${contactMech.contactMechId}</@ofbizUrl>">${uiLabelMap.CommonUpdate}</a>
                 </#if>
-                <#if security.hasEntityPermission("PARTYMGR", "_DELETE", session)>
+                <#if security.hasEntityPermission("PARTYMGR", "_DELETE", session) || userLogin.partyId == party.partyId>
                   <a href="<@ofbizUrl>deleteContactMech/viewprofile?partyId=${party.partyId}&contactMechId=${contactMech.contactMechId}</@ofbizUrl>">${uiLabelMap.CommonExpire}</a>
                 </#if>
               </td>
