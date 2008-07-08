@@ -611,9 +611,10 @@ under the License.
     <screen name="OnePageCheckout">
         <section>
             <actions>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/cart/showcart.bsh"/>
-                <set field="layoutSettings.javaScripts[+0]" value="/ecommerce/images/checkoutProcess.js" global="true"/>
+                <set field="titleProperty" value="EcommerceOnePageCheckout"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/images/prototypejs/effects.js" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/ecommerce/images/checkoutProcess.js" global="true"/>            
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/cart/showcart.bsh"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
