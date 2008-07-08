@@ -30,36 +30,73 @@
         <response name="success" type="view" value="main"/>
     </request-map>
 
+    <!-- TIMESHEET -->
+    <request-map uri="myTimesheet">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="myTimesheet"/>
+    </request-map>
     <request-map uri="updateTimesheet">
         <security https="true" auth="true"/>
         <event type="service-multi" invoke="updateTimeEntryByWorkeffort"/>
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="main"/>
     </request-map>
-    
-    <request-map uri="StatusToComplete">
+    <request-map uri="updateTimesheetKey">
+        <security https="true" auth="true"/>
+        <event type="service-multi" invoke="updateTimeEntryByWorkeffort"/>
+        <response name="success" type="view" value="myTimesheet"/>
+        <response name="error" type="view" value="myTimesheet"/>
+    </request-map>
+    <request-map uri="statusToComplete">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateTimesheet"/>
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="main"/>
     </request-map>
-
+    <request-map uri="statusToCompleteKey">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateTimesheet"/>
+        <response name="success" type="view" value="myTimesheet"/>
+        <response name="error" type="view" value="myTimesheet"/>
+    </request-map>
+    
+    <!-- MY TASKS -->
+    <request-map uri="myTasks">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="myTasks"/>
+    </request-map>
     <request-map uri="updateTaskAssigment">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateTaskAssigment"/>
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="main"/>
     </request-map>
-    
+    <request-map uri="updateTaskAssigmentKey">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateTaskAssigment"/>
+        <response name="success" type="view" value="myTasks"/>
+        <response name="error" type="view" value="myTasks"/>
+    </request-map>
+
+    <!-- COMPANY COMMUNICATION -->    
+    <request-map uri="myCompanyComms">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="myCompanyComms"/>
+    </request-map>
     <request-map uri="newEvent">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="newEvent"/>
     </request-map>
-
     <request-map uri="createEvent">
         <security https="true" auth="true"/>
         <event type="service" invoke="createWorkEffort"/>
         <response name="success" type="view" value="main"/>
+        <response name="error" type="view" value="newEvent"/>
+    </request-map>
+    <request-map uri="createEventKey">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createWorkEffort"/>
+        <response name="success" type="view" value="myCompanyComms"/>
         <response name="error" type="view" value="newEvent"/>
     </request-map>
     <request-map uri="deleteEvent">
@@ -67,6 +104,18 @@
         <event type="service" invoke="deleteWorkEffort"/>
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="main"/>
+    </request-map>
+    <request-map uri="deleteEventKey">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteWorkEffort"/>
+        <response name="success" type="view" value="myCompanyComms"/>
+        <response name="error" type="view" value="myCompanyComms"/>
+    </request-map>
+    
+    <!-- MY COMMUNICATIONS -->
+    <request-map uri="myCommunications">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="myCommunications"/>
     </request-map>
     <request-map uri="createCommunicationEvent">
         <security https="true" auth="true"/>
@@ -80,35 +129,23 @@
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="main"/>
     </request-map>
+    
+    <!-- PREFERENCES -->
     <request-map uri="preferences">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="preferences"/>
-    </request-map>
-    <request-map uri="myTasks">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="myTasks"/>
-    </request-map>
-    <request-map uri="myTimesheet">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="myTimesheet"/>
-    </request-map>
-    <request-map uri="myCommunications">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="myCommunications"/>
-    </request-map>
-    <request-map uri="otherCommunications">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="otherCommunications"/>
-    </request-map>
-    <request-map uri="myCompanyComms">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="myCompanyComms"/>
     </request-map>
     <request-map uri="updatePreferences">
         <security https="true" auth="true"/>
         <event invoke="updatePreferences" path="org/ofbiz/mypage/Events.xml" type="simple"/>
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="preferences"/>
+    </request-map>
+    
+    <!-- OTHER COMMUNICATIONS -->
+    <request-map uri="otherCommunications">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="otherCommunications"/>
     </request-map>
 
     <view-map name="main" type="screen" page="component://mypage/widget/CommonScreens.xml#main"/>

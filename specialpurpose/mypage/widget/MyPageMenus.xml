@@ -99,7 +99,14 @@ under the License.
     </menu>    
     
     <menu name="MyCompanyCommsMenu">
-        <menu-item name="newEvent" title="${uiLabelMap.WorkEffortNewEvent}"><link target="newEvent"/></menu-item>
+        <menu-item name="newEventKey" title="${uiLabelMap.WorkEffortNewEvent}">
+            <condition><if-compare field-name="headerItem" operator="not-equals" value="main"/></condition>
+            <link target="newEvent?Key=Y"/>
+        </menu-item>
+        <menu-item name="newEvent" title="${uiLabelMap.WorkEffortNewEvent}">
+            <condition><if-compare field-name="headerItem" operator="equals" value="main"/></condition>
+            <link target="newEvent"/>
+        </menu-item>
     </menu>    
     
     <menu name="MyCommunicationsMenu">
@@ -111,7 +118,25 @@ under the License.
         <menu-item name="myTasks" title="myTasks"><link target="/projectmgr/control/MyTasks" url-mode="inter-app"/></menu-item>
     </menu>
     
-    <menu name="MyTimesheetMenu" extends="TimesheetBar" extends-resource="component://projectmgr/widget/Menus.xml" type="simple" menu-container-style="button-bar button-style-2" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem">
+    <menu name="MyTimesheetMenu">
+        <menu-item name="setToComplete" title="${uiLabelMap.CommonStatustoComplete}">
+            <condition>
+                <and>
+                    <if-compare field-name="timesheet.statusId" operator="equals" value="TIMESHEET_IN_PROCESS"/>
+                    <if-compare field-name="headerItem" operator="equals" value="main"/>
+                </and>
+            </condition>
+            <link target="statusToComplete?timesheetId=${timesheet.timesheetId}&amp;statusId=TIMESHEET_COMPLETED"/>
+        </menu-item>
+        <menu-item name="setToCompleteKey" title="${uiLabelMap.CommonStatustoComplete}">
+            <condition>
+                <and>
+                    <if-compare field-name="timesheet.statusId" operator="equals" value="TIMESHEET_IN_PROCESS"/>
+                    <if-compare field-name="headerItem" operator="not-equals" value="main"/>
+                </and>
+            </condition>
+            <link target="statusToCompleteKey?timesheetId=${timesheet.timesheetId}&amp;statusId=TIMESHEET_COMPLETED"/>
+        </menu-item>
         <menu-item name="myTime" title="myTime"><link target="/projectmgr/control/MyTimesheet" url-mode="inter-app"/></menu-item>
     </menu>
     

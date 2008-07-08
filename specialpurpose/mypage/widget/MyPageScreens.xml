@@ -20,19 +20,43 @@ under the License.
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
-    <screen name="newEvent">
-        <section>
-            <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <screenlet>
-                            <include-form name="newEvent" location="component://mypage/widget/MyPageForms.xml"/>
-                        </screenlet>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
+	<screen name="newEvent">
+		<section>
+			<widgets>
+                <section>
+                    <condition>
+                        <if-empty field-name="parameters.Key" />
+                    </condition>
+                    <actions>
+                        <set field="headerItem" value="main" />
+                    </actions>
+                    <widgets />
+                </section>
+                <section>
+                    <condition>
+                        <not><if-empty field-name="parameters.Key" /></not>
+                    </condition>
+                    <actions>
+                        <set field="headerItem" value="myCompanyComms" />
+                    </actions>
+                    <widgets />
+                </section>
+				<section>
+					<widgets>
+						<decorator-screen name="main-decorator"
+							location="${parameters.mainDecoratorLocation}">
+							<decorator-section name="body">
+								<screenlet>
+									<include-form name="newEvent"
+										location="component://mypage/widget/MyPageForms.xml" />
+								</screenlet>
+							</decorator-section>
+						</decorator-screen>
+					</widgets>
+				</section>
+			</widgets>
+		</section>
+	</screen>
     <screen name="MyTimesheet">
         <section>
             <actions>
@@ -168,7 +192,7 @@ under the License.
             </actions>
             <widgets>
                 <screenlet title="${uiLabelMap.MyCommunications}" navigation-menu-name="MyCommunicationsMenu"
-                    navigation-form-name="ListPartyCommEvents" name="comms">
+                    navigation-form-name="ListPartyCommEvents" name="myComms">
                     <include-menu name="MyCommunicationsMenu"
                         location="component://mypage/widget/MyPageMenus.xml" />
                     <include-form name="ListPartyCommEvents"
@@ -197,7 +221,7 @@ under the License.
                         <widgets>
                             <screenlet title="${uiLabelMap.OtherCommunicationsOfParty}: ${partyName.firstName} ${partyName.middleName} ${partyName.lastName} ${partyName.groupName} [${partyId}] "
                                 navigation-menu-name="MyCommunicationsMenu"
-                                navigation-form-name="ListPartyCommEvents" name="comms">
+                                navigation-form-name="ListPartyCommEvents" name="otherComms">
                                 <include-menu name="MyCommunicationsMenu"
                                     location="component://mypage/widget/MyPageMenus.xml" />
                                 <include-form name="ListPartyCommEvents"

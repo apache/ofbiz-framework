@@ -22,13 +22,19 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
     <form name="MyTasks" extends="MyTasks" extends-resource="component://projectmgr/widget/forms/TaskForms.xml">
+        <alt-target use-when="!headerItem.equals(&quot;main&quot;)" target="updateTaskAssigmentKey"/>
         <field name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${workEffortName}" target="/projectmgr/control/taskView?workEffortId=${workEffortId}" target-type="inter-app" target-window="_BLANK"/>
         </field>
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}"><hyperlink target="/projectmgr/control/projectView?projectId=${resultProject.projectId}"  target-type="inter-app" target-window="_BLANK" description="${resultProject.projectName}"/></field>
+        <field use-when="!headerItem.equals(&quot;main&quot;)" name="remove" title="${uiLabelMap.CommonRemove}"><hyperlink target="updateTaskAssigmentKey?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=PAS_ENDED" description="${uiLabelMap.CommonRemove}"/></field>
+        <field use-when="headerItem.equals(&quot;main&quot;)" name="remove" title="${uiLabelMap.CommonRemove}"><hyperlink target="updateTaskAssigment?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=PAS_ENDED" description="${uiLabelMap.CommonRemove}"/></field>
+        <field use-when="!headerItem.equals(&quot;main&quot;)" name="toComplete" title="${uiLabelMap.CommonStatustoComplete}"><hyperlink target="updateTaskAssigmentKey?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=PAS_COMPLETED" description="${uiLabelMap.CommonStatustoComplete}"/></field>
+        <field use-when="headerItem.equals(&quot;main&quot;)" name="toComplete" title="${uiLabelMap.CommonStatustoComplete}"><hyperlink target="updateTaskAssigment?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=PAS_COMPLETED" description="${uiLabelMap.CommonStatustoComplete}"/></field>
     </form>
     
     <form name="EditWeekTimesheet" extends="EditWeekTimesheet" extends-resource="component://projectmgr/widget/forms/TimeSheetForms.xml">
+        <alt-target use-when="!headerItem.equals(&quot;main&quot;)" target="updateTimesheetKey"/>
         <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="ProjectPartyAndPhaseAndTask" description="${workEffortName} -- ${phaseName} -- ${projectName}">
@@ -56,6 +62,7 @@ under the License.
                 <order-by field-name="actualStartDate"/>
             </entity-condition>
         </actions>
+        <alt-target use-when="!headerItem.equals(&quot;main&quot;)" target="deleteEventKey"/>
         <field name="workEffortId"><hidden/></field>
         <field name="workEffortName" title="${uiLabelMap.WorkEffortEventName}"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
@@ -64,6 +71,7 @@ under the License.
     </form>
     
     <form name="newEvent" type="single" target="createEvent">
+        <alt-target use-when="!headerItem.equals(&quot;main&quot;)" target="createEventKey"/>
         <field name="workEffortTypeId"><hidden value="COMPANY_EVENT"/></field>
         <field name="currentStatusId"><hidden value="_NA_"/></field>
         <field name="workEffortName" title="${uiLabelMap.WorkEffortEventName}"><text/></field>
@@ -74,11 +82,11 @@ under the License.
 
     <form name="preferences" type="single" target="updatePreferences" default-map-name="preferences.userPrefMap">
         <field name="userPrefGroupId"><hidden value="MyPage"/></field>
-        <field name="myCompanyComms"><check/></field>
-        <field name="myTimesheet"><check/></field>
-        <field name="myTasks"><check/></field>
         <field name="myCommunications"><check/></field>
         <field name="otherCommunications"><check/></field>
+        <field name="myCompanyComms"><check/></field>
+        <field name="myTasks"><check/></field>
+        <field name="myTimesheet"><check/></field>
         <field name="updateButton"><submit/></field>
     </form>
 </forms>
