@@ -350,7 +350,7 @@ under the License.
                             <div class="form-row">
                               <div class="field-label"><label for="address2">${uiLabelMap.PartyAddressLine2}</label></div>
                               <div class="field-widget">
-                                <input id="shipToAddress2" name="shipToAddress2" type="text" value="${parameters.shipToAddress2?if_exists}" />
+                                <input id="shipToAddress2" name="shipToAddress2" type="text" value="${parameters.shipToAddress2?if_exists}"/>
                               </div>
                             </div>
                             <div class="form-row">
@@ -358,7 +358,7 @@ under the License.
                                 <label for="shipToCity">${uiLabelMap.CommonCity}<span>*</span><span id="advice-required-shipToCity" class="custom-advice" style="display:none">(required)</span></label>
                               </div>
                               <div class="field-widget">
-                                <input id="shipToCity" name="shipToCity" class="required" type="text" value="${parameters.shipToCity?if_exists}" />
+                                <input id="shipToCity" name="shipToCity" class="required" type="text" value="${parameters.shipToCity?if_exists}"/>
                               </div>
                             </div>
                             <div class="form-row">
@@ -492,7 +492,6 @@ under the License.
             </div>
             <div id="editBillingPanel" style="display: none;">
               <form name="billingForm" id="billingForm" class="theform" action="<@ofbizUrl></@ofbizUrl>" method="post">
-                Billing and Payment Detail.
                 <input type="hidden" id ="billToContactMechId" name="billToContactMechId" value="${parameters.billToContactMechId?if_exists}"/>
                 <input type="hidden" id="shippingContactMechIdInBillingForm" name="shippingContactMechId" value="${parameters.shippingContactMechId?if_exists}"/>
                 <input type="hidden" id="paymentMethodId" name="paymentMethodId" value="${parameters.paymentMethodId?if_exists}"/>
@@ -504,18 +503,21 @@ under the License.
                 <div class="panelBody" id="billingId">
                   <table id="billingTable">
                     <tr><td>
-                      <div style="clear:both"></div>
-                      <fieldset class="left">
-                        <span style="float:left;  margin-top:10px; width:300px"></span>
                         <div class="form-row">
-                          <span>
-                            <label for="cardname">${uiLabelMap.PartyFirstName}<span class="requiredLabel"> *</span><span id="advice-required-firstNameOnCard" class="custom-advice" style="display:none">(req)</span></label>
-                            <input id="firstNameOnCard" name="firstNameOnCard" class="required" type="text" value="${parameters.firstNameOnCard?if_exists}" />
-                          </span>
-                          <span>
-                            <label for="cardname">${uiLabelMap.PartyLastName}<span class="requiredLabel"> *</span><span id="advice-required-lastNameOnCard" class="custom-advice" style="display:none">(req)</span></label>
-                            <input id="lastNameOnCard" name="lastNameOnCard" class="required" type="text" value="${parameters.lastNameOnCard?if_exists}" />
-                          </span>
+                          <div class="field-label">
+                            <label for="cardFirstname">${uiLabelMap.PartyFirstName}<span class="requiredLabel"> *</span><span id="advice-required-firstNameOnCard" class="custom-advice" style="display:none">(req)</span></label>
+                          </div>
+                          <div class="field-widget">
+                            <input id="firstNameOnCard" name="firstNameOnCard" class="required" type="text" value="${parameters.firstNameOnCard?if_exists}"/>
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="field-label">
+                            <label for="cardLastName">${uiLabelMap.PartyLastName}<span class="requiredLabel"> *</span><span id="advice-required-lastNameOnCard" class="custom-advice" style="display:none">(req)</span></label>
+                          </div>
+                          <div class="field-widget">
+                            <input id="lastNameOnCard" name="lastNameOnCard" class="required" type="text" value="${parameters.lastNameOnCard?if_exists}"/>
+                          </div>
                         </div>
                         <div class="form-row">
                           <div class="field-label">
@@ -537,107 +539,105 @@ under the License.
                           <div class="field-label">
                             <label for="expirationdate">${uiLabelMap.AccountingExpirationDate}<span class="requiredLabel"> *</span><span id="advice-validate-creditcard-expiration-expMonth" class="custom-advice" style="display:none">(required)</span></label>
                           </div>
-                          <div class="form-field">
-                            <div>
-                              <span>
-                                Month: <select id="expMonth" name="expMonth" class="validate-creditcard-expiration">
-                                  <#if parameters.expMonth?has_content>
-                                    <option label="${parameters.expMonth?if_exists}" value="${parameters.expMonth?if_exists}">${parameters.expMonth?if_exists}</option>
-                                  </#if>
-                                  ${screens.render("component://common/widget/CommonScreens.xml#ccmonths")}
-                                </select>
-                              </span> 
-                              <span>
-                                Year: <select id="expYear" name="expYear">
-                                  <#if parameters.expYear?has_content>
-                                    <option value="${parameters.expYear?if_exists}">${parameters.expYear?if_exists}</option>
-                                  </#if>
-                                  ${screens.render("component://common/widget/CommonScreens.xml#ccyears")}
-                                </select>
-                              </span>
-                            </div>
-                          </div>
                         </div>
-                      </fieldset>  
-                      <fieldset class="right">
                         <div class="form-row">
                           <span>
-                            <input class="checkbox" id="useShippingAddressForBilling" name="useShippingAddressForBilling" type="checkbox" value="Y" <#if parameters.useShippingAddressForBilling?has_content && parameters.useShippingAddressForBilling?default("")=="Y">checked</#if>>
-                            <span style="font-size:10px; float:left; padding:0px 0px 0px 6px; margin-top:10px; width:300px">${uiLabelMap.FacilityBillingAddressSameShipping}</span>
+                            <label for="expMonth">Month</label>
+                          </span>
+                          <span>
+                            <label for="expYear">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Year</label>
+                          </span>
+                          <br>
+                          <span>
+                            <select id="expMonth" name="expMonth" class="required">
+                              <#if parameters.expMonth?has_content>
+                                <option label="${parameters.expMonth?if_exists}" value="${parameters.expMonth?if_exists}">${parameters.expMonth?if_exists}</option>
+                              </#if>
+                              ${screens.render("component://common/widget/CommonScreens.xml#ccmonths")}
+                            </select>
+                          </span>
+                          <span>
+                            <select id="expYear" name="expYear" class="required">
+                              <#if parameters.expYear?has_content>
+                                <option value="${parameters.expYear?if_exists}">${parameters.expYear?if_exists}</option>
+                              </#if>
+                              ${screens.render("component://common/widget/CommonScreens.xml#ccyears")}
+                            </select>
                           </span>
                         </div>
-                        <div style="clear: both"></div>
+                    </td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td> 
+                        <div class="form-row">
+                          <div class="field-widget">
+                            <input class="checkbox" id="useShippingAddressForBilling" name="useShippingAddressForBilling" type="checkbox" value="Y" <#if parameters.useShippingAddressForBilling?has_content && parameters.useShippingAddressForBilling?default("")=="Y">checked</#if>> ${uiLabelMap.FacilityBillingAddressSameShipping}
+                          </div>
+                        </div>
                         <div id="billingAddress" <#if parameters.useShippingAddressForBilling?has_content && parameters.useShippingAddressForBilling?default("")=="Y">style="display:none"</#if>>
                           <div class="form-row">
                             <div class="field-label">
                               <label for="address1">${uiLabelMap.PartyAddressLine1}<span class="requiredLabel"> *</span><span id="advice-required-billToAddress1" class="custom-advice" style="display:none">(required)</span></label>
                             </div>
-                          <div class="field-widget">
-                            <input id="billToAddress1" name="billToAddress1" class="required" size=30 type="text" value="${parameters.billToAddress1?if_exists}" />
+                            <div class="field-widget">
+                              <input id="billToAddress1" name="billToAddress1" class="required" size=30 type="text" value="${parameters.billToAddress1?if_exists}"/>
+                            </div>
                           </div>
-                          <div class="field-label">
-                            <label for="address2" style="margin-top: 9px;">${uiLabelMap.PartyAddressLine2}</label>
+                          <div class="form-row">
+                            <div class="field-label">
+                              <label for="address2" style="margin-top: 9px;">${uiLabelMap.PartyAddressLine2}</label>
+                            </div>
+                            <div class="field-widget">
+                              <input id="billToAddress2" name="billToAddress2" type="text" value="${parameters.billToAddress2?if_exists}" size=30/>
+                            </div>
                           </div>
-                          <div class="field-widget">
-                            <input id="billToAddress2" name="billToAddress2" type="text" value="${parameters.billToAddress2?if_exists}" size=30/>
+                          <div class="form-row">
+                            <div class="field-label">                
+                              <label for="city">${uiLabelMap.CommonCity}<span class="requiredLabel"> *</span><span id="advice-required-billToCity" class="custom-advice" style="display:none">(required)</span></label>
+                            </div>
+                            <div class="field-widget">
+                              <input id="billToCity" name="billToCity" class="required" type="text" value="${parameters.billToCity?if_exists}"/>
+                            </div>
                           </div>
-                        </div>
-                        <div class="form-row">
-                          <div class="field-label">                
-                            <label for="city">${uiLabelMap.CommonCity}<span class="requiredLabel"> *</span><span id="advice-required-billToCity" class="custom-advice" style="display:none">(required)</span></label>
-                          </div>
-                          <div class="field-widget">
-                            <input id="billToCity" name="billToCity" class="required" type="text" value="${parameters.billToCity?if_exists}" />
-                          </div>
-                        </div>
-                        <div class="form-row">
-                          <div>
-                            <span>
-                              <div class="field-label">
-                                <label for="state">${uiLabelMap.CommonState}<span class="requiredLabel"> *</span></label>
-                              </div>
-                            </span>
-                          </div>
-                          <div class="field-label" style="clear:both;"> 
-                            <span style="margin-top:-8px;">
-                              <select class="required" id="billToStateProvinceGeoId" name="billToStateProvinceGeoId">
+                          <div class="form-row">
+                            <div class="field-label">
+                               <label for="state">${uiLabelMap.CommonState}<span class="requiredLabel"> *</span></label>
+                            </div>
+                            <div class="field-widget"> 
+                              <select id="billToStateProvinceGeoId" name="billToStateProvinceGeoId" class="required">
                                 <#if parameters.billToStateProvinceGeoId?has_content>
                                   <option>${parameters.billToStateProvinceGeoId}</option>
                                   <option value="${parameters.billToStateProvinceGeoId}">---</option>
                                 <#else>
-                                  <option value="CA">CA - California</option>
+                                  <option value="">${uiLabelMap.PartyNoState}</option>
                                 </#if>
                                 ${screens.render("component://common/widget/CommonScreens.xml#states")}
                               </select>
-                            </span>
+                            </div>
                           </div>
-
                           <div class="form-row">
                             <div class="field-label">
                               <label for="billToPostalCode">${uiLabelMap.PartyZipCode}<span class="requiredLabel"> *</span><span id="advice-required-billToPostalCode" class="custom-advice" style="display:none">(required)</span><span id="advice-validate-billToPostalCode" class="custom-advice" style="display:none">(required)</span></label>   
                             </div>
                             <div class="field-widget">
-                              <input id="billToPostalCode" name="billToPostalCode" class="required validate-zip input_mask mask_zip" type="text" value="${parameters.billToPostalCode?if_exists}" />
+                              <input id="billToPostalCode" name="billToPostalCode" class="required validate-zip input_mask mask_zip" type="text" value="${parameters.billToPostalCode?if_exists}"/>
                             </div>
                           </div>
                           <div class="form-row">
-                            <div class="form-label">${uiLabelMap.PartyCountry}</div>
-                            <div class="form-field">
-                              <select name="billToCountryGeoId" id="billToCountryGeoId" class="selectBox">
+                            <div class="field-label">
+                              <label for="billToCountryGeoId">${uiLabelMap.PartyCountry}<span class="requiredLabel"> *</span></label>
+                            </div>
+                            <div class="field-widget">
+                              <select name="billToCountryGeoId" id="billToCountryGeoId" class="required">
                                 <#if (parameters.billToCountryGeoId)?exists>
                                   <option>${parameters.billToCountryGeoId}</option>
                                   <option value="${parameters.billToCountryGeoId}">---</option>
                                 </#if>
                                 ${screens.render("component://common/widget/CommonScreens.xml#countries")}
-                              </select>*
+                              </select>
                             </div>
                           </div>
-                        </div>
-                      </div>    
-                    </fieldset>
-                  </td></tr>
-                </table>
-              </div>
+                        </div>    
+                    </td></tr>
+                  </table>
+                </div>
               </form>
               <div align="right"><h3><span><a class="buttontext" href="javascript:void(0);" id="openOrderSubmitPanel">Continue for step 5</a></span></h3></div>
             </div>
