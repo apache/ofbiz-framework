@@ -20,7 +20,7 @@
 package org.ofbiz.catalina.container;
 
 import org.apache.tomcat.util.net.ServerSocketFactory;
-import org.apache.tomcat.util.net.jsse.JSSEFactory;
+import org.apache.tomcat.util.net.jsse.JSSE14SocketFactory;
 import org.apache.tomcat.util.net.jsse.JSSEImplementation;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.SSLUtil;
@@ -44,13 +44,19 @@ public class SSLImpl extends JSSEImplementation {
 
     public SSLImpl() throws ClassNotFoundException {
         super();
-        this.ssFactory = (new JSSEFactory()).getSocketFactory();
+        this.ssFactory = new ExtTomcatServerSocketFactory();
         this.allow =  new TrustManager[] { new AllowTrustManager() };
         Debug.log("SSLImpl loaded; using custom ServerSocketFactory", module);
     }
 
     public ServerSocketFactory getServerSocketFactory() {
         return ssFactory;
+    }
+
+    class ExtTomcatServerSocketFactory extends JSSE14SocketFactory {
+        protected TrustManager[] getTrustManagers(String keystoreType, String algorithm) throws Exception {
+            return allow;
+        }
     }
 
     class AllowTrustManager implements X509TrustManager {
