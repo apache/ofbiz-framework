@@ -20,7 +20,9 @@
 Event.observe(window, 'load', function() {
 	// Cart
     var isCartStepValidate = false;
-    var validateCart = new Validation('cartForm', {immediate: true, onSubmit: false});	
+    var isShipStepValidate = false;
+    var validateCart = new Validation('cartForm', {immediate: true, onSubmit: false});
+    var validateShip = new Validation('shippingForm', {immediate: true, onSubmit: false});
     Event.observe($('editShipping'), 'click', function() {
         if (validateCart.validate()) {
             displayShippingPanel();
@@ -34,12 +36,21 @@ Event.observe(window, 'load', function() {
 
     // Shipping
     Event.observe($('editShippingOptions'), 'click', function() {
-        processShippingAddress();
-        displayShippingOptionPanel();
+    	if (isCartStepValidate) {
+    	    if (validateShip.validate()) {
+                processShippingAddress();
+                displayShippingOptionPanel();
+                isShipStepValidate = true;
+            }    
+        }    
     });
 
     Event.observe($('openShippingPanel'), 'click', function() {
-        displayShippingPanel();
+    	if (isCartStepValidate) {
+    	    if (isShipStepValidate) {
+                displayShippingPanel();
+    	    }    
+    	}
     });
 
     // Shipping Options

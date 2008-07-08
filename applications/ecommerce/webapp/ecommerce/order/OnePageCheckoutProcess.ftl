@@ -283,17 +283,15 @@ under the License.
                 <input type="hidden" id="phoneContactMechId" name="phoneContactMechId" value="${parameters.phoneContactMechId?if_exists}"/>
                 <input type="hidden" id="emailContactMechId" name="emailContactMechId" value="${parameters.emailContactMechId?if_exists}"/>
                   <div class="screenlet">
-                      <div class="screenlet-header">
-                        <div class='boxhead'>&nbsp;${uiLabelMap.PartyNameAndShippingAddress}</div>
-                      </div>
                       <div class="screenlet-body">
-                        <div class="theform validation-advice" id="shippingContactAndMethodTypeServerError"></div>
                           <table id="shippingTable">
                             <tr><td>
-                              <fieldset class="left">
+                              <fieldset>
                                 <div class="form-row">
                                   <div class="field-label">
-                                     <label for="firstName1">${uiLabelMap.PartyFirstName}<span class="requiredLabel"> *</span><span id="advice-required-firstName" class="custom-advice" style="display:none">(required)</span></label>
+                                     <label for="firstName">${uiLabelMap.PartyFirstName}<span>*</span>
+                                       <span id="advice-required-firstName" style="display: none">(required)</span>
+                                     </label>
                                   </div>
                                   <div class="field-widget">
                                     <input id="firstName" name="firstName" class="required" type="text" value="${parameters.firstName?if_exists}"/>
@@ -301,48 +299,54 @@ under the License.
                                 </div>
                                 <div class="form-row">
                                   <div class="field-label">
-                                    <label for="lastName1">${uiLabelMap.PartyLastName}<span class="requiredLabel"> *</span><span id="advice-required-lastName" class="custom-advice" style="display:none">(required)</span></label>
+                                    <label for="lastName">${uiLabelMap.PartyLastName}<span>*</span>
+                                      <span id="advice-required-lastName" style="display:none">(required)</span>
+                                    </label>
                                   </div>
                                   <div class="field-widget">
-                                     <input id="lastName" name="lastName" class="required" type="text" value="${parameters.lastName?if_exists}"/>
+                                    <input id="lastName" name="lastName" class="required" type="text" value="${parameters.lastName?if_exists}"/>
                                   </div>
                                 </div>
                                 <div class="form-row">
                                   <div class="field-label">
-                                    <label for="countryCode">${uiLabelMap.PartyCountryCode}<span class="requiredLabel"> *</span><span id="advice-required-shippingContactPhoneNumber" class="custom-advice" style="display:none">(required)</span><span id="advice-validate-phone-shippingContactPhoneNumber" class="custom-advice" style="display:none">(required)</span></label>
-                                    <input name="countryCode" class="input_mask mask_phone required validate-phone" id="shippingCountryCode" value="${parameters.countryCode?if_exists}" size="3" maxlength=3>
+                                    <label for="countryCode">${uiLabelMap.PartyCountryCode}<span>*</span>
+                                      <span id="advice-required-shippingCountryCode" style="display:none">(required)</span>
+                                    </label>
+                                    <input name="countryCode" class="required" id="shippingCountryCode" value="${parameters.countryCode?if_exists}" size="3" maxlength=3>
                                   </div>
                                   <div class="field-label">
-                                    <label for="areaCode">${uiLabelMap.PartyAreaCode}<span class="requiredLabel"> *</span><span id="advice-required-shippingContactPhoneNumber" class="custom-advice" style="display:none">(required)</span><span id="advice-validate-phone-shippingContactPhoneNumber" class="custom-advice" style="display:none">(required)</span></label>
-                                    <input name="areaCode" class="input_mask mask_phone required validate-phone" id="shippingAreaCode" value="${parameters.areaCode?if_exists}" size="3" maxlength=4>
+                                    <label for="areaCode">${uiLabelMap.PartyAreaCode}<span>*</span><span id="advice-required-shippingAreaCode" style="display:none">(required)/span></label>
+                                    <input name="areaCode" class="required" id="shippingAreaCode" value="${parameters.areaCode?if_exists}" size="3" maxlength=3>
                                   </div>
                                   <div class="field-label">
-                                    <label for="contactNumber">${uiLabelMap.PartyContactNumber}<span class="requiredLabel"> *</span><span id="advice-required-shippingContactPhoneNumber" class="custom-advice" style="display:none">(required)</span><span id="advice-validate-phone-shippingContactPhoneNumber" class="custom-advice" style="display:none">(required)</span></label>
-                                    <input name="contactNumber" class="input_mask mask_phone required validate-phone" id="shippingContactNumber" value="${parameters.contactNumber?if_exists}" size="5" maxlength=6>
+                                    <label for="contactNumber">${uiLabelMap.PartyContactNumber}<span>*</span><span id="advice-required-shippingContactNumber" style="display:none">(required)</span></label>
+                                    <input name="contactNumber" class="required" id="shippingContactNumber" value="${parameters.contactNumber?if_exists}" size="7" maxlength=7>
                                   </div>
                                   <div class="field-label">
-                                    <label for="extension">${uiLabelMap.PartyExtension}<span class="requiredLabel"></span><span id="advice-required-shippingContactPhoneNumber" class="custom-advice" style="display:none">(required)</span><span id="advice-validate-phone-shippingContactPhoneNumber" class="custom-advice" style="display:none">(required)</span></label>
-                                    <input name="extension" class="input_mask mask_phone required validate-phone" id="shippingExtension" value="${parameters.extension?if_exists}" size="3" maxlength=3>
+                                    <label for="extension">${uiLabelMap.PartyExtension}</label>
+                                    <input name="extension" id="shippingExtension" value="${parameters.extension?if_exists}" size="3" maxlength=3>
                                   </div>
                                 </div>
                                 <div class="form-row">
                                   <div class="field-label">
-                                    <label for="emailAddress">${uiLabelMap.PartyEmailAddress}<span class="requiredLabel"> *</span><span id="advice-required-emailAddress" class="custom-advice" style="display:none">(required)</span><span id="advice-validate-email-emailAddress" class="custom-advice" style="display:none">(required)</span></label>
+                                    <label for="emailAddress">${uiLabelMap.PartyEmailAddress}<span>*</span>
+                                      <span id="advice-required-emailAddress" style="display:none">(required)</span>
+                                    </label>
                                   </div>
                                   <div class="field-widget">
                                     <input id="emailAddress" name="emailAddress" class="required validate-email" type="text" value="${parameters.emailAddress?if_exists}"/>
                                   </div>
                                 </div>
-                              </fieldset>
-                              <fieldset class="right">
-                            <div class="form-row">
-                              <div class="field-label">
-                                <label for="shipToAddress1">${uiLabelMap.PartyAddressLine1}<span class="requiredLabel"> *</span><span id="advice-required-shipToAddress1" class="custom-advice" style="display:none">(required)</span><span id="advice-validate-no-po-address-shipToAddress1" class="custom-advice" style="display:none">(No PO or APO Address)</span></label>
+                            </fieldset>
+                            <fieldset class="right">
+                              <div class="form-row">
+                                <div class="field-label">
+                                  <label for="shipToAddress1">${uiLabelMap.PartyAddressLine1}<span>*</span><span id="advice-required-shipToAddress1" class="custom-advice" style="display:none">(required)</span></label>
+                                </div>
+                                <div class="field-widget">
+                                  <input id="shipToAddress1" name="shipToAddress1" class="required" type="text" value="${parameters.shipToAddress1?if_exists}"/>
+                                </div>
                               </div>
-                              <div class="field-widget">
-                                <input id="shipToAddress1" name="shipToAddress1" class="required validate-no-po-address" type="text" value="${parameters.shipToAddress1?if_exists}"/>
-                              </div>
-                            </div>
                             <div class="form-row">
                               <div class="field-label"><label for="address2">${uiLabelMap.PartyAddressLine2}</label></div>
                               <div class="field-widget">
@@ -351,7 +355,7 @@ under the License.
                             </div>
                             <div class="form-row">
                               <div class="field-label">
-                                <label for="city">${uiLabelMap.CommonCity}<span class="requiredLabel"> *</span><span id="advice-required-shipToCity" class="custom-advice" style="display:none">(required)</span></label>
+                                <label for="shipToCity">${uiLabelMap.CommonCity}<span>*</span><span id="advice-required-shipToCity" class="custom-advice" style="display:none">(required)</span></label>
                               </div>
                               <div class="field-widget">
                                 <input id="shipToCity" name="shipToCity" class="required" type="text" value="${parameters.shipToCity?if_exists}" />
@@ -359,7 +363,7 @@ under the License.
                             </div>
                             <div class="form-row">
                               <div class="field-label">
-                                <label for="state">${uiLabelMap.CommonState}<span class="requiredLabel"> *</span></label>
+                                <label for="state">${uiLabelMap.CommonState}<span>*</span></label>
                               </div>
                               <div class="field-label" style="clear:both;"> 
                                   <select class="required" id="shipToStateProvinceGeoId" name="shipToStateProvinceGeoId">
@@ -375,14 +379,14 @@ under the License.
                             </div>
                             <div class="form-row">
                               <div class="field-label">
-                                <label for="shipToPostalCode">${uiLabelMap.PartyZipCode}<span class="requiredLabel"> *</span><span id="advice-required-shipToPostalCode" class="custom-advice" style="display:none">(required)</span><span id="advice-validate-zip-shipToPostalCode" class="custom-advice" style="display:none">(required)</span></label>
+                                <label for="shipToPostalCode">${uiLabelMap.PartyZipCode}<span>*</span><span id="advice-required-shipToPostalCode" class="custom-advice" style="display:none">(required)</span></label>
                               </div>
                               <div class="field-widget">
-                                <input id="shipToPostalCode" name="shipToPostalCode" class="required validate-zip input_mask mask_zip" type="text" value="${parameters.shipToPostalCode?if_exists}" maxlength=8/>
+                                <input id="shipToPostalCode" name="shipToPostalCode" class="required" type="text" value="${parameters.shipToPostalCode?if_exists}" maxlength=5/>
                               </div>
                             </div>
                             <div class="form-row">
-                              <div class="form-label">${uiLabelMap.PartyCountry}</div>
+                              <div class="form-label">${uiLabelMap.PartyCountry}<span>*</span></div>
                                 <div class="form-field">
                                   <select name="shipToCountryGeoId" id="shipToCountryGeoId" class="selectBox">
                                     <#if (parameters.shipToCountryGeoId)?exists>
@@ -390,7 +394,7 @@ under the License.
                                       <option value="${parameters.shipToCountryGeoId}">---</option>
                                     </#if>
                                     ${screens.render("component://common/widget/CommonScreens.xml#countries")}
-                                  </select>*
+                                  </select>
                                 </div>
                               </div>
                           </fieldset>
