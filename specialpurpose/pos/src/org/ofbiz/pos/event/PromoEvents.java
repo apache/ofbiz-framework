@@ -29,6 +29,7 @@ import org.ofbiz.pos.screen.PosScreen;
 
 public class PromoEvents {
 
+    private static final String resource = "PosUiLabels";
     public static final String module = PromoEvents.class.getName();
 
     public static synchronized void addPromoCode(PosScreen pos) {
@@ -42,7 +43,7 @@ public class PromoEvents {
         if (lastFunc == null || !"PROMOCODE".equals(lastFunc[0])) {
             Output output = pos.getOutput();
             input.setFunction("PROMOCODE");
-            output.print(UtilProperties.getMessage("PosUiLabels","ENTPROMOCODE",Locale.getDefault()));
+            output.print(UtilProperties.getMessage(resource,"ENTPROMOCODE",Locale.getDefault()));
         } else if ("PROMOCODE".equals(lastFunc[0])) {
             String promoCode = input.value();
             if (UtilValidate.isNotEmpty(promoCode)) {

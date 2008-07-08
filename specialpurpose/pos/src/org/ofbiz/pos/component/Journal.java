@@ -40,6 +40,7 @@ import org.ofbiz.pos.screen.PosScreen;
 
 public class Journal {
 
+    private static final String resource = "PosUiLabels";
     public static final String module = Journal.class.getName();
     protected XProject currentProject = (XProject)XProjectManager.getCurrentProject();
     
@@ -176,7 +177,7 @@ public class Journal {
         // create the header
         XModel headerNode = appendNode(jmodel, "th", "header", "");
         for (int i = 0 ; i < field.length; i++) {
-            appendNode(headerNode, "td", field[i],UtilProperties.getMessage("PosUiLabels",name[i],defaultLocale));
+            appendNode(headerNode, "td", field[i],UtilProperties.getMessage(resource,name[i],defaultLocale));
         }
 
         return jmodel;

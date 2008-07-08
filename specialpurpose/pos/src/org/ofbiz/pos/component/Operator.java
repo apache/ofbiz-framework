@@ -40,6 +40,7 @@ import org.ofbiz.base.util.UtilProperties;
 
 public class Operator {
 
+    private static final String resource = "PosUiLabels";
     public static final String module = Operator.class.getName();
     public static final String style = "operTitle";
 
@@ -49,7 +50,7 @@ public class Operator {
     public static final String[] OPER_TXID = { "oper_txid", "TXID" };
     public static final String[] OPER_DRWR = { "oper_drwr", "DRAWER" };    
     
-    public static SimpleDateFormat sdf = new SimpleDateFormat(UtilProperties.getMessage("PosUiLabels","DateFormat",Locale.getDefault()));
+    public static SimpleDateFormat sdf = new SimpleDateFormat(UtilProperties.getMessage(resource,"DateFormat",Locale.getDefault()));
     protected Component[] operatorField = null;
     protected XStyle titleStyle = null;
     protected XPanel operPanel = null;
@@ -131,15 +132,15 @@ public class Operator {
 
     protected String getFieldTitle(String fieldName) {
         if (OPER_TOTAL[0].equals(fieldName)) {
-            return UtilProperties.getMessage("PosUiLabels","TOTAL",defaultLocale);            
+            return UtilProperties.getMessage(resource,"TOTAL",defaultLocale);            
         } else if (OPER_DATE[0].equals(fieldName)) {
-        	return UtilProperties.getMessage("PosUiLabels","DATE",defaultLocale);
+        	return UtilProperties.getMessage(resource,"DATE",defaultLocale);
         } else if (OPER_EMPL[0].equals(fieldName)) {
-        	return UtilProperties.getMessage("PosUiLabels","EMPL",defaultLocale);
+        	return UtilProperties.getMessage(resource,"EMPL",defaultLocale);
         } else if (OPER_TXID[0].equals(fieldName)) {
-        	return UtilProperties.getMessage("PosUiLabels","TXID",defaultLocale);
+        	return UtilProperties.getMessage(resource,"TXID",defaultLocale);
         } else if (OPER_DRWR[0].equals(fieldName)) {
-        	return UtilProperties.getMessage("PosUiLabels","DRWR",defaultLocale);
+        	return UtilProperties.getMessage(resource,"DRWR",defaultLocale);
         }
         return "";
     }
