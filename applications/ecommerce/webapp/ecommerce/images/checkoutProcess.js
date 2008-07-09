@@ -96,6 +96,8 @@ Event.observe(window, 'load', function() {
     
     // Initiate Observing Edit Cart Events
     initCartProcessObservers();
+    
+    Event.observe('processOrderButton', 'click', processOrder);
 });
 
 // Cart
@@ -182,6 +184,8 @@ function displayOrderSubmitPanel() {
         Effect.Appear('shippingSummaryPanel', {duration: 0.5});
         Effect.Appear('shippingOptionSummaryPanel', {duration: 0.5});
         Effect.Appear('billingSummaryPanel', {duration: 0.5});
+        Effect.Fade('processingOrderButton', {duration: 0.5});
+        Effect.Appear('processOrderButton', {duration: 0.5});
     }
     setDataInBillingCompleted();	
 }
@@ -411,4 +415,11 @@ function updateCartData(elementId, formValues, itemQty, itemIndex) {
         },
         parameters: formValues
     });
+}
+
+function processOrder() {
+    $('processOrderButton').disabled = true ;
+    Effect.Fade('processOrderButton', {duration: 0.1});
+    Effect.Appear('processingOrderButton', {duration: 0.1});
+    $('orderSubmitForm').submit();
 }

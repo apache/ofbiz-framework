@@ -623,7 +623,10 @@ under the License.
             <div class="screenlet-header"><div class="boxhead" align="left">Step 5: Submit Order</div></div>
             <div id="orderSubmitPanel" style="display: none;">
               <form name="orderSubmitForm" id="orderSubmitForm" action="<@ofbizUrl>onePageProcessOrder</@ofbizUrl>" method="post">
-                <div align="right"><input type="button" name="processButton" value="${uiLabelMap.OrderSubmitOrder}" class="mediumSubmit"></div>
+                <div align="right">
+                  <input type="button" id="processOrderButton" name="processOrderButton" value="${uiLabelMap.OrderSubmitOrder}" class="mediumSubmit">
+                  <input type="button" id="processingOrderButton" name="processingOrderButton" value="${uiLabelMap.OrderSubmittingOrder}" class="mediumSubmit">
+                </div>              
               </form>
             </div>
           </div>
