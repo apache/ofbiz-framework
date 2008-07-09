@@ -4107,7 +4107,7 @@
         <value xml:lang="th">ข้อมูลเกี่ยวกับคุณ</value>
         <value xml:lang="zh">有关你的信息</value>
     </property>
-    <property key="OrderIntructions">
+    <property key="OrderInstructions">
         <value xml:lang="cs">Poznámky-připomínky-pokyny</value>
         <value xml:lang="de">Anweisungen</value>
         <value xml:lang="en">Instructions</value>
