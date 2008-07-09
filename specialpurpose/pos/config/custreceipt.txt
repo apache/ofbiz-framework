@@ -31,15 +31,17 @@ ${CENTER}${BOLD}212.655.3052
 ${CENTER}Sale: ${orderId} Tx: ${transactionId} Dr: ${drawerNo} Clerk: ${userId}
 ${CENTER}${dateStamp}
 
-DESC                              PRICE    QTY
+DESCRIPTION                       PRICE    QTY
 ==============================================
 [BEGIN ITEM LOOP]
 ${productId} ${isTaxable}${basePrice} ${quantity}
-${description} ${adjustments}
+${description} 
+${itemDiscount} ${adjustments}
 ${configDescription} ${configBasePrice} ${configQuantity}
 [END ITEM LOOP]
 
                          SALES TAX: ${taxTotal}
+                     SALE DISCOUNT: ${saleDiscount}
                              TOTAL: ${grandTotal}
 
 [BEGIN PAY LOOP]

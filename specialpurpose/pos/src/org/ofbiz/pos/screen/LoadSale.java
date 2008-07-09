@@ -42,7 +42,7 @@ public class LoadSale extends XPage {
     /**
      * To load a sale from a shopping list. 2 modes : add to or replace the current sale. Also a button to delete a sale (aka shopping list) 
      */
-    private static final String resource = "PosUiLabels";
+    
     public static final String module = LoadSale.class.getName();
     protected static PosScreen m_pos = null;
     protected XDialog m_dialog = null;
@@ -66,7 +66,7 @@ public class LoadSale extends XPage {
 
     public void openDlg() {
         m_dialog = (XDialog) pageMgr.loadPage(m_pos.getScreenLocation() + "/dialog/loadsale");
-        m_dialog.setCaption(UtilProperties.getMessage(resource, "LoadASale", Locale.getDefault()));
+        m_dialog.setCaption(UtilProperties.getMessage(PosTransaction.resource, "LoadASale", Locale.getDefault()));
         m_salesList = (XList) m_dialog.findComponent("salesList");
         XEventHelper.addMouseHandler(this, m_salesList, "saleDoubleClick");
 
@@ -92,7 +92,7 @@ public class LoadSale extends XPage {
         m_salesList.setVisibleRowCount(-1);
         m_salesList.ensureIndexIsVisible(m_salesList.getItemCount());     
         m_salesList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        m_salesList.setToolTipText(UtilProperties.getMessage(resource, "LoadSaleListDblClickTip", Locale.getDefault()));
+        m_salesList.setToolTipText(UtilProperties.getMessage(PosTransaction.resource, "LoadSaleListDblClickTip", Locale.getDefault()));
 
         m_dialog.pack();
         m_salesList.requestFocusInWindow();
