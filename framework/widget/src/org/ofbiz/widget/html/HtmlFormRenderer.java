@@ -588,6 +588,8 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
 
         String event = modelFormField.getEvent();
         String action = modelFormField.getAction(context);
+        
+        String currentValue = modelFormField.getEntry(context);
 
         if (ajaxEnabled) {
         	writer.append("<input type=\"text\"");
@@ -599,40 +601,82 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
 
         writer.append(" name=\"");
         writer.append(modelFormField.getParameterName(context));
-        writer.append('"');
 
         String idName = modelFormField.getIdName();
-        if (UtilValidate.isNotEmpty(idName)) {
-            writer.append(" id=\"");
-            writer.append(idName);
-            writer.append('"');
-        }
         
         if (ajaxEnabled) {
-        	writer.append("/>");
-        	
-        	appendWhitespace(writer);
+            writer.append("_description\"");
+
+            String textFieldIdName = idName;
+            if (UtilValidate.isNotEmpty(textFieldIdName)) {
+                textFieldIdName += "_description";
+                writer.append(" id=\"");
+                writer.append(textFieldIdName);
+                writer.append('"');
+            }
+            
+            if (UtilValidate.isNotEmpty(currentValue)) {
+                writer.append(" value=\"");
+                String explicitDescription = dropDownField.getCurrentDescription(context);
+                if (UtilValidate.isNotEmpty(explicitDescription)) {
+                    writer.append(explicitDescription);
+                } else {
+                    writer.append(ModelFormField.FieldInfoWithOptions.getDescriptionForOptionKey(currentValue, allOptionValues));
+                }
+                writer.append('"');
+            }
+            writer.append("/>");
+            
+            appendWhitespace(writer);
+            writer.append("<input type=\"hidden\"");
+            writer.append(" name=\"");
+            writer.append(modelFormField.getParameterName(context));
+            writer.append('"');
+            if (UtilValidate.isNotEmpty(idName)) {
+            	writer.append(" id=\"");
+                writer.append(idName);
+                writer.append('"');
+            }
+            
+            if (UtilValidate.isNotEmpty(currentValue)) {
+                writer.append(" value=\"");
+                String explicitDescription = dropDownField.getCurrentDescription(context);
+                writer.append(currentValue);
+                writer.append('"');
+            }
+            
+            writer.append("/>");
+
+            appendWhitespace(writer);
             writer.append("<script language=\"JavaScript\" type=\"text/javascript\">");
             appendWhitespace(writer);
-            writer.append("var data = [");
+            writer.append("var data = {");
             Iterator optionValueIter = allOptionValues.iterator();
             int count = 0;
             while (optionValueIter.hasNext()) {
             	count++;
                 ModelFormField.OptionValue optionValue = (ModelFormField.OptionValue) optionValueIter.next();
-                writer.append("['"+optionValue.getKey()+"',");
-                writer.append(" '"+optionValue.getDescription()+"']");
+                writer.append(""+optionValue.getKey()+": ");
+                writer.append(" '"+optionValue.getDescription()+"'");
                 if (count != allOptionValues.size()) {
                 	writer.append(", ");
                 }
             }
-            writer.append("];");
+            writer.append("};");
             appendWhitespace(writer);
-            writer.append("ajaxAutoCompleteDropDown('"+idName+"', data, {autoSelect: "+autoComplete.getAutoSelect()+", frequency: "+autoComplete.getFrequency()+", minChars: "+autoComplete.getMinChars()+", choices: "+autoComplete.getChoices()+", partialSearch: "+autoComplete.getPartialSearch()+", partialChars: "+autoComplete.getPartialChars()+", ignoreCase: "+autoComplete.getIgnoreCase()+", fullSearch: "+autoComplete.getFullSearch()+"});");
+            writer.append("ajaxAutoCompleteDropDown('"+textFieldIdName+"', '"+idName+"', data, {autoSelect: "+autoComplete.getAutoSelect()+", frequency: "+autoComplete.getFrequency()+", minChars: "+autoComplete.getMinChars()+", choices: "+autoComplete.getChoices()+", partialSearch: "+autoComplete.getPartialSearch()+", partialChars: "+autoComplete.getPartialChars()+", ignoreCase: "+autoComplete.getIgnoreCase()+", fullSearch: "+autoComplete.getFullSearch()+"});");
             appendWhitespace(writer);
             writer.append("</script>");
         } else {
-        	if (dropDownField.isAllowMultiple()) {
+        	writer.append('"');
+
+            if (UtilValidate.isNotEmpty(idName)) {
+                writer.append(" id=\"");
+                writer.append(idName);
+                writer.append('"');
+            }
+
+            if (dropDownField.isAllowMultiple()) {
                 writer.append(" multiple=\"multiple\"");
             }
             
@@ -658,8 +702,6 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             }
 
             writer.append(" size=\"" + dropDownField.getSize() + "\">");
-
-            String currentValue = modelFormField.getEntry(context);
 
             // if the current value should go first, stick it in
             if (UtilValidate.isNotEmpty(currentValue) && "first-in-list".equals(dropDownField.getCurrent())) {

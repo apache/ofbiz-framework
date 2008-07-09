@@ -407,9 +407,9 @@ Ajax.Autocompleter = Class.create(Autocompleter.Base, {
 // you support them.
 
 Autocompleter.Local = Class.create(Autocompleter.Base, {
-  initialize: function(element, update, array, options) {
+  initialize: function(element, update, data, options) {
     this.baseInitialize(element, update, options);
-    this.options.array = array;
+    this.options.data = data;
   },
 
   getUpdatedChoices: function() {
@@ -429,38 +429,75 @@ Autocompleter.Local = Class.create(Autocompleter.Base, {
         var entry     = instance.getToken();
         var count     = 0;
 
-        for (var i = 0; i < instance.options.array.length &&  
-          ret.length < instance.options.choices ; i++) { 
+        if (Object.isHash(instance.options.data)) {
+          var keys = [];
+          keys = instance.options.data.keys();
+          for (var i = 0; i < keys.length &&  
+            ret.length < instance.options.choices ; i++) { 
 
-          var elem = instance.options.array[i];
-          var foundPos = instance.options.ignoreCase ? 
-            elem.toLowerCase().indexOf(entry.toLowerCase()) : 
-            elem.indexOf(entry);
+            var elem = instance.options.data.get(keys[i]);
+            var foundPos = instance.options.ignoreCase ? 
+              elem.toLowerCase().indexOf(entry.toLowerCase()) : 
+              elem.indexOf(entry);
 
-          while (foundPos != -1) {
-            if (foundPos == 0 && elem.length != entry.length) { 
-              ret.push("<li><strong>" + elem.substr(0, entry.length) + "</strong>" + 
-                elem.substr(entry.length) + "</li>");
-              break;
-            } else if (entry.length >= instance.options.partialChars && 
-              instance.options.partialSearch && foundPos != -1) {
-              if (instance.options.fullSearch || /\s/.test(elem.substr(foundPos-1,1))) {
-                partial.push("<li>" + elem.substr(0, foundPos) + "<strong>" +
-                  elem.substr(foundPos, entry.length) + "</strong>" + elem.substr(
-                  foundPos + entry.length) + "</li>");
+            while (foundPos != -1) {
+              if (foundPos == 0 && elem.length != entry.length) { 
+                ret.push("<li id=" + '"' + keys[i] + '"' + "><strong>" + elem.substr(0, entry.length) + "</strong>" + 
+                  elem.substr(entry.length) + "</li>");
                 break;
+              } else if (entry.length >= instance.options.partialChars && 
+                instance.options.partialSearch && foundPos != -1) {
+                if (instance.options.fullSearch || /\s/.test(elem.substr(foundPos-1,1))) {
+                  partial.push("<li id=" + '"' + keys[i] + '"' + ">" + elem.substr(0, foundPos) + "<strong>" +
+                    elem.substr(foundPos, entry.length) + "</strong>" + elem.substr(
+                    foundPos + entry.length) + "</li>");
+                  break;
+                }
               }
+
+              foundPos = instance.options.ignoreCase ? 
+                elem.toLowerCase().indexOf(entry.toLowerCase(), foundPos + 1) : 
+                elem.indexOf(entry, foundPos + 1);
+
             }
-
-            foundPos = instance.options.ignoreCase ? 
-              elem.toLowerCase().indexOf(entry.toLowerCase(), foundPos + 1) : 
-              elem.indexOf(entry, foundPos + 1);
-
           }
+          if (partial.length)
+            ret = ret.concat(partial.slice(0, instance.options.choices - ret.length))
+          return "<ul>" + ret.join('') + "</ul>";
+        } else {
+          for (var i = 0; i < instance.options.data.length &&  
+            ret.length < instance.options.choices ; i++) { 
+
+            var elem = instance.options.data[i];
+            var foundPos = instance.options.ignoreCase ? 
+              elem.toLowerCase().indexOf(entry.toLowerCase()) : 
+              elem.indexOf(entry);
+
+            while (foundPos != -1) {
+              if (foundPos == 0 && elem.length != entry.length) { 
+                ret.push("<li><strong>" + elem.substr(0, entry.length) + "</strong>" + 
+                  elem.substr(entry.length) + "</li>");
+                break;
+              } else if (entry.length >= instance.options.partialChars && 
+                instance.options.partialSearch && foundPos != -1) {
+                if (instance.options.fullSearch || /\s/.test(elem.substr(foundPos-1,1))) {
+                  partial.push("<li>" + elem.substr(0, foundPos) + "<strong>" +
+                    elem.substr(foundPos, entry.length) + "</strong>" + elem.substr(
+                    foundPos + entry.length) + "</li>");
+                  break;
+                }
+              }
+
+              foundPos = instance.options.ignoreCase ? 
+                elem.toLowerCase().indexOf(entry.toLowerCase(), foundPos + 1) : 
+                elem.indexOf(entry, foundPos + 1);
+
+            }
+          }
+          if (partial.length)
+            ret = ret.concat(partial.slice(0, instance.options.choices - ret.length))
+          return "<ul>" + ret.join('') + "</ul>";
         }
-        if (partial.length)
-          ret = ret.concat(partial.slice(0, instance.options.choices - ret.length))
-        return "<ul>" + ret.join('') + "</ul>";
       }
     }, options || { });
   }
