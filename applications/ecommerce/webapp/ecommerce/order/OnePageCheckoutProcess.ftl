@@ -233,7 +233,6 @@ under the License.
             <div class="screenlet-header"><div class="boxhead" align="left">Step 2: Shipping</div></div>
             <div id="shippingSummaryPanel" class="screenlet-body">
               <div align="left"><h3><span><a class="buttontext" href="javascript:void(0);" id="openShippingPanel">Click here to edit</a></span></h3></div>
-                <div id="shippingSummary">
                   <div style="display:none" id="shippingCompleted">
                     <a href="javascript:void(0);" id="openShippingAndPersonlDetail">
                       <h3>Shipping Summary</h3>
@@ -261,9 +260,8 @@ under the License.
                       </tbody>
                     </table>
                   </div>
-              </div>
             </div>
-            <div id="editShippingPanel" style="display: none;">
+            <div id="editShippingPanel" class="screenlet-body" style="display: none;">
               <form name="shippingForm" id="shippingForm" action="<@ofbizUrl>createUpdateShippingAddress</@ofbizUrl>" method="post">
                 <input type="hidden" id="shippingContactMechId" name="shippingContactMechId" value="${parameters.shippingContactMechId?if_exists}"/>
                 <input type="hidden" name="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
@@ -271,7 +269,7 @@ under the License.
                 <input type="hidden" name="userLogin" value="${parameters.userLogin?if_exists}"/>
                 <input type="hidden" id="phoneContactMechId" name="phoneContactMechId" value="${parameters.phoneContactMechId?if_exists}"/>
                 <input type="hidden" id="emailContactMechId" name="emailContactMechId" value="${parameters.emailContactMechId?if_exists}"/>
-                          <table id="shippingTable">
+                          <table>
                             <tr><td width="40%" valign="top">
                                 <div class="form-row">
                                   <div class="field-label">
@@ -389,9 +387,8 @@ under the License.
 
           <div id="shippingOptionPanel" class="screenlet">
             <div class="screenlet-header"><div class="boxhead" align="left">Step 3: Shipping Options</div></div>
-            <div id="shippingOptionSummaryPanel">
-              <div align="left" style="width: auto; padding: 10px 40px 30px 40px;"><a href="javascript:void(0);" id="openShippingOptionPanel"><h3>Click here to edit</h3></a></div>
-              <div id="shippingOptionSummary">
+            <div id="shippingOptionSummaryPanel" class="screenlet-body">
+              <div align="left"><h3><span><a class="buttontext" href="javascript:void(0);" id="openShippingOptionPanel">Click here to edit</a></span></h3></div>
                 <div class="completed" style="display:none" id="shippingOptionCompleted">
                   <a href="javascript:void(0);" id="openShippingOption">
                       <h3>Shipping Option Summary</h3>
@@ -399,29 +396,26 @@ under the License.
                   <table cellpadding="0" cellspacing="0">
                     <tbody>
                       <tr>
-                        <td style=" padding: 6px; width: 60px;" valign="top">Shipment Option:</td>
-                        <td style="padding: 6px; width: 60px;" valign="top">
+                        <td valign="top">Shipment Option:</td>
+                        <td valign="top">
                           <div id="selectedShipmentOption"></div>
                         </td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
-              </div>
             </div>
 
-            <div id="editShippingOptionPanel" style="display: none;">
+            <div id="editShippingOptionPanel" class="screenlet-body" style="display: none;">
               <form name="shippingOptionForm" id="shippingOptionForm" action="<@ofbizUrl></@ofbizUrl>" method="post">
-                <table id="shippingTable">
+                <table>
                   <tr><td>
-                    <fieldset class="center">
                       <div class="form-row">
                         <div class="field-label">
                           <label for="shipmethod">${uiLabelMap.OrderSelectShippingMethod}<span class="requiredLabel"> *</span><span id="advice-required-shipping_method" class="custom-advice" style="display:none">(required)</span></label>
                         </div>
                         <select id="shipMethod" name="shipMethod" class="required"></select>
                       </div>
-                    </fieldset>
                   </td></tr>
                 </table>
               </form>
@@ -431,8 +425,8 @@ under the License.
 
           <div id="billingPanel" class="screenlet">
             <div class="screenlet-header"><div class="boxhead" align="left">Step 4: Billing</div></div>
-            <div id="billingSummaryPanel">
-              <div align="left" style="width: auto; padding: 10px 10px 10px 10px;"><a href="javascript:void(0);" id="openBillingPanel"><h3>Click here to edit</h3></a></div>
+            <div id="billingSummaryPanel" class="screenlet-body">
+              <div align="left"><h3><span><a class="buttontext" href="javascript:void(0);" id="openBillingPanel">Click here to edit</a></span></h3></div>
               <div class="completed" id="billingCompleted" style="display: none;">
                 <a href="javascript:void(0);" id="openBillingAndPersonlDetail">
                   <h3>Billing and Payment Summary</h3>
@@ -469,7 +463,7 @@ under the License.
                 </table>
               </div>
             </div>
-            <div id="editBillingPanel" style="display: none;">
+            <div id="editBillingPanel" class="screenlet-body" style="display: none;">
               <form name="billingForm" id="billingForm" class="theform" action="<@ofbizUrl></@ofbizUrl>" method="post">
                 <input type="hidden" id ="billToContactMechId" name="billToContactMechId" value="${parameters.billToContactMechId?if_exists}"/>
                 <input type="hidden" id="shippingContactMechIdInBillingForm" name="shippingContactMechId" value="${parameters.shippingContactMechId?if_exists}"/>
@@ -479,7 +473,7 @@ under the License.
                 <input type="hidden" name="userLogin" value="${parameters.userLogin?if_exists}"/>
                 <input type="hidden" name="expireDate" value="${parameters.expireDate?if_exists}"/>
                 <input type="hidden" id="cardType" name="cardType" value="Visa"/>
-                  <table id="billingTable">
+                  <table>
                     <tr><td valign="top">
                         <div class="form-row">
                           <div class="field-label">
@@ -633,7 +627,7 @@ under the License.
         </div>
       </#if>
 
-      <div id="emptyCartCheckoutPanel" align="center" <#if shoppingCart?has_content && shoppingCart.size() gt 0> style="display: none; border: 1px solid #333333; height: auto;"</#if>>
+      <div id="emptyCartCheckoutPanel" align="center" <#if shoppingCart?has_content && shoppingCart.size() gt 0> style="display: none;"</#if>>
         <div>
           <div class="screenlet-header"><div class="boxhead" align="left">Step 1: ${uiLabelMap.PageTitleShoppingCart}</div></div><br/>
           <div>You currently have no items in your cart. Click <a href="<@ofbizUrl>main</@ofbizUrl>">here</a> to view our products.</div>
