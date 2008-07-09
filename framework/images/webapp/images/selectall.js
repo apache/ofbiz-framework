@@ -322,26 +322,20 @@ function ajaxAutoCompleter(areaCsvString) {
     }
 }
 
-/** Enable auto-completion for dorp-down elements.
-  * @param areaId The id of the drop-down
-  * @param data Choices for Autocompleter.Local
+/** Enable auto-completion for drop-down elements.
+  * @param descriptionElement The id of the text field
+  * @param hiddenElement The id of the drop-down.  Used as the id of hidden field inserted.
+  * @param data Choices for Autocompleter.Local, form of: {key: 'description',.......}
   * @param options
 */
 
-function ajaxAutoCompleteDropDown(element, data, options) {
-    var key = [];
-    var description = [];
-    for (var i=0; i < data.length; i++) {
-        currData = data[i];
-        key[i] = currData[0];
-        description[i] = currData[1];
-    }
-	var update = element + "_autoCompleterOptions";
-    $(element).insert({after: '<div class="autocomplete"' + 'id=' + update + '></div>'});
-    new Autocompleter.Local($(element), update, description, {autoSelect: options.autoSelect, frequency: options.frequency, minChars: options.minChars, choices: options.choices, partialSearch: options.partialSearch, partialChars: options.partialChars, ignoreCase: options.ignoreCase, fullSearch: options.fullSearch, afterUpdateElement: setKeyAsParameter});
+function ajaxAutoCompleteDropDown(descriptionElement, hiddenElement, data, options) {
+    var update = hiddenElement + "_autoCompleterOptions";
+    $(descriptionElement).insert({after: '<div class="autocomplete"' + 'id=' + update + '></div>'});
+    new Autocompleter.Local($(descriptionElement), update, $H(data), {autoSelect: options.autoSelect, frequency: options.frequency, minChars: options.minChars, choices: options.choices, partialSearch: options.partialSearch, partialChars: options.partialChars, ignoreCase: options.ignoreCase, fullSearch: options.fullSearch, afterUpdateElement: setKeyAsParameter});
     
-    function setKeyAsParameter() {
-        $(element).value = key[description.indexOf($F(element))];
+    function setKeyAsParameter(text, li) {
+        $(hiddenElement).value = li.id;
     }
 }
 

@@ -62,6 +62,7 @@ under the License.
     <screen name="EditExample">
         <section>
             <actions>
+                <set field="layoutSettings.styleSheets[+0]" value="/images/prototypejs/scriptaculouscontrols.css" global="true"/>
                 <set field="titleProperty" value="PageTitleEditExample"/>
                 <set field="tabButtonItem" value="EditExample"/>
                 <set field="exampleId" from-field="parameters.exampleId"/>

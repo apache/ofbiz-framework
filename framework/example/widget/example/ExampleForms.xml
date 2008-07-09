@@ -82,8 +82,9 @@ under the License.
         <field use-when="example!=null" name="exampleId" title="${uiLabelMap.ExampleExampleId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field use-when="example==null&amp;&amp;exampleId==null" name="exampleId" title="${uiLabelMap.ExampleExampleId}"><ignored/></field>
         <field use-when="example==null&amp;&amp;exampleId!=null" name="exampleId" title="${uiLabelMap.ExampleExampleId}"><display description="${uiLabelMap.CommonCannotBeFound}: [${exampleId}]" also-hidden="false"/></field>
-        <field name="exampleTypeId" title="${uiLabelMap.CommonType}">
+        <field name="exampleTypeId" title="${uiLabelMap.CommonType}" id-name="exampleTypeId">
             <drop-down allow-empty="false">
+                <auto-complete/>
                 <entity-options entity-name="ExampleType" description="${description}">
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -125,14 +126,6 @@ under the License.
         have these settings. -->
     <form name="EditExampleBackgroundSubmit" type="single" extends="EditExample" target="updateExampleAjax">
         <alt-target use-when="example==null" target="createExampleAjax"/>
-        <field name="exampleTypeId" title="${uiLabelMap.CommonType}" id-name="exampleTypeId">
-            <drop-down allow-empty="false">
-                <auto-complete/>
-                <entity-options entity-name="ExampleType" description="${description}">
-                    <entity-order-by field-name="description"/>
-                </entity-options>
-            </drop-down>
-        </field>
         <field name="statusId" use-when="example==null" title="${uiLabelMap.CommonStatus}" id-name="statusId">
             <drop-down allow-empty="false">
                 <auto-complete/>
