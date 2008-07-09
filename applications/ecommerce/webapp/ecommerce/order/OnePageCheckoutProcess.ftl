@@ -269,6 +269,7 @@ under the License.
                 <input type="hidden" name="userLogin" value="${parameters.userLogin?if_exists}"/>
                 <input type="hidden" id="phoneContactMechId" name="phoneContactMechId" value="${parameters.phoneContactMechId?if_exists}"/>
                 <input type="hidden" id="emailContactMechId" name="emailContactMechId" value="${parameters.emailContactMechId?if_exists}"/>
+                <div id="shippingFormServerError" class="validation-advice"></div>
                           <table>
                             <tr><td width="40%" valign="top">
                                 <div class="form-row">
@@ -408,6 +409,7 @@ under the License.
 
             <div id="editShippingOptionPanel" class="screenlet-body" style="display: none;">
               <form name="shippingOptionForm" id="shippingOptionForm" action="<@ofbizUrl></@ofbizUrl>" method="post">
+                <div id="shippingOptionFormServerError" class="validation-advice"></div>
                 <table>
                   <tr><td>
                       <div class="form-row">
@@ -473,6 +475,7 @@ under the License.
                 <input type="hidden" name="userLogin" value="${parameters.userLogin?if_exists}"/>
                 <input type="hidden" name="expireDate" value="${parameters.expireDate?if_exists}"/>
                 <input type="hidden" id="cardType" name="cardType" value="Visa"/>
+                <div id="billingFormServerError" class="validation-advice"></div>
                   <table>
                     <tr><td valign="top">
                         <div class="form-row">

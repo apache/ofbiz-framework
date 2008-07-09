@@ -203,12 +203,13 @@ function processShippingAddress() {
             });
             $('shipMethod').update(optionList);
             if (data._ERROR_MESSAGE_LIST_ != undefined) {
-                console.log(data._ERROR_MESSAGE_LIST_);
+                $('shippingFormServerError').update(data._ERROR_MESSAGE_LIST_);
             } else if (data._ERROR_MESSAGE_ != undefined) {
                 if (data._ERROR_MESSAGE_LIST_ == "SessionTimedOut") {
-                    console.log('session time out');
+                    $('emptyCartCheckoutPanel').show();
+                    $('checkoutPanel').hide();
                 }
-                console.log(data._ERROR_MESSAGE_); 
+                $('shippingFormServerError').update(data._ERROR_MESSAGE_); 
             } else {
                 // Process Shipping data response.
                 $('shippingPartyId').value = data.partyId;
@@ -248,12 +249,14 @@ function setShippingOption() {
             shipMethod = data.shippingDescription;
             shipTotal = data.shippingTotal;
             if (data._ERROR_MESSAGE_LIST_ != undefined) {
-                console.log(data._ERROR_MESSAGE_LIST_);
+                $('shippingOptionFormServerError').update(data._ERROR_MESSAGE_LIST_);
+            	
             } else if (data._ERROR_MESSAGE_ != undefined) {
                 if (data._ERROR_MESSAGE_LIST_ == "SessionTimedOut") {
-                    console.log('session time out');
+                    $('emptyCartCheckoutPanel').show();
+                    $('checkoutPanel').hide();
                 }
-                console.log(data._ERROR_MESSAGE_); 
+                $('shippingOptionFormServerError').update(data._ERROR_MESSAGE_);
             } else {
                 $('shippingDescription').value = data.shippingDescription;
                 $('shippingTotal').value = data.shippingTotal;
@@ -266,8 +269,7 @@ function setShippingOption() {
 }
 
 function setDataInShippingOptionCompleted() {
-    var shipOpt = shipMethod +'-'+shipTotal;
-    $('selectedShipmentOption').update(shipOpt);
+    $('selectedShipmentOption').update($('shipMethod').value);
 }
 
 // Billing
@@ -292,12 +294,13 @@ function processBillingAndPayment() {
             var data = transport.responseText.evalJSON(true);
             console.log(data);
             if (data._ERROR_MESSAGE_LIST_ != undefined) {
-                console.log(data._ERROR_MESSAGE_LIST_);
+                $('billingFormServerError').update(data._ERROR_MESSAGE_LIST_);
             } else if (data._ERROR_MESSAGE_ != undefined) {
                 if (data._ERROR_MESSAGE_LIST_="SessionTimedOut") {
-                    console.log('session time out');
+                    $('emptyCartCheckoutPanel').show();
+                    $('checkoutPanel').hide();
                 }
-                console.log(data._ERROR_MESSAGE_);
+                $('billingFormServerError').update(data._ERROR_MESSAGE_);
             } else {
                 $('billToContactMechId').value = data.billToContactMechId;
                 $('paymentMethodId').value = data.paymentMethodId;
