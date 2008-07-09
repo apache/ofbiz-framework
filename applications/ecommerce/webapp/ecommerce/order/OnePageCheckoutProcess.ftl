@@ -36,13 +36,13 @@ under the License.
                   <table width="75%" cellspacing="0" cellpadding="1" border="0">
                     <thead>
                       <tr>
-                        <td valign="top" align="center"><div><b>${uiLabelMap.OrderItem}</b></div></td>
-                        <td align="left" valign="top" ><b>${uiLabelMap.CommonDescription}</b></div></td>
-                        <td><div  align="center"><b>${uiLabelMap.EcommerceUnitPrice}</b></div></td>
-                        <td><div  align="center"><b>${uiLabelMap.OrderQuantity}</b></div></td>
-                        <td><div  align="center"><b>${uiLabelMap.EcommerceItemTotal}</b></div></td>
+                        <td align="left"><div><b>${uiLabelMap.OrderItem}</b></div></td>
+                        <td align="left"><div><b>${uiLabelMap.CommonDescription}</b></div></td>
+                        <td align="center"><div><b>${uiLabelMap.EcommerceUnitPrice}</b></div></td>
+                        <td align="center"><div><b>${uiLabelMap.OrderQuantity}</b></div></td>
+                        <td align="right"><div><b>${uiLabelMap.EcommerceItemTotal}</b></div></td>
                       </tr>
-                      <tr><td colspan="8"><hr class="sepbar"/></td></tr>
+                      <tr><td colspan="5"><hr class="sepbar"/></td></tr>
                     </thead>                
                     <tbody>
                       <#assign itemCount = 0>
@@ -58,32 +58,32 @@ under the License.
                           <#if !smallImageUrl?has_content><#assign smallImageUrl = ""></#if>
                         </#if>
                         <tr id="cartItemDisplayRow_${cartLineIndex}">
-                          <td align="center" valign="top"><div><img src="<@ofbizContentUrl>${requestAttributes.contentPathPrefix?if_exists}${smallImageUrl}</@ofbizContentUrl>" align="center" height="20" hspace="0" vspace="0" width="20"></div></td>
-                          <td align="center" valign="top"><div style="text-align: left;">${cartLine.getName()?if_exists}</div> 
-                          <td align="center" valign="top"><div>@${cartLine.getDisplayPrice()}</div></td>
-                          <td align="center" valign="top"><div><span id="completedCartItemQty_${cartLineIndex}">${cartLine.getQuantity()?string.number}</span></div></td>
-                          <td align="center" valign="top"><div id="completedCartItemSubTotal_${cartLineIndex}"><@ofbizCurrency amount=cartLine.getDisplayItemSubTotalNoAdj() isoCode=shoppingCart.getCurrency()/></div></td>
+                          <td align="left"><div><img src="<@ofbizContentUrl>${requestAttributes.contentPathPrefix?if_exists}${smallImageUrl}</@ofbizContentUrl>" align="center" height="20" hspace="0" vspace="0" width="20"></div></td>
+                          <td align="center"><div style="text-align: left;">${cartLine.getName()?if_exists}</div> 
+                          <td align="center"><div>@${cartLine.getDisplayPrice()}</div></td>
+                          <td align="center"><div><span id="completedCartItemQty_${cartLineIndex}">${cartLine.getQuantity()?string.number}</span></div></td>
+                          <td align="right"><div id="completedCartItemSubTotal_${cartLineIndex}"><@ofbizCurrency amount=cartLine.getDisplayItemSubTotalNoAdj() isoCode=shoppingCart.getCurrency()/></div></td>
                         </tr>
-                        <tr><td colspan="8"><hr class="sepbar"/></td></tr>
+                        <tr><td colspan="5"><hr class="sepbar"/></td></tr>
                         <#assign itemCount = itemCount + 1>
                       </#list>
                       <tr id="completedCartSubtotalRow">
                         <td colspan="3"></td>
                         <td><div align="right"><b>${uiLabelMap.CommonSubtotal}:</b></div></td>
                         <#assign initializedSubTotal = shoppingCart.getDisplaySubTotal() - shoppingCart.getProductPromoTotal()>
-                        <td><div id="completedCartSubTotal" align="center"><@ofbizCurrency amount=initializedSubTotal isoCode=shoppingCart.getCurrency()/></div></td>
+                        <td><div id="completedCartSubTotal" align="right"><@ofbizCurrency amount=initializedSubTotal isoCode=shoppingCart.getCurrency()/></div></td>
                       </tr>
                       <tr id="completedCartDiscountRow">
                         <input type="hidden" value="<b>${shoppingCart.getProductPromoTotal()}</b>" id="initializedCompletedCartDiscount"/>
                         <td colspan="3"></td>
                         <td><div align="right"><b>${uiLabelMap.ProductDiscount}:</b></div></td>
-                        <td><div id="completedCartDiscount" align="center"><@ofbizCurrency amount=shoppingCart.getProductPromoTotal() isoCode=shoppingCart.getCurrency()/></div></td>
+                        <td><div id="completedCartDiscount" align="right"><@ofbizCurrency amount=shoppingCart.getProductPromoTotal() isoCode=shoppingCart.getCurrency()/></div></td>
                       </tr>
                       <tr>
                         <td colspan="3"></td>
                         <td><div align="right"><b>${uiLabelMap.OrderShippingAndHandling}:</b></div></td>
                         <td>
-                          <div id="completedCartTotalShipping" align="center">
+                          <div id="completedCartTotalShipping" align="right">
                             <#if (shoppingCart.getTotalShipping() > 0.0)>
                               <@ofbizCurrency amount=shoppingCart.getTotalShipping() isoCode=shoppingCart.getCurrency()/>
                             <#else>$0.00
@@ -95,7 +95,7 @@ under the License.
                         <td colspan="3"></td>
                         <td><div align="right"><b>${uiLabelMap.OrderSalesTax}:</b></div></td>
                         <td>
-                          <div id="completedCartTotalSalesTax" align="center">
+                          <div id="completedCartTotalSalesTax" align="right">
                             <#if (shoppingCart.getTotalSalesTax() > 0.0)>
                               <@ofbizCurrency amount=shoppingCart.getTotalSalesTax() isoCode=shoppingCart.getCurrency()/>
                             <#else>$0.00
@@ -106,7 +106,7 @@ under the License.
                       <tr>
                         <td colspan="3"></td>
                         <td><div align="right"><b>${uiLabelMap.OrderGrandTotal}:</b></div></td>
-                        <td><div  id="completedCartDisplayGrandTotal" align="center"><@ofbizCurrency amount=shoppingCart.getDisplayGrandTotal() isoCode=shoppingCart.getCurrency()/></div></td>
+                        <td><div  id="completedCartDisplayGrandTotal" align="right"><@ofbizCurrency amount=shoppingCart.getDisplayGrandTotal() isoCode=shoppingCart.getCurrency()/></div></td>
                       </tr>
                     </tbody>
                   </table>
@@ -122,14 +122,14 @@ under the License.
                       <table width="75%" cellspacing="0" cellpadding="1" border="0">
                         <thead>
                           <tr>
-                            <td valign="top" align="center"><div><b>${uiLabelMap.OrderItem}</b></div></td>
-                            <td align="left" valign="top"><b>${uiLabelMap.CommonDescription}</b></div></td>
-                            <td><div  align="center"><b>${uiLabelMap.EcommerceUnitPrice}</b></div></td>
-                            <td><div  align="center"><b>${uiLabelMap.OrderQuantity}</b></div></td>
-                            <td><div  align="center"><b>${uiLabelMap.EcommerceItemTotal}</b></div></td>
-                            <td><div  align="center"><b>${uiLabelMap.FormFieldTitle_removeButton}</b></div></td>
+                            <td align="left"><div><b>${uiLabelMap.OrderItem}</b></div></td>
+                            <td align="left"><div><b>${uiLabelMap.CommonDescription}</b></div></td>
+                            <td align="center"><div><b>${uiLabelMap.EcommerceUnitPrice}</b></div></td>
+                            <td align="center"><div><b>${uiLabelMap.OrderQuantity}</b></div></td>
+                            <td align="center"><div><b>${uiLabelMap.EcommerceItemTotal}</b></div></td>
+                            <td align="right"><div><b>${uiLabelMap.FormFieldTitle_removeButton}</b></div></td>
                           </tr>
-                          <tr><td colspan="8"><hr class="sepbar"/></td></tr>
+                          <tr><td colspan="6"><hr class="sepbar"/></td></tr>
                         </thead>
                         <tbody id="updateBody">
                           <#assign itemCount = 0>
@@ -138,7 +138,7 @@ under the License.
                             <#assign productId = cartLineIndex>
                             <tr id="cartItemRow_${cartLineIndex}">
                               <div id="updateArea">
-                                <td style="padding: 1px;" align="center" valign="top">
+                                <td style="padding: 1px;" align="left" valign="top">
                                   <#if cartLine.getProductId()?exists>
                                     <#if cartLine.getParentProductId()?exists>
                                       <#assign parentProductId = cartLine.getParentProductId()/>
@@ -152,11 +152,11 @@ under the License.
                                     </#if>
                                   </#if>
                                 </td>
-                                <td valign="top"><div style="text-align: left;">${cartLine.getName()?if_exists}</div></td>
-                                <td  align="center" valign="top"><div id="itemUnitPrice_${cartLineIndex}">
+                                <td align="center"><div style="text-align: left;">${cartLine.getName()?if_exists}</div></td>
+                                <td  align="center"><div id="itemUnitPrice_${cartLineIndex}">
                                   <@ofbizCurrency amount=cartLine.getDisplayPrice() isoCode=shoppingCart.getCurrency() rounding=2/></div>
                                 </td>
-                                <td align="center" valign="top">
+                                <td align="center">
                                   <#if cartLine.getIsPromo()>
                                     ${cartLine.getQuantity()?string.number}
                                   <#else>
@@ -166,23 +166,22 @@ under the License.
                                         <span id="advice-required-qty_${cartLineIndex}" style="display:none;">Quantity required.</span>
                                       </label>
                                       <span>
-                                        <input type="text" name="update_${cartLineIndex}" id="qty_${cartLineIndex}" value="${cartLine.getQuantity()?string.number}" size="2" class="required validate-number"><span>*</span>
+                                        <input type="text" name="update_${cartLineIndex}" id="qty_${cartLineIndex}" value="${cartLine.getQuantity()?string.number}" size="6" class="inputBox required validate-number"><span></span>
                                       </span>
                                     </div>
                                   </#if>
                                 </td>
                                 <#if cartLine.getIsPromo()>
-                                  <td align="center" valign="top">FREE</td>
+                                  <td align="center">FREE</td>
                                 <#else>
-                                  <td align="center" valign="top"><div id="displayItem_${cartLineIndex}"><@ofbizCurrency amount=cartLine.getDisplayItemSubTotalNoAdj() isoCode=shoppingCart.getCurrency()/></div></td>
+                                  <td align="center"><div id="displayItem_${cartLineIndex}"><@ofbizCurrency amount=cartLine.getDisplayItemSubTotalNoAdj() isoCode=shoppingCart.getCurrency()/></div></td>
                                 </#if>
-                                <#if cartLine.getIsPromo()>
-                                <#else>
-                                  <td align="center" valign="top"><a href="javascript:void(0);"><img id="remove_${cartLineIndex?if_exists}" src="<@ofbizContentUrl>/ecommerce/images/remove.png</@ofbizContentUrl>" border="0" height="30" hspace="0" vspace="0" width="40"></a></td>
+                                <#if !cartLine.getIsPromo()>
+                                  <td align="right"><a href="javascript:void(0);"><img id="remove_${cartLineIndex?if_exists}" src="<@ofbizContentUrl>/ecommerce/images/remove.png</@ofbizContentUrl>" border="0" height="30" hspace="0" vspace="0" width="40"></a></td>
                                 </#if>
                               </div>
                             </tr>
-                            <tr><td colspan="8"><hr class="sepbar"/></td></tr>
+                            <tr><td colspan="6"><hr class="sepbar"/></td></tr>
                             <#assign itemCount = itemCount + 1>
                           </#list>                      
                             <tr>
@@ -442,7 +441,7 @@ under the License.
                     <fieldset class="center">
                       <div class="form-row">
                         <div class="field-label">
-                          <label for="shipmethod">${uiLabelMap.FormFieldTitleShippingMethod}<span class="requiredLabel"> *</span><span id="advice-required-shipping_method" class="custom-advice" style="display:none">(required)</span></label>
+                          <label for="shipmethod">${uiLabelMap.OrderSelectShippingMethod}<span class="requiredLabel"> *</span><span id="advice-required-shipping_method" class="custom-advice" style="display:none">(required)</span></label>
                         </div>
                         <select id="shipMethod" name="shipMethod" class="required"></select>
                       </div>

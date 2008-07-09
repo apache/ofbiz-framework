@@ -193,12 +193,11 @@ function processShippingAddress() {
         asynchronous: false, 
         onSuccess: function(transport) {
             var data = transport.responseText.evalJSON(true);
-            console.log(data);
             shipOptions = data.shippingOptions;
             shipOptions.each( function(shipOption) {
                 optionList.push("<option value = " + shipOption.shippingMethod + " > " + shipOption.shippingDesc + " </option>");
             });
-            $('shipMethod').innerHTML = optionList;
+            $('shipMethod').update(optionList);
             if (data._ERROR_MESSAGE_LIST_ != undefined) {
                 console.log(data._ERROR_MESSAGE_LIST_);
             } else if (data._ERROR_MESSAGE_ != undefined) {
