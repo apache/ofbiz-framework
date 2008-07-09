@@ -185,11 +185,11 @@ under the License.
           <tr><td colspan="3"><hr/></td></tr>
           <tr>
             <td align="right" valign="top" width="15%">
-              <span class="label">&nbsp;${uiLabelMap.CommonInstructions}</span>
+              <span class="label">&nbsp;${uiLabelMap.OrderInstructions}</span>
             </td>
             <td width="5">&nbsp;</td>
             <td align="left" valign="top" width="80%">
-              <span class="label">${shipGroup.shippingInstructions}</span>
+              <div>${shipGroup.shippingInstructions}</div>
             </td>
           </tr>
         </#if>
