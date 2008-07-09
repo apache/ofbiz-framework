@@ -56,6 +56,7 @@ import org.ofbiz.order.shoppinglist.ShoppingListEvents;
 import org.ofbiz.pos.component.Journal;
 import org.ofbiz.pos.component.Output;
 import org.ofbiz.pos.device.DeviceLoader;
+import org.ofbiz.pos.device.impl.Receipt;
 import org.ofbiz.pos.screen.LoadSale;
 import org.ofbiz.pos.screen.PosScreen;
 import org.ofbiz.pos.screen.SaveSale;
@@ -68,7 +69,7 @@ import org.ofbiz.service.ServiceUtil;
 
 public class PosTransaction implements Serializable {
 
-    private static final String resource = "PosUiLabels";
+    public static final String resource = "PosUiLabels";
     public static final String module = PosTransaction.class.getName();
     public static final int NO_PAYMENT = 0;
     public static final int INTERNAL_PAYMENT = 1;
@@ -235,8 +236,15 @@ public class PosTransaction implements Serializable {
         itemInfo.put("quantity", UtilFormatOut.formatQuantity(item.getQuantity()));
         itemInfo.put("subtotal", UtilFormatOut.formatPrice(item.getItemSubTotal()));
         itemInfo.put("isTaxable", item.taxApplies() ? "T" : " ");
-        itemInfo.put("adjustments", item.getOtherAdjustments() != 0 ?
-                UtilFormatOut.formatPrice(item.getOtherAdjustments()) : "");
+        
+        itemInfo.put("discount", "");
+        itemInfo.put("adjustments", "");
+        if (item.getOtherAdjustments() != 0) {
+            itemInfo.put("itemDiscount", UtilFormatOut.padString(
+                    UtilProperties.getMessage(PosTransaction.resource,"(ItemDiscount)",defaultLocale), Receipt.pridLength[0] + 1, true, ' '));                    
+            itemInfo.put("adjustments", UtilFormatOut.formatPrice(item.getOtherAdjustments()));
+        }
+        
         if (isAggregatedItem(item.getProductId())){
             ProductConfigWrapper pcw = null;
             pcw = item.getConfigWrapper();
@@ -585,6 +593,10 @@ public class PosTransaction implements Serializable {
         }
     }
 
+    public double GetTotalDiscount() {
+        return cart.getOrderOtherAdjustmentTotal();
+    }
+    
     public void voidItem(String productId) throws CartItemModifyException {
         trace("void item", productId);
         ShoppingCartItem item = cart.findCartItem(productId, null, null, null, 0.00);
@@ -777,14 +789,14 @@ public class PosTransaction implements Serializable {
         cart.setOrderPartyId(partyId);
 
         // validate payment methods
-        output.print(UtilProperties.getMessage(resource,"Validating",defaultLocale));
+        output.print(UtilProperties.getMessage(PosTransaction.resource,"Validating",defaultLocale));
         Map valRes = ch.validatePaymentMethods();
         if (valRes != null && ServiceUtil.isError(valRes)) {
             throw new GeneralException(ServiceUtil.getErrorMessage(valRes));
         }
 
         // store the "order"
-        output.print(UtilProperties.getMessage(resource,"Saving",defaultLocale));
+        output.print(UtilProperties.getMessage(PosTransaction.resource,"Saving",defaultLocale));
         Map orderRes = ch.createOrder(session.getUserLogin());
         //Debug.log("Create Order Resp : " + orderRes, module);
 
@@ -795,7 +807,7 @@ public class PosTransaction implements Serializable {
         }
 
         // process the payment(s)
-        output.print(UtilProperties.getMessage(resource,"Processing",defaultLocale));
+        output.print(UtilProperties.getMessage(PosTransaction.resource,"Processing",defaultLocale));
         Map payRes = null;
         try {
             payRes = ch.processPayment(ProductStoreWorker.getProductStore(productStoreId, session.getDelegator()), session.getUserLogin(), true);
@@ -812,7 +824,7 @@ public class PosTransaction implements Serializable {
         double change = (grandTotal - paymentAmt);
 
         // notify the change due
-        output.print(UtilProperties.getMessage(resource,"CHANGE",defaultLocale) + " " + UtilFormatOut.formatPrice(this.getTotalDue() * -1));
+        output.print(UtilProperties.getMessage(PosTransaction.resource,"CHANGE",defaultLocale) + " " + UtilFormatOut.formatPrice(this.getTotalDue() * -1));
 
         // threaded drawer/receipt printing
         final PosTransaction currentTrans = this;
@@ -922,7 +934,7 @@ public class PosTransaction implements Serializable {
                     // append the promo info
                     XModel promo = Journal.appendNode(model, "tr", "itemadjustment", "");
                     Journal.appendNode(promo, "td", "sku", "");
-                    Journal.appendNode(promo, "td", "desc", UtilProperties.getMessage(resource,"(ItemDiscount)",defaultLocale));
+                    Journal.appendNode(promo, "td", "desc", UtilProperties.getMessage(PosTransaction.resource,"(ItemDiscount)",defaultLocale));
                     Journal.appendNode(promo, "td", "qty", "");
                     Journal.appendNode(promo, "td", "price", UtilFormatOut.formatPrice(adjustment));
                 }
@@ -961,7 +973,7 @@ public class PosTransaction implements Serializable {
                     XModel adjustmentLine = Journal.appendNode(model, "tr", "adjustment", "");
                     Journal.appendNode(adjustmentLine, "td", "sku", "");
                     Journal.appendNode(adjustmentLine, "td", "desc", 
-                            UtilProperties.getMessage(resource, "(SalesDiscount)",defaultLocale));
+                            UtilProperties.getMessage(PosTransaction.resource, "(SalesDiscount)",defaultLocale));
                     if (UtilValidate.isNotEmpty(amount)) {
                         Journal.appendNode(adjustmentLine, "td", "qty", "");
                         Journal.appendNode(adjustmentLine, "td", "price", UtilFormatOut.formatPrice(amount));
@@ -978,14 +990,14 @@ public class PosTransaction implements Serializable {
             XModel taxLine = Journal.appendNode(model, "tr", "tax", "");
             Journal.appendNode(taxLine, "td", "sku", "");
 
-            Journal.appendNode(taxLine, "td", "desc", UtilProperties.getMessage(resource,"Sales_Tax",defaultLocale));
+            Journal.appendNode(taxLine, "td", "desc", UtilProperties.getMessage(PosTransaction.resource,"Sales_Tax",defaultLocale));
             Journal.appendNode(taxLine, "td", "qty", "");
             Journal.appendNode(taxLine, "td", "price", UtilFormatOut.formatPrice(taxAmount));
             Journal.appendNode(taxLine, "td", "index", "-1");
             
             XModel totalLine = Journal.appendNode(model, "tr", "total", "");
             Journal.appendNode(totalLine, "td", "sku", "");
-            Journal.appendNode(totalLine, "td", "desc", UtilProperties.getMessage(resource,"Grand_Total",defaultLocale));
+            Journal.appendNode(totalLine, "td", "desc", UtilProperties.getMessage(PosTransaction.resource,"Grand_Total",defaultLocale));
             Journal.appendNode(totalLine, "td", "qty", "");
             Journal.appendNode(totalLine, "td", "price", UtilFormatOut.formatPrice(total));
             Journal.appendNode(totalLine, "td", "index", "-1");

@@ -51,7 +51,7 @@ public class ConfigureItem extends XPage {
     /**
      * To create or configure a configurable item 
      */
-    private static final String resource = "PosUiLabels";
+    
     public static final String module = ConfigureItem.class.getName();
     protected PosScreen m_pos = null;
     protected ConfigureItem m_configureItem = null;
@@ -83,7 +83,7 @@ public class ConfigureItem extends XPage {
         // cache must be set to false because there's no method to remove actionhandlers
         m_dialog = (XDialog) pageMgr.loadPage(
                 m_pos.getScreenLocation() + "/dialog/ConfigureItem", false);
-        m_dialog.setCaption(UtilProperties.getMessage(resource, "ConfigureItem", Locale.getDefault()));
+        m_dialog.setCaption(UtilProperties.getMessage(PosTransaction.resource, "ConfigureItem", Locale.getDefault()));
 
         m_optionListPane = (XScrollPane) m_dialog.findComponent("optionListPane");
         m_configList = (XList) m_dialog.findComponent("configList");

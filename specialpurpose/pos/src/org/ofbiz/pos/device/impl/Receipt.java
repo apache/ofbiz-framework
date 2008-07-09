@@ -26,6 +26,7 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.List;
 
@@ -35,6 +36,7 @@ import jpos.POSPrinterConst;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilFormatOut;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
@@ -65,14 +67,14 @@ public class Receipt extends GenericDevice implements DialogCallback {
     protected String[] custReceiptTmpl = null;
     protected Map reportTmpl = new HashMap();
 
-    protected String[] dateFmtStr = { "EEE, d MMM yyyy HH:mm:ss z", "EEE, d MMM yyyy HH:mm:ss z", "EEE, d MMM yyyy HH:mm:ss z" };
-    protected int[] priceLength = { 7, 7, 7 };
-    protected int[] qtyLength = { 5, 5, 5 };
-    protected int[] descLength = { 25, 25, 0 };
-    protected int[] pridLength = { 25, 25, 0 };
-    protected int[] infoLength = { 34, 34, 0 };
-    protected int[] configPaddingLength = { 2, 2, 2 };
-    protected String[] configPadding = { "  ", "  ", "  "};
+    protected static final String[] dateFmtStr = { "EEE, d MMM yyyy HH:mm:ss z", "EEE, d MMM yyyy HH:mm:ss z", "EEE, d MMM yyyy HH:mm:ss z" };
+    protected static final int[] priceLength = { 7, 7, 7 };
+    protected static final int[] qtyLength = { 5, 5, 5 };
+    protected static final int[] descLength = { 25, 25, 0 };
+    public static final int[] pridLength = { 25, 25, 0 };
+    protected static final int[] infoLength = { 34, 34, 0 };
+    protected static final int[] configPaddingLength = { 2, 2, 2 };
+    protected static final String[] configPadding = { "  ", "  ", "  "};
     protected PosTransaction lastTransaction = null;
 
     public Receipt(String deviceName, int timeout) {
@@ -436,6 +438,7 @@ public class Receipt extends GenericDevice implements DialogCallback {
         expandMap.put("nameOnCard", UtilFormatOut.padString((String) expandMap.get("nameOnCard"), infoLength[type], false, ' '));
         expandMap.put("payInfo", UtilFormatOut.padString((String) expandMap.get("payInfo"), infoLength[type], false, ' '));
         expandMap.put("amount", UtilFormatOut.padString((String) expandMap.get("amount"), priceLength[type], false, ' '));
+        
         String toPrint = FlexibleStringExpander.expandString(template, expandMap);
         if (toPrint.indexOf("\n") > -1) {
             String[] lines = toPrint.split("\\n");
@@ -468,6 +471,8 @@ public class Receipt extends GenericDevice implements DialogCallback {
         expandMap.put("totalPayments", UtilFormatOut.padString(UtilFormatOut.formatPrice(trans.getPaymentTotal()), priceLength[type], false, ' '));
         expandMap.put("change", UtilFormatOut.padString((trans.getTotalDue() < 0 ?
                 UtilFormatOut.formatPrice(trans.getTotalDue() * -1) : "0.00"), priceLength[type], false, ' '));
+        expandMap.put("saleDiscount", UtilFormatOut.padString((trans.GetTotalDiscount() != 0 ?
+                UtilFormatOut.formatPrice(trans.GetTotalDiscount()) : "0.00"), priceLength[type], false, ' '));
 
         return expandMap;
     }

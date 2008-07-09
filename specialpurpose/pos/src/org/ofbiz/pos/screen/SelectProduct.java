@@ -41,7 +41,7 @@ public class SelectProduct extends XPage {
     /**
      * To choose a product in a list of products whith the same bar code
      */
-    private static final String resource = "PosUiLabels";
+    
     public static final String module = SelectProduct.class.getName();
     protected static PosScreen m_pos = null;
     protected XDialog m_dialog = null;
@@ -64,7 +64,7 @@ public class SelectProduct extends XPage {
     public String openDlg() {
         XDialog dlg = (XDialog) pageMgr.loadPage(m_pos.getScreenLocation() + "/dialog/SelectProduct");
         m_dialog = dlg;
-        dlg.setCaption(UtilProperties.getMessage(resource, "SelectAProduct", Locale.getDefault()));
+        dlg.setCaption(UtilProperties.getMessage(PosTransaction.resource, "SelectAProduct", Locale.getDefault()));
         //dlg.setModal(true);
         m_productsList = (XList) dlg.findComponent("productsList");
         XEventHelper.addMouseHandler(this, m_productsList, "DoubleClick");
@@ -86,7 +86,7 @@ public class SelectProduct extends XPage {
         m_productsList.setVisibleRowCount(-1);
         m_productsList.ensureIndexIsVisible(m_productsList.getItemCount());
         m_productsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        m_productsList.setToolTipText(UtilProperties.getMessage(resource, "SelectProductListDblClickTip", Locale.getDefault()));
+        m_productsList.setToolTipText(UtilProperties.getMessage(PosTransaction.resource, "SelectProductListDblClickTip", Locale.getDefault()));
 
         dlg.pack();
         dlg.showDialog(this);

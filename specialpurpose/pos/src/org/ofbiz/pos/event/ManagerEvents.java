@@ -57,7 +57,7 @@ import org.ofbiz.service.ServiceUtil;
 
 public class ManagerEvents {
 
-    private static final String resource = "PosUiLabels";
+    
     public static final String module = ManagerEvents.class.getName();
     public static boolean mgrLoggedIn = false;
     static DecimalFormat priceDecimalFormat = new DecimalFormat("#,##0.00");
@@ -71,7 +71,7 @@ public class ManagerEvents {
         }
 
         if (sku == null) {
-            pos.getOutput().print(UtilProperties.getMessage(resource,"Invalid_Selection",Locale.getDefault()));
+            pos.getOutput().print(UtilProperties.getMessage(PosTransaction.resource,"Invalid_Selection",Locale.getDefault()));
             pos.getJournal().refresh(pos);
             pos.getInput().clear();
         }
@@ -145,7 +145,7 @@ public class ManagerEvents {
             } else {
                 input.clear();
                 input.setFunction("OPEN");
-                pos.getOutput().print(UtilProperties.getMessage(resource,"OPDRAM",Locale.getDefault()));
+                pos.getOutput().print(UtilProperties.getMessage(PosTransaction.resource,"OPDRAM",Locale.getDefault()));
                 return;
             }
         } else {
@@ -191,19 +191,19 @@ public class ManagerEvents {
             }
             switch (closeInfo.length) {
                 case 0:
-                    output.print(UtilProperties.getMessage(resource,"ENTCAS",Locale.getDefault()));
+                    output.print(UtilProperties.getMessage(PosTransaction.resource,"ENTCAS",Locale.getDefault()));
                     break;
                 case 1:
-                    output.print(UtilProperties.getMessage(resource,"ENTCHK",Locale.getDefault()));
+                    output.print(UtilProperties.getMessage(PosTransaction.resource,"ENTCHK",Locale.getDefault()));
                     break;
                 case 2:
-                    output.print(UtilProperties.getMessage(resource,"ENTCRC",Locale.getDefault()));
+                    output.print(UtilProperties.getMessage(PosTransaction.resource,"ENTCRC",Locale.getDefault()));
                     break;
                 case 3:
-                    output.print(UtilProperties.getMessage(resource,"ENTGFC",Locale.getDefault()));
+                    output.print(UtilProperties.getMessage(PosTransaction.resource,"ENTGFC",Locale.getDefault()));
                     break;
                 case 4:
-                    output.print(UtilProperties.getMessage(resource,"ENTOTH",Locale.getDefault()));
+                    output.print(UtilProperties.getMessage(PosTransaction.resource,"ENTOTH",Locale.getDefault()));
                     break;
                 case 5:
                     GenericValue state = trans.getTerminalState();
@@ -232,7 +232,7 @@ public class ManagerEvents {
                     }
 
                     // print the totals report
-                    output.print(UtilProperties.getMessage(resource,"WaitingFinalSales",Locale.getDefault()));
+                    output.print(UtilProperties.getMessage(PosTransaction.resource,"WaitingFinalSales",Locale.getDefault()));
                     //pos.showDialog("dialog/error/terminalclosed"); JLR 14/11/06 : Pb with that don't know why, useless => commented out
                     printTotals(pos, state, true);
 
@@ -267,7 +267,7 @@ public class ManagerEvents {
             trans.popDrawer();
             input.clear();
             input.setFunction("CLOSE");
-            output.print(UtilProperties.getMessage(resource,"ENTCAS",Locale.getDefault()));
+            output.print(UtilProperties.getMessage(PosTransaction.resource,"ENTCAS",Locale.getDefault()));
         }
     }
 
@@ -343,7 +343,7 @@ public class ManagerEvents {
             }
         } else {
             input.setFunction("VOID");
-            output.print(UtilProperties.getMessage(resource,"VOID",Locale.getDefault()));
+            output.print(UtilProperties.getMessage(PosTransaction.resource,"VOID",Locale.getDefault()));
         }
     }
 
@@ -388,7 +388,7 @@ public class ManagerEvents {
         if (!mgrLoggedIn) {
             pos.showDialog("dialog/error/mgrnotloggedin");
         } else {
-            pos.getOutput().print(UtilProperties.getMessage(resource,"Shutting_down",Locale.getDefault()));
+            pos.getOutput().print(UtilProperties.getMessage(PosTransaction.resource,"Shutting_down",Locale.getDefault()));
             PosTransaction.getCurrentTx(pos.getSession()).closeTx();
             System.exit(0);
         }
@@ -526,18 +526,18 @@ public class ManagerEvents {
         String reportTemplate = "totals.txt";
 
         // miscellaneous
-        reportMap.put("term", UtilFormatOut.padString(UtilProperties.getMessage(resource,"term",Locale.getDefault()), 20, false, ' '));
-        reportMap.put("draw", UtilFormatOut.padString(UtilProperties.getMessage(resource,"draw",Locale.getDefault()), 20, false, ' '));
-        reportMap.put("clerk", UtilFormatOut.padString(UtilProperties.getMessage(resource,"clerk",Locale.getDefault()), 20, false, ' '));
-        reportMap.put("total_report", UtilFormatOut.padString(UtilProperties.getMessage(resource,"total_report",Locale.getDefault()), 20, false, ' '));
+        reportMap.put("term", UtilFormatOut.padString(UtilProperties.getMessage(PosTransaction.resource,"term",Locale.getDefault()), 20, false, ' '));
+        reportMap.put("draw", UtilFormatOut.padString(UtilProperties.getMessage(PosTransaction.resource,"draw",Locale.getDefault()), 20, false, ' '));
+        reportMap.put("clerk", UtilFormatOut.padString(UtilProperties.getMessage(PosTransaction.resource,"clerk",Locale.getDefault()), 20, false, ' '));
+        reportMap.put("total_report", UtilFormatOut.padString(UtilProperties.getMessage(PosTransaction.resource,"total_report",Locale.getDefault()), 20, false, ' '));
 
         // titles
-        reportMap.put("cashTitle", UtilFormatOut.padString(UtilProperties.getMessage(resource,"CASH",Locale.getDefault()), 20, false, ' '));
-        reportMap.put("checkTitle", UtilFormatOut.padString(UtilProperties.getMessage(resource,"CHECK",Locale.getDefault()), 20, false, ' '));
-        reportMap.put("giftCardTitle", UtilFormatOut.padString(UtilProperties.getMessage(resource,"GIFT_CARD",Locale.getDefault()), 20, false, ' '));
-        reportMap.put("creditCardTitle", UtilFormatOut.padString(UtilProperties.getMessage(resource,"CREDIT_CARD",Locale.getDefault()), 20, false, ' '));
-        reportMap.put("otherTitle", UtilFormatOut.padString(UtilProperties.getMessage(resource,"OTHER",Locale.getDefault()), 20, false, ' '));
-        reportMap.put("grossSalesTitle", UtilFormatOut.padString(UtilProperties.getMessage(resource,"GROSS_SALES",Locale.getDefault()), 20, false, ' '));
+        reportMap.put("cashTitle", UtilFormatOut.padString(UtilProperties.getMessage(PosTransaction.resource,"CASH",Locale.getDefault()), 20, false, ' '));
+        reportMap.put("checkTitle", UtilFormatOut.padString(UtilProperties.getMessage(PosTransaction.resource,"CHECK",Locale.getDefault()), 20, false, ' '));
+        reportMap.put("giftCardTitle", UtilFormatOut.padString(UtilProperties.getMessage(PosTransaction.resource,"GIFT_CARD",Locale.getDefault()), 20, false, ' '));
+        reportMap.put("creditCardTitle", UtilFormatOut.padString(UtilProperties.getMessage(PosTransaction.resource,"CREDIT_CARD",Locale.getDefault()), 20, false, ' '));
+        reportMap.put("otherTitle", UtilFormatOut.padString(UtilProperties.getMessage(PosTransaction.resource,"OTHER",Locale.getDefault()), 20, false, ' '));
+        reportMap.put("grossSalesTitle", UtilFormatOut.padString(UtilProperties.getMessage(PosTransaction.resource,"GROSS_SALES",Locale.getDefault()), 20, false, ' '));
         reportMap.put("+/-", UtilFormatOut.padString("+/-", 20, false, ' '));
         reportMap.put("spacer", UtilFormatOut.padString("", 20, false, ' '));
 

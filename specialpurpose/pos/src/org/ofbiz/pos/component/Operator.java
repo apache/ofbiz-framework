@@ -40,7 +40,6 @@ import org.ofbiz.base.util.UtilProperties;
 
 public class Operator {
 
-    private static final String resource = "PosUiLabels";
     public static final String module = Operator.class.getName();
     public static final String style = "operTitle";
 
@@ -50,7 +49,7 @@ public class Operator {
     public static final String[] OPER_TXID = { "oper_txid", "TXID" };
     public static final String[] OPER_DRWR = { "oper_drwr", "DRAWER" };    
     
-    public static SimpleDateFormat sdf = new SimpleDateFormat(UtilProperties.getMessage(resource,"DateFormat",Locale.getDefault()));
+    public static SimpleDateFormat sdf = new SimpleDateFormat(UtilProperties.getMessage(PosTransaction.resource,"DateFormat",Locale.getDefault()));
     protected Component[] operatorField = null;
     protected XStyle titleStyle = null;
     protected XPanel operPanel = null;
@@ -132,15 +131,15 @@ public class Operator {
 
     protected String getFieldTitle(String fieldName) {
         if (OPER_TOTAL[0].equals(fieldName)) {
-            return UtilProperties.getMessage(resource,"TOTAL",defaultLocale);            
+            return UtilProperties.getMessage(PosTransaction.resource,"TOTAL",defaultLocale);            
         } else if (OPER_DATE[0].equals(fieldName)) {
-        	return UtilProperties.getMessage(resource,"DATE",defaultLocale);
+        	return UtilProperties.getMessage(PosTransaction.resource,"DATE",defaultLocale);
         } else if (OPER_EMPL[0].equals(fieldName)) {
-        	return UtilProperties.getMessage(resource,"EMPL",defaultLocale);
+        	return UtilProperties.getMessage(PosTransaction.resource,"EMPL",defaultLocale);
         } else if (OPER_TXID[0].equals(fieldName)) {
-        	return UtilProperties.getMessage(resource,"TXID",defaultLocale);
+        	return UtilProperties.getMessage(PosTransaction.resource,"TXID",defaultLocale);
         } else if (OPER_DRWR[0].equals(fieldName)) {
-        	return UtilProperties.getMessage(resource,"DRWR",defaultLocale);
+        	return UtilProperties.getMessage(PosTransaction.resource,"DRWR",defaultLocale);
         }
         return "";
     }
