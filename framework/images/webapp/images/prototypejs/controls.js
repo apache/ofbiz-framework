@@ -521,6 +521,7 @@ Ajax.InPlaceEditor = Class.create({
     this.element = element = $(element);
     this.prepareOptions();
     this._controls = { };
+    this._paramValue = '';
     arguments.callee.dealWithDeprecatedOptions(options); // DEPRECATION LAYER!!!
     Object.extend(this.options, options || { });
     if (!this.options.formId && this.element.id) {
@@ -539,6 +540,7 @@ Ajax.InPlaceEditor = Class.create({
     this._boundFailureHandler = this.handleAJAXFailure.bind(this);
     this._boundSubmitHandler = this.handleFormSubmission.bind(this);
     this._boundWrapperHandler = this.wrapUp.bind(this);
+    this._boundSuccessHandler = this.updateElement.bind(this);
     this.registerListeners();
   },
   checkForEscapeOrReturn: function(e) {
@@ -659,6 +661,7 @@ Ajax.InPlaceEditor = Class.create({
   handleFormSubmission: function(e) {
     var form = this._form;
     var value = $F(this._controls.editor);
+    this._paramValue = value;
     this.prepareSubmission();
     var params = this.options.callback(form, value) || '';
     if (Object.isString(params))
@@ -677,11 +680,15 @@ Ajax.InPlaceEditor = Class.create({
       Object.extend(options, {
         parameters: params,
         onComplete: this._boundWrapperHandler,
-        onFailure: this._boundFailureHandler
+        onFailure: this._boundFailureHandler,
+        onSuccess: this._boundSuccessHandler
       });
       new Ajax.Request(this.url, options);
     }
     if (e) Event.stop(e);
+  },
+  updateElement: function() {
+      $(this.element).update(this._paramValue);
   },
   leaveEditMode: function() {
     this.element.removeClassName(this.options.savingClassName);

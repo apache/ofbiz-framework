@@ -547,6 +547,9 @@ under the License.
     </xs:attributeGroup>
     <xs:element name="display" substitutionGroup="AllFields">
         <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="in-place-editor" minOccurs="0" maxOccurs="1"/>
+            </xs:sequence>
             <xs:attributeGroup ref="attlist.display"/>
         </xs:complexType>
     </xs:element>
@@ -1130,6 +1133,82 @@ under the License.
     <xs:attributeGroup name="attlist.entity-order-by">
         <xs:attribute type="xs:string" name="field-name" use="required"/>
     </xs:attributeGroup>
+    <xs:element name="in-place-editor">
+        <xs:annotation>
+            <xs:documentation>Enables in place editon for the display field.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:choice minOccurs="1" maxOccurs="1">
+                    <xs:element ref="simple-editor"/>
+                </xs:choice>
+                <xs:element ref="field-map" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="attlist.in-place-editor"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.in-place-editor">
+        <xs:attribute name="url" type="xs:string" use="required"/>
+        <xs:attribute name="cancel-control">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="link"/>
+                    <xs:enumeration value="button"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="cancel-text" type="xs:string"/>
+        <xs:attribute name="click-to-edit-text" type="xs:string"/>
+        <xs:attribute name="field-post-creation">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="activate"/>
+                    <xs:enumeration value="focus"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="form-class-name" type="xs:string"/>
+        <xs:attribute name="form-id" type="xs:string"/>
+        <xs:attribute name="highlight-color" type="xs:string"/>
+        <xs:attribute name="highlight-end-color" type="xs:string"/>
+        <xs:attribute name="hover-class-name" type="xs:string"/>
+        <xs:attribute name="html-response">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="false"/>
+                    <xs:enumeration value="true"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="loading-class-name" type="xs:string"/>
+        <xs:attribute name="loading-text" type="xs:string"/>
+        <xs:attribute name="ok-control">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="link"/>
+                    <xs:enumeration value="button"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="ok-text" type="xs:string"/>
+        <xs:attribute name="param-name" type="xs:string"/>
+        <xs:attribute name="saving-class-name" type="xs:string"/>
+        <xs:attribute name="saving-text" type="xs:string"/>
+        <xs:attribute name="submit-on-blur">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="false"/>
+                    <xs:enumeration value="true"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="text-after-controls" type="xs:string"/>
+        <xs:attribute name="text-before-controls" type="xs:string"/>
+        <xs:attribute name="text-between-controls" type="xs:string"/>
+    </xs:attributeGroup>
     <xs:element name="list-options">
         <xs:annotation>
             <xs:documentation>list-options will create options based on data in a list</xs:documentation>
@@ -1177,6 +1256,15 @@ under the License.
         <xs:attribute type="xs:string" name="description">
             <xs:annotation><xs:documentation>What the user will see in the widget; defaults to the value of the key attribute.</xs:documentation></xs:annotation>
         </xs:attribute>
+    </xs:attributeGroup>
+    <xs:element name="simple-editor">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.simple-editor"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.simple-editor">
+        <xs:attribute name="rows" type="xs:positiveInteger" default="1"/>
+        <xs:attribute name="cols" type="xs:positiveInteger" default="40"/>
     </xs:attributeGroup>
     <xs:element name="sub-hyperlink">
         <xs:complexType>

@@ -393,6 +393,16 @@ function toggleScreenlet(link, areaId, expandTxt, collapseTxt){
     });    
 }
 
+/** In Place Editor for display elements
+  * @param element The id of the display field
+  * @param url The request to be called to update the display field
+  * @param options Options to be passed to Ajax.InPlaceEditor
+*/
+
+function ajaxInPlaceEditDisplayField(element, url, options) {
+    options.htmlResponse = false;
+    new Ajax.InPlaceEditor($(element), url, options);
+}
 // ===== End of Ajax Functions ===== //
 
 function replaceQueryParam(queryString, currentParam, newParam) {

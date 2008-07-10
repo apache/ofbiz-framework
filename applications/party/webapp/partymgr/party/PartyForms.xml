@@ -101,6 +101,14 @@ under the License.
     <form name="ViewPartyGroup" type="single" default-map-name="lookupGroup">
         <auto-fields-entity entity-name="PartyGroup" default-field-type="display"/>
         <field name="partyTypeId"><ignored/></field>
+        <field name="groupName" id-name="groupName" widget-style="label">
+            <display>
+                <in-place-editor url="/partymgr/control/ajaxUpdatePartyGroup" cancel-control="button" saving-text="Updating..." text-between-controls=" ">
+                    <simple-editor/>
+                    <field-map field-name="partyId" env-name="lookupGroup.partyId"/>
+                </in-place-editor>
+            </display>
+        </field>
         <field name="comments"><ignored/></field>
         <field name="logoImageUrl"><ignored/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>

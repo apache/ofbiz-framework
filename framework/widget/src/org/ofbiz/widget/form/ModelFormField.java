@@ -1772,12 +1772,268 @@ public class ModelFormField {
         }
     }
 
+    public static class InPlaceEditor {
+        protected FlexibleStringExpander url;
+        protected String cancelControl;
+        protected String cancelText;
+        protected String clickToEditText;
+        protected String fieldPostCreation;
+        protected String formClassName;
+        protected String highlightColor;
+        protected String highlightEndColor;
+        protected String hoverClassName;
+        protected String htmlResponse;
+        protected String loadingClassName;
+        protected String loadingText;
+        protected String okControl;
+        protected String okText;
+        protected String paramName;
+        protected String savingClassName;
+        protected String savingText;
+        protected String submitOnBlur;
+        protected String textBeforeControls;
+        protected String textAfterControls;
+        protected String textBetweenControls;
+        protected String rows;
+        protected String cols;
+        protected Map<FlexibleMapAccessor, Object> fieldMap;
+        
+        public InPlaceEditor (Element element) {
+            this.setUrl(element.getAttribute("url"));
+            this.cancelControl = element.getAttribute("cancel-control");
+            this.cancelText = element.getAttribute("cancel-text");
+            this.clickToEditText = element.getAttribute("click-to-edit-text");
+            this.fieldPostCreation = element.getAttribute("field-post-creation");
+            this.formClassName = element.getAttribute("form-class-name");
+            this.highlightColor = element.getAttribute("highlight-color");
+            this.highlightEndColor = element.getAttribute("highlight-end-color");
+            this.hoverClassName = element.getAttribute("hover-class-name");
+            this.htmlResponse = element.getAttribute("html-response");
+            this.loadingClassName = element.getAttribute("loading-class-name");
+            this.loadingText = element.getAttribute("loading-text");
+            this.okControl = element.getAttribute("ok-control");
+            this.okText = element.getAttribute("ok-text");
+            this.paramName = element.getAttribute("param-name");
+            this.savingClassName = element.getAttribute("saving-class-name");
+            this.savingText = element.getAttribute("saving-text");
+            this.submitOnBlur = element.getAttribute("submit-on-blur");
+            this.textBeforeControls = element.getAttribute("text-before-controls");
+            this.textAfterControls = element.getAttribute("text-after-controls");
+            this.textBetweenControls = element.getAttribute("text-between-controls");
+            
+            Element simpleElement = UtilXml.firstChildElement(element, "simple-editor");
+            this.rows = simpleElement.getAttribute("rows");
+            this.cols = simpleElement.getAttribute("cols");
+            
+            this.fieldMap = EntityFinderUtil.makeFieldMap(element);
+        }
+
+        public String getUrl(Map<String, Object> context) {
+            if (this.url != null) {
+                return this.url.expandString(context);
+            } else {
+                return "";
+            }
+        }
+
+        public String getCancelControl() {
+            return cancelControl;
+        }
+
+        public String getCancelText() {
+            return cancelText;
+        }
+
+        public String getClickToEditText() {
+            return clickToEditText;
+        }
+
+        public String getFieldPostCreation() {
+           return fieldPostCreation; 
+        }
+
+        public String getFormClassName() {
+            return formClassName;
+        }
+
+        public String getHighlightColor() {
+            return highlightColor;
+        }
+
+        public String getHighlightEndColor() {
+            return highlightEndColor;
+        }
+
+        public String getHoverClassName() {
+            return hoverClassName;
+        }
+
+        public String getHtmlResponse() {
+            return htmlResponse;
+        }
+
+        public String getLoadingClassName() {
+            return loadingClassName;
+        }
+
+        public String getLoadingText() {
+            return loadingText;
+        }
+
+        public String getOkControl() {
+            return okControl;
+        }
+
+        public String getOkText() {
+            return okText;
+        }
+
+        public String getParamName() {
+            return paramName;
+        }
+
+        public String getSavingClassName() {
+            return savingClassName;
+        }
+
+        public String getSavingText() {
+            return savingText;
+        }
+
+        public String getSubmitOnBlur() {
+            return submitOnBlur;
+        }
+
+        public String getTextBeforeControls() {
+            return textBeforeControls;
+        }
+
+        public String getTextAfterControls() {
+            return textAfterControls;
+        }
+
+        public String getTextBetweenControls() {
+            return textBetweenControls;
+        }
+
+        public String getRows() {
+            return rows;
+        }
+
+        public String getCols() {
+            return cols;
+        }
+
+        public Map<String, Object> getFieldMap(Map<String, Object> context) {
+            Map<String, Object> inPlaceEditorContext = new HashMap<String, Object>();
+            EntityFinderUtil.expandFieldMapToContext(this.fieldMap, context, inPlaceEditorContext);
+            return inPlaceEditorContext;
+        }
+
+        public void setUrl(String url) {
+            this.url = new FlexibleStringExpander(url);
+        }
+
+        public void setCancelControl(String string) {
+            this.cancelControl = string;
+        }
+
+        public void setCancelText(String string) {
+            this.cancelText = string;
+        }
+
+        public void setClickToEditText(String string) {
+            this.clickToEditText = string;
+        }
+
+        public void setFieldPostCreation(String string) {
+            this.fieldPostCreation = string;
+        }
+
+        public void setFormClassName(String string) {
+            this.formClassName = string;
+        }
+
+        public void setHighlightColor(String string) {
+            this.highlightColor = string;
+        }
+
+        public void setHighlightEndColor(String string) {
+            this.highlightEndColor = string;
+        }
+
+        public void setHoverClassName(String string) {
+            this.hoverClassName = string;
+        }
+
+        public void setHtmlResponse(String string) {
+            this.htmlResponse = string;
+        }
+
+        public void setLoadingClassName(String string) {
+            this.loadingClassName = string;
+        }
+
+        public void setLoadingText(String string) {
+            this.loadingText = string;
+        }
+
+        public void setOkControl(String string) {
+            this.okControl = string;
+        }
+
+        public void setOkText(String string) {
+            this.okText = string;
+        }
+
+        public void setParamName(String string) {
+            this.paramName = string;
+        }
+
+        public void setSavingClassName(String string) {
+            this.savingClassName = string;
+        }
+
+        public void setSavingText(String string) {
+            this.savingText = string;
+        }
+
+        public void setSubmitOnBlur(String string) {
+            this.submitOnBlur = string;
+        }
+
+        public void setTextBeforeControls(String string) {
+            this.textBeforeControls = string;
+        }
+
+        public void setTextAfterControls(String string) {
+            this.textAfterControls = string;
+        }
+
+        public void setTextBetweenControls(String string) {
+            this.textBetweenControls = string;
+        }
+
+        public void setRows(String string) {
+            this.rows = string;
+        }
+
+        public void setCols(String string) {
+            this.cols = string;
+        }
+
+        public void setFieldMap(Map<FlexibleMapAccessor, Object> fieldMap) {
+            this.fieldMap = fieldMap;
+        }
+    }
+    
     public static class DisplayField extends FieldInfo {
         protected boolean alsoHidden = true;
         protected FlexibleStringExpander description;
         protected String type;  // matches type of field, currently text or currency
         protected FlexibleStringExpander currency;
         protected FlexibleStringExpander date;
+        protected InPlaceEditor inPlaceEditor;
 
         protected DisplayField() {
             super();
@@ -1798,6 +2054,11 @@ public class ModelFormField {
             this.setDescription(element.getAttribute("description"));
             this.setDate(element.getAttribute("date"));
             this.alsoHidden = !"false".equals(element.getAttribute("also-hidden"));
+            
+            Element inPlaceEditorElement = UtilXml.firstChildElement(element, "in-place-editor");
+            if (inPlaceEditorElement != null) {
+                this.inPlaceEditor = new InPlaceEditor(inPlaceEditorElement);
+            }
         }
 
         public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
@@ -1843,6 +2104,10 @@ public class ModelFormField {
             }
             return retVal;
         }
+        
+        public InPlaceEditor getInPlaceEditor() {
+            return this.inPlaceEditor;
+        }
 
         /**
          * @param b
@@ -1869,6 +2134,10 @@ public class ModelFormField {
          */
         public void setDate(String string) {
             date = new FlexibleStringExpander(string);
+        }
+        
+        public void setInPlaceEditor(InPlaceEditor newInPlaceEditor) {
+            this.inPlaceEditor = newInPlaceEditor;
         }
     }
 

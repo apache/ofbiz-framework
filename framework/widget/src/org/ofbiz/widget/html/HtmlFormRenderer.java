@@ -26,6 +26,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
+import java.util.Map.Entry;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -192,6 +194,101 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
 
         if (str.length() > 0) {
             writer.append("</span>");
+        }
+        
+        ModelFormField.InPlaceEditor inPlaceEditor = displayField.getInPlaceEditor();
+        boolean ajaxEnabled = inPlaceEditor != null && this.javaScriptEnabled;
+        
+        if (ajaxEnabled) {
+            writer.append("<script language=\"JavaScript\" type=\"text/javascript\">");
+            String url = inPlaceEditor.getUrl(context);
+            Map<String, Object> fieldMap = inPlaceEditor.getFieldMap(context);
+            if (fieldMap != null) {
+                url += '?';
+                Set<Entry<String, Object>> fieldSet = fieldMap.entrySet();
+                Iterator<Entry<String, Object>> fieldIterator = fieldSet.iterator();
+                int count = 0;
+                while (fieldIterator.hasNext()) {
+                    count++;
+                    Entry<String, Object> field = fieldIterator.next();
+                    url += (String) field.getKey() + '=' + (String) field.getValue();
+                    if (count < fieldSet.size()) {
+                        url += '&';
+                    }
+                }
+            }
+            writer.append("ajaxInPlaceEditDisplayField('");
+            writer.append(modelFormField.getIdName() + "', '" +url+ "', {");
+            if (UtilValidate.isNotEmpty(inPlaceEditor.getParamName())) {
+                writer.append("paramName: '" +inPlaceEditor.getParamName()+ "'");
+            } else {
+                writer.append("paramName: '" +modelFormField.getFieldName()+ "'");
+            }
+            if (UtilValidate.isNotEmpty(inPlaceEditor.getCancelControl())) {
+                writer.append(", cancelControl: '" +inPlaceEditor.getCancelControl()+ "'");
+            }
+            if (UtilValidate.isNotEmpty(inPlaceEditor.getCancelText())) {
+                writer.append(", cancelText: '" +inPlaceEditor.getCancelText()+ "'");
+            }
+            if (UtilValidate.isNotEmpty(inPlaceEditor.getClickToEditText())) {
+                writer.append(", clickToEditText: '" +inPlaceEditor.getClickToEditText()+ "'");
+            }
+            if (UtilValidate.isNotEmpty(inPlaceEditor.getFieldPostCreation())) {
+                writer.append(", fieldPostCreation: '" +inPlaceEditor.getFieldPostCreation()+ "'");
+            }
+            if (UtilValidate.isNotEmpty(inPlaceEditor.getFormClassName())) {
+                writer.append(", formClassName: '" +inPlaceEditor.getFormClassName()+ "'");
+            }
+            if (UtilValidate.isNotEmpty(inPlaceEditor.getHighlightColor())) {
+                writer.append(", highlightColor: '" +inPlaceEditor.getHighlightColor()+ "'");
+            }
+            if (UtilValidate.isNotEmpty(inPlaceEditor.getHighlightEndColor())) {
+                writer.append(", highlightEndColor: '" +inPlaceEditor.getHighlightEndColor()+ "'");
+            }
+            if (UtilValidate.isNotEmpty(inPlaceEditor.getHoverClassName())) {
+                writer.append(", hoverClassName: '" +inPlaceEditor.getHoverClassName()+ "'");
+            }
+            if (UtilValidate.isNotEmpty(inPlaceEditor.getHtmlResponse())) {
+                writer.append(", htmlResponse: " +inPlaceEditor.getHtmlResponse());
+            }
+            if (UtilValidate.isNotEmpty(inPlaceEditor.getLoadingClassName())) {
+                writer.append(", loadingClassName: '" +inPlaceEditor.getLoadingClassName()+ "'");
+            }
+            if (UtilValidate.isNotEmpty(inPlaceEditor.getLoadingText())) {
+                writer.append(", loadingText: '" +inPlaceEditor.getLoadingText()+ "'");
+            }
+            if (UtilValidate.isNotEmpty(inPlaceEditor.getOkControl())) {
+                writer.append(", okControl: '" +inPlaceEditor.getOkControl()+ "'");
+            }
+            if (UtilValidate.isNotEmpty(inPlaceEditor.getOkText())) {
+                writer.append(", okText: '" +inPlaceEditor.getOkText()+ "'");
+            }
+            if (UtilValidate.isNotEmpty(inPlaceEditor.getSavingClassName())) {
+                writer.append(", savingClassName: '" +inPlaceEditor.getSavingClassName()+ "', ");
+            }
+            if (UtilValidate.isNotEmpty(inPlaceEditor.getSavingText())) {
+                writer.append(", savingText: '" +inPlaceEditor.getSavingText()+ "'");
+            }
+            if (UtilValidate.isNotEmpty(inPlaceEditor.getSubmitOnBlur())) {
+                writer.append(", submitOnBlur: " +inPlaceEditor.getSubmitOnBlur());
+            }
+            if (UtilValidate.isNotEmpty(inPlaceEditor.getTextBeforeControls())) {
+                writer.append(", textBeforeControls: '" +inPlaceEditor.getTextBeforeControls()+ "'");
+            }
+            if (UtilValidate.isNotEmpty(inPlaceEditor.getTextAfterControls())) {
+                writer.append(", textAfterControls: '" +inPlaceEditor.getTextAfterControls()+ "'");
+            }
+            if (UtilValidate.isNotEmpty(inPlaceEditor.getTextBetweenControls())) {
+                writer.append(", textBetweenControls: '" +inPlaceEditor.getTextBetweenControls()+ "'");
+            }
+            if (UtilValidate.isNotEmpty(inPlaceEditor.getRows())) {
+                writer.append(", rows: '" +inPlaceEditor.getRows()+ "'");
+            }
+            if (UtilValidate.isNotEmpty(inPlaceEditor.getCols())) {
+                writer.append(", cols: '" +inPlaceEditor.getCols()+ "'");
+            }
+            writer.append("});");
+            writer.append("</script>");
         }
 
         if (displayField instanceof DisplayEntityField) {
