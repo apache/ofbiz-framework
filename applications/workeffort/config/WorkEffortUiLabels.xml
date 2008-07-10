@@ -2189,6 +2189,9 @@
         <value xml:lang="th">แสดงวัน</value>
         <value xml:lang="zh">浏览日</value>
     </property>
+    <property key="WorkEffortDelegateReason">
+        <value xml:lang="en">Delegate Reason</value>
+    </property>    
     <property key="WorkEffortDeletePermissionError">
         <value xml:lang="en">Security Error: to run this operation you must have the WORKEFFORTMGR_DELETE or WORKEFFORTMGR_ADMIN permission</value>
         <value xml:lang="it">Errore Sicurezza: per eseguire questa operazione tu devi avere il permesso WORKEFFORTMGR_DELETE o WORKEFFORTMGR_ADMIN</value>
