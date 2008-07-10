@@ -54,6 +54,14 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="delegateReasonEnumId" title="${uiLabelMap.WorkEffortDelegateReason}">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="Enumeration" key-field-name="enumId">
+                    <entity-constraint name="enumTypeId" operator="equals" value="WORK_EFF_DEL_REAS"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="facilityId"><lookup target-form-name="LookupFacility"/></field>
         <field name="mustRsvp"><check/></field>
         <field name="comments"><text size="60" maxlength="255"/></field>
@@ -85,6 +93,14 @@ under the License.
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value="WORK_EFF_EXPECT"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="delegateReasonEnumId" title="${uiLabelMap.WorkEffortDelegateReason}">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="Enumeration" key-field-name="enumId">
+                    <entity-constraint name="enumTypeId" operator="equals" value="WORK_EFF_DEL_REAS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
