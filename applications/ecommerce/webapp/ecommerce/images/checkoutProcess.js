@@ -96,8 +96,15 @@ Event.observe(window, 'load', function() {
     
     // Initiate Observing Edit Cart Events
     initCartProcessObservers();
-    
+
     Event.observe('processOrderButton', 'click', processOrder);
+
+    // Autocompleter for shipping panel
+    Event.observe($('shipToCountryGeo'), 'focus', getCountryList);
+    Event.observe($('shipToCountryGeo'), 'blur', splitCountryNameFromIds);
+    
+    Event.observe($('shipToStateProvinceGeo'), 'focus', getAssociatedStateList);
+    Event.observe($('shipToStateProvinceGeo'), 'blur', splitStateNameFromIds);
 });
 
 // Cart
@@ -471,4 +478,75 @@ function processOrder() {
     Effect.Fade('processOrderButton', {duration: 0.1});
     Effect.Appear('processingOrderButton', {duration: 0.1});
     $('orderSubmitForm').submit();
+}
+
+var countryChange = 0;
+var autoCompleteCountries = null;
+var countryList = [];
+
+function getCountryList() {
+    if (countryChange == 0) {
+    new Ajax.Request("getCountryList",
+        { asynchronous: false,
+          onSuccess: function(transport) {
+          var data = transport.responseText.evalJSON(true);
+          countryList = data.countryList;
+          autoCompleteCountries = new Autocompleter.Local("shipToCountryGeo", "shipToCountries", countryList, {partialSearch: false});
+        }
+    });
+    countryChange++;
+    }
+    stateChange = 0;
+}
+
+function splitCountryNameFromIds() {
+    $('shipToStateProvinceGeo').value = "";
+    geoValues = $('shipToCountryGeo').value.split(': ');
+    if(geoValues) {
+        $('shipToCountryGeo').value = geoValues[0];
+        if(geoValues[1] == 'undefined' || geoValues[1] == null) {
+            countryList.each(function(country){
+                geo = country.split(': ');
+                if(geoValues[0] == geo[0]){
+                    geoValues[1] = geo[1];
+                }
+            });
+        }
+        $('shipToCountryGeoId').value = geoValues[1];
+    }
+}
+
+var stateChange = 0;
+var autoCompleteStates = null;
+var stateList = [];
+
+function getAssociatedStateList() {
+    if(stateChange == 0) {
+    new Ajax.Request("getAssociatedStateList",
+        { asynchronous: false,
+          parameters: $('shippingForm').serialize(),
+          onSuccess: function(transport) {
+          var data = transport.responseText.evalJSON(true);
+          stateList = data.stateList;
+          autoCompleteStates = new Autocompleter.Local("shipToStateProvinceGeo", "shipToStates", stateList, {partialSearch: false});
+        }
+    });
+    stateChange++;
+    }
+}
+
+function splitStateNameFromIds() {
+    geoValues = $('shipToStateProvinceGeo').value.split(': ');
+    if(geoValues) {
+        $('shipToStateProvinceGeo').value = geoValues[0];
+        if(geoValues[1] == 'undefined' || geoValues[1] == null) {
+            stateList.each(function(state){
+                geo = state.split(': ');
+                if(geoValues[0] == geo[0]){
+                    geoValues[1] = geo[1];
+                }
+            });
+        }
+        $('shipToStateProvinceGeoId').value = geoValues[1];
+    }
 }

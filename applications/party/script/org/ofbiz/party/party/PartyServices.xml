@@ -888,5 +888,33 @@ under the License.
             </if-not-empty>
         </if-not-empty>
     </simple-method>
+
+    <simple-method method-name="getCountryList" short-description="Returns a list of country" login-required="false">
+        <call-class-method method-name="getCountryList" class-name="org.ofbiz.common.CommonWorkers" ret-field-name="geoList">
+            <field field-name="delegator" type="org.ofbiz.entity.GenericDelegator"/>
+        </call-class-method>
+        <iterate list-name="geoList" entry-name="countryGeo">
+            <set field="countryName" value="${countryGeo.geoName}: ${countryGeo.geoId}"/>
+            <field-to-list list-name="countryList" field-name="countryName"/>
+        </iterate>
+        <field-to-result field-name="countryList"/>
+    </simple-method>
+
+    <simple-method method-name="getAssociatedStateList" short-description="set the state options for selected country" login-required="false">
+        <set field="countryGeoId" from-field="parameters.countryGeoId"/>
+        <call-class-method method-name="getAssociatedStateList" class-name="org.ofbiz.common.CommonWorkers" ret-field-name="geoList">
+            <field field-name="delegator" type="org.ofbiz.entity.GenericDelegator"/>
+            <field field-name="countryGeoId" type="String"/>
+        </call-class-method>
+        <iterate list-name="geoList" entry-name="stateGeo">
+            <set field="stateName" value="${stateGeo.geoName}: ${stateGeo.geoId}"/>
+            <field-to-list list-name="stateList" field-name="stateName"/>
+        </iterate>
+        <if-empty field="stateList">
+            <set field="noOption" value="No States/Provinces exists"/>
+            <field-to-list list-name="stateList" field-name="noOption"/>
+        </if-empty>
+        <field-to-result field-name="stateList"/>
+    </simple-method>
     
 </simple-methods>
