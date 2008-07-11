@@ -430,7 +430,7 @@ under the License.
     <ProductType description="Marketing Package: Auto Manufactured" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="GOOD" productTypeId="MARKETING_PKG_AUTO"/>
     <ProductType description="Marketing Package: Pick Assembly" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="GOOD" productTypeId="MARKETING_PKG_PICK"/>
     <ProductType description="Work In Process" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="GOOD" productTypeId="WIP"/>
-    <ProductType description="Configurable Good Configuration" isPhysical="N" isDigital="N" hasTable="N" parentTypeId="AGGREGATED" productTypeId="AGGREGATED_CONF"/> 
+    <ProductType description="Configurable Good Configuration" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="AGGREGATED" productTypeId="AGGREGATED_CONF"/> 
 
     <EnumerationType description="Product Requirement Method" enumTypeId="PROD_REQ_METHOD" hasTable="N" parentTypeId=""/>
     <!-- NONE: no requirement is created (default) -->

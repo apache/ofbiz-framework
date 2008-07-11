@@ -465,10 +465,10 @@ under the License.
                             </calcop>
                         </calculate>
                     </then>
-                    <!-- keep track of the last non-serialized inventory item for use if inventory is not required for purchase -->
-                    <!-- use env variable named lastNonSerInventoryItem -->
-                    <set from-field="inventoryItem" field="lastNonSerInventoryItem"/>
-                </if>
+                </if>                    
+                <!-- keep track of the last non-serialized inventory item for use if inventory is not required for purchase -->
+                <!-- use env variable named lastNonSerInventoryItem -->
+                <set from-field="inventoryItem" field="lastNonSerInventoryItem"/>
             </if-compare>
         </if-compare>
     </simple-method>
