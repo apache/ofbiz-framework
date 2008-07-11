@@ -111,6 +111,7 @@ under the License.
             <div id="editCartPanel" class="screenlet-body">
               <form name="cartForm" id="cartForm" method="post" action="<@ofbizUrl></@ofbizUrl>">
                   <input type="hidden" name="removeSelected" value="false">
+                  <div id="cartFormServerError"></div>
                       <table width="75%" cellspacing="0" cellpadding="1" border="0">
                         <thead>
                           <tr>
@@ -183,7 +184,11 @@ under the License.
                                 <td><div id="cartSubTotal" align="center"><@ofbizCurrency amount=initializedSubTotal isoCode=shoppingCart.getCurrency()/></div></td>
                               </tr>
                               <tr>
-                                <td colspan="3"></td>
+                                <td colspan="3">
+                                  <div>${uiLabelMap.EcommerceEnterPromoCode}:
+                                    <input id="productPromoCode" class="inputBox" name="productPromoCode" size="22" type="text" value=""/>
+                                  </div>
+                                </td>
                                 <td><div id="cartDiscount" align="right"><b>${uiLabelMap.ProductDiscount}:</b></div></td>
                                 <td>
                                   <div id="cartDiscountValue" align="center"><@ofbizCurrency amount=shoppingCart.getProductPromoTotal() isoCode=shoppingCart.getCurrency()/></div>
