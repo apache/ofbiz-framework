@@ -850,6 +850,7 @@ under the License.
         <set field="shoppingCart" from-field="parameters.shoppingCart"/>
         <set field="partyId" from-field="parameters.partyId"/>
         <set field="userLogin" from-field="parameters.userLogin"/>
+        <set field="parameters.shipToCountryGeoId" from-field="parameters.countryGeoId"/>
 
         <if-empty field="userLogin">
             <session-to-field field-name="userLogin" session-name="userLogin"/>
@@ -1113,6 +1114,7 @@ under the License.
 
     <simple-method method-name="createUpdateBillingAndPayment" short-description="Create/update billing address and payment information" login-required="false">
         <set field="shoppingCart" from-field="parameters.shoppingCart"/>
+        <set field="parameters.billToCountryGeoId" from-field="parameters.countryGeoId"/>
         <if-empty field="shoppingCart">
             <session-to-field field-name="shoppingCart"/>
         </if-empty>
