@@ -27,8 +27,8 @@ import org.ofbiz.product.category.*;
 import javolution.util.FastMap;
 
 categoryList = request.getAttribute("topLevelList");
-if(categoryList != null) {
+if(categoryList) {
     catContentWrappers = FastMap.newInstance();
     CategoryWorker.getCategoryContentWrappers(catContentWrappers, categoryList, request);            
-    context.put("catContentWrappers", catContentWrappers);
+    context.catContentWrappers = catContentWrappers;
 }

@@ -27,94 +27,86 @@ import org.ofbiz.product.category.*;
 import org.ofbiz.product.product.ProductWorker;
 import org.ofbiz.product.product.ProductContentWrapper;
 
-dispatcher = request.getAttribute("dispatcher");
-delegator = request.getAttribute("delegator");
 contentPathPrefix = CatalogWorker.getContentPathPrefix(request);
 catalogName = CatalogWorker.getCatalogName(request);
 currentCatalogId = CatalogWorker.getCurrentCatalogId(request);
 requestParams = UtilHttp.getParameterMap(request);
 
 detailScreen = "productdetail";
-productId = requestParams.get("product_id");
-if (UtilValidate.isEmpty(productId)) productId = request.getAttribute("product_id");
+productId = requestParams.product_id ?: request.getAttribute("product_id");
 
 /*
  * NOTE JLR 20070221 this should be done using the same method than in add to cart. I will do it like that and remove all this after.
  *
-if (productId != null) {
+if (productId) {
     previousParams = session.getAttribute("_PREVIOUS_PARAMS_"); 
-    if (previousParams != null && previousParams.length() > 0) {
-        previousParams = UtilHttp.stripNamedParamsFromQueryString(previousParams, UtilMisc.toList("product_id"));
-        previousParams = previousParams + "&product_id=" + productId;
+    if (previousParams) {
+        previousParams = UtilHttp.stripNamedParamsFromQueryString(previousParams, ["product_id"]);
+        previousParams += "&product_id=" + productId;
     } else {
         previousParams = "product_id=" + productId;
     }
     session.setAttribute("_PREVIOUS_PARAMS_", previousParams);    // for login
-    context.put("previousParams", previousParams);
+    context.previousParams = previousParams;
 }*/    
 
 // get the product entity
-if (productId != null) {
-    product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
-    
+if (productId) {
+    product = delegator.findByPrimaryKeyCache("Product", [productId : productId]);
+
     // first make sure this isn't a variant that has an associated virtual product, if it does show that instead of the variant
     virtualProductId = ProductWorker.getVariantVirtualId(product);
-    if (virtualProductId != null) {
+    if (virtualProductId) {
         productId = virtualProductId;
-        product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
+        product = delegator.findByPrimaryKeyCache("Product", [productId : productId]);
     }
-    
-    context.put("productId", productId);
-    
+
+    context.productId = productId;
+
     // now check to see if there is a view allow category and if this product is in it...
-    if (product != null) {
+    if (product) {
         viewProductCategoryId = CatalogWorker.getCatalogViewAllowCategoryId(delegator, currentCatalogId);
-        if (viewProductCategoryId != null) {
+        if (viewProductCategoryId) {
             if (!CategoryWorker.isProductInCategory(delegator, productId, viewProductCategoryId)) {
                 // a view allow productCategoryId was found, but the product is not in the category, axe it...
                 product = null;
             }
         }
     }
-    
-    if (product != null) {
-        context.put("product", product);  
-        ProductContentWrapper contentWrapper = new ProductContentWrapper(product, request);
+
+    if (product) {
+        context.product = product;
+        contentWrapper = new ProductContentWrapper(product, request);
         context.put("title", contentWrapper.get("PRODUCT_NAME"));        
         context.put("metaDescription", contentWrapper.get("DESCRIPTION"));
 
-        keywords = new ArrayList();
-        keywords.add(product.getString("productName"));
+        keywords = [];
+        keywords.add(product.productName);
         keywords.add(catalogName);
-        members = delegator.findByAndCache("ProductCategoryMember", UtilMisc.toMap("productId", productId));
-        membersIter = members.iterator();
-        while (membersIter.hasNext()) {
-            member = membersIter.next();
+        members = delegator.findByAndCache("ProductCategoryMember", [productId : productId]);
+        members.each { member ->
             category = member.getRelatedOneCache("ProductCategory");
-            keywords.add(category.getString("description"));            
+            keywords.add(category.description);            
         }
-        context.put("metaKeywords", StringUtil.join(keywords, ", "));
-          
+        context.metaKeywords = StringUtil.join(keywords, ", ");
+
         // Set the default template for aggregated product (product component configurator ui)
-        if (product.getString("productTypeId") != null && product.getString("productTypeId").equals("AGGREGATED") && configproductdetailScreen != null) {
+        if (product.productTypeId && "AGGREGATED".equals(product.productTypeId) && configproductdetailScreen) {
             detailScreen = configproductdetailScreen;
         }
 
-        productTemplate = product.getString("detailScreen");
-        if (productTemplate != null && productTemplate.length() > 0) {
+        productTemplate = product.detailScreen;
+        if (productTemplate) {
             detailScreen = productTemplate;
         }
-
     }
 }
-       
+
 //  check the catalog's template path and update
 templatePathPrefix = CatalogWorker.getTemplatePathPrefix(request);
-if (templatePathPrefix != null) {
+if (templatePathPrefix) {
     detailScreen = templatePathPrefix + detailScreen;
-}    
-    
-// set the template for the view
-context.put("detailScreen", detailScreen);
+}
 
-    
+// set the template for the view
+context.detailScreen = detailScreen;

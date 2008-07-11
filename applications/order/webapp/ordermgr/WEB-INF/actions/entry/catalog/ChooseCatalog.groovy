@@ -27,7 +27,6 @@ catalogCol = null;
 currentCatalogId = null;
 currentCatalogName = null;
 
-delegator = request.getAttribute("delegator");
 cart = ShoppingCartEvents.getCartObject(request);
 productStoreId = cart.getProductStoreId();
 partyId = cart.getOrderPartyId();
@@ -38,13 +37,13 @@ if ("SALES_ORDER".equals(cart.getOrderType())) {
     catalogCol = CatalogWorker.getCatalogIdsAvailable(delegator, productStoreId, partyId);
 } else {
     catalogCol = CatalogWorker.getAllCatalogIds(request);
-    if (UtilValidate.isEmpty(currentCatalogId) && catalogCol.size() > 0) {
-        currentCatalogId = (String) catalogCol.get(0);
+    if (!currentCatalogId && catalogCol) {
+        currentCatalogId = catalogCol.get(0);
     }
     session.setAttribute("CURRENT_CATALOG_ID", currentCatalogId);
 }
 currentCatalogName = CatalogWorker.getCatalogName(request, currentCatalogId);
 
-context.put("catalogCol", catalogCol);
-context.put("currentCatalogId", currentCatalogId);
-context.put("currentCatalogName", currentCatalogName);
+context.catalogCol = catalogCol;
+context.currentCatalogId = currentCatalogId;
+context.currentCatalogName = currentCatalogName;

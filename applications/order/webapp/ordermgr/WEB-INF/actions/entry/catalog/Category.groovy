@@ -31,54 +31,52 @@ import org.ofbiz.product.category.CategoryContentWrapper;
 detailScreen = "categorydetail";
 catalogName = CatalogWorker.getCatalogName(request);
 
-productCategoryId = request.getAttribute("productCategoryId");
-if (productCategoryId == null) {
-    productCategoryId = parameters.get("category_id");
-}
-context.put("productCategoryId", productCategoryId);
+productCategoryId = request.getAttribute("productCategoryId") ?: parameters.category_id;
+context.productCategoryId = productCategoryId;
 
 /* NOTE DEJ20070220: this is a weird way to do this and caused unacceptable side effects as described in the related
  * comment in the main.bsh file
  *
  * NOTE JLR 20070221 this should be done using the same method than in add to cart. I will do it like that and remove all this after.
  *
-if (productCategoryId != null) {
-    session.setAttribute("productCategoryId",productCategoryId);// for language change
+if (productCategoryId) {
+    session.setAttribute("productCategoryId", productCategoryId);// for language change
     previousParams = session.getAttribute("_PREVIOUS_PARAMS_");
-    if (previousParams != null && previousParams.length() > 0) {
-        previousParams = UtilHttp.stripNamedParamsFromQueryString(previousParams, UtilMisc.toList("category_id"));
-        previousParams = previousParams + "&category_id=" + productCategoryId;
+    if (previousParams) {
+        previousParams = UtilHttp.stripNamedParamsFromQueryString(previousParams, ["category_id"]);
+        previousParams += "&category_id=" + productCategoryId;
     } else {
         previousParams = "category_id=" + productCategoryId;
     }
     session.setAttribute("_PREVIOUS_PARAMS_", previousParams);    // for login
-    context.put("previousParams", previousParams);
+    context.previousParams = previousParams;
 }
  */    
 
-category = delegator.findByPrimaryKeyCache("ProductCategory", UtilMisc.toMap("productCategoryId", productCategoryId));
-if (category != null) {
-    if (category.get("detailScreen") != null) 
-        detailScreen = category.getString("detailScreen");
-    CategoryContentWrapper categoryContentWrapper = new CategoryContentWrapper(category, request);
-    context.put("title", categoryContentWrapper.get("CATEGORY_NAME"));
-    categoryDescription = categoryContentWrapper.get("DESCRIPTION");
-    if (categoryDescription != null) {
-        context.put("metaDescription", categoryDescription);
-        context.put("metaKeywords", categoryDescription + ", " + catalogName);
-    } else {
-        context.put("metaKeywords", catalogName);
+category = delegator.findByPrimaryKeyCache("ProductCategory", [productCategoryId : productCategoryId]);
+if (category) {
+    if (category.detailScreen) { 
+        detailScreen = category.detailScreen;
     }
-    context.put("productCategory", category);
+    categoryContentWrapper = new CategoryContentWrapper(category, request);
+    context.title = categoryContentWrapper.CATEGORY_NAME;
+    categoryDescription = categoryContentWrapper.DESCRIPTION;
+    if (categoryDescription) {
+        context.metaDescription = categoryDescription;
+        context.metaKeywords = categoryDescription + ", " + catalogName;
+    } else {
+        context.metaKeywords = catalogName;
+    }
+    context.productCategory = category;
 }
 
 // check the catalogs template path and update
 templatePathPrefix = CatalogWorker.getTemplatePathPrefix(request);
-if (templatePathPrefix != null) {
+if (templatePathPrefix) {
     detailScreen = templatePathPrefix + detailScreen;
 }
-context.put("detailScreen", detailScreen);
+context.detailScreen = detailScreen;
 
 request.setAttribute("productCategoryId", productCategoryId);
-request.setAttribute("defaultViewSize", new Integer(10));
-request.setAttribute("limitView", new Boolean(true));
+request.setAttribute("defaultViewSize", 10);
+request.setAttribute("limitView", true);
