@@ -43,7 +43,7 @@ under the License.
                 <#assign facilityContactMechList = facilityMap.facilityContactMechList>
                 <tr>
                   <td colspan="4">
-                    <div class="tableheadtext">${uiLabelMap.FacilityFacility}: ${facility.facilityName?if_exists} [${facility.facilityId}]</div>
+                    <div>${uiLabelMap.FacilityFacility}: ${facility.facilityName?if_exists} [${facility.facilityId}]</div>
                   </td>
                 </tr>
                 <tr><td colspan="4"><hr class='sepbar'/></td></tr>

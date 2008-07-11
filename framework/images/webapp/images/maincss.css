@@ -78,8 +78,7 @@ font-size: 1.1em;
 margin: 0.2em;
 }
 
-input[type="text"], input[type="password"], .inputBox {
-/* inputBox is deprecated */
+input[type="text"], input[type="password"] {
 background-color: #ffffff;
 border: #999999 solid 0.1em;
 font-size: 1.1em;
@@ -107,8 +106,7 @@ font-size: 1.1em;
 height: 1.6em; /* force ctrl to scale with text */
 }
 
-select, .selectBox {
-/* selectBox is deprecated */
+select {
 background-color: #ffffff;
 border: #999999 solid 0.1em;
 font-size: 1.1em;
@@ -131,15 +129,6 @@ font-size: 1.1em;
 font-weight: bold;
 }
 
-/* <h> element colors deprecated */
-h1, .h1 {
-color: #000099;
-}
-
-h2, .h2, h3, .h3 {
-color: #000000;
-}
-
 /* IE7 fix */
 table {
 font-size: 1em;
@@ -150,15 +139,13 @@ table input {
 border: #999999 solid 0.1em;
 }
 
-textarea, .textAreaBox {
-/* textAreaBox is deprecated */
+textarea {
 background-color: #ffffff;
 border: #999999 solid 0.1em;
 font-size: 1.1em;
 }
 
-th, th a, .tableheadtext {
-/* tableheadtext is deprecated */
+th, th a {
 color: #000000;
 font-weight: bold;
 }
@@ -188,59 +175,9 @@ color: #333366;
 text-decoration: none;
 }
 
-.endcolumns {
-/* deprecated - use .clear */
-clear: both;
-height: 0;
-visibility: hidden;
-}
-
 .info {
 color: #000000;
 font-style: normal;
-}
-
-DIV.graybox {
-/* deprecated */
-background-color: #CCCCCC;
-border: 0.1em solid #000000;
-font-weight: bold;
-margin: 0.2em auto;
-padding: 0.4em;
-text-align: center;
-width: auto;
-}
-
-DIV.tabletexthidden {
-/* deprecated */
-visibility: hidden;
-}
-
-A.tabletext, DIV.tabletext, SPAN.tabletext, P.tabletext, .tabletext {
-/* deprecated */
-}
-
-A.tabletext:hover {
-/* deprecated */
-}
-
-.tabletextright {
-/* deprecated */
-text-align: right;
-}
-
-.tabletextcenter {
-/* deprecated */
-text-align: center;
-}
-
-.tablebuttontext {
-/* deprecated */
-color: #1E3C66;
-}
-
-.contenttext {
-font-size: 1.1em;
 }
 
 .boxhead {
@@ -321,49 +258,6 @@ background-color: #dddddd;
 border: 0.2em outset #9999CC;
 padding-right: 0.5em;
 padding-left: 0.5em;
-}
-
-/* ===== Tab/Button Bar Styles ===== */
-.tabContainer {
-/* deprecated */
-background-color: #FFFFFF;
-margin-bottom: 1em;
-padding-top: 0.4em;
-}
-
-A.tabButton {
-/* deprecated */
-background-color: #D4D0C8;
-border: solid #000099 0.1em;
-color: #000099;
-line-height: 2em;
-padding: 0.1em 0.5em 0.1em 0.5em;
-white-space: nowrap;
-}
-
-A.tabButton:hover {
-background-color: #000099;
-color: #FFFFFF;
-}
-
-A.tabButtonSelected {
-background-color: #000099;
-border: solid #000099 0.1em;
-color: #FFFFFF;
-padding: 0.1em 0.5em 0.1em 0.5em;
-white-space: nowrap;
-}
-
-A.tabButtonSelected:hover {
-color: #FFFFFF;
-}
-
-A.tableheadbutton {
-color: #000000;
-}
-
-A.tableheadbutton:hover {
-color: #ff0000;
 }
 
 .browsecategorytext {
@@ -579,13 +473,11 @@ padding-right: 1em;
 padding-left: 1em;
 }
 
-hr, .sepbar {
-/* .sepbar deprecated */
+hr {
 background-color: #999999;
 border: 0;
 height: 0.1em;
 margin: 0.5em 0 0.5em 0;
-/*width: 100%;*/
 }
 
 .eventMessage, .errorMessage {
@@ -605,25 +497,7 @@ color: #000099;
 color: #ff0000;
 }
 
-.viewOneTR1 {
-background-color: #B4B0AA;
-}
-
-.viewOneTR2 {
-background-color: #D4D0C8;
-}
-
-.radioButton {
-background-color: #FFFFFF;
-font-size: 1.1em;
-}
-
-.checkBox {
-background-color: #FFFFFF;
-font-size: 1.1em;
-}
-
-.mediumSubmit,.largeSubmit,.loginButton {
+.mediumSubmit, .largeSubmit, .loginButton {
 background-color: #ffffff;
 border: #999999 solid 0.1em;
 color: #000099;
@@ -744,12 +618,6 @@ width: 49%;
 
 .leftclear{
 clear: left;
-height: 1%;
-}
-
-.bothclear{
-/* deprecated - use .clear */
-clear: both;
 height: 1%;
 }
 
@@ -901,6 +769,11 @@ position: relative;
 margin-bottom: 0.5em;
 }
 
+#column-container h1,
+#column-container .h1 {
+color: #000099;
+}
+
 #column-container .left {
 float: left;
 /* alt: position: absolute; top: 0px; left: 0px; */
@@ -982,7 +855,7 @@ clear: none;
 color: #ff0000;
 }
 
-#content-messages p {
+.content-messages p {
 margin: 0.5em 0 0.5em 0;
 }
 
@@ -1401,21 +1274,16 @@ color: #D4D0C8;
 /* ===== Button Bar Navigation Styles ===== */
 /* ======================================== */
 
-/* tabContainer style deprecated - included here for
-backward compatibility */
-
 .button-bar {
 margin-bottom: 1.0em;
 width: 100%;
 }
 
-.button-bar ul,
-.tabContainer ul {
+.button-bar ul {
 display: inline; /* IE Fix */
 }
 
-.button-bar ul li,
-.tabContainer ul li {
+.button-bar ul li {
 float: left;
 font-weight: bold;
 padding: 0.1em 0.4em 0.1em 0.4em;
@@ -1431,7 +1299,6 @@ display: block;
 }
 
 .button-bar ul a,
-.tabContainer ul a,
 .button-bar a {
 padding: 0.1em 0.5em 0.1em 0.5em;
 white-space: nowrap;
@@ -1457,8 +1324,7 @@ color: #000099;
 
 .button-style-1 a,
 .button-style-1 ul a,
-a.button-style-1,
-.tabContainer ul a {
+a.button-style-1 {
 background-color: #D4D0C8;
 border: solid #000099 0.1em;
 color: #000099;
@@ -1466,18 +1332,14 @@ color: #000099;
 
 .button-style-1 .selected,
 .button-style-1 ul .selected,
-.button-style-1 ul .selected a,
-.tabContainer ul .tabButtonSelected,
-.tabContainer ul .tabButtonSelected a  {
-/* .tabButtonSelected deprecated - use .selected */
+.button-style-1 ul .selected a {
 background-color: #000099;
 color: #ffffff;
 }
 
 .button-style-1 a:hover,
 .button-style-1 ul a:hover,
-a.button-style-1:hover,
-.tabContainer ul a:hover {
+a.button-style-1:hover {
 background-color: #000099;
 color: #ffffff;
 text-decoration: none;
@@ -1615,10 +1477,8 @@ border-bottom: 0.1em solid #000000;
 color: #000000;
 }
 
-.basic-table .viewManyTR1,
 .basic-table .alternate-row {
 /* Alternating row style */
-/* .viewManyTR1 deprecated - use .alternate-row */
 background-color: #eeeeee;
 }
 

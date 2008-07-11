@@ -45,9 +45,9 @@ under the License.
 
         <table width="100%" border="0" cellspacing="0" cellpadding="0" class="boxbottom">
           <tr>
-            <td><div class="tableheadtext">${uiLabelMap.CommonQualifier}</div></td>
-            <td><div class="tableheadtext">${uiLabelMap.CommonBenefit}</div></td>
-            <td><div class="tableheadtext">&nbsp;</div></td>
+            <td><div>${uiLabelMap.CommonQualifier}</div></td>
+            <td><div>${uiLabelMap.CommonBenefit}</div></td>
+            <td><div>&nbsp;</div></td>
           </tr>
         <#if (listSize > 0)>
           <#list productIds[lowIndex..highIndex-1] as productId>

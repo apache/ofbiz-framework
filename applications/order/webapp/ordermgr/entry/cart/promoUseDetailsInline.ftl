@@ -23,7 +23,7 @@ under the License.
     </div>
     <div class="screenlet-body">
         <div style="float: left; width: 40%;">
-            <div class="tableheadtext">${uiLabelMap.OrderPromotionsApplied}:</div>
+            <div>${uiLabelMap.OrderPromotionsApplied}:</div>
             <#list shoppingCart.getProductPromoUseInfoIter() as productPromoUseInfo>
                 <div class="tabletext">
                     <#-- TODO: when promo pretty print is done show promo short description here -->
@@ -37,7 +37,7 @@ under the License.
             </#list>
         </div>
         <div style="float: right; width: 55%; padding-left: 10px; border-left: 1px solid #999999;">
-            <div class="tableheadtext">${uiLabelMap.OrderCartItemUseinPromotions}:</div>
+            <div>${uiLabelMap.OrderCartItemUseinPromotions}:</div>
             <#list shoppingCart.items() as cartLine>
                 <#assign cartLineIndex = shoppingCart.getItemIndex(cartLine)>
                 <#if cartLine.getIsPromo()>

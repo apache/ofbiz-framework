@@ -435,13 +435,13 @@ ${virtualJavaScript?if_exists}
               <input type="hidden" name="add_product_id" value="${product.productId}"/>
             <div id="addCart1" style="display:none;>
               <span style="white-space: nowrap;"><b>${uiLabelMap.CommonQuantity}:</b></span>&nbsp;
-              <input type="text" class="inputBox" size="5" name="quantity" value="1"/>
+              <input type="text" size="5" name="quantity" value="1"/>
               <a href="javascript:javascript:addItem();" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.OrderAddToCart}</span></a>
               &nbsp;
             </div>            
             <div id="addCart2" style="display:block;>
               <span style="white-space: nowrap;"><b>${uiLabelMap.CommonQuantity}:</b></span>&nbsp;
-              <input type="text" class="inputBox" size="5" value="1" disabled="disabled"/>
+              <input type="text" size="5" value="1" disabled="disabled"/>
               <a href="javascript:alert('Please select all features first');" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.OrderAddToCart}</span></a>
               &nbsp;
             </div>            
@@ -500,18 +500,18 @@ ${virtualJavaScript?if_exists}
             </#if>           
             <div id="add_amount" class="${hiddenStyle}">
               <span style="white-space: nowrap;"><b>${uiLabelMap.CommonAmount}:</b></span>&nbsp;
-              <input type="text" class="inputBox" size="5" name="add_amount" value=""/>
+              <input type="text" size="5" name="add_amount" value=""/>
             </div>
             <#if product.productTypeId?if_exists == "ASSET_USAGE">
                 <table width="100%"><tr>
-                <td class="tabletext" nowrap align="right">Start Date<br/>(yyyy-mm-dd)</td><td><input type="text" class="inputBox" size="10" name="reservStart"/><a href="javascript:call_cal(document.addform.reservStart, '${Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().toString().substring(0,10)}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/></a></td>
-                <td class="tabletext" nowrap align="right">End Date<br/>(yyyy-mm-dd)</td><td><input type="text" class="inputBox" size="10" name="reservEnd"/><a href="javascript:call_cal(document.addform.reservEnd, '${Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().toString().substring(0,10)}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/></a></td></tr>
+                <td class="tabletext" nowrap align="right">Start Date<br/>(yyyy-mm-dd)</td><td><input type="text" size="10" name="reservStart"/><a href="javascript:call_cal(document.addform.reservStart, '${Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().toString().substring(0,10)}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/></a></td>
+                <td class="tabletext" nowrap align="right">End Date<br/>(yyyy-mm-dd)</td><td><input type="text" size="10" name="reservEnd"/><a href="javascript:call_cal(document.addform.reservEnd, '${Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().toString().substring(0,10)}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/></a></td></tr>
                 <tr>
-                <#--td class="tabletext" nowrap align="right">Number<br/>of days</td><td><input type="textt" class="inputBox" size="4" name="reservLength"/></td></tr><tr><td>&nbsp;</td><td class="tabletext" align="right" nowrap>&nbsp;</td-->
-                <td class="tabletext" nowrap align="right">Number of persons</td><td><input type="text" class="inputBox" size="4" name="reservPersons" value="2"/></td>
-                <td class="tabletext" nowrap align="right">Number of rooms</td><td><input type="text" class="inputBox" size="5" name="quantity" value="1"/></td></tr></table>
+                <#--td class="tabletext" nowrap align="right">Number<br/>of days</td><td><input type="textt" size="4" name="reservLength"/></td></tr><tr><td>&nbsp;</td><td class="tabletext" align="right" nowrap>&nbsp;</td-->
+                <td class="tabletext" nowrap align="right">Number of persons</td><td><input type="text" size="4" name="reservPersons" value="2"/></td>
+                <td class="tabletext" nowrap align="right">Number of rooms</td><td><input type="text" size="5" name="quantity" value="1"/></td></tr></table>
             <#else/>
-                <input type="text" class="inputBox" size="5" name="quantity" value="1"<#if product.isVirtual?if_exists?upper_case == "Y"> disabled="disabled"</#if>/>
+                <input type="text" size="5" name="quantity" value="1"<#if product.isVirtual?if_exists?upper_case == "Y"> disabled="disabled"</#if>/>
             </#if>
             <#-- This calls addItem() so that variants of virtual products cant be added before distinguishing features are selected, it should not be changed to additemSubmit() -->
             <a href="javascript:addItem()" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.OrderAddToCart}</span></a>&nbsp;
@@ -540,9 +540,9 @@ ${virtualJavaScript?if_exists}
           </select>
           &nbsp;&nbsp;
           <#if product.productTypeId?if_exists == "ASSET_USAGE">
-              <table><tr><td>&nbsp;</td><td class="tabletext" align="right">${uiLabelMap.CommonStartDate} (yyyy-mm-dd)</td><td><input type="text" class="inputBox" size="10" name="reservStartStr" ></td><td class="tabletext">Number of&nbsp;days</td><td><input type="text" class="inputBox" size="4" name="reservLength"></td><td>&nbsp;</td><td class="tabletext" align="right">Number of&nbsp;persons</td><td><input type="text" class="inputBox" size="4" name="reservPersons" value="1"></td><td class="tabletext" align="right">Qty&nbsp;</td><td><input type="text" class="inputBox" size="5" name="quantity" value="1"></td></tr></table>
+              <table><tr><td>&nbsp;</td><td class="tabletext" align="right">${uiLabelMap.CommonStartDate} (yyyy-mm-dd)</td><td><input type="text" size="10" name="reservStartStr" ></td><td class="tabletext">Number of&nbsp;days</td><td><input type="text" size="4" name="reservLength"></td><td>&nbsp;</td><td class="tabletext" align="right">Number of&nbsp;persons</td><td><input type="text" size="4" name="reservPersons" value="1"></td><td class="tabletext" align="right">Qty&nbsp;</td><td><input type="text" size="5" name="quantity" value="1"></td></tr></table>
           <#else>
-              <input type="text" class="inputBox" size="5" name="quantity" value="1"/>
+              <input type="text" size="5" name="quantity" value="1"/>
               <input type="hidden" name="reservStartStr" value= ""/>
           </#if>
           <a href="javascript:addShoplistSubmit();" class="buttontext">${uiLabelMap.OrderAddToShoppingList}</a>
@@ -597,7 +597,7 @@ ${virtualJavaScript?if_exists}
   <#-- Digital Download Files Associated with this Product -->
   <#if downloadProductContentAndInfoList?has_content>
     <div id="download-files">
-      <div class="tableheadtext">${uiLabelMap.OrderDownloadFilesTitle}:</div>
+      <div>${uiLabelMap.OrderDownloadFilesTitle}:</div>
       <#list downloadProductContentAndInfoList as downloadProductContentAndInfo>
         <div class="tabletext">${downloadProductContentAndInfo.contentName}<#if downloadProductContentAndInfo.description?has_content> - ${downloadProductContentAndInfo.description}</#if></div>
       </#list>
@@ -615,7 +615,7 @@ ${virtualJavaScript?if_exists}
   <#-- Product Reviews -->
   <#if (isEcommerceScreen?exists && isEcommerceScreen?default("N") == "Y")>  
     <div id="reviews">
-      <div class="tableheadtext">${uiLabelMap.OrderCustomerReviews}:</div>
+      <div>${uiLabelMap.OrderCustomerReviews}:</div>
       <#if averageRating?exists && (averageRating?double > 0) && numRatings?exists && (numRatings?double > 1)>
           <div class="tabletext">${uiLabelMap.OrderAverageRating}: ${averageRating} <#if numRatings?exists>(${uiLabelMap.CommonFrom} ${numRatings} ${uiLabelMap.OrderRatings})</#if></div>
       </#if>

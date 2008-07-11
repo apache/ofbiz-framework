@@ -43,14 +43,14 @@ under the License.
           <td>                   
             <table width="100%" cellpadding="2" cellspacing="2" border="0">
               <tr class="header-row">
-                <td nowrap><div class="tableheadtext">WebSite</div></td>
-                <td nowrap><div class="tableheadtext">PayMethod Type</div></td>
-                <td nowrap><div class="tableheadtext">Auth Service</div></td>
-                <td nowrap><div class="tableheadtext">Re-Auth Service</td>
-                <td nowrap><div class="tableheadtext">Capture Service</div></td>
-                <td nowrap><div class="tableheadtext">Refund Service</td>
-                <td nowrap><div class="tableheadtext">Payment Config</div></td>               
-                <td nowrap><div class="tableheadtext">&nbsp;</div></td>
+                <td nowrap><div>WebSite</div></td>
+                <td nowrap><div>PayMethod Type</div></td>
+                <td nowrap><div>Auth Service</div></td>
+                <td nowrap><div>Re-Auth Service</td>
+                <td nowrap><div>Capture Service</div></td>
+                <td nowrap><div>Refund Service</td>
+                <td nowrap><div>Payment Config</div></td>               
+                <td nowrap><div>&nbsp;</div></td>
               </tr>             
               <#if paymentSetups?has_content>
                 <#list paymentSetups as paymentSetting>
@@ -166,27 +166,27 @@ under the License.
               <tr>
                 <td width="26%" align="right"><div class="tabletext">Processor Auth Service</div></td>
                 <td>&nbsp;</td>
-                <td width="74%"><input type="text" class="inputBox" name="paymentAuthService" value="${payInfo.paymentAuthService?if_exists}" size="30" maxlength="60"></td>
+                <td width="74%"><input type="text" name="paymentAuthService" value="${payInfo.paymentAuthService?if_exists}" size="30" maxlength="60"></td>
               </tr>  
               <tr>
                 <td width="26%" align="right"><div class="tabletext">Processor Re-Auth Service</div></td>
                 <td>&nbsp;</td>
-                <td width="74%"><input type="text" class="inputBox" name="paymentReAuthService" value="${payInfo.paymentReAuthService?if_exists}" size="30" maxlength="60"></td>
+                <td width="74%"><input type="text" name="paymentReAuthService" value="${payInfo.paymentReAuthService?if_exists}" size="30" maxlength="60"></td>
               </tr>                      
               <tr>
                 <td width="26%" align="right"><div class="tabletext">Processor Capture Service</div></td>
                 <td>&nbsp;</td>
-                <td width="74%"><input type="text" class="inputBox" name="paymentCaptureService" value="${payInfo.paymentCaptureService?if_exists}" size="30" maxlength="60"></td>
+                <td width="74%"><input type="text" name="paymentCaptureService" value="${payInfo.paymentCaptureService?if_exists}" size="30" maxlength="60"></td>
               </tr> 
               <tr>
                 <td width="26%" align="right"><div class="tabletext">Processor Refund Service</div></td>
                 <td>&nbsp;</td>
-                <td width="74%"><input type="text" class="inputBox" name="paymentRefundService" value="${payInfo.paymentRefundService?if_exists}" size="30" maxlength="60"></td>
+                <td width="74%"><input type="text" name="paymentRefundService" value="${payInfo.paymentRefundService?if_exists}" size="30" maxlength="60"></td>
               </tr>                                            
               <tr>
                 <td width="26%" align="right"><div class="tabletext">Processor Properties URL</div></td>
                 <td>&nbsp;</td>
-                <td width="74%"><input type="text" class="inputBox" name="paymentConfiguration" value="${payInfo.paymentConfiguration?if_exists}" size="30" maxlength="60"></td>
+                <td width="74%"><input type="text" name="paymentConfiguration" value="${payInfo.paymentConfiguration?if_exists}" size="30" maxlength="60"></td>
               </tr>  
               <tr>
                 <td colspan='2'>&nbsp;</td>

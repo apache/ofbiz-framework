@@ -121,14 +121,14 @@ under the License.
                         <h3>${uiLabelMap.OrderWorkflow}</h3>
                         <table cellspacing="0" class="basic-table">
                           <tr class="header-row">
-                            <td><a href="<@ofbizUrl>tasklist?sort=orderId</@ofbizUrl>" class="tableheadbutton">${uiLabelMap.OrderOrderNumber}</a></td>
-                            <td><a href="<@ofbizUrl>tasklist?sort=name</@ofbizUrl>" class="tableheadbutton">${uiLabelMap.CommonName}</a></td>
-                            <td><a href="<@ofbizUrl>tasklist?sort=orderDate</@ofbizUrl>" class="tableheadbutton">${uiLabelMap.OrderOrderDate}</a></td>
-                            <td width="1" align="right"><a href="<@ofbizUrl>tasklist?sort=grandTotal</@ofbizUrl>" class="tableheadbutton">Total</a></td>
+                            <td><a href="<@ofbizUrl>tasklist?sort=orderId</@ofbizUrl>">${uiLabelMap.OrderOrderNumber}</a></td>
+                            <td><a href="<@ofbizUrl>tasklist?sort=name</@ofbizUrl>">${uiLabelMap.CommonName}</a></td>
+                            <td><a href="<@ofbizUrl>tasklist?sort=orderDate</@ofbizUrl>">${uiLabelMap.OrderOrderDate}</a></td>
+                            <td width="1" align="right"><a href="<@ofbizUrl>tasklist?sort=grandTotal</@ofbizUrl>">Total</a></td>
                             <td width="1">&nbsp;&nbsp;</td>
-                            <td><a href="<@ofbizUrl>tasklist?sort=actualStartDate</@ofbizUrl>" class="tableheadbutton">${uiLabelMap.OrderStartdateTime}</a></td>
-                            <td><a href="<@ofbizUrl>tasklist?sort=priority</@ofbizUrl>" class="tableheadbutton">${uiLabelMap.CommonPriority}</a></td>
-                            <td><a href="<@ofbizUrl>tasklist?sort=currentStatusId</@ofbizUrl>" class="tableheadbutton">${uiLabelMap.CommonMyStatus}</a></td>
+                            <td><a href="<@ofbizUrl>tasklist?sort=actualStartDate</@ofbizUrl>">${uiLabelMap.OrderStartdateTime}</a></td>
+                            <td><a href="<@ofbizUrl>tasklist?sort=priority</@ofbizUrl>">${uiLabelMap.CommonPriority}</a></td>
+                            <td><a href="<@ofbizUrl>tasklist?sort=currentStatusId</@ofbizUrl>">${uiLabelMap.CommonMyStatus}</a></td>
                           </tr>
                           <#assign alt_row = false>
                           <#list partyTasks as task>
@@ -187,16 +187,16 @@ under the License.
                         <h3>${uiLabelMap.CommonWorkflowActivityUserRole}</h3>
                         <table cellspacing="0" class="basic-table hover-bar">
                           <tr class="header-row">
-                            <td><a href="<@ofbizUrl>tasklist?sort=orderId</@ofbizUrl>" class="tableheadbutton">${uiLabelMap.OrderOrderNumber}</a></td>
-                            <td><a href="<@ofbizUrl>tasklist?sort=name</@ofbizUrl>" class="tableheadbutton">${uiLabelMap.CommonName}</a></td>
-                            <td><a href="<@ofbizUrl>tasklist?sort=orderDate</@ofbizUrl>" class="tableheadbutton">${uiLabelMap.OrderOrderDate}</a></td>                                  
-                            <td width="1" align="right"><a href="<@ofbizUrl>tasklist?sort=grandTotal</@ofbizUrl>" class="tableheadbutton">${uiLabelMap.CommonTotal}</a></td>
+                            <td><a href="<@ofbizUrl>tasklist?sort=orderId</@ofbizUrl>">${uiLabelMap.OrderOrderNumber}</a></td>
+                            <td><a href="<@ofbizUrl>tasklist?sort=name</@ofbizUrl>">${uiLabelMap.CommonName}</a></td>
+                            <td><a href="<@ofbizUrl>tasklist?sort=orderDate</@ofbizUrl>">${uiLabelMap.OrderOrderDate}</a></td>                                  
+                            <td width="1" align="right"><a href="<@ofbizUrl>tasklist?sort=grandTotal</@ofbizUrl>">${uiLabelMap.CommonTotal}</a></td>
                             <td width="1">&nbsp;&nbsp;</td>
-                            <td><a href="<@ofbizUrl>tasklist?sort=actualStartDate</@ofbizUrl>" class="tableheadbutton">${uiLabelMap.CommonStartDateTime}</a></td>
-                            <td><a href="<@ofbizUrl>tasklist?sort=wepaPartyId</@ofbizUrl>" class="tableheadbutton">${uiLabelMap.PartyParty}</a></td>
-                            <td><a href="<@ofbizUrl>tasklist?sort=roleTypeId</@ofbizUrl>" class="tableheadbutton">${uiLabelMap.PartyRole}</a></td>
-                            <td><a href="<@ofbizUrl>tasklist?sort=priority</@ofbizUrl>" class="tableheadbutton">${uiLabelMap.CommonPriority}</a></td>
-                            <td><a href="<@ofbizUrl>tasklist?sort=currentStatusId</@ofbizUrl>" class="tableheadbutton">${uiLabelMap.CommonStatus}</a></td>
+                            <td><a href="<@ofbizUrl>tasklist?sort=actualStartDate</@ofbizUrl>">${uiLabelMap.CommonStartDateTime}</a></td>
+                            <td><a href="<@ofbizUrl>tasklist?sort=wepaPartyId</@ofbizUrl>">${uiLabelMap.PartyParty}</a></td>
+                            <td><a href="<@ofbizUrl>tasklist?sort=roleTypeId</@ofbizUrl>">${uiLabelMap.PartyRole}</a></td>
+                            <td><a href="<@ofbizUrl>tasklist?sort=priority</@ofbizUrl>">${uiLabelMap.CommonPriority}</a></td>
+                            <td><a href="<@ofbizUrl>tasklist?sort=currentStatusId</@ofbizUrl>">${uiLabelMap.CommonStatus}</a></td>
                             <td>&nbsp;</td>
                           </tr>                          
                           <#assign alt_row = false>

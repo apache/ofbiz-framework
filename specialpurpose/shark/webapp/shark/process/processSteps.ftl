@@ -24,13 +24,13 @@ under the License.
 
   <table cellpadding="2" cellspacing="0" border="1">
     <tr>
-      <td><div class="tableheadtext">ID</div></td>
-      <td><div class="tableheadtext">Name</div></td>
-      <td><div class="tableheadtext">Description</div></td>
-      <td><div class="tableheadtext">State</div></td>
-      <td><div class="tableheadtext">Last State</div></td>
-      <td><div class="tableheadtext">Priority</div></td>
-      <td><div class="tableheadtext">Assignments</div></td>
+      <td><div>ID</div></td>
+      <td><div>Name</div></td>
+      <td><div>Description</div></td>
+      <td><div>State</div></td>
+      <td><div>Last State</div></td>
+      <td><div>Priority</div></td>
+      <td><div>Assignments</div></td>
 
     </tr>
     <#list steps as step>

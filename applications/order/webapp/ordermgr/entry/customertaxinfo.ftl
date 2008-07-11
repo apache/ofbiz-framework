@@ -24,17 +24,17 @@ under the License.
         </div>
     </#list>
     <div>
-        <span class="tableheadtext">${uiLabelMap.PartyTaxAddInfo}:</span>
+        <span>${uiLabelMap.PartyTaxAddInfo}:</span>
         <select name="taxAuthPartyGeoIds">
           <option></option>
           <#list taxAuthorityAndDetailList as taxAuthorityAndDetail>
             <option value="${taxAuthorityAndDetail.taxAuthPartyId}::${taxAuthorityAndDetail.taxAuthGeoId}">[${taxAuthorityAndDetail.geoCode}] ${taxAuthorityAndDetail.geoName} (${taxAuthorityAndDetail.groupName?if_exists})</option>
           </#list>
         </select>
-        <span class="tabletext">${uiLabelMap.CommonId}: </span><input type="text" name="partyTaxId" class="inputBox" size="12" maxlength="40"/>
+        <span class="tabletext">${uiLabelMap.CommonId}: </span><input type="text" name="partyTaxId" size="12" maxlength="40"/>
 
         <#if productStore.showTaxIsExempt?default("Y") == "Y">
-        <span class="tabletext">${uiLabelMap.PartyTaxIsExempt} </span><input type="checkbox" name="isExempt" class="inputBox" value="Y"/>
+        <span class="tabletext">${uiLabelMap.PartyTaxIsExempt} </span><input type="checkbox" name="isExempt" value="Y"/>
         <#else/>
         <input type="hidden" name="isExempt" value="N"/>
         </#if>

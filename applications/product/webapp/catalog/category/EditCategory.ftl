@@ -206,9 +206,9 @@ function insertImageName(type,nameValue) {
                         <input type="file" size="50" name="fname"/>
                         <br/>
                         <span>
-                            <input class="radioButton" type="radio" name="upload_file_type_bogus" value="category" checked="checked" onclick='setUploadUrl("<@ofbizUrl>UploadCategoryImage?productCategoryId=${productCategoryId}&amp;upload_file_type=category</@ofbizUrl>");'/>${uiLabelMap.ProductCategoryImageUrl}
-                            <input class="radioButton" type="radio" name="upload_file_type_bogus" value="linkOne" onclick='setUploadUrl("<@ofbizUrl>UploadCategoryImage?productCategoryId=${productCategoryId}&amp;upload_file_type=linkOne</@ofbizUrl>");'/>${uiLabelMap.ProductLinkOneImageUrl}
-                            <input class="radioButton" type="radio" name="upload_file_type_bogus" value="linkTwo"onclick='setUploadUrl("<@ofbizUrl>UploadCategoryImage?productCategoryId=${productCategoryId}&amp;upload_file_type=linkTwo</@ofbizUrl>");'/>${uiLabelMap.ProductLinkTwoImageUrl}
+                            <input type="radio" name="upload_file_type_bogus" value="category" checked="checked" onclick='setUploadUrl("<@ofbizUrl>UploadCategoryImage?productCategoryId=${productCategoryId}&amp;upload_file_type=category</@ofbizUrl>");'/>${uiLabelMap.ProductCategoryImageUrl}
+                            <input type="radio" name="upload_file_type_bogus" value="linkOne" onclick='setUploadUrl("<@ofbizUrl>UploadCategoryImage?productCategoryId=${productCategoryId}&amp;upload_file_type=linkOne</@ofbizUrl>");'/>${uiLabelMap.ProductLinkOneImageUrl}
+                            <input type="radio" name="upload_file_type_bogus" value="linkTwo"onclick='setUploadUrl("<@ofbizUrl>UploadCategoryImage?productCategoryId=${productCategoryId}&amp;upload_file_type=linkTwo</@ofbizUrl>");'/>${uiLabelMap.ProductLinkTwoImageUrl}
                         </span>
                         <input type="submit" class="smallSubmit" value="${uiLabelMap.ProductUploadImage}"/>
                     </td></tr>
@@ -231,14 +231,14 @@ function insertImageName(type,nameValue) {
                         </div>
                         <div>
                             <b>${uiLabelMap.CommonDuplicate}:</b>
-                            ${uiLabelMap.ProductCategoryContent}&nbsp;<input type="checkbox" class="checkBox" name="duplicateContent" value="Y" checked />
-                            ${uiLabelMap.ProductCategoryRollupParentCategories}&nbsp;<input type="checkbox" class="checkBox" name="duplicateParentRollup" value="Y" checked />
-                            ${uiLabelMap.ProductCategoryRollupChildCategories}&nbsp;<input type="checkbox" class="checkBox" name="duplicateChildRollup" value="Y" />
-                            ${uiLabelMap.ProductProducts}&nbsp;<input type="checkbox" class="checkBox" name="duplicateMembers" value="Y" checked />
-                            ${uiLabelMap.ProductCatalogs}&nbsp;<input type="checkbox" class="checkBox" name="duplicateCatalogs" value="Y" checked />
-                            ${uiLabelMap.ProductFeatures}&nbsp;<input type="checkbox" class="checkBox" name="duplicateFeatures" value="Y" checked />
-                            ${uiLabelMap.PartyParties}&nbsp;<input type="checkbox" class="checkBox" name="duplicateRoles" value="Y" checked />
-                            ${uiLabelMap.ProductAttributes}&nbsp;<input type="checkbox" class="checkBox" name="duplicateAttributes" value="Y" checked />
+                            ${uiLabelMap.ProductCategoryContent}&nbsp;<input type="checkbox" name="duplicateContent" value="Y" checked />
+                            ${uiLabelMap.ProductCategoryRollupParentCategories}&nbsp;<input type="checkbox" name="duplicateParentRollup" value="Y" checked />
+                            ${uiLabelMap.ProductCategoryRollupChildCategories}&nbsp;<input type="checkbox" name="duplicateChildRollup" value="Y" />
+                            ${uiLabelMap.ProductProducts}&nbsp;<input type="checkbox" name="duplicateMembers" value="Y" checked />
+                            ${uiLabelMap.ProductCatalogs}&nbsp;<input type="checkbox" name="duplicateCatalogs" value="Y" checked />
+                            ${uiLabelMap.ProductFeatures}&nbsp;<input type="checkbox" name="duplicateFeatures" value="Y" checked />
+                            ${uiLabelMap.PartyParties}&nbsp;<input type="checkbox" name="duplicateRoles" value="Y" checked />
+                            ${uiLabelMap.ProductAttributes}&nbsp;<input type="checkbox" name="duplicateAttributes" value="Y" checked />
                         </div>
                     </td></tr>
                 </table>

@@ -39,16 +39,16 @@ under the License.
               </tr>
               <tr>
                 <td>
-                    <div class="tableheadtext">${uiLabelMap.ProductProduct}</div>
+                    <div>${uiLabelMap.ProductProduct}</div>
                 </td>
                 <td>
-                    <div class="tableheadtext">${uiLabelMap.CommonQuantity}</div>
+                    <div>${uiLabelMap.CommonQuantity}</div>
                 </td>
                 <td>
-                    <div class="tableheadtext">${uiLabelMap.ProductMoveQuantity}</div>
+                    <div>${uiLabelMap.ProductMoveQuantity}</div>
                 </td>
                 <td>
-                    <div class="tableheadtext">${uiLabelMap.OrderShipGroupTo}</div>
+                    <div>${uiLabelMap.OrderShipGroupTo}</div>
                 </td>
               </tr>
 
@@ -71,7 +71,7 @@ under the License.
                     <div class="tabletext">${shipGroupItemQuantity}</div>
                   </td>
                   <td>
-                    <div class="tabletext"><input type="text" name="quantity_o_${rowCount}" value="${shipGroupItemQuantity}" class="inputBox"/></div>
+                    <div class="tabletext"><input type="text" name="quantity_o_${rowCount}" value="${shipGroupItemQuantity}"/></div>
                   </td>
                   <td>
                     <div class="tabletext">
