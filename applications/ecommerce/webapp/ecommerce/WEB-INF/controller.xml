@@ -33,7 +33,8 @@ under the License.
     <handler name="rome" type="request" class="org.ofbiz.webapp.event.RomeEventHandler"/>
     <handler name="jsonsimple" type="request" class="org.ofbiz.webapp.event.JSONSimpleEventHandler"/>
     <handler name="jsonservice" type="request" class="org.ofbiz.webapp.event.JSONServiceEventHandler"/>
-
+    <handler name="jsonjava" type="request" class="org.ofbiz.webapp.event.JSONJavaEventHandler"/>
+    
     <handler name="jsp" type="view" class="org.ofbiz.webapp.view.JspViewHandler"/>
     <handler name="http" type="view" class="org.ofbiz.webapp.view.HttpViewHandler"/>
     <handler name="screen" type="view" class="org.ofbiz.widget.screen.ScreenWidgetViewHandler"/>
@@ -1626,7 +1627,7 @@ under the License.
     </request-map>
     <request-map uri="silentAddPromoCode">
         <security https="true" auth="false"/>
-        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="addProductPromoCode"/>
+        <event type="jsonjava" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="addProductPromoCode"/>
         <response name="success" type="request" value="getCartData"/>
         <response name="error" type="request" value="getCartData"/>
     </request-map>
