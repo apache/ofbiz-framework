@@ -27,21 +27,21 @@ import org.ofbiz.product.catalog.*;
 import org.ofbiz.product.feature.*;
 import org.ofbiz.product.product.*;
 
-module = "keywordsearch.bsh";
+module = "KeywordSearch.groovy";
 
 // note: this can be run multiple times in the same request without causing problems, will check to see on its own if it has run again
 ProductSearchSession.processSearchParameters(parameters, request);
 prodCatalogId = CatalogWorker.getCurrentCatalogId(request);
-Map result = ProductSearchSession.getProductSearchResult(request, delegator, prodCatalogId);
+result = ProductSearchSession.getProductSearchResult(request, delegator, prodCatalogId);
 
-context.put("productIds", result.get("productIds"));
-context.put("viewIndex", result.get("viewIndex"));
-context.put("viewSize", result.get("viewSize"));
-context.put("listSize", result.get("listSize"));
-context.put("lowIndex", result.get("lowIndex"));
-context.put("highIndex", result.get("highIndex"));
-context.put("paging", result.get("paging"));
-context.put("previousViewSize", result.get("previousViewSize"));
-context.put("searchCategory", result.get("searchCategory"));
-context.put("searchConstraintStrings", result.get("searchConstraintStrings"));
-context.put("searchSortOrderString", result.get("searchSortOrderString"));
+context.productIds = result.productIds;
+context.viewIndex = result.viewIndex;
+context.viewSize = result.viewSize;
+context.listSize = result.listSize;
+context.lowIndex = result.lowIndex;
+context.highIndex = result.highIndex;
+context.paging = result.paging;
+context.previousViewSize = result.previousViewSize;
+context.searchCategory = result.searchCategory;
+context.searchConstraintStrings = result.searchConstraintStrings;
+context.searchSortOrderString = result.searchSortOrderString;

@@ -28,28 +28,27 @@ import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.base.util.*;
 
 currencyUomId = ShoppingCartEvents.getCartObject(request).getCurrency();
-product = context.get("product");
+product = context.product;
 
-if (product != null) {
-    configWrapper = ProductConfigWorker.getProductConfigWrapper(product.getString("productId"), currencyUomId, request);
+if (product) {
+    configWrapper = ProductConfigWorker.getProductConfigWrapper(product.productId, currencyUomId, request);
     ProductConfigWorker.fillProductConfigWrapper(configWrapper, request);
 
     if (!configWrapper.isCompleted()) {
         configId = request.getParameter("configId");
-        if (UtilValidate.isNotEmpty(configId)) {
+        if (configId) {
             configWrapper.loadConfig(delegator, configId);
         } else {
             configWrapper.setDefaultConfig();
         }
-
     }
     ProductConfigWorker.storeProductConfigWrapper(configWrapper, delegator);
     if (!ProductStoreWorker.isStoreInventoryAvailable(request, configWrapper, 1.0)) {
-        context.put("productNotAvailable", "Y");
+        context.productNotAvailable = "Y";
     }
-    context.put("configwrapper", configWrapper);
-    context.put("configId", configWrapper.getConfigId());
-    context.put("totalPrice", configWrapper.getTotalPrice());
-    context.put("renderSingleChoiceWithRadioButtons", "Y");
-    context.put("showOffsetPrice", "Y");
+    context.configwrapper = configWrapper;
+    context.configId = configWrapper.getConfigId();
+    context.totalPrice = configWrapper.getTotalPrice();
+    context.renderSingleChoiceWithRadioButtons = "Y";
+    context.showOffsetPrice = "Y";
 }

@@ -33,7 +33,7 @@ if (!"AND".equals(searchOperator) && !"OR".equals(searchOperator)) {
   searchOperator = "OR";
 }
 
-context.put("currentCatalogId", currentCatalogId);
-context.put("searchCategoryId", searchCategoryId);
-context.put("otherSearchProdCatalogCategories", otherSearchProdCatalogCategories);
-context.put("searchOperator", searchOperator);
+context.currentCatalogId = currentCatalogId;
+context.searchCategoryId = searchCategoryId;
+context.otherSearchProdCatalogCategories = otherSearchProdCatalogCategories;
+context.searchOperator = searchOperator;

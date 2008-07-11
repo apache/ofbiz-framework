@@ -29,57 +29,50 @@ import org.ofbiz.product.catalog.*;
 import org.ofbiz.product.category.CategoryContentWrapper;
 
 productCategoryId = request.getAttribute("productCategoryId");
-context.put("productCategoryId", productCategoryId);
+context.productCategoryId = productCategoryId;
 
-viewSize = parameters.get("VIEW_SIZE");
-viewIndex = parameters.get("VIEW_INDEX");
+viewSize = parameters.VIEW_SIZE;
+viewIndex = parameters.VIEW_INDEX;
 currentCatalogId = CatalogWorker.getCurrentCatalogId(request);
 
 // set the default view size
-defaultViewSize = request.getAttribute("defaultViewSize");
-if (defaultViewSize == null) {
-    defaultViewSize = new java.lang.Integer(10);
-}
-context.put("defaultViewSize", defaultViewSize);
+defaultViewSize = request.getAttribute("defaultViewSize") ?: 10;
+context.defaultViewSize = defaultViewSize;
 
 // set the limit view
-Boolean limitViewObj = request.getAttribute("limitView");
-limitView = true;
-if (limitViewObj != null) {
-    limitView = limitViewObj;
-}
-context.put("limitView", limitView);
+limitView = request.getAttribute("limitView") ?: true;
+context.limitView = limitView;
 
 // get the product category & members
-andMap = UtilMisc.toMap("productCategoryId", productCategoryId, 
-        "viewIndexString", viewIndex, "viewSizeString", viewSize, 
-        "defaultViewSize", defaultViewSize, "limitView", limitView);
+andMap = [productCategoryId : productCategoryId, 
+        viewIndexString : viewIndex, 
+        viewSizeString : viewSize, 
+        defaultViewSize : defaultViewSize, 
+        limitView : limitView];
 andMap.put("prodCatalogId", currentCatalogId);
-andMap.put("checkViewAllow", Boolean.TRUE);
-if (context.get("orderByFields") != null) {
-    andMap.put("orderByFields", context.get("orderByFields"));
+andMap.put("checkViewAllow", true);
+if (context.orderByFields) {
+    andMap.put("orderByFields", context.orderByFields);
 } else {
-    andMap.put("orderByFields", UtilMisc.toList("sequenceNum", "productId"));
+    andMap.put("orderByFields", ["sequenceNum", "productId"]);
 }
 catResult = dispatcher.runSync("getProductCategoryAndLimitedMembers", andMap);
 
-productCategory = catResult.get("productCategory");
-if (catResult != null) {
-    context.put("productCategoryMembers", catResult.get("productCategoryMembers"));
-    context.put("productCategory", productCategory);
-    context.put("viewIndex", catResult.get("viewIndex"));
-    context.put("viewSize", catResult.get("viewSize"));
-    context.put("lowIndex", catResult.get("lowIndex"));
-    context.put("highIndex", catResult.get("highIndex"));
-    context.put("listSize", catResult.get("listSize"));
-}
+productCategory = catResult.productCategory;
+context.productCategoryMembers = catResult.productCategoryMembers;
+context.productCategory = productCategory;
+context.viewIndex = catResult.viewIndex;
+context.viewSize = catResult.viewSize;
+context.lowIndex = catResult.lowIndex;
+context.highIndex = catResult.highIndex;
+context.listSize = catResult.listSize;
 
 // set this as a last viewed
 // DEJ20070220: WHY is this done this way? why not use the existing CategoryWorker stuff?
-int LAST_VIEWED_TO_KEEP = 10; // modify this to change the number of last viewed to keep
+LAST_VIEWED_TO_KEEP = 10; // modify this to change the number of last viewed to keep
 lastViewedCategories = session.getAttribute("lastViewedCategories");
-if (lastViewedCategories == null) {
-    lastViewedCategories = new LinkedList();
+if (!lastViewedCategories) {
+    lastViewedCategories = [];
     session.setAttribute("lastViewedCategories", lastViewedCategories);
 }
 lastViewedCategories.remove(productCategoryId);
