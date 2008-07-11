@@ -33,7 +33,7 @@ import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.webapp.view.ApacheFopWorker;
 import org.ofbiz.widget.fo.FoFormRenderer;
-import org.ofbiz.widget.html.HtmlScreenRenderer;
+import org.ofbiz.widget.fo.FoScreenRenderer;
 import org.ofbiz.widget.screen.ScreenRenderer;
 import org.xml.sax.SAXException;
 
@@ -90,7 +90,7 @@ public class OutputServices {
 
     public final static String module = OutputServices.class.getName();
 
-    protected static final HtmlScreenRenderer htmlScreenRenderer = new HtmlScreenRenderer();
+    protected static final FoScreenRenderer foScreenRenderer = new FoScreenRenderer();
     protected static final FoFormRenderer foFormRenderer = new FoFormRenderer();
     
     public static Map sendPrintFromScreen(DispatchContext dctx, Map serviceContext) {
@@ -120,7 +120,7 @@ public class OutputServices {
 
             Writer writer = new StringWriter();
             // substitute the freemarker variables...
-            ScreenRenderer screensAtt = new ScreenRenderer(writer, screenContextTmp, htmlScreenRenderer);
+            ScreenRenderer screensAtt = new ScreenRenderer(writer, screenContextTmp, foScreenRenderer);
             screensAtt.populateContextForService(dctx, screenContext);
             screenContextTmp.putAll(screenContext);
             screensAtt.getContext().put("formStringRenderer", foFormRenderer);
@@ -237,7 +237,7 @@ public class OutputServices {
 
             Writer writer = new StringWriter();
             // substitute the freemarker variables...
-            ScreenRenderer screensAtt = new ScreenRenderer(writer, screenContextTmp, htmlScreenRenderer);
+            ScreenRenderer screensAtt = new ScreenRenderer(writer, screenContextTmp, foScreenRenderer);
             screensAtt.populateContextForService(dctx, screenContext);
             screenContextTmp.putAll(screenContext);
             screensAtt.getContext().put("formStringRenderer", foFormRenderer);
