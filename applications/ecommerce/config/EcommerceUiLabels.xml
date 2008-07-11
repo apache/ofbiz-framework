@@ -1451,6 +1451,9 @@
         <value xml:lang="th">ตะกร้าว่างเปล่า</value>
         <value xml:lang="zh">清空购物车</value>
     </property>
+    <property key="EcommerceEnterPromoCode">
+        <value xml:lang="en">Enter Promo Code</value>
+    </property>        
     <property key="EcommerceEnterQueryParameters">
         <value xml:lang="en">Enter Query Parameters</value>
         <value xml:lang="es">Ingrese parámetros de búsqueda</value>

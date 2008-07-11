@@ -324,15 +324,61 @@ function setDataInBillingCompleted() {
 }
 
 function initCartProcessObservers() {
-    var cartFormElement = $('cartForm');
-    var inputs = cartFormElement.getInputs('text');
-    inputs.each( function(e) {
-        Event.observe(e, 'keyup', cartItemQtyChanged);
+    var cartForm = $('cartForm');
+    Event.observe($('productPromoCode'), 'change', addPromoCode);
+    var inputs = cartForm.getInputs('text');
+    inputs.each(function(e) {
+        if(e.id != 'productPromoCode') {
+            Event.observe(e, 'keyup', cartItemQtyChanged);
+        }
     });
-    var removeLinks = cartFormElement.getElementsByTagName('a');
+    var removeLinks = cartForm.getElementsByTagName('a');
     var links = $A(removeLinks);
     links.each( function(e) {
         Event.observe(e, 'click', removeItem);
+    });
+    if ($('initializedCompletedCartDiscount') != undefined && $('initializedCompletedCartDiscount').value == 0) {
+        $('completedCartDiscountRow').hide();
+    }    
+}
+
+function addPromoCode() {
+    new Ajax.Request('/ecommerce/control/silentAddPromoCode', {
+        asynchronous: false, 
+        onSuccess: function(transport) {
+            var data = transport.responseText.evalJSON(true);
+            if (data._ERROR_MESSAGE_LIST_ != undefined) {
+            	$('cartFormServerError').update(data._ERROR_MESSAGE_LIST_);
+            } else if (data._ERROR_MESSAGE_ != undefined) {
+            	$('cartFormServerError').update(data._ERROR_MESSAGE_);	
+            } else {
+                $('cartDiscountValue').update(data.displayDiscountTotalCurrencyFormatted);
+                $('cartSubTotal').update(data.subTotalCurrencyFormatted);
+                $('cartTotalShipping').update(data.totalShippingCurrencyFormatted);
+                $('cartTotalSalesTax').update(data.totalSalesTaxCurrencyFormatted);
+                $('cartDisplayGrandTotal').update(data.displayGrandTotalCurrencyFormatted);
+                // update summary
+                $('completedCartSubTotal').update(data.subTotalCurrencyFormatted);
+                $('completedCartTotalShipping').update(data.totalShippingCurrencyFormatted);
+                $('completedCartTotalSalesTax').update(data.totalSalesTaxCurrencyFormatted);
+                $('completedCartDisplayGrandTotal').update(data.displayGrandTotalCurrencyFormatted);
+                $('completedCartDiscount').update(data.displayDiscountTotalCurrencyFormatted); 
+                if (data.displayDiscountTotal < 0) {
+                    $('completedCartDiscountRow').show();
+                } else {
+                    $('completedCartDiscountRow').hide();
+                }
+                if (elementId !=undefined ) {
+                    if ($(elementId).value == 0) {
+                        var cartItemRowId = elementId.sub('qty_','cartItemRow_');
+                        $(cartItemRowId).remove();
+                        var cartItemDisplayRowId = elementId.sub('qty_','cartItemDisplayRow_');
+                        $(cartItemDisplayRowId).remove();
+                    }
+                }
+            }
+        },
+        parameters: {productPromoCodeId:$F('productPromoCode')}
     });
 }
 

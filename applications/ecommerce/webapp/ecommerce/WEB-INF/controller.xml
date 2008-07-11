@@ -1612,7 +1612,12 @@ under the License.
         <response name="success" type="request" value="getCartData"/>
         <response name="error" type="request" value="getCartData"/>
     </request-map>
-
+    <request-map uri="silentAddPromoCode">
+        <security https="true" auth="false"/>
+        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="addProductPromoCode"/>
+        <response name="success" type="request" value="getCartData"/>
+        <response name="error" type="request" value="getCartData"/>
+    </request-map>
     <request-map uri="getCartData">
         <security https="true" auth="false"/> 
         <event type="jsonservice" invoke="getShoppingCartData"/>
