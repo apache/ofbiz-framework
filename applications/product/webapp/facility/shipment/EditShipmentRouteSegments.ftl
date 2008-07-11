@@ -167,7 +167,7 @@ under the License.
                             <a href="<@ofbizUrl>upsShipmentConfirm?shipmentId=${shipmentRouteSegment.shipmentId}&shipmentRouteSegmentId=${shipmentRouteSegment.shipmentRouteSegmentId}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductConfirmShipmentUps}</a>
                             <br/>
                             ${uiLabelMap.ProductShipmentUpsResidential}:
-                            <input type="checkbox" name="homeDeliveryType" class="checkBox" value="Y" ${(shipmentRouteSegment.homeDeliveryType?has_content)?string("checked=\"checked\"","")}>
+                            <input type="checkbox" name="homeDeliveryType" value="Y" ${(shipmentRouteSegment.homeDeliveryType?has_content)?string("checked=\"checked\"","")}>
                         <#elseif "SHRSCS_CONFIRMED" == shipmentRouteSegment.carrierServiceStatusId?if_exists>
                             <a href="<@ofbizUrl>upsShipmentAccept?shipmentId=${shipmentRouteSegment.shipmentId}&shipmentRouteSegmentId=${shipmentRouteSegment.shipmentRouteSegmentId}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductAcceptUpsShipmentConfirmation}</a>
                             <br/>

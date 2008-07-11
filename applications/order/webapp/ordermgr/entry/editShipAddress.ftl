@@ -50,35 +50,35 @@ under the License.
                     <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.CommonToName}</div></td>
                     <td width="5">&nbsp;</td>
                     <td width="74%">
-                      <input type="text" class="inputBox" size="30" maxlength="60" name="toName" value="${toName}"/>
+                      <input type="text" size="30" maxlength="60" name="toName" value="${toName}"/>
                     </td>
                   </tr>
                   <tr>
                     <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.CommonAttentionName}</div></td>
                     <td width="5">&nbsp;</td>
                     <td width="74%">
-                      <input type="text" class="inputBox" size="30" maxlength="60" name="attnName" value="${parameters.attnName?if_exists}"/>
+                      <input type="text" size="30" maxlength="60" name="attnName" value="${parameters.attnName?if_exists}"/>
                     </td>
                   </tr>
                   <tr>
                     <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.CommonAddressLine} 1</div></td>
                     <td width="5">&nbsp;</td>
                     <td width="74%">
-                      <input type="text" class="inputBox" size="30" maxlength="30" name="address1" value="${parameters.address1?if_exists}"/>
+                      <input type="text" size="30" maxlength="30" name="address1" value="${parameters.address1?if_exists}"/>
                     *</td>
                   </tr>
                   <tr>
                     <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.CommonAddressLine} 2</div></td>
                     <td width="5">&nbsp;</td>
                     <td width="74%">
-                      <input type="text" class="inputBox" size="30" maxlength="30" name="address2" value="${parameters.address2?if_exists}"/>
+                      <input type="text" size="30" maxlength="30" name="address2" value="${parameters.address2?if_exists}"/>
                     </td>
                   </tr>
                   <tr>
                     <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.CommonCity}</div></td>
                     <td width="5">&nbsp;</td>
                     <td width="74%">
-                      <input type="text" class="inputBox" size="30" maxlength="30" name="city" value="${parameters.city?if_exists}"/>
+                      <input type="text" size="30" maxlength="30" name="city" value="${parameters.city?if_exists}"/>
                     *</td>
                   </tr>
                   <tr>
@@ -95,7 +95,7 @@ under the License.
                     <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.CommonZipPostalCode}</div></td>
                     <td width="5">&nbsp;</td>
                     <td width="74%">
-                      <input type="text" class="inputBox" size="12" maxlength="10" name="postalCode" value="${parameters.postalCode?if_exists}"/>
+                      <input type="text" size="12" maxlength="10" name="postalCode" value="${parameters.postalCode?if_exists}"/>
                     *</td>
                   </tr>
                   <tr>

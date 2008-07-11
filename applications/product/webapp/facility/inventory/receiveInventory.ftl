@@ -309,7 +309,7 @@ under the License.
                     <h3>${uiLabelMap.ProductReceivePurchaseOrder} #${purchaseOrder.orderId}</h3>
                     <#if shipment?has_content>
                     <h3>${uiLabelMap.ProductShipmentId} #${shipment.shipmentId}</h3>
-                    <span class="tableheadtext">Set Shipment As Received</span>&nbsp;
+                    <span>Set Shipment As Received</span>&nbsp;
                     <input type="checkbox" name="forceShipmentReceived" value="Y"/>
                     </#if>
                   </td>

@@ -23,8 +23,8 @@ under the License.
   <div class="tabletext"><b>Process :</b> ${process.name()} - ${process.description()?default("N/A")} [${process.key()}]</div>
   <table cellpadding="2" cellspacing="0" border="1">
     <tr>
-      <td><div class="tableheadtext">Time</div></td>
-      <td><div class="tableheadtext">Event</div></td>
+      <td><div>Time</div></td>
+      <td><div>Event</div></td>
     </tr>
     <#list historyList as history>
       <#assign time = history.time_stamp().getTime()>

@@ -55,7 +55,7 @@ under the License.
     <#elseif product.isVirtual?default("N") == "Y">
       <a href="<@ofbizUrl>product?<#if categoryId?exists>category_id=${categoryId}&</#if>product_id=${product.productId}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderChooseVariations}...</a>
     <#else>                                  
-      <input type="text" size="5" class="inputBox" name="quantity_${product.productId}" value="">
+      <input type="text" size="5" name="quantity_${product.productId}" value="">
     </#if>
   </td>
 <#else>

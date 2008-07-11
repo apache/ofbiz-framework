@@ -22,11 +22,11 @@ under the License.
   <div>&nbsp;</div>
   <table cellpadding="2" cellspacing="0" border="1">
     <tr>
-      <td><div class="tableheadtext">Name</div></td>
-      <td><div class="tableheadtext">Version</div></td>
-      <td><div class="tableheadtext">Access</div></td>
-      <td><div class="tableheadtext">Enabled</div></td>
-      <td><div class="tableheadtext">Running</div></td>
+      <td><div>Name</div></td>
+      <td><div>Version</div></td>
+      <td><div>Access</div></td>
+      <td><div>Enabled</div></td>
+      <td><div>Running</div></td>
       <td>&nbsp;</td>
       <td>&nbsp;</td>
       <td>&nbsp;</td>

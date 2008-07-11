@@ -26,7 +26,7 @@ under the License.
           <input type="hidden" name="VIEW_SIZE" value="10"/>
           <input type="hidden" name="PAGING" value="Y"/>
           <div class="tabletext">
-            <input type="text" class="inputBox" name="SEARCH_STRING" size="14" maxlength="50" value="${requestParameters.SEARCH_STRING?if_exists}"/>
+            <input type="text" name="SEARCH_STRING" size="14" maxlength="50" value="${requestParameters.SEARCH_STRING?if_exists}"/>
           </div>
           <#if 0 < otherSearchProdCatalogCategories?size>
             <div class="tabletext">

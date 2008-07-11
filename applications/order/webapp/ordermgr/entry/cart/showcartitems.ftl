@@ -73,7 +73,7 @@ under the License.
                   <#if cartLine.getProductId()?exists>
                     <#-- product item -->
                     <a href="<@ofbizUrl>product?product_id=${cartLine.getProductId()}</@ofbizUrl>" class="buttontext">${cartLine.getProductId()}</a> -
-                    <input size="60" class="inputBox" type="text" name="description_${cartLineIndex}" value="${cartLine.getName()?default("")}"/><br/>
+                    <input size="60" type="text" name="description_${cartLineIndex}" value="${cartLine.getName()?default("")}"/><br/>
                     <i>${cartLine.getDescription()?if_exists}</i>
                     <#if shoppingCart.getOrderType() != "PURCHASE_ORDER">
                       <#-- only applies to sales orders, not purchase orders -->
@@ -124,12 +124,12 @@ under the License.
                 </#if>
             </#if>
             <#if cartLine.getItemComment()?has_content>
-              <tr><td align="left"><div class="tableheadtext">${uiLabelMap.CommonComment} : </div></td>
+              <tr><td align="left"><div>${uiLabelMap.CommonComment} : </div></td>
                   <td align="left"><div class="tabletext">${cartLine.getItemComment()?if_exists}</div>
               </td></tr>
             </#if>
             <#if cartLine.getDesiredDeliveryDate()?has_content>
-              <tr><td align="left"><div class="tableheadtext">${uiLabelMap.OrderDesiredDeliveryDate}: </div></td>
+              <tr><td align="left"><div>${uiLabelMap.OrderDesiredDeliveryDate}: </div></td>
                   <td align="left"><div class="tabletext">${cartLine.getDesiredDeliveryDate()?if_exists}</div>
               </td></tr>
             </#if>
@@ -177,7 +177,7 @@ under the License.
                <tr>
                 <td align="left">
                   <div class="tabletext">${uiLabelMap.OrderShipAfterDate}
-                    <input type="text" class="inputBox" size="20" maxlength="30" name="shipAfterDate_${cartLineIndex}" 
+                    <input type="text" size="20" maxlength="30" name="shipAfterDate_${cartLineIndex}" 
                       value="${cartLine.getShipAfterDate()?default("")}"/>
                     <a href="javascript:call_cal(document.cartform.shipAfterDate_${cartLineIndex},'${shoppingCart.getShipAfterDate()?default("")}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="${uiLabelMap.calendar_click_here_for_calendar}"/></a>
                   </div>
@@ -185,7 +185,7 @@ under the License.
                 <td>&nbsp;</td>
                 <td align="left">
                   <div class="tabletext">${uiLabelMap.OrderShipBeforeDate}
-                    <input type="text" class="inputBox" size="20" maxlength="30" name="shipBeforeDate_${cartLineIndex}" 
+                    <input type="text" size="20" maxlength="30" name="shipBeforeDate_${cartLineIndex}" 
                       value="${cartLine.getShipBeforeDate()?default("")}"/>
                     <a href="javascript:call_cal(document.cartform.shipBeforeDate_${cartLineIndex},'${shoppingCart.getShipBeforeDate()?default("")}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="${uiLabelMap.calendar_click_here_for_calendar}"/></a>
                   </div>
@@ -198,7 +198,7 @@ under the License.
 
                 <#if (cartLine.getIsPromo() && cartLine.getAlternativeOptionProductIds()?has_content)>
                   <#-- Show alternate gifts if there are any... -->
-                  <div class="tableheadtext">${uiLabelMap.OrderChooseFollowingForGift}:</div>
+                  <div>${uiLabelMap.OrderChooseFollowingForGift}:</div>
                   <#list cartLine.getAlternativeOptionProductIds() as alternativeOptionProductId>
                     <#assign alternativeOptionProduct = delegator.findByPrimaryKeyCache("Product", Static["org.ofbiz.base.util.UtilMisc"].toMap("productId", alternativeOptionProductId))>
                     <#assign alternativeOptionName = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(alternativeOptionProduct, "PRODUCT_NAME", locale, dispatcher)?if_exists>
@@ -233,7 +233,7 @@ under the License.
                 <#if cartLine.getIsPromo() || cartLine.getShoppingListId()?exists>
                     ${cartLine.getQuantity()?string.number}
                 <#else>
-                    <input size="6" class="inputBox" type="text" name="update_${cartLineIndex}" value="${cartLine.getQuantity()?string.number}"/>
+                    <input size="6" type="text" name="update_${cartLineIndex}" value="${cartLine.getQuantity()?string.number}"/>
                 </#if>
               </div>
             </td>
@@ -242,7 +242,7 @@ under the License.
                 <#if cartLine.getIsPromo() || (shoppingCart.getOrderType() == "SALES_ORDER" && !security.hasEntityPermission("ORDERMGR", "_SALES_PRICEMOD", session))>
                   <@ofbizCurrency amount=cartLine.getDisplayPrice() isoCode=currencyUomId/>
                 <#else>
-                  <input size="6" class="inputBox" type="text" name="price_${cartLineIndex}" value="${cartLine.getBasePrice()}"/>
+                  <input size="6" type="text" name="price_${cartLineIndex}" value="${cartLine.getBasePrice()}"/>
                 </#if>
               </div>
             </td>

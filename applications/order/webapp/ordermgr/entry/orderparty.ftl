@@ -41,7 +41,7 @@ under the License.
                               <div class='tabletext'><a href="${customerDetailLink}${partyId}" class="buttontext">${partyGroup.groupName?if_exists}</a></div>
             </#if>
             <form method="post" action="<@ofbizUrl>orderentry</@ofbizUrl>" name="setpartyform">
-              <div><input type="text" class="inputBox" name="partyId" size='10' value="${partyId?if_exists}"></div>
+              <div><input type="text" name="partyId" size='10' value="${partyId?if_exists}"></div>
               <div class="tabletext">
                 <a href="javascript:document.setpartyform.submit();" class="buttontext">${uiLabelMap.CommonSet}</a>&nbsp;|&nbsp;<a href="/partymgr/control/findparty" class="buttontext">${uiLabelMap.CommonFind}</a><#if partyId?default("_NA_") != "_NA_" && partyId?default("_NA_") != "">&nbsp;|&nbsp;<a href="${customerDetailLink}${partyId}" class="buttontext">${uiLabelMap.CommonView}</a></#if>
               </div>

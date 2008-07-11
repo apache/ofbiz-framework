@@ -44,7 +44,7 @@ under the License.
                     <#assign saleRule = productPriceRule.isSale?exists && productPriceRule.isSale == "Y">
                     <div>
                     <span class="label"><b>${uiLabelMap.ProductNotifySale}</b></span>&nbsp;
-                    <input type="radio" class="radioButton" name="isSale" value="Y" <#if saleRule>CHECKED</#if>>${uiLabelMap.CommonYes}&nbsp;
+                    <input type="radio" name="isSale" value="Y" <#if saleRule>CHECKED</#if>>${uiLabelMap.CommonYes}&nbsp;
                     <input type="radio" name="isSale" value="N" <#if !saleRule>CHECKED</#if>>${uiLabelMap.CommonNo}
                     &nbsp;&nbsp;
                     <input type="submit" value="${uiLabelMap.CommonUpdate}">

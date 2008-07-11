@@ -23,9 +23,9 @@ under the License.
   <div class="tabletext">XPDL packages loaded into the repository.</div>
   <table cellpadding="2" cellspacing="0" border="1">
     <tr>
-      <td><div class="tableheadtext">ID</div></td>
-      <td><div class="tableheadtext">Version</div></td>
-      <td><div class="tableheadtext">Is Open</div></td>
+      <td><div>ID</div></td>
+      <td><div>Version</div></td>
+      <td><div>Is Open</div></td>
       <td>&nbsp;</td>
       <td>&nbsp;</td>
     </tr>
@@ -57,7 +57,7 @@ under the License.
 <h2>Upload XPDL</h2>
 <div>&nbsp;</div>
 <form method="post" enctype="multipart/form-data" action="<@ofbizUrl>repository?upload=xpdl</@ofbizUrl>" name="xpdlUploadForm">
-  <input type="file" class="inputBox" size="50" name="fname">
+  <input type="file" size="50" name="fname">
   <div><hr></div>
   <input type="submit" class="smallSubmit" value="Upload">
 </form>

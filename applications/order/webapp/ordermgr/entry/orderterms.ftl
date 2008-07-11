@@ -95,7 +95,7 @@ under the License.
                     </td>
                     <td width="5">&nbsp;</td>
                     <td width="74%">
-                      <input type="text" class="inputBox" size="30" maxlength="60" name="termValue" value="${termValue?if_exists}"/>
+                      <input type="text" size="30" maxlength="60" name="termValue" value="${termValue?if_exists}"/>
                     </td>
                   </tr>
                   <tr>
@@ -104,7 +104,7 @@ under the License.
                     </td>
                     <td width="5">&nbsp;</td>
                     <td width="74%">
-                      <input type="text" class="inputBox" size="30" maxlength="60" name="termDays" value="${termDays?if_exists}"/>
+                      <input type="text" size="30" maxlength="60" name="termDays" value="${termDays?if_exists}"/>
                     </td>
                   </tr>
                   <tr>
@@ -113,7 +113,7 @@ under the License.
                     </td>
                     <td width="5">&nbsp;</td>
                     <td width="74%">
-                      <input type="text" class="inputBox" size="30" maxlength="255" name="textValue" value="${textValue?if_exists}"/>
+                      <input type="text" size="30" maxlength="255" name="textValue" value="${textValue?if_exists}"/>
                     </td>
                   </tr>
                   <tr><td colspan="3" align="middle"><input type="submit" class="smallSubmit" value="${uiLabelMap.CommonAdd}"/></td></tr>

@@ -28,7 +28,7 @@ under the License.
   <form method="post" action="<@ofbizUrl>setAdditionalParty</@ofbizUrl>" name="quickAddPartyForm">
 
   <tr>
-    <td><div class="tableheadtext">1) ${uiLabelMap.OrderSelectPartyToOrder} :</div></td>
+    <td><div>1) ${uiLabelMap.OrderSelectPartyToOrder} :</div></td>
   </tr>
   <tr>
     <td width="100%">
@@ -72,7 +72,7 @@ under the License.
       <#assign lookupPartyView="LookupPartyGroup">
     </#if>
   <tr>
-    <td><div class="tableheadtext">2) ${uiLabelMap.PartyFindParty} :</div></td>
+    <td><div>2) ${uiLabelMap.PartyFindParty} :</div></td>
   </tr>
 
   <tr>
@@ -80,10 +80,10 @@ under the License.
       <table border="0" cellspacing="0" cellpadding="0" class="boxbottom">
         <tr>
           <td>
-            <div class="tableheadtext">${uiLabelMap.CommonIdentifier} :</div>
+            <div>${uiLabelMap.CommonIdentifier} :</div>
           </td>
           <td>
-            <input type="text" class="inputBox" name="additionalPartyId" value="${additionalPartyId?if_exists}" onchange="javascript:document.quickAddPartyForm.submit()">
+            <input type="text" name="additionalPartyId" value="${additionalPartyId?if_exists}" onchange="javascript:document.quickAddPartyForm.submit()">
           </td>
           <td>
             <a href="javascript:document.quickAddPartyForm.additionalPartyId.focus();call_fieldlookup2(document.quickAddPartyForm.additionalPartyId, '${lookupPartyView}');"><img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Lookup"></a>
@@ -104,7 +104,7 @@ under the License.
 
   <#if roles?has_content>
   <tr>
-    <td><div class="tableheadtext">3) ${uiLabelMap.OrderPartySelectRoleForParty} :</div></td>
+    <td><div>3) ${uiLabelMap.OrderPartySelectRoleForParty} :</div></td>
   </tr>
 
   <tr>

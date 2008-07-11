@@ -56,7 +56,7 @@ under the License.
                           <span class="tabletext">Username&nbsp;</span>
                         </td>
                         <td align="left">
-                          <input type="text" class="inputBox" name="USERNAME" value="${username}" size="20">
+                          <input type="text" name="USERNAME" value="${username}" size="20">
                         </td>
                       </tr>
                       <tr>
@@ -64,7 +64,7 @@ under the License.
                           <span class="tabletext">Password&nbsp;</span>
                         </td>
                         <td align="left">
-                          <input type="password" class="inputBox" name="PASSWORD" value="" size="20">
+                          <input type="password" name="PASSWORD" value="" size="20">
                         </td>
                       </tr>
                       <tr>

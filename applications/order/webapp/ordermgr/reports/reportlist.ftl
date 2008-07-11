@@ -27,7 +27,7 @@ these reports and helping to improve them.</div>
 <FORM METHOD="post" NAME="orderreportform" ACTION="<@ofbizUrl>orderreportjasper.pdf</@ofbizUrl>" TARGET="OrderReport">   
 <Table>
 <TR>
-<TD><div class="tableheadtext">From Date:</div></td>
+<TD><div>From Date:</div></td>
 <td><INPUT TYPE="TEXT" NAME="fromDate" TABINDEX="10"  SIZE="22" MAXLENGTH="25" ALIGN="MIDDLE">
  <A TABINDEX="10" TARGET="_self" HREF="javascript:call_cal(document.orderreportform.fromDate, '${fromStr}');" onfocus="checkForChanges = true;" onblur="checkForChanges = true;">
   <IMG SRC='/images/cal.gif' WIDTH='16' HEIGHT='16' BORDER='0' ALT='Click here For Calendar'>
@@ -35,7 +35,7 @@ these reports and helping to improve them.</div>
 </TD>
 </TR>
 <TR>
-<TD><div class="tableheadtext">To Date:</div></td>
+<TD><div>To Date:</div></td>
 <td><INPUT TYPE="TEXT" NAME="toDate" TABINDEX="12"  SIZE="22" MAXLENGTH="25" ALIGN="MIDDLE">
  <A TABINDEX="12" TARGET="_self" HREF="javascript:call_cal(document.orderreportform.toDate, '${toStr}');" onfocus="checkForChanges = true;" onblur="checkForChanges = true;">
   <IMG SRC='/images/cal.gif' WIDTH='16' HEIGHT='16' BORDER='0' ALT='Click here For Calendar'>
@@ -44,7 +44,7 @@ these reports and helping to improve them.</div>
 </TR>
 <#--
 <tr>
-<td><div class="tableheadtext">Report:</div></td>
+<td><div>Report:</div></td>
 <td>
    <SELECT NAME="groupName" tabindex="14"  CLASS="stateSelectBox">
 	 <OPTION VALUE="orderStatus"></OPTION>
@@ -65,7 +65,7 @@ these reports and helping to improve them.</div>
 <FORM METHOD="post" NAME="itemreportform" ACTION="<@ofbizUrl>orderitemreportjasper.pdf</@ofbizUrl>" TARGET="OrderReport">   
 <Table>
 <TR>
-<TD><div class="tableheadtext">From Date:</div></td>
+<TD><div>From Date:</div></td>
 <td><INPUT TYPE="TEXT" NAME="fromDate" TABINDEX="10"  SIZE="22" MAXLENGTH="25" ALIGN="MIDDLE">
  <A TABINDEX="10" TARGET="_self" HREF="javascript:call_cal(document.itemreportform.fromDate, '${fromStr}');" onfocus="checkForChanges = true;" onblur="checkForChanges = true;">
   <IMG SRC='/images/cal.gif' WIDTH='16' HEIGHT='16' BORDER='0' ALT='Click here For Calendar'>
@@ -73,7 +73,7 @@ these reports and helping to improve them.</div>
 </TD>
 </TR>
 <TR>
-<TD><div class="tableheadtext">To Date:</div></td>
+<TD><div>To Date:</div></td>
 <td><INPUT TYPE="TEXT" NAME="toDate" TABINDEX="12"  SIZE="22" MAXLENGTH="25" ALIGN="MIDDLE">
  <A TABINDEX="12" TARGET="_self" HREF="javascript:call_cal(document.itemreportform.toDate, '${toStr}');" onfocus="checkForChanges = true;" onblur="checkForChanges = true;">
   <IMG SRC='/images/cal.gif' WIDTH='16' HEIGHT='16' BORDER='0' ALT='Click here For Calendar'>
@@ -82,7 +82,7 @@ these reports and helping to improve them.</div>
 </TR>
 <#--
 <tr>
-<td><div class="tableheadtext">Report:</div></td>
+<td><div>Report:</div></td>
 <td>
    <SELECT NAME="groupName" tabindex="14"  CLASS="stateSelectBox">
 	 <OPTION VALUE="orderStatus"></OPTION>

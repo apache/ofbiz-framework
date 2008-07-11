@@ -347,14 +347,14 @@ function getConfigDetails(event) {
             </#if>
             <div id="add_amount" class="${hiddenStyle}">
               <span style="white-space: nowrap;"><b>Amount:</b></span>&nbsp;
-              <input type="text" class="inputBox" size="5" name="add_amount" value="">
+              <input type="text" size="5" name="add_amount" value="">
             </div>
             <#if !configwrapper.isCompleted()>
               <div class="tabletext">[${uiLabelMap.EcommerceProductNotConfigured}]&nbsp;
-              <input type="text" class="inputBox" size="5" name="quantity" value="0" disabled></div>
+              <input type="text" size="5" name="quantity" value="0" disabled></div>
             <#else>
               <a href="javascript:addItem()" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.OrderAddToCart}</span></a>&nbsp;
-              <input type="text" class="inputBox" size="5" name="quantity" value="1" >
+              <input type="text" size="5" name="quantity" value="1" >
             </#if>
           </#if>
           <#if requestParameters.category_id?exists>
@@ -379,7 +379,7 @@ function getConfigDetails(event) {
             <option value="">${uiLabelMap.OrderNewShoppingList}</option>
           </select>
           &nbsp;&nbsp;
-          <input type="text" size="5" class="inputBox" name="quantity" value="1">
+          <input type="text" size="5" name="quantity" value="1">
           <a href="javascript:document.addToShoppingList.submit();" class="buttontext">[${uiLabelMap.OrderAddToShoppingList}]</a>
         </form>
       <#else> <br/>
@@ -463,7 +463,7 @@ function getConfigDetails(event) {
           <#list questions as question>
           <tr>
             <td>
-              <div class="tableheadtext">${question.question}</div>
+              <div>${question.question}</div>
               <#if question.isFirst()>
                 <a name='#${question.getConfigItem().getString("configItemId")}'></a>
                 <div class="tabletext">${question.description?if_exists}</div>
@@ -574,7 +574,7 @@ function getConfigDetails(event) {
   <#if (isEcommerceScreen?exists && isEcommerceScreen?default("N") == "Y")>
   <tr>
     <td colspan="2">
-      <div class="tableheadtext">${uiLabelMap.OrderCustomerReviews}:</div>
+      <div>${uiLabelMap.OrderCustomerReviews}:</div>
       <#if averageRating?exists && (averageRating?double > 0) && numRatings?exists && (numRatings?double > 1)>
           <div class="tabletext">${uiLabelMap.OrderAverageRating}: ${averageRating} <#if numRatings?exists>(${uiLabelMap.CommonFrom} ${numRatings} ${uiLabelMap.OrderRatings})</#if></div>
       </#if>

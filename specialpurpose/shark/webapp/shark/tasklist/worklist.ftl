@@ -23,13 +23,13 @@ under the License.
 
   <table cellpadding="2" cellspacing="0" border="1">
     <tr>
-      <td><div class="tableheadtext">Resource</div></td>
-      <td><div class="tableheadtext">Name</div></td>
-      <td><div class="tableheadtext">Activity</div></td>
-      <td><div class="tableheadtext">Accepted</div></td>
-      <td><div class="tableheadtext">Priority</div></td>
-      <td><div class="tableheadtext">State</div></td>
-      <td><div class="tableheadtext">State Change</div></td>
+      <td><div>Resource</div></td>
+      <td><div>Name</div></td>
+      <td><div>Activity</div></td>
+      <td><div>Accepted</div></td>
+      <td><div>Priority</div></td>
+      <td><div>State</div></td>
+      <td><div>State Change</div></td>
       <td>&nbsp;</td>
     </tr>
     <#assign formNumber = 0>

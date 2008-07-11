@@ -57,7 +57,7 @@ under the License.
           <#else>
             <form method="post" action="<@ofbizUrl>additem<#if requestAttributes._CURRENT_VIEW_?exists>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>" name="the${requestAttributes.formNamePrefix?if_exists}${requestAttributes.listIndex?if_exists}form" style="margin: 0;">
               <input type="hidden" name="add_product_id" value="${product.productId}"/>
-              <input type="text" class="inputBox" size="5" name="quantity" value="1"/>
+              <input type="text" size="5" name="quantity" value="1"/>
               <#if requestParameters.product_id?has_content><input type="hidden" name="product_id" value="${requestParameters.product_id}"/></#if>
               <#if requestParameters.category_id?has_content><input type="hidden" name="category_id" value="${requestParameters.category_id}"/></#if>
               <#if requestParameters.productPromoId?has_content><input type="hidden" name="productPromoId" value="${requestParameters.productPromoId}"/></#if>

@@ -149,7 +149,7 @@ function submitForm(form, mode, value) {
                 <#-- Party Tax Info -->
                 <#-- commented out by default because the TaxAuthority drop-down is just too wide...
                 <hr/>
-                <div class="tableheadtext">&nbsp;${uiLabelMap.PartyTaxIdentification}</div>
+                <div>&nbsp;${uiLabelMap.PartyTaxIdentification}</div>
                 ${screens.render("component://order/widget/ordermgr/OrderEntryOrderScreens.xml#customertaxinfo")}
                 -->
             </div>
@@ -280,7 +280,7 @@ function submitForm(form, mode, value) {
                         <#else><@ofbizUrl>viewprofile?DONE_PAGE=quickcheckout</@ofbizUrl>"</#if> class="buttontext">${uiLabelMap.PartyProfile}</a>.</div>
                       <br/>
                       <div class="tabletext">${uiLabelMap.OrderCommaSeperatedEmailAddresses}:</div>
-                      <input type="text" class="inputBox" size="30" name="order_additional_emails" value="${shoppingCart.getOrderAdditionalEmails()?if_exists}"/>
+                      <input type="text" size="30" name="order_additional_emails" value="${shoppingCart.getOrderAdditionalEmails()?if_exists}"/>
                     </td>
                   </tr>
                 </table>
@@ -490,7 +490,7 @@ function submitForm(form, mode, value) {
                       <div class="tabletext">${uiLabelMap.CommonNumber}</div>
                     </td>
                     <td width="50%">
-                      <input type="text" size="15" class="inputBox" name="giftCardNumber" value="${(requestParameters.giftCardNumber)?if_exists}" onFocus="document.checkoutInfoForm.addGiftCard.checked=true;"/>
+                      <input type="text" size="15" name="giftCardNumber" value="${(requestParameters.giftCardNumber)?if_exists}" onFocus="document.checkoutInfoForm.addGiftCard.checked=true;"/>
                     </td>
                   </tr>
                   <#if shoppingCart.isPinRequiredForGC(delegator)>
@@ -499,7 +499,7 @@ function submitForm(form, mode, value) {
                       <div class="tabletext">${uiLabelMap.AccountingPIN}</div>
                     </td>
                     <td width="50%">
-                      <input type="text" size="10" class="inputBox" name="giftCardPin" value="${(requestParameters.giftCardPin)?if_exists}" onFocus="document.checkoutInfoForm.addGiftCard.checked=true;"/>
+                      <input type="text" size="10" name="giftCardPin" value="${(requestParameters.giftCardPin)?if_exists}" onFocus="document.checkoutInfoForm.addGiftCard.checked=true;"/>
                     </td>
                   </tr>
                   </#if>
@@ -508,7 +508,7 @@ function submitForm(form, mode, value) {
                       <div class="tabletext">${uiLabelMap.AccountingAmount}</div>
                     </td>
                     <td width="50%">
-                      <input type="text" size="6" class="inputBox" name="giftCardAmount" value="${(requestParameters.giftCardAmount)?if_exists}" onFocus="document.checkoutInfoForm.addGiftCard.checked=true;"/>
+                      <input type="text" size="6" name="giftCardAmount" value="${(requestParameters.giftCardAmount)?if_exists}" onFocus="document.checkoutInfoForm.addGiftCard.checked=true;"/>
                     </td>
                   </tr>
                 </#if>

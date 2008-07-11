@@ -43,7 +43,7 @@ under the License.
         <td>&nbsp;</td>
         <td valign='middle'>
           <div class='tabletext' valign='top'>
-            <select name="agreementId" class="inputBox">
+            <select name="agreementId">
             <option value="">${uiLabelMap.CommonNone}</option>
             <#list agreements as agreement>
             <option value='${agreement.agreementId}' >${agreement.agreementId} - ${agreement.description?if_exists}</option>
@@ -65,7 +65,7 @@ under the License.
           <td>&nbsp;</td>
           <td valign='middle'>
             <div class='tabletext' valign='top'>
-              <select name="agreementId" class="inputBox">
+              <select name="agreementId">
               <option value="">${uiLabelMap.CommonNone}</option>
               <#list agreementRoles as agreementRole>
                   <option value='${agreementRole.agreementId?if_exists}' >${agreementRole.agreementId?if_exists} - ${agreementRole.roleTypeId?if_exists}</option>
@@ -83,7 +83,7 @@ under the License.
         </td>
         <td>&nbsp;</td>
         <td align='left'>
-          <input type='text' class="inputBox" size='60' maxlength='100' name='orderName'/>
+          <input type='text' size='60' maxlength='100' name='orderName'/>
         </td>
       </tr>
       
@@ -124,7 +124,7 @@ under the License.
 
       <tr>
         <td>&nbsp;</td>
-        <td class="tableheadtext" align="right">
+        <td align="right">
           ${uiLabelMap.ProductChooseCatalog}
         </td>
         <td>&nbsp;</td>
@@ -142,7 +142,7 @@ under the License.
 
       <tr>
         <td>&nbsp;</td>
-        <td class="tableheadtext" align="right">
+        <td align="right">
           ${uiLabelMap.WorkEffortWorkEffortId}
         </td>
         <td>&nbsp;</td>
@@ -160,7 +160,7 @@ under the License.
           </div>
         </td>
         <td>&nbsp;</td>
-        <td><input type="text" name="shipAfterDate" size="20" maxlength="30" class="inputBox"/>
+        <td><input type="text" name="shipAfterDate" size="20" maxlength="30"/>
           <a href="javascript:call_cal(document.agreementForm.shipAfterDate,'');">
             <img src='/images/cal.gif' width='16' height='16' border='0' alt='Calendar'/>
           </a>
@@ -175,7 +175,7 @@ under the License.
           </div>
         </td>
         <td>&nbsp;</td>
-        <td><input type="text" name="shipBeforeDate" size="20" maxlength="30" class="inputBox"/>
+        <td><input type="text" name="shipBeforeDate" size="20" maxlength="30"/>
           <a href="javascript:call_cal(document.agreementForm.shipBeforeDate,'');">
             <img src='/images/cal.gif' width='16' height='16' border='0' alt='Calendar'/>
           </a>

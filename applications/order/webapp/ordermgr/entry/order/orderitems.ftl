@@ -30,11 +30,11 @@ under the License.
     <div class="screenlet-body">
         <table width="100%" border="0" cellpadding="0">
           <tr align="left" valign="bottom">
-            <td width="65%" align="left"><span class="tableheadtext"><b>${uiLabelMap.ProductProduct}</b></span></td>
-            <td width="5%" align="right"><span class="tableheadtext"><b>${uiLabelMap.OrderQuantity}</b></span></td>
-            <td width="10%" align="right"><span class="tableheadtext"><b>${uiLabelMap.CommonUnitPrice}</b></span></td>
-            <td width="10%" align="right"><span class="tableheadtext"><b>${uiLabelMap.OrderAdjustments}</b></span></td>
-            <td width="10%" align="right"><span class="tableheadtext"><b>${uiLabelMap.OrderSubTotal}</b></span></td>
+            <td width="65%" align="left"><span><b>${uiLabelMap.ProductProduct}</b></span></td>
+            <td width="5%" align="right"><span><b>${uiLabelMap.OrderQuantity}</b></span></td>
+            <td width="10%" align="right"><span><b>${uiLabelMap.CommonUnitPrice}</b></span></td>
+            <td width="10%" align="right"><span><b>${uiLabelMap.OrderAdjustments}</b></span></td>
+            <td width="10%" align="right"><span><b>${uiLabelMap.OrderSubTotal}</b></span></td>
           </tr>
           <#list orderItems?if_exists as orderItem>
             <#assign itemType = orderItem.getRelatedOne("OrderItemType")?if_exists>

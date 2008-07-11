@@ -98,7 +98,7 @@ function toggleBillingAccount(box) {
                  </#list>
                </#if>
               </table>
-             <div class="tableheadtext">&nbsp;${uiLabelMap.AccountingAgreementInformation}</div>              
+             <div>&nbsp;${uiLabelMap.AccountingAgreementInformation}</div>              
                <table>                         
                  <#if agreements?exists>
                    <#if agreements.size()!=1>            
@@ -112,7 +112,7 @@ function toggleBillingAccount(box) {
                        <td>&nbsp;</td>
                        <td valign='middle'>
                          <div class='tabletext' valign='top'>
-                           <select name="agreementId" class="selectBox">
+                           <select name="agreementId">
                              <#list agreements as agreement>
                                <option value='${agreement.agreementId?if_exists}'>${agreement.agreementId} - ${agreement.description?if_exists}</option>
                              </#list>
@@ -129,7 +129,7 @@ function toggleBillingAccount(box) {
                </table>
              <br />              
             <#-- Party Tax Info -->
-            <div class="tableheadtext">&nbsp;${uiLabelMap.PartyTaxIdentification}</div>
+            <div>&nbsp;${uiLabelMap.PartyTaxIdentification}</div>
             ${screens.render("component://order/widget/ordermgr/OrderEntryOrderScreens.xml#customertaxinfo")}
         </div>
     </div>

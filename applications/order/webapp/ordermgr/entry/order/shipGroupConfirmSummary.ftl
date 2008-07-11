@@ -37,11 +37,11 @@ standard order confirmation page and to be re-usable by other screens.
       <#-- header -->
 
       <tr>
-        <td><span class="tableheadtext">${uiLabelMap.OrderDestination}</span></td>
-        <td><span class="tableheadtext">${uiLabelMap.PartySupplier}</span></td>
-        <td><span class="tableheadtext">${uiLabelMap.ProductShipmentMethod}</span></td>
-        <td><span class="tableheadtext">${uiLabelMap.ProductItem}</span></td>
-        <td><span class="tableheadtext">${uiLabelMap.ProductQuantity}</span></td>
+        <td><span>${uiLabelMap.OrderDestination}</span></td>
+        <td><span>${uiLabelMap.PartySupplier}</span></td>
+        <td><span>${uiLabelMap.ProductShipmentMethod}</span></td>
+        <td><span>${uiLabelMap.ProductItem}</span></td>
+        <td><span>${uiLabelMap.ProductQuantity}</span></td>
       </tr>
 
 
