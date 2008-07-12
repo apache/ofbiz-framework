@@ -604,7 +604,30 @@ public class UtilValidate {
         // All characters are numbers or letters.
         return true;
     }
-
+    
+    public static boolean isJavaScriptReservedWord(String s) {
+        String[] javaScriptReservedWord = {"abstract", "alert", "arguments", "Array", "blur", "boolean", "Boolean", "break", "byte",
+                "callee", "caller", "captureEventscase", "catch", "char", "class", "clearInterval", "clearTimeout", "close", "closed",
+                "confirm", "const", "constructor", "continue", "Date", "debugger", "default", "defaultStatusdelete", "do", "document",
+                "double", "else", "enum", "escape", "eval", "export", "extends", "false", "final", "finally", "find", "float", "for",
+                "focus", "frames", "function", "Function", "goto", "history", "home", "if", "implements", "import", "in", "Infinity",
+                "innerHeight", "innerWidth", "instanceof", "int", "interface", "isFinite", "isNaN", "java", "length", "location",
+                "locationbar", "long", "Math", "menubar", "moveBy", "moveTo", "name", "NaN", "native", "netscape", "new", "null",
+                "Number", "Object", "open", "opener", "outerHeight", "outerWidth", "package", "Packages", "pageXOffset", "pageYOffset",
+                "parent", "parseFloat", "parseInt", "personalbar", "print", "private", "prompt", "protected", "prototype", "public",
+                "RegExp", "releaseEventsresizeBy", "resizeTo", "return", "routeEvent", "scroll", "scrollbars", "scrollBy", "scrollTo",
+                "self", "setInterval", "setTimeout", "short", "static", "status", "statusbar", "stop", "String", "super", "switch",
+                "synchronized", "this", "throw", "throws", "toolbar", "top", "toString", "transient", "true", "try", "typeof", "unescape",
+                "unwatch", "valueOf", "var", "void", "watch", "while", "with", "window"};
+        for (String reservedWord : javaScriptReservedWord) {
+            if (reservedWord.equals(s)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    
     /* ================== METHODS TO CHECK VARIOUS FIELDS. ==================== */
 
     /** isSSN returns true if string s is a valid U.S. Social Security Number.  Must be 9 digits. */
