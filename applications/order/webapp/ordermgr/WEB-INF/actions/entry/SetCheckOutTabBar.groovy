@@ -21,55 +21,45 @@ import java.util.ArrayList;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.order.shoppingcart.ShoppingCartEvents;
 
-List checkoutSteps = new ArrayList();
-
-void addStep(String label, String uri) {
-    checkoutSteps.add(UtilMisc.toMap("label", label, "uri", uri, "enabled", "Y"));
-}
-
-String setEnabledSteps() {
-    String isLast = "N";
-    if (stepLabelId == void) return isLast;
-    String enabled = "Y";
-    for (int i = 0; i < checkoutSteps.size(); i++) {
-        checkoutStep = (Map)checkoutSteps.get(i);
-        checkoutStep.put("enabled", enabled);
-        if (enabled.equals("Y")) {
-            if (i == (checkoutSteps.size() - 1)) {
-                isLast = "Y";
-            }
-            if (stepLabelId.equals(checkoutStep.get("label"))) {
-                enabled = "N";
-            }
-        }
-    }
-    return isLast;
-}
+checkoutSteps = [];
 
 shoppingCart = ShoppingCartEvents.getCartObject(request);
 
 // ----------------------------------
 // The ordered list of steps is prepared here
 // ----------------------------------
-addStep("OrderOrderItems", "/orderentry");
+checkoutSteps.add([label : "OrderOrderItems", uri : "/orderentry", enabled : "Y"])
 
 if ("PURCHASE_ORDER".equals(shoppingCart.getOrderType())) {
-    addStep("OrderOrderTerms", "/setOrderTerm");
+    checkoutSteps.add([label : "OrderOrderTerms", uri : "/setOrderTerm", enabled : "Y"])
 }
-addStep("FacilityShipping", "/setShipping");
+checkoutSteps.add([label : "FacilityShipping", uri : "/setShipping", enabled : "Y"])
 if (shoppingCart.getShipGroupSize() > 1) {
-    addStep("OrderShipGroups", "/SetItemShipGroups");
+    checkoutSteps.add([label : "OrderShipGroups", uri : "/SetItemShipGroups", enabled : "Y"])
 }
-addStep("CommonOptions", "/setOptions");
+checkoutSteps.add([label : "CommonOptions", uri : "/setOptions", enabled : "Y"])
 if ("SALES_ORDER".equals(shoppingCart.getOrderType())) {
-    addStep("OrderOrderTerms", "/setOrderTerm");
-    addStep("AccountingPayment", "/setBilling");
+    checkoutSteps.add([label : "OrderOrderTerms", uri : "/setOrderTerm", enabled : "Y"])
+    checkoutSteps.add([label : "AccountingPayment", uri : "/setBilling", enabled : "Y"])
 }
-addStep("PartyParties", "/setAdditionalParty");
-addStep("OrderReviewOrder", "/confirmOrder");
+checkoutSteps.add([label : "PartyParties", uri : "/setAdditionalParty", enabled : "Y"])
+checkoutSteps.add([label : "OrderReviewOrder", uri : "/confirmOrder", enabled : "Y"])
 
 // ---------------------------------------
 
-isLastStep = setEnabledSteps();
-context.put("isLastStep", isLastStep);
-context.put("checkoutSteps", checkoutSteps);
+isLastStep = "N";
+enabled = "Y";
+checkoutSteps.eachWithIndex { checkoutStep, i ->
+    checkoutStep.put("enabled", enabled);
+    if (enabled.equals("Y")) {
+        if (i == (checkoutSteps.size() - 1)) {
+            isLastStep = "Y";
+        }
+        if (stepLabelId.equals(checkoutStep.label)) {
+            enabled = "N";
+        }
+    }
+}
+
+context.isLastStep = isLastStep;
+context.checkoutSteps = checkoutSteps;
