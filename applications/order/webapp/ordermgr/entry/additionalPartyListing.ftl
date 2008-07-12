@@ -34,9 +34,9 @@ under the License.
           </tr>
           <#list additionalPartyRoleMap[role] as party>
             <tr>
-              <td><div class="tabletext">${party}</div></td>
+              <td><div>${party}</div></td>
               <td>
-                <div class="tabletext">
+                <div>
                   <#if partyData[party].type == "person">
                     ${partyData[party].firstName?if_exists}
                   <#else>
@@ -45,7 +45,7 @@ under the License.
                 </div>
               </td>
               <td>
-                <div class="tabletext">
+                <div>
                   <#if partyData[party].type == "person">
                     ${partyData[party].lastName?if_exists}
                   </#if>

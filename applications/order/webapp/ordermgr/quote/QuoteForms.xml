@@ -105,7 +105,7 @@ under the License.
         </actions>
         <alt-target use-when="quote==null" target="createQuote"/>
         <auto-fields-entity entity-name="Quote" default-field-type="edit"/>
-        <field name="quoteId" title="${uiLabelMap.OrderOrderQuoteId}" widget-style="tabletext"><display/></field>
+        <field name="quoteId" title="${uiLabelMap.OrderOrderQuoteId}"><display/></field>
         <field name="quoteTypeId" title="${uiLabelMap.OrderOrderQuoteTypeId}">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="QuoteType" key-field-name="quoteTypeId">

@@ -29,7 +29,7 @@ under the License.
             </div>
             <div class="screenlet-body">
                 <table width="100%" border="0" cellpadding="1" cellspacing="0">
-                    <tr><td><div class="tabletext">Supplier Information Here</div></td></tr>
+                    <tr><td><div>Supplier Information Here</div></td></tr>
                 </table>
             </div>
         </div>

@@ -24,10 +24,10 @@ under the License.
         <#if (orderName?has_content)>
             <tr>
                 <td align="right" valign="top" width="15%">
-                    <span class="tabletext">&nbsp;<b>${uiLabelMap.OrderOrderName}</b> </span>
+                    <span>&nbsp;<b>${uiLabelMap.OrderOrderName}</b> </span>
                 </td>
                 <td width="5">&nbsp;</td>
-                <td align="left" valign="top" width="80%" class="tabletext">
+                <td align="left" valign="top" width="80%">
                     ${orderName}
                 </td>
             </tr>
@@ -37,10 +37,10 @@ under the License.
         <#if (orderForParty?exists)>
             <tr>
                 <td align="right" valign="top" width="15%">
-                    <span class="tabletext">&nbsp;<b>${uiLabelMap.OrderOrderFor}</b> </span>
+                    <span>&nbsp;<b>${uiLabelMap.OrderOrderFor}</b> </span>
                 </td>
                 <td width="5">&nbsp;</td>
-                <td align="left" valign="top" width="80%" class="tabletext">
+                <td align="left" valign="top" width="80%">
                     ${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(orderForParty, false)} [${orderForParty.partyId}]
                 </td>
             </tr>
@@ -49,10 +49,10 @@ under the License.
         <#if (cart.getPoNumber()?has_content)>
             <tr>
                 <td align="right" valign="top" width="15%">
-                    <span class="tabletext">&nbsp;<b>${uiLabelMap.OrderPONumber}</b> </span>
+                    <span>&nbsp;<b>${uiLabelMap.OrderPONumber}</b> </span>
                 </td>
                 <td width="5">&nbsp;</td>
-                <td align="left" valign="top" width="80%" class="tabletext">
+                <td align="left" valign="top" width="80%">
                     ${cart.getPoNumber()}
                 </td>
             </tr>
@@ -61,25 +61,25 @@ under the License.
         <#if orderTerms?has_content>
             <tr>
                 <td align="right" valign="top" width="15%">
-                    <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderOrderTerms}</b></div>
+                    <div>&nbsp;<b>${uiLabelMap.OrderOrderTerms}</b></div>
                 </td>
                 <td width="5">&nbsp;</td>
                 <td align="left" valign="top" width="80%">
                     <table>
                         <tr>
-                            <td width="35%"><div class="tabletext"><b>${uiLabelMap.OrderOrderTermType}</b></div></td>
-                            <td width="10%"><div class="tabletext"><b>${uiLabelMap.OrderOrderTermValue}</b></div></td>
-                            <td width="10%"><div class="tabletext"><b>${uiLabelMap.OrderOrderTermDays}</b></div></td>
-                            <td width="45%"><div class="tabletext"><b>${uiLabelMap.CommonDescription}</b></div></td>
+                            <td width="35%"><div><b>${uiLabelMap.OrderOrderTermType}</b></div></td>
+                            <td width="10%"><div><b>${uiLabelMap.OrderOrderTermValue}</b></div></td>
+                            <td width="10%"><div><b>${uiLabelMap.OrderOrderTermDays}</b></div></td>
+                            <td width="45%"><div><b>${uiLabelMap.CommonDescription}</b></div></td>
                         </tr>
                         <tr><td colspan="4"><hr/></td></tr>
                         <#assign index=0/>
                         <#list orderTerms as orderTerm>
                         <tr>
-                            <td width="35%"><div class="tabletext">${orderTerm.getRelatedOne("TermType").get("description",locale)}</div></td>
-                            <td width="10%"><div class="tabletext">${orderTerm.termValue?default("")}</div></td>
-                            <td width="10%"><div class="tabletext">${orderTerm.termDays?default("")}</div></td>
-                            <td width="45%"><div class="tabletext">${orderTerm.textValue?default("")}</div></td>
+                            <td width="35%"><div>${orderTerm.getRelatedOne("TermType").get("description",locale)}</div></td>
+                            <td width="10%"><div>${orderTerm.termValue?default("")}</div></td>
+                            <td width="10%"><div>${orderTerm.termDays?default("")}</div></td>
+                            <td width="45%"><div>${orderTerm.textValue?default("")}</div></td>
                         </tr>
                             <#if orderTerms.size()&lt;index>
                         <tr><td colspan="4"><hr/></td></tr>
@@ -95,12 +95,12 @@ under the License.
         <#if trackingNumber?has_content>
             <tr>
                 <td align="right" valign="top" width="15%">
-                    <div class="tabletext">&nbsp;<b>${uiLabelMap.FacilityTrackingNumber}</b></div>
+                    <div>&nbsp;<b>${uiLabelMap.FacilityTrackingNumber}</b></div>
                 </td>
                 <td width="5">&nbsp;</td>
                 <td align="left" valign="top" width="80%">
                     <#-- TODO: add links to UPS/FEDEX/etc based on carrier partyId  -->
-                    <div class="tabletext">${trackingNumber}</div>
+                    <div>${trackingNumber}</div>
                 </td>
             </tr>
             <tr><td colspan="7"><hr/></td></tr>
@@ -108,11 +108,11 @@ under the License.
         <#-- splitting preference -->
             <tr>
                 <td align="right" valign="top" width="15%">
-                    <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderSplittingPreference}</b></div>
+                    <div>&nbsp;<b>${uiLabelMap.OrderSplittingPreference}</b></div>
                 </td>
                 <td width="5">&nbsp;</td>
                 <td align="left" valign="top" width="80%">
-                    <div class="tabletext">
+                    <div>
                         <#if maySplit?default("N") == "N">${uiLabelMap.FacilityWaitEntireOrderReady}</#if>
                         <#if maySplit?default("Y") == "Y">${uiLabelMap.FacilityShipAvailable}</#if>
                     </div>
@@ -123,11 +123,11 @@ under the License.
             <tr><td colspan="7"><hr/></td></tr>
             <tr>
                 <td align="right" valign="top" width="15%">
-                    <div class="tabletext">&nbsp;<b>${uiLabelMap.CommonInstructions}</b></div>
+                    <div>&nbsp;<b>${uiLabelMap.CommonInstructions}</b></div>
                 </td>
                 <td width="5">&nbsp;</td>
                 <td align="left" valign="top" width="80%">
-                    <div class="tabletext">${shippingInstructions}</div>
+                    <div>${shippingInstructions}</div>
                 </td>
             </tr>
         </#if>
@@ -136,11 +136,11 @@ under the License.
         <#-- gift settings -->
             <tr>
                 <td align="right" valign="top" width="15%">
-                    <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderGift}</b></div>
+                    <div>&nbsp;<b>${uiLabelMap.OrderGift}</b></div>
                 </td>
                 <td width="5">&nbsp;</td>
                 <td align="left" valign="top" width="80%">
-                    <div class="tabletext">
+                    <div>
                         <#if isGift?default("N") == "N">${uiLabelMap.OrderThisOrderNotGift}</#if>
                         <#if isGift?default("N") == "Y">${uiLabelMap.OrderThisOrderGift}</#if>
                     </div>
@@ -150,11 +150,11 @@ under the License.
             <#if giftMessage?has_content>
             <tr>
                 <td align="right" valign="top" width="15%">
-                    <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderGiftMessage}</b></div>
+                    <div>&nbsp;<b>${uiLabelMap.OrderGiftMessage}</b></div>
                 </td>
                 <td width="5">&nbsp;</td>
                 <td align="left" valign="top" width="80%">
-                    <div class="tabletext">${giftMessage}</div>
+                    <div>${giftMessage}</div>
                 </td>
             </tr>
             <tr><td colspan="7"><hr/></td></tr>
@@ -163,22 +163,22 @@ under the License.
         <#if shipAfterDate?has_content>
             <tr>
                 <td align="right" valign="top" width="15%">
-                    <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderShipAfterDate}</b></div>
+                    <div>&nbsp;<b>${uiLabelMap.OrderShipAfterDate}</b></div>
                 </td>
                 <td width="5">&nbsp;</td>
                 <td align="left" valign="top" width="80%">
-                    <div class="tabletext">${shipAfterDate}</div>
+                    <div>${shipAfterDate}</div>
                 </td>
             </tr>
         </#if>
         <#if shipBeforeDate?has_content>
             <tr>
                 <td align="right" valign="top" width="15%">
-                    <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderShipBeforeDate}</b></div>
+                    <div>&nbsp;<b>${uiLabelMap.OrderShipBeforeDate}</b></div>
                 </td>
                 <td width="5">&nbsp;</td>
                 <td align="left" valign="top" width="80%">
-                  <div class="tabletext">${shipBeforeDate}</div>
+                  <div>${shipBeforeDate}</div>
                 </td>
             </tr>
         </#if>

@@ -28,10 +28,10 @@ under the License.
         <input type="hidden" name="SEARCH_CATEGORY_ID" value="${searchCategoryId?if_exists}">
         <tr>
           <td align="right" valign="middle">
-            <div class="tabletext">${uiLabelMap.ProductCategory}:</div>
+            <div>${uiLabelMap.ProductCategory}:</div>
           </td>
           <td valign="middle">
-            <div class="tabletext">
+            <div>
               <b>"${(searchCategory.description)?if_exists}"</b>${uiLabelMap.ProductIncludeSubcategories}
               ${uiLabelMap.CommonYes}<input type="radio" name="SEARCH_SUB_CATEGORIES" value="Y" checked>
               ${uiLabelMap.CommonNo}<input type="radio" name="SEARCH_SUB_CATEGORIES" value="N">
@@ -41,10 +41,10 @@ under the License.
     </#if>
     <tr>
       <td align="right" valign="middle">
-        <div class="tabletext">${uiLabelMap.ProductKeywords}:</div>
+        <div>${uiLabelMap.ProductKeywords}:</div>
       </td>
       <td valign="middle">
-        <div class="tabletext">
+        <div>
           <input type="text" name="SEARCH_STRING" size="40" value="${requestParameters.SEARCH_STRING?if_exists}">&nbsp;
           ${uiLabelMap.CommonAny}<input type="radio" name="SEARCH_OPERATOR" value="OR" <#if searchOperator == "OR">checked</#if>>
           ${uiLabelMap.CommonAll}<input type="radio" name="SEARCH_OPERATOR" value="AND" <#if searchOperator == "AND">checked</#if>>
@@ -57,10 +57,10 @@ under the License.
       <#assign productFeatures = productFeaturesByTypeMap[productFeatureTypeId]>
       <tr>
         <td align="right" valign="middle">
-          <div class="tabletext">${(productFeatureType.get("description",locale))?if_exists}:</div>
+          <div>${(productFeatureType.get("description",locale))?if_exists}:</div>
         </td>
         <td valign="middle">
-          <div class="tabletext">
+          <div>
             <select name="pft_${productFeatureTypeId}">
               <option value="">- ${uiLabelMap.CommonSelectAny} -</option>
               <#list productFeatures as productFeature>
@@ -73,10 +73,10 @@ under the License.
     </#list>
     <tr>
       <td align="right" valign="middle">
-        <div class="tabletext">${uiLabelMap.ProductSupplier}:</div>
+        <div>${uiLabelMap.ProductSupplier}:</div>
       </td>
       <td valign="middle">
-        <div class="tabletext">
+        <div>
           <select name="SEARCH_SUPPLIER_ID">
             <option value="">- ${uiLabelMap.CommonSelectAny} -</option>
             <#list supplerPartyRoleAndPartyDetails as supplerPartyRoleAndPartyDetail>
@@ -88,10 +88,10 @@ under the License.
     </tr>
     <tr>
       <td align="right" valign="middle">
-        <div class="tabletext">${uiLabelMap.CommonSortedBy}:</div>
+        <div>${uiLabelMap.CommonSortedBy}:</div>
       </td>
       <td valign="middle">
-        <div class="tabletext">
+        <div>
           <select name="sortOrder">
             <option value="SortKeywordRelevancy">${uiLabelMap.ProductKeywordRelevency}</option>
             <option value="SortProductField:productName">${uiLabelMap.ProductProductName}</option>
@@ -111,14 +111,14 @@ under the License.
     <#if searchConstraintStrings?has_content>
       <tr>
         <td align="right" valign="top">
-          <div class="tabletext">${uiLabelMap.ProductLastSearch}:</div>
+          <div>${uiLabelMap.ProductLastSearch}:</div>
         </td>
         <td valign="top">
             <#list searchConstraintStrings as searchConstraintString>
-                <div class="tabletext">&nbsp;-&nbsp;${searchConstraintString}</div>
+                <div>&nbsp;-&nbsp;${searchConstraintString}</div>
             </#list>
-            <div class="tabletext">${uiLabelMap.CommonSortedBy}: ${searchSortOrderString}</div>
-            <div class="tabletext">
+            <div>${uiLabelMap.CommonSortedBy}: ${searchSortOrderString}</div>
+            <div>
               ${uiLabelMap.ProductNewSearch}<input type="radio" name="clearSearch" value="Y" checked>
               ${uiLabelMap.ProductRefineSearch}<input type="radio" name="clearSearch" value="N">
             </div>
@@ -127,7 +127,7 @@ under the License.
     </#if>
     <tr>
       <td>
-        <div class="tabletext">
+        <div>
           <a href="javascript:document.advtokeywordsearchform.submit()" class="buttontext">${uiLabelMap.CommonFind}</a>
         </div>
       </td>
@@ -139,20 +139,20 @@ under the License.
   
     <h2>${uiLabelMap.OrderLastSearches}...</h2>
   
-    <div class="tabletext">
+    <div>
       <a href="<@ofbizUrl>clearSearchOptionsHistoryList</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderClearSearchHistory}</a>
       ${uiLabelMap.OrderClearSearchHistoryNote}
     </div>
     <#list searchOptionsHistoryList as searchOptions>
     <#-- searchOptions type is ProductSearchSession.ProductSearchOptions -->
-        <div class="tabletext">
+        <div>
           <b>${uiLabelMap.CommonSearch} #${searchOptions_index + 1}</b>
           <a href="<@ofbizUrl>setCurrentSearchFromHistoryAndSearch?searchHistoryIndex=${searchOptions_index}&clearSearch=N</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonSearch}</a>
           <a href="<@ofbizUrl>setCurrentSearchFromHistory?searchHistoryIndex=${searchOptions_index}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonRefine}</a>
         </div>
         <#assign constraintStrings = searchOptions.searchGetConstraintStrings(false, delegator, locale)>
         <#list constraintStrings as constraintString>
-          <div class="tabletext">&nbsp;-&nbsp;${constraintString}</div>
+          <div>&nbsp;-&nbsp;${constraintString}</div>
         </#list>
         <#if searchOptions_has_next>
           <hr/>

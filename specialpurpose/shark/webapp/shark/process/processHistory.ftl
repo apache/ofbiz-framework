@@ -20,7 +20,7 @@ under the License.
 <h2>Process History</h2>
 <#if historyList?has_content>
   <div>&nbsp;</div>
-  <div class="tabletext"><b>Process :</b> ${process.name()} - ${process.description()?default("N/A")} [${process.key()}]</div>
+  <div><b>Process :</b> ${process.name()} - ${process.description()?default("N/A")} [${process.key()}]</div>
   <table cellpadding="2" cellspacing="0" border="1">
     <tr>
       <td><div>Time</div></td>
@@ -29,9 +29,9 @@ under the License.
     <#list historyList as history>
       <#assign time = history.time_stamp().getTime()>
       <tr>
-        <td align="left"><div class="tabletext">${Static["org.ofbiz.base.util.UtilDateTime"].getTimestamp(time)}</div></td>
+        <td align="left"><div>${Static["org.ofbiz.base.util.UtilDateTime"].getTimestamp(time)}</div></td>
         <td align="left">
-          <div class="tabletext">
+          <div>
             <#assign eventType = history.event_type()>
             ${eventType}
             <#if eventType == "processStateChanged">
@@ -47,5 +47,5 @@ under the License.
     </#list>
   </table>
 <#else>
-  <div class="tabletext">No history available.</div>
+  <div>No history available.</div>
 </#if>

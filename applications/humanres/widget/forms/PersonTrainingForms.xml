@@ -59,7 +59,7 @@ under the License.
             <set field="insideEmployee" from-field="parameters.insideEmployee"/>
         </actions>
         <alt-target use-when="insideEmployee != null" target="createPersonTrainingExt"/>
-        <field use-when="party!=null" name="partyId" widget-style="tabletext"><hidden/></field>
+        <field use-when="party!=null" name="partyId"><hidden/></field>
         <field use-when="party==null" name="partyId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><lookup target-form-name="LookupPartyName"/></field>
         <field name="trainingClassTypeId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
             <drop-down allow-empty="false">

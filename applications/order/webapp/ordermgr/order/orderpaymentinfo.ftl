@@ -76,7 +76,7 @@ under the License.
                   </td>
                   <td width="1%">&nbsp;</td>
                   <td align="left" valign="top" width="60%">
-                    <div class="tabletext">
+                    <div>
                       <#if (finAccountType?has_content)>
                         ${finAccountType.description?default(finAccountType.finAccountTypeId)}&nbsp;                        
                       </#if>
@@ -140,8 +140,8 @@ under the License.
                       <br/>&nbsp;[<#if oppStatusItem?exists>${oppStatusItem.get("description",locale)}<#else>${orderPaymentPreference.statusId}</#if>]
                     </div>
                     <#--
-                    <div class="tabletext"><@ofbizCurrency amount=orderPaymentPreference.maxAmount?default(0.00) isoCode=currencyUomId/>&nbsp;-&nbsp;${(orderPaymentPreference.authDate.toString())?if_exists}</div>
-                    <div class="tabletext">&nbsp;<#if orderPaymentPreference.authRefNum?exists>(${uiLabelMap.OrderReference}: ${orderPaymentPreference.authRefNum})</#if></div>
+                    <div><@ofbizCurrency amount=orderPaymentPreference.maxAmount?default(0.00) isoCode=currencyUomId/>&nbsp;-&nbsp;${(orderPaymentPreference.authDate.toString())?if_exists}</div>
+                    <div>&nbsp;<#if orderPaymentPreference.authRefNum?exists>(${uiLabelMap.OrderReference}: ${orderPaymentPreference.authRefNum})</#if></div>
                     -->
                   </td>
                 <#else>
@@ -249,7 +249,7 @@ under the License.
                 </td>
                 <td width="1%">&nbsp;</td>
                 <td align="left" valign="top" width="60%">
-                  <div class="tabletext">
+                  <div>
                     <#if eftAccount?has_content>
                       ${eftAccount.nameOnAccount?if_exists}<br/>
                       <#if eftAccount.companyNameOnAccount?exists>${eftAccount.companyNameOnAccount}<br/></#if>

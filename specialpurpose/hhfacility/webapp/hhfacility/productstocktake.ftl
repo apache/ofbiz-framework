@@ -19,7 +19,7 @@ under the License.
 
 <#assign facility = parameters.facility>
 
-<span class="tabletext">
+<span>
 <#if negativeQOH?has_content>
     <a href="<@ofbizUrl>/fixproductnegativeqoh?facilityId=${facility.facilityId?if_exists}&productId=${product.productId?if_exists}</@ofbizUrl>">Fix negative QOH</a>
 </#if>

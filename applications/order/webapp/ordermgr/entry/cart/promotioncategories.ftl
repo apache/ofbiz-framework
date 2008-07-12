@@ -23,30 +23,30 @@ under the License.
     </div>
     <div class="screenlet-body">
         <#if productPromoCategoryIncludeList?has_content>
-          <div class="tabletext">${uiLabelMap.OrderPromotionProductsInCategories}:</div>
+          <div>${uiLabelMap.OrderPromotionProductsInCategories}:</div>
           <#list productPromoCategoryIncludeList as productPromoCategory>
             <#assign productCategory = productPromoCategory.getRelatedOneCache("ProductCategory")>
-            <div class="tabletext">
+            <div>
                 -&nbsp;<a href="<@ofbizUrl>category/~category_id=${productPromoCategory.productCategoryId}</@ofbizUrl>" class="buttontext">${(productCategory.description)?default(productPromoCategory.productCategoryId)}</a>
                 <#if productPromoCategory.includeSubCategories?if_exists = "Y">(${uiLabelMap.OrderIncludeSubCategories})</#if>
             </div>
           </#list>
         </#if>
         <#if productPromoCategoryExcludeList?has_content>
-          <div class="tabletext">${uiLabelMap.OrderExcludeCategories}</div>
+          <div>${uiLabelMap.OrderExcludeCategories}</div>
           <#list productPromoCategoryExcludeList as productPromoCategory>
             <#assign productCategory = productPromoCategory.getRelatedOneCache("ProductCategory")>
-            <div class="tabletext">
+            <div>
                 -&nbsp;<a href="<@ofbizUrl>category/~category_id=${productPromoCategory.productCategoryId}</@ofbizUrl>" class="buttontext">${(productCategory.description)?default(productPromoCategory.productCategoryId)}</a>
                 <#if productPromoCategory.includeSubCategories?if_exists = "Y">(${uiLabelMap.OrderIncludeSubCategories})</#if>
             </div>
           </#list>
         </#if>
         <#if productPromoCategoryAlwaysList?has_content>
-          <div class="tabletext">${uiLabelMap.OrderAlwaysList}</div>
+          <div>${uiLabelMap.OrderAlwaysList}</div>
           <#list productPromoCategoryAlwaysList as productPromoCategory>
             <#assign productCategory = productPromoCategory.getRelatedOneCache("ProductCategory")>
-            <div class="tabletext">
+            <div>
                 -&nbsp;<a href="<@ofbizUrl>category/~category_id=${productPromoCategory.productCategoryId}</@ofbizUrl>" class="buttontext">${(productCategory.description)?default(productPromoCategory.productCategoryId)}</a>
                 <#if productPromoCategory.includeSubCategories?if_exists = "Y">(${uiLabelMap.OrderIncludeSubCategories})</#if>
             </div>

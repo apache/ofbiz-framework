@@ -31,7 +31,7 @@ under the License.
          }
     } 
 </script>
-<div class="tabletext">
+<div>
     <form method="post" action="<@ofbizUrl>PostProductsToEbay</@ofbizUrl>" name="ProductsExportToEbay">
         <table border="0" cellpadding="2" cellspacing="0">
              <tr>

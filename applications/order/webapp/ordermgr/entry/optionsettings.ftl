@@ -94,7 +94,7 @@ under the License.
                     <input type='radio' <#if cart.getMaySplit(shipGroupIndex)?default("N") == "N">checked</#if> name='${shipGroupIndex?default("0")}_may_split' value='false'>
                   </td>
                   <td valign="top">
-                    <div class="tabletext">${uiLabelMap.FacilityWaitEntireOrderReady}</div>
+                    <div>${uiLabelMap.FacilityWaitEntireOrderReady}</div>
                   </td>
                 </tr>
                 <tr>
@@ -102,7 +102,7 @@ under the License.
                     <input <#if cart.getMaySplit(shipGroupIndex)?default("N") == "Y">checked</#if> type='radio' name='${shipGroupIndex?default("0")}_may_split' value='true'>
                   </td>
                   <td valign="top">
-                    <div class="tabletext">${uiLabelMap.FacilityShipAvailable}</div>
+                    <div>${uiLabelMap.FacilityShipAvailable}</div>
                   </td>
                 </tr>
                 <tr><td colspan="2"><hr class='sepbar'></td></tr>

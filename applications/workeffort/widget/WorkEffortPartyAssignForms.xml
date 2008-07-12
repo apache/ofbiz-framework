@@ -106,7 +106,7 @@ under the License.
             </drop-down>
         </field>
         <field name="facilityId"><lookup target-form-name="LookupFacility"/></field>
-        <field name="mustRsvp" widget-style="tabletext"><check/></field>
+        <field name="mustRsvp"><check/></field>
         <field name="comments"><text size="60" maxlength="255"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>

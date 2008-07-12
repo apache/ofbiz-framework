@@ -497,8 +497,8 @@ under the License.
                 <field-map env-name="agreementId" field-name="agreementId" />
             </entity-and>
         </actions>  
-        <field name="agreementItemSeqId" widget-style="tabletext"><display/></field>
-        <field name="workEffortId" widget-style="tabletext"><display/></field>
+        <field name="agreementItemSeqId"><display/></field>
+        <field name="workEffortId"><display/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteAgreementWorkEffortAppl?agreementId=${agreementId}&amp;agreementItemSeqId=${agreementItemSeqId}&amp;workEffortId=${workEffortId}"/>
         </field>

@@ -65,16 +65,16 @@ under the License.
                 <input type="hidden" name="fromGroupIndex_o_${rowCount}" value="${shipGroupIndex}"/>
                 <tr>
                   <td>
-                    <div class="tabletext">[${shoppingCartItem.getProductId()}] ${shoppingCartItem.getName()?if_exists}: ${shoppingCartItem.getDescription()?if_exists}</div>
+                    <div>[${shoppingCartItem.getProductId()}] ${shoppingCartItem.getName()?if_exists}: ${shoppingCartItem.getDescription()?if_exists}</div>
                   </td>
                   <td>
-                    <div class="tabletext">${shipGroupItemQuantity}</div>
+                    <div>${shipGroupItemQuantity}</div>
                   </td>
                   <td>
-                    <div class="tabletext"><input type="text" name="quantity_o_${rowCount}" value="${shipGroupItemQuantity}"/></div>
+                    <div><input type="text" name="quantity_o_${rowCount}" value="${shipGroupItemQuantity}"/></div>
                   </td>
                   <td>
-                    <div class="tabletext">
+                    <div>
                     <select name="toGroupIndex_o_${rowCount}">
                       <option value="${shipGroupIndex}">---</option>
                       <#list 0..(shoppingCart.getShipGroupSize() - 1) as groupIdx>

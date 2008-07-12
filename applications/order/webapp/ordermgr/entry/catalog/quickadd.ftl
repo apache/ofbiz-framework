@@ -43,7 +43,7 @@ under the License.
       <tr><td colspan='2'><hr class='sepbar'></td></tr>
       <tr>
         <td align="left" valign="top" width="0" colspan='2'>
-          <div class="tabletext">
+          <div>
             <#if productCategory.categoryImageUrl?exists>
               <img src="<@ofbizContentUrl>${productCategory.categoryImageUrl}</@ofbizContentUrl>" vspace="5" hspace="5" border="1" height='100' align="left">
             </#if>
@@ -60,7 +60,7 @@ under the License.
   <center>
   <form method="post" action="<@ofbizUrl>addtocartbulk</@ofbizUrl>" name="bulkaddform" style='margin: 0;'>
     <input type='hidden' name='category_id' value='${categoryId}'>
-    <div class="tabletext" align="right">
+    <div align="right">
       <a href="javascript:document.bulkaddform.submit()" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.OrderAddAllToCart}</span></a>
     </div>     
     <table border='1' cellpadding='2' cellspacing='0'>      
@@ -72,7 +72,7 @@ under the License.
         </tr>        
       </#list> 
     </table>
-    <div class="tabletext" align="right">
+    <div align="right">
       <a href="javascript:document.bulkaddform.submit()" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.OrderAddAllToCart}</span></a>
     </div>      
   </form>

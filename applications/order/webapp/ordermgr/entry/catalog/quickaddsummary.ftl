@@ -19,7 +19,7 @@ under the License.
 
 <#if product?exists>
   <td align="left" valign="middle" width="5%">
-    <div class="tabletext">
+    <div>
       <b>${product.productId}</b>
     </div>
   </td>
@@ -27,7 +27,7 @@ under the License.
     <a href="<@ofbizUrl>product?product_id=${product.productId}</@ofbizUrl>" class="buttontext">${productContentWrapper.get("PRODUCT_NAME")?if_exists}</a>
   </td>
   <td align="left" valign="middle" width="5%">
-    <div class="tabletext">
+    <div>
       <#if price.listPrice?exists && price.price?exists && price.price?double < price.listPrice?double>
         ${uiLabelMap.ProductListPrice}:<@ofbizCurrency amount=price.listPrice isoCode=price.currencyUsed/>
       <#else>
@@ -37,7 +37,7 @@ under the License.
   </td>
   <td align="right" valign="middle" width="5%">
       <#if totalPrice?exists>
-        <div class="tabletext">${uiLabelMap.ProductAggregatedPrice}: <span class='basePrice'><@ofbizCurrency amount=totalPrice isoCode=totalPrice.currencyUsed/></span></div>
+        <div>${uiLabelMap.ProductAggregatedPrice}: <span class='basePrice'><@ofbizCurrency amount=totalPrice isoCode=totalPrice.currencyUsed/></span></div>
       <#else> 
         <div class="<#if price.isSale?exists && price.isSale>salePrice<#else>normalPrice</#if>">
           <b><@ofbizCurrency amount=price.price isoCode=price.currencyUsed/></b>
@@ -47,10 +47,10 @@ under the License.
   <td align="right" valign="middle">
     <#-- check to see if introductionDate hasn't passed yet -->
     <#if product.introductionDate?exists && nowTimestamp.before(product.introductionDate)>
-      <div class="tabletext" style="color: red;">${uiLabelMap.ProductNotYetAvailable}</div>
+      <div style="color: red;">${uiLabelMap.ProductNotYetAvailable}</div>
     <#-- check to see if salesDiscontinuationDate has passed -->
     <#elseif product.salesDiscontinuationDate?exists && nowTimestamp.before(product.salesDiscontinuationDate)>
-      <div class="tabletext" style="color: red;">${uiLabelMap.ProductNoLongerAvailable}</div>          
+      <div style="color: red;">${uiLabelMap.ProductNoLongerAvailable}</div>          
     <#-- check to see if the product is a virtual product -->
     <#elseif product.isVirtual?default("N") == "Y">
       <a href="<@ofbizUrl>product?<#if categoryId?exists>category_id=${categoryId}&</#if>product_id=${product.productId}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderChooseVariations}...</a>

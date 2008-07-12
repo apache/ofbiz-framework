@@ -53,7 +53,7 @@ under the License.
                     <table width='100%' border='0' cellpadding='0' cellspacing='2'>
                       <tr>
                         <td align="right">
-                          <span class="tabletext">Username&nbsp;</span>
+                          <span>Username&nbsp;</span>
                         </td>
                         <td align="left">
                           <input type="text" name="USERNAME" value="${username}" size="20">
@@ -61,7 +61,7 @@ under the License.
                       </tr>
                       <tr>
                         <td align="right">
-                          <span class="tabletext">Password&nbsp;</span>
+                          <span>Password&nbsp;</span>
                         </td>
                         <td align="left">
                           <input type="password" name="PASSWORD" value="" size="20">

@@ -30,24 +30,24 @@ under the License.
           <tr>
             <#if paymentMethodType.paymentMethodTypeId == "EXT_OFFLINE">
               <td colspan="3" valign="top">
-                <div class="tabletext" align="center"><b>${uiLabelMap.AccountingOfflinePayment}</b></div>                            
+                <div align="center"><b>${uiLabelMap.AccountingOfflinePayment}</b></div>                            
                 <#if orderHeader?has_content && paymentAddress?has_content> 
-                  <div class="tabletext" align="center"><hr/></div>
-                  <div class="tabletext" align="center"><b>${uiLabelMap.AccountingPleaseSendPaymentTo}:</b></div>
-                  <#if paymentAddress.toName?has_content><div class="tabletext" align="center">${paymentAddress.toName}</div></#if>
-                  <#if paymentAddress.attnName?has_content><div class="tabletext" align="center"><b>${uiLabelMap.CommonAttn}:</b> ${paymentAddress.attnName}</div></#if>
-                  <div class="tabletext" align="center">${paymentAddress.address1}</div>
-                  <#if paymentAddress.address2?has_content><div class="tabletext" align="center">${paymentAddress.address2}</div></#if>                            
-                  <div class="tabletext" align="center">${paymentAddress.city}<#if paymentAddress.stateProvinceGeoId?has_content>, ${paymentAddress.stateProvinceGeoId}</#if> ${paymentAddress.postalCode}
-                  <div class="tabletext" align="center">${paymentAddress.countryGeoId}</div>                                                                                                                
-                  <div class="tabletext" align="center"><hr/></div>
-                  <div class="tabletext" align="center"><b>${uiLabelMap.OrderBeSureIncludeOrder} #</b></div>
+                  <div align="center"><hr/></div>
+                  <div align="center"><b>${uiLabelMap.AccountingPleaseSendPaymentTo}:</b></div>
+                  <#if paymentAddress.toName?has_content><div align="center">${paymentAddress.toName}</div></#if>
+                  <#if paymentAddress.attnName?has_content><div align="center"><b>${uiLabelMap.CommonAttn}:</b> ${paymentAddress.attnName}</div></#if>
+                  <div align="center">${paymentAddress.address1}</div>
+                  <#if paymentAddress.address2?has_content><div align="center">${paymentAddress.address2}</div></#if>                            
+                  <div align="center">${paymentAddress.city}<#if paymentAddress.stateProvinceGeoId?has_content>, ${paymentAddress.stateProvinceGeoId}</#if> ${paymentAddress.postalCode}
+                  <div align="center">${paymentAddress.countryGeoId}</div>                                                                                                                
+                  <div align="center"><hr/></div>
+                  <div align="center"><b>${uiLabelMap.OrderBeSureIncludeOrder} #</b></div>
                 </#if>                         
               </td>                  
             <#else>
               <#assign outputted = true>
               <td colspan="3" valign="top">
-                <div class="tabletext" align="center"><b>${uiLabelMap.AccountingPaymentVia} ${paymentMethodType.get("description",locale)}</b></div>
+                <div align="center"><b>${uiLabelMap.AccountingPaymentVia} ${paymentMethodType.get("description",locale)}</b></div>
               </td>
             </#if>
           </tr>
@@ -58,11 +58,11 @@ under the License.
           <#if creditCard?has_content>
             <tr>
               <td align="right" valign="top" width="15%">
-                <div class="tabletext">&nbsp;<b>${uiLabelMap.AccountingCreditCard}</b></div>
+                <div>&nbsp;<b>${uiLabelMap.AccountingCreditCard}</b></div>
               </td>
               <td width="5">&nbsp;</td>
               <td align="left" valign="top" width="80%">
-                <div class="tabletext">
+                <div>
                   <#if creditCard.companyNameOnCard?has_content>${creditCard.companyNameOnCard}<br/></#if>
                   <#if creditCard.titleOnCard?has_content>${creditCard.titleOnCard}&nbsp</#if>
                   ${creditCard.firstNameOnCard}&nbsp;
@@ -78,11 +78,11 @@ under the License.
           <#elseif eftAccount?has_content>
             <tr>
               <td align="right" valign="top" width="15%">
-                <div class="tabletext">&nbsp;<b>${uiLabelMap.AccountingEFTAccount}</b></div>
+                <div>&nbsp;<b>${uiLabelMap.AccountingEFTAccount}</b></div>
               </td>
               <td width="5">&nbsp;</td>
               <td align="left" valign="top" width="80%">
-                <div class="tabletext">
+                <div>
                   ${eftAccount.nameOnAccount}<br/>
                   <#if eftAccount.companyNameOnAccount?has_content>${eftAccount.companyNameOnAccount}<br/></#if>
                   Bank: ${eftAccount.bankName}, ${eftAccount.routingNumber}<br/>
@@ -100,11 +100,11 @@ under the License.
           <#assign outputted = true/>
           <tr>
             <td align="right" valign="top" width="15%">
-              <div class="tabletext">&nbsp;<b>${uiLabelMap.AccountingBillingAccount}</b></div>
+              <div>&nbsp;<b>${uiLabelMap.AccountingBillingAccount}</b></div>
             </td>
             <td width="5">&nbsp;</td>
             <td align="left" valign="top" width="80%">
-              <div class="tabletext">
+              <div>
                 #${billingAccount.billingAccountId?if_exists} - ${billingAccount.description?if_exists}
               </div>
             </td>

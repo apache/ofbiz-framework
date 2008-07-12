@@ -27,7 +27,7 @@ under the License.
           <#list productPromos as productPromo>
             <tr>
               <td>
-                <div class="tabletext"><a href="<@ofbizUrl>showPromotionDetails?productPromoId=${productPromo.productPromoId}</@ofbizUrl>" class="linktext">${uiLabelMap.CommonDetails}</a> ${productPromo.promoText?if_exists}</div>
+                <div><a href="<@ofbizUrl>showPromotionDetails?productPromoId=${productPromo.productPromoId}</@ofbizUrl>" class="linktext">${uiLabelMap.CommonDetails}</a> ${productPromo.promoText?if_exists}</div>
               </td>
             </tr>
             <#if productPromo_has_next>
@@ -37,7 +37,7 @@ under the License.
           <tr><td><hr/></td></tr>
           <tr>
             <td>
-              <div class="tabletext"><a href="<@ofbizUrl>showAllPromotions</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderViewAllPromotions}</a></div>
+              <div><a href="<@ofbizUrl>showAllPromotions</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderViewAllPromotions}</a></div>
             </td>
           </tr>
         </table>
