@@ -26,11 +26,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
 import java.security.cert.CertificateException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Send HTTP GET/POST requests.
@@ -326,7 +324,7 @@ public class HttpClient {
         }
     }
 
-    private String sendHttpRequest(String method) throws HttpClientException {
+    public String sendHttpRequest(String method) throws HttpClientException {
         InputStream in = sendHttpRequestStream(method);
         if (in == null) return null;
 
@@ -407,7 +405,11 @@ public class HttpClient {
 
         // Append the arguments to the query string if GET.
         if (method.equalsIgnoreCase("get") && arguments != null) {
-            url = url + "?" + arguments;
+            if (url.contains("?")) {
+                url = url + "&" + arguments;
+            } else {
+                url = url + "?" + arguments;
+            }
         }
 
         // Create the URL and open the connection.
