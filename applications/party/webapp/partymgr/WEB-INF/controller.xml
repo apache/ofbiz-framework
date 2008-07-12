@@ -701,6 +701,13 @@ under the License.
         <response name="success" type="view" value="ListPartyCommEvents"/>
         <response name="error" type="view" value="ListPartyCommEvents"/>
     </request-map>
+    
+    <request-map uri="allocateMsgToParty">
+        <security https="true" auth="true"/>
+        <event type="simple" path="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="allocateMsgToParty"/>
+        <response name="success" type="view" value="ViewCommunicationEvent"/>
+        <response name="error" type="view" value="ViewCommunicationEvent"/>
+    </request-map>
 
     <request-map uri="createCommContentDataResource">
         <security https="true" auth="true"/>

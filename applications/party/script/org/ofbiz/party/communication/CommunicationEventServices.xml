@@ -214,6 +214,53 @@ under the License.
             <call-service service-name="sendCommEventAsEmail" in-map-name="inMap"/>
             <transaction-commit/>
         </iterate>
-    </simple-method>    
-    
+    </simple-method>
+
+    <simple-method method-name="allocateMsgToParty" short-description="Allocate an emailaddress to an existing/new party, update the communication event accordingly">
+
+        <entity-one entity-name="CommunicationEvent" value-name="communicationEvent"/>
+
+        <if-empty field="communicationEvent">
+            <add-error><fail-message message="Comminication Event ID: ${parameters.commnicationEventId}"/></add-error>
+            <check-errors/>
+        </if-empty>
+
+        <if-not-empty field="parameters.partyId">
+            <!--  allocate email to existing party -->
+            <entity-one entity-name="Party" value-name="party"/>
+            <if-empty field="party">
+                <add-error><fail-message message="Party ID: ${parameters.partyId} not found"/></add-error>
+                <check-errors/>
+            </if-empty>
+            <!-- add the email address to the party -->
+            <set field="newEmail.contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
+            <set field="newEmail.partyId" from-field="parameters.partyId"/>
+            <set field="newEmail.emailAddress" from-field="parameters.emailAddress"/>
+            <call-service service-name="createPartyEmailAddress" in-map-name="newEmail">
+                <result-to-field result-name="contactMechId" field-name="inCom.contactMechIdFrom"/>
+            </call-service>
+            <field-to-list field-name="Email addres: ${parameters.emailAddress} allocated to party: ${parameters.partyId}" list-name="event_list"/>
+            <return/>
+            <else><!-- create new party and email address -->
+                <set-service-fields service-name="createPerson" map-name="parameters" to-map-name="newParty"/>
+                <call-service service-name="createPerson" in-map-name="newParty">
+                    <result-to-field result-name="partyId" field-name="parameters.partyId"/>
+                </call-service>
+                <set field="newEmail.partyId" from-field="parameters.partyId"/>
+                <set field="newEmail.contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
+                <set field="newEmail.emailAddress" from-field="parameters.emailAddress"/>
+                <call-service service-name="createPartyEmailAddress" in-map-name="newEmail">
+                    <result-to-field result-name="contactMechId" field-name="inCom.contactMechIdFrom"/>
+                </call-service>
+            </else>
+        </if-not-empty>
+
+        <!-- update the communication event -->
+        <set field="inCom.communicationEventId" from-field="parameters.communicationEventId"/>
+        <set field="inCom.partyIdFrom" from-field="parameters.partyId"/>
+        <set field="inCom.statusId" value="COM_ENTERED"/>
+        <call-service service-name="updateCommunicationEvent" in-map-name="inCom"/>
+        
+        <field-to-request field-name="parmeters.communicationEventId" request-name="communicationEventId"/>
+    </simple-method>   
 </simple-methods>
