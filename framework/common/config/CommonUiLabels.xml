@@ -3991,6 +3991,9 @@
         <value xml:lang="zh_CN">(覆盖上面的选择)</value>
         <value xml:lang="zh">(覆盖上述选择中的任何一个。)</value>
     </property>
+    <property key="CommonOverview">
+        <value xml:lang="en">Overview</value>
+    </property>
     <property key="CommonPage">
         <value xml:lang="ar">صفحة</value>
         <value xml:lang="en">Page</value>
