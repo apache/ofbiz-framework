@@ -113,88 +113,10 @@ under the License.
                 <set field="headerItem" value="comm"/>
                 <set field="communicationEventId" from-field="parameters.communicationEventId"/>
                 <entity-one entity-name="CommunicationEvent" value-name="communicationEvent"/>
-                <set field="okayToUpdate" value="true" type="Boolean" global="true"/>
             </actions>
             <widgets>
-                <section>
-                    <condition>
-                        <and>
-                            <not><if-empty field-name="communicationEvent.statusId"/></not>
-                            <or>
-                                <if-compare field-name="communicationEvent.statusId" operator="equals" type="String" value="COM_COMPLETE"/>
-                                <if-compare field-name="communicationEvent.statusId" operator="equals" type="String" value="COM_RESOLVED"/>
-                                <if-compare field-name="communicationEvent.statusId" operator="equals" type="String" value="COM_REFERRED"/>
-                                <if-compare field-name="communicationEvent.statusId" operator="equals" type="String" value="COM_CANCELLED"/>
-                            </or>
-                        </and>
-                    </condition>
-                    <actions>
-                        <set field="okayToUpdate" value="false" type="Boolean" global="true"/>
-                    </actions>
-                    <widgets/>
-                </section>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <section>
-                            <condition>
-                                <or>
-                                    <if-has-permission action="_VIEW" permission="PARTYMGR"/>
-                                    <and><!-- everybody can see his own communication events -->
-                                        <not><if-empty field-name="communicationEvent"/></not>
-                                        <or>
-                                               <if-compare field-name="communicationEvent.partyIdFrom" operator="equals" value="${userLogin.partyId}"/>
-                                               <if-compare field-name="communicationEvent.partyIdTo" operator="equals" value="${userLogin.partyId}"/>
-                                           </or>
-                                       </and>
-                                       <if-empty field-name="communicationEvent"/><!-- new one -->
-                                </or>
-                            </condition>
-                            <widgets>
-                                <section>
-                                    <condition>
-                                        <not><if-empty field-name="partyId"/></not>
-                                    </condition>
-                                    <widgets>
-                                        <container style="button-bar button-style-2">
-                                            <link target="/accounting/control/FindBillingAccount?partyId=${partyId}" url-mode="inter-app" 
-                                                text="${uiLabelMap.AccountingBillingAccount}"/>
-                                            <section>
-                                                <condition><if-has-permission permission="ORDERMGR" action="_VIEW"/></condition>
-                                                <widgets>
-                                                    <link target="/ordermgr/control/searchorders?lookupFlag=Y&amp;hideFields=Y&amp;partyId=${partyId}&amp;viewIndex=1&amp;viewSize=20" url-mode="inter-app" 
-                                                        text="${uiLabelMap.OrderOrders}"/>
-                                                </widgets>
-                                            </section>
-                                            <section>
-                                                <condition><if-has-permission permission="ORDERMGR" action="_CREATE"/></condition>
-                                                <widgets>
-                                                    <link target="/ordermgr/control/checkinits?partyId=${partyId}" url-mode="inter-app" 
-                                                        text="${uiLabelMap.OrderNewOrder}"/>
-                                                </widgets>
-                                            </section>
-                                            <section>
-                                                <condition><if-has-permission permission="ACCOUNTING" action="_VIEW"/></condition>
-                                                <widgets>
-                                                    <link target="/accounting/control/findPayments?lookupFlag=Y&amp;hideFields=Y&amp;partyIdTo=${partyId}" url-mode="inter-app" 
-                                                        text="${uiLabelMap.AccountingPaymentsSent}"/>
-                                                    <link target="/accounting/control/findPayments?lookupFlag=Y&amp;hideFields=Y&amp;partyIdFrom=${partyId}" url-mode="inter-app" 
-                                                        text="${uiLabelMap.AccountingPaymentsReceived}"/>
-                                                </widgets>
-                                            </section>
-                                        </container>
-                                    </widgets>
-                                </section>
-                                <section>
-                                    <widgets>
-                                        <decorator-section-include name="body"/>
-                                    </widgets>
-                                </section>
-                            </widgets>
-                            <fail-widgets>
-                                <label style="h3">${uiLabelMap.PartyMgrViewPermissionError}</label>
-                            </fail-widgets>
-                        </section>
-                    </decorator-section>
+                    <decorator-section name="body"/>
                 </decorator-screen>
             </widgets>
         </section>

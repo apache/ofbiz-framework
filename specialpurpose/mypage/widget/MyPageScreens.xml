@@ -189,12 +189,37 @@ under the License.
         <section>
             <actions>
                 <set field="partyId" from-field="userLogin.partyId" />
+            <entity-condition entity-name="CommunicationEvent" list-name="commEvents">
+                <condition-list combine="and">
+                    <condition-expr field-name="statusId" operator="not-equals" value="COM_UNKNOWN_PARTY"/>
+                    <condition-list combine="or">
+                        <condition-expr field-name="partyIdFrom" operator="equals" value="${partyId}"/>
+                        <condition-expr field-name="partyIdTo" operator="equals" value="${partyId}"/>
+                    </condition-list>
+                </condition-list>
+                <order-by field-name="-lastUpdatedStamp"/>
+            </entity-condition>
+            <entity-condition entity-name="CommunicationEvent" list-name="commEventsUnknown">
+                <condition-list combine="and">
+                    <condition-expr field-name="statusId" operator="equals" value="COM_UNKNOWN_PARTY"/>
+                    <condition-expr field-name="partyIdTo" operator="equals" value="${partyId}"/>
+                </condition-list>
+                <order-by field-name="-lastUpdatedStamp"/>
+            </entity-condition>
             </actions>
             <widgets>
                 <screenlet title="${uiLabelMap.MyCommunications}" navigation-menu-name="MyCommunicationsMenu"
                     navigation-form-name="ListPartyCommEvents" name="myComms">
                     <include-menu name="MyCommunicationsMenu"
                         location="component://mypage/widget/MyPageMenus.xml" />
+                                <section>
+                                    <condition>
+                                        <not><if-empty field-name="commEventsUnknown"/></not>
+                                    </condition>
+                                    <widgets>
+                                         <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="ListUnknownPartyEmails"/>
+                                    </widgets>
+                                </section>
                     <include-form name="ListPartyCommEvents"
                         location="component://mypage/widget/MyPageForms.xml" />
                 </screenlet>
