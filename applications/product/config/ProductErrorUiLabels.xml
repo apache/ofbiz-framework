@@ -36,4 +36,12 @@
         <value xml:lang="en">USPS address validation requires either zip5 or city and state</value>
         <value xml:lang="th">USPS ต้องการที่อยู่ ถ้าไม่ รหัสไปรษณีย์ หรือ เมือง และ รัฐ</value>
     </property>
+    <property key="ProductFeatureTypeIdMustContainsLettersAndDigits">
+        <value xml:lang="en">The Product Feature TypeId must contains only letters and digits and must begin by a letter. Please re-enter</value>
+        <value xml:lang="fr">La réf. de type de caractéristique d'article ne doit contenit que des lettres et des chiffres et doit commencer par une lettre. Recommencez SVP</value>
+    </property>
+    <property key="ProductFeatureTypeIdMustNotBeResevedWord">
+        <value xml:lang="en">The Product Feature TypeId must not be one of the reserved words, this is one of them. Please re-enter</value>
+        <value xml:lang="fr">La réf. de type de caractéristique d'article ne peut être un mot réservé, ce mot là en est un. Recommencez SVP</value>
+    </property>
 </resource>
