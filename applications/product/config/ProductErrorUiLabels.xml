@@ -37,7 +37,7 @@
         <value xml:lang="th">USPS ต้องการที่อยู่ ถ้าไม่ รหัสไปรษณีย์ หรือ เมือง และ รัฐ</value>
     </property>
     <property key="ProductFeatureTypeIdMustContainsLettersAndDigits">
-        <value xml:lang="en">The Product Feature TypeId must contains only letters, underscore and digits and must begin by a letter. Please re-enter</value>
-        <value xml:lang="fr">La réf. de type de caractéristique d'article ne doit contenir que des lettres, le tiret bas "_" et des chiffres et doit commencer par une lettre. Recommencez SVP</value>
+        <value xml:lang="en">The Product Feature TypeId must contains only letters, underscore and digits. Please re-enter</value>
+        <value xml:lang="fr">La réf. de type de caractéristique d'article ne doit contenir que des lettres, le tiret bas "_" et des chiffres. Recommencez SVP</value>
     </property>
 </resource>
