@@ -37,9 +37,10 @@ under the License.
                         <td align="left"><div><b>${uiLabelMap.CommonDescription}</b></div></td>
                         <td align="center"><div><b>${uiLabelMap.EcommerceUnitPrice}</b></div></td>
                         <td align="center"><div><b>${uiLabelMap.OrderQuantity}</b></div></td>
+                        <td align="center"><div><b>${uiLabelMap.EcommerceAdjustments}</b></div></td>
                         <td align="right"><div><b>${uiLabelMap.EcommerceItemTotal}</b></div></td>
                       </tr>
-                      <tr><td colspan="5"><hr class="sepbar"/></td></tr>
+                      <tr><td colspan="6"><hr class="sepbar"/></td></tr>
                     </thead>                
                     <tbody>
                       <#assign itemCount = 0>
@@ -59,25 +60,26 @@ under the License.
                           <td align="left"><div>${cartLine.getName()?if_exists}</div> 
                           <td align="center"><div>@${cartLine.getDisplayPrice()}</div></td>
                           <td align="center"><div><span id="completedCartItemQty_${cartLineIndex}">${cartLine.getQuantity()?string.number}</span></div></td>
+                          <td align="center"><div><span id="completedCartItemAdjustment_${cartLineIndex}">${cartLine.getOtherAdjustments()?string.number}</span></div></td>
                           <td align="right"><div id="completedCartItemSubTotal_${cartLineIndex}"><@ofbizCurrency amount=cartLine.getDisplayItemSubTotalNoAdj() isoCode=shoppingCart.getCurrency()/></div></td>
                         </tr>
-                        <tr><td colspan="5"><hr class="sepbar"/></td></tr>
+                        <tr><td colspan="6"><hr class="sepbar"/></td></tr>
                         <#assign itemCount = itemCount + 1>
                       </#list>
                       <tr id="completedCartSubtotalRow">
-                        <td colspan="3"></td>
+                        <td colspan="4"></td>
                         <td><div align="right"><b>${uiLabelMap.CommonSubtotal}:</b></div></td>
                         <#assign initializedSubTotal = shoppingCart.getDisplaySubTotal() - shoppingCart.getProductPromoTotal()>
                         <td><div id="completedCartSubTotal" align="right"><@ofbizCurrency amount=initializedSubTotal isoCode=shoppingCart.getCurrency()/></div></td>
                       </tr>
                       <tr id="completedCartDiscountRow">
                         <input type="hidden" value="<b>${shoppingCart.getProductPromoTotal()}</b>" id="initializedCompletedCartDiscount"/>
-                        <td colspan="3"></td>
+                        <td colspan="4"></td>
                         <td><div align="right"><b>${uiLabelMap.ProductDiscount}:</b></div></td>
                         <td><div id="completedCartDiscount" align="right"><@ofbizCurrency amount=shoppingCart.getProductPromoTotal() isoCode=shoppingCart.getCurrency()/></div></td>
                       </tr>
                       <tr>
-                        <td colspan="3"></td>
+                        <td colspan="4"></td>
                         <td><div align="right"><b>${uiLabelMap.OrderShippingAndHandling}:</b></div></td>
                         <td>
                           <div id="completedCartTotalShipping" align="right">
@@ -89,7 +91,7 @@ under the License.
                         </td>
                       </tr>
                       <tr>
-                        <td colspan="3"></td>
+                        <td colspan="4"></td>
                         <td><div align="right"><b>${uiLabelMap.OrderSalesTax}:</b></div></td>
                         <td>
                           <div id="completedCartTotalSalesTax" align="right">
@@ -101,7 +103,7 @@ under the License.
                         </td>
                       </tr>
                       <tr>
-                        <td colspan="3"></td>
+                        <td colspan="4"></td>
                         <td><div align="right"><b>${uiLabelMap.OrderGrandTotal}:</b></div></td>
                         <td><div id="completedCartDisplayGrandTotal" align="right"><@ofbizCurrency amount=shoppingCart.getDisplayGrandTotal() isoCode=shoppingCart.getCurrency()/></div></td>
                       </tr>
@@ -119,10 +121,11 @@ under the License.
                             <td align="left"><div><b>${uiLabelMap.CommonDescription}</b></div></td>
                             <td align="center"><div><b>${uiLabelMap.EcommerceUnitPrice}</b></div></td>
                             <td align="center"><div><b>${uiLabelMap.OrderQuantity}</b></div></td>
+                            <td align="center"><div><b>${uiLabelMap.EcommerceAdjustments}</b></div></td>
                             <td align="center"><div><b>${uiLabelMap.EcommerceItemTotal}</b></div></td>
                             <td align="right"><div><b>${uiLabelMap.FormFieldTitle_removeButton}</b></div></td>
                           </tr>
-                          <tr><td colspan="6"><hr class="sepbar"/></td></tr>
+                          <tr><td colspan="7"><hr class="sepbar"/></td></tr>
                         </thead>
                         <tbody id="updateBody">
                           <#assign itemCount = 0>
@@ -164,6 +167,11 @@ under the License.
                                     </div>
                                   </#if>
                                 </td>
+                                <#if !cartLine.getIsPromo()>
+                                  <td nowrap align="center"><div id="addPromoCode_${cartLineIndex}" class="tabletext"><@ofbizCurrency amount=cartLine.getOtherAdjustments() isoCode=shoppingCart.getCurrency()/></div></td>
+                                <#else>
+                                  <td nowrap align="center"><div class="tabletext"><@ofbizCurrency amount=cartLine.getOtherAdjustments() isoCode=shoppingCart.getCurrency()/></div></td>
+                                </#if>                                
                                 <#if cartLine.getIsPromo()>
                                   <td align="center">FREE</td>
                                 <#else>
@@ -174,17 +182,17 @@ under the License.
                                 </#if>
                               </div>
                             </tr>
-                            <tr><td colspan="6"><hr class="sepbar"/></td></tr>
+                            <tr><td colspan="7"><hr class="sepbar"/></td></tr>
                             <#assign itemCount = itemCount + 1>
                           </#list>                      
                               <tr>
-                                <td colspan="3"></td>
+                                <td colspan="4"></td>
                                 <td><div align="right"><b>${uiLabelMap.CommonSubtotal}:</b></div></td>
                                 <#assign initializedSubTotal = shoppingCart.getDisplaySubTotal() - shoppingCart.getProductPromoTotal()>
                                 <td><div id="cartSubTotal" align="center"><@ofbizCurrency amount=initializedSubTotal isoCode=shoppingCart.getCurrency()/></div></td>
                               </tr>
                               <tr>
-                                <td colspan="3">
+                                <td colspan="4">
                                   <div>${uiLabelMap.EcommerceEnterPromoCode}:
                                     <input id="productPromoCode" class="inputBox" name="productPromoCode" size="22" type="text" value=""/>
                                   </div>
@@ -195,7 +203,7 @@ under the License.
                                 </td>
                               </tr>
                               <tr>
-                                <td colspan="3"></td>
+                                <td colspan="4"></td>
                                 <td><div align="right"><b>${uiLabelMap.OrderShippingAndHandling}:</b></div></td>
                                 <td>
                                   <div id="cartTotalShipping" align="center">
@@ -207,7 +215,7 @@ under the License.
                                 </td>
                               </tr>
                               <tr>
-                                <td colspan="3"></td>
+                                <td colspan="4"></td>
                                 <td><div align="right"><b>${uiLabelMap.OrderSalesTax}:</b></div></td>
                                 <td>
                                   <div id="cartTotalSalesTax" align="center">
@@ -219,7 +227,7 @@ under the License.
                                 </td>
                               </tr>
                               <tr>
-                                <td colspan="3"></td>
+                                <td colspan="4"></td>
                                 <td><div align="right"><b>${uiLabelMap.OrderGrandTotal}:</b></div></td>
                                 <td>
                                   <div id="cartDisplayGrandTotal" align="center">

@@ -859,6 +859,7 @@ public class ShoppingCartServices {
                 int cartLineIndex = shoppingCart.getItemIndex(cartLine);
                 cartItemData.put("displayItemSubTotal_" + cartLineIndex ,new Double(cartLine.getDisplayItemSubTotal()));
                 cartItemData.put("displayItemSubTotalCurrencyFormatted_" + cartLineIndex ,org.ofbiz.base.util.UtilFormatOut.formatCurrency(cartLine.getDisplayItemSubTotal(),isoCode,locale));
+                cartItemData.put("displayItemAdjustment_" + cartLineIndex ,org.ofbiz.base.util.UtilFormatOut.formatCurrency(cartLine.getOtherAdjustments(), isoCode, locale));
             }
             result.put("cartItemData",cartItemData);
         }

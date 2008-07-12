@@ -466,10 +466,14 @@ function updateCartData(elementId, formValues, itemQty, itemIndex) {
                     } else {
                         var itemsHash = $H(data.cartItemData);
                         var lineTotalId = elementId.sub('qty_','displayItem_');
+                        var lineDiscountTotalId = elementId.sub('qty_','addPromoCode_');
                         var lineItemTotal = itemsHash.get("displayItemSubTotalCurrencyFormatted_"+itemIndex);
+                        var lineItemAdjustment = itemsHash.get("displayItemAdjustment_"+itemIndex);
                         $(lineTotalId).update(lineItemTotal);
+                        $(lineDiscountTotalId).update(lineItemAdjustment);
                         var completedLineItemQtyId =  elementId.sub('qty_','completedCartItemQty_');
                         $(completedLineItemQtyId).update($(elementId).value);
+                        $('completedCartItemAdjustment_'+itemIndex).update(lineItemAdjustment);
                         var completedCartItemSubTotalId = elementId.sub('qty_','completedCartItemSubTotal_');
                         $(completedCartItemSubTotalId).update(lineItemTotal);
                     }
