@@ -86,7 +86,9 @@ if (productId) {
         members = delegator.findByAndCache("ProductCategoryMember", [productId : productId]);
         members.each { member ->
             category = member.getRelatedOneCache("ProductCategory");
-            keywords.add(category.description);            
+            if (category.description) {
+                keywords.add(category.description);
+            }
         }
         context.metaKeywords = StringUtil.join(keywords, ", ");
 

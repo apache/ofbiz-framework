@@ -50,7 +50,7 @@ under the License.
             <actions>
                 <!--<script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/catalog/sidedeepcategory.bsh"/>-->
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/sidedeepcategory.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/SideDeepCategory.groovy"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/catalog/sidedeepcategory.ftl"/></html></platform-specific>
@@ -82,7 +82,7 @@ under the License.
         <section>
             <actions>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/sidedeepcategory.bsh"/>                
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/SideDeepCategory.groovy"/>                
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/catalog/minilastviewedcategories.ftl"/></html></platform-specific>
@@ -133,7 +133,7 @@ under the License.
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="EcommerceUiLabels" map-name="uiLabelMap" global="true"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/productsummary.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/ProductSummary.groovy"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/catalog/productsummary.ftl"/></html></platform-specific>
@@ -261,7 +261,7 @@ under the License.
             <actions>
                 <set field="productsummaryScreen" value="component://ecommerce/widget/CatalogScreens.xml#productsummary"/>
 
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/productdetail.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/ProductDetail.groovy"/>
             </actions>
             <widgets>
                 <include-screen name="breadcrumbs"/>
@@ -275,7 +275,7 @@ under the License.
             <actions>
                 <set field="productsummaryScreen" value="component://ecommerce/widget/CatalogScreens.xml#productsummary"/>
 
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/productdetail.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/ProductDetail.groovy"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/PrepareConfigForm.groovy"/>
             </actions>
             <widgets>
@@ -355,7 +355,7 @@ under the License.
                 <set field="quickaddsummaryScreen" value="component://ecommerce/widget/CatalogScreens.xml#quickaddsummary"/>
 
                 <set field="titleProperty" value="PageTitleQuickAdd"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/quickadd.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/QuickAdd.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -370,7 +370,7 @@ under the License.
     <screen name="quickaddsummary">
         <section>
             <actions>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/productsummary.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/ProductSummary.groovy"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/catalog/quickaddsummary.ftl"/></html></platform-specific>

@@ -29,26 +29,20 @@ import org.ofbiz.entity.*;
 import org.ofbiz.service.*;
 import org.ofbiz.product.catalog.*;
 
-dispatcher = request.getAttribute("dispatcher");
 currentCatalogId = CatalogWorker.getCurrentCatalogId(request);
-categoryId = parameters.get("category_id");
-if (categoryId == null || categoryId.length() <= 0) 
-    categoryId = CatalogWorker.getCatalogQuickaddCategoryPrimary(request);
-    
-Collection quickAddCategories = CatalogWorker.getCatalogQuickaddCategories(request);
-context.put("quickAddCats", quickAddCategories);
-context.put("categoryId", categoryId);
+categoryId = parameters.category_id ?: CatalogWorker.getCatalogQuickaddCategoryPrimary(request);
 
-if (categoryId != null) {
-    fields = UtilMisc.toMap("productCategoryId", categoryId, "defaultViewSize", new Integer(10), 
-            "limitView", new Boolean(false), "prodCatalogId", currentCatalogId, "checkViewAllow", Boolean.TRUE);
+quickAddCategories = CatalogWorker.getCatalogQuickaddCategories(request);
+context.quickAddCats = quickAddCategories;
+context.categoryId = categoryId;
+
+if (categoryId) {
+    fields = [productCategoryId : categoryId, defaultViewSize : 10, 
+            limitView : false, prodCatalogId : currentCatalogId, checkViewAllow : true];
     result = dispatcher.runSync("getProductCategoryAndLimitedMembers", fields);
-    if (result != null) {
-        resultIter = result.keySet().iterator();
-        while (resultIter.hasNext()) {
-            String name = (String) resultIter.next();
-            context.put(name, result.get(name));
+    if (result) {
+        result.each { key, value ->
+            context[key] = value;
         }
     }
 }
-

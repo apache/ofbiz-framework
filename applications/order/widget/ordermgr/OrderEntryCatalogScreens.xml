@@ -45,7 +45,7 @@ under the License.
     <screen name="sidedeepcategory">
         <section>
             <actions>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/sidedeepcategory.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/SideDeepCategory.groovy"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/catalog/sidedeepcategory.ftl"/></html></platform-specific>
@@ -57,7 +57,7 @@ under the License.
         <section>
             <actions>
                 <set field="showPriceDetails" value="Y"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/productsummary.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/ProductSummary.groovy"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/catalog/productsummary.ftl"/></html></platform-specific>
@@ -162,7 +162,7 @@ under the License.
                 <set field="showPriceDetails" value="Y"/>
                 <!--<script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/catalog/productdetail.bsh"/>-->
                 <!-- Warning: this bsh file in the order component is slightly different from that of the ecommerce one (the currency is taken from the cart) -->
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/productdetail.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/ProductDetail.groovy"/>
             </actions>
             <widgets>
                 <include-screen name="breadcrumbs"/>
@@ -177,7 +177,7 @@ under the License.
         <section>
             <actions>
                 <set field="productsummaryScreen" value="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#productsummary"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/productdetail.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/ProductDetail.groovy"/>
                 <!--<script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/catalog/prepareconfigform.bsh"/>-->
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/PrepareConfigForm.groovy"/>
             </actions>
@@ -241,7 +241,7 @@ under the License.
                 <set field="MainColumnStyle" value="center"/>-->
                 <set field="title-property" value="PageTitleQuickAdd"/>
                 <set field="quickaddsummaryScreen" value="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#quickaddsummary"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/quickadd.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/QuickAdd.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderCatalogDecorator" location="component://order/widget/ordermgr/OrderEntryCommonScreens.xml">
@@ -255,7 +255,7 @@ under the License.
     <screen name="quickaddsummary">
         <section>
             <actions>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/productsummary.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/ProductSummary.groovy"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/catalog/quickaddsummary.ftl"/></html></platform-specific>
