@@ -38,7 +38,7 @@
     </property>
     <property key="ProductFeatureTypeIdMustContainsLettersAndDigits">
         <value xml:lang="en">The Product Feature TypeId must contains only letters and digits and must begin by a letter. Please re-enter</value>
-        <value xml:lang="fr">La réf. de type de caractéristique d'article ne doit contenit que des lettres et des chiffres et doit commencer par une lettre. Recommencez SVP</value>
+        <value xml:lang="fr">La réf. de type de caractéristique d'article ne doit contenir que des lettres et des chiffres et doit commencer par une lettre. Recommencez SVP</value>
     </property>
     <property key="ProductFeatureTypeIdMustNotBeResevedWord">
         <value xml:lang="en">The Product Feature TypeId must not be one of the reserved words, this is one of them. Please re-enter</value>
