@@ -289,19 +289,7 @@ under the License.
             </then>
         </if>
         <check-errors/>
-        
-        <if>
-            <condition>
-                <if-validate-method field-name="parameters.productFeatureTypeId" method="isJavaScriptReservedWord"></if-validate-method>
-            </condition>
-            <then>
-                <add-error>
-                    <fail-property resource="ProductErrorUiLabels" property="ProductFeatureTypeIdMustNotBeResevedWord"/>
-                </add-error>
-            </then>
-        </if>
-        <check-errors/>
-        
+                
         <make-value value-name="newEntity" entity-name="ProductFeatureType"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
