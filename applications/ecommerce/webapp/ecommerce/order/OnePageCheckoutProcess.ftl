@@ -604,7 +604,6 @@ under the License.
                                 <#else>
                                   <option value="">${uiLabelMap.PartyNoState}</option>
                                 </#if>
-                                ${screens.render("component://common/widget/CommonScreens.xml#states")}
                               </select>
                             </div>
                           </div>
