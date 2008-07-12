@@ -61,7 +61,8 @@ Event.observe(window, 'load', function() {
     Event.observe($('editBilling'), 'click', function() {
         if (isCartStepValidate && isShipStepValidate) {
             if (validateShipOption.validate()) {
-                setShippingOption(); 
+                setShippingOption();
+                getAssociatedBillingStateList(); 
                 displayBillingPanel();
                 isShipOptionStepValidate = true;
             }
@@ -92,7 +93,10 @@ Event.observe(window, 'load', function() {
     });
     
     //  For Billing Address Same As Shipping
-    Event.observe('useShippingAddressForBilling', 'click', useShippingAddressForBillingToggel);
+    Event.observe('useShippingAddressForBilling', 'click', function() {
+        getAssociatedBillingStateList();
+        useShippingAddressForBillingToggle();
+    });
     
     // Initiate Observing Edit Cart Events
     initCartProcessObservers();
@@ -105,6 +109,9 @@ Event.observe(window, 'load', function() {
     
     Event.observe($('shipToStateProvinceGeo'), 'focus', getAssociatedStateList);
     Event.observe($('shipToStateProvinceGeo'), 'blur', splitStateNameFromIds);
+
+    // Get associate states for billing panel
+    Event.observe($('billToCountryGeoId'), 'change', getAssociatedBillingStateList);
 });
 
 // Cart
@@ -280,17 +287,17 @@ function setDataInShippingOptionCompleted() {
 }
 
 // Billing
-function useShippingAddressForBillingToggel() {
-    if($('useShippingAddressForBilling').checked) {
+function useShippingAddressForBillingToggle() {
+    $('billToStateProvinceGeoId').value = $F('shipToStateProvinceGeoId');
+    if ($('useShippingAddressForBilling').checked) {
         $('billToAddress1').value = $F('shipToAddress1');
         $('billToAddress2').value = $F('shipToAddress2');
         $('billToCity').value = $F('shipToCity');
-        $('billToStateProvinceGeoId').value = $F('shipToStateProvinceGeoId');
         $('billToPostalCode').value = $F('shipToPostalCode');
         $('billToCountryGeoId').value = $F('shipToCountryGeoId');
-        Effect.BlindUp($('billingAddress'), {duration: 0.5});
+        Effect.BlindUp($('billingAddress'), {duration: 0.3});
     } else {
-        Effect.BlindDown($('billingAddress'), {duration: 0.5});
+        Effect.BlindDown($('billingAddress'), {duration: 0.3});
     }
 }
 
@@ -549,4 +556,21 @@ function splitStateNameFromIds() {
         }
         $('shipToStateProvinceGeoId').value = geoValues[1];
     }
+}
+
+function getAssociatedBillingStateList() {
+    var optionList = [];
+    new Ajax.Request("getAssociatedStateList",
+    { asynchronous: false,
+        parameters: $('billingForm').serialize(),
+        onSuccess: function(transport) {
+          var data = transport.responseText.evalJSON(true);
+          stateList = data.stateList;
+          stateList.each(function(state) {
+            geoVolues = state.split(': ');
+            optionList.push("<option value = " + geoVolues[1] + " >"+geoVolues[0]+"</option>");
+          });
+          $('billToStateProvinceGeoId').innerHTML = optionList;
+        }
+    });
 }
