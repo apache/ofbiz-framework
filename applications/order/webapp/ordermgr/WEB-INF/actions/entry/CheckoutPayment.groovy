@@ -28,31 +28,31 @@ cart = session.getAttribute("shoppingCart");
 currencyUomId = cart.getCurrency();
 userLogin = session.getAttribute("userLogin");
 partyId = cart.getPartyId();
-party = delegator.findByPrimaryKeyCache("Party", UtilMisc.toMap("partyId", partyId));
+party = delegator.findByPrimaryKeyCache("Party", [partyId : partyId]);
 productStoreId = ProductStoreWorker.getProductStoreId(request);
 
 checkOutPaymentId = "";
-if (cart != null) {
-    if (cart.getPaymentMethodIds().size() > 0) {
+if (cart) {
+    if (cart.getPaymentMethodIds()) {
         checkOutPaymentId = cart.getPaymentMethodIds().get(0);
-    } else if (cart.getPaymentMethodTypeIds().size() > 0) {
+    } else if (cart.getPaymentMethodTypeIds()) {
         checkOutPaymentId = cart.getPaymentMethodTypeIds().get(0);
     }
 }
 
-finAccounts = delegator.findByAnd("FinAccountAndRole", UtilMisc.toMap("partyId", partyId, "roleTypeId", "OWNER"));
+finAccounts = delegator.findByAnd("FinAccountAndRole", [partyId : partyId, roleTypeId : "OWNER"]);
 finAccounts = EntityUtil.filterByDate(finAccounts, UtilDateTime.nowTimestamp(), "roleFromDate", "roleThruDate", true);
 finAccounts = EntityUtil.filterByDate(finAccounts);
-context.put("finAccounts",finAccounts);
+context.finAccounts = finAccounts;
 
-context.put("shoppingCart", cart);
-context.put("userLogin", userLogin);
-context.put("productStoreId", productStoreId);
-context.put("checkOutPaymentId", checkOutPaymentId);
-context.put("paymentMethodList", EntityUtil.filterByDate(party.getRelated("PaymentMethod", null, UtilMisc.toList("paymentMethodTypeId")), true));
+context.shoppingCart = cart;
+context.userLogin = userLogin;
+context.productStoreId = productStoreId;
+context.checkOutPaymentId = checkOutPaymentId;
+context.paymentMethodList = EntityUtil.filterByDate(party.getRelated("PaymentMethod", null, ["paymentMethodTypeId"]), true);
 
 billingAccountList = BillingAccountWorker.makePartyBillingAccountList(userLogin, currencyUomId, partyId, delegator, dispatcher);
-if (billingAccountList != null && billingAccountList.size() > 0) {
-    context.put("selectedBillingAccountId", cart.getBillingAccountId());
-    context.put("billingAccountList", billingAccountList);
+if (billingAccountList) {
+    context.selectedBillingAccountId = cart.getBillingAccountId();
+    context.billingAccountList = billingAccountList;
 }

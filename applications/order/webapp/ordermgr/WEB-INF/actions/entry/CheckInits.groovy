@@ -29,32 +29,24 @@ import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.order.shoppingcart.product.ProductDisplayWorker;
 import org.ofbiz.order.shoppingcart.product.ProductPromoWorker;
 
-delegator = request.getAttribute("delegator");
-security = request.getAttribute("security");
-dispatcher= (LocalDispatcher)request.getAttribute("dispatcher");
-userLogin = session.getAttribute("userLogin");
-
-context.put("dispatcher",dispatcher);
-
 productStore = ProductStoreWorker.getProductStore(request);
-if( productStore != null ){
-    context.put("defaultProductStore", productStore);
-    if( productStore.getString("defaultSalesChannelEnumId") != null )
-        context.put("defaultSalesChannel", delegator.findByPrimaryKeyCache("Enumeration",
-                UtilMisc.toMap("enumId",productStore.getString("defaultSalesChannelEnumId"))));
+if (productStore) {
+    context.defaultProductStore = productStore;
+    if (productStore.defaultSalesChannelEnumId)
+        context.defaultSalesChannel = delegator.findByPrimaryKeyCache("Enumeration", [enumId : productStore.defaultSalesChannelEnumId]);
 }
 // Get the Cart
 shoppingCart = session.getAttribute("shoppingCart");
-context.put("shoppingCart", shoppingCart);
+context.shoppingCart = shoppingCart;
 
-salesChannels = delegator.findByAndCache("Enumeration", UtilMisc.toMap("enumTypeId", "ORDER_SALES_CHANNEL"), UtilMisc.toList("sequenceId"));
-context.put("salesChannels", salesChannels);
+salesChannels = delegator.findByAndCache("Enumeration", [enumTypeId : "ORDER_SALES_CHANNEL"], ["sequenceId"]);
+context.salesChannels = salesChannels;
 
-productStores = delegator.findList("ProductStore", null, null, UtilMisc.toList("storeName"), null, true);
-context.put("productStores", productStores);
+productStores = delegator.findList("ProductStore", null, null, ["storeName"], null, true);
+context.productStores = productStores;
 
-suppliers = delegator.findByAnd("PartyRole", UtilMisc.toMap("roleTypeId", "SUPPLIER"));
-context.put("suppliers", suppliers);
+suppliers = delegator.findByAnd("PartyRole", [roleTypeId : "SUPPLIER"]);
+context.suppliers = suppliers;
 
-organizations = delegator.findByAnd("PartyRole", UtilMisc.toMap("roleTypeId", "INTERNAL_ORGANIZATIO"));
-context.put("organizations", organizations);
+organizations = delegator.findByAnd("PartyRole", [roleTypeId : "INTERNAL_ORGANIZATIO"]);
+context.organizations = organizations;

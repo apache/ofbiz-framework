@@ -28,49 +28,49 @@ import org.ofbiz.order.shoppingcart.shipping.*;
 shoppingCart = session.getAttribute("shoppingCart");
 currencyUomId = shoppingCart.getCurrency();
 partyId = shoppingCart.getPartyId();
-party = delegator.findByPrimaryKeyCache("Party", UtilMisc.toMap("partyId", partyId));
+party = delegator.findByPrimaryKeyCache("Party", [partyId : partyId]);
 productStore = ProductStoreWorker.getProductStore(request);
 
 shippingEstWpr = null;
-if (shoppingCart != null) {
+if (shoppingCart) {
     shippingEstWpr = new ShippingEstimateWrapper(dispatcher, shoppingCart, 0);
-    context.put("shippingEstWpr", shippingEstWpr);
-    context.put("carrierShipmentMethodList", shippingEstWpr.getShippingMethods());
+    context.shippingEstWpr = shippingEstWpr;
+    context.carrierShipmentMethodList = shippingEstWpr.getShippingMethods();
 }
 
 // Reassign items requiring drop-shipping to new or existing drop-ship groups
-if (shoppingCart != null) {
+if (shoppingCart) {
     shoppingCart.createDropShipGroups(dispatcher);
 }
 
-profiledefs = delegator.findByPrimaryKey("PartyProfileDefault", UtilMisc.toMap("partyId", userLogin.getString("partyId"), "productStoreId", productStoreId));
-context.put("profiledefs", profiledefs);
+profiledefs = delegator.findByPrimaryKey("PartyProfileDefault", [partyId : userLogin.partyId, productStoreId : productStoreId]);
+context.profiledefs : profiledefs;
 
-context.put("shoppingCart", shoppingCart);
-context.put("userLogin", userLogin);
-context.put("productStoreId", productStore.get("productStoreId"));
-context.put("productStore", productStore);
-shipToParty = delegator.findByPrimaryKeyCache("Party", UtilMisc.toMap("partyId", shoppingCart.getShipToCustomerPartyId()));
-context.put("shippingContactMechList", ContactHelper.getContactMech(shipToParty, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false));
-context.put("emailList",  ContactHelper.getContactMechByType(party, "EMAIL_ADDRESS", false));
+context.shoppingCart = shoppingCart;
+context.userLogin = userLogin;
+context.productStoreId = productStore.get("productStoreId");
+context.productStore = productStore;
+shipToParty = delegator.findByPrimaryKeyCache("Party", [partyId : shoppingCart.getShipToCustomerPartyId()]);
+context.shippingContactMechList = ContactHelper.getContactMech(shipToParty, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false);
+context.emailList = ContactHelper.getContactMechByType(party, "EMAIL_ADDRESS", false);
 
-if (shoppingCart.getShipmentMethodTypeId() != null && shoppingCart.getCarrierPartyId() != null) {
-    context.put("chosenShippingMethod", shoppingCart.getShipmentMethodTypeId() + '@' + shoppingCart.getCarrierPartyId());
-} else if (profiledefs != null && profiledefs.get("defaultShipMeth") != null) {
-    context.put("chosenShippingMethod", profiledefs.get("defaultShipMeth"));
+if (shoppingCart.getShipmentMethodTypeId() && shoppingCart.getCarrierPartyId()) {
+    context.chosenShippingMethod = shoppingCart.getShipmentMethodTypeId() + '@' + shoppingCart.getCarrierPartyId();
+} else if (profiledefs?.defaultShipMeth) {
+    context.chosenShippingMethod = profiledefs.defaultShipMeth;
 }
 
 // other profile defaults
-if (shoppingCart.getShippingAddress() == null && profiledefs != null && profiledefs.get("defaultShipAddr") != null) {
-    shoppingCart.setShippingContactMechId(profiledefs.get("defaultShipAddr"));
+if (!shoppingCart.getShippingAddress() && profiledefs?.defaultShipAddr) {
+    shoppingCart.setShippingContactMechId(profiledefs.defaultShipAddr);
 }
-if (shoppingCart.selectedPayments() == 0 && profiledefs != null && profiledefs.get("defaultPayMeth") != null) {
-    shoppingCart.addPayment(profiledefs.get("defaultPayMeth"));
+if (shoppingCart.selectedPayments() == 0 && profiledefs?.defaultPayMeth) {
+    shoppingCart.addPayment(profiledefs.defaultPayMeth);
 }
 
 // create a list containing all the parties associated to the current cart, useful to change
 // the ship to party id
-List cartParties = UtilMisc.toList(shoppingCart.getShipToCustomerPartyId());
+cartParties = [shoppingCart.getShipToCustomerPartyId()];
 if (!cartParties.contains(partyId)) {
     cartParties.add(partyId);
 }
@@ -89,13 +89,12 @@ if (!cartParties.contains(shoppingCart.getEndUserCustomerPartyId())) {
 if (!cartParties.contains(shoppingCart.getSupplierAgentPartyId())) {
     cartParties.add(shoppingCart.getSupplierAgentPartyId());
 }
-List salesReprs = (List)shoppingCart.getAdditionalPartyRoleMap().get("SALES_REP");
-if (salesReprs != null) {
-    for (int i = 0; i < salesReprs.size(); i++) {
-        String salesRep = (String)salesReprs.get(i);
+salesReps = shoppingCart.getAdditionalPartyRoleMap().SALES_REP;
+if (salesReps) {
+    salesReps.each { salesRep ->
         if (!cartParties.contains(salesRep)) {
             cartParties.add(salesRep);
         }
     }
 }
-context.put("cartParties", cartParties);
+context.cartParties = cartParties;

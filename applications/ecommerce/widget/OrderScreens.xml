@@ -235,7 +235,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleCheckoutOptions"/>
 
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/checkoutpayment.bsh"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/checkoutoptions.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/CheckoutOptions.groovy"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/storepaymentoptions.bsh"/>
             </actions>
             <widgets>
