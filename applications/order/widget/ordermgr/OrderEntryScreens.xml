@@ -39,7 +39,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleOrderAgreements"/>
                 <set field="headerItem" value="orderentry"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/orderagreements.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/OrderAgreements.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

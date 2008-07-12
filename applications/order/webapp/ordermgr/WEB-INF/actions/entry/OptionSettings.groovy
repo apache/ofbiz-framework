@@ -24,9 +24,8 @@ import org.ofbiz.order.shoppingcart.*;
 import org.ofbiz.party.contact.*;
 import org.ofbiz.product.store.*;
 
-delegator = request.getAttribute("delegator");
 cart = session.getAttribute("shoppingCart");
-context.put("cart", cart);
+context.cart = cart;
 productStoreId = ProductStoreWorker.getProductStoreId(request);
 
 // nuke the event messages
@@ -34,13 +33,13 @@ request.removeAttribute("_EVENT_MESSAGE_");
 
 party = null;
 orderPartyIdId = cart.getPartyId();
-if (orderPartyIdId != null) {
-    orderPartyId = delegator.findByPrimaryKey("Party", UtilMisc.toMap("partyId", orderPartyIdId));
-    context.put("orderPartyId", orderPartyId);
+if (orderPartyIdId) {
+    orderPartyId = delegator.findByPrimaryKey("Party", [partyId : orderPartyIdId]);
+    context.orderPartyId = orderPartyId;
 }
 
-context.put("carrierShipmentMethodList", delegator.findByAndCache("ProductStoreShipmentMethView", UtilMisc.toMap("productStoreId", productStoreId), UtilMisc.toList("sequenceNumber")));
-context.put("emailList",  ContactHelper.getContactMechByType(orderPartyId, "EMAIL_ADDRESS", false));
+context.carrierShipmentMethodList = delegator.findByAndCache("ProductStoreShipmentMethView", [productStoreId : productStoreId], ["sequenceNumber"]);
+context.emailList = ContactHelper.getContactMechByType(orderPartyId, "EMAIL_ADDRESS", false);
 
 // create the beforeDate for calendar
 fromCal = Calendar.getInstance();
@@ -52,7 +51,7 @@ fromCal.set(Calendar.MILLISECOND, fromCal.getActualMinimum(Calendar.MILLISECOND)
 fromTs = new Timestamp(fromCal.getTimeInMillis());
 fromStr = fromTs.toString();
 fromStr = fromStr.substring(0, fromStr.indexOf('.'));
-context.put("beforeDateStr", fromStr);
+context.beforeDateStr = fromStr;
 
 // create the afterDate for calendar
 toCal = Calendar.getInstance();
@@ -64,4 +63,4 @@ toCal.set(Calendar.SECOND, toCal.getActualMaximum(Calendar.SECOND));
 toCal.set(Calendar.MILLISECOND, toCal.getActualMaximum(Calendar.MILLISECOND));
 toTs = new Timestamp(toCal.getTimeInMillis());
 toStr = toTs.toString();
-context.put("afterDateStr", toStr);
+context.afterDateStr = toStr;

@@ -26,7 +26,7 @@ under the License.
             <actions>
                 <set field="headerItem" value="orderentry"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/SetShoppingCart.bsh"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/SetCheckOutTabBar.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/SetCheckOutTabBar.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -142,7 +142,7 @@ under the License.
             <actions>
                 <set field="stepTitleId" value="OrderOrderOptionSettings"/>
                 <set field="stepLabelId" value="CommonOptions"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/optionsettings.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/OptionSettings.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderCheckoutDecorator">
@@ -178,7 +178,7 @@ under the License.
             <actions>
                 <set field="stepTitleId" value="PartyAdditionalPartyEntry"/>
                 <set field="stepLabelId" value="PartyParties"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/setAdditionalParty.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/SetAdditionalParty.groovy"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/AdditionalPartyListing.groovy"/>
             </actions>
             <widgets>
@@ -200,7 +200,7 @@ under the License.
             <actions>
                 <set field="stepTitleId" value="OrderOrderEntryOrderTerms"/>
                 <set field="stepLabelId" value="OrderOrderTerms"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/orderterms.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/OrderTerms.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderCheckoutDecorator">
@@ -219,7 +219,7 @@ under the License.
                 <set field="stepTitleId" value="OrderOrderConfirmation"/>
                 <set field="stepLabelId" value="OrderReviewOrder"/>
 
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/checkoutreview.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/CheckoutReview.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderCheckoutDecorator">
@@ -248,7 +248,7 @@ under the License.
                 <set field="MainColumnStyle" value="rightonly"/>
 
                 <set field="titleProperty" value="PageTitleCheckoutOptions"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/checkoutshippingaddress.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/CheckoutShippingAddress.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

@@ -23,25 +23,24 @@ import org.ofbiz.order.shoppingcart.*;
 import org.ofbiz.party.contact.*;
 import org.ofbiz.product.catalog.*;
 
-delegator = request.getAttribute("delegator");
 cart = session.getAttribute("shoppingCart");
-context.put("cart", cart);
+context.cart = cart;
 
 orderTerms = cart.getOrderTerms();
-context.put("orderTerms",orderTerms);
+context.orderTerms = orderTerms;
 
 termTypes = delegator.findList("TermType", null, null, null, null,false);
-context.put("termTypes",termTypes);
+context.termTypes = termTypes;
 createNew = request.getParameter("createNew");
 
 termIndex = request.getParameter("termIndex");
-if (createNew != null && createNew.equals("Y") && termIndex != null && (!termIndex.equals("-1"))) {
-    context.put("termIndex",termIndex);
-    orderTerm = orderTerms.get(Integer.parseInt(termIndex));
-    if (orderTerm != null) {
-       context.put("termTypeId",orderTerm.getString("termTypeId"));
-       context.put("termValue",orderTerm.get("termValue"));
-       context.put("termDays",orderTerm.get("termDays"));
-       context.put("textValue",orderTerm.get("textValue"));
+if ("Y".equals(createNew) && (!"-1".equals(termIndex))) {
+    context.termIndex = termIndex;
+    orderTerm = orderTerms[Integer.parseInt(termIndex)];
+    if (orderTerm) {
+       context.termTypeId = orderTerm.termTypeId;
+       context.termValue = orderTerm.termValue;
+       context.termDays = orderTerm.termDays;
+       context.textValue = orderTerm.textValue;
     }
 }

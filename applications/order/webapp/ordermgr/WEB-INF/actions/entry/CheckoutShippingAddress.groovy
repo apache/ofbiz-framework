@@ -28,34 +28,30 @@ import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import javolution.util.FastList;
 
-delegator = request.getAttribute("delegator");
 cart = session.getAttribute("shoppingCart");
-userLogin = session.getAttribute("userLogin");
 party = userLogin.getRelatedOne("Party");
-partyId = party.getString("partyId");
+partyId = party.partyId;
 productStoreId = ProductStoreWorker.getProductStoreId(request);
 
 productStoreId = cart.getProductStoreId();
-if (UtilValidate.isNotEmpty(productStoreId)) {
+if (productStoreId) {
     productStore = ProductStoreWorker.getProductStore(productStoreId, delegator);
-    payToPartyId = productStore.getString("payToPartyId");
+    payToPartyId = productStore.payToPartyId;
 }
 
-String shippingContactMechId = request.getParameter("shipping_contact_mech_id");
-for (int shipGroupIndex = 0; shipGroupIndex < cart.getShipGroupSize(); shipGroupIndex++) {
+shippingContactMechId = request.getParameter("shipping_contact_mech_id");
+for (shipGroupIndex = 0; shipGroupIndex < cart.getShipGroupSize(); shipGroupIndex++) {
     supplierPartyId = cart.getSupplierPartyId(shipGroupIndex);
-    context.put(shipGroupIndex+"_supplierPartyId",supplierPartyId);
+    context[shipGroupIndex + "_supplierPartyId"] = supplierPartyId;
 }
-List exprs = FastList.newInstance();
+exprs = FastList.newInstance();
 exprs.add(EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, payToPartyId));
 exprs.add(EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, partyId));
 agreements = delegator.findList("Agreement", EntityCondition.makeCondition(exprs, EntityOperator.AND), null, null, null, true);
 agreements = EntityUtil.filterByDate(agreements);
-context.put("agreements", agreements);
+context.agreements = agreements;
 
-context.put("shoppingCart", cart);
-context.put("userLogin", userLogin);
-context.put("productStoreId", productStoreId);
-context.put("shippingContactMechList", ContactHelper.getContactMech(party, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false));   
-
-
+context.shoppingCart = cart;
+context.userLogin = userLogin;
+context.productStoreId = productStoreId;
+context.shippingContactMechList = ContactHelper.getContactMech(party, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false);

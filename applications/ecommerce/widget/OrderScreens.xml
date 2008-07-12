@@ -255,7 +255,7 @@ under the License.
                 <set field="MainColumnStyle" value="rightonly"/>
 
                 <set field="titleProperty" value="PageTitleCheckoutOptions"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/checkoutshippingaddress.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/CheckoutShippingAddress.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

@@ -36,21 +36,21 @@ import javolution.util.FastList;
 
 // Get the Cart and Prepare Size
 shoppingCart = ShoppingCartEvents.getCartObject(request);
-context.put("cart", shoppingCart);
+context.cart = shoppingCart;
 
 // check the selected product store
 productStoreId = shoppingCart.getProductStoreId();
 productStore = null;
-if (UtilValidate.isNotEmpty(productStoreId)) {
+if (productStoreId) {
     productStore = ProductStoreWorker.getProductStore(productStoreId, delegator);
-    if (productStore != null) {
+    if (productStore) {
         // put in the default currency, to help selecting a currency for a purchase order
-        context.put("defaultCurrencyUomId", productStore.getString("defaultCurrencyUomId"));
-        payToPartyId = productStore.getString("payToPartyId");
+        context.defaultCurrencyUomId = productStore.defaultCurrencyUomId;
+        payToPartyId = productStore.payToPartyId;
         partyId = shoppingCart.getOrderPartyId();
-        
-        List exprsAgreements = FastList.newInstance();
-        List exprsAgreementRoles = FastList.newInstance();
+
+        exprsAgreements = FastList.newInstance();
+        exprsAgreementRoles = FastList.newInstance();
         // get applicable agreements for order entry
         if ("PURCHASE_ORDER".equals(shoppingCart.getOrderType())) {
             // the agreement for a PO is from customer to payToParty (ie, us)
@@ -72,30 +72,30 @@ if (UtilValidate.isNotEmpty(productStoreId)) {
             catalogCol = CatalogWorker.getCatalogIdsAvailable(delegator, productStoreId, partyId);
         }
         
-        if (agreements != null && agreements.size() > 0) {
-        	agreements = EntityUtil.filterByDate(agreements);
-            context.put("agreements", agreements);
+        agreements = EntityUtil.filterByDate(agreements);
+        if (agreements) {
+            context.agreements = agreements;
         }
-        if (UtilValidate.isNotEmpty(agreementRoles)) {
-            context.put("agreementRoles", agreementRoles);
+        if (agreementRoles) {
+            context.agreementRoles =agreementRoles;
         }
-        
-        
-        if (catalogCol != null && catalogCol.size() > 0) {
-            currentCatalogId = (String) catalogCol.get(0);
+
+
+        if (catalogCol) {
+            currentCatalogId = catalogCol.get(0);
             currentCatalogName = CatalogWorker.getCatalogName(request, currentCatalogId);
-            context.put("catalogCol", catalogCol);
-            context.put("currentCatalogId", currentCatalogId);
-            context.put("currentCatalogName", currentCatalogName);
+            context.catalogCol = catalogCol;
+            context.currentCatalogId = currentCatalogId;
+            context.currentCatalogName = currentCatalogName;
         }
     }
 }
 
 partyId = shoppingCart.getPartyId();
-if (partyId != null && partyId.equals("_NA_")) partyId = null;
-context.put("partyId", partyId);  
+if ("_NA_".equals(partyId)) partyId = null;
+context.partyId = partyId;
 
 // currencies and shopping cart currency
-currencies = delegator.findByAndCache("Uom", UtilMisc.toMap("uomTypeId","CURRENCY_MEASURE"));
-context.put("currencies", currencies);
-context.put("currencyUomId", shoppingCart.getCurrency());
+currencies = delegator.findByAndCache("Uom", [uomTypeId : "CURRENCY_MEASURE"]);
+context.currencies = currencies;
+context.currencyUomId = shoppingCart.getCurrency();

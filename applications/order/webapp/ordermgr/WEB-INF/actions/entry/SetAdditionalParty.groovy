@@ -21,24 +21,21 @@ import org.ofbiz.entity.*;
 import org.ofbiz.base.util.*;
 import org.ofbiz.order.shoppingcart.*;
 
-delegator = request.getAttribute("delegator");
 shoppingCart = ShoppingCartEvents.getCartObject(request);
-orderType=shoppingCart.getOrderType();
-context.put("orderType", orderType);
+orderType = shoppingCart.getOrderType();
+context.orderType = orderType;
 
-if (request.getParameterValues("additionalRoleTypeId") == null) {
+if (!request.getParameterValues("additionalRoleTypeId")) {
     partyType = request.getParameter("additionalPartyType");
-    context.put("additionalPartyType", partyType);
+    context.additionalPartyType = partyType;
 
     additionalPartyId = request.getParameter("additionalPartyId");
-    context.put("additionalPartyId", additionalPartyId);
+    context.additionalPartyId = additionalPartyId;
 
-    roles = delegator.findByAnd("PartyRole", UtilMisc.toMap("partyId", additionalPartyId));
-    roleData = new LinkedList();
-    it = roles.iterator();
-    while (it.hasNext()) {
-        role = it.next();
+    roles = delegator.findByAnd("PartyRole", [partyId : additionalPartyId]);
+    roleData = [];
+    roles.each { role ->
         roleData.add(role.getRelatedOne("RoleType"));
     }
-    context.put("roles", roleData);
+    context.roles = roleData;
 }
