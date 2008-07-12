@@ -92,9 +92,9 @@ under the License.
         <alt-target target="createTimesheet" use-when="timesheet==null"/>
         <auto-fields-service service-name="updateTimesheet"/>
         
-        <field name="timesheetId" use-when="timesheet!=null" title="${uiLabelMap.TimesheetTimesheetId}" tooltip="${uiLabelMap.CommonNotModifRecreat}" widget-style="tabletext"><display/></field>
+        <field name="timesheetId" use-when="timesheet!=null" title="${uiLabelMap.TimesheetTimesheetId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field name="timesheetId" use-when="timesheet==null&amp;&amp;timesheetId==null" title="${uiLabelMap.TimesheetTimesheetId}"><ignored/></field>
-        <field name="timesheetId" use-when="timesheet==null&amp;&amp;timesheetId!=null" title="${uiLabelMap.TimesheetTimesheetId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${timesheetId}]" widget-style="tabletext"><display also-hidden="false"/></field>
+        <field name="timesheetId" use-when="timesheet==null&amp;&amp;timesheetId!=null" title="${uiLabelMap.TimesheetTimesheetId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${timesheetId}]"><display also-hidden="false"/></field>
 
         <field name="partyId" title="${uiLabelMap.PartyParty}*"><lookup target-form-name="LookupPartyName"/></field>
         <field name="clientPartyId"><lookup target-form-name="LookupPartyName"/></field>

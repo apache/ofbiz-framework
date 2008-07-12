@@ -34,11 +34,11 @@ under the License.
     <#list processMgrs as mgr>
       <#assign state = mgr.process_mgr_state().value()>
       <tr>
-        <td align="left"><div class="tabletext">${mgr.name()}</div></td>
-        <td align="left"><div class="tabletext">${mgr.version()}</div></td>
-        <td align="left"><div class="tabletext">${mgr.category()}</div></td>
-        <td align="center"><div class="tabletext"><#if state == enabledCode>Y<#else>N</#if></div></td>
-        <td align="center"><div class="tabletext">${mgr.how_many_process()}</div></td>
+        <td align="left"><div>${mgr.name()}</div></td>
+        <td align="left"><div>${mgr.version()}</div></td>
+        <td align="left"><div>${mgr.category()}</div></td>
+        <td align="center"><div><#if state == enabledCode>Y<#else>N</#if></div></td>
+        <td align="center"><div>${mgr.how_many_process()}</div></td>
         <#if state == enabledCode>
           <td align="center"><a href="<@ofbizUrl>processes?disable=${mgr.name()?replace("#", "%23")}</@ofbizUrl>" class="buttontext">Disable</a></td>
         <#else>
@@ -62,5 +62,5 @@ under the License.
   <td>&nbsp;</td>
     <a href="<@ofbizUrl>processes?deleteFinished</@ofbizUrl>" class="buttontext">Delete All Finished</a>
 <#else>
-  <div class="tabletext">No loaded processes.</div>
+  <div>No loaded processes.</div>
 </#if>

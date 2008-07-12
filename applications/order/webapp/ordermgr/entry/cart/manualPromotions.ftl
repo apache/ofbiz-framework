@@ -23,7 +23,7 @@ under the License.
         <div class="boxhead">&nbsp;${uiLabelMap.OrderManualPromotions}</div>
     </div>
     <div class="screenlet-body">
-      <div class="tabletext">
+      <div>
         <form method="post" action="<@ofbizUrl>doManualPromotions</@ofbizUrl>" name="domanualpromotions" style="margin: 0;">
           <!-- to enter more than two manual promotions, just add a new select box with name="productPromoId_n" -->
           <select name="productPromoId_1">

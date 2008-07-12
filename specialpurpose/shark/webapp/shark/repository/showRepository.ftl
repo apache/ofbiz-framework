@@ -20,7 +20,7 @@ under the License.
 <h2>XPDL Repository</h2>
 <#if packages?has_content>
   <div>&nbsp;</div>
-  <div class="tabletext">XPDL packages loaded into the repository.</div>
+  <div>XPDL packages loaded into the repository.</div>
   <table cellpadding="2" cellspacing="0" border="1">
     <tr>
       <td><div>ID</div></td>
@@ -40,9 +40,9 @@ under the License.
         </#if>
 
         <tr>
-          <td align="left"><div class="tabletext">${packageId?default("??")}</div>
-          <td align="left"><div class="tabletext">${version?default("??")}</div></td>
-          <td align="center"><div class="tabletext"><#if open>Y<#else>N</#if></div>
+          <td align="left"><div>${packageId?default("??")}</div>
+          <td align="left"><div>${version?default("??")}</div></td>
+          <td align="center"><div><#if open>Y<#else>N</#if></div>
           <td align="center"><a href="<@ofbizUrl>repository?delete=${package}</@ofbizUrl>" class="buttontext">Remove</a>
           <td align="center"><a href="<@ofbizUrl>repository?<#if open>close=${packageId}&version=${version}<#else>open=${package}</#if></@ofbizUrl>" class="buttontext"><#if open>Close<#else>Open</#if></a>
         </tr>
@@ -50,7 +50,7 @@ under the License.
     </#list>
   </table>
 <#else>
-  <div class="tabletext">Repository is empty.</div>
+  <div>Repository is empty.</div>
 </#if>
 
 <br/>

@@ -51,9 +51,9 @@ under the License.
         <alt-target use-when="perfReview==null" target="createPerfReview"/>
         <auto-fields-service service-name="updatePerfReview" map-name="perfReview"/>
         <field name="perfReviewId" use-when="perfReview==null" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><lookup target-form-name="LookupPerfReview"/></field>
-        <field name="perfReviewId" use-when="perfReview!=null" widget-style="tabletext" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field name="perfReviewId" use-when="perfReview!=null" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field name="employeePartyId" use-when="perfReview==null" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="employeePartyId" use-when="perfReview!=null" widget-style="tabletext" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field name="employeePartyId" use-when="perfReview!=null" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field name="employeeRoleTypeId"><hidden value="EMPLOYEE"/></field>
         <field name="managerPartyId"><lookup target-form-name="LookupPartyName"/></field>
         <field name="managerRoleTypeId">

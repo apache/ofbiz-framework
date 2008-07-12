@@ -33,20 +33,20 @@ under the License.
                 </td>
                </tr>
                <tr>
-                <td><div class="tabletext"><b>${uiLabelMap.OrderOrderTermType}</b></div></td>
-                <td><div class="tabletext"><b>${uiLabelMap.OrderOrderTermValue}</b></div></td>
-                <td><div class="tabletext"><b>${uiLabelMap.OrderOrderTermDays}</b></div></td>
-                <td><div class="tabletext"><b>${uiLabelMap.CommonDescription}</b></div></td>
+                <td><div><b>${uiLabelMap.OrderOrderTermType}</b></div></td>
+                <td><div><b>${uiLabelMap.OrderOrderTermValue}</b></div></td>
+                <td><div><b>${uiLabelMap.OrderOrderTermDays}</b></div></td>
+                <td><div><b>${uiLabelMap.CommonDescription}</b></div></td>
                 <td align="right">&nbsp;</td>
                </tr>
                <tr><td colspan="5"><hr class='sepbar'></td></tr>
                 <#assign index=0>
                 <#list orderTerms as orderTerm>
                   <tr>
-                  <td><div class="tabletext">${orderTerm.getRelatedOne("TermType").get("description",locale)}</div></td>
-                  <td><div class="tabletext">${orderTerm.termValue?default("")}</div></td>
-                  <td><div class="tabletext">${orderTerm.termDays?default("")}</div></td>
-                  <td><div class="tabletext">${orderTerm.textValue?default("")}</div></td>
+                  <td><div>${orderTerm.getRelatedOne("TermType").get("description",locale)}</div></td>
+                  <td><div>${orderTerm.termValue?default("")}</div></td>
+                  <td><div>${orderTerm.termDays?default("")}</div></td>
+                  <td><div>${orderTerm.textValue?default("")}</div></td>
                   <td align="right">
                     <a href="<@ofbizUrl>setOrderTerm?termIndex=${index}&createNew=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonUpdate}</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;
@@ -75,7 +75,7 @@ under the License.
                 <table width="100%" border="0" cellpadding="1" cellspacing="0">
                   <tr>
                     <td width="26%" align="right" valign="top">
-                       <div class="tabletext">${uiLabelMap.OrderOrderTermType}</div>
+                       <div>${uiLabelMap.OrderOrderTermType}</div>
                     </td>
                     <td width="5">&nbsp;</td>
                     <td width="74%">
@@ -91,7 +91,7 @@ under the License.
                   </tr>
                   <tr>
                     <td width="26%" align="right" valign="top">
-                       <div class="tabletext">${uiLabelMap.OrderOrderTermValue}</div>
+                       <div>${uiLabelMap.OrderOrderTermValue}</div>
                     </td>
                     <td width="5">&nbsp;</td>
                     <td width="74%">
@@ -100,7 +100,7 @@ under the License.
                   </tr>
                   <tr>
                     <td width="26%" align="right" valign="top">
-                       <div class="tabletext">${uiLabelMap.OrderOrderTermDays}</div>
+                       <div>${uiLabelMap.OrderOrderTermDays}</div>
                     </td>
                     <td width="5">&nbsp;</td>
                     <td width="74%">
@@ -109,7 +109,7 @@ under the License.
                   </tr>
                   <tr>
                     <td width="26%" align="right" valign="top">
-                       <div class="tabletext">${uiLabelMap.CommonDescription}</div>
+                       <div>${uiLabelMap.CommonDescription}</div>
                     </td>
                     <td width="5">&nbsp;</td>
                     <td width="74%">

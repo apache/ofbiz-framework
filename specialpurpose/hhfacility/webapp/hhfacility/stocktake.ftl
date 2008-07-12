@@ -23,16 +23,16 @@ under the License.
 </#if>
 
 <#if idValue?has_content && !productList?has_content>
-    <span class="tabletext">No Product(s) Found</span>
+    <span>No Product(s) Found</span>
 </#if>
 
 <#if productList?has_content>
-    <span class="tabletext">Products Found:</span>
+    <span>Products Found:</span>
     <table>
         <#list productList as product>
             <tr>
                 <td>
-                    <div class="tabletext"><b>${product.productId}</b></div>
+                    <div><b>${product.productId}</b></div>
                 </td>
                 <td>&nbsp;&nbsp;</td>
                 <td>

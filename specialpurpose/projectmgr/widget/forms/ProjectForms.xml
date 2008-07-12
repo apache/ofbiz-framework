@@ -431,9 +431,9 @@
                 <order-by field-name="noteId"/>
             </entity-condition>
         </actions>
-        <field name="noteId" widget-style="tabletext"><hidden/></field>
+        <field name="noteId"><hidden/></field>
         <field name="workEffortId"><hidden/></field>
-        <field name="noteParty" title="${uiLabelMap.CommonBy}" widget-style="tabletext"><display description="${bsh:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, noteParty, true)} at ${bsh: org.ofbiz.base.util.UtilDateTime.timeStampToString(noteDateTime, &quot;dd-MM-yyyy HH:mm&quot;, TimeZone.getDefault(), context.get(&quot;locale&quot;))}"/></field>
+        <field name="noteParty" title="${uiLabelMap.CommonBy}"><display description="${bsh:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, noteParty, true)} at ${bsh: org.ofbiz.base.util.UtilDateTime.timeStampToString(noteDateTime, &quot;dd-MM-yyyy HH:mm&quot;, TimeZone.getDefault(), context.get(&quot;locale&quot;))}"/></field>
     </form>
     <form name="listResourcesTasks" type="list" list-name="tasks" paginate-target="listResourcesTask" target="updateResourcesTaskAssigment"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">

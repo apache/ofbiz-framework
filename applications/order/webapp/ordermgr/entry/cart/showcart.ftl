@@ -42,7 +42,7 @@ under the License.
                 <tr>
                   <td align="right"><div>${uiLabelMap.OrderDesiredDeliveryDate} :</div></td>
                   <td>
-                    <div class="tabletext">
+                    <div>
                       <input type="text" size="25" maxlength="30" name="itemDesiredDeliveryDate"<#if useAsDefaultDesiredDeliveryDate?exists> value="${defaultDesiredDeliveryDate}"</#if>/>
                       <a href="javascript:call_cal(document.quickaddform.itemDesiredDeliveryDate,'${defaultDesiredDeliveryDate} 00:00:00.0');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="${uiLabelMap.calendar_click_here_for_calendar}"/></a>
                       <input type="checkbox" name="useAsDefaultDesiredDeliveryDate" value="true"<#if useAsDefaultDesiredDeliveryDate?exists> checked="checked"</#if>/>
@@ -53,7 +53,7 @@ under the License.
                 <tr>
                   <td align="right"><div>${uiLabelMap.OrderShipAfterDate} :</div></td>
                   <td>
-                    <div class="tabletext">
+                    <div>
                       <input type="text" size="20" maxlength="30" name="shipAfterDate" value="${shoppingCart.getDefaultShipAfterDate()?default("")}"/>
                       <a href="javascript:call_cal(document.quickaddform.shipAfterDate,'${shoppingCart.getDefaultShipAfterDate()?default("")}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="${uiLabelMap.calendar_click_here_for_calendar}"/></a>
                     </div>
@@ -62,7 +62,7 @@ under the License.
                 <tr>
                   <td align="right"><div>${uiLabelMap.OrderShipBeforeDate} :</div></td>
                   <td>
-                    <div class="tabletext">
+                    <div>
                       <input type="text" size="20" maxlength="30" name="shipBeforeDate" value="${shoppingCart.getDefaultShipBeforeDate()?default("")}"/>
                       <a href="javascript:call_cal(document.quickaddform.shipBeforeDate,'${shoppingCart.getDefaultShipBeforeDate()?default("")}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="${uiLabelMap.calendar_click_here_for_calendar}"/></a>
                     </div>
@@ -72,7 +72,7 @@ under the License.
                 <tr>
                   <td align="right"><div>${uiLabelMap.OrderOrderItemType} :</div></td>
                   <td>
-                    <div class="tabletext">
+                    <div>
                       <select name="add_item_type">
                         <option value="">&nbsp;</option>
                         <#list purchaseOrderItemTypeList as orderItemType>
@@ -86,7 +86,7 @@ under the License.
                 <tr>
                   <td align="right"><div>${uiLabelMap.CommonComment} :</div></td>
                   <td>
-                    <div class="tabletext">
+                    <div>
                       <input type="text" size="25" name="itemComment" value="${defaultComment?if_exists}">
                       <input type="checkbox" name="useAsDefaultComment" value="true" <#if useAsDefaultComment?exists>checked</#if>>
                       ${uiLabelMap.OrderUseDefaultComment}

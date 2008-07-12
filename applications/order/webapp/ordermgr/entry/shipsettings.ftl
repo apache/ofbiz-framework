@@ -60,7 +60,7 @@ under the License.
                     </td>
                     <td nowrap>&nbsp;&nbsp;&nbsp;&nbsp;</td>
                     <td align="left" valign="top" width="100%" nowrap>
-                      <div class="tabletext">
+                      <div>
                         <#if shippingAddress.toName?has_content><b>${uiLabelMap.CommonTo}:</b>&nbsp;${shippingAddress.toName}<br/></#if>
                         <#if shippingAddress.attnName?has_content><b>${uiLabelMap.CommonAttn}:</b>&nbsp;${shippingAddress.attnName}<br/></#if>
                         <#if shippingAddress.address1?has_content>${shippingAddress.address1}<br/></#if>
@@ -72,7 +72,7 @@ under the License.
                       </div>
                     </td>
                     <td>
-                      <div class="tabletext"><a href="/facility/control/EditContactMech?facilityId=${facility.facilityId}&amp;contactMechId=${shippingAddress.contactMechId}" target="_blank" class="buttontext">${uiLabelMap.CommonUpdate}</a></div>
+                      <div><a href="/facility/control/EditContactMech?facilityId=${facility.facilityId}&amp;contactMechId=${shippingAddress.contactMechId}" target="_blank" class="buttontext">${uiLabelMap.CommonUpdate}</a></div>
                     </td>
                   </tr>
                   <#if shippingContactMech_has_next>
@@ -84,7 +84,7 @@ under the License.
                 <#else>
                   <tr>
                     <td colspan="4">
-                      <div class="tabletext">
+                      <div>
                         ${uiLabelMap.CommonNoContactInformationOnFile}:
                         <a href="/facility/control/EditContactMech?facilityId=${facility.facilityId}&amp;preContactMechTypeId=POSTAL_ADDRESS" target="_blank" class="buttontext">${uiLabelMap.CommonNew}</a>
                       </div>
@@ -126,7 +126,7 @@ under the License.
               </tr>
               <tr>
                 <td colspan="3">
-                    <div class="tabletext">
+                    <div>
                       ${uiLabelMap.PartySupplier}:
                       <select name="${shipGroupIndex?default("0")}_supplierPartyId">
                         <option value=""></option>
@@ -160,7 +160,7 @@ under the License.
                       <input type="radio" name="${shipGroupIndex?default("0")}_shipping_contact_mech_id" value="${shippingAddress.contactMechId}" ${checkedValue} />
                     </td>
                     <td align="left" valign="top" width="99%" nowrap>
-                      <div class="tabletext">
+                      <div>
                         <#if shippingAddress.toName?has_content><b>${uiLabelMap.CommonTo}:</b>&nbsp;${shippingAddress.toName}<br/></#if>
                         <#if shippingAddress.attnName?has_content><b>${uiLabelMap.CommonAttn}:</b>&nbsp;${shippingAddress.attnName}<br/></#if>
                         <#if shippingAddress.address1?has_content>${shippingAddress.address1}<br/></#if>
@@ -172,7 +172,7 @@ under the License.
                       </div>
                     </td>
                     <td>
-                      <div class="tabletext"><a href="/partymgr/control/editcontactmech?partyId=${orderParty.partyId}&amp;contactMechId=${shippingContactMech.contactMechId}" target="_blank" class="buttontext">${uiLabelMap.CommonUpdate}</a></div>
+                      <div><a href="/partymgr/control/editcontactmech?partyId=${orderParty.partyId}&amp;contactMechId=${shippingContactMech.contactMechId}" target="_blank" class="buttontext">${uiLabelMap.CommonUpdate}</a></div>
                     </td>                      
                   </tr>
                   <#if shippingContactMech_has_next>
@@ -192,7 +192,7 @@ under the License.
                       <input type="radio" name="${shipGroupIndex?default("0")}_shipping_contact_mech_id" value="${shippingAddress.contactMechId}"/>
                     </td>
                     <td align="left" valign="top" width="99%" nowrap>
-                      <div class="tabletext">
+                      <div>
                         <#if shippingAddress.toName?has_content><b>${uiLabelMap.CommonTo}:</b>&nbsp;${shippingAddress.toName}<br/></#if>
                         <#if shippingAddress.attnName?has_content><b>${uiLabelMap.CommonAttn}:</b>&nbsp;${shippingAddress.attnName}<br/></#if>
                         <#if shippingAddress.address1?has_content>${shippingAddress.address1}<br/></#if>

@@ -47,42 +47,42 @@ under the License.
                 </#if>
                 <table width="100%" border="0" cellpadding="1" cellspacing="0">
                   <tr>
-                    <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.CommonToName}</div></td>
+                    <td width="26%" align="right" valign="top"><div>${uiLabelMap.CommonToName}</div></td>
                     <td width="5">&nbsp;</td>
                     <td width="74%">
                       <input type="text" size="30" maxlength="60" name="toName" value="${toName}"/>
                     </td>
                   </tr>
                   <tr>
-                    <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.CommonAttentionName}</div></td>
+                    <td width="26%" align="right" valign="top"><div>${uiLabelMap.CommonAttentionName}</div></td>
                     <td width="5">&nbsp;</td>
                     <td width="74%">
                       <input type="text" size="30" maxlength="60" name="attnName" value="${parameters.attnName?if_exists}"/>
                     </td>
                   </tr>
                   <tr>
-                    <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.CommonAddressLine} 1</div></td>
+                    <td width="26%" align="right" valign="top"><div>${uiLabelMap.CommonAddressLine} 1</div></td>
                     <td width="5">&nbsp;</td>
                     <td width="74%">
                       <input type="text" size="30" maxlength="30" name="address1" value="${parameters.address1?if_exists}"/>
                     *</td>
                   </tr>
                   <tr>
-                    <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.CommonAddressLine} 2</div></td>
+                    <td width="26%" align="right" valign="top"><div>${uiLabelMap.CommonAddressLine} 2</div></td>
                     <td width="5">&nbsp;</td>
                     <td width="74%">
                       <input type="text" size="30" maxlength="30" name="address2" value="${parameters.address2?if_exists}"/>
                     </td>
                   </tr>
                   <tr>
-                    <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.CommonCity}</div></td>
+                    <td width="26%" align="right" valign="top"><div>${uiLabelMap.CommonCity}</div></td>
                     <td width="5">&nbsp;</td>
                     <td width="74%">
                       <input type="text" size="30" maxlength="30" name="city" value="${parameters.city?if_exists}"/>
                     *</td>
                   </tr>
                   <tr>
-                    <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.CommonStateProvince}</div></td>
+                    <td width="26%" align="right" valign="top"><div>${uiLabelMap.CommonStateProvince}</div></td>
                     <td width="5">&nbsp;</td>
                     <td width="74%">
                       <select name="stateProvinceGeoId">
@@ -92,14 +92,14 @@ under the License.
                     </td>
                   </tr>
                   <tr>
-                    <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.CommonZipPostalCode}</div></td>
+                    <td width="26%" align="right" valign="top"><div>${uiLabelMap.CommonZipPostalCode}</div></td>
                     <td width="5">&nbsp;</td>
                     <td width="74%">
                       <input type="text" size="12" maxlength="10" name="postalCode" value="${parameters.postalCode?if_exists}"/>
                     *</td>
                   </tr>
                   <tr>
-                    <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.CommonCountry}</div></td>
+                    <td width="26%" align="right" valign="top"><div>${uiLabelMap.CommonCountry}</div></td>
                     <td width="5">&nbsp;</td>
                     <td width="74%">
                       <select name="countryGeoId">                        
@@ -108,7 +108,7 @@ under the License.
                     *</td>
                   </tr>
                   <tr>
-                    <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.CommonAllowSolicitation}</div></td>
+                    <td width="26%" align="right" valign="top"><div>${uiLabelMap.CommonAllowSolicitation}</div></td>
                     <td width="5">&nbsp;</td>
                     <td width="74%">
                       <select name="allowSolicitation">

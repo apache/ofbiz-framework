@@ -25,7 +25,7 @@ under the License.
 </tr>
 <tr height=24 class="boxbottom">
 <td width=100%>
-<span class="tabletext">
+<span>
 Hand Held Facility
 </span>
 </td>

@@ -20,7 +20,7 @@ under the License.
 <h2>Process Steps</h2>
 <#if steps?has_content>
   <div>&nbsp;</div>
-  <div class="tabletext"><b>Process :</b> ${process.name()} - ${process.description()?default("N/A")} [${process.key()}]</div>
+  <div><b>Process :</b> ${process.name()} - ${process.description()?default("N/A")} [${process.key()}]</div>
 
   <table cellpadding="2" cellspacing="0" border="1">
     <tr>
@@ -36,16 +36,16 @@ under the License.
     <#list steps as step>
       <#assign time = step.last_state_time().getTime()>
       <tr>
-        <td align="left"><div class="tabletext">${step.key()}</div></td>
-        <td align="left"><div class="tabletext">${step.name()}</div></td>
-        <td align="left"><div class="tabletext">${step.description()}</div></td>
-        <td align="left"><div class="tabletext">${step.state()}</div></td>
-        <td align="left"><div class="tabletext">${Static["org.ofbiz.base.util.UtilDateTime"].getTimestamp(time)}</div></td>
-        <td align="center"><div class="tabletext">${step.priority()}</div></td>
-        <td align="center"><div class="tabletext">${step.how_many_assignment()}</div></td>
+        <td align="left"><div>${step.key()}</div></td>
+        <td align="left"><div>${step.name()}</div></td>
+        <td align="left"><div>${step.description()}</div></td>
+        <td align="left"><div>${step.state()}</div></td>
+        <td align="left"><div>${Static["org.ofbiz.base.util.UtilDateTime"].getTimestamp(time)}</div></td>
+        <td align="center"><div>${step.priority()}</div></td>
+        <td align="center"><div>${step.how_many_assignment()}</div></td>
       </tr>
     </#list>
   </table>
 <#else>
-  <div class="tabletext">No running activities.</div>
+  <div>No running activities.</div>
 </#if>

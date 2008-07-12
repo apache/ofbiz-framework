@@ -39,15 +39,15 @@ under the License.
               <#list workEffortNoteandDetails as note>
                 <tr>
                   <td align="left" valign="top" width="35%">
-                    <div class="tabletext">&nbsp;<b>${uiLabelMap.CommonBy}: </b>${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, note.noteParty, true)}</div>
-                    <div class="tabletext">&nbsp;<b>${uiLabelMap.CommonAt}: </b>${Static["org.ofbiz.base.util.UtilDateTime"].timeStampToString(note.noteDateTime?if_exists,"dd-MM-yyyy HH:mm",Static["java.util.TimeZone"].getDefault(),context.get("locale"))}</div>
+                    <div>&nbsp;<b>${uiLabelMap.CommonBy}: </b>${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, note.noteParty, true)}</div>
+                    <div>&nbsp;<b>${uiLabelMap.CommonAt}: </b>${Static["org.ofbiz.base.util.UtilDateTime"].timeStampToString(note.noteDateTime?if_exists,"dd-MM-yyyy HH:mm",Static["java.util.TimeZone"].getDefault(),context.get("locale"))}</div>
                   </td>
                   <td align="left" valign="top" width="50%">
-                    <div class="tabletext">${note.noteInfo?if_exists}</div>
+                    <div>${note.noteInfo?if_exists}</div>
                   </td>
                   <td align="right" valign="top" width="15%">
                     <#if note.internalNote?if_exists == "N">
-	                    <div class="tabletext">${uiLabelMap.ProjectMgrPrintableNote}</div>
+	                    <div>${uiLabelMap.ProjectMgrPrintableNote}</div>
 	                      <#if project?has_content>
                             <a href="<@ofbizUrl>updateProjectNote?workEffortId=${project.workEffortId?if_exists}&noteId=${note.noteId}&internalNote=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderNotesPrivate}</a>
                           <#else>
@@ -55,7 +55,7 @@ under the License.
                           </#if>
                     </#if>    
                     <#if note.internalNote?if_exists == "Y">
-	                    <div class="tabletext">${uiLabelMap.ProjectMgrNotPrintableNote}</div>
+	                    <div>${uiLabelMap.ProjectMgrNotPrintableNote}</div>
                            <#if project?has_content>
                              <a href="<@ofbizUrl>updateProjectNote?workEffortId=${project.workEffortId?if_exists}&noteId=${note.noteId}&internalNote=N</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderNotesPublic}</a>
                           <#else>
@@ -71,9 +71,9 @@ under the License.
             </table>
             <#else>
               <#if project?has_content>            
-                <div class="tabletext">&nbsp;${uiLabelMap.ProjectMgrProjectNoNotes}.</div>
+                <div>&nbsp;${uiLabelMap.ProjectMgrProjectNoNotes}.</div>
               <#else>
-                <div class="tabletext">&nbsp;${uiLabelMap.ProjectMgrTaskNoNotes}.</div>
+                <div>&nbsp;${uiLabelMap.ProjectMgrTaskNoNotes}.</div>
               </#if>
                 
             </#if>
@@ -101,17 +101,17 @@ under the License.
                 </#if>  
               </tr>
               <tr>
-                <td width="26%" align="right"><div class="tabletext">${uiLabelMap.OrderNote}</div></td>
+                <td width="26%" align="right"><div>${uiLabelMap.OrderNote}</div></td>
                 <td width="54%">
                   <textarea name="noteInfo" rows="5" cols="70"></textarea>
                 </td>
               </tr>
               <tr>
-                <td/><td class="tabletext">${uiLabelMap.OrderInternalNote} :
+                <td/><td>${uiLabelMap.OrderInternalNote} :
                   <select name="internalNote" size="1"><option value=""></option><option value="Y" selected>${uiLabelMap.CommonYes}</option><option value="N">${uiLabelMap.CommonNo}</option></select></td>
               </tr>
               <tr>
-	            <td/><td class="tabletext"><i>${uiLabelMap.OrderInternalNoteMessage}</i></td>
+	            <td/><td><i>${uiLabelMap.OrderInternalNoteMessage}</i></td>
 	          </tr>  
             </table>
             <#if project?has_content>

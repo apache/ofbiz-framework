@@ -474,9 +474,9 @@
                 <order-by field-name="noteId"/>
             </entity-condition>
         </actions>
-        <field name="noteId" widget-style="tabletext"><hidden/></field>
+        <field name="noteId"><hidden/></field>
         <field name="workEffortId"><hidden/></field>
-        <field name="noteParty" title="${uiLabelMap.CommonBy}" widget-style="tabletext"><display description="${bsh:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, noteParty, true)} at ${bsh: org.ofbiz.base.util.UtilDateTime.timeStampToString(noteDateTime, &quot;dd-MM-yyyy HH:mm&quot;, TimeZone.getDefault(), context.get(&quot;locale&quot;))}"/></field>
+        <field name="noteParty" title="${uiLabelMap.CommonBy}"><display description="${bsh:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, noteParty, true)} at ${bsh: org.ofbiz.base.util.UtilDateTime.timeStampToString(noteDateTime, &quot;dd-MM-yyyy HH:mm&quot;, TimeZone.getDefault(), context.get(&quot;locale&quot;))}"/></field>
      
         <field name="Private/Public" widget-style="buttontext" title="${uiLabelMap.PorjectMgrPrivateOrPublic}" use-when="internalNote.equals(&quot;N&quot;)">
             <hyperlink target="updateTaskNote?workEffortId=${workEffortId}&amp;noteId=${noteId}&amp;internalNote=Y" description="${uiLabelMap.OrderNotesPrivate}"></hyperlink>

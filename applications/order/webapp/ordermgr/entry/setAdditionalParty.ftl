@@ -38,7 +38,7 @@ under the License.
             <input type="radio" name="additionalPartyType" value="Person" onclick="<#if additionalPartyType?exists>javascript:document.quickAddPartyForm.additionalPartyId.value='';</#if>document.quickAddPartyForm.submit()"<#if (additionalPartyType?exists && additionalPartyType == "Person")> checked="checked"</#if>>
 	  </td>
           <td>
-            <div class="tabletext">${uiLabelMap.CommonPerson}</div>
+            <div>${uiLabelMap.CommonPerson}</div>
           </td>
         </tr>
         <tr>
@@ -46,7 +46,7 @@ under the License.
             <input type="radio" name="additionalPartyType" value="Group" onclick="<#if additionalPartyType?exists>javascript:document.quickAddPartyForm.additionalPartyId.value='';</#if>document.quickAddPartyForm.submit()"<#if additionalPartyType?exists && additionalPartyType == "Group"> checked="checked"</#if>>
           </td>
           <td>
-            <div class="tabletext">${uiLabelMap.CommonGroup}</div>
+            <div>${uiLabelMap.CommonGroup}</div>
           </td>
         </tr>
         <tr>
@@ -54,7 +54,7 @@ under the License.
             <input type="radio" name="additionalPartyType" value="None" onclick="<#if additionalPartyType?exists>javascript:document.quickAddPartyForm.additionalPartyId.value='';</#if>document.quickAddPartyForm.submit()"<#if !additionalPartyType?exists> checked="checked"</#if>>
           </td>
           <td>
-            <div class="tabletext">${uiLabelMap.OrderPartyDontWish}</div>
+            <div>${uiLabelMap.OrderPartyDontWish}</div>
           </td>
         </tr>
       </table>
@@ -116,7 +116,7 @@ under the License.
           <td>
             <select name="additionalRoleTypeId" size="5" multiple>
               <#list roles as role>
-              <option value="${role.roleTypeId}" class="tabletext">${role.get("description",locale)}</option>
+              <option value="${role.roleTypeId}">${role.get("description",locale)}</option>
               </#list>
             </select>
           </td>

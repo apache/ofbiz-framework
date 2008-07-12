@@ -288,11 +288,11 @@ ${virtualJavaScript?if_exists}
     </td>
     <td align="right" valign="top">
       <h2>${productContentWrapper.get("PRODUCT_NAME")?if_exists}</h2>
-      <div class="tabletext">${productContentWrapper.get("DESCRIPTION")?if_exists}</div>
-      <div class="tabletext"><b>${product.productId?if_exists}</b></div>
+      <div>${productContentWrapper.get("DESCRIPTION")?if_exists}</div>
+      <div><b>${product.productId?if_exists}</b></div>
       <#-- example of showing a certain type of feature with the product -->
       <#if sizeProductFeatureAndAppls?has_content>
-        <div class="tabletext">
+        <div>
           <#if (sizeProductFeatureAndAppls?size == 1)>
             Size:
           <#else>
@@ -311,18 +311,18 @@ ${virtualJavaScript?if_exists}
               - if isSale show price with salePrice style and print "On Sale!"
       -->
       <#if price.competitivePrice?exists && price.price?exists && price.price?double < price.competitivePrice?double>
-        <div class="tabletext">${uiLabelMap.ProductCompareAtPrice}: <span class="basePrice"><@ofbizCurrency amount=price.competitivePrice isoCode=price.currencyUsed/></span></div>
+        <div>${uiLabelMap.ProductCompareAtPrice}: <span class="basePrice"><@ofbizCurrency amount=price.competitivePrice isoCode=price.currencyUsed/></span></div>
       </#if>
       <#if price.listPrice?exists && price.price?exists && price.price?double < price.listPrice?double>
-        <div class="tabletext">${uiLabelMap.ProductListPrice}: <span class="basePrice"><@ofbizCurrency amount=price.listPrice isoCode=price.currencyUsed/></span></div>
+        <div>${uiLabelMap.ProductListPrice}: <span class="basePrice"><@ofbizCurrency amount=price.listPrice isoCode=price.currencyUsed/></span></div>
       </#if>
       <#if price.listPrice?exists && price.defaultPrice?exists && price.price?exists && price.price?double < price.defaultPrice?double && price.defaultPrice?double < price.listPrice?double>
-        <div class="tabletext">${uiLabelMap.ProductRegularPrice}: <span class="basePrice"><@ofbizCurrency amount=price.defaultPrice isoCode=price.currencyUsed/></span></div>
+        <div>${uiLabelMap.ProductRegularPrice}: <span class="basePrice"><@ofbizCurrency amount=price.defaultPrice isoCode=price.currencyUsed/></span></div>
       </#if>
       <#if price.specialPromoPrice?exists>
-        <div class="tabletext">${uiLabelMap.ProductSpecialPromoPrice}: <span class="basePrice"><@ofbizCurrency amount=price.specialPromoPrice isoCode=price.currencyUsed/></span></div>
+        <div>${uiLabelMap.ProductSpecialPromoPrice}: <span class="basePrice"><@ofbizCurrency amount=price.specialPromoPrice isoCode=price.currencyUsed/></span></div>
       </#if>
-      <div class="tabletext">
+      <div>
         <b>
           <#if price.isSale?exists && price.isSale>
             <span class="salePrice">${uiLabelMap.OrderOnSale}!</span>
@@ -341,63 +341,63 @@ ${virtualJavaScript?if_exists}
       <#if price.listPrice?exists && price.price?exists && price.price?double < price.listPrice?double>
         <#assign priceSaved = price.listPrice?double - price.price?double>
         <#assign percentSaved = (priceSaved?double / price.listPrice?double) * 100>
-        <div class="tabletext">${uiLabelMap.OrderSave}: <span class="basePrice"><@ofbizCurrency amount=priceSaved isoCode=price.currencyUsed/> (${percentSaved?int}%)</span></div>
+        <div>${uiLabelMap.OrderSave}: <span class="basePrice"><@ofbizCurrency amount=priceSaved isoCode=price.currencyUsed/> (${percentSaved?int}%)</span></div>
       </#if>
       <#-- show price details ("showPriceDetails" field can be set in the screen definition) -->
       <#if (showPriceDetails?exists && showPriceDetails?default("N") == "Y")>
           <#if price.orderItemPriceInfos?exists>
               <#list price.orderItemPriceInfos as orderItemPriceInfo>
-                  <div class="tabletext">${orderItemPriceInfo.description?if_exists}</div>
+                  <div>${orderItemPriceInfo.description?if_exists}</div>
               </#list>
           </#if>
       </#if>
 
       <#-- Included quantities/pieces -->
       <#if product.piecesIncluded?exists && product.piecesIncluded?long != 0>
-        <div class="tabletext">
+        <div>
           ${uiLabelMap.OrderPieces}: ${product.piecesIncluded}
         </div>
       </#if>
       <#if (product.quantityIncluded?exists && product.quantityIncluded?double != 0) || product.quantityUomId?has_content>
         <#assign quantityUom = product.getRelatedOneCache("QuantityUom")?if_exists/>
-        <div class="tabletext">
+        <div>
           ${uiLabelMap.CommonQuantity}: ${product.quantityIncluded?if_exists} ${((quantityUom.abbreviation)?default(product.quantityUomId))?if_exists}
         </div>
       </#if>
 
       <#if (product.weight?exists && product.weight?double != 0) || product.weightUomId?has_content>
         <#assign weightUom = product.getRelatedOneCache("WeightUom")?if_exists/>
-        <div class="tabletext">
+        <div>
           ${uiLabelMap.CommonWeight}: ${product.weight?if_exists} ${((weightUom.abbreviation)?default(product.weightUomId))?if_exists}
         </div>
       </#if>
       <#if (product.productHeight?exists && product.productHeight?double != 0) || product.heightUomId?has_content>
         <#assign heightUom = product.getRelatedOneCache("HeightUom")?if_exists/>
-        <div class="tabletext">
+        <div>
           ${uiLabelMap.CommonHeight}: ${product.productHeight?if_exists} ${((heightUom.abbreviation)?default(product.heightUomId))?if_exists}
         </div>
       </#if>
       <#if (product.productWidth?exists && product.productWidth?double != 0) || product.widthUomId?has_content>
         <#assign widthUom = product.getRelatedOneCache("WidthUom")?if_exists/>
-        <div class="tabletext">
+        <div>
           ${uiLabelMap.CommonWidth}: ${product.productWidth?if_exists} ${((widthUom.abbreviation)?default(product.widthUomId))?if_exists}
         </div>
       </#if>
       <#if (product.productDepth?exists && product.productDepth?double != 0) || product.depthUomId?has_content>
         <#assign depthUom = product.getRelatedOneCache("DepthUom")?if_exists/>
-        <div class="tabletext">
+        <div>
           ${uiLabelMap.CommonDepth}: ${product.productDepth?if_exists} ${((depthUom.abbreviation)?default(product.depthUomId))?if_exists}
         </div>
       </#if>
 
       <#if daysToShip?exists>
-        <div class="tabletext"><b>${uiLabelMap.ProductUsuallyShipsIn} <font color="red">${daysToShip}</font> ${uiLabelMap.CommonDays}!<b></div>
+        <div><b>${uiLabelMap.ProductUsuallyShipsIn} <font color="red">${daysToShip}</font> ${uiLabelMap.CommonDays}!<b></div>
       </#if>
 
       <#-- show tell a friend details only in ecommerce application -->
       <#if (isEcommerceScreen?exists && isEcommerceScreen?default("N") == "Y")>
-        <div class="tabletext">&nbsp;</div>
-        <div class="tabletext">
+        <div>&nbsp;</div>
+        <div>
           <a href="javascript:popUpSmall('<@ofbizUrl>tellafriend?productId=${product.productId}</@ofbizUrl>','tellafriend');" class="buttontext">${uiLabelMap.CommonTellAFriend}</a>
         </div>
         <br/>
@@ -407,11 +407,11 @@ ${virtualJavaScript?if_exists}
       <p>&nbsp;</p>
         <#list disFeatureList as currentFeature>
             <#assign disFeatureType = currentFeature.getRelatedOneCache("ProductFeatureType")/>
-            <div class="tabletext">
+            <div>
                 <#if disFeatureType.description?exists>${disFeatureType.get("description", locale)}<#else>${currentFeature.productFeatureTypeId}</#if>:&nbsp;${currentFeature.description}
             </div>
         </#list>
-            <div class="tabletext">&nbsp;</div>
+            <div>&nbsp;</div>
       </#if>
 
       <form method="post" action="<@ofbizUrl>additem<#if requestAttributes._CURRENT_VIEW_?exists>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>" name="addform"  style="margin: 0;">
@@ -422,7 +422,7 @@ ${virtualJavaScript?if_exists}
             <#list featureLists as featureList>
                 <#list featureList as feature>
                     <#if feature_index == 0>
-                        <div class="tabletext">${feature.description}: <select id="FT${feature.productFeatureTypeId}" name="FT${feature.productFeatureTypeId}" onChange="javascript:checkRadioButton();">
+                        <div>${feature.description}: <select id="FT${feature.productFeatureTypeId}" name="FT${feature.productFeatureTypeId}" onChange="javascript:checkRadioButton();">
                         <option value="select" selected="selected"> select option </option> 
                     <#else>
                         <option value="${feature.productFeatureId}">${feature.description} <#if feature.price?exists>(+ <@ofbizCurrency amount=feature.price?string isoCode=feature.currencyUomId/>)</#if></option> 
@@ -449,7 +449,7 @@ ${virtualJavaScript?if_exists}
           <#if !product.virtualVariantMethodEnum?exists || product.virtualVariantMethodEnum == "VV_VARIANTTREE">
            <#if variantTree?exists && (variantTree.size() > 0)>
             <#list featureSet as currentType>
-              <div class="tabletext">
+              <div>
                 <select name="FT${currentType}" onchange="javascript:getList(this.name, (this.selectedIndex-1), 1);">
                   <option>${featureTypes.get(currentType)}</option>
                 </select>
@@ -457,14 +457,14 @@ ${virtualJavaScript?if_exists}
             </#list>
             <input type="hidden" name="product_id" value="${product.productId}"/>
             <input type="hidden" name="add_product_id" value="NULL"/>
-            <div class="tabletext">
+            <div>
               <b><span id="product_id_display"> </span></b>
               <b><div id="variant_price_display"> </div></b>
             </div>
           <#else>
             <input type="hidden" name="product_id" value="${product.productId}"/>
             <input type="hidden" name="add_product_id" value="NULL"/>
-            <div class="tabletext"><b>${uiLabelMap.ProductItemOutofStock}.</b></div>
+            <div><b>${uiLabelMap.ProductItemOutofStock}.</b></div>
             <#assign inStock = false>
           </#if>
          </#if> 
@@ -475,10 +475,10 @@ ${virtualJavaScript?if_exists}
           <#assign isStoreInventoryRequired = Static["org.ofbiz.product.store.ProductStoreWorker"].isStoreInventoryRequired(request, product)>
           <#if isStoreInventoryNotAvailable>
             <#if isStoreInventoryRequired>
-              <div class="tabletext"><b>${uiLabelMap.ProductItemOutofStock}.</b></div>
+              <div><b>${uiLabelMap.ProductItemOutofStock}.</b></div>
               <#assign inStock = false>
             <#else>
-              <div class="tabletext"><b>${product.inventoryMessage?if_exists}</b></div>
+              <div><b>${product.inventoryMessage?if_exists}</b></div>
             </#if>
           </#if>
         </#if>
@@ -486,10 +486,10 @@ ${virtualJavaScript?if_exists}
         <#-- check to see if introductionDate hasnt passed yet -->
         <#if product.introductionDate?exists && nowTimestamp.before(product.introductionDate)>
         <p>&nbsp;</p>
-          <div class="tabletext" style="color: red;">${uiLabelMap.ProductProductNotYetMadeAvailable}.</div>
+          <div style="color: red;">${uiLabelMap.ProductProductNotYetMadeAvailable}.</div>
         <#-- check to see if salesDiscontinuationDate has passed -->
         <#elseif product.salesDiscontinuationDate?exists && nowTimestamp.after(product.salesDiscontinuationDate)>
-          <div class="tabletext" style="color: red;">${uiLabelMap.ProductProductNoLongerAvailable}.</div>
+          <div style="color: red;">${uiLabelMap.ProductProductNoLongerAvailable}.</div>
         <#-- check to see if the product requires inventory check and has inventory -->
         <#elseif product.virtualVariantMethodEnum?if_exists != "VV_FEATURETREE">
           <#if inStock>
@@ -504,12 +504,12 @@ ${virtualJavaScript?if_exists}
             </div>
             <#if product.productTypeId?if_exists == "ASSET_USAGE">
                 <table width="100%"><tr>
-                <td class="tabletext" nowrap align="right">Start Date<br/>(yyyy-mm-dd)</td><td><input type="text" size="10" name="reservStart"/><a href="javascript:call_cal(document.addform.reservStart, '${Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().toString().substring(0,10)}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/></a></td>
-                <td class="tabletext" nowrap align="right">End Date<br/>(yyyy-mm-dd)</td><td><input type="text" size="10" name="reservEnd"/><a href="javascript:call_cal(document.addform.reservEnd, '${Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().toString().substring(0,10)}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/></a></td></tr>
+                <td nowrap align="right">Start Date<br/>(yyyy-mm-dd)</td><td><input type="text" size="10" name="reservStart"/><a href="javascript:call_cal(document.addform.reservStart, '${Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().toString().substring(0,10)}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/></a></td>
+                <td nowrap align="right">End Date<br/>(yyyy-mm-dd)</td><td><input type="text" size="10" name="reservEnd"/><a href="javascript:call_cal(document.addform.reservEnd, '${Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().toString().substring(0,10)}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/></a></td></tr>
                 <tr>
-                <#--td class="tabletext" nowrap align="right">Number<br/>of days</td><td><input type="textt" size="4" name="reservLength"/></td></tr><tr><td>&nbsp;</td><td class="tabletext" align="right" nowrap>&nbsp;</td-->
-                <td class="tabletext" nowrap align="right">Number of persons</td><td><input type="text" size="4" name="reservPersons" value="2"/></td>
-                <td class="tabletext" nowrap align="right">Number of rooms</td><td><input type="text" size="5" name="quantity" value="1"/></td></tr></table>
+                <#--td nowrap align="right">Number<br/>of days</td><td><input type="textt" size="4" name="reservLength"/></td></tr><tr><td>&nbsp;</td><td align="right" nowrap>&nbsp;</td-->
+                <td nowrap align="right">Number of persons</td><td><input type="text" size="4" name="reservPersons" value="2"/></td>
+                <td nowrap align="right">Number of rooms</td><td><input type="text" size="5" name="quantity" value="1"/></td></tr></table>
             <#else/>
                 <input type="text" size="5" name="quantity" value="1"<#if product.isVirtual?if_exists?upper_case == "Y"> disabled="disabled"</#if>/>
             </#if>
@@ -521,7 +521,7 @@ ${virtualJavaScript?if_exists}
           </#if>
         </#if>
       </form>
-    <div class="tabletext">
+    <div>
       <#if sessionAttributes.userLogin?has_content && sessionAttributes.userLogin.userLoginId != "anonymous">
         <hr/>
         <form name="addToShoppingList" method="post" action="<@ofbizUrl>addItemToShoppingList<#if requestAttributes._CURRENT_VIEW_?exists>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>">
@@ -540,7 +540,7 @@ ${virtualJavaScript?if_exists}
           </select>
           &nbsp;&nbsp;
           <#if product.productTypeId?if_exists == "ASSET_USAGE">
-              <table><tr><td>&nbsp;</td><td class="tabletext" align="right">${uiLabelMap.CommonStartDate} (yyyy-mm-dd)</td><td><input type="text" size="10" name="reservStartStr" ></td><td class="tabletext">Number of&nbsp;days</td><td><input type="text" size="4" name="reservLength"></td><td>&nbsp;</td><td class="tabletext" align="right">Number of&nbsp;persons</td><td><input type="text" size="4" name="reservPersons" value="1"></td><td class="tabletext" align="right">Qty&nbsp;</td><td><input type="text" size="5" name="quantity" value="1"></td></tr></table>
+              <table><tr><td>&nbsp;</td><td align="right">${uiLabelMap.CommonStartDate} (yyyy-mm-dd)</td><td><input type="text" size="10" name="reservStartStr" ></td><td>Number of&nbsp;days</td><td><input type="text" size="4" name="reservLength"></td><td>&nbsp;</td><td align="right">Number of&nbsp;persons</td><td><input type="text" size="4" name="reservPersons" value="1"></td><td align="right">Qty&nbsp;</td><td><input type="text" size="5" name="quantity" value="1"></td></tr></table>
           <#else>
               <input type="text" size="5" name="quantity" value="1"/>
               <input type="hidden" name="reservStartStr" value= ""/>
@@ -585,7 +585,7 @@ ${virtualJavaScript?if_exists}
               <#assign indexer = indexer + 1>
             </#list>
             <#if (indexer > maxIndex)>
-              <div class="tabletext"><b>${uiLabelMap.ProductMoreOptions}</b></div>
+              <div><b>${uiLabelMap.ProductMoreOptions}</b></div>
             </#if>
           </tr>
         </table>
@@ -599,15 +599,15 @@ ${virtualJavaScript?if_exists}
     <div id="download-files">
       <div>${uiLabelMap.OrderDownloadFilesTitle}:</div>
       <#list downloadProductContentAndInfoList as downloadProductContentAndInfo>
-        <div class="tabletext">${downloadProductContentAndInfo.contentName}<#if downloadProductContentAndInfo.description?has_content> - ${downloadProductContentAndInfo.description}</#if></div>
+        <div>${downloadProductContentAndInfo.contentName}<#if downloadProductContentAndInfo.description?has_content> - ${downloadProductContentAndInfo.description}</#if></div>
       </#list>
     </div>
   </#if>
 
   <#-- Long description of product -->
   <div id="long-description">
-      <div class="tabletext">${productContentWrapper.get("LONG_DESCRIPTION")?if_exists}</div>
-      <div class="tabletext">${productContentWrapper.get("WARNINGS")?if_exists}</div>
+      <div>${productContentWrapper.get("LONG_DESCRIPTION")?if_exists}</div>
+      <div>${productContentWrapper.get("WARNINGS")?if_exists}</div>
   </div>
 
   <#-- Any attributes/etc may go here -->
@@ -617,7 +617,7 @@ ${virtualJavaScript?if_exists}
     <div id="reviews">
       <div>${uiLabelMap.OrderCustomerReviews}:</div>
       <#if averageRating?exists && (averageRating?double > 0) && numRatings?exists && (numRatings?double > 1)>
-          <div class="tabletext">${uiLabelMap.OrderAverageRating}: ${averageRating} <#if numRatings?exists>(${uiLabelMap.CommonFrom} ${numRatings} ${uiLabelMap.OrderRatings})</#if></div>
+          <div>${uiLabelMap.OrderAverageRating}: ${averageRating} <#if numRatings?exists>(${uiLabelMap.CommonFrom} ${numRatings} ${uiLabelMap.OrderRatings})</#if></div>
       </#if>
       <tr><td colspan="2"><hr/></td></tr>
       <#if productReviews?has_content>
@@ -627,23 +627,23 @@ ${virtualJavaScript?if_exists}
               <table border="0" cellpadding="0" cellspacing="0">
                 <tr>
                   <td>
-                    <div class="tabletext"><b>${uiLabelMap.CommonBy}: </b><#if productReview.postedAnonymous?default("N") == "Y"> ${uiLabelMap.OrderAnonymous}<#else> ${postedPerson.firstName} ${postedPerson.lastName}&nbsp;</#if></div>
+                    <div><b>${uiLabelMap.CommonBy}: </b><#if productReview.postedAnonymous?default("N") == "Y"> ${uiLabelMap.OrderAnonymous}<#else> ${postedPerson.firstName} ${postedPerson.lastName}&nbsp;</#if></div>
                   </td>
                   <td>
-                    <div class="tabletext"><b>${uiLabelMap.CommonAt}: </b>${productReview.postedDateTime?if_exists}&nbsp;</div>
+                    <div><b>${uiLabelMap.CommonAt}: </b>${productReview.postedDateTime?if_exists}&nbsp;</div>
                   </td>
                   <td>
-                    <div class="tabletext"><b>${uiLabelMap.OrderRanking}: </b>${productReview.productRating?if_exists?string}</div>
+                    <div><b>${uiLabelMap.OrderRanking}: </b>${productReview.productRating?if_exists?string}</div>
                   </td>
                 </tr>
                 <tr>
                   <td colspan="3">
-                    <div class="tabletext">&nbsp;</div>
+                    <div>&nbsp;</div>
                   </td>
                 </tr>
                 <tr>
                   <td colspan="3">
-                    <div class="tabletext">${productReview.productReview?if_exists}</div>
+                    <div>${productReview.productReview?if_exists}</div>
                   </td>
                 </tr>
                 <tr><td colspan="3"><hr/></td></tr>
@@ -653,7 +653,7 @@ ${virtualJavaScript?if_exists}
             <a href="<@ofbizUrl>reviewProduct?category_id=${categoryId?if_exists}&product_id=${product.productId}</@ofbizUrl>" class="linktext">${uiLabelMap.ProductReviewThisProduct}!</a>
         </div>
       <#else>
-        <div class="tabletext">${uiLabelMap.ProductProductNotReviewedYet}.</div>
+        <div>${uiLabelMap.ProductProductNotReviewedYet}.</div>
         <div>
             <a href="<@ofbizUrl>reviewProduct?category_id=${categoryId?if_exists}&product_id=${product.productId}</@ofbizUrl>" class="linktext">${uiLabelMap.ProductBeTheFirstToReviewThisProduct}</a>
         </div>
@@ -671,7 +671,7 @@ ${virtualJavaScript?if_exists}
 
     <div class="productsummary-container">
     <#list assocProducts as productAssoc>
-        <div class="tabletext">
+        <div>
           <a href="<@ofbizUrl>${targetRequest}/<#if categoryId?exists>~category_id=${categoryId}/</#if>~product_id=${productAssoc.productIdTo?if_exists}</@ofbizUrl>" class="buttontext">
             ${productAssoc.productIdTo?if_exists}
           </a>

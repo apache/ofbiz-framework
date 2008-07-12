@@ -27,7 +27,7 @@ under the License.
             <table border="0" width="100%" cellpadding="2">
                 <tr>
                 <td align="right">
-                    <span class="tabletext">
+                    <span>
                     <b>
                     <#if (viewIndex > 0)>
                     <a href="<@ofbizUrl>showPromotionDetails?productPromoId=${productPromoId?if_exists}&amp;VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex-1}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPrevious}</a> |
@@ -52,8 +52,8 @@ under the License.
         <#if (listSize > 0)>
           <#list productIds[lowIndex..highIndex-1] as productId>
               <tr>
-                <td><div class="tabletext">[<#if productIdsCond.contains(productId)>x<#else>&nbsp;</#if>]</div></td>
-                <td><div class="tabletext">[<#if productIdsAction.contains(productId)>x<#else>&nbsp;</#if>]</div></td>
+                <td><div>[<#if productIdsCond.contains(productId)>x<#else>&nbsp;</#if>]</div></td>
+                <td><div>[<#if productIdsAction.contains(productId)>x<#else>&nbsp;</#if>]</div></td>
                 <td>
                   ${setRequestAttribute("optProductId", productId)}
                   ${setRequestAttribute("listIndex", productId_index)}

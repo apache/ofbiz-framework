@@ -37,7 +37,7 @@ under the License.
   </#if>
   <tr>
     <td><a href="<@ofbizUrl>returnMain?returnId=${returnHeader.returnId}</@ofbizUrl>" class="buttontext">${returnHeader.returnId}</a></td>
-    <td><div class="tabletext">${returnHeader.entryDate.toString()}</div></td>
+    <td><div>${returnHeader.entryDate.toString()}</div></td>
     <td>
       <#if returnHeader.fromPartyId?exists>
         <a href="${customerDetailLink}${returnHeader.fromPartyId}${externalKeyParam}" class='buttontext'>${returnHeader.fromPartyId}</a>

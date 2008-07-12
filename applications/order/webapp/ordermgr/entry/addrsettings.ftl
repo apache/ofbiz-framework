@@ -52,7 +52,7 @@ under the License.
                 </td>
                 <td nowrap>&nbsp;&nbsp;&nbsp;&nbsp;</td>
                 <td width="100%">
-                  <div class="tabletext">
+                  <div>
                     <#if shippingAddress.toName?has_content><b>${uiLabelMap.CommonToName}:</b>&nbsp;${shippingAddress.toName}<br/></#if>
                     <#if shippingAddress.attnName?has_content><b>${uiLabelMap.CommonAttn}:</b>&nbsp;${shippingAddress.attnName}<br/></#if>
                     <#if shippingAddress.address1?has_content>${shippingAddress.address1}<br/></#if>

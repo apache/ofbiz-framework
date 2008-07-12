@@ -19,7 +19,7 @@ under the License.
 
 <#assign facility = parameters.facility>
 
-<span class="tabletext">
+<span>
     <ol>
         <li><a accesskey="1" href="<@ofbizUrl>/poreceipt?facilityId=${facility.facilityId?if_exists}</@ofbizUrl>">PO Receipt</a></li>
         <li><a accesskey="2" href="<@ofbizUrl>/productreceipt?facilityId=${facility.facilityId?if_exists}</@ofbizUrl>">Product Receipt</a></li>

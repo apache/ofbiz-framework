@@ -24,7 +24,7 @@ under the License.
     <div class="screenlet-body">
         <#-- show promotions text -->
         <#list productPromosAllShowable as productPromo>
-            <div class="tabletext"><a href="<@ofbizUrl>showPromotionDetails?productPromoId=${productPromo.productPromoId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDetails}</a> ${productPromo.promoText}</div>
+            <div><a href="<@ofbizUrl>showPromotionDetails?productPromoId=${productPromo.productPromoId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDetails}</a> ${productPromo.promoText}</div>
             <#if productPromo_has_next>
                 <hr/>
             </#if>

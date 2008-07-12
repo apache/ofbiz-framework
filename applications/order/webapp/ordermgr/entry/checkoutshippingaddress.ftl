@@ -67,7 +67,7 @@ function toggleBillingAccount(box) {
                   <a href="<@ofbizUrl>splitship</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderSplitShipment}</a>
                   <a href="javascript:submitForm(document.checkoutInfoForm, 'NA', '');" class="buttontext">${uiLabelMap.PartyAddNewAddress}</a>
                   <#if (cart.getShipGroupSize() > 1)>
-                    <div class="tabletext" style="color: red;">${uiLabelMap.OrderNOTEMultipleShipmentsExist}</div>
+                    <div style="color: red;">${uiLabelMap.OrderNOTEMultipleShipmentsExist}</div>
                   </#if>
                 </td>
               </tr>
@@ -81,7 +81,7 @@ function toggleBillingAccount(box) {
                        <input type="radio" name="shipping_contact_mech_id" value="${shippingAddress.contactMechId}"<#if checkThisAddress> checked</#if>>
                      </td>
                      <td align="left" valign="top" width="99%" nowrap>
-                       <div class="tabletext">
+                       <div>
                          <#if shippingAddress.toName?has_content><b>${uiLabelMap.CommonTo}:</b>&nbsp;${shippingAddress.toName}<br/></#if>
                          <#if shippingAddress.attnName?has_content><b>${uiLabelMap.PartyAddrAttnName}:</b>&nbsp;${shippingAddress.attnName}<br/></#if>
                          <#if shippingAddress.address1?has_content>${shippingAddress.address1}<br/></#if>

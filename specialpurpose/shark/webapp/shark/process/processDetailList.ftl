@@ -21,7 +21,7 @@ under the License.
 <#if processes?has_content>
   <#assign proc1 = processes[0]>
   <div>&nbsp;</div>
-  <div class="tabletext"><b>Process :</b> ${proc1.name()} - "${proc1.description()?default("N/A")}"</div>
+  <div><b>Process :</b> ${proc1.name()} - "${proc1.description()?default("N/A")}"</div>
 
   <table cellpadding="2" cellspacing="0" border="1">
     <tr>
@@ -37,10 +37,10 @@ under the License.
     </tr>
     <#list processes as proc>
       <tr>
-        <td align="left"><div class="tabletext">${proc.key()}</div></td>
-        <td align="left"><div class="tabletext">${proc.state()}</div></td>
-        <td align="center"><div class="tabletext">${proc.priority()}</div></td>
-        <td align="center"><div class="tabletext">${proc.how_many_step()}</div></td>
+        <td align="left"><div>${proc.key()}</div></td>
+        <td align="left"><div>${proc.state()}</div></td>
+        <td align="center"><div>${proc.priority()}</div></td>
+        <td align="center"><div>${proc.how_many_step()}</div></td>
         <#if proc.state() != "open.not_running.not_started">
           <td align="center"><a href="<@ofbizUrl>processHistory?process=${proc.key()}</@ofbizUrl>" class="buttontext">History</a></td>
         <#else>
@@ -68,5 +68,5 @@ under the License.
     </#list>
   </table>
 <#else>
-  <div class="tabletext">No running processes.</div>
+  <div>No running processes.</div>
 </#if>

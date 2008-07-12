@@ -38,10 +38,10 @@ under the License.
         <div class="productbuy">
           <#-- check to see if introductionDate hasn't passed yet -->
           <#if product.introductionDate?exists && nowTimestamp.before(product.introductionDate)>
-            <div class="tabletext" style="color: red;">${uiLabelMap.ProductNotYetAvailable}</div>
+            <div style="color: red;">${uiLabelMap.ProductNotYetAvailable}</div>
           <#-- check to see if salesDiscontinuationDate has passed -->
           <#elseif product.salesDiscontinuationDate?exists && nowTimestamp.after(product.salesDiscontinuationDate)>
-            <div class="tabletext" style="color: red;">${uiLabelMap.ProductNoLongerAvailable}</div>
+            <div style="color: red;">${uiLabelMap.ProductNoLongerAvailable}</div>
           <#-- check to see if it is a rental item; will enter parameters on the detail screen-->
           <#elseif product.productTypeId?if_exists == "ASSET_USAGE">
             <a href="<@ofbizUrl>product/<#if categoryId?exists>~category_id=${categoryId}/</#if>~product_id=${product.productId}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderMakeBooking}...</a>
@@ -83,19 +83,19 @@ under the License.
           </#if>
         </div>
         <div class="productinfo">
-          <div class="tabletext">
+          <div>
             <a href="<@ofbizUrl>${targetRequestName}/<#if categoryId?exists>~category_id=${categoryId}/</#if>~product_id=${product.productId}</@ofbizUrl>" class="linktext">${productContentWrapper.get("PRODUCT_NAME")?if_exists}</a>
           </div>
-          <div class="tabletext">${productContentWrapper.get("DESCRIPTION")?if_exists}<#if daysToShip?exists>&nbsp;-&nbsp;${uiLabelMap.ProductUsuallyShipsIn} <b>${daysToShip}</b> ${uiLabelMap.CommonDays}!</#if></div>
+          <div>${productContentWrapper.get("DESCRIPTION")?if_exists}<#if daysToShip?exists>&nbsp;-&nbsp;${uiLabelMap.ProductUsuallyShipsIn} <b>${daysToShip}</b> ${uiLabelMap.CommonDays}!</#if></div>
           
           <#-- Display category-specific product comments -->
           <#if prodCatMem?exists && prodCatMem.comments?has_content> 
-          <div class="tabletext">${prodCatMem.comments}</div>
+          <div>${prodCatMem.comments}</div>
           </#if>
           
           <#-- example of showing a certain type of feature with the product -->
           <#if sizeProductFeatureAndAppls?has_content>
-            <div class="tabletext">
+            <div>
               <#if (sizeProductFeatureAndAppls?size == 1)>
                 Size:
               <#else>
@@ -106,10 +106,10 @@ under the License.
               </#list>
             </div>
           </#if>
-          <div class="tabletext">
+          <div>
               <b>${product.productId?if_exists}</b>
                 <#if totalPrice?exists>
-                  <div class="tabletext">${uiLabelMap.ProductAggregatedPrice}: <span class='basePrice'><@ofbizCurrency amount=totalPrice isoCode=totalPrice.currencyUsed/></span></div>
+                  <div>${uiLabelMap.ProductAggregatedPrice}: <span class='basePrice'><@ofbizCurrency amount=totalPrice isoCode=totalPrice.currencyUsed/></span></div>
                 <#else>
                 <#if price.competitivePrice?exists && price.price?exists && price.price?double < price.competitivePrice?double>
                   ${uiLabelMap.ProductCompareAtPrice}: <span class='basePrice'><@ofbizCurrency amount=price.competitivePrice isoCode=price.currencyUsed/></span>
@@ -139,13 +139,13 @@ under the License.
                 <#if (showPriceDetails?exists && showPriceDetails?default("N") == "Y")>
                     <#if price.orderItemPriceInfos?exists>
                         <#list price.orderItemPriceInfos as orderItemPriceInfo>
-                            <div class="tabletext">${orderItemPriceInfo.description?if_exists}</div>
+                            <div>${orderItemPriceInfo.description?if_exists}</div>
                         </#list>
                     </#if>
                 </#if>
           </div>
           <#if averageRating?exists && (averageRating?double > 0) && numRatings?exists && (numRatings?long > 2)>
-              <div class="tabletext">${uiLabelMap.OrderAverageRating}: ${averageRating} (${uiLabelMap.CommonFrom} ${numRatings} ${uiLabelMap.OrderRatings})</div>
+              <div>${uiLabelMap.OrderAverageRating}: ${averageRating} (${uiLabelMap.CommonFrom} ${numRatings} ${uiLabelMap.OrderRatings})</div>
           </#if>
         </div>
     </div>

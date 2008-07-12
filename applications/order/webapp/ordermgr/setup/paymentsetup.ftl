@@ -60,15 +60,15 @@ under the License.
                     <#assign rowStyle = "alternate-row">
                   </#if>
                   <tr class="${rowStyle}">
-                    <td><div class="tabletext">${paymentSetting.siteName?if_exists}</div></td>
-                    <td><div class="tabletext">${paymentSetting.description?if_exists}</div></td>
-                    <td><div class="tabletext">${paymentSetting.paymentAuthService?if_exists}</div></td>
-                    <td><div class="tabletext">${paymentSetting.paymentReAuthService?if_exists}</div></td>
-                    <td><div class="tabletext">${paymentSetting.paymentCaptureService?if_exists}</div></td>
-                    <td><div class="tabletext">${paymentSetting.paymentRefundService?if_exists}</div></td>
-                    <td><div class="tabletext">${paymentSetting.paymentConfiguration?if_exists}</div></td>                
+                    <td><div>${paymentSetting.siteName?if_exists}</div></td>
+                    <td><div>${paymentSetting.description?if_exists}</div></td>
+                    <td><div>${paymentSetting.paymentAuthService?if_exists}</div></td>
+                    <td><div>${paymentSetting.paymentReAuthService?if_exists}</div></td>
+                    <td><div>${paymentSetting.paymentCaptureService?if_exists}</div></td>
+                    <td><div>${paymentSetting.paymentRefundService?if_exists}</div></td>
+                    <td><div>${paymentSetting.paymentConfiguration?if_exists}</div></td>                
                     <td nowrap>
-                      <div class="tabletext">&nbsp;
+                      <div>&nbsp;
                         <#if security.hasEntityPermission("PAYPROC", "_UPDATE", session)>
                         <a href="<@ofbizUrl>paysetup?webSiteId=${paymentSetting.webSiteId?if_exists}&paymentMethodTypeId=${paymentSetting.paymentMethodTypeId?if_exists}</@ofbizUrl>" class="buttontext">Edit</a>&nbsp;
                         </#if>
@@ -81,7 +81,7 @@ under the License.
                 </#list>
               <#else>
                 <tr>
-                  <td colspan="8"><div class="tabletext">No settings found.</div></td>
+                  <td colspan="8"><div>No settings found.</div></td>
                 </tr>
               </#if>              
             </table>   		  
@@ -127,12 +127,12 @@ under the License.
             </#if>
             <table border='0' cellpadding='2' cellspacing='0'>
               <tr>
-                <td width="26%" align="right"><div class="tabletext">WebSite</div></td>
+                <td width="26%" align="right"><div>WebSite</div></td>
                 <td>&nbsp;</td>
                 <td width="74%">
                   <#if webSitePayment?has_content>
                     <input type='hidden' name='webSiteId' value='${webSitePayment.webSiteId}'>
-                    <div class="tabletext">
+                    <div>
                       <b>${webSitePayment.siteName}</b> (This cannot be changed without re-creating the setting.)
                     </div>
                   <#else>                    
@@ -145,12 +145,12 @@ under the License.
                 </td>
               </tr>
               <tr>
-                <td width="26%" align="right"><div class="tabletext">Payment Method Type</div></td>
+                <td width="26%" align="right"><div>Payment Method Type</div></td>
                 <td>&nbsp;</td>
                 <td width="74%">
                   <#if webSitePayment?has_content>
                     <input type='hidden' name='paymentMethodTypeId' value='${webSitePayment.paymentMethodTypeId}'>
-                    <div class="tabletext">
+                    <div>
                       <b>${webSitePayment.description}</b> (This cannot be changed without re-creating the setting.)
                     </div>
                   <#else>
@@ -164,27 +164,27 @@ under the License.
               </tr>
               
               <tr>
-                <td width="26%" align="right"><div class="tabletext">Processor Auth Service</div></td>
+                <td width="26%" align="right"><div>Processor Auth Service</div></td>
                 <td>&nbsp;</td>
                 <td width="74%"><input type="text" name="paymentAuthService" value="${payInfo.paymentAuthService?if_exists}" size="30" maxlength="60"></td>
               </tr>  
               <tr>
-                <td width="26%" align="right"><div class="tabletext">Processor Re-Auth Service</div></td>
+                <td width="26%" align="right"><div>Processor Re-Auth Service</div></td>
                 <td>&nbsp;</td>
                 <td width="74%"><input type="text" name="paymentReAuthService" value="${payInfo.paymentReAuthService?if_exists}" size="30" maxlength="60"></td>
               </tr>                      
               <tr>
-                <td width="26%" align="right"><div class="tabletext">Processor Capture Service</div></td>
+                <td width="26%" align="right"><div>Processor Capture Service</div></td>
                 <td>&nbsp;</td>
                 <td width="74%"><input type="text" name="paymentCaptureService" value="${payInfo.paymentCaptureService?if_exists}" size="30" maxlength="60"></td>
               </tr> 
               <tr>
-                <td width="26%" align="right"><div class="tabletext">Processor Refund Service</div></td>
+                <td width="26%" align="right"><div>Processor Refund Service</div></td>
                 <td>&nbsp;</td>
                 <td width="74%"><input type="text" name="paymentRefundService" value="${payInfo.paymentRefundService?if_exists}" size="30" maxlength="60"></td>
               </tr>                                            
               <tr>
-                <td width="26%" align="right"><div class="tabletext">Processor Properties URL</div></td>
+                <td width="26%" align="right"><div>Processor Properties URL</div></td>
                 <td>&nbsp;</td>
                 <td width="74%"><input type="text" name="paymentConfiguration" value="${payInfo.paymentConfiguration?if_exists}" size="30" maxlength="60"></td>
               </tr>  

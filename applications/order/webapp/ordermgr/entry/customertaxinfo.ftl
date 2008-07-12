@@ -18,7 +18,7 @@ under the License.
 -->
 <#if partyTaxAuthInfoAndDetailList?exists>
     <#list partyTaxAuthInfoAndDetailList as partyTaxAuthInfoAndDetail>
-        <div class="tabletext">
+        <div>
             <a href="<@ofbizUrl>deleteCustomerTaxAuthInfo?partyId=${partyId}&amp;taxAuthPartyId=${partyTaxAuthInfoAndDetail.taxAuthPartyId}&amp;taxAuthGeoId=${partyTaxAuthInfoAndDetail.taxAuthGeoId}&amp;fromDate=${partyTaxAuthInfoAndDetail.fromDate}</@ofbizUrl>" class="buttontext">X</a>
             [${partyTaxAuthInfoAndDetail.geoCode}] ${partyTaxAuthInfoAndDetail.geoName} (${partyTaxAuthInfoAndDetail.groupName?if_exists}): ${uiLabelMap.PartyTaxId} [${partyTaxAuthInfoAndDetail.partyTaxId?default("N/A")}], ${uiLabelMap.PartyTaxIsExempt} [${partyTaxAuthInfoAndDetail.isExempt?default("N")}]
         </div>
@@ -31,10 +31,10 @@ under the License.
             <option value="${taxAuthorityAndDetail.taxAuthPartyId}::${taxAuthorityAndDetail.taxAuthGeoId}">[${taxAuthorityAndDetail.geoCode}] ${taxAuthorityAndDetail.geoName} (${taxAuthorityAndDetail.groupName?if_exists})</option>
           </#list>
         </select>
-        <span class="tabletext">${uiLabelMap.CommonId}: </span><input type="text" name="partyTaxId" size="12" maxlength="40"/>
+        <span>${uiLabelMap.CommonId}: </span><input type="text" name="partyTaxId" size="12" maxlength="40"/>
 
         <#if productStore.showTaxIsExempt?default("Y") == "Y">
-        <span class="tabletext">${uiLabelMap.PartyTaxIsExempt} </span><input type="checkbox" name="isExempt" value="Y"/>
+        <span>${uiLabelMap.PartyTaxIsExempt} </span><input type="checkbox" name="isExempt" value="Y"/>
         <#else/>
         <input type="hidden" name="isExempt" value="N"/>
         </#if>

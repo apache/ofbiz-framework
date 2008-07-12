@@ -53,7 +53,7 @@ under the License.
   </#if>
 </#macro>
 
-<div class="tabletext">
+<div>
   <a href="<@ofbizUrl>main</@ofbizUrl>" class="linktext">${uiLabelMap.CommonMain}</a>
   <#-- Show the category branch -->
   <#list topLevelList as category>

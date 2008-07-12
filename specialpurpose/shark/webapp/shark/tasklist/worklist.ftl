@@ -48,18 +48,18 @@ under the License.
           <input type="hidden" name="resource" value="${assignm.assignee().resource_key()}">
           <input type="hidden" name="mode" value="accept">
 
-          <td align="left"><div class="tabletext">${assignm.assignee().resource_key()}</div></td>
-          <td align="left"><div class="tabletext">${assignm.activity().name()}</div></td>
-          <td align="left"><div class="tabletext">${assignm.activity().key()}</div></td>
+          <td align="left"><div>${assignm.assignee().resource_key()}</div></td>
+          <td align="left"><div>${assignm.activity().name()}</div></td>
+          <td align="left"><div>${assignm.activity().key()}</div></td>
           <td align="center">
             <input type="checkbox" name="accept" onclick="javascript:document.assignmentChange${formNumber}.submit();" value="Y" <#if assignm.get_accepted_status()>checked</#if>>
           </td>
-          <td align="center"><div class="tabletext">${assignm.activity().priority()}</div></td>
-          <td align="left"><div class="tabletext">${assignm.activity().state()}</div></td>
+          <td align="center"><div>${assignm.activity().priority()}</div></td>
+          <td align="left"><div>${assignm.activity().state()}</div></td>
           <#if (time > 0)>
-            <td align="left"><div class="tabletext">${Static["org.ofbiz.base.util.UtilDateTime"].getTimestamp(time)}</div></td>
+            <td align="left"><div>${Static["org.ofbiz.base.util.UtilDateTime"].getTimestamp(time)}</div></td>
           <#else>
-            <td align="center"><div class="tabletext">N/A</div></td>
+            <td align="center"><div>N/A</div></td>
           </#if>
           <#if assignm.activity().state() == "open.running">
             <td align="center"><a href="<@ofbizUrl>worklist?mode=complete&resource=${assignm.assignee().resource_key()}&process=${assignm.activity().container().key()}&activity=${assignm.activity().key()}</@ofbizUrl>" class="buttontext">Complete</a></td>
@@ -71,5 +71,5 @@ under the License.
     </#list>
   </table>
 <#else>
-  <div class="tabletext">No tasks available.</div>
+  <div>No tasks available.</div>
 </#if>

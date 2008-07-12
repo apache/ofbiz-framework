@@ -18,7 +18,7 @@ under the License.
 -->
 
 <#assign facility = parameters.facility>
-<span class="tabletext">
+<span>
 <ol>
 <li><a accesskey="1" href="<@ofbizUrl>/receipt?facilityId=${facility.facilityId?if_exists}</@ofbizUrl>">Goods Receipt</a></li>
 <li><a accesskey="2" href="<@ofbizUrl>/movement?facilityId=${facility.facilityId?if_exists}</@ofbizUrl>">Inventory Movement</a></li>

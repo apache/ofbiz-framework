@@ -75,11 +75,11 @@
                 </entity-options>
             </drop-down>            
         </field>
-        <field name="partyIdFrom" use-when="employment!=null" title="${uiLabelMap.HumanResPartyIdFrom}" widget-style="tabletext" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field name="partyIdFrom" use-when="employment!=null" title="${uiLabelMap.HumanResPartyIdFrom}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field name="partyIdTo" use-when="employment==null" title="${uiLabelMap.HumanResPartyIdTo}" tooltip="${uiLabelMap.CommonRequired}"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="partyIdTo" use-when="employment!=null" title="${uiLabelMap.HumanResPartyIdTo}" widget-style="tabletext" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field name="partyIdTo" use-when="employment!=null" title="${uiLabelMap.HumanResPartyIdTo}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field name="fromDate" use-when="employment==null" title="${uiLabelMap.CommonDate}" tooltip="${uiLabelMap.CommonRequired}"><date-time/></field>
-        <field name="fromDate" use-when="employment!=null" title="${uiLabelMap.CommonDate}" widget-style="tabletext" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field name="fromDate" use-when="employment!=null" title="${uiLabelMap.CommonDate}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field name="terminationReasonId" use-when="employment!=null" title="${uiLabelMap.HumanResTerminationReasonId}"><lookup target-form-name="LookupTerminationReason"/></field>
         <field name="terminationTypeId" use-when="employment!=null" title="${uiLabelMap.HumanResTerminationTypeId}">
             <drop-down allow-empty="true" no-current-selected-key="------">
