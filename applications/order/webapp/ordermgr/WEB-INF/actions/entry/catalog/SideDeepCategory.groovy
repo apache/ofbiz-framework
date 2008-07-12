@@ -28,13 +28,13 @@ import org.ofbiz.product.category.*;
 import javolution.util.FastMap;
 
 CategoryWorker.getRelatedCategories(request, "topLevelList", CatalogWorker.getCatalogTopCategoryId(request, CatalogWorker.getCurrentCatalogId(request)), true);
-curCategoryId = UtilFormatOut.checkNull(parameters.get("category_id"), parameters.get("CATEGORY_ID"));
+curCategoryId = parameters.category_id ?: parameters.CATEGORY_ID ?: "";
 request.setAttribute("curCategoryId", curCategoryId);
 CategoryWorker.setTrail(request, curCategoryId);
 
 categoryList = request.getAttribute("topLevelList");
-if(categoryList != null) {
+if(categoryList) {
     catContentWrappers = FastMap.newInstance();
     CategoryWorker.getCategoryContentWrappers(catContentWrappers, categoryList, request);            
-    context.put("catContentWrappers", catContentWrappers);
+    context.catContentWrappers = catContentWrappers;
 }
