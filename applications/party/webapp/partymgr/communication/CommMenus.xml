@@ -18,22 +18,25 @@ specific language governing permissions and limitations
 under the License.
 -->
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
-    <menu name="CommEventTabBar" default-selected-style="selected" type="simple" 
-        menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="subTabButtonItem">
+    <menu name="CommEventTabBar" default-selected-style="selected" type="simple"
+        menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="tabButtonItem">
+        <menu-item name="OverView" title="${uiLabelMap.CommonOverview}">
+            <link target="ViewCommunicationEvent?communicationEventId=${parameters.communicationEventId}"/>
+        </menu-item>
         <menu-item name="CommunicationEvent" title="${uiLabelMap.PartyCommEvent}">
-            <link target="EditCommunicationEvent?partyId=${partyId}&amp;communicationEventId=${communicationEventId}"/>
+            <link target="EditCommunicationEvent?communicationEventId=${parameters.communicationEventId}"/>
         </menu-item>
         <menu-item name="UpdateCommPurposes" title="${uiLabelMap.PartyEventPurpose}">
-            <link target="UpdateCommPurposes?partyId=${partyId}&amp;communicationEventId=${communicationEventId}"/>
+            <link target="UpdateCommPurposes?communicationEventId=${parameters.communicationEventId}"/>
         </menu-item>
         <menu-item name="UpdateCommRoles" title="${uiLabelMap.PartyRoles}">
-            <link target="UpdateCommRoles?partyId=${partyId}&amp;communicationEventId=${communicationEventId}"/>
+            <link target="UpdateCommRoles?communicationEventId=${parameters.communicationEventId}"/>
         </menu-item>
         <menu-item name="UpdateCommWorkEfforts" title="${uiLabelMap.PartyCommWorkEfforts}">
-            <link target="ListCommWorkEfforts?partyId=${partyId}&amp;communicationEventId=${communicationEventId}"/>
+            <link target="ListCommWorkEfforts?communicationEventId=${parameters.communicationEventId}"/>
         </menu-item>
         <menu-item name="CommContent" title="${uiLabelMap.CommonContent}">
-            <link target="ListCommContent?partyId=${partyId}&amp;communicationEventId=${communicationEventId}"/>
+            <link target="ListCommContent?communicationEventId=${parameters.communicationEventId}"/>
         </menu-item>
         <!-- TODO! 
         <menu-item name="ListCommCustRequests" title="CustRequests">

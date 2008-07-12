@@ -210,7 +210,7 @@ under the License.
         <field name="content" title="${uiLabelMap.CommonContent}"><textarea cols="60" rows="10"/></field>
         <field name="sendButton"><submit button-type="button"/></field>
     </form>
-    <form name="DisplayEmail" type="single" default-map-name="communicationEvent">
+    <form name="ViewEmail" type="single" default-map-name="communicationEvent">
         <actions>
             <entity-one entity-name="ContactMech" value-name="contactMechFrom">
                 <field-map field-name="contactMechId" env-name="communicationEvent.contactMechIdFrom"/>
@@ -341,7 +341,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
 
-    <form name="ListCommEvents" type="list" odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate="true">
+    <form name="ListCommEvents" type="list" odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate="true" list-name="commEvents">
         <field name="communicationEventId"><hidden/></field>
         <field name="subject">
             <hyperlink description="${subject}" target="ViewCommunicationEvent?communicationEventId=${communicationEventId}"/>
@@ -371,10 +371,13 @@ under the License.
     <form name="ListPartyCommEvents" type="list" extends="ListCommEvents"
         header-row-style="header-row-2" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-condition entity-name="CommunicationEvent">
-                <condition-list combine="or">
-                    <condition-expr field-name="partyIdFrom" operator="equals" value="${partyId}"/>
-                    <condition-expr field-name="partyIdTo" operator="equals" value="${partyId}"/>
+            <entity-condition entity-name="CommunicationEvent" list-name="commEvents">
+                <condition-list combine="and">
+                    <condition-expr env-name="" field-name="statusId" operator="not-equals" value="COM_PENDING"/>
+                    <condition-list combine="or">
+                        <condition-expr field-name="partyIdFrom" operator="equals" value="${partyId}"/>
+                        <condition-expr field-name="partyIdTo" operator="equals" value="${partyId}"/>
+                    </condition-list>
                 </condition-list>
                 <order-by field-name="-lastUpdatedStamp"/>
             </entity-condition>
@@ -386,7 +389,7 @@ under the License.
 
     <form name="ListPendingCommEvents" type="list" extends="ListCommEvents" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-condition entity-name="CommunicationEvent">
+            <entity-condition entity-name="CommunicationEvent" list-name="commEvents">
                 <condition-list combine="and">
                     <condition-list combine="or">
                         <condition-expr field-name="partyIdFrom" operator="equals" value="${partyId}"/>
@@ -400,7 +403,7 @@ under the License.
 
     <form name="ListChildCommEvents" type="list" extends="ListCommEvents" paginate-target="EditCommunicationEvent">
         <actions>
-            <entity-condition entity-name="CommunicationEvent">
+            <entity-condition entity-name="CommunicationEvent" list-name="commEvents">
                 <condition-list combine="or">
                     <condition-expr field-name="parentCommEventId" operator="equals" value="${communicationEventId}"/>
                     <condition-expr field-name="origCommEventId" operator="equals" value="${communicationEventId}"/>
@@ -657,4 +660,56 @@ under the License.
         <field name="textData" map-name="electronicText" title="Text Data"><textarea rows="30" cols="60"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
+
+	<form name="ListUnknownPartyEmails" type="multi" use-row-submit="true"
+		title="Email List" list-name="commEventsUnknown"
+		default-widget-style="tabletext" default-tooltip-style="tabletext"
+		target="deleteCommunicationEvents?communicationEventId=${communicationEventId}&amp;delContentDataResource=Y"
+		default-entity-name="CommunicationEvent"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+		<field name="communicationEventId">
+			<hidden />
+		</field>
+		<field name="subject" widget-style="buttontext"
+			widget-area-style="fieldWidth300">
+			<hyperlink description="${subject}"
+				target="ViewCommunicationEvent?communicationEventId=${communicationEventId}" />
+		</field>
+		<field name="entryDate">
+			<display description="${bsh:entryDate.toString().substring(0,16)}" />
+		</field>
+		<!--
+			field name="statusId"><display-entity entity-name="StatusItem"
+			description="${description}"/></field
+		-->
+		<field name="note" widget-area-style="fieldWidth200">
+			<display />
+		</field>
+		<!--
+			field name="delete" widget-style="buttontext"><hyperlink
+			description="delete"
+			target="deleteCommunicationEvent?communicationEventId=${communicationEventId}&amp;delContentDataResource=Y"/></field
+		-->
+		<field name="_rowSubmit" title="&amp;nbsp;">
+			<check />
+		</field>
+		<field name="deleteSelectedButton" widget-style="smallSubmit">
+			<submit />
+		</field>
+	</form>
+    
+    <form name="allocateMsgToPartyForm" type="single" target="allocateMsgToParty" title="create a new party for a unknown incoming email address"
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext" default-map-name="context">
+        <actions>
+            <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/getPartyEmailFromCommEventInfo.groovy"/>
+        </actions>
+        <field name="communicationEventId"><hidden value="${parameters.communicationEventId}"/></field>
+        <field name="partyId" tooltip="leave empty for new 'Party'" position="1"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="emailAddress" position="2" use-when="communicationEvent.get(&quot;partyIdFrom&quot;)==null"><text default-value="${fromEmail}"/></field>
+        <field name="firstName" position="1"><text/></field>
+        <field name="middleName" position="2"><text default-value="${toEmail}"/></field>
+        <field name="lastName" position="3"><text default-value="${toEmail}"/></field>
+        <field name="submit" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    
 </forms>
