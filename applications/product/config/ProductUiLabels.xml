@@ -4333,19 +4333,19 @@
     </property>
     <property key="AddFeatureInteraction">
         <value xml:lang="en">Add Feature Interaction</value>
-        <value xml:lang="fr">Ajouter une interaction avec une caractéristique</value>
+        <value xml:lang="fr">Ajouter une interaction entre caractéristiques</value>
     </property>
     <property key="ListFeatureInteractions">
         <value xml:lang="en">List Feature Interactions</value>
-        <value xml:lang="fr">Lister les interactions avec une caractéristique</value>
+        <value xml:lang="fr">Lister les interactions entre caractéristiques</value>
     </property>
     <property key="PageTitleEditProductFeatureInteractions">
         <value xml:lang="en">Edit Product Feature Interactions</value>
-        <value xml:lang="fr">Éditer les interactions avec une caractéristique de produit</value>
+        <value xml:lang="fr">Éditer les interactions entre caractéristiques de produit</value>
     </property>
     <property key="PageTitleEditFeatureInterActions">
         <value xml:lang="en">Edit Feature InterActions</value>
-        <value xml:lang="fr">Éditer les interactions avec une caractéristique</value>
+        <value xml:lang="fr">Éditer les interactions entre caractéristiques</value>
     </property>
     <property key="PageTitleEditInventoryItem">
         <value xml:lang="en">Edit Inventory Item</value>
@@ -9565,6 +9565,7 @@
     </property>
     <property key="ProductFeatureInteraction">
         <value xml:lang="en">Feature Interaction</value>
+        <value xml:lang="fr">Interaction entre caratéristiques</value>                
     </property>
     <property key="ProductFeatures">
         <value xml:lang="en">Features</value>
@@ -11680,6 +11681,7 @@
     </property>
     <property key="ProductNewFeatureInterAction">
         <value xml:lang="en">New Feature InterAction</value>
+        <value xml:lang="fr">Nouvelle interaction entre caratéristiques</value>        
     </property>
     <property key="ProductNewGroup">
         <value xml:lang="en">New Group</value>
