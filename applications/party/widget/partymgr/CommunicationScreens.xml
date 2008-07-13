@@ -96,12 +96,40 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <!-- List comm events from incoming email of which the parties are unknown, with the option to mass delete -->
+    <screen name="ListUnknownPartyComms">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleListUnknownPartyComms"/>
+                <set field="tabButtonItem" value="ListUnknownPartyComms"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonCommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-service-permission service-name="partyCommunicationEventPermissionCheck" main-action="VIEW"/>
+                            </condition>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.PageTitleListUnknownPartyComms}">
+                                <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="ListUnknownPartyEmails"/>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.PartyMgrViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     <screen name="FindCommunicationEvents">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleFindCommunicationEvents"/>
                 <set field="headerItem" value="comm"/>
-                <set field="tabButtonItem" value="find"/>
+                <set field="tabButtonItem" value="Find"/>
                 <set field="entityName" value="CommunicationEvent"/>
             </actions>
             <widgets>
@@ -112,16 +140,9 @@ under the License.
                                 <if-service-permission service-name="partyCommunicationEventPermissionCheck" main-action="VIEW"/>
                             </condition>
                             <widgets>
+                                <include-menu location="component://party/webapp/partymgr/communication/CommMenus.xml" name="CommEventTabBar"/>
                                 <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                                     <decorator-section name="menu-bar">
-                                        <section>
-                                            <condition>
-                                                <not><if-empty field-name="partyId"/></not>
-                                            </condition>
-                                            <widgets>
-                                                <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="ProfileTabBar"/>
-                                            </widgets>
-                                        </section>
                                         <include-menu name="CommSubTabBar" location="component://party/webapp/partymgr/communication/CommMenus.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-options">
@@ -168,7 +189,10 @@ under the License.
                             <widgets>
                                 <section>
                                     <condition>
-                                        <if-empty field-name="communicationEvent.partyIdFrom"/>
+                                        <and>
+                                            <if-compare field-name="communicationEvent.statusId" operator="equals" value="COM_UNKNOWN_PARTY"/>
+                                            <if-empty field-name="communicationEvent.partyIdFrom"/>
+                                        </and>
                                     </condition>
                                     <widgets>
                                         <screenlet>

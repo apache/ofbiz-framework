@@ -20,22 +20,32 @@ under the License.
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
     <menu name="CommEventTabBar" default-selected-style="selected" type="simple"
         menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="tabButtonItem">
+        <menu-item name="Find" title="${uiLabelMap.CommonFind}">
+            <condition><if-compare field-name="tabButtonItem" operator="not-equals" value="Find"/></condition>
+            <link target="FindCommunicationEvents"/>
+        </menu-item>
         <menu-item name="OverView" title="${uiLabelMap.CommonOverview}">
+            <condition><not><if-empty field-name="communicationId"/></not></condition>
             <link target="ViewCommunicationEvent?communicationEventId=${parameters.communicationEventId}"/>
         </menu-item>
         <menu-item name="CommunicationEvent" title="${uiLabelMap.PartyCommEvent}">
+            <condition><not><if-empty field-name="communicationId"/></not></condition>
             <link target="EditCommunicationEvent?communicationEventId=${parameters.communicationEventId}"/>
         </menu-item>
         <menu-item name="UpdateCommPurposes" title="${uiLabelMap.PartyEventPurpose}">
+            <condition><not><if-empty field-name="communicationId"/></not></condition>
             <link target="UpdateCommPurposes?communicationEventId=${parameters.communicationEventId}"/>
         </menu-item>
         <menu-item name="UpdateCommRoles" title="${uiLabelMap.PartyRoles}">
+            <condition><not><if-empty field-name="communicationId"/></not></condition>
             <link target="UpdateCommRoles?communicationEventId=${parameters.communicationEventId}"/>
         </menu-item>
         <menu-item name="UpdateCommWorkEfforts" title="${uiLabelMap.PartyCommWorkEfforts}">
+            <condition><not><if-empty field-name="communicationId"/></not></condition>
             <link target="ListCommWorkEfforts?communicationEventId=${parameters.communicationEventId}"/>
         </menu-item>
         <menu-item name="CommContent" title="${uiLabelMap.CommonContent}">
+            <condition><not><if-empty field-name="communicationId"/></not></condition>
             <link target="ListCommContent?communicationEventId=${parameters.communicationEventId}"/>
         </menu-item>
         <!-- TODO! 
@@ -43,6 +53,9 @@ under the License.
             <link target="ListCommCustRequests?partyId=${partyId}&amp;communicationEventId=${communicationEventId}"/>
         </menu-item>
         -->
+        <menu-item name="ListUnknownPartyComms" title="${uiLabelMap.EmailfromUnknownParties}">
+            <link target="listUnknownPartyComms"/>
+        </menu-item>
     </menu>
     <menu name="CommFindTabBar" default-menu-item-name="find" type="simple">
         <menu-item name="find" title="${uiLabelMap.CommonFind}">
