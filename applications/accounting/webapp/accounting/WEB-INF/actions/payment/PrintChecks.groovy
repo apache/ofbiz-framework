@@ -52,8 +52,9 @@ if (paymentId) {
 selected = UtilHttp.parseMultiFormData(parameters);
 selected.each { row ->
     payment = delegator.findByPrimaryKey("Payment", [paymentId : row.paymentId]);
-    if (!payment) continue;
-    payments.add(payment);
+    if (payment) {
+        payments.add(payment);
+    }
 }
 context.payments = payments;
 
