@@ -3993,7 +3993,6 @@
     </property>
     <property key="CommonOverview">
         <value xml:lang="en">Overview</value>
-        <value xml:lang="fr">Vue d'ensemble</value>
     </property>
     <property key="CommonPage">
         <value xml:lang="ar">صفحة</value>
