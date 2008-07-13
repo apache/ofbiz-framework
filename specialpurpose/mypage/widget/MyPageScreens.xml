@@ -241,7 +241,7 @@ under the License.
 						<widgets>
 							<include-form
 								location="component://mypage/widget/MyPageForms.xml"
-								name="ListUnknownPartyEmails" />
+								name="ListMyUnknownPartyEmails" />
 						</widgets>
 					</section>
 					<include-form name="ListPartyCommEvents"
