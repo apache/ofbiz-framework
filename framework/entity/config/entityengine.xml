@@ -38,7 +38,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
     </transaction-factory>
     -->
     <!--
-      It is common to use UserTransaction for the TransactionManager, but if that doesn't work, try this: <transaction-manager-jndi jndi-server-name="default" jndi-name="java:comp/TransactionManager"/>
+    	It is common to use UserTransaction for the TransactionManager, but if that doesn't work, try this: <transaction-manager-jndi jndi-server-name="default" jndi-name="java:comp/TransactionManager"/>
         Common UserTransaction locations:
             java:comp/UserTransaction (most servers: Resin, Orion, OC4J, etc)
             UserTransaction (RexIP)
@@ -49,7 +49,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
     <!-- the connection factory class to use, one is needed for obtaining connections/pools for defined resources -->
     <connection-factory class="org.ofbiz.entity.connection.DBCPConnectionFactory"/>
 
-    <delegator name="localderby" entity-model-reader="main" entity-group-reader="main" entity-eca-reader="main" distributed-cache-clear-enabled="false">
+    <delegator name="default" entity-model-reader="main" entity-group-reader="main" entity-eca-reader="main" distributed-cache-clear-enabled="false">
         <group-map group-name="org.ofbiz" datasource-name="localderby"/>
         <group-map group-name="org.ofbiz.olap" datasource-name="localderbyolap"/>
     </delegator>
@@ -60,12 +60,11 @@ access. For a detailed description see the core/docs/entityconfig.html file.
 
     <!-- be sure that your default delegator (or the one you use) uses the same datasource for test. You must run "ant run-install" before running "ant run-tests" -->
     <delegator name="test" entity-model-reader="main" entity-group-reader="main" entity-eca-reader="main">
-        <group-map group-name="org.ofbiz" datasource-name="localpostgres"/>
+        <group-map group-name="org.ofbiz" datasource-name="localderby"/> 
         <group-map group-name="org.ofbiz.olap" datasource-name="localderbyolap"/>
     </delegator>
-    <delegator name="default" entity-model-reader="main" entity-group-reader="main" entity-eca-reader="main">
-        <group-map group-name="org.ofbiz" datasource-name="localpostgres"/>
-        <group-map group-name="org.ofbiz.olap" datasource-name="localderbyolap"/>        
+    <delegator name="other" entity-model-reader="main" entity-group-reader="main" entity-eca-reader="main">
+        <group-map group-name="org.ofbiz" datasource-name="localpostgres"/>        
     </delegator>
 
     <!-- need to at least define a name for each component to use -->
@@ -91,7 +90,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
     <entity-data-reader name="ext"/>
     <entity-data-reader name="ext-test"/>
     <entity-data-reader name="ext-demo"/>
-
+    
     <field-type name="hsql" loader="fieldfile" location="fieldtypehsql.xml"/>
     <field-type name="derby" loader="fieldfile" location="fieldtypederby.xml"/>
     <field-type name="cloudscape" loader="fieldfile" location="fieldtypecloudscape.xml"/>
@@ -190,7 +189,6 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             pool-maxsize="250"/>
         <!-- <jndi-jdbc jndi-server-name="localjndi" jndi-name="java:/DerbyDataSource" isolation-level="ReadCommitted"/> -->
     </datasource>
-
     <datasource name="localderbyolap"
             helper-class="org.ofbiz.entity.datasource.GenericHelperDAO"
             schema-name="OFBIZ"
@@ -348,7 +346,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         <read-data reader-name="ext"/>
         <inline-jdbc
                 jdbc-driver="org.postgresql.Driver"
-                jdbc-uri="jdbc:postgresql://127.0.0.1:5434/ofbizRun"
+                jdbc-uri="jdbc:postgresql://127.0.0.1/ofbiz"
                 jdbc-username="ofbiz"
                 jdbc-password="ofbiz"
                 isolation-level="ReadCommitted"
@@ -470,7 +468,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         <!-- <jndi-jdbc jndi-server-name="default" jndi-name="comp/env/jdbc/xa/localfirebird" isolation-level="ReadCommitted"/> --> <!-- Orion Style JNDI name -->
         <!-- <tyrex-dataSource dataSource-name="firebird" isolation-level="ReadCommitted"/> Â -->
     </datasource>
-    <!--
+    <!-- 
      The following has been tested with SQL Server 2005 + MS SQL Server JDBC Driver 1.1
      Tips:
       1. Make sure your SQL Server has mixed mode authentication as per this post:
@@ -479,13 +477,13 @@ access. For a detailed description see the core/docs/entityconfig.html file.
       3. Make sure you have installed JDBC Driver XA support as per MSSQL_JDBC_HOME/enu/xa/xa_install.sql
       4. Make sure that you have created and authorized the ofbiz database and login
       5. Make sure that schema-name, jdbc-username, jdbc-password and databaseName are all correct!
-
+     
      Notes:
      a. The reason for putting SelectMethod=cursor property in URL is explained here:
       http://forum.java.sun.com/thread.jspa?forumID=48&threadID=184797
      b. If using an old version of the driver, beware of this resource leak:
       http://support.microsoft.com/kb/820773/
-    -->
+    --> 
     <datasource name="localmssql"
             helper-class="org.ofbiz.entity.datasource.GenericHelperDAO"
             schema-name="dbo"
