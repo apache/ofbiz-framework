@@ -189,7 +189,7 @@
         <security https="true" auth="true"/>
         <event type="simple" path="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="allocateMsgToParty"/>
         <response name="success" type="view" value="otherCommunications"/>
-        <response name="error" type="view" value="ViewOtherCommunicationEvent"/>
+        <response name="error" type="view" value="ViewCommunicationEvent"/>
     </request-map>
 
     <view-map name="main" type="screen" page="component://mypage/widget/CommonScreens.xml#main"/>

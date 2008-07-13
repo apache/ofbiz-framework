@@ -260,6 +260,6 @@ under the License.
         <set field="inCom.statusId" value="COM_ENTERED"/>
         <call-service service-name="updateCommunicationEvent" in-map-name="inCom"/>
         
-        <field-to-request field-name="parmeters.communicationEventId" request-name="communicationEventId"/>
+        <field-to-request field-name="parameters.communicationEventId" request-name="communicationEventId"/>
     </simple-method>   
 </simple-methods>
