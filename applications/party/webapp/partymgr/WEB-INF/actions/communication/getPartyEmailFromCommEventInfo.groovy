@@ -23,6 +23,7 @@ import javolution.util.FastList;
 
 communicationEvent = delegator.findOne("CommunicationEvent", [communicationEventId : parameters.communicationEventId], true);
 
+if (!communicationEvent.note) return;
 nameString = "Sent from: ";
 int startEmail = communicationEvent.note.indexOf(nameString) + nameString.length();
 int endEmail = communicationEvent.note.indexOf(";", startEmail);

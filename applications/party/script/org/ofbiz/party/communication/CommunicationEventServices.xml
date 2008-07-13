@@ -219,7 +219,6 @@ under the License.
     <simple-method method-name="allocateMsgToParty" short-description="Allocate an emailaddress to an existing/new party, update the communication event accordingly">
 
         <entity-one entity-name="CommunicationEvent" value-name="communicationEvent"/>
-
         <if-empty field="communicationEvent">
             <add-error><fail-message message="Comminication Event ID: ${parameters.commnicationEventId}"/></add-error>
             <check-errors/>
