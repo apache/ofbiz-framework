@@ -694,6 +694,19 @@ under the License.
         <response name="success" type="view" value="ListLookupCommEvents"/>
         <response name="error" type="view" value="ListLookupCommEvents"/>
     </request-map>
+    <request-map uri="deleteCommunicationEvents">
+        <security https="true" auth="true"/>
+        <event type="service-multi" invoke="deleteCommunicationEventWorkEffort"/>
+        <response name="success" type="view"
+            value="ListUnknownPartyComms"/>
+        <response name="error" type="view"
+            value="ListUnknownPartyComms"/>
+    </request-map>
+    <request-map uri="listUnknownPartyComms">
+        <security https="true" auth="true" />
+        <response name="success" type="view" value="ListUnknownPartyComms" />
+	</request-map>
+        
 
     <request-map uri="deletePartyCommunicationEvent">
         <security https="true" auth="true"/>
@@ -1089,6 +1102,7 @@ under the License.
     <view-map name="ListCommContent" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#ListCommContent"/>
     <view-map name="PendingCommunications" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#PendingCommunications"/>
     <view-map name="ListPartyCommEvents" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#ListPartyCommEvents"/>
+    <view-map name="ListUnknownPartyComms" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#ListUnknownPartyComms"/>
     <view-map name="ListLookupCommEvents" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#ListLookupCommEvents"/>
     <view-map name="FindCommunicationEvents" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#FindCommunicationEvents"/>
     <view-map name="EditCommunicationEvent" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#EditCommunicationEvent"/>

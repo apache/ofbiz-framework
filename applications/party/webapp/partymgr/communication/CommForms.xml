@@ -327,6 +327,22 @@ under the License.
         </actions>
     </form>
 
+    <form name="ListUnknownPartyEmails" extends="ListCommEvents" type="multi"
+           target="deleteCommunicationEvents?communicationEventId=${communicationEventId}&amp;delContentDataResource=Y">
+        <actions>
+            <entity-and list-name="commEvents" entity-name="CommunicationEvent">
+                <field-map field-name="statusId" value="COM_UNKNOWN_PARTY"/>
+                <order-by field-name="-lastUpdatedStamp" />
+            </entity-and>
+        </actions>
+        <field name="_rowSubmit" title="&amp;nbsp;">
+            <check />
+        </field>
+        <field name="deleteSelectedButton" widget-style="smallSubmit">
+            <submit />
+        </field>
+    </form>
+
     <form name="ListChildCommEvents" type="list" extends="ListCommEvents" paginate-target="EditCommunicationEvent">
         <actions>
             <entity-condition entity-name="CommunicationEvent" list-name="commEvents">
@@ -587,8 +603,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
 
-	<form name="ListUnknownPartyEmails" type="multi" use-row-submit="true"
-		title="Email List" list-name="commEventsUnknown"
+	<form name="ListMyUnknownPartyEmails" type="multi" use-row-submit="true"
+		title="Email List unknown parties" list-name="commEventsUnknown"
 		default-widget-style="tabletext" default-tooltip-style="tabletext"
 		target="deleteCommunicationEvents?communicationEventId=${communicationEventId}&amp;delContentDataResource=Y"
 		default-entity-name="CommunicationEvent"
@@ -604,18 +620,9 @@ under the License.
 		<field name="entryDate">
 			<display description="${bsh:entryDate.toString().substring(0,16)}" />
 		</field>
-		<!--
-			field name="statusId"><display-entity entity-name="StatusItem"
-			description="${description}"/></field
-		-->
 		<field name="note" widget-area-style="fieldWidth200">
 			<display />
 		</field>
-		<!--
-			field name="delete" widget-style="buttontext"><hyperlink
-			description="delete"
-			target="deleteCommunicationEvent?communicationEventId=${communicationEventId}&amp;delContentDataResource=Y"/></field
-		-->
 		<field name="_rowSubmit" title="&amp;nbsp;">
 			<check />
 		</field>
