@@ -28,6 +28,7 @@
     </property>
     <property key="MyCompanyComms">
         <value xml:lang="en">Company Events</value>
+        <value xml:lang="fr">Evènements de l'entreprise</value>
     </property>
     <property key="MyPageNewMessage">
         <value xml:lang="en">New Message</value>
