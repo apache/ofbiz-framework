@@ -51,7 +51,7 @@ under the License.
     <screen name="orderShortcuts">
         <section>
             <actions>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/shoppinglist.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/ShoppingList.groovy"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/orderShortcuts.ftl"/></html></platform-specific>
@@ -66,8 +66,8 @@ under the License.
                 <set field="titleProperty" value="PageTitleOrderShowCart"/>
                 <set field="productsummaryScreen" value="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#productsummary"/>
                 <set field="promoUseDetailsInlineScreen" value="component://order/widget/ordermgr/OrderEntryCartScreens.xml#promoUseDetailsInline"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/showcart.bsh"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/showpromotext.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/ShowCart.groovy"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/ShowPromoText.groovy"/>
                 <entity-condition entity-name="ProductStorePromoAndAppl" list-name="allProductPromos" filter-by-date="true">
                     <condition-list combine="and">
                         <condition-expr field-name="manualOnly" value="Y"/>
@@ -99,8 +99,8 @@ under the License.
                 <set field="title" value="Show Cart"/>
                 <set field="productsummaryScreen" value="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#productsummary"/>
                 <set field="promoUseDetailsInlineScreen" value="component://order/widget/ordermgr/OrderEntryCartScreens.xml#promoUseDetailsInline"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/showcart.bsh"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/showpromotext.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/ShowCart.groovy"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/ShowPromoText.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderEntryDecorator" location="component://order/widget/ordermgr/OrderEntryCommonScreens.xml">
@@ -118,8 +118,8 @@ under the License.
                 <set field="leftbarScreenLocation" value="component://order/widget/ordermgr/OrderEntryCommonScreens.xml"/>
                 <set field="title" value="Show All Promotions"/>
                 <set field="promoUseDetailsInlineScreen" value="component://order/widget/ordermgr/OrderEntryCartScreens.xml#promoUseDetailsInline"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/showcart.bsh"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/showpromotext.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/ShowCart.groovy"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/ShowPromoText.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderEntryDecorator" location="component://order/widget/ordermgr/OrderEntryCommonScreens.xml">
