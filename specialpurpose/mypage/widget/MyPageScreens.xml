@@ -239,11 +239,13 @@ under the License.
 							</not>
 						</condition>
 						<widgets>
+						    <label style="h2" text="Emails from unknown origin"></label>
 							<include-form
 								location="component://mypage/widget/MyPageForms.xml"
 								name="ListMyUnknownPartyEmails" />
 						</widgets>
 					</section>
+                    <label style="h2" text="Emails from known origin"></label>
 					<include-form name="ListPartyCommEvents"
 						location="component://mypage/widget/MyPageForms.xml" />
 				</screenlet>
@@ -333,7 +335,10 @@ under the License.
 									<widgets>
 										<section>
 											<condition>
-												<if-empty field-name="communicationEvent.partyIdFrom" />
+											     <and>
+												    <if-empty field-name="communicationEvent.partyIdFrom" />
+                                                    <if-compare field-name="communicationEvent.statusId" operator="equals" value="COM_UNKNOWN_PARTY"/>
+												</and>
 											</condition>
 											<widgets>
 												<screenlet>

@@ -103,8 +103,9 @@ under the License.
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deletePartyCommunicationEventOthers?partyId=${partyId}&amp;communicationEventId=${communicationEventId}"/>
         </field>
     </form>
-    <form name="ListMyUnknownPartyEmails" extends="ListMyUnknownPartyEmails" extends-resource="component://party/webapp/partymgr/communication/CommForms.xml" 
-            odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+    <form name="ListMyUnknownPartyEmails" 
+        extends="ListMyUnknownPartyEmails" extends-resource="component://party/webapp/partymgr/communication/CommForms.xml" 
+        use-row-submit="true">
 
         <field use-when="headerItem.equals(&quot;main&quot;)" name="subject" widget-style="buttontext" widget-area-style="fieldWidth300">
             <hyperlink description="${subject}" target="ViewCommunicationEvent?communicationEventId=${communicationEventId}&amp;type=main"/>
@@ -115,14 +116,17 @@ under the License.
         <field use-when="headerItem.equals(&quot;otherCommunications&quot;)" name="subject" widget-style="buttontext" widget-area-style="fieldWidth300">
             <hyperlink description="${subject}" target="ViewCommunicationEvent?communicationEventId=${communicationEventId}&amp;type=other" />
         </field>
+        <field name="_rowSubmit" title="S">
+            <check />
+        </field>
         <field name="deleteSelectedButton" widget-style="smallSubmit">
             <submit />
         </field>
     </form>
     
     <form name="allocateMsgToPartyForm" extends="allocateMsgToPartyForm" extends-resource="component://party/webapp/partymgr/communication/CommForms.xml">
-        <alt-target use-when="headerItem.equals(&quot;otherCommunications&quot;)" target="allocateOtherMsgToParty"/>
-        <alt-target use-when="headerItem.equals(&quot;myCommunications&quot;)" target="allocateMyMsgToParty"/>
+        <alt-target use-when="&quot;otherCommunications&quot;.equals(headerItem)" target="allocateOtherMsgToParty"/>
+        <alt-target use-when="&quot;myCommunications&quot;.equals(headerItem)" target="allocateMyMsgToParty"/>
         <field name="type"><hidden value="${parameters.type}"/></field>
     </form> 
         
