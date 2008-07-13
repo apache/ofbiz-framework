@@ -189,43 +189,67 @@ under the License.
         <section>
             <actions>
                 <set field="partyId" from-field="userLogin.partyId" />
-            <entity-condition entity-name="CommunicationEvent" list-name="commEvents">
-                <condition-list combine="and">
-                    <condition-expr field-name="statusId" operator="not-equals" value="COM_UNKNOWN_PARTY"/>
-                    <condition-list combine="or">
-                        <condition-expr field-name="partyIdFrom" operator="equals" value="${partyId}"/>
-                        <condition-expr field-name="partyIdTo" operator="equals" value="${partyId}"/>
-                    </condition-list>
-                </condition-list>
-                <order-by field-name="-lastUpdatedStamp"/>
-            </entity-condition>
-            <entity-condition entity-name="CommunicationEvent" list-name="commEventsUnknown">
-                <condition-list combine="and">
-                    <condition-expr field-name="statusId" operator="equals" value="COM_UNKNOWN_PARTY"/>
-                    <condition-expr field-name="partyIdTo" operator="equals" value="${partyId}"/>
-                </condition-list>
-                <order-by field-name="-lastUpdatedStamp"/>
-            </entity-condition>
             </actions>
             <widgets>
-                <screenlet title="${uiLabelMap.MyCommunications}" navigation-menu-name="MyCommunicationsMenu"
-                    navigation-form-name="ListPartyCommEvents" name="myComms">
-                    <include-menu name="MyCommunicationsMenu"
-                        location="component://mypage/widget/MyPageMenus.xml" />
-                                <section>
-                                    <condition>
-                                        <not><if-empty field-name="commEventsUnknown"/></not>
-                                    </condition>
-                                    <widgets>
-                                         <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="ListUnknownPartyEmails"/>
-                                    </widgets>
-                                </section>
-                    <include-form name="ListPartyCommEvents"
-                        location="component://mypage/widget/MyPageForms.xml" />
-                </screenlet>
+                <include-screen name="Communications"/>
             </widgets>
-        </section>
+        </section>    
     </screen>
+	<screen name="Communications">
+		<section>
+			<actions>
+				<entity-condition entity-name="CommunicationEvent"
+					list-name="commEvents">
+					<condition-list combine="and">
+						<condition-expr field-name="statusId" operator="not-equals"
+							value="COM_UNKNOWN_PARTY" />
+						<condition-list combine="or">
+							<condition-expr field-name="partyIdFrom" operator="equals"
+								value="${partyId}" />
+							<condition-expr field-name="partyIdTo" operator="equals"
+								value="${partyId}" />
+						</condition-list>
+					</condition-list>
+					<order-by field-name="-lastUpdatedStamp" />
+				</entity-condition>
+				<entity-condition entity-name="CommunicationEvent"
+					list-name="commEventsUnknown">
+					<condition-list combine="and">
+						<condition-expr field-name="statusId" operator="equals"
+							value="COM_UNKNOWN_PARTY" />
+						<condition-expr field-name="partyIdTo" operator="equals"
+							env-name="partyId" />
+					</condition-list>
+					<order-by field-name="-lastUpdatedStamp" />
+				</entity-condition>
+				<entity-one entity-name="PartyNameView" value-name="partyName">
+                    <field-map field-name="partyId" env-name="partyId"/>
+                </entity-one>
+			</actions>
+			<widgets>
+				<screenlet title="${uiLabelMap.CommunicationsOfParty}: ${partyName.firstName} ${partyName.middleName} ${partyName.lastName} ${partyName.groupName} [${partyId}] "
+					navigation-menu-name="MyCommunicationsMenu" navigation-form-name="ListPartyCommEvents"
+					name="myComms">
+					<include-menu name="MyCommunicationsMenu"
+						location="component://mypage/widget/MyPageMenus.xml" />
+					<section>
+						<condition>
+							<not>
+								<if-empty field-name="commEventsUnknown" />
+							</not>
+						</condition>
+						<widgets>
+							<include-form
+								location="component://mypage/widget/MyPageForms.xml"
+								name="ListUnknownPartyEmails" />
+						</widgets>
+					</section>
+					<include-form name="ListPartyCommEvents"
+						location="component://mypage/widget/MyPageForms.xml" />
+				</screenlet>
+			</widgets>
+		</section>
+	</screen>
     <screen name="OtherCommunications">
         <section>
             <actions>
@@ -239,25 +263,110 @@ under the License.
                     <section>
                         <actions>
                             <set field="partyId" from-field="emailOwner.partyIdTo" />
-                            <entity-one entity-name="PartyNameView" value-name="partyName">
-                                <field-map field-name="partyId" env-name="partyId"/>
-                            </entity-one>
                         </actions>
                         <widgets>
-                            <screenlet title="${uiLabelMap.OtherCommunicationsOfParty}: ${partyName.firstName} ${partyName.middleName} ${partyName.lastName} ${partyName.groupName} [${partyId}] "
-                                navigation-menu-name="MyCommunicationsMenu"
-                                navigation-form-name="ListPartyCommEvents" name="otherComms">
-                                <include-menu name="MyCommunicationsMenu"
-                                    location="component://mypage/widget/MyPageMenus.xml" />
-                                <include-form name="ListPartyCommEvents"
-                                    location="component://mypage/widget/MyPageForms.xml" />
-                            </screenlet>
+                            <include-screen name="Communications"/>
                         </widgets>
                     </section>
                 </iterate-section>
             </widgets>
         </section>
     </screen>
+	<screen name="ViewCommunicationEvent">
+		<section>
+			<widgets>
+				<section>
+					<condition>
+						<if-compare field-name="parameters.type" operator="equals"
+							value="main" />
+					</condition>
+					<actions>
+						<set field="headerItem" value="main" />
+					</actions>
+					<widgets />
+				</section>
+				<section>
+					<condition>
+						<if-compare field-name="parameters.type" operator="equals"
+							value="my" />
+					</condition>
+					<actions>
+						<set field="headerItem" value="myCommunications" />
+					</actions>
+					<widgets />
+				</section>
+				<section>
+					<condition>
+						<if-compare field-name="parameters.type" operator="equals"
+							value="other" />
+					</condition>
+					<actions>
+						<set field="headerItem" value="otherCommunications" />
+					</actions>
+					<widgets />
+				</section>
+				<section>
+					<actions>
+						<set field="titleProperty" value="PageTitleViewCommunication" />
+						<set field="tabButtonItem" value="OverView" />
+						<set field="parentCommEventId" from-field="parameters.parentCommEventId" />
+						<entity-one entity-name="CommunicationEvent"
+							value-name="communicationEvent" />
+						<entity-one entity-name="CommunicationEvent"
+							value-name="parentEvent" auto-field-map="false">
+							<field-map env-name="parentCommEventId" field-name="communicationEventId" />
+						</entity-one>
+					</actions>
+					<widgets>
+						<decorator-screen name="CommonCommunicationEventDecorator"
+							location="${parameters.mainDecoratorLocation}">
+							<decorator-section name="body">
+								<section>
+									<condition>
+										<or><!-- have for e-mails a special form -->
+											<if-compare field-name="communicationEvent.communicationEventTypeId"
+												operator="equals" value="EMAIL_COMMUNICATION" />
+											<if-compare field-name="communicationEvent.communicationEventTypeId"
+												operator="equals" value="AUTO_EMAIL_COMM" />
+										</or>
+									</condition>
+									<widgets>
+										<section>
+											<condition>
+												<if-empty field-name="communicationEvent.partyIdFrom" />
+											</condition>
+											<widgets>
+												<screenlet>
+													<container>
+														<label style="h1" text="Origin Email address not known!" />
+													</container>
+													<container>
+														<label style="h2"
+															text="Allocate this message to a existing or new party and add an email address" />
+													</container>
+													<include-form name="allocateMsgToPartyForm"
+                                                        location="component://mypage/widget/MyPageForms.xml" />
+												</screenlet>
+											</widgets>
+										</section>
+										<include-form
+											location="component://party/webapp/partymgr/communication/CommForms.xml"
+											name="ViewEmail" />
+									</widgets>
+									<fail-widgets>
+										<include-form
+											location="component://party/webapp/partymgr/communication/CommForms.xml"
+											name="ViewCommEvent" />
+									</fail-widgets>
+								</section>
+							</decorator-section>
+						</decorator-screen>
+					</widgets>
+				</section>
+			</widgets>
+		</section>
+	</screen>
+
 </screens>
 
 

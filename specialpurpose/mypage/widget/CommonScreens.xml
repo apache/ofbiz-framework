@@ -109,14 +109,13 @@ under the License.
     </screen>
     <screen name="CommonCommunicationEventDecorator">
         <section>
-            <actions>
-                <set field="headerItem" value="comm"/>
-                <set field="communicationEventId" from-field="parameters.communicationEventId"/>
-                <entity-one entity-name="CommunicationEvent" value-name="communicationEvent"/>
-            </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body"/>
+                    <decorator-section name="body">
+                        <include-menu location="component://party/webapp/partymgr/communication/CommMenus.xml" name="CommEventTabBar"/>
+                        <include-menu location="component://party/webapp/partymgr/communication/CommMenus.xml" name="CommSubTabBar"/>
+                        <decorator-section-include name="body"/>
+                    </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
@@ -156,7 +155,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <include-screen name="MyCommunications"
-                                    location="component://mypage/widget/MyPageScreens.xml" />
+                                    location="component://mypage/widget/MyPageScreens.xml"/>
                             </widgets>
                         </section>
                         <section>

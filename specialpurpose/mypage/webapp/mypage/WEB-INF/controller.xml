@@ -135,11 +135,17 @@
         <response name="success" type="view" value="myCommunications"/>
         <response name="error" type="view" value="myCommunications"/>
     </request-map>
-    <request-map uri="deletePartyCommunicationEventOthers">
+    <request-map uri="allocateMsgToParty">
         <security https="true" auth="true"/>
-        <event type="service" invoke="deleteCommunicationEvent"/>
-        <response name="success" type="view" value="otherCommunications"/>
-        <response name="error" type="view" value="otherCommunications"/>
+        <event type="simple" path="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="allocateMsgToParty"/>
+        <response name="success" type="view" value="main"/>
+        <response name="error" type="view" value="ViewCommunicationEvent"/>
+    </request-map>
+    <request-map uri="allocateMyMsgToParty">
+        <security https="true" auth="true"/>
+        <event type="simple" path="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="allocateMsgToParty"/>
+        <response name="success" type="view" value="myCommunications"/>
+        <response name="error" type="view" value="ViewCommunicationEvent"/>
     </request-map>
     
     <!-- PREFERENCES -->
@@ -159,6 +165,18 @@
         <security https="true" auth="true"/>
         <response name="success" type="view" value="otherCommunications"/>
     </request-map>
+    <request-map uri="deletePartyCommunicationEventOthers">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteCommunicationEvent"/>
+        <response name="success" type="view" value="otherCommunications"/>
+        <response name="error" type="view" value="otherCommunications"/>
+    </request-map>
+    <request-map uri="allocateOtherMsgToParty">
+        <security https="true" auth="true"/>
+        <event type="simple" path="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="allocateMsgToParty"/>
+        <response name="success" type="view" value="otherCommunications"/>
+        <response name="error" type="view" value="ViewOtherCommunicationEvent"/>
+    </request-map>
 
     <view-map name="main" type="screen" page="component://mypage/widget/CommonScreens.xml#main"/>
     <view-map name="preferences" type="screen" page="component://mypage/widget/CommonScreens.xml#preferences"/>
@@ -168,5 +186,7 @@
     <view-map name="myCompanyComms" type="screen" page="component://mypage/widget/CommonScreens.xml#MyCompanyComms"/>
     <view-map name="myTimesheet" type="screen" page="component://mypage/widget/CommonScreens.xml#MyTimesheet"/>
     <view-map name="newEvent" type="screen" page="component://mypage/widget/MyPageScreens.xml#newEvent"/>
+    <view-map name="ViewCommunicationEvent" type="screen" page="component://mypage/widget/MyPageScreens.xml#ViewCommunicationEvent"/>
+    
     
 </site-conf>
