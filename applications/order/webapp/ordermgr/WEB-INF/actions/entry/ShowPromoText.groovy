@@ -21,28 +21,21 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.order.shoppingcart.product.ProductPromoWorker;
 import org.ofbiz.order.shoppingcart.*;
 
-dispatcher = request.getAttribute("dispatcher");
-delegator = request.getAttribute("delegator");
-userLogin = session.getAttribute("userLogin");
-
 shoppingCart = ShoppingCartEvents.getCartObject(request);
 mode = shoppingCart.getOrderType();
 
 promoShowLimit = 3;
 
-if (mode != null && mode.equals("SALES_ORDER")) {
+if ("SALES_ORDER".equals(mode)) {
     //Get Promo Text Data
     productPromosAll = ProductPromoWorker.getStoreProductPromos(delegator, dispatcher, request);
     //Make sure that at least one promo has non-empty promoText
     showPromoText = false;
     promoToShow = 0;
     productPromosAllShowable = new ArrayList(productPromosAll.size());
-    productPromoIterator = productPromosAll.iterator();
-    while (productPromoIterator.hasNext()) {
-        productPromo = productPromoIterator.next();
-        promoText = productPromo.get("promoText");
-    
-        if (promoText != null && promoText.length() > 0 && !"N".equals(productPromo.getString("showToCustomer"))) {
+    productPromosAll.each { productPromo ->
+        promoText = productPromo.promoText;
+        if (promoText  && !"N".equals(productPromo.showToCustomer)) {
             showPromoText = true;
             promoToShow++;
             productPromosAllShowable.add(productPromo);
@@ -54,19 +47,19 @@ if (mode != null && mode.equals("SALES_ORDER")) {
     productPromos = null;
     if (productPromosRandomTemp.size() > promoShowLimit) {
         productPromos = new ArrayList(promoShowLimit);
-        for (int i=0; i<promoShowLimit; i++) {
-            randomIndex = (int) Math.round(java.lang.Math.random() * (productPromosRandomTemp.size() - 1));
+        for (i = 0; i < promoShowLimit; i++) {
+            randomIndex = Math.round(java.lang.Math.random() * (productPromosRandomTemp.size() - 1)) as int;
             productPromos.add(productPromosRandomTemp.remove(randomIndex));
         }
     } else {
         productPromos = productPromosRandomTemp;
     }
     
-    context.put("promoShowLimit", promoShowLimit);
-    context.put("productPromosAllShowable", productPromosAllShowable);
-    context.put("productPromos", productPromos);
-    context.put("showPromoText", showPromoText);
-    context.put("promoToShow", promoToShow);
+    context.promoShowLimit = promoShowLimit;
+    context.productPromosAllShowable = productPromosAllShowable;
+    context.productPromos = productPromos;
+    context.showPromoText = showPromoText;
+    context.promoToShow = promoToShow;
 } else {
-    context.put("showPromoText", false);
+    context.showPromoText = false;
 }

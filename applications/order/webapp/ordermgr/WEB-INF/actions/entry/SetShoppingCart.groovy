@@ -17,20 +17,11 @@
  * under the License.
  */
 
-import org.ofbiz.service.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.condition.*;
-import org.ofbiz.entity.util.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.order.shoppingcart.*;
+import org.ofbiz.order.shoppingcart.ShoppingCartEvents;
 
-delegator = request.getAttribute("delegator");
+// Get the Cart and put it in the context.
 
-shoppingCart = session.getAttribute("shoppingCart");
-partyId = shoppingCart.getPartyId();
-
-// Get the party's collection of Shopping Lists
-shoppingLists = delegator.findByAndCache("ShoppingList", UtilMisc.toMap("partyId", partyId));
-if ((shoppingLists != null) && (shoppingLists.size() > 0)) {
-    context.put("shoppingLists", shoppingLists);
-}
+shoppingCart = ShoppingCartEvents.getCartObject(request);
+context.shoppingCart = shoppingCart;
+context.currencyUomId = shoppingCart.getCurrency();
+context.partyId = shoppingCart.getPartyId();
