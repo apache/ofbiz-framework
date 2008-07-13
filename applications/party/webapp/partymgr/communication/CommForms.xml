@@ -327,7 +327,7 @@ under the License.
         </actions>
     </form>
 
-    <form name="ListUnknownPartyEmails" extends="ListCommEvents" type="multi"
+    <form name="ListUnknownPartyEmails" extends="ListCommEvents" type="multi" use-row-submit="true" separate-columns="true"
            target="deleteCommunicationEvents?communicationEventId=${communicationEventId}&amp;delContentDataResource=Y">
         <actions>
             <entity-and list-name="commEvents" entity-name="CommunicationEvent">
@@ -335,8 +335,8 @@ under the License.
                 <order-by field-name="-lastUpdatedStamp" />
             </entity-and>
         </actions>
-        <field name="_rowSubmit" title="&amp;nbsp;">
-            <check />
+        <field name="_rowSubmit" title="S">
+            <check/>
         </field>
         <field name="deleteSelectedButton" widget-style="smallSubmit">
             <submit />
@@ -623,7 +623,7 @@ under the License.
 		<field name="note" widget-area-style="fieldWidth200">
 			<display />
 		</field>
-		<field name="_rowSubmit" title="&amp;nbsp;">
+		<field name="_rowSubmit" title="S">
 			<check />
 		</field>
 		<field name="deleteSelectedButton" widget-style="smallSubmit">

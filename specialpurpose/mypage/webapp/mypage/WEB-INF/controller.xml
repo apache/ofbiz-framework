@@ -135,6 +135,12 @@
         <response name="success" type="view" value="myCommunications"/>
         <response name="error" type="view" value="myCommunications"/>
     </request-map>
+    <request-map uri="deletePartyCommunicationEvent">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteCommunicationEvent"/>
+        <response name="success" type="view" value="main"/>
+        <response name="error" type="view" value="main"/>
+    </request-map>
     <request-map uri="allocateMsgToParty">
         <security https="true" auth="true"/>
         <event type="simple" path="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="allocateMsgToParty"/>
@@ -146,6 +152,14 @@
         <event type="simple" path="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="allocateMsgToParty"/>
         <response name="success" type="view" value="myCommunications"/>
         <response name="error" type="view" value="ViewCommunicationEvent"/>
+    </request-map>
+        <request-map uri="deleteCommunicationEvents">
+        <security https="true" auth="true"/>
+        <event type="service-multi" invoke="deleteCommunicationEventWorkEffort"/>
+        <response name="success" type="view"
+            value="main"/>
+        <response name="error" type="view"
+            value="main"/>
     </request-map>
     
     <!-- PREFERENCES -->

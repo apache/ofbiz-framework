@@ -170,6 +170,9 @@
         <value xml:lang="th">รายละเอียด</value>
         <value xml:lang="zh">描述</value>
     </property>
+    <property key="EmailfromUnknownParties">
+        <value xml:lang="en">Email unknown parties</value>
+    </property>    
     <property key="FormFieldTitle_attrName">
         <value xml:lang="en">Attr Name</value>
         <value xml:lang="fr">Nom d'attribut</value>
