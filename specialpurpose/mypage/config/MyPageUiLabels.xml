@@ -26,6 +26,9 @@
         <value xml:lang="en">My Profile</value>
         <value xml:lang="fr">Mon Profil</value>
     </property>
+    <property key="MyCompanyComms">
+        <value xml:lang="en">Company Events</value>
+    </property>
     <property key="MyPageNewMessage">
         <value xml:lang="en">New Message</value>
         <value xml:lang="fr">Nouveau message</value>
@@ -34,8 +37,8 @@
         <value xml:lang="en">Other Communications</value>
         <value xml:lang="fr">Autres communications</value>
     </property>
-    <property key="OtherCommunicationsOfParty">
-        <value xml:lang="en">Other Communications of party</value>
-        <value xml:lang="fr">Autres communications ou acteur</value>
+    <property key="CommunicationsOfParty">
+        <value xml:lang="en">Communications of party</value>
+        <value xml:lang="fr">Communications ou acteur</value>
     </property>
 </resource>
