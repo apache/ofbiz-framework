@@ -105,6 +105,7 @@ Event.observe(window, 'load', function() {
 
     // Autocompleter for shipping panel
     Event.observe($('shipToCountryGeo'), 'focus', getCountryList);
+    Event.observe($('shipToCountryGeo'), 'change', isCountryChanged);
     Event.observe($('shipToCountryGeo'), 'blur', splitCountryNameFromIds);
     
     Event.observe($('shipToStateProvinceGeo'), 'focus', getAssociatedStateList);
@@ -501,12 +502,12 @@ function processOrder() {
     $('orderSubmitForm').submit();
 }
 
-var countryChange = 0;
+var countryChange = true;
 var autoCompleteCountries = null;
 var countryList = [];
 
 function getCountryList() {
-    if (countryChange == 0) {
+    if (countryChange) {
     new Ajax.Request("getCountryList",
         { asynchronous: false,
           onSuccess: function(transport) {
@@ -515,9 +516,8 @@ function getCountryList() {
           autoCompleteCountries = new Autocompleter.Local("shipToCountryGeo", "shipToCountries", countryList, {partialSearch: false});
         }
     });
-    countryChange++;
+    countryChange = false;
     }
-    stateChange = 0;
 }
 
 function splitCountryNameFromIds() {
@@ -525,7 +525,7 @@ function splitCountryNameFromIds() {
     geoValues = $('shipToCountryGeo').value.split(': ');
     if(geoValues) {
         $('shipToCountryGeo').value = geoValues[0];
-        if(geoValues[1] == 'undefined' || geoValues[1] == null) {
+        if(geoValues[1] != 'undefined' || geoValues[1] != null) {
             countryList.each(function(country){
                 geo = country.split(': ');
                 if(geoValues[0] == geo[0]){
@@ -537,12 +537,12 @@ function splitCountryNameFromIds() {
     }
 }
 
-var stateChange = 0;
+var stateChange = true;
 var autoCompleteStates = null;
 var stateList = [];
 
 function getAssociatedStateList() {
-    if(stateChange == 0) {
+    if (stateChange) {
     new Ajax.Request("getAssociatedStateList",
         { asynchronous: false,
           parameters: $('shippingForm').serialize(),
@@ -552,7 +552,7 @@ function getAssociatedStateList() {
           autoCompleteStates = new Autocompleter.Local("shipToStateProvinceGeo", "shipToStates", stateList, {partialSearch: false});
         }
     });
-    stateChange++;
+    stateChange = false;
     }
 }
 
@@ -560,15 +560,15 @@ function splitStateNameFromIds() {
     geoValues = $('shipToStateProvinceGeo').value.split(': ');
     if(geoValues) {
         $('shipToStateProvinceGeo').value = geoValues[0];
-        if(geoValues[1] == 'undefined' || geoValues[1] == null) {
+        if(geoValues[1] != 'undefined' || geoValues[1] != null) {
             stateList.each(function(state){
                 geo = state.split(': ');
                 if(geoValues[0] == geo[0]){
                     geoValues[1] = geo[1];
                 }
             });
+            $('shipToStateProvinceGeoId').value = geoValues[1];
         }
-        $('shipToStateProvinceGeoId').value = geoValues[1];
     }
 }
 
@@ -584,7 +584,11 @@ function getAssociatedBillingStateList() {
             geoVolues = state.split(': ');
             optionList.push("<option value = " + geoVolues[1] + " >"+geoVolues[0]+"</option>");
           });
-          $('billToStateProvinceGeoId').innerHTML = optionList;
+          $('billToStateProvinceGeoId').update(optionList);
         }
     });
+}
+// This way associated state list will be fetched only when a user do any changes to country
+function isCountryChanged() {
+    stateChange = true;
 }
