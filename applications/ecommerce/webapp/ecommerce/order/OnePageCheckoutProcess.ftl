@@ -158,12 +158,12 @@ under the License.
                                   <#else>
                                     <input type="hidden" name="cartLineProductId" id="cartLineProductId_${cartLineIndex}" value="${cartLine.getProductId()}">
                                     <div>
-                                      <label for="qty_${cartLineIndex}">
-                                        <span id="advice-required-qty_${cartLineIndex}" style="display:none;">Quantity required.</span>
-                                      </label>
                                       <span>
                                         <input type="text" name="update_${cartLineIndex}" id="qty_${cartLineIndex}" value="${cartLine.getQuantity()?string.number}" size="6" class="inputBox required validate-number"><span></span>
                                       </span>
+                                      <label for="qty_${cartLineIndex}">
+                                        <span id="advice-required-qty_${cartLineIndex}" style="display:none;" class="errorMessage"> (required)</span>
+                                      </label>                                      
                                     </div>
                                   </#if>
                                 </td>
@@ -288,7 +288,7 @@ under the License.
                                 <div class="form-row">
                                   <div class="field-label">
                                      <label for="firstName">${uiLabelMap.PartyFirstName}<span>*</span>
-                                       <span id="advice-required-firstName" style="display: none">(required)</span>
+                                       <span id="advice-required-firstName" style="display: none" class="errorMessage"> (required)</span>
                                      </label>
                                   </div>
                                   <div class="field-widget">
@@ -298,7 +298,7 @@ under the License.
                                 <div class="form-row">
                                   <div class="field-label">
                                     <label for="lastName">${uiLabelMap.PartyLastName}<span>*</span>
-                                      <span id="advice-required-lastName" style="display:none">(required)</span>
+                                      <span id="advice-required-lastName" style="display:none" class="errorMessage"> (required)</span>
                                     </label>
                                   </div>
                                   <div class="field-widget">
@@ -308,10 +308,10 @@ under the License.
                                 <div class="form-row">
                                   <div class="field-label">
                                     <label for="countryCode">${uiLabelMap.PartyCountry}<span>*</span>
-                                      <span id="advice-required-shippingCountryCode" style="display:none">(required)</span>
+                                      <span id="advice-required-shippingCountryCode" style="display:none" class="errorMessage"> (required)</span>
                                     </label>
-                                    <label for="areaCode">${uiLabelMap.PartyAreaCode}<span>*</span><span id="advice-required-shippingAreaCode" style="display:none">(required)</span></label>
-                                    <label for="contactNumber">${uiLabelMap.PartyContactNumber}<span>*</span><span id="advice-required-shippingContactNumber" style="display:none">(required)</span></label>
+                                    <label for="areaCode">${uiLabelMap.PartyAreaCode}<span>*</span><span id="advice-required-shippingAreaCode" style="display:none" class="errorMessage"> (required)</span></label>
+                                    <label for="contactNumber">${uiLabelMap.PartyContactNumber}<span>*</span><span id="advice-required-shippingContactNumber" style="display:none" class="errorMessage"> (required)</span></label>
                                     <label for="extension">${uiLabelMap.PartyExtension}</label>
                                   </div>
                                   <div class="field-widget">
@@ -324,7 +324,7 @@ under the License.
                                 <div class="form-row">
                                   <div class="field-label">
                                     <label for="emailAddress">${uiLabelMap.PartyEmailAddress}<span>*</span>
-                                      <span id="advice-required-emailAddress" style="display:none">(required)</span>
+                                      <span id="advice-required-emailAddress" style="display:none" class="errorMessage"> (required)</span>
                                     </label>
                                   </div>
                                   <div class="field-widget">
@@ -334,7 +334,7 @@ under the License.
                             </td><td width="20%"></td><td>
                               <div class="form-row">
                                 <div class="field-label">
-                                  <label for="shipToAddress1">${uiLabelMap.PartyAddressLine1}<span>*</span><span id="advice-required-shipToAddress1" class="custom-advice" style="display:none">(required)</span></label>
+                                  <label for="shipToAddress1">${uiLabelMap.PartyAddressLine1}<span>*</span><span id="advice-required-shipToAddress1" class="custom-advice errorMessage" style="display:none"> (required)</span></label>
                                 </div>
                                 <div class="field-widget">
                                   <input id="shipToAddress1" name="shipToAddress1" class="inputBox required" type="text" value="${parameters.shipToAddress1?if_exists}" maxlength="255" size="40"/>
@@ -348,7 +348,7 @@ under the License.
                             </div>
                             <div class="form-row">
                               <div class="field-label">
-                                <label for="shipToCity">${uiLabelMap.CommonCity}<span>*</span><span id="advice-required-shipToCity" class="custom-advice" style="display:none">(required)</span></label>
+                                <label for="shipToCity">${uiLabelMap.CommonCity}<span>*</span><span id="advice-required-shipToCity" class="custom-advice errorMessage" style="display:none"> (required)</span></label>
                               </div>
                               <div class="field-widget">
                                 <input id="shipToCity" name="shipToCity" class="inputBox required" type="text" value="${parameters.shipToCity?if_exists}" maxlength="255" size="40"/>
@@ -356,7 +356,7 @@ under the License.
                             </div>
                             <div class="form-row">
                               <div class="field-label">
-                                <label for="shipToPostalCode">${uiLabelMap.PartyZipCode}<span>*</span><span id="advice-required-shipToPostalCode" class="custom-advice" style="display:none">(required)</span></label>
+                                <label for="shipToPostalCode">${uiLabelMap.PartyZipCode}<span>*</span><span id="advice-required-shipToPostalCode" class="custom-advice errorMessage" style="display:none"> (required)</span></label>
                               </div>
                               <div class="field-widget">
                                 <input id="shipToPostalCode" name="shipToPostalCode" class="inputBox required" type="text" value="${parameters.shipToPostalCode?if_exists}" size="12" maxlength="10"/>
@@ -364,7 +364,7 @@ under the License.
                             </div>
                             <div class="form-row">
                               <div class="field-label">
-                                <label for="shipToCountryGeoId">${uiLabelMap.PartyCountry}<span class="requiredLabel"> *</span><span id="advice-required-shipToCountryGeo" style="display:none">(required)</span></label>
+                                <label for="shipToCountryGeoId">${uiLabelMap.PartyCountry}<span class="requiredLabel"> *</span><span id="advice-required-shipToCountryGeo" style="display:none" class="errorMessage"> (required)</span></label>
                               </div>
                               <div class="field-widget">
                                 <div>
@@ -376,7 +376,7 @@ under the License.
                             </div>
                             <div class="form-row">
                               <div class="field-label">
-                                <label for="state">${uiLabelMap.CommonState}<span>*</span><span id="advice-required-shipToStateProvinceGeo" style="display:none">(required)</span></label>
+                                <label for="state">${uiLabelMap.CommonState}<span>*</span><span id="advice-required-shipToStateProvinceGeo" style="display:none" class="errorMessage"> (required)</span></label>
                               </div>
                               <div class="field-widget"> 
                                 <div>
@@ -421,7 +421,7 @@ under the License.
                   <tr><td>
                       <div class="form-row">
                         <div class="field-label">
-                          <label for="shipmethod">${uiLabelMap.OrderSelectShippingMethod}<span class="requiredLabel"> *</span><span id="advice-required-shipping_method" class="custom-advice" style="display:none">(required)</span></label>
+                          <label for="shipmethod">${uiLabelMap.OrderSelectShippingMethod}<span class="requiredLabel"> *</span><span id="advice-required-shipping_method" class="custom-advice" style="display:none" class="errorMessage"> (required)</span></label>
                         </div>
                         <select id="shipMethod" name="shipMethod" class="required"></select>
                       </div>
@@ -487,7 +487,7 @@ under the License.
                     <tr><td valign="top">
                         <div class="form-row">
                           <div class="field-label">
-                            <label for="cardFirstname">${uiLabelMap.PartyFirstName}<span>*</span><span id="advice-required-firstNameOnCard" style="display: none;">(required)</span></label>
+                            <label for="cardFirstname">${uiLabelMap.PartyFirstName}<span>*</span><span id="advice-required-firstNameOnCard" style="display: none;" class="errorMessage"> (required)</span></label>
                           </div>
                           <div class="field-widget">
                             <input id="firstNameOnCard" name="firstNameOnCard" class="inputBox required" type="text" value="${parameters.firstNameOnCard?if_exists}"/>
@@ -495,7 +495,7 @@ under the License.
                         </div>
                         <div class="form-row">
                           <div class="field-label">
-                            <label for="cardLastName">${uiLabelMap.PartyLastName}<span>*</span><span id="advice-required-lastNameOnCard" style="display: none;">(required)</span></label>
+                            <label for="cardLastName">${uiLabelMap.PartyLastName}<span>*</span><span id="advice-required-lastNameOnCard" style="display: none;" class="errorMessage"> (required)</span></label>
                           </div>
                           <div class="field-widget">
                             <input id="lastNameOnCard" name="lastNameOnCard" class="inputBox required" type="text" value="${parameters.lastNameOnCard?if_exists}"/>
@@ -503,7 +503,7 @@ under the License.
                         </div>
                         <div class="form-row">
                           <div class="field-label">
-                            <label for="cardNumber">${uiLabelMap.AccountingCardNumber}<span>*</span><span id="advice-required-cardNumber" style="display: none;">(required)</span></label>
+                            <label for="cardNumber">${uiLabelMap.AccountingCardNumber}<span>*</span><span id="advice-required-cardNumber" style="display: none;" class="errorMessage"> (required)</span></label>
                           </div>
                           <div class="field-widget">
                             <input id="cardNumber" autocomplete="off" name="cardNumber" class="inputBox required" type="text" value="${parameters.cardNumber?if_exists}" size=30 maxlength=16  />
@@ -511,7 +511,7 @@ under the License.
                         </div>
                         <div class="form-row">
                           <div class="field-label">
-                            <label for="CVV2">CVV2<span>*</span><span id="advice-required-CVV2" style="display:none">(required)</span></label>
+                            <label for="CVV2">CVV2<span>*</span><span id="advice-required-CVV2" style="display:none" class="errorMessage"> (required)</span></label>
                           </div>
                           <div class="field-widget">
                             <input id="CVV2" autocomplete="off" name="cardSecurityCode" class="inputBox required" size="4" type="text" maxlength="4" value=""/>
@@ -519,15 +519,15 @@ under the License.
                         </div>
                         <div class="form-row">
                           <div class="field-label">
-                            <label for="expirationdate">${uiLabelMap.AccountingExpirationDate}<span>*</span><span id="advice-validate-expMonth" class="custom-advice" style="display:none">(required)</span></label>
+                            <label for="expirationdate">${uiLabelMap.AccountingExpirationDate}<span>*</span><span id="advice-validate-expMonth" class="custom-advice" style="display:none" class="errorMessage"> (required)</span></label>
                           </div>
                         </div>
                         <div class="form-row">
                           <span>
-                            <label for="expMonth">${uiLabelMap.CommonMonth}:<span>*</span><span id="advice-required-expMonth" style="display:none">(required)</span></label>
+                            <label for="expMonth">${uiLabelMap.CommonMonth}:<span>*</span><span id="advice-required-expMonth" style="display:none" class="errorMessage"> (required)</span></label>
                           </span>
                           <span>
-                            <label for="expYear">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${uiLabelMap.CommonYear}:<span>*</span><span id="advice-required-expYear" style="display:none">(required)</span></label>
+                            <label for="expYear">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${uiLabelMap.CommonYear}:<span>*</span><span id="advice-required-expYear" style="display:none" class="errorMessage"> (required)</span></label>
                           </span>
                           <br>
                           <span>
@@ -556,7 +556,7 @@ under the License.
                         <div id="billingAddress" <#if parameters.useShippingAddressForBilling?has_content && parameters.useShippingAddressForBilling?default("")=="Y">style="display:none"</#if>>
                           <div class="form-row">
                             <div class="field-label">
-                              <label for="address1">${uiLabelMap.PartyAddressLine1}<span> *</span><span id="advice-required-billToAddress1" style="display:none">(required)</span></label>
+                              <label for="address1">${uiLabelMap.PartyAddressLine1}<span> *</span><span id="advice-required-billToAddress1" style="display:none" class="errorMessage"> (required)</span></label>
                             </div>
                             <div class="field-widget">
                               <input id="billToAddress1" name="billToAddress1" class="inputBox required" size=30 type="text" value="${parameters.billToAddress1?if_exists}"/>
@@ -572,7 +572,7 @@ under the License.
                           </div>
                           <div class="form-row">
                             <div class="field-label">                
-                              <label for="city">${uiLabelMap.CommonCity}<span>*</span><span id="advice-required-billToCity" style="display:none">(required)</span></label>
+                              <label for="city">${uiLabelMap.CommonCity}<span>*</span><span id="advice-required-billToCity" style="display:none" class="errorMessage"> (required)</span></label>
                             </div>
                             <div class="field-widget">
                               <input id="billToCity" name="billToCity" class="inputBox required" type="text" value="${parameters.billToCity?if_exists}"/>
@@ -580,7 +580,7 @@ under the License.
                           </div>
                           <div class="form-row">
                             <div class="field-label">
-                              <label for="billToPostalCode">${uiLabelMap.PartyZipCode}<span>*</span><span id="advice-required-billToPostalCode" style="display:none">(required)</span></label>   
+                              <label for="billToPostalCode">${uiLabelMap.PartyZipCode}<span>*</span><span id="advice-required-billToPostalCode" style="display:none" class="errorMessage"> (required)</span></label>   
                             </div>
                             <div class="field-widget">
                               <input id="billToPostalCode" name="billToPostalCode" class="inputBox required" type="text" value="${parameters.billToPostalCode?if_exists}" size="12" maxlength="10"/>
@@ -588,7 +588,7 @@ under the License.
                           </div>
                           <div class="form-row">
                             <div class="field-label">
-                              <label for="billToCountryGeoId">${uiLabelMap.PartyCountry}<span>*</span><span id="advice-required-billToCountryGeoId" style="display:none">(required)</span></label>
+                              <label for="billToCountryGeoId">${uiLabelMap.PartyCountry}<span>*</span><span id="advice-required-billToCountryGeoId" style="display:none" class="errorMessage"> (required)</span></label>
                             </div>
                             <div class="field-widget">
                               <select name="countryGeoId" id="billToCountryGeoId" class="required selectBox">
@@ -602,7 +602,7 @@ under the License.
                           </div>
                           <div class="form-row">
                             <div class="field-label">
-                               <label for="state">${uiLabelMap.CommonState}<span>*</span><span id="advice-required-billToStateProvinceGeoId" style="display:none">(required)</span></label>
+                               <label for="state">${uiLabelMap.CommonState}<span>*</span><span id="advice-required-billToStateProvinceGeoId" style="display:none" class="errorMessage"> (required)</span></label>
                             </div>
                             <div class="field-widget"> 
                               <select id="billToStateProvinceGeoId" name="billToStateProvinceGeoId" class="required selectBox">
