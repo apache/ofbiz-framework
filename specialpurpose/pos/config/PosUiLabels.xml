@@ -126,7 +126,7 @@
     </property>
     <property key="CreateOrChooseReasonInOut">
         <value xml:lang="en">You have to create or choose a reason</value>
-        <value xml:lang="fr">Vous devez créer ou choisir une raison pour ce mouvement de caisse</value>
+        <value xml:lang="fr">Vous devez créer ou choisir le motif de ce mouvement de caisse</value>
     </property>
     <property key="DATE">
         <value xml:lang="en">DATE</value>
@@ -271,7 +271,7 @@
     </property>
     <property key="LoadSaleListDblClickTip">
         <value xml:lang="en">You may use a double click to replace the current sale and delete this one</value>
-        <value xml:lang="fr">Vous pouvez utiliser le double clic pour remplacer la vente en cours et supprimer celle ci</value>
+        <value xml:lang="fr">Vous pouvez utiliser le double-clic pour remplacer la vente en cours et supprimer celle ci</value>
         <value xml:lang="ro">Poti folosi dublu click  pentru a rescrie vanzarea cruenta si pentru a o sterge.</value>
     </property>
     <property key="OPDRAM">
@@ -302,16 +302,13 @@
         <value xml:lang="en">Enter the billing postal code:</value>
         <value xml:lang="fr">Entrez le code postal :</value>
     </property>
-    <property key="PaidInOut">
-        <value xml:lang="fr">Entrez le montant et créer ou choisissez une raison pour ce mouvement de caisse</value>
-    </property>
     <property key="PaidInTitle">
         <value xml:lang="en">Enter amount to paid in and create or choose a reason</value>
-        <value xml:lang="fr">Entrez le montant à remettre en caisse et créer ou choisissez une raison</value>
+        <value xml:lang="fr">Entrez le montant à remettre en caisse et créez ou choisissez un motif</value>
     </property>
     <property key="PaidOutTitle">
         <value xml:lang="en">Enter amount to withdraw and create or choose a reason</value>
-        <value xml:lang="fr">Entrez le montant à retirer et créer ou choisissez une raison</value>
+        <value xml:lang="fr">Entrez le montant à retirer et créez ou choisissez un motif</value>
     </property>
     <property key="Processing">
         <value xml:lang="en">Processing payments...</value>
@@ -376,7 +373,7 @@
     </property>
     <property key="SelectProductListDblClickTip">
         <value xml:lang="en">You may use a double click to select the current product</value>
-        <value xml:lang="fr">Vous pouvez utiliser le double clic pour chosir un produit</value>
+        <value xml:lang="fr">Vous pouvez utiliser le double-clic pour choisir un produit</value>
     </property>
     <property key="Shutting_down">
         <value xml:lang="en">Shutting down...</value>
