@@ -21,37 +21,33 @@ import org.ofbiz.base.util.*;
 import org.ofbiz.entity.*;
 import org.ofbiz.widget.html.*;
 
-security = request.getAttribute("security");
-delegator = request.getAttribute("delegator");
-dispatcher = request.getAttribute("dispatcher");
-
-String orderId = request.getParameter("orderId");
-String orderTypeId = null;
-GenericValue orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
-if (orderHeader != null) {
-    orderTypeId = orderHeader.getString("orderTypeId");
+orderId = request.getParameter("orderId");
+orderTypeId = null;
+orderHeader = delegator.findByPrimaryKey("OrderHeader", [orderId : orderId]);
+if (orderHeader) {
+    orderTypeId = orderHeader.orderTypeId;
 }
 
 //Determine whether a schedule has already been defined for this PO
-GenericValue schedule = delegator.findByPrimaryKey("OrderDeliverySchedule", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", "_NA_"));
+schedule = delegator.findByPrimaryKey("OrderDeliverySchedule", [orderId : orderId, orderItemSeqId : "_NA_"]);
 
 // Determine whether the current user can VIEW the order
-Map checkMap = UtilMisc.toMap("orderId", orderId, "userLogin", session.getAttribute("userLogin"), "checkAction", "VIEW");
-Map checkResult = dispatcher.runSync("checkSupplierRelatedOrderPermission", checkMap);
-String hasSupplierRelatedPermissionStr = (String) checkResult.get("hasSupplierRelatedPermission");
+checkMap = [orderId : orderId, userLogin : session.getAttribute("userLogin"), checkAction : "VIEW"];
+checkResult = dispatcher.runSync("checkSupplierRelatedOrderPermission", checkMap);
+hasSupplierRelatedPermissionStr = checkResult.hasSupplierRelatedPermission;
 
 // Determine what the reuslt is, no result is FALSE
 hasSupplierRelatedPermission = "true".equals(hasSupplierRelatedPermissionStr);
 
 // Initialize the PO Delivery Schedule form
-HtmlFormWrapper updatePODeliveryInfoWrapper = new HtmlFormWrapper("component://order/webapp/ordermgr/order/OrderDeliveryScheduleForms.xml", "UpdateDeliveryScheduleInformation", request, response);
+updatePODeliveryInfoWrapper = new HtmlFormWrapper("component://order/webapp/ordermgr/order/OrderDeliveryScheduleForms.xml", "UpdateDeliveryScheduleInformation", request, response);
 updatePODeliveryInfoWrapper.putInContext("orderId", orderId);
 updatePODeliveryInfoWrapper.putInContext("orderItemSeqId", "_NA_");
 updatePODeliveryInfoWrapper.putInContext("schedule", schedule);
 updatePODeliveryInfoWrapper.putInContext("hasSupplierRelatedPermission", hasSupplierRelatedPermission);
 
-context.put("orderId", orderId);
-context.put("orderTypeId", orderTypeId);
-context.put("orderHeader", orderHeader);
-context.put("hasPermission", hasSupplierRelatedPermission);
-context.put("updatePODeliveryInfoWrapper", updatePODeliveryInfoWrapper);
+context.orderId = orderId;
+context.orderTypeId = orderTypeId;
+context.orderHeader = orderHeader;
+context.hasPermission = hasSupplierRelatedPermission;
+context.updatePODeliveryInfoWrapper = updatePODeliveryInfoWrapper;

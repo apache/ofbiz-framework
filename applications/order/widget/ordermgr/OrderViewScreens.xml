@@ -131,8 +131,8 @@ under the License.
             <actions>
                 <set field="titleProperty" value="OrderLookupOrder"/>
                 <set field="headerItem" value="orderlist"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/orderlist.bsh"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/filterorderlist.bsh"/>                
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/OrderList.groovy"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/FilterOrderList.groovy"/>                
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderViewDecorator">
@@ -174,7 +174,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="OrderFindOrder"/>
                 <set field="headerItem" value="findorders"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/findOrders.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/FindOrders.groovy"/>
                 <script location="component://content/webapp/content/WEB-INF/actions/print/FindPrinters.groovy"/>
             </actions>
             <widgets>
@@ -193,7 +193,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="OrderAddNote"/>
                 <set field="headerItem" value="findorders"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/newnote.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/NewNote.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderViewDecorator">
@@ -215,7 +215,7 @@ under the License.
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/OrderDeliveryScheduleInfo.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/OrderDeliveryScheduleInfo.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderViewDecorator">
@@ -233,7 +233,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="OrderOrderStatisticsPage"/>
                 <set field="headerItem" value="stats"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/orderstats.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/OrderStats.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderViewDecorator">

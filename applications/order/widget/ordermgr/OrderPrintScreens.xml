@@ -79,7 +79,7 @@ under the License.
     <screen name="CompanyLogo">
         <section>
             <actions>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/companyHeader.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/CompanyHeader.groovy"/>
             </actions>
             <widgets>
                 <platform-specific><xsl-fo><html-template location="component://order/webapp/ordermgr/order/companyHeader.fo.ftl"/></xsl-fo></platform-specific>

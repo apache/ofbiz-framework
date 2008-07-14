@@ -23,17 +23,12 @@ import org.ofbiz.entity.util.*;
 import org.ofbiz.entity.condition.*;
 import org.ofbiz.order.order.OrderListState;
 
-delegator = request.getAttribute("delegator");
-session = request.getSession(true);
-dispatcher = request.getAttribute("dispatcher");
-userLogin = session.getAttribute("userLogin");
-security = request.getAttribute("security");
 partyId = request.getParameter("partyId");
 facilityId = request.getParameter("facilityId");
 
 state = OrderListState.getInstance(request);
 state.update(request);
-context.put("state", state);
+context.state = state;
  
 // check permission for each order type
 hasPermission = false;
@@ -45,17 +40,13 @@ if (state.hasType("view_PURCHASE_ORDER") && security.hasEntityPermission("ORDERM
     hasPermission = true;
     purchaseOrdersCondition = EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "PURCHASE_ORDER");
 }
-context.put("hasPermission", hasPermission);
+context.hasPermission = hasPermission;
 
 orderHeaderList = state.getOrders(facilityId, delegator);
-context.put("orderHeaderList", orderHeaderList);
-
-locale = UtilHttp.getLocale(request);
+context.orderHeaderList = orderHeaderList;
 
 // a list of order type descriptions
 ordertypes = delegator.findList("OrderType", null, null, null, null, true);
-iter = ordertypes.iterator();
-while (iter.hasNext()) {
-    type = iter.next();
-    context.put("descr_" + type.getString("orderTypeId"), type.get("description",locale));
+ordertypes.each { type ->
+    context["descr_" + type.orderTypeId] = type.get("description",locale);
 }

@@ -18,23 +18,22 @@
  */
 
 orderId = request.getParameter("orderId");
-context.put("orderId", orderId);
+context.orderId = orderId;
  
 workEffortId = request.getParameter("workEffortId");
 partyId = request.getParameter("partyId");
 roleTypeId = request.getParameter("roleTypeId");
 fromDate = request.getParameter("fromDate");
 
-donePage = request.getParameter("DONE_PAGE");
-if (donePage == null || donePage.length() <= 0) 
-    donePage="orderview?orderId=" + orderId;
-if (workEffortId != null && workEffortId.length() > 0)
-    donePage = donePage + "&workEffortId=" + workEffortId;
-if (partyId != null && partyId.length() > 0)
-    donePage = donePage + "&partyId=" + partyId;
-if (roleTypeId != null && roleTypeId.length() > 0)
-    donePage = donePage + "&roleTypeId=" + roleTypeId;
-if (fromDate != null && fromDate.length() > 0)
-    donePage = donePage + "&fromDate=" + fromDate; 
-context.put("donePage", donePage);
+donePage = request.getParameter("DONE_PAGE") ?: "orderview?orderId=" + orderId;
+if (workEffortId)
+    donePage += "&workEffortId=" + workEffortId;
+if (partyId)
+    donePage += "&partyId=" + partyId;
+if (roleTypeId)
+    donePage += "&roleTypeId=" + roleTypeId;
+if (fromDate)
+    donePage += "&fromDate=" + fromDate; 
+
+context.donePage = donePage;
   
