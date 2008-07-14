@@ -16,13 +16,13 @@
  * specific language governing permissions and limitations
  * under the License.
  */
- 
+var isCartStepValidate = false;
+var isShipStepValidate = false;
+var isShipOptionStepValidate = false;
+var isBillStepValidate = false;
+
 Event.observe(window, 'load', function() {
-	// Cart
-    var isCartStepValidate = false;
-    var isShipStepValidate = false;
-    var isShipOptionStepValidate = false;
-    var isBillStepValidate = false;
+    // Cart
     var validateCart = new Validation('cartForm', {immediate: true, onSubmit: false});
     var validateShip = new Validation('shippingForm', {immediate: true, onSubmit: false});
     var validateShipOption = new Validation('shippingOptionForm', {immediate: true, onSubmit: false});
@@ -40,8 +40,8 @@ Event.observe(window, 'load', function() {
 
     // Shipping
     Event.observe($('editShippingOptions'), 'click', function() {
-    	if (isCartStepValidate) {
-    	    if (validateShip.validate()) {
+        if (isCartStepValidate) {
+            if (validateShip.validate()) {
                 processShippingAddress();
                 displayShippingOptionPanel();
                 isShipStepValidate = true;
@@ -50,11 +50,11 @@ Event.observe(window, 'load', function() {
     });
 
     Event.observe($('openShippingPanel'), 'click', function() {
-    	if (isCartStepValidate) {
+        if (isCartStepValidate) {
             if (isShipStepValidate) {
                 displayShippingPanel();
             }
-    	}
+        }
     });
 
     // Shipping Options
@@ -66,7 +66,7 @@ Event.observe(window, 'load', function() {
                 displayBillingPanel();
                 isShipOptionStepValidate = true;
             }
-        }    	
+        }
     });
 
     Event.observe($('openShippingOptionPanel'), 'click', function() {
@@ -77,14 +77,14 @@ Event.observe(window, 'load', function() {
 
     // Billing
     Event.observe($('openBillingPanel'), 'click', function() {
-   	    if (isBillStepValidate) {
+        if (isBillStepValidate) {
             displayBillingPanel();
         }  
     });
 
     Event.observe($('openOrderSubmitPanel'), 'click', function() {
         if (isCartStepValidate && isShipStepValidate && isShipOptionStepValidate) {
-            if (validateBill.validate()) {    	
+            if (validateBill.validate()) {
                 processBillingAndPayment();
                 displayOrderSubmitPanel();
                 isBillStepValidate = true;
@@ -92,7 +92,7 @@ Event.observe(window, 'load', function() {
         }
     });
     
-    //  For Billing Address Same As Shipping
+    // For Billing Address Same As Shipping
     Event.observe('useShippingAddressForBilling', 'click', function() {
         getAssociatedBillingStateList();
         useShippingAddressForBillingToggle();
@@ -113,6 +113,22 @@ Event.observe(window, 'load', function() {
     // Get associate states for billing panel
     Event.observe($('billToCountryGeoId'), 'change', getAssociatedBillingStateList);
 });
+
+// Check server side error
+function getServerError(data) {
+    var servreErrorHash = [];
+    var serverError = "";
+    if (data._ERROR_MESSAGE_LIST_ != undefined) {
+        servreErrorHash = data._ERROR_MESSAGE_LIST_;
+        servreErrorHash.each(function(error) {
+            serverError += error.message;
+        });
+    }
+    if (data._ERROR_MESSAGE_ != undefined) {
+        serverError = data._ERROR_MESSAGE_; 
+    }
+    return serverError;    
+}
 
 // Cart
 function displayShippingPanel() {
@@ -148,7 +164,7 @@ function displayCartPanel() {
 
 // Shipping
 function displayShippingOptionPanel() {
-    if (!$('editShippingOptionPanel').visible()) {
+    if (!$('editShippingOptionPanel').visible() && isShipStepValidate) {
         Effect.BlindDown('editShippingOptionPanel', {duration: 0.5});
         Effect.BlindDown('shippingCompleted', {duration: 0.5});
         Effect.BlindUp('editCartPanel', {duration: 0.5});
@@ -167,7 +183,7 @@ function displayShippingOptionPanel() {
 
 // Billing
 function displayBillingPanel() {
-    if (!$('editBillingPanel').visible()) {
+    if (!$('editBillingPanel').visible() && isShipOptionStepValidate) {
         Effect.BlindDown('editBillingPanel', {duration: 0.5});
         Effect.BlindDown('shippingOptionCompleted', {duration: 0.5});
         Effect.BlindUp('editCartPanel', {duration: 0.5});
@@ -186,7 +202,7 @@ function displayBillingPanel() {
 
 // Order Submit
 function displayOrderSubmitPanel() {
-    if (!$('orderSubmitPanel').visible()) {
+    if (!$('orderSubmitPanel').visible() && isBillStepValidate) {
         Effect.BlindDown('orderSubmitPanel', {duration: 0.5});
         Effect.BlindDown('billingCompleted', {duration: 0.5});
         Effect.BlindUp('editCartPanel', {duration: 0.5});
@@ -201,7 +217,7 @@ function displayOrderSubmitPanel() {
         Effect.Fade('processingOrderButton', {duration: 0.5});
         Effect.Appear('processOrderButton', {duration: 0.5});
     }
-    setDataInBillingCompleted();	
+    setDataInBillingCompleted();
 }
 
 function processShippingAddress() {
@@ -211,20 +227,19 @@ function processShippingAddress() {
         asynchronous: false, 
         onSuccess: function(transport) {
             var data = transport.responseText.evalJSON(true);
-            shipOptions = data.shippingOptions;
-            shipOptions.each( function(shipOption) {
-                optionList.push("<option value = " + shipOption.shippingMethod + " > " + shipOption.shippingDesc + " </option>");
-            });
-            $('shipMethod').update(optionList);
-            if (data._ERROR_MESSAGE_LIST_ != undefined) {
-                $('shippingFormServerError').update(data._ERROR_MESSAGE_LIST_);
-            } else if (data._ERROR_MESSAGE_ != undefined) {
-                if (data._ERROR_MESSAGE_LIST_ == "SessionTimedOut") {
-                    $('emptyCartCheckoutPanel').show();
-                    $('checkoutPanel').hide();
-                }
-                $('shippingFormServerError').update(data._ERROR_MESSAGE_); 
+            var serverError = getServerError(data);
+            if(serverError != "") {
+                Effect.Appear('shippingFormServerError');
+                $('shippingFormServerError').update(serverError);
+                isShipStepValidate = false;
             } else {
+                Effect.Fade('shippingFormServerError');
+                isShipStepValidate = true;
+                shipOptions = data.shippingOptions;
+                shipOptions.each( function(shipOption) {
+                    optionList.push("<option value = " + shipOption.shippingMethod + " > " + shipOption.shippingDesc + " </option>");
+                });
+                $('shipMethod').update(optionList);
                 // Process Shipping data response.
                 $('shippingPartyId').value = data.partyId;
                 $('shippingContactMechId').value = data.shippingContactMechId;
@@ -259,19 +274,16 @@ function setShippingOption() {
         asynchronous: false,
         onSuccess: function(transport) {
             var data = transport.responseText.evalJSON(true);
-            console.log(data);
             shipMethod = data.shippingDescription;
             shipTotal = data.shippingTotal;
-            if (data._ERROR_MESSAGE_LIST_ != undefined) {
-                $('shippingOptionFormServerError').update(data._ERROR_MESSAGE_LIST_);
-            	
-            } else if (data._ERROR_MESSAGE_ != undefined) {
-                if (data._ERROR_MESSAGE_LIST_ == "SessionTimedOut") {
-                    $('emptyCartCheckoutPanel').show();
-                    $('checkoutPanel').hide();
-                }
-                $('shippingOptionFormServerError').update(data._ERROR_MESSAGE_);
+            var serverError = getServerError(data);
+            if(serverError != "") {
+                Effect.Appear('shippingOptionFormServerError');
+                $('shippingOptionFormServerError').update(serverError);
+                isShipOptionStepValidate = false;
             } else {
+                Effect.Fade('shippingOptionFormServerError');
+                isShipOptionStepValidate = true;
                 $('shippingDescription').value = data.shippingDescription;
                 $('shippingTotal').value = data.shippingTotal;
                 $('cartGrandTotal').value = data.cartGrandTotal;
@@ -306,16 +318,14 @@ function processBillingAndPayment() {
         asynchronous: false, 
         onSuccess: function(transport) {
             var data = transport.responseText.evalJSON(true);
-            console.log(data);
-            if (data._ERROR_MESSAGE_LIST_ != undefined) {
-                $('billingFormServerError').update(data._ERROR_MESSAGE_LIST_);
-            } else if (data._ERROR_MESSAGE_ != undefined) {
-                if (data._ERROR_MESSAGE_LIST_="SessionTimedOut") {
-                    $('emptyCartCheckoutPanel').show();
-                    $('checkoutPanel').hide();
-                }
-                $('billingFormServerError').update(data._ERROR_MESSAGE_);
+            var serverError = getServerError(data);
+            if(serverError != "") {
+                Effect.Appear('billingFormServerError');
+                $('billingFormServerError').update(serverError);
+                isBillStepValidate = false;
             } else {
+                Effect.Fade('billingFormServerError');
+                isBillStepValidate = true;
                 $('billToContactMechId').value = data.billToContactMechId;
                 $('paymentMethodId').value = data.paymentMethodId;
             }
@@ -362,9 +372,9 @@ function addPromoCode() {
         onSuccess: function(transport) {
             var data = transport.responseText.evalJSON(true);
             if (data._ERROR_MESSAGE_LIST_ != undefined) {
-            	$('cartFormServerError').update(data._ERROR_MESSAGE_LIST_);
+                $('cartFormServerError').update(data._ERROR_MESSAGE_LIST_);
             } else if (data._ERROR_MESSAGE_ != undefined) {
-            	$('cartFormServerError').update(data._ERROR_MESSAGE_);	
+                $('cartFormServerError').update(data._ERROR_MESSAGE_);  
             } else {
                 $('cartDiscountValue').update(data.displayDiscountTotalCurrencyFormatted);
                 $('cartSubTotal').update(data.subTotalCurrencyFormatted);
@@ -432,7 +442,7 @@ function cartItemQtyChanged(event) {
         var formValues = $('cartForm').serialize();
         updateCartData(elementId, formValues, qtyElement.value, itemIndex);
     } else {
-    	qtyElement.value = "";	
+        qtyElement.value = "";  
     }
 }
 
