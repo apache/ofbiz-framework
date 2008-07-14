@@ -44,7 +44,7 @@ if (shoppingCart) {
 }
 
 profiledefs = delegator.findByPrimaryKey("PartyProfileDefault", [partyId : userLogin.partyId, productStoreId : productStoreId]);
-context.profiledefs : profiledefs;
+context.profiledefs = profiledefs;
 
 context.shoppingCart = shoppingCart;
 context.userLogin = userLogin;
