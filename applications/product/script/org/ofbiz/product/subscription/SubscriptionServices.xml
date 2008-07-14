@@ -21,9 +21,6 @@ under the License.
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     
     <simple-method method-name="createSubscription" short-description="Create a Subscription">
-        <set value="_CREATE" field="securityAction"/>
-        <check-permission permission="CATALOG" action="${securityAction}"><fail-property resource="ProductUiLabels" property="GeneralCatalogPermissionError"/></check-permission>
-        <check-errors/>
         <make-value entity-name="Subscription" value-name="newEntity"/>
         <if-empty field="parameters.subscriptionId">
             <sequenced-id-to-env sequence-name="Subscription" env-name="newEntity.subscriptionId"/> <!-- get the next sequenced ID -->
@@ -52,26 +49,15 @@ under the License.
         <create-value value-name="newEntity"/>
     </simple-method>   
     <simple-method method-name="updateSubscription" short-description="Update a Subscription">
-        <set value="_UPDATE" field="securityAction"/>
-        <check-permission permission="CATALOG" action="${securityAction}"><fail-property resource="ProductUiLabels" property="GeneralCatalogPermissionError"/></check-permission>
-        <check-errors/>
         <entity-one entity-name="Subscription" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="isSubscribed" short-description="check if a party has a subscription">
-        <set value="_READ" field="securityAction"/>
-        <check-permission permission="CATALOG" action="${securityAction}"><fail-property resource="ProductUiLabels" property="GeneralCatalogPermissionError"/></check-permission>
-        <check-errors/>
         <set field="pfInput.inputFields" from-field="parameters"/>
         <set field="pfInput.entityName" value="Subscription"/>
-        <if-empty field="parameters.filterByDate">
-            <set field="pfInput.filterByDate" value="Y"/>
-            <else>
-                <set field="pfInput.filterByDate" from-field="parameters.filterByDate"/>
-            </else>
-        </if-empty>
+        <set field="pfInput.filterByDate" from-field="parameters.filterByDate" default-value="Y"/>
         
         <call-service service-name="performFindList" in-map-name="pfInput">
             <result-to-field result-name="list" field-name="pfResultList"/>
@@ -90,9 +76,6 @@ under the License.
     </simple-method>
     
     <simple-method method-name="getSubscription" short-description="Get Subscription data">
-        <set value="_READ" field="securityAction"/>
-        <check-permission permission="CATALOG" action="${securityAction}"><accept-userlogin-party/><fail-property resource="ProductUiLabels" property="GeneralCatalogPermissionError"/></check-permission>
-        <check-errors/>
         <entity-one entity-name="Subscription" value-name="subscription"/>
         <field-to-result field-name="parameters.subscriptionId" result-name="subscriptionId"/>
         <if-not-empty field="subscription">
@@ -101,9 +84,6 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createSubscriptionResource" short-description="Create a SubscriptionResource">
-        <set value="_CREATE" field="securityAction"/>
-        <check-permission permission="CATALOG" action="${securityAction}"><fail-property resource="ProductUiLabels" property="GeneralCatalogPermissionError"/></check-permission>
-        <check-errors/>
         <make-value entity-name="SubscriptionResource" value-name="newEntity"/>
         <sequenced-id-to-env sequence-name="SubscriptionResource" env-name="newEntity.subscriptionResourceId"/>
         <field-to-result field-name="newEntity.subscriptionResourceId" result-name="subscriptionResourceId"/>
@@ -111,18 +91,12 @@ under the License.
         <create-value value-name="newEntity"/>
     </simple-method>   
     <simple-method method-name="updateSubscriptionResource" short-description="Update a SubscriptionResource">
-        <set value="_UPDATE" field="securityAction"/>
-        <check-permission permission="CATALOG" action="${securityAction}"><fail-property resource="ProductUiLabels" property="GeneralCatalogPermissionError"/></check-permission>
-        <check-errors/>
         <entity-one entity-name="SubscriptionResource" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
 
     <simple-method method-name="createProductSubscriptionResource" short-description="Create a ProductSubscriptionResource">
-        <set value="_CREATE" field="securityAction"/>
-        <check-permission permission="CATALOG" action="${securityAction}"><fail-property resource="ProductUiLabels" property="GeneralCatalogPermissionError"/></check-permission>
-        <check-errors/>
         <make-value entity-name="ProductSubscriptionResource" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <if-empty field="newEntity.fromDate"><now-timestamp-to-env env-name="newEntity.fromDate"/></if-empty>
@@ -130,24 +104,15 @@ under the License.
         <create-value value-name="newEntity"/>
     </simple-method>   
     <simple-method method-name="updateProductSubscriptionResource" short-description="Update a ProductSubscriptionResource">
-        <set value="_UPDATE" field="securityAction"/>
-        <check-permission permission="CATALOG" action="${securityAction}"><fail-property resource="ProductUiLabels" property="GeneralCatalogPermissionError"/></check-permission>
-        <check-errors/>
         <entity-one entity-name="ProductSubscriptionResource" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductSubscriptionResource" short-description="Delete a ProductSubscriptionResource">
-        <set value="_DELETE" field="securityAction"/>
-        <check-permission permission="CATALOG" action="${securityAction}"><fail-property resource="ProductUiLabels" property="GeneralCatalogPermissionError"/></check-permission>
-        <check-errors/>
         <entity-one entity-name="ProductSubscriptionResource" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="updateSubscriptionAttribute" short-description="Create (when not exist) or update (when exist) a Subscription attribute">
-        <set value="_UPDATE" field="securityAction"/>
-        <check-permission permission="CATALOG" action="${securityAction}"><fail-property resource="ProductUiLabels" property="GeneralCatalogPermissionError"/></check-permission>
-        <check-errors/>
         <field-to-result field-name="parameters.subscriptionId" result-name="subscriptionId"/>
         <entity-one entity-name="SubscriptionAttribute" value-name="lookedUpValue"/>
         <if-empty field="lookedUpValue">
@@ -163,19 +128,35 @@ under the License.
     </simple-method>
     
     <simple-method method-name="createSubscriptionCommEvent" short-description="Create a Subscription Communication Event">
-        <set value="_CREATE" field="securityAction"/>
-        <check-permission permission="CATALOG" action="${securityAction}"><fail-property resource="ProductUiLabels" property="GeneralCatalogPermissionError"/></check-permission>
-        <check-errors/>
         <make-value value-name="newEntity" entity-name="SubscriptionCommEvent"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>    
     </simple-method>
     <simple-method method-name="removeSubscriptionCommEvent" short-description="Remove a Subscription Communication Event">
-        <set value="_CREATE" field="securityAction"/>
-        <check-permission permission="CATALOG" action="${securityAction}"><fail-property resource="ProductUiLabels" property="GeneralCatalogPermissionError"/></check-permission>
-        <check-errors/>
         <entity-one entity-name="SubscriptionCommEvent" value-name="eventSubscription"/>
         <remove-value value-name="eventSubscription"/>
     </simple-method>
+
+    <!-- ============== Permission Checking Service ============= -->
+    <simple-method method-name="subscriptionPermissionCheck" short-description="Subscription permission checking logic">
+        <set field="primaryPermission" value="CATALOG"/>
+        <call-simple-method method-name="genericBasePermissionCheck" xml-resource="component://common/script/org/ofbiz/common/permission/CommonPermissionServices.xml"/>
+        <!-- Backwards compatibility - check for non-existent CATALOG_READ permission -->
+        <if>
+            <condition>
+                <and>
+                    <if-compare field="hasPermission" value="false" operator="equals" type="Boolean"/>
+                    <if-compare field="mainAction" value="VIEW" operator="equals"/>
+                </and>
+            </condition>
+            <then>
+                <if-has-permission permission="CATALOG_READ">
+                    <set field="hasPermission" type="Boolean" value="true"/>
+                    <field-to-result field-name="hasPermission"/>
+                </if-has-permission>
+            </then>
+        </if>
+    </simple-method>
+
 </simple-methods>
