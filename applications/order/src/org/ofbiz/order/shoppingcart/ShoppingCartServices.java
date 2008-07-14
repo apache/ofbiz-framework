@@ -850,8 +850,8 @@ public class ShoppingCartServices {
             result.put("totalSalesTaxCurrencyFormatted",org.ofbiz.base.util.UtilFormatOut.formatCurrency(shoppingCart.getTotalSalesTax(),isoCode,locale));
             result.put("displayGrandTotal",new Double(shoppingCart.getDisplayGrandTotal()));
             result.put("displayGrandTotalCurrencyFormatted",org.ofbiz.base.util.UtilFormatOut.formatCurrency(shoppingCart.getDisplayGrandTotal(),isoCode,locale));
-            result.put("displayDiscountTotalCurrencyFormatted",org.ofbiz.base.util.UtilFormatOut.formatCurrency(shoppingCart.getProductPromoTotal(),isoCode,locale));
-
+            double orderAdjustmentsTotal = OrderReadHelper.calcOrderAdjustments(OrderReadHelper.getOrderHeaderAdjustments(shoppingCart.getAdjustments(), null), BigDecimal.valueOf(shoppingCart.getSubTotal()), true, true, true).doubleValue();
+            result.put("displayOrderAdjustmentsTotalCurrencyFormatted", org.ofbiz.base.util.UtilFormatOut.formatCurrency(orderAdjustmentsTotal, isoCode, locale));
             Iterator i = shoppingCart.iterator();
             Map cartItemData = FastMap.newInstance();
             while (i.hasNext()) {

@@ -377,7 +377,7 @@ function addPromoCode() {
             } else if (data._ERROR_MESSAGE_ != undefined) {
                 $('cartFormServerError').update(data._ERROR_MESSAGE_);  
             } else {
-                $('cartDiscountValue').update(data.displayDiscountTotalCurrencyFormatted);
+                $('cartDiscountValue').update(data.displayOrderAdjustmentsTotalCurrencyFormatted);
                 $('cartSubTotal').update(data.subTotalCurrencyFormatted);
                 $('cartTotalShipping').update(data.totalShippingCurrencyFormatted);
                 $('cartTotalSalesTax').update(data.totalSalesTaxCurrencyFormatted);
@@ -387,7 +387,7 @@ function addPromoCode() {
                 $('completedCartTotalShipping').update(data.totalShippingCurrencyFormatted);
                 $('completedCartTotalSalesTax').update(data.totalSalesTaxCurrencyFormatted);
                 $('completedCartDisplayGrandTotal').update(data.displayGrandTotalCurrencyFormatted);
-                $('completedCartDiscount').update(data.displayDiscountTotalCurrencyFormatted); 
+                $('completedCartDiscount').update(data.displayOrderAdjustmentsTotalCurrencyFormatted); 
                 if (data.displayDiscountTotal < 0) {
                     $('completedCartDiscountRow').show();
                 } else {
@@ -458,7 +458,7 @@ function updateCartData(elementId, formValues, itemQty, itemIndex) {
             } else {
                 // Used for edit cart
                 $('cartSubTotal').update(data.subTotalCurrencyFormatted);
-                $('cartDiscountValue').update(data.displayDiscountTotalCurrencyFormatted);
+                $('cartDiscountValue').update(data.displayOrderAdjustmentsTotalCurrencyFormatted);
                 $('cartTotalShipping').update(data.totalShippingCurrencyFormatted);
                 $('cartTotalSalesTax').update(data.totalSalesTaxCurrencyFormatted);
                 $('cartDisplayGrandTotal').update(data.displayGrandTotalCurrencyFormatted);
@@ -467,7 +467,7 @@ function updateCartData(elementId, formValues, itemQty, itemIndex) {
                 $('completedCartTotalShipping').update(data.totalShippingCurrencyFormatted);
                 $('completedCartTotalSalesTax').update(data.totalSalesTaxCurrencyFormatted);
                 $('completedCartDisplayGrandTotal').update(data.displayGrandTotalCurrencyFormatted);
-                $('completedCartDiscount').update(data.displayDiscountTotalCurrencyFormatted);
+                $('completedCartDiscount').update(data.displayOrderAdjustmentsTotalCurrencyFormatted);
                 if (elementId != undefined && $(elementId).value != "") {
                     if (itemQty == 0) {
                         var cartItemRowId = elementId.sub('qty_','cartItemRow_');
