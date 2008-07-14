@@ -58,10 +58,10 @@ under the License.
                         <tr id="cartItemDisplayRow_${cartLineIndex}">
                           <td align="left"><div><img src="<@ofbizContentUrl>${requestAttributes.contentPathPrefix?if_exists}${smallImageUrl}</@ofbizContentUrl>" align="center" height="20" hspace="0" vspace="0" width="20"></div></td>
                           <td align="left"><div>${cartLine.getName()?if_exists}</div> 
-                          <td align="center"><div>@${cartLine.getDisplayPrice()}</div></td>
+                          <td align="center"><div>${cartLine.getDisplayPrice()}</div></td>
                           <td align="center"><div><span id="completedCartItemQty_${cartLineIndex}">${cartLine.getQuantity()?string.number}</span></div></td>
-                          <td align="center"><div><span id="completedCartItemAdjustment_${cartLineIndex}">${cartLine.getOtherAdjustments()?string.number}</span></div></td>
-                          <td align="right"><div id="completedCartItemSubTotal_${cartLineIndex}"><@ofbizCurrency amount=cartLine.getDisplayItemSubTotalNoAdj() isoCode=shoppingCart.getCurrency()/></div></td>
+                          <td align="center"><div><span id="completedCartItemAdjustment_${cartLineIndex}"><@ofbizCurrency amount=cartLine.getOtherAdjustments() isoCode=shoppingCart.getCurrency()/></span></div></td>
+                          <td align="right"><div id="completedCartItemSubTotal_${cartLineIndex}"><@ofbizCurrency amount=cartLine.getDisplayItemSubTotal() isoCode=shoppingCart.getCurrency()/></div></td>
                         </tr>
                         <tr><td colspan="6"><hr class="sepbar"/></td></tr>
                         <#assign itemCount = itemCount + 1>
@@ -69,14 +69,21 @@ under the License.
                       <tr id="completedCartSubtotalRow">
                         <td colspan="4"></td>
                         <td><div align="right"><b>${uiLabelMap.CommonSubtotal}:</b></div></td>
-                        <#assign initializedSubTotal = shoppingCart.getDisplaySubTotal() - shoppingCart.getProductPromoTotal()>
-                        <td><div id="completedCartSubTotal" align="right"><@ofbizCurrency amount=initializedSubTotal isoCode=shoppingCart.getCurrency()/></div></td>
+                        <td><div id="completedCartSubTotal" align="right"><@ofbizCurrency amount=shoppingCart.getSubTotal() isoCode=shoppingCart.getCurrency()/></div></td>
                       </tr>
+                      <#assign orderAdjustmentsTotal = 0>
+                      <#list shoppingCart.getAdjustments() as cartAdjustment>
+                        <#assign orderAdjustmentsTotal = orderAdjustmentsTotal + Static["org.ofbiz.order.order.OrderReadHelper"].calcOrderAdjustment(cartAdjustment, shoppingCart.getSubTotal())>
+                      </#list>
                       <tr id="completedCartDiscountRow">
-                        <input type="hidden" value="<b>${shoppingCart.getProductPromoTotal()}</b>" id="initializedCompletedCartDiscount"/>
+                        <input type="hidden" value="${orderAdjustmentsTotal}" id="initializedCompletedCartDiscount"/>
                         <td colspan="4"></td>
                         <td><div align="right"><b>${uiLabelMap.ProductDiscount}:</b></div></td>
-                        <td><div id="completedCartDiscount" align="right"><@ofbizCurrency amount=shoppingCart.getProductPromoTotal() isoCode=shoppingCart.getCurrency()/></div></td>
+                        <td>
+                          <div id="completedCartDiscount" align="right">
+                            <@ofbizCurrency amount=orderAdjustmentsTotal isoCode=shoppingCart.getCurrency()/>
+                          </div>
+                        </td>
                       </tr>
                       <tr>
                         <td colspan="4"></td>
@@ -150,7 +157,7 @@ under the License.
                                 </td>
                                 <td align="left"><div>${cartLine.getName()?if_exists}</div></td>
                                 <td align="center"><div id="itemUnitPrice_${cartLineIndex}">
-                                  <@ofbizCurrency amount=cartLine.getDisplayPrice() isoCode=shoppingCart.getCurrency() rounding=2/></div>
+                                  <@ofbizCurrency amount=cartLine.getDisplayPrice() isoCode=shoppingCart.getCurrency()/></div>
                                 </td>
                                 <td align="center">
                                   <#if cartLine.getIsPromo()>
@@ -172,11 +179,7 @@ under the License.
                                 <#else>
                                   <td nowrap align="center"><div class="tabletext"><@ofbizCurrency amount=cartLine.getOtherAdjustments() isoCode=shoppingCart.getCurrency()/></div></td>
                                 </#if>                                
-                                <#if cartLine.getIsPromo()>
-                                  <td align="center">FREE</td>
-                                <#else>
-                                  <td align="center"><div id="displayItem_${cartLineIndex}"><@ofbizCurrency amount=cartLine.getDisplayItemSubTotalNoAdj() isoCode=shoppingCart.getCurrency()/></div></td>
-                                </#if>
+                                <td align="center"><div id="displayItem_${cartLineIndex}"><@ofbizCurrency amount=cartLine.getDisplayItemSubTotal() isoCode=shoppingCart.getCurrency()/></div></td>
                                 <#if !cartLine.getIsPromo()>
                                   <td align="right"><a href="javascript:void(0);"><img id="remove_${cartLineIndex?if_exists}" src="<@ofbizContentUrl>/ecommerce/images/remove.png</@ofbizContentUrl>" border="0" height="30" hspace="0" vspace="0" width="40"></a></td>
                                 </#if>
@@ -188,8 +191,7 @@ under the License.
                               <tr>
                                 <td colspan="4"></td>
                                 <td><div align="right"><b>${uiLabelMap.CommonSubtotal}:</b></div></td>
-                                <#assign initializedSubTotal = shoppingCart.getDisplaySubTotal() - shoppingCart.getProductPromoTotal()>
-                                <td><div id="cartSubTotal" align="center"><@ofbizCurrency amount=initializedSubTotal isoCode=shoppingCart.getCurrency()/></div></td>
+                                <td><div id="cartSubTotal" align="center"><@ofbizCurrency amount=shoppingCart.getSubTotal() isoCode=shoppingCart.getCurrency()/></div></td>
                               </tr>
                               <tr>
                                 <td colspan="4">
@@ -199,7 +201,13 @@ under the License.
                                 </td>
                                 <td><div id="cartDiscount" align="right"><b>${uiLabelMap.ProductDiscount}:</b></div></td>
                                 <td>
-                                  <div id="cartDiscountValue" align="center"><@ofbizCurrency amount=shoppingCart.getProductPromoTotal() isoCode=shoppingCart.getCurrency()/></div>
+                                  <div id="cartDiscountValue" align="center">
+                                    <#assign orderAdjustmentsTotal = 0>
+                                    <#list shoppingCart.getAdjustments() as cartAdjustment>
+                                      <#assign orderAdjustmentsTotal = orderAdjustmentsTotal + Static["org.ofbiz.order.order.OrderReadHelper"].calcOrderAdjustment(cartAdjustment, shoppingCart.getSubTotal())>
+                                    </#list>
+                                    <@ofbizCurrency amount=orderAdjustmentsTotal isoCode=shoppingCart.getCurrency()/>
+                                  </div>
                                 </td>
                               </tr>
                               <tr>
