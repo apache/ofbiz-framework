@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!--
+<?xml version="1.0" encoding="UTF-8" ?><!--
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -6,82 +6,488 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-    
+
     http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
--->
-<!-- This file contains labels translated by the POS component (ie not by XUI framework) -->
-<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <property key="SECURITYCODE"><value xml:lang="en">Enter security code:</value><value xml:lang="fr">Entrez votre code :</value></property>
-    <property key="SKU"><value xml:lang="en">SKU</value><value xml:lang="es">SKU</value><value xml:lang="fr">Code</value><value xml:lang="it">CODICE PRODOTTO</value><value xml:lang="ro">COD PRODUS</value><value xml:lang="zh">SKU</value></property>
-    <property key="CREDIT_CARD"><value xml:lang="en">CREDIT CARD</value><value xml:lang="es">TARJETA DE CRÉDITO</value><value xml:lang="fr">Carte(s) de crédit</value><value xml:lang="it">CARTA CREDITO</value><value xml:lang="ro">CARTE DE CREDIT</value><value xml:lang="zh">信用卡</value></property>
-    <property key="UPASSW"><value xml:lang="en">Enter Password:</value><value xml:lang="es">Ingrese password</value><value xml:lang="fr">Entrez votre mot de passe :</value><value xml:lang="it">Inserire Password:</value><value xml:lang="ro">Introduceti Parola:</value><value xml:lang="zh">输入口令:</value></property>
-    <property key="CREDEX"><value xml:lang="en">Enter Expiration Date (MMYY):</value><value xml:lang="es">Ingrese fecha de expiración (MMYY)</value><value xml:lang="fr">Entrez la date d'expiration (MMYY):</value><value xml:lang="it">Inserire Data Scadenza (MMYY):</value><value xml:lang="ro">Introduceti Data Expirarii (LLAA):</value><value xml:lang="zh">输入到期日 (MMYY):</value></property>
-    <property key="SaveASale"><value xml:lang="en">Save current sale</value><value xml:lang="fr">Sauver la vente en cours</value><value xml:lang="ro">Salveaza vanzarea curenta</value></property>
-    <property key="CASH"><value xml:lang="en">CASH</value><value xml:lang="es">CONTADO</value><value xml:lang="fr">Espèces</value><value xml:lang="it">CONTANTE</value><value xml:lang="ro">Numerar</value><value xml:lang="zh">现金</value></property>
-    <property key="OTHER"><value xml:lang="en">OTHER</value><value xml:lang="es">OTROS</value><value xml:lang="fr">Autres</value><value xml:lang="it">ALTRO</value><value xml:lang="ro">ALTE</value><value xml:lang="zh">其他</value></property>
-    <property key="POSTALCODE"><value xml:lang="en">Enter the billing postal code:</value><value xml:lang="fr">Entrez le code postal :</value></property>
-    <property key="DRWR"><value xml:lang="en">TILL</value><value xml:lang="es">Caja</value><value xml:lang="fr">Caisse</value><value xml:lang="it">CASSIERE</value><value xml:lang="ro">CASIER</value><value xml:lang="zh">钞箱</value></property>
-    <property key="TOTALD"><value xml:lang="en">Total Due:</value><value xml:lang="es">Total debido:</value><value xml:lang="fr">Total dû :</value><value xml:lang="it">Totale Dovuto:</value><value xml:lang="ro">Total(dovuto)?:</value><value xml:lang="zh">合计额:</value></property>
-    <property key="SelectProductListDblClickTip"><value xml:lang="en">You may use a double click to select the current product</value><value xml:lang="fr">Vous pouvez utiliser le double clic pour chosir un produit</value></property>
-    <property key="PaidInOut"><value xml:lang="fr">Entrez le montant et créer ou choisissez une raison pour ce mouvement de caisse</value></property>
-    <property key="GROSS_SALES"><value xml:lang="en">GROSS SALES</value><value xml:lang="es">Total</value><value xml:lang="fr">Total</value><value xml:lang="it">LORDO VENDITA</value><value xml:lang="ro">Valoare BRUTA-VANZARE</value><value xml:lang="zh">毛销售额</value></property>
-    <property key="DateTimeFormat"><value xml:lang="en">'the' yyyy MMMMM dd 'at'  hh:mm:ss aaa</value><value xml:lang="es">'the' yyyy MMMMM dd 'at'  hh:mm:ss aaa</value><value xml:lang="fr">'le' dd MMMMM yyyy 'à'  HH:mm:ss</value><value xml:lang="ro">yyyy MMMMM dd 'la' hh:mm:ss aaa </value></property>
-    <property key="clerk"><value xml:lang="en">Clerk:</value><value xml:lang="es">Empleado</value><value xml:lang="fr">Vendeur :</value><value xml:lang="it">Impieg.:</value><value xml:lang="ro">Ang:</value><value xml:lang="zh">收银员:</value></property>
-    <property key="Sales_Tax"><value xml:lang="en">Sales Tax</value><value xml:lang="es">Impuestos de ventas</value><value xml:lang="fr">TVA</value><value xml:lang="it">Tasse di Vendita</value><value xml:lang="ro">Taxe de Vanzare</value><value xml:lang="zh">销售税</value></property>
-    <property key="LoadSaleListDblClickTip"><value xml:lang="en">You may use a double click to replace the current sale and delete this one</value><value xml:lang="fr">Vous pouvez utiliser le double clic pour remplacer la vente en cours et supprimer celle ci</value><value xml:lang="ro">Poti folosi dublu click  pentru a rescrie vanzarea cruenta si pentru a o sterge.</value></property>
-    <property key="DATE"><value xml:lang="en">DATE</value><value xml:lang="es">FECHA</value><value xml:lang="fr">Date</value><value xml:lang="it">DATA</value><value xml:lang="ro">DATA</value><value xml:lang="zh">日期</value></property>
-    <property key="Grand_Total"><value xml:lang="en">Grand Total</value><value xml:lang="es">Gran total</value><value xml:lang="fr">Total</value><value xml:lang="it">Totale Generale</value><value xml:lang="ro">Total General</value><value xml:lang="zh">总计</value></property>
-    <property key="QTY"><value xml:lang="en">QTY</value><value xml:lang="es">Cantidad</value><value xml:lang="fr">Nb</value><value xml:lang="it">QNT</value><value xml:lang="ro">CANT</value><value xml:lang="zh">件数</value></property>
-    <property key="CREDNO"><value xml:lang="en">Enter Card Number:</value><value xml:lang="es">Ingrese número de tarjeta :</value><value xml:lang="fr">Entrez le n° de la carte :</value><value xml:lang="it">Inserire Numero Carta:</value><value xml:lang="ro">Introduceti Numarul Cartii:</value><value xml:lang="zh">输入卡号:</value></property>
-    <property key="OPDRAM"><value xml:lang="en">Starting Drawer Amount:</value><value xml:lang="es">Monto inicial de la caja:</value><value xml:lang="fr">Contenu initial du tiroir :</value><value xml:lang="it">Importo Iniziale Cassiere:</value><value xml:lang="ro">Valoare Initiala Casierie:</value><value xml:lang="zh">开始钞箱金额:</value></property>
-    <property key="ISCLOSED"><value xml:lang="en">Register Is Closed</value><value xml:lang="es">El registro está cerrado</value><value xml:lang="fr">Le registre est fermé.</value><value xml:lang="it">Registratore di Cassa è Chiuso</value><value xml:lang="ro">Registru de Casa este Inchis</value><value xml:lang="zh">提示牌已关闭</value></property>
-    <property key="PAYFIN"><value xml:lang="en">Press Finish To Complete Sale</value><value xml:lang="es">Presione FINISH para completar la venta</value><value xml:lang="fr">Appuyez sur [Fin] pour terminer la vente !</value><value xml:lang="it">Premere Fine Per Completare la Vendita</value><value xml:lang="ro">Apasa Terminare(FINISH) Pentru a Completa Vanzarea</value><value xml:lang="zh">按完成键结束销售</value></property>
-    <property key="UserNotmanager"><value xml:lang="en">User is not a valid manager!</value><value xml:lang="es">El usuario no es administrador válido</value><value xml:lang="fr">Cet utilisateur n'est pas un gérant !</value><value xml:lang="it">Utente non è un manager valido!</value><value xml:lang="ro">Utilizatorul nu este un manager valid!</value><value xml:lang="zh">用户非合法管理员!</value></property>
-    <property key="SelectAProduct"><value xml:lang="en">Select a product</value><value xml:lang="fr">Sélectionnez un produit</value></property>
-    <property key="CREDZP"><value xml:lang="en">Enter Billing ZipCode:</value><value xml:lang="es">Ingrese código postal de facturación</value><value xml:lang="fr">Entrez le code postal de facturation :</value><value xml:lang="it">Inserire C.A.P. Fatturazione:</value><value xml:lang="ro">Introduceti zipCod Facturare:</value><value xml:lang="zh">输入账单邮政编码:</value></property>
-    <property key="(SalesDiscount)"><value xml:lang="en">(Sale discount)</value><value xml:lang="es">(Sales discount)</value><value xml:lang="fr">Remise sur la vente</value><value xml:lang="it">(Sales discount)</value><value xml:lang="ro">(Sales discount)</value><value xml:lang="zh">(Sales discount)</value></property>
-    <property key="ENTOTH"><value xml:lang="en">Enter Other Payment Amount:</value><value xml:lang="es">Ingrese monto de otros pagos</value><value xml:lang="fr">Entrez le mt en autre moyen de paiement :</value><value xml:lang="it">Inserire Importo Altri Pagamenti:</value><value xml:lang="ro">Introduceti Valoare Alte Plati:</value><value xml:lang="zh">输入其他付款额:</value></property>
-    <property key="Validating"><value xml:lang="en">Validating...</value><value xml:lang="es">Validando...</value><value xml:lang="fr">Validation...</value><value xml:lang="it">Validazione...</value><value xml:lang="ro">Validare...</value><value xml:lang="zh">确认...</value></property>
-    <property key="AMT"><value xml:lang="en">AMT</value><value xml:lang="es">Precio</value><value xml:lang="fr">Prix</value><value xml:lang="it">IMP</value><value xml:lang="ro">IMP</value><value xml:lang="zh">金额</value></property>
-    <property key="ENTCRC"><value xml:lang="en">Enter Credit Card Amount:</value><value xml:lang="es">Ingrese monto en tarjeta de crédito</value><value xml:lang="fr">Entrez le montant en carte de crédit :</value><value xml:lang="it">Inserire Importo Carta di Credito:</value><value xml:lang="ro">Introduceti Valoare Carte de Credit:</value><value xml:lang="zh">输入信用卡额:</value></property>
-    <property key="Invalid_Selection"><value xml:lang="en">Invalid Selection!</value><value xml:lang="es">Selección inválida</value><value xml:lang="fr">Sélection non valide !</value><value xml:lang="it">Selezione Non Valida!</value><value xml:lang="ro">Selectare InValida!</value><value xml:lang="zh">非法选项!</value></property>
-    <property key="EMPL"><value xml:lang="en">EMPL</value><value xml:lang="es">VENDEDOR</value><value xml:lang="fr">Vendeur</value><value xml:lang="it">IMPIEGATO</value><value xml:lang="ro">Angajat</value><value xml:lang="zh">收银员</value></property>
-    <property key="term"><value xml:lang="en">Term:</value><value xml:lang="es">Terminal:</value><value xml:lang="fr">Terminal :</value><value xml:lang="it">Termine:</value><value xml:lang="ro">Term:</value><value xml:lang="zh">终端:</value></property>
-    <property key="PaidOutTitle"><value xml:lang="en">Enter amount to withdraw and create or choose a reason</value><value xml:lang="fr">Entrez le montant à retirer et créer ou choisissez une raison</value></property>
-    <property key="CHECK"><value xml:lang="en">CHECK</value><value xml:lang="es">CHEQUE</value><value xml:lang="fr">Chèque(s)</value><value xml:lang="it">ASSEGNO</value><value xml:lang="ro">CEC</value><value xml:lang="zh">支票</value></property>
-    <property key="Saving"><value xml:lang="en">Saving sale...</value><value xml:lang="es">Usted ahorra....</value><value xml:lang="fr">Enregistrement de la vente...</value><value xml:lang="it">Salvataggio vendita...</value><value xml:lang="ro">Salveaza vanzarea...</value><value xml:lang="zh">保存销售...</value></property>
-    <property key="REFNUM"><value xml:lang="en">Enter Reference Number:</value><value xml:lang="es">Ingrese número  de referencia</value><value xml:lang="fr">Entrez la référence (nombre) :</value><value xml:lang="it">Inserire Numero Riferimento:</value><value xml:lang="ro">Introduceti Numar de Referinta:</value><value xml:lang="zh">输入流水号:</value></property>
-    <property key="CHANGE"><value xml:lang="en">Change Due:</value><value xml:lang="es">Cambio :</value><value xml:lang="fr">A rendre :</value><value xml:lang="it">Cambio Dovuto:</value><value xml:lang="ro">Schimb Valutar:</value><value xml:lang="zh">找零:</value></property>
-    <property key="VOID"><value xml:lang="en">Enter Order Number To Void:</value><value xml:lang="es">Ingrese número de orden a anular</value><value xml:lang="fr">Entrez le n° d'ordre à annuler :</value><value xml:lang="it">Inserire Numero Ordine Da Svuotare:</value><value xml:lang="ro">Introduceti Numarul Comenzii de Descarcat:</value><value xml:lang="zh">输入要作废的订单号:</value></property>
-    <property key="ULOGIN"><value xml:lang="en">Enter User ID:</value><value xml:lang="es">Ingrese su login:</value><value xml:lang="fr">Entrez votre identifiant :</value><value xml:lang="it">Inserire Id Utente:</value><value xml:lang="ro">Introduceti Id Utilizator:</value><value xml:lang="zh">输入用户 ID:</value></property>
-    <property key="Shutting_down"><value xml:lang="en">Shutting down...</value><value xml:lang="es">Cerrando...</value><value xml:lang="fr">Arrêt en cours...</value><value xml:lang="it">Chiusura...</value><value xml:lang="ro">Inchidere...</value><value xml:lang="zh">关闭...</value></property>
-    <property key="LoadASale"><value xml:lang="en">Load a sale</value><value xml:lang="fr">Charger une vente</value></property>
-    <property key="ENTCHK"><value xml:lang="en">Enter Check Amount:</value><value xml:lang="es">Ingrese monto en cheque</value><value xml:lang="fr">Entrez le montant en chèque :</value><value xml:lang="it">Inserire Importo Assegno:</value><value xml:lang="ro">Introduceti Valoare  CEC:</value><value xml:lang="zh">输入支票额:</value></property>
-    <property key="TOTAL"><value xml:lang="en">TOTAL</value><value xml:lang="es">Total</value><value xml:lang="fr">Total</value><value xml:lang="it">TOTALE</value><value xml:lang="ro">TOTAL</value><value xml:lang="zh">合计</value></property>
-    <property key="ConfigureItem"><value xml:lang="en">Item Configuration</value><value xml:lang="fr">Configuration de l'article</value></property>
-    <property key="(adjustment)"><value xml:lang="en">(adjustment)</value><value xml:lang="es">(adjustment)</value><value xml:lang="fr">(ajustement)</value><value xml:lang="it">(adjustment)</value><value xml:lang="ro">(adjustment)</value><value xml:lang="zh">(adjustment)</value></property>
-    <property key="TXID"><value xml:lang="en">TXID</value><value xml:lang="es">Número de venta</value><value xml:lang="fr">N°vente</value><value xml:lang="it">IDTAX</value><value xml:lang="ro">IDTAX</value><value xml:lang="zh">交易号</value></property>
-    <property key="WaitingFinalSales"><value xml:lang="en">Waiting for final sales data transmission...</value><value xml:lang="es">Esperando transmisión de datos...</value><value xml:lang="fr">En attente de transmission de données ...</value><value xml:lang="it">In Attesa di trasmissione dei dati vendite finali...</value><value xml:lang="ro">Asteptare pentru transmiterea datelor de vanzare finale...</value><value xml:lang="zh">等待最终销售数据传输...</value></property>
-    <property key="(ItemDiscount)"><value xml:lang="en">(Item discount)</value><value xml:lang="es">(Item discount)</value><value xml:lang="fr">Remise sur l'article</value><value xml:lang="it">(Item discount)</value><value xml:lang="ro">(Item discount)</value><value xml:lang="zh">(Item discount)</value></property>
-    <property key="ISOPEN"><value xml:lang="en">Register Is Open</value><value xml:lang="es">El registro está abierto</value><value xml:lang="fr">Le registre est ouvert.</value><value xml:lang="it">Registratore di Cassa è Aperto</value><value xml:lang="ro">Registru de Casa este Deschis</value><value xml:lang="zh">提示牌已打开</value></property>
-    <property key="AUTHCD"><value xml:lang="en">Enter Auth Code:</value><value xml:lang="es">Ingrese el código secreto :</value><value xml:lang="fr">Entrez le code secret :</value><value xml:lang="it">Inserire Codice Autorizzazione:</value><value xml:lang="ro">Introduceti Codul de Autorizatie:</value><value xml:lang="zh">输入授权码:</value></property>
-    <property key="DateFormat"><value xml:lang="en">EEE MMM dd</value><value xml:lang="es">EEE MMM dd</value><value xml:lang="fr">EE dd MMM</value><value xml:lang="it">EEE MMM dd</value><value xml:lang="ro">EEE MMM dd</value><value xml:lang="zh">EEE MMM dd</value></property>
-    <property key="Processing"><value xml:lang="en">Processing payments...</value><value xml:lang="es">Procesando pagos...</value><value xml:lang="fr">Traitement du paiement...</value><value xml:lang="it">Esecuzione pagamenti...</value><value xml:lang="ro">Executie plati...</value><value xml:lang="zh">处理支付...</value></property>
-    <property key="ENTCAS"><value xml:lang="en">Enter Cash Amount:</value><value xml:lang="es">Ingrese monto en efectivo</value><value xml:lang="fr">Entrez le montant en espèce :</value><value xml:lang="it">Inserire Importo Contante:</value><value xml:lang="ro">Introduceti Valoare Numerar:</value><value xml:lang="zh">输入现金额:</value></property>
-    <property key="ITEM"><value xml:lang="en">ITEM</value><value xml:lang="es">ITEM</value><value xml:lang="fr">Désignation</value><value xml:lang="it">PRODOTTO</value><value xml:lang="ro">PRODUS</value><value xml:lang="zh">项</value></property>
-    <property key="CreateOrChooseReasonInOut"><value xml:lang="en">You have to create or choose a reason</value><value xml:lang="fr">Vous devez créer ou choisir une raison pour ce mouvement de caisse</value></property>
-    <property key="draw"><value xml:lang="en">Dr:</value><value xml:lang="es">Dr.</value><value xml:lang="fr">Tiroir :</value><value xml:lang="it">Cass.:</value><value xml:lang="ro">Cas:</value><value xml:lang="zh">钞箱:</value></property>
-    <property key="ENTPROMOCODE"><value xml:lang="en">Enter Promo Code:</value></property>
-    <property key="ENTGFC"><value xml:lang="en">Enter Gift Card Amount:</value><value xml:lang="es">Ingrese monto de certificado de regalo: </value><value xml:lang="fr">Entrez le montant en bon d'achat :</value><value xml:lang="it">Inserire Importo Carta Omaggio:</value><value xml:lang="ro">Introduceti Valoare Carte Omagiu:</value><value xml:lang="zh">输入礼品卡额:</value></property>
-    <property key="PaidInTitle"><value xml:lang="en">Enter amount to paid in and create or choose a reason</value><value xml:lang="fr">Entrez le montant à remettre en caisse et créer ou choisissez une raison</value></property>
-    <property key="CREDCF"><value xml:lang="en">Enter Last 4 Digits:</value><value xml:lang="es">Ingrese los últimos 4 dígitos</value><value xml:lang="fr">Entrez les 4 derniers chiffres :</value><value xml:lang="it">Inserire Ultimi 4 Numeri:</value><value xml:lang="ro">Introduceti ultimale 4 Numere:</value><value xml:lang="zh">输入最后4位卡号:</value></property>
-    <property key="total_report"><value xml:lang="en">TOTALS REPORT</value><value xml:lang="es">REPORTE TOTAL:</value><value xml:lang="fr">TOTAUX</value><value xml:lang="it">TOTALI STAMPA</value><value xml:lang="ro">TOTAL REPORT</value><value xml:lang="zh">合计报表</value></property>
-    <property key="GIFT_CARD"><value xml:lang="en">GIFT CARD</value><value xml:lang="es">Certificado de regalo</value><value xml:lang="fr">Bon(s) d'achat</value><value xml:lang="it">CARTA OMAGGIO</value><value xml:lang="ro">CARTE OMAGIU</value><value xml:lang="zh">礼品卡</value></property>
+--><resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="(ItemDiscount)">
+        <value xml:lang="en">(Item discount)</value>
+        <value xml:lang="es">(Item discount)</value>
+        <value xml:lang="fr">Remise sur l'article</value>
+        <value xml:lang="it">(Item discount)</value>
+        <value xml:lang="ro">(Item discount)</value>
+        <value xml:lang="zh">(Item discount)</value>
+    </property>
+    <property key="(SalesDiscount)">
+        <value xml:lang="en">(Sale discount)</value>
+        <value xml:lang="es">(Sales discount)</value>
+        <value xml:lang="fr">Remise sur la vente</value>
+        <value xml:lang="it">(Sales discount)</value>
+        <value xml:lang="ro">(Sales discount)</value>
+        <value xml:lang="zh">(Sales discount)</value>
+    </property>
+    <property key="(adjustment)">
+        <value xml:lang="en">(adjustment)</value>
+        <value xml:lang="es">(adjustment)</value>
+        <value xml:lang="fr">(ajustement)</value>
+        <value xml:lang="it">(adjustment)</value>
+        <value xml:lang="ro">(adjustment)</value>
+        <value xml:lang="zh">(adjustment)</value>
+    </property>
+    <property key="AMT">
+        <value xml:lang="en">AMT</value>
+        <value xml:lang="es">Precio</value>
+        <value xml:lang="fr">Prix</value>
+        <value xml:lang="it">IMP</value>
+        <value xml:lang="ro">IMP</value>
+        <value xml:lang="zh">金额</value>
+    </property>
+    <property key="AUTHCD">
+        <value xml:lang="en">Enter Auth Code:</value>
+        <value xml:lang="es">Ingrese el código secreto :</value>
+        <value xml:lang="fr">Entrez le code secret :</value>
+        <value xml:lang="it">Inserire Codice Autorizzazione:</value>
+        <value xml:lang="ro">Introduceti Codul de Autorizatie:</value>
+        <value xml:lang="zh">输入授权码:</value>
+    </property>
+    <property key="CASH">
+        <value xml:lang="en">CASH</value>
+        <value xml:lang="es">CONTADO</value>
+        <value xml:lang="fr">Espèces</value>
+        <value xml:lang="it">CONTANTE</value>
+        <value xml:lang="ro">Numerar</value>
+        <value xml:lang="zh">现金</value>
+    </property>
+    <property key="CHANGE">
+        <value xml:lang="en">Change Due:</value>
+        <value xml:lang="es">Cambio :</value>
+        <value xml:lang="fr">A rendre :</value>
+        <value xml:lang="it">Cambio Dovuto:</value>
+        <value xml:lang="ro">Schimb Valutar:</value>
+        <value xml:lang="zh">找零:</value>
+    </property>
+    <property key="CHECK">
+        <value xml:lang="en">CHECK</value>
+        <value xml:lang="es">CHEQUE</value>
+        <value xml:lang="fr">Chèque(s)</value>
+        <value xml:lang="it">ASSEGNO</value>
+        <value xml:lang="ro">CEC</value>
+        <value xml:lang="zh">支票</value>
+    </property>
+    <property key="CREDCF">
+        <value xml:lang="en">Enter Last 4 Digits:</value>
+        <value xml:lang="es">Ingrese los últimos 4 dígitos</value>
+        <value xml:lang="fr">Entrez les 4 derniers chiffres :</value>
+        <value xml:lang="it">Inserire Ultimi 4 Numeri:</value>
+        <value xml:lang="ro">Introduceti ultimale 4 Numere:</value>
+        <value xml:lang="zh">输入最后4位卡号:</value>
+    </property>
+    <property key="CREDEX">
+        <value xml:lang="en">Enter Expiration Date (MMYY):</value>
+        <value xml:lang="es">Ingrese fecha de expiración (MMYY)</value>
+        <value xml:lang="fr">Entrez la date d'expiration (MMYY):</value>
+        <value xml:lang="it">Inserire Data Scadenza (MMYY):</value>
+        <value xml:lang="ro">Introduceti Data Expirarii (LLAA):</value>
+        <value xml:lang="zh">输入到期日 (MMYY):</value>
+    </property>
+    <property key="CREDIT_CARD">
+        <value xml:lang="en">CREDIT CARD</value>
+        <value xml:lang="es">TARJETA DE CRÉDITO</value>
+        <value xml:lang="fr">Carte(s) de crédit</value>
+        <value xml:lang="it">CARTA CREDITO</value>
+        <value xml:lang="ro">CARTE DE CREDIT</value>
+        <value xml:lang="zh">信用卡</value>
+    </property>
+    <property key="CREDNO">
+        <value xml:lang="en">Enter Card Number:</value>
+        <value xml:lang="es">Ingrese número de tarjeta :</value>
+        <value xml:lang="fr">Entrez le n° de la carte :</value>
+        <value xml:lang="it">Inserire Numero Carta:</value>
+        <value xml:lang="ro">Introduceti Numarul Cartii:</value>
+        <value xml:lang="zh">输入卡号:</value>
+    </property>
+    <property key="CREDZP">
+        <value xml:lang="en">Enter Billing ZipCode:</value>
+        <value xml:lang="es">Ingrese código postal de facturación</value>
+        <value xml:lang="fr">Entrez le code postal de facturation :</value>
+        <value xml:lang="it">Inserire C.A.P. Fatturazione:</value>
+        <value xml:lang="ro">Introduceti zipCod Facturare:</value>
+        <value xml:lang="zh">输入账单邮政编码:</value>
+    </property>
+    <property key="ConfigureItem">
+        <value xml:lang="en">Item Configuration</value>
+        <value xml:lang="fr">Configuration de l'article</value>
+    </property>
+    <property key="CreateOrChooseReasonInOut">
+        <value xml:lang="en">You have to create or choose a reason</value>
+        <value xml:lang="fr">Vous devez créer ou choisir une raison pour ce mouvement de caisse</value>
+    </property>
+    <property key="DATE">
+        <value xml:lang="en">DATE</value>
+        <value xml:lang="es">FECHA</value>
+        <value xml:lang="fr">Date</value>
+        <value xml:lang="it">DATA</value>
+        <value xml:lang="ro">DATA</value>
+        <value xml:lang="zh">日期</value>
+    </property>
+    <property key="DRWR">
+        <value xml:lang="en">TILL</value>
+        <value xml:lang="es">Caja</value>
+        <value xml:lang="fr">Caisse</value>
+        <value xml:lang="it">CASSIERE</value>
+        <value xml:lang="ro">CASIER</value>
+        <value xml:lang="zh">钞箱</value>
+    </property>
+    <property key="DateFormat">
+        <value xml:lang="en">EEE MMM dd</value>
+        <value xml:lang="es">EEE MMM dd</value>
+        <value xml:lang="fr">EE dd MMM</value>
+        <value xml:lang="it">EEE MMM dd</value>
+        <value xml:lang="ro">EEE MMM dd</value>
+        <value xml:lang="zh">EEE MMM dd</value>
+    </property>
+    <property key="DateTimeFormat">
+        <value xml:lang="en">'the' yyyy MMMMM dd 'at'  hh:mm:ss aaa</value>
+        <value xml:lang="es">'the' yyyy MMMMM dd 'at'  hh:mm:ss aaa</value>
+        <value xml:lang="fr">'le' dd MMMMM yyyy 'à'  HH:mm:ss</value>
+        <value xml:lang="ro">yyyy MMMMM dd 'la' hh:mm:ss aaa </value>
+    </property>
+    <property key="EMPL">
+        <value xml:lang="en">EMPL</value>
+        <value xml:lang="es">VENDEDOR</value>
+        <value xml:lang="fr">Vendeur</value>
+        <value xml:lang="it">IMPIEGATO</value>
+        <value xml:lang="ro">Angajat</value>
+        <value xml:lang="zh">收银员</value>
+    </property>
+    <property key="ENTCAS">
+        <value xml:lang="en">Enter Cash Amount:</value>
+        <value xml:lang="es">Ingrese monto en efectivo</value>
+        <value xml:lang="fr">Entrez le montant en espèce :</value>
+        <value xml:lang="it">Inserire Importo Contante:</value>
+        <value xml:lang="ro">Introduceti Valoare Numerar:</value>
+        <value xml:lang="zh">输入现金额:</value>
+    </property>
+    <property key="ENTCHK">
+        <value xml:lang="en">Enter Check Amount:</value>
+        <value xml:lang="es">Ingrese monto en cheque</value>
+        <value xml:lang="fr">Entrez le montant en chèque :</value>
+        <value xml:lang="it">Inserire Importo Assegno:</value>
+        <value xml:lang="ro">Introduceti Valoare  CEC:</value>
+        <value xml:lang="zh">输入支票额:</value>
+    </property>
+    <property key="ENTCRC">
+        <value xml:lang="en">Enter Credit Card Amount:</value>
+        <value xml:lang="es">Ingrese monto en tarjeta de crédito</value>
+        <value xml:lang="fr">Entrez le montant en carte de crédit :</value>
+        <value xml:lang="it">Inserire Importo Carta di Credito:</value>
+        <value xml:lang="ro">Introduceti Valoare Carte de Credit:</value>
+        <value xml:lang="zh">输入信用卡额:</value>
+    </property>
+    <property key="ENTGFC">
+        <value xml:lang="en">Enter Gift Card Amount:</value>
+        <value xml:lang="es">Ingrese monto de certificado de regalo: </value>
+        <value xml:lang="fr">Entrez le montant en bon d'achat :</value>
+        <value xml:lang="it">Inserire Importo Carta Omaggio:</value>
+        <value xml:lang="ro">Introduceti Valoare Carte Omagiu:</value>
+        <value xml:lang="zh">输入礼品卡额:</value>
+    </property>
+    <property key="ENTOTH">
+        <value xml:lang="en">Enter Other Payment Amount:</value>
+        <value xml:lang="es">Ingrese monto de otros pagos</value>
+        <value xml:lang="fr">Entrez le mt en autre moyen de paiement :</value>
+        <value xml:lang="it">Inserire Importo Altri Pagamenti:</value>
+        <value xml:lang="ro">Introduceti Valoare Alte Plati:</value>
+        <value xml:lang="zh">输入其他付款额:</value>
+    </property>
+    <property key="ENTPROMOCODE">
+        <value xml:lang="en">Enter Promo Code:</value>
+    </property>
+    <property key="GIFT_CARD">
+        <value xml:lang="en">GIFT CARD</value>
+        <value xml:lang="es">Certificado de regalo</value>
+        <value xml:lang="fr">Bon(s) d'achat</value>
+        <value xml:lang="it">CARTA OMAGGIO</value>
+        <value xml:lang="ro">CARTE OMAGIU</value>
+        <value xml:lang="zh">礼品卡</value>
+    </property>
+    <property key="GROSS_SALES">
+        <value xml:lang="en">GROSS SALES</value>
+        <value xml:lang="es">Total</value>
+        <value xml:lang="fr">Total</value>
+        <value xml:lang="it">LORDO VENDITA</value>
+        <value xml:lang="ro">Valoare BRUTA-VANZARE</value>
+        <value xml:lang="zh">毛销售额</value>
+    </property>
+    <property key="Grand_Total">
+        <value xml:lang="en">Grand Total</value>
+        <value xml:lang="es">Gran total</value>
+        <value xml:lang="fr">Total</value>
+        <value xml:lang="it">Totale Generale</value>
+        <value xml:lang="ro">Total General</value>
+        <value xml:lang="zh">总计</value>
+    </property>
+    <property key="ISCLOSED">
+        <value xml:lang="en">Register Is Closed</value>
+        <value xml:lang="es">El registro está cerrado</value>
+        <value xml:lang="fr">Le registre est fermé.</value>
+        <value xml:lang="it">Registratore di Cassa è Chiuso</value>
+        <value xml:lang="ro">Registru de Casa este Inchis</value>
+        <value xml:lang="zh">提示牌已关闭</value>
+    </property>
+    <property key="ISOPEN">
+        <value xml:lang="en">Register Is Open</value>
+        <value xml:lang="es">El registro está abierto</value>
+        <value xml:lang="fr">Le registre est ouvert.</value>
+        <value xml:lang="it">Registratore di Cassa è Aperto</value>
+        <value xml:lang="ro">Registru de Casa este Deschis</value>
+        <value xml:lang="zh">提示牌已打开</value>
+    </property>
+    <property key="ITEM">
+        <value xml:lang="en">ITEM</value>
+        <value xml:lang="es">ITEM</value>
+        <value xml:lang="fr">Désignation</value>
+        <value xml:lang="it">PRODOTTO</value>
+        <value xml:lang="ro">PRODUS</value>
+        <value xml:lang="zh">项</value>
+    </property>
+    <property key="Invalid_Selection">
+        <value xml:lang="en">Invalid Selection!</value>
+        <value xml:lang="es">Selección inválida</value>
+        <value xml:lang="fr">Sélection non valide !</value>
+        <value xml:lang="it">Selezione Non Valida!</value>
+        <value xml:lang="ro">Selectare InValida!</value>
+        <value xml:lang="zh">非法选项!</value>
+    </property>
+    <property key="LoadASale">
+        <value xml:lang="en">Load a sale</value>
+        <value xml:lang="fr">Charger une vente</value>
+    </property>
+    <property key="LoadSaleListDblClickTip">
+        <value xml:lang="en">You may use a double click to replace the current sale and delete this one</value>
+        <value xml:lang="fr">Vous pouvez utiliser le double clic pour remplacer la vente en cours et supprimer celle ci</value>
+        <value xml:lang="ro">Poti folosi dublu click  pentru a rescrie vanzarea cruenta si pentru a o sterge.</value>
+    </property>
+    <property key="OPDRAM">
+        <value xml:lang="en">Starting Drawer Amount:</value>
+        <value xml:lang="es">Monto inicial de la caja:</value>
+        <value xml:lang="fr">Contenu initial du tiroir :</value>
+        <value xml:lang="it">Importo Iniziale Cassiere:</value>
+        <value xml:lang="ro">Valoare Initiala Casierie:</value>
+        <value xml:lang="zh">开始钞箱金额:</value>
+    </property>
+    <property key="OTHER">
+        <value xml:lang="en">OTHER</value>
+        <value xml:lang="es">OTROS</value>
+        <value xml:lang="fr">Autres</value>
+        <value xml:lang="it">ALTRO</value>
+        <value xml:lang="ro">ALTE</value>
+        <value xml:lang="zh">其他</value>
+    </property>
+    <property key="PAYFIN">
+        <value xml:lang="en">Press Finish To Complete Sale</value>
+        <value xml:lang="es">Presione FINISH para completar la venta</value>
+        <value xml:lang="fr">Appuyez sur [Fin] pour terminer la vente !</value>
+        <value xml:lang="it">Premere Fine Per Completare la Vendita</value>
+        <value xml:lang="ro">Apasa Terminare(FINISH) Pentru a Completa Vanzarea</value>
+        <value xml:lang="zh">按完成键结束销售</value>
+    </property>
+    <property key="POSTALCODE">
+        <value xml:lang="en">Enter the billing postal code:</value>
+        <value xml:lang="fr">Entrez le code postal :</value>
+    </property>
+    <property key="PaidInOut">
+        <value xml:lang="fr">Entrez le montant et créer ou choisissez une raison pour ce mouvement de caisse</value>
+    </property>
+    <property key="PaidInTitle">
+        <value xml:lang="en">Enter amount to paid in and create or choose a reason</value>
+        <value xml:lang="fr">Entrez le montant à remettre en caisse et créer ou choisissez une raison</value>
+    </property>
+    <property key="PaidOutTitle">
+        <value xml:lang="en">Enter amount to withdraw and create or choose a reason</value>
+        <value xml:lang="fr">Entrez le montant à retirer et créer ou choisissez une raison</value>
+    </property>
+    <property key="Processing">
+        <value xml:lang="en">Processing payments...</value>
+        <value xml:lang="es">Procesando pagos...</value>
+        <value xml:lang="fr">Traitement du paiement...</value>
+        <value xml:lang="it">Esecuzione pagamenti...</value>
+        <value xml:lang="ro">Executie plati...</value>
+        <value xml:lang="zh">处理支付...</value>
+    </property>
+    <property key="QTY">
+        <value xml:lang="en">QTY</value>
+        <value xml:lang="es">Cantidad</value>
+        <value xml:lang="fr">Nb</value>
+        <value xml:lang="it">QNT</value>
+        <value xml:lang="ro">CANT</value>
+        <value xml:lang="zh">件数</value>
+    </property>
+    <property key="REFNUM">
+        <value xml:lang="en">Enter Reference Number:</value>
+        <value xml:lang="es">Ingrese número  de referencia</value>
+        <value xml:lang="fr">Entrez la référence (nombre) :</value>
+        <value xml:lang="it">Inserire Numero Riferimento:</value>
+        <value xml:lang="ro">Introduceti Numar de Referinta:</value>
+        <value xml:lang="zh">输入流水号:</value>
+    </property>
+    <property key="SECURITYCODE">
+        <value xml:lang="en">Enter security code:</value>
+        <value xml:lang="fr">Entrez votre code :</value>
+    </property>
+    <property key="SKU">
+        <value xml:lang="en">SKU</value>
+        <value xml:lang="es">SKU</value>
+        <value xml:lang="fr">Code</value>
+        <value xml:lang="it">CODICE PRODOTTO</value>
+        <value xml:lang="ro">COD PRODUS</value>
+        <value xml:lang="zh">SKU</value>
+    </property>
+    <property key="Sales_Tax">
+        <value xml:lang="en">Sales Tax</value>
+        <value xml:lang="es">Impuestos de ventas</value>
+        <value xml:lang="fr">TVA</value>
+        <value xml:lang="it">Tasse di Vendita</value>
+        <value xml:lang="ro">Taxe de Vanzare</value>
+        <value xml:lang="zh">销售税</value>
+    </property>
+    <property key="SaveASale">
+        <value xml:lang="en">Save current sale</value>
+        <value xml:lang="fr">Sauver la vente en cours</value>
+        <value xml:lang="ro">Salveaza vanzarea curenta</value>
+    </property>
+    <property key="Saving">
+        <value xml:lang="en">Saving sale...</value>
+        <value xml:lang="es">Usted ahorra....</value>
+        <value xml:lang="fr">Enregistrement de la vente...</value>
+        <value xml:lang="it">Salvataggio vendita...</value>
+        <value xml:lang="ro">Salveaza vanzarea...</value>
+        <value xml:lang="zh">保存销售...</value>
+    </property>
+    <property key="SelectAProduct">
+        <value xml:lang="en">Select a product</value>
+        <value xml:lang="fr">Sélectionnez un produit</value>
+    </property>
+    <property key="SelectProductListDblClickTip">
+        <value xml:lang="en">You may use a double click to select the current product</value>
+        <value xml:lang="fr">Vous pouvez utiliser le double clic pour chosir un produit</value>
+    </property>
+    <property key="Shutting_down">
+        <value xml:lang="en">Shutting down...</value>
+        <value xml:lang="es">Cerrando...</value>
+        <value xml:lang="fr">Arrêt en cours...</value>
+        <value xml:lang="it">Chiusura...</value>
+        <value xml:lang="ro">Inchidere...</value>
+        <value xml:lang="zh">关闭...</value>
+    </property>
+    <property key="TOTAL">
+        <value xml:lang="en">TOTAL</value>
+        <value xml:lang="es">Total</value>
+        <value xml:lang="fr">Total</value>
+        <value xml:lang="it">TOTALE</value>
+        <value xml:lang="ro">TOTAL</value>
+        <value xml:lang="zh">合计</value>
+    </property>
+    <property key="TOTALD">
+        <value xml:lang="en">Total Due:</value>
+        <value xml:lang="es">Total debido:</value>
+        <value xml:lang="fr">Total dû :</value>
+        <value xml:lang="it">Totale Dovuto:</value>
+        <value xml:lang="ro">Total(dovuto)?:</value>
+        <value xml:lang="zh">合计额:</value>
+    </property>
+    <property key="TXID">
+        <value xml:lang="en">TXID</value>
+        <value xml:lang="es">Número de venta</value>
+        <value xml:lang="fr">N°vente</value>
+        <value xml:lang="it">IDTAX</value>
+        <value xml:lang="ro">IDTAX</value>
+        <value xml:lang="zh">交易号</value>
+    </property>
+    <property key="ULOGIN">
+        <value xml:lang="en">Enter User ID:</value>
+        <value xml:lang="es">Ingrese su login:</value>
+        <value xml:lang="fr">Entrez votre identifiant :</value>
+        <value xml:lang="it">Inserire Id Utente:</value>
+        <value xml:lang="ro">Introduceti Id Utilizator:</value>
+        <value xml:lang="zh">输入用户 ID:</value>
+    </property>
+    <property key="UPASSW">
+        <value xml:lang="en">Enter Password:</value>
+        <value xml:lang="es">Ingrese password</value>
+        <value xml:lang="fr">Entrez votre mot de passe :</value>
+        <value xml:lang="it">Inserire Password:</value>
+        <value xml:lang="ro">Introduceti Parola:</value>
+        <value xml:lang="zh">输入口令:</value>
+    </property>
+    <property key="UserNotmanager">
+        <value xml:lang="en">User is not a valid manager!</value>
+        <value xml:lang="es">El usuario no es administrador válido</value>
+        <value xml:lang="fr">Cet utilisateur n'est pas un gérant !</value>
+        <value xml:lang="it">Utente non è un manager valido!</value>
+        <value xml:lang="ro">Utilizatorul nu este un manager valid!</value>
+        <value xml:lang="zh">用户非合法管理员!</value>
+    </property>
+    <property key="VOID">
+        <value xml:lang="en">Enter Order Number To Void:</value>
+        <value xml:lang="es">Ingrese número de orden a anular</value>
+        <value xml:lang="fr">Entrez le n° d'ordre à annuler :</value>
+        <value xml:lang="it">Inserire Numero Ordine Da Svuotare:</value>
+        <value xml:lang="ro">Introduceti Numarul Comenzii de Descarcat:</value>
+        <value xml:lang="zh">输入要作废的订单号:</value>
+    </property>
+    <property key="Validating">
+        <value xml:lang="en">Validating...</value>
+        <value xml:lang="es">Validando...</value>
+        <value xml:lang="fr">Validation...</value>
+        <value xml:lang="it">Validazione...</value>
+        <value xml:lang="ro">Validare...</value>
+        <value xml:lang="zh">确认...</value>
+    </property>
+    <property key="WaitingFinalSales">
+        <value xml:lang="en">Waiting for final sales data transmission...</value>
+        <value xml:lang="es">Esperando transmisión de datos...</value>
+        <value xml:lang="fr">En attente de transmission de données ...</value>
+        <value xml:lang="it">In Attesa di trasmissione dei dati vendite finali...</value>
+        <value xml:lang="ro">Asteptare pentru transmiterea datelor de vanzare finale...</value>
+        <value xml:lang="zh">等待最终销售数据传输...</value>
+    </property>
+    <property key="clerk">
+        <value xml:lang="en">Clerk:</value>
+        <value xml:lang="es">Empleado</value>
+        <value xml:lang="fr">Vendeur :</value>
+        <value xml:lang="it">Impieg.:</value>
+        <value xml:lang="ro">Ang:</value>
+        <value xml:lang="zh">收银员:</value>
+    </property>
+    <property key="draw">
+        <value xml:lang="en">Dr:</value>
+        <value xml:lang="es">Dr.</value>
+        <value xml:lang="fr">Tiroir :</value>
+        <value xml:lang="it">Cass.:</value>
+        <value xml:lang="ro">Cas:</value>
+        <value xml:lang="zh">钞箱:</value>
+    </property>
+    <property key="term">
+        <value xml:lang="en">Term:</value>
+        <value xml:lang="es">Terminal:</value>
+        <value xml:lang="fr">Terminal :</value>
+        <value xml:lang="it">Termine:</value>
+        <value xml:lang="ro">Term:</value>
+        <value xml:lang="zh">终端:</value>
+    </property>
+    <property key="total_report">
+        <value xml:lang="en">TOTALS REPORT</value>
+        <value xml:lang="es">REPORTE TOTAL:</value>
+        <value xml:lang="fr">TOTAUX</value>
+        <value xml:lang="it">TOTALI STAMPA</value>
+        <value xml:lang="ro">TOTAL REPORT</value>
+        <value xml:lang="zh">合计报表</value>
+    </property>
 </resource>
