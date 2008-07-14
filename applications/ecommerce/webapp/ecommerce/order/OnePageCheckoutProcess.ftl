@@ -113,7 +113,7 @@ under the License.
             <div id="editCartPanel" class="screenlet-body">
               <form name="cartForm" id="cartForm" method="post" action="<@ofbizUrl></@ofbizUrl>">
                   <input type="hidden" name="removeSelected" value="false">
-                  <div id="cartFormServerError"></div>
+                  <div id="cartFormServerError" class="errorMessage"></div>
                       <table width="75%" cellspacing="0" cellpadding="1" border="0">
                         <thead>
                           <tr>
@@ -282,7 +282,7 @@ under the License.
                 <input type="hidden" name="userLogin" value="${parameters.userLogin?if_exists}"/>
                 <input type="hidden" id="phoneContactMechId" name="phoneContactMechId" value="${parameters.phoneContactMechId?if_exists}"/>
                 <input type="hidden" id="emailContactMechId" name="emailContactMechId" value="${parameters.emailContactMechId?if_exists}"/>
-                <div id="shippingFormServerError" class="validation-advice"></div>
+                <div id="shippingFormServerError" class="errorMessage"></div>
                           <table>
                             <tr><td width="40%" valign="top">
                                 <div class="form-row">
@@ -416,7 +416,7 @@ under the License.
 
             <div id="editShippingOptionPanel" class="screenlet-body" style="display: none;">
               <form name="shippingOptionForm" id="shippingOptionForm" action="<@ofbizUrl></@ofbizUrl>" method="post">
-                <div id="shippingOptionFormServerError" class="validation-advice"></div>
+                <div id="shippingOptionFormServerError" class="errorMessage"></div>
                 <table>
                   <tr><td>
                       <div class="form-row">
@@ -482,7 +482,7 @@ under the License.
                 <input type="hidden" name="userLogin" value="${parameters.userLogin?if_exists}"/>
                 <input type="hidden" name="expireDate" value="${parameters.expireDate?if_exists}"/>
                 <input type="hidden" id="cardType" name="cardType" value="Visa"/>
-                <div id="billingFormServerError" class="validation-advice"></div>
+                <div id="billingFormServerError" class="errorMessage"></div>
                   <table>
                     <tr><td valign="top">
                         <div class="form-row">
