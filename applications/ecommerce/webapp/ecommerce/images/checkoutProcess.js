@@ -222,9 +222,38 @@ function displayOrderSubmitPanel() {
 }
 
 function processShippingAddress() {
+    createUpdateCustomerAndShippingAddress();
+    getShipOptions();
+}
+
+function createUpdateCustomerAndShippingAddress() {
+    new Ajax.Request('/ecommerce/control/createUpdateShippingAddress', {
+        asynchronous: false, 
+        onSuccess: function(transport) {
+            var data = transport.responseText.evalJSON(true);
+            var serverError = getServerError(data);
+            if(serverError != "") {
+                Effect.Appear('shippingFormServerError');
+                $('shippingFormServerError').update(serverError);
+                isShipStepValidate = false;
+            } else {
+                Effect.Fade('shippingFormServerError');
+                isShipStepValidate = true;
+                // Process Shipping data response.
+                $('shippingPartyId').value = data.partyId;
+                $('shippingContactMechId').value = data.shippingContactMechId;
+                $('phoneContactMechId').value = data.phoneContactMechId;
+                $('emailContactMechId').value = data.emailContactMechId;
+                $('completedShippingMethod').update(data.shippingDescription);
+            }
+        }, parameters: $('shippingForm').serialize(), requestHeaders: {Accept: 'application/json'}
+    });
+}
+
+function getShipOptions() {
     var shipOptions = null;
     var optionList = [];
-    new Ajax.Request('/ecommerce/control/createUpdateShippingAddress', {
+    new Ajax.Request('/ecommerce/control/getShipOptions', {
         asynchronous: false, 
         onSuccess: function(transport) {
             var data = transport.responseText.evalJSON(true);
@@ -241,14 +270,8 @@ function processShippingAddress() {
                     optionList.push("<option value = " + shipOption.shippingMethod + " > " + shipOption.shippingDesc + " </option>");
                 });
                 $('shipMethod').update(optionList);
-                // Process Shipping data response.
-                $('shippingPartyId').value = data.partyId;
-                $('shippingContactMechId').value = data.shippingContactMechId;
-                $('phoneContactMechId').value = data.phoneContactMechId;
-                $('emailContactMechId').value = data.emailContactMechId;
-                $('completedShippingMethod').update(data.shippingDescription);
             }
-        }, parameters: $('shippingForm').serialize(), requestHeaders: {Accept: 'application/json'}
+        }, requestHeaders: {Accept: 'application/json'}
     });
 }
 
