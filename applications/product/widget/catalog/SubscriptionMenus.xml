@@ -34,7 +34,7 @@ under the License.
         </menu-item>
     </menu>
     <menu name="EditSubscriptionResource" default-selected-style="selected" type="simple"
-        menu-container-style="button-bar tab-bar">
+        menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="tabButtonItem">
         <menu-item name="EditSubscriptionResource" title="${uiLabelMap.ProductSubscriptionResource}">
             <link target="EditSubscriptionResource?subscriptionResourceId=${subscriptionResourceId}"/>
         </menu-item>
