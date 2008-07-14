@@ -37,6 +37,7 @@ returnHeader = parameters.returnHeader;
 returnId = parameters.returnId;
 quote = null;
 quoteId = parameters.quoteId;
+nowTimestamp = UtilDateTime.nowTimestamp();
 fromPartyId = parameters.fromPartyId;
 
 if (!orderHeader && orderId) {
