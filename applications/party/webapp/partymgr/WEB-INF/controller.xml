@@ -672,8 +672,6 @@ under the License.
     <request-map uri="ViewCommunicationEvent"><security https="true" auth="true"/><response name="success" type="view" value="ViewCommunicationEvent"/></request-map>
     <request-map uri="AddCommContent"><security https="true" auth="true"/><response name="success" type="view" value="AddCommContent"/></request-map>
     <request-map uri="EditCommContent"><security https="true" auth="true"/><response name="success" type="view" value="EditCommContent"/></request-map>
-    <request-map uri="newEmail"><security https="true" auth="true"/><response name="success" type="view" value="newEmail"/></request-map>
-    <request-map uri="newInternalNote"><security https="true" auth="true"/><response name="success" type="view" value="newInternalNote"/></request-map>
     
     <request-map uri="EditCommunication"><security https="true" auth="true"/><response name="success" type="view" value="EditCommunicationEvent"/></request-map>
     <request-map uri="createCommunicationEvent">
@@ -1115,8 +1113,6 @@ under the License.
     <view-map name="EditCommEventWorkEffort" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#EditCommEventWorkEffort"/>
     <view-map name="AddCommContent" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#AddCommContent"/>
     <view-map name="EditCommContent" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#EditCommContent"/>
-    <view-map name="newEmail" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#newEmail"/>
-    <view-map name="newInternalNote" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#NewInternalNote"/>
     
     <view-map name="CreateNewParty" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#CreateNewParty"/>
     <view-map name="NewCustomer" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#NewCustomer"/>
