@@ -1604,7 +1604,12 @@ under the License.
         <response name="success" type="none"/>
         <response name="error" type="none"/>
     </request-map>
-
+    <request-map uri="getShipOptions">
+        <security https="true" auth="false"/>
+        <event type="jsonsimple" path="org/ofbiz/ecommerce/customer/CustomerEvents.xml" invoke="getShipOptions"/>
+        <response name="success" type="none"/>
+        <response name="error" type="none"/>
+    </request-map>
     <request-map uri="setShippingOption">
         <security https="true" auth="false"/>
         <event type="jsonsimple" path="org/ofbiz/ecommerce/customer/CustomerEvents.xml" invoke="setShippingOption"/>

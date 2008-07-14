@@ -1002,8 +1002,14 @@ under the License.
         <call-object-method obj-field-name="shoppingCart" method-name="setOrderPartyId">
             <field field-name="partyId"/>
         </call-object-method>
+    </simple-method>
 
-        <!--  Preparing Shippping Options -->
+    <simple-method method-name="getShipOptions" short-description="Get shipping options" login-required="false">
+        <set field="dispatcher" from-field="parameters.dispatcher" type="Object"/>
+        <set field="shoppingCart" from-field="parameters.shoppingCart"/>
+        <if-empty field="shoppingCart">
+            <session-to-field field-name="shoppingCart"/>
+        </if-empty>
         <call-bsh>
             <![CDATA[
                 import org.ofbiz.order.shoppingcart.shipping.ShippingEstimateWrapper;
