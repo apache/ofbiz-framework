@@ -220,7 +220,7 @@ under the License.
 
         <entity-one entity-name="CommunicationEvent" value-name="communicationEvent"/>
         <if-empty field="communicationEvent">
-            <add-error><fail-message message="Comminication Event ID: ${parameters.commnicationEventId}"/></add-error>
+            <add-error><fail-message message="Communication Event ID: ${parameters.commnicationEventId}"/></add-error>
             <check-errors/>
         </if-empty>
 

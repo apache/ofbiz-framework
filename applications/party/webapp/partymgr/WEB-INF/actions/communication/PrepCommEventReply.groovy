@@ -22,10 +22,9 @@ import org.ofbiz.base.util.*;
 parentCommEventId = parameters.parentCommEventId;
 
 if (parentCommEventId) {
-    parentEvent = delegator.findByPrimaryKey("CommunicationEvent", [communicationEventId : parentCommEventId]);
+    parentEvent = delegator.findByPrimaryKey("CommunicationEvent", ["communicationEventId" : parentCommEventId]);
     if (parentEvent) {
-        orgEventId = parentEvent.origCommEventId ?: parentCommEventId;
-        
+        orgEventId = parentEvent.origCommEventId ? parentEvent.origCommEventId : parentCommEventId;
         parameters.communicationEventTypeId = parentEvent.communicationEventTypeId;
         parameters.parentCommEventId = parentCommEventId;
         parameters.origCommEventId = orgEventId;
@@ -35,7 +34,6 @@ if (parentCommEventId) {
 
         parameters.partyIdFrom = userLogin.partyId;
         parameters.partyIdTo = parentEvent.partyIdFrom;        
-        parameters.toString =parentEvent.fromString;
         parameters.statusId = "COM_IN_PROGRESS";
         
         parameters.subject = "RE: " + parentEvent.subject;

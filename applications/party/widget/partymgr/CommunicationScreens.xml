@@ -221,146 +221,108 @@ under the License.
             </widgets>
         </section>
     </screen>
-	<screen name="EditCommunicationEvent">
-		<section>
-			<actions>
-				<set field="titleProperty" value="PageTitleEditCommunication" />
-				<set field="tabButtonItem" value="CommunicationEvent" />
-				<set field="entityName" value="CommunicationEvent" />
-				<set field="communicationEventId" from-field="parameters.communicationEventId" />
-				<set field="parentCommEventId" from-field="parameters.parentCommEventId" />
-				<set field="partyId" from-field="parameters.partyId" />
-				<set field="partyIdFrom" from-field="parameters.partyIdFrom"
-					default-value="${userLogin.partyId}" />
-				<set field="partyIdTo" from-field="parameters.partyIdTo" />
-				<set field="contactMechIdFrom" from-field="parameters.contactMechIdFrom" />
-				<set field="contactMechIdTo" from-field="parameters.contactMechIdTo" />
-				<set field="contactMechTypeId" from-field="parameters.contactMechTypeId" />
-				<entity-one entity-name="Party" use-cache="true"
-					value-name="party" />
-				<entity-one entity-name="Person" use-cache="true"
-					value-name="lookupPerson" />
-				<entity-one entity-name="CommunicationEvent" value-name="communicationEvent" />
-				<script
-					location="component://party/webapp/partymgr/WEB-INF/actions/communication/FindCommEventContactMechs.groovy" />
-				<set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" />
-				<set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer"
-					default-value="20" />
-			</actions>
-			<widgets>
-				<decorator-screen name="CommonCommunicationEventDecorator"
-					location="${parameters.mainDecoratorLocation}">
-					<decorator-section name="body">
-						<screenlet id="EditCommunicationEventPanel"
-							title="${uiLabelMap.PartyEditCommunicationEvent}" collapsible="true">
-							<include-form
-								location="component://party/webapp/partymgr/communication/CommForms.xml"
-								name="EditCommEvent" />
-						</screenlet>
-						<screenlet title="${uiLabelMap.PartyChildCommunicationEvents}"
-							navigation-form-name="ListChildCommEvents">
-							<include-form
-								location="component://party/webapp/partymgr/communication/CommForms.xml"
-								name="ListChildCommEvents" />
-						</screenlet>
-					</decorator-section>
-				</decorator-screen>
-			</widgets>
-		</section>
-	</screen>
-    
-    <screen name="newEmail">
+    <screen name="EditCommunicationEvent">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleEditCommunication"/>
-                <set field="tabButtonItem" value="CommunicationEvent"/>
-                <set field="entityName" value="CommunicationEvent"/>
-                
-                <set field="parentCommEventId" from-field="parameters.parentCommEventId"/>
-                <set field="partyId" from-field="parameters.partyId"/>
-                <set field="partyIdFrom" from-field="parameters.partyIdFrom" default-value="${userLogin.partyId}"/>
-                <set field="partyIdTo" from-field="parameters.partyIdTo"/>
-                <set field="contactMechIdFrom" from-field="parameters.contactMechIdFrom"/>
-                <set field="contactMechIdTo" from-field="parameters.contactMechIdTo"/>
-                <set field="contactMechTypeId" from-field="parameters.contactMechTypeId"/>
-                
-                <entity-one entity-name="Party" use-cache="true" value-name="party"/>
-                <entity-one entity-name="Person" use-cache="true" value-name="lookupPerson"/>
-                <entity-one entity-name="CommunicationEvent" value-name="communicationEvent"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/FindCommEventContactMechs.groovy"/>
+                <set field="titleProperty" value="PageTitleEditCommunication" />
+                <set field="tabButtonItem" value="CommunicationEvent" />
+                <entity-one entity-name="CommunicationEvent" value-name="communicationEvent" />
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/PrepCommEventReply.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonCommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonCommunicationEventDecorator"
+                    location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
+                        <section><!-- Email -->
+                            <condition>
+                                <or><!-- have for e-mails a special form -->
+                                    <if-compare field-name="parameters.communicationEventTypeId"
+                                        operator="equals" value="EMAIL_COMMUNICATION" />
+                                    <if-compare field-name="parameters.communicationEventTypeId"
+                                        operator="equals" value="AUTO_EMAIL_COMM" />
+                                </or>
+                            </condition>
+                            <widgets>
                         <screenlet id="EditCommunicationEventPanel" title="${uiLabelMap.PartyEditCommunicationEvent}" collapsible="true">
                             <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="NewEmail"/>
                         </screenlet>
+                            </widgets>
+                        </section>
+                        <section>
+                            <condition><!-- internal note -->
+                                    <if-compare field-name="parameters.communicationEventTypeId"
+                                        operator="equals" value="COMMENT_NOTE" />
+                            </condition>
+                            <widgets>
+                        <screenlet id="EditCommunicationEventPanel" title="${uiLabelMap.PartyEditCommunicationEvent}" collapsible="true">
+                            <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="NewInternalNote"/>
+                        </screenlet>
+                            </widgets>
+                        </section>
+                        <section>
+                            <condition><!-- others -->
+                                <and>
+                                    <if-compare field-name="parameters.communicationEventTypeId"
+                                        operator="not-equals" value="COMMENT_NOTE" />
+                                    <if-compare field-name="parameters.communicationEventTypeId"
+                                        operator="not-equals" value="EMAIL_COMMUNICATION" />
+                                    <if-compare field-name="parameters.communicationEventTypeId"
+                                        operator="not-equals" value="AUTO_EMAIL_COMM" />
+                                </and>
+                            </condition>
+                            <widgets>
+                        <screenlet id="EditCommunicationEventPanel"
+                            title="${uiLabelMap.PartyEditCommunicationEvent}" collapsible="true">
+                            <include-form
+                                location="component://party/webapp/partymgr/communication/CommForms.xml"
+                                name="EditCommEvent" />
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.PartyChildCommunicationEvents}"
+                            navigation-form-name="ListChildCommEvents">
+                            <include-form
+                                location="component://party/webapp/partymgr/communication/CommForms.xml"
+                                name="ListChildCommEvents" />
+                        </screenlet>
+                        </widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
     
-    <screen name="NewInternalNote">
+    <screen name="UpdateCommRoles">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleEditCommunication"/>
-                <set field="tabButtonItem" value="CommunicationEvent"/>
-                <set field="entityName" value="CommunicationEvent"/>
-                
-                <set field="parentCommEventId" from-field="parameters.parentCommEventId"/>
-                <set field="partyId" from-field="parameters.partyId"/>
-                <set field="partyIdFrom" from-field="parameters.partyIdFrom" default-value="${userLogin.partyId}"/>
-                <set field="partyIdTo" from-field="parameters.partyIdTo"/>
-                
-                <entity-one entity-name="Party" use-cache="true" value-name="party"/>
-                <entity-one entity-name="Person" use-cache="true" value-name="lookupPerson"/>
-                <entity-one entity-name="CommunicationEvent" value-name="communicationEvent"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/FindCommEventContactMechs.groovy"/>
+                <set field="titleProperty" value="PageTitleViewCommRoles" />
+                <set field="tabButtonItem" value="UpdateCommRoles" />
+                <set field="communicationEventId" from-field="parameters.communicationEventId" />
+                <set field="parentCommEventId" from-field="parameters.parentCommEventId" />
+                <set field="partyId" value="${parameters.partyId}" />
+                <set field="partyIdFrom" value="${parameters.partyId}" />
+                <set field="partyIdTo" value="${parameters.partyId}" />
+                <entity-one entity-name="Party" use-cache="true" value-name="party" />
+                <entity-one entity-name="Person" use-cache="true" value-name="lookupPerson" />
+                <entity-one entity-name="CommunicationEvent" value-name="communicationEvent" />
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" />
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer"
+                    default-value="20" />
             </actions>
             <widgets>
-                <decorator-screen name="CommonCommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonCommunicationEventDecorator"
+                    location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet id="EditCommunicationEventPanel" title="${uiLabelMap.PartyEditCommunicationEvent}" collapsible="true">
-                            <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="NewInternalNote"/>
+                        <screenlet title="${uiLabelMap.PartyCommEventRoles}">
+                            <container style="button-bar"><link style="smallSubmit" target="UpdateCommRoles?communicationEventId=${communicationEventId}&amp;partyId=${partyId}" text="${uiLabelMap.PartyNewCommRole}"/></container>
+                            <include-form
+                                location="component://party/webapp/partymgr/communication/CommForms.xml"
+                                name="ListCommRoles" />
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
-	<screen name="UpdateCommRoles">
-		<section>
-			<actions>
-				<set field="titleProperty" value="PageTitleViewCommRoles" />
-				<set field="tabButtonItem" value="UpdateCommRoles" />
-				<set field="communicationEventId" from-field="parameters.communicationEventId" />
-				<set field="parentCommEventId" from-field="parameters.parentCommEventId" />
-				<set field="partyId" value="${parameters.partyId}" />
-				<set field="partyIdFrom" value="${parameters.partyId}" />
-				<set field="partyIdTo" value="${parameters.partyId}" />
-				<entity-one entity-name="Party" use-cache="true" value-name="party" />
-				<entity-one entity-name="Person" use-cache="true" value-name="lookupPerson" />
-				<entity-one entity-name="CommunicationEvent" value-name="communicationEvent" />
-				<set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" />
-				<set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer"
-					default-value="20" />
-			</actions>
-			<widgets>
-				<decorator-screen name="CommonCommunicationEventDecorator"
-					location="${parameters.mainDecoratorLocation}">
-					<decorator-section name="body">
-						<screenlet title="${uiLabelMap.PartyCommEventRoles}">
-                            <container style="button-bar"><link style="smallSubmit" target="UpdateCommRoles?communicationEventId=${communicationEventId}&amp;partyId=${partyId}" text="${uiLabelMap.PartyNewCommRole}"/></container>
-							<include-form
-								location="component://party/webapp/partymgr/communication/CommForms.xml"
-								name="ListCommRoles" />
-						</screenlet>
-					</decorator-section>
-				</decorator-screen>
-			</widgets>
-		</section>
-	</screen>
     <screen name="UpdateCommPurposes">
         <section>
             <actions>

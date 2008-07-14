@@ -20,25 +20,17 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
-    <form name="EditCommEvent" type="single" target="updateCommunicationEvent" default-map-name="communicationEvent"
-        header-row-style="header-row" default-table-style="basic-table">
-        <actions>
-            <entity-one entity-name="StatusItem" value-name="currentStatus" auto-field-map="false">
-                <field-map field-name="statusId" env-name="communicationEvent.statusId"/>
-            </entity-one>
-            <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/PrepCommEventReply.groovy"/>
-        </actions>
-        
-        <alt-target target="createCommunicationEvent" use-when="communicationEvent==null"/>
+    <form name="EditCommEvent" type="single" target="updateCommunicationEvent" default-map-name="communicationEvent">
+        <alt-target target="createCommunicationEvent" use-when="communicationEvent==null||communicationEvent.get(&quot;communicationEventId&quot;)==null"/>
         <field name="partyId" map-name="parameters"><hidden/></field>
         
-        <field name="communicationEventId" use-when="communicationEvent!=null"><display/></field>
+        <field name="communicationEventId" use-when="communicationEvent!=null&amp;&amp;communicationEvent.get(&quot;communicationEventId&quot;)!=null"><display/></field>
         <field name="parentCommEventId" position="2">
             <lookup target-form-name="LookupCommEvent">
-                <sub-hyperlink use-when="&quot;${communicationEvent.parentCommEventId}&quot;.length()>0" link-style="buttontext" target="EditCommunicationEvent?communicationEventId=${communicationEvent.parentCommEventId}" description="${uiLabelMap.PartyGoToParent}"/>
+                <sub-hyperlink link-style="buttontext" target="EditCommunicationEvent?communicationEventId=${parentCommEventId}" description="${uiLabelMap.PartyGoToParent}" use-when="communicationEvent!=null&amp;&amp;communicationEvent.get(&quot;parentCommEventId&quot;)!=null"/>
             </lookup>
         </field>
-        <field name="communicationEventTypeId">
+        <field name="communicationEventTypeId" >
             <drop-down>
                 <entity-options entity-name="CommunicationEventType" description="${description}">
                     <entity-order-by field-name="description"/>
