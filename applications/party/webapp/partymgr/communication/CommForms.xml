@@ -636,5 +636,18 @@ under the License.
         <field name="lastName" position="3"><text/></field>
         <field name="submit" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    
+    <form name="EditRequestFromCommEvent" type="single" target="createRequestFromCommEvent" default-map-name="parameters">
+        <field name="communicationEventId"><hidden value="${parameters.communicationEventId}"/></field>
+        <field name="fromPartyId"><display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName}"/></field>
+        <field name="custRequestTypeId" >
+            <drop-down>
+                <entity-options entity-name="CustRequestType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="custRequestName"><text/></field>
+        <field name="description"><textarea/></field>
+        <field name="submit" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
 </forms>

@@ -668,6 +668,12 @@ under the License.
         <auto-attributes entity-name="CommunicationEventPurpose" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="CommunicationEventPurpose" include="nonpk" mode="IN" optional="true"/>
     </service>
+    <service name="createCustRequestCommEvent" engine="simple"
+            location="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="createCustRequestCommEvent" auth="true">
+        <description>Create a CustRequestCommEvent</description>
+        <permission-service service-name="partyCommunicationEventPermissionCheck" main-action="CREATE"/>
+        <auto-attributes entity-name="CustRequestCommEvent" include="pk" mode="IN" optional="false"/>
+    </service>
     <service name="removeCommunicationEventPurpose" engine="simple"
             location="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="removeCommunicationEventPurpose" auth="true">
         <description>Remove a Communication Event Purpose</description>
@@ -694,6 +700,16 @@ under the License.
         <auto-attributes include="pk" mode="INOUT" optional="true" entity-name="CommunicationEventWorkEff"/>
         <auto-attributes include="nonpk" mode="IN" optional="true" entity-name="CommunicationEventWorkEff"/>
     </service>
+    <service name="createRequestFromCommEvent" engine="simple"
+            location="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="createRequestFromCommEvent" auth="true">
+        <description>Create a Customer request from a commEvent(email)</description>
+        <attribute name="communicationEventId" mode="IN" type="String" optional="false"/>
+        <attribute name="custRequestTypeId" mode="IN" type="String" optional="true"/>
+        <attribute name="custRequestName" mode="IN" type="String" optional="true"/>
+        <attribute name="description" mode="IN" type="String" optional="true"/>
+        <attribute name="custRequestId" mode="OUT" type="String" optional="false"/>
+    </service>
+    
     <service name="markCommEventRead" engine="simple"
             location="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="markEventRead" auth="true">
         <description>Marks a communication event as read if in the entered/pending status</description>

@@ -3071,6 +3071,9 @@
         <value xml:lang="th">Security Error: ผิดพลาด ! ในการสร้างรหัสไปรษณีย์ตามที่อยู่ คุณต้องได้รับความยินยอมจาก PARTYMGR_CREATE หรือ PARTYMGR_ADMIN ก่อน</value>
         <value xml:lang="zh">安全错误: 要运行 createPostalAddressBoundary，你必须具有 PARTYMGR_CREATE 或 PARTYMGR_ADMIN 权限</value>
     </property>
+    <property key="PartyCreateRequestFromCommEvent">
+        <value xml:lang="en">Create CustReq from CommEvent</value>
+    </property>
     <property key="PartyCreateUserLogin">
         <value xml:lang="en">Create UserLogin</value>
         <value xml:lang="es">Crear usuario</value>
