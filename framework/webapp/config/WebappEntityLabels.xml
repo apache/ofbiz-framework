@@ -19,6 +19,7 @@
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="ServerHitType.description.ENTITY">
+        <value xml:lang="de">Entität</value>
         <value xml:lang="en">Entity</value>
         <value xml:lang="es">Entidad</value>
         <value xml:lang="it">Entité</value>
@@ -28,6 +29,7 @@
         <value xml:lang="zh">实体</value>
     </property>
     <property key="ServerHitType.description.EVENT">
+        <value xml:lang="de">Event</value>
         <value xml:lang="en">Event</value>
         <value xml:lang="es">Evento</value>
         <value xml:lang="it">Evento</value>
@@ -37,6 +39,7 @@
         <value xml:lang="zh">事件</value>
     </property>
     <property key="ServerHitType.description.REQUEST">
+        <value xml:lang="de">Request</value>
         <value xml:lang="en">Request</value>
         <value xml:lang="es">Pedido</value>
         <value xml:lang="it">Richiesta</value>
@@ -46,6 +49,7 @@
         <value xml:lang="zh">访问请求</value>
     </property>
     <property key="ServerHitType.description.SERVICE">
+        <value xml:lang="de">Service</value>
         <value xml:lang="en">Service</value>
         <value xml:lang="es">Servicio</value>
         <value xml:lang="it">Servizio</value>
@@ -55,6 +59,7 @@
         <value xml:lang="zh">服务</value>
     </property>
     <property key="ServerHitType.description.VIEW">
+        <value xml:lang="de">Ansicht</value>
         <value xml:lang="en">View</value>
         <value xml:lang="es">Vista</value>
         <value xml:lang="it">Vista</value>

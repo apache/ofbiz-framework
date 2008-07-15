@@ -19,6 +19,7 @@
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="ModelService.following_required_parameter_missing">
+        <value xml:lang="de">Der folgende benötigte Parameter fehlt:</value>
         <value xml:lang="en">The following required parameter is missing:</value>
         <value xml:lang="es">Se necesita ingresar el siguiente parametro :</value>
         <value xml:lang="fr">Le paramètre requis suivant manque :</value>
@@ -29,6 +30,7 @@
         <value xml:lang="zh">找不到下列必须的参数：</value>
     </property>
     <property key="serviceUtil.no_permission_to_operation">
+        <value xml:lang="de">Sie haben keine Berechtigung, diese Aktion für diesen Akteur auszuführen</value>
         <value xml:lang="en">You do not have permission to perform this operation for this party</value>
         <value xml:lang="es">Usted no cuenta con permisos para realizar la acción</value>
         <value xml:lang="fr">Vous n'avez pas l'autorisation pour effectuer cette opération</value>
@@ -39,6 +41,7 @@
         <value xml:lang="zh">你没有执行这个操作所需的权限</value>
     </property>
     <property key="serviceUtil.no_permission_to_run">
+        <value xml:lang="de">Sie haben keine Berechtigung, diesen Service auszuführen</value>
         <value xml:lang="en">You do not have permission to run this service</value>
         <value xml:lang="es">Usted no cuenta con permisos para realizar la acción</value>
         <value xml:lang="fr">Vous n'avez pas l'autorisation pour effectuer ce service</value>
@@ -49,6 +52,7 @@
         <value xml:lang="zh">你没有运行这个服务所需的权限</value>
     </property>
     <property key="serviceUtil.party_id_missing">
+        <value xml:lang="de">Akteur ID fehlt</value>
         <value xml:lang="en">Party ID missing</value>
         <value xml:lang="es">No existe el código de Participante</value>
         <value xml:lang="fr">Il manque la Party ID</value>
@@ -59,6 +63,7 @@
         <value xml:lang="zh">找不到会员标识</value>
     </property>
     <property key="serviceUtil.unable_to_cancel_job">
+        <value xml:lang="de">Job kann nicht abgebrochen werden</value>
         <value xml:lang="en">Unable to cancel job</value>
         <value xml:lang="es">No se puede cancelar la terea</value>
         <value xml:lang="fr">Impossible d'annuler ce job</value>
@@ -69,6 +74,7 @@
         <value xml:lang="zh">无法取消任务</value>
     </property>
     <property key="serviceUtil.unable_to_cancel_job_retries">
+        <value xml:lang="de">Job Wiederholungen können nicht abgebrochen werden</value>
         <value xml:lang="en">Unable to cancel job retries</value>
         <value xml:lang="es">No se puede cancelar los reintentos de la terea</value>
         <value xml:lang="fr">Impossible d'annuler les nouvelles tentatives de traitement par lot</value>
