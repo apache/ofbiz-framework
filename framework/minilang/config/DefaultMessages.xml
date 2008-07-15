@@ -19,6 +19,7 @@
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="check.error.prefix">
+        <value xml:lang="de">Fehler: </value>
         <value xml:lang="en">Error: </value>
         <value xml:lang="fr">Erreur : </value>
     </property>
@@ -32,6 +33,7 @@
         <value xml:lang="en"></value>
     </property>
     <property key="service.default.message">
+        <value xml:lang="de">Aktion erfolgreich ausgeführt.</value>
         <value xml:lang="en">The action was performed successfully.</value>
         <value xml:lang="es">Se ha realizado la acción correctamente</value>
         <value xml:lang="fr">Opération réussie.</value>
@@ -42,6 +44,7 @@
         <value xml:lang="zh">已成功执行本操作。</value>
     </property>
     <property key="service.error.prefix">
+        <value xml:lang="de">Fehler: </value>
         <value xml:lang="en">Error: </value>
         <value xml:lang="fr">Erreur : </value>
     </property>

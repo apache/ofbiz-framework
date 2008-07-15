@@ -19,6 +19,7 @@
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="coreEvents.delegator_not_passed">
+        <value xml:lang="de">Benötigter Parameter 'delegator' fehlt.</value>
         <value xml:lang="en">Required parameter 'delegator' not passed.</value>
         <value xml:lang="es">No se proporciono el parametro 'delegator'</value>
         <value xml:lang="fr">Le paramètre obligatoire 'delegator' n'a pas fonctionné.</value>
@@ -30,6 +31,7 @@
         <value xml:lang="zh">所需的参数 'delegator' 没有传递过来。</value>
     </property>
     <property key="coreEvents.dispatcher_context_null">
+        <value xml:lang="de">Dispatch Kontext ist leer</value>
         <value xml:lang="en">Dispatch context is null</value>
         <value xml:lang="es">Nombre del Context es nulo</value>
         <value xml:lang="fr">Le contexte du dispatch est invalide</value>
@@ -41,6 +43,7 @@
         <value xml:lang="zh">执行context是null</value>
     </property>
     <property key="coreEvents.dispatcher_name_null">
+        <value xml:lang="de">Dispatcher Name ist leer</value>
         <value xml:lang="en">Dispatcher name is null</value>
         <value xml:lang="es">Nombre del Dispatcher es nulo</value>
         <value xml:lang="fr">Le nom du dispatcher est invalide</value>
@@ -51,6 +54,7 @@
         <value xml:lang="zh">执行程序名称是null</value>
     </property>
     <property key="coreEvents.dispatcher_not_passed">
+        <value xml:lang="de">Benötigter Parameter 'dispatcher' fehlt</value>
         <value xml:lang="en">Required parameter 'dispatcher' not passed</value>
         <value xml:lang="es">El parametro 'dispatcher' no se transmitio</value>
         <value xml:lang="fr">le paramètre obligatoire 'dispatcher' n'a pas fonctionné</value>
@@ -61,6 +65,7 @@
         <value xml:lang="zh">所需的参数 'dispatcher' 没有传递过来</value>
     </property>
     <property key="coreEvents.error_modelservice_for_srv_name">
+        <value xml:lang="de">Fehler beim Zugriff auf ModelService für serviceName</value>
         <value xml:lang="en">Error looking up ModelService for serviceName</value>
         <value xml:lang="es">Error al buscar el 'ModelService' del servicio</value>
         <value xml:lang="fr">Error looking up ModelService for serviceName </value>
@@ -72,6 +77,7 @@
         <value xml:lang="zh">为服务名称查找ModelService时出错</value>
     </property>
     <property key="coreEvents.invalid_format_count">
+        <value xml:lang="de">Falsches Format für SERVICE_COUNT</value>
         <value xml:lang="en">Invalid format for SERVICE_COUNT</value>
         <value xml:lang="es">Formato invalido de cantidad de sevicio</value>
         <value xml:lang="fr">Format invalide pour SERVICE_COUNT</value>
@@ -82,6 +88,7 @@
         <value xml:lang="zh">SERVICE_COUNT格式无效</value>
     </property>
     <property key="coreEvents.invalid_format_frequency">
+        <value xml:lang="de">Falsches Format für SERVICE_FREQUENCY</value>
         <value xml:lang="en">Invalid format for SERVICE_FREQUENCY</value>
         <value xml:lang="es">Formato invalido de frecuencia de sevicio</value>
         <value xml:lang="fr">Format invalide pour SERIVCE_FREQUENCY</value>
@@ -92,6 +99,7 @@
         <value xml:lang="zh">SERIVCE_FREQUENCY格式无效</value>
     </property>
     <property key="coreEvents.invalid_format_interval">
+        <value xml:lang="de">Falsches Format für SERVICE_INTERVAL</value>
         <value xml:lang="en">Invalid format for SERVICE_INTERVAL</value>
         <value xml:lang="es">Formato invalido de intervalo de sevicio</value>
         <value xml:lang="fr">Format invalide pour SERVICE_INTERVAL</value>
@@ -102,6 +110,7 @@
         <value xml:lang="zh">SERVICE_INTERVAL格式无效</value>
     </property>
     <property key="coreEvents.invalid_format_time">
+        <value xml:lang="de">Falsches Format für SERVICE_TIME</value>
         <value xml:lang="en">Invalid format for SERVICE_TIME</value>
         <value xml:lang="es">Formato invalido de tiempo de sevicio</value>
         <value xml:lang="fr">Format invalide pour SERVICE_TIME</value>
@@ -112,6 +121,7 @@
         <value xml:lang="zh">SERVICE_TIME格式无效</value>
     </property>
     <property key="coreEvents.must_specify_service">
+        <value xml:lang="de">Sie müssen einen Servicenamen 'SERVICE_NAME' angeben (zusätzliche Parameter sind: SERVICE_TIME, SERVICE_FREQUENCY, SERVICE_INTERVAL, SERVICE_COUNT)</value>
         <value xml:lang="en">You must specify a 'SERVICE_NAME' (other parameters include: SERVICE_TIME, SERVICE_FREQUENCY, SERVICE_INTERVAL, SERVICE_COUNT)</value>
         <value xml:lang="es">Debe especificar nombre de servicio(además de: tiempo, frecuencia, intervalos y cantidad de servicios)</value>
         <value xml:lang="fr">Vous devez spécifier un 'SERVICE_NAME'. Les autres paramètres incluent : SERVICE_TIME, SERVICE_FREQUENCY, SERVICE_INTERVAL, SERVICE_COUNT</value>
@@ -122,6 +132,7 @@
         <value xml:lang="zh">你必须指定一个 'SERVICE_NAME' (其它参数包括： SERVICE_TIME, SERVICE_FREQUENCY, SERVICE_INTERVAL, SERVICE_COUNT)</value>
     </property>
     <property key="coreEvents.must_specify_service_name">
+        <value xml:lang="de">Sie müssen einen Servicenamen 'SERVICE_NAME' und optional einen Modus angeben (sync oder async, standardmässig auf sync)</value>        
         <value xml:lang="en">You must specify a 'serviceName', and optionally a 'mode' (sync or async, defaults to sync)</value>
         <value xml:lang="es">Debe especificar un nombre de servicio y opcionalmente el modo (síncrono o asíncrono, Síncrono por defecto)</value>
         <value xml:lang="fr">Vous devez spécifier un 'service Name', et optionnellement un mode (sync ou async, standard: sync)</value>
@@ -132,6 +143,7 @@
         <value xml:lang="zh">你必须指定一个'服务名称'，'状态'可选 (同步或异步，缺省是同步)</value>
     </property>
     <property key="coreEvents.no_delegator_name_defined">
+        <value xml:lang="de">Kein Delegator definiert mit diesem Namen</value>
         <value xml:lang="en">No delegator defined by that name</value>
         <value xml:lang="es">No se ha definido un delegator con ese nombre</value>
         <value xml:lang="fr">Pas de delegator défini par ce nom</value>
@@ -143,6 +155,7 @@
         <value xml:lang="zh">没有定义使用那个名字的代表</value>
     </property>
     <property key="coreEvents.no_dispachter_name_registered">
+        <value xml:lang="de">Kein Dispatcher mit dem angegebenen Names ist im System registriert</value>
         <value xml:lang="en">No dispatcher with that name has been registered</value>
         <value xml:lang="es">No se ha registrado un dispachador con ese nombre</value>
         <value xml:lang="fr">Pas de dispatcher défini par ce nom</value>
@@ -154,12 +167,14 @@
         <value xml:lang="zh">已注册的执行程序中没有那个名字</value>
     </property>
     <property key="coreEvents.no_fields_in_session">
+        <value xml:lang="de">Keine 'previous fields' auf der Session gefunden</value>
         <value xml:lang="en">No previous fields found in session</value>
         <value xml:lang="ru">Предыдущие поля в сессии не найдены</value>
         <value xml:lang="th">ไม่พบข้อมูลก่อนหน้านี้ใน session
         </value>
     </property>
     <property key="coreEvents.not_authorized_to_call">
+        <value xml:lang="en">Sie sind nicht berechtigt, diesen 'non-exported' Service aufzurufen. Sie müssen sich am System anmelden und die Sicherheitsberechtigung SERVICE_INVOKE_ANY besitzen.</value>        
         <value xml:lang="en">You are not authorized to call this non-exported service, you must be logged in and have the SERVICE_INVOKE_ANY permission</value>
         <value xml:lang="es">Usten no está autorizada a invocar a este servicio, para lo cual debe contar con el permiso: SERVICE_INVOKE_ANY</value>
         <value xml:lang="fr">Vous n'êtes pas autorisé à appeler ce sercie non exporté, vous devez  être connecté et avoir l'autorisation du SERVICE_INVOKE_ANY.</value>
@@ -171,6 +186,7 @@
         <value xml:lang="zh">你无权调用这个非输出的服务，你必须登录，并具有SERVICE_INVOKE_ANY权限才行</value>
     </property>
     <property key="coreEvents.not_authorized_use_fct">
+        <value xml:lang="de">Sie sind nicht berechtigt, diese Funktion zu verwenden</value>
         <value xml:lang="en">You are not authorized to use this function</value>
         <value xml:lang="es">Usted no está autorizada a usar esta función</value>
         <value xml:lang="fr">Vous n'êtes pas autorisé à utiliser cette fonction</value>
@@ -181,6 +197,7 @@
         <value xml:lang="zh">你没有被授权使用这个功能</value>
     </property>
     <property key="coreEvents.service_dispatcher_exception">
+        <value xml:lang="de">Der Service Dispatcher hat eine Exception geworfen</value>
         <value xml:lang="en">Service dispatcher threw an exception</value>
         <value xml:lang="es">Service dispatcher lanzo una excepción</value>
         <value xml:lang="fr">Le service dispatcher a envoyer une exception</value>
@@ -191,6 +208,7 @@
         <value xml:lang="zh">服务执行程序抛出一个意外错误</value>
     </property>
     <property key="coreEvents.service_eventhandler_exception">
+        <value xml:lang="de">Der ServiceEventHandler hat eine Exception geworfen</value>
         <value xml:lang="en">ServiceEventHandler threw an exception</value>
         <value xml:lang="es">ServiceEventHandler lanzo una excepción</value>
         <value xml:lang="fr">Le ServiceEventHandler a envoyer une exception</value>
@@ -202,6 +220,7 @@
         <value xml:lang="zh">ServiceEventHandler抛出一个意外错误</value>
     </property>
     <property key="coreEvents.service_name_not_find">
+        <value xml:lang="de">Ein Service mit diesem Namen wurde nicht gefunden</value>
         <value xml:lang="en">Could not find a service with the serviceName</value>
         <value xml:lang="es">No se pudo encontrar un servicio con ese nombre</value>
         <value xml:lang="fr">Un service ne peut être trouvé par ce nom de service</value>
@@ -212,6 +231,7 @@
         <value xml:lang="zh">无法找到这个服务：服务名称</value>
     </property>
     <property key="coreEvents.service_scheduled">
+        <value xml:lang="de">Service wurde eingeplant</value>
         <value xml:lang="en">Service has been scheduled</value>
         <value xml:lang="es">El servicio a sido programado</value>
         <value xml:lang="fr">Le service a été planifié</value>
@@ -222,6 +242,7 @@
         <value xml:lang="zh">服务已列入计划</value>
     </property>
     <property key="coreEvents.service_time_already_passed">
+        <value xml:lang="de">SERVICE_TIME ist bereits vorbei</value>
         <value xml:lang="en">SERVICE_TIME has already passed</value>
         <value xml:lang="es">El tiempo de servicio a concluido</value>
         <value xml:lang="fr">SERVICE_TIME a déjà réussi </value>
@@ -232,6 +253,7 @@
         <value xml:lang="zh">SERVICE_TIME已经传递了</value>
     </property>
     <property key="loginevents.following_error_occurred_during_login">
+        <value xml:lang="de">Der folgende Fehler ist beim Anmelden aufgetreten: ${errorMessage}</value>
         <value xml:lang="en">The following error occurred during login: ${errorMessage}</value>
         <value xml:lang="fr">L'erreur suivante est apparue lors de la connexion: ${errorMessage}</value>
         <value xml:lang="it">Il seguente errore è avvenuto durante il login: ${errorMessage}</value>
@@ -241,6 +263,7 @@
         <value xml:lang="zh">登录时发生下列错误：${errorMessage}</value>
     </property>
     <property key="loginevents.password_was_empty_reenter">
+        <value xml:lang="de">Passwort war leer, bitte erneut eingeben.</value>
         <value xml:lang="en">The Password was empty, please re-enter.</value>
         <value xml:lang="fr">Le mot de passe est vide, merci de le saisir</value>
         <value xml:lang="it">La password è vuota, prego inserirla di nuovo.</value>
@@ -249,6 +272,7 @@
         <value xml:lang="zh">密码是空的，请重新输入。</value>
     </property>
     <property key="loginevents.unable_to_login_this_application">
+        <value xml:lang="de">Sie können sich nicht bei dieser Anwendung anmelden (benötigte Berechtigungen fehlen).</value>
         <value xml:lang="en">Login for this application couldn't be completed (required permissions missing).</value>
         <value xml:lang="fr">La connexion à cette application n'a pas pu être effectuée (cet utilisateur n'a pas le niveau d'autorisation nécessaire)</value>
         <value xml:lang="it">Impossibile accedere a questa applicazione (utente con privilegi insufficienti)</value>
@@ -258,6 +282,7 @@
         <value xml:lang="zh">无法完成登录这个应用 (找不到所需权限)。</value>
     </property>
     <property key="loginevents.username_was_empty_reenter">
+        <value xml:lang="de">Der Benutzername ist leer, bitte erneut eingeben.</value>
         <value xml:lang="en">The Username was empty, please re-enter.</value>
         <value xml:lang="fr">Le nom d'utilisateur est vide, merci de le saisir</value>
         <value xml:lang="it">Il nome utente è vuoto, prego inserirlo di nuovo.</value>
@@ -266,6 +291,7 @@
         <value xml:lang="zh">用户名是空的，请重新输入。</value>
     </property>
     <property key="requestHandler.error_call_event">
+        <value xml:lang="de">Fehler beim Aufruf eines Events</value>
         <value xml:lang="en">Error calling event</value>
         <value xml:lang="es">Error en la llamada el evento</value>
         <value xml:lang="fr">Erreur lors de l'appel de l'événement</value>
@@ -276,6 +302,7 @@
         <value xml:lang="zh">调用事件时出错</value>
     </property>
     <property key="simpleEventHandler.event_not_completed">
+        <value xml:lang="de">Event konnte nicht abgeschlossen werden</value>
         <value xml:lang="en">Could not complete event</value>
         <value xml:lang="es">No se pudo completar el evento</value>
         <value xml:lang="fr">L'événement n'a pas pu être terminé</value>

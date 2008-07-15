@@ -19,6 +19,7 @@
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="hour.plural">
+        <value xml:lang="de">Stunden</value>
         <value xml:lang="en">hours</value>
         <value xml:lang="es">horas</value>
         <value xml:lang="fr">heures</value>
@@ -28,6 +29,7 @@
         <value xml:lang="zh">小时</value>
     </property>
     <property key="hour.singular">
+        <value xml:lang="de">Stunde</value>
         <value xml:lang="en">hour</value>
         <value xml:lang="es">hora</value>
         <value xml:lang="fr">heure</value>
@@ -37,6 +39,7 @@
         <value xml:lang="zh">小时</value>
     </property>
     <property key="millisecond.plural">
+        <value xml:lang="de">Millisekunden</value>
         <value xml:lang="en">millliseconds</value>
         <value xml:lang="es">milisegundos</value>
         <value xml:lang="fr">milllisecondes</value>
@@ -46,6 +49,7 @@
         <value xml:lang="zh">毫秒</value>
     </property>
     <property key="millisecond.singular">
+        <value xml:lang="de">Millisekunde</value>
         <value xml:lang="en">milllisecond</value>
         <value xml:lang="es">milisegundo</value>
         <value xml:lang="fr">millliseconde</value>
@@ -55,6 +59,7 @@
         <value xml:lang="zh">毫秒</value>
     </property>
     <property key="minute.plural">
+        <value xml:lang="de">Minuten</value>
         <value xml:lang="en">minutes</value>
         <value xml:lang="es">minutos</value>
         <value xml:lang="fr">minutes</value>
@@ -64,6 +69,7 @@
         <value xml:lang="zh">分钟</value>
     </property>
     <property key="minute.singular">
+        <value xml:lang="de">Minute</value>
         <value xml:lang="en">minute</value>
         <value xml:lang="es">minuto</value>
         <value xml:lang="fr">minute</value>
@@ -73,6 +79,7 @@
         <value xml:lang="zh">分钟</value>
     </property>
     <property key="second.plural">
+        <value xml:lang="de">Sekunden</value>
         <value xml:lang="en">seconds</value>
         <value xml:lang="es">segundos</value>
         <value xml:lang="fr">secondes</value>
@@ -82,6 +89,7 @@
         <value xml:lang="zh">秒</value>
     </property>
     <property key="second.singular">
+        <value xml:lang="de">Sekunde</value>
         <value xml:lang="en">second</value>
         <value xml:lang="es">segundo</value>
         <value xml:lang="fr">seconde</value>
@@ -91,6 +99,7 @@
         <value xml:lang="zh">秒</value>
     </property>
     <property key="week.plural">
+        <value xml:lang="de">Wochen</value>
         <value xml:lang="en">weeks</value>
         <value xml:lang="es">semanas</value>
         <value xml:lang="fr">semaines</value>
@@ -100,6 +109,7 @@
         <value xml:lang="zh">周</value>
     </property>
     <property key="week.singular">
+        <value xml:lang="de">Woche</value>
         <value xml:lang="en">week</value>
         <value xml:lang="es">semana</value>
         <value xml:lang="fr">semaine</value>
