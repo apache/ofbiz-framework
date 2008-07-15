@@ -24,8 +24,8 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="ShoppingList" />
         <field name="shoppingListTypeId">
-            <drop-down >
-                <entity-options entity-name="ShoppingListType">
+            <drop-down>
+                <entity-options entity-name="ShoppingListType" description="${description}">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>

@@ -22,13 +22,13 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="EditReturn" type="single" target="updateReturn" default-map-name="returnHeader"
         header-row-style="header-row" default-table-style="basic-table">
-        <alt-target use-when="returnHeader==null" target="createReturn"/>
-        <auto-fields-service service-name="updateReturnHeader"/>
         <actions>
             <entity-one entity-name="StatusItem" value-name="currentStatus" auto-field-map="false">
                 <field-map field-name="statusId" env-name="returnHeader.statusId"/>
             </entity-one>
         </actions>
+        <alt-target use-when="returnHeader==null" target="createReturn"/>     
+        <auto-fields-service service-name="updateReturnHeader"/>        
         <field use-when="returnHeader!=null" name="returnId" tooltip="This cannot be changed without re-creating the Return."><display/></field>
         <field use-when="returnHeader==null&amp;&amp;returnId!=null" name="returnId" tooltip="Could not find Return with ID [${returnId}]"><text size="20" maxlength="20"/></field>
         <field use-when="returnHeader==null&amp;&amp;returnId==null" name="returnId"><ignored/></field>
