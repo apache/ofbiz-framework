@@ -44,7 +44,7 @@ String buildNext(Map map, List order, String current, String prefix, Map feature
     buf = new StringBuffer();
     buf.append("function listFT" + current + prefix + "() { ");
     buf.append("document.forms[\"addform\"].elements[\"FT" + current + "\"].options.length = 1;");
-    buf.append("document.forms[\"addform\"].elements[\"FT" + current + "\"].options[0] = new Option(\"" + featureTypes.current + "\",\"\",true,true);");
+    buf.append("document.forms[\"addform\"].elements[\"FT" + current + "\"].options[0] = new Option(\"" + featureTypes[current] + "\",\"\",true,true);");
     map.each { key, value ->
         optValue = null;
 
@@ -331,7 +331,7 @@ if (product) {
 
                     // build dynamic lists
                     if (variantTree) {
-                        variantTree.eachWithIndex { varTree, topLevelKeysCt ->
+                        variantTree.values().eachWithIndex { varTree, topLevelKeysCt ->
                             cnt = "" + topLevelKeysCt;
                             if (varTree instanceof Map) {
                                 jsBuf.append(buildNext(varTree, featureOrder, featureOrder[1], cnt, featureTypes));
