@@ -4275,6 +4275,7 @@
     <property key="CommonPreferences">
         <value xml:lang="de">Einstellungen</value>
         <value xml:lang="en">Preferences</value>
+        <value xml:lang="fr">Préférences</value>
     </property>
     <property key="CommonPrepared">
         <value xml:lang="ar">معدة</value>
