@@ -21,21 +21,11 @@ under the License.
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">      
 
-    <menu name="ExampleAppBar" default-menu-item-name="main" id="app-navigation" type="simple" title="${uiLabelMap.ExampleApplication}"
-        default-selected-style="selected" selected-menuitem-context-field-name="headerItem">
-        <menu-item name="main" title="${uiLabelMap.CommonMain}"><link target="main"/></menu-item>
+    <menu name="ExampleAppBar" title="${uiLabelMap.ExampleApplication}" extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="Example" title="${uiLabelMap.ExampleExample}"><link target="FindExample"/></menu-item>
         <menu-item name="ExampleFeature" title="${uiLabelMap.ExampleFeature}"><link target="FindExampleFeature"/></menu-item>
         <menu-item name="FormWidgetExamples" title="${uiLabelMap.ExampleFormWidgetExamples}"><link target="FormWidgetExamples"/></menu-item>
         <menu-item name="AjaxExample" title="Ajax Examples"><link target="authview/findExampleAjax"/></menu-item>
-        <menu-item name="Logout" title="Logout" align-style="opposed">
-            <condition><not><if-empty field-name="userLogin"/></not></condition>
-            <link target="logout"/>
-        </menu-item>
-        <menu-item name="Login" title="Login" align-style="opposed">
-            <condition><if-empty field-name="userLogin"/></condition>
-            <link target="${checkLoginUrl}"/>
-        </menu-item>
     </menu>
 
     <menu name="EditExample" default-selected-style="selected" type="simple"
