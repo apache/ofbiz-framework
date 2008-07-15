@@ -223,7 +223,9 @@ function displayOrderSubmitPanel() {
 
 function processShippingAddress() {
     createUpdateCustomerAndShippingAddress();
-    getShipOptions();
+    if (isShipStepValidate) {
+        getShipOptions();
+    }
 }
 
 function createUpdateCustomerAndShippingAddress() {
