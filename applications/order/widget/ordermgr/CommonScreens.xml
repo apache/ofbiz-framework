@@ -72,6 +72,11 @@ under the License.
                                     <html><html-template location="component://order/webapp/ordermgr/request/RequestTabBar.ftl"/></html>
                                 </platform-specific>
                                 <container>
+                                                        <container>
+                            <link target="request" text="${uiLabelMap.OrderNewRequest}" style="buttontext"/>
+                            <link target="createQuoteFromCustRequest?custRequestId=${custRequestId}" text="${uiLabelMap.OrderNewQuote}" style="buttontext"/>
+                        </container>
+                                
                                     <label style="h1">[${uiLabelMap.CommonId}:${custRequest.custRequestId}] ${custRequest.custRequestName}</label>
                                 </container>
                                 <decorator-section-include name="body"/>
