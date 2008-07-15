@@ -92,10 +92,10 @@
         <field name="fixedAssetId" use-when="fixedAssetMaint==null" title="${uiLabelMap.AccountingFixedAssetId}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><lookup target-form-name="LookupFixedAsset"/></field>        
         <field name="scheduleWorkEffortId"><hidden/></field>
         <field name="submitButton" ><ignored/></field>
-        <field map-name="workEffort" title="${uiLabelMap.WorkEffortEstimatedStartDate}" position="1"  name="estimatedStartDate"><date-time/></field>
-        <field map-name="workEffort" title="${uiLabelMap.WorkEffortEstimatedCompletionDate}" position="2"  name="estimatedCompletionDate"><date-time/></field>
-        <field map-name="workEffort" title="${uiLabelMap.WorkEffortActualStartDate}" position="1"  name="actualStartDate"><date-time/></field>
-        <field map-name="workEffort" title="${uiLabelMap.WorkEffortActualCompletionDate}" position="2"  name="actualCompletionDate"><date-time/></field>
+        <field map-name="workEffort" position="1"  name="estimatedStartDate"><date-time/></field>
+        <field map-name="workEffort" position="2"  name="estimatedCompletionDate"><date-time/></field>
+        <field map-name="workEffort" position="1" name="actualStartDate"><date-time/></field>
+        <field map-name="workEffort" position="2" name="actualCompletionDate"><date-time/></field>
         <field name="quickAssignPartyId" title="${uiLabelMap.PartyPartyId}" use-when="fixedAssetMaint == null" field-name="partyId">
             <lookup target-form-name="LookupPerson"/>
         </field>

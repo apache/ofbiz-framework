@@ -177,7 +177,7 @@
                                     </widgets>
                                     <fail-widgets>
                                         <container style="button-bar">
-                                            <link target="EditWorkEfforts?workEffortId=${workEffortId}&amp;mode=addAssignment" text="${uiLabelMap.CommonNew}" style="buttontext"/>
+                                            <link target="EditWorkEfforts?fixedAssetId=${fixedAssetMaint.fixedAssetId}&amp;maintHistSeqId=${fixedAssetMaint.maintHistSeqId}&amp;workEffortId=${workEffortId}&amp;mode=addAssignment" text="${uiLabelMap.CommonNew}" style="buttontext"/>
                                         </container>
                                     </fail-widgets>
                                 </section>
@@ -196,7 +196,7 @@
                                     </widgets>
                                     <fail-widgets>
                                         <container style="button-bar">
-                                            <link target="EditWorkEfforts?workEffortId=${workEffortId}&amp;mode=addChildTask" text="${uiLabelMap.CommonNew}" style="buttontext"/>
+                                            <link target="EditWorkEfforts?fixedAssetId=${fixedAssetMaint.fixedAssetId}&amp;maintHistSeqId=${fixedAssetMaint.maintHistSeqId}&amp;workEffortId=${workEffortId}&amp;mode=addChildTask" text="${uiLabelMap.CommonNew}" style="buttontext"/>
                                         </container>
                                     </fail-widgets>
                                 </section>
