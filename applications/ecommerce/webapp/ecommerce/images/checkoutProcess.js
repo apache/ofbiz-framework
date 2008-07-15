@@ -395,35 +395,13 @@ function addPromoCode() {
         asynchronous: false, 
         onSuccess: function(transport) {
             var data = transport.responseText.evalJSON(true);
-            if (data._ERROR_MESSAGE_LIST_ != undefined) {
-                $('cartFormServerError').update(data._ERROR_MESSAGE_LIST_);
-            } else if (data._ERROR_MESSAGE_ != undefined) {
-                $('cartFormServerError').update(data._ERROR_MESSAGE_);  
+            var serverError = getServerError(data);
+            if(serverError != "") {
+                Effect.Appear('cartFormServerError');
+                $('cartFormServerError').update(serverError);
             } else {
-                $('cartDiscountValue').update(data.displayOrderAdjustmentsTotalCurrencyFormatted);
-                $('cartSubTotal').update(data.subTotalCurrencyFormatted);
-                $('cartTotalShipping').update(data.totalShippingCurrencyFormatted);
-                $('cartTotalSalesTax').update(data.totalSalesTaxCurrencyFormatted);
-                $('cartDisplayGrandTotal').update(data.displayGrandTotalCurrencyFormatted);
-                // update summary
-                $('completedCartSubTotal').update(data.subTotalCurrencyFormatted);
-                $('completedCartTotalShipping').update(data.totalShippingCurrencyFormatted);
-                $('completedCartTotalSalesTax').update(data.totalSalesTaxCurrencyFormatted);
-                $('completedCartDisplayGrandTotal').update(data.displayGrandTotalCurrencyFormatted);
-                $('completedCartDiscount').update(data.displayOrderAdjustmentsTotalCurrencyFormatted); 
-                if (data.displayDiscountTotal < 0) {
-                    $('completedCartDiscountRow').show();
-                } else {
-                    $('completedCartDiscountRow').hide();
-                }
-                if (elementId !=undefined ) {
-                    if ($(elementId).value == 0) {
-                        var cartItemRowId = elementId.sub('qty_','cartItemRow_');
-                        $(cartItemRowId).remove();
-                        var cartItemDisplayRowId = elementId.sub('qty_','cartItemDisplayRow_');
-                        $(cartItemDisplayRowId).remove();
-                    }
-                }
+                Effect.Fade('cartFormServerError');
+                updateCartData();
             }
         },
         parameters: {productPromoCodeId:$F('productPromoCode')}
