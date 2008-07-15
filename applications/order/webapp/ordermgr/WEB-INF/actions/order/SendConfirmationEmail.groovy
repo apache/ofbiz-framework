@@ -22,31 +22,26 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.content.email.NotificationServices;
 
-delegator = request.getAttribute("delegator");
-
-orderId = request.getParameter("orderId");
-if (orderId == null) orderId = parameters.get("orderId");
-context.put("orderId", orderId);
+orderId = request.getParameter("orderId") ?: parameters.get("orderId");
+context.orderId = orderId;
  
 partyId = request.getParameter("partyId");
 sendTo = request.getParameter("sendTo");
 
-context.put("partyId", partyId);
-context.put("sendTo", sendTo);
+context.partyId = partyId;
+context.sendTo = sendTo;
 
-donePage = request.getParameter("DONE_PAGE");
-if (donePage == null || donePage.length() <= 0) 
-    donePage="orderview?orderId=" + orderId;
-context.put("donePage", donePage);
+donePage = request.getParameter("DONE_PAGE") ?: "orderview?orderId=" + orderId;
+context.donePage = donePage;
 
 // Provide the correct order confirmation ProductStoreEmailSetting, if one exists
-orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
-if (orderHeader.getString("productStoreId") != null) {
-    productStoreEmailSetting = delegator.findByPrimaryKeyCache("ProductStoreEmailSetting", UtilMisc.toMap("productStoreId", orderHeader.getString("productStoreId"), "emailType", "PRDS_ODR_CONFIRM"));    
-    if (productStoreEmailSetting != null) {
-        context.put("productStoreEmailSetting", productStoreEmailSetting);        
+orderHeader = delegator.findByPrimaryKey("OrderHeader", [orderId : orderId]);
+if (orderHeader.productStoreId) {
+    productStoreEmailSetting = delegator.findByPrimaryKeyCache("ProductStoreEmailSetting", [productStoreId : orderHeader.productStoreId, emailType : "PRDS_ODR_CONFIRM"]);    
+    if (productStoreEmailSetting) {
+        context.productStoreEmailSetting = productStoreEmailSetting;
     }
 }
 
 // set the baseUrl parameter, required by some email bodies
-NotificationServices.setBaseUrl(delegator, context.get("webSiteId"), context);
+NotificationServices.setBaseUrl(delegator, context.webSiteId, context);
