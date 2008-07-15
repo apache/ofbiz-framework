@@ -64,23 +64,10 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.OrderFindRequests}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <container>
-                                            <link target="request" text="${uiLabelMap.OrderNewRequest}" style="buttontext"/>
-                                        </container>
-                                        <include-form name="FindRequests" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>                                        
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.OrderFindRequests}" collapsible="true" id="findRequests">
+                            <link target="request" text="${uiLabelMap.OrderNewRequest}" style="buttontext"/>
+                            <include-form name="FindRequests" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>                                        
+                        </screenlet>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">

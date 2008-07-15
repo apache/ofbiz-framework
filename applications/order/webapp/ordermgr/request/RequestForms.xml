@@ -23,7 +23,7 @@ under the License.
     <form name="FindRequests" target="FindRequest" title="" type="single" default-map-name="parameters"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="CustRequest" default-field-type="find"/>
-        <field name="custRequestTypeId">
+        <field name="custRequestTypeId" position="2">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="CustRequestType" key-field-name="custRequestTypeId"/>
             </drop-down>
@@ -36,7 +36,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="salesChannelEnumId" title="${uiLabelMap.OrderSalesChannel}">
+        <field name="salesChannelEnumId" title="${uiLabelMap.OrderSalesChannel}" position="2">
             <drop-down allow-empty="true">
                 <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" value="ORDER_SALES_CHANNEL"/>
@@ -44,14 +44,20 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="fromPartyId"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="custRequestCategoryId"><hidden/></field>
-        <field name="priority"><hidden/></field>
-        <field name="description"><hidden/></field>
-        <field name="createdDate"><hidden/></field>
-        <field name="createdByUserLogin"><hidden/></field>
-        <field name="lastModifiedDate"><hidden/></field>
-        <field name="lastModifiedByUserLogin"><hidden/></field>
+        <field name="fromPartyId" position="2"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="maximumAmountUomId"><ignored/></field>
+        <field name="custRequestCategoryId"><ignored/></field>
+        <field name="fulfillContactMechId"><ignored/></field>
+        <field name="priority"><ignored/></field>
+        <field name="priority"><ignored/></field>
+        <field name="priority"><ignored/></field>
+        <field name="description"><ignored/></field>
+        <field name="createdDate"><ignored/></field>
+        <field name="createdByUserLogin"><ignored/></field>
+        <field name="lastModifiedDate"><ignored/></field>
+        <field name="lastModifiedByUserLogin"><ignored/></field>
+        <field name="closedDateTime" position="2"><date-find/></field>
+        <field name="responseRequiredDate" position="2"><date-find/></field>
         <field name="productStoreId" title="${uiLabelMap.ProductProductStore}">
             <drop-down allow-empty="true">
                 <entity-options description="${storeName}" entity-name="ProductStore" key-field-name="productStoreId">
@@ -59,6 +65,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="reason" position="2"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>

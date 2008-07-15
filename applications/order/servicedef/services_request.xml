@@ -29,8 +29,7 @@ under the License.
             location="org/ofbiz/order/request/CustRequestServices.xml" invoke="createCustRequest" auth="true">
         <description>Create a custRequest record</description>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <auto-attributes include="pk" mode="OUT" optional="true"/>
-        <attribute name="custRequestTypeId" type="String" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
     </service>
     <service name="updateCustRequest" engine="simple" default-entity-name="CustRequest"
             location="org/ofbiz/order/request/CustRequestServices.xml" invoke="updateCustRequest" auth="true">
