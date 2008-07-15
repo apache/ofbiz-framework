@@ -22,34 +22,34 @@ import org.ofbiz.base.util.*;
 import org.ofbiz.base.util.collections.*;
 import org.ofbiz.order.order.*;
 
-orderHeader = context.get("orderHeader");
+orderHeader = context.orderHeader;
 
-// if orderHeader is null in orderview.bsh then it is not null but void here!
-if ((orderHeader != null) && (orderHeader != void)) {
+// if orderHeader is null in OrderView.groovy then it is not null but void here!
+if (orderHeader) {
     // set hasPermission, must always exist if the orderHeader != null
     // hasPermission if: has ORDERMGR_VIEW, ORDERMGR_ROLE_VIEW & associated with order, or is associated in the SUPPLIER_AGENT role
     hasPermission = false;
     canViewInternalDetails = false;
-    if (("SALES_ORDER".equals(orderHeader.getString("orderTypeId")) && security.hasEntityPermission("ORDERMGR", "_VIEW", session))
-        || ("PURCHASE_ORDER".equals(orderHeader.getString("orderTypeId")) && security.hasEntityPermission("ORDERMGR", "_PURCHASE_VIEW", session))) {
+    if (("SALES_ORDER".equals(orderHeader.orderTypeId) && security.hasEntityPermission("ORDERMGR", "_VIEW", session))
+        || ("PURCHASE_ORDER".equals(orderHeader.orderTypeId) && security.hasEntityPermission("ORDERMGR", "_PURCHASE_VIEW", session))) {
         hasPermission = true;
         canViewInternalDetails = true;
     } else if (security.hasEntityPermission("ORDERMGR_ROLE", "_VIEW", session)) {
-        currentUserOrderRoles = orderHeader.getRelated("OrderRole", UtilMisc.toMap("partyId", userLogin.get("partyId")), null);
-        if (currentUserOrderRoles != null && currentUserOrderRoles.size() > 0) {
+        currentUserOrderRoles = orderHeader.getRelated("OrderRole", [partyId : userLogin.partyId], null);
+        if (currentUserOrderRoles) {
             hasPermission = true;
             canViewInternalDetails = true;
         }
     } else {
         // regardless of permission, allow if this is the supplier
-        currentUserSupplierOrderRoles = orderHeader.getRelated("OrderRole", UtilMisc.toMap("partyId", userLogin.get("partyId"), "roleTypeId", "SUPPLIER_AGENT"), null);
-        if (currentUserSupplierOrderRoles != null && currentUserSupplierOrderRoles.size() > 0) {
+        currentUserSupplierOrderRoles = orderHeader.getRelated("OrderRole", [partyId : userLogin.partyId, roleTypeId : "SUPPLIER_AGENT"], null);
+        if (currentUserSupplierOrderRoles) {
             hasPermission = true;
         }
     }
-    context.put("hasPermission", hasPermission);
-    context.put("canViewInternalDetails", canViewInternalDetails);
+    context.hasPermission = hasPermission;
+    context.canViewInternalDetails = canViewInternalDetails;
 
     orderContentWrapper = OrderContentWrapper.makeOrderContentWrapper(orderHeader, request);
-    context.put("orderContentWrapper", orderContentWrapper);
+    context.orderContentWrapper = orderContentWrapper;
 }

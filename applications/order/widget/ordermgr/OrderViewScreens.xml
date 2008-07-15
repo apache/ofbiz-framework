@@ -38,8 +38,8 @@ under the License.
             <actions>
                 <set field="titleProperty" value="OrderViewOrder"/>
                 <set field="headerItem" value="findorders"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/orderview.bsh"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/orderviewwebsecure.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/OrderView.groovy"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/OrderViewWebSecure.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderViewDecorator">
@@ -150,8 +150,8 @@ under the License.
             <actions>
                 <set field="titleProperty" value="OrderEditItems"/>
                 <set field="headerItem" value="orderlist"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/orderview.bsh"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/orderviewwebsecure.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/OrderView.groovy"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/OrderViewWebSecure.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderViewDecorator">
@@ -251,7 +251,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="OrderReceiveOfflinePayments"/>
                <set field="headerItem" value="findorders"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/receivepayment.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/ReceivePayment.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderViewDecorator">
@@ -268,7 +268,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="OrderViewImage"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/viewimage.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/ViewImage.groovy"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://order/webapp/ordermgr/order/viewimage.ftl"/></html></platform-specific>
@@ -280,7 +280,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="OrderSendConfirmationEmail"/>
                 <set field="headerItem" value="findorders"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/sendconfirmationemail.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/SendConfirmationEmail.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderViewDecorator">

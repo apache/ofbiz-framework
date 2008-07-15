@@ -20,20 +20,18 @@
 import org.ofbiz.base.util.*;
 import org.ofbiz.order.order.*;
 
-delegator = request.getAttribute("delegator");
-
 orderId = request.getParameter("orderId");
 orderItemSeqId = request.getParameter("orderItemSeqId");
 orderContentTypeId = request.getParameter("orderContentTypeId");
 
 order = null;
-if (orderId != null && orderItemSeqId == null && orderId.length() > 0) {
-    order = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+if (orderId && !orderItemSeqId) {
+    order = delegator.findByPrimaryKey("OrderHeader", [orderId : orderId]);
 }
-if (orderId != null && orderItemSeqId != null && orderId.length() > 0) {
-    order = delegator.findByPrimaryKey("OrderItem", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId));
+if (orderId && orderItemSeqId) {
+    order = delegator.findByPrimaryKey("OrderItem", [orderId : orderId, orderItemSeqId : orderItemSeqId]);
 }
 
 wrapper = OrderContentWrapper.makeOrderContentWrapper(order, request);
-context.put("wrapper", wrapper);
-context.put("orderContentTypeId", orderContentTypeId);
+context.wrapper = wrapper;
+context.orderContentTypeId = orderContentTypeId;
