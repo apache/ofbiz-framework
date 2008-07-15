@@ -55,7 +55,7 @@ import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.util.EntityListIterator;
 
 /**
- * Generic Entity Data Access Object - Handles persisntence for any defined entity.
+ * Generic Entity Data Access Object - Handles persistence for any defined entity.
  *
  */
 public class GenericDAO {

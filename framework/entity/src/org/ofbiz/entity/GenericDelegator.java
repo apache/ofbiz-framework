@@ -208,7 +208,12 @@ public class GenericDelegator implements DelegatorInterface {
         }
 
         // initialize helpers by group
-        Iterator<String> groups = UtilMisc.toIterator(getModelGroupReader().getGroupNames());
+        Set groupNames = getModelGroupReader().getGroupNames();
+        if (groupNames != null) {
+            // Always add the default group name
+            groupNames.add(getDelegatorInfo().defaultGroupName);
+        }
+        Iterator<String> groups = UtilMisc.toIterator(groupNames);
         while (groups != null && groups.hasNext()) {
             String groupName = groups.next();
             String helperName = this.getGroupHelperName(groupName);
