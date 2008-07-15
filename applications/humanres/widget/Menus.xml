@@ -20,9 +20,7 @@
 
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">    
-    <menu name="HumanResAppBar" default-menu-item-name="main" id="app-navigation" type="simple" title="${uiLabelMap.HumanResManagerApplication}"
-        default-selected-style="selected" menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="headerItem">
-        <menu-item name="main" title="${uiLabelMap.CommonMain}"><link target="main"/></menu-item>
+    <menu name="HumanResAppBar" title="${uiLabelMap.HumanResManagerApplication}" extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="Employment" title="${uiLabelMap.HumanResEmployment}"><link target="FindEmployments"/></menu-item>
         <menu-item name="Employee" title="${uiLabelMap.HumanResEmployee}"><link target="findEmployees"/></menu-item>
         <menu-item name="EmplPosition" title="${uiLabelMap.HumanResEmployeePosition}"><link target="FindEmplPositions"/></menu-item>
@@ -34,14 +32,6 @@
         <menu-item name="PayGrade" title="${uiLabelMap.HumanResPayGrade}"><link target="FindPayGrades"/></menu-item>
         <menu-item name="PerfReview" title="${uiLabelMap.HumanResPerfReview}"><link target="FindPerfReviews"/></menu-item>
         <menu-item name="Leave" title="${uiLabelMap.HumanResEmplLeave}"><link target="FindEmplLeaves"/></menu-item>
-        <menu-item name="Logout" title="${uiLabelMap.CommonLogout}" align-style="opposed">
-            <condition><not><if-empty field-name="userLogin"/></not></condition>
-            <link target="logout"/>
-        </menu-item>
-        <menu-item name="Login" title="${uiLabelMap.CommonLogin}" align-style="opposed">
-            <condition><if-empty field-name="userLogin"/></condition>
-            <link target="${checkLoginUrl}"/>
-        </menu-item>
         <menu-item name="GlobalHRSettings" title="${uiLabelMap.HumanResGlobalHRSettings}" selected-style="selected"><link target="globalHRSettings"/></menu-item>
     </menu>
     <menu name="EmploymentBar" default-menu-item-name="EditPartyBenefit" default-selected-style="selected"

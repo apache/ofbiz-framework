@@ -19,9 +19,7 @@ under the License.
 -->
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
 
-    <menu name="ContentAppBar" default-menu-item-name="main" id="app-navigation" title="${uiLabelMap.ContentContentManagerApplication}"
-        default-selected-style="selected" type="simple" selected-menuitem-context-field-name="headerItem">
-        <menu-item name="main" title="${uiLabelMap.ContentMain}"><link target="main"/></menu-item>
+    <menu name="ContentAppBar" title="${uiLabelMap.ContentContentManagerApplication}" extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="websites" title="${uiLabelMap.ContentWebSites}"><link target="FindWebSite"/></menu-item>
         <menu-item name="survey" title="${uiLabelMap.ContentSurvey}"><link target="FindSurvey"/></menu-item>
         <menu-item name="Forum" title="${uiLabelMap.ContentForum}"><link target="findForumGroups"/></menu-item>
@@ -32,15 +30,6 @@ under the License.
         <menu-item name="Layout" title="${uiLabelMap.ContentTemplate}"><link target="LayoutMenu"/></menu-item>
         <menu-item name="CMS" title="${uiLabelMap.ContentCMS}"><link target="CMSContentFind"/></menu-item>
         <menu-item name="CompDoc" title="${uiLabelMap.ContentCompDoc}"><link target="FindCompDoc"/></menu-item>
-        
-        <menu-item name="Logout" title="${uiLabelMap.CommonLogout}" align-style="opposed">
-            <condition><not><if-empty field-name="userLogin"/></not></condition>
-            <link target="logout"/>
-        </menu-item>
-        <menu-item name="Login" title="${uiLabelMap.CommonLogin}" align-style="opposed">
-            <condition><if-empty field-name="userLogin"/></condition>
-            <link target="${checkLoginUrl}"/>
-        </menu-item>
     </menu>
 
     <menu name="content"  menu-container-style="button-bar tab-bar" default-selected-style="selected" default-menu-item-name="content" default-permission-operation="HAS_AUTHOR_ROLE|CONTENT_ADMIN"

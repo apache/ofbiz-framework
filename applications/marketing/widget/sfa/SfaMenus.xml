@@ -18,9 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
-    <menu name="SfaAppBar" default-menu-item-name="main" id="app-navigation" type="simple" title="${uiLabelMap.SfaManagerApplication}"
-        default-selected-style="selected" menu-container-style="button-bar tab-bar no-clear" selected-menuitem-context-field-name="headerItem">
-        <menu-item name="Main" title="${uiLabelMap.MarketingMainPage}"><link target="main"/></menu-item>
+    <menu name="SfaAppBar" title="${uiLabelMap.SfaManagerApplication}" extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="Accounts" title="${uiLabelMap.SfaAcccounts}"><link target="FindAccounts"/></menu-item>
         <menu-item name="Contacts" title="${uiLabelMap.SfaContacts}"><link target="FindContacts"/></menu-item>
         <menu-item name="Leads" title="${uiLabelMap.SfaLeads}"><link target="FindLeads"/></menu-item>
@@ -29,14 +27,6 @@ under the License.
         <menu-item name="Documents" title="${uiLabelMap.SfaDocuments}"><link target=""/></menu-item>
         <menu-item name="Forecast" title="${uiLabelMap.SfaForecasts}"><link target="FindSalesForecast"/></menu-item>
         <menu-item name="Opportunities" title="${uiLabelMap.SfaOpportunities}"><link target="FindOpportunity"/></menu-item>
-        <menu-item name="Logout" title="${uiLabelMap.CommonLogout}" align-style="opposed">
-            <condition><not><if-empty field-name="userLogin"/></not></condition>
-            <link target="logout"/>
-        </menu-item>
-        <menu-item name="Login" title="${uiLabelMap.CommonLogin}" align-style="opposed">
-            <condition><if-empty field-name="userLogin"/></condition>
-            <link target="${checkLoginUrl}"/>
-        </menu-item>
     </menu>
     
     <menu name="OpportunityTabBar" type="simple" menu-container-style="button-bar tab-bar no-clear" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem">

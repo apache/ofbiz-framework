@@ -20,9 +20,8 @@
 
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
-    <menu name="ProjectMgrAppBar" id="app-navigation" type="simple" selected-menuitem-context-field-name="headerItem" default-selected-style="selected" title="${uiLabelMap.ProjectMgrApplication}" menu-container-style="button-bar tab-bar">
+    <menu name="ProjectMgrAppBar" title="${uiLabelMap.ProjectMgrApplication}" extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
     
-        <menu-item name="main" title="${uiLabelMap.CommonMain}"><link target="main"/></menu-item>
         <menu-item name="mytasks" title="${uiLabelMap.WorkEffortMyTasks}"><link target="MyTasks"/></menu-item>
         <menu-item name="mytime" title="${uiLabelMap.TimesheetMyTime}"><link target="MyTimesheet"/></menu-item>
         <menu-item name="projects" title="${uiLabelMap.WorkEffortProjects}"><link target="FindProject"/></menu-item>
@@ -55,14 +54,6 @@
         
         <menu-item name="help" title="${uiLabelMap.CommonHelp}" align-style="opposed">
             <link target="http://docs.ofbiz.org/display/OFBENDUSER/Project+Manager+Application+Roles?decorator=printable" url-mode="plain" target-window="new"/>
-        </menu-item>
-        <menu-item name="Logout" title="${uiLabelMap.CommonLogout}" align-style="opposed">
-            <condition><not><if-empty field-name="userLogin"/></not></condition>
-            <link target="logout"/>
-        </menu-item>
-        <menu-item name="Login" title="${uiLabelMap.CommonLogin}" align-style="opposed">
-            <condition><if-empty field-name="userLogin"/></condition>
-            <link target="${checkLoginUrl}"/>
         </menu-item>
     </menu>
     <menu name="ProjectTabBar" type="simple" menu-container-style="button-bar tab-bar" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem">

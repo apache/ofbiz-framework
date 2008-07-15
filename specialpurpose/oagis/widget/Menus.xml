@@ -20,20 +20,9 @@
 
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
-    <menu name="OagisAppBar" default-menu-item-name="task" id="app-navigation" type="simple" selected-menuitem-context-field-name="headerItem" 
-        default-selected-style="selected" title="${uiLabelMap.OagisApplication}">
-    
-        <menu-item name="main" title="${uiLabelMap.CommonMain}"><link target="main"/></menu-item>
+    <menu name="OagisAppBar" title="${uiLabelMap.OagisApplication}" extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="MessageInfos" title="${uiLabelMap.OagisMessageInfo}"><link target="FindMessageInfo"/></menu-item>
         <menu-item name="MessageErrorInfos" title="${uiLabelMap.OagisMessageErrorInfo}"><link target="FindMessageErrorInfo"/></menu-item>
-        <menu-item name="Logout" title="${uiLabelMap.CommonLogout}" align-style="opposed">
-            <condition><not><if-empty field-name="userLogin"/></not></condition>
-            <link target="logout"/>
-        </menu-item>
-        <menu-item name="Login" title="${uiLabelMap.CommonLogin}" align-style="opposed">
-            <condition><if-empty field-name="userLogin"/></condition>
-            <link target="${checkLoginUrl}"/>
-        </menu-item>
     </menu>
     
 </menus>
