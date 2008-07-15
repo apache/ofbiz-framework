@@ -30,21 +30,21 @@ workEffortId = context.get("workEffortId");
 
 if (maintHistSeqId == null) {
     maintHistSeqId = parameters.get("maintHistSeqId");
-}
-if (maintHistSeqId == null) {
-    maintHistSeqId = request.getParameter("maintHistSeqId");
+    if (maintHistSeqId == null) {
+        maintHistSeqId = request.getParameter("maintHistSeqId");
+    }
 }
 if (fixedAssetId == null) {
     fixedAssetId = parameters.get("fixedAssetId");
-}
-if (fixedAssetId == null) {
-    fixedAssetId = request.getParameter("fixedAssetId");
+    if (fixedAssetId == null) {
+        fixedAssetId = request.getParameter("fixedAssetId");
+    }
 }
 if (workEffortId == null) {
     workEffortId = parameters.get("workEffortId");
-}
-if (workEffortId == null) {
-    workEffortId = request.getParameter("workEffortId");
+    if (workEffortId == null) {
+        workEffortId = request.getParameter("workEffortId");
+    }
 }
 
 fixedAssetMaint = null;
@@ -55,7 +55,9 @@ lookupWorkEffortId = null;
 if (workEffortId != null) {
     workEffort = delegator.findByPrimaryKey("WorkEffort", UtilMisc.toMap("workEffortId", workEffortId));
     if (workEffort != null) {
-        fixedAssetId = workEffort.get("fixedAssetId");
+        if (fixedAssetId == null) {
+            fixedAssetId = workEffort.get("fixedAssetId");
+        }
         // If this is a child workeffort, locate the "root" workeffort
         parentWorkEffort = EntityUtil.getFirst(delegator.findByAnd("WorkEffortAssoc", UtilMisc.toMap("workEffortIdTo", workEffortId)));
         while (parentWorkEffort != null) {

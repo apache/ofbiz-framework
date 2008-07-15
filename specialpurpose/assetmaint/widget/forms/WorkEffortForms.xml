@@ -68,7 +68,7 @@
         <field map-name="workEffort" name="estimatedCompletionDate" position="2"><date-time/></field>
         <field map-name="workEffort" name="actualStartDate" position="1"><date-time/></field>
         <field map-name="workEffort" name="actualCompletionDate" position="2"><date-time/></field>
-        <field map-name="workEffort" name="facilityId" title="${uiLabelMap.AccountingFacilityId}"><lookup target-form-name="LookupFacility"/></field>
+        <field map-name="workEffort" name="facilityId"><lookup target-form-name="LookupFacility"/></field>
         <field map-name="fixedAssetMaint" name="fixedAssetId"><hidden/></field>
         <field map-name="workEffort" name="moneyUomId" title="${uiLabelMap.CommonCurrency}"><ignored/></field>
         <field map-name="workEffort" name="workEffortTypeId"><hidden value="TASK"/></field>
@@ -121,7 +121,7 @@
         <field name="workEffortTypeId"><hidden value="TASK"/></field>
         <field name="description"><hidden value="${workEffort.description}"/></field>
 
-        <field name="workEffortAssocTypeId" title="${uiLabelMap.WorkEffortWorkEffortAssocTypeId}">
+        <field name="workEffortAssocTypeId">
             <drop-down>
                 <entity-options entity-name="WorkEffortAssocType" description="${description}">
                     <entity-order-by field-name="description"/>
