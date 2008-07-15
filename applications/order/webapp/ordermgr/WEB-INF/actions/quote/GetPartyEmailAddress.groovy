@@ -20,10 +20,10 @@
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.party.contact.ContactHelper;
 
-if (party != null) {
+if (party) {
     emailAddress = EntityUtil.getFirst(ContactHelper.getContactMech(party, "PRIMARY_EMAIL", "EMAIL_ADDRESS", false));
-    if (emailAddress != null) {
-        context.put("sendTo", emailAddress.getString("infoString"));
+    if (emailAddress) {
+        context.sendTo = emailAddress.infoString;
     }
 }
 

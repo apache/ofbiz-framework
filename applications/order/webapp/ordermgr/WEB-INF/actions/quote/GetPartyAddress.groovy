@@ -20,11 +20,11 @@
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.party.contact.ContactHelper;
 
-if (party != null) {
+if (party) {
     address = EntityUtil.getFirst(ContactHelper.getContactMech(party, "GENERAL_LOCATION", "POSTAL_ADDRESS", false));
-    if (address != null) {
+    if (address) {
         toPostalAddress = address.getRelatedOne("PostalAddress");
-        context.put("toPostalAddress", toPostalAddress);
+        context.toPostalAddress = toPostalAddress;
     }
 }
 
