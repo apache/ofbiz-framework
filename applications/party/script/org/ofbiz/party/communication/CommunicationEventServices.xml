@@ -261,5 +261,30 @@ under the License.
         <call-service service-name="updateCommunicationEvent" in-map-name="inCom"/>
         
         <field-to-request field-name="parameters.communicationEventId" request-name="communicationEventId"/>
-    </simple-method>   
+    </simple-method>
+    <simple-method method-name="createRequestFromCommEvent" short-description="Create a Customer request from a commEvent(email)">
+        <entity-one entity-name="CommunicationEvent" value-name="communicationEvent"/>
+        <if-empty field="communicationEvent">
+            <add-error><fail-message message="Event Id: ${parameters.communicationEventId} not found"/></add-error>
+            <return response-code="errors"/>
+        </if-empty>    
+        
+        <set field="custRequest.custRequestName" from-field="communicationEvent.subject"/>
+        <set field="custRequest.description" from-field="communicationEvent.content"/>
+        <set field="custRequest.fromPartyId" from-field="communicationEvent.partyIdFrom"/>
+        <set field="custRequest.custRequestTypeId" value="RF_SUPPORT"/>
+        
+        <set-service-fields service-name="createCustRequest" map-name="parameters" to-map-name="custRequest"/>
+        <call-service service-name="createCustRequest" in-map-name="custRequest">
+            <result-to-field result-name="custRequestId" field-name="parameters.custRequestId"/>
+        </call-service>
+        <set-service-fields service-name="createCustRequestCommEvent" map-name="parameters" to-map-name="custRequestCommEvent"/>
+        <call-service service-name="createCustRequestCommEvent" in-map-name="custRequestCommEvent"/>
+        <field-to-result field-name="parameters.custRequestId" result-name="custRequestId"/>
+    </simple-method>
+    <simple-method method-name="createCustRequestCommEvent" short-description="Create CustRequestCommEvent" >
+        <make-value value-name="newEntity" entity-name="CustRequestCommEvent"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>    
+    </simple-method>
 </simple-methods>

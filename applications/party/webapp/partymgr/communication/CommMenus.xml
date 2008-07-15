@@ -85,5 +85,11 @@ under the License.
             </condition>
             <link target="EditCommunicationEvent?parentCommEventId=${parameters.communicationEventId}"/>
         </menu-item>
+        <menu-item name="createRequestFromCommEvent" title="${uiLabelMap.PartyCreateRequestFromCommEvent}">
+            <condition>
+                <not><if-empty field-name="parameters.communicationEventId"/></not>
+            </condition>
+            <link target="editRequestFromCommEvent?communicationEventId=${parameters.communicationEventId}"/>
+        </menu-item>
     </menu>
 </menus>

@@ -704,7 +704,16 @@ under the License.
         <security https="true" auth="true" />
         <response name="success" type="view" value="ListUnknownPartyComms" />
 	</request-map>
-        
+    <request-map uri="editRequestFromCommEvent">
+        <security https="true" auth="true" />
+        <response name="success" type="view" value="EditRequestFromCommEvent" />
+    </request-map>
+    <request-map uri="createRequestFromCommEvent">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createRequestFromCommEvent"/>
+        <response name="success" type="view" value="ViewRequest"/>
+        <response name="error" type="view" value="EditRequestFromCommEvent"/>
+    </request-map>
 
     <request-map uri="deletePartyCommunicationEvent">
         <security https="true" auth="true"/>
@@ -1113,6 +1122,8 @@ under the License.
     <view-map name="EditCommEventWorkEffort" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#EditCommEventWorkEffort"/>
     <view-map name="AddCommContent" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#AddCommContent"/>
     <view-map name="EditCommContent" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#EditCommContent"/>
+    <view-map name="EditRequestFromCommEvent" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#EditRequestFromCommEvent"/>
+    <view-map name="ViewRequest" type="screen" page="component://order/widget/ordermgr/RequestScreens.xml#ViewRequest"/>
     
     <view-map name="CreateNewParty" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#CreateNewParty"/>
     <view-map name="NewCustomer" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#NewCustomer"/>
