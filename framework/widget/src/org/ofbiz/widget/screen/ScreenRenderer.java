@@ -160,6 +160,7 @@ public class ScreenRenderer {
         context.put("security", security);
         context.put("locale", locale);
         context.put("userLogin", userLogin);
+        context.put("nowTimestamp", UtilDateTime.nowTimestamp());
     }
     
     /**
@@ -289,7 +290,6 @@ public class ScreenRenderer {
         if ("true".equals(parameterMap.get("isError"))) {
             context.put("isError", Boolean.TRUE);
         }
-        context.put("nowTimestamp", UtilDateTime.nowTimestamp());
 
         // to preserve these values, push the MapStack
         context.push();
