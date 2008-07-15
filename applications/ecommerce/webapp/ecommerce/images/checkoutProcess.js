@@ -96,6 +96,7 @@ Event.observe(window, 'load', function() {
     Event.observe('useShippingAddressForBilling', 'click', function() {
         getAssociatedBillingStateList();
         useShippingAddressForBillingToggle();
+        validateBill.validate();
     });
     
     // Initiate Observing Edit Cart Events
