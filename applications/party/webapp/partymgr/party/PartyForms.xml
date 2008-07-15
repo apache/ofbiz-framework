@@ -645,11 +645,9 @@ under the License.
         <field name="subscriptionTypeId" title="${uiLabelMap.ProductSubscription} ${uiLabelMap.CommonType}">
             <display-entity entity-name="SubscriptionType" description="${description}"/>
         </field>
-<!--        <field name="subscriptionResourceId">
-            <display-entity entity-name="SubscriptionResource" description="${description}">
-                <sub-hyperlink target="EditSubscriptionResource?subscriptionResourceId=${subscriptionResourceId}" description="${subscriptionResourceId}" link-style="buttontext"/>
-            </display-entity>
-        </field> -->
+        <field name="subscriptionResourceId">
+            <display-entity entity-name="SubscriptionResource" description="${description}"/>
+        </field>
         <field name="description"><display/></field>
         <field name="productId">
             <display-entity entity-name="Product" description="${productName}">
