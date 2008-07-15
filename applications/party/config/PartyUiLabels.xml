@@ -171,7 +171,7 @@
         <value xml:lang="zh">描述</value>
     </property>
     <property key="EmailfromUnknownParties">
-        <value xml:lang="en">Email unknown parties</value>
+        <value xml:lang="en">Email from unknown parties</value>
     </property>    
     <property key="FormFieldTitle_attrName">
         <value xml:lang="en">Attr Name</value>
