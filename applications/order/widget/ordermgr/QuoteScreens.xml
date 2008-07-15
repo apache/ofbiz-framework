@@ -161,7 +161,7 @@ under the License.
                 <get-related value-name="quote" relation-name="QuoteItem" list-name="quoteItems" order-by-list-name="listOrderBy"/>
                 <get-related value-name="quote" relation-name="QuoteAdjustment" list-name="quoteAdjustments"/>
                 
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/quote/getPartyAddress.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/quote/GetPartyAddress.groovy"/>
                 <!--
                 <get-related value-name="quote" relation-name="QuoteRole" list-name="quoteRoles"/>
                 <get-related value-name="quote" relation-name="QuoteAttribute" list-name="quoteAttributes"/>
@@ -567,7 +567,7 @@ under the License.
                 </entity-and>
                 <set from-field="quote.quoteId" field="quoteId"/>
 
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/quote/ManageQuotePrices.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/quote/ManageQuotePrices.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonQuotePriceDecorator" location="${parameters.mainDecoratorLocation}">
@@ -710,7 +710,7 @@ under the License.
                 </entity-and>
                 <set from-field="quote.quoteId" field="quoteId"/>
 
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/quote/ViewQuoteProfit.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/quote/ViewQuoteProfit.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonQuotePriceDecorator" location="${parameters.mainDecoratorLocation}">
@@ -747,7 +747,7 @@ under the License.
                 <set field="quoteId" from-field="parameters.quoteId"/>
                 <entity-one entity-name="Quote" value-name="quote"/>
                 <get-related-one value-name="quote" relation-name="Party" to-value-name="party"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/quote/getPartyEmailAddress.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/quote/GetPartyEmailAddress.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonQuoteDecorator" location="${parameters.mainDecoratorLocation}">
