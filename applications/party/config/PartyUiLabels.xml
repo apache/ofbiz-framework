@@ -172,6 +172,7 @@
     </property>
     <property key="EmailfromUnknownParties">
         <value xml:lang="en">Email from unknown parties</value>
+        <value xml:lang="fr">Courriel depuis un acteur inconnu</value>
     </property>    
     <property key="FormFieldTitle_attrName">
         <value xml:lang="en">Attr Name</value>
