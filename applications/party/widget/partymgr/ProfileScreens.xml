@@ -352,7 +352,6 @@
             <actions>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
-
                 <entity-condition entity-name="Subscription" list-name="subscriptionList" filter-by-date="true">
                     <condition-list>
                         <condition-expr field-name="partyId" operator="equals" env-name="parameters.partyId"/>
@@ -368,11 +367,9 @@
                         </not>
                     </condition>
                     <widgets>
-                        <platform-specific>
-                            <html>
-                                <html-template location="component://party/webapp/partymgr/party/profileblocks/Subscriptions.ftl"/>
-                            </html>
-                        </platform-specific>
+                        <screenlet id="subscription-summary" title="${uiLabelMap.ProductSubscriptions}" collapsible="true">
+                            <include-form name="ListSubscriptions" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                        </screenlet>
                     </widgets>
                 </section>
             </widgets>
