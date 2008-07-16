@@ -20,23 +20,8 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <form name="ListRequests" type="list" use-row-submit="true" title="" list-name="requests"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <actions>
-            <entity-and entity-name="CustRequest" list-name="requests">
-                <field-map field-name="statusId" value="CRQ_SUBMITTED"/>
-                </entity-and>
-        </actions> 
-        <field name="custRequestName" widget-style="buttontext">
-            <hyperlink description="${custRequestName} ${custRequestId}" target="ViewRequest?custRequestId=${custRequestId}"/>
-        </field>
-        <field name="priority"><display/></field>
-        <field name="createdDate"><display type="date"/></field>
-        <field name="fromPartyId"><display/></field>
-        <field name="statusId">
-            <display-entity also-hidden="false" entity-name="StatusItem"/>
-        </field>
-        <field name="description"><display/></field>
+    <form name="ListRequests" type="list" 
+        extends="ListRequests" extends-resource="component://order/webapp/ordermgr/request/RequestForms.xml">
         <field name="createTaskFromRequest" title="${uiLabelMap.ProjectMgrCreateTaskFromRequest}" widget-style="buttontext">
             <hyperlink description="${uiLabelMap.ProjectMgrCreateTaskFromRequest}" target="CreateTaskbyRequest?custRequestId=${custRequestId}"/>
         </field>

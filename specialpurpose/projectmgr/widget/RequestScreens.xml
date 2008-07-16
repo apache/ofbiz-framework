@@ -26,45 +26,20 @@ under the License.
                 <set field="titleProperty" value="PageTitleListWorkEffortRequests"/>
                 <set field="tabButtonItem" value="requestlist"/>
                 <set field="headerItem" value="request"/>
-                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="3"/>
-
                 <set field="custRequestId" from-field="parameters.custRequestId"/>
+                <set field="parameters.statusId" value="CRQ_SUBMITTED"/>
+                <set field="entityName" value="CustRequest"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.OrderRequestList}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <container style="screenlet-body">
-                                            <link target="newrequest" text="${uiLabelMap.OrderNewRequest}" style="buttontext"/>
-                                        </container>
-                                        <include-form name="ListRequests" location="component://projectmgr/widget/forms/RequestForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.ProjectMgrRequestWorkEffortList}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="ListRequestsWorkEffortForm" location="component://projectmgr/widget/forms/RequestForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.OrderRequestList}" navigation-form-name="ListRequests">
+                            <link target="newrequest" text="${uiLabelMap.OrderNewRequest}" style="buttontext"/>
+                            <include-form name="ListRequests" location="component://projectmgr/widget/forms/RequestForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.ProjectMgrRequestWorkEffortList}" navigation-form-name="ListRequestsWorkEffortForm">
+                            <include-form name="ListRequestsWorkEffortForm" location="component://projectmgr/widget/forms/RequestForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
