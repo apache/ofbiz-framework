@@ -200,7 +200,6 @@
     <view-map name="myCompanyComms" type="screen" page="component://mypage/widget/CommonScreens.xml#MyCompanyComms"/>
     <view-map name="myTimesheet" type="screen" page="component://mypage/widget/CommonScreens.xml#MyTimesheet"/>
     <view-map name="newEvent" type="screen" page="component://mypage/widget/MyPageScreens.xml#newEvent"/>
-    <view-map name="ViewCommunicationEvent" type="screen" page="component://mypage/widget/MyPageScreens.xml#ViewCommunicationEvent"/>
     
     
 </site-conf>

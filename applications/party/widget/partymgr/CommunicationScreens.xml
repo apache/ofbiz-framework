@@ -177,6 +177,9 @@ under the License.
                 <decorator-screen name="CommonCommunicationEventDecorator"
                     location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
+                        <container style="lefthalf">
+                        <label style="h1" text="Communication Event id: ${parameters.communicationEventId}"></label>
+                        <screenlet title="Communication info">
                         <section>
                             <condition>
                                 <or><!-- have for e-mails a special form -->
@@ -216,18 +219,33 @@ under the License.
                                     name="ViewCommEvent" />
                             </fail-widgets>
                         </section>
+                        </screenlet>
+                        </container>
+                        <container style="righthalf">
+                        <section>
+                            <actions>
+                                <entity-and list-name="commEvents" entity-name="CommunicationEvent">
+                                    <field-map field-name="parentCommEventId" value="parameters.communicationEventId"/>
+                                </entity-and>
+                            </actions>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.PartyChildCommunicationEvents}">
+                                    <include-form name="ListCommEvents" location="component://party/webapp/partymgr/communication/CommForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                        </section>
                         <section>
                             <actions>
                                 <set field="entityName" value="CustRequestAndCommEvent"/>
                                 <set field="requestParameters.communicationEventId" from-field="parameters.communicationEventId"/>
                             </actions>
                             <widgets>
-                                <label style="h1" text="${uiLabelMap.OrderRequestList}"/>
-                                <screenlet>
+                                <screenlet title="${uiLabelMap.OrderRequestList}">
                                     <include-form name="ListRequests" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
                                 </screenlet>
                             </widgets>
                         </section>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
