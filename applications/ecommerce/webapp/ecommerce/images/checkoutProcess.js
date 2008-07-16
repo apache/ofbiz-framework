@@ -106,23 +106,22 @@ Event.observe(window, 'load', function() {
 
     // Autocompleter for shipping panel
     Event.observe($('shipToCountryGeo'), 'focus', getCountryList);
-    Event.observe($('shipToCountryGeo'), 'change', isCountryChanged);
-    Event.observe($('shipToCountryGeo'), 'blur', splitCountryNameFromIds);
-    
-    Event.observe($('shipToStateProvinceGeo'), 'focus', getAssociatedStateList);
-    Event.observe($('shipToStateProvinceGeo'), 'blur', splitStateNameFromIds);
 
+    Event.observe($('shipToCountryGeo'), 'blur', function() {
+        $('shipToStateProvinceGeo').value = "";
+    });
+    Event.observe($('shipToStateProvinceGeo'), 'focus', getAssociatedStateList);
     // Get associate states for billing panel
     Event.observe($('billToCountryGeoId'), 'change', getAssociatedBillingStateList);
 });
 
 // Check server side error
 function getServerError(data) {
-    var servreErrorHash = [];
+    var serverErrorHash = [];
     var serverError = "";
     if (data._ERROR_MESSAGE_LIST_ != undefined) {
-        servreErrorHash = data._ERROR_MESSAGE_LIST_;
-        servreErrorHash.each(function(error) {
+        serverErrorHash = data._ERROR_MESSAGE_LIST_;
+        serverErrorHash.each(function(error) {
             serverError += error.message;
         });
     }
@@ -513,93 +512,68 @@ function processOrder() {
     $('orderSubmitForm').submit();
 }
 
-var countryChange = true;
-var autoCompleteCountries = null;
 var countryList = [];
 
 function getCountryList() {
-    if (countryChange) {
-    new Ajax.Request("getCountryList",
-        { asynchronous: false,
-          onSuccess: function(transport) {
-          var data = transport.responseText.evalJSON(true);
-          countryList = data.countryList;
-          autoCompleteCountries = new Autocompleter.Local("shipToCountryGeo", "shipToCountries", countryList, {partialSearch: false});
-        }
+    targetField = $('shipToCountryGeo');
+    divToPopulate = $('shipToCountries');
+    hiddenTarget = $('shipToCountryGeoId');
+    new Ajax.Request("getCountryList", {
+        asynchronous: false,
+        onSuccess: callAutocompleter
     });
-    countryChange = false;
-    }
 }
 
-function splitCountryNameFromIds() {
-    $('shipToStateProvinceGeo').value = "";
-    geoValues = $('shipToCountryGeo').value.split(': ');
-    if(geoValues) {
-        $('shipToCountryGeo').value = geoValues[0];
-        if(geoValues[1] != 'undefined' || geoValues[1] != null) {
-            countryList.each(function(country){
-                geo = country.split(': ');
-                if(geoValues[0] == geo[0]){
-                    geoValues[1] = geo[1];
-                }
-            });
-        }
-        $('shipToCountryGeoId').value = geoValues[1];
-    }
-}
-
-var stateChange = true;
-var autoCompleteStates = null;
+var autoComplete = null;
 var stateList = [];
 
 function getAssociatedStateList() {
-    if (stateChange) {
-    new Ajax.Request("getAssociatedStateList",
-        { asynchronous: false,
-          parameters: $('shippingForm').serialize(),
-          onSuccess: function(transport) {
-          var data = transport.responseText.evalJSON(true);
-          stateList = data.stateList;
-          autoCompleteStates = new Autocompleter.Local("shipToStateProvinceGeo", "shipToStates", stateList, {partialSearch: false});
-        }
+    targetField = $('shipToStateProvinceGeo');
+    divToPopulate = $('shipToStates');
+    hiddenTarget = $('shipToStateProvinceGeoId');
+    new Ajax.Request("getAssociatedStateList", {
+        asynchronous: false,
+        parameters: $('shippingForm').serialize(),
+        onSuccess: callAutocompleter
     });
-    stateChange = false;
-    }
-}
-
-function splitStateNameFromIds() {
-    geoValues = $('shipToStateProvinceGeo').value.split(': ');
-    if(geoValues) {
-        $('shipToStateProvinceGeo').value = geoValues[0];
-        if(geoValues[1] != 'undefined' || geoValues[1] != null) {
-            stateList.each(function(state){
-                geo = state.split(': ');
-                if(geoValues[0] == geo[0]){
-                    geoValues[1] = geo[1];
-                }
-            });
-            $('shipToStateProvinceGeoId').value = geoValues[1];
-        }
-    }
 }
 
 function getAssociatedBillingStateList() {
     var optionList = [];
-    new Ajax.Request("getAssociatedStateList",
-    { asynchronous: false,
+    new Ajax.Request("getAssociatedStateList", {
+        asynchronous: false,
         parameters: $('billingForm').serialize(),
         onSuccess: function(transport) {
-          var data = transport.responseText.evalJSON(true);
-          stateList = data.stateList;
-          stateList.each(function(state) {
-            geoVolues = state.split(': ');
-            optionList.push("<option value = " + geoVolues[1] + " >"+geoVolues[0]+"</option>");
-          });
-          $('billToStateProvinceGeoId').update(optionList);
+            var data = transport.responseText.evalJSON(true);
+            stateList = data.stateList;
+            stateList.each(function(state) {
+                geoVolues = state.split(': ');
+                optionList.push("<option value = "+geoVolues[1]+" >"+geoVolues[0]+"</option>");
+            });
+            $('billToStateProvinceGeoId').update(optionList);
         }
     });
 }
-// This way associated state list will be fetched only when a user do any changes to country
-function isCountryChanged() {
-    stateChange = true;
+
+function callAutocompleter (transport) {
+    var geos = new Hash();
+    var data = transport.responseText.evalJSON(true);
+    if (targetField.id == "shipToStateProvinceGeo") {
+        stateList = data.stateList;
+        stateList.each(function(state) {
+            var stateName = state.split(': ');
+            geos.set(stateName[1], stateName[0]);
+        });
+    } else {
+       countryList = data.countryList;
+        countryList.each(function(country) {
+            var countryName = country.split(': ');
+            geos.set(countryName[1], countryName[0]);
+        });
+    }
+    autoComplete = new Autocompleter.Local(targetField, divToPopulate, $H(geos), { partialSearch: false, afterUpdateElement: setKeyAsParameter });
+}
+
+function setKeyAsParameter(text, li) {
+    $(hiddenTarget).value = li.id;
 }
