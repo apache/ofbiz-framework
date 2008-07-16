@@ -273,6 +273,7 @@ under the License.
         <set field="custRequest.description" from-field="communicationEvent.content"/>
         <set field="custRequest.fromPartyId" from-field="communicationEvent.partyIdFrom"/>
         <set field="custRequest.custRequestTypeId" value="RF_SUPPORT"/>
+        <set field="custRequest.statusId" value="CRQ_SUBMITTED"/>
         
         <set-service-fields service-name="createCustRequest" map-name="parameters" to-map-name="custRequest"/>
         <call-service service-name="createCustRequest" in-map-name="custRequest">

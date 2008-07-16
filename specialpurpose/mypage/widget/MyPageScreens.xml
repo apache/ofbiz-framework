@@ -357,6 +357,18 @@ under the License.
 										<include-form
 											location="component://party/webapp/partymgr/communication/CommForms.xml"
 											name="ViewEmail" />
+											<section>
+                                                <actions>
+                                                    <set field="entityName" value="CustRequestAndCommEvent"/>
+                                                    <set field="requestParameters.communicationEventId" from-field="parameters.communicationEventId"/>
+                                                </actions>
+                                                <widgets>
+                                                    <label style="h1" text="${uiLabelMap.OrderRequestList}"/>
+                                                    <screenlet>
+                                                        <include-form name="ListRequests" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                                                    </screenlet>
+                                                </widgets>
+                                            </section>
 									</widgets>
 									<fail-widgets>
 										<include-form
