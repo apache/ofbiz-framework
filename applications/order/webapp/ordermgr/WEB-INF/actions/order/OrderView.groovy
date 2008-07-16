@@ -156,7 +156,7 @@ if (orderHeader) {
     context.itemIssuancesPerItem = itemIssuancesPerItem;
 
     // get a list of all invoices
-    allInvoices = [:];
+    allInvoices = [];
     orderBilling = delegator.findByAnd("OrderItemBilling", [orderId : orderId], ["invoiceId"]);
     orderBilling.each { billingGv ->
         allInvoices.add(billingGv.invoiceId);
