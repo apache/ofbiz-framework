@@ -1642,6 +1642,7 @@
     </property>
     <property key="PageTitleListUnknownPartyComms">
         <value xml:lang="en">Communications from Unknown origin</value>
+        <value xml:lang="fr">Communications depuis une origine inconnue</value>
     </property>
     <property key="PageTitleViewCommPurposes">
         <value xml:lang="en">View Communication Purposes</value>
