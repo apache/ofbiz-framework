@@ -20,21 +20,16 @@
 import org.ofbiz.entity.*;
 import org.ofbiz.base.util.*;
 
-delegator = request.getAttribute("delegator");
+custRequestId = parameters.custRequestId;
+custRequestItemSeqId = parameters.custRequestItemSeqId;
+showAll = parameters.showAll ?: "false";
+context.showAll = showAll;
 
-String custRequestId = request.getParameter("custRequestId");
-String custRequestItemSeqId = request.getParameter("custRequestItemSeqId");
-String showAll = request.getParameter("showAll");
-if (showAll == null) {
-    showAll = "false";
-}
-context.put("showAll", showAll);
-
-Map fields = UtilMisc.toMap("custRequestId", custRequestId);
+fields = [custRequestId : custRequestId];
 if (showAll.equals("false")) {
-    fields.put("custRequestItemSeqId", custRequestItemSeqId);
+    fields.custRequestItemSeqId = custRequestItemSeqId;
 }
-List notes = delegator.findByAnd("CustRequestItemNoteView", fields, UtilMisc.toList("-noteDateTime"));
-if (notes != null && notes.size() > 0) {
-    context.put("notes", notes);
+notes = delegator.findByAnd("CustRequestItemNoteView", fields, ["-noteDateTime"]);
+if (notes) {
+    context.notes = notes;
 }

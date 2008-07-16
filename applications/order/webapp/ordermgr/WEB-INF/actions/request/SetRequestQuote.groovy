@@ -20,11 +20,11 @@
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.util.EntityUtil;
 
-custRequestId = request.getParameter("custRequestId");	
-if (custRequestId != null) {
-    requestQuotes = delegator.findByAnd("QuoteItem", UtilMisc.toMap("custRequestId", custRequestId));
+custRequestId = parameters.custRequestId;
+if (custRequestId) {
+    requestQuotes = delegator.findByAnd("QuoteItem", [custRequestId : custRequestId]);
     requestQuote = EntityUtil.getFirst(requestQuotes);
-    if (requestQuote != null) {
-        context.put("quoteId", requestQuote.getString("quoteId"));
+    if (requestQuote) {
+        context.quoteId = requestQuote.quoteId;
     }
 }	

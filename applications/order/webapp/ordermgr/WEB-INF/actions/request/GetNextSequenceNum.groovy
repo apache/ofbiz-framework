@@ -22,12 +22,12 @@ import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.entity.GenericValue;
 
 long nextSequenceNum = 10;
-if (custRequestItem == null && custRequest != null) {
-    List items = custRequest.getRelated("CustRequestItem", UtilMisc.toList("-sequenceNum"));
-    GenericValue lastItem = EntityUtil.getFirst(items);
-    if (lastItem != null && lastItem.get("sequenceNum") != null) {
-        lastSequenceNum = lastItem.getLong("sequenceNum");
+if (!custRequestItem && custRequest) {
+    items = custRequest.getRelated("CustRequestItem", ["-sequenceNum"]);
+    lastItem = EntityUtil.getFirst(items);
+    if (lastItem?.sequenceNum) {
+        lastSequenceNum = lastItem.sequenceNum;
         nextSequenceNum = lastSequenceNum + 10;
     }
 }	
-context.put("nextSequenceNum", nextSequenceNum);
+context.nextSequenceNum = nextSequenceNum;

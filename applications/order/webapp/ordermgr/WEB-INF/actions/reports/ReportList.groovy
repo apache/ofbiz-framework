@@ -20,25 +20,25 @@
 import java.util.*;
 import java.sql.Timestamp;
 
-Calendar fromCal = Calendar.getInstance();
+fromCal = Calendar.getInstance();
 fromCal.setTime(new java.util.Date());
 fromCal.set(Calendar.DAY_OF_WEEK, fromCal.getActualMinimum(Calendar.DAY_OF_WEEK));
 fromCal.set(Calendar.HOUR_OF_DAY, fromCal.getActualMinimum(Calendar.HOUR_OF_DAY));
 fromCal.set(Calendar.MINUTE, fromCal.getActualMinimum(Calendar.MINUTE));
 fromCal.set(Calendar.SECOND, fromCal.getActualMinimum(Calendar.SECOND));
-Timestamp fromTs = new Timestamp(fromCal.getTimeInMillis());
-String fromStr = fromTs.toString();
+fromTs = new Timestamp(fromCal.getTimeInMillis());
+fromStr = fromTs.toString();
 fromStr = fromStr.substring(0, fromStr.indexOf('.'));
-context.put("fromStr", fromStr);
+context.fromStr = fromStr;
 
-Calendar toCal = Calendar.getInstance();
+toCal = Calendar.getInstance();
 toCal.setTime(new java.util.Date());
 toCal.set(Calendar.DAY_OF_WEEK, toCal.getActualMaximum(Calendar.DAY_OF_WEEK));
 toCal.set(Calendar.HOUR_OF_DAY, toCal.getActualMaximum(Calendar.HOUR_OF_DAY));
 toCal.set(Calendar.MINUTE, toCal.getActualMaximum(Calendar.MINUTE));
 toCal.set(Calendar.SECOND, toCal.getActualMaximum(Calendar.SECOND));
-Timestamp toTs = new Timestamp(toCal.getTimeInMillis());
-String toStr = toTs.toString();
+toTs = new Timestamp(toCal.getTimeInMillis());
+toStr = toTs.toString();
 toStr = toStr.substring(0, toStr.indexOf('.'));
-context.put("toStr", toStr);
+context.toStr = toStr;
 
