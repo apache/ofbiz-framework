@@ -1640,6 +1640,9 @@
         <value xml:lang="th">รายการซื้อสินค้า</value>
         <value xml:lang="zh">购物列表</value>
     </property>
+    <property key="PageTitleListUnknownPartyComms">
+        <value xml:lang="en">Communications from Unknown origin</value>
+    </property>
     <property key="PageTitleViewCommPurposes">
         <value xml:lang="en">View Communication Purposes</value>
         <value xml:lang="es">Ver propósitos de comunicación</value>

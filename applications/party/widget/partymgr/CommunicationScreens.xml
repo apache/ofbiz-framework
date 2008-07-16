@@ -216,6 +216,18 @@ under the License.
                                     name="ViewCommEvent" />
                             </fail-widgets>
                         </section>
+                        <section>
+                            <actions>
+                                <set field="entityName" value="CustRequestAndCommEvent"/>
+                                <set field="requestParameters.communicationEventId" from-field="parameters.communicationEventId"/>
+                            </actions>
+                            <widgets>
+                                <label style="h1" text="${uiLabelMap.OrderRequestList}"/>
+                                <screenlet>
+                                    <include-form name="ListRequests" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

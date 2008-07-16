@@ -75,10 +75,8 @@ under the License.
     <form name="ListRequests" type="list" use-row-submit="true" list-name="listIt" title="" 
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="FindRequest">
           <actions>
-          <!--<set field="entityName" value="CustRequestAndRole"/>-->
-          <set field="entityName" value="CustRequest"/>
           <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-            <field-map field-name="inputFields" env-name="requestParameters"/>
+            <field-map field-name="inputFields" env-name="parameters"/>
             <field-map field-name="entityName" env-name="entityName"/>
             <field-map field-name="orderBy" value="-lastModifiedDate"/>
           </service>

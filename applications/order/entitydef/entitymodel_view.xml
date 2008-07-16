@@ -1205,6 +1205,23 @@ under the License.
         <key-map field-name="roleTypeId"/>
       </relation>
     </view-entity>
+    <view-entity entity-name="CustRequestAndCommEvent"
+            package-name="org.ofbiz.order.request"
+            title="Customer Request And CommunicationEvent">
+      <member-entity entity-alias="CR" entity-name="CustRequest"/>
+      <member-entity entity-alias="CRC" entity-name="CustRequestCommEvent"/>
+      <alias-all entity-alias="CR"/>
+      <alias entity-alias="CRC" name="communicationEventId"/>
+      <view-link entity-alias="CR" rel-entity-alias="CRC">
+        <key-map field-name="custRequestId"/>
+      </view-link>
+      <relation type="one-nofk" rel-entity-name="CustRequest">
+        <key-map field-name="custRequestId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="CommunicationEvent">
+        <key-map field-name="communicationEventId"/>
+      </relation>
+    </view-entity>
     <view-entity entity-name="CustRequestNoteView"
             package-name="org.ofbiz.order.request"
             title="Customer Request and Note View Entity">
