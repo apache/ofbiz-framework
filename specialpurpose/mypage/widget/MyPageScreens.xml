@@ -325,7 +325,7 @@ under the License.
                             <decorator-section name="body">
                                 <section>
                                     <condition>
-                                        <or><!-- have for e-mails a special form -->
+                                        <or>
                                             <if-compare field-name="communicationEvent.communicationEventTypeId"
                                                 operator="equals" value="EMAIL_COMMUNICATION" />
                                             <if-compare field-name="communicationEvent.communicationEventTypeId"
