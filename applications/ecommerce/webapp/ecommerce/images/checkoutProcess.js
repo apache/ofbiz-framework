@@ -255,6 +255,7 @@ function createUpdateCustomerAndShippingAddress() {
 function getShipOptions() {
     var shipOptions = null;
     var optionList = [];
+    if ($F('shipMethod') == "" || $F('shipMethod') == null) {
     new Ajax.Request('/ecommerce/control/getShipOptions', {
         asynchronous: false, 
         onSuccess: function(transport) {
@@ -275,6 +276,7 @@ function getShipOptions() {
             }
         }, requestHeaders: {Accept: 'application/json'}
     });
+    }
 }
 
 function setDataInShippingCompleted() {
