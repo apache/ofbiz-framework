@@ -25,6 +25,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="OrderFindRequests"/>
                 <set field="headerItem" value="request"/>
+                <set field="entityName" value="CustRequest"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
