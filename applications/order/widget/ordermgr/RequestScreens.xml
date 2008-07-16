@@ -195,7 +195,7 @@ under the License.
                 <entity-one entity-name="CustRequestItem" value-name="custRequestItem"/>
                 <set field="statusId" from-field="custRequestItem.statusId"/>
                 <entity-one entity-name="StatusItem" value-name="currentStatus"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/request/getNextSequenceNum.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/request/GetNextSequenceNum.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonRequestDecorator" location="${parameters.mainDecoratorLocation}">
@@ -236,7 +236,7 @@ under the License.
                 <set field="custRequestItemSeqId" from-field="parameters.custRequestItemSeqId"/>
                 <entity-one entity-name="CustRequest" value-name="custRequest"/>
                 <entity-one entity-name="CustRequestItem" value-name="custRequestItem"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/request/requestitemnotes.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/request/RequestItemNotes.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonRequestDecorator" location="${parameters.mainDecoratorLocation}">
@@ -318,7 +318,7 @@ under the License.
                     <field-map env-name="custRequestItem.custRequestId" field-name="custRequestId"/>
                     <field-map env-name="custRequestItem.custRequestItemSeqId" field-name="custRequestItemSeqId"/>
                 </entity-and>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/request/setRequestQuote.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/request/SetRequestQuote.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonRequestDecorator" location="${parameters.mainDecoratorLocation}">

@@ -223,7 +223,7 @@ under the License.
                 <set field="headerItem" value="reports"/>
                 <set field="viewSize" value="${parameters.VIEW_SIZE}" default-value="20" type="Integer"/>
                 <set field="viewIndex" value="${parameters.VIEW_INDEX}" default-value="0" type="Integer"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/reports/OpenOrderItemsReport.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/reports/OpenOrderItemsReport.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
