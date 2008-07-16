@@ -1561,7 +1561,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
             List listThrusOnly = EntityUtil.filterOutByCondition(listOrdered, EntityCondition.makeCondition("purchaseThruDate", EntityOperator.EQUALS, null));
             if (listThrusOnly.size() > 0) {
                 productContent = (GenericValue) listThrusOnly.get(0);   
-            } else {
+            } else if (listOrdered.size() > 0) {
                 productContent = (GenericValue) listOrdered.get(0);   
             }
         } catch(GenericEntityException e) {
