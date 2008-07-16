@@ -37,67 +37,7 @@ under the License.
         <attribute name="dimensionId" type="String" mode="OUT" optional="true"/>
     </service>
 
-    <!-- Common Dimension -->
-    <service name="loadDateDimension" engine="java" transaction-timeout="300"
-        location="org.ofbiz.bi.util.DimensionServices" invoke="loadDateDimension" auth="true">
-        <description>Loads data in the DateDimension entity (olap entity) using the update strategy of 'type 1': overwrite the values of the attributes</description>
-        <attribute name="fromDate" type="Date" mode="IN" optional="false"/>
-        <attribute name="thruDate" type="Date" mode="IN" optional="false"/>
-    </service>
-    <service name="loadCurrencyDimension" auth="true" engine="simple"
-        location="org/ofbiz/bi/DimensionServices.xml" invoke="loadCurrencyDimension">
-        <description>Loads data in the CurrencyDimension entity (olap entity) using the update strategy of 'type 1': overwrite the values of the attributes</description>
-    </service>
-
-    <!-- ProductDimension -->
-    <service name="prepareProductDimensionData" auth="true" engine="simple"
-        location="org/ofbiz/bi/DimensionServices.xml" invoke="prepareProductDimensionData">
-        <description>Pulls information from the Product* entities (oltp entities) and prepares data for the ProductDimension entity (olap entity)</description>
-        <attribute name="productId" type="String" mode="IN" optional="false"/>
-        <attribute name="productDimension" type="GenericEntity" mode="OUT" optional="false"/>
-    </service>
-    <service name="loadProductInProductDimension" auth="true" engine="simple"
-        location="org/ofbiz/bi/DimensionServices.xml" invoke="loadProductInProductDimension">
-        <description>Pulls information from the Product* entities and stores them in the ProductDimension entity (olap entity)</description>
-        <attribute name="productId" type="String" mode="IN" optional="false"/>
-        <attribute name="updateMode" type="String" mode="IN" optional="false"/> <!-- TYPE1, TYPE2, TYPE3 -->
-    </service>
-    <service name="loadType1ProductInProductDimension" auth="true" engine="simple"
-        location="org/ofbiz/bi/DimensionServices.xml" invoke="loadProductInProductDimension">
-        <description>Same as loadProductInProductDimension; the update strategy is 'type 1': overwrite the values of the attributes</description>
-        <attribute name="productId" type="String" mode="IN" optional="false"/>
-        <attribute name="updateMode" type="String" mode="IN" optional="true" default-value="TYPE1"/>
-    </service>
-    <service name="loadType2ProductInProductDimension" auth="true" engine="simple"
-        location="org/ofbiz/bi/DimensionServices.xml" invoke="loadProductInProductDimension">
-        <description>Same as loadProductInProductDimension; the update strategy is 'type 2': add a dimension row</description>
-        <attribute name="productId" type="String" mode="IN" optional="false"/>
-        <attribute name="updateMode" type="String" mode="IN" optional="true" default-value="TYPE2"/>
-    </service>
-    <service name="loadAllProductsInProductDimension" auth="true" engine="simple"
-        location="org/ofbiz/bi/DimensionServices.xml" invoke="loadAllProductsInProductDimension">
-        <description>Calls the loadProductInProductDimension service for all the products.</description>
-        <attribute name="updateMode" type="String" mode="IN" optional="true" default-value="TYPE1"/> <!-- TYPE1, TYPE2, TYPE3 -->
-    </service>
-
-    <!-- Accounting Facts -->
-    <service name="loadSalesInvoiceItemFact" auth="true" engine="simple"
-        location="org/ofbiz/bi/FactServices.xml" invoke="loadSalesInvoiceItemFact">
-        <description>
-            Pulls information from the Invoice* entities and stores them in the SalesInvoiceItem entity (olap entity).
-            One of invoiceId/invoiceItemSeqId or invoice/invoiceItem must be passed or an error is returned.
-        </description>
-        <attribute name="invoiceId" type="String" mode="IN" optional="true"/>
-        <attribute name="invoiceItemSeqId" type="String" mode="IN" optional="true"/>
-        <attribute name="invoice" type="GenericValue" mode="IN" optional="true"/>
-        <attribute name="invoiceItem" type="GenericValue" mode="IN" optional="true"/>
-    </service>
-    <service name="loadSalesInvoiceFact" auth="true" engine="simple"
-        location="org/ofbiz/bi/FactServices.xml" invoke="loadSalesInvoiceFact">
-        <description>Calls the loadSalesInvoiceItemFact service for all the invoice items.</description>
-        <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
-    </service>
-
+    <!-- TODO: this should be moved outside of the bi component -->
     <service name="quickInitDataWarehouse" auth="true" engine="simple"
         location="org/ofbiz/bi/DimensionServices.xml" invoke="quickInitDataWarehouse">
         <description>Quickly initialize the dimensions (Currency, Date, Product) and facts (SalesInvoiceItem): useful to quickly initialize the datawarehouse.</description>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
+    <!-- ========================================================= -->
+    <!-- ======================== Defaults ======================= -->
+    <!-- ========================================================= -->
+    <title>OLAP entities for the Common component</title>
+    <description>None</description>
+    <copyright>Copyright 2001-2007 The Apache Software Foundation</copyright>
+
+    <!-- ========================================================= -->
+    <!-- Dimensions                                                -->
+    <!-- ========================================================= -->
+    
+    <entity entity-name="DateDimension" package-name="org.ofbiz.bi.dimension" title="Date Dimension">
+        <description>Date (days) dimension. The natural key is [dateValue]</description>
+        <field name="dimensionId" type="id-ne">
+            <description>Unique identifier of the Date dimension record</description>
+        </field>
+        <field name="dateValue" type="date">
+            <description>The date (day)</description>
+        </field>
+        <field name="description" type="description">
+            <description>Full date description</description>
+        </field>
+        <field name="dayName" type="short-varchar">
+            <description>The name of the day (Monday, Tuesday, etc...)</description>
+        </field>
+        <field name="dayOfMonth" type="numeric">
+            <description>The number of the day in the month</description>
+        </field>
+        <field name="dayOfYear" type="numeric">
+            <description>The number of the day in the year</description>
+        </field>
+        <field name="monthName" type="short-varchar">
+            <description>The name of the month (January, February, etc...)</description>
+        </field>
+        <field name="monthOfYear" type="numeric">
+            <description>The number of the month (1-12)</description>
+        </field>
+        <field name="yearName" type="numeric">
+            <description>The year (2008, 2009, etc...)</description>
+        </field>
+        <field name="weekOfMonth" type="numeric">
+            <description>The number of the week in the month</description>
+        </field>
+        <field name="weekOfYear" type="numeric">
+            <description>The number of the week in the year</description>
+        </field>
+        <field name="yearMonthDay" type="short-varchar">
+            <description>YYYY-MM-DD</description>
+        </field>
+        <field name="yearAndMonth" type="short-varchar">
+            <description>YYYY-MM</description>
+        </field>
+        <field name="weekdayType" type="short-varchar">
+            <description>Weekday indicator (Weekday or Weekend)</description>
+        </field>
+        <prim-key field="dimensionId"/>
+    </entity>
+
+    <entity entity-name="CurrencyDimension" package-name="org.ofbiz.bi.dimension" title="Currency Dimension">
+        <description>Currency dimension. The natural key is [currencyId]</description>
+        <field name="dimensionId" type="id-ne">
+            <description>Unique identifier of the Currency dimension record</description>
+        </field>
+        <field name="currencyId" type="id-ne">
+            <description>The currency id (natural key).</description>
+        </field>
+        <field name="description" type="description">
+            <description>Full currency description</description>
+        </field>
+        <prim-key field="dimensionId"/>
+    </entity>
+</entitymodel>

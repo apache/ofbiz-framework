@@ -21,14 +21,6 @@ under the License.
 <service-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/service-eca.xsd">
 
-    <!-- dimension entities -->
-    <eca service="createProduct" event="commit">
-        <action service="loadType1ProductInProductDimension" mode="sync"/>
-    </eca>
-    <eca service="updateProduct" event="commit">
-        <action service="loadType2ProductInProductDimension" mode="sync"/>
-    </eca>
-
     <!-- fact entities -->
     <!-- Load data into the SalesInvoiceItemFact olap entity when a sales invoice is set to ready -->
     <eca service="setInvoiceStatus" event="commit">
