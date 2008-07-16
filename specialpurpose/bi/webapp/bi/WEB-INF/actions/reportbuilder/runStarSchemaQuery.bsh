@@ -38,7 +38,7 @@ context.put("columnNames", selectedFields);
 
 List conditionList = null;
 EntityConditionList condition =  null;
-List selectFields = UtilMisc.toSetArray(selectedFields);
+selectFields = UtilMisc.toSetArray(selectedFields);
 List orderByFields = null;
 EntityFindOptions findOptions = null;
 
