@@ -25,8 +25,6 @@ under the License.
             <actions>
                 <set field="titleProperty" value="OrderFindRequests"/>
                 <set field="headerItem" value="request"/>
-                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -35,20 +33,9 @@ under the License.
                             <link target="request" text="${uiLabelMap.OrderNewRequest}" style="buttontext"/>
                             <include-form name="FindRequests" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>                                        
                         </screenlet>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.OrderRequestList}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="ListRequests" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.OrderRequestList}" navigation-form-name="ListRequests" >
+                            <include-form name="ListRequests" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -474,6 +461,11 @@ under the License.
     </screen>
     <screen name="ViewRequestInfo">
         <section>
+            <actions>
+                <entity-and list-name="commEvents" entity-name="CommunicationEventAndCustRequest">
+                    <field-map field-name="custRequestId" env-name="parameters.custRequestId"/>
+                </entity-and>
+            </actions>
             <widgets>
                 <container style="lefthalf">
                     <include-screen name="requestInfo"/>
@@ -482,6 +474,9 @@ under the License.
                     <include-screen name="requestDate"/>
                     <include-screen name="requestContactMech"/>
                     <include-screen name="requestRoles"/>
+                    <screenlet title="${uiLabelMap.PartyListCommunicationEvents}" navigation-form-name="ViewRequestCommunicationEvents">
+                        <include-form name="ViewRequestCommunicationEvents" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                    </screenlet>
                 </container>
             </widgets>
         </section>

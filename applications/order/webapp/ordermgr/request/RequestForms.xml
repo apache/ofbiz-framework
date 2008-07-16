@@ -80,18 +80,21 @@ under the License.
           <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
             <field-map field-name="inputFields" env-name="requestParameters"/>
             <field-map field-name="entityName" env-name="entityName"/>
+            <field-map field-name="orderBy" value="-lastModifiedDate"/>
           </service>
         </actions>
-        <field name="custRequestId" widget-style="buttontext">
-            <hyperlink description="${custRequestId}" target="ViewRequest?custRequestId=${custRequestId}"/>
-        </field>
-        <field name="custRequestName"><display/></field>
+        <field name="custRequestName"><hyperlink description="${custRequestName} [${custRequestId}]" target="ViewRequest?custRequestId=${custRequestId}"/></field>
         <field name="priority"><display/></field>
         <field name="responseRequiredDate"><display/></field>
-        <field name="fromPartyId"><display/></field>
+        <field name="fromPartyId">
+            <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName}">
+                <sub-hyperlink description="[${fromPartyId}]" target="/partymgr/control/viewprofile" target-type="inter-app"/>
+            </display-entity>
+        </field>
         <field name="statusId">
             <display-entity also-hidden="false" entity-name="StatusItem"/>
         </field>
+        <field name="lastModifiedDate"><display/></field>
     </form>
     <form name="ListRequestItems" type="list" use-row-submit="true"  title="" list-name="custRequestItems"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="requestitems">
@@ -128,6 +131,11 @@ under the License.
         <field name="uomId"><hidden/></field>
         <field name="custRequestId"><hidden/></field>
         <field name="custRequestItemSeqId"><hidden/></field>
+    </form>
+
+    <form name="ViewRequestCommunicationEvents" type="list" extends="ListCommEvents"  
+        extends-resource="component://party/webapp/partymgr/communication/CommForms.xml"  
+        paginate-target="ViewRequest">
     </form>
 
     <form name="EditCustRequest" type="single" target="updaterequest" title="Request" default-map-name="custRequest"

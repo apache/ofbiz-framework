@@ -1403,6 +1403,17 @@ under the License.
         <key-map field-name="communicationEventId"/>
       </view-link>
     </view-entity>
+    <view-entity entity-name="CommunicationEventAndCustRequest"
+                 package-name="org.ofbiz.order.communication"
+                 title="Communication Event And Customer request">
+      <member-entity entity-alias="CR" entity-name="CustRequestCommEvent"/>
+      <member-entity entity-alias="CE" entity-name="CommunicationEvent"/>
+      <alias-all entity-alias="CR"/>
+      <alias-all entity-alias="CE"/>
+      <view-link entity-alias="CR" rel-entity-alias="CE">
+        <key-map field-name="communicationEventId"/>
+      </view-link>
+    </view-entity>
    
     <view-entity entity-name="OrderItemAndShipGrpInvResAndItemSum"
             package-name="org.ofbiz.order.order"
