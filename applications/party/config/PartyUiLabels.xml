@@ -3258,6 +3258,9 @@
         <value xml:lang="th">แก้ไขข้อมูลการติดต่อ</value>
         <value xml:lang="zh">编辑联系信息</value>
     </property>
+    <property key="PartyEditCustomerRequest">
+        <value xml:lang="en">Edit Customer request copied from Communication Event</value>
+    </property>
     <property key="PartyEditSecurityGroupWithId">
         <value xml:lang="en">Edit Security Group With ID</value>
         <value xml:lang="es">Editar grupo de seguridad con código</value>
@@ -3908,7 +3911,7 @@
         <value xml:lang="zh">找到了沟通人工服务</value>
     </property>
     <property key="PartyListCommunicationEvents">
-        <value xml:lang="en">Found Communication Events</value>
+        <value xml:lang="en">Communication Events</value>
         <value xml:lang="es">Eventos de comunicación</value>
         <value xml:lang="fr">Evènements de communication trouvés</value>
         <value xml:lang="it">Trovati Eventi Comunicazione</value>
