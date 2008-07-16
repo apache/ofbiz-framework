@@ -234,7 +234,7 @@ function createUpdateCustomerAndShippingAddress() {
         onSuccess: function(transport) {
             var data = transport.responseText.evalJSON(true);
             var serverError = getServerError(data);
-            if(serverError != "") {
+            if (serverError != "") {
                 Effect.Appear('shippingFormServerError');
                 $('shippingFormServerError').update(serverError);
                 isShipStepValidate = false;
@@ -256,26 +256,26 @@ function getShipOptions() {
     var shipOptions = null;
     var optionList = [];
     if ($F('shipMethod') == "" || $F('shipMethod') == null) {
-    new Ajax.Request('/ecommerce/control/getShipOptions', {
-        asynchronous: false, 
-        onSuccess: function(transport) {
-            var data = transport.responseText.evalJSON(true);
-            var serverError = getServerError(data);
-            if(serverError != "") {
-                Effect.Appear('shippingFormServerError');
-                $('shippingFormServerError').update(serverError);
-                isShipStepValidate = false;
-            } else {
-                Effect.Fade('shippingFormServerError');
-                isShipStepValidate = true;
-                shipOptions = data.shippingOptions;
-                shipOptions.each( function(shipOption) {
-                    optionList.push("<option value = " + shipOption.shippingMethod + " > " + shipOption.shippingDesc + " </option>");
-                });
-                $('shipMethod').update(optionList);
-            }
-        }, requestHeaders: {Accept: 'application/json'}
-    });
+	    new Ajax.Request('/ecommerce/control/getShipOptions', {
+            asynchronous: false,
+            onSuccess: function(transport) {
+                var data = transport.responseText.evalJSON(true);
+                var serverError = getServerError(data);
+                if (serverError != "") {
+                    Effect.Appear('shippingFormServerError');
+                    $('shippingFormServerError').update(serverError);
+                    isShipStepValidate = false;
+                } else {
+                    Effect.Fade('shippingFormServerError');
+                    isShipStepValidate = true;
+                    shipOptions = data.shippingOptions;
+                    shipOptions.each( function(shipOption) {
+                        optionList.push("<option value = " + shipOption.shippingMethod + " > " + shipOption.shippingDesc + " </option>");
+                    });
+                    $('shipMethod').update(optionList);
+                }
+            }, requestHeaders: {Accept: 'application/json'}
+        });
     }
 }
 
