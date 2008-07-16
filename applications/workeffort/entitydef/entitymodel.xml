@@ -246,7 +246,7 @@ under the License.
       <field name="currentStatusId" type="id"></field>
       <field name="lastStatusUpdate" type="date-time"></field>
       <field name="workEffortPurposeTypeId" type="id"></field>
-      <field name="workEffortParentId" type="id"></field>
+      <field name="workEffortParentId" type="id"><description>The primary parent (or the like); it should be one of the parent WorkEfforts already setup in WorkEffortAssoc</description></field>
       <field name="scopeEnumId" type="id"></field>
       <field name="priority" type="numeric"></field>
       <field name="percentComplete" type="numeric"></field>
