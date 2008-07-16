@@ -57,7 +57,7 @@ under the License.
                         </#if>
                         <tr id="cartItemDisplayRow_${cartLineIndex}">
                           <td align="left"><div><img src="<@ofbizContentUrl>${requestAttributes.contentPathPrefix?if_exists}${smallImageUrl}</@ofbizContentUrl>" align="center" height="20" hspace="0" vspace="0" width="20"></div></td>
-                          <td align="left"><div>${cartLine.getName()?if_exists}</div> 
+                          <td align="left"><div>${cartLine.getName()?if_exists}</div></td>
                           <td align="center"><div>${cartLine.getDisplayPrice()}</div></td>
                           <td align="center"><div><span id="completedCartItemQty_${cartLineIndex}">${cartLine.getQuantity()?string.number}</span></div></td>
                           <td align="center"><div><span id="completedCartItemAdjustment_${cartLineIndex}"><@ofbizCurrency amount=cartLine.getOtherAdjustments() isoCode=shoppingCart.getCurrency()/></span></div></td>
@@ -76,8 +76,7 @@ under the License.
                         <#assign orderAdjustmentsTotal = orderAdjustmentsTotal + Static["org.ofbiz.order.order.OrderReadHelper"].calcOrderAdjustment(cartAdjustment, shoppingCart.getSubTotal())>
                       </#list>
                       <tr id="completedCartDiscountRow">
-                        <input type="hidden" value="${orderAdjustmentsTotal}" id="initializedCompletedCartDiscount"/>
-                        <td colspan="4"></td>
+                        <td colspan="4"><input type="hidden" value="${orderAdjustmentsTotal}" id="initializedCompletedCartDiscount"/></td>
                         <td><div align="right"><b>${uiLabelMap.ProductDiscount}:</b></div></td>
                         <td>
                           <div id="completedCartDiscount" align="right">
@@ -140,7 +139,6 @@ under the License.
                             <#assign cartLineIndex = itemCount>
                             <#assign productId = cartLineIndex>
                             <tr id="cartItemRow_${cartLineIndex}">
-                              <div id="updateArea">
                                 <td style="padding: 1px;" align="left" valign="top">
                                   <#if cartLine.getProductId()?exists>
                                     <#if cartLine.getParentProductId()?exists>
@@ -183,7 +181,6 @@ under the License.
                                 <#if !cartLine.getIsPromo()>
                                   <td align="right"><a href="javascript:void(0);"><img id="remove_${cartLineIndex?if_exists}" src="<@ofbizContentUrl>/ecommerce/images/remove.png</@ofbizContentUrl>" border="0" height="30" hspace="0" vspace="0" width="40"></a></td>
                                 </#if>
-                              </div>
                             </tr>
                             <tr><td colspan="7"><hr class="sepbar"/></td></tr>
                             <#assign itemCount = itemCount + 1>
