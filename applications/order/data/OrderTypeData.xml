@@ -179,8 +179,8 @@ under the License.
     <StatusValidChange condition="" statusId="ODS_APPROVED" statusIdTo="ODS_CANCELLED" transitionName="Cancel Delivery"/>
     <StatusValidChange condition="" statusId="ODS_ARRANGED" statusIdTo="ODS_CANCELLED" transitionName="Cancel Delivery"/>
 
-    <!-- order return status -->
-    <StatusType description="Order Return Status" hasTable="N" parentTypeId="" statusTypeId="ORDER_RETURN_STTS"/>
+    <!-- order return status for returns to customers -->
+    <StatusType description="Order Return Status For Customer Returns" hasTable="N" parentTypeId="" statusTypeId="ORDER_RETURN_STTS"/>
     <StatusItem description="Requested" sequenceId="01" statusCode="REQUESTED" statusId="RETURN_REQUESTED" statusTypeId="ORDER_RETURN_STTS"/>
     <StatusItem description="Accepted" sequenceId="02" statusCode="ACCEPTED" statusId="RETURN_ACCEPTED" statusTypeId="ORDER_RETURN_STTS"/>
     <StatusItem description="Received" sequenceId="03" statusCode="RECEIVED" statusId="RETURN_RECEIVED" statusTypeId="ORDER_RETURN_STTS"/>
@@ -194,6 +194,19 @@ under the License.
     <StatusValidChange condition="" statusId="RETURN_RECEIVED" statusIdTo="RETURN_COMPLETED" transitionName="Received Return Completed"/>
     <StatusValidChange condition="" statusId="RETURN_RECEIVED" statusIdTo="RETURN_CANCELLED" transitionName="Received Return Cancelled"/>
     <StatusValidChange condition="" statusId="RETURN_RECEIVED" statusIdTo="RETURN_MAN_REFUND" transitionName="Received Return Requires Manual Refund"/>
+    <!-- order return status for returns to suppliers -->
+    <StatusType description="Order Return Status For Supplier Returns" hasTable="N" parentTypeId="" statusTypeId="PORDER_RETURN_STTS"/>
+    <StatusItem description="Requested" sequenceId="01" statusCode="REQUESTED" statusId="SUP_RETURN_REQUESTED" statusTypeId="PORDER_RETURN_STTS"/>
+    <StatusItem description="Accepted" sequenceId="02" statusCode="ACCEPTED" statusId="SUP_RETURN_ACCEPTED" statusTypeId="PORDER_RETURN_STTS"/>
+    <StatusItem description="Shipped" sequenceId="03" statusCode="SHIPPED" statusId="SUP_RETURN_SHIPPED" statusTypeId="PORDER_RETURN_STTS"/>
+    <StatusItem description="Completed" sequenceId="10" statusCode="COMPLETED" statusId="SUP_RETURN_COMPLETED" statusTypeId="PORDER_RETURN_STTS"/>
+    <StatusItem description="Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="SUP_RETURN_CANCELLED" statusTypeId="PORDER_RETURN_STTS"/>
+    <StatusValidChange condition="" statusId="SUP_RETURN_REQUESTED" statusIdTo="SUP_RETURN_ACCEPTED" transitionName="Requested Return Accepted"/>
+    <StatusValidChange condition="" statusId="SUP_RETURN_REQUESTED" statusIdTo="SUP_RETURN_CANCELLED" transitionName="Requested Return Cancelled"/>
+    <StatusValidChange condition="" statusId="SUP_RETURN_ACCEPTED" statusIdTo="SUP_RETURN_SHIPPED" transitionName="Accepted Return Shipped"/>
+    <StatusValidChange condition="" statusId="SUP_RETURN_ACCEPTED" statusIdTo="SUP_RETURN_CANCELLED" transitionName="Accepted Return Cancelled"/>
+    <StatusValidChange condition="" statusId="SUP_RETURN_SHIPPED" statusIdTo="SUP_RETURN_COMPLETED" transitionName="Shipped Return Completed"/>
+    <StatusValidChange condition="" statusId="SUP_RETURN_SHIPPED" statusIdTo="SUP_RETURN_CANCELLED" transitionName="Shipped Return Cancelled"/>
 
     <!-- CustRequest statuses -->
     <StatusType description="Custom Request Status" hasTable="N" parentTypeId="" statusTypeId="CUSTREQ_STTS"/>
@@ -254,7 +267,7 @@ under the License.
     <ReturnHeaderType description="Return from Customer" returnHeaderTypeId="CUSTOMER_RETURN"/>
     <ReturnHeaderType description="Return to Vendor" returnHeaderTypeId="VENDOR_RETURN"/>  <!-- not supported yet -->
     
-    <!-- return item types for sales returns -->
+    <!-- return item types for returns -->
     <ReturnItemType description="Return Non-Product Item" returnItemTypeId="RET_NPROD_ITEM" parentTypeId=""/>
     <ReturnItemType description="Return Product Item" returnItemTypeId="RET_PROD_ITEM" parentTypeId=""/>
     <ReturnItemType description="Return Finished Good Item" returnItemTypeId="RET_FPROD_ITEM" parentTypeId="RET_PROD_ITEM"/>
@@ -283,6 +296,22 @@ under the License.
     <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="SURCHARGE_ADJUSTMENT" returnItemTypeId="RET_SURCHARGE_ADJ"/>
     <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="ADDITIONAL_FEATURE" returnItemTypeId="RET_ADD_FEATURE_ADJ"/>
     <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="WARRANTY_ADJUSTMENT" returnItemTypeId="RET_WARRANTY_ADJ"/>
+    <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="FINISHED_GOOD" returnItemTypeId="RET_FPROD_ITEM"/>
+    <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="MARKETING_PKG_AUTO" returnItemTypeId="RET_FPROD_ITEM"/>
+    <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="MARKETING_PKG_PICK" returnItemTypeId="RET_FPROD_ITEM"/>
+    <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="AGGREGATED_CONF" returnItemTypeId="RET_FPROD_ITEM"/>
+    <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="DIGITAL_GOOD" returnItemTypeId="RET_DPROD_ITEM"/>
+    <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="FINDIG_GOOD" returnItemTypeId="RET_FDPROD_ITEM"/>
+    <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="PROMOTION_ADJUSTMENT" returnItemTypeId="RET_PROMOTION_ADJ"/>
+    <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="REPLACE_ADJUSTMENT" returnItemTypeId="RET_REPLACE_ADJ"/>
+    <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="DISCOUNT_ADJUSTMENT" returnItemTypeId="RET_DISCOUNT_ADJ"/>
+    <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="FEE" returnItemTypeId="RET_FEE_ADJ"/>
+    <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="MISCELLANEOUS_CHARGE" returnItemTypeId="RET_MISC_CHARGE_ADJ"/>
+    <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="SALES_TAX" returnItemTypeId="RET_SALES_TAX_ADJ"/>
+    <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="SHIPPING_CHARGES" returnItemTypeId="RET_SHIPPING_ADJ"/>
+    <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="SURCHARGE_ADJUSTMENT" returnItemTypeId="RET_SURCHARGE_ADJ"/>
+    <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="ADDITIONAL_FEATURE" returnItemTypeId="RET_ADD_FEATURE_ADJ"/>
+    <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="WARRANTY_ADJUSTMENT" returnItemTypeId="RET_WARRANTY_ADJ"/>
 
     <!-- Return Reasons -->
     <ReturnReason sequenceId="01" returnReasonId="RTN_NOT_WANT" description="Did Not Want Item"/>
