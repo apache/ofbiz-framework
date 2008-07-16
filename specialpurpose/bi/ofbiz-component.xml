@@ -26,13 +26,22 @@ under the License.
     <classpath type="dir" location="config"/>
     <classpath type="jar" location="build/lib/*"/>
 
-    <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel.xml"/>
-    <entity-resource type="group" reader-name="main" loader="main" location="entitydef/entitygroup.xml"/>
+    <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel_common_olap.xml"/>
+    <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel_product_olap.xml"/>
+    <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel_accounting_olap.xml"/>
+    <entity-resource type="group" reader-name="main" loader="main" location="entitydef/entitygroup_common_olap.xml"/>
+    <entity-resource type="group" reader-name="main" loader="main" location="entitydef/entitygroup_product_olap.xml"/>
+    <entity-resource type="group" reader-name="main" loader="main" location="entitydef/entitygroup_accounting_olap.xml"/>
 
-    <entity-resource type="data" reader-name="seed" loader="main" location="data/DimensionTypeData.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/DimensionTypeData_common.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/DimensionTypeData_product.xml"/>
     
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
-    <service-resource type="eca" loader="main" location="servicedef/secas.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_common_olap.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_product_olap.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_accounting_olap.xml"/>
+    <service-resource type="eca" loader="main" location="servicedef/secas_product_olap.xml"/>
+    <service-resource type="eca" loader="main" location="servicedef/secas_accounting_olap.xml"/>
 
     <webapp name="bi"
         title="Business Intelligence"
