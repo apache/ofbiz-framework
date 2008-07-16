@@ -132,7 +132,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="contactMechIdTo" title="${uiLabelMap.PartyPartyTo}">
+        <field name="contactMechIdTo" title="${uiLabelMap.PartyEmailTo}">
             <lookup target-form-name="LookupPartyEmail"/>
         </field>
         <field name="datetimeStarted" title="${uiLabelMap.CommonSendDate}"><date-time/></field>
@@ -629,11 +629,11 @@ under the License.
             <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/getPartyEmailFromCommEventInfo.groovy"/>
         </actions>
         <field name="communicationEventId"><hidden value="${parameters.communicationEventId}"/></field>
-        <field name="partyId" tooltip="leave empty for new 'Party'" position="1"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="emailAddress" position="2"><text/></field>
+        <field name="partyId" tooltip="leave empty for new 'Party'"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="emailAddress"><text/></field>
         <field name="firstName" position="1"><text/></field>
         <field name="middleName" position="2"><text/></field>
-        <field name="lastName" position="3"><text/></field>
+        <field name="lastName"><text/></field>
         <field name="submit" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="EditRequestFromCommEvent" type="single" target="createRequestFromCommEvent" default-map-name="parameters">

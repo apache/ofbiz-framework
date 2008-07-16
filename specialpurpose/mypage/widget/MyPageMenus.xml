@@ -110,8 +110,8 @@ under the License.
     </menu>    
     
     <menu name="MyCommunicationsMenu">
-        <menu-item name="newEmail" title="${uiLabelMap.PartyNewEmail}"><link target="newEmail?partyIdFrom=${partyId}"/></menu-item>
-        <menu-item name="newNote" title="${uiLabelMap.PartyNewInternalNote}"><link target="newInternalNote?partyIdFrom=${partyId}"/></menu-item>
+        <menu-item name="newEmail" title="${uiLabelMap.PartyNewEmail}"><link target="EditCommunicationEvent?communicationEventTypeId=EMAIL_COMMUNICATION"/></menu-item>
+        <menu-item name="newNote" title="${uiLabelMap.PartyNewInternalNote}"><link target="EditCommunicationEvent?communicationEventTypeId=COMMENT_NOTE"/></menu-item>
     </menu>    
     
     <menu name="MyTasksMenu" type="simple" menu-container-style="button-bar button-style-2" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem">
