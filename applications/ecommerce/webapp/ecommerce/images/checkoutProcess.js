@@ -322,7 +322,14 @@ function setShippingOption() {
 }
 
 function setDataInShippingOptionCompleted() {
-    $('selectedShipmentOption').update($('shipMethod').value);
+    var shipMethodSelected = [];
+    var shipOptions = $A($('shipMethod').options);
+    shipOptions.each( function(shipOption) {
+        if (shipOption.selected) {
+            shipMethodSelected = shipOption.text.split('-');
+        }
+    });
+    $('selectedShipmentOption').update(shipMethodSelected[0]);
 }
 
 // Billing

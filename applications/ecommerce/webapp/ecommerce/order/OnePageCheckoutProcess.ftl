@@ -412,7 +412,7 @@ under the License.
                   <table cellpadding="0" cellspacing="0">
                     <tbody>
                       <tr>
-                        <td valign="top">Shipment Option:</td>
+                        <td valign="top">${uiLabelMap.CommonMethod}:&nbsp;</td>
                         <td valign="top">
                           <div id="selectedShipmentOption"></div>
                         </td>
