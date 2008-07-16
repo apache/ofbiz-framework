@@ -31,7 +31,7 @@ under the License.
                 </entity-condition>
             </sub-node>
         </node>
-        <node name="node-list" entry-name="workEffortAssoc" entity-name="WorkEffortAssoc" join-field-name="workEffortIdFrom" render-style="expand-collapse">
+        <node name="node-list" entry-name="workEffortAssoc" entity-name="WorkEffortAssoc" join-field-name="workEffortIdTo" render-style="expand-collapse">
             <entity-one entity-name="WorkEffort" value-name="workEffort">
                 <field-map field-name="workEffortId" env-name="workEffortAssoc.workEffortIdTo"/>
             </entity-one>
