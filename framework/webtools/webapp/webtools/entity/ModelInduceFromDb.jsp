@@ -49,7 +49,7 @@ ERRORS:
       if(newEntList != null) {
         String title = "Entity of an Apache Open For Business Project (Apache OFBiz) Component";
         String description = "None";
-        String copyright = "Copyright 2001-2006 The Apache Software Foundation";
+        String copyright = "Copyright 2001-2008 The Apache Software Foundation";
         String author = "None";
         String version = "1.0";
 %><?xml version="1.0" encoding="UTF-8"?>

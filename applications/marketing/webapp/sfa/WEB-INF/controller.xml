@@ -23,7 +23,7 @@ under the License.
     <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
     <include location="component://party/webapp/partymgr/WEB-INF/controller.xml"/>
     <description>SFA Manager Module Site Configuration File</description>
-    <owner>Copyright 2001-2007 The Apache Software Foundation</owner>
+    <owner>Copyright 2001-2008 The Apache Software Foundation</owner>
 
     <!-- Request Mappings -->
     <request-map uri="main">
