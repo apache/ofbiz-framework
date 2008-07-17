@@ -17,6 +17,10 @@ specific language governing permissions and limitations
 under the License.
 -->
 
+<#-- The allowAddItem variable is used by components that reuse the WorkEffort
+calendar to control if the "Add New" links appear -->
+<#assign allowAddItem = allowAddItem?default(false)/>
+
 <style type="text/css">
 .calendar tr td {
 height: 8em;
@@ -59,7 +63,9 @@ height: auto;
     </#if>
     <td<#if currentPeriod> class="current-period"<#else><#if (period.calendarEntries?size > 0)> class="active-period"</#if></#if>>
       <span class="h1"><a href='<@ofbizUrl>day?start=${period.start.time?string("#")}<#if eventsParam?has_content>&${eventsParam}</#if>${addlParam?if_exists}</@ofbizUrl>'>${period.start?date?string("d")?cap_first}</a></span>
-      <a class="add-new" href='<@ofbizUrl>EditWorkEffort?workEffortTypeId=EVENT&currentStatusId=CAL_TENTATIVE&estimatedStartDate=${period.start?string("yyyy-MM-dd HH:mm:ss")}&estimatedCompletionDate=${period.end?string("yyyy-MM-dd HH:mm:ss")}${addlParam?if_exists}</@ofbizUrl>'>${uiLabelMap.CommonAddNew}</a>
+      <#if allowAddItem>
+        <a class="add-new" href='<@ofbizUrl>EditWorkEffort?workEffortTypeId=EVENT&currentStatusId=CAL_TENTATIVE&estimatedStartDate=${period.start?string("yyyy-MM-dd HH:mm:ss")}&estimatedCompletionDate=${period.end?string("yyyy-MM-dd HH:mm:ss")}${addlParam?if_exists}</@ofbizUrl>'>${uiLabelMap.CommonAddNew}</a>
+      </#if>
       <br class="clear"/>
       <#list period.calendarEntries as calEntry>
         <hr/>
