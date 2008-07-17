@@ -19,17 +19,11 @@
 
 package org.ofbiz.content.cms;
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.base.util.collections.MapStack;
-import org.ofbiz.content.content.ContentWorker;
-import org.ofbiz.entity.GenericDelegator;
-import org.ofbiz.entity.GenericEntityException;
-import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.webapp.control.RequestHandler;
-import org.ofbiz.widget.screen.ScreenRenderer;
-import org.ofbiz.widget.html.HtmlFormRenderer;
-import org.ofbiz.service.LocalDispatcher;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -38,13 +32,24 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
-import java.sql.Timestamp;
-import java.util.List;
-import java.util.Locale;
-import java.util.Iterator;
+
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.GeneralRuntimeException;
+import org.ofbiz.base.util.UtilHttp;
+import org.ofbiz.base.util.UtilJ2eeCompat;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.collections.MapStack;
+import org.ofbiz.content.content.ContentWorker;
+import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.webapp.control.RequestHandler;
+import org.ofbiz.widget.html.HtmlFormRenderer;
+import org.ofbiz.widget.screen.ScreenRenderer;
 
 
 /**
@@ -98,7 +103,7 @@ public class CmsEvents {
 
         // if path info is null; check for a default content
         if (pathInfo == null) {
-            List defaultContents = null;
+            List<GenericValue> defaultContents = null;
             try {
                 defaultContents = delegator.findByAnd("WebSiteContent", UtilMisc.toMap("webSiteId", webSiteId,
                         "webSiteContentTypeId", "DEFAULT_PAGE"), UtilMisc.toList("-fromDate"));
@@ -159,10 +164,10 @@ public class CmsEvents {
 
             // get the contentId/mapKey from URL
             if (contentId == null) {
-                Debug.log("Current PathInfo: " + pathInfo, module);
+                if (Debug.verboseOn()) Debug.logVerbose("Current PathInfo: " + pathInfo, module);
                 if (pathInfo.indexOf("/") != -1) {
                     String[] pathSplit = pathInfo.split("/");
-                    Debug.log("Split pathinfo: " + pathSplit.length, module);
+                    if (Debug.verboseOn()) Debug.logVerbose("Split pathinfo: " + pathSplit.length, module);
                     if (pathSplit != null && pathSplit.length > 0) {
                         contentId = pathSplit[0];
                         if (pathSplit.length > 1) {
@@ -185,15 +190,18 @@ public class CmsEvents {
 
             if (websiteOk) {
                 // create the template map
-                MapStack templateMap = MapStack.create();
+                MapStack<String> templateMap = MapStack.create();
                 ScreenRenderer.populateContextForRequest(templateMap, null, request, response, servletContext);
                 templateMap.put("formStringRenderer", new HtmlFormRenderer(request, response));
                 
                 // make the link prefix
                 ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
                 RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
-                String contextLinkPrefix = rh.makeLink(request, response, "", true, false, true);
-                templateMap.put("_CONTEXT_LINK_PREFIX_", contextLinkPrefix);
+                templateMap.put("_REQUEST_HANDLER_", rh);
+                
+                // NOTE DEJ20080817: this is done in the ContentMapFacade class now to avoid problems with the jsessionid being in the middle of the URL and such
+                //String contextLinkPrefix = rh.makeLink(request, response, "", true, false, true);
+                //templateMap.put("_CONTEXT_LINK_PREFIX_", contextLinkPrefix);
 
                 Writer writer;
                 try {
@@ -224,7 +232,7 @@ public class CmsEvents {
 
                 return "success";
             } else {
-                Debug.log("No website [" + webSiteId + "] publish point found for contentId: " + contentId, module);
+                if (Debug.verboseOn()) Debug.logVerbose("No website [" + webSiteId + "] publish point found for contentId: " + contentId, module);
             }
         }
 
@@ -236,7 +244,7 @@ public class CmsEvents {
     protected static boolean verifyContentToWebSite(GenericDelegator delegator, String webSiteId, String contentId) throws GeneralException {
         // first check the top level publish point
         // get the root content id
-        List publishPoints = null;
+        List<GenericValue> publishPoints = null;
         try {
             publishPoints = delegator.findByAndCache("WebSiteContent",
                     UtilMisc.toMap("webSiteId", webSiteId, "contentId", contentId, "webSiteContentTypeId", "PUBLISH_POINT"),
@@ -247,21 +255,18 @@ public class CmsEvents {
 
         publishPoints = EntityUtil.filterByDate(publishPoints);
         if (publishPoints == null || publishPoints.size() == 0) {
-            List topLevel = delegator.findByAndCache("WebSiteContent",
-                UtilMisc.toMap("webSiteId", webSiteId, "webSiteContentTypeId", "PUBLISH_POINT"),
-                    UtilMisc.toList("-fromDate"));
-            topLevel = EntityUtil.filterByDate(topLevel);
-            if (topLevel != null) {
-                Iterator i = topLevel.iterator();
-                while (i.hasNext()) {
-                    GenericValue point = (GenericValue) i.next();
+            List<GenericValue> topLevelContentValues = delegator.findByAndCache("WebSiteContent",
+                UtilMisc.toMap("webSiteId", webSiteId, "webSiteContentTypeId", "PUBLISH_POINT"), UtilMisc.toList("-fromDate"));
+            topLevelContentValues = EntityUtil.filterByDate(topLevelContentValues);
+            if (topLevelContentValues != null) {
+                for (GenericValue point: topLevelContentValues) {
                     if (verifySubContent(delegator, contentId, point.getString("contentId"))) {
                         return true;
                     }
                 }
             }
         } else {
-            Debug.log("Found publish points: " + publishPoints, module);
+            if (Debug.verboseOn()) Debug.logVerbose("Found publish points: " + publishPoints, module);
             return true;
         }
 
@@ -269,22 +274,20 @@ public class CmsEvents {
     }
 
     protected static boolean verifySubContent(GenericDelegator delegator, String contentId, String contentIdFrom) throws GeneralException {
-        List contentAssoc = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentIdFrom, "contentIdTo", contentId));
+        List<GenericValue> contentAssoc = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentIdFrom, "contentIdTo", contentId));
         contentAssoc = EntityUtil.filterByDate(contentAssoc);
         if (contentAssoc == null || contentAssoc.size() == 0) {
-            List assocs = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentIdFrom));
+            List<GenericValue> assocs = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentIdFrom));
             assocs = EntityUtil.filterByDate(assocs);
             if (assocs != null) {
-                Iterator i = assocs.iterator();
-                while (i.hasNext()) {
-                    GenericValue assoc = (GenericValue) i.next();
+                for (GenericValue assoc: assocs) {
                     if (verifySubContent(delegator, contentId, assoc.getString("contentIdTo"))) {
                         return true;
                     }
                 }
             }
         } else {
-            Debug.log("Found assocs: " + contentAssoc, module);
+            if (Debug.verboseOn()) Debug.logVerbose("Found assocs: " + contentAssoc, module);
             return true;
         }
 

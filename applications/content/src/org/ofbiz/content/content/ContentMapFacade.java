@@ -24,6 +24,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.webapp.control.RequestHandler;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -32,6 +33,9 @@ import org.ofbiz.content.data.DataResourceWorker;
 
 import java.util.*;
 import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -43,6 +47,19 @@ import javolution.util.FastSet;
 public class ContentMapFacade implements Map {
 
     public static final String module = ContentMapFacade.class.getName();
+    
+    protected static final Set<String> mapKeySet = FastSet.newInstance();
+    static {
+        mapKeySet.add("fields");
+        mapKeySet.add("link");
+        mapKeySet.add("data");
+        mapKeySet.add("dataresource");
+        mapKeySet.add("subcontent");
+        mapKeySet.add("subcontent_all");
+        mapKeySet.add("metadata");
+        mapKeySet.add("content");
+        mapKeySet.add("render");
+    }
 
     protected final LocalDispatcher dispatcher;
     protected final GenericDelegator delegator;
@@ -146,19 +163,9 @@ public class ContentMapFacade implements Map {
         Debug.logWarning("This method [clear()] is not implemented in ContentMapFacade", module);
     }
 
-    public Set keySet() {
-        Debug.logWarning("This method [keySet()] is not completely implemented in ContentMapFacade", module);
-        Set keys = FastSet.newInstance();
-        keys.add("fields");
-        keys.add("link");
-        keys.add("data");
-        keys.add("dataresource");
-        keys.add("subcontent");
-        keys.add("subcontent_all");
-        keys.add("metadata");
-        keys.add("content");
-        keys.add("render");
-        return keys;
+    public Set<String> keySet() {
+        // Debug.logWarning("This method [keySet()] is not completely implemented in ContentMapFacade", module);
+        return mapKeySet;
     }
 
     public Collection values() {
@@ -198,15 +205,15 @@ public class ContentMapFacade implements Map {
         } else if ("link".equalsIgnoreCase(name)) {
             // link to this content
             // TODO: make more intelligent to use a link alias if exists
-            String contextLinkPrefix = (String) this.context.get("_CONTEXT_LINK_PREFIX_");
-            if (UtilValidate.isNotEmpty(contextLinkPrefix)) {
-                StringBuffer linkBuf = new StringBuffer();
-                linkBuf.append(contextLinkPrefix);
-                if (!contextLinkPrefix.endsWith("/")) {
-                    linkBuf.append("/");
-                }
-                linkBuf.append(this.contentId);
-                return linkBuf.toString();
+
+            RequestHandler rh = (RequestHandler) this.context.get("_REQUEST_HANDLER_");
+            HttpServletRequest request = (HttpServletRequest) this.context.get("request");
+            HttpServletResponse response = (HttpServletResponse) this.context.get("response");
+
+            if (rh != null && request != null && response != null) {
+                String contextLink = rh.makeLink(request, response, this.contentId, true, false, true);
+                // Debug.logInfo("Made link to content with ID [" + this.contentId + "]: " + contextLink, module);
+                return contextLink;
             } else {
                 return this.contentId;
             }
@@ -215,8 +222,8 @@ public class ContentMapFacade implements Map {
             return dataResource;   
         } else if ("subcontent_all".equalsIgnoreCase(name)) {
             // subcontent list of ordered subcontent
-            List subContent = FastList.newInstance();
-            List subs = null;
+            List<ContentMapFacade> subContent = FastList.newInstance();
+            List<GenericValue> subs = null;
             try {
                 if (cache) {
                     subs = delegator.findByAndCache("ContentAssoc", UtilMisc.toMap("contentId", contentId), UtilMisc.toList("-fromDate"));
@@ -229,9 +236,7 @@ public class ContentMapFacade implements Map {
             if (subs != null) {
                 subs = EntityUtil.filterByDate(subs);
 
-                Iterator i = subs.iterator();
-                while (i.hasNext()) {
-                    GenericValue v = (GenericValue) i.next();
+                for (GenericValue v: subs) {
                     subContent.add(new ContentMapFacade(dispatcher, delegator, v.getString("contentIdTo"), context, locale, mimeType, cache));
                 }
             }
