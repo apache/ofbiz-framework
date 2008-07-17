@@ -583,6 +583,10 @@ under the License.
             <log level="info" message="Asset's Net Book Values (NBV) from acquired date after deducting depreciation are ${assetNBVAfterDepreciation}"/>
             <field-to-result field-name="assetDepreciationTillDate"/>
             <field-to-result field-name="assetNBVAfterDepreciation"/>
+        <else>
+            <add-error><fail-property resource="AccountingUiLabels" property="AccountingFixedAssetDepreciationMethodNotFound"/></add-error>
+            <check-errors/>
+        </else>
         </if-not-empty>    
     </simple-method>
 </simple-methods>

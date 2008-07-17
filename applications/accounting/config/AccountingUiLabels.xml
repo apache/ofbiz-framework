@@ -2184,6 +2184,9 @@
         <value xml:lang="it">Svalutazioni</value>
         <value xml:lang="th">ค่าเสื่อมราคา</value>
     </property>
+    <property key="AccountingFixedAssetDepreciationMethodNotFound">
+        <value xml:lang="en">Depreciation method not found</value>
+    </property>
     <property key="AccountingFixedAssetEdit">
         <value xml:lang="ar">استحداث/تحديث أصل ثابت</value>
         <value xml:lang="en">Create/Update Fixed Asset</value>
