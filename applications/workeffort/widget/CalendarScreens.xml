@@ -27,7 +27,6 @@ under the License.
                 <set field="titleProperty" value="PageTitleCalendarDay"/>
                 <set field="headerItem" value="calendar"/>
                 <set field="tabButtonItem" value="day"/>
-                <set field="allowAddItem" value="true" type="Boolean"/>
                 <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/calendar/Days.groovy"/>
             </actions>
             <widgets>
@@ -48,7 +47,6 @@ under the License.
                 <set field="titleProperty" value="PageTitleCalendarWeek"/>
                 <set field="headerItem" value="calendar"/>
                 <set field="tabButtonItem" value="week"/>
-                <set field="allowAddItem" value="true" type="Boolean"/>
                 <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/calendar/Week.groovy"/>
             </actions>
             <widgets>
@@ -69,7 +67,6 @@ under the License.
                 <set field="titleProperty" value="PageTitleCalendarMonth"/>
                 <set field="headerItem" value="calendar"/>
                 <set field="tabButtonItem" value="month"/>
-                <set field="allowAddItem" value="true" type="Boolean"/>
                 <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/calendar/Month.groovy"/>
             </actions>
             <widgets>
