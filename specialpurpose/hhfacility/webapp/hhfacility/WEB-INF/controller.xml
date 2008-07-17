@@ -22,7 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
     <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>    
     <description>Facility Handheld Demo</description>
-    <owner>Copyright 2001-2007 The Apache Software Foundation</owner>
+    <owner>Copyright 2001-2008 The Apache Software Foundation</owner>
 
     <handler name="service-multi" type="request" class="org.ofbiz.webapp.event.ServiceMultiEventHandler"/>
 

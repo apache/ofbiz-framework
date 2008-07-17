@@ -25,7 +25,7 @@ under the License.
   <!-- ========================================================= -->
     <title>Entity of an Open For Business Project Component</title>
     <description>None</description>
-    <copyright>Copyright 2001-2006 The Apache Software Foundation</copyright>
+    <copyright>Copyright 2001-2008 The Apache Software Foundation</copyright>
     <author>None</author>
     <version>1.0</version>
   <view-entity entity-name="ProjectPartyAndPhase"
