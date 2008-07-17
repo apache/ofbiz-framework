@@ -217,13 +217,19 @@ under the License.
             <set field="newEntity.scheduleWorkEffortId" from-field="duplicateTemplateWorkEffortMap.workEffortId"/>
             
             <else>
-                <!-- Create the WorkEfforts, dates not specified -->
+                <!-- Create the WorkEffort -->
                 <!-- Maintenance WorkEffort entity -->
-                <set value="Maintenance of Fixed Asset #${newEntity.fixedAssetId} " field="maintWorkEffortMap.workEffortName"/>
+                <entity-one value-name="fixedAsset" entity-name="FixedAsset"/>
+                <property-to-field field-name="workEffortName" resource="AccountingUiLabels" property="AccountingFixedAssetMaintWorkEffortName"/>
+                <set from-field="workEffortName" field="maintWorkEffortMap.workEffortName"/>
                 <set value="TASK" field="maintWorkEffortMap.workEffortTypeId"/>
                 <set value="WEPT_MAINTENANCE" field="maintWorkEffortMap.workEffortPurposeTypeId"/>
                 <set value="CAL_TENTATIVE" field="maintWorkEffortMap.currentStatusId"/>
                 <set from-field="userLogin.partyId" field="maintWorkEffortMap.quickAssignPartyId"/>
+                <set from-field="newEntity.fixedAssetId" field="maintWorkEffortMap.fixedAssetId"/>
+                <!-- Optional dates supplied by Fixed Asset Calendar -->
+                <set from-field="parameters.estimatedStartDate" field="maintWorkEffortMap.estimatedStartDate"/>
+                <set from-field="parameters.estimatedCompletionDate" field="maintWorkEffortMap.estimatedCompletionDate"/>
                 <call-service service-name="createWorkEffort" in-map-name="maintWorkEffortMap">
                     <result-to-field result-name="workEffortId" field-name="newEntity.scheduleWorkEffortId"/>
                 </call-service>
