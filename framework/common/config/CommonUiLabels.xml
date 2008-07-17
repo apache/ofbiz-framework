@@ -4132,6 +4132,9 @@
         <value xml:lang="pt">Com Paginação</value>
         <value xml:lang="th">เปิดหน้า</value>
     </property>
+    <property key="CommonParent">
+        <value xml:lang="en">Parent</value>
+    </property>
     <property key="CommonPartyID">
         <value xml:lang="ar">دليل الطرف</value>
         <value xml:lang="de">Akteur ID</value>
@@ -4711,6 +4714,9 @@
         <value xml:lang="es">Versión 0.9.1</value>
         <value xml:lang="pt">1.0.0-Preview</value>
         <value xml:lang="th">เวอร์ชันใหม่</value>
+    </property>
+    <property key="CommonRelatedInformation">
+        <value xml:lang="en">Related Information</value>
     </property>
     <property key="CommonRemove">
         <value xml:lang="ar">نزع</value>
