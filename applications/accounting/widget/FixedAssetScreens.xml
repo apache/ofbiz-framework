@@ -154,9 +154,7 @@ under the License.
                 <set field="labelTitleProperty" value="AccountingFixedAssetProducts"/>
 
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
-                <entity-one entity-name="FixedAsset" value-name="fixedAsset">
-                    <select-field field-name="fixedAssetName"/>
-                </entity-one>
+                <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
                 <entity-condition entity-name="FixedAssetProduct" list-name="fixedAssetProducts" >
                     <condition-expr field-name="fixedAssetId" env-name="fixedAssetId"/>
                     <order-by field-name="productId"/>
@@ -186,7 +184,7 @@ under the License.
                 <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonFixedAssetDecorator" location="component://accounting/widget/FixedAssetScreens.xml">
+                <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.fixedAssetDecoratorLocation}">
                     <decorator-section name="body">
                         <include-menu name="FixedAssetCalendarTabBar" location="component://accounting/widget/Menus.xml"/>
                         <decorator-section-include name="body"/>
