@@ -109,8 +109,16 @@ Event.observe(window, 'load', function() {
 
     Event.observe($('shipToCountryGeo'), 'blur', function() {
         $('shipToStateProvinceGeo').value = "";
+        if ($('shipToCountryGeoId').value == "" || $('shipToCountryGeoId').value == null) { 
+            setShipToCountryGeoId();
+        }
     });
     Event.observe($('shipToStateProvinceGeo'), 'focus', getAssociatedStateList);
+    Event.observe($('shipToStateProvinceGeo'), 'blur', function() {
+        if ($('shipToStateProvinceGeoId').value == "" || $('shipToStateProvinceGeoId').value == null) { 
+            setShipToStateProvinceGeoId();
+        }
+    });
     // Get associate states for billing panel
     Event.observe($('billToCountryGeoId'), 'change', getAssociatedBillingStateList);
 });
@@ -578,4 +586,22 @@ function callAutocompleter (transport) {
 
 function setKeyAsParameter(text, li) {
     $(hiddenTarget).value = li.id;
+}
+
+function setShipToCountryGeoId() {
+    countryList.each(function(country) {
+        var countryName = country.split(': ');
+        if ((($('shipToCountryGeo').value).toUpperCase()).match((countryName[0]).toUpperCase())) {
+            $('shipToCountryGeoId').value = countryName[1];
+        }
+    });
+}
+
+function setShipToStateProvinceGeoId() {
+    stateList.each(function(state) {
+        var stateName = state.split(': ');
+        if ((($('shipToStateProvinceGeo').value).toUpperCase()).match((stateName[0]).toUpperCase())) {
+            $('shipToStateProvinceGeoId').value = stateName[1];
+        }
+    });
 }
