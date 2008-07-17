@@ -21,30 +21,28 @@ package org.ofbiz.content.view;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import java.sql.Timestamp;
-import java.util.List;
-import java.util.Locale;
-import java.util.TimeZone;
-import java.text.ParseException;
-
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilHttp;
-import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.entity.GenericDelegator;
-import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.content.content.ContentWorker;
 import org.ofbiz.content.data.DataResourceWorker;
+import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.GenericValue;
 import org.ofbiz.webapp.view.ViewHandler;
 import org.ofbiz.webapp.view.ViewHandlerException;
-import org.ofbiz.base.util.GeneralException;
 
 /**
  * Uses XSL-FO formatted templates to generate PDF views
@@ -62,16 +60,15 @@ public class SimpleContentViewHandler implements ViewHandler {
      * @see org.ofbiz.webapp.view.ViewHandler#render(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     public void render(String name, String page, String info, String contentType, String encoding, HttpServletRequest request, HttpServletResponse response) throws ViewHandlerException {
-    	
+        
         String contentId = request.getParameter("contentId");
         String rootContentId = request.getParameter("rootContentId");
         String mapKey = request.getParameter("mapKey");
         String contentAssocTypeId = request.getParameter("contentAssocTypeId");
         String fromDateStr = request.getParameter("fromDate");
-    	String dataResourceId = request.getParameter("dataResourceId");
+        String dataResourceId = request.getParameter("dataResourceId");
         String contentRevisionSeqId = request.getParameter("contentRevisionSeqId");
         String mimeTypeId = request.getParameter("mimeTypeId");
-        ByteBuffer byteBuffer = null;
         Locale locale = UtilHttp.getLocale(request);
         String rootDir = null;
         String webSiteId = null;
@@ -86,15 +83,15 @@ public class SimpleContentViewHandler implements ViewHandler {
         if (UtilValidate.isEmpty(https)) {
             https = (String) servletContext.getAttribute("https");
         }
-    	try {
-            Debug.logInfo("SCVH(0a)- dataResourceId:" + dataResourceId, module);
+        try {
+            if (Debug.verboseOn()) Debug.logVerbose("SCVH(0a)- dataResourceId:" + dataResourceId, module);
             GenericDelegator delegator = (GenericDelegator)request.getAttribute("delegator");
             if (UtilValidate.isEmpty(dataResourceId)) {
                 if (UtilValidate.isEmpty(contentRevisionSeqId)) {
                     if (UtilValidate.isEmpty(mapKey) && UtilValidate.isEmpty(contentAssocTypeId)) {
                         GenericValue content = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", contentId));
                         dataResourceId = content.getString("dataResourceId");
-                        Debug.logInfo("SCVH(0b)- dataResourceId:" + dataResourceId, module);
+                        if (Debug.verboseOn()) Debug.logVerbose("SCVH(0b)- dataResourceId:" + dataResourceId, module);
                     } else {
                         Timestamp fromDate = null;
                         if (UtilValidate.isNotEmpty(fromDateStr)) {
@@ -104,30 +101,30 @@ public class SimpleContentViewHandler implements ViewHandler {
                                 fromDate = UtilDateTime.nowTimestamp();
                             }
                         }
-                        List assocList = null;
+                        List<String> assocList = null;
                         if (UtilValidate.isNotEmpty(contentAssocTypeId)) {
                             assocList = UtilMisc.toList(contentAssocTypeId);
                         }
                         GenericValue content = ContentWorker.getSubContent(delegator, contentId, mapKey, null, null, assocList, fromDate);
                         dataResourceId = content.getString("dataResourceId");
-                        Debug.logInfo("SCVH(0b)- dataResourceId:" + dataResourceId, module);
+                        if (Debug.verboseOn()) Debug.logVerbose("SCVH(0b)- dataResourceId:" + dataResourceId, module);
                     }
                 } else {
-                   GenericValue contentRevisionItem = delegator.findByPrimaryKeyCache("ContentRevisionItem", UtilMisc.toMap("contentId", rootContentId, "itemContentId", contentId, "contentRevisionSeqId", contentRevisionSeqId));
-                   if (contentRevisionItem == null) {
-                       throw new ViewHandlerException("ContentRevisionItem record not found for contentId=" + rootContentId
-                                                      + ", contentRevisionSeqId=" + contentRevisionSeqId + ", itemContentId=" + contentId);
-                   }
-                   Debug.logInfo("SCVH(1)- contentRevisionItem:" + contentRevisionItem, module);
-                   Debug.logInfo("SCVH(2)-contentId=" + rootContentId
-                           + ", contentRevisionSeqId=" + contentRevisionSeqId + ", itemContentId=" + contentId, module);
-                   dataResourceId = contentRevisionItem.getString("newDataResourceId");
-                   Debug.logInfo("SCVH(3)- dataResourceId:" + dataResourceId, module);
+                    GenericValue contentRevisionItem = delegator.findByPrimaryKeyCache("ContentRevisionItem", UtilMisc.toMap("contentId", rootContentId, "itemContentId", contentId, "contentRevisionSeqId", contentRevisionSeqId));
+                    if (contentRevisionItem == null) {
+                        throw new ViewHandlerException("ContentRevisionItem record not found for contentId=" + rootContentId
+                                                       + ", contentRevisionSeqId=" + contentRevisionSeqId + ", itemContentId=" + contentId);
+                    }
+                    dataResourceId = contentRevisionItem.getString("newDataResourceId");
+                    if (Debug.verboseOn()) Debug.logVerbose("SCVH(1)- contentRevisionItem:" + contentRevisionItem, module);
+                    if (Debug.verboseOn()) Debug.logVerbose("SCVH(2)-contentId=" + rootContentId + ", contentRevisionSeqId=" + contentRevisionSeqId + ", itemContentId=" + contentId, module);
+                    if (Debug.verboseOn()) Debug.logVerbose("SCVH(3)- dataResourceId:" + dataResourceId, module);
                 }
-    		}
-			GenericValue dataResource = delegator.findByPrimaryKeyCache("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
-    		byteBuffer = DataResourceWorker.getContentAsByteBuffer(delegator, dataResourceId, https, webSiteId, locale, rootDir);
-    		ByteArrayInputStream bais = new ByteArrayInputStream(byteBuffer.array());
+            }
+            GenericValue dataResource = delegator.findByPrimaryKeyCache("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
+            // DEJ20080717: why are we rendering the DataResource directly instead of rendering the content?
+            ByteBuffer byteBuffer = DataResourceWorker.getContentAsByteBuffer(delegator, dataResourceId, https, webSiteId, locale, rootDir);
+            ByteArrayInputStream bais = new ByteArrayInputStream(byteBuffer.array());
             // hack for IE and mime types
             //String userAgent = request.getHeader("User-Agent");
             //if (userAgent.indexOf("MSIE") > -1) {
@@ -138,22 +135,22 @@ public class SimpleContentViewHandler implements ViewHandler {
             String charset = dataResource.getString("characterSetId");
             mimeTypeId = dataResource.getString("mimeTypeId");
             if (UtilValidate.isEmpty(charset)) {
-            	charset = servletContext.getInitParameter("charset");
+                charset = servletContext.getInitParameter("charset");
             }
             if (UtilValidate.isEmpty(charset)) {
-            	charset = "ISO-8859-1";
+                charset = "UTF-8";
             }
 
             // setup content type
             String contentType2 = UtilValidate.isNotEmpty(mimeTypeId) ? mimeTypeId + "; charset=" +charset : contentType;
 
             UtilHttp.streamContentToBrowser(response, bais, byteBuffer.limit(), contentType2);
-    	} catch(GenericEntityException e) {
+        } catch(GenericEntityException e) {
             throw new ViewHandlerException(e.getMessage());
-    	} catch(IOException e) {
+        } catch(IOException e) {
             throw new ViewHandlerException(e.getMessage());
-    	} catch(GeneralException e) {
+        } catch(GeneralException e) {
             throw new ViewHandlerException(e.getMessage());
-    	}
-     }
+        }
+    }
 }
