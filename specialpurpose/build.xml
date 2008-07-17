@@ -26,7 +26,6 @@
         hhfacility/build.xml, 
         assetmaint/build.xml, 
         oagis/build.xml, 
-        bi/build.xml, 
         googlebase/build.xml, 
         ebay/build.xml, 
         projectmgr/build.xml"/>

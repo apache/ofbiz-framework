@@ -23,7 +23,7 @@ under the License.
 
     <!-- Accounting Facts -->
     <service name="loadSalesInvoiceItemFact" auth="true" engine="simple"
-        location="org/ofbiz/bi/FactServices.xml" invoke="loadSalesInvoiceItemFact">
+        location="org/ofbiz/accounting/olap/FactServices.xml" invoke="loadSalesInvoiceItemFact">
         <description>
             Pulls information from the Invoice* entities and stores them in the SalesInvoiceItem entity (olap entity).
             One of invoiceId/invoiceItemSeqId or invoice/invoiceItem must be passed or an error is returned.
@@ -34,7 +34,7 @@ under the License.
         <attribute name="invoiceItem" type="GenericValue" mode="IN" optional="true"/>
     </service>
     <service name="loadSalesInvoiceFact" auth="true" engine="simple"
-        location="org/ofbiz/bi/FactServices.xml" invoke="loadSalesInvoiceFact">
+        location="org/ofbiz/accounting/olap/FactServices.xml" invoke="loadSalesInvoiceFact">
         <description>Calls the loadSalesInvoiceItemFact service for all the invoice items.</description>
         <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
     </service>

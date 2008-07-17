@@ -25,7 +25,6 @@ under the License.
 	<classpathentry kind="src" path="specialpurpose/assetmaint/src"/>
 	<classpathentry kind="src" path="specialpurpose/pos/src"/>
 	<classpathentry kind="src" path="specialpurpose/projectmgr/src"/>
-	<classpathentry kind="src" path="specialpurpose/bi/src"/>
 	<classpathentry kind="src" path="specialpurpose/ebay/src"/>
 	<classpathentry kind="src" path="specialpurpose/googlebase/src"/>
 	<classpathentry kind="src" path="framework/base/src/base"/>
@@ -41,6 +40,7 @@ under the License.
 	<classpathentry excluding="ShipmentScaleApplet.java" kind="src" path="applications/product/src"/>
 	<classpathentry excluding="org/ofbiz/securityext/thirdparty/truition/TruitionCoReg.java" kind="src" path="applications/securityext/src"/>
 	<classpathentry kind="src" path="applications/workeffort/src"/>
+    <classpathentry kind="src" path="framework/bi/src"/>
 	<classpathentry kind="src" path="framework/appserver/src"/>
 	<classpathentry kind="src" path="framework/catalina/src"/>
 	<classpathentry kind="src" path="framework/common/src"/>
