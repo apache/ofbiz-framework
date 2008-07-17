@@ -20,6 +20,7 @@
 
 <site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
+    <include location="component://product/webapp/catalog/WEB-INF/controller.xml"/>    
     <include location="component://product/webapp/facility/WEB-INF/controller.xml"/>    
     <include location="component://accounting/webapp/accounting/WEB-INF/controller.xml"/>    
     <include location="component://workeffort/webapp/workeffort/WEB-INF/controller.xml"/>    
@@ -37,11 +38,6 @@
         <response name="success" type="view" value="PrintFixedAssetMaint"/>
         <response name="error" type="view" value="EditFixedAssetMaint"/>
     </request-map>
-    <request-map uri="EditFixedAssetMaint">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditFixedAssetMaint"/>
-        <response name="error" type="view" value="EditFixedAssetMaint"/>
-    </request-map>
     <request-map uri="createFixedAssetMaintUpdateWorkEffort">
         <security https="true" auth="true"/>
         <event type="simple" path="org/ofbiz/assetmaint/FixedAssetMaintEvents.xml" invoke="createFixedAssetMaintUpdateWorkEffort"/>
@@ -51,12 +47,6 @@
     <request-map uri="updateFixedAssetMaintAndWorkEffort">
         <security https="true" auth="true"/>
         <event type="simple" path="org/ofbiz/assetmaint/FixedAssetMaintEvents.xml" invoke="updateFixedAssetMaintAndWorkEffort"/>
-        <response name="success" type="view" value="EditFixedAssetMaint"/>
-        <response name="error" type="view" value="EditFixedAssetMaint"/>
-    </request-map>
-    <request-map uri="deleteFixedAssetMaint">
-        <security https="true" auth="true"/>
-        <event type="service" path="" invoke="deleteFixedAssetMaint"/>
         <response name="success" type="view" value="EditFixedAssetMaint"/>
         <response name="error" type="view" value="EditFixedAssetMaint"/>
     </request-map>
@@ -102,30 +92,6 @@
         <response name="error" type="view" value="EditWorkEfforts"/>
     </request-map>
 
-    <!-- TimeEntries on a Maintenance request mappings -->
-    <request-map uri="EditWorkEffortTimeEntries">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditWorkEffortTimeEntries"/>
-    </request-map>
-    <request-map uri="createWorkEffortTimeEntry">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="createTimeEntry"/>
-        <response name="success" type="view" value="EditWorkEffortTimeEntries"/>
-        <response name="error" type="view" value="EditWorkEffortTimeEntries"/>
-    </request-map>
-    <request-map uri="updateWorkEffortTimeEntry">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updateTimeEntry"/>
-        <response name="success" type="view" value="EditWorkEffortTimeEntries"/>
-        <response name="error" type="view" value="EditWorkEffortTimeEntries"/>
-    </request-map>
-    <request-map uri="deleteWorkEffortTimeEntry">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="deleteTimeEntry"/>
-        <response name="success" type="view" value="EditWorkEffortTimeEntries"/>
-        <response name="error" type="view" value="EditWorkEffortTimeEntries"/>
-    </request-map>
-
     <request-map uri="createWorkEffortAndAssoc">
         <security https="true" auth="true"/>
         <event type="simple" path="org/ofbiz/assetmaint/FixedAssetMaintEvents.xml" invoke="createWorkEffortAndAssoc"/>
@@ -156,39 +122,7 @@
         <response name="error" type="view" value="EditItemIssuances"/>
     </request-map>
 
-    <!-- ================ ProductMaints Requests ================= -->
-    <request-map uri="EditProductMaints">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditProductMaints"/>
-    </request-map>
-    <request-map uri="createProductMaint">
-        <security https="true" auth="true"/>
-        <event type="service" path="" invoke="createProductMaint"/>
-        <response name="success" type="view" value="EditProductMaints"/>
-        <response name="error" type="view" value="EditProductMaints"/>
-    </request-map>
-    <request-map uri="updateProductMaint">
-        <security https="true" auth="true"/>
-        <event type="service" path="" invoke="updateProductMaint"/>
-        <response name="success" type="view" value="EditProductMaints"/>
-        <response name="error" type="view" value="EditProductMaints"/>
-    </request-map>
-    <request-map uri="deleteProductMaint">
-        <security https="true" auth="true"/>
-        <event type="service" path="" invoke="deleteProductMaint"/>
-        <response name="success" type="view" value="EditProductMaints"/>
-        <response name="error" type="view" value="EditProductMaints"/>
-    </request-map>
-
     <!-- ================ Lookup Requests ================= -->
-    <request-map uri="LookupFixedAsset"><security auth="true" https="true"/><response name="success" type="view" value="LookupFixedAsset"/></request-map>
-    <request-map uri="LookupPartyName"><security auth="true" https="true"/><response name="success" type="view" value="LookupPartyName"/></request-map>
-    <request-map uri="LookupPerson"><security https="true" auth="true"/><response name="success" type="view" value="LookupPerson"/></request-map>
-    <request-map uri="LookupPartyGroup"><security https="true" auth="true"/><response name="success" type="view" value="LookupPartyGroup"/></request-map>
-    <request-map uri="LookupOrderHeader"><security https="true" auth="true"/><response name="success" type="view" value="LookupOrderHeader"/></request-map>
-    <request-map uri="LookupProduct"><security auth="true" https="true"/><response name="success" type="view" value="LookupProduct"/></request-map>
-    <request-map uri="LookupFacility"><security https="true" auth="true"/><response name="success" type="view" value="LookupFacility"/></request-map>
-    <request-map uri="LookupFacilityLocation"><security auth="true" https="true"/><response name="success" type="view" value="LookupFacilityLocation"/></request-map>
     <request-map uri="LookupPartsProduct"><security auth="true" https="true"/><response name="success" type="view" value="LookupPartsProduct"/></request-map>
     <request-map uri="LookupWorkEffortShort"><security auth="true" https="true"/><response name="success" type="view" value="LookupWorkEffortShort"/></request-map>
 
@@ -206,15 +140,10 @@
     <view-map name="PrintFixedAssetMaint" type="screenfop" page="component://assetmaint/widget/AssetmaintScreens.xml#PrintFixedAssetMaint" content-type="application/pdf"/>
 
     <!-- Lookup request mappings -->
-    <view-map name="LookupFixedAsset" type="screen" page="component://accounting/widget/LookupScreens.xml#LookupFixedAsset"/>
-    <view-map name="LookupPartyName" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyName"/>
-    <view-map name="LookupPerson" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPerson"/>
-    <view-map name="LookupPartyGroup" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyGroup"/>
-    <view-map name="LookupOrderHeader" type="screen" page="component://order/widget/ordermgr/LookupScreens.xml#LookupOrderHeader"/>
     <view-map name="LookupPartsProduct" type="screen" page="component://assetmaint/widget/ProductScreens.xml#LookupPartsProduct"/>
     <view-map name="LookupWorkEffortShort" type="screen" page="component://workeffort/widget/LookupScreens.xml#LookupWorkEffortShort"/>
 
-    <view-map name="EditWorkEffort" type="screen" page="component://assetmaint/widget/AssetmaintScreens.xml#EditFixedAssetMaint"/>
+<!--    <view-map name="EditWorkEffort" type="screen" page="component://assetmaint/widget/AssetmaintScreens.xml#EditFixedAssetMaint"/> -->
     <view-map name="WorkEffortSummary" type="screen" page="component://assetmaint/widget/AssetmaintScreens.xml#EditWorkEfforts"/>
     <view-map name="EditProductMaints" type="screen" page="component://assetmaint/widget/ProductScreens.xml#EditProductMaints"/>
     <!-- end of view mappings -->
