@@ -50,7 +50,6 @@ under the License.
         <!-- <fileset dir="lib/worldpay" includes="*.jar"/> -->
         <!-- <fileset dir="lib/cybersource" includes="*.jar"/> -->
         <fileset dir="lib" includes="*.jar"/>
-        <fileset dir="../../hot-deploy/twpinc/lib" includes="*.jar"/>
     </path>
 
     <!-- ================================================================== -->
@@ -60,7 +59,7 @@ under the License.
     <target name="classes" depends="prepare">
         <javac15 classpathref="local.class.path">
             <!-- exclude the payment processor packages; comment this out to not exclude if you have libs -->
-            <!--  <exclude name="org/ofbiz/accounting/thirdparty/verisign/**"/>  -->
+            <exclude name="org/ofbiz/accounting/thirdparty/verisign/**"/>
             <exclude name="org/ofbiz/accounting/thirdparty/cybersource/**"/>
             <exclude name="org/ofbiz/accounting/thirdparty/worldpay/**"/>
         </javac15>
