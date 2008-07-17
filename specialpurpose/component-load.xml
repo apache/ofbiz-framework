@@ -26,7 +26,6 @@ under the License.
     <load-component component-location="cmssite"/>
     <load-component component-location="projectmgr"/>
     <load-component component-location="oagis"/>
-    <load-component component-location="bi"/>
     <load-component component-location="googlebase"/>
     <load-component component-location="ebay"/>
     <load-component component-location="mypage"/>
