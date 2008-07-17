@@ -17,6 +17,9 @@ specific language governing permissions and limitations
 under the License.
 -->
 
+<#-- The allowAddItem variable is used by components that reuse the WorkEffort
+calendar to control if the "Add New" links appear -->
+<#assign allowAddItem = allowAddItem?default(false)/>
   <div class="screenlet-title-bar">
     <ul>
       <li class="h3">${uiLabelMap.CommonWeek} ${start?date?string("w")}</li>
@@ -43,7 +46,9 @@ under the License.
   <tr<#if currentPeriod> class="current-period"<#else><#if (period.calendarEntries?size > 0)> class="active-period"</#if></#if>>
     <td class="centered" width="1%">
       <a href="<@ofbizUrl>day?start=${period.start.time?string("#")}<#if eventsParam?has_content>&${eventsParam}</#if>${addlParam?if_exists}</@ofbizUrl>">${period.start?date?string("EEEE")?cap_first}&nbsp;${period.start?date?string.short}</a><br/>
-      <a href="<@ofbizUrl>EditWorkEffort?workEffortTypeId=EVENT&currentStatusId=CAL_TENTATIVE&estimatedStartDate=${period.start?string("yyyy-MM-dd HH:mm:ss")}&estimatedCompletionDate=${period.end?string("yyyy-MM-dd HH:mm:ss")}${addlParam?if_exists}</@ofbizUrl>">${uiLabelMap.CommonAddNew}</a>
+      <#if allowAddItem>
+        <a href="<@ofbizUrl>EditWorkEffort?workEffortTypeId=EVENT&currentStatusId=CAL_TENTATIVE&estimatedStartDate=${period.start?string("yyyy-MM-dd HH:mm:ss")}&estimatedCompletionDate=${period.end?string("yyyy-MM-dd HH:mm:ss")}${addlParam?if_exists}</@ofbizUrl>">${uiLabelMap.CommonAddNew}</a>
+      </#if>
     </td>
     <#list period.calendarEntries as calEntry>
     <#if calEntry.startOfPeriod>

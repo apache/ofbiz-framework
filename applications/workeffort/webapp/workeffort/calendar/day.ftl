@@ -17,6 +17,9 @@ specific language governing permissions and limitations
 under the License.
 -->
 
+<#-- The allowAddItem variable is used by components that reuse the WorkEffort
+calendar to control if the "Add New" links appear -->
+<#assign allowAddItem = allowAddItem?default(false)/>
   <div class="screenlet-title-bar">
     <ul>
       <li class="h3">${start?date?string("EEEE")?cap_first} ${start?date?string.long}</li>
@@ -43,7 +46,9 @@ under the License.
   <tr<#if currentPeriod> class="current-period"<#else><#if (period.calendarEntries?size > 0)> class="active-period"</#if></#if>>
     <td class="label">
       ${period.start?time?string.short}<br/>
-      <a href="<@ofbizUrl>EditWorkEffort?workEffortTypeId=EVENT&currentStatusId=CAL_TENTATIVE&estimatedStartDate=${period.start?string("yyyy-MM-dd HH:mm:ss")}&estimatedCompletionDate=${period.end?string("yyyy-MM-dd HH:mm:ss")}${addlParam?if_exists}</@ofbizUrl>">${uiLabelMap.CommonAddNew}</a>
+      <#if allowAddItem>
+        <a href="<@ofbizUrl>EditWorkEffort?workEffortTypeId=EVENT&currentStatusId=CAL_TENTATIVE&estimatedStartDate=${period.start?string("yyyy-MM-dd HH:mm:ss")}&estimatedCompletionDate=${period.end?string("yyyy-MM-dd HH:mm:ss")}${addlParam?if_exists}</@ofbizUrl>">${uiLabelMap.CommonAddNew}</a>
+      </#if>
     </td>
     <#list period.calendarEntries as calEntry>
     <#if calEntry.startOfPeriod>
@@ -51,13 +56,13 @@ under the License.
     <#if (calEntry.workEffort.estimatedStartDate.compareTo(start)  <= 0 && calEntry.workEffort.estimatedCompletionDate.compareTo(next) >= 0)>
       ${uiLabelMap.CommonAllDay}
     <#elseif calEntry.workEffort.estimatedStartDate.before(start)>
-      ${uiLabelMap.CommonUntil}${calEntry.workEffort.estimatedCompletionDate?time?string.short}
+      ${uiLabelMap.CommonUntil} ${calEntry.workEffort.estimatedCompletionDate?time?string.short}
     <#elseif calEntry.workEffort.estimatedCompletionDate.after(next)>
       ${uiLabelMap.CommonFrom} ${calEntry.workEffort.estimatedStartDate?time?string.short}
     <#else>
       ${calEntry.workEffort.estimatedStartDate?time?string.short}-${calEntry.workEffort.estimatedCompletionDate?time?string.short}
     </#if>
-    <br/><a href="<@ofbizUrl>WorkEffortSummary?workEffortId=${calEntry.workEffort.workEffortId}${addlParam?if_exists}</@ofbizUrl>">${calEntry.workEffort.workEffortName?default("Undefined")}${addlParam?if_exists}</a>&nbsp;</td>
+    <br/><a href="<@ofbizUrl>WorkEffortSummary?workEffortId=${calEntry.workEffort.workEffortId}${addlParam?if_exists}</@ofbizUrl>">${calEntry.workEffort.workEffortName?default("Undefined")}</a>&nbsp;</td>
     </#if>
     </#list>
     <#if (period.calendarEntries?size < maxConcurrentEntries)>
