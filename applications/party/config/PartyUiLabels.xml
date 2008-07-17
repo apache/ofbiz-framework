@@ -2500,6 +2500,9 @@
         <value xml:lang="th">ข้อคิดเห็น</value>
         <value xml:lang="zh">评论</value>
     </property>
+    <property key="PartyCommunicationEvent">
+        <value xml:lang="en">Communication Event</value>
+    </property>
     <property key="PartyCommunications">
         <value xml:lang="en">Communications</value>
         <value xml:lang="es">Comunicaciones</value>
