@@ -17,20 +17,4 @@
             <submit button-type="button"/>
         </field>
     </form>
-
-    <form name="SalesInvoiceItemStarSchema" list-name="invoiceItemFacts" title="" type="list"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <actions>
-            <entity-condition entity-name="SalesInvoiceItemStarSchema" list-name="invoiceItemFacts">
-                <select-field field-name="invoiceDateDayName"/>
-                <select-field field-name="productProductType"/>
-                <select-field field-name="extGrossAmount"/>
-                <select-field field-name="quantity"/>
-            </entity-condition>
-        </actions>
-        <field name="invoiceDateDayName"><display/></field>
-        <field name="productProductType"><display/></field>
-        <field name="extGrossAmount"><display/></field>
-        <field name="quantity"><display/></field>
-    </form>
 </forms>
