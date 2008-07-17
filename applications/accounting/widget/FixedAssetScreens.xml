@@ -248,6 +248,24 @@ under the License.
         </section>
     </screen>
 
+    <screen name="WorkEffortSummary">
+        <section>
+            <actions>
+                <set field="tabButtonItem" value="ListFixedAssetCalendar"/>
+                <set field="titleProperty" value="PageTitleWorkEffortRelatedSummary"/>
+                <entity-one entity-name="WorkEffort" value-name="workEffort"/>
+                <set field="fixedAssetId" from-field="workEffort.fixedAssetId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.fixedAssetDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="WorkEffortSummary" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
     <screen name="EditFixedAssetStdCosts">
         <section>
             <actions>

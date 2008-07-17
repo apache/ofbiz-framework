@@ -2287,6 +2287,9 @@
         <value xml:lang="th">การบำรุงรักษา</value>
         <value xml:lang="zh">维修保养</value>
     </property>
+    <property key="AccountingFixedAssetMaintWorkEffortName">
+        <value xml:lang="en">Maintenance of Fixed Asset ${fixedAsset.fixedAssetName} [${fixedAsset.fixedAssetId}]</value>
+    </property>
     <property key="AccountingFixedAssetMaintIntervalMeterType">
         <value xml:lang="ar">نوع مقياس المجال</value>
         <value xml:lang="en">Interval Meter Type</value>

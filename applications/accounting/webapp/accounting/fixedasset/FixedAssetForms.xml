@@ -172,6 +172,26 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
+    <form name="WorkEffortSummary" type="single" default-map-name="workEffort"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="workEffortId"><display/></field>
+        <field name="workEffortName" title="${uiLabelMap.CommonName}"><display/></field>
+        <field name="workEffortTypeId" title="${uiLabelMap.CommonType}">
+            <display-entity entity-name="WorkEffortType" description="${description}"/>
+        </field>
+        <field name="workEffortPurposeTypeId" title="${uiLabelMap.CommonPurpose}">
+            <display-entity entity-name="WorkEffortPurposeType" description="${description}"/>
+        </field>
+        <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
+            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+        </field>
+        <field name="percentComplete"><display/></field>
+        <field name="estimatedStartDate"><display/></field>
+        <field name="estimatedCompletionDate"><display/></field>
+        <field name="actualStartDate"><display/></field>
+        <field name="actualCompletionDate"><display/></field>
+    </form>
+
     <form name="ListFixedAssetStdCosts" list-name="fixedAssetStdCosts" type="list" target="updateFixedAssetStdCost" title="" paginate-target="EditFixedAssetStdCosts"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
@@ -313,6 +333,8 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="fixedAssetMaint==null" target="createFixedAssetMaint"/>
         <field name="fixedAssetId"><hidden/></field>
+        <field name="estimatedStartDate"><hidden value="${parameters.estimatedStartDate}"/></field>
+        <field name="estimatedCompletionDate"><hidden value="${parameters.estimatedCompletionDate}"/></field>
         <field use-when="fixedAssetMaint==null" name="maintHistSeqId"><ignored/></field>
         <field use-when="fixedAssetMaint!=null" name="maintHistSeqId"><display/></field>
         <field use-when="fixedAssetMaint!=null" title="${uiLabelMap.CommonCreated}" name="createdStamp"><display/></field>
