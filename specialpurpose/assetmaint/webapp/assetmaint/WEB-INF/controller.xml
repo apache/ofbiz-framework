@@ -20,10 +20,11 @@
 
 <site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
+    <!-- Note: The order of the following include elements is important -->
+    <include location="component://workeffort/webapp/workeffort/WEB-INF/controller.xml"/>    
     <include location="component://product/webapp/catalog/WEB-INF/controller.xml"/>    
     <include location="component://product/webapp/facility/WEB-INF/controller.xml"/>    
     <include location="component://accounting/webapp/accounting/WEB-INF/controller.xml"/>    
-    <include location="component://workeffort/webapp/workeffort/WEB-INF/controller.xml"/>    
 
     <description>Asset Maintenance Component Site Configuration File</description>
 
@@ -144,7 +145,6 @@
     <view-map name="LookupWorkEffortShort" type="screen" page="component://workeffort/widget/LookupScreens.xml#LookupWorkEffortShort"/>
 
 <!--    <view-map name="EditWorkEffort" type="screen" page="component://assetmaint/widget/AssetmaintScreens.xml#EditFixedAssetMaint"/> -->
-    <view-map name="WorkEffortSummary" type="screen" page="component://assetmaint/widget/AssetmaintScreens.xml#EditWorkEfforts"/>
     <view-map name="EditProductMaints" type="screen" page="component://assetmaint/widget/ProductScreens.xml#EditProductMaints"/>
     <!-- end of view mappings -->
 </site-conf>

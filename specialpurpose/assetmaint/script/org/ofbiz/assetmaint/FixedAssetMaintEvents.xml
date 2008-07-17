@@ -23,29 +23,17 @@
 
     <simple-method method-name="createFixedAssetMaintUpdateWorkEffort" login-required="true"
         short-description="Create FixedAssetMaint and Update Schedule information in WorkEffort">
-        <if-empty field="parameters.fixedAssetId">
-            <add-error><fail-property resource="AssetMaintUiLabels" property="AccountingFixedAssetIdRequiredError"/></add-error>
-        </if-empty>
-        <if-not-empty field="parameters.fixedAssetId">
-            <set from-field="parameters.fixedAssetId" field="fixedAssetExistsMap.fixedAssetId"/>
-            <find-by-primary-key entity-name="FixedAsset" map-name="fixedAssetExistsMap" value-name="existingFixedAssset"/>
-            <if-empty field="existingFixedAssset">
-                <add-error><fail-property resource="AssetMaintUiLabels" property="AccountingFixedAssetIdInvalidError"/></add-error>
-            </if-empty>
-        </if-not-empty>
-        <check-errors/>
         <set-service-fields map-name="parameters" service-name="createFixedAssetMaint" to-map-name="createFixedAssetMaintCtx"/>
         <call-service service-name="createFixedAssetMaint" in-map-name="createFixedAssetMaintCtx">
             <result-to-field result-name="maintHistSeqId" map-name="findAssetMaintLookup" field-name="maintHistSeqId"/>
             <result-to-request result-name="maintHistSeqId"/>
         </call-service>
+        <check-errors/>
         <set from-field="parameters.fixedAssetId" field="findAssetMaintLookup.fixedAssetId"/>
         <find-by-primary-key entity-name="FixedAssetMaint" map-name="findAssetMaintLookup" value-name="findAssetMaint"/>
         <set from-field="findAssetMaint.scheduleWorkEffortId" field="updateWorkEffortCtx.workEffortId"/>
         <set-service-fields map-name="parameters" service-name="updateWorkEffort" to-map-name="updateWorkEffortCtx"/>
         <!-- Maintenance WorkEffort entity -->
-        <property-to-field field-name="workEffortNameText" resource="AssetMaintUiLabels" property="FixedAssetMaintWorkEffortName"/>
-        <set value="${workEffortNameText} ${updateWorkEffortCtx.fixedAssetId}" field="updateWorkEffortCtx.workEffortName"/>
         <set field="maintTypeLookup.productMaintTypeId" from-field="findAssetMaint.productMaintTypeId"/>
         <find-by-primary-key entity-name="ProductMaintType" map-name="maintTypeLookup" value-name="maintType"/>
         <set field="updateWorkEffortCtx.description" from-field="maintType.description"/>
