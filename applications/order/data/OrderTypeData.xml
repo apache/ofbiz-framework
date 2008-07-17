@@ -279,7 +279,8 @@ under the License.
     <ReturnItemType description="Return Work-Effort Item" returnItemTypeId="RET_WE_ITEM" parentTypeId="RET_NPROD_ITEM"/>
     <ReturnItemType description="Return Time-Entry Item" returnItemTypeId="RET_TE_ITEM" parentTypeId="RET_NPROD_ITEM"/>
 
-    <!-- maps order item types and order adjustment types to return item types and return adjustment types -->
+    <!-- maps product types to return item types for product order items, order item types to return item types for other order items 
+         and order adjustment types to return adjustment types. Separate mappings for different types of returns (customer vs. vendor) -->
     <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="FINISHED_GOOD" returnItemTypeId="RET_FPROD_ITEM"/>
     <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="MARKETING_PKG_AUTO" returnItemTypeId="RET_FPROD_ITEM"/>
     <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="MARKETING_PKG_PICK" returnItemTypeId="RET_FPROD_ITEM"/>
