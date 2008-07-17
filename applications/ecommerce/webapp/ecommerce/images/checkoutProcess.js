@@ -591,7 +591,7 @@ function setKeyAsParameter(text, li) {
 function setShipToCountryGeoId() {
     countryList.each(function(country) {
         var countryName = country.split(': ');
-        if ((($('shipToCountryGeo').value).toUpperCase()).match((countryName[0]).toUpperCase())) {
+        if ($F('shipToCountryGeo').toUpperCase() == countryName[0].toUpperCase()) {
             $('shipToCountryGeoId').value = countryName[1];
         }
     });
@@ -600,7 +600,7 @@ function setShipToCountryGeoId() {
 function setShipToStateProvinceGeoId() {
     stateList.each(function(state) {
         var stateName = state.split(': ');
-        if ((($('shipToStateProvinceGeo').value).toUpperCase()).match((stateName[0]).toUpperCase())) {
+        if ($F('shipToStateProvinceGeo').toUpperCase() == stateName[0].toUpperCase()) {
             $('shipToStateProvinceGeoId').value = stateName[1];
         }
     });
