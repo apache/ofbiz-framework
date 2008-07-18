@@ -38,7 +38,7 @@ under the License.
             <actions>
                 <set field="title" value="Payment Settings"/>
                 <set field="headerItem" value="setup"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/setup/paymentsetup.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/setup/PaymentSetup.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderTaskDecorator">

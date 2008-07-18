@@ -132,7 +132,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleReturnList"/>
                 <set field="headerItem" value="return"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/return/returnList.bsh"/>
+                <entity-condition list-name="returnList" entity-name="ReturnHeader"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderReturnDecorator">
@@ -166,7 +166,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleReturnItems"/>
                 <set field="headerItem" value="return"/>
                 <set field="tabButtonItem" value="OrderReturnItems"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/return/returnItems.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/return/ReturnItems.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderReturnDecorator">
