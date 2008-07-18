@@ -153,7 +153,20 @@
         <response name="success" type="view" value="myCommunications"/>
         <response name="error" type="view" value="ViewCommunicationEvent"/>
     </request-map>
-        <request-map uri="deleteCommunicationEvents">
+    <request-map uri="deleteUnknownCommunicationEvent">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteCommunicationEvent"/>
+        <response name="success" type="view" value="main"/>
+        <response name="error" type="view" value="ViewCommunicationEvent"/>
+    </request-map>
+    <request-map uri="deleteMyUnknownCommunicationEvent">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteCommunicationEvent"/>
+        <response name="success" type="view" value="myCommunications"/>
+        <response name="error" type="view" value="ViewCommunicationEvent"/>
+    </request-map>
+    
+    <request-map uri="deleteCommunicationEvents">
         <security https="true" auth="true"/>
         <event type="service-multi" invoke="deleteCommunicationEventWorkEffort"/>
         <response name="success" type="view"
@@ -191,6 +204,12 @@
         <response name="success" type="view" value="otherCommunications"/>
         <response name="error" type="view" value="ViewCommunicationEvent"/>
     </request-map>
+    <request-map uri="deleteOtherCommunicationEvent">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteCommunicationEvent"/>
+        <response name="success" type="view" value="otherCommunications"/>
+        <response name="error" type="view" value="ViewCommunicationEvent"/>
+    </request-map>
 
     <view-map name="main" type="screen" page="component://mypage/widget/CommonScreens.xml#main"/>
     <view-map name="preferences" type="screen" page="component://mypage/widget/CommonScreens.xml#preferences"/>
@@ -200,6 +219,7 @@
     <view-map name="myCompanyComms" type="screen" page="component://mypage/widget/CommonScreens.xml#MyCompanyComms"/>
     <view-map name="myTimesheet" type="screen" page="component://mypage/widget/CommonScreens.xml#MyTimesheet"/>
     <view-map name="newEvent" type="screen" page="component://mypage/widget/MyPageScreens.xml#newEvent"/>
+    <view-map name="ViewCommunicationEvent" type="screen" page="component://mypage/widget/MyPageScreens.xml#ViewCommunicationEvent"/>
     
     
 </site-conf>

@@ -267,8 +267,10 @@ under the License.
 											<label style="h2"
 												text="Allocate this message to a existing or new party and add an email address" />
 										</container>
-										<include-form name="allocateMsgToPartyForm"
-											location="component://party/webapp/partymgr/communication/CommForms.xml" />
+                                        <include-form name="allocateMsgToPartyForm"
+                                            location="component://party/webapp/partymgr/communication/CommForms.xml" />
+                                        <include-form name="deleteEmail"
+                                            location="component://party/webapp/partymgr/communication/CommForms.xml" />
 									</screenlet>
 								</widgets>
 							</section>

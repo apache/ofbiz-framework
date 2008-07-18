@@ -692,6 +692,12 @@ under the License.
         <response name="success" type="view" value="ListLookupCommEvents"/>
         <response name="error" type="view" value="ListLookupCommEvents"/>
     </request-map>
+    <request-map uri="deleteUnknownCommunicationEvent">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteCommunicationEvent"/>
+        <response name="success" type="view" value="FindCommunicationEvents"/>
+        <response name="error" type="view" value="ViewCommunicationEvent"/>
+    </request-map>
     <request-map uri="deleteCommunicationEvents">
         <security https="true" auth="true"/>
         <event type="service-multi" invoke="deleteCommunicationEventWorkEffort"/>
