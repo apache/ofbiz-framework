@@ -138,7 +138,7 @@ under the License.
         <field name="datetimeStarted" title="${uiLabelMap.CommonSendDate}"><date-time/></field>
         <field name="subject"><text size="60"/></field>
         <field name="contentMimeTypeId"><hidden value="text/plain"/></field>
-        <field name="content" title="${uiLabelMap.CommonContent}"><textarea cols="60" rows="10"/></field>
+        <field name="content" title="${uiLabelMap.CommonContent}"><textarea cols="80" rows="20"/></field>
         <field name="sendButton"><submit button-type="button"/></field>
     </form>
     <form name="ViewEmail" type="single" default-map-name="communicationEvent">
@@ -265,9 +265,12 @@ under the License.
     </form>
 
     <form name="ListCommEvents" type="list" odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate="true" list-name="commEvents">
+        <row-actions>
+            <set field="subject" from-field="subject" default-value="${uiLabelMap.PartyNoSubject}"/>
+        </row-actions>
         <field name="communicationEventId"><hidden/></field>
         <field name="subject">
-            <hyperlink description="${subject} " target="ViewCommunicationEvent?communicationEventId=${communicationEventId}"/>
+            <hyperlink description="${subject}" target="ViewCommunicationEvent?communicationEventId=${communicationEventId}"/>
         </field>
         <field name="communicationEventTypeId"><display-entity description="${description}" entity-name="CommunicationEventType" key-field-name="communicationEventTypeId"/></field>
         <field name="partyIdFrom" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.CommonFrom}">
@@ -628,8 +631,7 @@ under the License.
 		</field>
 	</form>
     
-    <form name="allocateMsgToPartyForm" type="single" target="allocateMsgToParty" title="create a new party for a unknown incoming email address"
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext" default-map-name="context">
+    <form name="allocateMsgToPartyForm" type="single" target="allocateMsgToParty" title="create a new party for a unknown incoming email address">
         <actions>
             <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/getPartyEmailFromCommEventInfo.groovy"/>
         </actions>
@@ -639,7 +641,15 @@ under the License.
         <field name="firstName" position="1"><text/></field>
         <field name="middleName" position="2"><text/></field>
         <field name="lastName"><text/></field>
-        <field name="submit" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submit" title="${uiLabelMap.PartyCreateAddEmail}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="deleteEmail" type="single" title="delete the email"
+        target="deleteUnknownCommunicationEvent">
+        <field name="communicationEventId"><hidden value="${parameters.communicationEventId}"/></field>
+        <field name="delContentDataResource"><hidden value="Y"/></field>
+        <field name="" position="1"><display/></field>
+        <field name=" " position="2"><display/></field>
+        <field name="deleteEmail" title="Delete email" widget-style="smallSubmit" position="3"><submit/></field>
     </form>
     <form name="EditRequestFromCommEvent" type="single" target="createRequestFromCommEvent" default-map-name="parameters">
         <field name="communicationEventId"><hidden value="${parameters.communicationEventId}"/></field>

@@ -113,8 +113,7 @@ under the License.
         </field>
     </form>
     <form name="ListMyUnknownPartyEmails" 
-        extends="ListMyUnknownPartyEmails" extends-resource="component://party/webapp/partymgr/communication/CommForms.xml" 
-        use-row-submit="true">
+        extends="ListMyUnknownPartyEmails" extends-resource="component://party/webapp/partymgr/communication/CommForms.xml" use-row-submit="true">
 
         <field use-when="headerItem.equals(&quot;main&quot;)" name="subject" widget-style="buttontext" widget-area-style="fieldWidth300">
             <hyperlink description="${subject}" target="ViewCommunicationEvent?communicationEventId=${communicationEventId}&amp;type=main"/>
@@ -133,10 +132,22 @@ under the License.
         </field>
     </form>
     
-    <form name="allocateMsgToPartyForm" extends="allocateMsgToPartyForm" extends-resource="component://party/webapp/partymgr/communication/CommForms.xml">
+    <form name="allocateMsgToPartyForm" 
+        extends="allocateMsgToPartyForm" extends-resource="component://party/webapp/partymgr/communication/CommForms.xml">
         <alt-target use-when="&quot;otherCommunications&quot;.equals(headerItem)" target="allocateOtherMsgToParty"/>
         <alt-target use-when="&quot;myCommunications&quot;.equals(headerItem)" target="allocateMyMsgToParty"/>
         <field name="type"><hidden value="${parameters.type}"/></field>
     </form> 
+    <form name="deleteEmail" type="single" title="delete the email"
+        target="deleteUnknownCommunicationEvent">
+        <alt-target use-when="&quot;otherCommunications&quot;.equals(headerItem)" target="deleteOtherUnknownCommunicationEvent"/>
+        <alt-target use-when="&quot;myCommunications&quot;.equals(headerItem)" target="deleteMyUnknownCommunicationEvent"/>
+        <field name="type"><hidden value="${parameters.type}"/></field>
+        <field name="communicationEventId"><hidden value="${parameters.communicationEventId}"/></field>
+        <field name="delContentDataResource"><hidden value="Y"/></field>
+        <field name="" position="1"><display/></field>
+        <field name=" " position="2"><display/></field>
+        <field name="deleteEmail" title="Delete email" widget-style="smallSubmit" position="3"><submit/></field>
+    </form>
         
 </forms>

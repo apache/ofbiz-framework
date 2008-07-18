@@ -2853,6 +2853,9 @@
         <value xml:lang="th">ไม่ได้ใส่ประเทศ</value>
         <value xml:lang="zh">缺少国家</value>
     </property>
+    <property key="PartyCreateAddEmail">
+        <value xml:lang="en">Create/Add Email to Party</value>
+    </property>
     <property key="PartyCreateAddWebSiteRolePermissionError">
         <value xml:lang="en">Security Error: to run addWebSiteRole you must have the PARTYMGR_CREATE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para acceder a esta funcionalidad debe contar con los permisos PARTYMGR_CREATE o PARTYMGR_ADMIN</value>
@@ -3156,6 +3159,9 @@
         <value xml:lang="ro">Suprapune Cybersource AVS</value>
         <value xml:lang="th">ที่มาของ AVS </value>
         <value xml:lang="zh">Cybersource公司地址验证服务替代</value>
+    </property>
+    <property key="PartyDeleteEmail">
+        <value xml:lang="en">Delete Email</value>
     </property>
     <property key="PartyDeletePartyRolePermissionError">
         <value xml:lang="en">Security Error: to run deletePartyRole you must have the PARTYMGR_DELETE or PARTYMGR_ADMIN permission</value>
@@ -4646,6 +4652,9 @@
         <value xml:lang="ru">Для участника нет списков покупок</value>
         <value xml:lang="th">ไม่มีรายการซื้อของสำหรับกลุ่มผู้ใช้</value>
         <value xml:lang="zh">没有购物列表，会员</value>
+    </property>
+    <property key="PartyNoSubject">
+        <value xml:lang="en">No Subject</value>
     </property>
     <property key="PartyNoSupplier">
         <value xml:lang="en">No Supplier</value>
