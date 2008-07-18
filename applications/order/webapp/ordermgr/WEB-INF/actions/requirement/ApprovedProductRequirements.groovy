@@ -17,11 +17,9 @@
  * under the License.
  */
  
-import org.ofbiz.base.util.UtilMisc;
-
-prepare = dispatcher.runSync("prepareFind", UtilMisc.toMap("inputFields", parameters, "entityName", "Requirement"));
-if (prepare.get("entityConditionList") != null) {
-	results = dispatcher.runSync("getRequirementsForSupplier", UtilMisc.toMap("requirementConditions", prepare.get("entityConditionList"), "partyId", parameters.get("partyId")));
-	context.put("requirementsForSupplier", results.get("requirementsForSupplier"));
-	context.put("quantityReport", UtilMisc.toMap("distinctProductCount", results.get("distinctProductCount"), "quantityTotal", results.get("quantityTotal"), "amountTotal", results.get("amountTotal")));
+prepare = dispatcher.runSync("prepareFind", [inputFields : parameters, entityName : "Requirement"]);
+if (prepare.entityConditionList) {
+	results = dispatcher.runSync("getRequirementsForSupplier", [requirementConditions : prepare.entityConditionList, partyId : parameters.partyId]);
+	context.requirementsForSupplier = results.requirementsForSupplier;
+	context.quantityReport = [distinctProductCount : results.distinctProductCount, quantityTotal : results.quantityTotal, amountTotal : results.amountTotal];
 }

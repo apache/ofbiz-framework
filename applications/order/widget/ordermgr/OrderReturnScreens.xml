@@ -77,7 +77,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleFindQuickReturn"/>
                 <set field="headerItem" value="return"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/return/quickReturn.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/return/QuickReturn.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderReturnDecorator">
@@ -112,7 +112,7 @@ under the License.
                 <set field="headerItem" value="return"/>
                 <set field="tabButtonItem" value="OrderReturnHeader"/>                
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/return/returnHeader.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/return/ReturnHeader.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderReturnDecorator">

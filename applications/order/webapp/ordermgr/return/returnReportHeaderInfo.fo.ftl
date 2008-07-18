@@ -44,7 +44,7 @@ under the License.
                                   
             <fo:table-row>
               <fo:table-cell text-align="center" border-style="solid" border-width="0.2pt">
-                <fo:block padding="1mm">${entryDate?string("yyyy-MM-dd")}</fo:block>
+                <fo:block padding="1mm">${returnHeader.entryDate?string("yyyy-MM-dd")}</fo:block>
               </fo:table-cell>
               <fo:table-cell text-align="center" border-style="solid" border-width="0.2pt">
                 <fo:block padding="1mm">${returnId}</fo:block>

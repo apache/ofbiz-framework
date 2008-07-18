@@ -24,18 +24,16 @@ import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 
-Map prepare = dispatcher.runSync("prepareFind", UtilMisc.toMap("inputFields", parameters, "entityName", "Requirement"));
-EntityConditionList statusCondition = EntityCondition.makeCondition(
-                    UtilMisc.toList(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "REQ_CREATED"),
-                                    EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "REQ_PROPOSED")),
-                    EntityOperator.OR);
-EntityConditionList ecl = null;
-if (UtilValidate.isNotEmpty(prepare.get("entityConditionList"))) {
-    ecl = EntityCondition.makeCondition(UtilMisc.toList((EntityConditionList)prepare.get("entityConditionList"),
-                                                   statusCondition),
-                                  EntityOperator.AND);
+prepare = dispatcher.runSync("prepareFind", [inputFields : parameters, entityName : "Requirement"]);
+EntityConditionList statusCondition = EntityCondition.makeCondition([
+                                              EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "REQ_CREATED"),
+                                              EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "REQ_PROPOSED")],
+                                          EntityOperator.OR);
+ecl = null;
+if (prepare.entityConditionList) {
+    ecl = EntityCondition.makeCondition(prepare.entityConditionList, statusCondition), EntityOperator.AND);
 } else {
     ecl = statusCondition;
 }
-results = dispatcher.runSync("executeFind", UtilMisc.toMap("entityConditionList", ecl, "entityName", "Requirement"));
-context.put("requirements", results.get("listIt"));
+results = dispatcher.runSync("executeFind", [entityConditionList : ecl, entityName : "Requirement"]);
+context.requirements = results.listIt;

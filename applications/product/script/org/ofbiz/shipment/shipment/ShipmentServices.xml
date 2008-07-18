@@ -582,42 +582,46 @@ under the License.
         <string-to-list string="-fromDate" list-name="descendingFromDateOrder"/>
         <if-not-empty field="shipment.originFacilityId">
             <if-empty field="shipment.originContactMechId">
-                <set from-field="shipment.originFacilityId" field="findFcmpMap.facilityId"/>
-                <set value="SHIP_ORIG_LOCATION" field="findFcmpMap.contactMechPurposeTypeId"/>
-                <find-by-and entity-name="FacilityContactMechPurpose" map-name="findFcmpMap" order-by-list-name="descendingFromDateOrder" list-name="facilityContactMechPurposes"/>
-                <filter-list-by-date list-name="facilityContactMechPurposes"/>
-                <first-from-list entry-name="facilityContactMechPurpose" list-name="facilityContactMechPurposes"/>
-                <set from-field="facilityContactMechPurpose.contactMechId" field="shipment.originContactMechId"/>
+                <call-bsh><![CDATA[ 
+                    facilityContactMech = org.ofbiz.party.contact.ContactMechWorker.getFacilityContactMechByPurpose(
+                                delegator, shipment.get("originFacilityId"), org.ofbiz.base.util.UtilMisc.toList("SHIP_ORIG_LOCATION", "PRIMARY_LOCATION")
+                            );
+                    if (facilityContactMech != null) {
+                        shipment.put("originContactMechId", facilityContactMech.get("contactMechId");
+                    }
+                ]]></call-bsh>
             </if-empty>
             <if-empty field="shipment.originTelecomNumberId">
-                <set from-field="shipment.originFacilityId" field="findFcmpMap.facilityId"/>
-                <set value="PHONE_SHIP_ORIG" field="findFcmpMap.contactMechPurposeTypeId"/>
-                <find-by-and entity-name="FacilityContactMechPurpose" map-name="findFcmpMap" order-by-list-name="descendingFromDateOrder" list-name="facilityContactMechPurposes"/>
-                <filter-list-by-date list-name="facilityContactMechPurposes"/>
-                <first-from-list entry-name="facilityContactMechPurpose" list-name="facilityContactMechPurposes"/>
-                <set from-field="facilityContactMechPurpose.contactMechId" field="shipment.originTelecomNumberId"/>
+                <call-bsh><![CDATA[ 
+                    facilityContactMech = org.ofbiz.party.contact.ContactMechWorker.getFacilityContactMechByPurpose(
+                                delegator, shipment.get("originFacilityId"), org.ofbiz.base.util.UtilMisc.toList("PHONE_SHIP_ORIG", "PRIMARY_PHONE")
+                            );
+                    if (facilityContactMech != null) {
+                        shipment.put("originTelecomNumberId", facilityContactMech.get("contactMechId");
+                    }
+                ]]></call-bsh>
             </if-empty>
         </if-not-empty>
         <if-not-empty field="shipment.destinationFacilityId">
             <if-empty field="shipment.destinationContactMechId">
-                <set from-field="shipment.destinationFacilityId" field="findFcmpMap.facilityId"/>
-                <set value="SHIPPING_LOCATION" field="findFcmpMap.contactMechPurposeTypeId"/>
-                <find-by-and entity-name="FacilityContactMechPurpose" map-name="findFcmpMap" order-by-list-name="descendingFromDateOrder" list-name="facilityContactMechPurposes"/>
-                <filter-list-by-date list-name="facilityContactMechPurposes"/>
-                <first-from-list entry-name="facilityContactMechPurpose" list-name="facilityContactMechPurposes"/>
-                <set from-field="facilityContactMechPurpose.contactMechId" field="shipment.destinationContactMechId"/>
+                <call-bsh><![CDATA[ 
+                    facilityContactMech = org.ofbiz.party.contact.ContactMechWorker.getFacilityContactMechByPurpose(
+                                delegator, shipment.get("destinationFacilityId"), org.ofbiz.base.util.UtilMisc.toList("SHIPPING_LOCATION", "PRIMARY_LOCATION")
+                            );
+                    if (facilityContactMech != null) {
+                        shipment.put("destinationContactMechId", facilityContactMech.get("contactMechId");
+                    }
+                ]]></call-bsh>
             </if-empty>
             <if-empty field="shipment.destinationTelecomNumberId">
-                <set from-field="shipment.destinationFacilityId" field="findFcmpMap.facilityId"/>
-                <set value="PHONE_SHIPPING" field="findFcmpMap.contactMechPurposeTypeId"/>
-                <find-by-and entity-name="FacilityContactMechPurpose" map-name="findFcmpMap" order-by-list-name="descendingFromDateOrder" list-name="facilityContactMechPurposes"/>
-                <filter-list-by-date list-name="facilityContactMechPurposes"/>
-                <!-- This check is necessary or some random contactMechId might be filled in by minilang, possibly from another call earlier, if facilityContactMechPurpoess is indeed null.
-                It should probably be implemented for all of the above but I have not had a chance to test it. (Si) -->
-                <if-not-empty field="facilityContactMechPurposes">
-                    <first-from-list entry-name="facilityContactMechPurpose" list-name="facilityContactMechPurposes"/>
-                    <set from-field="facilityContactMechPurpose.contactMechId" field="shipment.destinationTelecomNumberId"/>
-                </if-not-empty>
+                <call-bsh><![CDATA[ 
+                    facilityContactMech = org.ofbiz.party.contact.ContactMechWorker.getFacilityContactMechByPurpose(
+                                delegator, shipment.get("destinationFacilityId"), org.ofbiz.base.util.UtilMisc.toList("PHONE_SHIPPING", "PRIMARY_PHONE")
+                            );
+                    if (facilityContactMech != null) {
+                        shipment.put("destinationTelecomNumberId", facilityContactMech.get("contactMechId");
+                    }
+                ]]></call-bsh>
             </if-empty>
         </if-not-empty>
 

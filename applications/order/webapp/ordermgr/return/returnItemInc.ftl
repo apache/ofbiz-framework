@@ -59,7 +59,7 @@ under the License.
       <#assign rowCount = 0>
       <#assign alt_row = false>
       <#list returnableItems.keySet() as orderItem>
-        <#if orderItem.orderAdjustmentId?has_content>
+        <#if orderItem.getEntityName() == "OrderAdjustment">
             <#-- this is an order item adjustment -->
             <#assign returnAdjustmentType = returnItemTypeMap.get(orderItem.get("orderAdjustmentTypeId"))/>
             <#assign adjustmentType = orderItem.getRelatedOne("OrderAdjustmentType")/>

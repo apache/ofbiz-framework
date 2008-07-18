@@ -39,6 +39,8 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.util.EntityUtil;
 
 /**
@@ -484,6 +486,55 @@ public class ContactMechWorker {
         }
     }
     
+    /** Returns the first valid FacilityContactMech found based on the given facilityId and a prioritized list of purposes
+     * @param delegator
+     * @param facilityId
+     * @param purposeTypes A List of ContactMechPurposeType ids which will be checked one at a time until a valid contact mech is found
+     * @return
+     */
+    public static GenericValue getFacilityContactMechByPurpose(GenericDelegator delegator, String facilityId, List purposeTypes) {
+        if (UtilValidate.isEmpty(facilityId)) return null;
+        if (UtilValidate.isEmpty(purposeTypes)) return null;
+        
+        Iterator ptIt = purposeTypes.iterator();
+        while (ptIt.hasNext()) {
+            String purposeType = (String) ptIt.next();
+            
+            List facilityContactMechPurposes = null;            
+            List conditionList = FastList.newInstance();
+            conditionList.add(EntityCondition.makeCondition("facilityId", facilityId));
+            conditionList.add(EntityCondition.makeCondition("contactMechPurposeTypeId", purposeType));
+            conditionList.add(EntityCondition.makeConditionDate("fromDate", "thruDate"));
+            EntityCondition entityCondition = EntityCondition.makeCondition(conditionList);
+            try {
+                facilityContactMechPurposes = delegator.findList("FacilityContactMechPurpose", entityCondition, null, UtilMisc.toList("-fromDate"), null, true);
+            } catch (GenericEntityException e) {
+                Debug.logWarning(e, module);
+            }
+            Iterator fcmpIt = facilityContactMechPurposes.iterator();
+            while (fcmpIt.hasNext()) {
+                GenericValue facilityContactMechPurpose = (GenericValue) fcmpIt.next();
+                String contactMechId = facilityContactMechPurpose.getString("contactMechId");
+                List facilityContactMechs = null;
+                conditionList = FastList.newInstance();
+                conditionList.add(EntityCondition.makeCondition("facilityId", facilityId));
+                conditionList.add(EntityCondition.makeCondition("contactMechId", contactMechId));
+                conditionList.add(EntityCondition.makeConditionDate("fromDate", "thruDate"));
+                entityCondition = EntityCondition.makeCondition(conditionList);
+                try {
+                    facilityContactMechs = delegator.findList("FacilityContactMech", entityCondition, null, UtilMisc.toList("-fromDate"), null, true);
+                } catch (GenericEntityException e) {
+                    Debug.logWarning(e, module);
+                }
+                if (UtilValidate.isNotEmpty(facilityContactMechs)) {
+                    return EntityUtil.getFirst(facilityContactMechs);
+                }
+            }
+            
+        }
+        return null;
+    }    
+
     public static void getFacilityContactMechAndRelated(ServletRequest request, String facilityId, Map target) {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
 

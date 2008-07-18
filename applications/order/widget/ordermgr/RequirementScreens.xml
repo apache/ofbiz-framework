@@ -131,7 +131,7 @@ under the License.
                 <set field="tabButtonItem" value="ApproveRequirements"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/requirement/selectCreatedProposed.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/requirement/SelectCreatedProposed.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonRequirementsDecorator">
@@ -178,7 +178,7 @@ under the License.
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
                 <set field="_rowSubmit" value="Y"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/requirement/ApprovedProductRequirements.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/requirement/ApprovedProductRequirements.groovy"/>
         </actions>
             <widgets>
                 <decorator-screen name="CommonRequirementsDecorator">
@@ -282,7 +282,7 @@ under the License.
                 <set field="tabButtonItem" value="ApprovedProductRequirementsByVendor"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/requirement/ApprovedProductRequirementsByVendor.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/requirement/ApprovedProductRequirementsByVendor.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonRequirementsDecorator">

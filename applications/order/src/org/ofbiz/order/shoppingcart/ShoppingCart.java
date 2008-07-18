@@ -2399,17 +2399,9 @@ public class ShoppingCart implements Serializable {
                 // the facilityId should be set prior to triggering default options, otherwise we do not set up facility information
                 String defaultFacilityId = getFacilityId();
                 if (defaultFacilityId != null) {
-                    List facilityContactMechValueMaps = ContactMechWorker.getFacilityContactMechValueMaps(delegator, defaultFacilityId, false, null);
-                    if (facilityContactMechValueMaps != null) {
-                        Iterator facilityContactMechValueMapsIt = facilityContactMechValueMaps.iterator();
-                        while (facilityContactMechValueMapsIt.hasNext()) {
-                            Map facilityContactMechValueMap = (Map)facilityContactMechValueMapsIt.next();
-                            if (facilityContactMechValueMap.get("postalAddress") != null) {
-                                GenericValue postalAddress = (GenericValue)facilityContactMechValueMap.get("postalAddress");
-                                this.setShippingContactMechId(0, postalAddress.getString("contactMechId"));
-                                break;
-                            }
-                        }
+                    GenericValue facilityContactMech = ContactMechWorker.getFacilityContactMechByPurpose(delegator, facilityId, UtilMisc.toList("SHIPPING_LOCATION", "PRIMARY_LOCATION"));
+                    if (facilityContactMech != null) {
+                        this.setShippingContactMechId(0, facilityContactMech.getString("contactMechId"));
                     }
                 }
             }
