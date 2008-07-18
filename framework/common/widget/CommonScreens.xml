@@ -369,7 +369,7 @@ under the License.
                     </fail-widgets>
                 </section>
                 <decorator-section-include name="menu-bar"/>
-                <screenlet name="findScreenlet" collapsible="true" padded="false">
+                <screenlet id="searchOptions" name="findScreenlet" collapsible="true" padded="false">
                     <container style="screenlet-body">
                         <container style="h2">
                             <label text="${uiLabelMap.CommonSearchOptions}"/>
