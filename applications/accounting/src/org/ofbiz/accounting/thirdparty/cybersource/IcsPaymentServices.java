@@ -20,7 +20,6 @@ package org.ofbiz.accounting.thirdparty.cybersource;
 
 import java.text.DecimalFormat;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -60,11 +59,11 @@ public class IcsPaymentServices {
             return ServiceUtil.returnError("ERROR: Getting Cybersource property configuration");
         }
 
-        Map request = buildAuthRequest(context);
+        Map<String, Object> request = buildAuthRequest(context);
         request.put("merchantID", props.get("merchantID"));
 
         // transmit the request
-        Map reply = null;
+        Map reply;
         try {
             reply = Client.runTransaction(request, props);
         } catch (FaultException e) {
@@ -77,7 +76,7 @@ public class IcsPaymentServices {
         }
 
         // process the reply
-        Map result = ServiceUtil.returnSuccess();
+        Map<String, Object> result = ServiceUtil.returnSuccess();
         processAuthResult(reply, result);
         return result;
     }
@@ -106,11 +105,11 @@ public class IcsPaymentServices {
             return ServiceUtil.returnError("ERROR: Getting Cybersource property configuration");
         }
 
-        Map request = buildCaptureRequest(context, authTransaction);
+        Map<String, Object> request = buildCaptureRequest(context, authTransaction);
         request.put("merchantID", props.get("merchantID"));
 
         // transmit the request
-        Map reply = null;
+        Map reply;
         try {
             reply = Client.runTransaction(request, props);
         } catch (FaultException e) {
@@ -122,7 +121,7 @@ public class IcsPaymentServices {
         }
 
         // process the reply
-        Map result = ServiceUtil.returnSuccess();
+        Map<String, Object> result = ServiceUtil.returnSuccess();
         processCaptureResult(reply, result);
         return result;
     }
@@ -140,11 +139,11 @@ public class IcsPaymentServices {
             return ServiceUtil.returnError("ERROR: Getting Cybersource property configuration");
         }
 
-        Map request = buildReleaseRequest(context, authTransaction);
+        Map<String, Object> request = buildReleaseRequest(context, authTransaction);
         request.put("merchantID", props.get("merchantID"));
 
         // transmit the request
-        Map reply = null;
+        Map reply;
         try {
             reply = Client.runTransaction(request, props);
         } catch (FaultException e) {
@@ -156,7 +155,7 @@ public class IcsPaymentServices {
         }
 
         // process the reply
-        Map result = ServiceUtil.returnSuccess();
+        Map<String, Object> result = ServiceUtil.returnSuccess();
         processReleaseResult(reply, result);
         return result;
     }
@@ -174,11 +173,11 @@ public class IcsPaymentServices {
             return ServiceUtil.returnError("ERROR: Getting Cybersource property configuration");
         }
 
-        Map request = buildRefundRequest(context, authTransaction);
+        Map<String, Object> request = buildRefundRequest(context, authTransaction);
         request.put("merchantID", props.get("merchantID"));
 
         // transmit the request
-        Map reply = null;
+        Map reply;
         try {
             reply = Client.runTransaction(request, props);
         } catch (FaultException e) {
@@ -190,7 +189,7 @@ public class IcsPaymentServices {
         }
 
         // process the reply
-        Map result = ServiceUtil.returnSuccess();
+        Map<String, Object> result = ServiceUtil.returnSuccess();
         processRefundResult(reply, result);
         return result;
     }
@@ -202,11 +201,11 @@ public class IcsPaymentServices {
             return ServiceUtil.returnError("ERROR: Getting Cybersource property configuration");
         }
 
-        Map request = buildCreditRequest(context);
+        Map<String, Object> request = buildCreditRequest(context);
         request.put("merchantID", props.get("merchantID"));
 
         // transmit the request
-        Map reply = null;
+        Map reply;
         try {
             reply = Client.runTransaction(request, props);
         } catch (FaultException e) {
@@ -218,7 +217,7 @@ public class IcsPaymentServices {
         }
 
         // process the reply
-        Map result = ServiceUtil.returnSuccess();
+        Map<String, Object> result = ServiceUtil.returnSuccess();
         processCreditResult(reply, result);
         return result;
     }
@@ -269,7 +268,7 @@ public class IcsPaymentServices {
         return props;
     }
 
-    private static Map buildAuthRequest(Map context) {
+    private static Map<String, Object> buildAuthRequest(Map context) {
         String configString = (String) context.get("paymentConfig");
         String currency = (String) context.get("currency");
         if (configString == null) {
@@ -280,7 +279,7 @@ public class IcsPaymentServices {
         String capture = UtilProperties.getPropertyValue(configString, "payment.cybersource.autoBill", "false");
         String orderId = (String) context.get("orderId");
 
-        Map request = new HashMap();
+        Map<String, Object> request = new HashMap<String, Object>();
         request.put("ccAuthService_run", "true");              // run auth service
         request.put("ccCaptureService_run", capture);          // run capture service (i.e. sale)
         request.put("merchantReferenceCode", orderId);         // set the order ref number
@@ -292,7 +291,7 @@ public class IcsPaymentServices {
         return request;
     }
 
-    private static Map buildCaptureRequest(Map context, GenericValue authTransaction) {
+    private static Map<String, Object> buildCaptureRequest(Map context, GenericValue authTransaction) {
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         String configString = (String) context.get("paymentConfig");
         String currency = (String) context.get("currency");
@@ -302,7 +301,7 @@ public class IcsPaymentServices {
         String merchantDesc = UtilProperties.getPropertyValue(configString, "payment.cybersource.merchantDescr", null);
         String merchantCont = UtilProperties.getPropertyValue(configString, "payment.cybersource.merchantContact", null);
 
-        Map request = new HashMap();
+        Map<String, Object> request = new HashMap<String, Object>();
         request.put("ccCaptureService_run", "true");
         request.put("ccCaptureService_authRequestID", authTransaction.getString("referenceNum"));
         request.put("item_0_unitPrice", getAmountString(context, "captureAmount"));
@@ -323,10 +322,11 @@ public class IcsPaymentServices {
         return request;
     }
 
-    private static Map buildReleaseRequest(Map context, GenericValue authTransaction) {
+    private static Map<String, Object> buildReleaseRequest(Map context, GenericValue authTransaction) {
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         String currency = (String) context.get("currency");
-        Map request = new HashMap();
+
+        Map<String, Object> request = new HashMap<String, Object>();
         request.put("ccAuthReversalService_run", "true");
         request.put("ccAuthReversalService_authRequestID", authTransaction.getString("referenceNum"));
         request.put("item_0_unitPrice", getAmountString(context, "releaseAmount"));
@@ -335,7 +335,7 @@ public class IcsPaymentServices {
         return request;
     }
 
-    private static Map buildRefundRequest(Map context, GenericValue authTransaction) {
+    private static Map<String, Object> buildRefundRequest(Map context, GenericValue authTransaction) {
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         String configString = (String) context.get("paymentConfig");
         String currency = (String) context.get("currency");
@@ -345,7 +345,7 @@ public class IcsPaymentServices {
         String merchantDesc = UtilProperties.getPropertyValue(configString, "payment.cybersource.merchantDescr", null);
         String merchantCont = UtilProperties.getPropertyValue(configString, "payment.cybersource.merchantContact", null);
 
-        Map request = new HashMap();
+        Map<String, Object> request = new HashMap<String, Object>();
         request.put("ccCreditService_run", "true");
         request.put("ccCreditService_captureRequestID", authTransaction.getString("referenceNum"));
         request.put("item_0_unitPrice", getAmountString(context, "refundAmount"));
@@ -362,9 +362,10 @@ public class IcsPaymentServices {
         return request;
     }
 
-    private static Map buildCreditRequest(Map context) {
+    private static Map<String, Object> buildCreditRequest(Map context) {
         String refCode = (String) context.get("referenceCode");
-        Map request = new HashMap();
+
+        Map<String, Object> request = new HashMap<String, Object>();
         request.put("ccCreditService_run", "true");            // run credit service
         request.put("merchantReferenceCode", refCode);         // set the ref number could be order id
         appendFullBillingInfo(request, context);               // add in all address info
@@ -372,7 +373,7 @@ public class IcsPaymentServices {
         return request;
     }
 
-    private static void appendAvsRules(Map request, Map context) {
+    private static void appendAvsRules(Map<String, Object> request, Map context) {
         String configString = (String) context.get("paymentConfig");
         if (configString == null) {
             configString = "payment.properties";
@@ -405,7 +406,7 @@ public class IcsPaymentServices {
         request.put("businessRules_ignoreAVS", avsIgnore);
     }
 
-    private static void appendFullBillingInfo(Map request, Map context) {
+    private static void appendFullBillingInfo(Map<String, Object> request, Map context) {
         // person info
         GenericValue party = (GenericValue) context.get("billToParty");
 
@@ -485,7 +486,7 @@ public class IcsPaymentServices {
         }
     }
 
-    private static void appendItemLineInfo(Map request, Map context, String amountField) {
+    private static void appendItemLineInfo(Map<String, Object> request, Map context, String amountField) {
         // send over a line item total offer w/ the total for billing; don't trust CyberSource for calc
         String currency = (String) context.get("currency");
 
@@ -498,11 +499,10 @@ public class IcsPaymentServices {
         // create the offers (one for each line item)
         List orderItems = (List) context.get("orderItems");
         if (orderItems != null) {
-            Iterator itemIterator = orderItems.iterator();
 
-            while (itemIterator.hasNext()) {
+            for (Object orderItem : orderItems) {
                 lineNumber++;
-                GenericValue item = (GenericValue) itemIterator.next();
+                GenericValue item = (GenericValue) orderItem;
                 GenericValue product = null;
                 try {
                     product = item.getRelatedOne("Product");
@@ -522,13 +522,13 @@ public class IcsPaymentServices {
                 Double quantity = item.getDouble("quantity");
 
                 // test quantity if INT pass as is; if not pass as 1
-                long roundQ = Math.round(quantity.doubleValue());
-                Double rounded = new Double(new Long(roundQ).toString());
+                long roundQ = Math.round(quantity);
+                Double rounded = new Double(Long.toString(roundQ));
 
                 if (rounded.doubleValue() != quantity.doubleValue()) {
                     request.put("item_" + lineNumber + "_quantity", "1");
                 } else {
-                    request.put("", new Integer(quantity.intValue()).toString());
+                    request.put("", Integer.toString(quantity.intValue()));
                 }
 
                 // set the amount to 0.0000 -- we will send a total too.
@@ -544,7 +544,7 @@ public class IcsPaymentServices {
         return formatter.format(processAmount);
     }
 
-    private static void processAuthResult(Map reply, Map result) {
+    private static void processAuthResult(Map reply, Map<String, Object> result) {
         String decision = getDecision(reply);
         if ("ACCEPT".equalsIgnoreCase(decision)) {
             result.put("authCode", reply.get("ccAuthReply_authorizationCode"));
@@ -558,7 +558,7 @@ public class IcsPaymentServices {
         if (reply.get("ccAuthReply_amount") != null) {
             result.put("processAmount", new Double((String) reply.get("ccAuthReply_amount")));
         } else {
-            result.put("processAmount", new Double(0.00));
+            result.put("processAmount", 0.00);
         }
 
         result.put("authRefNum", reply.get("requestID"));
@@ -569,9 +569,11 @@ public class IcsPaymentServices {
         result.put("scoreCode", reply.get("ccAuthReply_authFactorCode"));
         result.put("captureRefNum", reply.get("requestID")); // maybe use something else here?
         result.put("captureCode", reply.get("ccCaptureReply_reconciliationID"));
+        if (Debug.infoOn())
+            Debug.logInfo("CC [Cybersource] authorization result : " + result, module);
     }
 
-    private static void processCaptureResult(Map reply, Map result) {
+    private static void processCaptureResult(Map reply, Map<String, Object> result) {
         String decision = getDecision(reply);
         if ("ACCEPT".equalsIgnoreCase(decision)) {
             result.put("captureResult", Boolean.TRUE);
@@ -582,16 +584,18 @@ public class IcsPaymentServices {
         if (reply.get("ccCaptureReply_amount") != null) {
             result.put("captureAmount", new Double((String) reply.get("ccCaptureReply_amount")));
         } else {
-            result.put("captureAmount", new Double(0.00));
+            result.put("captureAmount", 0.00);
         }
 
         result.put("captureRefNum", reply.get("requestID"));
         result.put("captureCode", reply.get("ccCaptureReply_reconciliationID"));
         result.put("captureFlag", reply.get("ccCaptureReply_reasonCode"));
         result.put("captureMessage", reply.get("decision"));
+        if (Debug.infoOn())
+            Debug.logInfo("CC [Cybersource] capture result : " + result, module);
     }
 
-    private static void processReleaseResult(Map reply, Map result) {
+    private static void processReleaseResult(Map reply, Map<String, Object> result) {
         String decision = getDecision(reply);
         if ("ACCEPT".equalsIgnoreCase(decision)) {
             result.put("releaseResult", Boolean.TRUE);
@@ -602,16 +606,18 @@ public class IcsPaymentServices {
         if (reply.get("ccAuthReversalReply_amount") != null) {
             result.put("releaseAmount", new Double((String) reply.get("ccAuthReversalReply_amount")));
         } else {
-            result.put("releaseAmount", new Double(0.00));
+            result.put("releaseAmount", 0.00);
         }
 
         result.put("releaseRefNum", reply.get("requestID"));
         result.put("releaseCode", reply.get("ccAuthReversalReply_authorizationCode"));
         result.put("releaseFlag", reply.get("ccAuthReversalReply_reasonCode"));
         result.put("releaseMessage", reply.get("decision"));
+        if (Debug.infoOn())
+            Debug.logInfo("CC [Cybersource] release result : " + result, module);
     }
 
-    private static void processRefundResult(Map reply, Map result) {
+    private static void processRefundResult(Map reply, Map<String, Object> result) {
         String decision = getDecision(reply);
         if ("ACCEPT".equalsIgnoreCase(decision)) {
             result.put("refundResult", Boolean.TRUE);
@@ -622,16 +628,18 @@ public class IcsPaymentServices {
         if (reply.get("ccCreditReply_amount") != null) {
             result.put("refundAmount", new Double((String) reply.get("ccCreditReply_amount")));
         } else {
-            result.put("refundAmount", new Double(0.00));
+            result.put("refundAmount", 0.00);
         }
 
         result.put("refundRefNum", reply.get("requestID"));
         result.put("refundCode", reply.get("ccCreditReply_reconciliationID"));
         result.put("refundFlag", reply.get("ccCreditReply_reasonCode"));
         result.put("refundMessage", reply.get("decision"));
+        if (Debug.infoOn())
+            Debug.logInfo("CC [Cybersource] refund result : " + result, module);
     }
 
-    private static void processCreditResult(Map reply, Map result) {
+    private static void processCreditResult(Map reply, Map<String, Object> result) {
         String decision = (String) reply.get("decision");
         if ("ACCEPT".equalsIgnoreCase(decision)) {
             result.put("creditResult", Boolean.TRUE);
@@ -642,13 +650,15 @@ public class IcsPaymentServices {
         if (reply.get("ccCreditReply_amount") != null) {
             result.put("creditAmount", new Double((String) reply.get("ccCreditReply_amount")));
         } else {
-            result.put("creditAmount", new Double(0.00));
+            result.put("creditAmount", 0.00);
         }
 
         result.put("creditRefNum", reply.get("requestID"));
         result.put("creditCode", reply.get("ccCreditReply_reconciliationID"));
         result.put("creditFlag", reply.get("ccCreditReply_reasonCode"));
         result.put("creditMessage", reply.get("decision"));
+        if (Debug.infoOn())
+            Debug.logInfo("CC [Cybersource] credit result : " + result, module);
     }
 
     private static String getDecision(Map reply) {
