@@ -117,7 +117,7 @@ under the License.
                 <set field="parameters.formNameValue" value="shipsetupform" global="true"/>
 
                 <set field="titleProperty" value="PageTitleShippingInformation"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/ShipSettings.groovy"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/shipsettings.bsh"/>
             </actions>
             <widgets>
                 <decorator-screen name="anonymousCheckoutDecorator">
