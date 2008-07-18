@@ -25,13 +25,13 @@ import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 
 prepare = dispatcher.runSync("prepareFind", [inputFields : parameters, entityName : "Requirement"]);
-EntityConditionList statusCondition = EntityCondition.makeCondition([
+statusCondition = EntityCondition.makeCondition([
                                               EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "REQ_CREATED"),
                                               EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "REQ_PROPOSED")],
                                           EntityOperator.OR);
 ecl = null;
 if (prepare.entityConditionList) {
-    ecl = EntityCondition.makeCondition(prepare.entityConditionList, statusCondition), EntityOperator.AND);
+    ecl = EntityCondition.makeCondition([prepare.entityConditionList, statusCondition], EntityOperator.AND);
 } else {
     ecl = statusCondition;
 }
