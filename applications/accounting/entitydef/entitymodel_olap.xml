@@ -72,7 +72,7 @@ under the License.
             <description>Extended net amount less all the costs.</description>
         </field>
         <!--
-        TODO: implement multy currency fields
+        TODO: implement multi-currency fields
         <field name="extGrossAmountOrig" type="currency-precise">
             <description>Extended gross amount in the original currency: quantity invoiced multiplied by the list unit price.</description>
         </field>
