@@ -51,6 +51,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.party.contact.ContactMechWorker;
 import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
@@ -1955,23 +1956,12 @@ public class UpsServices {
             // locate the ship-from address based on the product store's default facility
             GenericValue productStore = ProductStoreWorker.getProductStore(productStoreId, delegator);
             if (productStore != null && productStore.get("inventoryFacilityId") != null) {
-                List shipLocs = null;
-                try {
-                    shipLocs = delegator.findByAnd("FacilityContactMechPurpose", UtilMisc.toMap("facilityId",
-                            productStore.getString("inventoryFacilityId"), "contactMechPurposeTypeId",
-                            "SHIP_ORIG_LOCATION"), UtilMisc.toList("-fromDate"));
-                } catch (GenericEntityException e) {
-                    Debug.logError(e, module);
-                }
-                if (shipLocs != null) {
-                    shipLocs = EntityUtil.filterByDate(shipLocs);
-                    GenericValue purp =  EntityUtil.getFirst(shipLocs);
-                    if (purp != null) {
-                        try {
-                            shipFromAddress = delegator.findByPrimaryKey("PostalAddress", UtilMisc.toMap("contactMechId", purp.getString("contactMechId")));
-                        } catch (GenericEntityException e) {
-                            Debug.logError(e, module);
-                        }
+                GenericValue facilityContactMech = ContactMechWorker.getFacilityContactMechByPurpose(delegator, productStore.getString("inventoryFacilityId"), UtilMisc.toList("SHIP_ORIG_LOCATION", "PRIMARY_LOCATION"));
+                if (facilityContactMech != null) {
+                    try {
+                        shipFromAddress = delegator.findByPrimaryKey("PostalAddress", UtilMisc.toMap("contactMechId", facilityContactMech.getString("contactMechId")));
+                    } catch (GenericEntityException e) {
+                        Debug.logError(e, module);
                     }
                 }
             }

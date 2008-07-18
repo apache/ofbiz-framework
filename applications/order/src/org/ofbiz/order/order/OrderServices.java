@@ -51,6 +51,7 @@ import org.ofbiz.order.shoppingcart.ShoppingCartItem;
 import org.ofbiz.order.shoppingcart.product.ProductPromoWorker;
 import org.ofbiz.order.shoppingcart.shipping.ShippingEvents;
 import org.ofbiz.party.contact.ContactHelper;
+import org.ofbiz.party.contact.ContactMechWorker;
 import org.ofbiz.party.party.PartyWorker;
 import org.ofbiz.product.product.ProductWorker;
 import org.ofbiz.product.store.ProductStoreWorker;
@@ -1450,19 +1451,11 @@ public class OrderServices {
                         // face-to-face order; use the facility address
                         String facilityId = orderHeader.getString("originFacilityId");
                         if (facilityId != null) {
-                            List fcp = null;
-                            try {
-                                fcp = delegator.findByAnd("FacilityContactMechPurpose", UtilMisc.toMap("facilityId",
-                                        facilityId, "contactMechPurposeTypeId", "SHIP_ORIG_LOCATION"));
-                            } catch (GenericEntityException e) {
-                                Debug.logError(e, module);
-                            }
-                            fcp = EntityUtil.filterByDate(fcp);
-                            GenericValue purp = EntityUtil.getFirst(fcp);
-                            if (purp != null) {
+                            GenericValue facilityContactMech = ContactMechWorker.getFacilityContactMechByPurpose(delegator, facilityId, UtilMisc.toList("SHIP_ORIG_LOCATION", "PRIMARY_LOCATION"));
+                            if (facilityContactMech != null) {
                                 try {
                                     shippingAddress = delegator.findByPrimaryKey("PostalAddress",
-                                            UtilMisc.toMap("contactMechId", purp.getString("contactMechId")));
+                                            UtilMisc.toMap("contactMechId", facilityContactMech.getString("contactMechId")));
                                 } catch (GenericEntityException e) {
                                     Debug.logError(e, module);
                                 }

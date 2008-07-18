@@ -36,6 +36,7 @@ import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.party.contact.ContactMechWorker;
 import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
@@ -72,23 +73,17 @@ public class UspsServices {
         String originationZip = null;
         GenericValue productStore = ProductStoreWorker.getProductStore(((String) context.get("productStoreId")), delegator);
         if (productStore != null && productStore.get("inventoryFacilityId") != null) {
-            try {
-                List shipLocs = delegator.findByAnd("FacilityContactMechPurpose",
-                        UtilMisc.toMap("facilityId", productStore.getString("inventoryFacilityId"),
-                                "contactMechPurposeTypeId", "SHIP_ORIG_LOCATION"), UtilMisc.toList("-fromDate"));
-                if (UtilValidate.isNotEmpty(shipLocs)) {
-                    shipLocs = EntityUtil.filterByDate(shipLocs);
-                    GenericValue purp = EntityUtil.getFirst(shipLocs);
-                    if (purp != null) {
-                        GenericValue shipFromAddress = delegator.findByPrimaryKey("PostalAddress",
-                                UtilMisc.toMap("contactMechId", purp.getString("contactMechId")));
-                        if (shipFromAddress != null) {
-                            originationZip = shipFromAddress.getString("postalCode");
-                        }
+            GenericValue facilityContactMech = ContactMechWorker.getFacilityContactMechByPurpose(delegator, productStore.getString("inventoryFacilityId"), UtilMisc.toList("SHIP_ORIG_LOCATION", "PRIMARY_LOCATION"));
+            if (facilityContactMech != null) {
+                try {
+                    GenericValue shipFromAddress = delegator.findByPrimaryKey("PostalAddress",
+                            UtilMisc.toMap("contactMechId", facilityContactMech.getString("contactMechId")));
+                    if (shipFromAddress != null) {
+                        originationZip = shipFromAddress.getString("postalCode");
                     }
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, module);
                 }
-            } catch (GenericEntityException e) {
-                Debug.logError(e, module);
             }
         }
         if (UtilValidate.isEmpty(originationZip)) {

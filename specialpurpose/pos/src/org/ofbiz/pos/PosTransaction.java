@@ -53,6 +53,7 @@ import org.ofbiz.order.shoppingcart.ItemNotFoundException;
 import org.ofbiz.order.shoppingcart.ShoppingCart;
 import org.ofbiz.order.shoppingcart.ShoppingCartItem;
 import org.ofbiz.order.shoppinglist.ShoppingListEvents;
+import org.ofbiz.party.contact.ContactMechWorker;
 import org.ofbiz.pos.component.Journal;
 import org.ofbiz.pos.component.Output;
 import org.ofbiz.pos.device.DeviceLoader;
@@ -865,19 +866,13 @@ public class PosTransaction implements Serializable {
             if (facility == null) {
                 return null;
             }
-
-            List fcp = null;
-            try {
-                fcp = facility.getRelatedByAnd("FacilityContactMechPurpose", UtilMisc.toMap("contactMechPurposeTypeId", "SHIP_ORIG_LOCATION"));
-            } catch (GenericEntityException e) {
-                Debug.logError(e, module);
-            }
-            fcp = EntityUtil.filterByDate(fcp);
-            GenericValue purp = EntityUtil.getFirst(fcp);
-            if (purp != null) {
+            
+            GenericDelegator delegator = session.getDelegator();
+            GenericValue facilityContactMech = ContactMechWorker.getFacilityContactMechByPurpose(delegator, facilityId, UtilMisc.toList("SHIP_ORIG_LOCATION", "PRIMARY_LOCATION"));
+            if (facilityContactMech != null) {
                 try {
                     this.shipAddress = session.getDelegator().findByPrimaryKey("PostalAddress",
-                            UtilMisc.toMap("contactMechId", purp.getString("contactMechId")));
+                            UtilMisc.toMap("contactMechId", facilityContactMech.getString("contactMechId")));
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                 }
