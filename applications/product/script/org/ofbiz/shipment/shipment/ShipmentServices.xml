@@ -587,7 +587,7 @@ under the License.
                                 delegator, shipment.get("originFacilityId"), org.ofbiz.base.util.UtilMisc.toList("SHIP_ORIG_LOCATION", "PRIMARY_LOCATION")
                             );
                     if (facilityContactMech != null) {
-                        shipment.put("originContactMechId", facilityContactMech.get("contactMechId");
+                        shipment.put("originContactMechId", facilityContactMech.get("contactMechId"));
                     }
                 ]]></call-bsh>
             </if-empty>
@@ -597,7 +597,7 @@ under the License.
                                 delegator, shipment.get("originFacilityId"), org.ofbiz.base.util.UtilMisc.toList("PHONE_SHIP_ORIG", "PRIMARY_PHONE")
                             );
                     if (facilityContactMech != null) {
-                        shipment.put("originTelecomNumberId", facilityContactMech.get("contactMechId");
+                        shipment.put("originTelecomNumberId", facilityContactMech.get("contactMechId"));
                     }
                 ]]></call-bsh>
             </if-empty>
@@ -609,7 +609,7 @@ under the License.
                                 delegator, shipment.get("destinationFacilityId"), org.ofbiz.base.util.UtilMisc.toList("SHIPPING_LOCATION", "PRIMARY_LOCATION")
                             );
                     if (facilityContactMech != null) {
-                        shipment.put("destinationContactMechId", facilityContactMech.get("contactMechId");
+                        shipment.put("destinationContactMechId", facilityContactMech.get("contactMechId"));
                     }
                 ]]></call-bsh>
             </if-empty>
@@ -619,7 +619,7 @@ under the License.
                                 delegator, shipment.get("destinationFacilityId"), org.ofbiz.base.util.UtilMisc.toList("PHONE_SHIPPING", "PRIMARY_PHONE")
                             );
                     if (facilityContactMech != null) {
-                        shipment.put("destinationTelecomNumberId", facilityContactMech.get("contactMechId");
+                        shipment.put("destinationTelecomNumberId", facilityContactMech.get("contactMechId"));
                     }
                 ]]></call-bsh>
             </if-empty>
