@@ -73,8 +73,7 @@
                 <field-map field-name="orderBy" value="-actualStartDate"/>
             </service>
         </actions>
-        <field name="maintHistSeqId"><hidden/></field>
-        <field name="maintHistSeqIdLink" title="${uiLabelMap.AccountingFixedAssetMaintSeqId}" widget-style="linktext">
+        <field name="maintHistSeqId" widget-style="linktext">
             <hyperlink also-hidden="false" description="${maintHistSeqId}" target="EditFixedAssetMaint?fixedAssetId=${fixedAssetId}&amp;maintHistSeqId=${maintHistSeqId}"/>
         </field>
         <field name="fixedAssetName" title="${uiLabelMap.AccountingFixedAssetName}"><display/></field>
@@ -83,8 +82,8 @@
         <field name="intervalMeterTypeId" title="${uiLabelMap.AccountingFixedAssetMaintIntervalMeterType}"><display/></field>
         <field name="intervalQuantity" title="${uiLabelMap.AccountingFixedAssetMaintIntervalQuantity}"><display/></field>
         <field name="intervalUomId" title="${uiLabelMap.AccountingFixedAssetMaintIntervalUom}"><display/></field>
-        <field name="actualStartDate" title="${uiLabelMap.WorkEffortActualStartDate}"><display/></field>
-        <field name="actualCompletionDate" title="${uiLabelMap.WorkEffortActualCompletionDate}"><display/></field>
+        <field name="actualStartDate"><display/></field>
+        <field name="actualCompletionDate"><display/></field>
     </form>
     
     <form name="EditFixedAssetMaint" extends="EditFixedAssetMaint" extends-resource="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml" target="updateFixedAssetMaintAndWorkEffort">
