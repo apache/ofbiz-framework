@@ -2502,6 +2502,7 @@
     </property>
     <property key="PartyCommunicationEvent">
         <value xml:lang="en">Communication Event</value>
+        <value xml:lang="fr">Evénement de communication</value>
     </property>
     <property key="PartyCommunications">
         <value xml:lang="en">Communications</value>

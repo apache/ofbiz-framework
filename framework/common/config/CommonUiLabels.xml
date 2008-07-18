@@ -4717,6 +4717,7 @@
     </property>
     <property key="CommonRelatedInformation">
         <value xml:lang="en">Related Information</value>
+        <value xml:lang="fr">Information liée</value>
     </property>
     <property key="CommonRemove">
         <value xml:lang="ar">نزع</value>

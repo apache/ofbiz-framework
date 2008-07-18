@@ -2186,6 +2186,7 @@
     </property>
     <property key="AccountingFixedAssetDepreciationMethodNotFound">
         <value xml:lang="en">Depreciation method not found</value>
+        <value xml:lang="fr">Méthode de calcul de dépréciation non trouvée</value>
     </property>
     <property key="AccountingFixedAssetEdit">
         <value xml:lang="ar">استحداث/تحديث أصل ثابت</value>
@@ -2292,6 +2293,7 @@
     </property>
     <property key="AccountingFixedAssetMaintWorkEffortName">
         <value xml:lang="en">Maintenance of Fixed Asset ${fixedAsset.fixedAssetName} [${fixedAsset.fixedAssetId}]</value>
+        <value xml:lang="fr">Maintenance de l'immobilisation ${fixedAsset.fixedAssetName} [${fixedAsset.fixedAssetId}]</value>
     </property>
     <property key="AccountingFixedAssetMaintIntervalMeterType">
         <value xml:lang="ar">نوع مقياس المجال</value>
