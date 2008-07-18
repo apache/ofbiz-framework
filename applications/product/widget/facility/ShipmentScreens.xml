@@ -182,7 +182,7 @@ under the License.
                 <set field="headerItem" value="shipment"/>
                 <set field="tabButtonItem" value="EditShipmentPackages"/>
 
-                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/EditShipmentPackages.grovy"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/EditShipmentPackages.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonShipmentDecorator">
