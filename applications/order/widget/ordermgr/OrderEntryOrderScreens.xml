@@ -106,7 +106,7 @@ under the License.
             <actions>
                 <set field="stepTitleId" value="OrderOrderEntryShipToSettings"/>
                 <set field="stepLabelId" value="FacilityShipping"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/shipsettings.bsh"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/ShipSettings.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderCheckoutDecorator">
