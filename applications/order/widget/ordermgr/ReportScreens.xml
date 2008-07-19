@@ -164,7 +164,6 @@ under the License.
                     <order-by field-name="terminalId"/>
                     <order-by field-name="productId"/>
                 </entity-condition>
-                <!-- <script location="component://order/widget/test.bsh"/> -->
             </actions>
             <widgets>
                 <platform-specific>
