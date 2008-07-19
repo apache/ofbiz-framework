@@ -228,7 +228,7 @@ under the License.
         
         <!-- first try the WorkEffortAssignmentRate -->
         <if-not-empty field="timeEntry.workEffortId">
-            <entity-condition entity-name="WorkEffortAssignmentRate" list-name="workEffortAssignmentRateList">
+            <entity-condition entity-name="WorkEffortAssignmentRate" list-name="workEffortAssignmentRateList" filter-by-date="true">
                 <condition-list combine="and">
                     <condition-expr field-name="workEffortId" env-name="timeEntry.workEffortId"/>
                     <condition-expr field-name="partyId" env-name="timeEntry.partyId"/>
@@ -236,7 +236,6 @@ under the License.
                 </condition-list>
                 <order-by field-name="-fromDate"/>
             </entity-condition>
-            <filter-list-by-date list-name="workEffortAssignmentRateList" all-same="true"/>
             <first-from-list entry-name="workEffortAssignmentRate" list-name="workEffortAssignmentRateList"/>
             <if-not-empty field="workEffortAssignmentRate">
                 <set field="rateAmount" from-field="workEffortAssignmentRate.rate"/>

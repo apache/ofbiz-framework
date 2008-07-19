@@ -1155,21 +1155,19 @@ under the License.
             <set field="creditCardContext.partyId" from-field="partyId"/>
             <set field="creditCardContext.userLogin" from-field="userLogin"/>
             <if-empty field="parameters.billToContactMechId">
-                <entity-and entity-name="PartyContactMechPurpose" list-name="pcmpList">
+                <entity-and entity-name="PartyContactMechPurpose" list-name="pcmpList" filter-by-date="true">
                     <field-map field-name="partyId" env-name="userLogin.partyId"/>
                     <field-map field-name="contactMechPurposeTypeId" value="BILLING_LOCATION"/>
                 </entity-and>
-                <filter-list-by-date list-name="pcmpList"/>
                 <first-from-list list-name="pcmpList" entry-name="pcmp"/>
                 <if-not-empty field="pcmp">
                     <set-service-fields service-name="deletePartyContactMechPurposeIfExists" map-name="pcmp" to-map-name="deletePartyContactMechPurposeCtx"/>
                     <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="deletePartyContactMechPurposeCtx"/>
                 </if-not-empty>
-                <entity-and entity-name="PaymentMethod" list-name="paymentMethodList">
+                <entity-and entity-name="PaymentMethod" list-name="paymentMethodList" filter-by-date="true">
                     <field-map field-name="partyId" env-name="parameters.partyId"/>
                     <order-by field-name="-fromDate"/>
                 </entity-and>
-                <filter-list-by-date list-name="paymentMethodList"/>
                 <first-from-list list-name="paymentMethodList" entry-name="paymentMethod"/>
                 <set field="billToAddressAndCreditCardCtx.paymentMethodId" from-field="paymentMethod.paymentMethodId"/>
                 <!-- Create Credit Card and Address -->
@@ -1185,11 +1183,10 @@ under the License.
                     <result-to-field result-name="contactMechId" field-name="parameters.billToContactMechId"/>
                     <result-to-field result-name="paymentMethodId" field-name="parameters.paymentMethodId"/>
                 </call-service>    
-                <entity-and entity-name="PartyContactMechPurpose" list-name="pcmpList">
+                <entity-and entity-name="PartyContactMechPurpose" list-name="pcmpList" filter-by-date="true">
                     <field-map field-name="partyId" env-name="userLogin.partyId"/>
                     <field-map field-name="contactMechPurposeTypeId" value="BILLING_LOCATION"/>
                 </entity-and>
-                <filter-list-by-date list-name="pcmpList"/>
                 <first-from-list list-name="pcmpList" entry-name="pcmp"/>
                 <if-compare-field field="parameters.billToContactMechId" operator="not-equals" to-field="pcmp.contactMechId">
                     <if-not-empty field="pcmp">                    
@@ -1206,11 +1203,10 @@ under the License.
         </if-compare>
 
         <if-compare field="parameters.useShippingAddressForBilling" operator="equals" value="Y">
-            <entity-and entity-name="PartyContactMechPurpose" list-name="pcmpList">
+            <entity-and entity-name="PartyContactMechPurpose" list-name="pcmpList" filter-by-date="true">
                 <field-map field-name="partyId" env-name="userLogin.partyId"/>
                 <field-map field-name="contactMechPurposeTypeId" value="BILLING_LOCATION"/>
             </entity-and>
-            <filter-list-by-date list-name="pcmpList"/>
             <first-from-list list-name="pcmpList" entry-name="pcmp"/>
             <if-compare-field field="parameters.shippingContactMechId" operator="not-equals" to-field="pcmp.contactMechId">
                 <if-not-empty field="pcmp">
@@ -1233,11 +1229,10 @@ under the License.
                     <result-to-field result-name="paymentMethodId" field-name="parameters.paymentMethodId"/>
                 </call-service>
             <else>
-                <entity-and entity-name="PaymentMethod" list-name="paymentMethodList">
+                <entity-and entity-name="PaymentMethod" list-name="paymentMethodList" filter-by-date="true">
                     <field-map field-name="partyId" env-name="parameters.partyId"/>
                     <order-by field-name="-fromDate"/>
                 </entity-and>
-                <filter-list-by-date list-name="paymentMethodList"/>
                 <first-from-list list-name="paymentMethodList" entry-name="paymentMethod"/>
                 <set field="creditCardContext.paymentMethodId" from-field="paymentMethod.paymentMethodId"/>
                 <!-- Update Credit Card -->

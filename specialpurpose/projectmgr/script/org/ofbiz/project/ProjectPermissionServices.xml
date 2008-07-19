@@ -327,8 +327,7 @@
                 <field-map field-name="workEffortId" env-name="projectId"/>
                 <field-map field-name="partyId" env-name="partyId"/>
             </entity-and>
-            <filter-list-by-date list-name="projectAssigns" to-list-name="projectAssignsDated"/>
-            <if-empty field="projectAssignsDated">
+            <if-empty field="projectAssigns">
                 <set field="isMember" value="false" type="Boolean"/>
                 <else>
                     <set field="isMember" value="true" type="Boolean"/>
