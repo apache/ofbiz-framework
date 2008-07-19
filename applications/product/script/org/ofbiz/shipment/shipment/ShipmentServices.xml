@@ -1272,6 +1272,8 @@ under the License.
             <!-- can't insert duplicate rows in shipmentPackageContent -->
             <add-error><fail-message message="ProductStore [${productStore.productStoreId}] explodes order items; cannot use Quick Ship for Multiple Facilities"/></add-error>
         </if-compare>
+        <check-errors/>
+        
         <!-- locate shipping facilities associated with order item rez's -->
         <entity-condition entity-name="OrderItemAndShipGrpInvResAndItem" list-name="orderItemAndShipGrpInvResAndItemList">
             <condition-list>
