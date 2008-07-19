@@ -50,12 +50,8 @@ public class FirstFromList extends MethodOperation {
 
         List theList = (List) listAcsr.get(methodContext);
 
-        if (theList == null) {
-            if (Debug.infoOn()) Debug.logInfo("List not found with name " + listAcsr + ", doing nothing", module);
-            return true;
-        }
-        if (theList.size() == 0) {
-            if (Debug.verboseOn()) Debug.logVerbose("List with name " + listAcsr + " has zero entries, doing nothing", module);
+        if (UtilValidate.isEmpty(theList)) {
+            entryAcsr.put(methodContext, null);
             return true;
         }
 
