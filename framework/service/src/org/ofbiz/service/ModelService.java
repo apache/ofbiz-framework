@@ -1097,7 +1097,7 @@ public class ModelService extends AbstractMap implements Serializable {
     public void getWSDL(Definition def, String locationURI) throws WSDLException {
         // set the IN parameters
         Input input = def.createInput();
-        List<String> inParam = this.getParameterNames(IN_PARAM, true, false);
+        Set<String> inParam = this.getInParamNames();
         if (inParam != null) {
             Message inMessage = def.createMessage();
             inMessage.setQName(new QName(TNS, this.name + "Request"));
@@ -1114,7 +1114,7 @@ public class ModelService extends AbstractMap implements Serializable {
 
         // set the OUT parameters
         Output output = def.createOutput();
-        List<String> outParam = this.getParameterNames(OUT_PARAM, true, false);
+        Set<String> outParam = this.getOutParamNames();
         if (outParam != null) {
             Message outMessage = def.createMessage();
             outMessage.setQName(new QName(TNS, this.name + "Response"));
