@@ -783,10 +783,9 @@
         </if-empty>
         <check-errors/>
 
-        <entity-and entity-name="ContentAssoc" list-name="assocs">
+        <entity-and entity-name="ContentAssoc" list-name="assocs" filter-by-date="true">
             <field-map field-name="contentIdTo" env-name="contentId"/>
         </entity-and>
-        <filter-list-by-date list-name="assocs"/>
         <field-to-result field-name="assocs" result-name="contentAssocList"/>
     </simple-method>
 </simple-methods>

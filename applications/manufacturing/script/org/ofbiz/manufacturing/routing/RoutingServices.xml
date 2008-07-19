@@ -40,13 +40,12 @@ under the License.
             <!-- If the routing is not associated with our product and it's a variant, then 
                  check to see if it's virtual product has the routing -->
             <if-empty field="routingGS">
-                <entity-condition entity-name="ProductAssoc" list-name="virtualProductAssocList">
+                <entity-condition entity-name="ProductAssoc" list-name="virtualProductAssocList" filter-by-date="true">
                     <condition-list combine="and">
                         <condition-expr field-name="productIdTo" env-name="parameters.productId" />
                         <condition-expr field-name="productAssocTypeId" value="PRODUCT_VARIANT" />
                     </condition-list>
                 </entity-condition>
-                <filter-list-by-date list-name="virtualProductAssocList" valid-date-name="filterDate"/>
                 <first-from-list list-name="virtualProductAssocList" entry-name="virtualProductAssoc"/>
                 <if-not-empty field="virtualProductAssoc">
                     <set from-field="virtualProductAssoc.productId" field="lookupRouting.productId"/>

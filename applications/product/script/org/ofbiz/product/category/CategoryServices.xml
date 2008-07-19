@@ -722,13 +722,12 @@ under the License.
                 <not><if-has-permission permission="CATALOG" action="_${checkAction}"/></not>
             </condition>
             <then>
-                <entity-and entity-name="ProductCategoryRollupAndRole" list-name="roleCategories">
+                <entity-and entity-name="ProductCategoryRollupAndRole" list-name="roleCategories" filter-by-date="true">
                     <field-map field-name="productCategoryId" env-name="productCategoryIdToCheck"/>
                     <field-map field-name="partyId" env-name="userLogin.partyId"/>
                     <field-map field-name="roleTypeId" value="LTD_ADMIN"/>
                 </entity-and>
-                <filter-list-by-date list-name="roleCategories" valid-date-name="nowTimestamp"/>
-                <filter-list-by-date list-name="roleCategories" valid-date-name="nowTimestamp" from-field-name="roleFromDate" thru-field-name="roleThruDate"/>
+                <filter-list-by-date list-name="roleCategories" from-field-name="roleFromDate" thru-field-name="roleThruDate"/>
             </then>
         </if>
         <log level="info" message="Checking category permission, roleCategories=${roleCategories}"/>

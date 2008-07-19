@@ -464,10 +464,9 @@ under the License.
                 <set from-field="destTelecomOrderContactMech.contactMechId" field="shipment.destinationTelecomNumberId"/>
                 <else>
                     <!-- use the first unexpired phone number of the shipment partyIdTo -->
-                    <entity-and entity-name="PartyAndTelecomNumber" list-name="phoneNumbers">
+                    <entity-and entity-name="PartyAndTelecomNumber" list-name="phoneNumbers" filter-by-date="true">
                         <field-map field-name="partyId" env-name="shipment.partyIdTo"/>
                     </entity-and>
-                    <filter-list-by-date list-name="phoneNumbers"/>
                     <first-from-list entry-name="phoneNumber" list-name="phoneNumbers"/>
                     <if-not-empty field="phoneNumber">
                         <set from-field="phoneNumber.contactMechId" field="shipment.destinationTelecomNumberId"/>

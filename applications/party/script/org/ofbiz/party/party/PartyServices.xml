@@ -859,14 +859,13 @@ under the License.
                 <set field="partyId" from-field="parameters.partyId"/>
             </else>
             </if-not-empty>
-            <entity-condition entity-name="PartyContactDetailByPurpose" list-name="partyContactDetailByPurposes">
+            <entity-condition entity-name="PartyContactDetailByPurpose" list-name="partyContactDetailByPurposes" filter-by-date="true">
                 <condition-list>
                     <condition-expr field-name="contactMechPurposeTypeId" operator="equals" value="PRIMARY_EMAIL"/>
                     <condition-expr field-name="partyId" operator="equals"  env-name="partyId"/>
                 </condition-list>
             </entity-condition>
-            <filter-list-by-date list-name="partyContactDetailByPurposes" to-list-name="validPartyContactDetailByPurposes"/>
-            <first-from-list entry-name="partyContactDetailByPurpose" list-name="validPartyContactDetailByPurposes"/>
+            <first-from-list entry-name="partyContactDetailByPurpose" list-name="partyContactDetailByPurposes"/>
             <entity-one entity-name="PartyAndPerson" value-name="partyAndPerson"/>
             <set field="bodyParameters.partyAndPerson" from-field="partyAndPerson"/>
             <set field="contactMechId" from-field="partyContactDetailByPurpose.contactMechId"/>

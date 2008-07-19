@@ -71,12 +71,11 @@ under the License.
 
         <!-- if the user has the role limited position, add this product to the limit category/ies -->
         <if-has-permission permission="CATALOG_ROLE" action="_CREATE">
-            <entity-and entity-name="ProductCategoryRole" list-name="productCategoryRoles">
+            <entity-and entity-name="ProductCategoryRole" list-name="productCategoryRoles" filter-by-date="true">
                 <field-map field-name="partyId" env-name="userLogin.partyId"/>
                 <field-map field-name="roleTypeId" value="LTD_ADMIN"/>
             </entity-and>
             
-            <filter-list-by-date list-name="productCategoryRoles" valid-date-name="nowTimestamp"/>
             <iterate entry-name="productCategoryRole" list-name="productCategoryRoles">
                 <!-- add this new product to the category -->
                 <make-value value-name="newLimitMember" entity-name="ProductCategoryMember"/>
@@ -861,8 +860,8 @@ under the License.
                 <set from-field="userLogin.partyId" field="lookupRoleCategoriesMap.partyId"/>
                 <set value="LTD_ADMIN" field="lookupRoleCategoriesMap.roleTypeId"/>
                 <find-by-and entity-name="ProductCategoryMemberAndRole" map-name="lookupRoleCategoriesMap" list-name="roleCategories"/>
-                <filter-list-by-date list-name="roleCategories" valid-date-name="nowTimestamp"/>
-                <filter-list-by-date list-name="roleCategories" valid-date-name="nowTimestamp" from-field-name="roleFromDate" thru-field-name="roleThruDate"/>
+                <filter-list-by-date list-name="roleCategories"/>
+                <filter-list-by-date list-name="roleCategories" from-field-name="roleFromDate" thru-field-name="roleThruDate"/>
             </then>
         </if>
         <if>
