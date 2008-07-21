@@ -303,7 +303,7 @@ under the License.
 
     <simple-method method-name="setCustRequestStatus" short-description="change the customer request Status">
         <entity-one entity-name="CustRequest" value-name="custRequest"/>
-        <field-to-result field-name="parameters.statusId" result-name="oldStatusId"/>
+        <field-to-result field-name="custRequest.statusId" result-name="oldStatusId"/>
         <if-compare-field field="custRequest.statusId" to-field="parameters.statusId" operator="not-equals">
             <entity-one entity-name="StatusValidChange" value-name="statusChange">
                 <field-map field-name="statusId" env-name="custRequest.statusId"/>
