@@ -22,9 +22,7 @@ under the License.
 
     <form name="EditCommEvent" type="single" target="updateCommunicationEvent" default-map-name="communicationEvent">
         <alt-target target="createCommunicationEvent" use-when="communicationEvent==null"/>
-        <field name="partyId" map-name="parameters"><hidden/></field>
-        
-        <field name="communicationEventId" use-when="communicationEvent==null"><display/></field>
+        <field name="communicationEventId" use-when="communicationEvent!=null"><display/></field>
         <field name="parentCommEventId" position="2">
             <lookup target-form-name="LookupCommEvent">
                 <sub-hyperlink link-style="buttontext" target="EditCommunicationEvent?communicationEventId=${parentCommEventId}" description="${uiLabelMap.PartyGoToParent}" use-when="communicationEvent!=null&amp;&amp;communicationEvent.get(&quot;parentCommEventId&quot;)!=null"/>
@@ -359,7 +357,7 @@ under the License.
             <service result-map-list-name="listIt" result-map-name="result" service-name="performFind">
                 <field-map env-name="parameters" field-name="inputFields"/>
                 <field-map env-name="entityName" field-name="entityName"/>
-                <field-map value="datetimeStarted DESC" field-name="orderBy"/>
+                <field-map value="-createdStamp" field-name="orderBy"/>
             </service>
         </actions>
         <field name="removeLink" title="${uiLabelMap.CommonDelete}" widget-style="smallSubmit">
@@ -605,10 +603,12 @@ under the License.
 
 	<form name="ListMyUnknownPartyEmails" type="multi" use-row-submit="true"
 		title="Email List unknown parties" list-name="commEventsUnknown"
-		default-widget-style="tabletext" default-tooltip-style="tabletext"
-		target="deleteCommunicationEvents?communicationEventId=${communicationEventId}&amp;delContentDataResource=Y"
-		default-entity-name="CommunicationEvent"
+		target="deleteCommunicationEvents" default-entity-name="CommunicationEvent"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <row-actions>
+            <set field="subject" from-field="subject" default-value="${uiLabelMap.PartyNoSubject}"/>
+        </row-actions>
+        <field name="delContentDataResource"><hidden value="Y"/></field>
 		<field name="communicationEventId">
 			<hidden />
 		</field>

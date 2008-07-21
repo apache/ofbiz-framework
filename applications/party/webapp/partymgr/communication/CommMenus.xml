@@ -81,13 +81,19 @@ under the License.
         </menu-item>
         <menu-item name="reply" title="${uiLabelMap.PartyReply}">
             <condition>
-                <not><if-empty field-name="parameters.communicationEventId"/></not>
+                <and>
+                    <not><if-empty field-name="parameters.communicationEventId"/></not>
+                    <not><if-empty field-name="communicationEvent.partyIdFrom"/></not>
+                </and>
             </condition>
             <link target="EditCommunicationEvent?parentCommEventId=${parameters.communicationEventId}"/>
         </menu-item>
         <menu-item name="createRequestFromCommEvent" title="${uiLabelMap.PartyCreateRequestFromCommEvent}">
             <condition>
-                <not><if-empty field-name="parameters.communicationEventId"/></not>
+                <and>
+                    <not><if-empty field-name="parameters.communicationEventId"/></not>
+                    <not><if-empty field-name="communicationEvent.partyIdFrom"/></not>
+                </and>
             </condition>
             <link target="editRequestFromCommEvent?communicationEventId=${parameters.communicationEventId}"/>
         </menu-item>
