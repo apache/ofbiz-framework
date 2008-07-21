@@ -772,6 +772,9 @@ public class CheckOutHelper {
                 for (int x = 0; x < itemAdj.size(); x++) {
                     List adjs = (List) itemAdj.get(x);
                     ShoppingCartItem item = (ShoppingCartItem) csi.shipItemInfo.get(x);
+                    if (adjs == null) {
+                        adjs = new LinkedList();
+                    }
                     csi.setItemInfo(item, adjs);
                     Debug.log("Added item adjustments to ship group [" + i + " / " + x + "] - " + adjs, module);
                 }

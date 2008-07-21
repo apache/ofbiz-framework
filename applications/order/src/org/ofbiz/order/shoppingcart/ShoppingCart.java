@@ -4311,45 +4311,23 @@ public class ShoppingCart implements Serializable {
                 itemInfo.item = item;
                 shipItemInfo.put(item, itemInfo);
             }
-            itemInfo.quantity = quantity;
-            itemInfo.itemTaxAdj.clear();
-            if (taxAdj == null) {
-                taxAdj = new LinkedList();
+            if (quantity >= 0) {
+                itemInfo.quantity = quantity;
             }
-            itemInfo.itemTaxAdj.addAll(taxAdj);
+            if (taxAdj != null) {
+                itemInfo.itemTaxAdj.clear();
+                taxAdj = new LinkedList();
+                itemInfo.itemTaxAdj.addAll(taxAdj);
+            }
             return itemInfo;
         }
 
         public CartShipItemInfo setItemInfo(ShoppingCartItem item, List taxAdj) {
-            CartShipItemInfo itemInfo = (CartShipItemInfo) shipItemInfo.get(item);
-            if (itemInfo == null) {
-                if (!isShippableToAddress(item)) {
-                    throw new IllegalArgumentException("The shipping address is not compatible with ProductGeos rules.");
-                }
-                itemInfo = new CartShipItemInfo();
-                itemInfo.item = item;
-                shipItemInfo.put(item, itemInfo);
-            }
-            itemInfo.itemTaxAdj.clear();
-            if (taxAdj == null) {
-                taxAdj = new LinkedList();
-            }
-            itemInfo.itemTaxAdj.addAll(taxAdj);
-            return itemInfo;
+            return setItemInfo(item, -1, taxAdj);
         }
 
         public CartShipItemInfo setItemInfo(ShoppingCartItem item, double quantity) {
-            CartShipItemInfo itemInfo = (CartShipItemInfo) shipItemInfo.get(item);
-            if (itemInfo == null) {
-                if (!isShippableToAddress(item)) {
-                    throw new IllegalArgumentException("The shipping address is not compatible with ProductGeos rules.");
-                }
-                itemInfo = new CartShipItemInfo();
-                itemInfo.item = item;
-                shipItemInfo.put(item, itemInfo);
-            }
-            itemInfo.quantity = quantity;
-            return itemInfo;
+            return setItemInfo(item, quantity, null);
         }
 
         public CartShipItemInfo getShipItemInfo(ShoppingCartItem item) {
