@@ -1856,9 +1856,16 @@ under the License.
       <field name="parentTypeId" type="id-ne"></field>
       <field name="hasTable" type="indicator"></field>
       <field name="description" type="description"></field>
+      <field name="partyId" type="id-ne"><description>party or party group(via partyRelationShip entity) responsible for responding to the communication request of this particular type</description></field>
       <prim-key field="custRequestTypeId"/>
       <relation type="one" fk-name="CUST_REQ_TYPE_PAR" title="Parent" rel-entity-name="CustRequestType">
         <key-map field-name="parentTypeId" rel-field-name="custRequestTypeId"/>
+      </relation>
+      <relation type="one" fk-name="CUST_PTY_PARTY" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="many" fk-name="CUST_PTY_RELAT" rel-entity-name="PartyRelationship">
+        <key-map field-name="partyId" rel-field-name="partyIdFrom"/>
       </relation>
     </entity>
     <entity entity-name="CustRequestTypeAttr"

@@ -45,6 +45,7 @@ under the License.
             </drop-down>
         </field>
         <field name="fromPartyId" position="2"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="currencyUomId"><ignored/></field>
         <field name="maximumAmountUomId"><ignored/></field>
         <field name="custRequestCategoryId"><ignored/></field>
         <field name="fulfillContactMechId"><ignored/></field>
@@ -72,15 +73,17 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/></field>
     </form>
 
-    <form name="ListRequests" type="list" use-row-submit="true" list-name="listIt" title="" 
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="FindRequest">
-          <actions>
+    <form name="ListRequests" type="list" extends="ListRequestList" list-name="listIt">
+        <actions>
           <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
             <field-map field-name="inputFields" env-name="parameters"/>
             <field-map field-name="entityName" env-name="entityName"/>
             <field-map field-name="orderBy" value="-lastModifiedDate"/>
           </service>
         </actions>
+    </form>
+    <form name="ListRequestList" type="list" use-row-submit="true" list-name="custRequests" title="List of customer requests" 
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="FindRequest">
         <field name="custRequestName"><hyperlink description="${custRequestName} [${custRequestId}]" target="ViewRequest?custRequestId=${custRequestId}"/></field>
         <field name="priority"><display/></field>
         <field name="responseRequiredDate"><display/></field>

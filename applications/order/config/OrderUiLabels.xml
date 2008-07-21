@@ -6331,7 +6331,7 @@
         <value xml:lang="zh">上次修改日期</value>
     </property>
     <property key="OrderRequestList">
-        <value xml:lang="en">Request List</value>
+        <value xml:lang="en">Customer Request List</value>
         <value xml:lang="es">Lista de pedidos</value>
         <value xml:lang="fr">Liste de demandes</value>
         <value xml:lang="it">Lista Richieste</value>
