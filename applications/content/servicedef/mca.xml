@@ -1,0 +1,8 @@
+<service-mca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/service-mca.xsd">
+    
+    <mca mail-rule-name="processIncomingEmail">
+        <action service="storeIncomingEmail" mode="sync"/>
+    </mca>
+    
+</service-mca>

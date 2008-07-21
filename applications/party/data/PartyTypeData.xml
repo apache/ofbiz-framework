@@ -151,6 +151,7 @@ under the License.
     <RoleType description="Automated Agent" hasTable="N" parentTypeId="" roleTypeId="AUTOMATED_AGENT_ROLE"/>
     <RoleType description="Calendar" hasTable="N" parentTypeId="" roleTypeId="CALENDAR_ROLE"/>
     <RoleType description="Client" hasTable="N" parentTypeId="" roleTypeId="CLIENT"/>
+    <RoleType description="Communication Participant" hasTable="N" parentTypeId="" roleTypeId="COMMEVENT_ROLE"/>
     <RoleType description="Consumer" hasTable="N" parentTypeId="" roleTypeId="CONSUMER"/>
     <RoleType description="Contact" hasTable="N" parentTypeId="" roleTypeId="CONTACT"/>
     <RoleType description="Contractor" hasTable="N" parentTypeId="" roleTypeId="CONTRACTOR"/>
@@ -176,9 +177,11 @@ under the License.
     <RoleType description="Workflow" hasTable="N" parentTypeId="" roleTypeId="WORKFLOW_ROLE"/>
 
     <!-- second level role types -->
+    <RoleType description="Email To" hasTable="N" parentTypeId="COMMEVENT_ROLE" roleTypeId="ADDRESSEE"/>
     <RoleType description="Association" hasTable="N" parentTypeId="ORGANIZATION_ROLE" roleTypeId="ASSOCIATION"/>
     <RoleType description="Bill-From Vendor" hasTable="N" parentTypeId="VENDOR" roleTypeId="BILL_FROM_VENDOR"/>
     <RoleType description="Bill-To Customer" hasTable="N" parentTypeId="CUSTOMER" roleTypeId="BILL_TO_CUSTOMER"/>
+    <RoleType description="Email BCC" hasTable="N" parentTypeId="COMMEVENT_ROLE" roleTypeId="BCC"/>
     <RoleType description="Bulk Customer" hasTable="N" parentTypeId="CUSTOMER" roleTypeId="BULK_CUSTOMER"/>
     <RoleType description="Calendar Attendee" hasTable="N" parentTypeId="CALENDAR_ROLE" roleTypeId="CAL_ATTENDEE"/>
     <RoleType description="Calendar Delegate" hasTable="N" parentTypeId="CALENDAR_ROLE" roleTypeId="CAL_DELEGATE"/>
@@ -187,6 +190,7 @@ under the License.
     <RoleType description="Calendar Owner" hasTable="N" parentTypeId="CALENDAR_ROLE" roleTypeId="CAL_OWNER"/>
     <RoleType description="Carrier" hasTable="N" parentTypeId="ORGANIZATION_ROLE" roleTypeId="CARRIER"/>
     <RoleType description="Competitor" hasTable="N" parentTypeId="ORGANIZATION_ROLE" roleTypeId="COMPETITOR"/>
+    <RoleType description="Email CC." hasTable="N" parentTypeId="COMMEVENT_ROLE" roleTypeId="CC"/>
     <RoleType description="Distributor" hasTable="N" parentTypeId="DISTRIBUTION_CHANNEL" roleTypeId="DISTRIBUTOR"/>
     <RoleType description="Employee" hasTable="N" parentTypeId="PERSON_ROLE" roleTypeId="EMPLOYEE"/>
     <RoleType description="End-User Customer" hasTable="N" parentTypeId="CUSTOMER" roleTypeId="END_USER_CUSTOMER"/>
@@ -302,6 +306,7 @@ under the License.
     <StatusItem description="Referred" sequenceId="22" statusCode="REFERRED" statusId="COM_REFERRED" statusTypeId="COM_EVENT_STATUS"/>
     <StatusItem description="Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="COM_CANCELLED" statusTypeId="COM_EVENT_STATUS"/>
     <StatusValidChange condition="" statusId="COM_ENTERED" statusIdTo="COM_PENDING" transitionName="Set Pending"/>
+    <StatusValidChange condition="" statusId="COM_ENTERED" statusIdTo="COM_COMPLETE" transitionName="Complete"/>
     <StatusValidChange condition="" statusId="COM_PENDING" statusIdTo="COM_READ" transitionName="Mark Read"/>
     <StatusValidChange condition="" statusId="COM_PENDING" statusIdTo="COM_IN_PROGRESS" transitionName="Set In Progress"/>
     <StatusValidChange condition="" statusId="COM_READ" statusIdTo="COM_IN_PROGRESS" transitionName="Set In Progress"/>
