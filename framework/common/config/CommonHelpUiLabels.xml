@@ -19,9 +19,11 @@
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="HelpNotFound">
+        <value xml:lang="de">Hilfe Thema nicht gefunden.</value>
         <value xml:lang="en">Help topic not found.</value>
     </property>
     <property key="PageTitleHelp">
+        <value xml:lang="de">Open for Business Hilfe</value>
         <value xml:lang="en">Open for Business Help</value>
     </property>
 </resource>

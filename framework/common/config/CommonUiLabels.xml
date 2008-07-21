@@ -76,7 +76,7 @@
     </property>
     <property key="CommonAccepted">
         <value xml:lang="ar">مقبول</value>
-        <value xml:lang="de">Akzeptiert</value>
+        <value xml:lang="de">Angenommen</value>
         <value xml:lang="en">Accepted</value>
         <value xml:lang="es">Aceptado</value>
         <value xml:lang="fr">Accepté</value>
@@ -437,7 +437,7 @@
     </property>
     <property key="CommonAnyReturnStatus">
         <value xml:lang="ar">أي وضع للرجوع</value>
-        <value xml:lang="de">Beliebiger Retourenstatus</value>
+        <value xml:lang="de">Beliebiger Rücksendungstatus</value>
         <value xml:lang="en">Any return status</value>
         <value xml:lang="es">Cualquier estado de devolución</value>
         <value xml:lang="fr">Tous Statuts</value>
@@ -529,7 +529,7 @@
     </property>
     <property key="CommonApproved">
         <value xml:lang="ar">مسند</value>
-        <value xml:lang="de">Bestätigt</value>
+        <value xml:lang="de">Genehmigt</value>
         <value xml:lang="en">Approved</value>
         <value xml:lang="es">Aprobado</value>
         <value xml:lang="fr">Approuvé</value>
@@ -1657,7 +1657,7 @@
     </property>
     <property key="CommonDetail">
         <value xml:lang="ar">تفصيل</value>
-        <value xml:lang="de">Dateil</value>
+        <value xml:lang="de">Detail</value>
         <value xml:lang="en">Detail</value>
         <value xml:lang="es">Detalle</value>
         <value xml:lang="fr">Détail</value>
@@ -1673,7 +1673,7 @@
     <property key="CommonDetails">
         <value xml:lang="ar">تفاصيل</value>
         <value xml:lang="cs">Detaily</value>
-        <value xml:lang="de">Datails</value>
+        <value xml:lang="de">Details</value>
         <value xml:lang="en">Details</value>
         <value xml:lang="es">Detalles</value>
         <value xml:lang="fr">Détails</value>
@@ -4828,7 +4828,7 @@
     </property>
     <property key="CommonReturn">
         <value xml:lang="ar">العودة</value>
-        <value xml:lang="de">Retoure</value>
+        <value xml:lang="de">Rücksendung</value>
         <value xml:lang="en">Return</value>
         <value xml:lang="es">Devolución</value>
         <value xml:lang="fr">Retour</value>
@@ -4842,7 +4842,7 @@
         <value xml:lang="zh">退货</value>
     </property>
     <property key="CommonReturnStatus">
-        <value xml:lang="de">Retourenstatus</value>
+        <value xml:lang="de">Status Rücksendung</value>
         <value xml:lang="en">Return Status</value>
         <value xml:lang="es">Estado de la devolución</value>
         <value xml:lang="fr">Statut du retour</value>
@@ -4858,7 +4858,7 @@
     <property key="CommonReview">
         <value xml:lang="ar">المراجعة</value>
         <value xml:lang="cs">Hodnocení</value>
-        <value xml:lang="de">Beurteilung</value>
+        <value xml:lang="de">Überprüfung</value>
         <value xml:lang="en">Review</value>
         <value xml:lang="es">Revisar</value>
         <value xml:lang="fr">Examiner</value>

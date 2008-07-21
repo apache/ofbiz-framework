@@ -31,12 +31,13 @@
         <value xml:lang="zh">访问密码时出错：${errorMessage}。</value>
     </property>
     <property key="loginevents.error_accessing_password_change_history">
+        <value xml:lang="en">Fehler beim Zugriff auf das Passwort-Änderungsprotokoll: ${errorMessage}.</value>
         <value xml:lang="en">Error accessing password change history: ${errorMessage}.</value>
         <value xml:lang="fr">Erreur lors de l'accès à l'historique des mots de passe : ${errorMessage}.</value>
         <value xml:lang="th">ผิดพลาดในการใช้รหัสผ่านเปลี่ยนข้อมูล: ${errorMessage}.</value>
     </property>
     <property key="loginevents.error_saving_new_password_email_not_correct_password">
-        <value xml:lang="de">Fehler beim Speichern des neuen Passworts, die eMail, die sie erhalten wird nicht das korrekte Passwort enthalten, das alte Passwort ist weiterhin gültig: ${errorMessage}.</value>
+        <value xml:lang="de">Fehler beim Speichern des neuen Passworts, die E-Mail, die sie erhalten wird nicht das korrekte Passwort enthalten, das alte Passwort ist weiterhin gültig: ${errorMessage}.</value>
         <value xml:lang="en">Error saving new password, the email that you receive will not have the correct password in it, your old password is still being used: ${errorMessage}.</value>
         <value xml:lang="es">Error al grabar nuevo password: el email que recibirá no tendrá el password correcto; se seguirá usando el password anterior</value>
         <value xml:lang="fr">Erreur survenue pendant l'enregistrement du nouveau mot de passe, le courriel que vous allez recevoir ne comportera pas le mot de passe correct, votre ancien mot de passe est toujours valide: ${errorMessage}.</value>
@@ -47,7 +48,7 @@
         <value xml:lang="zh">保存新密码时出错，你收到的电子邮件中的密码不会是正确的，仍会使用你的旧密码：${errorMessage}。</value>
     </property>
     <property key="loginevents.error_unable_email_password_contact_customer_service">
-        <value xml:lang="de">Fehler: Passwort konnte nicht per eMail verschickt werden. Versuchen Sie es später noch einmal oder wenden Sie sich an den Kundenservice.</value>
+        <value xml:lang="de">Fehler: Passwort konnte nicht per E-Mail verschickt werden. Versuchen Sie es später noch einmal oder wenden Sie sich an den Kundenservice.</value>
         <value xml:lang="en">Error occurred: unable to email password.  Please try again later or contact customer service.</value>
         <value xml:lang="es">Error: no se pudo enviar password por correo. Intente nuevamente o contacte el servicio a cliente</value>
         <value xml:lang="fr">Erreur : impossible d'envoyer le mot de passe par courriel. Merci de réessayer ultérieurement ou de contacter votre service commercial.</value>
@@ -59,7 +60,7 @@
         <value xml:lang="zh">发生错误：无法发送带有密码的电子邮件。请重试或与客户服务联系。</value>
     </property>
     <property key="loginevents.error_unable_email_password_contact_customer_service_errorwas">
-        <value xml:lang="de">Fehler: Passwort konnte nicht per eMail verschickt werden. Versuchen Sie es später noch einmal oder wenden Sie sich an den Kundenservice. (Fehler war: ${errorMessage}).</value>
+        <value xml:lang="de">Fehler: Passwort konnte nicht per E-Mail verschickt werden. Versuchen Sie es später noch einmal oder wenden Sie sich an den Kundenservice. (Fehler war: ${errorMessage}).</value>
         <value xml:lang="en">Error occurred: unable to email password.  Please try again later or contact customer service. (error was: ${errorMessage}).</value>
         <value xml:lang="es">Error occurred: unable to email password.  Please try again later or contact customer service.</value>
         <value xml:lang="fr">Erreur : impossible d'envoyer le mot de passe par courriel. Merci de réessayer ultérieurement ou de contacter votre service commercial. (erreur: ${errorMessage}).</value>
@@ -81,7 +82,7 @@
         <value xml:lang="th">ผิดพลาดตามสิ่งที่เกิดขึ้นระหว่างการลอกอินเข้าสู่ระบบ: ${errorMessage}</value>
     </property>
     <property key="loginevents.new_password_createdandsent_check_email">
-        <value xml:lang="de">Ein neues Passwort wurde erzeugt und Ihnen per eMmail zugeschickt. Überprüfen sie Ihren eMail-Eingang.</value>
+        <value xml:lang="de">Ein neues Passwort wurde erzeugt und Ihnen per E-Mail zugeschickt. Überprüfen sie Ihren E-Mail-Eingang.</value>
         <value xml:lang="en">A new password has been created and sent to you. Please check your Email.</value>
         <value xml:lang="es">Un nuevo password ha sido creado y enviado. Por favor revise su e-mail</value>
         <value xml:lang="fr">Un nouveau mot de passe a été crée et envoyé. Merci de vérifier votre courriel.</value>
@@ -93,7 +94,7 @@
         <value xml:lang="zh">新建了一个新密码并发送给你了。请检查你的电子邮件。</value>
     </property>
     <property key="loginevents.new_password_sent_check_email">
-        <value xml:lang="de">Ihr Passwort wurde Ihnen per eMail zugeschickt. Überprüfen sie Ihren eMail-Eingang.</value>
+        <value xml:lang="de">Ihr Passwort wurde Ihnen per E-Mail zugeschickt. Überprüfen sie Ihren E-Mail-Eingang.</value>
         <value xml:lang="en">Your password has been sent to you. Please check your Email.</value>
         <value xml:lang="es">Su password ha sido enviado. Revise su e-mail</value>
         <value xml:lang="fr">Votre nouveau mot de passe vous a été envoyé. Merci de vérifier votre courriel.</value>
@@ -117,7 +118,7 @@
         <value xml:lang="zh">没有指定密码提示，请尝试使用电子邮件邮寄密码。</value>
     </property>
     <property key="loginevents.no_primary_email_address_set_contact_customer_service">
-        <value xml:lang="de">Es wurde keine primäre Emailadresse vergeben, bitte wenden Sie sich an den Kundenservice.</value>
+        <value xml:lang="de">Es wurde keine primäre E-Mailadresse vergeben, bitte wenden Sie sich an den Kundenservice.</value>
         <value xml:lang="en">No Primary Email Address has been set, please contact customer service.</value>
         <value xml:lang="es">No se ha actualizado dirección e-mail.</value>
         <value xml:lang="fr">Pas d'adresse courriel créée, merci de contacter votre service commercial.</value>
@@ -141,6 +142,7 @@
         <value xml:lang="zh">密码提示是：${passwordHint}。</value>
     </property>
     <property key="loginevents.password_was_empty_reenter">
+        <value xml:lang="de">Das angegebene Passwort ist leer</value>
         <value xml:lang="en">password was empty reenter</value>
         <value xml:lang="es">El password no puede ser vacío</value>
         <value xml:lang="fr">Le mot de passe était vide, SVP recommencez.</value>
@@ -162,6 +164,7 @@
         <value xml:lang="zh">配置出错；请与客户服务联系。</value>
     </property>
     <property key="loginevents.unable_to_login_this_application">
+        <value xml:lang="de">Anmeldung bei der Anwendung nicht erfolgreich</value>
         <value xml:lang="de"><b>Unable to login in to this application.</b></value>
         <value xml:lang="en">unable to login this application</value>
         <value xml:lang="es">No puedo conectarse a esta aplicación (faltan permisos)</value>
@@ -398,6 +401,7 @@
         <value xml:lang="zh">你必须登录，并且有权限用已存在的会员标识创建用户登录。</value>
     </property>
     <property key="loginservices.new_password_is_equal_to_old_password">
+        <value xml:lang="de">Das neue Passwort darf nicht identisch mit dem alten Passwort sein.</value>
         <value xml:lang="en">The new password must be different from the old one.</value>
         <value xml:lang="fr">Le nouveau mot de passe doit être différent de l'ancien.</value>
         <value xml:lang="th">รหัสผ่านใหม่ต้องแตกต่างจากอันเดิม</value>
@@ -535,6 +539,7 @@
         <value xml:lang="zh">缺少密码。</value>
     </property>
     <property key="loginservices.password_must_be_different_from_last_passwords">
+        <value xml:lang="de">Passwort darf nicht eines Ihrer letzen ${passwordChangeHistoryLimit} Passwörter sein.</value>
         <value xml:lang="en">Password cannot be one of your last ${passwordChangeHistoryLimit} passwords.</value>
         <value xml:lang="fr">Le mot de passe ne peut être un de vos derniers ${passwordChangeHistoryLimit} mots de passe.</value>
         <value xml:lang="th">รหัสผ่านไม่สามารถเป็นหนึ่งของสิ่งสุดท้ายของคุณ ${passwordChangeHistoryLimit} รหัสผ่าน.</value>
@@ -612,6 +617,7 @@
         <value xml:lang="zh">将重新启用 ${reEnableTime}。</value>
     </property>
     <property key="loginservices.ldap_authentication_failed">
+        <value xml:lang="de">Anmeldung LDAP nicht möglich.</value>
         <value xml:lang="en">LDAP authentication failed.</value>
         <value xml:lang="fr">L'authentification LDAP a échouée.</value>
     </property>
