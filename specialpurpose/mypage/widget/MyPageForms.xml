@@ -114,8 +114,8 @@ under the License.
     </form>
     <form name="ListMyUnknownPartyEmails" type="multi"
         extends="ListMyUnknownPartyEmails" extends-resource="component://party/webapp/partymgr/communication/CommForms.xml" use-row-submit="true">
-        <alt-target use-when="&quot;otherCommunications&quot;.equals(headerItem)" target="deleteOtherUnknownCommunicationEvents"/>
-        <alt-target use-when="&quot;myCommunications&quot;.equals(headerItem)" target="deleteMyUnknownCommunicationEvents"/>
+        <alt-target use-when="&quot;otherCommunications&quot;.equals(headerItem)" target="deleteOtherCommunicationEvents"/>
+        <alt-target use-when="&quot;myCommunications&quot;.equals(headerItem)" target="deleteMyCommunicationEvents"/>
 
         <field use-when="headerItem.equals(&quot;main&quot;)" name="subject" widget-style="buttontext" widget-area-style="fieldWidth300">
             <hyperlink description="${subject}" target="ViewCommunicationEvent?communicationEventId=${communicationEventId}&amp;type=main"/>
