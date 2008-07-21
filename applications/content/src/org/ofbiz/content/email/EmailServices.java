@@ -485,7 +485,7 @@ public class EmailServices {
      *@param serviceContext Map containing the input parameters
      *@return Map with the result of the service, the output parameters
      */
-    public static Map storeEmailAsCommunication(DispatchContext dctx, Map serviceContext) {
+     public static Map storeEmailAsCommunication(DispatchContext dctx, Map serviceContext) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) serviceContext.get("userLogin");
         
@@ -638,25 +638,6 @@ public class EmailServices {
         return tempResults;
     }   
     
-    /*
-     * Helper method to retrieve a combined list of party information from to, cc, and bcc email addresses
-     */
-    private static List getListOfParyInfoFromEmailAddresses(Address [] addressesTo, Address [] addressesCC, Address [] addressesBCC, GenericValue userLogin, LocalDispatcher dispatcher) throws GenericServiceException
-    {        
-        List allResults = new ArrayList();
-        
-        //Get Party Info for To email addresses
-        allResults.addAll(buildListOfPartyInfoFromEmailAddresses(addressesTo, userLogin, dispatcher));        
-        
-        //Get Party Info for CC email addresses
-        allResults.addAll(buildListOfPartyInfoFromEmailAddresses(addressesCC, userLogin, dispatcher));
-        
-        //Get Party Info for BCC email addresses
-        allResults.addAll(buildListOfPartyInfoFromEmailAddresses(addressesBCC, userLogin, dispatcher));
-        
-        return allResults;
-    }
-
     public static String contentIndex = "";
     private static Map addMessageBody( Map commEventMap, Multipart multipart) 
     throws MessagingException, IOException {
@@ -801,11 +782,15 @@ public class EmailServices {
                 Debug.logInfo("Persisting New Email: " + aboutThisEmail, module);
             }
 
-            // get the 'To' partyId
-            List allResults = getListOfParyInfoFromEmailAddresses(addressesTo, addressesCC, addressesBCC, userLogin, dispatcher);
-            Iterator itr = allResults.iterator();
+            
+            // get the related partId's
+            List toParties = buildListOfPartyInfoFromEmailAddresses(addressesTo, userLogin, dispatcher);        
+            List ccParties = buildListOfPartyInfoFromEmailAddresses(addressesCC, userLogin, dispatcher);
+            List bccParties = buildListOfPartyInfoFromEmailAddresses(addressesBCC, userLogin, dispatcher);
+
             //Get the first address from the list - this is the partyIdTo field of the CommunicationEvent
-            if (!allResults.isEmpty()) {
+            if (!toParties.isEmpty()) {
+                Iterator itr = toParties.iterator();
                 Map firstAddressTo = (Map) itr.next();
                 partyIdTo = (String)firstAddressTo.get("partyId");
                 contactMechIdTo = (String)firstAddressTo.get("contactMechId");
@@ -882,7 +867,7 @@ public class EmailServices {
                     if (orgCommEventId == null) orgCommEventId = parentCommEventId;
                     commEventMap.put("parentCommEventId", parentCommEventId);
                     commEventMap.put("origCommEventId", orgCommEventId);
-                }
+                } 
             }
 
             // Retrieve all the addresses from the email
@@ -964,31 +949,16 @@ public class EmailServices {
             result = dispatcher.runSync("createCommunicationEvent", commEventMap);
             communicationEventId = (String)result.get("communicationEventId");
             
-            // store attachements
+            // store attachments
             if (contentType.startsWith("multipart") || contentType.startsWith("Multipart")) {
                 int attachmentCount = EmailWorker.addAttachmentsToCommEvent(message, communicationEventId, dispatcher, userLogin);
                 if (Debug.infoOn()) Debug.logInfo(attachmentCount + " attachments added to CommunicationEvent:" + communicationEventId,module);
             }
             
-            // For all other addresses create a CommunicationEventRole
-            while (itr.hasNext()) {
-                Map address = (Map) itr.next();
-                String partyId = (String)address.get("partyId");
-
-                // It's not clear what the "role" of this communication event should be, so we'll just put _NA_
-                // check and see if this role was already created and ignore if true
-                Map commEventRoleMap = UtilMisc.toMap("communicationEventId", communicationEventId, "partyId", partyId, "roleTypeId", "_NA_");
-                GenericValue commEventRole = delegator.findByPrimaryKey("CommunicationEventRole", commEventRoleMap);
-                if (commEventRole == null) {
-                    // Check if "_NA_" role exists for the partyId. If not, then first associate that role with the partyId
-                    GenericValue partyRole = delegator.findByPrimaryKey("PartyRole", UtilMisc.toMap("partyId", partyId, "roleTypeId", "_NA_"));
-                    if (partyRole == null) {
-                        dispatcher.runSync("createPartyRole", UtilMisc.<String, Object>toMap("partyId", partyId, "roleTypeId", "_NA_", "userLogin", userLogin));
-                    }
-                    Map input = UtilMisc.toMap("communicationEventId", communicationEventId, "partyId", partyId, "roleTypeId", "_NA_", "userLogin", userLogin, "contactMechId", (String)address.get("contactMechId"));
-                    dispatcher.runSync("createCommunicationEventRole", input);
-                }
-            }
+            // For all addresses create a CommunicationEventRoles
+            createCommEventRoles(userLogin, delegator, dispatcher, communicationEventId, toParties, "ADDRESSEE");
+            createCommEventRoles(userLogin, delegator, dispatcher, communicationEventId, ccParties, "CC");
+            createCommEventRoles(userLogin, delegator, dispatcher, communicationEventId, bccParties, "BCC");
             
             Map results = ServiceUtil.returnSuccess();
             results.put("communicationEventId", communicationEventId);
@@ -1008,4 +978,32 @@ public class EmailServices {
             return ServiceUtil.returnError(e.getMessage());
         }
     }
+    
+    private static void createCommEventRoles(GenericValue userLogin, GenericDelegator delegator, LocalDispatcher dispatcher, String communicationEventId, List parties, String roleTypeId) {
+    	// It's not clear what the "role" of this communication event should be, so we'll just put _NA_
+    	// check and see if this role was already created and ignore if true
+    	try {
+    		Iterator it = parties.iterator();
+    		while (it.hasNext()) {
+    			Map result = (Map) it.next();
+    			String partyId = (String) result.get("partyId");
+    			GenericValue commEventRole = delegator.findByPrimaryKey("CommunicationEventRole", 
+    					UtilMisc.toMap("communicationEventId", communicationEventId, "partyId", partyId, "roleTypeId", roleTypeId));
+    			if (commEventRole == null) {
+    				// Check if the role exists for the partyId. If not, then first associate that role with the partyId
+    				GenericValue partyRole = delegator.findByPrimaryKey("PartyRole", UtilMisc.toMap("partyId", partyId, "roleTypeId", roleTypeId));
+    				if (partyRole == null) {
+    					dispatcher.runSync("createPartyRole", UtilMisc.<String, Object>toMap("partyId", partyId, "roleTypeId", roleTypeId, "userLogin", userLogin));
+    				}
+    				Map input = UtilMisc.toMap("communicationEventId", communicationEventId, "partyId", partyId, "roleTypeId", roleTypeId, "userLogin", userLogin, "contactMechId", (String) result.get("contactMechId"));
+    				dispatcher.runSync("createCommunicationEventRole", input);
+    			}
+    		}
+    	} catch (GenericServiceException e) {
+    		Debug.logError(e, module);
+    	} catch (Exception e) {
+    		Debug.logError(e, module);
+    	}
+    }
+
 }
