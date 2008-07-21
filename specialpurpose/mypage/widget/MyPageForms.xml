@@ -27,6 +27,7 @@ under the License.
             <hyperlink also-hidden="false" description="${workEffortName}" target="/projectmgr/control/taskView?workEffortId=${workEffortId}" target-type="inter-app" target-window="_BLANK"/>
         </field>
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}"><hyperlink target="/projectmgr/control/projectView?projectId=${resultProject.projectId}"  target-type="inter-app" target-window="_BLANK" description="${resultProject.projectName}"/></field>
+        <field name="roleTypeId" parameter-name="newRoleTypeId" title="${uiLabelMap.PartyRole}"><hidden value="${roleTypeId"/></field>
         <field use-when="!headerItem.equals(&quot;main&quot;)" name="remove" title="${uiLabelMap.CommonRemove}"><hyperlink target="updateTaskAssigmentKey?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=PAS_ENDED" description="${uiLabelMap.CommonRemove}"/></field>
         <field use-when="headerItem.equals(&quot;main&quot;)" name="remove" title="${uiLabelMap.CommonRemove}"><hyperlink target="updateTaskAssigment?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=PAS_ENDED" description="${uiLabelMap.CommonRemove}"/></field>
         <field use-when="!headerItem.equals(&quot;main&quot;)" name="toComplete" title="${uiLabelMap.CommonStatustoComplete}"><hyperlink target="updateTaskAssigmentKey?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=PAS_COMPLETED" description="${uiLabelMap.CommonStatustoComplete}"/></field>
@@ -90,9 +91,8 @@ under the License.
         <field name="updateButton"><submit/></field>
     </form>
     
-    <form name="ListPartyCommEvents" extends="ListCommEvents" extends-resource="component://party/webapp/partymgr/communication/CommForms.xml" 
-            odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
-
+    <form name="ListPartyCommEvents" extends="ListCommEvents" extends-resource="component://party/webapp/partymgr/communication/CommForms.xml" type="list">
+        <field name="roleTypeId"><display-entity entity-name="RoleType" description="${description}"/></field> 
         <field use-when="headerItem.equals(&quot;main&quot;)" name="removeLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deletePartyCommunicationEvent?partyId=${partyId}&amp;communicationEventId=${communicationEventId}"/>
         </field>
@@ -112,8 +112,10 @@ under the License.
             <hyperlink description="${subject} " target="ViewCommunicationEvent?communicationEventId=${communicationEventId}&amp;type=other" />
         </field>
     </form>
-    <form name="ListMyUnknownPartyEmails" 
+    <form name="ListMyUnknownPartyEmails" type="multi"
         extends="ListMyUnknownPartyEmails" extends-resource="component://party/webapp/partymgr/communication/CommForms.xml" use-row-submit="true">
+        <alt-target use-when="&quot;otherCommunications&quot;.equals(headerItem)" target="deleteOtherUnknownCommunicationEvents"/>
+        <alt-target use-when="&quot;myCommunications&quot;.equals(headerItem)" target="deleteMyUnknownCommunicationEvents"/>
 
         <field use-when="headerItem.equals(&quot;main&quot;)" name="subject" widget-style="buttontext" widget-area-style="fieldWidth300">
             <hyperlink description="${subject}" target="ViewCommunicationEvent?communicationEventId=${communicationEventId}&amp;type=main"/>
