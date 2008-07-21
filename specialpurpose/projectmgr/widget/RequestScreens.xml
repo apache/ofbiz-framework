@@ -27,7 +27,7 @@ under the License.
                 <set field="tabButtonItem" value="requestlist"/>
                 <set field="headerItem" value="request"/>
                 <set field="custRequestId" from-field="parameters.custRequestId"/>
-                <set field="parameters.statusId" value="CRQ_SUBMITTED"/>
+                <set field="parameters.statusId" value="CRQ_ACCEPTED"/>
                 <set field="entityName" value="CustRequest"/>
             </actions>
             <widgets>

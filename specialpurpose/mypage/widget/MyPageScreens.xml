@@ -198,7 +198,7 @@ under the License.
     <screen name="Communications">
         <section>
             <actions>
-                <entity-condition entity-name="CommunicationEvent"
+                <entity-condition entity-name="CommunicationEventAndRole"
                     list-name="commEvents">
                     <condition-list combine="and">
                         <condition-expr field-name="statusId" operator="not-equals"
@@ -208,19 +208,23 @@ under the License.
                                 value="${partyId}" />
                             <condition-expr field-name="partyIdTo" operator="equals"
                                 value="${partyId}" />
+                            <condition-expr field-name="partyId" operator="equals"
+                                value="${partyId}" />
                         </condition-list>
                     </condition-list>
-                    <order-by field-name="-lastUpdatedStamp" />
+                    <order-by field-name="-datetimeStarted" />
                 </entity-condition>
-                <entity-condition entity-name="CommunicationEvent"
+                <entity-condition entity-name="CommunicationEventAndRole"
                     list-name="commEventsUnknown">
                     <condition-list combine="and">
                         <condition-expr field-name="statusId" operator="equals"
                             value="COM_UNKNOWN_PARTY" />
                         <condition-expr field-name="partyIdTo" operator="equals"
                             env-name="partyId" />
+                        <condition-expr field-name="partyId" operator="equals"
+                            value="${partyId}" />
                     </condition-list>
-                    <order-by field-name="-lastUpdatedStamp" />
+                    <order-by field-name="-datetimeStarted" />
                 </entity-condition>
                 <entity-one entity-name="PartyNameView" value-name="partyName">
                     <field-map field-name="partyId" env-name="partyId"/>

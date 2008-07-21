@@ -143,11 +143,32 @@ under the License.
                     result-map-name="preferences">
                     <field-map field-name="userPrefGroupId" value="MyPage" />
                 </service>
+                <!--  check if there are any customer requests for this user -->
+                <entity-condition list-name="custRequests" entity-name="CustReqAndTypeAndPartyRel">
+                    <condition-list combine="and">
+                        <condition-expr field-name="statusId" operator="equals" value="CRQ_SUBMITTED"/>
+                        <condition-list combine="or">
+                            <condition-expr field-name="partyIdFrom" operator="equals" env-name="userLogin.partyId"/>
+                            <condition-expr field-name="partyIdTo" operator="equals" env-name="userLogin.partyId"/>
+                        </condition-list>
+                    </condition-list>
+                    <order-by field-name="-custRequestDate"/>
+                </entity-condition>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator"
                     location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <not><if-empty field-name="custRequests"/></not>
+                            </condition>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.OrderRequestList}" navigation-form-name="ListRequestList" >
+                                    <include-form name="ListRequestList" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                        </section>
                         <section>
                             <condition>
                                 <if-compare field-name="preferences.userPrefMap.myCommunications"
