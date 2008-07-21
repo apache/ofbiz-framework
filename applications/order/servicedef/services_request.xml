@@ -137,5 +137,12 @@ under the License.
         <attribute name="roleTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="custRequestAndRoles" type="java.util.List" mode="OUT" optional="false"/>
     </service>
+    <service name="setCustRequestStatus" engine="simple"
+            location="org/ofbiz/order/request/CustRequestServices.xml" invoke="setCustRequestStatus" auth="true">
+        <description>Set the Customer Request  Status</description>
+        <attribute name="custRequestId" type="String" mode="IN" optional="false"/>
+        <attribute name="statusId" type="String" mode="IN" optional="false"/>
+        <attribute name="oldStatusId" type="String" mode="OUT" optional="true"/>
+    </service>
 </services>
 

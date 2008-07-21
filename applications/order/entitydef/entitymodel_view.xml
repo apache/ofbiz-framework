@@ -1205,6 +1205,22 @@ under the License.
         <key-map field-name="roleTypeId"/>
       </relation>
     </view-entity>
+    <view-entity entity-name="CustReqAndTypeAndPartyRel"
+            package-name="org.ofbiz.order.request"
+            title="Customer Request And Role View Entity">
+      <member-entity entity-alias="CR" entity-name="CustRequest"/>
+      <member-entity entity-alias="CRT" entity-name="CustRequestType"/>
+      <member-entity entity-alias="PR" entity-name="PartyRelationship"/>
+      <alias-all entity-alias="CR"/>
+      <alias-all entity-alias="PR"/>
+      <alias entity-alias="CRT" name="description" col-alias="typeDescription"/>
+      <view-link entity-alias="CR" rel-entity-alias="CRT">
+        <key-map field-name="custRequestTypeId"/>
+      </view-link>
+      <view-link entity-alias="CRT" rel-entity-alias="PR" rel-optional="true">
+        <key-map field-name="partyId" rel-field-name="partyIdFrom"/>
+      </view-link>
+    </view-entity>
     <view-entity entity-name="CustRequestAndCommEvent"
             package-name="org.ofbiz.order.request"
             title="Customer Request And CommunicationEvent">

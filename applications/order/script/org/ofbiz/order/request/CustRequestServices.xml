@@ -301,4 +301,24 @@ under the License.
         <field-to-result field-name="newEntity.custRequestStatusId" result-name="custRequestStatusId"/>
     </simple-method>
 
+    <simple-method method-name="setCustRequestStatus" short-description="change the customer request Status">
+        <entity-one entity-name="CustRequest" value-name="custRequest"/>
+        <field-to-result field-name="parameters.statusId" result-name="oldStatusId"/>
+        <if-compare-field field="custRequest.statusId" to-field="parameters.statusId" operator="not-equals">
+            <entity-one entity-name="StatusValidChange" value-name="statusChange">
+                <field-map field-name="statusId" env-name="custRequest.statusId"/>
+                <field-map field-name="statusIdTo" env-name="parameters.statusId"/>
+            </entity-one>
+            <if-empty field="statusChange">
+                <add-error><fail-message message="Status is not a valid change"/></add-error>
+                <log level="error" message="Cannot change from ${custRequest.statusId} to ${parameters.statusId}"/>
+                <check-errors/>
+                <else>
+                    <set field="custRequest.statusId" from-field="parameters.statusId"/>
+                    <store-value value-name="custRequest"/>
+                </else>
+            </if-empty>
+        </if-compare-field>
+    </simple-method>
+
 </simple-methods>
