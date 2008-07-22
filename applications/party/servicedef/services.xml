@@ -696,6 +696,13 @@ under the License.
         <auto-attributes entity-name="CommunicationEventRole" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="CommunicationEventRole" include="nonpk" mode="IN" optional="true"/>
     </service>
+    <service name="updateCommunicationEventRole" engine="simple"
+            location="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="updateCommunicationEventRole" auth="true">
+        <description>Update a Communication Event Role</description>
+        <permission-service service-name="partyCommunicationEventPermissionCheck" main-action="UPDATE"/>
+        <auto-attributes entity-name="CommunicationEventRole" include="pk" mode="IN" optional="false"/>
+        <auto-attributes entity-name="CommunicationEventRole" include="nonpk" mode="IN" optional="true"/>
+    </service>
     <service name="removeCommunicationEventRole" engine="simple"
             location="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="removeCommunicationEventRole" auth="true">
         <description>Remove a Communication Event Role</description>

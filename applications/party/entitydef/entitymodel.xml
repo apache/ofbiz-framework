@@ -703,8 +703,9 @@ under the License.
     <view-entity entity-name="CommunicationEventAndRole" package-name="org.ofbiz.party.communication" title="Communication Event And Role View Entity">
       <member-entity entity-alias="CR" entity-name="CommunicationEventRole"/>
       <member-entity entity-alias="CE" entity-name="CommunicationEvent"/>
-      <alias-all entity-alias="CR"/>
       <alias-all entity-alias="CE"/>
+      <alias entity-alias="CR" name="statusId" field="statusId" col-alias="roleStatusId" />
+      <alias entity-alias="CR" name="contactMechId"/>
       <view-link entity-alias="CR" rel-entity-alias="CE">
         <key-map field-name="communicationEventId"/>
       </view-link>
@@ -807,6 +808,7 @@ under the License.
       <field name="partyId" type="id-ne"></field>
       <field name="roleTypeId" type="id-ne"></field>
       <field name="contactMechId" type="id"><description>For additional communication event participants this represents the contactMechId of the ContactMech used.</description></field>
+      <field name="statusId" type="id"></field>
       <prim-key field="communicationEventId"/>
       <prim-key field="partyId"/>
       <prim-key field="roleTypeId"/>
@@ -825,6 +827,9 @@ under the License.
       </relation>
       <relation type="one" fk-name="COM_EVRL_CMCH" rel-entity-name="ContactMech">
         <key-map field-name="contactMechId"/>
+      </relation>
+      <relation type="one" fk-name="COM_EVRL_STTS" rel-entity-name="StatusItem">
+        <key-map field-name="statusId"/>
       </relation>
     </entity>
     <entity entity-name="CommunicationEventType"
