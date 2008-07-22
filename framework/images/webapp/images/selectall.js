@@ -382,12 +382,16 @@ function toggleScreenlet(link, areaId, expandTxt, collapseTxt){
         if (menu) {
             var childElements = menu.getElementsByTagName('a');
             for (var i = 0; i < childElements.length; i++) {
-                childElements[i].href = replaceQueryParam(childElements[i].href, currentParam, newParam);
+                if (childElements[i].href.indexOf("href:") >= 0) {
+                    childElements[i].href = replaceQueryParam(childElements[i].href, currentParam, newParam);
+                }
             }
             childElements = menu.getElementsByTagName('select');
             for (i = 0; i < childElements.length; i++) {
-                Element.extend(childElements[i]);
-                childElements[i].writeAttribute("onchange", replaceQueryParam(childElements[i].readAttribute("onchange"), currentParam, newParam));
+                if (childElements[i].href.indexOf("location.href") >= 0) {
+                    Element.extend(childElements[i]);
+                    childElements[i].writeAttribute("onchange", replaceQueryParam(childElements[i].readAttribute("onchange"), currentParam, newParam));
+                }
             }
         }
     });    
