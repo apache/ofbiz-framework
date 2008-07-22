@@ -2855,6 +2855,7 @@
     </property>
     <property key="PartyCreateAddEmail">
         <value xml:lang="en">Create/Add Email to Party</value>
+        <value xml:lang="fr">Créer/AjouterCreate une adresse courriel  à un acteur</value>
     </property>
     <property key="PartyCreateAddWebSiteRolePermissionError">
         <value xml:lang="en">Security Error: to run addWebSiteRole you must have the PARTYMGR_CREATE or PARTYMGR_ADMIN permission</value>
@@ -3162,6 +3163,8 @@
     </property>
     <property key="PartyDeleteEmail">
         <value xml:lang="en">Delete Email</value>
+        <value xml:lang="fr">Supprimer un(e adresse?) courriel</value>
+        
     </property>
     <property key="PartyDeletePartyRolePermissionError">
         <value xml:lang="en">Security Error: to run deletePartyRole you must have the PARTYMGR_DELETE or PARTYMGR_ADMIN permission</value>
@@ -4655,6 +4658,7 @@
     </property>
     <property key="PartyNoSubject">
         <value xml:lang="en">No Subject</value>
+        <value xml:lang="fr">Aucun objet</value>
     </property>
     <property key="PartyNoSupplier">
         <value xml:lang="en">No Supplier</value>
