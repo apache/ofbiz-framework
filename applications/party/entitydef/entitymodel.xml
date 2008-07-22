@@ -704,7 +704,9 @@ under the License.
       <member-entity entity-alias="CR" entity-name="CommunicationEventRole"/>
       <member-entity entity-alias="CE" entity-name="CommunicationEvent"/>
       <alias-all entity-alias="CE"/>
-      <alias entity-alias="CR" name="statusId" field="statusId" col-alias="roleStatusId" />
+      <alias entity-alias="CR" name="partyId"/>
+      <alias entity-alias="CR" name="roleTypeId"/>
+      <alias entity-alias="CR" name="roleStatusId" field="statusId"/>
       <alias entity-alias="CR" name="contactMechId"/>
       <view-link entity-alias="CR" rel-entity-alias="CE">
         <key-map field-name="communicationEventId"/>

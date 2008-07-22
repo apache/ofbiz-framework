@@ -131,7 +131,7 @@
     </request-map>
     <request-map uri="deletePartyCommunicationEventRole">
         <security https="true" auth="true"/>
-        <event type="service" invoke="deleteCommunicationEventRole"/>
+        <event type="service" invoke="removeCommunicationEventRole"/>
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="main"/>
     </request-map>
@@ -143,7 +143,7 @@
     </request-map>
     <request-map uri="deletePartyCommunicationEventMyRole">
         <security https="true" auth="true"/>
-        <event type="service" invoke="deleteCommunicationEventRole"/>
+        <event type="service" invoke="removeCommunicationEventRole"/>
         <response name="success" type="view" value="myCommunications"/>
         <response name="error" type="view" value="myCommunications"/>
     </request-map>
@@ -240,7 +240,7 @@
     </request-map>
     <request-map uri="deleteOtherCommunicationEventRole">
         <security https="true" auth="true"/>
-        <event type="service" invoke="deleteCommunicationEventRole"/>
+        <event type="service" invoke="removeCommunicationEventRole"/>
         <response name="success" type="view" value="otherCommunications"/>
         <response name="error" type="view" value="ViewCommunicationEvent"/>
     </request-map>
