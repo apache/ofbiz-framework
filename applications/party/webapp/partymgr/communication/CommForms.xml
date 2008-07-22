@@ -437,6 +437,7 @@ under the License.
             </display-entity>
         </field>
         <field name="roleTypeId"><display-entity description="${description}" entity-name="RoleType"/></field>
+        <field name="statusId"><display-entity entity-name="statusItem" description="${description}"/></field>
         <field name="removeLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="/RemoveCommunicationEventRole?partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;communicationEventId=${communicationEventId}"/>
         </field>
