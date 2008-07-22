@@ -1212,8 +1212,15 @@ under the License.
       <member-entity entity-alias="CRT" entity-name="CustRequestType"/>
       <member-entity entity-alias="PR" entity-name="PartyRelationship"/>
       <alias-all entity-alias="CR"/>
-      <alias-all entity-alias="PR"/>
-      <alias entity-alias="CRT" name="description" col-alias="typeDescription"/>
+      <alias entity-alias="CRT" name="typeDescription" field="description"/>
+      <alias entity-alias="PR" name="partyIdFrom"/>
+      <alias entity-alias="PR" name="roleTypeIdFrom"/>
+      <alias entity-alias="PR" name="partyIdTo"/>
+      <alias entity-alias="PR" name="roleTypeIdTo"/>
+      <alias entity-alias="PR" name="fromDate"/>
+      <alias entity-alias="PR" name="thruDate"/>
+      <alias entity-alias="PR" name="relStatusId" field="statusId"/>
+      <alias entity-alias="PR" name="partyRelationshipTypeId"/>
       <view-link entity-alias="CR" rel-entity-alias="CRT">
         <key-map field-name="custRequestTypeId"/>
       </view-link>
