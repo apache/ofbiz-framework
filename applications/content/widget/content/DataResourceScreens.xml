@@ -440,7 +440,7 @@ under the License.
                 <decorator-screen name="commonDataResourceDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="DataResourceProductFeaturePanel" title="${uiLabelMap.PageTitleEditDataResourceProductFeatures}" collapsible="true">
-                            <include-form name="AddDataResourceProductFeatures" location="component://content/widget/content/DataResourceForms.xml"/>
+                            <include-form name="AddDataResourceProductFeature" location="component://content/widget/content/DataResourceForms.xml"/>
                         </screenlet>
                         <include-form name="ListDataResourceProductFeature" location="component://content/widget/content/DataResourceForms.xml"/>
                     </decorator-section>

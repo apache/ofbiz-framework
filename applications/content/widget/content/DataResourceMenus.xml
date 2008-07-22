@@ -21,7 +21,7 @@ under the License.
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
 
-    <menu name="contentsetup">
+    <menu name="contentsetup" selected-menuitem-context-field-name="tabButtonItem">
         <menu-item name="adddataresource" title="Add" >
             <link target="AddDataResource" name="AddDataResource" target-window="_top" style="tabButton" />
         </menu-item>
@@ -82,7 +82,7 @@ under the License.
             <link target="navigateDataResource"/>
         </menu-item>
     </menu>
-    <menu name="dataresource" menu-container-style="button-bar tab-bar" default-selected-style="selected">
+    <menu name="dataresource" menu-container-style="button-bar tab-bar" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem">
         <menu-item name="editDataResource" title="${uiLabelMap.CommonEdit}">
             <condition>
                 <not><if-empty field-name="currentValue.dataResourceId"/></not>
