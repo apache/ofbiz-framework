@@ -327,10 +327,10 @@ under the License.
     <StatusValidChange condition="" statusId="COM_REFERRED" statusIdTo="COM_CANCELLED" transitionName="Cancel"/>
     <StatusValidChange condition="" statusId="COM_UNKNOWN_PARTY" statusIdTo="COM_CANCELLED" transitionName="Cancel"/>
 
-    <StatusType description="Communication Event Role" hasTable="N" parentTypeId="COM_EVENT_STATUS" statusTypeId="COM_EVENT_ROLE_STATUS"/>
-    <StatusItem description="Created" sequenceId="01" statusCode="ENTERED" statusId="COM_ROLE_CREATED" statusTypeId="COM_EVENT_ROLE_STATUS"/>
-    <StatusItem description="Read" sequenceId="02" statusCode="PENDING" statusId="COM_ROLE_READ" statusTypeId="COM_EVENT_ROLE_STATUS"/>
-    <StatusItem description="Completed" sequenceId="03" statusCode="READ" statusId="COM_ROLE_COMPLETED" statusTypeId="COM_EVENT_ROLE_STATUS"/>
+    <StatusType description="Communication Event Role" hasTable="N" parentTypeId="COM_EVENT_STATUS" statusTypeId="COM_EVENT_ROL_STATUS"/>
+    <StatusItem description="Created" sequenceId="01" statusCode="ENTERED" statusId="COM_ROLE_CREATED" statusTypeId="COM_EVENT_ROL_STATUS"/>
+    <StatusItem description="Read" sequenceId="02" statusCode="PENDING" statusId="COM_ROLE_READ" statusTypeId="COM_EVENT_ROL_STATUS"/>
+    <StatusItem description="Completed" sequenceId="03" statusCode="READ" statusId="COM_ROLE_COMPLETED" statusTypeId="COM_EVENT_ROL_STATUS"/>
     <StatusValidChange condition="" statusId="COM_ROLE_CREATED" statusIdTo="COM_ROLE_READ" transitionName="Read"/>
     <StatusValidChange condition="" statusId="COM_ROLE_CREATED" statusIdTo="COM_ROLE_COMPLETED" transitionName="Completed"/>
     <StatusValidChange condition="" statusId="COM_ROLE_READ" statusIdTo="COM_ROLE_COMPLETED" transitionName="Completed"/>
