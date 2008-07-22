@@ -186,6 +186,22 @@ under the License.
 						<container style="righthalf">
 							<label style="h1" text="${uiLabelMap.CommonRelatedInformation}" />
                             <section>
+                                <widgets>
+                                    <screenlet title="${uiLabelMap.PartyCommEventRoles}">
+                                        <include-form name="ListCommRoles"
+                                            location="component://party/webapp/partymgr/communication/CommForms.xml" />
+                                    </screenlet>
+                                </widgets>
+                            </section>
+                            <section>
+                                <widgets>
+                                    <screenlet title="${uiLabelMap.PartyCommContent}">
+                                        <include-form name="listCommContent"
+                                            location="component://party/webapp/partymgr/communication/CommForms.xml" />
+                                    </screenlet>
+                                </widgets>
+                            </section>
+                            <section>
                                 <condition>
                                     <not>
                                         <if-empty field-name="communicationEvent.parentCommEventId" />
