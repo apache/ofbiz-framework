@@ -303,7 +303,7 @@ under the License.
                         <calcop field-name="invoicePaymentInfo.paidAmount" operator="get"/>
                     </calcop>
                 </calculate>
-        <set field="invoicePaymentInfoList[]" from-field="invoicePaymentInfo"/>
+                <set field="invoicePaymentInfoList[]" from-field="invoicePaymentInfo"/>
             </if-compare>
         </iterate>
         <if>
