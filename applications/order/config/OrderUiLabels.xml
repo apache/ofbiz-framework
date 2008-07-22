@@ -6333,7 +6333,7 @@
     <property key="OrderRequestList">
         <value xml:lang="en">Customer Request List</value>
         <value xml:lang="es">Lista de pedidos</value>
-        <value xml:lang="fr">Liste de demandes</value>
+        <value xml:lang="fr">Liste de demandes client</value>
         <value xml:lang="it">Lista Richieste</value>
         <value xml:lang="nl">Request List</value>
         <value xml:lang="ro">Lista Cerere</value>
