@@ -21,6 +21,7 @@
 import org.ofbiz.entity.*;
 import org.ofbiz.entity.util.*;
 import org.ofbiz.base.util.*;
+import java.sql.Timestamp;
 
 contentId = request.getParameter("contentId");
 if ("".equals(contentId)) {
@@ -102,7 +103,7 @@ if ("FULFILLMENT_EMAIL".equals(productContentTypeId)) {
     downloadData = [:];
     if (contentId && content) {
         downloadDr = content.getRelatedOne("DataResource");
-        if (subjectDr) {
+        if (downloadDr) {
             download = downloadDr.getRelatedOne("OtherDataResource");
             if (download) {
                 downloadData.file = download.dataResourceContent;
