@@ -995,7 +995,10 @@ public class EmailServices {
     				if (partyRole == null) {
     					dispatcher.runSync("createPartyRole", UtilMisc.<String, Object>toMap("partyId", partyId, "roleTypeId", roleTypeId, "userLogin", userLogin));
     				}
-    				Map input = UtilMisc.toMap("communicationEventId", communicationEventId, "partyId", partyId, "roleTypeId", roleTypeId, "userLogin", userLogin, "contactMechId", (String) result.get("contactMechId"));
+    				Map input = UtilMisc.toMap("communicationEventId", communicationEventId, 
+    						"partyId", partyId, "roleTypeId", roleTypeId, "userLogin", userLogin, 
+    						"contactMechId", (String) result.get("contactMechId"),
+    						"statusId", "COM_ROLE_CREATED");
     				dispatcher.runSync("createCommunicationEventRole", input);
     			}
     		}
