@@ -225,7 +225,14 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 writer.append("paramName: '" +modelFormField.getFieldName()+ "'");
             }
             if (UtilValidate.isNotEmpty(inPlaceEditor.getCancelControl())) {
-                writer.append(", cancelControl: '" +inPlaceEditor.getCancelControl()+ "'");
+                writer.append(", cancelControl: ");
+                if (!"false".equals(inPlaceEditor.getCancelControl())) {
+                    writer.append("'");
+                }
+                writer.append(inPlaceEditor.getCancelControl());
+                if (!"false".equals(inPlaceEditor.getCancelControl())) {
+                    writer.append("'");
+                }
             }
             if (UtilValidate.isNotEmpty(inPlaceEditor.getCancelText())) {
                 writer.append(", cancelText: '" +inPlaceEditor.getCancelText()+ "'");
@@ -234,7 +241,14 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 writer.append(", clickToEditText: '" +inPlaceEditor.getClickToEditText()+ "'");
             }
             if (UtilValidate.isNotEmpty(inPlaceEditor.getFieldPostCreation())) {
-                writer.append(", fieldPostCreation: '" +inPlaceEditor.getFieldPostCreation()+ "'");
+                writer.append(", fieldPostCreation: ");
+                if (!"false".equals(inPlaceEditor.getFieldPostCreation())) {
+                    writer.append("'");
+                }
+                writer.append(inPlaceEditor.getFieldPostCreation());
+                if (!"false".equals(inPlaceEditor.getFieldPostCreation())) {
+                    writer.append("'");
+                }
             }
             if (UtilValidate.isNotEmpty(inPlaceEditor.getFormClassName())) {
                 writer.append(", formClassName: '" +inPlaceEditor.getFormClassName()+ "'");
@@ -258,7 +272,14 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 writer.append(", loadingText: '" +inPlaceEditor.getLoadingText()+ "'");
             }
             if (UtilValidate.isNotEmpty(inPlaceEditor.getOkControl())) {
-                writer.append(", okControl: '" +inPlaceEditor.getOkControl()+ "'");
+                writer.append(", okControl: ");
+                if (!"false".equals(inPlaceEditor.getOkControl())) {
+                    writer.append("'");
+                }
+                writer.append(inPlaceEditor.getOkControl());
+                if (!"false".equals(inPlaceEditor.getOkControl())) {
+                    writer.append("'");
+                }
             }
             if (UtilValidate.isNotEmpty(inPlaceEditor.getOkText())) {
                 writer.append(", okText: '" +inPlaceEditor.getOkText()+ "'");
@@ -280,6 +301,9 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             }
             if (UtilValidate.isNotEmpty(inPlaceEditor.getTextBetweenControls())) {
                 writer.append(", textBetweenControls: '" +inPlaceEditor.getTextBetweenControls()+ "'");
+            }
+            if (UtilValidate.isNotEmpty(inPlaceEditor.getUpdateAfterRequestCall())) {
+                writer.append(", updateAfterRequestCall: " +inPlaceEditor.getUpdateAfterRequestCall());
             }
             if (UtilValidate.isNotEmpty(inPlaceEditor.getRows())) {
                 writer.append(", rows: '" +inPlaceEditor.getRows()+ "'");

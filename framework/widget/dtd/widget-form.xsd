@@ -1174,7 +1174,7 @@ under the License.
         <xs:attribute name="highlight-color" type="xs:string"/>
         <xs:attribute name="highlight-end-color" type="xs:string"/>
         <xs:attribute name="hover-class-name" type="xs:string"/>
-        <xs:attribute name="html-response">
+        <xs:attribute name="html-response" default="false">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="false"/>
@@ -1208,6 +1208,14 @@ under the License.
         <xs:attribute name="text-after-controls" type="xs:string"/>
         <xs:attribute name="text-before-controls" type="xs:string"/>
         <xs:attribute name="text-between-controls" type="xs:string"/>
+        <xs:attribute name="update-after-request-call" default="true">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="false"/>
+                    <xs:enumeration value="true"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="list-options">
         <xs:annotation>
