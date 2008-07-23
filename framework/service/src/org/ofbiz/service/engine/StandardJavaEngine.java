@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -15,7 +15,7 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- *******************************************************************************/
+ */
 package org.ofbiz.service.engine;
 
 import java.lang.reflect.InvocationTargetException;
@@ -54,7 +54,7 @@ public final class StandardJavaEngine extends GenericAsyncEngine {
         Object result = serviceInvoker(localName, modelService, context);
 
         if (result == null || !(result instanceof Map)) {
-            throw new GenericServiceException("Service did not return expected result");
+            throw new GenericServiceException("Service [" + modelService.name + "] did not return a Map object");
         }
         return UtilGenerics.checkMap(result);
     }
@@ -78,7 +78,7 @@ public final class StandardJavaEngine extends GenericAsyncEngine {
 
         // check the package and method names
         if (modelService.location == null || modelService.invoke == null) {
-            throw new GenericServiceException("Cannot locate service to invoke (location or invoke name missing)");
+            throw new GenericServiceException("Service [" + modelService.name + "] is missing location and/or invoke values which are required for execution.");
         }
 
         // get the classloader to use
@@ -95,23 +95,23 @@ public final class StandardJavaEngine extends GenericAsyncEngine {
             Method m = c.getMethod(modelService.invoke, DispatchContext.class, Map.class);
             result = m.invoke(null, dctx, context);
         } catch (ClassNotFoundException cnfe) {
-            throw new GenericServiceException("Cannot find service location", cnfe);
+            throw new GenericServiceException("Cannot find service [" + modelService.name + "] location class", cnfe);
         } catch (NoSuchMethodException nsme) {
-            throw new GenericServiceException("Service method does not exist", nsme);
+            throw new GenericServiceException("Service [" + modelService.name + "] specified Java method (invoke attribute) does not exist", nsme);
         } catch (SecurityException se) {
-            throw new GenericServiceException("Access denied", se);
+            throw new GenericServiceException("Service [" + modelService.name + "] Access denied", se);
         } catch (IllegalAccessException iae) {
-            throw new GenericServiceException("Method not accessible", iae);
+            throw new GenericServiceException("Service [" + modelService.name + "] Method not accessible", iae);
         } catch (IllegalArgumentException iarge) {
-            throw new GenericServiceException("Invalid parameter match", iarge);
+            throw new GenericServiceException("Service [" + modelService.name + "] Invalid parameter match", iarge);
         } catch (InvocationTargetException ite) {
-            throw new GenericServiceException("Service target threw an unexpected exception", ite.getTargetException());
+            throw new GenericServiceException("Service [" + modelService.name + "] target threw an unexpected exception", ite.getTargetException());
         } catch (NullPointerException npe) {
-            throw new GenericServiceException("Specified object is null", npe);
+            throw new GenericServiceException("Service [" + modelService.name + "] ran into an unexpected null object", npe);
         } catch (ExceptionInInitializerError eie) {
-            throw new GenericServiceException("Initialization failed", eie);
+            throw new GenericServiceException("Service [" + modelService.name + "] Initialization failed", eie);
         } catch (Throwable th) {
-            throw new GenericServiceException("Error or nknown exception", th);
+            throw new GenericServiceException("Service [" + modelService.name + "] Error or unknown exception", th);
         }
 
         return result;

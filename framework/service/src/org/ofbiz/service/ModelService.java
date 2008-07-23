@@ -337,8 +337,7 @@ public class ModelService extends AbstractMap implements Serializable {
         Set<String> nameList = new TreeSet<String>();
         for (ModelParam p: this.contextParamList) {
             // don't include OUT parameters in this list, only IN and INOUT
-            if ("OUT".equals(p.mode)) continue;
-            nameList.add(p.name);
+            if (p.isIn()) nameList.add(p.name);
         }
         return nameList;
     }
@@ -349,8 +348,7 @@ public class ModelService extends AbstractMap implements Serializable {
 
         for (ModelParam p: this.contextParamList) {
             // don't include OUT parameters in this list, only IN and INOUT
-            if ("OUT".equals(p.mode) || p.internal) continue;
-            count++;
+            if (p.isIn() && !p.internal) count++;
         }
 
         return count;
@@ -360,8 +358,7 @@ public class ModelService extends AbstractMap implements Serializable {
         Set<String> nameList = new TreeSet<String>();
         for (ModelParam p: this.contextParamList) {
             // don't include IN parameters in this list, only OUT and INOUT
-            if ("IN".equals(p.mode)) continue;
-            nameList.add(p.name);
+            if (p.isOut()) nameList.add(p.name);
         }
         return nameList;
     }
@@ -372,8 +369,7 @@ public class ModelService extends AbstractMap implements Serializable {
 
         for (ModelParam p: this.contextParamList) {
             // don't include IN parameters in this list, only OUT and INOUT
-            if ("IN".equals(p.mode) || p.internal) continue;
-            count++;
+            if (p.isOut() && !p.internal) count++;
         }
 
         return count;

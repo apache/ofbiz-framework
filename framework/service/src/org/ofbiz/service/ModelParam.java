@@ -131,6 +131,14 @@ public class ModelParam implements Serializable {
         return this.mode;
     }
     
+    public boolean isIn() {
+        return "IN".equals(this.mode) || "INOUT".equals(this.mode);
+    }
+    
+    public boolean isOut() {
+        return "OUT".equals(this.mode) || "INOUT".equals(this.mode);
+    }
+    
     public boolean isOptional() {
         return this.optional;
     }

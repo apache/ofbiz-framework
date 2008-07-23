@@ -88,42 +88,7 @@ public class CheckId extends MethodOperation {
         StringBuffer errorDetails = new StringBuffer();
         
         //check various illegal characters, etc for ids
-        if (fieldStr.indexOf(' ') >= 0) {
-            isValid = false;
-            errorDetails.append("[space found at position " + (fieldStr.indexOf(' ') + 1) + "]");
-        }
-        if (fieldStr.indexOf('"') >= 0) {
-            isValid = false;
-            errorDetails.append("[double-quote found at position " + (fieldStr.indexOf('"') + 1) + "]");
-        }
-        if (fieldStr.indexOf('\'') >= 0) {
-            isValid = false;
-            errorDetails.append("[single-quote found at position " + (fieldStr.indexOf('\'') + 1) + "]");
-        }
-        if (fieldStr.indexOf('&') >= 0) {
-            isValid = false;
-            errorDetails.append("[ampersand found at position " + (fieldStr.indexOf('&') + 1) + "]");
-        }
-        if (fieldStr.indexOf('?') >= 0) {
-            isValid = false;
-            errorDetails.append("[question mark found at position " + (fieldStr.indexOf('?') + 1) + "]");
-        }
-        if (fieldStr.indexOf('<') >= 0) {
-            isValid = false;
-            errorDetails.append("[less-than sign found at position " + (fieldStr.indexOf('<') + 1) + "]");
-        }
-        if (fieldStr.indexOf('>') >= 0) {
-            isValid = false;
-            errorDetails.append("[greater-than sign found at position " + (fieldStr.indexOf('>') + 1) + "]");
-        }
-        if (fieldStr.indexOf('\\') >= 0) {
-            isValid = false;
-            errorDetails.append("[back-slash found at position " + (fieldStr.indexOf('\\') + 1) + "]");
-        }
-        if (fieldStr.indexOf('/') >= 0) {
-            isValid = false;
-            errorDetails.append("[forward-slash found at position " + (fieldStr.indexOf('/') + 1) + "]");
-        }
+        isValid = UtilValidate.isValidDatabaseId(fieldStr, errorDetails);
 
         if (!isValid) {
             this.addMessage(messages, methodContext, "The ID value in the field [" + fieldAcsr + "] was not valid", ": " + errorDetails.toString());
