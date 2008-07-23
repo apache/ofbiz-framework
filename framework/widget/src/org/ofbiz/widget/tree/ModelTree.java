@@ -250,9 +250,9 @@ public class ModelTree extends ModelWidget {
             node.renderNodeString(writer, context, treeStringRenderer, 0, true);
             buf.append(writer.toString());
         } catch (IOException e2) {
-                String errMsg = "Error rendering included label with name [" + name + "] : " + e2.toString();
-                Debug.logError(e2, errMsg, module);
-                throw new RuntimeException(errMsg);
+            String errMsg = "Error rendering included label with name [" + name + "] : " + e2.toString();
+            Debug.logError(e2, errMsg, module);
+            throw new RuntimeException(errMsg);
         }
     }
 
@@ -346,10 +346,10 @@ public class ModelTree extends ModelWidget {
                 throw new IllegalArgumentException("Neither 'screen' nor 'label' nor 'link' found for the node definition with name: " + this.name);
             }
             */
-        Element conditionElement = UtilXml.firstChildElement(nodeElement, "condition");
-        if (conditionElement != null) {
-            this.condition = new ModelTreeCondition(modelTree, conditionElement);
-        }
+            Element conditionElement = UtilXml.firstChildElement(nodeElement, "condition");
+            if (conditionElement != null) {
+                this.condition = new ModelTreeCondition(modelTree, conditionElement);
+            }
 
             List subNodeElements = UtilXml.childElementList(nodeElement, "sub-node");
             Iterator subNodeElementIter = subNodeElements.iterator();
@@ -401,8 +401,8 @@ public class ModelTree extends ModelWidget {
                     if (screenLocationExdr != null)
                         screenLocation = screenLocationExdr.expandString(context);
                     if (screenName != null && screenLocation != null) {
-                        ScreenStringRenderer screenStringRenderer = treeStringRenderer .getScreenStringRenderer(context);
-                        ModelScreen modelScreen = ScreenFactory .getScreenFromLocation(screenLocation, screenName);
+                        ScreenStringRenderer screenStringRenderer = treeStringRenderer.getScreenStringRenderer(context);
+                        ModelScreen modelScreen = ScreenFactory.getScreenFromLocation(screenLocation, screenName);
                         modelScreen.renderScreenString(writer, context, screenStringRenderer);
                     }
                     if (label != null) {
@@ -412,7 +412,7 @@ public class ModelTree extends ModelWidget {
                         link.renderLinkString(writer, context, treeStringRenderer);
                     }
                     treeStringRenderer.renderLastElement(writer, context, this);
-                    Boolean processChildren = (Boolean) context .get("processChildren");
+                    Boolean processChildren = (Boolean) context.get("processChildren");
                     //if (Debug.infoOn()) Debug.logInfo(" processChildren:" + processChildren, module);
                     if (processChildren.booleanValue()) {
                         getChildren(context);
@@ -442,9 +442,9 @@ public class ModelTree extends ModelWidget {
                             String targetEntityId = null;
                             List targetNodeTrail = UtilGenerics.checkList(context.get("targetNodeTrail"));
                             if (newDepth < targetNodeTrail.size()) {
-                                targetEntityId = (String) targetNodeTrail .get(newDepth);
+                                targetEntityId = (String) targetNodeTrail.get(newDepth);
                             }
-                            if ((targetEntityId != null && targetEntityId .equals(thisEntityId)) || this.showPeers(newDepth, context)) {
+                            if ((targetEntityId != null && targetEntityId.equals(thisEntityId)) || this.showPeers(newDepth, context)) {
                                 boolean lastNode = !nodeIter.hasNext();
                                 newContext.put("lastNode", Boolean.valueOf(lastNode));
                                 node.renderNodeString(writer, newContext, treeStringRenderer, newDepth, lastNode);
@@ -1062,14 +1062,13 @@ public class ModelTree extends ModelWidget {
                 this.borderExdr = new FlexibleStringExpander(val);
             }
             public void setUrlMode(String val) {
-                if (UtilValidate.isEmpty(val))
+                if (UtilValidate.isEmpty(val)) {
                     this.urlMode = "content";
-                else
+                } else {
                     this.urlMode = val;
+                }
             }
-                
         }
-
     }
 }
 
