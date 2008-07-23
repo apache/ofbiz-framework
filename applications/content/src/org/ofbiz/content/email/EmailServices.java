@@ -322,15 +322,20 @@ public class EmailServices {
         String bodyScreenUri = (String) serviceContext.remove("bodyScreenUri");
         String xslfoAttachScreenLocation = (String) serviceContext.remove("xslfoAttachScreenLocation");
         String attachmentName = (String) serviceContext.remove("attachmentName");
-        Map bodyParameters = (Map) serviceContext.remove("bodyParameters");
         Locale locale = (Locale) serviceContext.get("locale");
+        Map bodyParameters = (Map) serviceContext.remove("bodyParameters");
+        if (bodyParameters == null) {
+            bodyParameters = MapStack.create();
+        }
         if (!bodyParameters.containsKey("locale")) {
             bodyParameters.put("locale", locale);
         } else {
             locale = (Locale) bodyParameters.get("locale");
         }
         String partyId = (String) bodyParameters.get("partyId");
-        NotificationServices.setBaseUrl(dctx.getDelegator(), webSiteId, bodyParameters);
+        if (UtilValidate.isNotEmpty(webSiteId)) {
+            NotificationServices.setBaseUrl(dctx.getDelegator(), webSiteId, bodyParameters);
+        }
         String contentType = (String) serviceContext.remove("contentType");
 
         if (UtilValidate.isEmpty(attachmentName)) {
@@ -368,7 +373,7 @@ public class EmailServices {
         
         boolean isMultiPart = false;
         
-        // check if attachement screen location passed in
+        // check if attachment screen location passed in
         if (UtilValidate.isNotEmpty(xslfoAttachScreenLocation)) {
             isMultiPart = true;
             // start processing fo pdf attachment
