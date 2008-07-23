@@ -119,6 +119,30 @@ under the License.
     <InvoiceItemType invoiceItemTypeId="CRT_MKTG_PKG_ADJ" defaultGlAccountId="423000"/>
     <InvoiceItemType invoiceItemTypeId="CRT_MAN_ADJ" defaultGlAccountId="423000"/>
 
+    <!-- invoice items for returns to suppliers -->
+    <InvoiceItemType invoiceItemTypeId="SRT_PROD_ITEM" defaultGlAccountId="401000"/>
+    <InvoiceItemType invoiceItemTypeId="SRT_FPROD_ITEM" defaultGlAccountId="401000"/>
+    <InvoiceItemType invoiceItemTypeId="SRT_DPROD_ITEM" defaultGlAccountId="401000"/>
+    <InvoiceItemType invoiceItemTypeId="SRT_FDPROD_ITEM" defaultGlAccountId="401000"/>
+    <InvoiceItemType invoiceItemTypeId="SRT_PROD_FEATR_ITEM" defaultGlAccountId="401000"/>
+    <InvoiceItemType invoiceItemTypeId="SRT_SPROD_ITEM" defaultGlAccountId="401000"/>
+
+    <InvoiceItemType invoiceItemTypeId="SRT_WE_ITEM" defaultGlAccountId="401000"/>
+    <InvoiceItemType invoiceItemTypeId="SRT_TE_ITEM" defaultGlAccountId="401000"/>
+
+    <InvoiceItemType invoiceItemTypeId="SRT_PROMOTION_ADJ" defaultGlAccountId="410000"/>
+    <InvoiceItemType invoiceItemTypeId="SRT_REPLACE_ADJ" defaultGlAccountId="409000"/>
+    <InvoiceItemType invoiceItemTypeId="SRT_DISCOUNT_ADJ" defaultGlAccountId="409000"/>
+    <InvoiceItemType invoiceItemTypeId="SRT_FEE_ADJ" defaultGlAccountId="409000"/>
+    <InvoiceItemType invoiceItemTypeId="SRT_MISC_ADJ" defaultGlAccountId="409000"/>
+    <!-- <InvoiceItemType invoiceItemTypeId="SRT_SALES_TAX_ADJ" defaultGlAccountId=""/> --> <!-- Use InvoiceItem.overrideGlAccountId -->
+    <InvoiceItemType invoiceItemTypeId="SRT_SHIPPING_ADJ" defaultGlAccountId="409000"/>
+    <InvoiceItemType invoiceItemTypeId="SRT_SURCHARGE_ADJ" defaultGlAccountId="409000"/>
+    <InvoiceItemType invoiceItemTypeId="SRT_ADD_FEATURE_ADJ" defaultGlAccountId="409000"/>
+    <InvoiceItemType invoiceItemTypeId="SRT_WARRANTY_ADJ" defaultGlAccountId="409000"/>
+    <InvoiceItemType invoiceItemTypeId="SRT_MKTG_PKG_ADJ" defaultGlAccountId="409000"/>
+    <InvoiceItemType invoiceItemTypeId="SRT_MAN_ADJ" defaultGlAccountId="409000"/>
+
     <!-- invoice item types for commission invoices -->
     <InvoiceItemType invoiceItemTypeId="COMM_INV_ITEM" defaultGlAccountId="601300"/>
     <InvoiceItemType invoiceItemTypeId="COMM_INV_ADJ" defaultGlAccountId="601400"/>
