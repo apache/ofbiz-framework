@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -15,19 +15,19 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- *******************************************************************************/
+ */
 package org.ofbiz.entity.finder;
 
-import java.io.Serializable;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javolution.util.FastMap;
+
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.GenericDelegator;
@@ -64,7 +64,6 @@ public class PrimaryKeyFinder extends Finder {
 
     public void runFind(Map<String, Object> context, GenericDelegator delegator) throws GeneralException {
         String entityName = this.entityNameExdr.expandString(context);
-        ModelEntity modelEntity = delegator.getModelEntity(entityName);
         
         String useCacheString = this.useCacheStrExdr.expandString(context);
         // default to false
@@ -74,10 +73,27 @@ public class PrimaryKeyFinder extends Finder {
         // default to true
         boolean autoFieldMapBool = !"false".equals(autoFieldMapString);
 
+        ModelEntity modelEntity = delegator.getModelEntity(entityName);
+        GenericValue valueOut = runFind(modelEntity, context, delegator, useCacheBool, autoFieldMapBool, this.fieldMap, this.selectFieldExpanderList);
+        
+        //Debug.logInfo("PrimaryKeyFinder: valueOut=" + valueOut, module);
+        //Debug.logInfo("PrimaryKeyFinder: going into=" + this.valueNameAcsr.getOriginalName(), module);
+        if (valueNameAcsr != null) {
+           this.valueNameAcsr.put(context, valueOut);
+        } else {
+           if (valueOut != null) {
+               context.putAll(valueOut);
+           }
+        }
+    }
+    
+    public static GenericValue runFind(ModelEntity modelEntity, Map<String, Object> context, GenericDelegator delegator, boolean useCache, boolean autoFieldMap, 
+            Map<FlexibleMapAccessor, Object> fieldMap, List<FlexibleStringExpander> selectFieldExpanderList) throws GeneralException {
+        
         // assemble the field map
-        Map<String, Object> entityContext = new HashMap<String, Object>();
-        if (autoFieldMapBool) {
-            GenericValue tempVal = delegator.makeValue(entityName);
+        Map<String, Object> entityContext = FastMap.newInstance();
+        if (autoFieldMap) {
+            GenericValue tempVal = delegator.makeValue(modelEntity.getEntityName());
 
             // try a map called "parameters", try it first so values from here are overriden by values in the main context
             Object parametersObj = context.get("parameters");
@@ -90,7 +106,7 @@ public class PrimaryKeyFinder extends Finder {
 
             entityContext.putAll(tempVal);
         }
-        EntityFinderUtil.expandFieldMapToContext(this.fieldMap, context, entityContext);
+        EntityFinderUtil.expandFieldMapToContext(fieldMap, context, entityContext);
         //Debug.logInfo("PrimaryKeyFinder: entityContext=" + entityContext, module);
         // then convert the types...
         modelEntity.convertFieldMapInPlace(entityContext, delegator);
@@ -99,17 +115,17 @@ public class PrimaryKeyFinder extends Finder {
         Set<String> fieldsToSelect = EntityFinderUtil.makeFieldsToSelect(selectFieldExpanderList, context);
         
         //if fieldsToSelect != null and useCacheBool is true, throw an error
-        if (fieldsToSelect != null && useCacheBool) {
+        if (fieldsToSelect != null && useCache) {
             throw new IllegalArgumentException("Error in entity-one definition, cannot specify select-field elements when use-cache is set to true");
         }
         
         try {
             GenericValue valueOut = null;
-            GenericPK entityPK = delegator.makePK(entityName, entityContext);
+            GenericPK entityPK = delegator.makePK(modelEntity.getEntityName(), entityContext);
 
             // make sure we have a full primary key, if any field is null then just log a warning and return null instead of blowing up
             if (entityPK.containsPrimaryKey(true)) {
-                if (useCacheBool) {
+                if (useCache) {
                     valueOut = delegator.findOne(entityPK.getEntityName(), entityPK, true);
                 } else {
                     if (fieldsToSelect != null) {
@@ -122,19 +138,11 @@ public class PrimaryKeyFinder extends Finder {
                 if (Debug.infoOn()) Debug.logInfo("Returning null because found incomplete primary key in find: " + entityPK, module);
             }
             
-            //Debug.logInfo("PrimaryKeyFinder: valueOut=" + valueOut, module);
-            //Debug.logInfo("PrimaryKeyFinder: going into=" + this.valueNameAcsr.getOriginalName(), module);
-            if (valueNameAcsr != null) {
-               this.valueNameAcsr.put(context, valueOut);
-            } else {
-               if (valueOut != null) {
-                   context.putAll(valueOut);
-               }
-            }
+            return valueOut;
         } catch (GenericEntityException e) {
             String errMsg = "Error finding entity value by primary key with entity-one: " + e.toString();
             Debug.logError(e, errMsg, module);
-            throw new IllegalArgumentException(errMsg);
+            throw new GeneralException(errMsg, e);
         }
     }
 }

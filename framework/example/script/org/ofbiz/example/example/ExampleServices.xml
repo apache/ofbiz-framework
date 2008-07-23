@@ -84,25 +84,6 @@ under the License.
         <create-value value-name="newEntity"/>  
     </simple-method>   
     
-    <!-- ExampleItem methods -->
-    <simple-method method-name="createExampleItem" short-description="create a ExampleItem">
-        <make-value entity-name="ExampleItem" value-name="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
-        <make-next-seq-id value-name="newEntity" seq-field-name="exampleItemSeqId"/> <!-- this finds the next sub-sequence ID -->
-        <field-to-result field-name="newEntity.exampleItemSeqId" result-name="exampleItemSeqId"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <create-value value-name="newEntity"/>  
-    </simple-method>   
-    <simple-method method-name="updateExampleItem" short-description="update a ExampleItem">
-        <entity-one entity-name="ExampleItem" value-name="lookedUpValue"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
-        <store-value value-name="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="deleteExampleItem" short-description="delete a ExampleItem">        
-        <entity-one entity-name="ExampleItem" value-name="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
-    </simple-method>
-
     <!-- Example ServiceTest Service -->
     <simple-method method-name="testCreateExampleService" short-description="test the create example service" login-required="false">
         <set field="createExampleMap.exampleTypeId" value="CONTRIVED"/>

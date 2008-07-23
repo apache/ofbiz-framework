@@ -59,8 +59,7 @@ under the License.
         </auto-attributes>
     </service>
     
-    <service name="createExampleItem" default-entity-name="ExampleItem" engine="simple"
-            location="component://example/script/org/ofbiz/example/example/ExampleServices.xml" invoke="createExampleItem" auth="true">
+    <service name="createExampleItem" default-entity-name="ExampleItem" engine="entity-auto" invoke="create" auth="true">
         <description>Create a ExampleItem</description>
         <permission-service service-name="exampleGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -68,15 +67,13 @@ under the License.
         <override name="exampleItemSeqId" mode="OUT"/> <!-- make this OUT rather than IN, we will automatically generate the next sub-sequence ID -->
         <override name="description" optional="false"/>
     </service>
-    <service name="updateExampleItem" default-entity-name="ExampleItem" engine="simple"
-            location="component://example/script/org/ofbiz/example/example/ExampleServices.xml" invoke="updateExampleItem" auth="true">
+    <service name="updateExampleItem" default-entity-name="ExampleItem" engine="entity-auto" invoke="update" auth="true">
         <description>Update a ExampleItem</description>
         <permission-service service-name="exampleGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteExampleItem" default-entity-name="ExampleItem" engine="simple"
-        location="component://example/script/org/ofbiz/example/example/ExampleServices.xml" invoke="deleteExampleItem" auth="true">
+    <service name="deleteExampleItem" default-entity-name="ExampleItem" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a ExampleItem</description>
         <permission-service service-name="exampleGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
