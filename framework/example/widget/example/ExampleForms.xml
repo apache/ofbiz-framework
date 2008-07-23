@@ -102,7 +102,7 @@ under the License.
         <field use-when="example==null&amp;&amp;exampleId!=null" name="exampleId" title="${uiLabelMap.ExampleExampleId}"><display description="${uiLabelMap.CommonCannotBeFound}: [${exampleId}]" also-hidden="false"/></field>
         <field name="exampleTypeId" title="${uiLabelMap.CommonType}" id-name="exampleTypeId">
             <drop-down allow-empty="false">
-                <auto-complete/>
+                <!-- this is a neat feature, but not good for the type because the user would have to know the possible types in order to enter at least the first letter, so leaving it out by default; just uncomment to enable: <auto-complete/> -->
                 <entity-options entity-name="ExampleType" description="${description}">
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -146,7 +146,6 @@ under the License.
         <alt-target use-when="example==null" target="createExampleAjax"/>
         <field name="statusId" use-when="example==null" title="${uiLabelMap.CommonStatus}" id-name="statusId">
             <drop-down allow-empty="false">
-                <auto-complete/>
                 <entity-options entity-name="StatusItem" description="${description}">
                     <entity-constraint name="statusTypeId" value="EXAMPLE_STATUS"/>
                     <entity-order-by field-name="sequenceId"/>
