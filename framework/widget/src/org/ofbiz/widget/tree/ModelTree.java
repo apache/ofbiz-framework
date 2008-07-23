@@ -79,7 +79,6 @@ public class ModelTree extends ModelWidget {
     protected FlexibleStringExpander trailNameExdr;
     protected int openDepth;
     protected int postTrailOpenDepth;
-    protected int [] nodeIndices = new int[20];
     protected String defaultEntityName;
     protected String defaultPkName;
     protected boolean forceChildCheck;
@@ -170,14 +169,6 @@ public class ModelTree extends ModelWidget {
     
     public int getPostTrailOpenDepth() {
         return postTrailOpenDepth;
-    }
-    
-    public int getNodeIndexAtDepth(int i) {
-        return nodeIndices[i];
-    }
-    
-    public void setNodeIndexAtDepth(int i, int val) {
-        nodeIndices[i] = val;
     }
     
     public String getExpandCollapseRequest(Map<String, Object> context) {
@@ -388,8 +379,6 @@ public class ModelTree extends ModelWidget {
                 if (id != null) { 
                     currentNodeTrail.add(id);
                 }
-                String currentNodeTrailPiped = StringUtil.join(currentNodeTrail, "|");
-                context.put("currentNodeTrailPiped", currentNodeTrailPiped);
                 treeStringRenderer.renderNodeBegin(writer, context, this, depth, isLast);
                 //if (Debug.infoOn()) Debug.logInfo(" context:" +
                 // context.entrySet(), module);
@@ -417,11 +406,8 @@ public class ModelTree extends ModelWidget {
                     if (processChildren.booleanValue()) {
                         getChildren(context);
                         Iterator nodeIter = this.subNodeValues.iterator();
-                        int nodeIndex = -1;
                         int newDepth = depth + 1;
                         while (nodeIter.hasNext()) {
-                            nodeIndex++;
-                            modelTree.setNodeIndexAtDepth(newDepth, nodeIndex);
                             Object[] arr = (Object[]) nodeIter.next();
                             ModelNode node = (ModelNode) arr[0];
                             Map<String, Object> val = UtilGenerics.checkMap(arr[1]);
@@ -438,7 +424,6 @@ public class ModelTree extends ModelWidget {
                             } else {
                                 newContext.putAll(val);
                             }
-                            newContext.put("currentNodeIndex", Integer.valueOf(nodeIndex));
                             String targetEntityId = null;
                             List targetNodeTrail = UtilGenerics.checkList(context.get("targetNodeTrail"));
                             if (newDepth < targetNodeTrail.size()) {

@@ -46,23 +46,11 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
     public static final String module = HtmlTreeRenderer.class.getName(); 
 
     public HtmlTreeRenderer() {}
-    
-    public static String buildPathString(ModelTree modelTree, int depth) {
-        StringBuffer buf = new StringBuffer();
-        for (int i=1; i <= depth; i++) {
-            int idx = modelTree.getNodeIndexAtDepth(i);
-            buf.append(".");
-            buf.append(Integer.toString(idx + 1));
-        }
-        return buf.toString();
-    }
 
     public void renderNodeBegin(Appendable writer, Map<String, Object> context, ModelTree.ModelNode node, int depth, boolean isLast) throws IOException {
-
-        String pathString = buildPathString(node.getModelTree(), depth);
         String currentNodeTrailPiped = null;
         List<String> currentNodeTrail = UtilGenerics.toList(context.get("currentNodeTrail"));
-        String staticNodeTrailPiped = StringUtil.join(currentNodeTrail, "|");
+        String initialNodeTrailPiped = StringUtil.join(currentNodeTrail, "|");
         if (node.isRootNode()) {
             appendWhitespace(writer);
             renderBeginningBoundaryComment(writer, "Tree Widget", node.getModelTree());
@@ -96,17 +84,14 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
             ModelTree.ModelNode.Image expandCollapseImage = new ModelTree.ModelNode.Image();
             expandCollapseImage.setBorder("0");
             ModelTree.ModelNode.Link expandCollapseLink = new ModelTree.ModelNode.Link();
-            //String currentNodeTrailCsv = (String)context.get("currentNodeTrailCsv");
     
             int openDepth = node.getModelTree().getOpenDepth();
             if (depth >= openDepth && (targetEntityId == null || !targetEntityId.equals(entityId))) {
                 // Not on the trail
-                if( node.showPeers(depth, context)) {
+                if(node.showPeers(depth, context)) {
                     context.put("processChildren", Boolean.FALSE);
                     //expandCollapseLink.setText("&nbsp;+&nbsp;");
                     currentNodeTrailPiped = StringUtil.join(currentNodeTrail, "|");
-                    context.put("currentNodeTrailPiped", currentNodeTrailPiped);
-                    //context.put("currentNodeTrailCsv", currentNodeTrailCsv);
                     expandCollapseLink.setStyle("collapsed");
                     expandCollapseLink.setText("&nbsp;");
                     String target = node.getModelTree().getExpandCollapseRequest(context);
@@ -117,8 +102,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
                         target += "&";
                     }
                     target += trailName + "=" + currentNodeTrailPiped;
-                    target += "#" + staticNodeTrailPiped;
-                    //expandCollapseLink.setTarget("/ViewOutline?docRootContentId=${docRootContentId}&targetNodeTrailCsv=${currentNodeTrailCsv}");
+                    target += "#" + initialNodeTrailPiped;
                     expandCollapseLink.setTarget(target);
                 }
             } else {
@@ -129,30 +113,24 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
                 if (currentNodeTrailPiped == null) {
                     currentNodeTrailPiped = "";
                 }
-                context.put("currentNodeTrailPiped", currentNodeTrailPiped);
-                //context.put("currentNodeTrailCsv", currentNodeTrailCsv);
                 expandCollapseLink.setStyle("expanded");
                 expandCollapseLink.setText("&nbsp;");
                 String target = node.getModelTree().getExpandCollapseRequest(context);
                 String trailName = node.getModelTree().getTrailName(context);
-                if (target.indexOf("?") < 0)  target += "?";
-                else target += "&";
+                if (target.indexOf("?") < 0) {
+                    target += "?";
+                } else {
+                    target += "&";
+                }
                 target += trailName + "=" + currentNodeTrailPiped;
-                target += "#" + staticNodeTrailPiped;
+                target += "#" + initialNodeTrailPiped;
                 expandCollapseLink.setTarget(target);
                 // add it so it can be remove in renderNodeEnd
                 currentNodeTrail.add(lastContentId);
-                currentNodeTrailPiped = StringUtil.join(currentNodeTrail, "|");
-                if (currentNodeTrailPiped == null) {
-                    currentNodeTrailPiped = "";
-                }
-                context.put("currentNodeTrailPiped", currentNodeTrailPiped);
             }
             renderLink( writer, context, expandCollapseLink);
         } else if (!hasChildren){
-            //writer.append(" ");
             context.put("processChildren", Boolean.FALSE);
-            //currentNodeTrail.add(contentId);
         }
     }
 
