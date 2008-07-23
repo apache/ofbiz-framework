@@ -688,7 +688,9 @@ Ajax.InPlaceEditor = Class.create({
     if (e) Event.stop(e);
   },
   updateElement: function() {
-      $(this.element).update(this._paramValue);
+      if (this.options.updateAfterRequestCall) {
+          $(this.element).update(this._paramValue);
+      }
   },
   leaveEditMode: function() {
     this.element.removeClassName(this.options.savingClassName);

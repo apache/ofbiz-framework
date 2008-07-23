@@ -68,6 +68,24 @@ under the License.
         <actions>
             <entity-condition entity-name="Example"><order-by field-name="exampleName"/></entity-condition>
         </actions>
+        <field name="exampleName" title="${uiLabelMap.CommonName}" id-name="exampleName" widget-style="tabletext">
+            <display>
+                <in-place-editor url="/example/control/updateExample" cancel-control="button" saving-text="Updating..." text-between-controls=" ">
+                    <simple-editor/>
+                    <field-map field-name="exampleId" env-name="exampleId"/>
+                    <field-map field-name="statusId"  env-name="statusId"/>
+                </in-place-editor>
+            </display>
+        </field>
+        <field name="description" title="${uiLabelMap.CommonDescription}" id-name="description" widget-style="tabletext">
+            <display>
+                <in-place-editor url="/example/control/updateExample" cancel-control="button" saving-text="Updating..." text-between-controls=" ">
+                    <simple-editor/>
+                    <field-map field-name="exampleId" env-name="exampleId"/>
+                    <field-map field-name="statusId"  env-name="statusId"/>
+                </in-place-editor>
+            </display>
+        </field>
         <on-event-update-area event-type="paginate" area-id="ListExamplesAjax" area-target="ListExampleFormOnly"/>
     </form>
 

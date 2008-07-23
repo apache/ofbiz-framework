@@ -1794,6 +1794,7 @@ public class ModelFormField {
         protected String textBeforeControls;
         protected String textAfterControls;
         protected String textBetweenControls;
+        protected String updateAfterRequestCall;
         protected String rows;
         protected String cols;
         protected Map<FlexibleMapAccessor, Object> fieldMap;
@@ -1820,6 +1821,7 @@ public class ModelFormField {
             this.textBeforeControls = element.getAttribute("text-before-controls");
             this.textAfterControls = element.getAttribute("text-after-controls");
             this.textBetweenControls = element.getAttribute("text-between-controls");
+            this.updateAfterRequestCall = element.getAttribute("update-after-request-call");
             
             Element simpleElement = UtilXml.firstChildElement(element, "simple-editor");
             this.rows = simpleElement.getAttribute("rows");
@@ -1837,91 +1839,95 @@ public class ModelFormField {
         }
 
         public String getCancelControl() {
-            return cancelControl;
+            return this.cancelControl;
         }
 
         public String getCancelText() {
-            return cancelText;
+            return this.cancelText;
         }
 
         public String getClickToEditText() {
-            return clickToEditText;
+            return this.clickToEditText;
         }
 
         public String getFieldPostCreation() {
-           return fieldPostCreation; 
+           return this.fieldPostCreation; 
         }
 
         public String getFormClassName() {
-            return formClassName;
+            return this.formClassName;
         }
 
         public String getHighlightColor() {
-            return highlightColor;
+            return this.highlightColor;
         }
 
         public String getHighlightEndColor() {
-            return highlightEndColor;
+            return this.highlightEndColor;
         }
 
         public String getHoverClassName() {
-            return hoverClassName;
+            return this.hoverClassName;
         }
 
         public String getHtmlResponse() {
-            return htmlResponse;
+            return this.htmlResponse;
         }
 
         public String getLoadingClassName() {
-            return loadingClassName;
+            return this.loadingClassName;
         }
 
         public String getLoadingText() {
-            return loadingText;
+            return this.loadingText;
         }
 
         public String getOkControl() {
-            return okControl;
+            return this.okControl;
         }
 
         public String getOkText() {
-            return okText;
+            return this.okText;
         }
 
         public String getParamName() {
-            return paramName;
+            return this.paramName;
         }
 
         public String getSavingClassName() {
-            return savingClassName;
+            return this.savingClassName;
         }
 
         public String getSavingText() {
-            return savingText;
+            return this.savingText;
         }
 
         public String getSubmitOnBlur() {
-            return submitOnBlur;
+            return this.submitOnBlur;
         }
 
         public String getTextBeforeControls() {
-            return textBeforeControls;
+            return this.textBeforeControls;
         }
 
         public String getTextAfterControls() {
-            return textAfterControls;
+            return this.textAfterControls;
         }
 
         public String getTextBetweenControls() {
-            return textBetweenControls;
+            return this.textBetweenControls;
+        }
+
+        public String getUpdateAfterRequestCall() {
+            return this.updateAfterRequestCall;
         }
 
         public String getRows() {
-            return rows;
+            return this.rows;
         }
 
         public String getCols() {
-            return cols;
+            return this.cols;
         }
 
         public Map<String, Object> getFieldMap(Map<String, Object> context) {
@@ -2012,6 +2018,10 @@ public class ModelFormField {
 
         public void setTextBetweenControls(String string) {
             this.textBetweenControls = string;
+        }
+
+        public void setUpdateAfterRequestCall(String string) {
+            this.updateAfterRequestCall = string;
         }
 
         public void setRows(String string) {

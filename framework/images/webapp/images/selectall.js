@@ -404,7 +404,6 @@ function toggleScreenlet(link, areaId, expandTxt, collapseTxt){
 */
 
 function ajaxInPlaceEditDisplayField(element, url, options) {
-    options.htmlResponse = false;
     new Ajax.InPlaceEditor($(element), url, options);
 }
 // ===== End of Ajax Functions ===== //
