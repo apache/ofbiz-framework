@@ -479,81 +479,81 @@ public class ModelTree extends ModelWidget {
         }
 
         public boolean hasChildren(Map<String, Object> context) {
-
-             boolean hasChildren = false;
-             Long nodeCount = null;
-             String countFieldName = "childBranchCount";
-               Object obj = null;
-             if (UtilValidate.isNotEmpty(this.entryName)) {
-                    Map map = (Map)context.get(this.entryName);
-                    if (map instanceof GenericValue) {
-                    	ModelEntity modelEntity = ((GenericValue)map).getModelEntity();
-                    	if (modelEntity.isField(countFieldName)) {
-                    		obj = map.get(countFieldName);
-                    	}
+            boolean hasChildren = false;
+            Long nodeCount = null;
+            String countFieldName = "childBranchCount";
+            Object obj = null;
+            if (UtilValidate.isNotEmpty(this.entryName)) {
+                Map map = (Map) context.get(this.entryName);
+                if (map instanceof GenericValue) {
+                    ModelEntity modelEntity = ((GenericValue) map).getModelEntity();
+                    if (modelEntity.isField(countFieldName)) {
+                        obj = map.get(countFieldName);
                     }
-             } else {
-                   obj = context.get(countFieldName);
-             }
-             if (obj != null) {
-                nodeCount = (Long)obj;
-             }
-             String entName = this.getEntityName();
-             GenericDelegator delegator = modelTree.getDelegator();
-             ModelEntity modelEntity = delegator.getModelEntity(entName);
-             ModelField modelField = null;
-         	 if (modelEntity.isField(countFieldName)) {
-                 modelField = modelEntity.getField(countFieldName); 
-        	 }
-             if (nodeCount == null && modelField != null || this.modelTree.forceChildCheck) {
-                 getChildren(context);
-                 /*
-                 String id = (String)context.get(modelTree.getPkName());
-                 if (UtilValidate.isNotEmpty(id)) {
-                     try {
-                         int leafCount = ContentManagementWorker.updateStatsTopDown(delegator, id, UtilMisc.toList("SUB_CONTENT", "PUBLISH_LINK"));
-                         GenericValue entity = delegator.findByPrimaryKeyCache(entName, UtilMisc.toMap(modelTree.getPkName(), id));
-                         obj = entity.get("childBranchCount");
-                        if (obj != null)
-                            nodeCount = (Long)obj;
-                     } catch(GenericEntityException e) {
-                         Debug.logError(e, module); 
-                        throw new RuntimeException(e.getMessage());
-                     }
-                 }
-                 */
-                 nodeCount = Long.valueOf(this.subNodeValues.size());
+                }
+            } else {
+                obj = context.get(countFieldName);
+            }
+            if (obj != null) {
+                nodeCount = (Long) obj;
+            }
+            String entName = this.getEntityName();
+            GenericDelegator delegator = modelTree.getDelegator();
+            ModelEntity modelEntity = delegator.getModelEntity(entName);
+            ModelField modelField = null;
+            if (modelEntity.isField(countFieldName)) {
+                modelField = modelEntity.getField(countFieldName);
+            }
+            if (nodeCount == null && modelField != null || this.modelTree.forceChildCheck) {
+                getChildren(context);
+                /*
+                String id = (String)context.get(modelTree.getPkName());
+                if (UtilValidate.isNotEmpty(id)) {
+                    try {
+                        int leafCount = ContentManagementWorker.updateStatsTopDown(delegator, id, UtilMisc.toList("SUB_CONTENT", "PUBLISH_LINK"));
+                        GenericValue entity = delegator.findByPrimaryKeyCache(entName, UtilMisc.toMap(modelTree.getPkName(), id));
+                        obj = entity.get("childBranchCount");
+                       if (obj != null)
+                           nodeCount = (Long)obj;
+                    } catch(GenericEntityException e) {
+                        Debug.logError(e, module); 
+                       throw new RuntimeException(e.getMessage());
+                    }
+                }
+                */
+                nodeCount = Long.valueOf(this.subNodeValues.size());
                 String pkName = this.getPkName();
                 String id = null;
                 if (UtilValidate.isNotEmpty(this.entryName)) {
-                    Map map = (Map)context.get(this.entryName);
-                    id = (String)map.get(pkName);
+                    Map map = (Map) context.get(this.entryName);
+                    id = (String) map.get(pkName);
                 } else {
                     id = (String) context.get(pkName);
                 }
-                 try {
-                	 if (id != null && modelEntity.getPksSize() == 1) {
-                		 GenericValue entity = delegator.findOne(entName, UtilMisc.toMap(pkName, id), false);
-                         if (modelEntity.isField("childBranchCount")) {
-                    		 entity.put("childBranchCount", nodeCount);
-                             entity.store();
-                         }
-                	 }
-                 } catch(GenericEntityException e) {
-                     Debug.logError(e, module); 
+                try {
+                    if (id != null && modelEntity.getPksSize() == 1) {
+                        GenericValue entity = delegator.findOne(entName, UtilMisc.toMap(pkName, id), false);
+                        if (modelEntity.isField("childBranchCount")) {
+                            entity.put("childBranchCount", nodeCount);
+                            entity.store();
+                        }
+                    }
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, module);
                     throw new RuntimeException(e.getMessage());
-                 }
-             } else if (nodeCount == null) {
-                 getChildren(context);
-                if (subNodeValues != null)
+                }
+            } else if (nodeCount == null) {
+                getChildren(context);
+                if (subNodeValues != null) {
                     nodeCount = Long.valueOf(subNodeValues.size());
-             }
-             
-             if (nodeCount != null && nodeCount.intValue() > 0) 
-                 hasChildren = true;
-                
-             
-             return hasChildren;
+                }
+            }
+
+            if (nodeCount != null && nodeCount.intValue() > 0) {
+                hasChildren = true;
+            }
+
+            return hasChildren;
         }
 
         public void getChildren(Map<String, Object> context) {
@@ -700,7 +700,7 @@ public class ModelTree extends ModelWidget {
         }
     
         public void setPkName(String pkName) {
-        	this.pkName = pkName;
+            this.pkName = pkName;
         }
         
         public static class ModelSubNode {
