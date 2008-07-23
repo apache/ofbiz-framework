@@ -239,7 +239,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
                 } else {
                     writer.append(target);
                 }
-            } else  if (urlMode != null && urlMode.equalsIgnoreCase("content")) {
+            } else if (urlMode != null && urlMode.equalsIgnoreCase("content")) {
                 StringBuffer newURL = new StringBuffer();
                 ContentUrlTag.appendContentPrefix(req, newURL);
                 newURL.append(target);
@@ -257,22 +257,19 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
             } else {
                 writer.append(target);
             }
-
             writer.append("\"");
         }
         writer.append(">");
         
         // the text
         ModelTree.ModelNode.Image img = link.getImage();
-        if (img == null)
+        if (img == null) {
             writer.append(link.getText(context));
-        else
+        } else {
             renderImage(writer, context, img);
-        
+        }
         // close tag
         writer.append("</a>");
-        
-//        appendWhitespace(writer);
     }
 
     public void renderImage(Appendable writer, Map<String, Object> context, ModelTree.ModelNode.Image image) throws IOException {
@@ -336,7 +333,6 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
             } else {
                 writer.append(src);
             }
-
             writer.append("\"");
         }
         writer.append("/>");
@@ -344,7 +340,6 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
     }
 
     public ScreenStringRenderer getScreenStringRenderer(Map<String, Object> context) {
-
         ScreenRenderer screenRenderer = (ScreenRenderer)context.get("screens"); 
         if (screenRenderer != null) {
             screenStringRenderer = screenRenderer.getScreenStringRenderer();
