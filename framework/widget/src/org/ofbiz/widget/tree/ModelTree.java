@@ -536,8 +536,8 @@ public class ModelTree extends ModelWidget {
                 		 GenericValue entity = delegator.findOne(entName, UtilMisc.toMap(pkName, id), false);
                          if (modelEntity.isField("childBranchCount")) {
                     		 entity.put("childBranchCount", nodeCount);
+                             entity.store();
                          }
-                		 entity.store();
                 	 }
                  } catch(GenericEntityException e) {
                      Debug.logError(e, module); 
