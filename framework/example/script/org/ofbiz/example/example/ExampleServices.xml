@@ -20,31 +20,7 @@ under the License.
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
-    <!-- Example methods -->
-    <simple-method method-name="updateExample" short-description="update a Example">
-        <entity-one entity-name="Example" value-name="lookedUpValue"/>
-
-        <!-- handle statusId change stuff; first put the current statusId in the oldStatusId result -->
-        <field-to-result field-name="lookedUpValue.statusId" result-name="oldStatusId"/>
-        <if-compare-field field="lookedUpValue.statusId" operator="not-equals" to-field="parameters.statusId">
-            <!-- if the record exists there should be a statusId, but just in case make it so it won't blow up -->
-            <if-not-empty field="lookedUpValue.statusId">
-                <!-- if statusId change is not in the StatusValidChange list, complain... -->
-                <entity-one entity-name="StatusValidChange" value-name="statusValidChange" auto-field-map="false">
-                    <field-map field-name="statusId" env-name="lookedUpValue.statusId"/>
-                    <field-map field-name="statusIdTo" env-name="parameters.statusId"/>
-                </entity-one>
-                <if-empty field="statusValidChange">
-                    <!-- no valid change record found? return an error... -->
-                    <add-error><fail-property resource="ExampleUiLabels" property="ExampleErrorNoExampleStatusValidChange"/></add-error>
-                    <check-errors/>
-                </if-empty>
-            </if-not-empty>
-        </if-compare-field>
-
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
-    </simple-method>
+    <!-- ExampleStatus methods -->
     <simple-method method-name="createExampleStatus" short-description="create a ExampleItem">
         <now-timestamp-to-env env-name="nowTimestamp"/>
         

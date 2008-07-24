@@ -34,8 +34,7 @@ under the License.
         <override name="statusId" optional="false"/>
         <override name="exampleName" optional="false"/>
     </service>
-    <service name="updateExample" default-entity-name="Example" engine="simple"
-            location="component://example/script/org/ofbiz/example/example/ExampleServices.xml" invoke="updateExample" auth="true">
+    <service name="updateExample" default-entity-name="Example" engine="entity-auto" invoke="update" auth="true">
         <description>Update a Example</description>
         <permission-service service-name="exampleGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>

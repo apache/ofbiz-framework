@@ -151,14 +151,6 @@ under the License.
         <value xml:lang="ru">Оригинальный пример</value>
         <value xml:lang="th">ตัวอย่างเดิม</value>
     </property>
-    <property key="ExampleErrorNoExampleStatusValidChange">
-        <value xml:lang="en">Error: status change from [${lookedUpValue.statusId}] to [${parameters.statusId}] is not allowed.</value>
-        <value xml:lang="it">Errore: stato cambiato da [${lookedUpValue.statusId}] a [${parameters.statusId}] non &#232; permesso</value>
-        <value xml:lang="ro">Eroare: stato schimbat de la [${lookedUpValue.statusId}] la [${parameters.statusId}] nu este permis</value>
-        <value xml:lang="ru">Ошибка: изменение статуса с [${lookedUpValue.statusId}] на [${parameters.statusId}] запрещено.</value>
-        <value xml:lang="th">Error: ไม่สามารถเปลี่นแปลงสถานะจาก [${lookedUpValue.statusId}] เป็น [${parameters.statusId}] ได้</value>
-        <value xml:lang="zh">错误: 不允许把状态从[${lookedUpValue.statusId}]变为[${parameters.statusId}]。</value>
-    </property>
     <property key="ExamplePermissionError">
         <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the EXAMPLE_${mainAction} or EXAMPLE_ADMIN permission</value>
         <value xml:lang="it">Errore Sicurezza: per eseguire ${resourceDescription} tu devi avere il permesso EXAMPLE${mainAction} o EXAMPLE_ADMIN</value>

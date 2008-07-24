@@ -1955,8 +1955,11 @@
         <value xml:lang="de">Fehler: Statuswechsel von [${lookedUpValue.statusId}] nach [${parameters.statusId}] ist nicht erlaubt.</value>
         <value xml:lang="en">Error: status change from [${lookedUpValue.statusId}] to [${parameters.statusId}] is not allowed.</value>
         <value xml:lang="fr">Erreur le changement de status depuis [${lookedUpValue.statusId}] vers [${parameters.statusId}] n'est pas autorisé.</value>
-        <value xml:lang="th">Error: ข้อผิดพลาด ! ไม่อนุญาติเปลี่ยนสถานะจาก [${lookedUpValue.statusId}] เป็น [${parameters.statusId}]
-</value>
+        <value xml:lang="it">Errore: stato cambiato da [${lookedUpValue.statusId}] a [${parameters.statusId}] non &#232; permesso</value>
+        <value xml:lang="ro">Eroare: stato schimbat de la [${lookedUpValue.statusId}] la [${parameters.statusId}] nu este permis</value>
+        <value xml:lang="ru">Ошибка: изменение статуса с [${lookedUpValue.statusId}] на [${parameters.statusId}] запрещено.</value>
+        <value xml:lang="th">Error: ข้อผิดพลาด ! ไม่อนุญาติเปลี่ยนสถานะจาก [${lookedUpValue.statusId}] เป็น [${parameters.statusId}]</value>
+        <value xml:lang="zh">错误: 不允许把状态从[${lookedUpValue.statusId}]变为[${parameters.statusId}]。</value>
     </property>
     <property key="CommonEventDate">
         <value xml:lang="ar">تاريخ الحدث</value>
