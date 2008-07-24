@@ -25,8 +25,7 @@ under the License.
     <version>1.0</version>
 
     <!-- Example & Related Services -->
-    <service name="createExample" default-entity-name="Example" engine="simple"
-            location="component://example/script/org/ofbiz/example/example/ExampleServices.xml" invoke="createExample" auth="true">
+    <service name="createExample" default-entity-name="Example" engine="entity-auto" invoke="create" auth="true">
         <description>Create a Example</description>
         <permission-service service-name="exampleGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
@@ -43,8 +42,7 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="oldStatusId" type="String" mode="OUT" optional="false"/>
     </service>
-    <service name="deleteExample" default-entity-name="Example" engine="simple"
-            location="component://example/script/org/ofbiz/example/example/ExampleServices.xml" invoke="deleteExample" auth="true">
+    <service name="deleteExample" default-entity-name="Example" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a Example</description>
         <permission-service service-name="exampleGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -80,45 +78,39 @@ under the License.
     </service>
 
     <!-- ExampleFeature Services -->
-    <service name="createExampleFeature" default-entity-name="ExampleFeature" engine="simple"
-            location="component://example/script/org/ofbiz/example/feature/ExampleFeatureServices.xml" invoke="createExampleFeature" auth="true">
+    <service name="createExampleFeature" default-entity-name="ExampleFeature" engine="entity-auto" invoke="create" auth="true">
         <description>Create a ExampleFeature</description>
         <permission-service service-name="exampleGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="description" optional="false"/>
     </service>
-    <service name="updateExampleFeature" default-entity-name="ExampleFeature" engine="simple"
-            location="component://example/script/org/ofbiz/example/feature/ExampleFeatureServices.xml" invoke="updateExampleFeature" auth="true">
+    <service name="updateExampleFeature" default-entity-name="ExampleFeature" engine="entity-auto" invoke="update" auth="true">
         <description>Update a ExampleFeature</description>
         <permission-service service-name="exampleGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteExampleFeature" default-entity-name="ExampleFeature" engine="simple"
-            location="component://example/script/org/ofbiz/example/feature/ExampleFeatureServices.xml" invoke="deleteExampleFeature" auth="true">
+    <service name="deleteExampleFeature" default-entity-name="ExampleFeature" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a ExampleFeature</description>
         <permission-service service-name="exampleGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <service name="createExampleFeatureAppl" default-entity-name="ExampleFeatureAppl" engine="simple"
-            location="component://example/script/org/ofbiz/example/feature/ExampleFeatureServices.xml" invoke="createExampleFeatureAppl" auth="true">
+    <service name="createExampleFeatureAppl" default-entity-name="ExampleFeatureAppl" engine="entity-auto" invoke="create" auth="true">
         <description>Create a ExampleFeatureAppl</description>
         <permission-service service-name="exampleGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" optional="true"/>
     </service>
-    <service name="updateExampleFeatureAppl" default-entity-name="ExampleFeatureAppl" engine="simple"
-            location="component://example/script/org/ofbiz/example/feature/ExampleFeatureServices.xml" invoke="updateExampleFeatureAppl" auth="true">
+    <service name="updateExampleFeatureAppl" default-entity-name="ExampleFeatureAppl" engine="entity-auto" invoke="update" auth="true">
         <description>Update a ExampleFeatureAppl</description>
         <permission-service service-name="exampleGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteExampleFeatureAppl" default-entity-name="ExampleFeatureAppl" engine="simple"
-            location="component://example/script/org/ofbiz/example/feature/ExampleFeatureServices.xml" invoke="deleteExampleFeatureAppl" auth="true">
+    <service name="deleteExampleFeatureAppl" default-entity-name="ExampleFeatureAppl" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a ExampleFeatureAppl</description>
         <permission-service service-name="exampleGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
