@@ -3456,7 +3456,7 @@
         <value xml:lang="th">ค้นหา:whitepages.com</value>
         <value xml:lang="zh">查找：whitepages.com</value>
     </property>
-    <property key="OrderLookupWhitepagesLink">        
+    <property key="OrderLookupWhitepagesLink">
         <value xml:lang="en">http://www.whitepages.com/find_person_results.pl?fid=a&amp;s_n=${addressNum}&amp;s_a=${addressOther}&amp;c=${postalAddress.city?if_exists}&amp;s=${postalAddress.stateProvinceGeoId?if_exists}&amp;x=29&amp;y=18</value>
         <value xml:lang="fr">http://www.pagesjaunes.fr/trouverunnom/RecherchePagesBlanches.do</value>
     </property>
@@ -6194,7 +6194,7 @@
     </property>
     <property key="OrderReportOpenOrderItems">
         <value xml:lang="en">Open Order Items Report</value>
-        <value xml:lang="fr">Ouvrir l'état des lignes de commande</value>
+        <value xml:lang="fr">Etat des lignes de commande</value>
         <value xml:lang="it">Report Righe Ordine Aperte</value>
         <value xml:lang="ro">Raport Linii Comenzi Deschise</value>
         <value xml:lang="ru">Открыть отчет по позициям заказа</value>
@@ -7848,7 +7848,7 @@
     </property>
     <property key="OrderValueSold">
         <value xml:lang="en">Value Sold</value>
-        <value xml:lang="fr">Estimer la vente</value>
+        <value xml:lang="fr">Valeur</value>
         <value xml:lang="it">Valore Vendita</value>
         <value xml:lang="nl">Value Sold</value>
         <value xml:lang="ro">Valoare Vanzare</value>
