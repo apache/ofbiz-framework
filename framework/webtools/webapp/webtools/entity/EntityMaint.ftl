@@ -24,6 +24,18 @@ under the License.
     <br class="clear"/>
   </div> 
   <div class="screenlet-body">
+    <p>
+       <form target="<@ofbizUrl>/entitymaint</@ofbizUrl>">
+          <b>${uiLabelMap.CommonGroup}:</b>
+          <select name="filterByGroupName">
+             <option value="">${uiLabelMap.CommonAll}</option>
+             <#list entityGroups as group>
+                <option value="${group}" <#if filterByGroupName?exists><#if group = filterByGroupName>selected</#if></#if>>${group}</option>
+             </#list>
+          </select>
+          <input type="submit"/>
+       </form>
+    </p>
     <p><b><u>${uiLabelMap.CommonNote}</u></b></p>
     <p>
        <b>${uiLabelMap.WebtoolsCreate}</b> = ${uiLabelMap.CommonCreateNew}&nbsp;&nbsp;
