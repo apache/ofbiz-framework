@@ -22,7 +22,7 @@ import org.ofbiz.entity.condition.*;
 import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.base.util.*
 
-module = "showvisits.bsh";
+module = "showvisits.groovy";
 
 partyId = parameters.partyId;
 context.partyId = partyId;
