@@ -97,13 +97,13 @@ under the License.
         </row-actions>
         <field name="roleTypeId"><display-entity entity-name="RoleType" description="${description}"/></field> 
         <field use-when="headerItem.equals(&quot;main&quot;)" name="removeLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deletePartyCommunicationEventRole?partyId=${partyId}&amp;communicationEventId=${communicationEventId}&amp;roleTypeId=${roleTypeId}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deletePartyCommunicationEventRole?partyId=${partyId}&amp;communicationEventId=${communicationEventId}&amp;roleTypeId=${roleTypeId}&amp;deleteCommEventIfLast=Y&amp;delContentDataResource=Y"/>
         </field>
         <field use-when="headerItem.equals(&quot;myCommunications&quot;)" name="removeLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deletePartyCommunicationEventMyRole?partyId=${partyId}&amp;communicationEventId=${communicationEventId}&amp;roleTypeId=${roleTypeId}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deletePartyCommunicationEventMyRole?partyId=${partyId}&amp;communicationEventId=${communicationEventId}&amp;roleTypeId=${roleTypeId}&amp;deleteCommEventIfLast=Y&amp;delContentDataResource=Y"/>
         </field>
         <field use-when="headerItem.equals(&quot;otherCommunications&quot;)" name="removeLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deletePartyCommunicationEventOthersRole?partyId=${partyId}&amp;communicationEventId=${communicationEventId}&amp;roleTypeId=${roleTypeId}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deletePartyCommunicationEventOthersRole?partyId=${partyId}&amp;communicationEventId=${communicationEventId}&amp;roleTypeId=${roleTypeId}&amp;deleteCommEventIfLast=Y&amp;delContentDataResource=Y"/>
         </field>
         <field use-when="headerItem.equals(&quot;main&quot;)" name="subject" widget-style="buttontext" widget-area-style="fieldWidth300">
             <hyperlink description="${subject} " target="ViewCommunicationEvent?communicationEventId=${communicationEventId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;type=main"/>

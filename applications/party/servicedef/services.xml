@@ -708,6 +708,8 @@ under the License.
         <description>Remove a Communication Event Role</description>
         <permission-service service-name="partyCommunicationEventPermissionCheck" main-action="UPDATE"/>
         <auto-attributes entity-name="CommunicationEventRole" include="pk" mode="IN" optional="false"/>
+        <attribute name="deleteCommEventIfLast" mode="IN" type="String" optional="true"/><!-- "Y" for true -->
+        <attribute name="delContentDataResource" type="String" mode="IN" optional="true"/>
     </service>
     <service name="createCommEventWorkEffort" engine="simple" location="org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="makeCommunicationEventWorkEffort" auth="true"  >
         <description>Creates a WorkEffort entity and CommunicationEventWorkEff</description>
