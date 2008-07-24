@@ -3811,11 +3811,11 @@
     </property>
     <property key="PageTitleAddFeatureInterAction">
         <value xml:lang="en">Add Feature InterAction</value>
-        <value xml:lang="fr">Ajouter une interaction entre caratéristiques</value>
+        <value xml:lang="fr">Ajouter une interaction entre caractéristiques</value>
     </property>
     <property key="PageTitleAddFeaturePrice">
         <value xml:lang="en">Add Feature Price</value>
-        <value xml:lang="fr">Ajouter un prix de caratéristique</value>
+        <value xml:lang="fr">Ajouter un prix de caractéristique</value>
     </property>
     <property key="PageTitleAddInventoryItemLabelAppls">
         <value xml:lang="en">Add Inventory Item Label Appls</value>
@@ -4317,14 +4317,14 @@
     </property>
     <property key="PageTitleEditFeatureType">
         <value xml:lang="en">Edit Feature Type</value>
-        <value xml:lang="fr">Éditer le type de caratéristique</value>
+        <value xml:lang="fr">Éditer le type de caractéristique</value>
         <value xml:lang="it">Aggiorna Tipo Caratteristica</value>
         <value xml:lang="th">แก้ไขประเภทลักษณะ</value>
     </property>
     <property key="PageTitleEditFeatureTypes">
         <value xml:lang="en">Edit Feature Types</value>
         <value xml:lang="es">Modificar Tipos de Características</value>
-        <value xml:lang="fr">Éditer les types de caratéristiques</value>
+        <value xml:lang="fr">Éditer les types de caractéristiques</value>
         <value xml:lang="it">Aggiorna Tipi Caratteristica</value>
         <value xml:lang="ro">Actualizeaza Tipuri Caracteristica</value>
         <value xml:lang="ru">Изменить категории особенностей</value>
@@ -4618,7 +4618,7 @@
     </property>
     <property key="PageTitleEditProductMeters">
         <value xml:lang="en">Edit Product Meters</value>
-        <value xml:lang="fr">Éditer les mesures d'articlet</value>
+        <value xml:lang="fr">Éditer les mesures de l'article</value>
         <value xml:lang="it">Aggiorna Contatori Prodotto</value>
         <value xml:lang="ru">Изменить счетчики продукта</value>
         <value xml:lang="th">แก้ไขหน่วยวัดสินค้า</value>
@@ -6183,7 +6183,7 @@
     <property key="ProductAddFeatureToCategory">
         <value xml:lang="en">new features to this category</value>
         <value xml:lang="es">nuevas características a la categoría</value>
-        <value xml:lang="fr">Ajout d'une caratéristique à la catégorie</value>
+        <value xml:lang="fr">Ajout d'une caractéristique à la catégorie</value>
         <value xml:lang="it">nuove caratteristiche di questa categoria</value>
         <value xml:lang="ro">noi caracteristici din aceasta categorie</value>
         <value xml:lang="ru">новые возможности в этой категории</value>
@@ -6192,7 +6192,7 @@
     </property>
     <property key="ProductAddFeatureToResults">
         <value xml:lang="en">Add Feature to Results</value>
-        <value xml:lang="fr">Ajout d'une caratéristique aux résultats</value>
+        <value xml:lang="fr">Ajout d'une caractéristique aux résultats</value>
         <value xml:lang="it">Aggiungi Caratteristica ai Risultati</value>
         <value xml:lang="ro">Adauga Caracteristica la Resultate</value>
         <value xml:lang="ru">Добавить особенность к результатам</value>
@@ -6741,7 +6741,7 @@
     <property key="ProductApplyFeaturesFromCategory">
         <value xml:lang="en">Apply Features From Category</value>
         <value xml:lang="es">Aplicar características de Categoría</value>
-        <value xml:lang="fr">Appliquer les caratéristiques depuis la catégorie</value>
+        <value xml:lang="fr">Appliquer les caractéristiques depuis la catégorie</value>
         <value xml:lang="it">Applicare Caratteristiche Dalla Categoria</value>
         <value xml:lang="ro">Aplicare Caratteristici De la Categoria</value>
         <value xml:lang="ru">Применить особенности из категории</value>
@@ -9472,7 +9472,7 @@
     </property>
     <property key="ProductFeatureCategoryAttach">
         <value xml:lang="en">Attach Features to Category from Products</value>
-        <value xml:lang="fr">Associé les caratéristiques à la catégorie depuis les articles</value>
+        <value xml:lang="fr">Associé les caractéristiques à la catégorie depuis les articles</value>
         <value xml:lang="it">Allega Caratteristiche Alla Categoria Dai Prodotti</value>
         <value xml:lang="ro">Anexeaza Caracteristica la Categorie pentru Produse </value>
         <value xml:lang="ru">Добавить к категории особенности из продуктов</value>
@@ -9512,7 +9512,7 @@
     </property>
     <property key="ProductFeatureGroupAppls">
         <value xml:lang="en">Feature Group Appls</value>
-        <value xml:lang="fr">Application d'un groupe de caratéristiques</value>
+        <value xml:lang="fr">Application d'un groupe de caractéristiques</value>
         <value xml:lang="it">Applicazioni Gruppo Caratteristica</value>
         <value xml:lang="th">Feature Group Appls</value>
     </property>
@@ -9565,7 +9565,7 @@
     </property>
     <property key="ProductFeatureInteraction">
         <value xml:lang="en">Feature Interaction</value>
-        <value xml:lang="fr">Interaction entre caratéristiques</value>                
+        <value xml:lang="fr">Interaction entre caractéristiques</value>
     </property>
     <property key="ProductFeatures">
         <value xml:lang="en">Features</value>
@@ -11681,7 +11681,7 @@
     </property>
     <property key="ProductNewFeatureInterAction">
         <value xml:lang="en">New Feature InterAction</value>
-        <value xml:lang="fr">Nouvelle interaction entre caratéristiques</value>        
+        <value xml:lang="fr">Nouvelle interaction entre caractéristiques</value>
     </property>
     <property key="ProductNewGroup">
         <value xml:lang="en">New Group</value>
