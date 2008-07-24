@@ -91,6 +91,7 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="ListFixedAssets"/>
+                <set field="fixedAssetId" from-field="fixedAsset.fixedAssetId" default-value="${parameters.fixedAssetId}"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

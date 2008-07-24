@@ -130,6 +130,7 @@
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
+    <view-map name="main" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#mytasks"/>
 
     <!-- FixedAsset Maintenance screens -->
     <view-map name="FindFixedAssetMaints" type="screen" page="component://assetmaint/widget/AssetmaintScreens.xml#FindFixedAssetMaints"/>
