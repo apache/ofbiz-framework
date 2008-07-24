@@ -7280,7 +7280,7 @@
     <property key="ProductCatalogManagerIsFor">
         <value xml:lang="en">This application is primarily intended for those responsible for the maintenance of product catalog related information</value>
         <value xml:lang="es">Esta aplicación está principalmente destinada a aquellos responsables del mantenimiento de información relacionada a catálogos de productos.</value>
-        <value xml:lang="fr">Cette application est essentiellement à l'attention de ceux qui sont responsables des informations relatives aux articles (catalogues, prix...).</value>
+        <value xml:lang="fr">Cette application est essentiellement destinée aux responsables des informations relatives aux articles (catalogues, prix...).</value>
         <value xml:lang="it">Questa applicazione è principalmente responsabile per la manutenzione delle informazioni relative ai cataloghi prodotti</value>
         <value xml:lang="ro">Aceasta aplicatie este in mod principal responsabila cu intretinerea de informatii relative la cataloage produse</value>
         <value xml:lang="ru">Это приложение предназначено для лиц, ответственных за ввод данных в каталог продуктов</value>
