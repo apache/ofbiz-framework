@@ -16,12 +16,27 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+import javolution.util.FastList;
+
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.model.ModelGroupReader;
 import org.ofbiz.entity.model.ModelReader;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelViewEntity;
 
 delegator = request.getAttribute("delegator");
+
+ModelGroupReader mgr = delegator.getModelGroupReader();
+Iterator groupMapIt = mgr.getGroupNames(delegator.getDelegatorName()).iterator();
+List entityGroups = FastList.newInstance();
+
+while (groupMapIt.hasNext()) {
+    entityGroups.add(groupMapIt.next());
+}
+
+filterByGroupName = parameters.get("filterByGroupName");
+context.put("filterByGroupName", filterByGroupName);
 
 ModelReader reader = delegator.getModelReader();
 Collection ec = reader.getEntityNames();
@@ -33,7 +48,11 @@ int kIdx = 0;
 List entitiesList = new ArrayList();
 while (classNamesIterator != null && classNamesIterator.hasNext()) {
     ModelEntity entity = reader.getModelEntity((String)classNamesIterator.next());
-    
+
+    if (UtilValidate.isNotEmpty(filterByGroupName) && !filterByGroupName.equals(delegator.getEntityGroupName(entity.getEntityName()))) {
+    	continue;
+    }
+
     String viewEntity = "N";
     if (entity instanceof ModelViewEntity) {
         viewEntity = "Y";
@@ -65,4 +84,5 @@ while (classNamesIterator != null && classNamesIterator.hasNext()) {
 
     entitiesList.add(entityMap);
 }
+context.put("entityGroups", entityGroups);
 context.put("entitiesList", entitiesList);
