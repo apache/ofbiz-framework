@@ -244,6 +244,38 @@
         <response name="success" type="view" value="otherCommunications"/>
         <response name="error" type="view" value="ViewCommunicationEvent"/>
     </request-map>
+    <request-map uri="setOtherCommEventRoleToComplete">
+        <security https="true" auth="true"/>
+        <event type="simple" path="org/ofbiz/mypage/Events.xml" invoke="setCommEventRoleToComplete"/>
+        <response name="success" type="view" value="otherCommunications"/>
+        <response name="error" type="view" value="otherCommunications"/>
+    </request-map>
+    <request-map uri="setMyCommEventRoleToComplete">
+        <security https="true" auth="true"/>
+        <event type="simple" path="org/ofbiz/mypage/Events.xml" invoke="setCommEventRoleToComplete"/>
+        <response name="success" type="view" value="myCommunications"/>
+        <response name="error" type="view" value="myCommunications"/>
+    </request-map>
+    <request-map uri="setCommEventRoleToComplete">
+        <security https="true" auth="true"/>
+        <event type="simple" path="org/ofbiz/mypage/Events.xml" invoke="setCommEventRoleToComplete"/>
+        <response name="success" type="view" value="main"/>
+        <response name="error" type="view" value="main"/>
+    </request-map>
+    <request-map uri="ViewCommunicationEvent">
+        <security https="true" auth="true"/>
+        <event  type="simple" invoke="setCommEventToRead" path="org/ofbiz/mypage/Events.xml"/>
+        <response name="success" type="view" value="ViewCommunicationEvent"/>
+        <response name="error" type="view" value="main"/>
+    </request-map>
+
+    <!-- to clean up old data -->
+    <request-map uri="createCommEventRoles">
+        <security https="true" auth="true"/>
+        <event  type="simple" invoke="createCommunicationEventRoles" path="org/ofbiz/mypage/Events.xml"/>
+        <response name="success" type="view" value="main"/>
+        <response name="error" type="view" value="main"/>
+    </request-map>
 
     <view-map name="main" type="screen" page="component://mypage/widget/CommonScreens.xml#main"/>
     <view-map name="preferences" type="screen" page="component://mypage/widget/CommonScreens.xml#preferences"/>

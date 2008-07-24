@@ -56,5 +56,125 @@ under the License.
 		<call-service service-name="setUserPreferenceGroup"
 			in-map-name="inMap" />
 	</simple-method>
+	
+    <simple-method method-name="setCommEventToRead" short-description="">
+        <call-simple-method method-name="checkCommEventAccess"/>
+        <if-compare operator="equals" value="true" field="found">
+            <entity-one entity-name="CommunicationEventRole" value-name="communicationEventRole"/>
+            <if>
+                <condition>
+                    <or>
+                        <if-empty field="communicationEventRole.statusId"/>
+                        <if-compare operator="equals" value="COM_ROLE_CREATED" field="communicationEventRole.statusId"/>
+                    </or>
+                </condition>
+                <then>
+                    <set-service-fields service-name="updateCommunicationEventRole" map-name="parameters" to-map-name="inMap"/>
+                    <set field="inMap.statusId" value="COM_ROLE_READ" />
+                    <call-service service-name="updateCommunicationEventRole" in-map-name="inMap"/>    
+                </then>
+            </if>
+            <else>
+                <add-error><fail-property property="NoAccess" resource="MyPageUiLabels"/></add-error>
+            </else>
+        </if-compare>
+    </simple-method>
+
+    <simple-method method-name="setCommEventRoleToComplete" short-description="">
+        <call-simple-method method-name="checkCommEventAccess"/>
+        <if-compare operator="equals" value="true" field="found">
+            <entity-one entity-name="CommunicationEventRole" value-name="communicationEventRole"/>
+            <if>
+                <condition>
+                    <or>
+                        <if-empty field="communicationEventRole.statusId"/>
+                        <if-compare operator="equals" value="COM_ROLE_READ" field="communicationEventRole.statusId"/>
+                    </or>
+                </condition>
+                <then>
+                    <set-service-fields service-name="updateCommunicationEventRole" map-name="parameters" to-map-name="inMap"/>
+                    <set field="inMap.statusId" value="COM_ROLE_COMPLETED" />
+                    <call-service service-name="updateCommunicationEventRole" in-map-name="inMap"/>    
+                </then>
+            </if>
+            <else>
+                <add-error><fail-property property="NoAccess" resource="MyPageUiLabels"/></add-error>
+            </else>
+        </if-compare>
+    </simple-method>
+
+    <simple-method method-name="checkCommEventAccess" short-description="check if the user has access to the email of this party">
+        <set field="found" value="false"/>
+        <if-compare-field operator="not-equals" field="parameters.partyId" to-field="userLogin.partyId">
+                <entity-and list-name="emailOwners" entity-name="PartyRelationship" filter-by-date="true">
+                    <field-map field-name="partyIdFrom" value="${userLogin.partyId}" />
+                    <field-map field-name="roleTypeIdFrom" value="EMAIL_ADMIN" />
+                </entity-and>
+                <iterate entry-name="emailOwners" list-name="emailOwner">
+                    <if-compare operator="equals" value="${userLogin.partyId}" field="emailOwner.partyIdTo">
+                        <set field="found" value="true"/>
+                    </if-compare>
+                </iterate>
+                <else>
+                    <set field="found" value="true"/>
+                </else>
+        </if-compare-field>
+    </simple-method>
+	<simple-method method-name="createCommunicationEventRoles"
+		short-description="">
+		<entity-condition list-name="commEvents" entity-name="CommunicationEvent" />
+		<set field="count" value="0" type="Integer" />
+		<iterate entry-name="commEvent" list-name="commEvents">
+			<log level="always" message="====processing: ${commEvent.communicationEventId}"></log>
+			<get-related value-name="commEvent" relation-name="CommunicationEventRole"
+				list-name="roles" />
+			<if-empty field="roles">
+                <!--partyId To -->
+				<if-not-empty field="commEvent.partyIdTo">
+					<entity-one entity-name="PartyRole" value-name="partyRole">
+						<field-map field-name="partyId" value="${commEvent.partyIdTo}" />
+						<field-map field-name="roleTypeId" value="ADDRESSEE" />
+					</entity-one>
+					<if-empty field="partyRole">
+						<make-value entity-name="PartyRole" value-name="pr" />
+						<set field="pr.partyId" value="${commEvent.partyIdTo}" />
+						<set field="pr.roleTypeId" value="ADDRESSEE" />
+						<create-value value-name="pr" />
+					</if-empty>
+					<make-value entity-name="CommunicationEventRole"
+						value-name="commRole" />
+					<set field="commRole.communicationEventId" from-field="commEvent.communicationEventId" />
+					<set field="commRole.partyId" from-field="commEvent.partyIdTo" />
+					<set field="commRole.roleTypeId" value="ADDRESSEE" />
+                    <set field="commRole.statusId" value="COM_ROLE_COMPLETED"/>
+					<create-value value-name="commRole" />
+				</if-not-empty>
+
+                <!-- partyIdFrom -->
+				<if-not-empty field="commEvent.partyIdFrom">
+					<entity-one entity-name="PartyRole" value-name="partyRole">
+						<field-map field-name="partyId" value="${commEvent.partyIdFrom}" />
+						<field-map field-name="roleTypeId" value="ORIGINATOR" />
+					</entity-one>
+					<if-empty field="partyRole">
+						<make-value entity-name="PartyRole" value-name="pr" />
+						<set field="pr.partyId" value="${commEvent.partyIdFrom}" />
+						<set field="pr.roleTypeId" value="ORIGINATOR" />
+						<create-value value-name="pr" />
+					</if-empty>
+                    <set field="commRole.communicationEventId" from-field="commEvent.communicationEventId" />
+					<set field="commRole.partyId" from-field="commEvent.partyIdFrom" />
+					<set field="commRole.roleTypeId" value="ORIGINATOR" />
+					<set field="commRole.statusId" value="COM_ROLE_COMPLETED"/>
+					<create-value value-name="commRole" />
+				</if-not-empty>
+				<calculate field-name="count">
+					<number value="1" />
+					<calcop operator="add" field-name="count" />
+				</calculate>
+			</if-empty>
+		</iterate>
+		<log level="always" message="========${count} records updated" />
+	</simple-method>
     
 </simple-methods>

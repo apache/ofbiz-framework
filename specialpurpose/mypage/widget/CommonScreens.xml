@@ -112,7 +112,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu location="component://mypage/widget/MyPageMenus.xml" name="CommEventTabBar"/>
+                        <!--include-menu location="component://mypage/widget/MyPageMenus.xml" name="CommEventTabBar"/-->
                         <include-menu location="component://party/webapp/partymgr/communication/CommMenus.xml" name="CommSubTabBar"/>
                         <decorator-section-include name="body"/>
                     </decorator-section>
