@@ -21,16 +21,6 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <!-- Example methods -->
-    <simple-method method-name="createExample" short-description="create a Example">
-        <make-value entity-name="Example" value-name="newEntity"/>
-        <sequenced-id-to-env sequence-name="Example" env-name="newEntity.exampleId"/> <!-- get the next sequenced ID -->
-        <field-to-result field-name="newEntity.exampleId" result-name="exampleId"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <create-value value-name="newEntity"/>
-
-        <set-service-fields service-name="createExampleStatus" map-name="newEntity" to-map-name="createExampleStatusMap"/>
-        <call-service service-name="createExampleStatus" in-map-name="createExampleStatusMap"/>
-    </simple-method>   
     <simple-method method-name="updateExample" short-description="update a Example">
         <entity-one entity-name="Example" value-name="lookedUpValue"/>
 
@@ -50,18 +40,10 @@ under the License.
                     <check-errors/>
                 </if-empty>
             </if-not-empty>
-            
-            <!-- before we set the nonpk fields, if the statusId is different save a status history record -->
-            <set-service-fields service-name="createExampleStatus" map-name="parameters" to-map-name="createExampleStatusMap"/>
-            <call-service service-name="createExampleStatus" in-map-name="createExampleStatusMap"/>
         </if-compare-field>
 
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="deleteExample" short-description="delete a Example">
-        <entity-one entity-name="Example" value-name="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="createExampleStatus" short-description="create a ExampleItem">
         <now-timestamp-to-env env-name="nowTimestamp"/>

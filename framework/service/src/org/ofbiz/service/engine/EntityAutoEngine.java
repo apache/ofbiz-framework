@@ -23,6 +23,7 @@ import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.finder.PrimaryKeyFinder;
@@ -210,6 +211,15 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
                     		"2. a single INOUT pk for primary auto-sequencing with optional override, " +
                     		"3. a 2-part pk with one part IN (existing primary pk) and one part OUT (the secdonary pk to sub-sequence, " +
                     		"4. all pk fields are IN for a manually specified primary key");
+                }
+                
+                // handle the case where there is a fromDate in the pk of the entity, and it is optional or undefined in the service def, populate automatically
+                ModelField fromDateField = modelEntity.getField("fromDate");
+                if (fromDateField != null && fromDateField.getIsPk()) {
+                    ModelParam fromDateParam = modelService.getParam("fromDate");
+                    if (fromDateParam == null || (fromDateParam.isOptional() && context.get("fromDate") == null)) {
+                        newEntity.set("fromDate", UtilDateTime.nowTimestamp());
+                    }
                 }
                 
                 newEntity.setNonPKFields(context, true);
