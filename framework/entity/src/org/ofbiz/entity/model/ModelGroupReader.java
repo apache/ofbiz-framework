@@ -171,11 +171,15 @@ public class ModelGroupReader implements Serializable {
      * @param entityName The entityName of the Entity Group definition to use.
      * @return A group name
      */
-    public String getEntityGroupName(String entityName) {
+    public String getEntityGroupName(String entityName, String delegatorName) {
         Map<String, String> gc = getGroupCache();
 
         if (gc != null) {
-            return gc.get(entityName);
+            String groupName = gc.get(entityName);
+            if (groupName == null) {
+                groupName = EntityConfigUtil.getDelegatorInfo(delegatorName).defaultGroupName;
+            }
+            return groupName;
         } else {
             return null;
         }
@@ -184,10 +188,11 @@ public class ModelGroupReader implements Serializable {
     /** Creates a Set with all of the groupNames defined in the specified XML Entity Group Descriptor file.
      * @return A Set of groupNames Strings
      */
-    public Set<String> getGroupNames() {
+    public Set<String> getGroupNames(String delegatorName) {
         getGroupCache();
         if (this.groupNames == null) return null;
         Set<String> newSet = FastSet.newInstance();
+        newSet.add(EntityConfigUtil.getDelegatorInfo(delegatorName).defaultGroupName);
         newSet.addAll(this.groupNames);
         return newSet;
     }

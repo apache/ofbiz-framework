@@ -23,7 +23,7 @@ under the License.
     <a href="<@ofbizUrl>minervainfo</@ofbizUrl>" class="smallSubmit">Refresh</a>
 </div>
 
-<#assign groups = delegator.getModelGroupReader().getGroupNames()?if_exists/>
+<#assign groups = delegator.getModelGroupReader().getGroupNames(delegator.getDelegatorName())?if_exists/>
 <table class="basic-table light-grid hover-bar" cellspacing="0">
     <tr class="header-row">
         <td>Helper Name</td>

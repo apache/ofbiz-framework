@@ -32,7 +32,7 @@ ArrayList columns = new ArrayList();
 ArrayList records = new ArrayList();
 ArrayList groups = new ArrayList();
 ModelGroupReader mgr = delegator.getModelGroupReader();
-Iterator groupMapIt = mgr.getGroupNames().iterator();
+Iterator groupMapIt = mgr.getGroupNames(delegator.getDelegatorName()).iterator();
 
 while (groupMapIt.hasNext()) {
     groups.add(groupMapIt.next());
