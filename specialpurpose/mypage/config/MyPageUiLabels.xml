@@ -18,6 +18,12 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="->Complete">
+        <value xml:lang="en">->Complete</value>
+    </property>
+    <property key="AllEvents">
+        <value xml:lang="en">All Communications</value>
+    </property>
     <property key="MyCommunications">
         <value xml:lang="en">My Communications</value>
         <value xml:lang="fr">Mes communications</value>
@@ -34,9 +40,15 @@
         <value xml:lang="en">New Message</value>
         <value xml:lang="fr">Nouveau message</value>
     </property>
+    <property key="OpenEvents">
+        <value xml:lang="en">Open Communications</value>
+    </property>
     <property key="OtherCommunications">
         <value xml:lang="en">Other Communications</value>
         <value xml:lang="fr">Autres communications</value>
+    </property>
+    <property key="NoAccess">
+        <value xml:lang="en">You do not have access to this information</value>
     </property>
     <property key="CommunicationsOfParty">
         <value xml:lang="en">Communications of party</value>

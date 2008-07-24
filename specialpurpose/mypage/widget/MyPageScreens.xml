@@ -195,32 +195,35 @@ under the License.
             </widgets>
         </section>    
     </screen>
-    <screen name="Communications">
-        <section>
-            <actions>
-                <entity-condition entity-name="CommunicationEventAndRole"
-                    list-name="commEvents">
-                    <condition-list combine="and">
-                        <condition-expr field-name="statusId" operator="not-equals"
-                            value="COM_UNKNOWN_PARTY" />
+	<screen name="Communications">
+		<section>
+			<actions>
+			    <set field="status" from-field="parameters.status" default-value="%"/>
+				<entity-condition entity-name="CommunicationEventAndRole"
+					list-name="commEvents">
+					<condition-list combine="and">
+						<condition-expr field-name="statusId" operator="not-equals"
+							value="COM_UNKNOWN_PARTY" />
+						<condition-expr field-name="partyId" operator="equals"
+							value="${partyId}" />
                         <condition-list combine="or">
-                            <condition-expr field-name="partyIdFrom" operator="equals"
-                                value="${partyId}" />
-                            <condition-expr field-name="partyIdTo" operator="equals"
-                                value="${partyId}" />
-                            <condition-expr field-name="partyId" operator="equals"
-                                value="${partyId}" />
+                            <condition-expr field-name="roleStatusId"
+                                operator="not-equals" value="COM_ROLE_COMPLETED" />
+                            <condition-expr field-name="roleStatusId"
+                                operator="like" value="${status}" />
                         </condition-list>
-                    </condition-list>
-                    <order-by field-name="-datetimeStarted" />
-                </entity-condition>
-                <entity-condition entity-name="CommunicationEventAndRole"
-                    list-name="commEventsUnknown">
+					</condition-list>
+					<order-by field-name="-datetimeStarted" />
+				</entity-condition>
+				<entity-condition entity-name="CommunicationEventAndRole"
+					list-name="commEventsUnknown">
                     <condition-list combine="and">
                         <condition-expr field-name="statusId" operator="equals"
                             value="COM_UNKNOWN_PARTY" />
-                        <condition-expr field-name="partyIdTo" operator="equals"
-                            env-name="partyId" />
+                        <condition-expr field-name="roleStatusId" operator="not-equals"
+                            value="COM_ROLE_COMPLETED" />
+                        <condition-expr field-name="roleStatusId" operator="not-equals"
+                            value="COM_ROLE_COMPLETED" />
                         <condition-expr field-name="partyId" operator="equals"
                             value="${partyId}" />
                     </condition-list>
@@ -232,9 +235,9 @@ under the License.
             </actions>
             <widgets>
                 <screenlet title="${uiLabelMap.CommunicationsOfParty}: ${partyName.firstName} ${partyName.middleName} ${partyName.lastName} ${partyName.groupName} [${partyId}] "
-                    navigation-menu-name="MyCommunicationsMenu" navigation-form-name="ListPartyCommEvents"
+                    navigation-menu-name="communicationsMenu" navigation-form-name="ListPartyCommEvents"
                     name="myComms">
-                    <include-menu name="MyCommunicationsMenu"
+                    <include-menu name="communicationsMenu"
                         location="component://mypage/widget/MyPageMenus.xml" />
                     <section>
                         <condition>
@@ -329,9 +332,6 @@ under the License.
                                     <include-screen name="commEvent" />
                                 </widgets>
                             </section>
-                        </container>
-                        <container style="righthalf">
-                            <label style="h1" text="${uiLabelMap.CommonRelatedInformation}" />
                             <section>
                                 <condition>
                                     <not>
@@ -348,6 +348,25 @@ under the License.
                                 </actions>
                                 <widgets>
                                     <include-screen name="commEvent" />
+                                </widgets>
+                            </section>
+                        </container>
+                        <container style="righthalf">
+                            <label style="h1" text="${uiLabelMap.CommonRelatedInformation}" />
+                            <section>
+                                <widgets>
+                                    <screenlet title="${uiLabelMap.PartyCommEventRoles}">
+                                        <include-form name="ListCommRoles"
+                                            location="component://party/webapp/partymgr/communication/CommForms.xml" />
+                                    </screenlet>
+                                </widgets>
+                            </section>
+                            <section>
+                                <widgets>
+                                    <screenlet title="${uiLabelMap.PartyCommContent}">
+                                        <include-form name="listCommContent"
+                                            location="component://party/webapp/partymgr/communication/CommForms.xml" />
+                                    </screenlet>
                                 </widgets>
                             </section>
                             <section>

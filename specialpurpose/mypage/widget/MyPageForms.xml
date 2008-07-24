@@ -27,7 +27,7 @@ under the License.
             <hyperlink also-hidden="false" description="${workEffortName}" target="/projectmgr/control/taskView?workEffortId=${workEffortId}" target-type="inter-app" target-window="_BLANK"/>
         </field>
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}"><hyperlink target="/projectmgr/control/projectView?projectId=${resultProject.projectId}"  target-type="inter-app" target-window="_BLANK" description="${resultProject.projectName}"/></field>
-        <field name="roleTypeId" parameter-name="newRoleTypeId" title="${uiLabelMap.PartyRole}"><hidden value="${roleTypeId"/></field>
+        <field name="roleTypeId" parameter-name="newRoleTypeId" title="${uiLabelMap.PartyRole}"><hidden value="${roleTypeId}"/></field>
         <field use-when="!headerItem.equals(&quot;main&quot;)" name="remove" title="${uiLabelMap.CommonRemove}"><hyperlink target="updateTaskAssigmentKey?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=PAS_ENDED" description="${uiLabelMap.CommonRemove}"/></field>
         <field use-when="headerItem.equals(&quot;main&quot;)" name="remove" title="${uiLabelMap.CommonRemove}"><hyperlink target="updateTaskAssigment?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=PAS_ENDED" description="${uiLabelMap.CommonRemove}"/></field>
         <field use-when="!headerItem.equals(&quot;main&quot;)" name="toComplete" title="${uiLabelMap.CommonStatustoComplete}"><hyperlink target="updateTaskAssigmentKey?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=PAS_COMPLETED" description="${uiLabelMap.CommonStatustoComplete}"/></field>
@@ -92,6 +92,9 @@ under the License.
     </form>
     
     <form name="ListPartyCommEvents" extends="ListCommEvents" extends-resource="component://party/webapp/partymgr/communication/CommForms.xml" type="list">
+        <row-actions>
+            <set field="toComplete" value="${bsh:&quot;COM_ROLE_COMPLETED&quot;.equals(roleStatusId)?&quot;&quot;:&quot;toComplete&quot;}"/>
+        </row-actions>
         <field name="roleTypeId"><display-entity entity-name="RoleType" description="${description}"/></field> 
         <field use-when="headerItem.equals(&quot;main&quot;)" name="removeLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deletePartyCommunicationEventRole?partyId=${partyId}&amp;communicationEventId=${communicationEventId}&amp;roleTypeId=${roleTypeId}"/>
@@ -103,14 +106,31 @@ under the License.
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deletePartyCommunicationEventOthersRole?partyId=${partyId}&amp;communicationEventId=${communicationEventId}&amp;roleTypeId=${roleTypeId}"/>
         </field>
         <field use-when="headerItem.equals(&quot;main&quot;)" name="subject" widget-style="buttontext" widget-area-style="fieldWidth300">
-            <hyperlink description="${subject} " target="ViewCommunicationEvent?communicationEventId=${communicationEventId}&amp;type=main"/>
+            <hyperlink description="${subject} " target="ViewCommunicationEvent?communicationEventId=${communicationEventId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;type=main"/>
         </field>
         <field use-when="headerItem.equals(&quot;myCommunications&quot;)" name="subject" widget-style="buttontext" widget-area-style="fieldWidth300">
-            <hyperlink description="${subject} " target="ViewCommunicationEvent?communicationEventId=${communicationEventId}&amp;type=my" />
+            <hyperlink description="${subject} " target="ViewCommunicationEvent?communicationEventId=${communicationEventId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;type=my" />
         </field>
         <field use-when="headerItem.equals(&quot;otherCommunications&quot;)" name="subject" widget-style="buttontext" widget-area-style="fieldWidth300">
-            <hyperlink description="${subject} " target="ViewCommunicationEvent?communicationEventId=${communicationEventId}&amp;type=other" />
+            <hyperlink description="${subject} " target="ViewCommunicationEvent?communicationEventId=${communicationEventId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;type=other" />
         </field>
+        <field use-when="headerItem.equals(&quot;main&quot;)" name="statusId" entry-name="roleStatusId" widget-style="buttontext" widget-area-style="fieldWidth300">
+            <display-entity entity-name="StatusItem" description="${description}">
+                <sub-hyperlink description="${uiLabelMap.${toComplete}}" target="setCommEventRoleToComplete?communicationEventId=${communicationEventId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}"/>
+            </display-entity>
+        </field>
+        <field use-when="headerItem.equals(&quot;myCommunications&quot;)" name="statusId" entry-name="roleStatusId" widget-style="buttontext" widget-area-style="fieldWidth300">
+            <display-entity entity-name="StatusItem" description="${description}">
+                <sub-hyperlink description="${uiLabelMap.${toComplete}}" target="setMyCommEventRoleToComplete?communicationEventId=${communicationEventId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}" />
+            </display-entity>
+        </field>
+        <field use-when="headerItem.equals(&quot;otherCommunications&quot;)" name="statusId" entry-name="roleStatusId" widget-style="buttontext" widget-area-style="fieldWidth300">
+            <display-entity entity-name="StatusItem" description="${description}">
+                <sub-hyperlink description="${uiLabelMap.${toComplete}}" target="setOtherCommEventRoleToComplete?communicationEventId=${communicationEventId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}" />
+            </display-entity>
+        </field>
+        <field name="statusId" entry-name="roleStatusId"/>
+        <field name="createdStamp" entry-name="entryDate"/>
     </form>
     <form name="ListMyUnknownPartyEmails" type="multi"
         extends="ListMyUnknownPartyEmails" extends-resource="component://party/webapp/partymgr/communication/CommForms.xml" use-row-submit="true">
