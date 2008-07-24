@@ -288,8 +288,8 @@ under the License.
         <field name="roleTypeIdFrom"><display-entity description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/></field>
         <field name="roleTypeIdTo"><display-entity description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/></field>
         -->
-        <field name="createdStamp" title="${uiLabelMap.CommonCreated}"><display description="${bsh:createdStamp.toString().substring(0,16)}"/></field>
-        <field name="datetimeStarted" title="${uiLabelMap.CommonSend}"><display description="${bsh:datetimeStarted==null?&quot;&quot;:datetimeStarted.toString().substring(0,16);}"/></field>
+        <field name="createdStamp" title="${uiLabelMap.CommonCreated}"><display type="date"/></field>
+        <field name="datetimeStarted" title="${uiLabelMap.CommonSend}"><display type="date"/></field>
     </form>
 
     <form name="ListPartyCommEvents" type="list" extends="ListCommEvents"
@@ -428,7 +428,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="CommunicationEventRole" use-cache="true">
-                <field-map field-name="communicationEventId"/>
+                <field-map field-name="communicationEventId" env-name="parameters.communicationEventId"/>
             </entity-and>
         </actions>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
@@ -437,7 +437,7 @@ under the License.
             </display-entity>
         </field>
         <field name="roleTypeId"><display-entity description="${description}" entity-name="RoleType"/></field>
-        <field name="statusId"><display-entity entity-name="statusItem" description="${description}"/></field>
+        <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
         <field name="removeLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="/RemoveCommunicationEventRole?partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;communicationEventId=${communicationEventId}"/>
         </field>
@@ -461,7 +461,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="CommEventContentDataResource" list-name="contentDataResourceList">
-                <field-map field-name="communicationEventId"/>
+                <field-map field-name="communicationEventId" env-name="parameters.communicationEventId"/>
             </entity-and>
         </actions>
     
