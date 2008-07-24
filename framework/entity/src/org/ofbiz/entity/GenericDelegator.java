@@ -208,11 +208,7 @@ public class GenericDelegator implements DelegatorInterface {
         }
 
         // initialize helpers by group
-        Set groupNames = getModelGroupReader().getGroupNames();
-        if (groupNames != null) {
-            // Always add the default group name
-            groupNames.add(getDelegatorInfo().defaultGroupName);
-        }
+        Set groupNames = getModelGroupReader().getGroupNames(delegatorName);
         Iterator<String> groups = UtilMisc.toIterator(groupNames);
         while (groups != null && groups.hasNext()) {
             String groupName = groups.next();
@@ -348,12 +344,7 @@ public class GenericDelegator implements DelegatorInterface {
      *@return String with the helper name that corresponds to this delegator and the specified entityName
      */
     public String getEntityGroupName(String entityName) {
-        String groupName = getModelGroupReader().getEntityGroupName(entityName);
-        if (UtilValidate.isEmpty(groupName)) {
-            groupName = this.getDelegatorInfo().defaultGroupName;
-        }
-
-        return groupName;
+        return getModelGroupReader().getEntityGroupName(entityName, getDelegatorName());
     }
 
     /** Gets a Map of entity name & entity model pairs that are in the named group
@@ -367,7 +358,7 @@ public class GenericDelegator implements DelegatorInterface {
             // add all entities with no group name to the Set
             Set<String> allEntityNames = this.getModelReader().getEntityNames();
             for (String entityName: allEntityNames) {
-                if (UtilValidate.isEmpty(getModelGroupReader().getEntityGroupName(entityName))) {
+                if (this.getDelegatorInfo().defaultGroupName.equals(getModelGroupReader().getEntityGroupName(entityName, getDelegatorName()))) {
                     entityNameSet.add(entityName);
                 }
             }

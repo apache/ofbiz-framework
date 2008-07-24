@@ -311,7 +311,7 @@ A.listtext:hover {color:red;}
   <TR>
     <TD>Group</TD>
     <TD>
-      <INPUT type="text" class='inputBox' size='60' name='entityGroup' value='<%=UtilFormatOut.checkNull(delegator.getModelGroupReader().getEntityGroupName(entityName))%>'>
+      <INPUT type="text" class='inputBox' size='60' name='entityGroup' value='<%=UtilFormatOut.checkNull(delegator.getEntityGroupName(entityName))%>'>
       <BR>(This group is for the "<%=delegator.getDelegatorName()%>" delegator)
     </TD>
   </TR>
