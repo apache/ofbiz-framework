@@ -117,7 +117,10 @@ public class ContextFilter implements Filter {
 
         // ----- Servlet Object Setup -----
         // set the cached class loader for more speedy running in this thread
-        Thread.currentThread().setContextClassLoader(localCachedClassLoader);
+        String disableCachedClassloader = config.getInitParameter("disableCachedClassloader");
+        if (disableCachedClassloader == null || !"Y".equalsIgnoreCase(disableCachedClassloader)) {
+            Thread.currentThread().setContextClassLoader(localCachedClassLoader);
+        }
 
         // set the webSiteId in the session
         httpRequest.getSession().setAttribute("webSiteId", config.getServletContext().getAttribute("webSiteId"));
@@ -150,7 +153,7 @@ public class ContextFilter implements Filter {
         // ----- Context Security -----
         // check if we are disabled
         String disableSecurity = config.getInitParameter("disableContextSecurity");
-        if (disableSecurity != null && "Y".equals(disableSecurity)) {
+        if (disableSecurity != null && "Y".equalsIgnoreCase(disableSecurity)) {
             chain.doFilter(request, response);
             return;
         }
