@@ -924,7 +924,7 @@ border-top: #999 solid 1px;
 position: relative;
 padding: 5px;
 border-bottom: #999 solid 1px;
-height: 60px;
+min-height: 60px;
 }
 
 .productsummary .smallimage {
