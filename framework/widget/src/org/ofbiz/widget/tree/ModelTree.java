@@ -57,8 +57,6 @@ import org.ofbiz.widget.ModelWidget;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
-//import com.clarkware.profiler.Profiler;
-
 /**
  * Widget Library - Tree model class
  */
@@ -238,7 +236,7 @@ public class ModelTree extends ModelWidget {
         context.put("currentNodeTrail", FastList.newInstance());
         StringWriter writer = new StringWriter();
         try {
-            node.renderNodeString(writer, context, treeStringRenderer, 0, true);
+            node.renderNodeString(writer, context, treeStringRenderer, 0);
             buf.append(writer.toString());
         } catch (IOException e2) {
             String errMsg = "Error rendering included label with name [" + name + "] : " + e2.toString();
@@ -354,7 +352,7 @@ public class ModelTree extends ModelWidget {
         }
     
         public void renderNodeString(Appendable writer, Map<String, Object> context,
-                TreeStringRenderer treeStringRenderer, int depth, boolean isLast)
+                TreeStringRenderer treeStringRenderer, int depth)
                 throws IOException, GeneralException {
             boolean passed = true;
             if (this.condition != null) {
@@ -376,10 +374,8 @@ public class ModelTree extends ModelWidget {
                 } else {
                     id = (String) context.get(pkName);
                 }
-                if (id != null) { 
-                    currentNodeTrail.add(id);
-                }
-                treeStringRenderer.renderNodeBegin(writer, context, this, depth, isLast);
+                currentNodeTrail.add(id);
+                treeStringRenderer.renderNodeBegin(writer, context, this, depth);
                 //if (Debug.infoOn()) Debug.logInfo(" context:" +
                 // context.entrySet(), module);
                 try {
@@ -430,9 +426,7 @@ public class ModelTree extends ModelWidget {
                                 targetEntityId = (String) targetNodeTrail.get(newDepth);
                             }
                             if ((targetEntityId != null && targetEntityId.equals(thisEntityId)) || this.showPeers(newDepth, context)) {
-                                boolean lastNode = !nodeIter.hasNext();
-                                newContext.put("lastNode", Boolean.valueOf(lastNode));
-                                node.renderNodeString(writer, newContext, treeStringRenderer, newDepth, lastNode);
+                                node.renderNodeString(writer, newContext, treeStringRenderer, newDepth);
                             }
                         }
                     }
