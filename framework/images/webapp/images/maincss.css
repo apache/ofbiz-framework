@@ -1650,6 +1650,11 @@ background: url(/images/expand.gif) no-repeat left center;
 padding-right: 1em;
 }
 
+.basic-tree li .leafnode {
+background: url(/images/expand-collapse-placeholder.gif) no-repeat left center;
+padding-right: 1em;
+}
+
 .basic-tree li .treeitem {
 /* treeitem is deprecated */
 border-style: none;
