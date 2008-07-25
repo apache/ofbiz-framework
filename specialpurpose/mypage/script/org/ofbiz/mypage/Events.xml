@@ -120,61 +120,58 @@ under the License.
                 </else>
         </if-compare-field>
     </simple-method>
-	<simple-method method-name="createCommunicationEventRoles"
-		short-description="">
-		<entity-condition list-name="commEvents" entity-name="CommunicationEvent" />
-		<set field="count" value="0" type="Integer" />
-		<iterate entry-name="commEvent" list-name="commEvents">
-			<log level="always" message="====processing: ${commEvent.communicationEventId}"></log>
-			<get-related value-name="commEvent" relation-name="CommunicationEventRole"
-				list-name="roles" />
-			<if-empty field="roles">
+    <simple-method method-name="createCommunicationEventRoles" short-description="">
+        <entity-condition list-name="commEvents" entity-name="CommunicationEvent" />
+        <set field="count" value="0" type="Integer" />
+        <iterate entry-name="commEvent" list-name="commEvents">
+            <log level="always" message="====processing: ${commEvent.communicationEventId}"></log>
+            <get-related value-name="commEvent" relation-name="CommunicationEventRole" list-name="roles" />
+            <if-empty field="roles">
                 <!--partyId To -->
-				<if-not-empty field="commEvent.partyIdTo">
-					<entity-one entity-name="PartyRole" value-name="partyRole">
-						<field-map field-name="partyId" value="${commEvent.partyIdTo}" />
-						<field-map field-name="roleTypeId" value="ADDRESSEE" />
-					</entity-one>
-					<if-empty field="partyRole">
-						<make-value entity-name="PartyRole" value-name="pr" />
-						<set field="pr.partyId" value="${commEvent.partyIdTo}" />
-						<set field="pr.roleTypeId" value="ADDRESSEE" />
-						<create-value value-name="pr" />
-					</if-empty>
-					<make-value entity-name="CommunicationEventRole"
-						value-name="commRole" />
-					<set field="commRole.communicationEventId" from-field="commEvent.communicationEventId" />
-					<set field="commRole.partyId" from-field="commEvent.partyIdTo" />
-					<set field="commRole.roleTypeId" value="ADDRESSEE" />
+                <if-not-empty field="commEvent.partyIdTo">
+                    <entity-one entity-name="PartyRole" value-name="partyRole">
+                        <field-map field-name="partyId" value="${commEvent.partyIdTo}" />
+                        <field-map field-name="roleTypeId" value="ADDRESSEE" />
+                    </entity-one>
+                    <if-empty field="partyRole">
+                        <make-value entity-name="PartyRole" value-name="partyRole" />
+                        <set field="partyRole.partyId" value="${commEvent.partyIdTo}" />
+                        <set field="partyRole.roleTypeId" value="ADDRESSEE" />
+                        <create-value value-name="partyRole" />
+                    </if-empty>
+                    <make-value entity-name="CommunicationEventRole" value-name="commRole" />
+                    <set field="commRole.communicationEventId" from-field="commEvent.communicationEventId" />
+                    <set field="commRole.partyId" from-field="commEvent.partyIdTo" />
+                    <set field="commRole.roleTypeId" value="ADDRESSEE" />
                     <set field="commRole.statusId" value="COM_ROLE_COMPLETED"/>
-					<create-value value-name="commRole" />
-				</if-not-empty>
+                    <create-value value-name="commRole" />
+                </if-not-empty>
 
                 <!-- partyIdFrom -->
-				<if-not-empty field="commEvent.partyIdFrom">
-					<entity-one entity-name="PartyRole" value-name="partyRole">
-						<field-map field-name="partyId" value="${commEvent.partyIdFrom}" />
-						<field-map field-name="roleTypeId" value="ORIGINATOR" />
-					</entity-one>
-					<if-empty field="partyRole">
-						<make-value entity-name="PartyRole" value-name="pr" />
-						<set field="pr.partyId" value="${commEvent.partyIdFrom}" />
-						<set field="pr.roleTypeId" value="ORIGINATOR" />
-						<create-value value-name="pr" />
-					</if-empty>
+                <if-not-empty field="commEvent.partyIdFrom">
+                    <entity-one entity-name="PartyRole" value-name="partyRole">
+                        <field-map field-name="partyId" value="${commEvent.partyIdFrom}" />
+                        <field-map field-name="roleTypeId" value="ORIGINATOR" />
+                    </entity-one>
+                    <if-empty field="partyRole">
+                        <make-value entity-name="PartyRole" value-name="partyRole" />
+                        <set field="partyRole.partyId" value="${commEvent.partyIdFrom}" />
+                        <set field="partyRole.roleTypeId" value="ORIGINATOR" />
+                        <create-value value-name="partyRole" />
+                    </if-empty>
                     <set field="commRole.communicationEventId" from-field="commEvent.communicationEventId" />
-					<set field="commRole.partyId" from-field="commEvent.partyIdFrom" />
-					<set field="commRole.roleTypeId" value="ORIGINATOR" />
-					<set field="commRole.statusId" value="COM_ROLE_COMPLETED"/>
-					<create-value value-name="commRole" />
-				</if-not-empty>
-				<calculate field-name="count">
-					<number value="1" />
-					<calcop operator="add" field-name="count" />
-				</calculate>
-			</if-empty>
-		</iterate>
-		<log level="always" message="========${count} records updated" />
-	</simple-method>
+                    <set field="commRole.partyId" from-field="commEvent.partyIdFrom" />
+                    <set field="commRole.roleTypeId" value="ORIGINATOR" />
+                    <set field="commRole.statusId" value="COM_ROLE_COMPLETED"/>
+                    <create-value value-name="commRole" />
+                </if-not-empty>
+                <calculate field-name="count">
+                    <number value="1" />
+                    <calcop operator="add" field-name="count" />
+                </calculate>
+            </if-empty>
+        </iterate>
+        <log level="always" message="========${count} records updated" />
+    </simple-method>
     
 </simple-methods>
