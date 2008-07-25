@@ -382,7 +382,7 @@ function toggleScreenlet(link, areaId, expandTxt, collapseTxt){
         if (menu) {
             var childElements = menu.getElementsByTagName('a');
             for (var i = 0; i < childElements.length; i++) {
-                if (childElements[i].href.indexOf("href:") >= 0) {
+                if (childElements[i].href.indexOf("http") == 0) {
                     childElements[i].href = replaceQueryParam(childElements[i].href, currentParam, newParam);
                 }
             }
