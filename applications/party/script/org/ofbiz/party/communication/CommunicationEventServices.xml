@@ -80,46 +80,45 @@ under the License.
         
         <!-- roles -->
         <!-- partyIdTo -->
-		<if-not-empty field="newEntity.partyIdTo">
-			<entity-one entity-name="PartyRole" value-name="partyRole">
+        <if-not-empty field="newEntity.partyIdTo">
+            <entity-one entity-name="PartyRole" value-name="partyRole">
                 <field-map field-name="partyId" value="${newEntity.partyIdTo}" />
-				<field-map field-name="roleTypeId" value="ADDRESSEE" />
-			</entity-one>
-			<if-empty field="partyRole">
-				<make-value entity-name="PartyRole" value-name="pr" />
-				<set field="pr.partyId" value="${newEntity.partyIdTo}" />
-				<set field="pr.roleTypeId" value="ADDRESSEE" />
-				<create-value value-name="pr" />
-			</if-empty>
-			<make-value entity-name="CommunicationEventRole"
-				value-name="commRole" />
-			<set field="commRole.communicationEventId" from-field="newEntity.communicationEventId" />
-			<set field="commRole.partyId" from-field="newEntity.partyIdTo" />
-			<set field="commRole.roleTypeId" value="ADDRESSEE" />
+                <field-map field-name="roleTypeId" value="ADDRESSEE" />
+            </entity-one>
+            <if-empty field="partyRole">
+                <make-value entity-name="PartyRole" value-name="partyRole" />
+                <set field="partyRole.partyId" value="${newEntity.partyIdTo}" />
+                <set field="partyRole.roleTypeId" value="ADDRESSEE" />
+                <create-value value-name="partyRole" />
+            </if-empty>
+            <make-value entity-name="CommunicationEventRole" value-name="commRole" />
+            <set field="commRole.communicationEventId" from-field="newEntity.communicationEventId" />
+            <set field="commRole.partyId" from-field="newEntity.partyIdTo" />
+            <set field="commRole.roleTypeId" value="ADDRESSEE" />
             <set field="contactMechId" value="${newEntity.contactMechIdTo}" />
-			<set field="commRole.statusId" value="COM_ROLE_CREATED" />
-			<create-value value-name="commRole" />
-		</if-not-empty>
+            <set field="commRole.statusId" value="COM_ROLE_CREATED" />
+            <create-value value-name="commRole" />
+        </if-not-empty>
 	
         <!-- partyIdFrom -->
-		<if-not-empty field="commEvent.partyIdFrom">
-			<entity-one entity-name="PartyRole" value-name="partyRole">
-				<field-map field-name="partyId" value="${newEntity.partyIdFrom}" />
-				<field-map field-name="roleTypeId" value="ORIGINATOR" />
-			</entity-one>
-			<if-empty field="partyRole">
-				<make-value entity-name="PartyRole" value-name="pr" />
-				<set field="pr.partyId" value="${newEntity.partyIdFrom}" />
-				<set field="pr.roleTypeId" value="ORIGINATOR" />
-				<create-value value-name="pr" />
-			</if-empty>
+        <if-not-empty field="commEvent.partyIdFrom">
+            <entity-one entity-name="PartyRole" value-name="partyRole">
+                <field-map field-name="partyId" value="${newEntity.partyIdFrom}" />
+                <field-map field-name="roleTypeId" value="ORIGINATOR" />
+            </entity-one>
+            <if-empty field="partyRole">
+                <make-value entity-name="PartyRole" value-name="partyRole" />
+                <set field="partyRole.partyId" value="${newEntity.partyIdFrom}" />
+                <set field="partyRole.roleTypeId" value="ORIGINATOR" />
+                <create-value value-name="partyRole" />
+            </if-empty>
             <set field="commRole.communicationEventId" from-field="newEntity.communicationEventId" />
-			<set field="commRole.partyId" from-field="newEntity.partyIdFrom" />
-			<set field="commRole.roleTypeId" value="ORIGINATOR" />
+            <set field="commRole.partyId" from-field="newEntity.partyIdFrom" />
+            <set field="commRole.roleTypeId" value="ORIGINATOR" />
             <set field="contactMechId" value="${newEntity.contactMechIdFrom}" />
-			<set field="commRole.statusId" value="COM_ROLE_READ" />
-			<create-value value-name="commRole" />
-		</if-not-empty>
+            <set field="commRole.statusId" value="COM_ROLE_READ" />
+            <create-value value-name="commRole" />
+        </if-not-empty>
     </simple-method>
 
     <simple-method method-name="updateCommunicationEvent" short-description="Update a CommunicationEvent">
