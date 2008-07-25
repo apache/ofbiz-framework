@@ -68,8 +68,8 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
             entityId = (String) context.get(pkName);
         }
         boolean hasChildren = node.hasChildren(context);
-        //Debug.logInfo("HtmlTreeExpandCollapseRenderer, hasChildren(1):" + hasChildren, module);
 
+        ModelTree.ModelNode.Link expandCollapseLink = new ModelTree.ModelNode.Link();
         // check to see if this node needs to be expanded.
         if (hasChildren && node.isExpandCollapse()) {
             String targetEntityId = null;
@@ -77,12 +77,6 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
             if (depth < targetNodeTrail.size()) {
                 targetEntityId = (String)targetNodeTrail.get(depth);
             }
-            //Debug.logInfo("HtmlTreeExpandCollapseRenderer, targetEntityId(1):" + targetEntityId, module);
-            //Debug.logInfo("HtmlTreeExpandCollapseRenderer, depth(1):" + depth, module);
-    
-            ModelTree.ModelNode.Image expandCollapseImage = new ModelTree.ModelNode.Image();
-            expandCollapseImage.setBorder("0");
-            ModelTree.ModelNode.Link expandCollapseLink = new ModelTree.ModelNode.Link();
     
             int openDepth = node.getModelTree().getOpenDepth();
             if (depth >= openDepth && (targetEntityId == null || !targetEntityId.equals(entityId))) {
@@ -128,6 +122,9 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
             renderLink(writer, context, expandCollapseLink);
         } else if (!hasChildren){
             context.put("processChildren", Boolean.FALSE);
+            expandCollapseLink.setStyle("leafnode");
+            expandCollapseLink.setText("&nbsp;");
+            renderLink(writer, context, expandCollapseLink);
         }
     }
 
