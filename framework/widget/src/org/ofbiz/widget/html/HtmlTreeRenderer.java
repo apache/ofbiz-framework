@@ -47,10 +47,9 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
 
     public HtmlTreeRenderer() {}
 
-    public void renderNodeBegin(Appendable writer, Map<String, Object> context, ModelTree.ModelNode node, int depth, boolean isLast) throws IOException {
+    public void renderNodeBegin(Appendable writer, Map<String, Object> context, ModelTree.ModelNode node, int depth) throws IOException {
         String currentNodeTrailPiped = null;
         List<String> currentNodeTrail = UtilGenerics.toList(context.get("currentNodeTrail"));
-        String initialNodeTrailPiped = StringUtil.join(currentNodeTrail, "|");
         if (node.isRootNode()) {
             appendWhitespace(writer);
             renderBeginningBoundaryComment(writer, "Tree Widget", node.getModelTree());
@@ -88,7 +87,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
             int openDepth = node.getModelTree().getOpenDepth();
             if (depth >= openDepth && (targetEntityId == null || !targetEntityId.equals(entityId))) {
                 // Not on the trail
-                if(node.showPeers(depth, context)) {
+                if (node.showPeers(depth, context)) {
                     context.put("processChildren", Boolean.FALSE);
                     //expandCollapseLink.setText("&nbsp;+&nbsp;");
                     currentNodeTrailPiped = StringUtil.join(currentNodeTrail, "|");
@@ -102,7 +101,6 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
                         target += "&";
                     }
                     target += trailName + "=" + currentNodeTrailPiped;
-                    target += "#" + initialNodeTrailPiped;
                     expandCollapseLink.setTarget(target);
                 }
             } else {
@@ -123,12 +121,11 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
                     target += "&";
                 }
                 target += trailName + "=" + currentNodeTrailPiped;
-                target += "#" + initialNodeTrailPiped;
                 expandCollapseLink.setTarget(target);
                 // add it so it can be remove in renderNodeEnd
                 currentNodeTrail.add(lastContentId);
             }
-            renderLink( writer, context, expandCollapseLink);
+            renderLink(writer, context, expandCollapseLink);
         } else if (!hasChildren){
             context.put("processChildren", Boolean.FALSE);
         }
