@@ -80,7 +80,7 @@ under the License.
                     <#if postalAddress.attnName?has_content><span class="label">${uiLabelMap.CommonAttn}</span> ${postalAddress.attnName}<br/></#if>
                     ${postalAddress.address1}<br/>
                     <#if postalAddress.address2?has_content>${postalAddress.address2}<br/></#if>
-                    ${postalAddress.city}<#if postalAddress.stateProvinceGeoId?has_content>, ${postalAddress.stateProvinceGeoId} </#if>
+                    ${postalAddress.city?if_exists}<#if postalAddress.stateProvinceGeoId?has_content>, ${postalAddress.stateProvinceGeoId} </#if>
                     ${postalAddress.postalCode?if_exists}<br/>
                     ${postalAddress.countryGeoId?if_exists}<br/>
                     <#if !postalAddress.countryGeoId?exists || postalAddress.countryGeoId == "USA">
