@@ -58,7 +58,7 @@ under the License.
             <actions>
                 <set field="headerItem" value="main"/>
                 <set field="titleProperty" value="WebtoolsDataFileMainTitle"/>
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/datafile/viewdatafile.bsh"/>
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/datafile/Viewdatafile.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
