@@ -377,7 +377,7 @@ under the License.
         <menu-item name="EditFixedAsset" title="${uiLabelMap.AccountingFixedAsset}">
             <link target="EditFixedAsset?fixedAssetId=${fixedAssetId}"/>
         </menu-item>
-        <menu-item name="FixedAssetChildren" title="${uiLabelMap.AccountingFixedAssetChildren}">
+        <menu-item name="FixedAssetChildren" title="${uiLabelMap.CommonEntityChildren}">
             <link target="FixedAssetChildren?fixedAssetId=${fixedAssetId}&amp;trail=${fixedAssetId}"/>
         </menu-item>
         <menu-item name="ListFixedAssetProducts" title="${uiLabelMap.AccountingFixedAssetProducts}">

@@ -47,7 +47,7 @@ under the License.
         <menu-item name="WorkEffort" title="${uiLabelMap.WorkEffortWorkEffort}">
             <link target="EditWorkEffort?workEffortId=${workEffortId}"/>
         </menu-item>
-        <menu-item name="WorkEffortAssocs" title="${uiLabelMap.WorkEffortChildren}">
+        <menu-item name="WorkEffortAssocs" title="${uiLabelMap.CommonEntityChildren}">
             <link target="ChildWorkEfforts?workEffortId=${workEffortId}&amp;trail=${workEffortId}"/>
         </menu-item>
         <menu-item name="WorkEffortPartyAssigns" title="${uiLabelMap.WorkEffortParties}">
