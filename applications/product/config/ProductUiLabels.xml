@@ -9159,7 +9159,7 @@
         <value xml:lang="zh">场所</value>
     </property>
     <property key="ProductFacilityChildren">
-        <value xml:lang="en">Facility Children for ${facility.facilityName}</value>
+        <value xml:lang="en">Facility Children for ${facility.facilityName} [${facility.facilityId}]</value>
     </property>
     <property key="ProductFacilityContainer">
         <value xml:lang="en">Facility / Container</value>
