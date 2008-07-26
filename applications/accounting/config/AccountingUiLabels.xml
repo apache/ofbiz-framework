@@ -2168,17 +2168,6 @@
         <value xml:lang="th">ปฏิทิน</value>
         <value xml:lang="zh">日历</value>
     </property>
-    <property key="AccountingFixedAssetChildren">
-        <value xml:lang="ar">الفروع</value>
-        <value xml:lang="en">Children</value>
-        <value xml:lang="es">Niños</value>
-        <value xml:lang="fr">Descendant</value>
-        <value xml:lang="it">Figli</value>
-        <value xml:lang="ro">Copii-Fii</value>
-        <value xml:lang="ru">Подчиненные</value>
-        <value xml:lang="th">เด็ก</value>
-        <value xml:lang="zh">下级固定资产</value>
-    </property>
     <property key="AccountingFixedAssetDepreciation">
         <value xml:lang="en">Depreciation</value>
         <value xml:lang="it">Svalutazioni</value>

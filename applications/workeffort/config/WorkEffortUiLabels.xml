@@ -2075,16 +2075,6 @@
         <value xml:lang="th">แสดงปฏิทินรายสัปดาห์</value>
         <value xml:lang="zh">浏览日历周</value>
     </property>
-    <property key="WorkEffortChildren">
-        <value xml:lang="en">Children</value>
-        <value xml:lang="fr">Descendant</value>
-        <value xml:lang="es">Hijos</value>
-        <value xml:lang="it">Figli</value>
-        <value xml:lang="nl">Children</value>
-        <value xml:lang="ro">Fii</value>
-        <value xml:lang="th">เด็ก</value>
-        <value xml:lang="zh">下级</value>
-    </property>
     <property key="WorkEffortCommEvents">
         <value xml:lang="en">Communications</value>
         <value xml:lang="es">Comunicaciones</value>

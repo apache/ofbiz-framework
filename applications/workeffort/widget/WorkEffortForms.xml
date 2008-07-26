@@ -380,10 +380,10 @@ under the License.
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditWorkEffort?workEffortId=${workEffortId}&amp;DONE_PAGE=ListWorkEfforts?${queryStringEncoded}"/>
         </field>
         <field name="childLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="linktext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.WorkEffortChildren}" target="ChildWorkEfforts?trail=${workEffortId}&amp;DONE_PAGE=ListWorkEfforts?${queryStringEncoded}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonEntityChildren}" target="ChildWorkEfforts?trail=${workEffortId}&amp;DONE_PAGE=ListWorkEfforts?${queryStringEncoded}"/>
         </field>
         <field name="editChildLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="linktext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDetail} + ${uiLabelMap.WorkEffortChildren}" target="EditListWorkEfforts?trail=${workEffortId}&amp;DONE_PAGE=ListWorkEfforts?${queryStringEncoded}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDetail} + ${uiLabelMap.CommonEntityChildren}" target="EditListWorkEfforts?trail=${workEffortId}&amp;DONE_PAGE=ListWorkEfforts?${queryStringEncoded}"/>
         </field>
         -->
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
