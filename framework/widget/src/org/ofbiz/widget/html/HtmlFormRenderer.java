@@ -159,20 +159,25 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
      */
     public void renderDisplayField(Appendable writer, Map<String, Object> context, DisplayField displayField) throws IOException {
         ModelFormField modelFormField = displayField.getModelFormField();
+        ModelForm modelForm = modelFormField.getModelForm();
 
         StringBuffer str = new StringBuffer();
+        
+        String idName = modelFormField.getIdName();
+        if (UtilValidate.isNotEmpty(idName) && "list".equals(modelForm.getType())) {
+            idName += "_" + modelForm.getRowCount();
+        }
 
         if (UtilValidate.isNotEmpty(modelFormField.getWidgetStyle()) || modelFormField.shouldBeRed(context)) {
             str.append("<span class=\"");
             str.append(modelFormField.getWidgetStyle());
             str.append('"');
-            // add a style of red if this is a date/time field and redWhen is true
-            String idName = modelFormField.getIdName();
             if (UtilValidate.isNotEmpty(idName)) {
                 str.append(" id=\"");
                 str.append(idName);
                 str.append('"');
             }
+            // add a style of red if this is a date/time field and redWhen is true
             if (modelFormField.shouldBeRed(context)) {
                 str.append(" alert");
             }
@@ -218,7 +223,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 }
             }
             writer.append("ajaxInPlaceEditDisplayField('");
-            writer.append(modelFormField.getIdName() + "', '" +url+ "', {");
+            writer.append(idName + "', '" +url+ "', {");
             if (UtilValidate.isNotEmpty(inPlaceEditor.getParamName())) {
                 writer.append("paramName: '" +inPlaceEditor.getParamName()+ "'");
             } else {
