@@ -164,7 +164,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         StringBuffer str = new StringBuffer();
         
         String idName = modelFormField.getIdName();
-        if (UtilValidate.isNotEmpty(idName) && "list".equals(modelForm.getType())) {
+        if (UtilValidate.isNotEmpty(idName) && ("list".equals(modelForm.getType()) || "multi".equals(modelForm.getType()))) {
             idName += "_" + modelForm.getRowCount();
         }
 
