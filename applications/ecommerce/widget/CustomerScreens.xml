@@ -44,7 +44,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleNewCustomer"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/newcustomer.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/NewCustomer.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -65,7 +65,7 @@ under the License.
                 <entity-one entity-name="Person" value-name="person"/>
                 <entity-one entity-name="PartyGroup" value-name="partyGroup"/>
                 
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/viewprofile.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/ViewProfile.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -80,7 +80,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditContactMechanism"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/editcontactmech.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/EditContactMech.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -97,7 +97,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditCreditCard"/>
                 <set field="cardNumberMinDisplay" value="min"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/editpaymentmethod.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/EditPaymentMethod.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -112,7 +112,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditEFTAccount"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/editpaymentmethod.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/EditPaymentMethod.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -127,7 +127,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditGiftCard"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/editpaymentmethod.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/EditPaymentMethod.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -143,7 +143,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleChangePassword"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/changepassword.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/ChangePassword.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -158,7 +158,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditPerson"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/editperson.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/EditPerson.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -178,7 +178,7 @@ under the License.
                 <set field="MainColumnStyle" value="center"/>
 
                 <set field="titleProperty" value="PageTitleGiftCardBalance"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/giftcardbalance.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/GiftCardBalance.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -197,7 +197,7 @@ under the License.
                 <set field="MainColumnStyle" value="center"/>
 
                 <set field="titleProperty" value="PageTitleGiftCardLink"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/giftcardlink.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/GiftCardLink.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -213,7 +213,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleProfileSurvey"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/customersurvey.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/CustomerSurvey.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

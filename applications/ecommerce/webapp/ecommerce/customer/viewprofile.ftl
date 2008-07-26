@@ -573,7 +573,7 @@ under the License.
 </#if>
 
 <#-- ============================================================= -->
-<#-- only 5 messages will show; edit the viewprofile.bsh to change this number -->
+<#-- only 5 messages will show; edit the ViewProfile.groovy to change this number -->
 ${screens.render("component://ecommerce/widget/CustomerScreens.xml#messagelist-include")}
 
 ${screens.render("component://ecommerce/widget/CustomerScreens.xml#FinAccountList-include")}

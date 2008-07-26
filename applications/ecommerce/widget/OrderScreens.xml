@@ -25,7 +25,7 @@ under the License.
     <screen name="anonymoustrail">
         <section>
             <actions>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/anonymoustrail.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/AnonymousTrail.groovy"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/order/anonymoustrail.ftl"/></html></platform-specific>
@@ -62,7 +62,7 @@ under the License.
     <screen name="anonymousCheckoutLinks">
         <section>
             <actions>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/anonymousCheckoutLinks.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/AnonymousCheckoutLinks.groovy"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/order/anonymousCheckoutLinks.ftl"/></html></platform-specific>
@@ -72,7 +72,7 @@ under the License.
     <screen name="anonymousCheckoutDecorator">
         <section>
             <actions>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/anonymousCheckoutLinks.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/AnonymousCheckoutLinks.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -97,7 +97,7 @@ under the License.
                 <set field="parameters.formNameValue" value="custsetupform" global="true"/>
                 
                 <set field="titleProperty" value="PageTitleShippingInformation"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/custsettings.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/CustSettings.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="anonymousCheckoutDecorator">
@@ -196,7 +196,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleCheckoutReview"/>
                 <set field="parameters.formNameValue" value="orderreview" global="true"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/checkoutreview.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/CheckoutReview.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="anonymousCheckoutDecorator">
@@ -216,7 +216,7 @@ under the License.
 
                 <set field="titleProperty" value="PageTitleBillingInformation"/>
                 <set field="anonymoustrailScreen" value="component://ecommerce/widget/OrderScreens.xml#anonymoustrail"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/billsettings.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/BillSettings.groovy"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/StorePaymentOptions.groovy"/>
             </actions>
             <widgets>
@@ -274,7 +274,7 @@ under the License.
                 <set field="MainColumnStyle" value="rightonly"/>
 
                 <set field="titleProperty" value="PageTitleCheckoutOptions"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/checkoutshippingoptions.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/CheckoutShippingOptions.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -327,7 +327,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleCheckoutReview"/>
                 <set field="parameters.formNameValue" value="orderreview" global="true"/>                
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/checkoutreview.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/CheckoutReview.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -517,7 +517,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleCheckoutReview"/>
                 <set field="parameters.formNameValue" value="quickAnonOrderReview" global="true"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/checkoutreview.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/CheckoutReview.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="quickAnonCheckoutDecorator">
@@ -599,7 +599,7 @@ under the License.
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/checkoutreview.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/CheckoutReview.groovy"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/quickAnonPaymentInformation.bsh"/>
             </actions>
             <widgets>
@@ -617,7 +617,7 @@ under the License.
                 <set field="layoutSettings.javaScripts[+0]" value="/images/prototypejs/effects.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/controls.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/ecommerce/images/checkoutProcess.js" global="true"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/cart/showcart.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/cart/ShowCart.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
