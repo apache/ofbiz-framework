@@ -24,7 +24,7 @@
             <li<#if selected == "task"> class="selected"</#if>><a href="<@ofbizUrl>/mytasks</@ofbizUrl>">${uiLabelMap.WorkEffortTaskList}</a></li>     
             <li<#if selected == "ListFixedAssets"> class="selected"</#if>><a href="<@ofbizUrl>/ListFixedAssets</@ofbizUrl>">${uiLabelMap.AccountingFixedAssets}</a></li>     
             <li<#if selected == "fixedAssetMaints"> class="selected"</#if>><a href="<@ofbizUrl>/findFixedAssetMaints</@ofbizUrl>">${uiLabelMap.AccountingFixedAssetMaints}</a></li>      
-            <li<#if selected == "facility"> class="selected"</#if>><a href="<@ofbizUrl>/FindFacility?facilityTypeId=WAREHOUSE</@ofbizUrl>">${uiLabelMap.ProductFacility}</a></li>
+            <li<#if selected == "facility"> class="selected"</#if>><a href="<@ofbizUrl>/FindFacility</@ofbizUrl>">${uiLabelMap.ProductFacility}</a></li>
             <li class="opposed"><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
         <#else>
             <li class="opposed"><a href="<@ofbizUrl>${checkLoginUrl?if_exists}</@ofbizUrl>">${uiLabelMap.CommonLogin}</a></li>
