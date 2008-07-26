@@ -179,13 +179,13 @@ under the License.
                 <set field="contentTypeId" value="DOCUMENT"/>
                 <set field="contentPurposeTypeId" value="ARTICLE"/>
                 <!-- byersa 2004 <set field="statusId" value="BLOG_SUBMITTED"/> -->
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/pubinit.bsh"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/nodetrailprep.bsh"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/permprep.bsh"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/htmlareaprep.bsh"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/formprep.bsh"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/ownercontentprep.bsh"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/contentaddprep.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/PubInit.groovy"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/NodeTrailPrep.groovy"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/PermPrep.groovy"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/HtmlAreaPrep.groovy"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/FormPrep.groovy"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/OwnerContentPrep.groovy"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/ContentAddPrep.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -226,13 +226,13 @@ under the License.
                 <set field="contentPurposeTypeId" value="ARTICLE"/>
                 <set field="statusId" value="CTNT_PUBLISHED"/>
 
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/nodetrailprep.bsh"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/permprep.bsh"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/htmlareaprep.bsh"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/formprep.bsh"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/ownercontentprep.bsh"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/contentaddprep.bsh"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/contentprep.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/NodeTrailPrep.groovy"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/PermPrep.groovy"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/HtmlAreaPrep.groovy"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/FormPrep.groovy"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/OwnerContentPrep.groovy"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/ContentAddPrep.groovy"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/ContentPrep.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -274,11 +274,11 @@ under the License.
                 <set field="contentPurposeTypeId" value="RESPONSE"/>
                 <set field="statusId" value="CTNT_PUBLISHED"/>
 
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/currentvalprep.bsh"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/permprep.bsh"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/htmlareaprep.bsh"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/nodetrailprep.bsh"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/viewprep.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/CurrentValPrep.groovy"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/PermPrep.groovy"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/HtmlAreaPrep.groovy"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/NodeTrailPrep.groovy"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/ViewPrep.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -323,13 +323,13 @@ under the License.
                 <set field="contentAssocTypeId" value="RESPONSE"/>
                 <set field="statusId" value="CTNT_PUBLISHED"/>
                 
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/currentvalprep.bsh"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/htmlareaprep.bsh"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/nodetrailprep.bsh"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/formprep.bsh"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/respondpermandprep.bsh"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/responseprep.bsh"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/ownercontentprep.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/CurrentValPrep.groovy"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/HtmlAreaPrep.groovy"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/NodeTrailPrep.groovy"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/FormPrep.groovy"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/RespondPermAndPrep.groovy"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/ResponsePrep.groovy"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/OwnerContentPrep.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -364,13 +364,13 @@ under the License.
                 <set field="contentPurposeTypeId" value="ARTICLE"/>
                 <set field="statusId" value="CTNT_PUBLISHED"/>
                 
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/currentvalprep.bsh"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/permprep.bsh"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/formprep.bsh"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/nodetrailprep.bsh"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/ownercontentprep.bsh"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/contentaddprep.bsh"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/contentprep.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/CurrentValPrep.groovy"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/PermPrep.groovy"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/FormPrep.groovy"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/NodeTrailPrep.groovy"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/OwnerContentPrep.groovy"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/ContentAddPrep.groovy"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/ContentPrep.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -417,13 +417,13 @@ under the License.
                 <set field="menuName" value="admin"/>
                 <set field="menuNameAux" value="backToContent"/>
                 
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/currentvalprep.bsh"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/permprep.bsh"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/htmlareaprep.bsh"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/formprep.bsh"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/nodetrailprep.bsh"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/editaddprep.bsh"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/contentprep.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/CurrentValPrep.groovy"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/PermPrep.groovy"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/HtmlAreaPrep.groovy"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/FormPrep.groovy"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/NodeTrailPrep.groovy"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/EditAddPrep.groovy"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/ContentPrep.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -464,12 +464,12 @@ under the License.
                 <set field="contentAssocTypeId" value="SUB_CONTENT"/>
                 <set field="statusId" value="CTNT_PUBLISHED"/>
 
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/currentvalprep.bsh"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/permprep.bsh"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/htmlareaprep.bsh"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/formprep.bsh"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/nodetrailprep.bsh"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/editaddprep.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/CurrentValPrep.groovy"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/PermPrep.groovy"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/HtmlAreaPrep.groovy"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/FormPrep.groovy"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/NodeTrailPrep.groovy"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/EditAddPrep.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
