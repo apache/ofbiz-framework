@@ -432,7 +432,6 @@ under the License.
     <service name="getUserPreference" engine="java"
             location="org.ofbiz.common.preferences.PreferenceServices" invoke="getUserPreference">
         <description>Gets a single user preference.</description>
-        <permission-service service-name="preferenceGetSetPermission" main-action="VIEW"/>
         <attribute name="userPrefTypeId" type="String" mode="IN" optional="false"/>
         <attribute name="userLoginId" type="String" mode="IN" optional="true"/>
         <attribute name="userPrefGroupId" type="String" mode="IN" optional="true"/>
@@ -443,7 +442,6 @@ under the License.
     <service name="getUserPreferenceGroup" engine="java"
             location="org.ofbiz.common.preferences.PreferenceServices" invoke="getUserPreferenceGroup">
         <description>Gets a group of user preferences.</description>
-        <permission-service service-name="preferenceGetSetPermission" main-action="VIEW"/>
         <attribute name="userPrefGroupId" type="String" mode="IN" optional="false"/>
         <attribute name="userLoginId" type="String" mode="IN" optional="true"/>
         <attribute name="userPrefMap" type="Map" mode="OUT" optional="true"/>
