@@ -98,3 +98,5 @@ if (dataFile != null && entityXmlFileSave != null && entityXmlFileSave.length() 
         messages.add(e.getMessage());
     }
 }
+
+context.put("messages", messages);
