@@ -25,6 +25,7 @@ under the License.
         <!--<auto-fields-entity entity-name="Facility" default-field-type="hidden"/> -->
         <field name="facilityId"><text-find/></field>
         <field name="facilityName"><text-find/></field>
+        <field name="parentFacilityId"><text-find/></field>
         <field name="facilityTypeId">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="FacilityType" key-field-name="facilityTypeId">

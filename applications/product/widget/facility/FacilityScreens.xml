@@ -118,6 +118,26 @@ under the License.
         </section>
     </screen>
     
+    <screen name="FacilityChildren">
+        <section>
+            <actions>
+                <set field="titleProperty" value="ProductFacilityChildren"/>
+                <set field="headerItem" value="facility"/>
+                <set field="tabButtonItem" value="FacilityChildren"/>
+                <set field="facilityId" from-field="parameters.facilityId"/>
+                <set field="trail" from-field="parameters.trail" default-value="${facilityId}"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="h1"><label text="${uiLabelMap.ProductFacilityChildren}"/></container>
+                        <include-tree location="component://product/widget/facility/FacilityTrees.xml" name="FacilityTree"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
     <screen name="FindFacilityTransfers">
         <section>
             <actions>

@@ -878,6 +878,7 @@ under the License.
     <entity entity-name="Facility" package-name="org.ofbiz.product.facility" title="Facility Entity">
         <field name="facilityId" type="id-ne"></field>
         <field name="facilityTypeId" type="id"></field>
+        <field name="parentFacilityId" type="id"></field>
         <field name="ownerPartyId" type="id-ne"/>
         <field name="defaultInventoryItemTypeId" type="id"></field>
         <field name="facilityName" type="name"></field>
@@ -892,6 +893,9 @@ under the License.
         <prim-key field="facilityId"/>
         <relation type="one" fk-name="FACILITY_FCTYP" rel-entity-name="FacilityType">
             <key-map field-name="facilityTypeId"/>
+        </relation>
+        <relation type="one" fk-name="FACILITY_PARENT" title="Parent" rel-entity-name="Facility">
+            <key-map field-name="parentFacilityId" rel-field-name="facilityId"/>
         </relation>
         <relation type="one" fk-name="FACILITY_PGRP" rel-entity-name="FacilityGroup">
             <key-map field-name="primaryFacilityGroupId" rel-field-name="facilityGroupId"/>

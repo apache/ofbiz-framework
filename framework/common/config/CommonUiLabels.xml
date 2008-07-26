@@ -1885,6 +1885,17 @@
         <value xml:lang="zh_CN">结束日期/时间</value>
         <value xml:lang="zh">结束日期/时间</value>
     </property>
+    <property key="CommonEntityChildren">
+        <value xml:lang="ar">الفروع</value>
+        <value xml:lang="en">Children</value>
+        <value xml:lang="es">Niños</value>
+        <value xml:lang="fr">Descendant</value>
+        <value xml:lang="it">Figli</value>
+        <value xml:lang="ro">Copii-Fii</value>
+        <value xml:lang="ru">Подчиненные</value>
+        <value xml:lang="th">เด็ก</value>
+        <value xml:lang="zh">下级固定资产</value>
+    </property>
     <property key="CommonEntries">
         <value xml:lang="ar">مداخيل</value>
         <value xml:lang="de">Einträge</value>
@@ -1980,7 +1991,7 @@
         <value xml:lang="de">Erweitern</value>
         <value xml:lang="en">Expand</value>
         <value xml:lang="fr">Augmenter</value>
-        <value xml:lang="en">แผ่ขยาย</value>
+        <value xml:lang="th">แผ่ขยาย</value>
     </property>
     <property key="CommonExclude">
         <value xml:lang="de">Ausschliessen</value>
@@ -2134,6 +2145,9 @@
         <value xml:lang="ro">Feminin</value>
         <value xml:lang="th">เพศหญิง</value>
         <value xml:lang="zh">女</value>
+    </property>
+    <property key="CommonFieldLookup">
+        <value xml:lang="en">Field Lookup</value>
     </property>
     <property key="CommonFieldsMarkedAreRequired">
         <value xml:lang="ar">الحقول المعلمة ب (*) إلزامية</value>
