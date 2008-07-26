@@ -27,12 +27,10 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
-
 
 /**
  * User preference worker methods.
@@ -44,11 +42,10 @@ public class PreferenceWorker {
      */
     public static final String ADMIN_PERMISSION = "USERPREF_ADMIN";
 
-    /**
-     * Default userLoginId. Currently set to "DEFAULT_USER_PREFS". This userLoginId is used to
-     * retrieve preferences when the user is not logged in.
+    /** Default userLoginId. Currently set to "_NA_". This userLoginId is used to
+     * retrieve default preferences when the user is not logged in.
      */
-    public static final String DEFAULT_UID = "DEFAULT_USER_PREFS";
+    public static final String DEFAULT_UID = "_NA_";
 
     /**
      * Add a UserPreference GenericValue to a Map.

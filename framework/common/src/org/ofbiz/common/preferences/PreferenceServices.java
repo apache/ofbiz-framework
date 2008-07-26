@@ -62,8 +62,11 @@ public class PreferenceServices {
      * @return Map with the result of the service, the output parameters.
      */
     public static Map<String, Object> getUserPreference(DispatchContext ctx, Map<String, ?> context) {
-        GenericDelegator delegator = ctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
+        if (!PreferenceWorker.isValidGetId(ctx, context)) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "getPreference.permissionError", locale));
+        }
+        GenericDelegator delegator = ctx.getDelegator();
 
         String userPrefTypeId = (String) context.get("userPrefTypeId");
         if (UtilValidate.isEmpty(userPrefTypeId)) {
@@ -112,9 +115,12 @@ public class PreferenceServices {
      * @return Map with the result of the service, the output parameters.
      */
     public static Map<String, Object> getUserPreferenceGroup(DispatchContext ctx, Map<String, ?> context) {
+        Locale locale = (Locale) context.get("locale");
+        if (!PreferenceWorker.isValidGetId(ctx, context)) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "getPreference.permissionError", locale));
+        }
         GenericDelegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
-        Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
         String userPrefGroupId = (String) context.get("userPrefGroupId");
