@@ -58,12 +58,22 @@ under the License.
     </td>
   </tr>
   <tr>
+    <td class="label">${uiLabelMap.FormFieldTitle_parentFacilityId}</td>
+    <td>
+      <input type="text" name="parentFacilityId" value="${facility.parentFacilityId?if_exists}"/>
+      <a href="javascript:call_fieldlookup2(document.EditFacilityForm.parentFacilityId,'LookupFacility');" title="${uiLabelMap.CommonFieldLookup}">
+        <img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="15" height="14" border="0" alt="${uiLabelMap.CommonFieldLookup}"/>
+      </a>
+    </td>
+  </tr>
+  <tr>
     <td class="label">${uiLabelMap.ProductFacilityOwner}</td>
     <td>
-      <input type="text" name="ownerPartyId" value="${facility.ownerPartyId?if_exists}"/>
-      <a href="javascript:call_fieldlookup2(document.EditFacilityForm.ownerPartyId,'LookupPartyName');">
-        <img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="15" height="14" border="0" alt="Click here For Field Lookup"/>
+      <input type="text" class="required" name="ownerPartyId" value="${facility.ownerPartyId?if_exists}"/>
+      <a href="javascript:call_fieldlookup2(document.EditFacilityForm.ownerPartyId,'LookupPartyName');" title="${uiLabelMap.CommonFieldLookup}">
+        <img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="15" height="14" border="0" alt="${uiLabelMap.CommonFieldLookup}"/>
       </a>
+      <span class="tooltip">${uiLabelMap.CommonRequired}</span>
     </td>
   </tr>
   <tr>

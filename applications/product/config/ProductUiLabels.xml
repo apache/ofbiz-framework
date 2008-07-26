@@ -2350,6 +2350,9 @@
         <value xml:lang="th">รหัสของหัวข้อ</value>
         <value xml:lang="zh">拥有者内容标识</value>
     </property>
+    <property key="FormFieldTitle_parentFacilityId">
+        <value xml:lang="en">Parent Facility Id</value>
+    </property>
     <property key="FormFieldTitle_parentFacilityGroupId">
         <value xml:lang="en">Parent Facility Group Id</value>
         <value xml:lang="fr">Réf. de groupe de lieux de stockage parent</value>
@@ -9154,6 +9157,9 @@
         <value xml:lang="ru">Объект</value>
         <value xml:lang="th">คลังสินค้า</value>
         <value xml:lang="zh">场所</value>
+    </property>
+    <property key="ProductFacilityChildren">
+        <value xml:lang="en">Facility Children for ${facility.facilityName}</value>
     </property>
     <property key="ProductFacilityContainer">
         <value xml:lang="en">Facility / Container</value>

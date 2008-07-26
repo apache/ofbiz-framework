@@ -26,6 +26,9 @@ under the License.
         <menu-item name="EditFacility" title="${uiLabelMap.ProductFacility}">
             <link target="EditFacility?facilityId=${facilityId}"/>
         </menu-item>
+        <menu-item name="FacilityChildren" title="${uiLabelMap.CommonEntityChildren}">
+            <link target="FacilityChildren?facilityId=${facilityId}"/>
+        </menu-item>
         <menu-item name="ViewContactMechs" title="${uiLabelMap.PartyContactMechs}">
             <link target="ViewContactMechs?facilityId=${facilityId}"/>
         </menu-item>
