@@ -182,7 +182,7 @@ if (shoppingListId) {
                 context.shippingContactMechList = ContactHelper.getContactMech(party, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false);
                 context.paymentMethodList = EntityUtil.filterByDate(party.getRelated("PaymentMethod", null, ["paymentMethodTypeId"]));
 
-                shipAddress = delegator.findByPrimaryKey("PostalAddress", ["contactMechId", shoppingList.contactMechId]);
+                shipAddress = delegator.findByPrimaryKey("PostalAddress", ["contactMechId" : shoppingList.contactMechId]);
                 Debug.log("SL - address : " + shipAddress);
                 if (shipAddress) {
                     listCart = ShoppingListServices.makeShoppingListCart(dispatcher, shoppingListId, locale);
