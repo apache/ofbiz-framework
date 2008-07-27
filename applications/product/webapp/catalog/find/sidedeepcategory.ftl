@@ -56,36 +56,20 @@ under the License.
   </#if>
 </#macro>
 
-<div class="screenlet">
-    <div class="screenlet-header">
-        <div class="simple-right-small">
-            <#if isOpen>
-                <a href='<@ofbizUrl>main?BrowseCategoriesState=close</@ofbizUrl>' class='lightbuttontext'>&nbsp;_&nbsp;</a>
-            <#else>
-                <a href='<@ofbizUrl>main?BrowseCategoriesState=open</@ofbizUrl>' class='lightbuttontext'>&nbsp;[]&nbsp;</a>
-            </#if>
-        </div>
-        <div class="boxhead">${uiLabelMap.ProductBrowseCategories}</div>
-    </div>
-<#if isOpen>
-    <div class="screenlet-body">
-        <div><a href='<@ofbizUrl>ChooseTopCategory</@ofbizUrl>' class='buttontext'>${uiLabelMap.ProductChooseTopCategory}</a></div>
-        <div style='margin-left: 10px;'>
-        <#if currentTopCategory?exists>
-          <#if curCategoryId?exists && curCategoryId == currentTopCategory.productCategoryId>
-            <div style='text-indent: -10px;'><b>-&nbsp;${currentTopCategory.categoryName?default("No Name")} [${currentTopCategory.productCategoryId}]</b></div>
-          <#else>
-            <div class='browsecategorytext'>-&nbsp;<a href="<@ofbizUrl>EditCategory?productCategoryId=${currentTopCategory.productCategoryId}</@ofbizUrl>" class='browsecategorybutton'>${currentTopCategory.categoryName?default(currentTopCategory.description)?if_exists} [${currentTopCategory.productCategoryId}]</a></div>
-          </#if>
-        </#if>
-          <div style='margin-left: 10px;'>
-            <#if topLevelList?exists>
-              <#list topLevelList as category>
-                <@categoryList parentCategory=category category=category/>
-              </#list>
-            </#if>
-          </div>
-        </div>
-    </div>
+<div><a href='<@ofbizUrl>ChooseTopCategory</@ofbizUrl>' class='buttontext'>${uiLabelMap.ProductChooseTopCategory}</a></div>
+<div style='margin-left: 10px;'>
+<#if currentTopCategory?exists>
+  <#if curCategoryId?exists && curCategoryId == currentTopCategory.productCategoryId>
+    <div style='text-indent: -10px;'><b>-&nbsp;${currentTopCategory.categoryName?default("No Name")} [${currentTopCategory.productCategoryId}]</b></div>
+  <#else>
+    <div class='browsecategorytext'>-&nbsp;<a href="<@ofbizUrl>EditCategory?productCategoryId=${currentTopCategory.productCategoryId}</@ofbizUrl>" class='browsecategorybutton'>${currentTopCategory.categoryName?default(currentTopCategory.description)?if_exists} [${currentTopCategory.productCategoryId}]</a></div>
+  </#if>
 </#if>
+  <div style='margin-left: 10px;'>
+    <#if topLevelList?exists>
+      <#list topLevelList as category>
+        <@categoryList parentCategory=category category=category/>
+      </#list>
+    </#if>
+  </div>
 </div>

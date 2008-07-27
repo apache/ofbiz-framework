@@ -1730,8 +1730,6 @@ under the License.
     <view-map name="EditLayoutImage" page="component://content/widget/layout/LayoutScreens.xml#EditLayoutImage" type="screen"/>
     <view-map name="EditLayoutUrl" page="component://content/widget/layout/LayoutScreens.xml#EditLayoutUrl" type="screen"/>
 
-    <view-map name="FindContent"  page="component://content/widget/content/ContentScreens.xml#FindContent" type="screen"/>
-
     <view-map name="FindSurvey" page="component://content/widget/SurveyScreens.xml#FindSurvey" type="screen"/>
     <view-map name="EditSurvey" page="component://content/widget/SurveyScreens.xml#EditSurvey" type="screen"/>
     <view-map name="EditSurveyMultiResps" page="component://content/widget/SurveyScreens.xml#EditSurveyMultiResps" type="screen"/>
