@@ -25,19 +25,13 @@ import org.ofbiz.party.contact.*;
 import org.ofbiz.product.store.*;
 
 shoppingCart = session.getAttribute("shoppingCart");
-context.put("shoppingCart", shoppingCart);
+context.shoppingCart = shoppingCart;
 productStore = ProductStoreWorker.getProductStore(request);
 
-itemSizes = new LinkedList();
-featureIdSet = new HashSet();
-shipAddress = null;
-shipWeight = 0.00;
-shipTotal = 0.00;
-
-if (shoppingCart != null) {
+if (shoppingCart) {
     shippingEstWpr = new ShippingEstimateWrapper(dispatcher, shoppingCart, 0);
-    context.put("shippingEstWpr", shippingEstWpr);
-    context.put("carrierShipmentMethodList", shippingEstWpr.getShippingMethods());
+    context.shippingEstWpr = shippingEstWpr;
+    context.carrierShipmentMethodList = shippingEstWpr.getShippingMethods();
 }
 
 // nuke the event messages
@@ -45,18 +39,18 @@ request.removeAttribute("_EVENT_MESSAGE_");
 
 party = null;
 partyId = session.getAttribute("orderPartyId");
-if (partyId != null) {
-    party = delegator.findByPrimaryKey("Party", UtilMisc.toMap("partyId", partyId));
-    context.put("party", party);
+if (partyId) {
+    party = delegator.findByPrimaryKey("Party", [partyId : partyId]);
+    context.party = party;
 }
 
 
-context.put("emailList",  ContactHelper.getContactMechByType(party, "EMAIL_ADDRESS", false));
+context.emailList = ContactHelper.getContactMechByType(party, "EMAIL_ADDRESS", false);
 
-if (shoppingCart != null && shoppingCart.getShipmentMethodTypeId() != null && shoppingCart.getCarrierPartyId() != null) {
-    context.put("chosenShippingMethod", shoppingCart.getShipmentMethodTypeId() + '@' + shoppingCart.getCarrierPartyId());
-    context.put("callSubmitForm",true);
+if (shoppingCart?.getShipmentMethodTypeId() && shoppingCart.getCarrierPartyId()) {
+    context.chosenShippingMethod = shoppingCart.getShipmentMethodTypeId() + '@' + shoppingCart.getCarrierPartyId();
+    context.callSubmitForm = true;
 }
 
-context.put("productStoreId", productStore.get("productStoreId"));
-context.put("productStore", productStore);
+context.productStoreId = productStore.productStoreId;
+context.productStore = productStore;

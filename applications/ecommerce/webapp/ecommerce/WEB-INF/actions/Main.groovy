@@ -34,7 +34,7 @@ request.setAttribute("productCategoryId", promoCat);
  * NOTE JLR 20070221 this should be done using the same method than in add to cart. I will do it like that and remove all this after.
  *
 productCategoryId = session.getAttribute("productCategoryId");
-if (productCategoryId == null) {
+if (!productCategoryId) {
     request.setAttribute("productCategoryId", promoCat);    
 } else {
     request.setAttribute("productCategoryId", productCategoryId);    

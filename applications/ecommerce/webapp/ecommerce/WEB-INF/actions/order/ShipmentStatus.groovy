@@ -23,20 +23,20 @@ import org.ofbiz.entity.*;
 import org.ofbiz.entity.condition.*;
 import org.ofbiz.entity.util.*;
 
-shipmentId = parameters.get("shipmentId");
-if (shipmentId != null) {
-    shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
-    shipmentItems = delegator.findByAnd("ShipmentItem", UtilMisc.toMap("shipmentId", shipmentId));
+shipmentId = parameters.shipmentId;
+if (shipmentId) {
+    shipment = delegator.findByPrimaryKey("Shipment", [shipmentId : shipmentId]);
+    shipmentItems = delegator.findByAnd("ShipmentItem", [shipmentId : shipmentId]);
 
     // get Shipment tracking info
-    osisCond = EntityCondition.makeCondition(UtilMisc.toMap("shipmentId", shipmentId), EntityOperator.AND);
-    osisOrder = UtilMisc.toList("shipmentId", "shipmentRouteSegmentId", "shipmentPackageSeqId");
-    osisFields = UtilMisc.toSet("shipmentId", "shipmentRouteSegmentId", "shipmentPackageSeqId", "carrierPartyId", "trackingCode");
-    osisFindOptions = new EntityFindOptions(); 
+    osisCond = EntityCondition.makeCondition([shipmentId : shipmentId], EntityOperator.AND);
+    osisOrder = ["shipmentId", "shipmentRouteSegmentId", "shipmentPackageSeqId"];
+    osisFields = ["shipmentId", "shipmentRouteSegmentId", "shipmentPackageSeqId", "carrierPartyId", "trackingCode"] as Set;
+    osisFindOptions = new EntityFindOptions();
     osisFindOptions.setDistinct(true);
     orderShipmentInfoSummaryList = delegator.findList("OrderShipmentInfoSummary", osisCond, osisFields, osisOrder, osisFindOptions, false);
 
-    context.put("shipment", shipment);
-    context.put("shipmentItems", shipmentItems);
-    context.put("orderShipmentInfoSummaryList", orderShipmentInfoSummaryList);
+    context.shipment = shipment;
+    context.shipmentItems = shipmentItems;
+    context.orderShipmentInfoSummaryList = orderShipmentInfoSummaryList;
 }

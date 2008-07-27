@@ -21,14 +21,14 @@ import org.ofbiz.base.util.*;
 import org.ofbiz.common.CommonWorkers;
 import org.ofbiz.webapp.control.*;
 
-context.put("autoUserLogin", session.getAttribute("autoUserLogin"));
-context.put("autoLogoutUrl", LoginWorker.makeLoginUrl(request, "autoLogout")); 
+context.autoUserLogin = session.getAttribute("autoUserLogin");
+context.autoLogoutUrl = LoginWorker.makeLoginUrl(request, "autoLogout");
 
 previousParams = session.getAttribute("_PREVIOUS_PARAMS_");
-if (previousParams != null && previousParams.length() > 0) {
-    previousParams = UtilHttp.stripNamedParamsFromQueryString(previousParams, UtilMisc.toList("USERNAME", "PASSWORD"));
+if (previousParams) {
+    previousParams = UtilHttp.stripNamedParamsFromQueryString(previousParams, ["USERNAME", "PASSWORD"]);
     previousParams = "?" + previousParams;
 } else {
     previousParams = "";
 }
-context.put("previousParams", previousParams);
+context.previousParams = previousParams;

@@ -1924,7 +1924,7 @@ public class ShoppingCartItem implements java.io.Serializable {
     }
 
     /** calculates for a reservation the percentage/100 extra for more than 1 person. */
-    // similar code at editShoppingList.bsh
+    // similar code at EditShoppingList.groovy
     public double getRentalAdjustment() {
         if (!"RENTAL_ORDER_ITEM".equals(this.itemType)) {
             // not a rental item?

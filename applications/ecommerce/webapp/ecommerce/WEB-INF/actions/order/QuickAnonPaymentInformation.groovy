@@ -25,27 +25,20 @@ import org.ofbiz.order.shoppingcart.*;
 import org.ofbiz.party.contact.*;
 
 cart = ShoppingCartEvents.getCartObject(request);
-context.put("cart", cart);
+context.cart = cart;
 
-paymentMethodTypeId = parameters.get("paymentMethodTypeId");
-if(paymentMethodTypeId == null) {
-    parameters.put("paymentMethodTypeId","CREDIT_CARD");
-} 
+paymentMethodTypeId = parameters.paymentMethodTypeId ?: "CREDIT_CARD";
 
 // nuke the event messages
 request.removeAttribute("_EVENT_MESSAGE_");
 
-if (cart != null) {
-    if (cart.getPaymentMethodIds() != null && cart.getPaymentMethodIds().size() > 0) {
-        paymentMethods = cart.getPaymentMethods();
-        paymentMethodIter = paymentMethods.iterator();
-        while (paymentMethodIter.hasNext()) {
-            paymentMethod = (GenericValue)paymentMethodIter.next();
-            if (paymentMethod != null && paymentMethod.getString("paymentMethodTypeId").equals("CREDIT_CARD")) {
-                paymentMethodId = paymentMethod.get("paymentMethodId");
-                parameters.put("paymentMethodId",paymentMethodId);
-            }
-        }        
-    } 
-}
+if (cart?.getPaymentMethodIds()) {
+    paymentMethods = cart.getPaymentMethods();
+    paymentMethods.each {paymentMethod ->
+        if ("CREDIT_CARD".equals(paymentMethod?.paymentMethodTypeId)) {
+            paymentMethodId = paymentMethod.paymentMethodId;
+            parameters.paymentMethodId = paymentMethodId;
+        }
+    }        
+} 
 

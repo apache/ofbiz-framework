@@ -72,7 +72,7 @@ under the License.
 
 				<set field="titleProperty" value="PageTitleContentPage"/>
                 <set field="headerItem" value="main"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/main.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/Main.groovy"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/content/ContentPrep.groovy"/>
             </actions>
             <widgets>

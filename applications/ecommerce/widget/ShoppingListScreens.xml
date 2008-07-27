@@ -29,7 +29,7 @@ under the License.
 
                 <set field="titleProperty" value="PageTitleShoppingList"/>
                 <set field="headerItem" value="Shopping List"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/shoppinglist/editShoppingList.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/shoppinglist/EditShoppingList.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
