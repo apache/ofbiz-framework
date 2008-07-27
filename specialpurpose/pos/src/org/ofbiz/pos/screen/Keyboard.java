@@ -19,12 +19,16 @@
 package org.ofbiz.pos.screen;
 
 import java.awt.Color;
+
+import org.ofbiz.base.util.Debug;
+
 import net.xoetrope.swing.XButton;
 import net.xoetrope.swing.XDialog;
 import net.xoetrope.swing.XEdit;
 import net.xoetrope.xui.PageSupport;
 import net.xoetrope.xui.XPage;
 import net.xoetrope.xui.events.XEventHelper;
+import java.awt.Panel;
 
 public class Keyboard extends XPage {
     public static final String module = Keyboard.class.getName();
@@ -49,6 +53,12 @@ public class Keyboard extends XPage {
     public String openDlg() {
         setupEvents();
         originalText = getText();
+//      XuiUtilities.getMaxCoordinates(m_dialog);
+//      Panel m_panel = m_dialog.PANEL;
+//      pageHelper.componentFactory.setParentComponent( this );
+//      contentPanel = ( XPanel )pageHelper.componentFactory.addComponent( XPage.PANEL, 0, 0, 800, 600 );
+//      FIXME XUI dialog boxes are hardcoded to a 800*600 max ! https://issues.apache.org/jira/browse/OFBIZ-1606?focusedCommentId=12614469#action_12614469
+//      actually maxi seem to be 808*628 certainly due to margins(?)
         m_dialog.pack();
         m_dialog.showDialog(this);
         return m_edit.getText();
@@ -74,72 +84,14 @@ public class Keyboard extends XPage {
     }
 
     private void setupEvents() {
-        XButton button = (XButton) m_dialog.findComponent("charA");
-        XEventHelper.addMouseHandler(this, button, "triggerA");
-        button = (XButton) m_dialog.findComponent("charB");
-        XEventHelper.addMouseHandler(this, button, "triggerB");
-        button = (XButton) m_dialog.findComponent("charC");
-        XEventHelper.addMouseHandler(this, button, "triggerC");
-        button = (XButton) m_dialog.findComponent("charD");
-        XEventHelper.addMouseHandler(this, button, "triggerD");
-        button = (XButton) m_dialog.findComponent("charE");
-        XEventHelper.addMouseHandler(this, button, "triggerE");
-        button = (XButton) m_dialog.findComponent("charF");
-        XEventHelper.addMouseHandler(this, button, "triggerF");
-        button = (XButton) m_dialog.findComponent("charG");
-        XEventHelper.addMouseHandler(this, button, "triggerG");
-        button = (XButton) m_dialog.findComponent("charH");
-        XEventHelper.addMouseHandler(this, button, "triggerH");
-        button = (XButton) m_dialog.findComponent("charI");
-        XEventHelper.addMouseHandler(this, button, "triggerI");
-        button = (XButton) m_dialog.findComponent("charJ");
-        XEventHelper.addMouseHandler(this, button, "triggerJ");
-        button = (XButton) m_dialog.findComponent("charK");
-        XEventHelper.addMouseHandler(this, button, "triggerK");
-        button = (XButton) m_dialog.findComponent("charL");
-        XEventHelper.addMouseHandler(this, button, "triggerL");
-        button = (XButton) m_dialog.findComponent("charM");
-        XEventHelper.addMouseHandler(this, button, "triggerM");
-        button = (XButton) m_dialog.findComponent("charN");
-        XEventHelper.addMouseHandler(this, button, "triggerN");
-        button = (XButton) m_dialog.findComponent("charO");
-        XEventHelper.addMouseHandler(this, button, "triggerO");
-        button = (XButton) m_dialog.findComponent("charP");
-        XEventHelper.addMouseHandler(this, button, "triggerP");
-        button = (XButton) m_dialog.findComponent("charQ");
-        XEventHelper.addMouseHandler(this, button, "triggerQ");
-        button = (XButton) m_dialog.findComponent("charR");
-        XEventHelper.addMouseHandler(this, button, "triggerR");
-        button = (XButton) m_dialog.findComponent("charS");
-        XEventHelper.addMouseHandler(this, button, "triggerS");
-        button = (XButton) m_dialog.findComponent("charT");
-        XEventHelper.addMouseHandler(this, button, "triggerT");
-        button = (XButton) m_dialog.findComponent("charU");
-        XEventHelper.addMouseHandler(this, button, "triggerU");
-        button = (XButton) m_dialog.findComponent("charV");
-        XEventHelper.addMouseHandler(this, button, "triggerV");
-        button = (XButton) m_dialog.findComponent("charW");
-        XEventHelper.addMouseHandler(this, button, "triggerW");
-        button = (XButton) m_dialog.findComponent("charX");
-        XEventHelper.addMouseHandler(this, button, "triggerX");
-        button = (XButton) m_dialog.findComponent("charY");
-        XEventHelper.addMouseHandler(this, button, "triggerY");
-        button = (XButton) m_dialog.findComponent("charZ");
-        XEventHelper.addMouseHandler(this, button, "triggerZ");
-        button = (XButton) m_dialog.findComponent("charDel");
-        XEventHelper.addMouseHandler(this, button, "triggerDel");
-        button = (XButton) m_dialog.findComponent("charSpace");
-        XEventHelper.addMouseHandler(this, button, "triggerSpace");
-        button = (XButton) m_dialog.findComponent("menuClear");
-        XEventHelper.addMouseHandler(this, button, "triggerClear");
-        button = (XButton) m_dialog.findComponent("menuEnter");
-        XEventHelper.addMouseHandler(this, button, "triggerEnter");
-        button = (XButton) m_dialog.findComponent("menuCancel");
-        XEventHelper.addMouseHandler(this, button, "triggerCancel");
-        button = (XButton) m_dialog.findComponent("menuShift");
-        XEventHelper.addMouseHandler(this, button, "triggerShift");
-        button = (XButton) m_dialog.findComponent("menuShiftLock");
-        XEventHelper.addMouseHandler(this, button, "triggerShiftLock");
+        String[] keys = {"A" ,"B" ,"C" ,"D" ,"E" ,"F" ,"G" ,"H" ,"I" ,"J" ,"K" ,"L" ,"M" ,"N" ,"O" ,"P" ,"Q" ,"R" ,"S" ,"T" ,"U" ,"V" ,"W" ,"X" ,"Y" ,"Z",
+                "1" ,"2" ,"3" ,"4" ,"5" ,"6" ,"7" ,"8" ,"9" ,"0" ,
+                "Dot", "Dash", "Del", "Space", "Clear", "Enter", "Cancel", "Shift", "ShiftLock"};
+        XButton button = null;
+        for(String key : keys) {
+            button = (XButton) m_dialog.findComponent("char" + key);
+            XEventHelper.addMouseHandler(this, button, "trigger" + key);            
+        }
     }
 
     private void setButtonText(String buttonName, String newText) {
@@ -148,61 +100,18 @@ public class Keyboard extends XPage {
     }
 
     private void setUppercase() {
-        setButtonText("charA", "A");
-        setButtonText("charB", "B");
-        setButtonText("charC", "C");
-        setButtonText("charD", "D");
-        setButtonText("charE", "E");
-        setButtonText("charF", "F");
-        setButtonText("charG", "G");
-        setButtonText("charH", "H");
-        setButtonText("charI", "I");
-        setButtonText("charJ", "J");
-        setButtonText("charK", "K");
-        setButtonText("charL", "L");
-        setButtonText("charM", "M");
-        setButtonText("charN", "N");
-        setButtonText("charO", "O");
-        setButtonText("charP", "P");
-        setButtonText("charQ", "Q");
-        setButtonText("charR", "R");
-        setButtonText("charS", "S");
-        setButtonText("charT", "T");
-        setButtonText("charU", "U");
-        setButtonText("charV", "V");
-        setButtonText("charW", "W");
-        setButtonText("charX", "X");
-        setButtonText("charY", "Y");
-        setButtonText("charZ", "Z");
+        String[] keys = {"A" ,"B" ,"C" ,"D" ,"E" ,"F" ,"G" ,"H" ,"I" ,"J" ,"K" ,"L" ,"M" ,"N" ,"O" ,"P" ,"Q" ,"R" ,"S" ,"T" ,"U" ,"V" ,"W" ,"X" ,"Y" ,"Z"};
+        for(String key : keys) {
+            setButtonText("char" + key, key);
+        }
     }
 
     private void setLowercase() {
-        setButtonText("charA", "a");
-        setButtonText("charB", "b");
-        setButtonText("charC", "c");
-        setButtonText("charD", "d");
-        setButtonText("charE", "e");
-        setButtonText("charF", "f");
-        setButtonText("charG", "g");
-        setButtonText("charH", "h");
-        setButtonText("charI", "i");
-        setButtonText("charJ", "j");
-        setButtonText("charK", "k");
-        setButtonText("charL", "l");
-        setButtonText("charM", "m");
-        setButtonText("charN", "n");
-        setButtonText("charO", "o");
-        setButtonText("charP", "p");
-        setButtonText("charQ", "q");
-        setButtonText("charR", "r");
-        setButtonText("charS", "s");
-        setButtonText("charT", "t");
-        setButtonText("charU", "u");
-        setButtonText("charV", "v");
-        setButtonText("charW", "w");
-        setButtonText("charX", "x");
-        setButtonText("charY", "y");
-        setButtonText("charZ", "z");
+
+        String[] keys = {"a" ,"b" ,"c" ,"d" ,"e" ,"f" ,"g" ,"h" ,"i" ,"j" ,"k" ,"l" ,"m" ,"n" ,"o" ,"p" ,"q" ,"r" ,"s" ,"t" ,"u" ,"v" ,"w" ,"x" ,"y" ,"z"};
+        for(String key : keys) {
+            setButtonText("char" + key, key);
+        }
     }
 
     public void triggerA() {
@@ -309,12 +218,60 @@ public class Keyboard extends XPage {
         keypress('z', 'Z');
     }
 
-    public void triggerClear() {
-        clear();
+    public void trigger1() {
+        triggerAndAppend("1");
+    }
+
+    public void trigger2() {
+        triggerAndAppend("2");
+    }
+
+    public void trigger3() {
+        triggerAndAppend("3");
+    }
+
+    public void trigger4() {
+        triggerAndAppend("4");
+    }
+
+    public void trigger5() {
+        triggerAndAppend("5");
+    }
+
+    public void trigger6() {
+        triggerAndAppend("6");
+    }
+
+    public void trigger7() {
+        triggerAndAppend("7");
+    }
+
+    public void trigger8() {
+        triggerAndAppend("8");
+    }
+
+    public void trigger9() {
+        triggerAndAppend("9");
+    }
+
+    public void trigger0() {
+        triggerAndAppend("0");
+    }
+
+    public void triggerDot() {
+        triggerAndAppend(".");
+    }
+
+    public void triggerDash() {
+        triggerAndAppend("-");
     }
 
     public void triggerSpace() {
-        keypress(' ', ' ');
+        triggerAndAppend(" ");
+    }
+
+    public void triggerClear() {
+        clear();
     }
 
     public void triggerDel() {
@@ -338,6 +295,12 @@ public class Keyboard extends XPage {
     public void triggerShiftLock() {
         if (wasMouseClicked()) {
             shiftLock();
+        }
+    }
+
+    public void triggerAndAppend(String s) {
+        if (wasMouseClicked()) {
+            append(s);
         }
     }
 
