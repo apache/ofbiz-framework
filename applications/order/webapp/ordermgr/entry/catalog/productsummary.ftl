@@ -28,13 +28,31 @@ under the License.
     <#assign smallImageUrl = productContentWrapper.get("SMALL_IMAGE_URL")?if_exists>
     <#if !smallImageUrl?has_content><#assign smallImageUrl = "/images/defaultImage.jpg"></#if>
     <#-- end variable setup -->
-
+    <#assign productInfoLinkId = "productInfoLink">
+    <#assign productInfoLinkId = productInfoLinkId + product.productId/>
+    <#assign productDetailId = "productDetailId"/>
+    <#assign productDetailId = productDetailId + product.productId/>
     <div class="productsummary">
         <div class="smallimage">
             <a href="<@ofbizUrl>${targetRequestName}/<#if categoryId?exists>~category_id=${categoryId}/</#if>~product_id=${product.productId}</@ofbizUrl>">
-                <img src="<@ofbizContentUrl>${contentPathPrefix?if_exists}${smallImageUrl}</@ofbizContentUrl>" alt="Small Image"/>
+                <span id="${productInfoLinkId}" class="popup_link"><img src="<@ofbizContentUrl>${contentPathPrefix?if_exists}${smallImageUrl}</@ofbizContentUrl>" alt="Small Image"/></span>
             </a>
         </div>
+        <div id="${productDetailId}" class="popup" >
+          <table>
+            <tr valign="top">
+              <td>
+                <img src="<@ofbizContentUrl>${contentPathPrefix?if_exists}${smallImageUrl}</@ofbizContentUrl>" alt="Small Image"/><br/>
+                ${uiLabelMap.ProductProductId}   : ${product.productId?if_exists}<br/>
+                ${uiLabelMap.ProductProductName} : ${product.productName?if_exists}<br/>
+                ${uiLabelMap.CommonDescription}  : ${product.description?if_exists}
+              </td>
+            </tr>
+          </table>
+        </div>
+        <script type="text/javascript">
+          new Popup('${productDetailId}','${productInfoLinkId}', {position: 'none'})
+        </script>
         <div class="productbuy">
           <#-- check to see if introductionDate hasn't passed yet -->
           <#if product.introductionDate?exists && nowTimestamp.before(product.introductionDate)>
