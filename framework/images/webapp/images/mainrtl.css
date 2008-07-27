@@ -28,10 +28,6 @@ text-align: right;
 
 /* ===== Legacy Styles ===== */
 
-.tabletextright {
-text-align: left;
-}
-
 .boxlink {
 float: left;
 }
@@ -61,27 +57,6 @@ padding-right: 0.2em;
 .submenutextrightdisabled, A.submenutextrightdisabled {
 padding-left: none;
 padding-right: 0.2em;
-}
-
-.headerButtonLeft, .headerButtonLeftSelected {
-border-right: none;
-border-left: solid #ffffff 0.1em;
-}
-
-.headerButtonRight {
-border-left: none;
-border-right: solid #ffffff 0.1em;
-text-align: left;
-}
-
-.headerButtonRight:hover {
-background-color: #D4D0C8;
-color: #000000;
-}
-
-.headerButtonRightSelected {
-border-left: none;
-border-right: solid #ffffff 0.1em;
 }
 
 /* ===== Product Summary Styles ===== */
