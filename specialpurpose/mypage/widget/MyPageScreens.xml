@@ -180,7 +180,7 @@ under the License.
         <section>
             <actions>
                 <set field="partyId" from-field="userLogin.partyId" />
-	            <set field="donePage" from-field="donePage" default-value="myCommunications"/>
+	            <set field="donePage" value="myCommunications"/>
             </actions>
             <widgets>
                 <include-screen name="Communications"/>
@@ -190,7 +190,8 @@ under the License.
 	<screen name="Communications">
 		<section>
 			<actions>
-			    <set field="status" from-field="parameters.status" default-value="%"/>
+                <set field="status" from-field="parameters.status"/>
+                <set field="status" value="${bsh:&quot;all&quot;.equals(status)?&quot;%&quot;:&quot;open&quot;}"/>
 				<entity-condition entity-name="CommunicationEventAndRole"
 					list-name="commEvents">
 					<condition-list combine="and">

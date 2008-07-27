@@ -115,7 +115,7 @@
         <security https="true" auth="true"/>
         <event type="simple" path="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="allocateMsgToParty"/>
         <response name="success" type="request" value="getToNextDonePage"/>
-        <response name="error" type="request" value="getToNextDonePage"/>
+        <response name="error" type="view" value="ViewCommunicationEvent"/>
     </request-map>
     
     <request-map uri="deleteCommunicationEvents">
@@ -141,12 +141,6 @@
     <request-map uri="otherCommunications">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="otherCommunications"/>
-    </request-map>
-    <request-map uri="allocateMsgToParty">
-        <security https="true" auth="true"/>
-        <event type="simple" path="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="allocateMsgToParty"/>
-        <response name="success" type="request" value="getToNextDonePage"/>
-        <response name="error" type="request" value="getToNextDonePage"/>
     </request-map>
     <request-map uri="setCommEventRoleToComplete">
         <security https="true" auth="true"/>
