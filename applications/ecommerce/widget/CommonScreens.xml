@@ -217,7 +217,7 @@ under the License.
                 <set field="headerItem" value="main"/>
                 <set field="randomSurveyGroup" value="testSurveyGroup"/>
 
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/main.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/Main.groovy"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/Category.groovy"/>
             </actions>
             <widgets>
@@ -236,7 +236,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleLogin"/>
                 <set field="headerItem" value="login"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/login.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/Login.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -254,7 +254,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleLogin"/>
                 <set field="headerItem" value="login"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/login.bsh"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/Login.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

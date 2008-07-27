@@ -22,13 +22,11 @@ import org.ofbiz.order.shoppingcart.*;
 //Get the Cart
 cart = ShoppingCartEvents.getCartObject(request);
 paymentMethodTypeIds = cart.getPaymentMethodTypeIds();
-paymentMethodTypeIdIter = paymentMethodTypeIds.iterator();
-while (paymentMethodTypeIdIter.hasNext()) {
-    String paymentMethodTypeId = (String) paymentMethodTypeIdIter.next();
-    context.put("callSubmitForm",true);
+paymentMethodTypeIds.each { paymentMethodTypeId ->
+    context.callSubmitForm = true;
     if ("GIFT_CARD".equals(paymentMethodTypeId)) {
-        context.put("addGiftCard","Y");
+        context.addGiftCard = "Y";
     } else {
-        context.put("paymentMethodTypeId",paymentMethodTypeId);
+        context.paymentMethodTypeId = paymentMethodTypeId;
     }
 }

@@ -16,16 +16,23 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import org.ofbiz.order.shoppingcart.ShoppingCartEvents;
 
-shoppingCart = ShoppingCartEvents.getCartObject(request);
+import org.ofbiz.entity.*;
+import org.ofbiz.entity.util.*;
+import org.ofbiz.base.util.*;
+import org.ofbiz.party.contact.*;
+import org.ofbiz.product.store.*;
+import org.ofbiz.order.shoppingcart.*;
 
-userLogin = context.get("userLogin");
-if (userLogin != null) {
-    context.put("enableShippingAddress",true);
-} 
+party = userLogin.getRelatedOne("Party");
+productStoreId = ProductStoreWorker.getProductStoreId(request);
 
-shippingContactMechId = shoppingCart.getShippingContactMechId();
-if (shippingContactMechId !=null && !shippingContactMechId.equals("")) {
-    context.put("enableShipmentMethod",true);
-}
+cart = session.getAttribute("shoppingCart");
+context.dispatcher = dispatcher;
+context.delegator = delegator;
+context.cart = cart;
+
+context.shippingContactMechList = ContactHelper.getContactMech(party, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false);
+
+profiledefs = delegator.findByPrimaryKey("PartyProfileDefault", [partyId : userLogin.partyId, productStoreId : productStoreId]);
+context.profileDefs = profiledefs;
