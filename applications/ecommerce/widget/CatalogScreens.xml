@@ -217,7 +217,7 @@ under the License.
     <screen name="categorydetailmatrix">
         <section>
             <actions>
-                <set field="numCol" value="1"/>
+                <set field="numCol" value="3"/>
                 <set field="searchInCategory" value="N"/>
                 <set field="parameters.VIEW_SIZE" from-field="parameters.VIEW_SIZE" default-value="9"/>
             </actions>

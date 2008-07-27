@@ -91,6 +91,9 @@ under the License.
       <#assign numCol = numCol?number>
       <#assign tabCol = 1>
       <div class="productsummary-container <#if (numCol?int > 1)>matrix</#if>">
+      <#if (numCol?int > 1)>
+        <table>
+      </#if>
         <#list productCategoryMembers as productCategoryMember>
           <#if (numCol?int == 1)>
             ${setRequestAttribute("optProductId", productCategoryMember.productId)}
@@ -98,7 +101,6 @@ under the License.
             ${setRequestAttribute("listIndex", productCategoryMember_index)}
             ${screens.render(productsummaryScreen)}
           <#else>
-            <table>
               <#if (tabCol?int = 1)><tr></#if>
                   <td>
                       ${setRequestAttribute("optProductId", productCategoryMember.productId)}
@@ -108,9 +110,11 @@ under the License.
                   </td>
               <#if (tabCol?int = numCol)></tr></#if>
               <#assign tabCol = tabCol+1><#if (tabCol?int > numCol)><#assign tabCol = 1></#if>
-            </table>
            </#if>
         </#list>
+      <#if (numCol?int > 1)>
+        </table>
+      </#if>
       </div>
     <@paginationControls/>
 <#else>
