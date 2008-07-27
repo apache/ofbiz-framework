@@ -73,6 +73,13 @@ font-size: 62.5%;
 position: relative;
 }
 
+hr {
+background-color: #999999;
+border: 0;
+height: 0.1em;
+margin: 0.5em 0 0.5em 0;
+}
+
 input[type="radio"], input[type="checkbox"] {
 font-size: 1.1em;
 margin: 0.2em;
@@ -424,60 +431,6 @@ color: #ff0000;
 
 A IMG.imageborder {
 border: 0.1em solid #999999;
-}
-
-.headerButtonLeft {
-background-color: #B4B0AA;
-color: #000099;
-font-weight: bold;
-border-right: solid #ffffff 0.1em;
-padding-right: 1em;
-padding-left: 1em;
-}
-
-.headerButtonLeft:hover {
-background-color: #D4D0C8;
-color: #000000;
-}
-
-.headerButtonLeftSelected {
-background-color: #D4D0C8;
-border-right: solid #ffffff 0.1em;
-color: #000099;
-font-weight: bold;
-padding-right: 1em;
-padding-left: 1em;
-}
-
-.headerButtonRight {
-background-color: #B4B0AA;
-border-left: solid #ffffff 0.1em;
-color: #000099;
-font-weight: bold;
-padding-right: 1em;
-padding-left: 1em;
-text-align: right;
-}
-
-.headerButtonRight:hover {
-background-color: #D4D0C8;
-color: #000000;
-}
-
-.headerButtonRightSelected {
-background-color: #D4D0C8;
-border-left: solid #ffffff 0.1em;
-color: #000099;
-font-weight: bold;
-padding-right: 1em;
-padding-left: 1em;
-}
-
-hr {
-background-color: #999999;
-border: 0;
-height: 0.1em;
-margin: 0.5em 0 0.5em 0;
 }
 
 .eventMessage, .errorMessage {
@@ -1216,11 +1169,6 @@ cursor: default;
 .screenlet-title-bar ul .h1:hover,
 .screenlet-title-bar ul .h2:hover,
 .screenlet-title-bar ul .h3:hover {
-background-color: #000099;
-background-image: url(/images/gradient_sub_uns.gif);
-}
-
-.screenlet-title-bar .head4:hover {
 background-color: #000099;
 background-image: url(/images/gradient_sub_uns.gif);
 }
