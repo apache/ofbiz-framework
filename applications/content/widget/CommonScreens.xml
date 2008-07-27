@@ -181,10 +181,8 @@ under the License.
                                     </widgets>
                                     <fail-widgets>
                                         <include-menu name="dataresourceTopMenu" location="component://content/widget/content/DataResourceMenus.xml"/>
-                                        <label style="h1" text="${uiLabelMap.${titleProperty}}"/>
                                     </fail-widgets>
                                 </section>
-                                <link text="${uiLabelMap.CommonNew}" target="editDataResource" style="buttontext"/>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
