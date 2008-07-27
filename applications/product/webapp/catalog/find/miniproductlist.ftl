@@ -17,43 +17,27 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<div class="screenlet">
-    <div class="screenlet-header">
-        <div class="simple-right-small">
-            <#if isOpen>
-                <a href="<@ofbizUrl>main?CategoryProductsState=close</@ofbizUrl>" class="lightbuttontext">&nbsp;_&nbsp;</a>
-            <#else>
-                <a href="<@ofbizUrl>main?CategoryProductsState=open</@ofbizUrl>" class="lightbuttontext">&nbsp;[]&nbsp;</a>
-            </#if>
-        </div>
-        <div class="boxhead">${uiLabelMap.ProductCategoryProducts}</div>
-    </div>
-<#if isOpen>
-    <div class="screenlet-body">
-        <#if productCategory?exists>
-          <#if productCategoryMembers?has_content>
-              <#list productCategoryMembers as productCategoryMember>
-                <#assign product = productCategoryMember.getRelatedOneCache("Product")>
-                  <div>
-                    <a href='<@ofbizUrl>EditProduct?productId=${product.productId}</@ofbizUrl>' class='buttontext'>
-                      ${product.internalName?default("${uiLabelMap.CommonNo} ${uiLabelMap.ProductInternalName}")}
-                    </a>
-                    <div>
-                      <b>${product.productId}</b>
-                    </div>
-                  </div>
-              </#list>
-              <#if (listSize > viewSize)>
-                  <div>
-                    <div>NOTE: Only showing the first ${viewSize} of ${listSize} products. To view the rest, use the Products tab for this category.</div>
-                  </div>
-              </#if>
-          <#else>
-            <div>${uiLabelMap.ProductNoProductsInCategory}.</div>
-          </#if>
-        <#else>
-            <div>${uiLabelMap.ProductNoCategorySpecified}.</div>
-        </#if>
-    </div>
+<#if productCategory?exists>
+  <#if productCategoryMembers?has_content>
+      <#list productCategoryMembers as productCategoryMember>
+        <#assign product = productCategoryMember.getRelatedOneCache("Product")>
+          <div>
+            <a href='<@ofbizUrl>EditProduct?productId=${product.productId}</@ofbizUrl>' class='buttontext'>
+              ${product.internalName?default("${uiLabelMap.CommonNo} ${uiLabelMap.ProductInternalName}")}
+            </a>
+            <div>
+              <b>${product.productId}</b>
+            </div>
+          </div>
+      </#list>
+      <#if (listSize > viewSize)>
+          <div>
+            <div>NOTE: Only showing the first ${viewSize} of ${listSize} products. To view the rest, use the Products tab for this category.</div>
+          </div>
+      </#if>
+  <#else>
+    <div>${uiLabelMap.ProductNoProductsInCategory}.</div>
+  </#if>
+<#else>
+    <div>${uiLabelMap.ProductNoCategorySpecified}.</div>
 </#if>
-</div>
