@@ -7570,7 +7570,7 @@
     <property key="ProductChild">
         <value xml:lang="en">Child</value>
         <value xml:lang="es">Hijo</value>
-        <value xml:lang="fr">descendant</value>
+        <value xml:lang="fr">Descendant</value>
         <value xml:lang="it">Figlio</value>
         <value xml:lang="ro">Fiu</value>
         <value xml:lang="ru">Подчиненную</value>
