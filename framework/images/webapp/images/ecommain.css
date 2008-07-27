@@ -944,11 +944,6 @@ margin: 5px;
 text-align: right;
 }
 
-.productsummary .productinfo {
-/* margin-left: 60px; */
-text-align: left;
-}
-
 .matrix .productsummary {
 border: none;
 padding: 10px;
@@ -971,6 +966,9 @@ text-align: left;
 
 .productsummary .productinfo {
 text-align: left;
+font-size: 10px;
+text-decoration: none;
+font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 
 /* ===== Product Detail Styles ===== */
