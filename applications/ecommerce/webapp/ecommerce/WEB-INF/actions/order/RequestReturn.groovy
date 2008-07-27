@@ -42,9 +42,7 @@ if (orderId) {
 
 returnItemTypeMap = delegator.findByAnd("ReturnItemTypeMap", [returnHeaderTypeId : "CUSTOMER_RETURN"]);
 typeMap = new HashMap();
-returnItemTypeMap.each { value ->
-    typeMap[value.returnItemMapKey = value.returnItemTypeId;
-}
+returnItemTypeMap.each { value -> typeMap[value.returnItemMapKey] = value.returnItemTypeId }
 context.returnItemTypeMap = typeMap;
 
 //put in the return to party information from the order header
