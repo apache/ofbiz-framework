@@ -56,7 +56,6 @@ under the License.
         </if-empty>
         
         <now-timestamp-to-env env-name="newEntity.entryDate"/>
-<log level="always" message="========== create commevent with data: ${newEntity}"/>        
         <create-value value-name="newEntity"/>
 
         <if-not-empty field="parameters.productId">
