@@ -31,34 +31,17 @@ under the License.
             <widgets>
                 <decorator-screen name="commonDataResourceDecorator"  location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleFindDataResource}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="FindDataResource" location="component://content/widget/content/DataResourceForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleListDataResource}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="ListDataResource" location="component://content/widget/content/DataResourceForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                            <decorator-section name="menu-bar">
+                                <container style="button-bar"><link target="editDataResource" text="${uiLabelMap.CommonCreateNew}" style="buttontext"/></container>
+                            </decorator-section>
+                            <decorator-section name="search-options">
+                                <include-form name="FindDataResource" location="component://content/widget/content/DataResourceForms.xml"/>
+                            </decorator-section>
+                            <decorator-section name="search-results">
+                                <include-form name="ListDataResource" location="component://content/widget/content/DataResourceForms.xml"/>
+                            </decorator-section>
+                        </decorator-screen>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

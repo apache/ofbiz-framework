@@ -30,10 +30,6 @@ under the License.
         <field name="dataResourceId"><text-find/></field>
         <field name="contentName"><text-find/></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
-        <field name="createLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonCreateNew}"  target="EditAddContent"/>
-        </field>
-
     </form>
 
     <form name="listFindContent" type="list" target="" paginate-target="/CMSContentFind" view-size="20"

@@ -36,34 +36,21 @@ under the License.
             <widgets>
                 <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleFindCMSContent}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
+                        <section>
+                            <widgets>
+                                <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                                    <decorator-section name="menu-bar">
+                                        <container style="button-bar"><link target="EditAddContent" text="${uiLabelMap.CommonCreateNew}" style="buttontext"/></container>
+                                    </decorator-section>
+                                    <decorator-section name="search-options">
                                         <include-form name="findContent" location="component://content/webapp/content/cms/CMSForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleFindCMSContent}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
+                                    </decorator-section>
+                                    <decorator-section name="search-results">
                                         <include-form name="listFindContent" location="component://content/webapp/content/cms/CMSForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                                    </decorator-section>
+                                </decorator-screen>
+                            </widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
