@@ -302,7 +302,7 @@ under the License.
     <StatusItem description="Read" sequenceId="03" statusCode="READ" statusId="COM_READ" statusTypeId="COM_EVENT_STATUS"/>
     <StatusItem description="In-Progress" sequenceId="05" statusCode="IN_PROGRESS" statusId="COM_IN_PROGRESS" statusTypeId="COM_EVENT_STATUS"/>
     <StatusItem description="Unknown Party" sequenceId="07" statusCode="UNKNOWN_PARTY" statusId="COM_UNKNOWN_PARTY" statusTypeId="COM_EVENT_STATUS"/>
-    <StatusItem description="Complete" sequenceId="20" statusCode="COMPLETE" statusId="COM_COMPLETE" statusTypeId="COM_EVENT_STATUS"/>
+    <StatusItem description="Closed" sequenceId="20" statusCode="COMPLETE" statusId="COM_COMPLETE" statusTypeId="COM_EVENT_STATUS"/>
     <StatusItem description="Resolved" sequenceId="21" statusCode="RESOLVED" statusId="COM_RESOLVED" statusTypeId="COM_EVENT_STATUS"/>
     <StatusItem description="Referred" sequenceId="22" statusCode="REFERRED" statusId="COM_REFERRED" statusTypeId="COM_EVENT_STATUS"/>
     <StatusItem description="Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="COM_CANCELLED" statusTypeId="COM_EVENT_STATUS"/>
@@ -331,7 +331,7 @@ under the License.
     <StatusType description="Communication Event Role" hasTable="N" parentTypeId="COM_EVENT_STATUS" statusTypeId="COM_EVENT_ROL_STATUS"/>
     <StatusItem description="Created" sequenceId="01" statusCode="ENTERED" statusId="COM_ROLE_CREATED" statusTypeId="COM_EVENT_ROL_STATUS"/>
     <StatusItem description="Read" sequenceId="02" statusCode="PENDING" statusId="COM_ROLE_READ" statusTypeId="COM_EVENT_ROL_STATUS"/>
-    <StatusItem description="Completed" sequenceId="03" statusCode="READ" statusId="COM_ROLE_COMPLETED" statusTypeId="COM_EVENT_ROL_STATUS"/>
+    <StatusItem description="Closed" sequenceId="03" statusCode="READ" statusId="COM_ROLE_COMPLETED" statusTypeId="COM_EVENT_ROL_STATUS"/>
     <StatusValidChange condition="" statusId="COM_ROLE_CREATED" statusIdTo="COM_ROLE_READ" transitionName="Read"/>
     <StatusValidChange condition="" statusId="COM_ROLE_CREATED" statusIdTo="COM_ROLE_COMPLETED" transitionName="Completed"/>
     <StatusValidChange condition="" statusId="COM_ROLE_READ" statusIdTo="COM_ROLE_COMPLETED" transitionName="Completed"/>

@@ -19,7 +19,7 @@
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="->Complete">
-        <value xml:lang="en">->Complete</value>
+        <value xml:lang="en">->Closed</value>
     </property>
     <property key="AllEvents">
         <value xml:lang="en">All Communications</value>
