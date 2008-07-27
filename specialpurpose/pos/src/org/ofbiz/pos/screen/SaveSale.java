@@ -79,7 +79,7 @@ public class SaveSale extends XPage {
         XEventHelper.addMouseHandler(this, m_save, "save");
         XEventHelper.addMouseHandler(this, m_saveAndClear, "saveAndClear");
         // Save and Print
-        XEventHelper.addMouseHandler(this, m_saveAndPrint, "saveAndPrint"); 
+        //XEventHelper.addMouseHandler(this, m_saveAndPrint, "saveAndPrint"); //FIXME : button does not exist yet 
         XEventHelper.addMouseHandler(this, m_saleName, "editSaleName");
 
         m_dialog.pack();

@@ -15,7 +15,7 @@ public class NumericKeypad extends XPage
     XDialog m_dialog = null;
     PosScreen m_pos = null;
     PageSupport m_pageSupport = null;
-    
+
     boolean m_minus = false;
     boolean m_percent = false;
 
@@ -23,29 +23,28 @@ public class NumericKeypad extends XPage
         m_pos = pos;
         return;
     }
-            
+
     public String openDlg() {
- 
-            m_pageSupport = pageMgr.loadPage(
-                m_pos.getScreenLocation() + "/dialog/numeric");        
+
+        m_pageSupport = pageMgr.loadPage(m_pos.getScreenLocation() + "/dialog/numeric");        
         m_dialog = (XDialog)m_pageSupport;
-        
+
         m_edit = (XEdit) m_pageSupport.findComponent("numeric_input");
         m_edit.setText("");
 
         setupEvents();
-        
+
         m_dialog.pack();
         m_dialog.showDialog(this);
-        
+
         return m_edit.getText();
     }
-    
+
     //call before openDlg
     public void setMinus(boolean minus){
         m_minus = minus;
     }
-    
+
     public boolean getMinus(){
         return m_minus;
     }
@@ -54,7 +53,7 @@ public class NumericKeypad extends XPage
     public void setPercent(boolean percent){
         m_percent = percent;
     }
-    
+
     public boolean getPercent(){
         return m_percent;
     }
@@ -96,7 +95,7 @@ public class NumericKeypad extends XPage
         XEventHelper.addMouseHandler(this, button, "triggerClear");
         button = (XButton) m_dialog.findComponent("menuEnter");
         XEventHelper.addMouseHandler(this, button, "triggerEnter");
-        
+
         if(getMinus()){
             button = (XButton) m_dialog.findComponent("numMinus");
             XEventHelper.addMouseHandler(this, button, "triggerMinus");
@@ -112,7 +111,7 @@ public class NumericKeypad extends XPage
 
         return;
     }
-    
+
     public void triggerOne()
     {
         append('1');
@@ -187,7 +186,7 @@ public class NumericKeypad extends XPage
     {
         prependUnique('%');
     }
-    
+
     private synchronized void prependUnique(char c){
         if(wasMouseClicked()){
             String text = "";
@@ -229,14 +228,14 @@ public class NumericKeypad extends XPage
         }
         return buf.toString();
     }
-    
+
     private synchronized void close(){
         if(wasMouseClicked()){
             m_dialog.closeDlg();
             return;
         }
     }
-    
+
     private synchronized void clear(){
         if(wasMouseClicked()){
             String text = "";
