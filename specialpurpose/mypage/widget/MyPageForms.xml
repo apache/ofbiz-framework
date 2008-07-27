@@ -22,21 +22,19 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
     <form name="MyTasks" extends="MyTasks" extends-resource="component://projectmgr/widget/forms/TaskForms.xml">
-        <alt-target use-when="!headerItem.equals(&quot;main&quot;)" target="updateTaskAssigmentKey"/>
+        <field name="donePage"><hidden value="${parameters.donePage}"/></field>
         <field name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${workEffortName}" target="/projectmgr/control/taskView?workEffortId=${workEffortId}" target-type="inter-app" target-window="_BLANK"/>
         </field>
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}"><hyperlink target="/projectmgr/control/projectView?projectId=${resultProject.projectId}"  target-type="inter-app" target-window="_BLANK" description="${resultProject.projectName}"/></field>
         <field name="roleTypeId" parameter-name="newRoleTypeId" title="${uiLabelMap.PartyRole}"><hidden value="${roleTypeId}"/></field>
-        <field use-when="!headerItem.equals(&quot;main&quot;)" name="remove" title="${uiLabelMap.CommonRemove}"><hyperlink target="updateTaskAssigmentKey?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=PAS_ENDED" description="${uiLabelMap.CommonRemove}"/></field>
-        <field use-when="headerItem.equals(&quot;main&quot;)" name="remove" title="${uiLabelMap.CommonRemove}"><hyperlink target="updateTaskAssigment?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=PAS_ENDED" description="${uiLabelMap.CommonRemove}"/></field>
-        <field use-when="!headerItem.equals(&quot;main&quot;)" name="toComplete" title="${uiLabelMap.CommonStatustoComplete}"><hyperlink target="updateTaskAssigmentKey?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=PAS_COMPLETED" description="${uiLabelMap.CommonStatustoComplete}"/></field>
-        <field use-when="headerItem.equals(&quot;main&quot;)" name="toComplete" title="${uiLabelMap.CommonStatustoComplete}"><hyperlink target="updateTaskAssigment?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=PAS_COMPLETED" description="${uiLabelMap.CommonStatustoComplete}"/></field>
+        <field name="remove" title="${uiLabelMap.CommonRemove}"><hyperlink target="updateTaskAssigment?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=PAS_ENDED&amp;donePage=${parameters.donePage}" description="${uiLabelMap.CommonRemove}"/></field>
+        <field name="toComplete" title="${uiLabelMap.CommonStatustoComplete}"><hyperlink target="updateTaskAssigment?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=PAS_COMPLETED&amp;donePage=${parameters.donePage}" description="${uiLabelMap.CommonStatustoComplete}"/></field>
     </form>
     
     <form name="EditWeekTimesheet" extends="EditWeekTimesheet" extends-resource="component://projectmgr/widget/forms/TimeSheetForms.xml">
-        <alt-target use-when="!headerItem.equals(&quot;main&quot;)" target="updateTimesheetKey"/>
-        <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}">
+            <alt-target use-when="!headerItem.equals(&quot;main&quot;)" target="updateTimesheetKey"/>        
+            <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="ProjectPartyAndPhaseAndTask" description="${workEffortName} -- ${phaseName} -- ${projectName}">
                     <entity-constraint name="workEffortTypeId" operator="not-equals" value="TASK_TEMPLATE"/>
@@ -72,7 +70,7 @@ under the License.
     </form>
     
     <form name="newEvent" type="single" target="createEvent">
-        <alt-target use-when="!headerItem.equals(&quot;main&quot;)" target="createEventKey"/>
+        <field name="donePage"><hidden/></field>
         <field name="workEffortTypeId"><hidden value="COMPANY_EVENT"/></field>
         <field name="currentStatusId"><hidden value="_NA_"/></field>
         <field name="workEffortName" title="${uiLabelMap.WorkEffortEventName}"><text/></field>
@@ -93,40 +91,19 @@ under the License.
     
     <form name="ListPartyCommEvents" extends="ListCommEvents" extends-resource="component://party/webapp/partymgr/communication/CommForms.xml" type="list">
         <row-actions>
-            <set field="toComplete" value="${bsh:&quot;COM_ROLE_COMPLETED&quot;.equals(roleStatusId)?&quot;&quot;:&quot;toComplete&quot;}"/>
+            <set field="toComplete" value="${bsh:&quot;COM_ROLE_COMPLETED&quot;.equals(roleStatusId)?&quot;&quot;:&quot;->Complete&quot;}"/>
         </row-actions>
+        <field name="donePage"><hidden/></field>
         <field name="roleTypeId"><display-entity entity-name="RoleType" description="${description}"/></field> 
-        <field use-when="headerItem.equals(&quot;main&quot;)" name="removeLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deletePartyCommunicationEventRole?partyId=${partyId}&amp;communicationEventId=${communicationEventId}&amp;roleTypeId=${roleTypeId}&amp;deleteCommEventIfLast=Y&amp;delContentDataResource=Y"/>
+        <field name="removeLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="RemoveCommunicationEventRole?partyId=${partyId}&amp;communicationEventId=${communicationEventId}&amp;roleTypeId=${roleTypeId}&amp;deleteCommEventIfLast=Y&amp;delContentDataResource=Y&amp;donePage=${donePage}"/>
         </field>
-        <field use-when="headerItem.equals(&quot;myCommunications&quot;)" name="removeLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deletePartyCommunicationEventMyRole?partyId=${partyId}&amp;communicationEventId=${communicationEventId}&amp;roleTypeId=${roleTypeId}&amp;deleteCommEventIfLast=Y&amp;delContentDataResource=Y"/>
+        <field name="subject" widget-style="buttontext" widget-area-style="fieldWidth300">
+            <hyperlink description="${subject} " target="ViewCommunicationEvent?communicationEventId=${communicationEventId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;donePage=${donePage}"/>
         </field>
-        <field use-when="headerItem.equals(&quot;otherCommunications&quot;)" name="removeLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deletePartyCommunicationEventOthersRole?partyId=${partyId}&amp;communicationEventId=${communicationEventId}&amp;roleTypeId=${roleTypeId}&amp;deleteCommEventIfLast=Y&amp;delContentDataResource=Y"/>
-        </field>
-        <field use-when="headerItem.equals(&quot;main&quot;)" name="subject" widget-style="buttontext" widget-area-style="fieldWidth300">
-            <hyperlink description="${subject} " target="ViewCommunicationEvent?communicationEventId=${communicationEventId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;type=main"/>
-        </field>
-        <field use-when="headerItem.equals(&quot;myCommunications&quot;)" name="subject" widget-style="buttontext" widget-area-style="fieldWidth300">
-            <hyperlink description="${subject} " target="ViewCommunicationEvent?communicationEventId=${communicationEventId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;type=my" />
-        </field>
-        <field use-when="headerItem.equals(&quot;otherCommunications&quot;)" name="subject" widget-style="buttontext" widget-area-style="fieldWidth300">
-            <hyperlink description="${subject} " target="ViewCommunicationEvent?communicationEventId=${communicationEventId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;type=other" />
-        </field>
-        <field use-when="headerItem.equals(&quot;main&quot;)" name="statusId" entry-name="roleStatusId" widget-style="buttontext" widget-area-style="fieldWidth300">
+        <field name="statusId" entry-name="roleStatusId" widget-style="buttontext" widget-area-style="fieldWidth300">
             <display-entity entity-name="StatusItem" description="${description}">
-                <sub-hyperlink description="${uiLabelMap.${toComplete}}" target="setCommEventRoleToComplete?communicationEventId=${communicationEventId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}"/>
-            </display-entity>
-        </field>
-        <field use-when="headerItem.equals(&quot;myCommunications&quot;)" name="statusId" entry-name="roleStatusId" widget-style="buttontext" widget-area-style="fieldWidth300">
-            <display-entity entity-name="StatusItem" description="${description}">
-                <sub-hyperlink description="${uiLabelMap.${toComplete}}" target="setMyCommEventRoleToComplete?communicationEventId=${communicationEventId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}" />
-            </display-entity>
-        </field>
-        <field use-when="headerItem.equals(&quot;otherCommunications&quot;)" name="statusId" entry-name="roleStatusId" widget-style="buttontext" widget-area-style="fieldWidth300">
-            <display-entity entity-name="StatusItem" description="${description}">
-                <sub-hyperlink description="${uiLabelMap.${toComplete}}" target="setOtherCommEventRoleToComplete?communicationEventId=${communicationEventId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}" />
+                <sub-hyperlink description="${uiLabelMap.${toComplete}}" target="setCommEventRoleToComplete?communicationEventId=${communicationEventId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;donePage=${donePage}"/>
             </display-entity>
         </field>
         <field name="statusId" entry-name="roleStatusId"/>
@@ -134,17 +111,9 @@ under the License.
     </form>
     <form name="ListMyUnknownPartyEmails" type="multi"
         extends="ListMyUnknownPartyEmails" extends-resource="component://party/webapp/partymgr/communication/CommForms.xml" use-row-submit="true">
-        <alt-target use-when="&quot;otherCommunications&quot;.equals(headerItem)" target="deleteOtherCommunicationEvents"/>
-        <alt-target use-when="&quot;myCommunications&quot;.equals(headerItem)" target="deleteMyCommunicationEvents"/>
-
-        <field use-when="headerItem.equals(&quot;main&quot;)" name="subject" widget-style="buttontext" widget-area-style="fieldWidth300">
-            <hyperlink description="${subject}" target="ViewCommunicationEvent?communicationEventId=${communicationEventId}&amp;type=main"/>
-        </field>
-        <field use-when="headerItem.equals(&quot;myCommunications&quot;)" name="subject" widget-style="buttontext" widget-area-style="fieldWidth300">
-            <hyperlink description="${subject}" target="ViewCommunicationEvent?communicationEventId=${communicationEventId}&amp;type=my" />
-        </field>
-        <field use-when="headerItem.equals(&quot;otherCommunications&quot;)" name="subject" widget-style="buttontext" widget-area-style="fieldWidth300">
-            <hyperlink description="${subject}" target="ViewCommunicationEvent?communicationEventId=${communicationEventId}&amp;type=other" />
+        <field name="donePage"><hidden/></field>
+        <field name="subject" widget-style="buttontext" widget-area-style="fieldWidth300">
+            <hyperlink description="${subject}" target="ViewCommunicationEvent?communicationEventId=${communicationEventId}&amp;donePage=${donePage}"/>
         </field>
         <field name="_rowSubmit" title="S">
             <check />
@@ -154,22 +123,4 @@ under the License.
         </field>
     </form>
     
-    <form name="allocateMsgToPartyForm" 
-        extends="allocateMsgToPartyForm" extends-resource="component://party/webapp/partymgr/communication/CommForms.xml">
-        <alt-target use-when="&quot;otherCommunications&quot;.equals(headerItem)" target="allocateOtherMsgToParty"/>
-        <alt-target use-when="&quot;myCommunications&quot;.equals(headerItem)" target="allocateMyMsgToParty"/>
-        <field name="type"><hidden value="${parameters.type}"/></field>
-    </form> 
-    <form name="deleteEmail" type="single" title="delete the email"
-        target="deleteUnknownCommunicationEvent">
-        <alt-target use-when="&quot;otherCommunications&quot;.equals(headerItem)" target="deleteOtherUnknownCommunicationEvent"/>
-        <alt-target use-when="&quot;myCommunications&quot;.equals(headerItem)" target="deleteMyUnknownCommunicationEvent"/>
-        <field name="type"><hidden value="${parameters.type}"/></field>
-        <field name="communicationEventId"><hidden value="${parameters.communicationEventId}"/></field>
-        <field name="delContentDataResource"><hidden value="Y"/></field>
-        <field name="" position="1"><display/></field>
-        <field name=" " position="2"><display/></field>
-        <field name="deleteEmail" title="Delete email" widget-style="smallSubmit" position="3"><submit/></field>
-    </form>
-        
 </forms>

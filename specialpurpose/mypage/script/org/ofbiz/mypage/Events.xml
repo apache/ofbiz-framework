@@ -173,5 +173,17 @@ under the License.
         </iterate>
         <log level="always" message="========${count} records updated" />
     </simple-method>
+
+    <simple-method method-name="getToNextDonePage" short-description="return the requestValue 'donePage' as a resultcode to the controller">
+        <set field="donePage" from-field="parameters.donePage" default-value="${parameters.DONE_PAGE}"/>
+        <if-not-empty field="donePage">
+            <log level="info" message="Next request: ${donePage}"/>
+            <return response-code="${donePage}"/>
+            <else>
+                <log level="info" message="Next 'donePage' variable not provided, returning 'error'"/>
+                <return response-code="error"/>
+            </else>
+        </if-not-empty>
+    </simple-method>
     
 </simple-methods>

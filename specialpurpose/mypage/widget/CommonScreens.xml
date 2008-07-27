@@ -100,6 +100,9 @@ under the License.
     
     <screen name="CommonTimesheetDecorator">
         <section>
+            <actions>
+                <set field="headerItem" value="${parameters.donePage}"/>
+            </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body"/>
@@ -109,6 +112,9 @@ under the License.
     </screen>
     <screen name="CommonCommunicationEventDecorator">
         <section>
+            <actions>
+                <set field="headerItem" value="${parameters.donePage}"/>
+            </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
@@ -123,6 +129,9 @@ under the License.
 
     <screen name="CommonMyTaskDecorator">
         <section>
+            <actions>
+                <set field="headerItem" value="${parameters.donePage}"/>
+            </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body"/>
@@ -134,6 +143,7 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="main" />
+                <set field="donePage" value="main"/>
                 <!-- refresh every 3 minutes -->
                 <!--
                     set field="layoutSettings.extraHead" value="&lt;META
