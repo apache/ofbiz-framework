@@ -445,4 +445,14 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="ListFindSurveySearchResults">
+        <section>
+            <condition>
+                <if-has-permission permission="CONTENTMGR" action="_VIEW"/>
+            </condition>
+            <widgets>
+                <include-form name="ListFindSurvey" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+            </widgets>
+        </section>
+    </screen>
 </screens>

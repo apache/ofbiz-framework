@@ -59,9 +59,9 @@ under the License.
         </field>
         <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    
-    <form name="ListContent" list-name="listIt" target="" title="" type="list" paginate-target="findContent"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+
+    <form name="ListContent" target="" title="" list-name="listIt" type="list" paginate-target="findContent"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -92,6 +92,7 @@ under the License.
                 <sub-hyperlink target="editContent?contentId=${contentId}" description="[${contentId}]" link-style="buttontext"/>
             </display-entity>
         </field>
+        <on-event-update-area event-type="paginate" area-id="search-results" area-target="findContentSearchResults"/>
     </form>
 
     <form name="LookupContent" target="LookupContent" title="" type="single" extends="FindContent" header-row-style="header-row" default-table-style="basic-table"/>

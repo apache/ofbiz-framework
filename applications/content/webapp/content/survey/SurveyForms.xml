@@ -35,8 +35,8 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListFindSurvey" target="" title="" list-name="listIt" type="list" paginate-target="FindSurvey" paginate="true"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+    <form name="ListFindSurvey" target="" title="" list-name="listIt" type="list" paginate-target="FindSurvey"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <service result-map-list-name="listIt" result-map-name="result" service-name="performFind">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -47,6 +47,7 @@ under the License.
         <field name="surveyId" title="${uiLabelMap.SurveySurveyId}" widget-style="buttontext">
             <hyperlink description="${surveyId}" target="EditSurvey?surveyId=${surveyId}" also-hidden="false"/>
         </field>
+        <on-event-update-area event-type="paginate" area-id="search-results" area-target="ListFindSurveySearchResults"/>
     </form>
     <form name="EditSurvey" type="single" target="updateSurvey" title="" default-map-name="survey"
         header-row-style="header-row" default-table-style="basic-table">
