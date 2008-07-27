@@ -24,19 +24,18 @@ import org.ofbiz.base.util.*;
 import org.ofbiz.datafile.*;
 
 uiLabelMap = UtilProperties.getResourceBundleMap("WebtoolsUiLabels", locale);
-List messages = new LinkedList();
+messages = [];
 
-String dataFileSave = request.getParameter("DATAFILE_SAVE");
+dataFileSave = request.getParameter("DATAFILE_SAVE");
 
-String entityXmlFileSave = request.getParameter("ENTITYXML_FILE_SAVE");
+entityXmlFileSave = request.getParameter("ENTITYXML_FILE_SAVE");
 
-String dataFileLoc = request.getParameter("DATAFILE_LOCATION");
-String definitionLoc = request.getParameter("DEFINITION_LOCATION");
-String definitionName = request.getParameter("DEFINITION_NAME");
-boolean dataFileIsUrl = request.getParameter("DATAFILE_IS_URL")!=null?true:false;
-boolean definitionIsUrl = request.getParameter("DEFINITION_IS_URL")!=null?true:false;
+dataFileLoc = request.getParameter("DATAFILE_LOCATION");
+definitionLoc = request.getParameter("DEFINITION_LOCATION");
+definitionName = request.getParameter("DEFINITION_NAME");
+dataFileIsUrl = null != request.getParameter("DATAFILE_IS_URL");
+definitionIsUrl = null != request.getParameter("DEFINITION_IS_URL");
 
-URL dataFileUrl = null;
 try {
     dataFileUrl = dataFileIsUrl?new URL(dataFileLoc):UtilURL.fromFilename(dataFileLoc);
 }
@@ -44,7 +43,6 @@ catch (java.net.MalformedURLException e) {
     messages.add(e.getMessage());
 }
 
-URL definitionUrl = null;
 try {
     definitionUrl = definitionIsUrl?new URL(definitionLoc):UtilURL.fromFilename(definitionLoc);
 }
@@ -52,17 +50,17 @@ catch (java.net.MalformedURLException e) {
     messages.add(e.getMessage());
 }
 
-Iterator definitionNames = null;
-if (definitionUrl != null) {
+definitionNames = null;
+if (definitionUrl) {
     ModelDataFileReader reader = ModelDataFileReader.getModelDataFileReader(definitionUrl);
-    if (reader != null) {
+    if (reader) {
         definitionNames = ((Collection)reader.getDataFileNames()).iterator();
+        context.put("definitionNames", definitionNames);
     }
 }
-context.put("definitionNames", definitionNames);
 
-DataFile dataFile = null;
-if (dataFileUrl != null && definitionUrl != null && definitionName != null && definitionName.length() > 0) {
+dataFile = null;
+if (dataFileUrl && definitionUrl && definitionNames) {
     try {
         dataFile = DataFile.readFile(dataFileUrl, definitionUrl, definitionName);
         context.put("dataFile", dataFile);
@@ -72,13 +70,12 @@ if (dataFileUrl != null && definitionUrl != null && definitionName != null && de
     }
 }
 
-ModelDataFile modelDataFile = null;
-if (dataFile != null) {
+if (dataFile) {
     modelDataFile = dataFile.getModelDataFile();
     context.put("modelDataFile", modelDataFile);
 }
 
-if (dataFile != null && dataFileSave != null && dataFileSave.length() > 0) {
+if (dataFile && dataFileSave) {
     try {
         dataFile.writeDataFile(dataFileSave);
         messages.add(uiLabelMap.get("WebtoolsDataFileSavedTo") + dataFileSave);
@@ -88,7 +85,7 @@ if (dataFile != null && dataFileSave != null && dataFileSave.length() > 0) {
     }
 }
 
-if (dataFile != null && entityXmlFileSave != null && entityXmlFileSave.length() > 0) {
+if (dataFile && entityXmlFileSave) {
     try {
         //dataFile.writeDataFile(entityXmlFileSave);
         DataFile2EntityXml.writeToEntityXml(entityXmlFileSave, dataFile);
@@ -98,5 +95,4 @@ if (dataFile != null && entityXmlFileSave != null && entityXmlFileSave.length() 
         messages.add(e.getMessage());
     }
 }
-
-context.put("messages", messages);
+context.messages = messages;
