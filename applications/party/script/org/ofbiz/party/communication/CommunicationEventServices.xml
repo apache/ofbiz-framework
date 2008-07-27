@@ -313,6 +313,14 @@ under the License.
         <set field="inCom.statusId" value="COM_ENTERED"/>
         <call-service service-name="updateCommunicationEvent" in-map-name="inCom"/>
         
+        <!-- and add a role -->
+        <set field="inComRole.communicationEventId" from-field="parameters.communicationEventId"/>
+        <set field="inComRole.partyId" from-field="parameters.partyId"/>
+        <set field="inComRole.roleTypeId" value="ORIGINATOR"/>
+        <set field="inComRole.statusId" value="COM_ROLE_CREATED"/>
+        <set field="inComRole.contactMechId" from-field="inCom.contactMechIdFrom" />
+        <call-service service-name="updateCommunicationEvent" in-map-name="inCom"/>
+        
         <field-to-request field-name="parameters.communicationEventId" request-name="communicationEventId"/>
     </simple-method>
     <simple-method method-name="createRequestFromCommEvent" short-description="Create a Customer request from a commEvent(email)">

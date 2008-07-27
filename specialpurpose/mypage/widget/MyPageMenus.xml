@@ -152,18 +152,7 @@ under the License.
         </menu-item>
         <menu-item name="myTime" title="myTime"><link target="/projectmgr/control/MyTimesheet" url-mode="inter-app"/></menu-item>
     </menu>
-    
-    <!-- menu name="CommEventTabBar" default-selected-style="selected" type="simple"
-        menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="tabButtonItem">
-        <menu-item name="OverView" title="${uiLabelMap.CommonOverview}">
-            <condition><not><if-empty field-name="communicationEvent"/></not></condition>
-            <link target="ViewCommunicationEvent?communicationEventId=${parameters.communicationEventId}"/>
-        </menu-item>
-        <menu-item name="CommContent" title="${uiLabelMap.CommonContent}">
-            <condition><not><if-empty field-name="communicationEvent"/></not></condition>
-            <link target="ListCommContent?communicationEventId=${parameters.communicationEventId}"/>
-        </menu-item>
 
-    </menu-->
+
     
 </menus>
