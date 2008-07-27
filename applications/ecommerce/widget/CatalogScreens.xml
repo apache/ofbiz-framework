@@ -213,6 +213,20 @@ under the License.
             </widgets>
         </section>
     </screen>
+
+    <screen name="categorydetailmatrix">
+        <section>
+            <actions>
+                <set field="numCol" value="1"/>
+                <set field="searchInCategory" value="N"/>
+                <set field="parameters.VIEW_SIZE" from-field="parameters.VIEW_SIZE" default-value="9"/>
+            </actions>
+            <widgets>
+                <include-screen name="categorydetail"/>
+            </widgets>
+        </section>
+    </screen>
+
     <screen name="ProductCategoryLink">
         <section>
             <actions>

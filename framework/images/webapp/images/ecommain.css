@@ -949,6 +949,30 @@ text-align: right;
 text-align: left;
 }
 
+.matrix .productsummary {
+border: none;
+padding: 10px;
+height: 200px;
+width:  200px;
+}
+
+.matrix .productsummary .smallimage {
+float: none;
+text-align: center;
+}
+.matrix .productsummary .smallimage img {
+height: 100px;
+}
+
+.matrix .productsummary .productbuy {
+float: none;
+text-align: left;
+}
+
+.productsummary .productinfo {
+text-align: left;
+}
+
 /* ===== Product Detail Styles ===== */
 #productdetail #download-files {
 margin-top: 10px;
