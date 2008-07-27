@@ -58,7 +58,9 @@ under the License.
             <a href="javascript:document.thecategoryform.submit()" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.ProductAddProductsUsingDefaultQuantities}</span></a>
           </form>
         </#if>
-        <a href="<@ofbizUrl>advancedsearch?SEARCH_CATEGORY_ID=${productCategory.productCategoryId}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductSearchinCategory}</a>
+        <#if searchInCategory?default("Y") == "Y">
+          <a href="<@ofbizUrl>advancedsearch?SEARCH_CATEGORY_ID=${productCategory.productCategoryId}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductSearchinCategory}</a>
+        </#if>
     </h1>
   <#assign longDescription = categoryContentWrapper.get("LONG_DESCRIPTION")?if_exists/>
   <#assign categoryImageUrl = categoryContentWrapper.get("CATEGORY_IMAGE_URL")?if_exists/>
@@ -85,14 +87,31 @@ under the License.
 
 <#if productCategoryMembers?has_content>
     <@paginationControls/>
-    <div class="productsummary-container">
+      <#assign numCol = numCol?default(1)>
+      <#assign numCol = numCol?number>
+      <#assign tabCol = 1>
+      <div class="productsummary-container <#if (numCol?int > 1)>matrix</#if>">
         <#list productCategoryMembers as productCategoryMember>
+          <#if (numCol?int == 1)>
             ${setRequestAttribute("optProductId", productCategoryMember.productId)}
             ${setRequestAttribute("productCategoryMember", productCategoryMember)}
             ${setRequestAttribute("listIndex", productCategoryMember_index)}
             ${screens.render(productsummaryScreen)}
+          <#else>
+            <table>
+              <#if (tabCol?int = 1)><tr></#if>
+                  <td>
+                      ${setRequestAttribute("optProductId", productCategoryMember.productId)}
+                      ${setRequestAttribute("productCategoryMember", productCategoryMember)}
+                      ${setRequestAttribute("listIndex", productCategoryMember_index)}
+                      ${screens.render(productsummaryScreen)}
+                  </td>
+              <#if (tabCol?int = numCol)></tr></#if>
+              <#assign tabCol = tabCol+1><#if (tabCol?int > numCol)><#assign tabCol = 1></#if>
+            </table>
+           </#if>
         </#list>
-    </div>
+      </div>
     <@paginationControls/>
 <#else>
     <div><hr class='sepbar'/></div>

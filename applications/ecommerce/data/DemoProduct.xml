@@ -127,7 +127,7 @@ under the License.
         primaryParentCategoryId="201" productCategoryId="2012" productCategoryTypeId="CATALOG_CATEGORY"/>
     <ProductCategory longDescription="long description of Micro Widgets"
         primaryParentCategoryId="2011" productCategoryId="20111" productCategoryTypeId="CATALOG_CATEGORY"/>
-    <ProductCategory categoryName="Featured Products" productCategoryId="PROMOTIONS" productCategoryTypeId="CATALOG_CATEGORY"/>
+    <ProductCategory categoryName="Featured Products" productCategoryId="PROMOTIONS" productCategoryTypeId="CATALOG_CATEGORY" detailScreen="component://ecommerce/widget/CatalogScreens.xml#categorydetailmatrix"/>
     <ProductCategory categoryName="Demo Default Search"
         longDescription="Catalog1 Search Products - only products in this category will show up in a search in catalog1"
         productCategoryId="CATALOG1_SEARCH" productCategoryTypeId="SEARCH_CATEGORY"/>
