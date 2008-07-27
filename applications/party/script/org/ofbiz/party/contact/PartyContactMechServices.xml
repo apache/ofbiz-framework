@@ -27,6 +27,28 @@ under the License.
             <set field="parameters.partyId" from-field="userLogin.partyId"/>
         </if-empty>
         
+        <!-- check if the contact mech infostring is already existing if so, do not create a new one-->
+        <entity-and list-name="partyAndContactMechs" entity-name="PartyAndContactMech">
+            <field-map field-name="partyId" env-name="parameters.partyId"/>
+        </entity-and>
+        <iterate entry-name="partyAndContactMech" list-name="partyAndContactMechs">
+            <entity-one entity-name="ContactMechType" value-name="contactMechType">
+                <field-map field-name="contactMechTypeId" env-name="partyAndContactMech.contactMechTypeId"/>
+            </entity-one>
+            <if>
+                <condition>
+                    <and>
+                        <if-compare operator="equals" value="N" field="contactMechType.hasTable"/>
+                        <if-compare operator="equals" value="${partyAndContactMech.infoString}" field="parameters.infoString"/>
+                    </and>
+                </condition>
+                <then>
+                    <log level="info" message="Contact mechTypeId: ${parameters.contactMechTypeId} already exists with value: ${partyAndContactMech.infoString} for party: ${parameters.partyId}"/>
+                    <return response-code="success"/>                
+                </then>
+            </if>
+        </iterate>        
+        
         <if-empty field="parameters.contactMechId">
             <set-service-fields service-name="createContactMech" map-name="parameters" to-map-name="createContactMechMap"/>
             <call-service service-name="createContactMech" in-map-name="createContactMechMap">

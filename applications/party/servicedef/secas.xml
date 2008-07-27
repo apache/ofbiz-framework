@@ -51,6 +51,7 @@ under the License.
     <!-- NOTE: because we have an ECA on createPartyContactMech, we don't need to do it on createPartyPostalAddress, createPartyEmailAddress, createPartyTelecomNumber because those will call it -->
     <eca service="createPartyContactMech" event="commit">
         <condition field-name="contactMechPurposeTypeId" operator="is-not-empty"/>
+        <condition field-name="contactMechId" operator="is-not-empty"/>
         <action service="createPartyContactMechPurpose" mode="sync"/>
     </eca>
 
