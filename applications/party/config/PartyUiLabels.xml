@@ -1644,7 +1644,10 @@
         <value xml:lang="en">Communications from Unknown origin</value>
         <value xml:lang="fr">Communications depuis une origine inconnue</value>
     </property>
-    <property key="PageTitleViewCommPurposes">
+    <property key="PageTitleViewCommunication">
+        <value xml:lang="en">View Communication Event Information</value>
+    </property>
+   <property key="PageTitleViewCommPurposes">
         <value xml:lang="en">View Communication Purposes</value>
         <value xml:lang="es">Ver propósitos de comunicación</value>
         <value xml:lang="fr">Afficher les buts de communication</value>

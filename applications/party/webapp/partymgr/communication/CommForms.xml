@@ -172,6 +172,7 @@ under the License.
         <actions>
             <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/recentVisitor.groovy"/>
         </actions>
+        <field name="donePage"><hidden/></field>
         <field name="communicationEventTypeId"><hidden value="COMMENT_NOTE"/></field>
         <field name="parentCommEventId"><hidden value="${parentCommEventId}"/></field>
         <field name="statusId"><hidden value="COM_COMPLETE"/></field>
@@ -189,6 +190,7 @@ under the License.
     
     <form name="ViewCommEvent" type="single" default-map-name="communicationEvent"
         header-row-style="header-row" default-table-style="basic-table">
+        <field name="donePage"><hidden/></field>
         <field name="communicationEventId">
             <hyperlink description="${communicationEventId}" target="ViewCommunicationEvent?communicationEventId=${communicationEventId}"/>
         </field>
@@ -439,7 +441,7 @@ under the License.
         <field name="roleTypeId"><display-entity description="${description}" entity-name="RoleType"/></field>
         <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
         <field name="removeLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="/RemoveCommunicationEventRole?partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;communicationEventId=${communicationEventId}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="/RemoveCommunicationEventRole?partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;communicationEventId=${communicationEventId}&amp;donePage=${donePage}"/>
         </field>
     </form>
 
@@ -636,6 +638,7 @@ under the License.
         <actions>
             <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/getPartyEmailFromCommEventInfo.groovy"/>
         </actions>
+        <field name="donePage"><hidden value="${parameters.donePage}"/></field>
         <field name="communicationEventId"><hidden value="${parameters.communicationEventId}"/></field>
         <field name="partyId" tooltip="leave empty for new 'Party'"><lookup target-form-name="LookupPartyName"/></field>
         <field name="emailAddress"><text/></field>
@@ -646,6 +649,7 @@ under the License.
     </form>
     <form name="deleteEmail" type="single" title="delete the email"
         target="deleteUnknownCommunicationEvent">
+        <field name="donePage"><hidden value="${parameters.donePage}"/></field>
         <field name="communicationEventId"><hidden value="${parameters.communicationEventId}"/></field>
         <field name="delContentDataResource"><hidden value="Y"/></field>
         <field name="" position="1"><display/></field>
