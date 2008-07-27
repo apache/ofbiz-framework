@@ -7570,7 +7570,7 @@
     <property key="ProductChild">
         <value xml:lang="en">Child</value>
         <value xml:lang="es">Hijo</value>
-        <value xml:lang="fr">Enfant</value>
+        <value xml:lang="fr">descendant</value>
         <value xml:lang="it">Figlio</value>
         <value xml:lang="ro">Fiu</value>
         <value xml:lang="ru">Подчиненную</value>
@@ -7590,7 +7590,7 @@
     <property key="ProductChildGroupId">
         <value xml:lang="en">Child Group ID</value>
         <value xml:lang="es">Código del Grupo Hijo</value>
-        <value xml:lang="fr">Réf. du groupe Enfant</value>
+        <value xml:lang="fr">Réf. du groupe descendant</value>
         <value xml:lang="it">Codice Gruppo Figlio</value>
         <value xml:lang="ro">Cod Grup Fiu</value>
         <value xml:lang="ru">Код подчиненной группы</value>
@@ -9937,7 +9937,7 @@
     </property>
     <property key="ProductGroupRollupChildGroupsAdd">
         <value xml:lang="en">Group Rollup : Add Child Groups</value>
-        <value xml:lang="fr">Nomenclature de groupe: ajouter des groupes enfants</value>
+        <value xml:lang="fr">Nomenclature de groupe: ajouter des groupes descendants</value>
         <value xml:lang="it">Aggiungi Gruppo Stabilimento Arrivo : Gruppi Figlio</value>
         <value xml:lang="th">Group Rollup : Add Child Groups</value>
     </property>
@@ -11921,7 +11921,7 @@
     <property key="ProductNoChildGroupsFound">
         <value xml:lang="en">NoChild GroupsFound</value>
         <value xml:lang="es">No se encontraron grupos hjios</value>
-        <value xml:lang="fr">Groupe Enfant non trouvé</value>
+        <value xml:lang="fr">Groupe descendant non trouvé</value>
         <value xml:lang="it">Nessun Gruppo Figlio trovato</value>
         <value xml:lang="ro">Nici-un Grup Fiu gasit</value>
         <value xml:lang="ru">Не найдены подчиненные группы</value>
