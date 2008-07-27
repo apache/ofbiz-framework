@@ -8201,14 +8201,14 @@
     </property>
     <property key="PageTitleFindApprovedProductRequirements">
         <value xml:lang="en">Find Approved Product Requirements</value>
-        <value xml:lang="fr">Chercher les conditions approuvées sur ce produit</value>
+        <value xml:lang="fr">Chercher les conditions approuvées</value>
         <value xml:lang="it">Ricerca Fabbisogni Approvati Per Prodotto</value>
         <value xml:lang="th">ค้นหาสินค้าที่ต้องการอนุมัติ</value>
     </property>
-    <property key="PageTitleFindApprovedRequirements">
-        <value xml:lang="en">Find Approved Requirements</value>
-        <value xml:lang="fr">Chercher les conditions approuvés</value>
-        <value xml:lang="it">Ricerca Fabbisogni Approvati</value>
+    <property key="PageTitleFindNotApprovedRequirements">
+        <value xml:lang="en">Find Not Approved Requirements</value>
+        <value xml:lang="fr">Chercher les conditions non approuvées</value>
+        <value xml:lang="it">Ricerca fabbisogni non ancora approvati</value>
         <value xml:lang="th">ค้นหาสิ่งที่ต้องการอนุมัติ</value>
     </property>
     <property key="PageTitleFindApprovedRequirementsByVendor">

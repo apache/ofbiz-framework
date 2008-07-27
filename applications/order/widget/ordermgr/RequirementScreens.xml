@@ -126,7 +126,7 @@ under the License.
     <screen name="ApproveRequirements">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleFindRequirements"/>
+                <set field="titleProperty" value="PageTitleFindNotApprovedRequirements"/>
                 <set field="headerItem" value="requirement"/>
                 <set field="tabButtonItem" value="ApproveRequirements"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
