@@ -47,6 +47,13 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="findDataResourceSearchResults">
+        <section>
+            <widgets>
+                <include-form name="ListDataResource" location="component://content/widget/content/DataResourceForms.xml"/>
+            </widgets>
+        </section>
+    </screen>
     <screen name="navigateDataResource">
         <section>
             <actions>

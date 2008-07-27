@@ -57,8 +57,8 @@ under the License.
         <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     
-    <form name="ListDataResource" type="list" list-name="listIt" paginate-target="findDataResource"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+    <form name="ListDataResource" target="" title="" list-name="listIt" type="list" paginate-target="findDataResource"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
           <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
             <field-map field-name="inputFields" env-name="parameters"/>
@@ -78,6 +78,7 @@ under the License.
         <field name="localeString"><display-entity entity-name="CountryCode" description="${countryName}[${countryCode}]" key-field-name="countryCode"></display-entity></field>
         <field name="createdByUserLogin"><display-entity also-hidden="false" entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${firstName} ${lastName}"/></field>
         <field name="dataCategoryId"><display-entity entity-name="DataCategory" description="${categoryName}[${dataCategoryId}]"></display-entity></field>
+        <on-event-update-area event-type="paginate" area-id="search-results" area-target="findDataResourceSearchResults"/>
     </form>
     
     <form name="LookupDataResource" target="LookupDataResource" title="" type="single"

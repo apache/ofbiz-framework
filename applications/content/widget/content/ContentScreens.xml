@@ -64,6 +64,13 @@ under the License.
             </fail-widgets>
         </section>
     </screen>
+    <screen name="findContentSearchResults">
+        <section>
+            <widgets>
+                <include-form name="ListContent" location="component://content/widget/content/ContentForms.xml"/>
+            </widgets>
+        </section>
+    </screen>
     <screen name="EditContent">
         <section>
             <actions>

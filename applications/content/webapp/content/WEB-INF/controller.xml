@@ -498,6 +498,10 @@ under the License.
         <security auth="true" https="true"/>
         <response name="success" type="view" value="FindDataResource"/>
     </request-map>
+    <request-map uri="findDataResourceSearchResults">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="findDataResourceSearchResults"/>
+    </request-map>
     <request-map uri="navigateDataResource">
         <security auth="true" https="true"/>
         <response name="success" type="view" value="navigateDataResource"/>
@@ -756,6 +760,10 @@ under the License.
     <request-map uri="findContent">
         <security auth="true" https="true"/>
         <response name="success" type="view" value="FindContent"/>
+    </request-map>
+    <request-map uri="findContentSearchResults">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="findContentSearchResults"/>
     </request-map>
     <request-map uri="ContentSetupMenu"><security auth="true" https="true"/><response name="success" type="view" value="EditContentType"/></request-map>
     <request-map uri="DataSetupMenu"><security auth="true" https="true"/><response name="success" type="view" value="EditDataResourceType"/></request-map>
@@ -1230,6 +1238,10 @@ under the License.
 
     <!-- ================ Survey Requests ================= -->
     <request-map uri="FindSurvey"><security auth="true" https="true"/><response name="success" type="view" value="FindSurvey"/></request-map>
+    <request-map uri="ListFindSurveySearchResults">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ListFindSurveySearchResults"/>
+    </request-map>
     <request-map uri="EditSurvey"><security auth="true" https="true"/><response name="success" type="view" value="EditSurvey"/></request-map>
     <request-map uri="createSurvey">
         <security auth="true" https="true"/>
@@ -1678,6 +1690,7 @@ under the License.
     <view-map name="EditContentPurpose" page="component://content/widget/content/ContentScreens.xml#EditContentPurpose" type="screen"/>
     <view-map name="EditContentRole" page="component://content/widget/content/ContentScreens.xml#EditContentRole" type="screen"/>
     <view-map name="FindContent" page="component://content/widget/content/ContentScreens.xml#FindContent" type="screen"/>
+    <view-map name="findContentSearchResults" type="screen" page="component://content/widget/content/ContentScreens.xml#findContentSearchResults"/>
     <view-map name="EditContent" page="component://content/widget/content/ContentScreens.xml#EditContent" type="screen"/>
     <view-map name="EditContentAssoc" page="component://content/widget/content/ContentScreens.xml#EditContentAssoc" type="screen"/>
     <view-map name="AddContent" page="component://content/widget/content/ContentScreens.xml#AddContent" type="screen"/>
@@ -1694,6 +1707,7 @@ under the License.
     <view-map name="EditContentWorkEfforts" page="component://content/widget/content/ContentScreens.xml#EditContentWorkEfforts" type="screen"/>
     
     <view-map name="FindDataResource"  page="component://content/widget/content/DataResourceScreens.xml#FindDataResource" type="screen"/>
+    <view-map name="findDataResourceSearchResults"  page="component://content/widget/content/DataResourceScreens.xml#findDataResourceSearchResults" type="screen"/>
     <view-map name="navigateDataResource" type="screen" page="component://content/widget/content/DataResourceScreens.xml#navigateDataResource"/>
     <view-map name="listDataResources" type="screen" page="component://content/widget/content/DataResourceScreens.xml#listDataResources"/>
     <view-map name="UploadImage"  page="component://content/widget/content/DataResourceScreens.xml#UploadImage" type="screen"/>
@@ -1731,6 +1745,10 @@ under the License.
     <view-map name="EditLayoutUrl" page="component://content/widget/layout/LayoutScreens.xml#EditLayoutUrl" type="screen"/>
 
     <view-map name="FindSurvey" page="component://content/widget/SurveyScreens.xml#FindSurvey" type="screen"/>
+    <view-map name="ListFindSurveySearchResults" type="screen" page="component://content/widget/SurveyScreens.xml#ListFindSurveySearchResults"/>
+
+    <view-map name="ListFindSurveySearchResults" type="screen" page="component://content/widget/SurveyScreens.xml#ListFindSurveySearchResults"/>
+
     <view-map name="EditSurvey" page="component://content/widget/SurveyScreens.xml#EditSurvey" type="screen"/>
     <view-map name="EditSurveyMultiResps" page="component://content/widget/SurveyScreens.xml#EditSurveyMultiResps" type="screen"/>
     <view-map name="EditSurveyQuestions" page="component://content/widget/SurveyScreens.xml#EditSurveyQuestions" type="screen"/>
