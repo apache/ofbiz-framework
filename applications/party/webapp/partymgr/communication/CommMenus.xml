@@ -71,13 +71,13 @@ under the License.
     
     <menu name="CommSubTabBar" menu-container-style="button-bar button-style-2">
         <menu-item name="new" title="${uiLabelMap.PartyNewCommunication}">
-            <link target="EditCommunicationEvent"/>
+            <link target="EditCommunicationEvent?donePage=${parameters.donePage}"/>
         </menu-item>
         <menu-item name="newEmail" title="${uiLabelMap.PartyNewEmail}">
-            <link target="EditCommunicationEvent?communicationEventTypeId=EMAIL_COMMUNICATION"/>
+            <link target="EditCommunicationEvent?communicationEventTypeId=EMAIL_COMMUNICATION&amp;donePage=${parameters.donePage}"/>
         </menu-item>
         <menu-item name="newInternalNote" title="${uiLabelMap.PartyNewInternalNote}">
-            <link target="EditCommunicationEvent?communicationEventTypeId=COMMENT_NOTE"/>
+            <link target="EditCommunicationEvent?communicationEventTypeId=COMMENT_NOTE&amp;donePage=${parameters.donePage}"/>
         </menu-item>
         <menu-item name="reply" title="${uiLabelMap.PartyReply}">
             <condition>
