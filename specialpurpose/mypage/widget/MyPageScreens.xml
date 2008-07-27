@@ -22,25 +22,11 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="newEvent">
         <section>
+            <actions>
+                <set field="donePage" from-field="donePage" default-value="myCompanyComms"/>
+                <set field="headerItem" from-field="parameters.donePage"/>
+            </actions>
             <widgets>
-                <section>
-                    <condition>
-                        <if-empty field-name="parameters.Key" />
-                    </condition>
-                    <actions>
-                        <set field="headerItem" value="main" />
-                    </actions>
-                    <widgets />
-                </section>
-                <section>
-                    <condition>
-                        <not><if-empty field-name="parameters.Key" /></not>
-                    </condition>
-                    <actions>
-                        <set field="headerItem" value="myCompanyComms" />
-                    </actions>
-                    <widgets />
-                </section>
                 <section>
                     <widgets>
                         <decorator-screen name="main-decorator"
@@ -60,6 +46,7 @@ under the License.
     <screen name="MyTimesheet">
         <section>
             <actions>
+                <set field="donePage" value="myTimesheet"/>
                 <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/EditWeekTimesheet.bsh"/>
             </actions>
             <widgets>
@@ -107,6 +94,7 @@ under the License.
     <screen name="MyTasks">
         <section>
             <actions>
+                <set field="donePage" value="myTasks"/>
                 <entity-and entity-name="WorkEffortAndPartyAssign"
                     list-name="tasks" filter-by-date="true">
                     <field-map field-name="partyId" env-name="userLogin.partyId" />
@@ -177,6 +165,9 @@ under the License.
 
     <screen name="MyCompanyComms">
         <section>
+            <actions>
+                <set field="donePage" from-field="donePage" default-value="myCompanyComms"/>
+            </actions>
             <widgets>
                 <screenlet title="Company events" navigation-menu-name="MyCompanyCommsMenu" name="companyEvents" collapsible="true">
                     <include-menu name="MyCompanyCommsMenu" location="component://mypage/widget/MyPageMenus.xml"/>
@@ -189,6 +180,7 @@ under the License.
         <section>
             <actions>
                 <set field="partyId" from-field="userLogin.partyId" />
+	            <set field="donePage" from-field="donePage" default-value="myCommunications"/>
             </actions>
             <widgets>
                 <include-screen name="Communications"/>
@@ -262,6 +254,7 @@ under the License.
     <screen name="OtherCommunications">
         <section>
             <actions>
+                <set field="donePage" value="otherCommunications"/>
                 <entity-and list-name="emailOwners" entity-name="PartyRelationship" filter-by-date="true">
                     <field-map field-name="partyIdFrom" value="${userLogin.partyId}" />
                     <field-map field-name="roleTypeIdFrom" value="EMAIL_ADMIN" />
@@ -284,43 +277,14 @@ under the License.
     <screen name="ViewCommunicationEvent">
         <section>
             <actions>
+                <set field="donePage" value="viewCommunication"/>
                 <set field="titleProperty" value="PageTitleViewCommunication" />
                 <set field="tabButtonItem" value="OverView" />
                 <set field="parentCommEventId" from-field="parameters.parentCommEventId" />
                 <entity-one entity-name="CommunicationEvent" value-name="communicationEvent" />
+                <set field="headerItem" value="donePage" />
             </actions>
             <widgets>
-                <section>
-                    <condition>
-                        <if-compare field-name="parameters.type" operator="equals"
-                            value="main" />
-                    </condition>
-                    <actions>
-                        <set field="headerItem" value="main" />
-                    </actions>
-                    <widgets />
-                </section>
-                <section>
-                    <condition>
-                        <if-compare field-name="parameters.type" operator="equals"
-                            value="my" />
-                    </condition>
-                    <actions>
-                        <set field="headerItem" value="myCommunications" />
-                    </actions>
-                    <widgets />
-                </section>
-                <section>
-                    <condition>
-                        <if-compare field-name="parameters.type" operator="equals"
-                            value="other" />
-                    </condition>
-                    <actions>
-                        <set field="headerItem" value="otherCommunications" />
-                    </actions>
-                    <widgets />
-                </section>
-                <section><widgets>
                 <decorator-screen name="CommonCommunicationEventDecorator"
                     location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
@@ -329,7 +293,8 @@ under the License.
                                 <widgets>
                                     <label style="h1"
                                         text="Communication Event id: ${parameters.communicationEventId}"></label>
-                                    <include-screen name="commEvent" />
+                                    <include-screen name="commEvent" 
+                                            location="component://party/widget/partymgr/CommunicationScreens.xml" />
                                 </widgets>
                             </section>
                             <section>
@@ -354,6 +319,9 @@ under the License.
                         <container style="righthalf">
                             <label style="h1" text="${uiLabelMap.CommonRelatedInformation}" />
                             <section>
+                                <actions>
+                                    <set field="donePage" value="viewCommunicationEvent"/>
+                                </actions>
                                 <widgets>
                                     <screenlet title="${uiLabelMap.PartyCommEventRoles}">
                                         <include-form name="ListCommRoles"
@@ -362,6 +330,9 @@ under the License.
                                 </widgets>
                             </section>
                             <section>
+                                <actions>
+                                    <set field="donePage" value="viewCommunicationEvent"/>
+                                </actions>
                                 <widgets>
                                     <screenlet title="${uiLabelMap.PartyCommContent}">
                                         <include-form name="listCommContent"
@@ -400,62 +371,8 @@ under the License.
                     </decorator-section>
                 </decorator-screen>
             </widgets>
-            </section></widgets>
         </section>
     </screen>
-    <screen name="commEvent">
-        <section>
-            <widgets>
-                <screenlet title="${parent} ${uiLabelMap.PartyCommunicationEvent}">
-                    <section>
-                        <condition>
-                            <or><!-- have for e-mails a special form -->
-                                <if-compare field-name="communicationEvent.communicationEventTypeId"
-                                    operator="equals" value="EMAIL_COMMUNICATION" />
-                                <if-compare field-name="communicationEvent.communicationEventTypeId"
-                                    operator="equals" value="AUTO_EMAIL_COMM" />
-                            </or>
-                        </condition>
-                        <widgets>
-                            <section>
-                                <condition>
-                                    <and>
-                                        <if-compare field-name="communicationEvent.statusId"
-                                            operator="equals" value="COM_UNKNOWN_PARTY" />
-                                        <if-empty field-name="communicationEvent.partyIdFrom" />
-                                    </and>
-                                </condition>
-                                <widgets>
-                                    <screenlet>
-                                        <container>
-                                            <label style="h1" text="Origin Email address not known!" />
-                                        </container>
-                                        <container>
-                                            <label style="h2"
-                                                text="Allocate this message to a existing or new party and add an email address" />
-                                        </container>
-                                        <include-form name="allocateMsgToPartyForm"
-                                            location="component://mypage/widget/MyPageForms.xml" />
-                                        <include-form name="deleteEmail"
-                                            location="component://party/webapp/partymgr/communication/CommForms.xml" />
-                                    </screenlet>
-                                </widgets>
-                            </section>
-                            <include-form
-                                location="component://party/webapp/partymgr/communication/CommForms.xml"
-                                name="ViewEmail" />
-                        </widgets>
-                        <fail-widgets>
-                            <include-form
-                                location="component://party/webapp/partymgr/communication/CommForms.xml"
-                                name="ViewCommEvent" />
-                        </fail-widgets>
-                    </section>
-                </screenlet>
-            </widgets>
-        </section>
-    </screen>
-
 </screens>
 
 

@@ -25,7 +25,7 @@ under the License.
             <condition>
                 <not><if-empty field-name="userLogin"/></not>
             </condition>
-            <link target="main?status=open"/>
+            <link target="main?status=open&amp;donePage=main"/>
         </menu-item>
         <menu-item name="viewprofile" title="${uiLabelMap.MyProfile}">
             <condition>
@@ -40,7 +40,7 @@ under the License.
                     <if-compare field-name="preferences.userPrefMap.myCommunications" operator="not-equals" value="Y"/>
                 </and>
             </condition>
-            <link target="myCommunications?status=open"/>
+            <link target="myCommunications?status=open&amp;donePage=myCommunications"/>
         </menu-item>
         <menu-item name="otherCommunications" title="${uiLabelMap.OtherCommunications}">
             <condition>
@@ -49,7 +49,7 @@ under the License.
                     <if-compare field-name="preferences.userPrefMap.otherCommunications" operator="not-equals" value="Y"/>
                 </and>
             </condition>
-            <link target="otherCommunications?status=open"/>
+            <link target="otherCommunications?status=open&amp;donePage=otherCommunications"/>
         </menu-item>
         <menu-item name="myCompanyComms" title="${uiLabelMap.MyCompanyComms}">
             <condition>
@@ -67,7 +67,7 @@ under the License.
                     <if-compare field-name="preferences.userPrefMap.myTimesheet" operator="not-equals" value="Y"/>
                 </and>
             </condition>
-            <link target="myTimesheet"/>
+            <link target="myTimesheet?donePage=myTimeSheet"/>
         </menu-item>
         <menu-item name="myTasks" title="${uiLabelMap.myTasks}">
             <condition>
@@ -76,7 +76,7 @@ under the License.
                     <if-compare field-name="preferences.userPrefMap.myTasks" operator="not-equals" value="Y"/>
                 </and>
             </condition>
-            <link target="myTasks"/>
+            <link target="myTasks?donePage=myTasks"/>
         </menu-item>
         <!--menu-item name="help" title="${uiLabelMap.CommonHelp}" align-style="opposed">
             <condition><not><if-empty field-name="userLogin"/></not></condition>
@@ -99,89 +99,32 @@ under the License.
     </menu>    
     
     <menu name="MyCompanyCommsMenu">
-        <menu-item name="newEventKey" title="${uiLabelMap.WorkEffortNewEvent}">
-            <condition><if-compare field-name="headerItem" operator="not-equals" value="main"/></condition>
-            <link target="newEvent?Key=Y"/>
-        </menu-item>
         <menu-item name="newEvent" title="${uiLabelMap.WorkEffortNewEvent}">
-            <condition><if-compare field-name="headerItem" operator="equals" value="main"/></condition>
-            <link target="newEvent"/>
+            <link target="newEvent?donePage=${donePage}"/>
         </menu-item>
     </menu>
 	<menu name="communicationsMenu">
 		<menu-item name="newEmail" title="${uiLabelMap.PartyNewEmail}">
 			<link
-				target="EditCommunicationEvent?communicationEventTypeId=EMAIL_COMMUNICATION" />
+				target="EditCommunicationEvent?communicationEventTypeId=EMAIL_COMMUNICATION&amp;donePage=${donePage}" />
 		</menu-item>
 		<menu-item name="newNote" title="${uiLabelMap.PartyNewInternalNote}">
-			<link target="EditCommunicationEvent?communicationEventTypeId=COMMENT_NOTE" />
+			<link
+				target="EditCommunicationEvent?communicationEventTypeId=COMMENT_NOTE&amp;donePage=${donePage}" />
 		</menu-item>
-        <menu-item name="openOtherEvents" title="${uiLabelMap.OpenEvents}">
-            <condition>
-                <and>
-                    <if-compare field-name="parameters.status" operator="equals"
-                        value="%" />
-                    <if-compare field-name="headerItem" operator="equals"
-                        value="otherCommunications" />
-                </and>
-            </condition>
-            <link target="otherCommunications?status=open" />
-        </menu-item>
-        <menu-item name="allOtherEvents" title="${uiLabelMap.AllEvents}">
-            <condition>
-                <and>
-                    <if-compare field-name="parameters.status" operator="equals"
-                        value="open" />
-                    <if-compare field-name="headerItem" operator="equals"
-                        value="otherCommunications" />
-                </and>
-            </condition>
-            <link target="otherCommunications" />
-        </menu-item>
-        <menu-item name="openMyEvents" title="${uiLabelMap.OpenEvents}">
-            <condition>
-                <and>
-                    <if-compare field-name="status" operator="equals"
-                        value="%" />
-                    <if-compare field-name="headerItem" operator="equals"
-                        value="myCommunications" />
-                </and>
-            </condition>
-            <link target="myCommunications?status=open" />
-        </menu-item>
-        <menu-item name="allMyEvents" title="${uiLabelMap.AllEvents}">
-            <condition>
-                <and>
-                    <if-compare field-name="parameters.status" operator="equals"
-                        value="open" />
-                    <if-compare field-name="headerItem" operator="equals"
-                        value="myCommunications" />
-                </and>
-            </condition>
-            <link target="myCommunications" />
-        </menu-item>
-        <menu-item name="openEvents" title="${uiLabelMap.OpenEvents}">
-            <condition>
-                <and>
-                    <if-compare field-name="status" operator="equals"
-                        value="%" />
-                    <if-compare field-name="headerItem" operator="equals"
-                        value="main" />
-                </and>
-            </condition>
-            <link target="main?status=open" />
-        </menu-item>
-        <menu-item name="allEvents" title="${uiLabelMap.AllEvents}">
-            <condition>
-                <and>
-                    <if-compare field-name="parameters.status" operator="equals"
-                        value="open" />
-                    <if-compare field-name="headerItem" operator="equals"
-                        value="main" />
-                </and>
-            </condition>
-            <link target="main" />
-        </menu-item>
+		<menu-item name="openEvents" title="${uiLabelMap.OpenEvents}">
+			<condition>
+				<if-empty field-name="parameters.status"/>
+			</condition>
+			<link target="${donePage}?status=open" />
+		</menu-item>
+		<menu-item name="allOtherEvents" title="${uiLabelMap.AllEvents}">
+			<condition>
+				<if-compare field-name="parameters.status" operator="equals"
+					value="open" />
+			</condition>
+			<link target="${donePage}" />
+		</menu-item>
 	</menu>    
     
     <menu name="MyTasksMenu" type="simple" menu-container-style="button-bar button-style-2" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem">
