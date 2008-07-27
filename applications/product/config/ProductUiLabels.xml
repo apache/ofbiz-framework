@@ -2352,6 +2352,7 @@
     </property>
     <property key="FormFieldTitle_parentFacilityId">
         <value xml:lang="en">Parent Facility Id</value>
+        <value xml:lang="fr">Lieu de stockage parent</value>
     </property>
     <property key="FormFieldTitle_parentFacilityGroupId">
         <value xml:lang="en">Parent Facility Group Id</value>
@@ -9160,6 +9161,7 @@
     </property>
     <property key="ProductFacilityChildren">
         <value xml:lang="en">Facility Children for ${facility.facilityName} [${facility.facilityId}]</value>
+        <value xml:lang="fr">Lieu de stockage descendant pour ${facility.facilityName} [${facility.facilityId}]</value>
     </property>
     <property key="ProductFacilityContainer">
         <value xml:lang="en">Facility / Container</value>
