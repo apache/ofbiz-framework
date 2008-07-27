@@ -85,7 +85,7 @@ if (shoppingListId) {
 
                 product = shoppingListItem.getRelatedOneCache("Product");
 
-                calcPriceInMap = [product : product, quantity : shoppingListItem.quantity, currencyUomId : currencyUomId, userLogin : userLogin]);
+                calcPriceInMap = [product : product, quantity : shoppingListItem.quantity, currencyUomId : currencyUomId, userLogin : userLogin];
                 calcPriceInMap.webSiteId = webSiteId;
                 calcPriceInMap.prodCatalogId = prodCatalogId;
                 calcPriceInMap.productStoreId = productStoreId;
@@ -148,7 +148,7 @@ if (shoppingListId) {
             childShoppingLists.each { childShoppingList ->
                 childShoppingListData = [:];
 
-                calcListPriceInMap = [shoppingListId : childShoppingList.shoppingListId, prodCatalogId : prodCatalogId, webSiteId : webSiteId, userLogin : userLogin, currencyUomId : currencyUomId;
+                calcListPriceInMap = [shoppingListId : childShoppingList.shoppingListId, prodCatalogId : prodCatalogId, webSiteId : webSiteId, userLogin : userLogin, currencyUomId : currencyUomId];
                 childShoppingListPriceMap = dispatcher.runSync("calculateShoppingListDeepTotalPrice", calcListPriceInMap);
                 totalPrice = childShoppingListPriceMap.totalPrice;
                 shoppingListChildTotal += totalPrice;
