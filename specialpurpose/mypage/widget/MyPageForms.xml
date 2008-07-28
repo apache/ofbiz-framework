@@ -91,19 +91,19 @@ under the License.
     
     <form name="ListPartyCommEvents" extends="ListCommEvents" extends-resource="component://party/webapp/partymgr/communication/CommForms.xml" type="list">
         <row-actions>
-            <set field="toComplete" value="${bsh:&quot;COM_ROLE_COMPLETED&quot;.equals(roleStatusId)?&quot;&quot;:&quot;->Complete&quot;}"/>
+            <set field="toComplete" value="${bsh:&quot;COM_ROLE_READ&quot;.equals(roleStatusId)?&quot;->Complete&quot;:&quot;&quot;}"/>
         </row-actions>
         <field name="donePage"><hidden/></field>
         <field name="roleTypeId"><display-entity entity-name="RoleType" description="${description}"/></field> 
         <field name="removeLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="RemoveCommunicationEventRole?partyId=${partyId}&amp;communicationEventId=${communicationEventId}&amp;roleTypeId=${roleTypeId}&amp;deleteCommEventIfLast=Y&amp;delContentDataResource=Y&amp;donePage=${donePage}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="RemoveCommunicationEventRole?partyId=${partyId}&amp;communicationEventId=${communicationEventId}&amp;roleTypeId=${roleTypeId}&amp;deleteCommEventIfLast=Y&amp;delContentDataResource=Y&amp;donePage=${parameters.donePage}"/>
         </field>
         <field name="subject" widget-style="buttontext" widget-area-style="fieldWidth300">
-            <hyperlink description="${subject} " target="ViewCommunicationEvent?communicationEventId=${communicationEventId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;donePage=${donePage}"/>
+            <hyperlink description="${subject} " target="ViewCommunicationEvent?communicationEventId=${communicationEventId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;donePage=${parameters.donePage}"/>
         </field>
         <field name="statusId" entry-name="roleStatusId" widget-style="buttontext" widget-area-style="fieldWidth300">
             <display-entity entity-name="StatusItem" description="${description}">
-                <sub-hyperlink description="${uiLabelMap.${toComplete}}" target="setCommEventRoleToComplete?communicationEventId=${communicationEventId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;donePage=${donePage}"/>
+                <sub-hyperlink description="${uiLabelMap.${toComplete}}" target="setCommunicationEventRoleStatus?communicationEventId=${communicationEventId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;statusId=COM_ROLE_COMPLETED&amp;donePage=${parameters.donePage}&amp;VIEW_SIZE=${parameters.VIEWSIZE}&amp;VIEW_INDEX=${parameters.VIEW_INDEX}"/>
             </display-entity>
         </field>
         <field name="statusId" entry-name="roleStatusId"/>
@@ -113,7 +113,7 @@ under the License.
         extends="ListMyUnknownPartyEmails" extends-resource="component://party/webapp/partymgr/communication/CommForms.xml" use-row-submit="true">
         <field name="donePage"><hidden/></field>
         <field name="subject" widget-style="buttontext" widget-area-style="fieldWidth300">
-            <hyperlink description="${subject}" target="ViewCommunicationEvent?communicationEventId=${communicationEventId}&amp;donePage=${donePage}"/>
+            <hyperlink description="${subject}" target="ViewCommunicationEvent?communicationEventId=${communicationEventId}&amp;donePage=${parameters.donePage}"/>
         </field>
         <field name="_rowSubmit" title="S">
             <check />

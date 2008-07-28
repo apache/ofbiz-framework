@@ -142,9 +142,9 @@
         <security https="true" auth="true"/>
         <response name="success" type="view" value="otherCommunications"/>
     </request-map>
-    <request-map uri="setCommEventRoleToComplete">
+    <request-map uri="setCommunicationEventRoleStatus">
         <security https="true" auth="true"/>
-        <event type="simple" path="org/ofbiz/mypage/Events.xml" invoke="setCommEventRoleToComplete"/>
+        <event type="service" invoke="setCommunicationEventRoleStatus"/>
         <response name="success" type="request" value="getToNextDonePage"/>
         <response name="error" type="view" value="main"/>
     </request-map>
@@ -152,7 +152,7 @@
         <security https="true" auth="true"/>
         <event  type="simple" invoke="setCommEventToRead" path="org/ofbiz/mypage/Events.xml"/>
         <response name="success" type="view" value="ViewCommunicationEvent"/>
-        <response name="error" type="view" value="main"/>
+        <response name="error" type="request" value="getToNextDonePage"/>
     </request-map>
 
     <request-map uri="deleteUnknownCommunicationEvent">

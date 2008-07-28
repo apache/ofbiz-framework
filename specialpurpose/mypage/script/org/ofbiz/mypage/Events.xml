@@ -56,52 +56,32 @@ under the License.
 		<call-service service-name="setUserPreferenceGroup"
 			in-map-name="inMap" />
 	</simple-method>
-	
-    <simple-method method-name="setCommEventToRead" short-description="">
-        <call-simple-method method-name="checkCommEventAccess"/>
-        <if-compare operator="equals" value="true" field="found">
-            <entity-one entity-name="CommunicationEventRole" value-name="communicationEventRole"/>
-            <if>
-                <condition>
-                    <or>
-                        <if-empty field="communicationEventRole.statusId"/>
-                        <if-compare operator="equals" value="COM_ROLE_CREATED" field="communicationEventRole.statusId"/>
-                    </or>
-                </condition>
-                <then>
-                    <set-service-fields service-name="updateCommunicationEventRole" map-name="parameters" to-map-name="inMap"/>
-                    <set field="inMap.statusId" value="COM_ROLE_READ" />
-                    <call-service service-name="updateCommunicationEventRole" in-map-name="inMap"/>    
-                </then>
-            </if>
-            <else>
-                <add-error><fail-property property="NoAccess" resource="MyPageUiLabels"/></add-error>
-            </else>
-        </if-compare>
-    </simple-method>
 
-    <simple-method method-name="setCommEventRoleToComplete" short-description="">
-        <call-simple-method method-name="checkCommEventAccess"/>
-        <if-compare operator="equals" value="true" field="found">
-            <entity-one entity-name="CommunicationEventRole" value-name="communicationEventRole"/>
-            <if>
-                <condition>
-                    <or>
-                        <if-empty field="communicationEventRole.statusId"/>
-                        <if-compare operator="equals" value="COM_ROLE_READ" field="communicationEventRole.statusId"/>
-                    </or>
-                </condition>
-                <then>
-                    <set-service-fields service-name="updateCommunicationEventRole" map-name="parameters" to-map-name="inMap"/>
-                    <set field="inMap.statusId" value="COM_ROLE_COMPLETED" />
-                    <call-service service-name="updateCommunicationEventRole" in-map-name="inMap"/>    
-                </then>
-            </if>
-            <else>
-                <add-error><fail-property property="NoAccess" resource="MyPageUiLabels"/></add-error>
-            </else>
-        </if-compare>
-    </simple-method>
+	<simple-method method-name="setCommEventToRead"
+		short-description="">
+		<entity-one entity-name="CommunicationEventRole"
+			value-name="eventRole" />
+		<if-compare operator="equals" value="COM_ROLE_CREATED"
+			field="eventRole.statusId">
+			<call-simple-method method-name="checkCommEventAccess" />
+			<if-compare operator="equals" value="true" field="found">
+				<entity-one entity-name="UserLogin" value-name="userLogin">
+					<field-map field-name="userLoginId" value="system" />
+				</entity-one>
+				<set-service-fields service-name="setCommunicationEventRoleStatus"
+					map-name="parameters" to-map-name="updStat" />
+				<set field="updStat.statusId" value="COM_ROLE_READ" />
+				<set field="updStat.userLogin" from-field="userLogin" />
+				<call-service service-name="setCommunicationEventRoleStatus"
+					in-map-name="updStat" include-user-login="false" />
+				<else>
+					<add-error>
+						<fail-property property="NoAccess" resource="MyPageUiLabels" />
+					</add-error>
+				</else>
+			</if-compare>
+		</if-compare>
+	</simple-method>
 
     <simple-method method-name="checkCommEventAccess" short-description="check if the user has access to the email of this party">
         <set field="found" value="false"/>
