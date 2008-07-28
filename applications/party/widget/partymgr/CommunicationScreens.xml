@@ -188,7 +188,7 @@ under the License.
                             <section>
                                 <widgets>
                                     <screenlet title="${uiLabelMap.PartyCommEventRoles}">
-                                        <include-form name="ListCommRoles"
+                                        <include-form name="ViewCommRoles"
                                             location="component://party/webapp/partymgr/communication/CommForms.xml" />
                                     </screenlet>
                                 </widgets>

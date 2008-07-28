@@ -244,6 +244,7 @@ under the License.
                 <and>
                     <if-compare-field field="parameters.partyIdFrom" to-field="userLogin.partyId" operator="not-equals"/>
                     <if-compare-field field="parameters.partyIdTo" to-field="userLogin.partyId" operator="not-equals"/>
+                    <if-compare-field field="parameters.partyId" to-field="userLogin.partyId" operator="not-equals"/><!-- update role -->
                 </and>
             </condition>
             <then>

@@ -84,6 +84,7 @@ under the License.
                 <and>
                     <not><if-empty field-name="parameters.communicationEventId"/></not>
                     <not><if-empty field-name="communicationEvent.partyIdFrom"/></not>
+                    <if-compare field-name="communicationEvent.partyIdFrom" operator="not-equals" value="${userLogin.partyId}"/>
                 </and>
             </condition>
             <link target="EditCommunicationEvent?parentCommEventId=${parameters.communicationEventId}"/>

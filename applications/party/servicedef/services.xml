@@ -630,10 +630,19 @@ under the License.
     </service>
 
     <!-- Communication Event Services -->
-    <service name="setCommunicationEventStatus" engine="simple"
+    <service name="setCommunicationEventStatus" engine="simple" default-entity-name="CommunicationEvent"
             location="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="setCommunicationEventStatus" auth="true">
-        <description>Set the Communication event  Status</description>
-        <attribute name="communicationEventId" type="String" mode="IN" optional="false"/>
+        <description>Set the Communication event Status</description>
+        <permission-service service-name="partyCommunicationEventPermissionCheck" main-action="UPDATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <attribute name="statusId" type="String" mode="IN" optional="false"/>
+        <attribute name="oldStatusId" type="String" mode="OUT" optional="true"/>
+    </service>
+    <service name="setCommunicationEventRoleStatus" engine="simple" default-entity-name="CommunicationEventRole"
+            location="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="setCommunicationEventRoleStatus" auth="true">
+        <description>Set the Communication event  Status for a specific role</description>
+        <permission-service service-name="partyCommunicationEventPermissionCheck" main-action="UPDATE"/>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
         <attribute name="statusId" type="String" mode="IN" optional="false"/>
         <attribute name="oldStatusId" type="String" mode="OUT" optional="true"/>
     </service>
