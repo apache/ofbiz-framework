@@ -647,7 +647,10 @@ under the License.
                             </and>
                             <and>
                                 <if-empty field="parameters.statusId"/>
-                                <if-empty field="inventoryItem.statusId"/>
+                                <or>
+                                    <if-empty field="inventoryItem.statusId"/>
+                                    <if-compare operator="equals" field="inventoryItem.statusId" value="INV_AVAILABLE"/>
+                                </or>
                             </and>
                         </or>
                     </condition>
