@@ -2246,6 +2246,7 @@
         <value xml:lang="zh">完成日期/时间</value>
     </property>
     <property key="CommonFirst">
+        <value xml:lang="de">Erster</value>
         <value xml:lang="en">First</value>
         <value xml:lang="th">อันดับแรก</value>
     </property>
@@ -2490,7 +2491,7 @@
     </property>
     <property key="CommonFromDateThruDate">
         <value xml:lang="ar">تاريخ البدء/تاريخ النهاية</value>
-        <value xml:lang="de">Von Datum / bis Datum</value>
+        <value xml:lang="de">Von Datum / Bis Datum</value>
         <value xml:lang="en">From Date / Thru Date</value>
         <value xml:lang="es">Desde la fecha / Hasta la fecha</value>
         <value xml:lang="fr">De la date / jusqu'à la date</value>
@@ -3590,7 +3591,7 @@
     <property key="CommonNext">
         <value xml:lang="ar">التالي</value>
         <value xml:lang="cs">dále</value>
-        <value xml:lang="de">Nächste</value>
+        <value xml:lang="de">Nächster</value>
         <value xml:lang="en">Next</value>
         <value xml:lang="es">Siguiente</value>
         <value xml:lang="fr">Suivant</value>
@@ -3721,7 +3722,7 @@
     </property>
     <property key="CommonNone">
         <value xml:lang="ar">لا شيئ</value>
-        <value xml:lang="de">Kein</value>
+        <value xml:lang="de">Keine</value>
         <value xml:lang="en">None</value>
         <value xml:lang="es">Ninguno</value>
         <value xml:lang="fr">Aucun</value>
@@ -4316,7 +4317,7 @@
     <property key="CommonPrevious">
         <value xml:lang="ar">سابق</value>
         <value xml:lang="cs">předchozí</value>
-        <value xml:lang="de">Vorherige</value>
+        <value xml:lang="de">Vorheriger</value>
         <value xml:lang="en">Previous</value>
         <value xml:lang="es">Anterior</value>
         <value xml:lang="fr">Précédent</value>
