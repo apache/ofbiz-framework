@@ -143,7 +143,7 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="main" />
-                <set field="donePage" value="main"/>
+                <set field="parameters.donePage" value="main"/>
                 <!-- refresh every 3 minutes -->
                 <!--
                     set field="layoutSettings.extraHead" value="&lt;META
@@ -157,8 +157,8 @@ under the License.
                 <entity-condition list-name="custRequests" entity-name="CustReqAndTypeAndPartyRel">
                     <condition-list combine="and">
                         <condition-expr field-name="statusId" operator="equals" value="CRQ_SUBMITTED"/>
-                        <condition-list combine="or">
-                            <condition-expr field-name="partyIdFrom" operator="equals" env-name="userLogin.partyId"/>
+                        <condition-list combine="and">
+                            <condition-expr field-name="roleTypeIdTo" operator="equals" value="REQ_TAKER"/>
                             <condition-expr field-name="partyIdTo" operator="equals" env-name="userLogin.partyId"/>
                         </condition-list>
                     </condition-list>
