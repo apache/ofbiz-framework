@@ -25,7 +25,7 @@ under the License.
         <if-not-empty field="parameters.parentCommEventId">
             <set field="newStat.communicationEventId" from-field="parameters.parentCommEventId"/>
             <set field="newStat.statusId" value="COM_COMPLETE"/>
-            <call-service service-name="setCommunicationEventStatus" in-map-name="newStat"/>
+            <call-service service-name="setCommunicationEventRoleStatus" in-map-name="newStat"/>
         </if-not-empty>
         
         <if-empty field="parameters.statusId">
@@ -330,7 +330,7 @@ under the License.
         <set field="inComRole.communicationEventId" from-field="parameters.communicationEventId"/>
         <set field="inComRole.partyId" from-field="parameters.partyId"/>
         <set field="inComRole.roleTypeId" value="ORIGINATOR"/>
-        <set field="inComRole.statusId" value="COM_ROLE_CREATED"/>
+        <set field="inComRole.statusId" value="COM_ROLE_COMPLETED"/>
         <set field="inComRole.contactMechId" from-field="inCom.contactMechIdFrom" />
         <call-service service-name="createCommunicationEventRole" in-map-name="inComRole"/>
         
@@ -385,6 +385,25 @@ under the License.
                 <else>
                     <set field="communicationEvent.statusId" from-field="parameters.statusId"/>
                     <store-value value-name="communicationEvent"/>
+                </else>
+            </if-empty>
+        </if-compare-field>
+    </simple-method>
+    <simple-method method-name="setCommunicationEventRoleStatus" short-description="Set The Communication Event Status for a specific role">
+        <entity-one entity-name="CommunicationEventRole" value-name="communicationEventRole"/>
+        <field-to-result field-name="communicationEventRole.statusId" result-name="oldStatusId"/>
+        <if-compare-field field="communicationEventRole.statusId" to-field="parameters.statusId" operator="not-equals">
+            <entity-one entity-name="StatusValidChange" value-name="statusChange">
+                <field-map field-name="statusId" env-name="communicationEventRole.statusId"/>
+                <field-map field-name="statusIdTo" env-name="parameters.statusId"/>
+            </entity-one>
+            <if-empty field="statusChange">
+                <add-error><fail-message message="Status is not a valid change"/></add-error>
+                <log level="error" message="Cannot change from ${communicationEventRole.statusId} to ${parameters.statusId}"/>
+                <check-errors/>
+                <else>
+                    <set field="communicationEventRole.statusId" from-field="parameters.statusId"/>
+                    <store-value value-name="communicationEventRole"/>
                 </else>
             </if-empty>
         </if-compare-field>

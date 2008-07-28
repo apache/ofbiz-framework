@@ -438,12 +438,17 @@ under the License.
                 <sub-hyperlink target="viewprofile?partyId=${partyId}" link-style="smallSubmit" description="${partyId}"/>
             </display-entity>
         </field>
+        <field name="contactMechId"><display-entity description="${infoString}" entity-name="ContactMech"/></field>
         <field name="roleTypeId"><display-entity description="${description}" entity-name="RoleType"/></field>
         <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
         <field name="removeLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="/RemoveCommunicationEventRole?partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;communicationEventId=${communicationEventId}&amp;donePage=${donePage}"/>
         </field>
     </form>
+
+    <form name="ViewCommRoles" extends="ListCommRoles">
+        <field name="removeLink"><ignored/></field>
+    </form> 
 
     <form name="AddEventRole" type="single" target="createCommunicationEventRole"
         header-row-style="header-row" default-table-style="basic-table">
