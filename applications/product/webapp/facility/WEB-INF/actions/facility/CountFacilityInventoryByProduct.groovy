@@ -147,13 +147,13 @@ if (action) {
 
     // add search on internal name
     if (internalName) {
-        whereConditionsList.add(EntityCondition.makeCondition("internalName", true, EntityOperator.LIKE, "%" + internalName + "%", true));
+        whereConditionsList.add(EntityCondition.makeCondition("internalName", EntityOperator.LIKE, "%" + internalName + "%"));
         searchParameterString = searchParameterString + "&internalName=" + internalName;
     }
     
     // add search on productId 
     if (productId) {
-        whereConditionsList.add(EntityCondition.makeCondition("productId", true, EntityOperator.LIKE, productId + "%", true));
+        whereConditionsList.add(EntityCondition.makeCondition("productId", EntityOperator.LIKE, productId + "%"));
         searchParameterString = searchParameterString + "&productId=" + productId;
     }
 
