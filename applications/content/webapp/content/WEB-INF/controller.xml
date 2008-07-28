@@ -1747,8 +1747,6 @@ under the License.
     <view-map name="FindSurvey" page="component://content/widget/SurveyScreens.xml#FindSurvey" type="screen"/>
     <view-map name="ListFindSurveySearchResults" type="screen" page="component://content/widget/SurveyScreens.xml#ListFindSurveySearchResults"/>
 
-    <view-map name="ListFindSurveySearchResults" type="screen" page="component://content/widget/SurveyScreens.xml#ListFindSurveySearchResults"/>
-
     <view-map name="EditSurvey" page="component://content/widget/SurveyScreens.xml#EditSurvey" type="screen"/>
     <view-map name="EditSurveyMultiResps" page="component://content/widget/SurveyScreens.xml#EditSurveyMultiResps" type="screen"/>
     <view-map name="EditSurveyQuestions" page="component://content/widget/SurveyScreens.xml#EditSurveyQuestions" type="screen"/>
