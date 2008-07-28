@@ -35,34 +35,17 @@ under the License.
                                 <if-has-permission permission="CONTENTMGR" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleFindSurvey}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>    
-                                                <container><link  text="${uiLabelMap.SurveyCreate}" target="EditSurvey" style="buttontext"/></container>
-                                                <include-form name="FindSurvey" location="component://content/webapp/content/survey/SurveyForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleFindSurvey}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>    
-                                                <include-form name="ListFindSurvey" location="component://content/webapp/content/survey/SurveyForms.xml"/>                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
+                                <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                                    <decorator-section name="menu-bar">
+                                        <container style="button-bar"><link  text="${uiLabelMap.SurveyCreate}" target="EditSurvey" style="buttontext"/></container>
+                                    </decorator-section>
+                                    <decorator-section name="search-options">
+                                        <include-form name="FindSurvey" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                                    </decorator-section>
+                                    <decorator-section name="search-results">
+                                        <include-form name="ListFindSurvey" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                                    </decorator-section>
+                                </decorator-screen>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.WorkEffortViewPermissionError}</label>
