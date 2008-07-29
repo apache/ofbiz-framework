@@ -258,7 +258,7 @@ under the License.
        </#if>
 
        <#-- shipment actions -->
-       <#if security.hasEntityPermission("ORDERMGR", "_UPDATE", session) && orderHeader.statusId == "ORDER_APPROVED">
+       <#if security.hasEntityPermission("ORDERMGR", "_UPDATE", session) && ((orderHeader.statusId == "ORDER_APPROVED") || (orderHeader.statusId == "ORDER_SENT"))>
 
          <#-- Special shipment options -->
          <#if security.hasEntityPermission("FACILITY", "_CREATE", session)>
