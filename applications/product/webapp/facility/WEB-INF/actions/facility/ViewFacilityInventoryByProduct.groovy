@@ -104,7 +104,8 @@ if (action) {
         discontinuationDateCondition = EntityCondition.makeCondition(
                [
                 EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.EQUALS, null),
-                EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.GREATER_THAN, productsSoldThruTimestamp)
+                EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.GREATER_THAN, 
+                        ObjectType.simpleTypeConvert(productsSoldThruTimestamp, "Timestamp", null, null, false))
                ],
                EntityOperator.OR);
         whereConditionsList.add(discontinuationDateCondition);
