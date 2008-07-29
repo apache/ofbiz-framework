@@ -369,7 +369,7 @@ function processBillingAndPayment() {
             } else {
                 Effect.Fade('billingFormServerError');
                 isBillStepValidate = true;
-                $('billToContactMechId').value = data.billToContactMechId;
+                $('billingContactMechId').value = data.billingContactMechId;
                 $('paymentMethodId').value = data.paymentMethodId;
             }
         }, parameters: $('billingForm').serialize(), requestHeaders: {Accept: 'application/json'}
