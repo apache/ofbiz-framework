@@ -34,6 +34,9 @@ context.orderId = orderId;
 returnHeader = delegator.findByPrimaryKey("ReturnHeader", [returnId : returnId]);
 context.returnHeader = returnHeader;
 
+returnHeaderTypeId = returnHeader.returnHeaderTypeId;
+context.toPartyId = returnHeader.toPartyId;
+
 returnItems = delegator.findByAnd("ReturnItem", [returnId : returnId]);
 context.returnItems = returnItems;
 
@@ -53,7 +56,7 @@ context.returnReasons = returnReasons;
 itemStts = delegator.findByAnd("StatusItem", [statusTypeId : "INV_SERIALIZED_STTS"], ["sequenceId"]);
 context.itemStts = itemStts;
 
-returnItemTypeMap = delegator.findByAnd("ReturnItemTypeMap", [returnHeaderTypeId : "CUSTOMER_RETURN"]);
+returnItemTypeMap = delegator.findByAnd("ReturnItemTypeMap", [returnHeaderTypeId : returnHeaderTypeId]);
 typeMap = [:];
 returnItemTypeMap.each { value ->
     typeMap[value.returnItemMapKey] = value.returnItemTypeId;
@@ -74,8 +77,11 @@ if (orderId) {
     shippingAmount = shipRes.shippingAmount;
     context.shippingAmount = shippingAmount;
 }
-
-partyOrders = delegator.findByAnd("OrderHeaderAndRoles", [roleTypeId : "PLACING_CUSTOMER", partyId : returnHeader.fromPartyId], ["orderId"]);
+roleTypeId = "PLACING_CUSTOMER";
+if (returnHeaderTypeId == "VENDOR_RETURN") {
+    roleTypeId = "SUPPLIER";
+}
+partyOrders = delegator.findByAnd("OrderHeaderAndRoles", [roleTypeId : roleTypeId, partyId : returnHeader.fromPartyId], ["orderId"]);
 context.partyOrders = partyOrders;
 
 // get the list of return shipments associated to the return

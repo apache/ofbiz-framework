@@ -20,7 +20,7 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <form name="EditReturn" type="single" target="updateReturn" default-map-name="returnHeader"
+    <form name="EditReturn" type="single" target="updateReturn" default-map-name="returnHeader" id="editReturn"
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
             <entity-one entity-name="StatusItem" value-name="currentStatus" auto-field-map="false">
@@ -33,12 +33,12 @@ under the License.
         <field use-when="returnHeader==null&amp;&amp;returnId!=null" name="returnId" tooltip="Could not find Return with ID [${returnId}]"><text size="20" maxlength="20"/></field>
         <field use-when="returnHeader==null&amp;&amp;returnId==null" name="returnId"><ignored/></field>
         <field name="currentStatusId" entry-name="statusId"><hidden/></field>
-        <field name="returnHeaderTypeId">
+        <field name="returnHeaderTypeId" id-name="returnHeaderTypeId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="ReturnHeaderType" description="${description}"/>
             </drop-down>
         </field>
-        <field name="statusId" use-when="returnHeader==null">
+        <field name="statusId" use-when="returnHeader==null" id-name="statusId">
             <drop-down>
                 <entity-options entity-name="StatusItem" description="${description}">
                     <entity-constraint name="statusTypeId" value="ORDER_RETURN_STTS"/>

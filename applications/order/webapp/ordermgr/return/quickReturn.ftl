@@ -27,17 +27,18 @@ under the License.
         <form name="selectAllForm" method="post" action="<@ofbizUrl>makeQuickReturn</@ofbizUrl>">
           <input type="hidden" name="_checkGlobalScope" value="Y"/>
           <input type="hidden" name="_useRowSubmit" value="Y"/>
-          <input type="hidden" name="fromPartyId" value="${party.partyId}"/>
+          <input type="hidden" name="fromPartyId" value="${partyId?if_exists}"/>
           <input type="hidden" name="toPartyId" value="${toPartyId?if_exists}"/>
           <input type="hidden" name="orderId" value="${orderId}"/>
           <input type="hidden" name="needsInventoryReceive" value="${parameters.needsInventoryReceive?default("Y")}"/>
-          <input type="hidden" name="destinationFacilityId" value="${destinationFacilityId}"/>
-          <input type="hidden" name="returnHeaderTypeId" value="CUSTOMER_RETURN"/>
+          <input type="hidden" name="destinationFacilityId" value="${destinationFacilityId?if_exists}"/>
+          <input type="hidden" name="returnHeaderTypeId" value="${returnHeaderTypeId}"/>
           <#if (orderHeader?has_content) && (orderHeader.currencyUom?has_content)>
           <input type="hidden" name="currencyUomId" value="${orderHeader.currencyUom}"/>
           </#if>
           <#include "returnItemInc.ftl"/>
           <hr/>
+          <#if "CUSTOMER_RETURN" == returnHeaderTypeId>
           <h3>${uiLabelMap.FormFieldTitle_paymentMethodId}:</h3>
           <table cellspacing="0" class="basic-table">
             <tr><td>
@@ -64,10 +65,11 @@ under the License.
               </#if>
             </td></tr>
           </table>
+          </#if>
           <table cellspacing="0" class="basic-table">
             <tr><td colspan="8"><hr></td></tr>
             <tr>
-              <td colspan="8"><h3>${uiLabelMap.OrderReturnShipFromAddress}</h3></td>
+              <td colspan="8"><h3><#if "CUSTOMER_RETURN" == returnHeaderTypeId>${uiLabelMap.OrderReturnShipFromAddress}<#else>${uiLabelMap["checkhelper.select_shipping_destination"]}</#if></h3></td>
             </tr>
             <tr>
               <td colspan="8">

@@ -260,18 +260,33 @@ under the License.
         <set from-field="returnHeader.toPartyId" field="shipmentCtx.partyIdTo"/>
         <set from-field="returnHeader.originContactMechId" field="shipmentCtx.originContactMechId"/>
         <set from-field="returnHeader.destinationFacilityId" field="shipmentCtx.destinationFacilityId"/>
-
+        <set from-field="returnHeader.returnId" field="shipmentCtx.primaryReturnId"/>
         <!-- later different behavior for customer vs. returns would happen here -->
-        <if-compare value="CUSTOMER_RETURN" field="returnHeader.returnHeaderTypeId" operator="equals">
-            <set value="SALES_RETURN" field="shipmentCtx.shipmentTypeId"/>
-            <set value="PURCH_SHIP_CREATED" field="shipmentCtx.statusId"/>  <!-- we may later need different status codes for return shipments -->
+        <if>
+            <condition>
+                <if-compare value="CUSTOMER_RETURN" field="returnHeader.returnHeaderTypeId" operator="equals"/>
+            </condition>
+            <then>
+                <set field="shipmentCtx.shipmentTypeId" value="SALES_RETURN"/>
+                <set field="shipmentCtx.statusId" value="PURCH_SHIP_CREATED"/>  <!-- we may later need different status codes for return shipments -->
+            </then>
+        <else-if>
+            <condition>
+                <if-compare value="VENDOR_RETURN" field="returnHeader.returnHeaderTypeId" operator="equals"/>
+            </condition>
+            <then>
+                <set field="shipmentCtx.shipmentTypeId" value="PURCHASE_RETURN" />
+                <set field="shipmentCtx.statusId" value="SHIPMENT_INPUT"/>
+            </then>        
+        </else-if>
         <else>
-            <add-error>
-                <fail-message message="${returnHeader.returnTypeId} is not supported"/>
+             <add-error>
+                <fail-message message="${returnHeader.returnHeaderTypeId} is not supported"/>
             </add-error>
             <check-errors/>
         </else>
-        </if-compare>        
+        </if>
+        
         <call-service service-name="createShipment" in-map-name="shipmentCtx">
             <result-to-field result-name="shipmentId"/>
         </call-service>
@@ -310,6 +325,38 @@ under the License.
         
         <field-to-result field-name="shipmentId"/>
     </simple-method>
+    
+    <simple-method method-name="createShipmentAndItemsForVendorReturn" short-description="Create Shipment and ShipmentItems based on primaryReturnId for Vendor return">
+        <set-service-fields service-name="createShipment" map-name="parameters" to-map-name="shipmentCtx"/>
+        <call-service service-name="createShipment" in-map-name="shipmentCtx">
+            <result-to-field result-name="shipmentId"/>
+        </call-service>
+        <check-errors/>
+        <log level="info" message="Created new shipment ${shipmentId}"/>
+
+        <entity-condition entity-name="ReturnItem" list-name="returnItems">
+            <condition-expr field-name="returnId" operator="equals" env-name="parameters.primaryReturnId"/>
+        </entity-condition>
+        <iterate entry-name="returnItem" list-name="returnItems">
+            <clear-field field-name="shipItemCtx"/>
+            <set from-field="shipmentId" field="shipItemCtx.shipmentId"/>
+            <set from-field="returnItem.productId" field="shipItemCtx.productId"/>
+            <set from-field="returnItem.returnQuantity" field="shipItemCtx.quantity"/>
+            <log level="info" message="calling create shipment item with ${shipItemCtx}"/>
+            <call-service service-name="createShipmentItem" in-map-name="shipItemCtx">
+                <result-to-field result-name="shipmentItemSeqId"/>
+            </call-service>
+            <clear-field field-name="shipItemCtx"/>
+            <set from-field="shipmentId" field="shipItemCtx.shipmentId"/>
+            <set from-field="shipmentItemSeqId" field="shipItemCtx.shipmentItemSeqId"/>
+            <set from-field="returnItem.returnId" field="shipItemCtx.returnId"/>
+            <set from-field="returnItem.returnItemSeqId" field="shipItemCtx.returnItemSeqId"/>
+            <set from-field="returnItem.returnQuantity" field="shipItemCtx.quantity"/>
+            <call-service service-name="createReturnItemShipment" in-map-name="shipItemCtx"/>
+        </iterate>
+        
+        <field-to-result field-name="shipmentId"/>
+    </simple-method>    
 
     <simple-method method-name="setShipmentSettingsFromPrimaryOrder" short-description="Set Shipment Settings From Primary Order">
         <check-permission permission="FACILITY" action="_CREATE">

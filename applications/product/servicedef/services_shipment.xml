@@ -117,7 +117,18 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute name="shipmentId" type="String" mode="OUT" optional="false"/>
     </service>
-    
+
+    <service name="createShipmentAndItemsForVendorReturn" default-entity-name="Shipment" engine="simple"
+            location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="createShipmentAndItemsForVendorReturn">
+        <description>Create a Return Shipment and ShipmentItems with primaryReturnId</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="FACILITY" action="_CREATE"/>
+        </required-permissions>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="shipmentId" type="String" mode="OUT" optional="false"/>
+        <override name="primaryReturnId" optional="false"/>
+    </service>
+        
     <service name="createShipment" default-entity-name="Shipment" engine="simple"
             location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="createShipment" auth="true">
         <description>Create Shipment</description>
@@ -416,7 +427,18 @@ under the License.
         <attribute name="cancelQuantity" type="Double" mode="IN" optional="true"/>
         <attribute name="canceledQuantity" type="Double" mode="OUT" optional="false"/>        
     </service>
-    
+
+    <service name="issueInventoryItemToShipment" engine="simple"
+            location="org/ofbiz/shipment/issuance/IssuanceServices.xml" invoke="issueInventoryItemToShipment" auth="true">
+        <description>Issue an InventoryItem to a Shipment</description>
+        <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
+        <attribute name="shipmentItemSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
+        <attribute name="quantity" type="Double" mode="IN" optional="false"/>
+        <attribute name="totalIssuedQty" type="Double" mode="IN" optional="false"/>
+        <attribute name="itemIssuanceId" type="String" mode="OUT" optional="false"/>
+    </service>
+        
     <!-- Pack Order Services -->
     <service name="packSingleItem" engine="java"
             location="org.ofbiz.shipment.packing.PackingServices" invoke="addPackLine" auth="true">

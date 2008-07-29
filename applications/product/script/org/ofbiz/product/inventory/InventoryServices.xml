@@ -1247,7 +1247,45 @@ under the License.
         <entity-one entity-name="InventoryItemLabelAppl" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
-    
+ 
+     <simple-method method-name="getInventoryItemForAssociatedOrderSupplierAndProduct" short-description="Get Inventory Items for an order, supplier and product">
+       <set field="productId" from-field="parameters.productId"/>
+       <!-- search for the original inventory items created by order -->
+       <entity-and entity-name="ShipmentReceipt" list-name="shipmentReceipts">
+           <field-map field-name="orderId" env-name="parameters.orderId"/>
+           <field-map field-name="productId" env-name="productId"/>
+       </entity-and>
+       <if-not-empty field="shipmentReceipts">
+           <first-from-list list-name="shipmentReceipts" entry-name="shipmentReceipt"/>
+           <get-related value-name="shipmentReceipt" relation-name="InventoryItem" list-name="inventoryItems"/>
+           <field-to-result field-name="inventoryItems"/>
+           <return/>       
+       </if-not-empty>
+       <!-- search for inventory items created by other orders from the same supplier -->
+       <entity-and entity-name="OrderRole" list-name="orderRoles">
+           <field-map field-name="partyId" env-name="parameters.partyId"/>
+       </entity-and>
+       <iterate list-name="orderRoles" entry-name="orderRole">
+           <entity-and entity-name="ShipmentReceipt" list-name="shipmentReceipts">
+               <field-map field-name="orderId" env-name="orderRole.orderId"/>
+               <field-map field-name="productId" env-name="productId"/>
+           </entity-and>
+           <first-from-list list-name="shipmentReceipts" entry-name="shipmentReceipt"/>
+           <get-related value-name="shipmentReceipt" relation-name="InventoryItem" list-name="inventoryItems"/>
+           <field-to-list field-name="inventoryItems" list-name="inventoryItems"/>           
+       </iterate>
+       <if-not-empty field="inventoryItems">
+           <field-to-result field-name="inventoryItems"/>
+           <return/>       
+       </if-not-empty>
+       <clear-field field-name="inventoryItems"/>
+       <!-- search for all the inventory items for this product -->
+       <entity-and entity-name="InventoryItem" list-name="inventoryItems">
+           <field-map field-name="productId" env-name="productId"/>
+       </entity-and>
+       <field-to-result field-name="inventoryItems"/>
+     </simple-method>
+      
     <!-- Test Physical Inventory Adjustment -->
     <simple-method method-name="testPhysicalInventoryAdjustment" short-description="Test to create physical inventory and variance" login-required="false">
         <log level="info" message="====================Create physical inventory and variance test case================================"/>

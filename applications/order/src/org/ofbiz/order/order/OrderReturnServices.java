@@ -1348,7 +1348,7 @@ public class OrderReturnServices {
             Debug.logError(e, "Problems looking up return information", module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorGettingReturnHeaderItemInformation", locale));
         }
-
+        String returnHeaderTypeId = returnHeader.getString("returnHeaderTypeId");
         List createdOrderIds = new ArrayList();
         if (returnHeader != null && returnItems != null && returnItems.size() > 0) {
             Map returnItemsByOrderId = new HashMap();
@@ -1376,13 +1376,22 @@ public class OrderReturnServices {
 
                 // create the replacement order
                 Map orderMap = UtilMisc.toMap("userLogin", userLogin);
-                GenericValue placingParty = orh.getPlacingParty();
+                
                 String placingPartyId = null;
-                if (placingParty != null) {
-                    placingPartyId = placingParty.getString("partyId");
+                GenericValue placingParty = null;
+                if ("CUSTOMER_RETURN".equals(returnHeaderTypeId)) {
+                    placingParty = orh.getPlacingParty();
+                    if (placingParty != null) {
+                        placingPartyId = placingParty.getString("partyId");
+                    }                    
+                    orderMap.put("orderTypeId", "SALES_ORDER");
+                } else {
+                    placingParty = orh.getSupplierAgent();
+                    if (placingParty != null) {
+                        placingPartyId = placingParty.getString("partyId");
+                    }                      
+                    orderMap.put("orderTypeId", "PURCHASE_ORDER");
                 }
-
-                orderMap.put("orderTypeId", "SALES_ORDER");
                 orderMap.put("partyId", placingPartyId);
                 orderMap.put("productStoreId", orderHeader.get("productStoreId"));
                 orderMap.put("webSiteId", orderHeader.get("webSiteId"));
@@ -1456,39 +1465,40 @@ public class OrderReturnServices {
                                 // Check if the product being returned has a Refurbished Equivalent and if so
                                 // (and there is inventory for the assoc product) use that product instead
                                 GenericValue refurbItem = null;
-                                try {
-                                    if (UtilValidate.isNotEmpty(product)) {
-                                        GenericValue refurbItemAssoc = EntityUtil.getFirst(EntityUtil.filterByDate(product.getRelated("MainProductAssoc",
-                                                                                                   UtilMisc.toMap("productAssocTypeId", "PRODUCT_REFURB"),
-                                                                                                   UtilMisc.toList("sequenceNum"))));
-                                        if (UtilValidate.isNotEmpty(refurbItemAssoc)) {
-                                            refurbItem = refurbItemAssoc.getRelatedOne("AssocProduct");
-                                        }
-                                    }
-                                } catch (GenericEntityException e) {
-                                    Debug.logError(e, module);
-                                }
-                                if (UtilValidate.isNotEmpty(refurbItem)) {
-                                    boolean inventoryAvailable = false;
+                                if ("CUSTOMER_RETURN".equals(returnHeaderTypeId)) {
                                     try {
-                                        Map invReqResult = dispatcher.runSync("isStoreInventoryAvailable", UtilMisc.toMap("productStoreId", orderHeader.get("productStoreId"),
-                                                                                                                                       "productId", refurbItem.getString("productId"),
-                                                                                                                                       "product", refurbItem, "quantity", quantity));
-                                        if (ServiceUtil.isError(invReqResult)) {
-                                            Debug.logError("Error calling isStoreInventoryAvailable service, result is: " + invReqResult, module);
-                                        } else {
-                                            inventoryAvailable = "Y".equals((String) invReqResult.get("available"));
+                                        if (UtilValidate.isNotEmpty(product)) {
+                                            GenericValue refurbItemAssoc = EntityUtil.getFirst(EntityUtil.filterByDate(product.getRelated("MainProductAssoc",
+                                                                                                       UtilMisc.toMap("productAssocTypeId", "PRODUCT_REFURB"),
+                                                                                                       UtilMisc.toList("sequenceNum"))));
+                                            if (UtilValidate.isNotEmpty(refurbItemAssoc)) {
+                                                refurbItem = refurbItemAssoc.getRelatedOne("AssocProduct");
+                                            }
                                         }
-                                    } catch (GenericServiceException e) {
-                                        Debug.logError(e, "Fatal error calling inventory checking services: " + e.toString(), module);
+                                    } catch (GenericEntityException e) {
+                                        Debug.logError(e, module);
                                     }
-                                    if (!inventoryAvailable) {
-                                        // If the Refurbished Equivalent is not available,
-                                        // then use the original product.
-                                        refurbItem = null;
+                                    if (UtilValidate.isNotEmpty(refurbItem)) {
+                                        boolean inventoryAvailable = false;
+                                        try {
+                                            Map invReqResult = dispatcher.runSync("isStoreInventoryAvailable", UtilMisc.toMap("productStoreId", orderHeader.get("productStoreId"),
+                                                                                                                                           "productId", refurbItem.getString("productId"),
+                                                                                                                                           "product", refurbItem, "quantity", quantity));
+                                            if (ServiceUtil.isError(invReqResult)) {
+                                                Debug.logError("Error calling isStoreInventoryAvailable service, result is: " + invReqResult, module);
+                                            } else {
+                                                inventoryAvailable = "Y".equals((String) invReqResult.get("available"));
+                                            }
+                                        } catch (GenericServiceException e) {
+                                            Debug.logError(e, "Fatal error calling inventory checking services: " + e.toString(), module);
+                                        }
+                                        if (!inventoryAvailable) {
+                                            // If the Refurbished Equivalent is not available,
+                                            // then use the original product.
+                                            refurbItem = null;
+                                        }
                                     }
                                 }
-                                
                                 
                                 GenericValue newItem = delegator.makeValue("OrderItem", UtilMisc.toMap("orderItemSeqId", UtilFormatOut.formatPaddedNumber(itemCount++, 5)));
                                 if (UtilValidate.isEmpty(refurbItem)) {

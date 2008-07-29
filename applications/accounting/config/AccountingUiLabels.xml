@@ -5441,6 +5441,9 @@ esetata in mod automat</value>
         <value xml:lang="th">การส่งสินค้าไม่มีประเภทของ SALES_RETURN</value>
         <value xml:lang="zh">运输不是销售退货(SALES_RETURN)类型。</value>
     </property>
+    <property key="AccountingShipmentNotSalesReturnAndPurchaseReturn">
+        <value xml:lang="en">Shipment is not of type SALES_RETURN and PURCHASE_RETURN.</value>
+    </property>        
     <property key="AccountingShipmentsOfDifferentTypes">
         <value xml:lang="en">Shipments of different types found; shipment [${tmpShipmentId}] of type [${shipmentTypeId}] is of different type from the previous ones.</value>
         <value xml:lang="es">Envíos de diferentes tipos encontratos; envío [${tmpShipmentId}] de tipo [${shipmentTypeId}] es de un tipo distinto a los anteriores.</value>

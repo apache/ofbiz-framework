@@ -525,6 +525,7 @@ under the License.
       <field name="shipmentTypeId" type="id"></field>
       <field name="statusId" type="id-ne"></field>
       <field name="primaryOrderId" type="id"></field>
+      <field name="primaryReturnId" type="id"></field>
       <field name="primaryShipGroupSeqId" type="id"></field>
       <field name="picklistBinId" type="id"></field>
       <field name="estimatedReadyDate" type="date-time"></field>
@@ -593,6 +594,9 @@ under the License.
       <relation type="one" fk-name="SHPMNT_PODR" title="Primary" rel-entity-name="OrderHeader">
         <key-map field-name="primaryOrderId" rel-field-name="orderId"/>
       </relation>
+      <relation type="one" fk-name="SHPMNT_PRTNHDR" title="Primary" rel-entity-name="ReturnHeader">
+        <key-map field-name="primaryReturnId" rel-field-name="returnId"/>
+      </relation>      
       <relation type="one" rel-entity-name="PicklistBin">
           <key-map field-name="picklistBinId"/>
       </relation>

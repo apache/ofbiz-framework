@@ -1587,8 +1587,9 @@ public class InvoiceServices {
 
         String shipmentId = (String) context.get("shipmentId");
         String errorMsg = UtilProperties.getMessage(resource, "AccountingErrorCreatingInvoiceForShipment",UtilMisc.toMap("shipmentId",shipmentId), locale);
-
-
+        boolean salesReturnFound = false;
+        boolean purchaseReturnFound = false;
+        
         List invoicesCreated = new ArrayList();
         try {
 
@@ -1597,45 +1598,71 @@ public class InvoiceServices {
             if (shipment == null) {
                 return ServiceUtil.returnError(errorMsg + UtilProperties.getMessage(resource, "AccountingShipmentNotFound",locale));
             }
-            if (!shipment.getString("shipmentTypeId").equals("SALES_RETURN")) {
-                return ServiceUtil.returnError(errorMsg + UtilProperties.getMessage(resource, "AccountingShipmentNotSalesReturn",locale));
+            if (shipment.getString("shipmentTypeId").equals("SALES_RETURN")) {
+                salesReturnFound = true;
+            } else if ("PURCHASE_RETURN".equals(shipment.getString("shipmentTypeId"))) {
+                purchaseReturnFound = true;
             }
-
-            // get the list of ShipmentReceipt for this shipment
-            List shipmentReceipts = shipment.getRelated("ShipmentReceipt");
+            if (!(salesReturnFound || purchaseReturnFound)) {
+                 return ServiceUtil.returnError(errorMsg + UtilProperties.getMessage(resource, "AccountingShipmentNotSalesReturnAndPurchaseReturn",locale));
+            }
+            // get the items of the shipment. They can come from ItemIssuance if the shipment were from a purchase return, ShipmentReceipt if it were from a sales return
+            List shippedItems = null;
+            if (salesReturnFound) {
+                shippedItems = shipment.getRelated("ShipmentReceipt");
+            } else if (purchaseReturnFound) {
+                shippedItems = shipment.getRelated("ItemIssuance");
+            }
+            if (shippedItems == null) {
+                Debug.logInfo("No items issued for shipments", module);
+                return ServiceUtil.returnSuccess();
+            }            
 
             // group the shipments by returnId (because we want a seperate itemized invoice for each return)
-            Map receiptsGroupedByReturn = new HashMap();
-            for (Iterator iter = shipmentReceipts.iterator(); iter.hasNext(); ) {
-                GenericValue receipt = (GenericValue) iter.next();
-                String returnId = receipt.getString("returnId");
+            Map itemsShippedGroupedByReturn = FastMap.newInstance();
+            
+            for (Iterator iter = shippedItems.iterator(); iter.hasNext(); ) {
+                GenericValue item = (GenericValue) iter.next();
+                String returnId = null;
+                String returnItemSeqId = null;
+                if (item.getEntityName().equals("ShipmentReceipt")) {
+                    returnId = item.getString("returnId");
+                } else if (item.getEntityName().equals("ItemIssuance")) {
+                    GenericValue returnItemShipment = EntityUtil.getFirst(delegator.findByAnd("ReturnItemShipment", UtilMisc.toMap("shipmentId", item.getString("shipmentId"), "shipmentItemSeqId", item.getString("shipmentItemSeqId"))));
+                    returnId = returnItemShipment.getString("returnId");
+                    returnItemSeqId = returnItemShipment.getString("returnItemSeqId");
+                }
 
                 // see if there are ReturnItemBillings for this item
-                List billings = delegator.findByAnd("ReturnItemBilling", UtilMisc.toMap("shipmentReceiptId", receipt.getString("receiptId"), "returnId", returnId, 
-                            "returnItemSeqId", receipt.get("returnItemSeqId")));
-
+                List billings = null;
+                if (item.getEntityName().equals("ShipmentReceipt")) {
+                    billings = delegator.findByAnd("ReturnItemBilling", UtilMisc.toMap("shipmentReceiptId", item.getString("receiptId"), "returnId", returnId, 
+                                "returnItemSeqId", item.get("returnItemSeqId")));
+                } else if (item.getEntityName().equals("ItemIssuance")) {
+                    billings = delegator.findByAnd("ReturnItemBilling", UtilMisc.toMap("returnId", returnId, "returnItemSeqId", returnItemSeqId));
+                }
                 // if there are billings, we have already billed the item, so skip it
                 if (billings.size() > 0) continue;
 
-                // get the List of receipts keyed to this returnId or create a new one
-                List receipts = (List) receiptsGroupedByReturn.get(returnId);
-                if (receipts == null) {
-                    receipts = new ArrayList();
+                // get the List of items shipped to/from this returnId
+                List billItems = (List) itemsShippedGroupedByReturn.get(returnId);
+                if (billItems == null) {
+                    billItems = new ArrayList();
                 }
 
                 // add our item to the group and put it back in the map
-                receipts.add(receipt);
-                receiptsGroupedByReturn.put(returnId, receipts);
+                billItems.add(item);
+                itemsShippedGroupedByReturn.put(returnId, billItems);
             }
 
             // loop through the returnId keys in the map and invoke the createInvoiceFromReturn service for each
-            for (Iterator iter = receiptsGroupedByReturn.keySet().iterator(); iter.hasNext(); ) {
+            for (Iterator iter = itemsShippedGroupedByReturn.keySet().iterator(); iter.hasNext(); ) {
                 String returnId = (String) iter.next();
-                List receipts = (List) receiptsGroupedByReturn.get(returnId);
+                List billItems = (List) itemsShippedGroupedByReturn.get(returnId);
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("Creating invoice for return [" + returnId + "] with receipts: " + receipts.toString(), module);
+                    Debug.logVerbose("Creating invoice for return [" + returnId + "] with items: " + billItems.toString(), module);
                 }
-                Map input = UtilMisc.toMap("returnId", returnId, "shipmentReceiptsToBill", receipts, "userLogin", context.get("userLogin"));
+                Map input = UtilMisc.toMap("returnId", returnId, "billItems", billItems, "userLogin", context.get("userLogin"));
                 Map serviceResults = dispatcher.runSync("createInvoiceFromReturn", input);
                 if (ServiceUtil.isError(serviceResults)) {
                     return ServiceUtil.returnError(errorMsg, null, null, serviceResults);
@@ -1664,20 +1691,28 @@ public class InvoiceServices {
         Locale locale = (Locale) context.get("locale");
 
         String returnId= (String) context.get("returnId");
-        List receipts = (List) context.get("shipmentReceiptsToBill");
+        List billItems = (List) context.get("billItems");
         String errorMsg = UtilProperties.getMessage(resource, "AccountingErrorCreatingInvoiceForReturn",UtilMisc.toMap("returnId",returnId),locale);
         // List invoicesCreated = new ArrayList();
         try {
+            String invoiceTypeId;
+            String description;
             // get the return header
             GenericValue returnHeader = delegator.findByPrimaryKey("ReturnHeader", UtilMisc.toMap("returnId", returnId));
-
+            if ("CUSTOMER_RETURN".equals(returnHeader.getString("returnHeaderTypeId"))) {
+                invoiceTypeId = "CUST_RTN_INVOICE";
+                description = "Return Invoice for Customer Return #" + returnId;
+            } else {
+                invoiceTypeId = "PURC_RTN_INVOICE";
+                description = "Return Invoice for Vendor Return #" + returnId;
+            }
             // set the invoice data
-            Map input = UtilMisc.toMap("invoiceTypeId", "CUST_RTN_INVOICE", "statusId", "INVOICE_IN_PROCESS");
+            Map input = UtilMisc.toMap("invoiceTypeId", invoiceTypeId, "statusId", "INVOICE_IN_PROCESS");
             input.put("partyId", returnHeader.get("toPartyId"));
             input.put("partyIdFrom", returnHeader.get("fromPartyId"));
             input.put("currencyUomId", returnHeader.get("currencyUomId"));
             input.put("invoiceDate", UtilDateTime.nowTimestamp());
-            input.put("description", "Return Invoice for Customer Return #" + returnId); 
+            input.put("description", description); 
             input.put("billingAccountId", returnHeader.get("billingAccountId"));
             input.put("userLogin", userLogin);
 
@@ -1695,24 +1730,47 @@ public class InvoiceServices {
             // loop through shipment receipts to create invoice items and return item billings for each item and adjustment
             int invoiceItemSeqNum = 1;
             String invoiceItemSeqId = UtilFormatOut.formatPaddedNumber(invoiceItemSeqNum, INVOICE_ITEM_SEQUENCE_ID_DIGITS);
-            for (Iterator iter = receipts.iterator(); iter.hasNext(); ) {
-                GenericValue receipt = (GenericValue) iter.next();
-
+            
+            for (Iterator iter = billItems.iterator(); iter.hasNext(); ) {
+                GenericValue item = (GenericValue) iter.next();
+                boolean shipmentReceiptFound = false;
+                boolean itemIssuanceFound = false;                 
+                if ("ShipmentReceipt".equals(item.getEntityName())) {
+                    shipmentReceiptFound = true;
+                } else if ("ItemIssuance".equals(item.getEntityName())) {
+                    itemIssuanceFound = true;
+                } else {
+                    Debug.logError("Unexpected entity " + item + " of type " + item.getEntityName(), module);
+                }
                 // we need the related return item and product
-                GenericValue returnItem = receipt.getRelatedOneCache("ReturnItem");
+                GenericValue returnItem = null;
+                if (shipmentReceiptFound) {
+                    returnItem = item.getRelatedOneCache("ReturnItem");
+                } else if (itemIssuanceFound) {
+                    GenericValue shipmentItem = item.getRelatedOneCache("ShipmentItem");
+                    GenericValue returnItemShipment = EntityUtil.getFirst(shipmentItem.getRelated("ReturnItemShipment"));
+                    returnItem = returnItemShipment.getRelatedOneCache("ReturnItem");
+                }
+                if (returnItem == null) continue; // Just to prevent NPE
                 GenericValue product = returnItem.getRelatedOneCache("Product");
 
                 // extract the return price as a big decimal for convenience
                 BigDecimal returnPrice = returnItem.getBigDecimal("returnPrice");
 
                 // determine invoice item type from the return item type
-                String invoiceItemTypeId = getInvoiceItemType(delegator, returnItem.getString("returnItemTypeId"), null, "CUST_RTN_INVOICE", null);
+                String invoiceItemTypeId = getInvoiceItemType(delegator, returnItem.getString("returnItemTypeId"), null, invoiceTypeId, null);
                 if (invoiceItemTypeId == null) {
                     return ServiceUtil.returnError(errorMsg + UtilProperties.getMessage(resource, "AccountingNoKnownInvoiceItemTypeReturnItemType",UtilMisc.toMap("returnItemTypeId",returnItem.getString("returnItemTypeId")),locale));
                 }
-
+                double quantity = 0.0;
+                if (shipmentReceiptFound) {
+                    quantity = item.getDouble("quantityAccepted");
+                } else if (itemIssuanceFound) {
+                    quantity = item.getDouble("quantity");
+                }
+                
                 // create the invoice item for this shipment receipt
-                input = UtilMisc.toMap("invoiceId", invoiceId, "invoiceItemTypeId", invoiceItemTypeId, "quantity", receipt.get("quantityAccepted"));
+                input = UtilMisc.toMap("invoiceId", invoiceId, "invoiceItemTypeId", invoiceItemTypeId, "quantity", quantity);
                 input.put("invoiceItemSeqId", "" + invoiceItemSeqId); // turn the int into a string with ("" + int) hack
                 input.put("amount", returnItem.get("returnPrice")); // this service requires Double
                 input.put("productId", returnItem.get("productId"));
@@ -1729,17 +1787,19 @@ public class InvoiceServices {
                 input = UtilMisc.toMap("returnId", returnId, "returnItemSeqId", returnItem.get("returnItemSeqId"), 
                         "invoiceId", invoiceId);
                 input.put("invoiceItemSeqId", "" + invoiceItemSeqId); // turn the int into a string with ("" + int) hack
-                input.put("shipmentReceiptId", receipt.get("receiptId"));
-                input.put("quantity", receipt.get("quantityAccepted"));
+                input.put("quantity", quantity);
                 input.put("amount", returnItem.get("returnPrice")); // this service requires Double
                 input.put("userLogin", userLogin);
+                if (shipmentReceiptFound) {
+                    input.put("shipmentReceiptId", item.get("receiptId"));
+                }
                 serviceResults = dispatcher.runSync("createReturnItemBilling", input);
                 if (ServiceUtil.isError(serviceResults)) {
                     return ServiceUtil.returnError(errorMsg, null, null, serviceResults);
                 }
                 if (Debug.verboseOn()) {
-                    Debug.logVerbose("Creating Invoice Item with amount " + returnPrice + " and quantity " + receipt.getBigDecimal("quantityAccepted") 
-                            + " for shipment receipt [" + receipt.getString("receiptId") + "]", module);
+                    Debug.logVerbose("Creating Invoice Item with amount " + returnPrice + " and quantity " + quantity 
+                            + " for shipment [" + item.getString("shipmentId") + ":" + item.getString("shipmentItemSeqId") + "]", module);
                 }
 
                 String parentInvoiceItemSeqId = invoiceItemSeqId;                
@@ -1748,8 +1808,15 @@ public class InvoiceServices {
                 invoiceItemSeqId = UtilFormatOut.formatPaddedNumber(invoiceItemSeqNum, INVOICE_ITEM_SEQUENCE_ID_DIGITS);
 
                 // keep a running total (note: a returnItem may have many receipts. hence, the promised total quantity is the receipt quantityAccepted + quantityRejected)
-                BigDecimal actualAmount = returnPrice.multiply(receipt.getBigDecimal("quantityAccepted")).setScale(decimals, rounding);
-                BigDecimal promisedAmount = returnPrice.multiply(receipt.getBigDecimal("quantityAccepted").add(receipt.getBigDecimal("quantityRejected"))).setScale(decimals, rounding);
+                BigDecimal cancelQuantity = ZERO;
+                if (shipmentReceiptFound) {
+                    cancelQuantity = item.getBigDecimal("quantityRejected");
+                } else if (itemIssuanceFound) {
+                    cancelQuantity = item.getBigDecimal("cancelQuantity");
+                }
+                if (cancelQuantity == null) {cancelQuantity = ZERO;};
+                BigDecimal actualAmount = returnPrice.multiply(BigDecimal.valueOf(quantity)).setScale(decimals, rounding);
+                BigDecimal promisedAmount = returnPrice.multiply(BigDecimal.valueOf(quantity).add(cancelQuantity)).setScale(decimals, rounding);
                 invoiceTotal = invoiceTotal.add(actualAmount).setScale(decimals, rounding);
                 promisedTotal = promisedTotal.add(promisedAmount).setScale(decimals, rounding);
 
@@ -1764,14 +1831,14 @@ public class InvoiceServices {
                     }
 
                     // determine invoice item type from the return item type
-                    invoiceItemTypeId = getInvoiceItemType(delegator, adjustment.getString("returnAdjustmentTypeId"), null, "CUST_RTN_INVOICE", null);
+                    invoiceItemTypeId = getInvoiceItemType(delegator, adjustment.getString("returnAdjustmentTypeId"), null, invoiceTypeId, null);
                     if (invoiceItemTypeId == null) {
                         return ServiceUtil.returnError(errorMsg + "No known invoice item type for the return adjustment type [" 
                                 +  adjustment.getString("returnAdjustmentTypeId") + "]");
                     }
 
                     // prorate the adjustment amount by the returned amount; do not round ratio
-                    BigDecimal ratio = receipt.getBigDecimal("quantityAccepted").divide(returnItem.getBigDecimal("returnQuantity"), 100, rounding);
+                    BigDecimal ratio = BigDecimal.valueOf(quantity).divide(returnItem.getBigDecimal("returnQuantity"), 100, rounding);
                     BigDecimal amount = adjustment.getBigDecimal("amount");
                     amount = amount.multiply(ratio).setScale(decimals, rounding);
                     if (Debug.verboseOn()) {
@@ -1826,7 +1893,7 @@ public class InvoiceServices {
                 GenericValue adjustment = (GenericValue) iter.next();
 
                 // determine invoice item type from the return item type
-                String invoiceItemTypeId = getInvoiceItemType(delegator, adjustment.getString("returnAdjustmentTypeId"), null, "CUST_RTN_INVOICE", null);
+                String invoiceItemTypeId = getInvoiceItemType(delegator, adjustment.getString("returnAdjustmentTypeId"), null, invoiceTypeId, null);
                 if (invoiceItemTypeId == null) {
                     return ServiceUtil.returnError(errorMsg + UtilProperties.getMessage(resource, "AccountingNoKnownInvoiceItemTypeReturnAdjustmentType",
                             UtilMisc.toMap("returnAdjustmentTypeId",adjustment.getString("returnAdjustmentTypeId")),locale));

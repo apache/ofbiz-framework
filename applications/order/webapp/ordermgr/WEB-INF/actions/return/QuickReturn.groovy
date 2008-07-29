@@ -27,10 +27,15 @@ import org.ofbiz.product.store.*;
 orderId = parameters.orderId;
 context.orderId = orderId;
 
+returnHeaderTypeId = parameters.returnHeaderTypeId;
+context.returnHeaderTypeId = returnHeaderTypeId;
+
 partyId = parameters.party_id;
-context.partyId = partyId;
 
 if (partyId) {
+    if (("VENDOR_RETURN").equals(returnHeaderTypeId)) {
+        context.toPartyId = partyId;
+    }
     party = delegator.findByPrimaryKey("Party", [partyId : partyId]);
     context.party = party;
 }
@@ -43,12 +48,17 @@ if (orderId) {
     order = delegator.findByPrimaryKey("OrderHeader", [orderId : orderId]);
     productStore = order.getRelatedOne("ProductStore");
     if (productStore) {
-        context.destinationFacilityId = ProductStoreWorker.determineSingleFacilityForStore(delegator, productStore.productStoreId);
+        if (("VENDOR_RETURN").equals(returnHeaderTypeId)) {
+            context.partyId = productStore.payToPartyId;
+        } else {
+            context.destinationFacilityId = ProductStoreWorker.determineSingleFacilityForStore(delegator, productStore.productStoreId);
+            context.toPartyId = productStore.payToPartyId;
+            context.partyId = partyId;            
+        }
     }
 
     orh = new OrderReadHelper(order);
     context.orh = orh;
-    context.toPartyId = productStore.payToPartyId;
     context.orderHeaderAdjustments = orh.getAvailableOrderHeaderAdjustments();
 }
 
@@ -75,7 +85,7 @@ itemStts = delegator.findByAnd("StatusItem", [statusTypeId : "INV_SERIALIZED_STT
 context.itemStts = itemStts;
 
 typeMap = [:];
-returnItemTypeMap = delegator.findByAnd("ReturnItemTypeMap", [returnHeaderTypeId : "CUSTOMER_RETURN"]);
+returnItemTypeMap = delegator.findByAnd("ReturnItemTypeMap", [returnHeaderTypeId : returnHeaderTypeId]);
 returnItemTypeMap.each { value ->
     typeMap[value.returnItemMapKey] = value.returnItemTypeId;
 }

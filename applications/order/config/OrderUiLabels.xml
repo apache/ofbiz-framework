@@ -2432,6 +2432,9 @@
         <value xml:lang="zh_CN">新建退货</value>
         <value xml:lang="zh">创建退货</value>
     </property>
+    <property key="OrderCreateReturnShipment">
+        <value xml:lang="en">Create return shipment</value>
+    </property>        
     <property key="OrderCreateShippingAddress">
         <value xml:lang="en">Create New Shipping Address</value>
         <value xml:lang="fr">Créer une nouvelle adresse d'expédition</value>

@@ -121,7 +121,7 @@ under the License.
                 <set field="titleProperty" value="ProductEditShipment"/>
                 <set field="headerItem" value="shipment"/>
                 <set field="tabButtonItem" value="EditShipment"/>
-
+                <set field="shipmentTypeId" from-field="parameters.shipmentTypeId"/>
                 <script location="component://product/webapp/facility/WEB-INF/actions/shipment/EditShipment.groovy"/>
             </actions>
             <widgets>
@@ -406,4 +406,25 @@ under the License.
         </section>
     </screen>
 
+    <screen name="AddItemsFromInventory">
+        <section>
+            <actions>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ManufacturingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="ProductAddItemsFromInventory"/>
+                <set field="headerItem" value="shipment"/>
+                <set field="tabButtonItem" value="AddItemsFromInventory"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/AddItemsFromInventory.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonShipmentDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/facility/shipment/AddItemsFromInventory.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>

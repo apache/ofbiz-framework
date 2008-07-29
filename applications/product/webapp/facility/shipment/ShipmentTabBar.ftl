@@ -28,7 +28,12 @@ under the License.
         <#if shipment.shipmentTypeId?exists && shipment.shipmentTypeId='SALES_SHIPMENT'>
             <li<#if selected="EditShipmentPlan"> class="selected"</#if>><a href="<@ofbizUrl>EditShipmentPlan?shipmentId=${shipmentId}</@ofbizUrl>">${uiLabelMap.ProductShipmentPlan}</a></li>
         </#if>
+        <#if shipment.shipmentTypeId?exists && (shipment.shipmentTypeId = "SALES_SHIPMENT" || shipment.shipmentTypeId = "PURCHASE_SHIPMENT")>
             <li<#if selected="AddItemsFromOrder"> class="selected"</#if>><a href="<@ofbizUrl>AddItemsFromOrder?shipmentId=${shipmentId}</@ofbizUrl>">${uiLabelMap.ProductOrderItems}</a></li>
+        </#if>
+        <#if shipment.shipmentTypeId?exists && shipment.shipmentTypeId="PURCHASE_RETURN">
+            <li<#if selected="AddItemsFromInventory"> class="selected"</#if>><a href="<@ofbizUrl>AddItemsFromInventory?shipmentId=${shipmentId}</@ofbizUrl>">${uiLabelMap.ProductOrderItems}</a></li>
+        </#if>
         <#if shipment.shipmentTypeId?exists && shipment.shipmentTypeId='PURCHASE_SHIPMENT' && shipment.destinationFacilityId?exists>
             <li<#if selected="ReceiveInventory"> class="selected"</#if>><a href="<@ofbizUrl>ReceiveInventory?shipmentId=${shipmentId}&facilityId=${shipment.destinationFacilityId?if_exists}<#if shipment.primaryOrderId?exists>&purchaseOrderId=${shipment.primaryOrderId}</#if></@ofbizUrl>">${uiLabelMap.ProductReceiveInventory}</a></li>
         </#if>
