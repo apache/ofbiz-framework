@@ -25,9 +25,9 @@ under the License.
 <div id="microcart">
     <div>
         <#if (shoppingCartSize > 0)>
-            ${uiLabelMap.EcommerceCartHas} ${shoppingCart.getTotalQuantity()}
+            ${uiLabelMap.EcommerceCartHas} <span id="microCartQuantity">${shoppingCart.getTotalQuantity()}</span>
             <#if shoppingCart.getTotalQuantity() == 1>${uiLabelMap.OrderItem}<#else/>${uiLabelMap.OrderItems}</#if>,
-            <@ofbizCurrency amount=shoppingCart.getGrandTotal() isoCode=shoppingCart.getCurrency()/>
+            <span id="microCartTotal"><@ofbizCurrency amount=shoppingCart.getGrandTotal() isoCode=shoppingCart.getCurrency()/></span>
         <#else>
             ${uiLabelMap.OrderShoppingCartEmpty}
         </#if>
