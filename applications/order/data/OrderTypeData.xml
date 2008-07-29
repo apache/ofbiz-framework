@@ -108,6 +108,7 @@ under the License.
     <StatusItem description="Created" sequenceId="01" statusCode="CREATED" statusId="ORDER_CREATED" statusTypeId="ORDER_STATUS"/>
     <StatusItem description="Processing" sequenceId="04" statusCode="PROCESSING" statusId="ORDER_PROCESSING" statusTypeId="ORDER_STATUS"/>
     <StatusItem description="Approved" sequenceId="05" statusCode="APPROVED" statusId="ORDER_APPROVED" statusTypeId="ORDER_STATUS"/>
+    <StatusItem description="Sent" sequenceId="03" statusCode="SENT" statusId="ORDER_SENT" statusTypeId="ORDER_STATUS"/>
     <StatusItem description="Held" sequenceId="06" statusCode="HELD" statusId="ORDER_HOLD" statusTypeId="ORDER_STATUS"/>
     <StatusItem description="Completed" sequenceId="10" statusCode="COMPLETED" statusId="ORDER_COMPLETED" statusTypeId="ORDER_STATUS"/>
     <StatusItem description="Rejected" sequenceId="98" statusCode="REJECTED" statusId="ORDER_REJECTED" statusTypeId="ORDER_STATUS"/>
@@ -129,6 +130,7 @@ under the License.
     <StatusValidChange condition="" statusId="ORDER_PROCESSING" statusIdTo="ORDER_APPROVED" transitionName="Approve Order"/>
     <StatusValidChange condition="" statusId="ORDER_PROCESSING" statusIdTo="ORDER_REJECTED" transitionName="Reject Order"/>
     <StatusValidChange condition="" statusId="ORDER_PROCESSING" statusIdTo="ORDER_CANCELLED" transitionName="Cancel Order"/>
+    <StatusValidChange condition="" statusId="ORDER_APPROVED" statusIdTo="ORDER_SENT" transitionName="Send Order"/>
     <StatusValidChange condition="" statusId="ORDER_APPROVED" statusIdTo="ORDER_PROCESSING" transitionName="Process Order"/>
     <StatusValidChange condition="" statusId="ORDER_APPROVED" statusIdTo="ORDER_COMPLETED" transitionName="Complete Order"/>
     <StatusValidChange condition="" statusId="ORDER_APPROVED" statusIdTo="ORDER_CANCELLED" transitionName="Cancel Order"/>
@@ -136,6 +138,8 @@ under the License.
     <StatusValidChange condition="" statusId="ORDER_HOLD" statusIdTo="ORDER_PROCESSING" transitionName="Process Order"/>
     <StatusValidChange condition="" statusId="ORDER_HOLD" statusIdTo="ORDER_APPROVED" transitionName="Approve Order"/>
     <StatusValidChange condition="" statusId="ORDER_HOLD" statusIdTo="ORDER_CANCELLED" transitionName="Cancel Order"/>
+    <StatusValidChange condition="" statusId="ORDER_SENT" statusIdTo="ORDER_COMPLETED" transitionName="Order Completed"/>
+    <StatusValidChange condition="" statusId="ORDER_SENT" statusIdTo="ORDER_CANCELLED" transitionName="Order Cancelled"/>
     <StatusValidChange condition="" statusId="ITEM_CREATED" statusIdTo="ITEM_APPROVED" transitionName="Approve Item"/>
     <StatusValidChange condition="" statusId="ITEM_CREATED" statusIdTo="ITEM_REJECTED" transitionName="Reject Item"/>
     <StatusValidChange condition="" statusId="ITEM_CREATED" statusIdTo="ITEM_CANCELLED" transitionName="Cancel Item"/>
