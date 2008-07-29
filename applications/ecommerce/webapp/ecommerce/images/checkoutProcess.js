@@ -477,12 +477,10 @@ function updateCartData(elementId, formValues, itemQty, itemIndex) {
                 $('checkoutPanel').hide();
             } else {
                 // Used for edit cart
-            	 $('microCartQuantity').update(data.totalQuantity);
                 $('cartSubTotal').update(data.subTotalCurrencyFormatted);
                 $('cartDiscountValue').update(data.displayOrderAdjustmentsTotalCurrencyFormatted);
                 $('cartTotalShipping').update(data.totalShippingCurrencyFormatted);
                 $('cartTotalSalesTax').update(data.totalSalesTaxCurrencyFormatted);
-                $('microCartTotal').update(data.displayGrandTotalCurrencyFormatted);
                 $('cartDisplayGrandTotal').update(data.displayGrandTotalCurrencyFormatted);
                 // Used for summary 
                 $('completedCartSubTotal').update(data.subTotalCurrencyFormatted);
