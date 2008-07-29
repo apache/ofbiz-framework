@@ -486,7 +486,6 @@ under the License.
                 <input type="hidden" id="billingPartyId" name="partyId" value="${parameters.partyId?if_exists}"/>
                 <input type="hidden" name="userLogin" value="${parameters.userLogin?if_exists}"/>
                 <input type="hidden" name="expireDate" value="${parameters.expireDate?if_exists}"/>
-                <input type="hidden" id="cardType" name="cardType" value="Visa"/>
                 <div id="billingFormServerError" class="errorMessage"></div>
                   <table>
                     <tr><td valign="top">
@@ -504,6 +503,19 @@ under the License.
                           </div>
                           <div class="field-widget">
                             <input id="lastNameOnCard" name="lastNameOnCard" class="inputBox required" type="text" value="${parameters.lastNameOnCard?if_exists}"/>
+                          </div>
+                        </div>
+                        <div class="form-row">
+                          <div class="field-label">
+                            <label for="cardType">${uiLabelMap.AccountingCardType}<span>*</span><span id="advice-required-cardType" style="display: none;" class="errorMessage"> (required)</span></label>
+                          </div>
+                          <div class="field-widget">
+                            <select name="cardType" id="cardType">
+                              <#if parameters.cardType?has_content>
+                                <option label="${parameters.cardType?if_exists}" value="${parameters.cardType?if_exists}">${parameters.cardType?if_exists}</option>
+                              </#if>
+                              ${screens.render("component://common/widget/CommonScreens.xml#cctypes")}
+                            </select>
                           </div>
                         </div>
                         <div class="form-row">
