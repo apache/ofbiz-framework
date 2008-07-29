@@ -5871,6 +5871,7 @@
     </property>
     <property key="ProductAddItemsFromInventory">
         <value xml:lang="en">Add Items From Inventory</value>
+        <value xml:lang="fr">Ajouter un article depuis le stock</value>
     </property>        
     <property key="ProductCrossSell">
         <value xml:lang="en">You might be interested in these as well:</value>
@@ -10607,6 +10608,7 @@
     </property>
     <property key="ProductIssueInventoryItemsToShipment">
         <value xml:lang="en">Issue Inventory Item(s) to Shipment</value>
+        <value xml:lang="fr">Prélevé un(des) article(s) du stock pour les expédier</value>
     </property>        
     <property key="ProductIssuedQuantity">
         <value xml:lang="en">Issued Quantity</value>
@@ -11084,6 +11086,7 @@
     </property>
     <property key="ProductLookupInventory">
         <value xml:lang="en">Lookup Inventory(s)</value>
+        <value xml:lang="fr">Consulter le stock</value>
     </property>        
     <property key="ProductLookupShipment">
         <value xml:lang="en">Lookup Shipment(s)</value>
@@ -13476,6 +13479,7 @@
     </property>
     <property key="ProductPrimaryReturnId">
         <value xml:lang="en">Primary Return ID</value>
+        <value xml:lang="fr">Réf. de retour principale</value>
     </property>        
     <property key="ProductPrimaryShipGroupSeqId">
         <value xml:lang="en">Primary Ship Group Seq Id</value>
@@ -15957,6 +15961,7 @@
     </property>
     <property key="ProductShipmentQty">
         <value xml:lang="en">Shipment Qty</value>
+        <value xml:lang="fr">Qté expédiée</value>
     </property>        
     <property key="ProductShipmentQuickComplete">
         <value xml:lang="en">Quick Complete Drop Shipment</value>
