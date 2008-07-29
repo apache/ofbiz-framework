@@ -237,7 +237,7 @@ function processShippingAddress() {
 }
 
 function createUpdateCustomerAndShippingAddress() {
-    new Ajax.Request('/ecommerce/control/createUpdateShippingAddress', {
+    new Ajax.Request('createUpdateShippingAddress', {
         asynchronous: false, 
         onSuccess: function(transport) {
             var data = transport.responseText.evalJSON(true);
@@ -264,7 +264,7 @@ function getShipOptions() {
     var shipOptions = null;
     var optionList = [];
     if ($F('shipMethod') == "" || $F('shipMethod') == null) {
-	    new Ajax.Request('/ecommerce/control/getShipOptions', {
+	    new Ajax.Request('getShipOptions', {
             asynchronous: false,
             onSuccess: function(transport) {
                 var data = transport.responseText.evalJSON(true);
@@ -306,7 +306,7 @@ function setDataInShippingCompleted() {
 var shipTotal = null;
 var shipMethod = null;
 function setShippingOption() {
-    new Ajax.Request('/ecommerce/control/setShippingOption', {
+    new Ajax.Request('setShippingOption', {
         asynchronous: false,
         onSuccess: function(transport) {
             var data = transport.responseText.evalJSON(true);
@@ -357,7 +357,7 @@ function useShippingAddressForBillingToggle() {
 }
 
 function processBillingAndPayment() {
-    new Ajax.Request('/ecommerce/control/createUpdateBillingAndPayment', {
+    new Ajax.Request('createUpdateBillingAndPayment', {
         asynchronous: false, 
         onSuccess: function(transport) {
             var data = transport.responseText.evalJSON(true);
@@ -410,7 +410,7 @@ function initCartProcessObservers() {
 }
 
 function addPromoCode() {
-    new Ajax.Request('/ecommerce/control/silentAddPromoCode', {
+    new Ajax.Request('silentAddPromoCode', {
         asynchronous: false, 
         onSuccess: function(transport) {
             var data = transport.responseText.evalJSON(true);
@@ -431,7 +431,7 @@ function getProductLineItemIndex(event, productId) {
     var itemIndex = null;
     var productIdParam = "productId=" + productId;
     var formValues = $('cartForm').serialize() + "&" + productIdParam;
-    new Ajax.Request('/ecommerce/control/getShoppingCartItemIndex', {
+    new Ajax.Request('getShoppingCartItemIndex', {
         asynchronous: false, 
         onSuccess: function(transport) {
             var data = transport.responseText.evalJSON(true);
@@ -468,7 +468,7 @@ function cartItemQtyChanged(event) {
 }
 
 function updateCartData(elementId, formValues, itemQty, itemIndex) {
-    new Ajax.Request('/ecommerce/control/cartItemQtyUpdate', {
+    new Ajax.Request('cartItemQtyUpdate', {
         asynchronous: true, 
         onSuccess: function(transport) {
             var data = transport.responseText.evalJSON(true);
