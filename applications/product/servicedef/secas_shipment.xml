@@ -75,7 +75,15 @@ under the License.
         <condition field-name="shipmentTypeId" operator="equals" value="SALES_RETURN"/>
         <action service="createInvoicesFromReturnShipment" mode="sync" run-as-user="system"/>
     </eca>
-
+    
+    <!-- if new status of a PURCHASE_RETURN is SHIPMENT_SHIPPED, create a return invoice -->
+    <eca service="updateShipment" event="commit">
+        <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
+        <condition field-name="statusId" operator="equals" value="SHIPMENT_SHIPPED"/>
+        <condition field-name="shipmentTypeId" operator="equals" value="PURCHASE_RETURN"/>
+        <action service="createInvoicesFromReturnShipment" mode="sync" run-as-user="system"/>
+    </eca>
+    
     <!-- if new statusId is SHIPMENT_SCHEDULED, send notification -->
     <eca service="createShipment" event="commit">
         <condition field-name="statusId" operator="equals" value="SHIPMENT_SCHEDULED"/>

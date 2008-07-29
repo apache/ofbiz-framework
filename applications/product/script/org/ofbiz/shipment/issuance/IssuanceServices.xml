@@ -530,4 +530,55 @@ under the License.
         <field-to-result field-name="toCancelQuantity" result-name="canceledQuantity"/>
     </simple-method>    
     
+    <simple-method method-name="issueInventoryItemToShipment" short-description="Issue InventoryItem To Shipment">
+        <set field="shipmentId" from-field="parameters.shipmentId"/>
+        <set field="shipmentItemSeqId" from-field="parameters.shipmentItemSeqId"/>
+        <entity-one entity-name="InventoryItem" value-name="inventoryItem"/>
+        <entity-and entity-name="ReturnItemShipment" list-name="returnItemShipments">
+          <field-map field-name="shipmentId" env-name="parameters.shipmentId"/>
+          <field-map field-name="shipmentItemSeqId" env-name="parameters.shipmentItemSeqId"/>
+        </entity-and>
+        <first-from-list list-name="returnItemShipments" entry-name="returnItemShipment"/>
+        <calculate field-name="quantityNotIssued">
+          <calcop operator="subtract" field-name="returnItemShipment.quantity">
+              <calcop operator="get" field-name="parameters.totalIssuedQty"/>
+          </calcop>
+        </calculate>
+        <!-- make sure specified quantity is not less than or equal to 0 -->
+        <if-compare field="parameters.quantity" operator="less-equals" value="0" type="Double">
+            <add-error><fail-message message="Not issuing InventoryItem to Shipment [${parameters.shipmentId}:$${parameters.shipmentItemSeqId}] because the quantity to issue [${parameters.quantity}] is less than or equal to 0 for inventoryItem [${inventoryItem.inventoryItemId}]"/></add-error>
+        </if-compare>
+        <!-- make sure specified quantity is not greater than available quantity left to be issued, i.e. intentoryItem.availableToPromiseTotal -->
+        <if-compare-field field="parameters.quantity" to-field="inventoryItem.availableToPromiseTotal" operator="greater" type="Double">
+            <add-error><fail-message message="Not issuing InventoryItem to Shipment [${parameters.shipmentId}:${parameters.shipmentItemSeqId}] because the quantity to issue [${parameters.quantity}] is greater than the quantity left to issue (ie the ATP or Available To Promise) [${intentoryItem.availableToPromiseTotal}] for inventoryItem [${parameters.inventoryItemId}]"/></add-error>
+        </if-compare-field>
+        <!-- make sure specified quantity is not greater than total return quantity -->
+        <if-compare-field field="parameters.quantity" to-field="quantityNotIssued" operator="greater" type="Double">
+            <add-error><fail-message message="Not issuing InventoryItem to Shipment [${parameters.shipmentId}:${parameters.shipmentItemSeqId}] because the quantity to issue [${parameters.quantity}] is greater than the quantity left to return for inventoryItem [${parameters.inventoryItemId}]"/></add-error>
+        </if-compare-field>        
+        <check-errors/>
+        
+        <!-- create the ItemIssuance -->
+        <set field="itemIssuanceCreate.quantity" from-field="parameters.quantity"/>
+        <set field="itemIssuanceCreate.inventoryItemId" from-field="parameters.inventoryItemId"/>
+        <set field="itemIssuanceCreate.shipmentId" from-field="shipmentId"/>
+        <set field="itemIssuanceCreate.shipmentItemSeqId" from-field="shipmentItemSeqId"/>
+        <set field="itemIssuanceCreate.issuedByUserLoginId" from-field="userLogin.userLoginId" />
+        <call-service service-name="createItemIssuance" in-map-name="itemIssuanceCreate">
+            <result-to-field result-name="itemIssuanceId"/>
+        </call-service>
+        <field-to-result field-name="itemIssuanceId"/>
+
+        <set field="createDetailMap.inventoryItemId" from-field="inventoryItem.inventoryItemId"/>
+        <set field="createDetailMap.itemIssuanceId" from-field="itemIssuanceId"/>
+        <set field="createDetailMap.shipmentId" from-field="shipmentId"/>
+        <set field="createDetailMap.shipmentItemSeqId" from-field="shipmentItemSeqId"/>
+        <calculate field-name="createDetailMap.quantityOnHandDiff" type="Double">
+            <calcop field-name="parameters.quantity" operator="negative"/>
+        </calculate>
+        <calculate field-name="createDetailMap.availableToPromiseDiff" type="Double">
+            <calcop field-name="parameters.quantity" operator="negative"/>
+        </calculate>
+        <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
+    </simple-method>    
 </simple-methods>

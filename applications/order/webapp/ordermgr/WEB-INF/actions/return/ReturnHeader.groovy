@@ -75,6 +75,8 @@ context.addresses = addresses;
 
 if (returnHeader) {
     contactMechTo = ContactMechWorker.getFacilityContactMechByPurpose(delegator, returnHeader.destinationFacilityId, ["PUR_RET_LOCATION", "SHIPPING_LOCATION", "PRIMARY_LOCATION"]);
-    postalAddressTo = delegator.findOne("PostalAddress", [contactMechId : contactMechTo.contactMechId], true);
-    context.postalAddressTo = postalAddressTo;
+    if (contactMechTo) {
+        postalAddressTo = delegator.findOne("PostalAddress", [contactMechId : contactMechTo.contactMechId], true);
+        context.postalAddressTo = postalAddressTo;
+    }    
 }

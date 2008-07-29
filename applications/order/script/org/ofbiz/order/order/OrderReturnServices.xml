@@ -34,26 +34,37 @@ under the License.
                 <add-error><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateReturnHeader"/></add-error>
             </then>
         </if>
-
+        <set field="returnHeaderTypeId" from-field="parameters.returnHeaderTypeId"/>
         <if-empty field="parameters.toPartyId">
-            <!-- no toPartyId was specified.  use destination facility to determine the party of the return -->
-            <if-not-empty field="parameters.destinationFacilityId">
-                <entity-one entity-name="Facility" value-name="destinationFacility" auto-field-map="false">
-                    <field-map field-name="facilityId" env-name="parameters.destinationFacilityId"/>
-                </entity-one>
-                <set from-field="destinationFacility.ownerPartyId" field="parameters.toPartyId"/>
-            </if-not-empty>
+            <!-- no toPartyId was specified. use destination facility to determine the party of the return -->
+            <if-compare field="returnHeaderTypeId" operator="equals" value="CUSTOMER_RETURN">
+                <if-not-empty field="parameters.destinationFacilityId">
+                    <entity-one entity-name="Facility" value-name="destinationFacility" auto-field-map="false">
+                        <field-map field-name="facilityId" env-name="parameters.destinationFacilityId"/>
+                    </entity-one>
+                    <set from-field="destinationFacility.ownerPartyId" field="parameters.toPartyId"/>
+                </if-not-empty>
+            </if-compare>
         <else>
-            <!-- make sure that the party to return to is an INTERNAL_ORGANIZATIO or stop
-            TODO: if we want to implement returns to vendor later, simply change this to make sure that EITHER fromPartyId or toPartyId
-            is an internal organization, and possibly also do a security check on the user -->
-            <entity-one entity-name="PartyRole" value-name="partyRole" use-cache="true" auto-field-map="false">
-                <field-map field-name="partyId" env-name="parameters.toPartyId"/>
-                <field-map field-name="roleTypeId" value="INTERNAL_ORGANIZATIO"/>
-            </entity-one>
-            <if-empty field="partyRole">
-                <add-error><fail-message message="Error: a return must be to a party in the role of internal organization"/></add-error>
-            </if-empty>
+            <!-- make sure that the party to return to is an INTERNAL_ORGANIZATIO for customer return and SUPPLIER for vendor return else stop -->
+            <if-compare field="returnHeaderTypeId" operator="equals" value="CUSTOMER_RETURN">
+                <entity-one entity-name="PartyRole" value-name="partyRole" use-cache="true" auto-field-map="false">
+                    <field-map field-name="partyId" env-name="parameters.toPartyId"/>
+                    <field-map field-name="roleTypeId" value="INTERNAL_ORGANIZATIO"/>
+                </entity-one>
+                <if-empty field="partyRole">
+                    <add-error><fail-message message="Error: a return must be to a party in the role of internal organization"/></add-error>
+                </if-empty>
+            <else>
+                <entity-one entity-name="PartyRole" value-name="partyRole" use-cache="true" auto-field-map="false">
+                    <field-map field-name="partyId" env-name="parameters.toPartyId"/>
+                    <field-map field-name="roleTypeId" value="SUPPLIER"/>
+                </entity-one>
+                <if-empty field="partyRole">
+                    <add-error><fail-message message="Error: a return must be to a party in the role of supplier"/></add-error>
+                </if-empty>            
+            </else>                    
+            </if-compare>    
          </else>
         </if-empty>
         <check-errors/>
@@ -88,7 +99,12 @@ under the License.
                 <not><if-has-permission permission="ORDERMGR" action="_CREATE"/></not>
             </condition>
             <then>
-                <set field="newEntity.statusId" value="RETURN_REQUESTED"/>
+                <if-compare field="returnHeaderTypeId" operator="equals" value="CUSTOMER_RETURN">
+                    <set field="newEntity.statusId" value="RETURN_REQUESTED"/>
+                <else>
+                    <set field="newEntity.statusId" value="SUP_RETURN_REQUESTED"/>
+                </else>    
+                </if-compare>              
                 <set from-field="nowTimestamp" field="newEntity.entryDate"/>
             </then>
         </if>
@@ -98,7 +114,12 @@ under the License.
         </if-empty>
 
         <if-empty field="newEntity.statusId">
-            <set value="RETURN_REQUESTED" field="newEntity.statusId"/>
+            <if-compare field="returnHeaderTypeId" operator="equals" value="CUSTOMER_RETURN">
+                <set field="newEntity.statusId" value="RETURN_REQUESTED"/>
+            <else>
+                <set field="newEntity.statusId" value="SUP_RETURN_REQUESTED"/>
+            </else>    
+            </if-compare>     
         </if-empty>
         <set field="newEntity.createdBy" from-field="userLogin.userLoginId"/>
 
@@ -623,31 +644,40 @@ under the License.
         <entity-one entity-name="OrderHeader" value-name="orderHeader">
             <field-map env-name="parameters.orderId" field-name="orderId"/>
         </entity-one>
-
+        <set field="returnHeaderTypeId" from-field="parameters.returnHeaderTypeId"/>
+        <if-compare field="returnHeaderTypeId" operator="equals" value="CUSTOMER_RETURN">
+            <set field="roleTypeId" value="BILL_TO_CUSTOMER"/>
+        <else>
+            <set field="roleTypeId" value="BILL_FROM_VENDOR"/>
+        </else>    
+        </if-compare>
+        
         <!-- find the bill to customer; for return's fromPartyId -->
         <entity-condition entity-name="OrderRole" list-name="orderRoles">
             <condition-list combine="and">
                 <condition-expr field-name="orderId" operator="equals" env-name="orderHeader.orderId"/>
-                <condition-expr field-name="roleTypeId" operator="equals" value="BILL_TO_CUSTOMER"/>
+                <condition-expr field-name="roleTypeId" operator="equals" env-name="roleTypeId"/>
             </condition-list>
         </entity-condition>
         <first-from-list entry-name="orderRole" list-name="orderRoles"/>
-
         <!-- create the return header -->
         <set from-field="orderHeader.originFacilityId" field="createHeaderCtx.destinationFacilityId"/>
-        <set from-field="orderRole.partyId" field="createHeaderCtx.fromPartyId"/>
         <set value="Y" field="updateHeaderCtx.needsInventoryReceive"/>
-        <set from-field="parameters.returnHeaderTypeId" field="createHeaderCtx.returnHeaderTypeId"/>
-
-        <!-- get the return to party from the product store -->
+        <set from-field="returnHeaderTypeId" field="createHeaderCtx.returnHeaderTypeId"/>
+        
+        <!-- get the return to party for customer return and return from party for vendor return from the product store -->
         <get-related-one relation-name="ProductStore" value-name="orderHeader" to-value-name="productStore"/>
-        <set from-field="productStore.payToPartyId" field="createHeaderCtx.toPartyId"/>
-
-        <if-empty field="createHeaderCtx.destinationFacilityId">
-            <get-related-one value-name="orderHeader" relation-name="ProductStore" to-value-name="productStore"/>
-            <set from-field="productStore.inventoryFacilityId" field="createHeaderCtx.destinationFacilityId"/>
-        </if-empty>
-
+        <if-compare field="returnHeaderTypeId" operator="equals" value="CUSTOMER_RETURN">
+            <set field="createHeaderCtx.fromPartyId" from-field="orderRole.partyId"/>
+            <set field="createHeaderCtx.toPartyId" from-field="productStore.payToPartyId"/>
+            <if-empty field="createHeaderCtx.destinationFacilityId">
+                <set field="createHeaderCtx.destinationFacilityId" from-field="productStore.inventoryFacilityId"/>
+            </if-empty>
+        <else>
+            <set field="createHeaderCtx.fromPartyId" from-field="productStore.payToPartyId"/>
+            <set field="createHeaderCtx.toPartyId" from-field="orderRole.partyId"/>
+        </else>    
+        </if-compare>
         <!-- copy over the currency of the order to the currency of the return -->
         <set from-field="orderHeader.currencyUom" field="createHeaderCtx.currencyUomId"/>
 
@@ -702,14 +732,14 @@ under the License.
                 </entity-one>
                 <entity-one entity-name="ReturnItemTypeMap" value-name="returnItemTypeMapping">
                     <field-map env-name="product.productTypeId" field-name="returnItemMapKey"/>
-                    <field-map value="CUSTOMER_RETURN" field-name="returnHeaderTypeId"/>
+                    <field-map env-name="returnHeaderTypeId" field-name="returnHeaderTypeId"/>
                 </entity-one>
             <else>
             <!-- if not, try the ReturnItemTypeMap, but this may not actually work, so log a warning -->
                 <log level="warning" message="Trying to find returnItemtype from ReturnItemTypeMap with orderItemtypeId [${orderItem.orderItemTypeId}] for order item [${orderItem}]"/>
                 <entity-one entity-name="ReturnItemTypeMap" value-name="returnItemTypeMapping">
                    <field-map env-name="orderItemTypeId" field-name="returnItemMapKey"/>
-                   <field-map value="CUSTOMER_RETURN" field-name="returnHeaderTypeId"/>
+                   <field-map env-name="returnHeaderTypeId" field-name="returnHeaderTypeId"/>
                 </entity-one>
             </else>
             </if-compare>
@@ -780,20 +810,26 @@ under the License.
         </if-compare>
 
         <!-- update the header status -->
-        <set value="RETURN_ACCEPTED" field="updateHeaderCtx.statusId"/>
+        <if-compare field="returnHeaderTypeId" operator="equals" value="CUSTOMER_RETURN">
+            <set field="updateHeaderCtx.statusId" value="RETURN_ACCEPTED"/>
+        <else>
+            <set field="updateHeaderCtx.statusId" value="SUP_RETURN_ACCEPTED"/>
+        </else>    
+        </if-compare>    
         <set from-field="returnId" field="updateHeaderCtx.returnId"/>
         <call-service service-name="updateReturnHeader" in-map-name="updateHeaderCtx" include-user-login="true"/>
 
-        <!-- auto-receive this return if we passed in the flag -->
-        <if-compare field="parameters.receiveReturn" operator="equals" value="true" type="Boolean">
-            <set from-field="returnId" field="receiveCtx.returnId"/>
-            <call-service service-name="quickReceiveReturn" in-map-name="receiveCtx"/>
-        <else>
-            <!-- update the header status -->
-            <log level="info" message="Receive flag not set; will handle receiving on entity-sync"/>
-        </else>
+        <if-compare field="returnHeaderTypeId" operator="equals" value="CUSTOMER_RETURN">
+            <!-- auto-receive this return if we passed in the flag -->
+            <if-compare field="parameters.receiveReturn" operator="equals" value="true" type="Boolean">
+                <set from-field="returnId" field="receiveCtx.returnId"/>
+                <call-service service-name="quickReceiveReturn" in-map-name="receiveCtx"/>
+            <else>
+                <!-- update the header status -->
+                <log level="info" message="Receive flag not set; will handle receiving on entity-sync"/>
+            </else>
+            </if-compare>
         </if-compare>
-
         <field-to-result field-name="returnId"/>
     </simple-method>
 
@@ -889,4 +925,19 @@ under the License.
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
+    
+    <simple-method method-name="getStatusItemsForReturn" short-description="Get the return status associated with customer vs. vendor return">
+        <if-compare field="parameters.returnHeaderTypeId" operator="equals" value="CUSTOMER_RETURN">
+            <entity-and entity-name="StatusItem" list-name="statusItems">
+                <field-map field-name="statusTypeId" value="ORDER_RETURN_STTS"/>
+            </entity-and>
+            <field-to-result field-name="statusItems"/>
+        <else>
+            <entity-and entity-name="StatusItem" list-name="statusItems">
+                <field-map field-name="statusTypeId" value="PORDER_RETURN_STTS"/>
+            </entity-and>
+            <field-to-result field-name="statusItems"/>
+        </else>
+        </if-compare>
+    </simple-method>    
 </simple-methods>

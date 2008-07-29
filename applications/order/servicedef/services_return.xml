@@ -294,4 +294,11 @@ under the License.
         <description>Create a new ReturnItemShipment</description>
         <auto-attributes entity-name="ReturnItemShipment" include="all" mode="IN" optional="false"/>
     </service>
+    
+    <service name="getStatusItemsForReturn" engine="simple"
+            location="org/ofbiz/order/order/OrderReturnServices.xml" invoke="getStatusItemsForReturn">
+        <description>Get the return status associated with customer/vendor return</description>
+        <attribute name="returnHeaderTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="statusItems" type="List" mode="OUT" optional="false"/>
+    </service>    
 </services>

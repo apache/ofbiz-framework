@@ -5869,6 +5869,9 @@
         <value xml:lang="it">Markup Percentuale</value>
         <value xml:lang="th">เพิ่มราคาอัตราร้อยละ</value>
     </property>
+    <property key="ProductAddItemsFromInventory">
+        <value xml:lang="en">Add Items From Inventory</value>
+    </property>        
     <property key="ProductCrossSell">
         <value xml:lang="en">You might be interested in these as well:</value>
         <value xml:lang="fr">Vous pourriez aussi être intéressé(e) par ceci :</value>
@@ -10602,6 +10605,9 @@
         <value xml:lang="th">จำนวนทั้งหมด</value>
         <value xml:lang="zh">全部交付</value>
     </property>
+    <property key="ProductIssueInventoryItemsToShipment">
+        <value xml:lang="en">Issue Inventory Item(s) to Shipment</value>
+    </property>        
     <property key="ProductIssuedQuantity">
         <value xml:lang="en">Issued Quantity</value>
         <value xml:lang="es">Cantidad publicada</value>
@@ -11076,6 +11082,9 @@
         <value xml:lang="th">คำอธิบาย</value>
         <value xml:lang="zh">详细描述</value>
     </property>
+    <property key="ProductLookupInventory">
+        <value xml:lang="en">Lookup Inventory(s)</value>
+    </property>        
     <property key="ProductLookupShipment">
         <value xml:lang="en">Lookup Shipment(s)</value>
         <value xml:lang="es">Buscar envío(s)</value>
@@ -13465,6 +13474,9 @@
         <value xml:lang="th">กลุ่มในขั้นพื้นฐาน</value>
         <value xml:lang="zh">主要上级组</value>
     </property>
+    <property key="ProductPrimaryReturnId">
+        <value xml:lang="en">Primary Return ID</value>
+    </property>        
     <property key="ProductPrimaryShipGroupSeqId">
         <value xml:lang="en">Primary Ship Group Seq Id</value>
         <value xml:lang="es">Código de secuencia del grupo primario de envío</value>
@@ -15943,6 +15955,9 @@
         <value xml:lang="th">แผนการขนส่ง --> รายการการสั่งซื้อ</value>
         <value xml:lang="zh">货运计划 --> 订单明细</value>
     </property>
+    <property key="ProductShipmentQty">
+        <value xml:lang="en">Shipment Qty</value>
+    </property>        
     <property key="ProductShipmentQuickComplete">
         <value xml:lang="en">Quick Complete Drop Shipment</value>
         <value xml:lang="fr">Rapide livraison complète par un tiers</value>

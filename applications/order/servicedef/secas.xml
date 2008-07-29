@@ -202,6 +202,11 @@ under the License.
         <action service="cancelReturnItems" mode="sync"/>
         <action service="sendReturnCancelNotification" mode="async" persist="true"/>
     </eca>
+    <eca service="updateReturnHeader" event="commit">
+        <condition field-name="statusId" operator="equals" value="SUP_RETURN_SHIPPED"/>
+        <condition field-name="currentStatusId" operator="not-equals" value="SUP_RETURN_SHIPPED"/>
+        <action service="processWaitReplacementReturn" mode="sync"/>
+    </eca>
 
     <eca service="updateReturnItem" event="commit">
         <condition field-name="statusId" operator="equals" value="RETURN_CANCELLED"/>

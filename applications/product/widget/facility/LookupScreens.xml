@@ -94,5 +94,21 @@ under the License.
                 </decorator-screen>
             </widgets>
         </section>
-    </screen>    
+    </screen>
+    
+    <screen name="LookupInventoryItem">
+        <section>
+            <actions>
+                <set field="title" value="${uiLabelMap.LookupInventoryItem}"/>
+                <service service-name="getInventoryItemForAssociatedOrderSupplierAndProduct" auto-field-map="parameters"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
+                    <decorator-section name="search-results">
+                        <include-form name="ListInventoryItem" location="component://product/webapp/facility/lookup/FieldLookupForms.xml" />
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>        
 </screens>

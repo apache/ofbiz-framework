@@ -43,6 +43,10 @@ under the License.
             <td width="80%" align="left"><#if shipment.primaryOrderId?exists><a href="/ordermgr/control/orderview?orderId=${shipment.primaryOrderId}" class="buttontext">${shipment.primaryOrderId}</a></#if></td>
           </tr>
           <tr>
+            <td width="20%" align="right" class="label">${uiLabelMap.ProductPrimaryReturnId}</td>
+            <td width="80%" align="left"><#if shipment.primaryReturnId?exists><a href="/ordermgr/control/returnMain?returnId=${shipment.primaryReturnId}" class="buttontext">${shipment.primaryReturnId}</a></#if></td>
+          </tr>          
+          <tr>
             <td width="20%" align="right" class="label">${uiLabelMap.ProductPrimaryShipGroupSeqId}</td>
             <td width="80%" align="left">${shipment.primaryShipGroupSeqId?if_exists}</td>
           </tr>
