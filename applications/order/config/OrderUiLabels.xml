@@ -2434,6 +2434,7 @@
     </property>
     <property key="OrderCreateReturnShipment">
         <value xml:lang="en">Create return shipment</value>
+        <value xml:lang="fr">Créer une expédition de retour</value>
     </property>        
     <property key="OrderCreateShippingAddress">
         <value xml:lang="en">Create New Shipping Address</value>
