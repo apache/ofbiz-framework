@@ -67,7 +67,6 @@ public class OrderListState {
         map.put("viewapproved", "ORDER_APPROVED");
         map.put("viewcreated", "ORDER_CREATED");
         map.put("viewprocessing", "ORDER_PROCESSING");
-        map.put("viewsent", "ORDER_SENT");
         map.put("viewhold", "ORDER_HOLD");
         parameterToOrderStatusId = map;
 

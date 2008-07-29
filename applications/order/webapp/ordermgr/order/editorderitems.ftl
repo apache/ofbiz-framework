@@ -161,7 +161,7 @@ float: right;
                             </td>
                             <td>&nbsp;</td>
                             <td>
-                                <#if ("Y" != orderItem.isPromo?if_exists) && ((security.hasEntityPermission("ORDERMGR", "_ADMIN", session) && orderItem.statusId != "ITEM_CANCELLED" && orderItem.statusId != "ITEM_COMPLETED") || (security.hasEntityPermission("ORDERMGR", "_UPDATE", session) && orderItem.statusId != "ITEM_CANCELLED" && orderItem.statusId != "ITEM_COMPLETED" && orderHeader.statusId != "ORDER_SENT"))>
+                                <#if ("Y" != orderItem.isPromo?if_exists) && ((security.hasEntityPermission("ORDERMGR", "_ADMIN", session) && orderItem.statusId != "ITEM_CANCELLED" && orderItem.statusId != "ITEM_COMPLETED") || (security.hasEntityPermission("ORDERMGR", "_UPDATE", session) && orderItem.statusId != "ITEM_CANCELLED" && orderItem.statusId != "ITEM_COMPLETED"))>
                                     <a href="javascript:document.updateItemInfo.action='<@ofbizUrl>cancelOrderItem?orderItemSeqId=${orderItem.orderItemSeqId}&amp;${paramString}</@ofbizUrl>';document.updateItemInfo.submit()" class="buttontext">${uiLabelMap.CommonCancelAll}</a>
                                 <#else>      
                                     &nbsp;
@@ -234,7 +234,7 @@ float: right;
                                 <td colspan="4">&nbsp;</td>
                                 <td>
                                     <#assign itemStatusOkay = (orderItem.statusId != "ITEM_CANCELLED" && orderItem.statusId != "ITEM_COMPLETED" && (shipGroupAssoc.cancelQuantity?default(0) < shipGroupAssoc.quantity?default(0)) && ("Y" != orderItem.isPromo?if_exists))>
-                                    <#if (security.hasEntityPermission("ORDERMGR", "_ADMIN", session) && itemStatusOkay) || (security.hasEntityPermission("ORDERMGR", "_UPDATE", session) && itemStatusOkay && orderHeader.statusId != "ORDER_SENT")>
+                                    <#if (security.hasEntityPermission("ORDERMGR", "_ADMIN", session) && itemStatusOkay) || (security.hasEntityPermission("ORDERMGR", "_UPDATE", session) && itemStatusOkay)>
                                         <a href="javascript:document.updateItemInfo.action='<@ofbizUrl>cancelOrderItem?orderItemSeqId=${orderItem.orderItemSeqId}&amp;shipGroupSeqId=${shipGroup.shipGroupSeqId}&amp;${paramString}</@ofbizUrl>';document.updateItemInfo.submit()" class="buttontext">${uiLabelMap.CommonCancel}</a>                                    
                                     <#else>      
                                         &nbsp;

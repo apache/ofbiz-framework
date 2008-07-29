@@ -176,7 +176,7 @@ under the License.
               </#if>
             </tr>
             <#-- now cancel reason and comment field -->
-            <#if maySelectItems?default("N") == "Y" && (orderHeader.statusId != "ORDER_SENT" && orderItem.statusId != "ITEM_COMPLETED" && orderItem.statusId != "ITEM_CANCELLED" && pickedQty == 0)>
+            <#if maySelectItems?default("N") == "Y" && (orderItem.statusId != "ITEM_COMPLETED" && orderItem.statusId != "ITEM_CANCELLED" && pickedQty == 0)>
 		      <tr align="right"><td colspan="7"><div class="tabletext"><b>${uiLabelMap.OrderReturnReason}</b>
 		          <select name="irm_${orderItem.orderItemSeqId}" class="selectBox">
 		            <option value="">&nbsp;</option>
