@@ -1747,9 +1747,12 @@ public class OrderServices {
                     }
                 }
                 
-                if ("ORDER_SENT".equals(orderHeaderStatusId)) changeToApprove = false;
-                if ("ORDER_COMPLETED".equals(orderHeaderStatusId)) changeToApprove = false;
-                if ("ORDER_CANCELLED".equals(orderHeaderStatusId)) changeToApprove = false;
+                if ("ORDER_COMPLETED".equals(orderHeaderStatusId)) {
+                    changeToApprove = false;
+                }
+                if ("ORDER_CANCELLED".equals(orderHeaderStatusId)) {
+                    changeToApprove = false;
+                }
                 
                 if (changeToApprove) {
                     newStatus = "ORDER_APPROVED";

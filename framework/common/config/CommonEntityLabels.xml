@@ -6121,17 +6121,6 @@
         <value xml:lang="th">ปฏิเสธ</value>
         <value xml:lang="zh">已拒绝</value>
     </property>
-    <property key="StatusItem.description.ORDER_SENT">
-        <value xml:lang="de">Übermittelt</value>
-        <value xml:lang="en">Sent</value>
-        <value xml:lang="fr">Envoyé</value>
-        <value xml:lang="it">Inviato</value>
-        <value xml:lang="pt">Enviada</value>
-        <value xml:lang="ro">Transmisa</value>
-        <value xml:lang="ru">Отослан</value>
-        <value xml:lang="th">ส่ง</value>
-        <value xml:lang="zh">已发送</value>
-    </property>
     <property key="StatusItem.description.PAYMENT_AUTHORIZED">
         <value xml:lang="de">Autorisiert</value>
         <value xml:lang="en">Authorized</value>
@@ -8512,16 +8501,6 @@
         <value xml:lang="th">การควบคุมรายการสั่งซื้อ</value>
         <value xml:lang="zh">保留订单</value>
     </property>
-    <property key="StatusValidChange.transitionName.ORDER_APPROVED.ORDER_SENT">
-        <value xml:lang="de">Auftrag übermitteln</value>
-        <value xml:lang="en">Send Order</value>
-        <value xml:lang="it">Invia Ordine</value>
-        <value xml:lang="pt">Enviar Encomenda</value>
-        <value xml:lang="ro">Trimite Comanda</value>
-        <value xml:lang="ru">Отослать заказ</value>
-        <value xml:lang="th">ส่งรายการสั่งซื้อ</value>
-        <value xml:lang="zh">发送订单</value>
-    </property>
     <property key="StatusValidChange.transitionName.ORDER_CREATED.ORDER_APPROVED">
         <value xml:lang="de">Auftrag genehmigen</value>
         <value xml:lang="en">Approve Order</value>
@@ -8605,26 +8584,6 @@
         <value xml:lang="ru">Отклонить заказ</value>
         <value xml:lang="th">ปฏิเสธรายการสั่งซื้อ</value>
         <value xml:lang="zh">拒绝订单</value>
-    </property>
-    <property key="StatusValidChange.transitionName.ORDER_SENT.ORDER_CANCELLED">
-        <value xml:lang="de">Auftrag ablehnen</value>
-        <value xml:lang="en">Order Cancelled</value>
-        <value xml:lang="it">Ordine Cancellato</value>
-        <value xml:lang="pt">Encomenda Cancelada</value>
-        <value xml:lang="ro">Comanda Stearsa</value>
-        <value xml:lang="ru">Заказ отменен</value>
-        <value xml:lang="th">ยกเลิกรายการสั่งซื้อ</value>
-        <value xml:lang="zh">订单已取消</value>
-    </property>
-    <property key="StatusValidChange.transitionName.ORDER_SENT.ORDER_COMPLETED">
-        <value xml:lang="de">Auftrag abgeschlossen</value>
-        <value xml:lang="en">Order Completed</value>
-        <value xml:lang="it">Ordine Completato</value>
-        <value xml:lang="pt">Encomenda Completa</value>
-        <value xml:lang="ro">Comanda Completata</value>
-        <value xml:lang="ru">Заказ завершен</value>
-        <value xml:lang="th">รายการสั่งซื้อเสร็จสมบูรณ์</value>
-        <value xml:lang="zh">订单已完成</value>
     </property>
     <property key="StatusValidChange.transitionName.PARTY_ENABLED.PARTY_DISABLED">
         <value xml:lang="de">Deaktiviert</value>
