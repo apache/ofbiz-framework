@@ -10608,7 +10608,7 @@
     </property>
     <property key="ProductIssueInventoryItemsToShipment">
         <value xml:lang="en">Issue Inventory Item(s) to Shipment</value>
-        <value xml:lang="fr">Prélevé un(des) article(s) du stock pour les expédier</value>
+        <value xml:lang="fr">Prélevé un(des) article(s) du stock pour l'(es) expédier</value>
     </property>        
     <property key="ProductIssuedQuantity">
         <value xml:lang="en">Issued Quantity</value>
