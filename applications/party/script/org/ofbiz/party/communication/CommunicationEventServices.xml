@@ -21,11 +21,19 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="createCommunicationEvent" short-description="Create a CommunicationEvent">
-        <!-- change status of parent comevent before creating new comevent so it shown in proper order on the list -->
         <if-not-empty field="parameters.parentCommEventId">
-            <set field="newStat.communicationEventId" from-field="parameters.parentCommEventId"/>
-            <set field="newStat.statusId" value="COM_COMPLETE"/>
-            <call-service service-name="setCommunicationEventRoleStatus" in-map-name="newStat"/>
+            <entity-and list-name="roles" entity-name="CommunicationEventRole">
+                <field-map field-name="communicationEventId" env-name="parameters.parentCommEventId"/>
+                <field-map field-name="partyId" env-name="parameters.partyIdFrom"/>
+            </entity-and>
+            <if-not-empty field="roles">
+                <first-from-list list-name="roles" entry-name="role"/>
+                <set field="newStat.communicationEventId" from-field="parameters.parentCommEventId"/>
+                <set field="newStat.partyId" from-field="parameters.partyIdFrom"/>
+                <set field="newStat.roleTypeId" from-field="role.roleTypeId"/>
+                <set field="newStat.statusId" value="COM_ROLE_COMPLETED"/>
+                <call-service service-name="setCommunicationEventRoleStatus" in-map-name="newStat"/>
+            </if-not-empty>
         </if-not-empty>
         
         <if-empty field="parameters.statusId">
