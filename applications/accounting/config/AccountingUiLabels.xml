@@ -2667,25 +2667,11 @@ esetata in mod automat</value>
         <value xml:lang="it">Contabilità Generale</value>
         <value xml:lang="th">บัญชีแยกประเภททั่วไป</value>
     </property>
-    <property key="AccountingGlAcc">
-        <value xml:lang="ar">حساب محاسبي</value>
-        <value xml:lang="en">GL Account</value>
-        <value xml:lang="es">Cuenta de LM</value>
-        <value xml:lang="fr">Compte comptable</value>
-        <value xml:lang="it">Conto Contabilità Generale</value>
-        <value xml:lang="nl">Grootboek Nr</value>
-        <value xml:lang="pt_BR">Conta GL</value>
-        <value xml:lang="pt_PT">Conta GL</value>
-        <value xml:lang="ro">Cont Contabilitate Generala</value>
-        <value xml:lang="ru">Счет ГК</value>
-        <value xml:lang="th">บัญชีแยกประเภททั่วไป</value>
-        <value xml:lang="zh">总账账户</value>
-    </property>
     <property key="AccountingGlAccount">
         <value xml:lang="ar">حساب محاسبي</value>
         <value xml:lang="en">GL Account</value>
         <value xml:lang="es">Cuenta de LM</value>
-        <value xml:lang="fr">Compte comptable</value>
+        <value xml:lang="fr">Compte</value>
         <value xml:lang="it">Conto Contabilità Generale</value>
         <value xml:lang="nl">GB Rekening</value>
         <value xml:lang="ro">Cont Contabilitate Generala</value>
@@ -2720,7 +2706,7 @@ esetata in mod automat</value>
         <value xml:lang="ar">القيم الإفتراضية للحساب المحاسبي</value>
         <value xml:lang="en">GL Account defaults</value>
         <value xml:lang="es">Valores predeterminados de cuentas de LM</value>
-        <value xml:lang="fr">Comptes comptables par défaut</value>
+        <value xml:lang="fr">Comptes par défaut</value>
         <value xml:lang="it">Defaults Conto Contabilità Generale</value>
         <value xml:lang="ro">Default Cont Contabilitate Generala</value>
         <value xml:lang="ru">Обычн. знач. счета ГК</value>
@@ -2748,7 +2734,7 @@ esetata in mod automat</value>
         <value xml:lang="ar">الحسابات المحاسبية</value>
         <value xml:lang="en">GL Accounts</value>
         <value xml:lang="es">Cuentas de LM</value>
-        <value xml:lang="fr">Comptes comptables</value>
+        <value xml:lang="fr">Comptes</value>
         <value xml:lang="it">Conti Contabilità Generale</value>
         <value xml:lang="nl">GB Rekeningen</value>
         <value xml:lang="ro">Conturi Contabilitate Generala</value>
@@ -5350,7 +5336,7 @@ esetata in mod automat</value>
     <property key="AccountingSalesInvoiceToRevenue">
         <value xml:lang="en">Sales Invoice type to Revenue GL Account Number assignment list</value>
         <value xml:lang="es">Lista de asignación tipo de factura de venta a número de cuenta de LM</value>
-        <value xml:lang="fr">Associations entre types de factures et comptes comptables de ventes</value>
+        <value xml:lang="fr">Associations entre types de factures et comptes de ventes</value>
         <value xml:lang="it">Lista Tipo Fattura Vendita assegnate al Numero Conto Profitti Gl</value>
         <value xml:lang="ro">Lista Tip Factura Vanzare anexata la  Nr.Cont Profituri Gl</value>
         <value xml:lang="ru">Лист назначений типов расходных накладных на номера доходных счетов ГК</value>
@@ -6024,7 +6010,7 @@ esetata in mod automat</value>
         <value xml:lang="ar">الحساب المحاسبي :</value>
         <value xml:lang="en">GL Account : </value>
         <value xml:lang="es">Cuenta LM :</value>
-        <value xml:lang="fr">Compte comptable: </value>
+        <value xml:lang="fr">Compte: </value>
         <value xml:lang="it">Conti Contabilità Generale: </value>
         <value xml:lang="nl">Groitboek rekeningen :</value>
         <value xml:lang="ro">Conturi Contabilitate Generala: </value>
@@ -6098,7 +6084,7 @@ esetata in mod automat</value>
         <value xml:lang="ar">إدراج المؤسسة المحاسبية</value>
         <value xml:lang="en">List GL Organization</value>
         <value xml:lang="es">Lista de organización de LM</value>
-        <value xml:lang="fr">Liste des comptes comptables de l'organisation</value>
+        <value xml:lang="fr">Liste des comptes de l'organisation</value>
         <value xml:lang="it">Lista Organizzazioni Contabilità Generale</value>
         <value xml:lang="nl">Lijst grootboek klanten</value>
         <value xml:lang="ro">Lista Operatii Contabile Generale</value>
@@ -6525,7 +6511,7 @@ esetata in mod automat</value>
     <property key="FormFieldTitle_creditGlAccountId">
         <value xml:lang="en">Credit Gl Account Id</value>
         <value xml:lang="es">Id Cuenta de LM Crédito</value>
-        <value xml:lang="fr">Compte comptable de crédit</value>
+        <value xml:lang="fr">Compte de crédit</value>
         <value xml:lang="it">Codice Conto Credito Gl</value>
         <value xml:lang="ro">Cod Cont Credit Gl</value>
         <value xml:lang="ru">Кредит счета ГК</value>
@@ -6626,7 +6612,7 @@ esetata in mod automat</value>
     <property key="FormFieldTitle_debitGlAccountId">
         <value xml:lang="en">Debit Gl Account Id</value>
         <value xml:lang="es">Id Cuenta de LM Débito</value>
-        <value xml:lang="fr">Compte comptable de débit</value>
+        <value xml:lang="fr">Compte de débit</value>
         <value xml:lang="it">Codice Conto Debito Gl</value>
         <value xml:lang="ro">Cod Cont Debit Gl</value>
         <value xml:lang="ru">Дебет счета ГК</value>
@@ -6636,7 +6622,7 @@ esetata in mod automat</value>
     <property key="FormFieldTitle_defaultGlAccountId">
         <value xml:lang="en">Default Gl Account Id</value>
         <value xml:lang="es">Id Cuenta de LM por omisión</value>
-        <value xml:lang="fr">Compte comptable par défaut</value>
+        <value xml:lang="fr">Compte par défaut</value>
         <value xml:lang="it">Default Conto Gl</value>
         <value xml:lang="ro">Default Cont Gl</value>
         <value xml:lang="ru">Код счета ГК по умолчанию</value>
@@ -6872,7 +6858,7 @@ esetata in mod automat</value>
         <value xml:lang="ar">دليل صنف الحساب المحاسبي</value>
         <value xml:lang="en">Gl Account Class Id</value>
         <value xml:lang="es">Id Clase de Cuenta LM</value>
-        <value xml:lang="fr">Classe de comptes comptables</value>
+        <value xml:lang="fr">Classe de comptes</value>
         <value xml:lang="it">Codice Classe Conto Gl</value>
         <value xml:lang="ro">Cod Clasa Cont Gl</value>
         <value xml:lang="ru">Код класса счета ГК</value>
@@ -6883,7 +6869,7 @@ esetata in mod automat</value>
         <value xml:lang="ar">دليل الحساب المحاسبي</value>
         <value xml:lang="en">Gl Account Id</value>
         <value xml:lang="es">Id Cuenta LM</value>
-        <value xml:lang="fr">Compte comptable</value>
+        <value xml:lang="fr">Réf. de compte</value>
         <value xml:lang="it">Codice Conto Gl</value>
         <value xml:lang="ro">Cod Cont Gl</value>
         <value xml:lang="ru">Код счета ГК</value>
@@ -7333,7 +7319,7 @@ esetata in mod automat</value>
     <property key="FormFieldTitle_parentGlAccountId">
         <value xml:lang="en">Parent Gl Account Id</value>
         <value xml:lang="es">Id Padre Cuenta de LM</value>
-        <value xml:lang="fr">Compte comptable parent</value>
+        <value xml:lang="fr">Compte parent</value>
         <value xml:lang="it">Codice Conto Padre Gl</value>
         <value xml:lang="ro">Cod Cont Parinte Gl</value>
         <value xml:lang="ru">Код родительского счета ГК</value>
@@ -8493,7 +8479,7 @@ esetata in mod automat</value>
     <property key="PageTitleEditTaxAuthorityGlAccounts">
         <value xml:lang="en">Edit Tax Authority GL Accounts</value>
         <value xml:lang="es">Editar Cuentas de LM de Autoridad Fiscal</value>
-        <value xml:lang="fr">Modifier les comptes comptables des administrations fiscales</value>
+        <value xml:lang="fr">Modifier les comptes des administrations fiscales</value>
         <value xml:lang="it">Aggiorna Autorità Tasse Conti Contabilità Generale</value>
         <value xml:lang="nl">Aanpassen belastingsinstantie grootboek rekening</value>
         <value xml:lang="ro">Actualizeaza Autoritati Taxe Conturi Contabile Generale</value>
@@ -8590,7 +8576,7 @@ esetata in mod automat</value>
     <property key="PageTitleFindGlobalGlAccount">
         <value xml:lang="en">Find Global GL Account</value>
         <value xml:lang="es">Encontrar Cuenta Global de LM</value>
-        <value xml:lang="fr">Recherche de comptes comptables globaux</value>
+        <value xml:lang="fr">Recherche de comptes globaux</value>
         <value xml:lang="it">Ricerca Conto Contabilità Generale Globale</value>
         <value xml:lang="nl">Zoek globaal GB rekening</value>
         <value xml:lang="ro">Cauta Cont Contabilitate Generala Globala</value>
@@ -8905,7 +8891,7 @@ esetata in mod automat</value>
     <property key="PageTitleLookupGlAccount">
         <value xml:lang="en">Lookup GL Account</value>
         <value xml:lang="es">Buscar Cuenta de LM</value>
-        <value xml:lang="fr">Recherche de comptes comptables</value>
+        <value xml:lang="fr">Recherche de comptes</value>
         <value xml:lang="it">Ricerca Conto Contabilità Generale</value>
         <value xml:lang="ro">Cauta Cont Contabilitate Generala</value>
         <value xml:lang="ru">Поиска счета ГК</value>
