@@ -4908,7 +4908,7 @@ under the License.
                 The type of fields or value is Timestamp.
                 
                 Again you can use the flexible string expander here, the ${} syntax and such. It can also do a type conversion,
-                so going from whatever type the source data is in,which would be a string value or whatever the variable
+                so going from whatever type the source data is in, which would be a string value or whatever the variable
                 type is for a from field, it can convert that to any ofthese types before setting it in the target field.                                
                 
                 You can also specify a default value in the case that the value evaluates to an empty string or the from-field is
@@ -4986,52 +4986,59 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:integer" name="years">
+        <xs:attribute type="xs:string" name="years">
             <xs:annotation>
                 <xs:documentation>
-                    Add (optionally using +) or subtract (using -) a number of year(s)
+                    Add (optionally using +) or subtract (using -) a number of year(s).
+                    If an expression is used, it should evaluate to an integer.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:integer" name="months">
+        <xs:attribute type="xs:string" name="months">
             <xs:annotation>
                 <xs:documentation>
-                    Add (optionally using +) or subtract (using -) a number of month(s)
+                    Add (optionally using +) or subtract (using -) a number of month(s).
+                    If an expression is used, it should evaluate to an integer.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:integer" name="days">
+        <xs:attribute type="xs:string" name="days">
             <xs:annotation>
                 <xs:documentation>
-                    Add (optionally using +) or subtract (using -) a number of days(s)
+                    Add (optionally using +) or subtract (using -) a number of days(s).
+                    If an expression is used, it should evaluate to an integer.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:integer" name="hours">
+        <xs:attribute type="xs:string" name="hours">
             <xs:annotation>
                 <xs:documentation>
-                    Add (optionally using +) or subtract (using -) a number of hour(s)
+                    Add (optionally using +) or subtract (using -) a number of hour(s).
+                    If an expression is used, it should evaluate to an integer.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:integer" name="minutes">
+        <xs:attribute type="xs:string" name="minutes">
             <xs:annotation>
                 <xs:documentation>
-                    Add (optionally using +) or subtract (using -) a number of minute(s)
+                    Add (optionally using +) or subtract (using -) a number of minute(s).
+                    If an expression is used, it should evaluate to an integer.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:integer" name="seconds">
+        <xs:attribute type="xs:string" name="seconds">
             <xs:annotation>
                 <xs:documentation>
-                    Add (optionally using +) or subtract (using -) a number of second(s)
+                    Add (optionally using +) or subtract (using -) a number of second(s).
+                    If an expression is used, it should evaluate to an integer.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:integer" name="millis">
+        <xs:attribute type="xs:string" name="millis">
             <xs:annotation>
                 <xs:documentation>
-                    Add (optionally using +) or subtract (using -) a number of milli-second(s)
+                    Add (optionally using +) or subtract (using -) a number of milli-second(s).
+                    If an expression is used, it should evaluate to an integer.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
