@@ -479,7 +479,7 @@ under the License.
             </div>
             <div id="editBillingPanel" class="screenlet-body" style="display: none;">
               <form name="billingForm" id="billingForm" class="theform" action="<@ofbizUrl></@ofbizUrl>" method="post">
-                <input type="hidden" id ="billingContactMechId" name="billingContactMechId" value="${parameters.billingContactMechId?if_exists}"/>
+                <input type="hidden" id ="billToContactMechId" name="billToContactMechId" value="${parameters.billToContactMechId?if_exists}"/>
                 <input type="hidden" id="shippingContactMechIdInBillingForm" name="shippingContactMechId" value="${parameters.shippingContactMechId?if_exists}"/>
                 <input type="hidden" id="paymentMethodId" name="paymentMethodId" value="${parameters.paymentMethodId?if_exists}"/>
                 <input type="hidden" id="paymentMethodTypeId" name="paymentMethodTypeId" value="CREDIT_CARD"/>

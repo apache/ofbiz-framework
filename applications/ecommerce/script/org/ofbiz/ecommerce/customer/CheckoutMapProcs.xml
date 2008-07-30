@@ -124,7 +124,7 @@ under the License.
     </simple-map-processor>
 
     <simple-map-processor name="billToAddress">
-        <process field="billingContactMechId">
+        <process field="billToContactMechId">
             <copy to-field="contactMechId" set-if-null="false"/>
         </process>
         <process field="billToName">
