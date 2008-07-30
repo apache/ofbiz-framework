@@ -710,6 +710,10 @@ public class ObjectType {
                 Set<Long> tempSet = FastSet.newInstance();
                 tempSet.add(lng);
                 return tempSet;
+            } else if ("Date".equals(type) || "java.util.Date".equals(type)) {
+                return new Date(lng.longValue());
+            } else if ("Timestamp".equals(type) || "java.sql.Timestamp".equals(type)) {
+                return new java.sql.Timestamp(lng.longValue());
             } else {
                 throw new GeneralException("Conversion from " + fromType + " to " + type + " not currently supported");
             }
@@ -792,6 +796,8 @@ public class ObjectType {
                 Set<java.sql.Date> tempSet = FastSet.newInstance();
                 tempSet.add(dte);
                 return tempSet;
+            } else if ("Long".equals(type) || "java.lang.Long".equals(type)) {
+                return Long.valueOf(dte.getTime());
             } else {
                 throw new GeneralException("Conversion from " + fromType + " to " + type + " not currently supported");
             }
@@ -850,6 +856,8 @@ public class ObjectType {
                 Set<java.sql.Timestamp> tempSet = FastSet.newInstance();
                 tempSet.add(tme);
                 return tempSet;
+            } else if ("Long".equals(type) || "java.lang.Long".equals(type)) {
+                return Long.valueOf(tme.getTime());
             } else {
                 throw new GeneralException("Conversion from " + fromType + " to " + type + " not currently supported");
             }
