@@ -160,6 +160,7 @@ under the License.
         <permission-service service-name="fixedAssetPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="oldStatusId" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="deleteFixedAssetMaint" default-entity-name="FixedAssetMaint" engine="simple"
                 location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="deleteFixedAssetMaint" auth="true">

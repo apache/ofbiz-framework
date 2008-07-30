@@ -227,6 +227,8 @@ under the License.
                 <set value="CAL_TENTATIVE" field="maintWorkEffortMap.currentStatusId"/>
                 <set from-field="userLogin.partyId" field="maintWorkEffortMap.quickAssignPartyId"/>
                 <set from-field="newEntity.fixedAssetId" field="maintWorkEffortMap.fixedAssetId"/>
+                <get-related-one to-value-name="productMaintType" relation-name="ProductMaintType" value-name="newEntity"/>
+                <set field="maintWorkEffortMap.description" from-field="productMaintType.description"/>
                 <!-- Optional dates supplied by Fixed Asset Calendar -->
                 <set from-field="parameters.estimatedStartDate" field="maintWorkEffortMap.estimatedStartDate"/>
                 <set from-field="parameters.estimatedCompletionDate" field="maintWorkEffortMap.estimatedCompletionDate"/>
@@ -239,6 +241,7 @@ under the License.
     </simple-method>   
     <simple-method method-name="updateFixedAssetMaint" short-description="Update an existing FixedAsset Maintenance">
         <entity-one entity-name="FixedAssetMaint" value-name="lookedUpValue"/>
+        <field-to-result field-name="lookedUpValue.statusId" result-name="oldStatusId"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <if-not-empty field="parameters.productMaintSeqId">
             <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
