@@ -468,14 +468,20 @@ under the License.
     <simple-method method-name="removeReturnItem" short-description="Remove Return Item">
         <check-permission permission="ORDERMGR" action="_DELETE"><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunRemoveQuoteItem"/></check-permission>
         <check-errors/>
-
-        <set from-field="parameters.returnId" field="headerPKMap.returnId"/>
-        <find-by-primary-key entity-name="ReturnHeader" map-name="headerPKMap" value-name="returnHeader"/>
-        <if-compare field="returnHeader.statusId" operator="not-equals" type="String" value="RETURN_REQUESTED">
-            <add-error><fail-property resource="OrderErrorUiLabels" property="OrderCannotRemoveItemsOnceReturnIsApproved"/></add-error>
-            <check-errors/>
+        
+        <entity-one entity-name="ReturnHeader" value-name="returnHeader"/>
+        <if-compare field="returnHeader.returnHeaderTypeId" operator="equals" value="CUSTOMER_RETURN">
+            <if-compare field="returnHeader.statusId" operator="not-equals" type="String" value="RETURN_REQUESTED">
+                <add-error><fail-property resource="OrderErrorUiLabels" property="OrderCannotRemoveItemsOnceReturnIsApproved"/></add-error>
+            </if-compare>
+        <else>
+            <if-compare field="returnHeader.statusId" operator="not-equals" type="String" value="SUP_RETURN_REQUESTED">
+                <add-error><fail-property resource="OrderErrorUiLabels" property="OrderCannotRemoveItemsOnceReturnIsApproved"/></add-error>
+            </if-compare>        
+        </else>    
         </if-compare>
-
+        <check-errors/>
+        
         <set from-field="parameters.returnId" field="lookupPKMap.returnId"/>
         <set from-field="parameters.returnItemSeqId" field="lookupPKMap.returnItemSeqId"/>
         <find-by-primary-key entity-name="ReturnItem" map-name="lookupPKMap" value-name="returnItem"/>

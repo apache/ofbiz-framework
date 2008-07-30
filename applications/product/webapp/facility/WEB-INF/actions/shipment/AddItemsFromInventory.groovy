@@ -40,8 +40,6 @@ shipmentItems.each { shipmentItem ->
     issuedItems = [];
     itemIssuances.each { itemIssuance ->
         totalQtyIssued = totalQtyIssued + Double.valueOf(itemIssuance.quantity);
-        inventoryItemId = itemIssuance.inventoryItemId;
-        quantity = itemIssuance.quantity;
         issuedItems.add([inventoryItemId : itemIssuance.inventoryItemId,
                          quantity : itemIssuance.quantity]);
     }
