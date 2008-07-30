@@ -4316,7 +4316,6 @@ public class ShoppingCart implements Serializable {
             }
             if (taxAdj != null) {
                 itemInfo.itemTaxAdj.clear();
-                taxAdj = new LinkedList();
                 itemInfo.itemTaxAdj.addAll(taxAdj);
             }
             return itemInfo;
