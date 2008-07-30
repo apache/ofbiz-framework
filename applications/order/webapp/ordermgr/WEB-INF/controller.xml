@@ -584,7 +584,7 @@ under the License.
         <response name="term" type="view" value="orderTerm"/>
         <response name="shipGroups" type="view" value="SetItemShipGroups"/>
         <response name="sales" type="request" value="calcShipping"/>
-        <response name="po" type="view" value="confirm"/>
+        <response name="po" type="request" value="calcTax"/>
         <response name="error" type="request" value="orderentry"/>
     </request-map>
 
