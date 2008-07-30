@@ -109,7 +109,7 @@
         <security https="true" auth="true"/>
         <event type="service" invoke="removeCommunicationEventRole"/>
         <response name="success" type="request" value="getToNextDonePage"/>
-        <response name="error" type="view" value="main"/>
+        <response name="error" type="request" value="getToNextDonePage"/>
     </request-map>
     <request-map uri="allocateMsgToParty">
         <security https="true" auth="true"/>
