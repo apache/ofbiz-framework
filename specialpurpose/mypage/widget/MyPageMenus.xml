@@ -156,7 +156,23 @@ under the License.
         </menu-item>
         <menu-item name="myTime" title="myTime"><link target="/projectmgr/control/MyTimesheet" url-mode="inter-app"/></menu-item>
     </menu>
-
-
+    <menu name="CommSubTabBar" extends="CommSubTabBar" extends-resource="component://party/webapp/partymgr/communication/CommMenus.xml"
+            menu-container-style="button-bar button-style-2">
+        <menu-item name="close" title="${uiLabelMap.CommonClose}">
+            <condition>
+                <and>
+                    <not><if-empty field-name="communicationEventRole"/></not>
+                    <if-compare field-name="communicationEventRole.statusId" operator="equals" value="COM_ROLE_READ"/>
+                </and>
+            </condition>
+            <link target="setCommunicationEventRoleStatus?communicationEventId=${parameters.communicationEventId}&amp;partyId=${userLogin.partyId}&amp;roleTypeId=${communicationEventRole.roleTypeId}&amp;statusId=COM_ROLE_COMPLETED"/>
+        </menu-item>
+        <menu-item name="delete" title="${uiLabelMap.CommonDelete}">
+            <condition>
+                <not><if-empty field-name="communicationEventRole"/></not>
+            </condition>
+            <link target="RemoveCommunicationEventRole?communicationEventId=${parameters.communicationEventId}&amp;roleTypeId=${communicationEventRole.roleTypeId}&amp;partyId=${userLogin.partyId}"/>
+        </menu-item>
+    </menu>
     
 </menus>

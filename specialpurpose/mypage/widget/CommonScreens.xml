@@ -114,12 +114,12 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="${parameters.donePage}"/>
+                <script location="component://mypage/webapp/mypage/WEB-INF/actions/GetMyCommunicationEventRole.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <!--include-menu location="component://mypage/widget/MyPageMenus.xml" name="CommEventTabBar"/-->
-                        <include-menu location="component://party/webapp/partymgr/communication/CommMenus.xml" name="CommSubTabBar"/>
+                        <include-menu location="component://mypage/widget/MyPageMenus.xml" name="CommSubTabBar"/>
                         <decorator-section-include name="body"/>
                     </decorator-section>
                 </decorator-screen>

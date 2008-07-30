@@ -313,7 +313,8 @@ under the License.
                                     </entity-one>
                                 </actions>
                                 <widgets>
-                                    <include-screen name="commEvent" />
+                                    <include-screen name="commEvent"
+                                            location="component://party/widget/partymgr/CommunicationScreens.xml" />
                                 </widgets>
                             </section>
                         </container>
