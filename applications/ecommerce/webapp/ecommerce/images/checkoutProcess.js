@@ -251,7 +251,7 @@ function createUpdateCustomerAndShippingAddress() {
                 isShipStepValidate = true;
                 // Process Shipping data response.
                 $('shippingPartyId').value = data.partyId;
-                $('shippingContactMechId').value = data.shippingContactMechId;
+                $('shipToContactMechId').value = data.shipToContactMechId;
                 $('phoneContactMechId').value = data.phoneContactMechId;
                 $('emailContactMechId').value = data.emailContactMechId;
                 $('completedShippingMethod').update(data.shippingDescription);
@@ -298,8 +298,8 @@ function setDataInShippingCompleted() {
     $('completedShipToAddress2').update($('shipToAddress2').value);
     var shipToGeo = $('shipToCity').value+","+$('shipToStateProvinceGeoId').value +" "+$('shipToCountryGeoId').value+" "+$('shipToPostalCode').value;
     $('completedShipToGeo').update(shipToGeo);
-    // set shippingContactMechId in Billing form.
-    $('shippingContactMechIdInBillingForm').value = $F('shippingContactMechId');
+    // set shipToContactMechId in Billing form.
+    $('shipToContactMechIdInBillingForm').value = $F('shipToContactMechId');
 }
 
 // Shipping option

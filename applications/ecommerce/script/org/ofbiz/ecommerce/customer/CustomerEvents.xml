@@ -865,11 +865,11 @@ under the License.
             <if-empty field="userLogin">
                 <call-object-method obj-field-name="shoppingCart" method-name="getUserLogin" ret-field-name="userLogin"/>
             </if-empty>
-            <call-object-method obj-field-name="shoppingCart" method-name="getShippingContactMechId" ret-field-name="shippingContactMechId"/>
+            <call-object-method obj-field-name="shoppingCart" method-name="getShippingContactMechId" ret-field-name="shipToContactMechId"/>
         </if-not-empty>
 
-        <if-empty field="shippingContactMechId">
-           <set field="shippingContactMechId" from-field="parameters.shippingContactMechId"/>
+        <if-empty field="shipToContactMechId">
+           <set field="shipToContactMechId" from-field="parameters.shipToContactMechId"/>
         </if-empty>
         <set field="parameters.shipToName"  value="${parameters.firstName} ${parameters.lastName}"/>
 
@@ -928,22 +928,22 @@ under the License.
         <set field="shipToAddressContext.roleTypeId" from-field="parameters.roleTypeId"/>
         <set field="shipToAddressContext.userLogin" from-field="userLogin"/>
         
-        <if-empty field="shippingContactMechId">
+        <if-empty field="shipToContactMechId">
             <set field="shipToAddressContext.contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
             <call-service service-name="createPartyPostalAddress" in-map-name="shipToAddressContext">
                 <result-to-field result-name="contactMechId" map-name="shipToAddressPurposeContext"/>
-                <result-to-field result-name="contactMechId" field-name="parameters.shippingContactMechId"/>
+                <result-to-field result-name="contactMechId" field-name="parameters.shipToContactMechId"/>
             </call-service>
-            <log level="info" message="Shipping Postal Address created shippingContactMechId is ${parameters.shippingContactMechId}"></log>
+            <log level="info" message="Shipping Postal Address created shipToContactMechId is ${parameters.shipToContactMechId}"></log>
         <else>
-            <set field="shipToAddressContext.contactMechId" from-field="shippingContactMechId"/>
+            <set field="shipToAddressContext.contactMechId" from-field="shipToContactMechId"/>
             <call-service service-name="updatePartyPostalAddress" in-map-name="shipToAddressContext">
-                <result-to-field result-name="contactMechId" field-name="parameters.shippingContactMechId"/>
+                <result-to-field result-name="contactMechId" field-name="parameters.shipToContactMechId"/>
             </call-service>
-            <log level="info" message="Shipping Postal Address Updated shippingContactMechId is ${parameters.shippingContactMechId}"></log>
+            <log level="info" message="Shipping Postal Address Updated shipToContactMechId is ${parameters.shipToContactMechId}"></log>
         </else>
         </if-empty>
-        <field-to-request field-name="parameters.shippingContactMechId" request-name="shippingContactMechId"/>
+        <field-to-request field-name="parameters.shipToContactMechId" request-name="shipToContactMechId"/>
 
         <!-- Create or Update phone -->
         <set field="phoneContext.partyId" from-field="partyId"/>
@@ -993,12 +993,12 @@ under the License.
         </call-object-method>
         <call-object-method obj-field-name="shoppingCart" method-name="addContactMech">
             <string value="SHIPPING_LOCATION"/>
-            <field field-name="parameters.shippingContactMechId"/>
+            <field field-name="parameters.shipToContactMechId"/>
         </call-object-method>
         <call-object-method obj-field-name="shoppingCart" method-name="setShippingContactMechId">
-            <field field-name="parameters.shippingContactMechId"/>
+            <field field-name="parameters.shipToContactMechId"/>
         </call-object-method>
-        <log level="info" message="updated shopping cart shippingContactMechId ${parameters.shippingContactMechId}"/>
+        <log level="info" message="updated shopping cart shipToContactMechId ${parameters.shipToContactMechId}"/>
         <call-object-method obj-field-name="shoppingCart" method-name="setOrderPartyId">
             <field field-name="partyId"/>
         </call-object-method>
@@ -1127,10 +1127,10 @@ under the License.
         <if-not-empty field="shoppingCart">
             <call-object-method obj-field-name="shoppingCart" method-name="getPartyId" ret-field-name="partyId"/>
             <call-object-method obj-field-name="shoppingCart" method-name="getUserLogin" ret-field-name="userLogin"/>
-            <call-object-method obj-field-name="shoppingCart" method-name="getShippingContactMechId" ret-field-name="shippingContactMechId"/>
+            <call-object-method obj-field-name="shoppingCart" method-name="getShippingContactMechId" ret-field-name="shipToContactMechId"/>
         </if-not-empty>
-        <if-empty field="parameters.shippingContactMechId">
-            <set field="parameters.shippingContactMechId" from-field="shippingContactMechId"/>
+        <if-empty field="parameters.shipToContactMechId">
+            <set field="parameters.shipToContactMechId" from-field="shipToContactMechId"/>
         </if-empty>
         <set-current-user-login value-name="userLogin"/>
 
@@ -1208,7 +1208,7 @@ under the License.
                 <field-map field-name="contactMechPurposeTypeId" value="BILLING_LOCATION"/>
             </entity-and>
             <first-from-list list-name="pcmpList" entry-name="pcmp"/>
-            <if-compare-field field="parameters.shippingContactMechId" operator="not-equals" to-field="pcmp.contactMechId">
+            <if-compare-field field="parameters.shipToContactMechId" operator="not-equals" to-field="pcmp.contactMechId">
                 <if-not-empty field="pcmp">
                     <set-service-fields service-name="deletePartyContactMechPurposeIfExists" map-name="pcmp" to-map-name="deletePartyContactMechPurposeCtx"/>
                     <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="deletePartyContactMechPurposeCtx"/>
@@ -1216,13 +1216,13 @@ under the License.
                     <call-service service-name="deletePartyContactMech" in-map-name="serviceInMap"/>
                 </if-not-empty>
                 <set field="createPartyContactMechPurposeCtx.partyId" from-field="userLogin.partyId"/>
-                <set field="createPartyContactMechPurposeCtx.contactMechId" from-field="parameters.shippingContactMechId"/>
+                <set field="createPartyContactMechPurposeCtx.contactMechId" from-field="parameters.shipToContactMechId"/>
                 <set field="createPartyContactMechPurposeCtx.contactMechPurposeTypeId" value="BILLING_LOCATION"/>
                 <call-service service-name="createPartyContactMechPurpose" in-map-name="createPartyContactMechPurposeCtx"/>
             </if-compare-field>
-            <field-to-request field-name="parameters.shippingContactMechId" request-name="billToContactMechId"/>
+            <field-to-request field-name="parameters.shipToContactMechId" request-name="billToContactMechId"/>
 
-            <set field="creditCardContext.contactMechId" from-field="parameters.shippingContactMechId"/>
+            <set field="creditCardContext.contactMechId" from-field="parameters.shipToContactMechId"/>
             <if-empty field="parameters.paymentMethodId">
                 <!-- Create Credit Card -->
                 <call-service service-name="createCreditCard" in-map-name="creditCardContext">
