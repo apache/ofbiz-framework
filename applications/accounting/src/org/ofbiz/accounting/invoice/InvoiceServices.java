@@ -1770,7 +1770,8 @@ public class InvoiceServices {
                 }
                 
                 // create the invoice item for this shipment receipt
-                input = UtilMisc.toMap("invoiceId", invoiceId, "invoiceItemTypeId", invoiceItemTypeId, "quantity", quantity);
+                input = UtilMisc.toMap("invoiceId", invoiceId, "invoiceItemTypeId", invoiceItemTypeId);
+                input.put("quantity", quantity);
                 input.put("invoiceItemSeqId", "" + invoiceItemSeqId); // turn the int into a string with ("" + int) hack
                 input.put("amount", returnItem.get("returnPrice")); // this service requires Double
                 input.put("productId", returnItem.get("productId"));
