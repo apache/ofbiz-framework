@@ -281,7 +281,7 @@ under the License.
             </div>
             <div id="editShippingPanel" class="screenlet-body" style="display: none;">
               <form name="shippingForm" id="shippingForm" action="<@ofbizUrl>createUpdateShippingAddress</@ofbizUrl>" method="post">
-                <input type="hidden" id="shippingContactMechId" name="shippingContactMechId" value="${parameters.shippingContactMechId?if_exists}"/>
+                <input type="hidden" id="shipToContactMechId" name="shipToContactMechId" value="${parameters.shipToContactMechId?if_exists}"/>
                 <input type="hidden" name="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
                 <input type="hidden" id="shippingPartyId" name="partyId" value="${parameters.partyId?if_exists}"/>
                 <input type="hidden" name="userLogin" value="${parameters.userLogin?if_exists}"/>
@@ -480,7 +480,7 @@ under the License.
             <div id="editBillingPanel" class="screenlet-body" style="display: none;">
               <form name="billingForm" id="billingForm" class="theform" action="<@ofbizUrl></@ofbizUrl>" method="post">
                 <input type="hidden" id ="billToContactMechId" name="billToContactMechId" value="${parameters.billToContactMechId?if_exists}"/>
-                <input type="hidden" id="shippingContactMechIdInBillingForm" name="shippingContactMechId" value="${parameters.shippingContactMechId?if_exists}"/>
+                <input type="hidden" id="shipToContactMechIdInBillingForm" name="shipToContactMechId" value="${parameters.shipToContactMechId?if_exists}"/>
                 <input type="hidden" id="paymentMethodId" name="paymentMethodId" value="${parameters.paymentMethodId?if_exists}"/>
                 <input type="hidden" id="paymentMethodTypeId" name="paymentMethodTypeId" value="CREDIT_CARD"/>
                 <input type="hidden" id="billingPartyId" name="partyId" value="${parameters.partyId?if_exists}"/>
