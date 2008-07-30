@@ -106,7 +106,6 @@ under the License.
                 <sub-hyperlink description="${uiLabelMap.${toComplete}}" target="setCommunicationEventRoleStatus?communicationEventId=${communicationEventId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;statusId=COM_ROLE_COMPLETED&amp;donePage=${parameters.donePage}&amp;VIEW_SIZE=${parameters.VIEWSIZE}&amp;VIEW_INDEX=${parameters.VIEW_INDEX}"/>
             </display-entity>
         </field>
-        <field name="statusId" entry-name="roleStatusId"/>
         <field name="createdStamp" entry-name="entryDate"/>
     </form>
     <form name="ListMyUnknownPartyEmails" type="multi"

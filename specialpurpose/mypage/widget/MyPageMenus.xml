@@ -171,7 +171,7 @@ under the License.
             <condition>
                 <not><if-empty field-name="communicationEventRole"/></not>
             </condition>
-            <link target="RemoveCommunicationEventRole?communicationEventId=${parameters.communicationEventId}&amp;roleTypeId=${communicationEventRole.roleTypeId}&amp;partyId=${userLogin.partyId}"/>
+            <link target="RemoveCommunicationEventRole?communicationEventId=${parameters.communicationEventId}&amp;roleTypeId=${communicationEventRole.roleTypeId}&amp;partyId=${userLogin.partyId}&amp;deleteCommEventIfLast=Y&amp;delContentDataResource=Y"/>
         </menu-item>
     </menu>
     
