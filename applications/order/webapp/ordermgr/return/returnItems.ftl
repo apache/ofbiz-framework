@@ -93,8 +93,11 @@ under the License.
 <!-- if we're called with loadOrderItems or createReturn, then orderId would exist -->
 <#if !requestParameters.orderId?exists>
         <table cellspacing="0" class="basic-table">
-          <#assign readOnly = (returnHeader.statusId != "RETURN_REQUESTED")>
-            
+          <#if "CUSTOMER_RETURN" == returnHeader.returnHeaderTypeId>
+            <#assign readOnly = (returnHeader.statusId != "RETURN_REQUESTED")>
+          <#else>
+            <#assign readOnly = (returnHeader.statusId != "SUP_RETURN_REQUESTED")>
+          </#if>
           <tr><td colspan="10"><h3>${uiLabelMap.OrderOrderReturn} #${returnId}</h3></td></tr>
         
           <#-- information about orders and amount refunded/credited on past returns -->
@@ -244,7 +247,7 @@ under the License.
                     </#if></div></td>
                 <#if (readOnly)>
                   <td>
-                  <#if returnHeader.statusId == "RETURN_COMPLETED">
+                  <#if returnHeader.statusId == "RETURN_COMPLETED" || returnHeader.statusId == "SUP_RETURN_COMPLETED">
                     <#assign itemResp = item.getRelatedOne("ReturnItemResponse")?if_exists>
                     <#if itemResp?has_content>
                       <#if itemResp.paymentId?has_content>
@@ -262,7 +265,7 @@ under the License.
                   </#if>
                 </td>                  
                 </#if>
-                <#if returnHeader.statusId == "RETURN_REQUESTED">
+                <#if returnHeader.statusId == "RETURN_REQUESTED" || returnHeader.statusId == "SUP_RETURN_REQUESTED">
                   <td align='right'><a href="<@ofbizUrl>removeReturnItem?returnId=${item.returnId}&returnItemSeqId=${item.returnItemSeqId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonRemove}</a>
                 <#else>
                   <td>&nbsp;</td>
@@ -309,16 +312,23 @@ under the License.
         </form>
         
         </table>
-        <#if (returnHeader.statusId == "RETURN_REQUESTED") && (rowCount > 0)>
+        <#if (returnHeader.statusId == "RETURN_REQUESTED" || returnHeader.statusId == "SUP_RETURN_REQUESTED") && (rowCount > 0)>
         <br/>
         <form name="acceptReturn" method="post" action="<@ofbizUrl>/updateReturn</@ofbizUrl>">
+          <#if "CUSTOMER_RETURN" == returnHeader.returnHeaderTypeId>
+            <#assign statusId = "RETURN_ACCEPTED">
+            <#assign partyId = returnHeader.fromPartyId>
+          <#else>
+            <#assign statusId = "SUP_RETURN_ACCEPTED">
+            <#assign partyId = returnHeader.toPartyId>
+          </#if>
           <input type="hidden" name="returnId" value="${returnId}">
-          <input type="hidden" name="statusId" value="RETURN_ACCEPTED">
+          <input type="hidden" name="statusId" value="${statusId}">
           <div align="right"><input type="submit" value="${uiLabelMap.OrderReturnAccept}"></div>
         </form>
         </#if>
         
-        <#if returnHeader.statusId == "RETURN_REQUESTED">
+        <#if returnHeader.statusId == "RETURN_REQUESTED" || returnHeader.statusId == "SUP_RETURN_REQUESTED">
         <br/>
         <form name="returnItems" method="post" action="<@ofbizUrl>returnItems</@ofbizUrl>">
           <input type="hidden" name="returnId" value="${returnId}">
@@ -339,7 +349,7 @@ under the License.
               </tr>
             <#else>
               <tr>
-                <td colspan="4" nowrap><div>${uiLabelMap.OrderNoOrderFoundForParty}: <a href="${customerDetailLink}${returnHeader.fromPartyId?default('_NA_')}" class="buttontext">${returnHeader.fromPartyId?default('[null]')}</a></div></td>
+                <td colspan="4" nowrap><div>${uiLabelMap.OrderNoOrderFoundForParty}: <a href="${customerDetailLink}${partyId?default('_NA_')}" class="buttontext">${partyId?default('[null]')}</a></div></td>
               </tr>
               <tr>
                 <td width='25%' align='right' nowrap><div>${uiLabelMap.OrderOrderId}</div></td>

@@ -78,10 +78,12 @@ if (orderId) {
     context.shippingAmount = shippingAmount;
 }
 roleTypeId = "PLACING_CUSTOMER";
+partyId = returnHeader.fromPartyId;
 if (returnHeaderTypeId == "VENDOR_RETURN") {
-    roleTypeId = "SUPPLIER";
+    roleTypeId = "BILL_FROM_VENDOR";
+    partyId = returnHeader.toPartyId;
 }
-partyOrders = delegator.findByAnd("OrderHeaderAndRoles", [roleTypeId : roleTypeId, partyId : returnHeader.fromPartyId], ["orderId"]);
+partyOrders = delegator.findByAnd("OrderHeaderAndRoles", [roleTypeId : roleTypeId, partyId : partyId], ["orderId"]);
 context.partyOrders = partyOrders;
 
 // get the list of return shipments associated to the return
