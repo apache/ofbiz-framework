@@ -21,37 +21,38 @@ under the License.
 <trees xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-tree.xsd">
 
-    <tree name="MessageTree" root-node-name="node-root" 
-        default-render-style="simple" default-wrap-style="responseTreeWrapper">
-        <node name="node-root" >
-            <entity-one entity-name="Content"  use-cache="false" value-name="rsp">
+<!--    <tree name="MessageTree" root-node-name="node-root"
+        default-render-style="expand-collapse" expand-collapse-request="findForumThreads?forumId=${parameters.forumId}"> -->
+    <tree name="MessageTree" root-node-name="node-root" default-render-style="simple">
+        <node name="node-root">
+            <entity-one entity-name="Content" use-cache="false" value-name="rsp">
                 <field-map field-name="contentId" env-name="parameters.forumId"/>
             </entity-one>
             <!--include-screen name="responseTreeLine" location="component://content/widget/forum/ForumScreens.xml" /-->
             <sub-node node-name="node-body">
                 <entity-condition entity-name="ContentAssocViewTo" use-cache="false" >
                     <condition-list combine="and">
-                        <condition-expr field-name="contentIdStart" operator="equals" env-name="rsp.contentId" />
+                        <condition-expr field-name="contentIdStart" operator="equals" env-name="rsp.contentId"/>
                         <condition-list combine="or">
-                            <condition-expr field-name="caContentAssocTypeId" operator="equals" value="RESPONSE" />
-                            <condition-expr field-name="caContentAssocTypeId" operator="equals" value="PUBLISH_LINK" />
+                            <condition-expr field-name="caContentAssocTypeId" operator="equals" value="RESPONSE"/>
+                            <condition-expr field-name="caContentAssocTypeId" operator="equals" value="PUBLISH_LINK"/>
                         </condition-list>
                         <condition-expr field-name="caThruDate" operator="equals" value=""/>
                     </condition-list> 
-                    <order-by field-name="caFromDate DESC"/>
+                    <order-by field-name="createdDate"/>
                 </entity-condition>
             </sub-node>
         </node>
         <node name="node-body" entry-name="rsp">
-            <include-screen name="responseTreeLine"  location="${parameters.mainDecoratorLocation}" />
+            <include-screen name="responseTreeLine" location="${parameters.mainDecoratorLocation}"/>
             <sub-node node-name="node-body">
-                <entity-condition entity-name="ContentAssocViewTo" use-cache="true" >
+                <entity-condition entity-name="ContentAssocViewTo" use-cache="true">
                     <condition-list combine="and">
-                        <condition-expr field-name="contentIdStart" operator="equals" env-name="rsp.contentId" />
-                        <condition-expr field-name="caContentAssocTypeId" operator="equals" value="RESPONSE" />
+                        <condition-expr field-name="contentIdStart" operator="equals" env-name="rsp.contentId"/>
+                        <condition-expr field-name="caContentAssocTypeId" operator="equals" value="RESPONSE"/>
                         <condition-expr field-name="caThruDate" operator="equals" value=""/>
                     </condition-list> 
-                    <order-by field-name="caFromDate DESC"/>
+                    <order-by field-name="createdDate"/>
                 </entity-condition>
             </sub-node>
         </node>
