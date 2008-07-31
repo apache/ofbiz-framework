@@ -716,7 +716,7 @@ under the License.
     </request-map>
     <request-map uri="createRequestFromCommEvent">
         <security https="true" auth="true"/>
-        <event type="service" invoke="createRequestFromCommEvent"/>
+        <event type="service" invoke="createCustRequestFromCommEvent"/>
         <response name="success" type="view" value="ViewRequest"/>
         <response name="error" type="view" value="EditRequestFromCommEvent"/>
     </request-map>

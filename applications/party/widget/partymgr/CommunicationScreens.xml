@@ -378,7 +378,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditCommunication" />
                 <set field="tabButtonItem" value="CommunicationEvent" />
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/copyCommEventToRequest.groovy"/>
+                <entity-one entity-name="CommunicationEvent" value-name="communicationEvent"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonCommunicationEventDecorator"

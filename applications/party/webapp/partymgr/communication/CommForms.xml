@@ -661,9 +661,9 @@ under the License.
         <field name=" " position="2"><display/></field>
         <field name="deleteEmail" title="Delete email" widget-style="smallSubmit" position="3"><submit/></field>
     </form>
-    <form name="EditRequestFromCommEvent" type="single" target="createRequestFromCommEvent" default-map-name="parameters">
+    <form name="EditRequestFromCommEvent" type="single" target="createRequestFromCommEvent" default-map-name="communicationEvent">
         <field name="communicationEventId"><hidden value="${parameters.communicationEventId}"/></field>
-        <field name="fromPartyId"><display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName}"/></field>
+        <field name="fromPartyId" entry-name="partyIdFrom"><display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName} [${partyId}]"/></field>
         <field name="custRequestTypeId" >
             <drop-down>
                 <entity-options entity-name="CustRequestType" description="${description}">
@@ -671,8 +671,9 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="custRequestName"><text/></field>
-        <field name="description"><textarea/></field>
+        <field name="custRequestName" entry-name="subject"><text size="60"/></field>
+        <field name="contentMimeTypeId"><hidden/></field>
+        <field name="content"><textarea cols="70" rows="20"/></field>
         <field name="submit" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 </forms>

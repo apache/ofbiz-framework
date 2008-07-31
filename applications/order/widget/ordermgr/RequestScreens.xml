@@ -149,23 +149,10 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonRequestDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleRequestItems}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <container>
-                                            <link target="requestitem?custRequestId=${custRequestId}" text="${uiLabelMap.OrderNewRequestItem}" style="buttontext"/>
-                                        </container>
-                                        <include-form name="ListRequestItems" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>                        
+                        <screenlet title="${uiLabelMap.PageTitleRequestItems}">
+                            <link target="requestitem?custRequestId=${custRequestId}" text="${uiLabelMap.OrderNewRequestItem}" style="buttontext"/>
+                            <include-form name="ListRequestItems" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -451,9 +438,6 @@ under the License.
             </condition>
             <widgets>
                 <include-screen name="ViewRequestInfo"/>
-                <container style="leftclear">
-                    <include-screen name="ViewRequestItemInfo"/>
-                </container>
             </widgets>
             <fail-widgets>
                 <label style="h3">${uiLabelMap.OrderErrorRequestNotFound}</label>
@@ -466,10 +450,18 @@ under the License.
                 <entity-and list-name="commEvents" entity-name="CommunicationEventAndCustRequest">
                     <field-map field-name="custRequestId" env-name="parameters.custRequestId"/>
                 </entity-and>
+                <entity-and entity-name="CustRequestItem" list-name="custRequestItems">
+                    <field-map env-name="custRequestId" field-name="custRequestId"/>
+                    <order-by field-name="sequenceNum"/>
+                    <order-by field-name="custRequestItemSeqId"/>
+                </entity-and>
             </actions>
             <widgets>
                 <container style="lefthalf">
                     <include-screen name="requestInfo"/>
+                    <screenlet title="${uiLabelMap.PageTitleRequestItems}">
+                        <include-form name="OverviewRequestItems" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                    </screenlet>
                 </container>
                 <container style="righthalf">
                     <include-screen name="requestDate"/>
