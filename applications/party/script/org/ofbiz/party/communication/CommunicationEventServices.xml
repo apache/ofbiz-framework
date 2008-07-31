@@ -346,32 +346,7 @@ under the License.
         <entity-one entity-name="PartyNameView" value-name="nameView"/>
         <set field="_event_message_" value="Email addres: ${parameters.emailAddress} allocated to party: ${nameView.groupName}${nameView.firstName} ${nameView.middleName} ${nameView.lastName}[${parameters.partyId}]"/>
     </simple-method>
-    <simple-method method-name="createRequestFromCommEvent" short-description="Create a Customer request from a commEvent(email)">
-        <entity-one entity-name="CommunicationEvent" value-name="communicationEvent"/>
-        <if-empty field="communicationEvent">
-            <add-error><fail-message message="Event Id: ${parameters.communicationEventId} not found"/></add-error>
-            <return response-code="errors"/>
-        </if-empty>    
-        
-        <set field="custRequest.custRequestName" from-field="communicationEvent.subject"/>
-        <set field="custRequest.description" from-field="communicationEvent.content"/>
-        <set field="custRequest.fromPartyId" from-field="communicationEvent.partyIdFrom"/>
-        <set field="custRequest.custRequestTypeId" value="RF_SUPPORT"/>
-        <set field="custRequest.statusId" value="CRQ_ACCEPTED"/>
-        
-        <set-service-fields service-name="createCustRequest" map-name="parameters" to-map-name="custRequest"/>
-        <call-service service-name="createCustRequest" in-map-name="custRequest">
-            <result-to-field result-name="custRequestId" field-name="parameters.custRequestId"/>
-        </call-service>
-        <set-service-fields service-name="createCustRequestCommEvent" map-name="parameters" to-map-name="custRequestCommEvent"/>
-        <call-service service-name="createCustRequestCommEvent" in-map-name="custRequestCommEvent"/>
 
-        <!-- update status from communication event -->
-        <set field="communicationEvent.statusId" value="COM_COMPLETE"/>
-        <store-value value-name="communicationEvent"/>
-                
-        <field-to-result field-name="parameters.custRequestId" result-name="custRequestId"/>
-    </simple-method>
     <simple-method method-name="createCustRequestCommEvent" short-description="Create CustRequestCommEvent" >
         <make-value value-name="newEntity" entity-name="CustRequestCommEvent"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>

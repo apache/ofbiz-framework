@@ -727,16 +727,6 @@ under the License.
         <auto-attributes include="pk" mode="INOUT" optional="true" entity-name="CommunicationEventWorkEff"/>
         <auto-attributes include="nonpk" mode="IN" optional="true" entity-name="CommunicationEventWorkEff"/>
     </service>
-    <service name="createRequestFromCommEvent" engine="simple"
-            location="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="createRequestFromCommEvent" auth="true">
-        <description>Create a Customer request from a commEvent(email)</description>
-        <attribute name="communicationEventId" mode="IN" type="String" optional="false"/>
-        <attribute name="custRequestTypeId" mode="IN" type="String" optional="true"/>
-        <attribute name="custRequestName" mode="IN" type="String" optional="true"/>
-        <attribute name="description" mode="IN" type="String" optional="true"/>
-        <attribute name="custRequestId" mode="OUT" type="String" optional="false"/>
-    </service>
-    
     <service name="markCommEventRead" engine="simple"
             location="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="markEventRead" auth="true">
         <description>Marks a communication event as read if in the entered/pending status</description>

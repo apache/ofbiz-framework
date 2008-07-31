@@ -144,5 +144,13 @@ under the License.
         <attribute name="statusId" type="String" mode="IN" optional="false"/>
         <attribute name="oldStatusId" type="String" mode="OUT" optional="true"/>
     </service>
+    <service name="createCustRequestFromCommEvent" engine="simple" default-entity-name="CommunicationEvent"
+            location="org/ofbiz/order/request/CustRequestServices.xml" invoke="createCustRequestFromCommEvent" auth="true">
+        <description>Create a Customer request from a commEvent(email)</description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <attribute name="custRequestTypeId" mode="IN" type="String" optional="true"/>
+        <attribute name="custRequestId" mode="OUT" type="String" optional="false"/>
+    </service>
 </services>
 

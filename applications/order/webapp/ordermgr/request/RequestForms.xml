@@ -114,6 +114,18 @@ under the License.
             <display-entity also-hidden="false" entity-name="StatusItem"/>
         </field>
     </form>
+    <form name="OverviewRequestItems" extends="ListRequestItems">
+        <field name="priority"><ignored/></field>
+        <field name="sequenceNum"><ignored/></field>
+        <field name="sequenceNumber"><ignored/></field>
+        <field name="requiredByDate"><ignored/></field>
+        <field name="selectedAmount"><ignored/></field>
+        <field name="maximumAmount"><ignored/></field>
+        <field name="reservStart"><ignored/></field>
+        <field name="reservLength"><ignored/></field>
+        <field name="reservPersons"><ignored/></field>
+        <field name="configId"><ignored/></field>
+    </form>
 
     <form name="ListRequestQuoteItems" type="list" use-row-submit="true"  title="" list-name="quotes" 
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="RequestItemQuotes">

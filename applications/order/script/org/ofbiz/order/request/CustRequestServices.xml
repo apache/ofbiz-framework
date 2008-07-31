@@ -321,4 +321,43 @@ under the License.
         </if-compare-field>
     </simple-method>
 
+    <simple-method method-name="createCustRequestFromCommEvent" short-description="Create a Customer request from a commEvent(email)">
+        <entity-one entity-name="CommunicationEvent" value-name="communicationEvent"/>
+        <if-empty field="communicationEvent">
+            <add-error><fail-message message="Event Id: ${parameters.communicationEventId} not found"/></add-error>
+            <return response-code="error"/>
+        </if-empty>    
+        <set-service-fields service-name="createCustRequest" map-name="parameters" to-map-name="custRequest"/>
+        <set field="custRequest.custRequestName" from-field="communicationEvent.subject"/>
+        <if-empty field="parameters.custRequestTypeId">
+            <set field="custRequest.custRequestTypeId" value="RF_SUPPORT"/>
+        </if-empty>
+        <if-empty field="parameters.fromPartyId">
+            <set field="custRequest.fromPartyId" from-field="communicationEvent.partyIdFrom"/>
+        </if-empty>
+        <set field="custRequest.statusId" value="CRQ_ACCEPTED"/>
+        <call-service service-name="createCustRequest" in-map-name="custRequest">
+            <result-to-field result-name="custRequestId" field-name="parameters.custRequestId"/>
+        </call-service>
+        <set-service-fields service-name="createCustRequestCommEvent" map-name="parameters" to-map-name="custRequestCommEvent"/>
+        <call-service service-name="createCustRequestCommEvent" in-map-name="custRequestCommEvent"/>
+
+        <if-empty field="parameters.content">
+            <set field="parameters.content" from-field="communicationEvent.content"/>
+        </if-empty>
+        <if-not-empty field="parameters.content">
+            <set field="newItem.custRequestId" from-field="parameters.custRequestId"/>
+            <set field="newItem.description" from-field="parameters.description"/>
+            <set field="newItem.story" from-field="parameters.content"/>
+            <call-service service-name="createCustRequestItem" in-map-name="newItem"/>
+        </if-not-empty>
+
+        <!-- update status from communication event -->
+        <set-service-fields service-name="setCommunicationEventStatus" map-name="parameters" to-map-name="updStat"/>
+        <set field="updStat.statusId" value="COM_COMPLETE"/>
+        <call-service service-name="setCommunicationEventStatus" in-map-name="updStat"/>
+                
+        <field-to-result field-name="parameters.custRequestId" result-name="custRequestId"/>
+    </simple-method>
+
 </simple-methods>
