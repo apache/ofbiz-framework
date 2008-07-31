@@ -1216,7 +1216,7 @@
     </property>
     <property key="FormFieldTitle_forumGroupDescription">
         <value xml:lang="ar">وصف مجموعة المنتدى</value>
-        <value xml:lang="en">Forumgroup Description</value>
+        <value xml:lang="en">Forum Group Description</value>
         <value xml:lang="it">Descrizione Gruppo Forum</value>
         <value xml:lang="ro">Descriere Grup Forum</value>
         <value xml:lang="th">รายละเอียดกลุ่มความคิดเห็น</value>
@@ -1224,7 +1224,7 @@
     </property>
     <property key="FormFieldTitle_forumGroupName">
         <value xml:lang="ar">إسم مجموعة المنتدى</value>
-        <value xml:lang="en">Forumgroup Name</value>
+        <value xml:lang="en">Forum Group Name</value>
         <value xml:lang="it">Nome Gruppo Forum</value>
         <value xml:lang="ro">Nume Grup Forum</value>
         <value xml:lang="th">ชื่อกลุ่มความคิดเห็น</value>
@@ -1232,7 +1232,7 @@
     </property>
     <property key="FormFieldTitle_forumGroups">
         <value xml:lang="ar">مجموعات المنتدى</value>
-        <value xml:lang="en">ForumGroups</value>
+        <value xml:lang="en">Forum Groups</value>
         <value xml:lang="it">Gruppi Forum</value>
         <value xml:lang="ro">Grupuri Forum</value>
         <value xml:lang="th">กลุ่มความคิดเห็น</value>
@@ -2528,19 +2528,19 @@
         <value xml:lang="zh">论坛组列表</value>
     </property>
     <property key="PageTitleFindForumMessages">
-        <value xml:lang="ar">رسائل المنتدى:</value>
-        <value xml:lang="en">Messages for forum:</value>
-        <value xml:lang="it">Mesasggi per forum:</value>
-        <value xml:lang="ro">Mesaj pe forum:</value>
-        <value xml:lang="th">ข้อความสำหรับความคิดเห็น:</value>
+        <value xml:lang="ar">رسائل المنتدى: ${objectName} [${objectId}]</value>
+        <value xml:lang="en">Messages for Forum: ${objectName} [${objectId}]</value>
+        <value xml:lang="it">Mesasggi per forum: ${objectName} [${objectId}]</value>
+        <value xml:lang="ro">Mesaj pe forum: ${objectName} [${objectId}]</value>
+        <value xml:lang="th">ข้อความสำหรับความคิดเห็น: ${objectName} [${objectId}]</value>
         <value xml:lang="zh">信息：论坛</value>
     </property>
     <property key="PageTitleFindForums">
-        <value xml:lang="ar">قائمة المنتدى لمجموعة المنتدى:</value>
-        <value xml:lang="en">Forumlist for forumgroup:</value>
-        <value xml:lang="it">Lista Forum per gruppo forum:</value>
-        <value xml:lang="ro">Lista Forum pe grup forum:</value>
-        <value xml:lang="th">รายการความคิดเห็นสำหรับกลุ่มความคิดเห็น:</value>
+        <value xml:lang="ar">قائمة المنتدى لمجموعة المنتدى: ${objectName} [${objectId}]</value>
+        <value xml:lang="en">Forum List for Forum Group: ${objectName} [${objectId}]</value>
+        <value xml:lang="it">Lista Forum per gruppo forum: ${objectName} [${objectId}]</value>
+        <value xml:lang="ro">Lista Forum pe grup forum: ${objectName} [${objectId}]</value>
+        <value xml:lang="th">รายการความคิดเห็นสำหรับกลุ่มความคิดเห็น: ${objectName} [${objectId}]</value>
         <value xml:lang="zh">论坛列表：论坛组</value>
     </property>
     <property key="PageTitleFindLayout">

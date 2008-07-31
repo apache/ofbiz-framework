@@ -114,48 +114,6 @@ under the License.
         </section>
     </screen>
     
-    <screen name="commonForumDecorator">
-        <section>
-            <actions>
-                <set field="headerItem" value="Forum"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="main-decorator">
-                    <decorator-section name="body">
-                        <section>
-                            <condition>
-                                <if-has-permission permission="CONTENTMGR" action="_VIEW"/>
-                            </condition>
-                            <widgets>
-                                <section>
-                                    <condition>
-                                        <not><if-empty field-name="tabBar"/></not>
-                                    </condition>
-                                    <widgets>
-                                        <include-menu name="${tabBar}" location="component://content/widget/forum/ForumMenus.xml"/>
-                                    </widgets>
-                                </section>
-                                <label style="h1" text="${uiLabelMap.${titleProperty}}"></label>
-                                <section>
-                                    <condition>
-                                        <not><if-empty field-name="objectId"/></not>
-                                    </condition>
-                                    <widgets>
-                                        <label style="h1" text="&quot;${objectName}&quot; [${objectId}]"></label>
-                                    </widgets>
-                                </section>
-                                <decorator-section-include name="body"/>
-                            </widgets>
-                            <fail-widgets>
-                                <label style="h3">You do not have permission to view this page. ("CONTENTMGR_VIEW" or "CONTENTMGR_ADMIN" needed)</label>
-                            </fail-widgets>
-                        </section>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-    
     <screen name="commonDataResourceDecorator">
         <section>
             <actions>
