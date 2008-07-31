@@ -26,6 +26,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javolution.util.FastMap;
+
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilDateTime;
@@ -172,7 +174,7 @@ public class ContentServicesComplex {
                          ,null);
 
         }
-        HashMap results = new HashMap();
+        Map results = FastMap.newInstance();
         results.put("entityList", relatedAssocs);
         return results;
     }

@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#assign forumRootId = "WebStoreCONTENT"/>
+<#assign contentRootId = "WebStoreCONTENT"/>
 
 <#-- variable setup and worker calls -->
 <#assign curCategoryId = requestAttributes.curCategoryId?if_exists>
@@ -36,11 +36,11 @@ under the License.
     </div>
     <div class="screenlet-body">
         <#assign count_1=0/>
-        <@loopSubContentCache subContentId=forumRootId viewIndex=0 viewSize=9999 orderBy="contentName" contentAssocTypeId="SUBSITE">
+        <@loopSubContent contentId=contentRootId viewIndex=0 viewSize=9999 orderBy="contentName">
             <div class="browsecategorytext" style="margin-left: 10px">
                -&nbsp;<a href="<@ofbizUrl>showcontenttree?contentId=${subContentId}&amp;nodeTrailCsv=${subContentId}</@ofbizUrl>" class="browsecategorybutton">${content.contentName}</a>
             </div>
             <#assign count_1=(count_1 + 1)/>
-        </@loopSubContentCache>
+        </@loopSubContent>
     </div>
 </div>

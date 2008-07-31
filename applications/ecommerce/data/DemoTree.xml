@@ -21,16 +21,13 @@ under the License.
 <entity-engine-transform-xml template="org/ofbiz/ecommerce/data/tree.ftl">
     <topic_tree>
         <topic id="9401">
-            <child id="180000" type="content">
-            </child>
+            <child id="180000" type="content"/>
         </topic>
         <topic id="9402">
-            <child id="180001" type="content">
-            </child>
+            <child id="180001" type="content"/>
         </topic>
         <topic id="9402">
-            <child id="180002" type="content">
-            </child>
+            <child id="180002" type="content"/>
         </topic>
     </topic_tree>
 </entity-engine-transform-xml>

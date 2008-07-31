@@ -60,22 +60,20 @@ under the License.
 -->
 
 <table border="0" width="100%" class="tableheadtext">
-<!-- Note that the "...When" arguments in the loopSubContentCache must be compatible with those in
+<!-- Note that the "...When" arguments in the loopSubContent must be compatible with those in
      any embedded transformSubContent, because it will assume that the first node has already
      had its conditions checked.
      It is not convenient to have the traverseSubContent check or recheck the first node
      because the associated ContentAssoc entity is not known.
 -->
         <h1>${uiLabelMap.EcommerceResponses}</h1><br/>
-<@loopSubContentCache  contentAssocTypeId="RESPONSE" subContentId=subContentId mapKey=""
+<@loopSubContent contentAssocTypeId="RESPONSE" contentId=subContentId mapKey=""
                 pickWhen="contentAssocTypeId != null && contentAssocTypeId.equals(\"RESPONSE\") && mapKey == null"
-                followWhen="contentAssocTypeId != null && contentAssocTypeId.equals(\"RESPONSE\")"
->
+                followWhen="contentAssocTypeId != null && contentAssocTypeId.equals(\"RESPONSE\")">
     <@traverseSubContentCache  contentAssocTypeId="RESPONSE" 
                             pickWhen="contentAssocTypeId != null && contentAssocTypeId.equals(\"RESPONSE\")"
                             followWhen="contentAssocTypeId != null && contentAssocTypeId.equals(\"RESPONSE\")"
-                            wrapTemplateId=""
-                        >
+                            wrapTemplateId="">
     <#assign indentStr=indent?default("0")/>
     <#assign indent=indentStr?number/>
     <#if 1 < indent >
@@ -101,12 +99,14 @@ under the License.
   </tr>
         </#if>
     </#if>
-     </@traverseSubContentCache >
-</@loopSubContentCache >
+    </@traverseSubContentCache>
+</@loopSubContent>
+
 <#--
 <@wrapSubContentCache subContentId=subContentId wrapTemplateId="WRAP_NEXT_PREV" >
 </@wrapSubContentCache >
 -->
+
 </table>
 </div>
 </div>

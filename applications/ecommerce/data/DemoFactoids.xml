@@ -64,10 +64,10 @@ The use of gizmos has been shown to have no negative effect on personal longetiv
     <Content contentId="FACT_5" contentTypeId="DOCUMENT" ownerContentId="WebStoreFACTOID" dataResourceId="FACT_5" statusId="CTNT_PUBLISHED" privilegeEnumId="CNT_PRV_BRONZE" contentName="Gizmos are safe" description="Gizmos are safe" createdDate="2004-03-30 07:57:39.671" createdByUserLogin="admin" lastModifiedDate="2004-03-30 07:57:39.671" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-03-30 07:57:53.174" createdStamp="2004-03-30 07:57:39.671"/>
     <ContentAssoc contentId="FACT_5" contentIdTo="WebStoreFACTOID" contentAssocTypeId="PUBLISH_LINK" fromDate="2004-03-30 07:57:53.141" createdDate="2004-03-30 07:57:53.145" createdByUserLogin="admin" lastModifiedDate="2004-03-30 07:57:53.145" lastModifiedByUserLogin="admin" lastUpdatedStamp="2004-03-30 07:57:53.151" createdStamp="2004-03-30 07:57:53.151"/>
 
-    <ContentAssoc contentId="FACT_1" contentIdTo="WebStoreFACTOID" contentAssocTypeId="SUBSITE" fromDate="2004-03-01 12:00:00.000" createdDate="2004-03-01 12:00:00.000" createdByUserLogin="admin"/>
-    <ContentAssoc contentId="FACT_2" contentIdTo="WebStoreFACTOID" contentAssocTypeId="SUBSITE" fromDate="2004-03-01 12:00:00.000" createdDate="2004-03-01 12:00:00.000" createdByUserLogin="admin"/>
-    <ContentAssoc contentId="FACT_3" contentIdTo="WebStoreFACTOID" contentAssocTypeId="SUBSITE" fromDate="2004-03-01 12:00:00.000" createdDate="2004-03-01 12:00:00.000" createdByUserLogin="admin"/>
-    <ContentAssoc contentId="FACT_4" contentIdTo="WebStoreFACTOID" contentAssocTypeId="SUBSITE" fromDate="2004-03-01 12:00:00.000" createdDate="2004-03-01 12:00:00.000" createdByUserLogin="admin"/>
-    <ContentAssoc contentId="FACT_5" contentIdTo="WebStoreFACTOID" contentAssocTypeId="SUBSITE" fromDate="2004-03-01 12:00:00.000" createdDate="2004-03-01 12:00:00.000" createdByUserLogin="admin"/>
+    <ContentAssoc contentId="FACT_1" contentIdTo="WebStoreFACTOID" contentAssocTypeId="SUB_CONTENT" fromDate="2004-03-01 12:00:00.000" createdDate="2004-03-01 12:00:00.000" createdByUserLogin="admin"/>
+    <ContentAssoc contentId="FACT_2" contentIdTo="WebStoreFACTOID" contentAssocTypeId="SUB_CONTENT" fromDate="2004-03-01 12:00:00.000" createdDate="2004-03-01 12:00:00.000" createdByUserLogin="admin"/>
+    <ContentAssoc contentId="FACT_3" contentIdTo="WebStoreFACTOID" contentAssocTypeId="SUB_CONTENT" fromDate="2004-03-01 12:00:00.000" createdDate="2004-03-01 12:00:00.000" createdByUserLogin="admin"/>
+    <ContentAssoc contentId="FACT_4" contentIdTo="WebStoreFACTOID" contentAssocTypeId="SUB_CONTENT" fromDate="2004-03-01 12:00:00.000" createdDate="2004-03-01 12:00:00.000" createdByUserLogin="admin"/>
+    <ContentAssoc contentId="FACT_5" contentIdTo="WebStoreFACTOID" contentAssocTypeId="SUB_CONTENT" fromDate="2004-03-01 12:00:00.000" createdDate="2004-03-01 12:00:00.000" createdByUserLogin="admin"/>
 </entity-engine-xml>
 

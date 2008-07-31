@@ -27,15 +27,15 @@ under the License.
 </#macro>
 
 <#macro topic>
-    <#assign contentIdTo="ECMT" + .node.@id[0]/>
+    <#assign contentId="ECMT" + .node.@id[0]/>
     <#recurse .node>
 </#macro>
 
 <#macro child>
-    <#assign contentId="ECMT" + .node.@id[0]/>
-    <#assign assocType="SUBSITE"/>
+    <#assign contentIdTo="ECMT" + .node.@id[0]/>
+    <#assign assocType="SUB_CONTENT"/>
     <#if .node.@type = "content">
-        <#assign contentId="ECMC" + .node.@id[0]/>
+        <#assign contentIdTo="ECMC" + .node.@id[0]/>
         <#assign assocType="PUBLISH_LINK"/>
     </#if>
     <#assign nowStamp=Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp()/>

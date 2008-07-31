@@ -78,22 +78,22 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
         //Profiler.begin("Limited");
         final StringBuffer buf = new StringBuffer();
         final Environment env = Environment.getCurrentEnvironment();
-        //final Map templateRoot = (Map) FreeMarkerWorker.getWrappedObject("context", env);
         final Map templateRoot = FreeMarkerWorker.createEnvironmentMap(env);
-        //FreeMarkerWorker.convertContext(templateRoot);
         final GenericDelegator delegator = (GenericDelegator) FreeMarkerWorker.getWrappedObject("delegator", env);
         final HttpServletRequest request = (HttpServletRequest) FreeMarkerWorker.getWrappedObject("request", env);
         FreeMarkerWorker.getSiteParameters(request, templateRoot);
-        //templateRoot.put("buf", buf);
         final Map savedValuesUp = new HashMap();
         FreeMarkerWorker.saveContextValues(templateRoot, upSaveKeyNames, savedValuesUp);
         final Map savedValues = new HashMap();
         FreeMarkerWorker.overrideWithArgs(templateRoot, args);
+
         String contentAssocTypeId = (String) templateRoot.get("contentAssocTypeId");
+        if (UtilValidate.isEmpty(contentAssocTypeId)) {
+            contentAssocTypeId = "SUB_CONTENT";
+            templateRoot.put("contentAssocTypeId ", contentAssocTypeId);
+        }
+        
         final Map pickedEntityIds = new HashMap();
-        //if (UtilValidate.isEmpty(contentAssocTypeId)) {
-        //throw new RuntimeException("contentAssocTypeId is empty");
-        //}
         List assocTypes = StringUtil.split(contentAssocTypeId, "|");
 
         String contentPurposeTypeId = (String) templateRoot.get("contentPurposeTypeId");
@@ -129,7 +129,9 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
         String strNullThruDatesOnly = (String) templateRoot.get("nullThruDatesOnly");
         String orderBy = (String) templateRoot.get("orderBy");
         Boolean nullThruDatesOnly = (strNullThruDatesOnly != null && strNullThruDatesOnly.equalsIgnoreCase("true")) ? Boolean.TRUE : Boolean.FALSE;
-        String contentId = (String) templateRoot.get("subContentId");
+        
+        // NOTE this was looking for subContentId, but that doesn't make ANY sense, so changed to contentId
+        String contentId = (String) templateRoot.get("contentId");
 
         templateRoot.put("contentId", null);
         templateRoot.put("subContentId", null);
