@@ -78,14 +78,14 @@ under the License.
     </td>
     </tr>
     <#assign thisContentId = subContentId/>
-    <@loopSubContentCache subContentId=thisContentId viewIndex=0 viewSize=9999 contentAssocTypeId="RELATED_CONTENT">
+    <@loopSubContent contentId=thisContentId viewIndex=0 viewSize=9999 contentAssocTypeId="RELATED_CONTENT">
       <#assign thisNodeTrailCsv = nodeTrailCsv />
       <tr>
         <td colspan="3" align="right">
           <a class="tabButton" href="<@ofbizUrl>viewcontent?contentId=${subContentId}&amp;nodeTrailCsv=${thisNodeTrailCsv?if_exists}</@ofbizUrl>" >${content.contentName?if_exists}</a>
         </td>
       </tr>
-    </@loopSubContentCache>
+    </@loopSubContent>
 </table>
 <hr/>
 <#--

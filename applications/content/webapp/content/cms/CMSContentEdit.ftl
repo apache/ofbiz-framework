@@ -314,12 +314,7 @@ ${menuWrapper.renderMenuString()}
 </#if>
 
 
-<@loopSubContentCache subContentId=forumId
-    viewIndex=viewIdx
-    viewSize=viewSz
-    contentAssocTypeId="SUBSITE"
-    returnAfterPickWhen="1==1";
->
+<@loopSubContent contentId=forumId viewIndex=viewIdx viewSize=viewSz contentAssocTypeId="SUBSITE" returnAfterPickWhen="1==1";>
     <#local isPublished = "" />
     <#assign contentAssocViewFrom=Static["org.ofbiz.content.content.ContentWorker"].getContentAssocViewFrom(delegator, subContentId, contentId, "PUBLISH_LINK", null, null)?if_exists />
     <#if contentAssocViewFrom?has_content>
@@ -341,6 +336,6 @@ ${menuWrapper.renderMenuString()}
        </tr>
        <#assign rowCount = rowCount + 1 />
        <@publishContent forumId=subContentId contentId=contentId indentIndex=(indentIndex + 1)/>
-</@loopSubContentCache >
+</@loopSubContent>
 
 </#macro>

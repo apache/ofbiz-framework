@@ -36,7 +36,7 @@ under the License.
     </div>
     <div class="screenlet-body">
         <#assign count_1=0/>
-        <@limitedSubContent subContentId=factoidRootId viewIndex=0 viewSize=9999 orderBy="contentName" contentAssocTypeId="SUBSITE" limitSize="2">
+        <@limitedSubContent contentId=factoidRootId viewIndex=0 viewSize=9999 orderBy="contentName" limitSize="2">
             <div class="browsecategorytext" style="margin-left: 10px">
               -&nbsp;<@renderSubContentCache subContentId=subContentId/>
             </div>

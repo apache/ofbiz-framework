@@ -119,12 +119,7 @@ function call_fieldlookup4(rootForumId, parentForumId ) {
 </#if>
 
 
-<@loopSubContentCache subContentId=forumId
-    viewIndex=0
-    viewSize=9999
-    contentAssocTypeId="SUBSITE"
-    returnAfterPickWhen="1==1";
->
+<@loopSubContent contentId=forumId viewIndex=0 viewSize=9999 contentAssocTypeId="SUBSITE" returnAfterPickWhen="1==1";>
        <tr>
          <td class="tabletext" >
             ${indent}
@@ -149,7 +144,7 @@ function call_fieldlookup4(rootForumId, parentForumId ) {
        </tr>
        <#assign rowCount = rowCount + 1 />
        <@showSites forumId=subContentId indentIndex=(indentIndex + 1)/>
-</@loopSubContentCache >
+</@loopSubContent>
 
 </#macro>
 

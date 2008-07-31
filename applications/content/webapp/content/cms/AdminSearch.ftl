@@ -132,13 +132,8 @@ under the License.
       <#local indent = indent + "&nbsp;&nbsp;"/>
     </#list>
   </#if>
-<@loopSubContentCache subContentId=contentId
-    viewIndex=0
-    viewSize=9999
-    contentAssocTypeId="SUBSITE"
-    returnAfterPickWhen="1==1";
->
+<@loopSubContent contentId=contentId viewIndex=0 viewSize=9999 contentAssocTypeId="SUBSITE" returnAfterPickWhen="1==1";>
   <option value="${content.contentId?lower_case}">${indent}${content.description}</option>
   <@listSiteIds contentId=content.contentId indentIndex=indentIndex + 1 />
-</@loopSubContentCache >
+</@loopSubContent>
 </#macro>

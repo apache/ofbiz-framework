@@ -32,14 +32,10 @@ under the License.
 
 <#assign sz=0/>
 <table border="0">
-<@loopSubContentCache subContentId=contentIdx 
-    viewIndex=viewIdx
-    viewSize=viewSz
-    contentAssocTypeId="PUBLISH_LINK"
+<@loopSubContent contentId=contentIdx viewIndex=viewIdx viewSize=viewSz contentAssocTypeId="PUBLISH_LINK"
     pickWhen="purposes.contains(\"ARTICLE\") && \"CTNT_PUBLISHED\".equals(content.get(\"statusId\"))"
     returnAfterPickWhen="purposes.contains(\"ARTICLE\")"
-    followWhen="contentAssocTypeId != null && contentAssocTypeId.equals(\"never follow\")"
->
+    followWhen="contentAssocTypeId != null && contentAssocTypeId.equals(\"never follow\")">
   <#assign thisNodeTrailCsv=nodeTrailCsv?if_exists/>
   <#assign thisSubContentId=subContentId?if_exists/>
   <#assign thisNode=globalNodeTrail?last/>
@@ -87,9 +83,11 @@ under the License.
     </td>
 </@checkPermission>
   </tr>
-
 <#assign sz=listSize/>
-</@loopSubContentCache>
+
+</@loopSubContent>
+
+
 <#if sz == 0 >
   <tr><td class="tabletext" align="center">${uiLabelMap.EcommerceNoRecordsFound}</td></tr>
 </#if>
