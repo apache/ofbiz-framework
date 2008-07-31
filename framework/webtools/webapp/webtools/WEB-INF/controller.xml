@@ -24,12 +24,7 @@ under the License.
     <description>WebTools Site Configuration File</description>
     <owner>Copyright 2001-2008 The Apache Software Foundation</owner>
 
-    <handler name="xmlrpc" type="request" class="org.ofbiz.webapp.event.XmlRpcEventHandler"/>
-    <handler name="service-multi" type="request" class="org.ofbiz.webapp.event.ServiceMultiEventHandler"/>
-    <handler name="service-stream" type="request" class="org.ofbiz.webapp.event.ServiceStreamHandler"/>
-
     <handler name="datavision" type="view" class="org.ofbiz.webapp.view.DataVisionViewHandler"/>
-    <handler name="ftl" type="view" class="org.ofbiz.webapp.ftl.FreeMarkerViewHandler"/>   
     
     <!-- Events to run on every request before security (chains exempt) -->
     <!--
