@@ -233,6 +233,16 @@ under the License.
         <description>Delete Party to Fixed Asset</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+
+    <service name="autoAssignFixedAssetPartiesToMaintenance" engine="simple"
+                location="component://accounting/script/org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="autoAssignFixedAssetPartiesToMaintenance" auth="true">
+        <description>Auto-assign Fixed Asset Parties to a Fixed Asset Maintenance</description>
+        <permission-service service-name="fixedAssetPermissionCheck" main-action="UPDATE"/>
+        <attribute name="fixedAssetId" mode="IN" type="String" optional="false"/>
+        <attribute name="maintHistSeqId" mode="IN" type="String" optional="false"/>
+    </service>
+
+    <!-- Fixed Asset Permission Services -->
     <service name="fixedAssetPermissionCheck" engine="simple"
             location="component://accounting/script/org/ofbiz/accounting/permissions/PermissionServices.xml" invoke="basePermissionCheck">
         <description>Fixed Asset Permission Checking Logic</description>

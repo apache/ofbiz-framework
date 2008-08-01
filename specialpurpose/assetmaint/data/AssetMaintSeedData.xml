@@ -18,9 +18,4 @@ specific language governing permissions and limitations
 under the License.
 -->
 <entity-engine-xml>
-    <!-- Asset Maintenance seed data -->
-    <RoleType description="Fixed Asset Maint Assignee" hasTable="N" roleTypeId="FAM_ASSIGNEE"/>
-    <RoleType description="Outside Supplier/Service (Asset Maint)" hasTable="N" parentTypeId="FAM_ASSIGNEE" roleTypeId="FAM_SUPPLIER"/>
-    <RoleType description="Manager or Supervisor (Asset Maint)" hasTable="N" parentTypeId="FAM_ASSIGNEE" roleTypeId="FAM_MANAGER"/>
-    <RoleType description="Worker (Asset Maint)" hasTable="N" parentTypeId="FAM_ASSIGNEE" roleTypeId="FAM_WORKER"/>
 </entity-engine-xml>

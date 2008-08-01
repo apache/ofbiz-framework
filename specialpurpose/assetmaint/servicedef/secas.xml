@@ -37,9 +37,4 @@ under the License.
         <action service="assetMaintPermissionCheck" mode="sync" result-to-result="true"/>
     </eca>
 
-    <!-- ECAs used to extend fixed asset services -->
-    <eca service="createFixedAssetMaint" event="commit" run-on-failure="false">
-        <action service="assignFixedAssetPartiesToMaintenance" mode="sync"/>
-    </eca>
-
 </service-eca>

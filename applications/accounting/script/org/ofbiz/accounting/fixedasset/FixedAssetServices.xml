@@ -419,6 +419,32 @@ under the License.
         <remove-value value-name="newEntity"/>
     </simple-method>
      
+    <simple-method method-name="autoAssignFixedAssetPartiesToMaintenance" login-required="true"
+        short-description="Auto-assign Fixed Asset Parties to a Fixed Asset Maintenance">
+        <if-empty field="maintHistSeqId">
+            <set field="maintHistSeqId" from-field="parameters.maintHistSeqId"/>
+        </if-empty>
+        <if-empty field="fixedAssetId">
+            <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
+        </if-empty>
+        <entity-one entity-name="FixedAssetMaint" value-name="maintValue"/>
+        <if-empty field="workEffortId">
+            <set field="workEffortId" from-field="maintValue.scheduleWorkEffortId"/>
+        </if-empty>
+        <entity-and list-name="assignedParties" entity-name="PartyFixedAssetAssignAndRole" filter-by-date="true">
+            <field-map field-name="fixedAssetId" env-name="fixedAssetId"/>
+            <field-map field-name="parentTypeId" value="FAM_ASSIGNEE"/>
+        </entity-and>
+        <iterate list-name="assignedParties" entry-name="assignedParty">
+            <set field="assignPartyCtx.partyId" from-field="assignedParty.partyId"/>
+            <set field="assignPartyCtx.roleTypeId" from-field="assignedParty.roleTypeId"/>
+            <set field="assignPartyCtx.workEffortId" from-field="workEffortId"/>
+            <set field="assignPartyCtx.statusId" value="PRTYASGN_ASSIGNED"/>
+            <call-service service-name="assignPartyToWorkEffort" in-map-name="assignPartyCtx"/>
+            <check-errors/>
+        </iterate>
+    </simple-method>
+
     <!-- ==============  Fixed Asset Depreciation methods  ============== -->   
     <simple-method method-name="straightLineDepreciation" short-description="Calculate straight line depreciation to Fixed Asset[ (PC-SV)/expLife ]">
         <set field="expEndOfLifeYear" from-field="parameters.expEndOfLifeYear" type="Integer"/>

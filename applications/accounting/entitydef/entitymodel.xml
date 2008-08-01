@@ -956,6 +956,17 @@ under the License.
         <key-map field-name="statusId"/>
       </relation>
     </entity>
+
+    <view-entity entity-name="PartyFixedAssetAssignAndRole" package-name="org.ofbiz.accounting.fixedasset"
+        title="PartyFixedAssetAssignment and RoleType View Entity">
+        <member-entity entity-alias="PFA" entity-name="PartyFixedAssetAssignment"/>
+        <member-entity entity-alias="RT" entity-name="RoleType"/>
+        <alias-all entity-alias="PFA"/>
+        <alias-all entity-alias="RT"/>
+        <view-link entity-alias="PFA" rel-entity-alias="RT">
+            <key-map field-name="roleTypeId"/>
+        </view-link>
+    </view-entity>
     
     <entity entity-name="FixedAssetMaintOrder" package-name="org.ofbiz.accounting.fixedasset" title="Fixed Asset Maintance And Order Entity">
         <field name="fixedAssetId" type="id-ne"></field>
