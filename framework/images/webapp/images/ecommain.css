@@ -19,22 +19,143 @@
 
 /* ===== This file contains the eCommerce specific styles ===== */
 
+/* ===== Resets/Browser Normalization ===== */
+
+blockquote, body, div, dl, dt, dd, fieldset, form, h1, h2, h3, h4, h5, h6,
+img, input, li, ol, p, select, span, td, textarea, th, ul {
+border-style: none;
+margin: 0;
+padding: 0;
+}
+
+a, address, body, caption, cite, code, dfn, em, strong, th, var {
+font-style: normal;
+font-weight: normal;
+text-decoration: none;
+}
+
+body, caption, th {
+text-align: left;
+}
+
+h1, h2, h3, h4, h5, h6 {
+font-size: 100%;
+}
+
+ol, ul {
+list-style: none;
+}
+
 /* ===== Basic Element Styles ===== */
-BODY {
+
+
+a, a:visited {
+color: #000099;
+font-weight: bold;
+}
+
+a:hover, a:active {
+text-decoration: underline;
+}
+
+.disabled {
+color: #333366;
+text-decoration: none;
+}
+
+body, textarea, input, select {
+font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+body {
+background-color: #FFFFFF;
+color: #000000;
+font-size: 10px;
+margin: 10px;
+}
+
+hr {
+background-color: #999999;
+border: 0;
+height: 1px;
+margin: 5px 0 5px 0;
+}
+
+input[type="radio"], input[type="checkbox"] {
+font-size: 8pt;
+}
+
+input[type="text"], input[type="password"] {
+font-size: 8pt;
+background: white;
+border: #999999 solid 1px;
+margin: 2px;
+}
+
+input[type="submit"], input[type="button"],
+input[type="reset"] {
+font-size: 8pt;
+font-weight: bold;
+color: #000099;
+background: white;
+border: #999999 solid 1px;
+margin: 2px;
+}
+
+input[type="submit"]:hover {
+color: #ff0000;
+cursor: pointer;
+text-decoration: underline;
+}
+
+input[type="file"] {
+font-size: 11px;
+}
+
+select {
 background: #FFFFFF;
-margin-top: 10px;
-margin-right: 10px;
-margin-bottom: 10px;
-margin-left: 10px;
+font-size: 8pt;
+border: #999999 solid 1px;
+margin: 2px;
 }
 
-FORM {
-margin: 0px;
+h1, .h1 {
+color: #000099;
+font-size: 12pt;
+font-weight: bold;
 }
 
-UL {
-margin-top: 0;
-margin-bottom: 0;
+h2, .h2 {
+font-size: 10pt;
+font-weight: bold;
+}
+
+h3, .h3 {
+font-size: 8pt;
+font-weight: bold;
+}
+
+/* IE7 fix */
+table {
+font-size: 10px;
+}
+
+/* IE7 fix */
+table input {
+border: #999999 solid 1px;
+}
+
+textarea {
+background: #FFFFFF;
+font-size: 8pt;
+background: white;
+border: #999999 solid 1px;
+margin: 2px;
+}
+
+th, th a {
+color: #000000;
+font-weight: bold;
 }
 
 img {
@@ -45,22 +166,6 @@ behavior: url("/images/pngbehavior.htc");
 clear: both;
 height: 0px;
 visibility: hidden;
-}
-
-TH {
-font-family: Verdana, Arial, Helvetica, sans-serif;
-font-size: 10px;
-font-weight: bold;
-text-decoration: none;
-color: #000000;
-}
-
-TD {
-font-family: Verdana, Arial, Helvetica, sans-serif;
-font-size: 10px;
-font-weight: normal;
-text-decoration: none;
-color: #000000;
 }
 
 .hidden {
@@ -105,16 +210,10 @@ text-align: right;
 #welcome-message {
 padding-right: 10px;
 padding-left: 10px;
-font-family: Verdana, Arial, Helvetica, sans-serif;
-font-size: 10px;
 font-weight: bold;
 text-decoration: none;
-color: #000000;
 }
 #welcome-message a {
-font-family: Verdana, Arial, Helvetica, sans-serif;
-font-size: 10px;
-font-weight: bold;
 text-decoration: none;
 color: #000099;
 }
@@ -123,27 +222,20 @@ color: black;
 text-decoration: underline;
 }
 #company-name {
-margin: 0px;
 font-size: 12pt;
-font-family: Verdana, Arial, Helvetica, sans-serif;
 font-weight: bold;
 color: #000099;
 white-space: nowrap;
 }
 #company-subtitle {
-margin: 0px;
 font-size: 6pt;
-font-family: Verdana, Arial, Helvetica, sans-serif;
 color: #330099;
 white-space: nowrap;
 }
 
 #microcart {
-font-size: 10px;
-font-family: Verdana, Arial, Helvetica, sans-serif;
 font-weight: bold;
 text-decoration: none;
-color: black;
 }
 #microcart a {
 text-decoration: none;
@@ -168,13 +260,7 @@ height: 14px;
 #ecom-header-bar ul {
 display: block;
 overflow: visible;
-list-style: none;
 background: transparent;
-vertical-align: middle;
-margin: 0px;
-padding: 0px;
-font-family: Verdana, Arial, Helvetica, sans-serif;
-font-size: 12px;
 }
 
 #ecom-header-bar ul li {
@@ -191,8 +277,6 @@ border-left: 1px solid #FFFFFF;
 }
 
 #ecom-header-bar ul li a {
-font-family: Verdana, Arial, Helvetica, sans-serif;
-font-size: 10px;
 font-weight: bold;
 text-decoration: none;
 color: #000099;
@@ -287,8 +371,6 @@ height:1%
 }
 
 .boxhead {
-font-family: Verdana, Arial, Helvetica, sans-serif;
-margin: 0px;
 font-size: 8pt;
 font-weight: bold;
 text-decoration: none;
@@ -296,12 +378,10 @@ color: #FFFFFF;
 }
 
 .boxlink {
-  float:right;
+float: right;
 }
 
 A.boxheadbutton {
-font-family: Verdana, Arial, Helvetica, sans-serif;
-margin: 0px;
 font-size: 8pt;
 font-weight: bold;
 text-decoration: none;
@@ -309,8 +389,6 @@ color: #FFFFFF;
 }
 
 A.boxheadbutton:hover {
-font-family: Verdana, Arial, Helvetica, sans-serif;
-margin: 0px;
 font-size: 8pt;
 font-weight: bold;
 text-decoration: none;
@@ -335,70 +413,24 @@ text-align: left;
 }
 
 /* ===== Text/Label Styles ===== */
-.tabletext, div.form-label, div.form-field {
-font-size: 10px;
-text-decoration: none;
-font-family: Verdana, Arial, Helvetica, sans-serif;
-}
-
-A.tabletext:hover {
-font-size: 10px;
-text-decoration: underline;
-font-family: Verdana, Arial, Helvetica, sans-serif;
-}
-
 .tablebuttontext {
-font-size: 10px;
 color: #1E3C66;
-font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 
 .contenttext {
 font-size: 8pt;
-font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 
 DIV.tabletexthidden {
-font-size: 10px;
-font-family: Verdana, Arial, Helvetica, sans-serif;
 visibility: hidden;
 }
 
-h1 {
-font-family: Verdana, Arial, Helvetica, sans-serif;
-margin: 0px;
-font-size: 12pt;
-font-weight: bold;
-color: #000099;
-}
-
-h2 {
-font-family: Verdana, Arial, Helvetica, sans-serif;
-margin: 0px;
-font-size: 10pt;
-font-weight: bold;
-color: #000000;
-}
-
-h3 {
-font-family: Verdana, Arial, Helvetica, sans-serif;
-margin: 0px;
-font-size: 8pt;
-font-weight: bold;
-color: #000000;
-}
-
 .info {
-font-family: Verdana, Arial, Helvetica, sans-serif;
-margin: 0px;
-font-size: 10px;
 font-style: normal;
 color: #000000;
 }
 
 DIV.graybox {
-font-family: Verdana, Arial, Helvetica, sans-serif;
-font-size: 10px;
 font-weight: bold;
 background: #CCCCCC;
 border: 1px solid #000000;
@@ -411,7 +443,6 @@ padding: 4px;
 
 .boxoutside {
 background: #FFFFFF;
-padding: 0px;
 border-color: #999999;
 border-style: solid;
 border-width: 1px 1px 1px 1px;
@@ -444,64 +475,42 @@ padding-right: 5px; padding-left: 5px;
 
 
 .tableheadtext {
-font-family: Verdana, Arial, Helvetica, sans-serif;
-font-size: 10px;
 font-weight: bold;
-text-decoration: none;
 color: black;
 }
 
 A.tableheadbutton {
-font-family: Verdana, Arial, Helvetica, sans-serif;
-font-size: 10px;
 font-weight: bold;
-text-decoration: none;
 color: black;
 }
 
 A.tableheadbutton:hover {
-font-family: Verdana, Arial, Helvetica, sans-serif;
-font-size: 10px;
 font-weight: bold;
-text-decoration: underline;
 color: red;
 }
 
 .browsecategorytext {
-font-family: Verdana, Arial, Helvetica, sans-serif;
-font-size: 10px;
 font-weight: bold;
-text-decoration: none;
 color: #000099;
 text-indent: -10px;
 }
 
 A.browsecategorybutton {
-font-family: Verdana, Arial, Helvetica, sans-serif;
-font-size: 10px;
 font-weight: bold;
-text-decoration: none;
 color: #000099;
 }
 
 A.browsecategorybutton:hover {
 color: #000099;
-text-decoration: underline;
 }
 
 .browsecategorybuttondisabled {
-font-family: Verdana, Arial, Helvetica, sans-serif;
-font-size: 10px;
 font-weight: bold;
-text-decoration: none;
 color: #333333;
 }
 
 A.buttontext, .buttontextdisabled {
-font-family: Verdana, Arial, Helvetica, sans-serif;
-font-size: 10px;
 font-weight: bold;
-text-decoration: none;
 background: white;
 border: #999999 solid 1px;
 margin: 2px 1px 2px 1px;
@@ -514,20 +523,15 @@ color: #000099;
 
 A.buttontext:hover {
 color: red;
-text-decoration: underline;
 }
 
 A.linktext {
-font-family: Verdana, Arial, Helvetica, sans-serif;
-font-size: 10px;
 font-weight: bold;
-text-decoration: none;
 color: #000099;
 }
 
 A.linktext:hover {
 color: red;
-text-decoration: underline;
 }
 
 .buttontextdisabled {
@@ -535,10 +539,7 @@ color: #333333;
 }
 
 .submenutextinfo {
-font-family: Verdana, Arial, Helvetica, sans-serif;
-font-size: 10px;
 font-weight: bold;
-text-decoration: none;
 color: white;
 padding-left: 6px;
 padding-right: 5px;
@@ -546,10 +547,7 @@ border-right: 1px solid #5886C6
 }
 
 .submenutext, A.submenutext, A.submenutext:visited {
-font-family: Verdana, Arial, Helvetica, sans-serif;
-font-size: 10px;
 font-weight: bold;
-text-decoration: none;
 color: yellow;
 padding-left: 6px;
 padding-right: 5px;
@@ -558,14 +556,10 @@ border-right: 1px solid #5886C6
 
 A.submenutext:hover {
 color: yellow;
-text-decoration: underline;
 }
 
 .submenutextdisabled, A.submenutextdisabled {
-font-family: Verdana, Arial, Helvetica, sans-serif;
-font-size: 10px;
 font-weight: bold;
-text-decoration: none;
 color: #CCCCCC;
 padding-left: 6px;
 padding-right: 5px;
@@ -573,27 +567,18 @@ border-right: 1px solid #5886C6
 }
 
 A.submenutextdisabled:hover {
-font-family: Verdana, Arial, Helvetica, sans-serif;
-font-size: 10px;
 font-weight: bold;
-text-decoration: underline;
 color: yellow;
 }
 
 .submenutextinforight {
-font-family: Verdana, Arial, Helvetica, sans-serif;
-font-size: 10px;
 font-weight: bold;
-text-decoration: none;
 color: white;
 padding-left: 6px;
 }
 
 .submenutextright, A.submenutextright {
-font-family: Verdana, Arial, Helvetica, sans-serif;
-font-size: 10px;
 font-weight: bold;
-text-decoration: none;
 color: yellow;
 padding-left: 6px;
 }
@@ -604,60 +589,40 @@ text-decoration: underline;
 }
 
 .submenutextrightdisabled, A.submenutextrightdisabled {
-font-family: Verdana, Arial, Helvetica, sans-serif;
-font-size: 10px;
 font-weight: bold;
-text-decoration: none;
 color: #CCCCCC;
 padding-left: 6px;
 }
 
 A.submenutextrightdisabled:hover {
-text-decoration: underline;
 color: yellow;
 }
 
 A.lightbuttontext {
-font-family: Verdana, Arial, Helvetica, sans-serif;
-font-size: 10px;
 font-weight: bold;
-text-decoration: none;
 color: yellow;
 border: none;
 }
 
 A.lightbuttontext:hover {
 color: yellow;
-text-decoration: underline;
 }
 
 A.lightbuttontextsmall {
-font-family: Verdana, Arial, Helvetica, sans-serif;
 font-size: 8px;
 font-weight: bold;
-text-decoration: none;
 color: yellow;
 border: none;
 }
 
-A.lightbuttontextsmall:hover {
-color: yellow;
-text-decoration: underline;
-}
-
 .lightbuttontextdisabled {
-font-family: Verdana, Arial, Helvetica, sans-serif;
-font-size: 10px;
 font-weight: bold;
-text-decoration: none;
 color: #CCCCCC;
 }
 
 A.buttontextbig, .buttontextbigdisabled {
-font-family: Verdana, Arial, Helvetica, sans-serif;
 font-size: 15px;
 font-weight: bold;
-text-decoration: none;
 background: white;
 border: #999999 solid 1px;
 margin: 2px 2px 2px 2px;
@@ -671,7 +636,6 @@ color: #CCCCCC;
 }
 A.buttontextbig:hover {
 color: red;
-text-decoration: underline;
 }
 
 A IMG.imageborder {
@@ -685,16 +649,13 @@ border-color: #999999;
 
 .headersmalltext {
 font-size: 8pt;
-font-family: Verdana, Arial, Helvetica, sans-serif;
 font-weight: bold;
 color: black;
 }
 a.headersmalllink {
 font-size: 8pt;
-font-family: Verdana, Arial, Helvetica, sans-serif;
 font-weight: bold;
 color: #000099;
-text-decoration: none;
 }
 a.headersmalllink:hover {
 color: red;
@@ -710,16 +671,12 @@ border-width: 0px;
 }
 
 .errorMessage {
-font-family: Verdana, Arial, Helvetica, sans-serif;
-margin: 0px;
 font-size: 8pt;
 font-weight: bold;
 color: red;
 }
 
 .eventMessage {
-font-family: Verdana, Arial, Helvetica, sans-serif;
-margin: 0px;
 font-size: 8pt;
 font-weight: bold;
 color: #000099;
@@ -737,13 +694,10 @@ a.onlnk {
 font-size: 8pt;
 font-weight: bold;
 color: #FFFFFF;
-font-family: Verdana, Arial, Helvetica, sans-serif;
-text-decoration: none;
 padding: 2px;
 }
 
 .offtab {
-font-size: 10px;
 background: #CCCCCC;
 padding: 2px;
 border-style: outset;
@@ -751,11 +705,8 @@ border-width: 3px;
 }
 
 a.offlnk {
-font-size: 10px;
 font-weight: bold;
 color: #000099;
-font-family: Verdana, Arial, Helvetica, sans-serif;
-text-decoration: none;
 padding: 2px;
 }
 
@@ -764,8 +715,6 @@ color: red;
 }
 
 .areaheader {
-font-size: 10px;
-font-family: Verdana, Arial, Helvetica, sans-serif;
 font-weight: bold;
 color: #FFFFFF;
 width: 100%;
@@ -785,56 +734,13 @@ border-left-width: thin
 .editInputBox {
 font-size: 8pt;
 background: #FFFFFF;
-font-family: Verdana, Arial, Helvetica, sans-serif;
 background: white;
 border: #999999 solid 1px;
 margin: 2px;
 }
-
-.inputBox {
-font-family: Verdana, Arial, Helvetica, sans-serif;
-background: #FFFFFF;
-font-size: 8pt;
-background: white;
-border: #999999 solid 1px;
-margin: 2px;
-}
-
-.selectBox {
-font-family: Verdana, Arial, Helvetica, sans-serif;
-background: #FFFFFF;
-font-size: 8pt;
-background: white;
-border: #999999 solid 1px;
-margin: 2px;
-}
-
-.textAreaBox {
-font-family: Verdana, Arial, Helvetica, sans-serif;
-background: #FFFFFF;
-font-size: 8pt;
-background: white;
-border: #999999 solid 1px;
-margin: 2px;
-}
-
-.radioButton {
-font-family: Verdana, Arial, Helvetica, sans-serif;
-background: #FFFFFF;
-font-size: 8pt;
-}
-
-.checkBox {
-font-family: Verdana, Arial, Helvetica, sans-serif;
-background: #FFFFFF;
-font-size: 8pt;
-}
-
 .smallSubmit {
-font-family: Verdana, Arial, Helvetica, sans-serif;
 font-size: 8pt;
 font-weight: bold;
-text-decoration: none;
 color: #000099;
 background: white;
 border: #999999 solid 1px;
@@ -842,10 +748,8 @@ margin: 2px;
 }
 
 .mediumSubmit,.largeSubmit,.loginButton {
-font-family: Verdana, Arial, Helvetica, sans-serif;
 font-size: 10pt;
 font-weight: bold;
-text-decoration: none;
 color: #000099;
 background: white;
 border: #999999 solid 1px;
@@ -854,29 +758,21 @@ margin: 2px;
 
 .smallSubmit:hover,.mediumSubmit:hover,.largeSubmit:hover,.loginButton:hover {
 color: red;
-text-decoration: underline;
 }
 
 .smallAltSubmit,.mediumAltSubmit,.largeAltSubmit {
-font-family: Verdana, Arial, Helvetica, sans-serif;
 font-size: 8pt;
 }
 
 .basePrice {
-font-size: 10px;
-font-family: Verdana, Arial, Helvetica, sans-serif;
 color: black;
 }
 
 .normalPrice {
-font-size: 10px;
-font-family: Verdana, Arial, Helvetica, sans-serif;
 color: green;
 }
 
 .salePrice {
-font-size: 10px;
-font-family: Verdana, Arial, Helvetica, sans-serif;
 color: red;
 }
 
@@ -966,9 +862,6 @@ text-align: left;
 
 .productsummary .productinfo {
 text-align: left;
-font-size: 10px;
-text-decoration: none;
-font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 
 /* ===== Product Detail Styles ===== */
