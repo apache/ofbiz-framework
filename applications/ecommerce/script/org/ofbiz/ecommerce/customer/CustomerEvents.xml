@@ -931,9 +931,37 @@ under the License.
         <if-empty field="userLogin">
             <call-map-processor xml-resource="org/ofbiz/securityext/login/LoginMapProcs.xml"
                 processor-name="userLogin" in-map-name="parameters" out-map-name="userLoginMap"/>
-            <if-empty field="error_list">    
-            <set-service-fields service-name="createUserLogin"  map-name="userLoginMap" to-map-name="userLoginCtx"/>
+            
+            <if-not-empty field="userLoginMap.userLoginId">
+                <entity-one entity-name="UserLogin" value-name="existingUserLogin">
+                    <field-map field-name="userLoginId" value="${userLoginMap.userLoginId}"/>
+                </entity-one>
+                <if-not-empty field="existingUserLogin">
+                    <add-error error-list-name="error_list"><fail-message message="Username in use, please choose another."/></add-error>
+                </if-not-empty>
+            </if-not-empty>
+            <make-value entity-name="UserLogin" value-name="newUserLogin"/>
+            <set field="newUserLogin.userLoginId" from-field="userLoginMap.userLoginId"/>
+            <set field="newUserLogin.currentPassword" from-field="userLoginMap.currentPassword"/>
+            <set field="newUserLogin.passwordHint" from-field="userLoginMap.passwordHint"/>
+            <!-- Check the password, etc for validity -->
+            <call-bsh><![CDATA[
+                String password = (String) userLoginMap.get("currentPassword");
+                String confirmPassword = (String) userLoginMap.get("currentPasswordVerify");
+                String passwordHint = (String) userLoginMap.get("passwordHint");
+                org.ofbiz.common.login.LoginServices.checkNewPassword(newUserLogin, null, password, confirmPassword, passwordHint, error_list, true, locale);
+            ]]></call-bsh>
+            <if-empty field="error_list">
+             <set-service-fields service-name="createUserLogin"  map-name="userLoginMap" to-map-name="userLoginCtx"/>
+            
+            <!-- call the service with the system account to get around security constraints for this special create -->
+            <entity-one entity-name="UserLogin" value-name="userLoginCtx.userLogin" auto-field-map="false">
+                <field-map field-name="userLoginId" value="system"/>
+            </entity-one>
+            
             <call-service service-name="createUserLogin" in-map-name="userLoginCtx"/>
+            <entity-one entity-name="UserLogin" value-name="userLogin"/>
+            <set field="parameters.userLogin" from-field="userLogin"/>             
             </if-empty>
         <else>
             <call-map-processor xml-resource="org/ofbiz/securityext/login/LoginMapProcs.xml"
