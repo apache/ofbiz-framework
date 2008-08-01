@@ -38,16 +38,6 @@
             <key-map field-name="fixedAssetId"/>
         </view-link>
     </view-entity>
-    <view-entity entity-name="PartyFixedAssetAssignAndRole" package-name="org.ofbiz.assetmaint"
-        title="PartyFixedAssetAssignment and RoleType View Entity">
-        <member-entity entity-alias="PFA" entity-name="PartyFixedAssetAssignment"/>
-        <member-entity entity-alias="RT" entity-name="RoleType"/>
-        <alias-all entity-alias="PFA"/>
-        <alias-all entity-alias="RT"/>
-        <view-link entity-alias="PFA" rel-entity-alias="RT">
-            <key-map field-name="roleTypeId"/>
-        </view-link>
-    </view-entity>
     <view-entity entity-name="FixedAssetMaintWorkEffort" package-name="org.ofbiz.assetmaint"
         title="FixedAssetMaint and WorkEffort View Entity">
         <member-entity entity-alias="FA" entity-name="FixedAsset"/>
