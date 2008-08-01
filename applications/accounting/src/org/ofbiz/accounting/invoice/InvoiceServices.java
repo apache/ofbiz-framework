@@ -1770,8 +1770,7 @@ public class InvoiceServices {
                 }
                 
                 // create the invoice item for this shipment receipt
-                input = UtilMisc.toMap("invoiceId", invoiceId, "invoiceItemTypeId", invoiceItemTypeId);
-                input.put("quantity", quantity);
+                input = UtilMisc.toMap("invoiceId", invoiceId, "invoiceItemTypeId", invoiceItemTypeId, "quantity", Double.valueOf(quantity));
                 input.put("invoiceItemSeqId", "" + invoiceItemSeqId); // turn the int into a string with ("" + int) hack
                 input.put("amount", returnItem.get("returnPrice")); // this service requires Double
                 input.put("productId", returnItem.get("productId"));
@@ -1788,7 +1787,7 @@ public class InvoiceServices {
                 input = UtilMisc.toMap("returnId", returnId, "returnItemSeqId", returnItem.get("returnItemSeqId"), 
                         "invoiceId", invoiceId);
                 input.put("invoiceItemSeqId", "" + invoiceItemSeqId); // turn the int into a string with ("" + int) hack
-                input.put("quantity", quantity);
+                input.put("quantity", Double.valueOf(quantity));
                 input.put("amount", returnItem.get("returnPrice")); // this service requires Double
                 input.put("userLogin", userLogin);
                 if (shipmentReceiptFound) {
