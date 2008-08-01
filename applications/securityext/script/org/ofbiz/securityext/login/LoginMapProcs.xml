@@ -20,23 +20,40 @@ under the License.
 
 <simple-map-processors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
-  <simple-map-processor name="updatePassword">
-    <process field="currentPassword"><copy/><not-empty><fail-property resource="SecurityextUiLabels" property="loginmapprocs.old_password_missing"/></not-empty></process>
-    <process field="newPassword"><copy/><not-empty><fail-property resource="SecurityextUiLabels" property="loginmapprocs.new_password_missing"/></not-empty></process>
-    <process field="newPasswordVerify">
-        <compare-field operator="equals" field="newPassword"><fail-property resource="SecurityextUiLabels" property="loginmapprocs.password_not_equal_verfiy_password"/></compare-field>
-        <not-empty><fail-property resource="SecurityextUiLabels" property="loginmapprocs.new_password_verify_missing"/></not-empty>
-        <copy/></process>
-    <process field="passwordHint"><copy/></process>
-    <process field="userLoginId"><copy/></process>
-  </simple-map-processor>
-  <simple-map-processor name="adminUpdatePassword">
-    <process field="newPassword"><copy/><not-empty><fail-property resource="SecurityextUiLabels" property="loginmapprocs.new_password_missing"/></not-empty></process>
-    <process field="newPasswordVerify">
-        <compare-field operator="equals" field="newPassword"><fail-property resource="SecurityextUiLabels" property="loginmapprocs.password_not_equal_verfiy_password"/></compare-field>
-        <not-empty><fail-property resource="SecurityextUiLabels" property="loginmapprocs.new_password_verify_missing"/></not-empty>
-        <copy/></process>
-    <process field="passwordHint"><copy/></process>
-    <process field="userLoginId"><copy/></process>
-  </simple-map-processor>
+        
+    <simple-map-processor name="updatePassword">
+        <process field="currentPassword"><copy/><not-empty><fail-property resource="SecurityextUiLabels" property="loginmapprocs.old_password_missing"/></not-empty></process>
+        <process field="newPassword"><copy/><not-empty><fail-property resource="SecurityextUiLabels" property="loginmapprocs.new_password_missing"/></not-empty></process>
+        <process field="newPasswordVerify">
+            <compare-field operator="equals" field="newPassword"><fail-property resource="SecurityextUiLabels" property="loginmapprocs.password_not_equal_verfiy_password"/></compare-field>
+            <not-empty><fail-property resource="SecurityextUiLabels" property="loginmapprocs.new_password_verify_missing"/></not-empty>
+            <copy/></process>
+        <process field="passwordHint"><copy/></process>
+        <process field="userLoginId"><copy/></process>
+    </simple-map-processor>
+    
+    <simple-map-processor name="adminUpdatePassword">
+        <process field="newPassword"><copy/><not-empty><fail-property resource="SecurityextUiLabels" property="loginmapprocs.new_password_missing"/></not-empty></process>
+        <process field="newPasswordVerify">
+            <compare-field operator="equals" field="newPassword"><fail-property resource="SecurityextUiLabels" property="loginmapprocs.password_not_equal_verfiy_password"/></compare-field>
+            <not-empty><fail-property resource="SecurityextUiLabels" property="loginmapprocs.new_password_verify_missing"/></not-empty>
+            <copy/></process>
+        <process field="passwordHint"><copy/></process>
+        <process field="userLoginId"><copy/></process>
+    </simple-map-processor>
+    
+    <simple-map-processor name="userLogin">
+        <process field="partyId"><copy/></process>
+        <process field="username">
+            <copy to-field="userLoginId"/><not-empty><fail-property resource="PartyUiLabels" property="PartyUserNameMissing"/></not-empty>
+        </process>
+        <process field="password">
+            <copy to-field="currentPassword"/><not-empty><fail-property resource="PartyUiLabels" property="PartyPasswordMissing"/></not-empty>
+        </process>
+        <process field="passwordVerify">
+            <compare-field operator="equals" field="password"><fail-property resource="PartyUiLabels" property="PartyPasswordMatchError"/></compare-field>
+            <copy to-field="currentPasswordVerify"/>
+        </process>
+        <process field="passwordHint"><copy/></process>     
+    </simple-map-processor>    
 </simple-map-processors>
