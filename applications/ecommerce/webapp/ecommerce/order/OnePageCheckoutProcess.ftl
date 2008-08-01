@@ -282,11 +282,11 @@ under the License.
             <div id="editShippingPanel" class="screenlet-body" style="display: none;">
               <form name="shippingForm" id="shippingForm" action="<@ofbizUrl>createUpdateShippingAddress</@ofbizUrl>" method="post">
                 <input type="hidden" id="shipToContactMechId" name="shipToContactMechId" value="${parameters.shipToContactMechId?if_exists}"/>
-                <input type="hidden" name="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
                 <input type="hidden" id="shippingPartyId" name="partyId" value="${parameters.partyId?if_exists}"/>
                 <input type="hidden" name="userLogin" value="${parameters.userLogin?if_exists}"/>
                 <input type="hidden" id="phoneContactMechId" name="phoneContactMechId" value="${parameters.phoneContactMechId?if_exists}"/>
                 <input type="hidden" id="emailContactMechId" name="emailContactMechId" value="${parameters.emailContactMechId?if_exists}"/>
+                <input type="hidden" name="roleTypeId" value="CUSTOMER"/>
                 <div id="shippingFormServerError" class="errorMessage"></div>
                           <table>
                             <tr><td width="40%" valign="top">
@@ -297,7 +297,7 @@ under the License.
                                      </label>
                                   </div>
                                   <div class="field-widget">
-                                    <input id="firstName" name="firstName" class="inputBox required" type="text" value="${parameters.firstName?if_exists}"/>
+                                    <input id="firstName" name="firstName" class="inputBox required" type="text" value="${(parameters.firstName)?if_exists}"/>
                                   </div>
                                 </div>
                                 <div class="form-row">
@@ -307,7 +307,7 @@ under the License.
                                     </label>
                                   </div>
                                   <div class="field-widget">
-                                    <input id="lastName" name="lastName" class="inputBox required" type="text" value="${parameters.lastName?if_exists}"/>
+                                    <input id="lastName" name="lastName" class="inputBox required" type="text" value="${(parameters.lastName)?if_exists}"/>
                                   </div>
                                 </div>
                                 <div class="form-row">
@@ -373,8 +373,8 @@ under the License.
                               </div>
                               <div class="field-widget">
                                 <div>
-                                  <input name="shipToCountryGeo" id="shipToCountryGeo" size="30" class="inputBox required" type="text" value="${parameters.shipToCountryGeo?if_exists}"/>
-                                  <input name="countryGeoId" id="shipToCountryGeoId" type="hidden" value="${parameters.countryGeoId?if_exists}"/>
+                                  <input name="shipToCountryGeo" id="shipToCountryGeo" size="30" class="inputBox required" type="text" value="${parameters.shipToCountryProvinceGeo?if_exists}"/>
+                                  <input name="countryGeoId" id="shipToCountryGeoId" type="hidden" value="${parameters.shipToCountryGeoId?if_exists}"/>
                                   <div id="shipToCountries" class="autocomplete" style="display:none"></div> 
                                 </div>
                               </div>
@@ -482,10 +482,11 @@ under the License.
                 <input type="hidden" id ="billToContactMechId" name="billToContactMechId" value="${parameters.billToContactMechId?if_exists}"/>
                 <input type="hidden" id="shipToContactMechIdInBillingForm" name="shipToContactMechId" value="${parameters.shipToContactMechId?if_exists}"/>
                 <input type="hidden" id="paymentMethodId" name="paymentMethodId" value="${parameters.paymentMethodId?if_exists}"/>
-                <input type="hidden" id="paymentMethodTypeId" name="paymentMethodTypeId" value="CREDIT_CARD"/>
+                <input type="hidden" id="paymentMethodTypeId" name="paymentMethodTypeId" value="${parameters.paymentMethodTypeId?if_exists}"/>
                 <input type="hidden" id="billingPartyId" name="partyId" value="${parameters.partyId?if_exists}"/>
                 <input type="hidden" name="userLogin" value="${parameters.userLogin?if_exists}"/>
                 <input type="hidden" name="expireDate" value="${parameters.expireDate?if_exists}"/>
+                <input type="hidden" name="roleTypeId" value="CUSTOMER"/>
                 <div id="billingFormServerError" class="errorMessage"></div>
                   <table>
                     <tr><td valign="top">
@@ -528,10 +529,10 @@ under the License.
                         </div>
                         <div class="form-row">
                           <div class="field-label">
-                            <label for="CVV2">CVV2<span>*</span><span id="advice-required-CVV2" style="display:none" class="errorMessage"> (required)</span></label>
+                            <label for="CVV2">CVV2</label>
                           </div>
                           <div class="field-widget">
-                            <input id="CVV2" autocomplete="off" name="cardSecurityCode" class="inputBox required" size="4" type="text" maxlength="4" value=""/>
+                            <input id="CVV2" autocomplete="off" name="cardSecurityCode" class="inputBox" size="4" type="text" maxlength="4" value=""/>
                           </div>
                         </div>
                         <div class="form-row">
@@ -610,8 +611,8 @@ under the License.
                             <div class="field-widget">
                               <select name="countryGeoId" id="billToCountryGeoId" class="required selectBox">
                                 <#if (parameters.countryGeoId)?exists>
-                                  <option>${parameters.countryGeoId}</option>
-                                  <option value="${parameters.countryGeoId}">---</option>
+                                  <option>${parameters.billToCountryProvinceGeo}</option>
+                                  <option value="${parameters.billToCountryGeoId}">---</option>
                                 </#if>
                                 ${screens.render("component://common/widget/CommonScreens.xml#countries")}
                               </select>
@@ -624,7 +625,7 @@ under the License.
                             <div class="field-widget"> 
                               <select id="billToStateProvinceGeoId" name="billToStateProvinceGeoId" class="required selectBox">
                                 <#if parameters.billToStateProvinceGeoId?has_content>
-                                  <option>${parameters.billToStateProvinceGeoId}</option>
+                                  <option>${parameters.billToStateProvinceGeo}</option>
                                   <option value="${parameters.billToStateProvinceGeoId}">---</option>
                                 <#else>
                                   <option value="">${uiLabelMap.PartyNoState}</option>

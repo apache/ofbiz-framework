@@ -94,7 +94,7 @@ under the License.
           <form method="post" action="<@ofbizUrl>quickAnonCheckout</@ofbizUrl>" style="margin: 0;">
             <div align="center"><input type="submit" class="smallSubmit" value="${uiLabelMap.OrderCheckoutQuick}"/></div>
           </form>
-          <form method="post" action="<@ofbizUrl>onePageCheckout</@ofbizUrl>" style="margin: 0;">
+          <form method="post" action="<@ofbizUrl>anonOnePageCheckout</@ofbizUrl>" style="margin: 0;">
             <div align="center"><input type="submit" class="smallSubmit" value="${uiLabelMap.EcommerceOnePageCheckout}"/></div>
           </form>          
         </div>
