@@ -40,13 +40,13 @@ import org.ofbiz.webapp.stats.VisitHandler;
 import org.ofbiz.order.shoppingcart.ShoppingCartEvents;
 
 String buildNext(Map map, List order, String current, String prefix, Map featureTypes) {
-    ct = 0;
-    buf = new StringBuffer();
+    def ct = 0;
+    def buf = new StringBuffer();
     buf.append("function listFT" + current + prefix + "() { ");
     buf.append("document.forms[\"addform\"].elements[\"FT" + current + "\"].options.length = 1;");
     buf.append("document.forms[\"addform\"].elements[\"FT" + current + "\"].options[0] = new Option(\"" + featureTypes[current] + "\",\"\",true,true);");
     map.each { key, value ->
-        optValue = null;
+        def optValue = null;
 
         if (order.indexOf(current) == (order.size()-1)) {
             optValue = value.iterator().next();
@@ -61,8 +61,8 @@ String buildNext(Map map, List order, String current, String prefix, Map feature
     if (order.indexOf(current) < (order.size()-1)) {
         ct = 0;
         map.each { key, value ->
-            nextOrder = order.get(order.indexOf(current)+1);
-            newPrefix = prefix + "_" + ct;
+            def nextOrder = order.get(order.indexOf(current)+1);
+            def newPrefix = prefix + "_" + ct;
             buf.append(buildNext(value, order, nextOrder, newPrefix, featureTypes));
             ct++;
         }
