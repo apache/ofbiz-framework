@@ -1580,10 +1580,17 @@ under the License.
 
     <!-- ============== One Page Checkout Requests ============== -->
     <request-map uri="onePageCheckout">
-        <security https="true" auth="false"/>
+        <security https="true" auth="true"/>
         <event type="java" path="org.ofbiz.order.shoppingcart.CheckOutEvents" invoke="cartNotEmpty"/>
         <response name="success" type="view" value="OnePageCheckout"/>
         <response name="error" type="view" value="main"/>        
+    </request-map>
+
+    <request-map uri="anonOnePageCheckout">
+        <security https="true" auth="false"/>
+        <event type="java" path="org.ofbiz.order.shoppingcart.CheckOutEvents" invoke="cartNotEmpty"/>
+        <response name="success" type="view" value="OnePageCheckout"/>
+        <response name="error" type="view" value="main"/>
     </request-map>
 
     <request-map uri="getCountryList">

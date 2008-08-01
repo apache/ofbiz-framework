@@ -618,6 +618,10 @@ under the License.
                 <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/controls.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/ecommerce/images/checkoutProcess.js" global="true"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/cart/ShowCart.groovy"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/EditShippingAddress.groovy"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/EditBillingAddress.groovy"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/EditEmailAndTelecomNumber.groovy"/>
+
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
