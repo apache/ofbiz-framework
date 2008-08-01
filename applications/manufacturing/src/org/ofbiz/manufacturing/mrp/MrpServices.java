@@ -529,9 +529,10 @@ public class MrpServices {
         try {
             if (UtilValidate.isNotEmpty(productId) && UtilValidate.isNotEmpty(errorMessage)) {
                 GenericValue inventoryEventError = delegator.makeValue("MrpEvent", UtilMisc.toMap("productId", productId, 
-                                                                                                               "eventDate", eventDate,
-                                                                                                               "mrpEventTypeId", "ERROR",
-                                                                                                               "eventName", errorMessage));
+                                                                                                  "mrpId", mrpId,
+                                                                                                  "eventDate", eventDate,
+                                                                                                  "mrpEventTypeId", "ERROR",
+                                                                                                  "eventName", errorMessage));
                 delegator.createOrStore(inventoryEventError);
             }
         } catch (GenericEntityException e) {
