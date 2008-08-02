@@ -21,6 +21,7 @@ package org.ofbiz.entity.condition;
 
 import java.util.Comparator;
 
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericModelException;
 import org.ofbiz.entity.config.DatasourceInfo;
@@ -128,8 +129,8 @@ public class OrderByItem implements Comparator<GenericEntity> {
     }
 
     public int compare(GenericEntity obj1, GenericEntity obj2) {
-        Comparable value1 = (Comparable) value.getValue(obj1);
-        Comparable value2 = (Comparable) value.getValue(obj2);
+        Comparable<Object> value1 = UtilGenerics.cast(value.getValue(obj1));
+        Object value2 = value.getValue(obj2);
 
         int result;
         // null is defined as the largest possible value
