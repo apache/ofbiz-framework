@@ -82,7 +82,7 @@ public class UtilHttp {
      * -- this method will only use the skip names for session and servlet context attributes
      * @return The resulting Map
      */
-    public static Map<String, Object> getCombinedMap(HttpServletRequest request, Set<String> namesToSkip) {
+    public static Map<String, Object> getCombinedMap(HttpServletRequest request, Set<? extends String> namesToSkip) {
         FastMap<String, Object> combinedMap = FastMap.newInstance();
         combinedMap.putAll(getServletContextMap(request, namesToSkip)); // bottom level application attributes
         combinedMap.putAll(getSessionMap(request, namesToSkip));        // session overrides application
@@ -104,7 +104,7 @@ public class UtilHttp {
      * Create a map from a HttpServletRequest (parameters) object
      * @return The resulting Map
      */
-    public static Map<String, Object> getParameterMap(HttpServletRequest request, Set<String> namesToSkip) {
+    public static Map<String, Object> getParameterMap(HttpServletRequest request, Set<? extends String> namesToSkip) {
         Map<String, Object> paramMap = FastMap.newInstance();
 
         // add all the actual HTTP request parameters
@@ -191,7 +191,7 @@ public class UtilHttp {
      * Create a map from a HttpRequest (attributes) object
      * @return The resulting Map
      */
-    public static Map<String, Object> getAttributeMap(HttpServletRequest request, Set<String> namesToSkip) {
+    public static Map<String, Object> getAttributeMap(HttpServletRequest request, Set<? extends String> namesToSkip) {
         Map<String, Object> attributeMap = FastMap.newInstance();
 
         // look at all request attributes
@@ -225,7 +225,7 @@ public class UtilHttp {
      * Create a map from a HttpSession object
      * @return The resulting Map
      */
-    public static Map<String, Object> getSessionMap(HttpServletRequest request, Set<String> namesToSkip) {
+    public static Map<String, Object> getSessionMap(HttpServletRequest request, Set<? extends String> namesToSkip) {
         Map<String, Object> sessionMap = FastMap.newInstance();
         HttpSession session = request.getSession();
 
@@ -260,7 +260,7 @@ public class UtilHttp {
      * Create a map from a ServletContext object
      * @return The resulting Map
      */
-    public static Map<String, Object> getServletContextMap(HttpServletRequest request, Set<String> namesToSkip) {
+    public static Map<String, Object> getServletContextMap(HttpServletRequest request, Set<? extends String> namesToSkip) {
         Map<String, Object> servletCtxMap = FastMap.newInstance();
 
         // look at all servlet context attributes
@@ -287,31 +287,30 @@ public class UtilHttp {
         return makeParamMapWithPrefix(request, null, prefix, suffix);
     }
 
-    public static Map<String, Object> makeParamMapWithPrefix(HttpServletRequest request, Map<String, Object> additionalFields, String prefix, String suffix) {
+    public static Map<String, Object> makeParamMapWithPrefix(HttpServletRequest request, Map<String, ? extends Object> additionalFields, String prefix, String suffix) {
         return makeParamMapWithPrefix(getParameterMap(request), additionalFields, prefix, suffix);
     }
 
-    public static Map<String, Object> makeParamMapWithPrefix(Map<String, Object> context, Map<String, Object> additionalFields, String prefix, String suffix) {
+    public static Map<String, Object> makeParamMapWithPrefix(Map<String, ? extends Object> context, Map<String, ? extends Object> additionalFields, String prefix, String suffix) {
         Map<String, Object> paramMap = new HashMap<String, Object>();
-        Iterator parameterNames = context.keySet().iterator();
-        while (parameterNames.hasNext()) {
-            String parameterName = (String) parameterNames.next();
+        for (Map.Entry<String, ? extends Object> entry: context.entrySet()) {
+            String parameterName = entry.getKey();
             if (parameterName.startsWith(prefix)) {
                 if (suffix != null && suffix.length() > 0) {
                     if (parameterName.endsWith(suffix)) {
                         String key = parameterName.substring(prefix.length(), parameterName.length() - (suffix.length()));
-                        String value = (String)context.get(parameterName);
+                        String value = (String)entry.getValue();
                         paramMap.put(key, value);
                     }
                 } else {
                     String key = parameterName.substring(prefix.length());
-                    String value = (String)context.get(parameterName);
+                    String value = (String)entry.getValue();
                     paramMap.put(key, value);
                 }
             }
         }
         if (additionalFields != null) {
-            for (Map.Entry<String, Object> entry: additionalFields.entrySet()) {
+            for (Map.Entry<String, ? extends Object> entry: additionalFields.entrySet()) {
                 String fieldName = entry.getKey();
                 if (fieldName.startsWith(prefix)) {
                     if (suffix != null && suffix.length() > 0) {
@@ -377,7 +376,7 @@ public class UtilHttp {
         return makeParamListWithSuffix(request, null, suffix, prefix);
     }
 
-    public static List<Object> makeParamListWithSuffix(HttpServletRequest request, Map<String, Object> additionalFields, String suffix, String prefix) {
+    public static List<Object> makeParamListWithSuffix(HttpServletRequest request, Map<String, ? extends Object> additionalFields, String suffix, String prefix) {
         List<Object> paramList = new ArrayList<Object>();
         Enumeration parameterNames = request.getParameterNames();
         while (parameterNames.hasMoreElements()) {
@@ -395,7 +394,7 @@ public class UtilHttp {
             }
         }
         if (additionalFields != null) {
-            for (Map.Entry<String, Object> entry: additionalFields.entrySet()) {
+            for (Map.Entry<String, ? extends Object> entry: additionalFields.entrySet()) {
                 String fieldName = entry.getKey();
                 if (fieldName.endsWith(suffix)) {
                     if (prefix != null && prefix.length() > 0) {
@@ -628,15 +627,15 @@ public class UtilHttp {
     }
 
     /** URL Encodes a Map of arguements */
-    public static String urlEncodeArgs(Map<String, Object> args) {
+    public static String urlEncodeArgs(Map<String, ? extends Object> args) {
     	return urlEncodeArgs(args, true);
     }
 
     /** URL Encodes a Map of arguements */
-    public static String urlEncodeArgs(Map<String, Object> args, boolean useExpandedEntites) {
+    public static String urlEncodeArgs(Map<String, ? extends Object> args, boolean useExpandedEntites) {
         StringBuilder buf = new StringBuilder();
         if (args != null) {
-            for (Map.Entry<String, Object> entry: args.entrySet()) {
+            for (Map.Entry<String, ? extends Object> entry: args.entrySet()) {
                 String name = entry.getKey();
                 Object value = entry.getValue();
                 String valueStr = null;
@@ -1171,13 +1170,12 @@ public class UtilHttp {
     }
     /** Returns the number or rows submitted by a multi form.
      */
-    public static int getMultiFormRowCount(Map requestMap) {
+    public static int getMultiFormRowCount(Map<String, ?> requestMap) {
         // The number of multi form rows is computed selecting the maximum index
         int rowCount = 0;
-        Set<String> parameterNames = requestMap.keySet();
         String maxRowIndex = "";
         int rowDelimiterLength = UtilHttp.MULTI_ROW_DELIMITER.length();
-        for (String parameterName: parameterNames) {
+        for (String parameterName: requestMap.keySet()) {
             int rowDelimiterIndex = (parameterName != null? parameterName.indexOf(UtilHttp.MULTI_ROW_DELIMITER): -1);
             if (rowDelimiterIndex > 0) {
                 String thisRowIndex = parameterName.substring(rowDelimiterIndex + rowDelimiterLength);

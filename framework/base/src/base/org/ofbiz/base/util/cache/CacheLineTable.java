@@ -85,6 +85,35 @@ public class CacheLineTable<K, V> implements Serializable {
         this.setLru(maxInMemory);
     }
 
+    @SuppressWarnings("unchecked")
+    private CacheLine<V> getFileTable(Object key) throws IOException {
+        return (CacheLine<V>) fileTable.get(key);
+    }
+
+
+    @SuppressWarnings("unchecked")
+    private void addAllFileTableValues(List<CacheLine<V>> values) throws IOException {
+        jdbm.helper.FastIterator iter = fileTable.values();
+        Object value = iter.next();
+        while (value != null) {
+            values.add((CacheLine<V>) value);
+            value = iter.next();
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private void addAllFileTableKeys(Set<K> keys) throws IOException {
+        jdbm.helper.FastIterator iter = fileTable.keys();
+        Object key = null;
+        while ((key = iter.next()) != null) {
+            if (key instanceof ObjectType.NullObject) {
+                keys.add(null);
+            } else {
+                keys.add((K) key);
+            }
+        }
+    }
+
     public synchronized CacheLine<V> put(K key, CacheLine<V> value) {
         CacheLine<V> oldValue;
         if (key == null) {
@@ -101,7 +130,7 @@ public class CacheLineTable<K, V> implements Serializable {
         }
         if (fileTable != null) {
             try {
-                if (oldValue == null) oldValue = (CacheLine<V>) fileTable.get(key);
+                if (oldValue == null) oldValue = getFileTable(key);
                 fileTable.put(key != null ? key : ObjectType.NULL, value);                
                 CacheLineTable.jdbmMgr.commit();
             } catch (IOException e) {
@@ -132,7 +161,7 @@ public class CacheLineTable<K, V> implements Serializable {
         if (value == null) {
             if (fileTable != null) {
                 try {
-                    value = (CacheLine<V>) fileTable.get(key != null ? key : ObjectType.NULL);
+                    value = getFileTable(key != null ? key : ObjectType.NULL);
                 } catch (IOException e) {
                     Debug.logError(e, module);
                 }
@@ -171,12 +200,7 @@ public class CacheLineTable<K, V> implements Serializable {
 
         if (fileTable != null) {
             try {
-                jdbm.helper.FastIterator iter = fileTable.values();
-                Object value = iter.next();
-                while (value != null) {
-                    values.add((CacheLine<V>) value);
-                    value = iter.next();
-                }
+                addAllFileTableValues(values);
             } catch (IOException e) {
                 Debug.logError(e, module);
             }
@@ -198,15 +222,7 @@ public class CacheLineTable<K, V> implements Serializable {
 
         if (fileTable != null) {
             try {
-                jdbm.helper.FastIterator iter = fileTable.keys();
-                Object key = null;
-                while ((key = iter.next()) != null) {
-                    if (key instanceof ObjectType.NullObject) {
-                        keys.add(null);
-                    } else {
-                        keys.add((K) key);
-                    }
-                }
+                addAllFileTableKeys(keys);
             } catch (IOException e) {
                 Debug.logError(e, module);
             }

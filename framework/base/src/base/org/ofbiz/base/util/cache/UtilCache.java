@@ -373,6 +373,7 @@ public class UtilCache<K, V> implements Serializable {
     }
     
     /** This is used for internal remove calls because we only want to count external calls */
+    @SuppressWarnings("unchecked")
     protected synchronized V removeInternal(Object key, boolean countRemove) {        
         CacheLine<V> line = cacheLineTable.remove(key);
         if (line != null) {
@@ -665,6 +666,7 @@ public class UtilCache<K, V> implements Serializable {
         cache.clear();
     }
 
+    @SuppressWarnings("unchecked")
     public static <K, V> UtilCache<K, V> findCache(String cacheName) {
         synchronized (UtilCache.utilCacheTable) {
             return (UtilCache<K, V>) UtilCache.utilCacheTable.get(cacheName);

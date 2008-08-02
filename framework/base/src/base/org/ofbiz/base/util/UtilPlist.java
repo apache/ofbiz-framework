@@ -29,6 +29,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import static org.ofbiz.base.util.UtilGenerics.checkList;
+import static org.ofbiz.base.util.UtilGenerics.checkMap;
+
 /**
  * File Utilities
  *
@@ -46,9 +49,11 @@ public class UtilPlist {
         writer.print(" = ");
         if (value instanceof Map) {
             writer.println();
-            writePlistPropertyMap((Map<String, Object>) value, indentLevel, writer, false);
+            Map<String, Object> map = checkMap(value);
+            writePlistPropertyMap(map, indentLevel, writer, false);
         } else if (value instanceof List) {
-            writePlistPropertyValueList((List<Object>) value, indentLevel, writer);
+            List<Object> list = checkList(value);
+            writePlistPropertyValueList(list, indentLevel, writer);
         } else {
             writer.print(value);
             writer.println(";");
@@ -75,7 +80,7 @@ public class UtilPlist {
         while (propertyValueIter.hasNext()) {
             Object propertyValue = propertyValueIter.next();
             if (propertyValue instanceof Map) {
-                Map<String, Object> propertyMap = (Map<String, Object>) propertyValue;
+                Map<String, Object> propertyMap = checkMap(propertyValue);
                 writePlistPropertyMap(propertyMap, indentLevel + 1, writer, propertyValueIter.hasNext());
             } else {
                 writer.print(propertyValue);
@@ -93,9 +98,11 @@ public class UtilPlist {
         writer.print(name);
         writer.println("</key>");
         if (value instanceof Map) {
-            writePlistPropertyMapXml((Map<String, Object>) value, indentLevel, writer);
+            Map<String, Object> map = checkMap(value);
+            writePlistPropertyMapXml(map, indentLevel, writer);
         } else if (value instanceof List) {
-            writePlistPropertyValueListXml((List<Object>) value, indentLevel, writer);
+            List<Object> list = checkList(value);
+            writePlistPropertyValueListXml(list, indentLevel, writer);
         } else {
             for (int i = 0; i < indentLevel; i++) writer.print(indentFourString);
             writer.print("<string>");
@@ -121,7 +128,7 @@ public class UtilPlist {
         while (propertyValueIter.hasNext()) {
             Object propertyValue = propertyValueIter.next();
             if (propertyValue instanceof Map) {
-                Map<String, Object> propertyMap = (Map<String, Object>) propertyValue;
+                Map<String, Object> propertyMap = checkMap(propertyValue);
                 writePlistPropertyMapXml(propertyMap, indentLevel, writer);
             } else {
                 for (int i = 0; i < indentLevel; i++) writer.print(indentFourString);
