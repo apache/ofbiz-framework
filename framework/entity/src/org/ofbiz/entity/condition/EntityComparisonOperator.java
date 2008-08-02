@@ -31,6 +31,7 @@ import org.apache.oro.text.regex.PatternMatcher;
 import org.apache.oro.text.regex.Perl5Compiler;
 import org.apache.oro.text.regex.Perl5Matcher;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericModelException;
@@ -126,14 +127,15 @@ public class EntityComparisonOperator extends EntityOperator<Boolean> {
         }
     }
             
-    public boolean compare(Comparable lhs, Object rhs) {
+    public <T extends Comparable<T>> boolean compare(T lhs, T rhs) {
         throw new UnsupportedOperationException(codeString);
     }
 
     public Boolean eval(GenericDelegator delegator, Map<String, ? extends Object> map, Object lhs, Object rhs) {
-        return mapMatches(delegator, map, lhs, rhs) ? Boolean.TRUE : Boolean.FALSE;
+        return Boolean.valueOf(mapMatches(delegator, map, lhs, rhs));
     }
 
+    @SuppressWarnings("unchecked")
     public boolean mapMatches(GenericDelegator delegator, Map<String, ? extends Object> map, Object lhs, Object rhs) {
         Object leftValue;
         if (lhs instanceof EntityConditionValue) {
@@ -153,7 +155,7 @@ public class EntityComparisonOperator extends EntityOperator<Boolean> {
         }
 
         if (leftValue == WILDCARD || rightValue == WILDCARD) return true;
-        return compare((Comparable) leftValue, rightValue);
+        return compare((Comparable) leftValue, (Comparable) rightValue);
     }
 
     public EntityCondition freeze(Object lhs, Object rhs) {
@@ -173,7 +175,7 @@ public class EntityComparisonOperator extends EntityOperator<Boolean> {
         super(id, code);
     }
 
-    public static final boolean compareEqual(Comparable lhs, Object rhs) {
+    public static final <T extends Comparable<T>> boolean compareEqual(T lhs, T rhs) {
         if (lhs == null) {
             if (rhs != null) {
                 return false;
@@ -184,7 +186,7 @@ public class EntityComparisonOperator extends EntityOperator<Boolean> {
         return true;
     }
 
-    public static final boolean compareNotEqual(Comparable lhs, Object rhs) {
+    public static final <T extends Comparable<T>> boolean compareNotEqual(T lhs, T rhs) {
         if (lhs == null) {
             if (rhs == null) {
                 return false;
@@ -195,7 +197,7 @@ public class EntityComparisonOperator extends EntityOperator<Boolean> {
         return true;
     }
 
-    public static final boolean compareGreaterThan(Comparable lhs, Object rhs) {
+    public static final <T extends Comparable<T>> boolean compareGreaterThan(T lhs, T rhs) {
         if (lhs == null) {
             if (rhs != null) {
                 return false;
@@ -206,7 +208,7 @@ public class EntityComparisonOperator extends EntityOperator<Boolean> {
         return true;
     }
 
-    public static final boolean compareGreaterThanEqualTo(Comparable lhs, Object rhs) {
+    public static final <T extends Comparable<T>> boolean compareGreaterThanEqualTo(T lhs, T rhs) {
         if (lhs == null) {
             if (rhs != null) {
                 return false;
@@ -217,7 +219,7 @@ public class EntityComparisonOperator extends EntityOperator<Boolean> {
         return true;
     }
 
-    public static final boolean compareLessThan(Comparable lhs, Object rhs) {
+    public static final <T extends Comparable<T>> boolean compareLessThan(T lhs, T rhs) {
         if (lhs == null) {
             if (rhs != null) {
                 return false;
@@ -228,7 +230,7 @@ public class EntityComparisonOperator extends EntityOperator<Boolean> {
         return true;
     }
 
-    public static final boolean compareLessThanEqualTo(Comparable lhs, Object rhs) {
+    public static final <T extends Comparable<T>> boolean compareLessThanEqualTo(T lhs, T rhs) {
         if (lhs == null) {
             if (rhs != null) {
                 return false;

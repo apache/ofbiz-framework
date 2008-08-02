@@ -43,6 +43,7 @@ import org.ofbiz.base.util.Base64;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
@@ -1243,8 +1244,8 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
     }
 
     protected int compareToFields(GenericEntity that, String name) {
-        Comparable thisVal = (Comparable) this.fields.get(name);
-        Comparable thatVal = (Comparable) that.fields.get(name);
+        Comparable<Object> thisVal = UtilGenerics.cast(this.fields.get(name));
+        Object thatVal = that.fields.get(name);
 
         if (thisVal == null) {
             if (thatVal == null)
