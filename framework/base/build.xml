@@ -52,7 +52,7 @@ under the License.
 
     <target name="classes" depends="prepare">
         <!-- compile start -->
-	<javac15 destdir="${build.dir}/classes/start" classpathref="local.class.path" srcdir="${src.dir}/start"/>
+	<javac15 destdir="${build.dir}/classes/start" srcdir="${src.dir}/start"/>
         <copy todir="${build.dir}/classes/start">
           <fileset dir="${src.dir}/start" includes="**/*.properties,**/*.xml,**/*.bsh,**/*.logic,**/*.js,**/*.jacl,**/*.py"/>
         </copy>

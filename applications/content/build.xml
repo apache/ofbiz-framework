@@ -53,7 +53,7 @@ under the License.
     <!-- ================================================================== -->
 
     <target name="classes" depends="prepare">
-    	<javac15 classpathref="local.class.path">
+    	<javac15>
             <exclude name="org/ofbiz/content/report/JREntityListIteratorDataSource.java"/>
             <exclude name="org/ofbiz/content/report/JRMapCollectionDataSource.java"/>
             <exclude name="org/ofbiz/content/openoffice/*.java"/>

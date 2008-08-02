@@ -52,7 +52,7 @@ under the License.
     <!-- ================================================================== -->
 
     <target name="classes" depends="prepare">
-        <javac15 classpathref="local.class.path">
+        <javac15>
             <!-- exclude the Truition; comment if you have libs -->
             <exclude name="org/ofbiz/securityext/thirdparty/truition/**"/>
         </javac15>

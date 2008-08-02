@@ -53,7 +53,7 @@ under the License.
     <!-- ================================================================== -->
 
     <target name="classes" depends="prepare">
-        <javac15 classpathref="local.class.path"/>
+        <javac15/>
         <!-- also put the DTDs in the jar file... -->
         <copy todir="${build.dir}/classes">
             <!--<fileset dir="${dtd.dir}" includes="*.dtd"/>-->

@@ -50,7 +50,7 @@ under the License.
     <!-- ================================================================== -->
 
     <target name="classes" depends="prepare">
-        <javac15 classpathref="local.class.path">
+        <javac15>
     		<!-- JasperReports dependent files -->
             <exclude name="org/ofbiz/webapp/view/JasperReportsPdfViewHandler.java"/>
             <exclude name="org/ofbiz/webapp/view/JasperReportsXmlViewHandler.java"/>
