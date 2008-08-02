@@ -41,7 +41,7 @@ if (userLogin) {
         if (shipToCountryProvinceGeo) {
             parameters.shipToCountryProvinceGeo =  shipToCountryProvinceGeo.geoName;
         }
-        person = delegator.findByPrimaryKey("Person", [partyId : partyId]);
+        person = delegator.findByPrimaryKey("Person", [partyId : party.partyId]);
         parameters.firstName = person.firstName;
         parameters.lastName = person.lastName;
     }
