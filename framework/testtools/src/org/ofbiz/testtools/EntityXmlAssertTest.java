@@ -23,11 +23,14 @@ import junit.framework.AssertionFailedError;
 
 import org.w3c.dom.Element;
 import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityDataAssert;
 import org.ofbiz.entity.util.EntitySaxReader;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.location.FlexibleLocation;
+
+import javolution.util.FastList;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -55,7 +58,7 @@ public class EntityXmlAssertTest extends TestCaseBase {
         int testCaseCount = 0;
         try {
             URL entityXmlURL = FlexibleLocation.resolveLocation(entityXmlUrlString);
-            List checkValueList = modelTestSuite.getDelegator().readXmlDocument(entityXmlURL);
+            List<GenericValue> checkValueList = modelTestSuite.getDelegator().readXmlDocument(entityXmlURL);
             testCaseCount = checkValueList.size();
         } catch (Exception e) {
             Debug.logError(e, "Error getting test case count", module);
@@ -69,7 +72,7 @@ public class EntityXmlAssertTest extends TestCaseBase {
         try {
             URL entityXmlURL = FlexibleLocation.resolveLocation(entityXmlUrlString);
             GenericDelegator delegator = modelTestSuite.getDelegator();
-            List errorMessages = new ArrayList();
+            List<Object> errorMessages = FastList.newInstance();
 
             if ("assert".equals(this.action)) {
                 EntityDataAssert.assertData(entityXmlURL, delegator, errorMessages);
@@ -82,10 +85,8 @@ public class EntityXmlAssertTest extends TestCaseBase {
             }
 
             if (UtilValidate.isNotEmpty(errorMessages)) {
-                Iterator failureIterator = errorMessages.iterator();
-                while (failureIterator.hasNext()) {
-                    String failureMessage = (String) failureIterator.next();
-                    result.addFailure(this, new AssertionFailedError(failureMessage));
+                for (Object failureMessage: errorMessages) {
+                    result.addFailure(this, new AssertionFailedError(failureMessage.toString()));
                 }
             }
         } catch (Exception e) {

@@ -49,7 +49,7 @@ public class ModelTestSuite {
     protected GenericDelegator delegator;
     protected LocalDispatcher dispatcher;
 
-    protected List testList = FastList.newInstance();
+    protected List<Test> testList = FastList.newInstance();
     
     public ModelTestSuite(Element mainElement, String testCase) {
         this.suiteName = mainElement.getAttribute("suite-name");
@@ -63,10 +63,7 @@ public class ModelTestSuite {
         this.delegator = GenericDelegator.getGenericDelegator(this.delegatorName);
         this.dispatcher = GenericDispatcher.getLocalDispatcher(this.dispatcherName, delegator);
         
-        List testCaseElementList = UtilXml.childElementList(mainElement, "test-case");
-        Iterator testCaseElementIter = testCaseElementList.iterator();
-        while (testCaseElementIter.hasNext()) {
-            Element testCaseElement = (Element) testCaseElementIter.next();
+        for (Element testCaseElement : UtilXml.childElementList(mainElement, "test-case")) {
             String caseName = testCaseElement.getAttribute("case-name");
             if (testCase == null || caseName.equals(testCase)) {
                 Element childElement = UtilXml.firstChildElement(testCaseElement);
@@ -120,7 +117,7 @@ public class ModelTestSuite {
         return this.dispatcher;
     }
     
-    List getTestList() {
+    List<Test> getTestList() {
         return testList;
     }
 }

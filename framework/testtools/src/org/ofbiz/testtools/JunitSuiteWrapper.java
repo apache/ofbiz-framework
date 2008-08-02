@@ -39,13 +39,10 @@ public class JunitSuiteWrapper {
 
     public static final String module = JunitSuiteWrapper.class.getName();
     
-    protected List modelTestSuiteList = FastList.newInstance();
+    protected List<ModelTestSuite> modelTestSuiteList = FastList.newInstance();
     
     public JunitSuiteWrapper(String componentName, String testCase) {
-        List testSuiteInfoList = ComponentConfig.getAllTestSuiteInfos(componentName);
-        Iterator testSuiteInfoIter = testSuiteInfoList.iterator();
-        while (testSuiteInfoIter.hasNext()) {
-            ComponentConfig.TestSuiteInfo testSuiteInfo = (ComponentConfig.TestSuiteInfo) testSuiteInfoIter.next();
+        for (ComponentConfig.TestSuiteInfo testSuiteInfo: ComponentConfig.getAllTestSuiteInfos(componentName)) {
             ResourceHandler testSuiteResource = testSuiteInfo.createResourceHandler();
 
             try {
@@ -69,30 +66,20 @@ public class JunitSuiteWrapper {
 
     @Deprecated
     public void populateTestSuite(TestSuite suite) {
-        Iterator modelTestSuiteIter = this.modelTestSuiteList.iterator();
-        while (modelTestSuiteIter.hasNext()) {
-            ModelTestSuite modelTestSuite = (ModelTestSuite) modelTestSuiteIter.next();
-            List testList = modelTestSuite.getTestList();
-            Iterator testIter = testList.iterator();
-            while (testIter.hasNext()) {
-                Test tst = (Test) testIter.next();
+        for (ModelTestSuite modelTestSuite: this.modelTestSuiteList) {
+            for (Test tst: modelTestSuite.getTestList()) {
                 suite.addTest(tst);
             }
         }
     }
 
-    public List makeTestSuites() {
-        List testSuites = FastList.newInstance();
+    public List<TestSuite> makeTestSuites() {
+        List<TestSuite> testSuites = FastList.newInstance();
 
-        Iterator modelTestSuiteIter = this.modelTestSuiteList.iterator();
-        while (modelTestSuiteIter.hasNext()) {
-            ModelTestSuite modelTestSuite = (ModelTestSuite) modelTestSuiteIter.next();
+        for (ModelTestSuite modelTestSuite: this.modelTestSuiteList) {
             TestSuite suite = new TestSuite();
             suite.setName(modelTestSuite.getSuiteName());
-            List testList = modelTestSuite.getTestList();
-            Iterator testIter = testList.iterator();
-            while (testIter.hasNext()) {
-                Test tst = (Test) testIter.next();
+            for (Test tst: modelTestSuite.getTestList()) {
                 suite.addTest(tst);
             }
             testSuites.add(suite);
@@ -101,16 +88,11 @@ public class JunitSuiteWrapper {
         return testSuites;
     }
     
-    public List getAllTestList() {
-        List allTestList = FastList.newInstance();
+    public List<Test> getAllTestList() {
+        List<Test> allTestList = FastList.newInstance();
 
-        Iterator modelTestSuiteIter = this.modelTestSuiteList.iterator();
-        while (modelTestSuiteIter.hasNext()) {
-            ModelTestSuite modelTestSuite = (ModelTestSuite) modelTestSuiteIter.next();
-            List testList = modelTestSuite.getTestList();
-            Iterator testIter = testList.iterator();
-            while (testIter.hasNext()) {
-                Test tst = (Test) testIter.next();
+        for (ModelTestSuite modelTestSuite: this.modelTestSuiteList) {
+            for (Test tst: modelTestSuite.getTestList()) {
                 allTestList.add(tst);
             }
         }
