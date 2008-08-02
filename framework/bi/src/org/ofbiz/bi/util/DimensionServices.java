@@ -34,6 +34,7 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -51,13 +52,13 @@ public class DimensionServices {
     
     public static final String module = DimensionServices.class.getName();
 
-    public static Map getDimensionIdFromNaturalKey(DispatchContext ctx, Map context) {
-        Map resultMap = ServiceUtil.returnSuccess();
+    public static Map<String, Object> getDimensionIdFromNaturalKey(DispatchContext ctx, Map<String, ? extends Object> context) {
+        Map<String, Object> resultMap = ServiceUtil.returnSuccess();
         GenericDelegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
 
         String dimensionEntityName = (String) context.get("dimensionEntityName");
-        Map naturalKeyFields = (Map) context.get("naturalKeyFields");
+        Map<String, ? extends Object> naturalKeyFields = UtilGenerics.cast(context.get("naturalKeyFields"));
         GenericValue lastDimensionValue = null;
         try {
             // TODO: improve performance
@@ -71,24 +72,23 @@ public class DimensionServices {
         return resultMap;
     }
 
-    public static Map storeGenericDimension(DispatchContext ctx, Map context) {
+    public static Map<String, Object> storeGenericDimension(DispatchContext ctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
 
         GenericValue dimensionValue = (GenericValue) context.get("dimensionValue");
-        List naturalKeyFields = (List) context.get("naturalKeyFields");
+        List<String> naturalKeyFields = UtilGenerics.checkList(context.get("naturalKeyFields"), String.class);
         String updateMode = (String) context.get("updateMode");
 
         try {
-            Map andCondition = FastMap.newInstance();
-            for (int i = 0; i < naturalKeyFields.size(); i++) {
-                String naturalKeyField = (String)naturalKeyFields.get(i);
+            Map<String, Object> andCondition = FastMap.newInstance();
+            for (String naturalKeyField: naturalKeyFields) {
                 andCondition.put(naturalKeyField, dimensionValue.get(naturalKeyField));
             }
             if (andCondition.isEmpty()) {
                 return ServiceUtil.returnError("The natural key: " + naturalKeyFields + " is empty in value: " + dimensionValue);
             }
-            List existingDimensionValues = null;
+            List<GenericValue> existingDimensionValues = null;
             try {
                 existingDimensionValues = delegator.findByAnd(dimensionValue.getEntityName(), andCondition);
             } catch(GenericEntityException gee) {
@@ -100,8 +100,7 @@ public class DimensionServices {
             } else {
                 if ("TYPE1".equals(updateMode)) {
                     // update all the rows with the new values
-                    for (int i = 0; i < existingDimensionValues.size(); i++) {
-                        GenericValue existingDimensionValue = (GenericValue)existingDimensionValues.get(i);
+                    for (GenericValue existingDimensionValue: existingDimensionValues) {
                         GenericValue updatedValue = delegator.makeValue(dimensionValue.getEntityName(), dimensionValue);
                         updatedValue.set("dimensionId", existingDimensionValue.getString("dimensionId"));
                         updatedValue.store();
