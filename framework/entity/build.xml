@@ -44,7 +44,7 @@ under the License.
     <!-- ================================================================== -->
 
     <target name="classes" depends="prepare">
-        <javac15 classpathref="local.class.path">
+        <javac15>
             <exclude name="org/ofbiz/entity/connection/XaPoolConnectionFactory.java"/>
             <exclude name="org/ofbiz/entity/connection/TyrexConnectionFactory.java"/>
         </javac15>

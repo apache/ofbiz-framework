@@ -30,8 +30,10 @@ under the License.
   </sequential>
  </macrodef>
 
+ <path id="local.class.path"/>
+
  <presetdef name="default-javac">
-  <javac debug="on" deprecation="on" destdir="${build.dir}/classes" srcdir="${src.dir}"/>
+  <javac debug="on" deprecation="on" destdir="${build.dir}/classes" srcdir="${src.dir}" classpathref="local.class.path"/>
  </presetdef>
 
  <presetdef name="javac14">

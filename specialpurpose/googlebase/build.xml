@@ -50,7 +50,7 @@ under the License.
     <!-- ================================================================== -->
 
     <target name="classes" depends="prepare">
-        <javac15 classpathref="local.class.path"/>
+        <javac15/>
         <copy todir="${build.dir}/classes">
             <fileset dir="${src.dir}" includes="**/*.properties,**/*.xml,**/*.bsh,**/*.logic,**/*.js,**/*.jacl,**/*.py"/>
         </copy>

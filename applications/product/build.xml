@@ -64,7 +64,7 @@ under the License.
             </not>
         </condition>
 
-        <javac15 classpathref="local.class.path">
+        <javac15>
             <exclude name="${noapplet}"/>
         </javac15>
         <!-- also put the DTDs in the jar file... -->

@@ -49,7 +49,7 @@ under the License.
     <!-- ================================================================== -->
 
     <target name="classes" depends="prepare">
-        <javac15 classpathref="local.class.path">
+        <javac15>
             <src path="${src.dir}"/>
             <exclude name="org/ofbiz/shark/SharkGuiContainer.java"/>
         </javac15>
