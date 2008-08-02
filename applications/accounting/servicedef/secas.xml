@@ -162,8 +162,4 @@ under the License.
         <action service="createAcctgTransAndEntriesForPaymentApplication" mode="sync"/>
     </eca>
 
-    <eca service="createFixedAssetMaint" event="commit" run-on-failure="false">
-        <action service="autoAssignFixedAssetPartiesToMaintenance" mode="sync"/>
-    </eca>
-
 </service-eca>
