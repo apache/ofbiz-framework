@@ -237,7 +237,10 @@ under the License.
                 </call-service>
             </else>
         </if-not-empty>
-        <create-value value-name="newEntity"/>  
+        <create-value value-name="newEntity"/>
+        <check-errors/>
+        <set field="workEffortId" from-field="newEntity.scheduleWorkEffortId"/>
+        <call-simple-method method-name="autoAssignFixedAssetPartiesToMaintenance"/>  
     </simple-method>   
     <simple-method method-name="updateFixedAssetMaint" short-description="Update an existing FixedAsset Maintenance">
         <entity-one entity-name="FixedAssetMaint" value-name="lookedUpValue"/>
