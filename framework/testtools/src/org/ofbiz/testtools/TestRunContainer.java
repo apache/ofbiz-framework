@@ -107,10 +107,7 @@ public class TestRunContainer implements Container {
             throw new ContainerException("No tests found (" + component + " / " + testCase + ")");
         }
 
-        List testSuites = jsWrapper.makeTestSuites();
-        Iterator i = testSuites.iterator();
-        while (i.hasNext()) {
-            TestSuite suite = (TestSuite) i.next();
+        for (TestSuite suite: jsWrapper.makeTestSuites()) {
             JUnitTest test = new JUnitTest();
             test.setName(suite.getName());
 

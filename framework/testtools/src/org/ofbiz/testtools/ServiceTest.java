@@ -26,6 +26,7 @@ import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.service.ModelService;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 
@@ -58,7 +59,7 @@ public class ServiceTest extends TestCaseBase {
 
         try {
 
-            Map serviceResult = dispatcher.runSync(serviceName, UtilMisc.toMap("test", this, "testResult", result));
+            Map<String, Object> serviceResult = dispatcher.runSync(serviceName, UtilMisc.toMap("test", this, "testResult", result));
 
             // do something with the errorMessage
             String errorMessage = (String) serviceResult.get(ModelService.ERROR_MESSAGE);
@@ -67,20 +68,17 @@ public class ServiceTest extends TestCaseBase {
             }
 
             // do something with the errorMessageList
-            List errorMessageList = (List) serviceResult.get(ModelService.ERROR_MESSAGE_LIST);
+            List<Object> errorMessageList = UtilGenerics.checkList(serviceResult.get(ModelService.ERROR_MESSAGE_LIST));
             if (UtilValidate.isNotEmpty(errorMessageList)) {
-                Iterator i = errorMessageList.iterator();
-                while (i.hasNext()) {
-                    result.addFailure(this, new AssertionFailedError((String) i.next()));
+                for (Object message: errorMessageList) {
+                    result.addFailure(this, new AssertionFailedError(message.toString()));
                 }
             }
 
             // do something with the errorMessageMap
-            Map errorMessageMap = (Map) serviceResult.get(ModelService.ERROR_MESSAGE_MAP);
+            Map<String, Object> errorMessageMap = UtilGenerics.cast(serviceResult.get(ModelService.ERROR_MESSAGE_MAP));
             if (!UtilValidate.isEmpty(errorMessageMap)) {
-                Iterator i = errorMessageMap.entrySet().iterator();
-                while (i.hasNext()) {
-                    Map.Entry entry = (Map.Entry) i.next();
+                for (Map.Entry<String, Object> entry: errorMessageMap.entrySet()) {
                     result.addFailure(this, new AssertionFailedError(entry.getKey() + ": " + entry.getValue()));
                 }
             }
