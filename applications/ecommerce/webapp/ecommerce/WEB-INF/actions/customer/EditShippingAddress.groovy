@@ -22,6 +22,10 @@ import org.ofbiz.party.contact.ContactHelper;
 
 if (userLogin) {
     party = userLogin.getRelatedOne("Party");
+    person = delegator.findByPrimaryKey("Person", [partyId : party.partyId]);
+    parameters.firstName = person.firstName;
+    parameters.lastName = person.lastName;
+    
     contactMech = EntityUtil.getFirst(ContactHelper.getContactMech(party, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false));
     if (contactMech) {
         postalAddress = contactMech.getRelatedOne("PostalAddress");
@@ -41,8 +45,5 @@ if (userLogin) {
         if (shipToCountryProvinceGeo) {
             parameters.shipToCountryProvinceGeo =  shipToCountryProvinceGeo.geoName;
         }
-        person = delegator.findByPrimaryKey("Person", [partyId : party.partyId]);
-        parameters.firstName = person.firstName;
-        parameters.lastName = person.lastName;
     }
 }
