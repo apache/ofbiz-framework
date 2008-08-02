@@ -26,6 +26,7 @@ import java.util.TreeSet;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilObject;
 import org.ofbiz.base.util.UtilURL;
@@ -79,7 +80,7 @@ public class ControllerRequestArtifactInfo extends ArtifactInfoBase {
             }
         }
         
-        Map<String, String> responseMap = (Map<String, String>) this.requestInfoMap.get(ConfigXMLReader.RESPONSE_MAP);
+        Map<String, String> responseMap = UtilGenerics.checkMap(this.requestInfoMap.get(ConfigXMLReader.RESPONSE_MAP));
         for (String responseValue: responseMap.values()) {
             if (responseValue.startsWith("view:")) {
                 String viewUri = responseValue.substring(5);

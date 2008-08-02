@@ -107,7 +107,7 @@ public class WebToolsServices {
 
     public static final String module = WebToolsServices.class.getName();
 
-    public static Map entityImport(DispatchContext dctx, Map context) {
+    public static Map<String, Object> entityImport(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         LocalDispatcher dispatcher = dctx.getDispatcher();
 
@@ -173,7 +173,7 @@ public class WebToolsServices {
             try {
                 Configuration conf = org.ofbiz.base.util.template.FreeMarkerWorker.getDefaultOfbizConfig();
                 template = new Template("FMImportFilter", templateReader, conf);
-                Map fmcontext = new HashMap();
+                Map<String, Object> fmcontext = FastMap.newInstance();
 
                 NodeModel nodeModel = NodeModel.parse(ins);
                 fmcontext.put("doc", nodeModel);
@@ -193,7 +193,7 @@ public class WebToolsServices {
         // #############################
         if (s != null || fulltext != null || url != null) {
             try{
-                Map inputMap = UtilMisc.toMap("mostlyInserts", mostlyInserts, 
+                Map<String, Object> inputMap = UtilMisc.toMap("mostlyInserts", mostlyInserts, 
                                               "createDummyFks", createDummyFks,
                                               "checkDataOnly", checkDataOnly,
                                               "maintainTimeStamps", maintainTimeStamps,
@@ -208,7 +208,7 @@ public class WebToolsServices {
                         inputMap.put("url", url);
                     }
                 }
-                Map outputMap = dispatcher.runSync("parseEntityXmlFile", inputMap);
+                Map<String, Object> outputMap = dispatcher.runSync("parseEntityXmlFile", inputMap);
                 if (ServiceUtil.isError(outputMap)) {
                     return ServiceUtil.returnError("ERROR: " + ServiceUtil.getErrorMessage(outputMap));
                 } else {
@@ -223,15 +223,15 @@ public class WebToolsServices {
         }
 
         // send the notification
-        Map resp = UtilMisc.toMap("messages", messages);
+        Map<String, Object> resp = UtilMisc.toMap("messages", (Object) messages);
         return resp;
     }
 
-    public static Map entityImportDir(DispatchContext dctx, Map context) {
+    public static Map<String, Object> entityImportDir(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         LocalDispatcher dispatcher = dctx.getDispatcher();
 
-        List messages = FastList.newInstance();
+        List<String> messages = FastList.newInstance();
 
         String path = (String) context.get("path");
         String mostlyInserts = (String) context.get("mostlyInserts");
@@ -256,35 +256,33 @@ public class WebToolsServices {
 
             if (baseDir.isDirectory() && baseDir.canRead()) {
                 File[] fileArray = baseDir.listFiles();
-                FastList files = FastList.newInstance();
-                for (int a=0; a<fileArray.length; a++){
-                    if (fileArray[a].getName().toUpperCase().endsWith("XML")) {
-                        files.add(fileArray[a]);
+                FastList<File> files = FastList.newInstance();
+                for (File file: fileArray) {
+                    if (file.getName().toUpperCase().endsWith("XML")) {
+                        files.add(file);
                     }
                 }                
 
                 int passes=0;                
                 int initialListSize = files.size();
                 int lastUnprocessedFilesCount = 0;
-                FastList unprocessedFiles = FastList.newInstance();
+                FastList<File> unprocessedFiles = FastList.newInstance();
                 while (files.size()>0 && 
                         files.size() != lastUnprocessedFilesCount) {
                     lastUnprocessedFilesCount = files.size();
                     unprocessedFiles = FastList.newInstance();
-                    Iterator filesItr = files.iterator();
-                    while (filesItr.hasNext()) {
-                        Map parseEntityXmlFileArgs = UtilMisc.toMap("mostlyInserts", mostlyInserts, 
+                    for (File f: files) {
+                        Map<String, Object> parseEntityXmlFileArgs = UtilMisc.toMap("mostlyInserts", mostlyInserts, 
                                 "createDummyFks", createDummyFks,
                                 "checkDataOnly", checkDataOnly,
                                 "maintainTimeStamps", maintainTimeStamps,
                                 "txTimeout", txTimeout,
                                 "userLogin", userLogin);
                         
-                        File f = (File) filesItr.next();
                         try {
                             URL furl = f.toURI().toURL();
                             parseEntityXmlFileArgs.put("url", furl);
-                            Map outputMap = dispatcher.runSync("parseEntityXmlFile", parseEntityXmlFileArgs);
+                            Map<String, Object> outputMap = dispatcher.runSync("parseEntityXmlFile", parseEntityXmlFileArgs);
                             Long numberRead = (Long) outputMap.get("rowProcessed");
                             messages.add("Got " + numberRead.longValue() + " entities from " + f);
                             if (deleteFiles) {
@@ -316,10 +314,8 @@ public class WebToolsServices {
                 messages.add("Failed:    " + lastUnprocessedFilesCount + " of " + initialListSize);
                 messages.add("---------------------------------------");
                 messages.add("Failed Files:");
-                Iterator unprocessedFilesItr = unprocessedFiles.iterator();
-                while (unprocessedFilesItr.hasNext()) {
-                    File file = (File) unprocessedFilesItr.next();
-                    messages.add("" + file);
+                for (File file: unprocessedFiles) {
+                    messages.add(file.toString());
                 }
             } else {
                 messages.add("path not found or can't be read");
@@ -328,11 +324,11 @@ public class WebToolsServices {
             messages.add("No path specified, doing nothing.");
         }
         // send the notification
-        Map resp = UtilMisc.toMap("messages", messages);
+        Map<String, Object> resp = UtilMisc.toMap("messages", (Object) messages);
         return resp;
     }
 
-    public static Map entityImportReaders(DispatchContext dctx, Map context) {
+    public static Map<String, Object> entityImportReaders(DispatchContext dctx, Map<String, Object> context) {
         String readers = (String) context.get("readers");
         String overrideDelegator = (String) context.get("overrideDelegator");
         String overrideGroup = (String) context.get("overrideGroup");
@@ -344,10 +340,10 @@ public class WebToolsServices {
         Integer txTimeoutInt = (Integer) context.get("txTimeout");
         int txTimeout = txTimeoutInt != null ? txTimeoutInt.intValue() : -1;
 
-        List messages = FastList.newInstance();
+        List<Object> messages = FastList.newInstance();
 
         // parse the pass in list of readers to use
-        List readerNames = null;
+        List<String> readerNames = null;
         if (UtilValidate.isNotEmpty(readers) && !"none".equalsIgnoreCase(readers)) {
             if (readers.indexOf(",") == -1) {
                 readerNames = FastList.newInstance();
@@ -366,7 +362,7 @@ public class WebToolsServices {
         }
 
         // get the reader name URLs first
-        List urlList = null;
+        List<URL> urlList = null;
         if (readerNames != null) {
             urlList = EntityDataLoader.getUrlList(helperName, readerNames);
         } else if (!"none".equalsIgnoreCase(readers)) {
@@ -383,22 +379,18 @@ public class WebToolsServices {
         changedFormat.setMinimumIntegerDigits(5);
         changedFormat.setGroupingUsed(false);
         
-        List errorMessages = new LinkedList();
-        List infoMessages = new LinkedList();
+        List<Object> errorMessages = FastList.newInstance();
+        List<String> infoMessages = FastList.newInstance();
         int totalRowsChanged = 0;
         if (urlList != null && urlList.size() > 0) {
             messages.add("=-=-=-=-=-=-= Doing a data " + (checkDataOnly ? "check" : "load") + " with the following files:");
-            Iterator urlIter = urlList.iterator();
-            while (urlIter.hasNext()) {
-                URL dataUrl = (URL) urlIter.next();
+            for (URL dataUrl: urlList) {
                 messages.add(dataUrl.toExternalForm());
             }
 
             messages.add("=-=-=-=-=-=-= Starting the data " + (checkDataOnly ? "check" : "load") + "...");
 
-            urlIter = urlList.iterator();
-            while (urlIter.hasNext()) {
-                URL dataUrl = (URL) urlIter.next();
+            for (URL dataUrl: urlList) {
                 try {
                     int rowsChanged = 0;
                     if (checkDataOnly) {
@@ -437,12 +429,12 @@ public class WebToolsServices {
 
         messages.add("=-=-=-=-=-=-= Finished the data " + (checkDataOnly ? "check" : "load") + " with " + totalRowsChanged + " rows " + (checkDataOnly ? "checked" : "changed") + ".");
         
-        Map resultMap = ServiceUtil.returnSuccess();
+        Map<String, Object> resultMap = ServiceUtil.returnSuccess();
         resultMap.put("messages", messages);
         return resultMap;
     }
     
-    public static Map parseEntityXmlFile(DispatchContext dctx, Map context) {
+    public static Map<String, Object> parseEntityXmlFile(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
 
         URL url = (URL)context.get("url");
@@ -461,7 +453,7 @@ public class WebToolsServices {
             txTimeout = Integer.valueOf(7200);
         }
 
-        Long rowProcessed = Long.valueOf(0);
+        long rowProcessed = 0;
         try {
             EntitySaxReader reader = new EntitySaxReader(delegator);
             reader.setUseTryInsertMethod(mostlyInserts);
@@ -471,16 +463,16 @@ public class WebToolsServices {
             reader.setCheckDataOnly(checkDataOnly); 
 
             long numberRead = (url != null ? reader.parse(url) : reader.parse(xmltext));
-            rowProcessed = Long.valueOf(numberRead);
+            rowProcessed = numberRead;
         } catch (Exception ex){
             return ServiceUtil.returnError("Error parsing entity xml file: " + ex.toString());
         }
         // send the notification
-        Map resp = UtilMisc.toMap("rowProcessed", rowProcessed);
+        Map<String, Object> resp = UtilMisc.<String, Object>toMap("rowProcessed", rowProcessed);
         return resp;
     }
 
-    public static Map entityExportAll(DispatchContext dctx, Map context) {
+    public static Map<String, Object> entityExportAll(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
 
         String outpath = (String)context.get("outpath"); // mandatory
@@ -489,7 +481,7 @@ public class WebToolsServices {
             txTimeout = Integer.valueOf(7200);
         }
 
-        List results = new ArrayList();
+        List<String> results = FastList.newInstance();
 
         if (outpath != null && outpath.length() > 0) {
             File outdir = new File(outpath);
@@ -497,20 +489,18 @@ public class WebToolsServices {
                 outdir.mkdir();
             }
             if (outdir.isDirectory() && outdir.canWrite()) {
-                Iterator passedEntityNames = null;
+                Set<String> passedEntityNames;
                 try {
                     ModelReader reader = delegator.getModelReader();
-                    Collection ec = reader.getEntityNames();
-                    TreeSet entityNames = new TreeSet(ec);
-                    passedEntityNames = entityNames.iterator();
+                    Collection<String> ec = reader.getEntityNames();
+                    passedEntityNames = new TreeSet<String>(ec);
                 } catch(Exception exc) {
                     return ServiceUtil.returnError("Error retrieving entity names.");
                 }
                 int fileNumber = 1;
 
-                while (passedEntityNames.hasNext()) { 
+                for (String curEntityName: passedEntityNames) {
                     long numberWritten = 0;
-                    String curEntityName = (String)passedEntityNames.next();
                     EntityListIterator values = null;
 
                     try {
@@ -566,7 +556,7 @@ public class WebToolsServices {
             results.add("No path specified, doing nothing.");
         }
         // send the notification
-        Map resp = UtilMisc.toMap("results", results);
+        Map<String, Object> resp = UtilMisc.<String, Object>toMap("results", results);
         return resp;
     }
     
@@ -621,7 +611,7 @@ public class WebToolsServices {
        </ul>
        </li></ul>
      * */
-    public static Map getEntityRefData(DispatchContext dctx, Map context) {
+    public static Map<String, Object> getEntityRefData(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
@@ -634,11 +624,9 @@ public class WebToolsServices {
         
         //put the entityNames TreeSets in a HashMap by packageName
         try {
-            Collection ec = reader.getEntityNames();
+            Collection<String> ec = reader.getEntityNames();
             resultMap.put("numberOfEntities", ec.size());
-            Iterator ecIter = ec.iterator();
-            while (ecIter.hasNext()) {
-                String eName = (String) ecIter.next();
+            for (String eName: ec) {
                 ModelEntity ent = reader.getModelEntity(eName);
                 //make sure the table name is in the list of all table names, if not null
                 if (UtilValidate.isNotEmpty(ent.getPlainTableName())) {
@@ -665,10 +653,8 @@ public class WebToolsServices {
                 String pName = (String) piter.next();
                 TreeSet<String> entities = entitiesByPackage.get(pName);
                 List<Map<String, Object>> entitiesList = FastList.newInstance();
-                Iterator e = entities.iterator();
-                while (e.hasNext()) {
+                for (String entityName: entities) {
                     Map<String, Object> entityMap = FastMap.newInstance();
-                    String entityName = (String) e.next();
                     String helperName = delegator.getEntityHelperName(entityName);
                     String groupName = delegator.getEntityGroupName(entityName);
                     if (search == null || entityName.toLowerCase().indexOf(search.toLowerCase()) != -1) {
@@ -684,9 +670,9 @@ public class WebToolsServices {
 
                         // fields list
                         List<Map<String, Object>> javaNameList = FastList.newInstance();
-                        for (Iterator f = entity.getFieldsIterator(); f.hasNext();) {
+                        for (Iterator<ModelField> f = entity.getFieldsIterator(); f.hasNext();) {
                             Map<String, Object> javaNameMap = FastMap.newInstance();
-                            ModelField field = (ModelField) f.next();
+                            ModelField field = f.next();
                             ModelFieldType type = delegator.getEntityFieldType(entity, field.getType());
                             javaNameMap.put("isPk", field.getIsPk());
                             javaNameMap.put("name", field.getName());
@@ -755,8 +741,8 @@ public class WebToolsServices {
                             List<String> fieldNameList = FastList.newInstance();
                             
                             ModelIndex index = entity.getIndex(r);
-                            for (Iterator fieldIterator = index.getIndexFieldsIterator(); fieldIterator.hasNext();) {
-                                fieldNameList.add((String) fieldIterator.next());
+                            for (Iterator<String> fieldIterator = index.getIndexFieldsIterator(); fieldIterator.hasNext();) {
+                                fieldNameList.add(fieldIterator.next());
                             }
                             
                             Map<String, Object> indexMap = FastMap.newInstance();
@@ -793,7 +779,7 @@ public class WebToolsServices {
         return resultMap;
     }
     
-    public static Map exportEntityEoModelBundle(DispatchContext dctx, Map context) {
+    public static Map<String, Object> exportEntityEoModelBundle(DispatchContext dctx, Map<String, ? extends Object> context) {
         String eomodeldFullPath = (String) context.get("eomodeldFullPath");
         String entityPackageNameOrig = (String) context.get("entityPackageName");
         String entityGroupId = (String) context.get("entityGroupId");
@@ -820,7 +806,7 @@ public class WebToolsServices {
                 return ServiceUtil.returnError("eomodel Full Path is not write-able: " + eomodeldFullPath);
             }
             
-            Set<String> entityNames = new TreeSet();
+            Set<String> entityNames = new TreeSet<String>();
             if (UtilValidate.isNotEmpty(entityPackageNameOrig)) {
                 Set<String> entityPackageNameSet = FastSet.newInstance();
                 entityPackageNameSet.addAll(StringUtil.split(entityPackageNameOrig, ","));
@@ -884,11 +870,11 @@ public class WebToolsServices {
      * @param context
      * @return
      */
-    public static Map entityMaintPermCheck(DispatchContext dctx, Map context) {
+    public static Map<String, Object> entityMaintPermCheck(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
         Security security = dctx.getSecurity();
-        Map resultMap = null;
+        Map<String, Object> resultMap = null;
         if (security.hasPermission("ENTITY_MAINT", userLogin)) {
             resultMap = ServiceUtil.returnSuccess();
             resultMap.put("hasPermission", true);
@@ -899,8 +885,8 @@ public class WebToolsServices {
         return resultMap;
     }
     
-    public static Map findJobs(DispatchContext dctx, Map context) {
-        Map result = ServiceUtil.returnSuccess();
+    public static Map<String, Object> findJobs(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Map<String, Object> result = ServiceUtil.returnSuccess();
         GenericDelegator delegator = dctx.getDelegator();
         String serviceName = (String) context.get("serviceName");
         String jobId = (String) context.get("jobId");
@@ -913,7 +899,7 @@ public class WebToolsServices {
         } catch (Exception e) {
             viewIndex = 0;
         }
-        result.put("viewIndex", Integer.valueOf(viewIndex));
+        result.put("viewIndex", viewIndex);
 
         int viewSize = 50;
         try {
@@ -921,15 +907,15 @@ public class WebToolsServices {
         } catch (Exception e) {
             viewSize = 50;
         }
-        result.put("viewSize", Integer.valueOf(viewSize));
+        result.put("viewSize", viewSize);
         
 //      get the lookup flag
         String lookupFlag = (String) context.get("lookupFlag");
         
         // list to hold the parameters
-        List paramList = FastList.newInstance();
-        List conditions = FastList.newInstance();
-        List jobList = null;
+        List<String> paramList = FastList.newInstance();
+        List<EntityCondition> conditions = FastList.newInstance();
+        List<GenericValue> jobList = null;
         int jobListSize = 0;
         int lowIndex = 0;
         int highIndex = 0;
@@ -951,7 +937,7 @@ public class WebToolsServices {
                 paramList.add("jobName=" + jobName);
                 conditions.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("jobName"), EntityOperator.LIKE, EntityFunction.UPPER("%"+jobName+"%")));
             }
-            List filterExprs = FastList.newInstance();
+            List<EntityCondition> filterExprs = FastList.newInstance();
             String filterJobPending = (String) context.get("filterJobsWithPendingStatus");
             String filterJobRunning = (String) context.get("filterJobsWithRunningStatus");
             String filterJobFinished = (String) context.get("filterJobsWithFinishedStatus");
@@ -985,7 +971,7 @@ public class WebToolsServices {
             } 
             // set distinct on so we only get one row per job
             EntityFindOptions findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
-            List orderBy = UtilMisc.toList("-runTime");
+            List<String> orderBy = UtilMisc.toList("-runTime");
             EntityCondition cond = null;
             if (conditions.size() > 0) {
                 cond = EntityCondition.makeCondition(conditions);
@@ -1021,14 +1007,14 @@ public class WebToolsServices {
        if (jobList == null) jobList = FastList.newInstance();
        String paramString = StringUtil.join(paramList, "&amp;");
        result.put("paramList", (paramString != null ? paramString: ""));
-       result.put("lowIndex", Integer.valueOf(lowIndex));
-       result.put("highIndex", Integer.valueOf(highIndex));
+       result.put("lowIndex", lowIndex);
+       result.put("highIndex", highIndex);
        result.put("jobs", jobList);
        result.put("jobListSize", Integer.valueOf(jobListSize));
        return result;
     }
     
-    public static Map exportServiceEoModelBundle(DispatchContext dctx, Map context) {
+    public static Map<String, Object> exportServiceEoModelBundle(DispatchContext dctx, Map<String, ? extends Object> context) {
         String eomodeldFullPath = (String) context.get("eomodeldFullPath");
         String serviceName = (String) context.get("serviceName");
         
