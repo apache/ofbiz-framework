@@ -35,7 +35,7 @@ public class ObjectTag extends TagSupport {
     protected Object element = null;
     protected String name = null;
     protected String property = null;
-    protected Class type = null;
+    protected Class<?> type = null;
 
     public void setName(String name) {
         this.name = name;

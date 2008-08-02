@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.webapp.region;
 
-import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -27,6 +26,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
+
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilJ2eeCompat;
@@ -39,14 +40,14 @@ public class Region extends Content {
     
     public static final String module = Region.class.getName();
 
-    private Map sections = new HashMap();
+    private Map<String, Section> sections = FastMap.newInstance();
     protected String id;
 
     public Region(String id, String content) {
         this(id, content, null); // content is the name of a template
     }
 
-    public Region(String id, String content, Map sections) {
+    public Region(String id, String content, Map<String, ? extends Section> sections) {
         super(content, "region");
         this.id = id;
         if (sections != null) {
@@ -62,15 +63,15 @@ public class Region extends Content {
         sections.put(section.getName(), section);
     }
 
-    public void putAll(Map newSections) {
+    public void putAll(Map<String, ? extends Section> newSections) {
         sections.putAll(newSections);
     }
 
     public Section get(String name) {
-        return (Section) sections.get(name);
+        return sections.get(name);
     }
 
-    public Map getSections() {
+    public Map<String, ? extends Section> getSections() {
         return sections;
     }
 

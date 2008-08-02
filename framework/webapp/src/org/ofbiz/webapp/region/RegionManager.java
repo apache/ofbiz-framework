@@ -19,10 +19,9 @@
 package org.ofbiz.webapp.region;
 
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
+
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
@@ -39,7 +38,7 @@ public class RegionManager {
     
     public static final String module = RegionManager.class.getName();
 
-    protected static UtilCache regionCache = new UtilCache("webapp.Regions.Config", 0, 0);
+    protected static UtilCache<URL, Map<String, Region>> regionCache = new UtilCache<URL, Map<String, Region>>("webapp.Regions.Config", 0, 0);
     
     protected URL regionFile = null;
     
@@ -52,11 +51,11 @@ public class RegionManager {
         regionCache.put(regionFile, readRegionXml(regionFile));
     }
     
-    public Map getRegions() {
-        Map regions = (Map) regionCache.get(regionFile);
+    public Map<String, Region> getRegions() {
+        Map<String, Region> regions = regionCache.get(regionFile);
         if (regions == null) {
             synchronized (this) {
-                regions = (Map) regionCache.get(regionFile);
+                regions = regionCache.get(regionFile);
                 if (regions == null) {
                     if (Debug.verboseOn()) Debug.logVerbose("Regions not loaded for " + regionFile + ", loading now", module);
                     regions = readRegionXml(regionFile);
@@ -69,15 +68,15 @@ public class RegionManager {
 
     public Region getRegion(String regionName) {
         if (regionFile == null) return null;
-        return (Region) getRegions().get(regionName);
+        return getRegions().get(regionName);
     }
 
     public void putRegion(Region region) {
         getRegions().put(region.getId(), region);
     }
 
-    public Map readRegionXml(URL regionFile) {
-        Map regions = new HashMap();
+    public Map<String, Region> readRegionXml(URL regionFile) {
+        Map<String, Region> regions = FastMap.newInstance();
 
         Document document = null;
 
@@ -95,11 +94,7 @@ public class RegionManager {
 
         Element rootElement = document.getDocumentElement();
 
-        List defineElements = UtilXml.childElementList(rootElement, "define");
-        Iterator defineIter = defineElements.iterator();
-
-        while (defineIter.hasNext()) {
-            Element defineElement = (Element) defineIter.next();
+        for (Element defineElement: UtilXml.childElementList(rootElement, "define")) {
 
             addRegion(defineElement, regions);
         }
@@ -107,7 +102,7 @@ public class RegionManager {
         return regions;
     }
 
-    protected void addRegion(Element defineElement, Map regions) {
+    protected void addRegion(Element defineElement, Map<String, Region> regions) {
         Region newRegion = null;
 
         String idAttr = defineElement.getAttribute("id");
@@ -135,11 +130,7 @@ public class RegionManager {
 
         regions.put(idAttr, newRegion);
 
-        List putElements = UtilXml.childElementList(defineElement, "put");
-        Iterator putIter = putElements.iterator();
-
-        while (putIter.hasNext()) {
-            Element putElement = (Element) putIter.next();
+        for (Element putElement: UtilXml.childElementList(defineElement, "put")) {
 
             newRegion.put(makeSection(putElement));
         }
@@ -168,8 +159,8 @@ public class RegionManager {
 
     public static Region getRegion(URL regionFile, String regionName) {
         if (regionFile == null) return null;
-        Map regions = (Map) regionCache.get(regionFile);
+        Map<String, Region> regions = regionCache.get(regionFile);
         if (regions == null) return null;
-        return (Region) regions.get(regionName);
+        return regions.get(regionName);
     }
 }

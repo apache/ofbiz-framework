@@ -95,8 +95,8 @@ public class ServiceTag extends AbstractParameterTag {
             throw new JspTagException("Invaild result scope specified. (page, request, session, application)");
         }
 
-        Map context = getInParameters();
-        Map result = null;
+        Map<String, Object> context = getInParameters();
+        Map<String, Object> result = null;
 
         if (userLogin != null)
             context.put("userLogin", userLogin);
@@ -110,19 +110,16 @@ public class ServiceTag extends AbstractParameterTag {
             throw new JspTagException("Problems invoking the requested service: " + e.getMessage());
         }
 
-        Map aliases = getOutParameters();
+        Map<String, String> aliases = getOutParameters();
 
         if (result != null) {
             // expand the result
-            Iterator i = result.entrySet().iterator();
-
-            while (i.hasNext()) {
-                Map.Entry entry = (Map.Entry) i.next();
-                Object key = entry.getKey();
+            for (Map.Entry<String, Object> entry: result.entrySet()) {
+                String key = entry.getKey();
                 Object value = entry.getValue();
-                String ctxName = (String) (aliases.containsKey(key) ? aliases.get(key) : key);
+                String ctxName = (aliases.containsKey(key) ? aliases.get(key) : key);
 
-                if (value == null) value = new String();
+                if (value == null) value = "";
                 pageContext.setAttribute(ctxName, value, scope);
             }
         }

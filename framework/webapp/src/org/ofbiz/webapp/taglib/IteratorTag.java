@@ -42,7 +42,7 @@ public class IteratorTag extends BodyTagSupport {
 
     public static final String module = IteratorTag.class.getName();
 
-    protected Iterator iterator = null;
+    protected Iterator<? extends Object> iterator = null;
     protected String name = null;
     protected String property = null;
     protected Object element = null;
@@ -76,7 +76,7 @@ public class IteratorTag extends BodyTagSupport {
         expandMap = "true".equals(expMap);
     }
 
-    public void setIterator(Iterator iterator) {
+    public void setIterator(Iterator<? extends Object> iterator) {
         this.iterator = iterator;
     }
 
@@ -92,7 +92,7 @@ public class IteratorTag extends BodyTagSupport {
         return element;
     }
 
-    public Iterator getIterator() {
+    public Iterator<? extends Object> getIterator() {
         return this.iterator;
     }
 
@@ -153,18 +153,18 @@ public class IteratorTag extends BodyTagSupport {
 
     private boolean defineIterator() {
         // clear the iterator, after this it may be set directly
-        Iterator newIterator = null;
-        Collection thisCollection = null;
+        Iterator<? extends Object> newIterator = null;
+        Collection<? extends Object> thisCollection = null;
 
         if (property != null) {
             if (Debug.verboseOn()) Debug.logVerbose("Getting iterator from property: " + property, module);
             Object propertyObject = pageContext.findAttribute(property);
 
             if (propertyObject instanceof Iterator) {
-                newIterator = (Iterator) propertyObject;
+                newIterator = (Iterator<? extends Object>) propertyObject;
             } else {
                 // if ClassCastException, it should indicate looking for a Collection
-                thisCollection = (Collection) propertyObject;
+                thisCollection = (Collection<? extends Object>) propertyObject;
             }
         } else {
             // Debug.logInfo("No property, check for Object Tag.", module);
@@ -174,7 +174,7 @@ public class IteratorTag extends BodyTagSupport {
             if (objectTag == null)
                 return false;
             if (objectTag.getType().equals("java.util.Collection")) {
-                thisCollection = (Collection) objectTag.getObject();
+                thisCollection = (Collection<? extends Object>) objectTag.getObject();
             } else {
                 try {
                     ClassLoader loader = Thread.currentThread().getContextClassLoader();
@@ -183,7 +183,7 @@ public class IteratorTag extends BodyTagSupport {
                     for (int i = 0; i < m.length; i++) {
                         if (m[i].getName().equals("iterator")) {
                             Debug.logVerbose("Found iterator method. Using it.", module);
-                            newIterator = (Iterator) m[i].invoke(
+                            newIterator = (Iterator<? extends Object>) m[i].invoke(
                                         objectTag.getObject(), (Object[]) null);
                             break;
                         }
@@ -199,12 +199,12 @@ public class IteratorTag extends BodyTagSupport {
                 return false;
 
             if (limit > 0 || offset > 0) {
-                ArrayList colList = new ArrayList(thisCollection);
+                ArrayList<? extends Object> colList = new ArrayList<Object>(thisCollection);
                 int startIndex = offset > 0 ? offset : 0;
                 int endIndex = limit > 0 ? offset + limit : colList.size();
 
                 endIndex = endIndex > colList.size() ? colList.size() : endIndex;
-                List subList = colList.subList(startIndex, endIndex);
+                List<? extends Object> subList = colList.subList(startIndex, endIndex);
 
                 newIterator = subList.iterator();
             } else {

@@ -30,6 +30,7 @@ import org.apache.xmlrpc.XmlRpcRequest;
 import org.ofbiz.service.*;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.base.util.Debug;
+import static org.ofbiz.base.util.UtilGenerics.checkMap;
 import org.ofbiz.base.util.UtilValidate;
 
 import javax.servlet.ServletContext;
@@ -140,11 +141,11 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
                 String password = config.getBasicPassword();
 
                 // check the account
-                Map context = FastMap.newInstance();
+                Map<String, Object> context = FastMap.newInstance();
                 context.put("login.username", username);
                 context.put("login.password", password);
 
-                Map resp;
+                Map<String, Object> resp;
                 try {
                     resp = dispatcher.runSync("userLogin", context);
                 } catch (GenericServiceException e) {
@@ -195,7 +196,7 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
             }
 
             // prepare the context -- single parameter type struct (map)
-            Map context = this.getContext(xmlRpcReq, serviceName);            
+            Map<String, Object> context = this.getContext(xmlRpcReq, serviceName);            
 
             // add in auth parameters
             XmlRpcHttpRequestConfig config = (XmlRpcHttpRequestConfig) xmlRpcReq.getConfig();
@@ -210,7 +211,7 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
             context.put("locale", Locale.getDefault());
 
             // invoke the service
-            Map resp;
+            Map<String, Object> resp;
             try {
                 resp = dispatcher.runSync(serviceName, context);
             } catch (GenericServiceException e) {
@@ -225,7 +226,7 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
             return model.makeValid(resp, ModelService.OUT_PARAM, false, null);
         }
 
-        protected Map getContext(XmlRpcRequest xmlRpcReq, String serviceName) throws XmlRpcException {
+        protected Map<String, Object> getContext(XmlRpcRequest xmlRpcReq, String serviceName) throws XmlRpcException {
             ModelService model;
             try {
                 model = dispatcher.getDispatchContext().getModelService(serviceName);
@@ -234,7 +235,7 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
             }
 
             // context placeholder
-            Map context = FastMap.newInstance();
+            Map<String, Object> context = FastMap.newInstance();
 
             if (model != null) {
                 int parameterCount = xmlRpcReq.getParameterCount();
@@ -242,9 +243,7 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
                 // more than one parameter; use list notation based on service def order
                 if (parameterCount > 1) {
                     int x = 0;
-                    Iterator i = model.getParameterNames("IN", true, true).iterator();
-                    while (i.hasNext()) {
-                        String name = (String) i.next();
+                    for (String name: model.getParameterNames("IN", true, true)) {
                         context.put(name, xmlRpcReq.getParameter(x));
                         x++;
 
@@ -257,7 +256,7 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
                 } else if (parameterCount == 1) {
                     Object param = xmlRpcReq.getParameter(0);
                     if (param instanceof Map) {
-                        context = (Map) param;
+                        context = checkMap(param, String.class, Object.class);
                     } else {
                         if (model.getDefinedInCount() == 1) {
                             String paramName = (String) model.getInParamNames().iterator().next();

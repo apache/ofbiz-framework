@@ -26,13 +26,14 @@ import java.io.StringWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import javolution.util.FastMap;
 
 import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Debug;
@@ -76,7 +77,7 @@ public class WfsViewHandler implements ViewHandler {
             
             List entityList = (List)request.getAttribute("entityList");
             SimpleSequence simpleList = new SimpleSequence(entityList);
-            Map ctx = new HashMap();
+            Map<String, Object> ctx = FastMap.newInstance();
             ctx.put("entityList", simpleList);
             StringWriter outWriter = new StringWriter();
             Template template = getDocTemplate(page);

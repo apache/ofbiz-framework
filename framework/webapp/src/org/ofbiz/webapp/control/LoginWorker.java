@@ -47,6 +47,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.KeyStoreUtil;
 import org.ofbiz.base.util.UtilFormatOut;
+import static org.ofbiz.base.util.UtilGenerics.checkMap;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
@@ -271,7 +272,7 @@ public class LoginWorker {
 
             // in this condition log them in if not already; if not logged in or can't log in, save parameters and return error
             if ((username == null) || (password == null) || ("error".equals(login(request, response)))) {
-                Map reqParams = UtilHttp.getParameterMap(request);
+                Map<String, Object> reqParams = UtilHttp.getParameterMap(request);
                 String queryString = UtilHttp.urlEncodeArgs(reqParams);
                 Debug.logInfo("reqParams Map: " + reqParams, module);
                 Debug.logInfo("queryString: " + queryString, module);
@@ -319,7 +320,7 @@ public class LoginWorker {
             password = (String) request.getAttribute("PASSWORD");
         }
 
-        List unpwErrMsgList = FastList.newInstance();
+        List<String> unpwErrMsgList = FastList.newInstance();
         if (UtilValidate.isEmpty(username)) {
             unpwErrMsgList.add(UtilProperties.getMessage(resourceWebapp, "loginevents.username_was_empty_reenter", UtilHttp.getLocale(request)));
         }
@@ -345,9 +346,9 @@ public class LoginWorker {
         String visitId = VisitHandler.getVisitId(session);
 
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        Map result = null;
+        Map<String, Object> result = null;
         if (UtilValidate.isNotEmpty(requirePasswordChange) && "Y".equals(requirePasswordChange)) {
-            Map inMap = UtilMisc.toMap("login.username", username, "login.password", password, "locale", UtilHttp.getLocale(request));
+            Map<String, Object> inMap = UtilMisc.<String, Object>toMap("login.username", username, "login.password", password, "locale", UtilHttp.getLocale(request));
             inMap.put("userLoginId", username);
             inMap.put("currentPassword", password);
             inMap.put("newPassword", request.getParameter("newPassword"));
@@ -356,13 +357,13 @@ public class LoginWorker {
                 result = dispatcher.runSync("updatePassword", inMap);
             } catch (GenericServiceException e) {
                 Debug.logError(e, "Error calling updatePassword service", module);
-                Map messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
+                Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
                 String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
                 return "error";
             }
             if (ServiceUtil.isError(result)) {
-                Map messageMap = UtilMisc.toMap("errorMessage", (String) result.get(ModelService.ERROR_MESSAGE));
+                Map<String, String> messageMap = UtilMisc.toMap("errorMessage", (String) result.get(ModelService.ERROR_MESSAGE));
                 String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
                 return "error";
@@ -375,7 +376,7 @@ public class LoginWorker {
             result = dispatcher.runSync("userLogin", UtilMisc.toMap("login.username", username, "login.password", password, "visitId", visitId, "locale", UtilHttp.getLocale(request)));
         } catch (GenericServiceException e) {
             Debug.logError(e, "Error calling userLogin service", module);
-            Map messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
+            Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
             String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
@@ -383,7 +384,7 @@ public class LoginWorker {
 
         if (ModelService.RESPOND_SUCCESS.equals(result.get(ModelService.RESPONSE_MESSAGE))) {
             GenericValue userLogin = (GenericValue) result.get("userLogin");
-            Map userLoginSession = (Map) result.get("userLoginSession");
+            Map<String, Object> userLoginSession = checkMap(result.get("userLoginSession"), String.class, Object.class);
             if (userLogin != null && "Y".equals(userLogin.getString("requirePasswordChange"))) {
                 return "requirePasswordChange";
             }
@@ -398,14 +399,14 @@ public class LoginWorker {
             }
             return doMainLogin(request, response, userLogin, userLoginSession);
         } else {
-            Map messageMap = UtilMisc.toMap("errorMessage", (String) result.get(ModelService.ERROR_MESSAGE));
+            Map<String, String> messageMap = UtilMisc.toMap("errorMessage", (String) result.get(ModelService.ERROR_MESSAGE));
             String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
     }
 
-    public static String doMainLogin(HttpServletRequest request, HttpServletResponse response, GenericValue userLogin, Map userLoginSession) {
+    public static String doMainLogin(HttpServletRequest request, HttpServletResponse response, GenericValue userLogin, Map<String, Object> userLoginSession) {
         HttpSession session = request.getSession();
         if (userLogin != null && hasBasePermission(userLogin, request)) {
             doBasicLogin(userLogin, request);
@@ -538,9 +539,9 @@ public class LoginWorker {
         Cookie[] cookies = request.getCookies();
         if (Debug.verboseOn()) Debug.logVerbose("Cookies:" + cookies, module);
         if (cookies != null) {
-            for (int i = 0; i < cookies.length; i++) {
-                if (cookies[i].getName().equals(getAutoLoginCookieName(request))) {
-                    autoUserLoginId = cookies[i].getValue();
+            for (Cookie cookie: cookies) {
+                if (cookie.getName().equals(getAutoLoginCookieName(request))) {
+                    autoUserLoginId = cookie.getValue();
                     break;
                 }
             }
@@ -638,7 +639,7 @@ public class LoginWorker {
                                 userLogin.store();
 
                                 // login the user
-                                Map ulSessionMap = LoginServices.getUserLoginSession(userLogin);
+                                Map<String, Object> ulSessionMap = LoginServices.getUserLoginSession(userLogin);
                                 return doMainLogin(request, response, userLogin, ulSessionMap); // doing the main login
                             }
                         }
@@ -709,7 +710,7 @@ public class LoginWorker {
                                         userLogin.store();
 
                                         // login the user
-                                        Map ulSessionMap = LoginServices.getUserLoginSession(userLogin);
+                                        Map<String, Object> ulSessionMap = LoginServices.getUserLoginSession(userLogin);
                                         return doMainLogin(request, response, userLogin, ulSessionMap); // doing the main login
                                     }
                                 }
@@ -819,9 +820,8 @@ public class LoginWorker {
         ComponentConfig.WebappInfo info = ComponentConfig.getWebAppInfo(serverId, contextPath);
         if (security != null) {
             if (info != null) {
-                String[] permissions = info.getBasePermission();
-                for (int i = 0; i < permissions.length; i++) {
-                    if (!"NONE".equals(permissions[i]) && !security.hasEntityPermission(permissions[i], "_VIEW", userLogin)) {
+                for (String permission: info.getBasePermission()) {
+                    if (!"NONE".equals(permission) && !security.hasEntityPermission(permission, "_VIEW", userLogin)) {
                         return false;
                     }
                 }

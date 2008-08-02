@@ -32,7 +32,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 public class IterateNextTag extends BodyTagSupport {
 
     protected String name = null;
-    protected Class type = null;
+    protected Class<?> type = null;
     protected Object element = null;
     protected boolean expandMap = false;
 
@@ -69,7 +69,7 @@ public class IterateNextTag extends BodyTagSupport {
         if (iteratorTag == null)
             throw new JspTagException("IterateNextTag not inside IteratorTag.");
 
-        Iterator iterator = iteratorTag.getIterator();
+        Iterator<? extends Object> iterator = iteratorTag.getIterator();
 
         if (iterator == null || !iterator.hasNext())
             return SKIP_BODY;
@@ -91,7 +91,7 @@ public class IterateNextTag extends BodyTagSupport {
                 Map.Entry entry = (Map.Entry) mapEntries.next();
                 Object value = entry.getValue();
 
-                if (value == null) value = new String();
+                if (value == null) value = "";
                 pageContext.setAttribute((String) entry.getKey(), value);
             }
         }

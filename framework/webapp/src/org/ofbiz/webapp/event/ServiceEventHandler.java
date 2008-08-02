@@ -20,9 +20,7 @@ package org.ofbiz.webapp.event;
 
 import java.io.File;
 import java.nio.ByteBuffer;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -34,6 +32,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.apache.commons.fileupload.FileItem;
@@ -42,6 +41,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import org.ofbiz.base.util.Debug;
+import static org.ofbiz.base.util.UtilGenerics.checkList;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -147,7 +147,7 @@ public class ServiceEventHandler implements EventHandler {
         String encoding = request.getCharacterEncoding();
         // check for multipart content types which may have uploaded items
         boolean isMultiPart = ServletFileUpload.isMultipartContent(request);
-        Map multiPartMap = FastMap.newInstance();
+        Map<String, Object> multiPartMap = FastMap.newInstance();
         if (isMultiPart) {
             ServletFileUpload upload = new ServletFileUpload(new DiskFileItemFactory(sizeThreshold, new File(tmpUploadRepository)));
 
@@ -181,9 +181,9 @@ public class ServiceEventHandler implements EventHandler {
                         if (multiPartMap.containsKey(fieldName)) {
                             Object mapValue = multiPartMap.get(fieldName);
                             if (mapValue instanceof List) {
-                                ((List) mapValue).add(item.getString());
+                                checkList(mapValue, Object.class).add(item.getString());
                             } else if (mapValue instanceof String) {
-                                List newList = new ArrayList();
+                                List<String> newList = FastList.newInstance();
                                 newList.add((String) mapValue);
                                 newList.add(item.getString());
                                 multiPartMap.put(fieldName, newList);
@@ -227,10 +227,8 @@ public class ServiceEventHandler implements EventHandler {
         request.setAttribute("multiPartMap", multiPartMap);
 
         // we have a service and the model; build the context
-        Map serviceContext = new HashMap();
-        Iterator modelParmInIter = model.getInModelParamList().iterator();
-        while (modelParmInIter.hasNext()) {
-            ModelParam modelParam = (ModelParam) modelParmInIter.next();
+        Map<String, Object> serviceContext = FastMap.newInstance();
+        for (ModelParam modelParam: model.getInModelParamList()) {
             String name = modelParam.name;
 
             // don't include userLogin, that's taken care of below
@@ -302,7 +300,7 @@ public class ServiceEventHandler implements EventHandler {
 
         // get only the parameters for this service - converted to proper type
         // TODO: pass in a list for error messages, like could not convert type or not a proper X, return immediately with messages if there are any
-        List errorMessages = new LinkedList();
+        List<Object> errorMessages = FastList.newInstance();
         serviceContext = model.makeValid(serviceContext, ModelService.IN_PARAM, true, errorMessages, timeZone, locale);
         if (errorMessages.size() > 0) {
             // uh-oh, had some problems...
@@ -326,7 +324,7 @@ public class ServiceEventHandler implements EventHandler {
         }
 
         // invoke the service
-        Map result = null;
+        Map<String, Object> result = null;
         try {
             if (ASYNC.equalsIgnoreCase(mode)) {
                 dispatcher.runAsync(serviceName, serviceContext);
@@ -372,10 +370,8 @@ public class ServiceEventHandler implements EventHandler {
             request.setAttribute("_EVENT_MESSAGE_", result.get(ModelService.SUCCESS_MESSAGE));
 
             // set the results in the request
-            Iterator rmei = result.entrySet().iterator();
-            while (rmei.hasNext()) {
-                Map.Entry rme = (Map.Entry) rmei.next();
-                String resultKey = (String) rme.getKey();
+            for (Map.Entry<String, Object> rme: result.entrySet()) {
+                String resultKey = rme.getKey();
                 Object resultValue = rme.getValue();
 
                 if (resultKey != null && !ModelService.RESPONSE_MESSAGE.equals(resultKey) && !ModelService.ERROR_MESSAGE.equals(resultKey) &&

@@ -37,6 +37,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 
+import javolution.util.FastList;
+
 import org.ofbiz.base.container.Container;
 import org.ofbiz.base.container.ContainerException;
 import org.ofbiz.base.container.ContainerLoader;
@@ -44,6 +46,7 @@ import org.ofbiz.base.start.StartupException;
 import org.ofbiz.base.util.CachedClassLoader;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
+import static org.ofbiz.base.util.UtilGenerics.checkMap;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilObject;
@@ -139,12 +142,10 @@ public class ContextFilter implements Filter {
         String reqAttrMapHex = (String) httpRequest.getSession().getAttribute("_REQ_ATTR_MAP_");
         if (UtilValidate.isNotEmpty(reqAttrMapHex)) {
             byte[] reqAttrMapBytes = StringUtil.fromHexString(reqAttrMapHex);
-            Map reqAttrMap = (Map) UtilObject.getObject(reqAttrMapBytes);
+            Map<String, Object> reqAttrMap = checkMap(UtilObject.getObject(reqAttrMapBytes), String.class, Object.class);
             if (reqAttrMap != null) {
-                Iterator i = reqAttrMap.keySet().iterator();
-                while (i.hasNext()) {
-                    String key = (String) i.next();
-                    request.setAttribute(key, reqAttrMap.get(key));
+                for (Map.Entry<String, Object> entry: reqAttrMap.entrySet()) {
+                    request.setAttribute(entry.getKey(), entry.getValue());
                 }
             }
             httpRequest.getSession().removeAttribute("_REQ_ATTR_MAP_");
@@ -185,7 +186,7 @@ public class ContextFilter implements Filter {
             String redirectPath = config.getInitParameter("redirectPath");
             String errorCode = config.getInitParameter("errorCode");
 
-            List allowList = StringUtil.split(allowedPath, ":");
+            List<String> allowList = StringUtil.split(allowedPath, ":");
             allowList.add("/");  // No path is allowed.
             allowList.add("");   // No path is allowed.
 
@@ -221,8 +222,8 @@ public class ContextFilter implements Filter {
 
             // Verbose Debugging
             if (Debug.verboseOn()) {
-                for (int i = 0; i < allowList.size(); i++) {
-                    Debug.logVerbose("[Allow]: " + allowList.get(i), module);
+                for (String allow: allowList) {
+                    Debug.logVerbose("[Allow]: " + allow, module);
                 }
                 Debug.logVerbose("[Request path]: " + requestPath, module);
                 Debug.logVerbose("[Request info]: " + requestInfo, module);
@@ -280,17 +281,13 @@ public class ContextFilter implements Filter {
                 Debug.logError("[ContextFilter.init] ERROR: delegator not defined.", module);
                 return null;
             }
-            Collection readers = null;
+            Collection<URL> readers = null;
             String readerFiles = config.getServletContext().getInitParameter("serviceReaderUrls");
 
             if (readerFiles != null) {
-                readers = new ArrayList();
-                List readerList = StringUtil.split(readerFiles, ";");
-                Iterator i = readerList.iterator();
-
-                while (i.hasNext()) {
+                readers = FastList.newInstance();
+                for (String name: StringUtil.split(readerFiles, ";")) {
                     try {
-                        String name = (String) i.next();
                         URL readerURL = config.getServletContext().getResource(name);
 
                         if (readerURL != null)

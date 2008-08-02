@@ -19,11 +19,12 @@
 package org.ofbiz.webapp.event;
 
 import java.lang.reflect.Method;
-import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletContext;
+
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 
@@ -34,7 +35,7 @@ public class JavaEventHandler implements EventHandler {
 
     public static final String module = JavaEventHandler.class.getName();
 
-    private Map eventClassMap = new HashMap();
+    private Map<String, Class<?>> eventClassMap = FastMap.newInstance();
 
     /**
      * @see org.ofbiz.webapp.event.EventHandler#init(javax.servlet.ServletContext)
@@ -46,11 +47,11 @@ public class JavaEventHandler implements EventHandler {
      * @see org.ofbiz.webapp.event.EventHandler#invoke(java.lang.String, java.lang.String, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     public String invoke(String eventPath, String eventMethod, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
-        Class eventClass = (Class) this.eventClassMap.get(eventPath);
+        Class<?> eventClass = this.eventClassMap.get(eventPath);
 
         if (eventClass == null) {
             synchronized (this) {
-                eventClass = (Class) this.eventClassMap.get(eventPath);
+                eventClass = this.eventClassMap.get(eventPath);
                 if (eventClass == null) {
                     try {
                         ClassLoader loader = Thread.currentThread().getContextClassLoader();
@@ -66,7 +67,7 @@ public class JavaEventHandler implements EventHandler {
         }
         if (Debug.verboseOn()) Debug.logVerbose("[Set path/method]: " + eventPath + " / " + eventMethod, module);
 
-        Class[] paramTypes = new Class[] {HttpServletRequest.class, HttpServletResponse.class};
+        Class<?>[] paramTypes = new Class<?>[] {HttpServletRequest.class, HttpServletResponse.class};
 
         Debug.logVerbose("*[[Event invocation]]*", module);
         Object[] params = new Object[] {request, response};
@@ -74,7 +75,7 @@ public class JavaEventHandler implements EventHandler {
         return invoke(eventPath, eventMethod, eventClass, paramTypes, params);
     }
 
-    private String invoke(String eventPath, String eventMethod, Class eventClass, Class[] paramTypes, Object[] params) throws EventHandlerException {
+    private String invoke(String eventPath, String eventMethod, Class<?> eventClass, Class[] paramTypes, Object[] params) throws EventHandlerException {
         if (eventClass == null) {
             throw new EventHandlerException("Error invoking event, the class " + eventPath + " was not found");
         }

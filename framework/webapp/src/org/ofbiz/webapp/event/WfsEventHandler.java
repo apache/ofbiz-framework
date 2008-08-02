@@ -26,7 +26,6 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.io.OutputStream;
 import java.io.InputStream;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -45,6 +44,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Debug;
@@ -201,7 +201,7 @@ public class WfsEventHandler implements EventHandler {
     public static String processWfsEntity(String entityName, Node domNode, String templatePath) throws TemplateException, FileNotFoundException, IOException, URISyntaxException {
         String result = null;
         NodeModel nodeModel = NodeModel.wrap(domNode);
-        Map ctx = new HashMap();
+        Map<String, Object> ctx = FastMap.newInstance();
         ctx.put("doc", nodeModel);
         ctx.put("entityName", entityName);
         StringWriter outWriter = new StringWriter();

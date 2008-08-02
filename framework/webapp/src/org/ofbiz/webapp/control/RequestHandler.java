@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import static org.ofbiz.base.util.UtilGenerics.checkMap;
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -184,16 +185,13 @@ public class RequestHandler implements Serializable {
                     Debug.logInfo("This is the first request in this visit." + " sessionId=" + UtilHttp.getSessionId(request), module);
                 // This isn't an event because it is required to run. We do not want to make it optional.
                 GenericValue visit = VisitHandler.getVisit(session);
-                Collection events = requestManager.getFirstVisitEvents();
+                Collection<Map<String, String>> events = requestManager.getFirstVisitEvents();
 
                 if (visit != null && events != null) {
-                    Iterator i = events.iterator();
-
-                    while (i.hasNext()) {
-                        Map eventMap = (Map) i.next();
-                        String eType = (String) eventMap.get(ConfigXMLReader.EVENT_TYPE);
-                        String ePath = (String) eventMap.get(ConfigXMLReader.EVENT_PATH);
-                        String eMeth = (String) eventMap.get(ConfigXMLReader.EVENT_METHOD);
+                    for (Map<String, String> eventMap: events) {
+                        String eType = eventMap.get(ConfigXMLReader.EVENT_TYPE);
+                        String ePath = eventMap.get(ConfigXMLReader.EVENT_PATH);
+                        String eMeth = eventMap.get(ConfigXMLReader.EVENT_METHOD);
 
                         try {
                             String returnString = this.runEvent(request, response, eType, ePath, eMeth);
@@ -210,15 +208,12 @@ public class RequestHandler implements Serializable {
             }
 
             // Invoke the pre-processor (but NOT in a chain)
-            Collection preProcEvents = requestManager.getPreProcessor();
+            Collection<Map<String, String>> preProcEvents = requestManager.getPreProcessor();
             if (preProcEvents != null) {
-                Iterator i = preProcEvents.iterator();
-
-                while (i.hasNext()) {
-                    Map eventMap = (Map) i.next();
-                    String eType = (String) eventMap.get(ConfigXMLReader.EVENT_TYPE);
-                    String ePath = (String) eventMap.get(ConfigXMLReader.EVENT_PATH);
-                    String eMeth = (String) eventMap.get(ConfigXMLReader.EVENT_METHOD);
+                for (Map<String, String> eventMap: preProcEvents) {
+                    String eType = eventMap.get(ConfigXMLReader.EVENT_TYPE);
+                    String ePath = eventMap.get(ConfigXMLReader.EVENT_PATH);
+                    String eMeth = eventMap.get(ConfigXMLReader.EVENT_METHOD);
                     try {
                         String returnString = this.runEvent(request, response, eType, ePath, eMeth);
                         if (returnString != null && !returnString.equalsIgnoreCase("success")) {
@@ -336,15 +331,13 @@ public class RequestHandler implements Serializable {
         if (preReqAttStr != null) {
             request.getSession().removeAttribute("_REQ_ATTR_MAP_");
             byte[] reqAttrMapBytes = StringUtil.fromHexString(preReqAttStr);
-            Map preRequestMap = (Map) UtilObject.getObject(reqAttrMapBytes);
+            Map<String, Object> preRequestMap = checkMap(UtilObject.getObject(reqAttrMapBytes), String.class, Object.class);
             if (preRequestMap != null && preRequestMap.size() > 0) {
-                Iterator keys = preRequestMap.keySet().iterator();
-                while (keys.hasNext()){
-                    String key = (String) keys.next();
+                for (Map.Entry<String, Object> entry: preRequestMap.entrySet()) {
+                    String key = entry.getKey();
                     if("_ERROR_MESSAGE_LIST_".equals(key) || "_ERROR_MESSAGE_MAP_".equals(key) || "_ERROR_MESSAGE_".equals(key) ||
                             "_EVENT_MESSAGE_LIST_".equals(key) || "_EVENT_MESSAGE_".equals(key)) {
-                        Object value = preRequestMap.get(key);
-                        request.setAttribute(key, value);
+                        request.setAttribute(key, entry.getValue());
                    }
                 }
             }
@@ -386,15 +379,12 @@ public class RequestHandler implements Serializable {
             doRequest(request, response, nextView, userLogin, delegator);
         } else { // handle views
             // first invoke the post-processor events.
-            Collection postProcEvents = requestManager.getPostProcessor();
+            Collection<Map<String, String>> postProcEvents = requestManager.getPostProcessor();
             if (chain == null && postProcEvents != null) { // don't run post-proc events on chained requests
-                Iterator i = postProcEvents.iterator();
-
-                while (i.hasNext()) {
-                    Map eventMap = (Map) i.next();
-                    String eType = (String) eventMap.get(ConfigXMLReader.EVENT_TYPE);
-                    String ePath = (String) eventMap.get(ConfigXMLReader.EVENT_PATH);
-                    String eMeth = (String) eventMap.get(ConfigXMLReader.EVENT_METHOD);
+                for (Map<String, String> eventMap: postProcEvents) {
+                    String eType = eventMap.get(ConfigXMLReader.EVENT_TYPE);
+                    String ePath = eventMap.get(ConfigXMLReader.EVENT_PATH);
+                    String eMeth = eventMap.get(ConfigXMLReader.EVENT_METHOD);
                     try {
                         String returnString = this.runEvent(request, response, eType, ePath, eMeth);
                         if (returnString != null && !returnString.equalsIgnoreCase("success"))
@@ -462,14 +452,13 @@ public class RequestHandler implements Serializable {
     }
 
     public String makeQueryString(HttpServletRequest request) {
-        Map paramMap = UtilHttp.getParameterMap(request);
+        Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
         StringBuilder queryString = new StringBuilder();
         if (paramMap != null && paramMap.size() > 0) {
             queryString.append("?");
-            Iterator i = paramMap.keySet().iterator();
-            while (i.hasNext()) {
-                String name = (String) i.next();
-                Object value = paramMap.get(name);
+            for (Map.Entry<String, Object> entry: paramMap.entrySet()) {
+                String name = entry.getKey();
+                Object value = entry.getValue();
                 if (value instanceof String) {
                     if (queryString.length() > 1) {
                         queryString.append("&");
@@ -504,27 +493,26 @@ public class RequestHandler implements Serializable {
     }
 
     public static String getRequestUri(String path) {
-        List pathInfo = StringUtil.split(path, "/");
+        List<String> pathInfo = StringUtil.split(path, "/");
         if (UtilValidate.isEmpty(pathInfo)) {
             Debug.logWarning("Got nothing when splitting URI: " + path, module);
             return null;
         }
-        if (((String)pathInfo.get(0)).indexOf('?') > -1) {
-            return ((String) pathInfo.get(0)).substring(0, ((String)pathInfo.get(0)).indexOf('?'));
+        if (pathInfo.get(0).indexOf('?') > -1) {
+            return pathInfo.get(0).substring(0, pathInfo.get(0).indexOf('?'));
         } else {
-            return (String) pathInfo.get(0);
+            return pathInfo.get(0);
         }
     }
 
     public static String getNextPageUri(String path) {
-        List pathInfo = StringUtil.split(path, "/");
+        List<String> pathInfo = StringUtil.split(path, "/");
         if (pathInfo == null) {
             return null;
         }
 
         String nextPage = null;
-        for (int i = 1; i < pathInfo.size(); i++) {
-            String element = (String) pathInfo.get(i);
+        for (String element: pathInfo) {
             if (element.indexOf('~') != 0) {
                 if (element.indexOf('?') > -1) {
                     element = element.substring(0, element.indexOf('?'));
@@ -539,7 +527,7 @@ public class RequestHandler implements Serializable {
         if (Debug.infoOn()) Debug.logInfo("[Sending redirect]: " + url + " sessionId=" + UtilHttp.getSessionId(req), module);
         // set the attributes in the session so we can access it.
         java.util.Enumeration attributeNameEnum = req.getAttributeNames();
-        Map reqAttrMap = FastMap.newInstance();
+        Map<String, Object> reqAttrMap = FastMap.newInstance();
         while (attributeNameEnum.hasMoreElements()) {
             String name = (String) attributeNameEnum.nextElement();
             Object obj = req.getAttribute(name);
@@ -866,14 +854,12 @@ public class RequestHandler implements Serializable {
     }
 
     public void runAfterLoginEvents(HttpServletRequest request, HttpServletResponse response) {
-        List afterLoginEvents = requestManager.getAfterLoginEventList();
+        List<Map<String, String>> afterLoginEvents = requestManager.getAfterLoginEventList();
         if (afterLoginEvents != null) {
-            Iterator i = afterLoginEvents.iterator();
-            while (i.hasNext()) {
-                Map eventMap = (Map) i.next();
-                String eType = (String) eventMap.get(ConfigXMLReader.EVENT_TYPE);
-                String ePath = (String) eventMap.get(ConfigXMLReader.EVENT_PATH);
-                String eMeth = (String) eventMap.get(ConfigXMLReader.EVENT_METHOD);
+            for (Map<String, String> eventMap: afterLoginEvents) {
+                String eType = eventMap.get(ConfigXMLReader.EVENT_TYPE);
+                String ePath = eventMap.get(ConfigXMLReader.EVENT_PATH);
+                String eMeth = eventMap.get(ConfigXMLReader.EVENT_METHOD);
                 try {
                     String returnString = this.runEvent(request, response, eType, ePath, eMeth);
                     if (returnString != null && !returnString.equalsIgnoreCase("success")) {
@@ -887,14 +873,12 @@ public class RequestHandler implements Serializable {
     }
 
     public void runBeforeLogoutEvents(HttpServletRequest request, HttpServletResponse response) {
-        List beforeLogoutEvents = requestManager.getBeforeLogoutEventList();
+        List<Map<String, String>> beforeLogoutEvents = requestManager.getBeforeLogoutEventList();
         if (beforeLogoutEvents != null) {
-            Iterator i = beforeLogoutEvents.iterator();
-            while (i.hasNext()) {
-                Map eventMap = (Map) i.next();
-                String eType = (String) eventMap.get(ConfigXMLReader.EVENT_TYPE);
-                String ePath = (String) eventMap.get(ConfigXMLReader.EVENT_PATH);
-                String eMeth = (String) eventMap.get(ConfigXMLReader.EVENT_METHOD);
+            for (Map<String, String> eventMap: beforeLogoutEvents) {
+                String eType = eventMap.get(ConfigXMLReader.EVENT_TYPE);
+                String ePath = eventMap.get(ConfigXMLReader.EVENT_PATH);
+                String eMeth = eventMap.get(ConfigXMLReader.EVENT_METHOD);
                 try {
                     String returnString = this.runEvent(request, response, eType, ePath, eMeth);
                     if (returnString != null && !returnString.equalsIgnoreCase("success")) {

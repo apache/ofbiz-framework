@@ -24,10 +24,12 @@ import java.net.MalformedURLException;
 import java.util.Collection;
 import java.util.Map;
 import java.util.List;
-import java.util.LinkedList;
 import javax.servlet.ServletContext;
 
+import javolution.util.FastList;
+
 import org.ofbiz.base.util.Debug;
+import static org.ofbiz.base.util.UtilGenerics.checkMap;
 import org.ofbiz.base.util.UtilValidate;
 
 /**
@@ -60,48 +62,50 @@ public class RequestManager implements Serializable {
     }
 
     /** Gets the entire handler mapping */
-    public Map getHandlerMap() {
+    public Map<String, Map<String, String>> getHandlerMap() {
         return ConfigXMLReader.getHandlerMap(configFileUrl);
     }
 
     /** Gets the class name of the named handler */
     public String getHandlerClass(String name, int type) {
-        Map map = getHandlerMap();
-        Map hMap;
+        Map<String, Map<String, String>> map = getHandlerMap();
+        Map<String, String> hMap;
 
         if (type == RequestManager.VIEW_HANDLER_KEY) {
-            hMap = (Map) map.get("view");
+            hMap = checkMap(map.get("view"), String.class, String.class);
         } else {
-            hMap = (Map) map.get("event");
+            hMap = checkMap(map.get("event"), String.class, String.class);
         }
 
         if (!hMap.containsKey(name)) {
             return null;
         } else {
-            return (String) hMap.get(name);
+            return hMap.get(name);
         }
     }
 
-    public List getHandlerKeys(int type) {
-        Map map = getHandlerMap();
-        Map hMap;
+    public List<String> getHandlerKeys(int type) {
+        Map<String, Map<String, String>> map = getHandlerMap();
+        Map<String, String> hMap;
 
         if (type == RequestManager.VIEW_HANDLER_KEY) {
-            hMap = (Map) map.get("view");
+            hMap = checkMap(map.get("view"), String.class, String.class);
         } else {
-            hMap = (Map) map.get("event");
+            hMap = checkMap(map.get("event"), String.class, String.class);
         }
 
         if (hMap != null) {
-            return new LinkedList(hMap.keySet());
+            List<String> result = FastList.newInstance();
+            result.addAll(hMap.keySet());
+            return result;
         } else {
             return null;
         }
     }
 
-    public Map getRequestMapMap(String uriStr) {
+    public Map<String, Object> getRequestMapMap(String uriStr) {
         if (UtilValidate.isNotEmpty(uriStr)) {
-            return (Map) ConfigXMLReader.getRequestMap(configFileUrl).get(uriStr);
+            return ConfigXMLReader.getRequestMap(configFileUrl).get(uriStr);
         } else {
             return null;
         }
@@ -114,7 +118,7 @@ public class RequestManager implements Serializable {
             String value = (String) uri.get(attribute);
             if (value == null) {
                 // not found, try the response Map (though better to hit that directly when desired)
-                Map<String, String> responseMap = (Map<String, String>) uri.get(ConfigXMLReader.RESPONSE_MAP);
+                Map<String, String> responseMap = checkMap(uri.get(ConfigXMLReader.RESPONSE_MAP), String.class, String.class);
                 value = responseMap.get(attribute);
             }
             return value;
@@ -130,7 +134,7 @@ public class RequestManager implements Serializable {
         
         Map<String, Object> uri = getRequestMapMap(uriStr);
         if (uri == null) return null;
-        Map<String, String> responseMap = (Map<String, String>) uri.get(ConfigXMLReader.RESPONSE_MAP);
+        Map<String, String> responseMap = checkMap(uri.get(ConfigXMLReader.RESPONSE_MAP), String.class, String.class);
         if (responseMap == null) return null;
         
         return responseMap.get(responseName);
@@ -138,7 +142,7 @@ public class RequestManager implements Serializable {
 
     /** Gets the event class from the requestMap */
     public String getEventPath(String uriStr) {
-        Map uri = getRequestMapMap(uriStr);
+        Map<String, Object> uri = getRequestMapMap(uriStr);
 
         if (uri != null)
             return (String) uri.get(ConfigXMLReader.EVENT_PATH);
@@ -164,7 +168,7 @@ public class RequestManager implements Serializable {
 
     /** Gets the event method from the requestMap */
     public String getEventMethod(String uriStr) {
-        Map uri = getRequestMapMap(uriStr);
+        Map<String, Object> uri = getRequestMapMap(uriStr);
 
         if (uri != null) {
             return (String) uri.get(ConfigXMLReader.EVENT_METHOD);
@@ -177,7 +181,7 @@ public class RequestManager implements Serializable {
 
     /** Gets the event global-transaction from the requestMap */
     public boolean getEventGlobalTransaction(String uriStr) {
-        Map uri = getRequestMapMap(uriStr);
+        Map<String, Object> uri = getRequestMapMap(uriStr);
 
         if (uri != null) {
             return Boolean.valueOf((String) uri.get(ConfigXMLReader.EVENT_GLOBAL_TRANSACTION)).booleanValue();
@@ -195,7 +199,7 @@ public class RequestManager implements Serializable {
         Map<String, Object> uri = getRequestMapMap(uriStr);
 
         if (uri != null)
-            return (String) ((Map<String, String>) uri.get(ConfigXMLReader.RESPONSE_MAP)).get(ConfigXMLReader.NEXT_PAGE_DEFAULT);
+            return checkMap(uri.get(ConfigXMLReader.RESPONSE_MAP), String.class, String.class).get(ConfigXMLReader.NEXT_PAGE_DEFAULT);
         else {
             Debug.logWarning("[RequestManager.getViewName] View name for uri \"" + uriStr + "\" not found", module);
             return null;
@@ -205,10 +209,10 @@ public class RequestManager implements Serializable {
     /** Gets the next page (jsp) from the viewMap */
     public String getViewPage(String viewStr) {
         if (viewStr != null && viewStr.startsWith("view:")) viewStr = viewStr.substring(viewStr.indexOf(':') + 1);
-        Map page = (Map) ConfigXMLReader.getViewMap(configFileUrl).get(viewStr);
+        Map<String, String> page = ConfigXMLReader.getViewMap(configFileUrl).get(viewStr);
 
         if (page != null) {
-            return (String) page.get(ConfigXMLReader.VIEW_PAGE);
+            return page.get(ConfigXMLReader.VIEW_PAGE);
         } else {
             Debug.logWarning("[RequestManager.getViewPage] View with name \"" + viewStr + "\" not found", module);
             return null;
@@ -217,10 +221,10 @@ public class RequestManager implements Serializable {
 
     /** Gets the type of this view */
     public String getViewType(String viewStr) {
-        Map view = (Map) ConfigXMLReader.getViewMap(configFileUrl).get(viewStr);
+        Map<String, String> view = ConfigXMLReader.getViewMap(configFileUrl).get(viewStr);
 
         if (view != null) {
-            return (String) view.get(ConfigXMLReader.VIEW_TYPE);
+            return view.get(ConfigXMLReader.VIEW_TYPE);
         } else {
             Debug.logWarning("[RequestManager.getViewType] View with name \"" + viewStr + "\" not found", module);
             return null;
@@ -229,10 +233,10 @@ public class RequestManager implements Serializable {
 
     /** Gets the info of this view */
     public String getViewInfo(String viewStr) {
-        Map view = (Map) ConfigXMLReader.getViewMap(configFileUrl).get(viewStr);
+        Map<String, String> view = ConfigXMLReader.getViewMap(configFileUrl).get(viewStr);
 
         if (view != null) {
-            return (String) view.get(ConfigXMLReader.VIEW_INFO);
+            return view.get(ConfigXMLReader.VIEW_INFO);
         } else {
             Debug.logWarning("[RequestManager.getViewInfo] View with name \"" + viewStr + "\" not found", module);
             return null;
@@ -241,10 +245,10 @@ public class RequestManager implements Serializable {
     
     /** Gets the content-type of this view */
     public String getViewContentType(String viewStr) {
-        Map view = (Map) ConfigXMLReader.getViewMap(configFileUrl).get(viewStr);
+        Map<String, String> view = ConfigXMLReader.getViewMap(configFileUrl).get(viewStr);
 
         if (view != null) {
-            return (String) view.get(ConfigXMLReader.VIEW_CONTENT_TYPE);
+            return view.get(ConfigXMLReader.VIEW_CONTENT_TYPE);
         } else {
             Debug.logWarning("[RequestManager.getViewInfo] View with name \"" + viewStr + "\" not found", module);
             return null;
@@ -266,11 +270,11 @@ public class RequestManager implements Serializable {
     /** Gets the error page from the requestMap, if none uses the default */
     public String getErrorPage(String uriStr) {
         //Debug.logInfo("uriStr is: " + uriStr, module);
-        Map uri = getRequestMapMap(uriStr);
+        Map<String, Object> uri = getRequestMapMap(uriStr);
         //Debug.logInfo("RequestMapMap is: " + uri, module);
 
         if (uri != null) {
-            String errorViewUri = (String) ((Map<String, String>) uri.get(ConfigXMLReader.RESPONSE_MAP)).get(ConfigXMLReader.ERROR_PAGE_DEFAULT);
+            String errorViewUri = checkMap(uri.get(ConfigXMLReader.RESPONSE_MAP), String.class, String.class).get(ConfigXMLReader.ERROR_PAGE_DEFAULT);
             //Debug.logInfo("errorViewUri is: " + errorViewUri, module);
             String returnPage = getViewPage(errorViewUri);
             //Debug.logInfo("Got returnPage for ErrorPage: " + returnPage, module);
@@ -295,7 +299,7 @@ public class RequestManager implements Serializable {
     }
 
     public boolean requiresAuth(String uriStr) {
-        Map uri = getRequestMapMap(uriStr);
+        Map<String, Object> uri = getRequestMapMap(uriStr);
 
         if (uri != null) {
             String value = (String) uri.get(ConfigXMLReader.SECURITY_AUTH);
@@ -307,7 +311,7 @@ public class RequestManager implements Serializable {
     }
 
     public boolean requiresHttps(String uriStr) {
-        Map uri = getRequestMapMap(uriStr);
+        Map<String, Object> uri = getRequestMapMap(uriStr);
 
         if (uri != null) {
             String value = (String) uri.get(ConfigXMLReader.SECURITY_HTTPS);
@@ -332,7 +336,7 @@ public class RequestManager implements Serializable {
     }
        
     public boolean allowExtView(String uriStr) {
-        Map uri = getRequestMapMap(uriStr);
+        Map<String, Object> uri = getRequestMapMap(uriStr);
 
         if (uri != null) {
             String value = (String) uri.get(ConfigXMLReader.SECURITY_EXTVIEW);
@@ -344,7 +348,7 @@ public class RequestManager implements Serializable {
     }
 
     public boolean allowDirectRequest(String uriStr) {
-        Map uri = getRequestMapMap(uriStr);
+        Map<String, Object> uri = getRequestMapMap(uriStr);
 
         if (uri != null) {
             String value = (String) uri.get(ConfigXMLReader.SECURITY_DIRECT);
@@ -359,23 +363,28 @@ public class RequestManager implements Serializable {
         return ConfigXMLReader.getDefaultRequest(configFileUrl);
     }
 
-    public Collection getFirstVisitEvents() {
-        return (Collection) ConfigXMLReader.getConfigMap(configFileUrl).get(ConfigXMLReader.FIRSTVISIT);
+    @SuppressWarnings("unchecked")
+    public Collection<Map<String, String>> getFirstVisitEvents() {
+        return (Collection<Map<String, String>>) ConfigXMLReader.getConfigMap(configFileUrl).get(ConfigXMLReader.FIRSTVISIT);
     }
 
-    public Collection getPreProcessor() {
-        return (Collection) ConfigXMLReader.getConfigMap(configFileUrl).get(ConfigXMLReader.PREPROCESSOR);
+    @SuppressWarnings("unchecked")
+    public Collection<Map<String, String>> getPreProcessor() {
+        return (Collection<Map<String, String>>) ConfigXMLReader.getConfigMap(configFileUrl).get(ConfigXMLReader.PREPROCESSOR);
     }
 
-    public Collection getPostProcessor() {
-        return (Collection) ConfigXMLReader.getConfigMap(configFileUrl).get(ConfigXMLReader.POSTPROCESSOR);
+    @SuppressWarnings("unchecked")
+    public Collection<Map<String, String>> getPostProcessor() {
+        return (Collection<Map<String, String>>) ConfigXMLReader.getConfigMap(configFileUrl).get(ConfigXMLReader.POSTPROCESSOR);
     }
 
-    public List getAfterLoginEventList() {
-        return (List) ConfigXMLReader.getConfigMap(configFileUrl).get("after-login");
+    @SuppressWarnings("unchecked")
+    public List<Map<String, String>> getAfterLoginEventList() {
+        return (List<Map<String, String>>) ConfigXMLReader.getConfigMap(configFileUrl).get("after-login");
     }
 
-    public List getBeforeLogoutEventList() {
-        return (List) ConfigXMLReader.getConfigMap(configFileUrl).get("before-logout");        
+    @SuppressWarnings("unchecked")
+    public List<Map<String, String>> getBeforeLogoutEventList() {
+        return (List<Map<String, String>>) ConfigXMLReader.getConfigMap(configFileUrl).get("before-logout");        
     }
 }

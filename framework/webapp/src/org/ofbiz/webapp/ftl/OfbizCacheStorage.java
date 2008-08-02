@@ -27,10 +27,10 @@ import org.ofbiz.base.util.cache.UtilCache;
  */
 public class OfbizCacheStorage implements CacheStorage {
     //can't have global cache because names/keys are relative to the webapp
-    protected final UtilCache localCache;
+    protected final UtilCache<Object, Object> localCache;
     
     public OfbizCacheStorage(String id) {
-        this.localCache = new UtilCache("webapp.FreeMarkerCache." + id, 0, 0, false);
+        this.localCache = new UtilCache<Object, Object>("webapp.FreeMarkerCache." + id, 0, 0, false);
     }
     
     public Object get(Object key) {

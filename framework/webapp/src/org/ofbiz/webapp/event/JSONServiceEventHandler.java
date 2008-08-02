@@ -51,7 +51,7 @@ public class JSONServiceEventHandler implements EventHandler {
         String respCode = service.invoke(eventPath, eventMethod, request, response);
 
         // pull out the service response from the request attribute
-        Map attrMap = getAttributesAsMap(request);
+        Map<String, Object> attrMap = getAttributesAsMap(request);
 
         // create a JSON Object for return
         JSONObject json = JSONObject.fromMap(attrMap);
@@ -82,8 +82,8 @@ public class JSONServiceEventHandler implements EventHandler {
         return respCode;
     }
 
-    private Map getAttributesAsMap(HttpServletRequest request) {
-        Map attrMap = FastMap.newInstance();
+    private Map<String, Object> getAttributesAsMap(HttpServletRequest request) {
+        Map<String, Object> attrMap = FastMap.newInstance();
         Enumeration en = request.getAttributeNames();
         while (en.hasMoreElements()) {
             String name = (String) en.nextElement();

@@ -18,47 +18,48 @@
  *******************************************************************************/
 package org.ofbiz.webapp.taglib;
 
-import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.tagext.TagSupport;
+
+import javolution.util.FastMap;
 
 /**
  * AbstractParameterTag - Tag which support child parameter tags.
  */
 public abstract class AbstractParameterTag extends TagSupport {
 
-    private Map inParameters = null;
-    private Map outParameters = null;
+    private Map<String, Object> inParameters = null;
+    private Map<String, String> outParameters = null;
 
-    public void addInParameter(Object name, Object value) {
+    public void addInParameter(String name, Object value) {
         if (this.inParameters == null)
-            this.inParameters = new HashMap();
+            this.inParameters = FastMap.newInstance();
         inParameters.put(name, value);
     }
 
-    public Map getInParameters() {
+    public Map<String, Object> getInParameters() {
         if (this.inParameters == null)
-            return new HashMap();
+            return FastMap.newInstance();
         else
             return this.inParameters;
     }
 
     public void addOutParameter(Object name, Object alias) {
         if (this.outParameters == null)
-            this.outParameters = new HashMap();
-        outParameters.put(name, alias);
+            this.outParameters = FastMap.newInstance();
+        outParameters.put((String) name, (String) alias);
     }
 
-    public Map getOutParameters() {
+    public Map<String, String> getOutParameters() {
         if (this.outParameters == null)
-            return new HashMap();
+            return FastMap.newInstance();
         else
             return this.outParameters;
     }
 
     public int doStartTag() throws JspTagException {
-        inParameters = new HashMap();
+        inParameters = FastMap.newInstance();
         return EVAL_BODY_INCLUDE;
     }
 

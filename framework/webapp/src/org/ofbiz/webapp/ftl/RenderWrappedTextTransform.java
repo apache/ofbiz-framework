@@ -26,6 +26,7 @@ import freemarker.core.Environment;
 import freemarker.template.TemplateTransformModel;
 
 import org.ofbiz.base.util.Debug;
+import static org.ofbiz.base.util.UtilGenerics.checkMap;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.template.FreeMarkerWorker;
 
@@ -38,8 +39,8 @@ public class RenderWrappedTextTransform implements  TemplateTransformModel {
    
     public Writer getWriter(final Writer out, Map args) {                      
         final Environment env = Environment.getCurrentEnvironment();
-        Map ctx = (Map)FreeMarkerWorker.getWrappedObject("context", env);
-        final String wrappedFTL = FreeMarkerWorker.getArg(args, "wrappedFTL", ctx);
+        Map<String, Object> ctx = checkMap(FreeMarkerWorker.getWrappedObject("context", env), String.class, Object.class);
+        final String wrappedFTL = FreeMarkerWorker.getArg(checkMap(args, String.class, Object.class), "wrappedFTL", ctx);
 
         return new Writer(out) {
 

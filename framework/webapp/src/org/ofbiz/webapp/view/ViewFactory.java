@@ -18,11 +18,12 @@
  *******************************************************************************/
 package org.ofbiz.webapp.view;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 import java.util.Iterator;
 import javax.servlet.ServletContext;
+
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
@@ -40,10 +41,10 @@ public class ViewFactory {
     protected RequestHandler requestHandler = null;
     protected RequestManager requestManager = null;
     protected ServletContext context = null;
-    protected Map handlers = null;
+    protected Map<String, ViewHandler> handlers = null;
     
     public ViewFactory(RequestHandler requestHandler) {
-        this.handlers = new HashMap();
+        this.handlers = FastMap.newInstance();
         this.requestHandler = requestHandler;
         this.requestManager = requestHandler.getRequestManager();
         this.context = requestHandler.getServletContext();
@@ -58,11 +59,9 @@ public class ViewFactory {
     }
 
     private void preLoadAll() throws ViewHandlerException {
-        List handlers = requestManager.getHandlerKeys(RequestManager.VIEW_HANDLER_KEY);
+        List<String> handlers = requestManager.getHandlerKeys(RequestManager.VIEW_HANDLER_KEY);
         if (handlers != null) {
-            Iterator i = handlers.iterator();
-            while (i.hasNext()) {
-                String type = (String) i.next();
+            for (String type: handlers) {
                 this.handlers.put(type, this.loadViewHandler(type));
             }
         }
@@ -90,12 +89,12 @@ public class ViewFactory {
         }
         
         // get the view handler by type from the contextHandlers 
-        ViewHandler handler = (ViewHandler) handlers.get(type);
+        ViewHandler handler = handlers.get(type);
 
         // if none found lets create it and add it in
         if (handler == null) {
             synchronized (ViewFactory.class) {
-                handler = (ViewHandler) handlers.get(type);
+                handler = handlers.get(type);
                 if (handler == null) {
                     handler = this.loadViewHandler(type);
                     handlers.put(type, handler);
