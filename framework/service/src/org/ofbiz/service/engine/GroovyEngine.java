@@ -22,6 +22,7 @@ import java.util.Map;
 
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.GroovyUtil;
+import static org.ofbiz.base.util.UtilGenerics.cast;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ModelService;
@@ -62,9 +63,9 @@ public final class GroovyEngine extends GenericAsyncEngine {
             Object resultObj = GroovyUtil.runScriptAtLocation(location, context);
             
             if (resultObj != null && resultObj instanceof Map) {
-                return (Map<String, Object>) resultObj;
+                return cast(resultObj);
             } else if (context.get("result") != null && context.get("result") instanceof Map) {
-                return (Map<String, Object>) context.get("result");
+                return cast(context.get("result"));
             }
         } catch (GeneralException e) {
             throw new GenericServiceException(e);

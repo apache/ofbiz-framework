@@ -26,7 +26,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.HttpClient;
 import org.ofbiz.base.util.HttpClientException;
-import org.ofbiz.base.util.UtilGenerics;
+import static org.ofbiz.base.util.UtilGenerics.cast;
 import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.cache.UtilCache;
@@ -77,10 +77,10 @@ public final class BeanShellEngine extends GenericAsyncEngine {
             
             if (resultObj != null && resultObj instanceof Map) {
                 Debug.logInfo("Got result Map from script return: " + resultObj, module);
-                return (Map<String, Object>) resultObj;
+                return cast(resultObj);
             } else if (context.get("result") != null && context.get("result") instanceof Map) {
                 Debug.logInfo("Got result Map from context: " + resultObj, module);
-                return (Map<String, Object>) context.get("result");
+                return cast(context.get("result"));
             }
         } catch (GeneralException e) {
             throw new GenericServiceException(e);
