@@ -171,7 +171,7 @@ public class FileUtil {
         return readTextFile(file, newline);
     }
 
-    public static void searchFiles(List fileList, File path, FilenameFilter filter, boolean includeSubfolders) throws IOException {
+    public static void searchFiles(List<File> fileList, File path, FilenameFilter filter, boolean includeSubfolders) throws IOException {
         // Get filtered files in the current path
         File[] files = path.listFiles(filter);
         

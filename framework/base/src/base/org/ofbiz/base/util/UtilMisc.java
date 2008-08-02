@@ -146,6 +146,7 @@ public class UtilMisc {
      * Create a map from passed nameX, valueX parameters
      * @return The resulting Map
      */
+    @SuppressWarnings("unchecked")
     public static <K, V> Map<String, V> toMap(Object... data) {
         if (data == null) {
             return null;
@@ -681,6 +682,7 @@ public class UtilMisc {
             this.values[3] = value4;
         }
 
+        @SuppressWarnings("unchecked")
         protected void makeRealMap() {
             realMapIfNeeded = FastMap.newInstance();
             for (int i = 0; i < names.length; i++) {
@@ -733,6 +735,7 @@ public class UtilMisc {
             }
         }
 
+        @SuppressWarnings("unchecked")
         public V get(Object obj) {
             if (realMapIfNeeded != null) {
                 return realMapIfNeeded.get(obj);

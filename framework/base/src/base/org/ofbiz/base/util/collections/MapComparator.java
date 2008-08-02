@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilGenerics;
 
 /**
  * MapComparator.java
@@ -105,9 +106,8 @@ public class MapComparator implements Comparator<Map<Object, Object>> {
             if (compareResult == 0) {
                 try {
                     // the map values in question MUST implement the Comparable interface, if not we'll throw an exception
-                    Comparable comp1 = (Comparable) o1;
-                    Comparable comp2 = (Comparable) o2;
-                    compareResult = comp1.compareTo(comp2);
+                    Comparable<Object> comp1 = UtilGenerics.cast(o1);
+                    compareResult = comp1.compareTo(o2);
                 } catch (Exception e) {
                     String errorMessage = "Error sorting list of Maps: " + e.toString();
                     Debug.logError(e, errorMessage, module);
