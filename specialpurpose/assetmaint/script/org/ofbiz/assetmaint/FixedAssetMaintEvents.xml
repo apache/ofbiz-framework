@@ -34,9 +34,6 @@
         <set from-field="findAssetMaint.scheduleWorkEffortId" field="updateWorkEffortCtx.workEffortId"/>
         <set-service-fields map-name="parameters" service-name="updateWorkEffort" to-map-name="updateWorkEffortCtx"/>
         <!-- Maintenance WorkEffort entity -->
-        <set field="maintTypeLookup.productMaintTypeId" from-field="findAssetMaint.productMaintTypeId"/>
-        <find-by-primary-key entity-name="ProductMaintType" map-name="maintTypeLookup" value-name="maintType"/>
-        <set field="updateWorkEffortCtx.description" from-field="maintType.description"/>
         <call-service service-name="updateWorkEffort" in-map-name="updateWorkEffortCtx"/>
     </simple-method>
 
