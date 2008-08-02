@@ -18,8 +18,8 @@ specific language governing permissions and limitations
 under the License.
 -->
 <project name="Ant - Common">
-    <dirname property="ofbiz.home.dir" file="${ant.file.Ant - Common}"/>
-    <import file="${ofbiz.home.dir}/macros.xml"/>
+    <dirname property="Ant - Common.dir" file="${ant.file.Ant - Common}"/>
+    <import file="${Ant - Common.dir}/macros.xml"/>
 
     <property environment="env"/>
     <property name="src.dir" value="src"/>
