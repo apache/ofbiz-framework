@@ -50,7 +50,7 @@ public class FoPrintServerEvents {
 
     public static String getXslFo(HttpServletRequest req, HttpServletResponse resp) {
         LocalDispatcher dispatcher = (LocalDispatcher) req.getAttribute("dispatcher");
-        Map reqParams = UtilHttp.getParameterMap(req);
+        Map<String, Object> reqParams = UtilHttp.getParameterMap(req);
         reqParams.put("locale", UtilHttp.getLocale(req));
 
         String screenUri = (String) reqParams.remove("screenUri");
@@ -84,7 +84,7 @@ public class FoPrintServerEvents {
         return null;
     }
 
-    public static byte[] getXslFo(DispatchContext dctx, String screen, Map parameters) throws GeneralException {
+    public static byte[] getXslFo(DispatchContext dctx, String screen, Map<String, Object> parameters) throws GeneralException {
         // run as the system user
         GenericValue system = null;
         try {
