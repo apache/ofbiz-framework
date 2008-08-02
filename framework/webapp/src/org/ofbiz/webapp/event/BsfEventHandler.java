@@ -38,7 +38,7 @@ import org.ofbiz.base.util.cache.UtilCache;
 public class BsfEventHandler implements EventHandler {
     
     public static final String module = BsfEventHandler.class.getName();    
-    public static UtilCache eventCache = new UtilCache("webapp.BsfEvents");
+    public static UtilCache<String, String> eventCache = new UtilCache<String, String>("webapp.BsfEvents");
 
     /**
      * @see org.ofbiz.webapp.event.EventHandler#init(javax.servlet.ServletContext)
@@ -78,7 +78,7 @@ public class BsfEventHandler implements EventHandler {
             if (eventPath == null || eventPath.length() == 0) {
                 // we are a resource to be loaded off the classpath
                 cacheName = eventMethod;
-                scriptString = (String) eventCache.get(cacheName);
+                scriptString = eventCache.get(cacheName);
                 if (scriptString == null) {
                     synchronized(this) {
                         if (scriptString == null) {
@@ -95,7 +95,7 @@ public class BsfEventHandler implements EventHandler {
             } else {
                 // we are a script in the webapp - load by resource
                 cacheName = context.getServletContextName() + ":" + eventPath + eventMethod;
-                scriptString = (String) eventCache.get(cacheName);
+                scriptString = eventCache.get(cacheName);
                 if (scriptString == null) {
                     synchronized(this) {
                         if (scriptString == null) {                                  

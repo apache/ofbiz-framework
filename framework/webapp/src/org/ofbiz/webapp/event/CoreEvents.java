@@ -25,7 +25,6 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
@@ -39,6 +38,8 @@ import javax.servlet.http.HttpSession;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
+import static org.ofbiz.base.util.UtilGenerics.checkCollection;
+import static org.ofbiz.base.util.UtilGenerics.checkMap;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -204,7 +205,7 @@ public class CoreEvents {
         Locale locale = UtilHttp.getLocale(request);
         TimeZone timeZone = UtilHttp.getTimeZone(request);
         
-        Map params = UtilHttp.getParameterMap(request);
+        Map<String, Object> params = UtilHttp.getParameterMap(request);
         // get the schedule parameters
         String jobName = (String) params.remove("JOB_NAME");
         String serviceName = (String) params.remove("SERVICE_NAME");
@@ -217,7 +218,7 @@ public class CoreEvents {
         String retryCnt = (String) params.remove("SERVICE_MAXRETRY");
 
         // the frequency map
-        Map freqMap = new HashMap();
+        Map<String, Integer> freqMap = FastMap.newInstance();
 
         freqMap.put("SECONDLY", Integer.valueOf(1));
         freqMap.put("MINUTELY", Integer.valueOf(2));
@@ -261,10 +262,10 @@ public class CoreEvents {
         }
         
         // make the context valid; using the makeValid method from ModelService
-        Map serviceContext = new HashMap();
-        Iterator ci = modelService.getInParamNames().iterator();
+        Map<String, Object> serviceContext = FastMap.newInstance();
+        Iterator<String> ci = modelService.getInParamNames().iterator();
         while (ci.hasNext()) {
-            String name = (String) ci.next();
+            String name = ci.next();
 
             // don't include userLogin, that's taken care of below
             if ("userLogin".equals(name)) continue;
@@ -375,7 +376,7 @@ public class CoreEvents {
                     String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.invalid_format_frequency", locale);
                     errorBuf.append("<li>" + errMsg);
                 } else {
-                    frequency = ((Integer) freqMap.get(serviceFreq.toUpperCase())).intValue();
+                    frequency = freqMap.get(serviceFreq.toUpperCase()).intValue();
                 }
             }
         }
@@ -402,7 +403,7 @@ public class CoreEvents {
             return "error";
         }
                 
-        Map syncServiceResult = null;
+        Map<String, Object> syncServiceResult = null;
         // schedule service
         try {
             if(null!=request.getParameter("_RUN_SYNC_") && request.getParameter("_RUN_SYNC_").equals("Y")){
@@ -428,7 +429,7 @@ public class CoreEvents {
     public static String saveServiceResultsToSession(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         Locale locale = UtilHttp.getLocale(request);
-        Map syncServiceResult = (Map)session.getAttribute("_RUN_SYNC_RESULT_");
+        Map<String, Object> syncServiceResult = checkMap(session.getAttribute("_RUN_SYNC_RESULT_"), String.class, Object.class);
         if(null==syncServiceResult){
             String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.no_fields_in_session", locale);
             request.setAttribute("_ERROR_MESSAGE_", "<li>" + errMsg);
@@ -438,13 +439,10 @@ public class CoreEvents {
         if(null!=request.getParameter("_CLEAR_PREVIOUS_PARAMS_") && request.getParameter("_CLEAR_PREVIOUS_PARAMS_").equalsIgnoreCase("on"))
             session.removeAttribute("_SAVED_SYNC_RESULT_");
         
-        Map serviceFieldsToSave = request.getParameterMap();
-        Map savedFields = FastMap.newInstance();
-        Set keys = serviceFieldsToSave.keySet();
-        Iterator keysItr = keys.iterator();
+        Map<String, String[]> serviceFieldsToSave = checkMap(request.getParameterMap(), String.class, String[].class);
+        Map<String, Object> savedFields = FastMap.newInstance();
         
-        while(keysItr.hasNext()){
-            String key = (String)keysItr.next();
+        for (String key: serviceFieldsToSave.keySet()) {
             if(null!=serviceFieldsToSave.get(key) && request.getParameter(key).equalsIgnoreCase("on") && !key.equals("_CLEAR_PREVIOUS_PARAMS_")){
                 String[] servicePath = key.split("\\|\\|");
                 String partialKey = servicePath[servicePath.length-1];
@@ -452,7 +450,7 @@ public class CoreEvents {
             }
         }
         if(null!=session.getAttribute("_SAVED_SYNC_RESULT_")){
-            Map savedSyncResult = (Map)session.getAttribute("_SAVED_SYNC_RESULT_");
+            Map<String, Object> savedSyncResult = checkMap(session.getAttribute("_SAVED_SYNC_RESULT_"), String.class, Object.class);
             savedSyncResult.putAll(savedFields);
             savedFields = savedSyncResult; 
         }
@@ -460,11 +458,11 @@ public class CoreEvents {
         return "success";
     }
     
-    //Tries to return a map, if Object is one of HashMap, GenericEntity, List
-    public static Object getObjectFromServicePath(String servicePath, Map serviceResult){
+    //Tries to return a map, if Object is one of Map, GenericEntity, List
+    public static Object getObjectFromServicePath(String servicePath, Map<String, ? extends Object> serviceResult){
         String[] sp = servicePath.split("\\|\\|");
         Object servicePathObject = null;
-        Map servicePathMap = null;
+        Map<String, Object> servicePathMap = null;
         for(int i=0;i<sp.length;i++){
             String servicePathEntry = sp[i];
             if(null==servicePathMap){
@@ -474,24 +472,20 @@ public class CoreEvents {
             }
             servicePathMap = null;
             
-            if(servicePathObject instanceof HashMap){
-                servicePathMap = (HashMap)servicePathObject;
+            if(servicePathObject instanceof Map){
+                servicePathMap = checkMap(servicePathObject);
             }else if(servicePathObject instanceof GenericEntity){
                 GenericEntity servicePathEntity = (GenericEntity)servicePathObject;
-                Set servicePathEntitySet = servicePathEntity.keySet();
-                Iterator spesItr = servicePathEntitySet.iterator();
                 servicePathMap = FastMap.newInstance();
-                while(spesItr.hasNext()){
-                    String spesKey = (String)spesItr.next();
-                    servicePathMap.put(spesKey, servicePathEntity.get(spesKey));
+                for (Map.Entry<String, Object> entry: servicePathEntity.entrySet()) {
+                    servicePathMap.put(entry.getKey(), entry.getValue());
                 }
             }else if(servicePathObject instanceof Collection){
-                Collection servicePathColl = (Collection)servicePathObject;
-                Iterator splItr = servicePathColl.iterator();
+                Collection<?> servicePathColl = checkCollection(servicePathObject);
                 int count=0;
                 servicePathMap = FastMap.newInstance();
-                while(splItr.hasNext()){
-                    servicePathMap.put("_"+count+"_", splItr.next());
+                for (Object value: servicePathColl) {
+                    servicePathMap.put("_"+count+"_", value);
                     count++;
                 }
             }

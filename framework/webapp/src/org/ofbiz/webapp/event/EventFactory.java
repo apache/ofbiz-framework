@@ -18,13 +18,13 @@
  *******************************************************************************/
 package org.ofbiz.webapp.event;
 
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralRuntimeException;
@@ -42,10 +42,10 @@ public class EventFactory {
     protected RequestHandler requestHandler = null;
     protected RequestManager requestManager = null;
     protected ServletContext context = null;
-    protected Map handlers = null;
+    protected Map<String, EventHandler> handlers = null;
 
     public EventFactory(RequestHandler requestHandler) {
-        handlers = new HashMap();
+        handlers = FastMap.newInstance();
         this.requestHandler = requestHandler;
         this.requestManager = requestHandler.getRequestManager();
         this.context = requestHandler.getServletContext();
@@ -60,11 +60,9 @@ public class EventFactory {
     }
 
     private void preLoadAll() throws EventHandlerException {
-        List handlers = requestManager.getHandlerKeys(RequestManager.EVENT_HANDLER_KEY);
+        List<String> handlers = requestManager.getHandlerKeys(RequestManager.EVENT_HANDLER_KEY);
         if (handlers != null) {
-            Iterator i = handlers.iterator();
-            while (i.hasNext()) {
-                String type = (String) i.next();
+            for (String type: handlers) {
                 this.handlers.put(type, this.loadEventHandler(type));
             }
         }
@@ -77,11 +75,11 @@ public class EventFactory {
         }
 
         // attempt to get a pre-loaded handler
-        EventHandler handler = (EventHandler) handlers.get(type);
+        EventHandler handler = handlers.get(type);
 
         if (handler == null) {
             synchronized (EventHandler.class) {
-                handler = (EventHandler) handlers.get(type);
+                handler = handlers.get(type);
                 if (handler == null) {
                     handler = this.loadEventHandler(type);
                     handlers.put(type, handler);

@@ -22,8 +22,6 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Locale;
 import java.util.Map;
 import java.util.List;
@@ -34,6 +32,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.json.JSONObject;
 
@@ -70,7 +69,7 @@ public class DojoJSONServiceEventHandler implements EventHandler {
         String respCode = service.invoke(eventPath, eventMethod, request, response);
 
         // pull out the service response from the request attribute
-        Map attrMap = getAttributesAsMap(request);
+        Map<String, Object> attrMap = getAttributesAsMap(request);
 
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         if (dispatcher == null) {
@@ -105,8 +104,8 @@ public class DojoJSONServiceEventHandler implements EventHandler {
         if (model == null) {
             throw new EventHandlerException("Problems getting the service model");
         }
-        List errorMessages = new LinkedList();
-        Map serviceContext = new HashMap();
+        List<Object> errorMessages = FastList.newInstance();
+        Map<String, Object> serviceContext = FastMap.newInstance();
         serviceContext = model.makeValid(attrMap, ModelService.OUT_PARAM, true, errorMessages, timeZone, locale);
 
         // create a JSON Object for return
@@ -139,8 +138,8 @@ public class DojoJSONServiceEventHandler implements EventHandler {
         return respCode;
     }
 
-    private Map getAttributesAsMap(HttpServletRequest request) {
-        Map attrMap = FastMap.newInstance();
+    private Map<String, Object> getAttributesAsMap(HttpServletRequest request) {
+        Map<String, Object> attrMap = FastMap.newInstance();
         Enumeration en = request.getAttributeNames();
         while (en.hasMoreElements()) {
             String name = (String) en.nextElement();

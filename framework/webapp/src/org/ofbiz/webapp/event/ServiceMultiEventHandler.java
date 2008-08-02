@@ -152,8 +152,8 @@ public class ServiceMultiEventHandler implements EventHandler {
         String messageSuffixStr = UtilProperties.getMessage("DefaultMessages", "service.message.suffix", locale);
 
         // prepare the error message and success message lists
-        List errorMessages = FastList.newInstance();
-        List successMessages = FastList.newInstance();
+        List<Object> errorMessages = FastList.newInstance();
+        List<String> successMessages = FastList.newInstance();
 
         // Check the global-transaction attribute of the event from the controller to see if the
         //  event should be wrapped in a transaction
@@ -186,11 +186,8 @@ public class ServiceMultiEventHandler implements EventHandler {
                 }
 
                 // build the context
-                Map serviceContext = FastMap.newInstance();
-                List modelParmInList = modelService.getInModelParamList();
-                Iterator modelParmInIter = modelParmInList.iterator();
-                while (modelParmInIter.hasNext()) {
-                    ModelParam modelParam = (ModelParam) modelParmInIter.next();
+                Map<String, Object> serviceContext = FastMap.newInstance();
+                for (ModelParam modelParam: modelService.getInModelParamList()) {
                     String paramName = modelParam.name;
                     
                     // Debug.logInfo("In ServiceMultiEventHandler processing input parameter [" + modelParam.name + (modelParam.optional?"(optional):":"(required):") + modelParam.mode + "] for service [" + serviceName + "]", module);
@@ -287,7 +284,7 @@ public class ServiceMultiEventHandler implements EventHandler {
                 // Debug.logInfo("ready to call " + serviceName + " with context " + serviceContext, module);
 
                 // invoke the service
-                Map result = null;
+                Map<String, Object> result = null;
                 try {
                     result = dispatcher.runSync(serviceName, serviceContext);
                 } catch (ServiceAuthException e) {
@@ -296,11 +293,10 @@ public class ServiceMultiEventHandler implements EventHandler {
                 } catch (ServiceValidationException e) {
                     // not logging since the service engine already did
                     request.setAttribute("serviceValidationException", e);
-                    List errors = e.getMessageList();
+                    List<String> errors = e.getMessageList();
                     if (errors != null) {
-                        Iterator erri = errors.iterator();
-                        while (erri.hasNext()) {
-                            errorMessages.add("Service invocation error on row (" + i + "): " + erri.next());
+                        for (String message: errors) {
+                            errorMessages.add("Service invocation error on row (" + i + "): " + message);
                         }
                     } else {
                         errorMessages.add(messagePrefixStr + "Service invocation error on row (" + i +"): " + e.getNonNestedMessage());
@@ -338,10 +334,8 @@ public class ServiceMultiEventHandler implements EventHandler {
                 }
                 // set the results in the request
                 if ((result != null) && (result.entrySet() != null)) {
-                    Iterator rmei = result.entrySet().iterator();
-                    while (rmei.hasNext()) {
-                        Map.Entry rme = (Map.Entry) rmei.next();
-                        String resultKey = (String) rme.getKey();
+                    for (Map.Entry<String, Object> rme: result.entrySet()) {
+                        String resultKey = rme.getKey();
                         Object resultValue = rme.getValue();
 
                         if (resultKey != null && !ModelService.RESPONSE_MESSAGE.equals(resultKey) && !ModelService.ERROR_MESSAGE.equals(resultKey) &&
@@ -365,9 +359,7 @@ public class ServiceMultiEventHandler implements EventHandler {
                 errorMessages.add(0, errorPrefixStr);
                 errorMessages.add(errorSuffixStr);
                 StringBuilder errorBuf = new StringBuilder();
-                Iterator ei = errorMessages.iterator();
-                while (ei.hasNext()) {
-                    String em = (String) ei.next();
+                for (Object em: errorMessages) {
                     errorBuf.append(em + "\n");
                 }
                 request.setAttribute("_ERROR_MESSAGE_", errorBuf.toString());

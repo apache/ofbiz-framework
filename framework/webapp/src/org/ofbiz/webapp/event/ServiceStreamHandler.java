@@ -64,13 +64,13 @@ public class ServiceStreamHandler implements EventHandler {
             throw new EventHandlerException(e.getMessage(), e);
         }
 
-        Map context = FastMap.newInstance();
+        Map<String, Object> context = FastMap.newInstance();
         context.put("inputStream", in);
         context.put("outputStream", out);
 
         if (Debug.infoOn()) Debug.logInfo("Running service with context: " + context, module);
         
-        Map resp;
+        Map<String, Object> resp;
         try {
             resp = dispatcher.runSync(eventMethod, context);
         } catch (GenericServiceException e) {

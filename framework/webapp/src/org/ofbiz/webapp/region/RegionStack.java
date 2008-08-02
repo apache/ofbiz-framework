@@ -21,21 +21,23 @@ package org.ofbiz.webapp.region;
 import java.util.Stack;
 import javax.servlet.ServletRequest;
 
+import static org.ofbiz.base.util.UtilGenerics.checkStack;
+
 public class RegionStack {
     private RegionStack() {} // no instantiations
 
-    public static Stack getStack(ServletRequest request) {
-        Stack s = (Stack) request.getAttribute("region-stack");
+    public static Stack<Region> getStack(ServletRequest request) {
+        Stack<Region> s = checkStack(request.getAttribute("region-stack"), Region.class);
 
         if (s == null) {
-            s = new Stack();
+            s = new Stack<Region>();
             request.setAttribute("region-stack", s);
         }
         return s;
     }
 
     public static Region peek(ServletRequest request) {
-        return (Region) getStack(request).peek();
+        return getStack(request).peek();
     }
 
     public static void push(ServletRequest request, Region region) {
@@ -43,6 +45,6 @@ public class RegionStack {
     }
 
     public static Region pop(ServletRequest request) {
-        return (Region) getStack(request).pop();
+        return getStack(request).pop();
     }
 }

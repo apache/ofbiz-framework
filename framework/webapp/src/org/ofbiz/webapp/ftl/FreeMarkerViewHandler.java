@@ -27,6 +27,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import javolution.util.FastMap;
+
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.collections.MapStack;
 import org.ofbiz.base.util.template.FreeMarkerWorker;
@@ -85,7 +87,7 @@ public class FreeMarkerViewHandler implements ViewHandler {
         }       
     }
     
-    public static void prepOfbizRoot(Map root, HttpServletRequest request, HttpServletResponse response) {
+    public static void prepOfbizRoot(Map<String, Object> root, HttpServletRequest request, HttpServletResponse response) {
         ServletContext servletContext = (ServletContext) request.getAttribute("servletContext");
         HttpSession session = request.getSession();
         
@@ -119,7 +121,7 @@ public class FreeMarkerViewHandler implements ViewHandler {
         root.put("requestAttributes", new HttpRequestHashModel(request, wrapper));
 
         // add the request parameters -- this now uses a Map from UtilHttp
-        Map requestParameters = UtilHttp.getParameterMap(request);
+        Map<String, Object> requestParameters = UtilHttp.getParameterMap(request);
         root.put("requestParameters", requestParameters);
            
         // add the TabLibFactory

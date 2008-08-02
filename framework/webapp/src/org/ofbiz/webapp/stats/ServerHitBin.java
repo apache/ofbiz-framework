@@ -21,11 +21,13 @@ package org.ofbiz.webapp.stats;
 import java.net.InetAddress;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
+
+import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilHttp;
@@ -114,27 +116,27 @@ public class ServerHitBin {
         }
 
         ServerHitBin bin = null;
-        LinkedList binList = null;
+        List<ServerHitBin> binList = null;
 
         switch (type) {
         case REQUEST:
-            binList = (LinkedList) requestHistory.get(id);
+            binList = requestHistory.get(id);
             break;
 
         case EVENT:
-            binList = (LinkedList) eventHistory.get(id);
+            binList = eventHistory.get(id);
             break;
 
         case VIEW:
-            binList = (LinkedList) viewHistory.get(id);
+            binList = viewHistory.get(id);
             break;
 
         case ENTITY:
-            binList = (LinkedList) entityHistory.get(id);
+            binList = entityHistory.get(id);
             break;
 
         case SERVICE:
-            binList = (LinkedList) serviceHistory.get(id);
+            binList = serviceHistory.get(id);
             break;
         }
 
@@ -142,27 +144,27 @@ public class ServerHitBin {
             synchronized (ServerHitBin.class) {
                 switch (type) {
                 case REQUEST:
-                    binList = (LinkedList) requestHistory.get(id);
+                    binList = requestHistory.get(id);
                     break;
 
                 case EVENT:
-                    binList = (LinkedList) eventHistory.get(id);
+                    binList = eventHistory.get(id);
                     break;
 
                 case VIEW:
-                    binList = (LinkedList) viewHistory.get(id);
+                    binList = viewHistory.get(id);
                     break;
 
                 case ENTITY:
-                    binList = (LinkedList) entityHistory.get(id);
+                    binList = entityHistory.get(id);
                     break;
 
                 case SERVICE:
-                    binList = (LinkedList) serviceHistory.get(id);
+                    binList = serviceHistory.get(id);
                     break;
                 }
                 if (binList == null) {
-                    binList = new LinkedList();
+                    binList = FastList.newInstance();
                     switch (type) {
                     case REQUEST:
                         requestHistory.put(id, binList);
@@ -189,16 +191,16 @@ public class ServerHitBin {
         }
 
         if (binList.size() > 0) {
-            bin = (ServerHitBin) binList.getFirst();
+            bin = binList.get(0);
         }
         if (bin == null) {
             synchronized (ServerHitBin.class) {
                 if (binList.size() > 0) {
-                    bin = (ServerHitBin) binList.getFirst();
+                    bin = binList.get(0);
                 }
                 if (bin == null) {
                     bin = new ServerHitBin(id, type, true, delegator);
-                    binList.addFirst(bin);
+                    binList.add(0, bin);
                 }
             }
         }
@@ -310,18 +312,18 @@ public class ServerHitBin {
     }
 
     // these Maps contain Lists of ServerHitBin objects by id, the most recent is first in the list
-    public static Map requestHistory = new HashMap();
-    public static Map eventHistory = new HashMap();
-    public static Map viewHistory = new HashMap();
-    public static Map entityHistory = new HashMap();
-    public static Map serviceHistory = new HashMap();
+    public static Map<String, List<ServerHitBin>> requestHistory = FastMap.newInstance();
+    public static Map<String, List<ServerHitBin>> eventHistory = FastMap.newInstance();
+    public static Map<String, List<ServerHitBin>> viewHistory = FastMap.newInstance();
+    public static Map<String, List<ServerHitBin>> entityHistory = FastMap.newInstance();
+    public static Map<String, List<ServerHitBin>> serviceHistory = FastMap.newInstance();
 
     // these Maps contain ServerHitBin objects by id
-    public static Map requestSinceStarted = new HashMap();
-    public static Map eventSinceStarted = new HashMap();
-    public static Map viewSinceStarted = new HashMap();
-    public static Map entitySinceStarted = new HashMap();
-    public static Map serviceSinceStarted = new HashMap();
+    public static Map<String, ServerHitBin> requestSinceStarted = FastMap.newInstance();
+    public static Map<String, ServerHitBin> eventSinceStarted = FastMap.newInstance();
+    public static Map<String, ServerHitBin> viewSinceStarted = FastMap.newInstance();
+    public static Map<String, ServerHitBin> entitySinceStarted = FastMap.newInstance();
+    public static Map<String, ServerHitBin> serviceSinceStarted = FastMap.newInstance();
 
     GenericDelegator delegator;
     String delegatorName;
@@ -516,35 +518,35 @@ public class ServerHitBin {
     synchronized void advanceBin(long toTime) {
         // first check to see if this bin has expired, if so save and recycle it
         while (limitLength && toTime > this.endTime) {
-            LinkedList binList = null;
+            List<ServerHitBin> binList = null;
 
             switch (type) {
             case REQUEST:
-                binList = (LinkedList) requestHistory.get(id);
+                binList = requestHistory.get(id);
                 break;
 
             case EVENT:
-                binList = (LinkedList) eventHistory.get(id);
+                binList = eventHistory.get(id);
                 break;
 
             case VIEW:
-                binList = (LinkedList) viewHistory.get(id);
+                binList = viewHistory.get(id);
                 break;
 
             case ENTITY:
-                binList = (LinkedList) entityHistory.get(id);
+                binList = entityHistory.get(id);
                 break;
 
             case SERVICE:
-                binList = (LinkedList) serviceHistory.get(id);
+                binList = serviceHistory.get(id);
                 break;
             }
 
             // the first in the list will be this object, remove and copy it, 
             // put the copy at the first of the list, then put this object back on
-            binList.removeFirst();
+            binList.remove(0);
             if (this.numberHits > 0) {
-                binList.addFirst(new ServerHitBin(this));
+                binList.add(0, new ServerHitBin(this));
 
                 // persist each bin when time ends if option turned on
                 if (UtilProperties.propertyValueEqualsIgnoreCase("serverstats", "stats.persist." + ServerHitBin.typeIds[type] + ".bin", "true")) {
@@ -578,7 +580,7 @@ public class ServerHitBin {
                 }
             }
             this.reset(this.endTime + 1);
-            binList.addFirst(this);
+            binList.add(0, this);
         }
     }
 

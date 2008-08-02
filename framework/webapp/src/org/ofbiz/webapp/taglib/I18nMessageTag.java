@@ -43,7 +43,7 @@ public class I18nMessageTag extends BodyTagSupport {
 
     private ResourceBundle bundle = null;
 
-    private final List arguments = new ArrayList();
+    private final List<Object> arguments = new ArrayList<Object>();
 
     public void setKey(String key) {
         this.key = key;

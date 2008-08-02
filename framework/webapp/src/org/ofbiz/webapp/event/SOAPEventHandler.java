@@ -21,7 +21,6 @@ package org.ofbiz.webapp.event;
 import java.io.IOException;
 import java.io.Writer;
 import java.io.OutputStream;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +30,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletContext;
 import javax.xml.soap.SOAPException;
 import javax.wsdl.WSDLException;
+
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
@@ -121,9 +122,7 @@ public class SOAPEventHandler implements EventHandler {
                     sb.append("<html><head><title>OFBiz SOAP/1.1 Services</title></head>");
                     sb.append("<body>No such service.").append("<p>Services:<ul>");
 
-                    Iterator i = dctx.getAllServiceNames().iterator();
-                    while (i.hasNext()) {
-                        String scvName = (String) i.next();
+                    for (String scvName: dctx.getAllServiceNames()) {
                         ModelService model = dctx.getModelService(scvName);
                         if (model.export) {
                             sb.append("<li><a href=\"").append(locationUri).append("/").append(model.name).append("?wsdl\">");
@@ -204,10 +203,7 @@ public class SOAPEventHandler implements EventHandler {
         Debug.logVerbose("[Processing]: SOAP Event", module);
 
         // each is a different service call
-        Iterator i = bodies.iterator();
-
-        while (i.hasNext()) {
-            Object o = i.next();
+        for (Object o: bodies) {
 
             if (o instanceof RPCElement) {
                 RPCElement body = (RPCElement) o;
@@ -220,7 +216,7 @@ public class SOAPEventHandler implements EventHandler {
                     sendError(response, e);
                     throw new EventHandlerException(e.getMessage(), e);
                 }
-                Map serviceContext = new HashMap();
+                Map<String, Object> serviceContext = FastMap.newInstance();
                 Iterator p = params.iterator();
 
                 while (p.hasNext()) {
@@ -234,19 +230,16 @@ public class SOAPEventHandler implements EventHandler {
                     ModelService model = dispatcher.getDispatchContext().getModelService(serviceName);
 
                     if (model != null && model.export) {
-                        Map result = dispatcher.runSync(serviceName, serviceContext);
+                        Map<String, Object> result = dispatcher.runSync(serviceName, serviceContext);
 
                         Debug.logVerbose("[EventHandler] : Service invoked", module);
                         RPCElement resBody = new RPCElement(serviceName + "Response");
 
                         resBody.setPrefix(body.getPrefix());
                         resBody.setNamespaceURI(body.getNamespaceURI());
-                        Set keySet = result.keySet();
-                        Iterator ri = keySet.iterator();
 
-                        while (ri.hasNext()) {
-                            Object key = ri.next();
-                            RPCParam par = new RPCParam(((String) key), result.get(key));
+                        for (Map.Entry<String, Object> entry: result.entrySet()) {
+                            RPCParam par = new RPCParam(entry.getKey(), entry.getValue());
 
                             resBody.addParam(par);
                         }

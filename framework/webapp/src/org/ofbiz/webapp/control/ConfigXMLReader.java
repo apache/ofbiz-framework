@@ -35,6 +35,7 @@ import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.FileUtil;
 import org.ofbiz.base.util.GeneralException;
+import static org.ofbiz.base.util.UtilGenerics.checkMap;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
@@ -48,15 +49,15 @@ import org.w3c.dom.Element;
 public class ConfigXMLReader {
 
     public static final String module = ConfigXMLReader.class.getName();
-    public static UtilCache controllerCache = new UtilCache("webapp.ControllerConfig");
-    public static UtilCache<String, List<ControllerConfig>> controllerSearchResultsCache = new UtilCache("webapp.ControllerSearchResults");
+    public static UtilCache<URL, ControllerConfig> controllerCache = new UtilCache<URL, ControllerConfig>("webapp.ControllerConfig");
+    public static UtilCache<String, List<ControllerConfig>> controllerSearchResultsCache = new UtilCache<String, List<ControllerConfig>>("webapp.ControllerSearchResults");
 
     public static ControllerConfig getControllerConfig(URL url) {
-        ControllerConfig controllerConfig = (ControllerConfig) controllerCache.get(url);
+        ControllerConfig controllerConfig = controllerCache.get(url);
         if (controllerConfig == null) { // don't want to block here
             synchronized (ConfigXMLReader.class) {
                 // must check if null again as one of the blocked threads can still enter
-                controllerConfig = (ControllerConfig) controllerCache.get(url);
+                controllerConfig = controllerCache.get(url);
                 if (controllerConfig == null) {
                     controllerConfig = new ControllerConfig(url);
                     controllerCache.put(url, controllerConfig);
@@ -69,8 +70,8 @@ public class ConfigXMLReader {
     public static class ControllerConfig {
         public URL url;
         
-        public Map configMap = FastMap.newInstance();
-        public Map handlerMap = FastMap.newInstance();
+        public Map<String, Object> configMap = FastMap.newInstance();
+        public Map<String, Map<String, String>> handlerMap = FastMap.newInstance();
         public Map<String, Map<String, Object>> requestMap = FastMap.newInstance();
         public Map<String, Map<String, String>> viewMap = FastMap.newInstance();
         public String defaultRequest = null;
@@ -257,14 +258,11 @@ public class ConfigXMLReader {
 
         if (root == null) return map;
 
-        List<? extends Element> includeElementList = UtilXml.childElementList(root, INCLUDE);
-        Iterator<? extends Element> includeElementIter = includeElementList.iterator();
-        while (includeElementIter.hasNext()) {
-            Element includeElement = (Element) includeElementIter.next();
+        for (Element includeElement: UtilXml.childElementList(root, INCLUDE)) {
             String includeLocation = includeElement.getAttribute(INCLUDE_LOCATION);
             if ((includeLocation != null) && (includeLocation.length() > 0)) {
                 try {
-                    Map subMap = loadRequestMap(null, FlexibleLocation.resolveLocation(includeLocation));
+                    Map<String, Map<String, Object>> subMap = loadRequestMap(null, FlexibleLocation.resolveLocation(includeLocation));
                     map.putAll(subMap);
                 } catch (MalformedURLException mue) {
                     Debug.logError(mue, "Error processing include at [" + includeLocation + "]:" + mue.toString(), module);
@@ -272,10 +270,7 @@ public class ConfigXMLReader {
             }
         }
 
-        List<? extends Element> requestMapElementList = UtilXml.childElementList(root, REQUEST_MAPPING);
-        Iterator<? extends Element> requestMapElementIter = requestMapElementList.iterator();
-        while (requestMapElementIter.hasNext()) {
-            Element requestMapElement = (Element) requestMapElementIter.next();
+        for (Element requestMapElement: UtilXml.childElementList(root, REQUEST_MAPPING)) {
             
             // Create a URI-MAP for each element found.
             Map<String, Object> uriMap = FastMap.newInstance();
@@ -339,10 +334,7 @@ public class ConfigXMLReader {
             Map<String, String> responseMap = FastMap.newInstance();
             uriMap.put(RESPONSE_MAP, responseMap);
             
-            List<? extends Element> responseElementList = UtilXml.childElementList(requestMapElement, RESPONSE);
-            Iterator<? extends Element> responseElementIter = responseElementList.iterator();
-            while (responseElementIter.hasNext()) {
-                Element responseElement = (Element) responseElementIter.next();
+            for (Element responseElement: UtilXml.childElementList(requestMapElement, RESPONSE)) {
                 String name = responseElement.getAttribute(RESPONSE_NAME);
                 String type = responseElement.getAttribute(RESPONSE_TYPE);
                 String value = responseElement.getAttribute(RESPONSE_VALUE);
@@ -405,14 +397,11 @@ public class ConfigXMLReader {
             return map;
         }
 
-        List<? extends Element> includeElementList = UtilXml.childElementList(root, INCLUDE);
-        Iterator<? extends Element> includeElementIter = includeElementList.iterator();
-        while (includeElementIter.hasNext()) {
-            Element includeElement = (Element) includeElementIter.next();
+        for (Element includeElement: UtilXml.childElementList(root, INCLUDE)) {
             String includeLocation = includeElement.getAttribute(INCLUDE_LOCATION);
             if ((includeLocation != null) && (includeLocation.length() > 0)) {
                 try {
-                    Map subMap = loadViewMap(null, FlexibleLocation.resolveLocation(includeLocation));
+                    Map<String, Map<String, String>> subMap = loadViewMap(null, FlexibleLocation.resolveLocation(includeLocation));
                     map.putAll(subMap);
                 } catch (MalformedURLException mue) {
                     Debug.logError(mue, "Error processing include at [" + includeLocation + "]:" + mue.toString(), module);
@@ -420,10 +409,7 @@ public class ConfigXMLReader {
             }
         }
 
-        List<? extends Element> viewMapElementList = UtilXml.childElementList(root, VIEW_MAPPING);
-        Iterator<? extends Element> viewMapElementIter = viewMapElementList.iterator();
-        while (viewMapElementIter.hasNext()) {
-            Element viewMapElement = (Element) viewMapElementIter.next();
+        for (Element viewMapElement: UtilXml.childElementList(root, VIEW_MAPPING)) {
             // Create a URI-MAP for each element found.
             Map<String, String> uriMap = FastMap.newInstance();
 
@@ -482,15 +468,15 @@ public class ConfigXMLReader {
     }
 
     /** Gets a FastMap of site configuration variables. */
-    public static Map getConfigMap(URL xml) {
+    public static Map<String, Object> getConfigMap(URL xml) {
         ControllerConfig controllerConfig = getControllerConfig(xml);
         return controllerConfig != null ? controllerConfig.configMap : null;
     }
 
     /** Gets a FastMap of site configuration variables. */
-    public static Map loadConfigMap(Element root, URL xml) {
+    public static Map<String, Object> loadConfigMap(Element root, URL xml) {
         long startTime = System.currentTimeMillis();
-        FastMap map = FastMap.newInstance();
+        FastMap<String, Object> map = FastMap.newInstance();
         if (root == null) {
             root = loadDocument(xml);
         }
@@ -499,14 +485,11 @@ public class ConfigXMLReader {
             return map;
         }
 
-        List includeElementList = UtilXml.childElementList(root, INCLUDE);
-        Iterator includeElementIter = includeElementList.iterator();
-        while (includeElementIter.hasNext()) {
-            Element includeElement = (Element) includeElementIter.next();
+        for (Element includeElement: UtilXml.childElementList(root, INCLUDE)) {
             String includeLocation = includeElement.getAttribute(INCLUDE_LOCATION);
             if ((includeLocation != null) && (includeLocation.length() > 0)) {
                 try {
-                    Map subMap = loadConfigMap(null, FlexibleLocation.resolveLocation(includeLocation));
+                    Map<String, Object> subMap = loadConfigMap(null, FlexibleLocation.resolveLocation(includeLocation));
                     map.putAll(subMap);
                 } catch (MalformedURLException mue) {
                     Debug.logError(mue, "Error processing include at [" + includeLocation + "]:" + mue.toString(), module);
@@ -529,12 +512,9 @@ public class ConfigXMLReader {
         // first visit event
         Element firstvisitElement = UtilXml.firstChildElement(root, FIRSTVISIT);
         if (firstvisitElement != null) {
-            List eventList = FastList.newInstance();
-            List eventElementList = UtilXml.childElementList(firstvisitElement, EVENT);
-            Iterator eventElementIter = eventElementList.iterator();
-            while (eventElementIter.hasNext()) {
-                Element eventElement = (Element) eventElementIter.next();
-                FastMap eventMap = FastMap.newInstance();
+            List<Map<String, String>> eventList = FastList.newInstance();
+            for (Element eventElement: UtilXml.childElementList(firstvisitElement, EVENT)) {
+                Map<String, String> eventMap = FastMap.newInstance();
                 eventMap.put(EVENT_TYPE, eventElement.getAttribute(EVENT_TYPE));
                 eventMap.put(EVENT_PATH, eventElement.getAttribute(EVENT_PATH));
                 eventMap.put(EVENT_METHOD, eventElement.getAttribute(EVENT_METHOD));
@@ -549,12 +529,9 @@ public class ConfigXMLReader {
         // preprocessor events
         Element preprocessorElement = UtilXml.firstChildElement(root, PREPROCESSOR);
         if (preprocessorElement != null) {
-            List eventList = FastList.newInstance();
-            List eventElementList = UtilXml.childElementList(preprocessorElement, EVENT);
-            Iterator eventElementIter = eventElementList.iterator();
-            while (eventElementIter.hasNext()) {
-                Element eventElement = (Element) eventElementIter.next();
-                FastMap eventMap = FastMap.newInstance();
+            List<Map<String, String>> eventList = FastList.newInstance();
+            for (Element eventElement: UtilXml.childElementList(preprocessorElement, EVENT)) {
+                Map<String, String> eventMap = FastMap.newInstance();
                 eventMap.put(EVENT_TYPE, eventElement.getAttribute(EVENT_TYPE));
                 eventMap.put(EVENT_PATH, eventElement.getAttribute(EVENT_PATH));
                 eventMap.put(EVENT_METHOD, eventElement.getAttribute(EVENT_METHOD));
@@ -569,12 +546,9 @@ public class ConfigXMLReader {
         // postprocessor events
         Element postprocessorElement = UtilXml.firstChildElement(root, POSTPROCESSOR);
         if (postprocessorElement != null) {
-            List eventList = FastList.newInstance();
-            List eventElementList = UtilXml.childElementList(postprocessorElement, EVENT);
-            Iterator eventElementIter = eventElementList.iterator();
-            while (eventElementIter.hasNext()) {
-                Element eventElement = (Element) eventElementIter.next();
-                FastMap eventMap = FastMap.newInstance();
+            List<Map<String, String>> eventList = FastList.newInstance();
+            for (Element eventElement: UtilXml.childElementList(postprocessorElement, EVENT)) {
+                Map<String, String> eventMap = FastMap.newInstance();
                 eventMap.put(EVENT_TYPE, eventElement.getAttribute(EVENT_TYPE));
                 eventMap.put(EVENT_PATH, eventElement.getAttribute(EVENT_PATH));
                 eventMap.put(EVENT_METHOD, eventElement.getAttribute(EVENT_METHOD));
@@ -589,12 +563,9 @@ public class ConfigXMLReader {
         // after-login events
         Element afterLoginElement = UtilXml.firstChildElement(root, "after-login");
         if (afterLoginElement != null) {
-            List eventList = FastList.newInstance();
-            List eventElementList = UtilXml.childElementList(afterLoginElement, EVENT);
-            Iterator eventElementIter = eventElementList.iterator();
-            while (eventElementIter.hasNext()) {
-                Element eventElement = (Element) eventElementIter.next();
-                FastMap eventMap = FastMap.newInstance();
+            List<Map<String, String>> eventList = FastList.newInstance();
+            for (Element eventElement: UtilXml.childElementList(afterLoginElement, EVENT)) {
+                Map<String, String> eventMap = FastMap.newInstance();
                 eventMap.put(EVENT_TYPE, eventElement.getAttribute(EVENT_TYPE));
                 eventMap.put(EVENT_PATH, eventElement.getAttribute(EVENT_PATH));
                 eventMap.put(EVENT_METHOD, eventElement.getAttribute(EVENT_METHOD));
@@ -609,12 +580,10 @@ public class ConfigXMLReader {
         // before-logout events
         Element beforeLogoutElement = UtilXml.firstChildElement(root, "before-logout");
         if (beforeLogoutElement != null) {
-            List eventList = FastList.newInstance();
-            List eventElementList = UtilXml.childElementList(beforeLogoutElement, EVENT);
-            Iterator eventElementIter = eventElementList.iterator();
-            while (eventElementIter.hasNext()) {
-                Element eventElement = (Element) eventElementIter.next();
-                FastMap eventMap = FastMap.newInstance();
+            List<Map<String, String>> eventList = FastList.newInstance();
+            List<? extends Element> eventElementList = UtilXml.childElementList(beforeLogoutElement, EVENT);
+            for (Element eventElement: UtilXml.childElementList(beforeLogoutElement, EVENT)) {
+                Map<String, String> eventMap = FastMap.newInstance();
                 eventMap.put(EVENT_TYPE, eventElement.getAttribute(EVENT_TYPE));
                 eventMap.put(EVENT_PATH, eventElement.getAttribute(EVENT_PATH));
                 eventMap.put(EVENT_METHOD, eventElement.getAttribute(EVENT_METHOD));
@@ -671,10 +640,7 @@ public class ConfigXMLReader {
         // holder for the default-request
         String defaultRequest = null;
 
-        List includeElementList = UtilXml.childElementList(root, INCLUDE);
-        Iterator includeElementIter = includeElementList.iterator();
-        while (includeElementIter.hasNext()) {
-            Element includeElement = (Element) includeElementIter.next();
+        for (Element includeElement: UtilXml.childElementList(root, INCLUDE)) {
             String includeLocation = includeElement.getAttribute(INCLUDE_LOCATION);
             if ((includeLocation != null) && (includeLocation.length() > 0)) {
                 try {
@@ -693,14 +659,14 @@ public class ConfigXMLReader {
     }
 
     /** Gets a FastMap of handler mappings. */
-    public static Map getHandlerMap(URL xml) {
+    public static Map<String, Map<String, String>> getHandlerMap(URL xml) {
         ControllerConfig controllerConfig = getControllerConfig(xml);
         return controllerConfig != null ? controllerConfig.handlerMap : null;
     }
 
-    public static Map loadHandlerMap(Element root, URL xml) {
+    public static Map<String, Map<String, String>> loadHandlerMap(Element root, URL xml) {
         long startTime = System.currentTimeMillis();
-        FastMap map = FastMap.newInstance();
+        Map<String, Map<String, String>> map = FastMap.newInstance();
         if (root == null) {
             root = loadDocument(xml);
         }
@@ -708,17 +674,14 @@ public class ConfigXMLReader {
             return map;
         }
 
-        List includeElementList = UtilXml.childElementList(root, INCLUDE);
-        Iterator includeElementIter = includeElementList.iterator();
-        while (includeElementIter.hasNext()) {
-            Element includeElement = (Element) includeElementIter.next();
+        for (Element includeElement: UtilXml.childElementList(root, INCLUDE)) {
             String includeLocation = includeElement.getAttribute(INCLUDE_LOCATION);
             if ((includeLocation != null) && (includeLocation.length() > 0)) {
                 try {
-                    Map subMap = loadHandlerMap(null, FlexibleLocation.resolveLocation(includeLocation));
+                    Map<String, Map<String, String>> subMap = loadHandlerMap(null, FlexibleLocation.resolveLocation(includeLocation));
 
-                    Map newViewHandlerMap = (Map) subMap.get("view");
-                    Map viewHandlerMap = (Map) map.get("view");
+                    Map<String, String> newViewHandlerMap = checkMap(subMap.get("view"), String.class, String.class);
+                    Map<String, String> viewHandlerMap = checkMap(map.get("view"), String.class, String.class);
                     if (viewHandlerMap == null) {
                         map.put("view", newViewHandlerMap);
                     } else {
@@ -727,8 +690,8 @@ public class ConfigXMLReader {
                         }
                     }
 
-                    Map newEventHandlerMap = (Map) subMap.get("event");
-                    Map eventHandlerMap = (Map) map.get("event");
+                    Map<String, String> newEventHandlerMap = checkMap(subMap.get("event"), String.class, String.class);
+                    Map<String, String> eventHandlerMap = checkMap(map.get("event"), String.class, String.class);
                     if (eventHandlerMap == null) {
                         map.put("event", newEventHandlerMap);
                     } else {
@@ -742,13 +705,10 @@ public class ConfigXMLReader {
             }
         }
 
-        Map eventMap = FastMap.newInstance();
-        Map viewMap = FastMap.newInstance();
+        Map<String, String> eventMap = FastMap.newInstance();
+        Map<String, String> viewMap = FastMap.newInstance();
 
-        List handlerElementList = UtilXml.childElementList(root, HANDLER);
-        Iterator handlerElementIter = handlerElementList.iterator();
-        while (handlerElementIter.hasNext()) {
-            Element handlerElement = (Element) handlerElementIter.next();
+        for (Element handlerElement: UtilXml.childElementList(root, HANDLER)) {
             String hName = checkEmpty(handlerElement.getAttribute(HANDLER_NAME));
             String hClass = checkEmpty(handlerElement.getAttribute(HANDLER_CLASS));
             String hType = checkEmpty(handlerElement.getAttribute(HANDLER_TYPE));
@@ -759,7 +719,7 @@ public class ConfigXMLReader {
             }
         }
 
-        Map viewHandlerMap = (Map) map.get("view");
+        Map<String, String> viewHandlerMap = checkMap(map.get("view"), String.class, String.class);
         if (viewHandlerMap == null) {
             map.put("view", viewMap);
         } else {
@@ -767,7 +727,7 @@ public class ConfigXMLReader {
                 viewHandlerMap.putAll(viewMap);
             }
         }
-        Map eventHandlerMap = (Map) map.get("event");
+        Map<String, String> eventHandlerMap = checkMap(map.get("event"), String.class, String.class);
         if (eventHandlerMap == null) {
             map.put("event", eventMap);
         } else {
@@ -779,28 +739,22 @@ public class ConfigXMLReader {
         /* Debugging */
         if (Debug.verboseOn()) {
             Debug.logVerbose("-------- Handler Mappings --------", module);
-            Map debugMap = (Map) map.get("event");
+            Map<String, String> debugMap = checkMap(map.get("event"), String.class, String.class);
 
             if (debugMap != null && debugMap.size() > 0) {
                 Debug.logVerbose("-------------- EVENT -------------", module);
-                Set debugSet = debugMap.keySet();
-                Iterator i = debugSet.iterator();
-                while (i.hasNext()) {
-                    Object o = i.next();
-                    String handlerName = (String) o;
-                    String className = (String) debugMap.get(o);
+                for (Map.Entry<String, String> entry: debugMap.entrySet()) {
+                    String handlerName = entry.getKey();
+                    String className = entry.getValue();
                     Debug.logVerbose("[EH] : " + handlerName + " => " + className, module);
                 }
             }
-            debugMap = (Map) map.get("view");
+            debugMap = checkMap(map.get("view"), String.class, String.class);
             if (debugMap != null && debugMap.size() > 0) {
                 Debug.logVerbose("-------------- VIEW --------------", module);
-                Set debugSet = debugMap.keySet();
-                Iterator i = debugSet.iterator();
-                while (i.hasNext()) {
-                    Object o = i.next();
-                    String handlerName = (String) o;
-                    String className = (String) debugMap.get(o);
+                for (Map.Entry<String, String> entry: debugMap.entrySet()) {
+                    String handlerName = entry.getKey();
+                    String className = entry.getValue();
                     Debug.logVerbose("[VH] : " + handlerName + " => " + className, module);
                 }
             }
