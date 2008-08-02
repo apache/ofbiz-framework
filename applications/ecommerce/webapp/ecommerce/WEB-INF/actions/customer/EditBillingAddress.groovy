@@ -44,7 +44,7 @@ if (userLogin) {
     }
     
     creditCards = []; 
-    paymentMethod = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findList("PaymentMethod", EntityCondition.makeCondition([partyId : party.partyId]), null, ["fromDate"], null, null)));
+    paymentMethod = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findList("PaymentMethod", EntityCondition.makeCondition([partyId : party.partyId]), null, ["fromDate"], null, false)));
     if (paymentMethod) {
         creditCard = paymentMethod.getRelatedOne("CreditCard");
         if (creditCard) {
