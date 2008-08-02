@@ -39,8 +39,8 @@ under the License.
 
  <presetdef name="javac15">
   <default-javac compiler="javac1.5" target="1.5" source="1.5">
-   <!--
    <compilerarg value="-Xlint:unchecked"/>
+   <!--
    -->
   </default-javac>
  </presetdef>
