@@ -18,6 +18,8 @@
  *******************************************************************************/
 package org.ofbiz.example;
 
+import javolution.util.FastMap;
+
 import org.apache.fop.apps.FOPException;
 import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.MimeConstants;
@@ -57,14 +59,16 @@ public class ExamplePrintServices {
 
     private static HtmlScreenRenderer htmlScreenRenderer = new HtmlScreenRenderer();
 
-    public static Map printReportPdf(DispatchContext dctx, Map context) {
+    public static Map<String, Object> printReportPdf(DispatchContext dctx, Map<String, ? extends Object> context) {
         String screenLocation = "component://example/widget/example/ExampleReportScreens.xml";
         String reportScreenName = "ExampleReport";
+        Map<String, Object> workContext = FastMap.newInstance();
+        workContext.putAll(context);
         
         // render a screen to get the XML document
         Writer reportWriter = new StringWriter();
         ScreenRenderer reportScreenRenderer = new ScreenRenderer(reportWriter, null, htmlScreenRenderer);
-        reportScreenRenderer.populateContextForService(dctx, context);
+        reportScreenRenderer.populateContextForService(dctx, workContext);
 
         // put the exampleId in the screen context, is a parameter coming into the service
         //reportScreenRenderer.getContext().put("exampleId", context.get("exampleId"));
