@@ -959,7 +959,9 @@ under the License.
                 </entity-one>
                 
                 <call-service service-name="createUserLogin" in-map-name="userLoginCtx"/>
-                <entity-one entity-name="UserLogin" value-name="userLogin"/>
+                <entity-one entity-name="UserLogin" value-name="userLogin">
+                    <field-map field-name="userLoginId" env-name="userLoginMap.userLoginId"/>
+                </entity-one>
                 <set field="parameters.userLogin" from-field="userLogin"/>             
             </if-empty>
         <else>
