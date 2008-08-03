@@ -510,6 +510,7 @@ public class RequestHandler implements Serializable {
         if (pathInfo == null) {
             return null;
         }
+        pathInfo = pathInfo.subList(1, pathInfo.size());
 
         String nextPage = null;
         for (String element: pathInfo) {
