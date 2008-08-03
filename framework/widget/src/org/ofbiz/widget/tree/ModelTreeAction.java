@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.widget.tree;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
@@ -26,6 +25,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.regex.PatternSyntaxException;
 import java.util.TimeZone;
+
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.BshUtil;
 import org.ofbiz.base.util.Debug;
@@ -102,26 +103,24 @@ public abstract class ModelTreeAction {
     }
     */
     
-    public static void runSubActions(List actions, Map<String, Object> context) {
-        Iterator actionIter = actions.iterator();
-        while (actionIter.hasNext()) {
-            ModelTreeAction action = (ModelTreeAction) actionIter.next();
+    public static void runSubActions(List<ModelTreeAction> actions, Map<String, Object> context) {
+        for (ModelTreeAction action: actions) {
             if (Debug.verboseOn()) Debug.logVerbose("Running tree action " + action.getClass().getName(), module);
             action.runAction(context);
         }
     }
     
     public static class SetField extends ModelTreeAction {
-        protected FlexibleMapAccessor field;
-        protected FlexibleMapAccessor fromField;
+        protected FlexibleMapAccessor<Object> field;
+        protected FlexibleMapAccessor<Object> fromField;
         protected FlexibleStringExpander valueExdr;
         protected FlexibleStringExpander globalExdr;
         protected String type;
         
         public SetField(ModelTree.ModelNode modelNode, Element setElement) {
             super (modelNode, setElement);
-            this.field = new FlexibleMapAccessor(setElement.getAttribute("field"));
-            this.fromField = UtilValidate.isNotEmpty(setElement.getAttribute("from-field")) ? new FlexibleMapAccessor(setElement.getAttribute("from-field")) : null;
+            this.field = new FlexibleMapAccessor<Object>(setElement.getAttribute("field"));
+            this.fromField = UtilValidate.isNotEmpty(setElement.getAttribute("from-field")) ? new FlexibleMapAccessor<Object>(setElement.getAttribute("from-field")) : null;
             this.valueExdr = UtilValidate.isNotEmpty(setElement.getAttribute("value")) ? new FlexibleStringExpander(setElement.getAttribute("value")) : null;
             this.globalExdr = new FlexibleStringExpander(setElement.getAttribute("global"));
             this.type = setElement.getAttribute("type");
@@ -154,14 +153,14 @@ public abstract class ModelTreeAction {
             this.field.put(context, newValue);
             
             if (global) {
-                Map globalCtx = (Map) context.get("globalContext");
+                Map<String, Object> globalCtx = UtilGenerics.checkMap(context.get("globalContext"));
                 if (globalCtx != null) {
                     this.field.put(globalCtx, newValue);
                 }
             }
             
             // this is a hack for backward compatibility with the JPublish page object
-            Map page = (Map) context.get("page");
+            Map<String, Object> page = UtilGenerics.checkMap(context.get("page"));
             if (page != null) {
                 this.field.put(page, newValue);
             }
@@ -189,10 +188,13 @@ public abstract class ModelTreeAction {
                     Object obj = context.get("_LIST_ITERATOR_");
                     if (this.modelSubNode != null) {
                         if (obj != null && (obj instanceof EntityListIterator || obj instanceof ListIterator)) {
-                            this.modelSubNode.setListIterator((ListIterator)obj);
+                            ListIterator<? extends Map<String, ? extends Object>> listIt = UtilGenerics.cast(obj);
+                            this.modelSubNode.setListIterator(listIt);
                         } else {
-                            if (obj instanceof List)
-                                this.modelSubNode.setListIterator(((List)obj).listIterator());
+                            if (obj instanceof List) {
+                                List<? extends Map<String, ? extends Object>> list = UtilGenerics.checkList(obj);
+                                this.modelSubNode.setListIterator(list.listIterator());
+                            }
                         }
                     }
                 } catch (GeneralException e) {
@@ -208,7 +210,7 @@ public abstract class ModelTreeAction {
 
     public static class Service extends ModelTreeAction {
         protected FlexibleStringExpander serviceNameExdr;
-        protected FlexibleMapAccessor resultMapNameAcsr;
+        protected FlexibleMapAccessor<Map<String, Object>> resultMapNameAcsr;
         protected FlexibleStringExpander autoFieldMapExdr;
         protected FlexibleStringExpander resultMapListNameExdr;
         protected FlexibleStringExpander resultMapListIteratorNameExdr;
@@ -229,7 +231,7 @@ public abstract class ModelTreeAction {
         public void initService( Element serviceElement ) {
             
             this.serviceNameExdr = new FlexibleStringExpander(serviceElement.getAttribute("service-name"));
-            this.resultMapNameAcsr = UtilValidate.isNotEmpty(serviceElement.getAttribute("result-map-name")) ? new FlexibleMapAccessor(serviceElement.getAttribute("result-map-name")) : null;
+            this.resultMapNameAcsr = UtilValidate.isNotEmpty(serviceElement.getAttribute("result-map-name")) ? new FlexibleMapAccessor<Map<String, Object>>(serviceElement.getAttribute("result-map-name")) : null;
             this.autoFieldMapExdr = new FlexibleStringExpander(serviceElement.getAttribute("auto-field-map"));
             this.resultMapListNameExdr = new FlexibleStringExpander(serviceElement.getAttribute("result-map-list-name"));
             this.resultMapListIteratorNameExdr = new FlexibleStringExpander(serviceElement.getAttribute("result-map-list-iterator-name"));
@@ -252,7 +254,7 @@ public abstract class ModelTreeAction {
                 if (autoFieldMapBool) {
                     serviceContext = this.modelTree.getDispatcher().getDispatchContext().makeValidContext(serviceNameExpanded, ModelService.IN_PARAM, context);
                 } else {
-                    serviceContext = new HashMap<String, Object>();
+                    serviceContext = FastMap.newInstance();
                 }
                 
                 if (this.fieldMap != null) {
@@ -285,9 +287,10 @@ public abstract class ModelTreeAction {
                 if (this.modelSubNode != null) {
                     //ListIterator iter = null;
                     if (UtilValidate.isNotEmpty(resultMapListIteratorName)) {
-                        this.modelSubNode.setListIterator((ListIterator)result.get(resultMapListIteratorName));
+                        ListIterator<? extends Map<String, ? extends Object>> listIt = UtilGenerics.cast(result.get(resultMapListIteratorName));
+                        this.modelSubNode.setListIterator(listIt);
                     } else if (UtilValidate.isNotEmpty(resultMapListName)) {
-                        List lst = (List)result.get(resultMapListName);
+                        List<? extends Map<String, ? extends Object>> lst = UtilGenerics.checkList(result.get(resultMapListName));
                         if (lst != null ) {
                             this.modelSubNode.setListIterator(lst.listIterator());
                         }
@@ -353,9 +356,13 @@ public abstract class ModelTreeAction {
                 finder.runFind(context, this.modelTree.getDelegator());
                 Object obj = context.get(this.listName);
                 if (obj != null && (obj instanceof EntityListIterator || obj instanceof ListIterator)) {
-                    this.modelSubNode.setListIterator((ListIterator)obj);
+                    ListIterator<? extends Map<String, ? extends Object>> listIt = UtilGenerics.cast(obj);
+                    this.modelSubNode.setListIterator(listIt);
                 } else {
-                    if (obj instanceof List) this.modelSubNode.setListIterator(((List)obj).listIterator());
+                    if (obj instanceof List) {
+                        List<? extends Map<String, ? extends Object>> list = UtilGenerics.checkList(obj);
+                        this.modelSubNode.setListIterator(list.listIterator());
+                    }
                 }
             } catch (GeneralException e) {
                 String errMsg = "Error doing entity query by condition: " + e.toString();
@@ -387,9 +394,13 @@ public abstract class ModelTreeAction {
                 finder.runFind(context, this.modelTree.getDelegator());
                 Object obj = context.get(this.listName);
                 if (obj != null && (obj instanceof EntityListIterator || obj instanceof ListIterator)) {
-                    this.modelSubNode.setListIterator((ListIterator)obj);
+                    ListIterator<? extends Map<String, ? extends Object>> listIt = UtilGenerics.cast(obj);
+                    this.modelSubNode.setListIterator(listIt);
                 } else {
-                    if (obj instanceof List) this.modelSubNode.setListIterator(((List)obj).listIterator());
+                    if (obj instanceof List) {
+                        List<? extends Map<String, ? extends Object>> list = UtilGenerics.cast(obj);
+                        this.modelSubNode.setListIterator(list.listIterator());
+                    }
                 }
             } catch (GeneralException e) {
                 String errMsg = "Error doing entity query by condition: " + e.toString();

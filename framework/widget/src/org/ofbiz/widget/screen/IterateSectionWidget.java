@@ -50,7 +50,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
     
     protected ModelScreenWidget childWidget;
     protected List<ModelScreenWidget.Section> sectionList;
-    protected FlexibleMapAccessor listNameExdr;
+    protected FlexibleMapAccessor<Object> listNameExdr;
     protected FlexibleStringExpander entryNameExdr;
     protected FlexibleStringExpander keyNameExdr;
     protected FlexibleStringExpander paginateTarget;
@@ -67,7 +67,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
 
     public IterateSectionWidget(ModelScreen modelScreen, Element iterateSectionElement) {
         super(modelScreen, iterateSectionElement);
-        listNameExdr = new FlexibleMapAccessor(iterateSectionElement.getAttribute("list-name"));
+        listNameExdr = new FlexibleMapAccessor<Object>(iterateSectionElement.getAttribute("list-name"));
         entryNameExdr = new FlexibleStringExpander(iterateSectionElement.getAttribute("entry-name"));
         keyNameExdr = new FlexibleStringExpander(iterateSectionElement.getAttribute("key-name"));
         if (this.paginateTarget == null || iterateSectionElement.hasAttribute("paginate-target"))
@@ -133,9 +133,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
             contextMs.put("itemIndex", Integer.valueOf(itemIndex));
             
             rowCount++;
-            Iterator sectionIter = this.sectionList.iterator();
-            while (sectionIter.hasNext()) {
-                ModelScreenWidget.Section section = (ModelScreenWidget.Section)sectionIter.next();
+            for (ModelScreenWidget.Section section: this.sectionList) {
                 section.renderWidgetString(writer, contextMs, screenStringRenderer);
             }
         }

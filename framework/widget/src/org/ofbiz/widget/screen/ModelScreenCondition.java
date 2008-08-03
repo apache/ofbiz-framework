@@ -324,13 +324,13 @@ public class ModelScreenCondition implements Serializable {
     }
 
     public static class IfValidateMethod extends ScreenCondition {
-        protected FlexibleMapAccessor fieldAcsr;
+        protected FlexibleMapAccessor<Object> fieldAcsr;
         protected FlexibleStringExpander methodExdr;
         protected FlexibleStringExpander classExdr;
         
         public IfValidateMethod(ModelScreen modelScreen, Element condElement) {
             super (modelScreen, condElement);
-            this.fieldAcsr = new FlexibleMapAccessor(condElement.getAttribute("field-name"));
+            this.fieldAcsr = new FlexibleMapAccessor<Object>(condElement.getAttribute("field-name"));
             this.methodExdr = new FlexibleStringExpander(condElement.getAttribute("method"));
             this.classExdr = new FlexibleStringExpander(condElement.getAttribute("class"));
         }
@@ -383,7 +383,7 @@ public class ModelScreenCondition implements Serializable {
     }
     
     public static class IfCompare extends ScreenCondition {
-        protected FlexibleMapAccessor fieldAcsr;
+        protected FlexibleMapAccessor<Object> fieldAcsr;
         protected FlexibleStringExpander valueExdr;
 
         protected String operator;
@@ -392,7 +392,7 @@ public class ModelScreenCondition implements Serializable {
         
         public IfCompare(ModelScreen modelScreen, Element condElement) {
             super (modelScreen, condElement);
-            this.fieldAcsr = new FlexibleMapAccessor(condElement.getAttribute("field-name"));
+            this.fieldAcsr = new FlexibleMapAccessor<Object>(condElement.getAttribute("field-name"));
             this.valueExdr = new FlexibleStringExpander(condElement.getAttribute("value"));
             
             this.operator = condElement.getAttribute("operator");
@@ -432,8 +432,8 @@ public class ModelScreenCondition implements Serializable {
     }
     
     public static class IfCompareField extends ScreenCondition {
-        protected FlexibleMapAccessor fieldAcsr;
-        protected FlexibleMapAccessor toFieldAcsr;
+        protected FlexibleMapAccessor<Object> fieldAcsr;
+        protected FlexibleMapAccessor<Object> toFieldAcsr;
 
         protected String operator;
         protected String type;
@@ -441,8 +441,8 @@ public class ModelScreenCondition implements Serializable {
         
         public IfCompareField(ModelScreen modelScreen, Element condElement) {
             super (modelScreen, condElement);
-            this.fieldAcsr = new FlexibleMapAccessor(condElement.getAttribute("field-name"));
-            this.toFieldAcsr = new FlexibleMapAccessor(condElement.getAttribute("to-field-name"));
+            this.fieldAcsr = new FlexibleMapAccessor<Object>(condElement.getAttribute("field-name"));
+            this.toFieldAcsr = new FlexibleMapAccessor<Object>(condElement.getAttribute("to-field-name"));
             
             this.operator = condElement.getAttribute("operator");
             this.type = condElement.getAttribute("type");
@@ -484,12 +484,12 @@ public class ModelScreenCondition implements Serializable {
         static PatternMatcher matcher = new Perl5Matcher();
         static PatternCompiler compiler = new Perl5Compiler();
 
-        protected FlexibleMapAccessor fieldAcsr;
+        protected FlexibleMapAccessor<Object> fieldAcsr;
         protected FlexibleStringExpander exprExdr;
         
         public IfRegexp(ModelScreen modelScreen, Element condElement) {
             super (modelScreen, condElement);
-            this.fieldAcsr = new FlexibleMapAccessor(condElement.getAttribute("field-name"));
+            this.fieldAcsr = new FlexibleMapAccessor<Object>(condElement.getAttribute("field-name"));
             this.exprExdr = new FlexibleStringExpander(condElement.getAttribute("expr"));
         }
         
@@ -519,11 +519,11 @@ public class ModelScreenCondition implements Serializable {
     }
     
     public static class IfEmpty extends ScreenCondition {
-        protected FlexibleMapAccessor fieldAcsr;
+        protected FlexibleMapAccessor<Object> fieldAcsr;
         
         public IfEmpty(ModelScreen modelScreen, Element condElement) {
             super (modelScreen, condElement);
-            this.fieldAcsr = new FlexibleMapAccessor(condElement.getAttribute("field-name"));
+            this.fieldAcsr = new FlexibleMapAccessor<Object>(condElement.getAttribute("field-name"));
         }
         
         public boolean eval(Map<String, Object> context) {

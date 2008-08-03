@@ -78,12 +78,9 @@ public class ModelTreeCondition {
         public abstract boolean eval(Map<String, Object> context);
     }
     
-    public static List readSubConditions(ModelTree modelTree, Element conditionElement) {
+    public static List<TreeCondition> readSubConditions(ModelTree modelTree, Element conditionElement) {
         List<TreeCondition> condList = FastList.newInstance();
-        List subElementList = UtilXml.childElementList(conditionElement);
-        Iterator subElementIter = subElementList.iterator();
-        while (subElementIter.hasNext()) {
-            Element subElement = (Element) subElementIter.next();
+        for (Element subElement: UtilXml.childElementList(conditionElement)) {
             condList.add(readCondition(modelTree, subElement));
         }
         return condList;
@@ -121,7 +118,7 @@ public class ModelTreeCondition {
     }
     
     public static class And extends TreeCondition {
-        protected List subConditions;
+        protected List<TreeCondition> subConditions;
         
         public And(ModelTree modelTree, Element condElement) {
             super (modelTree, condElement);
@@ -130,9 +127,7 @@ public class ModelTreeCondition {
         
         public boolean eval(Map<String, Object> context) {
             // return false for the first one in the list that is false, basic and algo
-            Iterator subConditionIter = this.subConditions.iterator();
-            while (subConditionIter.hasNext()) {
-                TreeCondition subCondition = (TreeCondition) subConditionIter.next();
+            for (TreeCondition subCondition: subConditions) {
                 if (!subCondition.eval(context)) {
                     return false;
                 }
@@ -142,7 +137,7 @@ public class ModelTreeCondition {
     }
     
     public static class Xor extends TreeCondition {
-        protected List subConditions;
+        protected List<TreeCondition> subConditions;
         
         public Xor(ModelTree modelTree, Element condElement) {
             super (modelTree, condElement);
@@ -152,9 +147,7 @@ public class ModelTreeCondition {
         public boolean eval(Map<String, Object> context) {
             // if more than one is true stop immediately and return false; if all are false return false; if only one is true return true
             boolean foundOneTrue = false;
-            Iterator subConditionIter = this.subConditions.iterator();
-            while (subConditionIter.hasNext()) {
-                TreeCondition subCondition = (TreeCondition) subConditionIter.next();
+            for (TreeCondition subCondition: subConditions) {
                 if (subCondition.eval(context)) {
                     if (foundOneTrue) {
                         // now found two true, so return false
@@ -169,7 +162,7 @@ public class ModelTreeCondition {
     }
     
     public static class Or extends TreeCondition {
-        protected List subConditions;
+        protected List<TreeCondition> subConditions;
         
         public Or(ModelTree modelTree, Element condElement) {
             super (modelTree, condElement);
@@ -178,9 +171,7 @@ public class ModelTreeCondition {
         
         public boolean eval(Map<String, Object> context) {
             // return true for the first one in the list that is true, basic or algo
-            Iterator subConditionIter = this.subConditions.iterator();
-            while (subConditionIter.hasNext()) {
-                TreeCondition subCondition = (TreeCondition) subConditionIter.next();
+            for (TreeCondition subCondition: subConditions) {
                 if (subCondition.eval(context)) {
                     return true;
                 }
@@ -238,13 +229,13 @@ public class ModelTreeCondition {
     }
 
     public static class IfValidateMethod extends TreeCondition {
-        protected FlexibleMapAccessor fieldAcsr;
+        protected FlexibleMapAccessor<Object> fieldAcsr;
         protected FlexibleStringExpander methodExdr;
         protected FlexibleStringExpander classExdr;
         
         public IfValidateMethod(ModelTree modelTree, Element condElement) {
             super (modelTree, condElement);
-            this.fieldAcsr = new FlexibleMapAccessor(condElement.getAttribute("field-name"));
+            this.fieldAcsr = new FlexibleMapAccessor<Object>(condElement.getAttribute("field-name"));
             this.methodExdr = new FlexibleStringExpander(condElement.getAttribute("method"));
             this.classExdr = new FlexibleStringExpander(condElement.getAttribute("class"));
         }
@@ -297,7 +288,7 @@ public class ModelTreeCondition {
     }
     
     public static class IfCompare extends TreeCondition {
-        protected FlexibleMapAccessor fieldAcsr;
+        protected FlexibleMapAccessor<Object> fieldAcsr;
         protected FlexibleStringExpander valueExdr;
 
         protected String operator;
@@ -306,7 +297,7 @@ public class ModelTreeCondition {
         
         public IfCompare(ModelTree modelTree, Element condElement) {
             super (modelTree, condElement);
-            this.fieldAcsr = new FlexibleMapAccessor(condElement.getAttribute("field-name"));
+            this.fieldAcsr = new FlexibleMapAccessor<Object>(condElement.getAttribute("field-name"));
             this.valueExdr = new FlexibleStringExpander(condElement.getAttribute("value"));
             
             this.operator = condElement.getAttribute("operator");
@@ -346,8 +337,8 @@ public class ModelTreeCondition {
     }
     
     public static class IfCompareField extends TreeCondition {
-        protected FlexibleMapAccessor fieldAcsr;
-        protected FlexibleMapAccessor toFieldAcsr;
+        protected FlexibleMapAccessor<Object> fieldAcsr;
+        protected FlexibleMapAccessor<Object> toFieldAcsr;
 
         protected String operator;
         protected String type;
@@ -355,8 +346,8 @@ public class ModelTreeCondition {
         
         public IfCompareField(ModelTree modelTree, Element condElement) {
             super (modelTree, condElement);
-            this.fieldAcsr = new FlexibleMapAccessor(condElement.getAttribute("field-name"));
-            this.toFieldAcsr = new FlexibleMapAccessor(condElement.getAttribute("to-field-name"));
+            this.fieldAcsr = new FlexibleMapAccessor<Object>(condElement.getAttribute("field-name"));
+            this.toFieldAcsr = new FlexibleMapAccessor<Object>(condElement.getAttribute("to-field-name"));
             
             this.operator = condElement.getAttribute("operator");
             this.type = condElement.getAttribute("type");
@@ -398,12 +389,12 @@ public class ModelTreeCondition {
         static PatternMatcher matcher = new Perl5Matcher();
         static PatternCompiler compiler = new Perl5Compiler();
 
-        protected FlexibleMapAccessor fieldAcsr;
+        protected FlexibleMapAccessor<Object> fieldAcsr;
         protected FlexibleStringExpander exprExdr;
         
         public IfRegexp(ModelTree modelTree, Element condElement) {
             super (modelTree, condElement);
-            this.fieldAcsr = new FlexibleMapAccessor(condElement.getAttribute("field-name"));
+            this.fieldAcsr = new FlexibleMapAccessor<Object>(condElement.getAttribute("field-name"));
             this.exprExdr = new FlexibleStringExpander(condElement.getAttribute("expr"));
         }
         
@@ -433,11 +424,11 @@ public class ModelTreeCondition {
     }
     
     public static class IfEmpty extends TreeCondition {
-        protected FlexibleMapAccessor fieldAcsr;
+        protected FlexibleMapAccessor<Object> fieldAcsr;
         
         public IfEmpty(ModelTree modelTree, Element condElement) {
             super (modelTree, condElement);
-            this.fieldAcsr = new FlexibleMapAccessor(condElement.getAttribute("field-name"));
+            this.fieldAcsr = new FlexibleMapAccessor<Object>(condElement.getAttribute("field-name"));
         }
         
         public boolean eval(Map<String, Object> context) {

@@ -87,7 +87,7 @@ public class ModelForm extends ModelWidget {
     protected String tooltip;
     protected String listName;
     protected String listEntryName;
-    protected FlexibleMapAccessor defaultMapName;
+    protected FlexibleMapAccessor<Map<String, ? extends Object>> defaultMapName;
     protected String defaultEntityName;
     protected String defaultServiceName;
     protected String formTitleAreaStyle;
@@ -1785,8 +1785,8 @@ public class ModelForm extends ModelWidget {
         return this.defaultMapName.getOriginalName();
     }
 
-    public Map getDefaultMap(Map<String, Object> context) {
-        return (Map) this.defaultMapName.get(context);
+    public Map<String, ? extends Object> getDefaultMap(Map<String, ? extends Object> context) {
+        return this.defaultMapName.get(context);
     }
     
     /**
@@ -2040,7 +2040,7 @@ public class ModelForm extends ModelWidget {
      * @param string
      */
     public void setDefaultMapName(String string) {
-        this.defaultMapName = new FlexibleMapAccessor(string);
+        this.defaultMapName = new FlexibleMapAccessor<Map<String, ? extends Object>>(string);
     }
 
     /**

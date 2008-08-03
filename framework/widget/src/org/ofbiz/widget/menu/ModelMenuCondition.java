@@ -331,13 +331,13 @@ public class ModelMenuCondition {
     }
 
     public static class IfValidateMethod extends MenuCondition {
-        protected FlexibleMapAccessor fieldAcsr;
+        protected FlexibleMapAccessor<Object> fieldAcsr;
         protected FlexibleStringExpander methodExdr;
         protected FlexibleStringExpander classExdr;
         
         public IfValidateMethod(ModelMenuItem modelMenuItem, Element condElement) {
             super (modelMenuItem, condElement);
-            this.fieldAcsr = new FlexibleMapAccessor(condElement.getAttribute("field-name"));
+            this.fieldAcsr = new FlexibleMapAccessor<Object>(condElement.getAttribute("field-name"));
             this.methodExdr = new FlexibleStringExpander(condElement.getAttribute("method"));
             this.classExdr = new FlexibleStringExpander(condElement.getAttribute("class"));
         }
@@ -390,7 +390,7 @@ public class ModelMenuCondition {
     }
     
     public static class IfCompare extends MenuCondition {
-        protected FlexibleMapAccessor fieldAcsr;
+        protected FlexibleMapAccessor<Object> fieldAcsr;
         protected FlexibleStringExpander valueExdr;
 
         protected String operator;
@@ -399,7 +399,7 @@ public class ModelMenuCondition {
         
         public IfCompare(ModelMenuItem modelMenuItem, Element condElement) {
             super (modelMenuItem, condElement);
-            this.fieldAcsr = new FlexibleMapAccessor(condElement.getAttribute("field-name"));
+            this.fieldAcsr = new FlexibleMapAccessor<Object>(condElement.getAttribute("field-name"));
             this.valueExdr = new FlexibleStringExpander(condElement.getAttribute("value"));
             
             this.operator = condElement.getAttribute("operator");
@@ -439,8 +439,8 @@ public class ModelMenuCondition {
     }
     
     public static class IfCompareField extends MenuCondition {
-        protected FlexibleMapAccessor fieldAcsr;
-        protected FlexibleMapAccessor toFieldAcsr;
+        protected FlexibleMapAccessor<Object> fieldAcsr;
+        protected FlexibleMapAccessor<Object> toFieldAcsr;
 
         protected String operator;
         protected String type;
@@ -448,8 +448,8 @@ public class ModelMenuCondition {
         
         public IfCompareField(ModelMenuItem modelMenuItem, Element condElement) {
             super (modelMenuItem, condElement);
-            this.fieldAcsr = new FlexibleMapAccessor(condElement.getAttribute("field-name"));
-            this.toFieldAcsr = new FlexibleMapAccessor(condElement.getAttribute("to-field-name"));
+            this.fieldAcsr = new FlexibleMapAccessor<Object>(condElement.getAttribute("field-name"));
+            this.toFieldAcsr = new FlexibleMapAccessor<Object>(condElement.getAttribute("to-field-name"));
             
             this.operator = condElement.getAttribute("operator");
             this.type = condElement.getAttribute("type");
@@ -491,12 +491,12 @@ public class ModelMenuCondition {
         static PatternMatcher matcher = new Perl5Matcher();
         static PatternCompiler compiler = new Perl5Compiler();
 
-        protected FlexibleMapAccessor fieldAcsr;
+        protected FlexibleMapAccessor<Object> fieldAcsr;
         protected FlexibleStringExpander exprExdr;
         
         public IfRegexp(ModelMenuItem modelMenuItem, Element condElement) {
             super (modelMenuItem, condElement);
-            this.fieldAcsr = new FlexibleMapAccessor(condElement.getAttribute("field-name"));
+            this.fieldAcsr = new FlexibleMapAccessor<Object>(condElement.getAttribute("field-name"));
             this.exprExdr = new FlexibleStringExpander(condElement.getAttribute("expr"));
         }
         
@@ -526,11 +526,11 @@ public class ModelMenuCondition {
     }
     
     public static class IfEmpty extends MenuCondition {
-        protected FlexibleMapAccessor fieldAcsr;
+        protected FlexibleMapAccessor<Object> fieldAcsr;
         
         public IfEmpty(ModelMenuItem modelMenuItem, Element condElement) {
             super (modelMenuItem, condElement);
-            this.fieldAcsr = new FlexibleMapAccessor(condElement.getAttribute("field-name"));
+            this.fieldAcsr = new FlexibleMapAccessor<Object>(condElement.getAttribute("field-name"));
         }
         
         public boolean eval(Map<String, Object> context) {
