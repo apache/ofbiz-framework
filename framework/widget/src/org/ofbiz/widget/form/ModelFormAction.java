@@ -292,7 +292,7 @@ public abstract class ModelFormAction {
         protected FlexibleMapAccessor<Map<String, Object>> resultMapNameAcsr;
         protected FlexibleStringExpander autoFieldMapExdr;
         protected FlexibleStringExpander resultMapListNameExdr;
-        protected Map<FlexibleMapAccessor, Object> fieldMap;
+        protected Map<FlexibleMapAccessor<Object>, Object> fieldMap;
         
         public Service(ModelForm modelForm, Element serviceElement) {
             super (modelForm, serviceElement);

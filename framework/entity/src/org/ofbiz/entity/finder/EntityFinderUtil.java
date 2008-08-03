@@ -28,10 +28,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javolution.util.FastMap;
+
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.ObjectType;
+import static org.ofbiz.base.util.UtilGenerics.cast;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
@@ -59,11 +62,11 @@ public class EntityFinderUtil {
     
     public static final String module = EntityFinderUtil.class.getName();         
     
-    public static Map<FlexibleMapAccessor, Object> makeFieldMap(Element element) {
-        Map<FlexibleMapAccessor, Object> fieldMap = null;
+    public static Map<FlexibleMapAccessor<Object>, Object> makeFieldMap(Element element) {
+        Map<FlexibleMapAccessor<Object>, Object> fieldMap = null;
         List<? extends Element> fieldMapElementList = UtilXml.childElementList(element, "field-map");
         if (fieldMapElementList.size() > 0) {
-            fieldMap = new HashMap<FlexibleMapAccessor, Object>();
+            fieldMap = FastMap.newInstance();
             for (Element fieldMapElement: fieldMapElementList) {
                 // set the env-name for each field-name, noting that if no field-name is specified it defaults to the env-name
                 String fieldName = fieldMapElement.getAttribute("field-name");
@@ -71,17 +74,17 @@ public class EntityFinderUtil {
                 String value = fieldMapElement.getAttribute("value");
                 if (UtilValidate.isEmpty(fieldName)) {
                     // no fieldName, use envName for both
-                    fieldMap.put(new FlexibleMapAccessor(envName), new FlexibleMapAccessor(envName));
+                    fieldMap.put(new FlexibleMapAccessor<Object>(envName), new FlexibleMapAccessor<Object>(envName));
                 } else {
                     if (UtilValidate.isNotEmpty(value)) {
-                        fieldMap.put(new FlexibleMapAccessor(fieldName), new FlexibleStringExpander(value));
+                        fieldMap.put(new FlexibleMapAccessor<Object>(fieldName), new FlexibleStringExpander(value));
                     } else {
                         // at this point we have a fieldName and no value, do we have a envName?
                         if (UtilValidate.isNotEmpty(envName)) {
-                            fieldMap.put(new FlexibleMapAccessor(fieldName), new FlexibleMapAccessor(envName));
+                            fieldMap.put(new FlexibleMapAccessor<Object>(fieldName), new FlexibleMapAccessor<Object>(envName));
                         } else {
                             // no envName, use fieldName for both
-                            fieldMap.put(new FlexibleMapAccessor(fieldName), new FlexibleMapAccessor(fieldName));
+                            fieldMap.put(new FlexibleMapAccessor<Object>(fieldName), new FlexibleMapAccessor<Object>(fieldName));
                         }
                     }
                 }
@@ -90,14 +93,14 @@ public class EntityFinderUtil {
         return fieldMap;
     }
 
-    public static void expandFieldMapToContext(Map<FlexibleMapAccessor, Object> fieldMap, Map<String, Object> context, Map<String, Object> outContext) {
+    public static void expandFieldMapToContext(Map<FlexibleMapAccessor<Object>, Object> fieldMap, Map<String, Object> context, Map<String, Object> outContext) {
         //Debug.logInfo("fieldMap: " + fieldMap, module);
         if (fieldMap != null) {
-            for (Map.Entry<FlexibleMapAccessor, Object> entry: fieldMap.entrySet()) {
-                FlexibleMapAccessor serviceContextFieldAcsr = entry.getKey();
+            for (Map.Entry<FlexibleMapAccessor<Object>, Object> entry: fieldMap.entrySet()) {
+                FlexibleMapAccessor<Object> serviceContextFieldAcsr = entry.getKey();
                 Object valueSrc = entry.getValue();
                 if (valueSrc instanceof FlexibleMapAccessor) {
-                    FlexibleMapAccessor contextEnvAcsr = (FlexibleMapAccessor) valueSrc;
+                    FlexibleMapAccessor<Object> contextEnvAcsr = cast(valueSrc);
                     serviceContextFieldAcsr.put(outContext, contextEnvAcsr.get(context));
                 } else if (valueSrc instanceof FlexibleStringExpander) {
                     FlexibleStringExpander valueExdr = (FlexibleStringExpander) valueSrc;
@@ -149,7 +152,7 @@ public class EntityFinderUtil {
     public static class ConditionExpr implements Condition {
         protected FlexibleStringExpander fieldNameExdr;
         protected FlexibleStringExpander operatorExdr;
-        protected FlexibleMapAccessor envNameAcsr;
+        protected FlexibleMapAccessor<Object> envNameAcsr;
         protected FlexibleStringExpander valueExdr;
         protected boolean ignoreIfNull;
         protected boolean ignoreIfEmpty;
@@ -163,7 +166,7 @@ public class EntityFinderUtil {
             }
 
             this.operatorExdr = new FlexibleStringExpander(UtilFormatOut.checkEmpty(conditionExprElement.getAttribute("operator"), "equals"));
-            this.envNameAcsr = new FlexibleMapAccessor(conditionExprElement.getAttribute("env-name"));
+            this.envNameAcsr = new FlexibleMapAccessor<Object>(conditionExprElement.getAttribute("env-name"));
             this.valueExdr = new FlexibleStringExpander(conditionExprElement.getAttribute("value"));
             this.ignoreIfNull = "true".equals(conditionExprElement.getAttribute("ignore-if-null"));
             this.ignoreIfEmpty = "true".equals(conditionExprElement.getAttribute("ignore-if-empty"));
@@ -295,13 +298,13 @@ public class EntityFinderUtil {
         }
     }
     public static class ConditionObject implements Condition {
-        protected FlexibleMapAccessor fieldNameAcsr;
+        protected FlexibleMapAccessor<Object> fieldNameAcsr;
         
         public ConditionObject(Element conditionExprElement) {
-            this.fieldNameAcsr = new FlexibleMapAccessor(conditionExprElement.getAttribute("field-name"));
+            this.fieldNameAcsr = new FlexibleMapAccessor<Object>(conditionExprElement.getAttribute("field-name"));
             if (this.fieldNameAcsr.isEmpty()) {
                 // no "field-name"? try "name"
-                this.fieldNameAcsr = new FlexibleMapAccessor(conditionExprElement.getAttribute("name"));
+                this.fieldNameAcsr = new FlexibleMapAccessor<Object>(conditionExprElement.getAttribute("name"));
             }
         }
         
@@ -312,8 +315,8 @@ public class EntityFinderUtil {
     }
     
     public static interface OutputHandler extends Serializable {
-        public void handleOutput(EntityListIterator eli, Map<String, Object> context, FlexibleMapAccessor listAcsr);
-        public void handleOutput(List<GenericValue> results, Map<String, Object> context, FlexibleMapAccessor listAcsr);
+        public void handleOutput(EntityListIterator eli, Map<String, Object> context, FlexibleMapAccessor<Object> listAcsr);
+        public void handleOutput(List<GenericValue> results, Map<String, Object> context, FlexibleMapAccessor<Object> listAcsr);
     }
     public static class LimitRange implements OutputHandler {
         FlexibleStringExpander startExdr;
@@ -346,7 +349,7 @@ public class EntityFinderUtil {
             }
         }
         
-        public void handleOutput(EntityListIterator eli, Map<String, Object> context, FlexibleMapAccessor listAcsr) {
+        public void handleOutput(EntityListIterator eli, Map<String, Object> context, FlexibleMapAccessor<Object> listAcsr) {
             int start = getStart(context);
             int size = getSize(context);
             try {
@@ -359,7 +362,7 @@ public class EntityFinderUtil {
             }
         }
 
-        public void handleOutput(List<GenericValue> results, Map<String, Object> context, FlexibleMapAccessor listAcsr) {
+        public void handleOutput(List<GenericValue> results, Map<String, Object> context, FlexibleMapAccessor<Object> listAcsr) {
             int start = getStart(context);
             int size = getSize(context);
             
@@ -400,7 +403,7 @@ public class EntityFinderUtil {
             }
         }
         
-        public void handleOutput(EntityListIterator eli, Map<String, Object> context, FlexibleMapAccessor listAcsr) {
+        public void handleOutput(EntityListIterator eli, Map<String, Object> context, FlexibleMapAccessor<Object> listAcsr) {
             int index = this.getIndex(context);
             int size = this.getSize(context);
             
@@ -414,7 +417,7 @@ public class EntityFinderUtil {
             }
         }
 
-        public void handleOutput(List<GenericValue> results, Map<String, Object> context, FlexibleMapAccessor listAcsr) {
+        public void handleOutput(List<GenericValue> results, Map<String, Object> context, FlexibleMapAccessor<Object> listAcsr) {
             int index = this.getIndex(context);
             int size = this.getSize(context);
             
@@ -430,11 +433,11 @@ public class EntityFinderUtil {
             // no parameters, nothing to do
         }
         
-        public void handleOutput(EntityListIterator eli, Map<String, Object> context, FlexibleMapAccessor listAcsr) {
+        public void handleOutput(EntityListIterator eli, Map<String, Object> context, FlexibleMapAccessor<Object> listAcsr) {
             listAcsr.put(context, eli);
         }
 
-        public void handleOutput(List<GenericValue> results, Map<String, Object> context, FlexibleMapAccessor listAcsr) {
+        public void handleOutput(List<GenericValue> results, Map<String, Object> context, FlexibleMapAccessor<Object> listAcsr) {
             throw new IllegalArgumentException("Cannot handle output with use-iterator when the query is cached, or the result in general is not an EntityListIterator");
         }
     }
@@ -443,7 +446,7 @@ public class EntityFinderUtil {
             // no parameters, nothing to do
         }
         
-        public void handleOutput(EntityListIterator eli, Map<String, Object> context, FlexibleMapAccessor listAcsr) {
+        public void handleOutput(EntityListIterator eli, Map<String, Object> context, FlexibleMapAccessor<Object> listAcsr) {
             try {
                 listAcsr.put(context, eli.getCompleteList());
                 eli.close();
@@ -454,7 +457,7 @@ public class EntityFinderUtil {
             }
         }
 
-        public void handleOutput(List<GenericValue> results, Map<String, Object> context, FlexibleMapAccessor listAcsr) {
+        public void handleOutput(List<GenericValue> results, Map<String, Object> context, FlexibleMapAccessor<Object> listAcsr) {
             listAcsr.put(context, results);
         }
     }

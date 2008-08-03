@@ -38,7 +38,7 @@ public class ByAndFinder extends ListFinder {
     
     public static final String module = ByAndFinder.class.getName();         
     
-    protected Map<FlexibleMapAccessor, Object> fieldMap;
+    protected Map<FlexibleMapAccessor<Object>, Object> fieldMap;
 
     public ByAndFinder(Element element) {
         super(element, "and");

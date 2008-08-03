@@ -216,7 +216,7 @@ public abstract class ModelTreeAction {
         protected FlexibleStringExpander resultMapListIteratorNameExdr;
         protected FlexibleStringExpander resultMapValueNameExdr;
         protected FlexibleStringExpander valueNameExdr;
-        protected Map<FlexibleMapAccessor, Object> fieldMap;
+        protected Map<FlexibleMapAccessor<Object>, Object> fieldMap;
         
         public Service(ModelTree.ModelNode modelNode, Element serviceElement) {
             super (modelNode, serviceElement);

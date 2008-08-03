@@ -64,7 +64,7 @@ public abstract class ListFinder extends Finder {
     protected FlexibleStringExpander filterByDateStrExdr;
     protected FlexibleStringExpander distinctStrExdr;
     protected FlexibleStringExpander delegatorNameExdr;
-    protected FlexibleMapAccessor listAcsr;
+    protected FlexibleMapAccessor<Object> listAcsr;
     protected FlexibleStringExpander resultSetTypeExdr;
     
     protected List<FlexibleStringExpander> selectFieldExpanderList;
@@ -78,7 +78,7 @@ public abstract class ListFinder extends Finder {
         this.filterByDateStrExdr = new FlexibleStringExpander(element.getAttribute("filter-by-date"));
         this.distinctStrExdr = new FlexibleStringExpander(element.getAttribute("distinct"));
         this.delegatorNameExdr = new FlexibleStringExpander(element.getAttribute("delegator-name"));
-        this.listAcsr = new FlexibleMapAccessor(element.getAttribute("list-name"));
+        this.listAcsr = new FlexibleMapAccessor<Object>(element.getAttribute("list-name"));
         this.resultSetTypeExdr = new FlexibleStringExpander(element.getAttribute("result-set-type"));
 
         // process select-field
