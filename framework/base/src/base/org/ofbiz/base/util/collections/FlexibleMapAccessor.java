@@ -27,6 +27,10 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilGenerics;
+import static org.ofbiz.base.util.UtilGenerics.cast;
+import static org.ofbiz.base.util.UtilGenerics.checkList;
+import static org.ofbiz.base.util.UtilGenerics.checkMap;
 import org.ofbiz.base.util.UtilMisc;
 
 /**
@@ -35,7 +39,7 @@ import org.ofbiz.base.util.UtilMisc;
  * list elements. See individual Map operations for more information.
  *
  */
-public class FlexibleMapAccessor implements Serializable {
+public class FlexibleMapAccessor<T> implements Serializable {
     public static final String module = FlexibleMapAccessor.class.getName();
 
     protected String original;
@@ -111,7 +115,7 @@ public class FlexibleMapAccessor implements Serializable {
      * @param base
      * @return
      */
-    public Object get(Map base) {
+    public T get(Map<String, ? extends Object> base) {
         return get(base, null);
     }
     
@@ -122,16 +126,16 @@ public class FlexibleMapAccessor implements Serializable {
      * @param locale Optional locale parameter, if null will see if the base Map contains a "locale" key
      * @return
      */
-    public Object get(Map base, Locale locale) {
+    public T get(Map<String, ? extends Object> base, Locale locale) {
         if (base == null) {
             return null;
         }
         
         // so we can keep the passed context
-        Map newBase = null;
+        Map<String, ? extends Object> newBase = null;
         if (this.subMapAccessor != null) {
             try {
-                newBase = this.subMapAccessor.getSubMap(base, false);
+                newBase = this.subMapAccessor.getSubMap(base);
             } catch (Exception e) {
                 String errMsg = "Error getting map accessor sub-map [" + this.subMapAccessor.extName + "] as part of [" + this.original + "]: " + e.toString();
                 Debug.logError(e, errMsg, module);
@@ -143,9 +147,9 @@ public class FlexibleMapAccessor implements Serializable {
         }
         
         try {
-            Object ret = null;
+            T ret = null;
             if (this.isListReference) {
-                List lst = (List) newBase.get(this.extName);
+                List<T> lst = checkList(newBase.get(this.extName));
                 if (lst == null) {
                     return null;
                 }
@@ -170,12 +174,12 @@ public class FlexibleMapAccessor implements Serializable {
         }
     }
     
-    protected Object getByLocale(String name, Map base, Map sub, Locale locale) {
+    protected T getByLocale(String name, Map<String, ? extends Object> base, Map<String, ? extends Object> sub, Locale locale) {
         if (sub == null) {
             return null;
         }
         if (sub instanceof LocalizedMap) {
-            LocalizedMap locMap = (LocalizedMap) sub;
+            LocalizedMap<T> locMap = cast(sub);
             if (locale != null) {
                 return locMap.get(name, locale);
             } else if (base.containsKey("locale")) {
@@ -184,7 +188,7 @@ public class FlexibleMapAccessor implements Serializable {
                 return locMap.get(name, Locale.getDefault());
             }
         } else {
-            Object getReturn = sub.get(name);
+            T getReturn = UtilGenerics.<T>cast(sub.get(name));
             return getReturn;
         }
     }
@@ -197,19 +201,19 @@ public class FlexibleMapAccessor implements Serializable {
      * @param base
      * @param value
      */
-    public void put(Map base, Object value) {
+    public void put(Map<String, Object> base, T value) {
         if (base == null) {
             throw new IllegalArgumentException("Cannot put a value in a null base Map");
         }
         if (this.subMapAccessor != null) {
-            Map subBase = this.subMapAccessor.getSubMap(base, true);
+            Map<String, Object> subBase = this.subMapAccessor.getOrCreateSubMap(base);
             if (subBase == null) {
                 return;
             }
             base = subBase;
         }
         if (this.isListReference) {
-            List lst = (List) base.get(this.extName);
+            List<Object> lst = checkList(base.get(this.extName));
             if (lst == null) {
                 lst = FastList.newInstance();
                 base.put(this.extName, lst);
@@ -236,15 +240,16 @@ public class FlexibleMapAccessor implements Serializable {
      * @param base the Map to remove from
      * @return the object removed
      */
-    public Object remove(Map base) {
+    public T remove(Map<String, ? extends Object> base) {
         if (this.subMapAccessor != null) {
-            base = this.subMapAccessor.getSubMap(base, false);
+            base = this.subMapAccessor.getSubMap(base);
         }
+        if (base == null) return null;
         if (this.isListReference) {
-            List lst = (List) base.get(this.extName);
-            return lst.remove(this.listIndex);
+            List<Object> lst = checkList(base.get(this.extName));
+            return UtilGenerics.<T>cast(lst.remove(this.listIndex));
         } else {
-            return base.remove(this.extName);
+            return UtilGenerics.<T>cast(base.remove(this.extName));
         }
     }
     
@@ -295,35 +300,62 @@ public class FlexibleMapAccessor implements Serializable {
             }
         }
         
-        public Map getSubMap(Map base, boolean forPut) {
+        public <V> Map<String, V> getSubMap(Map<String, V> base) {
             if (base == null) return null;
             if (this.extName == null) return null;
             if (this.subMapAccessor != null) {
-                base = this.subMapAccessor.getSubMap(base, forPut);
+                base = this.subMapAccessor.getSubMap(base);
+            }
+            if (base == null) return null;
+            Object namedObj = base.get(this.extName);
+            if (this.isListReference && (namedObj == null || namedObj instanceof List)) {
+                List<? extends Object> lst = checkList(namedObj);
+                if (lst == null) return null;
+                
+                Map<String, V> extMap = null;
+                if (lst.size() > this.listIndex) {
+                    extMap = checkMap(lst.get(this.listIndex));
+                }
+                if (extMap == null) return null;
+                
+                return extMap;
+            } else if (namedObj instanceof Map) {
+                Map<String, V> extMap = checkMap(namedObj);
+                return extMap;
+            } else {
+                return null;
+            }
+        }
+
+        public Map<String, Object> getOrCreateSubMap(Map<String, Object> base) {
+            if (base == null) return null;
+            if (this.extName == null) return null;
+            if (this.subMapAccessor != null) {
+                base = this.subMapAccessor.getOrCreateSubMap(base);
             }
             Object namedObj = base.get(this.extName);
             if (this.isListReference && (namedObj == null || namedObj instanceof List)) {
-                List lst = (List) base.get(this.extName);
+                List<Object> lst = checkList(namedObj);
                 if (lst == null) {
                     lst = FastList.newInstance();
                     base.put(this.extName, lst);
                 }
                 
-                Map extMap = null;
+                Map<String, Object> extMap = null;
                 if (lst.size() > this.listIndex) {
-                    extMap = (Map) lst.get(this.listIndex);
+                    extMap = checkMap(lst.get(this.listIndex));
                 }
-                if (forPut && extMap == null) {
+                if (extMap == null) {
                     extMap = FastMap.newInstance();
                     lst.add(this.listIndex, extMap);
                 }
                 
                 return extMap;
             } else if (namedObj == null || namedObj instanceof Map) {
-                Map extMap = (Map) namedObj;
+                Map<String, Object> extMap = checkMap(namedObj);
                 
                 // this code creates a new Map if none is missing, but for a get or remove this is a bad idea...
-                if (forPut && extMap == null) {
+                if (extMap == null) {
                     extMap = FastMap.newInstance();
                     base.put(this.extName, extMap);
                 }

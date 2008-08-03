@@ -34,11 +34,11 @@ import org.ofbiz.base.util.string.FlexibleStringExpander;
  * list elements. See individual Map operations for more information.
  *
  */
-public class FlexibleServletAccessor implements Serializable {
+public class FlexibleServletAccessor<T> implements Serializable {
 
     protected String name;
     protected String attributeName;
-    protected FlexibleMapAccessor fma;
+    protected FlexibleMapAccessor<T> fma;
     protected boolean needsExpand;
     protected boolean empty;
 
@@ -59,7 +59,7 @@ public class FlexibleServletAccessor implements Serializable {
         if (name == null || name.length() == 0) {
             empty = true;
             needsExpand = false;
-            fma = new FlexibleMapAccessor(name);
+            fma = new FlexibleMapAccessor<T>(name);
             attributeName = name;
         } else {
             empty = false;
@@ -72,7 +72,7 @@ public class FlexibleServletAccessor implements Serializable {
                 int dotIndex = name.indexOf('.');
                 if (dotIndex != -1) {
                     attributeName = name.substring(0, dotIndex);
-                    fma = new FlexibleMapAccessor(name.substring(dotIndex+1));
+                    fma = new FlexibleMapAccessor<T>(name.substring(dotIndex+1));
                 } else {
                     attributeName = name;
                     fma = null;
@@ -92,8 +92,8 @@ public class FlexibleServletAccessor implements Serializable {
      * @param expandContext the context to use for name expansion
      * @return the object corresponding to this getter class
      */
-    public Object get(ServletRequest request, Map<String, Object> expandContext) {
-        AttributeAccessor aa = new AttributeAccessor(name, expandContext, this.attributeName, this.fma, this.needsExpand);
+    public T get(ServletRequest request, Map<String, Object> expandContext) {
+        AttributeAccessor<T> aa = new AttributeAccessor<T>(name, expandContext, this.attributeName, this.fma, this.needsExpand);
         return aa.get(request);
     }
 
@@ -102,8 +102,8 @@ public class FlexibleServletAccessor implements Serializable {
      * @param expandContext
      * @return
      */
-    public Object get(HttpSession session, Map<String, Object> expandContext) {
-        AttributeAccessor aa = new AttributeAccessor(name, expandContext, this.attributeName, this.fma, this.needsExpand);
+    public T get(HttpSession session, Map<String, Object> expandContext) {
+        AttributeAccessor<T> aa = new AttributeAccessor<T>(name, expandContext, this.attributeName, this.fma, this.needsExpand);
         return aa.get(session);
     }
 
@@ -116,8 +116,8 @@ public class FlexibleServletAccessor implements Serializable {
      * @param value
      * @param expandContext
      */
-    public void put(ServletRequest request, Object value, Map<String, Object> expandContext) {
-        AttributeAccessor aa = new AttributeAccessor(name, expandContext, this.attributeName, this.fma, this.needsExpand);
+    public void put(ServletRequest request, T value, Map<String, Object> expandContext) {
+        AttributeAccessor<T> aa = new AttributeAccessor<T>(name, expandContext, this.attributeName, this.fma, this.needsExpand);
         aa.put(request, value);
     }
     
@@ -130,8 +130,8 @@ public class FlexibleServletAccessor implements Serializable {
      * @param value
      * @param expandContext
      */
-    public void put(HttpSession session, Object value, Map<String, Object> expandContext) {
-        AttributeAccessor aa = new AttributeAccessor(name, expandContext, this.attributeName, this.fma, this.needsExpand);
+    public void put(HttpSession session, T value, Map<String, Object> expandContext) {
+        AttributeAccessor<T> aa = new AttributeAccessor<T>(name, expandContext, this.attributeName, this.fma, this.needsExpand);
         aa.put(session, value);
     }
     
@@ -140,8 +140,8 @@ public class FlexibleServletAccessor implements Serializable {
      * @param expandContext
      * @return
      */
-    public Object remove(ServletRequest request, Map<String, Object> expandContext) {
-        AttributeAccessor aa = new AttributeAccessor(name, expandContext, this.attributeName, this.fma, this.needsExpand);
+    public T remove(ServletRequest request, Map<String, Object> expandContext) {
+        AttributeAccessor<T> aa = new AttributeAccessor<T>(name, expandContext, this.attributeName, this.fma, this.needsExpand);
         return aa.remove(request);
     }
     
@@ -150,8 +150,8 @@ public class FlexibleServletAccessor implements Serializable {
      * @param expandContext
      * @return
      */
-    public Object remove(HttpSession session, Map<String, Object> expandContext) {
-        AttributeAccessor aa = new AttributeAccessor(name, expandContext, this.attributeName, this.fma, this.needsExpand);
+    public T remove(HttpSession session, Map<String, Object> expandContext) {
+        AttributeAccessor<T> aa = new AttributeAccessor<T>(name, expandContext, this.attributeName, this.fma, this.needsExpand);
         return aa.remove(session);
     }
     
@@ -189,10 +189,10 @@ public class FlexibleServletAccessor implements Serializable {
         return this.name;
     }
     
-    protected static class AttributeAccessor implements Serializable {
+    protected static class AttributeAccessor<T> implements Serializable {
         protected Map<String, Object> expandContext;
         protected String attributeName;
-        protected FlexibleMapAccessor fma;
+        protected FlexibleMapAccessor<T> fma;
         protected boolean isListReference;
         protected boolean isAddAtIndex;
         protected boolean isAddAtEnd;
@@ -200,7 +200,7 @@ public class FlexibleServletAccessor implements Serializable {
         protected int openBrace;
         protected int closeBrace;
         
-        public AttributeAccessor(String origName, Map<String, Object> expandContext, String defAttributeName, FlexibleMapAccessor defFma, boolean needsExpand) {
+        public AttributeAccessor(String origName, Map<String, Object> expandContext, String defAttributeName, FlexibleMapAccessor<T> defFma, boolean needsExpand) {
             attributeName = defAttributeName;
             fma = defFma;
             
@@ -209,7 +209,7 @@ public class FlexibleServletAccessor implements Serializable {
                 int dotIndex = name.indexOf('.');
                 if (dotIndex != -1) {
                     attributeName = name.substring(0, dotIndex);
-                    fma = new FlexibleMapAccessor(name.substring(dotIndex+1));
+                    fma = new FlexibleMapAccessor<T>(name.substring(dotIndex+1));
                 } else {
                     attributeName = name;
                     fma = null;
@@ -242,7 +242,7 @@ public class FlexibleServletAccessor implements Serializable {
         
         }
 
-        public Object get(ServletRequest request) {
+        public T get(ServletRequest request) {
             Object theValue = null;
             if (isListReference) {
                 List lst = (List) request.getAttribute(attributeName);
@@ -252,13 +252,13 @@ public class FlexibleServletAccessor implements Serializable {
             }
 
             if (fma != null) {
-                return fma.get((Map) theValue);
+                return fma.get(UtilGenerics.<String, Object>checkMap(theValue));
             } else {
-                return theValue;
+                return UtilGenerics.<T>cast(theValue);
             }
         }
 
-        public Object get(HttpSession session) {
+        public T get(HttpSession session) {
             Object theValue = null;
             if (isListReference) {
                 List lst = (List) session.getAttribute(attributeName);
@@ -268,13 +268,13 @@ public class FlexibleServletAccessor implements Serializable {
             }
 
             if (fma != null) {
-                return fma.get((Map) theValue);
+                return fma.get(UtilGenerics.<String, Object>checkMap(theValue));
             } else {
-                return theValue;
+                return UtilGenerics.<T>cast(theValue);
             }
         }
 
-        protected <T> void putInList(List<T> lst, T value) {
+        protected void putInList(List<T> lst, T value) {
             //if brackets are empty, append to list
             if (isAddAtEnd) {
                 lst.add(value);
@@ -287,7 +287,7 @@ public class FlexibleServletAccessor implements Serializable {
             }
         }
         
-        public <T> void put(ServletRequest request, T value) {
+        public void put(ServletRequest request, T value) {
             if (fma == null) {
                 if (isListReference) {
                     List<T> lst = UtilGenerics.checkList(request.getAttribute(attributeName));
@@ -306,7 +306,7 @@ public class FlexibleServletAccessor implements Serializable {
             }
         }
         
-        public <T> void put(HttpSession session, T value) {
+        public void put(HttpSession session, T value) {
             if (fma == null) {
                 if (isListReference) {
                     List<T> lst = UtilGenerics.checkList(session.getAttribute(attributeName));
@@ -325,44 +325,44 @@ public class FlexibleServletAccessor implements Serializable {
             }
         }
 
-        public Object remove(ServletRequest request) {
+        public T remove(ServletRequest request) {
             if (fma != null) {
                 Object theObj = request.getAttribute(attributeName);
                 if (isListReference) {
-                    List<?> lst = UtilGenerics.checkList(theObj);
+                    List<Object> lst = UtilGenerics.checkList(theObj);
                     return fma.remove(UtilGenerics.checkMap(lst.get(listIndex), String.class, Object.class));
                 } else {
                     return fma.remove(UtilGenerics.checkMap(theObj, String.class, Object.class));
                 }
             } else {
                 if (isListReference) {
-                    List<?> lst = UtilGenerics.checkList(request.getAttribute(attributeName));
-                    return lst.remove(listIndex);
+                    List<Object> lst = UtilGenerics.checkList(request.getAttribute(attributeName));
+                    return UtilGenerics.<T>cast(lst.remove(listIndex));
                 } else {
                     Object theValue = request.getAttribute(attributeName);
                     request.removeAttribute(attributeName);
-                    return theValue;
+                    return UtilGenerics.<T>cast(theValue);
                 }
             }
         }
 
-        public Object remove(HttpSession session) {
+        public T remove(HttpSession session) {
             if (fma != null) {
                 Object theObj = session.getAttribute(attributeName);
                 if (isListReference) {
-                    List<?> lst = UtilGenerics.checkList(theObj);
+                    List<Object> lst = UtilGenerics.checkList(theObj);
                     return fma.remove(UtilGenerics.checkMap(lst.get(listIndex), String.class, Object.class));
                 } else {
                     return fma.remove(UtilGenerics.checkMap(theObj, String.class, Object.class));
                 }
             } else {
                 if (isListReference) {
-                    List<?> lst = UtilGenerics.checkList(session.getAttribute(attributeName));
-                    return lst.remove(listIndex);
+                    List<Object> lst = UtilGenerics.checkList(session.getAttribute(attributeName));
+                    return UtilGenerics.<T>cast(lst.remove(listIndex));
                 } else {
                     Object theValue = session.getAttribute(attributeName);
                     session.removeAttribute(attributeName);
-                    return theValue;
+                    return UtilGenerics.<T>cast(theValue);
                 }
             }
         }
