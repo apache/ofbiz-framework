@@ -456,7 +456,7 @@ public abstract class ModelScreenAction implements Serializable {
                     combinedMap.putAll(context);
                     serviceContext = dc.makeValidContext(serviceNameExpanded, ModelService.IN_PARAM, combinedMap);
                 } else if (UtilValidate.isNotEmpty(autoFieldMapString) && !"false".equals(autoFieldMapString)) {
-                    FlexibleMapAccessor fieldFma = new FlexibleMapAccessor(autoFieldMapString);
+                    FlexibleMapAccessor<Object> fieldFma = new FlexibleMapAccessor<Object>(autoFieldMapString);
                     Map<String, Object> autoFieldMap = UtilGenerics.toMap(fieldFma.get(context));
                     if (autoFieldMap != null) {
                         serviceContext = this.modelScreen.getDispatcher(context).getDispatchContext().makeValidContext(serviceNameExpanded, ModelService.IN_PARAM, autoFieldMap);
