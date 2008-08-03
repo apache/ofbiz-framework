@@ -72,7 +72,7 @@ public class ModelMenu extends ModelWidget {
     protected String defaultCellWidth;
     protected Boolean defaultHideIfSelected;
     protected String defaultDisabledTitleStyle;
-    protected FlexibleMapAccessor selectedMenuItemContextFieldName;
+    protected FlexibleMapAccessor<String> selectedMenuItemContextFieldName;
     protected FlexibleStringExpander menuContainerStyleExdr;
     protected String defaultAlign;
     protected String defaultAlignStyle;
@@ -226,7 +226,7 @@ public class ModelMenu extends ModelWidget {
         if (this.defaultDisabledTitleStyle == null || menuElement.hasAttribute("default-disabled-title-style"))
             this.defaultDisabledTitleStyle = menuElement.getAttribute("default-disabled-title-style");
         if (this.selectedMenuItemContextFieldName == null || menuElement.hasAttribute("selected-menuitem-context-field-name"))
-            this.selectedMenuItemContextFieldName = new FlexibleMapAccessor(menuElement.getAttribute("selected-menuitem-context-field-name"));
+            this.selectedMenuItemContextFieldName = new FlexibleMapAccessor<String>(menuElement.getAttribute("selected-menuitem-context-field-name"));
         if (this.menuContainerStyleExdr == null || menuElement.hasAttribute("menu-container-style"))
             this.setMenuContainerStyle(menuElement.getAttribute("menu-container-style"));
         if (this.defaultAlign == null || menuElement.hasAttribute("default-align"))
@@ -440,7 +440,7 @@ public class ModelMenu extends ModelWidget {
      * @return
      */
     public String getSelectedMenuItemContextFieldName(Map<String, Object> context) {
-        String menuItemName = (String)this.selectedMenuItemContextFieldName.get(context);
+        String menuItemName = this.selectedMenuItemContextFieldName.get(context);
         if (UtilValidate.isEmpty(menuItemName)) {
             return this.defaultMenuItemName;
         }

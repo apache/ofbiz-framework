@@ -32,6 +32,7 @@ import java.util.StringTokenizer;
 import java.util.TimeZone;
 
 import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.BshUtil;
 import org.ofbiz.base.util.Debug;
@@ -76,10 +77,10 @@ public class ModelFormField {
     protected ModelForm modelForm;
 
     protected String name;
-    protected FlexibleMapAccessor mapAcsr;
+    protected FlexibleMapAccessor<Map<String, ? extends Object>> mapAcsr;
     protected String entityName;
     protected String serviceName;
-    protected FlexibleMapAccessor entryAcsr;
+    protected FlexibleMapAccessor<Object> entryAcsr;
     protected String parameterName;
     protected String fieldName;
     protected String attributeName;
@@ -695,7 +696,7 @@ public class ModelFormField {
             }
         } else {
             //Debug.logInfo("Getting entry, isError false so getting from Map in context for field " + this.getName() + " of form " + this.modelForm.getName(), module);
-            Map dataMap = this.getMap(context);
+            Map<String, ? extends Object> dataMap = this.getMap(context);
             boolean dataMapIsContext = false;
             if (dataMap == null) {
                 //Debug.logInfo("Getting entry, no Map found with name " + this.getMapName() + ", using context for field " + this.getName() + " of form " + this.modelForm.getName(), module);
@@ -723,7 +724,7 @@ public class ModelFormField {
             
             // this is a special case to fill in fields during a create by default from parameters passed in
             if (dataMapIsContext && retVal == null && !Boolean.FALSE.equals(useRequestParameters)) {
-                Map parameters = (Map) context.get("parameters");
+                Map<String, ? extends Object> parameters = UtilGenerics.checkMap(context.get("parameters"));
                 if (parameters != null) {
                     if (this.entryAcsr != null && !this.entryAcsr.isEmpty()) {
                         retVal = this.entryAcsr.get(parameters);
@@ -760,13 +761,13 @@ public class ModelFormField {
         }
     }
 
-    public Map getMap(Map<String, Object> context) {
+    public Map<String, ? extends Object> getMap(Map<String, ? extends Object> context) {
         if (this.mapAcsr == null || this.mapAcsr.isEmpty()) {
             //Debug.logInfo("Getting Map from default of the form because of no mapAcsr for field " + this.getName(), module);
             return this.modelForm.getDefaultMap(context);
         } else {
             //Debug.logInfo("Getting Map from mapAcsr for field " + this.getName(), module);
-            return (Map) mapAcsr.get(context);
+            return mapAcsr.get(context);
         }
     }
 
@@ -1217,7 +1218,7 @@ public class ModelFormField {
      * @param string
      */
     public void setEntryName(String string) {
-        entryAcsr = new FlexibleMapAccessor(string);
+        entryAcsr = new FlexibleMapAccessor<Object>(string);
     }
 
     /**
@@ -1231,7 +1232,7 @@ public class ModelFormField {
      * @param string
      */
     public void setMapName(String string) {
-        this.mapAcsr = new FlexibleMapAccessor(string);
+        this.mapAcsr = new FlexibleMapAccessor<Map<String, ? extends Object>>(string);
     }
 
     /**
@@ -1624,35 +1625,34 @@ public class ModelFormField {
     }
 
     public static class ListOptions extends OptionSource {
-        protected FlexibleMapAccessor listAcsr;
+        protected FlexibleMapAccessor<List<? extends Object>> listAcsr;
         protected String listEntryName;
-        protected FlexibleMapAccessor keyAcsr;
+        protected FlexibleMapAccessor<String> keyAcsr;
         protected FlexibleStringExpander description;
 
         public ListOptions(String listName, String listEntryName, String keyName, String description, FieldInfo fieldInfo) {
-            this.listAcsr = new FlexibleMapAccessor(listName);
+            this.listAcsr = new FlexibleMapAccessor<List<? extends Object>>(listName);
             this.listEntryName = listEntryName;
-            this.keyAcsr = new FlexibleMapAccessor(keyName);
+            this.keyAcsr = new FlexibleMapAccessor<String>(keyName);
             this.description = new FlexibleStringExpander(description);
             this.fieldInfo = fieldInfo;
         }
 
         public ListOptions(Element optionElement, FieldInfo fieldInfo) {
             this.listEntryName = optionElement.getAttribute("list-entry-name");
-            this.keyAcsr = new FlexibleMapAccessor(optionElement.getAttribute("key-name"));
-            this.listAcsr = new FlexibleMapAccessor(optionElement.getAttribute("list-name"));
+            this.keyAcsr = new FlexibleMapAccessor<String>(optionElement.getAttribute("key-name"));
+            this.listAcsr = new FlexibleMapAccessor<List<? extends Object>>(optionElement.getAttribute("list-name"));
             this.listEntryName = optionElement.getAttribute("list-entry-name");
             this.description = new FlexibleStringExpander(optionElement.getAttribute("description"));
             this.fieldInfo = fieldInfo;
         }
 
         public void addOptionValues(List<OptionValue> optionValues, Map<String, Object> context, GenericDelegator delegator) {
-            List dataList = (List) this.listAcsr.get(context);
+            List<? extends Object> dataList = UtilGenerics.checkList(this.listAcsr.get(context));
             if (dataList != null && dataList.size() != 0) {
-                Iterator dataIter = dataList.iterator();
-                while (dataIter.hasNext()) {
-                    Object data = dataIter.next();
-                    Map<String, Object> localContext = new HashMap<String, Object>(context);
+                for (Object data: dataList) {
+                    Map<String, Object> localContext = FastMap.newInstance();
+                    localContext.putAll(context);
                     if (UtilValidate.isNotEmpty(this.listEntryName)) {
                         localContext.put(this.listEntryName, data);
                     } else {

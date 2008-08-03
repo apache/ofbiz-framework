@@ -20,8 +20,6 @@ package org.ofbiz.widget.tree;
 
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
@@ -31,6 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.xml.parsers.ParserConfigurationException;
 
 import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -69,8 +68,8 @@ public class ModelTree extends ModelWidget {
     protected String rootNodeName;
     protected String defaultRenderStyle;
     protected FlexibleStringExpander defaultWrapStyleExdr;
-    protected List<ModelNode> nodeList = new ArrayList<ModelNode>();
-    protected Map<String, ModelNode> nodeMap = new HashMap<String, ModelNode>();
+    protected List<ModelNode> nodeList = FastList.newInstance();
+    protected Map<String, ModelNode> nodeMap = FastMap.newInstance();
     protected GenericDelegator delegator;
     protected LocalDispatcher dispatcher;
     protected FlexibleStringExpander expandCollapseRequestExdr;
@@ -266,8 +265,8 @@ public class ModelTree extends ModelWidget {
         protected Label label;
         protected Link link;
         protected Image image;
-        protected List<ModelSubNode> subNodeList = new ArrayList<ModelSubNode>();
-        protected List<ModelTreeAction> actions = new ArrayList<ModelTreeAction>();
+        protected List<ModelSubNode> subNodeList = FastList.newInstance();
+        protected List<ModelTreeAction> actions = FastList.newInstance();
         protected String name;
         protected ModelTree modelTree;
         protected List<Object []> subNodeValues;
@@ -536,17 +535,15 @@ public class ModelTree extends ModelWidget {
         }
 
         public void getChildren(Map<String, Object> context) {
-             this.subNodeValues = new ArrayList<Object []>();
-             Iterator nodeIter = subNodeList.iterator();
-             while (nodeIter.hasNext()) {
-                 ModelSubNode subNode = (ModelSubNode)nodeIter.next();
+             this.subNodeValues = FastList.newInstance();
+             for (ModelSubNode subNode: subNodeList) {
                  String nodeName = subNode.getNodeName(context);
                  ModelNode node = (ModelNode)modelTree.nodeMap.get(nodeName);
-                 List subNodeActions = subNode.getActions();
+                 List<ModelTreeAction> subNodeActions = subNode.getActions();
                  //if (Debug.infoOn()) Debug.logInfo(" context.currentValue:" + context.get("currentValue"), module);
                  ModelTreeAction.runSubActions(subNodeActions, context);
                  // List dataFound = (List)context.get("dataFound");
-                 ListIterator dataIter =  subNode.getListIterator();
+                 Iterator<? extends Map<String, ? extends Object>> dataIter =  subNode.getListIterator();
                  if (dataIter instanceof EntityListIterator) {
                      EntityListIterator eli = (EntityListIterator) dataIter;
                      Map val = null;
@@ -686,8 +683,8 @@ public class ModelTree extends ModelWidget {
     
             protected ModelNode rootNode;
             protected FlexibleStringExpander nodeNameExdr;
-            protected List<ModelTreeAction> actions = new ArrayList<ModelTreeAction>();
-            protected ListIterator listIterator;
+            protected List<ModelTreeAction> actions = FastList.newInstance();
+            protected ListIterator<? extends Map<String, ? extends Object>> listIterator;
     
             public ModelSubNode() {}
     
@@ -726,15 +723,15 @@ public class ModelTree extends ModelWidget {
                 return this.nodeNameExdr.expandString(context);
             }
     
-            public List getActions() {
+            public List<ModelTreeAction> getActions() {
                 return actions;
             }
             
-            public void setListIterator(ListIterator iter) {
+            public void setListIterator(ListIterator<? extends Map<String, ? extends Object>> iter) {
                 listIterator = iter;
             }
         
-            public ListIterator getListIterator() {
+            public ListIterator<? extends Map<String, ? extends Object>> getListIterator() {
                 return listIterator;
             }
         }
