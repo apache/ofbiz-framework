@@ -425,7 +425,7 @@ public abstract class ModelScreenAction implements Serializable {
         protected FlexibleStringExpander serviceNameExdr;
         protected FlexibleMapAccessor<Map<String, Object>> resultMapNameAcsr;
         protected FlexibleStringExpander autoFieldMapExdr;
-        protected Map<FlexibleMapAccessor, Object> fieldMap;
+        protected Map<FlexibleMapAccessor<Object>, Object> fieldMap;
         
         public Service(ModelScreen modelScreen, Element serviceElement) {
             super (modelScreen, serviceElement);

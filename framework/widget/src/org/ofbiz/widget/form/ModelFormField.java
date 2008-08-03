@@ -1796,7 +1796,7 @@ public class ModelFormField {
         protected String updateAfterRequestCall;
         protected String rows;
         protected String cols;
-        protected Map<FlexibleMapAccessor, Object> fieldMap;
+        protected Map<FlexibleMapAccessor<Object>, Object> fieldMap;
         
         public InPlaceEditor (Element element) {
             this.setUrl(element.getAttribute("url"));
@@ -2031,7 +2031,7 @@ public class ModelFormField {
             this.cols = string;
         }
 
-        public void setFieldMap(Map<FlexibleMapAccessor, Object> fieldMap) {
+        public void setFieldMap(Map<FlexibleMapAccessor<Object>, Object> fieldMap) {
             this.fieldMap = fieldMap;
         }
     }

@@ -44,15 +44,15 @@ import org.w3c.dom.Element;
 public class PrimaryKeyFinder extends Finder {
     public static final String module = PrimaryKeyFinder.class.getName();         
     
-    protected FlexibleMapAccessor valueNameAcsr;
+    protected FlexibleMapAccessor<Object> valueNameAcsr;
     protected FlexibleStringExpander autoFieldMapExdr;
-    protected Map<FlexibleMapAccessor, Object> fieldMap;
+    protected Map<FlexibleMapAccessor<Object>, Object> fieldMap;
     protected List<FlexibleStringExpander> selectFieldExpanderList;
 
     public PrimaryKeyFinder(Element entityOneElement) {
         super(entityOneElement);
         if (UtilValidate.isNotEmpty(entityOneElement.getAttribute("value-name")))
-            this.valueNameAcsr = new FlexibleMapAccessor(entityOneElement.getAttribute("value-name"));
+            this.valueNameAcsr = new FlexibleMapAccessor<Object>(entityOneElement.getAttribute("value-name"));
         this.autoFieldMapExdr = new FlexibleStringExpander(entityOneElement.getAttribute("auto-field-map"));
 
         // process field-map
@@ -88,7 +88,7 @@ public class PrimaryKeyFinder extends Finder {
     }
     
     public static GenericValue runFind(ModelEntity modelEntity, Map<String, Object> context, GenericDelegator delegator, boolean useCache, boolean autoFieldMap, 
-            Map<FlexibleMapAccessor, Object> fieldMap, List<FlexibleStringExpander> selectFieldExpanderList) throws GeneralException {
+            Map<FlexibleMapAccessor<Object>, Object> fieldMap, List<FlexibleStringExpander> selectFieldExpanderList) throws GeneralException {
         
         // assemble the field map
         Map<String, Object> entityContext = FastMap.newInstance();
