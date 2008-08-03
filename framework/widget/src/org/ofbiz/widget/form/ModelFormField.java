@@ -1639,7 +1639,6 @@ public class ModelFormField {
 
         public ListOptions(Element optionElement, FieldInfo fieldInfo) {
             this.listEntryName = optionElement.getAttribute("list-entry-name");
-            this.listAcsr = new FlexibleMapAccessor(optionElement.getAttribute("list-name"));
             this.keyAcsr = new FlexibleMapAccessor(optionElement.getAttribute("key-name"));
             this.listAcsr = new FlexibleMapAccessor(optionElement.getAttribute("list-name"));
             this.listEntryName = optionElement.getAttribute("list-entry-name");
