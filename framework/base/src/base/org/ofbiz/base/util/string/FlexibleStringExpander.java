@@ -298,10 +298,10 @@ public class FlexibleStringExpander implements Serializable {
         }
     }
     public static class VariableElement implements StringElement {
-        protected FlexibleMapAccessor fma;
+        protected FlexibleMapAccessor<Object> fma;
         
         public VariableElement(String valueName) {
-            this.fma = new FlexibleMapAccessor(valueName);
+            this.fma = new FlexibleMapAccessor<Object>(valueName);
         }
         
         public void appendElement(StringBuilder buffer, Map<String, ? extends Object> context, Locale locale) {
@@ -384,7 +384,7 @@ public class FlexibleStringExpander implements Serializable {
                 envName = envName.substring(0, currencyPos);
             }
 
-            FlexibleMapAccessor fma = new FlexibleMapAccessor(envName);
+            FlexibleMapAccessor<Object> fma = new FlexibleMapAccessor<Object>(envName);
             Object envVal = fma.get(context, locale);
             if (envVal != null) {
                 if (localizeCurrency) {

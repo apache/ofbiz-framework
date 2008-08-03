@@ -68,13 +68,13 @@ public class MapComparator implements Comparator<Map<Object, Object>> {
             Object o2 = null;
 
             if (key instanceof FlexibleMapAccessor) {
-                FlexibleMapAccessor fmaKey = (FlexibleMapAccessor) key;
+                FlexibleMapAccessor<Object> fmaKey = UtilGenerics.cast(key);
                 ascending = fmaKey.getIsAscending();
                 
                 //Debug.logInfo("Doing compare with a FlexibleMapAccessor [" + fmaKey.getOriginalName() + "] ascending [" + ascending + "]", module);
                 
-                o1 = fmaKey.get((Map) map1);
-                o2 = fmaKey.get((Map) map2);
+                o1 = fmaKey.get(UtilGenerics.<String, Object>checkMap(map1));
+                o2 = fmaKey.get(UtilGenerics.<String, Object>checkMap(map2));
             } else {
                 if (key instanceof String) {
                     String keyStr = (String) key;
