@@ -499,7 +499,7 @@ public class UtilProperties implements java.io.Serializable {
      * @param locale The locale that the given resource will correspond to
      * @return Map containing all entries in The ResourceBundle
      */
-    public static Map<String, Object> getResourceBundleMap(String resource, Locale locale) {
+    public static ResourceBundleMapWrapper getResourceBundleMap(String resource, Locale locale) {
         return new ResourceBundleMapWrapper(getResourceBundle(resource, locale));
     }
 
@@ -510,7 +510,7 @@ public class UtilProperties implements java.io.Serializable {
      * @param context The screen rendering context
      * @return Map containing all entries in The ResourceBundle
      */
-    public static Map<String, Object> getResourceBundleMap(String resource, Locale locale, Map<String, Object> context) {
+    public static ResourceBundleMapWrapper getResourceBundleMap(String resource, Locale locale, Map<String, Object> context) {
         return new ResourceBundleMapWrapper(getResourceBundle(resource, locale), context);
     }
 
