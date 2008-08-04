@@ -23,6 +23,8 @@ import java.util.*;
 
 import org.w3c.dom.*;
 
+import javolution.util.FastList;
+
 import org.ofbiz.base.util.*;
 import org.ofbiz.minilang.*;
 import org.ofbiz.minilang.method.*;
@@ -35,22 +37,22 @@ public class StringToList extends MethodOperation {
     public static final String module = StringToList.class.getName();
     
     String string;
-    ContextAccessor listAcsr;
-    ContextAccessor argListAcsr;
+    ContextAccessor<List<Object>> listAcsr;
+    ContextAccessor<List<? extends Object>> argListAcsr;
     String messageFieldName;
 
     public StringToList(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
         string = element.getAttribute("string");
-        listAcsr = new ContextAccessor(element.getAttribute("list-name"));
-        argListAcsr = new ContextAccessor(element.getAttribute("arg-list-name"));
+        listAcsr = new ContextAccessor<List<Object>>(element.getAttribute("list-name"));
+        argListAcsr = new ContextAccessor<List<? extends Object>>(element.getAttribute("arg-list-name"));
         messageFieldName = element.getAttribute("message-field-name");
     }
 
     public boolean exec(MethodContext methodContext) {
         String valueStr = methodContext.expandString(string);
         if (!argListAcsr.isEmpty()) {
-            List argList = (List) argListAcsr.get(methodContext);
+            List<? extends Object> argList = argListAcsr.get(methodContext);
             if (argList != null && argList.size() > 0) {
                 valueStr = MessageFormat.format(valueStr, argList.toArray());
             }
@@ -63,10 +65,10 @@ public class StringToList extends MethodOperation {
             value = valueStr;
         }
 
-        List toList = (List) listAcsr.get(methodContext);
+        List<Object> toList = listAcsr.get(methodContext);
         if (toList == null) {
             if (Debug.verboseOn()) Debug.logVerbose("List not found with name " + listAcsr + ", creating new List", module);
-            toList = new LinkedList();
+            toList = FastList.newInstance();
             listAcsr.put(methodContext, toList);
         }
         toList.add(value);

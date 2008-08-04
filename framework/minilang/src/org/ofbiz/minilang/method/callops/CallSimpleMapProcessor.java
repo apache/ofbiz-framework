@@ -20,6 +20,9 @@ package org.ofbiz.minilang.method.callops;
 
 import java.util.*;
 
+import javolution.util.FastList;
+import javolution.util.FastMap;
+
 import org.w3c.dom.*;
 import org.ofbiz.base.util.*;
 import org.ofbiz.minilang.*;
@@ -33,9 +36,9 @@ public class CallSimpleMapProcessor extends MethodOperation {
     
     String xmlResource;
     String processorName;
-    ContextAccessor inMapAcsr;
-    ContextAccessor outMapAcsr;
-    ContextAccessor errorListAcsr;
+    ContextAccessor<Map<String, Object>> inMapAcsr;
+    ContextAccessor<Map<String, Object>> outMapAcsr;
+    ContextAccessor<List<Object>> errorListAcsr;
 
     MapProcessor inlineMapProcessor = null;
 
@@ -43,9 +46,9 @@ public class CallSimpleMapProcessor extends MethodOperation {
         super(element, simpleMethod);
         xmlResource = element.getAttribute("xml-resource");
         processorName = element.getAttribute("processor-name");
-        inMapAcsr = new ContextAccessor(element.getAttribute("in-map-name"));
-        outMapAcsr = new ContextAccessor(element.getAttribute("out-map-name"));
-        errorListAcsr = new ContextAccessor(element.getAttribute("error-list-name"), "error_list");
+        inMapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("in-map-name"));
+        outMapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("out-map-name"));
+        errorListAcsr = new ContextAccessor<List<Object>>(element.getAttribute("error-list-name"), "error_list");
 
         Element simpleMapProcessorElement = UtilXml.firstChildElement(element, "simple-map-processor");
         if (simpleMapProcessorElement != null) {
@@ -54,21 +57,21 @@ public class CallSimpleMapProcessor extends MethodOperation {
     }
 
     public boolean exec(MethodContext methodContext) {
-        List messages = (List) errorListAcsr.get(methodContext);
+        List<Object> messages = errorListAcsr.get(methodContext);
         if (messages == null) {
-            messages = new LinkedList();
+            messages = FastList.newInstance();
             errorListAcsr.put(methodContext, messages);
         }
 
-        Map inMap = (Map) inMapAcsr.get(methodContext);
+        Map<String, Object> inMap = inMapAcsr.get(methodContext);
         if (inMap == null) {
-            inMap = new HashMap();
+            inMap = FastMap.newInstance();
             inMapAcsr.put(methodContext, inMap);
         }
 
-        Map outMap = (Map) outMapAcsr.get(methodContext);
+        Map<String, Object> outMap = outMapAcsr.get(methodContext);
         if (outMap == null) {
-            outMap = new HashMap();
+            outMap = FastMap.newInstance();
             outMapAcsr.put(methodContext, outMap);
         }
 

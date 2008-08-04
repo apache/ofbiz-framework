@@ -34,17 +34,17 @@ public class TransactionRollback extends MethodOperation {
     
     public static final String module = TransactionRollback.class.getName();
     
-    ContextAccessor beganTransactionAcsr;
+    ContextAccessor<Boolean> beganTransactionAcsr;
 
     public TransactionRollback(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        beganTransactionAcsr = new ContextAccessor(element.getAttribute("began-transaction-name"), "beganTransaction");
+        beganTransactionAcsr = new ContextAccessor<Boolean>(element.getAttribute("began-transaction-name"), "beganTransaction");
     }
 
     public boolean exec(MethodContext methodContext) {
         boolean beganTransaction = false;
         
-        Boolean beganTransactionBoolean = (Boolean) beganTransactionAcsr.get(methodContext);
+        Boolean beganTransactionBoolean = beganTransactionAcsr.get(methodContext);
         if (beganTransactionBoolean != null) {
             beganTransaction = beganTransactionBoolean.booleanValue();
         }

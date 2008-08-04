@@ -20,6 +20,8 @@ package org.ofbiz.minilang.method.envops;
 
 import java.util.*;
 
+import javolution.util.FastMap;
+
 import org.w3c.dom.*;
 import org.ofbiz.base.util.*;
 import org.ofbiz.minilang.*;
@@ -32,15 +34,15 @@ public class EnvToField extends MethodOperation {
     
     public static final String module = EnvToField.class.getName();
     
-    ContextAccessor envAcsr;
-    ContextAccessor mapAcsr;
-    ContextAccessor fieldAcsr;
+    ContextAccessor<Object> envAcsr;
+    ContextAccessor<Map<String, Object>> mapAcsr;
+    ContextAccessor<Object> fieldAcsr;
 
     public EnvToField(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        envAcsr = new ContextAccessor(element.getAttribute("env-name"));
-        mapAcsr = new ContextAccessor(element.getAttribute("map-name"));
-        fieldAcsr = new ContextAccessor(element.getAttribute("field-name"));
+        envAcsr = new ContextAccessor<Object>(element.getAttribute("env-name"));
+        mapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("map-name"));
+        fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
 
         // set fieldAcsr to their defualt value of envAcsr if empty
         if (fieldAcsr.isEmpty()) {
@@ -57,11 +59,11 @@ public class EnvToField extends MethodOperation {
         }
 
         if (!mapAcsr.isEmpty()) {
-            Map toMap = (Map) mapAcsr.get(methodContext);
+            Map<String, Object> toMap = mapAcsr.get(methodContext);
 
             if (toMap == null) {
                 if (Debug.verboseOn()) Debug.logVerbose("Map not found with name " + mapAcsr + ", creating new map", module);
-                toMap = new HashMap();
+                toMap = FastMap.newInstance();
                 mapAcsr.put(methodContext, toMap);
             }
             fieldAcsr.put(toMap, envVar, methodContext);

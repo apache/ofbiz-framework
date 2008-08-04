@@ -24,7 +24,7 @@ import org.ofbiz.minilang.*;
 /**
  * A single Object value to be used as a parameter or whatever
  */
-public abstract class MethodObject {
+public abstract class MethodObject<T> {
     
     protected SimpleMethod simpleMethod;
 
@@ -36,8 +36,8 @@ public abstract class MethodObject {
     public abstract String getTypeName();
     
     /** Get the Class for the type of the object */
-    public abstract Class getTypeClass(ClassLoader loader);
+    public abstract Class<T> getTypeClass(ClassLoader loader);
     
     /** Get the Object value */
-    public abstract Object getObject(MethodContext methodContext);
+    public abstract T getObject(MethodContext methodContext);
 }

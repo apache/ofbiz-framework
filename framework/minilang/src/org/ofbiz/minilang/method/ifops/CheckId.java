@@ -21,6 +21,7 @@ package org.ofbiz.minilang.method.ifops;
 import java.util.*;
 
 import org.w3c.dom.*;
+import javolution.util.FastList;
 import org.ofbiz.base.util.*;
 import org.ofbiz.minilang.*;
 import org.ofbiz.minilang.method.*;
@@ -37,15 +38,15 @@ public class CheckId extends MethodOperation {
     String propertyResource = null;
     boolean isProperty = false;
 
-    ContextAccessor fieldAcsr;
-    ContextAccessor mapAcsr;
-    ContextAccessor errorListAcsr;
+    ContextAccessor<Object> fieldAcsr;
+    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
+    ContextAccessor<List<Object>> errorListAcsr;
 
     public CheckId(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        this.fieldAcsr = new ContextAccessor(element.getAttribute("field-name"));
-        this.mapAcsr = new ContextAccessor(element.getAttribute("map-name"));
-        this.errorListAcsr = new ContextAccessor(element.getAttribute("error-list-name"), "error_list");
+        this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
+        this.mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
+        this.errorListAcsr = new ContextAccessor<List<Object>>(element.getAttribute("error-list-name"), "error_list");
 
         //note: if no fail-message or fail-property then message will be null
         Element failMessage = UtilXml.firstChildElement(element, "fail-message");
@@ -64,15 +65,15 @@ public class CheckId extends MethodOperation {
     public boolean exec(MethodContext methodContext) {
         boolean isValid = true;
 
-        List messages = (List) errorListAcsr.get(methodContext);
+        List<Object> messages = errorListAcsr.get(methodContext);
         if (messages == null) {
-            messages = new LinkedList();
+            messages = FastList.newInstance();
             errorListAcsr.put(methodContext, messages);
         }
 
         Object fieldVal = null;
         if (!mapAcsr.isEmpty()) {
-            Map fromMap = (Map) mapAcsr.get(methodContext);
+            Map<String, ? extends Object> fromMap = mapAcsr.get(methodContext);
 
             if (fromMap == null) {
                 if (Debug.infoOn()) Debug.logInfo("Map not found with name " + mapAcsr + ", running operations", module);
@@ -85,7 +86,7 @@ public class CheckId extends MethodOperation {
         }
         
         String fieldStr = fieldVal.toString();
-        StringBuffer errorDetails = new StringBuffer();
+        StringBuilder errorDetails = new StringBuilder();
         
         //check various illegal characters, etc for ids
         isValid = UtilValidate.isValidDatabaseId(fieldStr, errorDetails);
@@ -97,7 +98,7 @@ public class CheckId extends MethodOperation {
         return true;
     }
 
-    public void addMessage(List messages, MethodContext methodContext, String defaultMessage, String errorDetails) {
+    public void addMessage(List<Object> messages, MethodContext methodContext, String defaultMessage, String errorDetails) {
         
         String message = methodContext.expandString(this.message);
         String propertyResource = methodContext.expandString(this.propertyResource);

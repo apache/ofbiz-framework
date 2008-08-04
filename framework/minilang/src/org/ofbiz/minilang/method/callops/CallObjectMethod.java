@@ -21,6 +21,9 @@ package org.ofbiz.minilang.method.callops;
 import java.lang.reflect.*;
 import java.util.*;
 
+import javolution.util.FastList;
+import javolution.util.FastMap;
+
 import org.w3c.dom.*;
 import org.ofbiz.base.util.*;
 
@@ -34,35 +37,33 @@ public class CallObjectMethod extends MethodOperation {
     
     public static final String module = CallClassMethod.class.getName();
 
-    ContextAccessor objFieldAcsr;
-    ContextAccessor objMapAcsr;
+    ContextAccessor<Object> objFieldAcsr;
+    ContextAccessor<Map<String, ? extends Object>> objMapAcsr;
     String methodName;
-    ContextAccessor retFieldAcsr;
-    ContextAccessor retMapAcsr;
+    ContextAccessor<Object> retFieldAcsr;
+    ContextAccessor<Map<String, Object>> retMapAcsr;
 
     /** A list of MethodObject objects to use as the method call parameters */
-    List parameters;
+    List<MethodObject<?>> parameters;
 
     public CallObjectMethod(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        objFieldAcsr = new ContextAccessor(element.getAttribute("obj-field-name"));
-        objMapAcsr = new ContextAccessor(element.getAttribute("obj-map-name"));
+        objFieldAcsr = new ContextAccessor<Object>(element.getAttribute("obj-field-name"));
+        objMapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("obj-map-name"));
         methodName = element.getAttribute("method-name");
-        retFieldAcsr = new ContextAccessor(element.getAttribute("ret-field-name"));
-        retMapAcsr = new ContextAccessor(element.getAttribute("ret-map-name"));
+        retFieldAcsr = new ContextAccessor<Object>(element.getAttribute("ret-field-name"));
+        retMapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("ret-map-name"));
         
-        List parameterElements = UtilXml.childElementList(element);
+        List<? extends Element> parameterElements = UtilXml.childElementList(element);
         if (parameterElements.size() > 0) {
-            parameters = new ArrayList(parameterElements.size());
+            parameters = FastList.newInstance();
             
-            Iterator parameterIter = parameterElements.iterator();
-            while (parameterIter.hasNext()) {
-                Element parameterElement = (Element) parameterIter.next();
+            for (Element parameterElement: parameterElements) {
                 MethodObject methodObject = null;
                 if ("string".equals(parameterElement.getNodeName())) {
                     methodObject = new StringObject(parameterElement, simpleMethod); 
                 } else if ("field".equals(parameterElement.getNodeName())) {
-                    methodObject = new FieldObject(parameterElement, simpleMethod);
+                    methodObject = new FieldObject<Object>(parameterElement, simpleMethod);
                 } else {
                     //whoops, invalid tag here, print warning
                     Debug.logWarning("Found an unsupported tag under the call-object-method tag: " + parameterElement.getNodeName() + "; ignoring", module);
@@ -79,7 +80,7 @@ public class CallObjectMethod extends MethodOperation {
 
         Object methodObject = null;
         if (!objMapAcsr.isEmpty()) {
-            Map fromMap = (Map) objMapAcsr.get(methodContext);
+            Map<String, ? extends Object> fromMap = objMapAcsr.get(methodContext);
             if (fromMap == null) {
                 Debug.logWarning("Map not found with name " + objMapAcsr + ", which should contain the object to execute a method on; not executing method, rerturning error.", module);
                 
@@ -101,25 +102,23 @@ public class CallObjectMethod extends MethodOperation {
             return false;
         }
 
-        Class methodClass = methodObject.getClass();
+        Class<?> methodClass = methodObject.getClass();
         return CallObjectMethod.callMethod(simpleMethod, methodContext, parameters, methodClass, methodObject, methodName, retFieldAcsr, retMapAcsr);
     }
     
-    public static boolean callMethod(SimpleMethod simpleMethod, MethodContext methodContext, List parameters, Class methodClass, Object methodObject, String methodName, ContextAccessor retFieldAcsr, ContextAccessor retMapAcsr) {
+    public static boolean callMethod(SimpleMethod simpleMethod, MethodContext methodContext, List<MethodObject<?>> parameters, Class<?> methodClass, Object methodObject, String methodName, ContextAccessor<Object> retFieldAcsr, ContextAccessor<Map<String, Object>> retMapAcsr) {
         Object[] args = null;
-        Class[] parameterTypes = null;
+        Class<?>[] parameterTypes = null;
 
         if (parameters != null) {
             args = new Object[parameters.size()];
-            parameterTypes = new Class[parameters.size()];
+            parameterTypes = new Class<?>[parameters.size()];
             
-            Iterator parameterIter = parameters.iterator();
             int i = 0;
-            while (parameterIter.hasNext()) {
-                MethodObject methodObjectDef = (MethodObject) parameterIter.next();
+            for (MethodObject<?> methodObjectDef: parameters) {
                 args[i] = methodObjectDef.getObject(methodContext);
 
-                Class typeClass = methodObjectDef.getTypeClass(methodContext.getLoader());
+                Class<?> typeClass = methodObjectDef.getTypeClass(methodContext.getLoader());
                 if (typeClass == null) {
                     String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [Parameter type not found with name " + methodObjectDef.getTypeName() + "]";
                     Debug.logError(errMsg, module);
@@ -140,10 +139,10 @@ public class CallObjectMethod extends MethodOperation {
                 //if retFieldAcsr is empty, ignore return value
                 if (!retFieldAcsr.isEmpty()) {
                     if (!retMapAcsr.isEmpty()) {
-                        Map retMap = (Map) retMapAcsr.get(methodContext);
+                        Map<String, Object> retMap = retMapAcsr.get(methodContext);
 
                         if (retMap == null) {
-                            retMap = new HashMap();
+                            retMap = FastMap.newInstance();
                             retMapAcsr.put(methodContext, retMap);
                         }
                         retFieldAcsr.put(retMap, retValue, methodContext);

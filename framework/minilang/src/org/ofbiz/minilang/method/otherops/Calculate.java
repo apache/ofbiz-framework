@@ -25,6 +25,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javolution.util.FastMap;
+
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
@@ -49,8 +51,8 @@ public class Calculate extends MethodOperation {
     public static final int TYPE_STRING = 5;
     public static final int TYPE_BIG_DECIMAL = 6;
 
-    ContextAccessor mapAcsr;
-    ContextAccessor fieldAcsr;
+    ContextAccessor<Map<String, Object>> mapAcsr;
+    ContextAccessor<Object> fieldAcsr;
     String decimalScaleString;
     String decimalFormatString;
     String typeString;
@@ -59,21 +61,19 @@ public class Calculate extends MethodOperation {
 
     public Calculate(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        mapAcsr = new ContextAccessor(element.getAttribute("map-name"));
-        fieldAcsr = new ContextAccessor(element.getAttribute("field-name"));
+        mapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("map-name"));
+        fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
 
         decimalScaleString = element.getAttribute("decimal-scale");
         decimalFormatString = element.getAttribute("decimal-format");
         typeString = element.getAttribute("type");
         roundingModeString = element.getAttribute("rounding-mode");
 
-        List calcopElements = UtilXml.childElementList(element);
+        List<? extends Element> calcopElements = UtilXml.childElementList(element);
         calcops = new Calculate.SubCalc[calcopElements.size()];
-        Iterator calcopIter = calcopElements.iterator();
         int i = 0;
 
-        while (calcopIter.hasNext()) {
-            Element calcopElement = (Element) calcopIter.next();
+        for (Element calcopElement: calcopElements) {
             String nodeName = calcopElement.getNodeName();
 
             if ("calcop".equals(nodeName)) {
@@ -144,8 +144,8 @@ public class Calculate extends MethodOperation {
         
         BigDecimal resultValue = ZERO;
         resultValue = resultValue.setScale(decimalScale, roundingMode);
-        for (int i = 0; i < calcops.length; i++) {
-            resultValue = resultValue.add(calcops[i].calcValue(methodContext, decimalScale, roundingMode));
+        for (Calculate.SubCalc calcop: calcops) {
+            resultValue = resultValue.add(calcop.calcValue(methodContext, decimalScale, roundingMode));
             // Debug.logInfo("main total so far: " + resultValue, module);
         }
         resultValue = resultValue.setScale(decimalScale, roundingMode);
@@ -196,10 +196,10 @@ public class Calculate extends MethodOperation {
         }
 
         if (!mapAcsr.isEmpty()) {
-            Map toMap = (Map) mapAcsr.get(methodContext);
+            Map<String, Object> toMap = mapAcsr.get(methodContext);
             if (toMap == null) {
                 if (Debug.verboseOn()) Debug.logVerbose("Map not found with name " + mapAcsr + ", creating new map", module);
-                toMap = new HashMap();
+                toMap = FastMap.newInstance();
                 mapAcsr.put(methodContext, toMap);
             }
             fieldAcsr.put(toMap, resultObj, methodContext);
@@ -254,23 +254,21 @@ public class Calculate extends MethodOperation {
         public static final int OPERATOR_DIVIDE = 4;
         public static final int OPERATOR_NEGATIVE = 5;
 
-        ContextAccessor mapAcsr;
-        ContextAccessor fieldAcsr;
+        ContextAccessor<Map<String, ? extends Object>> mapAcsr;
+        ContextAccessor<Object> fieldAcsr;
         String operatorStr;
         Calculate.SubCalc calcops[];
 
         public CalcOp(Element element) {
-            mapAcsr = new ContextAccessor(element.getAttribute("map-name"));
-            fieldAcsr = new ContextAccessor(element.getAttribute("field-name"));
+            mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
+            fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
             operatorStr = element.getAttribute("operator");
 
-            List calcopElements = UtilXml.childElementList(element);
+            List<? extends Element> calcopElements = UtilXml.childElementList(element);
             calcops = new Calculate.SubCalc[calcopElements.size()];
-            Iterator calcopIter = calcopElements.iterator();
             int i = 0;
 
-            while (calcopIter.hasNext()) {
-                Element calcopElement = (Element) calcopIter.next();
+            for (Element calcopElement: calcopElements) {
                 String nodeName = calcopElement.getNodeName();
 
                 if ("calcop".equals(calcopElement.getNodeName())) {
@@ -311,10 +309,10 @@ public class Calculate extends MethodOperation {
                 Object fieldObj = null;
 
                 if (!mapAcsr.isEmpty()) {
-                    Map fromMap = (Map) mapAcsr.get(methodContext);
+                    Map<String, ? extends Object> fromMap = mapAcsr.get(methodContext);
                     if (fromMap == null) {
                         if (Debug.verboseOn()) Debug.logVerbose("Map not found with name " + mapAcsr + ", creating new map", module);
-                        fromMap = new HashMap();
+                        fromMap = FastMap.newInstance();
                         mapAcsr.put(methodContext, fromMap);
                     }
                     fieldObj = fieldAcsr.get(fromMap, methodContext);
@@ -343,25 +341,25 @@ public class Calculate extends MethodOperation {
                 }
             }
 
-            for (int i = 0; i < calcops.length; i++) {
+            for (SubCalc calcop: calcops) {
                 if (isFirst) {
-                    resultValue = calcops[i].calcValue(methodContext, scale, roundingMode);
+                    resultValue = calcop.calcValue(methodContext, scale, roundingMode);
                     if (operator == OPERATOR_NEGATIVE) resultValue = resultValue.negate();
                     isFirst = false;
                 } else {
                     switch (operator) {
                     case OPERATOR_ADD:
-                        resultValue = resultValue.add(calcops[i].calcValue(methodContext, scale, roundingMode));
+                        resultValue = resultValue.add(calcop.calcValue(methodContext, scale, roundingMode));
                         break;
                     case OPERATOR_SUBTRACT:
                     case OPERATOR_NEGATIVE:
-                        resultValue = resultValue.subtract(calcops[i].calcValue(methodContext, scale, roundingMode));
+                        resultValue = resultValue.subtract(calcop.calcValue(methodContext, scale, roundingMode));
                         break;
                     case OPERATOR_MULTIPLY:
-                        resultValue = resultValue.multiply(calcops[i].calcValue(methodContext, scale, roundingMode));
+                        resultValue = resultValue.multiply(calcop.calcValue(methodContext, scale, roundingMode));
                         break;
                     case OPERATOR_DIVIDE:
-                        resultValue = resultValue.divide(calcops[i].calcValue(methodContext, scale, roundingMode), scale, roundingMode);
+                        resultValue = resultValue.divide(calcop.calcValue(methodContext, scale, roundingMode), scale, roundingMode);
                         break;
                     }
                 }

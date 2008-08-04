@@ -20,6 +20,8 @@ package org.ofbiz.minilang.method.envops;
 
 import java.util.*;
 
+import javolution.util.FastMap;
+
 import org.w3c.dom.*;
 
 import org.ofbiz.base.util.*;
@@ -33,24 +35,24 @@ public class ClearField extends MethodOperation {
     
     public static final String module = ClearField.class.getName();
     
-    ContextAccessor mapAcsr;
-    ContextAccessor fieldAcsr;
+    ContextAccessor<Map<String, Object>> mapAcsr;
+    ContextAccessor<Object> fieldAcsr;
 
     public ClearField(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        mapAcsr = new ContextAccessor(element.getAttribute("map-name"));
-        fieldAcsr = new ContextAccessor(element.getAttribute("field-name"));
+        mapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("map-name"));
+        fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
     }
 
     public boolean exec(MethodContext methodContext) {
         if (!mapAcsr.isEmpty()) {
-            Map toMap = (Map) mapAcsr.get(methodContext);
+            Map<String, Object> toMap = mapAcsr.get(methodContext);
 
             if (toMap == null) {
                 // it seems silly to create a new map, but necessary since whenever
                 // an env field like a Map or List is referenced it should be created, even if empty
                 if (Debug.verboseOn()) Debug.logVerbose("Map not found with name " + mapAcsr + ", creating new map", module);
-                toMap = new HashMap();
+                toMap = FastMap.newInstance();
                 mapAcsr.put(methodContext, toMap);
             }
 

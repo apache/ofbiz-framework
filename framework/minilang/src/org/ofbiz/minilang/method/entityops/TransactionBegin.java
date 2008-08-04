@@ -34,11 +34,11 @@ public class TransactionBegin extends MethodOperation {
     
     public static final String module = TransactionBegin.class.getName();
     
-    ContextAccessor beganTransactionAcsr;
+    ContextAccessor<Boolean> beganTransactionAcsr;
 
     public TransactionBegin(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        beganTransactionAcsr = new ContextAccessor(element.getAttribute("began-transaction-name"), "beganTransaction");
+        beganTransactionAcsr = new ContextAccessor<Boolean>(element.getAttribute("began-transaction-name"), "beganTransaction");
     }
 
     public boolean exec(MethodContext methodContext) {
@@ -53,7 +53,7 @@ public class TransactionBegin extends MethodOperation {
             return false;
         }
         
-        beganTransactionAcsr.put(methodContext, Boolean.valueOf(beganTransaction));
+        beganTransactionAcsr.put(methodContext, beganTransaction);
         return true;
     }
 

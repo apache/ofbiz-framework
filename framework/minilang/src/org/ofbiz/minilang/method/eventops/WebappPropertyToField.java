@@ -23,6 +23,7 @@ import java.util.*;
 import javax.servlet.*;
 
 import org.w3c.dom.*;
+import javolution.util.FastMap;
 import org.ofbiz.base.util.*;
 import org.ofbiz.minilang.*;
 import org.ofbiz.minilang.method.*;
@@ -37,16 +38,16 @@ public class WebappPropertyToField extends MethodOperation {
     String resource;
     String property;
     String defaultVal;
-    ContextAccessor mapAcsr;
-    ContextAccessor fieldAcsr;
+    ContextAccessor<Map<String, Object>> mapAcsr;
+    ContextAccessor<Object> fieldAcsr;
 
     public WebappPropertyToField(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
         resource = element.getAttribute("resource");
         property = element.getAttribute("property");
         defaultVal = element.getAttribute("default");
-        mapAcsr = new ContextAccessor(element.getAttribute("map-name"));
-        fieldAcsr = new ContextAccessor(element.getAttribute("field-name"));
+        mapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("map-name"));
+        fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
     }
 
     public boolean exec(MethodContext methodContext) {
@@ -83,11 +84,11 @@ public class WebappPropertyToField extends MethodOperation {
         }
 
         if (!mapAcsr.isEmpty()) {
-            Map fromMap = (Map) mapAcsr.get(methodContext);
+            Map<String, Object> fromMap = mapAcsr.get(methodContext);
 
             if (fromMap == null) {
                 Debug.logWarning("Map not found with name " + mapAcsr + " creating a new map", module);
-                fromMap = new HashMap();
+                fromMap = FastMap.newInstance();
                 mapAcsr.put(methodContext, fromMap);
             }
 

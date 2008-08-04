@@ -19,7 +19,6 @@
 package org.ofbiz.minilang.method.envops;
 
 import java.util.List;
-import java.util.LinkedList;
 
 import javolution.util.FastList;
 
@@ -38,13 +37,13 @@ public class Loop extends MethodOperation {
 
     public static final String module = Loop.class.getName();
     protected List<MethodOperation> subOps = FastList.newInstance();
-    protected ContextAccessor fieldAcsr;
+    protected ContextAccessor<Integer> fieldAcsr;
     protected String countStr;
 
 
     public Loop(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        this.fieldAcsr = new ContextAccessor(element.getAttribute("field"));
+        this.fieldAcsr = new ContextAccessor<Integer>(element.getAttribute("field"));
         this.countStr = element.getAttribute("count");
 
         SimpleMethod.readOperations(element, subOps, simpleMethod);
@@ -69,7 +68,7 @@ public class Loop extends MethodOperation {
         }
 
         for (int i = 0; i < count; i++) {
-            fieldAcsr.put(methodContext, Integer.valueOf(i));
+            fieldAcsr.put(methodContext, i);
             if (!SimpleMethod.runSubOps(subOps, methodContext)) {
                 // only return here if it returns false, otherwise just carry on
                 return false;

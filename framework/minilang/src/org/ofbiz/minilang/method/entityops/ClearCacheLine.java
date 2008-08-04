@@ -34,12 +34,12 @@ public class ClearCacheLine extends MethodOperation {
     public static final String module = ClearCacheLine.class.getName();
     
     String entityName;
-    ContextAccessor mapAcsr;
+    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
 
     public ClearCacheLine(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
         entityName = element.getAttribute("entity-name");
-        mapAcsr = new ContextAccessor(element.getAttribute("map-name"));
+        mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
     }
 
     public boolean exec(MethodContext methodContext) {
@@ -48,7 +48,7 @@ public class ClearCacheLine extends MethodOperation {
         if (mapAcsr.isEmpty()) {
             methodContext.getDelegator().clearCacheLine(entityName);
         } else {
-            Map theMap = (Map) mapAcsr.get(methodContext);
+            Map<String, ? extends Object> theMap = mapAcsr.get(methodContext);
             if (theMap == null) {
                 Debug.logWarning("In clear-cache-line could not find map with name " + mapAcsr + ", not clearing any cache lines", module);
             } else {

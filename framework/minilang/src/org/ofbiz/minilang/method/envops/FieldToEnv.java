@@ -32,15 +32,15 @@ public class FieldToEnv extends MethodOperation {
     
     public static final String module = FieldToEnv.class.getName();
     
-    ContextAccessor envAcsr;
-    ContextAccessor mapAcsr;
-    ContextAccessor fieldAcsr;
+    ContextAccessor<Object> envAcsr;
+    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
+    ContextAccessor<Object> fieldAcsr;
 
     public FieldToEnv(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        envAcsr = new ContextAccessor(element.getAttribute("env-name"));
-        mapAcsr = new ContextAccessor(element.getAttribute("map-name"));
-        fieldAcsr = new ContextAccessor(element.getAttribute("field-name"));
+        envAcsr = new ContextAccessor<Object>(element.getAttribute("env-name"));
+        mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
+        fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
 
         // set fieldAcsr to their defualt value of envAcsr if empty - this is the way it USED to work, so still supporting it, but a parsing error will result
         if (fieldAcsr.isEmpty()) {
@@ -56,7 +56,7 @@ public class FieldToEnv extends MethodOperation {
         Object fieldVal = null;
 
         if (!mapAcsr.isEmpty()) {
-            Map fromMap = (Map) mapAcsr.get(methodContext);
+            Map<String, ? extends Object> fromMap = mapAcsr.get(methodContext);
 
             if (fromMap == null) {
                 Debug.logWarning("Map not found with name " + mapAcsr + ", not copying field", module);

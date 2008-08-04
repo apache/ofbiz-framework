@@ -20,10 +20,12 @@ package org.ofbiz.minilang.method.envops;
 
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 
+import javolution.util.FastList;
+
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityListIterator;
@@ -40,15 +42,15 @@ public class Iterate extends MethodOperation {
     
     public static final String module = Iterate.class.getName();
 
-    protected List<MethodOperation> subOps = new LinkedList();
+    protected List<MethodOperation> subOps = FastList.newInstance();
 
-    protected ContextAccessor entryAcsr;
-    protected ContextAccessor listAcsr;
+    protected ContextAccessor<GenericValue> entryAcsr;
+    protected ContextAccessor<Object> listAcsr;
 
     public Iterate(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        this.entryAcsr = new ContextAccessor(element.getAttribute("entry-name"));
-        this.listAcsr = new ContextAccessor(element.getAttribute("list-name"));
+        this.entryAcsr = new ContextAccessor<GenericValue>(element.getAttribute("entry-name"));
+        this.listAcsr = new ContextAccessor<Object>(element.getAttribute("list-name"));
 
         SimpleMethod.readOperations(element, subOps, simpleMethod);
     }
@@ -60,13 +62,13 @@ public class Iterate extends MethodOperation {
             return true;
         }
 
-        Object oldEntryValue = entryAcsr.get(methodContext);
+        GenericValue oldEntryValue = entryAcsr.get(methodContext);
         Object objList = listAcsr.get(methodContext);
         if (objList instanceof EntityListIterator) {
             EntityListIterator eli = (EntityListIterator) objList;
 
             GenericValue theEntry;
-            while ((theEntry = (GenericValue) eli.next()) != null) {
+            while ((theEntry = eli.next()) != null) {
                 entryAcsr.put(methodContext, theEntry);
 
                 if (!SimpleMethod.runSubOps(subOps, methodContext)) {
@@ -91,7 +93,7 @@ public class Iterate extends MethodOperation {
                 return false;
             }
         } else {
-            Collection theList = (Collection) objList;
+            Collection<GenericValue> theList = UtilGenerics.checkList(objList);
 
             if (theList == null) {
                 if (Debug.infoOn()) Debug.logInfo("List not found with name " + listAcsr + ", doing nothing: " + rawString(), module);
@@ -102,10 +104,7 @@ public class Iterate extends MethodOperation {
                 return true;
             }
 
-            Iterator theIterator = theList.iterator();
-
-            while (theIterator.hasNext()) {
-                Object theEntry = theIterator.next();
+            for (GenericValue theEntry: theList) {
                 entryAcsr.put(methodContext, theEntry);
 
                 if (!SimpleMethod.runSubOps(subOps, methodContext)) {

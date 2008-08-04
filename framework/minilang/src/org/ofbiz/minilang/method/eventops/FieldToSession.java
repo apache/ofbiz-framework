@@ -35,15 +35,15 @@ public class FieldToSession extends MethodOperation {
     
     public static final String module = FieldToSession.class.getName();
     
-    ContextAccessor mapAcsr;
-    ContextAccessor fieldAcsr;
-    FlexibleServletAccessor sessionAcsr;
+    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
+    ContextAccessor<Object> fieldAcsr;
+    FlexibleServletAccessor<Object> sessionAcsr;
 
     public FieldToSession(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        mapAcsr = new ContextAccessor(element.getAttribute("map-name"));
-        fieldAcsr = new ContextAccessor(element.getAttribute("field-name"));
-        sessionAcsr = new FlexibleServletAccessor(element.getAttribute("session-name"), element.getAttribute("field-name"));
+        mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
+        fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
+        sessionAcsr = new FlexibleServletAccessor<Object>(element.getAttribute("session-name"), element.getAttribute("field-name"));
     }
 
     public boolean exec(MethodContext methodContext) {
@@ -51,7 +51,7 @@ public class FieldToSession extends MethodOperation {
         if (methodContext.getMethodType() == MethodContext.EVENT) {
             Object fieldVal = null;
             if (!mapAcsr.isEmpty()) {
-                Map fromMap = (Map) mapAcsr.get(methodContext);
+                Map<String, ? extends Object> fromMap = mapAcsr.get(methodContext);
                 if (fromMap == null) {
                     Debug.logWarning("Map not found with name " + mapAcsr, module);
                     return true;

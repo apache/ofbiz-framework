@@ -18,9 +18,9 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.eventops;
 
-import java.util.HashMap;
 import java.util.Map;
 
+import javolution.util.FastMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.collections.FlexibleServletAccessor;
 import org.ofbiz.minilang.SimpleMethod;
@@ -36,16 +36,16 @@ public class RequestToField extends MethodOperation {
     
     public static final String module = RequestToField.class.getName();
     
-    ContextAccessor mapAcsr;
-    ContextAccessor fieldAcsr;
-    FlexibleServletAccessor requestAcsr;
+    ContextAccessor<Map<String, Object>> mapAcsr;
+    ContextAccessor<Object> fieldAcsr;
+    FlexibleServletAccessor<Object> requestAcsr;
     String defaultVal;
 
     public RequestToField(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        mapAcsr = new ContextAccessor(element.getAttribute("map-name"));
-        fieldAcsr = new ContextAccessor(element.getAttribute("field-name"));
-        requestAcsr = new FlexibleServletAccessor(element.getAttribute("request-name"), element.getAttribute("field-name"));
+        mapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("map-name"));
+        fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
+        requestAcsr = new FlexibleServletAccessor<Object>(element.getAttribute("request-name"), element.getAttribute("field-name"));
         defaultVal = element.getAttribute("default");
     }
 
@@ -73,11 +73,11 @@ public class RequestToField extends MethodOperation {
         }
 
         if (!mapAcsr.isEmpty()) {
-            Map fromMap = (Map) mapAcsr.get(methodContext);
+            Map<String, Object> fromMap = mapAcsr.get(methodContext);
 
             if (fromMap == null) {
                 Debug.logWarning("Map not found with name " + mapAcsr + " creating a new map", module);
-                fromMap = new HashMap();
+                fromMap = FastMap.newInstance();
                 mapAcsr.put(methodContext, fromMap);
             }
 

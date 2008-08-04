@@ -39,10 +39,10 @@ public class IfCompareField extends MethodOperation {
     protected List<MethodOperation> subOps = FastList.newInstance();
     protected List<MethodOperation> elseSubOps = null;
 
-    protected ContextAccessor mapAcsr;
-    protected ContextAccessor fieldAcsr;
-    protected ContextAccessor toMapAcsr;
-    protected ContextAccessor toFieldAcsr;
+    protected ContextAccessor<Map<String, ? extends Object>> mapAcsr;
+    protected ContextAccessor<Object> fieldAcsr;
+    protected ContextAccessor<Map<String, ? extends Object>> toMapAcsr;
+    protected ContextAccessor<Object> toFieldAcsr;
 
     protected String operator;
     protected String type;
@@ -51,20 +51,20 @@ public class IfCompareField extends MethodOperation {
     public IfCompareField(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
         // NOTE: this is still supported, but is deprecated
-        this.mapAcsr = new ContextAccessor(element.getAttribute("map-name"));
-        this.fieldAcsr = new ContextAccessor(element.getAttribute("field"));
+        this.mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
+        this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"));
         if (this.fieldAcsr.isEmpty()) {
             // NOTE: this is still supported, but is deprecated
-            this.fieldAcsr = new ContextAccessor(element.getAttribute("field-name"));
+            this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
         }
         
         // NOTE: this is still supported, but is deprecated
-        this.toMapAcsr = new ContextAccessor(element.getAttribute("to-map-name"));
+        this.toMapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("to-map-name"));
         // set fieldAcsr to their defualt value of fieldAcsr if empty
-        this.toFieldAcsr = new ContextAccessor(element.getAttribute("to-field"), element.getAttribute("field"));
+        this.toFieldAcsr = new ContextAccessor<Object>(element.getAttribute("to-field"), element.getAttribute("field"));
         if (this.toFieldAcsr.isEmpty()) {
             // NOTE: this is still supported, but is deprecated
-            this.toFieldAcsr = new ContextAccessor(element.getAttribute("to-field-name"), element.getAttribute("field-name"));
+            this.toFieldAcsr = new ContextAccessor<Object>(element.getAttribute("to-field-name"), element.getAttribute("field-name"));
         }
 
         // do NOT default the to-map-name to the map-name because that
@@ -95,7 +95,7 @@ public class IfCompareField extends MethodOperation {
         Object fieldVal2 = null;
 
         if (!mapAcsr.isEmpty()) {
-            Map fromMap = (Map) mapAcsr.get(methodContext);
+            Map<String, ? extends Object> fromMap = mapAcsr.get(methodContext);
             if (fromMap == null) {
                 if (Debug.infoOn()) Debug.logInfo("Map not found with name " + mapAcsr + ", using null for comparison", module);
             } else {
@@ -107,7 +107,7 @@ public class IfCompareField extends MethodOperation {
         }
 
         if (!toMapAcsr.isEmpty()) {
-            Map toMap = (Map) toMapAcsr.get(methodContext);
+            Map<String, ? extends Object> toMap = toMapAcsr.get(methodContext);
             if (toMap == null) {
                 if (Debug.infoOn()) Debug.logInfo("To Map not found with name " + toMapAcsr + ", using null for comparison", module);
             } else {
@@ -118,17 +118,16 @@ public class IfCompareField extends MethodOperation {
             fieldVal2 = toFieldAcsr.get(methodContext);
         }
 
-        List messages = FastList.newInstance();
+        List<Object> messages = FastList.newInstance();
         Boolean resultBool = BaseCompare.doRealCompare(fieldVal1, fieldVal2, operator, type, format, messages, null, methodContext.getLoader(), false);
 
         if (messages.size() > 0) {
             messages.add(0, "Error with comparison in if-compare-field between fields [" + mapAcsr.toString() + "." + fieldAcsr.toString() + "] with value [" + fieldVal1 + "] and [" + toMapAcsr.toString() + "." + toFieldAcsr.toString() + "] with value [" + fieldVal2 + "] with operator [" + operator + "] and type [" + type + "]: ");
             if (methodContext.getMethodType() == MethodContext.EVENT) {
-                StringBuffer fullString = new StringBuffer();
+                StringBuilder fullString = new StringBuilder();
 
-                Iterator miter = messages.iterator();
-                while (miter.hasNext()) {
-                    fullString.append((String) miter.next());
+                for (Object message: messages) {
+                    fullString.append(message);
                 }
                 Debug.logWarning(fullString.toString(), module);
 

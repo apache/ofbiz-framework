@@ -19,6 +19,7 @@
 package org.ofbiz.minilang.method.conditional;
 
 import java.util.*;
+import javolution.util.FastList;
 import org.w3c.dom.*;
 import org.ofbiz.base.util.*;
 import org.ofbiz.minilang.*;
@@ -36,15 +37,12 @@ public class CombinedCondition implements Conditional {
 
     SimpleMethod simpleMethod;    
     int conditionType;
-    List subConditions = new LinkedList();
+    List<Conditional> subConditions = FastList.newInstance();
     
     public CombinedCondition(Element element, int conditionType, SimpleMethod simpleMethod) {
         this.simpleMethod = simpleMethod;
         this.conditionType = conditionType;
-        List subElements = UtilXml.childElementList(element);
-        Iterator subElIter = subElements.iterator();
-        while (subElIter.hasNext()) {
-            Element subElement = (Element) subElIter.next();
+        for (Element subElement: UtilXml.childElementList(element)) {
             subConditions.add(ConditionalFactory.makeConditional(subElement, simpleMethod));
         }
     }
@@ -52,11 +50,11 @@ public class CombinedCondition implements Conditional {
     public boolean checkCondition(MethodContext methodContext) {
         if (subConditions.size() == 0) return true;
         
-        Iterator subCondIter = subConditions.iterator();
+        Iterator<Conditional> subCondIter = subConditions.iterator();
         switch (this.conditionType) {
             case OR:
                 while (subCondIter.hasNext()) {
-                    Conditional subCond = (Conditional) subCondIter.next();
+                    Conditional subCond = subCondIter.next();
                     if (subCond.checkCondition(methodContext)) {
                         return true;
                     }
@@ -65,7 +63,7 @@ public class CombinedCondition implements Conditional {
             case XOR:
                 boolean trueFound = false;
                 while (subCondIter.hasNext()) {
-                    Conditional subCond = (Conditional) subCondIter.next();
+                    Conditional subCond = subCondIter.next();
                     if (subCond.checkCondition(methodContext)) {
                         if (trueFound) {
                             return false;
@@ -77,25 +75,25 @@ public class CombinedCondition implements Conditional {
                 return trueFound;
             case AND:
                 while (subCondIter.hasNext()) {
-                    Conditional subCond = (Conditional) subCondIter.next();
+                    Conditional subCond = subCondIter.next();
                     if (!subCond.checkCondition(methodContext)) {
                         return false;
                     }
                 }
                 return true;
             case NOT:
-                Conditional subCond = (Conditional) subCondIter.next();
+                Conditional subCond = subCondIter.next();
                 return !subCond.checkCondition(methodContext);
             default:
                 return false;
         }
     }
 
-    public void prettyPrint(StringBuffer messageBuffer, MethodContext methodContext) {
+    public void prettyPrint(StringBuilder messageBuffer, MethodContext methodContext) {
         messageBuffer.append("(");
-        Iterator subCondIter = subConditions.iterator();
+        Iterator<Conditional> subCondIter = subConditions.iterator();
         while (subCondIter.hasNext()) {
-            Conditional subCond = (Conditional) subCondIter.next();
+            Conditional subCond = subCondIter.next();
             subCond.prettyPrint(messageBuffer, methodContext);
             if (subCondIter.hasNext()) {
                 switch (this.conditionType) {

@@ -47,13 +47,13 @@ public class EntityCount extends MethodOperation {
     protected FlexibleStringExpander delegatorNameExdr;
     protected Condition whereCondition;
     protected Condition havingCondition;
-    protected FlexibleMapAccessor countAcsr;
+    protected FlexibleMapAccessor<Long> countAcsr;
 
     public EntityCount(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
         this.entityNameExdr = new FlexibleStringExpander(element.getAttribute("entity-name"));
         this.delegatorNameExdr = new FlexibleStringExpander(element.getAttribute("delegator-name"));
-        this.countAcsr = new FlexibleMapAccessor(element.getAttribute("count-name"));
+        this.countAcsr = new FlexibleMapAccessor<Long>(element.getAttribute("count-name"));
         
         // process condition-expr | condition-list
         Element conditionExprElement = UtilXml.firstChildElement(element, "condition-expr");
@@ -79,7 +79,7 @@ public class EntityCount extends MethodOperation {
 
     public boolean exec(MethodContext methodContext) {
         try {
-            Map context = methodContext.getEnvMap();
+            Map<String, Object> context = methodContext.getEnvMap();
             GenericDelegator delegator = methodContext.getDelegator();
             String entityName = this.entityNameExdr.expandString(context);
             String delegatorName = this.delegatorNameExdr.expandString(context);
@@ -102,7 +102,7 @@ public class EntityCount extends MethodOperation {
             
             long count = delegator.findCountByCondition(entityName, whereEntityCondition, havingEntityCondition, null);
             
-            this.countAcsr.put(context, Long.valueOf(count));
+            this.countAcsr.put(context, count);
         } catch (GeneralException e) {
             Debug.logError(e, module);
             String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process: " + e.getMessage();

@@ -19,14 +19,15 @@
 package org.ofbiz.minilang.method.entityops;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntity;
+import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
@@ -41,19 +42,19 @@ public class FindByPrimaryKey extends MethodOperation {
     
     public static final String module = FindByPrimaryKey.class.getName();
     
-    ContextAccessor valueAcsr;
+    ContextAccessor<GenericValue> valueAcsr;
     String entityName;
-    ContextAccessor mapAcsr;
+    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
     String delegatorName;
     String useCacheStr;
-    ContextAccessor fieldsToSelectListAcsr;
+    ContextAccessor<Collection<String>> fieldsToSelectListAcsr;
 
     public FindByPrimaryKey(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        valueAcsr = new ContextAccessor(element.getAttribute("value-name"));
+        valueAcsr = new ContextAccessor<GenericValue>(element.getAttribute("value-name"));
         entityName = element.getAttribute("entity-name");
-        mapAcsr = new ContextAccessor(element.getAttribute("map-name"));
-        fieldsToSelectListAcsr = new ContextAccessor(element.getAttribute("fields-to-select-list"));
+        mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
+        fieldsToSelectListAcsr = new ContextAccessor<Collection<String>>(element.getAttribute("fields-to-select-list"));
         delegatorName = element.getAttribute("delegator-name");
         useCacheStr = element.getAttribute("use-cache");
     }
@@ -70,20 +71,20 @@ public class FindByPrimaryKey extends MethodOperation {
             delegator = GenericDelegator.getGenericDelegator(delegatorName);
         }
 
-        Map inMap = (Map) mapAcsr.get(methodContext);
+        Map<String, ? extends Object> inMap = mapAcsr.get(methodContext);
         if (UtilValidate.isEmpty(entityName) && inMap instanceof GenericEntity) {
             GenericEntity inEntity = (GenericEntity) inMap;
             entityName = inEntity.getEntityName();
         }
         
-        Collection fieldsToSelectList = null;
+        Collection<String> fieldsToSelectList = null;
         if (!fieldsToSelectListAcsr.isEmpty()) {
-            fieldsToSelectList = (Collection) fieldsToSelectListAcsr.get(methodContext);
+            fieldsToSelectList = fieldsToSelectListAcsr.get(methodContext);
         }
         
         try {
             if (fieldsToSelectList != null) {
-                valueAcsr.put(methodContext, delegator.findByPrimaryKeyPartial(delegator.makePK(entityName, inMap), new HashSet(fieldsToSelectList)));
+                valueAcsr.put(methodContext, delegator.findByPrimaryKeyPartial(delegator.makePK(entityName, inMap), UtilMisc.makeSetWritable(fieldsToSelectList)));
             } else {
                 valueAcsr.put(methodContext, delegator.findOne(entityName, inMap, useCache));
             }

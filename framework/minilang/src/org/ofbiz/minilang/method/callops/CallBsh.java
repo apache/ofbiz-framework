@@ -21,6 +21,8 @@ package org.ofbiz.minilang.method.callops;
 import java.io.*;
 import java.util.*;
 
+import javolution.util.FastList;
+
 import org.w3c.dom.*;
 import org.ofbiz.base.util.*;
 import org.ofbiz.minilang.*;
@@ -39,23 +41,23 @@ public class CallBsh extends MethodOperation {
 
     String inline = null;
     String resource = null;
-    ContextAccessor errorListAcsr;
+    ContextAccessor<List<Object>> errorListAcsr;
 
     public CallBsh(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
         inline = UtilXml.elementValue(element);
         resource = element.getAttribute("resource");
-        errorListAcsr = new ContextAccessor(element.getAttribute("error-list-name"), "error_list");
+        errorListAcsr = new ContextAccessor<List<Object>>(element.getAttribute("error-list-name"), "error_list");
 
         if (inline != null && inline.length() > 0) {// pre-parse/compile inlined bsh, only accessed here
         }
     }
 
     public boolean exec(MethodContext methodContext) {
-        List messages = (List) errorListAcsr.get(methodContext);
+        List<Object> messages = errorListAcsr.get(methodContext);
 
         if (messages == null) {
-            messages = new LinkedList();
+            messages = FastList.newInstance();
             errorListAcsr.put(methodContext, messages);
         }
 
@@ -64,11 +66,8 @@ public class CallBsh extends MethodOperation {
 
         try {
             // setup environment
-            Iterator envEntries = methodContext.getEnvEntryIterator();
-
-            while (envEntries.hasNext()) {
-                Map.Entry entry = (Map.Entry) envEntries.next();
-                bsh.set((String) entry.getKey(), entry.getValue());
+            for (Map.Entry<String, Object> entry: methodContext) {
+                bsh.set(entry.getKey(), entry.getValue());
             }
 
             // run external, from resource, first if resource specified
@@ -81,7 +80,7 @@ public class CallBsh extends MethodOperation {
                 } else {
                     try {
                         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-                        StringBuffer outSb = new StringBuffer();
+                        StringBuilder outSb = new StringBuilder();
 
                         String tempStr = null;
 
@@ -94,7 +93,7 @@ public class CallBsh extends MethodOperation {
 
                         // if map is returned, copy values into env
                         if ((resourceResult != null) && (resourceResult instanceof Map)) {
-                            methodContext.putAllEnv((Map) resourceResult);
+                            methodContext.putAllEnv(UtilGenerics.<String, Object>checkMap(resourceResult));
                         }
                     } catch (IOException e) {
                         messages.add("IO error loading bsh resource: " + e.getMessage());
@@ -109,7 +108,7 @@ public class CallBsh extends MethodOperation {
 
             // if map is returned, copy values into env
             if ((inlineResult != null) && (inlineResult instanceof Map)) {
-                methodContext.putAllEnv((Map) inlineResult);
+                methodContext.putAllEnv(UtilGenerics.<String, Object>checkMap(inlineResult));
             }
         } catch (EvalError e) {
             Debug.logError(e, "BeanShell execution caused an error", module);

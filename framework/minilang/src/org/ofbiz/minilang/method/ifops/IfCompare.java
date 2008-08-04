@@ -39,8 +39,8 @@ public class IfCompare extends MethodOperation {
     protected List<MethodOperation> subOps = FastList.newInstance();
     protected List<MethodOperation> elseSubOps = null;
 
-    protected ContextAccessor mapAcsr;
-    protected ContextAccessor fieldAcsr;
+    protected ContextAccessor<Map<String, ? extends Object>> mapAcsr;
+    protected ContextAccessor<Object> fieldAcsr;
     protected String value;
 
     protected String operator;
@@ -50,11 +50,11 @@ public class IfCompare extends MethodOperation {
     public IfCompare(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
         // NOTE: this is still supported, but is deprecated
-        this.mapAcsr = new ContextAccessor(element.getAttribute("map-name"));
-        this.fieldAcsr = new ContextAccessor(element.getAttribute("field"));
+        this.mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
+        this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"));
         if (this.fieldAcsr.isEmpty()) {
             // NOTE: this is still supported, but is deprecated
-            this.fieldAcsr = new ContextAccessor(element.getAttribute("field-name"));
+            this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
         }
         this.value = element.getAttribute("value");
 
@@ -81,7 +81,7 @@ public class IfCompare extends MethodOperation {
         
         Object fieldVal = null;
         if (!mapAcsr.isEmpty()) {
-            Map fromMap = (Map) mapAcsr.get(methodContext);
+            Map<String, ? extends Object> fromMap = mapAcsr.get(methodContext);
             if (fromMap == null) {
                 if (Debug.infoOn()) Debug.logInfo("Map not found with name " + mapAcsr + ", using empty string for comparison", module);
             } else {
@@ -97,16 +97,15 @@ public class IfCompare extends MethodOperation {
             fieldVal = "";
         }
 
-        List messages = FastList.newInstance();
+        List<Object> messages = FastList.newInstance();
         Boolean resultBool = BaseCompare.doRealCompare(fieldVal, value, operator, type, format, messages, null, methodContext.getLoader(), true);
         if (messages.size() > 0) {
             messages.add(0, "Error with comparison in if-compare between field [" + mapAcsr.toString() + "." + fieldAcsr.toString() + "] with value [" + fieldVal + "] and value [" + value + "] with operator [" + operator + "] and type [" + type + "]: ");
             if (methodContext.getMethodType() == MethodContext.EVENT) {
-                StringBuffer fullString = new StringBuffer();
+                StringBuilder fullString = new StringBuilder();
                 
-                Iterator miter = messages.iterator();
-                while (miter.hasNext()) {
-                    fullString.append((String) miter.next());
+                for (Object message: messages) {
+                    fullString.append(message);
                 }
                 Debug.logWarning(fullString.toString(), module);
 

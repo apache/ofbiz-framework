@@ -37,20 +37,20 @@ public class GetRelated extends MethodOperation {
     
     public static final String module = GetRelated.class.getName();
     
-    ContextAccessor valueAcsr;
-    ContextAccessor mapAcsr;
-    ContextAccessor orderByListAcsr;
+    ContextAccessor<GenericValue> valueAcsr;
+    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
+    ContextAccessor<List<String>> orderByListAcsr;
     String relationName;
     String useCacheStr;
-    ContextAccessor listAcsr;
+    ContextAccessor<List<GenericValue>> listAcsr;
 
     public GetRelated(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        valueAcsr = new ContextAccessor(element.getAttribute("value-name"));
+        valueAcsr = new ContextAccessor<GenericValue>(element.getAttribute("value-name"));
         relationName = element.getAttribute("relation-name");
-        listAcsr = new ContextAccessor(element.getAttribute("list-name"));
-        mapAcsr = new ContextAccessor(element.getAttribute("map-name"));
-        orderByListAcsr = new ContextAccessor(element.getAttribute("order-by-list-name"));
+        listAcsr = new ContextAccessor<List<GenericValue>>(element.getAttribute("list-name"));
+        mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
+        orderByListAcsr = new ContextAccessor<List<String>>(element.getAttribute("order-by-list-name"));
 
         useCacheStr = element.getAttribute("use-cache");
     }
@@ -60,16 +60,16 @@ public class GetRelated extends MethodOperation {
         String useCacheStr = methodContext.expandString(this.useCacheStr);
         boolean useCache = "true".equals(useCacheStr);
         
-        List orderByNames = null;
+        List<String> orderByNames = null;
         if (!orderByListAcsr.isEmpty()) {
-            orderByNames = (List) orderByListAcsr.get(methodContext);
+            orderByNames = orderByListAcsr.get(methodContext);
         }
-        Map constraintMap = null;
+        Map<String, ? extends Object> constraintMap = null;
         if (!mapAcsr.isEmpty()) {
-            constraintMap = (Map) mapAcsr.get(methodContext);
+            constraintMap = mapAcsr.get(methodContext);
         }
 
-        GenericValue value = (GenericValue) valueAcsr.get(methodContext);
+        GenericValue value = valueAcsr.get(methodContext);
         if (value == null) {
             Debug.logWarning("Value not found with name: " + valueAcsr + ", not getting related...", module);
             return true;

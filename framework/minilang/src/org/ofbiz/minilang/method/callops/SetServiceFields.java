@@ -18,13 +18,13 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.callops;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -48,20 +48,20 @@ public class SetServiceFields extends MethodOperation {
     public static final String module = CallService.class.getName();
     
     String serviceName;
-    ContextAccessor mapAcsr;
-    ContextAccessor toMapAcsr;
-    ContextAccessor errorListAcsr;
+    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
+    ContextAccessor<Map<String, Object>> toMapAcsr;
+    ContextAccessor<List<Object>> errorListAcsr;
 
     public SetServiceFields(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
         serviceName = element.getAttribute("service-name");
-        mapAcsr = new ContextAccessor(element.getAttribute("map-name"));
-        toMapAcsr = new ContextAccessor(element.getAttribute("to-map-name"));
-        errorListAcsr = new ContextAccessor(element.getAttribute("error-list-name"), "error_list");
+        mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
+        toMapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("to-map-name"));
+        errorListAcsr = new ContextAccessor<List<Object>>(element.getAttribute("error-list-name"), "error_list");
     }
 
     public boolean exec(MethodContext methodContext) {
-        List messages = (List) errorListAcsr.get(methodContext);
+        List<Object> messages = errorListAcsr.get(methodContext);
         if (messages == null) {
             messages = FastList.newInstance();
             errorListAcsr.put(methodContext, messages);
@@ -69,15 +69,15 @@ public class SetServiceFields extends MethodOperation {
 
         String serviceName = methodContext.expandString(this.serviceName);
 
-        Map fromMap = (Map) mapAcsr.get(methodContext);
+        Map<String, ? extends Object> fromMap = mapAcsr.get(methodContext);
         if (fromMap == null) {
             Debug.logWarning("The from map in set-service-field was not found with name: " + mapAcsr, module);
             return true;
         }
 
-        Map toMap = (Map) toMapAcsr.get(methodContext);
+        Map<String, Object> toMap = toMapAcsr.get(methodContext);
         if (toMap == null) {
-            toMap = new HashMap();
+            toMap = FastMap.newInstance();
             toMapAcsr.put(methodContext, toMap);
         }
         
@@ -91,10 +91,7 @@ public class SetServiceFields extends MethodOperation {
             methodContext.setErrorReturn(errMsg, simpleMethod);
             return false;
         }
-        Iterator inModelParamIter = modelService.getInModelParamList().iterator();
-        while (inModelParamIter.hasNext()) {
-            ModelParam modelParam = (ModelParam) inModelParamIter.next();
-            
+        for (ModelParam modelParam: modelService.getInModelParamList()) {
             if (fromMap.containsKey(modelParam.name)) {
                 Object value = fromMap.get(modelParam.name);
 

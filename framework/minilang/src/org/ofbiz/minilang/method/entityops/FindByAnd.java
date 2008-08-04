@@ -24,6 +24,7 @@ import java.util.Map;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityFieldMap;
 import org.ofbiz.entity.condition.EntityOperator;
@@ -40,20 +41,20 @@ public class FindByAnd extends MethodOperation {
     
     public static final String module = FindByAnd.class.getName();         
     
-    ContextAccessor listAcsr;
+    ContextAccessor<Object> listAcsr;
     String entityName;
-    ContextAccessor mapAcsr;
-    ContextAccessor orderByListAcsr;
+    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
+    ContextAccessor<List<String>> orderByListAcsr;
     String delegatorName;
     String useCacheStr;
     String useIteratorStr;
 
     public FindByAnd(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        listAcsr = new ContextAccessor(element.getAttribute("list-name"));
+        listAcsr = new ContextAccessor<Object>(element.getAttribute("list-name"));
         entityName = element.getAttribute("entity-name");
-        mapAcsr = new ContextAccessor(element.getAttribute("map-name"));
-        orderByListAcsr = new ContextAccessor(element.getAttribute("order-by-list-name"));
+        mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
+        orderByListAcsr = new ContextAccessor<List<String>>(element.getAttribute("order-by-list-name"));
         delegatorName = element.getAttribute("delegator-name");
 
         useCacheStr = element.getAttribute("use-cache");
@@ -69,9 +70,9 @@ public class FindByAnd extends MethodOperation {
         boolean useCache = "true".equals(useCacheStr);
         boolean useIterator = "true".equals(useIteratorStr);
         
-        List orderByNames = null;
+        List<String> orderByNames = null;
         if (!orderByListAcsr.isEmpty()) {
-            orderByNames = (List) orderByListAcsr.get(methodContext);
+            orderByNames = orderByListAcsr.get(methodContext);
         }
 
         GenericDelegator delegator = methodContext.getDelegator();
@@ -83,14 +84,14 @@ public class FindByAnd extends MethodOperation {
             if (useIterator) {
                 EntityCondition whereCond = null;
                 if (!mapAcsr.isEmpty()) {
-                    whereCond = EntityCondition.makeCondition((Map) mapAcsr.get(methodContext));
+                    whereCond = EntityCondition.makeCondition(mapAcsr.get(methodContext));
                 }
                 listAcsr.put(methodContext, delegator.find(entityName, whereCond, null, null, orderByNames, null));
             } else {
                 if (useCache) {
-                    listAcsr.put(methodContext, delegator.findByAndCache(entityName, (Map) mapAcsr.get(methodContext), orderByNames));
+                    listAcsr.put(methodContext, delegator.findByAndCache(entityName, mapAcsr.get(methodContext), orderByNames));
                 } else {
-                    listAcsr.put(methodContext, delegator.findByAnd(entityName, (Map) mapAcsr.get(methodContext), orderByNames));
+                    listAcsr.put(methodContext, delegator.findByAnd(entityName, mapAcsr.get(methodContext), orderByNames));
                 }
             }
         } catch (GenericEntityException e) {

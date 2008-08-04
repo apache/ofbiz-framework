@@ -21,6 +21,8 @@ package org.ofbiz.minilang.method.callops;
 
 import java.util.*;
 
+import javolution.util.FastList;
+
 import org.w3c.dom.*;
 import org.ofbiz.base.util.*;
 
@@ -36,31 +38,29 @@ public class CallClassMethod extends MethodOperation {
 
     String className;
     String methodName;
-    ContextAccessor retFieldAcsr;
-    ContextAccessor retMapAcsr;
+    ContextAccessor<Object> retFieldAcsr;
+    ContextAccessor<Map<String, Object>> retMapAcsr;
 
     /** A list of MethodObject objects to use as the method call parameters */
-    List parameters;
+    List<MethodObject<?>> parameters;
 
     public CallClassMethod(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
         className = element.getAttribute("class-name");
         methodName = element.getAttribute("method-name");
-        retFieldAcsr = new ContextAccessor(element.getAttribute("ret-field-name"));
-        retMapAcsr = new ContextAccessor(element.getAttribute("ret-map-name"));
+        retFieldAcsr = new ContextAccessor<Object>(element.getAttribute("ret-field-name"));
+        retMapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("ret-map-name"));
         
-        List parameterElements = UtilXml.childElementList(element);
+        List<? extends Element> parameterElements = UtilXml.childElementList(element);
         if (parameterElements.size() > 0) {
-            parameters = new ArrayList(parameterElements.size());
+            parameters = FastList.newInstance();
             
-            Iterator parameterIter = parameterElements.iterator();
-            while (parameterIter.hasNext()) {
-                Element parameterElement = (Element) parameterIter.next();
-                MethodObject methodObject = null;
+            for (Element parameterElement: parameterElements) {
+                MethodObject<?> methodObject = null;
                 if ("string".equals(parameterElement.getNodeName())) {
                     methodObject = new StringObject(parameterElement, simpleMethod); 
                 } else if ("field".equals(parameterElement.getNodeName())) {
-                    methodObject = new FieldObject(parameterElement, simpleMethod);
+                    methodObject = new FieldObject<Object>(parameterElement, simpleMethod);
                 } else {
                     //whoops, invalid tag here, print warning
                     Debug.logWarning("Found an unsupported tag under the call-object-method tag: " + parameterElement.getNodeName() + "; ignoring", module);
@@ -76,7 +76,7 @@ public class CallClassMethod extends MethodOperation {
         String className = methodContext.expandString(this.className);
         String methodName = methodContext.expandString(this.methodName);
         
-        Class methodClass = null;
+        Class<?> methodClass = null;
         try {
             methodClass = ObjectType.loadClass(className, methodContext.getLoader());
         } catch (ClassNotFoundException e) {

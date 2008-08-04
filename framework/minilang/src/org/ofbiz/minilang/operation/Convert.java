@@ -55,7 +55,7 @@ public class Convert extends SimpleMapOperation {
         format = element.getAttribute("format");
     }
 
-    public void exec(Map inMap, Map results, List messages, Locale locale, ClassLoader loader) {
+    public void exec(Map<String, Object> inMap, Map<String, Object> results, List<Object> messages, Locale locale, ClassLoader loader) {
         Object fieldObject = inMap.get(fieldName);
 
         if (fieldObject == null) {

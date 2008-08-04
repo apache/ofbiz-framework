@@ -18,10 +18,12 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.entityops;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
@@ -34,18 +36,18 @@ import org.w3c.dom.Element;
  */
 public class FilterListByDate extends MethodOperation {
     
-    ContextAccessor listAcsr;
-    ContextAccessor toListAcsr;
-    ContextAccessor validDateAcsr;
+    ContextAccessor<List<GenericEntity>> listAcsr;
+    ContextAccessor<List<GenericEntity>> toListAcsr;
+    ContextAccessor<Timestamp> validDateAcsr;
     String fromFieldName;
     String thruFieldName;
     String allSameStr;
 
     public FilterListByDate(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        listAcsr = new ContextAccessor(element.getAttribute("list-name"));
-        toListAcsr = new ContextAccessor(element.getAttribute("to-list-name"), element.getAttribute("list-name"));
-        validDateAcsr = new ContextAccessor(element.getAttribute("valid-date-name"));
+        listAcsr = new ContextAccessor<List<GenericEntity>>(element.getAttribute("list-name"));
+        toListAcsr = new ContextAccessor<List<GenericEntity>>(element.getAttribute("to-list-name"), element.getAttribute("list-name"));
+        validDateAcsr = new ContextAccessor<Timestamp>(element.getAttribute("valid-date-name"));
 
         fromFieldName = element.getAttribute("from-field-name");
         if (UtilValidate.isEmpty(fromFieldName)) fromFieldName = "fromDate";
@@ -58,9 +60,9 @@ public class FilterListByDate extends MethodOperation {
     public boolean exec(MethodContext methodContext) {
 
         if (!validDateAcsr.isEmpty()) {
-            toListAcsr.put(methodContext, EntityUtil.filterByDate((List) listAcsr.get(methodContext), (java.sql.Timestamp) validDateAcsr.get(methodContext), fromFieldName, thruFieldName, true));
+            toListAcsr.put(methodContext, EntityUtil.filterByDate(listAcsr.get(methodContext), validDateAcsr.get(methodContext), fromFieldName, thruFieldName, true));
         } else {
-            toListAcsr.put(methodContext, EntityUtil.filterByDate((List) listAcsr.get(methodContext), UtilDateTime.nowTimestamp(), fromFieldName, thruFieldName, true));
+            toListAcsr.put(methodContext, EntityUtil.filterByDate(listAcsr.get(methodContext), UtilDateTime.nowTimestamp(), fromFieldName, thruFieldName, true));
         }
         return true;
     }

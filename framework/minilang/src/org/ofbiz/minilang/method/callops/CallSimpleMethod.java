@@ -114,8 +114,8 @@ public class CallSimpleMethod extends MethodOperation {
         if (xmlResource == null || xmlResource.length() == 0) {
             simpleMethodToCall = this.simpleMethod.getSimpleMethodInSameFile(methodName);
         } else {
-            Map simpleMethods = SimpleMethod.getSimpleMethods(xmlResource, loader);
-            simpleMethodToCall = (SimpleMethod) simpleMethods.get(methodName);
+            Map<String, SimpleMethod> simpleMethods = SimpleMethod.getSimpleMethods(xmlResource, loader);
+            simpleMethodToCall = simpleMethods.get(methodName);
         }
         return simpleMethodToCall;
     }

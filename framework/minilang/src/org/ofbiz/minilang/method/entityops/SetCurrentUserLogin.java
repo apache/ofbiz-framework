@@ -33,15 +33,15 @@ public class SetCurrentUserLogin extends MethodOperation {
     
     public static final String module = SetCurrentUserLogin.class.getName();
     
-    ContextAccessor valueAcsr;
+    ContextAccessor<GenericValue> valueAcsr;
 
     public SetCurrentUserLogin(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        valueAcsr = new ContextAccessor(element.getAttribute("value-name"));
+        valueAcsr = new ContextAccessor<GenericValue>(element.getAttribute("value-name"));
     }
 
     public boolean exec(MethodContext methodContext) {
-        GenericValue userLogin = (GenericValue) valueAcsr.get(methodContext);
+        GenericValue userLogin = valueAcsr.get(methodContext);
         if (userLogin == null) {
             Debug.logWarning("In SetCurrentUserLogin a value was not found with the specified valueName: " + valueAcsr + ", not setting", module);
             return true;

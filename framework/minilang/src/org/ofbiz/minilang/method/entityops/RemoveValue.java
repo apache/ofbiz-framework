@@ -34,19 +34,19 @@ public class RemoveValue extends MethodOperation {
     
     public static final String module = RemoveValue.class.getName();
     
-    ContextAccessor valueAcsr;
+    ContextAccessor<GenericValue> valueAcsr;
     String doCacheClearStr;
 
     public RemoveValue(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        valueAcsr = new ContextAccessor(element.getAttribute("value-name"));
+        valueAcsr = new ContextAccessor<GenericValue>(element.getAttribute("value-name"));
         doCacheClearStr = element.getAttribute("do-cache-clear");
     }
 
     public boolean exec(MethodContext methodContext) {
         boolean doCacheClear = !"false".equals(methodContext.expandString(doCacheClearStr));
         
-        GenericValue value = (GenericValue) valueAcsr.get(methodContext);
+        GenericValue value = valueAcsr.get(methodContext);
         if (value == null) {
             String errMsg = "In remove-value a value was not found with the specified valueAcsr: " + valueAcsr + ", not removing";
             Debug.logWarning(errMsg, module);

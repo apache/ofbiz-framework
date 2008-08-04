@@ -20,6 +20,7 @@ package org.ofbiz.minilang.method.entityops;
 
 import java.util.List;
 
+import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
@@ -32,24 +33,24 @@ import org.w3c.dom.Element;
  */
 public class OrderValueList extends MethodOperation {
     
-    ContextAccessor listAcsr;
-    ContextAccessor toListAcsr;
-    ContextAccessor orderByListAcsr;
+    ContextAccessor<List<? extends GenericEntity>> listAcsr;
+    ContextAccessor<List<? extends GenericEntity>> toListAcsr;
+    ContextAccessor<List<String>> orderByListAcsr;
 
     public OrderValueList(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        listAcsr = new ContextAccessor(element.getAttribute("list-name"));
-        toListAcsr = new ContextAccessor(element.getAttribute("to-list-name"), element.getAttribute("list-name"));
-        orderByListAcsr = new ContextAccessor(element.getAttribute("order-by-list-name"));
+        listAcsr = new ContextAccessor<List<? extends GenericEntity>>(element.getAttribute("list-name"));
+        toListAcsr = new ContextAccessor<List<? extends GenericEntity>>(element.getAttribute("to-list-name"), element.getAttribute("list-name"));
+        orderByListAcsr = new ContextAccessor<List<String>>(element.getAttribute("order-by-list-name"));
     }
 
     public boolean exec(MethodContext methodContext) {
-        List orderByList = null;
+        List<String> orderByList = null;
 
         if (!orderByListAcsr.isEmpty()) {
-            orderByList = (List) orderByListAcsr.get(methodContext);
+            orderByList = orderByListAcsr.get(methodContext);
         }
-        toListAcsr.put(methodContext, EntityUtil.orderBy((List) listAcsr.get(methodContext), orderByList));
+        toListAcsr.put(methodContext, EntityUtil.orderBy(listAcsr.get(methodContext), orderByList));
         return true;
     }
 

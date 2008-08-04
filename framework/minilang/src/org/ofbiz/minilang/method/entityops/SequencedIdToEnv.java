@@ -31,14 +31,14 @@ import org.w3c.dom.Element;
 public class SequencedIdToEnv extends MethodOperation {
     
     String seqName;
-    ContextAccessor envAcsr;
+    ContextAccessor<Object> envAcsr;
     boolean getLongOnly;
     long staggerMax = 1;
 
     public SequencedIdToEnv(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
         seqName = element.getAttribute("sequence-name");
-        envAcsr = new ContextAccessor(element.getAttribute("env-name"));
+        envAcsr = new ContextAccessor<Object>(element.getAttribute("env-name"));
         // default false, anything but true is false
         getLongOnly = "true".equals(element.getAttribute("get-long-only"));
         String staggerMaxStr = element.getAttribute("stagger-max");

@@ -21,6 +21,7 @@ package org.ofbiz.minilang.method.otherops;
 import java.util.*;
 
 import org.w3c.dom.*;
+import javolution.util.FastList;
 import org.ofbiz.base.util.*;
 import org.ofbiz.minilang.*;
 import org.ofbiz.minilang.method.*;
@@ -34,20 +35,18 @@ public class Log extends MethodOperation {
 
     String levelStr;
     String message;
-    List methodStrings = null;
+    List<MethodString> methodStrings = null;
     
     public Log(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
         this.message = element.getAttribute("message");
         this.levelStr = element.getAttribute("level");
 
-        List methodStringElements = UtilXml.childElementList(element);
+        List<? extends Element> methodStringElements = UtilXml.childElementList(element);
         if (methodStringElements.size() > 0) {
-            methodStrings = new LinkedList();
+            methodStrings = FastList.newInstance();
             
-            Iterator methodStringIter = methodStringElements.iterator();
-            while (methodStringIter.hasNext()) {
-                Element methodStringElement = (Element) methodStringIter.next();
+            for (Element methodStringElement: methodStringElements) {
                 if ("string".equals(methodStringElement.getNodeName())) {
                     methodStrings.add(new StringString(methodStringElement, simpleMethod)); 
                 } else if ("field".equals(methodStringElement.getNodeName())) {
@@ -78,14 +77,12 @@ public class Log extends MethodOperation {
             return true;
         }
         
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
         
         if (message != null) buf.append(message);
         
         if (methodStrings != null) {
-            Iterator methodStringsIter = methodStrings.iterator();
-            while (methodStringsIter.hasNext()) {
-                MethodString methodString = (MethodString) methodStringsIter.next();
+            for (MethodString methodString: methodStrings) {
                 String strValue = methodString.getString(methodContext);
                 if (strValue != null) buf.append(strValue);
             }

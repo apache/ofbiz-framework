@@ -111,7 +111,7 @@ public class MasterIf extends MethodOperation {
 
     public String expandedString(MethodContext methodContext) {
         // TODO: fill in missing details, if needed
-        StringBuffer messageBuf = new StringBuffer();
+        StringBuilder messageBuf = new StringBuilder();
         this.condition.prettyPrint(messageBuf, methodContext);
         return "<if><condition>" + messageBuf + "</condition></if>";
     }

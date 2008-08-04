@@ -22,6 +22,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import javolution.util.FastList;
+
 import org.apache.oro.text.regex.MalformedPatternException;
 import org.apache.oro.text.regex.Pattern;
 import org.apache.oro.text.regex.PatternCompiler;
@@ -49,19 +51,19 @@ public class RegexpCondition implements Conditional {
     static PatternMatcher matcher = new Perl5Matcher();
     static PatternCompiler compiler = new Perl5Compiler();
 
-    List subOps = new LinkedList();
+    List subOps = FastList.newInstance();
     List elseSubOps = null;
 
-    ContextAccessor mapAcsr;
-    ContextAccessor fieldAcsr;
+    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
+    ContextAccessor<Object> fieldAcsr;
 
     FlexibleStringExpander exprExdr;
     
     public RegexpCondition(Element element, SimpleMethod simpleMethod) {
         this.simpleMethod = simpleMethod;
         
-        this.mapAcsr = new ContextAccessor(element.getAttribute("map-name"));
-        this.fieldAcsr = new ContextAccessor(element.getAttribute("field-name"));
+        this.mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
+        this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
 
         this.exprExdr = new FlexibleStringExpander(element.getAttribute("expr"));
     }
@@ -90,7 +92,7 @@ public class RegexpCondition implements Conditional {
         Object fieldVal = null;
 
         if (!mapAcsr.isEmpty()) {
-            Map fromMap = (Map) mapAcsr.get(methodContext);
+            Map<String, ? extends Object> fromMap = mapAcsr.get(methodContext);
             if (fromMap == null) {
                 if (Debug.infoOn()) Debug.logInfo("Map not found with name " + mapAcsr + ", using empty string for comparison", module);
             } else {
@@ -114,7 +116,7 @@ public class RegexpCondition implements Conditional {
         return fieldString;
     }
 
-    public void prettyPrint(StringBuffer messageBuffer, MethodContext methodContext) {
+    public void prettyPrint(StringBuilder messageBuffer, MethodContext methodContext) {
         messageBuffer.append("regexp[");
         messageBuffer.append("[");
         if (!this.mapAcsr.isEmpty()) {

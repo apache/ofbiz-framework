@@ -32,13 +32,13 @@ public class FirstFromList extends MethodOperation {
     
     public static final String module = FirstFromList.class.getName();
 
-    ContextAccessor entryAcsr;
-    ContextAccessor listAcsr;
+    ContextAccessor<Object> entryAcsr;
+    ContextAccessor<List<? extends Object>> listAcsr;
 
     public FirstFromList(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        this.entryAcsr = new ContextAccessor(element.getAttribute("entry-name"));
-        this.listAcsr = new ContextAccessor(element.getAttribute("list-name"));
+        this.entryAcsr = new ContextAccessor<Object>(element.getAttribute("entry-name"));
+        this.listAcsr = new ContextAccessor<List<? extends Object>>(element.getAttribute("list-name"));
     }
 
     public boolean exec(MethodContext methodContext) {
@@ -48,7 +48,7 @@ public class FirstFromList extends MethodOperation {
             return true;
         }
 
-        List theList = (List) listAcsr.get(methodContext);
+        List<? extends Object> theList = listAcsr.get(methodContext);
 
         if (UtilValidate.isEmpty(theList)) {
             entryAcsr.put(methodContext, null);

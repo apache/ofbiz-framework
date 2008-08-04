@@ -39,23 +39,23 @@ public final class SimpleServiceEngine extends GenericAsyncEngine {
     /** Run the service synchronously and IGNORE the result
      * @param context Map of name, value pairs composing the context
      */
-    public void runSyncIgnore(String localName, ModelService modelService, Map context) throws GenericServiceException {        
-        Map result = runSync(localName, modelService, context);
+    public void runSyncIgnore(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {        
+        Map<String, Object> result = runSync(localName, modelService, context);
     }
 
     /** Run the service synchronously and return the result
      * @param context Map of name, value pairs composing the context
      * @return Map of name, value pairs composing the result
      */
-    public Map runSync(String localName, ModelService modelService, Map context) throws GenericServiceException {        
-        Object result = serviceInvoker(localName, modelService, context);
-        if (result == null || !(result instanceof Map))
+    public Map<String, Object> runSync(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {        
+        Map<String, Object> result = serviceInvoker(localName, modelService, context);
+        if (result == null)
             throw new GenericServiceException("Service did not return expected result");
-        return (Map) result;
+        return result;
     }
 
     // Invoke the simple method from a service context
-    private Object serviceInvoker(String localName, ModelService modelService, Map context) throws GenericServiceException {        
+    private Map<String, Object> serviceInvoker(String localName, ModelService modelService, Map<String, ? extends Object> context) throws GenericServiceException {        
         // static java service methods should be: public Map methodName(DispatchContext dctx, Map context)
         DispatchContext dctx = dispatcher.getLocalContext(localName);
 

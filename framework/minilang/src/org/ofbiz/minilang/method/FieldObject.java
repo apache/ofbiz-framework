@@ -27,18 +27,18 @@ import org.ofbiz.minilang.*;
 /**
  * A type of MethodObject that represents an Object value in a certain location
  */
-public class FieldObject extends MethodObject {
+public class FieldObject<T> extends MethodObject<T> {
     
     public static final String module = FieldObject.class.getName();
     
-    ContextAccessor fieldAcsr;
-    ContextAccessor mapAcsr;
+    ContextAccessor<T> fieldAcsr;
+    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
     String type;
 
     public FieldObject(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        fieldAcsr = new ContextAccessor(element.getAttribute("field-name"));
-        mapAcsr = new ContextAccessor(element.getAttribute("map-name"));
+        fieldAcsr = new ContextAccessor<T>(element.getAttribute("field-name"));
+        mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
         type = element.getAttribute("type");
         if (UtilValidate.isEmpty(type)) {
             type = "String";
@@ -50,20 +50,20 @@ public class FieldObject extends MethodObject {
         return type;
     }
     
-    public Class getTypeClass(ClassLoader loader) {
+    public Class<T> getTypeClass(ClassLoader loader) {
         try {
-            return ObjectType.loadClass(type, loader);
+            return UtilGenerics.cast(ObjectType.loadClass(type, loader));
         } catch (ClassNotFoundException e) {
             Debug.logError(e, "Could not find class for type: " + type, module);
             return null;
         }
     }
     
-    public Object getObject(MethodContext methodContext) {
-        Object fieldVal = null;
+    public T getObject(MethodContext methodContext) {
+        T fieldVal = null;
 
         if (!mapAcsr.isEmpty()) {
-            Map fromMap = (Map) mapAcsr.get(methodContext);
+            Map<String, ? extends Object> fromMap = mapAcsr.get(methodContext);
             if (fromMap == null) {
                 Debug.logWarning("Map not found with name " + mapAcsr + ", not getting Object value, returning null.", module);
                 return null;

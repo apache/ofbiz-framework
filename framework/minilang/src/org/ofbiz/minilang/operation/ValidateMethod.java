@@ -41,7 +41,7 @@ public class ValidateMethod extends SimpleMapOperation {
         this.className = element.getAttribute("class");
     }
 
-    public void exec(Map inMap, Map results, List messages, Locale locale, ClassLoader loader) {
+    public void exec(Map<String, Object> inMap, Map<String, Object> results, List<Object> messages, Locale locale, ClassLoader loader) {
         Object obj = inMap.get(fieldName);
 
         String fieldValue = null;
@@ -57,10 +57,10 @@ public class ValidateMethod extends SimpleMapOperation {
             loader = Thread.currentThread().getContextClassLoader();
         }
 
-        Class[] paramTypes = new Class[] {String.class};
+        Class<?>[] paramTypes = new Class<?>[] {String.class};
         Object[] params = new Object[] {fieldValue};
 
-        Class valClass;
+        Class<?> valClass;
 
         try {
             valClass = loader.loadClass(className);

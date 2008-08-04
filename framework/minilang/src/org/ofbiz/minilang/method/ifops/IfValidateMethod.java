@@ -39,15 +39,15 @@ public class IfValidateMethod extends MethodOperation {
     List<MethodOperation> subOps = FastList.newInstance();
     List<MethodOperation> elseSubOps = null;
 
-    ContextAccessor mapAcsr;
-    ContextAccessor fieldAcsr;
+    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
+    ContextAccessor<Object> fieldAcsr;
     String methodName;
     String className;
 
     public IfValidateMethod(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        this.mapAcsr = new ContextAccessor(element.getAttribute("map-name"));
-        this.fieldAcsr = new ContextAccessor(element.getAttribute("field-name"));
+        this.mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
+        this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
         this.methodName = element.getAttribute("method");
         this.className = element.getAttribute("class");
 
@@ -71,7 +71,7 @@ public class IfValidateMethod extends MethodOperation {
         Object fieldVal = null;
 
         if (!mapAcsr.isEmpty()) {
-            Map fromMap = (Map) mapAcsr.get(methodContext);
+            Map<String, ? extends Object> fromMap = mapAcsr.get(methodContext);
             if (fromMap == null) {
                 if (Debug.infoOn()) Debug.logInfo("Map not found with name " + mapAcsr + ", using empty string for comparison", module);
             } else {
@@ -93,10 +93,10 @@ public class IfValidateMethod extends MethodOperation {
         // always use an empty string by default
         if (fieldString == null) fieldString = "";
 
-        Class[] paramTypes = new Class[] {String.class};
+        Class<?>[] paramTypes = new Class[] {String.class};
         Object[] params = new Object[] {fieldString};
 
-        Class valClass;
+        Class<?> valClass;
         try {
             valClass = methodContext.getLoader().loadClass(className);
         } catch (ClassNotFoundException cnfe) {

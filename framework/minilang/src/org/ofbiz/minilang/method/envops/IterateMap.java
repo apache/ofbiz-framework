@@ -19,7 +19,6 @@
 package org.ofbiz.minilang.method.envops;
 
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -41,15 +40,15 @@ public class IterateMap extends MethodOperation {
 
     List<MethodOperation> subOps = FastList.newInstance();
 
-    ContextAccessor keyAcsr;
-    ContextAccessor valueAcsr;
-    ContextAccessor mapAcsr;
+    ContextAccessor<Object> keyAcsr;
+    ContextAccessor<Object> valueAcsr;
+    ContextAccessor<Map<? extends Object, ? extends Object>> mapAcsr;
 
     public IterateMap(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        this.keyAcsr = new ContextAccessor(element.getAttribute("key-name"));
-        this.valueAcsr = new ContextAccessor(element.getAttribute("value-name"));
-        this.mapAcsr = new ContextAccessor(element.getAttribute("map-name"));
+        this.keyAcsr = new ContextAccessor<Object>(element.getAttribute("key-name"));
+        this.valueAcsr = new ContextAccessor<Object>(element.getAttribute("value-name"));
+        this.mapAcsr = new ContextAccessor<Map<? extends Object, ? extends Object>>(element.getAttribute("map-name"));
 
         SimpleMethod.readOperations(element, subOps, simpleMethod);
     }
@@ -71,7 +70,7 @@ public class IterateMap extends MethodOperation {
             Debug.logWarning("In iterate-map the value had a non-null value before entering the loop for the operation: " + this.rawString(), module);
         }
         
-        Map theMap = (Map) mapAcsr.get(methodContext);
+        Map<? extends Object, ? extends Object> theMap = mapAcsr.get(methodContext);
         if (theMap == null) {
             if (Debug.infoOn()) Debug.logInfo("Map not found with name " + mapAcsr + ", doing nothing: " + rawString(), module);
             return true;
@@ -81,9 +80,7 @@ public class IterateMap extends MethodOperation {
             return true;
         }
 
-        Iterator theIterator = theMap.entrySet().iterator();
-        while (theIterator.hasNext()) {
-            Map.Entry theEntry = (Map.Entry) theIterator.next();
+        for (Map.Entry<? extends Object, ? extends Object> theEntry: theMap.entrySet()) {
             keyAcsr.put(methodContext, theEntry.getKey());
             valueAcsr.put(methodContext, theEntry.getValue());
 

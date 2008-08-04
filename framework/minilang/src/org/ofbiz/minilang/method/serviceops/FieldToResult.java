@@ -32,15 +32,15 @@ public class FieldToResult extends MethodOperation {
     
     public static final String module = FieldToResult.class.getName();
     
-    ContextAccessor mapAcsr;
-    ContextAccessor fieldAcsr;
-    ContextAccessor resultAcsr;
+    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
+    ContextAccessor<Object> fieldAcsr;
+    ContextAccessor<Object> resultAcsr;
 
     public FieldToResult(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        mapAcsr = new ContextAccessor(element.getAttribute("map-name"));
-        fieldAcsr = new ContextAccessor(element.getAttribute("field-name"));
-        resultAcsr = new ContextAccessor(element.getAttribute("result-name"), element.getAttribute("field-name"));
+        mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
+        fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
+        resultAcsr = new ContextAccessor<Object>(element.getAttribute("result-name"), element.getAttribute("field-name"));
     }
 
     public boolean exec(MethodContext methodContext) {
@@ -49,7 +49,7 @@ public class FieldToResult extends MethodOperation {
             Object fieldVal = null;
 
             if (!mapAcsr.isEmpty()) {
-                Map fromMap = (Map) mapAcsr.get(methodContext);
+                Map<String, ? extends Object> fromMap = mapAcsr.get(methodContext);
 
                 if (fromMap == null) {
                     Debug.logWarning("Map not found with name " + mapAcsr, module);
