@@ -392,7 +392,15 @@ under the License.
                 </#list>
               </#if>
 
-              <#-- display the ship before/after dates -->
+              <#-- display the ship estimated/before/after dates -->
+              <#if orderItem.estimatedDeliveryDate?exists>
+              <tr>
+                <td align="right" colspan="2">
+                  <div><span class="label">${uiLabelMap.OrderDesiredDeliveryDate}</span>&nbsp;${orderItem.estimatedDeliveryDate?string.short}</div>
+                </td>
+                <td colspan="5">&nbsp;</td>
+              </tr>
+              </#if>
               <#if orderItem.shipAfterDate?exists>
               <tr>
                 <td align="right" colspan="2">
