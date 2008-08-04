@@ -46,6 +46,14 @@ public class FileUtil {
 
     public static final String module = FileUtil.class.getName();
 
+    public static File getFile(String path) {
+        return new File(path.replaceAll("/+|\\\\+", File.separator));
+    }
+
+    public static File getFile(File root, String path) {
+        return new File(root, path.replaceAll("/+|\\\\+", File.separator));
+    }
+
     public static void writeString(String fileName, String s) throws IOException {
         writeString(null, fileName, s);
     }
