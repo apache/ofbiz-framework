@@ -1294,43 +1294,53 @@ public class UtilValidate {
         return Character.forDigit(check, 10);
     }
     
-    public static boolean isValidDatabaseId(String fieldStr, StringBuffer errorDetails) {
-        boolean isValid = true;
+    public static String checkValidDatabaseId(String fieldStr) {
         if (fieldStr.indexOf(' ') >= 0) {
-            isValid = false;
-            errorDetails.append("[space found at position " + (fieldStr.indexOf(' ') + 1) + "]");
+            return "[space found at position " + (fieldStr.indexOf(' ') + 1) + "]";
         }
         if (fieldStr.indexOf('"') >= 0) {
-            isValid = false;
-            errorDetails.append("[double-quote found at position " + (fieldStr.indexOf('"') + 1) + "]");
+            return "[double-quote found at position " + (fieldStr.indexOf('"') + 1) + "]";
         }
         if (fieldStr.indexOf('\'') >= 0) {
-            isValid = false;
-            errorDetails.append("[single-quote found at position " + (fieldStr.indexOf('\'') + 1) + "]");
+            return "[single-quote found at position " + (fieldStr.indexOf('\'') + 1) + "]";
         }
         if (fieldStr.indexOf('&') >= 0) {
-            isValid = false;
-            errorDetails.append("[ampersand found at position " + (fieldStr.indexOf('&') + 1) + "]");
+            return "[ampersand found at position " + (fieldStr.indexOf('&') + 1) + "]";
         }
         if (fieldStr.indexOf('?') >= 0) {
-            isValid = false;
-            errorDetails.append("[question mark found at position " + (fieldStr.indexOf('?') + 1) + "]");
+            return "[question mark found at position " + (fieldStr.indexOf('?') + 1) + "]";
         }
         if (fieldStr.indexOf('<') >= 0) {
-            isValid = false;
-            errorDetails.append("[less-than sign found at position " + (fieldStr.indexOf('<') + 1) + "]");
+            return "[less-than sign found at position " + (fieldStr.indexOf('<') + 1) + "]";
         }
         if (fieldStr.indexOf('>') >= 0) {
-            isValid = false;
-            errorDetails.append("[greater-than sign found at position " + (fieldStr.indexOf('>') + 1) + "]");
+            return "[greater-than sign found at position " + (fieldStr.indexOf('>') + 1) + "]";
         }
         if (fieldStr.indexOf('\\') >= 0) {
-            isValid = false;
-            errorDetails.append("[back-slash found at position " + (fieldStr.indexOf('\\') + 1) + "]");
+            return "[back-slash found at position " + (fieldStr.indexOf('\\') + 1) + "]";
         }
         if (fieldStr.indexOf('/') >= 0) {
+            return "[forward-slash found at position " + (fieldStr.indexOf('/') + 1) + "]";
+        }
+        return null;
+    }
+
+    public static boolean isValidDatabaseId(String fieldStr, StringBuffer errorDetails) {
+        boolean isValid = true;
+        String checkMessage = checkValidDatabaseId(fieldStr);
+        if (checkMessage != null) {
             isValid = false;
-            errorDetails.append("[forward-slash found at position " + (fieldStr.indexOf('/') + 1) + "]");
+            errorDetails.append(checkMessage);
+        }
+        return isValid;
+    }
+
+    public static boolean isValidDatabaseId(String fieldStr, StringBuilder errorDetails) {
+        boolean isValid = true;
+        String checkMessage = checkValidDatabaseId(fieldStr);
+        if (checkMessage != null) {
+            isValid = false;
+            errorDetails.append(checkMessage);
         }
         return isValid;
     }
