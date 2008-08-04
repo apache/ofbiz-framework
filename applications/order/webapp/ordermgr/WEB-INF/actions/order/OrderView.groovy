@@ -31,6 +31,8 @@ import org.ofbiz.product.inventory.InventoryWorker;
 import org.ofbiz.product.catalog.CatalogWorker;
 import org.ofbiz.accounting.payment.*;
 
+import javolution.util.FastMap;
+
 orderId = parameters.orderId;
 context.orderId = orderId;
 
@@ -270,6 +272,7 @@ if (orderHeader) {
     if ("PURCHASE_ORDER".equals(orderType)) {
         facilitiesForShipGroup = [:];
         ownerPartyId = orderReadHelper.getBillToParty().partyId;
+        Map ownedFacilities = FastMap.newInstance();
         shipGroups.each { shipGroup ->
             lookupMap = [ownerPartyId : ownerPartyId];
             if (shipGroup.contactMechId) {
@@ -277,8 +280,13 @@ if (orderHeader) {
             }
             facilities = delegator.findByAndCache("FacilityAndContactMech", lookupMap);
             facilitiesForShipGroup[shipGroup.shipGroupSeqId] = facilities;
+            facilities.each { facility ->
+                ownedFacilities[facility.facilityId] = facility;
+            }
         }
         context.facilitiesForShipGroup = facilitiesForShipGroup;
+        // Now get the list of all the facilities owned by the bill-to-party
+        context.ownedFacilities = ownedFacilities.values();
     }
 
     // set the type of return based on type of order
