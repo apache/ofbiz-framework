@@ -48,7 +48,7 @@ public class KeyStoreUtil {
 
     public static void storeComponentKeyStore(String componentName, String keyStoreName, KeyStore store) throws IOException, GenericConfigException, NoSuchAlgorithmException, CertificateException, KeyStoreException {
         ComponentConfig.KeystoreInfo ks = ComponentConfig.getKeystoreInfo(componentName, keyStoreName);
-        File file = new File(ks.createResourceHandler().getFullLocation());
+        File file = FileUtil.getFile(ks.createResourceHandler().getFullLocation());
         FileOutputStream out = new FileOutputStream(file);
         store.store(out, ks.getPassword().toCharArray());
     }
@@ -82,11 +82,11 @@ public class KeyStoreUtil {
         KeyStore ks = KeyStore.getInstance("jks");
         File keyFile = null;
         if (fileName != null) {
-            keyFile = new File(fileName);
+            keyFile = FileUtil.getFile(fileName);
         } else {
-            keyFile = new File(javaHome + "/lib/security/jssecacerts");
+            keyFile = FileUtil.getFile(javaHome + "/lib/security/jssecacerts");
             if (!keyFile.exists() || !keyFile.canRead()) {
-                keyFile = new File(javaHome + "/lib/security/cacerts");
+                keyFile = FileUtil.getFile(javaHome + "/lib/security/cacerts");
             }
         }
 

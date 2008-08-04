@@ -32,6 +32,7 @@ import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.FileUtil;
 import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.base.util.UtilMisc;
 
@@ -202,7 +203,7 @@ public class EntityDataServices {
         String filePath = file.getPath().replace('\\', '/');
 
         String[] header = null;
-        File headerFile = new File(filePath.substring(0, filePath.lastIndexOf('/')), "_" + file.getName());
+        File headerFile = new File(FileUtil.getFile(filePath.substring(0, filePath.lastIndexOf('/'))), "_" + file.getName());
 
         boolean uniqueHeaderFile = true;
         BufferedReader reader = null;

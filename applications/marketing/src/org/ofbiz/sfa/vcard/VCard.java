@@ -30,6 +30,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.FileUtil;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -216,7 +217,7 @@ public class VCard {
                 saveToDirectory = System.getProperty("ofbiz.home"); 
             }
             String saveToFilename = fullName + ".vcf";
-            file = new File(saveToDirectory + "/" + saveToFilename);
+            file = FileUtil.getFile(saveToDirectory + "/" + saveToFilename);
             FileOutputStream outputStream = new FileOutputStream(file);
             marshaller.marshallContact(outputStream, contact);
             outputStream.close();

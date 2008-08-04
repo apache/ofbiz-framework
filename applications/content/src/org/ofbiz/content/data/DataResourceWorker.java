@@ -41,6 +41,7 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.FileUtil;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
@@ -179,7 +180,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
         //GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
 
         //String idFieldValue = null;
-        ServletFileUpload fu = new ServletFileUpload(new DiskFileItemFactory(10240, new File("runtime/tmp")));
+        ServletFileUpload fu = new ServletFileUpload(new DiskFileItemFactory(10240, FileUtil.getFile("runtime/tmp")));
         List lst = null;
         Locale locale = UtilHttp.getLocale(request);
 
@@ -425,7 +426,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
         File file = null;
 
         if (dataResourceTypeId.equals("LOCAL_FILE") || dataResourceTypeId.equals("LOCAL_FILE_BIN")) {
-            file = new File(objectInfo);
+            file = FileUtil.getFile(objectInfo);
             if (!file.exists()) {
                 throw new FileNotFoundException("No file found: " + (objectInfo));
             }
@@ -439,7 +440,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
             if (objectInfo.indexOf("/") != 0 && prefix.lastIndexOf("/") != (prefix.length() - 1)) {
                 sep = "/";
             }
-            file = new File(prefix + sep + objectInfo);
+            file = FileUtil.getFile(prefix + sep + objectInfo);
             if (!file.exists()) {
                 throw new FileNotFoundException("No file found: " + (prefix + sep + objectInfo));
             }
@@ -452,7 +453,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
             if (objectInfo.indexOf("/") != 0 && contextRoot.lastIndexOf("/") != (contextRoot.length() - 1)) {
                 sep = "/";
             }
-            file = new File(contextRoot + sep + objectInfo);
+            file = FileUtil.getFile(contextRoot + sep + objectInfo);
             if (!file.exists()) {
                 throw new FileNotFoundException("No file found: " + (contextRoot + sep + objectInfo));
             }
@@ -514,7 +515,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
 
         // check for the latest subdirectory
         String parentDir = ofbizHome + initialPath;
-        File parent = new File(parentDir);
+        File parent = FileUtil.getFile(parentDir);
         TreeMap dirMap = new TreeMap(desc);
         if (parent.exists()) {
             File[] subs = parent.listFiles();
@@ -900,7 +901,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
         // TODO: this method assumes the file is a text file, if it is an image we should respond differently, see the comment above for IMAGE_OBJECT type data resource
 
         if (dataResourceTypeId.equals("LOCAL_FILE")) {
-            File file = new File(objectInfo);
+            File file = FileUtil.getFile(objectInfo);
             if (!file.isAbsolute()) {
                 throw new GeneralException("File (" + objectInfo + ") is not absolute");
             }
@@ -915,7 +916,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
             if (objectInfo.indexOf("/") != 0 && prefix.lastIndexOf("/") != (prefix.length() - 1)) {
                 sep = "/";
             }
-            File file = new File(prefix + sep + objectInfo);
+            File file = FileUtil.getFile(prefix + sep + objectInfo);
             int c;
             FileReader in = new FileReader(file);
             while ((c = in.read()) != -1)
@@ -926,7 +927,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
             if (objectInfo.indexOf("/") != 0 && prefix.lastIndexOf("/") != (prefix.length() - 1)) {
                 sep = "/";
             }
-            File file = new File(prefix + sep + objectInfo);
+            File file = FileUtil.getFile(prefix + sep + objectInfo);
             int c;
             FileReader in = null;
             try {
