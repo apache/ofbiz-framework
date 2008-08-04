@@ -69,7 +69,7 @@ public class WrapSubContentCacheTransform implements TemplateTransformModel {
     }
 
     public Writer getWriter(final Writer out, Map args) {
-        final StringBuffer buf = new StringBuffer();
+        final StringBuilder buf = new StringBuilder();
         final Environment env = Environment.getCurrentEnvironment();
         Map envContext = (Map) FreeMarkerWorker.getWrappedObject("context", env);
         final Map templateCtx;

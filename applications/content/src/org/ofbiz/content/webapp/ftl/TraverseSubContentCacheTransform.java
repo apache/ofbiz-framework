@@ -69,7 +69,7 @@ public class TraverseSubContentCacheTransform implements TemplateTransformModel 
     }
 
     public Writer getWriter(final Writer out, Map args) {
-        final StringBuffer buf = new StringBuffer();
+        final StringBuilder buf = new StringBuilder();
         final Environment env = Environment.getCurrentEnvironment();
         //final Map templateRoot = (Map) FreeMarkerWorker.getWrappedObject("context", env);
         final Map templateRoot = FreeMarkerWorker.createEnvironmentMap(env);
@@ -139,7 +139,7 @@ public class TraverseSubContentCacheTransform implements TemplateTransformModel 
         return new LoopWriter(out) {
 
             public void write(char cbuf[], int off, int len) {
-                //StringBuffer ctxBuf = (StringBuffer) templateContext.get("buf");
+                //StringBuilder ctxBuf = (StringBuilder) templateContext.get("buf");
                 //ctxBuf.append(cbuf, off, len);
                 buf.append(cbuf, off, len);
             }
@@ -149,7 +149,7 @@ public class TraverseSubContentCacheTransform implements TemplateTransformModel 
             }
 
             public int onStart() throws TemplateModelException, IOException {
-                //templateContext.put("buf", new StringBuffer());
+                //templateContext.put("buf", new StringBuilder());
                 List nodeTrail = null;
                 Map node = null;
                 GenericValue subContentDataResourceView = null;

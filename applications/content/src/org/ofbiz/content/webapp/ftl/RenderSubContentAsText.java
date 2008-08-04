@@ -196,7 +196,7 @@ public class RenderSubContentAsText implements TemplateTransformModel {
            /* 
                 if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, contentId(5):" + templateRoot.get("contentId"), module);
                 if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, subContentId(5):" + templateRoot.get("subContentId"), module);
-                StringBuffer sb = new StringBuffer();
+                StringBuilder sb = new StringBuilder();
                 String fullRequest = editRequestName;
                 String contentId = null;
                 String contentIdTo = null;

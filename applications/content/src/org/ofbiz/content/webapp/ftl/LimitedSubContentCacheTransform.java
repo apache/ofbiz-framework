@@ -77,7 +77,7 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
 
     public Writer getWriter(final Writer out, Map args) {
         //Profiler.begin("Limited");
-        final StringBuffer buf = new StringBuffer();
+        final StringBuilder buf = new StringBuilder();
         final Environment env = Environment.getCurrentEnvironment();
         final Map templateRoot = FreeMarkerWorker.createEnvironmentMap(env);
         final GenericDelegator delegator = (GenericDelegator) FreeMarkerWorker.getWrappedObject("delegator", env);
@@ -157,7 +157,7 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
 
             public void write(char cbuf[], int off, int len) {
                 buf.append(cbuf, off, len);
-                //StringBuffer ctxBuf = (StringBuffer) templateRoot.get("buf");
+                //StringBuilder ctxBuf = (StringBuilder) templateRoot.get("buf");
                 //ctxBuf.append(cbuf, off, len);
             }
 

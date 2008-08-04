@@ -57,7 +57,7 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
     public static final String [] saveKeyNames = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale",  "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly", "globalNodeTrail"};
 
     public Writer getWriter(final Writer out, Map args) {
-        final StringBuffer buf = new StringBuffer();
+        final StringBuilder buf = new StringBuilder();
         final Environment env = Environment.getCurrentEnvironment();
         //final Map templateCtx = (Map) FreeMarkerWorker.getWrappedObject("context", env);
         //final Map templateCtx = FastMap.newInstance();
@@ -199,7 +199,7 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
             public void closeEditWrap(Writer out, String editRequestName) throws IOException {
                 //if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, contentId(1):" + templateRoot.get( "contentId"), module);
                 //if (Debug.infoOn()) Debug.logInfo("in Render(0), templateRoot ." + templateRoot , module);
-                StringBuffer sb = new StringBuffer();
+                StringBuilder sb = new StringBuilder();
                 String fullRequest = editRequestName;
                 String contentId = null;
                 String contentIdTo = null;

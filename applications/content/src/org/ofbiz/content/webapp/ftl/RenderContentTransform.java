@@ -125,7 +125,7 @@ public class RenderContentTransform implements TemplateTransformModel {
             }
 
             public void closeEditWrap(Writer out, String editRequestName) throws IOException {
-                StringBuffer sb = new StringBuffer();
+                StringBuilder sb = new StringBuilder();
                 String fullRequest = editRequestName;
                 String delim = "?";
                 if (UtilValidate.isNotEmpty(thisContentId)) {

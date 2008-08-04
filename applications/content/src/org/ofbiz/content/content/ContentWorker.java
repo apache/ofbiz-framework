@@ -1427,7 +1427,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         
         if (nodeTrail == null)
             return "";
-        StringBuffer csv = new StringBuffer();
+        StringBuilder csv = new StringBuilder();
         Iterator it = nodeTrail.iterator();
         while (it.hasNext()) {
             if (csv.length() > 0)
