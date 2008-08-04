@@ -44,7 +44,7 @@ public class BlogServices {
      * through a predefined screen widget template (ie. drDataTemplateTypeId="SCREEN_COMBINED").
      */
     
-    public static Map persistBlogAll(DispatchContext dctx, Map context) throws GenericServiceException {
+    public static Map<String, Object> persistBlogAll(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException {
 
         Map result = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();

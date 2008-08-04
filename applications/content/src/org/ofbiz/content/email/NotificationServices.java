@@ -117,7 +117,7 @@ public class NotificationServices {
      * the sevice
      * @return A Map with the service response messages in it
      */
-    public static Map sendNotification(DispatchContext ctx, Map context) {
+    public static Map<String, Object> sendNotification(DispatchContext ctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = ctx.getDispatcher();                      
         Map result = null;
                 
@@ -183,7 +183,7 @@ public class NotificationServices {
      * @return A new Map indicating success or error containing the
      * body generated from the template and the input parameters. 
      */
-    public static Map prepareNotification(DispatchContext ctx, Map context) {
+    public static Map<String, Object> prepareNotification(DispatchContext ctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = ctx.getDelegator();
         String templateName = (String) context.get("templateName");
         Map templateData = (Map) context.get("templateData");

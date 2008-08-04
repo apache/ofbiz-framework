@@ -62,7 +62,7 @@ public class ContentServices {
     /**
      * findRelatedContent Finds the related
      */
-    public static Map findRelatedContent(DispatchContext dctx, Map context) {
+    public static Map<String, Object> findRelatedContent(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Map results = FastMap.newInstance();
 
@@ -123,7 +123,7 @@ public class ContentServices {
     /**
      * This is a generic service for traversing a Content tree, typical of a blog response tree. It calls the ContentWorker.traverse method.
      */
-    public static Map findContentParents(DispatchContext dctx, Map context) {
+    public static Map<String, Object> findContentParents(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map results = FastMap.newInstance();
         List parentList = FastList.newInstance();
         results.put("parentList", parentList);
@@ -166,7 +166,7 @@ public class ContentServices {
     /**
      * This is a generic service for traversing a Content tree, typical of a blog response tree. It calls the ContentWorker.traverse method.
      */
-    public static Map traverseContent(DispatchContext dctx, Map context) {
+    public static Map<String, Object> traverseContent(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
         Map results = FastMap.newInstance();
 
@@ -226,7 +226,7 @@ public class ContentServices {
      * Create a Content service. The work is done in a separate method so that complex services that need this functionality do not need to incur the
      * reflection performance penalty.
      */
-    public static Map createContent(DispatchContext dctx, Map context) {
+    public static Map<String, Object> createContent(DispatchContext dctx, Map<String, ? extends Object> context) {
         /*
         context.put("entityOperation", "_CREATE");
         List targetOperationList = ContentWorker.prepTargetOperationList(context, "_CREATE");
@@ -245,7 +245,8 @@ public class ContentServices {
      * Create a Content method. The work is done in this separate method so that complex services that need this functionality do not need to incur the
      * reflection performance penalty.
      */
-    public static Map createContentMethod(DispatchContext dctx, Map context) {
+    public static Map<String, Object> createContentMethod(DispatchContext dctx, Map<String, ? extends Object> rcontext) {
+        Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
         context.put("entityOperation", "_CREATE");
         List targetOperationList = ContentWorker.prepTargetOperationList(context, "_CREATE");
         if (Debug.infoOn()) Debug.logInfo("in createContentMethod, targetOperationList: " + targetOperationList, null);
@@ -317,7 +318,8 @@ public class ContentServices {
      * Create a ContentAssoc service. The work is done in a separate method so that complex services that need this functionality do not need to incur the
      * reflection performance penalty.
      */
-    public static Map createContentAssoc(DispatchContext dctx, Map context) {
+    public static Map<String, Object> createContentAssoc(DispatchContext dctx, Map<String, ? extends Object> rcontext) {
+        Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
         context.put("entityOperation", "_CREATE");
         List targetOperationList = ContentWorker.prepTargetOperationList(context, "_CREATE");
 
@@ -343,7 +345,8 @@ public class ContentServices {
      * Create a ContentAssoc method. The work is done in this separate method so that complex services that need this functionality do not need to incur the
      * reflection performance penalty.
      */
-    public static Map createContentAssocMethod(DispatchContext dctx, Map context) throws GenericServiceException, GenericEntityException {
+    public static Map<String, Object> createContentAssocMethod(DispatchContext dctx, Map<String, ? extends Object> rcontext) throws GenericServiceException, GenericEntityException {
+        Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
         List targetOperationList = ContentWorker.prepTargetOperationList(context, "_CREATE");
         List contentPurposeList = ContentWorker.prepContentPurposeList(context);
         context.put("targetOperationList", targetOperationList);
@@ -494,7 +497,8 @@ public class ContentServices {
     /**
      * A service wrapper for the updateContentMethod method. Forces permissions to be checked.
      */
-    public static Map updateContent(DispatchContext dctx, Map context) {
+    public static Map<String, Object> updateContent(DispatchContext dctx, Map<String, ? extends Object> rcontext) {
+        Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
         context.put("entityOperation", "_UPDATE");
         List targetOperationList = ContentWorker.prepTargetOperationList(context, "_UPDATE");
 
@@ -512,7 +516,8 @@ public class ContentServices {
      * reflection performance penalty of calling a service.
      * DEJ20060610: why is this being done? It's a bad design because the service call overhead is not very big, but not calling through the service engine breaks functionality possibilities like ECAs and such
      */
-    public static Map updateContentMethod(DispatchContext dctx, Map context) {
+    public static Map<String, Object> updateContentMethod(DispatchContext dctx, Map<String, ? extends Object> rcontext) {
+        Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Map result = FastMap.newInstance();
@@ -574,7 +579,8 @@ public class ContentServices {
      * Update a ContentAssoc service. The work is done in a separate method so that complex services that need this functionality do not need to incur the
      * reflection performance penalty.
      */
-    public static Map updateContentAssoc(DispatchContext dctx, Map context) {
+    public static Map<String, Object> updateContentAssoc(DispatchContext dctx, Map<String, ? extends Object> rcontext) {
+        Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
         context.put("entityOperation", "_UPDATE");
         List targetOperationList = ContentWorker.prepTargetOperationList(context, "_UPDATE");
 
@@ -591,7 +597,8 @@ public class ContentServices {
      * Update a ContentAssoc method. The work is done in this separate method so that complex services that need this functionality do not need to incur the
      * reflection performance penalty.
      */
-    public static Map updateContentAssocMethod(DispatchContext dctx, Map context) {
+    public static Map<String, Object> updateContentAssocMethod(DispatchContext dctx, Map<String, ? extends Object> rcontext) {
+        Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Map result = FastMap.newInstance();
@@ -685,7 +692,8 @@ public class ContentServices {
      * Update a ContentAssoc service. The work is done in a separate method so that complex services that need this functionality do not need to incur the
      * reflection performance penalty.
      */
-    public static Map deactivateContentAssoc(DispatchContext dctx, Map context) {
+    public static Map<String, Object> deactivateContentAssoc(DispatchContext dctx, Map<String, ? extends Object> rcontext) {
+        Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
         context.put("entityOperation", "_UPDATE");
         List targetOperationList = ContentWorker.prepTargetOperationList(context, "_UPDATE");
 
@@ -702,7 +710,8 @@ public class ContentServices {
      * Update a ContentAssoc method. The work is done in this separate method so that complex services that need this functionality do not need to incur the
      * reflection performance penalty.
      */
-    public static Map deactivateContentAssocMethod(DispatchContext dctx, Map context) {
+    public static Map<String, Object> deactivateContentAssocMethod(DispatchContext dctx, Map<String, ? extends Object> rcontext) {
+        Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Map result = FastMap.newInstance();
@@ -779,7 +788,7 @@ public class ContentServices {
     /**
      * Deactivates any active ContentAssoc (except the current one) that is associated with the passed in template/layout contentId and mapKey.
      */
-    public static Map deactivateAssocs(DispatchContext dctx, Map context) {
+    public static Map<String, Object> deactivateAssocs(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
         String contentIdTo = (String) context.get("contentIdTo");
         String mapKey = (String) context.get("mapKey");
@@ -844,7 +853,7 @@ public class ContentServices {
      * Get and render subcontent associated with template id and mapkey. If subContentId is supplied, that content will be rendered without searching for other
      * matching content.
      */
-    public static Map renderSubContentAsText(DispatchContext dctx, Map context) {
+    public static Map<String, Object> renderSubContentAsText(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map results = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
@@ -905,7 +914,7 @@ public class ContentServices {
      * Get and render subcontent associated with template id and mapkey. If subContentId is supplied, that content will be rendered without searching for other
      * matching content.
      */
-    public static Map renderContentAsText(DispatchContext dctx, Map context) {
+    public static Map<String, Object> renderContentAsText(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map results = FastMap.newInstance();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericDelegator delegator = dctx.getDelegator();
@@ -950,7 +959,7 @@ public class ContentServices {
         return results;
     }
 
-    public static Map linkContentToPubPt(DispatchContext dctx, Map context) {
+    public static Map<String, Object> linkContentToPubPt(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map results = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
@@ -1029,7 +1038,7 @@ public class ContentServices {
         return results;
     }
     
-    public static Map publishContent(DispatchContext dctx, Map context) throws GenericServiceException{
+    public static Map<String, Object> publishContent(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException{
         
         Map result = FastMap.newInstance();
         GenericValue content = (GenericValue)context.get("content");
@@ -1045,7 +1054,7 @@ public class ContentServices {
         return result;
     }
     
-    public static Map getPrefixedMembers(DispatchContext dctx, Map context) throws GenericServiceException{
+    public static Map<String, Object> getPrefixedMembers(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException{
         
         Map result = FastMap.newInstance();
         Map mapIn = (Map)context.get("mapIn");
@@ -1068,7 +1077,7 @@ public class ContentServices {
         return result;
     }
     
-    public static Map splitString(DispatchContext dctx, Map context) throws GenericServiceException{
+    public static Map<String, Object> splitString(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException{
         Map result = FastMap.newInstance();
         List outputList = FastList.newInstance();
         String delimiter = UtilFormatOut.checkEmpty((String)context.get("delimiter"), "|");
@@ -1080,7 +1089,7 @@ public class ContentServices {
         return result;
     }
     
-    public static Map joinString(DispatchContext dctx, Map context) throws GenericServiceException{
+    public static Map<String, Object> joinString(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException{
         Map result = FastMap.newInstance();
         String outputString = null;
         String delimiter = UtilFormatOut.checkEmpty((String)context.get("delimiter"), "|");
@@ -1092,7 +1101,7 @@ public class ContentServices {
         return result;
     }
     
-    public static Map urlEncodeArgs(DispatchContext dctx, Map context) throws GenericServiceException{
+    public static Map<String, Object> urlEncodeArgs(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException{
         
         Map result = FastMap.newInstance();
         Map mapFiltered = FastMap.newInstance();

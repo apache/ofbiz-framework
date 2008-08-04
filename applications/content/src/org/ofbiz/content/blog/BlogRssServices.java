@@ -56,7 +56,7 @@ public class BlogRssServices {
     public static final String mimeTypeId = "text/html";
     public static final String mapKey = "SUMMARY";
 
-    public static Map generateBlogRssFeed(DispatchContext dctx, Map context) {
+    public static Map<String, Object> generateBlogRssFeed(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String contentId = (String) context.get("blogContentId");
         String entryLink = (String) context.get("entryLink");

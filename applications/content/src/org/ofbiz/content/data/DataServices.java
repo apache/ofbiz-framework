@@ -57,7 +57,8 @@ public class DataServices {
     /**
      * A top-level service for creating a DataResource and ElectronicText together.
      */
-    public static Map createDataResourceAndText(DispatchContext dctx, Map context) {
+    public static Map<String, Object> createDataResourceAndText(DispatchContext dctx, Map<String, ? extends Object> rcontext) {
+        Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
         Map result = FastMap.newInstance();
 
             Map thisResult = createDataResourceMethod(dctx, context);
@@ -82,12 +83,13 @@ public class DataServices {
     /**
      * A service wrapper for the createDataResourceMethod method. Forces permissions to be checked.
      */
-    public static Map createDataResource(DispatchContext dctx, Map context) {
+    public static Map<String, Object> createDataResource(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map result = createDataResourceMethod(dctx, context);
         return result;
     }
 
-    public static Map createDataResourceMethod(DispatchContext dctx, Map context) {
+    public static Map<String, Object> createDataResourceMethod(DispatchContext dctx, Map<String, ? extends Object> rcontext) {
+        Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
         Map result = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();
             GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -140,12 +142,12 @@ public class DataServices {
     /**
      * A service wrapper for the createElectronicTextMethod method. Forces permissions to be checked.
      */
-    public static Map createElectronicText(DispatchContext dctx, Map context) {
+    public static Map<String, Object> createElectronicText(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map result = createElectronicTextMethod(dctx, context);
         return result;
     }
 
-    public static Map createElectronicTextMethod(DispatchContext dctx, Map context) {
+    public static Map<String, Object> createElectronicTextMethod(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map result = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();
             String dataResourceId = (String) context.get("dataResourceId");
@@ -166,17 +168,18 @@ public class DataServices {
     /**
      * A service wrapper for the createFileMethod method. Forces permissions to be checked.
      */
-    public static Map createFile(DispatchContext dctx, Map context) {
+    public static Map<String, Object> createFile(DispatchContext dctx, Map<String, ? extends Object> context) {
 
         return createFileMethod(dctx, context);
     }
 
-    public static Map createFileNoPerm(DispatchContext dctx, Map context) {
+    public static Map<String, Object> createFileNoPerm(DispatchContext dctx, Map<String, ? extends Object> rcontext) {
+        Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
         context.put("skipPermissionCheck", "true");        
         return createFileMethod(dctx, context);
     }
 
-    public static Map createFileMethod(DispatchContext dctx, Map context) {
+    public static Map<String, Object> createFileMethod(DispatchContext dctx, Map<String, ? extends Object> context) {
             //GenericValue dataResource = (GenericValue) context.get("dataResource");
             String dataResourceTypeId = (String) context.get("dataResourceTypeId");
             String objectInfo = (String) context.get("objectInfo");
@@ -249,7 +252,7 @@ public class DataServices {
     /**
      * A top-level service for updating a DataResource and ElectronicText together.
      */
-    public static Map updateDataResourceAndText(DispatchContext dctx, Map context) {
+    public static Map<String, Object> updateDataResourceAndText(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map thisResult = updateDataResourceMethod(dctx, context);
         if (thisResult.get(ModelService.RESPONSE_MESSAGE) != null) {
             return ServiceUtil.returnError((String) thisResult.get(ModelService.ERROR_MESSAGE));
@@ -269,13 +272,13 @@ public class DataServices {
     /**
      * A service wrapper for the updateDataResourceMethod method. Forces permissions to be checked.
      */
-    public static Map updateDataResource(DispatchContext dctx, Map context) {
+    public static Map<String, Object> updateDataResource(DispatchContext dctx, Map<String, ? extends Object> context) {
         //context.put("skipPermissionCheck", null);
         Map result = updateDataResourceMethod(dctx, context);
         return result;
     }
 
-    public static Map updateDataResourceMethod(DispatchContext dctx, Map context) {
+    public static Map<String, Object> updateDataResourceMethod(DispatchContext dctx, Map<String, ? extends Object> context) {
 
         Map result = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();
@@ -313,7 +316,7 @@ public class DataServices {
     /**
      * A service wrapper for the updateElectronicTextMethod method. Forces permissions to be checked.
      */
-    public static Map updateElectronicText(DispatchContext dctx, Map context) {
+    public static Map<String, Object> updateElectronicText(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map result = updateElectronicTextMethod(dctx, context);
         return result;
     }
@@ -325,7 +328,7 @@ public class DataServices {
      * @param context
      * @return
      */
-    public static Map updateElectronicTextMethod(DispatchContext dctx, Map context) {
+    public static Map<String, Object> updateElectronicTextMethod(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map result = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();
         GenericValue electronicText = null;
@@ -364,7 +367,7 @@ public class DataServices {
     /**
      * A service wrapper for the updateFileMethod method. Forces permissions to be checked.
      */
-    public static Map updateFile(DispatchContext dctx, Map context) {
+    public static Map<String, Object> updateFile(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map result = null;
         try {
             result = updateFileMethod(dctx, context);
@@ -374,7 +377,7 @@ public class DataServices {
         return result;
     }
 
-    public static Map updateFileMethod(DispatchContext dctx, Map context) throws GenericServiceException {
+    public static Map<String, Object> updateFileMethod(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException {
         Map result = FastMap.newInstance();
         //GenericValue fileText = null;
         //Locale locale = (Locale) context.get("locale");
@@ -448,7 +451,7 @@ public class DataServices {
         return result;
     }
 
-    public static Map renderDataResourceAsText(DispatchContext dctx, Map context) throws GeneralException, IOException {
+    public static Map<String, Object> renderDataResourceAsText(DispatchContext dctx, Map<String, ? extends Object> context) throws GeneralException, IOException {
         Map results = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();
         //LocalDispatcher dispatcher = dctx.getDispatcher();
@@ -486,12 +489,12 @@ public class DataServices {
     /**
      * A service wrapper for the updateImageMethod method. Forces permissions to be checked.
      */
-    public static Map updateImage(DispatchContext dctx, Map context) {
+    public static Map<String, Object> updateImage(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map result = updateImageMethod(dctx, context);
         return result;
     }
 
-    public static Map updateImageMethod(DispatchContext dctx, Map context) {
+    public static Map<String, Object> updateImageMethod(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map result = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();
         //Locale locale = (Locale) context.get("locale");
@@ -520,12 +523,12 @@ public class DataServices {
     /**
      * A service wrapper for the createImageMethod method. Forces permissions to be checked.
      */
-    public static Map createImage(DispatchContext dctx, Map context) {
+    public static Map<String, Object> createImage(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map result = createImageMethod(dctx, context);
         return result;
     }
 
-    public static Map createImageMethod(DispatchContext dctx, Map context) {
+    public static Map<String, Object> createImageMethod(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map result = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();
             String dataResourceId = (String) context.get("dataResourceId");
@@ -549,7 +552,7 @@ public class DataServices {
     /**
      * A service wrapper for the createBinaryFileMethod method. Forces permissions to be checked.
      */
-    public static Map createBinaryFile(DispatchContext dctx, Map context) {
+    public static Map<String, Object> createBinaryFile(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map result = null;
         try {
             result = createBinaryFileMethod(dctx, context);
@@ -559,7 +562,7 @@ public class DataServices {
         return result;
     }
 
-    public static Map createBinaryFileMethod(DispatchContext dctx, Map context) throws GenericServiceException {
+    public static Map<String, Object> createBinaryFileMethod(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException {
         Map result = FastMap.newInstance();
             GenericValue dataResource = (GenericValue) context.get("dataResource");
             //String dataResourceId = (String) dataResource.get("dataResourceId");
@@ -601,7 +604,7 @@ public class DataServices {
     /**
      * A service wrapper for the createBinaryFileMethod method. Forces permissions to be checked.
      */
-    public static Map updateBinaryFile(DispatchContext dctx, Map context) {
+    public static Map<String, Object> updateBinaryFile(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map result = null;
         try {
             result = updateBinaryFileMethod(dctx, context);
@@ -611,7 +614,7 @@ public class DataServices {
         return result;
     }
 
-    public static Map updateBinaryFileMethod(DispatchContext dctx, Map context) throws GenericServiceException {
+    public static Map<String, Object> updateBinaryFileMethod(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException {
         Map result = FastMap.newInstance();
             GenericValue dataResource = (GenericValue) context.get("dataResource");
             //String dataResourceId = (String) dataResource.get("dataResourceId");

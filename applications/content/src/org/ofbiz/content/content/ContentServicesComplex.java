@@ -62,7 +62,7 @@ public class ContentServicesComplex {
     * From and thru dates or date strings.
     * A mapKey value.
     */
-    public static Map getAssocAndContentAndDataResource(DispatchContext dctx, Map context) {
+    public static Map<String, Object> getAssocAndContentAndDataResource(DispatchContext dctx, Map<String, ? extends Object> context) {
 
         GenericDelegator delegator = dctx.getDelegator();
         List assocTypes = (List) context.get("assocTypes"); 
@@ -186,7 +186,7 @@ public class ContentServicesComplex {
     * From and thru dates or date strings.
     * A mapKey value.
     */
-    public static Map getAssocAndContentAndDataResourceCache(DispatchContext dctx, Map context) {
+    public static Map<String, Object> getAssocAndContentAndDataResourceCache(DispatchContext dctx, Map<String, ? extends Object> context) {
 
         GenericDelegator delegator = dctx.getDelegator();
         List assocTypes = (List) context.get("assocTypes"); 

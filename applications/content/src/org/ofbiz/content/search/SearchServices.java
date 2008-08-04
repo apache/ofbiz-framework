@@ -38,7 +38,7 @@ public class SearchServices {
 
     public static final String module = SearchServices.class.getName();
 
-    public static Map indexTree(DispatchContext dctx, Map context) {
+    public static Map<String, Object> indexTree(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericDelegator delegator = dctx.getDelegator();
 

@@ -78,7 +78,7 @@ public class EmailServices {
      *@param context Map containing the input parameters
      *@return Map with the result of the service, the output parameters
      */
-    public static Map sendMail(DispatchContext ctx, Map context) {
+    public static Map<String, Object> sendMail(DispatchContext ctx, Map<String, ? extends Object> context) {
         Map results = ServiceUtil.returnSuccess();
         String subject = (String) context.get("subject");
         String partyId = (String) context.get("partyId");
@@ -277,7 +277,8 @@ public class EmailServices {
      *@param context Map containing the input parameters
      *@return Map with the result of the service, the output parameters
      */
-    public static Map sendMailFromUrl(DispatchContext ctx, Map context) {
+    public static Map<String, Object> sendMailFromUrl(DispatchContext ctx, Map<String, ? extends Object> rcontext) {
+        Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
         // pretty simple, get the content and then call the sendMail method below
         String bodyUrl = (String) context.remove("bodyUrl");
         Map bodyUrlParameters = (Map) context.remove("bodyUrlParameters");
@@ -315,7 +316,8 @@ public class EmailServices {
      *@param serviceContext Map containing the input parameters
      *@return Map with the result of the service, the output parameters
      */
-    public static Map sendMailFromScreen(DispatchContext dctx, Map serviceContext) {
+    public static Map<String, Object> sendMailFromScreen(DispatchContext dctx, Map<String, ? extends Object> rServiceContext) {
+        Map<String, Object> serviceContext = UtilMisc.makeMapWritable(rServiceContext);
         LocalDispatcher dispatcher = dctx.getDispatcher();
         String webSiteId = (String) serviceContext.remove("webSiteId");
         String bodyText = (String) serviceContext.remove("bodyText");
@@ -490,7 +492,7 @@ public class EmailServices {
      *@param serviceContext Map containing the input parameters
      *@return Map with the result of the service, the output parameters
      */
-     public static Map storeEmailAsCommunication(DispatchContext dctx, Map serviceContext) {
+     public static Map<String, Object> storeEmailAsCommunication(DispatchContext dctx, Map<String, ? extends Object> serviceContext) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) serviceContext.get("userLogin");
         
@@ -721,7 +723,7 @@ public class EmailServices {
      * @param context
      * @return
      */
-    public static Map storeIncomingEmail(DispatchContext dctx, Map context) {
+    public static Map<String, Object> storeIncomingEmail(DispatchContext dctx, Map<String, ? extends Object> context) {
         
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();

@@ -75,7 +75,7 @@ public class PdfSurveyServices {
     /**
      * 
      */
-    public static Map buildSurveyFromPdf(DispatchContext dctx, Map context) {
+    public static Map<String, Object> buildSurveyFromPdf(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -242,7 +242,7 @@ public class PdfSurveyServices {
     /**
      * 
      */
-    public static Map buildSurveyResponseFromPdf(DispatchContext dctx, Map context) {
+    public static Map<String, Object> buildSurveyResponseFromPdf(DispatchContext dctx, Map<String, ? extends Object> context) {
 
         String surveyResponseId = null;
         try {
@@ -318,7 +318,7 @@ public class PdfSurveyServices {
 
     /**
      */
-    public static Map getAcroFieldsFromPdf(DispatchContext dctx, Map context) {
+    public static Map<String, Object> getAcroFieldsFromPdf(DispatchContext dctx, Map<String, ? extends Object> context) {
         
         Map acroFieldMap = FastMap.newInstance();
         try {
@@ -362,7 +362,7 @@ public class PdfSurveyServices {
     
     /**
      */
-    public static Map setAcroFields(DispatchContext dctx, Map context) {
+    public static Map<String, Object> setAcroFields(DispatchContext dctx, Map<String, ? extends Object> context) {
         
         Map results = ServiceUtil.returnSuccess();
         GenericDelegator delegator = dctx.getDelegator();
@@ -431,7 +431,8 @@ public class PdfSurveyServices {
     
     /**
      */
-    public static Map buildPdfFromSurveyResponse(DispatchContext dctx, Map context) {
+    public static Map<String, Object> buildPdfFromSurveyResponse(DispatchContext dctx, Map<String, ? extends Object> rcontext) {
+        Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
         GenericDelegator delegator = dctx.getDelegator();
         //LocalDispatcher dispatcher = dctx.getDispatcher();
         Map results = ServiceUtil.returnSuccess();
@@ -503,7 +504,7 @@ public class PdfSurveyServices {
     /**
      * Returns list of maps with "question"->SurveyQuestion and "response"->SurveyResponseAnswer
      */
-    public static Map buildSurveyQuestionsAndAnswers(DispatchContext dctx, Map context) {
+    public static Map<String, Object> buildSurveyQuestionsAndAnswers(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
         //LocalDispatcher dispatcher = dctx.getDispatcher();
         Map results = ServiceUtil.returnSuccess();
@@ -540,7 +541,7 @@ public class PdfSurveyServices {
     
     /**
      */
-    public static Map setAcroFieldsFromSurveyResponse(DispatchContext dctx, Map context) {
+    public static Map<String, Object> setAcroFieldsFromSurveyResponse(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Map results = ServiceUtil.returnSuccess();
