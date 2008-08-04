@@ -767,8 +767,8 @@ public class ContentManagementWorker {
         // If no children, count this as a leaf
         if (subLeafCount == 0)
             subLeafCount = 1;
-        thisContent.put("childBranchCount", new Long(listFiltered.size()));
-        thisContent.put("childLeafCount", new Long(subLeafCount));
+        thisContent.put("childBranchCount", Long.valueOf(listFiltered.size()));
+        thisContent.put("childLeafCount", Long.valueOf(subLeafCount));
         thisContent.store();
         
         return subLeafCount;
@@ -800,7 +800,7 @@ public class ContentManagementWorker {
         	    if (leafCount != null) {
             	    intLeafCount = leafCount.intValue();
                 }
-                contentTo.set("childLeafCount", new Long(intLeafCount + leafChangeAmount)); 
+                contentTo.set("childLeafCount", Long.valueOf(intLeafCount + leafChangeAmount)); 
                 
                 if (branchChangeAmount != 0) {
                 	int intBranchCount = 0;
@@ -808,7 +808,7 @@ public class ContentManagementWorker {
         	    	if (branchCount != null) {
             	    	intBranchCount = branchCount.intValue();
         	    	}
-                	contentTo.set("childBranchCount", new Long(intBranchCount + branchChangeAmount)); 
+                	contentTo.set("childBranchCount", Long.valueOf(intBranchCount + branchChangeAmount)); 
                 }
                 contentTo.store();
                 updateStatsBottomUp(delegator, contentIdTo, typeList, 0, leafChangeAmount);

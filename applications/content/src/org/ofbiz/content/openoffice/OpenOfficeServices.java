@@ -310,7 +310,7 @@ public class OpenOfficeServices {
             // Setting the flag for hidding the open document
             propertyvalue[ 0 ] = new PropertyValue();
             propertyvalue[ 0 ].Name = "Hidden";
-            propertyvalue[ 0 ].Value = new Boolean(true);
+            propertyvalue[ 0 ].Value = Boolean.valueOf(true);
             //TODO: Hardcoding opening word documents -- this will need to change.
             //propertyvalue[ 1 ] = new PropertyValue();
             //propertyvalue[ 1 ].Name = "FilterName";
@@ -344,7 +344,7 @@ public class OpenOfficeServices {
             // Setting the flag for overwriting
             propertyvalue[ 0 ] = new PropertyValue();
             propertyvalue[ 0 ].Name = "Overwrite";
-            propertyvalue[ 0 ].Value = new Boolean(true);
+            propertyvalue[ 0 ].Value = Boolean.valueOf(true);
             // Setting the filter name
             //propertyvalue[ 1 ] = new PropertyValue();
             //propertyvalue[ 1 ].Name = "FilterName";

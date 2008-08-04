@@ -261,7 +261,7 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
                     ctx.put("nodeTrailCsv", csvTrail);
                     //if (Debug.infoOn()) Debug.logInfo("prepCtx, csvTrail(2):" + csvTrail, "");
                     int indentSz = globalNodeTrail.size();
-                    ctx.put("indent", new Integer(indentSz));
+                    ctx.put("indent", Integer.valueOf(indentSz));
 
                     ctx.put("subDataResourceTypeId", subDataResourceTypeId);
                     ctx.put("mimeTypeId", mimeTypeId);
@@ -269,7 +269,7 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
                     ctx.put("content", view);
 
                     env.setVariable("subDataResourceTypeId", FreeMarkerWorker.autoWrap(subDataResourceTypeId, env));
-                    env.setVariable("indent", FreeMarkerWorker.autoWrap(new Integer(indentSz), env));
+                    env.setVariable("indent", FreeMarkerWorker.autoWrap(Integer.valueOf(indentSz), env));
                     env.setVariable("nodeTrailCsv", FreeMarkerWorker.autoWrap(csvTrail, env));
                     env.setVariable("globalNodeTrail", FreeMarkerWorker.autoWrap(globalNodeTrail, env));
                     env.setVariable("content", FreeMarkerWorker.autoWrap(view, env));

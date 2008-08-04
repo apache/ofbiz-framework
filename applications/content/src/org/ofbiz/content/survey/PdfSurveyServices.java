@@ -153,10 +153,10 @@ public class PdfSurveyServices {
 
                 Long sequenceNum = null;
                 if (tabPage != null && tabOrder != null) {
-                    sequenceNum = new Long(tabPage.intValue() * 1000 + tabOrder.intValue());
+                    sequenceNum = Long.valueOf(tabPage.intValue() * 1000 + tabOrder.intValue());
                     Debug.logInfo("tabPage=" + tabPage + ", tabOrder=" + tabOrder + ", sequenceNum=" + sequenceNum, module);
                 } else if (fieldPositions.length > 0) {
-                    sequenceNum = new Long((long) fieldPage * 10000 + (long) fieldLly * 1000 + (long) fieldLlx);
+                    sequenceNum = Long.valueOf((long) fieldPage * 10000 + (long) fieldLly * 1000 + (long) fieldLlx);
                     Debug.logInfo("fieldPage=" + fieldPage + ", fieldLlx=" + fieldLlx + ", fieldLly=" + fieldLly + ", fieldUrx=" + fieldUrx + ", fieldUry=" + fieldUry + ", sequenceNum=" + sequenceNum, module);
                 }
                 

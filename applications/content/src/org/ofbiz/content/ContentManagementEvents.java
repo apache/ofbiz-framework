@@ -93,7 +93,7 @@ public class ContentManagementEvents {
                 String idxStr = idxAndContentId.substring(0, pos);
                 int idx = Integer.parseInt(idxStr);
                 String contentId = idxAndContentId.substring(pos + 1);
-                contentIdLookup.put(contentId, new Integer(idx));
+                contentIdLookup.put(contentId, Integer.valueOf(idx));
             }
         }
 */

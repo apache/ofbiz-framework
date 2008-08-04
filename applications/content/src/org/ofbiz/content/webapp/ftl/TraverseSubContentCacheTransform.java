@@ -271,7 +271,7 @@ public class TraverseSubContentCacheTransform implements TemplateTransformModel 
                 }
     //if (Debug.infoOn()) Debug.logInfo("populateContext, globalNodeTrail(1b):" + FreeMarkerWorker.nodeTrailToCsv(globalNodeTrail), "");
                 int indentSz = globalNodeTrail.size();
-                envWrap("indent", new Integer(indentSz));
+                envWrap("indent", Integer.valueOf(indentSz));
                 String trailCsv = ContentWorker.nodeTrailToCsv(globalNodeTrail);
                 //if (Debug.infoOn()) Debug.logInfo("in TraverseSubContentCache, populateCtx, trailCsv(2):" + trailCsv , module);
                 envWrap("nodeTrailCsv", trailCsv);

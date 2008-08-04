@@ -187,7 +187,7 @@ public class OpenOfficeWorker{
         // Setting the flag for hidding the open document
         propertyvalue[ 0 ] = new PropertyValue();
         propertyvalue[ 0 ].Name = "Hidden";
-        propertyvalue[ 0 ].Value = new Boolean(false);
+        propertyvalue[ 0 ].Value = Boolean.valueOf(false);
 
         propertyvalue[ 1 ] = new PropertyValue();
         propertyvalue[ 1 ].Name = "UpdateDocMode";
@@ -206,7 +206,7 @@ public class OpenOfficeWorker{
         // Setting the flag for overwriting
         propertyvalue[ 0 ] = new PropertyValue();
         propertyvalue[ 0 ].Name = "Overwrite";
-        propertyvalue[ 0 ].Value = new Boolean(true);
+        propertyvalue[ 0 ].Value = Boolean.valueOf(true);
         // Setting the filter name
         // Preparing properties for converting the document
         String filterName = getFilterNameFromMimeType(outputMimeType);
