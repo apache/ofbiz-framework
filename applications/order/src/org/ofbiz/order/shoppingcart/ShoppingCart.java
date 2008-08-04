@@ -3242,6 +3242,9 @@ public class ShoppingCart implements Serializable {
             serviceContext.put("description", description);
             serviceContext.put("productTypeId", "AGGREGATED_CONF");
             serviceContext.put("configId", configId);
+            if (UtilValidate.isNotEmpty(product.getString("requirementMethodEnumId"))) {
+                serviceContext.put("requirementMethodEnumId", product.getString("requirementMethodEnumId"));
+            }
             serviceContext.put("userLogin", permUserLogin);
             
             Map result = dispatcher.runSync("createProduct", serviceContext);
