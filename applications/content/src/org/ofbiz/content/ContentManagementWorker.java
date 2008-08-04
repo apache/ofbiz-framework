@@ -19,10 +19,8 @@
 package org.ofbiz.content;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +28,9 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -60,8 +61,8 @@ import org.ofbiz.security.Security;
 public class ContentManagementWorker {
 
     public static final String module = ContentManagementWorker.class.getName();
-    public static Map cachedWebSitePublishPoints = new HashMap();
-    public static Map cachedStaticValues = new HashMap();
+    public static Map cachedWebSitePublishPoints = FastMap.newInstance();
+    public static Map cachedStaticValues = FastMap.newInstance();
 
     public static void mruAdd(HttpServletRequest request, GenericEntity pk, String suffix ) {
         HttpSession session = request.getSession();
@@ -79,7 +80,7 @@ public class ContentManagementWorker {
 
         Map lookupCaches = (Map)session.getAttribute("lookupCaches");
         if(lookupCaches == null){
-            lookupCaches = new HashMap();
+            lookupCaches = FastMap.newInstance();
             session.setAttribute("lookupCaches", lookupCaches);
         }    
         String entityName = pk.getEntityName();
@@ -132,7 +133,7 @@ public class ContentManagementWorker {
 
         String sig = "";
         Collection keyColl = pk.getPrimaryKey().getAllKeys();
-        List keyList = new ArrayList(keyColl);
+        List keyList = UtilMisc.makeListWritable(keyColl);
         Collections.sort(keyList);
         Iterator it = keyList.iterator();
         while (it.hasNext()) {
@@ -162,7 +163,7 @@ public class ContentManagementWorker {
         HttpSession session = request.getSession();
         Map currentEntityMap = (Map)session.getAttribute("currentEntityMap");
         if(currentEntityMap == null){
-            currentEntityMap     = new HashMap();
+            currentEntityMap     = FastMap.newInstance();
             session.setAttribute("currentEntityMap", currentEntityMap);
         }
 
@@ -218,7 +219,7 @@ public class ContentManagementWorker {
         HttpSession session = request.getSession();
         Map currentEntityMap = (Map)session.getAttribute("currentEntityMap");
         if(currentEntityMap == null){
-            currentEntityMap     = new HashMap();
+            currentEntityMap     = FastMap.newInstance();
             session.setAttribute("currentEntityMap", currentEntityMap);
         }
         Map paramMap = UtilHttp.getParameterMap(request);
@@ -315,7 +316,7 @@ public class ContentManagementWorker {
 
     public static List getPermittedPublishPoints(GenericDelegator delegator, List allPublishPoints, GenericValue userLogin, Security security, String permittedAction, String permittedOperations, String passedRoles) throws GeneralException {
 
-        List permittedPublishPointList = new ArrayList();
+        List permittedPublishPointList = FastList.newInstance();
         
         // Check that user has permission to admin sites
         Iterator it = allPublishPoints.iterator();
@@ -330,7 +331,7 @@ public class ContentManagementWorker {
                 entityAction = "_ADMIN";
             List passedPurposes = UtilMisc.toList("ARTICLE");
             List roles = StringUtil.split(passedRoles, "|");
-            List targetOperationList = new ArrayList();
+            List targetOperationList = FastList.newInstance();
             if (UtilValidate.isEmpty(permittedOperations)) {
                  targetOperationList.add("CONTENT" + entityAction);
             } else {
@@ -366,7 +367,7 @@ public class ContentManagementWorker {
         } catch(GenericEntityException e) {
             throw new GeneralException(e.getMessage());
         }
-        List allPublishPoints = new ArrayList();
+        List allPublishPoints = FastList.newInstance();
         GenericValue webSitePublishPoint = null;
         GenericValue rootWebSitePublishPoint = null;
         GenericValue currentWebSitePublishPoint = null;
@@ -385,7 +386,7 @@ public class ContentManagementWorker {
     public static Map getPublishPointMap(GenericDelegator delegator, String pubPtId ) throws GeneralException {
 
         List publishPointList = getAllPublishPoints( delegator, pubPtId );
-        Map publishPointMap = new HashMap();
+        Map publishPointMap = FastMap.newInstance();
         Iterator it = publishPointList.iterator();
         while (it.hasNext()) {
            GenericValue webSitePublishPoint = (GenericValue)it.next();
@@ -410,7 +411,7 @@ public class ContentManagementWorker {
 
     public static Map getPublishPointMap(GenericDelegator delegator, List publishPointList ) {
 
-        Map publishPointMap = new HashMap();
+        Map publishPointMap = FastMap.newInstance();
         Iterator it = publishPointList.iterator();
         while (it.hasNext()) {
            GenericValue webSitePublishPoint = (GenericValue)it.next();
@@ -429,7 +430,7 @@ public class ContentManagementWorker {
             throw new GeneralException(e.getMessage());
         }
 
-        List staticValueList = new ArrayList();
+        List staticValueList = FastList.newInstance();
         Iterator it = assocValueList.iterator();
         int counter = 0;
         while(it.hasNext()) {
@@ -437,7 +438,7 @@ public class ContentManagementWorker {
             String contentId = (String)content.get("contentId");
             String contentName = (String)content.get("contentName");
             String description = (String)content.get("description");
-            Map map = new HashMap();
+            Map map = FastMap.newInstance();
             map.put("contentId", contentId);
             map.put("contentName", contentName);
             map.put("description", description);
@@ -532,7 +533,7 @@ public class ContentManagementWorker {
         if (!ignoreCache) {
             Map subStaticValueMap =  (GenericValue)cachedStaticValues.get(parentPlaceholderId);
             if (subStaticValueMap == null) {
-                subStaticValueMap = new HashMap();
+                subStaticValueMap = FastMap.newInstance();
                 cachedStaticValues.put(parentPlaceholderId, subStaticValueMap);
             }
             //Map staticValueMap = (GenericValue)cachedStaticValues.get(web);
@@ -560,8 +561,8 @@ public class ContentManagementWorker {
         List allPublishPointList = getAllPublishPoints( delegator, rootPubId );
         //if (Debug.infoOn()) Debug.logInfo("in getPublishLinks, allPublishPointList:" + allPublishPointList, module);
         List publishPointList = getPermittedPublishPoints( delegator, allPublishPointList, userLogin, security , permittedAction, permittedOperations, passedRoles );
-        Map publishPointMap = new HashMap();
-        Map publishPointMapAll = new HashMap();
+        Map publishPointMap = FastMap.newInstance();
+        Map publishPointMapAll = FastMap.newInstance();
         Iterator it = publishPointList.iterator();
         while (it.hasNext()) {
             //GenericValue webSitePublishPoint = (GenericValue)it.next();
@@ -570,7 +571,7 @@ public class ContentManagementWorker {
             String [] arr = (String [])it.next();
             String contentId = arr[0];
             String description = arr[1];
-            List subPointList = new ArrayList();
+            List subPointList = FastList.newInstance();
             Object nullObj = null;
             Object [] subArr = {contentId, subPointList, description, nullObj};
             publishPointMap.put(contentId, subArr);
@@ -598,7 +599,7 @@ public class ContentManagementWorker {
         } catch(GenericEntityException e) {
             throw new GeneralException(e.getMessage());
         }
-        Map publishedLinkMap = new HashMap();
+        Map publishedLinkMap = FastMap.newInstance();
         Iterator it4 = assocValueList.iterator();
         while (it4.hasNext()) {
             GenericValue contentAssoc = (GenericValue)it4.next();
@@ -624,7 +625,7 @@ public class ContentManagementWorker {
             }
         }
 
-        List publishedLinkList = new ArrayList();
+        List publishedLinkList = FastList.newInstance();
         Set keySet = publishPointMap.keySet();
         Iterator it3 = keySet.iterator();
         while (it3.hasNext()) {
@@ -661,7 +662,7 @@ public class ContentManagementWorker {
 
     public static List getPermittedDepartmentPoints(GenericDelegator delegator, List allDepartmentPoints, GenericValue userLogin, Security security, String permittedAction, String permittedOperations, String passedRoles) throws GeneralException {
 
-        List permittedDepartmentPointList = new ArrayList();
+        List permittedDepartmentPointList = FastList.newInstance();
         
         // Check that user has permission to admin sites
         Iterator it = allDepartmentPoints.iterator();
@@ -675,7 +676,7 @@ public class ContentManagementWorker {
                 entityAction = "_ADMIN";
             List passedPurposes = UtilMisc.toList("ARTICLE");
             List roles = StringUtil.split(passedRoles, "|");
-            List targetOperationList = new ArrayList();
+            List targetOperationList = FastList.newInstance();
             if (UtilValidate.isEmpty(permittedOperations)) {
                  targetOperationList.add("CONTENT" + entityAction);
             } else {
@@ -711,7 +712,7 @@ public class ContentManagementWorker {
         } catch(GenericEntityException e) {
             throw new GeneralException(e.getMessage());
         }
-        List allDepartmentPoints = new ArrayList();
+        List allDepartmentPoints = FastList.newInstance();
         GenericValue departmentContent = null;
         GenericValue contentAssoc = null;
         Iterator it = relatedPubPts.iterator();
@@ -740,7 +741,7 @@ public class ContentManagementWorker {
         if (thisContent == null)
             throw new RuntimeException("No entity found for id=" + contentId);
         
-       List condList = new ArrayList();
+       List condList = FastList.newInstance();
        Iterator iterType = typeList.iterator();
        while (iterType.hasNext()) {
            String type = (String)iterType.next();
@@ -778,7 +779,7 @@ public class ContentManagementWorker {
         if (thisContent == null)
             throw new RuntimeException("No entity found for id=" + contentId);
         
-       List condList = new ArrayList();
+       List condList = FastList.newInstance();
        Iterator iterType = typeList.iterator();
        while (iterType.hasNext()) {
            String type = (String)iterType.next();

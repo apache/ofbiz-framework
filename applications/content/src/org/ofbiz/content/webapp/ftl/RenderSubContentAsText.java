@@ -21,13 +21,14 @@ package org.ofbiz.content.webapp.ftl;
 import java.io.IOException;
 import java.io.Writer;
 import java.sql.Timestamp;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -58,7 +59,7 @@ public class RenderSubContentAsText implements TemplateTransformModel {
     public Writer getWriter(final Writer out, Map args) {
         final Environment env = Environment.getCurrentEnvironment();
         //final Map templateCtx = (Map) FreeMarkerWorker.getWrappedObject("context", env);
-        //final Map templateCtx = new HashMap();
+        //final Map templateCtx = FastMap.newInstance();
         final LocalDispatcher dispatcher = (LocalDispatcher) FreeMarkerWorker.getWrappedObject("dispatcher", env);
         final GenericDelegator delegator = (GenericDelegator) FreeMarkerWorker.getWrappedObject("delegator", env);
         final HttpServletRequest request = (HttpServletRequest) FreeMarkerWorker.getWrappedObject("request", env);
@@ -66,7 +67,7 @@ public class RenderSubContentAsText implements TemplateTransformModel {
         final Map templateRoot = FreeMarkerWorker.createEnvironmentMap(env);
                 if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, contentId(0):" + templateRoot.get("contentId"), module);
         FreeMarkerWorker.getSiteParameters(request, templateRoot);
-        final Map savedValuesUp = new HashMap();
+        final Map savedValuesUp = FastMap.newInstance();
         FreeMarkerWorker.saveContextValues(templateRoot, upSaveKeyNames, savedValuesUp);
         FreeMarkerWorker.overrideWithArgs(templateRoot, args);
         if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, contentId(2):" + templateRoot.get("contentId"), module);
@@ -121,7 +122,7 @@ public class RenderSubContentAsText implements TemplateTransformModel {
         templateRoot.put("subDataResourceTypeId", subDataResourceTypeId);
         */
 
-        final Map savedValues = new HashMap();
+        final Map savedValues = FastMap.newInstance();
 
         return new Writer(out) {
 

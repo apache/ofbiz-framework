@@ -20,12 +20,13 @@ package org.ofbiz.content.search;
 
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -64,7 +65,7 @@ public class ContentDocument {
 	  		return doc;
 	  	}
 
-        Map map = new HashMap();
+        Map map = FastMap.newInstance();
 	  	doc = Document(content, map, dispatcher);
         return doc;
 	}
@@ -94,7 +95,7 @@ public class ContentDocument {
 		String description = content.getString("description");
 		if (UtilValidate.isNotEmpty(description))
 			doc.add(new Field("description", description, Store.YES, Index.TOKENIZED, TermVector.NO));
-		List ancestorList = new ArrayList();
+		List ancestorList = FastList.newInstance();
 		GenericDelegator delegator = content.getDelegator();
 		ContentWorker.getContentAncestryAll(delegator, contentId, "WEB_SITE_PUB_PT", "TO", ancestorList);
 		String ancestorString = StringUtil.join(ancestorList, " ");
@@ -177,7 +178,7 @@ public class ContentDocument {
 			badIndexList.add(contentId + " - " + e.getMessage());
 			return false;
 		}
-		List featureList = new ArrayList();
+		List featureList = FastList.newInstance();
 		Iterator iter = featureDataResourceList.iterator();
 		while (iter.hasNext()) {
 			GenericValue productFeatureDataResource = (GenericValue) iter .next();

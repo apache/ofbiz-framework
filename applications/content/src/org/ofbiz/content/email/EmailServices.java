@@ -604,7 +604,7 @@ public class EmailServices {
         }
         
         if (!UtilValidate.isEmpty(emailAddress)) {
-            map = new HashMap();
+            map = FastMap.newInstance();
             map.put("address", emailAddress.getAddress());
             map.put("userLogin", userLogin);
             result = dispatcher.runSync("findPartyFromEmailAddress", map);            
@@ -622,7 +622,7 @@ public class EmailServices {
         Address addr = null;
         Map map = null;
         Map result = null;
-        List tempResults = new ArrayList();
+        List tempResults = FastList.newInstance();
         
         if (addresses != null) {
             for (int i = 0; i < addresses.length; i++) {
@@ -830,7 +830,7 @@ public class EmailServices {
             partyIdFrom = (String)result.get("partyId");
             contactMechIdFrom = (String)result.get("contactMechId");
             
-            Map commEventMap = new HashMap();
+            Map commEventMap = FastMap.newInstance();
             commEventMap.put("communicationEventTypeId", "AUTO_EMAIL_COMM");
             commEventMap.put("contactMechTypeId", "EMAIL_ADDRESS");
             commEventMap.put("messageId", messageId);

@@ -18,12 +18,14 @@
  *******************************************************************************/
 package org.ofbiz.content.content;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javolution.util.FastList;
+import javolution.util.FastMap;
+
+import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.entity.GenericValue;
 
@@ -40,7 +42,7 @@ public class PermissionRecorder {
 
     protected boolean isOn = false;
     protected GenericValue userLogin;
-    protected List permCheckResults = new ArrayList();
+    protected List permCheckResults = FastList.newInstance();
     protected boolean entityPermCheckResult = false;
     protected String currentContentId = "";
     protected Map currentContentMap;
@@ -125,10 +127,10 @@ public class PermissionRecorder {
 
     public void setCurrentContentId(String id) {
         if (!currentContentId.equals(id)) {
-            currentContentMap = new HashMap();
+            currentContentMap = FastMap.newInstance();
             permCheckResults.add(currentContentMap);
             currentContentMap.put("contentId", id);            
-            currentContentMap.put("checkResults", new ArrayList());            
+            currentContentMap.put("checkResults", FastList.newInstance());            
         }
         currentContentId = id;
     }
@@ -157,7 +159,7 @@ public class PermissionRecorder {
 
     public void startMatchGroup(List targetOperations, List purposes, List roles, List targStatusList, String targPrivilegeEnumId, String contentId) {
 
-        currentContentMap = new HashMap();
+        currentContentMap = FastMap.newInstance();
         permCheckResults.add(currentContentMap);
         String s = null;
         if (targetOperations != null) {
@@ -186,7 +188,7 @@ public class PermissionRecorder {
         }
         currentContentMap.put("privilegeEnumId", privilegeEnumId);
         currentContentMap.put("contentId", contentId);
-        currentContentMap.put("checkResultList", new ArrayList());
+        currentContentMap.put("checkResultList", FastList.newInstance());
         currentContentMap.put("matches", null);
         currentContentId = contentId;
             //if (Debug.infoOn()) Debug.logInfo("startMatchGroup, currentContentMap:" + currentContentMap, module);
@@ -194,7 +196,7 @@ public class PermissionRecorder {
 
     public void record(GenericValue purposeOp, boolean targetOpCond, boolean purposeCond, boolean statusCond, boolean privilegeCond, boolean roleCond) {
 
-        Map map = new HashMap(purposeOp);
+        Map map = UtilMisc.makeMapWritable(purposeOp);
         map.put("contentOperationIdCond", new Boolean(targetOpCond));
         map.put("contentPurposeTypeIdCond", new Boolean(purposeCond));
         map.put("statusIdCond", new Boolean(statusCond));

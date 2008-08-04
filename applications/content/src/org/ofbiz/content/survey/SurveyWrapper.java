@@ -24,12 +24,11 @@ import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import javolution.util.FastList;
 import javolution.util.FastMap;
 import javolution.util.FastSet;
 
@@ -278,7 +277,7 @@ public class SurveyWrapper {
 
     // returns a list of SurveyQuestions (in order by sequence number) for the current Survey
     public List getSurveyQuestionAndAppls() {
-        List questions = new LinkedList();
+        List questions = FastList.newInstance();
 
         try {
             Map fields = UtilMisc.toMap("surveyId", surveyId);
@@ -350,7 +349,7 @@ public class SurveyWrapper {
     // returns a Map of answers keyed on SurveyQuestion ID from the most current SurveyResponse ID
     public Map getResponseAnswers(String responseId) throws SurveyWrapperException {
 
-        Map answerMap = new HashMap();
+        Map answerMap = FastMap.newInstance();
 
         if (responseId != null) {
             List answers = null;
@@ -377,7 +376,7 @@ public class SurveyWrapper {
                 if (key.toUpperCase().startsWith("ANSWERS_")) {
                     int splitIndex = key.indexOf('_');
                     String questionId = key.substring(splitIndex+1);
-                    Map thisAnswer = new HashMap();
+                    Map thisAnswer = FastMap.newInstance();
                     String answer = (String) passThru.remove(key);
                     thisAnswer.put("booleanResponse", answer);
                     thisAnswer.put("currencyResponse", answer);
@@ -430,7 +429,7 @@ public class SurveyWrapper {
     }
 
     public Map getResults(List questions) throws SurveyWrapperException {
-        Map questionResults = new HashMap();
+        Map questionResults = FastMap.newInstance();
         if (questions != null) {
             Iterator i = questions.iterator();
             while (i.hasNext()) {
@@ -446,7 +445,7 @@ public class SurveyWrapper {
 
     // returns a map of question reqsults
     public Map getResultInfo(GenericValue question) throws SurveyWrapperException {
-        Map resultMap = new HashMap();
+        Map resultMap = FastMap.newInstance();
 
         // special keys in the result:
         // "_q_type"      - question type (SurveyQuestionTypeId)
@@ -476,7 +475,7 @@ public class SurveyWrapper {
                 // create the map of option info ("_total", "_percent")
                 Iterator i = thisResult.keySet().iterator();
                 while (i.hasNext()) {
-                    Map optMap = new HashMap();
+                    Map optMap = FastMap.newInstance();
                     String optId = (String) i.next();
                     Long optTotal = (Long) thisResult.get(optId);
                     if (optTotal == null) optTotal = new Long(0);
@@ -661,7 +660,7 @@ public class SurveyWrapper {
     }
 
     private Map getOptionResult(GenericValue question) throws SurveyWrapperException {
-        Map result = new HashMap();
+        Map result = FastMap.newInstance();
         long total = 0;
 
         boolean beganTransaction = false;

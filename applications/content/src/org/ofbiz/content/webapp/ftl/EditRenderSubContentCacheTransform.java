@@ -20,7 +20,6 @@ package org.ofbiz.content.webapp.ftl;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -29,8 +28,11 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
+import javolution.util.FastMap;
+
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.template.FreeMarkerWorker;
 import org.ofbiz.content.content.ContentWorker;
@@ -115,7 +117,7 @@ public class EditRenderSubContentCacheTransform implements TemplateTransformMode
         templateCtx.put("dataResourceId", dataResourceId);
         templateCtx.put("subContentIdSub", subContentIdSub);
         templateCtx.put("subDataResourceTypeId", subDataResourceTypeId);
-        final Map savedValues = new HashMap();
+        final Map savedValues = FastMap.newInstance();
         FreeMarkerWorker.saveContextValues(templateCtx, saveKeyNames, savedValues);
 
         return new Writer(out) {
@@ -142,10 +144,10 @@ public class EditRenderSubContentCacheTransform implements TemplateTransformMode
                     Map templateRootTemplate = (Map)templateCtx.get("templateRootTemplate");
                     if (templateRootTemplate == null) {
                         Map templateRootTmp = FreeMarkerWorker.createEnvironmentMap(env);
-                        templateRoot = new HashMap(templateRootTmp);
+                        templateRoot = UtilMisc.makeMapWritable(templateRootTmp);
                         templateCtx.put("templateRootTemplate", templateRootTmp);
                     } else {
-                        templateRoot = new HashMap(templateRootTemplate);
+                        templateRoot = UtilMisc.makeMapWritable(templateRootTemplate);
                     }
                         
                         templateRoot.put("context", templateCtx);

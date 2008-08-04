@@ -22,7 +22,6 @@ import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.ByteBuffer;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -33,6 +32,9 @@ import java.util.TreeMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.xml.parsers.ParserConfigurationException;
+
+import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
@@ -101,12 +103,12 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
         }
         List categoryValues = delegator.findByAndCache("DataCategory", UtilMisc.toMap("parentCategoryId", matchValue));
         categoryNode.put("count", new Integer(categoryValues.size()));
-        List subCategoryIds = new ArrayList();
+        List subCategoryIds = FastList.newInstance();
         for (int i = 0; i < categoryValues.size(); i++) {
             GenericValue category = (GenericValue) categoryValues.get(i);
             String id = (String) category.get("dataCategoryId");
             String categoryName = (String) category.get("categoryName");
-            Map newNode = new HashMap();
+            Map newNode = FastMap.newInstance();
             newNode.put("id", id);
             newNode.put("name", categoryName);
             errorMsg = getDataCategoryMap(delegator, depth + 1, newNode, categoryTypeIds, getAll);
@@ -148,13 +150,13 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
      * Takes a DataCategory structure and builds a list of maps, one value (id) is the dataCategoryId value and the other is an indented string suitable for
      * use in a drop-down pick list.
      */
-    public static void buildList(HashMap nd, List lst, int depth) {
+    public static void buildList(Map nd, List lst, int depth) {
         String id = (String) nd.get("id");
         String nm = (String) nd.get("name");
         String spc = "";
         for (int i = 0; i < depth; i++)
             spc += "&nbsp;&nbsp;";
-        HashMap map = new HashMap();
+        Map map = FastMap.newInstance();
         map.put("dataCategoryId", id);
         map.put("categoryName", spc + nm);
         if (id != null && !id.equals("ROOT") && !id.equals("")) {
@@ -163,7 +165,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
         List kids = (List) nd.get("kids");
         int sz = kids.size();
         for (int i = 0; i < sz; i++) {
-            HashMap kidNode = (HashMap) kids.get(i);
+            Map kidNode = (Map) kids.get(i);
             buildList(kidNode, lst, depth + 1);
         }
     }
@@ -199,7 +201,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
         FileItem fi = null;
         FileItem imageFi = null;
         String imageFileName = null;
-        Map passedParams = new HashMap();
+        Map passedParams = FastMap.newInstance();
         HttpSession session = request.getSession();
         GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
         passedParams.put("userLogin", userLogin);
@@ -275,7 +277,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
      */
     public static Map callDataResourcePermissionCheckResult(GenericDelegator delegator, LocalDispatcher dispatcher, Map context) {
 
-        Map permResults = new HashMap();
+        Map permResults = FastMap.newInstance();
         String skipPermissionCheck = (String) context.get("skipPermissionCheck");
             if (Debug.infoOn()) Debug.logInfo("in callDataResourcePermissionCheckResult, skipPermissionCheck:" + skipPermissionCheck,"");
 
@@ -283,7 +285,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
             || skipPermissionCheck.length() == 0
             || (!skipPermissionCheck.equalsIgnoreCase("true") && !skipPermissionCheck.equalsIgnoreCase("granted"))) {
             GenericValue userLogin = (GenericValue) context.get("userLogin");
-            Map serviceInMap = new HashMap();
+            Map serviceInMap = FastMap.newInstance();
             serviceInMap.put("userLogin", userLogin);
             serviceInMap.put("targetOperationList", context.get("targetOperationList"));
             serviceInMap.put("contentPurposeList", context.get("contentPurposeList"));
