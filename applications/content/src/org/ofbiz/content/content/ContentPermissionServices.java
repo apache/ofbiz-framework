@@ -186,7 +186,7 @@ public class ContentPermissionServices {
             passed = security.hasEntityPermission("CONTENTMGR", entityAction, userLogin);
         }
         
-        StringBuffer errBuf = new StringBuffer();
+        StringBuilder errBuf = new StringBuilder();
         String permissionStatus = null;
         List entityIds = FastList.newInstance();
         if (passed) {

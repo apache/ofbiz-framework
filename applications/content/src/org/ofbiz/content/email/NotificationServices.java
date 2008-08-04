@@ -252,8 +252,8 @@ public class NotificationServices {
     public static void setBaseUrl(GenericDelegator delegator, String webSiteId, Map context) {
         // If the baseUrl was not specified we can do a best effort instead
         if (!context.containsKey("baseUrl")) {
-            StringBuffer httpBase = null;
-            StringBuffer httpsBase = null;
+            StringBuilder httpBase = null;
+            StringBuilder httpsBase = null;
                     
             String localServer = null;        
                    
@@ -307,7 +307,7 @@ public class NotificationServices {
             }
                                 
             // prepare the (non-secure) URL
-            httpBase = new StringBuffer("http://");
+            httpBase = new StringBuilder("http://");
             httpBase.append(httpServer);
             if (!"80".equals(httpPort)) {
                 httpBase.append(":");
@@ -319,7 +319,7 @@ public class NotificationServices {
             
             if (enableHttps.booleanValue()) {
                 // prepare the (secure) URL
-                httpsBase = new StringBuffer("https://");
+                httpsBase = new StringBuilder("https://");
                 httpsBase.append(httpsServer);
                 if (!"443".equals(httpsPort)) {
                     httpsBase.append(":");

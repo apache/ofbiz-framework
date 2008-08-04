@@ -70,7 +70,7 @@ public class EditRenderSubContentCacheTransform implements TemplateTransformMode
     }
 
     public Writer getWriter(final Writer out, Map args) {
-        final StringBuffer buf = new StringBuffer();
+        final StringBuilder buf = new StringBuilder();
         final Environment env = Environment.getCurrentEnvironment();
         final Map templateCtx = (Map) FreeMarkerWorker.getWrappedObject("context", env);
         final LocalDispatcher dispatcher = (LocalDispatcher) FreeMarkerWorker.getWrappedObject("dispatcher", env);

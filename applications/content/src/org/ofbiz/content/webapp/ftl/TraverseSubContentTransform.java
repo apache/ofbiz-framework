@@ -71,7 +71,7 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
     }
 
     public Writer getWriter(final Writer out, Map args) {
-        final StringBuffer buf = new StringBuffer();
+        final StringBuilder buf = new StringBuilder();
         final Environment env = Environment.getCurrentEnvironment();
         final Map templateCtx = (Map) FreeMarkerWorker.getWrappedObject("context", env);
         //FreeMarkerWorker.convertContext(templateCtx);
@@ -156,7 +156,7 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
         return new LoopWriter(out) {
 
             public void write(char cbuf[], int off, int len) {
-                //StringBuffer ctxBuf = (StringBuffer) templateContext.get("buf");
+                //StringBuilder ctxBuf = (StringBuilder) templateContext.get("buf");
                 //ctxBuf.append(cbuf, off, len);
                 buf.append(cbuf, off, len);
             }
@@ -166,7 +166,7 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
             }
 
             public int onStart() throws TemplateModelException, IOException {
-                //templateContext.put("buf", new StringBuffer());
+                //templateContext.put("buf", new StringBuilder());
                 List nodeTrail = FastList.newInstance();
                 traverseContext.put("nodeTrail", nodeTrail);
                 GenericValue content = null;
@@ -204,7 +204,7 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
             public int afterBody() throws TemplateModelException, IOException {
                 //out.write(buf.toString());
                 //buf.setLength(0);
-                //templateContext.put("buf", new StringBuffer());
+                //templateContext.put("buf", new StringBuilder());
                 List nodeTrail = (List)traverseContext.get("nodeTrail");
                 ContentWorker.traceNodeTrail("6",nodeTrail);
                 boolean inProgress = ContentWorker.traverseSubContent(traverseContext);

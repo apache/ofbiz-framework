@@ -208,7 +208,7 @@ public class PermissionRecorder {
     }
 
     public String toHtml() {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         sb.append("<style type=\"text/css\">");
         sb.append(".pass {background-color:lime; font-family:Verdana,Arial,sans-serif; font-size:10px; }");
         sb.append(".fail {background-color:red; font-family:Verdana,Arial,sans-serif; font-size:10px; }");
@@ -247,7 +247,7 @@ public class PermissionRecorder {
     }
 
     public String renderCurrentContentMapHtml(Map cMap) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         List resultList = (List)cMap.get("checkResultList");
         Iterator iter = resultList.iterator();
         while (iter.hasNext()) {
@@ -262,7 +262,7 @@ public class PermissionRecorder {
     //public static final String [] opFields = { "contentPurposeTypeId", "contentOperationId", "roleTypeId", "statusId", "privilegeEnumId"};
 
     public String renderResultRowHtml(Map rMap, Map currentContentResultMap ) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         // Do target row
         sb.append("<tr>");

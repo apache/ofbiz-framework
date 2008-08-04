@@ -73,7 +73,7 @@ public class CheckPermissionTransform implements TemplateTransformModel {
 
 
     public Writer getWriter(final Writer out, Map args) {
-        final StringBuffer buf = new StringBuffer();
+        final StringBuilder buf = new StringBuilder();
         final Environment env = Environment.getCurrentEnvironment();
         final Map templateCtx = FreeMarkerWorker.createEnvironmentMap(env);
         //FreeMarkerWorker.convertContext(templateCtx);

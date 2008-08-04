@@ -67,7 +67,7 @@ public class RenderSubContentTransform implements TemplateTransformModel {
     }
 
     public Writer getWriter(final Writer out, Map args) {
-        //final StringBuffer buf = new StringBuffer();
+        //final StringBuilder buf = new StringBuilder();
         final Environment env = Environment.getCurrentEnvironment();
         Map ctx = (Map) FreeMarkerWorker.getWrappedObject("context", env);
         if (ctx == null) {
