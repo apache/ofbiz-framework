@@ -35,14 +35,14 @@ public class SetNonpkFields extends MethodOperation {
     
     public static final String module = SetNonpkFields.class.getName();
     
-    ContextAccessor valueAcsr;
-    ContextAccessor mapAcsr;
+    ContextAccessor<GenericValue> valueAcsr;
+    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
     String setIfNullStr;
 
     public SetNonpkFields(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        valueAcsr = new ContextAccessor(element.getAttribute("value-name"));
-        mapAcsr = new ContextAccessor(element.getAttribute("map-name"));
+        valueAcsr = new ContextAccessor<GenericValue>(element.getAttribute("value-name"));
+        mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
         setIfNullStr = element.getAttribute("set-if-null");
     }
 
@@ -50,7 +50,7 @@ public class SetNonpkFields extends MethodOperation {
         // if anything but false it will be true
         boolean setIfNull = !"false".equals(methodContext.expandString(setIfNullStr));
         
-        GenericValue value = (GenericValue) valueAcsr.get(methodContext);
+        GenericValue value = valueAcsr.get(methodContext);
         if (value == null) {
             String errMsg = "In set-nonpk-fields a value was not found with the specified valueAcsr: " + valueAcsr + ", not setting fields";
             Debug.logWarning(errMsg, module);
@@ -64,7 +64,7 @@ public class SetNonpkFields extends MethodOperation {
             return false;
         }
 
-        Map theMap = (Map) mapAcsr.get(methodContext);
+        Map<String, ? extends Object> theMap = mapAcsr.get(methodContext);
         if (theMap == null) {
             Debug.logWarning("In set-nonpk-fields could not find map with name " + mapAcsr + ", not setting any fields", module);
         } else {

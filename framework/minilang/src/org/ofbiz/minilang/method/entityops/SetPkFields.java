@@ -35,14 +35,14 @@ public class SetPkFields extends MethodOperation {
     
     public static final String module = SetPkFields.class.getName();
     
-    ContextAccessor valueAcsr;
-    ContextAccessor mapAcsr;
+    ContextAccessor<GenericValue> valueAcsr;
+    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
     String setIfNullStr;
 
     public SetPkFields(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        valueAcsr = new ContextAccessor(element.getAttribute("value-name"));
-        mapAcsr = new ContextAccessor(element.getAttribute("map-name"));
+        valueAcsr = new ContextAccessor<GenericValue>(element.getAttribute("value-name"));
+        mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
         setIfNullStr = element.getAttribute("set-if-null");
     }
 
@@ -50,7 +50,7 @@ public class SetPkFields extends MethodOperation {
         // if anything but false it will be true
         boolean setIfNull = !"false".equals(methodContext.expandString(setIfNullStr));
         
-        GenericValue value = (GenericValue) valueAcsr.get(methodContext);
+        GenericValue value = valueAcsr.get(methodContext);
         if (value == null) {
             String errMsg = "In set-pk-fields a value was not found with the specified valueAcsr: " + valueAcsr + ", not setting fields";
 
@@ -65,7 +65,7 @@ public class SetPkFields extends MethodOperation {
             return false;
         }
 
-        Map theMap = (Map) mapAcsr.get(methodContext);
+        Map<String, ? extends Object> theMap = mapAcsr.get(methodContext);
         if (theMap == null) {
             Debug.logWarning("In set-pk-fields could not find map with name " + mapAcsr + ", not setting any fields", module);
         } else {

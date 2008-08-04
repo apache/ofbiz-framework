@@ -34,15 +34,15 @@ public class GetRelatedOne extends MethodOperation {
     
     public static final String module = GetRelatedOne.class.getName();
     
-    ContextAccessor valueAcsr;
-    ContextAccessor toValueAcsr;
+    ContextAccessor<Object> valueAcsr;
+    ContextAccessor<GenericValue> toValueAcsr;
     String relationName;
     String useCacheStr;
 
     public GetRelatedOne(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        valueAcsr = new ContextAccessor(element.getAttribute("value-name"));
-        toValueAcsr = new ContextAccessor(element.getAttribute("to-value-name"));
+        valueAcsr = new ContextAccessor<Object>(element.getAttribute("value-name"));
+        toValueAcsr = new ContextAccessor<GenericValue>(element.getAttribute("to-value-name"));
         relationName = element.getAttribute("relation-name");
         useCacheStr = element.getAttribute("use-cache");
     }

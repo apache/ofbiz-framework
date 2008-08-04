@@ -20,6 +20,8 @@ package org.ofbiz.minilang.method.envops;
 
 import java.util.*;
 
+import javolution.util.FastMap;
+
 import org.w3c.dom.*;
 import org.ofbiz.base.util.*;
 import org.ofbiz.minilang.*;
@@ -32,32 +34,32 @@ public class MapToMap extends MethodOperation {
     
     public static final String module = MapToMap.class.getName();
     
-    ContextAccessor mapAcsr;
-    ContextAccessor toMapAcsr;
+    ContextAccessor<Map<String, Object>> mapAcsr;
+    ContextAccessor<Map<String, Object>> toMapAcsr;
 
     public MapToMap(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        mapAcsr = new ContextAccessor(element.getAttribute("map-name"));
-        toMapAcsr = new ContextAccessor(element.getAttribute("to-map-name"));
+        mapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("map-name"));
+        toMapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("to-map-name"));
     }
 
     public boolean exec(MethodContext methodContext) {
-        Map fromMap = null;
+        Map<String, Object> fromMap = null;
         if (!mapAcsr.isEmpty()) {
-            fromMap = (Map) mapAcsr.get(methodContext);
+            fromMap = mapAcsr.get(methodContext);
 
             if (fromMap == null) {
                 if (Debug.infoOn()) Debug.logInfo("Map not found with name " + mapAcsr + ", not copying from this map", module);
-                fromMap = new HashMap();
+                fromMap = FastMap.newInstance();
                 mapAcsr.put(methodContext, fromMap);
             }
         }
 
         if (!toMapAcsr.isEmpty()) {
-            Map toMap = (Map) toMapAcsr.get(methodContext);
+            Map<String, Object> toMap = toMapAcsr.get(methodContext);
             if (toMap == null) {
                 if (Debug.verboseOn()) Debug.logVerbose("Map not found with name " + toMapAcsr + ", creating new map", module);
-                toMap = new HashMap();
+                toMap = FastMap.newInstance();
                 toMapAcsr.put(methodContext, toMap);
             }
 

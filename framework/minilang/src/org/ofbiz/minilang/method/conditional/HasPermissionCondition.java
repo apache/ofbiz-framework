@@ -69,7 +69,7 @@ public class HasPermissionCondition implements Conditional {
         return runSubOps;
     }
 
-    public void prettyPrint(StringBuffer messageBuffer, MethodContext methodContext) {
+    public void prettyPrint(StringBuilder messageBuffer, MethodContext methodContext) {
         messageBuffer.append("has-permission[");
         messageBuffer.append(this.permission);
         if (UtilValidate.isNotEmpty(this.action)) {

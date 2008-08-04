@@ -35,14 +35,14 @@ public class MakeNextSeqId extends MethodOperation {
     public static final String module = MakeNextSeqId.class.getName();
 
     String seqFieldName;
-    ContextAccessor valueAcsr;
+    ContextAccessor<GenericValue> valueAcsr;
     String numericPaddingStr;
     String incrementByStr;
 
     public MakeNextSeqId(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
         seqFieldName = element.getAttribute("seq-field-name");
-        valueAcsr = new ContextAccessor(element.getAttribute("value-name"));
+        valueAcsr = new ContextAccessor<GenericValue>(element.getAttribute("value-name"));
 
         numericPaddingStr = element.getAttribute("numeric-padding");
         incrementByStr = element.getAttribute("increment-by");
@@ -69,7 +69,7 @@ public class MakeNextSeqId extends MethodOperation {
             Debug.logError(e, "increment-by format invalid for [" + incrementByStr + "]", module);
         }
 
-        GenericValue value = (GenericValue) valueAcsr.get(methodContext);
+        GenericValue value = valueAcsr.get(methodContext);
         methodContext.getDelegator().setNextSubSeqId(value, seqFieldName, numericPadding, incrementBy);
         
         return true;

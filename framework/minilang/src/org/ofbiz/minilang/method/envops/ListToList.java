@@ -20,6 +20,8 @@ package org.ofbiz.minilang.method.envops;
 
 import java.util.*;
 
+import javolution.util.FastList;
+
 import org.w3c.dom.*;
 import org.ofbiz.base.util.*;
 import org.ofbiz.minilang.*;
@@ -32,19 +34,19 @@ public class ListToList extends MethodOperation {
     
     public static final String module = ListToList.class.getName();
     
-    ContextAccessor listAcsr;
-    ContextAccessor toListAcsr;
+    ContextAccessor<List<Object>> listAcsr;
+    ContextAccessor<List<Object>> toListAcsr;
 
     public ListToList(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        listAcsr = new ContextAccessor(element.getAttribute("list-name"));
-        toListAcsr = new ContextAccessor(element.getAttribute("to-list-name"));
+        listAcsr = new ContextAccessor<List<Object>>(element.getAttribute("list-name"));
+        toListAcsr = new ContextAccessor<List<Object>>(element.getAttribute("to-list-name"));
     }
 
     public boolean exec(MethodContext methodContext) {
 
-        List fromList = (List) listAcsr.get(methodContext);
-        List toList = (List) toListAcsr.get(methodContext);
+        List<Object> fromList = listAcsr.get(methodContext);
+        List<Object> toList = toListAcsr.get(methodContext);
 
         if (fromList == null) {
             if (Debug.infoOn()) Debug.logInfo("List not found with name " + listAcsr + ", not copying list", module);
@@ -53,7 +55,7 @@ public class ListToList extends MethodOperation {
 
         if (toList == null) {
             if (Debug.verboseOn()) Debug.logVerbose("List not found with name " + toListAcsr + ", creating new list", module);
-            toList = new LinkedList();
+            toList = FastList.newInstance();
             toListAcsr.put(methodContext, toList);
         }
 

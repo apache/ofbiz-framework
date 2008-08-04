@@ -31,14 +31,14 @@ public class ValidateMethodCondition implements Conditional {
     
     public static final String module = ValidateMethodCondition.class.getName();
     
-    ContextAccessor mapAcsr;
-    ContextAccessor fieldAcsr;
+    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
+    ContextAccessor<Object> fieldAcsr;
     String methodName;
     String className;
     
     public ValidateMethodCondition(Element element) {
-        this.mapAcsr = new ContextAccessor(element.getAttribute("map-name"));
-        this.fieldAcsr = new ContextAccessor(element.getAttribute("field-name"));
+        this.mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
+        this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
         this.methodName = element.getAttribute("method");
         this.className = element.getAttribute("class");
     }
@@ -49,10 +49,10 @@ public class ValidateMethodCondition implements Conditional {
 
         String fieldString = getFieldString(methodContext);
 
-        Class[] paramTypes = new Class[] {String.class};
+        Class<?>[] paramTypes = new Class<?>[] {String.class};
         Object[] params = new Object[] {fieldString};
 
-        Class valClass;
+        Class<?> valClass;
         try {
             valClass = methodContext.getLoader().loadClass(className);
         } catch (ClassNotFoundException cnfe) {
@@ -85,7 +85,7 @@ public class ValidateMethodCondition implements Conditional {
         Object fieldVal = null;
 
         if (!mapAcsr.isEmpty()) {
-            Map fromMap = (Map) mapAcsr.get(methodContext);
+            Map<String, ? extends Object> fromMap = mapAcsr.get(methodContext);
             if (fromMap == null) {
                 if (Debug.infoOn()) Debug.logInfo("Map not found with name " + mapAcsr + ", using empty string for comparison", module);
             } else {
@@ -110,7 +110,7 @@ public class ValidateMethodCondition implements Conditional {
         return fieldString;
     }
 
-    public void prettyPrint(StringBuffer messageBuffer, MethodContext methodContext) {
+    public void prettyPrint(StringBuilder messageBuffer, MethodContext methodContext) {
         // allow methodContext to be null
         String methodName = methodContext == null ? this.methodName : methodContext.expandString(this.methodName);
         String className = methodContext == null ? this.className : methodContext.expandString(this.className);

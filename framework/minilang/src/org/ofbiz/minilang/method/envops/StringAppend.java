@@ -23,6 +23,8 @@ import java.util.*;
 
 import org.w3c.dom.*;
 
+import javolution.util.FastMap;
+
 import org.ofbiz.base.util.*;
 import org.ofbiz.minilang.*;
 import org.ofbiz.minilang.method.*;
@@ -37,27 +39,27 @@ public class StringAppend extends MethodOperation {
     String string;
     String prefix;
     String suffix;
-    ContextAccessor mapAcsr;
-    ContextAccessor fieldAcsr;
-    ContextAccessor argListAcsr;
+    ContextAccessor<Map<String, Object>> mapAcsr;
+    ContextAccessor<String> fieldAcsr;
+    ContextAccessor<List<? extends Object>> argListAcsr;
 
     public StringAppend(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
         string = element.getAttribute("string");
         prefix = element.getAttribute("prefix");
         suffix = element.getAttribute("suffix");
-        mapAcsr = new ContextAccessor(element.getAttribute("map-name"));
-        fieldAcsr = new ContextAccessor(element.getAttribute("field-name"));
-        argListAcsr = new ContextAccessor(element.getAttribute("arg-list-name"));
+        mapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("map-name"));
+        fieldAcsr = new ContextAccessor<String>(element.getAttribute("field-name"));
+        argListAcsr = new ContextAccessor<List<? extends Object>>(element.getAttribute("arg-list-name"));
     }
 
     public boolean exec(MethodContext methodContext) {
         if (!mapAcsr.isEmpty()) {
-            Map toMap = (Map) mapAcsr.get(methodContext);
+            Map<String, Object> toMap = mapAcsr.get(methodContext);
 
             if (toMap == null) {
                 if (Debug.verboseOn()) Debug.logVerbose("Map not found with name " + mapAcsr + ", creating new map", module);
-                toMap = new HashMap();
+                toMap = FastMap.newInstance();
                 mapAcsr.put(methodContext, toMap);
             }
             
@@ -77,13 +79,13 @@ public class StringAppend extends MethodOperation {
         String suffixValue = methodContext.expandString(suffix);
         
         if (!argListAcsr.isEmpty()) {
-            List argList = (List) argListAcsr.get(methodContext);
+            List<? extends Object> argList = argListAcsr.get(methodContext);
             if (argList != null && argList.size() > 0) {
                 value = MessageFormat.format(value, argList.toArray());
             }
         }
 
-        StringBuffer newValue = new StringBuffer();
+        StringBuilder newValue = new StringBuilder();
         if (value != null && value.length() > 0) {
             if (oldValue == null || oldValue.length() == 0) {
                 newValue.append(value);

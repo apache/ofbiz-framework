@@ -39,28 +39,25 @@ public class Assert extends MethodOperation {
 
     public static final String module = Assert.class.getName();
 
-    protected ContextAccessor errorListAcsr;
+    protected ContextAccessor<List<Object>> errorListAcsr;
     protected FlexibleStringExpander titleExdr;
 
     /** List of Conditional objects */
-    protected List conditionalList = FastList.newInstance(); 
+    protected List<Conditional> conditionalList = FastList.newInstance(); 
 
     public Assert(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
 
-        errorListAcsr = new ContextAccessor(element.getAttribute("error-list-name"), "error_list");
+        errorListAcsr = new ContextAccessor<List<Object>>(element.getAttribute("error-list-name"), "error_list");
         titleExdr = new FlexibleStringExpander(element.getAttribute("title"));
         
-        List conditionalElementList = UtilXml.childElementList(element);
-        Iterator conditionalElementIter = conditionalElementList.iterator();
-        while (conditionalElementIter.hasNext()) {
-            Element conditionalElement = (Element) conditionalElementIter.next();
+        for (Element conditionalElement: UtilXml.childElementList(element)) {
             this.conditionalList.add(ConditionalFactory.makeConditional(conditionalElement, simpleMethod));
         }
     }
 
     public boolean exec(MethodContext methodContext) {
-        List messages = (List) errorListAcsr.get(methodContext);
+        List<Object> messages = errorListAcsr.get(methodContext);
         if (messages == null) {
             messages = FastList.newInstance();
             errorListAcsr.put(methodContext, messages);
@@ -69,14 +66,12 @@ public class Assert extends MethodOperation {
         String title = this.titleExdr.expandString(methodContext.getEnvMap());
         
         //  check each conditional and if fails generate a message to add to the error list
-        Iterator conditionalIter = conditionalList.iterator();
-        while (conditionalIter.hasNext()) {
-            Conditional condition = (Conditional) conditionalIter.next();
+        for (Conditional condition: conditionalList) {
             boolean conditionTrue = condition.checkCondition(methodContext);
             
             if (!conditionTrue) {
                 // pretty print condition
-                StringBuffer messageBuffer = new StringBuffer();
+                StringBuilder messageBuffer = new StringBuilder();
                 messageBuffer.append("Assertion ");
                 if (UtilValidate.isNotEmpty(title)) {
                     messageBuffer.append("[");
@@ -99,7 +94,7 @@ public class Assert extends MethodOperation {
     public String expandedString(MethodContext methodContext) {
         String title = this.titleExdr.expandString(methodContext.getEnvMap());
 
-        StringBuffer messageBuf = new StringBuffer();
+        StringBuilder messageBuf = new StringBuilder();
         messageBuf.append("<assert");
         if (UtilValidate.isNotEmpty(title)) {
             messageBuf.append(" title=\"");
@@ -107,9 +102,7 @@ public class Assert extends MethodOperation {
             messageBuf.append("\"");
         }
         messageBuf.append(">");
-        Iterator conditionalIter = conditionalList.iterator();
-        while (conditionalIter.hasNext()) {
-            Conditional condition = (Conditional) conditionalIter.next();
+        for (Conditional condition: conditionalList) {
             condition.prettyPrint(messageBuf, methodContext);
         }
         messageBuf.append("</assert>");

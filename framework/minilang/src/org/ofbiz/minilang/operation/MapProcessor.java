@@ -20,6 +20,7 @@ package org.ofbiz.minilang.operation;
 
 import java.util.*;
 
+import javolution.util.FastList;
 import org.w3c.dom.*;
 import org.ofbiz.base.util.*;
 
@@ -29,27 +30,19 @@ import org.ofbiz.base.util.*;
 public class MapProcessor {
     
     String name;
-    List makeInStrings = new LinkedList();
-    List simpleMapProcesses = new LinkedList();
+    List<MakeInString> makeInStrings = FastList.newInstance();
+    List<SimpleMapProcess> simpleMapProcesses = FastList.newInstance();
 
     public MapProcessor(Element simpleMapProcessorElement) {
         name = simpleMapProcessorElement.getAttribute("name");
 
-        List makeInStringElements = UtilXml.childElementList(simpleMapProcessorElement, "make-in-string");
-        Iterator misIter = makeInStringElements.iterator();
-
-        while (misIter.hasNext()) {
-            Element makeInStringElement = (Element) misIter.next();
+        for (Element makeInStringElement: UtilXml.childElementList(simpleMapProcessorElement, "make-in-string")) {
             MakeInString makeInString = new MakeInString(makeInStringElement);
 
             makeInStrings.add(makeInString);
         }
 
-        List simpleMapProcessElements = UtilXml.childElementList(simpleMapProcessorElement, "process");
-        Iterator strProcIter = simpleMapProcessElements.iterator();
-
-        while (strProcIter.hasNext()) {
-            Element simpleMapProcessElement = (Element) strProcIter.next();
+        for (Element simpleMapProcessElement: UtilXml.childElementList(simpleMapProcessorElement, "process")) {
             SimpleMapProcess strProc = new SimpleMapProcess(simpleMapProcessElement);
 
             simpleMapProcesses.add(strProc);
@@ -60,23 +53,15 @@ public class MapProcessor {
         return name;
     }
 
-    public void exec(Map inMap, Map results, List messages, Locale locale, ClassLoader loader) {
+    public void exec(Map<String, Object> inMap, Map<String, Object> results, List<Object> messages, Locale locale, ClassLoader loader) {
         if (makeInStrings != null && makeInStrings.size() > 0) {
-            Iterator misIter = makeInStrings.iterator();
-
-            while (misIter.hasNext()) {
-                MakeInString makeInString = (MakeInString) misIter.next();
-
+            for (MakeInString makeInString: makeInStrings) {
                 makeInString.exec(inMap, results, messages, locale, loader);
             }
         }
 
         if (simpleMapProcesses != null && simpleMapProcesses.size() > 0) {
-            Iterator strPrsIter = simpleMapProcesses.iterator();
-
-            while (strPrsIter.hasNext()) {
-                SimpleMapProcess simpleMapProcess = (SimpleMapProcess) strPrsIter.next();
-
+            for (SimpleMapProcess simpleMapProcess: simpleMapProcesses) {
                 simpleMapProcess.exec(inMap, results, messages, locale, loader);
             }
         }

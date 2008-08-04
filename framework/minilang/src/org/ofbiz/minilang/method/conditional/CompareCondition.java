@@ -20,6 +20,7 @@ package org.ofbiz.minilang.method.conditional;
 
 import java.util.*;
 
+import javolution.util.FastList;
 import org.w3c.dom.*;
 import org.ofbiz.base.util.*;
 import org.ofbiz.minilang.*;
@@ -35,8 +36,8 @@ public class CompareCondition implements Conditional {
     
     SimpleMethod simpleMethod;
     
-    ContextAccessor mapAcsr;
-    ContextAccessor fieldAcsr;
+    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
+    ContextAccessor<Object> fieldAcsr;
     String value;
 
     String operator;
@@ -47,11 +48,11 @@ public class CompareCondition implements Conditional {
         this.simpleMethod = simpleMethod;
         
         // NOTE: this is still supported, but is deprecated
-        this.mapAcsr = new ContextAccessor(element.getAttribute("map-name"));
-        this.fieldAcsr = new ContextAccessor(element.getAttribute("field"));
+        this.mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
+        this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"));
         if (this.fieldAcsr.isEmpty()) {
             // NOTE: this is still supported, but is deprecated
-            this.fieldAcsr = new ContextAccessor(element.getAttribute("field-name"));
+            this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
         }
         this.value = element.getAttribute("value");
 
@@ -68,16 +69,15 @@ public class CompareCondition implements Conditional {
         
         Object fieldVal = getFieldVal(methodContext);
 
-        List messages = new LinkedList();
+        List<Object> messages = FastList.newInstance();
         Boolean resultBool = BaseCompare.doRealCompare(fieldVal, value, operator, type, format, messages, null, methodContext.getLoader(), true);
         if (messages.size() > 0) {
             messages.add(0, "Error with comparison in if-compare between field [" + mapAcsr.toString() + "." + fieldAcsr.toString() + "] with value [" + fieldVal + "] and value [" + value + "] with operator [" + operator + "] and type [" + type + "]: ");
             if (methodContext.getMethodType() == MethodContext.EVENT) {
-                StringBuffer fullString = new StringBuffer();
+                StringBuilder fullString = new StringBuilder();
                 
-                Iterator miter = messages.iterator();
-                while (miter.hasNext()) {
-                    fullString.append((String) miter.next());
+                for (Object message: messages) {
+                    fullString.append(message);
                 }
                 Debug.logWarning(fullString.toString(), module);
 
@@ -98,7 +98,7 @@ public class CompareCondition implements Conditional {
     protected Object getFieldVal(MethodContext methodContext) {
         Object fieldVal = null;
         if (!mapAcsr.isEmpty()) {
-            Map fromMap = (Map) mapAcsr.get(methodContext);
+            Map<String, ? extends Object> fromMap = mapAcsr.get(methodContext);
             if (fromMap == null) {
                 if (Debug.infoOn()) Debug.logInfo("Map not found with name " + mapAcsr + ", using empty string for comparison", module);
             } else {
@@ -116,7 +116,7 @@ public class CompareCondition implements Conditional {
         return fieldVal;
     }
 
-    public void prettyPrint(StringBuffer messageBuffer, MethodContext methodContext) {
+    public void prettyPrint(StringBuilder messageBuffer, MethodContext methodContext) {
         String value = methodContext.expandString(this.value);
         String operator = methodContext.expandString(this.operator);
         String type = methodContext.expandString(this.type);

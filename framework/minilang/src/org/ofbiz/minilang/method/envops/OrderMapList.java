@@ -36,19 +36,16 @@ public class OrderMapList extends MethodOperation {
     
     public static final String module = FieldToList.class.getName();
     
-    protected ContextAccessor listAcsr;
-    protected List orderByAcsrList = FastList.newInstance();
+    protected ContextAccessor<List<Map<Object, Object>>> listAcsr;
+    protected List<FlexibleMapAccessor<String>> orderByAcsrList = FastList.newInstance();
     protected MapComparator mc;
 
     public OrderMapList(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        listAcsr = new ContextAccessor(element.getAttribute("list-name"));
+        listAcsr = new ContextAccessor<List<Map<Object, Object>>>(element.getAttribute("list-name"));
         
-        List orderByElementList = UtilXml.childElementList(element, "order-by");
-        Iterator orderByElementIter = orderByElementList.iterator();
-        while (orderByElementIter.hasNext()) {
-            Element orderByElement = (Element) orderByElementIter.next();
-            this.orderByAcsrList.add(new FlexibleMapAccessor(orderByElement.getAttribute("field-name")));
+        for (Element orderByElement: UtilXml.childElementList(element, "order-by")) {
+            this.orderByAcsrList.add(new FlexibleMapAccessor<String>(orderByElement.getAttribute("field-name")));
         }
 
         this.mc = new MapComparator(this.orderByAcsrList);
@@ -56,7 +53,7 @@ public class OrderMapList extends MethodOperation {
 
     public boolean exec(MethodContext methodContext) {
 
-        List orderList = (List) listAcsr.get(methodContext);
+        List<Map<Object, Object>> orderList = listAcsr.get(methodContext);
 
         if (orderList == null) {
             if (Debug.infoOn()) Debug.logInfo("List not found with name " + listAcsr + ", not ordering/sorting list.", module);

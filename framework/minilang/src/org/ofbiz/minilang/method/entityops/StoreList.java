@@ -22,6 +22,7 @@ import java.util.List;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.GenericValue;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -35,19 +36,19 @@ public class StoreList extends MethodOperation {
     
     public static final String module = StoreList.class.getName();
     
-    ContextAccessor listAcsr;
+    ContextAccessor<List<GenericValue>> listAcsr;
     String doCacheClearStr;
 
     public StoreList(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        listAcsr = new ContextAccessor(element.getAttribute("list-name"));
+        listAcsr = new ContextAccessor<List<GenericValue>>(element.getAttribute("list-name"));
         doCacheClearStr = element.getAttribute("do-cache-clear");
     }
 
     public boolean exec(MethodContext methodContext) {
         boolean doCacheClear = !"false".equals(methodContext.expandString(doCacheClearStr));
         
-        List values = (List) listAcsr.get(methodContext);
+        List<GenericValue> values = listAcsr.get(methodContext);
         if (values == null) {
             String errMsg = "In store-list a value list was not found with the specified listAcsr: " + listAcsr + ", not storing";
             Debug.logInfo(errMsg, module);

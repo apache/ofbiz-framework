@@ -34,13 +34,13 @@ public class RemoveRelated extends MethodOperation {
     
     public static final String module = RemoveRelated.class.getName();
     
-    ContextAccessor valueAcsr;
+    ContextAccessor<GenericValue> valueAcsr;
     String relationName;
     String doCacheClearStr;
 
     public RemoveRelated(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        valueAcsr = new ContextAccessor(element.getAttribute("value-name"));
+        valueAcsr = new ContextAccessor<GenericValue>(element.getAttribute("value-name"));
         relationName = element.getAttribute("relation-name");
         doCacheClearStr = element.getAttribute("do-cache-clear");
     }
@@ -49,7 +49,7 @@ public class RemoveRelated extends MethodOperation {
         boolean doCacheClear = !"false".equals(doCacheClearStr);
         String relationName = methodContext.expandString(this.relationName);
         
-        GenericValue value = (GenericValue) valueAcsr.get(methodContext);
+        GenericValue value = valueAcsr.get(methodContext);
         if (value == null) {
             String errMsg = "In remove-related a value was not found with the specified valueAcsr: " + valueAcsr + ", not removing related";
 

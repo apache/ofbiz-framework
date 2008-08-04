@@ -19,9 +19,10 @@
 package org.ofbiz.minilang.method.ifops;
 
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
+import javolution.util.FastList;
 
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -45,29 +46,27 @@ public class CheckPermission extends MethodOperation {
     boolean isProperty = false;
     
     /** If null no partyId env-name will be checked against the userLogin.partyId and accepted as permission */
-    ContextAccessor acceptUlPartyIdEnvNameAcsr = null;
+    ContextAccessor<String> acceptUlPartyIdEnvNameAcsr = null;
 
     PermissionInfo permissionInfo;
-    ContextAccessor errorListAcsr;
-    List altPermissions = null;
+    ContextAccessor<List<Object>> errorListAcsr;
+    List<PermissionInfo> altPermissions = null;
 
     public CheckPermission(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
         permissionInfo = new PermissionInfo(element);
-        this.errorListAcsr = new ContextAccessor(element.getAttribute("error-list-name"), "error_list");
+        this.errorListAcsr = new ContextAccessor<List<Object>>(element.getAttribute("error-list-name"), "error_list");
 
         Element acceptUserloginPartyElement = UtilXml.firstChildElement(element, "accept-userlogin-party");
         if (acceptUserloginPartyElement != null) {
-            acceptUlPartyIdEnvNameAcsr = new ContextAccessor(acceptUserloginPartyElement.getAttribute("party-id-env-name"), "partyId");
+            acceptUlPartyIdEnvNameAcsr = new ContextAccessor<String>(acceptUserloginPartyElement.getAttribute("party-id-env-name"), "partyId");
         }
 
-        List altPermElements = UtilXml.childElementList(element, "alt-permission");
-        Iterator apeIter = altPermElements.iterator();
-        if (apeIter.hasNext()) {
-            altPermissions = new LinkedList();
+        List<? extends Element> altPermElements = UtilXml.childElementList(element, "alt-permission");
+        if (!altPermElements.isEmpty()) {
+            altPermissions = FastList.newInstance();
         }
-        while (apeIter.hasNext()) {
-            Element altPermElement = (Element) apeIter.next();
+        for (Element altPermElement: altPermElements) {
             altPermissions.add(new PermissionInfo(altPermElement));
         }
 
@@ -86,9 +85,9 @@ public class CheckPermission extends MethodOperation {
     public boolean exec(MethodContext methodContext) {
         boolean hasPermission = false;
 
-        List messages = (List) errorListAcsr.get(methodContext);
+        List<Object> messages = errorListAcsr.get(methodContext);
         if (messages == null) {
-            messages = new LinkedList();
+            messages = FastList.newInstance();
             errorListAcsr.put(methodContext, messages);
         }
 
@@ -102,9 +101,7 @@ public class CheckPermission extends MethodOperation {
             
             // if failed, check alternate permissions
             if (!hasPermission && altPermissions != null) {
-                Iterator altPermIter = altPermissions.iterator();
-                while (altPermIter.hasNext()) {
-                    PermissionInfo altPermInfo = (PermissionInfo) altPermIter.next();
+                for (PermissionInfo altPermInfo: altPermissions) {
                     if (altPermInfo.hasPermission(methodContext, userLogin, security)) {
                         hasPermission = true;
                         break;
@@ -117,9 +114,9 @@ public class CheckPermission extends MethodOperation {
             String acceptPartyId = (String) acceptUlPartyIdEnvNameAcsr.get(methodContext);
             if (UtilValidate.isEmpty(acceptPartyId)) {
                 // try the parameters Map
-                Map parameters = (Map) methodContext.getEnv("parameters");
+                Map<String, Object> parameters = methodContext.getEnv("parameters");
                 if (parameters != null) {
-                    acceptPartyId = (String) acceptUlPartyIdEnvNameAcsr.get(parameters, methodContext);
+                    acceptPartyId = acceptUlPartyIdEnvNameAcsr.get(parameters, methodContext);
                 }
             }
             if (UtilValidate.isNotEmpty(acceptPartyId) && UtilValidate.isNotEmpty(userLogin.getString("partyId")) && acceptPartyId.equals(userLogin.getString("partyId"))) {
@@ -134,7 +131,7 @@ public class CheckPermission extends MethodOperation {
         return true;
     }
 
-    public void addMessage(List messages, MethodContext methodContext) {
+    public void addMessage(List<Object> messages, MethodContext methodContext) {
         
         String message = methodContext.expandString(this.message);
         String propertyResource = methodContext.expandString(this.propertyResource);        

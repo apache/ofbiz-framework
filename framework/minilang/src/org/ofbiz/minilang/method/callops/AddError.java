@@ -20,6 +20,8 @@ package org.ofbiz.minilang.method.callops;
 
 import java.util.*;
 
+import javolution.util.FastList;
+
 import org.w3c.dom.*;
 import org.ofbiz.base.util.*;
 import org.ofbiz.minilang.*;
@@ -33,11 +35,11 @@ public class AddError extends MethodOperation {
     String propertyResource = null;
     boolean isProperty = false;
 
-    ContextAccessor errorListAcsr;
+    ContextAccessor<List<Object>> errorListAcsr;
 
     public AddError(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        errorListAcsr = new ContextAccessor(element.getAttribute("error-list-name"), "error_list");
+        errorListAcsr = new ContextAccessor<List<Object>>(element.getAttribute("error-list-name"), "error_list");
 
         Element failMessage = UtilXml.firstChildElement(element, "fail-message");
         Element failProperty = UtilXml.firstChildElement(element, "fail-property");
@@ -54,9 +56,9 @@ public class AddError extends MethodOperation {
 
     public boolean exec(MethodContext methodContext) {
 
-        List messages = (List) errorListAcsr.get(methodContext);
+        List<Object> messages = errorListAcsr.get(methodContext);
         if (messages == null) {
-            messages = new LinkedList();
+            messages = FastList.newInstance();
             errorListAcsr.put(methodContext, messages);
         }
 
@@ -64,7 +66,7 @@ public class AddError extends MethodOperation {
         return true;
     }
 
-    public void addMessage(List messages, ClassLoader loader, MethodContext methodContext) {
+    public void addMessage(List<Object> messages, ClassLoader loader, MethodContext methodContext) {
         String message = methodContext.expandString(this.message);
         String propertyResource = methodContext.expandString(this.propertyResource);
         

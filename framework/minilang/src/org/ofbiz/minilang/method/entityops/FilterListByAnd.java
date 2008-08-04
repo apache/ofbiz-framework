@@ -21,6 +21,7 @@ package org.ofbiz.minilang.method.entityops;
 import java.util.List;
 import java.util.Map;
 
+import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
@@ -33,24 +34,24 @@ import org.w3c.dom.Element;
  */
 public class FilterListByAnd extends MethodOperation {
     
-    ContextAccessor listAcsr;
-    ContextAccessor toListAcsr;
-    ContextAccessor mapAcsr;
+    ContextAccessor<List<GenericEntity>> listAcsr;
+    ContextAccessor<List<GenericEntity>> toListAcsr;
+    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
 
     public FilterListByAnd(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        listAcsr = new ContextAccessor(element.getAttribute("list-name"));
-        toListAcsr = new ContextAccessor(element.getAttribute("to-list-name"), element.getAttribute("list-name"));
-        mapAcsr = new ContextAccessor(element.getAttribute("map-name"));
+        listAcsr = new ContextAccessor<List<GenericEntity>>(element.getAttribute("list-name"));
+        toListAcsr = new ContextAccessor<List<GenericEntity>>(element.getAttribute("to-list-name"), element.getAttribute("list-name"));
+        mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
     }
 
     public boolean exec(MethodContext methodContext) {
-        Map theMap = null;
+        Map<String, ? extends Object> theMap = null;
 
         if (!mapAcsr.isEmpty()) {
-            theMap = (Map) mapAcsr.get(methodContext);
+            theMap = mapAcsr.get(methodContext);
         }
-        toListAcsr.put(methodContext, EntityUtil.filterByAnd((List) listAcsr.get(methodContext), theMap));
+        toListAcsr.put(methodContext, EntityUtil.filterByAnd(listAcsr.get(methodContext), theMap));
         return true;
     }
 

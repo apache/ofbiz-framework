@@ -38,8 +38,8 @@ import org.w3c.dom.Element;
 public class SetOperation extends MethodOperation {
     public static final String module = SetOperation.class.getName();
     
-    protected ContextAccessor field;
-    protected ContextAccessor fromField;
+    protected ContextAccessor<Object> field;
+    protected ContextAccessor<Object> fromField;
     protected FlexibleStringExpander valueExdr;
     protected FlexibleStringExpander defaultExdr;
     protected String type;
@@ -48,8 +48,8 @@ public class SetOperation extends MethodOperation {
 
     public SetOperation(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        this.field = new ContextAccessor(element.getAttribute("field"));
-        this.fromField = new ContextAccessor(element.getAttribute("from-field"));
+        this.field = new ContextAccessor<Object>(element.getAttribute("field"));
+        this.fromField = new ContextAccessor<Object>(element.getAttribute("from-field"));
         this.valueExdr = new FlexibleStringExpander(element.getAttribute("value"));
         this.defaultExdr = new FlexibleStringExpander(element.getAttribute("default-value"));
         this.type = element.getAttribute("type");

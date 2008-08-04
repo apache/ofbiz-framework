@@ -39,8 +39,8 @@ import org.w3c.dom.Element;
 public class SetCalendar extends MethodOperation {
     public static final String module = SetCalendar.class.getName();
     
-    protected ContextAccessor field;
-    protected ContextAccessor fromField;
+    protected ContextAccessor<Timestamp> field;
+    protected ContextAccessor<Object> fromField;
     protected FlexibleStringExpander valueExdr;
     protected FlexibleStringExpander defaultExdr;
     protected FlexibleStringExpander yearsExdr;
@@ -59,8 +59,8 @@ public class SetCalendar extends MethodOperation {
 
     public SetCalendar(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        this.field = new ContextAccessor(element.getAttribute("field"));
-        this.fromField = new ContextAccessor(element.getAttribute("from-field"));
+        this.field = new ContextAccessor<Timestamp>(element.getAttribute("field"));
+        this.fromField = new ContextAccessor<Object>(element.getAttribute("from-field"));
         this.valueExdr = new FlexibleStringExpander(element.getAttribute("value"));
         this.defaultExdr = new FlexibleStringExpander(element.getAttribute("default-value"));
         this.yearsExdr = new FlexibleStringExpander(element.getAttribute("years"));

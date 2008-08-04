@@ -21,6 +21,7 @@ package org.ofbiz.minilang.method.entityops;
 import java.util.*;
 
 import org.w3c.dom.*;
+import org.ofbiz.entity.GenericValue;
 import org.ofbiz.minilang.*;
 import org.ofbiz.minilang.method.*;
 
@@ -29,20 +30,20 @@ import org.ofbiz.minilang.method.*;
  */
 public class MakeValue extends MethodOperation {
     
-    ContextAccessor valueAcsr;
+    ContextAccessor<GenericValue> valueAcsr;
     String entityName;
-    ContextAccessor mapAcsr;
+    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
 
     public MakeValue(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        valueAcsr = new ContextAccessor(element.getAttribute("value-name"));
+        valueAcsr = new ContextAccessor<GenericValue>(element.getAttribute("value-name"));
         entityName = element.getAttribute("entity-name");
-        mapAcsr = new ContextAccessor(element.getAttribute("map-name"));
+        mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
     }
 
     public boolean exec(MethodContext methodContext) {
         String entityName = methodContext.expandString(this.entityName);
-        Map ctxMap = (Map) (mapAcsr.isEmpty() ? null : mapAcsr.get(methodContext));
+        Map<String, ? extends Object> ctxMap = (mapAcsr.isEmpty() ? null : mapAcsr.get(methodContext));
         valueAcsr.put(methodContext, methodContext.getDelegator().makeValidValue(entityName, ctxMap));
         return true;
     }

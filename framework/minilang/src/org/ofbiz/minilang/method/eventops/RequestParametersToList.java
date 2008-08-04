@@ -21,6 +21,7 @@ package org.ofbiz.minilang.method.eventops;
 import java.util.*;
 
 import org.w3c.dom.*;
+import javolution.util.FastList;
 import org.ofbiz.base.util.*;
 import org.ofbiz.minilang.*;
 import org.ofbiz.minilang.method.*;
@@ -32,41 +33,41 @@ public class RequestParametersToList extends MethodOperation {
 
     public static final String module = RequestParametersToList.class.getName();
 
-	ContextAccessor listAcsr;
+	ContextAccessor<List<String>> listAcsr;
 	String requestName;
 
     public RequestParametersToList(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
         requestName = element.getAttribute("request-name");
-		listAcsr = new ContextAccessor(element.getAttribute("list-name"), requestName);
+		listAcsr = new ContextAccessor<List<String>>(element.getAttribute("list-name"), requestName);
     }
 
     public boolean exec(MethodContext methodContext) {
-        Object listVal = null;
+        List<String> listVal = null;
         // only run this if it is in an EVENT context
         if (methodContext.getMethodType() == MethodContext.EVENT) {
-			listVal = methodContext.getRequest().getParameterValues(requestName);
-            if (listVal == null) {
+			String[] parameterValues = methodContext.getRequest().getParameterValues(requestName);
+            if (parameterValues == null) {
                 Debug.logWarning("Request parameter values not found with name " + requestName, module);
+            } else {
+                listVal = UtilMisc.toListArray(parameterValues);
             }
         }
 
         // if listVal is null, use a empty list;
         if (listVal == null) {
-			listVal = new ArrayList();
-        } else if (listVal instanceof String[]) {
-			listVal = UtilMisc.toListArray((String[]) listVal);
+			listVal = FastList.newInstance();
         }
 
-		List toList = (List) listAcsr.get(methodContext);
+		List<String> toList = listAcsr.get(methodContext);
 
 		if (toList == null) {
 			if (Debug.verboseOn()) Debug.logVerbose("List not found with name " + listAcsr + ", creating new list", module);
-			toList = new ArrayList();
+			toList = FastList.newInstance();
 			listAcsr.put(methodContext, toList);
 		}
 
-		toList.addAll((Collection) listVal);
+		toList.addAll(listVal);
         return true;
     }
 

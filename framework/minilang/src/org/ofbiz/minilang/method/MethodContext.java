@@ -18,15 +18,18 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Map;
 import java.util.TimeZone;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import javolution.util.FastMap;
+
+import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
@@ -40,15 +43,15 @@ import org.ofbiz.service.LocalDispatcher;
 /**
  * A single operation, does the specified operation on the given field
  */
-public class MethodContext {
+public class MethodContext implements Iterable<Map.Entry<String, Object>> {
     
     public static final int EVENT = 1;
     public static final int SERVICE = 2;
 
     protected int methodType;
 
-    protected Map<String, Object> env = new HashMap<String, Object>();
-    protected Map parameters;
+    protected Map<String, Object> env = FastMap.newInstance();
+    protected Map<String, Object> parameters;
     protected Locale locale;
     protected TimeZone timeZone;
     protected ClassLoader loader;
@@ -85,16 +88,16 @@ public class MethodContext {
         }
     }
 
-    public MethodContext(DispatchContext ctx, Map context, ClassLoader loader) {
+    public MethodContext(DispatchContext ctx, Map<String, ? extends Object> context, ClassLoader loader) {
         this.methodType = MethodContext.SERVICE;
-        this.parameters = context;
+        this.parameters = UtilMisc.makeMapWritable(context);
         this.loader = loader;
         this.locale = (Locale) context.get("locale");
         this.timeZone = (TimeZone) context.get("timeZone");
         this.dispatcher = ctx.getDispatcher();
         this.delegator = ctx.getDelegator();
         this.security = ctx.getSecurity();
-        this.results = new HashMap<String, Object>();
+        this.results = FastMap.newInstance();
         this.userLogin = (GenericValue) context.get("userLogin");
 
         if (this.loader == null) {
@@ -111,9 +114,9 @@ public class MethodContext {
      * delegator, security, request, response, etc) are in the context. 
      * Will result in calling method as a service or event, as specified.
      */    
-    public MethodContext(Map context, ClassLoader loader, int methodType) {
+    public MethodContext(Map<String, ? extends Object> context, ClassLoader loader, int methodType) {
         this.methodType = methodType;
-        this.parameters = context;
+        this.parameters = UtilMisc.makeMapWritable(context);
         this.loader = loader;
         this.locale = (Locale) context.get("locale");
         this.timeZone = (TimeZone) context.get("timeZone");
@@ -138,7 +141,7 @@ public class MethodContext {
                 if (this.userLogin == null) this.userLogin = (GenericValue) this.request.getSession().getAttribute("userLogin");
             }
         } else if (methodType == MethodContext.SERVICE) {
-            this.results = new HashMap<String, Object>();
+            this.results = FastMap.newInstance();
         }
         
         if (this.loader == null) {
@@ -164,7 +167,7 @@ public class MethodContext {
         return this.methodType;
     }
 
-    public Map getEnvMap() {
+    public Map<String, Object> getEnvMap() {
         return this.env;
     }
     
@@ -175,12 +178,12 @@ public class MethodContext {
      * @param key The name of the environment value to get. Can contain "." and "[]" syntax elements as described above.
      * @return The environment value if found, otherwise null. 
      */
-    public Object getEnv(String key) {
+    public <T> T getEnv(String key) {
         String ekey = this.expandString(key);
-        FlexibleMapAccessor fma = new FlexibleMapAccessor(ekey);
+        FlexibleMapAccessor<T> fma = new FlexibleMapAccessor<T>(ekey);
         return this.getEnv(fma);
     }
-    public Object getEnv(FlexibleMapAccessor fma) {
+    public <T> T getEnv(FlexibleMapAccessor<T> fma) {
         return fma.get(this.env);
     }
 
@@ -196,23 +199,21 @@ public class MethodContext {
      * @param key The name of the environment value to get. Can contain "." syntax elements as described above.
      * @param value The value to set in the named environment location.
      */
-    public void putEnv(String key, Object value) {
+    public <T> void putEnv(String key, T value) {
         String ekey = this.expandString(key);
-        FlexibleMapAccessor fma = new FlexibleMapAccessor(ekey);
+        FlexibleMapAccessor<T> fma = new FlexibleMapAccessor<T>(ekey);
         this.putEnv(fma, value);
     }
-    public void putEnv(FlexibleMapAccessor fma, Object value) {
+    public <T> void putEnv(FlexibleMapAccessor<T> fma, T value) {
         fma.put(this.env, value);
     }
 
     /** Calls putEnv for each entry in the Map, thus allowing for the additional flexibility in naming 
      * supported in that method. 
      */
-    public void putAllEnv(Map values) {
-        Iterator viter = values.entrySet().iterator();
-        while (viter.hasNext()) {
-            Map.Entry entry = (Map.Entry) viter.next();
-            this.putEnv((String) entry.getKey(), entry.getValue());
+    public void putAllEnv(Map<String, ? extends Object> values) {
+        for (Map.Entry<String, ? extends Object> entry: values.entrySet()) {
+            this.putEnv(entry.getKey(), entry.getValue());
         }
     }
 
@@ -222,16 +223,20 @@ public class MethodContext {
      * 
      * @param key The name of the environment value to get. Can contain "." syntax elements as described above.
      */
-    public Object removeEnv(String key) {
+    public <T> T removeEnv(String key) {
         String ekey = this.expandString(key);
-        FlexibleMapAccessor fma = new FlexibleMapAccessor(ekey);
+        FlexibleMapAccessor<T> fma = new FlexibleMapAccessor<T>(ekey);
         return this.removeEnv(fma);
     }
-    public Object removeEnv(FlexibleMapAccessor fma) {
+    public <T> T removeEnv(FlexibleMapAccessor<T> fma) {
         return fma.remove(this.env);
     }
 
-    public Iterator getEnvEntryIterator() {
+    public Iterator<Map.Entry<String, Object>> iterator() {
+        return this.env.entrySet().iterator();
+    }
+
+    public Iterator<Map.Entry<String, Object>> getEnvEntryIterator() {
         return this.env.entrySet().iterator();
     }
 
@@ -243,7 +248,7 @@ public class MethodContext {
         this.parameters.put(key, value);
     }
 
-    public Map getParameters() {
+    public Map<String, Object> getParameters() {
         return this.parameters;
     }
 

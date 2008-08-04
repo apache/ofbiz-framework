@@ -33,17 +33,17 @@ public class CloneValue extends MethodOperation {
     
     public static final String module = CloneValue.class.getName();        
     
-    ContextAccessor valueAcsr;
-    ContextAccessor newValueAcsr;
+    ContextAccessor<GenericValue> valueAcsr;
+    ContextAccessor<GenericValue> newValueAcsr;
 
     public CloneValue(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        valueAcsr = new ContextAccessor(element.getAttribute("value-name"));
-        newValueAcsr = new ContextAccessor(element.getAttribute("new-value-name"));
+        valueAcsr = new ContextAccessor<GenericValue>(element.getAttribute("value-name"));
+        newValueAcsr = new ContextAccessor<GenericValue>(element.getAttribute("new-value-name"));
     }
 
     public boolean exec(MethodContext methodContext) {
-        GenericValue value = (GenericValue) valueAcsr.get(methodContext);
+        GenericValue value = valueAcsr.get(methodContext);
         if (value == null) {
             Debug.logWarning("In clone-value a value was not found with the specified valueAcsr: " + valueAcsr + ", not copying", module);
             return true;

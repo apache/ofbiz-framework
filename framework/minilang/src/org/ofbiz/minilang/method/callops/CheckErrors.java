@@ -32,7 +32,7 @@ import org.w3c.dom.Element;
  */
 public class CheckErrors extends MethodOperation {
     
-    ContextAccessor errorListAcsr;
+    ContextAccessor<List<Object>> errorListAcsr;
     String errorCode;
 
     FlexibleMessage errorPrefix;
@@ -45,7 +45,7 @@ public class CheckErrors extends MethodOperation {
         errorCode = element.getAttribute("error-code");
         if (errorCode == null || errorCode.length() == 0) errorCode = "error";
         
-        errorListAcsr = new ContextAccessor(element.getAttribute("error-list-name"), "error_list");
+        errorListAcsr = new ContextAccessor<List<Object>>(element.getAttribute("error-list-name"), "error_list");
 
         errorPrefix = new FlexibleMessage(UtilXml.firstChildElement(element, "error-prefix"), "check.error.prefix");
         errorSuffix = new FlexibleMessage(UtilXml.firstChildElement(element, "error-suffix"), "check.error.suffix");
@@ -54,7 +54,7 @@ public class CheckErrors extends MethodOperation {
     }
 
     public boolean exec(MethodContext methodContext) {
-        List messages = (List) errorListAcsr.get(methodContext);
+        List<Object> messages = errorListAcsr.get(methodContext);
 
         if (messages != null && messages.size() > 0) {
             String errorCode = methodContext.expandString(this.errorCode);

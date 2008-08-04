@@ -20,6 +20,7 @@ package org.ofbiz.minilang.method;
 
 import java.util.Map;
 
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 
 /**
@@ -27,10 +28,10 @@ import org.ofbiz.base.util.collections.FlexibleMapAccessor;
  * accessing sub-map values and the "[]" (square bracket) syntax for accessing
  * list elements. See individual Map operations for more information.
  */
-public class ContextAccessor {
+public class ContextAccessor<T> {
 
     protected String name;
-    protected FlexibleMapAccessor fma;
+    protected FlexibleMapAccessor<T> fma;
     protected boolean needsExpand;
     protected boolean empty;
 
@@ -51,7 +52,7 @@ public class ContextAccessor {
         if (name == null || name.length() == 0) {
             empty = true;
             needsExpand = false;
-            fma = new FlexibleMapAccessor(name);
+            fma = new FlexibleMapAccessor<T>(name);
         } else {
             empty = false;
             int openPos = name.indexOf("${");
@@ -59,7 +60,7 @@ public class ContextAccessor {
                 fma = null;
                 needsExpand = true;
             } else {
-                fma = new FlexibleMapAccessor(name);
+                fma = new FlexibleMapAccessor<T>(name);
                 needsExpand = false;
             }
         }
@@ -70,11 +71,11 @@ public class ContextAccessor {
     }
     
     /** Based on name get from Map or from List in Map */
-    public Object get(MethodContext methodContext) {
+    public T get(MethodContext methodContext) {
         if (this.needsExpand) {
-            return methodContext.getEnv(name);
+            return UtilGenerics.<T>cast(methodContext.getEnv(name));
         } else {
-            return methodContext.getEnv(fma);
+            return UtilGenerics.<T>cast(methodContext.getEnv(fma));
         }
     }
     
@@ -84,7 +85,7 @@ public class ContextAccessor {
      * If a "+" (plus sign) is included inside the square brackets before the index 
      * number the value will inserted/added at that point instead of set at the point.
      */
-    public void put(MethodContext methodContext, Object value) {
+    public void put(MethodContext methodContext, T value) {
         if (this.needsExpand) {
             methodContext.putEnv(name, value);
         } else {
@@ -93,18 +94,18 @@ public class ContextAccessor {
     }
     
     /** Based on name remove from Map or from List in Map */
-    public Object remove(MethodContext methodContext) {
+    public T remove(MethodContext methodContext) {
         if (this.needsExpand) {
-            return methodContext.removeEnv(name);
+            return UtilGenerics.<T>cast(methodContext.removeEnv(name));
         } else {
-            return methodContext.removeEnv(fma);
+            return UtilGenerics.<T>cast(methodContext.removeEnv(fma));
         }
     }
     
     /** Based on name get from Map or from List in Map */
-    public Object get(Map theMap, MethodContext methodContext) {
+    public T get(Map<String, ? extends Object> theMap, MethodContext methodContext) {
         if (this.needsExpand) {
-            FlexibleMapAccessor fma = new FlexibleMapAccessor(methodContext.expandString(name));
+            FlexibleMapAccessor<T> fma = new FlexibleMapAccessor<T>(methodContext.expandString(name));
             return fma.get(theMap);
         } else {
             return fma.get(theMap);
@@ -117,9 +118,9 @@ public class ContextAccessor {
      * If a "+" (plus sign) is included inside the square brackets before the index 
      * number the value will inserted/added at that point instead of set at the point.
      */
-    public void put(Map theMap, Object value, MethodContext methodContext) {
+    public void put(Map<String, Object> theMap, T value, MethodContext methodContext) {
         if (this.needsExpand) {
-            FlexibleMapAccessor fma = new FlexibleMapAccessor(methodContext.expandString(name));
+            FlexibleMapAccessor<T> fma = new FlexibleMapAccessor<T>(methodContext.expandString(name));
             fma.put(theMap, value);
         } else {
             fma.put(theMap, value);
@@ -127,9 +128,9 @@ public class ContextAccessor {
     }
     
     /** Based on name remove from Map or from List in Map */
-    public Object remove(Map theMap, MethodContext methodContext) {
+    public T remove(Map<String, ? extends Object> theMap, MethodContext methodContext) {
         if (this.needsExpand) {
-            FlexibleMapAccessor fma = new FlexibleMapAccessor(methodContext.expandString(name));
+            FlexibleMapAccessor<T> fma = new FlexibleMapAccessor<T>(methodContext.expandString(name));
             return fma.remove(theMap);
         } else {
             return fma.remove(theMap);

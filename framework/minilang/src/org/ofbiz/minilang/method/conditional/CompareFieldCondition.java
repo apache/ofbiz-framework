@@ -19,6 +19,7 @@
 package org.ofbiz.minilang.method.conditional;
 
 import java.util.*;
+import javolution.util.FastList;
 import org.w3c.dom.*;
 import org.ofbiz.base.util.*;
 import org.ofbiz.minilang.*;
@@ -34,10 +35,10 @@ public class CompareFieldCondition implements Conditional {
     
     SimpleMethod simpleMethod;
     
-    ContextAccessor mapAcsr;
-    ContextAccessor fieldAcsr;
-    ContextAccessor toMapAcsr;
-    ContextAccessor toFieldAcsr;
+    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
+    ContextAccessor<Object> fieldAcsr;
+    ContextAccessor<Map<String, ? extends Object>> toMapAcsr;
+    ContextAccessor<Object> toFieldAcsr;
 
     String operator;
     String type;
@@ -47,20 +48,20 @@ public class CompareFieldCondition implements Conditional {
         this.simpleMethod = simpleMethod;
         
         // NOTE: this is still supported, but is deprecated
-        this.mapAcsr = new ContextAccessor(element.getAttribute("map-name"));
-        this.fieldAcsr = new ContextAccessor(element.getAttribute("field"));
+        this.mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
+        this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"));
         if (this.fieldAcsr.isEmpty()) {
             // NOTE: this is still supported, but is deprecated
-            this.fieldAcsr = new ContextAccessor(element.getAttribute("field-name"));
+            this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
         }
         
         // NOTE: this is still supported, but is deprecated
-        this.toMapAcsr = new ContextAccessor(element.getAttribute("to-map-name"));
+        this.toMapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("to-map-name"));
         // set fieldAcsr to their default value of fieldAcsr if empty
-        this.toFieldAcsr = new ContextAccessor(element.getAttribute("to-field"), element.getAttribute("field"));
+        this.toFieldAcsr = new ContextAccessor<Object>(element.getAttribute("to-field"), element.getAttribute("field"));
         if (this.toFieldAcsr.isEmpty()) {
             // NOTE: this is still supported, but is deprecated
-            this.toFieldAcsr = new ContextAccessor(element.getAttribute("to-field-name"), element.getAttribute("field-name"));
+            this.toFieldAcsr = new ContextAccessor<Object>(element.getAttribute("to-field-name"), element.getAttribute("field-name"));
         }
 
         // do NOT default the to-map-name to the map-name because that
@@ -80,17 +81,16 @@ public class CompareFieldCondition implements Conditional {
         Object fieldVal1 = getFieldVal1(methodContext);
         Object fieldVal2 = getFieldVal2(methodContext);
 
-        List messages = new LinkedList();
+        List<Object> messages = FastList.newInstance();
         Boolean resultBool = BaseCompare.doRealCompare(fieldVal1, fieldVal2, operator, type, format, messages, null, methodContext.getLoader(), false);
 
         if (messages.size() > 0) {
             messages.add(0, "Error with comparison in if-compare-field between fields [" + mapAcsr.toString() + "." + fieldAcsr.toString() + "] with value [" + fieldVal1 + "] and [" + toMapAcsr.toString() + "." + toFieldAcsr.toString() + "] with value [" + fieldVal2 + "] with operator [" + operator + "] and type [" + type + "]: ");
             if (methodContext.getMethodType() == MethodContext.EVENT) {
-                StringBuffer fullString = new StringBuffer();
+                StringBuilder fullString = new StringBuilder();
 
-                Iterator miter = messages.iterator();
-                while (miter.hasNext()) {
-                    fullString.append((String) miter.next());
+                for (Object message: messages) {
+                    fullString.append(message);
                 }
                 Debug.logWarning(fullString.toString(), module);
 
@@ -111,7 +111,7 @@ public class CompareFieldCondition implements Conditional {
     protected Object getFieldVal1(MethodContext methodContext) {
         Object fieldVal1 = null;
         if (!mapAcsr.isEmpty()) {
-            Map fromMap = (Map) mapAcsr.get(methodContext);
+            Map<String, ? extends Object> fromMap = mapAcsr.get(methodContext);
             if (fromMap == null) {
                 if (Debug.infoOn()) Debug.logInfo("Map not found with name " + mapAcsr + ", using null for comparison", module);
             } else {
@@ -127,7 +127,7 @@ public class CompareFieldCondition implements Conditional {
     protected Object getFieldVal2(MethodContext methodContext) {
         Object fieldVal2 = null;
         if (!toMapAcsr.isEmpty()) {
-            Map toMap = (Map) toMapAcsr.get(methodContext);
+            Map<String, ? extends Object> toMap = toMapAcsr.get(methodContext);
             if (toMap == null) {
                 if (Debug.infoOn()) Debug.logInfo("To Map not found with name " + toMapAcsr + ", using null for comparison", module);
             } else {
@@ -140,7 +140,7 @@ public class CompareFieldCondition implements Conditional {
         return fieldVal2;
     }
     
-    public void prettyPrint(StringBuffer messageBuffer, MethodContext methodContext) {
+    public void prettyPrint(StringBuilder messageBuffer, MethodContext methodContext) {
         String operator = methodContext.expandString(this.operator);
         String type = methodContext.expandString(this.type);
         String format = methodContext.expandString(this.format);

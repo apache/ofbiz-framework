@@ -36,13 +36,13 @@ public class RemoveByAnd extends MethodOperation {
     public static final String module = RemoveByAnd.class.getName();
     
     String entityName;
-    ContextAccessor mapAcsr;
+    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
     String doCacheClearStr;
 
     public RemoveByAnd(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
         entityName = element.getAttribute("entity-name");
-        mapAcsr = new ContextAccessor(element.getAttribute("map-name"));
+        mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
         doCacheClearStr = element.getAttribute("do-cache-clear");
     }
 
@@ -51,7 +51,7 @@ public class RemoveByAnd extends MethodOperation {
         String entityName = methodContext.expandString(this.entityName);
         
         try {
-            methodContext.getDelegator().removeByAnd(entityName, (Map) mapAcsr.get(methodContext), doCacheClear);
+            methodContext.getDelegator().removeByAnd(entityName, mapAcsr.get(methodContext), doCacheClear);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [problem removing the " + entityName + " entity by and: " + e.getMessage() + "]";

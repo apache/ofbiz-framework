@@ -19,7 +19,6 @@
 package org.ofbiz.minilang.method.ifops;
 
 import java.util.List;
-import java.util.LinkedList;
 import java.util.Map;
 
 import javolution.util.FastList;
@@ -38,24 +37,24 @@ public class IfInstanceOf extends MethodOperation {
 
     public static final String module = IfInstanceOf.class.getName();
 
-    protected List subOps = new LinkedList();
-    protected List elseSubOps = null;
+    protected List<MethodOperation> subOps = FastList.newInstance();
+    protected List<MethodOperation> elseSubOps = null;
 
-    protected ContextAccessor mapAcsr = null;
-    protected ContextAccessor fieldAcsr = null;
+    protected ContextAccessor<Map<String, ? extends Object>> mapAcsr = null;
+    protected ContextAccessor<Object> fieldAcsr = null;
     protected String className = null;
 
     public IfInstanceOf(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        this.mapAcsr = new ContextAccessor(element.getAttribute("map-name"));
-        this.fieldAcsr = new ContextAccessor(element.getAttribute("field-name"));
+        this.mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
+        this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
         this.className = element.getAttribute("class");
 
         SimpleMethod.readOperations(element, subOps, simpleMethod);
 
         Element elseElement = UtilXml.firstChildElement(element, "else");
         if (elseElement != null) {
-            elseSubOps = new LinkedList();
+            elseSubOps = FastList.newInstance();
             SimpleMethod.readOperations(elseElement, elseSubOps, simpleMethod);
         }
     }
@@ -66,7 +65,7 @@ public class IfInstanceOf extends MethodOperation {
         Object fieldVal = null;
 
         if (!mapAcsr.isEmpty()) {
-            Map fromMap = (Map) mapAcsr.get(methodContext);
+            Map<String, ? extends Object> fromMap = mapAcsr.get(methodContext);
             if (fromMap == null) {
                 if (Debug.infoOn()) Debug.logInfo("Map not found with name " + mapAcsr + ", running operations", module);
             } else {

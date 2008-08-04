@@ -21,6 +21,9 @@ package org.ofbiz.minilang.method.callops;
 import java.lang.reflect.*;
 import java.util.*;
 
+import javolution.util.FastList;
+import javolution.util.FastMap;
+
 import org.w3c.dom.*;
 import org.ofbiz.base.util.*;
 
@@ -35,30 +38,27 @@ public class CreateObject extends MethodOperation {
     public static final String module = CreateObject.class.getName();
 
     String className;
-    ContextAccessor fieldAcsr;
-    ContextAccessor mapAcsr;
+    ContextAccessor<Object> fieldAcsr;
+    ContextAccessor<Map<String, Object>> mapAcsr;
 
     /** A list of MethodObject objects to use as the method call parameters */
-    List parameters;
+    List<MethodObject<?>> parameters;
 
     public CreateObject(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
         className = element.getAttribute("class-name");
-        fieldAcsr = new ContextAccessor(element.getAttribute("field-name"));
-        mapAcsr = new ContextAccessor(element.getAttribute("map-name"));
+        fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
+        mapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("map-name"));
         
-        List parameterElements = UtilXml.childElementList(element);
+        List<? extends Element> parameterElements = UtilXml.childElementList(element);
         if (parameterElements.size() > 0) {
-            parameters = new ArrayList(parameterElements.size());
-            
-            Iterator parameterIter = parameterElements.iterator();
-            while (parameterIter.hasNext()) {
-                Element parameterElement = (Element) parameterIter.next();
+            parameters = FastList.newInstance();
+            for (Element parameterElement: parameterElements) {
                 MethodObject methodObject = null;
                 if ("string".equals(parameterElement.getNodeName())) {
                     methodObject = new StringObject(parameterElement, simpleMethod); 
                 } else if ("field".equals(parameterElement.getNodeName())) {
-                    methodObject = new FieldObject(parameterElement, simpleMethod);
+                    methodObject = new FieldObject<Object>(parameterElement, simpleMethod);
                 } else {
                     //whoops, invalid tag here, print warning
                     Debug.logWarning("Found an unsupported tag under the call-object-method tag: " + parameterElement.getNodeName() + "; ignoring", module);
@@ -73,7 +73,7 @@ public class CreateObject extends MethodOperation {
     public boolean exec(MethodContext methodContext) {
         String className = methodContext.expandString(this.className);
 
-        Class methodClass = null;
+        Class<?> methodClass = null;
         try {
             methodClass = ObjectType.loadClass(className, methodContext.getLoader());
         } catch (ClassNotFoundException e) {
@@ -85,18 +85,16 @@ public class CreateObject extends MethodOperation {
         }
         
         Object[] args = null;
-        Class[] parameterTypes = null;
+        Class<?>[] parameterTypes = null;
         if (parameters != null) {
             args = new Object[parameters.size()];
-            parameterTypes = new Class[parameters.size()];
+            parameterTypes = new Class<?>[parameters.size()];
 
-            Iterator parameterIter = parameters.iterator();
             int i = 0;
-            while (parameterIter.hasNext()) {
-                MethodObject methodObjectDef = (MethodObject) parameterIter.next();
+            for (MethodObject methodObjectDef: parameters) {
                 args[i] = methodObjectDef.getObject(methodContext);
 
-                Class typeClass = methodObjectDef.getTypeClass(methodContext.getLoader());
+                Class<?> typeClass = methodObjectDef.getTypeClass(methodContext.getLoader());
                 if (typeClass == null) {
                     String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [Parameter type not found with name " + methodObjectDef.getTypeName() + "]";
                     Debug.logError(errMsg, module);
@@ -117,10 +115,10 @@ public class CreateObject extends MethodOperation {
                 //if fieldAcsr is empty, ignore return value
                 if (!fieldAcsr.isEmpty()) {
                     if (!mapAcsr.isEmpty()) {
-                        Map retMap = (Map) mapAcsr.get(methodContext);
+                        Map<String, Object> retMap = mapAcsr.get(methodContext);
 
                         if (retMap == null) {
-                            retMap = new HashMap();
+                            retMap = FastMap.newInstance();
                             mapAcsr.put(methodContext, retMap);
                         }
                         fieldAcsr.put(retMap, newObject, methodContext);

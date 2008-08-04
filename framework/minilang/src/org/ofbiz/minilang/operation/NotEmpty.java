@@ -32,7 +32,7 @@ public class NotEmpty extends SimpleMapOperation {
         super(element, simpleMapProcess);
     }
 
-    public void exec(Map inMap, Map results, List messages, Locale locale, ClassLoader loader) {
+    public void exec(Map<String, Object> inMap, Map<String, Object> results, List<Object> messages, Locale locale, ClassLoader loader) {
         Object obj = inMap.get(fieldName);
 
         if (obj instanceof java.lang.String) {

@@ -35,15 +35,15 @@ public class FieldToRequest extends MethodOperation {
     
     public static final String module = FieldToRequest.class.getName();
     
-    ContextAccessor mapAcsr;
-    ContextAccessor fieldAcsr;
-    FlexibleServletAccessor requestAcsr;
+    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
+    ContextAccessor<Object> fieldAcsr;
+    FlexibleServletAccessor<Object> requestAcsr;
 
     public FieldToRequest(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        mapAcsr = new ContextAccessor(element.getAttribute("map-name"));
-        fieldAcsr = new ContextAccessor(element.getAttribute("field-name"));
-        requestAcsr = new FlexibleServletAccessor(element.getAttribute("request-name"), element.getAttribute("field-name"));
+        mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
+        fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
+        requestAcsr = new FlexibleServletAccessor<Object>(element.getAttribute("request-name"), element.getAttribute("field-name"));
     }
 
     public boolean exec(MethodContext methodContext) {
@@ -51,7 +51,7 @@ public class FieldToRequest extends MethodOperation {
         if (methodContext.getMethodType() == MethodContext.EVENT) {
             Object fieldVal = null;
             if (!mapAcsr.isEmpty()) {
-                Map fromMap = (Map) mapAcsr.get(methodContext);
+                Map<String, ? extends Object> fromMap = mapAcsr.get(methodContext);
                 if (fromMap == null) {
                     Debug.logWarning("Map not found with name " + mapAcsr, module);
                     return true;

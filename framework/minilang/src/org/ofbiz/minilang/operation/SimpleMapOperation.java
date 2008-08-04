@@ -51,9 +51,9 @@ public abstract class SimpleMapOperation {
         this.fieldName = simpleMapProcess.getFieldName();
     }
 
-    public abstract void exec(Map inMap, Map results, List messages, Locale locale, ClassLoader loader);
+    public abstract void exec(Map<String, Object> inMap, Map<String, Object> results, List<Object> messages, Locale locale, ClassLoader loader);
 
-    public void addMessage(List messages, ClassLoader loader, Locale locale) {
+    public void addMessage(List<Object> messages, ClassLoader loader, Locale locale) {
         if (!isProperty && message != null) {
             messages.add(new MessageString(message, fieldName, true));
             // if (Debug.infoOn()) Debug.logInfo("[SimpleMapOperation.addMessage] Adding message: " + message, module);

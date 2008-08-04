@@ -20,6 +20,8 @@ package org.ofbiz.minilang.method.envops;
 
 import java.util.*;
 
+import javolution.util.FastList;
+
 import org.w3c.dom.*;
 import org.ofbiz.base.util.*;
 import org.ofbiz.minilang.*;
@@ -32,22 +34,22 @@ public class FieldToList extends MethodOperation {
     
     public static final String module = FieldToList.class.getName();
     
-    ContextAccessor mapAcsr;
-    ContextAccessor fieldAcsr;
-    ContextAccessor listAcsr;
+    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
+    ContextAccessor<Object> fieldAcsr;
+    ContextAccessor<List<Object>> listAcsr;
 
     public FieldToList(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        mapAcsr = new ContextAccessor(element.getAttribute("map-name"));
-        fieldAcsr = new ContextAccessor(element.getAttribute("field-name"));
-        listAcsr = new ContextAccessor(element.getAttribute("list-name"));
+        mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
+        fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
+        listAcsr = new ContextAccessor<List<Object>>(element.getAttribute("list-name"));
     }
 
     public boolean exec(MethodContext methodContext) {
         Object fieldVal = null;
 
         if (!mapAcsr.isEmpty()) {
-            Map fromMap = (Map) mapAcsr.get(methodContext);
+            Map<String, ? extends Object> fromMap = mapAcsr.get(methodContext);
 
             if (fromMap == null) {
                 Debug.logWarning("Map not found with name " + mapAcsr + ", Not copying to list", module);
@@ -65,11 +67,11 @@ public class FieldToList extends MethodOperation {
             return true;
         }
 
-        List toList = (List) listAcsr.get(methodContext);
+        List<Object> toList = listAcsr.get(methodContext);
 
         if (toList == null) {
             if (Debug.verboseOn()) Debug.logVerbose("List not found with name " + listAcsr + ", creating new list", module);
-            toList = new LinkedList();
+            toList = FastList.newInstance();
             listAcsr.put(methodContext, toList);
         }
 

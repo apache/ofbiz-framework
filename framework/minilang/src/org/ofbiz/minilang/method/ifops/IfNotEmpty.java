@@ -37,17 +37,17 @@ public class IfNotEmpty extends MethodOperation {
     protected List<MethodOperation> subOps = FastList.newInstance();
     protected List<MethodOperation> elseSubOps = null;
 
-    protected ContextAccessor mapAcsr;
-    protected ContextAccessor fieldAcsr;
+    protected ContextAccessor<Map<String, ? extends Object>> mapAcsr;
+    protected ContextAccessor<Object> fieldAcsr;
 
     public IfNotEmpty(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
         // NOTE: this is still supported, but is deprecated
-        this.mapAcsr = new ContextAccessor(element.getAttribute("map-name"));
-        this.fieldAcsr = new ContextAccessor(element.getAttribute("field"));
+        this.mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
+        this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"));
         if (this.fieldAcsr.isEmpty()) {
             // NOTE: this is still supported, but is deprecated
-            this.fieldAcsr = new ContextAccessor(element.getAttribute("field-name"));
+            this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
         }
 
         SimpleMethod.readOperations(element, subOps, simpleMethod);
@@ -68,7 +68,7 @@ public class IfNotEmpty extends MethodOperation {
         Object fieldVal = null;
 
         if (!mapAcsr.isEmpty()) {
-            Map fromMap = (Map) mapAcsr.get(methodContext);
+            Map<String, ? extends Object> fromMap = mapAcsr.get(methodContext);
             if (fromMap == null) {
                 if (Debug.verboseOn()) Debug.logVerbose("Map not found with name " + mapAcsr + ", not running operations", module);
             } else {

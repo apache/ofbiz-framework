@@ -20,6 +20,8 @@ package org.ofbiz.minilang.operation;
 
 import java.util.*;
 
+import javolution.util.FastList;
+
 import org.w3c.dom.*;
 import org.ofbiz.base.util.*;
 
@@ -31,18 +33,15 @@ public class MakeInString {
     public static final String module = MakeInString.class.getName();
     
     String fieldName;
-    List operations = new LinkedList();
+    List<MakeInStringOperation> operations = FastList.newInstance();
 
     public MakeInString(Element makeInStringElement) {
         fieldName = makeInStringElement.getAttribute("field");
 
-        List operationElements = UtilXml.childElementList(makeInStringElement);
+        List<? extends Element> operationElements = UtilXml.childElementList(makeInStringElement);
 
         if (operationElements != null && operationElements.size() > 0) {
-            Iterator operElemIter = operationElements.iterator();
-
-            while (operElemIter.hasNext()) {
-                Element curOperElem = (Element) operElemIter.next();
+            for (Element curOperElem: operationElements) {
                 String nodeName = curOperElem.getNodeName();
 
                 if ("in-field".equals(nodeName)) {
@@ -58,12 +57,9 @@ public class MakeInString {
         }
     }
 
-    public void exec(Map inMap, Map results, List messages, Locale locale, ClassLoader loader) {
-        Iterator iter = operations.iterator();
-        StringBuffer buffer = new StringBuffer();
-
-        while (iter.hasNext()) {
-            MakeInStringOperation oper = (MakeInStringOperation) iter.next();
+    public void exec(Map<String, Object> inMap, Map<String, Object> results, List<Object> messages, Locale locale, ClassLoader loader) {
+        StringBuilder buffer = new StringBuilder();
+        for (MakeInStringOperation oper: operations) {
             String curStr = oper.exec(inMap, messages, locale, loader);
 
             if (curStr != null)

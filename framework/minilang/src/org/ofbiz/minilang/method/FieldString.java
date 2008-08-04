@@ -31,19 +31,19 @@ public class FieldString extends MethodString {
     
     public static final String module = FieldString.class.getName();
     
-    ContextAccessor fieldAcsr;
-    ContextAccessor mapAcsr;
+    ContextAccessor<Object> fieldAcsr;
+    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
 
     public FieldString(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        fieldAcsr = new ContextAccessor(element.getAttribute("field-name"));
-        mapAcsr = new ContextAccessor(element.getAttribute("map-name"));
+        fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
+        mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
     }
 
     public String getString(MethodContext methodContext) {
         Object fieldVal = null;
         if (!mapAcsr.isEmpty()) {
-            Map fromMap = (Map) mapAcsr.get(methodContext);
+            Map<String, ? extends Object> fromMap = mapAcsr.get(methodContext);
             if (fromMap == null) {
                 Debug.logWarning("Map not found with name " + mapAcsr + ", not getting string value", module);
                 return "";

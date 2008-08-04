@@ -26,7 +26,7 @@ import org.ofbiz.minilang.*;
 /**
  * A type of MethodObject that represents a String constant value to be used as an Object
  */
-public class StringObject extends MethodObject {
+public class StringObject extends MethodObject<String> {
     
     String value;
     String cdataValue;
@@ -42,11 +42,11 @@ public class StringObject extends MethodObject {
         return "java.lang.String";
     }
     
-    public Class getTypeClass(ClassLoader loader) {
+    public Class<String> getTypeClass(ClassLoader loader) {
         return java.lang.String.class;
     }
     
-    public Object getObject(MethodContext methodContext) {
+    public String getObject(MethodContext methodContext) {
         String value = methodContext.expandString(this.value);
         String cdataValue = methodContext.expandString(this.cdataValue);
         

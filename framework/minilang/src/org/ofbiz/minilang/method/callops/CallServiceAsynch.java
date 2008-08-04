@@ -18,9 +18,10 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.callops;
 
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.GenericValue;
@@ -39,13 +40,13 @@ public class CallServiceAsynch extends MethodOperation {
     public static final String module = CallServiceAsynch.class.getName();
     
     protected String serviceName;
-    protected ContextAccessor inMapAcsr;
+    protected ContextAccessor<Map<String, Object>> inMapAcsr;
     protected String includeUserLoginStr;
 
     public CallServiceAsynch(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
         serviceName = element.getAttribute("service-name");
-        inMapAcsr = new ContextAccessor(element.getAttribute("in-map-name"));
+        inMapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("in-map-name"));
         includeUserLoginStr = element.getAttribute("include-user-login");
     }
 
@@ -53,13 +54,13 @@ public class CallServiceAsynch extends MethodOperation {
         String serviceName = methodContext.expandString(this.serviceName);
         boolean includeUserLogin = !"false".equals(methodContext.expandString(includeUserLoginStr));
         
-        Map inMap = null;
+        Map<String, Object> inMap = null;
         if (inMapAcsr.isEmpty()) {
-            inMap = new HashMap();
+            inMap = FastMap.newInstance();
         } else {
-            inMap = (Map) inMapAcsr.get(methodContext);
+            inMap = inMapAcsr.get(methodContext);
             if (inMap == null) {
-                inMap = new HashMap();
+                inMap = FastMap.newInstance();
                 inMapAcsr.put(methodContext, inMap);
             }
         }

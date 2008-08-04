@@ -31,13 +31,13 @@ public class EnvToEnv extends MethodOperation {
     
     public static final String module = EnvToEnv.class.getName();
 
-    protected ContextAccessor envAcsr;
-    protected ContextAccessor toEnvAcsr;
+    protected ContextAccessor<Object> envAcsr;
+    protected ContextAccessor<Object> toEnvAcsr;
 
     public EnvToEnv(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        envAcsr = new ContextAccessor(element.getAttribute("env-name"));
-        toEnvAcsr = new ContextAccessor(element.getAttribute("to-env-name"));
+        envAcsr = new ContextAccessor<Object>(element.getAttribute("env-name"));
+        toEnvAcsr = new ContextAccessor<Object>(element.getAttribute("to-env-name"));
     }
 
     public boolean exec(MethodContext methodContext) {

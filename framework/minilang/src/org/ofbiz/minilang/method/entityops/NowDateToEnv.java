@@ -28,11 +28,11 @@ import org.ofbiz.minilang.method.*;
  */
 public class NowDateToEnv extends MethodOperation {
     
-    ContextAccessor envAcsr;
+    ContextAccessor<java.sql.Date> envAcsr;
 
     public NowDateToEnv(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        envAcsr = new ContextAccessor(element.getAttribute("env-name"));
+        envAcsr = new ContextAccessor<java.sql.Date>(element.getAttribute("env-name"));
     }
 
     public boolean exec(MethodContext methodContext) {

@@ -35,6 +35,7 @@ import javolution.util.FastSet;
 
 import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -85,9 +86,9 @@ public class SimpleMethod {
     public static final String module = SimpleMethod.class.getName();
     public static final String err_resource = "MiniLangErrorUiLabels";
 
-    protected static UtilCache<String, Map<String, SimpleMethod>> simpleMethodsDirectCache = new UtilCache("minilang.SimpleMethodsDirect", 0, 0);
-    protected static UtilCache<String, Map<String, SimpleMethod>> simpleMethodsResourceCache = new UtilCache("minilang.SimpleMethodsResource", 0, 0);
-    protected static UtilCache<URL, Map<String, SimpleMethod>> simpleMethodsURLCache = new UtilCache("minilang.SimpleMethodsURL", 0, 0);
+    protected static UtilCache<String, Map<String, SimpleMethod>> simpleMethodsDirectCache = new UtilCache<String, Map<String, SimpleMethod>>("minilang.SimpleMethodsDirect", 0, 0);
+    protected static UtilCache<String, Map<String, SimpleMethod>> simpleMethodsResourceCache = new UtilCache<String, Map<String, SimpleMethod>>("minilang.SimpleMethodsResource", 0, 0);
+    protected static UtilCache<URL, Map<String, SimpleMethod>> simpleMethodsURLCache = new UtilCache<URL, Map<String, SimpleMethod>>("minilang.SimpleMethodsURL", 0, 0);
 
     // ----- Event Context Invokers -----
 
@@ -105,19 +106,19 @@ public class SimpleMethod {
 
     // ----- Service Context Invokers -----
 
-    public static Map runSimpleService(String xmlResource, String methodName, DispatchContext ctx, Map context) throws MiniLangException {
+    public static Map<String, Object> runSimpleService(String xmlResource, String methodName, DispatchContext ctx, Map<String, ? extends Object> context) throws MiniLangException {
         MethodContext methodContext = new MethodContext(ctx, context, null);
         runSimpleMethod(xmlResource, methodName, methodContext);
         return methodContext.getResults();
     }
 
-    public static Map runSimpleService(String xmlResource, String methodName, DispatchContext ctx, Map context, ClassLoader loader) throws MiniLangException {
+    public static Map<String, Object> runSimpleService(String xmlResource, String methodName, DispatchContext ctx, Map<String, ? extends Object> context, ClassLoader loader) throws MiniLangException {
         MethodContext methodContext = new MethodContext(ctx, context, loader);
         runSimpleMethod(xmlResource, methodName, methodContext);
         return methodContext.getResults();
     }
 
-    public static Map runSimpleService(URL xmlURL, String methodName, DispatchContext ctx, Map context, ClassLoader loader) throws MiniLangException {
+    public static Map<String, Object> runSimpleService(URL xmlURL, String methodName, DispatchContext ctx, Map<String, ? extends Object> context, ClassLoader loader) throws MiniLangException {
         MethodContext methodContext = new MethodContext(ctx, context, loader);
         runSimpleMethod(xmlURL, methodName, methodContext);
         return methodContext.getResults();
@@ -126,8 +127,8 @@ public class SimpleMethod {
     // ----- General Method Invokers -----
 
     public static String runSimpleMethod(String xmlResource, String methodName, MethodContext methodContext) throws MiniLangException {
-        Map simpleMethods = getSimpleMethods(xmlResource, methodContext.getLoader());
-        SimpleMethod simpleMethod = (SimpleMethod) simpleMethods.get(methodName);
+        Map<String, SimpleMethod> simpleMethods = getSimpleMethods(xmlResource, methodContext.getLoader());
+        SimpleMethod simpleMethod = simpleMethods.get(methodName);
         if (simpleMethod == null) {
             throw new MiniLangException("Could not find SimpleMethod " + methodName + " in XML document in resource: " + xmlResource);
         }
@@ -135,8 +136,8 @@ public class SimpleMethod {
     }
 
     public static String runSimpleMethod(URL xmlURL, String methodName, MethodContext methodContext) throws MiniLangException {
-        Map simpleMethods = getSimpleMethods(xmlURL);
-        SimpleMethod simpleMethod = (SimpleMethod) simpleMethods.get(methodName);
+        Map<String, SimpleMethod> simpleMethods = getSimpleMethods(xmlURL);
+        SimpleMethod simpleMethod = simpleMethods.get(methodName);
         if (simpleMethod == null) {
             throw new MiniLangException("Could not find SimpleMethod " + methodName + " in XML document from URL: " + xmlURL.toString());
         }
@@ -144,10 +145,10 @@ public class SimpleMethod {
     }
 
     public static Map<String, SimpleMethod> getSimpleMethods(String xmlResource, ClassLoader loader) throws MiniLangException {
-        Map<String, SimpleMethod> simpleMethods = (Map) simpleMethodsResourceCache.get(xmlResource);
+        Map<String, SimpleMethod> simpleMethods = simpleMethodsResourceCache.get(xmlResource);
         if (simpleMethods == null) {
             synchronized (SimpleMethod.class) {
-                simpleMethods = (Map) simpleMethodsResourceCache.get(xmlResource);
+                simpleMethods = simpleMethodsResourceCache.get(xmlResource);
                 if (simpleMethods == null) {
                     //URL xmlURL = UtilURL.fromResource(xmlResource, loader);
                     URL xmlURL = null;
@@ -172,11 +173,11 @@ public class SimpleMethod {
     }
 
     public static Map<String, SimpleMethod> getSimpleMethods(URL xmlURL) throws MiniLangException {
-        Map<String, SimpleMethod> simpleMethods = (Map) simpleMethodsURLCache.get(xmlURL);
+        Map<String, SimpleMethod> simpleMethods = simpleMethodsURLCache.get(xmlURL);
 
         if (simpleMethods == null) {
             synchronized (SimpleMethod.class) {
-                simpleMethods = (Map) simpleMethodsURLCache.get(xmlURL);
+                simpleMethods = simpleMethodsURLCache.get(xmlURL);
                 if (simpleMethods == null) {
                     simpleMethods = getAllSimpleMethods(xmlURL);
 
@@ -209,12 +210,7 @@ public class SimpleMethod {
         }
 
         Element rootElement = document.getDocumentElement();
-        List simpleMethodElements = UtilXml.childElementList(rootElement, "simple-method");
-
-        Iterator simpleMethodIter = simpleMethodElements.iterator();
-
-        while (simpleMethodIter.hasNext()) {
-            Element simpleMethodElement = (Element) simpleMethodIter.next();
+        for (Element simpleMethodElement: UtilXml.childElementList(rootElement, "simple-method")) {
             SimpleMethod simpleMethod = new SimpleMethod(simpleMethodElement, simpleMethods, xmlURL.toString());
             simpleMethods.put(simpleMethod.getMethodName(), simpleMethod);
         }
@@ -222,12 +218,12 @@ public class SimpleMethod {
         return simpleMethods;
     }
 
-    public static Map getDirectSimpleMethods(String name, String content, String fromLocation) throws MiniLangException {
-        Map simpleMethods = (Map) simpleMethodsDirectCache.get(name);
+    public static Map<String, SimpleMethod> getDirectSimpleMethods(String name, String content, String fromLocation) throws MiniLangException {
+        Map<String, SimpleMethod> simpleMethods = simpleMethodsDirectCache.get(name);
 
         if (simpleMethods == null) {
             synchronized (SimpleMethod.class) {
-                simpleMethods = (Map) simpleMethodsDirectCache.get(name);
+                simpleMethods = simpleMethodsDirectCache.get(name);
                 if (simpleMethods == null) {
                     simpleMethods = getAllDirectSimpleMethods(name, content, fromLocation);
 
@@ -240,12 +236,12 @@ public class SimpleMethod {
         return simpleMethods;
     }
 
-    protected static Map getAllDirectSimpleMethods(String name, String content, String fromLocation) throws MiniLangException {
+    protected static Map<String, SimpleMethod> getAllDirectSimpleMethods(String name, String content, String fromLocation) throws MiniLangException {
         if (UtilValidate.isEmpty(fromLocation)) {
             fromLocation = "<location not known>";
         }
         
-        Map simpleMethods = FastMap.newInstance();
+        Map<String, SimpleMethod> simpleMethods = FastMap.newInstance();
 
         // read in the file
         Document document = null;
@@ -267,12 +263,7 @@ public class SimpleMethod {
         }
 
         Element rootElement = document.getDocumentElement();
-        List simpleMethodElements = UtilXml.childElementList(rootElement, "simple-method");
-
-        Iterator simpleMethodIter = simpleMethodElements.iterator();
-
-        while (simpleMethodIter.hasNext()) {
-            Element simpleMethodElement = (Element) simpleMethodIter.next();
+        for (Element simpleMethodElement: UtilXml.childElementList(rootElement, "simple-method")) {
             SimpleMethod simpleMethod = new SimpleMethod(simpleMethodElement, simpleMethods, fromLocation);
             simpleMethods.put(simpleMethod.getMethodName(), simpleMethod);
         }
@@ -282,7 +273,7 @@ public class SimpleMethod {
 
     // Member fields begin here...
     protected List<MethodOperation> methodOperations = FastList.newInstance();
-    protected Map parentSimpleMethodsMap;
+    protected Map<String, SimpleMethod> parentSimpleMethodsMap;
     protected String fromLocation;
     protected String methodName;
     protected String shortDescription;
@@ -318,7 +309,7 @@ public class SimpleMethod {
     protected String dispatcherName;
     protected String userLoginName;
 
-    public SimpleMethod(Element simpleMethodElement, Map parentSimpleMethodsMap, String fromLocation) {
+    public SimpleMethod(Element simpleMethodElement, Map<String, SimpleMethod> parentSimpleMethodsMap, String fromLocation) {
         this.parentSimpleMethodsMap = parentSimpleMethodsMap;
         this.fromLocation = fromLocation;
         this.methodName = simpleMethodElement.getAttribute("method-name");
@@ -436,7 +427,7 @@ public class SimpleMethod {
 
     public SimpleMethod getSimpleMethodInSameFile(String simpleMethodName) {
         if (parentSimpleMethodsMap == null) return null;
-        return (SimpleMethod) parentSimpleMethodsMap.get(simpleMethodName);
+        return parentSimpleMethodsMap.get(simpleMethodName);
     }
 
     public String getShortDescription() {
@@ -701,7 +692,7 @@ public class SimpleMethod {
         }
         if (loginRequired) {
             if (userLogin == null) {
-                Map messageMap = UtilMisc.toMap("shortDescription", shortDescription);
+                Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("shortDescription", shortDescription);
                 String errMsg = UtilProperties.getMessage(SimpleMethod.err_resource, "simpleMethod.must_logged_process", messageMap, locale) + ".";
 
                 if (methodContext.getMethodType() == MethodContext.EVENT) {
@@ -752,7 +743,7 @@ public class SimpleMethod {
         
         String returnValue = null;
         String response = null;
-        StringBuffer summaryErrorStringBuffer = new StringBuffer();
+        StringBuilder summaryErrorStringBuffer = new StringBuilder();
         if (methodContext.getMethodType() == MethodContext.EVENT) {
             boolean forceError = false;
             
@@ -764,7 +755,7 @@ public class SimpleMethod {
                 
                 summaryErrorStringBuffer.append(errorMsg);
             }
-            List tempErrorMsgList = (List) methodContext.getEnv(eventErrorMessageListName);
+            List<Object> tempErrorMsgList = UtilGenerics.checkList(methodContext.getEnv(eventErrorMessageListName));
             if (tempErrorMsgList != null && tempErrorMsgList.size() > 0) {
                 methodContext.getRequest().setAttribute("_ERROR_MESSAGE_LIST_", tempErrorMsgList);
                 forceError = true;
@@ -777,7 +768,7 @@ public class SimpleMethod {
             if (eventMsg != null && eventMsg.length() > 0) {
                 methodContext.getRequest().setAttribute("_EVENT_MESSAGE_", eventMsg);
             }
-            List eventMsgList = (List) methodContext.getEnv(eventEventMessageListName);
+            List<String> eventMsgList = UtilGenerics.checkList(methodContext.getEnv(eventEventMessageListName));
             if (eventMsgList != null && eventMsgList.size() > 0) {
                 methodContext.getRequest().setAttribute("_EVENT_MESSAGE_LIST_", eventMsgList);
             }
@@ -808,7 +799,7 @@ public class SimpleMethod {
                 summaryErrorStringBuffer.append(errorMsg);
             }
 
-            List errorMsgList = (List) methodContext.getEnv(serviceErrorMessageListName);
+            List<Object> errorMsgList = UtilGenerics.checkList(methodContext.getEnv(serviceErrorMessageListName));
             if (errorMsgList != null && errorMsgList.size() > 0) {
                 methodContext.putResult(ModelService.ERROR_MESSAGE_LIST, errorMsgList);
                 forceError = true;
@@ -817,7 +808,7 @@ public class SimpleMethod {
                 summaryErrorStringBuffer.append(errorMsgList.toString());
             }
 
-            Map errorMsgMap = (Map) methodContext.getEnv(serviceErrorMessageMapName);
+            Map<String, Object> errorMsgMap = UtilGenerics.checkMap(methodContext.getEnv(serviceErrorMessageMapName));
             if (errorMsgMap != null && errorMsgMap.size() > 0) {
                 methodContext.putResult(ModelService.ERROR_MESSAGE_MAP, errorMsgMap);
                 forceError = true;
@@ -831,7 +822,7 @@ public class SimpleMethod {
                 methodContext.putResult(ModelService.SUCCESS_MESSAGE, successMsg);
             }
 
-            List successMsgList = (List) methodContext.getEnv(serviceSuccessMessageListName);
+            List<Object> successMsgList = UtilGenerics.checkList(methodContext.getEnv(serviceSuccessMessageListName));
             if (successMsgList != null && successMsgList.size() > 0) {
                 methodContext.putResult(ModelService.SUCCESS_MESSAGE_LIST, successMsgList);
             }

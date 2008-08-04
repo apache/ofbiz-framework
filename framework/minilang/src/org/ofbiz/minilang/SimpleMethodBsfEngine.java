@@ -18,10 +18,11 @@
  *******************************************************************************/
 package org.ofbiz.minilang;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
+
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.minilang.method.MethodContext;
@@ -42,7 +43,7 @@ public class SimpleMethodBsfEngine extends BSFEngineImpl {
     
     public static final String module = SimpleMethodBsfEngine.class.getName();
     
-    protected Map context = new HashMap();
+    protected Map<String, Object> context = FastMap.newInstance();
     
     public void initialize(BSFManager mgr, String lang, Vector declaredBeans) throws BSFException {
         super.initialize(mgr, lang, declaredBeans);
@@ -87,19 +88,19 @@ public class SimpleMethodBsfEngine extends BSFEngineImpl {
         if (!(expr instanceof String)) throw new BSFException("simple-method expression must be a string");
 
         //right now only supports one method per file, so get all methods and just run the first...
-        Map simpleMethods = null;
+        Map<String, SimpleMethod> simpleMethods = null;
         try {
             simpleMethods = SimpleMethod.getDirectSimpleMethods(source, (String) expr, "<bsf source>");
         } catch (MiniLangException e) {
             throw new BSFException("Error loading/parsing simple-method XML source: " + e.getMessage());
         }
-        Set smNames = simpleMethods.keySet();
+        Set<String> smNames = simpleMethods.keySet();
         if (smNames.size() == 0) throw new BSFException("Did not find any simple-methods in the file");
 
-        String methodName = (String) smNames.iterator().next();
+        String methodName = smNames.iterator().next();
         if (smNames.size() > 1) Debug.logWarning("Found more than one simple-method in the file, running the [" + methodName + "] method, you should remove all but one method from this file", module);
 
-        SimpleMethod simpleMethod = (SimpleMethod) simpleMethods.get(methodName);
+        SimpleMethod simpleMethod = simpleMethods.get(methodName);
         MethodContext methodContext = new MethodContext(context, null, MethodContext.EVENT);
         return simpleMethod.exec(methodContext);
         //methodContext.getResults();

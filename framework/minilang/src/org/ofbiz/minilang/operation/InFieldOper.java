@@ -37,7 +37,7 @@ public class InFieldOper extends MakeInStringOperation {
         fieldName = element.getAttribute("field");
     }
 
-    public String exec(Map inMap, List messages, Locale locale, ClassLoader loader) {
+    public String exec(Map<String, Object> inMap, List<Object> messages, Locale locale, ClassLoader loader) {
         Object obj = inMap.get(fieldName);
 
         if (obj == null) {

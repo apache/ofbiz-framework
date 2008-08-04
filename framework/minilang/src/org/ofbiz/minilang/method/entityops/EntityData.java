@@ -47,7 +47,7 @@ public class EntityData extends MethodOperation {
     protected FlexibleStringExpander locationExdr;
     protected FlexibleStringExpander delegatorNameExdr;
     protected FlexibleStringExpander timeoutExdr;
-    protected ContextAccessor errorListAcsr;
+    protected ContextAccessor<List<Object>> errorListAcsr;
     protected String mode;
 
     public EntityData(Element element, SimpleMethod simpleMethod) {
@@ -55,7 +55,7 @@ public class EntityData extends MethodOperation {
         locationExdr = new FlexibleStringExpander(element.getAttribute("location"));
         delegatorNameExdr = new FlexibleStringExpander(element.getAttribute("delegator-name"));
         timeoutExdr = new FlexibleStringExpander(element.getAttribute("timeout"));
-        errorListAcsr = new ContextAccessor(element.getAttribute("error-list-name"), "error_list");
+        errorListAcsr = new ContextAccessor<List<Object>>(element.getAttribute("error-list-name"), "error_list");
         
         mode = element.getAttribute("mode");
         if (UtilValidate.isEmpty(mode)) {
@@ -64,7 +64,7 @@ public class EntityData extends MethodOperation {
     }
 
     public boolean exec(MethodContext methodContext) {
-        List messages = (List) errorListAcsr.get(methodContext);
+        List<Object> messages = errorListAcsr.get(methodContext);
         if (messages == null) {
             messages = FastList.newInstance();
             errorListAcsr.put(methodContext, messages);
