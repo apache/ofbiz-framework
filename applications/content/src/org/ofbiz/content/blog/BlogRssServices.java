@@ -20,13 +20,13 @@
 package org.ofbiz.content.blog;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -116,7 +116,7 @@ public class BlogRssServices {
                 GenericValue v = (GenericValue) i.next();
                 String sub = null;
                 try {
-                    sub = ContentWorker.renderSubContentAsText(dispatcher, delegator, v.getString("contentId"), mapKey, new HashMap(), locale, mimeTypeId, true);
+                    sub = ContentWorker.renderSubContentAsText(dispatcher, delegator, v.getString("contentId"), mapKey, FastMap.newInstance(), locale, mimeTypeId, true);
                 } catch (GeneralException e) {
                     Debug.logError(e, module);
                 } catch (IOException e) {

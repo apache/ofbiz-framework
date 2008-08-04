@@ -18,10 +18,11 @@
  *******************************************************************************/
 package org.ofbiz.content.content;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
@@ -108,7 +109,7 @@ public class ContentPermissionServices {
              displayPassCond = true;   
         }
                 Debug.logInfo("displayPassCond(0):" + displayPassCond, "");
-        Map results  = new HashMap();
+        Map results  = FastMap.newInstance();
         String contentId = null;
         if (content != null)
             contentId = content.getString("contentId");
@@ -143,7 +144,7 @@ public class ContentPermissionServices {
         if (UtilValidate.isNotEmpty(contentPurposeString)) {
             List purposesFromString = StringUtil.split(contentPurposeString, "|");
             if (passedPurposes == null) {
-                passedPurposes = new ArrayList();
+                passedPurposes = FastList.newInstance();
             }
             passedPurposes.addAll(purposesFromString);
         }
@@ -160,7 +161,7 @@ public class ContentPermissionServices {
         if (UtilValidate.isNotEmpty(targetOperationString)) {
             List operationsFromString = StringUtil.split(targetOperationString, "|");
             if (targetOperations == null) {
-                targetOperations = new ArrayList();
+                targetOperations = FastList.newInstance();
             }
             targetOperations.addAll(operationsFromString);
         }
@@ -171,7 +172,7 @@ public class ContentPermissionServices {
         EntityPermissionChecker.StdRelatedRoleGetter roleGetter = new EntityPermissionChecker.StdRelatedRoleGetter("Content",  "roleTypeId", "contentId", "partyId", "ownerContentId", "ContentRole");
         //Debug.logInfo("targetOperations(b):" + targetOperations, "");
         List passedRoles = (List) context.get("roleTypeList"); 
-        if (passedRoles == null) passedRoles = new ArrayList();
+        if (passedRoles == null) passedRoles = FastList.newInstance();
         String roleTypeString = (String) context.get("roleTypeString"); 
         if (UtilValidate.isNotEmpty(roleTypeString)) {
             List rolesFromString = StringUtil.split(roleTypeString, "|");
@@ -187,7 +188,7 @@ public class ContentPermissionServices {
         
         StringBuffer errBuf = new StringBuffer();
         String permissionStatus = null;
-        List entityIds = new ArrayList();
+        List entityIds = FastList.newInstance();
         if (passed) {
             results.put("permissionStatus", "granted");   
             permissionStatus = "granted";
@@ -258,7 +259,7 @@ public class ContentPermissionServices {
     
     public static Map checkAssocPermission(DispatchContext dctx, Map context) {
     
-        Map results = new HashMap();
+        Map results = FastMap.newInstance();
         Security security = dctx.getSecurity();
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
@@ -287,7 +288,7 @@ public class ContentPermissionServices {
     
         boolean isMatchTo = false;
         boolean isMatchFrom = false;
-        Map permResults = new HashMap();
+        Map permResults = FastMap.newInstance();
         String skipPermissionCheck = null;
     
         if (skipPermissionCheck == null
@@ -296,7 +297,7 @@ public class ContentPermissionServices {
             // Use the purposes from the from entity for both cases.
             List relatedPurposes = EntityPermissionChecker.getRelatedPurposes(contentFrom, null);
             List relatedPurposesTo = EntityPermissionChecker.getRelatedPurposes(contentTo, relatedPurposes);
-            Map serviceInMap = new HashMap();
+            Map serviceInMap = FastMap.newInstance();
             serviceInMap.put("userLogin", userLogin);
             serviceInMap.put("targetOperationList", UtilMisc.toList("CONTENT_LINK_TO"));
             serviceInMap.put("contentPurposeList", relatedPurposesTo);

@@ -19,7 +19,6 @@
 package org.ofbiz.content;
 
 import java.sql.Timestamp;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +27,8 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -84,7 +85,7 @@ public class ContentManagementEvents {
 /*
         Set keySet = paramMap.keySet();
         Iterator itKeySet = keySet.iterator();
-        Map contentIdLookup = new HashMap();
+        Map contentIdLookup = FastMap.newInstance();
         while (itKeySet.hasNext()) {
             String idxAndContentId = (String)itKeySet.next();
             int pos = idxAndContentId.indexOf("_");
@@ -112,7 +113,7 @@ public class ContentManagementEvents {
                 String paramName = Integer.toString(counter)  + "_" + pubContentId;
                 String paramValue = (String)paramMap.get(paramName);
                 //if (Debug.infoOn()) Debug.logInfo("in updateStaticValues, contentId:" + contentId + " pubContentId:" + pubContentId + " pubValue:" + pubValue + " paramName:" + paramName + " paramValue:" + paramValue, module);
-                Map serviceIn = new HashMap();
+                Map serviceIn = FastMap.newInstance();
                 serviceIn.put("userLogin", userLogin);
                 serviceIn.put("contentIdTo", contentId);
                 serviceIn.put("contentId", pubContentId);
@@ -213,7 +214,7 @@ public class ContentManagementEvents {
         // Content can only be linked to one subsite under a top site (ends with "_MASTER")
         Set keySet = paramMap.keySet();
         Iterator itKeySet = keySet.iterator();
-        Map siteIdLookup = new HashMap();
+        Map siteIdLookup = FastMap.newInstance();
         while (itKeySet.hasNext()) {
             String param = (String)itKeySet.next();
             int pos = param.indexOf("select_");
@@ -276,7 +277,7 @@ public class ContentManagementEvents {
                             }
                         }
                         // create new link
-                        Map serviceIn = new HashMap();
+                        Map serviceIn = FastMap.newInstance();
                         serviceIn.put("userLogin", userLogin);
                         serviceIn.put("contentId", targContentId);
                         serviceIn.put("contentAssocTypeId", "PUBLISH_LINK");
@@ -295,7 +296,7 @@ public class ContentManagementEvents {
                             return "error";
                         }
 
-                        serviceIn = new HashMap();
+                        serviceIn = FastMap.newInstance();
                         serviceIn.put("userLogin", userLogin);
                         serviceIn.put("contentId", targContentId);
                         serviceIn.put("contentAssocTypeId", "PUBLISH_LINK");

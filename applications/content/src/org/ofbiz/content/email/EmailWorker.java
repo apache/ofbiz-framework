@@ -19,7 +19,6 @@
 package org.ofbiz.content.email;
 
 import java.util.Map;
-import java.util.HashMap;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.IOException;
@@ -29,6 +28,8 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.Part;
+
+import javolution.util.FastMap;
 
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.base.util.Debug;
@@ -47,7 +48,7 @@ public class EmailWorker {
     
     public static int addAttachmentsToCommEvent(MimeMessage message, String communicationEventId, LocalDispatcher dispatcher, GenericValue userLogin) 
         throws MessagingException, IOException, GenericServiceException {
-        Map commEventMap = new HashMap();
+        Map commEventMap = FastMap.newInstance();
         commEventMap.put("communicationEventId", communicationEventId);
         commEventMap.put("contentTypeId", "DOCUMENT");
         commEventMap.put("mimeTypeId", "text/html");

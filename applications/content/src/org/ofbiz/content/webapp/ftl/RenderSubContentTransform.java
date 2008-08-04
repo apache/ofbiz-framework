@@ -21,13 +21,14 @@ package org.ofbiz.content.webapp.ftl;
 import java.io.IOException;
 import java.io.Writer;
 import java.sql.Timestamp;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -70,7 +71,7 @@ public class RenderSubContentTransform implements TemplateTransformModel {
         final Environment env = Environment.getCurrentEnvironment();
         Map ctx = (Map) FreeMarkerWorker.getWrappedObject("context", env);
         if (ctx == null) {
-            ctx = new HashMap();
+            ctx = FastMap.newInstance();
         }
         final String mapKey = getArg(args, "mapKey", ctx);
         final String subContentId = getArg(args, "subContentId", ctx);

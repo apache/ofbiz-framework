@@ -19,11 +19,12 @@
 package org.ofbiz.content.search;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
@@ -53,7 +54,7 @@ public class SearchWorker {
 
         public static Map indexTree(LocalDispatcher dispatcher, GenericDelegator delegator, String siteId, Map context, String path) throws Exception {
 
-            Map results = new HashMap();
+            Map results = FastMap.newInstance();
             GenericValue content = delegator.makeValue("Content", UtilMisc.toMap("contentId", siteId));
                 if (Debug.infoOn()) Debug.logInfo("in indexTree, siteId:" + siteId + " content:" + content, module);
             List siteList = ContentWorker.getAssociatedContent(content, "From", UtilMisc.toList("SUBSITE", "PUBLISH_LINK"), null, UtilDateTime.nowTimestamp().toString(), null);
@@ -66,7 +67,7 @@ public class SearchWorker {
                     List subContentList = ContentWorker.getAssociatedContent(siteContent, "From", UtilMisc.toList("SUBSITE", "PUBLISH_LINK", "SUB_CONTENT"), null, UtilDateTime.nowTimestamp().toString(), null);
     	  	//if (Debug.infoOn()) Debug.logInfo("in indexTree, subContentList:" + subContentList, module);
                     if (subContentList != null) {
-                        List contentIdList = new ArrayList();
+                        List contentIdList = FastList.newInstance();
                         Iterator iter2 = subContentList.iterator();
                         while (iter2.hasNext()) {
                             GenericValue subContent = (GenericValue)iter2.next();
@@ -113,7 +114,7 @@ public class SearchWorker {
 		}
 		//if (Debug.infoOn()) Debug.logInfo("in indexContent, reader:" +
 		// reader, module);
-		contentList = new ArrayList();
+		contentList = FastList.newInstance();
 		iter = idList.iterator();
 		while (iter.hasNext()) {
 			String id = (String) iter.next();

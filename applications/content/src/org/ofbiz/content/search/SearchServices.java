@@ -18,10 +18,11 @@
  *******************************************************************************/
 package org.ofbiz.content.search;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.GenericDelegator;
@@ -43,10 +44,10 @@ public class SearchServices {
 
         String siteId = (String) context.get("contentId");
         String path = (String) context.get("path");
-        Map envContext = new HashMap();
+        Map envContext = FastMap.newInstance();
 
         if (Debug.infoOn()) Debug.logInfo("in indexTree, siteId:" + siteId, module);
-        List badIndexList = new ArrayList();
+        List badIndexList = FastList.newInstance();
         envContext.put("badIndexList", badIndexList);
         envContext.put("goodIndexCount", new Integer(0));
 

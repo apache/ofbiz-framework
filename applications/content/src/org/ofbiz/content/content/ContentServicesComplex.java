@@ -19,13 +19,12 @@
 package org.ofbiz.content.content;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
@@ -84,7 +83,7 @@ public class ContentServicesComplex {
 
     public static Map getAssocAndContentAndDataResourceMethod(GenericDelegator delegator, String contentId, String mapKey, String direction, Timestamp fromDate, Timestamp thruDate, String fromDateStr, String thruDateStr, List assocTypes, List contentTypes) {
 
-        List exprList = new ArrayList();
+        List exprList = FastList.newInstance();
         EntityExpr joinExpr = null;
         EntityExpr expr = null;
         String viewName = null;
@@ -101,7 +100,7 @@ public class ContentServicesComplex {
         }
         exprList.add(joinExpr);
         if (assocTypes != null && assocTypes.size() > 0) {
-            List exprListOr = new ArrayList();
+            List exprListOr = FastList.newInstance();
             Iterator it = assocTypes.iterator();
             while (it.hasNext()) {
                 String assocType = (String)it.next();
@@ -113,7 +112,7 @@ public class ContentServicesComplex {
             exprList.add(assocExprList);
         }
         if (contentTypes != null && contentTypes.size() > 0) {
-            List exprListOr = new ArrayList();
+            List exprListOr = FastList.newInstance();
             Iterator it = contentTypes.iterator();
             while (it.hasNext()) {
                 String contentType = (String)it.next();
@@ -137,7 +136,7 @@ public class ContentServicesComplex {
             exprList.add(fromExpr);
         }
         if (thruDate != null) {
-            List thruList = new ArrayList();
+            List thruList = FastList.newInstance();
             //thruDate = UtilDateTime.getDayStart(thruDate, daysLater);
 
             EntityExpr thruExpr = EntityCondition.makeCondition("caThruDate", EntityOperator.LESS_THAN, thruDate);
@@ -147,7 +146,7 @@ public class ContentServicesComplex {
             EntityConditionList thruExprList = EntityCondition.makeCondition(thruList, EntityOperator.OR);
             exprList.add(thruExprList);
         } else if (fromDate != null) {
-            List thruList = new ArrayList();
+            List thruList = FastList.newInstance();
 
             EntityExpr thruExpr = EntityCondition.makeCondition("caThruDate", EntityOperator.GREATER_THAN, fromDate);
             thruList.add(thruExpr);
@@ -195,7 +194,7 @@ public class ContentServicesComplex {
         if (UtilValidate.isNotEmpty(assocTypesString)) {
             List lst = StringUtil.split(assocTypesString, "|");
             if (assocTypes == null) {
-                assocTypes = new ArrayList();   
+                assocTypes = FastList.newInstance();   
             }
             assocTypes.addAll(lst);
         }
@@ -204,7 +203,7 @@ public class ContentServicesComplex {
         if (UtilValidate.isNotEmpty(contentTypesString)) {
             List lst = StringUtil.split(contentTypesString, "|");
             if (contentTypes == null) {
-                contentTypes = new ArrayList();   
+                contentTypes = FastList.newInstance();   
             }
             contentTypes.addAll(lst);
         }
@@ -240,7 +239,7 @@ public class ContentServicesComplex {
     public static Map getAssocAndContentAndDataResourceCacheMethod(GenericDelegator delegator, String contentId, String mapKey, String direction, 
                           Timestamp fromDate, String fromDateStr, List assocTypes, List contentTypes, Boolean nullThruDatesOnly, String contentAssocPredicateId, String orderBy) throws GenericEntityException, MiniLangException {
 
-        //List exprList = new ArrayList();
+        //List exprList = FastList.newInstance();
         //EntityExpr joinExpr = null;
         //EntityExpr expr = null;
         String viewName = null;
@@ -289,7 +288,7 @@ public class ContentServicesComplex {
         List contentAssocsDateFiltered = EntityUtil.orderBy(contentAssocsDateFiltered2, UtilMisc.toList("sequenceNum", "fromDate DESC"));
 
         String contentAssocTypeId = null;
-        List contentAssocsTypeFiltered = new ArrayList();
+        List contentAssocsTypeFiltered = FastList.newInstance();
         if (assocTypes != null && assocTypes.size() > 1) {
             Iterator it = contentAssocsDateFiltered.iterator();
             while (it.hasNext()) {
@@ -313,7 +312,7 @@ public class ContentServicesComplex {
         GenericValue contentAssocDataResourceView = null;
         GenericValue content = null;
         GenericValue dataResource = null;
-        List contentAssocDataResourceList = new ArrayList();
+        List contentAssocDataResourceList = FastList.newInstance();
         Locale locale = Locale.getDefault(); // TODO: this needs to be passed in
         Iterator it = contentAssocsTypeFiltered.iterator();
         while (it.hasNext()) {
@@ -329,7 +328,7 @@ public class ContentServicesComplex {
                 contentAssocDataResourceView = delegator.makeValue(viewName);
                 contentAssocDataResourceView.setAllFields(content, true, null, null);
             }
-            SimpleMapProcessor.runSimpleMapProcessor("org/ofbiz/content/ContentManagementMapProcessors.xml", "contentAssocOut", contentAssoc, contentAssocDataResourceView, new ArrayList(), locale);
+            SimpleMapProcessor.runSimpleMapProcessor("org/ofbiz/content/ContentManagementMapProcessors.xml", "contentAssocOut", contentAssoc, contentAssocDataResourceView, FastList.newInstance(), locale);
             //if (Debug.infoOn()) Debug.logInfo("contentAssoc:" + contentAssoc, module);
             //contentAssocDataResourceView.setAllFields(contentAssoc, false, null, null);
             String dataResourceId = content.getString("dataResourceId");
@@ -339,7 +338,7 @@ public class ContentServicesComplex {
             //if (Debug.infoOn()) Debug.logInfo("contentAssocDataResourceView:" + contentAssocDataResourceView, module);
             if (dataResource != null) {
                 //contentAssocDataResourceView.setAllFields(dataResource, false, null, null);
-                SimpleMapProcessor.runSimpleMapProcessor("org/ofbiz/content/ContentManagementMapProcessors.xml", "dataResourceOut", dataResource, contentAssocDataResourceView, new ArrayList(), locale);
+                SimpleMapProcessor.runSimpleMapProcessor("org/ofbiz/content/ContentManagementMapProcessors.xml", "dataResourceOut", dataResource, contentAssocDataResourceView, FastList.newInstance(), locale);
             }
             //if (Debug.infoOn()) Debug.logInfo("contentAssocDataResourceView:" + contentAssocDataResourceView, module);
             contentAssocDataResourceList.add(contentAssocDataResourceView);
@@ -350,7 +349,7 @@ public class ContentServicesComplex {
            orderByList = StringUtil.split(orderBy, "|");
            contentAssocDataResourceList = EntityUtil.orderBy(contentAssocDataResourceList, orderByList);
         }
-        HashMap results = new HashMap();
+        Map results = FastMap.newInstance();
         results.put("entityList", contentAssocDataResourceList);
         if (contentAssocDataResourceList != null && contentAssocDataResourceList.size() > 0) {
             results.put("view", contentAssocDataResourceList.get(0));
@@ -361,7 +360,7 @@ public class ContentServicesComplex {
 /*
     public static Map getSubContentAndDataResource(GenericDelegator delegator, String contentId, String direction, Timestamp fromDate,  String assocType, String contentType, String orderBy) throws GenericEntityException {
 
-        List exprList = new ArrayList();
+        List exprList = FastList.newInstance();
         EntityExpr joinExpr = null;
         EntityExpr expr = null;
         String viewName = null;
@@ -393,7 +392,7 @@ public class ContentServicesComplex {
            orderByList = StringUtil.split(orderBy, "|");
            contentAssocDataResourceList = EntityUtil.orderBy(contentAssocDataResourceList, orderByList);
         }
-        HashMap results = new HashMap();
+        HashMap results = FastMap.newInstance();
         results.put("entityList", contentAssocDataResourceList);
         return results;
     }

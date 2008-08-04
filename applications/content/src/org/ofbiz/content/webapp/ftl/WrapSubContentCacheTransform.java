@@ -20,15 +20,17 @@ package org.ofbiz.content.webapp.ftl;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import javolution.util.FastMap;
+
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.template.FreeMarkerWorker;
 import org.ofbiz.content.content.ContentWorker;
@@ -80,7 +82,7 @@ public class WrapSubContentCacheTransform implements TemplateTransformModel {
         final GenericDelegator delegator = (GenericDelegator) FreeMarkerWorker.getWrappedObject("delegator", env);
         final HttpServletRequest request = (HttpServletRequest) FreeMarkerWorker.getWrappedObject("request", env);
         FreeMarkerWorker.getSiteParameters(request, templateCtx);
-        final Map savedValuesUp = new HashMap();
+        final Map savedValuesUp = FastMap.newInstance();
         FreeMarkerWorker.saveContextValues(templateCtx, upSaveKeyNames, savedValuesUp);
         //if (Debug.infoOn()) Debug.logInfo("in Wrap(0a), savedValuesUp ." + savedValuesUp , module);
         FreeMarkerWorker.overrideWithArgs(templateCtx, args);
@@ -121,7 +123,7 @@ public class WrapSubContentCacheTransform implements TemplateTransformModel {
             // the parent context. But it will already have one and it is the same context that is
             // being passed.
         }
-        final Map savedValues = new HashMap();
+        final Map savedValues = FastMap.newInstance();
         FreeMarkerWorker.saveContextValues(templateCtx, saveKeyNames, savedValues);
         //if (Debug.infoOn()) Debug.logInfo("in Wrap(1), savedValues ." + savedValues , module);
         // This order is taken so that the mimeType can be overridden in the transform arguments.
@@ -159,10 +161,10 @@ public class WrapSubContentCacheTransform implements TemplateTransformModel {
                     Map templateRootTemplate = (Map)templateCtx.get("templateRootTemplate");
                     if (templateRootTemplate == null) {
                         Map templateRootTmp = FreeMarkerWorker.createEnvironmentMap(env);
-                        templateRoot = new HashMap(templateRootTmp);
+                        templateRoot = UtilMisc.makeMapWritable(templateRootTmp);
                         templateCtx.put("templateRootTemplate", templateRootTmp);
                     } else {
-                        templateRoot = new HashMap(templateRootTemplate);
+                        templateRoot = UtilMisc.makeMapWritable(templateRootTemplate);
                     }
                     
                     templateRoot.put("context", templateCtx);

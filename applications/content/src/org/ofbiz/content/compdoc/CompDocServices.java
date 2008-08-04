@@ -22,8 +22,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -31,6 +29,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
@@ -77,7 +76,7 @@ public class CompDocServices {
      */
 
     public static Map persistRootCompDoc(DispatchContext dctx, Map context) {
-        Map result = new HashMap();
+        Map result = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Locale locale = (Locale)context.get("locale");
@@ -121,7 +120,7 @@ public class CompDocServices {
             //request.setAttribute("contentId", contentId);
             // Update ContentRevision and ContentRevisonItem
 
-            Map contentRevisionMap = new HashMap();
+            Map contentRevisionMap = FastMap.newInstance();
             contentRevisionMap.put("itemContentId", contentId);
             contentRevisionMap.put("contentId", contentId);
             contentRevisionMap.put("userLogin", userLogin);

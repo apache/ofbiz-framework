@@ -28,10 +28,11 @@ import java.io.RandomAccessFile;
 import java.io.Writer;
 import java.nio.ByteBuffer;
 import java.sql.Timestamp;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -57,7 +58,7 @@ public class DataServices {
      * A top-level service for creating a DataResource and ElectronicText together.
      */
     public static Map createDataResourceAndText(DispatchContext dctx, Map context) {
-        Map result = new HashMap();
+        Map result = FastMap.newInstance();
 
             Map thisResult = createDataResourceMethod(dctx, context);
             if (thisResult.get(ModelService.RESPONSE_MESSAGE) != null) {
@@ -87,7 +88,7 @@ public class DataServices {
     }
 
     public static Map createDataResourceMethod(DispatchContext dctx, Map context) {
-        Map result = new HashMap();
+        Map result = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();
             GenericValue userLogin = (GenericValue) context.get("userLogin");
             String userLoginId = (String) userLogin.get("userLoginId");
@@ -145,7 +146,7 @@ public class DataServices {
     }
 
     public static Map createElectronicTextMethod(DispatchContext dctx, Map context) {
-        HashMap result = new HashMap();
+        Map result = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();
             String dataResourceId = (String) context.get("dataResourceId");
             String textData = (String) context.get("textData");
@@ -276,7 +277,7 @@ public class DataServices {
 
     public static Map updateDataResourceMethod(DispatchContext dctx, Map context) {
 
-        Map result = new HashMap();
+        Map result = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();
         GenericValue dataResource = null;
         //Locale locale = (Locale) context.get("locale");
@@ -325,7 +326,7 @@ public class DataServices {
      * @return
      */
     public static Map updateElectronicTextMethod(DispatchContext dctx, Map context) {
-        HashMap result = new HashMap();
+        Map result = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();
         GenericValue electronicText = null;
         //Locale locale = (Locale) context.get("locale");
@@ -374,7 +375,7 @@ public class DataServices {
     }
 
     public static Map updateFileMethod(DispatchContext dctx, Map context) throws GenericServiceException {
-        HashMap result = new HashMap();
+        Map result = FastMap.newInstance();
         //GenericValue fileText = null;
         //Locale locale = (Locale) context.get("locale");
             //String dataResourceId = (String) dataResource.get("dataResourceId");
@@ -448,7 +449,7 @@ public class DataServices {
     }
 
     public static Map renderDataResourceAsText(DispatchContext dctx, Map context) throws GeneralException, IOException {
-        Map results = new HashMap();
+        Map results = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();
         //LocalDispatcher dispatcher = dctx.getDispatcher();
         Writer out = (Writer) context.get("outWriter");
@@ -466,7 +467,7 @@ public class DataServices {
         Locale locale = (Locale) context.get("locale");
 
         if (templateContext == null) {
-            templateContext = new HashMap();
+            templateContext = FastMap.newInstance();
         }
 
         GenericValue view = (GenericValue) context.get("subContentDataResourceView");
@@ -491,7 +492,7 @@ public class DataServices {
     }
 
     public static Map updateImageMethod(DispatchContext dctx, Map context) {
-        HashMap result = new HashMap();
+        Map result = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();
         //Locale locale = (Locale) context.get("locale");
             String dataResourceId = (String) context.get("dataResourceId");
@@ -525,7 +526,7 @@ public class DataServices {
     }
 
     public static Map createImageMethod(DispatchContext dctx, Map context) {
-        HashMap result = new HashMap();
+        Map result = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();
             String dataResourceId = (String) context.get("dataResourceId");
             ByteBuffer byteBuffer = (ByteBuffer)context.get("imageData");
@@ -559,7 +560,7 @@ public class DataServices {
     }
 
     public static Map createBinaryFileMethod(DispatchContext dctx, Map context) throws GenericServiceException {
-        HashMap result = new HashMap();
+        Map result = FastMap.newInstance();
             GenericValue dataResource = (GenericValue) context.get("dataResource");
             //String dataResourceId = (String) dataResource.get("dataResourceId");
             String dataResourceTypeId = (String) dataResource.get("dataResourceTypeId");
@@ -611,7 +612,7 @@ public class DataServices {
     }
 
     public static Map updateBinaryFileMethod(DispatchContext dctx, Map context) throws GenericServiceException {
-        HashMap result = new HashMap();
+        Map result = FastMap.newInstance();
             GenericValue dataResource = (GenericValue) context.get("dataResource");
             //String dataResourceId = (String) dataResource.get("dataResourceId");
             String dataResourceTypeId = (String) dataResource.get("dataResourceTypeId");

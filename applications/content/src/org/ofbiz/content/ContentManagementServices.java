@@ -21,15 +21,16 @@ package org.ofbiz.content;
 import java.nio.ByteBuffer;
 import java.sql.Timestamp;
 import java.util.Calendar;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpSession;
+
+import javolution.util.FastList;
+import javolution.util.FastMap;
+import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
@@ -83,7 +84,7 @@ public class ContentManagementServices {
         if (UtilValidate.isNotEmpty(assocTypesString)) {
             List lst = StringUtil.split(assocTypesString, "|");
             if (assocTypes == null) {
-                assocTypes = new ArrayList();   
+                assocTypes = FastList.newInstance();   
             }
             assocTypes.addAll(lst);
         }
@@ -180,7 +181,7 @@ public class ContentManagementServices {
         // ContentPurposes can get passed in as a delimited string or a list. Combine.
         List contentPurposeList = (List)context.get("contentPurposeList");
         if (contentPurposeList == null)
-            contentPurposeList = new ArrayList();
+            contentPurposeList = FastList.newInstance();
         String contentPurposeString = (String) context.get("contentPurposeString");
         if (UtilValidate.isNotEmpty(contentPurposeString)) {
             List tmpPurposes = StringUtil.split(contentPurposeString, "|");
@@ -258,7 +259,7 @@ public class ContentManagementServices {
         boolean dataResourceExists = true;
         if (Debug.infoOn()) Debug.logInfo("in persist... dataResourceTypeId(0):" + dataResourceTypeId, null);
         if (UtilValidate.isNotEmpty(dataResourceTypeId) ) {
-            Map dataResourceResult = new HashMap();
+            Map dataResourceResult = FastMap.newInstance();
             try {
                 dataResourceResult = persistDataResourceAndDataMethod(dctx, context);
             } catch (GenericServiceException e) {
@@ -298,12 +299,12 @@ public class ContentManagementServices {
                     return ServiceUtil.returnError(e.toString());
                 }
             }
-            //List targetOperations = new ArrayList();
+            //List targetOperations = FastList.newInstance();
             //context.put("targetOperations", targetOperations);
             context.putAll(content);
             if (contentExists) {
                 //targetOperations.add("CONTENT_UPDATE");
-                Map contentContext = new HashMap();
+                Map contentContext = FastMap.newInstance();
                 ModelService contentModel = dispatcher.getDispatchContext().getModelService("updateContent");
                 contentContext.putAll(contentModel.makeValid(content, "IN"));
                 contentContext.put("userLogin", userLogin);
@@ -317,7 +318,7 @@ public class ContentManagementServices {
                 //Map thisResult = ContentServices.updateContentMethod(dctx, context);
             } else {
                 //targetOperations.add("CONTENT_CREATE");
-                Map contentContext = new HashMap();
+                Map contentContext = FastMap.newInstance();
                 ModelService contentModel = dispatcher.getDispatchContext().getModelService("createContent");
                 contentContext.putAll(contentModel.makeValid(content, "IN"));
                 contentContext.put("userLogin", userLogin);
@@ -341,7 +342,7 @@ public class ContentManagementServices {
             if (contentId != null && !contentExists) {
                 try {
                     if (contentPurposeList != null) {
-                        HashSet contentPurposeSet = new HashSet(contentPurposeList);
+                        Set contentPurposeSet = UtilMisc.makeSetWritable(contentPurposeList);
                         Iterator iter = contentPurposeSet.iterator();
                         while (iter.hasNext()) {
                             String contentPurposeTypeId = (String)iter.next();
@@ -359,7 +360,7 @@ public class ContentManagementServices {
         } else if (UtilValidate.isNotEmpty(dataResourceTypeId) && UtilValidate.isNotEmpty(contentId)) {
             // If dataResource was not previously existing, then update the associated content with its id
             if (UtilValidate.isNotEmpty(dataResourceId) && !dataResourceExists) {
-                Map map = new HashMap();
+                Map map = FastMap.newInstance();
                 map.put("userLogin", userLogin);
                 map.put("dataResourceId", dataResourceId);
                 map.put("contentId", contentId);
@@ -380,7 +381,7 @@ public class ContentManagementServices {
         if (UtilValidate.isNotEmpty(contentAssocTypeId) && contentAssoc.get("contentId") != null && contentAssoc.get("contentIdTo") != null) {
             if (Debug.infoOn())
                 Debug.logInfo("in persistContentAndAssoc, deactivateExisting:" + deactivateExisting, null);
-            Map contentAssocContext = new HashMap();
+            Map contentAssocContext = FastMap.newInstance();
             contentAssocContext.put("userLogin", userLogin);
             contentAssocContext.put("displayFailCond", bDisplayFailCond);
             contentAssocContext.put("skipPermissionCheck", context.get("skipPermissionCheck"));
@@ -453,7 +454,7 @@ public class ContentManagementServices {
         GenericDelegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue)context.get("userLogin");
         //String userLoginPartyId = userLogin.getString("partyId");
-      Map results = new HashMap();
+      Map results = FastMap.newInstance();
       // siteContentId will equal "ADMIN_MASTER", "AGINC_MASTER", etc.
       // Remember that this service is called in the "multi" mode,
       // with a new siteContentId each time.
@@ -476,7 +477,7 @@ public class ContentManagementServices {
         
       Iterator siteRoleIter = siteRoles.iterator();
       while (siteRoleIter.hasNext()) {
-          Map serviceContext = new HashMap();
+          Map serviceContext = FastMap.newInstance();
           serviceContext.put("partyId", partyId);
           serviceContext.put("contentId", siteContentId);
           serviceContext.put("userLogin", userLogin);
@@ -497,7 +498,7 @@ public class ContentManagementServices {
                   //return ServiceUtil.returnError(e.toString());
               if (fromDate == null ) {
                   try {
-                      Map newContext = new HashMap();
+                      Map newContext = FastMap.newInstance();
                       newContext.put("contentId", serviceContext.get("contentId"));
                       newContext.put("partyId", serviceContext.get("partyId"));
                       newContext.put("roleTypeId", serviceContext.get("roleTypeId"));
@@ -527,7 +528,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
                       //Timestamp thruDate = UtilDateTime.nowTimestamp();
                       //serviceContext.put("thruDate", thruDate);
                       //serviceContext.put("fromDate", fromDate);
-                      Map newContext = new HashMap();
+                      Map newContext = FastMap.newInstance();
                       newContext.put("contentId", serviceContext.get("contentId"));
                       newContext.put("partyId", serviceContext.get("partyId"));
                       newContext.put("roleTypeId", serviceContext.get("roleTypeId"));
@@ -553,7 +554,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
       //GenericDelegator delegator = dctx.getDelegator();
       LocalDispatcher dispatcher = dctx.getDispatcher();
       //String contentId = (String)context.get("contentId");
-      Map result = new HashMap();
+      Map result = FastMap.newInstance();
       try {
           //GenericValue content = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentId));
           ModelService checkPermModel = dispatcher.getDispatchContext().getModelService("checkContentPermission");
@@ -586,8 +587,8 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
     public static Map persistDataResourceAndDataMethod(DispatchContext dctx, Map context) throws GenericServiceException, GenericEntityException, Exception {
       GenericDelegator delegator = dctx.getDelegator();
       LocalDispatcher dispatcher = dctx.getDispatcher();
-      Map result = new HashMap();
-      Map newDrContext = new HashMap();
+      Map result = FastMap.newInstance();
+      Map newDrContext = FastMap.newInstance();
       GenericValue dataResource = delegator.makeValue("DataResource");
       dataResource.setPKFields(context);
       dataResource.setNonPKFields(context);
@@ -643,7 +644,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
       dataResourceId = (String)thisResult.get("dataResourceId");
       if (Debug.infoOn()) Debug.logInfo("in persist... dataResourceId(0):" + dataResourceId, null);
       dataResource = (GenericValue)thisResult.get("dataResource");
-      Map fileContext = new HashMap();
+      Map fileContext = FastMap.newInstance();
       fileContext.put("userLogin", userLogin);
       if ( dataResourceTypeId.indexOf("_FILE") >=0) {
           boolean hasData = false;
@@ -700,7 +701,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
       //Map thisResult = DataServices.updateDataResourceMethod(dctx, context);
       if (Debug.infoOn()) Debug.logInfo("====in persist... thisResult.permissionStatus(0):" + thisResult.get("permissionStatus"), null);
           //thisResult = DataServices.updateElectronicTextMethod(dctx, context);
-      Map fileContext = new HashMap();
+      Map fileContext = FastMap.newInstance();
       fileContext.put("userLogin", userLogin);
       String forceElectronicText = (String)context.get("forceElectronicText");
       Debug.logInfo("====dataResourceType" + dataResourceTypeId , module);
@@ -775,8 +776,8 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
 
       LocalDispatcher dispatcher = dctx.getDispatcher();
       GenericDelegator delegator = dctx.getDelegator();
-      Map results = new HashMap();
-      Map serviceContext = new HashMap();
+      Map results = FastMap.newInstance();
+      Map serviceContext = FastMap.newInstance();
       // siteContentId will equal "ADMIN_MASTER", "AGINC_MASTER", etc.
       // Remember that this service is called in the "multi" mode,
       // with a new siteContentId each time.
@@ -829,7 +830,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
                       //Timestamp thruDate = UtilDateTime.nowTimestamp();
                       //serviceContext.put("thruDate", thruDate);
                       //serviceContext.put("fromDate", fromDate);
-                      Map newContext = new HashMap();
+                      Map newContext = FastMap.newInstance();
                       newContext.put("contentId", serviceContext.get("contentId"));
                       newContext.put("partyId", serviceContext.get("partyId"));
                       newContext.put("roleTypeId", serviceContext.get("roleTypeId"));
@@ -847,12 +848,12 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
 
     public static Map updateOrRemove(DispatchContext dctx, Map context) {
 
-        Map results = new HashMap();
+        Map results = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();
         String entityName = (String)context.get("entityName");
         String action = (String)context.get("action");
         String pkFieldCount = (String)context.get("pkFieldCount");
-        Map pkFields = new HashMap();
+        Map pkFields = FastMap.newInstance();
         int fieldCount = Integer.parseInt(pkFieldCount);
         for (int i=0; i<fieldCount; i++) {
             String fieldName = (String)context.get("fieldName" + i);
@@ -893,7 +894,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
     
     public static Map resequence(DispatchContext dctx, Map context) throws GenericServiceException{
 
-        HashMap result = new HashMap();
+        Map result = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();
         String contentIdTo = (String)context.get("contentIdTo");
         Integer seqInc = (Integer)context.get("seqInc");
@@ -901,11 +902,11 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
             seqInc = new Integer(100);
         int seqIncrement = seqInc.intValue();
         List typeList = (List)context.get("typeList");
-        if (typeList == null) typeList = new ArrayList();
+        if (typeList == null) typeList = FastList.newInstance();
         String contentAssocTypeId = (String)context.get("contentAssocTypeId");
         if (UtilValidate.isNotEmpty(contentAssocTypeId)) typeList.add(contentAssocTypeId);
         if (UtilValidate.isEmpty(typeList)) typeList = UtilMisc.toList("PUBLISH_LINK", "SUB_CONTENT");
-        List condList = new ArrayList();
+        List condList = FastList.newInstance();
         Iterator iterType = typeList.iterator();
         while (iterType.hasNext()) {
             String type = (String)iterType.next();
@@ -973,7 +974,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
     }
     
     public static Map changeLeafToNode(DispatchContext dctx, Map context) throws GenericServiceException{
-        Map result = new HashMap();
+        Map result = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         String contentId = (String)context.get("contentId");
@@ -1041,7 +1042,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
     
     public static Map updateLeafCount(DispatchContext dctx, Map context) throws GenericServiceException{
 
-        Map result = new HashMap();
+        Map result = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();
         List typeList = (List)context.get("typeList");
         if (typeList == null)
@@ -1060,7 +1061,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
 /*
     public static Map updateLeafChange(DispatchContext dctx, Map context) throws GenericServiceException{
 
-        Map result = new HashMap();
+        Map result = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();
         List typeList = (List)context.get("typeList");
         if (typeList == null)
@@ -1083,7 +1084,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
                 //subLeafCount = subLeafCount;
             }
             
-           List condList = new ArrayList();
+           List condList = FastList.newInstance();
            Iterator iterType = typeList.iterator();
            while (iterType.hasNext()) {
                String type = (String)iterType.next();
@@ -1131,10 +1132,10 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
     public static Map updatePageType(DispatchContext dctx, Map context) throws GenericServiceException{
         
         GenericDelegator delegator = dctx.getDelegator();
-        Map results = new HashMap();
+        Map results = FastMap.newInstance();
         Set visitedSet = (Set)context.get("visitedSet");
         if (visitedSet == null) {
-            visitedSet = new HashSet();
+            visitedSet = FastSet.newInstance();
             context.put("visitedSet", visitedSet);
         } 
         String pageMode = (String)context.get("pageMode");
@@ -1171,10 +1172,10 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
     public static Map resetToOutlineMode(DispatchContext dctx, Map context) throws GenericServiceException{
         
         GenericDelegator delegator = dctx.getDelegator();
-        Map results = new HashMap();
+        Map results = FastMap.newInstance();
         Set visitedSet = (Set)context.get("visitedSet");
         if (visitedSet == null) {
-            visitedSet = new HashSet();
+            visitedSet = FastSet.newInstance();
             context.put("visitedSet", visitedSet);
         } 
         String contentId = (String)context.get("contentId");
@@ -1215,7 +1216,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
     }
     
     public static Map clearContentAssocViewCache(DispatchContext dctx, Map context) throws GenericServiceException{
-        Map results = new HashMap();
+        Map results = FastMap.newInstance();
 
         UtilCache utilCache = UtilCache.findCache("entitycache.entity-list.default.ContentAssocViewFrom");
 
@@ -1233,7 +1234,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
     
     public static Map clearContentAssocDataResourceViewCache(DispatchContext dctx, Map context) throws GenericServiceException{
     
-        Map results = new HashMap();
+        Map results = FastMap.newInstance();
 
         UtilCache utilCache = UtilCache.findCache("entitycache.entity-list.default.ContentAssocViewDataResourceFrom");
         if (utilCache != null) {
@@ -1253,7 +1254,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
         String contentId = content.getString("contentId");
         Set visitedSet = (Set)context.get("visitedSet");
         if (visitedSet == null) {
-            visitedSet = new HashSet();
+            visitedSet = FastSet.newInstance();
             context.put("visitedSet", visitedSet);
         } else {
             if (visitedSet.contains(contentId)) {
@@ -1289,7 +1290,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
         String contentId = content.getString("contentId");
         Set visitedSet = (Set)context.get("visitedSet");
         if (visitedSet == null) {
-            visitedSet = new HashSet();
+            visitedSet = FastSet.newInstance();
             context.put("visitedSet", visitedSet);
         } else {
             if (visitedSet.contains(contentId)) {
@@ -1329,10 +1330,10 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
     }
 
     public static Map findSubNodes(DispatchContext dctx, Map context) throws GenericServiceException{
-        Map results = new HashMap();
+        Map results = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();
         String contentIdTo = (String)context.get("contentId");
-        List condList = new ArrayList();
+        List condList = FastList.newInstance();
         EntityExpr expr = EntityCondition.makeCondition("caContentIdTo", EntityOperator.EQUALS, contentIdTo);
         condList.add(expr);
         expr = EntityCondition.makeCondition("caContentAssocTypeId", EntityOperator.EQUALS, "SUB_CONTENT");
@@ -1367,7 +1368,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
     }
 
     public static Map initContentChildCounts(DispatchContext dctx, Map context) throws GenericServiceException{
-        Map result = new HashMap();
+        Map result = FastMap.newInstance();
         
             GenericValue content = (GenericValue)context.get("content");
             if (content == null) {
@@ -1388,7 +1389,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
     }
 
     public static Map incrementContentChildStats(DispatchContext dctx, Map context) throws GenericServiceException{
-        Map result = new HashMap();
+        Map result = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();
         
             String contentId = (String)context.get("contentId");
@@ -1414,7 +1415,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
     }
     
     public static Map decrementContentChildStats(DispatchContext dctx, Map context) throws GenericServiceException{
-        Map result = new HashMap();
+        Map result = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();
         
             String contentId = (String)context.get("contentId");
@@ -1440,12 +1441,12 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
     }
 
     public static Map updateContentChildStats(DispatchContext dctx, Map context) throws GenericServiceException{
-        Map result = new HashMap();
+        Map result = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();
     
         String contentId = (String)context.get("contentId");
         String contentAssocTypeId = (String)context.get("contentAssocTypeId");
-        List typeList = new ArrayList();
+        List typeList = FastList.newInstance();
         if (UtilValidate.isNotEmpty(contentAssocTypeId)) {
             typeList.add(contentAssocTypeId);
         } else {
@@ -1461,7 +1462,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
     }
     
     public static Map updateContentSubscription(DispatchContext dctx, Map context) throws GenericServiceException{
-        Map result = new HashMap();
+        Map result = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
@@ -1526,7 +1527,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
             if (hasExistingContentRole) {
                 contentRole.store();
             } else {
-                Map map = new HashMap();
+                Map map = FastMap.newInstance();
                 map.put("partyId", partyId);
                 map.put("roleTypeId", roleTypeId);
                 map.put("userLogin", userLogin);
@@ -1540,7 +1541,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
     }
     
     public static Map updateContentSubscriptionByProduct(DispatchContext dctx, Map context) throws GenericServiceException{
-        Map result = new HashMap();
+        Map result = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         String productId = (String) context.get("productId");
@@ -1586,7 +1587,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
     }
     
     public static Map updateContentSubscriptionByOrder(DispatchContext dctx, Map context) throws GenericServiceException{
-        Map result = new HashMap();
+        Map result = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         String orderId = (String) context.get("orderId");
@@ -1648,14 +1649,14 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
         String contentId = (String)context.get("contentId");
         String serviceName = (String)context.get("serviceName");
         String contentAssocTypeId = (String)context.get("contentAssocTypeId");
-        List contentAssocTypeIdList = new ArrayList();
+        List contentAssocTypeIdList = FastList.newInstance();
         if (UtilValidate.isNotEmpty(contentAssocTypeId)) {
              contentAssocTypeIdList = StringUtil.split(contentAssocTypeId, "|");   
         }
         if (contentAssocTypeIdList.size() == 0) {
             contentAssocTypeIdList.add("SUB_CONTENT");   
         }
-        Map ctx = new HashMap();
+        Map ctx = FastMap.newInstance();
         ctx.put("userLogin", userLogin);
         ctx.put("contentAssocTypeIdList", contentAssocTypeIdList);
         try {
@@ -1676,7 +1677,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
         List contentAssocTypeIdList = (List)context.get("contentAssocTypeIdList" );
         Set visitedSet = (Set)context.get("visitedSet");
         if (visitedSet == null) {
-            visitedSet = new HashSet();
+            visitedSet = FastSet.newInstance();
             context.put("visitedSet", visitedSet);
         } else {
             if (visitedSet.contains(contentId)) {
@@ -1733,9 +1734,9 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
               return ServiceUtil.returnError(errorMsg);
           }
           String contentId = (String)result.get("contentId");
-          List parentList = new ArrayList();
+          List parentList = FastList.newInstance();
           if (UtilValidate.isEmpty(masterRevisionContentId)) {
-              Map traversMap = new HashMap();
+              Map traversMap = FastMap.newInstance();
               traversMap.put("contentId", contentId);
               traversMap.put("direction", "To");
               traversMap.put("contentAssocTypeId", "COMPDOC_PART");
@@ -1746,7 +1747,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
           }
           
           // Update ContentRevision and ContentRevisonItem
-          Map contentRevisionMap = new HashMap();
+          Map contentRevisionMap = FastMap.newInstance();
           contentRevisionMap.put("itemContentId", contentId);
           contentRevisionMap.put("newDataResourceId", result.get("dataResourceId"));
           contentRevisionMap.put("oldDataResourceId", oldDataResourceId);

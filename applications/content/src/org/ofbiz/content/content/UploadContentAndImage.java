@@ -19,8 +19,6 @@
 package org.ofbiz.content.content;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -28,6 +26,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
@@ -97,7 +98,7 @@ public class UploadContentAndImage {
                 return "error";
             }
     
-            Map passedParams = new HashMap();
+            Map passedParams = FastMap.newInstance();
             FileItem fi = null;
             FileItem imageFi = null;
             byte[] imageBytes = {};
@@ -123,7 +124,7 @@ public class UploadContentAndImage {
             List targetOperationList = ContentWorker.prepTargetOperationList(passedParams, entityOperation);
             passedParams.put("targetOperationList", targetOperationList );
             // Create or update FTL template
-            Map ftlContext = new HashMap();
+            Map ftlContext = FastMap.newInstance();
             ftlContext.put("userLogin", userLogin);
             ftlContext.put("contentId", passedParams.get("ftlContentId"));
             ftlContext.put("ownerContentId", passedParams.get("ownerContentId"));
@@ -154,7 +155,7 @@ public class UploadContentAndImage {
             }
             String ftlContentId = (String)ftlResults.get("contentId");
             if (UtilValidate.isNotEmpty(contentIdTo) ) {
-                Map map = new HashMap();
+                Map map = FastMap.newInstance();
                     map.put("fromDate", UtilDateTime.nowTimestamp());
                     map.put("contentId", ftlContentId);
                     map.put("contentIdTo", contentIdTo);
@@ -196,7 +197,7 @@ public class UploadContentAndImage {
             //if (Debug.infoOn()) Debug.logInfo("[UploadContentAndImage]ftlDataResourceId:" + ftlDataResourceId, module);
             // Create or update summary text subContent
             if ( passedParams.containsKey("summaryData") ) {
-                Map sumContext = new HashMap();
+                Map sumContext = FastMap.newInstance();
                 sumContext.put("userLogin", userLogin);
                 sumContext.put("contentId", passedParams.get("sumContentId"));
                 sumContext.put("ownerContentId", ftlContentId);
@@ -226,7 +227,7 @@ public class UploadContentAndImage {
 
             // Create or update electronic text subContent
             if ( passedParams.containsKey("textData") ) {
-                Map txtContext = new HashMap();
+                Map txtContext = FastMap.newInstance();
                 txtContext.put("userLogin", userLogin);
                 txtContext.put("contentId", passedParams.get("txtContentId"));
                 txtContext.put("ownerContentId", ftlContentId);
@@ -255,7 +256,7 @@ public class UploadContentAndImage {
             }
 
             // Create or update image subContent
-            Map imgContext = new HashMap();
+            Map imgContext = FastMap.newInstance();
             if (imageBytes.length > 0) {
                 imgContext.put("userLogin", userLogin);
                 imgContext.put("contentId", passedParams.get("imgContentId"));
@@ -361,7 +362,7 @@ public class UploadContentAndImage {
                 return "error";
             }
     
-            Map passedParams = new HashMap();
+            Map passedParams = FastMap.newInstance();
             FileItem fi = null;
             FileItem imageFi = null;
             byte[] imageBytes = {};
@@ -428,7 +429,7 @@ public class UploadContentAndImage {
             GenericDelegator delegator = (GenericDelegator)request.getAttribute("delegator");
             HttpSession session = request.getSession();
             GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
-            Map ftlContext = new HashMap();
+            Map ftlContext = FastMap.newInstance();
 
             String contentPurposeString = (String)passedParams.get("contentPurposeString" + suffix);
             if (UtilValidate.isEmpty(contentPurposeString)) {
@@ -460,25 +461,25 @@ public class UploadContentAndImage {
             ModelEntity modelEntity = delegator.getModelEntity("ContentAssocDataResourceViewFrom");
             List fieldNames = modelEntity.getAllFieldNames();
             Iterator iter = fieldNames.iterator();
-            Map ftlContext2 = new HashMap();
-            Map ftlContext3 = new HashMap();
+            Map ftlContext2 = FastMap.newInstance();
+            Map ftlContext3 = FastMap.newInstance();
             while (iter.hasNext()) {
                 String keyName = (String)iter.next();
                 Object obj = passedParams.get(keyName + suffix);
                 ftlContext2.put(keyName, obj);
             }
             if (Debug.infoOn()) Debug.logInfo("[UploadContentStuff]ftlContext2:" + ftlContext2, module);
-            List errorMessages = new ArrayList();
+            List errorMessages = FastList.newInstance();
             Locale loc = Locale.getDefault();
             try {
                 SimpleMapProcessor.runSimpleMapProcessor( "org/ofbiz/content/ContentManagementMapProcessors.xml", "contentIn", ftlContext2, ftlContext3, errorMessages, loc);
                 SimpleMapProcessor.runSimpleMapProcessor( "org/ofbiz/content/ContentManagementMapProcessors.xml", "contentOut", ftlContext3, ftlContext, errorMessages, loc);
 
-                ftlContext3 = new HashMap();
+                ftlContext3 = FastMap.newInstance();
                 SimpleMapProcessor.runSimpleMapProcessor( "org/ofbiz/content/ContentManagementMapProcessors.xml", "dataResourceIn", ftlContext2, ftlContext3, errorMessages, loc);
                 SimpleMapProcessor.runSimpleMapProcessor( "org/ofbiz/content/ContentManagementMapProcessors.xml", "dataResourceOut", ftlContext3, ftlContext, errorMessages, loc);
 
-                ftlContext3 = new HashMap();
+                ftlContext3 = FastMap.newInstance();
                 SimpleMapProcessor.runSimpleMapProcessor( "org/ofbiz/content/ContentManagementMapProcessors.xml", "contentAssocIn", ftlContext2, ftlContext3, errorMessages, loc);
                 SimpleMapProcessor.runSimpleMapProcessor( "org/ofbiz/content/ContentManagementMapProcessors.xml", "contentAssocOut", ftlContext3, ftlContext, errorMessages, loc);
             } catch(MiniLangException e) {
@@ -503,7 +504,7 @@ public class UploadContentAndImage {
                 if (Debug.infoOn()) Debug.logInfo("[UploadContentStuff]errorMsgList:" + errorMsgList, module);
                 if (Debug.infoOn()) Debug.logInfo("[UploadContentStuff]msg:" + msg, module);
                 if (errorMsgList == null) {
-                    errorMsgList = new ArrayList();
+                    errorMsgList = FastList.newInstance();
                     request.setAttribute("errorMessageList", errorMsgList);
                 }
                 errorMsgList.add(msg);
@@ -514,7 +515,7 @@ public class UploadContentAndImage {
                 request.setAttribute("_ERROR_MESSAGE_", msg);
                 List errorMsgList = (List)request.getAttribute("_EVENT_MESSAGE_LIST_");
                 if (errorMsgList == null) {
-                    errorMsgList = new ArrayList();
+                    errorMsgList = FastList.newInstance();
                     request.setAttribute("errorMessageList", errorMsgList);
                 }
                 errorMsgList.add(msg);
@@ -532,7 +533,7 @@ public class UploadContentAndImage {
             
             String caContentIdTo = (String)passedParams.get("caContentIdTo");
             if (UtilValidate.isNotEmpty(caContentIdTo)) {
-                Map resequenceContext = new HashMap();
+                Map resequenceContext = FastMap.newInstance();
                 resequenceContext.put("contentIdTo", caContentIdTo);
                 resequenceContext.put("userLogin", userLogin);
                 try {
@@ -544,7 +545,7 @@ public class UploadContentAndImage {
                     if (Debug.infoOn()) Debug.logInfo("[UploadContentStuff]errorMsgList:" + errorMsgList, module);
                     if (Debug.infoOn()) Debug.logInfo("[UploadContentStuff]msg:" + msg, module);
                     if (errorMsgList == null) {
-                        errorMsgList = new ArrayList();
+                        errorMsgList = FastList.newInstance();
                         request.setAttribute("errorMessageList", errorMsgList);
                     }
                     errorMsgList.add(msg);

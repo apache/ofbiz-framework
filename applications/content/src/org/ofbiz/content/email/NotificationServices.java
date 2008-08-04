@@ -25,8 +25,9 @@ import java.io.Writer;
 import java.net.InetAddress;
 import java.net.URL;
 import java.net.UnknownHostException;
-import java.util.HashMap;
 import java.util.Map;
+
+import javolution.util.FastMap;
 
 import freemarker.template.TemplateException;
 
@@ -142,7 +143,7 @@ public class NotificationServices {
             // make sure we have a valid body before sending
             if (body != null) {
                 // retain only the required attributes for the sendMail service
-                Map emailContext = new HashMap();
+                Map emailContext = FastMap.newInstance();
                 emailContext.put("sendTo", context.get("sendTo"));
                 emailContext.put("body", body);
                 emailContext.put("sendCc", context.get("sendCc"));
@@ -190,7 +191,7 @@ public class NotificationServices {
                         
         Map result = null;                               
         if (templateData == null) {
-            templateData = new HashMap();
+            templateData = FastMap.newInstance();
         }
                
         try {

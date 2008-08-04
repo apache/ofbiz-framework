@@ -20,13 +20,14 @@ package org.ofbiz.content.webapp.ftl;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -67,11 +68,11 @@ public class RenderContentAndSubContent implements TemplateTransformModel {
         ((MapStack)templateRoot).push(envMap);
         if (Debug.verboseOn()) Debug.logVerbose("in RenderContentAndSubContent, contentId(0):" + templateRoot.get("contentId"), module);
         FreeMarkerWorker.getSiteParameters(request, templateRoot);
-//        final Map savedValuesUp = new HashMap();
+//        final Map savedValuesUp = FastMap.newInstance();
         //FreeMarkerWorker.saveContextValues(templateRoot, upSaveKeyNames, savedValuesUp);
         FreeMarkerWorker.overrideWithArgs(templateRoot, args);
 
-        final Map savedValues = new HashMap();
+        final Map savedValues = FastMap.newInstance();
         
         return new Writer(out) {
 

@@ -25,14 +25,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+
+import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -87,7 +88,7 @@ public class PdfSurveyServices {
             PdfReader pdfReader = new PdfReader(byteBuffer.array());
             PdfStamper pdfStamper = new PdfStamper(pdfReader, os);
             AcroFields acroFields = pdfStamper.getAcroFields();
-            HashMap acroFieldMap = acroFields.getFields();
+            Map acroFieldMap = acroFields.getFields();
             
             String contentId = (String) context.get("contentId");
             GenericValue survey = null;
@@ -269,7 +270,7 @@ public class PdfSurveyServices {
             PdfReader r = new PdfReader(byteBuffer.array());
             PdfStamper s = new PdfStamper(r,os);
             AcroFields fs = s.getAcroFields();
-            HashMap hm = fs.getFields();
+            Map hm = fs.getFields();
             
             
             s.setFormFlattening(true);
@@ -319,7 +320,7 @@ public class PdfSurveyServices {
      */
     public static Map getAcroFieldsFromPdf(DispatchContext dctx, Map context) {
         
-        Map acroFieldMap = new HashMap();
+        Map acroFieldMap = FastMap.newInstance();
         try {
             ByteArrayOutputStream os = new ByteArrayOutputStream();
             GenericDelegator delegator = dctx.getDelegator();
@@ -327,7 +328,7 @@ public class PdfSurveyServices {
             PdfReader r = new PdfReader(byteBuffer.array());
             PdfStamper s = new PdfStamper(r,os);
             AcroFields fs = s.getAcroFields();
-            HashMap map = fs.getFields();
+            Map map = fs.getFields();
             
             s.setFormFlattening(true);
             
@@ -508,7 +509,7 @@ public class PdfSurveyServices {
         Map results = ServiceUtil.returnSuccess();
         String surveyResponseId = (String)context.get("surveyResponseId");
         String surveyId = null;
-        List qAndA = new ArrayList();
+        List qAndA = FastList.newInstance();
 
         Document document = new Document();
         try {
@@ -543,7 +544,7 @@ public class PdfSurveyServices {
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Map results = ServiceUtil.returnSuccess();
-        Map acroFieldMap = new HashMap();
+        Map acroFieldMap = FastMap.newInstance();
         String surveyResponseId = (String)context.get("surveyResponseId");
         String acroFormContentId = null;
     

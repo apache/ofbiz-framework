@@ -19,8 +19,9 @@
 package org.ofbiz.content.blog;
 
     
-import java.util.HashMap;
 import java.util.Map;
+
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
@@ -45,7 +46,7 @@ public class BlogServices {
     
     public static Map persistBlogAll(DispatchContext dctx, Map context) throws GenericServiceException {
 
-        Map result = new HashMap();
+        Map result = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue)context.get("userLogin");
@@ -191,7 +192,7 @@ public class BlogServices {
         String summaryData = (String)context.get("summaryData");
         String summaryParentContentId = mainContentId;
         if (UtilValidate.isNotEmpty(summaryData) && UtilValidate.isNotEmpty(summaryParentContentId) ) {
-            Map subContentIn = new HashMap();
+            Map subContentIn = FastMap.newInstance();
             subContentIn.put("contentId", summaryParentContentId);
             subContentIn.put("mapKey", "SUMMARY");
             Map thisResult = dispatcher.runSync("getSubContent", subContentIn);
