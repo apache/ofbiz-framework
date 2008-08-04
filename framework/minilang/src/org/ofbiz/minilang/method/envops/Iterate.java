@@ -44,12 +44,12 @@ public class Iterate extends MethodOperation {
 
     protected List<MethodOperation> subOps = FastList.newInstance();
 
-    protected ContextAccessor<GenericValue> entryAcsr;
+    protected ContextAccessor<Object> entryAcsr;
     protected ContextAccessor<Object> listAcsr;
 
     public Iterate(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        this.entryAcsr = new ContextAccessor<GenericValue>(element.getAttribute("entry-name"));
+        this.entryAcsr = new ContextAccessor<Object>(element.getAttribute("entry-name"));
         this.listAcsr = new ContextAccessor<Object>(element.getAttribute("list-name"));
 
         SimpleMethod.readOperations(element, subOps, simpleMethod);
@@ -62,7 +62,7 @@ public class Iterate extends MethodOperation {
             return true;
         }
 
-        GenericValue oldEntryValue = entryAcsr.get(methodContext);
+        Object oldEntryValue = entryAcsr.get(methodContext);
         Object objList = listAcsr.get(methodContext);
         if (objList instanceof EntityListIterator) {
             EntityListIterator eli = (EntityListIterator) objList;
@@ -93,7 +93,7 @@ public class Iterate extends MethodOperation {
                 return false;
             }
         } else {
-            Collection<GenericValue> theList = UtilGenerics.checkList(objList);
+            Collection<Object> theList = UtilGenerics.checkList(objList);
 
             if (theList == null) {
                 if (Debug.infoOn()) Debug.logInfo("List not found with name " + listAcsr + ", doing nothing: " + rawString(), module);
@@ -104,7 +104,7 @@ public class Iterate extends MethodOperation {
                 return true;
             }
 
-            for (GenericValue theEntry: theList) {
+            for (Object theEntry: theList) {
                 entryAcsr.put(methodContext, theEntry);
 
                 if (!SimpleMethod.runSubOps(subOps, methodContext)) {
