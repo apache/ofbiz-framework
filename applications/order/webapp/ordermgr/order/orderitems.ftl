@@ -22,20 +22,6 @@ under the License.
     <div class="screenlet-title-bar">
         <ul>
           <li class="h3">&nbsp;${uiLabelMap.OrderOrderItems}</li>
-          <#if security.hasEntityPermission("ORDERMGR", "_UPDATE", session) || security.hasRolePermission("ORDERMGR", "_UPDATE", "", "", session)>
-            <#if orderHeader?has_content && orderHeader.statusId != "ORDER_CANCELLED">
-              <#if orderHeader.statusId != "ORDER_COMPLETED">
-                <#--
-                <a href="<@ofbizUrl>cancelOrderItem?${paramString}</@ofbizUrl>">${uiLabelMap.OrderCancelAllItems}</a>
-                -->
-                <li><a href="<@ofbizUrl>editOrderItems?${paramString}</@ofbizUrl>">${uiLabelMap.OrderEditItems}</a></li>
-              </#if>
-              <li><a href="<@ofbizUrl>loadCartFromOrder?${paramString}&amp;finalizeMode=init</@ofbizUrl>">${uiLabelMap.OrderCreateAsNewOrder}</a></li>
-              <#if returnableItems?has_content>
-                <li><a href="<@ofbizUrl>quickreturn?orderId=${orderId}&amp;party_id=${partyId?if_exists}&amp;returnHeaderTypeId=${returnHeaderTypeId}</@ofbizUrl>">${uiLabelMap.OrderCreateReturn}</a></li>
-              </#if>
-            </#if>
-          </#if>
         </ul>
         <br class="clear"/>
     </div>        

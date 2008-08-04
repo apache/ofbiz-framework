@@ -1466,6 +1466,9 @@
         <value xml:lang="th">รหัสเว็บไซต์</value>
         <value xml:lang="zh">网站标识</value>
     </property>
+    <property key="OrderActions">
+        <value xml:lang="en">Actions</value>
+    </property>
     <property key="OrderAddAllToCart">
         <value xml:lang="cs">Přidat všechno do košíku</value>
         <value xml:lang="de">Alles in den Warenkorb legen</value>

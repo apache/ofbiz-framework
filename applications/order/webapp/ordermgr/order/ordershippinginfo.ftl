@@ -16,6 +16,80 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
+<#if security.hasEntityPermission("ORDERMGR", "_UPDATE", session) || security.hasRolePermission("ORDERMGR", "_UPDATE", "", "", session)>
+  <div class="screenlet">
+    <div class="screenlet-title-bar">
+      <ul><li class="h3">&nbsp;${uiLabelMap.OrderActions}</li></ul>
+      <br class="clear"/>
+    </div>
+    <div class="screenlet-body">
+      <ul>
+        <#if security.hasEntityPermission("FACILITY", "_CREATE", session) && ((orderHeader.statusId == "ORDER_APPROVED") || (orderHeader.statusId == "ORDER_SENT"))>
+          <#-- Special shipment options -->
+          <#if orderHeader.orderTypeId == "SALES_ORDER">
+            <#if !shipGroup.supplierPartyId?has_content>
+              <li><a href="<@ofbizUrl>quickShipOrder?${paramString}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderQuickShipEntireOrder}</a></li>
+            </#if>
+          <#else> <#-- PURCHASE_ORDER -->
+            <span class="label">&nbsp;<#if orderHeader.orderTypeId == "PURCHASE_ORDER">${uiLabelMap.ProductDestinationFacility}</#if></span>
+            <#if ownedFacilities?has_content>
+              <#if !allShipments?has_content>
+                <form action="/facility/control/quickShipPurchaseOrder?externalLoginKey=${externalLoginKey}" method="POST">
+                  <input type="hidden" name="initialSelected" value="Y"/>
+                  <input type="hidden" name="orderId" value="${orderId}"/>
+                  <#-- destination form (/facility/control/ReceiveInventory) wants purchaseOrderId instead of orderId, so we set it here as a workaround -->
+                  <input type="hidden" name="purchaseOrderId" value="${orderId}"/>
+                  <li>
+                    <select name="facilityId">
+                      <#list ownedFacilities as facility>
+                        <option value="${facility.facilityId}">${facility.facilityName}</option>
+                      </#list>
+                    </select>
+                    <input type="submit" class="smallSubmit" value="${uiLabelMap.OrderQuickReceivePurchaseOrder}"/>
+                  </li>
+                </form>
+              </#if>
+              <#if orderHeader.statusId != "ORDER_COMPLETED">
+                <form action="<@ofbizUrl>completePurchaseOrder?externalLoginKey=${externalLoginKey}</@ofbizUrl>" method="POST">
+                  <input type="hidden" name="orderId" value="${orderId}"/>
+                  <li>
+                    <select name="facilityId">
+                      <#list ownedFacilities as facility>
+                        <option value="${facility.facilityId}">${facility.facilityName}</option>
+                      </#list>
+                    </select>
+                    <input type="submit" class="smallSubmit" value="${uiLabelMap.OrderForceCompletePurchaseOrder}"/>
+                  </li>
+                </form>
+              </#if>
+            </#if>
+          </#if>
+        </#if>
+        <#-- Refunds/Returns for Sales Orders and Delivery Schedules -->
+        <#if orderHeader.statusId != "ORDER_COMPLETED" && orderHeader.statusId != "ORDER_CANCELLED">
+          <li><a href="<@ofbizUrl>OrderDeliveryScheduleInfo?orderId=${orderId}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderViewEditDeliveryScheduleInfo}</a></li>
+        </#if>
+        <#if security.hasEntityPermission("ORDERMGR", "_RETURN", session) && orderHeader.statusId == "ORDER_COMPLETED">
+          <li><a href="<@ofbizUrl>quickRefundOrder?orderId=${orderId}&amp;receiveReturn=true&amp;returnHeaderTypeId=${returnHeaderTypeId}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderQuickRefundEntireOrder}</a></li>
+          <li><a href="<@ofbizUrl>quickreturn?orderId=${orderId}&amp;party_id=${partyId?if_exists}&amp;returnHeaderTypeId=${returnHeaderTypeId}&amp;needsInventoryReceive=${needsInventoryReceive?default("Y")}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCreateReturn}</a></li>
+        </#if>
+
+        <#if orderHeader?has_content && orderHeader.statusId != "ORDER_CANCELLED">
+          <#if orderHeader.statusId != "ORDER_COMPLETED">
+            <#--
+              <li><a href="<@ofbizUrl>cancelOrderItem?${paramString}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCancelAllItems}</a></li>
+            -->
+            <li><a href="<@ofbizUrl>editOrderItems?${paramString}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderEditItems}</a></li>
+          </#if>
+          <li><a href="<@ofbizUrl>loadCartFromOrder?${paramString}&amp;finalizeMode=init</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCreateAsNewOrder}</a></li>
+          <#if returnableItems?has_content>
+            <li><a href="<@ofbizUrl>quickreturn?orderId=${orderId}&amp;party_id=${partyId?if_exists}&amp;returnHeaderTypeId=${returnHeaderTypeId}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCreateReturn}</a></li>
+          </#if>
+        </#if>
+      </ul>
+    </div>
+  </div>
+</#if>
 
 <#if shipGroups?has_content>
 <#list shipGroups as shipGroup>
@@ -260,49 +334,6 @@ under the License.
        <#-- shipment actions -->
        <#if security.hasEntityPermission("ORDERMGR", "_UPDATE", session) && ((orderHeader.statusId == "ORDER_APPROVED") || (orderHeader.statusId == "ORDER_SENT"))>
 
-         <#-- Special shipment options -->
-         <#if security.hasEntityPermission("FACILITY", "_CREATE", session)>
-         <tr><td colspan="3"><hr/></td></tr>
-         <tr>
-           <td colspan="3" valign="top" align="center">
-             <div>
-               <#if orderHeader.orderTypeId == "SALES_ORDER">
-                 <#if !shipGroup.supplierPartyId?has_content>
-                   <a href="<@ofbizUrl>quickShipOrder?${paramString}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderQuickShipEntireOrder}</a>
-                 </#if>
-               <#else> <#-- PURCHASE_ORDER -->
-                 <span class="label">&nbsp;<#if orderHeader.orderTypeId == "PURCHASE_ORDER">${uiLabelMap.ProductDestinationFacility}</#if></span>
-                 <#assign facilities = facilitiesForShipGroup.get(shipGroup.shipGroupSeqId)>
-                 <#if facilities?has_content>
-                 <form action="/facility/control/quickShipPurchaseOrder?externalLoginKey=${externalLoginKey}" method="POST">
-                   <input type="hidden" name="initialSelected" value="Y"/>
-                   <input type="hidden" name="orderId" value="${orderId}"/>
-                   <#-- destination form (/facility/control/ReceiveInventory) wants purchaseOrderId instead of orderId, so we set it here as a workaround -->
-                   <input type="hidden" name="purchaseOrderId" value="${orderId}"/>
-                   <select name="facilityId">
-                     <#list facilities as facility>
-                       <option value="${facility.facilityId}">${facility.facilityName}</option>
-                     </#list>
-                   </select>
-                   <input type="submit" class="smallSubmit" value="${uiLabelMap.OrderQuickReceivePurchaseOrder}"/>
-                 </form>
-                 <#if orderHeader.statusId != "ORDER_COMPLETED">
-                   <form action="<@ofbizUrl>completePurchaseOrder?externalLoginKey=${externalLoginKey}</@ofbizUrl>" method="POST">
-                     <input type="hidden" name="orderId" value="${orderId}"/>
-                     <select name="facilityId">
-                       <#list facilities as facility>
-                         <option value="${facility.facilityId}">${facility.facilityName}</option>
-                       </#list>
-                     </select>
-                     <input type="submit" class="smallSubmit" value="${uiLabelMap.OrderForceCompletePurchaseOrder}"/>
-                   </form>
-                 </#if>
-                 </#if>
-               </#if>
-             </div>
-           </td>
-         </tr>
-        </#if>
 
          <#-- Manual shipment options -->
          <tr><td colspan="3"><hr/></td></tr>
@@ -342,23 +373,6 @@ under the License.
 
        </#if>
 
-       <#-- Refunds/Returns for Sales Orders and Delivery Schedules -->
-       <#if !shipGroup_has_next>
-         <tr><td colspan="3"><hr/></td></tr>
-         <tr>
-           <td colspan="3" valign="top" width="100%" align="center">
-             <#if security.hasEntityPermission("ORDERMGR", "_UPDATE", session)>
-               <#if orderHeader.statusId != "ORDER_COMPLETED" && orderHeader.statusId != "ORDER_CANCELLED">
-                 <a href="<@ofbizUrl>OrderDeliveryScheduleInfo?orderId=${orderId}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderViewEditDeliveryScheduleInfo}</a>
-               </#if>
-               <#if security.hasEntityPermission("ORDERMGR", "_RETURN", session) && orderHeader.statusId == "ORDER_COMPLETED">
-                 <a href="<@ofbizUrl>quickRefundOrder?orderId=${orderId}&amp;receiveReturn=true&amp;returnHeaderTypeId=${returnHeaderTypeId}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderQuickRefundEntireOrder}</a>
-                 <a href="<@ofbizUrl>quickreturn?orderId=${orderId}&amp;party_id=${partyId?if_exists}&amp;returnHeaderTypeId=${returnHeaderTypeId}&amp;needsInventoryReceive=${needsInventoryReceive?default("Y")}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCreateReturn}</a>
-               </#if>
-             </#if>
-           </td>
-         </tr>
-       </#if>
       </table>
     </div>
 </div>
