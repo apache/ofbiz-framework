@@ -31,6 +31,7 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.FileUtil;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilDateTime;
@@ -212,7 +213,7 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
                 out.write(wrappedContent);
                 //try {
                 //Profiler.end("Limited");
-                //FileOutputStream fw = new FileOutputStream(new File("/usr/local/agi/ofbiz/hot-deploy/sfmp/misc/profile.data"));
+                //FileOutputStream fw = new FileOutputStream(FileUtil.getFile("/usr/local/agi/ofbiz/hot-deploy/sfmp/misc/profile.data"));
                 //Profiler.print(fw);
                 //fw.close();
                 //} catch (IOException e) {

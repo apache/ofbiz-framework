@@ -57,7 +57,7 @@ public class LayoutWorker {
         Map results = FastMap.newInstance();
         Map formInput = FastMap.newInstance();
         results.put("formInput", formInput);
-        ServletFileUpload fu = new ServletFileUpload(new DiskFileItemFactory(10240, new File("runtime/tmp")));
+        ServletFileUpload fu = new ServletFileUpload(new DiskFileItemFactory(10240, new File(new File("runtime"), "tmp")));
         java.util.List lst = null;
         try {
            lst = fu.parseRequest(request);

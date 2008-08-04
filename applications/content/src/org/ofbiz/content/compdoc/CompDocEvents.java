@@ -34,6 +34,7 @@ import javax.servlet.http.HttpSession;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.FileUtil;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
@@ -210,7 +211,7 @@ public class CompDocEvents {
         
         /*
         try {
-            FileOutputStream fos = new FileOutputStream("/home/byersa/pdftest.pdf");
+            FileOutputStream fos = new FileOutputStream(FileUtil.getFile("/home/byersa/pdftest.pdf"));
             fos.write(outByteBuffer.getBytes());
         } catch(FileNotFoundException e) {
         } catch(IOException e) {
@@ -284,7 +285,7 @@ public class CompDocEvents {
         
         /*
         try {
-            FileOutputStream fos = new FileOutputStream("/home/byersa/pdftest.pdf");
+            FileOutputStream fos = new FileOutputStream(FileUtil.getFile("/home/byersa/pdftest.pdf"));
             fos.write(outByteBuffer.getBytes());
             fos.close();
         } catch(FileNotFoundException e) {

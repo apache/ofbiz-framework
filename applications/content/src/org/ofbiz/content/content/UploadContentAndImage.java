@@ -31,6 +31,7 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.FileUtil;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilHttp;
@@ -80,7 +81,7 @@ public class UploadContentAndImage {
             HttpSession session = request.getSession();
             GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
 
-            ServletFileUpload dfu = new ServletFileUpload(new DiskFileItemFactory(10240, new File("runtime/tmp")));
+            ServletFileUpload dfu = new ServletFileUpload(new DiskFileItemFactory(10240, FileUtil.getFile("runtime/tmp")));
             java.util.List lst = null;
             try {
                 lst = dfu.parseRequest(request);
@@ -344,7 +345,7 @@ public class UploadContentAndImage {
             HttpSession session = request.getSession();
             GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
 
-            ServletFileUpload dfu = new ServletFileUpload(new DiskFileItemFactory(10240, new File("runtime/tmp")));
+            ServletFileUpload dfu = new ServletFileUpload(new DiskFileItemFactory(10240, FileUtil.getFile("runtime/tmp")));
             //if (Debug.infoOn()) Debug.logInfo("[UploadContentAndImage]DiskFileUpload " + dfu, module);
             java.util.List lst = null;
             try {

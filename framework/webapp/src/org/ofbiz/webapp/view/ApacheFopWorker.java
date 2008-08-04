@@ -38,6 +38,7 @@ import org.apache.fop.apps.MimeConstants;
 
 import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.FileUtil;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 
@@ -73,7 +74,7 @@ public class ApacheFopWorker {
 
                 try {
                     String fopPath = UtilProperties.getPropertyValue("fop.properties", "fop.path", "framework/webapp/config");
-                    File userConfigFile = new File(fopPath + "/fop.xconf");
+                    File userConfigFile = FileUtil.getFile(fopPath + "/fop.xconf");
                     fopFactory.setUserConfig(userConfigFile);
                     String fopFontBaseUrl = fopFactory.getFontBaseURL();
                     if (fopFontBaseUrl == null) {

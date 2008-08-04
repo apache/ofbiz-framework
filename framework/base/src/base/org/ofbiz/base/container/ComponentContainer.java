@@ -31,6 +31,7 @@ import org.ofbiz.base.component.ComponentException;
 import org.ofbiz.base.component.ComponentLoaderConfig;
 import org.ofbiz.base.start.Classpath;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.FileUtil;
 import org.ofbiz.base.util.UtilValidate;
 
 /**
@@ -103,7 +104,7 @@ public class ComponentContainer implements Container {
 
         String parentPath;
         try {
-            parentPath = new File(System.getProperty("ofbiz.home")).getCanonicalFile().toString().replaceAll("\\\\", "/");
+            parentPath = FileUtil.getFile(System.getProperty("ofbiz.home")).getCanonicalFile().toString().replaceAll("\\\\", "/");
         } catch (MalformedURLException e) {
             throw new ComponentException(e.getMessage(), e);
         } catch (IOException e) {
@@ -155,7 +156,7 @@ public class ComponentContainer implements Container {
 
     private void loadComponentDirectory(String directoryName) {
         Debug.logInfo("Auto-Loading component directory : [" + directoryName + "]", module);
-        File parentPath = new File(directoryName);
+        File parentPath = FileUtil.getFile(directoryName);
         if (!parentPath.exists() || !parentPath.isDirectory()) {
             Debug.logError("Auto-Load Component directory not found : " + directoryName, module);
         } else {
@@ -178,11 +179,11 @@ public class ComponentContainer implements Container {
             } else {
                 for (String sub: parentPath.list()) {
                     try {
-                        File componentPath = new File(parentPath.getCanonicalPath() + "/" + sub);
+                        File componentPath = FileUtil.getFile(parentPath.getCanonicalPath() + "/" + sub);
                         if (componentPath.isDirectory() && !sub.equals("CVS") && !sub.equals(".svn")) {
                             // make sure we have a component configuraton file
                             String componentLocation = componentPath.getCanonicalPath();
-                            File configFile = new File(componentLocation + "/ofbiz-component.xml");
+                            File configFile = FileUtil.getFile(componentLocation + "/ofbiz-component.xml");
                             if (configFile.exists()) {
                                 ComponentConfig config = null;
                                 try {
@@ -236,7 +237,7 @@ public class ComponentContainer implements Container {
                         // strip off the slash splat
                         dirLoc = location.substring(0, location.length() - 2);
                     }
-                    File path = new File(configRoot + dirLoc);
+                    File path = FileUtil.getFile(configRoot + dirLoc);
                     if (path.exists()) {
                         if (path.isDirectory()) {
                             // load all .jar and .zip files in this directory
