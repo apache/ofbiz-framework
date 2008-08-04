@@ -67,6 +67,8 @@ under the License.
       <alias entity-alias="OI" name="itemStatusId" field="statusId"/>
       <alias entity-alias="OI" name="estimatedShipDate"/>
       <alias entity-alias="OI" name="estimatedDeliveryDate"/>
+      <alias entity-alias="OI" name="shipBeforeDate"/>
+      <alias entity-alias="OI" name="shipAfterDate"/>
       <alias entity-alias="OI" name="orderItemTypeId"/>
       <view-link entity-alias="OH" rel-entity-alias="OI">
         <key-map field-name="orderId"/>

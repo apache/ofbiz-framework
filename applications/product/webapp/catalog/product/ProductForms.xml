@@ -1060,9 +1060,11 @@ under the License.
         <field name="orderItemSeqId"><display/></field>
         <field name="quantity"><display/></field>
         <field name="cancelQuantity"><display/></field>
-        <field name="itemStatusId"><display/></field>
+        <field name="itemStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="estimatedShipDate"><display/></field>
         <field name="estimatedDeliveryDate"><display/></field>
+        <field name="shipBeforeDate"><display/></field>
+        <field name="shipAfterDate"><display/></field>
     </form>    
 
     <!-- create ProductMaint-->

@@ -861,7 +861,7 @@ under the License.
                             </widgets>
                             <fail-widgets>
                                 <platform-specific>
-                                    <html><html-template location="component://product/webapp/catalog/product/EditProductInventoryItems.ftl"/></html>
+                                    <html><html-template location="component://product/webapp/catalog/product/ProductInventorySummary.ftl"/></html>
                                 </platform-specific>
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
@@ -877,6 +877,9 @@ under the License.
                                         </section>
                                     </container>
                                 </container>
+                                <platform-specific>
+                                    <html><html-template location="component://product/webapp/catalog/product/EditProductInventoryItems.ftl"/></html>
+                                </platform-specific>
                             </fail-widgets>
                         </section>
                     </decorator-section>
