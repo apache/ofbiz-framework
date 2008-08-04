@@ -25,6 +25,8 @@ under the License.
     <div class="screenlet-body">
       <#if shoppingCart?has_content && shoppingCart.size() gt 0>
         <div id="checkoutPanel" align="center">
+        
+<#-- ========================================================================================================================== -->      
           <div id="cartPanel" class="screenlet">
             <div class="screenlet-header"><div class="boxhead" align="left">Step 1: ${uiLabelMap.PageTitleShoppingCart}</div></div>
             <div id="cartSummaryPanel" class="screenlet-body" style="display: none;">
@@ -116,6 +118,8 @@ under the License.
                     </tbody>
                   </table>
             </div>
+            
+<#-- ============================================================= -->            
             <div id="editCartPanel" class="screenlet-body">
               <form name="cartForm" id="cartForm" method="post" action="<@ofbizUrl></@ofbizUrl>">
                   <input type="hidden" name="removeSelected" value="false">
@@ -246,7 +250,8 @@ under the License.
               <div align="right"><h3><span><a class="buttontext" href="javascript:void(0);" id="editShipping">Continue for step 2</a></span></h3></div>              
             </div>
           </div>
-
+          
+<#-- ========================================================================================================================== -->
           <div id="shippingPanel" class="screenlet">
             <div class="screenlet-header"><div class="boxhead" align="left">Step 2: Shipping</div></div>
             <div id="shippingSummaryPanel" class="screenlet-body">
@@ -279,6 +284,8 @@ under the License.
                     </table>
                   </div>
             </div>
+
+<#-- ============================================================= -->
             <div id="editShippingPanel" class="screenlet-body" style="display: none;">
               <form name="shippingForm" id="shippingForm" action="<@ofbizUrl>createUpdateShippingAddress</@ofbizUrl>" method="post">
                 <input type="hidden" id="shipToContactMechId" name="shipToContactMechId" value="${parameters.shipToContactMechId?if_exists}"/>
@@ -398,6 +405,7 @@ under the License.
             </div>
           </div>
 
+<#-- ========================================================================================================================== -->         
           <div id="shippingOptionPanel" class="screenlet">
             <div class="screenlet-header"><div class="boxhead" align="left">Step 3: Shipping Options</div></div>
             <div id="shippingOptionSummaryPanel" class="screenlet-body">
@@ -418,7 +426,8 @@ under the License.
                   </table>
                 </div>
             </div>
-
+            
+<#-- ============================================================= -->
             <div id="editShippingOptionPanel" class="screenlet-body" style="display: none;">
               <form name="shippingOptionForm" id="shippingOptionForm" action="<@ofbizUrl></@ofbizUrl>" method="post">
                 <div id="shippingOptionFormServerError" class="errorMessage"></div>
@@ -437,6 +446,7 @@ under the License.
             </div>
           </div>
 
+<#-- ========================================================================================================================== -->
           <div id="billingPanel" class="screenlet">
             <div class="screenlet-header"><div class="boxhead" align="left">Step 4: Billing</div></div>
             <div id="billingSummaryPanel" class="screenlet-body">
@@ -477,6 +487,8 @@ under the License.
                 </table>
               </div>
             </div>
+            
+<#-- ============================================================= -->            
             <div id="editBillingPanel" class="screenlet-body" style="display: none;">
               <form name="billingForm" id="billingForm" class="theform" action="<@ofbizUrl></@ofbizUrl>" method="post">
                 <input type="hidden" id ="billToContactMechId" name="billToContactMechId" value="${parameters.billToContactMechId?if_exists}"/>
@@ -640,6 +652,8 @@ under the License.
               <div align="right"><h3><span><a class="buttontext" href="javascript:void(0);" id="openOrderSubmitPanel">Continue for step 5</a></span></h3></div>
             </div>
           </div>
+          
+<#-- ========================================================================================================================== -->
           <div class="screenlet">
             <div class="screenlet-header"><div class="boxhead" align="left">Step 5: Submit Order</div></div>
             <div id="orderSubmitPanel" style="display: none;">
@@ -653,7 +667,8 @@ under the License.
           </div>
         </div>
       </#if>
-
+      
+<#-- ========================================================================================================================== -->
       <div id="emptyCartCheckoutPanel" align="center" <#if shoppingCart?has_content && shoppingCart.size() gt 0> style="display: none;"</#if>>
         <div>
           <div class="screenlet-header"><div class="boxhead" align="left">Step 1: ${uiLabelMap.PageTitleShoppingCart}</div></div><br/>
