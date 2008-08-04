@@ -75,7 +75,7 @@ public class CompDocServices {
      * Creates ContentRevision/Item records for each, as well.
      */
 
-    public static Map persistRootCompDoc(DispatchContext dctx, Map context) {
+    public static Map<String, Object> persistRootCompDoc(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map result = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
@@ -140,7 +140,7 @@ public class CompDocServices {
         }
     }
 
-    public static Map renderCompDocPdf(DispatchContext dctx, Map context) {
+    public static Map<String, Object> renderCompDocPdf(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         
         Locale locale = (Locale) context.get("locale");
@@ -297,7 +297,7 @@ public class CompDocServices {
         }
     }
 
-    public static Map renderContentPdf(DispatchContext dctx, Map context) {
+    public static Map<String, Object> renderContentPdf(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Map results = ServiceUtil.returnSuccess();
         String dataResourceId = null;

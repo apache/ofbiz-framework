@@ -89,7 +89,7 @@ public class ContentPermissionServices {
      * ownerContentId, then the last step is recusively applied, using the ContentRoles
      * associated with the ownerContent entity.
      */
-    public static Map checkContentPermission(DispatchContext dctx, Map context) {
+    public static Map<String, Object> checkContentPermission(DispatchContext dctx, Map<String, ? extends Object> context) {
         Debug.logWarning(new Exception(), "This service has been depricated in favor of [genericContentPermission]", module);
         
         Security security = dctx.getSecurity();
@@ -257,7 +257,7 @@ public class ContentPermissionServices {
         return results;
     }
     
-    public static Map checkAssocPermission(DispatchContext dctx, Map context) {
+    public static Map<String, Object> checkAssocPermission(DispatchContext dctx, Map<String, ? extends Object> context) {
     
         Map results = FastMap.newInstance();
         Security security = dctx.getSecurity();

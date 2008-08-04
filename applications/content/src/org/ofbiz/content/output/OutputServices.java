@@ -93,7 +93,7 @@ public class OutputServices {
     protected static final FoScreenRenderer foScreenRenderer = new FoScreenRenderer();
     protected static final FoFormRenderer foFormRenderer = new FoFormRenderer();
     
-    public static Map sendPrintFromScreen(DispatchContext dctx, Map serviceContext) {
+    public static Map<String, Object> sendPrintFromScreen(DispatchContext dctx, Map<String, ? extends Object> serviceContext) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Locale locale = (Locale) serviceContext.get("locale");
         String screenLocation = (String) serviceContext.remove("screenLocation");
@@ -214,7 +214,7 @@ public class OutputServices {
         return result;
     }
 
-    public static Map createFileFromScreen(DispatchContext dctx, Map serviceContext) {
+    public static Map<String, Object> createFileFromScreen(DispatchContext dctx, Map<String, ? extends Object> serviceContext) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Locale locale = (Locale) serviceContext.get("locale");
         String screenLocation = (String) serviceContext.remove("screenLocation");

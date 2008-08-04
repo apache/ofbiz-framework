@@ -65,7 +65,7 @@ public class OpenOfficeServices {
      * This value should be operating system dependent with "\\" separators for Windows
      * and "/" for Linux/Unix.
      */
-    public static Map convertDocumentByteBuffer(DispatchContext dctx, Map context) {
+    public static Map<String, Object> convertDocumentByteBuffer(DispatchContext dctx, Map<String, ? extends Object> context) {
         
         Map results = ServiceUtil.returnSuccess();
         GenericDelegator delegator = dctx.getDelegator();
@@ -140,7 +140,7 @@ public class OpenOfficeServices {
     /**
      * Use OpenOffice to convert documents between types
      */
-    public static Map convertDocument(DispatchContext dctx, Map context) {
+    public static Map<String, Object> convertDocument(DispatchContext dctx, Map<String, ? extends Object> context) {
         XMultiComponentFactory xmulticomponentfactory = null;
         
         String stringUrl = "file:///" + context.get("filenameFrom");
@@ -169,7 +169,7 @@ public class OpenOfficeServices {
     /**
      * Use OpenOffice to convert documents between types
      */
-    public static Map convertDocumentFileToFile(DispatchContext dctx, Map context) {
+    public static Map<String, Object> convertDocumentFileToFile(DispatchContext dctx, Map<String, ? extends Object> context) {
         XMultiComponentFactory xmulticomponentfactory = null;
         
         String stringUrl = (String) context.get("filenameFrom");
@@ -214,7 +214,7 @@ public class OpenOfficeServices {
     /**
      * Use OpenOffice to convert documents between types
      */
-    public static Map convertDocumentStreamToStream(DispatchContext dctx, Map context) {
+    public static Map<String, Object> convertDocumentStreamToStream(DispatchContext dctx, Map<String, ? extends Object> context) {
         XMultiComponentFactory xmulticomponentfactory = null;
         
         String stringUrl = "file:///" + context.get("filenameFrom");
@@ -259,7 +259,7 @@ public class OpenOfficeServices {
     /**
      * Use OpenOffice to compare documents
      */
-    public static Map compareDocuments(DispatchContext dctx, Map context) {
+    public static Map<String, Object> compareDocuments(DispatchContext dctx, Map<String, ? extends Object> context) {
         XMultiComponentFactory xmulticomponentfactory = null;
         
         String stringUrl = "file:///" + context.get("filenameFrom");
