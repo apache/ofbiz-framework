@@ -1065,22 +1065,27 @@ under the License.
                 </call-service>
                 <log level="info" message="Shipping address created with contactMechId ${parameters.shipToContactMechId}"/>
             <else>
-                <if-compare-field field="parameters.shipToContactMechId" operator="equals" to-field="parameters.billTocontactMechId">
-                    <entity-and entity-name="PartyContactMechPurpose" list-name="pcmpList">
-                        <field-map field-name="contactMechId" env-name="parameters.shipToContactMechId"/>
-                        <field-map field-name="partyId" env-name="partyId"/>
-                        <field-map field-name="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
-                    </entity-and>
-                    <filter-list-by-date list-name="pcmpList"/>
-                    <first-from-list list-name="pcmpList" entry-name="pcmp"/>
-                    <if-not-empty field="pcmp">
-                        <set-service-fields service-name="deletePartyContactMechPurposeIfExists" map-name="pcmp" to-map-name="deletePartyContactMechPurposeCtx"/>
-                        <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="deletePartyContactMechPurposeCtx"/>
-                    </if-not-empty>
-                    <call-service service-name="createPartyPostalAddress" in-map-name="shipToAddressCtx">
-                        <result-to-field result-name="contactMechId" field-name="parameters.shipToContactMechId"/>
-                    </call-service>
-                    <log level="info" message="Shipping address updated with contactMechId ${parameters.shipToContactMechId}"/>
+                <if-compare-field field="parameters.shipToContactMechId" operator="equals" to-field="parameters.billToContactMechId">
+                    <make-value entity-name="PostalAddress" value-name="newValue"/>
+                    <set-pk-fields value-name="newValue" map-name="shipToAddressCtx"/>
+                    <find-by-primary-key entity-name="PostalAddress" map-name="newValue" value-name="oldValue" />
+                    <set-nonpk-fields map-name="shipToAddressCtx" value-name="newValue"/>
+                    <if-compare-field field="oldValue" to-field="newValue" operator="not-equals" type="Object"> 
+                        <entity-and entity-name="PartyContactMechPurpose" list-name="pcmpList" filter-by-date="true">
+                            <field-map field-name="contactMechId" env-name="parameters.shipToContactMechId"/>
+                            <field-map field-name="partyId" env-name="partyId"/>
+                            <field-map field-name="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
+                        </entity-and>
+                        <first-from-list list-name="pcmpList" entry-name="pcmp"/>
+                        <if-not-empty field="pcmp">
+                            <set-service-fields service-name="deletePartyContactMechPurposeIfExists" map-name="pcmp" to-map-name="serviceInMap"/>
+                            <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="serviceInMap"/>
+                        </if-not-empty>
+                        <call-service service-name="createPartyPostalAddress" in-map-name="shipToAddressCtx">
+                            <result-to-field result-name="contactMechId" field-name="parameters.shipToContactMechId"/>
+                        </call-service>
+                        <log level="info" message="Shipping address updated with contactMechId ${parameters.shipToContactMechId}"/>
+                    </if-compare-field>
                 <else>
                     <call-service service-name="updatePartyPostalAddress" in-map-name="shipToAddressCtx">
                         <result-to-field result-name="contactMechId" field-name="parameters.shipToContactMechId"/>
@@ -1248,7 +1253,6 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createUpdateBillingAddress" short-description="create and update billing address">
-
         <if-compare field="parameters.useShippingAddressForBilling" operator="not-equals" value="Y">
             <call-map-processor xml-resource="org/ofbiz/ecommerce/customer/CheckoutMapProcs.xml"
                 processor-name="billToAddress" in-map-name="parameters" out-map-name="billToAddressCtx"/>
@@ -1258,22 +1262,30 @@ under the License.
             <set field="billToAddressCtx.partyId" from-field="partyId"/>
     
             <if-compare field="parameters.useShippingAddressForBilling" operator="equals" value="Y">
-                <set field="billToAddressCtx.contactMechId" from-field="parameters.shipToContactMechId"/>
                 <if-empty field="parameters.billToContactMechId">
-                    <call-service service-name="createPartyContactMechPurpose" in-map-name="billToAddressCtx"/>
+                    <set-service-fields service-name="createPartyContactMechPurpose" map-name="billToAddressCtx" to-map-name="serviceInMap"/>
+                    <set field="serviceInMap.contactMechId" from-field="parameters.shipToContactMechId"/>
+                    <call-service service-name="createPartyContactMechPurpose" in-map-name="serviceInMap"/>
                 <else>
                     <if-compare-field field="parameters.shipToContactMechId" operator="not-equals" to-field="parameters.billToContactMechId">
-                        <entity-and entity-name="PartyContactMechPurpose" list-name="pcmpList">
+                        <entity-and entity-name="PartyContactMechPurpose" list-name="pcmpList" filter-by-date="true">
                             <field-map field-name="contactMechId" env-name="parameters.billToContactMechId"/>
                             <field-map field-name="partyId" env-name="partyId"/>
                             <field-map field-name="contactMechPurposeTypeId" value="BILLING_LOCATION"/>
                         </entity-and>
-                        <filter-list-by-date list-name="pcmpList"/>
-                        <iterate list-name="pcmpList" entry-name="pcmp">
-                            <set-service-fields service-name="deletePartyContactMechPurposeIfExists" map-name="pcmp" to-map-name="deletePartyContactMechPurposeCtx"/>
-                            <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="deletePartyContactMechPurposeCtx"/>
-                        </iterate>
-                        <call-service service-name="createPartyContactMechPurpose" in-map-name="billToAddressCtx"/>
+                        <first-from-list entry-name="pcmp" list-name="pcmpList"/>
+                        <set-service-fields service-name="deletePartyContactMechPurposeIfExists" map-name="pcmp" to-map-name="serviceInMap"/>
+                        <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="serviceInMap"/>
+                        <clear-field field-name="serviceInMap"/>
+                        
+                        <set-service-fields service-name="deletePartyContactMech" map-name="pcmp" to-map-name="serviceInMap"/>
+                        <call-service service-name="deletePartyContactMech" in-map-name="serviceInMap"/>
+                        <clear-field field-name="serviceInMap"/>
+                        
+                        <set-service-fields service-name="createPartyContactMechPurpose" map-name="pcmp" to-map-name="serviceInMap"/>
+                        <set field="serviceInMap.contactMechId" from-field="parameters.shipToContactMechId"/>
+                        <call-service service-name="createPartyContactMechPurpose" in-map-name="serviceInMap">
+                        </call-service>
                         <log level="info" message="Billing address updated with contactMechId ${parameters.billToContactMechId}"/>
                     </if-compare-field>
                 </else>
@@ -1287,39 +1299,26 @@ under the License.
                     </call-service>
                     <log level="info" message="Billing address created with contactmechId ${parameters.billToContactMechId}"/>
                 <else>
-                    <entity-and entity-name="PartyContactMechPurpose" list-name="pcmpList">
-                        <field-map field-name="contactMechId" env-name="parameters.billToContactMechId"/>
-                        <field-map field-name="partyId" env-name="partyId"/>
-                        <field-map field-name="contactMechPurposeTypeId" value="BILLING_LOCATION"/>
-                    </entity-and>
-                    <filter-list-by-date list-name="pcmpList"/>
                     <if-compare-field field="parameters.shipToContactMechId" operator="equals" to-field="parameters.billToContactMechId">
-                        <iterate list-name="pcmpList" entry-name="pcmp">
-                            <set-service-fields service-name="deletePartyContactMechPurposeIfExists" map-name="pcmp" to-map-name="deletePartyContactMechPurposeCtx"/>
-                            <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="deletePartyContactMechPurposeCtx"/>
-                        </iterate>
+                        <entity-and entity-name="PartyContactMechPurpose" list-name="pcmpList" filter-by-date="true">
+                            <field-map field-name="contactMechId" env-name="parameters.billToContactMechId"/>
+                            <field-map field-name="partyId" env-name="partyId"/>
+                            <field-map field-name="contactMechPurposeTypeId" value="BILLING_LOCATION"/>
+                        </entity-and>
+                        <first-from-list entry-name="pcmp" list-name="pcmpList"/>
+                    
+                        <set-service-fields service-name="deletePartyContactMechPurposeIfExists" map-name="pcmp" to-map-name="serviceInMap"/>
+                        <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="serviceInMap"/>
+                        
                         <call-service service-name="createPartyPostalAddress" in-map-name="billToAddressCtx">
                             <result-to-field result-name="contactMechId" field-name="parameters.billToContactMechId"/>
                         </call-service>
                         <log level="info" message="Billing address updated with contactMechId ${parameters.billToContactMechId}"/>
                     <else>
-                        <first-from-list list-name="pcmpList" entry-name="pcmp"/>
-                        <if-compare-field field="parameters.billToContactMechId" operator="equals" to-field="pcmp.contactMechId">
-                            <call-service service-name="updatePartyPostalAddress" in-map-name="billToAddressCtx">
-                               <result-to-field result-name="contactMechId" field-name="parameters.billToContactMechId"/>
-                            </call-service>
-                            <log level="info" message="Billing Postal Address Updated billToContactMechId is ${parameters.billToContactMechId}"/>
-                         <else>
-                            <if-not-empty field="pcmp">
-                                <set-service-fields service-name="deletePartyContactMechPurposeIfExists" map-name="pcmp" to-map-name="deletePartyContactMechPurposeCtx"/>
-                                <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="deletePartyContactMechPurposeCtx"/>
-                            </if-not-empty>
-                            <call-service service-name="createPartyPostalAddress" in-map-name="billToAddressCtx">
-                                <result-to-field result-name="contactMechId" field-name="parameters.billToContactMechId"/>
-                            </call-service>
-                            <log level="info" message="Billing Postal Address created billToContactMechId is ${parameters.billToContactMechId}"/>
-                        </else>
-                        </if-compare-field>
+                        <call-service service-name="updatePartyPostalAddress" in-map-name="billToAddressCtx">
+                            <result-to-field result-name="contactMechId" field-name="parameters.billToContactMechId"/>
+                        </call-service>
+                        <log level="info" message="Billing Postal Address created billToContactMechId is ${parameters.billToContactMechId}"/>
                     </else>
                     </if-compare-field>
                 </else>
