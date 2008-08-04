@@ -652,9 +652,9 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
             if (isPick) {
                     Integer count = (Integer) currentNode.get("count");
                     if (count == null) {
-                        count = new Integer(1);
+                        count = Integer.valueOf(1);
                     } else {
-                        count = new Integer(count.intValue() + 1);
+                        count = Integer.valueOf(count.intValue() + 1);
                     }
                     currentNode.put("count", count);
             }
@@ -1176,7 +1176,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
             }
         }
         ctx.put("globalNodeTrail", passedGlobalNodeTrail);
-        ctx.put("indent", new Integer(sz));
+        ctx.put("indent", Integer.valueOf(sz));
         //if (Debug.infoOn()) Debug.logInfo("getCurrentContent, currentContent:" + currentContent, "");
         return currentContent;
     }
@@ -1269,13 +1269,13 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         }
         context.put("typeAncestry", contentTypeAncestry);
         boolean isReturnBefore = checkReturnWhen(context, (String)whenMap.get("returnBeforePickWhen"));
-        trailNode.put("isReturnBefore", new Boolean(isReturnBefore));
+        trailNode.put("isReturnBefore", Boolean.valueOf(isReturnBefore));
         boolean isPick = checkWhen(context, (String)whenMap.get("pickWhen"));
-        trailNode.put("isPick", new Boolean(isPick));
+        trailNode.put("isPick", Boolean.valueOf(isPick));
         boolean isFollow = checkWhen(context, (String)whenMap.get("followWhen"));
-        trailNode.put("isFollow", new Boolean(isFollow));
+        trailNode.put("isFollow", Boolean.valueOf(isFollow));
         boolean isReturnAfter = checkReturnWhen(context, (String)whenMap.get("returnAfterPickWhen"));
-        trailNode.put("isReturnAfter", new Boolean(isReturnAfter));
+        trailNode.put("isReturnAfter", Boolean.valueOf(isReturnAfter));
         trailNode.put("checked", Boolean.TRUE);
 
     }

@@ -451,7 +451,7 @@ public class UploadContentAndImage {
                 if (objSequenceNum instanceof String) {
                     Long sequenceNum = null;
                     try {
-                        sequenceNum = new Long((String)objSequenceNum);
+                        sequenceNum = Long.valueOf((String)objSequenceNum);
                     } catch(NumberFormatException e) {}
                     passedParams.put("caSequenceNum", sequenceNum);
                 }

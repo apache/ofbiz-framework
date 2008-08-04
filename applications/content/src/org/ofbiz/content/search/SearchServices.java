@@ -49,7 +49,7 @@ public class SearchServices {
         if (Debug.infoOn()) Debug.logInfo("in indexTree, siteId:" + siteId, module);
         List badIndexList = FastList.newInstance();
         envContext.put("badIndexList", badIndexList);
-        envContext.put("goodIndexCount", new Integer(0));
+        envContext.put("goodIndexCount", Integer.valueOf(0));
 
         Map results;
         try {

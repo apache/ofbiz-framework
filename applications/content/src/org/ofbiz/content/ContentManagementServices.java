@@ -901,7 +901,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
         String contentIdTo = (String)context.get("contentIdTo");
         Integer seqInc = (Integer)context.get("seqInc");
         if (seqInc == null)
-            seqInc = new Integer(100);
+            seqInc = Integer.valueOf(100);
         int seqIncrement = seqInc.intValue();
         List typeList = (List)context.get("typeList");
         if (typeList == null) typeList = FastList.newInstance();
@@ -936,7 +936,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
                                  try {
                                      GenericValue prevValue = (GenericValue)listFiltered.get(i-1);
                                      Long prevSeqNum = (Long)prevValue.get("sequenceNum");
-                                     prevValue.put("sequenceNum", new Long(seqNum));
+                                     prevValue.put("sequenceNum", Long.valueOf(seqNum));
                                      prevValue.store();
                                      contentAssoc.put("sequenceNum", prevSeqNum);
                                      contentAssoc.store();
@@ -948,20 +948,20 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
                              if (i < listFiltered.size()) {
                                  // Swap with next entry 
                                  GenericValue nextValue = (GenericValue)listFiltered.get(i+1);
-                                 nextValue.put("sequenceNum", new Long(seqNum));
+                                 nextValue.put("sequenceNum", Long.valueOf(seqNum));
                                  nextValue.store();
                                  seqNum += seqIncrement;
-                                 contentAssoc.put("sequenceNum", new Long(seqNum));
+                                 contentAssoc.put("sequenceNum", Long.valueOf(seqNum));
                                  contentAssoc.store();
                                  i++; // skip next one
                              }
                          }
                      } else {
-                         contentAssoc.put("sequenceNum", new Long(seqNum));
+                         contentAssoc.put("sequenceNum", Long.valueOf(seqNum));
                          contentAssoc.store();
                      }
                  } else {
-                     contentAssoc.put("sequenceNum", new Long(seqNum));
+                     contentAssoc.put("sequenceNum", Long.valueOf(seqNum));
                      contentAssoc.store();
                  }
                  seqNum += seqIncrement;
@@ -1022,7 +1022,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
                 serviceIn.put("userLogin", userLogin);
                 serviceIn.put("contentIdTo", contentId);
                 serviceIn.put("contentAssocTypeId", "SUB_CONTENT");
-                serviceIn.put("sequenceNum", new Long(50));
+                serviceIn.put("sequenceNum", Long.valueOf(50));
                 try {
                     Map thisResult = dispatcher.runSync("persistContentAndAssoc", serviceIn);
                 } catch(ServiceAuthException e) {
@@ -1052,7 +1052,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
         String startContentId = (String)context.get("contentId");
         try {
             int leafCount = ContentManagementWorker.updateStatsTopDown(delegator, startContentId, typeList);
-            result.put("leafCount", new Integer(leafCount));
+            result.put("leafCount", Integer.valueOf(leafCount));
         } catch(GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.toString());             
@@ -1109,7 +1109,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
                 else
                     branchCount += 1;
                 // For the level just above only, update the branch count
-                contentTo.put("childBranchCount", new Integer(branchCount));
+                contentTo.put("childBranchCount", Integer.valueOf(branchCount));
                 
                 // Start the updating of leaf counts above
                 ContentManagementWorker.updateStatsBottomUp(delegator, subContentId, typeList, subLeafCount);
@@ -1380,11 +1380,11 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
             }
             Long leafCount = (Long)content.get("childLeafCount");
             if (leafCount == null) {
-                content.set("childLeafCount", new Long(0)); 
+                content.set("childLeafCount", Long.valueOf(0)); 
             }
             Long branchCount = (Long)content.get("childBranchCount");
             if (branchCount == null) {
-                content.set("childBranchCount", new Long(0)); 
+                content.set("childBranchCount", Long.valueOf(0)); 
             }
             
             //content.store();
@@ -1406,7 +1406,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
                 }
                 Long leafCount = (Long)content.get("childLeafCount");
                 if (leafCount == null) {
-                    leafCount = new Long(0);
+                    leafCount = Long.valueOf(0);
                 }
                 int changeLeafCount = leafCount.intValue() + 1;
                 int changeBranchCount = 1;
@@ -1432,7 +1432,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
                 }
                 Long leafCount = (Long)content.get("childLeafCount");
                 if (leafCount == null) {
-                    leafCount = new Long(0);
+                    leafCount = Long.valueOf(0);
                 }
                 int changeLeafCount = -1 * leafCount.intValue() - 1;
                 int changeBranchCount = -1;
@@ -1552,7 +1552,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
         String productId = (String) context.get("productId");
         Integer qty = (Integer) context.get("quantity");
         if (qty == null) {
-            qty = new Integer(1);
+            qty = Integer.valueOf(1);
         }
         
         Timestamp orderCreatedDate = (Timestamp) context.get("orderCreatedDate");
@@ -1580,7 +1580,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
             return ServiceUtil.returnError(msg); 
         }
         Long useTime = (Long)productContent.get("useTime");
-        Integer newUseTime = new Integer(useTime.intValue() * qty.intValue());
+        Integer newUseTime = Integer.valueOf(useTime.intValue() * qty.intValue());
         context.put("useTime", newUseTime);
         context.put("useTimeUomId", productContent.get("useTimeUomId"));
         context.put("useRoleTypeId", productContent.get("useRoleTypeId"));
@@ -1630,7 +1630,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
                 List productContentListFiltered = EntityUtil.filterByDate(productContentList);
                 if (productContentListFiltered.size() > 0) {
                     context.put("productId", productId);
-                    context.put("quantity", new Integer(qty.intValue()));
+                    context.put("quantity", Integer.valueOf(qty.intValue()));
                     Map ctx = subscriptionModel.makeValid(context, "IN");
                     Map thisResult = dispatcher.runSync("updateContentSubscriptionByProduct", ctx);   
                 }

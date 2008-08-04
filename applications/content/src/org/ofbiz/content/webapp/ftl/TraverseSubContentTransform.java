@@ -101,7 +101,7 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
         final LocalDispatcher dispatcher = (LocalDispatcher) FreeMarkerWorker.getWrappedObject("dispatcher", env);
         //final GenericValue userLogin = (GenericValue) FreeMarkerWorker.getWrappedObject("userLogin", env);
         GenericValue view = (GenericValue) FreeMarkerWorker.getWrappedObject("subContentDataResourceView", env);
-        final Integer indent = (templateCtx.get("indent") == null) ? new Integer(0) : (Integer)templateCtx.get("indent");
+        final Integer indent = (templateCtx.get("indent") == null) ? Integer.valueOf(0) : (Integer)templateCtx.get("indent");
        
         String contentId = (String)templateCtx.get("contentId");
         String subContentId = (String)templateCtx.get("subContentId");
@@ -186,7 +186,7 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
                 ContentWorker.traceNodeTrail("2",nodeTrail);
                 nodeTrail.add(rootNode);
                 boolean isPick = checkWhen(subContentDataResourceView, (String)traverseContext.get("contentAssocTypeId"));
-                rootNode.put("isPick", new Boolean(isPick));
+                rootNode.put("isPick", Boolean.valueOf(isPick));
                 if (!isPick) {
                     ContentWorker.traceNodeTrail("3",nodeTrail);
                     isPick = ContentWorker.traverseSubContent(traverseContext);
@@ -312,7 +312,7 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
                 String pickWhen = (String)whenMap.get("pickWhen");
                 List nodeTrail = (List)traverseContext.get("nodeTrail");
                 int indentSz = indent.intValue() + nodeTrail.size();
-                assocContext.put("indentObj", new Integer(indentSz));
+                assocContext.put("indentObj", Integer.valueOf(indentSz));
                 isPick = ContentWorker.checkWhen(assocContext, (String)whenMap.get("pickWhen"));
                 return isPick;
            }
@@ -329,7 +329,7 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
                 templateContext.put("subContentId", contentId);
                 templateContext.put("subContentDataResourceView", null);
                 int indentSz = indent.intValue() + nodeTrail.size();
-                templateContext.put("indent", new Integer(indentSz));
+                templateContext.put("indent", Integer.valueOf(indentSz));
                 if (sz >= 2) {
                     Map parentNode = (Map)nodeTrail.get(sz - 2);
                     GenericValue parentContent = (GenericValue)parentNode.get("value");

@@ -208,7 +208,7 @@ public class SearchWorker {
                 writer.addDocument(doc);
                 Integer goodIndexCount = (Integer)context.get("goodIndexCount");
                 int newCount = goodIndexCount.intValue() + 1;
-                Integer newIndexCount = new Integer(newCount);
+                Integer newIndexCount = Integer.valueOf(newCount);
                 context.put("goodIndexCount", newIndexCount);
             }
             /*

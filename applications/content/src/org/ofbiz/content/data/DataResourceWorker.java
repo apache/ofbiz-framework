@@ -102,7 +102,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
             matchValue = null;
         }
         List categoryValues = delegator.findByAndCache("DataCategory", UtilMisc.toMap("parentCategoryId", matchValue));
-        categoryNode.put("count", new Integer(categoryValues.size()));
+        categoryNode.put("count", Integer.valueOf(categoryValues.size()));
         List subCategoryIds = FastList.newInstance();
         for (int i = 0; i < categoryValues.size(); i++) {
             GenericValue category = (GenericValue) categoryValues.get(i);
@@ -520,7 +520,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
             File[] subs = parent.listFiles();
             for (int i = 0; i < subs.length; i++) {
                 if (subs[i].isDirectory()) {
-                    dirMap.put(new Long(subs[0].lastModified()), subs[i]);
+                    dirMap.put(Long.valueOf(subs[0].lastModified()), subs[i]);
                 }
             }
         } else {
@@ -993,7 +993,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
             }
 
             byte[] bytes = text.getBytes();
-            return UtilMisc.toMap("stream", new ByteArrayInputStream(bytes), "length", new Integer(bytes.length));
+            return UtilMisc.toMap("stream", new ByteArrayInputStream(bytes), "length", Integer.valueOf(bytes.length));
 
         // object (binary) data
         } else if (dataResourceTypeId.endsWith("_OBJECT")) {
@@ -1040,14 +1040,14 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
                 throw new GeneralException("Unsupported OBJECT type [" + dataResourceTypeId + "]; cannot stream");
             }
 
-            return UtilMisc.toMap("stream", new ByteArrayInputStream(bytes), "length", new Long(bytes.length));
+            return UtilMisc.toMap("stream", new ByteArrayInputStream(bytes), "length", Long.valueOf(bytes.length));
 
         // file data
         } else if (dataResourceTypeId.endsWith("_FILE") || dataResourceTypeId.endsWith("_FILE_BIN")) {
             String objectInfo = dataResource.getString("objectInfo");
             if (UtilValidate.isNotEmpty(objectInfo)) {
                 File file = DataResourceWorker.getContentFile(dataResourceTypeId, objectInfo, contextRoot);
-                return UtilMisc.toMap("stream", new FileInputStream(file), "length", new Long(file.length()));                 
+                return UtilMisc.toMap("stream", new FileInputStream(file), "length", Long.valueOf(file.length()));                 
             } else {
                 throw new GeneralException("No objectInfo found for FILE type [" + dataResourceTypeId + "]; cannot stream");
             }
@@ -1067,7 +1067,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
                 }
 
                 URLConnection con = url.openConnection();
-                return UtilMisc.toMap("stream", con.getInputStream(), "length", new Long(con.getContentLength()));                
+                return UtilMisc.toMap("stream", con.getInputStream(), "length", Long.valueOf(con.getContentLength()));                
             } else {
                 throw new GeneralException("No objectInfo found for URL_RESOURCE type; cannot stream");
             }

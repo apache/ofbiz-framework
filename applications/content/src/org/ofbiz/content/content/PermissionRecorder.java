@@ -197,11 +197,11 @@ public class PermissionRecorder {
     public void record(GenericValue purposeOp, boolean targetOpCond, boolean purposeCond, boolean statusCond, boolean privilegeCond, boolean roleCond) {
 
         Map map = UtilMisc.makeMapWritable(purposeOp);
-        map.put("contentOperationIdCond", new Boolean(targetOpCond));
-        map.put("contentPurposeTypeIdCond", new Boolean(purposeCond));
-        map.put("statusIdCond", new Boolean(statusCond));
-        map.put("privilegeEnumIdCond", new Boolean(privilegeCond));
-        map.put("roleTypeIdCond", new Boolean(roleCond));
+        map.put("contentOperationIdCond", Boolean.valueOf(targetOpCond));
+        map.put("contentPurposeTypeIdCond", Boolean.valueOf(purposeCond));
+        map.put("statusIdCond", Boolean.valueOf(statusCond));
+        map.put("privilegeEnumIdCond", Boolean.valueOf(privilegeCond));
+        map.put("roleTypeIdCond", Boolean.valueOf(roleCond));
         map.put("contentId", currentContentId);
         ((List)currentContentMap.get("checkResultList")).add(map);
             //if (Debug.infoOn()) Debug.logInfo("record, map:" + map, module);
