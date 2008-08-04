@@ -1591,71 +1591,96 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         return mimeTypeId;
     }
 
-    public static String logMap(String lbl, Map map, int indent) {
+    public static String logMap(String lbl, Map map, int indentLevel) {
+        StringBuilder indent = new StringBuilder();
+        for (int i=0; i<indentLevel; i++) { 
+            indent.append(' ');
+        }
+        StringBuilder sb = new StringBuilder();
+        return logMap(new StringBuilder(), lbl, map, indent).toString();
+    }
+
+    public static StringBuilder logMap(StringBuilder s, String lbl, Map map, StringBuilder indent) {
         String sep = ":";
         String eol = "\n";
         String spc = "";
-        for (int i=0; i<indent; i++) { 
-            spc += "  ";
-        }
-        String s = (lbl != null) ? lbl : "";
-        s += "=" + indent + "==>" + eol;
+        if (lbl != null) s.append(lbl);
+        s.append("=").append(indent).append("==>").append(eol);
         Set keySet = map.keySet();
         Iterator it = keySet.iterator();
         while (it.hasNext()) {
             String key = (String)it.next();
             if ("request response session".indexOf(key) < 0) {
                 Object obj = map.get(key);
-                s += spc + key + sep;
+                s.append(spc).append(key).append(sep);
                 if (obj instanceof GenericValue) {
                     GenericValue gv = (GenericValue)obj;
                     GenericPK pk = gv.getPrimaryKey();
-                    s += logMap("GMAP[" + key + " name:" + pk.getEntityName()+ "]", pk, indent + 1);
+                    indent.append(' ');
+                    logMap(s, "GMAP[" + key + " name:" + pk.getEntityName()+ "]", pk, indent);
+                    indent.setLength(indent.length() - 1);
                 } else if (obj instanceof List) {
-                    s += logList("LIST[" + ((List)obj).size() + "]", (List)obj, indent + 1);
+                    indent.append(' ');
+                    logList(s, "LIST[" + ((List)obj).size() + "]", (List)obj, indent);
+                    indent.setLength(indent.length() - 1);
                 } else if (obj instanceof Map) {
-                    s += logMap("MAP[" + key + "]", (Map)obj, indent + 1);
+                    indent.append(' ');
+                    logMap(s, "MAP[" + key + "]", (Map)obj, indent);
+                    indent.setLength(indent.length() - 1);
                 } else if (obj != null) {
-                    s += obj + sep + obj.getClass() + eol;
+                    s.append(obj).append(sep).append(obj.getClass()).append(eol);
                 } else {
-                    s += eol;
+                    s.append(eol);
                 }
             }
         }
-        return s + eol + eol;
+        return s.append(eol).append(eol);
     }
 
-    public static String logList(String lbl, List lst, int indent) {
+    public static String logList(String lbl, List lst, int indentLevel) {
+        StringBuilder indent = new StringBuilder();
+        for (int i=0; i<indentLevel; i++) { 
+            indent.append(' ');
+        }
+        StringBuilder sb = new StringBuilder();
+        return logList(new StringBuilder(), lbl, lst, indent).toString();
+    }
+
+    public static StringBuilder logList(StringBuilder s, String lbl, List lst, StringBuilder indent) {
    
         String sep = ":";
         String eol = "\n";
         String spc = "";
         if (lst == null)
-            return "";
+            return s;
         int sz = lst.size();
-        for (int i=0; i<indent; i++) 
-            spc += "  ";
-        String s = (lbl != null) ? lbl : "";
-        s += "=" + indent + "==> sz:" + sz + eol;
+        if (lbl != null) s.append(lbl);
+        s.append("=").append(indent).append("==> sz:").append(sz).append(eol);
         Iterator it = lst.iterator();
         while (it.hasNext()) {
             Object obj = it.next();
-                s += spc;
+                s.append(spc);
                 if (obj instanceof GenericValue) {
                     GenericValue gv = (GenericValue)obj;
                     GenericPK pk = gv.getPrimaryKey();
-                    s += logMap("MAP[name:" + pk.getEntityName() + "]", pk, indent + 1);
+                    indent.append(' ');
+                    logMap(s, "MAP[name:" + pk.getEntityName() + "]", pk, indent);
+                    indent.setLength(indent.length() - 1);
                 } else if (obj instanceof List) {
-                    s += logList("LIST[" + ((List)obj).size() + "]", (List)obj, indent + 1);
+                    indent.append(' ');
+                    logList(s, "LIST[" + ((List)obj).size() + "]", (List)obj, indent);
+                    indent.setLength(indent.length() - 1);
                 } else if (obj instanceof Map) {
-                    s += logMap("MAP[]", (Map)obj, indent + 1);
+                    indent.append(' ');
+                    logMap(s, "MAP[]", (Map)obj, indent);
+                    indent.setLength(indent.length() - 1);
                 } else if (obj != null) {
-                    s += obj + sep + obj.getClass() + eol;
+                    s.append(obj).append(sep).append(obj.getClass()).append(eol);
                 } else {
-                    s += eol;
+                    s.append(eol);
                 }
         }
-        return s + eol + eol;
+        return s.append(eol).append(eol);
     }
     
     public static void traceNodeTrail(String lbl, List nodeTrail) {
