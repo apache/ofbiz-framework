@@ -289,6 +289,7 @@ under the License.
             <div id="editShippingPanel" class="screenlet-body" style="display: none;">
               <form name="shippingForm" id="shippingForm" action="<@ofbizUrl>createUpdateShippingAddress</@ofbizUrl>" method="post">
                 <input type="hidden" id="shipToContactMechId" name="shipToContactMechId" value="${parameters.shipToContactMechId?if_exists}"/>
+                <input type="hidden" name="billToContactMechId" value="${parameters.billToContactMechId?if_exists}"/>
                 <input type="hidden" id="shippingPartyId" name="partyId" value="${parameters.partyId?if_exists}"/>
                 <input type="hidden" name="userLogin" value="${parameters.userLogin?if_exists}"/>
                 <input type="hidden" id="phoneContactMechId" name="phoneContactMechId" value="${parameters.phoneContactMechId?if_exists}"/>
