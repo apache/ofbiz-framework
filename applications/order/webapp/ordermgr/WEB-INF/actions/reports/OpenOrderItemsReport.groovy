@@ -136,7 +136,7 @@ listIt.each { listValue ->
                     listPrice : listPrice,
                     discount : listPrice - retailPrice,
                     calculatedMarkup : retailPrice - costPrice,
-                    percentMarkup : ((retailPrice - costPrice)/costPrice)*100];
+                    percentMarkup : ((retailPrice - costPrice)/costPrice?:1)*100];
     orderItemList.add(orderItemMap);
 }
 
