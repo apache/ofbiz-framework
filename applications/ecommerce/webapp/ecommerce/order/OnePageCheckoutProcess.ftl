@@ -91,10 +91,7 @@ under the License.
                         <td><div align="right"><b>${uiLabelMap.OrderShippingAndHandling}:</b></div></td>
                         <td>
                           <div id="completedCartTotalShipping" align="right">
-                            <#if (shoppingCart.getTotalShipping() > 0.0)>
-                              <@ofbizCurrency amount=shoppingCart.getTotalShipping() isoCode=shoppingCart.getCurrency()/>
-                            <#else>$0.00
-                            </#if>
+                            <@ofbizCurrency amount=shoppingCart.getTotalShipping() isoCode=shoppingCart.getCurrency()/>
                           </div>
                         </td>
                       </tr>
@@ -103,10 +100,7 @@ under the License.
                         <td><div align="right"><b>${uiLabelMap.OrderSalesTax}:</b></div></td>
                         <td>
                           <div id="completedCartTotalSalesTax" align="right">
-                            <#if (shoppingCart.getTotalSalesTax() > 0.0)>
-                              <@ofbizCurrency amount=shoppingCart.getTotalSalesTax() isoCode=shoppingCart.getCurrency()/>
-                            <#else>$0.00
-                            </#if>
+                            <@ofbizCurrency amount=shoppingCart.getTotalSalesTax() isoCode=shoppingCart.getCurrency()/>
                           </div>
                         </td>
                       </tr>
@@ -216,10 +210,7 @@ under the License.
                                 <td><div align="right"><b>${uiLabelMap.OrderShippingAndHandling}:</b></div></td>
                                 <td>
                                   <div id="cartTotalShipping" align="center">
-                                    <#if (shoppingCart.getTotalShipping() > 0.0)>
-                                      <@ofbizCurrency amount=shoppingCart.getTotalShipping() isoCode=shoppingCart.getCurrency()/>
-                                    <#else>$0.00
-                                    </#if>
+                                    <@ofbizCurrency amount=shoppingCart.getTotalShipping() isoCode=shoppingCart.getCurrency()/>
                                   </div>
                                 </td>
                               </tr>
@@ -228,10 +219,7 @@ under the License.
                                 <td><div align="right"><b>${uiLabelMap.OrderSalesTax}:</b></div></td>
                                 <td>
                                   <div id="cartTotalSalesTax" align="center">
-                                    <#if (shoppingCart.getTotalSalesTax() > 0.0)>
-                                      <@ofbizCurrency amount=shoppingCart.getTotalSalesTax() isoCode=shoppingCart.getCurrency()/>
-                                    <#else>$0.00
-                                    </#if>
+                                    <@ofbizCurrency amount=shoppingCart.getTotalSalesTax() isoCode=shoppingCart.getCurrency()/>
                                   </div>
                                 </td>
                               </tr>
