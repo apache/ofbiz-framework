@@ -46,12 +46,24 @@ public class FileUtil {
 
     public static final String module = FileUtil.class.getName();
 
+    public static String escapeSeparator( String separator )
+    {
+      if( "\\".equals( separator ) )
+      {
+        return "\\" + separator;
+      }
+      else
+      {
+        return separator;
+      }
+    }
+    
     public static File getFile(String path) {
-        return new File(path.replaceAll("/+|\\\\+", File.separator));
+        return new File(path.replaceAll("/+|\\\\+", escapeSeparator(File.separator)));
     }
 
     public static File getFile(File root, String path) {
-        return new File(root, path.replaceAll("/+|\\\\+", File.separator));
+        return new File(root, path.replaceAll("/+|\\\\+", escapeSeparator(File.separator)));
     }
 
     public static void writeString(String fileName, String s) throws IOException {
