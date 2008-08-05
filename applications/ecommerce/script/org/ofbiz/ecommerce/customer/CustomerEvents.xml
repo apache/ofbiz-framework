@@ -1054,6 +1054,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createUpdateShippingAddress" short-description="create and update shipping address" login-required="false">
+        <set field="keepAddressBook" from-field="parameters.keepAddressBook" default-value="Y"/>
         <call-map-processor xml-resource="org/ofbiz/ecommerce/customer/CheckoutMapProcs.xml"
             processor-name="shipToAddress" in-map-name="parameters" out-map-name="shipToAddressCtx"/>
         <if-empty field="error_list">
@@ -1065,34 +1066,47 @@ under the License.
                 </call-service>
                 <log level="info" message="Shipping address created with contactMechId ${parameters.shipToContactMechId}"/>
             <else>
-                <if-compare-field field="parameters.shipToContactMechId" operator="equals" to-field="parameters.billToContactMechId">
+                <if-compare field="keepAddressBook" operator="equals" value="Y">
                     <make-value entity-name="PostalAddress" value-name="newValue"/>
                     <set-pk-fields value-name="newValue" map-name="shipToAddressCtx"/>
-                    <find-by-primary-key entity-name="PostalAddress" map-name="newValue" value-name="oldValue" />
+                    <find-by-primary-key entity-name="PostalAddress" map-name="newValue" value-name="oldValue"/>
                     <set-nonpk-fields map-name="shipToAddressCtx" value-name="newValue"/>
-                    <if-compare-field field="oldValue" to-field="newValue" operator="not-equals" type="Object"> 
-                        <entity-and entity-name="PartyContactMechPurpose" list-name="pcmpList" filter-by-date="true">
-                            <field-map field-name="contactMechId" env-name="parameters.shipToContactMechId"/>
-                            <field-map field-name="partyId" env-name="partyId"/>
-                            <field-map field-name="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
-                        </entity-and>
-                        <first-from-list list-name="pcmpList" entry-name="pcmp"/>
-                        <if-not-empty field="pcmp">
-                            <set-service-fields service-name="deletePartyContactMechPurposeIfExists" map-name="pcmp" to-map-name="serviceInMap"/>
-                            <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="serviceInMap"/>
-                        </if-not-empty>
+                    <if-compare-field field="oldValue" to-field="newValue" operator="not-equals" type="Object">
                         <call-service service-name="createPartyPostalAddress" in-map-name="shipToAddressCtx">
+                            <result-to-field result-name="contactMechId" field-name="parameters.shipToContactMechId"/>
+                        </call-service>                         
+                    </if-compare-field>              
+                </if-compare>
+                <if-compare field="keepAddressBook" operator="equals" value="N">
+                    <if-compare-field field="parameters.shipToContactMechId" operator="equals" to-field="parameters.billToContactMechId">
+                        <make-value entity-name="PostalAddress" value-name="newValue"/>
+                        <set-pk-fields value-name="newValue" map-name="shipToAddressCtx"/>
+                        <find-by-primary-key entity-name="PostalAddress" map-name="newValue" value-name="oldValue"/>
+                        <set-nonpk-fields map-name="shipToAddressCtx" value-name="newValue"/>
+                        <if-compare-field field="oldValue" to-field="newValue" operator="not-equals" type="Object"> 
+                            <entity-and entity-name="PartyContactMechPurpose" list-name="pcmpList" filter-by-date="true">
+                                <field-map field-name="contactMechId" env-name="parameters.shipToContactMechId"/>
+                                <field-map field-name="partyId" env-name="partyId"/>
+                                <field-map field-name="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
+                            </entity-and>
+                            <first-from-list list-name="pcmpList" entry-name="pcmp"/>
+                            <if-not-empty field="pcmp">
+                                <set-service-fields service-name="deletePartyContactMechPurposeIfExists" map-name="pcmp" to-map-name="serviceInMap"/>
+                                <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="serviceInMap"/>
+                            </if-not-empty>
+                            <call-service service-name="createPartyPostalAddress" in-map-name="shipToAddressCtx">
+                                <result-to-field result-name="contactMechId" field-name="parameters.shipToContactMechId"/>
+                            </call-service>
+                            <log level="info" message="Shipping address updated with contactMechId ${parameters.shipToContactMechId}"/>
+                        </if-compare-field>
+                    <else>
+                        <call-service service-name="updatePartyPostalAddress" in-map-name="shipToAddressCtx">
                             <result-to-field result-name="contactMechId" field-name="parameters.shipToContactMechId"/>
                         </call-service>
                         <log level="info" message="Shipping address updated with contactMechId ${parameters.shipToContactMechId}"/>
+                    </else>
                     </if-compare-field>
-                <else>
-                    <call-service service-name="updatePartyPostalAddress" in-map-name="shipToAddressCtx">
-                        <result-to-field result-name="contactMechId" field-name="parameters.shipToContactMechId"/>
-                    </call-service>
-                    <log level="info" message="Shipping address updated with contactMechId ${parameters.shipToContactMechId}"/>
-                </else>
-                </if-compare-field>
+                </if-compare>
             </else>
             </if-empty>
             <field-to-request field-name="parameters.shipToContactMechId" request-name="shipToContactMechId"/>
