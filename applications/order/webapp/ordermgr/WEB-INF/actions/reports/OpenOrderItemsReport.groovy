@@ -121,7 +121,13 @@ listIt.each { listValue ->
     totalRetailPrice += retailPrice;
     totalCostPrice += costPrice;    
     totalquantityOrdered += quantityOrdered;
-    totalquantityOpen += quantityOpen;    
+    totalquantityOpen += quantityOpen;   
+    costPriceDividendValue = costPrice;
+    if(costPriceDividendValue){
+        percentMarkup = ((retailPrice - costPrice)/costPrice)*100;
+    }else{
+        percentMarkup = "";
+    }    
     orderItemMap = [orderDate : orderDate, 
                     orderId : orderId, 
                     productId : productId, 
@@ -136,13 +142,19 @@ listIt.each { listValue ->
                     listPrice : listPrice,
                     discount : listPrice - retailPrice,
                     calculatedMarkup : retailPrice - costPrice,
-                    percentMarkup : ((retailPrice - costPrice)/costPrice?:1)*100];
+                    percentMarkup : percentMarkup];
     orderItemList.add(orderItemMap);
 }
 
 listIt.close();
 totalAmountList = [];
 if (orderItemList) { 
+    totalCostPriceDividendValue = totalCostPrice;
+    if(totalCostPriceDividendValue){
+        totalPercentMarkup = ((totalRetailPrice - totalCostPrice)/totalCostPrice)*100 ;
+    }else{
+        totalPercentMarkup = "";
+    }    
     totalAmountMap = [totalCostPrice : totalCostPrice, 
                       totalListPrice : totalListPrice, 
                       totalRetailPrice : totalRetailPrice, 
@@ -151,7 +163,7 @@ if (orderItemList) {
                       totalquantityOpen : totalquantityOpen,
                       totalDiscount : totalListPrice - totalRetailPrice,
                       totalMarkup : totalRetailPrice - totalCostPrice,
-                      totalPercentMarkup : ((totalRetailPrice - totalCostPrice)/totalCostPrice)*100];
+                      totalPercentMarkup : totalPercentMarkup];
     totalAmountList.add(totalAmountMap);
 }
 context.orderItemList = orderItemList;
