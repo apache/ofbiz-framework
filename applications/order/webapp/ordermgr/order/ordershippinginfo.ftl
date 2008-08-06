@@ -27,9 +27,7 @@ under the License.
         <#if security.hasEntityPermission("FACILITY", "_CREATE", session) && ((orderHeader.statusId == "ORDER_APPROVED") || (orderHeader.statusId == "ORDER_SENT"))>
           <#-- Special shipment options -->
           <#if orderHeader.orderTypeId == "SALES_ORDER">
-            <#if !shipGroup.supplierPartyId?has_content>
-              <li><a href="<@ofbizUrl>quickShipOrder?${paramString}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderQuickShipEntireOrder}</a></li>
-            </#if>
+            <li><a href="<@ofbizUrl>quickShipOrder?${paramString}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderQuickShipEntireOrder}</a></li>
           <#else> <#-- PURCHASE_ORDER -->
             <span class="label">&nbsp;<#if orderHeader.orderTypeId == "PURCHASE_ORDER">${uiLabelMap.ProductDestinationFacility}</#if></span>
             <#if ownedFacilities?has_content>
