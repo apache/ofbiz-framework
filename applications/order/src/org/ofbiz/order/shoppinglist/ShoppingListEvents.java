@@ -75,6 +75,9 @@ public class ShoppingListEvents {
 
         String shoppingListId = request.getParameter("shoppingListId");
         String selectedCartItems[] = request.getParameterValues("selectedItem");
+        if (UtilValidate.isEmpty(selectedCartItems)) {
+            selectedCartItems = makeCartItemsArray(cart);
+        }
 
         try {
             shoppingListId = addBulkFromCart(delegator, dispatcher, cart, userLogin, shoppingListId, selectedCartItems, true, true);
