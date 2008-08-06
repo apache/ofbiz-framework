@@ -121,8 +121,14 @@ public class SetCalendar extends MethodOperation {
             if (locale == null) {
                 locale = methodContext.getLocale();
             }
+            if (locale == null) {
+                locale = Locale.getDefault();
+            }
             if (timeZone == null) {
                 timeZone = methodContext.getTimeZone();
+            }
+            if (timeZone == null) {
+                timeZone = TimeZone.getDefault();
             }
             fromStamp = (Timestamp) ObjectType.simpleTypeConvert(newValue, "Timestamp", UtilDateTime.DATE_TIME_FORMAT, timeZone, locale, true);
         } catch (Exception e) {
