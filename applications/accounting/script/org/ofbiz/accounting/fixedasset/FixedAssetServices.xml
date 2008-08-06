@@ -244,7 +244,8 @@ under the License.
     </simple-method>   
     <simple-method method-name="updateFixedAssetMaint" short-description="Update an existing FixedAsset Maintenance">
         <entity-one entity-name="FixedAssetMaint" value-name="lookedUpValue"/>
-        <field-to-result field-name="lookedUpValue.statusId" result-name="oldStatusId"/>
+        <set field="oldStatusId" from-field="lookedUpValue.statusId"/>
+        <field-to-result field-name="oldStatusId"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <if-not-empty field="parameters.productMaintSeqId">
             <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
@@ -255,6 +256,47 @@ under the License.
             <set field="lookedUpValue.productMaintTypeId" from-field="productMaint.productMaintTypeId"/>
         </if-not-empty>
         <store-value value-name="lookedUpValue"/>
+        <check-errors/>
+        <if>
+            <condition>
+                <and>
+                    <if-compare field="lookedUpValue.statusId" value="FAM_COMPLETED" operator="equals"/>
+                    <if-compare-field field="oldStatusId" to-field="lookedUpValue.statusId" operator="not-equals"/>
+                </and>
+            </condition>
+            <then>
+                <set field="workEffortId" from-field="lookedUpValue.scheduleWorkEffortId"/>
+                <entity-one value-name="workEffort" entity-name="WorkEffort"/>
+                <if>
+                    <condition>
+                        <and>
+                            <not><if-empty field="workEffort"/></not>
+                            <if-empty field="workEffort.actualCompletionDate"/>
+                            <if-compare field="workEffort.currentStatusId" value="CAL_COMPLETED" operator="not-equals"/>
+                        </and>
+                    </condition>
+                    <then>
+                        <now-timestamp-to-env env-name="nowTimestamp"/>
+                        <set field="updateWorkEffortCtx.workEffortId" from-field="workEffortId"/>
+                        <set field="updateWorkEffortCtx.currentStatusId" value="CAL_ACCEPTED"/>
+                        <call-service service-name="updateWorkEffort" in-map-name="updateWorkEffortCtx"/>
+                        <check-errors/>
+                        <set field="updateWorkEffortCtx.currentStatusId" value="CAL_COMPLETED"/>
+                        <set field="updateWorkEffortCtx.actualCompletionDate" from-field="nowTimestamp"/>
+                        <call-service service-name="updateWorkEffort" in-map-name="updateWorkEffortCtx"/>
+                        <check-errors/>
+                        <entity-condition list-name="wepas" entity-name="WorkEffortPartyAssignment" filter-by-date="true">
+                            <condition-expr field-name="workEffortId" env-name="workEffortId" operator="equals"/>
+                        </entity-condition>
+                        <iterate list-name="wepas" entry-name="wepa">
+                            <set field="wepa.thruDate" from-field="nowTimestamp"/>
+                            <store-value value-name="wepa"/>
+                            <check-errors/>
+                        </iterate>
+                    </then>
+                </if>
+            </then>
+        </if>
     </simple-method>
     <simple-method method-name="deleteFixedAssetMaint" short-description="Delete FixedAsset Maintenance">
         <entity-one entity-name="FixedAssetMaint" value-name="lookedUpValue"/>
@@ -335,6 +377,80 @@ under the License.
                     <check-errors/>
                 </if-compare>
             </if-compare-field>
+        </iterate>
+    </simple-method>
+    <simple-method method-name="createMaintsFromTimeInterval" short-description="Create Fixed Asset Maintenances From A Product Maint Time Interval">
+        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <entity-condition list-name="fixedAssets" entity-name="FixedAsset">
+            <condition-list combine="and">
+                <condition-expr field-name="instanceOfProductId" operator="not-equals" env-name="null"/>
+                <condition-expr field-name="actualEndOfLife" operator="equals" env-name="null"/>
+            </condition-list>
+        </entity-condition>
+        <iterate list-name="fixedAssets" entry-name="fixedAsset">
+            <entity-condition list-name="productMaints" entity-name="ProductMaint">
+                <condition-list combine="and">
+                    <condition-expr field-name="productId" env-name="fixedAsset.instanceOfProductId"/>
+                    <condition-expr field-name="intervalUomId" operator="like" value="TF_%"/>
+                </condition-list>
+            </entity-condition>
+            <iterate list-name="productMaints" entry-name="productMaint">
+                <set field="repeatCount" from-field="productMaint.repeatCount" default-value="0" type="Long"/>
+                <entity-condition list-name="maintList" entity-name="FixedAssetMaintWorkEffort">
+                    <condition-list combine="and">
+                        <condition-expr field-name="fixedAssetId" operator="equals" env-name="fixedAsset.fixedAssetId"/>
+                        <condition-expr field-name="productMaintTypeId" operator="equals" env-name="productMaint.productMaintTypeId"/>
+                        <condition-expr field-name="intervalUomId" operator="equals" env-name="productMaint.intervalUomId"/>
+                        <condition-expr field-name="statusId" operator="not-equals" value="FAM_CANCELLED"/>
+                    </condition-list>
+                    <order-by field-name="maintHistSeqId"/>
+                </entity-condition>
+                <set field="intervalQuantity" from-field="productMaint.intervalQuantity" default-value="0" type="Integer"/>
+                <if-compare field="productMaint.intervalUomId" operator="equals" value="TF_day">
+                    <set-calendar field="compareDate" from-field="nowTimestamp" days="-${intervalQuantity}"/>
+                    <else>
+                        <if-compare field="productMaint.intervalUomId" operator="equals" value="TF_mon">
+                            <set-calendar field="compareDate" from-field="nowTimestamp" months="-${intervalQuantity}"/>
+                            <else>
+                                <if-compare field="productMaint.intervalUomId" operator="equals" value="TF_yr">
+                                    <set-calendar field="compareDate" from-field="nowTimestamp" years="-${intervalQuantity}"/>
+                                </if-compare>
+                            </else>
+                        </if-compare>
+                    </else>
+                </if-compare>
+                <if-not-empty field="compareDate">
+                    <set field="listSize" value="0" type="Long"/>
+                    <if-not-empty field="maintList">
+                        <set field="listSize" value="${bsh:maintList.size();}" type="Long"/>
+                    </if-not-empty>
+                    <set field="lastSvcLong" value="0" type="Long"/>
+                    <set field="lastSvcDate" from-field="lastSvcLong" type="Timestamp"/>
+                    <iterate list-name="maintList" entry-name="maintValue">
+                        <set field="lastSvcDate" from-field="maintValue.actualCompletionDate" set-if-null="true"/>
+                    </iterate>
+                    <if-not-empty field="lastSvcDate">
+                        <if-compare-field field="lastSvcDate" operator="less" to-field="compareDate" type="Timestamp">
+                            <set field="maintDue" value="false"/>
+                            <if-compare field="repeatCount" operator="greater" value="0" type="Long">
+                                <if-compare-field field="listSize" operator="less" to-field="repeatCount" type="Long">
+                                    <set field="maintDue" value="true"/>
+                                </if-compare-field>
+                                <else>
+                                    <set field="maintDue" value="true"/>
+                                </else>
+                            </if-compare>
+                            <if-compare field="maintDue" operator="equals" value="true">
+                                <set-service-fields service-name="createFixedAssetMaint" to-map-name="createMaintCxt" map-name="productMaint"/>
+                                <set field="createMaintCxt.fixedAssetId" from-field="fixedAsset.fixedAssetId"/>
+                                <set field="createMaintCxt.statusId" value="FAM_CREATED"/>
+                                <call-service service-name="createFixedAssetMaint" in-map-name="createMaintCxt"/>
+                                <check-errors/>
+                            </if-compare>
+                        </if-compare-field>
+                    </if-not-empty>
+                </if-not-empty>
+            </iterate>
         </iterate>
     </simple-method>
     <simple-method method-name="migrateFixedAssetMaintMeter" short-description="Copy FixedAssetMaintMeter To FixedAssetMeter">
