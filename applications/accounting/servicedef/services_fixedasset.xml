@@ -168,6 +168,13 @@ under the License.
         <permission-service service-name="fixedAssetPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+    <service name="createMaintsFromTimeInterval" engine="simple" use-transaction="false"
+                location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="createMaintsFromTimeInterval" auth="true">
+        <description>Create Fixed Asset Maintenances from ProductMaint time intervals. Currently works
+        with day, month, and year interval types. This service is intended to be run as a regularly
+        scheduled job.</description>
+        <permission-service service-name="fixedAssetPermissionCheck" main-action="CREATE"/>
+    </service>
     <!-- FixedAsset Maintenance Meter Create/Update/Delete-->
     <service name="createFixedAssetMeter" default-entity-name="FixedAssetMeter" engine="simple"
                 location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="createFixedAssetMeter" auth="true">

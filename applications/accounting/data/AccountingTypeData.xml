@@ -158,6 +158,12 @@ under the License.
     <StatusItem description="Completed" sequenceId="10" statusCode="COMPLETED" statusId="FAM_COMPLETED" statusTypeId="FIXEDAST_MNT_STATUS"/>
     <StatusItem description="Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="FAM_CANCELLED" statusTypeId="FIXEDAST_MNT_STATUS"/>
     
+    <!-- The following three elements set up a regularly scheduled job that will automatically create
+        fixed asset maintenances from ProductMaint time intervals. -->
+    <RecurrenceRule recurrenceRuleId="FAM_AUTO_CREATE" untilDateTime="" frequency="MINUTELY" intervalNumber="5" countNumber="-1"/>
+    <RecurrenceInfo recurrenceInfoId="FAM_AUTO_CREATE" startDateTime="2000-01-01 00:00:00.000" recurrenceRuleId="FAM_AUTO_CREATE" recurrenceCount="0"/>
+    <JobSandbox jobId="FAM_AUTO_CREATE" jobName="Auto-create Fixed Asset Maintenances" runTime="2000-01-01 00:00:00.000" serviceName="createMaintsFromTimeInterval" poolId="pool" runAsUser="system" recurrenceInfoId="FAM_AUTO_CREATE"/>
+
     <!-- Fixed Asset Maintenance party roles -->
     <RoleType description="Fixed Asset Maint Assignee" hasTable="N" roleTypeId="FAM_ASSIGNEE"/>
     <RoleType description="Maintenance Supplier or Service" hasTable="N" parentTypeId="FAM_ASSIGNEE" roleTypeId="FAM_SUPPLIER"/>
