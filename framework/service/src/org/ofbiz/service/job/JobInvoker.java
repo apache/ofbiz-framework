@@ -68,7 +68,7 @@ public class JobInvoker implements Runnable {
         this.thread.setDaemon(false);
         this.thread.setName(this.name);
 
-        if (Debug.verboseOn()) Debug.logVerbose("JobInoker: Starting Invoker Thread -- " + thread.getName(), module);
+        if (Debug.verboseOn()) Debug.logVerbose("JobInvoker: Starting Invoker Thread -- " + thread.getName(), module);
         this.thread.start();
     }
 
