@@ -39,17 +39,18 @@
 
     <simple-method method-name="updateFixedAssetMaintAndWorkEffort" login-required="true"
         short-description="Update FixedAssetMaint and Schedule information in WorkEffort">
-        <check-errors/>
         <set-service-fields map-name="parameters" service-name="updateFixedAssetMaint" to-map-name="updateFixedAssetMaintCtx"/>
         <call-service service-name="updateFixedAssetMaint" in-map-name="updateFixedAssetMaintCtx"/>
         <check-errors/>
         <if-compare field="parameters.statusId" operator="equals" value="FAM_CANCELLED">
             <set field="updateWorkEffortCtx.currentStatusId" value="CAL_CANCELLED"/>
         </if-compare>
-        <set from-field="parameters.scheduleWorkEffortId" field="updateWorkEffortCtx.workEffortId"/>
         <set-service-fields map-name="parameters" service-name="updateWorkEffort" to-map-name="updateWorkEffortCtx"/>
+        <set from-field="parameters.scheduleWorkEffortId" field="updateWorkEffortCtx.workEffortId"/>
+        <set from-field="parameters.scheduleWorkEffortId" field="workEffortId"/>
+        <entity-one value-name="workEffort" entity-name="WorkEffort"/>
+        <set field="updateWorkEffortCtx.actualCompletionDate" from-field="parameters.actualCompletionDate" default-value="${workEffort.actualCompletionDate}"/>
         <call-service service-name="updateWorkEffort" in-map-name="updateWorkEffortCtx"/>
-        <check-errors/>
     </simple-method>    
 
     <simple-method method-name="createWorkEffortAndAssoc" login-required="true"
