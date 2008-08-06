@@ -105,7 +105,6 @@
     </property>
     <property key="Content.description.10000">
         <value xml:lang="en">10000</value>
-        <value xml:lang="es"></value>
         <value xml:lang="th">10000</value>
     </property>
     <property key="Content.description.NOCONTENTFOUND">
@@ -404,7 +403,6 @@
     </property>
     <property key="ContentOperation.description.CONTENT_LINK_FROM">
         <value xml:lang="en">Content Link From</value>
-        <value xml:lang="es"></value>
         <value xml:lang="it">Link Contenuto Da</value>
         <value xml:lang="ro">Link Continut De la</value>
         <value xml:lang="th">หัวข้อที่เชื่อมต่อจาก</value>
@@ -433,7 +431,6 @@
     </property>
     <property key="ContentOperation.description.CONTENT_RESPOND">
         <value xml:lang="en">Content Respond</value>
-        <value xml:lang="es"></value>
         <value xml:lang="it">Risposta Contenuto</value>
         <value xml:lang="ro">Raspuns Continut</value>
         <value xml:lang="th">หัวข้อคำตอบ</value>
@@ -441,7 +438,6 @@
     </property>
     <property key="ContentOperation.description.CONTENT_UPDATE">
         <value xml:lang="en">Content Update</value>
-        <value xml:lang="es"></value>
         <value xml:lang="it">Aggiorna Contenuto</value>
         <value xml:lang="ro">Actualizeaza Continut</value>
         <value xml:lang="th">หัวข้อที่เปลี่ยนแปลง</value>
@@ -463,7 +459,6 @@
     </property>
     <property key="ContentOperation.description.HAS_ADMIN_ROLE">
         <value xml:lang="en">Has Admin Role</value>
-        <value xml:lang="es"></value>
         <value xml:lang="it">Ha Ruolo Amministratore</value>
         <value xml:lang="ro">Are Drept de Administrator</value>
         <value xml:lang="th">มีข้อบังคับของผู้ดูแลระบบ</value>
@@ -514,7 +509,6 @@
     </property>
     <property key="ContentPurposeType.description.ADVERTISEMENT">
         <value xml:lang="en">Advertisement</value>
-        <value xml:lang="es"></value>
         <value xml:lang="it">Pubblicità</value>
         <value xml:lang="ro">Publicitate</value>
         <value xml:lang="th">การประกาศ</value>
@@ -538,7 +532,6 @@
     </property>
     <property key="ContentPurposeType.description.COMPANY_INFO">
         <value xml:lang="en">Company Info</value>
-        <value xml:lang="es"></value>
         <value xml:lang="it">Informazione Azienda</value>
         <value xml:lang="ro">Informatie Firma</value>
         <value xml:lang="th">ข้อมูลบริษัท</value>
@@ -868,8 +861,6 @@
     </property>
     <property key="DataCategory.categoryName.ROOT">
         <value xml:lang="en">ROOT</value>
-        <value xml:lang="it"></value>
-        <value xml:lang="ro"></value>
         <value xml:lang="th">ต้นกำเนิด</value>
     </property>
     <property key="DataCategory.categoryName.TECHNOLOGY">
@@ -1436,7 +1427,6 @@
     </property>
     <property key="MimeType.description.video/quicktime">
         <value xml:lang="en">Quicktime Video</value>
-        <value xml:lang="es"></value>
         <value xml:lang="it">Video Quicktime</value>
         <value xml:lang="ro">Video Quicktime</value>
         <value xml:lang="th">วิดีโอแบบใช้เวลารวดเร็ว</value>

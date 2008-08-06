@@ -1564,7 +1564,6 @@
     </property>
     <property key="ManufacturingMrpInitialisation">
         <value xml:lang="en">IEP init.</value>
-        <value xml:lang="es"></value>
         <value xml:lang="fr">Init. Mrp</value>
         <value xml:lang="it">IEP init.</value>
         <value xml:lang="ro">IEP init.</value>
