@@ -1095,7 +1095,7 @@ under the License.
     <request-map uri="quickCheckoutOrderWithDefaultOptions">
         <security https="true" auth="true"/>
         <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="quickCheckoutOrderWithDefaultOptions"/>
-        <response name="success" type="request" value="confirmOrder"/>
+        <response name="success" type="request" value="calcTax"/>
         <response name="error" type="view" value="orderentry"/>
     </request-map>
 
