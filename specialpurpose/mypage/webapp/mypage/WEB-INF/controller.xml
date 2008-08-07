@@ -174,7 +174,7 @@
         <security https="true" auth="true"/>
         <event  type="simple" invoke="getToNextDonePage" path="org/ofbiz/mypage/Events.xml"/>
         <response name="main" type="request" value="main"/>
-        <response name="viewCommunicationEvent" type="request" value="ViewCommunicationEvent"/>
+        <response name="ViewCommunicationEvent" type="request" value="ViewCommunicationEvent"/>
         <response name="myCommunications" type="request" value="myCommunications"/>
         <response name="otherCommunications" type="request" value="otherCommunications"/>
         <response name="myTimesheet" type="request" value="myTimesheet"/>

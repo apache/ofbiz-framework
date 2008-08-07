@@ -278,7 +278,7 @@ under the License.
     <screen name="ViewCommunicationEvent">
         <section>
             <actions>
-                <set field="donePage" value="viewCommunication"/>
+                <set field="donePage" value="ViewCommunicationEvent"/>
                 <set field="titleProperty" value="PageTitleViewCommunication" />
                 <set field="tabButtonItem" value="OverView" />
                 <set field="parentCommEventId" from-field="parameters.parentCommEventId" />
@@ -322,7 +322,7 @@ under the License.
                             <label style="h1" text="${uiLabelMap.CommonRelatedInformation}" />
                             <section>
                                 <actions>
-                                    <set field="donePage" value="viewCommunicationEvent"/>
+                                    <set field="donePage" value="ViewCommunicationEvent"/>
                                 </actions>
                                 <widgets>
                                     <screenlet title="${uiLabelMap.PartyCommEventRoles}">
@@ -333,7 +333,7 @@ under the License.
                             </section>
                             <section>
                                 <actions>
-                                    <set field="donePage" value="viewCommunicationEvent"/>
+                                    <set field="donePage" value="ViewCommunicationEvent"/>
                                 </actions>
                                 <widgets>
                                     <screenlet title="${uiLabelMap.PartyCommContent}">
