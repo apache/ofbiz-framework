@@ -48,7 +48,7 @@ under the License.
                                 </section>
                                 <include-menu location="component://party/webapp/partymgr/communication/CommMenus.xml" name="CommFindTabBar"/>
                                 <container><label style="h1" text="${uiLabelMap.PartyPendingCommunicationEvents}"/></container>
-                                <container><link style="smallSubmit" target="viewCommunicationEvent?partyId=${partyId}" text="${uiLabelMap.PartyNewCommunication}"/></container>
+                                <container><link style="smallSubmit" target="ViewCommunicationEvent?partyId=${partyId}" text="${uiLabelMap.PartyNewCommunication}"/></container>
                                 <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="ListPendingCommEvents"/>
                             </widgets>
                             <fail-widgets>
@@ -417,10 +417,14 @@ under the License.
                     location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PartyCommEventRoles}">
-                            <container style="button-bar"><link style="smallSubmit" target="UpdateCommRoles?communicationEventId=${communicationEventId}&amp;partyId=${partyId}" text="${uiLabelMap.PartyNewCommRole}"/></container>
                             <include-form
                                 location="component://party/webapp/partymgr/communication/CommForms.xml"
                                 name="ListCommRoles" />
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.PartyCommEventRoles}">
+                            <include-form
+                                location="component://party/webapp/partymgr/communication/CommForms.xml"
+                                name="AddEventRole" />
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>

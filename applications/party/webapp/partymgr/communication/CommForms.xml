@@ -471,17 +471,15 @@ under the License.
                 <field-map field-name="communicationEventId" env-name="parameters.communicationEventId"/>
             </entity-and>
         </actions>
-    
-        <field name="editContent" widget-style="smallSubmit">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditCommContent?contentId=${contentId}&amp;dataResourceId=${dataResourceId}&amp;communicationEventId=${communicationEventId}&amp;fromDate=${fromDate}"/> 
+        <field name="contentName" widget-style="smallSubmit">
+            <hyperlink also-hidden="false" description="${contentName} [${contentId}]" target="ViewSimpleContent?contentId=${contentId}&amp;dataResourceId=${dataResourceId}&amp;communicationEventId=${communicationEventId}&amp;fromDate=${fromDate}"/> 
         </field>
-        <field name="viewContent" widget-style="smallSubmit">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonView}" target="ViewSimpleContent?contentId=${contentId}&amp;dataResourceId=${dataResourceId}&amp;communicationEventId=${communicationEventId}&amp;fromDate=${fromDate}"/> 
-        </field>
-        <field name="contentName"><display/></field>
-        <field name="contentId"><display/></field>
+        <field name="contentTypeId"><display-entity entity-name="ContentType" description="${description}"/></field>
         <field name="fromDate"><display/></field>
-        <field name="dataResourceId"><display/></field>
+        <field name="drDataResourceName" widget-style="smallSubmit">
+            <hyperlink also-hidden="false" description="${drDataResourceName} [${drDataResourceId}]" target="/content/control/editDataResource?dataResourceId=${drDataResourceId}" target-type="inter-app"/> 
+        </field>
+        <field name="drMimeTypeId"><display-entity entity-name="MimeType" description="${description}" key-field-name="mimeTypeId"/></field>
     </form>
 
     <form name="addCommContent" type="single" target="createCommContentDataResource" 
@@ -643,7 +641,7 @@ under the License.
         <actions>
             <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/getPartyEmailFromCommEventInfo.groovy"/>
         </actions>
-        <field name="donePage"><hidden value="${parameters.donePage}"/></field>
+        <field name="donePage"><hidden value="${donePage}"/></field>
         <field name="communicationEventId"><hidden value="${parameters.communicationEventId}"/></field>
         <field name="partyId" tooltip="leave empty for new 'Party'"><lookup target-form-name="LookupPartyName"/></field>
         <field name="emailAddress"><text/></field>
@@ -654,7 +652,7 @@ under the License.
     </form>
     <form name="deleteEmail" type="single" title="delete the email"
         target="deleteUnknownCommunicationEvent">
-        <field name="donePage"><hidden value="${parameters.donePage}"/></field>
+        <field name="donePage"><hidden value="${donePage}"/></field>
         <field name="communicationEventId"><hidden value="${parameters.communicationEventId}"/></field>
         <field name="delContentDataResource"><hidden value="Y"/></field>
         <field name="" position="1"><display/></field>
