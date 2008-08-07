@@ -234,14 +234,7 @@ under the License.
         <attribute name="wholeSalePrice" mode="OUT" type="Double" optional="true"/>
         <attribute name="usageQuantity" mode="OUT" type="Double" optional="true"/>
     </service>
-    <service name="getInventoryItemForAssociatedOrderSupplierAndProduct" engine="simple"
-             location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="getInventoryItemForAssociatedOrderSupplierAndProduct" auth="false">
-        <description>Get Inventory Items that are received against an order, supplier and product</description>
-        <attribute name="orderId" type="String" mode="IN" optional="true"/>
-        <attribute name="partyId" type="String" mode="IN" optional="true"/>
-        <attribute name="productId" type="String" mode="IN" optional="false"/>
-        <attribute name="inventoryItems" type="List" mode="OUT" optional="false"/>
-    </service>    
+    
     <service name="checkInventoryAvailability" engine="java"
             location="org.ofbiz.product.inventory.InventoryServices" invoke="checkInventoryAvailability">
         <description>Batch service for checking and sending backorder notifications.  Will also set an autoCancelDate for sales orders to 30 days (hard coded)

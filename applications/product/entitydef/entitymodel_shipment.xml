@@ -402,6 +402,9 @@ under the License.
       <member-entity entity-alias="II" entity-name="InventoryItem"/>
       <alias-all entity-alias="SR"/>
       <alias entity-alias="II" name="facilityId"/>
+      <alias entity-alias="II" name="locationSeqId"/>
+      <alias entity-alias="II" name="quantityOnHandTotal"/>
+      <alias entity-alias="II" name="availableToPromiseTotal"/>
       <alias entity-alias="II" name="unitCost"/>
       <view-link entity-alias="SR" rel-entity-alias="II">
         <key-map field-name="inventoryItemId"/>
