@@ -26,6 +26,7 @@ import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.*;
+import java.nio.*;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -949,6 +950,14 @@ public class ObjectType {
                 return list;
             } else if ("String".equals(type) || "java.lang.String".equals(type)) {
                 return list.toString();
+            } else {
+                throw new GeneralException("Conversion from " + fromType + " to " + type + " not currently supported");            
+            }
+        } else if (obj instanceof java.nio.Buffer) {
+            fromType = "Buffer";
+            Buffer buffer = (Buffer) obj;
+            if ("java.nio.ByteBuffer".equals(type)) {
+                return buffer;
             } else {
                 throw new GeneralException("Conversion from " + fromType + " to " + type + " not currently supported");            
             }
