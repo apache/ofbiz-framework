@@ -99,13 +99,15 @@ under the License.
     <screen name="LookupInventoryItem">
         <section>
             <actions>
-                <set field="title" value="${uiLabelMap.LookupInventoryItem}"/>
-                <service service-name="getInventoryItemForAssociatedOrderSupplierAndProduct" auto-field-map="parameters"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="title" value="${uiLabelMap.ProductLookupInventory}"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/inventory/LookupInventoryItems.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-results">
-                        <include-form name="ListInventoryItem" location="component://product/webapp/facility/lookup/FieldLookupForms.xml" />
+                        <platform-specific><html><html-template location="component://product/webapp/facility/lookup/LookupInventoryItems.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
