@@ -1289,7 +1289,7 @@ under the License.
                         <call-service service-name="deletePartyContactMech" in-map-name="serviceInMap"/>
                         <clear-field field-name="serviceInMap"/>
                     </if-compare>
-                    <set-service-fields service-name="createPartyContactMechPurpose" map-name="pcmp" to-map-name="serviceInMap"/>
+                    <set-service-fields service-name="createPartyContactMechPurpose" map-name="billToAddressCtx" to-map-name="serviceInMap"/>
                     <set field="serviceInMap.contactMechId" from-field="parameters.shipToContactMechId"/>
                     <call-service service-name="createPartyContactMechPurpose" in-map-name="serviceInMap">
                     </call-service>
