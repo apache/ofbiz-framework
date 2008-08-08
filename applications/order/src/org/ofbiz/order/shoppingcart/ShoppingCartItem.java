@@ -2283,7 +2283,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             return false;
         }
 
-        if ((this.additionalProductFeatureAndAppls != null && additionalProductFeatureAndAppls != null) &&
+        if ((UtilValidate.isNotEmpty(this.additionalProductFeatureAndAppls) && UtilValidate.isNotEmpty(additionalProductFeatureAndAppls)) &&
                 (this.additionalProductFeatureAndAppls.size() != additionalProductFeatureAndAppls.size()) &&
                 !(this.additionalProductFeatureAndAppls.equals(additionalProductFeatureAndAppls))) {
             return false;
