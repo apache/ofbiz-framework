@@ -47,8 +47,12 @@ under the License.
         
         <make-value value-name="newEntity" entity-name="ProductFeature"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        
-        <sequenced-id-to-env sequence-name="ProductFeature" env-name="newEntity.productFeatureId"/>
+        <if-empty field="parameters.productFeatureId">
+            <sequenced-id-to-env sequence-name="ProductFeature" env-name="newEntity.productFeatureId"/>
+        <else>
+            <set field="newEntity.productFeatureId" from-field="parameters.productFeatureId"/>
+        </else>    
+        </if-empty>
         <field-to-result field-name="newEntity.productFeatureId" result-name="productFeatureId"/>
         
         <create-value value-name="newEntity"/>
