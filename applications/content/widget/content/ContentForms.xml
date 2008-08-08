@@ -257,11 +257,7 @@ under the License.
             </entity-and>
         </actions>
         <!--auto-fields-entity entity-name="ContentAssoc" default-field-type="display"/-->
-        <field name="contentId">
-            <display-entity entity-name="Content" description="${contentName},${description}">
-                <sub-hyperlink target="EditContentAssoc?contentId=${contentId}" description="${contentId}" link-style="tabletext"/>
-            </display-entity>
-        </field>
+        <field name="contentId"><hidden/></field>
         <field name="contentIdTo">
             <display-entity entity-name="Content" description="${contentName},${description}" key-field-name="contentId">
                 <sub-hyperlink target="EditContentAssoc?contentId=${contentIdTo}" description="${contentIdTo}" link-style="tabletext"/>
@@ -271,20 +267,36 @@ under the License.
         <field name="mapKey"><display/></field>
         <field name="fromDate"><display description="${bsh:fromDate.toString().substring(0,10)}"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" description="[${uiLabelMap.CommonDelete}]" target="removeContentAssoc?contentId=${contentId}&amp;contentIdTo=${contentIdTo}&amp;contentAssocTypeId=${contentAssocTypeId}&amp;fromDate=${fromDate}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentAssoc?contentId=${contentId}&amp;contentIdTo=${contentIdTo}&amp;contentAssocTypeId=${contentAssocTypeId}&amp;fromDate=${fromDate}"/>
         </field>
         <field name="thruDate"><date-time/></field>
         <field name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext">
             <submit button-type="text-link"/>
         </field>
     </form>
-    <form name="ListContentAssocTo" target="EditContentAssoc" type="list" extends="ListContentAssocFrom"
+    <form name="ListContentAssocTo" target="EditContentAssoc" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="ContentAssoc" use-cache="true">
                 <field-map env-name="contentId" field-name="contentIdTo" />
             </entity-and>
         </actions>
+        <field name="contentId">
+            <display-entity entity-name="Content" description="${contentName},${description}">
+                <sub-hyperlink target="EditContentAssoc?contentId=${contentId}" description="${contentId}" link-style="tabletext"/>
+            </display-entity>
+        </field>
+        <field name="contentIdTo"><hidden/></field>
+        <field name="contentAssocTypeId"><display-entity entity-name="ContentAssocType" description="${description}"></display-entity></field>
+        <field name="mapKey"><display/></field>
+        <field name="fromDate"><display description="${bsh:fromDate.toString().substring(0,10)}"/></field>
+        <field name="deleteLink" title=" " widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentAssoc?contentId=${contentId}&amp;contentIdTo=${contentIdTo}&amp;contentAssocTypeId=${contentAssocTypeId}&amp;fromDate=${fromDate}"/>
+        </field>
+        <field name="thruDate"><date-time/></field>
+        <field name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext">
+            <submit button-type="text-link"/>
+        </field>
     </form>
     
     
