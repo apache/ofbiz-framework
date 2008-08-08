@@ -68,8 +68,10 @@ under the License.
           <li><a href="<@ofbizUrl>OrderDeliveryScheduleInfo?orderId=${orderId}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderViewEditDeliveryScheduleInfo}</a></li>
         </#if>
         <#if security.hasEntityPermission("ORDERMGR", "_RETURN", session) && orderHeader.statusId == "ORDER_COMPLETED">
-          <li><a href="<@ofbizUrl>quickRefundOrder?orderId=${orderId}&amp;receiveReturn=true&amp;returnHeaderTypeId=${returnHeaderTypeId}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderQuickRefundEntireOrder}</a></li>
-          <li><a href="<@ofbizUrl>quickreturn?orderId=${orderId}&amp;party_id=${partyId?if_exists}&amp;returnHeaderTypeId=${returnHeaderTypeId}&amp;needsInventoryReceive=${needsInventoryReceive?default("Y")}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCreateReturn}</a></li>
+          <#if returnableItems?has_content>
+            <li><a href="<@ofbizUrl>quickRefundOrder?orderId=${orderId}&amp;receiveReturn=true&amp;returnHeaderTypeId=${returnHeaderTypeId}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderQuickRefundEntireOrder}</a></li>
+            <li><a href="<@ofbizUrl>quickreturn?orderId=${orderId}&amp;party_id=${partyId?if_exists}&amp;returnHeaderTypeId=${returnHeaderTypeId}&amp;needsInventoryReceive=${needsInventoryReceive?default("Y")}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCreateReturn}</a></li>
+          </#if>  
         </#if>
 
         <#if orderHeader?has_content && orderHeader.statusId != "ORDER_CANCELLED">
@@ -80,9 +82,6 @@ under the License.
             <li><a href="<@ofbizUrl>editOrderItems?${paramString}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderEditItems}</a></li>
           </#if>
           <li><a href="<@ofbizUrl>loadCartFromOrder?${paramString}&amp;finalizeMode=init</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCreateAsNewOrder}</a></li>
-          <#if returnableItems?has_content>
-            <li><a href="<@ofbizUrl>quickreturn?orderId=${orderId}&amp;party_id=${partyId?if_exists}&amp;returnHeaderTypeId=${returnHeaderTypeId}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCreateReturn}</a></li>
-          </#if>
         </#if>
       </ul>
     </div>
