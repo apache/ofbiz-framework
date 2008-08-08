@@ -49,6 +49,7 @@ under the License.
         <attribute name="uomId" type="String" mode="IN" optional="true"/>
         <attribute name="numberSpecified" type="Double" mode="IN" optional="true"/>
         <attribute name="defaultAmount" type="Double" mode="IN" optional="true"/>
+        <attribute name="productFeatureId" type="String" mode="IN" optional="true"/>
         <attribute name="productFeatureId" type="String" mode="OUT" optional="false"/>
         <attribute name="defaultSequenceNum" type="Long" mode="IN" optional="true"/>
         <attribute name="idCode" type="String" mode="IN" optional="true"/>
