@@ -533,6 +533,10 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
 
     public void renderImage(Appendable writer, Map<String, Object> context, ModelScreenWidget.Image image) throws IOException {
         // open tag
+        String src = image.getSrc(context);
+        if (UtilValidate.isEmpty(src)) {
+            return;
+        }
         writer.append("<img ");
         String id = image.getId(context);
         if (UtilValidate.isNotEmpty(id)) {
@@ -564,39 +568,34 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
             writer.append(border);
             writer.append("\"");
         }
-        String src = image.getSrc(context);
-        if (UtilValidate.isNotEmpty(src)) {
-            writer.append(" src=\"");
-            String urlMode = image.getUrlMode();
-            boolean fullPath = false;
-            boolean secure = false;
-            boolean encode = false;
-            HttpServletResponse response = (HttpServletResponse) context.get("response");
-            HttpServletRequest request = (HttpServletRequest) context.get("request");
-            if (urlMode != null && urlMode.equalsIgnoreCase("intra-app")) {
-                if (request != null && response != null) {
-                    ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
-                    RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
-                    String urlString = rh.makeLink(request, response, src, fullPath, secure, encode);
-                    writer.append(urlString);
-                } else {
-                    writer.append(src);
-                }
-            } else  if (urlMode != null && urlMode.equalsIgnoreCase("content")) {
-                if (request != null && response != null) {
-                    StringBuffer newURL = new StringBuffer();
-                    ContentUrlTag.appendContentPrefix(request, newURL);
-                    newURL.append(src);
-                    writer.append(newURL.toString());
-                }
+        writer.append(" src=\"");
+        String urlMode = image.getUrlMode();
+        boolean fullPath = false;
+        boolean secure = false;
+        boolean encode = false;
+        HttpServletResponse response = (HttpServletResponse) context.get("response");
+        HttpServletRequest request = (HttpServletRequest) context.get("request");
+        if (urlMode != null && urlMode.equalsIgnoreCase("intra-app")) {
+            if (request != null && response != null) {
+                ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
+                RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
+                String urlString = rh.makeLink(request, response, src, fullPath, secure, encode);
+                writer.append(urlString);
             } else {
                 writer.append(src);
             }
-
-            writer.append("\"");
+        } else  if (urlMode != null && urlMode.equalsIgnoreCase("content")) {
+            if (request != null && response != null) {
+                StringBuffer newURL = new StringBuffer();
+                ContentUrlTag.appendContentPrefix(request, newURL);
+                newURL.append(src);
+                writer.append(newURL.toString());
+            }
+        } else {
+            writer.append(src);
         }
-        writer.append("/>");
         
+        writer.append("\"/>");
         
         appendWhitespace(writer);
     }
