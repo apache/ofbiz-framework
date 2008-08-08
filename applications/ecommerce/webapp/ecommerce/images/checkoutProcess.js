@@ -104,21 +104,6 @@ Event.observe(window, 'load', function() {
 
     Event.observe('processOrderButton', 'click', processOrder);
 
-    // Autocompleter for shipping panel
-    Event.observe($('shipToCountryGeo'), 'focus', getCountryList);
-
-    Event.observe($('shipToCountryGeo'), 'blur', function() {
-        $('shipToStateProvinceGeo').value = "";
-        if ($('shipToCountryGeoId').value == "" || $('shipToCountryGeoId').value == null) { 
-            setShipToCountryGeoId();
-        }
-    });
-    Event.observe($('shipToStateProvinceGeo'), 'focus', getAssociatedStateList);
-    Event.observe($('shipToStateProvinceGeo'), 'blur', function() {
-        if ($('shipToStateProvinceGeoId').value == "" || $('shipToStateProvinceGeoId').value == null) { 
-            setShipToStateProvinceGeoId();
-        }
-    });
     // Get associate states for billing panel
     Event.observe($('billToCountryGeoId'), 'change', getAssociatedBillingStateList);
 });
@@ -524,32 +509,6 @@ function processOrder() {
     $('orderSubmitForm').submit();
 }
 
-var countryList = [];
-
-function getCountryList() {
-    targetField = $('shipToCountryGeo');
-    divToPopulate = $('shipToCountries');
-    hiddenTarget = $('shipToCountryGeoId');
-    new Ajax.Request("getCountryList", {
-        asynchronous: false,
-        onSuccess: callAutocompleter
-    });
-}
-
-var autoComplete = null;
-var stateList = [];
-
-function getAssociatedStateList() {
-    targetField = $('shipToStateProvinceGeo');
-    divToPopulate = $('shipToStates');
-    hiddenTarget = $('shipToStateProvinceGeoId');
-    new Ajax.Request("getAssociatedStateList", {
-        asynchronous: false,
-        parameters: $('shippingForm').serialize(),
-        onSuccess: callAutocompleter
-    });
-}
-
 function getAssociatedBillingStateList() {
     var optionList = [];
     new Ajax.Request("getAssociatedStateList", {
@@ -563,47 +522,6 @@ function getAssociatedBillingStateList() {
                 optionList.push("<option value = "+geoVolues[1]+" >"+geoVolues[0]+"</option>");
             });
             $('billToStateProvinceGeoId').update(optionList);
-        }
-    });
-}
-
-function callAutocompleter (transport) {
-    var geos = new Hash();
-    var data = transport.responseText.evalJSON(true);
-    if (targetField.id == "shipToStateProvinceGeo") {
-        stateList = data.stateList;
-        stateList.each(function(state) {
-            var stateName = state.split(': ');
-            geos.set(stateName[1], stateName[0]);
-        });
-    } else {
-       countryList = data.countryList;
-        countryList.each(function(country) {
-            var countryName = country.split(': ');
-            geos.set(countryName[1], countryName[0]);
-        });
-    }
-    autoComplete = new Autocompleter.Local(targetField, divToPopulate, $H(geos), { partialSearch: false, afterUpdateElement: setKeyAsParameter });
-}
-
-function setKeyAsParameter(text, li) {
-    $(hiddenTarget).value = li.id;
-}
-
-function setShipToCountryGeoId() {
-    countryList.each(function(country) {
-        var countryName = country.split(': ');
-        if ($F('shipToCountryGeo').toUpperCase() == countryName[0].toUpperCase()) {
-            $('shipToCountryGeoId').value = countryName[1];
-        }
-    });
-}
-
-function setShipToStateProvinceGeoId() {
-    stateList.each(function(state) {
-        var stateName = state.split(': ');
-        if ($F('shipToStateProvinceGeo').toUpperCase() == stateName[0].toUpperCase()) {
-            $('shipToStateProvinceGeoId').value = stateName[1];
         }
     });
 }
