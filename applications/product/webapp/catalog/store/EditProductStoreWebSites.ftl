@@ -20,7 +20,8 @@ under the License.
     <div class="screenlet-title-bar">
         <h3>${uiLabelMap.PageTitleEditProductStoreWebSites}</h3>
     </div>
-    <div class="screenlet-body"> 
+    <div class="screenlet-body">
+      <a href="/content/control/EditWebSite?productStoreId=${productStoreId}&externalLoginKey=${requestAttributes.externalLoginKey}" class="buttontext">${uiLabelMap.ProductCreateNewProductStoreWebSite}</a>
         <table cellspacing="0" class="basic-table">
             <tr class="header-row">
               <td>${uiLabelMap.ProductWebSiteId}</td>
