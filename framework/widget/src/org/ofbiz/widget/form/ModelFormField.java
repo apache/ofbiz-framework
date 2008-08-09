@@ -709,7 +709,7 @@ public class ModelFormField {
                 if (dataMap instanceof GenericEntity) {
                     GenericEntity genEnt = (GenericEntity) dataMap;
                     if (genEnt.getModelEntity().isField(this.entryAcsr.getOriginalName())) {
-                        retVal = genEnt.get(this.entryAcsr.getOriginalName());
+                        retVal = genEnt.get(this.entryAcsr.getOriginalName(), locale);
                     } else {
                     	//TODO: this may never come up, but if necessary use the FlexibleStringExander to eval the name first: String evaled = this.entryAcsr
                     }
