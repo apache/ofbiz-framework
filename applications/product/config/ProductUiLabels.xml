@@ -8282,7 +8282,7 @@
         <value xml:lang="th">สร้าง/ปรับปรุงโดย</value>
     </property>
     <property key="ProductCreateNewProductStoreWebSite">
-        <value xml:lang="en">New WebSite</value>
+        <value xml:lang="en">New Web Site</value>
         <value xml:lang="fr">Nouveau site web</value>
     </property>    
     <property key="ProductCrossSell">
