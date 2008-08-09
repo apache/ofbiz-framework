@@ -23,14 +23,20 @@ under the License.
     <WebSiteContent webSiteId="CmsSite" contentId="CMSS_PPOINT" webSiteContentTypeId="PUBLISH_POINT" fromDate="2001-01-01 00:00:00"/>
 
     <!-- Main Decorator -->
-    <DataResource dataResourceId="CMSS_MAIN_DEC" dataResourceTypeId="URL_RESOURCE" dataTemplateTypeId="FTL"
+    <!-- 
+         CMSS_DEC (Content of type DECORATOR associated to a DataResource with placeholders for mapKeys "htmlHead", "header", "footer")
+          |_____(ContentAssoc of type SUB_CONTENT with mapKey "htmlHead")______> CMSS_HHEAD (Content of type DOCUMENT)
+          |_____(ContentAssoc of type SUB_CONTENT with mapKey "header")________> CMSS_DEMO_HEADER (Content of type DOCUMENT)
+          |_____(ContentAssoc of type SUB_CONTENT with mapKey "footer")________> CMSS_DEMO_FOOTER (Content of type DOCUMENT)
+    -->
+    <DataResource dataResourceId="CMSS_DEC" dataResourceTypeId="URL_RESOURCE" dataTemplateTypeId="FTL"
         objectInfo="component://cmssite/template/cms/MainDecorator.ftl"/>
-    <Content contentId="CMSS_DEC" contentTypeId="DECORATOR" contentName="CMS Site Main Decorator" dataResourceId="CMSS_MAIN_DEC"/>
+    <Content contentId="CMSS_DEC" contentTypeId="DECORATOR" contentName="CMS Site Main Decorator" dataResourceId="CMSS_DEC"/>
     <ContentPurpose contentId="CMSS_DEC" contentPurposeTypeId="SECTION"/>
 
-    <DataResource dataResourceId="CMSS_HTML_HEAD" dataResourceTypeId="URL_RESOURCE" dataTemplateTypeId="FTL"
+    <DataResource dataResourceId="CMSS_HHEAD" dataResourceTypeId="URL_RESOURCE" dataTemplateTypeId="FTL"
         objectInfo="component://cmssite/template/cms/HtmlHead.ftl"/>
-    <Content contentId="CMSS_HHEAD" contentTypeId="DOCUMENT" contentName="CMS Site HTML Head" dataResourceId="CMSS_HTML_HEAD"/>
+    <Content contentId="CMSS_HHEAD" contentTypeId="DOCUMENT" contentName="CMS Site HTML Head" dataResourceId="CMSS_HHEAD"/>
     <ContentPurpose contentId="CMSS_HHEAD" contentPurposeTypeId="SECTION"/>
 
     <DataResource dataResourceId="CMSS_DEMO_HEADER" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>
@@ -97,4 +103,15 @@ under the License.
     <Content contentId="CMSS_DEMO_PAGE1_2" contentTypeId="DOCUMENT" contentName="CMS Site Demo Page 1_2" dataResourceId="CMSS_DEMO_PAGE1_2"/>
     <ContentPurpose contentId="CMSS_DEMO_PAGE1_2" contentPurposeTypeId="SECTION"/>
     <ContentAssoc contentId="CMSS_DEMO_PAGE1" contentIdTo="CMSS_DEMO_PAGE1_2" contentAssocTypeId="SUB_CONTENT" mapKey="sub2" fromDate="2001-01-01 00:00:00"/>
+
+    <!-- 
+      CmsSite (WebSite)
+       |___(WebSiteContent of type DEFAULT_PAGE)_____> CMSS_DEMO_HOME (Content of type DOCUMENT with decorator CMSS_DEC)
+       |___(WebSiteContent of type PUBLISH_POINT)_____> CMSS_PPOINT (Content of type WEB_SITE_PUB_PT)
+                                                         |________(ContentAssoc of type SUB_CONTENT)______> CMSS_DEMO_HOME (Content of type DOCUMENT with decorator CMSS_DEC)
+                                                         |________(ContentAssoc of type SUB_CONTENT)______> CMSS_DEMO_PAGE1 (Content of type DOCUMENT with decorator CMSS_DEC associated to a DataResource with placeholders for mapKeys "sub1" and "sub2")
+                                                                                                             |________(ContentAssoc of type SUB_CONTENT with mapKey "sub1")______> CMSS_DEMO_PAGE1_1 (Content of type DOCUMENT)
+                                                                                                             |________(ContentAssoc of type SUB_CONTENT with mapKey "sub2")______> CMSS_DEMO_PAGE1_2 (Content of type DOCUMENT)
+    -->
+
 </entity-engine-xml>
