@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<project name="OFBiz - Base" default="jar" basedir=".">
+<project name="OFBiz - Start" default="jar" basedir=".">
     <import file="../../common.xml"/>
 
     <!-- ================================================================== -->
@@ -26,24 +26,13 @@ under the License.
     <!-- ================================================================== -->
 
     <property name="name" value="ofbiz-base"/>
-    <property name="ofbiz.home.dir" value="../.."/>
-
-    <path id="local.class.path">
-        <fileset dir="${lib.dir}" includes="*.jar"/>
-        <fileset dir="${lib.dir}/commons" includes="*.jar"/>
-        <fileset dir="${lib.dir}/j2eespecs" includes="*.jar"/>
-        <fileset dir="${lib.dir}/scripting" includes="*.jar"/>
-        <fileset dir="../start/build/lib" includes="*.jar"/>
-    </path>
     
     <!-- ================================================================== -->
     <!-- Makes sure the needed directory structure is in place              -->
     <!-- ================================================================== -->
 
     <target name="prepare" depends="clean-lib">
-        <mkdir dir="${build.dir}/classes"/>
-        <mkdir dir="${build.dir}/classes/base/META-INF"/>
-        <mkdir dir="${build.dir}/classes/start/META-INF"/>        
+        <mkdir dir="${build.dir}/classes/META-INF"/>        
         <mkdir dir="${build.dir}/lib"/>
     </target>
     
@@ -52,29 +41,25 @@ under the License.
     <!-- ================================================================== -->               
 
     <target name="classes" depends="prepare">
-        <!-- make sure we have crypto packages available -->
-        <condition property="exclude.crypto" value="org/ofbiz/base/crypto/**">
-            <not>
-                <available classname="javax.crypto.Cipher" classpathref="local.class.path"/>
-            </not>
-        </condition>
-
-        <!-- compile base -->
-	<javac15 destdir="${build.dir}/classes" srcdir="${src.dir}">            
-            <exclude name="${exclude.crypto}"/>
-            <exclude name="org/ofbiz/base/util/OfbizJsBsfEngine.java"/>
-        </javac15>
-        <!-- also put the DTDs in the jar file... -->
+        <!-- compile start -->
+	<javac15 destdir="${build.dir}/classes" srcdir="${src.dir}"/>
         <copy todir="${build.dir}/classes">
-            <fileset dir="${dtd.dir}" includes="*.dtd"/>
-            <fileset dir="${src.dir}" includes="**/*.properties,**/*.xml,**/*.bsh,**/*.logic,**/*.js,**/*.jacl,**/*.py"/>
+          <fileset dir="${src.dir}" includes="**/*.properties,**/*.xml,**/*.bsh,**/*.logic,**/*.js,**/*.jacl,**/*.py"/>
         </copy>
         
         <!-- now add the NOTICE and LICENSE files to allow the jar file to be distributed alone -->
-        <copy todir="${build.dir}/classes/META-INF">
+        <copy todir="${build.dir}/classes/start/META-INF">
             <fileset dir="${ofbiz.home.dir}" includes="NOTICE,LICENSE"/>
         </copy>        
     </target>
+    
+    <target name="jar" depends="classes">
+        <jar jarfile="${build.dir}/lib/ofbiz.jar" basedir="${build.dir}/classes" manifest="${src.dir}/org/ofbiz/base/start/Start.mf"/>
+        <!-- copy the ofbiz.jar file -->
+        <copy todir="${basedir}/../..">
+            <fileset dir="${build.dir}/lib" includes="ofbiz.jar"/>
+        </copy>
+    </target>    
     
     <!-- ================================================================== -->
     <!-- Build JavaDoc                                                      -->
@@ -84,8 +69,8 @@ under the License.
         <javadoc packagenames="org.ofbiz.base.*" 
                  classpathref="local.class.path"
                  destdir="${build.dir}/javadocs" 
-                 Windowtitle="Open for Business - Base API">
-            <sourcepath path="${src.dir}"/>            
+                 Windowtitle="Open for Business - Start API">
+            <sourcepath path="${src.dir}"/>
         </javadoc>
     </target>
 </project>

@@ -22,7 +22,7 @@ under the License.
     <import file="../macros.xml"/>
 
     <filelist id="framework-builds" dir="."
-        files="base/build.xml,
+        files="start/build.xml,base/build.xml,
                entity/build.xml,geronimo/build.xml,
                catalina/build.xml,jetty/build.xml,
                security/build.xml,service/build.xml,entityext/build.xml,
