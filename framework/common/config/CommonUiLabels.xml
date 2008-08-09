@@ -890,6 +890,10 @@
         <value xml:lang="zh_CN">已取消</value>
         <value xml:lang="zh">已取消</value>
     </property>
+    <property key="CommonCannotBeFound">
+        <value xml:lang="en">Could not be found</value>
+        <value xml:lang="fr">N'a pu être trouvé </value>
+    </property>
     <property key="CommonChange">
         <value xml:lang="ar">تغيير</value>
         <value xml:lang="de">Verändern</value>
