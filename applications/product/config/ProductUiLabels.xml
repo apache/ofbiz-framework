@@ -5873,15 +5873,6 @@
         <value xml:lang="en">Add Items From Inventory</value>
         <value xml:lang="fr">Ajouter un article depuis le stock</value>
     </property>        
-    <property key="ProductCrossSell">
-        <value xml:lang="en">You might be interested in these as well:</value>
-        <value xml:lang="fr">Vous pourriez aussi être intéressé(e) par ceci :</value>
-        <value xml:lang="it">Tu potresti essere interessato anche a questi:</value>
-        <value xml:lang="ro">Tu poti sa fii interesat si de aceste:</value>
-        <value xml:lang="ru">Вас также могут заинтересовать:</value>
-        <value xml:lang="th">คุณอาจจะสนใจในสิ่งนี้ดี :</value>
-        <value xml:lang="zh">你可能还会对这些感兴趣：</value>
-    </property>
     <property key="ProductAbbrev">
         <value xml:lang="en">Abbrev</value>
         <value xml:lang="es">Abreviatura</value>
@@ -8289,6 +8280,19 @@
         <value xml:lang="fr">créé/modifié par</value>
         <value xml:lang="it">creato/modificato da</value>
         <value xml:lang="th">สร้าง/ปรับปรุงโดย</value>
+    </property>
+    <property key="ProductCreateNewProductStoreWebSite">
+        <value xml:lang="en">New WebSite</value>
+        <value xml:lang="fr">Nouveau site web</value>
+    </property>    
+    <property key="ProductCrossSell">
+        <value xml:lang="en">You might be interested in these as well:</value>
+        <value xml:lang="fr">Vous pourriez aussi être intéressé(e) par ceci :</value>
+        <value xml:lang="it">Tu potresti essere interessato anche a questi:</value>
+        <value xml:lang="ro">Tu poti sa fii interesat si de aceste:</value>
+        <value xml:lang="ru">Вас также могут заинтересовать:</value>
+        <value xml:lang="th">คุณอาจจะสนใจในสิ่งนี้ดี :</value>
+        <value xml:lang="zh">你可能还会对这些感兴趣：</value>
     </property>
     <property key="ProductCurrency">
         <value xml:lang="en">Currency</value>
