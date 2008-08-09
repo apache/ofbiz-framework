@@ -1418,6 +1418,8 @@ public class ModelForm extends ModelWidget {
                     localContext.put(this.getListEntryName(), item);
                 } else {
                     localContext.putAll(itemMap);
+                    this.setDefaultMapName("listEntryDefaultMap");
+                    localContext.put("listEntryDefaultMap", itemMap);
                 }
 
                 localContext.put("previousItem", previousItem);
