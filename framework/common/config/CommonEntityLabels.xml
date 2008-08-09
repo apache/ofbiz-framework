@@ -1506,7 +1506,7 @@
         <value xml:lang="zh">询价确认</value>
     </property>
     <property key="Enumeration.description.PRDS_RTN_ACCEPT">
-        <value xml:lang="de">Rücksendung angenommen</value>
+        <value xml:lang="de">Retoure angenommen</value>
         <value xml:lang="en">Return Accepted</value>
         <value xml:lang="fr">Retour accepté</value>
         <value xml:lang="it">Accesso Reso</value>
@@ -1517,7 +1517,7 @@
         <value xml:lang="zh">己接受的退货</value>
     </property>
     <property key="Enumeration.description.PRDS_RTN_CANCEL">
-        <value xml:lang="de">Rücksendung annulliert</value>
+        <value xml:lang="de">Retoure annulliert</value>
         <value xml:lang="en">Return Cancelled</value>
         <value xml:lang="fr">Retour annulé</value>
         <value xml:lang="it">Reso Cancellato</value>
@@ -1528,7 +1528,7 @@
         <value xml:lang="zh">已取消的退货</value>
     </property>
     <property key="Enumeration.description.PRDS_RTN_COMPLETE">
-        <value xml:lang="de">Rücksendung abgeschlossen</value>
+        <value xml:lang="de">Retoure abgeschlossen</value>
         <value xml:lang="en">Return Completed</value>
         <value xml:lang="fr">Retour Accompli</value>
         <value xml:lang="it">Reso Completato</value>
@@ -1801,7 +1801,7 @@
         <value xml:lang="zh">X 产品获得 Y 价格</value>
     </property>
     <property key="Enumeration.description.PROMO_PROD_SPPRC">
-        <value xml:lang="de">Produkt zum [Spezial Promotion] Preis</value>
+        <value xml:lang="de">Produkt zum [Spezial Aktions] Preis</value>
         <value xml:lang="en">Product for [Special Promo] Price</value>
         <value xml:lang="it">Prodotto per [Promozione Speciale] Prezzo</value>
         <value xml:lang="pt">Produto para [Promo Especial] Preço</value>
@@ -2354,7 +2354,7 @@
         <value xml:lang="th">ราคา</value>
     </property>
     <property key="EnumerationType.description.PROD_PRICE_COND">
-        <value xml:lang="de">Produkt Promotion Bedingung</value>
+        <value xml:lang="de">Produktaktion Bedingung</value>
         <value xml:lang="en">Product Promotion Condition</value>
         <value xml:lang="fr">Condition de prix</value>
         <value xml:lang="it">Condizioni Promozioni Prodotto</value>
@@ -2376,7 +2376,7 @@
         <value xml:lang="zh">产品价格输入参数</value>
     </property>
     <property key="EnumerationType.description.PROD_PROMO_ACTION">
-        <value xml:lang="de">Produkt Promotion Aktion</value>        
+        <value xml:lang="de">Produktaktion Aktion</value>        
         <value xml:lang="en">Product Promotion Action</value>
         <value xml:lang="it">Azione Promozione Prodotto</value>
         <value xml:lang="pt">Acção de Promoção de Produto</value>
@@ -2386,7 +2386,7 @@
         <value xml:lang="zh">产品促销活动</value>
     </property>
     <property key="EnumerationType.description.PROD_PROMO_COND">
-        <value xml:lang="de">Produkt Promotion Bedingung</value>
+        <value xml:lang="de">Produktaktion Bedingung</value>
         <value xml:lang="en">Product Promotion Condition</value>
         <value xml:lang="it">Condizione Promozione Prodotto</value>
         <value xml:lang="pt">Condição de Promoção de Produto</value>
@@ -2396,7 +2396,7 @@
         <value xml:lang="zh">产品促销条件</value>
     </property>
     <property key="EnumerationType.description.PROD_PROMO_IN_PARAM">
-        <value xml:lang="de">Produkt Promotion Eingabe Parameter</value>
+        <value xml:lang="de">Produktaktion Eingabe Parameter</value>
         <value xml:lang="en">Product Promotion Input Parameter</value>
         <value xml:lang="it">Parametri Input Promozioni Prodotto</value>
         <value xml:lang="pt">Parâmetro de Entrada de Promoção de Produto</value>
@@ -2406,7 +2406,7 @@
         <value xml:lang="zh">产品促销输入参数</value>
     </property>
     <property key="EnumerationType.description.PROD_PROMO_PCAPPL">
-        <value xml:lang="de">Produkt Promotion Produkt/Kategorie Anwendungs Typ</value>
+        <value xml:lang="de">Produktaktion Produkt/Kategorie Anwendungs Typ</value>
         <value xml:lang="en">Product Promotion Product/Category Application Type</value>
         <value xml:lang="it">Promozione Prodotto Tipo Applicazione Prodotto/Categoria</value>
         <value xml:lang="pt">Produto de Promoção/Categoria tipo de Aplicação</value>
@@ -8133,7 +8133,7 @@
         <value xml:lang="zh">转移完成 (已承诺)</value>
     </property>
     <property key="StatusValidChange.transitionName.INV_DELIVERED.INV_AVAILABLE">
-        <value xml:lang="de">Rücksendung verfügbar</value>
+        <value xml:lang="de">Retoure verfügbar</value>
         <value xml:lang="en">Return Available</value>
         <value xml:lang="it">Reso Disponibile</value>
         <value xml:lang="pt">Devolução Disponível</value>
@@ -8143,7 +8143,7 @@
         <value xml:lang="zh">退货有效</value>
     </property>
     <property key="StatusValidChange.transitionName.INV_DELIVERED.INV_RETURNED">
-        <value xml:lang="de">Rücksendung Status wartend</value>
+        <value xml:lang="de">Retoure Status wartend</value>
         <value xml:lang="en">Return Status Pending</value>
         <value xml:lang="it">Stato Reso Sospeso</value>
         <value xml:lang="pt">Estado de Devolução Pendente</value>
