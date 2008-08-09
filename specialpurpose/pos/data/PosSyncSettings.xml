@@ -17,6 +17,9 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
+
+<!-- To know more about this setting please read the documentation http://docs.ofbiz.org/x/chM -->
+
 <entity-engine-xml>
 <!-- MCS->PSS Central Server to Per Store Server -->
     <EntityGroup entityGroupId="5500" entityGroupName="POS: Central Server to Per Store Server"/>
