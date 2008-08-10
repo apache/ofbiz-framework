@@ -39,7 +39,7 @@ under the License.
                 <td><div><b>${uiLabelMap.CommonDescription}</b></div></td>
                 <td align="right">&nbsp;</td>
                </tr>
-               <tr><td colspan="5"><hr class='sepbar'></td></tr>
+               <tr><td colspan="5"><hr/></td></tr>
                 <#assign index=0>
                 <#list orderTerms as orderTerm>
                   <tr>
@@ -54,7 +54,7 @@ under the License.
                   </td>
                   </tr>
                   <#if orderTerms.size()&lt;index >
-                    <tr><td colspan="5"><hr class='sepbar'></td></tr>
+                    <tr><td colspan="5"><hr/></td></tr>
                   </#if>
                   <#assign index=index+1>
                 </#list>

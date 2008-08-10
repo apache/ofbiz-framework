@@ -46,7 +46,7 @@ under the License.
                     <div>${uiLabelMap.FacilityFacility}: ${facility.facilityName?if_exists} [${facility.facilityId}]</div>
                   </td>
                 </tr>
-                <tr><td colspan="4"><hr class='sepbar'/></td></tr>
+                <tr><td colspan="4"><hr/></td></tr>
 
                 <#-- company postal addresses -->
                 
@@ -76,7 +76,7 @@ under the License.
                     </td>
                   </tr>
                   <#if shippingContactMech_has_next>
-                  <tr><td colspan="4"><hr class='sepbar'/></td></tr>
+                  <tr><td colspan="4"><hr/></td></tr>
                   </#if>
                   </#if>
                   <#assign i = i + 1>
@@ -138,7 +138,7 @@ under the License.
                 </td>
               </tr>
             <#if shippingContactMechList?has_content>
-                <tr><td colspan="3"><hr class='sepbar'/></td></tr>
+                <tr><td colspan="3"><hr/></td></tr>
                 <#assign i = 0>
                 <#list shippingContactMechList as shippingContactMech>
                   <#assign shippingAddress = shippingContactMech.getRelatedOne("PostalAddress")>
@@ -176,15 +176,15 @@ under the License.
                     </td>                      
                   </tr>
                   <#if shippingContactMech_has_next>
-                  <tr><td colspan="3"><hr class='sepbar'/></td></tr>
+                  <tr><td colspan="3"><hr/></td></tr>
                   </#if>
                   <#assign i = i + 1>
                 </#list>
             </#if>
             <#if shipToPartyShippingContactMechList?has_content>
-                <tr><td colspan="3"><hr class='sepbar'/></td></tr>
+                <tr><td colspan="3"><hr/></td></tr>
                 <tr><td colspan="3">${uiLabelMap.OrderShipToAnotherParty}: <b>${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(shipToParty)}</b></td></tr>
-                <tr><td colspan="3"><hr class='sepbar'/></td></tr>
+                <tr><td colspan="3"><hr/></td></tr>
                 <#list shipToPartyShippingContactMechList as shippingContactMech>
                   <#assign shippingAddress = shippingContactMech.getRelatedOne("PostalAddress")>
                   <tr>
@@ -206,7 +206,7 @@ under the License.
                     <td>&nbsp;</td>                      
                   </tr>
                   <#if shippingContactMech_has_next>
-                  <tr><td colspan="3"><hr class='sepbar'/></td></tr>
+                  <tr><td colspan="3"><hr/></td></tr>
                   </#if>
                 </#list>
             </#if>
