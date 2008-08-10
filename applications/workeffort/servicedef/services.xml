@@ -44,6 +44,7 @@ under the License.
         <auto-attributes mode="INOUT" include="pk" optional="true"/>
         <attribute name="quickAssignPartyId" type="String" mode="IN" optional="true"/>
         <attribute name="requirementId" type="String" mode="IN" optional="true"/>
+        <attribute name="custRequestId" type="String" mode="IN" optional="true"/>
         <attribute name="communicationEventId" type="String" mode="IN" optional="true"/>
         <override name="workEffortTypeId" optional="false"/>
         <override name="workEffortName" optional="false"/>

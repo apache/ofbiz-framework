@@ -67,6 +67,27 @@ under the License.
             <set from-field="parameters.requirementId" field="workFullfillment.requirementId"/>
             <create-value value-name="workFullfillment"/>
         </if-not-empty>
+
+        <!-- attach to a customer request if passed and copy attached docs if customer request has communication events with attachments -->
+        <if-not-empty field="parameters.custRequestId">
+            <make-value value-name="custRequestWorkEffort" entity-name="CustRequestWorkEffort"/>
+            <set field="custRequestWorkEffort.workEffortId" from-field="newEntity.workEffortId" />
+            <set field="custRequestWorkEffort.custRequestId" from-field="parameters.custRequestId"/>
+            <create-value value-name="custRequestWorkEffort"/>
+            <entity-and list-name="CustRequestCommEvents" entity-name="CustRequestCommEvent">
+                <field-map field-name="custRequestId" env-name="parameters.custRequestId"/>
+            </entity-and>
+            <iterate entry-name="custRequestCommEvent" list-name="custRequestCommEvents">
+                <get-related relation-name="Content" value-name="custRequestCommEvent" list-name="allCommEventContents"/>
+                <filter-list-by-date list-name="allCommEventContents" to-list-name="commEventContents"/>            
+                <iterate entry-name="commEventContent" list-name="commEventContents">
+                    <set field="newWorkEffortContent.workEffortId" from-field="newEntity.workEffortId"/>
+                    <set field="newWorkEffortContent.contentId" from-field="commEventContent.contentId"/>
+                    <set field="newWorkEffortContent.workEffortContentTypeId" value="SUPPORTING_MEDIA"/>
+                    <call-service service-name="createWorkEffortContent" in-map-name="newWorkEffortContent"/>
+                </iterate>
+            </iterate>
+        </if-not-empty>
     </simple-method>
     <simple-method method-name="updateWorkEffort" short-description="Update Work Effort">
         <!-- check permissions before moving on: if update or delete logged in user must be associated OR have the corresponding UPDATE or DELETE permissions -->
