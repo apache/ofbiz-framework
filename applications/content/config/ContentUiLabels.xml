@@ -1996,7 +1996,7 @@
     </property>
     <property key="ListOwnCreatedTemplates">
         <value xml:lang="en">List own created Templates</value>
-        <value xml:lang="fr">Voir les modèles créées</value>
+        <value xml:lang="fr">Voir les modèles créés</value>
     </property>
     <property key="PageTitleAddAssociation">
         <value xml:lang="ar">إضافة إرتباط</value>
