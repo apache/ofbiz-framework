@@ -17,7 +17,57 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<entity-engine-xml>    
+<entity-engine-xml>
+    <ContentOperation contentOperationId="CONTENT_ADMIN" description="Content Admin"/>
+    <ContentOperation contentOperationId="CONTENT_CREATE" description="Content Create"/>
+    <ContentOperation contentOperationId="CONTENT_UPDATE" description="Content Update"/>
+    <ContentOperation contentOperationId="CONTENT_DELETE" description="Content Delete"/>
+    <ContentOperation contentOperationId="CONTENT_VIEW" description="Content View"/>
+    <ContentOperation contentOperationId="CONTENT_PUBLISH" description="Content Publish"/>
+    <ContentOperation contentOperationId="CONTENT_RESPOND" description="Content Respond"/>
+    <ContentOperation contentOperationId="CONTENT_PUBLISH_SELF" description="Content Publish"/>
+    <ContentOperation contentOperationId="_NA_" description="Not Applicable"/>
+    <ContentOperation contentOperationId="HAS_OWNER_ROLE" description="Has User Role"/>
+    <ContentOperation contentOperationId="HAS_USER_ROLE" description="Has User Role"/>
+    <ContentOperation contentOperationId="HAS_AUTHOR_ROLE" description="Has Author Role"/>
+    <ContentOperation contentOperationId="HAS_EDITOR_ROLE" description="Has Editor Role"/>
+    <ContentOperation contentOperationId="HAS_ADMIN_ROLE" description="Has Admin Role"/>
+    <ContentOperation contentOperationId="HAS_PUBLISHER_ROLE" description="Has Publisher Role"/>
+    <ContentOperation contentOperationId="CONTENT_CREATE_SUB" description="Create SubContent"/>
+    <ContentOperation contentOperationId="CONTENT_VIEW_SHORT" description="View Short Desc"/>
+    <ContentOperation contentOperationId="CHILD_CREATE" description="Child Create"/>
+    <ContentOperation contentOperationId="CHILD_UPDATE" description="Child Update"/>
+    <ContentOperation contentOperationId="CHILD_DELETE" description="Child Delete"/>
+    <ContentOperation contentOperationId="CHILD_VIEW" description="Child View"/>
+    <ContentOperation contentOperationId="CONTENT_LINK" description="Content Link"/>
+    <ContentOperation contentOperationId="CONTENT_LINK_TO" description="Content Link To"/>
+    <ContentOperation contentOperationId="CONTENT_LINK_FROM" description="Content Link From"/>
+
+    <!-- These ContentTypes are primarily for structuring documents or content -->
+    <ContentPurposeType contentPurposeTypeId="ARTICLE" description="Article"/>
+    <ContentPurposeType contentPurposeTypeId="MESSAGE" description="Message"/>
+    <ContentPurposeType contentPurposeTypeId="FEEDBACK" description="Feedback"/>
+    <ContentPurposeType contentPurposeTypeId="COMMENT" description="Comment"/>
+    <ContentPurposeType contentPurposeTypeId="PRODUCT_INFO" description="Product Info"/>
+    <ContentPurposeType contentPurposeTypeId="PROJECT_INFO" description="Project Info"/>    
+    <ContentPurposeType contentPurposeTypeId="COMPANY_INFO" description="Company Info"/>
+    <ContentPurposeType contentPurposeTypeId="ADVERTISEMENT" description="Advertisement"/>
+    <ContentPurposeType contentPurposeTypeId="GENERAL_INFO" description="General Info"/>
+
+    <ContentPurposeType contentPurposeTypeId="DESCRIPTION" description="Description"/>
+    <ContentPurposeType contentPurposeTypeId="OWNER" description="Owner"/>
+    <ContentPurposeType contentPurposeTypeId="ARTICLE" description="Article"/>
+    <ContentPurposeType contentPurposeTypeId="RESPONSE" description="Response"/>
+    <ContentPurposeType contentPurposeTypeId="_NA_" description="Not Applicable"/>
+    <ContentPurposeType contentPurposeTypeId="SECTION" description="Section"/>
+    <ContentPurposeType contentPurposeTypeId="TOPIC" description="Topic"/>
+    <ContentPurposeType contentPurposeTypeId="SUMMARY" description="Summary"/>
+    <ContentPurposeType contentPurposeTypeId="MAIN_ARTICLE" description="Main Content"/>
+    <ContentPurposeType contentPurposeTypeId="SUB_ARTICLE" description="Sub Content"/>
+    <ContentPurposeType contentPurposeTypeId="USER" description="User"/>
+    <ContentPurposeType contentPurposeTypeId="FAQ" description="FAQ"/>
+    <ContentPurposeType contentPurposeTypeId="SOURCE" description="General Source"/>
+
     <ContentPurposeOperation contentPurposeTypeId="ARTICLE" contentOperationId="CONTENT_CREATE" roleTypeId="CONTENT_AUTHOR" statusId="CTNT_PUBLISHED" privilegeEnumId="CNT_PRV_NA_"/>
     <ContentPurposeOperation contentPurposeTypeId="ARTICLE" contentOperationId="CONTENT_CREATE" roleTypeId="CONTENT_AUTHOR" statusId="_NA_" privilegeEnumId="CNT_PRV_NA_"/>
     <ContentPurposeOperation contentPurposeTypeId="ARTICLE" contentOperationId="CONTENT_CREATE" roleTypeId="CONTENT_EDITOR" statusId="_NA_" privilegeEnumId="CNT_PRV_NA_"/>
