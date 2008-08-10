@@ -1,0 +1,25 @@
+#!/bin/sh
+set -ex
+: "$0" "$@"
+
+. /usr/share/debconf/confmodule
+. /usr/share/dbconfig-common/dpkg/prerm 
+dbc_go ofbiz "$@"
+
+case "$1" in
+	(upgrade|remove)
+		find /var/cache/ofbiz -mindepth 1 -maxdepth 1 -print0 | xargs rm -rf
+		;;
+esac
+
+case "$1" in
+	(remove|deconfigure)
+		update-alternatives --remove \
+			ofbiz-alternative \
+			/usr/share/ofbiz/dist
+		;;
+esac
+
+#DEBHELPER#
+
+

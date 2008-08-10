@@ -1,0 +1,287 @@
+#!/bin/sh
+set -e
+
+if ! [ -e "/usr/share/ofbiz/ofbiz.jar" ]; then
+	exit 0
+fi
+
+PATH=/bin:/usr/bin:/sbin:/usr/sbin
+
+# set defaults
+DEFAULT=/etc/default/ofbiz
+JAVA_HOME=""
+JAVA_HOMES="/usr/lib/jvm/java-6-sun /usr/lib/j2sdk1.5"
+MEMIF=""
+UMASK=002
+
+. /lib/lsb/init-functions
+. /etc/default/rcS
+
+if [ -e /etc/default/locale ]; then
+	. /etc/default/locale
+	export LANG
+fi
+
+# allow local admin to change defaults
+if [ -e "$DEFAULT" ]; then
+	. "$DEFAULT"
+fi
+
+PATH=/bin:/usr/bin:/sbin:/usr/sbin
+
+NAME=ofbiz
+DESC="OfBiz Container"
+OFBIZ_HOME=/usr/share/ofbiz
+USER=ofbiz
+PIDFILE=/var/run/ofbiz.pid
+CLASS=org.ofbiz.base.start.Start
+
+ADMIN_PORT=10523
+ADMIN_KEY=so3du5kasd5dn
+PROPS="-Dofbiz.admin.port=$ADMIN_PORT -Dofbiz.admin.key=$ADMIN_KEY"
+
+if [ "x$JAVA_HOME" == x ]; then
+	if [ "x$JAVA_HOMES" != x ]; then
+		for possible in $JAVA_HOMES; do
+			if [ -e "$possible/bin/java" ]; then
+				JAVA_HOME="$possible"
+				break
+			fi
+		done
+	fi
+	if [ "x$JAVA_HOME" == x ]; then
+		log_failure_msg "Couldn't find a java."
+		if [ "x$JAVA_HOMES" != x ]; then
+			log_failure_msg "Tried $JAVA_HOMES"
+		fi
+		exit 1
+	fi
+fi
+JAVA="$JAVA_HOME/bin/java"
+CLASSPATH="$OFBIZ_HOME/ofbiz.jar:/usr/share/java/commons-daemon.jar"
+
+run_ofbiz_cmd() {
+	(
+		cd "$OFBIZ_HOME"
+		"$JAVA" $PROPS -jar ofbiz.jar "$1"
+	)
+}
+
+get_status() {
+	status="$(run_ofbiz_cmd -status 2>/dev/null | sed -n 's/^Current Status : //p')"
+	case "$status" in
+		(Running|Starting|Stopping|Not\ Running)
+			echo $status
+		;;
+		(*)
+			echo Not Running
+		;;
+	esac
+}
+
+wait_for_status() {
+	count="$1"
+	while :; do
+		if [ "$(get_status)" = "$2" ]; then
+			break;
+		fi
+		count=$(($count - 1))
+		if [ "$count" -eq 0 ]; then
+			log_failure_msg "Timeout waiting for $3"
+			exit 1
+		fi
+		log_begin_msg "."
+		sleep 1
+	done
+}
+
+ofbiz_shutdown() {
+	run_ofbiz_cmd -shutdown
+}
+
+wait_for_stop() {
+	wait_for_status 30 "Not Running" "stop"
+}
+
+start() {
+	case "$(get_status)" in
+		(Stopping)
+			log_progress_msg "(waiting for stop"
+			wait_for_stop
+			log_progress_msg ")"
+		;;
+		(Not\ Running)
+		;;
+		(Starting|Running)
+			log_progress_msg "(already running)"
+			return
+		;;
+		(*)
+			log_progress_msg "(forcing stop"
+			ofbiz_shutdown
+			wait_for_stop
+			log_progress_msg ")"
+		;;
+	esac
+	(
+		cd "$OFBIZ_HOME"
+		touch /var/log/ofbiz/ofbiz.log
+		chown ofbiz.ofbiz /var/log/ofbiz/ofbiz.log
+		jsvc -pidfile "$PIDFILE" \
+			-user $USER \
+			-outfile /var/log/ofbiz/console.log -errfile '&1' \
+			-home "$JAVA_HOME" -cp "$CLASSPATH" \
+			$PROPS \
+			$MEMIF \
+			$CLASS
+	)
+	wait_for_status 40 "Running" "start"
+}
+
+stop() {
+	case "$(get_status)" in
+		(Not\ Running)
+		;;
+		(*)
+			ofbiz_shutdown
+			wait_for_stop
+		;;
+	esac
+	if [ -e "$PIDFILE" ]; then
+		rm "$PIDFILE"
+	fi
+}
+
+install() {
+	case "$(get_status)" in
+		(Stopping)
+			log_progress_msg "(waiting for stop"
+			wait_for_stop
+			log_progress_msg ")"
+		;;
+		(Not\ Running)
+		;;
+		(Starting|Running)
+			log_failure_msg "(running, can't install)"
+			exit 1
+		;;
+	esac
+	(
+		cd "$OFBIZ_HOME"
+		touch /var/log/ofbiz/ofbiz.log
+		chown ofbiz.ofbiz /var/log/ofbiz/ofbiz.log
+		jsvc -pidfile "$PIDFILE" \
+			-nodetach \
+			-user $USER \
+			-outfile /dev/tty -errfile '&1' \
+			-home "$JAVA_HOME" -cp "$CLASSPATH" \
+			$PROPS \
+			$MEMIF \
+			$CLASS \
+			install "$@"
+	)
+}
+
+module_hook() {
+	files=""
+	result="0"
+	while [ $# -gt 0 ]; do
+		case "$1" in
+			(-file=*)
+				file="$(echo "$1" | sed 's/^-file=//')"
+				if ! [ -e "$file" ]; then
+					log_failure_msg "File $file does not exist"
+					result=1
+				else
+					files="$files,$file"
+				fi
+			;;
+			(-file)
+				file="$2"
+				if ! shift; then
+					log_failure_msg "No file specified"
+					result=1
+				elif ! [ -e "$file" ]; then
+					log_failure_msg "File $file does not exist"
+					result=1
+				else
+					files="$files,$file"
+				fi
+			;;
+			(*)
+				log_failure_msg "Unknown argument($1)"
+				exit 1
+			;;
+		esac
+		shift
+	done
+	if ! [ "$files" ]; then
+		return 0
+	elif [ "$result" eq 1 ]; then
+		return 1
+	fi
+	files="$(echo "$files" | cut -f 2- -d ,)"
+	was_running=""
+	case "$(get_status)" in
+		(Not\ Running)
+		;;
+		(Stopping)
+			wait_for_stop
+		;;
+		(*)
+			log_daemon_msg "Stopping $DESC" "$NAME"
+			ofbiz_shutdown
+			wait_for_stop
+			log_end_msg 0
+			was_running=1
+		;;
+	esac
+	cd "$OFBIZ_HOME"
+	if ! jsvc \
+		-user $USER -outfile /dev/tty -errfile '&1' -nodetach \
+		-home "$JAVA_HOME" -cp "$CLASSPATH" \
+		$CLASS install -file="$files"; then
+		log_failure_msg "Error installing files"
+		result=1
+	fi
+	if [ "$was_running" ]; then
+		log_daemon_msg "Starting $DESC" "$NAME"
+		start
+		log_end_msg 0
+	fi
+	return "$result"
+}
+cmd="$1"
+shift || true
+case "$cmd" in
+	(start)
+		log_daemon_msg "Starting $DESC" "$NAME"
+		start
+		log_end_msg 0
+	;;
+	(stop)
+		log_daemon_msg "Stopping $DESC" "$NAME"
+		stop
+		log_end_msg 0
+	;;
+	(install)
+		log_daemon_msg "Installing $DESC" "$NAME"
+		install "$@"
+		log_end_msg 0
+	;;
+	(reload|restart|force-reload)
+		log_daemon_msg "Restarting $DESC" "$NAME"
+		stop
+		start
+		log_end_msg 0
+	;;
+	(module-hook)
+		if ! module_hook "$@"; then
+			exit 1
+		fi
+	;;
+	(*)
+		log_success_msg "Usage: $0 {start|stop|install|reload|force-reload|restart"
+		exit 1
+	;;
+esac

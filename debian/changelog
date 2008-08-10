@@ -1,0 +1,66 @@
+ofbiz (684378) unstable; urgency=low
+
+  * Start adding debian stuff to upstream.
+
+ -- Adam Heath <doogie@brainfood.com>  Sat, 09 Aug 2008 19:20:35 -0500
+
+ofbiz (595296-2) unstable; urgency=low
+
+  * Fix moving of db_stop.
+
+ -- Adam Heath <doogie@brainfood.com>  Tue, 25 Mar 2008 22:59:35 -0500
+
+ofbiz (595296-1) unstable; urgency=low
+
+  * First release.
+  * Change when db_stop is called, so that ucf can function.
+
+ -- Adam Heath <doogie@brainfood.com>  Tue, 25 Mar 2008 22:43:12 -0500
+
+ofbiz (595296-0) unstable; urgency=low
+
+  * New upstream.
+  * Fix message to say 'start' when a timeout occurs starting.
+  * Actually install the seed data now, by using a new install target
+    in the init script.
+
+ -- Adam Heath <doogie@brainfood.com>  Thu, 15 Nov 2007 23:09:57 -0600
+
+ofbiz (583221-0) unstable; urgency=low
+
+  * New upstream.
+
+ -- Adam Heath <doogie@brainfood.com>  Mon, 01 Oct 2007 01:01:41 -0500
+
+ofbiz (551703-3) unstable; urgency=low
+
+  * Add PartyProduct.patch.
+
+ -- Adam Heath <doogie@brainfood.com>  Thu, 02 Aug 2007 18:41:21 -0500
+
+ofbiz (551703-2) unstable; urgency=low
+
+  * Changed default log4j logging from all to info.
+
+ -- Adam Heath <doogie@brainfood.com>  Thu, 12 Jul 2007 12:24:06 -0500
+
+ofbiz (551703-1) unstable; urgency=low
+
+  * Patched GenericDelegator to allow fetching/creating a value by
+    passing a single value, instead of a map.
+  * Move /var/tmp/ofbiz to /var/lib/ofbiz
+
+ -- Adam Heath <doogie@brainfood.com>  Thu, 12 Jul 2007 10:54:58 -0500
+
+ofbiz (551703-0) unstable; urgency=low
+
+  * New upstream.
+  * All services*.xml files are conffiles now.
+
+ -- Adam Heath <doogie@brainfood.com>  Fri, 29 Jun 2007 13:20:01 -0500
+
+ofbiz (512946-1) unstable; urgency=low
+
+  * Initial version.
+
+ -- Adam Heath <doogie@brainfood.com>  Wed, 11 Apr 2007 22:08:12 -0500

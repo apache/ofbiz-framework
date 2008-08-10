@@ -1,0 +1,22 @@
+#!/bin/sh
+set -e
+: "$0" "$@"
+
+if [ -f /usr/share/debconf/confmodule ]; then
+	. /usr/share/debconf/confmodule
+fi
+if [ -f /usr/share/dbconfig-common/dpkg/postrm ]; then
+	. /usr/share/dbconfig-common/dpkg/postrm 
+	dbc_go ofbiz "$@"
+fi
+
+case "$1" in
+	(purge)
+		rm -f /etc/ofbiz/debconf.cfg
+		if which ucf >/dev/null; then ucf --purge /etc/ofbiz/debconf.cfg; fi
+		if which ucfr >/dev/null; then ucfr --purge ofbiz /etc/ofbiz/debconf.cfg; fi
+	;;
+esac
+
+#DEBHELPER#
+

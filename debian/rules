@@ -1,0 +1,72 @@
+#!/usr/bin/make -f
+DH_VERBOSE	:=
+SHELL		:= /bin/bash -O extglob
+
+export DH_VERBOSE
+
+JAVA_HOME	:= /usr/lib/jvm/java-6-sun
+JAVAC		:= $(JAVA_HOME)/bin/javac
+JAVA		:= $(JAVA_HOME)/bin/java
+
+export JAVA_HOME
+UPSTREAM_VERSION := $(shell dpkg-parsechangelog | awk 'BEGIN{FS="[ -]";}/^Version:/{print $$2}')
+
+merge:
+	# This does *not* support checkout paths with spaces in them
+	# caveat empto
+	# TODO: svn
+	set -ex;set -- `(svk info . 2>/dev/null || true) | awk -F '[ ,]+' '/^(Depot Path|Mirrored From): /{print $$3}'`;\
+	if [ "$$1" ]; then \
+		if [ "$$2" ]; then svk sync "$$1"; fi; \
+		svk up; \
+		set -- `svk info . 2>/dev/null | awk -F '[ ,]+' '/^Mirrored From: /{print $$3, $$5}'`;\
+		if [ "$$1" ] && [ "$$2" ] && [ "$(UPSTREAM_VERSION)" -ne "$$2" ]; then \
+			dch -v "$$2-1" -m "New upstream version."; \
+		fi \
+	fi
+
+clean-debian:
+	dh_clean
+	rm -f debian/EncryptPassword.class
+	rm -rf runtime/catalina/work
+
+clean: clean-debian
+	ant clean-all
+
+build: build-ofbiz debian/EncryptPassword.class
+build-ofbiz:
+	ant
+
+debian/EncryptPassword.class: %.class: %.java
+debian/EncryptPassword.class: build-ofbiz
+	$(JAVAC) -classpath framework/base/build/lib/ofbiz-base.jar:framework/common/build/lib/ofbiz-common.jar -d $(@D) $*.java
+
+
+binary-indep: DH_OPTIONS=-i
+binary-indep:
+	dh_testdir
+	dh_testroot
+	dh_clean -k
+	mkdir -p runtime/catalina/work
+	perl debian/move-files.pl
+	dh_installdirs -v
+	cp -a debian/*.xslt debian/*.class debian/ofbiz/usr/share/ofbiz/support
+	dh_link
+#	tar -c . --exclude debian --exclude src --exclude build.xml --exclude build/classes --exclude framework/example | tar -C debian/ofbiz-svn-$(UPSTREAM_VERSION)/var/lib/ofbiz/$(UPSTREAM_VERSION) -x 
+#	dh_strip
+	dh_compress
+	dh_fixperms
+#	dh_shlibdeps
+	dh_md5sums
+	dh_installdebconf
+	dh_installinit
+	dh_installdeb
+	dh_gencontrol
+	dh_builddeb
+
+binary-arch:
+
+binary: binary-indep binary-arch
+
+.EXPORT_ALL_VARIABLES:
+
