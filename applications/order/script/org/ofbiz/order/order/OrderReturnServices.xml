@@ -79,6 +79,9 @@ under the License.
 
         <!-- If PartyAcctgPreference.useInvoiceIdForReturns is Y, get the ID from the getNextInvoiceId service -->
         <set field="partyAccountingPreferencesCallMap.organizationPartyId" from-field="parameters.toPartyId"/>
+        <set field="systemMap.userLoginId" value="system"/>
+        <find-by-primary-key  entity-name="UserLogin" map-name="systemMap" value-name="systemLogin"/>
+        <set field="partyAccountingPreferencesCallMap.userLogin" from-field="systemLogin"/> 
         <call-service service-name="getPartyAccountingPreferences" in-map-name="partyAccountingPreferencesCallMap">
              <result-to-field result-name="partyAccountingPreference" field-name="partyAcctgPreference"/>
         </call-service>
