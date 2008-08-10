@@ -245,7 +245,6 @@ under the License.
               <input type="hidden" id="shipToContactMechId" name="shipToContactMechId" value="${parameters.shipToContactMechId?if_exists}"/>
               <input type="hidden" name="billToContactMechId" value="${parameters.billToContactMechId?if_exists}"/>
               <input type="hidden" id="shippingPartyId" name="partyId" value="${parameters.partyId?if_exists}"/>
-              <input type="hidden" name="userLogin" value="${parameters.userLogin?if_exists}"/>
               <input type="hidden" id="phoneContactMechId" name="phoneContactMechId" value="${parameters.phoneContactMechId?if_exists}"/>
               <input type="hidden" id="emailContactMechId" name="emailContactMechId" value="${parameters.emailContactMechId?if_exists}"/>
               <input type="hidden" name="roleTypeId" value="CUSTOMER"/>
