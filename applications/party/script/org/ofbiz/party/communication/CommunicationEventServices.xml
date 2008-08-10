@@ -406,6 +406,14 @@ under the License.
                 <else>
                     <set field="communicationEvent.statusId" from-field="parameters.statusId"/>
                     <store-value value-name="communicationEvent"/>
+                    <!-- if complete, set all role status fields to 'complete' (intentionally ignoring the status change checking)-->
+                    <if-compare operator="equals" value="COM_COMPLETE" field="parameters.statusId">
+	                    <get-related value-name="communicationEvent" relation-name="CommunicationEventRole" list-name="updRoles"/>
+	                    <iterate entry-name="updRole" list-name="updRoles">
+	                        <set field="updRole.statusId" value="COM_ROLE_COMPLETED"/>
+	                        <store-value value-name="updRole"/>
+	                    </iterate>
+                    </if-compare>
                 </else>
             </if-empty>
         </if-compare-field>

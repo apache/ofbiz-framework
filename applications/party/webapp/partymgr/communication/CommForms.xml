@@ -272,7 +272,7 @@ under the License.
         <field name="subject">
             <hyperlink description="${subject}" target="ViewCommunicationEvent?communicationEventId=${communicationEventId}"/>
         </field>
-        <field name="communicationEventTypeId"><display-entity description="${description}" entity-name="CommunicationEventType" key-field-name="communicationEventTypeId"/></field>
+        <field name="communicationEventTypeId" title="${uiLabelMap.CommonType}"><display-entity description="${description}" entity-name="CommunicationEventType" key-field-name="communicationEventTypeId"/></field>
         <field name="partyIdFrom" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.CommonFrom}">
             <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView" key-field-name="partyId">
                 <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyIdFrom}" target-type="inter-app" description="[${partyIdFrom}]"/>
@@ -284,12 +284,6 @@ under the License.
             </display-entity>
         </field>
         <field name="statusId"><display-entity description="${description}" entity-name="StatusItem" key-field-name="statusId"/></field>
-        <!--field name="contactMechTypeId"><display-entity description="${description}" entity-name="ContactMechType" key-field-name="contactMechTypeId"/></field-->
-        <!-- Next two fields don't seem to be used, commenting out for now -->
-        <!--
-        <field name="roleTypeIdFrom"><display-entity description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/></field>
-        <field name="roleTypeIdTo"><display-entity description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/></field>
-        -->
         <field name="createdStamp" title="${uiLabelMap.CommonCreated}"><display type="date"/></field>
         <field name="datetimeStarted" title="${uiLabelMap.CommonSend}"><display type="date"/></field>
     </form>
@@ -476,9 +470,9 @@ under the License.
         </field>
         <field name="contentTypeId"><display-entity entity-name="ContentType" description="${description}"/></field>
         <field name="fromDate"><display/></field>
-        <field name="drDataResourceName" widget-style="smallSubmit">
+        <!-- field name="drDataResourceName" widget-style="smallSubmit">
             <hyperlink also-hidden="false" description="${drDataResourceName} [${drDataResourceId}]" target="/content/control/editDataResource?dataResourceId=${drDataResourceId}" target-type="inter-app"/> 
-        </field>
+        </field-->
         <field name="drMimeTypeId"><display-entity entity-name="MimeType" description="${description}" key-field-name="mimeTypeId"/></field>
     </form>
 
@@ -673,5 +667,8 @@ under the License.
         <field name="contentMimeTypeId"><hidden/></field>
         <field name="content"><textarea cols="70" rows="20"/></field>
         <field name="submit" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListRequests" extends="ListRequests" extends-resource="component://order/webapp/ordermgr/request/RequestForms.xml">
+        <field name="custRequestName"><hyperlink description="${custRequestName} [${custRequestId}]" target="/ordermgr/control/ViewRequest?custRequestId=${custRequestId}" target-type="inter-app"/></field>
     </form>
 </forms>
