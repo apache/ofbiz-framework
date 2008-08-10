@@ -484,6 +484,7 @@ under the License.
                                 </container>
                                 <container style="righthalf">
                                     <include-screen name="TaskTeamInfo"/>
+                                    <include-screen name="ListTaskContent"/>
                                     <include-screen name="NoteInfo"/>
                                     <include-screen name="ListWorkEffortRequests"/>
                                 </container>
@@ -511,14 +512,20 @@ under the License.
                 <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/ChildWorkEffort.bsh"/>
             </actions>
             <widgets>                
-                <container style="screenlet">
-                    <container style="screenlet-title-bar">
-                        <label style="boxhead">${uiLabelMap.ProjectMgrSubTasks}</label>
-                    </container>
-                    <container style="screenlet-body">
-                        <include-form name="ListTasks" location="component://projectmgr/widget/forms/TaskForms.xml"/>
-                    </container>
-                </container>                
+                <screenlet title="${uiLabelMap.ProjectMgrSubTasks}">
+                    <include-form name="ListTasks" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ListTaskContent">
+        <section>
+            <actions>
+            </actions>
+            <widgets>                
+                <screenlet title="${uiLabelMap.PageTitleListTaskContent}">
+                    <include-form name="ListTaskContent" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                </screenlet>
             </widgets>
         </section>
     </screen>

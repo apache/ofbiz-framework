@@ -84,50 +84,55 @@ under the License.
         <section>
             <actions>
                 <set field="MainColumnStyle" value="rightonly"/>
-                <set field="tabButtonItem" value="viewRequest"/>
+                <set field="tabButtonItem" value="ViewRequest"/>
                 <set field="headerItem" value="request"/>
                 <set field="titleProperty" value="PageTitleViewRequest"/>
+                <!--<set field="headerItem" value="Shopping List"/>-->
                 <set field="showRequestManagementLinks" value="Y"/>
                 <set field="custRequestId" from-field="parameters.custRequestId"/>
                 <entity-one entity-name="CustRequest" value-name="custRequest"/>
-                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/custRequestWorkEffort.bsh"/>
-                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
+                <get-related-one value-name="custRequest" relation-name="CustRequestType" to-value-name="custRequestType"/>
+                <get-related-one value-name="custRequest" relation-name="StatusItem" to-value-name="statusItem"/>
+                <get-related-one value-name="custRequest" relation-name="CurrencyUom" to-value-name="currency"/>
+                <get-related-one value-name="custRequest" relation-name="ProductStore" to-value-name="store"/>
+                <get-related-one value-name="custRequest" relation-name="FulfillContactMech" to-value-name="fulfillContactMech"/>
+                <entity-and list-name="requestWorkEfforts" entity-name="CustRequestAndWorkEffort">
+                    <field-map field-name="custRequestId" env-name="parameters.custRequestId"/>
+                </entity-and>
+                <get-related value-name="custRequest" relation-name="CustRequestRole" list-name="requestRoles"/>
+                <set field="orderBy[]" value="sequenceNum"/>
+                <get-related value-name="custRequest" relation-name="CustRequestItem" list-name="custRequestItems" order-by-list-name="orderBy"/>
+                <entity-and list-name="commEvents" entity-name="CommunicationEventAndCustRequest">
+                    <field-map field-name="custRequestId" env-name="parameters.custRequestId"/>
+                </entity-and>
             </actions>
             <widgets>
                 <decorator-screen name="CommonRequestDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="lefthalf">
-                            <container style="screenlet">
-                                <container style="screenlet-title-bar">
-                                    <container style="h3">
-                                        <label text="${custRequest.custRequestName} ${custRequestId} ${uiLabelMap.CommonInformation}"/>
-                                    </container>
-                                </container>
-                                <container style="screenlet-body">
-                                    <section>
-                                        <widgets>    
-                                            <include-form name="RequestInfo" location="component://projectmgr/widget/forms/RequestForms.xml"/>
-                                        </widgets>
-                                    </section>
-                                </container>
-                            </container>
+                            <platform-specific>
+                                <html><html-template location="component://order/webapp/ordermgr/request/requestInfo.ftl"/></html>
+                            </platform-specific>
+                            <screenlet title="${uiLabelMap.PageTitleRequestItems}">
+                                <include-form name="OverviewRequestItems" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                            </screenlet>
                         </container>
                         <container style="righthalf">
-                            <container style="screenlet">
-                                <container style="screenlet-title-bar">
-                                    <container style="h3">
-                                        <label text="${uiLabelMap.OrderRequestRoles}"/>
-                                    </container>
-                                </container>
-                                <container style="screenlet-body">
-                                    <section>
-                                        <widgets>    
-                                            <include-form name="RequestRolesInfo" location="component://projectmgr/widget/forms/RequestForms.xml"/>
-                                        </widgets>
-                                    </section>
-                                </container>
-                            </container>
+                            <platform-specific>
+                                <html><html-template location="component://order/webapp/ordermgr/request/requestDate.ftl"/></html>
+                            </platform-specific>
+                            <platform-specific>
+                                <html><html-template location="component://order/webapp/ordermgr/request/requestContactMech.ftl"/></html>
+                            </platform-specific>
+                            <platform-specific>
+                                <html><html-template location="component://order/webapp/ordermgr/request/requestRoles.ftl"/></html>
+                            </platform-specific>
+                            <screenlet title="${uiLabelMap.PartyListCommunicationEvents}" navigation-form-name="ViewRequestCommunicationEvents">
+                                <include-form name="ViewRequestCommunicationEvents" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                            </screenlet>
+                            <screenlet title="${uiLabelMap.WorkEffortWorkEfforts}" navigation-form-name="ViewRequestWorkEfforts">
+                                <include-form name="ViewRequestWorkEfforts" location="component://projectmgr/widget/forms/RequestForms.xml"/>
+                            </screenlet>
                         </container>
                     </decorator-section>
                 </decorator-screen>
