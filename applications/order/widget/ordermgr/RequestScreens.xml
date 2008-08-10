@@ -58,14 +58,44 @@ under the License.
                 <get-related-one value-name="custRequest" relation-name="CurrencyUom" to-value-name="currency"/>
                 <get-related-one value-name="custRequest" relation-name="ProductStore" to-value-name="store"/>
                 <get-related-one value-name="custRequest" relation-name="FulfillContactMech" to-value-name="fulfillContactMech"/>
-                <set field="orderBy[]" value="sequenceNum"/>
+                <entity-and list-name="requestWorkEfforts" entity-name="CustRequestAndWorkEffort">
+                    <field-map field-name="custRequestId" env-name="parameters.custRequestId"/>
+                </entity-and>
                 <get-related value-name="custRequest" relation-name="CustRequestRole" list-name="requestRoles"/>
-                <get-related value-name="custRequest" relation-name="CustRequestItem" list-name="requestItems" order-by-list-name="orderBy"/>
+                <set field="orderBy[]" value="sequenceNum"/>
+                <get-related value-name="custRequest" relation-name="CustRequestItem" list-name="custRequestItems" order-by-list-name="orderBy"/>
+                <entity-and list-name="commEvents" entity-name="CommunicationEventAndCustRequest">
+                    <field-map field-name="custRequestId" env-name="parameters.custRequestId"/>
+                </entity-and>
             </actions>
             <widgets>
                 <decorator-screen name="CommonRequestDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-screen name="ViewRequestTemplate" location="component://order/widget/ordermgr/RequestScreens.xml"/>
+		                <container style="lefthalf">
+			                <platform-specific>
+			                    <html><html-template location="component://order/webapp/ordermgr/request/requestInfo.ftl"/></html>
+			                </platform-specific>
+		                    <screenlet title="${uiLabelMap.PageTitleRequestItems}">
+		                        <include-form name="OverviewRequestItems" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+		                    </screenlet>
+		                </container>
+		                <container style="righthalf">
+			                <platform-specific>
+			                    <html><html-template location="component://order/webapp/ordermgr/request/requestDate.ftl"/></html>
+			                </platform-specific>
+			                <platform-specific>
+			                    <html><html-template location="component://order/webapp/ordermgr/request/requestContactMech.ftl"/></html>
+			                </platform-specific>
+			                <platform-specific>
+			                    <html><html-template location="component://order/webapp/ordermgr/request/requestRoles.ftl"/></html>
+			                </platform-specific>
+                            <screenlet title="${uiLabelMap.PartyListCommunicationEvents}" navigation-form-name="ViewRequestCommunicationEvents">
+                                <include-form name="ViewRequestCommunicationEvents" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                            </screenlet>
+                            <screenlet title="${uiLabelMap.WorkEffortWorkEfforts}" navigation-form-name="ViewRequestWorkEfforts">
+                                <include-form name="ViewRequestWorkEfforts" location="component://mypage/widget/MyPageForms.xml"/>
+                            </screenlet>
+		                </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -77,30 +107,17 @@ under the License.
                 <set field="titleProperty" value="OrderRequest"/>
                 <set field="tabButtonItem" value="request"/>
                 <set field="headerItem" value="request"/>
-
                 <set field="custRequestId" from-field="parameters.custRequestId"/>
                 <entity-one entity-name="CustRequest" value-name="custRequest"/>
-
                 <set field="statusId" from-field="custRequest.statusId"/>
                 <entity-one entity-name="StatusItem" value-name="currentStatus"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonRequestDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.OrderRequest}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <include-form name="EditCustRequest" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.OrderRequest}">
+                            <include-form name="EditCustRequest" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -428,85 +445,6 @@ under the License.
                         <include-form name="ListCustRequestItemWorkEfforts" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-    <screen name="ViewRequestTemplate">
-        <section>
-            <condition>
-                <not><if-empty field-name="custRequest"/></not>
-            </condition>
-            <widgets>
-                <include-screen name="ViewRequestInfo"/>
-            </widgets>
-            <fail-widgets>
-                <label style="h3">${uiLabelMap.OrderErrorRequestNotFound}</label>
-            </fail-widgets>
-        </section>
-    </screen>
-    <screen name="ViewRequestInfo">
-        <section>
-            <actions>
-                <entity-and list-name="commEvents" entity-name="CommunicationEventAndCustRequest">
-                    <field-map field-name="custRequestId" env-name="parameters.custRequestId"/>
-                </entity-and>
-                <entity-and entity-name="CustRequestItem" list-name="custRequestItems">
-                    <field-map env-name="custRequestId" field-name="custRequestId"/>
-                    <order-by field-name="sequenceNum"/>
-                    <order-by field-name="custRequestItemSeqId"/>
-                </entity-and>
-            </actions>
-            <widgets>
-                <container style="lefthalf">
-                    <include-screen name="requestInfo"/>
-                    <screenlet title="${uiLabelMap.PageTitleRequestItems}">
-                        <include-form name="OverviewRequestItems" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
-                    </screenlet>
-                </container>
-                <container style="righthalf">
-                    <include-screen name="requestDate"/>
-                    <include-screen name="requestContactMech"/>
-                    <include-screen name="requestRoles"/>
-                    <screenlet title="${uiLabelMap.PartyListCommunicationEvents}" navigation-form-name="ViewRequestCommunicationEvents">
-                        <include-form name="ViewRequestCommunicationEvents" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
-                    </screenlet>
-                </container>
-            </widgets>
-        </section>
-    </screen>
-    <screen name="requestInfo">
-        <section>
-            <widgets>
-                <platform-specific>
-                    <html><html-template location="component://order/webapp/ordermgr/request/requestInfo.ftl"/></html>
-                </platform-specific>
-            </widgets>
-        </section>
-    </screen>
-    <screen name="requestDate">
-        <section>
-            <widgets>
-                <platform-specific>
-                    <html><html-template location="component://order/webapp/ordermgr/request/requestDate.ftl"/></html>
-                </platform-specific>
-            </widgets>
-        </section>
-    </screen>
-    <screen name="requestContactMech">
-        <section>
-            <widgets>
-                <platform-specific>
-                    <html><html-template location="component://order/webapp/ordermgr/request/requestContactMech.ftl"/></html>
-                </platform-specific>
-            </widgets>
-        </section>
-    </screen>
-    <screen name="requestRoles">
-        <section>
-            <widgets>
-                <platform-specific>
-                    <html><html-template location="component://order/webapp/ordermgr/request/requestRoles.ftl"/></html>
-                </platform-specific>
             </widgets>
         </section>
     </screen>
