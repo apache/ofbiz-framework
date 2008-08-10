@@ -74,11 +74,12 @@ under the License.
             <set field="custRequestWorkEffort.workEffortId" from-field="newEntity.workEffortId" />
             <set field="custRequestWorkEffort.custRequestId" from-field="parameters.custRequestId"/>
             <create-value value-name="custRequestWorkEffort"/>
-            <entity-and list-name="CustRequestCommEvents" entity-name="CustRequestCommEvent">
+            <entity-and list-name="custRequestCommEvents" entity-name="CustRequestCommEvent">
                 <field-map field-name="custRequestId" env-name="parameters.custRequestId"/>
             </entity-and>
             <iterate entry-name="custRequestCommEvent" list-name="custRequestCommEvents">
-                <get-related relation-name="Content" value-name="custRequestCommEvent" list-name="allCommEventContents"/>
+                <get-related-one value-name="custRequestCommEvent" relation-name="CommunicationEvent" to-value-name="communicationEvent"/>
+                <get-related relation-name="CommEventContentAssoc" value-name="communicationEvent" list-name="allCommEventContents"/>
                 <filter-list-by-date list-name="allCommEventContents" to-list-name="commEventContents"/>            
                 <iterate entry-name="commEventContent" list-name="commEventContents">
                     <set field="newWorkEffortContent.workEffortId" from-field="newEntity.workEffortId"/>
