@@ -542,23 +542,17 @@
     <request-map uri="CreateTaskbyRequest">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="CreateTaskbyRequest"/>
-        </request-map>
+    </request-map>
     <request-map uri="CreateTaskbyRequests">
         <security https="true" auth="true"/>
         <event type="service" invoke="createWorkEffort"/>
-        <response name="success" type="request" value="createTaskListForms"/>
-        <response name="error" type="view" value="CreateTaskbyRequest"/>
-        </request-map>
-    <request-map uri="createTaskListForms">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="createWorkEffortRequest"/>
         <response name="success" type="request" value="updaterequeststatus"/>
-        <response name="error" type="view" value="RequestList"/>
-        </request-map>
+        <response name="error" type="view" value="CreateTaskbyRequest"/>
+    </request-map>
     <request-map uri="newrequest">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditRequest"/>
-        </request-map>
+    </request-map>
     <request-map uri="ViewRequest">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ViewRequest"/>

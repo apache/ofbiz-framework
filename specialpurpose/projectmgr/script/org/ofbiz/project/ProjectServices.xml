@@ -304,7 +304,13 @@
             <entity-one entity-name="WorkEffort" value-name="task">
                 <field-map field-name="workEffortId" env-name="parameters.taskId"/>
             </entity-one>
-            <get-related-one value-name="task" relation-name="ParentWorkEffort" to-value-name="phase"/>
+            <if-not-empty field="task">
+                <get-related-one value-name="task" relation-name="ParentWorkEffort" to-value-name="phase"/>
+                <else>
+                    <log level="error" message="Requested taskId (workEffortId): ${parameters.taskId} not found"/>
+                    <return response-code="error"/>
+                </else>
+            </if-not-empty>
             <else>
                 <entity-one entity-name="WorkEffort" value-name="phase">
                     <field-map field-name="workEffortId" env-name="parameters.phaseId"/>

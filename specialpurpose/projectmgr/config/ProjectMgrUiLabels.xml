@@ -245,6 +245,9 @@
         <value xml:lang="th">แสดงรายการงานโดยกลุ่มผู้ใช้</value>
         <value xml:lang="zh">按会员列出任务</value>
     </property>
+    <property key="PageTitleListTaskContent">
+        <value xml:lang="en">List Task Content Items</value>
+    </property>
     <property key="PageTitleListTaskNotes">
         <value xml:lang="en">List Task Notes</value>
         <value xml:lang="it">Lista Note Compito</value>

@@ -156,4 +156,9 @@ under the License.
         </field>
         <field name="description"><display/></field>
     </form>
+    <form name="ViewRequestWorkEfforts" extends="ViewRequestWorkEfforts" extends-resource="component://order/webapp/ordermgr/request/RequestForms.xml">
+        <field name="workEffortId">
+            <hyperlink target="taskView?workEffortId=${workEffortId}" description="${workEffortName} [${workEffortId}]"/>
+        </field>
+    </form>
 </forms>

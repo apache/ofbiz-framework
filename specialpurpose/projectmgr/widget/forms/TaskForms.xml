@@ -537,6 +537,21 @@
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display type="date"/></field>
         <field name="actualHours"><display/></field> 
     </form>  
+    <form name="ListTaskContent" type="list" paginate-target="/ListCommContent"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-and entity-name="WorkEffortAndContentDataResource">
+                <field-map field-name="workEffortId" env-name="parameters.workEffortId"/>
+            </entity-and>
+        </actions>
+        <field name="contentName" widget-style="smallSubmit">
+            <hyperlink also-hidden="false" description="${contentName} [${contentId}]" target="ViewSimpleContent?contentId=${contentId}&amp;dataResourceId=${dataResourceId}&amp;communicationEventId=${communicationEventId}&amp;fromDate=${fromDate}"/> 
+        </field>
+        <field name="contentTypeId"><display-entity entity-name="ContentType" description="${description}"/></field>
+        <field name="workEffortContentTypeId"><display-entity entity-name="workEffortContentType" description="${description}"/></field>
+        <field name="fromDate"><display/></field>
+        <field name="drMimeTypeId"><display-entity entity-name="MimeType" description="${description}" key-field-name="mimeTypeId"/></field>
+    </form>
     <form name="ListWorkEffortRequests" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
