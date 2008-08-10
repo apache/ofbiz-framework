@@ -1,0 +1,22 @@
+Source: ofbiz
+Section: misc
+Priority: extra
+Maintainer: Adam Heath <doogie@brainfood.com>
+Origin: brainfood
+Bugs: mozilla://bugs.brainfood.com
+Standards-Version: 3.7.2
+Build-Depends: sun-java6-jdk, debhelper (>= 5)
+
+Package: ofbiz
+Architecture: all
+Depends: dbconfig-common, xalan, ${misc:Depends}, ucf, sun-java6-jdk | j2sdk1.5, libpg-java, libmysql-java, jsvc, adduser
+Recommends: postgresql-8.1 | postgresql-7.5 | mysql-server
+Description: foo
+ bar
+
+Package: ofbiz-specialpurpose
+Architecture: all
+Depends: ofbiz (= ${binary:Version})
+Description: foo
+ bar
+

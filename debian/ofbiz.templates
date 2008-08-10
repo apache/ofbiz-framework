@@ -1,0 +1,55 @@
+Template: ofbiz/admin-password
+Type: password
+Description: Enter the password for ofbiz admin accounts:
+
+Template: ofbiz/password-confirmation
+Type: password
+Description: Password confirmation:
+
+Template: ofbiz/readers
+Default: seed
+Type: multiselect
+Choices: ${choices}
+Description: Which additional data readers should be imported:
+
+Template: ofbiz/from-email
+Default: ofbiztest@yahoo.com
+Type: string
+Description: Email from address:
+ Various parts of ofbiz can be configured to send email.  This specifies
+ what the from address should be.
+
+Template: ofbiz/admin-password-encrypted
+Type: password
+Description: temporary placeholder for the encrypted password, not shown
+
+Template: ofbiz/mismatched-passwords
+Type: note
+Description: passwords do not match
+ The passwords you have entered do not match.
+
+Template: ofbiz/empty-password-not-allowed
+Type: note
+Description: empty password is not allowed
+ The password you have entered is empty.  This is not allowed.
+
+Template: ofbiz/admin-port
+Type: string
+Default: 10523
+Description: Admin port for status queries:
+ This is the port used to communicate with a running ofbiz instance, to
+ see if it is starting, running, or stopping.
+
+Template: ofbiz/import-additional-data
+Type: boolean
+Default: false
+Description: Important example data:
+ OfBiz comes with lots of example data, showing products/categories/users
+ etc.  Answering yes will import this additional data.
+
+Template: ofbiz/reimport-data
+Type: boolean
+Default: false
+Description: Reimport data:
+ Whether data should be reimported on upgrade.
+

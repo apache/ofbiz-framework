@@ -1,0 +1,1 @@
+MEMIF="-Xms128M -Xmx256M"

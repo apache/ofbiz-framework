@@ -1,0 +1,18 @@
+* debian/copyright
+- Prompt for:
+  - ofbiz admin password(s)
+  - default email(ofbiztest@yahoo.com)
+  - install of demo or just seed data
+* Auto-generate admin key/port
+* Move demo data into separate package?
+- module script for stopping/modifying/installing entity defs/data
+- init script
++ purging of /var/foo/ofbiz dirs
+  - /var/log/ofbiz, /var/cache/ofbiz
+  + /var/lib/ofbiz is cleared, except for .bash_history
+- purging of dpkg-statoverride values
+* mod-jk installation(apache/apache2)
+* debian/watch
+* During install, force seed install, but allow demo or ext to be selected.
+* During reconfigure, allow seed, demo, or ext to be selected.
+* Verify that $MEMIF in the init script only contains -X
