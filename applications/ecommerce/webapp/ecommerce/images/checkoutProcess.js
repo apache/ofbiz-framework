@@ -381,7 +381,7 @@ function initCartProcessObservers() {
     var inputs = cartForm.getInputs('text');
     inputs.each(function(e) {
         if(e.id != 'productPromoCode') {
-            Event.observe(e, 'keyup', cartItemQtyChanged);
+            Event.observe(e, 'change', cartItemQtyChanged);
         }
     });
     var removeLinks = cartForm.getElementsByTagName('a');
