@@ -45,7 +45,7 @@ function call_fieldlookup4(rootForumId, parentForumId ) {
           <td colspan="1" valign="middle" align="right">
             <div class="boxhead">&nbsp; Root Site ID&nbsp;&nbsp; </div>
           </td>
-          <td valign="middle" align="left">
+          <td valign="middle">
             <div class="boxhead">
              <input type="text" name="rootForumId" size="20" value="${rootForumId?if_exists}">
             </div>
@@ -237,7 +237,7 @@ function call_fieldlookup4(rootForumId, parentForumId ) {
           <#assign rowCount=rowCount + 1/>
         </#list>
         <tr>
-          <td valign="middle" align="left">
+          <td valign="middle">
             <div class="boxhead"><input type="text" name="partyId_o_${rowCount}" value=""/>
 <a href="javascript:call_fieldlookup3('<@ofbizUrl>LookupPerson</@ofbizUrl>')"><img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Lookup"></a></div>
           </td>

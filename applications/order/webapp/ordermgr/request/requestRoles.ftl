@@ -31,7 +31,7 @@ under the License.
                       &nbsp;${roleType.get("description", locale)?if_exists}
                   </td>
                   <td width="5%">&nbsp;</td>
-                  <td align="left" valign="top" width="80%">
+                  <td valign="top" width="80%">
                       ${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(party)}
                   </td>
               </tr>

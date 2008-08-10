@@ -139,7 +139,7 @@ under the License.
             </tr>
           </#if>
           <tr><td colspan="3"><hr/></td></tr>
-          <tr align="left">
+          <tr>
             <td>&nbsp;</td>
             <td>
               <input type="submit" value="${uiLabelMap.CommonFind}" onClick="javascript:document.lookupparty.submit();"/>

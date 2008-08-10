@@ -210,7 +210,7 @@ under the License.
         <td colspan="5" width="100%">
           <table width="100%" border="1" cellpadding="1" cellspacing="0">
             <tr>
-              <td align="left">
+              <td>
                 <div class="tableheadtext">${surveyMultiResp.multiRespTitle?default("&nbsp;")}</div>
               </td>
               <#list surveyMultiRespColumnList as surveyMultiRespColumn>
@@ -225,7 +225,7 @@ under the License.
   <#if surveyMultiResp?has_content>
     <#assign sqaaWithColIdList = (sqaaWithColIdListByMultiRespId[surveyMultiResp.surveyMultiRespId])?if_exists/>
     <tr>
-      <td align="left">
+      <td>
         <@renderSurveyQuestionText surveyQuestionAndAppl=surveyQuestionAndAppl/>
       </td>
       <#list surveyMultiRespColumnList as surveyMultiRespColumn>

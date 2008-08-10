@@ -20,7 +20,7 @@ under the License.
 <#if productCategory?has_content>
   <table border='0'  cellpadding='3' cellspacing='0'>
     <tr>
-      <td align="left">
+      <td>
         <h2>${productCategory.description?if_exists}</h2>
       </td>
       <td align="right">
@@ -42,10 +42,10 @@ under the License.
     <#if productCategory.categoryImageUrl?exists || productCategory.longDescription?exists>  
       <tr><td colspan='2'><hr class='sepbar'></td></tr>
       <tr>
-        <td align="left" valign="top" width="0" colspan='2'>
+        <td valign="top" width="0" colspan='2'>
           <div>
             <#if productCategory.categoryImageUrl?exists>
-              <img src="<@ofbizContentUrl>${productCategory.categoryImageUrl}</@ofbizContentUrl>" vspace="5" hspace="5" border="1" height='100' align="left">
+              <img src="<@ofbizContentUrl>${productCategory.categoryImageUrl}</@ofbizContentUrl>" vspace="5" hspace="5" border="1" height='100'>
             </#if>
             ${productCategory.longDescription?if_exists}
           </div>

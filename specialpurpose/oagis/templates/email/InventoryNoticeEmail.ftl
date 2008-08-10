@@ -35,8 +35,8 @@
     </div>   
     <div class="screenlet-body">
       <table class="basic-table" cellspacing="0">
-        <tr align="left" valign="bottom" class="header-row">
-          <td width="10%" align="left"><b>${uiLabelMap.EcommerceProduct}</b></td>               
+        <tr valign="bottom" class="header-row">
+          <td width="10%"><b>${uiLabelMap.EcommerceProduct}</b></td>               
           <td width="10%" align="center"><b>${uiLabelMap.OagisInventoryLevelDateTime}</b></td>
           <td width="10%" align="right"><b>${uiLabelMap.OrderReturnItemInventoryStatus}</b></td>
           <td width="10%" align="right"><b>${uiLabelMap.OrderQuantity} (Inventory)</b></td>
@@ -47,7 +47,7 @@
         <#assign alt_row = false>
         <#list inventoryMapList as inventoryMap>
           <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
-            <td align="left" valign="top"> ${inventoryMap.productId?if_exists}</td>   
+            <td valign="top"> ${inventoryMap.productId?if_exists}</td>   
             <td align="right" valign="top"> ${inventoryMap.timestamp?if_exists?if_exists}</td>
             <td align="right" valign="top"> ${inventoryMap.statusId?if_exists?if_exists}</td>                        
             <td align="center" valign="top"> ${inventoryMap.quantityOnHandTotal?if_exists?if_exists}</td>   

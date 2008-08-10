@@ -22,7 +22,7 @@ under the License.
 <#--
 <table width='100%' cellpadding='0' cellspacing='0' border='0'>
   <tr>
-    <td align="left">
+    <td>
       <h1>${contentIdTo?if_exists}
       </h1>
     </td>
@@ -42,9 +42,9 @@ under the License.
     </div>
     <div class="screenlet-body">
   <table width="100%" border="0" cellpadding="0" cellspacing='0'>
-    <tr><td align="right" nowrap><div class='tabletext'><b>${uiLabelMap.ProductContentId}</b></div></td><td>&nbsp;</td><td align="left"><div class='tabletext'>${contentId?if_exists}</div></td></tr>
-    <tr><td align="right" nowrap><div class='tabletext'><b>${uiLabelMap.EcommerceContentName}</b></div></td><td>&nbsp;</td><td align="left"><div class='tabletext'>${contentName?if_exists}</div></td></tr>
-    <tr><td align="right" nowrap><div class='tabletext'><b>${uiLabelMap.CommonDescription}</b></div></td><td>&nbsp;</td><td align="left"><div class='tabletext'>${description?if_exists}<div></td></tr>
+    <tr><td align="right" nowrap><div class='tabletext'><b>${uiLabelMap.ProductContentId}</b></div></td><td>&nbsp;</td><td><div class='tabletext'>${contentId?if_exists}</div></td></tr>
+    <tr><td align="right" nowrap><div class='tabletext'><b>${uiLabelMap.EcommerceContentName}</b></div></td><td>&nbsp;</td><td><div class='tabletext'>${contentName?if_exists}</div></td></tr>
+    <tr><td align="right" nowrap><div class='tabletext'><b>${uiLabelMap.CommonDescription}</b></div></td><td>&nbsp;</td><td><div class='tabletext'>${description?if_exists}<div></td></tr>
   </table>
     </div>
 </div>
@@ -58,7 +58,7 @@ under the License.
     </div>
     <div class="screenlet-body">
   <table width="100%" border="0" cellpadding="0" cellspacing='0'>
-    <tr><td align="right" nowrap><div class='tabletext'><b>${uiLabelMap.EcommerceImage}</b></div></td><td>&nbsp;</td><td align="left"><div class='tabletext'>
+    <tr><td align="right" nowrap><div class='tabletext'><b>${uiLabelMap.EcommerceImage}</b></div></td><td>&nbsp;</td><td><div class='tabletext'>
         <img src="<@ofbizUrl>img?imgId=${imgDataResourceId?if_exists}</@ofbizUrl>" />
 <div></td></tr>
   </table>
@@ -74,7 +74,7 @@ under the License.
     </div>
     <div class="screenlet-body">
   <table width="100%" border="0" cellpadding="0" cellspacing='0'>
-    <tr><td align="right" nowrap><div class='tabletext'><b>${uiLabelMap.EcommerceSummary}</b></div></td><td>&nbsp;</td><td align="left"><div class='tabletext'>
+    <tr><td align="right" nowrap><div class='tabletext'><b>${uiLabelMap.EcommerceSummary}</b></div></td><td>&nbsp;</td><td><div class='tabletext'>
 ${summaryData?if_exists}
 <div></td></tr>
   </table>
@@ -90,7 +90,7 @@ ${summaryData?if_exists}
     </div>
     <div class="screenlet-body">
   <table width="100%" border="0" cellpadding="0" cellspacing='0'>
-    <tr><td align="right" nowrap><div class='tabletext'><b>Article</b></div></td><td>&nbsp;</td><td align="left"><div class='tabletext'>
+    <tr><td align="right" nowrap><div class='tabletext'><b>Article</b></div></td><td>&nbsp;</td><td><div class='tabletext'>
 ${textData?if_exists}
 <div></td></tr>
   </table>

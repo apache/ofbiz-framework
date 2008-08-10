@@ -41,7 +41,7 @@ under the License.
                     &nbsp;${label?default(uiLabelMap.PartyUnknown)}
                 </td>
                 <td width="5%">&nbsp;</td>
-                <td align="left" valign="top" width="70%">
+                <td valign="top" width="70%">
                     <div>
                       <#if emailAddress?has_content>${emailAddress}</#if>
 

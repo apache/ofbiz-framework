@@ -29,8 +29,8 @@ under the License.
     <#list historyList as history>
       <#assign time = history.time_stamp().getTime()>
       <tr>
-        <td align="left"><div>${Static["org.ofbiz.base.util.UtilDateTime"].getTimestamp(time)}</div></td>
-        <td align="left">
+        <td><div>${Static["org.ofbiz.base.util.UtilDateTime"].getTimestamp(time)}</div></td>
+        <td>
           <div>
             <#assign eventType = history.event_type()>
             ${eventType}

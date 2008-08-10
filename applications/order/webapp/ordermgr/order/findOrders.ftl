@@ -418,27 +418,27 @@ document.lookuporder.orderId.focus();
 
       <table class="basic-table hover-bar" cellspacing='0'>
         <tr class="header-row">
-          <td width="1%" align="left">
+          <td width="1%">
             <input type="checkbox" name="checkAllOrders" value="1" onchange="javascript:toggleOrderId(this);"/>
           </td>
-          <td width="5%" align="left">${uiLabelMap.OrderOrderType}</td>
-          <td width="5%" align="left">${uiLabelMap.OrderOrderId}</td>
-          <td width="20%" align="left">${uiLabelMap.PartyName}</td>
+          <td width="5%">${uiLabelMap.OrderOrderType}</td>
+          <td width="5%">${uiLabelMap.OrderOrderId}</td>
+          <td width="20%">${uiLabelMap.PartyName}</td>
           <td width="5%" align="right">${uiLabelMap.OrderSurvey}</td>
           <td width="5%" align="right">${uiLabelMap.OrderItemsOrdered}</td>
           <td width="5%" align="right">${uiLabelMap.OrderItemsBackOrdered}</td>
           <td width="5%" align="right">${uiLabelMap.OrderItemsReturned}</td>
           <td width="10%" align="right">${uiLabelMap.OrderRemainingSubTotal}</td>
           <td width="10%" align="right">${uiLabelMap.OrderOrderTotal}</td>
-          <td width="5%" align="left">&nbsp;</td>
+          <td width="5%">&nbsp;</td>
             <#if (requestParameters.filterInventoryProblems?default("N") == "Y") || (requestParameters.filterPOsOpenPastTheirETA?default("N") == "Y") || (requestParameters.filterPOsWithRejectedItems?default("N") == "Y") || (requestParameters.filterPartiallyReceivedPOs?default("N") == "Y")> 
-              <td width="15%" align="left">${uiLabelMap.CommonStatus}</td>
+              <td width="15%">${uiLabelMap.CommonStatus}</td>
               <td width="5%">${uiLabelMap.CommonFilter}</td>
             <#else>
-              <td width="20%" align="left">${uiLabelMap.CommonStatus}</td>
+              <td width="20%">${uiLabelMap.CommonStatus}</td>
             </#if>          
-          <td width="20%" align="left">${uiLabelMap.OrderDate}</td>
-          <td width="5%" align="left">${uiLabelMap.PartyPartyId}</td>
+          <td width="20%">${uiLabelMap.OrderDate}</td>
+          <td width="5%">${uiLabelMap.PartyPartyId}</td>
           <td width="10%">&nbsp;</td>
         </tr>
         <#if orderList?has_content>

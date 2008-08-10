@@ -77,10 +77,10 @@ function toggleBillingAccount(box) {
                    <#assign shippingAddress = shippingContactMech.getRelatedOne("PostalAddress")>
                    <#assign checkThisAddress = (shippingContactMech_index == 0 && !cart.getShippingContactMechId()?has_content) || (cart.getShippingContactMechId()?default("") == shippingAddress.contactMechId)/>
                    <tr>
-                     <td align="left" valign="top" width="1%" nowrap>
+                     <td valign="top" width="1%" nowrap>
                        <input type="radio" name="shipping_contact_mech_id" value="${shippingAddress.contactMechId}"<#if checkThisAddress> checked</#if>>
                      </td>
-                     <td align="left" valign="top" width="99%" nowrap>
+                     <td valign="top" width="99%" nowrap>
                        <div>
                          <#if shippingAddress.toName?has_content><b>${uiLabelMap.CommonTo}:</b>&nbsp;${shippingAddress.toName}<br/></#if>
                          <#if shippingAddress.attnName?has_content><b>${uiLabelMap.PartyAddrAttnName}:</b>&nbsp;${shippingAddress.attnName}<br/></#if>
@@ -137,7 +137,7 @@ function toggleBillingAccount(box) {
 
 <table width="100%">
   <tr valign="top">
-    <td align="left">
+    <td>
       &nbsp;<a href="javascript:submitForm(document.checkoutInfoForm, 'CS', '');" class="buttontextbig">${uiLabelMap.OrderBacktoShoppingCart}</a>
     </td>
     <td align="right">

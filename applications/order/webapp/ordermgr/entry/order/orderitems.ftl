@@ -29,8 +29,8 @@ under the License.
     </div>
     <div class="screenlet-body">
         <table width="100%" border="0" cellpadding="0">
-          <tr align="left" valign="bottom">
-            <td width="65%" align="left"><span><b>${uiLabelMap.ProductProduct}</b></span></td>
+          <tr valign="bottom">
+            <td width="65%"><span><b>${uiLabelMap.ProductProduct}</b></span></td>
             <td width="5%" align="right"><span><b>${uiLabelMap.OrderQuantity}</b></span></td>
             <td width="10%" align="right"><span><b>${uiLabelMap.CommonUnitPrice}</b></span></td>
             <td width="10%" align="right"><span><b>${uiLabelMap.OrderAdjustments}</b></span></td>

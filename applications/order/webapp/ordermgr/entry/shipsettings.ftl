@@ -59,7 +59,7 @@ under the License.
                       <input type="radio" name="${shipGroupIndex?default("0")}_shipping_contact_mech_id" value="${shippingAddress.contactMechId}" <#if i == 0>checked</#if> />
                     </td>
                     <td nowrap>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                    <td align="left" valign="top" width="100%" nowrap>
+                    <td valign="top" width="100%" nowrap>
                       <div>
                         <#if shippingAddress.toName?has_content><b>${uiLabelMap.CommonTo}:</b>&nbsp;${shippingAddress.toName}<br/></#if>
                         <#if shippingAddress.attnName?has_content><b>${uiLabelMap.CommonAttn}:</b>&nbsp;${shippingAddress.attnName}<br/></#if>
@@ -156,10 +156,10 @@ under the License.
                       </#if>
                   </#if>
                   <tr>
-                    <td align="left" valign="top" width="1%" nowrap>
+                    <td valign="top" width="1%" nowrap>
                       <input type="radio" name="${shipGroupIndex?default("0")}_shipping_contact_mech_id" value="${shippingAddress.contactMechId}" ${checkedValue} />
                     </td>
-                    <td align="left" valign="top" width="99%" nowrap>
+                    <td valign="top" width="99%" nowrap>
                       <div>
                         <#if shippingAddress.toName?has_content><b>${uiLabelMap.CommonTo}:</b>&nbsp;${shippingAddress.toName}<br/></#if>
                         <#if shippingAddress.attnName?has_content><b>${uiLabelMap.CommonAttn}:</b>&nbsp;${shippingAddress.attnName}<br/></#if>
@@ -188,10 +188,10 @@ under the License.
                 <#list shipToPartyShippingContactMechList as shippingContactMech>
                   <#assign shippingAddress = shippingContactMech.getRelatedOne("PostalAddress")>
                   <tr>
-                    <td align="left" valign="top" width="1%" nowrap>
+                    <td valign="top" width="1%" nowrap>
                       <input type="radio" name="${shipGroupIndex?default("0")}_shipping_contact_mech_id" value="${shippingAddress.contactMechId}"/>
                     </td>
-                    <td align="left" valign="top" width="99%" nowrap>
+                    <td valign="top" width="99%" nowrap>
                       <div>
                         <#if shippingAddress.toName?has_content><b>${uiLabelMap.CommonTo}:</b>&nbsp;${shippingAddress.toName}<br/></#if>
                         <#if shippingAddress.attnName?has_content><b>${uiLabelMap.CommonAttn}:</b>&nbsp;${shippingAddress.attnName}<br/></#if>

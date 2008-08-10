@@ -230,9 +230,9 @@ under the License.
         <tr>
             <td colspan="2">&nbsp;</td>
             <#if !(inventoryTransfer?exists)>
-                <td colspan="1" align="left"><input type="submit" value="${uiLabelMap.ProductTransfer}"></td>
+                <td colspan="1"><input type="submit" value="${uiLabelMap.ProductTransfer}"></td>
             <#else>
-                <td colspan="1" align="left"><input type="submit" value="${uiLabelMap.CommonUpdate}"></td>
+                <td colspan="1"><input type="submit" value="${uiLabelMap.CommonUpdate}"></td>
             </#if>
         </tr>
         </table>

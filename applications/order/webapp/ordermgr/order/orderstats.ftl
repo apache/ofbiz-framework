@@ -36,7 +36,7 @@ under the License.
           <td colspan="2">&nbsp;</td>
           <td colspan="4"><hr/></td></tr>
           <tr>
-            <td align="left" class="label">${uiLabelMap.OrderOrdersTotals}</td>
+            <td class="label">${uiLabelMap.OrderOrdersTotals}</td>
             <td colspan="5">&nbsp;</td>
           </tr>
           <tr>
@@ -65,7 +65,7 @@ under the License.
           </tr>
           <tr><td colspan="6"><hr/></td></tr>
           <tr>
-            <td align="left" class="label">${uiLabelMap.OrderOrdersItemCounts}</td>
+            <td class="label">${uiLabelMap.OrderOrdersItemCounts}</td>
             <td colspan="5">&nbsp;</td>
           </tr>
           <tr class="alternate-row">
@@ -94,7 +94,7 @@ under the License.
           </tr>      
           <tr><td colspan="6"><hr/></td></tr>
           <tr>
-            <td align="left" class="label">${uiLabelMap.OrderOrdersPending}</td>
+            <td class="label">${uiLabelMap.OrderOrdersPending}</td>
             <td colspan="5">&nbsp;</td>
           </tr>
           <tr>
@@ -123,7 +123,7 @@ under the License.
           </tr>             
           <tr><td colspan="6"><hr/></td></tr>
           <tr>
-            <td align="left" class="label">${uiLabelMap.OrderStatusChanges}</td>
+            <td class="label">${uiLabelMap.OrderStatusChanges}</td>
             <td colspan="5">&nbsp;</td>
           </tr>
           <tr class="alternate-row">

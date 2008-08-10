@@ -84,11 +84,11 @@
         <span class="treeHeader"> </span>
         </td>
         <td>&nbsp;</td>
-        <td width="5%" align="left" valign="top">
+        <td width="5%" valign="top">
         <div class="inputBox"><input type="checkBox" ${text_check} name="drMimeTypeId_TEXT" value="Y"/>Text</div>
         </td>
         <td>&nbsp;</td>
-        <td width="60%" align="left"
+        <td width="60%"
         <textarea class="textAreaBox" class="inputBox" name="textData" cols="60" rows="24">${textData?if_exists}</textarea>
         </td>
         <td width="10%" align="right">
@@ -101,11 +101,11 @@
             <span class="treeHeader"> </span>
         </td>
         <td>&nbsp;</td>
-        <td width="5%" align="left" valign="top">
+        <td width="5%" valign="top">
             <div class="inputBox"><input type="checkbox" ${img_check} name="drMimeTypeId_IMAGE" value="Y"/>Image</div>
         </td>
         <td>&nbsp;</td>
-        <td width="60%" align="left">
+        <td width="60%">
             <div class="inputBox">Existing file name:  <#if imageContent?has_content && imageContent.drObjectInfo?has_content>${imageContent.drObjectInfo}</#if></div>
             <br/>
             <input type="file" class="inputBox" name="uploadedFile" size="25"/>

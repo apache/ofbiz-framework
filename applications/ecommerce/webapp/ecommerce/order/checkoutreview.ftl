@@ -43,7 +43,7 @@ under the License.
   ${screens.render("component://ecommerce/widget/OrderScreens.xml#orderitems")}
   <table border="0" cellpadding="1" width="100%">
    <tr>
-      <td colspan="4" align="left">
+      <td colspan="4">
         &nbsp;
       </td>
       <td align="right">

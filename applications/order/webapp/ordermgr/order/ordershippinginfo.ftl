@@ -113,7 +113,7 @@ under the License.
                         <span class="label">&nbsp;${uiLabelMap.OrderAddress}</span>
                     </td>
                     <td width="5">&nbsp;</td>
-                    <td align="left" valign="top" width="80%">
+                    <td valign="top" width="80%">
                         <div>
                             <#if orderHeader?has_content && orderHeader.statusId != "ORDER_CANCELLED" && orderHeader.statusId != "ORDER_COMPLETED" && orderHeader.statusId != "ORDER_REJECTED">            
                             <select name="contactMechId">
@@ -143,7 +143,7 @@ under the License.
                         <span class="label">&nbsp;<b>${uiLabelMap.CommonMethod}</span>
                     </td>
                     <td width="5">&nbsp;</td>
-                    <td align="left" valign="top" width="80%">
+                    <td valign="top" width="80%">
                         <#if shipGroup.carrierPartyId?has_content || shipmentMethodType?has_content>
                         <div>
                             <#if orderHeader?has_content && orderHeader.statusId != "ORDER_CANCELLED" && orderHeader.statusId != "ORDER_COMPLETED" && orderHeader.statusId != "ORDER_REJECTED">            
@@ -175,7 +175,7 @@ under the License.
                 <tr>
                     <td align="right" valign="top" width="15%">&nbsp;</td>
                     <td width="5">&nbsp;</td>
-                    <td align="left" valign="top" width="80%">
+                    <td valign="top" width="80%">
                         <input type="submit" value="${uiLabelMap.CommonUpdate}" class="smallSubmit"/>
                     </td>
                 </tr>
@@ -197,7 +197,7 @@ under the License.
               <span class="label">&nbsp;${uiLabelMap.ProductDropShipment} - ${uiLabelMap.PartySupplier}</span>
             </td>
             <td width="5">&nbsp;</td>
-            <td align="left" valign="top" width="80%">
+            <td valign="top" width="80%">
               <#if supplier?has_content> - ${supplier.description?default(shipGroup.supplierPartyId)}</#if>
             </td>
           </tr>
@@ -211,7 +211,7 @@ under the License.
               <span class="label">&nbsp;${uiLabelMap.OrderTrackingNumber}</span>
             </td>
             <td width="5">&nbsp;</td>
-            <td align="left" valign="top" width="80%">
+            <td valign="top" width="80%">
               <#-- TODO: add links to UPS/FEDEX/etc based on carrier partyId  -->
               <#if shipGroup.trackingNumber?has_content>
                 ${shipGroup.trackingNumber}
@@ -238,7 +238,7 @@ under the License.
               <span class="label">&nbsp;${uiLabelMap.OrderSplittingPreference}</span>
             </td>
             <td width="5">&nbsp;</td>
-            <td align="left" valign="top" width="80%">
+            <td valign="top" width="80%">
               <div>
                 <#if shipGroup.maySplit?upper_case == "N">
                     ${uiLabelMap.FacilityWaitEntireOrderReady}
@@ -259,7 +259,7 @@ under the License.
               <span class="label">&nbsp;${uiLabelMap.OrderInstructions}</span>
             </td>
             <td width="5">&nbsp;</td>
-            <td align="left" valign="top" width="80%">
+            <td valign="top" width="80%">
               <div>${shipGroup.shippingInstructions}</div>
             </td>
           </tr>
@@ -271,7 +271,7 @@ under the License.
               <span class="label">&nbsp;${uiLabelMap.OrderGift}</span>
             </td>
             <td width="5">&nbsp;</td>
-            <td align="left" valign="top" width="80%">
+            <td valign="top" width="80%">
               <#if shipGroup.isGift?upper_case == "N">${uiLabelMap.OrderThisOrderNotGift}<#else>${uiLabelMap.OrderThisOrderGift}</#if>
             </td>
           </tr>
@@ -283,7 +283,7 @@ under the License.
               <span class="label">&nbsp;${uiLabelMap.OrderGiftMessage}</span>
             </td>
             <td width="5">&nbsp;</td>
-            <td align="left" valign="top" width="80%">
+            <td valign="top" width="80%">
               ${shipGroup.giftMessage}
             </td>
           </tr>
@@ -295,7 +295,7 @@ under the License.
               <span class="label">&nbsp;${uiLabelMap.OrderShipAfterDate}<span>
             </td>
             <td width="5">&nbsp;</td>
-            <td align="left" valign="top" width="80%">
+            <td valign="top" width="80%">
               ${shipGroup.shipAfterDate}
             </td>
          </tr>
@@ -307,7 +307,7 @@ under the License.
               <span class="label">&nbsp;${uiLabelMap.OrderShipBeforeDate}<span>
             </td>
             <td width="5">&nbsp;</td>
-            <td align="left" valign="top" width="80%">
+            <td valign="top" width="80%">
               ${shipGroup.shipByDate}
             </td>
          </tr>
@@ -320,7 +320,7 @@ under the License.
               <span class="label">&nbsp;${uiLabelMap.FacilityShipments}<span>
             </td>
             <td width="5">&nbsp;</td>
-            <td align="left" valign="top" width="80%">
+            <td valign="top" width="80%">
                 <#list shipGroupShipments as shipment>
                     <div>${uiLabelMap.CommonNbr}<a href="/facility/control/ViewShipment?shipmentId=${shipment.shipmentId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${shipment.shipmentId}</a>&nbsp;&nbsp;<a href="/facility/control/PackingSlip.pdf?shipmentId=${shipment.shipmentId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.ProductPackingSlip}</a></div>
                 </#list>

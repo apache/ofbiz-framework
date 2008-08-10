@@ -99,7 +99,7 @@ under the License.
     <td width='100%'>
       <table width='100%' border='0' cellpadding='0' cellspacing='0' class='boxtop'>
         <tr>
-          <td align="left" width='90%'>
+          <td width='90%'>
             <#if webSitePayment?has_content>
               <div class='boxhead'>&nbsp;Update&nbsp;Setting</div>
             <#else>
@@ -190,7 +190,7 @@ under the License.
               </tr>  
               <tr>
                 <td colspan='2'>&nbsp;</td>
-                <td colspan='1' align="left"><input type="submit" value="Update"></td>
+                <td colspan='1'><input type="submit" value="Update"></td>
               </tr>            
             </table>               
             </form>		  

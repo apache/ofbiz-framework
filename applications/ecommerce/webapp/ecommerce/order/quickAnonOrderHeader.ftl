@@ -24,7 +24,7 @@ under the License.
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
   <tr>
     <#-- left side -->
-    <td width="50%" valign="top" align="left">
+    <td width="50%" valign="top">
 
     <div class="screenlet">
         <div class="screenlet-header">
@@ -48,13 +48,13 @@ under the License.
                       <div class="tabletext">&nbsp;<b>${uiLabelMap.PartyName}</b></div>
                     </td>
                     <td width="5">&nbsp;</td>
-                    <td align="left" valign="top" width="80%">
+                    <td valign="top" width="80%">
                       <div class="tabletext">
                         ${(displayPartyNameResult.fullName)?default("[Name Not Found]")}
                       </div>
                     </td>
                   </tr>
-                  <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+                  <tr><td colspan="7"><hr/></td></tr>
                 </#if>
                 <#-- order status information -->
                 <tr>
@@ -62,7 +62,7 @@ under the License.
                     <div class="tabletext">&nbsp;<b>${uiLabelMap.CommonStatus}</b></div>
                   </td>
                   <td width="5">&nbsp;</td>
-                  <td align="left" valign="top" width="80%">
+                  <td valign="top" width="80%">
                     <#if orderHeader?has_content>                                                
                       <div class="tabletext">${localOrderReadHelper.getStatusString(locale)}</div>
                     <#else>
@@ -72,25 +72,25 @@ under the License.
                 </tr>
                 <#-- ordered date -->
                 <#if orderHeader?has_content>
-                  <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+                  <tr><td colspan="7"><hr/></td></tr>
                   <tr>
                     <td align="right" valign="top" width="15%">
                       <div class="tabletext">&nbsp;<b>${uiLabelMap.CommonDate}</b></div>
                     </td>
                     <td width="5">&nbsp;</td>
-                    <td align="left" valign="top" width="80%">
+                    <td valign="top" width="80%">
                       <div class="tabletext">${orderHeader.orderDate.toString()}</div>
                     </td>
                   </tr>
                 </#if>
                 <#if distributorId?exists>
-                  <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+                  <tr><td colspan="7"><hr/></td></tr>
                   <tr>
                     <td align="right" valign="top" width="15%">
                       <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderDistributor}</b></div>
                     </td>
                     <td width="5">&nbsp;</td>
-                    <td align="left" valign="top" width="80%">
+                    <td valign="top" width="80%">
                       <div class="tabletext">${distributorId}</div>
                     </td>
                   </tr>
@@ -104,7 +104,7 @@ under the License.
     <td width="1">&nbsp;&nbsp;</td>
     <#-- right side -->
 
-    <td width="50%" valign="top" align="left">
+    <td width="50%" valign="top">
       <#if orderItemShipGroups?has_content>
 
     <div class="screenlet">
@@ -130,7 +130,7 @@ under the License.
                       <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderDestination}</b> [${groupNumber}]</div>
                     </td>
                     <td width="5">&nbsp;</td>
-                    <td align="left" valign="top" width="80%">
+                    <td valign="top" width="80%">
                       <div class="tabletext">
                         <#if shippingAddress.toName?has_content><b>${uiLabelMap.CommonTo}:</b> ${shippingAddress.toName}<br/></#if>
                         <#if shippingAddress.attnName?has_content><b>${uiLabelMap.PartyAddrAttnName}:</b> ${shippingAddress.attnName}<br/></#if>
@@ -142,7 +142,7 @@ under the License.
                       </div>
                     </td>
                   </tr>
-                  <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+                  <tr><td colspan="7"><hr/></td></tr>
                 </#if>
                   <tr><td colspan="7">
                      ${screens.render("component://ecommerce/widget/OrderScreens.xml#quickAnonOptionSettings")}                     

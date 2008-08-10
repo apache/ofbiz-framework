@@ -18,15 +18,15 @@ under the License.
 -->
 
 <#if product?exists>
-  <td align="left" valign="middle" width="5%">
+  <td valign="middle" width="5%">
     <div>
       <b>${product.productId}</b>
     </div>
   </td>
-  <td align="left" valign="middle" width="90%">
+  <td valign="middle" width="90%">
     <a href="<@ofbizUrl>product?product_id=${product.productId}</@ofbizUrl>" class="buttontext">${productContentWrapper.get("PRODUCT_NAME")?if_exists}</a>
   </td>
-  <td align="left" valign="middle" width="5%">
+  <td valign="middle" width="5%">
     <div>
       <#if price.listPrice?exists && price.price?exists && price.price?double < price.listPrice?double>
         ${uiLabelMap.ProductListPrice}:<@ofbizCurrency amount=price.listPrice isoCode=price.currencyUsed/>

@@ -51,7 +51,7 @@ under the License.
           </tr>
           <#list orderHeaderList as orderHeader>
             <#assign status = orderHeader.getRelatedOneCache("StatusItem")>
-            <tr><td colspan="9"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="9"><hr/></td></tr>
             <tr>
               <td>
                 <div class="tabletext"><span style="white-space: nowrap;">${orderHeader.orderDate.toString()}</span></div>
@@ -119,7 +119,7 @@ under the License.
     <#if porderHeaderList?has_content>
           <#list porderHeaderList as porderHeader>
             <#assign pstatus = porderHeader.getRelatedOneCache("StatusItem")>
-            <tr><td colspan="9"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="9"><hr/></td></tr>
             <tr>
               <td>
                 <div class="tabletext"><span style="white-space: nowrap;">${porderHeader.orderDate.toString()}</span></div>
@@ -175,7 +175,7 @@ under the License.
             <td width="10%"><b></b></td>
           </tr>
           <#list downloadOrderRoleAndProductContentInfoList as downloadOrderRoleAndProductContentInfo>
-            <tr><td colspan="9"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="9"><hr/></td></tr>
             <tr>
               <td>
                 <div class="tabletext">${downloadOrderRoleAndProductContentInfo.orderId}</div>

@@ -36,11 +36,11 @@ under the License.
     <#list steps as step>
       <#assign time = step.last_state_time().getTime()>
       <tr>
-        <td align="left"><div>${step.key()}</div></td>
-        <td align="left"><div>${step.name()}</div></td>
-        <td align="left"><div>${step.description()}</div></td>
-        <td align="left"><div>${step.state()}</div></td>
-        <td align="left"><div>${Static["org.ofbiz.base.util.UtilDateTime"].getTimestamp(time)}</div></td>
+        <td><div>${step.key()}</div></td>
+        <td><div>${step.name()}</div></td>
+        <td><div>${step.description()}</div></td>
+        <td><div>${step.state()}</div></td>
+        <td><div>${Static["org.ofbiz.base.util.UtilDateTime"].getTimestamp(time)}</div></td>
         <td align="center"><div>${step.priority()}</div></td>
         <td align="center"><div>${step.how_many_assignment()}</div></td>
       </tr>

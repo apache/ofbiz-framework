@@ -70,7 +70,7 @@ function lookupBom() {
             </td>
         </tr>
         <tr>
-            <td colspan='3' align="left">
+            <td colspan='3'>
                 &nbsp;
             </td>
             <td align="right">${uiLabelMap.ManufacturingCopyToProductId}</td>
@@ -221,7 +221,7 @@ function lookupBom() {
     </tr>
     <tr>
         <td colspan="2">&nbsp;</td>
-        <td align="left"><input type="submit" <#if !(productAssoc?exists)>value="${uiLabelMap.CommonAdd}"<#else>value="${uiLabelMap.CommonEdit}"</#if>/></td>
+        <td><input type="submit" <#if !(productAssoc?exists)>value="${uiLabelMap.CommonAdd}"<#else>value="${uiLabelMap.CommonEdit}"</#if>/></td>
     </tr>
     </table>
     </form>

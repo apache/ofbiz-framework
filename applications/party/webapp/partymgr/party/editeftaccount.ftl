@@ -123,14 +123,14 @@ under the License.
               </tr>
             <#else>
                <#-- <tr>
-                <td align="left" valign="top" colspan='2'>
+                <td valign="top" colspan='2'>
                   ${uiLabelMap.PartyNoBillingAddress}</div>
                 </td>
               </tr> -->
             </#if>
               <#-- is confusing
               <tr>
-                <td align="left" valign="top" colspan='2'>
+                <td valign="top" colspan='2'>
                   <b>Select a New Billing Address:</b></div>
                 </td>
               </tr>

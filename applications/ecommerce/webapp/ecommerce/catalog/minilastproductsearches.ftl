@@ -46,7 +46,7 @@ under the License.
                       <div class="tabletext">&nbsp;-&nbsp;${constraintString}</div>
                     </#list>
                 <#if searchOptions_has_next>
-                    <div><hr class="sepbar"/></div>
+                    <div><hr/></div>
                 </#if>
             </#list>
         </div>

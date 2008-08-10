@@ -37,9 +37,9 @@ under the License.
           <tr class="header-row">
             <td width="30%" align="right">${uiLabelMap.OrderPaymentType}</td>
             <td width="1">&nbsp;&nbsp;&nbsp;</td>
-            <td width="1" align="left">${uiLabelMap.OrderAmount}</td>
+            <td width="1">${uiLabelMap.OrderAmount}</td>
             <td width="1">&nbsp;&nbsp;&nbsp;</td>
-            <td width="70%" align="left">${uiLabelMap.OrderReference}</td>
+            <td width="70%">${uiLabelMap.OrderReference}</td>
           </tr>
           <#list paymentMethodTypes as payType>
           <tr>

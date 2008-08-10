@@ -276,14 +276,14 @@ ${virtualJavaScript?if_exists}
 
   <#-- Product image/name/price -->
   <tr>
-    <td align="left" valign="top" width="0">
+    <td valign="top" width="0">
       <#assign productLargeImageUrl = productContentWrapper.get("LARGE_IMAGE_URL")?if_exists>
       <#-- remove the next two lines to always display the virtual image first (virtual images must exist) -->
       <#if firstLargeImage?has_content>
         <#assign productLargeImageUrl = firstLargeImage>
       </#if>
       <#if productLargeImageUrl?has_content>
-        <a href="javascript:popupDetail();"><img src="<@ofbizContentUrl>${contentPathPrefix?if_exists}${productLargeImageUrl?if_exists}</@ofbizContentUrl>" name="mainImage" vspace="5" hspace="5" border="0" width="200" align="left"></a>
+        <a href="javascript:popupDetail();"><img src="<@ofbizContentUrl>${contentPathPrefix?if_exists}${productLargeImageUrl?if_exists}</@ofbizContentUrl>" name="mainImage" vspace="5" hspace="5" border="0" width="200"></a>
       </#if>
     </td>
     <td align="right" valign="top">

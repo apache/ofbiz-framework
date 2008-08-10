@@ -28,14 +28,14 @@ under the License.
     <div class="screenlet-body">
       <table class="basic-table" cellspacing='0'>
       <tr class="header-row">
-        <td width="35%" align="left">${uiLabelMap.OrderOrderTermType}</td>
+        <td width="35%">${uiLabelMap.OrderOrderTermType}</td>
         <td width="15%" align="center">${uiLabelMap.OrderOrderTermValue}</td>
         <td width="15%" align="center">${uiLabelMap.OrderOrderTermDays}</td>
         <td width="35%" align="center">${uiLabelMap.CommonDescription}</td>
       </tr>
     <#list orderTerms as orderTerm>
       <tr>
-        <td width="35%" align="left">${orderTerm.getRelatedOne("TermType").get("description", locale)}</td>
+        <td width="35%">${orderTerm.getRelatedOne("TermType").get("description", locale)}</td>
         <td width="15%" align="center">${orderTerm.termValue?default("")}</td>
         <td width="15%" align="center">${orderTerm.termDays?default("")}</td>
         <td width="35%" align="center">${orderTerm.textValue?default("")}</td>

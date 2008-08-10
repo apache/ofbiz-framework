@@ -128,7 +128,7 @@ under the License.
           ${uiLabelMap.ProductChooseCatalog}
         </td>
         <td>&nbsp;</td>
-        <td align="left">
+        <td>
            <select name='CURRENT_CATALOG_ID'>
             <option value='${currentCatalogId}'>${currentCatalogName}</option>
             <option value='${currentCatalogId}'></option>
@@ -146,7 +146,7 @@ under the License.
           ${uiLabelMap.WorkEffortWorkEffortId}
         </td>
         <td>&nbsp;</td>
-        <td align="left">
+        <td>
           <input type="text" name="workEffortId" size="15"/>
           <a href="javascript:call_fieldlookup2(document.agreementForm.workEffortId,'LookupWorkEffort');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
         </td>

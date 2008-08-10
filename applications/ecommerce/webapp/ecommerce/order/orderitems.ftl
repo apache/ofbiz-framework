@@ -34,8 +34,8 @@ under the License.
     </div>
     <div class="screenlet-body">
         <table width="100%" border="0" cellpadding="0">
-          <tr align="left" valign="bottom">
-            <td width="35%" align="left"><span class="tableheadtext"><b>${uiLabelMap.OrderProduct}</b></span></td>
+          <tr valign="bottom">
+            <td width="35%"><span class="tableheadtext"><b>${uiLabelMap.OrderProduct}</b></span></td>
             <#if maySelectItems?default("N") == "Y">
               <td width="10%" align="right"><span class="tableheadtext"><b>${uiLabelMap.OrderQtyOrdered}</b></span></td>
               <td width="10%" align="right"><span class="tableheadtext"><b>${uiLabelMap.OrderQtyPicked}</b></span></td>
@@ -74,7 +74,7 @@ under the License.
                      </#list>
                   </#if>
             </#if>
-            <tr><td colspan="${numColumns}"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="${numColumns}"><hr/></td></tr>
             <tr>
               <#if !orderItem.productId?exists || orderItem.productId == "_?_">
                 <td valign="top">
@@ -253,7 +253,7 @@ under the License.
              <tr><td colspan="${numColumns}"><font color="red">${uiLabelMap.OrderSalesOrderLookupFailed}</font></td></tr>
            </#if>
 
-          <tr><td colspan="${numColumns}"><hr class="sepbar"/></td></tr>
+          <tr><td colspan="${numColumns}"><hr/></td></tr>
           <tr>
             <td align="right" colspan="7"><div class="tabletext"><b>${uiLabelMap.CommonSubtotal}</b></div></td>
             <td align="right"><div class="tabletext"><@ofbizCurrency amount=orderSubTotal isoCode=currencyUomId/></div></td>
@@ -280,10 +280,10 @@ under the License.
           <tr>
             <td colspan="3"></td>
             <#if maySelectItems?default("N") == "Y">
-                <td colspan="${numColumns - 6}"><hr class="sepbar"/></td>
+                <td colspan="${numColumns - 6}"><hr/></td>
                 <td colspan="3">&nbsp;</td>
             <#else>
-                <td colspan="${numColumns - 3}"><hr class="sepbar"/></td>
+                <td colspan="${numColumns - 3}"><hr/></td>
             </#if>
           </tr>
           <tr>

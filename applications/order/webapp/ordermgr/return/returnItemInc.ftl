@@ -241,11 +241,11 @@ under the License.
     </tr>
     <#else>
     <tr>
-      <td colspan="9" align="left" class="label">${uiLabelMap.OrderReturnNoReturnableItems} #${orderId}</td>
+      <td colspan="9" class="label">${uiLabelMap.OrderReturnNoReturnableItems} #${orderId}</td>
     </tr>
     </#if>
     <tr>
-      <td colspan="3" align="left" class="tooltip">*${uiLabelMap.OrderReturnPriceNotIncludeTax}</td>
+      <td colspan="3" class="tooltip">*${uiLabelMap.OrderReturnPriceNotIncludeTax}</td>
       <td colspan="6">&nbsp;</td>
     </tr>
 </table>

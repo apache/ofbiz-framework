@@ -64,14 +64,14 @@ function lookupTasks(click) {
         </tr>        
         <tr>
           <td>&nbsp;</td>
-          <td align="left">
+          <td>
             <a href="javascript:document.lookupTask.submit()" class="buttontext">${uiLabelMap.CommonFind}</a>
           </td>
         </tr>
         <tr><td>&nbsp;</td></tr>
         <tr>
           <td>
-            <div class='tableheadtext'>${uiLabelMap.ProjectMgrFilterOn} ${uiLabelMap.ProjectMgrTaskNotAssignedPhase}</div>
+            <div class='label'>${uiLabelMap.ProjectMgrFilterOn} ${uiLabelMap.ProjectMgrTaskNotAssignedPhase}</div>
           </td>          
           <td>            
             <input type="checkbox" name="filterTaskNotAssigned" value="Y" onclick="javascript:lookupTasks(true);"/>

@@ -86,12 +86,12 @@ function shipBillAddr() {
                 <td width="26%" align="right" valign="top">
                   <input type="checkbox" name="useShipAddr" value="Y" onClick="javascript:shipBillAddr();" <#if useShipAddr?exists>checked</#if>/>
                 </td>
-                <td colspan="2" align="left" valign="middle">
+                <td colspan="2" valign="middle">
                   <div class="tabletext">${uiLabelMap.FacilityBillingAddressSameShipping}</div>
                 </td>
               </tr>
               <tr>
-                <td colspan="3"><hr class="sepbar"/></td>
+                <td colspan="3"><hr/></td>
               </tr>
             </#if>
 
@@ -110,7 +110,7 @@ function shipBillAddr() {
                 <#assign creditCard = requestParameters>
               </#if>
               <tr>
-                <td colspan="3"><hr class="sepbar"/></td>
+                <td colspan="3"><hr/></td>
               </tr>
               <tr>
                 <td width="26%" align="right" valign="top"><div class="tableheadtext">${uiLabelMap.AccountingCreditCardInformation}</div></td>
@@ -127,7 +127,7 @@ function shipBillAddr() {
                 <#assign eftAccount = requestParameters>
               </#if>
               <tr>
-                <td colspan="3"><hr class="sepbar"/></td>
+                <td colspan="3"><hr/></td>
               </tr>
               <tr>
                 <td width="26%" align="right" valign="top"><div class="tableheadtext">${uiLabelMap.AccountingEFTAccountInformation}</div></td>
@@ -196,7 +196,7 @@ function shipBillAddr() {
               <#assign giftCard = giftCard?if_exists>
               <#if paymentMethodTypeId?if_exists != "GIFT_CARD">
                 <tr>
-                  <td colspan="3"><hr class="sepbar"/></td>
+                  <td colspan="3"><hr/></td>
                 </tr>
               </#if>
               <tr>

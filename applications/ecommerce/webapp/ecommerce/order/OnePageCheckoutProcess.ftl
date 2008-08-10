@@ -28,21 +28,21 @@ under the License.
           
 <#-- ========================================================================================================================== -->      
         <div id="cartPanel" class="screenlet">
-          <div class="screenlet-header"><div class="boxhead" align="left">Step 1: ${uiLabelMap.PageTitleShoppingCart}</div></div>
+          <div class="screenlet-header"><div class="boxhead">Step 1: ${uiLabelMap.PageTitleShoppingCart}</div></div>
           <div id="cartSummaryPanel" class="screenlet-body" style="display: none;">
-            <div align="left"><h3><span><a class="buttontext" href="javascript:void(0);" id="openCartPanel">Click here to edit</a></span></h3></div>
+            <div><h3><span><a class="buttontext" href="javascript:void(0);" id="openCartPanel">Click here to edit</a></span></h3></div>
             <div align="center"><h2>${uiLabelMap.OrderShoppingCart} ${uiLabelMap.EcommerceSummary}</h2></div>
             <table width="75%" cellspacing="0" cellpadding="1" border="0">
               <thead>
                 <tr>
-                  <td align="left"><div><b>${uiLabelMap.OrderItem}</b></div></td>
-                  <td align="left"><div><b>${uiLabelMap.CommonDescription}</b></div></td>
+                  <td><div><b>${uiLabelMap.OrderItem}</b></div></td>
+                  <td><div><b>${uiLabelMap.CommonDescription}</b></div></td>
                   <td align="center"><div><b>${uiLabelMap.EcommerceUnitPrice}</b></div></td>
                   <td align="center"><div><b>${uiLabelMap.OrderQuantity}</b></div></td>
                   <td align="center"><div><b>${uiLabelMap.EcommerceAdjustments}</b></div></td>
                   <td align="right"><div><b>${uiLabelMap.EcommerceItemTotal}</b></div></td>
                 </tr>
-                <tr><td colspan="6"><hr class="sepbar"/></td></tr>
+                <tr><td colspan="6"><hr/></td></tr>
               </thead>                
               <tbody>
                 <#assign itemCount = 0>
@@ -58,14 +58,14 @@ under the License.
                     <#if !smallImageUrl?has_content><#assign smallImageUrl = ""></#if>
                   </#if>
                   <tr id="cartItemDisplayRow_${cartLineIndex}">
-                    <td align="left"><div><img src="<@ofbizContentUrl>${requestAttributes.contentPathPrefix?if_exists}${smallImageUrl}</@ofbizContentUrl>" align="center" height="20" hspace="0" vspace="0" width="20"></div></td>
-                    <td align="left"><div>${cartLine.getName()?if_exists}</div></td>
+                    <td><div><img src="<@ofbizContentUrl>${requestAttributes.contentPathPrefix?if_exists}${smallImageUrl}</@ofbizContentUrl>" align="center" height="20" hspace="0" vspace="0" width="20"></div></td>
+                    <td><div>${cartLine.getName()?if_exists}</div></td>
                     <td align="center"><div>${cartLine.getDisplayPrice()}</div></td>
                     <td align="center"><div><span id="completedCartItemQty_${cartLineIndex}">${cartLine.getQuantity()?string.number}</span></div></td>
                     <td align="center"><div><span id="completedCartItemAdjustment_${cartLineIndex}"><@ofbizCurrency amount=cartLine.getOtherAdjustments() isoCode=shoppingCart.getCurrency()/></span></div></td>
                     <td align="right"><div id="completedCartItemSubTotal_${cartLineIndex}"><@ofbizCurrency amount=cartLine.getDisplayItemSubTotal() isoCode=shoppingCart.getCurrency()/></div></td>
                   </tr>
-                  <tr><td colspan="6"><hr class="sepbar"/></td></tr>
+                  <tr><td colspan="6"><hr/></td></tr>
                   <#assign itemCount = itemCount + 1>
                 </#list>
                 <tr id="completedCartSubtotalRow">
@@ -109,15 +109,15 @@ under the License.
               <table width="75%" cellspacing="0" cellpadding="1" border="0">
                 <thead>
                   <tr>
-                    <td align="left"><div><b>${uiLabelMap.OrderItem}</b></div></td>
-                    <td align="left"><div><b>${uiLabelMap.CommonDescription}</b></div></td>
+                    <td><div><b>${uiLabelMap.OrderItem}</b></div></td>
+                    <td><div><b>${uiLabelMap.CommonDescription}</b></div></td>
                     <td align="center"><div><b>${uiLabelMap.EcommerceUnitPrice}</b></div></td>
                     <td align="center"><div><b>${uiLabelMap.OrderQuantity}</b></div></td>
                     <td align="center"><div><b>${uiLabelMap.EcommerceAdjustments}</b></div></td>
                     <td align="center"><div><b>${uiLabelMap.EcommerceItemTotal}</b></div></td>
                     <td align="right"><div><b>${uiLabelMap.FormFieldTitle_removeButton}</b></div></td>
                   </tr>
-                  <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+                  <tr><td colspan="7"><hr/></td></tr>
                 </thead>
                 <tbody id="updateBody">
                   <#assign itemCount = 0>
@@ -125,7 +125,7 @@ under the License.
                     <#assign cartLineIndex = itemCount>
                     <#assign productId = cartLineIndex>
                     <tr id="cartItemRow_${cartLineIndex}">
-                      <td style="padding: 1px;" align="left" valign="top">
+                      <td style="padding: 1px;" valign="top">
                         <#if cartLine.getProductId()?exists>
                           <#if cartLine.getParentProductId()?exists>
                             <#assign parentProductId = cartLine.getParentProductId()/>
@@ -139,7 +139,7 @@ under the License.
                           </#if>
                         </#if>
                       </td>
-                      <td align="left"><div>${cartLine.getName()?if_exists}</div></td>
+                      <td><div>${cartLine.getName()?if_exists}</div></td>
                       <td align="center"><div id="itemUnitPrice_${cartLineIndex}"><@ofbizCurrency amount=cartLine.getDisplayPrice() isoCode=shoppingCart.getCurrency()/></div></td>
                       <td align="center">
                         <#if cartLine.getIsPromo()>
@@ -164,7 +164,7 @@ under the License.
                         <td align="right"><a href="javascript:void(0);"><img id="remove_${cartLineIndex?if_exists}" src="<@ofbizContentUrl>/ecommerce/images/remove.png</@ofbizContentUrl>" border="0" height="30" hspace="0" vspace="0" width="40"></a></td>
                       </#if>
                     </tr>
-                    <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+                    <tr><td colspan="7"><hr/></td></tr>
                     <#assign itemCount = itemCount + 1>
                   </#list>                      
                   <tr>
@@ -209,9 +209,9 @@ under the License.
         
 <#-- ========================================================================================================================== -->
         <div id="shippingPanel" class="screenlet">
-          <div class="screenlet-header"><div class="boxhead" align="left">Step 2: Shipping</div></div>
+          <div class="screenlet-header"><div class="boxhead">Step 2: Shipping</div></div>
           <div id="shippingSummaryPanel" class="screenlet-body">
-            <div align="left"><h3><span><a class="buttontext" href="javascript:void(0);" id="openShippingPanel">Click here to edit</a></span></h3></div>
+            <div><h3><span><a class="buttontext" href="javascript:void(0);" id="openShippingPanel">Click here to edit</a></span></h3></div>
             <div style="display:none" id="shippingCompleted">
               <a href="javascript:void(0);" id="openShippingAndPersonlDetail"><h3>Shipping Summary</h3></a>
               <table>
@@ -353,9 +353,9 @@ under the License.
           
 <#-- ========================================================================================================================== -->         
         <div id="shippingOptionPanel" class="screenlet">
-          <div class="screenlet-header"><div class="boxhead" align="left">Step 3: Shipping Options</div></div>
+          <div class="screenlet-header"><div class="boxhead">Step 3: Shipping Options</div></div>
           <div id="shippingOptionSummaryPanel" class="screenlet-body">
-            <div align="left"><h3><span><a class="buttontext" href="javascript:void(0);" id="openShippingOptionPanel">Click here to edit</a></span></h3></div>
+            <div><h3><span><a class="buttontext" href="javascript:void(0);" id="openShippingOptionPanel">Click here to edit</a></span></h3></div>
             <div class="completed" style="display:none" id="shippingOptionCompleted">
               <a href="javascript:void(0);" id="openShippingOption"><h3>Shipping Option Summary</h3></a>
               <table cellpadding="0" cellspacing="0">
@@ -392,9 +392,9 @@ under the License.
                 
 <#-- ========================================================================================================================== -->
         <div id="billingPanel" class="screenlet">
-          <div class="screenlet-header"><div class="boxhead" align="left">Step 4: Billing</div></div>
+          <div class="screenlet-header"><div class="boxhead">Step 4: Billing</div></div>
           <div id="billingSummaryPanel" class="screenlet-body">
-            <div align="left"><h3><span><a class="buttontext" href="javascript:void(0);" id="openBillingPanel">Click here to edit</a></span></h3></div>
+            <div><h3><span><a class="buttontext" href="javascript:void(0);" id="openBillingPanel">Click here to edit</a></span></h3></div>
             <div class="completed" id="billingCompleted" style="display: none;">
               <a href="javascript:void(0);" id="openBillingAndPersonlDetail"><h3>Billing and Payment Summary</h3></a>
               <table width="35%" align="center">
@@ -592,7 +592,7 @@ under the License.
                       
 <#-- ========================================================================================================================== -->
         <div class="screenlet">
-          <div class="screenlet-header"><div class="boxhead" align="left">Step 5: Submit Order</div></div>
+          <div class="screenlet-header"><div class="boxhead">Step 5: Submit Order</div></div>
           <div id="orderSubmitPanel" style="display: none;">
             <form name="orderSubmitForm" id="orderSubmitForm" action="<@ofbizUrl>onePageProcessOrder</@ofbizUrl>" method="post">
               <div align="right">
@@ -608,20 +608,20 @@ under the License.
 <#-- ========================================================================================================================== -->
     <div id="emptyCartCheckoutPanel" align="center" <#if shoppingCart?has_content && shoppingCart.size() gt 0> style="display: none;"</#if>>
       <div>
-        <div class="screenlet-header"><div class="boxhead" align="left">Step 1: ${uiLabelMap.PageTitleShoppingCart}</div></div><br/>
+        <div class="screenlet-header"><div class="boxhead">Step 1: ${uiLabelMap.PageTitleShoppingCart}</div></div><br/>
         <div>You currently have no items in your cart. Click <a href="<@ofbizUrl>main</@ofbizUrl>">here</a> to view our products.</div>
       </div><br/>
       <div>
-        <div class="screenlet-header"><div class="boxhead" align="left">Step 2: Shipping</div></div>
+        <div class="screenlet-header"><div class="boxhead">Step 2: Shipping</div></div>
       </div><br/>
       <div>
-        <div class="screenlet-header"><div class="boxhead" align="left">Step 3: Shipping Options</div></div>
+        <div class="screenlet-header"><div class="boxhead">Step 3: Shipping Options</div></div>
       </div><br/>
       <div>
-        <div class="screenlet-header"><div class="boxhead" align="left">Step 4: Billing</div></div>
+        <div class="screenlet-header"><div class="boxhead">Step 4: Billing</div></div>
       </div><br/>
       <div>
-        <div class="screenlet-header"><div class="boxhead" align="left">Step 5: Submit Order</div></div>
+        <div class="screenlet-header"><div class="boxhead">Step 5: Submit Order</div></div>
       </div>
     </div>
   </div>

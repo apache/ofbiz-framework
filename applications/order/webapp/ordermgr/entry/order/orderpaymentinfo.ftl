@@ -61,7 +61,7 @@ under the License.
                 <div>&nbsp;<b>${uiLabelMap.AccountingCreditCard}</b></div>
               </td>
               <td width="5">&nbsp;</td>
-              <td align="left" valign="top" width="80%">
+              <td valign="top" width="80%">
                 <div>
                   <#if creditCard.companyNameOnCard?has_content>${creditCard.companyNameOnCard}<br/></#if>
                   <#if creditCard.titleOnCard?has_content>${creditCard.titleOnCard}&nbsp</#if>
@@ -81,7 +81,7 @@ under the License.
                 <div>&nbsp;<b>${uiLabelMap.AccountingEFTAccount}</b></div>
               </td>
               <td width="5">&nbsp;</td>
-              <td align="left" valign="top" width="80%">
+              <td valign="top" width="80%">
                 <div>
                   ${eftAccount.nameOnAccount}<br/>
                   <#if eftAccount.companyNameOnAccount?has_content>${eftAccount.companyNameOnAccount}<br/></#if>
@@ -103,7 +103,7 @@ under the License.
               <div>&nbsp;<b>${uiLabelMap.AccountingBillingAccount}</b></div>
             </td>
             <td width="5">&nbsp;</td>
-            <td align="left" valign="top" width="80%">
+            <td valign="top" width="80%">
               <div>
                 #${billingAccount.billingAccountId?if_exists} - ${billingAccount.description?if_exists}
               </div>

@@ -121,7 +121,7 @@ under the License.
             </select>
           </td>
           <td>&nbsp;</td>
-          <td align="left">
+          <td>
             <input type="hidden" name="additionalPartyId" value="${additionalPartyId}">
             <input type="submit" class="smallSubmit" value="${uiLabelMap.CommonAdd}">
           </td>

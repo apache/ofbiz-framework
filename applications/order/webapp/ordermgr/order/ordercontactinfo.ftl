@@ -44,7 +44,7 @@ under the License.
         <tr>
           <td align="right" valign="top" width="19%"><span class="label">&nbsp;${uiLabelMap.CommonName}</span></td>
           <td width="1%">&nbsp;</td>
-          <td align="left" valign="top" width="80%">
+          <td valign="top" width="80%">
             <div>
               <#if displayParty?has_content>
                 <#assign displayPartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", displayParty.partyId, "compareDate", orderHeader.orderDate, "userLogin", userLogin))/>
@@ -71,7 +71,7 @@ under the License.
               <span class="label">&nbsp;${contactMechPurpose.get("description",locale)}</span>
             </td>
             <td width="1%">&nbsp;</td>
-            <td align="left" valign="top" width="80%">
+            <td valign="top" width="80%">
               <#if contactMech.contactMechTypeId == "POSTAL_ADDRESS">
                 <#assign postalAddress = orderContactMechValueMap.postalAddress>
                 <#if postalAddress?has_content>

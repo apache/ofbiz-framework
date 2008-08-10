@@ -55,7 +55,7 @@ under the License.
 <form type="POST" action="<@ofbizUrl>processorder</@ofbizUrl>" name="${parameters.formNameValue}">
   <table border="0" cellpadding="1" width="100%">
    <tr>
-      <td colspan="4" align="left">
+      <td colspan="4">
         &nbsp;
       </td>
       <td align="right">

@@ -109,7 +109,7 @@ under the License.
             </td></tr>
             <#if cartLine.getRequirementId()?has_content>
                 <tr>
-                    <td colspan="2" align="left">
+                    <td colspan="2">
                       <div><b>${uiLabelMap.OrderRequirementId}</b>: ${cartLine.getRequirementId()?if_exists}</div>
                     </td>
                 </tr>
@@ -117,20 +117,20 @@ under the License.
             <#if cartLine.getQuoteId()?has_content>
                 <#if cartLine.getQuoteItemSeqId()?has_content>
                   <tr>
-                    <td colspan="2" align="left">
+                    <td colspan="2">
                       <div><b>${uiLabelMap.OrderOrderQuoteId}</b>: ${cartLine.getQuoteId()?if_exists} - ${cartLine.getQuoteItemSeqId()?if_exists}</div>
                     </td>
                   </tr>
                 </#if>
             </#if>
             <#if cartLine.getItemComment()?has_content>
-              <tr><td align="left"><div>${uiLabelMap.CommonComment} : </div></td>
-                  <td align="left"><div>${cartLine.getItemComment()?if_exists}</div>
+              <tr><td><div>${uiLabelMap.CommonComment} : </div></td>
+                  <td><div>${cartLine.getItemComment()?if_exists}</div>
               </td></tr>
             </#if>
             <#if cartLine.getDesiredDeliveryDate()?has_content>
-              <tr><td align="left"><div>${uiLabelMap.OrderDesiredDeliveryDate}: </div></td>
-                  <td align="left"><div>${cartLine.getDesiredDeliveryDate()?if_exists}</div>
+              <tr><td><div>${uiLabelMap.OrderDesiredDeliveryDate}: </div></td>
+                  <td><div>${cartLine.getDesiredDeliveryDate()?if_exists}</div>
               </td></tr>
             </#if>
             <#-- inventory summary -->
@@ -138,7 +138,7 @@ under the License.
               <#assign productId = cartLine.getProductId()>
               <#assign product = cartLine.getProduct()>
               <tr>
-                <td colspan="2" align="left">
+                <td colspan="2">
                   <div>
                     <a href="/catalog/control/EditProductInventoryItems?productId=${productId}" class="buttontext"><b>${uiLabelMap.ProductInventory}</b></a>: 
                     ${uiLabelMap.ProductAtp} = ${availableToPromiseMap.get(productId)}, ${uiLabelMap.ProductQoh} = ${quantityOnHandMap.get(productId)}
@@ -152,7 +152,7 @@ under the License.
             <#if shoppingCart.getOrderType() == "PURCHASE_ORDER">
               <#assign currentOrderItemType = cartLine.getItemTypeGenericValue()?if_exists/>
                 <tr>
-                  <td align="left">
+                  <td>
                     <div>
                       ${uiLabelMap.OrderOrderItemType}:
                       <select name="itemType_${cartLineIndex}">
@@ -175,7 +175,7 @@ under the License.
               <td colspan="2">
                <table border="0" cellpadding="0" cellspacing="0" width="100%">
                <tr>
-                <td align="left">
+                <td>
                   <div>${uiLabelMap.OrderShipAfterDate}
                     <input type="text" size="20" maxlength="30" name="shipAfterDate_${cartLineIndex}" 
                       value="${cartLine.getShipAfterDate()?default("")}"/>
@@ -183,7 +183,7 @@ under the License.
                   </div>
                 </td>
                 <td>&nbsp;</td>
-                <td align="left">
+                <td>
                   <div>${uiLabelMap.OrderShipBeforeDate}
                     <input type="text" size="20" maxlength="30" name="shipBeforeDate_${cartLineIndex}" 
                       value="${cartLine.getShipBeforeDate()?default("")}"/>

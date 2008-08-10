@@ -139,10 +139,10 @@ document.lookupinventory.productId.focus();
 
       <table class="basic-table" cellspacing="0">
         <tr class="header-row">
-          <td align="left">${uiLabelMap.CommonType}</td>
+          <td>${uiLabelMap.CommonType}</td>
           <td align="center">&nbsp</td>
-          <td align="left">${uiLabelMap.CommonDescription}</td>
-          <td align="left">${uiLabelMap.CommonDate}</td>
+          <td>${uiLabelMap.CommonDescription}</td>
+          <td>${uiLabelMap.CommonDate}</td>
           <td align="center">&nbsp</td>
           <td align="right">${uiLabelMap.CommonQuantity}</td>
           <td align="right">${uiLabelMap.ManufacturingTotalQuantity}</td>
@@ -177,10 +177,10 @@ document.lookupinventory.productId.focus();
                     <#assign additionalErrorMessage = "No QOH information found, assuming 0.">
                 </#if>
                 <tr bgcolor="lightblue">  
-                  <th align="left">
+                  <th>
                       <b>[${inven.productId}]</b>&nbsp;&nbsp;${product.internalName?if_exists}
                   </th>
-                  <td align="left">
+                  <td>
                     <#if productFacility != null && productFacility?has_content>
                       <div>
                       <b>${uiLabelMap.ProductFacility}:</b>&nbsp;${productFacility.facilityId?if_exists}

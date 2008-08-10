@@ -140,7 +140,7 @@ under the License.
               </tr>
               <tr>
                 <td><div class="tableheadtext">&nbsp;</div></td>
-                <td align="left">
+                <td>
                   <a href="javascript:document.updateList.submit();" class="buttontext">[${uiLabelMap.CommonSave}]</a>
                 </td>
               </tr>
@@ -204,7 +204,7 @@ under the License.
                 </td>
                 <td>&nbsp;</td>
               </tr>
-              <tr><td colspan="9"><hr class="sepbar"/></td></tr>
+              <tr><td colspan="9"><hr/></td></tr>
               <tr>
                 <td><div class="tableheadtext">${uiLabelMap.OrderShipTo}</div></td>
                 <td>
@@ -267,7 +267,7 @@ under the License.
                 </td>
                 <td>&nbsp;</td>
               </tr>
-              <tr><td colspan="9"><hr class="sepbar"/></td></tr>
+              <tr><td colspan="9"><hr/></td></tr>
               <tr>
                 <td align="right" colspan="9">
                   <div class="tabletext">
@@ -279,9 +279,9 @@ under the License.
                 </td>
               </tr>
               <#if shoppingList.isActive?default("N") == "Y">
-                <tr><td colspan="9"><hr class="sepbar"/></td></tr>
+                <tr><td colspan="9"><hr/></td></tr>
                 <tr>
-                  <td align="left" colspan="9">
+                  <td colspan="9">
                     <#assign nextTime = recInfo.next(lastSlOrderTime)?if_exists>
                     <#if nextTime?has_content>
                       <#assign nextTimeStamp = Static["org.ofbiz.base.util.UtilDateTime"].getTimestamp(nextTime)?if_exists>
@@ -335,7 +335,7 @@ under the License.
               <#assign childShoppingList = childShoppingListData.childShoppingList/>
               <#assign totalPrice = childShoppingListData.totalPrice/>
               <tr>
-                <td nowrap align="left">
+                <td nowrap>
                   <a href="<@ofbizUrl>editShoppingList?shoppingListId=${childShoppingList.shoppingListId}</@ofbizUrl>" class="buttontext">${childShoppingList.listName?default(childShoppingList.shoppingListId)}</a>
                 </td>
                 <td nowrap align="right">
@@ -348,7 +348,7 @@ under the License.
               </tr>
             </form>
           </#list>
-          <tr><td colspan="6"><hr class="sepbar"/></td></tr>
+          <tr><td colspan="6"><hr/></td></tr>
           <tr>
             <td><div class="tabletext">&nbsp;</div></td>
             <td nowrap align="right">
@@ -451,7 +451,7 @@ under the License.
                     </td>
                   </tr>
               </#list>
-              <tr><td colspan="6"><hr class="sepbar"/></td></tr>
+              <tr><td colspan="6"><hr/></td></tr>
               <tr>
                 <td><div class="tabletext">&nbsp;</div></td>
                 <td><div class="tabletext">&nbsp;</div></td>
@@ -476,7 +476,7 @@ under the License.
     <div class="screenlet-body">
       <table width="100%" border="0" cellspacing="1" cellpadding="1">
         <tr>
-          <td align="left" width="5%" NOWRAP>
+          <td width="5%" NOWRAP>
               <div class="tabletext">${uiLabelMap.EcommerceChildListTotalPrice}</div>
           </td>
           <td align="right" width="5%" NOWRAP>
@@ -485,7 +485,7 @@ under the License.
           <td width="90%"><div class="tabletext">&nbsp;</div></td>
         </tr>
         <tr>
-          <td align="left" NOWRAP>
+          <td NOWRAP>
               <div class="tabletext">${uiLabelMap.EcommerceListItemsTotalPrice}&nbsp;</div>
           </td>
           <td align="right" NOWRAP>
@@ -494,7 +494,7 @@ under the License.
           <td><div class="tabletext">&nbsp;</div></td>
         </tr>
         <tr>
-          <td align="left" NOWRAP>
+          <td NOWRAP>
               <div class="tableheadtext">${uiLabelMap.OrderGrandTotal}</div>
           </td>
           <td align="right" NOWRAP>

@@ -137,7 +137,7 @@ function submitForm(form, mode, value) {
                 <#assign groupIdx = groupIdx + 1>
                 <#if group_has_next>
                   <tr>
-                    <td colspan="6"><hr class="sepbar"/></td>
+                    <td colspan="6"><hr/></td>
                   </tr>
                 </#if>
               </form>
@@ -178,7 +178,7 @@ function submitForm(form, mode, value) {
                       <#if !smallImageUrl?has_content><#assign smallImageUrl = "/images/defaultImage.jpg"></#if>
                       <#if smallImageUrl?has_content>
                         <a href="<@ofbizUrl>product?product_id=${cartLine.getProductId()}</@ofbizUrl>">
-                          <img src="<@ofbizContentUrl>${requestAttributes.contentPathPrefix?if_exists}${smallImageUrl}</@ofbizContentUrl>" align="left" width="50" class="imageborder" border="0"/>
+                          <img src="<@ofbizContentUrl>${requestAttributes.contentPathPrefix?if_exists}${smallImageUrl}</@ofbizContentUrl>" width="50" class="imageborder" border="0"/>
                         </a>
                       </#if>
                       <#-- end code to display a small image of the product -->
@@ -251,7 +251,7 @@ function submitForm(form, mode, value) {
 
 <table>
   <tr valign="top">
-    <td align="left">
+    <td>
       &nbsp;<a href="<@ofbizUrl>view/showcart</@ofbizUrl>" class="buttontextbig">${uiLabelMap.OrderBacktoShoppingCart}</a>
     </td>
     <td align="right">

@@ -80,7 +80,7 @@ under the License.
                       <td align="right" width="1%" valign="top" nowrap>
                         <input type="radio" name="originContactMechId" value="${shippingAddress.contactMechId}"  <#if (shippingContactMechList?size == 1)>checked</#if>>
                       </td>
-                      <td align="left" width="99%" valign="top" nowrap>
+                      <td width="99%" valign="top" nowrap>
                         <div>
                           <#if shippingAddress.toName?has_content><span class="label">${uiLabelMap.CommonTo}</span>&nbsp;${shippingAddress.toName}<br/></#if>
                           <#if shippingAddress.attnName?has_content><span class="label">${uiLabelMap.CommonAttn}</span></b>&nbsp;${shippingAddress.attnName}<br/></#if>

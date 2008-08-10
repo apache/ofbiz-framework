@@ -71,7 +71,7 @@ function doPublish() {
                 <tr>
                     <td><h2>${productId?if_exists}<h2></td>
                     <td><input type="text" name="productName" size="40" maxlength="40" value="${product.productName?if_exists}"/></td>
-                    <td align="left"><input type="submit" value="${uiLabelMap.UpdateName}"/></td>
+                    <td><input type="submit" value="${uiLabelMap.UpdateName}"/></td>
                 </tr>
             </table>
         </form>

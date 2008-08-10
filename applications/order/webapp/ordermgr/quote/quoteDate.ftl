@@ -27,7 +27,7 @@ under the License.
                     &nbsp;${uiLabelMap.OrderOrderQuoteIssueDate}
                 </td>
                 <td width="5%">&nbsp;</td>
-                <td align="left" valign="top" width="80%">
+                <td valign="top" width="80%">
                     ${(quote.issueDate.toString())?if_exists}
                 </td>
             </tr>
@@ -37,7 +37,7 @@ under the License.
                     &nbsp;${uiLabelMap.CommonValidFromDate}
                 </td>
                 <td width="5%">&nbsp;</td>
-                <td align="left" valign="top" width="80%">
+                <td valign="top" width="80%">
                     ${(quote.validFromDate.toString())?if_exists}
                 </td>
             </tr>
@@ -47,7 +47,7 @@ under the License.
                     &nbsp;${uiLabelMap.CommonValidThruDate}
                 </td>
                 <td width="5%">&nbsp;</td>
-                <td align="left" valign="top" width="80%">
+                <td valign="top" width="80%">
                     ${(quote.validThruDate.toString())?if_exists}
                 </td>
             </tr>

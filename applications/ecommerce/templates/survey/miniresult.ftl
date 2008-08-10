@@ -42,11 +42,11 @@ under the License.
     </tr>
 
     <tr>
-      <td><hr class="sepbar"/></td>
+      <td><hr/></td>
     </tr>
     
     <tr>
-      <td align="left">
+      <td>
         <#if surveyQuestionAndAppl.surveyQuestionTypeId == "BOOLEAN">
           <#assign selectedOption = (answer.booleanResponse)?default("Y")>
           <div class="tabletext"><span style="white-space: nowrap;">

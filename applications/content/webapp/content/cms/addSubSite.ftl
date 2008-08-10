@@ -30,15 +30,15 @@ function win_cancel() {
 <table cellspacing="8">
   <tr>
     <td align="right">Site Name:</td>
-    <td align="left"><input type="text" size="20" name="contentName"/></td>
+    <td><input type="text" size="20" name="contentName"/></td>
   </tr>
   <tr>
     <td align="right">Site Description:</td>
-    <td align="left"><input type="text" size="40" name="description"/></td>
+    <td><input type="text" size="40" name="description"/></td>
   </tr>
   <tr>
     <td align="right">Posted Msg Default Status:</td>
-    <td align="left">
+    <td>
       <select name="statusId">
         <option value="CTNT_IN_PROGRESS">Draft - not attached to any site</option>
         <option value="CTNT_FINAL_DRAFT">Final Draft - but must be approve (moderated)</option>

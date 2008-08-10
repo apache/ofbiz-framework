@@ -51,7 +51,7 @@ under the License.
             <td align="right" valign="top" width="1%">
               <input type="radio" name="contactMechId" value="${curContactMechId}" checked>
             </td>
-            <td align="left" valign="top" width="80%">
+            <td valign="top" width="80%">
               <div class="tabletext"><b>${uiLabelMap.PartyUseCurrentAddress}:</b></div>
               <#list curPartyContactMechPurposes as curPartyContactMechPurpose>
                 <#assign curContactMechPurposeType = curPartyContactMechPurpose.getRelatedOneCache("ContactMechPurposeType")>
@@ -76,14 +76,14 @@ under the License.
           </tr>
         <#else>
            <#-- <tr>
-            <td align="left" valign="top" colspan="2">
+            <td valign="top" colspan="2">
               <div class="tabletext">${uiLabelMap.PartyBillingAddressNotSelected}</div>
             </td>
           </tr> -->
         </#if>
           <#-- is confusing
           <tr>
-            <td align="left" valign="top" colspan="2">
+            <td valign="top" colspan="2">
               <div class="tabletext"><b>${uiLabelMap.EcommerceMessage3}</b></div>
             </td>
           </tr>
@@ -97,7 +97,7 @@ under the License.
               <td align="right" valign="top" width="1%">
                 <input type="radio" name="contactMechId" value="${contactMech.contactMechId}">
               </td>
-              <td align="left" valign="middle" width="80%">
+              <td valign="middle" width="80%">
                 <#list partyContactMechPurposes as partyContactMechPurpose>
                     <#assign contactMechPurposeType = partyContactMechPurpose.getRelatedOneCache("ContactMechPurposeType")>
                     <div class="tabletext">
@@ -125,7 +125,7 @@ under the License.
             <td align="right" valigh="top" width="1%">
               <input type="radio" name="contactMechId" value="_NEW_" <#if !hasCurrent>checked</#if>>
             </td>
-            <td align="left" valign="middle" width="80%">
+            <td valign="middle" width="80%">
               <span class="tabletext">${uiLabelMap.PartyCreateNewBillingAddress}.</span>
             </td>
           </tr>

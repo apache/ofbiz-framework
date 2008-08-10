@@ -27,7 +27,7 @@ under the License.
                     <span>&nbsp;<b>${uiLabelMap.OrderOrderName}</b> </span>
                 </td>
                 <td width="5">&nbsp;</td>
-                <td align="left" valign="top" width="80%">
+                <td valign="top" width="80%">
                     ${orderName}
                 </td>
             </tr>
@@ -40,7 +40,7 @@ under the License.
                     <span>&nbsp;<b>${uiLabelMap.OrderOrderFor}</b> </span>
                 </td>
                 <td width="5">&nbsp;</td>
-                <td align="left" valign="top" width="80%">
+                <td valign="top" width="80%">
                     ${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(orderForParty, false)} [${orderForParty.partyId}]
                 </td>
             </tr>
@@ -52,7 +52,7 @@ under the License.
                     <span>&nbsp;<b>${uiLabelMap.OrderPONumber}</b> </span>
                 </td>
                 <td width="5">&nbsp;</td>
-                <td align="left" valign="top" width="80%">
+                <td valign="top" width="80%">
                     ${cart.getPoNumber()}
                 </td>
             </tr>
@@ -64,7 +64,7 @@ under the License.
                     <div>&nbsp;<b>${uiLabelMap.OrderOrderTerms}</b></div>
                 </td>
                 <td width="5">&nbsp;</td>
-                <td align="left" valign="top" width="80%">
+                <td valign="top" width="80%">
                     <table>
                         <tr>
                             <td width="35%"><div><b>${uiLabelMap.OrderOrderTermType}</b></div></td>
@@ -98,7 +98,7 @@ under the License.
                     <div>&nbsp;<b>${uiLabelMap.FacilityTrackingNumber}</b></div>
                 </td>
                 <td width="5">&nbsp;</td>
-                <td align="left" valign="top" width="80%">
+                <td valign="top" width="80%">
                     <#-- TODO: add links to UPS/FEDEX/etc based on carrier partyId  -->
                     <div>${trackingNumber}</div>
                 </td>
@@ -111,7 +111,7 @@ under the License.
                     <div>&nbsp;<b>${uiLabelMap.OrderSplittingPreference}</b></div>
                 </td>
                 <td width="5">&nbsp;</td>
-                <td align="left" valign="top" width="80%">
+                <td valign="top" width="80%">
                     <div>
                         <#if maySplit?default("N") == "N">${uiLabelMap.FacilityWaitEntireOrderReady}</#if>
                         <#if maySplit?default("Y") == "Y">${uiLabelMap.FacilityShipAvailable}</#if>
@@ -126,7 +126,7 @@ under the License.
                     <div>&nbsp;<b>${uiLabelMap.CommonInstructions}</b></div>
                 </td>
                 <td width="5">&nbsp;</td>
-                <td align="left" valign="top" width="80%">
+                <td valign="top" width="80%">
                     <div>${shippingInstructions}</div>
                 </td>
             </tr>
@@ -139,7 +139,7 @@ under the License.
                     <div>&nbsp;<b>${uiLabelMap.OrderGift}</b></div>
                 </td>
                 <td width="5">&nbsp;</td>
-                <td align="left" valign="top" width="80%">
+                <td valign="top" width="80%">
                     <div>
                         <#if isGift?default("N") == "N">${uiLabelMap.OrderThisOrderNotGift}</#if>
                         <#if isGift?default("N") == "Y">${uiLabelMap.OrderThisOrderGift}</#if>
@@ -153,7 +153,7 @@ under the License.
                     <div>&nbsp;<b>${uiLabelMap.OrderGiftMessage}</b></div>
                 </td>
                 <td width="5">&nbsp;</td>
-                <td align="left" valign="top" width="80%">
+                <td valign="top" width="80%">
                     <div>${giftMessage}</div>
                 </td>
             </tr>
@@ -166,7 +166,7 @@ under the License.
                     <div>&nbsp;<b>${uiLabelMap.OrderShipAfterDate}</b></div>
                 </td>
                 <td width="5">&nbsp;</td>
-                <td align="left" valign="top" width="80%">
+                <td valign="top" width="80%">
                     <div>${shipAfterDate}</div>
                 </td>
             </tr>
@@ -177,7 +177,7 @@ under the License.
                     <div>&nbsp;<b>${uiLabelMap.OrderShipBeforeDate}</b></div>
                 </td>
                 <td width="5">&nbsp;</td>
-                <td align="left" valign="top" width="80%">
+                <td valign="top" width="80%">
                   <div>${shipBeforeDate}</div>
                 </td>
             </tr>

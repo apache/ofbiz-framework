@@ -145,7 +145,7 @@ under the License.
           <#assign alt_row = !alt_row>
         </#list>
         <#else/>
-          <tr align="left">
+          <tr>
             <td colspan="6">${uiLabelMap.PartyNoServerHitsFound}</td>
           </tr>
         </#if>

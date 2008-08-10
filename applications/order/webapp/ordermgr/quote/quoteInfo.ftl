@@ -28,7 +28,7 @@ under the License.
                     &nbsp;${uiLabelMap.CommonType}
                 </td>
                 <td width="5%">&nbsp;</td>
-                <td align="left" valign="top" width="80%">
+                <td valign="top" width="80%">
                     ${(quoteType.get("description",locale))?default(quote.quoteTypeId?if_exists)}
                 </td>
             </tr>
@@ -40,7 +40,7 @@ under the License.
                     &nbsp;${uiLabelMap.OrderSalesChannel}</div>
                 </td>
                 <td width="5%">&nbsp;</td>
-                <td align="left" valign="top" width="80%">
+                <td valign="top" width="80%">
                     ${(salesChannel.get("description",locale))?default(quote.salesChannelEnumId?if_exists)}
                 </td>
             </tr>
@@ -52,7 +52,7 @@ under the License.
                     &nbsp;${uiLabelMap.CommonStatus}
                 </td>
                 <td width="5%">&nbsp;</td>
-                <td align="left" valign="top" width="80%">
+                <td valign="top" width="80%">
                     ${(statusItem.get("description", locale))?default(quote.statusId?if_exists)}
                 </td>
             </tr>
@@ -63,7 +63,7 @@ under the License.
                     &nbsp;${uiLabelMap.PartyPartyId}
                 </td>
                 <td width="5%">&nbsp;</td>
-                <td align="left" valign="top" width="80%">
+                <td valign="top" width="80%">
                     ${quote.partyId?if_exists}
                 </td>
             </tr>
@@ -74,7 +74,7 @@ under the License.
                     &nbsp;${uiLabelMap.OrderOrderQuoteName}
                 </td>
                 <td width="5%">&nbsp;</td>
-                <td align="left" valign="top" width="80%">
+                <td valign="top" width="80%">
                     ${quote.quoteName?if_exists}
                 </td>
             </tr>
@@ -85,7 +85,7 @@ under the License.
                     &nbsp;${uiLabelMap.CommonDescription}
                 </td>
                 <td width="5%">&nbsp;</td>
-                <td align="left" valign="top" width="80%">
+                <td valign="top" width="80%">
                     ${quote.description?if_exists}
                 </td>
             </tr>
@@ -96,7 +96,7 @@ under the License.
                     &nbsp;${uiLabelMap.CommonCurrency}
                 </td>
                 <td width="5%">&nbsp;</td>
-                <td align="left" valign="top" width="80%">
+                <td valign="top" width="80%">
                     <#if currency?exists>${currency.get("description",locale)?default(quote.currencyUomId?if_exists)}</#if>
                 </td>
             </tr>
@@ -107,7 +107,7 @@ under the License.
                     &nbsp;${uiLabelMap.ProductProductStore}
                 </td>
                 <td width="5%">&nbsp;</td>
-                <td align="left" valign="top" width="80%">
+                <td valign="top" width="80%">
                     <#if store?exists>${store.storeName?default(quote.productStoreId?if_exists)}</#if>
                 </td>
             </tr>
