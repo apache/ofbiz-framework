@@ -135,6 +135,7 @@ under the License.
                 <make-value value-name="newWorkEffortStatus" entity-name="WorkEffortStatus"/>
                 <set from-field="lookedUpValue.workEffortId" field="newWorkEffortStatus.workEffortId"/>
                 <set from-field="parameters.currentStatusId" field="newWorkEffortStatus.statusId"/>
+                <set from-field="parameters.reason" field="newWorkEffortStatus.reason"/>
                 <set from-field="nowTimestamp" field="newWorkEffortStatus.statusDatetime"/>
                 <set from-field="userLogin.userLoginId" field="newWorkEffortStatus.setByUserLogin"/>
                 <create-value value-name="newWorkEffortStatus"/>
