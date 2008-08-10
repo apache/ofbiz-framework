@@ -22,7 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
     <menu name="layout" default-menu-item-name="content" default-associated-content-id="${userLogin.userLoginId}" title="" type="simple"
         menu-container-style="button-bar tab-bar" default-selected-style="selected">
-        <menu-item name="ListLayout" title="${uiLabelMap.CommonList}" >
+        <menu-item name="ListLayout" title="${uiLabelMap.ListOwnCreatedTemplates}" >
             <link target="ListLayout" target-window="_top" style="tabButton" />
         </menu-item>
         <menu-item name="FindLayout" title="${uiLabelMap.CommonFind}" >
