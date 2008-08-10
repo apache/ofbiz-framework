@@ -850,27 +850,16 @@ under the License.
             short-description="Create/Update Customer, Shipping Address and other contact details." login-required="false">
         <set field="shoppingCart" from-field="parameters.shoppingCart"/>
         <set field="partyId" from-field="parameters.partyId"/>
-        <set field="userLogin" from-field="parameters.userLogin"/>
+        <if-not-empty field="userLogin">
+            <if-empty field="partyId">
+                <set field="partyId" from-field="userLogin.partyId"/>
+            </if-empty>
+        </if-not-empty>
         <set field="parameters.shipToCountryGeoId" from-field="parameters.countryGeoId"/>
+        <set field="shipToContactMechId" from-field="parameters.shipToContactMechId"/>
 
-        <if-empty field="userLogin">
-            <session-to-field field-name="userLogin" session-name="userLogin"/>
-        </if-empty>
         <if-empty field="shoppingCart">
             <session-to-field field-name="shoppingCart"/>
-        </if-empty>
-        <if-not-empty field="shoppingCart">
-            <if-empty field="partyId">
-                <call-object-method obj-field-name="shoppingCart" method-name="getPartyId" ret-field-name="partyId"/>
-            </if-empty>
-            <if-empty field="userLogin">
-                <call-object-method obj-field-name="shoppingCart" method-name="getUserLogin" ret-field-name="userLogin"/>
-            </if-empty>
-            <call-object-method obj-field-name="shoppingCart" method-name="getShippingContactMechId" ret-field-name="shipToContactMechId"/>
-        </if-not-empty>
-
-        <if-empty field="shipToContactMechId">
-           <set field="shipToContactMechId" from-field="parameters.shipToContactMechId"/>
         </if-empty>
 
         <call-simple-method method-name="createUpdatePerson"/>
@@ -993,6 +982,7 @@ under the License.
         </else>
         </if-empty>
         <field-to-request field-name="userLogin" request-name="userLogin"/>
+        <field-to-session field-name="userLogin" session-name="userLogin"/>
         <log level="info" message="userLogin is ${userLogin}"/>
     </simple-method>
 
