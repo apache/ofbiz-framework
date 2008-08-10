@@ -20,6 +20,21 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+    <form name="FindProductConfigItems" type="list" list-name="productConfigItems" 
+        default-table-style="basic-table" odd-row-style="alternate-row" paginate-target="FindProductConfigItems">
+        <row-actions>
+            <set field="typeDescription" value="${bsh: return &quot;SINGLE&quot;.equals(configItemTypeId) ? uiLabelMap.get(&quot;ProductSingleChoice&quot;) : uiLabelMap.get(&quot;ProductMultiChoice&quot;)}"/>
+        </row-actions>
+        <field name="configItemId" title="${uiLabelMap.CommonId}"><display/></field>
+        <field name="configItemName" title="${uiLabelMap.CommonName}"><display/></field>
+        <field name="typeDescription" title="${uiLabelMap.CommonType}">
+            <display description="${typeDescription}"/>
+        </field>
+        <field name="description"><display/></field>
+        <field name="editLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink target="EditProductConfigItem?configItemId=${configItemId}" description="${uiLabelMap.CommonEdit}"/>
+        </field>
+    </form>
     <form name="EditProductConfigItem" type="single" target="updateProductConfigItem" title="" default-map-name="configItem"
         header-row-style="header-row" default-table-style="basic-table">
         
