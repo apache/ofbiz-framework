@@ -143,6 +143,10 @@
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditTask"/>
     </request-map>
+    <request-map uri="addProjectTask">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="AddProjectTask"/>
+    </request-map>
     <request-map uri="EditTaskPartyAssigns">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditTaskPartyAssigns"/>
@@ -199,6 +203,12 @@
         <event type="service" invoke="createProjectTask"/>
         <response name="success" type="view" value="EditProjectTasks"/>
         <response name="error" type="view" value="EditProjectTasks"/>
+    </request-map>
+    <request-map uri="createProjectTask">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createProjectTask"/>
+        <response name="success" type="view" value="taskView"/>
+        <response name="error" type="view" value="AddProjectTask"/>
     </request-map>
     <request-map uri="createProjectPhase">
         <security https="true" auth="true"/>
@@ -539,15 +549,15 @@
         <response name="success" type="view" value="Timesheet"/>
         <response name="error" type="view" value="Timesheet"/>
     </request-map>
-    <request-map uri="CreateTaskbyRequest">
+    <request-map uri="EditTaskFromRequest">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="CreateTaskbyRequest"/>
+        <response name="success" type="view" value="EditTaskFromRequest"/>
     </request-map>
-    <request-map uri="CreateTaskbyRequests">
+    <request-map uri="CreateTaskFromRequest">
         <security https="true" auth="true"/>
         <event type="service" invoke="createWorkEffort"/>
         <response name="success" type="request" value="updaterequeststatus"/>
-        <response name="error" type="view" value="CreateTaskbyRequest"/>
+        <response name="error" type="view" value="EditTaskFromRequest"/>
     </request-map>
     <request-map uri="newrequest">
         <security https="true" auth="true"/>
@@ -800,6 +810,7 @@
     <view-map name="MyTasks" type="screen" page="component://projectmgr/widget/TaskScreens.xml#MyTasks"/>
     <view-map name="FindTask" type="screen" page="component://projectmgr/widget/TaskScreens.xml#FindTask"/>
     <view-map name="EditTask" type="screen" page="component://projectmgr/widget/TaskScreens.xml#EditTask"/>
+    <view-map name="AddProjectTask" type="screen" page="component://projectmgr/widget/TaskScreens.xml#AddProjectTask"/>
     <view-map name="AddTaskAndAssoc" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#AddTaskAndAssoc"/>
     <view-map name="EditTaskAndAssoc" type="screen" page="component://projectmgr/widget/TaskScreens.xml#EditTaskAndAssoc"/>
     <view-map name="Dependencies" type="screen" page="component://projectmgr/widget/TaskScreens.xml#Dependencies"/>
@@ -826,7 +837,7 @@
     <view-map name="EditTaskNotes" type="screen" page="component://projectmgr/widget/TaskScreens.xml#EditTaskNotes"/>
     <view-map name="taskView" type="screen" page="component://projectmgr/widget/TaskScreens.xml#TaskView"/>
     <view-map name="Timesheet" type="screen" page="component://projectmgr/widget/TimeSheetScreens.xml#Timesheet"/>
-    <view-map name="CreateTaskbyRequest" type="screen" page="component://projectmgr/widget/TaskScreens.xml#CreateTaskbyRequest"/>
+    <view-map name="EditTaskFromRequest" type="screen" page="component://projectmgr/widget/TaskScreens.xml#EditTaskFromRequest"/>
     <view-map name="RequestList" type="screen" page="component://projectmgr/widget/RequestScreens.xml#RequestList"/>
     <view-map name="EditRequest" type="screen" page="component://projectmgr/widget/RequestScreens.xml#EditRequest"/>
     <view-map name="ViewRequest" type="screen" page="component://projectmgr/widget/RequestScreens.xml#ViewRequest"/>
