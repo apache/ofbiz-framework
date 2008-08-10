@@ -44,27 +44,29 @@ under the License.
 
 
 <#if productCategory?exists>
-    <h1>
-        <div>${categoryContentWrapper.get("CATEGORY_NAME")?if_exists}</div>
-        <div>${categoryContentWrapper.get("DESCRIPTION")?if_exists}</div>
-        <#if hasQuantities?exists>
-          <form method="post" action="<@ofbizUrl>addCategoryDefaults<#if requestAttributes._CURRENT_VIEW_?exists>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>" name="thecategoryform" style='margin: 0;'>
-            <input type='hidden' name='add_category_id' value='${productCategory.productCategoryId}'/>
-            <#if requestParameters.product_id?exists><input type='hidden' name='product_id' value='${requestParameters.product_id}'/></#if>
-            <#if requestParameters.category_id?exists><input type='hidden' name='category_id' value='${requestParameters.category_id}'/></#if>
-            <#if requestParameters.VIEW_INDEX?exists><input type='hidden' name='VIEW_INDEX' value='${requestParameters.VIEW_INDEX}'/></#if>
-            <#if requestParameters.SEARCH_STRING?exists><input type='hidden' name='SEARCH_STRING' value='${requestParameters.SEARCH_STRING}'/></#if>
-            <#if requestParameters.SEARCH_CATEGORY_ID?exists><input type='hidden' name='SEARCH_CATEGORY_ID' value='${requestParameters.SEARCH_CATEGORY_ID}'/></#if>                                     
-            <a href="javascript:document.thecategoryform.submit()" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.ProductAddProductsUsingDefaultQuantities}</span></a>
-          </form>
-        </#if>
-        <#if searchInCategory?default("Y") == "Y">
-          <a href="<@ofbizUrl>advancedsearch?SEARCH_CATEGORY_ID=${productCategory.productCategoryId}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductSearchinCategory}</a>
-        </#if>
-    </h1>
-  <#assign longDescription = categoryContentWrapper.get("LONG_DESCRIPTION")?if_exists/>
-  <#assign categoryImageUrl = categoryContentWrapper.get("CATEGORY_IMAGE_URL")?if_exists/>
-  <#if categoryImageUrl?has_content || longDescription?has_content>
+    <#if categoryContentWrapper.get("CATEGORY_NAME")?has_content>
+        <h1>${categoryContentWrapper.get("CATEGORY_NAME")}</h1>
+    </#if>
+    <#if categoryContentWrapper.get("DESCRIPTION")?has_content>
+        <h1>${categoryContentWrapper.get("DESCRIPTION")}</h1>
+    </#if>
+    <#if hasQuantities?exists>
+      <form method="post" action="<@ofbizUrl>addCategoryDefaults<#if requestAttributes._CURRENT_VIEW_?exists>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>" name="thecategoryform" style='margin: 0;'>
+        <input type='hidden' name='add_category_id' value='${productCategory.productCategoryId}'/>
+        <#if requestParameters.product_id?exists><input type='hidden' name='product_id' value='${requestParameters.product_id}'/></#if>
+        <#if requestParameters.category_id?exists><input type='hidden' name='category_id' value='${requestParameters.category_id}'/></#if>
+        <#if requestParameters.VIEW_INDEX?exists><input type='hidden' name='VIEW_INDEX' value='${requestParameters.VIEW_INDEX}'/></#if>
+        <#if requestParameters.SEARCH_STRING?exists><input type='hidden' name='SEARCH_STRING' value='${requestParameters.SEARCH_STRING}'/></#if>
+        <#if requestParameters.SEARCH_CATEGORY_ID?exists><input type='hidden' name='SEARCH_CATEGORY_ID' value='${requestParameters.SEARCH_CATEGORY_ID}'/></#if>                                     
+        <a href="javascript:document.thecategoryform.submit()" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.ProductAddProductsUsingDefaultQuantities}</span></a>
+      </form>
+    </#if>
+    <#if searchInCategory?default("Y") == "Y">
+        <a href="<@ofbizUrl>advancedsearch?SEARCH_CATEGORY_ID=${productCategory.productCategoryId}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductSearchinCategory}</a>
+    </#if>
+    <#assign longDescription = categoryContentWrapper.get("LONG_DESCRIPTION")?if_exists/>
+    <#assign categoryImageUrl = categoryContentWrapper.get("CATEGORY_IMAGE_URL")?if_exists/>
+    <#if categoryImageUrl?has_content || longDescription?has_content>
       <div>
         <#if categoryImageUrl?has_content>
           <img src='<@ofbizContentUrl>${categoryImageUrl}</@ofbizContentUrl>' vspace='5' hspace='5' border='1' height='100' align='left'/>
@@ -90,7 +92,7 @@ under the License.
       <#assign numCol = numCol?default(1)>
       <#assign numCol = numCol?number>
       <#assign tabCol = 1>
-      <div class="productsummary-container <#if (numCol?int > 1)>matrix</#if>">
+      <div class="productsummary-container<#if (numCol?int > 1)> matrix</#if>">
       <#if (numCol?int > 1)>
         <table>
       </#if>
@@ -118,6 +120,6 @@ under the License.
       </div>
     <@paginationControls/>
 <#else>
-    <div><hr class='sepbar'/></div>
-    <div class='tabletext'>${uiLabelMap.ProductNoProductsInThisCategory}</div>
+    <div><hr/></div>
+    <div>${uiLabelMap.ProductNoProductsInThisCategory}</div>
 </#if>

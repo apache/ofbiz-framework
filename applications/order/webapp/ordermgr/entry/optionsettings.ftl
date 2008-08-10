@@ -80,7 +80,7 @@ under the License.
                   </td>
                 </tr>
                 </#if>
-                <tr><td colspan='2'><hr class='sepbar'></td></tr>                      
+                <tr><td colspan='2'><hr/></td></tr>                      
                <#else>
                    <input type='hidden' name='${shipGroupIndex?default("0")}_shipping_method' value="NO_SHIPPING@_NA_">
                </#if>
@@ -105,7 +105,7 @@ under the License.
                     <div>${uiLabelMap.FacilityShipAvailable}</div>
                   </td>
                 </tr>
-                <tr><td colspan="2"><hr class='sepbar'></td></tr>
+                <tr><td colspan="2"><hr/></td></tr>
                 <tr>
                   <td colspan="2">
                     <h2>${uiLabelMap.FacilitySpecialInstructions}</h2>
@@ -130,7 +130,7 @@ under the License.
                   </td>
                 </tr>
                 <#if cart.getOrderType() != "PURCHASE_ORDER">
-                <tr><td colspan="2"><hr class='sepbar'></td></tr>
+                <tr><td colspan="2"><hr/></td></tr>
                 <tr>
                   <td colspan="2">
                     <h2>${uiLabelMap.OrderGiftMessage}</h2>
