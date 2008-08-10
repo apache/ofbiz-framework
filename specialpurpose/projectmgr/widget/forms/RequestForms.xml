@@ -23,7 +23,7 @@ under the License.
     <form name="ListRequests" type="list" 
         extends="ListRequests" extends-resource="component://order/webapp/ordermgr/request/RequestForms.xml">
         <field name="createTaskFromRequest" title="${uiLabelMap.ProjectMgrCreateTaskFromRequest}" widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.ProjectMgrCreateTaskFromRequest}" target="CreateTaskbyRequest?custRequestId=${custRequestId}"/>
+            <hyperlink description="${uiLabelMap.ProjectMgrCreateTaskFromRequest}" target="EditTaskFromRequest?custRequestId=${custRequestId}"/>
         </field>
     </form>
     <form name="EditCustRequest" type="single" target="updaterequest" title="Request" default-map-name="custRequest"

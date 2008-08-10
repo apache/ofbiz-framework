@@ -135,27 +135,15 @@ under the License.
                             <widgets>
                                 <section>
                                     <condition>
-                                        <not>
-                                            <if-empty field-name="workEffort"/>
-                                        </not>
+                                        <not><if-empty field-name="workEffort"/></not>
                                     </condition>
                                     <widgets>                                        
                                         <include-menu name="TaskTabBar" location="component://projectmgr/widget/Menus.xml"/>
-                                        <section>
-                                            <condition>
-                                                <or>
-                                                    <if-compare field-name="tabButtonItem" operator="equals" value="taskView"/>
-                                                    <if-compare field-name="tabButtonItem" operator="equals" value="edittask"/>
-                                                </or>
-                                            </condition>
-                                            <widgets>
-                                                <include-menu name="TaskSubTabBar" location="component://projectmgr/widget/Menus.xml"/>
-                                            </widgets>
-                                        </section>
                                         <label style="h1" text="${uiLabelMap.ProjectMgrTaskCurrent}: ${workEffort.workEffortName}[${workEffort.workEffortId}] Project: ${projectName}"/>
                                         <link style="h1" text="[${projectId}]" target="projectView?projectId=${projectId}"/>
                                     </widgets>                                    
                                 </section>
+                                <include-menu name="TaskSubTabBar" location="component://projectmgr/widget/Menus.xml"/>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>

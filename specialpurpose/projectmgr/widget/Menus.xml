@@ -218,7 +218,12 @@
         </menu-item>
     </menu>
     <menu name="TaskTabBar" type="simple" menu-container-style="button-bar tab-bar" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem">
-        <menu-item name="taskView" title="${uiLabelMap.ProjectMgrTaskSummary}"><link target="taskView?workEffortId=${workEffortId}"/></menu-item>
+        <menu-item name="taskView" title="${uiLabelMap.ProjectMgrTaskSummary}">
+            <condition>
+               <not><if-empty field-name="workEffort"/></not>
+            </condition>
+            <link target="taskView?workEffortId=${workEffortId}"/>
+        </menu-item>
         <menu-item name="edittask" title="${uiLabelMap.ProjectMgrEditTask}">
             <condition>
                 <and>
@@ -275,10 +280,16 @@
             <link target="EditTimeEntries?workEffortId=${workEffortId}"/>
         </menu-item>
         <menu-item name="notes" title="${uiLabelMap.CommonNotes}">
+            <condition>
+                <not><if-empty field-name="workEffort"/></not>
+            </condition>
             <link target="EditTaskNotes?workEffortId=${workEffortId}"/>
         </menu-item>
     </menu>
     <menu name="TaskSubTabBar" menu-container-style="button-bar button-style-2" default-selected-style="selected">  
+        <menu-item name="new" title="${uiLabelMap.CommonNew}" >
+            <link target="addProjectTask"/>
+        </menu-item>
         <menu-item name="setonhold" title="${uiLabelMap.ProjectMgrSetOnHold}" >
             <condition>
                 <and>
