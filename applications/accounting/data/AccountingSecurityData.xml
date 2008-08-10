@@ -77,13 +77,16 @@ under the License.
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCOUNTING_PRINT_CHECKS"/>
     
     <!-- Set up accounting organization preferences security -->
+    <SecurityPermission description="View organization accounting preferences" permissionId="ACCTG_PREF_VIEW"/>
     <SecurityPermission description="Set organization accounting preferences" permissionId="ACCTG_PREF_CREATE"/>
     <SecurityPermission description="Update organization accounting preferences" permissionId="ACCTG_PREF_UPDATE"/>
     <SecurityPermission description="Delete organization accounting preferences" permissionId="ACCTG_PREF_DELETE"/>
+    <SecurityPermission description="ALL organization accounting preferences operations" permissionId="ACCTG_PREF_ADMIN"/>
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="ACCTG_PREF_ADMIN"/>
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCTG_PREF_CREATE"/>
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCTG_PREF_UPDATE"/>
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCTG_PREF_DELETE"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCTG_PREF_VIEW"/>
     
     <SecurityPermission description="Set foreign exchange rates" permissionId="ACCTG_FX_UPDATE"/>
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="ACCTG_FX_UPDATE"/>
