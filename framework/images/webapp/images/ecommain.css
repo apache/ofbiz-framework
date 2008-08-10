@@ -172,6 +172,15 @@ visibility: hidden;
 visibility: hidden;
 }
 
+.label {
+/* Used for <input> element labels */
+font-weight: bold;
+padding-right: 11px;
+text-align: right;
+white-space: nowrap;
+width: 1%;
+}
+
 /* ===== Header Styles ===== */
 #ecom-header {
 position: relative;

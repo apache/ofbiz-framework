@@ -18,10 +18,15 @@ under the License.
 -->
 
 <h1>${uiLabelMap.ProductProductSearch}, <span class="h2">${uiLabelMap.ProductYouSearchedFor}:</span></h1>
+<br/>
+<ul>
 <#list searchConstraintStrings as searchConstraintString>
-    <div>&nbsp;<a href="<@ofbizUrl>keywordsearch?removeConstraint=${searchConstraintString_index}&clearSearch=N</@ofbizUrl>" class="buttontext">X</a>&nbsp;${searchConstraintString}</div>
+    <li><a href="<@ofbizUrl>keywordsearch?removeConstraint=${searchConstraintString_index}&clearSearch=N</@ofbizUrl>" class="buttontext">X</a>&nbsp;${searchConstraintString}</li>
 </#list>
+</ul>
+<br/>
 <div>${uiLabelMap.CommonSortedBy}: ${searchSortOrderString}</div>
+<br/>
 <div><a href="<@ofbizUrl>advancedsearch?SEARCH_CATEGORY_ID=${(reqeustParameters.SEARCH_CATEGORY_ID)?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductRefineSearch}</a></div>
 
 <#if !productIds?has_content>
