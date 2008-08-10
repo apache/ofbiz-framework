@@ -68,14 +68,28 @@ under the License.
                 <set field="titleProperty" value="PageTitleFindConfigItems"/>
                 <set field="headerItem" value="configs"/>
                 
-                <script location="component://product/webapp/catalog/WEB-INF/actions/config/FindProductConfigItems.groovy"/>
+                <entity-condition list-name="productConfigItems" entity-name="ProductConfigItem">
+                    <order-by field-name="configItemId"/>
+                </entity-condition>
             </actions>
             <widgets>
                 <decorator-screen name="CommonConfigDecorator">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/config/FindProductConfigItems.ftl"/></html>
-                        </platform-specific>
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
+                                    <label text="${uiLabelMap.PageTitleFindConfigItems}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>
+                                        <container><link target="EditProductConfigItem" text="${uiLabelMap.CommonCreateNew}" style="buttontext"/></container>
+                                        <include-form location="component://product/webapp/catalog/config/ConfigForms.xml" name="FindProductConfigItems"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
