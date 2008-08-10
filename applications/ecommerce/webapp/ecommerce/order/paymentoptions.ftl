@@ -32,21 +32,21 @@ under the License.
                 <td width="5%" nowrap="nowrap"><input type="checkbox" name="addGiftCard" value="Y" <#if addGiftCard?exists && addGiftCard == "Y">checked</#if>/></td>
                 <td width="95%" nowrap="nowrap"><div class="tabletext">${uiLabelMap.AccountingCheckGiftCard}</div></td>
               </tr>
-              <tr><td colspan="2"><hr class="sepbar"/></td></tr>
+              <tr><td colspan="2"><hr/></td></tr>
               </#if>
               <#if productStorePaymentMethodTypeIdMap.EXT_OFFLINE?exists>
               <tr>
                 <td width="5%" nowrap="nowrap"><input type="radio" name="paymentMethodTypeId" value="EXT_OFFLINE" <#if paymentMethodTypeId?exists && paymentMethodTypeId == "EXT_OFFLINE">checked</#if>/></td>
                 <td width="95%" nowrap="nowrap"><div class="tabletext">${uiLabelMap.OrderPaymentOfflineCheckMoney}</div></td>
               </tr>
-              <tr><td colspan="2"><hr class="sepbar"/></td></tr>
+              <tr><td colspan="2"><hr/></td></tr>
               </#if>
               <#if productStorePaymentMethodTypeIdMap.CREDIT_CARD?exists>
               <tr>
                 <td width="5%" nowrap="nowrap"><input type="radio" name="paymentMethodTypeId" value="CREDIT_CARD" <#if paymentMethodTypeId?exists && paymentMethodTypeId == "CREDIT_CARD">checked</#if>/></td>
                 <td width="95%" nowrap="nowrap"><div class="tabletext">${uiLabelMap.AccountingVisaMastercardAmexDiscover}</div></td>
               </tr>
-              <tr><td colspan="2"><hr class="sepbar"/></td></tr>
+              <tr><td colspan="2"><hr/></td></tr>
               </#if>
               <#if productStorePaymentMethodTypeIdMap.EFT_ACCOUNT?exists>
               <tr>

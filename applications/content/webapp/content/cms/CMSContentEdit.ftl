@@ -31,7 +31,7 @@ ${menuWrapper.renderMenuString()}
 <#-- Main Heading -->
 <table width='100%' cellpadding='0' cellspacing='0' border='0'>
   <tr>
-    <td align="left">
+    <td>
       <h1>${contentId?if_exists}
       </h1>
     </td>
@@ -60,7 +60,7 @@ ${menuWrapper.renderMenuString()}
     <TD width='100%'>
       <table width='100%' border='0' cellspacing='0' cellpadding='0' class='boxtop'>
         <tr>
-          <td valign="middle" align="left">
+          <td valign="middle">
             <div class="boxhead">&nbsp; Links </div>
           </td>
         </tr>
@@ -102,7 +102,7 @@ ${menuWrapper.renderMenuString()}
     <TD width='100%'>
       <table width='100%' border='0' cellspacing='0' cellpadding='0' class='boxtop'>
         <tr>
-          <td valign="middle" align="left">
+          <td valign="middle">
             <div class="boxhead">&nbsp; Features </div>
           </td>
         </tr>
@@ -139,7 +139,7 @@ ${menuWrapper.renderMenuString()}
                        <#assign rowCount=rowCount + 1/>
                     </#list>
                     <tr>
-                      <td valign="middle" align="left">
+                      <td valign="middle">
                         <div class="boxhead"><input type="text" name="fieldValue0_o_${rowCount}" value=""/>
                           <a href="javascript:call_fieldlookup3('<@ofbizUrl>LookupFeature</@ofbizUrl>')">
                             <img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Lookup">
@@ -176,7 +176,7 @@ ${menuWrapper.renderMenuString()}
     <TD width='100%'>
       <table width='100%' border='0' cellspacing='0' cellpadding='0' class='boxtop'>
         <tr>
-          <td valign="middle" align="left">
+          <td valign="middle">
             <div class="boxhead">&nbsp;Image Information</div>
           </td>
           <td valign="middle" align="right">
@@ -192,7 +192,7 @@ ${menuWrapper.renderMenuString()}
         <tr>
           <td>
   <table width="100%" border="0" cellpadding="0" cellspacing='0'>
-    <tr><td align="right" nowrap><div class='tabletext'><b>Image</b></div></td><td>&nbsp;</td><td align="left"><div class='tabletext'>
+    <tr><td align="right" nowrap><div class='tabletext'><b>Image</b></div></td><td>&nbsp;</td><td><div class='tabletext'>
         <img src="<@ofbizUrl>img?imgId=${imgDataResourceId?if_exists}</@ofbizUrl>" />
 <div></td></tr>
   </table>
@@ -237,7 +237,7 @@ ${menuWrapper.renderMenuString()}
     <TD width='100%'>
       <table width='100%' border='0' cellspacing='0' cellpadding='0' class='boxtop'>
         <tr>
-          <td valign="middle" align="left">
+          <td valign="middle">
             <div class="boxhead">&nbsp;</div>
           </td>
           <td valign="middle" align="right">
@@ -253,8 +253,8 @@ ${menuWrapper.renderMenuString()}
         <tr>
           <td>
   <table width="100%" border="0" cellpadding="0" cellspacing='0'>
-    <tr><td align="right" nowrap><div class='tabletext'><b>Content Name</b></div></td><td>&nbsp;</td><td align="left"><div class='tabletext'>${content.contentName?if_exists}</div></td></tr>
-    <tr><td align="right" nowrap><div class='tabletext'><b>Description</b></div></td><td>&nbsp;</td><td align="left"><div class='tabletext'>${content.description?if_exists}<div></td></tr>
+    <tr><td align="right" nowrap><div class='tabletext'><b>Content Name</b></div></td><td>&nbsp;</td><td><div class='tabletext'>${content.contentName?if_exists}</div></td></tr>
+    <tr><td align="right" nowrap><div class='tabletext'><b>Description</b></div></td><td>&nbsp;</td><td><div class='tabletext'>${content.description?if_exists}<div></td></tr>
   </table>
           </td>
         </tr>
@@ -267,7 +267,7 @@ ${menuWrapper.renderMenuString()}
         <tr>
           <td>
   <table width="100%" border="0" cellpadding="0" cellspacing='0'>
-    <tr><td align="right" nowrap><div class='tabletext'><b></b></div></td><td>&nbsp;</td><td align="left"><div class='tabletext'>
+    <tr><td align="right" nowrap><div class='tabletext'><b></b></div></td><td>&nbsp;</td><td><div class='tabletext'>
 <#-- ${textData?if_exists} -->
 <@renderContentAsText subContentId=content.contentId  editRequestName="/EditAddContent"/>
 <div></td></tr>

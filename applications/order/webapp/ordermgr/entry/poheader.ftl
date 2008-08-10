@@ -20,7 +20,7 @@ under the License.
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
   <tr>
     <#-- left side -->
-    <td width="50%" valign="top" align="left">
+    <td width="50%" valign="top">
 
       <#-- header box -->
         <div class="screenlet">
@@ -56,7 +56,7 @@ under the License.
     <#-- end of left/right spacer -->
 
     <#-- right side -->
-    <td width="50%" valign="top" align="left">
+    <td width="50%" valign="top">
 
       <#-- contact box -->
         <div class="screenlet">

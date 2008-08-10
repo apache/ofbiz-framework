@@ -195,7 +195,7 @@ function getConfigDetails(event) {
 
   <#-- Product image/name/price -->
   <tr>
-    <td align="left" valign="top" width="0">
+    <td valign="top" width="0">
       <#assign productLargeImageUrl = productContentWrapper.get("LARGE_IMAGE_URL")?if_exists>
       <#-- remove the next two lines to always display the virtual image first (virtual images must exist) -->
       <#if firstLargeImage?has_content>

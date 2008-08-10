@@ -45,7 +45,7 @@ under the License.
       <#if surveyQuestionAndAppl.surveyQuestionTypeId == "SEPERATOR_TEXT">
         <td colspan="5"><div class="tabletext">${surveyQuestionAndAppl.question?if_exists}</div></td>
       <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "SEPERATOR_LINE">
-        <td colspan="5"><hr class="sepbar"/></td>
+        <td colspan="5"><hr/></td>
       <#else>
 
         <#-- standard question options -->

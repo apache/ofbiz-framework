@@ -37,8 +37,8 @@ under the License.
     </tr>
     <#list processes as proc>
       <tr>
-        <td align="left"><div>${proc.key()}</div></td>
-        <td align="left"><div>${proc.state()}</div></td>
+        <td><div>${proc.key()}</div></td>
+        <td><div>${proc.state()}</div></td>
         <td align="center"><div>${proc.priority()}</div></td>
         <td align="center"><div>${proc.how_many_step()}</div></td>
         <#if proc.state() != "open.not_running.not_started">

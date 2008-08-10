@@ -77,14 +77,14 @@ under the License.
               </tr>
             <#else>
                <#-- <tr>
-                <td align="left" valign="top" colspan="2">
+                <td valign="top" colspan="2">
                   ${uiLabelMap.PartyBillingAddressNotSelected}
                 </td>
               </tr> -->
             </#if>
               <#-- is confusing
               <tr>
-                <td align="left" valign="top" colspan="2">
+                <td valign="top" colspan="2">
                   <b>Select a New Billing Address:</b>
                 </td>
               </tr>
@@ -125,7 +125,7 @@ under the License.
                 <td align="right" valigh="top" width="1%">
                   <input type="radio" name="contactMechId" value="_NEW_" <#if !hasCurrent>checked</#if>>
                 </td>
-                <td align="left" valign="middle" width="80%">
+                <td valign="middle" width="80%">
                   ${uiLabelMap.PartyCreateNewBillingAddress}.
                 </td>
               </tr>

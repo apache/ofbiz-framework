@@ -22,7 +22,7 @@ under the License.
     <td width="100%">
       <table width="100%" border="0" cellspacing="0" cellpadding="0" class="boxtop">
         <tr>
-          <td align="left" width="90%" >
+          <td width="90%" >
             <div class="boxhead">&nbsp;${uiLabelMap.SharkMainPage}</div>
           </td>        
         </tr>

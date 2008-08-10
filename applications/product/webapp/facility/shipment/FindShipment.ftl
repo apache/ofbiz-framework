@@ -169,12 +169,12 @@ function lookupShipments() {
     <div class="screenlet-body">
         <table cellspacing="0" cellpadding="2" class="basic-table hover-bar">
         <tr class="header-row">
-          <td width="5%" align="left">${uiLabelMap.ProductShipmentId}</td>
-          <td width="15%" align="left">${uiLabelMap.ProductShipmentType}</td>
-          <td width="10%" align="left">${uiLabelMap.ProductStatus}</td>
-          <td width="25%" align="left">${uiLabelMap.ProductOriginFacility}</td>
-          <td width="25%" align="left">${uiLabelMap.ProductDestFacility}</td>
-          <td width="15%" align="left">${uiLabelMap.ProductShipDate}</td>
+          <td width="5%">${uiLabelMap.ProductShipmentId}</td>
+          <td width="15%">${uiLabelMap.ProductShipmentType}</td>
+          <td width="10%">${uiLabelMap.ProductStatus}</td>
+          <td width="25%">${uiLabelMap.ProductOriginFacility}</td>
+          <td width="25%">${uiLabelMap.ProductDestFacility}</td>
+          <td width="15%">${uiLabelMap.ProductShipDate}</td>
           <td width="5%">&nbsp;</td>
         </tr>        
         <#if shipmentList?has_content>

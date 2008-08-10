@@ -33,7 +33,7 @@ under the License.
 			<div class="tableheadtext">
 			${forumMessage.description?if_exists}
 			</div>
-        	<hr class="sepbar"/>
+        	<hr/>
 		<#--
   		<#assign result = dispatcher.runSync("getPublicForumMessage", Static["org.ofbiz.base.util.UtilMisc"].toMap("contentId", contentId, "userLogin", userLogin))/>
   		<#if (result.resultData)?exists>
@@ -46,7 +46,7 @@ under the License.
 					${result.resultData.electronicText.textData}
 				</#if>
 			</div>
-        	<hr class="sepbar"/>
+        	<hr/>
   		<#else>
   			<div class="tabletext"> ${result.errorMessage?if_exists}</div>
 		</#if>

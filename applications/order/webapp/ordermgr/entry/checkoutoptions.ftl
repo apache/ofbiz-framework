@@ -78,7 +78,7 @@ function submitForm(form, mode, value) {
   <input type="hidden" name="BACK_PAGE" value="quickcheckout"/>
 
   <table width="100%" border="0" cellpadding="0" cellspacing="0">
-    <tr valign="top" align="left">
+    <tr valign="top">
       <td height="100%">
         <div class="screenlet" style="height: 100%;">
             <div class="screenlet-header">
@@ -122,10 +122,10 @@ function submitForm(form, mode, value) {
                      <#list shippingContactMechList as shippingContactMech>
                        <#assign shippingAddress = shippingContactMech.getRelatedOne("PostalAddress")>
                        <tr>
-                         <td align="left" valign="top" width="1%">
+                         <td valign="top" width="1%">
                            <input type="radio" name="shipping_contact_mech_id" value="${shippingAddress.contactMechId}" onclick="javascript:submitForm(document.checkoutInfoForm, 'SA', null);"<#if shoppingCart.getShippingContactMechId()?default("") == shippingAddress.contactMechId> checked="checked"</#if>/>
                          </td>
-                         <td align="left" valign="top" width="99%">
+                         <td valign="top" width="99%">
                            <div>
                              <#if shippingAddress.toName?has_content><b>${uiLabelMap.CommonTo}:</b>&nbsp;${shippingAddress.toName}<br/></#if>
                              <#if shippingAddress.attnName?has_content><b>${uiLabelMap.PartyAddrAttnName}:</b>&nbsp;${shippingAddress.attnName}<br/></#if>
@@ -523,7 +523,7 @@ function submitForm(form, mode, value) {
 
 <table width="100%">
   <tr valign="top">
-    <td align="left">
+    <td>
       &nbsp;<a href="javascript:submitForm(document.checkoutInfoForm, 'CS', '');" class="buttontextbig">${uiLabelMap.OrderBacktoShoppingCart}</a>
     </td>
     <td align="right">

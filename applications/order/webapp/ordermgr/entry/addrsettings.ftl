@@ -28,7 +28,7 @@ under the License.
 
       <table width="100%" border='0' cellspacing='0' cellpadding='0' class='boxtop'>
         <tr>
-          <td valign="middle" align="left">
+          <td valign="middle">
             <div class="boxhead">${uiLabelMap.OrderSelectAShippingAddress}</div>
           </td>
         </tr>

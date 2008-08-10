@@ -35,7 +35,7 @@ under the License.
                 <#assign productPromoActions = productPromoRule.getRelated("ProductPromoAction")>
                 <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
                     <td class="label"><b>${(productPromoRule.productPromoRuleId)?if_exists}</b></td>
-                    <td align="left">
+                    <td>
                         <form method="post" action="<@ofbizUrl>updateProductPromoRule</@ofbizUrl>">
                             <input type="hidden" name="productPromoId" value="${(productPromoRule.productPromoId)?if_exists}">
                             <input type="hidden" name="productPromoRuleId" value="${(productPromoRule.productPromoRuleId)?if_exists}">
@@ -52,7 +52,7 @@ under the License.
                 </tr>
                 <tr valign="top">
                     <td align="right" class="label">${uiLabelMap.ProductConditions}</td>
-                    <td align="left" colspan="2">
+                    <td colspan="2">
                         <table cellspacing="0" class="basic-table">
                         <#assign maxCondSeqId = 1>
                         <#list productPromoConds as productPromoCond>
@@ -65,7 +65,7 @@ under the License.
                                     </#if>
                                 </#if>
                                 <td class="label"><b>${(productPromoCond.productPromoCondSeqId)?if_exists}</b></td>
-                                <td align="left">
+                                <td>
                                     <form method="post" action="<@ofbizUrl>updateProductPromoCond</@ofbizUrl>">
                                         <input type="hidden" name="productPromoId" value="${(productPromoCond.productPromoId)?if_exists}"/>
                                         <input type="hidden" name="productPromoRuleId" value="${(productPromoCond.productPromoRuleId)?if_exists}"/>
@@ -170,7 +170,7 @@ under the License.
                             </tr>
                         </#list>
                             <tr>
-                                <td align="left" colspan="3">
+                                <td colspan="3">
                                     <form method="post" action="<@ofbizUrl>createProductPromoCond</@ofbizUrl>">
                                         <input type="hidden" name="productPromoId" value="${(productPromoRule.productPromoId)?if_exists}">
                                         <input type="hidden" name="productPromoRuleId" value="${(productPromoRule.productPromoRuleId)?if_exists}">
@@ -196,12 +196,12 @@ under the License.
                 </tr>
                 <tr valign="top">
                     <td align="right" class="label">${uiLabelMap.ProductActions} :</td>
-                    <td align="left" colspan="2">
+                    <td colspan="2">
                         <table cellspacing="0" class="basic-table">
                         <#list productPromoActions as productPromoAction>
                             <tr>
                                 <td class="label"><b>${(productPromoAction.productPromoActionSeqId)?if_exists}</b></td>
-                                <td align="left">
+                                <td>
                                     <div>
                                     <form method="post" action="<@ofbizUrl>updateProductPromoAction</@ofbizUrl>">
                                         <input type="hidden" name="productPromoId" value="${(productPromoAction.productPromoId)?if_exists}">
@@ -299,7 +299,7 @@ under the License.
                             </tr>
                         </#list>
                             <tr>
-                                <td align="left" colspan="3">
+                                <td colspan="3">
                                     <div>
                                     <form method="post" action="<@ofbizUrl>createProductPromoAction</@ofbizUrl>">
                                         <input type="hidden" name="productPromoId" value="${(productPromoRule.productPromoId)?if_exists}">

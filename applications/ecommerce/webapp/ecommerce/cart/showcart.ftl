@@ -192,7 +192,7 @@ function setAlternateGwp(field) {
           <#list cartLine.getAdjustments() as cartLineAdjustment>
             <!-- cart line ${cartLineIndex} adjustment: ${cartLineAdjustment} -->
           </#list>
-          <tr><td>&nbsp;</td><td colspan="6"><hr class="sepbar"/></td></tr>
+          <tr><td>&nbsp;</td><td colspan="6"><hr/></td></tr>
           <tr>
             <td>
                 <#if cartLine.getShoppingListId()?exists>
@@ -219,7 +219,7 @@ function setAlternateGwp(field) {
                     <#if !smallImageUrl?has_content><#assign smallImageUrl = "/images/defaultImage.jpg"></#if>
                     <#if smallImageUrl?has_content>
                       <a href="<@ofbizUrl>product?product_id=${parentProductId}</@ofbizUrl>">
-                        <img src="<@ofbizContentUrl>${requestAttributes.contentPathPrefix?if_exists}${smallImageUrl}</@ofbizContentUrl>" align="left" width="50" class="imageborder" border="0"/>
+                        <img src="<@ofbizContentUrl>${requestAttributes.contentPathPrefix?if_exists}${smallImageUrl}</@ofbizContentUrl>" width="50" class="imageborder" border="0"/>
                       </a>
                     </#if>
                     <#-- end code to display a small image of the product -->
@@ -320,7 +320,7 @@ function setAlternateGwp(field) {
         </#list>
 
         <#if shoppingCart.getAdjustments()?has_content>
-            <tr><td>&nbsp;</td><td colspan="6"><hr class="sepbar"/></td></tr>
+            <tr><td>&nbsp;</td><td colspan="6"><hr/></td></tr>
               <tr>
                 <td colspan="6" nowrap align="right"><div class="tabletext">${uiLabelMap.CommonSubTotal}:</div></td>
                 <td nowrap align="right"><div class="tabletext"><@ofbizCurrency amount=shoppingCart.getSubTotal() isoCode=shoppingCart.getCurrency()/></div></td>
@@ -376,7 +376,7 @@ function setAlternateGwp(field) {
           <td colspan="7">&nbsp;</td>
         </tr>
         </#if>
-        <tr><td>&nbsp;</td><td colspan="6"><hr class="sepbar"/></td></tr>
+        <tr><td>&nbsp;</td><td colspan="6"><hr/></td></tr>
         <tr>
           <td colspan="7" align="right" valign="bottom">
             <div class="tabletext">
@@ -399,7 +399,7 @@ function setAlternateGwp(field) {
             </div>
           </td>
         </tr>
-        <tr><td>&nbsp;</td><td colspan="6"><hr class="sepbar"/></td></tr>
+        <tr><td>&nbsp;</td><td colspan="6"><hr/></td></tr>
         <tr>
           <td colspan="7" align="right" valign="bottom">
             <div class="tabletext">
@@ -415,7 +415,7 @@ function setAlternateGwp(field) {
             </div>
           </td>
         </tr>
-        <tr><td>&nbsp;</td><td colspan="6"><hr class="sepbar"/></td></tr>
+        <tr><td>&nbsp;</td><td colspan="6"><hr/></td></tr>
         <tr>
           <td colspan="7" align="center" valign="bottom">
             <div class="tabletext"><input type="checkbox" onClick="javascript:document.cartform.submit()" name="alwaysShowcart" <#if shoppingCart.viewCartOnAdd()>checked</#if>>&nbsp;${uiLabelMap.EcommerceAlwaysViewCartAfterAddingAnItem}.</div>
@@ -461,10 +461,10 @@ function setAlternateGwp(field) {
         <#list productPromos as productPromo>
             <div class="tabletext"><a href="<@ofbizUrl>showPromotionDetails?productPromoId=${productPromo.productPromoId}</@ofbizUrl>" class="linktext">[${uiLabelMap.CommonDetails}]</a> ${productPromo.promoText?if_exists}</div>
             <#if productPromo_has_next>
-                <div><hr class="sepbar"/></div>
+                <div><hr/></div>
             </#if>
         </#list>
-        <div><hr class="sepbar"/></div>
+        <div><hr/></div>
         <div class="tabletext"><a href="<@ofbizUrl>showAllPromotions</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderViewAllPromotions}</a></div>
     </div>
 </div>
@@ -484,7 +484,7 @@ function setAlternateGwp(field) {
                 ${screens.render("component://ecommerce/widget/CatalogScreens.xml#productsummary")}
             </div>
             <#if assocProduct_has_next>
-                <div><hr class="sepbar"/></div>
+                <div><hr/></div>
             </#if>
         </#list>
     </div>

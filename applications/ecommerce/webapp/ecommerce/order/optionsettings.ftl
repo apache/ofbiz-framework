@@ -52,7 +52,7 @@ under the License.
               </td>
             </tr>
             </#if>
-            <tr><td colspan="2"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="2"><hr/></td></tr>
             <tr>
               <td colspan="2">
                 <h2>${uiLabelMap.OrderShipAllAtOnce}?</h2>
@@ -74,7 +74,7 @@ under the License.
                 <div class="tabletext">${uiLabelMap.OrderPleaseShipItemsBecomeAvailable}.</div>
               </td>
             </tr>
-            <tr><td colspan="2"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="2"><hr/></td></tr>
             <tr>
               <td colspan="2">
                 <h2>${uiLabelMap.OrderSpecialInstructions}</h2>
@@ -85,7 +85,7 @@ under the License.
                 <textarea class="textAreaBox" cols="30" rows="3" name="shipping_instructions">${shoppingCart.getShippingInstructions()?if_exists}</textarea>
               </td>
             </tr>
-            <tr><td colspan="2"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="2"><hr/></td></tr>
             <tr>
               <td colspan="2">
                 <h2>${uiLabelMap.OrderPoNumber}</h2>
@@ -93,7 +93,7 @@ under the License.
               </td>
             </tr>
             <#if productStore.showCheckoutGiftOptions?if_exists != "N">
-            <tr><td colspan="2"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="2"><hr/></td></tr>
             <tr>
               <td colspan="2">
                 <div>
@@ -103,7 +103,7 @@ under the License.
                 </div>
               </td>
             </tr>
-            <tr><td colspan="2"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="2"><hr/></td></tr>
             <tr>
               <td colspan="2"><h2>${uiLabelMap.OrderGiftMessage}</h2>
             </td>

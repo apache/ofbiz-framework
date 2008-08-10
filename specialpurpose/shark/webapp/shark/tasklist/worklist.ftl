@@ -48,16 +48,16 @@ under the License.
           <input type="hidden" name="resource" value="${assignm.assignee().resource_key()}">
           <input type="hidden" name="mode" value="accept">
 
-          <td align="left"><div>${assignm.assignee().resource_key()}</div></td>
-          <td align="left"><div>${assignm.activity().name()}</div></td>
-          <td align="left"><div>${assignm.activity().key()}</div></td>
+          <td><div>${assignm.assignee().resource_key()}</div></td>
+          <td><div>${assignm.activity().name()}</div></td>
+          <td><div>${assignm.activity().key()}</div></td>
           <td align="center">
             <input type="checkbox" name="accept" onclick="javascript:document.assignmentChange${formNumber}.submit();" value="Y" <#if assignm.get_accepted_status()>checked</#if>>
           </td>
           <td align="center"><div>${assignm.activity().priority()}</div></td>
-          <td align="left"><div>${assignm.activity().state()}</div></td>
+          <td><div>${assignm.activity().state()}</div></td>
           <#if (time > 0)>
-            <td align="left"><div>${Static["org.ofbiz.base.util.UtilDateTime"].getTimestamp(time)}</div></td>
+            <td><div>${Static["org.ofbiz.base.util.UtilDateTime"].getTimestamp(time)}</div></td>
           <#else>
             <td align="center"><div>N/A</div></td>
           </#if>

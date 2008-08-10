@@ -58,7 +58,7 @@ function setWeight(weight) {
                 <tr>
                   <td width="20%" align="right"><span class="label">${uiLabelMap.ProductCarrier}</span></td>
                   <td>&nbsp;</td>
-                  <td width="1%" align="left" nowrap>
+                  <td width="1%" nowrap>
                     <select name="carrierPartyId">
                       <#if shipmentRoute.carrierPartyId?has_content>
                         <option value="${shipmentRoute.carrierPartyId}">${(carrierPerson.firstName)?if_exists} ${(carrierPerson.middleName)?if_exists} ${(carrierPerson.lastName)?if_exists} ${(carrierPartyGroup.groupName)?if_exists} [${shipmentRoute.carrierPartyId}]</option>
@@ -79,7 +79,7 @@ function setWeight(weight) {
                 <tr>
                   <td width="20%" align="right"><span class="label">${uiLabelMap.ProductShipMethod}</span></td>
                   <td>&nbsp;</td>
-                  <td width="1%" align="left" nowrap>
+                  <td width="1%" nowrap>
                     <select name="shipmentMethodTypeId">
                       <#if shipmentMethodType?has_content>
                         <option value="${shipmentMethodType.shipmentMethodTypeId}">${shipmentMethodType.get("description",locale)}</option>
@@ -100,7 +100,7 @@ function setWeight(weight) {
                 <tr>
                   <td width="20%" align="right">&nbsp;</td>
                   <td>&nbsp;</td>
-                  <td width="1%" align="left" nowrap>
+                  <td width="1%" nowrap>
                     &nbsp;
                   </td>
                   <td>&nbsp;</td>
@@ -131,7 +131,7 @@ function setWeight(weight) {
               <tr>
                 <td width="20%" align="right"><span class="label">${uiLabelMap.ProductPackage}</span> ${shipmentPackage.shipmentPackageSeqId} ${uiLabelMap.ProductWeight}</td>
                 <td>&nbsp;</td>
-                <td width="80%" align="left">
+                <td width="80%">
                   <input type="text" name="weight">&nbsp;
                   <select name="weightUomId">
                     <#if weightUom?has_content>
@@ -146,7 +146,7 @@ function setWeight(weight) {
               </tr>
               <tr>
                 <td colspan="2">&nbsp;</td>
-                <td width="80%" align="left">
+                <td width="80%">
                   <input type="image" src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" onClick="javascript:document.weightForm.submit();"/>
                   <a href="javascript:document.weightForm.submit();" class="buttontext">${uiLabelMap.ProductSetWeight}</a>
                 </td>

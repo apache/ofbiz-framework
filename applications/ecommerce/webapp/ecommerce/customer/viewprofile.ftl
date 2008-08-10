@@ -21,7 +21,7 @@ under the License.
 <#-- Main Heading -->
 <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr>
-    <td align="left">
+    <td>
       <h1>${uiLabelMap.PartyTheProfileOf}
         <#if person?exists>
           ${person.personalTitle?if_exists}
@@ -63,7 +63,7 @@ under the License.
     <tr>
       <td align="right" width="10%"><div class="tabletext"><b>${uiLabelMap.PartyName}</b></div></td>
       <td width="5">&nbsp;</td>
-      <td align="left" width="90%">
+      <td width="90%">
         <div class="tabletext">
           ${person.personalTitle?if_exists}
           ${person.firstName?if_exists}
@@ -73,18 +73,18 @@ under the License.
         </div>
       </td>
     </tr>
-    <#if person.nickname?has_content><tr><td align="right" nowrap><div class="tabletext"><b>${uiLabelMap.PartyNickName}</b></div></td><td>&nbsp;</td><td align="left"><div class="tabletext">${person.nickname}</div></td></tr></#if>
-    <#if person.gender?has_content><tr><td align="right" nowrap><div class="tabletext"><b>${uiLabelMap.PartyGender}</b></div></td><td>&nbsp;</td><td align="left"><div class="tabletext">${person.gender}</div></td></tr></#if>
-    <#if person.birthDate?exists><tr><td align="right" nowrap><div class="tabletext"><b>${uiLabelMap.PartyBirthDate}</b></div></td><td>&nbsp;</td><td align="left"><div class="tabletext">${person.birthDate.toString()}</div></td></tr></#if>
-    <#if person.height?exists><tr><td align="right" nowrap><div class="tabletext"><b>${uiLabelMap.PartyHeight}</b></div></td><td>&nbsp;</td><td align="left"><div class="tabletext">${person.height}</div></td></tr></#if>
-    <#if person.weight?exists><tr><td align="right" nowrap><div class="tabletext"><b>${uiLabelMap.PartyWeight}</b></div></td><td>&nbsp;</td><td align="left"><div class="tabletext">${person.weight}</div></td></tr></#if>
-    <#if person.mothersMaidenName?has_content><tr><td align="right" nowrap><div class="tabletext"><b>${uiLabelMap.PartyMaidenName}</b></div></td><td>&nbsp;</td><td align="left"><div class="tabletext">${person.mothersMaidenName}</div></td></tr></#if>
-    <#if person.maritalStatus?has_content><tr><td align="right" nowrap><div class="tabletext"><b>${uiLabelMap.PartyMaritalStatus}</b></div></td><td>&nbsp;</td><td align="left"><div class="tabletext">${person.maritalStatus}</div></td></tr></#if>
-    <#if person.socialSecurityNumber?has_content><tr><td align="right" nowrap><div class="tabletext"><b>${uiLabelMap.PartySocialSecurityNumber}</b></div></td><td>&nbsp;</td><td align="left"><div class="tabletext">${person.socialSecurityNumber}</div></td></tr></#if>
-    <#if person.passportNumber?has_content><tr><td align="right" nowrap><div class="tabletext"><b>${uiLabelMap.PartyPassportNumber}</b></div></td><td>&nbsp;</td><td align="left"><div class="tabletext">${person.passportNumber}</div></td></tr></#if>
-    <#if person.passportExpireDate?exists><tr><td align="right" nowrap><div class="tabletext"><b>${uiLabelMap.PartyPassportExpireDate}</b></div></td><td>&nbsp;</td><td align="left"><div class="tabletext">${person.passportExpireDate.toString()}</div></td></tr></#if>
-    <#if person.totalYearsWorkExperience?exists><tr><td align="right" nowrap><div class="tabletext"><b>${uiLabelMap.PartyYearsWork}</b></div></td><td>&nbsp;</td><td align="left"><div class="tabletext">${person.totalYearsWorkExperience}</div></td></tr></#if>
-    <#if person.comments?has_content><tr><td align="right" nowrap><div class="tabletext"><b>${uiLabelMap.CommonComments}</b></div></td><td>&nbsp;</td><td align="left"><div class="tabletext">${person.comments}</div></td></tr></#if>
+    <#if person.nickname?has_content><tr><td align="right" nowrap><div class="tabletext"><b>${uiLabelMap.PartyNickName}</b></div></td><td>&nbsp;</td><td><div class="tabletext">${person.nickname}</div></td></tr></#if>
+    <#if person.gender?has_content><tr><td align="right" nowrap><div class="tabletext"><b>${uiLabelMap.PartyGender}</b></div></td><td>&nbsp;</td><td><div class="tabletext">${person.gender}</div></td></tr></#if>
+    <#if person.birthDate?exists><tr><td align="right" nowrap><div class="tabletext"><b>${uiLabelMap.PartyBirthDate}</b></div></td><td>&nbsp;</td><td><div class="tabletext">${person.birthDate.toString()}</div></td></tr></#if>
+    <#if person.height?exists><tr><td align="right" nowrap><div class="tabletext"><b>${uiLabelMap.PartyHeight}</b></div></td><td>&nbsp;</td><td><div class="tabletext">${person.height}</div></td></tr></#if>
+    <#if person.weight?exists><tr><td align="right" nowrap><div class="tabletext"><b>${uiLabelMap.PartyWeight}</b></div></td><td>&nbsp;</td><td><div class="tabletext">${person.weight}</div></td></tr></#if>
+    <#if person.mothersMaidenName?has_content><tr><td align="right" nowrap><div class="tabletext"><b>${uiLabelMap.PartyMaidenName}</b></div></td><td>&nbsp;</td><td><div class="tabletext">${person.mothersMaidenName}</div></td></tr></#if>
+    <#if person.maritalStatus?has_content><tr><td align="right" nowrap><div class="tabletext"><b>${uiLabelMap.PartyMaritalStatus}</b></div></td><td>&nbsp;</td><td><div class="tabletext">${person.maritalStatus}</div></td></tr></#if>
+    <#if person.socialSecurityNumber?has_content><tr><td align="right" nowrap><div class="tabletext"><b>${uiLabelMap.PartySocialSecurityNumber}</b></div></td><td>&nbsp;</td><td><div class="tabletext">${person.socialSecurityNumber}</div></td></tr></#if>
+    <#if person.passportNumber?has_content><tr><td align="right" nowrap><div class="tabletext"><b>${uiLabelMap.PartyPassportNumber}</b></div></td><td>&nbsp;</td><td><div class="tabletext">${person.passportNumber}</div></td></tr></#if>
+    <#if person.passportExpireDate?exists><tr><td align="right" nowrap><div class="tabletext"><b>${uiLabelMap.PartyPassportExpireDate}</b></div></td><td>&nbsp;</td><td><div class="tabletext">${person.passportExpireDate.toString()}</div></td></tr></#if>
+    <#if person.totalYearsWorkExperience?exists><tr><td align="right" nowrap><div class="tabletext"><b>${uiLabelMap.PartyYearsWork}</b></div></td><td>&nbsp;</td><td><div class="tabletext">${person.totalYearsWorkExperience}</div></td></tr></#if>
+    <#if person.comments?has_content><tr><td align="right" nowrap><div class="tabletext"><b>${uiLabelMap.CommonComments}</b></div></td><td>&nbsp;</td><td><div class="tabletext">${person.comments}</div></td></tr></#if>
   </table>
 </div>
 <#else>
@@ -116,7 +116,7 @@ under the License.
     <div class="screenlet-body">
   <#if partyContactMechValueMaps?has_content>
     <table width="100%" border="0" cellpadding="0">
-      <tr align="left" valign="bottom">
+      <tr valign="bottom">
         <th class="tableheadtext">${uiLabelMap.PartyContactType}</th>
         <th class="tableheadtext" width="5">&nbsp;</th>
         <th class="tableheadtext">${uiLabelMap.CommonInformation}</th>
@@ -129,13 +129,13 @@ under the License.
         <#assign contactMech = partyContactMechValueMap.contactMech?if_exists>
         <#assign contactMechType = partyContactMechValueMap.contactMechType?if_exists>
         <#assign partyContactMech = partyContactMechValueMap.partyContactMech?if_exists>
-          <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+          <tr><td colspan="7"><hr/></td></tr>
           <tr>
             <td align="right" valign="top" width="10%">
               <div class="tabletext">&nbsp;<b>${contactMechType.get("description",locale)}</b></div>
             </td>
             <td width="5">&nbsp;</td>
-            <td align="left" valign="top" width="80%">
+            <td valign="top" width="80%">
               <#list partyContactMechValueMap.partyContactMechPurposes?if_exists as partyContactMechPurpose> 
                   <#assign contactMechPurposeType = partyContactMechPurpose.getRelatedOneCache("ContactMechPurposeType")>
                     <div class="tabletext">
@@ -237,7 +237,7 @@ under the License.
     <div class="screenlet-body">
       <table width="100%" border="0" cellpadding="1">
         <tr>
-          <td align="left">
+          <td>
             <#if paymentMethodValueMaps?has_content>
               <table width="100%" cellpadding="2" cellspacing="0" border="0">
                 <#list paymentMethodValueMaps as paymentMethodValueMap>
@@ -365,7 +365,7 @@ under the License.
           <tr>
             <td align="right" valign="top" width="10%" nowrap><div class="tabletext"><b>${uiLabelMap.CommonUsername}</b></div></td>
             <td width="5">&nbsp;</td>
-            <td align="left" valign="top" width="90%"><div class="tabletext">${userLogin.userLoginId}</div></td>
+            <td valign="top" width="90%"><div class="tabletext">${userLogin.userLoginId}</div></td>
           </tr>
         </table>
     </div>
@@ -482,7 +482,7 @@ under the License.
             <#assign statusItem = contactListParty.getRelatedOneCache("StatusItem")?if_exists/>
             <#assign emailAddress = contactListParty.getRelatedOneCache("PreferredContactMech")/>
             <#-- <#assign contactListType = contactList.getRelatedOneCache("ContactListType")/> -->
-            <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+            <tr><td colspan="7"><hr/></td></tr>
             <tr>
               <td width="15%"><div class="tabletext"><b>${contactList.contactListName?if_exists}</b><#if contactList.description?has_content>&nbsp;-&nbsp;${contactList.description}</#if></div></td>
               <#-- <td width="15%"><div class="tabletext">${contactListType.get("description",locale)?if_exists}</div></td> -->
@@ -510,7 +510,7 @@ under the License.
             </tr>
           </#list>
         </table>
-        <hr class="sepbar"/>
+        <hr/>
         <div>
           <form method="post" action="<@ofbizUrl>createContactListParty</@ofbizUrl>" name="clistPendingForm">
             <input type="hidden" name="partyId" value="${party.partyId}"/>
@@ -550,9 +550,9 @@ under the License.
             <#assign survey = surveyAppl.getRelatedOne("Survey")>
             <tr>
               <td>&nbsp;</td>
-              <td align="left" valign="top" width="10%" nowrap><div class="tabletext"><b>${survey.surveyName?if_exists}</b>&nbsp;-&nbsp;${survey.description?if_exists}</div></td>
+              <td valign="top" width="10%" nowrap><div class="tabletext"><b>${survey.surveyName?if_exists}</b>&nbsp;-&nbsp;${survey.description?if_exists}</div></td>
               <td width="5">&nbsp;</td>
-              <td align="left" valign="top" width="70%">
+              <td valign="top" width="70%">
                 <#assign responses = Static["org.ofbiz.product.store.ProductStoreWorker"].checkSurveyResponse(request, survey.surveyId)?default(0)>
                 <div class="tabletext"><#if (responses < 1)><font color="red"><b>${uiLabelMap.EcommerceNotCompleted}</b><#else>${uiLabelMap.EcommerceCompleted}</#if></div>
               </td>

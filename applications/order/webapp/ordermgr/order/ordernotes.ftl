@@ -37,11 +37,11 @@ under the License.
             <table class="basic-table" cellspacing='0'>
               <#list orderNotes as note>
                 <tr>
-                  <td align="left" valign="top" width="35%">
+                  <td valign="top" width="35%">
                     <div>&nbsp;<span class="label">${uiLabelMap.CommonBy}</span>&nbsp;${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, note.noteParty, true)}</div>
                     <div>&nbsp;<span class="label">${uiLabelMap.CommonAt}</span>&nbsp;${note.noteDateTime?string?if_exists}</div>
                   </td>
-                  <td align="left" valign="top" width="50%">
+                  <td valign="top" width="50%">
                     ${note.noteInfo?if_exists}
                   </td>
                   <td align="right" valign="top" width="15%">

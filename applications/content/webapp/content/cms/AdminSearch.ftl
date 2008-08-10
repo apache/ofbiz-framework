@@ -25,7 +25,7 @@ under the License.
 <span class="tableheadtext">${uiLabelMap.ContentQueryLine}</span>
 </td>
 <td>&nbsp;</td>
-<td width="80%" align="left">
+<td width="80%">
 <input type="text" class="inputBox" name="queryLine" size="60"/>
 </td>
 </tr>
@@ -35,7 +35,7 @@ under the License.
 <span class="tableheadtext">${uiLabelMap.CommonSelect} ${uiLabelMap.ContentCategory}</span>
 </td>
 <td>&nbsp;</td>
-<td width="80%" align="left">
+<td width="80%">
 <select name="lcSiteId">
   <option value=""></option>
   <@listSiteIds contentId="WebStoreCONTENT" indentIndex=0/>
@@ -112,7 +112,7 @@ under the License.
 <td width="20%" align="right">
 &nbsp;</td>
 <td>&nbsp;</td>
-<td width="80%" align="left" colspan="4">
+<td width="80%" colspan="4">
 <input type="submit" class="smallSubmit" name="submitButton" value="${uiLabelMap.CommonFind}"/>
 </td>
 

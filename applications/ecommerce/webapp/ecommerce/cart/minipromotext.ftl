@@ -27,10 +27,10 @@ under the License.
         <#list productPromos as productPromo>
             <div class="tabletext"><a href="<@ofbizUrl>showPromotionDetails?productPromoId=${productPromo.productPromoId}</@ofbizUrl>" class="linktext">${uiLabelMap.CommonDetails}</a> ${productPromo.promoText}</div>
             <#if productPromo_has_next>
-                <div><hr class="sepbar"/></div>
+                <div><hr/></div>
             </#if>
         </#list>
-        <div><hr class="sepbar"/></div>
+        <div><hr/></div>
         <div class="tabletext"><a href="<@ofbizUrl>showAllPromotions</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderViewAllPromotions}</a></div>
     </div>
 </div>

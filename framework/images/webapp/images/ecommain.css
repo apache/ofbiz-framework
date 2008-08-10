@@ -662,14 +662,6 @@ color: red;
 }
 
 /* ===== Misc/General Styles ===== */
-HR.sepbar {
-font-size: xx-small;
-width: 100%;
-height: 1px;
-background: #999999;
-border-width: 0px;
-}
-
 .errorMessage {
 font-size: 8pt;
 font-weight: bold;

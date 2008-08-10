@@ -33,8 +33,8 @@ under the License.
           </tr>
         <#list partyRoles as userRole>
           <tr>
-            <td align="left">${userRole.roleTypeId}</td>
-            <td align="left">${userRole.get("description",locale)}</td>
+            <td>${userRole.roleTypeId}</td>
+            <td>${userRole.get("description",locale)}</td>
             <#if hasDeletePermission>
               <td class="button-col align-float">
                 <a href="<@ofbizUrl>deleterole?partyId=${partyId}&roleTypeId=${userRole.roleTypeId}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonRemove}</a>&nbsp;

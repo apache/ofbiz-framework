@@ -168,7 +168,7 @@ under the License.
         
         <tr>
             <td colspan="2">&nbsp;</td>
-            <td align="left"><input type="submit" <#if isCreate>value="${uiLabelMap.CommonCreate}"<#else>value="${uiLabelMap.CommonUpdate}"</#if>></td>
+            <td><input type="submit" <#if isCreate>value="${uiLabelMap.CommonCreate}"<#else>value="${uiLabelMap.CommonUpdate}"</#if>></td>
         </tr>
         </table>
         </form>

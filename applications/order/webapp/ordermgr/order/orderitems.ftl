@@ -27,10 +27,10 @@ under the License.
     </div>        
     <div class="screenlet-body">
        <table class="basic-table" cellspacing='0'>
-          <tr align="left" valign="bottom" class="header-row">
-            <td width="30%" align="left">${uiLabelMap.ProductProduct}</td>
-            <td width="33%" align="left">${uiLabelMap.CommonStatus}</td>
-            <td width="5%" align="left">${uiLabelMap.OrderQuantity}</td>
+          <tr valign="bottom" class="header-row">
+            <td width="30%">${uiLabelMap.ProductProduct}</td>
+            <td width="33%">${uiLabelMap.CommonStatus}</td>
+            <td width="5%">${uiLabelMap.OrderQuantity}</td>
             <td width="10%" align="right">${uiLabelMap.OrderUnitList}</td>
             <td width="10%" align="right">${uiLabelMap.OrderAdjustments}</td>
             <td width="10%" align="right">${uiLabelMap.OrderSubTotal}</td>
@@ -91,25 +91,25 @@ under the License.
                               <tr><td style="text-align: right; padding-bottom: 10px;">
                                   <a class="buttontext" href="/catalog/control/EditProductInventoryItems?productId=${productId}&amp;showAllFacilities=Y&amp;externalLoginKey=${externalLoginKey}" target="_blank">${uiLabelMap.ProductInventory}</a>
                               </td><td>&nbsp;</td></tr>
-                              <tr><td align="left">${uiLabelMap.OrderRequiredForSO}</td>
+                              <tr><td>${uiLabelMap.OrderRequiredForSO}</td>
                                 <td style="padding-left: 15px; text-align: left;">${requiredQuantity}</td></tr>
                               <#if availableToPromiseByFacilityMap?exists && quantityOnHandByFacilityMap?exists && quantityOnHandByFacilityMap.get(productId)?exists && availableToPromiseByFacilityMap.get(productId)?exists>
                                 <#assign atpQuantityByFacility = availableToPromiseByFacilityMap.get(productId)?default(0)>
                                 <#assign qohQuantityByFacility = quantityOnHandByFacilityMap.get(productId)?default(0)>
-                                <tr><td align="left">${uiLabelMap.ProductInInventory} [${facility.facilityName?if_exists}] ${uiLabelMap.ProductQoh}</td>
+                                <tr><td>${uiLabelMap.ProductInInventory} [${facility.facilityName?if_exists}] ${uiLabelMap.ProductQoh}</td>
                                   <td style="padding-left: 15px; text-align: left;">${qohQuantityByFacility} (${uiLabelMap.ProductAtp}: ${atpQuantityByFacility})</td></tr>
                               </#if>
-                              <tr><td align="left">${uiLabelMap.ProductInInventory} [${uiLabelMap.CommonAll} ${uiLabelMap.ProductFacilities}] ${uiLabelMap.ProductQoh}</td>
+                              <tr><td>${uiLabelMap.ProductInInventory} [${uiLabelMap.CommonAll} ${uiLabelMap.ProductFacilities}] ${uiLabelMap.ProductQoh}</td>
                                 <td style="padding-left: 15px; text-align: left;">${qohQuantity} (${uiLabelMap.ProductAtp}: ${atpQuantity})</td></tr>
                               <#if (product != null) && (product.productTypeId != null) && (product.productTypeId == "MARKETING_PKG_AUTO" || product.productTypeId == "MARKETING_PKG_PICK")>
-                                <tr><td align="left">${uiLabelMap.ProductMarketingPackageQOH}</td>
+                                <tr><td>${uiLabelMap.ProductMarketingPackageQOH}</td>
                                   <td style="padding-left: 15px; text-align: left;">${mktgPkgQOH} (${uiLabelMap.ProductAtp}: ${mktgPkgATP})</td></tr>
                               </#if>
-                              <tr><td align="left">${uiLabelMap.OrderOnOrder}</td>
+                              <tr><td>${uiLabelMap.OrderOnOrder}</td>
                                 <td style="padding-left: 15px; text-align: left;">${onOrderQuantity}</td></tr>
-                              <tr><td align="left">${uiLabelMap.OrderInProduction}</td>
+                              <tr><td>${uiLabelMap.OrderInProduction}</td>
                                 <td style="padding-left: 15px; text-align: left;">${inProductionQuantity}</td></tr>
-                              <tr><td align="left">${uiLabelMap.OrderUnplanned}</td>
+                              <tr><td>${uiLabelMap.OrderUnplanned}</td>
                                 <td style="padding-left: 15px; text-align: left;">${unplannedQuantity}</td></tr>
                             </table>
                         </div>
@@ -119,7 +119,7 @@ under the License.
 
                   <#-- now show status details per line item -->
                   <#assign currentItemStatus = orderItem.getRelatedOne("StatusItem")>
-                  <td align="left" colspan="1" valign="top">
+                  <td colspan="1" valign="top">
                     <div><span class="label">${uiLabelMap.CommonCurrent}</span>&nbsp;${currentItemStatus.get("description",locale)?default(currentItemStatus.statusId)}</div>
                     <#assign orderItemStatuses = orderReadHelper.getOrderItemStatuses(orderItem)>
                     <#list orderItemStatuses as orderItemStatus>

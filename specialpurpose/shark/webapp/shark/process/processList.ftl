@@ -34,9 +34,9 @@ under the License.
     <#list processMgrs as mgr>
       <#assign state = mgr.process_mgr_state().value()>
       <tr>
-        <td align="left"><div>${mgr.name()}</div></td>
-        <td align="left"><div>${mgr.version()}</div></td>
-        <td align="left"><div>${mgr.category()}</div></td>
+        <td><div>${mgr.name()}</div></td>
+        <td><div>${mgr.version()}</div></td>
+        <td><div>${mgr.category()}</div></td>
         <td align="center"><div><#if state == enabledCode>Y<#else>N</#if></div></td>
         <td align="center"><div>${mgr.how_many_process()}</div></td>
         <#if state == enabledCode>

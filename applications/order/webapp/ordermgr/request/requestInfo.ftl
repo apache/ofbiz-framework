@@ -28,7 +28,7 @@ under the License.
                     &nbsp;${uiLabelMap.CommonType}
                 </td>
                 <td width="5%">&nbsp;</td>
-                <td align="left" valign="top" width="80%">
+                <td valign="top" width="80%">
                     ${(custRequestType.get("description",locale))?default(custRequest.custRequestTypeId?if_exists)}
                 </td>
             </tr>
@@ -39,7 +39,7 @@ under the License.
                     &nbsp;${uiLabelMap.CommonStatus}
                 </td>
                 <td width="5%">&nbsp;</td>
-                <td align="left" valign="top" width="80%">
+                <td valign="top" width="80%">
                     ${(statusItem.get("description", locale))?default(custRequest.statusId?if_exists)}
                 </td>
             </tr>
@@ -50,7 +50,7 @@ under the License.
                      &nbsp;${uiLabelMap.PartyPartyId}
                  </td>
                  <td width="5%">&nbsp;</td>
-                 <td align="left" valign="top" width="80%">
+                 <td valign="top" width="80%">
                     ${custRequest.fromPartyId?if_exists}
                  </td>
             </tr>
@@ -61,7 +61,7 @@ under the License.
                     &nbsp;${uiLabelMap.CommonName}
                 </td>
                 <td width="5%">&nbsp;</td>
-                <td align="left" valign="top" width="80%">
+                <td valign="top" width="80%">
                     ${custRequest.custRequestName?if_exists}
                 </td>
             </tr>
@@ -72,7 +72,7 @@ under the License.
                     &nbsp;${uiLabelMap.CommonDescription}
                 </td>
                 <td width="5%">&nbsp;</td>
-                <td align="left" valign="top" width="80%">
+                <td valign="top" width="80%">
                     ${custRequest.description?if_exists}
                 </td>
             </tr>
@@ -83,7 +83,7 @@ under the License.
                     &nbsp;${uiLabelMap.CommonCurrency}
                 </td>
                 <td width="5%">&nbsp;</td>
-                <td align="left" valign="top" width="80%">
+                <td valign="top" width="80%">
                     <#if currency?exists>${currency.get("description", locale)?default(custRequest.maximumAmountUomId?if_exists)}</#if>
                 </td>
             </tr>
@@ -94,7 +94,7 @@ under the License.
                     &nbsp;${uiLabelMap.ProductProductStore}
                 </td>
                 <td width="5%">&nbsp;</td>
-                <td align="left" valign="top" width="80%">
+                <td valign="top" width="80%">
                     <#if store?exists>${store.storeName?default(custRequest.productStoreId?if_exists)}</#if>
                 </td>
             </tr>
@@ -105,7 +105,7 @@ under the License.
                     &nbsp;${uiLabelMap.CommonInternalComment}
                 </td>
                 <td width="5%">&nbsp;</td>
-                <td align="left" valign="top" width="80%">
+                <td valign="top" width="80%">
                     ${custRequest.internalComment?if_exists}
                 </td>
             </tr>
@@ -116,7 +116,7 @@ under the License.
                     &nbsp;${uiLabelMap.CommonReason}
                 </td>
                 <td width="5%">&nbsp;</td>
-                <td align="left" valign="top" width="80%">
+                <td valign="top" width="80%">
                     ${custRequest.reason?if_exists}
                 </td>
             </tr>

@@ -50,7 +50,7 @@ under the License.
             </tr>
             <#list quoteList as quote>
                 <#assign status = quote.getRelatedOneCache("StatusItem")>                               
-                <tr><td colspan="12"><hr class="sepbar"/></td></tr>
+                <tr><td colspan="12"><hr/></td></tr>
                 <tr>
                     <td>
                         <div class="tabletext">${quote.quoteId}</div>

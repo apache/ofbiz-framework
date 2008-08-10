@@ -42,10 +42,10 @@ under the License.
 </#if>
       <table class="basic-table" cellspacing="0">
         <tr class="header-row">
-          <td width="10%" align="left">${uiLabelMap.ManufacturingProductLevel}</td>
-          <td width="20%" align="left">${uiLabelMap.ProductProductId}</td>
-          <td width="10%" align="left">&nbsp;</td>
-          <td width="40%" align="left">${uiLabelMap.ProductProductName}</td>
+          <td width="10%">${uiLabelMap.ManufacturingProductLevel}</td>
+          <td width="20%">${uiLabelMap.ProductProductId}</td>
+          <td width="10%">&nbsp;</td>
+          <td width="40%">${uiLabelMap.ProductProductName}</td>
           <td width="10%" align="right">${uiLabelMap.CommonQuantity}</td>
           <td width="10%" align="right">&nbsp;</td>
         </tr>
@@ -86,8 +86,8 @@ under the License.
       <br/>
       <table class="basic-table" cellspacing="0">
         <tr class="header-row">
-          <td width="18%" align="left">${uiLabelMap.ProductProductId}</td>
-          <td width="50%" align="left">${uiLabelMap.ProductProductName}</td>
+          <td width="18%">${uiLabelMap.ProductProductId}</td>
+          <td width="50%">${uiLabelMap.ProductProductName}</td>
           <td width="8%" align="right">${uiLabelMap.CommonQuantity}</td>
           <td width="8%" align="right">${uiLabelMap.ProductQoh}</td>
           <td width="8%" align="right">${uiLabelMap.FormFieldTitle_cost}</td>

@@ -119,7 +119,7 @@ under the License.
   </table>
   
   <#if searchOptionsHistoryList?has_content>
-    <hr class="sepbar"/>
+    <hr/>
   
     <h2>${uiLabelMap.OrderLastSearches}...</h2>
   
@@ -139,7 +139,7 @@ under the License.
           <div class="tabletext">&nbsp;-&nbsp;${constraintString}</div>
         </#list>
         <#if searchOptions_has_next>
-          <hr class="sepbar"/>
+          <hr/>
         </#if>
     </#list>
   </#if>

@@ -63,7 +63,7 @@ function call_fieldlookup3(view_name) {
           <td colspan="1" valign="middle" align="right">
             <div class="boxhead">&nbsp; WebSitePublishPoint&nbsp;&nbsp; </div>
           </td>
-          <td valign="middle" align="left">
+          <td valign="middle">
             <div class="boxhead">
              <input type="text" name="webSitePublishPoint" size="20" value="${webSitePublishPoint?if_exists}">
              <input type="submit" value="${uiLabelMap.CommonRefresh}"/>

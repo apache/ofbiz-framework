@@ -55,7 +55,7 @@ under the License.
             <#list requestList as custRequest>
                 <#assign status = custRequest.getRelatedOneCache("StatusItem")>
                 <#assign type = custRequest.getRelatedOneCache("CustRequestType")>
-                <tr><td colspan="14"><hr class="sepbar"/></td></tr>
+                <tr><td colspan="14"><hr/></td></tr>
                 <tr>
                     <td>
                         <div class="tabletext">${custRequest.custRequestId}</div>

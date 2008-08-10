@@ -170,7 +170,7 @@ function makeExpDate() {
               <td width="26%" align="right"= valign="top">
                 <input type="checkbox" name="useShipAddr" value="Y" onClick="javascript:shipBillAddr();" <#if requestParameters.useShipAddr?exists>checked="checked"</#if>/>
               </td>
-              <td colspan="2" align="left" valign="center">
+              <td colspan="2" valign="center">
                 <div>${uiLabelMap.FacilityBillingAddressSameShipping}</div>
               </td>
             </tr>

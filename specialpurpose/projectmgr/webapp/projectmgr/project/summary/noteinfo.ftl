@@ -38,11 +38,11 @@ under the License.
             <table width="100%" border="0" cellpadding="1">
               <#list workEffortNoteandDetails as note>
                 <tr>
-                  <td align="left" valign="top" width="35%">
+                  <td valign="top" width="35%">
                     <div>&nbsp;<b>${uiLabelMap.CommonBy}: </b>${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, note.noteParty, true)}</div>
                     <div>&nbsp;<b>${uiLabelMap.CommonAt}: </b>${Static["org.ofbiz.base.util.UtilDateTime"].timeStampToString(note.noteDateTime?if_exists,"dd-MM-yyyy HH:mm",Static["java.util.TimeZone"].getDefault(),context.get("locale"))}</div>
                   </td>
-                  <td align="left" valign="top" width="50%">
+                  <td valign="top" width="50%">
                     <div>${note.noteInfo?if_exists}</div>
                   </td>
                   <td align="right" valign="top" width="15%">

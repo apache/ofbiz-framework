@@ -73,7 +73,7 @@ under the License.
             <br/>
             <div>
                 <div align="right"><h2>${uiLabelMap.ProductShipmentTotalWeight}: ${totWeight} ${uiLabelMap.ProductShipmentTotalVolume}: ${totVolume}</h2></div> 
-                <div align="left">${shipmentPlanToOrderItemsForm.renderFormString(context)}</div>
+                <div>${shipmentPlanToOrderItemsForm.renderFormString(context)}</div>
             </div>
         </div>
     </div>

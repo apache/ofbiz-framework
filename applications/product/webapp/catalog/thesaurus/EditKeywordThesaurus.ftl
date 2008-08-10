@@ -66,7 +66,7 @@ under the License.
                       </div>
                     </form>
                   </td>
-                  <td align="left">
+                  <td>
               </#if>
               <div>
                 <a href="<@ofbizUrl>deleteKeywordThesaurus?enteredKeyword=${keyword.enteredKeyword}&alternateKeyword=${keyword.alternateKeyword}</@ofbizUrl>" class="buttontext">X</a>

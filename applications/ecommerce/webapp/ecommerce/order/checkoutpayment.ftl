@@ -79,7 +79,7 @@ function submitForm(form, mode, value) {
                   <a href="javascript:submitForm(document.checkoutInfoForm, 'NE', '');" class="buttontext">${uiLabelMap.AccountingEftAccount}</a>
                 </#if>
               </td></tr>
-              <tr><td colspan="3"><hr class="sepbar"/></td></tr>
+              <tr><td colspan="3"><hr/></td></tr>
               <#if productStorePaymentMethodTypeIdMap.EXT_OFFLINE?exists>
               <tr>
                 <td width="1" nowrap>
@@ -124,7 +124,7 @@ function submitForm(form, mode, value) {
                 <td width="1" nowrap>&nbsp;</td>
               </tr>
               </#if>
-              <tr><td colspan="3"><hr class="sepbar"/></td></tr>
+              <tr><td colspan="3"><hr/></td></tr>
             <#if !paymentMethodList?has_content>
               <tr>
                 <td colspan="3">
@@ -211,7 +211,7 @@ function submitForm(form, mode, value) {
                     </td>
                     <td>&nbsp;</td>
                   </tr>
-                  <tr><td colspan="3"><hr class="sepbar"/></td></tr>
+                  <tr><td colspan="3"><hr/></td></tr>
                  </#if>
                 </#if>
               </#list>
@@ -220,7 +220,7 @@ function submitForm(form, mode, value) {
             <#-- special billing account functionality to allow use w/ a payment method -->
             <#if productStorePaymentMethodTypeIdMap.EXT_BILLACT?exists>
               <#if billingAccountList?has_content>
-                <tr><td colspan="3"><hr class="sepbar"/></td></tr>
+                <tr><td colspan="3"><hr/></td></tr>
                 <tr>
                   <td width="1%">
                     <select name="billingAccountId">
@@ -251,7 +251,7 @@ function submitForm(form, mode, value) {
             <#-- end of special billing account functionality -->
 
             <#if productStorePaymentMethodTypeIdMap.GIFT_CARD?exists>
-              <tr><td colspan="3"><hr class="sepbar"/></td></tr>
+              <tr><td colspan="3"><hr/></td></tr>
               <tr>
                 <td width="1%" nowrap>
                   <input type="checkbox" name="addGiftCard" value="Y">
@@ -292,7 +292,7 @@ function submitForm(form, mode, value) {
               </tr>
             </#if>
 
-              <tr><td colspan="3"><hr class="sepbar"/></td></tr>
+              <tr><td colspan="3"><hr/></td></tr>
               <tr>
                 <td colspan="3">
                   <div class='tabletext' valign='middle'>
@@ -310,7 +310,7 @@ function submitForm(form, mode, value) {
 
 <table width="100%">
   <tr valign="top">
-    <td align="left">
+    <td>
       &nbsp;<a href="javascript:submitForm(document.checkoutInfoForm, 'CS', '');" class="buttontextbig">${uiLabelMap.OrderBacktoShoppingCart}</a>
     </td>
     <td align="right">

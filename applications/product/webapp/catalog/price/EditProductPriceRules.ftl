@@ -33,7 +33,7 @@ under the License.
           <#assign productPriceActions = productPriceRule.getRelated("ProductPriceAction")>
           <tr valign="middle">
             <td class="label"><b>${productPriceRule.productPriceRuleId}</b></td>
-            <td align="left">
+            <td>
                 <form method="post" action="<@ofbizUrl>updateProductPriceRule</@ofbizUrl>" name="updateProductPriceRule">
                     <input type="hidden" name="productPriceRuleId" value="${productPriceRule.productPriceRuleId}">
                     <input type="text" size="15" name="ruleName" value="${productPriceRule.ruleName}">
@@ -60,7 +60,7 @@ under the License.
           </tr>
           <tr valign="top">
             <td align="right" class="label">${uiLabelMap.ProductConditions}</td>
-            <td align="left" colspan="2">
+            <td colspan="2">
                 <table cellspacing="0" class="basic-table">
                   <tr class="header-row">
                     <td width="5%"><b>${uiLabelMap.ProductSeqId}</b></td>
@@ -75,7 +75,7 @@ under the License.
                         <#assign curCondSeqId = productPriceCond.productPriceCondSeqId?number>
                         <#if (curCondSeqId >= maxCondSeqId)><#assign maxCondSeqId = curCondSeqId + 1></#if>
                         <td><b>${productPriceCond.productPriceCondSeqId}</b></td>
-                        <td align="left">
+                        <td>
                             <form method="post" action="<@ofbizUrl>updateProductPriceCond</@ofbizUrl>">
                                 <input type="hidden" name="productPriceRuleId" value="${productPriceCond.productPriceRuleId}"/>
                                 <input type="hidden" name="productPriceCondSeqId" value="${productPriceCond.productPriceCondSeqId}"/>
@@ -120,7 +120,7 @@ under the License.
                       </#if> 
                   </#list>
                   <tr>
-                    <td align="left" colspan="3">
+                    <td colspan="3">
                         <form method="post" action="<@ofbizUrl>createProductPriceCond</@ofbizUrl>">
                             <input type="hidden" name="productPriceRuleId" value="${productPriceRule.productPriceRuleId}">
                             <span class="label"><b>${uiLabelMap.CommonNew}</b>&nbsp;</span>
@@ -144,7 +144,7 @@ under the License.
           </tr>
           <tr valign="top">
             <td align="right" class="label">${uiLabelMap.ProductActions}</td>
-            <td align="left" colspan="2">
+            <td colspan="2">
                 <table cellspacing="0" class="basic-table">
                   <tr class="header-row">
                     <td width="5%"><b>${uiLabelMap.ProductSeqId}</b></td>
@@ -155,7 +155,7 @@ under the License.
                   <#list productPriceActions as productPriceAction>
                       <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
                         <td class="label"><b>${productPriceAction.productPriceActionSeqId}</b></td>
-                        <td align="left">
+                        <td>
                             <form method="post" action="<@ofbizUrl>updateProductPriceAction</@ofbizUrl>">
                                 <input type="hidden" name="productPriceRuleId" value="${productPriceAction.productPriceRuleId}">
                                 <input type="hidden" name="productPriceActionSeqId" value="${productPriceAction.productPriceActionSeqId}">
@@ -188,7 +188,7 @@ under the License.
                       </#if> 
                   </#list>
                   <tr>
-                    <td align="left" colspan="3">
+                    <td colspan="3">
                         <form method="post" action="<@ofbizUrl>createProductPriceAction</@ofbizUrl>">
                             <input type="hidden" name="productPriceRuleId" value="${productPriceRule.productPriceRuleId}">
                             <span class="label"><b>${uiLabelMap.CommonNew}</b>&nbsp;</span>

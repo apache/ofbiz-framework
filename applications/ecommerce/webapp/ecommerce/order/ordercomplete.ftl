@@ -25,7 +25,7 @@ under the License.
   ${screens.render("component://ecommerce/widget/OrderScreens.xml#orderitems")}
   <table border="0" cellpadding="1" width="100%">
    <tr>
-      <td colspan="4" align="left">
+      <td colspan="4">
         <a href="<@ofbizUrl>main</@ofbizUrl>" class="buttontextbig">${uiLabelMap.OrderContinueShopping}</a>
       </td>
       <td align="right">

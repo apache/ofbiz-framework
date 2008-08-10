@@ -27,7 +27,7 @@ under the License.
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
   <tr>
     <#-- left side -->
-    <td width="50%" valign="top" align="left">
+    <td width="50%" valign="top">
 
     <div class="screenlet">
         <div class="screenlet-header">
@@ -60,13 +60,13 @@ under the License.
                       <div class="tabletext">&nbsp;<b>${uiLabelMap.PartyName}</b></div>
                     </td>
                     <td width="5">&nbsp;</td>
-                    <td align="left" valign="top" width="80%">
+                    <td valign="top" width="80%">
                       <div class="tabletext">
                         ${(displayPartyNameResult.fullName)?default("[Name Not Found]")}
                       </div>
                     </td>
                   </tr>
-                  <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+                  <tr><td colspan="7"><hr/></td></tr>
                 </#if>
                 <#-- order status information -->
                 <tr>
@@ -74,7 +74,7 @@ under the License.
                     <div class="tabletext">&nbsp;<b>${uiLabelMap.CommonStatus}</b></div>
                   </td>
                   <td width="5">&nbsp;</td>
-                  <td align="left" valign="top" width="80%">
+                  <td valign="top" width="80%">
                     <#if orderHeader?has_content>                                      
                       <div class="tabletext">${localOrderReadHelper.getStatusString(locale)}</div>
                     <#else>
@@ -84,25 +84,25 @@ under the License.
                 </tr>
                 <#-- ordered date -->
                 <#if orderHeader?has_content>
-                  <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+                  <tr><td colspan="7"><hr/></td></tr>
                   <tr>
                     <td align="right" valign="top" width="15%">
                       <div class="tabletext">&nbsp;<b>${uiLabelMap.CommonDate}</b></div>
                     </td>
                     <td width="5">&nbsp;</td>
-                    <td align="left" valign="top" width="80%">
+                    <td valign="top" width="80%">
                       <div class="tabletext">${orderHeader.orderDate.toString()}</div>
                     </td>
                   </tr>
                 </#if>
                 <#if distributorId?exists>
-                  <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+                  <tr><td colspan="7"><hr/></td></tr>
                   <tr>
                     <td align="right" valign="top" width="15%">
                       <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderDistributor}</b></div>
                     </td>
                     <td width="5">&nbsp;</td>
-                    <td align="left" valign="top" width="80%">
+                    <td valign="top" width="80%">
                       <div class="tabletext">${distributorId}</div>
                     </td>
                   </tr>
@@ -126,7 +126,7 @@ under the License.
                       <td colspan="3" valign="top">
                         <div class="tabletext" align="center"><b>${uiLabelMap.AccountingOfflinePayment}</b></div>                            
                         <#if orderHeader?has_content && paymentAddress?has_content> 
-                          <div class="tabletext" align="center"><hr class="sepbar"/></div>
+                          <div class="tabletext" align="center"><hr/></div>
                           <div class="tabletext" align="center"><b>${uiLabelMap.OrderSendPaymentTo}:</b></div>
                           <#if paymentAddress.toName?has_content><div class="tabletext" align="center">${paymentAddress.toName}</div></#if>
                           <#if paymentAddress.attnName?has_content><div class="tabletext" align="center"><b>${uiLabelMap.PartyAddrAttnName}:</b> ${paymentAddress.attnName}</div></#if>
@@ -134,7 +134,7 @@ under the License.
                           <#if paymentAddress.address2?has_content><div class="tabletext" align="center">${paymentAddress.address2}</div></#if>                            
                           <div class="tabletext" align="center">${paymentAddress.city}<#if paymentAddress.stateProvinceGeoId?has_content>, ${paymentAddress.stateProvinceGeoId}</#if> ${paymentAddress.postalCode?if_exists}
                           <div class="tabletext" align="center">${paymentAddress.countryGeoId}</div>                                                                                                                
-                          <div class="tabletext" align="center"><hr class="sepbar"/></div>
+                          <div class="tabletext" align="center"><hr/></div>
                           <div class="tabletext" align="center"><b>${uiLabelMap.OrderBeSureToIncludeYourOrderNb}</b></div>
                         </#if>                         
                       </td>                  
@@ -160,7 +160,7 @@ under the License.
                     <#-- credit card info -->
                     <#if "CREDIT_CARD" == paymentMethod.paymentMethodTypeId && creditCard?has_content>
                       <#if outputted?default(false)>
-                        <tr><td colspan="3"><hr class="sepbar"/></td></tr>
+                        <tr><td colspan="3"><hr/></td></tr>
                       </#if>
                       <#assign pmBillingAddress = creditCard.getRelatedOne("PostalAddress")>
                       <tr>
@@ -168,7 +168,7 @@ under the License.
                           <div class="tabletext">&nbsp;<b>${uiLabelMap.AccountingCreditCard}</b></div>
                         </td>
                         <td width="5">&nbsp;</td>
-                        <td align="left" valign="top" width="80%">
+                        <td valign="top" width="80%">
                           <div class="tabletext">
                             <#if creditCard.companyNameOnCard?has_content>${creditCard.companyNameOnCard}<br/></#if>
                             <#if creditCard.titleOnCard?has_content>${creditCard.titleOnCard}&nbsp</#if>
@@ -184,7 +184,7 @@ under the License.
                     <#-- Gift Card info -->
                     <#elseif "GIFT_CARD" == paymentMethod.paymentMethodTypeId && giftCard?has_content>
                       <#if outputted?default(false)>
-                        <tr><td colspan="3"><hr class="sepbar"/></td></tr>
+                        <tr><td colspan="3"><hr/></td></tr>
                       </#if>
                       <#if giftCard?has_content && giftCard.cardNumber?has_content>
                         <#assign pmBillingAddress = giftCard.getRelatedOne("PostalAddress")?if_exists>
@@ -207,7 +207,7 @@ under the License.
                           <div class="tabletext">&nbsp;<b>${uiLabelMap.AccountingGiftCard}</b></div>
                         </td>
                         <td width="5">&nbsp;</td>
-                        <td align="left" valign="top" width="80%">
+                        <td valign="top" width="80%">
                           <div class="tabletext">
                             ${giftCardNumber}
                           </div>
@@ -216,7 +216,7 @@ under the License.
                     <#-- EFT account info -->
                     <#elseif "EFT_ACCOUNT" == paymentMethod.paymentMethodTypeId && eftAccount?has_content>
                       <#if outputted?default(false)>
-                        <tr><td colspan="3"><hr class="sepbar"/></td></tr>
+                        <tr><td colspan="3"><hr/></td></tr>
                       </#if>
                       <#assign pmBillingAddress = eftAccount.getRelatedOne("PostalAddress")>
                       <tr>
@@ -224,7 +224,7 @@ under the License.
                           <div class="tabletext">&nbsp;<b>${uiLabelMap.AccountingEftAccount}</b></div>
                         </td>
                         <td width="5">&nbsp;</td>
-                        <td align="left" valign="top" width="80%">
+                        <td valign="top" width="80%">
                           <div class="tabletext">
                             ${eftAccount.nameOnAccount?if_exists}<br/>
                             <#if eftAccount.companyNameOnAccount?has_content>${eftAccount.companyNameOnAccount}<br/></#if>
@@ -235,13 +235,13 @@ under the License.
                       </tr>
                     </#if>
                     <#if pmBillingAddress?has_content>
-                      <tr><td>&nbsp;</td><td colspan="2"><hr class="sepbar"/></td></tr>
+                      <tr><td>&nbsp;</td><td colspan="2"><hr/></td></tr>
                       <tr>
                         <td align="right" valign="top" width="15%">
                           <div class="tabletext">&nbsp;</div>
                         </td>
                         <td width="5">&nbsp;</td>
-                        <td align="left" valign="top" width="80%">
+                        <td valign="top" width="80%">
                           <div class="tabletext">
                             <#if pmBillingAddress.toName?has_content><b>${uiLabelMap.CommonTo}:</b> ${pmBillingAddress.toName}<br/></#if>
                             <#if pmBillingAddress.attnName?has_content><b>${uiLabelMap.CommonAttn}:</b> ${pmBillingAddress.attnName}<br/></#if>
@@ -260,7 +260,7 @@ under the License.
                 <#-- billing account info -->
                 <#if billingAccount?has_content>
                   <#if outputted?default(false)>
-                    <tr><td colspan="3"><hr class="sepbar"/></td></tr>
+                    <tr><td colspan="3"><hr/></td></tr>
                   </#if>
                   <#assign outputted = true>
                   <tr>
@@ -268,7 +268,7 @@ under the License.
                       <div class="tabletext">&nbsp;<b>${uiLabelMap.AccountingBillingAccount}</b></div>
                     </td>
                     <td width="5">&nbsp;</td>
-                    <td align="left" valign="top" width="80%">
+                    <td valign="top" width="80%">
                       <div class="tabletext">
                         #${billingAccount.billingAccountId?if_exists} - ${billingAccount.description?if_exists}
                       </div>
@@ -276,13 +276,13 @@ under the License.
                   </tr>
                 </#if>
                 <#if (customerPoNumberSet?has_content)>
-                  <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+                  <tr><td colspan="7"><hr/></td></tr>
                   <tr>
                     <td align="right" valign="top" width="15%">
                       <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderPurchaseOrderNumber}</b></div>
                     </td>
                     <td width="5">&nbsp;</td>
-                    <td align="left" valign="top" width="80%">
+                    <td valign="top" width="80%">
                       <#list customerPoNumberSet as customerPoNumber>
                         <div class="tabletext">${customerPoNumber?if_exists}</div>
                       </#list>
@@ -298,7 +298,7 @@ under the License.
     <td width="1">&nbsp;&nbsp;</td>
     <#-- right side -->
 
-    <td width="50%" valign="top" align="left">
+    <td width="50%" valign="top">
       <#if orderItemShipGroups?has_content>
 
     <div class="screenlet">
@@ -324,7 +324,7 @@ under the License.
                       <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderDestination}</b> [${groupNumber}]</div>
                     </td>
                     <td width="5">&nbsp;</td>
-                    <td align="left" valign="top" width="80%">
+                    <td valign="top" width="80%">
                       <div class="tabletext">
                         <#if shippingAddress.toName?has_content><b>${uiLabelMap.CommonTo}:</b> ${shippingAddress.toName}<br/></#if>
                         <#if shippingAddress.attnName?has_content><b>${uiLabelMap.PartyAddrAttnName}:</b> ${shippingAddress.attnName}<br/></#if>
@@ -336,14 +336,14 @@ under the License.
                       </div>
                     </td>
                   </tr>
-                  <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+                  <tr><td colspan="7"><hr/></td></tr>
                 </#if>
                 <tr>
                   <td align="right" valign="top" width="15%">
                     <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderMethod}</b></div>
                   </td>
                   <td width="5">&nbsp;</td>
-                  <td align="left" valign="top" width="80%">
+                  <td valign="top" width="80%">
                     <div class="tabletext">
                       <#if orderHeader?has_content>
                         <#assign shipmentMethodType = shipGroup.getRelatedOne("ShipmentMethodType")?if_exists>
@@ -361,13 +361,13 @@ under the License.
                 </tr>
                 <#-- tracking number -->
                 <#if trackingNumber?has_content || orderShipmentInfoSummaryList?has_content>
-                  <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+                  <tr><td colspan="7"><hr/></td></tr>
                   <tr>
                     <td align="right" valign="top" width="15%">
                       <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderTrackingNumber}</b></div>
                     </td>
                     <td width="5">&nbsp;</td>
-                    <td align="left" valign="top" width="80%">
+                    <td valign="top" width="80%">
                       <#-- TODO: add links to UPS/FEDEX/etc based on carrier partyId  -->
                       <#if shipGroup.trackingNumber?has_content>
                         <div class="tabletext">${shipGroup.trackingNumber}</div>
@@ -385,7 +385,7 @@ under the License.
                     </td>
                   </tr>
                 </#if>
-                <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+                <tr><td colspan="7"><hr/></td></tr>
                 <#-- splitting preference -->
                 <#if orderHeader?has_content>
                   <#assign maySplit = shipGroup.maySplit?default("N")>
@@ -397,7 +397,7 @@ under the License.
                     <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderSplittingPreference}</b></div>
                   </td>
                   <td width="5">&nbsp;</td>
-                  <td align="left" valign="top" width="80%">
+                  <td valign="top" width="80%">
                     <div class="tabletext">
                       <#if maySplit?default("N") == "N">${uiLabelMap.OrderPleaseWaitUntilBeforeShipping}.</#if>
                       <#if maySplit?default("N") == "Y">${uiLabelMap.OrderPleaseShipItemsBecomeAvailable}.</#if>
@@ -412,18 +412,18 @@ under the License.
                 </#if>
 
                 <#if shippingInstructions?has_content>
-                  <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+                  <tr><td colspan="7"><hr/></td></tr>
                   <tr>
                     <td align="right" valign="top" width="15%">
                       <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderInstructions}</b></div>
                     </td>
                     <td width="5">&nbsp;</td>
-                    <td align="left" valign="top" width="80%">
+                    <td valign="top" width="80%">
                       <div class="tabletext">${shippingInstructions}</div>
                     </td>
                   </tr>
                 </#if>
-                <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+                <tr><td colspan="7"><hr/></td></tr>
                 <#-- gift settings -->
                 <#if orderHeader?has_content>
                   <#assign isGift = shipGroup.isGift?default("N")>
@@ -439,7 +439,7 @@ under the License.
                     <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderGift}?</b></div>
                   </td>
                   <td width="5">&nbsp;</td>
-                  <td align="left" valign="top" width="80%">
+                  <td valign="top" width="80%">
                     <div class="tabletext">
                       <#if isGift?default("N") == "N">${uiLabelMap.OrderThisIsNotGift}.</#if>
                       <#if isGift?default("N") == "Y">${uiLabelMap.OrderThisIsGift}.</#if>
@@ -447,21 +447,21 @@ under the License.
                   </td>
                 </tr>
                 <#if giftMessage?has_content>
-                  <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+                  <tr><td colspan="7"><hr/></td></tr>
                   <tr>
                     <td align="right" valign="top" width="15%">
                       <div class="tabletext">&nbsp;<b>${uiLabelMap.OrderGiftMessage}</b></div>
                     </td>
                     <td width="5">&nbsp;</td>
-                    <td align="left" valign="top" width="80%">
+                    <td valign="top" width="80%">
                       <div class="tabletext">${giftMessage}</div>
                     </td>
                   </tr>
                 </#if>
                </#if>
                 <#if shipGroup_has_next>
-                  <tr><td colspan="7"><hr class="sepbar"/></td></tr>
-                  <tr><td colspan="7"><hr class="sepbar"/></td></tr>
+                  <tr><td colspan="7"><hr/></td></tr>
+                  <tr><td colspan="7"><hr/></td></tr>
                 </#if>
               </table>
 

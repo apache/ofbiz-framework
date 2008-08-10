@@ -31,7 +31,7 @@ under the License.
 <table width="90%" border="0" cellpadding="2" cellspacing="0">
     <tr>
       <td width="26%" align="right"><div class="tabletext">${uiLabelMap.CommonTitle}</div></td>
-      <td width="74%" align="left">
+      <td width="74%">
         <select name="personalTitle" class="selectBox">
             <#if personData.personalTitle?has_content >
               <option>${personData.personalTitle}</option>
@@ -48,37 +48,37 @@ under the License.
     </tr>
     <tr>
       <td width="26%" align="right"><div class="tabletext">${uiLabelMap.PartyFirstName}</div></td>
-      <td width="74%" align="left">
+      <td width="74%">
         <input type="text" class='inputBox' size="30" maxlength="30" name="firstName" value="${personData.firstName?if_exists}"/>
       *</td>
     </tr>
     <tr>
       <td width="26%" align="right"><div class="tabletext">${uiLabelMap.PartyMiddleInitial}</div></td>
-      <td width="74%" align="left">
+      <td width="74%">
           <input type="text" class='inputBox' size="4" maxlength="4" name="middleName" value="${personData.middleName?if_exists}"/>
       </td>
     </tr>
     <tr>
       <td width="26%" align="right"><div class="tabletext">${uiLabelMap.PartyLastName} </div></td>
-      <td width="74%" align="left">
+      <td width="74%">
         <input type="text" class='inputBox' size="30" maxlength="30" name="lastName" value="${personData.lastName?if_exists}"/>
       *</td>
     </tr>
     <tr>
       <td width="26%" align="right"><div class="tabletext">${uiLabelMap.PartySuffix}</div></td>
-      <td width="74%" align="left">
+      <td width="74%">
         <input type="text" class='inputBox' size="10" maxlength="30" name="suffix" value="${personData.suffix?if_exists}"/>
       </td>
     </tr>
     <tr>
       <td width="26%" align="right"><div class="tabletext">${uiLabelMap.PartyNickName}</div></td>
-      <td width="74%" align="left">
+      <td width="74%">
         <input type="text" class='inputBox' size="30" maxlength="60" name="nickname" value="${personData.nickname?if_exists}"/>
       </td>
     </tr>
     <tr>
       <td width="26%" align="right"><div class="tabletext">${uiLabelMap.PartyGender}</div></td>
-      <td width="74%" align="left">
+      <td width="74%">
         <select name="gender" class='selectBox'>
           <#if personData.gender?has_content >
             <option value="${personData.gender}">
@@ -96,33 +96,33 @@ under the License.
     </tr>
     <tr>
       <td width="26%" align="right"><div class="tabletext">${uiLabelMap.PartyBirthDate}</div></td>
-      <td width="74%" align="left">
+      <td width="74%">
         <input type="text" class='inputBox' size="11" maxlength="20" name="birthDate" value="${personData.birthDate?if_exists}"/>
         <div class="tabletext">${uiLabelMap.CommonFormatDate}</div>
       </td>
     </tr>
     <tr>
       <td width="26%" align="right"><div class="tabletext">${uiLabelMap.PartyHeight}</div></td>
-      <td width="74%" align="left">
+      <td width="74%">
         <input type="text" class='inputBox' size="30" maxlength="60" name="height" value="${personData.height?if_exists}"/>
       </td>
     </tr>
     <tr>
       <td width="26%" align="right"><div class="tabletext">${uiLabelMap.PartyWeight}</div></td>
-      <td width="74%" align="left">
+      <td width="74%">
         <input type="text" class='inputBox' size="30" maxlength="60" name="weight" value="${personData.weight?if_exists}"/>
       </td>
     </tr>
 
     <tr>
       <td width="26%" align="right"><div class="tabletext">${uiLabelMap.PartyMaidenName}</div></td>
-      <td width="74%" align="left">
+      <td width="74%">
         <input type="text" class='inputBox' size="30" maxlength="60" name="mothersMaidenName" value="${personData.mothersMaidenName?if_exists}"/>
       </td>
     </tr>
     <tr>
       <td width="26%" align="right"><div class="tabletext">${uiLabelMap.PartyMaritalStatus}</div></td>
-      <td width="74%" align="left">
+      <td width="74%">
         <select name="maritalStatus" class='selectBox'>
           <#if personData.maritalStatus?has_content>
              <option value="${personData.maritalStatus}">
@@ -142,32 +142,32 @@ under the License.
     </tr>
     <tr>
       <td width="26%" align="right"><div class="tabletext">${uiLabelMap.PartySocialSecurityNumber}</div></td>
-      <td width="74%" align="left">
+      <td width="74%">
         <input type="text" class='inputBox' size="30" maxlength="60" name="socialSecurityNumber" value="${personData.socialSecurityNumber?if_exists}"/>
       </td>
     </tr>
     <tr>
       <td width="26%" align="right"><div class="tabletext">${uiLabelMap.PartyPassportNumber}</div></td>
-      <td width="74%" align="left">
+      <td width="74%">
         <input type="text" class='inputBox' size="30" maxlength="60" name="passportNumber" value="${personData.passportNumber?if_exists}"/>
       </td>
     </tr>
     <tr>
       <td width="26%" align="right"><div class="tabletext">${uiLabelMap.PartyPassportExpireDate}</div></td>
-      <td width="74%" align="left">
+      <td width="74%">
         <input type="text" class='inputBox' size="11" maxlength="20" name="passportExpireDate" value="${personData.passportExpireDate?if_exists}"/>
         <div class="tabletext">${uiLabelMap.CommonFormatDate}</div>
       </td>
     </tr>
     <tr>
       <td width="26%" align="right"><div class="tabletext">${uiLabelMap.PartyTotalYearsWorkExperience}</div></td>
-      <td width="74%" align="left">
+      <td width="74%">
         <input type="text" class='inputBox' size="30" maxlength="60" name="totalYearsWorkExperience" value="${personData.totalYearsWorkExperience?if_exists}"/>
       </td>
     </tr>
     <tr>
       <td width="26%" align="right"><div class="tabletext">${uiLabelMap.CommonComment}</div></td>
-      <td width="74%" align="left">
+      <td width="74%">
         <input type="text" class='inputBox' size="30" maxlength="60" name="comments" value="${personData.comments?if_exists}"/>
       </td>
     </tr>

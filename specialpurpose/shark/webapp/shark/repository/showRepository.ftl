@@ -40,8 +40,8 @@ under the License.
         </#if>
 
         <tr>
-          <td align="left"><div>${packageId?default("??")}</div>
-          <td align="left"><div>${version?default("??")}</div></td>
+          <td><div>${packageId?default("??")}</div>
+          <td><div>${version?default("??")}</div></td>
           <td align="center"><div><#if open>Y<#else>N</#if></div>
           <td align="center"><a href="<@ofbizUrl>repository?delete=${package}</@ofbizUrl>" class="buttontext">Remove</a>
           <td align="center"><a href="<@ofbizUrl>repository?<#if open>close=${packageId}&version=${version}<#else>open=${package}</#if></@ofbizUrl>" class="buttontext"><#if open>Close<#else>Open</#if></a>

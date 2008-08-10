@@ -19,7 +19,7 @@
           <input type="hidden" name="phoneContactMechId" value="${contactInfo2.phoneContactMechId?if_exists}">
           <input type="hidden" name="emailContactMechId" value="${contactInfo2.emailContactMechId?if_exists}">
           
-          <table  align="left" >
+          <table  >
             <tr width="100%">
               <td width="20%" ></td>
               <td width="30%"><h2>${uiLabelMap.SfaFirstContact}</h2><br/></b></td>

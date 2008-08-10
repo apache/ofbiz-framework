@@ -75,7 +75,7 @@ under the License.
                     </div>
                   </td>
                   <td width="1%">&nbsp;</td>
-                  <td align="left" valign="top" width="60%">
+                  <td valign="top" width="60%">
                     <div>
                       <#if (finAccountType?has_content)>
                         ${finAccountType.description?default(finAccountType.finAccountTypeId)}&nbsp;                        
@@ -132,7 +132,7 @@ under the License.
                 </td>
                 <td width="1%">&nbsp;</td>
                 <#if paymentMethodType.paymentMethodTypeId != "EXT_OFFLINE" && paymentMethodType.paymentMethodTypeId != "EXT_PAYPAL" && paymentMethodType.paymentMethodTypeId != "EXT_COD">
-                  <td align="left" width="60%">
+                  <td width="60%">
                     <div>
                       <#if orderPaymentPreference.maxAmount?has_content>
                          <br/>${uiLabelMap.OrderPaymentMaximumAmount}: <@ofbizCurrency amount=orderPaymentPreference.maxAmount?default(0.00) isoCode=currencyUomId/>
@@ -174,7 +174,7 @@ under the License.
                   </div>
                 </td>
                 <td width="1%">&nbsp;</td>
-                <td align="left" valign="top" width="60%">
+                <td valign="top" width="60%">
                   <div>
                     <#if creditCard?has_content>
                       <#if creditCard.companyNameOnCard?exists>${creditCard.companyNameOnCard}<br/></#if>
@@ -248,7 +248,7 @@ under the License.
                   </div>
                 </td>
                 <td width="1%">&nbsp;</td>
-                <td align="left" valign="top" width="60%">
+                <td valign="top" width="60%">
                   <div>
                     <#if eftAccount?has_content>
                       ${eftAccount.nameOnAccount?if_exists}<br/>
@@ -282,7 +282,7 @@ under the License.
                   </div>
                 </td>
                 <td width="1%">&nbsp;</td>
-                <td align="left" valign="top" width="60%">
+                <td valign="top" width="60%">
                   <div>
                     <#if giftCard?has_content>
                       <#if security.hasEntityPermission("PAY_INFO", "_VIEW", session)>
@@ -327,7 +327,7 @@ under the License.
             <tr>
               <td align="right" valign="top" width="29%">&nbsp;</td>
               <td width="1%">&nbsp;</td>
-              <td align="left" valign="top" width="60%">
+              <td valign="top" width="60%">
                 <div>
                   <#if pmBillingAddress.toName?has_content><span class="label">${uiLabelMap.CommonTo}</span>&nbsp;${pmBillingAddress.toName}<br/></#if>
                   <#if pmBillingAddress.attnName?has_content><span class="label">${uiLabelMap.CommonAttn}</span>&nbsp;${pmBillingAddress.attnName}<br/></#if>
@@ -358,7 +358,7 @@ under the License.
                   </div>
             </td>
             <td width="1%">&nbsp;</td>
-            <td align="left" valign="top" width="60%">
+            <td valign="top" width="60%">
                 #<a href="/accounting/control/EditBillingAccount?billingAccountId=${billingAccount.billingAccountId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${billingAccount.billingAccountId}</a>  - ${billingAccount.description?if_exists}              
             </td>
             <td width="10%">&nbsp;</td>
@@ -369,7 +369,7 @@ under the License.
           <tr>
             <td align="right" valign="top" width="29%"><span class="label">${uiLabelMap.OrderPONumber}</span></td>
             <td width="1%">&nbsp;</td>
-            <td align="left" valign="top" width="60%">${customerPoNumber?if_exists}</td>
+            <td valign="top" width="60%">${customerPoNumber?if_exists}</td>
             <td width="10%">&nbsp;</td>
           </tr>
         </#if>
@@ -380,7 +380,7 @@ under the License.
           <tr>
             <td align="right" valign="top" width="29%">&nbsp;<span class="label">${uiLabelMap.OrderInvoices}</span></td>
             <td width="1%">&nbsp;</td>
-            <td align="left" valign="top" width="60%">
+            <td valign="top" width="60%">
               <#list invoices as invoice>
                 <div>${uiLabelMap.CommonNbr}<a href="/accounting/control/invoiceOverview?invoiceId=${invoice}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${invoice}</a>
                 (<a href="/accounting/control/invoice.pdf?invoiceId=${invoice}" class="buttontext">PDF</a>)</div>
@@ -440,7 +440,7 @@ under the License.
    <tr>
       <td align="right" valign="top" width="29%">&nbsp;</td>
       <td width="1%">&nbsp;</td>
-      <td align="left" valign="top" width="60%">
+      <td valign="top" width="60%">
         <input type="submit" value="${uiLabelMap.CommonAdd}" class="smallSubmit"/>        
       </td>
       <td width="10%">&nbsp;</td>

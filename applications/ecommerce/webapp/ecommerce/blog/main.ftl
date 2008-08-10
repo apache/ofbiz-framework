@@ -45,7 +45,7 @@ under the License.
       <table width="100%" border="0" cellspacing="0" cellpadding="0" class="headerboxtop">
         <tr>
           <#if layoutSettings.headerImageUrl?exists>
-          <td align="left" width="1%"><img alt="${layoutSettings.companyName}" src="<@ofbizContentUrl>${layoutSettings.headerImageUrl}</@ofbizContentUrl>"/></td>
+          <td width="1%"><img alt="${layoutSettings.companyName}" src="<@ofbizContentUrl>${layoutSettings.headerImageUrl}</@ofbizContentUrl>"/></td>
           </#if>   
           <td align="right" width="1%" nowrap="nowrap" <#if layoutSettings.headerRightBackgroundUrl?has_content>background="${layoutSettings.headerRightBackgroundUrl}"</#if>>
             <div class="insideHeaderText">
