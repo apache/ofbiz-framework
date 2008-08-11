@@ -69,7 +69,7 @@ under the License.
     <ContentType contentTypeId="TEMPLATE" description="Template or Form" hasTable="N" parentTypeId=""/>
     <ContentType contentTypeId="DECORATOR" description="Decorator" hasTable="N" parentTypeId="TEMPLATE"/>
     <ContentType contentTypeId="ANNOTATION" description="Annotation" hasTable="N" parentTypeId=""/>
-    <ContentType contentTypeId="MENU_CONTAINER" description="Menu Container" hasTable="N" parentTypeId="TREE_ROOT"/>
+    <ContentType contentTypeId="MENU_CONTAINER" description="Menu Container" hasTable="N" parentTypeId=""/>
     <!-- NOTE DEJ20080809 The following 3 ContentTypes may not be needed, and the current practice is to just use DOCUMENT instead -->
     <ContentType contentTypeId="OUTLINE_NODE" description="Outline Node" hasTable="N" parentTypeId="DOCUMENT"/>
     <ContentType contentTypeId="PAGE_NODE" description="Page Node" hasTable="N" parentTypeId="DOCUMENT"/>
