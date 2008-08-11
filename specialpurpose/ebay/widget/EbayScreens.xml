@@ -45,9 +45,9 @@ under the License.
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 
-                <set field="productId" from-field="parameters.productId"/>                
+                <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-name="product"/>
-                <set field="productName" from-field="product.productName"/>                
+                <set field="productName" from-field="product.productName"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -84,7 +84,7 @@ under the License.
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.ProductCatalogViewPermissionError}</label>
                             </fail-widgets>
-                        </section>                    
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -108,7 +108,7 @@ under the License.
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.EbayViewPermissionError}</label>
                             </fail-widgets>
-                        </section>                    
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -146,7 +146,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleSearchResults"/>
                 <set field="headerItem" value="export"/>
-                <script location="component://product/webapp/catalog/WEB-INF/actions/find/keywordsearch.bsh"/>
+                <script location="component://product/webapp/catalog/WEB-INF/actions/find/keywordsearch.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="permission-decorator">
@@ -173,7 +173,7 @@ under the License.
                     <condition-expr field-name="geoTypeId" value="COUNTRY"/>
                     <order-by field-name="geoName"/>
                 </entity-condition>
-                <script location="component://ebay/webapp/ebay/WEB-INF/actions/find/productsExportToEbay.bsh"/>
+                <script location="component://ebay/webapp/ebay/WEB-INF/actions/find/ProductsExportToEbay.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="permission-decorator">
@@ -199,7 +199,7 @@ under the License.
                     </decorator-section>
                 </decorator-screen>
             </widgets>
-        </section>  
+        </section>
     </screen>
     
     <screen name="ManageOrdersFromEbay">
@@ -220,7 +220,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="ManageOrdersFromEbay" location="component://ebay/widget/EbayForms.xml"/>
                                     </widgets>
                                 </section>
@@ -234,7 +234,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="ListOrdersFromEbay" location="component://ebay/widget/EbayForms.xml"/>
                                     </widgets>
                                 </section>
@@ -272,7 +272,7 @@ under the License.
                                     </widgets>
                                 </section>
                             </container>
-                        </container>                        
+                        </container>
                         <!-- include the duplicate product form template -->
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
@@ -280,7 +280,7 @@ under the License.
                                     <label text="${uiLabelMap.ProductDuplicateProduct}"/>
                                 </container>
                             </container>
-                            <container style="screenlet-body">                            
+                            <container style="screenlet-body">
                                 <include-form name="EditProductDup" location="component://product/webapp/catalog/product/ProductForms.xml"/>
                             </container>
                         </container>
