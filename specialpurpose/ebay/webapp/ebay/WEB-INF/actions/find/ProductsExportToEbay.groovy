@@ -17,14 +17,11 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
-import javolution.util.FastList; 
+categoryCode = parameters.categoryCode;
+userLogin = parameters.userLogin;
 
-categoryCode = parameters.get("categoryCode");
-userLogin = parameters.get("userLogin");
+results = dispatcher.runSync("getEbayCategories", [categoryCode : categoryCode, userLogin : userLogin]);
 
-results = dispatcher.runSync("getEbayCategories", UtilMisc.toMap("categoryCode", categoryCode, "userLogin", userLogin));
-
-if (results.get("categories") != null) {
-    context.put("categories", results.get("categories"));
+if (results.categories) {
+    context.categories = results.categories;
 }
