@@ -235,7 +235,8 @@ function createUpdateCustomerAndShippingAddress() {
                 Effect.Fade('shippingFormServerError');
                 isShipStepValidate = true;
                 // Process Shipping data response.
-                $('shippingPartyId').value = data.partyId;
+                $('shipToPartyId').value = data.partyId;
+                $('billToPartyId').value = data.partyId;
                 $('shipToContactMechId').value = data.shipToContactMechId;
                 $('phoneContactMechId').value = data.phoneContactMechId;
                 $('emailContactMechId').value = data.emailContactMechId;
@@ -373,6 +374,7 @@ function setDataInBillingCompleted() {
     var billToGeo = $F('billToCity')+","+$F('billToStateProvinceGeoId') +" "+$F('billToCountryGeoId')+" "+$F('billToPostalCode');
     $('completedBillToGeo').update(billToGeo);
     $('paymentMethod').update($F('paymentMethodTypeId'));
+    $('billToContactMechIdInShipingForm').value = $F('billToContactMechId');
 }
 
 function initCartProcessObservers() {

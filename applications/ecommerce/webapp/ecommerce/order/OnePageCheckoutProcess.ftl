@@ -243,8 +243,8 @@ under the License.
           <div id="editShippingPanel" class="screenlet-body" style="display: none;">
             <form name="shippingForm" id="shippingForm" action="<@ofbizUrl>createUpdateShippingAddress</@ofbizUrl>" method="post">
               <input type="hidden" id="shipToContactMechId" name="shipToContactMechId" value="${parameters.shipToContactMechId?if_exists}"/>
-              <input type="hidden" name="billToContactMechId" value="${parameters.billToContactMechId?if_exists}"/>
-              <input type="hidden" id="shippingPartyId" name="partyId" value="${parameters.partyId?if_exists}"/>
+              <input type="hidden" id="billToContactMechIdInShipingForm" name="billToContactMechId" value="${parameters.billToContactMechId?if_exists}"/>
+              <input type="hidden" id="shipToPartyId" name="partyId" value="${parameters.partyId?if_exists}"/>
               <input type="hidden" id="phoneContactMechId" name="phoneContactMechId" value="${parameters.phoneContactMechId?if_exists}"/>
               <input type="hidden" id="emailContactMechId" name="emailContactMechId" value="${parameters.emailContactMechId?if_exists}"/>
               <input type="hidden" name="roleTypeId" value="CUSTOMER"/>
@@ -433,8 +433,7 @@ under the License.
               <input type="hidden" id="shipToContactMechIdInBillingForm" name="shipToContactMechId" value="${parameters.shipToContactMechId?if_exists}"/>
               <input type="hidden" id="paymentMethodId" name="paymentMethodId" value="${parameters.paymentMethodId?if_exists}"/>
               <input type="hidden" id="paymentMethodTypeId" name="paymentMethodTypeId" value="${parameters.paymentMethodTypeId?if_exists}"/>
-              <input type="hidden" id="billingPartyId" name="partyId" value="${parameters.partyId?if_exists}"/>
-              <input type="hidden" name="userLogin" value="${parameters.userLogin?if_exists}"/>
+              <input type="hidden" id="billToPartyId" name="partyId" value="${parameters.partyId?if_exists}"/>
               <input type="hidden" name="expireDate" value="${parameters.expireDate?if_exists}"/>
               <input type="hidden" name="roleTypeId" value="CUSTOMER"/>
               <div id="billingFormServerError" class="errorMessage"></div>
