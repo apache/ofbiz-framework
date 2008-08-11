@@ -35,7 +35,7 @@ under the License.
     <ContentAssocType contentAssocTypeId="GRAPH_LINK" description="Graph Link"/>
     <ContentAssocType contentAssocTypeId="ALTERNATE_LOCALE" description="Alternate Locale"/>
     <ContentAssocType contentAssocTypeId="RESPONSE" description="Response"/>
-    <ContentAssocType contentAssocTypeId="SUB_CONTENT" description="Sub Section"/>
+    <ContentAssocType contentAssocTypeId="SUB_CONTENT" description="Sub-Content"/>
     <ContentAssocType contentAssocTypeId="TOPIC" description="Topic"/>
     <ContentAssocType contentAssocTypeId="DESCRIPTION" description="Description"/>
 
@@ -65,31 +65,32 @@ under the License.
     <MetaDataPredicate metaDataPredicateId="event-location" description="The location where subject event took place."/>
     <MetaDataPredicate metaDataPredicateId="event-person-name" description="The name of a person involved in the subject event."/>
 
-    <!-- These ContentTypes are primarily for structuring knowledge -->
-    <ContentType contentTypeId="DECORATOR" description="Decorator" hasTable="N" parentTypeId=""/>
     <ContentType contentTypeId="DOCUMENT" description="Document" hasTable="N" parentTypeId=""/>
     <ContentType contentTypeId="TEMPLATE" description="Template or Form" hasTable="N" parentTypeId=""/>
+    <ContentType contentTypeId="DECORATOR" description="Decorator" hasTable="N" parentTypeId="TEMPLATE"/>
     <ContentType contentTypeId="ANNOTATION" description="Annotation" hasTable="N" parentTypeId=""/>
+    <ContentType contentTypeId="MENU_CONTAINER" description="Menu Container" hasTable="N" parentTypeId="TREE_ROOT"/>
+    <!-- NOTE DEJ20080809 The following 3 ContentTypes may not be needed, and the current practice is to just use DOCUMENT instead -->
+    <ContentType contentTypeId="OUTLINE_NODE" description="Outline Node" hasTable="N" parentTypeId="DOCUMENT"/>
+    <ContentType contentTypeId="PAGE_NODE" description="Page Node" hasTable="N" parentTypeId="DOCUMENT"/>
+    <ContentType contentTypeId="SUBPAGE_NODE" description="Sub Page Node" hasTable="N" parentTypeId="DOCUMENT"/>
+    <!-- These ContentTypes are primarily for structuring knowledge -->
     <ContentType contentTypeId="CONTENT_LIST" description="Content List" hasTable="N" parentTypeId=""/>
     <ContentType contentTypeId="TREE_ROOT" description="Tree Root" hasTable="N" parentTypeId=""/>
     <ContentType contentTypeId="GRAPH_ROOT" description="Graph Root" hasTable="N" parentTypeId=""/>
-    <ContentType contentTypeId="MENU_CONTAINER" description="Menu Container" hasTable="N" parentTypeId="TREE_ROOT"/>
     <ContentType contentTypeId="STRUCTURE_NODE" description="Structure Node" hasTable="N" parentTypeId=""/>
     <ContentType contentTypeId="STRUCTURE_LEAF" description="Structure Leaf" hasTable="N" parentTypeId=""/>
     <ContentType contentTypeId="STRUCTURE_DEF" description="Structure Definition (like DTD)" hasTable="N" parentTypeId=""/>
     <ContentType contentTypeId="TXFORM_DEF" description="Transformation Definition (like XSLT)" hasTable="N" parentTypeId=""/>
-    <ContentType contentTypeId="OUTLINE_NODE" description="Outline Node" hasTable="N" parentTypeId="DOCUMENT"/>
-    <ContentType contentTypeId="PAGE_NODE" description="Page Node" hasTable="N" parentTypeId="DOCUMENT"/>
-    <ContentType contentTypeId="SUBPAGE_NODE" description="Sub Page Node" hasTable="N" parentTypeId="DOCUMENT"/>
 
     <ContentType contentTypeId="PLACEHOLDER" description="Place Holder"/>
-    <ContentType contentTypeId="PEOPLE" description="People" parentTypeId="PLACEHOLDER"/>
-    <ContentType contentTypeId="PERSON" description="Person" parentTypeId="PLACEHOLDER"/>
-    <ContentType contentTypeId="WEB_SITE_PUB_PT" parentTypeId="PLACEHOLDER" hasTable="Y" description="Publish Point"/>
+    <ContentType contentTypeId="WEB_SITE_PUB_PT" parentTypeId="PLACEHOLDER" hasTable="Y" description="Web Site Publish Point"/>
     <ContentType contentTypeId="FORUM_ROOT" parentTypeId="PLACEHOLDER" hasTable="N" description="Forum Root"/>
     <ContentType contentTypeId="BLOG_ROOT" parentTypeId="PLACEHOLDER" hasTable="N" description="Blog Root"/>
     <ContentType contentTypeId="FAQ_ROOT" parentTypeId="PLACEHOLDER" hasTable="N" description="FAQ Root"/>
     <ContentType contentTypeId="DEPARTMENT" description="Department" parentTypeId="PLACEHOLDER"/>
+    <ContentType contentTypeId="PEOPLE" description="People" parentTypeId="PLACEHOLDER"/>
+    <ContentType contentTypeId="PERSON" description="Person" parentTypeId="PLACEHOLDER"/>
     <ContentType contentTypeId="TOPIC" description="Topic" parentTypeId="PLACEHOLDER"/>
 
     <ContentType contentTypeId="COMPDOC_TEMPLATE" description="Composite Document Template"/>
