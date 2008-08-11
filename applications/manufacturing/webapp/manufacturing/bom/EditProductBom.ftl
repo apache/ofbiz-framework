@@ -42,11 +42,11 @@ function lookupBom() {
     <br/>
     <form name="searchform" action="<@ofbizUrl>UpdateProductBom</@ofbizUrl>#topform" method="post">
     <input type="hidden" name="UPDATE_MODE" value=""/>
-    <a name="topform"/>
+   
     <table class="basic-table" cellspacing="0">
         <tr>
             <td align="right">${uiLabelMap.ManufacturingBomType}</td>
-            <td>&nbsp;</td>
+            <td>&nbsp; <a name="topform"/></td>
             <td>
                 <select name="productAssocTypeId" size="1">
                 <#if productAssocTypeId?has_content>
