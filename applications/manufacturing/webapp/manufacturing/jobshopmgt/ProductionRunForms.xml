@@ -723,7 +723,7 @@ under the License.
     <form name="ProductionRunTaskComponents" type="list" target="updateProductionRunComponent" paginate-target="ProductionRunComponents" title="" list-name="records"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="productId"><display/></field>
-        <field name="internalName" entry-name="productId" title="${uiLabelMap.ProductProductInternalName}">
+        <field name="internalName" entry-name="productId" title="${uiLabelMap.ProductInternalName}">
             <display-entity entity-name="Product" key-field-name="productId" description="${internalName}"/>
         </field>
         <field name="workEffortId"><hidden/></field>
