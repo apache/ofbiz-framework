@@ -91,7 +91,7 @@ if (cart) {
 }
 
 if(!parameters.useShipAddr){
-    if (cart && postalAddress) {
+    if (cart && context.postalAddress) {
         postalAddress = context.postalAddress;
         shippingContactMechId = cart.getShippingContactMechId();
         contactMechId = postalAddress.contactMechId;
