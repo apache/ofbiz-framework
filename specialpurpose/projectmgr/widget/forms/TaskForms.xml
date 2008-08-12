@@ -659,8 +659,9 @@
                 </drop-down>
             </field>
         <field name="workEffortParentId" title="${uiLabelMap.ProjectMgrProjectAndPhaseName}*">
-            <drop-down allow-empty="true">
-                <entity-options entity-name="ProjectAndPhaseAndTask" description="${projectName} : ${phaseName}">    
+            <drop-down allow-empty="false">
+                <entity-options entity-name="ProjectAndPhase" description="${projectName} : ${phaseName}" key-field-name="phaseId">    
+                    <entity-order-by field-name="projectName"/>
                     <entity-order-by field-name="phaseName"/>
                     </entity-options>
                 </drop-down>
@@ -675,12 +676,9 @@
         <field name="statusId"><hidden value="CRQ_ACCEPTED"/></field>
         <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}">
             <drop-down allow-empty="false">
-                <entity-options entity-name="ProjectPartyAndPhaseAndTask" description="${workEffortName} (${phaseName}-${projectName})">
-                    <entity-constraint name="partyId" env-name="userLogin.partyId"/>
-                    <entity-constraint name="workEffortTypeId" value="TASK"/>
-                    </entity-options>                
-                </drop-down>
-            </field>
+                <entity-options entity-name="ProjectPartyAndPhaseAndTask" description="${projectName} - ${phaseName}"/>
+            </drop-down>
+          </field>
         <field name="save" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>    
 </forms>
