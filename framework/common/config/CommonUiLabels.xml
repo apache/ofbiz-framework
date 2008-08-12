@@ -5286,7 +5286,7 @@
         <value xml:lang="de">(Wird auf 'jetzt' gesetzt, falls leer)</value>
         <value xml:lang="en">(Will be set to now if empty)</value>
         <value xml:lang="es">(será establecido a la fecha actual si se deja vacío)</value>
-        <value xml:lang="fr">(Sera positionné à aujourd'hui si vide)</value>
+        <value xml:lang="fr">(Sera positionné(e) à aujourd'hui si vide)</value>
         <value xml:lang="it">(Sarà impostato adesso se vuoto)</value>
         <value xml:lang="nl">(Zal worden gezet wanneer nu leeg)</value>
         <value xml:lang="pt">(Será definido para agora se vazio)</value>
