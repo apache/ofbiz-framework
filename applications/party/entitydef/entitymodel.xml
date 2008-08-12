@@ -1755,7 +1755,8 @@ under the License.
       <view-link entity-alias="PCMP" rel-entity-alias="CM">
         <key-map field-name="contactMechId"/>
       </view-link>
-      <view-link entity-alias="CM" rel-entity-alias="PCM">
+      <view-link entity-alias="PCMP" rel-entity-alias="PCM">
+        <key-map field-name="partyId"/>
         <key-map field-name="contactMechId"/>
       </view-link>
       <view-link entity-alias="PCMP" rel-entity-alias="PT">
