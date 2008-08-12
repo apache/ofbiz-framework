@@ -160,6 +160,21 @@ under the License.
         <field name="createButton" title="${uiLabelMap.CommonCreate}" use-when="currentValue==null" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="updateButton" title="${uiLabelMap.CommonUpdate}" use-when="currentValue!=null" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
+    <form name="ListContentsAssociatedToDataResource" type="list" list-name="contentRecords" default-widget-style="display"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-and entity-name="Content" list-name="contentRecords">
+                <field-map field-name="dataResourceId" env-name="dataResourceId"/>
+                <order-by field-name="contentId"/>
+            </entity-and>
+        </actions>
+        <field name="contentId" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${contentId}" target="/EditContent?contentId=${contentId}"/>
+        </field>
+        <field name="contentName"><display/></field>
+        <field name="description"><display/></field>
+    </form>
+    
     <form name="DataResourceMaster" target="createDataResource" title="" type="single" default-map-name="currentValue"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="DataResource" default-field-type="edit"/>

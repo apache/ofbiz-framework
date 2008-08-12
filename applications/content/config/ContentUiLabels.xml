@@ -183,6 +183,9 @@
         <value xml:lang="th">หัวข้อ</value>
         <value xml:lang="zh">内容</value>
     </property>
+    <property key="ContentContentsAssociatedToDataResource">
+        <value xml:lang="en">Content Entries Associated to this Data Resource</value>
+    </property>
     <property key="ContentContentManagerApplication">
         <value xml:lang="ar">تطبيق تسيير المحتوى</value>
         <value xml:lang="en">Content Manager Application</value>
