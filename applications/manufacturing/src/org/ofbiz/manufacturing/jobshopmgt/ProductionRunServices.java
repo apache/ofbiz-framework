@@ -1487,7 +1487,7 @@ public class ProductionRunServices {
             lotId = delegator.getNextSeqId("Lot");
             createLotIfNeeded = Boolean.TRUE;
         }
-        if (lotId != null) {
+        if (UtilValidate.isNotEmpty(lotId)) {
             try {
                 // Find the lot
                 GenericValue lot = delegator.findByPrimaryKey("Lot", UtilMisc.toMap("lotId", lotId));
