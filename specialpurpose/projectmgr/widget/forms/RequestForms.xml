@@ -101,7 +101,11 @@ under the License.
         </actions>
         <field name="custRequestTypeId"><display-entity entity-name="CustRequestType" description="${description}"/></field>
         <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
-        <field name="fromPartyId"><display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}" key-field-name="partyId"></display-entity></field>
+        <field name="fromPartyId">
+            <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}" key-field-name="partyId">
+                <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${fromPartyId}" target-type="inter-app" description="[${fromPartyId}]"/>
+            </display-entity>
+        </field>
         <field name="custRequestName"><display/></field>
         <field name="description"><display/></field>
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}">
@@ -135,22 +139,34 @@ under the License.
     <form name="ListRequestsWorkEffortForm" type="list" use-row-submit="true" list-name="requests" paginate-target="requestlist"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-and entity-name="CustRequest" list-name="requests">
-                <field-map field-name="statusId" value="CRQ_ACCEPTED"/>
-                </entity-and>
+            <entity-and entity-name="WorkEffortCustRequestView" list-name="requests">
+                <field-map field-name="statusId" value="CRQ_REVIEWED"/>
+            </entity-and>
         </actions>
         <row-actions>
-            <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/custRequestWorkEffort.bsh"/>
+            <service service-name="getProjectIdAndNameFromTask" result-map-name="sResult">
+                <field-map field-name="taskId" env-name="workEffortId"/>
+            </service>
         </row-actions> 
-        <field name="custRequestName" widget-style="buttontext">
-            <hyperlink description="${custRequestName} ${custRequestId}" target="ViewRequest?custRequestId=${custRequestId}"/>
+        <field name="custRequestId">
+            <hyperlink target="/ordermgr/control/ViewRequest?custRequestId=${custRequestId}" target-type="inter-app" description="${custRequestName} [${custRequestId}]"/>
+         </field>
+        <field name="projectId" map-name="sResult">
+            <hyperlink target="projectView?projectId=${sResult.projectId}" description="${sResult.projectName} [${sResult.projectId}]"/>
+        </field>
+        <field name="phaseId" map-name="sResult">
+            <display description="${sResult.phaseName} [${sResult.phaseId}]"/>
         </field>
         <field name="workEffortId">
-            <hyperlink target="taskView?workEffortId=${workEffortId}" description="${workEffortId}"/>
+            <hyperlink target="taskView?workEffortId=${workEffortId}" description="${workEffortName} [${workEffortId}]"/>
         </field>
         <field name="priority"><display/></field>
         <field name="createdDate"><display type="date"/></field>
-        <field name="fromPartyId"><display/></field>
+        <field name="fromPartyId">
+            <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}" key-field-name="partyId">
+                <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${fromPartyId}" target-type="inter-app" description="[${fromPartyId}]"/>
+            </display-entity>
+        </field>
         <field name="statusId">
             <display-entity also-hidden="false" entity-name="StatusItem"/>
         </field>
