@@ -186,6 +186,8 @@ under the License.
                                 </section>
                             </container>
                         </container>
+                        <label text="${uiLabelMap.ContentContentsAssociatedToDataResource}" style="h3"/>
+                        <include-form name="ListContentsAssociatedToDataResource" location="component://content/widget/content/DataResourceForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
