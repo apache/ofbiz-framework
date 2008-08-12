@@ -18,6 +18,8 @@ specific language governing permissions and limitations
 under the License.
 -->
 <entity-engine-xml>
+    <!-- When you set contents here, don't forget to remove the original Name in DemoProduct.xml if any... I got caught by this today -->
+    
     <!-- Example of a product with many languages -->
     <DataResource dataResourceId="GZ2644DESCFR" dataResourceTypeId="ELECTRONIC_TEXT" localeString="fr"/>   
     <DataResource dataResourceId="GZ2644DESCIT" dataResourceTypeId="ELECTRONIC_TEXT" localeString="it"/>   
