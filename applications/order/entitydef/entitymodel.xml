@@ -1619,8 +1619,7 @@ under the License.
       <field name="priority" type="numeric"></field>
       <field name="custRequestDate" type="date-time">
         <description>
-          When the customer (or whoever) submitted the request 
-          When the request is known as being one, may be out of OFBiz : comming by mail, email, etc.          
+          When the customer (or whoever) submitted the request, maybe out of OFBiz : comming by mail, email, etc.          
         </description>
       </field>
       <field name="responseRequiredDate" type="date-time">
@@ -1641,15 +1640,14 @@ under the License.
       <field name="currencyUomId" type="id"></field>
       <field name="openDateTime" type="date-time">
         <description>
-          Used when the customer service person or anyone assigned to handle the incoming request open it for action.
-          Then you take the customer requestdate and openDateTime to see the efficiency of the customer service people.          
+          Used when the customer service person, or anyone assigned to handle the incoming request, opens it for action.
+          You  cantake the customer requestdate and openDateTime to see the efficiency of the customer service people.          
         </description>
       </field>
       <field name="closedDateTime" type="date-time">
         <description>
-          Used when the customer service person or anyone assigned to handle the incoming request close it as resolution
-          In some customer response systems, the openDateTime and closedDateTime can happen more than once as the customer is not satified
-          with the resolution.          
+          Used when the customer service person, or anyone assigned to handle the incoming request, closes it as resolution.
+          In some customer response systems, the openDateTime and closedDateTime can happen more than once as the customer is not satified with the resolution.          
         </description>
       </field>
       <field name="internalComment" type="comment"></field>
@@ -1662,7 +1660,7 @@ under the License.
       <field name="createdByUserLogin" type="id-vlong"></field>
       <field name="lastModifiedDate" type="date-time">
         <description>
-          Last modified date can be till the closedDateTime which is when the customer service people say it is resolved. 
+          Last modified date can be till the closedDateTime which is when the customer service people, or anyone assigned to handle the incoming request, says it is resolved. 
           This gives when the last action was done to see if the steps to resolve the request are happening in a timely manner.              
         </description>
       </field>
