@@ -1166,6 +1166,7 @@ under the License.
     <view-entity entity-name="CustRequestAndRole"
             package-name="org.ofbiz.order.request"
             title="Customer Request And Role View Entity">
+      <description>See CustRequest for descriptions of date fields</description>      
       <member-entity entity-alias="CR" entity-name="CustRequest"/>
       <member-entity entity-alias="CRR" entity-name="CustRequestRole"/>
       <alias entity-alias="CR" name="custRequestId"/>
