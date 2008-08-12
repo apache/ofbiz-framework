@@ -556,7 +556,7 @@
     <request-map uri="CreateTaskFromRequest">
         <security https="true" auth="true"/>
         <event type="service" invoke="createWorkEffort"/>
-        <response name="success" type="request" value="updaterequeststatus"/>
+        <response name="success" type="request" value="taskView"/>
         <response name="error" type="view" value="EditTaskFromRequest"/>
     </request-map>
     <request-map uri="newrequest">
@@ -586,12 +586,6 @@
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ListResourcesUnBilledHours"/>
         <response name="error" type="view" value="ListResourcesUnBilledHours"/>
-    </request-map>
-    <request-map uri="updaterequeststatus">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updateCustRequest"/>
-        <response name="success" type="view" value="RequestList"/>
-        <response name="error" type="view" value="RequestList"/>
     </request-map>
     <request-map uri="editperson"><security https="true" auth="true"/><response name="success" type="view" value="EditPerson"/></request-map>
     <request-map uri="updatePerson">

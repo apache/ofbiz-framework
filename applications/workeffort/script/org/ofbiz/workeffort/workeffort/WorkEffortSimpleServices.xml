@@ -70,10 +70,19 @@ under the License.
 
         <!-- attach to a customer request if passed and copy attached docs if customer request has communication events with attachments -->
         <if-not-empty field="parameters.custRequestId">
+            <!-- check status of customer request should be assigned -->
+            <entity-one entity-name="CustRequest" value-name="custRequest"/>
+            <if-compare operator="not-equals" value="CRQ_ACCEPTED" field="custRequest.statusId">
+                <add-error><fail-message message="Cannot create task from Customer Request: wrong status of customer request"/></add-error>
+            </if-compare>
             <make-value value-name="custRequestWorkEffort" entity-name="CustRequestWorkEffort"/>
             <set field="custRequestWorkEffort.workEffortId" from-field="newEntity.workEffortId" />
             <set field="custRequestWorkEffort.custRequestId" from-field="parameters.custRequestId"/>
             <create-value value-name="custRequestWorkEffort"/>
+            <!-- update status of customer request -->
+            <set field="updCustReq.custRequestId" from-field="parameters.custRequestId"/>
+            <set field="updCustReq.statusId" value="CRQ_REVIEWED"/>
+            <call-service service-name="setCustRequestStatus" in-map-name="updCustReq"/>
             <entity-and list-name="custRequestCommEvents" entity-name="CustRequestCommEvent">
                 <field-map field-name="custRequestId" env-name="parameters.custRequestId"/>
             </entity-and>
