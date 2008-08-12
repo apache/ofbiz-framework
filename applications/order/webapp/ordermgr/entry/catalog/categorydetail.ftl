@@ -44,11 +44,13 @@ under the License.
 
 
 <#if productCategory?exists>
-    <#if categoryContentWrapper.get("CATEGORY_NAME")?has_content>
-        <h1>${categoryContentWrapper.get("CATEGORY_NAME")}</h1>
+    <#assign categoryName = categoryContentWrapper.get("CATEGORY_NAME")?if_exists/>
+    <#assign categoryDescription = categoryContentWrapper.get("DESCRIPTION")?if_exists/>
+    <#if categoryName?has_content>
+        <h1>${categoryName}</h1>
     </#if>
-    <#if categoryContentWrapper.get("DESCRIPTION")?has_content>
-        <h1>${categoryContentWrapper.get("DESCRIPTION")}</h1>
+    <#if categoryDescription?has_content>
+        <h1>${categoryDescription}</h1>
     </#if>
     <#if hasQuantities?exists>
       <form method="post" action="<@ofbizUrl>addCategoryDefaults<#if requestAttributes._CURRENT_VIEW_?exists>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>" name="thecategoryform" style='margin: 0;'>

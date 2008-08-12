@@ -18,6 +18,8 @@
     under the License.
 -->
 <entity-engine-xml>
+    <!-- When you set contents here, don't forget to remove the original Name in DemoProduct.xml if any... I got caught by this today -->
+    
    <!-- Gizmos category -->
     <DataResource dataResourceId="DR100DESCFR" dataResourceTypeId="ELECTRONIC_TEXT" localeString="fr"/>   
     <DataResource dataResourceId="DR100DESCIT" dataResourceTypeId="ELECTRONIC_TEXT" localeString="it"/>   
@@ -256,18 +258,32 @@
     <DataResource dataResourceId="DRFOOD-001DESCFR" dataResourceTypeId="ELECTRONIC_TEXT" localeString="fr"/>   
     <DataResource dataResourceId="DRFOOD-001DESCIT" dataResourceTypeId="ELECTRONIC_TEXT" localeString="it"/>    
     <DataResource dataResourceId="DRFOOD-001DESCEN" dataResourceTypeId="ELECTRONIC_TEXT" localeString="en"/>    
-
+    
     <ElectronicText dataResourceId="DRFOOD-001DESCFR" textData="Nourriture à la carte"/>
     <ElectronicText dataResourceId="DRFOOD-001DESCIT" textData="Nutrimento configurabili"/>
     <ElectronicText dataResourceId="DRFOOD-001DESCEN" textData="Configurables Foods"/>
-
+    
     <Content contentId="CFOOD-001DESCFR" contentTypeId="DOCUMENT" dataResourceId="DRFOOD-001DESCFR" description="DESCRIPTION FR Nourriture à la carte" localeString="fr" />
     <Content contentId="CFOOD-001DESCIT" contentTypeId="DOCUMENT" dataResourceId="DRFOOD-001DESCIT" description="DESCRIPTION IT Nutrimento configurabili" localeString="it" />
     <Content contentId="CFOOD-001DESCEN" contentTypeId="DOCUMENT" dataResourceId="DRFOOD-001DESCEN" description="DESCRIPTION EN Configurables Foods" localeString="en"/>
-
+    
     <ProductCategoryContent productCategoryId="FOOD-001" contentId="CFOOD-001DESCEN" prodCatContentTypeId="CATEGORY_NAME" fromDate="2007-12-28 00:00:00.0"/>
     
     <ContentAssoc contentId="CFOOD-001DESCEN" contentIdTo="CFOOD-001DESCIT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2007-12-28 00:00:00.0"/>
     <ContentAssoc contentId="CFOOD-001DESCEN" contentIdTo="CFOOD-001DESCFR" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2007-12-28 00:00:00.0"/>
-        
+    
+    <!-- Featured products category -->
+    <DataResource dataResourceId="DRPROMO-001DESCFR" dataResourceTypeId="ELECTRONIC_TEXT" localeString="fr"/>   
+    <DataResource dataResourceId="DRPROMO-001DESCEN" dataResourceTypeId="ELECTRONIC_TEXT" localeString="en"/>    
+    
+    <ElectronicText dataResourceId="DRPROMO-001DESCFR" textData="Produits de démonstration"/>
+    <ElectronicText dataResourceId="DRPROMO-001DESCEN" textData="Featured products"/>
+    
+    <Content contentId="CPROMO-001DESCFR" contentTypeId="DOCUMENT" dataResourceId="DRPROMO-001DESCFR" description="DESCRIPTION FR Articles de démonstration" localeString="fr" />
+    <Content contentId="CPROMO-001DESCEN" contentTypeId="DOCUMENT" dataResourceId="DRPROMO-001DESCEN" description="DESCRIPTION EN Featured products" localeString="en"/>
+    
+    <ProductCategoryContent productCategoryId="PROMOTIONS" contentId="CPROMO-001DESCEN" prodCatContentTypeId="CATEGORY_NAME" fromDate="2007-12-28 00:00:00.0"/>
+    
+    <ContentAssoc contentId="CPROMO-001DESCEN" contentIdTo="CPROMO-001DESCFR" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2007-12-28 00:00:00.0"/>
+    
 </entity-engine-xml>
