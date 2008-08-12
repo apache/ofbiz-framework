@@ -2407,6 +2407,7 @@
     </property>
     <property key="EcommerceOnePageCheckout">
         <value xml:lang="en">One Page Checkout</value>
+        <value xml:lang="fr">Paiment sur une seule page</value>
     </property>     
     <property key="EcommerceOrderInLast">
         <value xml:lang="en">order(s) in the last</value>
