@@ -155,7 +155,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleSearchResults"/>
-                <script location="component://product/webapp/catalog/WEB-INF/actions/find/keywordsearch.bsh"/>
+                <script location="component://product/webapp/catalog/WEB-INF/actions/find/keywordsearch.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFindDecorator">
