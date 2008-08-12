@@ -73,6 +73,7 @@ under the License.
         <implements service="interfaceWorkEffort"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <attribute name="communicationEventId" type="String" mode="IN" optional="true"/>
+        <attribute name="reason" type="String" mode="IN" optional="true"/>
     </service>
     <service name="deleteWorkEffort" default-entity-name="WorkEffort" engine="simple"
             location="org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="deleteWorkEffort">
