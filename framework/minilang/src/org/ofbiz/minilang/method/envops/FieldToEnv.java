@@ -28,6 +28,8 @@ import org.ofbiz.minilang.method.*;
 /**
  * Copies a map field to an environment field
  */
+@Deprecated
+@MethodOperation.DeprecatedOperation("set")
 public class FieldToEnv extends MethodOperation {
     
     public static final String module = FieldToEnv.class.getName();

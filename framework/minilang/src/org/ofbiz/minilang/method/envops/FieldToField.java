@@ -30,6 +30,8 @@ import org.ofbiz.minilang.method.*;
 /**
  * Copies a map field to a map field
  */
+@Deprecated
+@MethodOperation.DeprecatedOperation("set")
 public class FieldToField extends MethodOperation {
     
     public static final String module = FieldToField.class.getName();

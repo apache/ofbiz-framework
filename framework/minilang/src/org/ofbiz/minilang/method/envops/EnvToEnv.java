@@ -27,6 +27,8 @@ import org.w3c.dom.Element;
 /**
  * Copies an environment field to a map field
  */
+@Deprecated
+@MethodOperation.DeprecatedOperation("set")
 public class EnvToEnv extends MethodOperation {
     
     public static final String module = EnvToEnv.class.getName();
