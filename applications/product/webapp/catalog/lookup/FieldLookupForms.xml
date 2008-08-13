@@ -45,7 +45,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="listLookupProduct" list-name="listIt" title="" type="list" paginate-target="LookupProduct"
-        odd-row-style="alternate-row" default-table-style="basic-table">
+        odd-row-style="alternate-row" default-table-style="basic-table" view-size="20">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -68,7 +68,7 @@ under the License.
         <field name="isVirtual"><hidden value="Y"/></field>
     </form>
     <form name="listLookupVirtualProduct" list-name="listIt" title="" type="list" extends="listLookupProduct"
-        paginate-target="LookupVirtualProduct" odd-row-style="alternate-row" default-table-style="basic-table">
+        paginate-target="LookupVirtualProduct" odd-row-style="alternate-row" default-table-style="basic-table" view-size="20">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -130,7 +130,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="listLookupProductAndPrice" list-name="listIt" title="" type="list"
-        paginate-target="LookupProductAndPrice" odd-row-style="alternate-row" default-table-style="basic-table">
+        paginate-target="LookupProductAndPrice" odd-row-style="alternate-row" default-table-style="basic-table" view-size="20">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -177,7 +177,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="listLookupProductCategory" list-name="listIt" title="" type="list"
-        paginate-target="LookupProductCategory" odd-row-style="alternate-row" default-table-style="basic-table">
+        paginate-target="LookupProductCategory" odd-row-style="alternate-row" default-table-style="basic-table" view-size="20">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -218,7 +218,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="listLookupProductFeature" list-name="listIt" title="" type="list" paginate-target="LookupProductFeature"
-        odd-row-style="alternate-row" default-table-style="basic-table">
+        odd-row-style="alternate-row" default-table-style="basic-table" view-size="20">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
@@ -244,7 +244,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="listLookupProductStore" list-name="listIt" target="" title="" type="list"
-        paginate-target="LookupProductStore" odd-row-style="alternate-row" default-table-style="basic-table">
+        paginate-target="LookupProductStore" odd-row-style="alternate-row" default-table-style="basic-table" view-size="20">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
