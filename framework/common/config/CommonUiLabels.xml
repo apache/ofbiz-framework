@@ -1976,6 +1976,9 @@
         <value xml:lang="th">Error: ข้อผิดพลาด ! ไม่อนุญาติเปลี่ยนสถานะจาก [${lookedUpValue.statusId}] เป็น [${parameters.statusId}]</value>
         <value xml:lang="zh">错误: 不允许把状态从[${lookedUpValue.statusId}]变为[${parameters.statusId}]。</value>
     </property>
+    <property key="CommonErrorStatusNotValid">
+        <value xml:lang="en">Error: status  of ${entity} is not valid, it is: ${lookedUpValue.statusId} but should be: ${goodStatusId}.</value>
+    </property>
     <property key="CommonEventDate">
         <value xml:lang="ar">تاريخ الحدث</value>
         <value xml:lang="de">Ereignisdatum</value>

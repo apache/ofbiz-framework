@@ -70,11 +70,15 @@ under the License.
 
         <!-- attach to a customer request if passed and copy attached docs if customer request has communication events with attachments -->
         <if-not-empty field="parameters.custRequestId">
-            <!-- check status of customer request should be assigned -->
-            <entity-one entity-name="CustRequest" value-name="custRequest"/>
-            <if-compare operator="not-equals" value="CRQ_ACCEPTED" field="custRequest.statusId">
-                <add-error><fail-message message="Cannot create task from Customer Request: wrong status of customer request"/></add-error>
-            </if-compare>
+            <!-- check status of customer request if valid -->
+            <entity-one entity-name="CustRequest" value-name="lookedUpValue"/>
+            <set field="goodStatusId" value="CRQ_ACCEPTED"/>
+            <if-compare-field operator="not-equals" field="lookedUpValue.statusId" to-field="goodStatusId" >
+                <set field="entity" value="Customer request"/>
+                <add-error><fail-property resource="CommonUiLabels" property="CommonErrorStatusNotValid"/></add-error>
+                <check-errors/>
+            </if-compare-field>
+            <!-- create customer request / work effort relation -->
             <make-value value-name="custRequestWorkEffort" entity-name="CustRequestWorkEffort"/>
             <set field="custRequestWorkEffort.workEffortId" from-field="newEntity.workEffortId" />
             <set field="custRequestWorkEffort.custRequestId" from-field="parameters.custRequestId"/>
