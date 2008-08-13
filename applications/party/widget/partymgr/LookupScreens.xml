@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -23,9 +23,7 @@ under the License.
     <screen name="LookupPartyName">
         <section>
             <condition>
-                <or>
-                    <if-has-permission permission="PARTYMGR" action="_VIEW"/>
-                </or>
+                <if-service-permission service-name="partyBasePermissionCheck" main-action="VIEW"/>
             </condition>
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
@@ -49,9 +47,7 @@ under the License.
     <screen name="LookupPartyEmail">
         <section>
             <condition>
-                <or>
-                    <if-has-permission permission="PARTYMGR" action="_VIEW"/>
-                </or>
+                <if-service-permission service-name="partyBasePermissionCheck" main-action="VIEW"/>
             </condition>
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
@@ -75,9 +71,7 @@ under the License.
     <screen name="LookupCustomerName">
         <section>
             <condition>
-                <or>
-                    <if-has-permission permission="PARTYMGR" action="_VIEW"/>
-                </or>
+                <if-service-permission service-name="partyBasePermissionCheck" main-action="VIEW"/>
             </condition>
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
@@ -102,9 +96,7 @@ under the License.
     <screen name="LookupCustomerNameForSalesRep">
         <section>
             <condition>
-                <or>
-                    <if-has-permission permission="PARTYMGR" action="_VIEW"/>
-                </or>
+                <if-service-permission service-name="partyBasePermissionCheck" main-action="VIEW"/>
             </condition>
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
@@ -129,9 +121,7 @@ under the License.
     <screen name="LookupPerson">
         <section>
             <condition>
-                <or>
-                    <if-has-permission permission="PARTYMGR" action="_VIEW"/>
-                </or>
+                <if-service-permission service-name="partyBasePermissionCheck" main-action="VIEW"/>
             </condition>
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
@@ -157,9 +147,7 @@ under the License.
     <screen name="LookupPartyAndUserLoginAndPerson">
         <section>
             <condition>
-                <or>
-                    <if-has-permission permission="PARTYMGR" action="_VIEW"/>
-                </or>
+                <if-service-permission service-name="partyBasePermissionCheck" main-action="VIEW"/>
             </condition>
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
@@ -185,7 +173,7 @@ under the License.
     <screen name="LookupUserLoginAndPartyDetails">
         <section>
             <condition>
-                <if-has-permission permission="PARTYMGR" action="_VIEW"/>
+                <if-service-permission service-name="partyBasePermissionCheck" main-action="VIEW"/>
             </condition>
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
@@ -211,9 +199,7 @@ under the License.
     <screen name="LookupPartyGroup">
         <section>
             <condition>
-                <or>
-                    <if-has-permission permission="PARTYMGR" action="_VIEW"/>
-                </or>
+                <if-service-permission service-name="partyBasePermissionCheck" main-action="VIEW"/>
             </condition>
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
@@ -241,9 +227,7 @@ under the License.
     <screen name="LookupPartyClassificationGroup">
         <section>
             <condition>
-                <or>
-                    <if-has-permission permission="PARTYMGR" action="_VIEW"/>
-                </or>
+                <if-service-permission service-name="partyBasePermissionCheck" main-action="VIEW"/>
             </condition>
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
