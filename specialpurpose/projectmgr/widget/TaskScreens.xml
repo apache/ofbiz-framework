@@ -459,45 +459,30 @@ under the License.
                 <set field="tabButtonItem" value="taskView"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <set field="projectId" from-field="parameters.workEffortId"/>
-                <service service-name="getProjectTask" result-map-name="result">
+                <service service-name="getProjectTask" result-map-name="taskResult">
                     <field-map field-name="taskId" env-name="workEffortId"/>
                 </service>
-                <set field="task" from-field="result.taskInfo"/>
+                <set field="task" from-field="taskResult.taskInfo"/>
+                <service service-name="getProjectIdAndNameFromTask" result-map-name="projectResult">
+                    <field-map field-name="taskId" env-name="workEffortId"/>
+                </service>
             </actions>                        
             <widgets>
                 <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <section>                                                 
-                            <condition>
-                                <not><if-empty field-name="task"/></not>
-                            </condition>
-                            <widgets>                                
-                                <container style="lefthalf">
-                                    <container style="screenlet">
-                                        <container style="screenlet-title-bar">
-                                            <container style="h3">
-                                                <label text="${uiLabelMap.PageTitleTaskInformation}"/>
-                                            </container>
-                                        </container>
-                                        <container style="screenlet-body">
-                                            <section>
-                                                <widgets>    
-                                                    <include-form name="TaskInfo" location="component://projectmgr/widget/forms/TaskForms.xml"/>  
-                                                </widgets>
-                                            </section>
-                                        </container>
-                                    </container>
-                                    <include-screen name="taskBefore"/>
-                                    <include-screen name="taskAfter"/>
-                                </container>
-                                <container style="righthalf">
-                                    <include-screen name="TaskTeamInfo"/>
-                                    <include-screen name="ListTaskContent"/>
-                                    <include-screen name="NoteInfo"/>
-                                    <include-screen name="ListWorkEffortRequests"/>
-                                </container>
-                            </widgets>
-                        </section>
+                        <container style="lefthalf">
+                            <screenlet title="${uiLabelMap.PageTitleTaskInformation}">
+                                <include-form name="TaskInfo" location="component://projectmgr/widget/forms/TaskForms.xml"/>  
+                            </screenlet>
+                            <include-screen name="taskBefore"/>
+                            <include-screen name="taskAfter"/>
+                        </container>
+                        <container style="righthalf">
+                            <include-screen name="TaskTeamInfo"/>
+                            <include-screen name="ListTaskContent"/>
+                            <include-screen name="NoteInfo"/>
+                            <include-screen name="ListWorkEffortRequests"/>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>            
@@ -662,54 +647,29 @@ under the License.
     <screen name="EditTaskFromRequest">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleEditTaskList"/>
+                <set field="titleProperty" value="PageTitleEditTask"/>
                 <set field="headerItem" value="request"/>
                 <set field="tabButtonItem" value="edittask"/>                
-                <set field="labelTitleProperty" value="PageTitleEditTaskList"/>
-                <set field="workEffortId" from-field="parameters.workEffortId"/>    
-                <entity-one entity-name="CustRequest" value-name="custRequest"></entity-one>            
-                <entity-one entity-name="WorkEffort" value-name="task"/>    
-                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/getProjectId.bsh"/>
+                <set field="labelTitleProperty" value="PageTitleEditTask"/>
+                <entity-one entity-name="CustRequest" value-name="custRequest"/>
+                <entity-one entity-name="PartyNameView" value-name="partyName">
+                    <field-map field-name="partyId" env-name="custRequest.fromPartyId"/>
+                </entity-one>
                 </actions>
             <widgets>
                 <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <section>                                                       
-                            <widgets>
-                                <container style="lefthalf">
-                                    <container style="screenlet">
-                                        <container style="screenlet-title-bar">
-                                            <container style="h3">
-                                                <label text="${uiLabelMap.PageTitleCreateTaskbyRequest}"/>
-                                            </container>
-                                        </container>
-                                        <container style="screenlet-body">
-                                            <section>
-                                                <widgets>    
-                                                    <include-form name="EditTaskFromRequest" location="component://projectmgr/widget/forms/TaskForms.xml"/>
-                                                </widgets>
-                                            </section>
-                                        </container>
-                                    </container>
-                                </container>
-                                <container style="righthalf">
-                                    <container style="screenlet">
-                                        <container style="screenlet-title-bar">
-                                            <container style="h3">
-                                                <label text="${uiLabelMap.ProjectMgrCreateByExistingTask}"/>
-                                            </container>
-                                        </container>
-                                        <container style="screenlet-body">
-                                            <section>
-                                                <widgets>    
-                                                    <include-form name="CreateCustRequestWorkEffortByExistingTaskForm" location="component://projectmgr/widget/forms/TaskForms.xml"/>
-                                                </widgets>
-                                            </section>
-                                        </container>
-                                    </container>
-                                </container>  
-                            </widgets>                            
-                        </section>
+                        <label style="h1" text="${uiLabelMap.OrderRequest} : ${custRequest.custRequestName} [${parameters.custRequestId}] ${uiLabelMap.CommonFrom} ${partyName.firstName} ${partyName.middleName} ${partyName.lastName} ${partyName.groupName} "></label>
+                        <container style="lefthalf">
+                            <screenlet title="${uiLabelMap.PageTitleCreateTaskbyRequest}">
+                                <include-form name="EditTaskFromRequest" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                            </screenlet>
+                        </container>
+                        <container style="righthalf">
+                            <screenlet title="${uiLabelMap.ProjectMgrCreateByExistingTask}">
+                               <include-form name="CreateCustRequestWorkEffortByExistingTaskForm" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                            </screenlet>
+                        </container>  
                     </decorator-section>
                 </decorator-screen>
             </widgets>
