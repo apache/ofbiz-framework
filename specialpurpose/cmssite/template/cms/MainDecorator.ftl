@@ -21,14 +21,14 @@ under the License.
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-${thisContent.subcontent.htmlHead}    
+${(decoratedContent.subcontent.htmlHead)?default((thisContent.subcontent.htmlHead)?if_exists)}
 </head>
 
 <body>
-${(thisContent.subcontent.header)?if_exists}
+${(decoratedContent.subcontent.header)?default((thisContent.subcontent.header)?if_exists)}
 
-${decoratedContent}    
+${decoratedContent}
 
-${(thisContent.subcontent.footer)?if_exists}    
+${(decoratedContent.subcontent.footer)?default((thisContent.subcontent.footer)?if_exists)}
 </body>
 </html>
