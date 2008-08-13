@@ -103,33 +103,41 @@ under the License.
             <link target="newEvent?donePage=${parameters.donePage}"/>
         </menu-item>
     </menu>
-	<menu name="communicationsMenu">
-		<menu-item name="newEmail" title="${uiLabelMap.PartyNewEmail}">
-			<link
-				target="EditCommunicationEvent?communicationEventTypeId=EMAIL_COMMUNICATION&amp;donePage=${parameters.donePage}" />
-		</menu-item>
-		<menu-item name="newNote" title="${uiLabelMap.PartyNewInternalNote}">
-			<link
-				target="EditCommunicationEvent?communicationEventTypeId=COMMENT_NOTE&amp;donePage=${parameters.donePage}" />
-		</menu-item>
-		<menu-item name="openEvents" title="${uiLabelMap.OpenEvents}">
-			<condition>
+    <menu name="communicationsMenu">
+        <actions>
+            <service service-name="getPartyEmail" result-map-name="emailResult">
+                <field-map field-name="partyId" env-name="userLogin.partyId"/>
+            </service>
+        </actions>
+        <menu-item name="newEmail" title="${uiLabelMap.PartyNewEmail}">
+            <condition>
+                <not><if-empty field-name="emailResult.emailAddress"/></not>
+            </condition>      
+            <link
+                target="EditCommunicationEvent?communicationEventTypeId=EMAIL_COMMUNICATION&amp;donePage=${parameters.donePage}" />
+        </menu-item>
+        <menu-item name="newNote" title="${uiLabelMap.PartyNewInternalNote}">
+            <link
+                target="EditCommunicationEvent?communicationEventTypeId=COMMENT_NOTE&amp;donePage=${parameters.donePage}" />
+        </menu-item>
+        <menu-item name="openEvents" title="${uiLabelMap.OpenEvents}">
+            <condition>
                 <if-compare field-name="parameters.status" operator="equals"
                     value="all" />
-			</condition>
-			<link target="${parameters.donePage}?donePage=${parameters.donePage}&amp;status=open" />
-		</menu-item>
-		<menu-item name="allOtherEvents" title="${uiLabelMap.AllEvents}">
-			<condition>
-			    <or>
-				    <if-compare field-name="parameters.status" operator="equals"
-					    value="open" />
-		            <if-empty field-name="parameters.status"/>
-			    </or>
-			</condition>
-			<link target="${parameters.donePage}?donePage=${parameters.donePage}&amp;status=all" />
-		</menu-item>
-	</menu>    
+            </condition>
+            <link target="${parameters.donePage}?donePage=${parameters.donePage}&amp;status=open" />
+        </menu-item>
+        <menu-item name="allOtherEvents" title="${uiLabelMap.AllEvents}">
+            <condition>
+                <or>
+                    <if-compare field-name="parameters.status" operator="equals"
+                        value="open" />
+                    <if-empty field-name="parameters.status"/>
+                </or>
+            </condition>
+            <link target="${parameters.donePage}?donePage=${parameters.donePage}&amp;status=all" />
+        </menu-item>
+    </menu>    
     
     <menu name="MyTasksMenu" type="simple" menu-container-style="button-bar button-style-2" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem">
         <menu-item name="myTasks" title="myTasks"><link target="/projectmgr/control/MyTasks" url-mode="inter-app"/></menu-item>
