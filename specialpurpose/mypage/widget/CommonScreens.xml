@@ -142,6 +142,32 @@ under the License.
     <screen name="main">
         <section>
             <actions>
+                <entity-one entity-name="PartyRole" value-name="isEmployee">
+                    <field-map field-name="partyId" env-name="userLogin.partyId" />
+                    <field-map field-name="roleTypeId" value="EMPLOYEE" />
+                </entity-one>
+            </actions>
+            <widgets>
+                <section>
+                    <condition>
+                        <not>
+                            <if-empty field-name="isEmployee" />
+                        </not>
+                    </condition>
+                    <widgets>
+                        <include-screen name="mainEmployee" />
+                    </widgets>
+                    <fail-widgets>
+                        <include-screen name="mainNotEmployee" />
+                    </fail-widgets>
+                </section>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="mainEmployee">
+        <section>
+            <actions>
                 <set field="headerItem" value="main" />
                 <set field="parameters.donePage" value="main"/>
                 <!-- refresh every 3 minutes -->
@@ -229,6 +255,26 @@ under the License.
                                     location="component://mypage/widget/MyPageScreens.xml" />
                             </widgets>
                         </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="mainNotEmployee">
+        <section>
+            <actions>
+                <entity-and list-name="custRequests" entity-name="WorkEffortCustRequestView">
+                    <field-map field-name="fromPartyId" env-name="userLogin.partyId"/>
+                    <order-by field-name="createdDate"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator"
+                    location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.OrderRequestList}" navigation-form-name="ListRequestList" >
+                            <include-form name="ListCustRequests" location="component://mypage/widget/MyPageForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

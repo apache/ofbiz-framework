@@ -126,4 +126,22 @@ under the License.
             <hyperlink target="/projectmgr/control/taskView?workEffortId=${workEffortId}" description="${workEffortName} [${workEffortId}]" target-type="inter-app"/>
         </field>
     </form>
+    <form name="ListCustRequests" type="list" list-name="custRequests" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <row-actions>
+            <service service-name="getProjectTask" result-map-name="taskResult">
+                <field-map field-name="taskId" env-name="workEffortId"/>
+            </service>
+            <set field="task" from-field="taskResult.taskInfo"/>
+        </row-actions>
+        <field name="custRequestName"><hyperlink description="${custRequestName} [${custRequestId}]" target="ViewRequest?custRequestId=${custRequestId}"/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
+        <field name="createdDate" title="Date"><display type="date"/></field>
+        <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
+        <field name="task.plannedStartDate"><display type="date"/></field>
+        <field name="task.plannedEndDate"><display type="date"/></field>
+        <field name="task.actualStartDate"><display type="date"/></field>
+        <field name="task.actualEndDate"><display type="date"/></field>
+        <field name="task.plannedHours"><display/></field>
+        <field name="task.actualHours"><display/></field>
+    </form>
 </forms>

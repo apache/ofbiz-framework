@@ -150,9 +150,18 @@
             <set field="partyId" from-field="parameters.userLogin.partyId"/>
             <!--log level="info" message="======ProjectMGR Security=====  action: ${parameters.mainAction} object: ${sec_object} Id: ${parameters.taskId} PhaseId:  ${parameters.workEffortParentId} resourceDescription: ${parameters.resourceDescription}"/-->
             <call-simple-method method-name="checkProjectMembership"/>
+            <entity-and list-name="custRequests" entity-name="WorkEffortCustRequestView">
+                <field-map field-name="workEffortId" env-name="parameters.taskId"/>
+            </entity-and>
+            <first-from-list list-name="custRequests" entry-name="custRequest"/>
             <if>
                 <condition>
                     <or>
+                        <and>
+                            <!-- allow a customer to look at his own tasks related to his own customer requests -->
+                            <if-compare field="parameters.mainAction" value="VIEW" operator="equals"/>
+                            <if-compare operator="equals" value="${parameters.userLogin.partyId}" field="custRequest.fromPartyId"/>
+                        </and>
                         <and>
                             <!-- view a task with a null id is a null operation, so ok... -->
                             <if-empty field="parameters.taskId"/>
