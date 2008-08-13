@@ -491,12 +491,13 @@
             <hyperlink target="updateTaskNote?workEffortId=${workEffortId}&amp;noteId=${noteId}&amp;internalNote=N" description="${uiLabelMap.OrderNotesPublic}"></hyperlink>
         </field>
     </form>
-    <form name="AddTaskNote" extends="AddWorkEffortNote" extends-resource="component://workeffort/widget/WorkEffortForms.xml" type="single" target="createTaskNote" title=""
-        header-row-style="header-row" default-table-style="basic-table">
-    </form>
-    <form name="TaskInfo" type="single" default-map-name="task"
-        header-row-style="header-row" default-table-style="basic-table">
-        <field name="taskName" title="${uiLabelMap.ProjectMgrTaskName}"><display/></field>
+    <form name="AddTaskNote" extends="AddWorkEffortNote" extends-resource="component://workeffort/widget/WorkEffortForms.xml" type="single" target="createTaskNote"/>
+    <form name="TaskInfo" type="single" default-map-name="task">
+        <field name="taskName" title="${uiLabelMap.ProjectMgrTaskName}"><display description="${task.taskName} [${task.taskId}]"/></field>
+        <field name="phaseName" title="${uiLabelMap.ProjectMgrPhaseName}"><display description="${projectResult.phaseName} [${projectResult.phaseId}]"/></field>
+        <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}">
+            <hyperlink target="projectView?projectId=${projectResult.projectId}" description="${projectResult.projectName} [${projectResult.projectId}]"/>
+        </field>
         <field name="taskDescription" title="${uiLabelMap.CommonDescription}"><display/></field>
         <field name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"></display-entity></field>
         <field name="priority" title="${uiLabelMap.CommonPriority}"><display type="date"/></field>
@@ -617,19 +618,12 @@
         <field name="actualStartDate" entry-name="workEffortToActualStartDate" title="${uiLabelMap.WorkEffortActualStartDate}"><display type="date"/></field>
         <field name="actualCompletionDate"  entry-name="workEffortToActualCompletionDate" title="${uiLabelMap.WorkEffortActualCompletionDate}"><display type="date"/></field>
     </form>    
-    <form name="EditTaskFromRequest" type="single" target="CreateTaskFromRequest"
-        header-row-style="header-row" default-table-style="basic-table">
-        <actions>
-            <entity-and entity-name="WorkEffortCustRequestView">
-                <field-map field-name="workEffortId"/>
-                </entity-and>
-            </actions>
+    <form name="EditTaskFromRequest" type="single" target="CreateTaskFromRequest">
         <field name="custRequestId"><hidden value="${parameters.custRequestId}"/></field>
         <field name="projectId"><hidden value="${parameters.projectId}"/></field>
         <field name="workEffortTypeId"><hidden value="TASK"/></field> 
-        <field name="currentStatusId"><hidden value="CAL_ACCEPTED"/></field>
-        <field name="statusId"><hidden value="CRQ_ACCEPTED"/></field>
-        <field name="taskName" parameter-name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}*" tooltip="${uiLabelMap.CommonRequired}"><text/></field>
+        <field name="currentStatusId"><hidden value="PTS_CREATED"/></field>
+        <field name="taskName" parameter-name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}*" tooltip="${uiLabelMap.CommonRequired}"><text default-value="${custRequest.custRequestName}"/></field>
         <field name="taskDescription" parameter-name="description" title="${uiLabelMap.CommonDescription}"><text default-value="${custRequest.description}"/></field>
         <field name="workEffortParentId" title="${uiLabelMap.ProjectMgrProjectAndPhaseName}*" parameter-name="workEffortParentId">
             <drop-down allow-empty="false">
@@ -670,13 +664,16 @@
         <field name="estimatedCompletionDate" title="${uiLabelMap.FormFieldTitle_estimatedCompletionDate}"><date-time type="date"/></field>
         <field name="save" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>                            
-    <form name="CreateCustRequestWorkEffortByExistingTaskForm" type="single" target="createTaskListForms"
-        header-row-style="header-row" default-table-style="basic-table">
+    <form name="CreateCustRequestWorkEffortByExistingTaskForm" type="single" target="createTaskListForms">
         <field name="custRequestId"><hidden/></field>
         <field name="statusId"><hidden value="CRQ_ACCEPTED"/></field>
         <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}">
             <drop-down allow-empty="false">
-                <entity-options entity-name="ProjectPartyAndPhaseAndTask" description="${projectName} - ${phaseName}"/>
+                <entity-options entity-name="ProjectAndPhaseAndTask" description="${projectName}-${phaseName}-${workEffortName}">
+                    <entity-order-by field-name="projectName"/>
+                    <entity-order-by field-name="phaseName"/>
+                    <entity-order-by field-name="workEffortName"/>
+                </entity-options>
             </drop-down>
           </field>
         <field name="save" title="${uiLabelMap.CommonSave}"><submit/></field>
