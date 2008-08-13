@@ -233,17 +233,17 @@ public class CmsEvents {
                 return "success";
             } else {
                 if (Debug.verboseOn()) Debug.logVerbose("No website [" + webSiteId + "] publish point found for contentId: " + contentId, module);
+                return "error";
             }
         }
 
-        return "success";
+        return "error";
         // throw an unknown request error
         //throw new GeneralRuntimeException("Unknown request; this request does not exist or cannot be called directly.");
     }
 
     protected static boolean verifyContentToWebSite(GenericDelegator delegator, String webSiteId, String contentId) throws GeneralException {
-        // first check the top level publish point
-        // get the root content id
+        // first check if the passed in contentId is a publish point for the web site
         List<GenericValue> publishPoints = null;
         try {
             publishPoints = delegator.findByAndCache("WebSiteContent",
@@ -254,7 +254,12 @@ public class CmsEvents {
         }
 
         publishPoints = EntityUtil.filterByDate(publishPoints);
-        if (publishPoints == null || publishPoints.size() == 0) {
+        if (publishPoints != null && publishPoints.size() > 0) {
+            if (Debug.verboseOn()) Debug.logVerbose("Found publish points: " + publishPoints, module);
+            return true;
+        } else {
+            // the passed in contentId is not a publish point for the web site;
+            // however we will publish its content if it is a node of one of the trees that have a publish point as the root 
             List<GenericValue> topLevelContentValues = delegator.findByAndCache("WebSiteContent",
                 UtilMisc.toMap("webSiteId", webSiteId, "webSiteContentTypeId", "PUBLISH_POINT"), UtilMisc.toList("-fromDate"));
             topLevelContentValues = EntityUtil.filterByDate(topLevelContentValues);
@@ -265,16 +270,13 @@ public class CmsEvents {
                     }
                 }
             }
-        } else {
-            if (Debug.verboseOn()) Debug.logVerbose("Found publish points: " + publishPoints, module);
-            return true;
         }
 
         return false;
     }
 
     protected static boolean verifySubContent(GenericDelegator delegator, String contentId, String contentIdFrom) throws GeneralException {
-        List<GenericValue> contentAssoc = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentIdFrom, "contentIdTo", contentId));
+        List<GenericValue> contentAssoc = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentIdFrom, "contentIdTo", contentId, "contentAssocTypeId", "SUB_CONTENT"));
         contentAssoc = EntityUtil.filterByDate(contentAssoc);
         if (contentAssoc == null || contentAssoc.size() == 0) {
             List<GenericValue> assocs = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentIdFrom));
