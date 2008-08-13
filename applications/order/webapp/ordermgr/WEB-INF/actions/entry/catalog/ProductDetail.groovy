@@ -281,6 +281,9 @@ if (product) {
                     jsBuf.append("document.forms[\"addform\"].elements[\"FT" + topLevelName + "\"].options.length = 1;");
                     jsBuf.append("document.forms[\"addform\"].elements[\"FT" + topLevelName + "\"].options[0] = new Option(\"" + featureTypes[topLevelName] + "\",\"\",true,true);");
                     if (variantTree) {
+                        featureOrder.each { featureKey ->
+                            jsBuf.append("document.forms[\"addform\"].elements[\"FT" + featureKey + "\"].options.length = 1;");
+                        }
                         firstDetailImage = null;
                         firstLargeImage = null;
                         counter = 0;
