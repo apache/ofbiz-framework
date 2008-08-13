@@ -21,7 +21,7 @@
     <property key="OrderAProductStoreMustBeSelectedForASalesOrder">
         <value xml:lang="en">A Product Store MUST be selected for a Sales Order. </value>
         <value xml:lang="es">Una tienda se debe seleccionar para una PO</value>
-        <value xml:lang="fr">Un magasin de produits doit être choisi pour un ordre de vente.</value>
+        <value xml:lang="fr">Un centre de profit doit être choisi pour une commande de vente.</value>
         <value xml:lang="it">Un Negozioe DEVE essere selezionato per un'Ordine di Vendita. </value>
         <value xml:lang="ro">TREBUIE sa selectionezi un magazin pentru o comanda de Vanzare. </value>
         <value xml:lang="ru">Для сбытового заказа ДОЛЖНА быть выбрана торговая точка. </value>
