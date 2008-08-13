@@ -110,7 +110,7 @@
                 </entity-options>        
             </drop-down>
         </field>
-        <field name="workEffortParentId" title="${uiLabelMap.ProjectMgrProjectAndPhaseName}*" parameter-name="workEffortParentId" required-field="true" tooltip="${uiLabelMap.CommonRequired}">
+        <field name="workEffortParentId" use-when="projectId==void" title="${uiLabelMap.ProjectMgrProjectAndPhaseName}*" parameter-name="workEffortParentId" required-field="true" tooltip="${uiLabelMap.CommonRequired}">
             <drop-down allow-empty="false">
                 <entity-options entity-name="ProjectAndPhaseAndTask" description="${projectName} : ${phaseName}">    
                     <entity-order-by field-name="workEffortParentId"/>
