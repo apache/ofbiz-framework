@@ -16237,7 +16237,7 @@
     <property key="ProductSingleOrderItemProduct">
         <value xml:lang="en">Single order item for this product</value>
         <value xml:lang="es">Un solo artículo de orden para este producto</value>
-        <value xml:lang="fr">Un seul ordre d'article pour celui-ci</value>
+        <value xml:lang="fr">Une seule ligne de commande pour celui-ci</value>
         <value xml:lang="it">Singola riga ordine per questo prodotto</value>
         <value xml:lang="ro">O singura linie de comanda pe acest produs </value>
         <value xml:lang="ru">Одиночная позиция заказа для этого продукта</value>
