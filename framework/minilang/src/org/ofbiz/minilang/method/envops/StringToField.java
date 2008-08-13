@@ -32,6 +32,8 @@ import org.ofbiz.minilang.method.*;
 /**
  * Copies the specified String to a field
  */
+@Deprecated
+@MethodOperation.DeprecatedOperation("set")
 public class StringToField extends MethodOperation {
     
     public static final String module = StringToField.class.getName();

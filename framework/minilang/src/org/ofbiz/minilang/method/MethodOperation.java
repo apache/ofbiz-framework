@@ -18,6 +18,11 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
 import org.w3c.dom.*;
 
 import org.ofbiz.minilang.*;
@@ -26,6 +31,11 @@ import org.ofbiz.minilang.*;
  * A single operation, does the specified operation on the given field
  */
 public abstract class MethodOperation {
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.TYPE)
+    public @interface DeprecatedOperation {
+        String value();
+    }
     
     protected SimpleMethod simpleMethod;
 

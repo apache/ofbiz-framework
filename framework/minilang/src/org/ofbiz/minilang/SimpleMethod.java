@@ -47,6 +47,7 @@ import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
+import org.ofbiz.minilang.method.MethodOperation.DeprecatedOperation;
 import org.ofbiz.minilang.method.callops.CallService;
 import org.ofbiz.minilang.method.callops.CallServiceAsynch;
 import org.ofbiz.minilang.method.callops.CallSimpleMethod;
@@ -880,208 +881,203 @@ public class SimpleMethod {
         if (operationElements != null && operationElements.size() > 0) {
             for (Element curOperElem: operationElements) {
                 String nodeName = curOperElem.getNodeName();
+                MethodOperation methodOp = null;
 
                 if ("call-map-processor".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.callops.CallSimpleMapProcessor(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.callops.CallSimpleMapProcessor(curOperElem, simpleMethod);
                 } else if ("check-errors".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.callops.CheckErrors(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.callops.CheckErrors(curOperElem, simpleMethod);
                 } else if ("add-error".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.callops.AddError(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.callops.AddError(curOperElem, simpleMethod);
                 } else if ("return".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.callops.Return(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.callops.Return(curOperElem, simpleMethod);
                 } else if ("set-service-fields".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.callops.SetServiceFields(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.callops.SetServiceFields(curOperElem, simpleMethod);
                 } else if ("call-service".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.callops.CallService(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.callops.CallService(curOperElem, simpleMethod);
                 } else if ("call-service-asynch".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.callops.CallServiceAsynch(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.callops.CallServiceAsynch(curOperElem, simpleMethod);
                 } else if ("call-bsh".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.callops.CallBsh(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.callops.CallBsh(curOperElem, simpleMethod);
                 } else if ("call-simple-method".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.callops.CallSimpleMethod(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.callops.CallSimpleMethod(curOperElem, simpleMethod);
 
                 } else if ("call-object-method".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.callops.CallObjectMethod(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.callops.CallObjectMethod(curOperElem, simpleMethod);
                 } else if ("call-class-method".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.callops.CallClassMethod(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.callops.CallClassMethod(curOperElem, simpleMethod);
                 } else if ("create-object".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.callops.CreateObject(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.callops.CreateObject(curOperElem, simpleMethod);
                     
                 } else if ("field-to-request".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.eventops.FieldToRequest(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.eventops.FieldToRequest(curOperElem, simpleMethod);
                 } else if ("field-to-session".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.eventops.FieldToSession(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.eventops.FieldToSession(curOperElem, simpleMethod);
                 } else if ("request-to-field".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.eventops.RequestToField(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.eventops.RequestToField(curOperElem, simpleMethod);
                 } else if ("request-parameters-to-list".equals(nodeName)) {
                     methodOperations.add(new org.ofbiz.minilang.method.eventops.RequestParametersToList(curOperElem, simpleMethod));                    
                 } else if ("session-to-field".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.eventops.SessionToField(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.eventops.SessionToField(curOperElem, simpleMethod);
                 } else if ("webapp-property-to-field".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.eventops.WebappPropertyToField(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.eventops.WebappPropertyToField(curOperElem, simpleMethod);
 
                 } else if ("field-to-result".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.serviceops.FieldToResult(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.serviceops.FieldToResult(curOperElem, simpleMethod);
 
                 } else if ("map-to-map".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.envops.MapToMap(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.envops.MapToMap(curOperElem, simpleMethod);
                 } else if ("field-to-list".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.envops.FieldToList(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.envops.FieldToList(curOperElem, simpleMethod);
                 } else if ("list-to-list".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.envops.ListToList(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.envops.ListToList(curOperElem, simpleMethod);
                 } else if ("order-map-list".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.envops.OrderMapList(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.envops.OrderMapList(curOperElem, simpleMethod);
 
                 } else if ("set".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.envops.SetOperation(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.envops.SetOperation(curOperElem, simpleMethod);
                 } else if ("set-calendar".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.envops.SetCalendar(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.envops.SetCalendar(curOperElem, simpleMethod);
                 } else if ("env-to-env".equals(nodeName)) {
-                    MethodOperation mop = new org.ofbiz.minilang.method.envops.EnvToEnv(curOperElem, simpleMethod);
-                    methodOperations.add(mop);
-                    Debug.logInfo("The env-to-env operation has been deprecated in favor of the set operation; found use of this in [" + simpleMethod.getShortDescription() + "]: " + mop.rawString(), module);
+                    methodOp = new org.ofbiz.minilang.method.envops.EnvToEnv(curOperElem, simpleMethod);
                 } else if ("env-to-field".equals(nodeName)) {
-                    MethodOperation mop = new org.ofbiz.minilang.method.envops.EnvToField(curOperElem, simpleMethod);
-                    methodOperations.add(mop);
-                    Debug.logInfo("The env-to-field operation has been deprecated in favor of the set operation; found use of this in [" + simpleMethod.getShortDescription() + "]: " + mop.rawString(), module);
+                    methodOp = new org.ofbiz.minilang.method.envops.EnvToField(curOperElem, simpleMethod);
                 } else if ("field-to-env".equals(nodeName)) {
-                    MethodOperation mop = new org.ofbiz.minilang.method.envops.FieldToEnv(curOperElem, simpleMethod);
-                    methodOperations.add(mop);
-                    Debug.logInfo("The field-to-env operation has been deprecated in favor of the set operation; found use of this in [" + simpleMethod.getShortDescription() + "]: " + mop.rawString(), module);
+                    methodOp = new org.ofbiz.minilang.method.envops.FieldToEnv(curOperElem, simpleMethod);
                 } else if ("field-to-field".equals(nodeName)) {
-                    MethodOperation mop = new org.ofbiz.minilang.method.envops.FieldToField(curOperElem, simpleMethod);
-                    methodOperations.add(mop);
-                    Debug.logInfo("The field-to-field operation has been deprecated in favor of the set operation; found use of this in [" + simpleMethod.getShortDescription() + "]: " + mop.rawString(), module);
+                    methodOp = new org.ofbiz.minilang.method.envops.FieldToField(curOperElem, simpleMethod);
                 } else if ("string-to-field".equals(nodeName)) {
-                    MethodOperation mop = new org.ofbiz.minilang.method.envops.StringToField(curOperElem, simpleMethod);
-                    methodOperations.add(mop);
-                    Debug.logInfo("The string-to-field operation has been deprecated in favor of the set operation; found use of this in [" + simpleMethod.getShortDescription() + "]: " + mop.rawString(), module);
+                    methodOp = new org.ofbiz.minilang.method.envops.StringToField(curOperElem, simpleMethod);
 
                 } else if ("string-append".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.envops.StringAppend(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.envops.StringAppend(curOperElem, simpleMethod);
                 } else if ("string-to-list".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.envops.StringToList(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.envops.StringToList(curOperElem, simpleMethod);
                 } else if ("to-string".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.envops.ToString(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.envops.ToString(curOperElem, simpleMethod);
                 } else if ("clear-field".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.envops.ClearField(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.envops.ClearField(curOperElem, simpleMethod);
                 } else if ("iterate".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.envops.Iterate(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.envops.Iterate(curOperElem, simpleMethod);
                 } else if ("iterate-map".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.envops.IterateMap(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.envops.IterateMap(curOperElem, simpleMethod);
                 } else if ("loop".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.envops.Loop(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.envops.Loop(curOperElem, simpleMethod);
                 } else if ("first-from-list".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.envops.FirstFromList(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.envops.FirstFromList(curOperElem, simpleMethod);
 
                 } else if ("transaction-begin".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.entityops.TransactionBegin(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.entityops.TransactionBegin(curOperElem, simpleMethod);
                 } else if ("transaction-commit".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.entityops.TransactionCommit(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.entityops.TransactionCommit(curOperElem, simpleMethod);
                 } else if ("transaction-rollback".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.entityops.TransactionRollback(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.entityops.TransactionRollback(curOperElem, simpleMethod);
                     
                 } else if ("now-timestamp-to-env".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.entityops.NowTimestampToEnv(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.entityops.NowTimestampToEnv(curOperElem, simpleMethod);
                 } else if ("now-date-to-env".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.entityops.NowDateToEnv(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.entityops.NowDateToEnv(curOperElem, simpleMethod);
                 } else if ("sequenced-id-to-env".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.entityops.SequencedIdToEnv(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.entityops.SequencedIdToEnv(curOperElem, simpleMethod);
                 } else if ("make-next-seq-id".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.entityops.MakeNextSeqId(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.entityops.MakeNextSeqId(curOperElem, simpleMethod);
                 } else if ("set-current-user-login".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.entityops.SetCurrentUserLogin(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.entityops.SetCurrentUserLogin(curOperElem, simpleMethod);
 
                 } else if ("find-by-primary-key".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.entityops.FindByPrimaryKey(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.entityops.FindByPrimaryKey(curOperElem, simpleMethod);
                 } else if ("find-by-and".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.entityops.FindByAnd(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.entityops.FindByAnd(curOperElem, simpleMethod);
                 } else if ("entity-one".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.entityops.EntityOne(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.entityops.EntityOne(curOperElem, simpleMethod);
                 } else if ("entity-and".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.entityops.EntityAnd(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.entityops.EntityAnd(curOperElem, simpleMethod);
                 } else if ("entity-condition".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.entityops.EntityCondition(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.entityops.EntityCondition(curOperElem, simpleMethod);
                 } else if ("entity-count".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.entityops.EntityCount(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.entityops.EntityCount(curOperElem, simpleMethod);
                 } else if ("get-related-one".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.entityops.GetRelatedOne(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.entityops.GetRelatedOne(curOperElem, simpleMethod);
                 } else if ("get-related".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.entityops.GetRelated(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.entityops.GetRelated(curOperElem, simpleMethod);
                 } else if ("filter-list-by-and".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.entityops.FilterListByAnd(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.entityops.FilterListByAnd(curOperElem, simpleMethod);
                 } else if ("filter-list-by-date".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.entityops.FilterListByDate(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.entityops.FilterListByDate(curOperElem, simpleMethod);
                 } else if ("order-value-list".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.entityops.OrderValueList(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.entityops.OrderValueList(curOperElem, simpleMethod);
 
                 } else if ("make-value".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.entityops.MakeValue(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.entityops.MakeValue(curOperElem, simpleMethod);
                 } else if ("clone-value".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.entityops.CloneValue(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.entityops.CloneValue(curOperElem, simpleMethod);
                 } else if ("create-value".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.entityops.CreateValue(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.entityops.CreateValue(curOperElem, simpleMethod);
                 } else if ("store-value".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.entityops.StoreValue(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.entityops.StoreValue(curOperElem, simpleMethod);
                 } else if ("refresh-value".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.entityops.RefreshValue(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.entityops.RefreshValue(curOperElem, simpleMethod);
                 } else if ("remove-value".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.entityops.RemoveValue(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.entityops.RemoveValue(curOperElem, simpleMethod);
                 } else if ("remove-related".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.entityops.RemoveRelated(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.entityops.RemoveRelated(curOperElem, simpleMethod);
                 } else if ("remove-by-and".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.entityops.RemoveByAnd(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.entityops.RemoveByAnd(curOperElem, simpleMethod);
                 } else if ("clear-cache-line".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.entityops.ClearCacheLine(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.entityops.ClearCacheLine(curOperElem, simpleMethod);
                 } else if ("clear-entity-caches".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.entityops.ClearEntityCaches(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.entityops.ClearEntityCaches(curOperElem, simpleMethod);
                 } else if ("set-pk-fields".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.entityops.SetPkFields(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.entityops.SetPkFields(curOperElem, simpleMethod);
                 } else if ("set-nonpk-fields".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.entityops.SetNonpkFields(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.entityops.SetNonpkFields(curOperElem, simpleMethod);
 
                 } else if ("store-list".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.entityops.StoreList(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.entityops.StoreList(curOperElem, simpleMethod);
                 } else if ("remove-list".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.entityops.RemoveList(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.entityops.RemoveList(curOperElem, simpleMethod);
 
                 } else if ("assert".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.conditional.Assert(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.conditional.Assert(curOperElem, simpleMethod);
                 } else if ("if".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.conditional.MasterIf(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.conditional.MasterIf(curOperElem, simpleMethod);
                 } else if ("while".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.conditional.While(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.conditional.While(curOperElem, simpleMethod);
                 } else if ("if-validate-method".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.ifops.IfValidateMethod(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.ifops.IfValidateMethod(curOperElem, simpleMethod);
                 } else if ("if-instance-of".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.ifops.IfInstanceOf(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.ifops.IfInstanceOf(curOperElem, simpleMethod);
                 } else if ("if-compare".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.ifops.IfCompare(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.ifops.IfCompare(curOperElem, simpleMethod);
                 } else if ("if-compare-field".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.ifops.IfCompareField(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.ifops.IfCompareField(curOperElem, simpleMethod);
                 } else if ("if-regexp".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.ifops.IfRegexp(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.ifops.IfRegexp(curOperElem, simpleMethod);
                 } else if ("if-empty".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.ifops.IfEmpty(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.ifops.IfEmpty(curOperElem, simpleMethod);
                 } else if ("if-not-empty".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.ifops.IfNotEmpty(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.ifops.IfNotEmpty(curOperElem, simpleMethod);
                 } else if ("if-has-permission".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.ifops.IfHasPermission(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.ifops.IfHasPermission(curOperElem, simpleMethod);
                 } else if ("check-permission".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.ifops.CheckPermission(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.ifops.CheckPermission(curOperElem, simpleMethod);
                 } else if ("check-id".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.ifops.CheckId(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.ifops.CheckId(curOperElem, simpleMethod);
                 } else if ("else".equals(nodeName)) {
                     // don't add anything, but don't complain either, this one is handled in the individual operations
                 } else if ("property-to-field".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.otherops.PropertyToField(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.otherops.PropertyToField(curOperElem, simpleMethod);
                 } else if ("calculate".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.otherops.Calculate(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.otherops.Calculate(curOperElem, simpleMethod);
                 } else if ("log".equals(nodeName)) {
-                    methodOperations.add(new org.ofbiz.minilang.method.otherops.Log(curOperElem, simpleMethod));
+                    methodOp = new org.ofbiz.minilang.method.otherops.Log(curOperElem, simpleMethod);
                 } else {
                     Debug.logWarning("Operation element \"" + nodeName + "\" no recognized", module);
                 }
+                if (methodOp == null) continue;
+                methodOperations.add(methodOp);
+                DeprecatedOperation depOp = methodOp.getClass().getAnnotation(DeprecatedOperation.class);
+                if (depOp != null) Debug.logInfo("The " + nodeName + " operation has been deprecated in favor of the " + depOp.value() + " operation; found use of this in [" + simpleMethod.getShortDescription() + "]: " + methodOp.rawString(), module);
             }
         }
     }
