@@ -655,7 +655,7 @@
     <property key="PageTitleEditTrackingCodeOrder">
         <value xml:lang="en">Edit Tracking Code Order</value>
         <value xml:lang="es">Editar orden de seguimiento</value>
-        <value xml:lang="fr">Édition d'un ordre associé au code de suivi</value>
+        <value xml:lang="fr">Édition d'une commande associée au code de suivi</value>
         <value xml:lang="it">Aggiorna Codice Tracciatura Ordine</value>
         <value xml:lang="ro">Editeaza ordine Cod Traseu </value>
         <value xml:lang="th">แก้ไขรหัส Tracking การสั่งซื้อสินค้า</value>
