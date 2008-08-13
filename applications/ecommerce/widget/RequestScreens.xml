@@ -81,7 +81,25 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonRequestDecorator">
                     <decorator-section name="body">
-                        <include-screen name="ViewRequestTemplate" location="component://order/widget/ordermgr/RequestScreens.xml"/>
+                        <container style="lefthalf">
+                            <platform-specific>
+                                <html><html-template location="component://order/webapp/ordermgr/request/requestInfo.ftl"/></html>
+                            </platform-specific>
+                            <platform-specific>
+                                <html><html-template location="component://order/webapp/ordermgr/request/ViewRequestItemInfo.ftl"/></html>
+                            </platform-specific>
+                        </container>
+                        <container style="righthalf">
+                            <platform-specific>
+                                <html><html-template location="component://order/webapp/ordermgr/request/requestDate.ftl"/></html>
+                            </platform-specific>
+                            <platform-specific>
+                                <html><html-template location="component://order/webapp/ordermgr/request/requestContactMech.ftl"/></html>
+                            </platform-specific>
+                            <platform-specific>
+                                <html><html-template location="component://order/webapp/ordermgr/request/requestRoles.ftl"/></html>
+                            </platform-specific>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
