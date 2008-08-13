@@ -105,13 +105,14 @@ under the License.
     </menu>
     <menu name="communicationsMenu">
         <actions>
-            <service service-name="getPartyEmail" result-map-name="emailResult">
-                <field-map field-name="partyId" env-name="userLogin.partyId"/>
-            </service>
+        <entity-and entity-name="PartyContactDetailByPurpose" filter-by-date="true" list-name="emails">
+            <field-map field-name="partyId" env-name="userLogin.partyId"/>
+            <field-map field-name="contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
+        </entity-and>
         </actions>
         <menu-item name="newEmail" title="${uiLabelMap.PartyNewEmail}">
             <condition>
-                <not><if-empty field-name="emailResult.emailAddress"/></not>
+                <not><if-empty field-name="emails"/></not>
             </condition>      
             <link
                 target="EditCommunicationEvent?communicationEventTypeId=EMAIL_COMMUNICATION&amp;donePage=${parameters.donePage}" />
