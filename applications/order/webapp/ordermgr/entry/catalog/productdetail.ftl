@@ -149,8 +149,11 @@ ${virtualJavaScript?if_exists}
         if (currentFeatureIndex < (OPT.length-1)) {
             // eval the next list if there are more
             var selectedValue = document.forms["addform"].elements[name].options[(index*1)+1].value;
-            eval("list" + OPT[(currentFeatureIndex+1)] + selectedValue + "()");
-
+            if (index == -1) {
+                var Variable1 = eval("list" + "${featureOrderFirst}" + "()");
+            } else {
+                eval("list" + OPT[(currentFeatureIndex+1)] + selectedValue + "()");
+            }
             // set the product ID to NULL to trigger the alerts
             setAddProductId('NULL');
         
