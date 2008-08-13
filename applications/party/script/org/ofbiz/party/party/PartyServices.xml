@@ -827,6 +827,10 @@ under the License.
             </condition-list>
         </entity-condition>
         <first-from-list entry-name="storeEmail" list-name="productStoreEmailSettings"/>
+        <entity-and list-name="webSites" entity-name="WebSite">
+            <field-map field-name="productStoreId" env-name="storeEmail.productStoreId"/>
+        </entity-and>
+        <first-from-list entry-name="webSite" list-name="webSites"/>
         <if-not-empty field="storeEmail.bodyScreenLocation">
             <entity-one entity-name="Person" value-name="person"/>
             <set field="bodyParameters.person" from-field="person"/>
@@ -839,6 +843,7 @@ under the License.
             <set field="emailParams.sendBcc" from-field="storeEmail.bccAddress"/>
             <set field="emailParams.contentType" from-field="storeEmail.contentType"/>
             <set field="emailParams.bodyScreenUri" from-field="storeEmail.bodyScreenLocation"/>
+            <set field="emailParams.webSiteId" from-field="webSite.webSiteId"/>
             <call-service service-name="sendMailFromScreen" in-map-name="emailParams"/>
         </if-not-empty>
     </simple-method>   
@@ -852,6 +857,10 @@ under the License.
             </condition-list>
         </entity-condition>
         <first-from-list entry-name="storeEmail" list-name="productStoreEmailSettings"/>
+        <entity-and list-name="webSites" entity-name="WebSite">
+            <field-map field-name="productStoreId" env-name="storeEmail.productStoreId"/>
+        </entity-and>
+        <first-from-list entry-name="webSite" list-name="webSites"/>
         <if-not-empty field="storeEmail.bodyScreenLocation">
             <if-not-empty field="parameters.updatedUserLogin.partyId">
                 <set field="partyId" from-field="parameters.updatedUserLogin.partyId"/>
@@ -878,6 +887,7 @@ under the License.
             <set field="emailParams.contentType" from-field="storeEmail.contentType"/>
             <set field="emailParams.bodyParameters" from-field="bodyParameters"/>
             <set field="emailParams.bodyScreenUri" from-field="storeEmail.bodyScreenLocation"/>
+            <set field="emailParams.webSiteId" from-field="webSite.webSiteId"/>
             
             <if-not-empty field="emailParams.sendTo">
                 <call-service service-name="sendMailFromScreen" in-map-name="emailParams"/>
