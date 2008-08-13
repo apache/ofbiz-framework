@@ -35,7 +35,6 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.DispatchContext;
-import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 
 /**
@@ -107,7 +106,7 @@ public class PreferenceServices {
 
     /**
      * Retrieves a group of user preferences from persistent storage. Call with
-     * userPrefGroupId  and optional userLoginId. If userLoginId isn't
+     * userPrefGroupId and optional userLoginId. If userLoginId isn't
      * specified, then the currently logged-in user's userLoginId will be
      * used. The retrieved preferences group is contained in the <b>userPrefMap</b> element.
      * @param ctx The DispatchContext that this service is operating in.
@@ -120,8 +119,6 @@ public class PreferenceServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "getPreference.permissionError", locale));
         }
         GenericDelegator delegator = ctx.getDelegator();
-        LocalDispatcher dispatcher = ctx.getDispatcher();
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
 
         String userPrefGroupId = (String) context.get("userPrefGroupId");
         if (UtilValidate.isEmpty(userPrefGroupId)) {
@@ -131,15 +128,10 @@ public class PreferenceServices {
 
         Map<String, Object> userPrefMap = null;
         try {
-            Map<String, String> fieldMap = UtilMisc.toMap("userLoginId", userLoginId, "userPrefGroupId", userPrefGroupId);
+            Map<String, String> fieldMap = UtilMisc.toMap("userLoginId", "_NA_", "userPrefGroupId", userPrefGroupId);
             userPrefMap = PreferenceWorker.createUserPrefMap(delegator.findByAnd("UserPreference", fieldMap));
-            
-            // if preference map not found, copy from the "_NA_" userlogin being the default settings
-            if (UtilValidate.isEmpty(userPrefMap)) {
-            	dispatcher.runSync("copyUserPrefGroup", UtilMisc.toMap("userLogin", userLogin, "fromUserLoginId", "_NA_", "userPrefGroupId", userPrefGroupId)); 
-                userPrefMap = PreferenceWorker.createUserPrefMap(delegator.findByAnd("UserPreference", fieldMap));
-            }
-            
+            fieldMap.put("userLoginId", userLoginId);
+            userPrefMap.putAll(PreferenceWorker.createUserPrefMap(delegator.findByAnd("UserPreference", fieldMap)));
         } catch (GenericEntityException e) {
             Debug.logWarning(e.getMessage(), module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "getPreference.readFailure", new Object[] { e.getMessage() }, locale));
