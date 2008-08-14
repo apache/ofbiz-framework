@@ -74,11 +74,10 @@ under the License.
       <#else>
         <#assign logoLinkURL = "${layoutSettings.commonHeaderImageLinkUrl}">
       </#if>
-
       <#if layoutSettings.headerImageUrl?exists>
-        <li class="logo-area"><a href="${logoLinkURL}"><img alt="${layoutSettings.companyName}" src="<@ofbizContentUrl>${layoutSettings.headerImageUrl}</@ofbizContentUrl>"/></a></li>
+        <li class="logo-area"><a href="<@ofbizUrl>${logoLinkURL}</@ofbizUrl>"><img alt="${layoutSettings.companyName}" src="<@ofbizContentUrl>${layoutSettings.headerImageUrl}</@ofbizContentUrl>"/></a></li>
       <#else>
-        <li class="logo-area"><a href="${logoLinkURL}"><img alt="${layoutSettings.companyName}" src="<@ofbizContentUrl>${layoutSettings.commonHeaderImageUrl}</@ofbizContentUrl>"/></a></li>
+        <li class="logo-area"><a href="<@ofbizUrl>${logoLinkURL}</@ofbizUrl>"><img alt="${layoutSettings.companyName}" src="<@ofbizContentUrl>${layoutSettings.commonHeaderImageUrl}</@ofbizContentUrl>"/></a></li>
       </#if>
       <li class="control-area"<#if layoutSettings.headerRightBackgroundUrl?has_content> background="${layoutSettings.headerRightBackgroundUrl}"</#if>>
         <p>
