@@ -752,26 +752,10 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         exprListAnd.add(expr);
 
         if (contentTypes.size() > 0) {
-            List exprListOr = FastList.newInstance();
-            Iterator it = contentTypes.iterator();
-            while (it.hasNext()) {
-                String contentType = (String) it.next();
-                expr = EntityCondition.makeCondition("contentTypeId", EntityOperator.EQUALS, contentType);
-                exprListOr.add(expr);
-            }
-            EntityConditionList contentExprList = EntityCondition.makeCondition(exprListOr, EntityOperator.OR);
-            exprListAnd.add(contentExprList);
+            exprListAnd.add(EntityCondition.makeCondition("contentTypeId", EntityOperator.IN, contentTypes));
         }
         if (assocTypes.size() > 0) {
-            List exprListOr = FastList.newInstance();
-            Iterator it = assocTypes.iterator();
-            while (it.hasNext()) {
-                String assocType = (String) it.next();
-                expr = EntityCondition.makeCondition("contentAssocTypeId", EntityOperator.EQUALS, assocType);
-                exprListOr.add(expr);
-            }
-            EntityConditionList assocExprList = EntityCondition.makeCondition(exprListOr, EntityOperator.OR);
-            exprListAnd.add(assocExprList);
+            exprListAnd.add(EntityCondition.makeCondition("contentAssocTypeId", EntityOperator.IN, assocTypes));
         }
 
         if (fromDate != null) {
