@@ -22,6 +22,7 @@ package org.ofbiz.party.communication;
 import java.util.*;
 
 import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.GenericDelegator;
@@ -43,7 +44,7 @@ public class CommunicationEventServices {
     public static final String module = CommunicationEventServices.class.getName();
     public static final String resource = "PartyUiLabels";
     
-    public static Map sendCommEventAsEmail(DispatchContext ctx, Map context) {
+    public static Map<String, Object> sendCommEventAsEmail(DispatchContext ctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -51,8 +52,8 @@ public class CommunicationEventServices {
                 
         String communicationEventId = (String) context.get("communicationEventId");
         
-        Map result = ServiceUtil.returnSuccess();
-        List errorMessages = FastList.newInstance(); // used to keep a list of all error messages returned from sending emails to contact list
+        Map<String, Object> result = ServiceUtil.returnSuccess();
+        List<Object> errorMessages = FastList.newInstance(); // used to keep a list of all error messages returned from sending emails to contact list
         
         try {
             // find the communication event and make sure that it is actually an email
@@ -84,7 +85,7 @@ public class CommunicationEventServices {
             }
             
             // prepare the email
-            Map sendMailParams = new HashMap();
+            Map<String, Object> sendMailParams = FastMap.newInstance();
             sendMailParams.put("sendFrom", communicationEvent.getRelatedOne("FromContactMech").getString("infoString"));
             sendMailParams.put("subject", communicationEvent.getString("subject"));
             sendMailParams.put("body", communicationEvent.getString("content"));
@@ -112,7 +113,7 @@ public class CommunicationEventServices {
                 sendMailParams.put("partyId", communicationEvent.getString("partyIdTo"));  // who it's going to
                 
                 // send it
-                Map tmpResult = dispatcher.runSync("sendMail", sendMailParams);
+                Map<String, Object> tmpResult = dispatcher.runSync("sendMail", sendMailParams);
                 if (ServiceUtil.isError(tmpResult)) {
                     errorMessages.add(ServiceUtil.getErrorMessage(tmpResult));
                 } else {
@@ -126,7 +127,7 @@ public class CommunicationEventServices {
                         return ServiceUtil.returnError(e.getMessage());
                     }
 
-                    Map completeResult = dispatcher.runSync("setCommEventComplete", UtilMisc.<String, Object>toMap("communicationEventId", communicationEventId, "userLogin", userLogin));                    
+                    Map<String, Object> completeResult = dispatcher.runSync("setCommEventComplete", UtilMisc.<String, Object>toMap("communicationEventId", communicationEventId, "userLogin", userLogin));                    
                     if (ServiceUtil.isError(completeResult)) {
                         errorMessages.add(ServiceUtil.getErrorMessage(completeResult));
                     }
@@ -134,7 +135,7 @@ public class CommunicationEventServices {
 
             } else {
                 // Call the sendEmailToContactList service if there's a contactListId present
-                Map sendEmailToContactListContext = new HashMap();
+                Map<String, Object> sendEmailToContactListContext = FastMap.newInstance();
                 sendEmailToContactListContext.put("contactListId", communicationEvent.getString("contactListId"));
                 sendEmailToContactListContext.put("communicationEventId", communicationEventId);
                 sendEmailToContactListContext.put("userLogin", userLogin);
@@ -160,13 +161,13 @@ public class CommunicationEventServices {
         return result;
     }
     
-    public static Map sendEmailToContactList(DispatchContext ctx, Map context) {
+    public static Map<String, Object> sendEmailToContactList(DispatchContext ctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
 
-        List errorMessages = new ArrayList();
+        List<Object> errorMessages = FastList.newInstance();
         String errorCallingUpdateContactListPartyService = UtilProperties.getMessage(resource, "commeventservices.errorCallingUpdateContactListPartyService", locale);
         String errorCallingSendMailService = UtilProperties.getMessage(resource, "commeventservices.errorCallingSendMailService", locale);
         String errorInSendEmailToContactListService = UtilProperties.getMessage(resource, "commeventservices.errorInSendEmailToContactListService", locale);
@@ -181,7 +182,7 @@ public class CommunicationEventServices {
             GenericValue communicationEvent = delegator.findByPrimaryKey("CommunicationEvent", UtilMisc.toMap("communicationEventId", communicationEventId));
             GenericValue contactList = delegator.findByPrimaryKey("ContactList", UtilMisc.toMap("contactListId", contactListId));
 
-            Map sendMailParams = new HashMap();
+            Map<String, Object> sendMailParams = FastMap.newInstance();
             sendMailParams.put("sendFrom", communicationEvent.getRelatedOne("FromContactMech").getString("infoString"));
             sendMailParams.put("subject", communicationEvent.getString("subject"));
             sendMailParams.put("body", communicationEvent.getString("content"));
@@ -199,17 +200,13 @@ public class CommunicationEventServices {
             EntityConditionList<EntityCondition> conditions = EntityCondition.makeCondition(conditionList, EntityOperator.AND);
             Set<String> fieldsToSelect = UtilMisc.toSet("infoString");
 
-            List sendToEmails = delegator.findList("ContactListPartyAndContactMech", conditions, fieldsToSelect, null,
+            List<GenericValue> sendToEmails = delegator.findList("ContactListPartyAndContactMech", conditions, fieldsToSelect, null,
                     new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true), false);
             
             // Send an email to each contact list member
             // TODO: Contact lists for emails really should be written as an EntityListIterator for very large lists! 
-            List orderBy = UtilMisc.toList("-fromDate");
-            Iterator sendToEmailsIt = sendToEmails.iterator();
-            while (sendToEmailsIt.hasNext()) {
-                
-                GenericValue contactListPartyAndContactMech = (GenericValue) sendToEmailsIt.next();
-
+            List<String> orderBy = UtilMisc.toList("-fromDate");
+            for (GenericValue contactListPartyAndContactMech: sendToEmails) {
                 // Any exceptions thrown in this inner block will only relate to a single email of the list, so should
                 //  only be logged and not cause the service to return an error
                 try {
@@ -229,11 +226,11 @@ public class CommunicationEventServices {
                     // Because we're retrieving infoString only above (so as not to pollute the distinctness), we
                     //      need to retrieve the partyId it's related to. Since this could be multiple parties, get
                     //      only the most recent valid one via ContactListPartyAndContactMech.
-                    List clpConditionList = new ArrayList(conditionList);
+                    List<EntityCondition> clpConditionList = UtilMisc.makeListWritable(conditionList);
                     clpConditionList.add(EntityCondition.makeCondition("infoString", EntityOperator.EQUALS, emailAddress));
                     EntityConditionList clpConditions = EntityCondition.makeCondition(clpConditionList, EntityOperator.AND);
     
-                    List emailCLPaCMs = delegator.findList("ContactListPartyAndContactMech", clpConditions, null, orderBy, null, true);
+                    List<GenericValue> emailCLPaCMs = delegator.findList("ContactListPartyAndContactMech", clpConditions, null, orderBy, null, true);
                     GenericValue lastContactListPartyACM = EntityUtil.getFirst(emailCLPaCMs);
                     if (lastContactListPartyACM == null) continue;
                     
@@ -248,13 +245,13 @@ public class CommunicationEventServices {
                     }
                     
                     // Retrieve a record for this contactMechId from ContactListCommStatus
-                    Map contactListCommStatusRecordMap = UtilMisc.toMap("contactListId", contactListId, "communicationEventId", communicationEventId, "contactMechId", lastContactListPartyACM.getString("preferredContactMechId")); 
+                    Map<String, String> contactListCommStatusRecordMap = UtilMisc.toMap("contactListId", contactListId, "communicationEventId", communicationEventId, "contactMechId", lastContactListPartyACM.getString("preferredContactMechId")); 
                     GenericValue contactListCommStatusRecord = delegator.findByPrimaryKey("ContactListCommStatus", contactListCommStatusRecordMap);
                     if (contactListCommStatusRecord == null) {
                         
                         // No attempt has been made previously to send to this address, so create a record to reflect
                         //  the beginning of the current attempt
-                        Map newContactListCommStatusRecordMap = new HashMap(contactListCommStatusRecordMap);
+                        Map<String, String> newContactListCommStatusRecordMap = UtilMisc.makeMapWritable(contactListCommStatusRecordMap);
                         newContactListCommStatusRecordMap.put("statusId", "COM_IN_PROGRESS");
                         contactListCommStatusRecord = delegator.create("ContactListCommStatus", newContactListCommStatusRecordMap);
                     } else if (contactListCommStatusRecord.get("statusId") != null && contactListCommStatusRecord.getString("statusId").equals("COM_COMPLETE")) {
@@ -263,7 +260,7 @@ public class CommunicationEventServices {
                         continue;
                     }
 
-                    Map tmpResult = null;
+                    Map<String, Object> tmpResult = null;
                     
                     // Make the attempt to send the email to the address
                     tmpResult = dispatcher.runSync("sendMail", sendMailParams);

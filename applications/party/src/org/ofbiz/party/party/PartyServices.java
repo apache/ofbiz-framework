@@ -21,14 +21,13 @@ package org.ofbiz.party.party;
 
 import java.sql.Timestamp;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
@@ -70,7 +69,7 @@ public class PartyServices {
      * @param context Map containing the input parameters.
      * @return Map with the result of the service, the output parameters.
      */
-    public static Map deleteParty(DispatchContext ctx, Map context) {
+    public static Map<String, Object> deleteParty(DispatchContext ctx, Map<String, ? extends Object> context) {
 
         Locale locale = (Locale) context.get("locale");
 
@@ -99,11 +98,11 @@ public class PartyServices {
      * @param context Map containing the input parameters.
      * @return Map with the result of the service, the output parameters.
      */
-    public static Map createPerson(DispatchContext ctx, Map context) {
-        Map result = new HashMap();
+    public static Map<String, Object> createPerson(DispatchContext ctx, Map<String, ? extends Object> context) {
+        Map<String, Object> result = FastMap.newInstance();
         GenericDelegator delegator = ctx.getDelegator();
         Timestamp now = UtilDateTime.nowTimestamp();
-        List toBeStored = new LinkedList();
+        List<GenericValue> toBeStored = FastList.newInstance();
         Locale locale = (Locale) context.get("locale");
         // in most cases userLogin will be null, but get anyway so we can keep track of that info if it is available
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -144,7 +143,7 @@ public class PartyServices {
             if (statusId == null) {
                 statusId = "PARTY_ENABLED";
             }
-            Map newPartyMap = UtilMisc.toMap("partyId", partyId, "partyTypeId", "PERSON", "description", description, "createdDate", now, "lastModifiedDate", now, "statusId", statusId);
+            Map<String, Object> newPartyMap = UtilMisc.toMap("partyId", partyId, "partyTypeId", "PERSON", "description", description, "createdDate", now, "lastModifiedDate", now, "statusId", statusId);
             String preferredCurrencyUomId = (String) context.get("preferredCurrencyUomId");
             if (!UtilValidate.isEmpty(preferredCurrencyUomId)) {
                 newPartyMap.put("preferredCurrencyUomId", preferredCurrencyUomId);
@@ -194,7 +193,7 @@ public class PartyServices {
      * Sets a party status.
      * <b>security check</b>: the status change must be defined in StatusValidChange.
      */
-    public static Map setPartyStatus(DispatchContext ctx, Map context) {
+    public static Map<String, Object> setPartyStatus(DispatchContext ctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = ctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
 
@@ -225,7 +224,7 @@ public class PartyServices {
             GenericValue partyStatus = delegator.makeValue("PartyStatus", UtilMisc.toMap("partyId", partyId, "statusId", statusId, "statusDate", statusDate));
             partyStatus.create();
 
-            Map results = ServiceUtil.returnSuccess();
+            Map<String, Object> results = ServiceUtil.returnSuccess();
             results.put("oldStatusId", oldStatusId);
             return results;
         } catch (GenericEntityException e) {
@@ -240,8 +239,8 @@ public class PartyServices {
      * @param context Map containing the input parameters.
      * @return Map with the result of the service, the output parameters.
      */
-    public static Map updatePerson(DispatchContext ctx, Map context) {
-        Map result = new HashMap();
+    public static Map<String, Object> updatePerson(DispatchContext ctx, Map<String, ? extends Object> context) {
+        Map<String, Object> result = FastMap.newInstance();
         GenericDelegator delegator = ctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
 
@@ -288,8 +287,8 @@ public class PartyServices {
      * @param context Map containing the input parameters.
      * @return Map with the result of the service, the output parameters.
      */
-    public static Map createPartyGroup(DispatchContext ctx, Map context) {
-        Map result = new HashMap();
+    public static Map<String, Object> createPartyGroup(DispatchContext ctx, Map<String, ? extends Object> context) {
+        Map<String, Object> result = FastMap.newInstance();
         GenericDelegator delegator = ctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Timestamp now = UtilDateTime.nowTimestamp();
@@ -344,7 +343,7 @@ public class PartyServices {
                     }
                 }
 
-                Map newPartyMap = UtilMisc.toMap("partyId", partyId, "partyTypeId", partyTypeId, "createdDate", now, "lastModifiedDate", now);
+                Map<String, Object> newPartyMap = UtilMisc.toMap("partyId", partyId, "partyTypeId", partyTypeId, "createdDate", now, "lastModifiedDate", now);
                 if (userLogin != null) {
                     newPartyMap.put("createdByUserLogin", userLogin.get("userLoginId"));
                     newPartyMap.put("lastModifiedByUserLogin", userLogin.get("userLoginId"));
@@ -377,7 +376,7 @@ public class PartyServices {
             partyGroup.create();
         } catch (GenericEntityException e) {
             Debug.logWarning(e, module);
-            Map messageMap = UtilMisc.toMap("errMessage", e.getMessage());
+            Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.getMessage());
             errMsg = UtilProperties.getMessage(resource,"partyservices.data_source_error_adding_party_group", messageMap, locale);
             return ServiceUtil.returnError(errMsg);
         }
@@ -393,8 +392,8 @@ public class PartyServices {
      * @param context Map containing the input parameters.
      * @return Map with the result of the service, the output parameters.
      */
-    public static Map updatePartyGroup(DispatchContext ctx, Map context) {
-        Map result = new HashMap();
+    public static Map<String, Object> updatePartyGroup(DispatchContext ctx, Map<String, ? extends Object> context) {
+        Map<String, Object> result = FastMap.newInstance();
         GenericDelegator delegator = ctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
 
@@ -412,7 +411,7 @@ public class PartyServices {
             party = delegator.findByPrimaryKey("Party", UtilMisc.toMap("partyId", partyId));
         } catch (GenericEntityException e) {
             Debug.logWarning(e, module);
-            Map messageMap = UtilMisc.toMap("errMessage", e.getMessage());
+            Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.getMessage());
             errMsg = UtilProperties.getMessage(resource,"partyservices.could_not_update_party_information_read", messageMap, locale);
             return ServiceUtil.returnError(errMsg);
         }
@@ -430,7 +429,7 @@ public class PartyServices {
             party.store();
         } catch (GenericEntityException e) {
             Debug.logWarning(e.getMessage(), module);
-            Map messageMap = UtilMisc.toMap("errMessage", e.getMessage());
+            Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.getMessage());
             errMsg = UtilProperties.getMessage(resource,"partyservices.could_not_update_party_information_write", messageMap, locale);
             return ServiceUtil.returnError(errMsg);
         }
@@ -445,8 +444,8 @@ public class PartyServices {
      * @param context Map containing the input parameters.
      * @return Map with the result of the service, the output parameters.
      */
-    public static Map createAffiliate(DispatchContext ctx, Map context) {
-        Map result = new HashMap();
+    public static Map<String, Object> createAffiliate(DispatchContext ctx, Map<String, ? extends Object> context) {
+        Map<String, Object> result = FastMap.newInstance();
         GenericDelegator delegator = ctx.getDelegator();
         Timestamp now = UtilDateTime.nowTimestamp();
 
@@ -506,7 +505,7 @@ public class PartyServices {
             delegator.create(affiliate);
         } catch (GenericEntityException e) {
             Debug.logWarning(e.getMessage(), module);
-            Map messageMap = UtilMisc.toMap("errMessage", e.getMessage());
+            Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.getMessage());
             errMsg = UtilProperties.getMessage(resource,"partyservices.could_not_add_affiliate_info_write", messageMap, locale);
             return ServiceUtil.returnError(errMsg);
         }
@@ -522,7 +521,7 @@ public class PartyServices {
      * @param context Map containing the input parameters.
      * @return Map with the result of the service, the output parameters.
      */
-    public static Map updateAffiliate(DispatchContext ctx, Map context) {
+    public static Map<String, Object> updateAffiliate(DispatchContext ctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = ctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
 
@@ -538,7 +537,7 @@ public class PartyServices {
             affiliate = delegator.findByPrimaryKey("Affiliate", UtilMisc.toMap("partyId", partyId));
         } catch (GenericEntityException e) {
             Debug.logWarning(e, module);
-            Map messageMap = UtilMisc.toMap("errMessage", e.getMessage());
+            Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.getMessage());
             errMsg = UtilProperties.getMessage(resource,"partyservices.could_not_update_affiliate_information_read", messageMap, locale);
             return ServiceUtil.returnError(errMsg);
         }
@@ -553,7 +552,7 @@ public class PartyServices {
         try {
             affiliate.store();
         } catch (GenericEntityException e) {
-            Map messageMap = UtilMisc.toMap("errMessage", e.getMessage());
+            Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.getMessage());
             errMsg = UtilProperties.getMessage(resource,"partyservices.could_not_update_affiliate_information_write", messageMap, locale);
             return ServiceUtil.returnError(errMsg);
         }
@@ -566,8 +565,8 @@ public class PartyServices {
      * @param context Map containing the input parameters.
      * @return Map with the result of the service, the output parameters.
      */
-    public static Map createPartyNote(DispatchContext dctx, Map context) {
-        Map result = new HashMap();
+    public static Map<String, Object> createPartyNote(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Map<String, Object> result = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -596,7 +595,7 @@ public class PartyServices {
 
         // if no noteId is specified, then create and associate the note with the userLogin
         if (noteId == null) {
-            Map noteRes = null;
+            Map<String, Object> noteRes = null;
             try {
                 noteRes = dispatcher.runSync("createNote", UtilMisc.toMap("partyId", userLogin.getString("partyId"),
                          "note", noteString, "userLogin", userLogin, "locale", locale, "noteName", noteName));
@@ -619,13 +618,13 @@ public class PartyServices {
 
         // Set the party info
         try {
-            Map fields = UtilMisc.toMap("partyId", partyId, "noteId", noteId);
+            Map<String, String> fields = UtilMisc.toMap("partyId", partyId, "noteId", noteId);
             GenericValue v = delegator.makeValue("PartyNote", fields);
 
             delegator.create(v);
         } catch (GenericEntityException ee) {
             Debug.logError(ee, module);
-            Map messageMap = UtilMisc.toMap("errMessage", ee.getMessage());
+            Map<String, String> messageMap = UtilMisc.toMap("errMessage", ee.getMessage());
             errMsg = UtilProperties.getMessage(resource,"partyservices.problem_associating_note_with_party", messageMap, locale);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
             result.put(ModelService.ERROR_MESSAGE, errMsg);
@@ -639,10 +638,10 @@ public class PartyServices {
      * @param context Map containing the input parameters.
      * @return Map with the result of the service, the output parameters.
      */
-    public static Map getPartyFromExactEmail(DispatchContext dctx, Map context) {
-        Map result = new HashMap();
+    public static Map<String, Object> getPartyFromExactEmail(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Map<String, Object> result = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();
-        Collection parties = new LinkedList();
+        Collection<Map<String, GenericValue>> parties = FastList.newInstance();
         String email = (String) context.get("email");
         Locale locale = (Locale) context.get("locale");
         String errMsg = null;
@@ -654,22 +653,19 @@ public class PartyServices {
 
         try {
             EntityExpr ee = EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("infoString"), EntityOperator.EQUALS, EntityFunction.UPPER(email.toUpperCase()));
-            List c = EntityUtil.filterByDate(delegator.findList("PartyAndContactMech", ee, null, UtilMisc.toList("infoString"), null, false), true);
+            List<GenericValue> c = EntityUtil.filterByDate(delegator.findList("PartyAndContactMech", ee, null, UtilMisc.toList("infoString"), null, false), true);
 
             if (Debug.verboseOn()) Debug.logVerbose("List: " + c, module);
             if (Debug.infoOn()) Debug.logInfo("PartyFromEmail number found: " + c.size(), module);
             if (c != null) {
-                Iterator i = c.iterator();
-
-                while (i.hasNext()) {
-                    GenericValue pacm = (GenericValue) i.next();
+                for (GenericValue pacm: c) {
                     GenericValue party = delegator.makeValue("Party", UtilMisc.toMap("partyId", pacm.get("partyId"), "partyTypeId", pacm.get("partyTypeId")));
 
                     parties.add(UtilMisc.toMap("party", party));
                 }
             }
         } catch (GenericEntityException e) {
-            Map messageMap = UtilMisc.toMap("errMessage", e.getMessage());
+            Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.getMessage());
             errMsg = UtilProperties.getMessage(resource,"partyservices.cannot_get_party_entities_read", messageMap, locale);
             return ServiceUtil.returnError(errMsg);
         }
@@ -678,10 +674,10 @@ public class PartyServices {
         return result;
     }
 
-    public static Map getPartyFromEmail(DispatchContext dctx, Map context) {
-        Map result = new HashMap();
+    public static Map<String, Object> getPartyFromEmail(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Map<String, Object> result = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();
-        Collection parties = new LinkedList();
+        Collection<Map<String, GenericValue>> parties = FastList.newInstance();
         String email = (String) context.get("email");
         Locale locale = (Locale) context.get("locale");
         String errMsg = null;
@@ -693,22 +689,19 @@ public class PartyServices {
 
         try {
             EntityExpr ee = EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("infoString"), EntityOperator.LIKE, EntityFunction.UPPER(("%" + email.toUpperCase()) + "%"));
-            List c = EntityUtil.filterByDate(delegator.findList("PartyAndContactMech", ee, null, UtilMisc.toList("infoString"), null, false), true);
+            List<GenericValue> c = EntityUtil.filterByDate(delegator.findList("PartyAndContactMech", ee, null, UtilMisc.toList("infoString"), null, false), true);
 
             if (Debug.verboseOn()) Debug.logVerbose("List: " + c, module);
             if (Debug.infoOn()) Debug.logInfo("PartyFromEmail number found: " + c.size(), module);
             if (c != null) {
-                Iterator i = c.iterator();
-
-                while (i.hasNext()) {
-                    GenericValue pacm = (GenericValue) i.next();
+                for (GenericValue pacm: c) {
                     GenericValue party = delegator.makeValue("Party", UtilMisc.toMap("partyId", pacm.get("partyId"), "partyTypeId", pacm.get("partyTypeId")));
 
                     parties.add(UtilMisc.toMap("party", party));
                 }
             }
         } catch (GenericEntityException e) {
-            Map messageMap = UtilMisc.toMap("errMessage", e.getMessage());
+            Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.getMessage());
             errMsg = UtilProperties.getMessage(resource,"partyservices.cannot_get_party_entities_read", messageMap, locale);
             return ServiceUtil.returnError(errMsg);
         }
@@ -723,11 +716,11 @@ public class PartyServices {
      * @param context Map containing the input parameters.
      * @return Map with the result of the service, the output parameters.
      */
-    public static Map getPartyFromUserLogin(DispatchContext dctx, Map context) {
+    public static Map<String, Object> getPartyFromUserLogin(DispatchContext dctx, Map<String, ? extends Object> context) {
         Debug.logWarning("Running the getPartyFromUserLogin Service...", module);
-        Map result = new HashMap();
+        Map<String, Object> result = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();
-        Collection parties = new LinkedList();
+        Collection<Map<String, GenericValue>> parties = FastList.newInstance();
         String userLoginId = (String) context.get("userLoginId");
         Locale locale = (Locale) context.get("locale");
 
@@ -736,22 +729,19 @@ public class PartyServices {
 
         try {
             EntityExpr ee = EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("userLoginId"), EntityOperator.LIKE, EntityFunction.UPPER("%" + userLoginId.toUpperCase() + "%"));
-            Collection ulc = delegator.findList("PartyAndUserLogin", ee, null, UtilMisc.toList("userloginId"), null, false);
+            Collection<GenericValue> ulc = delegator.findList("PartyAndUserLogin", ee, null, UtilMisc.toList("userloginId"), null, false);
 
             if (Debug.verboseOn()) Debug.logVerbose("Collection: " + ulc, module);
             if (Debug.infoOn()) Debug.logInfo("PartyFromUserLogin number found: " + ulc.size(), module);
             if (ulc != null) {
-                Iterator i = ulc.iterator();
-
-                while (i.hasNext()) {
-                    GenericValue ul = (GenericValue) i.next();
+                for (GenericValue ul: ulc) {
                     GenericValue party = delegator.makeValue("Party", UtilMisc.toMap("partyId", ul.get("partyId"), "partyTypeId", ul.get("partyTypeId")));
 
                     parties.add(UtilMisc.toMap("party", party));
                 }
             }
         } catch (GenericEntityException e) {
-            Map messageMap = UtilMisc.toMap("errMessage", e.getMessage());
+            Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.getMessage());
             String errMsg = UtilProperties.getMessage(resource,"partyservices.cannot_get_party_entities_read", messageMap, locale);
             return ServiceUtil.returnError(errMsg);
         }
@@ -767,10 +757,10 @@ public class PartyServices {
      * @param context Map containing the input parameters.
      * @return Map with the result of the service, the output parameters.
      */
-    public static Map getPartyFromPerson(DispatchContext dctx, Map context) {
-        Map result = new HashMap();
+    public static Map<String, Object> getPartyFromPerson(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Map<String, Object> result = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();
-        Collection parties = new LinkedList();
+        Collection<Map<String, GenericValue>> parties = FastList.newInstance();
         String firstName = (String) context.get("firstName");
         String lastName = (String) context.get("lastName");
         Locale locale = (Locale) context.get("locale");
@@ -790,21 +780,18 @@ public class PartyServices {
             EntityConditionList<EntityExpr> ecl = EntityCondition.makeCondition(EntityOperator.AND,
                     EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("firstName"), EntityOperator.LIKE, EntityFunction.UPPER("%" + firstName.toUpperCase() + "%")),
                     EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("lastName"), EntityOperator.LIKE, EntityFunction.UPPER("%" + lastName.toUpperCase() + "%")));
-            Collection pc = delegator.findList("Person", ecl, null, UtilMisc.toList("lastName", "firstName", "partyId"), null, false);
+            Collection<GenericValue> pc = delegator.findList("Person", ecl, null, UtilMisc.toList("lastName", "firstName", "partyId"), null, false);
 
             if (Debug.infoOn()) Debug.logInfo("PartyFromPerson number found: " + pc.size(), module);
             if (pc != null) {
-                Iterator i = pc.iterator();
-
-                while (i.hasNext()) {
-                    GenericValue person = (GenericValue) i.next();
+                for (GenericValue person: pc) {
                     GenericValue party = delegator.makeValue("Party", UtilMisc.toMap("partyId", person.get("partyId"), "partyTypeId", "PERSON"));
 
                     parties.add(UtilMisc.toMap("person", person, "party", party));
                 }
             }
         } catch (GenericEntityException e) {
-            Map messageMap = UtilMisc.toMap("errMessage", e.getMessage());
+            Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.getMessage());
             String errMsg = UtilProperties.getMessage(resource,"partyservices.cannot_get_party_entities_read", messageMap, locale);
             return ServiceUtil.returnError(errMsg);
         }
@@ -820,10 +807,10 @@ public class PartyServices {
      * @param context Map containing the input parameters.
      * @return Map with the result of the service, the output parameters.
      */
-    public static Map getPartyFromPartyGroup(DispatchContext dctx, Map context) {
-        Map result = new HashMap();
+    public static Map<String, Object> getPartyFromPartyGroup(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Map<String, Object> result = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();
-        Collection parties = new LinkedList();
+        Collection<Map<String, GenericValue>> parties = FastList.newInstance();
         String groupName = (String) context.get("groupName");
         Locale locale = (Locale) context.get("locale");
 
@@ -833,21 +820,18 @@ public class PartyServices {
 
         try {
             EntityExpr ee = EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("groupName"), EntityOperator.LIKE, EntityFunction.UPPER("%" + groupName.toUpperCase() + "%"));
-            Collection pc = delegator.findList("PartyGroup", ee, null, UtilMisc.toList("groupName", "partyId"), null, false);
+            Collection<GenericValue> pc = delegator.findList("PartyGroup", ee, null, UtilMisc.toList("groupName", "partyId"), null, false);
 
             if (Debug.infoOn()) Debug.logInfo("PartyFromGroup number found: " + pc.size(), module);
             if (pc != null) {
-                Iterator i = pc.iterator();
-
-                while (i.hasNext()) {
-                    GenericValue group = (GenericValue) i.next();
+                for (GenericValue group: pc) {
                     GenericValue party = delegator.makeValue("Party", UtilMisc.toMap("partyId", group.get("partyId"), "partyTypeId", "PARTY_GROUP"));
 
                     parties.add(UtilMisc.toMap("partyGroup", group, "party", party));
                 }
             }
         } catch (GenericEntityException e) {
-            Map messageMap = UtilMisc.toMap("errMessage", e.getMessage());
+            Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.getMessage());
             String errMsg = UtilProperties.getMessage(resource,"partyservices.cannot_get_party_entities_read", messageMap, locale);
             return ServiceUtil.returnError(errMsg);
         }
@@ -857,8 +841,8 @@ public class PartyServices {
         return result;
     }
 
-    public static Map getPerson(DispatchContext dctx, Map context) {
-        Map result = new HashMap();
+    public static Map<String, Object> getPerson(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Map<String, Object> result = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();
         String partyId = (String) context.get("partyId");
         GenericValue person = null;
@@ -874,8 +858,8 @@ public class PartyServices {
         return result;
     }
 
-    public static Map createRoleType(DispatchContext dctx, Map context) {
-        Map result = new HashMap();
+    public static Map<String, Object> createRoleType(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Map<String, Object> result = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();
         GenericValue roleType = null;
 
@@ -894,7 +878,7 @@ public class PartyServices {
         return result;
     }
 
-    public static Map createPartyDataSource(DispatchContext ctx, Map context) {
+    public static Map<String, Object> createPartyDataSource(DispatchContext ctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = ctx.getDelegator();
 
         // input data
@@ -908,7 +892,7 @@ public class PartyServices {
             GenericValue party = delegator.findByPrimaryKey("Party", UtilMisc.toMap("partyId", partyId));
             GenericValue dataSource = delegator.findByPrimaryKey("DataSource", UtilMisc.toMap("dataSourceId", dataSourceId));
             if (party == null || dataSource == null) {
-                List errorList = UtilMisc.toList("Cannot create PartyDataSource");
+                List<String> errorList = UtilMisc.toList("Cannot create PartyDataSource");
                 if (party == null) errorList.add("party with ID [" + partyId + "] was not found ");
                 if (dataSource == null) errorList.add("data source with ID [" + dataSourceId + "] was not found ");
                 return ServiceUtil.returnError(errorList);
@@ -925,8 +909,8 @@ public class PartyServices {
         return ServiceUtil.returnSuccess();
     }
 
-    public static Map findParty(DispatchContext dctx, Map context) {
-        Map result = ServiceUtil.returnSuccess();
+    public static Map<String, Object> findParty(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Map<String, Object> result = ServiceUtil.returnSuccess();
         GenericDelegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
@@ -934,7 +918,7 @@ public class PartyServices {
 
         // get the role types
         try {
-            List roleTypes = delegator.findList("RoleType", null, null, UtilMisc.toList("description"), null, false);
+            List<GenericValue> roleTypes = delegator.findList("RoleType", null, null, UtilMisc.toList("description"), null, false);
             result.put("roleTypes", roleTypes);
         } catch (GenericEntityException e) {
             String errMsg = "Error looking up RoleTypes: " + e.toString();
@@ -958,7 +942,7 @@ public class PartyServices {
         
         //get party types
         try {
-            List partyTypes = delegator.findList("PartyType", null, null, UtilMisc.toList("description"), null, false);
+            List<GenericValue> partyTypes = delegator.findList("PartyType", null, null, UtilMisc.toList("description"), null, false);
             result.put("partyTypes", partyTypes);
         } catch (GenericEntityException e) {
             String errMsg = "Error looking up PartyTypes: " + e.toString();
@@ -1001,7 +985,7 @@ public class PartyServices {
         } catch (Exception e) {
             viewIndex = 0;
         }
-        result.put("viewIndex", new Integer(viewIndex));
+        result.put("viewIndex", Integer.valueOf(viewIndex));
 
         int viewSize = 20;
         try {
@@ -1009,7 +993,7 @@ public class PartyServices {
         } catch (Exception e) {
             viewSize = 20;
         }
-        result.put("viewSize", new Integer(viewSize));
+        result.put("viewSize", Integer.valueOf(viewSize));
 
         // get the lookup flag
         String lookupFlag = (String) context.get("lookupFlag");
@@ -1017,7 +1001,7 @@ public class PartyServices {
         // blank param list
         String paramList = "";
 
-        List partyList = null;
+        List<GenericValue> partyList = null;
         int partyListSize = 0;
         int lowIndex = 0;
         int highIndex = 0;
@@ -1038,11 +1022,11 @@ public class PartyServices {
             dynamicView.addRelation("many", "", "UserLogin", ModelKeyMap.makeKeyMapList("partyId"));
 
             // define the main condition & expression list
-            List andExprs = FastList.newInstance();
+            List<EntityCondition> andExprs = FastList.newInstance();
             EntityCondition mainCond = null;
 
-            List orderBy = FastList.newInstance();
-            List fieldsToSelect = FastList.newInstance();
+            List<String> orderBy = FastList.newInstance();
+            List<String> fieldsToSelect = FastList.newInstance();
             // fields we need to select; will be used to set distinct
             fieldsToSelect.add("partyId");
             fieldsToSelect.add("statusId");
@@ -1384,10 +1368,10 @@ public class PartyServices {
 
         if (partyList == null) partyList = FastList.newInstance();
         result.put("partyList", partyList);
-        result.put("partyListSize", new Integer(partyListSize));
+        result.put("partyListSize", Integer.valueOf(partyListSize));
         result.put("paramList", paramList);
-        result.put("highIndex", new Integer(highIndex));
-        result.put("lowIndex", new Integer(lowIndex));
+        result.put("highIndex", Integer.valueOf(highIndex));
+        result.put("lowIndex", Integer.valueOf(lowIndex));
 
         return result;
     }
@@ -1401,7 +1385,7 @@ public class PartyServices {
      * @param context
      * @return
      */
-    public static Map linkParty(DispatchContext dctx, Map context) {
+    public static Map<String, Object> linkParty(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericDelegator _delegator = dctx.getDelegator();
         GenericDelegator delegator = _delegator.cloneDelegator();
@@ -1497,7 +1481,7 @@ public class PartyServices {
         }
 
         // update the non-existing party roles
-        List rolesToMove;
+        List<GenericValue> rolesToMove;
         try {
             rolesToMove = delegator.findByAnd("PartyRole", UtilMisc.toMap("partyId", partyId));
         } catch (GenericEntityException e) {
@@ -1505,9 +1489,7 @@ public class PartyServices {
             return ServiceUtil.returnError(e.getMessage());
         }
 
-        Iterator rtmi = rolesToMove.iterator();
-        while (rtmi.hasNext()) {
-            GenericValue attr = (GenericValue) rtmi.next();
+        for (GenericValue attr: rolesToMove) {
             attr.set("partyId", partyIdTo);
             try {
                 if (delegator.findByPrimaryKey("PartyRole", attr.getPrimaryKey()) == null) {
@@ -1575,7 +1557,7 @@ public class PartyServices {
         }
 
         // update the non-existing attributes
-        List attrsToMove;
+        List<GenericValue> attrsToMove;
         try {
             attrsToMove = delegator.findByAnd("PartyAttribute", UtilMisc.toMap("partyId", partyId));
         } catch (GenericEntityException e) {
@@ -1583,9 +1565,7 @@ public class PartyServices {
             return ServiceUtil.returnError(e.getMessage());
         }
 
-        Iterator atmi = attrsToMove.iterator();
-        while (atmi.hasNext()) {
-            GenericValue attr = (GenericValue) atmi.next();
+        for (GenericValue attr: attrsToMove) {
             attr.set("partyId", partyIdTo);
             try {
                 if (delegator.findByPrimaryKey("PartyAttribute", attr.getPrimaryKey()) == null) {
@@ -1628,12 +1608,12 @@ public class PartyServices {
             }
         }
                 
-        Map resp = ServiceUtil.returnSuccess();
+        Map<String, Object> resp = ServiceUtil.returnSuccess();
         resp.put("partyId", partyIdTo);
         return resp;
     }
 
-    public static Map importAddressMatchMapCsv(DispatchContext dctx, Map context) {
+    public static Map<String, Object> importAddressMatchMapCsv(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
         byte[] fileBytes = (byte[]) context.get("uploadedFile");
         String csvFile = new String(fileBytes);
@@ -1654,8 +1634,8 @@ public class PartyServices {
                     if (map.length == 3) {
                         char[] chars = map[2].toCharArray();
                         boolean isNumber = true;
-                        for (int c = 0; c < chars.length; c++) {
-                            if (!Character.isDigit(chars[c])) {
+                        for (char c: chars) {
+                            if (!Character.isDigit(c)) {
                                 isNumber = false;
                             }
                         }
@@ -1668,7 +1648,7 @@ public class PartyServices {
                         }
                     }
 
-                    addrMap.put("sequenceNum", new Long(seq));
+                    addrMap.put("sequenceNum", Long.valueOf(seq));
                     Debug.log("Creating map entry: " + addrMap, module);
                     try {
                         delegator.create(addrMap);

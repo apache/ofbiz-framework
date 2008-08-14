@@ -86,7 +86,7 @@ public class PartyHelper {
         if (partyValue == null) {
             return "";
         }
-        StringBuffer result = new StringBuffer();
+        StringBuilder result = new StringBuilder();
         ModelEntity modelEntity = partyValue.getModelEntity();
         if (modelEntity.isField("firstName") && modelEntity.isField("middleName") && modelEntity.isField("lastName")) {
             if (lastNameFirst) {

@@ -19,8 +19,9 @@
 
 package org.ofbiz.party.party;
 
-import java.util.HashMap;
 import java.util.Map;
+
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
@@ -45,8 +46,8 @@ public class PartyRelationshipServices {
      *@param context Map containing the input parameters
      *@return Map with the result of the service, the output parameters
      */
-    public static Map createPartyRelationshipType(DispatchContext ctx, Map context) {
-        Map result = new HashMap();
+    public static Map<String, Object> createPartyRelationshipType(DispatchContext ctx, Map<String, ? extends Object> context) {
+        Map<String, Object> result = FastMap.newInstance();
         GenericDelegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");

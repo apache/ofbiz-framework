@@ -47,7 +47,7 @@ public class PartyContentWrapper implements ContentWrapper {
     public static final String module = PartyContentWrapper.class.getName();
     public static final String CACHE_KEY_SEPARATOR = "::";
 
-    public static UtilCache partyContentCache = new UtilCache("party.content.rendered", true);
+    public static UtilCache<String, String> partyContentCache = new UtilCache<String, String>("party.content.rendered", true);
 
     protected LocalDispatcher dispatcher;
     protected GenericValue party;
@@ -86,7 +86,7 @@ public class PartyContentWrapper implements ContentWrapper {
         }
     }
     
-    public List getList(String contentTypeId) {
+    public List<String> getList(String contentTypeId) {
         try {
             return getPartyContentTextList(party, contentTypeId, locale, mimeTypeId, party.getDelegator(), dispatcher);
         } catch (Exception e) {
@@ -136,7 +136,7 @@ public class PartyContentWrapper implements ContentWrapper {
 
         try {
             if (useCache && partyContentCache.get(cacheKey) != null) {
-                return (String) partyContentCache.get(cacheKey);
+                return partyContentCache.get(cacheKey);
             }
 
             Writer outWriter = new StringWriter();
@@ -223,24 +223,22 @@ public class PartyContentWrapper implements ContentWrapper {
         }
         if (partyContent != null) {
             // when rendering the product content, always include the Product and ProductContent records that this comes from
-            Map inContext = FastMap.newInstance();
+            Map<String, GenericValue> inContext = FastMap.newInstance();
             inContext.put("party", party);
             inContext.put("partyContent", partyContent);
             ContentWorker.renderContentAsText(dispatcher, delegator, partyContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, false);
         }
     }
 
-    public static List getPartyContentTextList(GenericValue party, String partyContentTypeId, Locale locale, String mimeTypeId, GenericDelegator delegator, LocalDispatcher dispatcher) throws GeneralException, IOException {
-        List partyContentList = delegator.findByAndCache("PartyContent", UtilMisc.toMap("partyId", party.getString("partyId"), "partyContentTypeId", partyContentTypeId), UtilMisc.toList("-fromDate"));
+    public static List<String> getPartyContentTextList(GenericValue party, String partyContentTypeId, Locale locale, String mimeTypeId, GenericDelegator delegator, LocalDispatcher dispatcher) throws GeneralException, IOException {
+        List<GenericValue> partyContentList = delegator.findByAndCache("PartyContent", UtilMisc.toMap("partyId", party.getString("partyId"), "partyContentTypeId", partyContentTypeId), UtilMisc.toList("-fromDate"));
         partyContentList = EntityUtil.filterByDate(partyContentList);
 
-        List contentList = FastList.newInstance();
+        List<String> contentList = FastList.newInstance();
         if (partyContentList != null) {
-            Iterator i = partyContentList.iterator();
-            while (i.hasNext()) {
-                GenericValue partyContent = (GenericValue) i.next();
+            for (GenericValue partyContent: partyContentList) {
                 StringWriter outWriter = new StringWriter();
-                Map inContext = FastMap.newInstance();
+                Map<String, GenericValue> inContext = FastMap.newInstance();
                 inContext.put("party", party);
                 inContext.put("partyContent", partyContent);
                 ContentWorker.renderContentAsText(dispatcher, delegator, partyContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, false);
@@ -264,7 +262,7 @@ public class PartyContentWrapper implements ContentWrapper {
             throw new IllegalArgumentException("GenericDelegator missing");
         }
 
-        List partyContentList = null;
+        List<GenericValue> partyContentList = null;
         try {
             partyContentList = delegator.findByAndCache("PartyContent", UtilMisc.toMap("partyId", partyId, "partyContentTypeId", partyContentTypeId), UtilMisc.toList("-fromDate"));
         } catch (GeneralException e) {
